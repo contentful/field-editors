@@ -1,0 +1,6 @@
+{
+  "id": "field-editor-single-line",
+  "name": "Single line",
+  "srcdoc": "./build/index.html",
+  "fieldTypes": ["Symbol"]
+}

@@ -1,0 +1,23 @@
+---
+name: Single Line
+route: /single-line
+menu: Components
+---
+
+# Single Line
+
+import { Playground, Props } from 'docz';
+import { SingleLineEditor } from './SingleLineEditor.tsx';
+import { createFakeFieldAPI } from '@contentful/field-editor-shared';
+
+## In Action
+
+<Playground>
+  {() => {
+    return <SingleLineEditor field={createFakeFieldAPI()} initialDisabled={false} />;
+  }}
+</Playground>
+
+## Props
+
+<Props of={SingleLineEditor} />

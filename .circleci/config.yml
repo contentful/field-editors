@@ -1,0 +1,27 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:10.15.3
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - yarn-packages-{{ checksum ".nvmrc" }}-{{ checksum "yarn.lock" }}
+      - run: yarn install --frozen-lockfile
+      - save_cache:
+          key: yarn-packages-{{ checksum ".nvmrc" }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+      - run: yarn lint
+      - run: yarn build
+      - run: yarn tsc
+      - run: yarn test:ci
+
+workflows:
+  version: 2
+  # run on every commit
+  commit:
+    jobs:
+      - build

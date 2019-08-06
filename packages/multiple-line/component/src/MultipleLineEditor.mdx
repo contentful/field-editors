@@ -1,0 +1,23 @@
+---
+name: Multiple Line
+route: /multiple-line
+menu: Components
+---
+
+# Multiple Line
+
+import { Playground, Props } from 'docz';
+import { MultipleLineEditor } from './MultipleLineEditor.tsx';
+import { createFakeFieldAPI } from '@contentful/field-editor-shared';
+
+## In Action
+
+<Playground>
+  {() => {
+    return <MultipleLineEditor field={createFakeFieldAPI()} initialDisabled={false} />;
+  }}
+</Playground>
+
+## Props
+
+<Props of={MultipleLineEditor} />

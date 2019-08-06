@@ -1,0 +1,46 @@
+# Contentful Field Editors
+
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
+
+This is the monorepo for all field editors and extensions by [Contentful][contentful].
+
+Since these are developed using the [UI Extensions SDK][ui-extensions-sdk], this will allow you to understand how each editor works, fork existing extensions or create your own extensions based on existing Contentful components' source rather than starting from scratch.
+
+It uses [Typescript][typescript], [React][react], [Forma36][forma36] (a design system & component library by Contentful) and managed using [Lerna][lerna]. Code is automatically formatted with [Prettier][prettier] and checked with [ESLint][eslint] on every commit using Git hooks.
+
+## Available field editors
+
+We currently provide the following field editors:
+
+- [Single line editor](./packages/single-line/component/README.md)
+- [Multi line editor](./packages/multiple-line/component/README.md)
+
+Feel free to reach out to us with the ones that'd be the most useful to have
+here by filing a [Github issue][github-issues]!
+
+## Contributing
+
+We'd love to have your helping hand on `@contentful/field-editors`! See [CONTRIBUTING.md](CONTRIBUTING.md) for more information on how to get started.
+
+## Links
+
+- [UI Extensions SDK][ui-extensions-sdk]
+- [Create Contentful Extension CLI][create-contentful-extension]
+- [Forma36][forma36]
+
+## Code of Conduct
+
+We want to provide a safe, inclusive, welcoming, and harassment-free space and experience for all participants, regardless of gender identity and expression, sexual orientation, disability, physical appearance, socioeconomic status, body size, ethnicity, nationality, level of experience, age, religion (or lack thereof), or other identity markers.
+
+[Read our full Code of Conduct](https://github.com/contentful-developer-relations/community-code-of-conduct).
+
+[contentful]: https://www.contentful.com
+[ui-extensions-sdk]: https://github.com/contentful/ui-extensions-sdk
+[create-contentful-extension]: https://github.com/contentful/create-contentful-extension
+[github-issues]: https://github.com/contentful/core-field-editors/issues
+[forma36]: https://f36.contentful.com/
+[typescript]: https://www.typescriptlang.org/
+[react]: https://reactjs.org/
+[lerna]: https://github.com/lerna/lerna
+[prettier]: https://prettier.io/
+[eslint]: https://eslint.org/
