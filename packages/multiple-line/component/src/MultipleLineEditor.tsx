@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Textarea } from '@contentful/forma-36-react-components';
-import tokens from '@contentful/forma-36-tokens';
 import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
-import { css } from 'emotion';
 
 export interface MultipleLineEditorProps {
   /**
@@ -18,11 +16,7 @@ export function MultipleLineEditor(props: MultipleLineEditorProps) {
   return (
     <FieldConnector field={field} initialDisabled={props.initialDisabled}>
       {({ errors, disabled, value, setValue }) => (
-        <div
-          data-test-id="multiple-line-editor"
-          className={css({
-            marginTop: tokens.spacingS
-          })}>
+        <div data-test-id="multiple-line-editor">
           <Textarea
             aria-label={field.id}
             rows={3}
