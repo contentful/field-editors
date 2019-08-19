@@ -26,11 +26,7 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
   return (
     <FieldConnector field={field} initialDisabled={props.initialDisabled}>
       {({ value, errors, disabled, setValue }) => (
-        <div
-          data-test-id="single-line-editor"
-          className={css({
-            marginTop: tokens.spacingS
-          })}>
+        <div data-test-id="single-line-editor">
           <TextInput
             aria-label={field.id}
             required={field.required}
