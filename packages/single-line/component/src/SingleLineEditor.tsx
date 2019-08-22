@@ -28,6 +28,7 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
       {({ value, errors, disabled, setValue }) => (
         <div data-test-id="single-line-editor">
           <TextInput
+            className="x--directed"
             aria-label={field.id}
             required={field.required}
             error={errors.length > 0}
