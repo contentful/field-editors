@@ -18,6 +18,7 @@ export function MultipleLineEditor(props: MultipleLineEditorProps) {
       {({ errors, disabled, value, setValue }) => (
         <div data-test-id="multiple-line-editor">
           <Textarea
+            className="x--directed"
             aria-label={field.id}
             rows={3}
             required={field.required}
