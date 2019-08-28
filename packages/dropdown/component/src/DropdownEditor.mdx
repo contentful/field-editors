@@ -1,0 +1,23 @@
+---
+name: Dropdown
+route: /dropdown
+menu: Components
+---
+
+# Dropdown
+
+import { Playground, Props } from 'docz';
+import { DropdownEditor } from './DropdownEditor.tsx';
+import { createFakeFieldAPI } from '@contentful/field-editor-shared';
+
+## In Action
+
+<Playground>
+  {() => {
+    return <DropdownEditor field={createFakeFieldAPI()} initialDisabled={false} />;
+  }}
+</Playground>
+
+## Props
+
+<Props of={DropdownEditor} />

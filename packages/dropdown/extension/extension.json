@@ -1,0 +1,6 @@
+{
+  "id": "field-editor-dropdown",
+  "name": "Dropdown",
+  "srcdoc": "./build/index.html",
+  "fieldTypes": ["Symbols"]
+}
