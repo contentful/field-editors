@@ -61,7 +61,7 @@ _Relevent for Contentful employees only_.
 It is convenient to link a local copy of a package to a locally running Contentful web application without publishing a package.
 
 ```bash
-cd packages/single-line/component
+cd packages/single-line
 # register a symplink
 yarn link
 # watch for changes in the package
@@ -114,7 +114,7 @@ We use [Jest](https://jestjs.io/) and [Testing Library](https://testing-library.
 #### Run tests for concrete package
 
 ```bash
-cd packages/single-line/component
+cd packages/single-line
 yarn test
 ```
 

@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import { init, FieldExtensionSDK } from 'contentful-ui-extensions-sdk';
-import { DropdownEditor } from '../../component/src/index';
+import { SingleLineEditor } from '@contentful/field-editor-single-line';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import './index.css';
 
 init(sdk => {
   const fieldSdk = sdk as FieldExtensionSDK;
   fieldSdk.window.startAutoResizer();
-  render(<DropdownEditor field={fieldSdk.field} />, document.getElementById('root'));
+  render(<SingleLineEditor field={fieldSdk.field} />, document.getElementById('root'));
 });
 
 /**

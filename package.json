@@ -17,7 +17,8 @@
     "docz:build": "docz build"
   },
   "workspaces": [
-    "packages/**"
+    "packages/**",
+    "extensions/**"
   ],
   "license": "ISC",
   "devDependencies": {

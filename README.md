@@ -12,8 +12,8 @@ It uses [Typescript][typescript], [React][react], [Forma36][forma36] (a design s
 
 We currently provide the following field editors:
 
-- [Single line editor](./packages/single-line/component/README.md)
-- [Multi line editor](./packages/multiple-line/component/README.md)
+- [Single line editor](./packages/single-line/README.md)
+- [Multi line editor](./packages/multiple-line/README.md)
 
 Feel free to reach out to us with the ones that'd be the most useful to have
 here by filing a [Github issue][github-issues]!

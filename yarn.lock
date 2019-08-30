@@ -1303,10 +1303,38 @@
   dependencies:
     "@contentful/forma-36-tokens" "^0.4.5"
 
-"@contentful/forma-36-react-components@3.17.1", "@contentful/forma-36-react-components@^3.17.1", "@contentful/forma-36-react-components@~3.17.1":
+"@contentful/forma-36-react-components@3.17.1", "@contentful/forma-36-react-components@~3.17.1":
   version "3.17.1"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.17.1.tgz#324b00b122bc1f8b53c1ad10207d06d7cc715218"
   integrity sha512-Xu+1BqZ8eGcZBjdwhadHgX+u/MaRAkHAPxtQxzxgjTDOmqqWcusUW5VmaAQ7GMi/b7nkV17HAJoxAy0m4rRstA==
+  dependencies:
+    "@babel/runtime" "^7.3.4"
+    classnames "^2.2.6"
+    prop-types "^15.7.2"
+    react-animate-height "^2.0.7"
+    react-copy-to-clipboard "^5.0.1"
+    react-modal "3.6.1"
+    react-transition-group "^2.4.0"
+    truncate "^2.0.1"
+
+"@contentful/forma-36-react-components@^3.16.7":
+  version "3.16.7"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.16.7.tgz#dd2ed7be6ce242d40eadea62ed4d2a636a1a32b2"
+  integrity sha512-VkBeSKvdj6gv/AJ0tpIMaBYSgqUT87XA+HyvxvXFuhWRVnSZ3F4FPFc9UKFyahF1JTQQfYI0eL6H6XVgjfyyIw==
+  dependencies:
+    "@babel/runtime" "^7.3.4"
+    classnames "^2.2.6"
+    prop-types "^15.7.2"
+    react-animate-height "^2.0.7"
+    react-copy-to-clipboard "^5.0.1"
+    react-modal "3.6.1"
+    react-transition-group "^2.4.0"
+    truncate "^2.0.1"
+
+"@contentful/forma-36-react-components@~3.15.0":
+  version "3.15.2"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.15.2.tgz#c686f4f3ebf2bcf8fcfea7ec0212cb50396e9f97"
+  integrity sha512-MQRQbLTtuUM1sMCybzuERFoL7rZrdEFM9q7lIEKid5lGiIvJBa/iCLNtLH6w+BKTnM5SSSds8C56faZRtFJxkw==
   dependencies:
     "@babel/runtime" "^7.3.4"
     classnames "^2.2.6"
@@ -1321,6 +1349,11 @@
   version "0.4.5"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.4.5.tgz#86880a06178de9ebfb542db983550b7c5ae531d3"
   integrity sha512-wygRxC9r+Wr4FR4wEp1MVjt+Hx5n1lCux4EOXfva3Au1CXzjcl821ukR8mMaurYM7/3TMrv/olQorySNwGpllg==
+
+"@contentful/forma-36-tokens@~0.3.0":
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.3.3.tgz#a01ffbb7c0b5606a0e39880d0afb2c5a02700a35"
+  integrity sha512-wk1ufpSjot9O1/Zea+6VQ+jZlOIgxA9p8tA8/x9Tpkff+c7R7crWRhS2VLl49jbYtK9B7kEKGluTZx6CtYJazg==
 
 "@emotion/cache@^10.0.14":
   version "10.0.14"
@@ -6687,7 +6720,7 @@ emojis-list@^2.0.0:
   resolved "https://registry.yarnpkg.com/emojis-list/-/emojis-list-2.1.0.tgz#4daa4d9db00f9819880c79fa457ae5b09a1fd389"
   integrity sha1-TapNnbAPmBmIDHn6RXrlsJof04k=
 
-emotion@10.0.17, emotion@~10.0.17:
+emotion@10.0.17, emotion@~10.0.0, emotion@~10.0.17:
   version "10.0.17"
   resolved "https://registry.yarnpkg.com/emotion/-/emotion-10.0.17.tgz#d71e99d2b01204dda109c13d069af4b191e70445"
   integrity sha512-nShD/a7PKZ77hr517KfzKkHo1v26uPJBImRiYrl8IwIA4KRmI3vxVEA5pzw1TQTXD1iZl6YQtWhjOiiE+QPmTQ==
@@ -13738,6 +13771,16 @@ react-dom@^16.8.6:
     prop-types "^15.6.2"
     scheduler "^0.13.6"
 
+react-dom@^16.9.0:
+  version "16.9.0"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.9.0.tgz#5e65527a5e26f22ae3701131bcccaee9fb0d3962"
+  integrity sha512-YFT2rxO9hM70ewk9jq0y6sQk8cL02xm4+IzYBz75CQGlClQQ1Bxq0nhHF6OtSbit+AIahujJgb/CPRibFkMNJQ==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
+    scheduler "^0.15.0"
+
 react-error-overlay@^5.1.6:
   version "5.1.6"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-5.1.6.tgz#0cd73407c5d141f9638ae1e0c63e7b2bf7e9929d"
@@ -13829,6 +13872,15 @@ react@^16.8.6:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
     scheduler "^0.13.6"
+
+react@^16.9.0:
+  version "16.9.0"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.9.0.tgz#40ba2f9af13bc1a38d75dbf2f4359a5185c4f7aa"
+  integrity sha512-+7LQnFBwkiw+BobzOF6N//BdoNw0ouwmSJTEm9cglOOmsg/TMiFHZLe2sEoN5M7LgJTj9oHH0gxklfnQe66S1w==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
 
 read-cmd-shim@^1.0.1:
   version "1.0.1"
@@ -15067,6 +15119,14 @@ scheduler@^0.13.6:
   version "0.13.6"
   resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.13.6.tgz#466a4ec332467b31a91b9bf74e5347072e4cd889"
   integrity sha512-IWnObHt413ucAYKsD9J1QShUKkbKLQQHdxRyw73sw4FN26iWr3DY/H34xGPe4nmL1DwXyWmSWmMrA9TfQbE/XQ==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+
+scheduler@^0.15.0:
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.15.0.tgz#6bfcf80ff850b280fed4aeecc6513bc0b4f17f8e"
+  integrity sha512-xAefmSfN6jqAa7Kuq7LIJY0bwAPG3xlCj0HMEBQk1lxYiDKZscY2xJ5U/61ZTrYbmNQbXa+gc7czPkVo11tnCg==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"

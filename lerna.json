@@ -2,7 +2,7 @@
   "npmClient": "yarn",
   "version": "independent",
   "useWorkspaces": true,
-  "workspaces": ["packages/**"],
+  "workspaces": ["packages/**", "extensions/**"],
   "command": {
     "publish": {
       "ignoreChanges": ["*.md"]
