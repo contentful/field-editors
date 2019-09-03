@@ -24,7 +24,7 @@ export function MultipleLineEditor(props: MultipleLineEditorProps) {
             required={field.required}
             error={errors.length > 0}
             disabled={disabled}
-            value={value}
+            value={value || ''}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setValue(e.target.value);
             }}
