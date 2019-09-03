@@ -36,14 +36,21 @@ function parseValue(value: string, type: string): string | number | undefined {
   }
 }
 
-export function getOptions(field: FieldAPI) {
+interface DropdownOption {
+  value: string | number | undefined;
+  label: string;
+}
+
+export function getOptions(field: FieldAPI): DropdownOption[] {
   // Get first object that has a 'in' property
   const validations = field.validations || [];
-  const predefinedValues = (validations.filter(validation =>
-    Object.prototype.hasOwnProperty.call(validation, 'in')
-  )[0] || []) as string[];
+  const predefinedValues = validations
+    .filter(validation => (validation as any).in)
+    .map(validation => (validation as any).in);
 
-  return predefinedValues.map(value => ({
+  const firstPredefinedValues = predefinedValues.length > 0 ? predefinedValues[0] : [];
+
+  return firstPredefinedValues.map((value: string) => ({
     value: parseValue(value, field.type),
     label: String(value)
   }));
@@ -58,7 +65,7 @@ export function DropdownEditor(props: DropdownEditorProps) {
 
   if (misconfigured) {
     return (
-      <Note noteType="warning">
+      <Note noteType="warning" testId="predefined-values-warning">
         The widget failed to initialize. You can fix the problem by providing predefined values
         under the validations tab in the field settings.
       </Note>
