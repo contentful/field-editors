@@ -3,7 +3,7 @@ import throttle from 'lodash/throttle';
 import { FieldAPI } from 'contentful-ui-extensions-sdk';
 
 interface FieldConnectorState {
-  value: string;
+  value: any;
   disabled: boolean;
   errors: string[];
 }
@@ -13,7 +13,7 @@ interface FieldConnectorProps {
   initialDisabled: boolean;
   children: (
     state: FieldConnectorState & {
-      setValue: (value: string) => void;
+      setValue: (value: any) => void;
     }
   ) => React.ReactNode;
   throttle: number;
@@ -30,7 +30,7 @@ export class FieldConnector extends React.Component<FieldConnectorProps, FieldCo
   constructor(props: FieldConnectorProps) {
     super(props);
     this.state = {
-      value: props.field.getValue() || '',
+      value: props.field.getValue(),
       disabled: props.initialDisabled,
       errors: []
     };
@@ -40,11 +40,11 @@ export class FieldConnector extends React.Component<FieldConnectorProps, FieldCo
   unsubscribeDisabled: Function | null = null;
   unsubscribeValue: Function | null = null;
 
-  setValue = throttle(value => {
-    if (value) {
-      this.props.field.setValue(value);
-    } else {
+  setValue = throttle((value: any) => {
+    if (value === null || value === undefined || value === '') {
       this.props.field.removeValue();
+    } else {
+      this.props.field.setValue(value);
     }
   }, this.props.throttle);
 
@@ -62,7 +62,7 @@ export class FieldConnector extends React.Component<FieldConnectorProps, FieldCo
     });
     this.unsubscribeValue = field.onValueChanged(value => {
       this.setState({
-        value: value || ''
+        value
       });
     });
   }

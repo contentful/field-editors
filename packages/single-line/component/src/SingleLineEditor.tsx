@@ -33,7 +33,7 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
             required={field.required}
             error={errors.length > 0}
             disabled={disabled}
-            value={value}
+            value={value || ''}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setValue(e.target.value);
             }}
@@ -46,7 +46,7 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
               marginTop: tokens.spacingXs,
               color: tokens.colorTextMid
             })}>
-            <CharCounter value={value} checkConstraint={checkConstraint} />
+            <CharCounter value={value || ''} checkConstraint={checkConstraint} />
             <CharValidation constraints={constraints} />
           </div>
         </div>
