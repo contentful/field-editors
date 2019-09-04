@@ -37,11 +37,11 @@ describe('SingleLineEditor', () => {
       };
     });
 
-    const { getByLabelText, getByText } = render(
+    const { getByTestId, getByText } = render(
       <SingleLineEditor field={field} initialDisabled={false} />
     );
 
-    expect(getByLabelText('field-id')).toHaveValue(initialValue);
+    expect(getByTestId('cf-ui-text-input')).toHaveValue(initialValue);
     expect(getByText(`${initialValue.length} characters`)).toBeInTheDocument();
     expect(getByText('Requires less than 256 characters')).toBeInTheDocument();
   });
@@ -56,23 +56,25 @@ describe('SingleLineEditor', () => {
       };
     });
 
-    const { getByLabelText } = render(<SingleLineEditor field={field} initialDisabled={false} />);
+    const { getByTestId } = render(<SingleLineEditor field={field} initialDisabled={false} />);
 
-    expect(getByLabelText('field-id')).toHaveValue('');
+    const $input = getByTestId('cf-ui-text-input');
 
-    fireEvent.change(getByLabelText('field-id'), {
+    expect($input).toHaveValue('');
+
+    fireEvent.change($input, {
       target: { value: 'new-value' }
     });
 
-    expect(getByLabelText('field-id')).toHaveValue('new-value');
+    expect($input).toHaveValue('new-value');
     expect(field.setValue).toHaveBeenCalledTimes(1);
     expect(field.setValue).toHaveBeenLastCalledWith('new-value');
 
-    fireEvent.change(getByLabelText('field-id'), {
+    fireEvent.change($input, {
       target: { value: '' }
     });
 
-    expect(getByLabelText('field-id')).toHaveValue('');
+    expect($input).toHaveValue('');
     expect(field.removeValue).toHaveBeenCalledTimes(1);
     expect(field.removeValue).toHaveBeenLastCalledWith();
   });

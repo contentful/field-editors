@@ -37,9 +37,9 @@ describe('MultipleLineEditor', () => {
       };
     });
 
-    const { getByLabelText } = render(<MultipleLineEditor field={field} initialDisabled={false} />);
+    const { getByTestId } = render(<MultipleLineEditor field={field} initialDisabled={false} />);
 
-    expect(getByLabelText('field-id')).toHaveValue(initialValue);
+    expect(getByTestId('cf-ui-textarea')).toHaveValue(initialValue);
   });
 
   it('calls field.setValue when user types and calls field.removeValue when user clears the input', () => {
@@ -52,23 +52,25 @@ describe('MultipleLineEditor', () => {
       };
     });
 
-    const { getByLabelText } = render(<MultipleLineEditor field={field} initialDisabled={false} />);
+    const { getByTestId } = render(<MultipleLineEditor field={field} initialDisabled={false} />);
 
-    expect(getByLabelText('field-id')).toHaveValue('');
+    const $input = getByTestId('cf-ui-textarea');
 
-    fireEvent.change(getByLabelText('field-id'), {
+    expect($input).toHaveValue('');
+
+    fireEvent.change($input, {
       target: { value: 'new-value' }
     });
 
-    expect(getByLabelText('field-id')).toHaveValue('new-value');
+    expect($input).toHaveValue('new-value');
     expect(field.setValue).toHaveBeenCalledTimes(1);
     expect(field.setValue).toHaveBeenLastCalledWith('new-value');
 
-    fireEvent.change(getByLabelText('field-id'), {
+    fireEvent.change($input, {
       target: { value: '' }
     });
 
-    expect(getByLabelText('field-id')).toHaveValue('');
+    expect($input).toHaveValue('');
     expect(field.removeValue).toHaveBeenCalledTimes(1);
     expect(field.removeValue).toHaveBeenLastCalledWith();
   });
