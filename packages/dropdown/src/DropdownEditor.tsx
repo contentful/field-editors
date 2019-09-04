@@ -57,7 +57,7 @@ export function getOptions(field: FieldAPI): DropdownOption[] {
 }
 
 export function DropdownEditor(props: DropdownEditorProps) {
-  const field = props.field;
+  const { field } = props;
 
   const options = getOptions(field);
   const misconfigured = options.length === 0;
