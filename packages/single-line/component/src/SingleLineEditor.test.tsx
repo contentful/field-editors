@@ -1,6 +1,6 @@
 import * as React from 'react';
 import identity from 'lodash/identity';
-import { render, configure, cleanup, fireEvent, waitForDomChange } from '@testing-library/react';
+import { render, configure, cleanup, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { SingleLineEditor } from './SingleLineEditor';
 import { createFakeFieldAPI } from '@contentful/field-editor-shared';
@@ -9,9 +9,13 @@ configure({
   testIdAttribute: 'data-test-id'
 });
 
-jest.mock('lodash-es/throttle', () => ({
-  default: identity
-}));
+jest.mock(
+  'lodash/throttle',
+  () => ({
+    default: identity
+  }),
+  { virtual: true }
+);
 
 describe('SingleLineEditor', () => {
   afterEach(cleanup);
@@ -42,7 +46,7 @@ describe('SingleLineEditor', () => {
     expect(getByText('Requires less than 256 characters')).toBeInTheDocument();
   });
 
-  it('calls field.setValue when user types and calls field.removeValue when user clears the input', async () => {
+  it('calls field.setValue when user types and calls field.removeValue when user clears the input', () => {
     const field = createFakeFieldAPI(field => {
       jest.spyOn(field, 'setValue');
       jest.spyOn(field, 'removeValue');
@@ -67,8 +71,6 @@ describe('SingleLineEditor', () => {
     fireEvent.change(getByLabelText('field-id'), {
       target: { value: '' }
     });
-
-    await waitForDomChange();
 
     expect(getByLabelText('field-id')).toHaveValue('');
     expect(field.removeValue).toHaveBeenCalledTimes(1);

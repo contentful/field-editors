@@ -9,9 +9,13 @@ configure({
   testIdAttribute: 'data-test-id'
 });
 
-jest.mock('lodash-es/throttle', () => ({
-  default: identity
-}));
+jest.mock(
+  'lodash/throttle',
+  () => ({
+    default: identity
+  }),
+  { virtual: true }
+);
 
 describe('MultipleLineEditor', () => {
   afterEach(cleanup);
@@ -38,7 +42,7 @@ describe('MultipleLineEditor', () => {
     expect(getByLabelText('field-id')).toHaveValue(initialValue);
   });
 
-  it('calls field.setValue when user types', () => {
+  it('calls field.setValue when user types and calls field.removeValue when user clears the input', () => {
     const field = createFakeFieldAPI(field => {
       jest.spyOn(field, 'setValue');
       jest.spyOn(field, 'removeValue');
@@ -59,5 +63,13 @@ describe('MultipleLineEditor', () => {
     expect(getByLabelText('field-id')).toHaveValue('new-value');
     expect(field.setValue).toHaveBeenCalledTimes(1);
     expect(field.setValue).toHaveBeenLastCalledWith('new-value');
+
+    fireEvent.change(getByLabelText('field-id'), {
+      target: { value: '' }
+    });
+
+    expect(getByLabelText('field-id')).toHaveValue('');
+    expect(field.removeValue).toHaveBeenCalledTimes(1);
+    expect(field.removeValue).toHaveBeenLastCalledWith();
   });
 });

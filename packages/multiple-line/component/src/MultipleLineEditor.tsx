@@ -11,26 +11,30 @@ export interface MultipleLineEditorProps {
   field: FieldAPI;
 }
 
+type PossibleValue = string | undefined;
+
 export function MultipleLineEditor(props: MultipleLineEditorProps) {
   const { field } = props;
   return (
-    <FieldConnector field={field} initialDisabled={props.initialDisabled}>
-      {({ errors, disabled, value, setValue }) => (
-        <div data-test-id="multiple-line-editor">
-          <Textarea
-            className="x--directed"
-            aria-label={field.id}
-            rows={3}
-            required={field.required}
-            error={errors.length > 0}
-            disabled={disabled}
-            value={value || ''}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setValue(e.target.value);
-            }}
-          />
-        </div>
-      )}
+    <FieldConnector<PossibleValue> field={field} initialDisabled={props.initialDisabled}>
+      {({ errors, disabled, value, setValue }) => {
+        return (
+          <div data-test-id="multiple-line-editor">
+            <Textarea
+              className="x--directed"
+              aria-label={field.id}
+              rows={3}
+              required={field.required}
+              error={errors.length > 0}
+              disabled={disabled}
+              value={value || ''}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setValue(e.target.value);
+              }}
+            />
+          </div>
+        );
+      }}
     </FieldConnector>
   );
 }
