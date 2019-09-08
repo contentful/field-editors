@@ -16,8 +16,6 @@ export interface SingleLineEditorProps {
   field: FieldAPI;
 }
 
-type PossibleValue = string | undefined;
-
 export function SingleLineEditor(props: SingleLineEditorProps) {
   const { field } = props;
 
@@ -26,7 +24,7 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
   const checkConstraint = makeChecker(constraints);
 
   return (
-    <FieldConnector<PossibleValue> field={field} initialDisabled={props.initialDisabled}>
+    <FieldConnector<string> field={field} initialDisabled={props.initialDisabled}>
       {({ value, errors, disabled, setValue }) => {
         return (
           <div data-test-id="single-line-editor">

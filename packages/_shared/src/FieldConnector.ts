@@ -2,8 +2,10 @@ import React from 'react';
 import throttle from 'lodash/throttle';
 import { FieldAPI } from 'contentful-ui-extensions-sdk';
 
+type Nullable = null | undefined;
+
 interface FieldConnectorState<ValueType> {
-  value: ValueType;
+  value: ValueType | Nullable;
   disabled: boolean;
   errors: string[];
 }
@@ -13,10 +15,10 @@ interface FieldConnectorProps<ValueType> {
   initialDisabled: boolean;
   children: (
     state: FieldConnectorState<ValueType> & {
-      setValue: (value: ValueType) => void;
+      setValue: (value: ValueType | Nullable) => void;
     }
   ) => React.ReactNode;
-  isEmptyValue?: (value: ValueType) => boolean;
+  isEmptyValue: (value: ValueType | null) => boolean;
   throttle: number;
 }
 
@@ -27,6 +29,11 @@ export class FieldConnector<ValueType> extends React.Component<
   static defaultProps = {
     children: () => {
       return null;
+    },
+    // eslint-disable-next-line
+    isEmptyValue: (value: any | Nullable) => {
+      // @ts-ignore
+      return value === null || value === '';
     },
     throttle: 300
   };
@@ -44,15 +51,9 @@ export class FieldConnector<ValueType> extends React.Component<
   unsubscribeDisabled: Function | null = null;
   unsubscribeValue: Function | null = null;
 
-  isEmptyValueDefault = (value: ValueType) => {
-    // @ts-ignore
-    return value === null || value === undefined || value === '';
-  };
-
   setValue = throttle(
-    (value: ValueType) => {
-      const isEmptyValueFn = this.props.isEmptyValue || this.isEmptyValueDefault;
-      if (isEmptyValueFn(value)) {
+    (value: ValueType | Nullable) => {
+      if (this.props.isEmptyValue(value === undefined ? null : value)) {
         this.props.field.removeValue();
       } else {
         this.props.field.setValue(value);
@@ -74,7 +75,7 @@ export class FieldConnector<ValueType> extends React.Component<
         disabled: disabled
       });
     });
-    this.unsubscribeValue = field.onValueChanged((value: ValueType) => {
+    this.unsubscribeValue = field.onValueChanged((value: ValueType | Nullable) => {
       this.setState({
         value
       });

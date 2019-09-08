@@ -11,12 +11,10 @@ export interface MultipleLineEditorProps {
   field: FieldAPI;
 }
 
-type PossibleValue = string | undefined;
-
 export function MultipleLineEditor(props: MultipleLineEditorProps) {
   const { field } = props;
   return (
-    <FieldConnector<PossibleValue> field={field} initialDisabled={props.initialDisabled}>
+    <FieldConnector<string> field={field} initialDisabled={props.initialDisabled}>
       {({ errors, disabled, value, setValue }) => {
         return (
           <div data-test-id="multiple-line-editor">
