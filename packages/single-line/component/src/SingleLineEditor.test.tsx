@@ -1,6 +1,6 @@
 import * as React from 'react';
 import identity from 'lodash/identity';
-import { render, configure, cleanup, fireEvent, waitForDomChange } from '@testing-library/react';
+import { render, configure, cleanup, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { SingleLineEditor } from './SingleLineEditor';
 import { createFakeFieldAPI } from '@contentful/field-editor-shared';
@@ -9,9 +9,13 @@ configure({
   testIdAttribute: 'data-test-id'
 });
 
-jest.mock('lodash-es/throttle', () => ({
-  default: identity
-}));
+jest.mock(
+  'lodash/throttle',
+  () => ({
+    default: identity
+  }),
+  { virtual: true }
+);
 
 describe('SingleLineEditor', () => {
   afterEach(cleanup);
@@ -33,16 +37,16 @@ describe('SingleLineEditor', () => {
       };
     });
 
-    const { getByLabelText, getByText } = render(
+    const { getByTestId, getByText } = render(
       <SingleLineEditor field={field} initialDisabled={false} />
     );
 
-    expect(getByLabelText('field-id')).toHaveValue(initialValue);
+    expect(getByTestId('cf-ui-text-input')).toHaveValue(initialValue);
     expect(getByText(`${initialValue.length} characters`)).toBeInTheDocument();
     expect(getByText('Requires less than 256 characters')).toBeInTheDocument();
   });
 
-  it('calls field.setValue when user types and calls field.removeValue when user clears the input', async () => {
+  it('calls field.setValue when user types and calls field.removeValue when user clears the input', () => {
     const field = createFakeFieldAPI(field => {
       jest.spyOn(field, 'setValue');
       jest.spyOn(field, 'removeValue');
@@ -52,25 +56,25 @@ describe('SingleLineEditor', () => {
       };
     });
 
-    const { getByLabelText } = render(<SingleLineEditor field={field} initialDisabled={false} />);
+    const { getByTestId } = render(<SingleLineEditor field={field} initialDisabled={false} />);
 
-    expect(getByLabelText('field-id')).toHaveValue('');
+    const $input = getByTestId('cf-ui-text-input');
 
-    fireEvent.change(getByLabelText('field-id'), {
+    expect($input).toHaveValue('');
+
+    fireEvent.change($input, {
       target: { value: 'new-value' }
     });
 
-    expect(getByLabelText('field-id')).toHaveValue('new-value');
+    expect($input).toHaveValue('new-value');
     expect(field.setValue).toHaveBeenCalledTimes(1);
     expect(field.setValue).toHaveBeenLastCalledWith('new-value');
 
-    fireEvent.change(getByLabelText('field-id'), {
+    fireEvent.change($input, {
       target: { value: '' }
     });
 
-    await waitForDomChange();
-
-    expect(getByLabelText('field-id')).toHaveValue('');
+    expect($input).toHaveValue('');
     expect(field.removeValue).toHaveBeenCalledTimes(1);
     expect(field.removeValue).toHaveBeenLastCalledWith();
   });

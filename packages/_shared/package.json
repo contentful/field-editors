@@ -15,9 +15,9 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
+    "contentful-ui-extensions-sdk": "^3.9.2",
     "lodash": "^4.17.15",
-    "lodash-es": "^4.17.15",
-    "contentful-ui-extensions-sdk": "^3.9.1"
+    "lodash-es": "^4.17.15"
   },
   "peerDependencies": {
     "react": ">=16.8.0"

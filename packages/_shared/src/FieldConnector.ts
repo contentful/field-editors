@@ -2,32 +2,43 @@ import React from 'react';
 import throttle from 'lodash/throttle';
 import { FieldAPI } from 'contentful-ui-extensions-sdk';
 
-interface FieldConnectorState {
-  value: any;
+type Nullable = null | undefined;
+
+interface FieldConnectorState<ValueType> {
+  value: ValueType | Nullable;
   disabled: boolean;
   errors: string[];
 }
 
-interface FieldConnectorProps {
+interface FieldConnectorProps<ValueType> {
   field: FieldAPI;
   initialDisabled: boolean;
   children: (
-    state: FieldConnectorState & {
-      setValue: (value: any) => void;
+    state: FieldConnectorState<ValueType> & {
+      setValue: (value: ValueType | Nullable) => void;
     }
   ) => React.ReactNode;
+  isEmptyValue: (value: ValueType | null) => boolean;
   throttle: number;
 }
 
-export class FieldConnector extends React.Component<FieldConnectorProps, FieldConnectorState> {
-  static defaultProps: Pick<FieldConnectorProps, 'children' | 'throttle'> = {
+export class FieldConnector<ValueType> extends React.Component<
+  FieldConnectorProps<ValueType>,
+  FieldConnectorState<ValueType>
+> {
+  static defaultProps = {
     children: () => {
       return null;
+    },
+    // eslint-disable-next-line
+    isEmptyValue: (value: any | Nullable) => {
+      // @ts-ignore
+      return value === null || value === '';
     },
     throttle: 300
   };
 
-  constructor(props: FieldConnectorProps) {
+  constructor(props: FieldConnectorProps<ValueType>) {
     super(props);
     this.state = {
       value: props.field.getValue(),
@@ -40,13 +51,17 @@ export class FieldConnector extends React.Component<FieldConnectorProps, FieldCo
   unsubscribeDisabled: Function | null = null;
   unsubscribeValue: Function | null = null;
 
-  setValue = throttle((value: any) => {
-    if (value === null || value === undefined || value === '') {
-      this.props.field.removeValue();
-    } else {
-      this.props.field.setValue(value);
-    }
-  }, this.props.throttle);
+  setValue = throttle(
+    (value: ValueType | Nullable) => {
+      if (this.props.isEmptyValue(value === undefined ? null : value)) {
+        this.props.field.removeValue();
+      } else {
+        this.props.field.setValue(value);
+      }
+    },
+    this.props.throttle,
+    { leading: false }
+  );
 
   componentDidMount() {
     const { field } = this.props;
@@ -60,7 +75,7 @@ export class FieldConnector extends React.Component<FieldConnectorProps, FieldCo
         disabled: disabled
       });
     });
-    this.unsubscribeValue = field.onValueChanged(value => {
+    this.unsubscribeValue = field.onValueChanged((value: ValueType | Nullable) => {
       this.setState({
         value
       });
