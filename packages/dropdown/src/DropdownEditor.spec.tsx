@@ -9,9 +9,13 @@ configure({
   testIdAttribute: 'data-test-id'
 });
 
-jest.mock('lodash-es/throttle', () => ({
-  default: identity
-}));
+jest.mock(
+  'lodash/throttle',
+  () => ({
+    default: identity
+  }),
+  { virtual: true }
+);
 
 describe('DropdownEditor', () => {
   afterEach(cleanup);

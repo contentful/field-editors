@@ -11,29 +11,16 @@ export interface DropdownEditorProps {
   field: FieldAPI;
 }
 
-const formatValue = (value: string, fieldType: string): PossibleDropdownValueType => {
+function parseValue(value: string, fieldType: string): PossibleDropdownValueType | undefined {
   if (fieldType === 'Integer') {
-    return parseInt(value, 10);
+    const number = parseInt(value, 10);
+    return isNaN(number) ? undefined : number;
   }
   if (fieldType === 'Number') {
-    return parseFloat(value);
+    const number = parseFloat(value);
+    return isNaN(number) ? undefined : number;
   }
   return value;
-};
-
-function parseValue(value: string, type: string): string | number | undefined {
-  switch (type) {
-    case 'Integer': {
-      const num = parseInt(value, 10);
-      return isNaN(num) ? undefined : value;
-    }
-    case 'Number': {
-      const num = parseFloat(value);
-      return isNaN(num) ? undefined : value;
-    }
-    default:
-      return value;
-  }
 }
 
 type PossibleDropdownValueType = string | number;
@@ -52,10 +39,14 @@ export function getOptions(field: FieldAPI): DropdownOption[] {
 
   const firstPredefinedValues = predefinedValues.length > 0 ? predefinedValues[0] : [];
 
-  return firstPredefinedValues.map((value: string) => ({
-    value: parseValue(value, field.type),
-    label: String(value)
-  }));
+  return firstPredefinedValues
+    .map((value: string) => ({
+      value: parseValue(value, field.type),
+      label: String(value)
+    }))
+    .filter((item: { value: PossibleDropdownValueType | undefined; label: string }) => {
+      return item.value !== undefined;
+    });
 }
 
 export function DropdownEditor(props: DropdownEditorProps) {
@@ -76,6 +67,7 @@ export function DropdownEditor(props: DropdownEditorProps) {
 
   return (
     <FieldConnector<PossibleDropdownValueType>
+      throttle={0}
       field={field}
       initialDisabled={props.initialDisabled}>
       {({ value, errors, disabled, setValue }) => (
@@ -89,9 +81,9 @@ export function DropdownEditor(props: DropdownEditorProps) {
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
             const value = e.target.value;
             if (value === '') {
-              setValue('');
+              setValue(null);
             } else {
-              setValue(formatValue(value, field.type));
+              setValue(parseValue(value, field.type));
             }
           }}>
           <Option value="">Choose a value</Option>
