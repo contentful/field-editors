@@ -11,7 +11,7 @@ export interface DropdownEditorProps {
   field: FieldAPI;
 }
 
-const formatValue = (value: string, fieldType: string) => {
+const formatValue = (value: string, fieldType: string): PossibleDropdownValueType => {
   if (fieldType === 'Integer') {
     return parseInt(value, 10);
   }
@@ -35,6 +35,8 @@ function parseValue(value: string, type: string): string | number | undefined {
       return value;
   }
 }
+
+type PossibleDropdownValueType = string | number;
 
 interface DropdownOption {
   value: string | number | undefined;
@@ -73,7 +75,9 @@ export function DropdownEditor(props: DropdownEditorProps) {
   }
 
   return (
-    <FieldConnector field={field} initialDisabled={props.initialDisabled}>
+    <FieldConnector<PossibleDropdownValueType>
+      field={field}
+      initialDisabled={props.initialDisabled}>
       {({ value, errors, disabled, setValue }) => (
         <Select
           testId="dropdown-editor"
