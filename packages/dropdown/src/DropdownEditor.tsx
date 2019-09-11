@@ -11,7 +11,17 @@ export interface DropdownEditorProps {
   field: FieldAPI;
 }
 
-function parseValue(value: string, fieldType: string): PossibleDropdownValueType | undefined {
+type DropdownValue = string | number;
+
+type DropdownOption = {
+  value: string | number | undefined;
+  label: string;
+};
+
+function parseValue(value: string, fieldType: string): DropdownValue | undefined {
+  if (value === '') {
+    return undefined;
+  }
   if (fieldType === 'Integer') {
     const number = parseInt(value, 10);
     return isNaN(number) ? undefined : number;
@@ -21,13 +31,6 @@ function parseValue(value: string, fieldType: string): PossibleDropdownValueType
     return isNaN(number) ? undefined : number;
   }
   return value;
-}
-
-type PossibleDropdownValueType = string | number;
-
-interface DropdownOption {
-  value: string | number | undefined;
-  label: string;
 }
 
 export function getOptions(field: FieldAPI): DropdownOption[] {
@@ -44,7 +47,7 @@ export function getOptions(field: FieldAPI): DropdownOption[] {
       value: parseValue(value, field.type),
       label: String(value)
     }))
-    .filter((item: { value: PossibleDropdownValueType | undefined; label: string }) => {
+    .filter((item: { value: DropdownValue | undefined; label: string }) => {
       return item.value !== undefined;
     });
 }
@@ -66,7 +69,7 @@ export function DropdownEditor(props: DropdownEditorProps) {
   }
 
   return (
-    <FieldConnector<PossibleDropdownValueType>
+    <FieldConnector<DropdownValue>
       throttle={0}
       field={field}
       initialDisabled={props.initialDisabled}>
@@ -80,11 +83,7 @@ export function DropdownEditor(props: DropdownEditorProps) {
           value={(value || '').toString()}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
             const value = e.target.value;
-            if (value === '') {
-              setValue(null);
-            } else {
-              setValue(parseValue(value, field.type));
-            }
+            setValue(parseValue(value, field.type));
           }}>
           <Option value="">Choose a value</Option>
           {options.map(option => (
