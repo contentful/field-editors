@@ -114,7 +114,7 @@ describe('DropdownEditor', () => {
   });
 
   it('calls #setValue with number for Integer fields', function() {
-    const predefined = [1, '2', 3];
+    const predefined = [0, 1, '2', 3];
     const field = createFakeFieldAPI(field => {
       jest.spyOn(field, 'setValue');
       jest.spyOn(field, 'removeValue');
@@ -133,5 +133,9 @@ describe('DropdownEditor', () => {
     changeDropdownValue('1');
     expect(field.setValue).toHaveBeenCalledWith(1);
     expect(field.setValue).toHaveBeenCalledTimes(1);
+
+    changeDropdownValue('0');
+    expect(field.setValue).toHaveBeenCalledWith(0);
+    expect(field.setValue).toHaveBeenCalledTimes(2);
   });
 });
