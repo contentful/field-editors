@@ -60,7 +60,7 @@ export class FieldConnector<ValueType> extends React.Component<
       }
     },
     this.props.throttle,
-    { leading: false }
+    { leading: this.props.throttle === 0 }
   );
 
   componentDidMount() {

@@ -1,6 +1,4 @@
-# Single Line extension
-
-This extension uses `@contentful/field-editor-single-line`.
+# Field extension
 
 ## Commands
 

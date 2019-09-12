@@ -1,6 +1,0 @@
-{
-  "id": "multiple-line",
-  "name": "Multiple line",
-  "srcdoc": "./build/index.html",
-  "fieldTypes": ["Text"]
-}

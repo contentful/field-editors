@@ -1,6 +1,6 @@
-# @contentful/field-editor-single-line
+# @contentful/field-editor-dropdown
 
-This package contains a React `SingleLineEditor` component and a extension that is used as a default for `Short text` field type in the Contentful web application.
+This package contains a React `DropdownEditor` component and an extension that is used as a default for `Short text / List` field type in the Contentful web application.
 
 ## Commands
 

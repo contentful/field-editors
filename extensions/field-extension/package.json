@@ -1,5 +1,5 @@
 {
-  "name": "field-editor-single-line",
+  "name": "field-editor-example",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -13,13 +13,14 @@
     "help": "contentful-extension-scripts help"
   },
   "dependencies": {
+    "@contentful/field-editor-single-line": "^0.0.1",
     "@contentful/forma-36-fcss": "^0.0.31",
     "@contentful/forma-36-react-components": "^3.17.1",
     "@contentful/forma-36-tokens": "^0.4.5",
     "contentful-ui-extensions-sdk": "3.9.2",
     "prop-types": "^15.7.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
   },
   "browserslist": [
     "last 5 Chrome version",

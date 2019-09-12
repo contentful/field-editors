@@ -28,11 +28,11 @@ This package contains shared code (components, utilities, test utilities) that i
 
 #### [@contentful/field-editor-single-line](./packages/single-line)
 
-This package contains a React `SingleLineEditor` component and a extension that is used as a default for `Short text` field type in the Contentful web application.
+This package contains a React `SingleLineEditor` component and an extension that is used as a default for `Short text` field type in the Contentful web application.
 
 #### [@contentful/field-editor-multiple-line](./packages/multiple-line)
 
-This package contains a React `MultipleLineEditor` component and a extension that is used as a default for `Long text` field type in the Contentful web application.
+This package contains a React `MultipleLineEditor` component and an extension that is used as a default for `Long text` field type in the Contentful web application.
 
 ## Local development
 
@@ -61,7 +61,7 @@ _Relevent for Contentful employees only_.
 It is convenient to link a local copy of a package to a locally running Contentful web application without publishing a package.
 
 ```bash
-cd packages/single-line/component
+cd packages/single-line
 # register a symplink
 yarn link
 # watch for changes in the package
@@ -114,7 +114,7 @@ We use [Jest](https://jestjs.io/) and [Testing Library](https://testing-library.
 #### Run tests for concrete package
 
 ```bash
-cd packages/single-line/component
+cd packages/single-line
 yarn test
 ```
 
