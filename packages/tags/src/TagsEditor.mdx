@@ -1,0 +1,48 @@
+---
+name: Tags
+route: /tags
+menu: Components
+---
+
+# Tags
+
+import { Playground } from 'docz';
+import { TagsEditor } from './index.tsx';
+import { createFakeFieldAPI } from '@contentful/field-editor-shared';
+
+## In Action
+
+### With empty initial value
+
+<Playground>
+  {() => {
+    const field = createFakeFieldAPI();
+    return <TagsEditor field={field} initialDisabled={false} />;
+  }}
+</Playground>
+
+### With non-empty initial value
+
+<Playground>
+  {() => {
+    const field = createFakeFieldAPI(mock => mock, ['test1', 'test2', 'test3']);
+    return <TagsEditor field={field} initialDisabled={false} />;
+  }}
+</Playground>
+
+### With constraints
+
+<Playground>
+  {() => {
+    const field = createFakeFieldAPI(
+      mock => {
+        return {
+          ...mock,
+          validations: [{ size: { min: 3, max: 20 } }]
+        };
+      },
+      ['test1', 'test2', 'test3']
+    );
+    return <TagsEditor field={field} initialDisabled={false} />;
+  }}
+</Playground>
