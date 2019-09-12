@@ -1,5 +1,4 @@
 import React from 'react';
-import identity from 'lodash/identity';
 import { render, configure, cleanup, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { createFakeFieldAPI } from '@contentful/field-editor-shared';
@@ -8,14 +7,6 @@ import { DropdownEditor } from './DropdownEditor';
 configure({
   testIdAttribute: 'data-test-id'
 });
-
-jest.mock(
-  'lodash/throttle',
-  () => ({
-    default: identity
-  }),
-  { virtual: true }
-);
 
 describe('DropdownEditor', () => {
   afterEach(cleanup);

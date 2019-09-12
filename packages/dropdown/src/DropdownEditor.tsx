@@ -14,7 +14,7 @@ export interface DropdownEditorProps {
 type DropdownValue = string | number;
 
 type DropdownOption = {
-  value: string | number | undefined;
+  value: DropdownValue | undefined;
   label: string;
 };
 
