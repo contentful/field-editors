@@ -4,6 +4,9 @@
   "useWorkspaces": true,
   "workspaces": ["packages/**", "extensions/**"],
   "command": {
+    "version": {
+      "message": "chore(release): publish %s"
+    },
     "publish": {
       "ignoreChanges": ["*.md"]
     }
