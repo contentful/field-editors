@@ -95,11 +95,15 @@ describe('DropdownEditor', () => {
     });
 
     const { getByTestId } = render(<DropdownEditor field={field} initialDisabled={false} />);
-    const changeDropdownValue = (value: string) =>
-      fireEvent.change(getByTestId('dropdown-editor'), { target: { value } });
 
-    expect(getByTestId('dropdown-editor')).toHaveValue('');
+    const $editorInput = getByTestId('dropdown-editor');
+
+    const changeDropdownValue = (value: string) =>
+      fireEvent.change($editorInput, { target: { value } });
+
+    expect($editorInput).toHaveValue('');
     changeDropdownValue('2.71');
+    expect($editorInput).toHaveValue('2.71');
     expect(field.setValue).toHaveBeenCalledWith(2.71);
     expect(field.setValue).toHaveBeenCalledTimes(1);
   });
@@ -117,16 +121,23 @@ describe('DropdownEditor', () => {
     });
 
     const { getByTestId } = render(<DropdownEditor field={field} initialDisabled={false} />);
-    const changeDropdownValue = (value: string) =>
-      fireEvent.change(getByTestId('dropdown-editor'), { target: { value } });
 
-    expect(getByTestId('dropdown-editor')).toHaveValue('');
+    const $editorInput = getByTestId('dropdown-editor');
+
+    const changeDropdownValue = (value: string) =>
+      fireEvent.change($editorInput, { target: { value } });
+
+    expect($editorInput).toHaveValue('');
     changeDropdownValue('1');
     expect(field.setValue).toHaveBeenCalledWith(1);
     expect(field.setValue).toHaveBeenCalledTimes(1);
 
+    expect($editorInput).toHaveValue('1');
+
     changeDropdownValue('0');
     expect(field.setValue).toHaveBeenCalledWith(0);
     expect(field.setValue).toHaveBeenCalledTimes(2);
+
+    expect($editorInput).toHaveValue('0');
   });
 });

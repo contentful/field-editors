@@ -22,13 +22,9 @@ function parseValue(value: string, fieldType: string): DropdownValue | undefined
   if (value === '') {
     return undefined;
   }
-  if (fieldType === 'Integer') {
-    const number = parseInt(value, 10);
-    return isNaN(number) ? undefined : number;
-  }
-  if (fieldType === 'Number') {
-    const number = parseFloat(value);
-    return isNaN(number) ? undefined : number;
+  if (fieldType === 'Integer' || fieldType === 'Number') {
+    const asNumber = Number(value);
+    return isNaN(asNumber) ? undefined : asNumber;
   }
   return value;
 }
@@ -80,7 +76,7 @@ export function DropdownEditor(props: DropdownEditorProps) {
           isDisabled={disabled}
           className={isDirected ? 'x--directed' : ''}
           required={field.required}
-          value={(value || '').toString()}
+          value={value === undefined ? '' : String(value)}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
             const value = e.target.value;
             setValue(parseValue(value, field.type));
