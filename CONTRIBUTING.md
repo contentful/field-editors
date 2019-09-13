@@ -20,20 +20,6 @@ In some packages we can find to subdirectories: `component` and `extension`.
 
 This monorepo is maintained using Lerna. Get started with Lerna by following [this link](https://github.com/lerna/lerna).
 
-## Package descriptions
-
-#### [@contentful/field-editor-shared](./packages/_shared)
-
-This package contains shared code (components, utilities, test utilities) that is used by all other field editor packages.
-
-#### [@contentful/field-editor-single-line](./packages/single-line)
-
-This package contains a React `SingleLineEditor` component and an extension that is used as a default for `Short text` field type in the Contentful web application.
-
-#### [@contentful/field-editor-multiple-line](./packages/multiple-line)
-
-This package contains a React `MultipleLineEditor` component and an extension that is used as a default for `Long text` field type in the Contentful web application.
-
 ## Local development
 
 ### Using `docz`
@@ -80,6 +66,10 @@ yarn link '@contentful/field-editor-single-line'
 To add another package create a new directory in the `packages` folder. Since we are using Lerna all package scripts are available from the root by running `lerna run <script_name>`.
 
 ## Quality & Code Style
+
+### Commit messages
+
+All commit messages should meet the [conventional commit format](https://github.com/conventional-changelog/commitlint). The easiest way is to use `yarn cm` command which launches commit message wizard.
 
 ### Code formatting
 

@@ -14,6 +14,7 @@ We currently provide the following field editors:
 
 - [Single line editor](./packages/single-line/README.md)
 - [Multi line editor](./packages/multiple-line/README.md)
+- [Dropdown](./packages/dropdown/README.md)
 
 Feel free to reach out to us with the ones that'd be the most useful to have
 here by filing a [Github issue][github-issues]!
