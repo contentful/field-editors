@@ -15,8 +15,7 @@
     "prettier": "prettier **/*.{js,jsx,ts,tsx} --write",
     "docz:dev": "docz dev",
     "docz:build": "docz build",
-    "cm": "git-cz",
-    "release": "lerna-semantic-release pre && lerna-semantic-release perform && lerna-semantic-release post"
+    "cm": "git-cz"
   },
   "workspaces": [
     "packages/**",
@@ -52,7 +51,6 @@
     "eslint": "6.0.1",
     "husky": "^3.0.5",
     "lerna": "^3.16.4",
-    "lerna-semantic-release": "^9.1.0",
     "lint-staged": "9.2.5",
     "mitt": "1.1.3",
     "prettier": "1.18.2",
