@@ -1,6 +1,5 @@
 {
   "name": "field-editor-example",
-  "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "contentful-extension-scripts start",
