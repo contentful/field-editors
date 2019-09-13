@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-multiple-line",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist/index.js",
   "module": "dist/field-editor-multiple-line.esm.js",
   "typings": "dist/index.d.ts",
@@ -15,7 +15,7 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
-    "@contentful/field-editor-shared": "^0.0.1",
+    "@contentful/field-editor-shared": "^0.0.2",
     "@contentful/forma-36-react-components": "^3.17.1",
     "@contentful/forma-36-tokens": "^0.4.5",
     "emotion": "^10.0.17",
