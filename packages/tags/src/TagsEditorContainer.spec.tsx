@@ -85,14 +85,29 @@ describe('TagsEditor', () => {
         expected: 'Requires no more than 10 tags'
       },
       {
+        testType: 'max-one',
+        validation: { max: 1 },
+        expected: 'Requires no more than 1 tag'
+      },
+      {
         testType: 'min',
         validation: { min: 20 },
         expected: 'Requires at least 20 tags'
       },
       {
+        testType: 'min-one',
+        validation: { min: 1 },
+        expected: 'Requires at least 1 tag'
+      },
+      {
         testType: 'min-max',
         validation: { min: 10, max: 20 },
         expected: 'Requires between 10 and 20 tags'
+      },
+      {
+        testType: 'min-max-equal',
+        validation: { min: 10, max: 10 },
+        expected: 'Requires exactly 10 tags'
       }
     ];
 
