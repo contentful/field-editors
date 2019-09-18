@@ -1,8 +1,8 @@
 {
-  "name": "@contentful/field-editor-dropdown",
-  "version": "0.0.3",
+  "name": "@contentful/field-editor-tags",
+  "version": "0.0.1",
   "main": "dist/index.js",
-  "module": "dist/field-editor-dropdown.esm.js",
+  "module": "dist/field-editor-tags.esm.js",
   "typings": "dist/index.d.ts",
   "files": [
     "dist"
@@ -15,6 +15,8 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
+    "react-sortable-hoc": "^1.9.0",
+    "array-move": "^2.1.0",
     "@contentful/field-editor-shared": "^0.0.2",
     "@contentful/forma-36-react-components": "^3.18.4",
     "@contentful/forma-36-tokens": "^0.4.5",

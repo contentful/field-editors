@@ -7,10 +7,14 @@ function identity<T>(item: T): T {
 
 type CustomizeMockFn = (fieldApi: FieldAPI, emitter: mitt.Emitter) => FieldAPI;
 
-export function createFakeFieldAPI(customizeMock: CustomizeMockFn = identity): FieldAPI {
+export function createFakeFieldAPI<T>(
+  customizeMock: CustomizeMockFn = identity,
+  initialValue?: T
+): FieldAPI {
   const emitter: mitt.Emitter = new mitt();
 
-  let _value: string | undefined = undefined;
+  // eslint-disable-next-line
+  let _value: any = initialValue;
 
   return customizeMock(
     {

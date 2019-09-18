@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import { init, FieldExtensionSDK } from 'contentful-ui-extensions-sdk';
-import { SingleLineEditor } from '@contentful/field-editor-single-line';
+import { TagsEditor } from '../../../packages/tags/src/index';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import './index.css';
 
 init(sdk => {
   const fieldSdk = sdk as FieldExtensionSDK;
   fieldSdk.window.startAutoResizer();
-  render(<SingleLineEditor field={fieldSdk.field} />, document.getElementById('root'));
+  render(<TagsEditor field={fieldSdk.field} />, document.getElementById('root'));
 });
 
 /**

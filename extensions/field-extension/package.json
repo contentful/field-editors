@@ -12,9 +12,8 @@
     "help": "contentful-extension-scripts help"
   },
   "dependencies": {
-    "@contentful/field-editor-single-line": "^0.0.2",
     "@contentful/forma-36-fcss": "^0.0.31",
-    "@contentful/forma-36-react-components": "^3.17.1",
+    "@contentful/forma-36-react-components": "^3.18.4",
     "@contentful/forma-36-tokens": "^0.4.5",
     "contentful-ui-extensions-sdk": "3.9.2",
     "prop-types": "^15.7.2",
