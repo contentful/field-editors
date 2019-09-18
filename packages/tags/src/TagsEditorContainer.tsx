@@ -16,10 +16,7 @@ export interface TagsEditorContainerProps {
 type TagEditorValue = string[];
 
 function isEmptyTagsValue(value: TagEditorValue | null) {
-  if (value === null || value.length === 0) {
-    return true;
-  }
-  return false;
+  return value === null || value.length === 0;
 }
 
 function getConstraintsType(sizeConstraints?: Constraint): ConstraintsType | undefined {

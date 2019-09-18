@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 import { TextInput, Pill, Icon } from '@contentful/forma-36-react-components';
@@ -82,9 +82,25 @@ const SortableList = SortableContainer((props: SortableListProps) => (
 ));
 
 export function TagsEditor(props: TagsEditorProps) {
-  const [value, setValue] = useState('');
+  const [pendingValue, setPendingValue] = useState('');
 
   const { isDisabled, items, constraints, constraintsType, hasError } = props;
+
+  const removeItem = useCallback(
+    index => {
+      const newItems = props.items.filter((_, filterIndex) => index !== filterIndex);
+      props.onUpdate(newItems);
+    },
+    [props]
+  );
+
+  const swapItems = useCallback(
+    ({ oldIndex, newIndex }) => {
+      const newItems = arrayMove(props.items, oldIndex, newIndex);
+      props.onUpdate(newItems);
+    },
+    [props]
+  );
 
   return (
     <div data-test-id="tag-editor-container">
@@ -94,16 +110,16 @@ export function TagsEditor(props: TagsEditorProps) {
         disabled={isDisabled}
         error={hasError}
         type="text"
-        value={value}
+        value={pendingValue}
         placeholder="Type the value and hit enter"
         onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
-          if (value && e.keyCode === 13) {
-            props.onUpdate([...props.items, value]);
-            setValue('');
+          if (pendingValue && e.keyCode === 13) {
+            props.onUpdate([...props.items, pendingValue]);
+            setPendingValue('');
           }
         }}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          setValue(e.target.value);
+          setPendingValue(e.target.value);
         }}
       />
       <SortableList
@@ -111,7 +127,7 @@ export function TagsEditor(props: TagsEditorProps) {
         axis="xy"
         distance={10}
         onSortEnd={({ oldIndex, newIndex }) => {
-          props.onUpdate(arrayMove(props.items, oldIndex, newIndex));
+          swapItems({ oldIndex, newIndex });
         }}>
         {items.map((item, index) => {
           return (
@@ -121,7 +137,7 @@ export function TagsEditor(props: TagsEditorProps) {
               key={item + index}
               disabled={isDisabled}
               onRemove={() => {
-                props.onUpdate(props.items.filter((_, filterIndex) => index !== filterIndex));
+                removeItem(index);
               }}
             />
           );

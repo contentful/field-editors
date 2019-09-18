@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, configure, cleanup, fireEvent } from '@testing-library/react';
+import { render, configure, cleanup, fireEvent, RenderResult } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { createFakeFieldAPI } from '@contentful/field-editor-shared';
 import { TagsEditorContainer } from './TagsEditorContainer';
@@ -11,6 +11,38 @@ configure({
 describe('TagsEditor', () => {
   afterEach(cleanup);
 
+  function expectNoConstraints({ queryByTestId }: RenderResult) {
+    const $constraints = queryByTestId('tag-editor-constraints');
+    expect($constraints).not.toBeInTheDocument();
+  }
+
+  function expectInputValue({ getByTestId }: RenderResult, expected: string) {
+    const $input = getByTestId('tag-editor-input');
+    expect($input).toHaveValue(expected);
+  }
+
+  function expectTagsCount({ queryAllByTestId }: RenderResult, expectedCount: number) {
+    const $values = queryAllByTestId('tag-editor-pill');
+    expect($values).toHaveLength(expectedCount);
+  }
+
+  function expectTag({ queryAllByTestId }: RenderResult, index: number, content: string) {
+    const $values = queryAllByTestId('tag-editor-pill');
+    expect($values[index].textContent).toEqual(content);
+  }
+
+  function typePendingValueAndHitEnter({ getByTestId }: RenderResult, value: string) {
+    const $input = getByTestId('tag-editor-input');
+    fireEvent.change($input, { target: { value } });
+    fireEvent.keyDown($input, { keyCode: 13 });
+  }
+
+  function clickRemoveTag({ getAllByTestId }: RenderResult, index: number) {
+    fireEvent.click(getAllByTestId('tag-editor-pill')[index].querySelector(
+      'button'
+    ) as HTMLButtonElement);
+  }
+
   it('renders empty value properly', () => {
     const field = createFakeFieldAPI(mock => {
       return {
@@ -18,17 +50,11 @@ describe('TagsEditor', () => {
         validations: []
       };
     });
-    const { queryByTestId, getByTestId, queryAllByTestId } = render(
-      <TagsEditorContainer field={field} initialDisabled={false} />
-    );
+    const renderResult = render(<TagsEditorContainer field={field} initialDisabled={false} />);
 
-    const $input = getByTestId('tag-editor-input');
-    const $constraints = queryByTestId('tag-editor-constraints');
-    const $values = queryAllByTestId('tag-editor-pill');
-
-    expect($input).toHaveValue('');
-    expect($constraints).not.toBeInTheDocument();
-    expect($values).toHaveLength(0);
+    expectNoConstraints(renderResult);
+    expectInputValue(renderResult, '');
+    expectTagsCount(renderResult, 0);
   });
 
   it('renders non-empty value properly', () => {
@@ -41,19 +67,14 @@ describe('TagsEditor', () => {
       };
     }, initialValue);
 
-    const { queryByTestId, getByTestId, queryAllByTestId } = render(
-      <TagsEditorContainer field={field} initialDisabled={false} />
-    );
+    const renderResult = render(<TagsEditorContainer field={field} initialDisabled={false} />);
 
-    const $input = getByTestId('tag-editor-input');
-    const $constraints = queryByTestId('tag-editor-constraints');
-    const $values = queryAllByTestId('tag-editor-pill');
-
-    expect($input).toHaveValue('');
-    expect($constraints).not.toBeInTheDocument();
-    expect($values).toHaveLength(3);
-    expect($values[0].textContent).toEqual('test1');
-    expect($values[2].textContent).toEqual('test3');
+    expectInputValue(renderResult, '');
+    expectNoConstraints(renderResult);
+    expectTagsCount(renderResult, 3);
+    expectTag(renderResult, 0, 'test1');
+    expectTag(renderResult, 1, 'test2');
+    expectTag(renderResult, 2, 'test3');
   });
 
   describe('renders constraints message', () => {
@@ -104,37 +125,27 @@ describe('TagsEditor', () => {
       };
     });
 
-    const { getByTestId, getAllByTestId } = render(
-      <TagsEditorContainer field={field} initialDisabled={false} />
-    );
+    const renderResult = render(<TagsEditorContainer field={field} initialDisabled={false} />);
 
-    const $input = getByTestId('tag-editor-input');
-
-    // add first item
-    fireEvent.change($input, { target: { value: 'first item' } });
-    fireEvent.keyDown($input, { keyCode: 13 });
+    typePendingValueAndHitEnter(renderResult, 'first item');
     expect(field.setValue).toHaveBeenCalledWith(['first item']);
     expect(field.setValue).toHaveBeenCalledTimes(1);
     expect(field.removeValue).toHaveBeenCalledTimes(0);
+    expectInputValue(renderResult, '');
 
-    // add second item
-    fireEvent.change($input, { target: { value: 'second item' } });
-    fireEvent.keyDown($input, { keyCode: 13 });
+    typePendingValueAndHitEnter(renderResult, 'second item');
     expect(field.setValue).toHaveBeenCalledWith(['first item', 'second item']);
     expect(field.setValue).toHaveBeenCalledTimes(2);
+    expectInputValue(renderResult, '');
 
     // remove first item
 
-    fireEvent.click(getAllByTestId('tag-editor-pill')[0].querySelector(
-      'button'
-    ) as HTMLButtonElement);
+    clickRemoveTag(renderResult, 0);
 
     expect(field.setValue).toHaveBeenCalledWith(['second item']);
     expect(field.setValue).toHaveBeenCalledTimes(3);
 
-    fireEvent.click(getAllByTestId('tag-editor-pill')[0].querySelector(
-      'button'
-    ) as HTMLButtonElement);
+    clickRemoveTag(renderResult, 0);
 
     expect(field.setValue).toHaveBeenCalledTimes(3);
     expect(field.removeValue).toHaveBeenCalledTimes(1);

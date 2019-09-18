@@ -1,6 +1,6 @@
 # @contentful/field-editor-tags
 
-This package contains a React `TagsEditor` component and a extension that is used as a default for `Short text / List` field type in the Contentful web application.
+This package contains a React `TagsEditor` component and an extension that is used as a default for `Short text / List` field type in the Contentful web application.
 
 ## Commands
 
