@@ -1,0 +1,30 @@
+---
+name: List
+route: /list
+menu: Components
+---
+
+# List
+
+import { Playground } from 'docz';
+import { ListEditor } from './ListEditor.tsx';
+import { createFakeFieldAPI } from '@contentful/field-editor-shared';
+
+## In Action
+
+<Playground>
+  {() => {
+    return <ListEditor field={createFakeFieldAPI()} initialDisabled={false} />;
+  }}
+</Playground>
+
+<Playground>
+  {() => {
+    return (
+      <ListEditor
+        field={createFakeFieldAPI(mock => mock, ['test1', 'test2', 'test3'])}
+        initialDisabled={false}
+      />
+    );
+  }}
+</Playground>
