@@ -19,6 +19,7 @@ function isEmptyListValue(value: ListValue | null) {
 
 export function ListEditor(props: ListEditorProps) {
   const { field } = props;
+
   return (
     <FieldConnector<ListValue>
       throttle={0}
@@ -27,6 +28,15 @@ export function ListEditor(props: ListEditorProps) {
       initialDisabled={props.initialDisabled}>
       {({ setValue, value, errors, disabled }) => {
         const valueAsString = (value || []).join(', ');
+
+        const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+          const valueAsArray = e.target.value
+            .split(',')
+            .map(item => item.trim())
+            .filter(item => item);
+          setValue(valueAsArray);
+        };
+
         return (
           <TextInput
             testId="list-editor-input"
@@ -35,13 +45,7 @@ export function ListEditor(props: ListEditorProps) {
             error={errors.length > 0}
             disabled={disabled}
             value={valueAsString}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              const valueAsArray = e.target.value
-                .split(',')
-                .map(item => item.trim())
-                .filter(item => item);
-              setValue(valueAsArray);
-            }}
+            onChange={onChange}
           />
         );
       }}

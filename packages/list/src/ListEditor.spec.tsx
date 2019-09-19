@@ -64,7 +64,7 @@ describe('ListEditor', () => {
 
     expect(field.setValue).toHaveBeenLastCalledWith(['test1']);
 
-    changeInputValue(renderResult, 'test1,test2,     test3');
+    changeInputValue(renderResult, 'test1, test2 ,     test3');
 
     expectInputValue(renderResult, 'test1, test2, test3');
     expect(field.setValue).toHaveBeenCalledWith(['test1', 'test2', 'test3']);
