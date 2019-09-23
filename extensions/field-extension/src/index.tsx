@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import { init, FieldExtensionSDK } from 'contentful-ui-extensions-sdk';
-import { TagsEditor } from '../../../packages/tags/src/index';
+import { CheckboxEditor } from '../../../packages/checkbox/src/index';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import './index.css';
 
 init(sdk => {
   const fieldSdk = sdk as FieldExtensionSDK;
   fieldSdk.window.startAutoResizer();
-  render(<TagsEditor field={fieldSdk.field} />, document.getElementById('root'));
+  render(<CheckboxEditor field={fieldSdk.field} />, document.getElementById('root'));
 });
 
 /**
