@@ -22,13 +22,18 @@ function isEmptyListValue(value: ListValue | null) {
 
 export function getOptions(field: FieldAPI): CheckboxOption[] {
   // Get first object that has a 'in' property
-  const validations = get(field, ['items', 'validations'], []) as Record<string, any>[];
+  const validations = get(field, ['items', 'validations'], []) as Record<
+    string,
+    { in?: string[] }
+  >[];
 
   const predefinedValues = validations
-    .filter(validation => (validation as any).in)
-    .map(validation => (validation as any).in);
+    .filter(validation => validation.in)
+    .map(validation => validation.in);
 
-  const firstPredefinedValues = predefinedValues.length > 0 ? predefinedValues[0] : [];
+  const firstPredefinedValues = (predefinedValues.length > 0
+    ? predefinedValues[0]
+    : []) as string[];
 
   return firstPredefinedValues.map((value: string) => ({
     value,
@@ -80,6 +85,7 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
                 checked={values.includes(item.value)}
                 labelText={item.label}
                 disabled={disabled}
+                value={item.value}
                 name={field.id}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   if (e.target.checked) {

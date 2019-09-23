@@ -22,7 +22,15 @@ import { createFakeFieldAPI } from '@contentful/field-editor-shared';
   {() => {
     return (
       <CheckboxEditor
-        field={createFakeFieldAPI(mock => mock, ['test1', 'test2', 'test3'])}
+        field={createFakeFieldAPI(
+          mock => ({
+            ...mock,
+            items: {
+              validations: [{ in: ['test1', 'test2', 'test3', 'test4'] }]
+            }
+          }),
+          ['test1', 'test2', 'test3']
+        )}
         initialDisabled={false}
       />
     );
