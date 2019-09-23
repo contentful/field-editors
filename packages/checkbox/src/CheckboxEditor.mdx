@@ -1,0 +1,38 @@
+---
+name: Checkbox
+route: /checkbox
+menu: Components
+---
+
+# Checkbox
+
+import { Playground } from 'docz';
+import { CheckboxEditor } from './CheckboxEditor.tsx';
+import { createFakeFieldAPI } from '@contentful/field-editor-shared';
+
+## In Action
+
+<Playground>
+  {() => {
+    return <CheckboxEditor field={createFakeFieldAPI()} initialDisabled={false} />;
+  }}
+</Playground>
+
+<Playground>
+  {() => {
+    return (
+      <CheckboxEditor
+        field={createFakeFieldAPI(
+          mock => ({
+            ...mock,
+            items: {
+              validations: [{ in: ['test1', 'test2', 'test3', 'test4'] }]
+            }
+          }),
+          ['test1', 'test2', 'test3']
+        )}
+        initialDisabled={false}
+      />
+    );
+  }}
+</Playground>

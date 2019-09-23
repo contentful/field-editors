@@ -17,6 +17,7 @@ We currently provide the following field editors:
 - [Dropdown](./packages/dropdown/README.md)
 - [Tags](./packages/tags/README.md)
 - [List](./packages/list/README.md)
+- [Checkbox](./packages/checkbox/README.md)
 
 Feel free to reach out to us with the ones that'd be the most useful to have
 here by filing a [Github issue][github-issues]!
