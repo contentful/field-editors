@@ -1,5 +1,7 @@
 import * as React from 'react';
+import { css, cx } from 'emotion';
 import get from 'lodash/get';
+import tokens from '@contentful/forma-36-tokens';
 import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
 import { Note, CheckboxField, Form } from '@contentful/forma-36-react-components';
 
@@ -14,7 +16,7 @@ export interface CheckboxEditorProps {
 
 type ListValue = string[];
 
-type CheckboxOption = { value: string; label: string };
+type CheckboxOption = { id: string; value: string; label: string };
 
 function isEmptyListValue(value: ListValue | null) {
   return value === null || value.length === 0;
@@ -35,7 +37,8 @@ export function getOptions(field: FieldAPI): CheckboxOption[] {
     ? predefinedValues[0]
     : []) as string[];
 
-  return firstPredefinedValues.map((value: string) => ({
+  return firstPredefinedValues.map((value: string, index) => ({
+    id: ['entity', field.id, field.locale, index].join('.'),
     value,
     label: value
   }));
@@ -76,17 +79,19 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
         };
 
         return (
-          <Form spacing="condensed" className="x--directed">
-            {options.map((item, index) => (
+          <Form
+            spacing="condensed"
+            className={cx(css({ marginTop: tokens.spacingS }), 'x--directed')}>
+            {options.map(item => (
               <CheckboxField
-                key={`${item.value}-${index}`}
+                key={item.id}
                 labelIsLight
-                id={`${field.id}-${item.value}`}
+                id={item.id}
                 checked={values.includes(item.value)}
                 labelText={item.label}
                 disabled={disabled}
                 value={item.value}
-                name={field.id}
+                name={`${field.id}.${field.locale}`}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   if (e.target.checked) {
                     addValue(item.value);
