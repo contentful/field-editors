@@ -1,0 +1,19 @@
+---
+name: Boolean
+route: /boolean
+menu: Components
+---
+
+# Boolean
+
+import { Playground } from 'docz';
+import { BooleanEditor } from './BooleanEditor.tsx';
+import { createFakeFieldAPI } from '@contentful/field-editor-shared';
+
+## In Action
+
+<Playground>
+  {() => {
+    return <BooleanEditor field={createFakeFieldAPI()} isInitiallyDisabled={false} />;
+  }}
+</Playground>

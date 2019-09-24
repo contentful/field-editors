@@ -8,7 +8,7 @@ configure({
   testIdAttribute: 'data-test-id'
 });
 
-describe('DropdownEditor', () => {
+describe('RadioEditor', () => {
   afterEach(cleanup);
 
   it('renders a warning if no options are present', () => {
