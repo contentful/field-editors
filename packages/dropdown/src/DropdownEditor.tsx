@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { Select, Option } from '@contentful/forma-36-react-components';
-import { FieldAPI, FieldConnector, PredefiendValuesError } from '@contentful/field-editor-shared';
+import { FieldAPI, FieldConnector, PredefinedValuesError } from '@contentful/field-editor-shared';
 import { getOptions, parseValue } from './dropdownUtils';
 
 export interface DropdownEditorProps {
   /**
-   * Is a field is disabled initially
+   * is the field disabled initially
    */
-  initialDisabled: boolean;
+  isInitiallyDisabled: boolean;
 
   field: FieldAPI;
 }
@@ -20,14 +20,14 @@ export function DropdownEditor(props: DropdownEditorProps) {
   const isDirected = ['Text', 'Symbol'].includes(field.type);
 
   if (misconfigured) {
-    return <PredefiendValuesError />;
+    return <PredefinedValuesError />;
   }
 
   return (
     <FieldConnector<string | number>
       throttle={0}
       field={field}
-      initialDisabled={props.initialDisabled}>
+      isInitiallyDisabled={props.isInitiallyDisabled}>
       {({ value, errors, disabled, setValue }) => (
         <Select
           testId="dropdown-editor"
@@ -53,5 +53,5 @@ export function DropdownEditor(props: DropdownEditorProps) {
 }
 
 DropdownEditor.defaultProps = {
-  initialDisabled: true
+  isInitiallyDisabled: true
 };

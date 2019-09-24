@@ -20,7 +20,7 @@ describe('DropdownEditor', () => {
     });
 
     const { getByTestId, queryByTestId } = render(
-      <RadioEditor field={field} initialDisabled={false} />
+      <RadioEditor field={field} isInitiallyDisabled={false} />
     );
 
     expect(getByTestId('predefined-values-warning')).toBeInTheDocument();
@@ -35,7 +35,7 @@ describe('DropdownEditor', () => {
         validations: [{ in: predefined }]
       };
     });
-    const { container } = render(<RadioEditor field={field} initialDisabled={false} />);
+    const { container } = render(<RadioEditor field={field} isInitiallyDisabled={false} />);
 
     const $inputs = container.querySelectorAll('input[type="radio"]');
 
@@ -55,7 +55,7 @@ describe('DropdownEditor', () => {
       };
     });
     const { container, queryByText, getByText } = render(
-      <RadioEditor field={field} initialDisabled={false} />
+      <RadioEditor field={field} isInitiallyDisabled={false} />
     );
 
     expect(queryByText('Clear')).not.toBeInTheDocument();
@@ -89,7 +89,7 @@ describe('DropdownEditor', () => {
       });
 
       const { container, getByText } = render(
-        <RadioEditor field={field} initialDisabled={false} />
+        <RadioEditor field={field} isInitiallyDisabled={false} />
       );
 
       const $inputs = container.querySelectorAll('input[type="radio"]');
@@ -129,7 +129,7 @@ describe('DropdownEditor', () => {
       });
 
       const { container, getByText } = render(
-        <RadioEditor field={field} initialDisabled={false} />
+        <RadioEditor field={field} isInitiallyDisabled={false} />
       );
 
       const $inputs = container.querySelectorAll('input[type="radio"]');

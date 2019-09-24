@@ -50,7 +50,7 @@ describe('TagsEditor', () => {
         validations: []
       };
     });
-    const renderResult = render(<TagsEditorContainer field={field} initialDisabled={false} />);
+    const renderResult = render(<TagsEditorContainer field={field} isInitiallyDisabled={false} />);
 
     expectNoConstraints(renderResult);
     expectInputValue(renderResult, '');
@@ -67,7 +67,7 @@ describe('TagsEditor', () => {
       };
     }, initialValue);
 
-    const renderResult = render(<TagsEditorContainer field={field} initialDisabled={false} />);
+    const renderResult = render(<TagsEditorContainer field={field} isInitiallyDisabled={false} />);
 
     expectInputValue(renderResult, '');
     expectNoConstraints(renderResult);
@@ -121,7 +121,7 @@ describe('TagsEditor', () => {
         });
 
         const { getByTestId } = render(
-          <TagsEditorContainer field={field} initialDisabled={false} />
+          <TagsEditorContainer field={field} isInitiallyDisabled={false} />
         );
 
         const $constraints = getByTestId('tag-editor-constraints');
@@ -140,7 +140,7 @@ describe('TagsEditor', () => {
       };
     });
 
-    const renderResult = render(<TagsEditorContainer field={field} initialDisabled={false} />);
+    const renderResult = render(<TagsEditorContainer field={field} isInitiallyDisabled={false} />);
 
     typePendingValueAndHitEnter(renderResult, 'first item');
     expect(field.setValue).toHaveBeenCalledWith(['first item']);

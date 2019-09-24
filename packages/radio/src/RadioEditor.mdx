@@ -14,7 +14,7 @@ import { createFakeFieldAPI } from '@contentful/field-editor-shared';
 
 <Playground>
   {() => {
-    return <RadioEditor field={createFakeFieldAPI()} initialDisabled={false} />;
+    return <RadioEditor field={createFakeFieldAPI()} isInitiallyDisabled={false} />;
   }}
 </Playground>
 
@@ -30,7 +30,7 @@ import { createFakeFieldAPI } from '@contentful/field-editor-shared';
           }),
           ['test1', 'test2', 'test3']
         )}
-        initialDisabled={false}
+        isInitiallyDisabled={false}
       />
     );
   }}

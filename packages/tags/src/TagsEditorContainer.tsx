@@ -6,9 +6,9 @@ import { ConstraintsType, Constraint } from './types';
 
 export interface TagsEditorContainerProps {
   /**
-   * Is a field is disabled initially
+   * is the field disabled initially
    */
-  initialDisabled: boolean;
+  isInitiallyDisabled: boolean;
 
   field: FieldAPI;
 }
@@ -50,7 +50,7 @@ export function TagsEditorContainer(props: TagsEditorContainerProps) {
   return (
     <FieldConnector<TagEditorValue>
       field={field}
-      initialDisabled={props.initialDisabled}
+      isInitiallyDisabled={props.isInitiallyDisabled}
       isEmptyValue={isEmptyTagsValue}
       throttle={0}>
       {({ disabled, value, errors, setValue }) => {
@@ -73,5 +73,5 @@ export function TagsEditorContainer(props: TagsEditorContainerProps) {
 }
 
 TagsEditorContainer.defaultProps = {
-  initialDisabled: true
+  isInitiallyDisabled: true
 };

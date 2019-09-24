@@ -2,14 +2,14 @@ import * as React from 'react';
 import { css, cx } from 'emotion';
 import get from 'lodash/get';
 import tokens from '@contentful/forma-36-tokens';
-import { FieldAPI, FieldConnector, PredefiendValuesError } from '@contentful/field-editor-shared';
+import { FieldAPI, FieldConnector, PredefinedValuesError } from '@contentful/field-editor-shared';
 import { CheckboxField, Form } from '@contentful/forma-36-react-components';
 
 export interface CheckboxEditorProps {
   /**
-   * Is a field is disabled initially
+   * is the field disabled initially
    */
-  initialDisabled: boolean;
+  isInitiallyDisabled: boolean;
 
   field: FieldAPI;
 }
@@ -51,7 +51,7 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
   const misconfigured = options.length === 0;
 
   if (misconfigured) {
-    return <PredefiendValuesError />;
+    return <PredefinedValuesError />;
   }
 
   return (
@@ -59,7 +59,7 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
       throttle={0}
       isEmptyValue={isEmptyListValue}
       field={field}
-      initialDisabled={props.initialDisabled}>
+      isInitiallyDisabled={props.isInitiallyDisabled}>
       {({ disabled, value, setValue }) => {
         const values = value || [];
 
@@ -104,5 +104,5 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
 }
 
 CheckboxEditor.defaultProps = {
-  initialDisabled: true
+  isInitiallyDisabled: true
 };

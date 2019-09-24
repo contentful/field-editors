@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { css, cx } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
-import { FieldAPI, FieldConnector, PredefiendValuesError } from '@contentful/field-editor-shared';
+import { FieldAPI, FieldConnector, PredefinedValuesError } from '@contentful/field-editor-shared';
 import { getOptions, parseValue } from '@contentful/field-editor-dropdown';
 import { Form, RadioButtonField, TextLink } from '@contentful/forma-36-react-components';
 
 export interface RadioEditorProps {
   /**
-   * Is a field is disabled initially
+   * is the field disabled initially
    */
-  initialDisabled: boolean;
+  isInitiallyDisabled: boolean;
 
   field: FieldAPI;
 }
@@ -22,14 +22,14 @@ export function RadioEditor(props: RadioEditorProps) {
   const isDirected = ['Text', 'Symbol'].includes(field.type);
 
   if (misconfigured) {
-    return <PredefiendValuesError />;
+    return <PredefinedValuesError />;
   }
 
   return (
     <FieldConnector<string | number>
       throttle={0}
       field={field}
-      initialDisabled={props.initialDisabled}>
+      isInitiallyDisabled={props.isInitiallyDisabled}>
       {({ disabled, value, setValue }) => {
         const setOption = (value: string) => {
           setValue(parseValue(value, field.type));
@@ -79,5 +79,5 @@ export function RadioEditor(props: RadioEditorProps) {
 }
 
 RadioEditor.defaultProps = {
-  initialDisabled: true
+  isInitiallyDisabled: true
 };

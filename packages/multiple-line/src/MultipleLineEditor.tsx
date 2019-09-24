@@ -4,9 +4,9 @@ import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
 
 export interface MultipleLineEditorProps {
   /**
-   * Is a field is disabled initially
+   * is the field disabled initially
    */
-  initialDisabled: boolean;
+  isInitiallyDisabled: boolean;
 
   field: FieldAPI;
 }
@@ -14,7 +14,7 @@ export interface MultipleLineEditorProps {
 export function MultipleLineEditor(props: MultipleLineEditorProps) {
   const { field } = props;
   return (
-    <FieldConnector<string> field={field} initialDisabled={props.initialDisabled}>
+    <FieldConnector<string> field={field} isInitiallyDisabled={props.isInitiallyDisabled}>
       {({ errors, disabled, value, setValue }) => {
         return (
           <div data-test-id="multiple-line-editor">
@@ -37,5 +37,5 @@ export function MultipleLineEditor(props: MultipleLineEditorProps) {
 }
 
 MultipleLineEditor.defaultProps = {
-  initialDisabled: true
+  isInitiallyDisabled: true
 };

@@ -9,9 +9,9 @@ import { CharValidation } from './CharValidation';
 
 export interface SingleLineEditorProps {
   /**
-   * Is a field is disabled initially
+   * is the field disabled initially
    */
-  initialDisabled: boolean;
+  isInitiallyDisabled: boolean;
 
   field: FieldAPI;
 }
@@ -24,7 +24,7 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
   const checkConstraint = makeChecker(constraints);
 
   return (
-    <FieldConnector<string> field={field} initialDisabled={props.initialDisabled}>
+    <FieldConnector<string> field={field} isInitiallyDisabled={props.isInitiallyDisabled}>
       {({ value, errors, disabled, setValue }) => {
         return (
           <div data-test-id="single-line-editor">
@@ -57,5 +57,5 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
 }
 
 SingleLineEditor.defaultProps = {
-  initialDisabled: true
+  isInitiallyDisabled: true
 };
