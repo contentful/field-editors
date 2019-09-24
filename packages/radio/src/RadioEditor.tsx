@@ -40,6 +40,7 @@ export function RadioEditor(props: RadioEditorProps) {
 
         return (
           <Form
+            testId="radio-editor"
             spacing="condensed"
             className={cx(css({ marginTop: tokens.spacingS }), isDirected ? 'x--directed' : '')}>
             {options.map((item, index) => {
