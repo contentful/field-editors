@@ -17,7 +17,7 @@ import { createFakeFieldAPI } from '@contentful/field-editor-shared';
 <Playground>
   {() => {
     const field = createFakeFieldAPI();
-    return <TagsEditor field={field} initialDisabled={false} />;
+    return <TagsEditor field={field} isInitiallyDisabled={false} />;
   }}
 </Playground>
 
@@ -26,7 +26,7 @@ import { createFakeFieldAPI } from '@contentful/field-editor-shared';
 <Playground>
   {() => {
     const field = createFakeFieldAPI(mock => mock, ['test1', 'test2', 'test3']);
-    return <TagsEditor field={field} initialDisabled={false} />;
+    return <TagsEditor field={field} isInitiallyDisabled={false} />;
   }}
 </Playground>
 
@@ -43,6 +43,6 @@ import { createFakeFieldAPI } from '@contentful/field-editor-shared';
       },
       ['test1', 'test2', 'test3']
     );
-    return <TagsEditor field={field} initialDisabled={false} />;
+    return <TagsEditor field={field} isInitiallyDisabled={false} />;
   }}
 </Playground>

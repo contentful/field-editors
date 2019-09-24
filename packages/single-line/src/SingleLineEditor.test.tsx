@@ -21,7 +21,7 @@ describe('SingleLineEditor', () => {
   afterEach(cleanup);
 
   it('renders without crashing', () => {
-    render(<SingleLineEditor field={createFakeFieldAPI()} initialDisabled={false} />);
+    render(<SingleLineEditor field={createFakeFieldAPI()} isInitiallyDisabled={false} />);
   });
 
   it('reads initial value from field.getValue', () => {
@@ -38,7 +38,7 @@ describe('SingleLineEditor', () => {
     });
 
     const { getByTestId, getByText } = render(
-      <SingleLineEditor field={field} initialDisabled={false} />
+      <SingleLineEditor field={field} isInitiallyDisabled={false} />
     );
 
     expect(getByTestId('cf-ui-text-input')).toHaveValue(initialValue);
@@ -56,7 +56,7 @@ describe('SingleLineEditor', () => {
       };
     });
 
-    const { getByTestId } = render(<SingleLineEditor field={field} initialDisabled={false} />);
+    const { getByTestId } = render(<SingleLineEditor field={field} isInitiallyDisabled={false} />);
 
     const $input = getByTestId('cf-ui-text-input');
 
@@ -95,7 +95,7 @@ describe('SingleLineEditor', () => {
       };
     });
 
-    const { getByText } = render(<SingleLineEditor field={field} initialDisabled={false} />);
+    const { getByText } = render(<SingleLineEditor field={field} isInitiallyDisabled={false} />);
 
     expect(getByText('0 characters')).toBeInTheDocument();
     expect(getByText('Requires between 100 and 1000 characters')).toBeInTheDocument();
@@ -116,7 +116,7 @@ describe('SingleLineEditor', () => {
       };
     });
 
-    const { getByText } = render(<SingleLineEditor field={field} initialDisabled={false} />);
+    const { getByText } = render(<SingleLineEditor field={field} isInitiallyDisabled={false} />);
 
     expect(getByText('0 characters')).toBeInTheDocument();
     expect(getByText('Requires at least 1000 characters')).toBeInTheDocument();

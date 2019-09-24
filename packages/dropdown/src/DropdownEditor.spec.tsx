@@ -20,7 +20,7 @@ describe('DropdownEditor', () => {
     });
 
     const { getByTestId, queryByTestId } = render(
-      <DropdownEditor field={field} initialDisabled={false} />
+      <DropdownEditor field={field} isInitiallyDisabled={false} />
     );
 
     expect(getByTestId('predefined-values-warning')).toBeInTheDocument();
@@ -36,7 +36,7 @@ describe('DropdownEditor', () => {
       };
     });
     const { container, getByText } = render(
-      <DropdownEditor field={field} initialDisabled={false} />
+      <DropdownEditor field={field} isInitiallyDisabled={false} />
     );
 
     expect(container.querySelectorAll('option')).toHaveLength(4);
@@ -55,7 +55,7 @@ describe('DropdownEditor', () => {
         validations: [{ in: ['initial'] }]
       };
     });
-    const { getByTestId } = render(<DropdownEditor field={field} initialDisabled={false} />);
+    const { getByTestId } = render(<DropdownEditor field={field} isInitiallyDisabled={false} />);
     const changeDropdownValue = (value: string) =>
       fireEvent.change(getByTestId('dropdown-editor'), { target: { value } });
 
@@ -74,7 +74,7 @@ describe('DropdownEditor', () => {
         validations: [{ in: ['initial'] }]
       };
     });
-    const { getByTestId } = render(<DropdownEditor field={field} initialDisabled={false} />);
+    const { getByTestId } = render(<DropdownEditor field={field} isInitiallyDisabled={false} />);
     const changeDropdownValue = (value: string) =>
       fireEvent.change(getByTestId('dropdown-editor'), { target: { value } });
     expect(getByTestId('dropdown-editor')).toHaveValue('initial');
@@ -94,7 +94,7 @@ describe('DropdownEditor', () => {
       };
     });
 
-    const { getByTestId } = render(<DropdownEditor field={field} initialDisabled={false} />);
+    const { getByTestId } = render(<DropdownEditor field={field} isInitiallyDisabled={false} />);
 
     const $editorInput = getByTestId('dropdown-editor');
 
@@ -120,7 +120,7 @@ describe('DropdownEditor', () => {
       };
     });
 
-    const { getByTestId } = render(<DropdownEditor field={field} initialDisabled={false} />);
+    const { getByTestId } = render(<DropdownEditor field={field} isInitiallyDisabled={false} />);
 
     const $editorInput = getByTestId('dropdown-editor');
 

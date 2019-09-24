@@ -21,7 +21,7 @@ describe('MultipleLineEditor', () => {
   afterEach(cleanup);
 
   it('renders without crashing', () => {
-    render(<MultipleLineEditor field={createFakeFieldAPI()} initialDisabled={false} />);
+    render(<MultipleLineEditor field={createFakeFieldAPI()} isInitiallyDisabled={false} />);
   });
 
   it('reads initial value from field.getValue', () => {
@@ -37,7 +37,9 @@ describe('MultipleLineEditor', () => {
       };
     });
 
-    const { getByTestId } = render(<MultipleLineEditor field={field} initialDisabled={false} />);
+    const { getByTestId } = render(
+      <MultipleLineEditor field={field} isInitiallyDisabled={false} />
+    );
 
     expect(getByTestId('cf-ui-textarea')).toHaveValue(initialValue);
   });
@@ -52,7 +54,9 @@ describe('MultipleLineEditor', () => {
       };
     });
 
-    const { getByTestId } = render(<MultipleLineEditor field={field} initialDisabled={false} />);
+    const { getByTestId } = render(
+      <MultipleLineEditor field={field} isInitiallyDisabled={false} />
+    );
 
     const $input = getByTestId('cf-ui-textarea');
 

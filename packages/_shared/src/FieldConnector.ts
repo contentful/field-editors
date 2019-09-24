@@ -12,7 +12,7 @@ interface FieldConnectorState<ValueType> {
 
 interface FieldConnectorProps<ValueType> {
   field: FieldAPI;
-  initialDisabled: boolean;
+  isInitiallyDisabled: boolean;
   children: (
     state: FieldConnectorState<ValueType> & {
       setValue: (value: ValueType | Nullable) => void;
@@ -42,7 +42,7 @@ export class FieldConnector<ValueType> extends React.Component<
     super(props);
     this.state = {
       value: props.field.getValue(),
-      disabled: props.initialDisabled,
+      disabled: props.isInitiallyDisabled,
       errors: []
     };
   }

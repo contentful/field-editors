@@ -1,51 +1,15 @@
 import * as React from 'react';
-import { Select, Option, Note } from '@contentful/forma-36-react-components';
-import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
+import { Select, Option } from '@contentful/forma-36-react-components';
+import { FieldAPI, FieldConnector, PredefinedValuesError } from '@contentful/field-editor-shared';
+import { getOptions, parseValue } from './dropdownUtils';
 
 export interface DropdownEditorProps {
   /**
-   * Is a field is disabled initially
+   * is the field disabled initially
    */
-  initialDisabled: boolean;
+  isInitiallyDisabled: boolean;
 
   field: FieldAPI;
-}
-
-type DropdownValue = string | number;
-
-type DropdownOption = {
-  value: DropdownValue | undefined;
-  label: string;
-};
-
-function parseValue(value: string, fieldType: string): DropdownValue | undefined {
-  if (value === '') {
-    return undefined;
-  }
-  if (fieldType === 'Integer' || fieldType === 'Number') {
-    const asNumber = Number(value);
-    return isNaN(asNumber) ? undefined : asNumber;
-  }
-  return value;
-}
-
-export function getOptions(field: FieldAPI): DropdownOption[] {
-  // Get first object that has a 'in' property
-  const validations = field.validations || [];
-  const predefinedValues = validations
-    .filter(validation => (validation as any).in)
-    .map(validation => (validation as any).in);
-
-  const firstPredefinedValues = predefinedValues.length > 0 ? predefinedValues[0] : [];
-
-  return firstPredefinedValues
-    .map((value: string) => ({
-      value: parseValue(value, field.type),
-      label: String(value)
-    }))
-    .filter((item: { value: DropdownValue | undefined; label: string }) => {
-      return item.value !== undefined;
-    });
 }
 
 export function DropdownEditor(props: DropdownEditorProps) {
@@ -56,19 +20,14 @@ export function DropdownEditor(props: DropdownEditorProps) {
   const isDirected = ['Text', 'Symbol'].includes(field.type);
 
   if (misconfigured) {
-    return (
-      <Note noteType="warning" testId="predefined-values-warning">
-        The widget failed to initialize. You can fix the problem by providing predefined values
-        under the validations tab in the field settings.
-      </Note>
-    );
+    return <PredefinedValuesError />;
   }
 
   return (
-    <FieldConnector<DropdownValue>
+    <FieldConnector<string | number>
       throttle={0}
       field={field}
-      initialDisabled={props.initialDisabled}>
+      isInitiallyDisabled={props.isInitiallyDisabled}>
       {({ value, errors, disabled, setValue }) => (
         <Select
           testId="dropdown-editor"
@@ -94,5 +53,5 @@ export function DropdownEditor(props: DropdownEditorProps) {
 }
 
 DropdownEditor.defaultProps = {
-  initialDisabled: true
+  isInitiallyDisabled: true
 };

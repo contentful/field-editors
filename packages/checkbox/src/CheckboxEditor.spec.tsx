@@ -23,7 +23,7 @@ describe('CheckboxEditor', () => {
     });
 
     const { getByTestId, queryByTestId } = render(
-      <CheckboxEditor field={field} initialDisabled={false} />
+      <CheckboxEditor field={field} isInitiallyDisabled={false} />
     );
 
     expect(getByTestId('predefined-values-warning')).toBeInTheDocument();
@@ -41,7 +41,7 @@ describe('CheckboxEditor', () => {
         }
       };
     });
-    const { container } = render(<CheckboxEditor field={field} initialDisabled={false} />);
+    const { container } = render(<CheckboxEditor field={field} isInitiallyDisabled={false} />);
 
     const $inputs = container.querySelectorAll('input[type="checkbox"]');
 
@@ -64,7 +64,7 @@ describe('CheckboxEditor', () => {
         }
       };
     });
-    const { container } = render(<CheckboxEditor field={field} initialDisabled={false} />);
+    const { container } = render(<CheckboxEditor field={field} isInitiallyDisabled={false} />);
 
     const $inputs = container.querySelectorAll('input[type="checkbox"]');
 

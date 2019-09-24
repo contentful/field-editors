@@ -4,9 +4,9 @@ import { TextInput } from '@contentful/forma-36-react-components';
 
 export interface ListEditorProps {
   /**
-   * Is a field is disabled initially
+   * is the field disabled initially
    */
-  initialDisabled: boolean;
+  isInitiallyDisabled: boolean;
 
   field: FieldAPI;
 }
@@ -25,7 +25,7 @@ export function ListEditor(props: ListEditorProps) {
       throttle={0}
       isEmptyValue={isEmptyListValue}
       field={field}
-      initialDisabled={props.initialDisabled}>
+      isInitiallyDisabled={props.isInitiallyDisabled}>
       {({ setValue, value, errors, disabled }) => {
         const valueAsString = (value || []).join(', ');
 
@@ -54,5 +54,5 @@ export function ListEditor(props: ListEditorProps) {
 }
 
 ListEditor.defaultProps = {
-  initialDisabled: true
+  isInitiallyDisabled: true
 };

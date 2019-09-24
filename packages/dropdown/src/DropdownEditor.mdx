@@ -22,14 +22,14 @@ import { createFakeFieldAPI } from '@contentful/field-editor-shared';
         validations: [{ in: ['banana', 'orange', 'strawberry'] }]
       };
     });
-    return <DropdownEditor field={field} initialDisabled={false} />;
+    return <DropdownEditor field={field} isInitiallyDisabled={false} />;
   }}
 </Playground>
 
 ### no configuration
 
 <Playground>
-  <DropdownEditor field={createFakeFieldAPI()} initialDisabled={false} />
+  <DropdownEditor field={createFakeFieldAPI()} isInitiallyDisabled={false} />
 </Playground>
 
 ## Props

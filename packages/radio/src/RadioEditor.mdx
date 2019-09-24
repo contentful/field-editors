@@ -1,33 +1,32 @@
 ---
-name: Checkbox
-route: /checkbox
+name: Radio
+route: /radio
 menu: Components
 ---
 
-# Checkbox
+# Radio
 
 import { Playground } from 'docz';
-import { CheckboxEditor } from './CheckboxEditor.tsx';
+import { RadioEditor } from './RadioEditor.tsx';
 import { createFakeFieldAPI } from '@contentful/field-editor-shared';
 
 ## In Action
 
 <Playground>
   {() => {
-    return <CheckboxEditor field={createFakeFieldAPI()} isInitiallyDisabled={false} />;
+    return <RadioEditor field={createFakeFieldAPI()} isInitiallyDisabled={false} />;
   }}
 </Playground>
 
 <Playground>
   {() => {
     return (
-      <CheckboxEditor
+      <RadioEditor
         field={createFakeFieldAPI(
           mock => ({
             ...mock,
-            items: {
-              validations: [{ in: ['test1', 'test2', 'test3', 'test4'] }]
-            }
+            type: 'Symbol',
+            validations: [{ in: ['test1', 'test2', 'test3', 'test4'] }]
           }),
           ['test1', 'test2', 'test3']
         )}

@@ -28,7 +28,7 @@ describe('ListEditor', () => {
         validations: []
       };
     });
-    const renderResult = render(<ListEditor field={field} initialDisabled={false} />);
+    const renderResult = render(<ListEditor field={field} isInitiallyDisabled={false} />);
 
     expectInputValue(renderResult, '');
   });
@@ -43,7 +43,7 @@ describe('ListEditor', () => {
       };
     }, initialValue);
 
-    const renderResult = render(<ListEditor field={field} initialDisabled={false} />);
+    const renderResult = render(<ListEditor field={field} isInitiallyDisabled={false} />);
 
     expectInputValue(renderResult, 'test1, test2, test3');
   });
@@ -58,7 +58,7 @@ describe('ListEditor', () => {
       };
     });
 
-    const renderResult = render(<ListEditor field={field} initialDisabled={false} />);
+    const renderResult = render(<ListEditor field={field} isInitiallyDisabled={false} />);
 
     changeInputValue(renderResult, 'test1');
 
