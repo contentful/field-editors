@@ -1,0 +1,37 @@
+---
+name: Radio
+route: /radio
+menu: Components
+---
+
+# Radio
+
+import { Playground } from 'docz';
+import { RadioEditor } from './RadioEditor.tsx';
+import { createFakeFieldAPI } from '@contentful/field-editor-shared';
+
+## In Action
+
+<Playground>
+  {() => {
+    return <RadioEditor field={createFakeFieldAPI()} initialDisabled={false} />;
+  }}
+</Playground>
+
+<Playground>
+  {() => {
+    return (
+      <RadioEditor
+        field={createFakeFieldAPI(
+          mock => ({
+            ...mock,
+            type: 'Symbol',
+            validations: [{ in: ['test1', 'test2', 'test3', 'test4'] }]
+          }),
+          ['test1', 'test2', 'test3']
+        )}
+        initialDisabled={false}
+      />
+    );
+  }}
+</Playground>
