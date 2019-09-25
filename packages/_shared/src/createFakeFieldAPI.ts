@@ -49,8 +49,8 @@ export function createFakeFieldAPI<T>(
         return Promise.resolve();
       },
       removeValue: () => {
-        _value = '';
-        emitter.emit('value_changed', '');
+        _value = undefined;
+        emitter.emit('value_changed', undefined);
         return Promise.resolve();
       }
     },
