@@ -75,6 +75,7 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
 
         return (
           <Form
+            testId="checkbox-editor"
             spacing="condensed"
             className={cx(css({ marginTop: tokens.spacingS }), 'x--directed')}>
             {options.map(item => (
