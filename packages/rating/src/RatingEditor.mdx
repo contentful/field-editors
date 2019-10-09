@@ -1,0 +1,41 @@
+---
+name: Rating
+route: /rating
+menu: Components
+---
+
+# Rating
+
+import { Playground } from 'docz';
+import { RatingEditor } from './RatingEditor.tsx';
+import { createFakeFieldAPI } from '@contentful/field-editor-shared';
+
+## In Action
+
+<Playground>
+  {() => {
+    return <RatingEditor field={createFakeFieldAPI()} isInitiallyDisabled={false} />;
+  }}
+</Playground>
+
+## Disabled
+
+<Playground>
+  {() => {
+    return <RatingEditor field={createFakeFieldAPI()} isInitiallyDisabled />;
+  }}
+</Playground>
+
+## More stars
+
+<Playground>
+  {() => {
+    return (
+      <RatingEditor
+        field={createFakeFieldAPI()}
+        isInitiallyDisabled={false}
+        parameters={{ instance: { stars: 20 } }}
+      />
+    );
+  }}
+</Playground>
