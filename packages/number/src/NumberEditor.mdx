@@ -1,0 +1,19 @@
+---
+name: Number
+route: /number
+menu: Components
+---
+
+# Number
+
+import { Playground, Props } from 'docz';
+import { NumberEditor } from './NumberEditor.tsx';
+import { createFakeFieldAPI } from '@contentful/field-editor-shared';
+
+## In Action
+
+<Playground>
+  {() => {
+    return <NumberEditor field={createFakeFieldAPI()} isInitiallyDisabled={false} />;
+  }}
+</Playground>
