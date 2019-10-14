@@ -22,6 +22,15 @@ We currently provide the following field editors:
 - [Boolean](./packages/boolean/README.md)
 - [Rating](./packages/rating/README.md)
 - [Number](./packages/number/README.md)
+- Url **coming soon**
+- JSON **coming soon**
+- Location **coming soon**
+- File **coming soon**
+- Date **coming soon**
+- Slug **coming soon**
+- Entry / Asset Reference **coming soon**
+- Markdown **coming soon**
+- Rich Text **coming soon**
 
 Feel free to reach out to us with the ones that'd be the most useful to have
 here by filing a [Github issue][github-issues]!
