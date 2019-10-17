@@ -22,7 +22,7 @@ We currently provide the following field editors:
 - [Boolean](./packages/boolean/README.md)
 - [Rating](./packages/rating/README.md)
 - [Number](./packages/number/README.md)
-- Url **coming soon**
+- [Url](./packages/url/README.md)
 - JSON **coming soon**
 - Location **coming soon**
 - File **coming soon**
