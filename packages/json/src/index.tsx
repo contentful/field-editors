@@ -1,1 +1,3 @@
-export { JsonEditor } from './JsonEditor';
+import JsonEditor from './JsonEditor';
+
+export { JsonEditor };

@@ -15,12 +15,15 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
+    "@types/react-codemirror": "1.0.2",
     "@contentful/field-editor-shared": "^0.2.0",
     "@contentful/forma-36-react-components": "^3.20.4",
     "@contentful/forma-36-tokens": "^0.4.5",
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",
-    "lodash-es": "^4.17.15"
+    "lodash-es": "^4.17.15",
+    "codemirror": "^5.48.0",
+    "react-codemirror": "^1.0.0"
   },
   "peerDependencies": {
     "react": ">=16.8.0"
