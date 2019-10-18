@@ -1,0 +1,19 @@
+---
+name: JSON
+route: /json
+menu: Components
+---
+
+# JSON
+
+import { Playground, Props } from 'docz';
+import { JsonEditor } from './JsonEditor.tsx';
+import { createFakeFieldAPI } from '@contentful/field-editor-shared';
+
+## In Action
+
+<Playground>
+  {() => {
+    return <JsonEditor field={createFakeFieldAPI()} isInitiallyDisabled={false} />;
+  }}
+</Playground>
