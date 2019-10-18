@@ -1,0 +1,29 @@
+---
+name: Url
+route: /url
+menu: Components
+---
+
+# Url
+
+import { Playground, Props } from 'docz';
+import { UrlEditor } from './UrlEditor.tsx';
+import { createFakeFieldAPI } from '@contentful/field-editor-shared';
+
+## In Action
+
+<Playground>
+  {() => {
+    return <UrlEditor field={createFakeFieldAPI()} isInitiallyDisabled={false} />;
+  }}
+</Playground>
+
+<Playground>
+  {() => {
+    return (
+      <UrlEditor field={createFakeFieldAPI()} isInitiallyDisabled={false}>
+        {({ value }) => <div>Custom preview for: {value}</div>}
+      </UrlEditor>
+    );
+  }}
+</Playground>
