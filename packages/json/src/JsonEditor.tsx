@@ -85,26 +85,24 @@ class ConnectedJsonEditor extends React.Component<
       return;
     }
 
-    const value = undoStack.pop();
+    const value = undoStack.pop() || '';
 
-    if (value) {
-      const parsedValue = parseJSON(value);
+    const parsedValue = parseJSON(value);
 
-      this.setState(
-        state => ({
-          ...state,
-          value,
-          isValidJson: parsedValue.valid,
-          undoStack,
-          redoStack: [...state.redoStack, state.value]
-        }),
-        () => {
-          if (parsedValue.valid) {
-            this.props.setValue(parsedValue.value);
-          }
+    this.setState(
+      state => ({
+        ...state,
+        value,
+        isValidJson: parsedValue.valid,
+        undoStack,
+        redoStack: [...state.redoStack, state.value]
+      }),
+      () => {
+        if (parsedValue.valid) {
+          this.props.setValue(parsedValue.value);
         }
-      );
-    }
+      }
+    );
   };
 
   onRedo = () => {
@@ -114,26 +112,24 @@ class ConnectedJsonEditor extends React.Component<
       return;
     }
 
-    const value = redoStack.pop();
+    const value = redoStack.pop() || '';
 
-    if (value) {
-      const parsedValue = parseJSON(value);
+    const parsedValue = parseJSON(value);
 
-      this.setState(
-        state => ({
-          ...state,
-          value,
-          isValidJson: parsedValue.valid,
-          redoStack,
-          undoStack: [...state.undoStack, state.value]
-        }),
-        () => {
-          if (parsedValue.valid) {
-            this.props.setValue(parsedValue.value);
-          }
+    this.setState(
+      state => ({
+        ...state,
+        value,
+        isValidJson: parsedValue.valid,
+        redoStack,
+        undoStack: [...state.undoStack, state.value]
+      }),
+      () => {
+        if (parsedValue.valid) {
+          this.props.setValue(parsedValue.value);
         }
-      );
-    }
+      }
+    );
   };
 
   render() {

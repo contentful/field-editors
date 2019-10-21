@@ -41,6 +41,7 @@ export function JsonEditorToolbar(props: JsonEditorToolbarProps) {
           buttonType="muted"
           size="small"
           disabled={props.isUndoDisabled}
+          testId="json-editor-undo"
           onClick={() => {
             props.onUndo();
           }}>
@@ -50,6 +51,7 @@ export function JsonEditorToolbar(props: JsonEditorToolbarProps) {
           buttonType="muted"
           size="small"
           disabled={props.isRedoDisabled}
+          testId="json-editor-redo"
           onClick={() => {
             props.onRedo();
           }}>
