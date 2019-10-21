@@ -1,9 +1,9 @@
 import React from 'react';
 import tokens from '@contentful/forma-36-tokens';
-import throttle from 'lodash/throttle';
 import { css } from 'emotion';
-import Codemirror from 'react-codemirror';
+import { Controlled as CodeMirror } from 'react-codemirror2';
 import 'codemirror/lib/codemirror.css';
+import 'codemirror/mode/javascript/javascript';
 
 const CODE_MIRROR_CONFIG = {
   autoCloseBrackets: true,
@@ -33,6 +33,9 @@ const styles = {
       height: 'auto',
       color: tokens.colorTextDark,
       fontFamily: tokens.fontStackMonospace
+    },
+    '.CodeMirror-scroll': {
+      minHeight: '6rem'
     }
   })
 };
@@ -40,13 +43,15 @@ const styles = {
 export function JsonEditorField(props: JsonEditorFieldProps) {
   return (
     <div className={styles.root}>
-      <Codemirror
+      <CodeMirror
         value={props.value}
-        onChange={props.onChange}
+        onBeforeChange={(_editor, _data, value) => {
+          props.onChange(value);
+        }}
         options={{
           ...CODE_MIRROR_CONFIG,
           readOnly: props.isDisabled
-        }}></Codemirror>
+        }} />
     </div>
   );
 }

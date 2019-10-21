@@ -1,4 +1,7 @@
 import * as React from 'react';
+import deepEqual from 'deep-equal';
+import throttle from 'lodash/throttle';
+
 import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
 import { JsonEditorToolbar } from './JsonEditorToobar';
 import { JsonInvalidStatus } from './JsonInvalidStatus';
@@ -18,13 +21,12 @@ export interface JsonEditorProps {
 type NullableJsonObject = JSONObject | null | undefined;
 
 type ConnectedJsonEditorProps = {
-  value: string;
+  initialValue: NullableJsonObject;
   setValue: (value: NullableJsonObject) => void;
   disabled: boolean;
 };
 
 type ConnectedJsonEditorState = {
-  prevSavedValue: string;
   value: string;
   isValidJson: boolean;
   undoStack: string[];
@@ -42,28 +44,11 @@ class ConnectedJsonEditor extends React.Component<
   constructor(props: ConnectedJsonEditorProps) {
     super(props);
     this.state = {
-      prevSavedValue: props.value,
-      value: props.value,
+      value: stringifyJSON(props.initialValue),
       isValidJson: true,
       undoStack: [],
       redoStack: []
     };
-  }
-
-  static getDerivedStateFromProps(
-    props: ConnectedJsonEditorProps,
-    state: ConnectedJsonEditorState
-  ) {
-    if (state.value !== state.prevSavedValue) {
-      return {
-        prevSavedValue: props.value,
-        value: props.value,
-        isValidJson: true,
-        undoStack: [],
-        redoStack: []
-      };
-    }
-    return null;
   }
 
   setValidJson = (value: boolean) => {
@@ -72,58 +57,84 @@ class ConnectedJsonEditor extends React.Component<
     });
   };
 
+  pushUndo = throttle((value: string) => {
+    this.setState(state => ({
+      undoStack: [...state.undoStack, value]
+    }));
+  }, 400);
+
   onChange = (value: string) => {
     const parsed = parseJSON(value);
-    this.pushUndo(value);
+
+    this.pushUndo(this.state.value);
+
+    this.setState({
+      value,
+      isValidJson: parsed.valid
+    });
+
     if (parsed.valid) {
-      this.setValidJson(true);
       this.props.setValue(parsed.value);
-      this.setState({ prevSavedValue: value });
-    } else {
-      this.setValidJson(false);
     }
   };
 
-  getLastUndo = () => {};
-
-  getLastRedo = () => {};
-
-  pushUndo = (value: string) => {
-    this.setState(state => ({
-      ...state,
-      undoStack: [value, ...state.undoStack]
-    }));
-  };
-
-  popUndo = (): string | null => {
+  onUndo = () => {
     const undoStack = [...this.state.undoStack];
+
     if (undoStack.length === 0) {
-      return null;
+      return;
     }
-    const value = undoStack.pop() || null;
+
+    const value = undoStack.pop();
 
     if (value) {
-      this.setState(state => ({
-        ...state,
-        undoStack
-      }));
+      const parsedValue = parseJSON(value);
 
-      this.pushRedo(value);
+      this.setState(
+        state => ({
+          ...state,
+          value,
+          isValidJson: parsedValue.valid,
+          undoStack,
+          redoStack: [...state.redoStack, state.value]
+        }),
+        () => {
+          if (parsedValue.valid) {
+            this.props.setValue(parsedValue.value);
+          }
+        }
+      );
+    }
+  };
+
+  onRedo = () => {
+    const redoStack = [...this.state.redoStack];
+
+    if (redoStack.length === 0) {
+      return;
     }
 
-    return value;
+    const value = redoStack.pop();
+
+    if (value) {
+      const parsedValue = parseJSON(value);
+
+      this.setState(
+        state => ({
+          ...state,
+          value,
+          isValidJson: parsedValue.valid,
+          redoStack,
+          undoStack: [...state.undoStack, state.value]
+        }),
+        () => {
+          if (parsedValue.valid) {
+            this.props.setValue(parsedValue.value);
+          }
+        }
+      );
+    }
   };
-
-  pushRedo = (value: string) => {
-    this.setState(state => ({
-      ...state,
-      redoStack: [value, ...state.redoStack]
-    }));
-  };
-
-  onUndo = () => {};
-
-  onRedo = () => {};
 
   render() {
     return (
@@ -147,11 +158,21 @@ class ConnectedJsonEditor extends React.Component<
 
 export default function JsonEditor(props: JsonEditorProps) {
   return (
-    <FieldConnector<JSONObject> field={props.field} isInitiallyDisabled={props.isInitiallyDisabled}>
-      {({ value, disabled, setValue }) => {
-        const valueAsString = stringifyJSON(value);
+    <FieldConnector<JSONObject>
+      field={props.field}
+      isInitiallyDisabled={props.isInitiallyDisabled}
+      isEqualValues={(value1, value2) => {
+        return deepEqual(value1, value2);
+      }}>
+      {({ value, disabled, setValue, externalReset }) => {
         return (
-          <ConnectedJsonEditor value={valueAsString} disabled={disabled} setValue={setValue} />
+          <ConnectedJsonEditor
+            // on external change reset component completely and init with initial value again
+            key={`json-editor-${externalReset}`}
+            initialValue={value}
+            disabled={disabled}
+            setValue={setValue}
+          />
         );
       }}
     </FieldConnector>
