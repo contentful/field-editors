@@ -2,8 +2,6 @@ import React from 'react';
 import tokens from '@contentful/forma-36-tokens';
 import { css } from 'emotion';
 import { Controlled as CodeMirror } from 'react-codemirror2';
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/mode/javascript/javascript';
 
 const CODE_MIRROR_CONFIG = {
   autoCloseBrackets: true,
@@ -51,7 +49,8 @@ export function JsonEditorField(props: JsonEditorFieldProps) {
         options={{
           ...CODE_MIRROR_CONFIG,
           readOnly: props.isDisabled
-        }} />
+        }}
+      />
     </div>
   );
 }
