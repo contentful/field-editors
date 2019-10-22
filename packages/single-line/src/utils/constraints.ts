@@ -12,7 +12,7 @@ export function fromFieldValidations(validations: Record<string, any>[] = []): V
   const sizeValidation = validations.find(v => 'size' in v);
   const size = (sizeValidation && sizeValidation.size) || {};
   const min = size.min;
-  let max = size.max;
+  const max = size.max;
 
   if (isNumber(min) && isNumber(max)) {
     return {

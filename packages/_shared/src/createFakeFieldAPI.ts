@@ -11,7 +11,7 @@ export function createFakeFieldAPI<T>(
   customizeMock: CustomizeMockFn = identity,
   initialValue?: T
 ): FieldAPI {
-  const emitter: mitt.Emitter = new mitt();
+  const emitter: mitt.Emitter = mitt();
 
   // eslint-disable-next-line
   let _value: any = initialValue;

@@ -36,7 +36,6 @@ export class FieldConnector<ValueType> extends React.Component<
     },
     // eslint-disable-next-line
     isEmptyValue: (value: any | Nullable) => {
-      // @ts-ignore
       return value === null || value === '';
     },
     // eslint-disable-next-line
