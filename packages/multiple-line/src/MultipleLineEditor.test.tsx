@@ -21,13 +21,14 @@ describe('MultipleLineEditor', () => {
   afterEach(cleanup);
 
   it('renders without crashing', () => {
-    render(<MultipleLineEditor field={createFakeFieldAPI()} isInitiallyDisabled={false} />);
+    const [field] = createFakeFieldAPI();
+    render(<MultipleLineEditor field={field} isInitiallyDisabled={false} />);
   });
 
   it('reads initial value from field.getValue', () => {
     const initialValue = 'initial-value';
 
-    const field = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI(field => {
       return {
         ...field,
         id: 'field-id',
@@ -45,7 +46,7 @@ describe('MultipleLineEditor', () => {
   });
 
   it('calls field.setValue when user types and calls field.removeValue when user clears the input', () => {
-    const field = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI(field => {
       jest.spyOn(field, 'setValue');
       jest.spyOn(field, 'removeValue');
       return {

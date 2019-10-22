@@ -21,13 +21,14 @@ describe('SingleLineEditor', () => {
   afterEach(cleanup);
 
   it('renders without crashing', () => {
-    render(<SingleLineEditor field={createFakeFieldAPI()} isInitiallyDisabled={false} />);
+    const [field] = createFakeFieldAPI();
+    render(<SingleLineEditor field={field} isInitiallyDisabled={false} />);
   });
 
   it('reads initial value from field.getValue', () => {
     const initialValue = 'initial-value';
 
-    const field = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI(field => {
       return {
         ...field,
         id: 'field-id',
@@ -47,7 +48,7 @@ describe('SingleLineEditor', () => {
   });
 
   it('calls field.setValue when user types and calls field.removeValue when user clears the input', () => {
-    const field = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI(field => {
       jest.spyOn(field, 'setValue');
       jest.spyOn(field, 'removeValue');
       return {
@@ -80,7 +81,7 @@ describe('SingleLineEditor', () => {
   });
 
   it('shows proper min-max validation message', () => {
-    const field = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI(field => {
       return {
         ...field,
         validations: [
@@ -102,7 +103,7 @@ describe('SingleLineEditor', () => {
   });
 
   it('shows proper min validation message', () => {
-    const field = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI(field => {
       return {
         ...field,
         validations: [

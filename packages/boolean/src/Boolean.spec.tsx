@@ -12,7 +12,7 @@ describe('BooleanEditor', () => {
   afterEach(cleanup);
 
   it('renders inputs for true and false values', () => {
-    const field = createFakeFieldAPI();
+    const [field] = createFakeFieldAPI();
     const { container, getByLabelText } = render(
       <BooleanEditor field={field} isInitiallyDisabled={false} />
     );
@@ -27,7 +27,7 @@ describe('BooleanEditor', () => {
   });
 
   it('calls setValue and removeValue properly', () => {
-    const field = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI(field => {
       jest.spyOn(field, 'setValue');
       jest.spyOn(field, 'removeValue');
       return {

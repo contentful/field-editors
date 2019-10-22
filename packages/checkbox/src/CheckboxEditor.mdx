@@ -14,25 +14,22 @@ import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 
 <Playground>
   {() => {
-    return <CheckboxEditor field={createFakeFieldAPI()} isInitiallyDisabled={false} />;
+    const [field] = createFakeFieldAPI();
+    return <CheckboxEditor field={field} isInitiallyDisabled={false} />;
   }}
 </Playground>
 
 <Playground>
   {() => {
-    return (
-      <CheckboxEditor
-        field={createFakeFieldAPI(
-          mock => ({
-            ...mock,
-            items: {
-              validations: [{ in: ['test1', 'test2', 'test3', 'test4'] }]
-            }
-          }),
-          ['test1', 'test2', 'test3']
-        )}
-        isInitiallyDisabled={false}
-      />
+    const [field] = createFakeFieldAPI(
+      mock => ({
+        ...mock,
+        items: {
+          validations: [{ in: ['test1', 'test2', 'test3', 'test4'] }]
+        }
+      }),
+      ['test1', 'test2', 'test3']
     );
+    return <CheckboxEditor field={field} isInitiallyDisabled={false} />;
   }}
 </Playground>

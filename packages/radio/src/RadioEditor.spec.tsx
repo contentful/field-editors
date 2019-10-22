@@ -12,7 +12,7 @@ describe('RadioEditor', () => {
   afterEach(cleanup);
 
   it('renders a warning if no options are present', () => {
-    const field = createFakeFieldAPI(mock => {
+    const [field] = createFakeFieldAPI(mock => {
       return {
         ...mock,
         validations: []
@@ -29,7 +29,7 @@ describe('RadioEditor', () => {
 
   it('renders inputs for predefined values', () => {
     const predefined = ['banana', 'orange', 'strawberry'];
-    const field = createFakeFieldAPI(mock => {
+    const [field] = createFakeFieldAPI(mock => {
       return {
         ...mock,
         validations: [{ in: predefined }]
@@ -46,7 +46,7 @@ describe('RadioEditor', () => {
   });
 
   it('calls setValue and removeValue properly', () => {
-    const field = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI(field => {
       jest.spyOn(field, 'setValue');
       jest.spyOn(field, 'removeValue');
       return {
@@ -78,7 +78,7 @@ describe('RadioEditor', () => {
   describe('Number field', () => {
     it('calls setValue and removeValue properly', function() {
       const predefined = [1, '2.71', '0'];
-      const field = createFakeFieldAPI(field => {
+      const [field] = createFakeFieldAPI(field => {
         jest.spyOn(field, 'setValue');
         jest.spyOn(field, 'removeValue');
         return {
@@ -118,7 +118,7 @@ describe('RadioEditor', () => {
   describe('Integer field', () => {
     it('calls setValue and removeValue properly', function() {
       const predefined = [0, '65', '99', 100];
-      const field = createFakeFieldAPI(field => {
+      const [field] = createFakeFieldAPI(field => {
         jest.spyOn(field, 'setValue');
         jest.spyOn(field, 'removeValue');
         return {

@@ -22,7 +22,7 @@ describe('ListEditor', () => {
   }
 
   it('renders empty value properly', () => {
-    const field = createFakeFieldAPI(mock => {
+    const [field] = createFakeFieldAPI(mock => {
       return {
         ...mock,
         validations: []
@@ -36,7 +36,7 @@ describe('ListEditor', () => {
   it('renders non-empty value properly', () => {
     const initialValue = ['test1', 'test2', 'test3'];
 
-    const field = createFakeFieldAPI(mock => {
+    const [field] = createFakeFieldAPI(mock => {
       return {
         ...mock,
         validations: []
@@ -49,7 +49,7 @@ describe('ListEditor', () => {
   });
 
   it('calls setValue and removeValue when user inputs data', () => {
-    const field = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI(field => {
       jest.spyOn(field, 'setValue');
       jest.spyOn(field, 'removeValue');
       return {

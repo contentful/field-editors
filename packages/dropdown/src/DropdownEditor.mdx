@@ -16,7 +16,7 @@ import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 
 <Playground>
   {() => {
-    const field = createFakeFieldAPI(mock => {
+    const [field] = createFakeFieldAPI(mock => {
       return {
         ...mock,
         validations: [{ in: ['banana', 'orange', 'strawberry'] }]
@@ -29,7 +29,10 @@ import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 ### no configuration
 
 <Playground>
-  <DropdownEditor field={createFakeFieldAPI()} isInitiallyDisabled={false} />
+  {() => {
+    const [field] = createFakeFieldAPI();
+    return <DropdownEditor field={field} isInitiallyDisabled={false} />;
+  }}
 </Playground>
 
 ## Props

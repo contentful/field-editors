@@ -5,19 +5,19 @@ function identity<T>(item: T): T {
   return item;
 }
 
-type CustomizeMockFn = (fieldApi: FieldAPI, emitter: mitt.Emitter) => FieldAPI;
+type CustomizeMockFn = (fieldApi: FieldAPI) => FieldAPI;
 
 export function createFakeFieldAPI<T>(
   customizeMock: CustomizeMockFn = identity,
   initialValue?: T
-): FieldAPI {
+): [FieldAPI, mitt.Emitter] {
   const emitter: mitt.Emitter = mitt();
 
   // eslint-disable-next-line
   let _value: any = initialValue;
 
-  return customizeMock(
-    {
+  return [
+    customizeMock({
       id: 'fake-id',
       locale: 'en-US',
       type: '',
@@ -60,7 +60,7 @@ export function createFakeFieldAPI<T>(
         emitter.emit('onValueChanged', undefined);
         return Promise.resolve();
       }
-    },
+    }),
     emitter
-  );
+  ];
 }

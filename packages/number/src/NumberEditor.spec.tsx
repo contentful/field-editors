@@ -22,7 +22,7 @@ describe('NumberEditor', () => {
 
   it('calls setValue if user select on default option', () => {
     const initialValue = 42;
-    const field = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI(field => {
       jest.spyOn(field, 'setValue');
       jest.spyOn(field, 'removeValue');
       jest.spyOn(field, 'setInvalid');

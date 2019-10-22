@@ -14,14 +14,16 @@ import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 
 <Playground>
   {() => {
-    return <UrlEditor field={createFakeFieldAPI()} isInitiallyDisabled={false} />;
+    const [field] = createFakeFieldAPI();
+    return <UrlEditor field={field} isInitiallyDisabled={false} />;
   }}
 </Playground>
 
 <Playground>
   {() => {
+    const [field] = createFakeFieldAPI();
     return (
-      <UrlEditor field={createFakeFieldAPI()} isInitiallyDisabled={false}>
+      <UrlEditor field={field} isInitiallyDisabled={false}>
         {({ value }) => <div>Custom preview for: {value}</div>}
       </UrlEditor>
     );

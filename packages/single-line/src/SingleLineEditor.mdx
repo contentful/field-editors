@@ -14,7 +14,8 @@ import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 
 <Playground>
   {() => {
-    return <SingleLineEditor field={createFakeFieldAPI()} isInitiallyDisabled={false} />;
+    const [field] = createFakeFieldAPI();
+    return <SingleLineEditor field={field} isInitiallyDisabled={false} />;
   }}
 </Playground>
 
