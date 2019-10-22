@@ -8,16 +8,29 @@ menu: Components
 
 import { Playground, Props } from 'docz';
 import JsonEditor from './JsonEditor.tsx';
-import { createFakeFieldAPI } from '@contentful/field-editor-shared';
+import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 
 ## In Action
 
 <Playground>
   {() => {
+
+    const fieldAPI = createFakeFieldAPI((field, mitt) => {
+      window.mitt = mitt;
+      window.mitt.on('*', (event, value) => {
+        console.log(event, value)
+      })
+      return field;
+    });
+
+
+
     return (
       <div data-test-id="json-editor-integration-test">
-        <JsonEditor field={createFakeFieldAPI()} isInitiallyDisabled={false} />
+        <JsonEditor field={fieldAPI} isInitiallyDisabled={false} />
       </div>
     );
-  }}
+
+}}
+
 </Playground>

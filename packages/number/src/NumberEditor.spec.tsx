@@ -2,7 +2,7 @@ import React from 'react';
 import identity from 'lodash/identity';
 import { render, configure, cleanup, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { createFakeFieldAPI } from '@contentful/field-editor-shared';
+import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 import { NumberEditor } from './NumberEditor';
 
 configure({

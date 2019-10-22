@@ -25,6 +25,9 @@
     "codemirror": "^5.48.0",
     "react-codemirror2": "6.0.0"
   },
+  "devDependencies": {
+    "@contentful/field-editor-test-utils": "*"
+  },
   "peerDependencies": {
     "react": ">=16.8.0"
   },

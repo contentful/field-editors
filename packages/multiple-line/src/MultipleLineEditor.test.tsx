@@ -3,7 +3,7 @@ import identity from 'lodash/identity';
 import { render, configure, cleanup, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { MultipleLineEditor } from './MultipleLineEditor';
-import { createFakeFieldAPI } from '@contentful/field-editor-shared';
+import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 
 configure({
   testIdAttribute: 'data-test-id'
