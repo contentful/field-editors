@@ -15,10 +15,13 @@ import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-
 <Playground>
   {() => {
     const [field, mitt] = createFakeFieldAPI();
+    window.editorEvents = [];
     return (
       <div data-test-id="json-editor-integration-test">
         <JsonEditor field={field} isInitiallyDisabled={false} />
-        <ActionsPlayground mitt={mitt} />
+        <ActionsPlayground mitt={mitt} onCollect={(events) => {
+          window.editorEvents = events;
+        }} />
       </div>
     );
 

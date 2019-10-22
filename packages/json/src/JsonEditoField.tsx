@@ -40,7 +40,7 @@ const styles = {
 
 export function JsonEditorField(props: JsonEditorFieldProps) {
   return (
-    <div className={styles.root}>
+    <div className={styles.root} data-test-id="json-editor-code-mirror">
       <CodeMirror
         value={props.value}
         onBeforeChange={(_editor, _data, value) => {
