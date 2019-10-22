@@ -9,3 +9,5 @@ node_modules
 .rts2_cache_umd
 build/
 dist/
+cypress/videos
+cypress/screenshots

@@ -12,7 +12,10 @@
     "watch": "lerna run --stream watch",
     "tsc": "lerna run --concurrency 1 --stream tsc",
     "test:ci": "lerna run --concurrency 1 --stream test:ci",
+    "test:integration": "start-server-and-test docz:dev http://localhost:9000 cy:run",
     "prettier": "prettier **/*.{js,jsx,ts,tsx} --write",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
     "docz:dev": "docz dev",
     "docz:build": "docz build",
     "cm": "git-cz"
@@ -28,12 +31,13 @@
     "@babel/plugin-transform-runtime": "7.3.4",
     "@babel/preset-env": "7.3.4",
     "@babel/preset-react": "7.0.0",
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-conventional": "^8.2.0",
     "@contentful/contentful-extension-scripts": "0.14.0",
     "@contentful/eslint-config-extension": "0.2.0",
     "@contentful/forma-36-react-components": "3.18.4",
     "@contentful/forma-36-tokens": "0.4.5",
-    "@commitlint/config-conventional": "^8.2.0",
-    "@commitlint/cli": "^8.2.0",
+    "@testing-library/cypress": "5.0.2",
     "@testing-library/jest-dom": "4.1.0",
     "@testing-library/react": "9.1.4",
     "@types/jest": "^24.0.18",
@@ -41,9 +45,11 @@
     "@types/lodash-es": "4.17.3",
     "@types/react": "16.9.2",
     "@types/react-dom": "16.9.0",
+    "@types/testing-library__cypress": "5.0.0",
     "@types/webpack-env": "1.14.0",
     "contentful-cli": "0.36.2",
     "cssnano": "4.1.10",
+    "cypress": "3.4.1",
     "cz-lerna-changelog": "^2.0.2",
     "docz": "1.2.0",
     "docz-theme-default": "1.2.0",
@@ -116,5 +122,9 @@
     "commitizen": {
       "path": "./node_modules/cz-lerna-changelog"
     }
+  },
+  "dependencies": {
+    "eslint-plugin-cypress": "^2.7.0",
+    "start-server-and-test": "^1.10.6"
   }
 }

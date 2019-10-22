@@ -14,6 +14,10 @@ import { createFakeFieldAPI } from '@contentful/field-editor-shared';
 
 <Playground>
   {() => {
-    return <JsonEditor field={createFakeFieldAPI()} isInitiallyDisabled={false} />;
+    return (
+      <div data-test-id="json-editor-integration-test">
+        <JsonEditor field={createFakeFieldAPI()} isInitiallyDisabled={false} />
+      </div>
+    );
   }}
 </Playground>
