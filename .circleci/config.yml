@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/node:10.15.3
+      - image: cypress/base:10.15.3
     steps:
       - checkout
       - restore_cache:
