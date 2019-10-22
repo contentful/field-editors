@@ -20,11 +20,11 @@ jobs:
       - run: yarn test:ci
       - run: yarn test:integration
       - store_test_results:
-        path: cypress/reports
+          path: cypress/reports
       - store_artifacts:
-        path:
-          - cypress/videos
-          - cypress/screenshots
+          path: cypress/videos
+      - store_artifacts:
+          path: cypress/screenshots
 
 workflows:
   version: 2
