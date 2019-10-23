@@ -1,0 +1,44 @@
+{
+  "name": "@contentful/field-editor-json",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "module": "dist/field-editor-json.esm.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "watch": "tsdx watch",
+    "build": "tsdx build",
+    "tsc": "tsc -p ./ --noEmit"
+  },
+  "dependencies": {
+    "@types/react-codemirror": "1.0.2",
+    "@types/deep-equal": "1.0.1",
+    "@contentful/field-editor-shared": "^0.2.0",
+    "@contentful/forma-36-react-components": "^3.20.4",
+    "@contentful/forma-36-tokens": "^0.4.5",
+    "deep-equal": "1.1.0",
+    "emotion": "^10.0.17",
+    "lodash": "^4.17.15",
+    "lodash-es": "^4.17.15",
+    "codemirror": "^5.48.0",
+    "react-codemirror2": "6.0.0"
+  },
+  "devDependencies": {
+    "@contentful/field-editor-test-utils": "*"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0"
+  },
+  "jest": {
+    "testMatch": [
+      "**/?(*.)+(spec|test).[jt]s?(x)"
+    ],
+    "globals": {
+      "ts-jest": {
+        "diagnostics": false
+      }
+    }
+  }
+}

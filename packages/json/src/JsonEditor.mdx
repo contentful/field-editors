@@ -1,0 +1,27 @@
+---
+name: JSON
+route: /json
+menu: Components
+---
+
+# JSON
+
+import { Playground, Props } from 'docz';
+import JsonEditor from './JsonEditor.tsx';
+import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
+
+## In Action
+
+<Playground>
+  {() => {
+    const [field, mitt] = createFakeFieldAPI();
+    return (
+      <div data-test-id="json-editor-integration-test">
+        <JsonEditor field={field} isInitiallyDisabled={false} />
+        <ActionsPlayground mitt={mitt} />
+      </div>
+    );
+
+}}
+
+</Playground>

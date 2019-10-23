@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/node:10.15.3
+      - image: cypress/browsers:node10.16.0-chrome77
     steps:
       - checkout
       - restore_cache:
@@ -18,6 +18,13 @@ jobs:
       - run: yarn build
       - run: yarn tsc
       - run: yarn test:ci
+      - run: yarn test:integration
+      - store_test_results:
+          path: cypress/reports
+      - store_artifacts:
+          path: cypress/videos
+      - store_artifacts:
+          path: cypress/screenshots
 
 workflows:
   version: 2

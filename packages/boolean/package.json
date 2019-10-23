@@ -22,6 +22,9 @@
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15"
   },
+  "devDependencies": {
+    "@contentful/field-editor-test-utils": "*"
+  },
   "peerDependencies": {
     "react": ">=16.8.0"
   },

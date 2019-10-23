@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, configure, cleanup, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { createFakeFieldAPI } from '@contentful/field-editor-shared';
+import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 import { CheckboxEditor } from './CheckboxEditor';
 
 configure({
@@ -12,7 +12,7 @@ describe('CheckboxEditor', () => {
   afterEach(cleanup);
 
   it('renders a warning if no options are present', () => {
-    const field = createFakeFieldAPI(mock => {
+    const [field] = createFakeFieldAPI(mock => {
       return {
         ...mock,
         items: {
@@ -32,7 +32,7 @@ describe('CheckboxEditor', () => {
 
   it('renders checkboxes for predefined values', () => {
     const predefined = ['banana', 'orange', 'strawberry'];
-    const field = createFakeFieldAPI(mock => {
+    const [field] = createFakeFieldAPI(mock => {
       return {
         ...mock,
         items: {
@@ -53,7 +53,7 @@ describe('CheckboxEditor', () => {
 
   it('it calls setValue for every check event and removeValue if all items are unclicked', () => {
     const predefined = ['banana', 'orange', 'strawberry'];
-    const field = createFakeFieldAPI(mock => {
+    const [field] = createFakeFieldAPI(mock => {
       jest.spyOn(mock, 'setValue');
       jest.spyOn(mock, 'removeValue');
       return {

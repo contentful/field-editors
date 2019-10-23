@@ -2,7 +2,8 @@ import { createFakeFieldAPI } from './createFakeFieldAPI';
 
 describe('createFakeFieldAPI', () => {
   it('exposes all methods', () => {
-    expect(Object.keys(createFakeFieldAPI()).sort()).toMatchInlineSnapshot(`
+    const [field] = createFakeFieldAPI();
+    expect(Object.keys(field).sort()).toMatchInlineSnapshot(`
       Array [
         "getValue",
         "id",

@@ -8,12 +8,13 @@ menu: Components
 
 import { Playground, Props } from 'docz';
 import { NumberEditor } from './NumberEditor.tsx';
-import { createFakeFieldAPI } from '@contentful/field-editor-shared';
+import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 
 ## In Action
 
 <Playground>
   {() => {
-    return <NumberEditor field={createFakeFieldAPI()} isInitiallyDisabled={false} />;
+    const [field] = createFakeFieldAPI();
+    return <NumberEditor field={field} isInitiallyDisabled={false} />;
   }}
 </Playground>

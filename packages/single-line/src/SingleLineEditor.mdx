@@ -8,13 +8,14 @@ menu: Components
 
 import { Playground, Props } from 'docz';
 import { SingleLineEditor } from './SingleLineEditor.tsx';
-import { createFakeFieldAPI } from '@contentful/field-editor-shared';
+import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 
 ## In Action
 
 <Playground>
   {() => {
-    return <SingleLineEditor field={createFakeFieldAPI()} isInitiallyDisabled={false} />;
+    const [field] = createFakeFieldAPI();
+    return <SingleLineEditor field={field} isInitiallyDisabled={false} />;
   }}
 </Playground>
 

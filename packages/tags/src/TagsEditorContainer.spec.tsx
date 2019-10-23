@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, configure, cleanup, fireEvent, RenderResult } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { createFakeFieldAPI } from '@contentful/field-editor-shared';
+import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 import { TagsEditorContainer } from './TagsEditorContainer';
 
 configure({
@@ -44,7 +44,7 @@ describe('TagsEditor', () => {
   }
 
   it('renders empty value properly', () => {
-    const field = createFakeFieldAPI(mock => {
+    const [field] = createFakeFieldAPI(mock => {
       return {
         ...mock,
         validations: []
@@ -60,7 +60,7 @@ describe('TagsEditor', () => {
   it('renders non-empty value properly', () => {
     const initialValue = ['test1', 'test2', 'test3'];
 
-    const field = createFakeFieldAPI(mock => {
+    const [field] = createFakeFieldAPI(mock => {
       return {
         ...mock,
         validations: []
@@ -113,7 +113,7 @@ describe('TagsEditor', () => {
 
     conditions.forEach(condition => {
       it(condition.testType, () => {
-        const field = createFakeFieldAPI(mock => {
+        const [field] = createFakeFieldAPI(mock => {
           return {
             ...mock,
             validations: [{ size: condition.validation }]
@@ -131,7 +131,7 @@ describe('TagsEditor', () => {
   });
 
   it('adds and removes values', () => {
-    const field = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI(field => {
       jest.spyOn(field, 'setValue');
       jest.spyOn(field, 'removeValue');
       return {

@@ -8,13 +8,14 @@ menu: Components
 
 import { Playground } from 'docz';
 import { RatingEditor } from './RatingEditor.tsx';
-import { createFakeFieldAPI } from '@contentful/field-editor-shared';
+import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 
 ## In Action
 
 <Playground>
   {() => {
-    return <RatingEditor field={createFakeFieldAPI()} isInitiallyDisabled={false} />;
+    const [field] = createFakeFieldAPI();
+    return <RatingEditor field={field} isInitiallyDisabled={false} />;
   }}
 </Playground>
 
@@ -22,7 +23,8 @@ import { createFakeFieldAPI } from '@contentful/field-editor-shared';
 
 <Playground>
   {() => {
-    return <RatingEditor field={createFakeFieldAPI()} isInitiallyDisabled />;
+    const [field] = createFakeFieldAPI();
+    return <RatingEditor field={field} isInitiallyDisabled />;
   }}
 </Playground>
 
@@ -30,9 +32,10 @@ import { createFakeFieldAPI } from '@contentful/field-editor-shared';
 
 <Playground>
   {() => {
+    const [field] = createFakeFieldAPI();
     return (
       <RatingEditor
-        field={createFakeFieldAPI()}
+        field={field}
         isInitiallyDisabled={false}
         parameters={{ instance: { stars: 20 } }}
       />

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, configure, cleanup, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { createFakeFieldAPI } from '@contentful/field-editor-shared';
+import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 import { RatingEditor } from './RatingEditor';
 
 configure({
@@ -12,13 +12,13 @@ describe('RatingEditor', () => {
   afterEach(cleanup);
 
   it('renders 5 stars by default', () => {
-    const field = createFakeFieldAPI();
+    const [field] = createFakeFieldAPI();
     const { getAllByTestId } = render(<RatingEditor field={field} isInitiallyDisabled={false} />);
     expect(getAllByTestId('rating-editor-star')).toHaveLength(5);
   });
 
   it('renders custom number of stars', () => {
-    const field = createFakeFieldAPI();
+    const [field] = createFakeFieldAPI();
     const { getAllByTestId } = render(
       <RatingEditor
         field={field}
@@ -30,7 +30,7 @@ describe('RatingEditor', () => {
   });
 
   it('should should setValue by clicking on a item and removeValue by clicking on clear', () => {
-    const field = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI(field => {
       jest.spyOn(field, 'setValue');
       jest.spyOn(field, 'removeValue');
       return {
@@ -61,7 +61,7 @@ describe('RatingEditor', () => {
   });
 
   it('should should setValue by focusing and using Enter', () => {
-    const field = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI(field => {
       jest.spyOn(field, 'setValue');
       jest.spyOn(field, 'removeValue');
       return {

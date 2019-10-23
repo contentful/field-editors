@@ -2,7 +2,7 @@ import React from 'react';
 import identity from 'lodash/identity';
 import { render, configure, cleanup, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { createFakeFieldAPI } from '@contentful/field-editor-shared';
+import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 import { NumberEditor } from './NumberEditor';
 
 configure({
@@ -22,7 +22,7 @@ describe('NumberEditor', () => {
 
   it('calls setValue if user select on default option', () => {
     const initialValue = 42;
-    const field = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI(field => {
       jest.spyOn(field, 'setValue');
       jest.spyOn(field, 'removeValue');
       jest.spyOn(field, 'setInvalid');

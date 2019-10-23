@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import { init, FieldExtensionSDK } from 'contentful-ui-extensions-sdk';
-import { NumberEditor } from '../../../packages/number/src/index';
+import { JsonEditor } from '../../../packages/json/src/index';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import './index.css';
 
 init(sdk => {
   const fieldSdk = sdk as FieldExtensionSDK;
   fieldSdk.window.startAutoResizer();
-  render(<NumberEditor field={fieldSdk.field} />, document.getElementById('root'));
+  render(<JsonEditor field={fieldSdk.field} />, document.getElementById('root'));
 });
 
 /**
