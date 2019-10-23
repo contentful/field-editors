@@ -4,6 +4,12 @@ describe('JSON Editor', () => {
     cy.wait(500);
   };
 
+  const checkCode = value => {
+    cy.get('@code').should($div => {
+      expect($div.get(0).innerText).to.eq(value);
+    });
+  };
+
   beforeEach(() => {
     cy.visit('/json');
     cy.findByTestId('json-editor-integration-test').should('be.visible');
@@ -37,7 +43,7 @@ describe('JSON Editor', () => {
     ]);
   });
 
-  it.only('should undo and redo properly', () => {
+  it('should undo and redo properly', () => {
     cy.get('@undoButton').should('be.disabled');
     cy.get('@redoButton').should('be.disabled');
 
@@ -50,11 +56,11 @@ describe('JSON Editor', () => {
     cy.get('@undoButton').click();
     cy.get('@redoButton').should('not.be.disabled');
 
-    cy.get('@code').should('have.text', '{ "foo": "bar" ');
+    checkCode('{ "foo": "bar" ');
 
     cy.get('@undoButton').click();
 
-    cy.get('@code').should('have.text', '{ "foo": ');
+    checkCode('{ "foo": ');
 
     cy.get('@redoButton')
       .click()
@@ -62,7 +68,7 @@ describe('JSON Editor', () => {
 
     cy.get('@redoButton').should('be.disabled');
 
-    cy.get('@code').should('have.text', '{ "foo": "bar" }');
+    checkCode('{ "foo": "bar" }');
     cy.wait(500);
 
     cy.editorEvents().should('deep.equal', [
@@ -71,5 +77,42 @@ describe('JSON Editor', () => {
       { id: 2, type: 'onValueChanged', value: { foo: 'bar' } },
       { id: 1, type: 'setValue', value: { foo: 'bar' } }
     ]);
+  });
+
+  it('should reset field state on external change', () => {
+    type('{"foo": {');
+    type('"bar": "xyz" }}');
+
+    cy.editorEvents().should('deep.equal', [
+      { id: 2, type: 'onValueChanged', value: { foo: { bar: 'xyz' } } },
+      { id: 1, type: 'setValue', value: { foo: { bar: 'xyz' } } }
+    ]);
+
+    cy.setValueExternal({ something: 'new' });
+    cy.wait(500);
+
+    cy.editorEvents().should('deep.equal', [
+      { id: 3, type: 'onValueChanged', value: { something: 'new' } },
+      { id: 2, type: 'onValueChanged', value: { foo: { bar: 'xyz' } } },
+      { id: 1, type: 'setValue', value: { foo: { bar: 'xyz' } } }
+    ]);
+
+    checkCode('{\n    "something": "new"\n}');
+    cy.findByTestId('json-editor-redo').should('be.disabled');
+    cy.findByTestId('json-editor-undo').should('be.disabled');
+  });
+
+  it('should show validation warning if object is invalid', () => {
+    cy.findByTestId('json-editor.invalid-json').should('not.exist');
+
+    type('{ "foo": ');
+
+    cy.findByTestId('json-editor.invalid-json')
+      .should('exist')
+      .should('have.text', 'This is not valid JSON');
+
+    type('"bar" }');
+
+    cy.findByTestId('json-editor.invalid-json').should('not.exist');
   });
 });

@@ -7,7 +7,6 @@ type EventDefinition = { type?: string; value: any; id: number };
 
 type ActionsPlaygroundProps = {
   mitt: Emitter;
-  onCollect?: (events: EventDefinition[]) => void;
 };
 
 type ActionPlaygroundState = {
@@ -49,15 +48,23 @@ export function ActionsPlayground(props: ActionsPlaygroundProps) {
 
   React.useEffect(() => {
     props.mitt.on('*', onLog);
+
+    if ((window as any).Cypress) {
+      (window as any).editorEvents = [];
+      (window as any).setValueExternal = (value: any) => {
+        props.mitt.emit('onValueChanged', value);
+      };
+    }
+
     return () => {
       props.mitt.off('*', onLog);
+      (window as any).editorEvents = undefined;
+      (window as any).setValueExternal = undefined;
     };
   }, [props.mitt]);
 
   React.useEffect(() => {
-    if (props.onCollect) {
-      props.onCollect(state.events);
-    }
+    (window as any).editorEvents = [...state.events];
   }, [props, state.events]);
 
   return (

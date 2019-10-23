@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "strict": true,
+    "noImplicitAny": false,
     "baseUrl": "../node_modules",
     "target": "es5",
     "lib": ["es5", "dom"],

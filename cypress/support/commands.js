@@ -18,3 +18,10 @@ Cypress.Commands.add('editorEvents', () => {
     return win.editorEvents;
   });
 });
+
+Cypress.Commands.add('setValueExternal', value => {
+  return cy.window().then(win => {
+    win.setValueExternal(value);
+    return win;
+  });
+});
