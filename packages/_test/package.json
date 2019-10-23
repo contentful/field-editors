@@ -1,6 +1,5 @@
 {
   "name": "@contentful/field-editor-test-utils",
-  "private": true,
   "version": "0.0.1",
   "main": "dist/index.js",
   "module": "dist/field-editor-shared.esm.js",
