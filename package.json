@@ -15,7 +15,7 @@
     "test:integration": "start-server-and-test docz:dev http://localhost:9000 cy:run",
     "prettier": "prettier **/*.{js,jsx,ts,tsx} --write",
     "cy:open": "cypress open",
-    "cy:run": "cypress run",
+    "cy:run": "cypress run --browser chrome",
     "docz:dev": "docz dev",
     "docz:build": "docz build",
     "cm": "git-cz"
