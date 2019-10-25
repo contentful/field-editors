@@ -11,3 +11,4 @@ build/
 dist/
 cypress/videos
 cypress/screenshots
+cypress.env.json

@@ -24,7 +24,7 @@ We currently provide the following field editors:
 - [Number](./packages/number/README.md)
 - [Url](./packages/url/README.md)
 - [JSON](./packages/json/README.md)
-- Location **coming soon**
+- [Location](./packages/location/README.md)
 - File **coming soon**
 - Date **coming soon**
 - Slug **coming soon**
