@@ -1,11 +1,29 @@
 describe('JSON Editor', () => {
+  const selectors = {
+    getInput: () => {
+      return cy.findByTestId('json-editor-code-mirror').get('textarea');
+    },
+    getCode: () => {
+      return cy.findByTestId('json-editor-code-mirror').get('.CodeMirror-code');
+    },
+    getRedoButton: () => {
+      return cy.findByTestId('json-editor-redo');
+    },
+    getUndoButton: () => {
+      return cy.findByTestId('json-editor-undo');
+    },
+    getValidationError: () => {
+      return cy.findByTestId('json-editor.invalid-json');
+    }
+  };
+
   const type = value => {
-    cy.get('@input').type(value, { force: true });
+    selectors.getInput().type(value, { force: true });
     cy.wait(500);
   };
 
   const checkCode = value => {
-    cy.get('@code').should($div => {
+    selectors.getCode().should($div => {
       expect($div.get(0).innerText).to.eq(value);
     });
   };
@@ -13,18 +31,12 @@ describe('JSON Editor', () => {
   beforeEach(() => {
     cy.visit('/json');
     cy.findByTestId('json-editor-integration-test').should('be.visible');
-    cy.findByTestId('json-editor-code-mirror').within(() => {
-      cy.get('textarea').as('input');
-      cy.get('.CodeMirror-code').as('code');
-    });
-    cy.findByTestId('json-editor-redo').as('redoButton');
-    cy.findByTestId('json-editor-undo').as('undoButton');
   });
 
   it('should set and clear values properly', () => {
     cy.editorEvents().should('deep.equal', []);
 
-    cy.get('@input').should('have.value', '');
+    selectors.getInput().should('have.value', '');
 
     type('{}');
 
@@ -44,29 +56,30 @@ describe('JSON Editor', () => {
   });
 
   it('should undo and redo properly', () => {
-    cy.get('@undoButton').should('be.disabled');
-    cy.get('@redoButton').should('be.disabled');
+    selectors.getUndoButton().should('be.disabled');
+    selectors.getRedoButton().should('be.disabled');
 
     type('{ "foo": ');
     type('"bar" }');
 
-    cy.get('@undoButton').should('not.be.disabled');
-    cy.get('@redoButton').should('be.disabled');
+    selectors.getUndoButton().should('not.be.disabled');
+    selectors.getRedoButton().should('be.disabled');
 
-    cy.get('@undoButton').click();
-    cy.get('@redoButton').should('not.be.disabled');
+    selectors.getUndoButton().click();
+    selectors.getRedoButton().should('not.be.disabled');
 
     checkCode('{ "foo": "bar" ');
 
-    cy.get('@undoButton').click();
+    selectors.getUndoButton().click();
 
     checkCode('{ "foo": ');
 
-    cy.get('@redoButton')
+    selectors
+      .getRedoButton()
       .click()
       .click();
 
-    cy.get('@redoButton').should('be.disabled');
+    selectors.getRedoButton().should('be.disabled');
 
     checkCode('{ "foo": "bar" }');
     cy.wait(500);
@@ -98,21 +111,22 @@ describe('JSON Editor', () => {
     ]);
 
     checkCode('{\n    "something": "new"\n}');
-    cy.findByTestId('json-editor-redo').should('be.disabled');
-    cy.findByTestId('json-editor-undo').should('be.disabled');
+    selectors.getRedoButton().should('be.disabled');
+    selectors.getUndoButton().should('be.disabled');
   });
 
   it('should show validation warning if object is invalid', () => {
-    cy.findByTestId('json-editor.invalid-json').should('not.exist');
+    selectors.getValidationError().should('not.exist');
 
     type('{ "foo": ');
 
-    cy.findByTestId('json-editor.invalid-json')
+    selectors
+      .getValidationError()
       .should('exist')
       .should('have.text', 'This is not valid JSON');
 
     type('"bar" }');
 
-    cy.findByTestId('json-editor.invalid-json').should('not.exist');
+    selectors.getValidationError().should('not.exist');
   });
 });

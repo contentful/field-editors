@@ -25,3 +25,24 @@ Cypress.Commands.add('setValueExternal', value => {
     return win;
   });
 });
+
+Cypress.Commands.add('setGoogleMapsKey', () => {
+  return cy.window().then(win => {
+    win.localStorage.setItem('googleMapsKey', Cypress.env('googleMapsKey'));
+    return win;
+  });
+});
+
+Cypress.Commands.add('setInitialValue', initialValue => {
+  return cy.window().then(win => {
+    win.localStorage.setItem('initialValue', initialValue);
+    return win;
+  });
+});
+
+Cypress.Commands.add('setInitialDisabled', initialDisabled => {
+  return cy.window().then(win => {
+    win.localStorage.setItem('initialDisabled', initialDisabled);
+    return win;
+  });
+});
