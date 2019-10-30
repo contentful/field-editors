@@ -3,9 +3,7 @@
   "private": true,
   "scripts": {
     "start": "contentful-extension-scripts start",
-    "build": "contentful-extension-scripts build",
-    "test": "contentful-extension-scripts test --env=jsdom --watch",
-    "deploy": "npm run build && contentful extension update --force",
+    "deploy": "contentful-extension-scripts build && contentful extension update --force",
     "configure": "contentful space use && contentful space environment use",
     "login": "contentful login",
     "logout": "contentful logout",
