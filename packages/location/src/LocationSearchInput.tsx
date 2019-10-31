@@ -59,7 +59,7 @@ export function LocationSearchInput(props: LocationSearchInputProps) {
       setAddress(address);
       setIsSearching(false);
     });
-  }, [props.value, props.disabled, props]);
+  }, [props.disabled]);
 
   return (
     <div className={styles.root}>
