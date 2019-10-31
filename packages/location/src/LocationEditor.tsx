@@ -82,7 +82,7 @@ export class LocationEditor extends React.Component<
     });
   }, 300);
 
-  onGetAddressFromLocation = (location?: Coords): Promise<string> => {
+  onGetAddressFromLocation = (location: Coords | undefined, value: string): Promise<string> => {
     if (!this.state.mapsObject || !location) {
       return Promise.resolve('');
     }
@@ -93,7 +93,8 @@ export class LocationEditor extends React.Component<
         { location },
         (result: GeocodeApiResponse) => {
           if (result && result.length > 0) {
-            resolve(result[0].formatted_address);
+            const addresses = result.map(item => item.formatted_address);
+            resolve(addresses.find(item => item === value) || addresses[0]);
           } else {
             resolve('');
           }

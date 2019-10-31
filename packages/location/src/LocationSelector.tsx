@@ -18,7 +18,7 @@ interface LocationSelectorProps {
   onChangeView: (view: ViewType) => void;
   onChangeLocation: (value?: Coords) => void;
   onSearchAddress: (value: string) => Promise<GeocodeApiResponse>;
-  onGetAddressFromLocation: (location?: Coords) => Promise<string>;
+  onGetAddressFromLocation: (location: Coords | undefined, address: string) => Promise<string>;
 }
 
 const styles = {

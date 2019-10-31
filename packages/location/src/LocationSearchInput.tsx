@@ -40,7 +40,7 @@ type LocationSearchInputProps = {
   disabled: boolean;
   value?: Coords;
   onSearchAddress: (term: string) => Promise<GeocodeApiResponse>;
-  onGetAddressFromLocation: (coors?: Coords) => Promise<string>;
+  onGetAddressFromLocation: (coors: Coords | undefined, value: string) => Promise<string>;
   onChangeLocation: (location?: Coords) => void;
 };
 
@@ -55,11 +55,11 @@ export function LocationSearchInput(props: LocationSearchInputProps) {
 
   React.useEffect(() => {
     setIsSearching(true);
-    props.onGetAddressFromLocation(props.value).then(address => {
+    props.onGetAddressFromLocation(props.value, address).then(address => {
       setAddress(address);
       setIsSearching(false);
     });
-  }, [props.disabled]);
+  }, [props.value, props.disabled]);
 
   return (
     <div className={styles.root}>
@@ -72,6 +72,7 @@ export function LocationSearchInput(props: LocationSearchInputProps) {
           onChange={e => {
             setAddress(e.target.value);
             setHasError(false);
+            setSuggestion(null);
 
             if (e.target.value === '') {
               props.onChangeLocation(undefined);
@@ -82,10 +83,8 @@ export function LocationSearchInput(props: LocationSearchInputProps) {
             props.onSearchAddress(e.target.value).then(value => {
               setIsSearching(false);
               if (value === null) {
-                setSuggestion(null);
                 setHasError(false);
               } else if (value.length === 0) {
-                setSuggestion(null);
                 setHasError(true);
               } else {
                 setHasError(false);
