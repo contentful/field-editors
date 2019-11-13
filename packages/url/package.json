@@ -7,6 +7,12 @@
   "files": [
     "dist"
   ],
+  "author": "Contentful GmbH",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/contentful/field-editors"
+  },
   "scripts": {
     "watch": "tsdx watch",
     "build": "tsdx build",

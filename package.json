@@ -3,6 +3,12 @@
   "private": true,
   "version": "1.0.0",
   "description": "",
+  "author": "Contentful GmbH",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/contentful/field-editors"
+  },
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean",
@@ -24,7 +30,6 @@
     "packages/**",
     "extensions/**"
   ],
-  "license": "ISC",
   "devDependencies": {
     "@babel/core": "7.3.4",
     "@babel/plugin-proposal-class-properties": "7.3.4",
