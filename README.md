@@ -1,6 +1,4 @@
-# Contentful Field Editors
-
-[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
+# Contentful Field Editors [![early access program](https://img.shields.io/badge/careful-early_access_program-orange)]
 
 This is the monorepo for all field editors and extensions by [Contentful][contentful].
 
@@ -50,6 +48,10 @@ We'd love to have your helping hand on `@contentful/field-editors`! See [CONTRIB
 We want to provide a safe, inclusive, welcoming, and harassment-free space and experience for all participants, regardless of gender identity and expression, sexual orientation, disability, physical appearance, socioeconomic status, body size, ethnicity, nationality, level of experience, age, religion (or lack thereof), or other identity markers.
 
 [Read our full Code of Conduct](https://github.com/contentful-developer-relations/community-code-of-conduct).
+
+## License
+
+All field editors packages are open source software [licensed as MIT](./LICENSE).
 
 [contentful]: https://www.contentful.com
 [ui-extensions-sdk]: https://github.com/contentful/ui-extensions-sdk

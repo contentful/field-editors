@@ -13,11 +13,6 @@ Please ask first if somebody else is already working on this or the Contentful d
 `@contenful/field-editors` is a monorepo, meaning it is divided into independent sub-packages.
 These packages can be found in the `packages/` directory.
 
-In some packages we can find to subdirectories: `component` and `extension`.
-
-- `component` folder contains a code of a field editor which is packaged and used in Contentful web app as `npm` packages.
-- `extension` folder contains a UI extension, build with [create-contentful-extension](https://github.com/contentful/create-contentful-extension) cli, which uses a code from `component` folder. So you can either use build-in editors in your extensions or even fork them, adapt for your needs and install as extensions to your space.
-
 This monorepo is maintained using Lerna. Get started with Lerna by following [this link](https://github.com/lerna/lerna).
 
 ## Local development
