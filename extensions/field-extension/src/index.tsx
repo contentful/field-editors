@@ -13,7 +13,7 @@ init(sdk => {
       <LocationEditor
         field={fieldSdk.field}
         parameters={{
-          instance: { googleMapsKey: 'AIzaSyB_jzGfB98k1d_CCwMacP1ovTfXYxXh11g' },
+          instance: { googleMapsKey: '' },
           installation: {}
         }}
       />
