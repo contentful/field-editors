@@ -90,7 +90,7 @@ describe('Date Editor', () => {
       selectors
         .getTimezoneInput()
         .should('be.visible')
-        .should('have.value', '+01:00');
+        .should('have.value', '+00:00');
     });
 
     it('calendar should show current year, month and date', () => {
@@ -135,7 +135,7 @@ describe('Date Editor', () => {
 
       selectors.getDateInput().should('have.value', '');
       selectors.getTimeInput().should('have.value', '00:00');
-      selectors.getTimezoneInput().should('have.value', '+01:00');
+      selectors.getTimezoneInput().should('have.value', '+00:00');
 
       cy.editorEvents().should('deep.equal', [
         { id: 6, type: 'onValueChanged', value: undefined },
