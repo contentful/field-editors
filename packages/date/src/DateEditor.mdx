@@ -24,7 +24,7 @@ import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-
           field={field}
           isInitiallyDisabled={isInitiallyDisabled !== undefined ? isInitiallyDisabled : false}
           parameters={{
-            instance: instanceParams
+            instance: instanceParams ? JSON.parse(instanceParams) : {}
           }}
         />
         <ActionsPlayground mitt={mitt} />

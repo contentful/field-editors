@@ -7,10 +7,10 @@ describe('Date Editor', () => {
       return cy.findByTestId('date-input');
     },
     getTimeInput: () => {
-      return cy.findByTestId('time-input');
+      return cy.queryByTestId('time-input');
     },
     getTimezoneInput: () => {
-      return cy.findByTestId('timezone-input');
+      return cy.queryByTestId('timezone-input');
     },
     getClearBtn: () => {
       return cy.findByTestId('date-clear');
@@ -65,6 +65,15 @@ describe('Date Editor', () => {
   });
 
   describe('default configuration', () => {
+    it('should read initial value', () => {
+      cy.setInitialValue('2018-01-03T05:53+03:00');
+      openPage();
+
+      selectors.getDateInput().should('have.value', 'Wednesday, January 3rd 2018');
+      selectors.getTimeInput().should('have.value', '05:53');
+      selectors.getTimezoneInput().should('have.value', '+03:00');
+    });
+
     it('should render date, time (24 format) and timezone inputs by default', () => {
       openPage();
 
@@ -99,6 +108,11 @@ describe('Date Editor', () => {
 
     it('correct actions are called when user interacts with editor', () => {
       openPage();
+      selectors
+        .getTimezoneInput()
+        .select('+08:00')
+        .blur()
+        .should('have.value', '+08:00');
 
       selectors.getDateInput().click();
       selectors.getCalendarTodayDate().click();
@@ -109,25 +123,180 @@ describe('Date Editor', () => {
 
       selectors
         .getTimeInput()
+        .focus()
         .type('15:00')
         .blur()
         .should('have.value', '15:00');
 
-      selectors
-        .getTimezoneInput()
-        .select('+08:00')
-        .blur()
-        .should('have.value', '+08:00');
+      selectors.getClearBtn().click();
 
-      cy.editorEvents().should('have.length', 6);
+      // it is necessary cause we mock cypress.clock
+      cy.tick(1000);
+
+      selectors.getDateInput().should('have.value', '');
+      selectors.getTimeInput().should('have.value', '00:00');
+      selectors.getTimezoneInput().should('have.value', '+01:00');
 
       cy.editorEvents().should('deep.equal', [
-        { id: 6, type: 'onValueChanged', value: '2019-02-15T03:00+08:00' },
-        { id: 5, type: 'setValue', value: '2019-02-15T03:00+08:00' },
-        { id: 4, type: 'onValueChanged', value: '2019-02-15T03:00+01:00' },
-        { id: 3, type: 'setValue', value: '2019-02-15T03:00+01:00' },
-        { id: 2, type: 'onValueChanged', value: '2019-02-15T00:00+01:00' },
-        { id: 1, type: 'setValue', value: '2019-02-15T00:00+01:00' }
+        { id: 6, type: 'onValueChanged', value: undefined },
+        { id: 5, type: 'removeValue', value: undefined },
+        { id: 4, type: 'onValueChanged', value: '2019-02-15T03:00+08:00' },
+        { id: 3, type: 'setValue', value: '2019-02-15T03:00+08:00' },
+        { id: 2, type: 'onValueChanged', value: '2019-02-15T00:00+08:00' },
+        { id: 1, type: 'setValue', value: '2019-02-15T00:00+08:00' }
+      ]);
+    });
+
+    it('should parse values in time input', () => {
+      openPage();
+      selectors.getTimeInput().should('have.value', '00:00');
+
+      const pairs = [
+        ['3 PM', '15:00'],
+        ['1:01', '01:01'],
+        ['5', '05:00'],
+        ['99', '00:00'],
+        ['asdasd', '00:00'],
+        ['9:43 AM', '09:43']
+      ];
+
+      pairs.forEach(pair => {
+        selectors
+          .getTimeInput()
+          .type(pair[0])
+          .blur()
+          .should('have.value', pair[1]);
+      });
+    });
+  });
+
+  describe('without timezone and with AM/PM', () => {
+    beforeEach(() => {
+      cy.setInstanceParams({
+        format: 'time',
+        ampm: '12'
+      });
+    });
+
+    it('should read initial value', () => {
+      cy.setInitialValue('1990-01-03T22:53+03:00');
+      openPage();
+
+      selectors.getDateInput().should('have.value', 'Wednesday, January 3rd 1990');
+      selectors.getTimeInput().should('have.value', '10:53 PM');
+      selectors.getTimezoneInput().should('not.be.visible');
+
+      selectors.getDateInput().click();
+
+      selectors.getCalendar().should('be.visible');
+      selectors.getCalendarYear().should('have.value', '1990');
+      selectors.getCalendarMonth().should('have.value', '0');
+      selectors.getCalendarSelectedDate().should('have.text', '3');
+    });
+
+    it('should parse values in time input', () => {
+      openPage();
+      selectors.getTimeInput().should('have.value', '12:00 AM');
+
+      const pairs = [
+        ['3 PM', '03:00 PM'],
+        ['1:01', '01:01 AM'],
+        ['5', '05:00 AM'],
+        ['99', '12:00 AM'],
+        ['asdasd', '12:00 AM'],
+        ['9:43', '09:43 AM']
+      ];
+
+      pairs.forEach(pair => {
+        selectors
+          .getTimeInput()
+          .type(pair[0])
+          .blur()
+          .should('have.value', pair[1]);
+      });
+    });
+
+    it('correct actions are called when user interacts with editor', () => {
+      openPage();
+
+      selectors.getDateInput().click();
+      selectors.getCalendarTodayDate().click();
+      selectors
+        .getDateInput()
+        .blur()
+        .should('have.value', 'Friday, February 15th 2019');
+
+      selectors
+        .getTimeInput()
+        .focus()
+        .type('3:00 PM')
+        .blur()
+        .should('have.value', '03:00 PM');
+
+      selectors.getClearBtn().click();
+
+      // it is necessary cause we mock cypress.clock
+      cy.tick(1000);
+
+      selectors.getDateInput().should('have.value', '');
+      selectors.getTimeInput().should('have.value', '12:00 AM');
+
+      cy.editorEvents().should('deep.equal', [
+        { id: 6, type: 'onValueChanged', value: undefined },
+        { id: 5, type: 'removeValue', value: undefined },
+        { id: 4, type: 'onValueChanged', value: '2019-02-15T15:00' },
+        { id: 3, type: 'setValue', value: '2019-02-15T15:00' },
+        { id: 2, type: 'onValueChanged', value: '2019-02-15T00:00' },
+        { id: 1, type: 'setValue', value: '2019-02-15T00:00' }
+      ]);
+    });
+  });
+
+  describe('without timezone and time', () => {
+    beforeEach(() => {
+      cy.setInstanceParams({
+        format: 'dateonly'
+      });
+    });
+
+    it('should read initial value', () => {
+      cy.setInitialValue('1990-01-03T22:53');
+      openPage();
+
+      selectors.getDateInput().should('have.value', 'Wednesday, January 3rd 1990');
+      selectors.getTimeInput().should('not.be.visible');
+      selectors.getTimezoneInput().should('not.be.visible');
+
+      selectors.getDateInput().click();
+
+      selectors.getCalendar().should('be.visible');
+      selectors.getCalendarYear().should('have.value', '1990');
+      selectors.getCalendarMonth().should('have.value', '0');
+      selectors.getCalendarSelectedDate().should('have.text', '3');
+    });
+
+    it('correct actions are called when user interacts with editor', () => {
+      openPage();
+
+      selectors.getDateInput().click();
+      selectors.getCalendarTodayDate().click();
+      selectors
+        .getDateInput()
+        .blur()
+        .should('have.value', 'Friday, February 15th 2019');
+
+      selectors.getClearBtn().click();
+
+      // it is necessary cause we mock cypress.clock
+      cy.tick(1000);
+
+      selectors.getDateInput().should('have.value', '');
+
+      cy.editorEvents().should('deep.equal', [
+        { id: 4, type: 'onValueChanged', value: undefined },
+        { id: 3, type: 'removeValue', value: undefined },
+        { id: 2, type: 'onValueChanged', value: '2019-02-15' },
+        { id: 1, type: 'setValue', value: '2019-02-15' }
       ]);
     });
   });

@@ -6,7 +6,12 @@ import { FieldAPI, FieldConnector, ParametersAPI } from '@contentful/field-edito
 import { DatepickerInput } from './DatepickerInput';
 import { TimepickerInput } from './TimepickerInput';
 import { TimezonepickerInput } from './TimezonePickerInput';
-import { userInputFromDatetime, buildFieldValue } from './utils/date';
+import {
+  userInputFromDatetime,
+  buildFieldValue,
+  getDefaultAMPM,
+  getDefaultUtcOffset
+} from './utils/date';
 import { TimeFormat, DateTimeFormat, TimeResult } from './types';
 
 export interface DateEditorProps {
@@ -35,34 +40,48 @@ const styles = {
   })
 };
 
+function useEffectWithoutFirstRender(callback: Function, deps: Array<any>) {
+  const isFirstRun = React.useRef(true);
+  React.useEffect(() => {
+    if (isFirstRun.current) {
+      isFirstRun.current = false;
+      return;
+    }
+    callback();
+  }, deps);
+}
+
 function DateEditorContainer({
   initialValue,
   usesTime,
   usesTimezone,
   uses12hClock,
   disabled,
-  setValue,
-  buildCurrentFieldValue
+  onChange
 }: {
   initialValue: TimeResult;
   usesTime: boolean;
   usesTimezone: boolean;
   uses12hClock: boolean;
   disabled: boolean;
-  setValue: (val: string | null | undefined) => void;
-  buildCurrentFieldValue: (date: TimeResult) => string | null;
+  onChange: (value: TimeResult) => void;
 }) {
+  const [value, setValue] = React.useState<TimeResult>(() => initialValue);
+
+  useEffectWithoutFirstRender(() => {
+    onChange(value);
+  }, [value]);
+
   return (
     <div data-test-id="date-editor" className={styles.root}>
       <DatepickerInput
         disabled={disabled}
-        value={initialValue.date}
-        onChange={value => {
-          const date = buildCurrentFieldValue({
-            ...initialValue,
-            date: value ?? undefined
-          });
-          setValue(date);
+        value={value.date}
+        onChange={date => {
+          setValue(value => ({
+            ...value,
+            date
+          }));
         }}
       />
       {usesTime && (
@@ -70,15 +89,14 @@ function DateEditorContainer({
           <div className={styles.separator} />
           <TimepickerInput
             disabled={disabled}
-            time={initialValue.time}
-            ampm={initialValue.ampm}
-            onChange={value => {
-              const date = buildCurrentFieldValue({
-                ...initialValue,
-                time: value.time ?? undefined,
-                ampm: value.ampm
-              });
-              setValue(date);
+            time={value.time}
+            ampm={value.ampm}
+            onChange={({ time, ampm }) => {
+              setValue(value => ({
+                ...value,
+                time,
+                ampm
+              }));
             }}
             uses12hClock={uses12hClock}
           />
@@ -89,13 +107,12 @@ function DateEditorContainer({
           <div className={styles.separator} />
           <TimezonepickerInput
             disabled={disabled}
-            value={initialValue.utcOffset}
-            onChange={value => {
-              const date = buildCurrentFieldValue({
-                ...initialValue,
-                utcOffset: value
-              });
-              setValue(date);
+            value={value.utcOffset}
+            onChange={utcOffset => {
+              setValue(value => ({
+                ...value,
+                utcOffset
+              }));
             }}
           />
         </>
@@ -105,7 +122,12 @@ function DateEditorContainer({
         disabled={disabled}
         testId="date-clear"
         onClick={() => {
-          setValue(null);
+          setValue({
+            date: undefined,
+            time: undefined,
+            ampm: getDefaultAMPM(),
+            utcOffset: getDefaultUtcOffset()
+          });
         }}>
         Clear
       </TextLink>
@@ -123,9 +145,6 @@ export function DateEditor(props: DateEditorProps) {
   const usesTimezone = formatParam === 'timeZ';
   const uses12hClock = ampmParam === '12';
 
-  const buildCurrentFieldValue = (data: TimeResult) =>
-    buildFieldValue({ data, uses12hClock, usesTime, usesTimezone });
-
   return (
     <FieldConnector<string>
       field={field}
@@ -138,13 +157,22 @@ export function DateEditor(props: DateEditorProps) {
         });
         return (
           <DateEditorContainer
-            buildCurrentFieldValue={buildCurrentFieldValue}
             initialValue={datetimeValue}
             uses12hClock={uses12hClock}
             usesTimezone={usesTimezone}
             usesTime={usesTime}
             disabled={disabled}
-            setValue={setValue}
+            onChange={data => {
+              const fieldValue = buildFieldValue({ data, uses12hClock, usesTime, usesTimezone });
+              if (fieldValue.invalid) {
+                return;
+              }
+              // if value is present - then override it with a new one
+              // if value is not present - then set a new one if it's not nullable only
+              if (Boolean(value) || (!value && Boolean(fieldValue.valid))) {
+                setValue(fieldValue.valid);
+              }
+            }}
             key={`date-container-${externalReset}`}
           />
         );

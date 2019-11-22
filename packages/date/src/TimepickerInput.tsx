@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { TextInput } from '@contentful/forma-36-react-components';
 // eslint-disable-next-line no-restricted-imports
 import moment from 'moment';
@@ -41,10 +41,14 @@ function parseRawInput(raw: string): moment.Moment | null {
   return time;
 }
 
+const getDefaultTime = () => {
+  return moment(`12:00 AM`, 'hh:mm A');
+};
+
 export const TimepickerInput = ({
   disabled,
   uses12hClock,
-  time = '00:00',
+  time = '12:00',
   ampm = 'AM',
   onChange
 }: TimepickerProps) => {
@@ -52,9 +56,13 @@ export const TimepickerInput = ({
     return uses12hClock ? value.format('hh:mm A') : value.format('HH:mm');
   };
 
-  const initialValue = moment(`${time} ${ampm}`, 'hh:mm A');
+  const [selectedTime, setSelectedTime] = useState<string>(() => {
+    return formatToString(getDefaultTime());
+  });
 
-  const [selectedTime, setSelectedTime] = useState(formatToString(initialValue));
+  useEffect(() => {
+    setSelectedTime(formatToString(moment(`${time} ${ampm}`, 'hh:mm A')));
+  }, [time, ampm]);
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedTime(e.currentTarget.value);
@@ -67,7 +75,7 @@ export const TimepickerInput = ({
 
   const handleBlur = () => {
     const parsedTime = parseRawInput(selectedTime);
-    const value = parsedTime ?? initialValue;
+    const value = parsedTime ?? getDefaultTime();
     setSelectedTime(formatToString(value));
     onChange({ time: value.format('hh:mm'), ampm: value.format('A') });
   };

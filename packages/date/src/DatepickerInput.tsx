@@ -37,7 +37,7 @@ const styles = {
 
 export type DatePickerProps = {
   value?: moment.Moment;
-  onChange: (val: moment.Moment | null) => void;
+  onChange: (val: moment.Moment | undefined) => void;
   onBlur: FocusEventHandler;
   disabled?: boolean;
 };
@@ -53,8 +53,11 @@ export class DatepickerInput extends Component<DatePickerProps> {
 
   componentDidMount() {
     const onChange = this.props.onChange;
+    const defaultDate = this.props.value ? this.props.value.toDate() : undefined;
     this.pikaday = createPikaday({
       field: this.datePickerNode && this.datePickerNode.current,
+      defaultDate,
+      setDefaultDate: defaultDate !== undefined,
       position: 'bottom left',
       reposition: false,
       theme: cx(styles.datePicker, 'hide-carret'),
@@ -64,7 +67,7 @@ export class DatepickerInput extends Component<DatePickerProps> {
       // we need to keep this function like this
       // so `this` refers to pikaday instance
       onSelect: function onSelect() {
-        onChange(this.getMoment());
+        onChange(this.getMoment() || undefined);
       }
     });
   }

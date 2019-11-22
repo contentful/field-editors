@@ -87,8 +87,10 @@ export function buildFieldValue({
   usesTimezone: boolean;
 }) {
   const date = datetimeFromUserInput(data, uses12hClock);
-  if (date.invalid || date.valid === null) {
-    return null;
+  if (date.invalid) {
+    return {
+      invalid: true
+    };
   }
 
   let format;
@@ -99,7 +101,15 @@ export function buildFieldValue({
   } else {
     format = 'YYYY-MM-DD';
   }
-  return date?.valid ? date.valid.format(format) : null;
+  return { valid: date?.valid ? date.valid.format(format) : null, invalid: false };
+}
+
+export function getDefaultAMPM() {
+  return 'AM';
+}
+
+export function getDefaultUtcOffset() {
+  return startOfToday('Z');
 }
 
 /**
@@ -124,8 +134,8 @@ export function userInputFromDatetime({
     };
   } else {
     return {
-      ampm: startOfToday('A'),
-      utcOffset: startOfToday('Z')
+      ampm: getDefaultAMPM(),
+      utcOffset: getDefaultUtcOffset()
     };
   }
 }
