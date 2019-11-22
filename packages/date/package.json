@@ -4,8 +4,10 @@
   "main": "dist/index.js",
   "module": "dist/field-editor-date.esm.js",
   "typings": "dist/index.d.ts",
+  "style": "styles/styles.css",
   "files": [
-    "dist"
+    "dist",
+    "styles"
   ],
   "author": "Contentful GmbH",
   "license": "MIT",

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { render } from 'react-dom';
 import { init, FieldExtensionSDK } from 'contentful-ui-extensions-sdk';
 import { DateEditor } from '../../../packages/date/src/index';
-import '../../../packages/date/src/styles.css';
+import '../../../packages/date/styles/styles.css';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import './index.css';
 
