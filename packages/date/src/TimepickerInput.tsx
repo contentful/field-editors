@@ -1,16 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { TextInput } from '@contentful/forma-36-react-components';
-import { css } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
 // eslint-disable-next-line no-restricted-imports
 import moment from 'moment';
-
-const styles = {
-  root: css({
-    display: 'inline-block',
-    marginLeft: tokens.spacingM
-  })
-};
 
 export type TimepickerProps = {
   disabled: boolean;
@@ -82,16 +73,17 @@ export const TimepickerInput = ({
   };
 
   return (
-    <div className={styles.root}>
-      <TextInput
-        testId="time-input"
-        value={selectedTime}
-        width="small"
-        disabled={disabled}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        onChange={handleChange}
-      />
-    </div>
+    <TextInput
+      aria-label="Select time"
+      placeholder={uses12hClock ? '12:00 AM' : '00:00'}
+      date-time-type={uses12hClock ? '12' : '24'}
+      testId="time-input"
+      value={selectedTime}
+      width="small"
+      disabled={disabled}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+      onChange={handleChange}
+    />
   );
 };

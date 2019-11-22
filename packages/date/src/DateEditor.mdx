@@ -1,0 +1,36 @@
+---
+name: Date
+route: /date
+menu: Components
+---
+
+# DateEditor
+
+import { Playground, Props } from 'docz';
+import { DateEditor } from './DateEditor.tsx';
+import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
+
+## In Action
+
+<Playground>
+  {() => {
+    const initialValue = window.localStorage.getItem('initialValue');
+    const isInitiallyDisabled = window.localStorage.getItem('initialDisabled');
+    const instanceParams = window.localStorage.getItem('instanceParams');
+    const [field, mitt] = createFakeFieldAPI(field => field, initialValue);
+    return (
+      <div data-test-id="date-editor-integration-test">
+        <DateEditor
+          field={field}
+          isInitiallyDisabled={isInitiallyDisabled !== undefined ? isInitiallyDisabled : false}
+          parameters={{
+            instance: instanceParams
+          }}
+        />
+        <ActionsPlayground mitt={mitt} />
+      </div>
+    );
+
+}}
+
+</Playground>

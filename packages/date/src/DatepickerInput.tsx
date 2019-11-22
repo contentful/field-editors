@@ -9,7 +9,6 @@ import { CalendarIcon } from './icons/CalendarIcon';
 
 const styles = {
   datePickerWrapper: css({
-    display: 'inline-block',
     position: 'relative',
     maxHeight: 70
   }),
@@ -99,6 +98,7 @@ export class DatepickerInput extends Component<DatePickerProps> {
     return (
       <div className={styles.datePickerWrapper}>
         <TextInput
+          aria-label="Select date"
           testId="date-input"
           readOnly
           disabled={this.props.disabled}

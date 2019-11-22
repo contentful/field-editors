@@ -1,4 +1,7 @@
 import * as React from 'react';
+import { css } from 'emotion';
+import tokens from '@contentful/forma-36-tokens';
+import { TextLink } from '@contentful/forma-36-react-components';
 import { FieldAPI, FieldConnector, ParametersAPI } from '@contentful/field-editor-shared';
 import { DatepickerInput } from './DatepickerInput';
 import { TimepickerInput } from './TimepickerInput';
@@ -20,6 +23,94 @@ export interface DateEditorProps {
       ampm?: TimeFormat;
     };
   };
+}
+
+const styles = {
+  root: css({
+    display: 'flex',
+    alignItems: 'center'
+  }),
+  separator: css({
+    marginLeft: tokens.spacingM
+  })
+};
+
+function DateEditorContainer({
+  initialValue,
+  usesTime,
+  usesTimezone,
+  uses12hClock,
+  disabled,
+  setValue,
+  buildCurrentFieldValue
+}: {
+  initialValue: TimeResult;
+  usesTime: boolean;
+  usesTimezone: boolean;
+  uses12hClock: boolean;
+  disabled: boolean;
+  setValue: (val: string | null | undefined) => void;
+  buildCurrentFieldValue: (date: TimeResult) => string | null;
+}) {
+  return (
+    <div data-test-id="date-editor" className={styles.root}>
+      <DatepickerInput
+        disabled={disabled}
+        value={initialValue.date}
+        onChange={value => {
+          const date = buildCurrentFieldValue({
+            ...initialValue,
+            date: value ?? undefined
+          });
+          setValue(date);
+        }}
+      />
+      {usesTime && (
+        <>
+          <div className={styles.separator} />
+          <TimepickerInput
+            disabled={disabled}
+            time={initialValue.time}
+            ampm={initialValue.ampm}
+            onChange={value => {
+              const date = buildCurrentFieldValue({
+                ...initialValue,
+                time: value.time ?? undefined,
+                ampm: value.ampm
+              });
+              setValue(date);
+            }}
+            uses12hClock={uses12hClock}
+          />
+        </>
+      )}
+      {usesTimezone && (
+        <>
+          <div className={styles.separator} />
+          <TimezonepickerInput
+            disabled={disabled}
+            value={initialValue.utcOffset}
+            onChange={value => {
+              const date = buildCurrentFieldValue({
+                ...initialValue,
+                utcOffset: value
+              });
+              setValue(date);
+            }}
+          />
+        </>
+      )}
+      <div className={styles.separator} />
+      <TextLink
+        disabled={disabled}
+        testId="date-clear"
+        onClick={() => {
+          setValue(null);
+        }}>
+        Clear
+      </TextLink>
+    </div>
+  );
 }
 
 export function DateEditor(props: DateEditorProps) {
@@ -45,53 +136,17 @@ export function DateEditor(props: DateEditorProps) {
           value,
           uses12hClock
         });
-
         return (
-          <div data-test-id="date-editor">
-            <DatepickerInput
-              key={`datepicker-${externalReset}`}
-              disabled={disabled}
-              value={datetimeValue.date}
-              onChange={value => {
-                const date = buildCurrentFieldValue({
-                  ...datetimeValue,
-                  date: value ?? undefined
-                });
-                setValue(date);
-              }}
-            />
-            {usesTime && (
-              <TimepickerInput
-                key={`timepicker-${externalReset}`}
-                disabled={disabled}
-                time={datetimeValue.time}
-                ampm={datetimeValue.ampm}
-                onChange={value => {
-                  const date = buildCurrentFieldValue({
-                    ...datetimeValue,
-                    time: value.time ?? undefined,
-                    ampm: value.ampm
-                  });
-                  setValue(date);
-                }}
-                uses12hClock={uses12hClock}
-              />
-            )}
-            {usesTimezone && (
-              <TimezonepickerInput
-                key={`timezonepicker-${externalReset}`}
-                disabled={disabled}
-                value={datetimeValue.utcOffset}
-                onChange={value => {
-                  const date = buildCurrentFieldValue({
-                    ...datetimeValue,
-                    utcOffset: value
-                  });
-                  setValue(date);
-                }}
-              />
-            )}
-          </div>
+          <DateEditorContainer
+            buildCurrentFieldValue={buildCurrentFieldValue}
+            initialValue={datetimeValue}
+            uses12hClock={uses12hClock}
+            usesTimezone={usesTimezone}
+            usesTime={usesTime}
+            disabled={disabled}
+            setValue={setValue}
+            key={`date-container-${externalReset}`}
+          />
         );
       }}
     </FieldConnector>
