@@ -31,12 +31,14 @@
     "extensions/**"
   ],
   "devDependencies": {
-    "@babel/core": "7.3.4",
-    "@babel/plugin-proposal-class-properties": "7.3.4",
+    "@babel/core": "7.7.2",
+    "@babel/plugin-proposal-optional-chaining": "7.6.0",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "7.4.4",
+    "@babel/plugin-proposal-class-properties": "7.7.0",
     "@babel/plugin-syntax-dynamic-import": "7.2.0",
-    "@babel/plugin-transform-runtime": "7.3.4",
-    "@babel/preset-env": "7.3.4",
-    "@babel/preset-react": "7.0.0",
+    "@babel/plugin-transform-runtime": "7.6.2",
+    "@babel/preset-env": "7.7.1",
+    "@babel/preset-react": "7.7.0",
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
     "@contentful/contentful-extension-scripts": "0.14.1",
@@ -74,11 +76,12 @@
     "remark-validate-links": "^9.0.1",
     "tsdx": "0.11.0",
     "tslib": "^1.10.0",
-    "typescript": "^3.7.2",
+    "typescript": "3.7.2",
     "eslint-plugin-cypress": "^2.7.0",
     "start-server-and-test": "^1.10.6"
   },
   "resolutions": {
+    "typescript": "3.7.2",
     "@types/react": "16.9.2",
     "react": "16.9.0",
     "react-dom": "16.9.0"
