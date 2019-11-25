@@ -30,6 +30,5 @@
     "testMatch": [
       "**/?(*.)+(spec|test).[jt]s?(x)"
     ]
-  },
-  "gitHead": "70efc6c86f4d029f34e11d9b1edb08f3ef4d7dd0"
+  }
 }
