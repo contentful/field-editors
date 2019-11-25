@@ -23,7 +23,10 @@ const styles = {
     width: '270px',
     input: {
       cursor: 'pointer',
-      paddingRight: '40px'
+      paddingRight: '40px',
+      '&:disabled': {
+        cursor: 'not-allowed'
+      }
     }
   }),
   icon: css({

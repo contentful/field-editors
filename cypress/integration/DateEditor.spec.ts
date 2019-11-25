@@ -13,7 +13,7 @@ describe('Date Editor', () => {
       return cy.queryByTestId('timezone-input');
     },
     getClearBtn: () => {
-      return cy.findByTestId('date-clear');
+      return cy.queryByTestId('date-clear');
     },
     getCalendar: () => {
       return cy.get('.pika-lendar');
@@ -60,7 +60,7 @@ describe('Date Editor', () => {
       selectors.getDateInput().should('be.disabled');
       selectors.getTimeInput().should('be.disabled');
       selectors.getTimezoneInput().should('be.disabled');
-      selectors.getClearBtn().should('be.disabled');
+      selectors.getClearBtn().should('not.be.visible');
     });
   });
 
@@ -136,6 +136,7 @@ describe('Date Editor', () => {
       selectors.getDateInput().should('have.value', '');
       selectors.getTimeInput().should('have.value', '00:00');
       selectors.getTimezoneInput().should('have.value', '+00:00');
+      selectors.getClearBtn().should('not.be.visible');
 
       cy.editorEvents().should('deep.equal', [
         { id: 6, type: 'onValueChanged', value: undefined },
@@ -145,6 +146,22 @@ describe('Date Editor', () => {
         { id: 2, type: 'onValueChanged', value: '2019-02-15T00:00+08:00' },
         { id: 1, type: 'setValue', value: '2019-02-15T00:00+08:00' }
       ]);
+    });
+
+    it('should reset field state on external change', () => {
+      cy.setInitialValue('1990-01-03T22:53+03:00');
+
+      openPage();
+
+      selectors.getDateInput().should('have.value', 'Wednesday, January 3rd 1990');
+      selectors.getTimeInput().should('have.value', '22:53');
+      selectors.getTimezoneInput().should('have.value', '+03:00');
+
+      cy.setValueExternal('1992-01-03T21:40+05:00');
+
+      selectors.getDateInput().should('have.value', 'Friday, January 3rd 1992');
+      selectors.getTimeInput().should('have.value', '21:40');
+      selectors.getTimezoneInput().should('have.value', '+05:00');
     });
 
     it('should parse values in time input', () => {
@@ -240,6 +257,7 @@ describe('Date Editor', () => {
 
       selectors.getDateInput().should('have.value', '');
       selectors.getTimeInput().should('have.value', '12:00 AM');
+      selectors.getClearBtn().should('not.be.visible');
 
       cy.editorEvents().should('deep.equal', [
         { id: 6, type: 'onValueChanged', value: undefined },
@@ -249,6 +267,20 @@ describe('Date Editor', () => {
         { id: 2, type: 'onValueChanged', value: '2019-02-15T00:00' },
         { id: 1, type: 'setValue', value: '2019-02-15T00:00' }
       ]);
+    });
+
+    it('should reset field state on external change', () => {
+      cy.setInitialValue('1990-01-03T22:53');
+
+      openPage();
+
+      selectors.getDateInput().should('have.value', 'Wednesday, January 3rd 1990');
+      selectors.getTimeInput().should('have.value', '10:53 PM');
+
+      cy.setValueExternal('1992-01-03T21:40');
+
+      selectors.getDateInput().should('have.value', 'Friday, January 3rd 1992');
+      selectors.getTimeInput().should('have.value', '09:40 PM');
     });
   });
 
@@ -291,6 +323,7 @@ describe('Date Editor', () => {
       cy.tick(1000);
 
       selectors.getDateInput().should('have.value', '');
+      selectors.getClearBtn().should('not.be.visible');
 
       cy.editorEvents().should('deep.equal', [
         { id: 4, type: 'onValueChanged', value: undefined },
@@ -298,6 +331,18 @@ describe('Date Editor', () => {
         { id: 2, type: 'onValueChanged', value: '2019-02-15' },
         { id: 1, type: 'setValue', value: '2019-02-15' }
       ]);
+    });
+
+    it('should reset field state on external change', () => {
+      cy.setInitialValue('1990-01-03');
+
+      openPage();
+
+      selectors.getDateInput().should('have.value', 'Wednesday, January 3rd 1990');
+
+      cy.setValueExternal('1992-01-03');
+
+      selectors.getDateInput().should('have.value', 'Friday, January 3rd 1992');
     });
   });
 });

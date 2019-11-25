@@ -57,6 +57,7 @@ function DateEditorContainer({
   usesTimezone,
   uses12hClock,
   disabled,
+  hasClear,
   onChange
 }: {
   initialValue: TimeResult;
@@ -64,6 +65,7 @@ function DateEditorContainer({
   usesTimezone: boolean;
   uses12hClock: boolean;
   disabled: boolean;
+  hasClear: boolean;
   onChange: (value: TimeResult) => void;
 }) {
   const [value, setValue] = React.useState<TimeResult>(() => initialValue);
@@ -117,20 +119,24 @@ function DateEditorContainer({
           />
         </>
       )}
-      <div className={styles.separator} />
-      <TextLink
-        disabled={disabled}
-        testId="date-clear"
-        onClick={() => {
-          setValue({
-            date: undefined,
-            time: undefined,
-            ampm: getDefaultAMPM(),
-            utcOffset: getDefaultUtcOffset()
-          });
-        }}>
-        Clear
-      </TextLink>
+      {hasClear && (
+        <>
+          <div className={styles.separator} />
+          <TextLink
+            disabled={disabled}
+            testId="date-clear"
+            onClick={() => {
+              setValue({
+                date: undefined,
+                time: undefined,
+                ampm: getDefaultAMPM(),
+                utcOffset: getDefaultUtcOffset()
+              });
+            }}>
+            Clear
+          </TextLink>
+        </>
+      )}
     </div>
   );
 }
@@ -162,6 +168,7 @@ export function DateEditor(props: DateEditorProps) {
             usesTimezone={usesTimezone}
             usesTime={usesTime}
             disabled={disabled}
+            hasClear={Boolean(value)}
             onChange={data => {
               const fieldValue = buildFieldValue({ data, uses12hClock, usesTime, usesTimezone });
               if (fieldValue.invalid) {
