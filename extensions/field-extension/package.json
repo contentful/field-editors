@@ -10,14 +10,14 @@
     "help": "contentful-extension-scripts help"
   },
   "dependencies": {
-    "@contentful/field-editor-shared": "^0.2.0",
-    "@contentful/forma-36-fcss": "^0.0.31",
-    "@contentful/forma-36-react-components": "^3.18.4",
+    "@contentful/field-editor-shared": "^0.3.0",
+    "@contentful/forma-36-fcss": "^0.0.32",
+    "@contentful/forma-36-react-components": "^3.24.0",
     "@contentful/forma-36-tokens": "^0.4.5",
-    "contentful-ui-extensions-sdk": "3.9.2",
+    "contentful-ui-extensions-sdk": "3.10.0",
     "prop-types": "^15.7.2",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
   },
   "browserslist": [
     "last 5 Chrome version",

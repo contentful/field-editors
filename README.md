@@ -23,11 +23,11 @@ We currently provide the following field editors:
 - [Url](./packages/url/README.md)
 - [JSON](./packages/json/README.md)
 - [Location](./packages/location/README.md)
-- File **coming soon**
-- Date **coming soon**
-- Slug **coming soon**
+- [Date](./packages/date/README.md)
 - Entry / Asset Reference **coming soon**
 - Markdown **coming soon**
+- Slug **coming soon**
+- File **coming soon**
 - Rich Text **coming soon**
 
 Feel free to reach out to us with the ones that'd be the most useful to have

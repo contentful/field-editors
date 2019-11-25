@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import { init, FieldExtensionSDK } from 'contentful-ui-extensions-sdk';
-import { LocationEditor } from '../../../packages/location/src/index';
+import { DateEditor } from '../../../packages/date/src/index';
+import '../../../packages/date/styles/styles.css';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import './index.css';
 
@@ -9,12 +10,15 @@ init(sdk => {
   const fieldSdk = sdk as FieldExtensionSDK;
   fieldSdk.window.startAutoResizer();
   render(
-    <div style={{ minHeight: 500 }}>
-      <LocationEditor
+    <div style={{ minHeight: 300 }}>
+      <DateEditor
         field={fieldSdk.field}
         parameters={{
-          instance: { googleMapsKey: '' },
-          installation: {}
+          installation: {},
+          instance: {
+            format: 'time',
+            ampm: '12'
+          }
         }}
       />
     </div>,

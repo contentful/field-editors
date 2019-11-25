@@ -46,3 +46,10 @@ Cypress.Commands.add('setInitialDisabled', initialDisabled => {
     return win;
   });
 });
+
+Cypress.Commands.add('setInstanceParams', instanceParams => {
+  return cy.window().then(win => {
+    win.localStorage.setItem('instanceParams', JSON.stringify(instanceParams));
+    return win;
+  });
+});
