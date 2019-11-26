@@ -22,13 +22,9 @@ function fieldValueToMoment(datetimeString: string | null | undefined): moment.M
   return datetime;
 }
 
-function timeFromUserInput(input: TimeResult, uses12hClock: boolean) {
+function timeFromUserInput(input: TimeResult) {
   const timeInput = input.time || '00:00';
-  if (uses12hClock) {
-    return moment.utc(timeInput + '!' + input.ampm, 'HH:mm!A');
-  } else {
-    return moment.utc(timeInput, 'HH:mm');
-  }
+  return moment.utc(timeInput + '!' + input.ampm, 'HH:mm!A');
 }
 
 /**
@@ -40,14 +36,13 @@ function timeFromUserInput(input: TimeResult, uses12hClock: boolean) {
  * 'null' we return '{valid: null}'
  */
 function datetimeFromUserInput(
-  input: TimeResult,
-  uses12hClock: boolean
+  input: TimeResult
 ): { invalid?: boolean; valid: moment.Moment | null } {
   if (!input.date) {
     return { valid: null };
   }
 
-  const time = timeFromUserInput(input, uses12hClock);
+  const time = timeFromUserInput(input);
 
   const date = moment
     .parseZone(input.utcOffset, 'Z')
@@ -77,16 +72,14 @@ export function formatDateDisplay(date?: moment.Moment) {
  */
 export function buildFieldValue({
   data,
-  uses12hClock,
   usesTime,
   usesTimezone
 }: {
   data: TimeResult;
-  uses12hClock: boolean;
   usesTime: boolean;
   usesTimezone: boolean;
 }) {
-  const date = datetimeFromUserInput(data, uses12hClock);
+  const date = datetimeFromUserInput(data);
   if (date.invalid) {
     return {
       invalid: true

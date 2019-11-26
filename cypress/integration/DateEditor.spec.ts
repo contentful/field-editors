@@ -141,8 +141,8 @@ describe('Date Editor', () => {
       cy.editorEvents().should('deep.equal', [
         { id: 6, type: 'onValueChanged', value: undefined },
         { id: 5, type: 'removeValue', value: undefined },
-        { id: 4, type: 'onValueChanged', value: '2019-02-15T03:00+08:00' },
-        { id: 3, type: 'setValue', value: '2019-02-15T03:00+08:00' },
+        { id: 4, type: 'onValueChanged', value: '2019-02-15T15:00+08:00' },
+        { id: 3, type: 'setValue', value: '2019-02-15T15:00+08:00' },
         { id: 2, type: 'onValueChanged', value: '2019-02-15T00:00+08:00' },
         { id: 1, type: 'setValue', value: '2019-02-15T00:00+08:00' }
       ]);

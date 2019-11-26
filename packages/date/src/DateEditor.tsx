@@ -170,7 +170,7 @@ export function DateEditor(props: DateEditorProps) {
             disabled={disabled}
             hasClear={Boolean(value)}
             onChange={data => {
-              const fieldValue = buildFieldValue({ data, uses12hClock, usesTime, usesTimezone });
+              const fieldValue = buildFieldValue({ data, usesTime, usesTimezone });
               if (fieldValue.invalid) {
                 return;
               }

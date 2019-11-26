@@ -18,7 +18,9 @@
   "scripts": {
     "watch": "tsdx watch",
     "build": "tsdx build",
-    "tsc": "tsc -p ./ --noEmit"
+    "tsc": "tsc -p ./ --noEmit",
+    "test": "tsdx test --env=jsdom --watch",
+    "test:ci": "tsdx test --env=jsdom --ci"
   },
   "dependencies": {
     "@contentful/field-editor-shared": "^0.3.1",
