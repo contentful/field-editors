@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import { init, FieldExtensionSDK } from 'contentful-ui-extensions-sdk';
-import { DateEditor } from '../../../packages/date/src/index';
-import '../../../packages/date/styles/styles.css';
+import { MarkdownEditor } from '../../../packages/markdown/src/index';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import './index.css';
 
@@ -10,17 +9,8 @@ init(sdk => {
   const fieldSdk = sdk as FieldExtensionSDK;
   fieldSdk.window.startAutoResizer();
   render(
-    <div style={{ minHeight: 300 }}>
-      <DateEditor
-        field={fieldSdk.field}
-        parameters={{
-          installation: {},
-          instance: {
-            format: 'time',
-            ampm: '12'
-          }
-        }}
-      />
+    <div style={{ minHeight: 300, marginTop: 10 }}>
+      <MarkdownEditor />
     </div>,
     document.getElementById('root')
   );
