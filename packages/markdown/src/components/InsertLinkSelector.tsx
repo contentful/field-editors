@@ -7,8 +7,8 @@ import {
 } from '@contentful/forma-36-react-components';
 
 interface InsertLinkSelectorProps {
-  onSelectExisting: () => void;
-  onAddNew: () => void;
+  onSelectExisting: Function;
+  onAddNew: Function;
   canAddNew: boolean;
   disabled: boolean;
 }

@@ -76,6 +76,9 @@ function ToolbarButton(props: {
 
 interface MarkdownToolbarProps {
   disabled: boolean;
+  actions: {
+    linkExistingMedia: Function;
+  };
 }
 
 export function MarkdownToolbar(props: MarkdownToolbarProps) {
@@ -141,7 +144,7 @@ export function MarkdownToolbar(props: MarkdownToolbarProps) {
         <div className={styles.actionsGroup}>
           <InsertLinkSelector
             disabled={props.disabled}
-            onSelectExisting={() => {}}
+            onSelectExisting={props.actions.linkExistingMedia}
             onAddNew={() => {}}
             canAddNew
           />

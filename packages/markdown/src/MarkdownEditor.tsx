@@ -1,11 +1,12 @@
 import React from 'react';
 import { css } from 'emotion';
-
+import { FieldExtensionSDK } from 'contentful-ui-extensions-sdk';
 import { MarkdownTabs } from './components/MarkdownTabs';
 import { MarkdownToolbar } from './components/MarkdownToolbar';
 import { MarkdownTextarea } from './components/MarkdownTextarea';
 import { MarkdownBottomBar, MarkdownHelp, MarkdownCounter } from './components/MarkdownBottomBar';
 import { MarkdownTab } from './types';
+import { openCheatsheetModal } from './CheatsheetModalContent';
 
 const styles = {
   container: css({
@@ -14,7 +15,11 @@ const styles = {
   })
 };
 
-export function MarkdownEditor() {
+export interface MarkdownEditorProps {
+  sdk: FieldExtensionSDK;
+}
+
+export function MarkdownEditor(props: MarkdownEditorProps) {
   const [selectedTab, setSelectedTab] = React.useState<MarkdownTab>('editor');
 
   return (
@@ -25,10 +30,21 @@ export function MarkdownEditor() {
           setSelectedTab(tab);
         }}
       />
-      <MarkdownToolbar disabled={selectedTab !== 'editor'} />
+      <MarkdownToolbar
+        disabled={selectedTab !== 'editor'}
+        actions={{
+          linkExistingMedia: () => {
+            props.sdk.dialogs.selectMultipleAssets();
+          }
+        }}
+      />
       <MarkdownTextarea />
       <MarkdownBottomBar>
-        <MarkdownHelp />
+        <MarkdownHelp
+          onClick={() => {
+            openCheatsheetModal(props.sdk);
+          }}
+        />
         <MarkdownCounter words={0} characters={0} />
       </MarkdownBottomBar>
     </div>

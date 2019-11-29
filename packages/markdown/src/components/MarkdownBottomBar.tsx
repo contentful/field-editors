@@ -31,13 +31,13 @@ export function MarkdownCounter(props: { words: number; characters: number }) {
   );
 }
 
-export function MarkdownHelp() {
+export function MarkdownHelp(props: { onClick: () => void }) {
   return (
     <Paragraph className={styles.help}>
       Format your text like a pro with the{' '}
       <TextLink
         onClick={() => {
-          console.log('open cheetsheet');
+          props.onClick();
         }}>
         markdown cheatsheet
       </TextLink>
