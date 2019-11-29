@@ -25,7 +25,7 @@ export function MarkdownEditor() {
           setSelectedTab(tab);
         }}
       />
-      <MarkdownToolbar />
+      <MarkdownToolbar disabled={selectedTab !== 'editor'} />
       <MarkdownTextarea />
       <MarkdownBottomBar>
         <MarkdownHelp />
