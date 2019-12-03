@@ -22,9 +22,12 @@
     "@contentful/field-editor-shared": "^0.3.1",
     "@contentful/forma-36-react-components": "^3.24.0",
     "@contentful/forma-36-tokens": "^0.4.5",
+    "codemirror": "^5.48.0",
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",
-    "lodash-es": "^4.17.15"
+    "lodash-es": "^4.17.15",
+    "react-codemirror2": "6.0.0",
+    "@types/codemirror": "0.0.81"
   },
   "devDependencies": {
     "@contentful/field-editor-test-utils": "^0.1.1"

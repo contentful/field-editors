@@ -3,7 +3,7 @@ import { css } from 'emotion';
 import { FieldExtensionSDK } from 'contentful-ui-extensions-sdk';
 import { MarkdownTabs } from './components/MarkdownTabs';
 import { MarkdownToolbar } from './components/MarkdownToolbar';
-import { MarkdownTextarea } from './components/MarkdownTextarea';
+import { MarkdownTextarea } from './components/MarkdownTextarea/index';
 import { MarkdownBottomBar, MarkdownHelp, MarkdownCounter } from './components/MarkdownBottomBar';
 import { MarkdownTab } from './types';
 import { openCheatsheetModal } from './CheatsheetModalContent';
@@ -20,6 +20,7 @@ export interface MarkdownEditorProps {
 }
 
 export function MarkdownEditor(props: MarkdownEditorProps) {
+  const [value, setValue] = React.useState<string>('');
   const [selectedTab, setSelectedTab] = React.useState<MarkdownTab>('editor');
 
   return (
@@ -38,7 +39,7 @@ export function MarkdownEditor(props: MarkdownEditorProps) {
           }
         }}
       />
-      <MarkdownTextarea />
+      <MarkdownTextarea value={value} onChange={value => setValue(value)} isDisabled={false} />
       <MarkdownBottomBar>
         <MarkdownHelp
           onClick={() => {
