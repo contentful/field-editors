@@ -50,7 +50,7 @@ describe('SingleLineEditor', () => {
 
     expect(getByTestId('cf-ui-text-input')).toHaveValue(initialValue);
     expect(getByText(`${initialValue.length} characters`)).toBeInTheDocument();
-    expect(getByText('Requires less than 256 characters')).toBeInTheDocument();
+    expect(getByText('Maximum 256 characters')).toBeInTheDocument();
   });
 
   it('calls field.setValue when user types and calls field.removeValue when user clears the input', () => {
@@ -99,7 +99,7 @@ describe('SingleLineEditor', () => {
     const { getByText } = render(<SingleLineEditor field={field} isInitiallyDisabled={false} />);
 
     expect(getByText('0 characters')).toBeInTheDocument();
-    expect(getByText('Requires less than 256 characters')).toBeInTheDocument();
+    expect(getByText('Maximum 256 characters')).toBeInTheDocument();
   });
 
   it('shows proper validation message (Text)', () => {
@@ -114,7 +114,7 @@ describe('SingleLineEditor', () => {
     const { getByText } = render(<SingleLineEditor field={field} isInitiallyDisabled={false} />);
 
     expect(getByText('0 characters')).toBeInTheDocument();
-    expect(getByText('Requires less than 50000 characters')).toBeInTheDocument();
+    expect(getByText('Maximum 50000 characters')).toBeInTheDocument();
   });
 
   it('shows proper min-max validation message', () => {
