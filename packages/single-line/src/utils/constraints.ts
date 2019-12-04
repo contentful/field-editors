@@ -8,7 +8,10 @@
 import isNumber from 'lodash/isNumber';
 import { ValidationType } from '../types';
 
-export function fromFieldValidations(validations: Record<string, any>[] = []): ValidationType {
+export function fromFieldValidations(
+  validations: Record<string, any>[] = [],
+  fieldType: 'Symbol' | 'Text'
+): ValidationType {
   const sizeValidation = validations.find(v => 'size' in v);
   const size = (sizeValidation && sizeValidation.size) || {};
   const min = size.min;
@@ -33,7 +36,7 @@ export function fromFieldValidations(validations: Record<string, any>[] = []): V
   } else {
     return {
       type: 'max',
-      max: 256
+      max: fieldType === 'Symbol' ? 256 : 50000
     };
   }
 }
