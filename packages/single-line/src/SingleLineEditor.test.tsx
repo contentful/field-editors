@@ -21,7 +21,12 @@ describe('SingleLineEditor', () => {
   afterEach(cleanup);
 
   it('renders without crashing', () => {
-    const [field] = createFakeFieldAPI();
+    const [field] = createFakeFieldAPI(field => {
+      return {
+        ...field,
+        type: 'Symbol'
+      };
+    });
     render(<SingleLineEditor field={field} isInitiallyDisabled={false} />);
   });
 
@@ -32,6 +37,7 @@ describe('SingleLineEditor', () => {
       return {
         ...field,
         id: 'field-id',
+        type: 'Symbol',
         getValue: () => {
           return initialValue;
         }
@@ -44,7 +50,7 @@ describe('SingleLineEditor', () => {
 
     expect(getByTestId('cf-ui-text-input')).toHaveValue(initialValue);
     expect(getByText(`${initialValue.length} characters`)).toBeInTheDocument();
-    expect(getByText('Requires less than 256 characters')).toBeInTheDocument();
+    expect(getByText('Maximum 256 characters')).toBeInTheDocument();
   });
 
   it('calls field.setValue when user types and calls field.removeValue when user clears the input', () => {
@@ -53,7 +59,8 @@ describe('SingleLineEditor', () => {
       jest.spyOn(field, 'removeValue');
       return {
         ...field,
-        id: 'field-id'
+        id: 'field-id',
+        type: 'Symbol'
       };
     });
 
@@ -80,10 +87,41 @@ describe('SingleLineEditor', () => {
     expect(field.removeValue).toHaveBeenLastCalledWith();
   });
 
+  it('shows proper validation message (Symbol)', () => {
+    const [field] = createFakeFieldAPI(field => {
+      return {
+        ...field,
+        type: 'Symbol',
+        id: 'field-id'
+      };
+    });
+
+    const { getByText } = render(<SingleLineEditor field={field} isInitiallyDisabled={false} />);
+
+    expect(getByText('0 characters')).toBeInTheDocument();
+    expect(getByText('Maximum 256 characters')).toBeInTheDocument();
+  });
+
+  it('shows proper validation message (Text)', () => {
+    const [field] = createFakeFieldAPI(field => {
+      return {
+        ...field,
+        type: 'Text',
+        id: 'field-id'
+      };
+    });
+
+    const { getByText } = render(<SingleLineEditor field={field} isInitiallyDisabled={false} />);
+
+    expect(getByText('0 characters')).toBeInTheDocument();
+    expect(getByText('Maximum 50000 characters')).toBeInTheDocument();
+  });
+
   it('shows proper min-max validation message', () => {
     const [field] = createFakeFieldAPI(field => {
       return {
         ...field,
+        type: 'Symbol',
         validations: [
           {
             size: {
@@ -106,6 +144,7 @@ describe('SingleLineEditor', () => {
     const [field] = createFakeFieldAPI(field => {
       return {
         ...field,
+        type: 'Symbol',
         validations: [
           {
             size: {

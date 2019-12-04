@@ -16,11 +16,19 @@ export interface SingleLineEditorProps {
   field: FieldAPI;
 }
 
+function isSupportedFieldTypes(val: string): val is 'Symbol' | 'Text' {
+  return val === 'Symbol' || val === 'Text';
+}
+
 export function SingleLineEditor(props: SingleLineEditorProps) {
   const { field } = props;
 
+  if (!isSupportedFieldTypes(field.type)) {
+    throw new Error(`"${field.type}" field type is not supported by SingleLineEditor`);
+  }
+
   // eslint-disable-next-line
-  const constraints = fromFieldValidations(field.validations);
+  const constraints = fromFieldValidations(field.validations, field.type);
   const checkConstraint = makeChecker(constraints);
 
   return (
