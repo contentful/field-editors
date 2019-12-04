@@ -39,7 +39,12 @@ export function MarkdownEditor(props: MarkdownEditorProps) {
           }
         }}
       />
-      <MarkdownTextarea value={value} onChange={value => setValue(value)} isDisabled={false} />
+      <MarkdownTextarea
+        value={value}
+        onChange={value => setValue(value)}
+        isDisabled={false}
+        direction="ltr"
+      />
       <MarkdownBottomBar>
         <MarkdownHelp
           onClick={() => {

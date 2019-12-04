@@ -1,11 +1,12 @@
-import isFunction from 'lodash/isFunction';
-import * as CodeMirror from 'codemirror';
+// @ts-nocheck
 
-import * as Wrapper from 'markdown_editor/codemirror_wrapper';
+import isFunction from 'lodash/isFunction';
+
+import * as Wrapper from './codemirror_wrapper';
 import * as Commands from './markdown_commands';
 
-export function create(textarea, options) {
-  const editor = Wrapper.create(textarea, options, CodeMirror);
+export function createMarkdownEditor(textarea, options) {
+  const editor = Wrapper.create(textarea, options);
 
   function wrapChange(fn) {
     return (e, ch) => {

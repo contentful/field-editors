@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
 import range from 'lodash/range';

@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import tokens from '@contentful/forma-36-tokens';
 import { css } from 'emotion';
-import { UnControlled as CodeMirror } from 'react-codemirror2';
+import { createMarkdownEditor } from './markdown_editor';
+import { EditorDirection } from '../../types';
 
 type MarkdownTextareaProps = {
+  direction: EditorDirection;
   isDisabled: boolean;
   value: string;
   onChange: (value: string) => void;
@@ -16,6 +18,9 @@ const styles = {
     overflowY: 'auto',
     height: 'auto',
     minHeight: 300,
+    textarea: {
+      height: '1px'
+    },
     '.CodeMirror': {
       height: 'auto',
       maxHeight: '500px',
@@ -37,26 +42,17 @@ const styles = {
 };
 
 export function MarkdownTextarea(props: MarkdownTextareaProps) {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    createMarkdownEditor(textareaRef.current, {
+      direction: props.direction
+    });
+  }, []);
+
   return (
     <div className={styles.root} data-test-id="markdown-textarea">
-      <CodeMirror
-        value={props.value}
-        onChange={(_editor, _data, value) => {
-          props.onChange(value);
-        }}
-        options={{
-          readOnly: props.isDisabled,
-          inputStyle: 'textarea',
-          mode: 'markdown',
-          lineNumbers: false,
-          undoDepth: 200,
-          lineWrapping: true,
-          theme: 'elegant',
-          tabSize: 2,
-          indentWithTabs: false,
-          indentUnit: 2
-        }}
-      />
+      <textarea ref={textareaRef} style={{ display: 'none' }} />
     </div>
   );
 }

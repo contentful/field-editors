@@ -1,10 +1,12 @@
+// @ts-nocheck
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
 import transform from 'lodash/transform';
 import throttle from 'lodash/throttle';
+import * as CodeMirror from 'codemirror';
 import * as userAgent from '../../utils/userAgent';
 
-export function create(textarea, options, CodeMirror) {
+export function create(textarea, options) {
   const { direction, fixedHeight, height } = options || {};
 
   // Set to true if `setValue()` has been called. This is to prevent
@@ -383,7 +385,7 @@ export function create(textarea, options, CodeMirror) {
   }
 
   function lineStartsWith(text) {
-    return getCurrentLine().substring(0, text.length) === text;
+    return getCurrentLine().startsWith(text);
   }
 
   function getIndentation() {
