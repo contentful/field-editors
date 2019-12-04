@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import tokens from '@contentful/forma-36-tokens';
 import { css } from 'emotion';
-import { createMarkdownEditor } from './markdown_editor';
+import { createMarkdownEditor } from './createMarkdownEditor';
 import { EditorDirection } from '../../types';
 
 type MarkdownTextareaProps = {
@@ -45,9 +45,11 @@ export function MarkdownTextarea(props: MarkdownTextareaProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    createMarkdownEditor(textareaRef.current, {
-      direction: props.direction
-    });
+    if (textareaRef.current) {
+      createMarkdownEditor(textareaRef.current, {
+        direction: props.direction
+      });
+    }
   }, []);
 
   return (

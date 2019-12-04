@@ -1,12 +1,19 @@
-// @ts-nocheck
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
 import transform from 'lodash/transform';
 import throttle from 'lodash/throttle';
 import * as CodeMirror from 'codemirror';
 import * as userAgent from '../../utils/userAgent';
+import { EditorDirection } from '../../types';
 
-export function create(textarea, options) {
+export function create(
+  textarea: HTMLTextAreaElement,
+  options: {
+    direction: EditorDirection;
+    fixedHeight?: number;
+    height?: number;
+  }
+) {
   const { direction, fixedHeight, height } = options || {};
 
   // Set to true if `setValue()` has been called. This is to prevent
@@ -23,6 +30,8 @@ export function create(textarea, options) {
 
   // TODO We should call `new CodeMirror()` instead of using the textarea.
   const cm = CodeMirror.fromTextArea(textarea, {
+    // eslint-disable-next-line
+    // @ts-ignore
     direction,
     mode: 'markdown',
     lineNumbers: false,
@@ -102,7 +111,7 @@ export function create(textarea, options) {
     getValue,
     getHistorySize,
     getHistory: () => cm.getHistory(),
-    setHistory: history => cm.setHistory(history),
+    setHistory: (history: any) => cm.setHistory(history),
 
     scrollToFraction,
     getScrollFraction
@@ -134,19 +143,21 @@ export function create(textarea, options) {
     cm.setSize('100%', next);
   }
 
-  function attachEvent(name, fn, throttleInterval) {
+  function attachEvent(name: string, fn: Function, throttleInterval: number) {
     if (throttleInterval) {
-      fn = throttle(fn, throttleInterval);
+      fn = throttle(fn as any, throttleInterval);
     }
-    cm.on(name, fn);
+    cm.on(name, fn as any);
   }
 
-  function addKeyShortcuts(map) {
+  function addKeyShortcuts(map: any) {
     const ctrlKey = userAgent.getCtrlKey();
     cm.addKeyMap(
       transform(
         map,
         (acc, value, key) => {
+          // eslint-disable-next-line
+          // @ts-ignore
           acc[ctrlKey + '-' + key] = value;
         },
         {}
@@ -159,7 +170,6 @@ export function create(textarea, options) {
    */
 
   /**
-   * @param {string?} value
    * @description
    * Sets the content of the editor while preserving the cursor
    * position.
@@ -167,7 +177,7 @@ export function create(textarea, options) {
    * If called for the first time it will not record the change in
    * the history.
    */
-  function setValue(value) {
+  function setValue(value?: string) {
     value = value || '';
     if (getValue() === value) {
       return;
@@ -189,12 +199,12 @@ export function create(textarea, options) {
     }
   }
 
-  function cmd(name) {
+  function cmd(name: string) {
     cm.execCommand(name);
     cm.focus();
   }
 
-  function moveToLineBeginning(lineNumber) {
+  function moveToLineBeginning(lineNumber?: number) {
     cm.setCursor({ line: defaultToCurrentLineNumber(lineNumber), ch: 0 });
     cm.focus();
   }
@@ -223,8 +233,8 @@ export function create(textarea, options) {
     moveToLineBeginning(next);
   }
 
-  function restoreCursor(character, lineNumber, noFocus) {
-    cm.setCursor({ line: defaultToCurrentLineNumber(lineNumber), ch: character }, null, {
+  function restoreCursor(character: number, lineNumber?: number, noFocus?: boolean) {
+    cm.setCursor(defaultToCurrentLineNumber(lineNumber), character, {
       scroll: !noFocus
     });
     if (!noFocus) {
@@ -232,7 +242,7 @@ export function create(textarea, options) {
     }
   }
 
-  function moveToLineEnd(lineNumber) {
+  function moveToLineEnd(lineNumber?: number) {
     cm.setCursor({
       line: defaultToCurrentLineNumber(lineNumber),
       ch: getCurrentLineLength()
@@ -240,11 +250,11 @@ export function create(textarea, options) {
     cm.focus();
   }
 
-  function defaultToCurrentLineNumber(lineNumber) {
-    if (lineNumber === 0 || lineNumber > 0) {
-      return lineNumber;
+  function defaultToCurrentLineNumber(lineNumber?: number) {
+    if (lineNumber === undefined || lineNumber < 0) {
+      return getCurrentLineNumber();
     }
-    return getCurrentLineNumber();
+    return lineNumber;
   }
 
   function usePrimarySelection() {
@@ -255,15 +265,15 @@ export function create(textarea, options) {
     cm.focus();
   }
 
-  function select(from, to) {
+  function select(from: CodeMirror.Position, to: CodeMirror.Position) {
     cm.setSelection(from, to);
     cm.focus();
   }
 
-  function selectBackwards(skip, len) {
+  function selectBackwards(skip: number, len: number) {
     select(getPos(-skip - len), getPos(-skip));
 
-    function getPos(modifier) {
+    function getPos(modifier: number) {
       return {
         line: getCurrentLineNumber(),
         ch: getCurrentCharacter() + modifier
@@ -271,21 +281,21 @@ export function create(textarea, options) {
     }
   }
 
-  function extendSelectionBy(modifier) {
+  function extendSelectionBy(modifier: number) {
     select(getPos('anchor', 0), getPos('head', modifier));
 
-    function getPos(prop, modifier) {
+    function getPos(prop: 'anchor' | 'head', modifier: number): CodeMirror.Position {
       const selection = getSelection();
-      return { line: selection[prop].line, ch: selection[prop].ch + modifier };
+      return { line: selection?.[prop].line ?? 0, ch: selection?.[prop].ch ?? 0 + modifier };
     }
   }
 
-  function insertAtCursor(text) {
+  function insertAtCursor(text: string) {
     cm.replaceRange(text, cm.getCursor());
     cm.focus();
   }
 
-  function insertAtLineBeginning(text) {
+  function insertAtLineBeginning(text: string) {
     const initialCh = getCurrentCharacter();
     moveToLineBeginning();
     insertAtCursor(text);
@@ -293,14 +303,16 @@ export function create(textarea, options) {
     cm.focus();
   }
 
-  function wrapSelection(wrapper) {
+  function wrapSelection(wrapper: string) {
     const replacement = wrapper + getSelectedText() + wrapper;
     const selection = getSelection();
-    cm.replaceRange(replacement, selection.anchor, selection.head);
-    cm.focus();
+    if (selection) {
+      cm.replaceRange(replacement, selection.anchor, selection?.head);
+      cm.focus();
+    }
   }
 
-  function removeFromLineBeginning(charCount) {
+  function removeFromLineBeginning(charCount: number) {
     const lineNumber = getCurrentLineNumber();
     cm.replaceRange('', { line: lineNumber, ch: 0 }, { line: lineNumber, ch: charCount });
     cm.focus();
@@ -322,11 +334,8 @@ export function create(textarea, options) {
    * afters wards. By default the cursor will be at the end of the
    * inserted text. You can pass 'around' to select the inserted
    * text.
-   *
-   * @param {string} replacement
-   * @param {string?} select
    */
-  function replaceSelectedText(replacement, select) {
+  function replaceSelectedText(replacement: string, select?: string) {
     cm.replaceSelection(replacement, select);
     cm.focus();
   }
@@ -339,7 +348,7 @@ export function create(textarea, options) {
     return cm.getCursor();
   }
 
-  function setCursor(cursor) {
+  function setCursor(cursor: number | CodeMirror.Position) {
     cm.setCursor(cursor);
   }
 
@@ -351,11 +360,11 @@ export function create(textarea, options) {
     return selections[0];
   }
 
-  function getLine(lineNumber) {
+  function getLine(lineNumber: number) {
     return cm.getLine(lineNumber) || '';
   }
 
-  function isLineEmpty(lineNumber) {
+  function isLineEmpty(lineNumber?: number) {
     const n = defaultToCurrentLineNumber(lineNumber);
     return n > -1 && getLine(n).length < 1 && n < cm.lineCount();
   }
@@ -384,26 +393,26 @@ export function create(textarea, options) {
     return getCurrentLine().length;
   }
 
-  function lineStartsWith(text) {
+  function lineStartsWith(text: string) {
     return getCurrentLine().startsWith(text);
   }
 
   function getIndentation() {
-    return repeat(' ', cm.getOption('indentUnit'));
+    return repeat(' ', cm.getOption('indentUnit') ?? 0);
   }
 
-  function getNl(n) {
+  function getNl(n = 1) {
     if (n < 1) {
       return '';
     }
-    return repeat(LF, n || 1);
+    return repeat(LF, n);
   }
 
   function getValue() {
     return cm.getValue() || '';
   }
 
-  function getHistorySize(which) {
+  function getHistorySize(which?: 'undo' | 'redo') {
     const history = cm.historySize();
     return which ? history[which] : history;
   }
@@ -419,7 +428,7 @@ export function create(textarea, options) {
     return info.top / info.height;
   }
 
-  function repeat(what, n) {
+  function repeat(what: string, n: number) {
     return new Array(n + 1).join(what);
   }
 
@@ -430,7 +439,7 @@ export function create(textarea, options) {
    *
    * @param {number} position
    */
-  function scrollToFraction(pos) {
+  function scrollToFraction(pos: number) {
     const height = cm.getScrollInfo().height;
     cm.scrollTo(null, pos * height);
   }

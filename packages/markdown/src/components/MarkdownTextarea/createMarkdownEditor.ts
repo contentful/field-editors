@@ -1,20 +1,23 @@
-// @ts-nocheck
-
 import isFunction from 'lodash/isFunction';
+import * as CodeMirrorWrapper from './CodeMirrorWrapper';
+import * as Commands from './MarkdownCommands';
+import { EditorDirection } from '../../types';
 
-import * as Wrapper from './codemirror_wrapper';
-import * as Commands from './markdown_commands';
+export function createMarkdownEditor(
+  textarea: HTMLTextAreaElement,
+  options: {
+    direction: EditorDirection;
+  }
+) {
+  const editor = CodeMirrorWrapper.create(textarea, options);
 
-export function createMarkdownEditor(textarea, options) {
-  const editor = Wrapper.create(textarea, options);
-
-  function wrapChange(fn) {
-    return (e, ch) => {
+  function wrapChange(fn: Function) {
+    return (e: any, ch: any) => {
       fn(editor.getValue(), e, ch);
     };
   }
 
-  function tiePreviewToEditor(el) {
+  function tiePreviewToEditor(el: any) {
     const fraction = editor.getScrollFraction();
 
     window.requestAnimationFrame(() => {
@@ -23,7 +26,7 @@ export function createMarkdownEditor(textarea, options) {
     });
   }
 
-  function tieEditorToEditor(other) {
+  function tieEditorToEditor(other: any) {
     other = isFunction(other.getWrapper) ? other.getWrapper() : other;
     other.restoreCursor(editor.getCurrentCharacter(), editor.getCurrentLineNumber());
     other.setHistory(editor.getHistory());
@@ -33,7 +36,7 @@ export function createMarkdownEditor(textarea, options) {
    * Scroll the editor so that its scroll position matches that of the
    * given preview element.
    */
-  function tieEditorToPreview(previewElement) {
+  function tieEditorToPreview(previewElement: any) {
     // We use the scroll fraction because the scroll height of the editor
     // might differ from the scroll height of the preview element.
     const height = previewElement.get(0).scrollHeight;
@@ -56,14 +59,14 @@ export function createMarkdownEditor(textarea, options) {
       }
     },
     events: {
-      onScroll: function(fn) {
+      onScroll: function(fn: Function) {
         editor.attachEvent('scroll', fn, 150);
       },
-      onChange: function(fn) {
-        editor.attachEvent('change', wrapChange(fn));
+      onChange: function(fn: Function) {
+        editor.attachEvent('change', wrapChange(fn), 0);
       },
-      onPaste: function(fn) {
-        editor.attachEvent('paste', fn);
+      onPaste: function(fn: Function) {
+        editor.attachEvent('paste', fn, 0);
       }
     },
     tie: {

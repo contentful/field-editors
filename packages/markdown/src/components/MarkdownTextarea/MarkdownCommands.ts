@@ -1,4 +1,3 @@
-// @ts-nocheck
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
 import range from 'lodash/range';
@@ -8,8 +7,12 @@ import times from 'lodash/times';
 // eslint-disable-next-line you-dont-need-lodash-underscore/repeat
 import repeat from 'lodash/repeat';
 
-function createPrefixToggleFn(prefix) {
-  return editor => {
+import * as CodeMirrorWrapper from './CodeMirrorWrapper';
+
+type EditorInstanceType = ReturnType<typeof CodeMirrorWrapper.create>;
+
+function createPrefixToggleFn(prefix: string) {
+  return (editor: EditorInstanceType) => {
     if (editor.lineStartsWith(prefix)) {
       editor.removeFromLineBeginning(prefix.length);
     } else {
@@ -26,7 +29,7 @@ function createPrefixToggleFn(prefix) {
  *
  * Used b the `bold`, `italic`, and `strike` commands.
  */
-function wrapSelection(editor, marker, emptyText) {
+function wrapSelection(editor: EditorInstanceType, marker: string, emptyText: string) {
   return () => {
     editor.usePrimarySelection();
 
@@ -53,7 +56,7 @@ const codeToggleFn = createPrefixToggleFn('    ');
  * The command collection only depends on the wrapper instance and is
  * used by UI from code mirror stuff.
  */
-export function create(editor) {
+export function create(editor: EditorInstanceType) {
   return {
     bold: wrapSelection(editor, '__', 'text in bold'),
     italic: wrapSelection(editor, '*', 'text in italic'),
@@ -111,12 +114,8 @@ export function create(editor) {
   /**
    * @description
    * Insert a markdown table template in a new line.
-   *
-   * @param {object} config
-   * @param {number} config.rows
-   * @param {number} config.cols
    */
-  function table(config) {
+  function table(config: { rows: number; cols: number }) {
     const nl = editor.getNl();
     editor.moveIfNotEmpty();
     editor.insertAtCursor(nl);
@@ -129,12 +128,8 @@ export function create(editor) {
   /**
    * @description
    * Inserts or replaces the current selection with a markdown link
-   *
-   * @param {string} url
-   * @param {string?} text
-   * @param {string?} title
    */
-  function link(url, text, title) {
+  function link(url: string, text?: string, title?: string) {
     editor.usePrimarySelection();
 
     const linkTitle = title ? ' "' + title + '"' : '';
@@ -151,14 +146,20 @@ export function create(editor) {
  *
  * If there is no selection we just call `toggleFn(editor)`.
  */
-function modifySelection(editor, toggleFn, isList) {
+function modifySelection(
+  editor: EditorInstanceType,
+  toggleFn: (editor: EditorInstanceType, listNumber?: number) => void,
+  isList?: boolean
+) {
   return () => {
     editor.usePrimarySelection();
 
-    if (editor.getSelection()) {
+    const selection = editor.getSelection();
+
+    if (selection) {
       // there's a selection - toggle list bullet for each line
       // listNumber is 1, 2, 3... and can be used as ol bullet
-      forLineIn(editor.getSelection(), (lineNumber, listNumber) => {
+      forLineIn(selection, (lineNumber: number, listNumber: number) => {
         // TODO move this into forLineIn
         editor.moveToLineBeginning(lineNumber);
         toggleFn(editor, listNumber);
@@ -183,17 +184,23 @@ function modifySelection(editor, toggleFn, isList) {
  * @param {CodeMirror.Selection} selection
  * param {function(number)} cb
  */
-function forLineIn(selection, cb) {
+function forLineIn(
+  selection: {
+    anchor: CodeMirror.Position;
+    head: CodeMirror.Position;
+  },
+  cb: Function
+) {
   // anchor/head depend on selection direction, so min & max have to be used
   const lines = [selection.anchor.line, selection.head.line];
-  const lineRange = range(min(lines), max(lines) + 1);
+  const lineRange = range(min(lines) ?? 0, max(lines) ?? 0 + 1);
 
   lineRange.forEach((lineNumber, i) => {
     cb(lineNumber, i + 1);
   });
 }
 
-function prepareListWhitespace(editor) {
+function prepareListWhitespace(editor: EditorInstanceType) {
   const line = editor.getCurrentLineNumber();
   const isEmpty = editor.isLineEmpty();
   const emptyLines = countEmptyLines(editor);
@@ -205,12 +212,12 @@ function prepareListWhitespace(editor) {
   editor.restoreCursor(0, editor.getCurrentLineNumber() + 1);
 }
 
-function getListNumber(editor) {
+function getListNumber(editor: EditorInstanceType) {
   const result = editor.getCurrentLine().match(/^(\d+\. )/);
   return result ? result[1] : null;
 }
 
-function countEmptyLines(editor) {
+function countEmptyLines(editor: EditorInstanceType) {
   let line = editor.getCurrentLineNumber() + 1;
   let empty = 0;
 
@@ -222,7 +229,7 @@ function countEmptyLines(editor) {
   return empty;
 }
 
-function ulToggleFn(editor) {
+function ulToggleFn(editor: EditorInstanceType) {
   if (editor.lineStartsWith('- ')) {
     editor.removeFromLineBeginning(2);
   } else {
@@ -234,7 +241,7 @@ function ulToggleFn(editor) {
   }
 }
 
-function olToggleFn(editor, n) {
+function olToggleFn(editor: EditorInstanceType, n?: number) {
   const listNumber = getListNumber(editor);
   if (listNumber) {
     editor.removeFromLineBeginning(listNumber.length);
@@ -257,7 +264,7 @@ function olToggleFn(editor, n) {
  * @param {number} cols
  * @returns {string[]}
  */
-function tableTemplate(nrows, ncols) {
+function tableTemplate(nrows: number, ncols: number) {
   const cellWidth = new Array(11);
   const cell = ' ' + cellWidth.join(' ') + ' |';
   const separatorCell = ' ' + cellWidth.join('-') + ' |';
@@ -284,7 +291,7 @@ function tableTemplate(nrows, ncols) {
  * - Replaces the header if there is one of a different level
  * - Otherwise inserts the header
  */
-function toggleHeader(editor, level) {
+function toggleHeader(editor: EditorInstanceType, level: number) {
   return () => {
     const initialCh = editor.getCurrentCharacter();
     const currentHeader = selectHeader(editor);
@@ -320,7 +327,7 @@ function toggleHeader(editor, level) {
  *
  * If the selection was successful return the selected string.
  */
-function selectHeader(editor) {
+function selectHeader(editor: EditorInstanceType) {
   // TODO use the HEADER_CHAR constant
   const result = editor.getCurrentLine().match(/^( {0,3})(#{1,6}) /);
   if (!result) {
@@ -332,7 +339,7 @@ function selectHeader(editor) {
   editor.select(getPos(0), getPos(header.length));
   return editor.getSelection();
 
-  function getPos(modifier) {
+  function getPos(modifier: number) {
     return {
       line: editor.getCurrentLineNumber(),
       ch: indentation.length + modifier
