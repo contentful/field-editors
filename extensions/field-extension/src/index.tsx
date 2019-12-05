@@ -10,7 +10,6 @@ import { MarkdownEditor, CheatsheetModalContent } from '../../../packages/markdo
 import '@contentful/forma-36-react-components/dist/styles.css';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/elegant.css';
-import 'codemirror/mode/markdown/markdown';
 import './index.css';
 
 init(sdk => {
