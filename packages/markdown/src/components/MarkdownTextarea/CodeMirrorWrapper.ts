@@ -110,8 +110,8 @@ export function create(
     getNl,
     getValue,
     getHistorySize,
-    getHistory: () => cm.getHistory(),
-    setHistory: (history: any) => cm.setHistory(history),
+    getHistory: () => cm.getDoc().getHistory(),
+    setHistory: (history: any) => cm.getDoc().setHistory(history),
 
     scrollToFraction,
     getScrollFraction
@@ -132,7 +132,7 @@ export function create(
   }
 
   function assureHeight() {
-    const current = cm.heightAtLine(cm.lastLine(), 'local') + EDITOR_SIZE.shift;
+    const current = cm.heightAtLine(cm.getDoc().lastLine(), 'local') + EDITOR_SIZE.shift;
     let next = current;
     if (current < EDITOR_SIZE.min) {
       next = EDITOR_SIZE.min;
@@ -194,7 +194,7 @@ export function create(
     // history. Otherwise it would always be possible to revert to
     // the empty string.
     if (!initializedWithValue) {
-      cm.clearHistory();
+      cm.getDoc().clearHistory();
       initializedWithValue = true;
     }
   }
@@ -225,7 +225,7 @@ export function create(
     }
 
     const next = getCurrentLineNumber() + 1;
-    if (cm.lastLine() < next) {
+    if (cm.getDoc().lastLine() < next) {
       moveToLineEnd();
       insertAtCursor(getNl());
     }
@@ -266,7 +266,7 @@ export function create(
   }
 
   function select(from: CodeMirror.Position, to: CodeMirror.Position) {
-    cm.setSelection(from, to);
+    cm.getDoc().setSelection(from, to);
     cm.focus();
   }
 
@@ -291,7 +291,7 @@ export function create(
   }
 
   function insertAtCursor(text: string) {
-    cm.replaceRange(text, cm.getCursor());
+    cm.getDoc().replaceRange(text, cm.getCursor());
     cm.focus();
   }
 
@@ -307,19 +307,19 @@ export function create(
     const replacement = wrapper + getSelectedText() + wrapper;
     const selection = getSelection();
     if (selection) {
-      cm.replaceRange(replacement, selection.anchor, selection?.head);
+      cm.getDoc().replaceRange(replacement, selection.anchor, selection?.head);
       cm.focus();
     }
   }
 
   function removeFromLineBeginning(charCount: number) {
     const lineNumber = getCurrentLineNumber();
-    cm.replaceRange('', { line: lineNumber, ch: 0 }, { line: lineNumber, ch: charCount });
+    cm.getDoc().replaceRange('', { line: lineNumber, ch: 0 }, { line: lineNumber, ch: charCount });
     cm.focus();
   }
 
   function removeSelectedText() {
-    cm.replaceSelection('');
+    cm.getDoc().replaceSelection('');
     cm.focus();
   }
 
@@ -336,7 +336,7 @@ export function create(
    * text.
    */
   function replaceSelectedText(replacement: string, select?: string) {
-    cm.replaceSelection(replacement, select);
+    cm.getDoc().replaceSelection(replacement, select);
     cm.focus();
   }
 
@@ -353,24 +353,24 @@ export function create(
   }
 
   function getSelection() {
-    const selections = cm.listSelections();
-    if (!cm.somethingSelected() || !selections || selections.length < 1) {
+    const selections = cm.getDoc().listSelections();
+    if (!cm.getDoc().somethingSelected() || !selections || selections.length < 1) {
       return null;
     }
     return selections[0];
   }
 
   function getLine(lineNumber: number) {
-    return cm.getLine(lineNumber) || '';
+    return cm.getDoc().getLine(lineNumber) || '';
   }
 
   function isLineEmpty(lineNumber?: number) {
     const n = defaultToCurrentLineNumber(lineNumber);
-    return n > -1 && getLine(n).length < 1 && n < cm.lineCount();
+    return n > -1 && getLine(n).length < 1 && n < cm.getDoc().lineCount();
   }
 
   function getSelectedText() {
-    return getSelection() ? cm.getSelection() : '';
+    return getSelection() ? cm.getDoc().getSelection() : '';
   }
 
   function getSelectionLength() {
@@ -413,7 +413,7 @@ export function create(
   }
 
   function getHistorySize(which?: 'undo' | 'redo') {
-    const history = cm.historySize();
+    const history = cm.getDoc().historySize();
     return which ? history[which] : history;
   }
 
