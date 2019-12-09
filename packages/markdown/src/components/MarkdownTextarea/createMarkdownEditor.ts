@@ -7,6 +7,7 @@ export function createMarkdownEditor(
   textarea: HTMLTextAreaElement,
   options: {
     direction: EditorDirection;
+    readOnly: boolean;
   }
 ) {
   const editor = CodeMirrorWrapper.create(textarea, options);
@@ -81,10 +82,7 @@ export function createMarkdownEditor(
     setContent: editor.setValue,
     getSelectedText: editor.getSelectedText,
     usePrimarySelection: editor.usePrimarySelection,
-    // TODO Remove this. We want to hide the low-level interface
-    getWrapper: function() {
-      return editor;
-    }
+    setReadOnly: editor.setReadOnly
   };
 
   editor.addKeyShortcuts({

@@ -1,14 +1,16 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState, memo } from 'react';
 import tokens from '@contentful/forma-36-tokens';
 import { css } from 'emotion';
 import { createMarkdownEditor } from './createMarkdownEditor';
 import { EditorDirection } from '../../types';
 
+type InitializedEditorType = ReturnType<typeof createMarkdownEditor>;
+
 type MarkdownTextareaProps = {
   direction: EditorDirection;
-  isDisabled: boolean;
-  value: string;
-  onChange: (value: string) => void;
+  disabled: boolean;
+  visible: boolean;
+  onReady: (editor: InitializedEditorType) => void;
 };
 
 const styles = {
@@ -17,14 +19,13 @@ const styles = {
     border-width: 0 1px;
     overflow-y: 'auto';
     height: 'auto';
-    min-height: 300;
+    min-height: 300px;
     textarea {
       height: 1px;
     }
     .CodeMirror {
       height: 'auto';
       max-height: '500px';
-      color: ${tokens.colorTextDark};
       line-height: ${tokens.lineHeightDefault};
     }
     .CodeMirror-lines {
@@ -40,6 +41,9 @@ const styles = {
     }
     .cm-header {
       color: ${tokens.colorTextDark};
+    }
+    span.cm-variable-2 {
+      color: ${tokens.colorTextMid};
     }
     .cm-header-1 {
       font-size: 1.9em;
@@ -69,8 +73,7 @@ const styles = {
       text-decoration: none !important;
     }
     span.cm-quote,
-    span.cm-comment,
-    span.cm-variable-2 {
+    span.cm-comment {
       color: ${tokens.colorTextLight};
     }
     span.cm-link,
@@ -83,20 +86,35 @@ const styles = {
   `
 };
 
-export function MarkdownTextarea(props: MarkdownTextareaProps) {
+export const MarkdownTextarea = memo((props: MarkdownTextareaProps) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [editor, setEditor] = useState<InitializedEditorType | null>(null);
 
   useEffect(() => {
     if (textareaRef.current) {
-      createMarkdownEditor(textareaRef.current, {
-        direction: props.direction
-      });
+      setEditor(
+        createMarkdownEditor(textareaRef.current, {
+          direction: props.direction,
+          readOnly: true
+        })
+      );
     }
   }, []);
 
+  useEffect(() => {
+    if (editor) {
+      props.onReady(editor);
+    }
+  }, [editor]);
+
   return (
-    <div className={styles.root} data-test-id="markdown-textarea">
+    <div
+      className={styles.root}
+      data-test-id="markdown-textarea"
+      style={{ display: props.visible ? 'block' : 'none' }}>
       <textarea ref={textareaRef} style={{ display: 'none' }} />
     </div>
   );
-}
+});
+
+MarkdownTextarea.displayName = 'MarkdownTextarea';

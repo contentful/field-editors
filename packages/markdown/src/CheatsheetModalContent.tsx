@@ -1,6 +1,6 @@
 import React from 'react';
 import { css, cx } from 'emotion';
-import { FieldExtensionSDK } from 'contentful-ui-extensions-sdk';
+import { DialogsAPI } from 'contentful-ui-extensions-sdk';
 import { Modal, TextLink, Heading, List, ListItem } from '@contentful/forma-36-react-components';
 import tokens from '@contentful/forma-36-tokens';
 
@@ -143,6 +143,7 @@ export const CheatsheetModalContent = () => {
         <TextLink
           className={styles.helpLink}
           href="https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax"
+          // @ts-ignore
           target="_blank"
           rel="noopener noreferrer">
           View the full GitHub-flavored Markdown syntax help (opens in a new window)
@@ -152,8 +153,8 @@ export const CheatsheetModalContent = () => {
   );
 };
 
-export const openCheatsheetModal = (sdk: FieldExtensionSDK) => {
-  return sdk.dialogs.openExtension({
+export const openCheatsheetModal = (dialogs: DialogsAPI) => {
+  return dialogs.openExtension({
     title: 'Markdown formatting help',
     width: 700,
     shouldCloseOnEscapePress: true,

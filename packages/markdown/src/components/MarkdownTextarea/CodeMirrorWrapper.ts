@@ -10,11 +10,12 @@ export function create(
   textarea: HTMLTextAreaElement,
   options: {
     direction: EditorDirection;
+    readOnly: boolean;
     fixedHeight?: number;
     height?: number;
   }
 ) {
-  const { direction, fixedHeight, height } = options || {};
+  const { direction, fixedHeight, height, readOnly } = options || {};
 
   // Set to true if `setValue()` has been called. This is to prevent
   // undoing the initial content.
@@ -33,6 +34,7 @@ export function create(
     // eslint-disable-next-line
     // @ts-ignore
     direction,
+    readOnly,
     mode: 'markdown',
     lineNumbers: false,
     undoDepth: 200,
@@ -110,6 +112,7 @@ export function create(
     getNl,
     getValue,
     getHistorySize,
+    setReadOnly: (value: boolean) => cm.setOption('readOnly', value),
     getHistory: () => cm.getDoc().getHistory(),
     setHistory: (history: any) => cm.getDoc().setHistory(history),
 
