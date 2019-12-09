@@ -1,20 +1,22 @@
 import React from 'react';
 import { css } from 'emotion';
+import tokens from '@contentful/forma-36-tokens';
 import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
 import { DialogsAPI } from 'contentful-ui-extensions-sdk';
 import { MarkdownTabs } from './components/MarkdownTabs';
 import { MarkdownToolbar } from './components/MarkdownToolbar';
-import { MarkdownTextarea } from './components/MarkdownTextarea/index';
+import { MarkdownTextarea } from './components/MarkdownTextarea/MarkdownTextarea';
 import { InitializedEditorType } from './components/MarkdownTextarea/MarkdownTextarea';
 import { MarkdownBottomBar, MarkdownHelp, MarkdownCounter } from './components/MarkdownBottomBar';
 import { MarkdownTab } from './types';
 import { openCheatsheetModal } from './CheatsheetModalContent';
-import { MarkdownPreview } from './components/MarkdownPreview';
+import { MarkdownPreview } from './components/MarkdownPreview/MarkdownPreview';
 
 const styles = {
   container: css({
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    fontFamily: tokens.fontStackPrimary
   })
 };
 

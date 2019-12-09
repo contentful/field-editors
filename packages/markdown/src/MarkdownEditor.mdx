@@ -1,0 +1,34 @@
+---
+name: Markdown
+route: /markdown
+menu: Components
+---
+
+# Markdown
+
+import { Playground, Props } from 'docz';
+import './codemirrorImports';
+import { MarkdownEditor } from './MarkdownEditor';
+import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
+
+## In Action
+
+<Playground>
+  {() => {
+    const initialValue = window.localStorage.getItem('initialValue');
+    const isInitiallyDisabled = window.localStorage.getItem('initialDisabled');
+    const [field, mitt] = createFakeFieldAPI(field => field, initialValue);
+    return (
+      <div data-test-id="markdown-editor-integration-test">
+        <MarkdownEditor
+          field={field}
+          dialogs={{
+            openExtension: () => {}
+          }}
+          isInitiallyDisabled={isInitiallyDisabled !== undefined ? isInitiallyDisabled : false}
+        />
+        <ActionsPlayground mitt={mitt} />
+      </div>
+    );
+  }}
+</Playground>

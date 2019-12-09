@@ -13,5 +13,9 @@ const styles = {
 };
 
 export const MarkdownPreview = () => {
-  return <div className={styles.root} data-test-id="markdown-preview" />;
+  return (
+    <div className={styles.root} data-test-id="markdown-preview">
+      preview
+    </div>
+  );
 };
