@@ -77,6 +77,14 @@ function ToolbarButton(props: {
 interface MarkdownToolbarProps {
   disabled: boolean;
   actions: {
+    bold: Function;
+    italic: Function;
+    quote: Function;
+    headings: {
+      h1: Function;
+      h2: Function;
+      h3: Function;
+    };
     linkExistingMedia: Function;
   };
 }
@@ -87,7 +95,12 @@ export function MarkdownToolbar(props: MarkdownToolbarProps) {
     <div className={styles.root}>
       <div className={styles.actionsRow}>
         <div className={styles.actionsGroup}>
-          <HeadingSelector onSelect={() => {}}>
+          <HeadingSelector
+            onSelect={heading => {
+              if (heading && props.actions.headings[heading]) {
+                props.actions.headings[heading]();
+              }
+            }}>
             <ToolbarButton
               disabled={props.disabled}
               testId="markdown-action-button-heading"
@@ -98,19 +111,22 @@ export function MarkdownToolbar(props: MarkdownToolbarProps) {
           <ToolbarButton
             disabled={props.disabled}
             testId="markdown-action-button-bold"
-            tooltip="Bold">
+            tooltip="Bold"
+            onClick={props.actions.bold}>
             <Icons.Bold label="Bold" className={styles.icon} />
           </ToolbarButton>
           <ToolbarButton
             disabled={props.disabled}
             testId="markdown-action-button-italic"
-            tooltip="Italic">
+            tooltip="Italic"
+            onClick={props.actions.italic}>
             <Icons.Italic label="Italic" className={styles.icon} />
           </ToolbarButton>
           <ToolbarButton
             disabled={props.disabled}
             testId="markdown-action-button-quote"
-            tooltip="Quote">
+            tooltip="Quote"
+            onClick={props.actions.quote}>
             <Icons.Quote label="Quote" className={styles.icon} />
           </ToolbarButton>
           <ToolbarButton

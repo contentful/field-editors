@@ -4,7 +4,7 @@ import { css } from 'emotion';
 import { createMarkdownEditor } from './createMarkdownEditor';
 import { EditorDirection } from '../../types';
 
-type InitializedEditorType = ReturnType<typeof createMarkdownEditor>;
+export type InitializedEditorType = ReturnType<typeof createMarkdownEditor>;
 
 type MarkdownTextareaProps = {
   direction: EditorDirection;
