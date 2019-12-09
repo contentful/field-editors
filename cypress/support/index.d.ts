@@ -6,6 +6,9 @@ declare namespace Cypress {
     setInitialValue(initialValue: any): void;
     setInitialDisabled(value: boolean | undefined): void;
     setInstanceParams(value: { [key: string]: any }): void;
-    getMarkdownInstance(): Chainable<{ getContent: () => string }>;
+    getMarkdownInstance(): Chainable<{
+      getContent: () => string;
+      selectBackwards: (skip: number, len: number) => void;
+    }>;
   }
 }

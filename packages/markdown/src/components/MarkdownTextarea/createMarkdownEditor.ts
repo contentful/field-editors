@@ -82,7 +82,8 @@ export function createMarkdownEditor(
     setContent: editor.setValue,
     getSelectedText: editor.getSelectedText,
     usePrimarySelection: editor.usePrimarySelection,
-    setReadOnly: editor.setReadOnly
+    setReadOnly: editor.setReadOnly,
+    selectBackwards: editor.selectBackwards
   };
 
   editor.addKeyShortcuts({

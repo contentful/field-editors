@@ -1,4 +1,4 @@
-describe('JSON Editor', () => {
+describe('Markdown Editor', () => {
   const selectors = {
     getInput: () => {
       return cy.findByTestId('markdown-textarea').get('textarea');
@@ -11,17 +11,25 @@ describe('JSON Editor', () => {
     },
     getHeadingButton: type => {
       return cy.findByTestId('markdown-action-button-heading-' + type);
+    },
+    getBoldButton: () => {
+      return cy.findByTestId('markdown-action-button-bold');
     }
   };
 
   const type = value => {
-    selectors.getInput().type(value, { force: true });
-    cy.wait(500);
+    return selectors.getInput().type(value, { force: true });
   };
 
   const checkValue = value => {
     cy.getMarkdownInstance().then(markdown => {
       expect(markdown.getContent()).eq(value);
+    });
+  };
+
+  const selectBackwards = (skip, len) => {
+    cy.getMarkdownInstance().then(markdown => {
+      markdown.selectBackwards(skip, len);
     });
   };
 
@@ -73,4 +81,35 @@ describe('JSON Editor', () => {
       checkValue(`### Heading 3\nFuture heading 2\n\n### ${longParagraph}`);
     });
   });
+
+  describe('bold', () => {
+    const clickBold = () => {
+      selectors.getBoldButton().click();
+    };
+
+    it('should work properly', () => {
+      checkValue('');
+      clickBold();
+      checkValue('__text in bold__');
+
+      type('bold text');
+      checkValue('__bold text__');
+
+      type('{rightarrow}{rightarrow}{enter}');
+
+      type('Sentence a bold word.');
+      selectBackwards(1, 9); // select 'bold word'
+      clickBold();
+      type(' and not a bold word');
+      checkValue('__bold text__\nSentence a __bold word__ and not a bold word.');
+    });
+
+    it('should remove boldness to already applied', () => {});
+
+    it('should be triggered by a hotkey', () => {});
+  });
+
+  describe('italic', () => {});
+
+  describe('quote', () => {});
 });
