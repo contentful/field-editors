@@ -2,12 +2,12 @@
 
 import transform from 'lodash/transform';
 import throttle from 'lodash/throttle';
-import * as CodeMirror from 'codemirror';
+import CodeMirror from 'codemirror';
 import * as userAgent from '../../utils/userAgent';
 import { EditorDirection } from '../../types';
 
 export function create(
-  textarea: HTMLTextAreaElement,
+  host: HTMLElement,
   options: {
     direction: EditorDirection;
     readOnly: boolean;
@@ -29,10 +29,9 @@ export function create(
     shift: 50
   };
 
-  // TODO We should call `new CodeMirror()` instead of using the textarea.
-  const cm = CodeMirror.fromTextArea(textarea, {
-    // eslint-disable-next-line
-    // @ts-ignore
+  // eslint-disable-next-line
+  // @ts-ignore
+  const cm = CodeMirror(host, {
     direction,
     readOnly,
     mode: 'markdown',
@@ -41,10 +40,6 @@ export function create(
     matchBrackets: true,
     lineWrapping: true,
     theme: 'elegant',
-    // When `lineSeparator === null` the document will be split
-    // on CRLFs as well as lone CRs and LFs. A single LF will
-    // be used as line separator in all output
-    lineSeparator: null,
     tabSize: 2,
     indentWithTabs: false,
     indentUnit: 2
@@ -113,8 +108,8 @@ export function create(
     getValue,
     getHistorySize,
     setReadOnly: (value: boolean) => cm.setOption('readOnly', value),
-    getHistory: () => cm.getDoc().getHistory(),
-    setHistory: (history: any) => cm.getDoc().setHistory(history),
+    getHistory: () => cm.getHistory(),
+    setHistory: (history: any) => cm.setHistory(history),
 
     scrollToFraction,
     getScrollFraction
@@ -135,7 +130,7 @@ export function create(
   }
 
   function assureHeight() {
-    const current = cm.heightAtLine(cm.getDoc().lastLine(), 'local') + EDITOR_SIZE.shift;
+    const current = cm.heightAtLine(cm.lastLine(), 'local') + EDITOR_SIZE.shift;
     let next = current;
     if (current < EDITOR_SIZE.min) {
       next = EDITOR_SIZE.min;
@@ -197,7 +192,7 @@ export function create(
     // history. Otherwise it would always be possible to revert to
     // the empty string.
     if (!initializedWithValue) {
-      cm.getDoc().clearHistory();
+      cm.clearHistory();
       initializedWithValue = true;
     }
   }
@@ -228,7 +223,7 @@ export function create(
     }
 
     const next = getCurrentLineNumber() + 1;
-    if (cm.getDoc().lastLine() < next) {
+    if (cm.lastLine() < next) {
       moveToLineEnd();
       insertAtCursor(getNl());
     }
@@ -269,7 +264,7 @@ export function create(
   }
 
   function select(from: CodeMirror.Position, to: CodeMirror.Position) {
-    cm.getDoc().setSelection(from, to);
+    cm.setSelection(from, to);
     cm.focus();
   }
 
@@ -289,12 +284,12 @@ export function create(
 
     function getPos(prop: 'anchor' | 'head', modifier: number): CodeMirror.Position {
       const selection = getSelection();
-      return { line: selection?.[prop].line ?? 0, ch: selection?.[prop].ch ?? 0 + modifier };
+      return { line: selection[prop].line, ch: selection[prop].ch + modifier };
     }
   }
 
   function insertAtCursor(text: string) {
-    cm.getDoc().replaceRange(text, cm.getCursor());
+    cm.replaceRange(text, cm.getCursor());
     cm.focus();
   }
 
@@ -310,19 +305,19 @@ export function create(
     const replacement = wrapper + getSelectedText() + wrapper;
     const selection = getSelection();
     if (selection) {
-      cm.getDoc().replaceRange(replacement, selection.anchor, selection?.head);
+      cm.replaceRange(replacement, selection.anchor, selection?.head);
       cm.focus();
     }
   }
 
   function removeFromLineBeginning(charCount: number) {
     const lineNumber = getCurrentLineNumber();
-    cm.getDoc().replaceRange('', { line: lineNumber, ch: 0 }, { line: lineNumber, ch: charCount });
+    cm.replaceRange('', { line: lineNumber, ch: 0 }, { line: lineNumber, ch: charCount });
     cm.focus();
   }
 
   function removeSelectedText() {
-    cm.getDoc().replaceSelection('');
+    cm.replaceSelection('');
     cm.focus();
   }
 
@@ -339,7 +334,7 @@ export function create(
    * text.
    */
   function replaceSelectedText(replacement: string, select?: string) {
-    cm.getDoc().replaceSelection(replacement, select);
+    cm.replaceSelection(replacement, select);
     cm.focus();
   }
 
@@ -356,24 +351,24 @@ export function create(
   }
 
   function getSelection() {
-    const selections = cm.getDoc().listSelections();
-    if (!cm.getDoc().somethingSelected() || !selections || selections.length < 1) {
+    const selections = cm.listSelections();
+    if (!cm.somethingSelected() || !selections || selections.length < 1) {
       return null;
     }
     return selections[0];
   }
 
   function getLine(lineNumber: number) {
-    return cm.getDoc().getLine(lineNumber) || '';
+    return cm.getLine(lineNumber) || '';
   }
 
   function isLineEmpty(lineNumber?: number) {
     const n = defaultToCurrentLineNumber(lineNumber);
-    return n > -1 && getLine(n).length < 1 && n < cm.getDoc().lineCount();
+    return n > -1 && getLine(n).length < 1 && n < cm.lineCount();
   }
 
   function getSelectedText() {
-    return getSelection() ? cm.getDoc().getSelection() : '';
+    return getSelection() ? cm.getSelection() : '';
   }
 
   function getSelectionLength() {
@@ -416,7 +411,7 @@ export function create(
   }
 
   function getHistorySize(which?: 'undo' | 'redo') {
-    const history = cm.getDoc().historySize();
+    const history = cm.historySize();
     return which ? history[which] : history;
   }
 

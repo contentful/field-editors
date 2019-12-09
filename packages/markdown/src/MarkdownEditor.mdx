@@ -18,12 +18,16 @@ import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-
     const initialValue = window.localStorage.getItem('initialValue');
     const isInitiallyDisabled = window.localStorage.getItem('initialDisabled');
     const [field, mitt] = createFakeFieldAPI(field => field, initialValue);
+
     return (
       <div data-test-id="markdown-editor-integration-test">
         <MarkdownEditor
           field={field}
           dialogs={{
             openExtension: () => {}
+          }}
+          onReady={editor => {
+            window.markdownEditor = editor;
           }}
           isInitiallyDisabled={isInitiallyDisabled !== undefined ? isInitiallyDisabled : false}
         />

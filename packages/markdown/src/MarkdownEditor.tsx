@@ -27,11 +27,18 @@ export interface MarkdownEditorProps {
   isInitiallyDisabled: boolean;
   field: FieldAPI;
   dialogs: DialogsAPI;
+  onReady?: Function;
 }
 
 export function MarkdownEditor(props: MarkdownEditorProps) {
   const [selectedTab, setSelectedTab] = React.useState<MarkdownTab>('editor');
   const [editor, setEditor] = React.useState<InitializedEditorType | null>(null);
+
+  React.useEffect(() => {
+    if (editor && props.onReady) {
+      props.onReady(editor);
+    }
+  }, [editor]);
 
   return (
     <FieldConnector<string> field={props.field} isInitiallyDisabled={props.isInitiallyDisabled}>
@@ -39,7 +46,7 @@ export function MarkdownEditor(props: MarkdownEditorProps) {
         const isActionDisabled = editor === null || disabled || selectedTab !== 'editor';
 
         return (
-          <div className={styles.container}>
+          <div className={styles.container} data-test-id="markdown-editor">
             <MarkdownTabs
               active={selectedTab}
               onSelect={tab => {

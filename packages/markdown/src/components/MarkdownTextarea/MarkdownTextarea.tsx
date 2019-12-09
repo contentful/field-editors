@@ -87,13 +87,13 @@ const styles = {
 };
 
 export const MarkdownTextarea = memo((props: MarkdownTextareaProps) => {
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const hostRef = useRef<HTMLDivElement>(null);
   const [editor, setEditor] = useState<InitializedEditorType | null>(null);
 
   useEffect(() => {
-    if (textareaRef.current) {
+    if (hostRef.current) {
       setEditor(
-        createMarkdownEditor(textareaRef.current, {
+        createMarkdownEditor(hostRef.current, {
           direction: props.direction,
           readOnly: true
         })
@@ -110,10 +110,9 @@ export const MarkdownTextarea = memo((props: MarkdownTextareaProps) => {
   return (
     <div
       className={styles.root}
+      ref={hostRef}
       data-test-id="markdown-textarea"
-      style={{ display: props.visible ? 'block' : 'none' }}>
-      <textarea ref={textareaRef} style={{ display: 'none' }} />
-    </div>
+      style={{ display: props.visible ? 'block' : 'none' }} />
   );
 });
 

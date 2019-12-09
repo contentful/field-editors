@@ -4,13 +4,13 @@ import * as Commands from './MarkdownCommands';
 import { EditorDirection } from '../../types';
 
 export function createMarkdownEditor(
-  textarea: HTMLTextAreaElement,
+  host: HTMLElement,
   options: {
     direction: EditorDirection;
     readOnly: boolean;
   }
 ) {
-  const editor = CodeMirrorWrapper.create(textarea, options);
+  const editor = CodeMirrorWrapper.create(host, options);
 
   function wrapChange(fn: Function) {
     return (e: any, ch: any) => {

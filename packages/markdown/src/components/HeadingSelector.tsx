@@ -20,9 +20,21 @@ export const HeadingSelector = (props: {
         onClick: () => setOpen(!isOpen)
       })}>
       <DropdownList>
-        <DropdownListItem onClick={() => handleMenuClick('h1')}>Heading 1</DropdownListItem>
-        <DropdownListItem onClick={() => handleMenuClick('h2')}>Heading 2</DropdownListItem>
-        <DropdownListItem onClick={() => handleMenuClick('h3')}>Heading 3</DropdownListItem>
+        <DropdownListItem
+          testId="markdown-action-button-heading-h1"
+          onClick={() => handleMenuClick('h1')}>
+          Heading 1
+        </DropdownListItem>
+        <DropdownListItem
+          testId="markdown-action-button-heading-h2"
+          onClick={() => handleMenuClick('h2')}>
+          Heading 2
+        </DropdownListItem>
+        <DropdownListItem
+          testId="markdown-action-button-heading-h3"
+          onClick={() => handleMenuClick('h3')}>
+          Heading 3
+        </DropdownListItem>
       </DropdownList>
     </Dropdown>
   );

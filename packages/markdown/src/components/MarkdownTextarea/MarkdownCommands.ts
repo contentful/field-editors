@@ -328,7 +328,6 @@ function toggleHeader(editor: EditorInstanceType, level: number) {
  * If the selection was successful return the selected string.
  */
 function selectHeader(editor: EditorInstanceType) {
-  // TODO use the HEADER_CHAR constant
   const result = editor.getCurrentLine().match(/^( {0,3})(#{1,6}) /);
   if (!result) {
     return null;
