@@ -85,6 +85,9 @@ export function MarkdownEditor(props: MarkdownEditorProps) {
                   },
                   strike: () => {
                     editor?.actions.strike();
+                  },
+                  code: () => {
+                    editor?.actions.code();
                   }
                 },
                 linkExistingMedia: () => {

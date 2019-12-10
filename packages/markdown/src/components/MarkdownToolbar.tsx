@@ -84,6 +84,7 @@ interface MarkdownToolbarProps {
       ol: Function;
       ul: Function;
       strike: Function;
+      code: Function;
     };
 
     headings: {
@@ -196,7 +197,8 @@ export function MarkdownToolbar(props: MarkdownToolbarProps) {
             <ToolbarButton
               disabled={props.disabled}
               testId="markdown-action-button-code"
-              tooltip="Code block">
+              tooltip="Code block"
+              onClick={props.actions.simple.code}>
               <Icons.Code label="Code block" className={styles.icon} />
             </ToolbarButton>
             <ToolbarButton

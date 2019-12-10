@@ -32,12 +32,16 @@ describe('Markdown Editor / Simple Actions', () => {
     },
     getStrikeButton: () => {
       return cy.findByTestId('markdown-action-button-strike');
+    },
+    getCodeButton: () => {
+      return cy.findByTestId('markdown-action-button-code');
     }
   };
 
   const examples = {
     long:
-      'This course helps you understand the basics behind Contentful. It contains modules that introduce you to core concepts and how your app consumes content from Contentful. This content is pulled from Contentful APIs using a Contentful SDK.'
+      'This course helps you understand the basics behind Contentful. It contains modules that introduce you to core concepts and how your app consumes content from Contentful. This content is pulled from Contentful APIs using a Contentful SDK.',
+    code: 'console.log("This is Javascript code!");'
   };
 
   const type = value => {
@@ -53,6 +57,10 @@ describe('Markdown Editor / Simple Actions', () => {
 
   const selectAll = () => {
     useHotKey('{meta}', 'a');
+  };
+
+  const unveilAdditionalButtonsRow = () => {
+    selectors.getToggleAdditionalActionsButton().click();
   };
 
   const clearAll = () => {
@@ -225,12 +233,35 @@ describe('Markdown Editor / Simple Actions', () => {
     });
   });
 
+  describe('code', () => {
+    const clickCode = () => {
+      selectors.getCodeButton().click();
+    };
+
+    it('should work properly', () => {
+      checkValue('');
+      unveilAdditionalButtonsRow();
+      clickCode();
+      checkValue('    ');
+      type('var i = 0;');
+      type('{enter}');
+      type('i++;');
+      checkValue('    var i = 0;\n    i++;');
+
+      clearAll();
+      checkValue('');
+
+      type(examples.code);
+      clickCode();
+      checkValue(`    ${examples.code}`);
+      clickCode();
+      checkValue(examples.code);
+    });
+  });
+
   describe('strike', () => {
     const clickStrike = () => {
       selectors.getStrikeButton().click();
-    };
-    const unveilAdditionalButtonsRow = () => {
-      selectors.getToggleAdditionalActionsButton().click();
     };
 
     it('should work properly', () => {
