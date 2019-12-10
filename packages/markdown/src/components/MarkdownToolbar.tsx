@@ -77,12 +77,13 @@ function ToolbarButton(props: {
 interface MarkdownToolbarProps {
   disabled: boolean;
   actions: {
-    basic: {
+    simple: {
       bold: Function;
       italic: Function;
       quote: Function;
       ol: Function;
       ul: Function;
+      strike: Function;
     };
 
     headings: {
@@ -118,35 +119,35 @@ export function MarkdownToolbar(props: MarkdownToolbarProps) {
             disabled={props.disabled}
             testId="markdown-action-button-bold"
             tooltip="Bold"
-            onClick={props.actions.basic.bold}>
+            onClick={props.actions.simple.bold}>
             <Icons.Bold label="Bold" className={styles.icon} />
           </ToolbarButton>
           <ToolbarButton
             disabled={props.disabled}
             testId="markdown-action-button-italic"
             tooltip="Italic"
-            onClick={props.actions.basic.italic}>
+            onClick={props.actions.simple.italic}>
             <Icons.Italic label="Italic" className={styles.icon} />
           </ToolbarButton>
           <ToolbarButton
             disabled={props.disabled}
             testId="markdown-action-button-quote"
             tooltip="Quote"
-            onClick={props.actions.basic.quote}>
+            onClick={props.actions.simple.quote}>
             <Icons.Quote label="Quote" className={styles.icon} />
           </ToolbarButton>
           <ToolbarButton
             disabled={props.disabled}
             testId="markdown-action-button-ul"
             tooltip="Unordered list"
-            onClick={props.actions.basic.ul}>
+            onClick={props.actions.simple.ul}>
             <Icons.List label="Unordered list" className={styles.icon} />
           </ToolbarButton>
           <ToolbarButton
             disabled={props.disabled}
             testId="markdown-action-button-ol"
             tooltip="Ordered list"
-            onClick={props.actions.basic.ol}>
+            onClick={props.actions.simple.ol}>
             <Icons.ListOl label="Ordered list" className={styles.icon} />
           </ToolbarButton>
           <ToolbarButton
@@ -157,7 +158,7 @@ export function MarkdownToolbar(props: MarkdownToolbarProps) {
           </ToolbarButton>
           <ToolbarButton
             disabled={props.disabled}
-            testId="markdown-action-button-link"
+            testId="markdown-action-button-toggle-additional"
             tooltip={showAdditional ? 'Hide additional actions' : 'More actions'}
             onClick={() => {
               setShowAdditional(!showAdditional);
@@ -188,7 +189,8 @@ export function MarkdownToolbar(props: MarkdownToolbarProps) {
             <ToolbarButton
               disabled={props.disabled}
               testId="markdown-action-button-strike"
-              tooltip="Strike out">
+              tooltip="Strike out"
+              onClick={props.actions.simple.strike}>
               <Icons.Strikethrough label="Strike out" className={styles.icon} />
             </ToolbarButton>
             <ToolbarButton

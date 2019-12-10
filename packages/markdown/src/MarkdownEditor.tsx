@@ -67,7 +67,7 @@ export function MarkdownEditor(props: MarkdownEditorProps) {
                     editor?.actions.h3();
                   }
                 },
-                basic: {
+                simple: {
                   italic: () => {
                     editor?.actions.italic();
                   },
@@ -82,6 +82,9 @@ export function MarkdownEditor(props: MarkdownEditorProps) {
                   },
                   ul: () => {
                     editor?.actions.ul();
+                  },
+                  strike: () => {
+                    editor?.actions.strike();
                   }
                 },
                 linkExistingMedia: () => {

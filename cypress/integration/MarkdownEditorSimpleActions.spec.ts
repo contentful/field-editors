@@ -1,4 +1,4 @@
-describe('Markdown Editor / Basic Actions', () => {
+describe('Markdown Editor / Simple Actions', () => {
   const selectors = {
     getInput: () => {
       return cy.findByTestId('markdown-textarea').get('textarea');
@@ -26,6 +26,12 @@ describe('Markdown Editor / Basic Actions', () => {
     },
     getOrderedListButton: () => {
       return cy.findByTestId('markdown-action-button-ol');
+    },
+    getToggleAdditionalActionsButton: () => {
+      return cy.findByTestId('markdown-action-button-toggle-additional');
+    },
+    getStrikeButton: () => {
+      return cy.findByTestId('markdown-action-button-strike');
     }
   };
 
@@ -216,6 +222,45 @@ describe('Markdown Editor / Basic Actions', () => {
       checkValue(`> ${examples.long}`);
       clickQuote();
       checkValue(examples.long);
+    });
+  });
+
+  describe('strike', () => {
+    const clickStrike = () => {
+      selectors.getStrikeButton().click();
+    };
+    const unveilAdditionalButtonsRow = () => {
+      selectors.getToggleAdditionalActionsButton().click();
+    };
+
+    it('should work properly', () => {
+      checkValue('');
+      unveilAdditionalButtonsRow();
+      clickStrike();
+      checkValue('~~striked out~~');
+
+      type('striked text');
+      checkValue('~~striked text~~');
+
+      type('{rightarrow}{rightarrow}{enter}');
+
+      type('Sentence a striked out word.');
+      selectBackwards(1, 16); // select 'striked word'
+      clickStrike();
+      type(' and not a striked out word');
+      checkValue('~~striked text~~\nSentence a ~~striked out word~~ and not a striked out word.');
+    });
+
+    it('should remove strike to already applied', () => {
+      checkValue('');
+      unveilAdditionalButtonsRow();
+      type('text');
+      selectBackwards(0, 4);
+      clickStrike();
+      checkValue('~~text~~');
+      selectBackwards(0, 8);
+      clickStrike();
+      checkValue('text');
     });
   });
 
