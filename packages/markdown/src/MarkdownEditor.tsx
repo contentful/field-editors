@@ -67,14 +67,22 @@ export function MarkdownEditor(props: MarkdownEditorProps) {
                     editor?.actions.h3();
                   }
                 },
-                italic: () => {
-                  editor?.actions.italic();
-                },
-                bold: () => {
-                  editor?.actions.bold();
-                },
-                quote: () => {
-                  editor?.actions.quote();
+                basic: {
+                  italic: () => {
+                    editor?.actions.italic();
+                  },
+                  bold: () => {
+                    editor?.actions.bold();
+                  },
+                  quote: () => {
+                    editor?.actions.quote();
+                  },
+                  ol: () => {
+                    editor?.actions.ol();
+                  },
+                  ul: () => {
+                    editor?.actions.ul();
+                  }
                 },
                 linkExistingMedia: () => {
                   props.dialogs.selectMultipleAssets();

@@ -77,14 +77,20 @@ function ToolbarButton(props: {
 interface MarkdownToolbarProps {
   disabled: boolean;
   actions: {
-    bold: Function;
-    italic: Function;
-    quote: Function;
+    basic: {
+      bold: Function;
+      italic: Function;
+      quote: Function;
+      ol: Function;
+      ul: Function;
+    };
+
     headings: {
       h1: Function;
       h2: Function;
       h3: Function;
     };
+
     linkExistingMedia: Function;
   };
 }
@@ -112,33 +118,35 @@ export function MarkdownToolbar(props: MarkdownToolbarProps) {
             disabled={props.disabled}
             testId="markdown-action-button-bold"
             tooltip="Bold"
-            onClick={props.actions.bold}>
+            onClick={props.actions.basic.bold}>
             <Icons.Bold label="Bold" className={styles.icon} />
           </ToolbarButton>
           <ToolbarButton
             disabled={props.disabled}
             testId="markdown-action-button-italic"
             tooltip="Italic"
-            onClick={props.actions.italic}>
+            onClick={props.actions.basic.italic}>
             <Icons.Italic label="Italic" className={styles.icon} />
           </ToolbarButton>
           <ToolbarButton
             disabled={props.disabled}
             testId="markdown-action-button-quote"
             tooltip="Quote"
-            onClick={props.actions.quote}>
+            onClick={props.actions.basic.quote}>
             <Icons.Quote label="Quote" className={styles.icon} />
           </ToolbarButton>
           <ToolbarButton
             disabled={props.disabled}
             testId="markdown-action-button-ul"
-            tooltip="Unordered list">
+            tooltip="Unordered list"
+            onClick={props.actions.basic.ul}>
             <Icons.List label="Unordered list" className={styles.icon} />
           </ToolbarButton>
           <ToolbarButton
             disabled={props.disabled}
             testId="markdown-action-button-ol"
-            tooltip="Ordered list">
+            tooltip="Ordered list"
+            onClick={props.actions.basic.ol}>
             <Icons.ListOl label="Ordered list" className={styles.icon} />
           </ToolbarButton>
           <ToolbarButton

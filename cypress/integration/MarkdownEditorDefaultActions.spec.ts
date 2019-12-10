@@ -20,6 +20,9 @@ describe('Markdown Editor', () => {
     },
     getQuoteButton: () => {
       return cy.findByTestId('markdown-action-button-quote');
+    },
+    getUnorderedListButton: () => {
+      return cy.findByTestId('markdown-action-button-ul');
     }
   };
 
@@ -39,8 +42,12 @@ describe('Markdown Editor', () => {
       .type(second);
   };
 
-  const clearAll = () => {
+  const selectAll = () => {
     useHotKey('{meta}', 'a');
+  };
+
+  const clearAll = () => {
+    selectAll();
     type('{backspace}');
   };
 
@@ -206,6 +213,45 @@ describe('Markdown Editor', () => {
       checkValue(`> ${examples.long}`);
       clickQuote();
       checkValue(examples.long);
+    });
+  });
+
+  describe('unordered list', () => {
+    const clickUnorderedList = () => {
+      selectors.getUnorderedListButton().click();
+    };
+
+    it.only('should work properly', () => {
+      checkValue('');
+      clickUnorderedList();
+      type('first item');
+      type('{enter}');
+      type('second item');
+      type('{enter}{enter}');
+      checkValue('- first item\n- second item\n\n\n');
+
+      clearAll();
+      checkValue('');
+
+      type('sentence at the very beginning.');
+      clickUnorderedList();
+      type('first item{enter}second item');
+      checkValue('sentence at the very beginning.\n\n- first item\n- second item\n');
+
+      clearAll();
+      checkValue('');
+
+      type('- first item');
+      clickUnorderedList();
+      checkValue('first item');
+
+      selectBackwards(0, 4);
+      clickUnorderedList();
+      checkValue('- first item');
+      type('{enter}');
+      checkValue('- first item\n- ');
+      clickUnorderedList();
+      checkValue('- first item\n');
     });
   });
 });

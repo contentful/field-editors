@@ -112,7 +112,8 @@ export const MarkdownTextarea = memo((props: MarkdownTextareaProps) => {
       className={styles.root}
       ref={hostRef}
       data-test-id="markdown-textarea"
-      style={{ display: props.visible ? 'block' : 'none' }} />
+      style={{ display: props.visible ? 'block' : 'none' }}
+    />
   );
 });
 

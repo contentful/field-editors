@@ -164,12 +164,10 @@ function modifySelection(
   return () => {
     editor.usePrimarySelection();
 
-    const selection = editor.getSelection();
-
-    if (selection) {
+    if (editor.getSelection()) {
       // there's a selection - toggle list bullet for each line
       // listNumber is 1, 2, 3... and can be used as ol bullet
-      forLineIn(selection, (lineNumber: number, listNumber: number) => {
+      forLineIn(editor.getSelection(), (lineNumber: number, listNumber: number) => {
         // TODO move this into forLineIn
         editor.moveToLineBeginning(lineNumber);
         toggleFn(editor, listNumber);
@@ -203,7 +201,7 @@ function forLineIn(
 ) {
   // anchor/head depend on selection direction, so min & max have to be used
   const lines = [selection.anchor.line, selection.head.line];
-  const lineRange = range(min(lines) ?? 0, max(lines) ?? 0 + 1);
+  const lineRange = range(min(lines) || 0, max(lines) || 0 + 1);
 
   lineRange.forEach((lineNumber, i) => {
     cb(lineNumber, i + 1);
@@ -212,31 +210,28 @@ function forLineIn(
 
 function prepareListWhitespace(editor: EditorInstanceType) {
   const line = editor.getCurrentLineNumber();
-  const isEmpty = editor.isLineEmpty();
-  const emptyLines = countEmptyLines(editor);
-  const linesToInsert = (isEmpty ? 2 : 3) - emptyLines;
+
+  const isCurrentLineEmpty = editor.isLineEmpty(line);
+
+  const isPrevLineEmpty = line > 0 ? editor.isLineEmpty(line - 1) : false;
+  const isNextLineEmpty = line < editor.getLinesCount() - 1 ? editor.isLineEmpty(line + 1) : true;
+
+  let linesToInsert = isCurrentLineEmpty ? 2 : 4;
+  if (isPrevLineEmpty) {
+    linesToInsert = linesToInsert - 1;
+  }
+  if (isNextLineEmpty) {
+    linesToInsert = linesToInsert - 1;
+  }
 
   editor.moveToLineEnd();
   editor.insertAtCursor(editor.getNl(linesToInsert));
-  editor.restoreCursor(0, isEmpty ? line : line + 1);
-  editor.restoreCursor(0, editor.getCurrentLineNumber() + 1);
+  editor.restoreCursor(0, isCurrentLineEmpty ? line : line + 2);
 }
 
 function getListNumber(editor: EditorInstanceType) {
   const result = editor.getCurrentLine().match(/^(\d+\. )/);
   return result ? result[1] : null;
-}
-
-function countEmptyLines(editor: EditorInstanceType) {
-  let line = editor.getCurrentLineNumber() + 1;
-  let empty = 0;
-
-  while (editor.isLineEmpty(line)) {
-    empty += 1;
-    line += 1;
-  }
-
-  return empty;
 }
 
 function ulToggleFn(editor: EditorInstanceType) {

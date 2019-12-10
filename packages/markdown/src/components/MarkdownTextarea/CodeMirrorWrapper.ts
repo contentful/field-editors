@@ -106,6 +106,7 @@ export function create(
     getIndentation,
     getNl,
     getValue,
+    getLinesCount,
     getHistorySize,
     setReadOnly: (value: boolean) => cm.setOption('readOnly', value),
     getHistory: () => cm.getHistory(),
@@ -249,10 +250,10 @@ export function create(
   }
 
   function defaultToCurrentLineNumber(lineNumber?: number) {
-    if (lineNumber === undefined || lineNumber < 0) {
-      return getCurrentLineNumber();
+    if (lineNumber === 0 || (lineNumber !== undefined && lineNumber > 0)) {
+      return lineNumber;
     }
-    return lineNumber;
+    return getCurrentLineNumber();
   }
 
   function usePrimarySelection() {
@@ -365,6 +366,10 @@ export function create(
   function isLineEmpty(lineNumber?: number) {
     const n = defaultToCurrentLineNumber(lineNumber);
     return n > -1 && getLine(n).length < 1 && n < cm.lineCount();
+  }
+
+  function getLinesCount() {
+    return cm.lineCount();
   }
 
   function getSelectedText() {
