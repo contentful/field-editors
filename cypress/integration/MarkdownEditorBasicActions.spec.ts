@@ -1,4 +1,4 @@
-describe('Markdown Editor', () => {
+describe('Markdown Editor / Basic Actions', () => {
   const selectors = {
     getInput: () => {
       return cy.findByTestId('markdown-textarea').get('textarea');
