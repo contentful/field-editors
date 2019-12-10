@@ -23,6 +23,9 @@ describe('Markdown Editor', () => {
     },
     getUnorderedListButton: () => {
       return cy.findByTestId('markdown-action-button-ul');
+    },
+    getOrderedListButton: () => {
+      return cy.findByTestId('markdown-action-button-ol');
     }
   };
 
@@ -221,7 +224,7 @@ describe('Markdown Editor', () => {
       selectors.getUnorderedListButton().click();
     };
 
-    it.only('should work properly', () => {
+    it('should work properly', () => {
       checkValue('');
       clickUnorderedList();
       type('first item');
@@ -252,6 +255,45 @@ describe('Markdown Editor', () => {
       checkValue('- first item\n- ');
       clickUnorderedList();
       checkValue('- first item\n');
+    });
+  });
+
+  describe('ordered list', () => {
+    const clickOrderedList = () => {
+      selectors.getOrderedListButton().click();
+    };
+
+    it('should work properly', () => {
+      checkValue('');
+      clickOrderedList();
+      type('first item');
+      type('{enter}');
+      type('second item');
+      type('{enter}{enter}');
+      checkValue('1. first item\n2. second item\n\n\n');
+
+      clearAll();
+      checkValue('');
+
+      type('sentence at the very beginning.');
+      clickOrderedList();
+      type('first item{enter}second item');
+      checkValue('sentence at the very beginning.\n\n1. first item\n2. second item\n');
+
+      clearAll();
+      checkValue('');
+
+      type('1. first item');
+      clickOrderedList();
+      checkValue('first item');
+
+      selectBackwards(0, 4);
+      clickOrderedList();
+      checkValue('1. first item');
+      type('{enter}');
+      checkValue('1. first item\n2. ');
+      clickOrderedList();
+      checkValue('1. first item\n');
     });
   });
 });
