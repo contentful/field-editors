@@ -85,6 +85,9 @@ interface MarkdownToolbarProps {
       ul: Function;
       strike: Function;
       code: Function;
+      hr: Function;
+      indent: Function;
+      dedent: Function;
     };
 
     headings: {
@@ -204,19 +207,22 @@ export function MarkdownToolbar(props: MarkdownToolbarProps) {
             <ToolbarButton
               disabled={props.disabled}
               testId="markdown-action-button-hr"
-              tooltip="Horizontal rule">
+              tooltip="Horizontal rule"
+              onClick={props.actions.simple.hr}>
               <Icons.HR label="Horizontal rule" className={styles.icon} />
             </ToolbarButton>
             <ToolbarButton
               disabled={props.disabled}
               testId="markdown-action-button-indent"
-              tooltip="Increase indentation">
+              tooltip="Increase indentation"
+              onClick={props.actions.simple.indent}>
               <Icons.Indent label="Increase indentation" className={styles.icon} />
             </ToolbarButton>
             <ToolbarButton
               disabled={props.disabled}
               testId="markdown-action-button-dedent"
-              tooltip="Decrease indentation">
+              tooltip="Decrease indentation"
+              onClick={props.actions.simple.dedent}>
               <Icons.Dedent label="Decrease indentation" className={styles.icon} />
             </ToolbarButton>
             <ToolbarButton

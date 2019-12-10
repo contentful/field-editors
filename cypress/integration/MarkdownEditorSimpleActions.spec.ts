@@ -35,6 +35,15 @@ describe('Markdown Editor / Simple Actions', () => {
     },
     getCodeButton: () => {
       return cy.findByTestId('markdown-action-button-code');
+    },
+    getHorizontalLineButton: () => {
+      return cy.findByTestId('markdown-action-button-hr');
+    },
+    getIndentButton: () => {
+      return cy.findByTestId('markdown-action-button-indent');
+    },
+    getDedentButton: () => {
+      return cy.findByTestId('markdown-action-button-dedent');
     }
   };
 
@@ -370,6 +379,56 @@ describe('Markdown Editor / Simple Actions', () => {
       checkValue('1. first item\n2. ');
       clickOrderedList();
       checkValue('1. first item\n');
+    });
+  });
+
+  describe('horizontal line', () => {
+    const clickHorizontalButton = () => {
+      selectors.getHorizontalLineButton().click();
+    };
+
+    it('should work properly', () => {
+      checkValue('');
+      unveilAdditionalButtonsRow();
+      clickHorizontalButton();
+      checkValue('\n---\n\n');
+      clickHorizontalButton();
+      checkValue('\n---\n\n\n---\n\n');
+
+      clearAll();
+
+      type('something');
+      clickHorizontalButton();
+      checkValue('something\n\n---\n\n');
+    });
+  });
+
+  describe('indent and dedent', () => {
+    const clickIndentButton = () => {
+      selectors.getIndentButton().click();
+    };
+
+    const clickDedentButton = () => {
+      selectors.getDedentButton().click();
+    };
+
+    it('should work properly', () => {
+      checkValue('');
+      unveilAdditionalButtonsRow();
+      type('something');
+      clickIndentButton();
+      checkValue('  something');
+
+      type('{enter}');
+      clickIndentButton();
+      type('line two{enter}');
+      clickDedentButton();
+      type('line three{enter}');
+      clickDedentButton();
+      clickDedentButton();
+      type('final line');
+
+      checkValue('  something\n    line two\n  line three\nfinal line');
     });
   });
 });

@@ -88,6 +88,15 @@ export function MarkdownEditor(props: MarkdownEditorProps) {
                   },
                   code: () => {
                     editor?.actions.code();
+                  },
+                  hr: () => {
+                    editor?.actions.hr();
+                  },
+                  indent: () => {
+                    editor?.actions.indent();
+                  },
+                  dedent: () => {
+                    editor?.actions.dedent();
                   }
                 },
                 linkExistingMedia: () => {
