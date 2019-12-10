@@ -14,11 +14,34 @@ describe('Markdown Editor', () => {
     },
     getBoldButton: () => {
       return cy.findByTestId('markdown-action-button-bold');
+    },
+    getItalicButton: () => {
+      return cy.findByTestId('markdown-action-button-italic');
+    },
+    getQuoteButton: () => {
+      return cy.findByTestId('markdown-action-button-quote');
     }
+  };
+
+  const examples = {
+    long:
+      'This course helps you understand the basics behind Contentful. It contains modules that introduce you to core concepts and how your app consumes content from Contentful. This content is pulled from Contentful APIs using a Contentful SDK.'
   };
 
   const type = value => {
     return selectors.getInput().type(value, { force: true });
+  };
+
+  const useHotKey = (first, second) => {
+    return selectors
+      .getInput()
+      .type(first, { force: true, release: false })
+      .type(second);
+  };
+
+  const clearAll = () => {
+    useHotKey('{meta}', 'a');
+    type('{backspace}');
   };
 
   const checkValue = value => {
@@ -71,14 +94,11 @@ describe('Markdown Editor', () => {
       clickHeading('h2');
       checkValue('### Heading 3\nFuture heading 2');
 
-      const longParagraph =
-        'This course helps you understand the basics behind Contentful. It contains modules that introduce you to core concepts and how your app consumes content from Contentful. This content is pulled from Contentful APIs using a Contentful SDK.';
-
       type('{enter}{enter}');
-      type(longParagraph);
+      type(examples.long);
 
       clickHeading('h3');
-      checkValue(`### Heading 3\nFuture heading 2\n\n### ${longParagraph}`);
+      checkValue(`### Heading 3\nFuture heading 2\n\n### ${examples.long}`);
     });
   });
 
@@ -104,12 +124,88 @@ describe('Markdown Editor', () => {
       checkValue('__bold text__\nSentence a __bold word__ and not a bold word.');
     });
 
-    it('should remove boldness to already applied', () => {});
+    it('should remove boldness to already applied', () => {
+      checkValue('');
+      type('text');
+      selectBackwards(0, 4);
+      clickBold();
+      checkValue('__text__');
+      selectBackwards(0, 8);
+      clickBold();
+      checkValue('text');
+    });
 
-    it('should be triggered by a hotkey', () => {});
+    it('should be triggered by a hotkey (meta + b)', () => {
+      checkValue('');
+      useHotKey('{meta}', 'b');
+      type('some text');
+      checkValue('__some text__');
+    });
   });
 
-  describe('italic', () => {});
+  describe('italic', () => {
+    const clickItalic = () => {
+      selectors.getItalicButton().click();
+    };
 
-  describe('quote', () => {});
+    it('should work properly', () => {
+      checkValue('');
+      clickItalic();
+      checkValue('*text in italic*');
+
+      type('italic text');
+      checkValue('*italic text*');
+
+      type('{rightarrow}{rightarrow}{enter}');
+
+      type('Sentence an italic word.');
+      selectBackwards(1, 11); // select 'italic word'
+      clickItalic();
+      type(' and not an italic word');
+      checkValue('*italic text*\nSentence an *italic word* and not an italic word.');
+    });
+
+    it('should remove italicness to already applied', () => {
+      checkValue('');
+      type('text');
+      selectBackwards(0, 4);
+      clickItalic();
+      checkValue('*text*');
+      selectBackwards(0, 6);
+      clickItalic();
+      checkValue('text');
+    });
+
+    it('should be triggered by a hotkey (meta + i)', () => {
+      checkValue('');
+      useHotKey('{meta}', 'i');
+      type('some text');
+      checkValue('*some text*');
+    });
+  });
+
+  describe('quote', () => {
+    const clickQuote = () => {
+      selectors.getQuoteButton().click();
+    };
+
+    it('should work properly', () => {
+      checkValue('');
+      clickQuote();
+      checkValue('> ');
+      type('some really smart wisdom');
+      type('{enter}');
+      type('by some really smart person');
+      checkValue('> some really smart wisdom\n> by some really smart person');
+
+      clearAll();
+      checkValue('');
+
+      type(examples.long);
+      clickQuote();
+      checkValue(`> ${examples.long}`);
+      clickQuote();
+      checkValue(examples.long);
+    });
+  });
 });

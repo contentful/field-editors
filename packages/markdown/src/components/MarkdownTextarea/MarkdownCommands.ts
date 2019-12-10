@@ -35,7 +35,17 @@ function wrapSelection(editor: EditorInstanceType, marker: string, emptyText: st
 
     // there's a selection - wrap it with inline marker
     if (editor.getSelection()) {
-      editor.wrapSelection(marker);
+      const selectedText = editor.getSelectedText();
+      if (selectedText.startsWith(marker) && selectedText.endsWith(marker)) {
+        const markerLength = marker.length;
+        const textWithoutMarker = selectedText.slice(
+          markerLength,
+          selectedText.length - markerLength
+        );
+        editor.replaceSelectedText(textWithoutMarker);
+      } else {
+        editor.wrapSelection(marker);
+      }
     } else {
       // no selection - insert sample text and select it
       editor.insertAtCursor(marker + emptyText + marker);

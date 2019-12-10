@@ -88,10 +88,7 @@ export function createMarkdownEditor(
 
   editor.addKeyShortcuts({
     B: api.actions.bold,
-    I: api.actions.italic,
-    'Alt-1': api.actions.h1,
-    'Alt-2': api.actions.h2,
-    'Alt-3': api.actions.h3
+    I: api.actions.italic
   });
 
   return api;
