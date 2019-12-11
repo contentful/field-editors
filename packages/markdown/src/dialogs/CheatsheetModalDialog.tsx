@@ -63,7 +63,7 @@ const styles = {
   })
 };
 
-export const CheatsheetModalContent = () => {
+export const CheatsheetModalDialog = () => {
   return (
     <Modal.Content testId="markdown-cheatsheet-dialog-content">
       <div className={styles.flexColumnContainer}>

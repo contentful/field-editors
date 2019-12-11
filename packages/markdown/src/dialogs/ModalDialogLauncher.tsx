@@ -38,8 +38,8 @@ export function open(componentRenderer: (params: { onClose: Function; isShown: b
 }
 
 export function openDialog<T>(
-  options: OpenMarkdownDialogParams<T>,
-  Component: React.SFC<T & { onClose: Function }>
+  options: OpenMarkdownDialogParams,
+  Component: React.SFC<{ onClose: (result: T) => void }>
 ) {
   const key = Date.now();
   return open(({ isShown, onClose }) => {
@@ -61,7 +61,7 @@ export function openDialog<T>(
                 onClose={() => onClose()}
               />
             )}
-            <Component onClose={onClose} {...(options.parameters as any)} />
+            <Component onClose={onClose as any} />
           </>
         )}
       </Modal>

@@ -9,7 +9,8 @@ import { MarkdownTextarea } from './components/MarkdownTextarea/MarkdownTextarea
 import { InitializedEditorType } from './components/MarkdownTextarea/MarkdownTextarea';
 import { MarkdownBottomBar, MarkdownHelp, MarkdownCounter } from './components/MarkdownBottomBar';
 import { MarkdownTab } from './types';
-import { openCheatsheetModal } from './dialogs/CheatsheetModalContent';
+import { openCheatsheetModal } from './dialogs/CheatsheetModalDialog';
+import { openInsertLinkDialog } from './dialogs/InsertLinkModalDialog';
 import { MarkdownPreview } from './components/MarkdownPreview/MarkdownPreview';
 
 const styles = {
@@ -97,6 +98,17 @@ export function MarkdownEditor(props: MarkdownEditorProps) {
                   },
                   dedent: () => {
                     editor?.actions.dedent();
+                  }
+                },
+                insertLink: async () => {
+                  if (!editor) {
+                    return;
+                  }
+                  editor.usePrimarySelection();
+                  const selectedText = editor.getSelectedText();
+                  const result = await openInsertLinkDialog(props.dialogs, { selectedText });
+                  if (result) {
+                    editor.actions.link(result.url, selectedText || result.text, result.title);
                   }
                 },
                 linkExistingMedia: () => {

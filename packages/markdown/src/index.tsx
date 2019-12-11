@@ -1,5 +1,5 @@
 import './codemirrorImports';
 
 export { MarkdownEditor } from './MarkdownEditor';
-export { CheatsheetModalContent } from './dialogs/CheatsheetModalContent';
+export { CheatsheetModalDialog } from './dialogs/CheatsheetModalDialog';
 export { openMarkdownDialog } from './dialogs/openMarkdownDialog';

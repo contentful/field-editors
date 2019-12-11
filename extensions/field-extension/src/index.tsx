@@ -6,7 +6,7 @@ import {
   locations,
   DialogExtensionSDK
 } from 'contentful-ui-extensions-sdk';
-import { MarkdownEditor, CheatsheetModalContent } from '../../../packages/markdown/src/index';
+import { MarkdownEditor, CheatsheetModalDialog } from '../../../packages/markdown/src/index';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/elegant.css';
@@ -29,7 +29,7 @@ init(sdk => {
   } else if (sdk.location.is(locations.LOCATION_DIALOG)) {
     const dialogSdk = sdk as DialogExtensionSDK;
     dialogSdk.window.startAutoResizer();
-    render(<CheatsheetModalContent />, document.getElementById('root'));
+    render(<CheatsheetModalDialog />, document.getElementById('root'));
   }
 });
 

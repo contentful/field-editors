@@ -5,6 +5,7 @@ import tokens from '@contentful/forma-36-tokens';
 import * as Icons from './icons';
 import { HeadingSelector } from './HeadingSelector';
 import { InsertLinkSelector } from './InsertLinkSelector';
+import { MarkdownActions } from '../types';
 
 const noop = () => {};
 
@@ -76,28 +77,7 @@ function ToolbarButton(props: {
 
 interface MarkdownToolbarProps {
   disabled: boolean;
-  actions: {
-    simple: {
-      bold: Function;
-      italic: Function;
-      quote: Function;
-      ol: Function;
-      ul: Function;
-      strike: Function;
-      code: Function;
-      hr: Function;
-      indent: Function;
-      dedent: Function;
-    };
-
-    headings: {
-      h1: Function;
-      h2: Function;
-      h3: Function;
-    };
-
-    linkExistingMedia: Function;
-  };
+  actions: MarkdownActions;
 }
 
 export function MarkdownToolbar(props: MarkdownToolbarProps) {
@@ -157,7 +137,8 @@ export function MarkdownToolbar(props: MarkdownToolbarProps) {
           <ToolbarButton
             disabled={props.disabled}
             testId="markdown-action-button-link"
-            tooltip="Link">
+            tooltip="Link"
+            onClick={props.actions.insertLink}>
             <Icons.Link label="Link" className={styles.icon} />
           </ToolbarButton>
           <ToolbarButton
