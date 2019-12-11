@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import isFunction from 'lodash/isFunction';
 import * as CodeMirrorWrapper from './CodeMirrorWrapper';
 import * as Commands from './MarkdownCommands';

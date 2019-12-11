@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
+/* eslint-disable @typescript-eslint/no-use-before-define, @typescript-eslint/no-explicit-any */
 
 import transform from 'lodash/transform';
 import throttle from 'lodash/throttle';

@@ -9,6 +9,7 @@ menu: Components
 import { Playground, Props } from 'docz';
 import './codemirrorImports';
 import { MarkdownEditor } from './MarkdownEditor';
+import { openMarkdownDialog } from './dialogs/openMarkdownDialog'
 import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
 
 ## In Action
@@ -24,7 +25,7 @@ import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-
         <MarkdownEditor
           field={field}
           dialogs={{
-            openExtension: () => {}
+            openExtension: openMarkdownDialog
           }}
           onReady={editor => {
             window.markdownEditor = editor;

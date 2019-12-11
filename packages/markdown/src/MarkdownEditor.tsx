@@ -9,7 +9,7 @@ import { MarkdownTextarea } from './components/MarkdownTextarea/MarkdownTextarea
 import { InitializedEditorType } from './components/MarkdownTextarea/MarkdownTextarea';
 import { MarkdownBottomBar, MarkdownHelp, MarkdownCounter } from './components/MarkdownBottomBar';
 import { MarkdownTab } from './types';
-import { openCheatsheetModal } from './CheatsheetModalContent';
+import { openCheatsheetModal } from './dialogs/CheatsheetModalContent';
 import { MarkdownPreview } from './components/MarkdownPreview/MarkdownPreview';
 
 const styles = {

@@ -29,12 +29,7 @@ init(sdk => {
   } else if (sdk.location.is(locations.LOCATION_DIALOG)) {
     const dialogSdk = sdk as DialogExtensionSDK;
     dialogSdk.window.startAutoResizer();
-    render(
-      <div style={{ minHeight: 300, marginTop: 10 }}>
-        <CheatsheetModalContent />
-      </div>,
-      document.getElementById('root')
-    );
+    render(<CheatsheetModalContent />, document.getElementById('root'));
   }
 });
 

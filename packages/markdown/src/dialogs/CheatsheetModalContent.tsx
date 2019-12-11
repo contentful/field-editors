@@ -3,6 +3,7 @@ import { css, cx } from 'emotion';
 import { DialogsAPI } from 'contentful-ui-extensions-sdk';
 import { Modal, TextLink, Heading, List, ListItem } from '@contentful/forma-36-react-components';
 import tokens from '@contentful/forma-36-tokens';
+import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 
 const styles = {
   flexColumnContainer: css({
@@ -153,11 +154,14 @@ export const CheatsheetModalContent = () => {
   );
 };
 
-export const openCheatsheetModal = (dialogs: DialogsAPI) => {
+export const openCheatsheetModal = (dialogs: DialogsAPI): Promise<void> => {
   return dialogs.openExtension({
     title: 'Markdown formatting help',
     width: 700,
     shouldCloseOnEscapePress: true,
-    shouldCloseOnOverlayClick: true
+    shouldCloseOnOverlayClick: true,
+    parameters: {
+      type: MarkdownDialogType.cheatsheet
+    } as MarkdownDialogsParams
   });
 };
