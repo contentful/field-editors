@@ -36,6 +36,7 @@ export function MarkdownHelp(props: { onClick: () => void }) {
     <Paragraph className={styles.help}>
       Format your text like a pro with the{' '}
       <TextLink
+        testId="open-markdown-cheatsheet-button"
         onClick={() => {
           props.onClick();
         }}>

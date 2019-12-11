@@ -65,7 +65,7 @@ const styles = {
 
 export const CheatsheetModalContent = () => {
   return (
-    <Modal.Content>
+    <Modal.Content testId="markdown-cheatsheet-dialog-content">
       <div className={styles.flexColumnContainer}>
         <div className={cx(styles.flexColumn, styles.verticalDivider)}>
           <div className={styles.helpItem}>

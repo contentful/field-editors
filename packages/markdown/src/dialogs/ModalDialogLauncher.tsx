@@ -54,7 +54,13 @@ export function openDialog<T>(
         size={`${options.width || 700}px`}>
         {() => (
           <>
-            {options.title && <Modal.Header title={options.title} onClose={() => onClose()} />}
+            {options.title && (
+              <Modal.Header
+                testId="markdown-dialog-title"
+                title={options.title}
+                onClose={() => onClose()}
+              />
+            )}
             <Component onClose={onClose} {...(options.parameters as any)} />
           </>
         )}
