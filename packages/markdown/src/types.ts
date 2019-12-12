@@ -7,7 +7,8 @@ export type EditorDirection = 'ltr' | 'rtl';
 export enum MarkdownDialogType {
   cheatsheet = 'cheatsheet',
   insertLink = 'insertLink',
-  insertSpecialCharacter = 'insertSpecialCharacter'
+  insertSpecialCharacter = 'insertSpecialCharacter',
+  insertTable = 'insertTable'
 }
 
 export type MarkdownDialogsParams =
@@ -20,6 +21,9 @@ export type MarkdownDialogsParams =
     }
   | {
       type: MarkdownDialogType.insertSpecialCharacter;
+    }
+  | {
+      type: MarkdownDialogType.insertTable;
     };
 
 export type OpenMarkdownDialogParams<T = any> = {
@@ -50,6 +54,7 @@ export type MarkdownActions = {
     h3: Function;
   };
   insertLink: Function;
+  insertTable: Function;
   insertSpecialCharacter: Function;
   linkExistingMedia: Function;
 };

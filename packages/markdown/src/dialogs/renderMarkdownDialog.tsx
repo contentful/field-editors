@@ -4,6 +4,7 @@ import { MarkdownDialogsParams, MarkdownDialogType } from '../types';
 import { SpecialCharacterModalDialog } from './SpecialCharacterModalDialog';
 import { CheatsheetModalDialog } from './CheatsheetModalDialog';
 import { InsertLinkModal } from './InsertLinkModalDialog';
+import { InsertTableModal } from './InsertTableModalDialog';
 
 export const renderMarkdownDialog = (
   sdk: DialogExtensionSDK & { parameters: { invocation: MarkdownDialogsParams } }
@@ -16,6 +17,8 @@ export const renderMarkdownDialog = (
     return <InsertLinkModal selectedText={selectedText} onClose={sdk.close} />;
   } else if (parameters.type === MarkdownDialogType.insertSpecialCharacter) {
     return <SpecialCharacterModalDialog onClose={sdk.close} />;
+  } else if (parameters.type === MarkdownDialogType.insertTable) {
+    return <InsertTableModal onClose={sdk.close} />;
   }
   return <div />;
 };

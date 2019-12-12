@@ -13,6 +13,7 @@ import { openCheatsheetModal } from './dialogs/CheatsheetModalDialog';
 import { openInsertLinkDialog } from './dialogs/InsertLinkModalDialog';
 import { openInsertSpecialCharacter } from './dialogs/SpecialCharacterModalDialog';
 import { MarkdownPreview } from './components/MarkdownPreview/MarkdownPreview';
+import { openInsertTableDialog } from './dialogs/InsertTableModalDialog';
 
 const styles = {
   container: css({
@@ -119,6 +120,15 @@ export function MarkdownEditor(props: MarkdownEditorProps) {
                   const result = await openInsertSpecialCharacter(props.dialogs);
                   if (result) {
                     editor.insert(result);
+                  }
+                },
+                insertTable: async () => {
+                  if (!editor) {
+                    return;
+                  }
+                  const result = await openInsertTableDialog(props.dialogs);
+                  if (result) {
+                    editor.actions.table(result);
                   }
                 },
                 linkExistingMedia: () => {

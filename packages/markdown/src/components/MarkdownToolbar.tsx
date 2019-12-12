@@ -215,7 +215,8 @@ export function MarkdownToolbar(props: MarkdownToolbarProps) {
             <ToolbarButton
               disabled={props.disabled}
               testId="markdown-action-button-table"
-              tooltip="Insert table">
+              tooltip="Insert table"
+              onClick={props.actions.insertTable}>
               <Icons.Table label="Insert table" className={styles.icon} />
             </ToolbarButton>
             <ToolbarButton
