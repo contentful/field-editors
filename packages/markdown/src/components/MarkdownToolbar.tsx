@@ -229,7 +229,8 @@ export function MarkdownToolbar(props: MarkdownToolbarProps) {
             <ToolbarButton
               disabled={props.disabled}
               testId="markdown-action-button-organizeLinks"
-              tooltip="Organize links">
+              tooltip="Organize links"
+              onClick={props.actions.organizeLinks}>
               <Icons.OrgLinks label="Organize links" className={styles.icon} />
             </ToolbarButton>
             <ToolbarButton

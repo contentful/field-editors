@@ -57,4 +57,5 @@ export type MarkdownActions = {
   insertTable: Function;
   insertSpecialCharacter: Function;
   linkExistingMedia: Function;
+  organizeLinks: Function;
 };

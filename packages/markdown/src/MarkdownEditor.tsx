@@ -2,7 +2,7 @@ import React from 'react';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
-import { DialogsAPI } from 'contentful-ui-extensions-sdk';
+import { DialogsAPI, NotifierAPI } from 'contentful-ui-extensions-sdk';
 import { MarkdownTabs } from './components/MarkdownTabs';
 import { MarkdownToolbar } from './components/MarkdownToolbar';
 import { MarkdownTextarea } from './components/MarkdownTextarea/MarkdownTextarea';
@@ -14,6 +14,7 @@ import { openInsertLinkDialog } from './dialogs/InsertLinkModalDialog';
 import { openInsertSpecialCharacter } from './dialogs/SpecialCharacterModalDialog';
 import { MarkdownPreview } from './components/MarkdownPreview/MarkdownPreview';
 import { openInsertTableDialog } from './dialogs/InsertTableModalDialog';
+import * as LinkOrganizer from './utils/linkOrganizer';
 
 const styles = {
   container: css({
@@ -30,6 +31,7 @@ export interface MarkdownEditorProps {
   isInitiallyDisabled: boolean;
   field: FieldAPI;
   dialogs: DialogsAPI;
+  notifier: NotifierAPI;
   onReady?: Function;
 }
 
@@ -130,6 +132,21 @@ export function MarkdownEditor(props: MarkdownEditorProps) {
                   if (result) {
                     editor.actions.table(result);
                   }
+                },
+                organizeLinks: () => {
+                  if (!editor) {
+                    return;
+                  }
+                  let text = editor.getContent();
+                  if (!text) {
+                    return;
+                  }
+                  text = LinkOrganizer.convertInlineToRef(text);
+                  text = LinkOrganizer.rewriteRefs(text);
+                  editor.setContent(text);
+                  props.notifier.success(
+                    'All your links are now references at the bottom of your document.'
+                  );
                 },
                 linkExistingMedia: () => {
                   props.dialogs.selectMultipleAssets();

@@ -8,6 +8,7 @@ menu: Components
 
 import { Playground, Props } from 'docz';
 import './codemirrorImports';
+import { Notification } from '@contentful/forma-36-react-components';
 import { MarkdownEditor } from './MarkdownEditor';
 import { openMarkdownDialog } from './dialogs/openMarkdownDialog'
 import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
@@ -26,6 +27,10 @@ import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-
           field={field}
           dialogs={{
             openExtension: openMarkdownDialog
+          }}
+          notifier={{
+            success: (text) => Notification.success(text),
+            error: (text) => Notification.error(text)
           }}
           onReady={editor => {
             window.markdownEditor = editor;

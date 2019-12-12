@@ -21,6 +21,7 @@ init(sdk => {
         <MarkdownEditor
           field={fieldSdk.field}
           dialogs={fieldSdk.dialogs}
+          notifier={fieldSdk.notifier}
           isInitiallyDisabled={true}
         />
       </div>,
