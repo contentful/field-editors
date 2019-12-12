@@ -35,7 +35,7 @@ export const InsertTableModal = ({ onClose }: InsertTableModalProps) => {
   }, [mainInputRef]);
 
   return (
-    <Modal.Content>
+    <Modal.Content testId="insert-table-modal">
       <Form>
         <TextField
           labelText="Number of rows"
