@@ -54,7 +54,7 @@ export const SpecialCharacterModalDialog = ({ onClose }: SpecialCharacterModalDi
     specialCharacters[0]
   );
   return (
-    <Modal.Content>
+    <Modal.Content testId="insert-special-character-modal">
       <div className={styles.charContainer}>
         <DisplayText element="p" className={styles.selectedCharacter}>
           {String.fromCharCode(selectedCharacter.code)}
@@ -64,10 +64,11 @@ export const SpecialCharacterModalDialog = ({ onClose }: SpecialCharacterModalDi
         </DisplayText>
       </div>
       <div className={styles.buttonPanel}>
-        {specialCharacters.map((char, index) => (
-          <div key={index}>
+        {specialCharacters.map(char => (
+          <div key={char.code}>
             <Tooltip className={styles.tooltip} content={char.desc}>
               <Button
+                testId="special-character-button"
                 isActive={char.code === selectedCharacter.code}
                 className={styles.charButton}
                 buttonType="naked"
@@ -80,12 +81,16 @@ export const SpecialCharacterModalDialog = ({ onClose }: SpecialCharacterModalDi
       </div>
       <Button
         className={styles.button}
-        testId="insert-link-confirm"
+        testId="insert-character-confirm"
         onClick={() => onClose(String.fromCharCode(selectedCharacter.code))}
         buttonType="positive">
         Insert selected
       </Button>
-      <Button className={styles.button} onClick={() => onClose(false)} buttonType="muted">
+      <Button
+        testId="insert-character-cancel"
+        className={styles.button}
+        onClick={() => onClose(false)}
+        buttonType="muted">
         Cancel
       </Button>
     </Modal.Content>
