@@ -221,7 +221,8 @@ export function MarkdownToolbar(props: MarkdownToolbarProps) {
             <ToolbarButton
               disabled={props.disabled}
               testId="markdown-action-button-special"
-              tooltip="Insert special character">
+              tooltip="Insert special character"
+              onClick={props.actions.insertSpecialCharacter}>
               <Icons.SpecialChar label="Insert special character" className={styles.icon} />
             </ToolbarButton>
             <ToolbarButton

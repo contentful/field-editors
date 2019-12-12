@@ -11,6 +11,7 @@ import { MarkdownBottomBar, MarkdownHelp, MarkdownCounter } from './components/M
 import { MarkdownTab } from './types';
 import { openCheatsheetModal } from './dialogs/CheatsheetModalDialog';
 import { openInsertLinkDialog } from './dialogs/InsertLinkModalDialog';
+import { openInsertSpecialCharacter } from './dialogs/SpecialCharacterModalDialog';
 import { MarkdownPreview } from './components/MarkdownPreview/MarkdownPreview';
 
 const styles = {
@@ -109,6 +110,15 @@ export function MarkdownEditor(props: MarkdownEditorProps) {
                   const result = await openInsertLinkDialog(props.dialogs, { selectedText });
                   if (result) {
                     editor.actions.link(result.url, selectedText || result.text, result.title);
+                  }
+                },
+                insertSpecialCharacter: async () => {
+                  if (!editor) {
+                    return;
+                  }
+                  const result = await openInsertSpecialCharacter(props.dialogs);
+                  if (result) {
+                    editor.insert(result);
                   }
                 },
                 linkExistingMedia: () => {

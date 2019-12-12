@@ -6,7 +6,8 @@ export type EditorDirection = 'ltr' | 'rtl';
 
 export enum MarkdownDialogType {
   cheatsheet = 'cheatsheet',
-  insertLink = 'insertLink'
+  insertLink = 'insertLink',
+  insertSpecialCharacter = 'insertSpecialCharacter'
 }
 
 export type MarkdownDialogsParams =
@@ -16,6 +17,9 @@ export type MarkdownDialogsParams =
   | {
       type: MarkdownDialogType.insertLink;
       selectedText?: string;
+    }
+  | {
+      type: MarkdownDialogType.insertSpecialCharacter;
     };
 
 export type OpenMarkdownDialogParams<T = any> = {
@@ -46,5 +50,6 @@ export type MarkdownActions = {
     h3: Function;
   };
   insertLink: Function;
+  insertSpecialCharacter: Function;
   linkExistingMedia: Function;
 };
