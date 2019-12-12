@@ -3,9 +3,6 @@ describe('Markdown Editor / Simple Actions', () => {
     getInput: () => {
       return cy.findByTestId('markdown-textarea').get('textarea');
     },
-    getValue: () => {
-      return cy.findByTestId('markdown-textarea').get('.CodeMirror-code');
-    },
     getHeadingsSelectorButton: () => {
       return cy.findByTestId('markdown-action-button-heading');
     },
