@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 import { DialogsAPI } from 'contentful-ui-extensions-sdk';
@@ -68,11 +68,18 @@ const makeEmbedlyLink = ({
 const isWidthValid = (width: number, unit: Unit) => (unit === 'percent' ? width <= 100 : true);
 
 export const EmbedExternalContentModal = ({ onClose }: EmbedExternalContentModalProps) => {
+  const mainInputRef = useRef<HTMLInputElement>(null);
   const [url, setUrl] = useState<string>('https://');
   const [selectedUnit, setUnit] = useState<Unit>('percent');
   const [urlIsValid, setUrlValidity] = useState<boolean>(true);
   const [width, setWidth] = useState('100');
   const [attachSocial, setAttachSocial] = useState(false);
+
+  useEffect(() => {
+    if (mainInputRef.current?.focus) {
+      mainInputRef.current.focus();
+    }
+  }, [mainInputRef]);
 
   return (
     <Modal.Content testId="embed-external-dialog">
@@ -90,7 +97,8 @@ export const EmbedExternalContentModal = ({ onClose }: EmbedExternalContentModal
           helpText="Include protocol (e.g. https://)"
           textInputProps={{
             testId: 'external-link-url-field',
-            placeholder: 'https://example.com'
+            placeholder: 'https://example.com',
+            inputRef: mainInputRef
           }}
           required
           validationMessage={urlIsValid ? '' : 'URL is invalid'}
