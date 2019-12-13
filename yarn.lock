@@ -2008,6 +2008,20 @@
     react-transition-group "^2.4.0"
     truncate "^2.0.1"
 
+"@contentful/forma-36-react-components@^3.25.3":
+  version "3.25.3"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.25.3.tgz#f48c90e23062395228014cf3ba6bfc8c354ae51a"
+  integrity sha512-Rpcgiu7UeXWGdRnAgYUtAl8V/gyZYTl1aNwTrsjGA2LJTQoZlRO+zeF7Vr1NiYQkBoYMwA8xHAsrYlXFqbBemA==
+  dependencies:
+    "@babel/runtime" "^7.3.4"
+    classnames "^2.2.6"
+    prop-types "^15.7.2"
+    react-animate-height "^2.0.7"
+    react-copy-to-clipboard "^5.0.1"
+    react-modal "3.6.1"
+    react-transition-group "^2.4.0"
+    truncate "^2.0.1"
+
 "@contentful/forma-36-tokens@0.4.5", "@contentful/forma-36-tokens@^0.4.5":
   version "0.4.5"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.4.5.tgz#86880a06178de9ebfb542db983550b7c5ae531d3"

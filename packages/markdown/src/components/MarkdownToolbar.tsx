@@ -59,7 +59,7 @@ function ToolbarButton(props: {
     disabled = false
   } = props;
   return (
-    <Tooltip place="top" content={tooltip}>
+    <Tooltip place="top" content={tooltip} isVisible={false}>
       <Button
         className={cx(styles.button, className)}
         disabled={disabled}
@@ -209,7 +209,8 @@ export function MarkdownToolbar(props: MarkdownToolbarProps) {
             <ToolbarButton
               disabled={props.disabled}
               testId="markdown-action-button-embed"
-              tooltip="Embed external content">
+              tooltip="Embed external content"
+              onClick={props.actions.embedExternalContent}>
               <Icons.Cubes label="Embed external content" className={styles.icon} />
             </ToolbarButton>
             <ToolbarButton

@@ -14,6 +14,7 @@ import { openInsertLinkDialog } from './dialogs/InsertLinkModalDialog';
 import { openInsertSpecialCharacter } from './dialogs/SpecialCharacterModalDialog';
 import { MarkdownPreview } from './components/MarkdownPreview/MarkdownPreview';
 import { openInsertTableDialog } from './dialogs/InsertTableModalDialog';
+import { openEmbedExternalContentDialog } from './dialogs/EmdebExternalContentDialog';
 import * as LinkOrganizer from './utils/linkOrganizer';
 
 const styles = {
@@ -147,6 +148,15 @@ export function MarkdownEditor(props: MarkdownEditorProps) {
                   props.notifier.success(
                     'All your links are now references at the bottom of your document.'
                   );
+                },
+                embedExternalContent: async () => {
+                  if (!editor) {
+                    return;
+                  }
+                  const result = await openEmbedExternalContentDialog(props.dialogs);
+                  if (result) {
+                    editor.insert(result);
+                  }
                 },
                 linkExistingMedia: () => {
                   props.dialogs.selectMultipleAssets();

@@ -6,6 +6,10 @@ import { SpecialCharacterModalDialog } from './SpecialCharacterModalDialog';
 import { MarkdownDialogType } from '../types';
 import { InsertLinkModal, InsertLinkModalResult } from './InsertLinkModalDialog';
 import { InsertTableModal, InsertTableModalResult } from './InsertTableModalDialog';
+import {
+  EmbedExternalContentModal,
+  EmbedExternalContentModalResult
+} from './EmdebExternalContentDialog';
 
 export const openMarkdownDialog = (options: OpenMarkdownDialogParams<MarkdownDialogsParams>) => {
   if (options.parameters?.type === MarkdownDialogType.cheatsheet) {
@@ -24,6 +28,10 @@ export const openMarkdownDialog = (options: OpenMarkdownDialogParams<MarkdownDia
   } else if (options.parameters?.type === MarkdownDialogType.insertTable) {
     return ModalLauncher.openDialog<InsertTableModalResult>(options, ({ onClose }) => {
       return <InsertTableModal onClose={onClose} />;
+    });
+  } else if (options.parameters?.type === MarkdownDialogType.embedExternalContent) {
+    return ModalLauncher.openDialog<EmbedExternalContentModalResult>(options, ({ onClose }) => {
+      return <EmbedExternalContentModal onClose={onClose} />;
     });
   }
   return Promise.reject();

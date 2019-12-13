@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { css } from 'emotion';
 import { DialogsAPI } from 'contentful-ui-extensions-sdk';
+import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 import tokens from '@contentful/forma-36-tokens';
 import { Modal, TextField, Form, Button } from '@contentful/forma-36-react-components';
 import { isValidUrl } from '../utils/isValidUrl';
-import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 
 const styles = {
   controlsContainer: css({

@@ -8,7 +8,8 @@ export enum MarkdownDialogType {
   cheatsheet = 'cheatsheet',
   insertLink = 'insertLink',
   insertSpecialCharacter = 'insertSpecialCharacter',
-  insertTable = 'insertTable'
+  insertTable = 'insertTable',
+  embedExternalContent = 'embedExternalContent'
 }
 
 export type MarkdownDialogsParams =
@@ -24,6 +25,9 @@ export type MarkdownDialogsParams =
     }
   | {
       type: MarkdownDialogType.insertTable;
+    }
+  | {
+      type: MarkdownDialogType.embedExternalContent;
     };
 
 export type OpenMarkdownDialogParams<T = any> = {
@@ -54,6 +58,7 @@ export type MarkdownActions = {
     h3: Function;
   };
   insertLink: Function;
+  embedExternalContent: Function;
   insertTable: Function;
   insertSpecialCharacter: Function;
   linkExistingMedia: Function;
