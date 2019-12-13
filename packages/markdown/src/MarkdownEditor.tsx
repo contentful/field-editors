@@ -105,6 +105,14 @@ export function MarkdownEditor(props: MarkdownEditorProps) {
                     editor?.actions.dedent();
                   }
                 },
+                history: {
+                  undo: () => {
+                    editor?.actions.undo();
+                  },
+                  redo: () => {
+                    editor?.actions.redo();
+                  }
+                },
                 insertLink: async () => {
                   if (!editor) {
                     return;

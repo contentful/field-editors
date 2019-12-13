@@ -237,13 +237,15 @@ export function MarkdownToolbar(props: MarkdownToolbarProps) {
             <ToolbarButton
               disabled={props.disabled}
               testId="markdown-action-button-undo"
-              tooltip="Undo">
+              tooltip="Undo"
+              onClick={props.actions.history.undo}>
               <Icons.Undo label="Undo" className={styles.icon} />
             </ToolbarButton>
             <ToolbarButton
               disabled={props.disabled}
               testId="markdown-action-button-redo"
-              tooltip="Redo">
+              tooltip="Redo"
+              onClick={props.actions.history.redo}>
               <Icons.Redo label="Redo" className={styles.icon} />
             </ToolbarButton>
           </div>

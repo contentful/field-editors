@@ -57,6 +57,10 @@ export type MarkdownActions = {
     h2: Function;
     h3: Function;
   };
+  history: {
+    undo: Function;
+    redo: Function;
+  };
   insertLink: Function;
   embedExternalContent: Function;
   insertTable: Function;
