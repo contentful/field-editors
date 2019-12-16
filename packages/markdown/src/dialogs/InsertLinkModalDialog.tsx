@@ -111,7 +111,8 @@ export const openInsertLinkDialog = (
 ): Promise<InsertLinkModalResult> => {
   return dialogs.openExtension({
     title: 'Insert link',
-    width: 700,
+    width: 'large',
+    minHeight: '441px',
     shouldCloseOnEscapePress: true,
     shouldCloseOnOverlayClick: true,
     parameters: {

@@ -166,8 +166,8 @@ export function MarkdownEditor(props: MarkdownEditorProps) {
                     editor.insert(result);
                   }
                 },
-                linkExistingMedia: () => {
-                  props.dialogs.selectMultipleAssets();
+                linkExistingMedia: async () => {
+                  await props.dialogs.selectMultipleAssets();
                 }
               }}
             />

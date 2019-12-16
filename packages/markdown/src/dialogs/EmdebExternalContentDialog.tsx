@@ -188,7 +188,8 @@ export const openEmbedExternalContentDialog = (
 ): Promise<EmbedExternalContentModalResult> => {
   return dialogs.openExtension({
     title: 'Embed external content',
-    width: 700,
+    width: 'large',
+    minHeight: '475px',
     shouldCloseOnEscapePress: true,
     shouldCloseOnOverlayClick: true,
     parameters: {

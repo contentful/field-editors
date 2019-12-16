@@ -94,7 +94,8 @@ export const InsertTableModal = ({ onClose }: InsertTableModalProps) => {
 export const openInsertTableDialog = (dialogs: DialogsAPI): Promise<InsertTableModalResult> => {
   return dialogs.openExtension({
     title: 'Insert table',
-    width: 500,
+    width: 'medium',
+    minHeight: '290px',
     shouldCloseOnEscapePress: true,
     shouldCloseOnOverlayClick: true,
     parameters: {

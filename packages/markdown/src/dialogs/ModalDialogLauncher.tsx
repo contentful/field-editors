@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-use-before-define */
 
 import React from 'react';
+import isNumber from 'lodash/isNumber';
 import ReactDOM from 'react-dom';
 import { Modal } from '@contentful/forma-36-react-components';
 import { OpenMarkdownDialogParams } from '../types';
@@ -42,26 +43,31 @@ export function openDialog<T>(
   Component: React.SFC<{ onClose: (result: T) => void }>
 ) {
   const key = Date.now();
+  const size = isNumber(options.width) ? `${options.width}px` : options.width;
   return open(({ isShown, onClose }) => {
+    const onCloseHandler = () => onClose();
     return (
       <Modal
         key={key}
         shouldCloseOnOverlayClick={options.shouldCloseOnOverlayClick || false}
         shouldCloseOnEscapePress={options.shouldCloseOnEscapePress || false}
+        allowHeightOverflow={options.allowHeightOverflow || false}
         position={options.position || 'center'}
         isShown={isShown}
-        onClose={() => onClose()}
-        size={`${options.width || 700}px`}>
+        onClose={onCloseHandler}
+        size={size || '700px'}>
         {() => (
           <>
             {options.title && (
               <Modal.Header
                 testId="markdown-dialog-title"
                 title={options.title}
-                onClose={() => onClose()}
+                onClose={onCloseHandler}
               />
             )}
-            <Component onClose={onClose as any} />
+            <div style={{ minHeight: options.minHeight || 'auto' }}>
+              <Component onClose={onClose as any} />
+            </div>
           </>
         )}
       </Modal>

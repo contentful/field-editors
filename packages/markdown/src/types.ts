@@ -1,3 +1,5 @@
+import { OpenExtensionOptions } from 'contentful-ui-extensions-sdk';
+
 export type MarkdownTab = 'editor' | 'preview';
 
 export type HeadingType = 'h1' | 'h2' | 'h3';
@@ -30,12 +32,7 @@ export type MarkdownDialogsParams =
       type: MarkdownDialogType.embedExternalContent;
     };
 
-export type OpenMarkdownDialogParams<T = any> = {
-  width?: number;
-  position?: 'center' | 'top';
-  title?: string;
-  shouldCloseOnOverlayClick?: boolean;
-  shouldCloseOnEscapePress?: boolean;
+export type OpenMarkdownDialogParams<T = any> = OpenExtensionOptions & {
   parameters?: T;
 };
 

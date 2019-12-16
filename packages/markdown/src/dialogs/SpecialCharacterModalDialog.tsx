@@ -102,7 +102,8 @@ export const openInsertSpecialCharacter = (
 ): Promise<SpecialCharacterModalResult> => {
   return dialogs.openExtension({
     title: 'Insert special character',
-    width: 700,
+    width: 'large',
+    minHeight: '615px',
     shouldCloseOnEscapePress: true,
     shouldCloseOnOverlayClick: true,
     parameters: {
