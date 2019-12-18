@@ -18,12 +18,7 @@ init(sdk => {
     fieldSdk.window.startAutoResizer();
     render(
       <div style={{ minHeight: 300, marginTop: 10 }}>
-        <MarkdownEditor
-          field={fieldSdk.field}
-          dialogs={fieldSdk.dialogs}
-          notifier={fieldSdk.notifier}
-          isInitiallyDisabled={true}
-        />
+        <MarkdownEditor sdk={fieldSdk} isInitiallyDisabled={true} />
       </div>,
       document.getElementById('root')
     );

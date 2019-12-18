@@ -24,13 +24,15 @@ import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-
     return (
       <div data-test-id="markdown-editor-integration-test">
         <MarkdownEditor
-          field={field}
-          dialogs={{
-            openExtension: openMarkdownDialog
-          }}
-          notifier={{
-            success: (text) => Notification.success(text),
-            error: (text) => Notification.error(text)
+          sdk={{
+            field,
+            dialogs: {
+              openExtension: openMarkdownDialog
+            },
+            notifier: {
+              success: (text) => Notification.success(text),
+              error: (text) => Notification.error(text)
+            }
           }}
           onReady={editor => {
             window.markdownEditor = editor;

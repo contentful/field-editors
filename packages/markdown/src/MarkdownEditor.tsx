@@ -1,8 +1,8 @@
 import React from 'react';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
-import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
-import { DialogsAPI, NotifierAPI } from 'contentful-ui-extensions-sdk';
+import { FieldConnector } from '@contentful/field-editor-shared';
+import { FieldExtensionSDK } from 'contentful-ui-extensions-sdk';
 import { MarkdownTabs } from './components/MarkdownTabs';
 import { MarkdownToolbar } from './components/MarkdownToolbar';
 import { MarkdownTextarea } from './components/MarkdownTextarea/MarkdownTextarea';
@@ -30,9 +30,7 @@ export interface MarkdownEditorProps {
    * is the field disabled initially
    */
   isInitiallyDisabled: boolean;
-  field: FieldAPI;
-  dialogs: DialogsAPI;
-  notifier: NotifierAPI;
+  sdk: FieldExtensionSDK;
   onReady?: Function;
 }
 
@@ -47,7 +45,7 @@ export function MarkdownEditor(props: MarkdownEditorProps) {
   }, [editor]);
 
   return (
-    <FieldConnector<string> field={props.field} isInitiallyDisabled={props.isInitiallyDisabled}>
+    <FieldConnector<string> field={props.sdk.field} isInitiallyDisabled={props.isInitiallyDisabled}>
       {({ value, disabled }) => {
         const isActionDisabled = editor === null || disabled || selectedTab !== 'editor';
 
@@ -119,7 +117,7 @@ export function MarkdownEditor(props: MarkdownEditorProps) {
                   }
                   editor.usePrimarySelection();
                   const selectedText = editor.getSelectedText();
-                  const result = await openInsertLinkDialog(props.dialogs, { selectedText });
+                  const result = await openInsertLinkDialog(props.sdk.dialogs, { selectedText });
                   if (result) {
                     editor.actions.link(result.url, selectedText || result.text, result.title);
                   }
@@ -128,7 +126,7 @@ export function MarkdownEditor(props: MarkdownEditorProps) {
                   if (!editor) {
                     return;
                   }
-                  const result = await openInsertSpecialCharacter(props.dialogs);
+                  const result = await openInsertSpecialCharacter(props.sdk.dialogs);
                   if (result) {
                     editor.insert(result);
                   }
@@ -137,7 +135,7 @@ export function MarkdownEditor(props: MarkdownEditorProps) {
                   if (!editor) {
                     return;
                   }
-                  const result = await openInsertTableDialog(props.dialogs);
+                  const result = await openInsertTableDialog(props.sdk.dialogs);
                   if (result) {
                     editor.actions.table(result);
                   }
@@ -153,7 +151,7 @@ export function MarkdownEditor(props: MarkdownEditorProps) {
                   text = LinkOrganizer.convertInlineToRef(text);
                   text = LinkOrganizer.rewriteRefs(text);
                   editor.setContent(text);
-                  props.notifier.success(
+                  props.sdk.notifier.success(
                     'All your links are now references at the bottom of your document.'
                   );
                 },
@@ -161,13 +159,20 @@ export function MarkdownEditor(props: MarkdownEditorProps) {
                   if (!editor) {
                     return;
                   }
-                  const result = await openEmbedExternalContentDialog(props.dialogs);
+                  const result = await openEmbedExternalContentDialog(props.sdk.dialogs);
                   if (result) {
                     editor.insert(result);
                   }
                 },
+                addNewMedia: async () => {
+                  console.log(
+                    await props.sdk.navigator.openAsset('2tC92jveZvVhqrS1ZXswm8', {
+                      slideIn: { waitForClose: true }
+                    })
+                  );
+                },
                 linkExistingMedia: async () => {
-                  await props.dialogs.selectMultipleAssets();
+                  await props.sdk.dialogs.selectMultipleAssets();
                 }
               }}
             />
@@ -185,7 +190,7 @@ export function MarkdownEditor(props: MarkdownEditorProps) {
             <MarkdownBottomBar>
               <MarkdownHelp
                 onClick={() => {
-                  openCheatsheetModal(props.dialogs);
+                  openCheatsheetModal(props.sdk.dialogs);
                 }}
               />
               <MarkdownCounter words={0} characters={0} />
