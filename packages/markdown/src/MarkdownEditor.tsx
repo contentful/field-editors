@@ -165,14 +165,27 @@ export function MarkdownEditor(props: MarkdownEditorProps) {
                   }
                 },
                 addNewMedia: async () => {
-                  console.log(
-                    await props.sdk.navigator.openAsset('2tC92jveZvVhqrS1ZXswm8', {
-                      slideIn: { waitForClose: true }
-                    })
-                  );
+                  if (!editor) {
+                    return;
+                  }
+
+                  await props.sdk.navigator.openNewAsset({
+                    slideIn: { waitForClose: true }
+                  });
                 },
                 linkExistingMedia: async () => {
-                  await props.sdk.dialogs.selectMultipleAssets();
+                  if (!editor) {
+                    return;
+                  }
+                  try {
+                    const assets = await props.sdk.dialogs.selectMultipleAssets({
+                      locale: props.sdk.field.locale
+                    });
+                  } finally {
+                    editor.focus();
+                  }
+
+                  console.log(assets);
                 }
               }}
             />
