@@ -170,9 +170,24 @@ export function MarkdownEditor(props: MarkdownEditorProps) {
                     return;
                   }
 
-                  await props.sdk.navigator.openNewAsset({
-                    slideIn: { waitForClose: true }
-                  });
+                  try {
+                    const { entity: asset } = (await props.sdk.navigator.openNewAsset({
+                      slideIn: { waitForClose: true }
+                    })) as any; // eslint-disable-line @typescript-eslint/no-explicit-any
+
+                    if (asset) {
+                      const { links } = await insertAssetLinks([asset], {
+                        localeCode: props.sdk.field.locale,
+                        defaultLocaleCode: props.sdk.locales.default,
+                        fallbackCode: props.sdk.locales.fallbacks[props.sdk.field.locale]
+                      });
+                      if (links && links.length > 0) {
+                        editor.insert(links.map(link => link.asMarkdown).join('\n\n'));
+                      }
+                    }
+                  } finally {
+                    editor.focus();
+                  }
                 },
                 linkExistingMedia: async () => {
                   if (!editor) {
