@@ -76,6 +76,7 @@ function ToolbarButton(props: {
 }
 
 interface MarkdownToolbarProps {
+  canUploadAssets: boolean;
   disabled: boolean;
   actions: MarkdownActions;
 }
@@ -156,7 +157,7 @@ export function MarkdownToolbar(props: MarkdownToolbarProps) {
             disabled={props.disabled}
             onSelectExisting={props.actions.linkExistingMedia}
             onAddNew={props.actions.addNewMedia}
-            canAddNew
+            canAddNew={props.canUploadAssets}
           />
           <ToolbarButton
             disabled={props.disabled}

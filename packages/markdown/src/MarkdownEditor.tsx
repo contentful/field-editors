@@ -27,6 +27,11 @@ export interface MarkdownEditorProps {
    */
   isInitiallyDisabled: boolean;
   sdk: FieldExtensionSDK;
+  parameters: {
+    instance: {
+      canUploadAssets: boolean;
+    };
+  };
   onReady?: Function;
 }
 
@@ -55,6 +60,7 @@ export function MarkdownEditor(props: MarkdownEditorProps) {
             />
             <MarkdownToolbar
               disabled={isActionDisabled}
+              canUploadAssets={props.parameters.instance.canUploadAssets}
               actions={createMarkdownActions(props.sdk, editor)}
             />
             <MarkdownTextarea
