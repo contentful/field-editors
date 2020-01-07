@@ -15,6 +15,7 @@ import { openInsertSpecialCharacter } from './dialogs/SpecialCharacterModalDialo
 import { MarkdownPreview } from './components/MarkdownPreview/MarkdownPreview';
 import { openInsertTableDialog } from './dialogs/InsertTableModalDialog';
 import { openEmbedExternalContentDialog } from './dialogs/EmdebExternalContentDialog';
+import { openConfirmInsertAsset } from './dialogs/ConfirmInsertAssetModalDialog';
 import { insertAssetLinks } from './utils/insertAssetLinks';
 import * as LinkOrganizer from './utils/linkOrganizer';
 
@@ -176,12 +177,21 @@ export function MarkdownEditor(props: MarkdownEditorProps) {
                     })) as any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
                     if (asset) {
-                      const { links } = await insertAssetLinks([asset], {
+                      const { links, fallbacks } = await insertAssetLinks([asset], {
                         localeCode: props.sdk.field.locale,
                         defaultLocaleCode: props.sdk.locales.default,
                         fallbackCode: props.sdk.locales.fallbacks[props.sdk.field.locale]
                       });
                       if (links && links.length > 0) {
+                        if (fallbacks) {
+                          const insertAnyway = await openConfirmInsertAsset(props.sdk.dialogs, {
+                            locale: props.sdk.field.locale,
+                            assets: fallbacks
+                          });
+                          if (!insertAnyway) {
+                            throw Error('User decided to not use fallbacks');
+                          }
+                        }
                         editor.insert(links.map(link => link.asMarkdown).join('\n\n'));
                       }
                     }
@@ -198,12 +208,21 @@ export function MarkdownEditor(props: MarkdownEditorProps) {
                       locale: props.sdk.field.locale
                     });
                     if (assets) {
-                      const { links } = await insertAssetLinks(assets, {
+                      const { links, fallbacks } = await insertAssetLinks(assets, {
                         localeCode: props.sdk.field.locale,
                         defaultLocaleCode: props.sdk.locales.default,
                         fallbackCode: props.sdk.locales.fallbacks[props.sdk.field.locale]
                       });
                       if (links && links.length > 0) {
+                        if (fallbacks) {
+                          const insertAnyway = await openConfirmInsertAsset(props.sdk.dialogs, {
+                            locale: props.sdk.field.locale,
+                            assets: fallbacks
+                          });
+                          if (!insertAnyway) {
+                            throw Error('User decided to not use fallbacks');
+                          }
+                        }
                         editor.insert(links.map(link => link.asMarkdown).join('\n\n'));
                       }
                     }

@@ -6,6 +6,7 @@ import { CheatsheetModalDialog } from './CheatsheetModalDialog';
 import { InsertLinkModal } from './InsertLinkModalDialog';
 import { InsertTableModal } from './InsertTableModalDialog';
 import { EmbedExternalContentModal } from './EmdebExternalContentDialog';
+import { ConfirmInsertAssetModalDialog } from './ConfirmInsertAssetModalDialog';
 
 export const renderMarkdownDialog = (
   sdk: DialogExtensionSDK & { parameters: { invocation: MarkdownDialogsParams } }
@@ -22,6 +23,10 @@ export const renderMarkdownDialog = (
     return <InsertTableModal onClose={sdk.close} />;
   } else if (parameters.type === MarkdownDialogType.embedExternalContent) {
     return <EmbedExternalContentModal onClose={sdk.close} />;
+  } else if (parameters.type === MarkdownDialogType.confirmInsertAsset) {
+    const locale = parameters.locale;
+    const assets = parameters.assets;
+    return <ConfirmInsertAssetModalDialog onClose={sdk.close} locale={locale} assets={assets} />;
   }
   return <div />;
 };

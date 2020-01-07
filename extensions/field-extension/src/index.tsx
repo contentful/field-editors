@@ -8,6 +8,7 @@ import {
 } from 'contentful-ui-extensions-sdk';
 import { MarkdownEditor, renderMarkdownDialog } from '../../../packages/markdown/src/index';
 import '@contentful/forma-36-react-components/dist/styles.css';
+import '@contentful/forma-36-fcss/dist/styles.css';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/elegant.css';
 import './index.css';

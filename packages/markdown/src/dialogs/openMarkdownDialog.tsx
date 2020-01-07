@@ -6,6 +6,7 @@ import { SpecialCharacterModalDialog } from './SpecialCharacterModalDialog';
 import { MarkdownDialogType } from '../types';
 import { InsertLinkModal, InsertLinkModalResult } from './InsertLinkModalDialog';
 import { InsertTableModal, InsertTableModalResult } from './InsertTableModalDialog';
+import { ConfirmInsertAssetModalDialog } from './ConfirmInsertAssetModalDialog';
 import {
   EmbedExternalContentModal,
   EmbedExternalContentModalResult
@@ -32,6 +33,12 @@ export const openMarkdownDialog = (options: OpenMarkdownDialogParams<MarkdownDia
   } else if (options.parameters?.type === MarkdownDialogType.embedExternalContent) {
     return ModalLauncher.openDialog<EmbedExternalContentModalResult>(options, ({ onClose }) => {
       return <EmbedExternalContentModal onClose={onClose} />;
+    });
+  } else if (options.parameters?.type === MarkdownDialogType.confirmInsertAsset) {
+    const locale = options.parameters.locale;
+    const assets = options.parameters.assets;
+    return ModalLauncher.openDialog<boolean>(options, ({ onClose }) => {
+      return <ConfirmInsertAssetModalDialog onClose={onClose} locale={locale} assets={assets} />;
     });
   }
   return Promise.reject();

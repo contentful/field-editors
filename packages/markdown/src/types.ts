@@ -11,7 +11,8 @@ export enum MarkdownDialogType {
   insertLink = 'insertLink',
   insertSpecialCharacter = 'insertSpecialCharacter',
   insertTable = 'insertTable',
-  embedExternalContent = 'embedExternalContent'
+  embedExternalContent = 'embedExternalContent',
+  confirmInsertAsset = 'confirmInsertAsset'
 }
 
 export type MarkdownDialogsParams =
@@ -30,6 +31,16 @@ export type MarkdownDialogsParams =
     }
   | {
       type: MarkdownDialogType.embedExternalContent;
+    }
+  | {
+      type: MarkdownDialogType.confirmInsertAsset;
+      locale: string;
+      assets: Array<{
+        title: string;
+        description: string;
+        thumbnailUrl: string;
+        thumbnailAltText: string;
+      }>;
     };
 
 export type OpenMarkdownDialogParams<T = any> = OpenExtensionOptions & {
