@@ -1959,10 +1959,10 @@
   dependencies:
     "@contentful/forma-36-tokens" "^0.4.5"
 
-"@contentful/forma-36-react-components@3.24.0", "@contentful/forma-36-react-components@^3.24.0":
-  version "3.24.0"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.24.0.tgz#875ff7775f95ad157ac44406cc4913d64b511662"
-  integrity sha512-6LaXTp8Y442XpszgbNHbHoE51Brvaz4ZTiTigRZMmmo4pBLs5fcQ57U12y+AIpFtvV+c0HtQxQrLGwAfIRtaXQ==
+"@contentful/forma-36-react-components@3.27.6":
+  version "3.27.6"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.27.6.tgz#a8b6ebf0729c2474ecda80ef05f014efb87ada77"
+  integrity sha512-ZI8OzvBOIkgRI6InUrotGi8Po8WdEnpaTbuDwjy/loDVoFWfPFGWpqvbTxbsGUYF+gtYPz3x3yf/hrrmxuEJXw==
   dependencies:
     "@babel/runtime" "^7.3.4"
     classnames "^2.2.6"
@@ -2015,6 +2015,20 @@
     react-transition-group "^2.4.0"
     truncate "^2.0.1"
 
+"@contentful/forma-36-react-components@^3.24.0":
+  version "3.24.0"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.24.0.tgz#875ff7775f95ad157ac44406cc4913d64b511662"
+  integrity sha512-6LaXTp8Y442XpszgbNHbHoE51Brvaz4ZTiTigRZMmmo4pBLs5fcQ57U12y+AIpFtvV+c0HtQxQrLGwAfIRtaXQ==
+  dependencies:
+    "@babel/runtime" "^7.3.4"
+    classnames "^2.2.6"
+    prop-types "^15.7.2"
+    react-animate-height "^2.0.7"
+    react-copy-to-clipboard "^5.0.1"
+    react-modal "3.6.1"
+    react-transition-group "^2.4.0"
+    truncate "^2.0.1"
+
 "@contentful/forma-36-react-components@^3.25.3":
   version "3.25.3"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.25.3.tgz#f48c90e23062395228014cf3ba6bfc8c354ae51a"
@@ -2029,7 +2043,12 @@
     react-transition-group "^2.4.0"
     truncate "^2.0.1"
 
-"@contentful/forma-36-tokens@0.4.5", "@contentful/forma-36-tokens@^0.4.5":
+"@contentful/forma-36-tokens@0.5.1":
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.5.1.tgz#427130f4e65f3aef4ec987873c4a1b61dab8cdaf"
+  integrity sha512-KeI181dInXcgSQw/ibPHEyshDFrEOPVEwHZ4a720yEJczT64zmKC/CLecsv3C7tUiQlnSnTZD1fcFBXmeOIThw==
+
+"@contentful/forma-36-tokens@^0.4.5":
   version "0.4.5"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.4.5.tgz#86880a06178de9ebfb542db983550b7c5ae531d3"
   integrity sha512-wygRxC9r+Wr4FR4wEp1MVjt+Hx5n1lCux4EOXfva3Au1CXzjcl821ukR8mMaurYM7/3TMrv/olQorySNwGpllg==
@@ -3602,6 +3621,13 @@
   version "4.14.144"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.144.tgz#12e57fc99064bce45e5ab3c8bc4783feb75eab8e"
   integrity sha512-ogI4g9W5qIQQUhXAclq6zhqgqNUr7UlFaqDHbch7WLSLeeM/7d3CRaw7GLajxvyFvhJqw4Rpcz5bhoaYtIx6Tg==
+
+"@types/markdown-to-jsx@6.9.1":
+  version "6.9.1"
+  resolved "https://registry.yarnpkg.com/@types/markdown-to-jsx/-/markdown-to-jsx-6.9.1.tgz#538ce2b1d1af39da4e9e1b7e3dcf536dbede1f62"
+  integrity sha512-WwG7BusI7neX26NtkbOZepTzA3W+RpNvEKl0GhO9l+CDIVPg6cWD2LhfREaSFQjXwvkj3YwP9FLUFbBP19VEig==
+  dependencies:
+    "@types/react" "*"
 
 "@types/minimatch@*":
   version "3.0.3"
@@ -12500,6 +12526,14 @@ markdown-table@^1.1.0:
   resolved "https://registry.yarnpkg.com/markdown-table/-/markdown-table-1.1.3.tgz#9fcb69bcfdb8717bfd0398c6ec2d93036ef8de60"
   integrity sha512-1RUZVgQlpJSPWYbFSpmudq5nHY1doEIv89gBtF0s4gW1GF2XorxcA/70M5vq7rLv0a6mhOUccRsqkwhwLCIQ2Q==
 
+markdown-to-jsx@6.10.3:
+  version "6.10.3"
+  resolved "https://registry.yarnpkg.com/markdown-to-jsx/-/markdown-to-jsx-6.10.3.tgz#7f0946684acd321125ff2de7fd258a9b9c7c40b7"
+  integrity sha512-PSoUyLnW/xoW6RsxZrquSSz5eGEOTwa15H5eqp3enmrp8esmgDJmhzd6zmQ9tgAA9TxJzx1Hmf3incYU/IamoQ==
+  dependencies:
+    prop-types "^15.6.2"
+    unquote "^1.1.0"
+
 marked@^0.3.5:
   version "0.3.19"
   resolved "https://registry.yarnpkg.com/marked/-/marked-0.3.19.tgz#5d47f709c4c9fc3c216b6d46127280f40b39d790"
@@ -18678,7 +18712,7 @@ unpipe@1.0.0, unpipe@~1.0.0:
   resolved "https://registry.yarnpkg.com/unpipe/-/unpipe-1.0.0.tgz#b2bf4ee8514aae6165b4817829d21b2ef49904ec"
   integrity sha1-sr9O6FFKrmFltIF4KdIbLvSZBOw=
 
-unquote@~1.1.1:
+unquote@^1.1.0, unquote@~1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/unquote/-/unquote-1.1.1.tgz#8fded7324ec6e88a0ff8b905e7c098cdc086d544"
   integrity sha1-j97XMk7G6IoP+LkF58CYzcCG1UQ=

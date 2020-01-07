@@ -73,7 +73,9 @@ export function MarkdownEditor(props: MarkdownEditorProps) {
                 setEditor(editor);
               }}
             />
-            {selectedTab === 'preview' && <MarkdownPreview />}
+            {selectedTab === 'preview' && (
+              <MarkdownPreview value={(editor ? editor.getContent() : value) ?? ''} />
+            )}
             <MarkdownBottomBar>
               <MarkdownHelp
                 onClick={() => {

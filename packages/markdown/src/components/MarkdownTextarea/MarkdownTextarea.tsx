@@ -17,8 +17,8 @@ const styles = {
   root: css`
     border: 1px solid ${tokens.colorElementDark};
     border-width: 0 1px;
-    overflow-y: 'auto';
-    height: 'auto';
+    overflow-y: auto;
+    height: auto;
     min-height: 300px;
     textarea {
       height: 1px;
