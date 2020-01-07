@@ -1,6 +1,7 @@
 import get from 'lodash/get';
 import isObject from 'lodash/isObject';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Asset = any;
 
 type LinkWithMedia = {
@@ -9,6 +10,7 @@ type LinkWithMedia = {
   url: string;
   isLocalized: boolean;
   isFallback: boolean;
+  asMarkdown: string;
 };
 
 type Locales = {
@@ -63,14 +65,16 @@ function makeAssetLink(
       // was fallback value used
       // if it was not localized normally, and we did not used a fallback
       // it means we used a default locale - we filter empty values
-      isFallback: Boolean(fallbackFile)
+      isFallback: Boolean(fallbackFile),
+      // todo: tranform using fromHostname
+      asMarkdown: `![${title}](${file.url})`
     };
   } else {
     return null;
   }
 }
 
-export async function _insertAssetLinks(assets: Array<Asset>, locales: Locales) {
+export async function insertAssetLinks(assets: Array<Asset>, locales: Locales) {
   // check whether do we have some assets, which don't have
   // a version in this field's locale
   const otherLocales = assets.filter(asset => {

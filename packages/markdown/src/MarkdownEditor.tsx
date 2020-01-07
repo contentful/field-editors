@@ -15,6 +15,7 @@ import { openInsertSpecialCharacter } from './dialogs/SpecialCharacterModalDialo
 import { MarkdownPreview } from './components/MarkdownPreview/MarkdownPreview';
 import { openInsertTableDialog } from './dialogs/InsertTableModalDialog';
 import { openEmbedExternalContentDialog } from './dialogs/EmdebExternalContentDialog';
+import { insertAssetLinks } from './utils/insertAssetLinks';
 import * as LinkOrganizer from './utils/linkOrganizer';
 
 const styles = {
@@ -181,11 +182,19 @@ export function MarkdownEditor(props: MarkdownEditorProps) {
                     const assets = await props.sdk.dialogs.selectMultipleAssets({
                       locale: props.sdk.field.locale
                     });
+                    if (assets) {
+                      const { links } = await insertAssetLinks(assets, {
+                        localeCode: props.sdk.field.locale,
+                        defaultLocaleCode: props.sdk.locales.default,
+                        fallbackCode: props.sdk.locales.fallbacks[props.sdk.field.locale]
+                      });
+                      if (links && links.length > 0) {
+                        editor.insert(links.map(link => link.asMarkdown).join('\n\n'));
+                      }
+                    }
                   } finally {
                     editor.focus();
                   }
-
-                  console.log(assets);
                 }
               }}
             />
