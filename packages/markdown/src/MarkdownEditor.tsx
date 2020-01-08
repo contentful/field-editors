@@ -7,12 +7,12 @@ import { MarkdownTabs } from './components/MarkdownTabs';
 import { MarkdownToolbar } from './components/MarkdownToolbar';
 import { MarkdownTextarea } from './components/MarkdownTextarea/MarkdownTextarea';
 import { InitializedEditorType } from './components/MarkdownTextarea/MarkdownTextarea';
-import { MarkdownBottomBar, MarkdownHelp, MarkdownCounter } from './components/MarkdownBottomBar';
+import { MarkdownBottomBar, MarkdownHelp } from './components/MarkdownBottomBar';
 import { MarkdownTab } from './types';
 import { openCheatsheetModal } from './dialogs/CheatsheetModalDialog';
 import { MarkdownPreview } from './components/MarkdownPreview/MarkdownPreview';
+import { MarkdownConstraints } from './components/MarkdownConstraints';
 import { createMarkdownActions } from './MarkdownActions';
-import { wordsCount } from './utils/wordsCount';
 
 const styles = {
   container: css({
@@ -89,8 +89,8 @@ export function MarkdownEditor(
             openCheatsheetModal(props.sdk.dialogs);
           }}
         />
-        <MarkdownCounter words={wordsCount(currentValue)} characters={currentValue.length} />
       </MarkdownBottomBar>
+      <MarkdownConstraints sdk={props.sdk} value={currentValue} />
     </div>
   );
 }
