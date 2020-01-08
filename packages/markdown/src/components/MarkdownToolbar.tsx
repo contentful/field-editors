@@ -12,7 +12,7 @@ const noop = () => {};
 const styles = {
   root: css({
     position: 'relative',
-    zIndex: 5,
+    zIndex: Number(tokens.zIndexWorkbenchHeader),
     border: `1px solid ${tokens.colorElementDark}`,
     backgroundColor: tokens.colorElementLightest,
     padding: tokens.spacingXs,
@@ -37,6 +37,9 @@ const styles = {
   }),
   zenButton: css({
     marginLeft: tokens.spacingXs
+  }),
+  tooltip: css({
+    zIndex: Number(tokens.zIndexTooltip)
   })
 };
 
@@ -45,7 +48,7 @@ function ToolbarButton(props: {
   disabled?: boolean;
   onClick?: Function;
   testId: string;
-  tooltip: string;
+  tooltip?: string;
   className?: string;
   children: React.ReactNode;
 }) {
@@ -58,21 +61,30 @@ function ToolbarButton(props: {
     buttonType = 'naked',
     disabled = false
   } = props;
-  return (
-    <Tooltip place="top" content={tooltip} isVisible={false}>
-      <Button
-        className={cx(styles.button, className)}
-        disabled={disabled}
-        onClick={() => {
-          onClick();
-        }}
-        testId={testId}
-        buttonType={buttonType}
-        size="small">
-        {children}
-      </Button>
-    </Tooltip>
+
+  const button = (
+    <Button
+      className={cx(styles.button, className)}
+      disabled={disabled}
+      onClick={() => {
+        onClick();
+      }}
+      testId={testId}
+      buttonType={buttonType}
+      size="small">
+      {children}
+    </Button>
   );
+
+  if (tooltip) {
+    return (
+      <Tooltip className={styles.tooltip} place="top" content={tooltip}>
+        {button}
+      </Tooltip>
+    );
+  }
+
+  return button;
 }
 
 interface MarkdownToolbarProps {
@@ -162,7 +174,6 @@ export function MarkdownToolbar(props: MarkdownToolbarProps) {
           <ToolbarButton
             disabled={props.disabled}
             testId="markdown-action-button-zen"
-            tooltip="Expand"
             buttonType="muted"
             className={styles.zenButton}>
             <Icons.Zen label="Expand" className={styles.icon} />

@@ -1959,13 +1959,14 @@
   dependencies:
     "@contentful/forma-36-tokens" "^0.4.5"
 
-"@contentful/forma-36-react-components@3.27.6":
-  version "3.27.6"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.27.6.tgz#a8b6ebf0729c2474ecda80ef05f014efb87ada77"
-  integrity sha512-ZI8OzvBOIkgRI6InUrotGi8Po8WdEnpaTbuDwjy/loDVoFWfPFGWpqvbTxbsGUYF+gtYPz3x3yf/hrrmxuEJXw==
+"@contentful/forma-36-react-components@3.28.4", "@contentful/forma-36-react-components@^3.28.4":
+  version "3.28.4"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.28.4.tgz#d4884bcd3fd432064770256260eea6494437ba32"
+  integrity sha512-EiRRYKEPGuBeGNMrT+0VLVl8ovaK9navxtSY8/dCNt2vgr9ltwA+yYMn9JewEeOENgvzv523iTgNOX7WhJYnYA==
   dependencies:
     "@babel/runtime" "^7.3.4"
     classnames "^2.2.6"
+    is-hotkey "^0.1.6"
     prop-types "^15.7.2"
     react-animate-height "^2.0.7"
     react-copy-to-clipboard "^5.0.1"
@@ -2029,21 +2030,7 @@
     react-transition-group "^2.4.0"
     truncate "^2.0.1"
 
-"@contentful/forma-36-react-components@^3.25.3":
-  version "3.25.3"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.25.3.tgz#f48c90e23062395228014cf3ba6bfc8c354ae51a"
-  integrity sha512-Rpcgiu7UeXWGdRnAgYUtAl8V/gyZYTl1aNwTrsjGA2LJTQoZlRO+zeF7Vr1NiYQkBoYMwA8xHAsrYlXFqbBemA==
-  dependencies:
-    "@babel/runtime" "^7.3.4"
-    classnames "^2.2.6"
-    prop-types "^15.7.2"
-    react-animate-height "^2.0.7"
-    react-copy-to-clipboard "^5.0.1"
-    react-modal "3.6.1"
-    react-transition-group "^2.4.0"
-    truncate "^2.0.1"
-
-"@contentful/forma-36-tokens@0.5.1":
+"@contentful/forma-36-tokens@0.5.1", "@contentful/forma-36-tokens@^0.5.1":
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.5.1.tgz#427130f4e65f3aef4ec987873c4a1b61dab8cdaf"
   integrity sha512-KeI181dInXcgSQw/ibPHEyshDFrEOPVEwHZ4a720yEJczT64zmKC/CLecsv3C7tUiQlnSnTZD1fcFBXmeOIThw==
@@ -10755,6 +10742,11 @@ is-hidden@^1.0.1:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/is-hidden/-/is-hidden-1.1.2.tgz#6497d48ec5affc7da0f11a3c0dadceb6752e8edd"
   integrity sha512-kytBeNVW2QTIqZdJBDKIjP+EkUTzDT07rsc111w/gxqR6wK3ODkOswcpxgED6HU6t7fEhOxqojVZ2a2kU9rj+A==
+
+is-hotkey@^0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/is-hotkey/-/is-hotkey-0.1.6.tgz#c214b1ccdcbda46fba4ba93d2de64915db737471"
+  integrity sha512-1+hMr0GLPM0M49UDRt9RgE8i+SM29UY4AGRP6sGz6fThOVXqSrEvTMakolhHMcVizJnPNAoMpEmE+Oi1k2NrZQ==
 
 is-html@^1.0.0, is-html@^1.1.0:
   version "1.1.0"
