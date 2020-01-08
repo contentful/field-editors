@@ -27,7 +27,7 @@ import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-
           sdk={{
             field,
             dialogs: {
-              openExtension: openMarkdownDialog
+              openExtension: openMarkdownDialog(sdk)
             },
             notifier: {
               success: (text) => Notification.success(text),

@@ -24,8 +24,8 @@ const styles = {
       height: 1px;
     }
     .CodeMirror {
-      height: 'auto';
-      max-height: '500px';
+      height: auto;
+      max-height: 500px;
       line-height: ${tokens.lineHeightDefault};
     }
     .CodeMirror-lines {
@@ -39,6 +39,7 @@ const styles = {
     .CodeMirror-scroll {
       min-height: '6rem';
     }
+
     .cm-header {
       color: ${tokens.colorTextDark};
     }

@@ -21,7 +21,7 @@ init(sdk => {
       <div style={{ minHeight: 300, marginTop: 10 }}>
         <MarkdownEditor
           sdk={fieldSdk}
-          parameters={{ instance: { canUploadAssets: false } }}
+          parameters={{ instance: { canUploadAssets: true } }}
           isInitiallyDisabled={true}
         />
       </div>,

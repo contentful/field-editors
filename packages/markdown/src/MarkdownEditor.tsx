@@ -64,9 +64,10 @@ export function MarkdownEditor(
         }}
       />
       <MarkdownToolbar
+        mode="default"
         disabled={isActionDisabled}
         canUploadAssets={props.parameters.instance.canUploadAssets}
-        actions={createMarkdownActions(props.sdk, editor)}
+        actions={createMarkdownActions({ sdk: props.sdk, editor, locale: props.sdk.field.locale })}
       />
       <MarkdownTextarea
         visible={selectedTab === 'editor'}

@@ -12,10 +12,16 @@ export enum MarkdownDialogType {
   insertSpecialCharacter = 'insertSpecialCharacter',
   insertTable = 'insertTable',
   embedExternalContent = 'embedExternalContent',
-  confirmInsertAsset = 'confirmInsertAsset'
+  confirmInsertAsset = 'confirmInsertAsset',
+  zenMode = 'zenMode'
 }
 
 export type MarkdownDialogsParams =
+  | {
+      type: MarkdownDialogType.zenMode;
+      initialValue: string;
+      locale: string;
+    }
   | {
       type: MarkdownDialogType.cheatsheet;
     }
@@ -76,4 +82,6 @@ export type MarkdownActions = {
   linkExistingMedia: Function;
   addNewMedia: Function;
   organizeLinks: Function;
+  openZenMode: Function;
+  closeZenMode: Function;
 };

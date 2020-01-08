@@ -1,4 +1,5 @@
 import React from 'react';
+import { DialogExtensionSDK } from 'contentful-ui-extensions-sdk';
 import { OpenMarkdownDialogParams, MarkdownDialogsParams } from '../types';
 import * as ModalLauncher from './ModalDialogLauncher';
 import { CheatsheetModalDialog } from './CheatsheetModalDialog';
@@ -11,8 +12,11 @@ import {
   EmbedExternalContentModal,
   EmbedExternalContentModalResult
 } from './EmdebExternalContentDialog';
+import { ZenModeModalDialog } from './ZenModeModalDialog';
 
-export const openMarkdownDialog = (options: OpenMarkdownDialogParams<MarkdownDialogsParams>) => {
+export const openMarkdownDialog = (sdk: DialogExtensionSDK) => (
+  options: OpenMarkdownDialogParams<MarkdownDialogsParams>
+) => {
   if (options.parameters?.type === MarkdownDialogType.cheatsheet) {
     return ModalLauncher.openDialog(options, () => {
       return <CheatsheetModalDialog />;
@@ -39,6 +43,19 @@ export const openMarkdownDialog = (options: OpenMarkdownDialogParams<MarkdownDia
     const assets = options.parameters.assets;
     return ModalLauncher.openDialog<boolean>(options, ({ onClose }) => {
       return <ConfirmInsertAssetModalDialog onClose={onClose} locale={locale} assets={assets} />;
+    });
+  } else if (options.parameters?.type === MarkdownDialogType.zenMode) {
+    const initialValue = options.parameters.initialValue;
+    const locale = options.parameters.locale;
+    return ModalLauncher.openDialog<string>(options, ({ onClose }) => {
+      return (
+        <ZenModeModalDialog
+          onClose={onClose}
+          initialValue={initialValue}
+          locale={locale}
+          sdk={sdk}
+        />
+      );
     });
   }
   return Promise.reject();

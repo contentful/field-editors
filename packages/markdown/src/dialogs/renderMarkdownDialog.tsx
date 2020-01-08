@@ -7,6 +7,7 @@ import { InsertLinkModal } from './InsertLinkModalDialog';
 import { InsertTableModal } from './InsertTableModalDialog';
 import { EmbedExternalContentModal } from './EmdebExternalContentDialog';
 import { ConfirmInsertAssetModalDialog } from './ConfirmInsertAssetModalDialog';
+import { ZenModeModalDialog } from './ZenModeModalDialog';
 
 export const renderMarkdownDialog = (
   sdk: DialogExtensionSDK & { parameters: { invocation: MarkdownDialogsParams } }
@@ -27,6 +28,17 @@ export const renderMarkdownDialog = (
     const locale = parameters.locale;
     const assets = parameters.assets;
     return <ConfirmInsertAssetModalDialog onClose={sdk.close} locale={locale} assets={assets} />;
+  } else if (parameters.type === MarkdownDialogType.zenMode) {
+    const locale = parameters.locale;
+    const initialValue = parameters.initialValue;
+    return (
+      <ZenModeModalDialog
+        onClose={sdk.close}
+        initialValue={initialValue}
+        locale={locale}
+        sdk={sdk}
+      />
+    );
   }
   return <div />;
 };

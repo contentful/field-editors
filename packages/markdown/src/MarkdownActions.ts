@@ -1,29 +1,33 @@
 import { InitializedEditorType } from './components/MarkdownTextarea/MarkdownTextarea';
-import { FieldExtensionSDK } from 'contentful-ui-extensions-sdk';
+import { BaseExtensionSDK } from 'contentful-ui-extensions-sdk';
 import { openInsertLinkDialog } from './dialogs/InsertLinkModalDialog';
 import { openInsertSpecialCharacter } from './dialogs/SpecialCharacterModalDialog';
 import { openInsertTableDialog } from './dialogs/InsertTableModalDialog';
 import { openEmbedExternalContentDialog } from './dialogs/EmdebExternalContentDialog';
 import { openConfirmInsertAsset } from './dialogs/ConfirmInsertAssetModalDialog';
+import { openZenMode } from './dialogs/ZenModeModalDialog';
 import { insertAssetLinks } from './utils/insertAssetLinks';
 import * as LinkOrganizer from './utils/linkOrganizer';
 
-export function createMarkdownActions(
-  sdk: FieldExtensionSDK,
-  editor: InitializedEditorType | null
-) {
+export function createMarkdownActions(props: {
+  sdk: BaseExtensionSDK;
+  editor: InitializedEditorType | null;
+  locale: string;
+}) {
+  const { sdk, editor, locale } = props;
+
   // eslint-disable-next-line @typescript-eslint/ban-types
   const insertAssetsWithConfirmation = async (assets: Array<Object> | null) => {
     if (assets) {
       const { links, fallbacks } = await insertAssetLinks(assets, {
-        localeCode: sdk.field.locale,
+        localeCode: locale,
         defaultLocaleCode: sdk.locales.default,
-        fallbackCode: sdk.locales.fallbacks[sdk.field.locale]
+        fallbackCode: sdk.locales.fallbacks[locale]
       });
       if (links && links.length > 0) {
         if (fallbacks) {
           const insertAnyway = await openConfirmInsertAsset(sdk.dialogs, {
-            locale: sdk.field.locale,
+            locale: locale,
             assets: fallbacks
           });
           if (!insertAnyway) {
@@ -160,13 +164,28 @@ export function createMarkdownActions(
       }
       try {
         const assets = await sdk.dialogs.selectMultipleAssets({
-          locale: sdk.field.locale
+          locale: locale
         });
         const markdownLinks = await insertAssetsWithConfirmation(assets);
         editor.insert(markdownLinks);
       } finally {
         editor.focus();
       }
+    },
+    openZenMode: async () => {
+      if (!editor) {
+        return;
+      }
+      const result = await openZenMode(sdk.dialogs, {
+        initialValue: editor.getContent(),
+        locale: props.locale
+      });
+      editor.setContent(result);
+      editor.focus();
+    },
+    closeZenMode: () => {
+      // do nothing
+      // this method is overwritten in dialog extension
     }
   };
 }
