@@ -35,7 +35,13 @@ export interface MarkdownEditorProps {
   onReady?: Function;
 }
 
-export function MarkdownEditor(props: MarkdownEditorProps) {
+export function MarkdownEditor(
+  props: MarkdownEditorProps & {
+    disabled: boolean;
+    initialValue: string | null | undefined;
+    setValue: Function;
+  }
+) {
   const [selectedTab, setSelectedTab] = React.useState<MarkdownTab>('editor');
   const [editor, setEditor] = React.useState<InitializedEditorType | null>(null);
 
@@ -45,46 +51,70 @@ export function MarkdownEditor(props: MarkdownEditorProps) {
     }
   }, [editor]);
 
-  return (
-    <FieldConnector<string> field={props.sdk.field} isInitiallyDisabled={props.isInitiallyDisabled}>
-      {({ value, disabled }) => {
-        const isActionDisabled = editor === null || disabled || selectedTab !== 'editor';
+  const isActionDisabled = editor === null || props.disabled || selectedTab !== 'editor';
 
+  const getEditorValue = () => {
+    if (!editor) {
+      return '';
+    }
+    return editor.getContent();
+  };
+
+  return (
+    <div className={styles.container} data-test-id="markdown-editor">
+      <MarkdownTabs
+        active={selectedTab}
+        onSelect={tab => {
+          setSelectedTab(tab);
+        }}
+      />
+      <MarkdownToolbar
+        disabled={isActionDisabled}
+        canUploadAssets={props.parameters.instance.canUploadAssets}
+        actions={createMarkdownActions(props.sdk, editor)}
+      />
+      <MarkdownTextarea
+        visible={selectedTab === 'editor'}
+        disabled={isActionDisabled}
+        direction="ltr"
+        onReady={editor => {
+          editor.setContent(props.initialValue ?? '');
+          editor.setReadOnly(false);
+          setEditor(editor);
+          editor.events.onChange((value: string) => {
+            props.setValue(value);
+          });
+        }}
+      />
+      {selectedTab === 'preview' && <MarkdownPreview value={getEditorValue()} />}
+      <MarkdownBottomBar>
+        <MarkdownHelp
+          onClick={() => {
+            openCheatsheetModal(props.sdk.dialogs);
+          }}
+        />
+        <MarkdownCounter words={0} characters={0} />
+      </MarkdownBottomBar>
+    </div>
+  );
+}
+
+export function MarkdownEditorConnected(props: MarkdownEditorProps) {
+  return (
+    <FieldConnector<string>
+      throttle={100}
+      field={props.sdk.field}
+      isInitiallyDisabled={props.isInitiallyDisabled}>
+      {({ value, disabled, setValue, externalReset }) => {
+        // on external change reset component completely and init with initial value again
         return (
-          <div className={styles.container} data-test-id="markdown-editor">
-            <MarkdownTabs
-              active={selectedTab}
-              onSelect={tab => {
-                setSelectedTab(tab);
-              }}
-            />
-            <MarkdownToolbar
-              disabled={isActionDisabled}
-              canUploadAssets={props.parameters.instance.canUploadAssets}
-              actions={createMarkdownActions(props.sdk, editor)}
-            />
-            <MarkdownTextarea
-              visible={selectedTab === 'editor'}
-              disabled={isActionDisabled}
-              direction="ltr"
-              onReady={editor => {
-                editor.setContent(value ?? '');
-                editor.setReadOnly(false);
-                setEditor(editor);
-              }}
-            />
-            {selectedTab === 'preview' && (
-              <MarkdownPreview value={(editor ? editor.getContent() : value) ?? ''} />
-            )}
-            <MarkdownBottomBar>
-              <MarkdownHelp
-                onClick={() => {
-                  openCheatsheetModal(props.sdk.dialogs);
-                }}
-              />
-              <MarkdownCounter words={0} characters={0} />
-            </MarkdownBottomBar>
-          </div>
+          <MarkdownEditor
+            {...props}
+            key={`markdown-editor-${externalReset}`}
+            initialValue={value}
+            disabled={disabled}
+            setValue={setValue}
+          />
         );
       }}
     </FieldConnector>
