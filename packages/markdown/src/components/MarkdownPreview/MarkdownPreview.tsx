@@ -120,6 +120,7 @@ const styles = {
       margin: ${tokens.spacingM} auto;
       display: block;
       max-width: 80%;
+      max-height: 250px;
     }
 
     pre code {

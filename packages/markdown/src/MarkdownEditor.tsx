@@ -12,6 +12,7 @@ import { MarkdownTab } from './types';
 import { openCheatsheetModal } from './dialogs/CheatsheetModalDialog';
 import { MarkdownPreview } from './components/MarkdownPreview/MarkdownPreview';
 import { createMarkdownActions } from './MarkdownActions';
+import { wordsCount } from './utils/wordsCount';
 
 const styles = {
   container: css({
@@ -39,9 +40,10 @@ export function MarkdownEditor(
   props: MarkdownEditorProps & {
     disabled: boolean;
     initialValue: string | null | undefined;
-    setValue: Function;
+    saveValueToSDK: Function;
   }
 ) {
+  const [currentValue, setCurrentValue] = React.useState<string>(props.initialValue ?? '');
   const [selectedTab, setSelectedTab] = React.useState<MarkdownTab>('editor');
   const [editor, setEditor] = React.useState<InitializedEditorType | null>(null);
 
@@ -52,13 +54,6 @@ export function MarkdownEditor(
   }, [editor]);
 
   const isActionDisabled = editor === null || props.disabled || selectedTab !== 'editor';
-
-  const getEditorValue = () => {
-    if (!editor) {
-      return '';
-    }
-    return editor.getContent();
-  };
 
   return (
     <div className={styles.container} data-test-id="markdown-editor">
@@ -82,18 +77,19 @@ export function MarkdownEditor(
           editor.setReadOnly(false);
           setEditor(editor);
           editor.events.onChange((value: string) => {
-            props.setValue(value);
+            props.saveValueToSDK(value);
+            setCurrentValue(value);
           });
         }}
       />
-      {selectedTab === 'preview' && <MarkdownPreview value={getEditorValue()} />}
+      {selectedTab === 'preview' && <MarkdownPreview value={currentValue} />}
       <MarkdownBottomBar>
         <MarkdownHelp
           onClick={() => {
             openCheatsheetModal(props.sdk.dialogs);
           }}
         />
-        <MarkdownCounter words={0} characters={0} />
+        <MarkdownCounter words={wordsCount(currentValue)} characters={currentValue.length} />
       </MarkdownBottomBar>
     </div>
   );
@@ -113,7 +109,7 @@ export function MarkdownEditorConnected(props: MarkdownEditorProps) {
             key={`markdown-editor-${externalReset}`}
             initialValue={value}
             disabled={disabled}
-            setValue={setValue}
+            saveValueToSDK={setValue}
           />
         );
       }}
