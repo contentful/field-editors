@@ -90,7 +90,11 @@ const styles = {
       max-height: 500px;
     }
   `,
-  zen: css({})
+  zen: css`
+    max-width: 800px;
+    margin: 0 auto;
+    border: none;
+  `
 };
 
 export const MarkdownTextarea = memo((props: MarkdownTextareaProps) => {

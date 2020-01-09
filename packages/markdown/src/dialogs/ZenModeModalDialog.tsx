@@ -1,6 +1,7 @@
 import React from 'react';
-import { css } from 'emotion';
+import { css, cx } from 'emotion';
 import { DialogsAPI, DialogExtensionSDK } from 'contentful-ui-extensions-sdk';
+import { Icon } from '@contentful/forma-36-react-components';
 import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 import { InitializedEditorType } from '../components/MarkdownTextarea/MarkdownTextarea';
 import { MarkdownToolbar } from '../components/MarkdownToolbar';
@@ -9,6 +10,7 @@ import { MarkdownPreview } from '../components/MarkdownPreview/MarkdownPreview';
 import { MarkdownBottomBar, MarkdownHelp } from '../components/MarkdownBottomBar';
 import { createMarkdownActions } from '../MarkdownActions';
 import { openCheatsheetModal } from '../dialogs/CheatsheetModalDialog';
+import tokens from '@contentful/forma-36-tokens';
 
 export type ZenModeResult = string;
 
@@ -47,6 +49,11 @@ const styles = {
     overflowX: 'hidden',
     overflowY: 'scroll'
   }),
+  editorSplitFullscreen: css({
+    left: 0,
+    right: 0,
+    width: '100%'
+  }),
   previewSplit: css({
     width: '50%',
     position: 'absolute',
@@ -55,11 +62,32 @@ const styles = {
     bottom: '36px',
     overflowX: 'hidden',
     overflowY: 'scroll'
+  }),
+  button: css({
+    position: 'fixed',
+    cursor: 'pointer',
+    zIndex: 105,
+    top: '49%',
+    height: '30px',
+    backgroundColor: tokens.colorElementLightest,
+    border: `1px solid ${tokens.colorElementDark}`,
+    padding: 0
+  }),
+  hideButton: css({
+    left: '50%'
+  }),
+  showButton: css({
+    right: 0,
+    borderRightWidth: 0
+  }),
+  icon: css({
+    verticalAlign: 'middle'
   })
 };
 
 export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
   const [currentValue, setCurrentValue] = React.useState<string>(props.initialValue ?? '');
+  const [showPreview, setShowPreview] = React.useState<boolean>(true);
   const [editor, setEditor] = React.useState<InitializedEditorType | null>(null);
 
   React.useEffect(() => {
@@ -78,7 +106,10 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
         <MarkdownToolbar mode="zen" disabled={false} canUploadAssets={false} actions={actions} />
       </div>
 
-      <div className={styles.editorSplit}>
+      <div
+        className={cx(styles.editorSplit, {
+          [styles.editorSplitFullscreen]: showPreview === false
+        })}>
         <MarkdownTextarea
           mode="zen"
           visible
@@ -94,9 +125,31 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
           }}
         />
       </div>
-      <div className={styles.previewSplit}>
-        <MarkdownPreview mode="zen" value={currentValue} />
-      </div>
+      {showPreview && (
+        <button
+          className={cx(styles.button, styles.hideButton)}
+          aria-label="Hide preview"
+          onClick={() => {
+            setShowPreview(false);
+          }}>
+          <Icon icon="ChevronRight" color="muted" size="tiny" className={styles.icon} />
+        </button>
+      )}
+      {!showPreview && (
+        <button
+          className={cx(styles.button, styles.showButton)}
+          aria-label="Show preview"
+          onClick={() => {
+            setShowPreview(true);
+          }}>
+          <Icon icon="ChevronLeft" color="muted" size="tiny" className={styles.icon} />
+        </button>
+      )}
+      {showPreview && (
+        <div className={styles.previewSplit}>
+          <MarkdownPreview mode="zen" value={currentValue} />
+        </div>
+      )}
       <div className={styles.bottomSplit}>
         <MarkdownBottomBar>
           <MarkdownHelp

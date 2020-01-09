@@ -9,7 +9,6 @@ const styles = {
     border-width: 0 1px;
     word-wrap: break-word;
     overflow-wrap: break-word;
-    height: 100%;
     min-height: 300px;
     padding: ${tokens.spacingL};
     font-size: ${tokens.fontSizeM};
@@ -136,11 +135,13 @@ const styles = {
     }
   `,
   framed: css`
+    height: 100%;
     max-height: 500px;
     overflow-y: auto;
   `,
   zen: css`
-    border: none;
+    max-width: 800px;
+    margin: 0 auto;
   `
 };
 
