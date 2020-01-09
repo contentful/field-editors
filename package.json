@@ -58,7 +58,7 @@
     "@types/webpack-env": "1.14.1",
     "contentful-cli": "0.36.2",
     "cssnano": "4.1.10",
-    "cypress": "3.7.0",
+    "cypress": "3.8.1",
     "cz-lerna-changelog": "^2.0.2",
     "docz": "1.2.0",
     "docz-theme-default": "1.2.0",
