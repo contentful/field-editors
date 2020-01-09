@@ -104,7 +104,7 @@ export function MarkdownEditor(
 export function MarkdownEditorConnected(props: MarkdownEditorProps) {
   return (
     <FieldConnector<string>
-      throttle={100}
+      throttle={300}
       field={props.sdk.field}
       isInitiallyDisabled={props.isInitiallyDisabled}>
       {({ value, disabled, setValue, externalReset }) => {
