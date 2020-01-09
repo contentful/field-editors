@@ -2,6 +2,7 @@ import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import tokens from '@contentful/forma-36-tokens';
 import { css, cx } from 'emotion';
+import { EditorDirection } from '../../types';
 
 const styles = {
   root: css`
@@ -80,8 +81,7 @@ const styles = {
       border-right-width: 0;
       border-bottom-width: 0;
       width: 80%;
-      margin-left: auto;
-      margin-right: auto;
+      margin: ${tokens.spacingM} auto;
       border-spacing: 0;
       border-collapse: collapse;
       border: 1px solid ${tokens.colorElementMid};
@@ -142,11 +142,16 @@ const styles = {
   zen: css`
     max-width: 800px;
     margin: 0 auto;
+    border: none;
+  `,
+  rtl: css`
+    direction: rtl;
   `
 };
 
 type MarkdownPreviewProps = {
   mode: 'default' | 'zen';
+  direction: EditorDirection;
   value: string;
 };
 
@@ -155,7 +160,8 @@ export const MarkdownPreview = (props: MarkdownPreviewProps) => {
     <div
       className={cx(styles.root, {
         [styles.framed]: props.mode === 'default',
-        [styles.zen]: props.mode === 'zen'
+        [styles.zen]: props.mode === 'zen',
+        [styles.rtl]: props.direction === 'rtl'
       })}
       data-test-id="markdown-preview">
       <Markdown>{props.value}</Markdown>

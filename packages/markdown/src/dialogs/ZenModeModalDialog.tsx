@@ -1,5 +1,6 @@
 import React from 'react';
 import { css, cx } from 'emotion';
+import { isRtlLang } from 'rtl-detect';
 import { DialogsAPI, DialogExtensionSDK } from 'contentful-ui-extensions-sdk';
 import { Icon } from '@contentful/forma-36-react-components';
 import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
@@ -73,6 +74,14 @@ const styles = {
     overflowX: 'hidden',
     overflowY: 'scroll'
   }),
+  separator: css({
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    width: '1px',
+    background: tokens.colorElementDark,
+    left: '50%'
+  }),
   button: css({
     position: 'fixed',
     cursor: 'pointer',
@@ -113,6 +122,8 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
     });
   };
 
+  const direction = isRtlLang(props.locale) ? 'rtl' : 'ltr';
+
   return (
     <div className={styles.root} data-test-id="zen-mode-markdown-editor">
       <div className={styles.topSplit}>
@@ -127,7 +138,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
           mode="zen"
           visible
           disabled={false}
-          direction="ltr"
+          direction={direction}
           onReady={editor => {
             editor.setContent(props.initialValue ?? '');
             editor.setReadOnly(false);
@@ -142,6 +153,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
           }}
         />
       </div>
+      {showPreview && <div className={styles.separator} />}
       {showPreview && (
         <button
           className={cx(styles.button, styles.hideButton)}
@@ -164,7 +176,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
       )}
       {showPreview && (
         <div className={styles.previewSplit}>
-          <MarkdownPreview mode="zen" value={currentValue} />
+          <MarkdownPreview direction={direction} mode="zen" value={currentValue} />
         </div>
       )}
       <div className={styles.bottomSplit}>

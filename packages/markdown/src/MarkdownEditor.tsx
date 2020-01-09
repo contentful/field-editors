@@ -1,5 +1,6 @@
 import React from 'react';
 import { css } from 'emotion';
+import { isRtlLang } from 'rtl-detect';
 import tokens from '@contentful/forma-36-tokens';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import { FieldExtensionSDK } from 'contentful-ui-extensions-sdk';
@@ -54,6 +55,7 @@ export function MarkdownEditor(
   }, [editor]);
 
   const isActionDisabled = editor === null || props.disabled || selectedTab !== 'editor';
+  const direction = isRtlLang(props.sdk.field.locale) ? 'rtl' : 'ltr';
 
   return (
     <div className={styles.container} data-test-id="markdown-editor">
@@ -73,7 +75,7 @@ export function MarkdownEditor(
         mode="default"
         visible={selectedTab === 'editor'}
         disabled={isActionDisabled}
-        direction="ltr"
+        direction={direction}
         onReady={editor => {
           editor.setContent(props.initialValue ?? '');
           editor.setReadOnly(false);
@@ -84,7 +86,9 @@ export function MarkdownEditor(
           });
         }}
       />
-      {selectedTab === 'preview' && <MarkdownPreview mode="default" value={currentValue} />}
+      {selectedTab === 'preview' && (
+        <MarkdownPreview direction={direction} mode="default" value={currentValue} />
+      )}
       <MarkdownBottomBar>
         <MarkdownHelp
           onClick={() => {
