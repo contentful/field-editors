@@ -1,7 +1,7 @@
 import React from 'react';
 import { css, cx } from 'emotion';
 import { DialogsAPI } from 'contentful-ui-extensions-sdk';
-import { Modal, TextLink, Heading, List, ListItem } from '@contentful/forma-36-react-components';
+import { Modal, TextLink, Heading } from '@contentful/forma-36-react-components';
 import tokens from '@contentful/forma-36-tokens';
 import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 
@@ -109,33 +109,27 @@ export const CheatsheetModalDialog = () => {
             <div className={styles.markup}>![alt-text](url)</div>
           </div>
           <div className={styles.helpItem}>
-            <div className={styles.preview}>
-              <List>
-                <ListItem className={styles.unOrderedListPreview}>Unordered list</ListItem>
-              </List>
-            </div>
+            <div className={styles.preview}>Unordered list</div>
             <div className={styles.markup}>* list item</div>
           </div>
           <div className={styles.helpItem}>
             <div className={styles.preview}>
-              <ol>
-                <li className={styles.orderedListPreview}>Ordered list</li>
-              </ol>
+              <div>Ordered list</div>
             </div>
             <div className={styles.markup}>1. list item</div>
           </div>
           <div className={styles.helpItem}>
             <div className={styles.preview}>
-              <blockquote>Blockquote</blockquote>
+              <div>Blockquote</div>
             </div>
             <div className={styles.markup}>&gt; quote</div>
           </div>
           <div className={styles.helpItem}>
-            <code className={styles.preview}>code span</code>
+            <div className={styles.preview}>code span</div>
             <div className={styles.markup}>`code here`</div>
           </div>
           <div className={styles.helpItem}>
-            <code className={styles.preview}>code block</code>
+            <div className={styles.preview}>code block</div>
             <div className={styles.markup}>```code here```</div>
           </div>
         </div>
