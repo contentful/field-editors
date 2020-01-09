@@ -111,7 +111,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
 
   React.useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    props.sdk.window.updateHeight('100%' as any);
+    props.sdk?.window?.updateHeight('100%' as any);
   }, []);
 
   const actions = createMarkdownActions({ sdk: props.sdk, editor, locale: props.locale });

@@ -9,7 +9,7 @@ menu: Components
 import { Playground, Props } from 'docz';
 import './codemirrorImports';
 import { Notification } from '@contentful/forma-36-react-components';
-import { MarkdownEditor } from './MarkdownEditor';
+import { MarkdownEditorConnected as MarkdownEditor } from './MarkdownEditor';
 import { openMarkdownDialog } from './dialogs/openMarkdownDialog'
 import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
 
@@ -21,22 +21,50 @@ import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-
     const isInitiallyDisabled = window.localStorage.getItem('initialDisabled');
     const [field, mitt] = createFakeFieldAPI(field => field, initialValue);
 
+    let sdk = {
+      field,
+      locales: {
+        default: 'en-US',
+        fallbacks: {
+          'en-US': undefined
+        }
+      },
+      dialogs: {
+        openExtension: openMarkdownDialog(sdk),
+        selectMultipleAssets: () => {
+          alert('select multiple assets dialog')
+        }
+      },
+      notifier: {
+        success: (text) => Notification.success(text),
+        error: (text) => Notification.error(text)
+      },
+      navigator: {
+        openNewAsset: () => {
+          alert('open new asset');
+        }
+      },
+      window: {
+        updateHeight: () => {},
+        startAutoResizer: () => {}
+      },
+      parameters: {
+        instance: {
+          canUploadAssets: true
+        },
+        invocation: {},
+        installation: {}
+      }
+    };
+
     return (
       <div data-test-id="markdown-editor-integration-test">
         <MarkdownEditor
-          sdk={{
-            field,
-            dialogs: {
-              openExtension: openMarkdownDialog(sdk)
-            },
-            notifier: {
-              success: (text) => Notification.success(text),
-              error: (text) => Notification.error(text)
-            }
-          }}
+          sdk={sdk}
           onReady={editor => {
             window.markdownEditor = editor;
           }}
+          parameters={sdk.parameters}
           isInitiallyDisabled={isInitiallyDisabled !== undefined ? isInitiallyDisabled : false}
         />
         <ActionsPlayground mitt={mitt} />
