@@ -6,18 +6,18 @@ import ReactDOM from 'react-dom';
 import { Modal } from '@contentful/forma-36-react-components';
 import { OpenMarkdownDialogParams } from '../types';
 
-let rootDom: any = null;
-
-const getRoot = () => {
-  if (rootDom === null) {
-    rootDom = document.createElement('div');
-    rootDom.setAttribute('id', 'markdown-modal-root');
-    document.body.appendChild(rootDom);
-  }
-  return rootDom;
-};
-
 export function open(componentRenderer: (params: { onClose: Function; isShown: boolean }) => any) {
+  let rootDom: any = null;
+
+  const getRoot = () => {
+    if (rootDom === null) {
+      rootDom = document.createElement('div');
+      rootDom.setAttribute('id', 'markdown-modal-root');
+      document.body.appendChild(rootDom);
+    }
+    return rootDom;
+  };
+
   return new Promise(resolve => {
     let currentConfig = { onClose, isShown: true };
 
@@ -32,6 +32,7 @@ export function open(componentRenderer: (params: { onClose: Function; isShown: b
       };
       render(currentConfig);
       resolve(...args);
+      getRoot().remove();
     }
 
     render(currentConfig);

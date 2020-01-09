@@ -9,6 +9,8 @@ export function createMarkdownEditor(
   options: {
     direction: EditorDirection;
     readOnly: boolean;
+    fixedHeight?: number;
+    height?: number | string;
   }
 ) {
   const editor = CodeMirrorWrapper.create(host, options);

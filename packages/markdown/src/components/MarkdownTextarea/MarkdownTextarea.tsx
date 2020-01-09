@@ -1,12 +1,13 @@
 import React, { useRef, useEffect, useState, memo } from 'react';
 import tokens from '@contentful/forma-36-tokens';
-import { css } from 'emotion';
+import { css, cx } from 'emotion';
 import { createMarkdownEditor } from './createMarkdownEditor';
 import { EditorDirection } from '../../types';
 
 export type InitializedEditorType = ReturnType<typeof createMarkdownEditor>;
 
 type MarkdownTextareaProps = {
+  mode: 'default' | 'zen';
   direction: EditorDirection;
   disabled: boolean;
   visible: boolean;
@@ -25,7 +26,6 @@ const styles = {
     }
     .CodeMirror {
       height: auto;
-      max-height: 500px;
       line-height: ${tokens.lineHeightDefault};
     }
     .CodeMirror-lines {
@@ -84,7 +84,13 @@ const styles = {
     span.cm-link {
       text-decoration: underline;
     }
-  `
+  `,
+  framed: css`
+    .CodeMirror {
+      max-height: 500px;
+    }
+  `,
+  zen: css({})
 };
 
 export const MarkdownTextarea = memo((props: MarkdownTextareaProps) => {
@@ -94,10 +100,22 @@ export const MarkdownTextarea = memo((props: MarkdownTextareaProps) => {
   useEffect(() => {
     if (hostRef.current) {
       setEditor(
-        createMarkdownEditor(hostRef.current, {
-          direction: props.direction,
-          readOnly: true
-        })
+        createMarkdownEditor(
+          hostRef.current,
+          Object.assign(
+            {},
+            {
+              direction: props.direction,
+              readOnly: true
+            },
+            props.mode === 'zen'
+              ? {
+                  fixedHeight: true,
+                  height: '100%'
+                }
+              : {}
+          )
+        )
       );
     }
   }, []);
@@ -110,7 +128,10 @@ export const MarkdownTextarea = memo((props: MarkdownTextareaProps) => {
 
   return (
     <div
-      className={styles.root}
+      className={cx(styles.root, {
+        [styles.framed]: props.mode === 'default',
+        [styles.zen]: props.mode === 'zen'
+      })}
       ref={hostRef}
       data-test-id="markdown-textarea"
       style={{ display: props.visible ? 'block' : 'none' }}

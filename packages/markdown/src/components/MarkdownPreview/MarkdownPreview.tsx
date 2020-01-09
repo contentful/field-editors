@@ -1,17 +1,15 @@
 import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import tokens from '@contentful/forma-36-tokens';
-import { css } from 'emotion';
+import { css, cx } from 'emotion';
 
 const styles = {
   root: css`
     border: 1px solid ${tokens.colorElementDark};
     border-width: 0 1px;
-    overflow-y: auto;
     word-wrap: break-word;
     overflow-wrap: break-word;
     height: 100%;
-    max-height: 500px;
     min-height: 300px;
     padding: ${tokens.spacingL};
     font-size: ${tokens.fontSizeM};
@@ -136,12 +134,29 @@ const styles = {
       font-size: ${tokens.fontSizeS};
       font-family: ${tokens.fontStackMonospace};
     }
+  `,
+  framed: css`
+    max-height: 500px;
+    overflow-y: auto;
+  `,
+  zen: css`
+    border: none;
   `
 };
 
-export const MarkdownPreview = (props: { value: string }) => {
+type MarkdownPreviewProps = {
+  mode: 'default' | 'zen';
+  value: string;
+};
+
+export const MarkdownPreview = (props: MarkdownPreviewProps) => {
   return (
-    <div className={styles.root} data-test-id="markdown-preview">
+    <div
+      className={cx(styles.root, {
+        [styles.framed]: props.mode === 'default',
+        [styles.zen]: props.mode === 'zen'
+      })}
+      data-test-id="markdown-preview">
       <Markdown>{props.value}</Markdown>
     </div>
   );

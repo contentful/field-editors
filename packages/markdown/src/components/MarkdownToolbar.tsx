@@ -332,7 +332,7 @@ export function ZenMarkdownToolbar(props: MarkdownToolbarProps) {
             onClick={() => {
               props.actions.closeZenMode();
             }}>
-            Close and save
+            Save changes
           </Button>
         </div>
       </div>

@@ -12,7 +12,7 @@ export function create(
     direction: EditorDirection;
     readOnly: boolean;
     fixedHeight?: number;
-    height?: number;
+    height?: number | string;
   }
 ) {
   const { direction, fixedHeight, height, readOnly } = options || {};

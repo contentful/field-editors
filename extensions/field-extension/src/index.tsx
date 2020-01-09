@@ -29,7 +29,6 @@ init(sdk => {
     );
   } else if (sdk.location.is(locations.LOCATION_DIALOG)) {
     const dialogSdk = sdk as DialogExtensionSDK;
-    dialogSdk.window.startAutoResizer();
     render(renderMarkdownDialog(dialogSdk as any), document.getElementById('root'));
   }
 });

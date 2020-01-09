@@ -70,6 +70,7 @@ export function MarkdownEditor(
         actions={createMarkdownActions({ sdk: props.sdk, editor, locale: props.sdk.field.locale })}
       />
       <MarkdownTextarea
+        mode="default"
         visible={selectedTab === 'editor'}
         disabled={isActionDisabled}
         direction="ltr"
@@ -83,7 +84,7 @@ export function MarkdownEditor(
           });
         }}
       />
-      {selectedTab === 'preview' && <MarkdownPreview value={currentValue} />}
+      {selectedTab === 'preview' && <MarkdownPreview mode="default" value={currentValue} />}
       <MarkdownBottomBar>
         <MarkdownHelp
           onClick={() => {
