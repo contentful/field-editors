@@ -37,12 +37,14 @@ export const renderMarkdownDialog = (
   } else if (parameters.type === MarkdownDialogType.zenMode) {
     const locale = parameters.locale;
     const initialValue = parameters.initialValue;
+    const initialCursor = parameters.initialCursor;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     sdk.window.updateHeight('100%' as any);
     return (
       <ZenModeModalDialog
         onClose={sdk.close}
         initialValue={initialValue}
+        initialCursor={initialCursor}
         locale={locale}
         sdk={sdk}
       />

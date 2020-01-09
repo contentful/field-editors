@@ -12,11 +12,21 @@ import { createMarkdownActions } from '../MarkdownActions';
 import { openCheatsheetModal } from '../dialogs/CheatsheetModalDialog';
 import tokens from '@contentful/forma-36-tokens';
 
-export type ZenModeResult = string;
+export type ZenModeResult = {
+  value: string;
+  cursor?: {
+    ch: number;
+    line: number;
+  };
+};
 
 type ZenModeDialogProps = {
   onClose: (result: ZenModeResult) => void;
   initialValue: string;
+  initialCursor?: {
+    ch: number;
+    line: number;
+  };
   locale: string;
   sdk: DialogExtensionSDK;
 };
@@ -97,7 +107,10 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
 
   const actions = createMarkdownActions({ sdk: props.sdk, editor, locale: props.locale });
   actions.closeZenMode = () => {
-    props.onClose(currentValue);
+    props.onClose({
+      value: currentValue,
+      cursor: editor?.getCursor()
+    });
   };
 
   return (
@@ -118,7 +131,11 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
           onReady={editor => {
             editor.setContent(props.initialValue ?? '');
             editor.setReadOnly(false);
+            if (props.initialCursor) {
+              editor.setCursor(props.initialCursor);
+            }
             setEditor(editor);
+            editor.focus();
             editor.events.onChange((value: string) => {
               setCurrentValue(value);
             });
@@ -165,7 +182,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
 
 export const openZenMode = (
   dialogs: DialogsAPI,
-  options: { initialValue: string; locale: string }
+  options: { initialValue: string; locale: string; initialCursor?: { ch: number; line: number } }
 ): Promise<ZenModeResult> => {
   return dialogs.openExtension({
     width: 'zen' as any, // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -175,6 +192,7 @@ export const openZenMode = (
     parameters: {
       type: MarkdownDialogType.zenMode,
       initialValue: options.initialValue,
+      initialCursor: options.initialCursor,
       locale: options.locale
     } as MarkdownDialogsParams
   });

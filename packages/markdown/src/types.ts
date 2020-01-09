@@ -20,6 +20,10 @@ export type MarkdownDialogsParams =
   | {
       type: MarkdownDialogType.zenMode;
       initialValue: string;
+      initialCursor?: {
+        ch: number;
+        line: number;
+      };
       locale: string;
     }
   | {

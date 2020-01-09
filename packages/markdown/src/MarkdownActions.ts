@@ -178,9 +178,16 @@ export function createMarkdownActions(props: {
       }
       const result = await openZenMode(sdk.dialogs, {
         initialValue: editor.getContent(),
+        initialCursor: editor.getCursor(),
         locale: props.locale
       });
-      editor.setContent(result);
+
+      editor.setContent(result.value);
+
+      if (result.cursor) {
+        editor.setCursor(result.cursor);
+      }
+
       editor.focus();
     },
     closeZenMode: () => {

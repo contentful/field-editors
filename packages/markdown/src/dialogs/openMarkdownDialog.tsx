@@ -12,7 +12,7 @@ import {
   EmbedExternalContentModal,
   EmbedExternalContentModalResult
 } from './EmdebExternalContentDialog';
-import { ZenModeModalDialog } from './ZenModeModalDialog';
+import { ZenModeModalDialog, ZenModeResult } from './ZenModeModalDialog';
 
 export const openMarkdownDialog = (sdk: DialogExtensionSDK) => (
   options: OpenMarkdownDialogParams<MarkdownDialogsParams>
@@ -47,11 +47,13 @@ export const openMarkdownDialog = (sdk: DialogExtensionSDK) => (
   } else if (options.parameters?.type === MarkdownDialogType.zenMode) {
     const initialValue = options.parameters.initialValue;
     const locale = options.parameters.locale;
-    return ModalLauncher.openDialog<string>(options, ({ onClose }) => {
+    const initialCursor = options.parameters.initialCursor;
+    return ModalLauncher.openDialog<ZenModeResult>(options, ({ onClose }) => {
       return (
         <ZenModeModalDialog
           onClose={onClose}
           initialValue={initialValue}
+          initialCursor={initialCursor}
           locale={locale}
           sdk={sdk}
         />
