@@ -52,7 +52,8 @@ export function createMarkdownEditor(
     setReadOnly: editor.setReadOnly,
     selectBackwards: editor.selectBackwards,
     getCursor: editor.getCursor,
-    setCursor: editor.setCursor
+    setCursor: editor.setCursor,
+    clear: () => editor.setValue('')
   };
 
   editor.addKeyShortcuts({

@@ -40,20 +40,10 @@ describe('Markdown Editor / Insert Link Dialog', () => {
     return selectors.getInput().type(value, { force: true });
   };
 
-  const useHotKey = (first, second) => {
-    return selectors
-      .getInput()
-      .type(first, { force: true, release: false })
-      .type(second);
-  };
-
-  const selectAll = () => {
-    useHotKey('{meta}', 'a');
-  };
-
   const clearAll = () => {
-    selectAll();
-    type('{backspace}');
+    cy.getMarkdownInstance().then(markdown => {
+      markdown.clear();
+    });
   };
 
   const checkValue = value => {

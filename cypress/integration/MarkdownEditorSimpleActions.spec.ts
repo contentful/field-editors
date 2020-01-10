@@ -61,17 +61,14 @@ describe('Markdown Editor / Simple Actions', () => {
       .type(second);
   };
 
-  const selectAll = () => {
-    useHotKey('{meta}', 'a');
-  };
-
   const unveilAdditionalButtonsRow = () => {
     selectors.getToggleAdditionalActionsButton().click();
   };
 
   const clearAll = () => {
-    selectAll();
-    type('{backspace}');
+    cy.getMarkdownInstance().then(markdown => {
+      markdown.clear();
+    });
   };
 
   const checkValue = value => {

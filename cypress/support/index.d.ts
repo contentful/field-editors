@@ -9,6 +9,7 @@ declare namespace Cypress {
     getMarkdownInstance(): Chainable<{
       getContent: () => string;
       selectBackwards: (skip: number, len: number) => void;
+      clear: () => void;
     }>;
   }
 }

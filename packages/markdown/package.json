@@ -36,7 +36,8 @@
     "@types/rtl-detect": "1.0.0"
   },
   "devDependencies": {
-    "@contentful/field-editor-test-utils": "^0.1.1"
+    "@contentful/field-editor-test-utils": "^0.1.1",
+    "@babel/core": "^7.5.5"
   },
   "peerDependencies": {
     "react": ">=16.8.0"
