@@ -21,6 +21,7 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
+    "contentful-ui-extensions-sdk": "^3.10.4",
     "@contentful/field-editor-shared": "^0.3.1",
     "@contentful/forma-36-react-components": "^3.28.6",
     "@contentful/forma-36-tokens": "^0.5.1",
