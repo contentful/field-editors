@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState, memo } from 'react';
 import tokens from '@contentful/forma-36-tokens';
-import { css, cx } from 'emotion';
+import { css } from 'emotion';
 import { createMarkdownEditor } from './createMarkdownEditor';
 import { EditorDirection } from '../../types';
 
@@ -85,16 +85,16 @@ const styles = {
       text-decoration: underline;
     }
   `,
-  framed: css`
-    .CodeMirror {
-      max-height: 500px;
+  framed: css({
+    '.CodeMirror': {
+      maxHeight: '500px'
     }
-  `,
-  zen: css`
-    max-width: 800px;
-    margin: 0 auto;
-    border: none;
-  `
+  }),
+  zen: css({
+    maxWidth: '800px',
+    margin: '0 auto',
+    border: 'none !important'
+  })
 };
 
 export const MarkdownTextarea = memo((props: MarkdownTextareaProps) => {
@@ -132,10 +132,7 @@ export const MarkdownTextarea = memo((props: MarkdownTextareaProps) => {
 
   return (
     <div
-      className={cx(styles.root, {
-        [styles.framed]: props.mode === 'default',
-        [styles.zen]: props.mode === 'zen'
-      })}
+      className={`${styles.root} ${props.mode === 'default' ? styles.framed : styles.zen}`}
       ref={hostRef}
       data-test-id="markdown-textarea"
       style={{ display: props.visible ? 'block' : 'none' }}

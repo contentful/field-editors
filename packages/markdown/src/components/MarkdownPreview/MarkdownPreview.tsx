@@ -1,7 +1,7 @@
 import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import tokens from '@contentful/forma-36-tokens';
-import { css, cx } from 'emotion';
+import { css } from 'emotion';
 import { EditorDirection } from '../../types';
 
 const styles = {
@@ -134,19 +134,19 @@ const styles = {
       font-family: ${tokens.fontStackMonospace};
     }
   `,
-  framed: css`
-    height: 100%;
-    max-height: 500px;
-    overflow-y: auto;
-  `,
-  zen: css`
-    max-width: 800px;
-    margin: 0 auto;
-    border: none;
-  `,
-  rtl: css`
-    direction: rtl;
-  `
+  framed: css({
+    height: '100%',
+    maxHeight: '500px',
+    overflowY: 'auto'
+  }),
+  zen: css({
+    maxWidth: '800px',
+    margin: '0 auto',
+    border: 'none !important'
+  }),
+  rtl: css({
+    direction: 'rtl'
+  })
 };
 
 type MarkdownPreviewProps = {
@@ -158,11 +158,9 @@ type MarkdownPreviewProps = {
 export const MarkdownPreview = (props: MarkdownPreviewProps) => {
   return (
     <div
-      className={cx(styles.root, {
-        [styles.framed]: props.mode === 'default',
-        [styles.zen]: props.mode === 'zen',
-        [styles.rtl]: props.direction === 'rtl'
-      })}
+      className={`${styles.root} ${props.mode === 'default' ? styles.framed : styles.zen} ${
+        props.direction === 'rtl' ? styles.rtl : ''
+      }`}
       data-test-id="markdown-preview">
       <Markdown>{props.value}</Markdown>
     </div>
