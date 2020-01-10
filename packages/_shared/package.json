@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-shared",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "main": "dist/index.js",
   "module": "dist/field-editor-shared.esm.js",
   "typings": "dist/index.d.ts",
@@ -19,11 +19,11 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
-    "contentful-ui-extensions-sdk": "^3.10.4",
-    "lodash": "^4.17.15",
-    "lodash-es": "^4.17.15",
     "@contentful/forma-36-tokens": "^0.5.1",
-    "emotion": "^10.0.17"
+    "contentful-ui-extensions-sdk": "^3.10.4",
+    "emotion": "^10.0.17",
+    "lodash": "^4.17.15",
+    "lodash-es": "^4.17.15"
   },
   "peerDependencies": {
     "react": ">=16.8.0"
