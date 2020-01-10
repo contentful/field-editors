@@ -1,11 +1,14 @@
 import * as React from 'react';
 import { TextInput } from '@contentful/forma-36-react-components';
 import tokens from '@contentful/forma-36-tokens';
-import { fromFieldValidations, makeChecker } from './utils/constraints';
-import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
-import { CharCounter } from './CharCounter';
+import {
+  FieldAPI,
+  FieldConnector,
+  ConstraintsUtils,
+  CharCounter,
+  CharValidation
+} from '@contentful/field-editor-shared';
 import { css } from 'emotion';
-import { CharValidation } from './CharValidation';
 
 export interface SingleLineEditorProps {
   /**
@@ -28,8 +31,8 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
   }
 
   // eslint-disable-next-line
-  const constraints = fromFieldValidations(field.validations, field.type);
-  const checkConstraint = makeChecker(constraints);
+  const constraints = ConstraintsUtils.fromFieldValidations(field.validations, field.type);
+  const checkConstraint = ConstraintsUtils.makeChecker(constraints);
 
   return (
     <FieldConnector<string> field={field} isInitiallyDisabled={props.isInitiallyDisabled}>

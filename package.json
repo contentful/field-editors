@@ -32,9 +32,9 @@
   ],
   "devDependencies": {
     "@babel/core": "7.7.2",
-    "@babel/plugin-proposal-optional-chaining": "7.6.0",
-    "@babel/plugin-proposal-nullish-coalescing-operator": "7.4.4",
     "@babel/plugin-proposal-class-properties": "7.7.0",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "7.4.4",
+    "@babel/plugin-proposal-optional-chaining": "7.6.0",
     "@babel/plugin-syntax-dynamic-import": "7.2.0",
     "@babel/plugin-transform-runtime": "7.6.2",
     "@babel/preset-env": "7.7.1",
@@ -43,8 +43,9 @@
     "@commitlint/config-conventional": "^8.2.0",
     "@contentful/contentful-extension-scripts": "0.14.1",
     "@contentful/eslint-config-extension": "0.2.0",
-    "@contentful/forma-36-react-components": "3.24.0",
-    "@contentful/forma-36-tokens": "0.4.5",
+    "@contentful/forma-36-react-components": "3.28.6",
+    "@contentful/forma-36-tokens": "0.5.1",
+    "@contentful/forma-36-fcss": "0.0.32",
     "@testing-library/cypress": "5.0.2",
     "@testing-library/jest-dom": "4.2.4",
     "@testing-library/react": "9.3.2",
@@ -63,6 +64,7 @@
     "docz-theme-default": "1.2.0",
     "emotion": "10.0.17",
     "eslint": "6.0.1",
+    "eslint-plugin-cypress": "^2.7.0",
     "husky": "^3.1.0",
     "lerna": "^3.19.0",
     "lint-staged": "9.4.3",
@@ -74,17 +76,17 @@
     "remark-lint-no-empty-sections": "^3.0.0",
     "remark-preset-lint-recommended": "^3.0.3",
     "remark-validate-links": "^9.0.1",
+    "start-server-and-test": "^1.10.6",
     "tsdx": "0.11.0",
     "tslib": "^1.10.0",
-    "typescript": "3.7.2",
-    "eslint-plugin-cypress": "^2.7.0",
-    "start-server-and-test": "^1.10.6"
+    "typescript": "3.7.3"
   },
   "resolutions": {
-    "typescript": "3.7.2",
+    "typescript": "3.7.3",
     "@types/react": "16.9.2",
     "react": "16.9.0",
-    "react-dom": "16.9.0"
+    "react-dom": "16.9.0",
+    "cypress": "3.6.1"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -125,8 +127,8 @@
     }
   },
   "engines": {
-    "node": ">=10.15.0",
-    "yarn": ">=1.13.0"
+    "node": ">=12.13.1",
+    "yarn": ">=1.21.1"
   },
   "config": {
     "commitizen": {

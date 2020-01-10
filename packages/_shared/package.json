@@ -19,9 +19,11 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
-    "contentful-ui-extensions-sdk": "^3.9.2",
+    "contentful-ui-extensions-sdk": "^3.10.4",
     "lodash": "^4.17.15",
-    "lodash-es": "^4.17.15"
+    "lodash-es": "^4.17.15",
+    "@contentful/forma-36-tokens": "^0.5.1",
+    "emotion": "^10.0.17"
   },
   "peerDependencies": {
     "react": ">=16.8.0"

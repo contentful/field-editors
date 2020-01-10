@@ -53,3 +53,9 @@ Cypress.Commands.add('setInstanceParams', instanceParams => {
     return win;
   });
 });
+
+Cypress.Commands.add('getMarkdownInstance', () => {
+  return cy.window().then(win => {
+    return win.markdownEditor;
+  });
+});
