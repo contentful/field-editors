@@ -54,13 +54,6 @@ describe('Markdown Editor / Simple Actions', () => {
     return selectors.getInput().type(value, { force: true });
   };
 
-  const useHotKey = (first, second) => {
-    return selectors
-      .getInput()
-      .type(first, { force: true, release: false })
-      .type(second);
-  };
-
   const unveilAdditionalButtonsRow = () => {
     selectors.getToggleAdditionalActionsButton().click();
   };
@@ -161,13 +154,6 @@ describe('Markdown Editor / Simple Actions', () => {
       clickBold();
       checkValue('text');
     });
-
-    it('should be triggered by a hotkey (meta + b)', () => {
-      checkValue('');
-      useHotKey('{meta}', 'b');
-      type('some text');
-      checkValue('__some text__');
-    });
   });
 
   describe('italic', () => {
@@ -201,13 +187,6 @@ describe('Markdown Editor / Simple Actions', () => {
       selectBackwards(0, 6);
       clickItalic();
       checkValue('text');
-    });
-
-    it('should be triggered by a hotkey (meta + i)', () => {
-      checkValue('');
-      useHotKey('{meta}', 'i');
-      type('some text');
-      checkValue('*some text*');
     });
   });
 
