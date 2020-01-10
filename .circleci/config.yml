@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: cypress/browsers:node10.16.0-chrome77
+      - image: cypress/browsers:node13.3.0-chrome79-ff70
     steps:
       - checkout
       - restore_cache:
