@@ -163,13 +163,11 @@ export function createMarkdownActions(props: {
         return;
       }
       try {
-        const asset = await sdk.dialogs.selectSingleAsset({
+        const assets = await sdk.dialogs.selectMultipleAssets({
           locale: locale
         });
-        if (asset) {
-          const markdownLinks = await insertAssetsWithConfirmation([asset]);
-          editor.insert(markdownLinks);
-        }
+        const markdownLinks = await insertAssetsWithConfirmation(assets);
+        editor.insert(markdownLinks);
       } finally {
         editor.focus();
       }
