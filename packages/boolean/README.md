@@ -1,6 +1,6 @@
 # @contentful/field-editor-boolean
 
-This package contains a React `BooleanEditor` component and an extension that is used as for `Boolean` field type in the Contentful web application.
+This package contains a React `BooleanEditor` component and an extension that is used as default for `Boolean` field type in the Contentful web application.
 
 ## Commands
 

@@ -1,6 +1,6 @@
 # @contentful/field-editor-date
 
-This package contains a React `DateEditor` component.
+This package contains a React `DateEditor` component and an extension that is used as a default for the `Date` field type in the Contentful web application.
 
 ## Commands
 

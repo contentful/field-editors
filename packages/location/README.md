@@ -1,6 +1,6 @@
 # @contentful/field-editor-location
 
-This package contains a React `LocationEditor` component.
+This package contains a React `LocationEditor` component and an extension that is used as a default for the `Location` field type in the Contentful web application.
 
 ## Commands
 

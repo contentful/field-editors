@@ -1,6 +1,6 @@
 # @contentful/field-editor-single-line
 
-This package contains a React `SingleLineEditor` component and an extension that is used as a default for `Symbol` and `Text` field types in the Contentful web application.
+This package contains a React `SingleLineEditor` component and an extension that is used as a default for the `Symbol` and `Text` field types in the Contentful web application.
 
 ## Commands
 

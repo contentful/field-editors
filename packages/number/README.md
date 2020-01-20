@@ -1,6 +1,6 @@
 # @contentful/field-editor-number
 
-This package contains a React `NumberEditor` component and an extension that is used as a default for `Integer` and `Number` field type in the Contentful web application.
+This package contains a React `NumberEditor` component and an extension that is used as a default for the `Integer` and `Number` field types in the Contentful web application.
 
 ## Commands
 
