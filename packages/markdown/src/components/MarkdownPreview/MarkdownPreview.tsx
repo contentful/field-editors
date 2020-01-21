@@ -133,6 +133,11 @@ const styles = {
       font-size: ${tokens.fontSizeS};
       font-family: ${tokens.fontStackMonospace};
     }
+
+    .embedly-card {
+      margin: ${tokens.spacingM} auto;
+      display: block;
+    }
   `,
   framed: css({
     height: '100%',
@@ -140,7 +145,7 @@ const styles = {
     overflowY: 'auto'
   }),
   zen: css({
-    maxWidth: '800px',
+    maxWidth: '650px',
     margin: '0 auto',
     border: 'none !important'
   }),
@@ -155,6 +160,23 @@ type MarkdownPreviewProps = {
   value: string;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function MarkdownLink(props: any) {
+  return (
+    <a {...props} target="_blank" rel="noopener noreferrer">
+      {props.children}
+    </a>
+  );
+}
+
+const options = {
+  overrides: {
+    a: {
+      component: MarkdownLink
+    }
+  }
+};
+
 export const MarkdownPreview = (props: MarkdownPreviewProps) => {
   return (
     <div
@@ -162,7 +184,7 @@ export const MarkdownPreview = (props: MarkdownPreviewProps) => {
         props.direction === 'rtl' ? styles.rtl : ''
       }`}
       data-test-id="markdown-preview">
-      <Markdown>{props.value}</Markdown>
+      <Markdown options={options}>{props.value}</Markdown>
     </div>
   );
 };

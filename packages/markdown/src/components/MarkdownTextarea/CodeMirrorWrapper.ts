@@ -118,8 +118,6 @@ export function create(
 
   function destroy() {
     cm.toTextArea();
-    // todo: unwatch resize
-    // unwatchResize();
   }
 
   function disable() {

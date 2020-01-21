@@ -22,12 +22,9 @@ export type ZenModeResult = {
 };
 
 type ZenModeDialogProps = {
+  saveValueToSDK: (value: string | null | undefined) => void;
   onClose: (result: ZenModeResult) => void;
   initialValue: string;
-  initialCursor?: {
-    ch: number;
-    line: number;
-  };
   locale: string;
   sdk: DialogExtensionSDK;
 };
@@ -142,13 +139,11 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
           onReady={editor => {
             editor.setContent(props.initialValue ?? '');
             editor.setReadOnly(false);
-            if (props.initialCursor) {
-              editor.setCursor(props.initialCursor);
-            }
             setEditor(editor);
             editor.focus();
             editor.events.onChange((value: string) => {
               setCurrentValue(value);
+              props.saveValueToSDK(value);
             });
           }}
         />
@@ -194,7 +189,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
 
 export const openZenMode = (
   dialogs: DialogsAPI,
-  options: { initialValue: string; locale: string; initialCursor?: { ch: number; line: number } }
+  options: { initialValue: string; locale: string }
 ): Promise<ZenModeResult> => {
   return dialogs.openExtension({
     width: 'zen' as any, // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -204,7 +199,6 @@ export const openZenMode = (
     parameters: {
       type: MarkdownDialogType.zenMode,
       initialValue: options.initialValue,
-      initialCursor: options.initialCursor,
       locale: options.locale
     } as MarkdownDialogsParams
   });
