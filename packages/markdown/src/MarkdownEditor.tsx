@@ -9,7 +9,7 @@ import { MarkdownToolbar } from './components/MarkdownToolbar';
 import { MarkdownTextarea } from './components/MarkdownTextarea/MarkdownTextarea';
 import { InitializedEditorType } from './components/MarkdownTextarea/MarkdownTextarea';
 import { MarkdownBottomBar, MarkdownHelp } from './components/MarkdownBottomBar';
-import { MarkdownTab } from './types';
+import { MarkdownTab, PreviewComponents } from './types';
 import { openCheatsheetModal } from './dialogs/CheatsheetModalDialog';
 import { MarkdownPreview } from './components/MarkdownPreview/MarkdownPreview';
 import { MarkdownConstraints } from './components/MarkdownConstraints';
@@ -34,6 +34,7 @@ export interface MarkdownEditorProps {
       canUploadAssets: boolean;
     };
   };
+  previewComponents?: PreviewComponents;
   onReady?: Function;
 }
 
@@ -87,7 +88,12 @@ export function MarkdownEditor(
         }}
       />
       {selectedTab === 'preview' && (
-        <MarkdownPreview direction={direction} mode="default" value={currentValue} />
+        <MarkdownPreview
+          direction={direction}
+          mode="default"
+          value={currentValue}
+          previewComponents={props.previewComponents}
+        />
       )}
       <MarkdownBottomBar>
         <MarkdownHelp

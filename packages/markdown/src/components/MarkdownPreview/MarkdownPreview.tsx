@@ -2,7 +2,7 @@ import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import tokens from '@contentful/forma-36-tokens';
 import { css } from 'emotion';
-import { EditorDirection } from '../../types';
+import { EditorDirection, PreviewComponents } from '../../types';
 
 const styles = {
   root: css`
@@ -133,6 +133,11 @@ const styles = {
       font-size: ${tokens.fontSizeS};
       font-family: ${tokens.fontStackMonospace};
     }
+
+    .embedly-card {
+      margin: ${tokens.spacingM} auto;
+      display: block;
+    }
   `,
   framed: css({
     height: '100%',
@@ -140,7 +145,7 @@ const styles = {
     overflowY: 'auto'
   }),
   zen: css({
-    maxWidth: '800px',
+    maxWidth: '650px',
     margin: '0 auto',
     border: 'none !important'
   }),
@@ -153,7 +158,29 @@ type MarkdownPreviewProps = {
   mode: 'default' | 'zen';
   direction: EditorDirection;
   value: string;
+  previewComponents?: PreviewComponents;
 };
+
+function MarkdownLink(props: {
+  href: string;
+  title: string;
+  className?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  children: any;
+  Embedly?: React.SFC<{ url: string }>;
+}) {
+  const { Embedly, children, ...rest } = props;
+
+  if (props.className === 'embedly-card' && Embedly) {
+    return <Embedly url={props.href} />;
+  }
+
+  return (
+    <a {...rest} target="_blank" rel="noopener noreferrer">
+      {children}
+    </a>
+  );
+}
 
 export const MarkdownPreview = (props: MarkdownPreviewProps) => {
   return (
@@ -162,7 +189,20 @@ export const MarkdownPreview = (props: MarkdownPreviewProps) => {
         props.direction === 'rtl' ? styles.rtl : ''
       }`}
       data-test-id="markdown-preview">
-      <Markdown>{props.value}</Markdown>
+      <Markdown
+        options={{
+          overrides: {
+            a: {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              component: MarkdownLink as any,
+              props: {
+                Embedly: props.previewComponents?.embedly
+              }
+            }
+          }
+        }}>
+        {props.value}
+      </Markdown>
     </div>
   );
 };

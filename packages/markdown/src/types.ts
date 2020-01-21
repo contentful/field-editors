@@ -20,10 +20,6 @@ export type MarkdownDialogsParams =
   | {
       type: MarkdownDialogType.zenMode;
       initialValue: string;
-      initialCursor?: {
-        ch: number;
-        line: number;
-      };
       locale: string;
     }
   | {
@@ -88,4 +84,8 @@ export type MarkdownActions = {
   organizeLinks: Function;
   openZenMode: Function;
   closeZenMode: Function;
+};
+
+export type PreviewComponents = {
+  embedly?: React.Component<{ url: string }>;
 };

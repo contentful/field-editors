@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, memo } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import tokens from '@contentful/forma-36-tokens';
 import { css } from 'emotion';
 import { createMarkdownEditor } from './createMarkdownEditor';
@@ -91,13 +91,13 @@ const styles = {
     }
   }),
   zen: css({
-    maxWidth: '800px',
+    maxWidth: '650px',
     margin: '0 auto',
     border: 'none !important'
   })
 };
 
-export const MarkdownTextarea = memo((props: MarkdownTextareaProps) => {
+export const MarkdownTextarea = (props: MarkdownTextareaProps) => {
   const hostRef = useRef<HTMLDivElement>(null);
   const [editor, setEditor] = useState<InitializedEditorType | null>(null);
 
@@ -138,6 +138,6 @@ export const MarkdownTextarea = memo((props: MarkdownTextareaProps) => {
       style={{ display: props.visible ? 'block' : 'none' }}
     />
   );
-});
+};
 
 MarkdownTextarea.displayName = 'MarkdownTextarea';

@@ -1,6 +1,6 @@
 import React from 'react';
-import { DialogExtensionSDK } from 'contentful-ui-extensions-sdk';
-import { OpenMarkdownDialogParams, MarkdownDialogsParams } from '../types';
+import { FieldExtensionSDK, DialogExtensionSDK } from 'contentful-ui-extensions-sdk';
+import { OpenMarkdownDialogParams, MarkdownDialogsParams, PreviewComponents } from '../types';
 import * as ModalLauncher from './ModalDialogLauncher';
 import { CheatsheetModalDialog } from './CheatsheetModalDialog';
 import { SpecialCharacterModalDialog } from './SpecialCharacterModalDialog';
@@ -14,9 +14,10 @@ import {
 } from './EmdebExternalContentDialog';
 import { ZenModeModalDialog, ZenModeResult } from './ZenModeModalDialog';
 
-export const openMarkdownDialog = (sdk: DialogExtensionSDK) => (
-  options: OpenMarkdownDialogParams<MarkdownDialogsParams>
-) => {
+export const openMarkdownDialog = (
+  sdk: FieldExtensionSDK,
+  previewComponents?: PreviewComponents
+) => (options: OpenMarkdownDialogParams<MarkdownDialogsParams>) => {
   if (options.parameters?.type === MarkdownDialogType.cheatsheet) {
     return ModalLauncher.openDialog(options, () => {
       return <CheatsheetModalDialog />;
@@ -47,15 +48,20 @@ export const openMarkdownDialog = (sdk: DialogExtensionSDK) => (
   } else if (options.parameters?.type === MarkdownDialogType.zenMode) {
     const initialValue = options.parameters.initialValue;
     const locale = options.parameters.locale;
-    const initialCursor = options.parameters.initialCursor;
     return ModalLauncher.openDialog<ZenModeResult>(options, ({ onClose }) => {
       return (
         <ZenModeModalDialog
+          saveValueToSDK={value => {
+            if (value) {
+              return sdk.field.setValue(value);
+            }
+            return sdk.field.removeValue();
+          }}
           onClose={onClose}
           initialValue={initialValue}
-          initialCursor={initialCursor}
           locale={locale}
-          sdk={sdk}
+          sdk={(sdk as unknown) as DialogExtensionSDK}
+          previewComponents={previewComponents}
         />
       );
     });
