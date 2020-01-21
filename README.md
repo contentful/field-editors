@@ -27,7 +27,6 @@ We currently provide the following field editors:
 - [Markdown](./packages/markdown/README.md)
 - Entry / Asset reference - **coming soon**
 - Slug - **coming soon**
-- File - **coming soon**
 - Rich Text - **coming soon**
 
 Feel free to reach out to us with the ones that'd be the most useful to have
