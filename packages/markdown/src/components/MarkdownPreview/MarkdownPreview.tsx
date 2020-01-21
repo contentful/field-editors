@@ -169,7 +169,7 @@ function MarkdownLink(props: {
   children: any;
   Embedly?: React.SFC<{ url: string }>;
 }) {
-  const { Embedly, ...rest } = props;
+  const { Embedly, children, ...rest } = props;
 
   if (props.className === 'embedly-card' && Embedly) {
     return <Embedly url={props.href} />;
@@ -177,7 +177,7 @@ function MarkdownLink(props: {
 
   return (
     <a {...rest} target="_blank" rel="noopener noreferrer">
-      {rest.children}
+      {children}
     </a>
   );
 }
