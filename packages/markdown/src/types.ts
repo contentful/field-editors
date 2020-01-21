@@ -85,3 +85,7 @@ export type MarkdownActions = {
   openZenMode: Function;
   closeZenMode: Function;
 };
+
+export type PreviewComponents = {
+  embedly?: React.Component<{ url: string }>;
+};

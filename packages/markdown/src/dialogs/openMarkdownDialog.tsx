@@ -1,6 +1,6 @@
 import React from 'react';
 import { FieldExtensionSDK, DialogExtensionSDK } from 'contentful-ui-extensions-sdk';
-import { OpenMarkdownDialogParams, MarkdownDialogsParams } from '../types';
+import { OpenMarkdownDialogParams, MarkdownDialogsParams, PreviewComponents } from '../types';
 import * as ModalLauncher from './ModalDialogLauncher';
 import { CheatsheetModalDialog } from './CheatsheetModalDialog';
 import { SpecialCharacterModalDialog } from './SpecialCharacterModalDialog';
@@ -14,9 +14,10 @@ import {
 } from './EmdebExternalContentDialog';
 import { ZenModeModalDialog, ZenModeResult } from './ZenModeModalDialog';
 
-export const openMarkdownDialog = (sdk: FieldExtensionSDK) => (
-  options: OpenMarkdownDialogParams<MarkdownDialogsParams>
-) => {
+export const openMarkdownDialog = (
+  sdk: FieldExtensionSDK,
+  previewComponents?: PreviewComponents
+) => (options: OpenMarkdownDialogParams<MarkdownDialogsParams>) => {
   if (options.parameters?.type === MarkdownDialogType.cheatsheet) {
     return ModalLauncher.openDialog(options, () => {
       return <CheatsheetModalDialog />;
@@ -60,6 +61,7 @@ export const openMarkdownDialog = (sdk: FieldExtensionSDK) => (
           initialValue={initialValue}
           locale={locale}
           sdk={(sdk as unknown) as DialogExtensionSDK}
+          previewComponents={previewComponents}
         />
       );
     });

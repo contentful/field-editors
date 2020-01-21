@@ -3,7 +3,7 @@ import { css, cx } from 'emotion';
 import { isRtlLang } from 'rtl-detect';
 import { DialogsAPI, DialogExtensionSDK } from 'contentful-ui-extensions-sdk';
 import { Icon } from '@contentful/forma-36-react-components';
-import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
+import { MarkdownDialogType, MarkdownDialogsParams, PreviewComponents } from '../types';
 import { InitializedEditorType } from '../components/MarkdownTextarea/MarkdownTextarea';
 import { MarkdownToolbar } from '../components/MarkdownToolbar';
 import { MarkdownTextarea } from '../components/MarkdownTextarea/MarkdownTextarea';
@@ -27,6 +27,7 @@ type ZenModeDialogProps = {
   initialValue: string;
   locale: string;
   sdk: DialogExtensionSDK;
+  previewComponents?: PreviewComponents;
 };
 
 const styles = {
@@ -171,7 +172,12 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
       )}
       {showPreview && (
         <div className={styles.previewSplit}>
-          <MarkdownPreview direction={direction} mode="zen" value={currentValue} />
+          <MarkdownPreview
+            direction={direction}
+            mode="zen"
+            value={currentValue}
+            previewComponents={props.previewComponents}
+          />
         </div>
       )}
       <div className={styles.bottomSplit}>
