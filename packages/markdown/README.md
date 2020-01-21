@@ -1,6 +1,6 @@
 # @contentful/field-editor-markdown
 
-This package contains a React `JsonEditor` component and an extension that is used as a default for `Text` field type in the Contentful web application.
+This package contains a React `MarkdownEditor` component and an extension that is used as a default for the `Text` field type in the Contentful web application.
 
 ## Commands
 

@@ -1,6 +1,6 @@
 # @contentful/field-editor-checkbox
 
-This package contains a React `CheckboxEditor` component and an extension that is used as a default for `Short text / List` field type in the Contentful web application.
+This package contains a React `CheckboxEditor` component and an extension that is used as a default for the `Symbol / List` field type in the Contentful web application.
 
 ## Commands
 

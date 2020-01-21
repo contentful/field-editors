@@ -1,6 +1,6 @@
 # @contentful/field-editor-dropdown
 
-This package contains a React `DropdownEditor` component and an extension that is used as for `Text`, `Symbol`, `Integer`, `Number` field types in the Contentful web application.
+This package contains a React `DropdownEditor` component and an extension that is used for the `Text`,`Symbol`,`Integer`and`Number` field types in the Contentful web application.
 
 ## Commands
 

@@ -1,10 +1,10 @@
-# Contentful Field Editors [![early access program](https://img.shields.io/badge/careful-early_access_program-orange)]
+# Contentful Field Editors ![early access program](https://img.shields.io/badge/careful-early_access_program-orange)
 
 This is the monorepo for all field editors and extensions by [Contentful][contentful].
 
 Since these are developed using the [UI Extensions SDK][ui-extensions-sdk], this will allow you to understand how each editor works, fork existing extensions or create your own extensions based on existing Contentful components' source rather than starting from scratch.
 
-It uses [Typescript][typescript], [React][react], [Forma36][forma36] (a design system & component library by Contentful) and managed using [Lerna][lerna]. Code is automatically formatted with [Prettier][prettier] and checked with [ESLint][eslint] on every commit using Git hooks.
+It uses [Typescript][typescript], [React][react], [Forma36][forma36] (a design system & component library by Contentful) and is managed using [Lerna][lerna]. Code is automatically formatted with [Prettier][prettier] and checked with [ESLint][eslint] on every commit using Git hooks.
 
 ## Available field editors
 
@@ -25,10 +25,9 @@ We currently provide the following field editors:
 - [Location](./packages/location/README.md)
 - [Date](./packages/date/README.md)
 - [Markdown](./packages/markdown/README.md)
-- Entry / Asset Reference **coming soon**
-- Slug **coming soon**
-- File **coming soon**
-- Rich Text **coming soon**
+- Entry / Asset reference - **coming soon**
+- Slug - **coming soon**
+- Rich Text - **coming soon**
 
 Feel free to reach out to us with the ones that'd be the most useful to have
 here by filing a [Github issue][github-issues]!
@@ -51,7 +50,7 @@ We want to provide a safe, inclusive, welcoming, and harassment-free space and e
 
 ## License
 
-All field editors packages are open source software [licensed as MIT](./LICENSE).
+All field editor packages are open source software [licensed as MIT](./LICENSE).
 
 [contentful]: https://www.contentful.com
 [ui-extensions-sdk]: https://github.com/contentful/ui-extensions-sdk

@@ -1,6 +1,6 @@
 # @contentful/field-editor-json
 
-This package contains a React `JsonEditor` component and an extension that is used as a default for `Object` field type in the Contentful web application.
+This package contains a React `JsonEditor` component and an extension that is used as a default for the `Object` field type in the Contentful web application.
 
 ## Commands
 

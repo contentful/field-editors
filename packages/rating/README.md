@@ -1,6 +1,6 @@
 # @contentful/field-editor-rating
 
-This package contains a React `RatingEditor` component and an extension that is used as for `Number` and `Integer` field types in the Contentful web application.
+This package contains a React `RatingEditor` component and an extension that is used for the `Number`and`Integer` field types in the Contentful web application.
 
 ## Commands
 

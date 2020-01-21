@@ -68,7 +68,7 @@ All commit messages should meet the [conventional commit format](https://github.
 
 ### Code formatting
 
-You don't need to worry about formatting your code. It is automatically reformatted using `pretter` on every comming using Git hooks.
+You don't need to worry about formatting your code. It is automatically reformatted using `prettier` on every commit using Git hooks.
 
 ### Linting
 
