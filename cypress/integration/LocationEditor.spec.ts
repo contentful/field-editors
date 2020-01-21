@@ -132,25 +132,6 @@ describe('Location Editor', () => {
       );
   });
 
-  it('should handle initial value properly and reset value on external change', () => {
-    cy.setInitialValue(JSON.stringify({ lon: 52.5389, lat: 13.38369 }));
-    cy.reload();
-
-    cy.wait(1000);
-    selectors.getSearchInput().should('have.value', 'Max-Urich-Straße 1, 13355 Berlin, Germany');
-
-    cy.setValueExternal({ lon: 9.98413, lat: 53.54132 });
-    cy.wait(1000);
-
-    selectors
-      .getSearchInput()
-      .should('have.value', 'Platz der Deutschen Einheit 1, 20457 Hamburg, Germany');
-
-    cy.editorEvents().should('deep.equal', [
-      { id: 1, type: 'onValueChanged', value: { lon: 9.98413, lat: 53.54132 } }
-    ]);
-  });
-
   it('should disable all elements if isDisabled is true', () => {
     cy.setInitialDisabled(true);
     cy.reload();
