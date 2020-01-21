@@ -94,19 +94,19 @@ describe('Location Editor', () => {
   it('should set value after using search input', () => {
     cy.editorEvents().should('deep.equal', []);
 
-    selectors.getSearchInput().type('Ritterstraße 11, 10969 Berlin, Germany');
+    selectors.getSearchInput().type('Max-Urich-Straße 1, 13355 Berlin, Germany');
     cy.wait(1000);
     selectors.getLocationSuggestion().click();
     cy.wait(500);
 
     selectors.getCoordinatesRadio().click();
 
-    selectors.getLatitudeInput().should('have.value', '52.50139');
-    selectors.getLongitudeInput().should('have.value', '13.41131');
+    selectors.getLatitudeInput().should('have.value', '52.5389');
+    selectors.getLongitudeInput().should('have.value', '13.38369');
 
     cy.editorEvents().should('deep.equal', [
-      { id: 2, type: 'onValueChanged', value: { lon: 13.41131, lat: 52.50139 } },
-      { id: 1, type: 'setValue', value: { lon: 13.41131, lat: 52.50139 } }
+      { id: 2, type: 'onValueChanged', value: { lon: 13.38369, lat: 52.5389 } },
+      { id: 1, type: 'setValue', value: { lon: 13.38369, lat: 52.5389 } }
     ]);
 
     selectors.getAddressRadio().click();
@@ -116,8 +116,8 @@ describe('Location Editor', () => {
     cy.editorEvents().should('deep.equal', [
       { id: 4, type: 'onValueChanged', value: undefined },
       { id: 3, type: 'removeValue', value: undefined },
-      { id: 2, type: 'onValueChanged', value: { lon: 13.41131, lat: 52.50139 } },
-      { id: 1, type: 'setValue', value: { lon: 13.41131, lat: 52.50139 } }
+      { id: 2, type: 'onValueChanged', value: { lon: 13.38369, lat: 52.5389 } },
+      { id: 1, type: 'setValue', value: { lon: 13.38369, lat: 52.5389 } }
     ]);
   });
 
@@ -133,11 +133,11 @@ describe('Location Editor', () => {
   });
 
   it('should handle initial value properly and reset value on external change', () => {
-    cy.setInitialValue(JSON.stringify({ lon: 13.41131, lat: 52.50139 }));
+    cy.setInitialValue(JSON.stringify({ lon: 52.5389, lat: 13.38369 }));
     cy.reload();
 
     cy.wait(1000);
-    selectors.getSearchInput().should('have.value', 'Ritterstraße 11, 10969 Berlin, Germany');
+    selectors.getSearchInput().should('have.value', 'Max-Urich-Straße 1, 13355 Berlin, Germany');
 
     cy.setValueExternal({ lon: 9.98413, lat: 53.54132 });
     cy.wait(1000);
