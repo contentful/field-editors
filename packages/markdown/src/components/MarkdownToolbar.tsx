@@ -38,6 +38,9 @@ const styles = {
   zenButton: css({
     marginLeft: tokens.spacingXs
   }),
+  zenButtonPressed: css({
+    backgroundColor: tokens.colorElementDark
+  }),
   tooltip: css({
     zIndex: Number(tokens.zIndexTooltip)
   })
@@ -326,13 +329,13 @@ export function ZenMarkdownToolbar(props: MarkdownToolbarProps) {
           />
           <Button
             testId="markdown-action-button-zen-close"
-            buttonType="positive"
+            buttonType="muted"
             size="small"
-            className={styles.zenButton}
+            className={cx(styles.zenButton, styles.zenButtonPressed)}
             onClick={() => {
               props.actions.closeZenMode();
             }}>
-            Save changes
+            <Icons.Zen label="Collapse" className={styles.icon} />
           </Button>
         </div>
       </div>
