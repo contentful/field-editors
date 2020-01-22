@@ -32,18 +32,21 @@ type ZenModeDialogProps = {
 
 const styles = {
   root: css({
-    position: 'relative',
-    height: '100vh'
+    position: 'fixed',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0
   }),
   topSplit: css({
-    position: 'absolute',
+    position: 'fixed',
     top: 0,
     height: '48px',
     left: 0,
     right: 0
   }),
   bottomSplit: css({
-    position: 'absolute',
+    position: 'fixed',
     bottom: 0,
     left: 0,
     right: 0,
@@ -51,7 +54,7 @@ const styles = {
   }),
   editorSplit: css({
     width: '50%',
-    position: 'absolute',
+    position: 'fixed',
     top: '48px',
     left: 0,
     bottom: '36px',
@@ -65,7 +68,7 @@ const styles = {
   }),
   previewSplit: css({
     width: '50%',
-    position: 'absolute',
+    position: 'fixed',
     top: '48px',
     right: 0,
     bottom: '36px',
@@ -73,9 +76,9 @@ const styles = {
     overflowY: 'scroll'
   }),
   separator: css({
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
+    position: 'fixed',
+    top: '48px',
+    bottom: '36px',
     width: '1px',
     background: tokens.colorElementDark,
     left: '50%'
@@ -112,7 +115,10 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
     props.sdk?.window?.updateHeight('100%' as any);
   }, []);
 
-  const actions = createMarkdownActions({ sdk: props.sdk, editor, locale: props.locale });
+  const actions = React.useMemo(() => {
+    return createMarkdownActions({ sdk: props.sdk, editor, locale: props.locale });
+  }, [editor]);
+
   actions.closeZenMode = () => {
     props.onClose({
       value: currentValue,
@@ -120,7 +126,9 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
     });
   };
 
-  const direction = isRtlLang(props.locale) ? 'rtl' : 'ltr';
+  const direction = React.useMemo(() => {
+    return isRtlLang(props.locale) ? 'rtl' : 'ltr';
+  }, []);
 
   return (
     <div className={styles.root} data-test-id="zen-mode-markdown-editor">
@@ -149,6 +157,16 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
           }}
         />
       </div>
+      {showPreview && (
+        <div className={styles.previewSplit}>
+          <MarkdownPreview
+            direction={direction}
+            mode="zen"
+            value={currentValue}
+            previewComponents={props.previewComponents}
+          />
+        </div>
+      )}
       {showPreview && <div className={styles.separator} />}
       {showPreview && (
         <button
@@ -169,16 +187,6 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
           }}>
           <Icon icon="ChevronLeft" color="muted" size="tiny" className={styles.icon} />
         </button>
-      )}
-      {showPreview && (
-        <div className={styles.previewSplit}>
-          <MarkdownPreview
-            direction={direction}
-            mode="zen"
-            value={currentValue}
-            previewComponents={props.previewComponents}
-          />
-        </div>
       )}
       <div className={styles.bottomSplit}>
         <MarkdownBottomBar>

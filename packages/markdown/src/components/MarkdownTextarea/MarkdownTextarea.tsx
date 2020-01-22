@@ -21,9 +21,7 @@ const styles = {
     overflow-y: auto;
     height: auto;
     min-height: 300px;
-    textarea {
-      height: 1px;
-    }
+
     .CodeMirror {
       height: auto;
       line-height: ${tokens.lineHeightDefault};
@@ -91,13 +89,15 @@ const styles = {
     }
   }),
   zen: css({
-    maxWidth: '650px',
-    margin: '0 auto',
-    border: 'none !important'
+    border: 'none !important',
+    '.CodeMirror-lines': {
+      maxWidth: '650px',
+      margin: '0 auto'
+    }
   })
 };
 
-export const MarkdownTextarea = (props: MarkdownTextareaProps) => {
+export const MarkdownTextarea = React.memo((props: MarkdownTextareaProps) => {
   const hostRef = useRef<HTMLDivElement>(null);
   const [editor, setEditor] = useState<InitializedEditorType | null>(null);
 
@@ -138,6 +138,6 @@ export const MarkdownTextarea = (props: MarkdownTextareaProps) => {
       style={{ display: props.visible ? 'block' : 'none' }}
     />
   );
-};
+});
 
 MarkdownTextarea.displayName = 'MarkdownTextarea';

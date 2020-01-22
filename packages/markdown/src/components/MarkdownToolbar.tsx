@@ -340,9 +340,11 @@ export function ZenMarkdownToolbar(props: MarkdownToolbarProps) {
   );
 }
 
-export function MarkdownToolbar(props: MarkdownToolbarProps) {
+export const MarkdownToolbar = React.memo((props: MarkdownToolbarProps) => {
   if (props.mode === 'zen') {
     return <ZenMarkdownToolbar {...props} />;
   }
   return <DefaultMarkdownToolbar {...props} />;
-}
+});
+
+MarkdownToolbar.displayName = 'MarkdownToolbar';
