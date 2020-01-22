@@ -39,6 +39,10 @@ export function create(
     undoDepth: 200,
     matchBrackets: true,
     lineWrapping: true,
+    // When `lineSeparator === null` the document will be split
+    // on CRLFs as well as lone CRs and LFs. A single LF will
+    // be used as line separator in all output
+    lineSeparator: null,
     theme: 'elegant',
     tabSize: 2,
     indentWithTabs: false,
@@ -111,9 +115,7 @@ export function create(
     setReadOnly: (value: boolean) => cm.setOption('readOnly', value),
     getHistory: () => cm.getHistory(),
     setHistory: (history: any) => cm.setHistory(history),
-
-    scrollToFraction,
-    getScrollFraction
+    refresh: () => cm.refresh()
   };
 
   function destroy() {
@@ -418,30 +420,7 @@ export function create(
     return which ? history[which] : history;
   }
 
-  /**
-   * @description
-   * Returns the scroll postition has a fraction of the overall height.
-   *
-   * @returns {number}
-   */
-  function getScrollFraction() {
-    const info = cm.getScrollInfo();
-    return info.top / info.height;
-  }
-
   function repeat(what: string, n: number) {
     return new Array(n + 1).join(what);
-  }
-
-  /**
-   * @description
-   * Given a number between 0 and 1 this method scrolls to the given fraction
-   * of the document
-   *
-   * @param {number} position
-   */
-  function scrollToFraction(pos: number) {
-    const height = cm.getScrollInfo().height;
-    cm.scrollTo(null, pos * height);
   }
 }
