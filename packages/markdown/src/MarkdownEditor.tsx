@@ -56,7 +56,18 @@ export function MarkdownEditor(
   }, [editor]);
 
   const isActionDisabled = editor === null || props.disabled || selectedTab !== 'editor';
-  const direction = isRtlLang(props.sdk.field.locale) ? 'rtl' : 'ltr';
+
+  const direction = React.useMemo(() => {
+    return isRtlLang(props.sdk.field.locale) ? 'rtl' : 'ltr';
+  }, []);
+
+  const actions = React.useMemo(() => {
+    return createMarkdownActions({ sdk: props.sdk, editor, locale: props.sdk.field.locale });
+  }, [editor]);
+
+  const openMarkdownHelp = React.useCallback(() => {
+    openCheatsheetModal(props.sdk.dialogs);
+  }, []);
 
   return (
     <div className={styles.container} data-test-id="markdown-editor">
@@ -70,7 +81,7 @@ export function MarkdownEditor(
         mode="default"
         disabled={isActionDisabled}
         canUploadAssets={props.parameters.instance.canUploadAssets}
-        actions={createMarkdownActions({ sdk: props.sdk, editor, locale: props.sdk.field.locale })}
+        actions={actions}
       />
       <MarkdownTextarea
         mode="default"
@@ -96,11 +107,7 @@ export function MarkdownEditor(
         />
       )}
       <MarkdownBottomBar>
-        <MarkdownHelp
-          onClick={() => {
-            openCheatsheetModal(props.sdk.dialogs);
-          }}
-        />
+        <MarkdownHelp onClick={openMarkdownHelp} />
       </MarkdownBottomBar>
       <MarkdownConstraints sdk={props.sdk} value={currentValue} />
     </div>

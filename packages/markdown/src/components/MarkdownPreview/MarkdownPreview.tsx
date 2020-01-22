@@ -182,7 +182,7 @@ function MarkdownLink(props: {
   );
 }
 
-export const MarkdownPreview = (props: MarkdownPreviewProps) => {
+export const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
   return (
     <div
       className={`${styles.root} ${props.mode === 'default' ? styles.framed : styles.zen} ${
@@ -205,4 +205,6 @@ export const MarkdownPreview = (props: MarkdownPreviewProps) => {
       </Markdown>
     </div>
   );
-};
+});
+
+MarkdownPreview.displayName = 'MarkdownPreview';

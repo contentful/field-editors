@@ -112,7 +112,10 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
     props.sdk?.window?.updateHeight('100%' as any);
   }, []);
 
-  const actions = createMarkdownActions({ sdk: props.sdk, editor, locale: props.locale });
+  const actions = React.useMemo(() => {
+    return createMarkdownActions({ sdk: props.sdk, editor, locale: props.locale });
+  }, [editor]);
+
   actions.closeZenMode = () => {
     props.onClose({
       value: currentValue,
@@ -120,7 +123,9 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
     });
   };
 
-  const direction = isRtlLang(props.locale) ? 'rtl' : 'ltr';
+  const direction = React.useMemo(() => {
+    return isRtlLang(props.locale) ? 'rtl' : 'ltr';
+  }, []);
 
   return (
     <div className={styles.root} data-test-id="zen-mode-markdown-editor">
