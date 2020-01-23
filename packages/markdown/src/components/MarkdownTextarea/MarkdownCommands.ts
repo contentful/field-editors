@@ -201,7 +201,9 @@ function forLineIn(
 ) {
   // anchor/head depend on selection direction, so min & max have to be used
   const lines = [selection.anchor.line, selection.head.line];
-  const lineRange = range(min(lines) || 0, max(lines) || 0 + 1);
+  const maxNumber = max(lines);
+  const minNumber = min(lines);
+  const lineRange = range(minNumber || 0, maxNumber !== undefined ? maxNumber + 1 : undefined);
 
   lineRange.forEach((lineNumber, i) => {
     cb(lineNumber, i + 1);

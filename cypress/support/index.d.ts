@@ -10,6 +10,7 @@ declare namespace Cypress {
       getContent: () => string;
       selectBackwards: (skip: number, len: number) => void;
       clear: () => void;
+      selectAll: () => void;
     }>;
   }
 }
