@@ -16,6 +16,7 @@ const styles = {
     font-family: ${tokens.fontStackPrimary};
     line-height: ${tokens.lineHeightDefault};
     color: ${tokens.colorTextMid};
+    white-space: pre-line;
 
     h1,
     h2,
