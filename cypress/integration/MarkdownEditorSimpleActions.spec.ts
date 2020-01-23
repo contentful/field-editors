@@ -64,6 +64,12 @@ describe('Markdown Editor / Simple Actions', () => {
     });
   };
 
+  const selectAll = () => {
+    cy.getMarkdownInstance().then(markdown => {
+      markdown.selectAll();
+    });
+  };
+
   const checkValue = value => {
     cy.getMarkdownInstance().then(markdown => {
       expect(markdown.getContent()).eq(value);
@@ -314,6 +320,18 @@ describe('Markdown Editor / Simple Actions', () => {
       clickUnorderedList();
       checkValue('- first item\n');
     });
+
+    it('should work properly with selection', () => {
+      checkValue('');
+      type('first item{enter}');
+      type('second item{enter}');
+      type('third item');
+
+      selectAll();
+      clickUnorderedList();
+
+      checkValue('- first item\n- second item\n- third item');
+    });
   });
 
   describe('ordered list', () => {
@@ -352,6 +370,18 @@ describe('Markdown Editor / Simple Actions', () => {
       checkValue('1. first item\n2. ');
       clickOrderedList();
       checkValue('1. first item\n');
+    });
+
+    it('should work properly with selection', () => {
+      checkValue('');
+      type('first item{enter}');
+      type('second item{enter}');
+      type('third item');
+
+      selectAll();
+      clickOrderedList();
+
+      checkValue('1. first item\n2. second item\n3. third item');
     });
   });
 

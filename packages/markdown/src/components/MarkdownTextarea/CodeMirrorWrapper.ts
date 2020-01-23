@@ -88,6 +88,7 @@ export function create(
     focus,
     select,
     selectBackwards,
+    selectAll: () => cm.execCommand('selectAll'),
     extendSelectionBy,
     insertAtCursor,
     insertAtLineBeginning,
