@@ -1,12 +1,7 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import {
-  init,
-  FieldExtensionSDK,
-  locations,
-  DialogExtensionSDK
-} from 'contentful-ui-extensions-sdk';
-import { MarkdownEditor, renderMarkdownDialog } from '../../../packages/markdown/src/index';
+import { init, FieldExtensionSDK, locations } from 'contentful-ui-extensions-sdk';
+import { SlugEditor } from '../../../packages/slug/src/index';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import '@contentful/forma-36-fcss/dist/styles.css';
 import 'codemirror/lib/codemirror.css';
@@ -18,18 +13,9 @@ init(sdk => {
     const fieldSdk = sdk as FieldExtensionSDK;
     fieldSdk.window.startAutoResizer();
     render(
-      <div style={{ minHeight: 300, marginTop: 10 }}>
-        <MarkdownEditor
-          sdk={fieldSdk}
-          parameters={{ instance: { canUploadAssets: true } }}
-          isInitiallyDisabled={true}
-        />
-      </div>,
+      <SlugEditor sdk={fieldSdk} isInitiallyDisabled={true} />,
       document.getElementById('root')
     );
-  } else if (sdk.location.is(locations.LOCATION_DIALOG)) {
-    const dialogSdk = sdk as DialogExtensionSDK;
-    render(renderMarkdownDialog(dialogSdk as any), document.getElementById('root'));
   }
 });
 

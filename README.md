@@ -25,8 +25,8 @@ We currently provide the following field editors:
 - [Location](./packages/location/README.md)
 - [Date](./packages/date/README.md)
 - [Markdown](./packages/markdown/README.md)
+- [Slug](./packages/slug/README.md)
 - Entry / Asset reference - **coming soon**
-- Slug - **coming soon**
 - Rich Text - **coming soon**
 
 Feel free to reach out to us with the ones that'd be the most useful to have

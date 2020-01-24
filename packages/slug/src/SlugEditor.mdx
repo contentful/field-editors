@@ -1,0 +1,24 @@
+---
+name: Slug
+route: /slug
+menu: Components
+---
+
+# Slug
+
+import { Playground, Props } from 'docz';
+import { SlugEditor } from './SlugEditor.tsx';
+import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
+
+## In Action
+
+<Playground>
+  {() => {
+    const [field] = createFakeFieldAPI();
+    return <SlugEditor field={field} isInitiallyDisabled={false} />;
+  }}
+</Playground>
+
+## Props
+
+<Props of={SlugEditor} />
