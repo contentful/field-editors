@@ -1652,6 +1652,19 @@
     react-transition-group "^2.4.0"
     truncate "^2.0.1"
 
+"@contentful/forma-36-react-components@^3.28.15":
+  version "3.28.16"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.28.16.tgz#831f14a90b08dc7d72b200171c3a8d90e40cb621"
+  integrity sha512-urvXrtunXysZy7DldP60sth3nLNBDNUAB0fvuWzX5cxTi2WBDk4ZigoU+nxoBXIqT2JqcP5BKG+Q/tcGM7d+aw==
+  dependencies:
+    "@babel/runtime" "^7.3.4"
+    classnames "^2.2.6"
+    react-animate-height "^2.0.7"
+    react-copy-to-clipboard "^5.0.1"
+    react-modal "3.6.1"
+    react-transition-group "^2.4.0"
+    truncate "^2.0.1"
+
 "@contentful/forma-36-tokens@^0.4.5":
   version "0.4.5"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.4.5.tgz#86880a06178de9ebfb542db983550b7c5ae531d3"
@@ -3424,6 +3437,11 @@
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/@types/sizzle/-/sizzle-2.3.2.tgz#a811b8c18e2babab7d542b3365887ae2e4d9de47"
   integrity sha512-7EJYyKTL7tFR8+gDbB6Wwz/arpGa0Mywk1TJbNzKzHtzbwVmY4HR9WqS5VV7dsBUKQmPNr192jHr/VpBluj/hg==
+
+"@types/speakingurl@^13.0.2":
+  version "13.0.2"
+  resolved "https://registry.yarnpkg.com/@types/speakingurl/-/speakingurl-13.0.2.tgz#865dc309b4d61ea333ade3171e916e341aa26137"
+  integrity sha512-cjvqDCGdWKSu2FjqpRXqaonLseH99w8AyLVo6Aytr/cUygXRF4fIBS/85qJ1t7t7ncInbi6WQCrsdGbknjvjHA==
 
 "@types/stack-utils@^1.0.1":
   version "1.0.1"
@@ -16605,6 +16623,11 @@ spdy@^4.0.1:
     http-deceiver "^1.2.7"
     select-hose "^2.0.0"
     spdy-transport "^3.0.0"
+
+speakingurl@^13.0.0:
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/speakingurl/-/speakingurl-13.0.0.tgz#266c52d2b47585375af058e4783c8d1097a2d3db"
+  integrity sha1-JmxS0rR1hTda8FjkeDyNEJei09s=
 
 split-string@^3.0.1, split-string@^3.0.2:
   version "3.1.0"

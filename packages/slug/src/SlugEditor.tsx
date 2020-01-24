@@ -19,11 +19,16 @@ function isSupportedFieldTypes(val: string): val is 'Symbol' {
 }
 
 export function SlugEditor(props: SlugEditorProps) {
-  const { field } = props.sdk;
+  const { field, entry, contentType } = props.sdk;
 
   if (!isSupportedFieldTypes(field.type)) {
     throw new Error(`"${field.type}" field type is not supported by SlugEditor`);
   }
+
+  const titleField = entry.fields[contentType.displayField];
+
+  console.log(titleField);
+  console.log(props.sdk);
 
   const constraints = ConstraintsUtils.fromFieldValidations(field.validations, 'Symbol');
 
