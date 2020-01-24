@@ -53,9 +53,9 @@ export const openMarkdownDialog = (
         <ZenModeModalDialog
           saveValueToSDK={value => {
             if (value) {
-              return sdk.field.setValue(value);
+              return sdk?.field?.setValue(value);
             }
-            return sdk.field.removeValue();
+            return sdk?.field?.removeValue();
           }}
           onClose={onClose}
           initialValue={initialValue}
