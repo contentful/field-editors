@@ -115,6 +115,13 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
     props.sdk?.window?.updateHeight('100%' as any);
   }, []);
 
+  // refresh editor right after dialog is opened to avoid disappearing effect
+  React.useEffect(() => {
+    setTimeout(() => {
+      editor?.refresh();
+    }, 150);
+  }, [editor]);
+
   const actions = React.useMemo(() => {
     return createMarkdownActions({ sdk: props.sdk, editor, locale: props.locale });
   }, [editor]);

@@ -54,7 +54,8 @@ export function createMarkdownEditor(
     getCursor: editor.getCursor,
     setCursor: editor.setCursor,
     clear: () => editor.setValue(''),
-    selectAll: editor.selectAll
+    selectAll: editor.selectAll,
+    refresh: editor.refresh
   };
 
   editor.addKeyShortcuts({
