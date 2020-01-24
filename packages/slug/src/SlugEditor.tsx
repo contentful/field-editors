@@ -28,7 +28,7 @@ export function SlugEditor(props: SlugEditorProps) {
   const titleField = entry.fields[contentType.displayField];
 
   console.log(titleField);
-  console.log(props.sdk);
+  console.log(props.sdk.entry.getSys());
 
   const constraints = ConstraintsUtils.fromFieldValidations(field.validations, 'Symbol');
 
