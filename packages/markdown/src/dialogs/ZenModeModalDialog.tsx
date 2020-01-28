@@ -1,6 +1,5 @@
 import React from 'react';
 import { css, cx } from 'emotion';
-import { isRtlLang } from 'rtl-detect';
 import { DialogsAPI, DialogExtensionSDK } from 'contentful-ui-extensions-sdk';
 import { Icon } from '@contentful/forma-36-react-components';
 import { MarkdownDialogType, MarkdownDialogsParams, PreviewComponents } from '../types';
@@ -133,9 +132,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
     });
   };
 
-  const direction = React.useMemo(() => {
-    return isRtlLang(props.locale) ? 'rtl' : 'ltr';
-  }, []);
+  const direction = props.sdk.locales.direction[props.locale] ?? 'ltr';
 
   return (
     <div className={styles.root} data-test-id="zen-mode-markdown-editor">
