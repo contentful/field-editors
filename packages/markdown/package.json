@@ -27,7 +27,6 @@
     "@types/codemirror": "0.0.81",
     "@types/markdown-to-jsx": "6.9.1",
     "codemirror": "^5.48.0",
-    "contentful-ui-extensions-sdk": "^3.10.7",
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15",
