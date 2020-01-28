@@ -1,7 +1,13 @@
 import * as React from 'react';
 import { Select, Option } from '@contentful/forma-36-react-components';
-import { FieldAPI, FieldConnector, PredefinedValuesError } from '@contentful/field-editor-shared';
+import {
+  FieldAPI,
+  FieldConnector,
+  PredefinedValuesError,
+  LocalesAPI
+} from '@contentful/field-editor-shared';
 import { getOptions, parseValue } from './dropdownUtils';
+import * as styles from './styles';
 
 export interface DropdownEditorProps {
   /**
@@ -10,18 +16,21 @@ export interface DropdownEditorProps {
   isInitiallyDisabled: boolean;
 
   field: FieldAPI;
+
+  locales: LocalesAPI;
 }
 
 export function DropdownEditor(props: DropdownEditorProps) {
-  const { field } = props;
+  const { field, locales } = props;
 
   const options = getOptions(field);
   const misconfigured = options.length === 0;
-  const isDirected = ['Text', 'Symbol'].includes(field.type);
 
   if (misconfigured) {
     return <PredefinedValuesError />;
   }
+
+  const direction = locales.direction[field.locale] || 'ltr';
 
   return (
     <FieldConnector<string | number>
@@ -33,7 +42,7 @@ export function DropdownEditor(props: DropdownEditorProps) {
           testId="dropdown-editor"
           hasError={errors.length > 0}
           isDisabled={disabled}
-          className={isDirected ? 'x--directed' : ''}
+          className={direction === 'rtl' ? styles.rightToLeft : ''}
           required={field.required}
           value={value === undefined ? '' : String(value)}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {

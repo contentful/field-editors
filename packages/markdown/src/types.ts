@@ -1,4 +1,4 @@
-import { OpenExtensionOptions } from 'contentful-ui-extensions-sdk';
+import { OpenCustomWidgetOptions } from '@contentful/field-editor-shared';
 
 export type MarkdownTab = 'editor' | 'preview';
 
@@ -49,7 +49,7 @@ export type MarkdownDialogsParams =
       }>;
     };
 
-export type OpenMarkdownDialogParams<T = any> = OpenExtensionOptions & {
+export type OpenMarkdownDialogParams<T = any> = OpenCustomWidgetOptions & {
   parameters?: T;
 };
 

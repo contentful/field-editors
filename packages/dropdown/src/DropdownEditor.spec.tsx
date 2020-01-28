@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, configure, cleanup, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
+import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
 import { DropdownEditor } from './DropdownEditor';
 
 configure({
@@ -20,7 +20,7 @@ describe('DropdownEditor', () => {
     });
 
     const { getByTestId, queryByTestId } = render(
-      <DropdownEditor field={field} isInitiallyDisabled={false} />
+      <DropdownEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
     );
 
     expect(getByTestId('predefined-values-warning')).toBeInTheDocument();
@@ -36,7 +36,7 @@ describe('DropdownEditor', () => {
       };
     });
     const { container, getByText } = render(
-      <DropdownEditor field={field} isInitiallyDisabled={false} />
+      <DropdownEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
     );
 
     expect(container.querySelectorAll('option')).toHaveLength(4);
@@ -55,7 +55,9 @@ describe('DropdownEditor', () => {
         validations: [{ in: ['initial'] }]
       };
     });
-    const { getByTestId } = render(<DropdownEditor field={field} isInitiallyDisabled={false} />);
+    const { getByTestId } = render(
+      <DropdownEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+    );
     const changeDropdownValue = (value: string) =>
       fireEvent.change(getByTestId('dropdown-editor'), { target: { value } });
 
@@ -74,7 +76,9 @@ describe('DropdownEditor', () => {
         validations: [{ in: ['initial'] }]
       };
     });
-    const { getByTestId } = render(<DropdownEditor field={field} isInitiallyDisabled={false} />);
+    const { getByTestId } = render(
+      <DropdownEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+    );
     const changeDropdownValue = (value: string) =>
       fireEvent.change(getByTestId('dropdown-editor'), { target: { value } });
     expect(getByTestId('dropdown-editor')).toHaveValue('initial');
@@ -94,7 +98,9 @@ describe('DropdownEditor', () => {
       };
     });
 
-    const { getByTestId } = render(<DropdownEditor field={field} isInitiallyDisabled={false} />);
+    const { getByTestId } = render(
+      <DropdownEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+    );
 
     const $editorInput = getByTestId('dropdown-editor');
 
@@ -120,7 +126,9 @@ describe('DropdownEditor', () => {
       };
     });
 
-    const { getByTestId } = render(<DropdownEditor field={field} isInitiallyDisabled={false} />);
+    const { getByTestId } = render(
+      <DropdownEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+    );
 
     const $editorInput = getByTestId('dropdown-editor');
 

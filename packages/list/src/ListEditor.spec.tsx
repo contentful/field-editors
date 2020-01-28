@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, configure, cleanup, fireEvent, RenderResult } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
+import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
 import { ListEditor } from './ListEditor';
 
 configure({
@@ -28,7 +28,9 @@ describe('ListEditor', () => {
         validations: []
       };
     });
-    const renderResult = render(<ListEditor field={field} isInitiallyDisabled={false} />);
+    const renderResult = render(
+      <ListEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+    );
 
     expectInputValue(renderResult, '');
   });
@@ -43,7 +45,9 @@ describe('ListEditor', () => {
       };
     }, initialValue);
 
-    const renderResult = render(<ListEditor field={field} isInitiallyDisabled={false} />);
+    const renderResult = render(
+      <ListEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+    );
 
     expectInputValue(renderResult, 'test1, test2, test3');
   });
@@ -58,7 +62,9 @@ describe('ListEditor', () => {
       };
     });
 
-    const renderResult = render(<ListEditor field={field} isInitiallyDisabled={false} />);
+    const renderResult = render(
+      <ListEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+    );
 
     changeInputValue(renderResult, 'test1');
 

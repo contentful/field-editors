@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, configure, cleanup, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
+import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
 import { RadioEditor } from './RadioEditor';
 
 configure({
@@ -20,7 +20,7 @@ describe('RadioEditor', () => {
     });
 
     const { getByTestId, queryByTestId } = render(
-      <RadioEditor field={field} isInitiallyDisabled={false} />
+      <RadioEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
     );
 
     expect(getByTestId('predefined-values-warning')).toBeInTheDocument();
@@ -35,7 +35,9 @@ describe('RadioEditor', () => {
         validations: [{ in: predefined }]
       };
     });
-    const { container } = render(<RadioEditor field={field} isInitiallyDisabled={false} />);
+    const { container } = render(
+      <RadioEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+    );
 
     const $inputs = container.querySelectorAll('input[type="radio"]');
 
@@ -55,7 +57,7 @@ describe('RadioEditor', () => {
       };
     });
     const { container, queryByText, getByText } = render(
-      <RadioEditor field={field} isInitiallyDisabled={false} />
+      <RadioEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
     );
 
     expect(queryByText('Clear')).not.toBeInTheDocument();
@@ -89,7 +91,7 @@ describe('RadioEditor', () => {
       });
 
       const { container, getByText } = render(
-        <RadioEditor field={field} isInitiallyDisabled={false} />
+        <RadioEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
       );
 
       const $inputs = container.querySelectorAll('input[type="radio"]');
@@ -129,7 +131,7 @@ describe('RadioEditor', () => {
       });
 
       const { container, getByText } = render(
-        <RadioEditor field={field} isInitiallyDisabled={false} />
+        <RadioEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
       );
 
       const $inputs = container.querySelectorAll('input[type="radio"]');

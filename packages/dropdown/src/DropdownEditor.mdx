@@ -8,7 +8,7 @@ menu: Components
 
 import { Playground, Props } from 'docz';
 import { DropdownEditor } from './DropdownEditor.tsx';
-import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
+import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
 
 ## In Action
 
@@ -22,7 +22,9 @@ import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
         validations: [{ in: ['banana', 'orange', 'strawberry'] }]
       };
     });
-    return <DropdownEditor field={field} isInitiallyDisabled={false} />;
+    return (
+      <DropdownEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+    );
   }}
 </Playground>
 
@@ -31,7 +33,9 @@ import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 <Playground>
   {() => {
     const [field] = createFakeFieldAPI();
-    return <DropdownEditor field={field} isInitiallyDisabled={false} />;
+    return (
+      <DropdownEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+    );
   }}
 </Playground>
 
