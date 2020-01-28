@@ -3,7 +3,7 @@ import identity from 'lodash/identity';
 import { render, configure, cleanup, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { MultipleLineEditor } from './MultipleLineEditor';
-import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
+import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
 
 configure({
   testIdAttribute: 'data-test-id'
@@ -22,7 +22,13 @@ describe('MultipleLineEditor', () => {
 
   it('renders without crashing', () => {
     const [field] = createFakeFieldAPI();
-    render(<MultipleLineEditor field={field} isInitiallyDisabled={false} />);
+    render(
+      <MultipleLineEditor
+        field={field}
+        locales={createFakeLocalesAPI()}
+        isInitiallyDisabled={false}
+      />
+    );
   });
 
   it('reads initial value from field.getValue', () => {
@@ -39,7 +45,11 @@ describe('MultipleLineEditor', () => {
     });
 
     const { getByTestId } = render(
-      <MultipleLineEditor field={field} isInitiallyDisabled={false} />
+      <MultipleLineEditor
+        field={field}
+        locales={createFakeLocalesAPI()}
+        isInitiallyDisabled={false}
+      />
     );
 
     expect(getByTestId('cf-ui-textarea')).toHaveValue(initialValue);
@@ -56,7 +66,11 @@ describe('MultipleLineEditor', () => {
     });
 
     const { getByTestId } = render(
-      <MultipleLineEditor field={field} isInitiallyDisabled={false} />
+      <MultipleLineEditor
+        field={field}
+        locales={createFakeLocalesAPI()}
+        isInitiallyDisabled={false}
+      />
     );
 
     const $input = getByTestId('cf-ui-textarea');
