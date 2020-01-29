@@ -8,16 +8,20 @@ menu: Components
 
 import { Playground } from 'docz';
 import { CheckboxEditor } from './CheckboxEditor.tsx';
-import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
+import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
 
 ## In Action
 
 <Playground>
   {() => {
     const [field] = createFakeFieldAPI();
-    return <CheckboxEditor field={field} isInitiallyDisabled={false} />;
+    return (
+      <CheckboxEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+    );
   }}
 </Playground>
+
+---
 
 <Playground>
   {() => {
@@ -30,6 +34,8 @@ import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
       }),
       ['test1', 'test2', 'test3']
     );
-    return <CheckboxEditor field={field} isInitiallyDisabled={false} />;
+    return (
+      <CheckboxEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+    );
   }}
 </Playground>

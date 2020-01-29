@@ -1,9 +1,14 @@
 import * as React from 'react';
-import { css, cx } from 'emotion';
+import { cx } from 'emotion';
 import get from 'lodash/get';
-import tokens from '@contentful/forma-36-tokens';
-import { FieldAPI, FieldConnector, PredefinedValuesError } from '@contentful/field-editor-shared';
+import {
+  FieldAPI,
+  LocalesAPI,
+  FieldConnector,
+  PredefinedValuesError
+} from '@contentful/field-editor-shared';
 import { CheckboxField, Form } from '@contentful/forma-36-react-components';
+import * as styles from './styles';
 
 export interface CheckboxEditorProps {
   /**
@@ -12,6 +17,8 @@ export interface CheckboxEditorProps {
   isInitiallyDisabled: boolean;
 
   field: FieldAPI;
+
+  locales: LocalesAPI;
 }
 
 type ListValue = string[];
@@ -45,7 +52,7 @@ export function getOptions(field: FieldAPI): CheckboxOption[] {
 }
 
 export function CheckboxEditor(props: CheckboxEditorProps) {
-  const { field } = props;
+  const { field, locales } = props;
 
   const options = getOptions(field);
   const misconfigured = options.length === 0;
@@ -53,6 +60,8 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
   if (misconfigured) {
     return <PredefinedValuesError />;
   }
+
+  const direction = locales.direction[field.locale] || 'ltr';
 
   return (
     <FieldConnector<ListValue>
@@ -77,7 +86,7 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
           <Form
             testId="checkbox-editor"
             spacing="condensed"
-            className={cx(css({ marginTop: tokens.spacingS }), 'x--directed')}>
+            className={cx(styles.form, direction === 'rtl' ? styles.rightToLeft : '')}>
             {options.map(item => (
               <CheckboxField
                 key={item.id}

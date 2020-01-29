@@ -3,7 +3,7 @@ import identity from 'lodash/identity';
 import { render, configure, cleanup, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { SingleLineEditor } from './SingleLineEditor';
-import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
+import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
 
 configure({
   testIdAttribute: 'data-test-id'
@@ -27,7 +27,14 @@ describe('SingleLineEditor', () => {
         type: 'Symbol'
       };
     });
-    render(<SingleLineEditor field={field} isInitiallyDisabled={false} />);
+
+    render(
+      <SingleLineEditor
+        field={field}
+        isInitiallyDisabled={false}
+        locales={createFakeLocalesAPI()}
+      />
+    );
   });
 
   it('reads initial value from field.getValue', () => {
@@ -45,7 +52,11 @@ describe('SingleLineEditor', () => {
     });
 
     const { getByTestId, getByText } = render(
-      <SingleLineEditor field={field} isInitiallyDisabled={false} />
+      <SingleLineEditor
+        field={field}
+        isInitiallyDisabled={false}
+        locales={createFakeLocalesAPI()}
+      />
     );
 
     expect(getByTestId('cf-ui-text-input')).toHaveValue(initialValue);
@@ -64,7 +75,13 @@ describe('SingleLineEditor', () => {
       };
     });
 
-    const { getByTestId } = render(<SingleLineEditor field={field} isInitiallyDisabled={false} />);
+    const { getByTestId } = render(
+      <SingleLineEditor
+        field={field}
+        isInitiallyDisabled={false}
+        locales={createFakeLocalesAPI()}
+      />
+    );
 
     const $input = getByTestId('cf-ui-text-input');
 
@@ -96,7 +113,13 @@ describe('SingleLineEditor', () => {
       };
     });
 
-    const { getByText } = render(<SingleLineEditor field={field} isInitiallyDisabled={false} />);
+    const { getByText } = render(
+      <SingleLineEditor
+        field={field}
+        isInitiallyDisabled={false}
+        locales={createFakeLocalesAPI()}
+      />
+    );
 
     expect(getByText('0 characters')).toBeInTheDocument();
     expect(getByText('Maximum 256 characters')).toBeInTheDocument();
@@ -111,7 +134,13 @@ describe('SingleLineEditor', () => {
       };
     });
 
-    const { getByText } = render(<SingleLineEditor field={field} isInitiallyDisabled={false} />);
+    const { getByText } = render(
+      <SingleLineEditor
+        field={field}
+        isInitiallyDisabled={false}
+        locales={createFakeLocalesAPI()}
+      />
+    );
 
     expect(getByText('0 characters')).toBeInTheDocument();
     expect(getByText('Maximum 50000 characters')).toBeInTheDocument();
@@ -134,7 +163,13 @@ describe('SingleLineEditor', () => {
       };
     });
 
-    const { getByText } = render(<SingleLineEditor field={field} isInitiallyDisabled={false} />);
+    const { getByText } = render(
+      <SingleLineEditor
+        field={field}
+        isInitiallyDisabled={false}
+        locales={createFakeLocalesAPI()}
+      />
+    );
 
     expect(getByText('0 characters')).toBeInTheDocument();
     expect(getByText('Requires between 100 and 1000 characters')).toBeInTheDocument();
@@ -156,7 +191,13 @@ describe('SingleLineEditor', () => {
       };
     });
 
-    const { getByText } = render(<SingleLineEditor field={field} isInitiallyDisabled={false} />);
+    const { getByText } = render(
+      <SingleLineEditor
+        field={field}
+        isInitiallyDisabled={false}
+        locales={createFakeLocalesAPI()}
+      />
+    );
 
     expect(getByText('0 characters')).toBeInTheDocument();
     expect(getByText('Requires at least 1000 characters')).toBeInTheDocument();

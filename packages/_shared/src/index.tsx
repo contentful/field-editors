@@ -1,4 +1,9 @@
-export { FieldAPI, ParametersAPI } from 'contentful-ui-extensions-sdk';
+export {
+  FieldAPI,
+  ParametersAPI,
+  LocalesAPI,
+  OpenCustomWidgetOptions
+} from 'contentful-ui-extensions-sdk';
 export { FieldConnector } from './FieldConnector';
 export { PredefinedValuesError } from './PredefinedValuesError';
 export { CharCounter } from './CharCounter';

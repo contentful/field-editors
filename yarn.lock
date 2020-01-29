@@ -2064,6 +2064,19 @@
     react-transition-group "^2.4.0"
     truncate "^2.0.1"
 
+"@contentful/forma-36-react-components@^3.28.17":
+  version "3.28.17"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.28.17.tgz#f37a0e71f27468e1c7fc5863a3a769bcb2296afc"
+  integrity sha512-WUC+LVOrn6FpXPTSQmkG565g4uHnqZN3BQlgMCEZGoBSKgq+hR/A2wVGaArIAVS1lv9NtsokTLiqigfjO/ijMg==
+  dependencies:
+    "@babel/runtime" "^7.3.4"
+    classnames "^2.2.6"
+    react-animate-height "^2.0.7"
+    react-copy-to-clipboard "^5.0.1"
+    react-modal "3.6.1"
+    react-transition-group "^2.4.0"
+    truncate "^2.0.1"
+
 "@contentful/forma-36-tokens@^0.4.5":
   version "0.4.5"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.4.5.tgz#86880a06178de9ebfb542db983550b7c5ae531d3"
@@ -3729,11 +3742,6 @@
   dependencies:
     "@types/glob" "*"
     "@types/node" "*"
-
-"@types/rtl-detect@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@types/rtl-detect/-/rtl-detect-1.0.0.tgz#5791e18a111f2b8b5b328160af97f3991a5697a5"
-  integrity sha512-lyYh44YgrejEK9/5rhASghvRUOxrSJyyyQmqK7L6F/V5qs6PY1RfCi1VbjSkY6kuDt7lzQyhd006slhda4Oypg==
 
 "@types/semver@^6.0.1":
   version "6.0.2"
@@ -6394,17 +6402,10 @@ contentful-sdk-core@^6.3.6:
     lodash "^4.17.10"
     qs "^6.5.2"
 
-contentful-ui-extensions-sdk@^3.10.2:
-  version "3.10.2"
-  resolved "https://registry.yarnpkg.com/contentful-ui-extensions-sdk/-/contentful-ui-extensions-sdk-3.10.2.tgz#610ecf90b5c34def713d836eb85117c53d4d528b"
-  integrity sha512-RHfRIuxYLDHe82fBlUapjCgywrjPJmAhkt4ptIFOWkv/JBZlL3IEP5z/qHJXcAx91znoGafd7HuMhMO4aMuPYA==
-  dependencies:
-    es6-promise "^4.2.6"
-
-contentful-ui-extensions-sdk@^3.10.4:
-  version "3.10.4"
-  resolved "https://registry.yarnpkg.com/contentful-ui-extensions-sdk/-/contentful-ui-extensions-sdk-3.10.4.tgz#62544da88eca70b655075d041fa1c292671ea0d4"
-  integrity sha512-rJuAsHXmCTzyUfnrdkJ9RyjwZexbw0+g64LqSwL33fZebnJzS7WxOrSagY/eamAg5lDTBOenr5WkdqeLUHP+5A==
+contentful-ui-extensions-sdk@^3.10.7:
+  version "3.10.7"
+  resolved "https://registry.yarnpkg.com/contentful-ui-extensions-sdk/-/contentful-ui-extensions-sdk-3.10.7.tgz#02929bb69e02d4d60c3a3bbb7f0722f350909504"
+  integrity sha512-lr/wiuffJMadD+PCq7AvMiaYKdzFvs7wygzmqpdA6xCGlkJUdN6BK+PvpIo0aynv5lZbEq4ONTmYggxaj5DAJA==
   dependencies:
     es6-promise "^4.2.6"
 
@@ -16473,11 +16474,6 @@ rsvp@^4.8.4:
   version "4.8.5"
   resolved "https://registry.yarnpkg.com/rsvp/-/rsvp-4.8.5.tgz#c8f155311d167f68f21e168df71ec5b083113734"
   integrity sha512-nfMOlASu9OnRJo1mbEk2cz0D56a1MBNrJ7orjRZQG10XDyuvwksKbuXNp6qa+kbn839HwjwhBzhFmdsaEAfauA==
-
-rtl-detect@1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/rtl-detect/-/rtl-detect-1.0.2.tgz#8eca316f5c6563d54df4e406171dd7819adda67f"
-  integrity sha512-5X1422hvphzg2a/bo4tIDbjFjbJUOaPZwqE6dnyyxqwFqfR+tBcvfqapJr0o0VygATVCGKiODEewhZtKF+90AA==
 
 run-async@^2.2.0:
   version "2.3.0"

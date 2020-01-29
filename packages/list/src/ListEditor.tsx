@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
+import { FieldAPI, LocalesAPI, FieldConnector } from '@contentful/field-editor-shared';
 import { TextInput } from '@contentful/forma-36-react-components';
+import * as styles from './styles';
 
 export interface ListEditorProps {
   /**
@@ -9,6 +10,8 @@ export interface ListEditorProps {
   isInitiallyDisabled: boolean;
 
   field: FieldAPI;
+
+  locales: LocalesAPI;
 }
 
 type ListValue = string[];
@@ -18,7 +21,9 @@ function isEmptyListValue(value: ListValue | null) {
 }
 
 export function ListEditor(props: ListEditorProps) {
-  const { field } = props;
+  const { field, locales } = props;
+
+  const direction = locales.direction[field.locale] || 'ltr';
 
   return (
     <FieldConnector<ListValue>
@@ -40,7 +45,7 @@ export function ListEditor(props: ListEditorProps) {
         return (
           <TextInput
             testId="list-editor-input"
-            className="x--directed"
+            className={direction === 'rtl' ? styles.rightToLeft : ''}
             required={field.required}
             error={errors.length > 0}
             disabled={disabled}

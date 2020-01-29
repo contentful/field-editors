@@ -22,18 +22,15 @@
   },
   "dependencies": {
     "@contentful/field-editor-shared": "^0.4.0",
-    "@contentful/forma-36-react-components": "^3.28.13",
+    "@contentful/forma-36-react-components": "^3.28.17",
     "@contentful/forma-36-tokens": "^0.5.1",
     "@types/codemirror": "0.0.81",
     "@types/markdown-to-jsx": "6.9.1",
-    "@types/rtl-detect": "1.0.0",
     "codemirror": "^5.48.0",
-    "contentful-ui-extensions-sdk": "^3.10.4",
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15",
-    "markdown-to-jsx": "6.10.3",
-    "rtl-detect": "1.0.2"
+    "markdown-to-jsx": "6.10.3"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",

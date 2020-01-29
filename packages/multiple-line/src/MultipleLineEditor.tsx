@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Textarea } from '@contentful/forma-36-react-components';
-import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
+import { FieldAPI, LocalesAPI, FieldConnector } from '@contentful/field-editor-shared';
+import * as styles from './styles';
 
 export interface MultipleLineEditorProps {
   /**
@@ -9,17 +10,22 @@ export interface MultipleLineEditorProps {
   isInitiallyDisabled: boolean;
 
   field: FieldAPI;
+
+  locales: LocalesAPI;
 }
 
 export function MultipleLineEditor(props: MultipleLineEditorProps) {
-  const { field } = props;
+  const { field, locales } = props;
+
+  const direction = locales.direction[field.locale] || 'ltr';
+
   return (
     <FieldConnector<string> field={field} isInitiallyDisabled={props.isInitiallyDisabled}>
       {({ errors, disabled, value, setValue }) => {
         return (
           <div data-test-id="multiple-line-editor">
             <Textarea
-              className="x--directed"
+              className={direction === 'rtl' ? styles.rightToLeft : ''}
               rows={3}
               required={field.required}
               error={errors.length > 0}

@@ -1,9 +1,14 @@
 import * as React from 'react';
-import { css, cx } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
-import { FieldAPI, FieldConnector, PredefinedValuesError } from '@contentful/field-editor-shared';
+import { cx } from 'emotion';
+import {
+  FieldAPI,
+  FieldConnector,
+  PredefinedValuesError,
+  LocalesAPI
+} from '@contentful/field-editor-shared';
 import { getOptions, parseValue } from '@contentful/field-editor-dropdown';
 import { Form, RadioButtonField, TextLink } from '@contentful/forma-36-react-components';
+import * as styles from './styles';
 
 export interface RadioEditorProps {
   /**
@@ -12,18 +17,21 @@ export interface RadioEditorProps {
   isInitiallyDisabled: boolean;
 
   field: FieldAPI;
+
+  locales: LocalesAPI;
 }
 
 export function RadioEditor(props: RadioEditorProps) {
-  const { field } = props;
+  const { field, locales } = props;
 
   const options = getOptions(field);
   const misconfigured = options.length === 0;
-  const isDirected = ['Text', 'Symbol'].includes(field.type);
 
   if (misconfigured) {
     return <PredefinedValuesError />;
   }
+
+  const direction = locales.direction[field.locale] || 'ltr';
 
   return (
     <FieldConnector<string | number>
@@ -42,7 +50,7 @@ export function RadioEditor(props: RadioEditorProps) {
           <Form
             testId="radio-editor"
             spacing="condensed"
-            className={cx(css({ marginTop: tokens.spacingS }), isDirected ? 'x--directed' : '')}>
+            className={cx(styles.form, direction === 'rtl' ? styles.rightToLeft : '')}>
             {options.map((item, index) => {
               const id = ['entity', field.id, field.locale, index].join('.');
               const checked = value === item.value;
@@ -62,9 +70,7 @@ export function RadioEditor(props: RadioEditorProps) {
                     }}
                   />
                   {checked && (
-                    <TextLink
-                      className={css({ marginLeft: tokens.spacingL })}
-                      onClick={clearOption}>
+                    <TextLink className={styles.clearBtn} onClick={clearOption}>
                       Clear
                     </TextLink>
                   )}

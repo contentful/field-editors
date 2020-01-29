@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, configure, cleanup, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
+import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
 import { CheckboxEditor } from './CheckboxEditor';
 
 configure({
@@ -23,7 +23,7 @@ describe('CheckboxEditor', () => {
     });
 
     const { getByTestId, queryByTestId } = render(
-      <CheckboxEditor field={field} isInitiallyDisabled={false} />
+      <CheckboxEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
     );
 
     expect(getByTestId('predefined-values-warning')).toBeInTheDocument();
@@ -41,7 +41,9 @@ describe('CheckboxEditor', () => {
         }
       };
     });
-    const { container } = render(<CheckboxEditor field={field} isInitiallyDisabled={false} />);
+    const { container } = render(
+      <CheckboxEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+    );
 
     const $inputs = container.querySelectorAll('input[type="checkbox"]');
 
@@ -64,7 +66,9 @@ describe('CheckboxEditor', () => {
         }
       };
     });
-    const { container } = render(<CheckboxEditor field={field} isInitiallyDisabled={false} />);
+    const { container } = render(
+      <CheckboxEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+    );
 
     const $inputs = container.querySelectorAll('input[type="checkbox"]');
 

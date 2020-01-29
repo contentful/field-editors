@@ -8,16 +8,20 @@ menu: Components
 
 import { Playground } from 'docz';
 import { RadioEditor } from './RadioEditor.tsx';
-import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
+import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
 
 ## In Action
 
 <Playground>
   {() => {
     const [field] = createFakeFieldAPI();
-    return <RadioEditor field={field} isInitiallyDisabled={false} />;
+    return (
+      <RadioEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+    );
   }}
 </Playground>
+
+---
 
 <Playground>
   {() => {
@@ -29,6 +33,8 @@ import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
       }),
       ['test1', 'test2', 'test3']
     );
-    return <RadioEditor field={field} isInitiallyDisabled={false} />;
+    return (
+      <RadioEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+    );
   }}
 </Playground>

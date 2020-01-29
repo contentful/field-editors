@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { TextInput } from '@contentful/forma-36-react-components';
-import tokens from '@contentful/forma-36-tokens';
 import {
   FieldAPI,
   FieldConnector,
   ConstraintsUtils,
   CharCounter,
-  CharValidation
+  CharValidation,
+  LocalesAPI
 } from '@contentful/field-editor-shared';
-import { css } from 'emotion';
+import * as styles from './styles';
 
 export interface SingleLineEditorProps {
   /**
@@ -17,6 +17,8 @@ export interface SingleLineEditorProps {
   isInitiallyDisabled: boolean;
 
   field: FieldAPI;
+
+  locales: LocalesAPI;
 }
 
 function isSupportedFieldTypes(val: string): val is 'Symbol' | 'Text' {
@@ -24,7 +26,7 @@ function isSupportedFieldTypes(val: string): val is 'Symbol' | 'Text' {
 }
 
 export function SingleLineEditor(props: SingleLineEditorProps) {
-  const { field } = props;
+  const { field, locales } = props;
 
   if (!isSupportedFieldTypes(field.type)) {
     throw new Error(`"${field.type}" field type is not supported by SingleLineEditor`);
@@ -33,6 +35,7 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
   // eslint-disable-next-line
   const constraints = ConstraintsUtils.fromFieldValidations(field.validations, field.type);
   const checkConstraint = ConstraintsUtils.makeChecker(constraints);
+  const direction = locales.direction[field.locale] || 'ltr';
 
   return (
     <FieldConnector<string> field={field} isInitiallyDisabled={props.isInitiallyDisabled}>
@@ -40,7 +43,7 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
         return (
           <div data-test-id="single-line-editor">
             <TextInput
-              className="x--directed"
+              className={direction === 'rtl' ? styles.rightToLeft : ''}
               required={field.required}
               error={errors.length > 0}
               disabled={disabled}
@@ -49,14 +52,7 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
                 setValue(e.target.value);
               }}
             />
-            <div
-              className={css({
-                display: 'flex',
-                justifyContent: 'space-between',
-                fontSize: tokens.fontSizeM,
-                marginTop: tokens.spacingXs,
-                color: tokens.colorTextMid
-              })}>
+            <div className={styles.validationRow}>
               <CharCounter value={value || ''} checkConstraint={checkConstraint} />
               <CharValidation constraints={constraints} />
             </div>

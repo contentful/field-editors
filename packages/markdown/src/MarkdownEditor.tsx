@@ -1,6 +1,5 @@
 import React from 'react';
 import { css } from 'emotion';
-import { isRtlLang } from 'rtl-detect';
 import tokens from '@contentful/forma-36-tokens';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import { FieldExtensionSDK } from 'contentful-ui-extensions-sdk';
@@ -57,9 +56,7 @@ export function MarkdownEditor(
 
   const isActionDisabled = editor === null || props.disabled || selectedTab !== 'editor';
 
-  const direction = React.useMemo(() => {
-    return isRtlLang(props.sdk.field.locale) ? 'rtl' : 'ltr';
-  }, []);
+  const direction = props.sdk.locales.direction[props.sdk.field.locale] ?? 'ltr';
 
   const actions = React.useMemo(() => {
     return createMarkdownActions({ sdk: props.sdk, editor, locale: props.sdk.field.locale });
