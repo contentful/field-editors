@@ -1,0 +1,30 @@
+{
+  "name": "@contentful/field-editor-rich-text",
+  "version": "0.1.0",
+  "source": "./src/index.tsx",
+  "main": "./dist/index.js",
+  "module": "dist/field-editor-rich-text.esm.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "author": "Contentful GmbH",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/contentful/field-editors"
+  },
+  "scripts": {
+    "watch": "microbundle watch --jsx='React.createElement'",
+    "build": "microbundle build --jsx='React.createElement'",
+    "test": "tsdx test --env=jsdom --watch",
+    "test:ci": "tsdx test --env=jsdom --ci",
+    "tsc": "tsc -p ./ --noEmit"
+  },
+  "dependencies": {
+    "lodash": "^4.17.15"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0"
+  }
+}
