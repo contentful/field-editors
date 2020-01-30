@@ -1,3 +1,4 @@
+import noop from 'lodash/noop';
 import React, { useState, useCallback } from 'react';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
@@ -6,8 +7,6 @@ import { TagsEditorConstraints } from './TagsEditorConstraints';
 import { ConstraintsType, Constraint } from './types';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 import arrayMove from 'array-move';
-
-const noop = () => {};
 
 interface TagsEditorProps {
   items: string[];
