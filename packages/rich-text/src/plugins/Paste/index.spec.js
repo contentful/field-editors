@@ -52,13 +52,13 @@ describe('Paste Plugin', () => {
         expect(result).toBeUndefined();
         expect(next).toHaveBeenCalled();
         expect(pasteUtils.getCharacterCount).toHaveBeenCalledTimes(1);
-        expect(pasteUtils.getCharacterCount).lastCalledWith(editor);
+        expect(pasteUtils.getCharacterCount).toHaveBeenLastCalledWith(editor);
         expect(logShortcutAction).toHaveBeenCalledTimes(0);
 
         jest.runOnlyPendingTimers();
 
         expect(pasteUtils.getCharacterCount).toHaveBeenCalledTimes(2);
-        expect(pasteUtils.getCharacterCount).lastCalledWith(editor);
+        expect(pasteUtils.getCharacterCount).toHaveBeenLastCalledWith(editor);
         expect(logShortcutAction).toHaveBeenCalledWith('paste', {
           characterCountAfter,
           characterCountBefore,

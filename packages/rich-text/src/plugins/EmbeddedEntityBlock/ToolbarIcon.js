@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { DropdownListItem, Button, Icon } from '@contentful/forma-36-react-components';
 
-import WidgetAPIContext from 'app/widgets/WidgetApi/WidgetApiContext';
+import WidgetAPIContext from '../shared/WidgetApiContext';
 import { selectEntityAndInsert } from './Util';
 import { TOOLBAR_PLUGIN_PROP_TYPES } from '../shared/PluginApi';
 

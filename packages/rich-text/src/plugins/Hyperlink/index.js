@@ -8,7 +8,12 @@ import { editLink, mayEditLink, toggleLink, hasOnlyHyperlinkInlines } from './Ut
 
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
-import { ScheduleTooltipContent } from 'app/ScheduledActions/EntrySidebarWidget/ScheduledActionsTimeline/ScheduleTooltip';
+
+// TODO:xxx Inject from web-app.
+//import { ScheduleTooltipContent } from 'app/ScheduledActions/EntrySidebarWidget/ScheduledActionsTimeline/ScheduleTooltip';
+function ScheduleTooltipContent() {
+  return <div>TODO</div>;
+}
 
 const { HYPERLINK, ENTRY_HYPERLINK, ASSET_HYPERLINK } = INLINES;
 
@@ -34,8 +39,8 @@ export const getScheduledJobsTooltip = (entityType, node, widgetAPI) => {
   const referencedEntityId = _.get(target, 'sys.id', undefined);
   const jobs = widgetAPI.jobs
     .getPendingJobs()
-    .filter(job => job.entity.sys.id === referencedEntityId)
-    .sort((a, b) => new Date(a.scheduledFor.datetime) > new Date(b.scheduledFor.datetime));
+    .filter(job => job.sys.entity.sys.id === referencedEntityId)
+    .sort((a, b) => new Date(a.scheduledAt) > new Date(b.scheduledAt));
   return jobs.length ? (
     <>
       <hr className={styles.tooltipSeparator} />
@@ -95,5 +100,5 @@ export const HyperlinkPlugin = ({
 });
 
 function isHyperlink(type) {
-  return [HYPERLINK, ENTRY_HYPERLINK, ASSET_HYPERLINK].indexOf(type) > -1;
+  return [HYPERLINK, ENTRY_HYPERLINK, ASSET_HYPERLINK].includes(type);
 }

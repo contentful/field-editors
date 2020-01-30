@@ -7,7 +7,7 @@ import {
 } from '@contentful/forma-36-react-components';
 
 import { default as FetchEntity, RequestStatus } from 'app/widgets/shared/FetchEntity';
-import WidgetAPIContext from 'app/widgets/WidgetApi/WidgetApiContext';
+import WidgetAPIContext from '../shared/WidgetApiContext';
 import { INLINES } from '@contentful/rich-text-types';
 
 class EmbeddedEntryInline extends React.Component {

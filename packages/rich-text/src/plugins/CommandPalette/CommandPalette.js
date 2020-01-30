@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
-import * as logger from 'services/logger';
 import { isEmbeddingEnabled } from './CommandPaletteService';
 import { hasCommandPaletteDecoration, getCommandText } from './Util';
 import CommandPanel from './CommandPanel';
@@ -17,14 +15,14 @@ class CommandPalette extends React.PureComponent {
   };
 
   componentDidCatch(error, info) {
-    logger.logError('Unexpected rich text commands error.', { error, info });
+    // TODO:xxx Find another way to log this or get rid of it. Seems nothing is in Bugsnag right now anyhow.
+    // logger.logError('Unexpected rich text commands error.', { error, info });
   }
 
   componentDidMount = async () => {
-    const embedsEnabled = isEmbeddingEnabled(this.props.richTextAPI.widgetAPI.field);
-
+    const { field } = this.props.richTextAPI.widgetAPI;
     this.setState({
-      embedsEnabled
+      embedsEnabled: isEmbeddingEnabled(field)
     });
   };
 

@@ -1,13 +1,8 @@
 import React from 'react';
 import Enzyme from 'enzyme';
-import 'jest-enzyme';
 import { Editor } from 'slate';
-
+import { VALIDATIONS, VALIDATABLE_NODE_TYPES } from '../../validations';
 import Toolbar from '..';
-import ValidationType, {
-  VALIDATABLE_NODE_TYPES
-} from 'components/field_dialog/RichTextValidationType';
-import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 
 jest.mock('ng/data/CMA/EntityState', () => ({}), { virtual: true });
 jest.mock('directives/thumbnailHelpers', () => ({}), { virtual: true });
@@ -61,8 +56,8 @@ describe('Toolbar', () => {
   it('renders no icons if no formatting options enabled', () => {
     const props = fakeProps();
     props.richTextAPI.widgetAPI.field.validations = [
-      { [ValidationType.ENABLED_NODE_TYPES]: [] },
-      { [ValidationType.ENABLED_MARKS]: [] }
+      { [VALIDATIONS.ENABLED_NODE_TYPES]: [] },
+      { [VALIDATIONS.ENABLED_MARKS]: [] }
     ];
 
     const toolbar = Enzyme.mount(<Toolbar {...props} />);
@@ -88,7 +83,7 @@ describe('Toolbar', () => {
 
   it('hides group separator if no marks enabled', () => {
     const props = fakeProps();
-    props.richTextAPI.widgetAPI.field.validations = [{ [ValidationType.ENABLED_MARKS]: [] }];
+    props.richTextAPI.widgetAPI.field.validations = [{ [VALIDATIONS.ENABLED_MARKS]: [] }];
     const toolbar = Enzyme.mount(<Toolbar {...props} />);
     expect(toolbar.find('[data-test-id="mark-divider"]')).toHaveLength(0);
   });
@@ -97,7 +92,7 @@ describe('Toolbar', () => {
     const props = fakeProps();
     props.richTextAPI.widgetAPI.field.validations = [
       {
-        [ValidationType.ENABLED_NODE_TYPES]: VALIDATABLE_NODE_TYPES.filter(
+        [VALIDATIONS.ENABLED_NODE_TYPES]: VALIDATABLE_NODE_TYPES.filter(
           nodeType => ![BLOCKS.OL_LIST, BLOCKS.UL_LIST, BLOCKS.QUOTE, BLOCKS.HR].includes(nodeType)
         )
       }
@@ -110,7 +105,7 @@ describe('Toolbar', () => {
     const props = fakeProps();
     props.richTextAPI.widgetAPI.field.validations = [
       {
-        [ValidationType.ENABLED_NODE_TYPES]: VALIDATABLE_NODE_TYPES.filter(
+        [VALIDATIONS.ENABLED_NODE_TYPES]: VALIDATABLE_NODE_TYPES.filter(
           nodeType =>
             ![INLINES.ASSET_HYPERLINK, INLINES.HYPERLINK, INLINES.ENTRY_HYPERLINK].includes(
               nodeType
@@ -126,7 +121,7 @@ describe('Toolbar', () => {
     const props = fakeProps();
     props.richTextAPI.widgetAPI.field.validations = [
       {
-        [ValidationType.ENABLED_NODE_TYPES]: VALIDATABLE_NODE_TYPES.filter(
+        [VALIDATIONS.ENABLED_NODE_TYPES]: VALIDATABLE_NODE_TYPES.filter(
           nodeType => !dropDownEmbedNodeTypes.includes(nodeType)
         )
       }
@@ -140,7 +135,7 @@ describe('Toolbar', () => {
       const props = fakeProps();
       props.richTextAPI.widgetAPI.field.validations = [
         {
-          [ValidationType.ENABLED_NODE_TYPES]: VALIDATABLE_NODE_TYPES.filter(
+          [VALIDATIONS.ENABLED_NODE_TYPES]: VALIDATABLE_NODE_TYPES.filter(
             nodeType => nodeType !== embedNodeType
           )
         }
@@ -160,7 +155,7 @@ describe('Toolbar', () => {
     const props = fakeProps();
     props.permissions.canAccessAssets = false;
     props.richTextAPI.widgetAPI.field.validations = [
-      { [ValidationType.ENABLED_NODE_TYPES]: VALIDATABLE_NODE_TYPES }
+      { [VALIDATIONS.ENABLED_NODE_TYPES]: VALIDATABLE_NODE_TYPES }
     ];
     const toolbar = Enzyme.mount(<Toolbar {...props} />);
     toolbar.find('button[data-test-id="toolbar-entry-dropdown-toggle"]').simulate('mouseDown');

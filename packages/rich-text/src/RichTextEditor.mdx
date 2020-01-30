@@ -1,0 +1,30 @@
+---
+name: Rich Text
+route: /rich-text
+menu: Components
+---
+
+# Rich Text
+
+import { Playground } from 'docz';
+import { RichTextEditor } from './RichTextEditor.jsx';
+import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
+
+## In Action
+
+<Playground className="sticky-parent">
+  {() => {
+    const [field] = createFakeFieldAPI();
+    const sdk = {
+      field,
+      permissions: {
+        canAccessAssets: true,
+        canCreateAssets: true,
+        canCreateEntryOfContentType: {
+          'exampleCT': true
+        }
+      }
+    };
+    return <RichTextEditor widgetAPI={sdk} isInitiallyDisabled={false} />;
+  }}
+</Playground>

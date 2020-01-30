@@ -1,5 +1,3 @@
-// TODO: Consider moving this into @contentful/rich-text-types helpers.
-
 export const document = (...content) => ({
   nodeType: 'document',
   content,

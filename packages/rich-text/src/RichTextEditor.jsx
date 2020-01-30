@@ -2,23 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Editor } from 'slate-react';
 import { Value, Editor as BasicEditor } from 'slate';
-import { noop } from 'lodash';
-import debounce from 'lodash/debounce';
+import { noop, debounce } from 'lodash';
 import { List, is } from 'immutable';
 import cn from 'classnames';
+import deepEquals from 'fast-deep-equal';
 
-import deepEqual from 'fast-deep-equal';
-import StickyToolbarWrapper from './Toolbar/StickyToolbarWrapper';
-
+import { BLOCKS, EMPTY_DOCUMENT } from '@contentful/rich-text-types';
 import { toContentfulDocument, toSlatejsDocument } from '@contentful/contentful-slatejs-adapter';
 
+import schema from './constants/Schema';
 import { createRichTextAPI } from './plugins/shared/PluginApi';
 import { buildPlugins } from './plugins';
-
-import schema from './constants/Schema';
-import { BLOCKS, EMPTY_DOCUMENT } from '@contentful/rich-text-types';
-
 import Toolbar from './Toolbar';
+import StickyToolbarWrapper from './Toolbar/StickyToolbarWrapper';
 
 const createSlateValue = contentfulDocument => {
   const document = toSlatejsDocument({
@@ -30,7 +26,7 @@ const createSlateValue = contentfulDocument => {
     schema
   });
   // Normalize document instead of doing this in the Editor instance as this would
-  // trigger unwanted operations that would result in an unwated version bump.
+  // trigger unwanted operations that would result in an unwanted version bump.
   // TODO: This normalization step wouldn't be necessary if we had a perfect
   // adapter for the version of Slate we are currently using.
   const editor = new BasicEditor({ readOnly: true, value }, { normalize: true });
@@ -40,7 +36,7 @@ const createSlateValue = contentfulDocument => {
 
 const emptySlateValue = createSlateValue(EMPTY_DOCUMENT);
 
-export default class RichTextEditor extends React.Component {
+export class RichTextEditor extends React.Component {
   static propTypes = {
     widgetAPI: PropTypes.shape({
       field: PropTypes.shape({
@@ -48,7 +44,9 @@ export default class RichTextEditor extends React.Component {
         locale: PropTypes.string.isRequired
       }).isRequired,
       permissions: PropTypes.shape({
-        canAccessAssets: PropTypes.bool.isRequired
+        canAccessAssets: PropTypes.bool.isRequired,
+        canCreateAsset: PropTypes.bool.isRequired,
+        canCreateEntryOfContentType: PropTypes.object.isRequired
       }).isRequired
     }).isRequired,
     value: PropTypes.object.isRequired,
@@ -64,6 +62,7 @@ export default class RichTextEditor extends React.Component {
     value: EMPTY_DOCUMENT,
     onChange: noop,
     onAction: noop,
+    isDisabled: false,
     isToolbarHidden: false,
     actionsDisabled: false
   };
@@ -112,7 +111,7 @@ export default class RichTextEditor extends React.Component {
   }, 500);
 
   componentDidUpdate(prevProps) {
-    const isIncomingChange = () => !deepEqual(prevProps.value, this.props.value);
+    const isIncomingChange = () => !deepEquals(prevProps.value, this.props.value);
     const isDocumentChanged = !this.state.lastOperations.isEmpty();
 
     if (!this.props.isDisabled && isDocumentChanged) {

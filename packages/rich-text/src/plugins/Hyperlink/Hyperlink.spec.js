@@ -1,10 +1,9 @@
 import React from 'react';
 import _ from 'lodash';
 import { mount, shallow } from 'enzyme';
-import 'jest-enzyme';
 
 import Hyperlink from './Hyperlink';
-import WidgetAPIContext from 'app/widgets/WidgetApi/WidgetApiContext';
+import WidgetAPIContext from '../shared/WidgetApiContext';
 import ScheduledActionActions from 'app/ScheduledActions/ScheduledActionAction';
 import { getScheduledJobsTooltip } from './index';
 import ScheduledActionAction from 'app/ScheduledActions/ScheduledActionAction';
@@ -57,16 +56,14 @@ describe('Hyperlink', () => {
     const jobs = [
       {
         action: ScheduledActionActions.Publish,
-        scheduledFor: {
-          datetime: new Date().toISOString()
-        },
-        entity: {
-          sys: {
-            id: target.sys.id
-          }
-        },
+        scheduledAt: new Date().toISOString(),
         sys: {
-          id: 'job1'
+          id: 'job1',
+          entity: {
+            sys: {
+              id: target.sys.id
+            }
+          }
         }
       }
     ];
@@ -102,16 +99,14 @@ describe('Hyperlink', () => {
     const jobs = [
       {
         action: ScheduledActionActions.Publish,
-        scheduledFor: {
-          datetime: new Date().toISOString()
-        },
-        entity: {
-          sys: {
-            id: 'non-existent-entry'
-          }
-        },
+        scheduledAt: new Date().toISOString(),
         sys: {
-          id: 'job1'
+          id: 'job1',
+          entity: {
+            sys: {
+              id: 'non-existent-entry'
+            }
+          }
         }
       }
     ];
@@ -183,44 +178,38 @@ describe("Hyperlink's default getScheduledJobsTooltip", () => {
     const jobs = [
       {
         action: ScheduledActionAction.Publish,
-        scheduledFor: {
-          datetime: new Date(Date.now() * 2).toISOString()
-        },
-        entity: {
-          sys: {
-            id: entry.sys.id
-          }
-        },
+        scheduledAt: new Date(Date.now() * 2).toISOString(),
         sys: {
-          id: 'job1'
+          id: 'job1',
+          entity: {
+            sys: {
+              id: entry.sys.id
+            }
+          }
         }
       },
       {
         action: ScheduledActionAction.Unpublish,
-        scheduledFor: {
-          datetime: new Date(Date.now() * 0.5).toISOString()
-        },
-        entity: {
-          sys: {
-            id: entry.sys.id
-          }
-        },
+        scheduledAt: new Date(Date.now() * 0.5).toISOString(),
         sys: {
-          id: 'job2'
+          id: 'job2',
+          entity: {
+            sys: {
+              id: entry.sys.id
+            }
+          }
         }
       },
       {
         action: ScheduledActionAction.Publish,
-        scheduledFor: {
-          datetime: new Date(Date.now() * 0.1).toISOString()
-        },
-        entity: {
-          sys: {
-            id: entry.sys.id
-          }
-        },
+        scheduledAt: new Date(Date.now() * 0.1).toISOString(),
         sys: {
-          id: 'job3'
+          id: 'job3',
+          entity: {
+            sys: {
+              id: entry.sys.id
+            }
+          }
         }
       }
     ];

@@ -1,0 +1,23 @@
+{
+  "extends": "../../tsconfig.json",
+  "include": ["src", "types"],
+  "compilerOptions": {
+    "module": "esnext",
+    "lib": ["dom", "esnext"],
+    "rootDir": "./",
+    "baseUrl": "./",
+    "paths": {
+      "*": ["src/*", "node_modules/*"]
+    },
+
+    "noImplicitAny": false,
+
+    "allowJs": true,
+    "jsx": "react"
+  },
+
+
+  "linterOptions": {
+    "exclude": ["src/**"]
+  }
+}

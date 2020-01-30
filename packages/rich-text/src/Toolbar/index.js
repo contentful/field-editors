@@ -8,7 +8,6 @@ import Italic from '../plugins/Italic';
 import Underlined from '../plugins/Underlined';
 import Code from '../plugins/Code';
 import Quote from '../plugins/Quote';
-import Hyperlink from '../plugins/Hyperlink';
 import {
   Heading1,
   Heading2,
@@ -20,9 +19,11 @@ import {
   HeadingDropdown
 } from '../plugins/Heading';
 
-import EmbeddedEntityBlock from '../plugins/EmbeddedEntityBlock';
-import EmbeddedEntryInline from '../plugins/EmbeddedEntryInline';
-import EntryEmbedDropdown from '../plugins/EntryEmbedDropdown';
+// TODO:xxx Use this instead of below mocks!
+// import Hyperlink from '../plugins/Hyperlink';
+// import EmbeddedEntityBlock from '../plugins/EmbeddedEntityBlock';
+// import EmbeddedEntryInline from '../plugins/EmbeddedEntryInline';
+// import EntryEmbedDropdown from '../plugins/EntryEmbedDropdown';
 
 import { UnorderedList, OrderedList } from '../plugins/List';
 import Hr from '../plugins/Hr';
@@ -31,7 +32,11 @@ import { BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types';
 
 import { isNodeTypeEnabled, isMarkEnabled } from '../validations';
 
-import Visible from 'components/shared/Visible';
+// TODO:xxx Use the real imports above instead!
+const Hyperlink = () => null;
+const EmbeddedEntityBlock = () => null;
+const EmbeddedEntryInline = () => null;
+const EntryEmbedDropdown = () => null;
 
 export default class Toolbar extends React.Component {
   static propTypes = {
@@ -86,27 +91,23 @@ export default class Toolbar extends React.Component {
             isOpen={this.state.isEmbedDropdownOpen}
             disabled={props.disabled}
             onClose={this.handleEmbedDropdownClose}>
-            <Visible if={blockEntryEmbedEnabled}>
+            {blockEntryEmbedEnabled && (
               <EmbeddedEntityBlock nodeType={BLOCKS.EMBEDDED_ENTRY} {...props} />
-            </Visible>
-            <Visible if={inlineEntryEmbedEnabled}>
-              <EmbeddedEntryInline {...props} />
-            </Visible>
-            <Visible if={blockAssetEmbedEnabled}>
+            )}
+            {inlineEntryEmbedEnabled && <EmbeddedEntryInline {...props} />}
+            {blockAssetEmbedEnabled && (
               <EmbeddedEntityBlock nodeType={BLOCKS.EMBEDDED_ASSET} {...props} />
-            </Visible>
+            )}
           </EntryEmbedDropdown>
         ) : (
           <React.Fragment>
-            <Visible if={blockEntryEmbedEnabled}>
+            {blockEntryEmbedEnabled && (
               <EmbeddedEntityBlock nodeType={BLOCKS.EMBEDDED_ENTRY} isButton {...props} />
-            </Visible>
-            <Visible if={inlineEntryEmbedEnabled}>
-              <EmbeddedEntryInline isButton {...props} />
-            </Visible>
-            <Visible if={blockAssetEmbedEnabled}>
+            )}
+            {inlineEntryEmbedEnabled && <EmbeddedEntryInline isButton {...props} />}
+            {blockAssetEmbedEnabled && (
               <EmbeddedEntityBlock nodeType={BLOCKS.EMBEDDED_ASSET} isButton {...props} />
-            </Visible>
+            )}
           </React.Fragment>
         )}
       </div>
@@ -148,59 +149,31 @@ export default class Toolbar extends React.Component {
             currentBlockType={currentBlockType}
             disabled={props.disabled}>
             <Paragraph {...props} />
-            <Visible if={isNodeTypeEnabled(field, BLOCKS.HEADING_1)}>
+            {isNodeTypeEnabled(field, BLOCKS.HEADING_1) && (
               <Heading1 {...props} className="toolbar-h1-toggle" />
-            </Visible>
-            <Visible if={isNodeTypeEnabled(field, BLOCKS.HEADING_2)}>
-              <Heading2 {...props} />
-            </Visible>
-            <Visible if={isNodeTypeEnabled(field, BLOCKS.HEADING_3)}>
-              <Heading3 {...props} />
-            </Visible>
-            <Visible if={isNodeTypeEnabled(field, BLOCKS.HEADING_4)}>
-              <Heading4 {...props} />
-            </Visible>
-            <Visible if={isNodeTypeEnabled(field, BLOCKS.HEADING_5)}>
-              <Heading5 {...props} />
-            </Visible>
-            <Visible if={isNodeTypeEnabled(field, BLOCKS.HEADING_6)}>
-              <Heading6 {...props} />
-            </Visible>
+            )}
+            {isNodeTypeEnabled(field, BLOCKS.HEADING_2) && <Heading2 {...props} />}
+            {isNodeTypeEnabled(field, BLOCKS.HEADING_3) && <Heading3 {...props} />}
+            {isNodeTypeEnabled(field, BLOCKS.HEADING_4) && <Heading4 {...props} />}
+            {isNodeTypeEnabled(field, BLOCKS.HEADING_5) && <Heading5 {...props} />}
+            {isNodeTypeEnabled(field, BLOCKS.HEADING_6) && <Heading6 {...props} />}
           </HeadingDropdown>
-          <Visible if={isAnyMarkEnabled}>
-            <EditorToolbarDivider testId="mark-divider" />
-          </Visible>
-          <Visible if={isMarkEnabled(field, MARKS.BOLD)}>
-            <Bold {...props} />
-          </Visible>
-          <Visible if={isMarkEnabled(field, MARKS.ITALIC)}>
-            <Italic {...props} />
-          </Visible>
-          <Visible if={isMarkEnabled(field, MARKS.UNDERLINE)}>
-            <Underlined {...props} />
-          </Visible>
-          <Visible if={isMarkEnabled(field, MARKS.CODE)}>
-            <Code {...props} />
-          </Visible>
-          <Visible if={isAnyHyperlinkEnabled}>
-            <EditorToolbarDivider testId="hyperlink-divider" />
-            <Hyperlink {...props} />
-          </Visible>
-          <Visible if={isAnyListEnabled}>
-            <EditorToolbarDivider testId="list-divider" />
-          </Visible>
-          <Visible if={isNodeTypeEnabled(field, BLOCKS.UL_LIST)}>
-            <UnorderedList {...props} />
-          </Visible>
-          <Visible if={isNodeTypeEnabled(field, BLOCKS.OL_LIST)}>
-            <OrderedList {...props} />
-          </Visible>
-          <Visible if={isNodeTypeEnabled(field, BLOCKS.QUOTE)}>
-            <Quote {...props} />
-          </Visible>
-          <Visible if={isNodeTypeEnabled(field, BLOCKS.HR)}>
-            <Hr {...props} />
-          </Visible>
+          {isAnyMarkEnabled && <EditorToolbarDivider testId="mark-divider" />}
+          {isMarkEnabled(field, MARKS.BOLD) && <Bold {...props} />}
+          {isMarkEnabled(field, MARKS.ITALIC) && <Italic {...props} />}
+          {isMarkEnabled(field, MARKS.UNDERLINE) && <Underlined {...props} />}
+          {isMarkEnabled(field, MARKS.CODE) && <Code {...props} />}
+          {isAnyHyperlinkEnabled && (
+            <React.Fragment>
+              <EditorToolbarDivider testId="hyperlink-divider" />
+              <Hyperlink {...props} />
+            </React.Fragment>
+          )}
+          {isAnyListEnabled && <EditorToolbarDivider testId="list-divider" />}
+          {isNodeTypeEnabled(field, BLOCKS.UL_LIST) && <UnorderedList {...props} />}
+          {isNodeTypeEnabled(field, BLOCKS.OL_LIST) && <OrderedList {...props} />}
+          {isNodeTypeEnabled(field, BLOCKS.QUOTE) && <Quote {...props} />}
+          {isNodeTypeEnabled(field, BLOCKS.HR) && <Hr {...props} />}
         </div>
         {this.renderEmbeds(props)}
       </EditorToolbar>

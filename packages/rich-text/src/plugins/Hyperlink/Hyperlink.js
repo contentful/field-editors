@@ -1,13 +1,13 @@
 import React from 'react';
 import { Tooltip, TextLink } from '@contentful/forma-36-react-components';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
-import { truncate } from 'utils/StringUtils';
 import { INLINES } from '@contentful/rich-text-types';
-import { default as FetchEntity, RequestStatus } from 'app/widgets/shared/FetchEntity';
-import WidgetAPIContext from 'app/widgets/WidgetApi/WidgetApiContext';
-import { isIE, isEdge } from 'utils/browser';
-import { EntityStatusTag } from 'components/shared/EntityStatusTag';
+// TODO:xxx Allow custom link hyperlink rendering?? (For entry/asset hyperlink)
+// import { default as FetchEntity, RequestStatus } from 'app/widgets/shared/FetchEntity';
+//import { truncate } from 'utils/StringUtils';
+import WidgetAPIContext from '../shared/WidgetApiContext';
+// import { EntityStatusTag } from 'components/shared/EntityStatusTag';
+import { SUPPORTS_NATIVE_SLATE_HYPERLINKS } from '../../helpers/browserSupport';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 
@@ -70,7 +70,7 @@ export default class Hyperlink extends React.Component {
         className="rich-text__tooltip-container"
         targetWrapperClassName="rich-text__hyperlink-wrapper"
         maxWidth="auto">
-        {hasRealHyperlinkInSlateSupport() ? (
+        {SUPPORTS_NATIVE_SLATE_HYPERLINKS ? (
           <TextLink
             href={href} // Allows user to open uri link in new tab.
             rel="noopener noreferrer"
@@ -96,7 +96,8 @@ export default class Hyperlink extends React.Component {
         <div>
           <span className={styles.richTextEntityTooltipContentContentType}>{contentTypeName}</span>
           <span className={styles.richTextEntityTooltipContentTitle}>{title}</span>
-          <EntityStatusTag statusLabel={entityStatus} />
+          // TODO:xxx
+          {/*<EntityStatusTag statusLabel={entityStatus} />*/}
         </div>
         {additionalContent || null}
       </>
@@ -104,44 +105,41 @@ export default class Hyperlink extends React.Component {
   };
 
   renderEntityLink(target) {
-    const { onEntityFetchComplete } = this.props;
-    return (
-      <WidgetAPIContext.Consumer>
-        {({ widgetAPI }) => (
-          <FetchEntity
-            widgetAPI={widgetAPI}
-            entityId={target.sys.id}
-            entityType={target.sys.linkType}
-            localeCode={widgetAPI.field.locale}
-            render={({ requestStatus, entityTitle, entityStatus, contentTypeName = 'Asset' }) => {
-              if (requestStatus === RequestStatus.Pending) {
-                return this.renderLink({
-                  tooltip: `Loading ${target.sys.linkType.toLowerCase()}...`
-                });
-              }
-
-              onEntityFetchComplete && onEntityFetchComplete();
-              let tooltip = '';
-              if (requestStatus === RequestStatus.Error) {
-                tooltip = `${target.sys.linkType} missing or inaccessible`;
-              } else if (requestStatus === RequestStatus.Success) {
-                const title = truncate(entityTitle, 60) || 'Untitled';
-                tooltip = this.renderEntityTooltipContent(contentTypeName, title, entityStatus);
-              }
-              return this.renderLink({ tooltip });
-            }}
-          />
-        )}
-      </WidgetAPIContext.Consumer>
-    );
+    // TODO:xxx
+    return <div>HYPERLINK</div>;
+    // const { onEntityFetchComplete } = this.props;
+    // return (
+    //   <WidgetAPIContext.Consumer>
+    //     {({ widgetAPI }) => (
+    //       <FetchEntity
+    //         widgetAPI={widgetAPI}
+    //         entityId={target.sys.id}
+    //         entityType={target.sys.linkType}
+    //         localeCode={widgetAPI.field.locale}
+    //         render={({ requestStatus, entityTitle, entityStatus, contentTypeName = 'Asset' }) => {
+    //           if (requestStatus === RequestStatus.Pending) {
+    //             return this.renderLink({
+    //               tooltip: `Loading ${target.sys.linkType.toLowerCase()}...`
+    //             });
+    //           }
+    //
+    //           onEntityFetchComplete && onEntityFetchComplete();
+    //           let tooltip = '';
+    //           if (requestStatus === RequestStatus.Error) {
+    //             tooltip = `${target.sys.linkType} missing or inaccessible`;
+    //           } else if (requestStatus === RequestStatus.Success) {
+    //             const title = truncate(entityTitle, 60) || 'Untitled';
+    //             tooltip = this.renderEntityTooltipContent(contentTypeName, title, entityStatus);
+    //           }
+    //           return this.renderLink({ tooltip });
+    //         }}
+    //       />
+    //     )}
+    //   </WidgetAPIContext.Consumer>
+    // );
   }
 }
 
 function isUrl(string) {
   return /^(?:[a-z]+:)?\/\//i.test(string) || /^mailto:/i.test(string);
-}
-
-function hasRealHyperlinkInSlateSupport() {
-  // The <a/> element as an inline node causes buggy behavior in IE11/Edge.
-  return !isIE() && !isEdge();
 }

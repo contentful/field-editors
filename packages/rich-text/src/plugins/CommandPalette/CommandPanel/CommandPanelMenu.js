@@ -214,7 +214,10 @@ export class CommandPanel extends React.Component {
   };
 
   renderGroups() {
-    const groups = _.uniqBy(this.state.items.map(item => item.group), value => value);
+    const groups = _.uniqBy(
+      this.state.items.map(item => item.group),
+      value => value
+    );
 
     if (!groups.length) {
       return <li className={styles.item}>No results</li>;

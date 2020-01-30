@@ -4,6 +4,7 @@ import { ItalicPlugin } from './Italic';
 import { UnderlinedPlugin } from './Underlined';
 import { CodePlugin } from './Code';
 import { QuotePlugin } from './Quote';
+// TODO:xxx Enable!
 import { HyperlinkPlugin } from './Hyperlink';
 import {
   Heading1Plugin,
@@ -16,11 +17,9 @@ import {
 
 import NewLinePlugin from './NewLinePlugin';
 import { ParagraphPlugin } from './Paragraph';
-import {
-  EmbeddedAssetBlockPlugin,
-  EmbeddedEntryBlockPlugin
-} from './EmbeddedEntityBlock';
-import { EmbeddedEntryInlinePlugin } from './EmbeddedEntryInline';
+// TODO:xxx Enable!
+// import { EmbeddedAssetBlockPlugin, EmbeddedEntryBlockPlugin } from './EmbeddedEntityBlock';
+// import { EmbeddedEntryInlinePlugin } from './EmbeddedEntryInline';
 
 import { ListPlugin } from './List';
 import { HrPlugin } from './Hr';
@@ -44,7 +43,8 @@ export function buildPlugins(richTextAPI) {
     UnderlinedPlugin({ richTextAPI }),
     CodePlugin({ richTextAPI }),
     QuotePlugin({ richTextAPI }),
-    HyperlinkPlugin({ richTextAPI }),
+    // TODO:xxx Enable!
+    // HyperlinkPlugin({ richTextAPI }),
     Heading1Plugin({ richTextAPI }),
     Heading2Plugin({ richTextAPI }),
     Heading3Plugin({ richTextAPI }),
@@ -53,9 +53,10 @@ export function buildPlugins(richTextAPI) {
     Heading6Plugin({ richTextAPI }),
     ParagraphPlugin(),
     HrPlugin({ richTextAPI }),
-    EmbeddedEntryInlinePlugin({ richTextAPI }),
-    EmbeddedEntryBlockPlugin({ richTextAPI }),
-    EmbeddedAssetBlockPlugin({ richTextAPI }),
+    // TODO:xxx Enable!
+    // EmbeddedEntryInlinePlugin({ richTextAPI }),
+    // EmbeddedEntryBlockPlugin({ richTextAPI }),
+    // EmbeddedAssetBlockPlugin({ richTextAPI }),
     ListPlugin({ richTextAPI }),
     PastePlugin({ richTextAPI }),
     PasteHtmlPlugin(),

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { DropdownListItem, Icon, Button } from '@contentful/forma-36-react-components';
 import { INLINES } from '@contentful/rich-text-types';
 
-import WidgetAPIContext from 'app/widgets/WidgetApi/WidgetApiContext';
+import WidgetAPIContext from '../shared/WidgetApiContext';
 import { selectEntryAndInsert, canInsertInline } from './Utils';
 import { TOOLBAR_PLUGIN_PROP_TYPES } from '../shared/PluginApi';
 

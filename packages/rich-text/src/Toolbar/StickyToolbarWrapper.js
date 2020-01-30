@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Sticky from 'react-sticky-el';
-import { isIE } from 'utils/browser';
+import { SUPPORTS_STICKY_TOOLBAR } from '../helpers/browserSupport';
 
 const StickyToolbarWrapper = ({ children, isDisabled }) =>
-  isIE() ? (
+  SUPPORTS_STICKY_TOOLBAR ? (
     <Sticky
       className="sticky-wrapper"
       boundaryElement=".rich-text"

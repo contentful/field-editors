@@ -1,6 +1,7 @@
 import { BLOCKS } from '@contentful/rich-text-types';
 import { haveTextInSomeBlocks } from '../shared/UtilHave';
-import { newConfigFromRichTextField } from 'search/EntitySelector/Config';
+// TODO:xxx Move newConfigFromRichTextField to this repo and check if it's compatible with SDK!
+// import { newConfigFromRichTextField } from 'search/EntitySelector/Config';
 
 /**
  * Returns whether given value has a block of the given type.
@@ -23,7 +24,9 @@ export const hasBlockOfType = (editor, type) => {
 export async function selectEntityAndInsert(nodeType, widgetAPI, editor, logAction) {
   logAction('openCreateEmbedDialog', { nodeType });
 
-  const baseConfig = await newConfigFromRichTextField(widgetAPI.field, nodeType);
+  // TODO:xxx
+  const baseConfig = {};
+  // const baseConfig = await newConfigFromRichTextField(widgetAPI.field, nodeType);
   const config = { ...baseConfig, max: 1, withCreate: true };
   try {
     // widgetAPI.dialogs.selectSingleEntry() or selectSingleAsset()

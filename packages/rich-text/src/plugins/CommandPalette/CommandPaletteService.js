@@ -1,8 +1,8 @@
 import _ from 'lodash';
-import { isNodeTypeEnabled } from 'app/widgets/rich_text/validations';
-import { can, canCreateAsset } from 'access_control/AccessChecker';
+import { isNodeTypeEnabled } from '../../validations';
 import { INLINES, BLOCKS } from '@contentful/rich-text-types';
-import * as EntityHelpers from 'app/entity_editor/entityHelpers';
+// TODO: xxx Get this another way!
+// import * as EntityHelpers from 'app/entity_editor/entityHelpers';
 
 export async function fetchContentTypes(widgetAPI) {
   const contentTypes = await widgetAPI.space.getContentTypes();
@@ -24,7 +24,8 @@ export async function fetchAssets(widgetAPI, query = '') {
 }
 
 export async function fetchEntries(widgetAPI, contentType, query = '') {
-  const entityHelpers = EntityHelpers.newForLocale(widgetAPI.field.locale);
+  // TODO:xxx
+  // const entityHelpers = EntityHelpers.newForLocale(widgetAPI.field.locale);
   const entries = await widgetAPI.space.getEntries({
     content_type: contentType.sys.id,
     query
@@ -32,8 +33,11 @@ export async function fetchEntries(widgetAPI, contentType, query = '') {
 
   return Promise.all(
     entries.items.map(async entry => {
-      const description = await entityHelpers.entityDescription(entry);
-      const displayTitle = await entityHelpers.entityTitle(entry);
+      // TODO:xxx
+      // const description = await entityHelpers.entityDescription(entry);
+      // const displayTitle = await entityHelpers.entityTitle(entry);
+      const description = 'Entity description';
+      const displayTitle = 'Entity title';
       return {
         contentTypeName: contentType.name,
         displayTitle: displayTitle || 'Untitled',
@@ -77,36 +81,53 @@ export const isEmbeddingEnabled = field =>
   isNodeTypeEnabled(field, BLOCKS.EMBEDDED_ENTRY) ||
   isNodeTypeEnabled(field, INLINES.EMBEDDED_ENTRY);
 
-export const createActionIfAllowed = (
-  field,
-  contentType,
-  embedType,
-  isCreateAndEmbed,
-  callback
-) => {
-  const isAsset = embedType === BLOCKS.EMBEDDED_ASSET;
+export class CommandPaletteActionBuilder {
+  constructor(field, permissions) {
+    this.field = field;
+    this.permissions = permissions;
+  }
+
+  // TODO:xxx Let's create dedicated functions for assets so we do not have to pass a CT.
+
+  maybeBuildEmbedAction(embedType, callback) {
+    if (!isNodeTypeEnabled(field, embedType)) {
+      return false;
+    }
+    const isAsset = !contentType;
+    if (!isAsset && !isValidLinkedContentType(field, contentType, embedType)) {
+      return false;
+    }
+
+    buildAction(embedType, contentType, callback);
+  }
+
+  maybeBuildCreateAndEmbedAction(embedType, contentType, callback) {
+    if (!isNodeTypeEnabled(field, embedType)) {
+      return false;
+    }
+
+    const isAsset = !contentType;
+    if (isAsset && !this.permissions.canCreateAsset) {
+      return false;
+    } else {
+      if (!isValidLinkedContentType(field, contentType, embedType)) {
+        return false;
+      }
+      if (!this.permissions.canCreateEntryOfContentType[contentType.sys.id]) {
+        return false;
+      }
+    }
+
+    buildAction(embedType, contentType, callback);
+  }
+}
+
+function buildAction(embedType, contentType, callback) {
+  const isAsset = !contentType;
   const isInline = embedType === INLINES.EMBEDDED_ENTRY;
-  if (!isNodeTypeEnabled(field, embedType)) {
-    return false;
-  }
-
-  if (isAsset) {
-    if (isCreateAndEmbed && !canCreateAsset()) {
-      return false;
-    }
-  } else {
-    if (!isValidLinkedContentType(field, contentType, embedType)) {
-      return false;
-    }
-
-    if (isCreateAndEmbed && !can('create', contentType)) {
-      return false;
-    }
-  }
-
-  const label = `${isCreateAndEmbed ? 'Create and embed' : 'Embed'} ${
-    isAsset ? 'Asset' : contentType.name
-  } ${isInline ? ' - Inline' : ''}`;
+  const label = `Create and embed ${isAsset ? 'Asset' : contentType.name} ${
+    isInline ? ' - Inline' : ''
+  }`;
 
   const icon = isInline ? 'EmbeddedEntryInline' : 'EmbeddedEntryBlock';
 
@@ -116,4 +137,4 @@ export const createActionIfAllowed = (
     callback,
     icon
   };
-};
+}

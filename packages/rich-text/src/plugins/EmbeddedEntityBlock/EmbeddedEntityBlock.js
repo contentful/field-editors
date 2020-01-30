@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FetchedEntityCard from 'app/widgets/shared/FetchedEntityCard';
+// TODO:xxx Define custom renderer via props?
+//import FetchedEntityCard from 'app/widgets/shared/FetchedEntityCard';
 
 class LinkedEntityBlock extends React.Component {
   static propTypes = {
@@ -33,24 +34,29 @@ class LinkedEntityBlock extends React.Component {
   };
 
   render() {
-    const { editor, isSelected, onEntityFetchComplete } = this.props;
-    const isDisabled = editor.props.readOnly;
-    const readOnly = editor.props.actionsDisabled;
+    // TODO: xxx
+    // const { editor, isSelected, onEntityFetchComplete } = this.props;
+    // const isDisabled = editor.props.readOnly;
+    // const readOnly = editor.props.actionsDisabled;
     const { id: entityId, type: entityType } = this.getEntitySys();
     return (
       <div {...this.props.attributes}>
-        <FetchedEntityCard
-          entityType={entityType}
-          entityId={entityId}
-          readOnly={readOnly}
-          disabled={isDisabled}
-          editable={true}
-          selected={isSelected}
-          onEntityFetchComplete={onEntityFetchComplete}
-          onEdit={this.handleEditClick}
-          onRemove={this.handleRemoveClick}
-          className="rich-text__entity-card"
-        />
+        <div>
+          Entity {entityId} ({entityType})
+        </div>
+        // TODO:xxx
+        {/*<FetchedEntityCard*/}
+        {/*  entityType={entityType}*/}
+        {/*  entityId={entityId}*/}
+        {/*  readOnly={readOnly}*/}
+        {/*  disabled={isDisabled}*/}
+        {/*  editable={true}*/}
+        {/*  selected={isSelected}*/}
+        {/*  onEntityFetchComplete={onEntityFetchComplete}*/}
+        {/*  onEdit={this.handleEditClick}*/}
+        {/*  onRemove={this.handleRemoveClick}*/}
+        {/*  className="rich-text__entity-card"*/}
+        {/*/>*/}
       </div>
     );
   }

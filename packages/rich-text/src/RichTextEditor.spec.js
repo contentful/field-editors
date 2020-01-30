@@ -1,6 +1,5 @@
 import React from 'react';
 import Enzyme from 'enzyme';
-import 'jest-enzyme';
 
 import RichTextEditor from './RichTextEditor';
 import Toolbar from './Toolbar';
@@ -11,13 +10,7 @@ jest.mock('access_control/AccessChecker', () => ({}), { virtual: true });
 jest.mock('utils/browser', () => ({}), { virtual: true });
 jest.mock('redux/store', () => ({}), { virtual: true });
 jest.mock('ng/entityCreator', () => ({}), { virtual: true });
-jest.mock(
-  'ng/debounce',
-  () => {
-    return jest.fn();
-  },
-  { virtual: true }
-);
+jest.mock('ng/debounce', () => jest.fn(), { virtual: true });
 
 const fakeProps = props => ({
   widgetAPI: {

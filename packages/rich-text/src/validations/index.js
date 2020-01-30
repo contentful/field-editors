@@ -1,7 +1,16 @@
 import _ from 'lodash';
+import { BLOCKS, INLINES, TOP_LEVEL_BLOCKS } from '@contentful/rich-text-types';
 
-// TODO: move closer to the root level (models?)
-import ValidationType from 'components/field_dialog/RichTextValidationType';
+// TODO: Move this into separate package (maybe rich-text-types) and share with FE.
+export const VALIDATIONS = {
+  ENABLED_MARKS: 'enabledMarks',
+  ENABLED_NODE_TYPES: 'enabledNodeTypes'
+};
+
+export const VALIDATABLE_NODE_TYPES = [
+  ...TOP_LEVEL_BLOCKS.filter(type => type !== BLOCKS.PARAGRAPH),
+  ...Object.values(INLINES)
+];
 
 const getRichTextValidation = (field, validationType) => {
   return _(field.validations)
@@ -29,7 +38,7 @@ const isFormattingOptionEnabled = (field, validationType, nodeTypeOrMark) => {
  * @returns {boolean}
  */
 export const isNodeTypeEnabled = (field, nodeType) =>
-  isFormattingOptionEnabled(field, ValidationType.ENABLED_NODE_TYPES, nodeType);
+  isFormattingOptionEnabled(field, VALIDATIONS.ENABLED_NODE_TYPES, nodeType);
 
 /**
  * Checks if mark is enabled in the Rich Text Editor Field
@@ -39,4 +48,4 @@ export const isNodeTypeEnabled = (field, nodeType) =>
  * @returns {boolean}
  */
 export const isMarkEnabled = (field, mark) =>
-  isFormattingOptionEnabled(field, ValidationType.ENABLED_MARKS, mark);
+  isFormattingOptionEnabled(field, VALIDATIONS.ENABLED_MARKS, mark);
