@@ -1,3 +1,4 @@
+import noop from 'lodash-es/noop';
 import React from 'react';
 import { css, cx } from 'emotion';
 import { Button, Tooltip, Icon } from '@contentful/forma-36-react-components';
@@ -6,8 +7,6 @@ import * as Icons from './icons';
 import { HeadingSelector } from './HeadingSelector';
 import { InsertLinkSelector } from './InsertLinkSelector';
 import { MarkdownActions } from '../types';
-
-const noop = () => {};
 
 const styles = {
   root: css({

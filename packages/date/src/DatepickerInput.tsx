@@ -1,3 +1,4 @@
+import noop from 'lodash-es/noop';
 import React, { Component, FocusEventHandler, FocusEvent } from 'react';
 // eslint-disable-next-line no-restricted-imports
 import moment from 'moment';
@@ -47,8 +48,8 @@ export type DatePickerProps = {
 
 export class DatepickerInput extends Component<DatePickerProps> {
   static defaultProps: Partial<DatePickerProps> = {
-    onChange: () => {},
-    onBlur: () => {}
+    onChange: noop,
+    onBlur: noop
   };
 
   pikaday?: Pikaday;
