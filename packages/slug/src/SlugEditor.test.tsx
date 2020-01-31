@@ -30,6 +30,7 @@ function createMocks(initialValues: { field?: string; titleField?: string } = {}
     field => ({
       ...field,
       id: 'title-id',
+      setValue: jest.fn().mockImplementation(field.setValue),
       getValue: jest.fn().mockImplementation(field.getValue)
     }),
     initialValues.titleField || ''
@@ -38,12 +39,13 @@ function createMocks(initialValues: { field?: string; titleField?: string } = {}
   const sdk = {
     locales: createFakeLocalesAPI(),
     space: {
-      getEntries: jest.fn()
+      getEntries: jest.fn().mockResolvedValue({ total: 0 })
     },
     entry: {
       getSys: jest.fn().mockReturnValue({
         id: 'entry-id',
         publishedVersion: undefined,
+        createdAt: '2020-01-24T15:33:47.906Z',
         contentType: {
           sys: {
             id: 'content-type-id'
@@ -103,6 +105,10 @@ describe('SlugEditor', () => {
       expect(sdk.space.getEntries).not.toHaveBeenCalled();
       expect(sdk.entry.fields['title-id'].getValue).toHaveBeenCalledTimes(1);
       expect(sdk.entry.getSys).toHaveBeenCalledTimes(2);
+    });
+
+    it('when title and slug are the same field', async () => {
+      throw new Error('not implemented yet');
     });
   });
 
@@ -208,43 +214,58 @@ describe('SlugEditor', () => {
     });
   });
 
-  // it('calls field.setValue when user types and calls field.removeValue when user clears the input', () => {
-  //   const [field] = createFakeFieldAPI(field => {
-  //     jest.spyOn(field, 'setValue');
-  //     jest.spyOn(field, 'removeValue');
-  //     return {
-  //       ...field,
-  //       id: 'field-id',
-  //       type: 'Symbol'
-  //     };
-  //   });
+  describe('should react to title changes', () => {
+    it('should generate unique value with date if title is empty', async () => {
+      const { field, sdk } = createMocks({
+        field: '',
+        titleField: ''
+      });
 
-  //   const { getByTestId } = render(
-  //     <SingleLineEditor
-  //       field={field}
-  //       isInitiallyDisabled={false}
-  //       locales={createFakeLocalesAPI()}
-  //     />
-  //   );
+      render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />);
 
-  //   const $input = getByTestId('cf-ui-text-input');
+      await wait();
 
-  //   expect($input).toHaveValue('');
+      expect(field.setValue).toHaveBeenCalledTimes(1);
+      expect(field.setValue).toHaveBeenLastCalledWith('untitled-entry-2020-01-24-at-15-33-47');
 
-  //   fireEvent.change($input, {
-  //     target: { value: 'new-value' }
-  //   });
+      sdk.entry.fields['title-id'].setValue('Hello world!');
+      await wait();
 
-  //   expect($input).toHaveValue('new-value');
-  //   expect(field.setValue).toHaveBeenCalledTimes(1);
-  //   expect(field.setValue).toHaveBeenLastCalledWith('new-value');
+      expect(field.setValue).toHaveBeenCalledTimes(2);
+      expect(field.setValue).toHaveBeenLastCalledWith('hello-world');
+      expect(sdk.space.getEntries).toHaveBeenCalledTimes(2);
 
-  //   fireEvent.change($input, {
-  //     target: { value: '' }
-  //   });
+      sdk.entry.fields['title-id'].setValue('фраза написанная по русски');
+      await wait();
 
-  //   expect($input).toHaveValue('');
-  //   expect(field.removeValue).toHaveBeenCalledTimes(1);
-  //   expect(field.removeValue).toHaveBeenLastCalledWith();
-  // });
+      expect(field.setValue).toHaveBeenCalledTimes(3);
+      expect(field.setValue).toHaveBeenLastCalledWith('fraza-napisannaya-po-russki');
+      expect(sdk.space.getEntries).toHaveBeenCalledTimes(3);
+    });
+
+    it('should generate value from title if it is not empty', async () => {
+      const { field, sdk } = createMocks({
+        field: '',
+        titleField: 'This is initial title value'
+      });
+
+      render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />);
+
+      await wait();
+
+      expect(field.setValue).toHaveBeenCalledTimes(1);
+      expect(field.setValue).toHaveBeenLastCalledWith('this-is-initial-title-value');
+
+      sdk.entry.fields['title-id'].setValue('Hello world!');
+      await wait();
+
+      expect(field.setValue).toHaveBeenCalledTimes(2);
+      expect(field.setValue).toHaveBeenLastCalledWith('hello-world');
+      expect(sdk.space.getEntries).toHaveBeenCalledTimes(2);
+    });
+
+    it('should stop tracking value after user intentionally changes slug value', () => {
+      throw new Error('Not implemented yet');
+    });
+  });
 });

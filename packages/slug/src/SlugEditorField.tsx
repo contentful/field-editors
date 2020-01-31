@@ -105,6 +105,7 @@ export function SlugEditorField(props: SlugEditorFieldProps) {
   const [check, setCheck] = React.useState<boolean>(true);
 
   useSlugUpdater(props, check);
+
   return (
     <SlugEditorFieldStatic
       {...props}
