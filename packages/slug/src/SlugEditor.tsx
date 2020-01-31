@@ -2,7 +2,7 @@ import * as React from 'react';
 import { BaseExtensionSDK, FieldAPI } from 'contentful-ui-extensions-sdk';
 import { FieldConnector, ConstraintsUtils, CharValidation } from '@contentful/field-editor-shared';
 import { TitleFieldConnector } from './TitleFieldConnector';
-import { SlugEditorField } from './SlugEditorField';
+import { SlugEditorField, SlugEditorFieldStatic } from './SlugEditorField';
 import * as styles from './styles';
 
 export interface SlugEditorProps {
@@ -22,13 +22,15 @@ function isSupportedFieldTypes(val: string): val is 'Symbol' {
 
 export function SlugEditor(props: SlugEditorProps) {
   const { field } = props;
-  const { locales } = props.baseSdk;
+  const { locales, entry } = props.baseSdk;
 
   if (!isSupportedFieldTypes(field.type)) {
     throw new Error(`"${field.type}" field type is not supported by SlugEditor`);
   }
 
   const constraints = ConstraintsUtils.fromFieldValidations(field.validations, 'Symbol');
+
+  const createdAt = (entry.getSys() as { createdAt: string }).createdAt;
 
   const isLocaleOptional = locales.optional[field.locale];
   const localeFallbackCode = locales.fallbacks[field.locale];
@@ -48,16 +50,23 @@ export function SlugEditor(props: SlugEditorProps) {
       locale={field.locale}
       isInitiallyDisabled={props.isInitiallyDisabled}>
       {({ titleValue, isPublished }) => (
-        <FieldConnector<string> field={field} isInitiallyDisabled={props.isInitiallyDisabled}>
+        <FieldConnector<string>
+          field={field}
+          isInitiallyDisabled={props.isInitiallyDisabled}
+          throttle={500}>
           {({ value, errors, disabled, setValue, externalReset }) => {
+            // If entry is published we should not run any logic
+            const Component = isPublished || disabled ? SlugEditorFieldStatic : SlugEditorField;
+
             return (
               <div data-test-id="slug-editor">
-                <SlugEditorField
+                <Component
+                  locale={field.locale}
+                  createdAt={createdAt}
                   hasError={errors.length > 0}
                   value={value}
                   isOptionalLocaleWithFallback={isOptionalLocaleWithFallback}
                   isDisabled={disabled}
-                  isPublished={isPublished}
                   titleValue={titleValue}
                   setValue={setValue}
                   key={`slug-editor-${externalReset}`}

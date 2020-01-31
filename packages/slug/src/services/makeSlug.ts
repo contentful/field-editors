@@ -11,7 +11,7 @@ function formatTwoDigit(num: number) {
   return asString.length === 1 ? `0${asString}` : asString;
 }
 
-function formatUtcDate(date: Date) {
+export function formatUtcDate(date: Date) {
   const year = date.getFullYear();
   const month = formatTwoDigit(date.getUTCMonth() + 1);
   const day = formatTwoDigit(date.getUTCDate());

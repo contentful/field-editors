@@ -8,12 +8,11 @@ import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/elegant.css';
 import './index.css';
 
-init(sdk => {
+init<FieldExtensionSDK>(sdk => {
   if (sdk.location.is(locations.LOCATION_ENTRY_FIELD)) {
-    const fieldSdk = sdk as FieldExtensionSDK;
-    fieldSdk.window.startAutoResizer();
+    sdk.window.startAutoResizer();
     render(
-      <SlugEditor sdk={fieldSdk} isInitiallyDisabled={true} />,
+      <SlugEditor field={sdk.field} baseSdk={sdk} isInitiallyDisabled={true} />,
       document.getElementById('root')
     );
   }
