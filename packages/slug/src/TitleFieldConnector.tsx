@@ -1,5 +1,5 @@
 import React from 'react';
-import { FieldExtensionSDK } from 'contentful-ui-extensions-sdk';
+import { BaseExtensionSDK } from 'contentful-ui-extensions-sdk';
 
 type Nullable = null | undefined;
 
@@ -10,12 +10,13 @@ interface TitleFieldConnectorState<ValueType> {
 }
 
 interface TitleFieldConnectorProps<ValueType> {
-  sdk: FieldExtensionSDK;
+  sdk: BaseExtensionSDK;
+  locale: string;
   isInitiallyDisabled: boolean;
   children: (state: TitleFieldConnectorState<ValueType>) => React.ReactNode;
 }
 
-function getTitleField(sdk: FieldExtensionSDK) {
+function getTitleField(sdk: BaseExtensionSDK) {
   const { entry, contentType } = sdk;
   return entry.fields[contentType.displayField];
 }
@@ -46,7 +47,6 @@ export class TitleFieldConnector<ValueType> extends React.Component<
   unsubscribeSysChanges: Function | null = null;
 
   componentDidMount() {
-    const locale = this.props.sdk.field.locale;
     const titleField = getTitleField(this.props.sdk);
 
     if (!titleField) {
@@ -54,7 +54,7 @@ export class TitleFieldConnector<ValueType> extends React.Component<
     }
 
     this.unsubscribeDisabled = titleField.onIsDisabledChanged(
-      locale as any,
+      this.props.locale as any,
       (disabled: boolean) => {
         this.setState({
           titleDisabled: disabled
@@ -62,7 +62,7 @@ export class TitleFieldConnector<ValueType> extends React.Component<
       }
     );
     this.unsubscribeValue = titleField.onValueChanged(
-      locale as any,
+      this.props.locale as any,
       (value: ValueType | Nullable) => {
         this.setState({ titleValue: value });
       }

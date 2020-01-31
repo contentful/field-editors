@@ -2,6 +2,7 @@ export {
   FieldAPI,
   ParametersAPI,
   LocalesAPI,
+  BaseExtensionSDK,
   OpenCustomWidgetOptions
 } from 'contentful-ui-extensions-sdk';
 export { FieldConnector } from './FieldConnector';

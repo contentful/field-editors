@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { TextInput } from '@contentful/forma-36-react-components';
-import { FieldExtensionSDK } from 'contentful-ui-extensions-sdk';
-import tokens from '@contentful/forma-36-tokens';
-import { css } from 'emotion';
+import { BaseExtensionSDK, FieldAPI } from 'contentful-ui-extensions-sdk';
 import { FieldConnector, ConstraintsUtils, CharValidation } from '@contentful/field-editor-shared';
 import { TitleFieldConnector } from './TitleFieldConnector';
+import { SlugEditorField } from './SlugEditorField';
+import * as styles from './styles';
 
 export interface SlugEditorProps {
   /**
@@ -12,7 +11,9 @@ export interface SlugEditorProps {
    */
   isInitiallyDisabled: boolean;
 
-  sdk: FieldExtensionSDK;
+  baseSdk: BaseExtensionSDK;
+
+  field: FieldAPI;
 }
 
 function isSupportedFieldTypes(val: string): val is 'Symbol' {
@@ -20,7 +21,8 @@ function isSupportedFieldTypes(val: string): val is 'Symbol' {
 }
 
 export function SlugEditor(props: SlugEditorProps) {
-  const { field } = props.sdk;
+  const { field } = props;
+  const { locales } = props.baseSdk;
 
   if (!isSupportedFieldTypes(field.type)) {
     throw new Error(`"${field.type}" field type is not supported by SlugEditor`);
@@ -28,34 +30,39 @@ export function SlugEditor(props: SlugEditorProps) {
 
   const constraints = ConstraintsUtils.fromFieldValidations(field.validations, 'Symbol');
 
+  const isLocaleOptional = locales.optional[field.locale];
+  const localeFallbackCode = locales.fallbacks[field.locale];
+
+  // If the field or the locale are not required (there's a locale setting that
+  // allows publishing even if the field is required) and if the locale has a
+  // fallback than there's no need for a slug unless the user manually enters
+  // one or the title field is also localized with a custom value.
+  const isOptionalFieldLocale = Boolean(!field.required || isLocaleOptional);
+  const isOptionalLocaleWithFallback = Boolean(
+    isOptionalFieldLocale && localeFallbackCode && locales.available.includes(localeFallbackCode)
+  );
+
   return (
-    <TitleFieldConnector<string> sdk={props.sdk} isInitiallyDisabled={props.isInitiallyDisabled}>
+    <TitleFieldConnector<string>
+      sdk={props.baseSdk}
+      locale={field.locale}
+      isInitiallyDisabled={props.isInitiallyDisabled}>
       {({ titleValue, isPublished }) => (
         <FieldConnector<string> field={field} isInitiallyDisabled={props.isInitiallyDisabled}>
-          {({ value, errors, disabled, setValue }) => {
-            console.log(titleValue, isPublished);
-
+          {({ value, errors, disabled, setValue, externalReset }) => {
             return (
               <div data-test-id="slug-editor">
-                <TextInput
-                  className="x--directed"
-                  required={field.required}
-                  error={errors.length > 0}
-                  disabled={disabled}
-                  value={value || ''}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    setValue(e.target.value);
-                  }}
+                <SlugEditorField
+                  hasError={errors.length > 0}
+                  value={value}
+                  isOptionalLocaleWithFallback={isOptionalLocaleWithFallback}
+                  isDisabled={disabled}
+                  isPublished={isPublished}
+                  titleValue={titleValue}
+                  setValue={setValue}
+                  key={`slug-editor-${externalReset}`}
                 />
-                <div
-                  className={css({
-                    display: 'flex',
-                    flexDirection: 'row-reverse',
-                    justifyContent: 'space-between',
-                    fontSize: tokens.fontSizeM,
-                    marginTop: tokens.spacingXs,
-                    color: tokens.colorTextMid
-                  })}>
+                <div className={styles.validationRow}>
                   <CharValidation constraints={constraints} />
                 </div>
               </div>
