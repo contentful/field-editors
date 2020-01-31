@@ -17,10 +17,13 @@ interface SlugEditorFieldProps {
 
 type CheckerState = 'checking' | 'unique' | 'duplicate';
 
-function useSlugUpdater(props: SlugEditorFieldProps) {
+function useSlugUpdater(props: SlugEditorFieldProps, check: boolean) {
   const { value, setValue, createdAt, locale, titleValue, isOptionalLocaleWithFallback } = props;
 
   React.useEffect(() => {
+    if (check === false) {
+      return;
+    }
     const newSlug = makeSlug(titleValue, {
       isOptionalLocaleWithFallback,
       locale,
@@ -29,7 +32,7 @@ function useSlugUpdater(props: SlugEditorFieldProps) {
     if (newSlug !== value) {
       setValue(newSlug);
     }
-  }, [value, titleValue, isOptionalLocaleWithFallback]);
+  }, [value, titleValue, isOptionalLocaleWithFallback, check]);
 }
 
 function useUniqueChecker(props: SlugEditorFieldProps) {
@@ -62,8 +65,8 @@ function useUniqueChecker(props: SlugEditorFieldProps) {
   return status;
 }
 
-export function SlugEditorFieldStatic(props: SlugEditorFieldProps) {
-  const { hasError, isDisabled, value, setValue } = props;
+export function SlugEditorFieldStatic(props: SlugEditorFieldProps & { onChange?: Function }) {
+  const { hasError, isDisabled, value, setValue, onChange } = props;
 
   const status = useUniqueChecker(props);
 
@@ -77,15 +80,20 @@ export function SlugEditorFieldStatic(props: SlugEditorFieldProps) {
         value={value || ''}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           setValue(e.target.value);
+          if (onChange) {
+            onChange();
+          }
         }}
       />
       {status === 'checking' && (
         <div className={styles.spinnerContainer}>
-          <Spinner size="default" />
+          <Spinner testId="slug-editor-spinner" size="default" />
         </div>
       )}
       {status === 'duplicate' && (
-        <ValidationMessage className={styles.uniqueValidationError}>
+        <ValidationMessage
+          testId="slug-editor-duplicate-error"
+          className={styles.uniqueValidationError}>
           This slug has already been published in another entry
         </ValidationMessage>
       )}
@@ -94,6 +102,15 @@ export function SlugEditorFieldStatic(props: SlugEditorFieldProps) {
 }
 
 export function SlugEditorField(props: SlugEditorFieldProps) {
-  useSlugUpdater(props);
-  return <SlugEditorFieldStatic {...props} />;
+  const [check, setCheck] = React.useState<boolean>(true);
+
+  useSlugUpdater(props, check);
+  return (
+    <SlugEditorFieldStatic
+      {...props}
+      onChange={() => {
+        setCheck(false);
+      }}
+    />
+  );
 }
