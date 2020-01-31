@@ -3,7 +3,7 @@ import { css } from 'emotion';
 
 export const validationRow = css({
   display: 'flex',
-  justifyContent: 'space-between',
+  flexDirection: 'row-reverse',
   fontSize: tokens.fontSizeM,
   marginTop: tokens.spacingXs,
   color: tokens.colorTextMid
@@ -27,4 +27,15 @@ export const icon = css({
   width: '25px',
   height: '25px',
   fill: tokens.colorElementDarkest
+});
+
+export const spinnerContainer = css({
+  position: 'absolute',
+  zIndex: 2,
+  right: '8px',
+  top: '8px'
+});
+
+export const uniqueValidationError = css({
+  marginTop: tokens.spacingS
 });

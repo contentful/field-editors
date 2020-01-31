@@ -21,8 +21,8 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
-    "@contentful/field-editor-shared": "^0.4.0",
-    "@contentful/forma-36-react-components": "^3.28.15",
+    "@contentful/field-editor-shared": "^0.5.0",
+    "@contentful/forma-36-react-components": "^3.28.21",
     "@contentful/forma-36-tokens": "^0.5.1",
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",
@@ -31,7 +31,7 @@
     "@types/speakingurl": "^13.0.2"
   },
   "devDependencies": {
-    "@contentful/field-editor-test-utils": "^0.1.2"
+    "@contentful/field-editor-test-utils": "^0.2.0"
   },
   "peerDependencies": {
     "react": ">=16.8.0"

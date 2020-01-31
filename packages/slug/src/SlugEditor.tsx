@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { BaseExtensionSDK, FieldAPI } from 'contentful-ui-extensions-sdk';
-import { FieldConnector, ConstraintsUtils, CharValidation } from '@contentful/field-editor-shared';
+import { FieldConnector } from '@contentful/field-editor-shared';
 import { TitleFieldConnector } from './TitleFieldConnector';
 import { SlugEditorField, SlugEditorFieldStatic } from './SlugEditorField';
-import * as styles from './styles';
 
 export interface SlugEditorProps {
   /**
@@ -22,15 +21,17 @@ function isSupportedFieldTypes(val: string): val is 'Symbol' {
 
 export function SlugEditor(props: SlugEditorProps) {
   const { field } = props;
-  const { locales, entry } = props.baseSdk;
+  const { locales, entry, space } = props.baseSdk;
 
   if (!isSupportedFieldTypes(field.type)) {
     throw new Error(`"${field.type}" field type is not supported by SlugEditor`);
   }
 
-  const constraints = ConstraintsUtils.fromFieldValidations(field.validations, 'Symbol');
-
-  const createdAt = (entry.getSys() as { createdAt: string }).createdAt;
+  const entrySys = entry.getSys() as {
+    createdAt: string;
+    id: string;
+    contentType: { sys: { id: string } };
+  };
 
   const isLocaleOptional = locales.optional[field.locale];
   const localeFallbackCode = locales.fallbacks[field.locale];
@@ -44,6 +45,19 @@ export function SlugEditor(props: SlugEditorProps) {
     isOptionalFieldLocale && localeFallbackCode && locales.available.includes(localeFallbackCode)
   );
 
+  const performUniqueCheck = (value: string) => {
+    const searchQuery = {
+      content_type: entrySys.contentType.sys.id,
+      [`fields.${field.id}.${field.locale}`]: value,
+      'sys.id[ne]': entrySys.id,
+      'sys.publishedAt[exists]': true,
+      limit: 0
+    };
+    return space.getEntries(searchQuery).then(res => {
+      return res.total === 0;
+    });
+  };
+
   return (
     <TitleFieldConnector<string>
       sdk={props.baseSdk}
@@ -55,25 +69,24 @@ export function SlugEditor(props: SlugEditorProps) {
           isInitiallyDisabled={props.isInitiallyDisabled}
           throttle={500}>
           {({ value, errors, disabled, setValue, externalReset }) => {
-            // If entry is published we should not run any logic
-            const Component = isPublished || disabled ? SlugEditorFieldStatic : SlugEditorField;
+            const shouldTrackTitle = isPublished === false && disabled === false;
+
+            const Component = shouldTrackTitle ? SlugEditorField : SlugEditorFieldStatic;
 
             return (
               <div data-test-id="slug-editor">
                 <Component
+                  key={`slug-editor-${externalReset}`}
                   locale={field.locale}
-                  createdAt={createdAt}
+                  createdAt={entrySys.createdAt}
+                  performUniqueCheck={performUniqueCheck}
                   hasError={errors.length > 0}
                   value={value}
                   isOptionalLocaleWithFallback={isOptionalLocaleWithFallback}
                   isDisabled={disabled}
                   titleValue={titleValue}
                   setValue={setValue}
-                  key={`slug-editor-${externalReset}`}
                 />
-                <div className={styles.validationRow}>
-                  <CharValidation constraints={constraints} />
-                </div>
               </div>
             );
           }}
