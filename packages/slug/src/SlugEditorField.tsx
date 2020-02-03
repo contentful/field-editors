@@ -102,7 +102,23 @@ export function SlugEditorFieldStatic(props: SlugEditorFieldProps & { onChange?:
 }
 
 export function SlugEditorField(props: SlugEditorFieldProps) {
-  const [check, setCheck] = React.useState<boolean>(true);
+  const [check, setCheck] = React.useState<boolean>(() => {
+    if (props.value) {
+      if (!props.titleValue) {
+        return false;
+      }
+
+      const potentialSlug = makeSlug(props.titleValue, {
+        isOptionalLocaleWithFallback: props.isOptionalLocaleWithFallback,
+        locale: props.locale,
+        createdAt: props.createdAt
+      });
+      if (props.value !== potentialSlug) {
+        return false;
+      }
+    }
+    return true;
+  });
 
   useSlugUpdater(props, check);
 

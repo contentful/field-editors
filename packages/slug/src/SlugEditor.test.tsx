@@ -119,6 +119,19 @@ describe('SlugEditor', () => {
 
       expect(field.setValue).not.toHaveBeenCalled();
     });
+
+    it('when a saved slug is different from a title at the render', async () => {
+      const { field, sdk } = createMocks({
+        titleField: 'Hello world!',
+        field: 'something-different'
+      });
+
+      render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />);
+
+      await wait();
+
+      expect(field.setValue).not.toHaveBeenCalled();
+    });
   });
 
   describe('should check for uniqueness', () => {
