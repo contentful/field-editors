@@ -44,5 +44,8 @@
   },
   "peerDependencies": {
     "react": ">=16.8.0"
+  },
+  "devDependencies": {
+    "@contentful/rich-text-react-renderer": "^13.4.0"
   }
 }

@@ -1,5 +1,5 @@
 import * as contentfulSlateJSAdapter from '@contentful/contentful-slatejs-adapter';
-import * as richTextPlainTextRenderer from '@contentful/rich-text-plain-text-renderer';
+import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
 import schema from '../../constants/Schema';
 
 export const getCharacterCount = editor => {
@@ -7,5 +7,5 @@ export const getCharacterCount = editor => {
     document: editor.value.document.toJSON(),
     schema
   });
-  return richTextPlainTextRenderer.documentToPlainTextString(document).length;
+  return documentToPlainTextString(document).length;
 };

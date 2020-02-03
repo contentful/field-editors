@@ -7,14 +7,20 @@ menu: Components
 # Rich Text
 
 import { Playground } from 'docz';
-import { RichTextEditor } from './RichTextEditor.jsx';
-import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
+import RichTextEditor from './RichTextEditor.jsx';
+import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import { css } from 'emotion';
 
 ## In Action
 
 <Playground className="sticky-parent">
   {() => {
-    const [field] = createFakeFieldAPI();
+    const rtPreviewStyle = css({
+      backgroundColor: 'whitesmoke',
+      padding: '0 0.5em'
+    });
+    const [field, mitt] = createFakeFieldAPI();
     const sdk = {
       field,
       permissions: {
@@ -25,6 +31,25 @@ import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
         }
       }
     };
-    return <RichTextEditor widgetAPI={sdk} isInitiallyDisabled={false} />;
+    const renderRT = (value, type) => {
+      const logValue = () => {
+        console.log(type, value)
+      }
+      const valueString = JSON.stringify(value, null, 2);
+      const valueDom = documentToReactComponents(value);
+      return (
+        <div
+          className={rtPreviewStyle}
+          title={valueString}
+          onClick={logValue}
+        >{valueDom}</div>
+	  );
+    }
+    return (
+      <div>
+        <RichTextEditor widgetAPI={sdk} isInitiallyDisabled={false} />
+        <ActionsPlayground mitt={mitt} renderValue={renderRT} />
+      </div>
+    );
   }}
 </Playground>

@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-implicit-any
 //export { RichTextEditor } from './RichTextEditor';
-export { RichTextEditor } from './RichTextEditor';
+export { default as RichTextEditor } from './RichTextEditor';
 
 // import { flow, curryRight } from 'lodash';
 // import connectToWidgetApi from 'app/widgets/WidgetApi/connectToWidgetApi';

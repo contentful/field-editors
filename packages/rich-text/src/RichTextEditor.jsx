@@ -15,6 +15,10 @@ import { createRichTextAPI } from './plugins/shared/PluginApi';
 import { buildPlugins } from './plugins';
 import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/StickyToolbarWrapper';
+import { FieldConnector } from '@contentful/field-editor-shared';
+
+// TODO:xxx Remove
+import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
 
 const createSlateValue = contentfulDocument => {
   const document = toSlatejsDocument({
@@ -34,9 +38,9 @@ const createSlateValue = contentfulDocument => {
   return normalizedValue;
 };
 
-const emptySlateValue = createSlateValue(EMPTY_DOCUMENT);
+const EMPTY_SLATE_DOCUMENT = createSlateValue(EMPTY_DOCUMENT);
 
-export class RichTextEditor extends React.Component {
+export class ConnectedRichTextEditor extends React.Component {
   static propTypes = {
     widgetAPI: PropTypes.shape({
       field: PropTypes.shape({
@@ -73,7 +77,7 @@ export class RichTextEditor extends React.Component {
     value:
       this.props.value && this.props.value.nodeType === BLOCKS.DOCUMENT
         ? createSlateValue(this.props.value)
-        : emptySlateValue
+        : EMPTY_SLATE_DOCUMENT
   };
 
   editor = React.createRef();
@@ -192,4 +196,34 @@ function isRelevantOperation(op) {
     return false;
   }
   return true;
+}
+
+export default function RichTextEditor(props) {
+  return (
+    <FieldConnector
+      throttle={0}
+      field={props.widgetAPI.field}
+      isInitiallyDisabled={props.isInitiallyDisabled}
+      isEmptyValue={value => {
+        return !value || deepEquals(value, EMPTY_DOCUMENT);
+      }}
+      isEqualValues={(value1, value2) => {
+        return deepEquals(value1, value2);
+      }}>
+      {({ lastRemoteValue, disabled, setValue, externalReset }) => {
+        return (
+          <ConnectedRichTextEditor
+            // on external change reset component completely and init with initial value again
+            key={`rich-text-editor-${externalReset}`}
+            value={lastRemoteValue}
+            widgetAPI={props.widgetAPI}
+            isDisabled={disabled}
+            onChange={value => {
+              setValue(value);
+            }}
+          />
+        );
+      }}
+    </FieldConnector>
+  );
 }
