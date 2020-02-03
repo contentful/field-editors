@@ -1,13 +1,25 @@
 import React from 'react';
 import throttle from 'lodash/throttle';
-import isEqual from 'lodash/isEqual';
+import { isEqual, omit } from 'lodash-es';
 import { FieldAPI } from 'contentful-ui-extensions-sdk';
 
 type Nullable = null | undefined;
 
+export interface FieldConnectorChildProps<ValueType> {
+  isLocalValueChange: boolean;
+  externalReset: number;
+  lastRemoteValue: ValueType | Nullable;
+  value: ValueType | Nullable;
+  disabled: boolean;
+  errors: string[];
+  setValue: (value: ValueType | Nullable) => void;
+}
+
 interface FieldConnectorState<ValueType> {
+  isLocalValueChange: boolean;
   externalReset: number;
   lastSetValue: ValueType | Nullable;
+  lastRemoteValue: ValueType | Nullable;
   value: ValueType | Nullable;
   disabled: boolean;
   errors: string[];
@@ -16,11 +28,7 @@ interface FieldConnectorState<ValueType> {
 interface FieldConnectorProps<ValueType> {
   field: FieldAPI;
   isInitiallyDisabled: boolean;
-  children: (
-    state: FieldConnectorState<ValueType> & {
-      setValue: (value: ValueType | Nullable) => void;
-    }
-  ) => React.ReactNode;
+  children: (state: FieldConnectorChildProps<ValueType>) => React.ReactNode;
   isEmptyValue: (value: ValueType | null) => boolean;
   isEqualValues: (value1: ValueType | Nullable, value2: ValueType | Nullable) => boolean;
   throttle: number;
@@ -49,9 +57,11 @@ export class FieldConnector<ValueType> extends React.Component<
     super(props);
     const initialValue = props.field.getValue();
     this.state = {
+      isLocalValueChange: false,
       externalReset: 0,
       value: initialValue,
       lastSetValue: initialValue,
+      lastRemoteValue: initialValue,
       disabled: props.isInitiallyDisabled,
       errors: []
     };
@@ -96,18 +106,20 @@ export class FieldConnector<ValueType> extends React.Component<
     });
     this.unsubscribeDisabled = field.onIsDisabledChanged((disabled: boolean) => {
       this.setState({
-        disabled: disabled
+        disabled
       });
     });
     this.unsubscribeValue = field.onValueChanged((value: ValueType | Nullable) => {
       this.setState(currentState => {
         const isLocalValueChange = this.props.isEqualValues(value, currentState.lastSetValue);
+        const lastRemoteValue = isLocalValueChange ? currentState.lastRemoteValue : value;
+        const externalReset = currentState.externalReset + (isLocalValueChange ? 0 : 1);
         return {
           value,
           lastSetValue: value,
-          externalReset: isLocalValueChange
-            ? currentState.externalReset
-            : currentState.externalReset + 1
+          lastRemoteValue,
+          isLocalValueChange,
+          externalReset
         };
       });
     });
@@ -126,8 +138,11 @@ export class FieldConnector<ValueType> extends React.Component<
   }
 
   render() {
+    // `lastSetValue` can be either the `setValue()` value right after it got called
+    // or the current remote value. No use-case for passing this to child.
+    const childProps = omit(this.state, 'lastSetValue');
     return this.props.children({
-      ...this.state,
+      ...childProps,
       setValue: this.setValue
     });
   }
