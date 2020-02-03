@@ -1,6 +1,6 @@
 import React from 'react';
 import throttle from 'lodash/throttle';
-import { isEqual, omit } from 'lodash';
+import isEqual from 'lodash/isEqual';
 import { FieldAPI } from 'contentful-ui-extensions-sdk';
 
 type Nullable = null | undefined;
@@ -138,9 +138,10 @@ export class FieldConnector<ValueType> extends React.Component<
   }
 
   render() {
+    const childProps = { ...this.state };
     // `lastSetValue` can be either the `setValue()` value right after it got called
     // or the current remote value. No use-case for passing this to child.
-    const childProps = omit(this.state, 'lastSetValue');
+    delete childProps.lastSetValue;
     return this.props.children({
       ...childProps,
       setValue: this.setValue
