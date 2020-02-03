@@ -1,5 +1,5 @@
 import React from 'react';
-import { BaseExtensionSDK } from 'contentful-ui-extensions-sdk';
+import { BaseExtensionSDK, FieldAPI } from 'contentful-ui-extensions-sdk';
 
 type Nullable = null | undefined;
 
@@ -7,11 +7,12 @@ interface TitleFieldConnectorState<ValueType> {
   titleValue: ValueType | Nullable;
   titleDisabled: boolean;
   isPublished: boolean;
+  isSame: boolean;
 }
 
 interface TitleFieldConnectorProps<ValueType> {
   sdk: BaseExtensionSDK;
-  locale: string;
+  field: FieldAPI;
   isInitiallyDisabled: boolean;
   children: (state: TitleFieldConnectorState<ValueType>) => React.ReactNode;
 }
@@ -35,10 +36,12 @@ export class TitleFieldConnector<ValueType> extends React.Component<
     super(props);
     const titleField = getTitleField(props.sdk);
     const entrySys = props.sdk.entry.getSys() as { publishedVersion?: string };
+    const isSame = titleField ? props.field.id === titleField.id : false;
     this.state = {
       titleValue: titleField ? titleField.getValue() : '',
       titleDisabled: props.isInitiallyDisabled,
-      isPublished: Boolean(entrySys.publishedVersion)
+      isPublished: Boolean(entrySys.publishedVersion),
+      isSame
     };
   }
 
@@ -49,12 +52,12 @@ export class TitleFieldConnector<ValueType> extends React.Component<
   componentDidMount() {
     const titleField = getTitleField(this.props.sdk);
 
-    if (!titleField) {
+    if (!titleField || this.state.isSame) {
       return;
     }
 
     this.unsubscribeDisabled = titleField.onIsDisabledChanged(
-      this.props.locale as any,
+      this.props.field.locale as any,
       (disabled: boolean) => {
         this.setState({
           titleDisabled: disabled
@@ -62,7 +65,7 @@ export class TitleFieldConnector<ValueType> extends React.Component<
       }
     );
     this.unsubscribeValue = titleField.onValueChanged(
-      this.props.locale as any,
+      this.props.field.locale as any,
       (value: ValueType | Nullable) => {
         this.setState({ titleValue: value });
       }

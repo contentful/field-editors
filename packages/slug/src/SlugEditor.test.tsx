@@ -54,7 +54,8 @@ function createMocks(initialValues: { field?: string; titleField?: string } = {}
       }),
       onSysChanged: jest.fn(),
       fields: {
-        'title-id': titleField
+        'title-id': titleField,
+        'entry-id': field
       }
     },
     contentType: {
@@ -108,7 +109,15 @@ describe('SlugEditor', () => {
     });
 
     it('when title and slug are the same field', async () => {
-      throw new Error('not implemented yet');
+      const { field, sdk } = createMocks();
+
+      sdk.contentType.displayField = 'entry-id';
+
+      render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />);
+
+      await wait();
+
+      expect(field.setValue).not.toHaveBeenCalled();
     });
   });
 
@@ -264,8 +273,40 @@ describe('SlugEditor', () => {
       expect(sdk.space.getEntries).toHaveBeenCalledTimes(2);
     });
 
-    it('should stop tracking value after user intentionally changes slug value', () => {
-      throw new Error('Not implemented yet');
+    it('should stop tracking value after user intentionally changes slug value', async () => {
+      const { field, sdk } = createMocks({
+        field: '',
+        titleField: ''
+      });
+
+      const { getByTestId } = render(
+        <SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />
+      );
+
+      await wait();
+
+      sdk.entry.fields['title-id'].setValue('Hello world!');
+      await wait();
+
+      expect(field.setValue).toHaveBeenCalledTimes(2);
+      expect(field.setValue).toHaveBeenCalledWith('untitled-entry-2020-01-24-at-15-33-47');
+      expect(field.setValue).toHaveBeenLastCalledWith('hello-world');
+      expect(sdk.space.getEntries).toHaveBeenCalledTimes(2);
+
+      fireEvent.change(getByTestId('cf-ui-text-input'), { target: { value: 'new-custom-slug' } });
+
+      await wait();
+
+      expect(field.setValue).toHaveBeenCalledTimes(3);
+      expect(field.setValue).toHaveBeenLastCalledWith('new-custom-slug');
+
+      sdk.entry.fields['title-id'].setValue('I decided to update my title');
+      await wait();
+      expect(field.setValue).toHaveBeenCalledTimes(3);
+
+      sdk.entry.fields['title-id'].setValue('I decided to update my title again');
+      await wait();
+      expect(field.setValue).toHaveBeenCalledTimes(3);
     });
   });
 });

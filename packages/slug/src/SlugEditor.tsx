@@ -45,7 +45,7 @@ export function SlugEditor(props: SlugEditorProps) {
     isOptionalFieldLocale && localeFallbackCode && locales.available.includes(localeFallbackCode)
   );
 
-  const performUniqueCheck = (value: string) => {
+  const performUniqueCheck = React.useCallback((value: string) => {
     const searchQuery = {
       content_type: entrySys.contentType.sys.id,
       [`fields.${field.id}.${field.locale}`]: value,
@@ -56,20 +56,21 @@ export function SlugEditor(props: SlugEditorProps) {
     return space.getEntries(searchQuery).then(res => {
       return res.total === 0;
     });
-  };
+  }, []);
 
   return (
     <TitleFieldConnector<string>
       sdk={props.baseSdk}
-      locale={field.locale}
+      field={field}
       isInitiallyDisabled={props.isInitiallyDisabled}>
-      {({ titleValue, isPublished }) => (
+      {({ titleValue, isPublished, isSame }) => (
         <FieldConnector<string>
           field={field}
           isInitiallyDisabled={props.isInitiallyDisabled}
           throttle={500}>
           {({ value, errors, disabled, setValue, externalReset }) => {
-            const shouldTrackTitle = isPublished === false && disabled === false;
+            const shouldTrackTitle =
+              isPublished === false && disabled === false && isSame === false;
 
             const Component = shouldTrackTitle ? SlugEditorField : SlugEditorFieldStatic;
 
