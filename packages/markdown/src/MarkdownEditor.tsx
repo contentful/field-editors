@@ -54,6 +54,12 @@ export function MarkdownEditor(
     }
   }, [editor]);
 
+  React.useEffect(() => {
+    if (editor) {
+      editor.setReadOnly(props.disabled);
+    }
+  }, [editor, props.disabled]);
+
   const isActionDisabled = editor === null || props.disabled || selectedTab !== 'editor';
 
   const direction = props.sdk.locales.direction[props.sdk.field.locale] ?? 'ltr';
@@ -87,7 +93,7 @@ export function MarkdownEditor(
         direction={direction}
         onReady={editor => {
           editor.setContent(props.initialValue ?? '');
-          editor.setReadOnly(false);
+          editor.setReadOnly(props.disabled);
           setEditor(editor);
           editor.events.onChange((value: string) => {
             props.saveValueToSDK(value);

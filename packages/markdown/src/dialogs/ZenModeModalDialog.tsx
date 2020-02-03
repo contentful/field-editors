@@ -117,7 +117,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
   // refresh editor right after dialog is opened to avoid disappearing effect
   React.useEffect(() => {
     setTimeout(() => {
-      editor?.refresh();
+      editor?.setFullsize();
     }, 150);
   }, [editor]);
 

@@ -116,7 +116,10 @@ export function create(
     setReadOnly: (value: boolean) => cm.setOption('readOnly', value),
     getHistory: () => cm.getHistory(),
     setHistory: (history: any) => cm.setHistory(history),
-    refresh: () => cm.refresh()
+    setFullsize: () => {
+      cm.setSize('100%', '100%');
+      cm.refresh();
+    }
   };
 
   function destroy() {
