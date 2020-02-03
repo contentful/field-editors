@@ -1,6 +1,6 @@
 import React from 'react';
 import throttle from 'lodash/throttle';
-import { isEqual, omit } from 'lodash-es';
+import { isEqual, omit } from 'lodash';
 import { FieldAPI } from 'contentful-ui-extensions-sdk';
 
 type Nullable = null | undefined;
