@@ -1,4 +1,4 @@
-import noop from 'lodash-es/noop';
+import noop from 'lodash/noop';
 import React from 'react';
 import { css, cx } from 'emotion';
 import { Button, Tooltip, Icon } from '@contentful/forma-36-react-components';

@@ -1,5 +1,5 @@
-import noop from 'lodash-es/noop';
 import React, { Component, FocusEventHandler, FocusEvent } from 'react';
+import noop from 'lodash/noop';
 // eslint-disable-next-line no-restricted-imports
 import moment from 'moment';
 import { TextInput } from '@contentful/forma-36-react-components';
