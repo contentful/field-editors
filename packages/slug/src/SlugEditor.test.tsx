@@ -22,6 +22,7 @@ function createMocks(initialValues: { field?: string; titleField?: string } = {}
     field => ({
       ...field,
       id: 'slug-id',
+      onValueChanged: jest.fn().mockImplementation(field.onValueChanged),
       setValue: jest.fn().mockImplementation(field.setValue)
     }),
     initialValues.field || ''
@@ -31,7 +32,8 @@ function createMocks(initialValues: { field?: string; titleField?: string } = {}
       ...field,
       id: 'title-id',
       setValue: jest.fn().mockImplementation(field.setValue),
-      getValue: jest.fn().mockImplementation(field.getValue)
+      getValue: jest.fn().mockImplementation(field.getValue),
+      onValueChanged: jest.fn().mockImplementation(field.onValueChanged)
     }),
     initialValues.titleField || ''
   );
@@ -75,7 +77,7 @@ describe('SlugEditor', () => {
 
   describe('should not subscribe to title changes', () => {
     it('when field is disabled', async () => {
-      const { field, sdk } = createMocks();
+      const { field, titleField, sdk } = createMocks();
 
       sdk.entry.getSys.mockReturnValue({
         publishedVersion: undefined
@@ -86,13 +88,14 @@ describe('SlugEditor', () => {
       await wait();
 
       expect(field.setValue).not.toHaveBeenCalled();
+      expect(titleField.onValueChanged).toHaveBeenCalledWith('en-US', expect.any(Function));
       expect(sdk.space.getEntries).not.toHaveBeenCalled();
       expect(sdk.entry.fields['title-id'].getValue).toHaveBeenCalledTimes(1);
       expect(sdk.entry.getSys).toHaveBeenCalledTimes(2);
     });
 
     it('when entry is published', async () => {
-      const { field, sdk } = createMocks();
+      const { field, titleField, sdk } = createMocks();
 
       sdk.entry.getSys.mockReturnValue({
         publishedVersion: 2
@@ -103,13 +106,14 @@ describe('SlugEditor', () => {
       await wait();
 
       expect(field.setValue).not.toHaveBeenCalled();
+      expect(titleField.onValueChanged).toHaveBeenCalledWith('en-US', expect.any(Function));
       expect(sdk.space.getEntries).not.toHaveBeenCalled();
       expect(sdk.entry.fields['title-id'].getValue).toHaveBeenCalledTimes(1);
       expect(sdk.entry.getSys).toHaveBeenCalledTimes(2);
     });
 
     it('when title and slug are the same field', async () => {
-      const { field, sdk } = createMocks();
+      const { field, titleField, sdk } = createMocks();
 
       sdk.contentType.displayField = 'entry-id';
 
@@ -117,11 +121,12 @@ describe('SlugEditor', () => {
 
       await wait();
 
+      expect(titleField.onValueChanged).not.toHaveBeenCalled();
       expect(field.setValue).not.toHaveBeenCalled();
     });
 
     it('when a saved slug is different from a title at the render', async () => {
-      const { field, sdk } = createMocks({
+      const { field, titleField, sdk } = createMocks({
         titleField: 'Hello world!',
         field: 'something-different'
       });
@@ -130,13 +135,14 @@ describe('SlugEditor', () => {
 
       await wait();
 
+      expect(titleField.onValueChanged).toHaveBeenCalledWith('en-US', expect.any(Function));
       expect(field.setValue).not.toHaveBeenCalled();
     });
   });
 
   describe('should check for uniqueness', () => {
     it('if it is published', async () => {
-      const { field, sdk } = createMocks({
+      const { field, titleField, sdk } = createMocks({
         titleField: 'Slug value',
         field: 'slug-value'
       });
@@ -159,6 +165,7 @@ describe('SlugEditor', () => {
 
       await wait();
 
+      expect(titleField.onValueChanged).toHaveBeenCalledWith('en-US', expect.any(Function));
       expect(sdk.space.getEntries).toHaveBeenLastCalledWith({
         content_type: 'content-type-id',
         'fields.slug-id.en-US': 'slug-value',
@@ -174,7 +181,7 @@ describe('SlugEditor', () => {
     });
 
     it('if it is not published', async () => {
-      const { field, sdk } = createMocks({
+      const { field, titleField, sdk } = createMocks({
         titleField: 'Slug value',
         field: 'slug-value'
       });
@@ -197,6 +204,7 @@ describe('SlugEditor', () => {
 
       await wait();
 
+      expect(titleField.onValueChanged).toHaveBeenCalledWith('en-US', expect.any(Function));
       expect(sdk.space.getEntries).toHaveBeenLastCalledWith({
         content_type: 'content-type-id',
         'fields.slug-id.en-US': 'slug-value',
@@ -238,7 +246,7 @@ describe('SlugEditor', () => {
 
   describe('should react to title changes', () => {
     it('should generate unique value with date if title is empty', async () => {
-      const { field, sdk } = createMocks({
+      const { field, titleField, sdk } = createMocks({
         field: '',
         titleField: ''
       });
@@ -247,6 +255,7 @@ describe('SlugEditor', () => {
 
       await wait();
 
+      expect(titleField.onValueChanged).toHaveBeenCalledWith('en-US', expect.any(Function));
       expect(field.setValue).toHaveBeenCalledTimes(1);
       expect(field.setValue).toHaveBeenLastCalledWith('untitled-entry-2020-01-24-at-15-33-47');
 
@@ -266,7 +275,7 @@ describe('SlugEditor', () => {
     });
 
     it('should generate value from title if it is not empty', async () => {
-      const { field, sdk } = createMocks({
+      const { field, titleField, sdk } = createMocks({
         field: '',
         titleField: 'This is initial title value'
       });
@@ -275,6 +284,7 @@ describe('SlugEditor', () => {
 
       await wait();
 
+      expect(titleField.onValueChanged).toHaveBeenCalledWith('en-US', expect.any(Function));
       expect(field.setValue).toHaveBeenCalledTimes(1);
       expect(field.setValue).toHaveBeenLastCalledWith('this-is-initial-title-value');
 
@@ -287,7 +297,7 @@ describe('SlugEditor', () => {
     });
 
     it('should stop tracking value after user intentionally changes slug value', async () => {
-      const { field, sdk } = createMocks({
+      const { field, titleField, sdk } = createMocks({
         field: '',
         titleField: ''
       });
@@ -301,6 +311,7 @@ describe('SlugEditor', () => {
       sdk.entry.fields['title-id'].setValue('Hello world!');
       await wait();
 
+      expect(titleField.onValueChanged).toHaveBeenCalledWith('en-US', expect.any(Function));
       expect(field.setValue).toHaveBeenCalledTimes(2);
       expect(field.setValue).toHaveBeenCalledWith('untitled-entry-2020-01-24-at-15-33-47');
       expect(field.setValue).toHaveBeenLastCalledWith('hello-world');
@@ -320,6 +331,56 @@ describe('SlugEditor', () => {
       sdk.entry.fields['title-id'].setValue('I decided to update my title again');
       await wait();
       expect(field.setValue).toHaveBeenCalledTimes(3);
+    });
+  });
+
+  describe('for non default locales', () => {
+    it('locale is not optional and has a fallback then it should track changes default locale changes', async () => {
+      const { sdk, field, titleField } = createMocks();
+
+      field.locale = 'ru-RU';
+      field.required = false;
+      sdk.locales.available = ['de-DE', 'ru-RU'];
+      sdk.locales.default = 'de-DE';
+      sdk.locales.optional = {
+        'de-DE': false,
+        'ru-RU': false
+      };
+      sdk.locales.fallbacks = {
+        'de-DE': 'de-DE',
+        'ru-RU': undefined as any
+      };
+
+      render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={true} />);
+
+      await wait();
+
+      expect(field.setValue).not.toHaveBeenCalled();
+      expect(titleField.onValueChanged).toHaveBeenCalledWith('de-DE', expect.any(Function));
+    });
+
+    it('locale is optional with a fallback then it should not track default locale changes', async () => {
+      const { sdk, field, titleField } = createMocks();
+
+      field.locale = 'ru-RU';
+      field.required = false;
+      sdk.locales.available = ['de-DE', 'ru-RU'];
+      sdk.locales.default = 'de-DE';
+      sdk.locales.optional = {
+        'de-DE': false,
+        'ru-RU': true
+      };
+      sdk.locales.fallbacks = {
+        'de-DE': 'de-DE',
+        'ru-RU': 'de-DE'
+      };
+
+      render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={true} />);
+
+      await wait();
+
+      expect(field.setValue).not.toHaveBeenCalled();
+      expect(titleField.onValueChanged).not.toHaveBeenCalled();
     });
   });
 });

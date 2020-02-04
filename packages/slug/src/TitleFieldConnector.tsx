@@ -13,6 +13,8 @@ interface TitleFieldConnectorState<ValueType> {
 interface TitleFieldConnectorProps<ValueType> {
   sdk: BaseExtensionSDK;
   field: FieldAPI;
+  defaultLocale: string;
+  isOptionalLocaleWithFallback: boolean;
   isInitiallyDisabled: boolean;
   children: (state: TitleFieldConnectorState<ValueType>) => React.ReactNode;
 }
@@ -56,8 +58,17 @@ export class TitleFieldConnector<ValueType> extends React.Component<
       return;
     }
 
+    let trackingLocale = this.props.field.locale as any;
+
+    if (this.props.field.locale !== this.props.defaultLocale) {
+      if (this.props.isOptionalLocaleWithFallback) {
+        return;
+      }
+      trackingLocale = this.props.defaultLocale;
+    }
+
     this.unsubscribeDisabled = titleField.onIsDisabledChanged(
-      this.props.field.locale as any,
+      trackingLocale,
       (disabled: boolean) => {
         this.setState({
           titleDisabled: disabled
@@ -65,7 +76,7 @@ export class TitleFieldConnector<ValueType> extends React.Component<
       }
     );
     this.unsubscribeValue = titleField.onValueChanged(
-      this.props.field.locale as any,
+      trackingLocale,
       (value: ValueType | Nullable) => {
         this.setState({ titleValue: value });
       }
