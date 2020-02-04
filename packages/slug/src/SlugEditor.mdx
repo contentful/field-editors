@@ -7,6 +7,7 @@ menu: Components
 # Slug
 
 import { Playground, Props } from 'docz';
+import { SingleLineEditor } from '../../single-line/src/index.tsx'
 import { SlugEditor } from './SlugEditor.tsx';
 import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
 
@@ -14,11 +15,54 @@ import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-edit
 
 <Playground>
   {() => {
-    const [field] = createFakeFieldAPI();
-    const baseSdk = {
-      locales: createFakeLocalesAPI()
+    const [field] = createFakeFieldAPI(
+      field => ({
+        ...field,
+        id: 'slug-id',
+      }),
+    );
+    const [titleField] = createFakeFieldAPI(
+      field => ({
+        ...field,
+        id: 'title-id',
+      }),
+    );
+
+    const sdk = {
+      locales: createFakeLocalesAPI(),
+      space: {
+        getEntries: () => Promise.resolve({ total: 0 })
+      },
+      entry: {
+        getSys: () => {
+          return {
+            id: 'entry-id',
+            publishedVersion: undefined,
+            createdAt: '2020-01-24T15:33:47.906Z',
+            contentType: {
+              sys: {
+                id: 'content-type-id'
+              }
+            }
+          }
+        },
+        onSysChanged: () => {},
+        fields: {
+          'title-id': titleField,
+          'entry-id': field
+        }
+      },
+      contentType: {
+        displayField: 'title-id'
+      }
     };
-    return <SlugEditor baseSdk={baseSdk} field={field} isInitiallyDisabled={false} />;
+    return (
+      <React.Fragment>
+        <SingleLineEditor field={sdk.entry.fields['title-id']} locales={sdk.locales} isInitiallyDisabled={false} />
+        <div style={{ marginTop: 20 }} />
+        <SlugEditor baseSdk={sdk} field={field} isInitiallyDisabled={false} />
+      </React.Fragment>
+    );
   }}
 </Playground>
 
