@@ -7,6 +7,7 @@ type EventDefinition = { type?: string; value: any; id: number };
 
 type ActionsPlaygroundProps = {
   mitt: Emitter;
+  renderValue: Function;
 };
 
 type ActionPlaygroundState = {
@@ -33,7 +34,7 @@ function reducer(state: ActionPlaygroundState, action: Actions): ActionPlaygroun
   return state;
 }
 
-export function ActionsPlayground(props: ActionsPlaygroundProps) {
+function ActionsPlayground(props: ActionsPlaygroundProps) {
   const [state, dispatch] = React.useReducer(reducer, { events: [] });
 
   const onLog = (type?: string, event?: any) => {
@@ -87,12 +88,18 @@ export function ActionsPlayground(props: ActionsPlaygroundProps) {
                 {log.id}. {log.type}
               </code>
             </div>
-            <div>
-              <pre>{log.value ? JSON.stringify(log.value, null, 2) : 'undefined'}</pre>
-            </div>
+            <div>{log.value ? props.renderValue(log.value, log.type) : <pre>undefined</pre>}</div>
           </div>
         ))}
       </div>
     </div>
   );
 }
+
+ActionsPlayground.defaultProps = {
+  renderValue: function JsonStringifiedValue(value: any) {
+    return <pre>{JSON.stringify(value, null, 2)}</pre>;
+  }
+};
+
+export { ActionsPlayground };
