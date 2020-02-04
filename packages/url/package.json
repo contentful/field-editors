@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-url",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "main": "dist/index.js",
   "module": "dist/field-editor-url.esm.js",
   "typings": "dist/index.d.ts",
@@ -21,7 +21,7 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
-    "@contentful/field-editor-shared": "^0.5.0",
+    "@contentful/field-editor-shared": "^0.6.0",
     "@contentful/forma-36-react-components": "^3.20.4",
     "@contentful/forma-36-tokens": "^0.4.5",
     "emotion": "^10.0.17",
