@@ -25,7 +25,7 @@
     "classnames": "^2.2.6",
     "prop-types": "^15.7.2",
     "lodash": "^4.17.15",
-    "@contentful/field-editor-shared": "^0.4.0",
+    "@contentful/field-editor-shared": "^0.6.0",
     "@contentful/forma-36-react-components": "^3.18.4",
     "@contentful/forma-36-tokens": "^0.4.5",
     "@contentful/rich-text-plain-text-renderer": "^14.0.0",
