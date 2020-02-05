@@ -2,7 +2,7 @@
 //export { RichTextEditor } from './RichTextEditor';
 export { default as RichTextEditor } from './RichTextEditor';
 
-// import { flow, curryRight } from 'lodash';
+// import { flow, curryRight } from 'lodash-es';
 // import connectToWidgetApi from 'app/widgets/WidgetApi/connectToWidgetApi';
 // import RichTextEditor from 'app/widgets/rich_text/RichTextEditor';
 // import withTracking from 'app/widgets/rich_text/withTracking';

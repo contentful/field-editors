@@ -1,4 +1,4 @@
-import { isMarkEnabled, isNodeTypeEnabled } from '..';
+import { isMarkEnabled, isNodeTypeEnabled } from '.';
 import { MARKS, BLOCKS } from '@contentful/rich-text-types';
 
 const fakeFieldInfo = (enabledNodeTypes, enabledMarks) => {

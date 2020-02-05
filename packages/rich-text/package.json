@@ -17,8 +17,8 @@
   "scripts": {
     "watch": "tsdx watch",
     "build": "tsdx build",
-    "test": "tsdx test --env=jsdom --watch",
-    "test:ci": "tsdx test --env=jsdom --ci",
+    "test": "jest --env=jsdom --watch --config jest.config.js",
+    "test:ci": "jest --env=jsdom --ci",
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
@@ -46,6 +46,8 @@
     "react": ">=16.8.0"
   },
   "devDependencies": {
-    "@contentful/rich-text-react-renderer": "^13.4.0"
+    "@contentful/rich-text-react-renderer": "^13.4.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2"
   }
 }

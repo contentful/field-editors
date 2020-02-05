@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import _ from 'lodash-es';
 import { isNodeTypeEnabled } from '../../validations';
 import { INLINES, BLOCKS } from '@contentful/rich-text-types';
 // TODO: xxx Get this another way!

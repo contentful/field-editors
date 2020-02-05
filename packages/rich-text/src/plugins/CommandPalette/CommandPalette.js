@@ -19,12 +19,12 @@ class CommandPalette extends React.PureComponent {
     // logger.logError('Unexpected rich text commands error.', { error, info });
   }
 
-  componentDidMount = async () => {
+  async UNSAFE_componentDidMount() {
     const { field } = this.props.richTextAPI.widgetAPI;
     this.setState({
       embedsEnabled: isEmbeddingEnabled(field)
     });
-  };
+  }
 
   render() {
     if (!hasCommandPaletteDecoration(this.props.editor) || !this.state.embedsEnabled) {

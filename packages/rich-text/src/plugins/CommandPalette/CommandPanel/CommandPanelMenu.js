@@ -12,7 +12,7 @@ import {
   Icon,
   IconButton
 } from '@contentful/forma-36-react-components';
-import _ from 'lodash';
+import _ from 'lodash-es';
 
 const styles = {
   commandPanel: css({
@@ -182,7 +182,7 @@ export class CommandPanel extends React.Component {
     };
   }
 
-  componentDidMount() {
+  UNSAFE_componentDidMount() {
     this.props.richTextAPI.logViewportAction('openRichTextCommandsPalette');
     document.addEventListener('keydown', this.handleKeyboard, true);
   }

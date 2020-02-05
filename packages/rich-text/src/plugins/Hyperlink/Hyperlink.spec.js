@@ -1,5 +1,5 @@
 import React from 'react';
-import _ from 'lodash';
+import _ from 'lodash-es';
 import { mount, shallow } from 'enzyme';
 
 import Hyperlink from './Hyperlink';

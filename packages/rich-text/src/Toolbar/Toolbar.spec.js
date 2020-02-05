@@ -1,8 +1,9 @@
 import React from 'react';
 import Enzyme from 'enzyme';
 import { Editor } from 'slate';
-import { VALIDATIONS, VALIDATABLE_NODE_TYPES } from '../../validations';
-import Toolbar from '..';
+import { VALIDATIONS, VALIDATABLE_NODE_TYPES } from '../validations';
+import { BLOCKS, INLINES } from '@contentful/rich-text-types';
+import Toolbar from '.';
 
 jest.mock('ng/data/CMA/EntityState', () => ({}), { virtual: true });
 jest.mock('directives/thumbnailHelpers', () => ({}), { virtual: true });

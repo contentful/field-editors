@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import isHotKey from 'is-hotkey';
-import { throttle, flatten } from 'lodash';
+import { throttle, flatten } from 'lodash-es';
 import { insertBlock } from '../../EmbeddedEntityBlock/Util';
 import { insertInline } from '../../EmbeddedEntryInline/Utils';
 import {
@@ -41,7 +41,7 @@ class CommandPalette extends React.PureComponent {
     width: 300
   };
 
-  componentDidMount = async () => {
+  async UNSAFE_componentDidMount() {
     this.isComponentMounted = true;
     this.createInitialCommands();
     this.updatePanelPosition();
@@ -49,7 +49,7 @@ class CommandPalette extends React.PureComponent {
       height: this.palette.getBoundingClientRect().height,
       width: this.palette.getBoundingClientRect().width
     };
-  };
+  }
 
   componentWillUnmount() {
     this.isComponentMounted = false;

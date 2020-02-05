@@ -1,6 +1,6 @@
 import React from 'react';
 import isHotkey from 'is-hotkey';
-import _ from 'lodash';
+import _ from 'lodash-es';
 import { INLINES } from '@contentful/rich-text-types';
 import ToolbarIcon from './ToolbarIcon';
 import Hyperlink from './Hyperlink';

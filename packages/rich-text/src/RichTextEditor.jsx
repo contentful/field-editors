@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Editor } from 'slate-react';
 import { Value, Editor as BasicEditor } from 'slate';
-import { noop, debounce } from 'lodash';
+import { noop, debounce } from 'lodash-es';
 import { List, is } from 'immutable';
 import cn from 'classnames';
 import deepEquals from 'fast-deep-equal';
