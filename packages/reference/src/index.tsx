@@ -1,1 +1,1 @@
-export { ReferenceEditor } from './ReferenceEditor';
+export { EntryReferenceEditor } from './EntryReferenceEditor';
