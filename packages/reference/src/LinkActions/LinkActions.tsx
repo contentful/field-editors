@@ -7,6 +7,8 @@ interface LinkActionsProps {
   entityType: EntityType;
   canCreateEntity: boolean;
   multiple: boolean;
+  onCreate: (contentType?: string) => void;
+  onLinkExisting: () => void;
 }
 
 export const labels = {
@@ -21,7 +23,6 @@ export const testIds = {
 };
 
 export function LinkActions(props: LinkActionsProps) {
-  console.log(props);
   return (
     <div className={styles.container}>
       {props.entityType === 'entry' && (
@@ -29,7 +30,7 @@ export function LinkActions(props: LinkActionsProps) {
           className={styles.createLink}
           testId={testIds.createAndLink}
           onClick={() => {
-            console.log('create new asset and link');
+            props.onCreate();
           }}
           linkType="primary"
           icon="Plus">
@@ -41,7 +42,7 @@ export function LinkActions(props: LinkActionsProps) {
           className={styles.createLink}
           testId={testIds.createAndLink}
           onClick={() => {
-            console.log('create new asset and link');
+            props.onCreate();
           }}
           linkType="primary"
           icon="Plus">
@@ -51,7 +52,7 @@ export function LinkActions(props: LinkActionsProps) {
       <TextLink
         testId={testIds.linkExisting}
         onClick={() => {
-          console.log('open click');
+          props.onLinkExisting();
         }}
         linkType="primary"
         icon="Link">

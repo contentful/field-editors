@@ -10,8 +10,13 @@ init<FieldExtensionSDK>(sdk => {
   const fieldSdk = sdk as FieldExtensionSDK;
   fieldSdk.window.startAutoResizer();
   render(
-    <div>
-      <EntryReferenceEditor viewType="link" field={fieldSdk.field} isInitiallyDisabled={true} />
+    <div style={{ minHeight: 300 }}>
+      <EntryReferenceEditor
+        viewType="link"
+        field={fieldSdk.field}
+        baseSdk={fieldSdk}
+        isInitiallyDisabled={true}
+      />
     </div>,
     document.getElementById('root')
   );
