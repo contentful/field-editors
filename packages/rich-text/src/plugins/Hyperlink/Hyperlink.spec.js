@@ -4,9 +4,12 @@ import { mount, shallow } from 'enzyme';
 
 import Hyperlink from './Hyperlink';
 import WidgetAPIContext from '../shared/WidgetApiContext';
-import ScheduledActionActions from 'app/ScheduledActions/ScheduledActionAction';
 import { getScheduledJobsTooltip } from './index';
-import ScheduledActionAction from 'app/ScheduledActions/ScheduledActionAction';
+
+const ScheduledActionActions = {
+  Publish: 'publish',
+  Unpublish: 'unpublish'
+};
 
 describe('Hyperlink', () => {
   let target;
@@ -52,7 +55,7 @@ describe('Hyperlink', () => {
     };
   });
 
-  it('should inject the tooltip for the referenced scheduled entity', done => {
+  it('should inject the tooltip for the referenced scheduled entity', () => {return new Promise(done => {
     const jobs = [
       {
         action: ScheduledActionActions.Publish,
@@ -93,9 +96,9 @@ describe('Hyperlink', () => {
       expect(scheduleInfo.prop('job')).toEqual(jobs[0]);
       done();
     }, 0);
-  });
+  })});
 
-  it('should not inject the tooltip for the referenced unscheduled entity', done => {
+  it('should not inject the tooltip for the referenced unscheduled entity', () => {return new Promise(done => {
     const jobs = [
       {
         action: ScheduledActionActions.Publish,
@@ -135,7 +138,7 @@ describe('Hyperlink', () => {
       expect(wrapper.exists('ScheduleTooltipContent')).toBe(false);
       done();
     }, 0);
-  });
+  })});
 });
 
 describe("Hyperlink's default getScheduledJobsTooltip", () => {
@@ -177,7 +180,7 @@ describe("Hyperlink's default getScheduledJobsTooltip", () => {
 
     const jobs = [
       {
-        action: ScheduledActionAction.Publish,
+        action: ScheduledActionActions.Publish,
         scheduledAt: new Date(Date.now() * 2).toISOString(),
         sys: {
           id: 'job1',
@@ -189,7 +192,7 @@ describe("Hyperlink's default getScheduledJobsTooltip", () => {
         }
       },
       {
-        action: ScheduledActionAction.Unpublish,
+        action: ScheduledActionActions.Unpublish,
         scheduledAt: new Date(Date.now() * 0.5).toISOString(),
         sys: {
           id: 'job2',
@@ -201,7 +204,7 @@ describe("Hyperlink's default getScheduledJobsTooltip", () => {
         }
       },
       {
-        action: ScheduledActionAction.Publish,
+        action: ScheduledActionActions.Publish,
         scheduledAt: new Date(Date.now() * 0.1).toISOString(),
         sys: {
           id: 'job3',
