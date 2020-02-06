@@ -26,33 +26,10 @@ const styles = {
 
 export default ToolbarIcon;
 
-export const getScheduledJobsTooltip = (entityType, node, widgetAPI) => {
-  if (
-    entityType !== 'Entry' ||
-    typeof _.get(node, 'data.get') !== 'function' ||
-    typeof _.get(widgetAPI, 'jobs.getPendingJobs') !== 'function'
-  ) {
-    return null;
-  }
-
-  const target = node.data.get('target');
-  const referencedEntityId = _.get(target, 'sys.id', undefined);
-  const jobs = widgetAPI.jobs
-    .getPendingJobs()
-    .filter(job => job.sys.entity.sys.id === referencedEntityId)
-    .sort((a, b) => new Date(a.scheduledAt) > new Date(b.scheduledAt));
-  return jobs.length ? (
-    <>
-      <hr className={styles.tooltipSeparator} />
-      <ScheduleTooltipContent job={jobs[0]} jobsCount={jobs.length} />
-    </>
-  ) : null;
-};
-
-export const HyperlinkPlugin = ({
-  richTextAPI: { widgetAPI, logViewportAction, logShortcutAction }
-}) => ({
+export const HyperlinkPlugin = ({ richTextAPI }) => ({
   renderNode: (props, _editor, next) => {
+    const { widgetAPI, logViewportAction, customRenderers } = richTextAPI;
+    const { renderEntityHyperlinkTooltip } = customRenderers;
     const { node, editor, key } = props;
     if (isHyperlink(node.type)) {
       return (
@@ -66,14 +43,15 @@ export const HyperlinkPlugin = ({
               editLink(editor, widgetAPI.dialogs.createHyperlink, logViewportAction);
             }
           }}
-          getTooltipData={entityType => getScheduledJobsTooltip(entityType, node, widgetAPI)}
           onEntityFetchComplete={() => logViewportAction('linkRendered', { key })}
+          renderEntityHyperlinkTooltip={renderEntityHyperlinkTooltip}
         />
       );
     }
     return next();
   },
   onKeyDown: (event, editor, next) => {
+    const { widgetAPI, logShortcutAction } = richTextAPI;
     const hotkey = ['mod+k'];
 
     if (isHotkey(hotkey, event) && hasOnlyHyperlinkInlines(editor.value)) {

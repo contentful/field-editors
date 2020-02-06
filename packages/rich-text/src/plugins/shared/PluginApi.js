@@ -20,15 +20,17 @@ const createActionLogger = (onAction, origin) => (name, data) => {
  *
  * @param {object} widgetAPI
  * @param {function } onAction
+ * @param {object?} customRenderers
  * @returns {{ widgetAPI: {object}, logViewportAction: {function}, createActionLogger: {function}, createActionLogger: {function} }}
  */
-export const createRichTextAPI = ({ widgetAPI, onAction }) => {
+export const createRichTextAPI = ({ widgetAPI, onAction, customRenderers = {} }) => {
   return {
     widgetAPI,
     logViewportAction: createActionLogger(onAction, actionOrigin.VIEWPORT),
     logShortcutAction: createActionLogger(onAction, actionOrigin.SHORTCUT),
     logToolbarAction: createActionLogger(onAction, actionOrigin.TOOLBAR),
-    logCommandPaletteAction: createActionLogger(onAction, actionOrigin.COMMAND_PALETTE)
+    logCommandPaletteAction: createActionLogger(onAction, actionOrigin.COMMAND_PALETTE),
+    customRenderers
   };
 };
 
@@ -41,7 +43,8 @@ export const EDITOR_PLUGIN_PROP_TYPES = {
     widgetAPI: PropTypes.object.isRequired,
     logViewportAction: PropTypes.func.isRequired,
     logShortcutAction: PropTypes.func.isRequired,
-    logToolbarAction: PropTypes.func.isRequired
+    logToolbarAction: PropTypes.func.isRequired,
+    customRenderers: PropTypes.object
   })
 };
 

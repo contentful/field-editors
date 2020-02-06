@@ -59,7 +59,9 @@ export class ConnectedRichTextEditor extends React.Component {
     onAction: PropTypes.func,
     isToolbarHidden: PropTypes.bool,
     actionsDisabled: PropTypes.bool,
-    scope: PropTypes.object
+    customRenderers: PropTypes.shape({
+      renderEntityHyperlinkTooltip: PropTypes.func
+    })
   };
 
   static defaultProps = {
@@ -68,7 +70,8 @@ export class ConnectedRichTextEditor extends React.Component {
     onAction: noop,
     isDisabled: false,
     isToolbarHidden: false,
-    actionsDisabled: false
+    actionsDisabled: false,
+    customRenderers: {}
   };
 
   state = {
@@ -82,12 +85,13 @@ export class ConnectedRichTextEditor extends React.Component {
 
   editor = React.createRef();
 
-  slatePlugins = buildPlugins(
-    createRichTextAPI({
-      widgetAPI: this.props.widgetAPI,
-      onAction: this.props.onAction
-    })
-  );
+  richTextAPI = createRichTextAPI({
+    widgetAPI: this.props.widgetAPI,
+    onAction: this.props.onAction,
+    customRenderers: this.props.customRenderers
+  });
+
+  slatePlugins = buildPlugins(this.richTextAPI);
 
   onChange = editor => {
     const { value, operations } = editor;
@@ -153,10 +157,7 @@ export class ConnectedRichTextEditor extends React.Component {
               onChange={this.onChange}
               isDisabled={this.props.isDisabled}
               permissions={this.props.widgetAPI.permissions}
-              richTextAPI={createRichTextAPI({
-                widgetAPI: this.props.widgetAPI,
-                onAction: this.props.onAction
-              })}
+              richTextAPI={this.richTextAPI}
             />
           </StickyToolbarWrapper>
         )}
@@ -199,11 +200,12 @@ function isRelevantOperation(op) {
 }
 
 export default function RichTextEditor(props) {
+  const { widgetAPI, isInitiallyDisabled,  ...otherProps } = props;
   return (
     <FieldConnector
       throttle={0}
-      field={props.widgetAPI.field}
-      isInitiallyDisabled={props.isInitiallyDisabled}
+      field={widgetAPI.field}
+      isInitiallyDisabled={isInitiallyDisabled}
       isEmptyValue={value => {
         return !value || deepEquals(value, EMPTY_DOCUMENT);
       }}
@@ -213,10 +215,11 @@ export default function RichTextEditor(props) {
       {({ lastRemoteValue, disabled, setValue, externalReset }) => {
         return (
           <ConnectedRichTextEditor
+            {...otherProps}
             // on external change reset component completely and init with initial value again
             key={`rich-text-editor-${externalReset}`}
             value={lastRemoteValue}
-            widgetAPI={props.widgetAPI}
+            widgetAPI={widgetAPI}
             isDisabled={disabled}
             onChange={value => {
               setValue(value);
