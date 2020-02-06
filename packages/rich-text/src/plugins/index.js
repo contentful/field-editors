@@ -43,8 +43,7 @@ export function buildPlugins(richTextAPI) {
     UnderlinedPlugin({ richTextAPI }),
     CodePlugin({ richTextAPI }),
     QuotePlugin({ richTextAPI }),
-    // TODO:xxx Enable!
-    // HyperlinkPlugin({ richTextAPI }),
+    HyperlinkPlugin({ richTextAPI }),
     Heading1Plugin({ richTextAPI }),
     Heading2Plugin({ richTextAPI }),
     Heading3Plugin({ richTextAPI }),

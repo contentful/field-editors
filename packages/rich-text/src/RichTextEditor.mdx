@@ -29,6 +29,12 @@ import { css } from 'emotion';
         canCreateEntryOfContentType: {
           'exampleCT': true
         }
+      },
+      dialogs: {
+        createHyperlink: async () => {
+          alert('sdk.dialogs.createHyperlink()');
+          return Promise.reject(); // Simulate cancellation.
+	    }
       }
     };
     const renderRT = (value, type) => {

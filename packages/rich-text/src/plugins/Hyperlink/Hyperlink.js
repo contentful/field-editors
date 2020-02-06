@@ -106,7 +106,8 @@ export default class Hyperlink extends React.Component {
 
   renderEntityLink(target) {
     // TODO:xxx
-    return <div>HYPERLINK</div>;
+    const tooltip = `${target.sys.linkType} ${target.sys.id}`;
+    return this.renderLink({ tooltip });
     // const { onEntityFetchComplete } = this.props;
     // return (
     //   <WidgetAPIContext.Consumer>

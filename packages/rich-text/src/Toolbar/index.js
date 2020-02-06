@@ -19,8 +19,8 @@ import {
   HeadingDropdown
 } from '../plugins/Heading';
 
+import Hyperlink from '../plugins/Hyperlink';
 // TODO:xxx Use this instead of below mocks!
-// import Hyperlink from '../plugins/Hyperlink';
 // import EmbeddedEntityBlock from '../plugins/EmbeddedEntityBlock';
 // import EmbeddedEntryInline from '../plugins/EmbeddedEntryInline';
 // import EntryEmbedDropdown from '../plugins/EntryEmbedDropdown';
@@ -33,7 +33,6 @@ import { BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types';
 import { isNodeTypeEnabled, isMarkEnabled } from '../validations';
 
 // TODO:xxx Use the real imports above instead!
-const Hyperlink = () => null;
 const EmbeddedEntityBlock = () => null;
 const EmbeddedEntryInline = () => null;
 const EntryEmbedDropdown = () => null;
