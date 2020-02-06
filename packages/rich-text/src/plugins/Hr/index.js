@@ -3,6 +3,34 @@ import { BLOCKS } from '@contentful/rich-text-types';
 import ToolbarIcon from '../shared/ToolbarIcon';
 import blockSelectDecorator from '../shared/BlockSelectDecorator';
 import { haveTextInSomeBlocks } from '../shared/UtilHave';
+import { css, cx } from 'emotion';
+
+const styles = {
+  hr: css({
+    height: '1rem',
+    background: 'transparent',
+    position: 'relative',
+    margin: '0 0 1.5rem',
+    '&:hover': {
+      cursor: 'pointer'
+    },
+    '&:after': {
+      content: '',
+      position: 'absolute',
+      width: '100%',
+      height: '1px',
+      background: '#d3dce0',
+      top: '50%'
+    }
+  }),
+  hrSelected: css({
+    '&:after': {
+      background: '#3c80cf',
+      '-webkit-box-shadow': '0px 0px 5px #3c80cf',
+      'box-shadow': '0px 0px 5px #3c80cf'
+    }
+  })
+};
 
 export const HrPlugin = () => {
   return {
@@ -10,7 +38,7 @@ export const HrPlugin = () => {
       if (props.node.type === BLOCKS.HR) {
         return (
           <hr
-            className={props.isSelected ? 'cf-slate-hr cf-slate-hr--selected' : 'cf-slate-hr'}
+            className={cx(styles.hr, props.isSelected && styles.hrSelected)}
             {...props.attributes}
           />
         );

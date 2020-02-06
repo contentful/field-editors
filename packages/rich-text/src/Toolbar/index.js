@@ -20,6 +20,8 @@ import {
 } from '../plugins/Heading';
 
 import Hyperlink from '../plugins/Hyperlink';
+import { css } from 'emotion';
+
 // TODO:xxx Use this instead of below mocks!
 // import EmbeddedEntityBlock from '../plugins/EmbeddedEntityBlock';
 // import EmbeddedEntryInline from '../plugins/EmbeddedEntryInline';
@@ -31,6 +33,33 @@ import Hr from '../plugins/Hr';
 import { BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types';
 
 import { isNodeTypeEnabled, isMarkEnabled } from '../validations';
+
+const styles = {
+  embedActionsWrapper: css({
+    display: [
+      '-webkit-box',
+      '-ms-flexbox',
+      'flex'
+    ],
+    '-webkit-align-self': 'flex-start',
+    'align-self': 'flex-start',
+    '-ms-flex-item-align': 'start',
+    'margin-left': 'auto'
+  }),
+  formattingOptionsWrapper: css({
+    'display': [
+      '-webkit-box',
+      '-ms-flexbox',
+      'flex'
+    ],
+    '-ms-flex-align': 'center',
+    '-webkit-box-align': 'center',
+    'align-items': 'center',
+    '-ms-flex-wrap': 'wrap',
+    'flex-wrap': 'wrap',
+    'margin-right': '20px'
+  })
+}
 
 // TODO:xxx Use the real imports above instead!
 const EmbeddedEntityBlock = () => null;
@@ -83,7 +112,7 @@ export default class Toolbar extends React.Component {
     ].filter(Boolean).length;
 
     return (
-      <div className="rich-text__toolbar__embed-actions-wrapper">
+      <div className={styles.embedActionsWrapper}>
         {numEnabledEmbeds > 1 ? (
           <EntryEmbedDropdown
             onToggle={this.toggleEmbedDropdown}
@@ -138,8 +167,8 @@ export default class Toolbar extends React.Component {
     const { isAnyHyperlinkEnabled, isAnyListEnabled, isAnyMarkEnabled } = this.state;
     const currentBlockType = props.editor.value.blocks.getIn([0, 'type']);
     return (
-      <EditorToolbar className="rich-text__toolbar" data-test-id="toolbar">
-        <div className="rich-text__toolbar__formatting-options-wrapper">
+      <EditorToolbar data-test-id="toolbar">
+        <div className={styles.formattingOptionsWrapper}>
           <HeadingDropdown
             onToggle={this.toggleHeadingMenu}
             isToggleActive={true}
@@ -149,7 +178,7 @@ export default class Toolbar extends React.Component {
             disabled={props.disabled}>
             <Paragraph {...props} />
             {isNodeTypeEnabled(field, BLOCKS.HEADING_1) && (
-              <Heading1 {...props} className="toolbar-h1-toggle" />
+              <Heading1 {...props} />
             )}
             {isNodeTypeEnabled(field, BLOCKS.HEADING_2) && <Heading2 {...props} />}
             {isNodeTypeEnabled(field, BLOCKS.HEADING_3) && <Heading3 {...props} />}

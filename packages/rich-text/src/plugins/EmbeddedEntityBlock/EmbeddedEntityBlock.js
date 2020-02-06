@@ -2,6 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // TODO:xxx Define custom renderer via props?
 //import FetchedEntityCard from 'app/widgets/shared/FetchedEntityCard';
+import { css } from 'emotion';
+
+const styles = {
+  root: css({
+    'margin-bottom': '1.25rem'
+  })
+};
 
 class LinkedEntityBlock extends React.Component {
   static propTypes = {
@@ -55,7 +62,7 @@ class LinkedEntityBlock extends React.Component {
         {/*  onEntityFetchComplete={onEntityFetchComplete}*/}
         {/*  onEdit={this.handleEditClick}*/}
         {/*  onRemove={this.handleRemoveClick}*/}
-        {/*  className="rich-text__entity-card"*/}
+        {/*  className={styles.root}*/}
         {/*/>*/}
       </div>
     );

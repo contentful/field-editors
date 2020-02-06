@@ -16,9 +16,58 @@ import { buildPlugins } from './plugins';
 import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/StickyToolbarWrapper';
 import { FieldConnector } from '@contentful/field-editor-shared';
+import { css, cx } from 'emotion';
 
 // TODO:xxx Remove
 import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
+
+const styles = {
+  root: css({
+    position: 'relative'
+  }),
+  enabled: css({
+    background: '#fff',
+    a: {
+      span: {
+        cursor: 'pointer',
+        '&:hover': {
+          cursor: 'pointer'
+        }
+      }
+    }
+  }),
+  hiddenToolbar: css({
+    border: '1px solid #c3cfd5'
+  }),
+  editor: css({
+    'border-radius': '0 0 3px 3px',
+    border: '1px solid #c3cfd5',
+    'border-top': 0,
+    background: '#f7f9fa',
+    a: {
+      span: {
+        cursor: 'not-allowed',
+        '&:hover': {
+          cursor: 'not-allowed'
+        }
+      }
+    },
+    button: {
+      border: '1px solid #c3cfd5',
+      background: '#e5ebed',
+      padding: '0 8px',
+      '&:hover': {
+        'border-color': '#b4c3ca'
+      },
+      '.active': {
+        'border-color': '#b4c3ca',
+        background: '#d3dce0',
+        '-webkit-box-shadow': 'inset 0 1px 2px rgba(0,0,0,0.12)',
+        'box-shadow': 'inset 0 1px 2px rgba(0,0,0,0.12)'
+      }
+    }
+  })
+};
 
 const createSlateValue = contentfulDocument => {
   const document = toSlatejsDocument({
@@ -143,10 +192,11 @@ export class ConnectedRichTextEditor extends React.Component {
   };
 
   render() {
-    const classNames = cn('rich-text', {
-      'rich-text--enabled': !this.props.isDisabled,
-      'rich-text--hidden-toolbar': this.props.isToolbarHidden
-    });
+    const classNames = cx(
+      styles.root,
+      !this.props.isDisabled && styles.enabled,
+      this.props.isToolbarHidden && styles.toolbarHidden
+    );
 
     return (
       <div className={classNames}>
@@ -170,7 +220,7 @@ export class ConnectedRichTextEditor extends React.Component {
           onKeyDown={this.handleKeyDown}
           plugins={this.slatePlugins}
           readOnly={this.props.isDisabled}
-          className="rich-text__editor"
+          className={styles.editor}
           actionsDisabled={this.props.actionsDisabled}
           options={{
             normalize: false // No initial normalizaiton as we pass a normalized document.

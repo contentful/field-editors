@@ -1,12 +1,33 @@
 import isHotkey from 'is-hotkey';
 import markDecorator from './MarkDecorator';
 import { haveMarks } from './UtilHave';
+import { css, cx } from 'emotion';
+
+const styles = {
+  bold: css({
+    color: 'inherit',
+    'font-weight': 700
+  }),
+  headingBold: css({
+    'font-weight': 900
+  })
+};
+
+const isHeading = tagName => /^h[1-6]$/.test(tagName);
+
+const getClassName = (type, tagName) =>
+  type === 'bold'
+    ? cx(styles.bold, isHeading(tagName) && styles.headingBold)
+    : '';
 
 export default function({ type, tagName, hotkey, richTextAPI }) {
   return {
     renderMark: (props, _editor, next) => {
       if (props.mark.type === type) {
-        return markDecorator(tagName, { className: `cf-slate-mark-${type}` })(props);
+        return markDecorator(
+          tagName,
+          { className: getClassName(type, tagName) }
+        )(props);
       }
       return next();
     },

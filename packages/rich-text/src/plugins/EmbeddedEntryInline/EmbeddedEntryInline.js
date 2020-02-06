@@ -9,6 +9,20 @@ import {
 import { default as FetchEntity, RequestStatus } from 'app/widgets/shared/FetchEntity';
 import WidgetAPIContext from '../shared/WidgetApiContext';
 import { INLINES } from '@contentful/rich-text-types';
+import { css } from 'emotion';
+
+const styles = {
+  root: css({
+    margin: '0px 5px',
+    'font-size': 'inherit',
+    span: {
+      '-webkit-user-select': 'none',
+      '-moz-user-select': 'none',
+      '-ms-user-select': 'none',
+      'user-select': 'none'
+    }
+  }),
+}
 
 class EmbeddedEntryInline extends React.Component {
   static propTypes = {
@@ -47,7 +61,7 @@ class EmbeddedEntryInline extends React.Component {
         selected={this.props.isSelected}
         title={`${contentTypeName}: ${entityTitle}`}
         status={entityStatus}
-        className="rich-text__inline-reference-card"
+        className={styles.root}
         isLoading={isLoading}
         dropdownListElements={
           !this.props.editor.props.actionsDisabled ? (
