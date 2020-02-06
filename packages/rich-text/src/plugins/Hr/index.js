@@ -4,13 +4,14 @@ import ToolbarIcon from '../shared/ToolbarIcon';
 import blockSelectDecorator from '../shared/BlockSelectDecorator';
 import { haveTextInSomeBlocks } from '../shared/UtilHave';
 import { css, cx } from 'emotion';
+import tokens from '@contentful/forma-36-tokens';
 
 const styles = {
   hr: css({
-    height: '1rem',
+    height: tokens.spacingM,
     background: 'transparent',
     position: 'relative',
-    margin: '0 0 1.5rem',
+    margin: `0 0 ${tokens.spacingL}`,
     '&:hover': {
       cursor: 'pointer'
     },
@@ -19,15 +20,15 @@ const styles = {
       position: 'absolute',
       width: '100%',
       height: '1px',
-      background: '#d3dce0',
+      background: tokens.colorElementMid,
       top: '50%'
     }
   }),
   hrSelected: css({
     '&:after': {
-      background: '#3c80cf',
-      '-webkit-box-shadow': '0px 0px 5px #3c80cf',
-      'box-shadow': '0px 0px 5px #3c80cf'
+      background: tokens.colorPrimary,
+      '-webkit-box-shadow': `0px 0px 5px ${tokens.colorPrimary}`,
+      'box-shadow': `0px 0px 5px ${tokens.colorPrimary}`
     }
   })
 };

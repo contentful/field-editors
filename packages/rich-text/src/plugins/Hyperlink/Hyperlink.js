@@ -39,10 +39,10 @@ const styles = {
   hyperlink: css({
     display: 'inline !important',
     '&:hover': {
-      fill: '#2a3039'
+      fill: tokens.textColorDark
     },
     '&:focus': {
-      fill: '#2a3039'
+      fill: tokens.textColorDark
     }
   }),
   hyperlinkIEFallback: css({
@@ -58,10 +58,10 @@ const styles = {
     '-webkit-transition': 'fill 100ms ease-in-out',
     transition: 'fill 100ms ease-in-out',
     '&:hover': {
-      fill: '#2a3039'
+      fill: tokens.textColorDark
     },
     '&:focus': {
-      fill: '#2a3039'
+      fill: tokens.textColorDark
     }
   })
 };
@@ -79,7 +79,11 @@ export default class Hyperlink extends React.Component {
   };
 
   static defaultProps = {
-    renderEntityHyperlinkTooltip: (target) => <div>{target.sys.linkType} <code>{target.sys.id}</code></div>
+    renderEntityHyperlinkTooltip: target => (
+      <div>
+        {target.sys.linkType} <code>{target.sys.id}</code>
+      </div>
+    )
   };
 
   render() {
@@ -117,9 +121,7 @@ export default class Hyperlink extends React.Component {
             {children}
           </TextLink>
         ) : (
-          <span className={cx(styles.hyperlink, styles.hyperlinkIEFallback)}>
-           {children}
-          </span>
+          <span className={cx(styles.hyperlink, styles.hyperlinkIEFallback)}>{children}</span>
         )}
       </Tooltip>
     );

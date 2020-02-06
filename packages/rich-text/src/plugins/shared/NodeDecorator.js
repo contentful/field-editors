@@ -1,19 +1,20 @@
 import * as React from 'react';
 import { NodePropTypes } from './PropTypes';
 import { css, cx } from 'emotion';
+import tokens from '@contentful/forma-36-tokens';
 
 const styles = {
   paragraph: css({
-    'line-height': 1.5,
+    'line-height': tokens.lineHeightDefault,
     'margin-bottom': '1.5em'
   }),
   'mark-bold': css({
     color: 'inherit',
-    'font-weight': 700,
+    'font-weight': tokens.fontWeightDemiBold
   }),
   blockquote: css({
     margin: '0 0 1.3125rem',
-    'border-left': '6px solid #e5ebed',
+    'border-left': `6px solid ${tokens.colorElementLight}`,
     'padding-left': '0.875rem',
     'font-style': 'normal',
     '& a': {
@@ -21,9 +22,9 @@ const styles = {
     }
   }),
   code: css({
-    background: '#e5ebed',
+    background: tokens.colorElementLight,
     padding: '0px',
-    color: '#536171',
+    color: tokens.colorTextMid,
     'border-radius': '2px'
   }),
   'ordered-list': {
@@ -40,7 +41,7 @@ const styles = {
     },
     paragraph: {
       margin: 0,
-      'line-height': 1.5
+      'line-height': tokens.lineHeightDefault
     }
   },
   'unordered-list': {
@@ -52,9 +53,9 @@ const styles = {
         'list-style-type': 'square'
       }
     },
-    'paragraph': {
+    paragraph: {
       margin: 0,
-      'line-height': 1.5
+      'line-height': tokens.lineHeightDefault
     }
   },
   'list-item': css({
@@ -68,7 +69,7 @@ const styles = {
     }
   }),
   heading: css({
-    'font-weight': 600,
+    'font-weight': tokens.fontWeightMedium,
     'line-height': 1.3,
     margin: '0 0 0.75rem 0'
   }),
@@ -90,7 +91,7 @@ const styles = {
   'heading-h6': css({
     'font-size': '1rem'
   })
-}
+};
 
 export default function(Tag, tagProps = {}) {
   const CommonNode = ({ attributes, children, node }) => {

@@ -17,16 +17,19 @@ import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/StickyToolbarWrapper';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import { css, cx } from 'emotion';
+import tokens from '@contentful/forma-36-tokens';
 
 // TODO:xxx Remove
 import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
+
+const STYLE_EDITOR_BORDER = '1px solid #c3cfd5';
 
 const styles = {
   root: css({
     position: 'relative'
   }),
   enabled: css({
-    background: '#fff',
+    background: tokens.colorWhite,
     a: {
       span: {
         cursor: 'pointer',
@@ -37,13 +40,13 @@ const styles = {
     }
   }),
   hiddenToolbar: css({
-    border: '1px solid #c3cfd5'
+    border: STYLE_EDITOR_BORDER
   }),
   editor: css({
     'border-radius': '0 0 3px 3px',
-    border: '1px solid #c3cfd5',
+    border: STYLE_EDITOR_BORDER,
     'border-top': 0,
-    background: '#f7f9fa',
+    background: tokens.colorElementLightest,
     a: {
       span: {
         cursor: 'not-allowed',
@@ -53,15 +56,15 @@ const styles = {
       }
     },
     button: {
-      border: '1px solid #c3cfd5',
-      background: '#e5ebed',
+      border: STYLE_EDITOR_BORDER,
+      background: tokens.colorElementLight,
       padding: '0 8px',
       '&:hover': {
-        'border-color': '#b4c3ca'
+        'border-color': tokens.colorElementDarkest
       },
       '.active': {
-        'border-color': '#b4c3ca',
-        background: '#d3dce0',
+        'border-color': tokens.colorElementDarkest,
+        background: tokens.colorElementMid,
         '-webkit-box-shadow': 'inset 0 1px 2px rgba(0,0,0,0.12)',
         'box-shadow': 'inset 0 1px 2px rgba(0,0,0,0.12)'
       }
@@ -250,7 +253,7 @@ function isRelevantOperation(op) {
 }
 
 export default function RichTextEditor(props) {
-  const { widgetAPI, isInitiallyDisabled,  ...otherProps } = props;
+  const { widgetAPI, isInitiallyDisabled, ...otherProps } = props;
   return (
     <FieldConnector
       throttle={0}
