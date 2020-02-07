@@ -12,42 +12,42 @@ const styles = {
       }
     }
   }),
-  'heading-1': css({
+  h1: css({
     button: {
       span: {
         'font-size': '1.625rem'
       }
     }
   }),
-  'heading-2': css({
+  h2: css({
     button: {
       span: {
         'font-size': '1.4375rem'
       }
     }
   }),
-  'heading-3': css({
+  h3: css({
     button: {
       span: {
         'font-size': '1.25rem'
       }
     }
   }),
-  'heading-4': css({
+  h4: css({
     button: {
       span: {
         'font-size': '1.125rem'
       }
     }
   }),
-  'heading-5': css({
+  h5: css({
     button: {
       span: {
         'font-size': '1rem'
       }
     }
   }),
-  'heading-6': css({
+  h6: css({
     button: {
       span: {
         'font-size': '0.875rem'
@@ -55,6 +55,9 @@ const styles = {
     }
   })
 };
+
+// Necessary because we can't use kebab-case for style identifiers.
+const getStyleForType = type => type.replace('heading-', 'h')
 
 export default class ToolbarDropdownListItem extends Component {
   static propTypes = {
@@ -82,7 +85,7 @@ export default class ToolbarDropdownListItem extends Component {
         label={title}
         isActive={isActive}
         data-test-id={`toolbar-toggle-${type}`}
-        className={cx(styles.root, styles[type])}
+        className={cx(styles.root, styles[getStyleForType(type)])}
         onMouseDown={this.handleMouseDown}>
         {children}
       </DropdownListItem>

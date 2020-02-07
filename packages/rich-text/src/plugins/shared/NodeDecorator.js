@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { NodePropTypes } from './PropTypes';
 import { css, cx } from 'emotion';
+import { camelCase } from 'lodash-es';
 import tokens from '@contentful/forma-36-tokens';
 
 const styles = {
@@ -8,7 +9,7 @@ const styles = {
     'line-height': tokens.lineHeightDefault,
     'margin-bottom': '1.5em'
   }),
-  'mark-bold': css({
+  bold: css({
     color: 'inherit',
     'font-weight': tokens.fontWeightDemiBold
   }),
@@ -27,14 +28,14 @@ const styles = {
     color: tokens.colorTextMid,
     'border-radius': '2px'
   }),
-  'ordered-list': {
+  orderedList: {
     margin: '0 0 1.25rem 1.25rem',
     'list-style-type': 'decimal',
-    'ordered-list': {
+    orderedList: {
       'list-style-type': 'upper-alpha',
-      'unordered-list': {
+      unorderedList: {
         'list-style-type': 'lower-roman',
-        'unordered-list': {
+        unorderedList: {
           'list-style-type': 'lower-alpha'
         }
       }
@@ -44,12 +45,12 @@ const styles = {
       'line-height': tokens.lineHeightDefault
     }
   },
-  'unordered-list': {
+  unorderedList: {
     margin: '0 0 1.25rem 1.25rem',
     'list-style-type': 'disc',
-    'unordered-list': {
+    unorderedList: {
       'list-style-type': 'circle',
-      'unordered-list': {
+      unorderedList: {
         'list-style-type': 'square'
       }
     },
@@ -58,13 +59,13 @@ const styles = {
       'line-height': tokens.lineHeightDefault
     }
   },
-  'list-item': css({
+  listItem: css({
     'list-style': 'inherit',
     margin: 0,
-    'ordered-list': {
+    orderedList: {
       margin: '0 0 0 1.5rem'
     },
-    'unordered-list': {
+    unorderedList: {
       margin: '0 0 0 1.5rem'
     }
   }),
@@ -73,22 +74,22 @@ const styles = {
     'line-height': 1.3,
     margin: '0 0 0.75rem 0'
   }),
-  'heading-h1': css({
+  h1Heading: css({
     'font-size': '1.875rem'
   }),
-  'heading-h2': css({
+  h2Heading: css({
     'font-size': '1.5625rem'
   }),
-  'heading-h3': css({
+  h3Heading: css({
     'font-size': '1.375rem'
   }),
-  'heading-h4': css({
+  h4Heading: css({
     'font-size': '1.25rem'
   }),
-  'heading-h5': css({
+  h5Heading: css({
     'font-size': '1.125rem'
   }),
-  'heading-h6': css({
+  h6Heading: css({
     'font-size': '1rem'
   })
 };
@@ -98,8 +99,8 @@ export default function(Tag, tagProps = {}) {
     return (
       <Tag
         className={cx(
-          styles[node.type],
-          node.type === 'heading' && `heading-${styles[node.tagName]}`
+          styles[camelCase(node.type)],
+          node.type === 'heading' && styles[node.tagName] + 'Heading'
         )}
         data-test-id={node.type}
         {...tagProps}
