@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { mapValues } from 'lodash-es';
 
 /**
  * All known origins for Rich Text actions
@@ -24,14 +25,15 @@ const createActionLogger = (onAction, origin) => (name, data) => {
  * @returns {{ widgetAPI: {object}, logViewportAction: {function}, createActionLogger: {function}, createActionLogger: {function} }}
  */
 export const createRichTextAPI = ({ widgetAPI, onAction, customRenderers = {} }) => {
-  return {
+  const richTextAPI = {
     widgetAPI,
     logViewportAction: createActionLogger(onAction, actionOrigin.VIEWPORT),
     logShortcutAction: createActionLogger(onAction, actionOrigin.SHORTCUT),
     logToolbarAction: createActionLogger(onAction, actionOrigin.TOOLBAR),
     logCommandPaletteAction: createActionLogger(onAction, actionOrigin.COMMAND_PALETTE),
-    customRenderers
+    customRenderers: mapValues(customRenderers, fn => (...args) => fn(richTextAPI, ...args))
   };
+  return richTextAPI;
 };
 
 /**

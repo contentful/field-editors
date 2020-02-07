@@ -1,28 +1,11 @@
 import React from 'react';
 import isHotkey from 'is-hotkey';
-import _ from 'lodash-es';
 import { INLINES } from '@contentful/rich-text-types';
 import ToolbarIcon from './ToolbarIcon';
 import Hyperlink from './Hyperlink';
 import { editLink, mayEditLink, toggleLink, hasOnlyHyperlinkInlines } from './Util';
 
-import { css } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
-
-// TODO:xxx Inject from web-app.
-//import { ScheduleTooltipContent } from 'app/ScheduledActions/EntrySidebarWidget/ScheduledActionsTimeline/ScheduleTooltip';
-function ScheduleTooltipContent() {
-  return <div>TODO</div>;
-}
-
 const { HYPERLINK, ENTRY_HYPERLINK, ASSET_HYPERLINK } = INLINES;
-
-const styles = {
-  tooltipSeparator: css({
-    background: tokens.colorTextMid,
-    margin: tokens.spacingXs
-  })
-};
 
 export default ToolbarIcon;
 
@@ -30,6 +13,7 @@ export const HyperlinkPlugin = ({ richTextAPI }) => ({
   renderNode: (props, _editor, next) => {
     const { widgetAPI, logViewportAction, customRenderers } = richTextAPI;
     const { renderEntityHyperlinkTooltip } = customRenderers;
+    console.log('renderEntityHyperlinkTooltip', renderEntityHyperlinkTooltip);
     const { node, editor, key } = props;
     if (isHyperlink(node.type)) {
       return (
@@ -43,7 +27,6 @@ export const HyperlinkPlugin = ({ richTextAPI }) => ({
               editLink(editor, widgetAPI.dialogs.createHyperlink, logViewportAction);
             }
           }}
-          onEntityFetchComplete={() => logViewportAction('linkRendered', { key })}
           renderEntityHyperlinkTooltip={renderEntityHyperlinkTooltip}
         />
       );

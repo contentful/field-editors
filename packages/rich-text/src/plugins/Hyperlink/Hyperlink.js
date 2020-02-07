@@ -1,10 +1,10 @@
 import React from 'react';
 import { Tooltip, TextLink } from '@contentful/forma-36-react-components';
 import PropTypes from 'prop-types';
+import { cx } from 'emotion';
+import styles from './styles';
 import { INLINES } from '@contentful/rich-text-types';
 import { SUPPORTS_NATIVE_SLATE_HYPERLINKS } from '../../helpers/browserSupport';
-import { css, cx } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
 
 const { HYPERLINK, ENTRY_HYPERLINK, ASSET_HYPERLINK } = INLINES;
 
@@ -12,58 +12,6 @@ const ICON_MAP = {
   [HYPERLINK]: 'ExternalLink',
   [ENTRY_HYPERLINK]: 'Entry',
   [ASSET_HYPERLINK]: 'Asset'
-};
-
-const styles = {
-  tooltipContentContentType: css({
-    color: tokens.colorTextLightest,
-    marginRight: tokens.spacingXs,
-    '&:after': {
-      content: ':'
-    }
-  }),
-  tooltipContentTitle: css({
-    marginRight: tokens.spacingXs
-  }),
-  tooltipContainer: css({
-    display: 'inline',
-    position: 'relative'
-  }),
-  hyperlinkWrapper: css({
-    display: 'inline',
-    position: 'static',
-    a: {
-      'font-size': 'inherit'
-    }
-  }),
-  hyperlink: css({
-    display: 'inline !important',
-    '&:hover': {
-      fill: tokens.textColorDark
-    },
-    '&:focus': {
-      fill: tokens.textColorDark
-    }
-  }),
-  hyperlinkIEFallback: css({
-    color: '#1683d0',
-    'text-decoration': 'underline'
-  }),
-  // TODO: use these styles once we have the icon
-  hyperlinkIcon: css({
-    position: 'relative',
-    top: '4px',
-    height: '14px',
-    margin: '0 -2px 0 -1px',
-    '-webkit-transition': 'fill 100ms ease-in-out',
-    transition: 'fill 100ms ease-in-out',
-    '&:hover': {
-      fill: tokens.textColorDark
-    },
-    '&:focus': {
-      fill: tokens.textColorDark
-    }
-  })
 };
 
 export default class Hyperlink extends React.Component {
@@ -74,7 +22,6 @@ export default class Hyperlink extends React.Component {
     editor: PropTypes.object,
     createHyperlinkDialog: PropTypes.func,
     onClick: PropTypes.func,
-    onEntityFetchComplete: PropTypes.func,
     renderEntityHyperlinkTooltip: PropTypes.func
   };
 
@@ -126,25 +73,6 @@ export default class Hyperlink extends React.Component {
       </Tooltip>
     );
   }
-
-  renderEntityTooltipContent = (contentTypeName, title, entityStatus) => {
-    const { getTooltipData } = this.props;
-    let additionalContent = null;
-    if (getTooltipData) {
-      additionalContent = getTooltipData('Entry');
-    }
-    return (
-      <>
-        <div>
-          <span className={styles.tooltipContentContentType}>{contentTypeName}</span>
-          <span className={styles.tooltipContentTitle}>{title}</span>
-          // TODO:xxx
-          {/*<EntityStatusTag statusLabel={entityStatus} />*/}
-        </div>
-        {additionalContent || null}
-      </>
-    );
-  };
 
   renderEntityLink(target) {
     const tooltip = this.props.renderEntityHyperlinkTooltip(target);
