@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
 // todo: import from shared
-import { BaseExtensionSDK } from 'contentful-ui-extensions-sdk';
+import { BaseExtensionSDK, ContentType } from 'contentful-ui-extensions-sdk';
 import { ViewType, SingleReferenceValue } from './types';
 import { LinkActions } from './LinkActions/LinkActions';
 import { fromFieldValidations, ReferenceValidations } from './utils/fromFieldValidations';
@@ -32,6 +32,13 @@ function SingleEntryReferenceEditor(
 
   const [entry, setEntry] = React.useState<any>(null);
   const [error, setError] = React.useState<any>(null);
+  const [allContentTypes, setAllContentTypes] = React.useState<Array<ContentType> | null>(null);
+
+  React.useEffect(() => {
+    baseSdk.space.getContentTypes().then(data => {
+      setAllContentTypes(data.items as any);
+    });
+  }, []);
 
   React.useEffect(() => {
     if (value) {
@@ -53,10 +60,13 @@ function SingleEntryReferenceEditor(
 
   return (
     <div>
-      {value && !error && (
+      {value && allContentTypes && !error && (
         <WrappedEntryCard
           disabled={disabled}
           viewType={props.viewType}
+          localeCode={props.field.locale}
+          defaultLocaleCode={props.baseSdk.locales.default}
+          allContentTypes={allContentTypes}
           entry={entry}
           onEdit={async () => {
             const { entity } = await baseSdk.navigator.openEntry(value.sys.id, {
