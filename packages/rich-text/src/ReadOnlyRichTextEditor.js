@@ -2,7 +2,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import buildWidgetApi from 'app/widgets/WidgetApi/buildWidgetApi';
-import WidgetAPIContext from '../shared/WidgetApiContext';
 import RichTextEditor from './RichTextEditor';
 
 export default class ReadOnlyRichTextEditor extends React.Component {
@@ -16,17 +15,15 @@ export default class ReadOnlyRichTextEditor extends React.Component {
       currentUrl: window.location
     });
     return (
-      <WidgetAPIContext.Provider value={{ widgetAPI }}>
-        <RichTextEditor
-          {...this.props}
-          isToolbarHidden
-          actionsDisabled
-          readOnly
-          widgetAPI={widgetAPI}
-          value={this.props.value}
-          isDisabled={true}
-        />
-      </WidgetAPIContext.Provider>
+      <RichTextEditor
+        {...this.props}
+        isToolbarHidden
+        actionsDisabled
+        readOnly
+        widgetAPI={widgetAPI}
+        value={this.props.value}
+        isDisabled={true}
+      />
     );
   }
 }

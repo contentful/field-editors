@@ -23,9 +23,9 @@ import Hyperlink from '../plugins/Hyperlink';
 import { css } from 'emotion';
 
 // TODO:xxx Use this instead of below mocks!
-// import EmbeddedEntityBlock from '../plugins/EmbeddedEntityBlock';
 // import EmbeddedEntryInline from '../plugins/EmbeddedEntryInline';
-// import EntryEmbedDropdown from '../plugins/EntryEmbedDropdown';
+import EmbeddedEntityBlock from '../plugins/EmbeddedEntityBlock';
+import EntryEmbedDropdown from '../plugins/EntryEmbedDropdown';
 
 import { UnorderedList, OrderedList } from '../plugins/List';
 import Hr from '../plugins/Hr';
@@ -61,10 +61,8 @@ const styles = {
   })
 }
 
-// TODO:xxx Use the real imports above instead!
-const EmbeddedEntityBlock = () => null;
+// TODO:xxx Use the real import above instead!
 const EmbeddedEntryInline = () => null;
-const EntryEmbedDropdown = () => null;
 
 export default class Toolbar extends React.Component {
   static propTypes = {

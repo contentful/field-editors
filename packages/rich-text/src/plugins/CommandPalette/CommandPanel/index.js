@@ -151,10 +151,11 @@ class CommandPalette extends React.PureComponent {
     }
   });
 
-  onCreateAndEmbedEntry = async (contentTypeId, nodeType) => {
+  onCreateAndEmbedEntity = async (contentTypeId, nodeType) => {
     const { richTextAPI, editor, command } = this.props;
+    const { widgetAPI } = richTextAPI;
     removeCommand(editor, command);
-    const { createAsset, createEntry } = richTextAPI.widgetAPI.space;
+    const { createAsset, createEntry } = widgetAPI.space;
     const isAsset = contentTypeId === null;
     const createEntity = () => (isAsset ? createAsset() : createEntry(contentTypeId));
     const entity = await createEntity();
@@ -168,7 +169,9 @@ class CommandPalette extends React.PureComponent {
       nodeType
     });
 
-    richTextAPI.widgetAPI.navigator.openEntity(entityType, entityId, { slideIn: true });
+    const { navigator } = widgetAPI;
+    const openEntity = entityType === 'Asset' ? navigator.openAsset : navigator.openEntry;
+    return openEntity(entityId, { slideIn: true });
   };
 
   createContentTypeActions = (actionBuilder, contentType) =>
@@ -184,10 +187,10 @@ class CommandPalette extends React.PureComponent {
         this.clearCommand();
       }),
       actionBuilder.maybeBuildCreateAndEmbedAction(BLOCKS.EMBEDDED_ENTRY, contentType, () =>
-        this.onCreateAndEmbedEntry(contentType.sys.id, BLOCKS.EMBEDDED_ENTRY)
+        this.onCreateAndEmbedEntity(contentType.sys.id, BLOCKS.EMBEDDED_ENTRY)
       ),
       actionBuilder.maybeBuildCreateAndEmbedAction(INLINES.EMBEDDED_ENTRY, contentType, () =>
-        this.onCreateAndEmbedEntry(contentType.sys.id, INLINES.EMBEDDED_ENTRY)
+        this.onCreateAndEmbedEntity(contentType.sys.id, INLINES.EMBEDDED_ENTRY)
       )
     ].filter(action => action);
 
@@ -199,7 +202,7 @@ class CommandPalette extends React.PureComponent {
         this.clearCommand();
       }),
       actionBuilder.maybeBuildCreateAndEmbedAction(BLOCKS.EMBEDDED_ASSET, null, () =>
-        this.onCreateAndEmbedEntry(null, BLOCKS.EMBEDDED_ASSET)
+        this.onCreateAndEmbedEntity(null, BLOCKS.EMBEDDED_ASSET)
       )
     ].filter(action => action);
 

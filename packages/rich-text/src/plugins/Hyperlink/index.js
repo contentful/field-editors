@@ -13,8 +13,7 @@ export const HyperlinkPlugin = ({ richTextAPI }) => ({
   renderNode: (props, _editor, next) => {
     const { widgetAPI, logViewportAction, customRenderers } = richTextAPI;
     const { renderEntityHyperlinkTooltip } = customRenderers;
-    console.log('renderEntityHyperlinkTooltip', renderEntityHyperlinkTooltip);
-    const { node, editor, key } = props;
+    const { node, editor } = props;
     if (isHyperlink(node.type)) {
       return (
         <Hyperlink

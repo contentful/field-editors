@@ -1,8 +1,6 @@
-import _ from 'lodash-es';
+import { chain } from 'lodash-es';
 
 /**
- * @name getLinkedContentTypeIdsForNodeType
- * @description
  * Given a field object and a rich text node type, return a list of valid
  * content type IDs associated with the node type, based on that node type's
  * `linkContentType` validation.
@@ -22,12 +20,13 @@ import _ from 'lodash-es';
  *
  * Note that passing an empty array will result in all possible content types
  * being whitelisted.
+ *
  * @param {object} field
  * @param {string} nodeType
- * @return {string[]}
+ * @returns {string[]}
  */
 export default (field, nodeType) =>
-  _.chain(field.validations)
+  chain(field.validations)
     .find('nodes')
     .get('nodes')
     .get(nodeType)

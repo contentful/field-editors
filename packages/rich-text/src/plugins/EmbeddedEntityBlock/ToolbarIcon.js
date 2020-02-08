@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { DropdownListItem, Button, Icon } from '@contentful/forma-36-react-components';
 
-import WidgetAPIContext from '../shared/WidgetApiContext';
 import { selectEntityAndInsert } from './Util';
 import { TOOLBAR_PLUGIN_PROP_TYPES } from '../shared/PluginApi';
 
@@ -16,13 +15,13 @@ export default class EntityLinkToolbarIcon extends Component {
     isButton: false
   };
 
-  handleClick = async (event, widgetAPI) => {
+  handleClick = async (event) => {
     this.props.onCloseEmbedMenu();
     event.preventDefault();
     const {
       editor,
       nodeType,
-      richTextAPI: { logToolbarAction }
+      richTextAPI: { widgetAPI, logToolbarAction }
     } = this.props;
     await selectEntityAndInsert(nodeType, widgetAPI, editor, logToolbarAction);
     this.props.onToggle(editor);
@@ -33,38 +32,34 @@ export default class EntityLinkToolbarIcon extends Component {
     const type = getEntityTypeFromNodeType(nodeType);
     const baseClass = `rich-text__${nodeType}`;
     return (
-      <WidgetAPIContext.Consumer>
-        {({ widgetAPI }) =>
-          this.props.isButton ? (
-            <Button
-              disabled={this.props.disabled}
-              className={`${baseClass}-button`}
-              size="small"
-              onClick={event => this.handleClick(event, widgetAPI)}
+      this.props.isButton ? (
+        <Button
+          disabled={this.props.disabled}
+          className={`${baseClass}-button`}
+          size="small"
+          onClick={event => this.handleClick(event)}
+          icon={type === 'Asset' ? 'Asset' : 'EmbeddedEntryBlock'}
+          buttonType="muted"
+          testId={`toolbar-toggle-${nodeType}`}>
+          {`Embed ${type.toLowerCase()}`}
+        </Button>
+      ) : (
+        <DropdownListItem
+          isDisabled={this.props.disabled}
+          className={`${baseClass}-list-item`}
+          size="small"
+          onClick={event => this.handleClick(event)}
+          testId={`toolbar-toggle-${nodeType}`}>
+          <div className="cf-flex-grid">
+            <Icon
               icon={type === 'Asset' ? 'Asset' : 'EmbeddedEntryBlock'}
-              buttonType="muted"
-              testId={`toolbar-toggle-${nodeType}`}>
-              {`Embed ${type.toLowerCase()}`}
-            </Button>
-          ) : (
-            <DropdownListItem
-              isDisabled={this.props.disabled}
-              className={`${baseClass}-list-item`}
-              size="small"
-              onClick={event => this.handleClick(event, widgetAPI)}
-              testId={`toolbar-toggle-${nodeType}`}>
-              <div className="cf-flex-grid">
-                <Icon
-                  icon={type === 'Asset' ? 'Asset' : 'EmbeddedEntryBlock'}
-                  className="rich-text__embedded-entry-list-icon"
-                  color="secondary"
-                />
-                {type}
-              </div>
-            </DropdownListItem>
-          )
-        }
-      </WidgetAPIContext.Consumer>
+              className="rich-text__embedded-entry-list-icon"
+              color="secondary"
+            />
+            {type}
+          </div>
+        </DropdownListItem>
+      )
     );
   }
 }

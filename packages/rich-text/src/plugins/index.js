@@ -18,7 +18,7 @@ import {
 import NewLinePlugin from './NewLinePlugin';
 import { ParagraphPlugin } from './Paragraph';
 // TODO:xxx Enable!
-// import { EmbeddedAssetBlockPlugin, EmbeddedEntryBlockPlugin } from './EmbeddedEntityBlock';
+import { EmbeddedAssetBlockPlugin, EmbeddedEntryBlockPlugin } from './EmbeddedEntityBlock';
 // import { EmbeddedEntryInlinePlugin } from './EmbeddedEntryInline';
 
 import { ListPlugin } from './List';
@@ -54,8 +54,8 @@ export function buildPlugins(richTextAPI) {
     HrPlugin({ richTextAPI }),
     // TODO:xxx Enable!
     // EmbeddedEntryInlinePlugin({ richTextAPI }),
-    // EmbeddedEntryBlockPlugin({ richTextAPI }),
-    // EmbeddedAssetBlockPlugin({ richTextAPI }),
+    EmbeddedEntryBlockPlugin({ richTextAPI }),
+    EmbeddedAssetBlockPlugin({ richTextAPI }),
     ListPlugin({ richTextAPI }),
     PastePlugin({ richTextAPI }),
     PasteHtmlPlugin(),

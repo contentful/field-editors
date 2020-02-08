@@ -1,8 +1,11 @@
+// TODO:xxx Got to move the majority of this test into user_interface repo.
+//  Relevant code is in rich_text/customRenderers/selectEntityAndInsert.js
 import React from 'react';
 import _ from 'lodash-es';
 import { mount, shallow } from 'enzyme';
 
 import Hyperlink from './Hyperlink';
+// TODO:xxx Can probably remove the Provider here. And get rid of it alltogether in this repo!
 import WidgetAPIContext from '../shared/WidgetApiContext';
 import { getScheduledJobsTooltip } from './index';
 

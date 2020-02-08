@@ -1,4 +1,4 @@
-// TODO: Remove this helper and replace usage with PluginApi usage.
+// TODO:xxx Remove this helper and replace usage with `richTextAPI.widgetAPI` usage.
 
 import { createContext } from 'react';
 

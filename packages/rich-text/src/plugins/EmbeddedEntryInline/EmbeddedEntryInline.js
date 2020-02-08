@@ -7,7 +7,6 @@ import {
 } from '@contentful/forma-36-react-components';
 
 import { default as FetchEntity, RequestStatus } from 'app/widgets/shared/FetchEntity';
-import WidgetAPIContext from '../shared/WidgetApiContext';
 import { INLINES } from '@contentful/rich-text-types';
 import { css } from 'emotion';
 
@@ -81,30 +80,26 @@ class EmbeddedEntryInline extends React.Component {
   }
 
   render() {
-    const { onEntityFetchComplete } = this.props;
+    const { onEntityFetchComplete, widgetAPI } = this.props;
     const entryId = this.props.node.data.get('target').sys.id;
 
     return (
-      <WidgetAPIContext.Consumer>
-        {({ widgetAPI }) => (
-          <FetchEntity
-            widgetAPI={widgetAPI}
-            entityId={entryId}
-            entityType="Entry"
-            localeCode={widgetAPI.field.locale}
-            render={fetchEntityResult => {
-              if (fetchEntityResult.requestStatus !== RequestStatus.Pending) {
-                onEntityFetchComplete && onEntityFetchComplete();
-              }
-              if (fetchEntityResult.requestStatus === RequestStatus.Error) {
-                return this.renderMissingNode();
-              } else {
-                return this.renderNode(fetchEntityResult);
-              }
-            }}
-          />
-        )}
-      </WidgetAPIContext.Consumer>
+      <FetchEntity
+        widgetAPI={widgetAPI}
+        entityId={entryId}
+        entityType="Entry"
+        localeCode={widgetAPI.field.locale}
+        render={fetchEntityResult => {
+          if (fetchEntityResult.requestStatus !== RequestStatus.Pending) {
+            onEntityFetchComplete && onEntityFetchComplete();
+          }
+          if (fetchEntityResult.requestStatus === RequestStatus.Error) {
+            return this.renderMissingNode();
+          } else {
+            return this.renderNode(fetchEntityResult);
+          }
+        }}
+      />
     );
   }
 }

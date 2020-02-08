@@ -4,7 +4,6 @@ import { Editor } from 'slate-react';
 import { Value, Editor as BasicEditor } from 'slate';
 import { noop, debounce } from 'lodash-es';
 import { List, is } from 'immutable';
-import cn from 'classnames';
 import deepEquals from 'fast-deep-equal';
 
 import { BLOCKS, EMPTY_DOCUMENT } from '@contentful/rich-text-types';
@@ -18,9 +17,6 @@ import StickyToolbarWrapper from './Toolbar/StickyToolbarWrapper';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import { css, cx } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
-
-// TODO:xxx Remove
-import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
 
 const STYLE_EDITOR_BORDER = '1px solid #c3cfd5';
 
@@ -43,9 +39,9 @@ const styles = {
     border: STYLE_EDITOR_BORDER
   }),
   editor: css({
-    'border-radius': '0 0 3px 3px',
+    borderRadius: '0 0 3px 3px',
     border: STYLE_EDITOR_BORDER,
-    'border-top': 0,
+    borderTop: 0,
     background: tokens.colorElementLightest,
     a: {
       span: {
@@ -60,13 +56,14 @@ const styles = {
       background: tokens.colorElementLight,
       padding: '0 8px',
       '&:hover': {
-        'border-color': tokens.colorElementDarkest
+        borderColor: tokens.colorElementDarkest
       },
+      // TODO:xxx I don't think this will work Chris:
       '.active': {
-        'border-color': tokens.colorElementDarkest,
+        borderColor: tokens.colorElementDarkest,
         background: tokens.colorElementMid,
         '-webkit-box-shadow': 'inset 0 1px 2px rgba(0,0,0,0.12)',
-        'box-shadow': 'inset 0 1px 2px rgba(0,0,0,0.12)'
+        boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.12)'
       }
     }
   })

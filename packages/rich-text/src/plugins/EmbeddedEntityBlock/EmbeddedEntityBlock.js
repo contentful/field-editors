@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// TODO:xxx Define custom renderer via props?
-//import FetchedEntityCard from 'app/widgets/shared/FetchedEntityCard';
+import { Card } from '@contentful/forma-36-react-components';
 import { css } from 'emotion';
 
 const styles = {
@@ -10,14 +9,19 @@ const styles = {
   })
 };
 
-class LinkedEntityBlock extends React.Component {
+export default class LinkedEntityBlock extends React.Component {
   static propTypes = {
     widgetAPI: PropTypes.object.isRequired,
     onEntityFetchComplete: PropTypes.func,
     isSelected: PropTypes.bool.isRequired,
     attributes: PropTypes.object.isRequired,
     editor: PropTypes.object.isRequired,
-    node: PropTypes.object.isRequired
+    node: PropTypes.object.isRequired,
+    renderEntity: PropTypes.func
+  };
+
+  static defaultProps = {
+    renderEntity: ({entityId, entityType, isSelected }) => <Card selected={isSelected}>{entityType} <code>{entityId}</code></Card>
   };
 
   getEntitySys() {
@@ -26,47 +30,36 @@ class LinkedEntityBlock extends React.Component {
       id: data.get('target').sys.id,
       type: data.get('target').sys.linkType
     };
-  }
+  };
 
   handleEditClick = () => {
     const { type, id } = this.getEntitySys();
-    this.props.widgetAPI.navigator.openEntity(type, id, { slideIn: true });
+    const { navigator } = this.props.widgetAPI;
+    const openEntity = type === 'Asset' ? navigator.openAsset : navigator.openEntry;
+    return openEntity(id, { slideIn: true });
   };
 
   handleRemoveClick = () => {
     const { editor, node } = this.props;
     editor.moveToRangeOfNode(node);
     editor.removeNodeByKey(node.key);
-    editor.focus(); // Click on "x" removes focus.
+    editor.focus(); // Click on "x" might have removed focus.
   };
 
   render() {
-    // TODO: xxx
-    // const { editor, isSelected, onEntityFetchComplete } = this.props;
-    // const isDisabled = editor.props.readOnly;
-    // const readOnly = editor.props.actionsDisabled;
+    const { widgetAPI, editor, isSelected, onEntityFetchComplete, renderEntity } = this.props;
+    const isDisabled = editor.props.readOnly;
+    const isReadOnly = editor.props.actionsDisabled;
     const { id: entityId, type: entityType } = this.getEntitySys();
+    const props = { widgetAPI, entityType, entityId, isSelected, isDisabled, isReadOnly,
+      onEntityFetchComplete,
+      onRemove: this.handleRemoveClick,
+      onOpenEntity: this.handleEditClick
+    };
     return (
-      <div {...this.props.attributes}>
-        <div>
-          Entity {entityId} ({entityType})
-        </div>
-        // TODO:xxx
-        {/*<FetchedEntityCard*/}
-        {/*  entityType={entityType}*/}
-        {/*  entityId={entityId}*/}
-        {/*  readOnly={readOnly}*/}
-        {/*  disabled={isDisabled}*/}
-        {/*  editable={true}*/}
-        {/*  selected={isSelected}*/}
-        {/*  onEntityFetchComplete={onEntityFetchComplete}*/}
-        {/*  onEdit={this.handleEditClick}*/}
-        {/*  onRemove={this.handleRemoveClick}*/}
-        {/*  className={styles.root}*/}
-        {/*/>*/}
+      <div {...this.props.attributes} className={styles.root}>
+        {renderEntity(props)}
       </div>
     );
-  }
+  };
 }
-
-export default LinkedEntityBlock;
