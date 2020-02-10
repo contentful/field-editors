@@ -347,8 +347,8 @@ describe('SlugEditor', () => {
         'ru-RU': false
       };
       sdk.locales.fallbacks = {
-        'de-DE': 'de-DE',
-        'ru-RU': undefined as any
+        'de-DE': undefined,
+        'ru-RU': undefined
       };
 
       render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={true} />);
@@ -371,7 +371,7 @@ describe('SlugEditor', () => {
         'ru-RU': true
       };
       sdk.locales.fallbacks = {
-        'de-DE': 'de-DE',
+        'de-DE': undefined,
         'ru-RU': 'de-DE'
       };
 

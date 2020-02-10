@@ -27,11 +27,7 @@ export function SlugEditor(props: SlugEditorProps) {
     throw new Error(`"${field.type}" field type is not supported by SlugEditor`);
   }
 
-  const entrySys = entry.getSys() as {
-    createdAt: string;
-    id: string;
-    contentType: { sys: { id: string } };
-  };
+  const entrySys = entry.getSys();
 
   const isLocaleOptional = locales.optional[field.locale];
   const localeFallbackCode = locales.fallbacks[field.locale];

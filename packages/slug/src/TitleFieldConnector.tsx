@@ -37,7 +37,7 @@ export class TitleFieldConnector<ValueType> extends React.Component<
   constructor(props: TitleFieldConnectorProps<ValueType>) {
     super(props);
     const titleField = getTitleField(props.sdk);
-    const entrySys = props.sdk.entry.getSys() as { publishedVersion?: string };
+    const entrySys = props.sdk.entry.getSys();
     const isSame = titleField ? props.field.id === titleField.id : false;
     this.state = {
       titleValue: titleField ? titleField.getValue() : '',
@@ -58,7 +58,7 @@ export class TitleFieldConnector<ValueType> extends React.Component<
       return;
     }
 
-    let trackingLocale = this.props.field.locale as any;
+    let trackingLocale = this.props.field.locale;
 
     if (this.props.field.locale !== this.props.defaultLocale) {
       if (this.props.isOptionalLocaleWithFallback) {
@@ -82,13 +82,11 @@ export class TitleFieldConnector<ValueType> extends React.Component<
       }
     );
 
-    this.unsubscribeSysChanges = this.props.sdk.entry.onSysChanged(
-      (sys: { publishedVersion?: string }) => {
-        this.setState({
-          isPublished: Boolean(sys.publishedVersion)
-        });
-      }
-    );
+    this.unsubscribeSysChanges = this.props.sdk.entry.onSysChanged(sys => {
+      this.setState({
+        isPublished: Boolean(sys.publishedVersion)
+      });
+    });
   }
 
   componentWillUnmount() {
