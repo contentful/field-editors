@@ -2,7 +2,7 @@ import get from 'lodash/get';
 import isObject from 'lodash/isObject';
 // eslint-disable-next-line you-dont-need-lodash-underscore/find
 import find from 'lodash/find';
-import { ContentType, ContentTypeField } from 'contentful-ui-extensions-sdk';
+import { ContentType, ContentTypeField, EntrySys } from 'contentful-ui-extensions-sdk';
 
 function titleOrDefault(title: string | undefined, defaultTitle: string) {
   if (!title || title.match(/^\s*$/)) {
@@ -79,12 +79,7 @@ export function getEntityDescription({
   const isDescriptionField = (field: ContentTypeField) =>
     isTextField(field) && !isDisplayField(field) && !isMaybeSlugField(field);
 
-  // const descriptionField = contentType.data.fields.find(isDescriptionField);
-  console.log(contentType);
-
-  const descriptionField = ((contentType.fields as unknown) as ContentTypeField[]).find(
-    isDescriptionField
-  );
+  const descriptionField = contentType.fields.find(isDescriptionField);
 
   if (!descriptionField) {
     return '';
@@ -164,4 +159,23 @@ export function getEntryTitle({
   }
 
   return titleOrDefault(title, defaultTitle);
+}
+
+export function getEntryStatus(sys: EntrySys) {
+  if (!sys || (sys.type !== 'Entry' && sys.type !== 'Asset')) {
+    throw new TypeError('Invalid entity metadata object');
+  }
+  if (sys.deletedVersion) {
+    return 'deleted';
+  } else if (sys.archivedVersion) {
+    return 'archived';
+  } else if (sys.publishedVersion) {
+    if (sys.version > sys.publishedVersion + 1) {
+      return 'changed';
+    } else {
+      return 'published';
+    }
+  } else {
+    return 'draft';
+  }
 }
