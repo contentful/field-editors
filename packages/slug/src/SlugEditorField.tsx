@@ -65,8 +65,10 @@ function useUniqueChecker(props: SlugEditorFieldProps) {
   return status;
 }
 
-export function SlugEditorFieldStatic(props: SlugEditorFieldProps & { onChange?: Function }) {
-  const { hasError, isDisabled, value, setValue, onChange } = props;
+export function SlugEditorFieldStatic(
+  props: SlugEditorFieldProps & { onChange?: Function; onBlur?: Function }
+) {
+  const { hasError, isDisabled, value, setValue, onChange, onBlur } = props;
 
   const status = useUniqueChecker(props);
 
@@ -82,6 +84,11 @@ export function SlugEditorFieldStatic(props: SlugEditorFieldProps & { onChange?:
           setValue(e.target.value);
           if (onChange) {
             onChange();
+          }
+        }}
+        onBlur={() => {
+          if (onBlur) {
+            onBlur();
           }
         }}
       />
@@ -102,23 +109,30 @@ export function SlugEditorFieldStatic(props: SlugEditorFieldProps & { onChange?:
 }
 
 export function SlugEditorField(props: SlugEditorFieldProps) {
+  const areEqual = () => {
+    const potentialSlug = makeSlug(props.titleValue, {
+      isOptionalLocaleWithFallback: props.isOptionalLocaleWithFallback,
+      locale: props.locale,
+      createdAt: props.createdAt
+    });
+    return props.value === potentialSlug;
+  };
+
   const [check, setCheck] = React.useState<boolean>(() => {
     if (props.value) {
       if (!props.titleValue) {
         return false;
       }
-
-      const potentialSlug = makeSlug(props.titleValue, {
-        isOptionalLocaleWithFallback: props.isOptionalLocaleWithFallback,
-        locale: props.locale,
-        createdAt: props.createdAt
-      });
-      if (props.value !== potentialSlug) {
-        return false;
-      }
+      return areEqual();
     }
     return true;
   });
+
+  React.useEffect(() => {
+    if (areEqual()) {
+      setCheck(true);
+    }
+  }, [props.titleValue]);
 
   useSlugUpdater(props, check);
 
@@ -127,6 +141,11 @@ export function SlugEditorField(props: SlugEditorFieldProps) {
       {...props}
       onChange={() => {
         setCheck(false);
+      }}
+      onBlur={() => {
+        if (areEqual()) {
+          setCheck(true);
+        }
       }}
     />
   );

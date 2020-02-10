@@ -332,6 +332,54 @@ describe('SlugEditor', () => {
       await wait();
       expect(field.setValue).toHaveBeenCalledTimes(3);
     });
+
+    it('should start tracking again after potential slug equals real one', async () => {
+      const { field, sdk } = createMocks({
+        field: '',
+        titleField: ''
+      });
+
+      const { getByTestId } = render(
+        <SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />
+      );
+
+      await wait();
+
+      /*
+        Type title "ABC DEF"
+          -> Slug changes to "abc-def"
+      */
+      sdk.entry.fields['title-id'].setValue('ABC DEF');
+      await wait();
+      expect(field.setValue).toHaveBeenLastCalledWith('abc-def');
+      expect(field.setValue).toHaveBeenCalledTimes(2);
+
+      /*
+        Change slug to custom one "abc"
+      */
+      fireEvent.change(getByTestId('cf-ui-text-input'), { target: { value: 'abc' } });
+
+      /*
+        Change title to "ABC D"
+        -> Slug does not change
+      */
+      sdk.entry.fields['title-id'].setValue('ABC D');
+      await wait();
+      expect(field.setValue).toHaveBeenLastCalledWith('abc');
+      expect(field.setValue).toHaveBeenCalledTimes(3);
+
+      /*
+      Change title to "ABC" first and change title to "ABC ABC"
+        -> Slug should change to "abc-abc" as it should have started tracking again
+      */
+      sdk.entry.fields['title-id'].setValue('ABC');
+      sdk.entry.fields['title-id'].setValue('ABC ABC');
+      await wait();
+      expect(field.setValue).toHaveBeenLastCalledWith('abc-abc');
+      expect(field.setValue).toHaveBeenCalledTimes(4);
+
+      await wait();
+    });
   });
 
   describe('for non default locales', () => {
