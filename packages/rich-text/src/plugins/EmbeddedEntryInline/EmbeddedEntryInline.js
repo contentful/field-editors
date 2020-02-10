@@ -1,14 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  InlineEntryCard,
-  DropdownListItem,
-  DropdownList
-} from '@contentful/forma-36-react-components';
-
-import { default as FetchEntity, RequestStatus } from 'app/widgets/shared/FetchEntity';
-import { INLINES } from '@contentful/rich-text-types';
+import { InlineEntryCard } from '@contentful/forma-36-react-components';
 import { css } from 'emotion';
+import { INLINES } from '@contentful/rich-text-types';
 
 const styles = {
   root: css({
@@ -20,8 +14,8 @@ const styles = {
       '-ms-user-select': 'none',
       'user-select': 'none'
     }
-  }),
-}
+  })
+};
 
 class EmbeddedEntryInline extends React.Component {
   static propTypes = {
@@ -30,8 +24,25 @@ class EmbeddedEntryInline extends React.Component {
     attributes: PropTypes.object.isRequired,
     editor: PropTypes.object.isRequired,
     node: PropTypes.object.isRequired,
-    onEntityFetchComplete: PropTypes.func
+    onEntityFetchComplete: PropTypes.func,
+    renderEntity: PropTypes.func
   };
+
+  static defaultProps = {
+    renderEntity: ({ entryId, isSelected }) => (
+      <InlineEntryCard testId={INLINES.EMBEDDED_ENTRY} selected={isSelected}>
+        Entry <code>{entryId}</code>
+      </InlineEntryCard>
+    )
+  };
+
+  getEntitySys() {
+    const data = this.props.node.data;
+    return {
+      id: data.get('target').sys.id,
+      type: data.get('target').sys.linkType
+    };
+  }
 
   handleEditClick = entry => {
     this.props.widgetAPI.navigator.openEntry(entry.sys.id, { slideIn: true });
@@ -42,64 +53,25 @@ class EmbeddedEntryInline extends React.Component {
     editor.removeNodeByKey(node.key);
   };
 
-  renderMissingNode() {
-    const { isSelected } = this.props;
-
-    return (
-      <InlineEntryCard testId={INLINES.EMBEDDED_ENTRY} selected={isSelected}>
-        Entry missing or inaccessible
-      </InlineEntryCard>
-    );
-  }
-
-  renderNode({ requestStatus, contentTypeName, entity, entityTitle, entityStatus }) {
-    const isLoading = requestStatus === RequestStatus.Pending && !entity;
-    return (
-      <InlineEntryCard
-        testId={INLINES.EMBEDDED_ENTRY}
-        selected={this.props.isSelected}
-        title={`${contentTypeName}: ${entityTitle}`}
-        status={entityStatus}
-        className={styles.root}
-        isLoading={isLoading}
-        dropdownListElements={
-          !this.props.editor.props.actionsDisabled ? (
-            <DropdownList>
-              <DropdownListItem onClick={() => this.handleEditClick(entity)}>Edit</DropdownListItem>
-              <DropdownListItem
-                onClick={this.handleRemoveClick}
-                isDisabled={this.props.editor.props.readOnly}>
-                Remove
-              </DropdownListItem>
-            </DropdownList>
-          ) : null
-        }>
-        {entityTitle || 'Untitled'}
-      </InlineEntryCard>
-    );
-  }
-
   render() {
-    const { onEntityFetchComplete, widgetAPI } = this.props;
-    const entryId = this.props.node.data.get('target').sys.id;
-
+    const { widgetAPI, editor, isSelected, onEntityFetchComplete, renderEntity } = this.props;
+    const isDisabled = editor.props.readOnly;
+    const isReadOnly = editor.props.actionsDisabled;
+    const { id: entryId } = this.getEntitySys();
+    const props = {
+      widgetAPI,
+      entryId,
+      isSelected,
+      isDisabled,
+      isReadOnly,
+      onEntityFetchComplete,
+      onRemove: this.handleRemoveClick,
+      onOpenEntity: this.handleEditClick
+    };
     return (
-      <FetchEntity
-        widgetAPI={widgetAPI}
-        entityId={entryId}
-        entityType="Entry"
-        localeCode={widgetAPI.field.locale}
-        render={fetchEntityResult => {
-          if (fetchEntityResult.requestStatus !== RequestStatus.Pending) {
-            onEntityFetchComplete && onEntityFetchComplete();
-          }
-          if (fetchEntityResult.requestStatus === RequestStatus.Error) {
-            return this.renderMissingNode();
-          } else {
-            return this.renderNode(fetchEntityResult);
-          }
-        }}
-      />
+      <span {...this.props.attributes} className={styles.root}>
+        {renderEntity(props)}
+      </span>
     );
   }
 }

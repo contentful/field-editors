@@ -24,8 +24,9 @@ export async function selectEntityAndInsert(nodeType, widgetAPI, editor, logActi
   logAction('openCreateEmbedDialog', { nodeType });
 
   const { field, dialogs } = widgetAPI;
-  const baseConfig = await newEntitySelectorConfigFromRichTextField(field, nodeType);
-  const selectEntity = baseConfig.entityType === 'Asset' ? dialogs.selectSingleAsset : dialogs.selectSingleEntry
+  const baseConfig = newEntitySelectorConfigFromRichTextField(field, nodeType);
+  const selectEntity =
+    baseConfig.entityType === 'Asset' ? dialogs.selectSingleAsset : dialogs.selectSingleEntry;
   const config = { ...baseConfig, withCreate: true };
   try {
     const entity = await selectEntity(config);

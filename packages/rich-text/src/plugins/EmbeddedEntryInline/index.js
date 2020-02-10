@@ -9,9 +9,10 @@ import { selectEntryAndInsert, hasOnlyInlineEntryInSelection, canInsertInline } 
 export default ToolbarIcon;
 
 export const EmbeddedEntryInlinePlugin = ({
-  richTextAPI: { widgetAPI, logShortcutAction, logViewportAction }
+  richTextAPI: { widgetAPI, customRenderers, logShortcutAction, logViewportAction }
 }) => ({
   renderNode: (props, _editor, next) => {
+    const { renderEntryInlineEmbed } = customRenderers;
     const { node, attributes, key } = props;
     if (node.type === INLINES.EMBEDDED_ENTRY) {
       return (
@@ -20,6 +21,7 @@ export const EmbeddedEntryInlinePlugin = ({
           {...props}
           {...attributes}
           onEntityFetchComplete={() => logViewportAction('linkRendered', { key })}
+          renderEntity={renderEntryInlineEmbed}
         />
       );
     }

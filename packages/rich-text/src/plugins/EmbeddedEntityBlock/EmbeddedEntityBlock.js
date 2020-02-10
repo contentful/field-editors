@@ -12,16 +12,20 @@ const styles = {
 export default class LinkedEntityBlock extends React.Component {
   static propTypes = {
     widgetAPI: PropTypes.object.isRequired,
-    onEntityFetchComplete: PropTypes.func,
     isSelected: PropTypes.bool.isRequired,
     attributes: PropTypes.object.isRequired,
     editor: PropTypes.object.isRequired,
     node: PropTypes.object.isRequired,
+    onEntityFetchComplete: PropTypes.func,
     renderEntity: PropTypes.func
   };
 
   static defaultProps = {
-    renderEntity: ({entityId, entityType, isSelected }) => <Card selected={isSelected}>{entityType} <code>{entityId}</code></Card>
+    renderEntity: ({ entityId, entityType, isSelected }) => (
+      <Card selected={isSelected}>
+        {entityType} <code>{entityId}</code>
+      </Card>
+    )
   };
 
   getEntitySys() {
@@ -30,7 +34,7 @@ export default class LinkedEntityBlock extends React.Component {
       id: data.get('target').sys.id,
       type: data.get('target').sys.linkType
     };
-  };
+  }
 
   handleEditClick = () => {
     const { type, id } = this.getEntitySys();
@@ -51,7 +55,13 @@ export default class LinkedEntityBlock extends React.Component {
     const isDisabled = editor.props.readOnly;
     const isReadOnly = editor.props.actionsDisabled;
     const { id: entityId, type: entityType } = this.getEntitySys();
-    const props = { widgetAPI, entityType, entityId, isSelected, isDisabled, isReadOnly,
+    const props = {
+      widgetAPI,
+      entityType,
+      entityId,
+      isSelected,
+      isDisabled,
+      isReadOnly,
       onEntityFetchComplete,
       onRemove: this.handleRemoveClick,
       onOpenEntity: this.handleEditClick
@@ -61,5 +71,5 @@ export default class LinkedEntityBlock extends React.Component {
         {renderEntity(props)}
       </div>
     );
-  };
+  }
 }

@@ -22,8 +22,7 @@ import {
 import Hyperlink from '../plugins/Hyperlink';
 import { css } from 'emotion';
 
-// TODO:xxx Use this instead of below mocks!
-// import EmbeddedEntryInline from '../plugins/EmbeddedEntryInline';
+import EmbeddedEntryInline from '../plugins/EmbeddedEntryInline';
 import EmbeddedEntityBlock from '../plugins/EmbeddedEntityBlock';
 import EntryEmbedDropdown from '../plugins/EntryEmbedDropdown';
 
@@ -36,22 +35,14 @@ import { isNodeTypeEnabled, isMarkEnabled } from '../validations';
 
 const styles = {
   embedActionsWrapper: css({
-    display: [
-      '-webkit-box',
-      '-ms-flexbox',
-      'flex'
-    ],
+    display: ['-webkit-box', '-ms-flexbox', 'flex'],
     '-webkit-align-self': 'flex-start',
     'align-self': 'flex-start',
     '-ms-flex-item-align': 'start',
     'margin-left': 'auto'
   }),
   formattingOptionsWrapper: css({
-    'display': [
-      '-webkit-box',
-      '-ms-flexbox',
-      'flex'
-    ],
+    display: ['-webkit-box', '-ms-flexbox', 'flex'],
     '-ms-flex-align': 'center',
     '-webkit-box-align': 'center',
     'align-items': 'center',
@@ -59,10 +50,7 @@ const styles = {
     'flex-wrap': 'wrap',
     'margin-right': '20px'
   })
-}
-
-// TODO:xxx Use the real import above instead!
-const EmbeddedEntryInline = () => null;
+};
 
 export default class Toolbar extends React.Component {
   static propTypes = {
@@ -175,9 +163,7 @@ export default class Toolbar extends React.Component {
             currentBlockType={currentBlockType}
             disabled={props.disabled}>
             <Paragraph {...props} />
-            {isNodeTypeEnabled(field, BLOCKS.HEADING_1) && (
-              <Heading1 {...props} />
-            )}
+            {isNodeTypeEnabled(field, BLOCKS.HEADING_1) && <Heading1 {...props} />}
             {isNodeTypeEnabled(field, BLOCKS.HEADING_2) && <Heading2 {...props} />}
             {isNodeTypeEnabled(field, BLOCKS.HEADING_3) && <Heading3 {...props} />}
             {isNodeTypeEnabled(field, BLOCKS.HEADING_4) && <Heading4 {...props} />}
