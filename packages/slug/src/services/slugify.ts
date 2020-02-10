@@ -1,5 +1,7 @@
 import getSlug from 'speakingurl';
 
+const CF_GENERATED_SLUG_MAX_LENGTH = 75;
+
 const languages = [
   'ar',
   'az',
@@ -55,7 +57,7 @@ export function slugify(text: string, locale = 'en') {
   return getSlug(text, {
     separator: '-',
     lang: supportedLanguage(locale) || 'en',
-    truncate: 75,
+    truncate: CF_GENERATED_SLUG_MAX_LENGTH,
     custom: {
       "'": '',
       '`': '',

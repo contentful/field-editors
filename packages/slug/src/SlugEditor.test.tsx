@@ -383,4 +383,25 @@ describe('SlugEditor', () => {
       expect(titleField.onValueChanged).not.toHaveBeenCalled();
     });
   });
+
+  it('slug suggestion is limited to 75 symbols', async () => {
+    const { field, sdk } = createMocks({
+      field: '',
+      titleField: ''
+    });
+
+    render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />);
+
+    await wait();
+
+    sdk.entry.fields['title-id'].setValue(
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed elementum magnsa auctor dolor pulvinar cursus. Etiam condimentum nisl ac molestie.'
+    );
+    await wait();
+
+    const expectedSlug =
+      'lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-sed-elementum-magnsa';
+    expect(field.setValue).toHaveBeenLastCalledWith(expectedSlug);
+    expect(expectedSlug.length).toBeLessThanOrEqual(75);
+  });
 });
