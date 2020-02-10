@@ -1,8 +1,18 @@
 import * as React from 'react';
 import { EntryCard, DropdownList, DropdownListItem } from '@contentful/forma-36-react-components';
-import { ViewType, Entry } from '../types';
-import { getEntryTitle } from '../utils/entryHelpers';
+import { EntrySys } from 'contentful-ui-extensions-sdk';
+import { ViewType } from '../types';
+import { getEntryTitle, getEntityDescription } from '../utils/entryHelpers';
 import { ContentType } from 'contentful-ui-extensions-sdk';
+
+export interface Entry {
+  sys: EntrySys;
+  fields: {
+    [key: string]: {
+      [localeKey: string]: any;
+    };
+  };
+}
 
 interface WrappedEntryCardProps {
   viewType: ViewType;
@@ -63,11 +73,18 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
     defaultTitle: 'Untitled'
   });
 
+  const description = getEntityDescription({
+    entity: props.entry,
+    contentType,
+    localeCode: props.localeCode,
+    defaultLocaleCode: props.defaultLocaleCode
+  });
+
   return (
     <EntryCard
       title={title}
+      description={description}
       contentType={contentType?.name}
-      description="asdas"
       size={size}
       status="published"
       // thumbnailElement={entityFile && <Thumbnail thumbnail={entityFile} />}

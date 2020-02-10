@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
 // todo: import from shared
-import { BaseExtensionSDK, ContentType } from 'contentful-ui-extensions-sdk';
+import { BaseExtensionSDK, ContentType, Link } from 'contentful-ui-extensions-sdk';
 import { ViewType, SingleReferenceValue } from './types';
 import { LinkActions } from './LinkActions/LinkActions';
 import { fromFieldValidations, ReferenceValidations } from './utils/fromFieldValidations';
@@ -88,7 +88,7 @@ function SingleEntryReferenceEditor(
             console.log('onCreate');
           }}
           onLinkExisting={async () => {
-            const item = await baseSdk.dialogs.selectSingleEntry({
+            const item = await baseSdk.dialogs.selectSingleEntry<Link>({
               locale: props.field.locale,
               contentTypes: validations.contentTypes
             });

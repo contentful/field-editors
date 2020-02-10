@@ -2,7 +2,7 @@ import get from 'lodash/get';
 import isObject from 'lodash/isObject';
 // eslint-disable-next-line you-dont-need-lodash-underscore/find
 import find from 'lodash/find';
-import { ContentType } from 'contentful-ui-extensions-sdk';
+import { ContentType, ContentTypeField } from 'contentful-ui-extensions-sdk';
 
 function titleOrDefault(title: string | undefined, defaultTitle: string) {
   if (!title || title.match(/^\s*$/)) {
@@ -56,6 +56,43 @@ export function getAssetTitle({
     defaultLocaleCode
   });
   return titleOrDefault(title, defaultTitle);
+}
+
+export function getEntityDescription({
+  entity,
+  contentType,
+  localeCode,
+  defaultLocaleCode
+}: {
+  entity: any;
+  contentType?: ContentType;
+  localeCode: string;
+  defaultLocaleCode: string;
+}): string {
+  if (!contentType) {
+    return '';
+  }
+
+  const isTextField = (field: ContentTypeField) => ['Symbol', 'Text'].includes(field.type);
+  const isDisplayField = (field: ContentTypeField) => field.id === contentType.displayField;
+  const isMaybeSlugField = (field: ContentTypeField) => /\bslug\b/.test(field.name);
+  const isDescriptionField = (field: ContentTypeField) =>
+    isTextField(field) && !isDisplayField(field) && !isMaybeSlugField(field);
+
+  // const descriptionField = contentType.data.fields.find(isDescriptionField);
+  console.log(contentType);
+
+  const descriptionField = ((contentType.fields as unknown) as ContentTypeField[]).find(
+    isDescriptionField
+  );
+
+  if (!descriptionField) {
+    return '';
+  }
+
+  return (
+    getFieldValue({ entity, fieldId: descriptionField.id, localeCode, defaultLocaleCode }) || ''
+  );
 }
 
 export function getEntryTitle({

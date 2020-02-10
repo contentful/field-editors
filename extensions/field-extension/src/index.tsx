@@ -12,7 +12,7 @@ init<FieldExtensionSDK>(sdk => {
   render(
     <div style={{ minHeight: 300 }}>
       <EntryReferenceEditor
-        viewType="link"
+        viewType="card"
         field={fieldSdk.field}
         baseSdk={fieldSdk}
         isInitiallyDisabled={true}
