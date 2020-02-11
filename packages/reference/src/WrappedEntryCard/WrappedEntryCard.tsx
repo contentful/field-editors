@@ -7,7 +7,8 @@ import {
   getEntryStatus,
   getEntryImage
 } from '../utils/entryHelpers';
-import { AssetThumbnail, isValidImage } from './AssetThumbnail';
+import { AssetThumbnail, isValidImage } from '../AssetThumbnail/AssetThumbnail';
+import { MissingEntityCard } from '../MissingEntityCard/MissingEntityCard';
 
 interface WrappedEntryCardProps {
   baseSdk: BaseExtensionSDK;
@@ -102,8 +103,9 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
   const status = getEntryStatus(props.entry?.sys);
 
   if (status === 'deleted') {
-    // todo: implement deleted view
-    return <div>deleted</div>;
+    return (
+      <MissingEntityCard entityType="entry" disabled={props.disabled} onRemove={props.onRemove} />
+    );
   }
 
   return (

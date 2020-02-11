@@ -11,6 +11,7 @@ import {
 import { LinkActions } from './LinkActions/LinkActions';
 import { fromFieldValidations, ReferenceValidations } from './utils/fromFieldValidations';
 import { WrappedEntryCard } from './WrappedEntryCard/WrappedEntryCard';
+import { MissingEntityCard } from './MissingEntityCard/MissingEntityCard';
 
 export interface EntryReferenceEditorProps {
   /**
@@ -63,9 +64,21 @@ function SingleEntryReferenceEditor(
     }
   }, [value]);
 
+  if (error) {
+    return (
+      <MissingEntityCard
+        entityType="entry"
+        disabled={props.disabled}
+        onRemove={() => {
+          props.setValue(null);
+        }}
+      />
+    );
+  }
+
   return (
     <div>
-      {value && allContentTypes && !error && (
+      {value && allContentTypes && (
         <WrappedEntryCard
           baseSdk={props.baseSdk}
           disabled={disabled}
@@ -85,7 +98,7 @@ function SingleEntryReferenceEditor(
           }}
         />
       )}
-      {!value && !error && (
+      {!value && (
         <LinkActions
           entityType="entry"
           multiple={false}
