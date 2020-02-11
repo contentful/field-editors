@@ -1,8 +1,13 @@
 import * as React from 'react';
 import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
-// todo: import from shared
-import { BaseExtensionSDK, ContentType, Link } from 'contentful-ui-extensions-sdk';
-import { ViewType, SingleReferenceValue } from './types';
+import {
+  ViewType,
+  SingleReferenceValue,
+  BaseExtensionSDK,
+  ContentType,
+  Link,
+  Entry
+} from './types';
 import { LinkActions } from './LinkActions/LinkActions';
 import { fromFieldValidations, ReferenceValidations } from './utils/fromFieldValidations';
 import { WrappedEntryCard } from './WrappedEntryCard/WrappedEntryCard';
@@ -30,31 +35,31 @@ function SingleEntryReferenceEditor(
 ) {
   const { value, baseSdk, validations, setValue, disabled } = props;
 
-  const [entry, setEntry] = React.useState<any>(null);
-  const [error, setError] = React.useState<any>(null);
+  const [entry, setEntry] = React.useState<Entry | undefined>(undefined);
+  const [error, setError] = React.useState<boolean>(false);
   const [allContentTypes, setAllContentTypes] = React.useState<Array<ContentType> | null>(null);
 
   React.useEffect(() => {
-    baseSdk.space.getContentTypes().then(data => {
-      setAllContentTypes(data.items as any);
+    baseSdk.space.getContentTypes<ContentType>().then(data => {
+      setAllContentTypes(data.items);
     });
   }, []);
 
   React.useEffect(() => {
     if (value) {
       baseSdk.space
-        .getEntry(value.sys.id)
+        .getEntry<Entry>(value.sys.id)
         .then(entry => {
           setEntry(entry);
           setError(false);
         })
         .catch(() => {
           setError(true);
-          setEntry(null);
+          setEntry(undefined);
         });
     } else {
-      setEntry(null);
-      setError(null);
+      setEntry(undefined);
+      setError(false);
     }
   }, [value]);
 
@@ -62,6 +67,7 @@ function SingleEntryReferenceEditor(
     <div>
       {value && allContentTypes && !error && (
         <WrappedEntryCard
+          baseSdk={props.baseSdk}
           disabled={disabled}
           viewType={props.viewType}
           localeCode={props.field.locale}

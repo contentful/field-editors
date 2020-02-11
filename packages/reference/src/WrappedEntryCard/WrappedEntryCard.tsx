@@ -1,20 +1,16 @@
 import * as React from 'react';
 import { EntryCard, DropdownList, DropdownListItem } from '@contentful/forma-36-react-components';
-import { EntrySys } from 'contentful-ui-extensions-sdk';
-import { ViewType } from '../types';
-import { getEntryTitle, getEntityDescription, getEntryStatus } from '../utils/entryHelpers';
-import { ContentType } from 'contentful-ui-extensions-sdk';
-
-export interface Entry {
-  sys: EntrySys;
-  fields: {
-    [key: string]: {
-      [localeKey: string]: any;
-    };
-  };
-}
+import { ViewType, Entry, File, ContentType, BaseExtensionSDK } from '../types';
+import {
+  getEntryTitle,
+  getEntityDescription,
+  getEntryStatus,
+  getEntryImage
+} from '../utils/entryHelpers';
+import { AssetThumbnail, isValidImage } from './AssetThumbnail';
 
 interface WrappedEntryCardProps {
+  baseSdk: BaseExtensionSDK;
   viewType: ViewType;
   disabled: boolean;
   onRemove: () => void;
@@ -31,6 +27,7 @@ const EntryActions = (props: { disabled: boolean; onEdit: Function; onRemove: Fu
     <DropdownList>
       {onEdit && (
         <DropdownListItem
+          isDisabled={disabled}
           onClick={e => {
             e.stopPropagation();
             onEdit();
@@ -55,15 +52,37 @@ const EntryActions = (props: { disabled: boolean; onEdit: Function; onRemove: Fu
 };
 
 export function WrappedEntryCard(props: WrappedEntryCardProps) {
+  const [file, setFile] = React.useState<null | File>(null);
   const size = props.viewType === 'link' ? 'small' : 'default';
-
-  if (!props.entry) {
-    return <EntryCard size={size} loading />;
-  }
 
   const contentType = props.allContentTypes.find(
     contentType => contentType.sys.id === props.entry?.sys.contentType.sys.id
   );
+
+  React.useEffect(() => {
+    if (props.entry) {
+      setFile(null);
+      getEntryImage(
+        {
+          entry: props.entry,
+          contentType,
+          localeCode: props.localeCode,
+          defaultLocaleCode: props.defaultLocaleCode
+        },
+        props.baseSdk
+      )
+        .then(file => {
+          setFile(file);
+        })
+        .catch(() => {
+          setFile(null);
+        });
+    }
+  }, [props.entry, contentType, props.localeCode, props.defaultLocaleCode]);
+
+  if (!props.entry) {
+    return <EntryCard size={size} loading />;
+  }
 
   const title = getEntryTitle({
     entry: props.entry,
@@ -83,6 +102,7 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
   const status = getEntryStatus(props.entry?.sys);
 
   if (status === 'deleted') {
+    // todo: implement deleted view
     return <div>deleted</div>;
   }
 
@@ -93,7 +113,7 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
       contentType={contentType?.name}
       size={size}
       status={status}
-      // thumbnailElement={entityFile && <Thumbnail thumbnail={entityFile} />}
+      thumbnailElement={file && isValidImage(file) ? <AssetThumbnail file={file} /> : null}
       dropdownListElements={
         <EntryActions disabled={props.disabled} onEdit={props.onEdit} onRemove={props.onRemove} />
       }

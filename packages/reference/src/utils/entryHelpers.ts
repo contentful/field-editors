@@ -1,8 +1,6 @@
 import get from 'lodash/get';
 import isObject from 'lodash/isObject';
-// eslint-disable-next-line you-dont-need-lodash-underscore/find
-import find from 'lodash/find';
-import { ContentType, ContentTypeField, EntrySys } from 'contentful-ui-extensions-sdk';
+import { File, ContentType, Entry, ContentTypeField, EntrySys, BaseExtensionSDK } from '../types';
 
 function titleOrDefault(title: string | undefined, defaultTitle: string) {
   if (!title || title.match(/^\s*$/)) {
@@ -44,7 +42,7 @@ export function getAssetTitle({
   defaultLocaleCode,
   defaultTitle
 }: {
-  asset: any;
+  asset: Entry;
   localeCode: string;
   defaultLocaleCode: string;
   defaultTitle: string;
@@ -64,7 +62,7 @@ export function getEntityDescription({
   localeCode,
   defaultLocaleCode
 }: {
-  entity: any;
+  entity: Entry;
   contentType?: ContentType;
   localeCode: string;
   defaultLocaleCode: string;
@@ -97,7 +95,7 @@ export function getEntryTitle({
   defaultLocaleCode,
   defaultTitle
 }: {
-  entry: any;
+  entry: Entry;
   contentType?: ContentType;
   localeCode: string;
   defaultLocaleCode: string;
@@ -114,7 +112,7 @@ export function getEntryTitle({
     return defaultTitle;
   }
 
-  const displayFieldInfo = find(contentType.fields, { id: displayField });
+  const displayFieldInfo = contentType.fields.find(field => field.id === displayField);
 
   if (!displayFieldInfo) {
     return defaultTitle;
@@ -179,3 +177,48 @@ export function getEntryStatus(sys: EntrySys) {
     return 'draft';
   }
 }
+
+/**
+ * Gets a promise resolving with a localized asset image field representing a
+ * given entities file. The promise may resolve with null.
+ */
+export const getEntryImage = async (
+  {
+    entry,
+    contentType,
+    localeCode
+  }: {
+    entry: Entry;
+    contentType?: ContentType;
+    localeCode: string;
+    defaultLocaleCode: string;
+  },
+  baseSdk: BaseExtensionSDK
+): Promise<null | File> => {
+  if (!contentType) {
+    return null;
+  }
+
+  const assetLink = contentType.fields.find(
+    field => field.type === 'Link' && field.linkType === 'Asset'
+  );
+
+  if (!assetLink) {
+    return null;
+  }
+
+  const assetId = get(entry.fields, [assetLink.id, localeCode, 'sys', 'id']);
+
+  if (!assetId) {
+    return null;
+  }
+
+  try {
+    const asset = await baseSdk.space.getAsset(assetId);
+    const file = get(asset, ['fields', 'file', localeCode]);
+    const isImage = Boolean(get(file, ['details', 'image'], false));
+    return isImage ? file : null;
+  } catch (e) {
+    return null;
+  }
+};
