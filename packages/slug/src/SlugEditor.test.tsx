@@ -259,14 +259,14 @@ describe('SlugEditor', () => {
       expect(field.setValue).toHaveBeenCalledTimes(1);
       expect(field.setValue).toHaveBeenLastCalledWith('untitled-entry-2020-01-24-at-15-33-47');
 
-      sdk.entry.fields['title-id'].setValue('Hello world!');
+      await sdk.entry.fields['title-id'].setValue('Hello world!');
       await wait();
 
       expect(field.setValue).toHaveBeenCalledTimes(2);
       expect(field.setValue).toHaveBeenLastCalledWith('hello-world');
       expect(sdk.space.getEntries).toHaveBeenCalledTimes(2);
 
-      sdk.entry.fields['title-id'].setValue('фраза написанная по русски');
+      await sdk.entry.fields['title-id'].setValue('фраза написанная по русски');
       await wait();
 
       expect(field.setValue).toHaveBeenCalledTimes(3);
@@ -288,7 +288,7 @@ describe('SlugEditor', () => {
       expect(field.setValue).toHaveBeenCalledTimes(1);
       expect(field.setValue).toHaveBeenLastCalledWith('this-is-initial-title-value');
 
-      sdk.entry.fields['title-id'].setValue('Hello world!');
+      await sdk.entry.fields['title-id'].setValue('Hello world!');
       await wait();
 
       expect(field.setValue).toHaveBeenCalledTimes(2);
@@ -308,7 +308,7 @@ describe('SlugEditor', () => {
 
       await wait();
 
-      sdk.entry.fields['title-id'].setValue('Hello world!');
+      await sdk.entry.fields['title-id'].setValue('Hello world!');
       await wait();
 
       expect(titleField.onValueChanged).toHaveBeenCalledWith('en-US', expect.any(Function));
@@ -324,11 +324,11 @@ describe('SlugEditor', () => {
       expect(field.setValue).toHaveBeenCalledTimes(3);
       expect(field.setValue).toHaveBeenLastCalledWith('new-custom-slug');
 
-      sdk.entry.fields['title-id'].setValue('I decided to update my title');
+      await sdk.entry.fields['title-id'].setValue('I decided to update my title');
       await wait();
       expect(field.setValue).toHaveBeenCalledTimes(3);
 
-      sdk.entry.fields['title-id'].setValue('I decided to update my title again');
+      await sdk.entry.fields['title-id'].setValue('I decided to update my title again');
       await wait();
       expect(field.setValue).toHaveBeenCalledTimes(3);
     });
@@ -349,7 +349,7 @@ describe('SlugEditor', () => {
         Type title "ABC DEF"
           -> Slug changes to "abc-def"
       */
-      sdk.entry.fields['title-id'].setValue('ABC DEF');
+      await sdk.entry.fields['title-id'].setValue('ABC DEF');
       await wait();
       expect(field.setValue).toHaveBeenLastCalledWith('abc-def');
       expect(field.setValue).toHaveBeenCalledTimes(2);
@@ -363,7 +363,7 @@ describe('SlugEditor', () => {
         Change title to "ABC D"
         -> Slug does not change
       */
-      sdk.entry.fields['title-id'].setValue('ABC D');
+      await sdk.entry.fields['title-id'].setValue('ABC D');
       await wait();
       expect(field.setValue).toHaveBeenLastCalledWith('abc');
       expect(field.setValue).toHaveBeenCalledTimes(3);
@@ -372,8 +372,8 @@ describe('SlugEditor', () => {
       Change title to "ABC" first and change title to "ABC ABC"
         -> Slug should change to "abc-abc" as it should have started tracking again
       */
-      sdk.entry.fields['title-id'].setValue('ABC');
-      sdk.entry.fields['title-id'].setValue('ABC ABC');
+      await sdk.entry.fields['title-id'].setValue('ABC');
+      await sdk.entry.fields['title-id'].setValue('ABC ABC');
       await wait();
       expect(field.setValue).toHaveBeenLastCalledWith('abc-abc');
       expect(field.setValue).toHaveBeenCalledTimes(4);
@@ -383,7 +383,7 @@ describe('SlugEditor', () => {
   });
 
   describe('for non default locales', () => {
-    it('should track changes default locale changes', async () => {
+    it('locale is not optional and has a fallback then it should track changes default locale changes', async () => {
       const { sdk, field, titleField } = createMocks();
 
       field.locale = 'ru-RU';
@@ -407,7 +407,7 @@ describe('SlugEditor', () => {
       expect(titleField.onValueChanged).toHaveBeenCalledWith('de-DE', expect.any(Function));
     });
 
-    it('should not track default locale changes', async () => {
+    it('locale is optional with a fallback then it should not track default locale changes', async () => {
       const { sdk, field, titleField } = createMocks();
 
       field.locale = 'ru-RU';
@@ -442,14 +442,11 @@ describe('SlugEditor', () => {
 
     await wait();
 
-    sdk.entry.fields['title-id'].setValue(
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed elementum magnsa auctor dolor pulvinar cursus. Etiam condimentum nisl ac molestie.'
-    );
+    await sdk.entry.fields['title-id'].setValue('a'.repeat(80));
     await wait();
 
-    const expectedSlug =
-      'lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-sed-elementum-magnsa';
+    const expectedSlug = 'a'.repeat(74);
     expect(field.setValue).toHaveBeenLastCalledWith(expectedSlug);
-    expect(expectedSlug.length).toBeLessThanOrEqual(75);
+    expect(expectedSlug).toHaveLength(74);
   });
 });
