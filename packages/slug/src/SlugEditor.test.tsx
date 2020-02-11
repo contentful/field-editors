@@ -445,8 +445,24 @@ describe('SlugEditor', () => {
     await sdk.entry.fields['title-id'].setValue('a'.repeat(80));
     await wait();
 
-    const expectedSlug = 'a'.repeat(74);
+    const expectedSlug = 'a'.repeat(75);
     expect(field.setValue).toHaveBeenLastCalledWith(expectedSlug);
-    expect(expectedSlug).toHaveLength(74);
+  });
+
+  it('slug suggestion does not contain cut-off words', async () => {
+    const { field, sdk } = createMocks({
+      field: '',
+      titleField: ''
+    });
+
+    render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />);
+
+    await wait();
+
+    await sdk.entry.fields['title-id'].setValue(`one two three ${'a'.repeat(80)}`);
+    await wait();
+
+    const expectedSlug = 'one-two-three';
+    expect(field.setValue).toHaveBeenLastCalledWith(expectedSlug);
   });
 });

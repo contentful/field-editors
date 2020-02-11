@@ -57,7 +57,7 @@ export function slugify(text: string, locale = 'en') {
   return getSlug(text, {
     separator: '-',
     lang: supportedLanguage(locale) || 'en',
-    truncate: CF_GENERATED_SLUG_MAX_LENGTH,
+    truncate: CF_GENERATED_SLUG_MAX_LENGTH + 1,
     custom: {
       "'": '',
       '`': '',
