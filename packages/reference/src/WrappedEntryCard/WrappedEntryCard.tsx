@@ -62,7 +62,6 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
 
   React.useEffect(() => {
     if (props.entry) {
-      setFile(null);
       getEntryImage(
         {
           entry: props.entry,

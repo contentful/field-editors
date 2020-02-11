@@ -16,8 +16,9 @@ export function MissingEntityCard(props: {
       </SectionHeading>
       {!props.disabled && (
         <IconButton
+          buttonType="muted"
           label="Delete"
-          iconProps={{ icon: 'Close', color: 'muted' }}
+          iconProps={{ icon: 'Close' }}
           onClick={() => {
             props.onRemove();
           }}
