@@ -1,8 +1,8 @@
 {
-  "name": "@contentful/field-editor-shared",
-  "version": "0.6.0",
+  "name": "@contentful/field-editor-slug",
+  "version": "0.0.1",
   "main": "dist/index.js",
-  "module": "dist/field-editor-shared.esm.js",
+  "module": "dist/field-editor-slug.esm.js",
   "typings": "dist/index.d.ts",
   "files": [
     "dist"
@@ -16,14 +16,22 @@
   "scripts": {
     "watch": "tsdx watch",
     "build": "tsdx build",
+    "test": "tsdx test --env=jsdom --watch",
+    "test:ci": "tsdx test --env=jsdom --ci",
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
+    "@contentful/field-editor-shared": "^0.5.0",
+    "@contentful/forma-36-react-components": "^3.28.21",
     "@contentful/forma-36-tokens": "^0.5.1",
-    "contentful-ui-extensions-sdk": "^3.10.8",
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",
-    "lodash-es": "^4.17.15"
+    "lodash-es": "^4.17.15",
+    "speakingurl": "^13.0.0",
+    "@types/speakingurl": "^13.0.2"
+  },
+  "devDependencies": {
+    "@contentful/field-editor-test-utils": "^0.2.0"
   },
   "peerDependencies": {
     "react": ">=16.8.0"
@@ -31,6 +39,11 @@
   "jest": {
     "testMatch": [
       "**/?(*.)+(spec|test).[jt]s?(x)"
-    ]
+    ],
+    "globals": {
+      "ts-jest": {
+        "diagnostics": false
+      }
+    }
   }
 }

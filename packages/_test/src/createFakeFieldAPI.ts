@@ -23,7 +23,13 @@ export function createFakeFieldAPI<T>(
       type: 'Symbol',
       validations: [],
       required: false,
-      onValueChanged: (fn: Function) => {
+      onValueChanged: (...args: [string, Function] | [Function]) => {
+        let fn: Function;
+        if (typeof args[0] === 'string') {
+          fn = args[1] as Function;
+        } else {
+          fn = args[0];
+        }
         emitter.on('onValueChanged', fn as mitt.Handler);
         return () => {
           emitter.off('onValueChanged', fn as mitt.Handler);

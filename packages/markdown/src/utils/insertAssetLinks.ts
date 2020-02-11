@@ -15,7 +15,7 @@ type LinkWithMedia = {
 
 type Locales = {
   localeCode: string;
-  fallbackCode: string;
+  fallbackCode: string | undefined;
   defaultLocaleCode: string;
 };
 
@@ -96,7 +96,7 @@ export async function insertAssetLinks(assets: Array<Asset>, locales: Locales) {
         const code = isFallback ? locales.fallbackCode : locales.defaultLocaleCode;
         return {
           title,
-          thumbnailUrl: asset.fields.file[code].url,
+          thumbnailUrl: asset.fields.file[code as string].url,
           thumbnailAltText: title,
           description: isFallback ? `Fallback locale (${code})` : `Default locale (${code})`,
           asset: asset
