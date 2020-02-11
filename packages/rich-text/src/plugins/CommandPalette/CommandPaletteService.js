@@ -87,9 +87,9 @@ export class CommandPaletteActionBuilder {
     this.permissions = permissions;
   }
 
-  // TODO:xxx Let's create dedicated functions for assets so we do not have to pass a CT.
+  // TODO: Let's create dedicated functions for assets so we do not have to pass a CT.
 
-  maybeBuildEmbedAction(embedType, callback) {
+  maybeBuildEmbedAction(embedType, contentType, callback) {
     if (!isNodeTypeEnabled(field, embedType)) {
       return false;
     }

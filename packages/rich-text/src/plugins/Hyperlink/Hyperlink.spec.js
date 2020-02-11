@@ -58,90 +58,102 @@ describe('Hyperlink', () => {
     };
   });
 
-  it('should inject the tooltip for the referenced scheduled entity', () => {return new Promise(done => {
-    const jobs = [
-      {
-        action: ScheduledActionActions.Publish,
-        scheduledAt: new Date().toISOString(),
-        sys: {
-          id: 'job1',
-          entity: {
-            sys: {
-              id: target.sys.id
+  it('should inject the tooltip for the referenced scheduled entity', () => {
+    return new Promise(done => {
+      const jobs = [
+        {
+          action: ScheduledActionActions.Publish,
+          scheduledAt: new Date().toISOString(),
+          sys: {
+            id: 'job1',
+            entity: {
+              sys: {
+                id: target.sys.id
+              }
             }
           }
         }
-      }
-    ];
+      ];
 
-    widgetAPIMock.jobs.getPendingJobs.mockReturnValue(jobs);
+      widgetAPIMock.jobs.getPendingJobs.mockReturnValue(jobs);
 
-    const tooltipDataStub = jest.fn(entityType =>
-      getScheduledJobsTooltip(entityType, node, widgetAPIMock)
-    );
+      const tooltipDataStub = jest.fn(entityType =>
+        getScheduledJobsTooltip(entityType, node, widgetAPIMock)
+      );
 
-    const wrapper = mount(
-      <WidgetAPIContext.Provider value={{ widgetAPI: widgetAPIMock }}>
-        <Hyperlink attributes={{}} onClick={_.noop()} node={node} getTooltipData={tooltipDataStub}>
-          Hiya!
-        </Hyperlink>
-      </WidgetAPIContext.Provider>
-    );
+      const wrapper = mount(
+        <WidgetAPIContext.Provider value={{ widgetAPI: widgetAPIMock }}>
+          <Hyperlink
+            attributes={{}}
+            onClick={_.noop()}
+            node={node}
+            getTooltipData={tooltipDataStub}>
+            Hiya!
+          </Hyperlink>
+        </WidgetAPIContext.Provider>
+      );
 
-    expect(wrapper.exists('Tooltip')).toBe(true);
-    wrapper.find('Tooltip').simulate('mouseover');
-    // to let the widgetAPI request get fired
-    setTimeout(() => {
-      expect(tooltipDataStub).toHaveBeenCalledWith('Entry');
-      wrapper.update();
-      const scheduleInfo = wrapper.find('ScheduleTooltipContent');
-      expect(scheduleInfo.exists()).toBe(true);
-      expect(scheduleInfo.prop('job')).toEqual(jobs[0]);
-      done();
-    }, 0);
-  })});
+      expect(wrapper.exists('Tooltip')).toBe(true);
+      wrapper.find('Tooltip').simulate('mouseover');
+      // to let the widgetAPI request get fired
+      setTimeout(() => {
+        expect(tooltipDataStub).toHaveBeenCalledWith('Entry');
+        wrapper.update();
+        const scheduleInfo = wrapper.find('ScheduleTooltipContent');
+        expect(scheduleInfo.exists()).toBe(true);
+        expect(scheduleInfo.prop('job')).toEqual(jobs[0]);
+        done();
+      }, 0);
+    });
+  });
 
-  it('should not inject the tooltip for the referenced unscheduled entity', () => {return new Promise(done => {
-    const jobs = [
-      {
-        action: ScheduledActionActions.Publish,
-        scheduledAt: new Date().toISOString(),
-        sys: {
-          id: 'job1',
-          entity: {
-            sys: {
-              id: 'non-existent-entry'
+  it('should not inject the tooltip for the referenced unscheduled entity', () => {
+    return new Promise(done => {
+      const jobs = [
+        {
+          action: ScheduledActionActions.Publish,
+          scheduledAt: new Date().toISOString(),
+          sys: {
+            id: 'job1',
+            entity: {
+              sys: {
+                id: 'non-existent-entry'
+              }
             }
           }
         }
-      }
-    ];
+      ];
 
-    widgetAPIMock.jobs.getPendingJobs = jest.fn().mockReturnValue(jobs);
+      widgetAPIMock.jobs.getPendingJobs = jest.fn().mockReturnValue(jobs);
 
-    const tooltipDataStub = jest.fn(entityType =>
-      getScheduledJobsTooltip(entityType, node, widgetAPIMock)
-    );
+      const tooltipDataStub = jest.fn(entityType =>
+        getScheduledJobsTooltip(entityType, node, widgetAPIMock)
+      );
 
-    const wrapper = mount(
-      <WidgetAPIContext.Provider value={{ widgetAPI: widgetAPIMock }}>
-        <Hyperlink attributes={{}} onClick={_.noop()} node={node} getTooltipData={tooltipDataStub}>
-          Hiya!
-        </Hyperlink>
-      </WidgetAPIContext.Provider>
-    );
+      const wrapper = mount(
+        <WidgetAPIContext.Provider value={{ widgetAPI: widgetAPIMock }}>
+          <Hyperlink
+            attributes={{}}
+            onClick={_.noop()}
+            node={node}
+            getTooltipData={tooltipDataStub}>
+            Hiya!
+          </Hyperlink>
+        </WidgetAPIContext.Provider>
+      );
 
-    expect(wrapper.exists('Tooltip')).toBe(true);
-    wrapper.find('Tooltip').simulate('mouseover');
+      expect(wrapper.exists('Tooltip')).toBe(true);
+      wrapper.find('Tooltip').simulate('mouseover');
 
-    setTimeout(() => {
-      expect(tooltipDataStub).toHaveBeenCalledWith('Entry');
-      wrapper.update();
-      expect(wrapper.exists('#test-marker')).toBe(false);
-      expect(wrapper.exists('ScheduleTooltipContent')).toBe(false);
-      done();
-    }, 0);
-  })});
+      setTimeout(() => {
+        expect(tooltipDataStub).toHaveBeenCalledWith('Entry');
+        wrapper.update();
+        expect(wrapper.exists('#test-marker')).toBe(false);
+        expect(wrapper.exists('ScheduleTooltipContent')).toBe(false);
+        done();
+      }, 0);
+    });
+  });
 });
 
 describe("Hyperlink's default getScheduledJobsTooltip", () => {
@@ -168,7 +180,8 @@ describe("Hyperlink's default getScheduledJobsTooltip", () => {
     expect(getScheduledJobsTooltip('Entry', node, { jobs: { getPendingJobs: 1 } })).toBeNull();
   });
 
-  it('should asc sort the array of pending jobs and reutrn the summary component', () => {
+  // TODO:xxx Move to user_interface branch's custom link tooltip rendering.
+  it('should asc sort the array of pending jobs and return the summary component', () => {
     const entry = {
       sys: {
         id: 1
