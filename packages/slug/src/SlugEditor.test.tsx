@@ -383,7 +383,7 @@ describe('SlugEditor', () => {
   });
 
   describe('for non default locales', () => {
-    it('locale is not optional and has a fallback then it should track default locale changes', async () => {
+    it('locale is not optional and has no fallback then it should track default locale changes', async () => {
       const { sdk, field, titleField } = createMocks();
 
       field.locale = 'ru-RU';
@@ -407,7 +407,7 @@ describe('SlugEditor', () => {
       expect(titleField.onValueChanged).toHaveBeenCalledWith('de-DE', expect.any(Function));
     });
 
-    it('locale is optional with a fallback then it should track current locale changes', async () => {
+    it('locale is optional and has a fallback then it should track current locale changes', async () => {
       const { sdk, field, titleField } = createMocks();
 
       field.locale = 'ru-RU';
