@@ -4,6 +4,12 @@ import { css, cx } from 'emotion';
 import { camelCase } from 'lodash-es';
 import tokens from '@contentful/forma-36-tokens';
 
+const headingCss = {
+  'font-weight': tokens.fontWeightMedium,
+  'line-height': '1.3',
+  margin: `0 0 ${tokens.spacingS}`
+};
+
 const styles = {
   paragraph: css({
     'line-height': tokens.lineHeightDefault,
@@ -28,68 +34,91 @@ const styles = {
     color: tokens.colorTextMid,
     'border-radius': '2px'
   }),
-  orderedList: {
+  hr: css({
+    border: 'none',
+    height: tokens.spacingM,
+    background: 'transparent',
+    position: 'relative',
+    margin: `0 0 ${tokens.spacingL}`,
+    '&:after': {
+      content: '',
+      position: 'absolute',
+      width: '100%',
+      height: '1px',
+      background: tokens.colorElementLight,
+      top: '50%'
+    },
+    '&:selected': {
+      '&:after': {
+        background: tokens.colorBlueBase,
+        '-webkit-box-shadow': `0 0 5px ${tokens.colorBlueBase}`,
+        'box-shadow': `0 0 5px ${tokens.colorBlueBase}`
+      }
+    }
+  }),
+  textLink: css({
+    'font-size': 'inherit'
+  }),
+  orderedList: css({
     margin: '0 0 1.25rem 1.25rem',
     'list-style-type': 'decimal',
-    orderedList: {
+    '[data-test-id="ordered-list"]': {
       'list-style-type': 'upper-alpha',
-      unorderedList: {
+      '[data-test-id="ordered-list"]': {
         'list-style-type': 'lower-roman',
-        unorderedList: {
+        '[data-test-id="ordered-list"]': {
           'list-style-type': 'lower-alpha'
         }
       }
     },
-    paragraph: {
+    '[data-test-id="paragraph"]': {
       margin: 0,
       'line-height': tokens.lineHeightDefault
     }
-  },
-  unorderedList: {
+  }),
+  unorderedList: css({
     margin: '0 0 1.25rem 1.25rem',
     'list-style-type': 'disc',
-    unorderedList: {
+    '[data-test-id="unordered-list"]': {
       'list-style-type': 'circle',
-      unorderedList: {
+      '[data-test-id="unordered-list"]': {
         'list-style-type': 'square'
       }
     },
-    paragraph: {
+    '[data-test-id="paragraph"]': {
       margin: 0,
       'line-height': tokens.lineHeightDefault
     }
-  },
+  }),
   listItem: css({
     'list-style': 'inherit',
     margin: 0,
-    orderedList: {
-      margin: '0 0 0 1.5rem'
-    },
-    unorderedList: {
-      margin: '0 0 0 1.5rem'
+    '[data-test-id="ordered-list"], [data-test-id="unordered-list"]': {
+      margin: `0 0 0 ${tokens.spacingL}`
     }
   }),
-  heading: css({
-    'font-weight': tokens.fontWeightMedium,
-    'line-height': 1.3,
-    margin: '0 0 0.75rem 0'
-  }),
-  h1Heading: css({
+  heading1: css({
+    ...headingCss,
     'font-size': '1.875rem'
   }),
-  h2Heading: css({
+  heading2: css({
+    ...headingCss,
     'font-size': '1.5625rem'
   }),
-  h3Heading: css({
+  heading3: css({
+    ...headingCss,
     'font-size': '1.375rem'
   }),
-  h4Heading: css({
+  heading4: css({
+    ...headingCss,
     'font-size': '1.25rem'
   }),
-  h5Heading: css({
+  heading5: css({
+    ...headingCss,
     'font-size': '1.125rem'
   }),
-  h6Heading: css({
+  heading6: css({
+    ...headingCss,
     'font-size': '1rem'
   })
 };
@@ -98,10 +127,7 @@ export default function(Tag, tagProps = {}) {
   const CommonNode = ({ attributes, children, node }) => {
     return (
       <Tag
-        className={cx(
-          styles[camelCase(node.type)],
-          node.type === 'heading' && styles[node.tagName] + 'Heading'
-        )}
+        className={styles[camelCase(node.type)]}
         data-test-id={node.type}
         {...tagProps}
         {...attributes}>

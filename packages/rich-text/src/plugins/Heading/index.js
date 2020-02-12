@@ -6,7 +6,7 @@ import CommonNode from '../shared/NodeDecorator';
 const newPlugin = (defaultType, tagName, hotkey) => ({ type = defaultType, richTextAPI }) => ({
   renderNode: (props, _editor, next) => {
     if (props.node.type === type) {
-      return CommonNode(tagName, { className: 'cf-slate-heading' })(props);
+      return CommonNode(tagName, {})(props);
     }
     return next();
   },

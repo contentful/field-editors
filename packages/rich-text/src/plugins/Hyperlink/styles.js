@@ -14,6 +14,7 @@ export default {
     }
   }),
   hyperlink: css({
+    'font-size': 'inherit',
     display: 'inline !important',
     '&:hover': {
       fill: tokens.textColorDark

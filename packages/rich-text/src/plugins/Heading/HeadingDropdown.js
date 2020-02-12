@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { Dropdown, DropdownList, Button } from '@contentful/forma-36-react-components';
+import { css } from 'emotion';
+
+const styles = {
+  root: css({
+    padding: '0 2px'
+  })
+};
 
 export const blockTitles = {
   [BLOCKS.HEADING_1]: 'Heading 1',
@@ -36,7 +43,7 @@ class HeadingDropdown extends Component {
           <Button
             onMouseDown={onToggle}
             data-test-id="toolbar-heading-toggle"
-            className="toolbar-heading-toggle"
+            className={styles.root}
             indicateDropdown
             buttonType="naked"
             size="small"

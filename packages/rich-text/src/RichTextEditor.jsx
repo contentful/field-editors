@@ -41,8 +41,15 @@ const styles = {
   editor: css({
     borderRadius: '0 0 3px 3px',
     border: STYLE_EDITOR_BORDER,
-    borderTop: 0,
-    background: tokens.colorElementLightest,
+    'border-top': 0,
+    padding: '20px',
+    'font-size': tokens.spacingM,
+    'min-height': '400px',
+    background: tokens.colorWhite,
+    outline: 'none',
+    'white-space': 'pre-wrap',
+    'overflow-wrap': 'break-word',
+    '-webkit-user-modify': 'read-write-plaintext-only',
     a: {
       span: {
         cursor: 'not-allowed',
