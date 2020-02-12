@@ -61,10 +61,9 @@ export class TitleFieldConnector<ValueType> extends React.Component<
     let trackingLocale = this.props.field.locale;
 
     if (this.props.field.locale !== this.props.defaultLocale) {
-      if (this.props.isOptionalLocaleWithFallback) {
-        return;
+      if (!this.props.isOptionalLocaleWithFallback) {
+        trackingLocale = this.props.defaultLocale;
       }
-      trackingLocale = this.props.defaultLocale;
     }
 
     this.unsubscribeDisabled = titleField.onIsDisabledChanged(
