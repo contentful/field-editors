@@ -10,11 +10,11 @@ export default {
     display: 'inline',
     position: 'static',
     a: {
-      'font-size': 'inherit'
+      'font-size': 'inherit !important'
     }
   }),
   hyperlink: css({
-    'font-size': 'inherit',
+    'font-size': 'inherit !important',
     display: 'inline !important',
     '&:hover': {
       fill: tokens.textColorDark

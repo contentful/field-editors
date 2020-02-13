@@ -7,30 +7,30 @@ import { css, cx } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 
 const styles = {
-  hr: css({
-    height: tokens.spacingM,
-    background: 'transparent',
-    position: 'relative',
-    margin: `0 0 ${tokens.spacingL}`,
-    '&:hover': {
-      cursor: 'pointer'
-    },
-    '&:after': {
-      content: '',
-      position: 'absolute',
-      width: '100%',
-      height: '1px',
-      background: tokens.colorElementMid,
-      top: '50%'
+  hr: css`
+    height: ${tokens.spacingM};
+    background: transparent;
+    position: relative;
+    margin: 0 0 ${tokens.spacingL};
+    &:hover {
+      cursor: pointer;
     }
-  }),
-  hrSelected: css({
-    '&:after': {
-      background: tokens.colorPrimary,
-      '-webkit-box-shadow': `0px 0px 5px ${tokens.colorPrimary}`,
-      'box-shadow': `0px 0px 5px ${tokens.colorPrimary}`
+    &::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      background: ${tokens.colorElementMid};
+      top: 50%;
     }
-  })
+  `,
+  hrSelected: css`
+    &::after {
+      background: ${tokens.colorPrimary};
+      -webkit-box-shadow: 0px 0px 5px ${tokens.colorPrimary};
+      box-shadow: 0px 0px 5px ${tokens.colorPrimary};
+    }
+  `
 };
 
 export const HrPlugin = () => {

@@ -34,28 +34,6 @@ const styles = {
     color: tokens.colorTextMid,
     'border-radius': '2px'
   }),
-  hr: css({
-    border: 'none',
-    height: tokens.spacingM,
-    background: 'transparent',
-    position: 'relative',
-    margin: `0 0 ${tokens.spacingL}`,
-    '&:after': {
-      content: '',
-      position: 'absolute',
-      width: '100%',
-      height: '1px',
-      background: tokens.colorElementLight,
-      top: '50%'
-    },
-    '&:selected': {
-      '&:after': {
-        background: tokens.colorBlueBase,
-        '-webkit-box-shadow': `0 0 5px ${tokens.colorBlueBase}`,
-        'box-shadow': `0 0 5px ${tokens.colorBlueBase}`
-      }
-    }
-  }),
   textLink: css({
     'font-size': 'inherit'
   }),
