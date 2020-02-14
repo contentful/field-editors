@@ -33,7 +33,7 @@ export default {
     top: '4px',
     height: '14px',
     margin: '0 -2px 0 -1px',
-    '-webkit-transition': 'fill 100ms ease-in-out',
+    webkitTransition: 'fill 100ms ease-in-out',
     transition: 'fill 100ms ease-in-out',
     '&:hover': {
       fill: tokens.textColorDark

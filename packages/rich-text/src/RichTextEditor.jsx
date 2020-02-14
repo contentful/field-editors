@@ -50,7 +50,7 @@ const styles = {
     outline: 'none',
     whiteSpace: 'pre-wrap',
     overflowWrap: 'break-word',
-    '-webkit-user-modify': 'read-write-plaintext-only',
+    webkitUserModify: 'read-write-plaintext-only',
     a: {
       span: {
         cursor: 'not-allowed',
@@ -69,7 +69,7 @@ const styles = {
       '.active': {
         borderColor: tokens.colorElementDarkest,
         background: tokens.colorElementMid,
-        '-webkit-box-shadow': 'inset 0 1px 2px rgba(0,0,0,0.12)',
+        webkitBoxShadow: 'inset 0 1px 2px rgba(0,0,0,0.12)',
         boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.12)'
       }
     }

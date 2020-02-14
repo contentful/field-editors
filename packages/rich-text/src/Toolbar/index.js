@@ -36,17 +36,17 @@ import { isNodeTypeEnabled, isMarkEnabled } from '../validations';
 const styles = {
   embedActionsWrapper: css({
     display: ['-webkit-box', '-ms-flexbox', 'flex'],
-    '-webkit-align-self': 'flex-start',
+    webkitAlignSelf: 'flex-start',
     alignSelf: 'flex-start',
-    '-ms-flex-item-align': 'start',
+    msFlexItemAlign: 'start',
     marginLeft: 'auto'
   }),
   formattingOptionsWrapper: css({
     display: ['-webkit-box', '-ms-flexbox', 'flex'],
-    '-ms-flex-align': 'center',
-    '-webkit-box-align': 'center',
+    msFlexAlign: 'center',
+    webkitBoxAlign: 'center',
     alignItems: 'center',
-    '-ms-flex-wrap': 'wrap',
+    msFlexWrap: 'wrap',
     flexWrap: 'wrap',
     marginRight: '20px'
   })

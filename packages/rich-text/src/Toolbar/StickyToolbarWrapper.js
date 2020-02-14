@@ -6,8 +6,8 @@ import { css } from 'emotion';
 
 const styles = {
   stickyWrapper: css({
-    '-webkit-transform': 'none !important',
-    transform: 'none !important'
+    transform: 'none !important',
+    webkitTransform: 'none !important'
   }),
   nativeStickyEnabled: css({
     position: [

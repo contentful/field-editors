@@ -9,9 +9,9 @@ const styles = {
     margin: '0px 5px',
     fontSize: 'inherit',
     span: {
-      '-webkit-user-select': 'none',
-      '-moz-user-select': 'none',
-      '-ms-user-select': 'none',
+      webkitUserSelect: 'none',
+      mozUserSelect: 'none',
+      msUserSelect: 'none',
       userSelect: 'none'
     }
   })
