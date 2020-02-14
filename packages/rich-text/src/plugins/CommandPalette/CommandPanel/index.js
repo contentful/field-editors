@@ -4,7 +4,8 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import isHotKey from 'is-hotkey';
-import { throttle, flatten } from 'lodash-es';
+import throttle from 'lodash/throttle';
+import flatten from 'lodash/flatten';
 import { insertBlock } from '../../EmbeddedEntityBlock/Util';
 import { insertInline } from '../../EmbeddedEntryInline/Utils';
 import {

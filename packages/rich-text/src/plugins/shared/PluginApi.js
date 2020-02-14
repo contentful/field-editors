@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { mapValues } from 'lodash-es';
+import mapValues from 'lodash/mapValues';
 
 /**
  * All known origins for Rich Text actions

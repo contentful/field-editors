@@ -1,4 +1,6 @@
-import { chain } from 'lodash-es';
+import flow from 'lodash/flow';
+import find from 'lodash/find';
+import get from 'lodash/get';
 
 /**
  * Given a field object and a rich text node type, return a list of valid
@@ -26,10 +28,9 @@ import { chain } from 'lodash-es';
  * @returns {string[]}
  */
 export default (field, nodeType) =>
-  chain(field.validations)
-    .find('nodes')
-    .get('nodes')
-    .get(nodeType)
-    .find('linkContentType')
-    .get('linkContentType', [])
-    .value();
+  flow(
+    v => find(v, 'nodes'),
+    v => get(v, ['nodes', nodeType]),
+    v => find(v, 'linkContentType'),
+    v => get(v, 'linkContentType', [])
+  )(field.validations);

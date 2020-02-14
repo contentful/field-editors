@@ -1,4 +1,4 @@
-import { fromPairs } from 'lodash-es';
+import fromPairs from 'lodash/fromPairs';
 import {
   BLOCKS,
   INLINES,

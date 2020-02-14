@@ -1,4 +1,6 @@
-import _ from 'lodash-es';
+import flow from 'lodash/flow';
+import find from 'lodash/find';
+import get from 'lodash/get';
 import { BLOCKS, INLINES, TOP_LEVEL_BLOCKS } from '@contentful/rich-text-types';
 
 // TODO: Move this into separate package (maybe rich-text-types) and share with FE.
@@ -12,13 +14,11 @@ export const VALIDATABLE_NODE_TYPES = [
   ...Object.values(INLINES)
 ];
 
-const getRichTextValidation = (field, validationType) => {
-  return _(field.validations)
-    .chain()
-    .find(validation => _.has(validation, validationType))
-    .get(validationType)
-    .value();
-};
+const getRichTextValidation = (field, validationType) =>
+  flow(
+    v => find(v, validationType),
+    v => get(v, validationType)
+  )(field.validations);
 
 const isFormattingOptionEnabled = (field, validationType, nodeTypeOrMark) => {
   const enabledFormattings = getRichTextValidation(field, validationType);

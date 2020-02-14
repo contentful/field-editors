@@ -12,7 +12,7 @@ import {
   Icon,
   IconButton
 } from '@contentful/forma-36-react-components';
-import _ from 'lodash-es';
+import uniqBy from 'lodash/uniqBy';
 
 const styles = {
   commandPanel: css({
@@ -214,7 +214,7 @@ export class CommandPanel extends React.Component {
   };
 
   renderGroups() {
-    const groups = _.uniqBy(
+    const groups = uniqBy(
       this.state.items.map(item => item.group),
       value => value
     );

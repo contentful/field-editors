@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { NodePropTypes } from './PropTypes';
-import { css, cx } from 'emotion';
-import { camelCase } from 'lodash-es';
+import { css } from 'emotion';
+import camelCase from 'lodash/camelCase';
 import tokens from '@contentful/forma-36-tokens';
 
 const headingCss = {
