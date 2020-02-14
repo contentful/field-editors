@@ -15,7 +15,7 @@ const styles = {
       'sticky'
     ],
     top: 0,
-    'z-index': 2
+    zIndex: 2
   })
 };
 

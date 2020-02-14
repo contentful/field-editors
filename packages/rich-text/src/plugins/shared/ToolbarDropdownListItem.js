@@ -8,49 +8,49 @@ const styles = {
   root: css({
     button: {
       span: {
-        'font-weight': tokens.fontWeightDemiBold
+        fontWeight: tokens.fontWeightDemiBold
       }
     }
   }),
   h1: css({
     button: {
       span: {
-        'font-size': '1.625rem'
+        fontSize: '1.625rem'
       }
     }
   }),
   h2: css({
     button: {
       span: {
-        'font-size': '1.4375rem'
+        fontSize: '1.4375rem'
       }
     }
   }),
   h3: css({
     button: {
       span: {
-        'font-size': '1.25rem'
+        fontSize: '1.25rem'
       }
     }
   }),
   h4: css({
     button: {
       span: {
-        'font-size': '1.125rem'
+        fontSize: '1.125rem'
       }
     }
   }),
   h5: css({
     button: {
       span: {
-        'font-size': '1rem'
+        fontSize: '1rem'
       }
     }
   }),
   h6: css({
     button: {
       span: {
-        'font-size': '0.875rem'
+        fontSize: '0.875rem'
       }
     }
   })

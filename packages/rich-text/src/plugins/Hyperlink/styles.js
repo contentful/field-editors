@@ -10,11 +10,11 @@ export default {
     display: 'inline',
     position: 'static',
     a: {
-      'font-size': 'inherit !important'
+      fontSize: 'inherit !important'
     }
   }),
   hyperlink: css({
-    'font-size': 'inherit !important',
+    fontSize: 'inherit !important',
     display: 'inline !important',
     '&:hover': {
       fill: tokens.textColorDark
@@ -25,7 +25,7 @@ export default {
   }),
   hyperlinkIEFallback: css({
     color: '#1683d0',
-    'text-decoration': 'underline'
+    textDecoration: 'underline'
   }),
   // TODO: use these styles once we can use the icon
   hyperlinkIcon: css({

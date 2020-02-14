@@ -5,25 +5,25 @@ import camelCase from 'lodash/camelCase';
 import tokens from '@contentful/forma-36-tokens';
 
 const headingCss = {
-  'font-weight': tokens.fontWeightMedium,
-  'line-height': '1.3',
+  fontWeight: tokens.fontWeightMedium,
+  lineHeight: '1.3',
   margin: `0 0 ${tokens.spacingS}`
 };
 
 const styles = {
   paragraph: css({
-    'line-height': tokens.lineHeightDefault,
-    'margin-bottom': '1.5em'
+    lineHeight: tokens.lineHeightDefault,
+    marginBottom: '1.5em'
   }),
   bold: css({
     color: 'inherit',
-    'font-weight': tokens.fontWeightDemiBold
+    fontWeight: tokens.fontWeightDemiBold
   }),
   blockquote: css({
     margin: '0 0 1.3125rem',
-    'border-left': `6px solid ${tokens.colorElementLight}`,
-    'padding-left': '0.875rem',
-    'font-style': 'normal',
+    borderLeft: `6px solid ${tokens.colorElementLight}`,
+    paddingLeft: '0.875rem',
+    fontStyle: 'normal',
     '& a': {
       color: 'inherit'
     }
@@ -32,44 +32,44 @@ const styles = {
     background: tokens.colorElementLight,
     padding: '0px',
     color: tokens.colorTextMid,
-    'border-radius': '2px'
+    borderRadius: '2px'
   }),
   textLink: css({
-    'font-size': 'inherit'
+    fontSize: 'inherit'
   }),
   orderedList: css({
     margin: '0 0 1.25rem 1.25rem',
-    'list-style-type': 'decimal',
+    listStyleType: 'decimal',
     '[data-test-id="ordered-list"]': {
-      'list-style-type': 'upper-alpha',
+      listStyleType: 'upper-alpha',
       '[data-test-id="ordered-list"]': {
-        'list-style-type': 'lower-roman',
+        listStyleType: 'lower-roman',
         '[data-test-id="ordered-list"]': {
-          'list-style-type': 'lower-alpha'
+          listStyleType: 'lower-alpha'
         }
       }
     },
     '[data-test-id="paragraph"]': {
       margin: 0,
-      'line-height': tokens.lineHeightDefault
+      lineHeight: tokens.lineHeightDefault
     }
   }),
   unorderedList: css({
     margin: '0 0 1.25rem 1.25rem',
-    'list-style-type': 'disc',
+    listStyleType: 'disc',
     '[data-test-id="unordered-list"]': {
-      'list-style-type': 'circle',
+      listStyleType: 'circle',
       '[data-test-id="unordered-list"]': {
-        'list-style-type': 'square'
+        listStyleType: 'square'
       }
     },
     '[data-test-id="paragraph"]': {
       margin: 0,
-      'line-height': tokens.lineHeightDefault
+      lineHeight: tokens.lineHeightDefault
     }
   }),
   listItem: css({
-    'list-style': 'inherit',
+    listStyle: 'inherit',
     margin: 0,
     '[data-test-id="ordered-list"], [data-test-id="unordered-list"]': {
       margin: `0 0 0 ${tokens.spacingL}`
@@ -77,27 +77,27 @@ const styles = {
   }),
   heading1: css({
     ...headingCss,
-    'font-size': '1.875rem'
+    fontSize: '1.875rem'
   }),
   heading2: css({
     ...headingCss,
-    'font-size': '1.5625rem'
+    fontSize: '1.5625rem'
   }),
   heading3: css({
     ...headingCss,
-    'font-size': '1.375rem'
+    fontSize: '1.375rem'
   }),
   heading4: css({
     ...headingCss,
-    'font-size': '1.25rem'
+    fontSize: '1.25rem'
   }),
   heading5: css({
     ...headingCss,
-    'font-size': '1.125rem'
+    fontSize: '1.125rem'
   }),
   heading6: css({
     ...headingCss,
-    'font-size': '1rem'
+    fontSize: '1rem'
   })
 };
 

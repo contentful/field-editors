@@ -7,10 +7,10 @@ import tokens from '@contentful/forma-36-tokens';
 const styles = {
   bold: css({
     color: 'inherit',
-    'font-weight': tokens.fontWeightDemiBold
+    fontWeight: tokens.fontWeightDemiBold
   }),
   headingBold: css({
-    'font-weight': 900
+    fontWeight: 900
   })
 };
 

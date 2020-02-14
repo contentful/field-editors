@@ -37,18 +37,18 @@ const styles = {
   embedActionsWrapper: css({
     display: ['-webkit-box', '-ms-flexbox', 'flex'],
     '-webkit-align-self': 'flex-start',
-    'align-self': 'flex-start',
+    alignSelf: 'flex-start',
     '-ms-flex-item-align': 'start',
-    'margin-left': 'auto'
+    marginLeft: 'auto'
   }),
   formattingOptionsWrapper: css({
     display: ['-webkit-box', '-ms-flexbox', 'flex'],
     '-ms-flex-align': 'center',
     '-webkit-box-align': 'center',
-    'align-items': 'center',
+    alignItems: 'center',
     '-ms-flex-wrap': 'wrap',
-    'flex-wrap': 'wrap',
-    'margin-right': '20px'
+    flexWrap: 'wrap',
+    marginRight: '20px'
   })
 };
 

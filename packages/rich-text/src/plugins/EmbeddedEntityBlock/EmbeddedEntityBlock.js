@@ -5,7 +5,7 @@ import { css } from 'emotion';
 
 const styles = {
   root: css({
-    'margin-bottom': '1.25rem'
+    marginBottom: '1.25rem'
   })
 };
 

@@ -7,12 +7,12 @@ import { INLINES } from '@contentful/rich-text-types';
 const styles = {
   root: css({
     margin: '0px 5px',
-    'font-size': 'inherit',
+    fontSize: 'inherit',
     span: {
       '-webkit-user-select': 'none',
       '-moz-user-select': 'none',
       '-ms-user-select': 'none',
-      'user-select': 'none'
+      userSelect: 'none'
     }
   })
 };
