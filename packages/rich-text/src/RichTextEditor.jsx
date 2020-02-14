@@ -66,7 +66,6 @@ const styles = {
       '&:hover': {
         borderColor: tokens.colorElementDarkest
       },
-      // TODO:xxx I don't think this will work Chris:
       '.active': {
         borderColor: tokens.colorElementDarkest,
         background: tokens.colorElementMid,

@@ -14,11 +14,6 @@ class CommandPalette extends React.PureComponent {
     embedsEnabled: false
   };
 
-  componentDidCatch(error, info) {
-    // TODO:xxx Find another way to log this or get rid of it. Seems nothing is in Bugsnag right now anyhow.
-    // logger.logError('Unexpected rich text commands error.', { error, info });
-  }
-
   async UNSAFE_componentDidMount() {
     const { field } = this.props.richTextAPI.widgetAPI;
     this.setState({
