@@ -58,20 +58,6 @@ const styles = {
           cursor: 'not-allowed'
         }
       }
-    },
-    button: {
-      border: STYLE_EDITOR_BORDER,
-      background: tokens.colorElementLight,
-      padding: '0 8px',
-      '&:hover': {
-        borderColor: tokens.colorElementDarkest
-      },
-      '.active': {
-        borderColor: tokens.colorElementDarkest,
-        background: tokens.colorElementMid,
-        webkitBoxShadow: 'inset 0 1px 2px rgba(0,0,0,0.12)',
-        boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.12)'
-      }
     }
   })
 };
