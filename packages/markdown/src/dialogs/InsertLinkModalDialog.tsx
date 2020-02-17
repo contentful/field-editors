@@ -26,7 +26,7 @@ type InsertLinkModalProps = {
 export const InsertLinkModal = ({ selectedText, onClose }: InsertLinkModalProps) => {
   const mainInputRef = useRef<HTMLInputElement>(null);
   const [text, setText] = useState(selectedText || '');
-  const [url, setUrl] = useState('https://');
+  const [url, setUrl] = useState('');
   const [touched, setTouched] = useState(false);
   const [title, setTitle] = useState('');
   const onInsert = (values: InsertLinkModalPositiveResult) => onClose(values);
@@ -67,7 +67,7 @@ export const InsertLinkModal = ({ selectedText, onClose }: InsertLinkModalProps)
           }}
           validationMessage={touched && !urlIsValid ? 'Invalid URL' : ''}
           textInputProps={{
-            placeholder: 'https://example.com',
+            placeholder: 'https://',
             maxLength: 2100,
             testId: 'target-url-field',
             inputRef: mainInputRef
