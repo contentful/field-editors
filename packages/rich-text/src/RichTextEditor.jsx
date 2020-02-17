@@ -109,7 +109,7 @@ export class ConnectedRichTextEditor extends React.Component {
         canCreateEntryOfContentType: PropTypes.object.isRequired
       }).isRequired
     }).isRequired,
-    value: PropTypes.object.isRequired,
+    value: PropTypes.object,
     isDisabled: PropTypes.bool,
     onChange: PropTypes.func,
     onAction: PropTypes.func,
@@ -134,7 +134,6 @@ export class ConnectedRichTextEditor extends React.Component {
 
   state = {
     lastOperations: List(),
-    isEmbedDropdownOpen: false,
     value:
       this.props.value && this.props.value.nodeType === BLOCKS.DOCUMENT
         ? createSlateValue(this.props.value)
@@ -177,6 +176,7 @@ export class ConnectedRichTextEditor extends React.Component {
   }, 500);
 
   componentDidUpdate(prevProps) {
+    /* eslint-disable react/no-did-update-set-state */
     const isIncomingChange = () => !deepEquals(prevProps.value, this.props.value);
     const isDocumentChanged = !this.state.lastOperations.isEmpty();
 
@@ -259,6 +259,7 @@ function isRelevantOperation(op) {
 }
 
 export default function RichTextEditor(props) {
+  /* eslint-disable react/prop-types */
   const { widgetAPI, isInitiallyDisabled, ...otherProps } = props;
   return (
     <FieldConnector
@@ -289,3 +290,7 @@ export default function RichTextEditor(props) {
     </FieldConnector>
   );
 }
+
+RichTextEditor.defaultProps = {
+  isInitiallyDisabled: true
+};

@@ -129,7 +129,7 @@ class CommandPanelItem extends React.Component {
         }}>
         <button type="button" className={styles.button} onClick={item.callback && item.callback}>
           {item.icon && <Icon className={styles.icon} icon={item.icon} color="secondary" />}
-          {item.thumbnail && <img className={styles.thumbnail} src={item.thumbnail} />}
+          {item.thumbnail && <img className={styles.thumbnail} src={item.thumbnail} alt="" />}
           {item.label}
         </button>
       </li>
@@ -138,13 +138,15 @@ class CommandPanelItem extends React.Component {
 }
 
 const Instruction = ({ children }) => <span className={styles.instruction}>{children}</span>;
+Instruction.propTypes = {
+  children: PropTypes.node
+};
 
 export class CommandPanel extends React.Component {
   static propTypes = {
     items: PropTypes.arrayOf(itemPropType),
     searchString: PropTypes.string,
     className: PropTypes.string,
-    children: PropTypes.node,
     testId: PropTypes.string,
     isLoading: PropTypes.bool,
     isUpdating: PropTypes.bool,
@@ -305,7 +307,6 @@ export class CommandPanel extends React.Component {
     return (
       <div className={classNames}>
         {this.renderNavigationBar()}
-        {/* eslint-disable-next-line rulesdir/restrict-non-f36-components */}
         <ul className={styles.commandPanelList} data-test-id={testId}>
           {isLoading ? this.renderSkeleton() : this.renderGroups()}
         </ul>

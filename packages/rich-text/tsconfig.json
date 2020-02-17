@@ -16,7 +16,6 @@
     "jsx": "react"
   },
 
-
   "linterOptions": {
     "exclude": ["src/**"]
   }

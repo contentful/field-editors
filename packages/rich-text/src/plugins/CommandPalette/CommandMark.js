@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 class CommandMark extends React.PureComponent {
   static propTypes = {
+    children: PropTypes.node.isRequired,
     editor: PropTypes.object,
     attributes: PropTypes.object
   };

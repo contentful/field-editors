@@ -6,8 +6,7 @@ import CommandPanel from './CommandPanel';
 class CommandPalette extends React.PureComponent {
   static propTypes = {
     editor: PropTypes.object,
-    richTextAPI: PropTypes.object,
-    onClose: PropTypes.func
+    richTextAPI: PropTypes.object
   };
 
   state = {

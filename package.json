@@ -13,7 +13,7 @@
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean",
     "build": "lerna run --concurrency 1 --stream build",
-    "lint": "eslint ./ --ext .js,.ts,.tsx",
+    "lint": "eslint ./ --ext .js,.jsx,.ts,.tsx",
     "lint:md": "remark --no-stdout --frail *.md */*.md",
     "watch": "lerna run --stream watch",
     "tsc": "lerna run --concurrency 1 --stream tsc",

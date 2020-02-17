@@ -1,5 +1,6 @@
-import flow from 'lodash/flow';
+/* eslint-disable you-dont-need-lodash-underscore/find */
 import find from 'lodash/find';
+import flow from 'lodash/flow';
 import get from 'lodash/get';
 import { BLOCKS, INLINES, TOP_LEVEL_BLOCKS } from '@contentful/rich-text-types';
 

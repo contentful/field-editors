@@ -19,7 +19,8 @@
     "build": "tsdx build",
     "test": "jest --env=jsdom --watch --config jest.config.js",
     "test:ci": "jest --env=jsdom --ci",
-    "tsc": "tsc -p ./ --noEmit"
+    "tsc": "tsc -p ./ --noEmit",
+    "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
     "@contentful/contentful-slatejs-adapter": "^5.0.0",

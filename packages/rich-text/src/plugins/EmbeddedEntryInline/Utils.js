@@ -41,9 +41,9 @@ export const hasOnlyInlineEntryInSelection = editor => {
  * @param {function} logAction
  */
 export const selectEntryAndInsert = async (widgetAPI, editor, logAction) => {
+  const nodeType = INLINES.EMBEDDED_ENTRY;
   logAction('openCreateEmbedDialog', { nodeType });
 
-  const nodeType = INLINES.EMBEDDED_ENTRY;
   const { field, dialogs } = widgetAPI;
   const baseConfig = newEntitySelectorConfigFromRichTextField(field, nodeType);
   const config = { ...baseConfig, withCreate: true };

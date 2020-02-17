@@ -5,6 +5,7 @@ import CommandPalette from './CommandPalette';
 import CommandMark from './CommandMark';
 
 export const CommandPalettePlugin = ({ richTextAPI }) => ({
+  /* eslint-disable react/display-name */
   decorateNode: (_node, editor, next) => {
     const others = next();
 

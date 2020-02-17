@@ -1,4 +1,3 @@
-/* eslint "rulesdir/restrict-inline-styles": "warn" */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
@@ -25,7 +24,6 @@ const DEFAULT_POSITION = {
 class CommandPalette extends React.PureComponent {
   static propTypes = {
     editor: PropTypes.object,
-    onClose: PropTypes.func,
     command: PropTypes.string,
     richTextAPI: PropTypes.object
   };
@@ -259,9 +257,9 @@ class CommandPalette extends React.PureComponent {
       allContentTypes.map(ct => this.createContentTypeActions(actionBuilder, ct))
     );
 
-    this.setState({
-      items: [...this.state.items, ...contentTypeActions, ...this.createAssetActions(actionBuilder)]
-    });
+    this.setState(prevState => ({
+      items: [...prevState.items, ...contentTypeActions, ...this.createAssetActions(actionBuilder)]
+    }));
   };
 
   handleKeyboard = e => {
@@ -331,17 +329,12 @@ class CommandPalette extends React.PureComponent {
       .getRangeAt(0)
       .getBoundingClientRect();
 
-    const anchorPosition =
-      this.state.panelPosition === 'bottom'
-        ? {
-            top: anchorRect.bottom,
-            left: anchorRect.left
-          }
-        : { top: anchorRect.top - this.paletteDimensions.height, left: anchorRect.left };
-
-    this.setState({
-      anchorPosition
-    });
+    this.setState(prevState => ({
+      anchorPosition: {
+        top: prevState.panelPosition === 'bottom' ? anchorRect.bottom : anchorRect.top - this.paletteDimensions.height,
+        left: anchorRect.left
+      }
+    }));
   }
 }
 

@@ -3,16 +3,7 @@ import { Tooltip, TextLink } from '@contentful/forma-36-react-components';
 import PropTypes from 'prop-types';
 import { cx } from 'emotion';
 import styles from './styles';
-import { INLINES } from '@contentful/rich-text-types';
 import { SUPPORTS_NATIVE_SLATE_HYPERLINKS } from '../../helpers/browserSupport';
-
-const { HYPERLINK, ENTRY_HYPERLINK, ASSET_HYPERLINK } = INLINES;
-
-const ICON_MAP = {
-  [HYPERLINK]: 'ExternalLink',
-  [ENTRY_HYPERLINK]: 'Entry',
-  [ASSET_HYPERLINK]: 'Asset'
-};
 
 export default class Hyperlink extends React.Component {
   static propTypes = {
@@ -37,11 +28,9 @@ export default class Hyperlink extends React.Component {
     const { node } = this.props;
     const uri = node.data.get('uri');
     const target = node.data.get('target');
-    // TODO: Use icon once we implement nicer cursor interaction with link.
-    const _icon = ICON_MAP[node.type];
 
     return (
-      <span {...this.props.attributes} onClick={this.props.onClick}>
+      <span {...this.props.attributes} onClick={this.props.onClick} role="link" tabIndex={0}>
         {target ? this.renderEntityLink(target) : this.renderLink({ tooltip: uri })}
       </span>
       // TODO: Add contentEditable={false} to tooltip to fix text cursor bug

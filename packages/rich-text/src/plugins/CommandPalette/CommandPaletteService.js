@@ -1,12 +1,12 @@
 import uniqBy from 'lodash/uniqBy';
 import { isNodeTypeEnabled } from '../../validations';
 import { INLINES, BLOCKS } from '@contentful/rich-text-types';
-// TODO: xxx Get this another way!
+// TODO:xxx Get this another way!
 // import * as EntityHelpers from 'app/entity_editor/entityHelpers';
 
 export async function fetchContentTypes(widgetAPI) {
   const contentTypes = await widgetAPI.space.getContentTypes();
-  return _.uniqBy(contentTypes.items, contentType => contentType.name);
+  return uniqBy(contentTypes.items, contentType => contentType.name);
 }
 
 export async function fetchAssets(widgetAPI, query = '') {
@@ -90,11 +90,11 @@ export class CommandPaletteActionBuilder {
   // TODO: Let's create dedicated functions for assets so we do not have to pass a CT.
 
   maybeBuildEmbedAction(embedType, contentType, callback) {
-    if (!isNodeTypeEnabled(field, embedType)) {
+    if (!isNodeTypeEnabled(this.field, embedType)) {
       return false;
     }
     const isAsset = !contentType;
-    if (!isAsset && !isValidLinkedContentType(field, contentType, embedType)) {
+    if (!isAsset && !isValidLinkedContentType(this.field, contentType, embedType)) {
       return false;
     }
 
@@ -102,7 +102,7 @@ export class CommandPaletteActionBuilder {
   }
 
   maybeBuildCreateAndEmbedAction(embedType, contentType, callback) {
-    if (!isNodeTypeEnabled(field, embedType)) {
+    if (!isNodeTypeEnabled(this.field, embedType)) {
       return false;
     }
 
@@ -110,7 +110,7 @@ export class CommandPaletteActionBuilder {
     if (isAsset && !this.permissions.canCreateAsset) {
       return false;
     } else {
-      if (!isValidLinkedContentType(field, contentType, embedType)) {
+      if (!isValidLinkedContentType(this.field, contentType, embedType)) {
         return false;
       }
       if (!this.permissions.canCreateEntryOfContentType[contentType.sys.id]) {

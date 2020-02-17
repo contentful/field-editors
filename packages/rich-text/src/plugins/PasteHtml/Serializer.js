@@ -137,7 +137,7 @@ const links = {
 };
 
 const macOSTrailingBreak = {
-  deserialize(el, _next) {
+  deserialize(el) {
     if (el.tagName.toLowerCase() === 'br' && el.classList.contains('Apple-interchange-newline')) {
       return null;
     }

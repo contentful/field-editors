@@ -74,9 +74,9 @@ export default class Toolbar extends React.Component {
   };
 
   toggleEmbedDropdown = () =>
-    this.setState({
-      isEmbedDropdownOpen: !this.state.isEmbedDropdownOpen
-    });
+    this.setState(prevState => ({
+      isEmbedDropdownOpen: !prevState.isEmbedDropdownOpen
+    }));
 
   handleEmbedDropdownClose = () =>
     this.setState({
@@ -130,9 +130,9 @@ export default class Toolbar extends React.Component {
 
   toggleHeadingMenu = event => {
     event.preventDefault();
-    this.setState({
-      headingMenuOpen: !this.state.headingMenuOpen
-    });
+    this.setState(prevState => ({
+      headingMenuOpen: !prevState.headingMenuOpen
+    }));
   };
 
   closeHeadingMenu = () =>
