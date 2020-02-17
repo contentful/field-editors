@@ -2,6 +2,8 @@ import React from 'react';
 import { Tooltip, TextLink } from '@contentful/forma-36-react-components';
 import PropTypes from 'prop-types';
 import { cx } from 'emotion';
+import noop from 'lodash/noop';
+import isHotKey from 'is-hotkey';
 import styles from './styles';
 import { SUPPORTS_NATIVE_SLATE_HYPERLINKS } from '../../helpers/browserSupport';
 
@@ -12,11 +14,12 @@ export default class Hyperlink extends React.Component {
     children: PropTypes.node,
     editor: PropTypes.object,
     createHyperlinkDialog: PropTypes.func,
-    onClick: PropTypes.func,
+    onEdit: PropTypes.func,
     renderEntityHyperlinkTooltip: PropTypes.func
   };
 
   static defaultProps = {
+    onEdit: noop,
     renderEntityHyperlinkTooltip: target => (
       <div>
         {target.sys.linkType} <code>{target.sys.id}</code>
@@ -24,13 +27,21 @@ export default class Hyperlink extends React.Component {
     )
   };
 
+  onKeyDown(e) {
+    if (isHotKey('enter', e)) {
+      e.preventDefault();
+      e.stopPropagation(); // Ensure Slate doesn't interpret as new paragraph.
+      this.props.onEdit(e);
+    }
+  }
+
   render() {
     const { node } = this.props;
     const uri = node.data.get('uri');
     const target = node.data.get('target');
 
     return (
-      <span {...this.props.attributes} onClick={this.props.onClick} role="link" tabIndex={0}>
+      <span {...this.props.attributes} onClick={this.props.onEdit} onKeyDown={e => this.onKeyDown(e)} role="button" tabIndex={0}>
         {target ? this.renderEntityLink(target) : this.renderLink({ tooltip: uri })}
       </span>
       // TODO: Add contentEditable={false} to tooltip to fix text cursor bug

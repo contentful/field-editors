@@ -18,7 +18,7 @@ export const HyperlinkPlugin = ({ richTextAPI }) => ({
       return (
         <Hyperlink
           {...props}
-          onClick={event => {
+          onEdit={event => {
             event.preventDefault(); // Don't follow `href`
 
             editor.moveToRangeOfNode(node).focus();
