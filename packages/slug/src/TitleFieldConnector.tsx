@@ -5,7 +5,6 @@ type Nullable = null | undefined;
 
 interface TitleFieldConnectorState<ValueType> {
   titleValue: ValueType | Nullable;
-  titleDisabled: boolean;
   isPublished: boolean;
   isSame: boolean;
 }
@@ -15,7 +14,6 @@ interface TitleFieldConnectorProps<ValueType> {
   field: FieldAPI;
   defaultLocale: string;
   isOptionalLocaleWithFallback: boolean;
-  isInitiallyDisabled: boolean;
   children: (state: TitleFieldConnectorState<ValueType>) => React.ReactNode;
 }
 
@@ -41,59 +39,58 @@ export class TitleFieldConnector<ValueType> extends React.Component<
     const isSame = titleField ? props.field.id === titleField.id : false;
     this.state = {
       titleValue: titleField ? titleField.getValue() : '',
-      titleDisabled: props.isInitiallyDisabled,
       isPublished: Boolean(entrySys.publishedVersion),
       isSame
     };
   }
 
-  unsubscribeDisabled: Function | null = null;
   unsubscribeValue: Function | null = null;
+  unsubscribeLocalizedValue: Function | null = null;
   unsubscribeSysChanges: Function | null = null;
 
   componentDidMount() {
-    const titleField = getTitleField(this.props.sdk);
-
-    if (!titleField || this.state.isSame) {
-      return;
-    }
-
-    let trackingLocale = this.props.field.locale;
-
-    if (this.props.field.locale !== this.props.defaultLocale) {
-      if (!this.props.isOptionalLocaleWithFallback) {
-        trackingLocale = this.props.defaultLocale;
-      }
-    }
-
-    this.unsubscribeDisabled = titleField.onIsDisabledChanged(
-      trackingLocale,
-      (disabled: boolean) => {
-        this.setState({
-          titleDisabled: disabled
-        });
-      }
-    );
-    this.unsubscribeValue = titleField.onValueChanged(
-      trackingLocale,
-      (value: ValueType | Nullable) => {
-        this.setState({ titleValue: value });
-      }
-    );
-
     this.unsubscribeSysChanges = this.props.sdk.entry.onSysChanged(sys => {
       this.setState({
         isPublished: Boolean(sys.publishedVersion)
       });
     });
+
+    const titleField = getTitleField(this.props.sdk);
+
+    // the content type's display field might not exist
+    if (!titleField) {
+      return;
+    }
+
+    if (!this.state.isSame) {
+      this.unsubscribeLocalizedValue = titleField.onValueChanged(
+        this.props.field.locale,
+        (value: ValueType | Nullable) => {
+          this.setState({ titleValue: value });
+        }
+      );
+    }
+
+    if (this.props.field.locale !== this.props.defaultLocale) {
+      if (!this.props.isOptionalLocaleWithFallback) {
+        this.unsubscribeValue = titleField.onValueChanged(
+          this.props.defaultLocale,
+          (value: ValueType | Nullable) => {
+            if (!titleField.getValue(this.props.field.locale)) {
+              this.setState({ titleValue: value });
+            }
+          }
+        );
+      }
+    }
   }
 
   componentWillUnmount() {
-    if (typeof this.unsubscribeDisabled === 'function') {
-      this.unsubscribeDisabled();
-    }
     if (typeof this.unsubscribeValue === 'function') {
       this.unsubscribeValue();
+    }
+    if (typeof this.unsubscribeLocalizedValue === 'function') {
+      this.unsubscribeLocalizedValue();
     }
     if (typeof this.unsubscribeSysChanges === 'function') {
       this.unsubscribeSysChanges();
