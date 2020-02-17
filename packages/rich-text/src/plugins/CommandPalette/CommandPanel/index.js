@@ -276,6 +276,9 @@ class CommandPalette extends React.PureComponent {
   };
 
   render() {
+    // Todo: Revisit tab index.
+    /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
+    /* eslint-disable jsx-a11y/tabindex-no-positive */
     if (this.state.isClosed) {
       return null;
     }
