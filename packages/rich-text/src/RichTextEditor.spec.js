@@ -1,7 +1,7 @@
 import React from 'react';
 import Enzyme from 'enzyme';
 
-import RichTextEditor from './RichTextEditor';
+import { ConnectedRichTextEditor as RichTextEditor } from './RichTextEditor';
 import Toolbar from './Toolbar';
 
 jest.mock('ng/data/CMA/EntityState', () => ({}), { virtual: true });
