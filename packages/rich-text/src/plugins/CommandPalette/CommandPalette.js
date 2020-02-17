@@ -9,15 +9,14 @@ class CommandPalette extends React.PureComponent {
     richTextAPI: PropTypes.object
   };
 
-  state = {
-    embedsEnabled: false
-  };
+  constructor(props) {
+    super(props);
 
-  async UNSAFE_componentDidMount() {
     const { field } = this.props.richTextAPI.widgetAPI;
-    this.setState({
+
+    this.state = {
       embedsEnabled: isEmbeddingEnabled(field)
-    });
+    };
   }
 
   render() {

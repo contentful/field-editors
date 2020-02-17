@@ -40,7 +40,7 @@ class CommandPalette extends React.PureComponent {
     width: 300
   };
 
-  async UNSAFE_componentDidMount() {
+  async componentDidMount() {
     this.isComponentMounted = true;
     this.createInitialCommands();
     this.updatePanelPosition();
@@ -334,7 +334,10 @@ class CommandPalette extends React.PureComponent {
 
     this.setState(prevState => ({
       anchorPosition: {
-        top: prevState.panelPosition === 'bottom' ? anchorRect.bottom : anchorRect.top - this.paletteDimensions.height,
+        top:
+          prevState.panelPosition === 'bottom'
+            ? anchorRect.bottom
+            : anchorRect.top - this.paletteDimensions.height,
         left: anchorRect.left
       }
     }));

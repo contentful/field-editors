@@ -184,7 +184,7 @@ export class CommandPanel extends React.Component {
     };
   }
 
-  UNSAFE_componentDidMount() {
+  componentDidMount() {
     this.props.richTextAPI.logViewportAction('openRichTextCommandsPalette');
     document.addEventListener('keydown', this.handleKeyboard, true);
   }
