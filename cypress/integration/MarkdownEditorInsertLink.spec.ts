@@ -90,10 +90,6 @@ describe('Markdown Editor / Insert Link Dialog', () => {
 
     selectors.getInsertDialogButton().click();
 
-    // clear value
-    selectors.inputs.getTargetUrlInput().clear();
-    selectors.getInvalidMessage().should('be.visible');
-
     // type correct value
 
     const correctValues = ['https://contentful.com', 'http://google.com', 'ftp://somefile'];
@@ -139,7 +135,7 @@ describe('Markdown Editor / Insert Link Dialog', () => {
       selectors.inputs
         .getTargetUrlInput()
         .should('be.visible')
-        .should('have.value', 'https://')
+        .should('have.value', '')
         .should('have.focus');
       selectors.inputs
         .getLinkTitle()
@@ -208,7 +204,7 @@ describe('Markdown Editor / Insert Link Dialog', () => {
       selectors.inputs
         .getTargetUrlInput()
         .should('be.visible')
-        .should('have.value', 'https://')
+        .should('have.value', '')
         .should('have.focus');
       selectors.inputs
         .getLinkTitle()
