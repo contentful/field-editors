@@ -2,10 +2,6 @@ import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 
 export default {
-  tooltipContainer: css({
-    display: 'inline',
-    position: 'relative'
-  }),
   hyperlinkWrapper: css({
     display: 'inline',
     position: 'static',
