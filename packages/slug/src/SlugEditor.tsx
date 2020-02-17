@@ -59,8 +59,7 @@ export function SlugEditor(props: SlugEditorProps) {
       sdk={props.baseSdk}
       field={field}
       defaultLocale={locales.default}
-      isOptionalLocaleWithFallback={isOptionalLocaleWithFallback}
-      isInitiallyDisabled={props.isInitiallyDisabled}>
+      isOptionalLocaleWithFallback={isOptionalLocaleWithFallback}>
       {({ titleValue, isPublished, isSame }) => (
         <FieldConnector<string>
           field={field}
