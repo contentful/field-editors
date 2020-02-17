@@ -6,7 +6,9 @@ import { css } from 'emotion';
 
 const styles = {
   root: css({
-    padding: '0 2px'
+    span: {
+      padding: '0 2px'
+    }
   })
 };
 
