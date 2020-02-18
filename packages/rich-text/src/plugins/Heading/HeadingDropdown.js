@@ -2,11 +2,20 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { Dropdown, DropdownList, Button } from '@contentful/forma-36-react-components';
+import tokens from '@contentful/forma-36-tokens';
 import { css } from 'emotion';
 
 const styles = {
   root: css({
     width: '110px',
+
+    [`@media (min-width: ${tokens.contentWidthDefault})`]: {
+      width: '145px'
+    },
+
+    svg: {
+      marginLeft: 'auto'
+    },
 
     '> span': {
       padding: '0 2px!important'
