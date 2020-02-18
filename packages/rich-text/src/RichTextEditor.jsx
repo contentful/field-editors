@@ -59,6 +59,9 @@ const styles = {
         }
       }
     }
+  }),
+  editorDisabled: css({
+    background: tokens.colorElementLightest
   })
 };
 
@@ -215,7 +218,7 @@ export class ConnectedRichTextEditor extends React.Component {
           onKeyDown={this.handleKeyDown}
           plugins={this.slatePlugins}
           readOnly={this.props.isDisabled}
-          className={styles.editor}
+          className={cx(styles.editor, this.props.isDisabled && styles.editorDisabled)}
           actionsDisabled={this.props.actionsDisabled}
           options={{
             normalize: false // No initial normalizaiton as we pass a normalized document.
