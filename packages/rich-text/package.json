@@ -1,0 +1,57 @@
+{
+  "name": "@contentful/field-editor-rich-text",
+  "version": "0.1.0",
+  "source": "./src/index.tsx",
+  "main": "./dist/index.js",
+  "module": "dist/field-editor-rich-text.esm.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "author": "Contentful GmbH",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/contentful/field-editors"
+  },
+  "scripts": {
+    "watch": "tsdx watch",
+    "build": "tsdx build",
+    "test": "jest --env=jsdom --watch --config jest.config.js",
+    "test:ci": "jest --env=jsdom --ci",
+    "tsc": "tsc -p ./ --noEmit",
+    "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx"
+  },
+  "dependencies": {
+    "@contentful/contentful-slatejs-adapter": "^14.1.0",
+    "@contentful/field-editor-shared": "^0.6.0",
+    "@contentful/field-editor-test-utils": "^0.2.1",
+    "@contentful/forma-36-react-components": "^3.18.4",
+    "@contentful/forma-36-tokens": "^0.4.5",
+    "@contentful/rich-text-plain-text-renderer": "^14.0.0",
+    "@contentful/rich-text-types": "^14.0.1",
+    "@productboard/slate-edit-list": "^0.19.1",
+    "@wikifactory/slate-trailing-block": "^0.6.0",
+    "classnames": "^2.2.6",
+    "detect-browser": "^3.0.1",
+    "emotion": "10.0.17",
+    "fast-deep-equal": "^2.0.1",
+    "immutable": "^3.8.2",
+    "lodash": "^4.17.15",
+    "lodash-es": "^4.17.15",
+    "prop-types": "^15.7.2",
+    "react-sticky-el": "^1.0.20",
+    "slate": "0.44.10",
+    "slate-html-serializer": "0.7.34",
+    "slate-plain-serializer": "0.6.34",
+    "slate-react": "0.21.16"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0"
+  },
+  "devDependencies": {
+    "@contentful/rich-text-react-renderer": "^13.4.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2"
+  }
+}
