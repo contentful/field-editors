@@ -23,7 +23,7 @@
     "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
-    "@contentful/contentful-slatejs-adapter": "^5.0.0",
+    "@contentful/contentful-slatejs-adapter": "^14.1.0",
     "@contentful/field-editor-shared": "^0.6.0",
     "@contentful/field-editor-test-utils": "^0.2.1",
     "@contentful/forma-36-react-components": "^3.18.4",

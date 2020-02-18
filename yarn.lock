@@ -1632,10 +1632,10 @@
     typescript "^3.5.2"
     yargs "13.2.4"
 
-"@contentful/contentful-slatejs-adapter@^5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@contentful/contentful-slatejs-adapter/-/contentful-slatejs-adapter-5.0.0.tgz#523a547b2996b65a5aef7c023a83a7cfd2d7d042"
-  integrity sha512-pi/LUKSmMnmPycy0YAoCoG4pO25ZrU7jxnTCUyj2SnCPdxW1BwHvmxoFAI4gZp726DxUe2d/Jyt+j3g2XL7VXQ==
+"@contentful/contentful-slatejs-adapter@^14.1.0":
+  version "14.1.0"
+  resolved "https://registry.yarnpkg.com/@contentful/contentful-slatejs-adapter/-/contentful-slatejs-adapter-14.1.0.tgz#1b20fd82e367d9ba0980065cc80df9e051f6e831"
+  integrity sha512-1iZiVlFPNzRW+5WNsxxEt46fhNtf8DH6XkqtE1OO1UsKT5oUpcl3sE3GhjrYI3c9MLsKcWEwlaTJ9njCaNDgNA==
   dependencies:
     "@contentful/rich-text-types" "^5.0.0"
     lodash.flatmap "^4.5.0"
