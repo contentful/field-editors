@@ -37,11 +37,13 @@ yarn watch
 
 ### Integration to Contentful web application
 
-_Relevent for Contentful employees only_.
+_Relevant for Contentful employees only_.
 
 It is convenient to link a local copy of a package to a locally running Contentful web application without publishing a package.
 
 ```bash
+yarn install
+yarn build
 cd packages/single-line
 # register a symplink
 yarn link
