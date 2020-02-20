@@ -148,10 +148,10 @@ export const CreateEntryMenuTrigger = ({
   );
 
   return (
-    <span className={styles.wrapper} ref={ref => (wrapper.current = ref)} data-test-id={testId}>
+    <span className={styles.wrapper} ref={wrapper} data-test-id={testId}>
       <Dropdown
-        position="bottom-right"
-        isAutoalignmentEnabled={!searchInput} // to not wobble when typed
+        position="bottom-left"
+        isAutoalignmentEnabled={false}
         isOpen={isOpen && contentTypes.length > 1}
         toggleElement={children({ isOpen, isSelecting, openMenu })}
         testId="add-entry-menu"

@@ -10,7 +10,7 @@ init<FieldExtensionSDK>(sdk => {
   const fieldSdk = sdk as FieldExtensionSDK;
   fieldSdk.window.startAutoResizer();
   render(
-    <div style={{ minHeight: 300 }}>
+    <div style={{ minHeight: 400 }}>
       <EntryReferenceEditor
         viewType="card"
         field={fieldSdk.field}
