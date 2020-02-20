@@ -102,9 +102,13 @@ function SingleEntryReferenceEditor(
         <LinkActions
           entityType="entry"
           multiple={false}
+          disabled={props.disabled}
+          // todo: pass actual value
           canCreateEntity={true}
-          onCreate={() => {
-            console.log('onCreate');
+          contentTypes={allContentTypes || []}
+          onCreate={contentTypeId => {
+            console.log('onCreate', contentTypeId);
+            return Promise.resolve();
           }}
           onLinkExisting={async () => {
             const item = await baseSdk.dialogs.selectSingleEntry<Link>({

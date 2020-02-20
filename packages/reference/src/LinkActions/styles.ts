@@ -7,6 +7,6 @@ export const container = css({
   marginTop: tokens.spacingS
 });
 
-export const createLink = css({
-  marginRight: tokens.spacingL
+export const separator = css({
+  marginRight: tokens.spacingXl
 });
