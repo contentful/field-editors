@@ -38,7 +38,7 @@ function SingleEntryReferenceEditor(
 
   const [entry, setEntry] = React.useState<Entry | undefined>(undefined);
   const [error, setError] = React.useState<boolean>(false);
-  const [allContentTypes, setAllContentTypes] = React.useState<Array<ContentType> | null>(null);
+  const [allContentTypes, setAllContentTypes] = React.useState<Array<ContentType>>([]);
 
   React.useEffect(() => {
     baseSdk.space.getContentTypes<ContentType>().then(data => {
@@ -76,6 +76,12 @@ function SingleEntryReferenceEditor(
     );
   }
 
+  const allowedContentTypes = props.validations.contentTypes
+    ? allContentTypes.filter(contentType => {
+        return props.validations.contentTypes?.includes(contentType.sys.id);
+      })
+    : allContentTypes;
+
   return (
     <div>
       {value && allContentTypes && (
@@ -105,10 +111,23 @@ function SingleEntryReferenceEditor(
           disabled={props.disabled}
           // todo: pass actual value
           canCreateEntity={true}
-          contentTypes={allContentTypes || []}
-          onCreate={contentTypeId => {
-            console.log('onCreate', contentTypeId);
-            return Promise.resolve();
+          contentTypes={allowedContentTypes}
+          onCreate={async contentTypeId => {
+            if (contentTypeId) {
+              const { entity } = await baseSdk.navigator.openNewEntry(contentTypeId, {
+                slideIn: { waitForClose: true }
+              });
+              if (!entity) {
+                return;
+              }
+              setValue({
+                sys: {
+                  type: 'Link',
+                  linkType: 'Entry',
+                  id: entity.sys.id
+                }
+              });
+            }
           }}
           onLinkExisting={async () => {
             const item = await baseSdk.dialogs.selectSingleEntry<Link>({
