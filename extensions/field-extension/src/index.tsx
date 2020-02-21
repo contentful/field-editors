@@ -16,6 +16,11 @@ init<FieldExtensionSDK>(sdk => {
         field={fieldSdk.field}
         baseSdk={fieldSdk}
         isInitiallyDisabled={true}
+        parameters={{
+          instance: {
+            canCreateEntity: true
+          }
+        }}
       />
     </div>,
     document.getElementById('root')

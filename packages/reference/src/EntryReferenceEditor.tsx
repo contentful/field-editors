@@ -24,6 +24,12 @@ export interface EntryReferenceEditorProps {
   field: FieldAPI;
 
   viewType: ViewType;
+
+  parameters: {
+    instance: {
+      canCreateEntity: boolean;
+    };
+  };
 }
 
 function SingleEntryReferenceEditor(
@@ -109,8 +115,7 @@ function SingleEntryReferenceEditor(
           entityType="entry"
           multiple={false}
           disabled={props.disabled}
-          // todo: pass actual value
-          canCreateEntity={true}
+          canCreateEntity={props.parameters.instance.canCreateEntity}
           contentTypes={allowedContentTypes}
           onCreate={async contentTypeId => {
             if (contentTypeId) {
