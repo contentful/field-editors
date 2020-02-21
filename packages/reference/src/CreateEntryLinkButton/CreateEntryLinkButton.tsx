@@ -23,8 +23,8 @@ interface CreateEntryLinkButtonProps {
   onSelect: (contentTypeId: string) => Promise<unknown>;
   disabled?: boolean;
   hasPlusIcon: boolean;
-  text: string;
-  testId: string;
+  text?: string;
+  testId?: string;
 }
 
 export const CreateEntryLinkButton = ({

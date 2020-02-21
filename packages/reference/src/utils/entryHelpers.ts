@@ -1,6 +1,6 @@
 import get from 'lodash/get';
 import isObject from 'lodash/isObject';
-import { File, ContentType, Entry, ContentTypeField, EntrySys, BaseExtensionSDK } from '../types';
+import { File, ContentType, Entry, ContentTypeField, EntrySys } from '../types';
 
 function titleOrDefault(title: string | undefined, defaultTitle: string) {
   if (!title || title.match(/^\s*$/)) {
@@ -193,7 +193,7 @@ export const getEntryImage = async (
     localeCode: string;
     defaultLocaleCode: string;
   },
-  baseSdk: BaseExtensionSDK
+  getAsset: (assetId: string) => Promise<unknown>
 ): Promise<null | File> => {
   if (!contentType) {
     return null;
@@ -214,7 +214,7 @@ export const getEntryImage = async (
   }
 
   try {
-    const asset = await baseSdk.space.getAsset(assetId);
+    const asset = await getAsset(assetId);
     const file = get(asset, ['fields', 'file', localeCode]);
     const isImage = Boolean(get(file, ['details', 'image'], false));
     return isImage ? file : null;

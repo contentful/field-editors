@@ -86,7 +86,7 @@ function SingleEntryReferenceEditor(
     <div>
       {value && allContentTypes && (
         <WrappedEntryCard
-          baseSdk={props.baseSdk}
+          getAsset={props.baseSdk.space.getAsset}
           disabled={disabled}
           viewType={props.viewType}
           localeCode={props.field.locale}

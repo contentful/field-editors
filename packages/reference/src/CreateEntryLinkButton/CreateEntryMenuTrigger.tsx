@@ -45,20 +45,22 @@ const styles = {
   })
 };
 
+export type CreateEntryMenuTriggerChild = ({
+  isOpen,
+  isSelecting,
+  openMenu
+}: {
+  isOpen: boolean;
+  isSelecting: boolean;
+  openMenu: Function;
+}) => React.ReactElement;
+
 interface CreateEntryMenuTrigger {
   contentTypes: ContentType[];
   suggestedContentTypeId?: string;
   onSelect: (contentTypeId: string) => Promise<unknown>;
   testId?: string;
-  children: ({
-    isOpen,
-    isSelecting,
-    openMenu
-  }: {
-    isOpen: boolean;
-    isSelecting: boolean;
-    openMenu: Function;
-  }) => React.ReactElement;
+  children: CreateEntryMenuTriggerChild;
 }
 
 export const CreateEntryMenuTrigger = ({

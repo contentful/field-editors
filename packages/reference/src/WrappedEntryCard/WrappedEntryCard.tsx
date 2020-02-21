@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { EntryCard, DropdownList, DropdownListItem } from '@contentful/forma-36-react-components';
-import { ViewType, Entry, File, ContentType, BaseExtensionSDK } from '../types';
+import { ViewType, Entry, File, ContentType } from '../types';
 import {
   getEntryTitle,
   getEntityDescription,
@@ -11,7 +11,7 @@ import { AssetThumbnail, isValidImage } from '../AssetThumbnail/AssetThumbnail';
 import { MissingEntityCard } from '../MissingEntityCard/MissingEntityCard';
 
 interface WrappedEntryCardProps {
-  baseSdk: BaseExtensionSDK;
+  getAsset: (assetId: string) => Promise<unknown>;
   viewType: ViewType;
   disabled: boolean;
   onRemove: () => void;
@@ -69,7 +69,7 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
           localeCode: props.localeCode,
           defaultLocaleCode: props.defaultLocaleCode
         },
-        props.baseSdk
+        props.getAsset
       )
         .then(file => {
           setFile(file);
