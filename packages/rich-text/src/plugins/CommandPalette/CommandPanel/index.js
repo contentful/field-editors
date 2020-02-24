@@ -263,12 +263,12 @@ class CommandPalette extends React.PureComponent {
   };
 
   handleKeyboard = e => {
-    if (isHotKey('down', e) || isHotKey('up', e) || isHotKey('enter', e)) {
+    const isEscKey = isHotKey('esc', e); // ESC to close menu shouldn't blur editor.
+    if (isEscKey || isHotKey('down', e) || isHotKey('up', e) || isHotKey('enter', e)) {
       e.preventDefault();
       e.stopPropagation();
     }
-
-    if (isHotKey('esc', e) || isHotKey('tab', e)) {
+    if (isEscKey || isHotKey('tab', e)) {
       this.setState({
         isClosed: true
       });
