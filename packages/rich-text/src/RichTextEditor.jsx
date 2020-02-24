@@ -19,25 +19,11 @@ import { FieldConnector } from '@contentful/field-editor-shared';
 import { css, cx } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 
-const STYLE_EDITOR_BORDER = '1px solid #c3cfd5';
+const STYLE_EDITOR_BORDER = `1px solid ${tokens.colorElementDark}`;
 
 const styles = {
   root: css({
     position: 'relative'
-  }),
-  enabled: css({
-    background: tokens.colorWhite,
-    a: {
-      span: {
-        cursor: 'pointer',
-        '&:hover': {
-          cursor: 'pointer'
-        }
-      }
-    }
-  }),
-  hiddenToolbar: css({
-    border: STYLE_EDITOR_BORDER
   }),
   editor: css({
     borderRadius: '0 0 3px 3px',
@@ -60,7 +46,21 @@ const styles = {
       }
     }
   }),
-  editorDisabled: css({
+  hiddenToolbar: css({
+    borderTop: STYLE_EDITOR_BORDER
+  }),
+  enabled: css({
+    background: tokens.colorWhite,
+    a: {
+      span: {
+        cursor: 'pointer',
+        '&:hover': {
+          cursor: 'pointer'
+        }
+      }
+    }
+  }),
+  disabled: css({
     background: tokens.colorElementLightest
   })
 };
@@ -191,13 +191,13 @@ export class ConnectedRichTextEditor extends React.Component {
 
   render() {
     const classNames = cx(
-      styles.root,
-      !this.props.isDisabled && styles.enabled,
-      this.props.isToolbarHidden && styles.toolbarHidden
+      styles.editor,
+      this.props.isDisabled ? styles.disabled : styles.enabled,
+      this.props.isToolbarHidden && styles.hiddenToolbar
     );
 
     return (
-      <div className={classNames}>
+      <div className={styles.root}>
         {!this.props.isToolbarHidden && (
           <StickyToolbarWrapper isDisabled={this.props.isDisabled}>
             <Toolbar
@@ -218,7 +218,7 @@ export class ConnectedRichTextEditor extends React.Component {
           onKeyDown={this.handleKeyDown}
           plugins={this.slatePlugins}
           readOnly={this.props.isDisabled}
-          className={cx(styles.editor, this.props.isDisabled && styles.editorDisabled)}
+          className={classNames}
           actionsDisabled={this.props.actionsDisabled}
           options={{
             normalize: false // No initial normalizaiton as we pass a normalized document.
