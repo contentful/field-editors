@@ -1,8 +1,8 @@
 {
-  "name": "@contentful/field-editor-test-utils",
-  "version": "0.2.2",
+  "name": "@contentful/field-editor-reference",
+  "version": "0.0.1",
   "main": "dist/index.js",
-  "module": "dist/field-editor-shared.esm.js",
+  "module": "dist/field-editor-reference.esm.js",
   "typings": "dist/index.d.ts",
   "files": [
     "dist"
@@ -21,12 +21,15 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
-    "@contentful/forma-36-tokens": "^0.4.5",
-    "contentful-ui-extensions-sdk": "^3.10.9",
+    "@contentful/field-editor-shared": "^0.6.0",
+    "@contentful/forma-36-react-components": "^3.31.4",
+    "@contentful/forma-36-tokens": "^0.5.1",
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",
-    "lodash-es": "^4.17.15",
-    "mitt": "1.2.0"
+    "lodash-es": "^4.17.15"
+  },
+  "devDependencies": {
+    "@contentful/field-editor-test-utils": "^0.2.1"
   },
   "peerDependencies": {
     "react": ">=16.8.0"
@@ -34,6 +37,11 @@
   "jest": {
     "testMatch": [
       "**/?(*.)+(spec|test).[jt]s?(x)"
-    ]
+    ],
+    "globals": {
+      "ts-jest": {
+        "diagnostics": false
+      }
+    }
   }
 }
