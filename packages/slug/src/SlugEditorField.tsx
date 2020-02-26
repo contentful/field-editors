@@ -36,7 +36,7 @@ function useSlugUpdater(props: SlugEditorFieldProps, check: boolean) {
 }
 
 function useUniqueChecker(props: SlugEditorFieldProps) {
-  const { value, performUniqueCheck, isDisabled } = props;
+  const { value, performUniqueCheck } = props;
   const [status, setStatus] = React.useState<CheckerState>(value ? 'checking' : 'unique');
 
   /**
@@ -45,9 +45,6 @@ function useUniqueChecker(props: SlugEditorFieldProps) {
    * current one, with the same slug.
    */
   React.useEffect(() => {
-    if (isDisabled) {
-      return;
-    }
     if (!value) {
       setStatus('unique');
       return;
@@ -60,7 +57,7 @@ function useUniqueChecker(props: SlugEditorFieldProps) {
       .catch(() => {
         setStatus('checking');
       });
-  }, [value, performUniqueCheck, isDisabled]);
+  }, [value, performUniqueCheck]);
 
   return status;
 }
