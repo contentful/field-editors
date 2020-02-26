@@ -9,6 +9,7 @@ const { getEntryTitle, getEntityDescription, getEntryStatus, getEntryImage } = e
 
 interface WrappedEntryCardProps {
   getAsset: (assetId: string) => Promise<unknown>;
+  getEntryUrl?: (entryId: string) => string;
   viewType: ViewType;
   disabled: boolean;
   onRemove: () => void;
@@ -106,6 +107,7 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
 
   return (
     <EntryCard
+      href={props.getEntryUrl ? props.getEntryUrl(props.entry.sys.id) : undefined}
       title={title}
       description={description}
       contentType={contentType?.name}

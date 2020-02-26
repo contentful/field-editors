@@ -25,6 +25,8 @@ export interface EntryReferenceEditorProps {
 
   viewType: ViewType;
 
+  getEntryUrl?: (entryId: string) => string;
+
   parameters: {
     instance: {
       canCreateEntity: boolean;
@@ -44,11 +46,11 @@ function SingleEntryReferenceEditor(
 
   const [entry, setEntry] = React.useState<Entry | undefined>(undefined);
   const [error, setError] = React.useState<boolean>(false);
-  const [allContentTypes, setAllContentTypes] = React.useState<Array<ContentType>>([]);
+  const [allContentTypes, setAllContentTypes] = React.useState<null | ContentType[]>(null);
 
   React.useEffect(() => {
-    baseSdk.space.getContentTypes<ContentType>().then(data => {
-      setAllContentTypes(data.items);
+    props.baseSdk.space.getContentTypes<ContentType>().then(res => {
+      setAllContentTypes(res.items);
     });
   }, []);
 
@@ -82,6 +84,10 @@ function SingleEntryReferenceEditor(
     );
   }
 
+  if (allContentTypes === null) {
+    return null;
+  }
+
   const allowedContentTypes = props.validations.contentTypes
     ? allContentTypes.filter(contentType => {
         return props.validations.contentTypes?.includes(contentType.sys.id);
@@ -90,9 +96,10 @@ function SingleEntryReferenceEditor(
 
   return (
     <div>
-      {value && allContentTypes && (
+      {value && (
         <WrappedEntryCard
           getAsset={props.baseSdk.space.getAsset}
+          getEntryUrl={props.getEntryUrl}
           disabled={disabled}
           viewType={props.viewType}
           localeCode={props.field.locale}
@@ -115,7 +122,9 @@ function SingleEntryReferenceEditor(
           entityType="entry"
           multiple={false}
           disabled={props.disabled}
-          canCreateEntity={props.parameters.instance.canCreateEntity}
+          canCreateEntity={
+            allowedContentTypes.length > 0 && props.parameters.instance.canCreateEntity
+          }
           contentTypes={allowedContentTypes}
           onCreate={async contentTypeId => {
             if (contentTypeId) {
