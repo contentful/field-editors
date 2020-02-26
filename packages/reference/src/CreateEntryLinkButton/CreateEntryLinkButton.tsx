@@ -25,6 +25,10 @@ interface CreateEntryLinkButtonProps {
   hasPlusIcon: boolean;
   text?: string;
   testId?: string;
+  dropdownSettings?: {
+    isAutoalignmentEnabled: boolean;
+    position: 'bottom-left' | 'bottom-right';
+  };
 }
 
 export const CreateEntryLinkButton = ({
@@ -34,6 +38,7 @@ export const CreateEntryLinkButton = ({
   testId,
   hasPlusIcon,
   suggestedContentTypeId,
+  dropdownSettings,
   disabled
 }: CreateEntryLinkButtonProps) => {
   const suggestedContentType = contentTypes.find(ct => ct.sys.id === suggestedContentTypeId);
@@ -50,7 +55,8 @@ export const CreateEntryLinkButton = ({
       contentTypes={contentTypes}
       suggestedContentTypeId={suggestedContentTypeId}
       onSelect={onSelect}
-      testId={testId}>
+      testId={testId}
+      dropdownSettings={dropdownSettings}>
       {({ openMenu, isSelecting }) => (
         <>
           {isSelecting && <Spinner size="small" key="spinner" className={styles.spinnerMargin} />}
