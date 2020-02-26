@@ -76,24 +76,6 @@ describe('SlugEditor', () => {
   afterEach(cleanup);
 
   describe('should not subscribe to title changes', () => {
-    it('when field is disabled', async () => {
-      const { field, titleField, sdk } = createMocks();
-
-      sdk.entry.getSys.mockReturnValue({
-        publishedVersion: undefined
-      });
-
-      render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={true} />);
-
-      await wait();
-
-      expect(field.setValue).not.toHaveBeenCalled();
-      expect(titleField.onValueChanged).toHaveBeenCalledWith('en-US', expect.any(Function));
-      expect(sdk.space.getEntries).not.toHaveBeenCalled();
-      expect(sdk.entry.fields['title-id'].getValue).toHaveBeenCalledTimes(1);
-      expect(sdk.entry.getSys).toHaveBeenCalledTimes(2);
-    });
-
     it('when entry is published', async () => {
       const { field, titleField, sdk } = createMocks();
 
@@ -245,6 +227,23 @@ describe('SlugEditor', () => {
   });
 
   describe('should react to title changes', () => {
+    it('when field is disabled', async () => {
+      const { field, titleField, sdk } = createMocks({
+        field: '',
+        titleField: ''
+      });
+
+      render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={true} />);
+
+      await wait();
+
+      expect(field.setValue).toHaveBeenCalled();
+      expect(titleField.onValueChanged).toHaveBeenCalledWith('en-US', expect.any(Function));
+      expect(sdk.space.getEntries).toHaveBeenCalled();
+      expect(sdk.entry.fields['title-id'].getValue).toHaveBeenCalledTimes(1);
+      expect(sdk.entry.getSys).toHaveBeenCalledTimes(2);
+    });
+
     it('should generate unique value with date if title is empty', async () => {
       const { field, titleField, sdk } = createMocks({
         field: '',
@@ -399,11 +398,11 @@ describe('SlugEditor', () => {
         'ru-RU': undefined
       };
 
-      render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={true} />);
+      render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />);
 
       await wait();
 
-      expect(field.setValue).not.toHaveBeenCalled();
+      expect(field.setValue).toHaveBeenCalledWith('untitled-entry-2020-01-24-at-15-33-47');
       expect(titleField.onValueChanged).toHaveBeenCalledWith('ru-RU', expect.any(Function));
       expect(titleField.onValueChanged).toHaveBeenCalledWith('de-DE', expect.any(Function));
     });
@@ -424,7 +423,7 @@ describe('SlugEditor', () => {
         'ru-RU': 'de-DE'
       };
 
-      render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={true} />);
+      render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />);
 
       await wait();
 
