@@ -1,8 +1,12 @@
 import uniqBy from 'lodash/uniqBy';
 import { isNodeTypeEnabled } from '../../validations';
 import { INLINES, BLOCKS } from '@contentful/rich-text-types';
-// TODO:xxx Get this another way!
-// import * as EntityHelpers from 'app/entity_editor/entityHelpers';
+import { entityHelpers } from '@contentful/field-editor-shared';
+
+const ACTIONS = {
+  EMBED: 'embed',
+  CREATE_EMBED: 'create_embed'
+};
 
 export async function fetchContentTypes(widgetAPI) {
   const contentTypes = await widgetAPI.space.getContentTypes();
@@ -24,8 +28,6 @@ export async function fetchAssets(widgetAPI, query = '') {
 }
 
 export async function fetchEntries(widgetAPI, contentType, query = '') {
-  // TODO:xxx
-  // const entityHelpers = EntityHelpers.newForLocale(widgetAPI.field.locale);
   const entries = await widgetAPI.space.getEntries({
     content_type: contentType.sys.id,
     query
@@ -33,14 +35,22 @@ export async function fetchEntries(widgetAPI, contentType, query = '') {
 
   return Promise.all(
     entries.items.map(async entry => {
-      // TODO:xxx
-      // const description = await entityHelpers.entityDescription(entry);
-      // const displayTitle = await entityHelpers.entityTitle(entry);
-      const description = 'Entity description';
-      const displayTitle = 'Entity title';
+      const description = entityHelpers.getEntityDescription({
+        contentType,
+        entity: entry,
+        localeCode: widgetAPI.field.locale,
+        defaultLocaleCode: widgetAPI.locales.default
+      });
+      const displayTitle = entityHelpers.getEntryTitle({
+        entry,
+        contentType,
+        localeCode: widgetAPI.field.locale,
+        defaultLocaleCode: widgetAPI.locales.default,
+        defaultTitle: 'Untitled'
+      });
       return {
         contentTypeName: contentType.name,
-        displayTitle: displayTitle || 'Untitled',
+        displayTitle: displayTitle,
         id: entry.sys.contentType.sys.id,
         description,
         entry
@@ -98,7 +108,7 @@ export class CommandPaletteActionBuilder {
       return false;
     }
 
-    buildAction(embedType, contentType, callback);
+    return buildAction(embedType, contentType, ACTIONS.EMBED, callback);
   }
 
   maybeBuildCreateAndEmbedAction(embedType, contentType, callback) {
@@ -107,27 +117,27 @@ export class CommandPaletteActionBuilder {
     }
 
     const isAsset = !contentType;
-    if (isAsset && !this.permissions.canCreateAsset) {
-      return false;
-    } else {
+    if (!isAsset) {
       if (!isValidLinkedContentType(this.field, contentType, embedType)) {
         return false;
       }
       if (!this.permissions.canCreateEntryOfContentType[contentType.sys.id]) {
         return false;
       }
+    } else if (!this.permissions.canCreateAssets) {
+      return false;
     }
 
-    buildAction(embedType, contentType, callback);
+    return buildAction(embedType, contentType, ACTIONS.CREATE_EMBED, callback);
   }
 }
 
-function buildAction(embedType, contentType, callback) {
+function buildAction(embedType, contentType, actionType, callback) {
   const isAsset = !contentType;
   const isInline = embedType === INLINES.EMBEDDED_ENTRY;
-  const label = `Create and embed ${isAsset ? 'Asset' : contentType.name} ${
-    isInline ? ' - Inline' : ''
-  }`;
+  const label = `${actionType === ACTIONS.EMBED ? 'Embed' : 'Create and embed'} ${
+    isAsset ? 'Asset' : contentType.name
+  } ${isInline ? ' - Inline' : ''}`;
 
   const icon = isInline ? 'EmbeddedEntryInline' : 'EmbeddedEntryBlock';
 

@@ -8,7 +8,13 @@ menu: Components
 
 import { Playground } from 'docz';
 import RichTextEditor from './RichTextEditor.jsx';
-import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
+import {
+  createFakeFieldAPI,
+  ActionsPlayground,
+  createFakeSpaceAPI,
+  createFakeLocalesAPI,
+  createFakeNavigatorAPI
+} from '@contentful/field-editor-test-utils';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { css } from 'emotion';
 
@@ -26,11 +32,16 @@ import { css } from 'emotion';
         : Promise.reject(); // Simulate cancellation.
     };
     const [field, mitt] = createFakeFieldAPI();
+    const space = createFakeSpaceAPI();
+    const navigator = createFakeNavigatorAPI();
     const sdk = {
+      space,
       field,
+      locales: createFakeLocalesAPI(),
+      navigator,
       permissions: {
         canAccessAssets: true,
-        canCreateAssets: true,
+        canCreateAssets: false,
         canCreateEntryOfContentType: {
           'exampleCT': true
         }
@@ -42,7 +53,7 @@ import { css } from 'emotion';
 	    },
 	    selectSingleAsset: newEntitySelectorDummyDialog('selectSingleAsset', 'Asset'),
 	    selectSingleEntry: newEntitySelectorDummyDialog('selectSingleEntry', 'Entry')
-      }
+      },
     };
     const renderRT = (value, type) => {
       const logValue = () => {
