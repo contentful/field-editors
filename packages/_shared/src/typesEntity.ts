@@ -8,9 +8,7 @@ export {
   EntrySys
 } from 'contentful-ui-extensions-sdk';
 
-export type ViewType = 'card' | 'link';
-
-export type EntityType = 'entry' | 'asset';
+export type ReferenceEntityType = 'entry' | 'asset';
 
 export type SingleReferenceValue = {
   sys: {

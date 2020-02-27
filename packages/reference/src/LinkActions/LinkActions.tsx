@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { TextLink } from '@contentful/forma-36-react-components';
 import * as styles from './styles';
-import { EntityType, ContentType } from '../types';
+import { ReferenceEntityType, ContentType } from '../types';
 import { CreateEntryLinkButton } from '../CreateEntryLinkButton/CreateEntryLinkButton';
 
 interface LinkActionsProps {
-  entityType: EntityType;
+  entityType: ReferenceEntityType;
   contentTypes: ContentType[];
   canCreateEntity: boolean;
   multiple: boolean;

@@ -1,4 +1,4 @@
-import { Entry } from '@contentful/field-editor-reference/src/types';
+import { Entry } from '@contentful/field-editor-shared';
 
 interface Fields {
   [key: string]: {

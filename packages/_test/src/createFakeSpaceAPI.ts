@@ -1,49 +1,46 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
 import { SearchQuery, SpaceAPI } from 'contentful-ui-extensions-sdk';
-import { ContentType, Entry } from '@contentful/field-editor-reference/src/types';
+import { Entry } from '@contentful/field-editor-shared';
 import { createEntry } from './fakesFactory';
 
 function identity<T>(item: T): T {
   return item;
 }
 
-type CustomizeMockFn = (api: SpaceAPI) => SpaceAPI;
+type CustomizeMockFn = (api: SpaceAPI) => Partial<SpaceAPI>;
 
 export function createFakeSpaceAPI(customizeMock: CustomizeMockFn = identity): SpaceAPI {
   return customizeMock({
-    getContentTypes<T = ContentType>() {
-      const items: T[] = [
-        // @ts-ignore
-        {
-          name: 'Example Content Type',
-          sys: { id: 'exampleCT', type: 'ContentType' },
-          fields: [
-            {
-              id: 'exField',
-              disabled: false,
-              localize: false,
-              name: 'Example Field',
-              omitted: false,
-              required: true,
-              type: 'Symbol',
-              validations: {}
-            }
-          ],
-          displayField: 'exField',
-          description: ''
-        },
-        // @ts-ignore
-        {
-          name: 'Another Content Type',
-          sys: { id: 'anotherCT', type: 'ContentType' },
-          fields: [],
-          displayField: '',
-          description: ''
-        }
-      ];
-
+    // @ts-ignore
+    getContentTypes() {
       return Promise.resolve({
-        items,
+        items: [
+          {
+            name: 'Example Content Type',
+            sys: { id: 'exampleCT', type: 'ContentType' },
+            fields: [
+              {
+                id: 'exField',
+                disabled: false,
+                localize: false,
+                name: 'Example Field',
+                omitted: false,
+                required: true,
+                type: 'Symbol',
+                validations: {}
+              }
+            ],
+            displayField: 'exField',
+            description: ''
+          },
+          {
+            name: 'Another Content Type',
+            sys: { id: 'anotherCT', type: 'ContentType' },
+            fields: [],
+            displayField: '',
+            description: ''
+          }
+        ],
         total: 2,
         skip: 0,
         limit: 100,
@@ -51,41 +48,34 @@ export function createFakeSpaceAPI(customizeMock: CustomizeMockFn = identity): S
       });
     },
     // @ts-ignore
-    getEntries(query: SearchQuery) {
-      const items: Entry[] =
-        query.content_type === 'exampleCT'
-          ? [
-              // @ts-ignore
-              createEntry('exampleCT', { exField: { 'en-US': 'Hello world' } }),
-              // @ts-ignore
-              createEntry('exampleCT', {})
-            ]
-          : [];
+    getEntries(query?: SearchQuery) {
+      const items: Entry[] = [
+        createEntry('exampleCT', { exField: { 'en-US': 'Hello world' } }),
+        createEntry('exampleCT', {})
+      ];
       return Promise.resolve({
-        items,
+        items: !query || query.content_type === 'exampleCT' ? items : [],
         total: items.length,
         skip: 0,
         limit: 100,
         sys: { type: 'Array' }
       });
     },
-    getAssets<T>() {
-      const items: T[] = [];
-
+    getAssets() {
       return Promise.resolve({
-        items,
+        items: [],
         total: 0,
         skip: 0,
         limit: 100,
         sys: { type: 'Array' }
       });
     },
-    createEntry<T = Entry>(contentTypeId: string) {
-      // @ts-ignore
-      return Promise.resolve<T>(createEntry(contentTypeId, {}));
+    // @ts-ignore
+    createEntry(contentTypeId: string) {
+      return Promise.resolve(createEntry(contentTypeId, {}));
     },
     // @ts-ignore
-    createAsset<T>() {
+    createAsset() {
       return Promise.resolve({});
     }
   });
