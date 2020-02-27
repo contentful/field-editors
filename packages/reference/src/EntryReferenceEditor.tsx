@@ -29,7 +29,7 @@ export interface EntryReferenceEditorProps {
 
   parameters: {
     instance: {
-      canCreateEntity: boolean;
+      canCreateEntry: boolean;
     };
   };
 }
@@ -123,7 +123,7 @@ function SingleEntryReferenceEditor(
           multiple={false}
           disabled={props.disabled}
           canCreateEntity={
-            allowedContentTypes.length > 0 && props.parameters.instance.canCreateEntity
+            allowedContentTypes.length > 0 && props.parameters.instance.canCreateEntry
           }
           contentTypes={allowedContentTypes}
           onCreate={async contentTypeId => {

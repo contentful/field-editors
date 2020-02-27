@@ -14,3 +14,5 @@ export {
 } from '@contentful/field-editor-shared';
 
 export type ViewType = 'card' | 'link';
+
+export type Asset = any;

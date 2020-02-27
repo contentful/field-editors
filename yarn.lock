@@ -1471,6 +1471,13 @@
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.5.1.tgz#427130f4e65f3aef4ec987873c4a1b61dab8cdaf"
   integrity sha512-KeI181dInXcgSQw/ibPHEyshDFrEOPVEwHZ4a720yEJczT64zmKC/CLecsv3C7tUiQlnSnTZD1fcFBXmeOIThw==
 
+"@contentful/mimetype@^1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@contentful/mimetype/-/mimetype-1.1.3.tgz#70464e67bfb49d5760f852485cb905c54e0684c2"
+  integrity sha512-RMx5W9/bmWTCF9EA4HsMN/ZvM+ZqEK7APsaoh0h/fDX2Ug0iDPoVZj4iKmhfaDdOkqUFvI4zEoaDzrN369jEAQ==
+  dependencies:
+    lodash "^4.17.15"
+
 "@contentful/rich-text-plain-text-renderer@^14.0.0":
   version "14.0.0"
   resolved "https://registry.yarnpkg.com/@contentful/rich-text-plain-text-renderer/-/rich-text-plain-text-renderer-14.0.0.tgz#3eee0a081c61d3a640aa2df928ea670293e14345"
@@ -8974,6 +8981,11 @@ getpass@^0.1.1:
   integrity sha1-Xv+OPmhNVprkyysSgmBOi6YhSfo=
   dependencies:
     assert-plus "^1.0.0"
+
+git-cz@^4.3.1:
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/git-cz/-/git-cz-4.3.1.tgz#1a1a462c2730c17c9fcbfa023beee98fd7659934"
+  integrity sha512-z+mbD76lbra8ml2nMoOoFkQPJ2OQvg6vpZa8d9VzNEvygEQNysgMkzGPBxqFKw1VIwZ/PHoQgAf70BPp9uElJw==
 
 git-raw-commits@2.0.0:
   version "2.0.0"
