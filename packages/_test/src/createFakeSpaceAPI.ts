@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
-import { SearchQuery, SpaceAPI } from 'contentful-ui-extensions-sdk';
+import { ContentType, SearchQuery, SpaceAPI } from 'contentful-ui-extensions-sdk';
 import { Entry } from '@contentful/field-editor-shared';
 import { createEntry } from './fakesFactory';
 
@@ -13,34 +13,36 @@ export function createFakeSpaceAPI(customizeMock: CustomizeMockFn = identity): S
   return customizeMock({
     // @ts-ignore
     getContentTypes() {
+      const items: ContentType[] = [
+        {
+          name: 'Example Content Type',
+          sys: { id: 'exampleCT', type: 'ContentType' },
+          fields: [
+            {
+              id: 'exField',
+              disabled: false,
+              localized: false,
+              name: 'Example Field',
+              omitted: false,
+              required: true,
+              type: 'Symbol',
+              validations: []
+            }
+          ],
+          displayField: 'exField',
+          description: ''
+        },
+        {
+          name: 'Another Content Type',
+          sys: { id: 'anotherCT', type: 'ContentType' },
+          fields: [],
+          displayField: '',
+          description: ''
+        }
+      ];
+
       return Promise.resolve({
-        items: [
-          {
-            name: 'Example Content Type',
-            sys: { id: 'exampleCT', type: 'ContentType' },
-            fields: [
-              {
-                id: 'exField',
-                disabled: false,
-                localize: false,
-                name: 'Example Field',
-                omitted: false,
-                required: true,
-                type: 'Symbol',
-                validations: {}
-              }
-            ],
-            displayField: 'exField',
-            description: ''
-          },
-          {
-            name: 'Another Content Type',
-            sys: { id: 'anotherCT', type: 'ContentType' },
-            fields: [],
-            displayField: '',
-            description: ''
-          }
-        ],
+        items,
         total: 2,
         skip: 0,
         limit: 100,
