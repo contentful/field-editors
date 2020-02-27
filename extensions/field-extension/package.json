@@ -10,7 +10,7 @@
     "help": "contentful-extension-scripts help"
   },
   "dependencies": {
-    "@contentful/field-editor-shared": "^0.5.0",
+    "@contentful/field-editor-shared": "^0.7.1",
     "@contentful/forma-36-fcss": "^0.0.34",
     "@contentful/forma-36-react-components": "^3.28.21",
     "@contentful/forma-36-tokens": "^0.5.1",
