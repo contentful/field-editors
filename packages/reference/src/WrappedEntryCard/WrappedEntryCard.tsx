@@ -1,14 +1,11 @@
 import * as React from 'react';
 import { EntryCard, DropdownList, DropdownListItem } from '@contentful/forma-36-react-components';
 import { ViewType, Entry, File, ContentType } from '../types';
-import {
-  getEntryTitle,
-  getEntityDescription,
-  getEntryStatus,
-  getEntryImage
-} from '../utils/entryHelpers';
+import { entityHelpers } from '@contentful/field-editor-shared';
 import { AssetThumbnail, isValidImage } from '../AssetThumbnail/AssetThumbnail';
 import { MissingEntityCard } from '../MissingEntityCard/MissingEntityCard';
+
+const { getEntryTitle, getEntityDescription, getEntryStatus, getEntryImage } = entityHelpers;
 
 interface WrappedEntryCardProps {
   getAsset: (assetId: string) => Promise<unknown>;

@@ -94,7 +94,7 @@ export class ConnectedRichTextEditor extends React.Component {
       }).isRequired,
       permissions: PropTypes.shape({
         canAccessAssets: PropTypes.bool.isRequired,
-        canCreateAsset: PropTypes.bool.isRequired,
+        canCreateAssets: PropTypes.bool.isRequired,
         canCreateEntryOfContentType: PropTypes.object.isRequired
       }).isRequired
     }).isRequired,

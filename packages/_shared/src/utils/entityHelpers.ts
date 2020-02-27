@@ -1,6 +1,6 @@
 import get from 'lodash/get';
 import isObject from 'lodash/isObject';
-import { File, ContentType, Entry, ContentTypeField, EntrySys } from '../types';
+import { File, ContentType, Entry, ContentTypeField, EntrySys } from '../typesEntity';
 
 function titleOrDefault(title: string | undefined, defaultTitle: string) {
   if (!title || title.match(/^\s*$/)) {

@@ -104,21 +104,6 @@ class CommandPalette extends React.PureComponent {
     }
   }
 
-  requestUpdate = throttle(
-    () => {
-      if (this.state.currentCommand) {
-        this.setState({ isUpdating: true });
-        this.createCommands(
-          this.state.currentCommand.contentType,
-          this.state.currentCommand.type,
-          this.props.command
-        );
-      }
-    },
-    1000,
-    { leading: false, trailing: true }
-  );
-
   createCommand = (label, contentType, entry, type, description, thumbnail) => ({
     label: `${label}${description ? ` - ${description}` : ''}`,
     thumbnail,
@@ -156,13 +141,13 @@ class CommandPalette extends React.PureComponent {
     removeCommand(editor, command);
     const { createAsset, createEntry } = widgetAPI.space;
     const isAsset = contentTypeId === null;
-    const createEntity = () => (isAsset ? createAsset() : createEntry(contentTypeId));
+    const createEntity = () => (isAsset ? createAsset({}) : createEntry(contentTypeId, {}));
     const entity = await createEntity();
-    const { id: entityId, type: entityType } = entity.data.sys;
+    const { id: entityId, type: entityType } = entity.sys;
 
     nodeType === INLINES.EMBEDDED_ENTRY
-      ? insertInline(editor, entity.data.sys.id, false)
-      : insertBlock(editor, nodeType, entity.data);
+      ? insertInline(editor, entity.sys.id, false)
+      : insertBlock(editor, nodeType, entity);
 
     richTextAPI.logCommandPaletteAction('insert', {
       nodeType
