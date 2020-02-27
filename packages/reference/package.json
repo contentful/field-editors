@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-reference",
-  "version": "0.0.2-alpha.0",
+  "version": "0.0.2",
   "main": "dist/index.js",
   "module": "dist/field-editor-reference.esm.js",
   "typings": "dist/index.d.ts",
@@ -29,7 +29,7 @@
     "lodash-es": "^4.17.15"
   },
   "devDependencies": {
-    "@contentful/field-editor-test-utils": "^0.2.3"
+    "@contentful/field-editor-test-utils": "^0.3.0"
   },
   "peerDependencies": {
     "react": ">=16.8.0"

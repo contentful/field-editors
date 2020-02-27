@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-date",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "main": "dist/index.js",
   "module": "dist/field-editor-date.esm.js",
   "typings": "dist/index.d.ts",
@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.7.4",
-    "@contentful/field-editor-test-utils": "^0.2.3",
+    "@contentful/field-editor-test-utils": "^0.3.0",
     "@types/pikaday": "^1.7.4"
   },
   "peerDependencies": {
