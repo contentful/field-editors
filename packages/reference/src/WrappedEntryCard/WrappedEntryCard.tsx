@@ -82,6 +82,14 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
     return <EntryCard size={size} loading />;
   }
 
+  const status = getEntryStatus(props.entry?.sys);
+
+  if (status === 'deleted') {
+    return (
+      <MissingEntityCard entityType="entry" disabled={props.disabled} onRemove={props.onRemove} />
+    );
+  }
+
   const title = getEntryTitle({
     entry: props.entry,
     contentType,
@@ -96,14 +104,6 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
     localeCode: props.localeCode,
     defaultLocaleCode: props.defaultLocaleCode
   });
-
-  const status = getEntryStatus(props.entry?.sys);
-
-  if (status === 'deleted') {
-    return (
-      <MissingEntityCard entityType="entry" disabled={props.disabled} onRemove={props.onRemove} />
-    );
-  }
 
   return (
     <EntryCard

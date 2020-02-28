@@ -25,7 +25,12 @@ export class AssetCardActions extends React.PureComponent<{
   renderActions() {
     const { entityFile, isDisabled, onEdit, onRemove } = this.props;
     return (
-      <DropdownList className={styles.cardDropdown}>
+      <DropdownList
+        className={styles.cardDropdown}
+        // @ts-ignore
+        onClick={e => {
+          e.stopPropagation();
+        }}>
         <DropdownListItem isTitle>Actions</DropdownListItem>
         {onEdit && (
           <DropdownListItem onClick={onEdit} testId="card-action-edit">
@@ -55,7 +60,13 @@ export class AssetCardActions extends React.PureComponent<{
     const fileSize = get(entityFile, 'details.size');
     const image = get(entityFile, 'details.image');
     return (
-      <DropdownList border="top" className={styles.cardDropdown}>
+      <DropdownList
+        border="top"
+        className={styles.cardDropdown}
+        // @ts-ignore
+        onClick={e => {
+          e.stopPropagation();
+        }}>
         <DropdownListItem isTitle>File info</DropdownListItem>
         {fileName && (
           <DropdownListItem>

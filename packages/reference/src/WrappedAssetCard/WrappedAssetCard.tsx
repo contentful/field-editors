@@ -1,7 +1,9 @@
 import React from 'react';
 import { AssetCard } from '@contentful/forma-36-react-components';
 import { AssetCardActions } from './AssetCardActions';
-import { File } from '../types';
+import { File, Asset } from '../types';
+import { entityHelpers } from '@contentful/field-editor-shared';
+import { MissingEntityCard } from '../MissingEntityCard/MissingEntityCard';
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import mimetype from '@contentful/mimetype';
@@ -24,14 +26,11 @@ export interface WrappedAssetCardProps {
   entityFile: File;
   entityTitle: string;
   entityStatus: 'archived' | 'changed' | 'draft' | 'published';
-  isLoading: boolean;
   href?: string;
   className?: string;
   disabled: boolean;
-  selected: boolean;
   onEdit: () => void;
   onRemove: () => void;
-  onClick: () => void;
   readOnly: boolean;
   size: 'default' | 'small';
 }
@@ -50,54 +49,77 @@ function getFileType(file?: File): any {
   return groupToIconMap[groupName] || 'archive';
 }
 
-export default class WrappedAssetCard extends React.Component<WrappedAssetCardProps> {
-  renderAssetActions() {
+export const FetchedWrappedAssetCard = (
+  props: { asset?: Asset; localeCode: string; defaultLocaleCode: string } & Pick<
+    WrappedAssetCardProps,
+    'href' | 'size' | 'readOnly' | 'disabled' | 'onRemove' | 'onEdit'
+  >
+) => {
+  if (!props.asset) {
+    return <AssetCard size={props.size} isLoading title="" src="" href="" />;
+  }
+
+  const status = entityHelpers.getEntryStatus(props.asset.sys);
+
+  if (status === 'deleted') {
     return (
-      <AssetCardActions
-        entityFile={this.props.entityFile}
-        isDisabled={this.props.disabled}
-        onEdit={this.props.onEdit}
-        onRemove={this.props.onRemove}
-      />
+      <MissingEntityCard entityType="entry" disabled={props.disabled} onRemove={props.onRemove} />
     );
   }
 
-  render() {
-    const {
-      entityFile,
-      entityTitle,
-      className,
-      href,
-      entityStatus,
-      isLoading,
-      onClick,
-      size,
-      readOnly
-    } = this.props;
+  const entityTitle = entityHelpers.getAssetTitle({
+    asset: props.asset,
+    localeCode: props.localeCode,
+    defaultLocaleCode: props.defaultLocaleCode,
+    defaultTitle: 'Untitled'
+  });
 
-    return (
-      <AssetCard
-        type={getFileType(entityFile)}
-        title={entityTitle || 'Untitled'}
-        className={className}
-        href={href}
-        status={entityStatus}
-        src={
-          entityFile
-            ? size === 'small'
-              ? `${entityFile.url}?w=150&h=150&fit=thumb`
-              : `${entityFile.url}?h=300`
-            : ''
-        }
-        isLoading={isLoading}
-        onClick={onClick}
-        // cardDragHandleComponent={cardDragHandleComponent}
-        // withDragHandle={!!cardDragHandleComponent}
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-        // @ts-ignore
-        dropdownListElements={readOnly ? null : this.renderAssetActions()}
-        size={size}
-      />
-    );
-  }
-}
+  const entityFile =
+    props.asset.fields.file[props.localeCode] || props.asset.fields.file[props.defaultLocaleCode];
+
+  return (
+    <WrappedAssetCard
+      {...props}
+      entityFile={entityFile}
+      entityStatus={status}
+      entityTitle={entityTitle}
+    />
+  );
+};
+
+export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
+  const { entityFile, entityTitle, className, href, entityStatus, onEdit, size, readOnly } = props;
+
+  return (
+    <AssetCard
+      type={getFileType(entityFile)}
+      title={entityTitle}
+      className={className}
+      href={href}
+      status={entityStatus}
+      src={
+        entityFile
+          ? size === 'small'
+            ? `${entityFile.url}?w=150&h=150&fit=thumb`
+            : `${entityFile.url}?h=300`
+          : ''
+      }
+      onClick={onEdit}
+      // cardDragHandleComponent={cardDragHandleComponent}
+      // withDragHandle={!!cardDragHandleComponent}
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // @ts-ignore
+      dropdownListElements={
+        readOnly ? null : (
+          <AssetCardActions
+            entityFile={props.entityFile}
+            isDisabled={props.disabled}
+            onEdit={props.onEdit}
+            onRemove={props.onRemove}
+          />
+        )
+      }
+      size={size}
+    />
+  );
+};

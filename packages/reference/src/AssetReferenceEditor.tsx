@@ -3,6 +3,7 @@ import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
 import { ViewType, SingleAssetReferenceValue, BaseExtensionSDK, Asset, Link } from './types';
 import { LinkActions } from './LinkActions/LinkActions';
 import { MissingEntityCard } from './MissingEntityCard/MissingEntityCard';
+import { FetchedWrappedAssetCard } from './WrappedAssetCard/WrappedAssetCard';
 
 export interface AssetReferenceEditorProps {
   /**
@@ -16,7 +17,7 @@ export interface AssetReferenceEditorProps {
 
   viewType: ViewType;
 
-  getEntryUrl?: (entryId: string) => string;
+  getAssetUrl?: (assetId: string) => string;
 
   parameters: {
     instance: {
@@ -67,36 +68,27 @@ function SingleAssetReferenceEditor(
     );
   }
 
-  console.log(asset);
-
   return (
     <div>
       {value && (
-        <button
-          onClick={() => {
+        <FetchedWrappedAssetCard
+          disabled={disabled}
+          size="default"
+          readOnly={false}
+          href={props.getAssetUrl ? props.getAssetUrl(value.sys.id) : ''}
+          localeCode={props.field.locale}
+          defaultLocaleCode={props.baseSdk.locales.default}
+          asset={asset}
+          onEdit={async () => {
+            const { entity } = await baseSdk.navigator.openAsset(value.sys.id, {
+              slideIn: { waitForClose: true }
+            });
+            setAsset(entity);
+          }}
+          onRemove={() => {
             props.setValue(null);
-          }}>
-          remove
-        </button>
-        // <WrappedEntryCard
-        //   getAsset={props.baseSdk.space.getAsset}
-        //   getEntryUrl={props.getEntryUrl}
-        //   disabled={disabled}
-        //   viewType={props.viewType}
-        //   localeCode={props.field.locale}
-        //   defaultLocaleCode={props.baseSdk.locales.default}
-        //   allContentTypes={allContentTypes}
-        //   entry={entry}
-        //   onEdit={async () => {
-        //     const { entity } = await baseSdk.navigator.openEntry(value.sys.id, {
-        //       slideIn: { waitForClose: true }
-        //     });
-        //     setEntry(entity);
-        //   }}
-        //   onRemove={() => {
-        //     props.setValue(null);
-        //   }}
-        // />
+          }}
+        />
       )}
       {!value && (
         <LinkActions
