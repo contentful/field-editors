@@ -8,10 +8,18 @@ export {
 
 export {
   ReferenceEntityType,
-  SingleReferenceValue,
   Entry,
-  File
+  File,
+  SingleReferenceValue
 } from '@contentful/field-editor-shared';
+
+export declare type SingleAssetReferenceValue = {
+  sys: {
+    type: 'Link';
+    id: string;
+    linkType: 'Asset';
+  };
+};
 
 export type ViewType = 'card' | 'link';
 

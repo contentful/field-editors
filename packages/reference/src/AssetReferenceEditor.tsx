@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
-import { ViewType, SingleReferenceValue, BaseExtensionSDK, Asset, Link } from './types';
+import { ViewType, SingleAssetReferenceValue, BaseExtensionSDK, Asset, Link } from './types';
 import { LinkActions } from './LinkActions/LinkActions';
 import { MissingEntityCard } from './MissingEntityCard/MissingEntityCard';
 
@@ -27,9 +27,9 @@ export interface AssetReferenceEditorProps {
 
 function SingleAssetReferenceEditor(
   props: AssetReferenceEditorProps & {
-    value: SingleReferenceValue | null | undefined;
+    value: SingleAssetReferenceValue | null | undefined;
     disabled: boolean;
-    setValue: (value: SingleReferenceValue | null | undefined) => void;
+    setValue: (value: SingleAssetReferenceValue | null | undefined) => void;
   }
 ) {
   const { value, baseSdk, setValue, disabled } = props;
@@ -145,7 +145,7 @@ export function AssetReferenceEditor(props: AssetReferenceEditorProps) {
   const { field } = props;
 
   return (
-    <FieldConnector<SingleReferenceValue>
+    <FieldConnector<SingleAssetReferenceValue>
       throttle={0}
       field={field}
       isInitiallyDisabled={props.isInitiallyDisabled}>
