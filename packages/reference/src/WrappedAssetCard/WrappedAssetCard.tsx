@@ -63,7 +63,7 @@ export const FetchedWrappedAssetCard = (
 
   if (status === 'deleted') {
     return (
-      <MissingEntityCard entityType="entry" disabled={props.disabled} onRemove={props.onRemove} />
+      <MissingEntityCard entityType="asset" disabled={props.disabled} onRemove={props.onRemove} />
     );
   }
 

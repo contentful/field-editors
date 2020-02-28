@@ -1,13 +1,6 @@
 import * as React from 'react';
 import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
-import {
-  ViewType,
-  SingleReferenceValue,
-  BaseExtensionSDK,
-  ContentType,
-  Link,
-  Entry
-} from './types';
+import { ViewType, EntryReferenceValue, BaseExtensionSDK, ContentType, Link, Entry } from './types';
 import { LinkActions } from './LinkActions/LinkActions';
 import { fromFieldValidations, ReferenceValidations } from './utils/fromFieldValidations';
 import { WrappedEntryCard } from './WrappedEntryCard/WrappedEntryCard';
@@ -36,9 +29,9 @@ export interface EntryReferenceEditorProps {
 
 function SingleEntryReferenceEditor(
   props: EntryReferenceEditorProps & {
-    value: SingleReferenceValue | null | undefined;
+    value: EntryReferenceValue | null | undefined;
     disabled: boolean;
-    setValue: (value: SingleReferenceValue | null | undefined) => void;
+    setValue: (value: EntryReferenceValue | null | undefined) => void;
     validations: ReferenceValidations;
   }
 ) {
@@ -171,7 +164,7 @@ export function EntryReferenceEditor(props: EntryReferenceEditorProps) {
   const validations = fromFieldValidations(field.validations);
 
   return (
-    <FieldConnector<SingleReferenceValue>
+    <FieldConnector<EntryReferenceValue>
       throttle={0}
       field={field}
       isInitiallyDisabled={props.isInitiallyDisabled}>

@@ -1,6 +1,3 @@
-import { EntrySys } from 'contentful-ui-extensions-sdk';
-import { File } from '@contentful/field-editor-shared';
-
 export {
   BaseExtensionSDK,
   ContentType,
@@ -8,14 +5,17 @@ export {
   Link
 } from 'contentful-ui-extensions-sdk';
 
-export {
-  ReferenceEntityType,
-  Entry,
-  File,
-  SingleReferenceValue
-} from '@contentful/field-editor-shared';
+export { ReferenceEntityType, Entry, File, Asset } from '@contentful/field-editor-shared';
 
-export declare type SingleAssetReferenceValue = {
+export type EntryReferenceValue = {
+  sys: {
+    type: 'Link';
+    id: string;
+    linkType: 'Entry';
+  };
+};
+
+export declare type AssetReferenceValue = {
   sys: {
     type: 'Link';
     id: string;
@@ -24,15 +24,3 @@ export declare type SingleAssetReferenceValue = {
 };
 
 export type ViewType = 'card' | 'link';
-
-export type Asset = {
-  sys: EntrySys;
-  fields: {
-    title: {
-      [locale: string]: string;
-    };
-    file: {
-      [locale: string]: File;
-    };
-  };
-};
