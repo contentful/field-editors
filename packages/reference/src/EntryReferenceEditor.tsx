@@ -1,13 +1,6 @@
 import * as React from 'react';
 import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
-import {
-  ViewType,
-  SingleReferenceValue,
-  BaseExtensionSDK,
-  ContentType,
-  Link,
-  Entry
-} from './types';
+import { ViewType, EntryReferenceValue, BaseExtensionSDK, ContentType, Link, Entry } from './types';
 import { LinkActions } from './LinkActions/LinkActions';
 import { fromFieldValidations, ReferenceValidations } from './utils/fromFieldValidations';
 import { WrappedEntryCard } from './WrappedEntryCard/WrappedEntryCard';
@@ -25,18 +18,20 @@ export interface EntryReferenceEditorProps {
 
   viewType: ViewType;
 
+  getEntryUrl?: (entryId: string) => string;
+
   parameters: {
     instance: {
-      canCreateEntity: boolean;
+      canCreateEntry: boolean;
     };
   };
 }
 
 function SingleEntryReferenceEditor(
   props: EntryReferenceEditorProps & {
-    value: SingleReferenceValue | null | undefined;
+    value: EntryReferenceValue | null | undefined;
     disabled: boolean;
-    setValue: (value: SingleReferenceValue | null | undefined) => void;
+    setValue: (value: EntryReferenceValue | null | undefined) => void;
     validations: ReferenceValidations;
   }
 ) {
@@ -44,11 +39,11 @@ function SingleEntryReferenceEditor(
 
   const [entry, setEntry] = React.useState<Entry | undefined>(undefined);
   const [error, setError] = React.useState<boolean>(false);
-  const [allContentTypes, setAllContentTypes] = React.useState<Array<ContentType>>([]);
+  const [allContentTypes, setAllContentTypes] = React.useState<null | ContentType[]>(null);
 
   React.useEffect(() => {
-    baseSdk.space.getContentTypes<ContentType>().then(data => {
-      setAllContentTypes(data.items);
+    props.baseSdk.space.getContentTypes<ContentType>().then(res => {
+      setAllContentTypes(res.items);
     });
   }, []);
 
@@ -82,6 +77,10 @@ function SingleEntryReferenceEditor(
     );
   }
 
+  if (allContentTypes === null) {
+    return null;
+  }
+
   const allowedContentTypes = props.validations.contentTypes
     ? allContentTypes.filter(contentType => {
         return props.validations.contentTypes?.includes(contentType.sys.id);
@@ -90,9 +89,10 @@ function SingleEntryReferenceEditor(
 
   return (
     <div>
-      {value && allContentTypes && (
+      {value && (
         <WrappedEntryCard
           getAsset={props.baseSdk.space.getAsset}
+          getEntryUrl={props.getEntryUrl}
           disabled={disabled}
           viewType={props.viewType}
           localeCode={props.field.locale}
@@ -115,7 +115,9 @@ function SingleEntryReferenceEditor(
           entityType="entry"
           multiple={false}
           disabled={props.disabled}
-          canCreateEntity={props.parameters.instance.canCreateEntity}
+          canCreateEntity={
+            allowedContentTypes.length > 0 && props.parameters.instance.canCreateEntry
+          }
           contentTypes={allowedContentTypes}
           onCreate={async contentTypeId => {
             if (contentTypeId) {
@@ -162,7 +164,7 @@ export function EntryReferenceEditor(props: EntryReferenceEditorProps) {
   const validations = fromFieldValidations(field.validations);
 
   return (
-    <FieldConnector<SingleReferenceValue>
+    <FieldConnector<EntryReferenceValue>
       throttle={0}
       field={field}
       isInitiallyDisabled={props.isInitiallyDisabled}>

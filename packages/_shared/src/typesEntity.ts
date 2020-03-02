@@ -10,14 +10,6 @@ export {
 
 export type ReferenceEntityType = 'entry' | 'asset';
 
-export type SingleReferenceValue = {
-  sys: {
-    type: 'Link';
-    id: string;
-    linkType: 'Entry';
-  };
-};
-
 export interface Entry {
   sys: EntrySys;
   fields: {
@@ -27,6 +19,18 @@ export interface Entry {
     };
   };
 }
+
+export type Asset = {
+  sys: EntrySys;
+  fields: {
+    title: {
+      [locale: string]: string;
+    };
+    file: {
+      [locale: string]: File;
+    };
+  };
+};
 
 export interface File {
   url: string;

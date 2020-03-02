@@ -9,6 +9,7 @@ const { getEntryTitle, getEntityDescription, getEntryStatus, getEntryImage } = e
 
 interface WrappedEntryCardProps {
   getAsset: (assetId: string) => Promise<unknown>;
+  getEntryUrl?: (entryId: string) => string;
   viewType: ViewType;
   disabled: boolean;
   onRemove: () => void;
@@ -81,6 +82,14 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
     return <EntryCard size={size} loading />;
   }
 
+  const status = getEntryStatus(props.entry?.sys);
+
+  if (status === 'deleted') {
+    return (
+      <MissingEntityCard entityType="entry" disabled={props.disabled} onRemove={props.onRemove} />
+    );
+  }
+
   const title = getEntryTitle({
     entry: props.entry,
     contentType,
@@ -96,16 +105,9 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
     defaultLocaleCode: props.defaultLocaleCode
   });
 
-  const status = getEntryStatus(props.entry?.sys);
-
-  if (status === 'deleted') {
-    return (
-      <MissingEntityCard entityType="entry" disabled={props.disabled} onRemove={props.onRemove} />
-    );
-  }
-
   return (
     <EntryCard
+      href={props.getEntryUrl ? props.getEntryUrl(props.entry.sys.id) : undefined}
       title={title}
       description={description}
       contentType={contentType?.name}

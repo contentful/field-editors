@@ -60,6 +60,10 @@ interface CreateEntryMenuTrigger {
   suggestedContentTypeId?: string;
   onSelect: (contentTypeId: string) => Promise<unknown>;
   testId?: string;
+  dropdownSettings?: {
+    isAutoalignmentEnabled: boolean;
+    position: 'bottom-left' | 'bottom-right';
+  };
   children: CreateEntryMenuTriggerChild;
 }
 
@@ -68,6 +72,10 @@ export const CreateEntryMenuTrigger = ({
   onSelect,
   children,
   testId,
+  dropdownSettings = {
+    isAutoalignmentEnabled: false,
+    position: 'bottom-left'
+  },
   suggestedContentTypeId
 }: CreateEntryMenuTrigger) => {
   const [isOpen, setOpen] = useState(false);
@@ -152,8 +160,8 @@ export const CreateEntryMenuTrigger = ({
   return (
     <span className={styles.wrapper} ref={wrapper} data-test-id={testId}>
       <Dropdown
-        position="bottom-left"
-        isAutoalignmentEnabled={false}
+        position={dropdownSettings.position}
+        isAutoalignmentEnabled={dropdownSettings.isAutoalignmentEnabled}
         isOpen={isOpen && contentTypes.length > 1}
         toggleElement={children({ isOpen, isSelecting, openMenu })}
         testId="add-entry-menu"
