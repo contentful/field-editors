@@ -1471,10 +1471,10 @@
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.5.1.tgz#427130f4e65f3aef4ec987873c4a1b61dab8cdaf"
   integrity sha512-KeI181dInXcgSQw/ibPHEyshDFrEOPVEwHZ4a720yEJczT64zmKC/CLecsv3C7tUiQlnSnTZD1fcFBXmeOIThw==
 
-"@contentful/mimetype@^1.1.3":
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/@contentful/mimetype/-/mimetype-1.1.3.tgz#70464e67bfb49d5760f852485cb905c54e0684c2"
-  integrity sha512-RMx5W9/bmWTCF9EA4HsMN/ZvM+ZqEK7APsaoh0h/fDX2Ug0iDPoVZj4iKmhfaDdOkqUFvI4zEoaDzrN369jEAQ==
+"@contentful/mimetype@^1.1.4":
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@contentful/mimetype/-/mimetype-1.1.4.tgz#2f227d2d9fad695072796acbe5f8b4d64e03f9c8"
+  integrity sha512-553/jJGvXdQlxfTW10riH21I8pz+Ugdmn51ixI2ENxajBzBz9Gz2cI8swYtNAJqmy7LkcZfoOP3ZiFbsbP9Ddw==
   dependencies:
     lodash "^4.17.15"
 
