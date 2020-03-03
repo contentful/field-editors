@@ -1,4 +1,3 @@
-import uniqBy from 'lodash/uniqBy';
 import { isNodeTypeEnabled } from '../../validations';
 import { INLINES, BLOCKS } from '@contentful/rich-text-types';
 import { entityHelpers } from '@contentful/field-editor-shared';
@@ -7,11 +6,6 @@ const ACTIONS = {
   EMBED: 'embed',
   CREATE_EMBED: 'create_embed'
 };
-
-export async function fetchContentTypes(widgetAPI) {
-  const contentTypes = await widgetAPI.space.getContentTypes();
-  return uniqBy(contentTypes.items, contentType => contentType.name);
-}
 
 export async function fetchAssets(widgetAPI, query = '') {
   const assets = await widgetAPI.space.getAssets({ query });

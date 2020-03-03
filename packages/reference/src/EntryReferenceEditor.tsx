@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
-import { ViewType, EntryReferenceValue, BaseExtensionSDK, ContentType, Link, Entry } from './types';
+import { ViewType, EntryReferenceValue, BaseExtensionSDK, Link, Entry } from './types';
 import { LinkActions } from './LinkActions/LinkActions';
 import { fromFieldValidations, ReferenceValidations } from './utils/fromFieldValidations';
 import { WrappedEntryCard } from './WrappedEntryCard/WrappedEntryCard';
@@ -39,13 +39,7 @@ function SingleEntryReferenceEditor(
 
   const [entry, setEntry] = React.useState<Entry | undefined>(undefined);
   const [error, setError] = React.useState<boolean>(false);
-  const [allContentTypes, setAllContentTypes] = React.useState<null | ContentType[]>(null);
-
-  React.useEffect(() => {
-    props.baseSdk.space.getContentTypes<ContentType>().then(res => {
-      setAllContentTypes(res.items);
-    });
-  }, []);
+  const allContentTypes = props.baseSdk.space.getCachedContentTypes();
 
   React.useEffect(() => {
     if (value) {

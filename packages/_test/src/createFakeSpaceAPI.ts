@@ -9,41 +9,45 @@ function identity<T>(item: T): T {
 
 type CustomizeMockFn = (api: SpaceAPI) => Partial<SpaceAPI>;
 
+const testContentTypes: ContentType[] = [
+  {
+    name: 'Example Content Type',
+    sys: { id: 'exampleCT', type: 'ContentType' },
+    fields: [
+      {
+        id: 'exField',
+        disabled: false,
+        localized: false,
+        name: 'Example Field',
+        omitted: false,
+        required: true,
+        type: 'Symbol',
+        validations: []
+      }
+    ],
+    displayField: 'exField',
+    description: ''
+  },
+  {
+    name: 'Another Content Type',
+    sys: { id: 'anotherCT', type: 'ContentType' },
+    fields: [],
+    displayField: '',
+    description: ''
+  }
+];
+
 export function createFakeSpaceAPI(customizeMock: CustomizeMockFn = identity): SpaceAPI {
   return customizeMock({
     // @ts-ignore
+    getCachedContentTypes() {
+      return testContentTypes;
+    },
+    // @ts-ignore
     getContentTypes() {
-      const items: ContentType[] = [
-        {
-          name: 'Example Content Type',
-          sys: { id: 'exampleCT', type: 'ContentType' },
-          fields: [
-            {
-              id: 'exField',
-              disabled: false,
-              localized: false,
-              name: 'Example Field',
-              omitted: false,
-              required: true,
-              type: 'Symbol',
-              validations: []
-            }
-          ],
-          displayField: 'exField',
-          description: ''
-        },
-        {
-          name: 'Another Content Type',
-          sys: { id: 'anotherCT', type: 'ContentType' },
-          fields: [],
-          displayField: '',
-          description: ''
-        }
-      ];
-
       return Promise.resolve({
-        items,
-        total: 2,
+        items: testContentTypes,
+        total: testContentTypes.length,
         skip: 0,
         limit: 100,
         sys: { type: 'Array' }
