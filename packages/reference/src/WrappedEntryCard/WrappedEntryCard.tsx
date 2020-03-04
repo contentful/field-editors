@@ -112,7 +112,8 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
       dropdownListElements={
         <EntryActions disabled={props.disabled} onEdit={props.onEdit} onRemove={props.onRemove} />
       }
-      onClick={() => {
+      onClick={e => {
+        e.preventDefault();
         props.onEdit();
       }}
     />

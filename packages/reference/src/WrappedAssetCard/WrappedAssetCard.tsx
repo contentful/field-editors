@@ -100,7 +100,10 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
             : `${entityFile.url}?h=300`
           : ''
       }
-      onClick={onEdit}
+      onClick={(e: React.MouseEvent<HTMLElement>) => {
+        e.preventDefault();
+        onEdit();
+      }}
       // cardDragHandleComponent={cardDragHandleComponent}
       // withDragHandle={!!cardDragHandleComponent}
       // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
