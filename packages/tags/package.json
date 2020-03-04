@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-tags",
-  "version": "0.4.7",
+  "version": "0.4.8",
   "main": "dist/index.js",
   "module": "dist/field-editor-tags.esm.js",
   "typings": "dist/index.d.ts",
@@ -21,7 +21,7 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
-    "@contentful/field-editor-shared": "^0.7.1",
+    "@contentful/field-editor-shared": "^0.7.2",
     "@contentful/forma-36-react-components": "^3.18.4",
     "@contentful/forma-36-tokens": "^0.4.5",
     "array-move": "^2.1.0",
@@ -31,7 +31,7 @@
     "react-sortable-hoc": "^1.9.0"
   },
   "devDependencies": {
-    "@contentful/field-editor-test-utils": "^0.3.1"
+    "@contentful/field-editor-test-utils": "^0.3.2"
   },
   "peerDependencies": {
     "react": ">=16.8.0"
