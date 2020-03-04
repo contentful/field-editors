@@ -38,6 +38,8 @@ function SingleAssetReferenceEditor(
   const [asset, setAsset] = React.useState<Asset | undefined>(undefined);
   const [error, setError] = React.useState<boolean>(false);
 
+  // todo: need to analyze validations and apply it
+
   React.useEffect(() => {
     if (value) {
       baseSdk.space
