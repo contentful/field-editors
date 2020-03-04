@@ -50,15 +50,11 @@ function getFileType(file?: File): any {
 }
 
 export const FetchedWrappedAssetCard = (
-  props: { asset?: Asset; localeCode: string; defaultLocaleCode: string } & Pick<
+  props: { asset: Asset; localeCode: string; defaultLocaleCode: string } & Pick<
     WrappedAssetCardProps,
     'href' | 'size' | 'readOnly' | 'disabled' | 'onRemove' | 'onEdit'
   >
 ) => {
-  if (!props.asset) {
-    return <AssetCard size={props.size} isLoading title="" src="" href="" />;
-  }
-
   const status = entityHelpers.getEntryStatus(props.asset.sys);
 
   if (status === 'deleted') {

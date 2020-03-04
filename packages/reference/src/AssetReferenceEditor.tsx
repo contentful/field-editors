@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
-import { ViewType, AssetReferenceValue, BaseExtensionSDK, Asset, Link } from './types';
+import { AssetCard } from '@contentful/forma-36-react-components';
+import { ViewType, AssetReferenceValue, BaseExtensionSDK, Link } from './types';
 import { LinkActions } from './LinkActions/LinkActions';
 import { MissingEntityCard } from './MissingEntityCard/MissingEntityCard';
 import { FetchedWrappedAssetCard } from './WrappedAssetCard/WrappedAssetCard';
+import { AssetsProvider, useAssetsStore } from './EntityStore/EntityStore';
 
 export interface AssetReferenceEditorProps {
   /**
@@ -26,39 +28,74 @@ export interface AssetReferenceEditorProps {
   };
 }
 
-function SingleAssetReferenceEditor(
-  props: AssetReferenceEditorProps & {
-    value: AssetReferenceValue | null | undefined;
-    disabled: boolean;
-    setValue: (value: AssetReferenceValue | null | undefined) => void;
-  }
-) {
-  const { value, baseSdk, setValue, disabled } = props;
+type SingleAssetReferenceEditorProps = AssetReferenceEditorProps & {
+  value: AssetReferenceValue | null | undefined;
+  disabled: boolean;
+  setValue: (value: AssetReferenceValue | null | undefined) => void;
+};
 
-  const [asset, setAsset] = React.useState<Asset | undefined>(undefined);
-  const [error, setError] = React.useState<boolean>(false);
-
+function LinkSingleAssetReference(props: SingleAssetReferenceEditorProps) {
+  const { disabled, baseSdk, setValue } = props;
   // todo: need to analyze validations and apply it
+  return (
+    <LinkActions
+      entityType="asset"
+      multiple={false}
+      contentTypes={[]}
+      disabled={disabled}
+      canCreateEntity={props.parameters.instance.canCreateAsset}
+      onCreate={async () => {
+        const { entity } = await baseSdk.navigator.openNewAsset({
+          slideIn: { waitForClose: true }
+        });
+        if (!entity) {
+          return;
+        }
+        setValue({
+          sys: {
+            type: 'Link',
+            linkType: 'Asset',
+            id: entity.sys.id
+          }
+        });
+      }}
+      onLinkExisting={async () => {
+        const item = await baseSdk.dialogs.selectSingleAsset<Link>({
+          locale: props.field.locale
+        });
+        if (!item) {
+          return;
+        }
+        setValue({
+          sys: {
+            type: 'Link',
+            linkType: 'Asset',
+            id: item.sys.id
+          }
+        });
+      }}
+    />
+  );
+}
+
+function SingleAssetReferenceEditor(props: SingleAssetReferenceEditorProps) {
+  const { value, baseSdk, disabled } = props;
+
+  const { loadAsset, assets, setAsset } = useAssetsStore();
 
   React.useEffect(() => {
     if (value) {
-      baseSdk.space
-        .getAsset<Asset>(value.sys.id)
-        .then(asset => {
-          setAsset(asset);
-          setError(false);
-        })
-        .catch(() => {
-          setError(true);
-          setAsset(undefined);
-        });
-    } else {
-      setAsset(undefined);
-      setError(false);
+      loadAsset(value.sys.id);
     }
-  }, [value]);
+  }, [value?.sys.id]);
 
-  if (error) {
+  if (!value) {
+    return <LinkSingleAssetReference {...props} />;
+  }
+
+  const asset = assets[value.sys.id];
+
+  if (asset === 'failed') {
     return (
       <MissingEntityCard
         entityType="asset"
@@ -70,68 +107,29 @@ function SingleAssetReferenceEditor(
     );
   }
 
+  if (asset === undefined) {
+    return <AssetCard size="default" isLoading title="" src="" href="" />;
+  }
+
   return (
-    <div>
-      {value && (
-        <FetchedWrappedAssetCard
-          disabled={disabled}
-          size="default"
-          readOnly={false}
-          href={props.getAssetUrl ? props.getAssetUrl(value.sys.id) : ''}
-          localeCode={props.field.locale}
-          defaultLocaleCode={props.baseSdk.locales.default}
-          asset={asset}
-          onEdit={async () => {
-            const { entity } = await baseSdk.navigator.openAsset(value.sys.id, {
-              slideIn: { waitForClose: true }
-            });
-            setAsset(entity);
-          }}
-          onRemove={() => {
-            props.setValue(null);
-          }}
-        />
-      )}
-      {!value && (
-        <LinkActions
-          entityType="asset"
-          multiple={false}
-          contentTypes={[]}
-          disabled={disabled}
-          canCreateEntity={props.parameters.instance.canCreateAsset}
-          onCreate={async () => {
-            const { entity } = await baseSdk.navigator.openNewAsset({
-              slideIn: { waitForClose: true }
-            });
-            if (!entity) {
-              return;
-            }
-            setValue({
-              sys: {
-                type: 'Link',
-                linkType: 'Asset',
-                id: entity.sys.id
-              }
-            });
-          }}
-          onLinkExisting={async () => {
-            const item = await baseSdk.dialogs.selectSingleAsset<Link>({
-              locale: props.field.locale
-            });
-            if (!item) {
-              return;
-            }
-            setValue({
-              sys: {
-                type: 'Link',
-                linkType: 'Asset',
-                id: item.sys.id
-              }
-            });
-          }}
-        />
-      )}
-    </div>
+    <FetchedWrappedAssetCard
+      disabled={disabled}
+      size="default"
+      readOnly={false}
+      href={props.getAssetUrl ? props.getAssetUrl(value.sys.id) : ''}
+      localeCode={props.field.locale}
+      defaultLocaleCode={props.baseSdk.locales.default}
+      asset={asset}
+      onEdit={async () => {
+        const { entity } = await baseSdk.navigator.openAsset(value.sys.id, {
+          slideIn: { waitForClose: true }
+        });
+        setAsset(value.sys.id, entity);
+      }}
+      onRemove={() => {
+        props.setValue(null);
+      }}
+    />
   );
 }
 
@@ -139,22 +137,24 @@ export function AssetReferenceEditor(props: AssetReferenceEditorProps) {
   const { field } = props;
 
   return (
-    <FieldConnector<AssetReferenceValue>
-      throttle={0}
-      field={field}
-      isInitiallyDisabled={props.isInitiallyDisabled}>
-      {({ value, setValue, disabled, externalReset }) => {
-        return (
-          <SingleAssetReferenceEditor
-            key={`single-asset-${externalReset}`}
-            {...props}
-            disabled={disabled}
-            value={value}
-            setValue={setValue}
-          />
-        );
-      }}
-    </FieldConnector>
+    <AssetsProvider sdk={props.baseSdk}>
+      <FieldConnector<AssetReferenceValue>
+        throttle={0}
+        field={field}
+        isInitiallyDisabled={props.isInitiallyDisabled}>
+        {({ value, setValue, disabled, externalReset }) => {
+          return (
+            <SingleAssetReferenceEditor
+              key={`single-asset-${externalReset}`}
+              {...props}
+              disabled={disabled}
+              value={value}
+              setValue={setValue}
+            />
+          );
+        }}
+      </FieldConnector>
+    </AssetsProvider>
   );
 }
 
