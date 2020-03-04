@@ -96,13 +96,32 @@ function LinkSingleEntryReference(props: SingleEntryReferenceEditorProps) {
 
 function SingleEntryReferenceEditor(props: SingleEntryReferenceEditorProps) {
   const { value, baseSdk, disabled, setValue } = props;
-  const { loadEntry, entries, setEntry } = useEntriesStore();
+  const { loadEntry, entries } = useEntriesStore();
 
   React.useEffect(() => {
     if (value?.sys.id) {
       loadEntry(value.sys.id);
     }
   }, [value?.sys.id]);
+
+  React.useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    const unsubscribe = baseSdk.navigator.onSlideInNavigation(
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // @ts-ignore
+      ({ oldSlideLevel, newSlideLevel }) => {
+        if (value?.sys.id) {
+          if (oldSlideLevel > newSlideLevel) {
+            loadEntry(value.sys.id);
+          }
+        }
+      }
+    );
+    return () => {
+      unsubscribe();
+    };
+  }, [baseSdk]);
 
   const size = props.viewType === 'link' ? 'small' : 'default';
 
@@ -140,10 +159,9 @@ function SingleEntryReferenceEditor(props: SingleEntryReferenceEditorProps) {
       entry={entry}
       onEdit={async () => {
         try {
-          const { entity } = await baseSdk.navigator.openEntry(entry.sys.id, {
+          await baseSdk.navigator.openEntry(entry.sys.id, {
             slideIn: { waitForClose: true }
           });
-          setEntry(entry.sys.id, entity);
         } catch (e) {
           baseSdk.notifier.error('Could not load the entry');
         }

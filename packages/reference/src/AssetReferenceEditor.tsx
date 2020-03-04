@@ -81,13 +81,32 @@ function LinkSingleAssetReference(props: SingleAssetReferenceEditorProps) {
 function SingleAssetReferenceEditor(props: SingleAssetReferenceEditorProps) {
   const { value, baseSdk, disabled } = props;
 
-  const { loadAsset, assets, setAsset } = useAssetsStore();
+  const { loadAsset, assets } = useAssetsStore();
 
   React.useEffect(() => {
     if (value) {
       loadAsset(value.sys.id);
     }
   }, [value?.sys.id]);
+
+  React.useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    const unsubscribe = baseSdk.navigator.onSlideInNavigation(
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // @ts-ignore
+      ({ oldSlideLevel, newSlideLevel }) => {
+        if (value?.sys.id) {
+          if (oldSlideLevel > newSlideLevel) {
+            loadAsset(value.sys.id);
+          }
+        }
+      }
+    );
+    return () => {
+      unsubscribe();
+    };
+  }, [baseSdk]);
 
   if (!value) {
     return <LinkSingleAssetReference {...props} />;
@@ -121,10 +140,13 @@ function SingleAssetReferenceEditor(props: SingleAssetReferenceEditorProps) {
       defaultLocaleCode={props.baseSdk.locales.default}
       asset={asset}
       onEdit={async () => {
-        const { entity } = await baseSdk.navigator.openAsset(value.sys.id, {
-          slideIn: { waitForClose: true }
-        });
-        setAsset(value.sys.id, entity);
+        try {
+          await baseSdk.navigator.openAsset(value.sys.id, {
+            slideIn: { waitForClose: true }
+          });
+        } catch (e) {
+          baseSdk.notifier.error('Could not load the asset');
+        }
       }}
       onRemove={() => {
         props.setValue(null);
