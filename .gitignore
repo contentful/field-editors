@@ -8,6 +8,7 @@ node_modules
 .rts2_cache_es
 .rts2_cache_esm
 .rts2_cache_umd
+package-lock.json
 build/
 dist/
 cypress/videos

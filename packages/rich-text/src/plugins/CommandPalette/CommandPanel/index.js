@@ -7,12 +7,7 @@ import throttle from 'lodash/throttle';
 import flatten from 'lodash/flatten';
 import { insertBlock } from '../../EmbeddedEntityBlock/Util';
 import { insertInline } from '../../EmbeddedEntryInline/Utils';
-import {
-  fetchEntries,
-  fetchContentTypes,
-  fetchAssets,
-  CommandPaletteActionBuilder
-} from '../CommandPaletteService';
+import { fetchEntries, fetchAssets, CommandPaletteActionBuilder } from '../CommandPaletteService';
 import { removeCommand } from '../Util';
 import CommandPanelMenu from './CommandPanelMenu';
 import { InViewport } from '@contentful/forma-36-react-components';
@@ -231,9 +226,9 @@ class CommandPalette extends React.PureComponent {
     }
   };
 
-  createInitialCommands = async () => {
+  createInitialCommands = () => {
     const { widgetAPI } = this.props.richTextAPI;
-    const allContentTypes = await fetchContentTypes(widgetAPI);
+    const allContentTypes = widgetAPI.space.getCachedContentTypes();
     this.setState({
       isLoading: false
     });
