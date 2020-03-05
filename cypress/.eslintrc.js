@@ -3,5 +3,8 @@ module.exports = {
   plugins: ['cypress'],
   env: {
     'cypress/globals': true
+  },
+  globals: {
+    require: true
   }
 };

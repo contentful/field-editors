@@ -69,8 +69,9 @@ import { css } from 'emotion';
         >{valueDom}</div>
 	  );
     }
+    window.richTextField = field
     return (
-      <div>
+      <div data-test-id="rich-text-editor-integration-test">
         <RichTextEditor widgetAPI={sdk} isInitiallyDisabled={false} />
         <ActionsPlayground mitt={mitt} renderValue={renderRT} />
       </div>

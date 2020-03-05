@@ -12,5 +12,8 @@ declare namespace Cypress {
       clear: () => void;
       selectAll: () => void;
     }>;
+    getRichTextField(): Chainable<{
+      getValue: () => object;
+    }>;
   }
 }
