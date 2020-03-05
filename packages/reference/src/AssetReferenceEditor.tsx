@@ -90,11 +90,7 @@ function SingleAssetReferenceEditor(props: SingleAssetReferenceEditorProps) {
   }, [value?.sys.id]);
 
   React.useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore
     const unsubscribe = baseSdk.navigator.onSlideInNavigation(
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-      // @ts-ignore
       ({ oldSlideLevel, newSlideLevel }) => {
         if (value?.sys.id) {
           if (oldSlideLevel > newSlideLevel) {
