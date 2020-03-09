@@ -1,5 +1,3 @@
-//
-
 describe('Markdown Editor / Organize Links', () => {
   const selectors = {
     getInput: () => {

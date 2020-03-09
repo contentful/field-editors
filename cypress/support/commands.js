@@ -59,3 +59,9 @@ Cypress.Commands.add('getMarkdownInstance', () => {
     return win.markdownEditor;
   });
 });
+
+Cypress.Commands.add('getRichTextField', () => {
+  return cy.window().then(win => {
+    return win.richTextField;
+  });
+});
