@@ -50,15 +50,11 @@ function getFileType(file?: File): any {
 }
 
 export const FetchedWrappedAssetCard = (
-  props: { asset?: Asset; localeCode: string; defaultLocaleCode: string } & Pick<
+  props: { asset: Asset; localeCode: string; defaultLocaleCode: string } & Pick<
     WrappedAssetCardProps,
     'href' | 'size' | 'readOnly' | 'disabled' | 'onRemove' | 'onEdit'
   >
 ) => {
-  if (!props.asset) {
-    return <AssetCard size={props.size} isLoading title="" src="" href="" />;
-  }
-
   const status = entityHelpers.getEntryStatus(props.asset.sys);
 
   if (status === 'deleted') {
@@ -104,7 +100,10 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
             : `${entityFile.url}?h=300`
           : ''
       }
-      onClick={onEdit}
+      onClick={(e: React.MouseEvent<HTMLElement>) => {
+        e.preventDefault();
+        onEdit();
+      }}
       // cardDragHandleComponent={cardDragHandleComponent}
       // withDragHandle={!!cardDragHandleComponent}
       // eslint-disable-next-line @typescript-eslint/ban-ts-ignore

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { EntryCard, DropdownList, DropdownListItem } from '@contentful/forma-36-react-components';
-import { ViewType, Entry, File, ContentType } from '../types';
+import { Entry, File, ContentType } from '../types';
 import { entityHelpers } from '@contentful/field-editor-shared';
 import { AssetThumbnail, isValidImage } from '../AssetThumbnail/AssetThumbnail';
 import { MissingEntityCard } from '../MissingEntityCard/MissingEntityCard';
@@ -10,14 +10,14 @@ const { getEntryTitle, getEntityDescription, getEntryStatus, getEntryImage } = e
 interface WrappedEntryCardProps {
   getAsset: (assetId: string) => Promise<unknown>;
   getEntryUrl?: (entryId: string) => string;
-  viewType: ViewType;
+  size: 'small' | 'default';
   disabled: boolean;
   onRemove: () => void;
   onEdit: () => void;
   localeCode: string;
   defaultLocaleCode: string;
   allContentTypes: ContentType[];
-  entry?: Entry;
+  entry: Entry;
 }
 
 const EntryActions = (props: { disabled: boolean; onEdit: Function; onRemove: Function }) => {
@@ -52,7 +52,6 @@ const EntryActions = (props: { disabled: boolean; onEdit: Function; onRemove: Fu
 
 export function WrappedEntryCard(props: WrappedEntryCardProps) {
   const [file, setFile] = React.useState<null | File>(null);
-  const size = props.viewType === 'link' ? 'small' : 'default';
 
   const contentType = props.allContentTypes.find(
     contentType => contentType.sys.id === props.entry?.sys.contentType.sys.id
@@ -77,10 +76,6 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
         });
     }
   }, [props.entry, contentType, props.localeCode, props.defaultLocaleCode]);
-
-  if (!props.entry) {
-    return <EntryCard size={size} loading />;
-  }
 
   const status = getEntryStatus(props.entry?.sys);
 
@@ -111,7 +106,7 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
       title={title}
       description={description}
       contentType={contentType?.name}
-      size={size}
+      size={props.size}
       status={status}
       thumbnailElement={file && isValidImage(file) ? <AssetThumbnail file={file} /> : null}
       dropdownListElements={

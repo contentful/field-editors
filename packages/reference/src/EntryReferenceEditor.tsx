@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
-import { ViewType, EntryReferenceValue, BaseExtensionSDK, Link, Entry } from './types';
+import { EntryCard } from '@contentful/forma-36-react-components';
+import { ViewType, EntryReferenceValue, BaseExtensionSDK, Link, ContentType } from './types';
 import { LinkActions } from './LinkActions/LinkActions';
 import { fromFieldValidations, ReferenceValidations } from './utils/fromFieldValidations';
 import { WrappedEntryCard } from './WrappedEntryCard/WrappedEntryCard';
 import { MissingEntityCard } from './MissingEntityCard/MissingEntityCard';
+import { EntriesProvider, useEntriesStore } from './EntityStore/EntityStore';
 
 export interface EntryReferenceEditorProps {
   /**
@@ -27,128 +29,143 @@ export interface EntryReferenceEditorProps {
   };
 }
 
-function SingleEntryReferenceEditor(
-  props: EntryReferenceEditorProps & {
-    value: EntryReferenceValue | null | undefined;
-    disabled: boolean;
-    setValue: (value: EntryReferenceValue | null | undefined) => void;
-    validations: ReferenceValidations;
-  }
-) {
-  const { value, baseSdk, validations, setValue, disabled } = props;
+export type SingleEntryReferenceEditorProps = EntryReferenceEditorProps & {
+  value: EntryReferenceValue | null | undefined;
+  allContentTypes: ContentType[];
+  disabled: boolean;
+  setValue: (value: EntryReferenceValue | null | undefined) => void;
+  validations: ReferenceValidations;
+};
 
-  const [entry, setEntry] = React.useState<Entry | undefined>(undefined);
-  const [error, setError] = React.useState<boolean>(false);
-  const allContentTypes = props.baseSdk.space.getCachedContentTypes();
+function LinkSingleEntryReference(props: SingleEntryReferenceEditorProps) {
+  const { baseSdk, validations, setValue } = props;
+
+  const allowedContentTypes = props.validations.contentTypes
+    ? props.allContentTypes.filter(contentType => {
+        return props.validations.contentTypes?.includes(contentType.sys.id);
+      })
+    : props.allContentTypes;
+
+  const onCreate = React.useCallback(async (contentTypeId?: string) => {
+    if (contentTypeId) {
+      const { entity } = await baseSdk.navigator.openNewEntry(contentTypeId, {
+        slideIn: { waitForClose: true }
+      });
+      if (!entity) {
+        return;
+      }
+      setValue({
+        sys: {
+          type: 'Link',
+          linkType: 'Entry',
+          id: entity.sys.id
+        }
+      });
+    }
+  }, []);
+
+  const onLinkExisting = React.useCallback(async () => {
+    const item = await baseSdk.dialogs.selectSingleEntry<Link>({
+      locale: props.field.locale,
+      contentTypes: validations.contentTypes
+    });
+    if (!item) {
+      return;
+    }
+    setValue({
+      sys: {
+        type: 'Link',
+        linkType: 'Entry',
+        id: item.sys.id
+      }
+    });
+  }, []);
+
+  return (
+    <LinkActions
+      entityType="entry"
+      multiple={false}
+      disabled={props.disabled}
+      canCreateEntity={allowedContentTypes.length > 0 && props.parameters.instance.canCreateEntry}
+      contentTypes={allowedContentTypes}
+      onCreate={onCreate}
+      onLinkExisting={onLinkExisting}
+    />
+  );
+}
+
+function SingleEntryReferenceEditor(props: SingleEntryReferenceEditorProps) {
+  const { value, baseSdk, disabled, setValue } = props;
+  const { loadEntry, entries } = useEntriesStore();
 
   React.useEffect(() => {
-    if (value) {
-      baseSdk.space
-        .getEntry<Entry>(value.sys.id)
-        .then(entry => {
-          setEntry(entry);
-          setError(false);
-        })
-        .catch(() => {
-          setError(true);
-          setEntry(undefined);
-        });
-    } else {
-      setEntry(undefined);
-      setError(false);
+    if (value?.sys.id) {
+      loadEntry(value.sys.id);
     }
-  }, [value]);
+  }, [value?.sys.id]);
 
-  if (error) {
+  React.useEffect(() => {
+    const unsubscribe = baseSdk.navigator.onSlideInNavigation(
+      ({ oldSlideLevel, newSlideLevel }) => {
+        if (value?.sys.id) {
+          if (oldSlideLevel > newSlideLevel) {
+            loadEntry(value.sys.id);
+          }
+        }
+      }
+    );
+    return () => {
+      unsubscribe();
+    };
+  }, [baseSdk]);
+
+  const size = props.viewType === 'link' ? 'small' : 'default';
+
+  if (!value) {
+    return <LinkSingleEntryReference {...props} />;
+  }
+
+  const entry = entries[value.sys.id];
+
+  if (entry === 'failed') {
     return (
       <MissingEntityCard
         entityType="entry"
         disabled={props.disabled}
         onRemove={() => {
-          props.setValue(null);
+          setValue(null);
         }}
       />
     );
   }
 
-  if (allContentTypes === null) {
-    return null;
+  if (entry === undefined) {
+    return <EntryCard size={size} loading />;
   }
 
-  const allowedContentTypes = props.validations.contentTypes
-    ? allContentTypes.filter(contentType => {
-        return props.validations.contentTypes?.includes(contentType.sys.id);
-      })
-    : allContentTypes;
-
   return (
-    <div>
-      {value && (
-        <WrappedEntryCard
-          getAsset={props.baseSdk.space.getAsset}
-          getEntryUrl={props.getEntryUrl}
-          disabled={disabled}
-          viewType={props.viewType}
-          localeCode={props.field.locale}
-          defaultLocaleCode={props.baseSdk.locales.default}
-          allContentTypes={allContentTypes}
-          entry={entry}
-          onEdit={async () => {
-            const { entity } = await baseSdk.navigator.openEntry(value.sys.id, {
-              slideIn: { waitForClose: true }
-            });
-            setEntry(entity);
-          }}
-          onRemove={() => {
-            props.setValue(null);
-          }}
-        />
-      )}
-      {!value && (
-        <LinkActions
-          entityType="entry"
-          multiple={false}
-          disabled={props.disabled}
-          canCreateEntity={
-            allowedContentTypes.length > 0 && props.parameters.instance.canCreateEntry
-          }
-          contentTypes={allowedContentTypes}
-          onCreate={async contentTypeId => {
-            if (contentTypeId) {
-              const { entity } = await baseSdk.navigator.openNewEntry(contentTypeId, {
-                slideIn: { waitForClose: true }
-              });
-              if (!entity) {
-                return;
-              }
-              setValue({
-                sys: {
-                  type: 'Link',
-                  linkType: 'Entry',
-                  id: entity.sys.id
-                }
-              });
-            }
-          }}
-          onLinkExisting={async () => {
-            const item = await baseSdk.dialogs.selectSingleEntry<Link>({
-              locale: props.field.locale,
-              contentTypes: validations.contentTypes
-            });
-            if (!item) {
-              return;
-            }
-            setValue({
-              sys: {
-                type: 'Link',
-                linkType: 'Entry',
-                id: item.sys.id
-              }
-            });
-          }}
-        />
-      )}
-    </div>
+    <WrappedEntryCard
+      getAsset={props.baseSdk.space.getAsset}
+      getEntryUrl={props.getEntryUrl}
+      disabled={disabled}
+      size={size}
+      localeCode={props.field.locale}
+      defaultLocaleCode={baseSdk.locales.default}
+      allContentTypes={props.allContentTypes}
+      entry={entry}
+      onEdit={async () => {
+        try {
+          await baseSdk.navigator.openEntry(entry.sys.id, {
+            slideIn: { waitForClose: true }
+          });
+        } catch (e) {
+          baseSdk.notifier.error('Could not load the entry');
+        }
+      }}
+      onRemove={() => {
+        props.setValue(null);
+      }}
+    />
   );
 }
 
@@ -156,25 +173,29 @@ export function EntryReferenceEditor(props: EntryReferenceEditorProps) {
   const { field } = props;
 
   const validations = fromFieldValidations(field.validations);
+  const allContentTypes = props.baseSdk.space.getCachedContentTypes();
 
   return (
-    <FieldConnector<EntryReferenceValue>
-      throttle={0}
-      field={field}
-      isInitiallyDisabled={props.isInitiallyDisabled}>
-      {({ value, setValue, disabled, externalReset }) => {
-        return (
-          <SingleEntryReferenceEditor
-            key={`single-reference-${externalReset}`}
-            {...props}
-            disabled={disabled}
-            validations={validations}
-            value={value}
-            setValue={setValue}
-          />
-        );
-      }}
-    </FieldConnector>
+    <EntriesProvider sdk={props.baseSdk}>
+      <FieldConnector<EntryReferenceValue>
+        throttle={0}
+        field={field}
+        isInitiallyDisabled={props.isInitiallyDisabled}>
+        {({ value, setValue, disabled, externalReset }) => {
+          return (
+            <SingleEntryReferenceEditor
+              key={`single-reference-${externalReset}`}
+              {...props}
+              allContentTypes={allContentTypes}
+              disabled={disabled}
+              validations={validations}
+              value={value}
+              setValue={setValue}
+            />
+          );
+        }}
+      </FieldConnector>
+    </EntriesProvider>
   );
 }
 

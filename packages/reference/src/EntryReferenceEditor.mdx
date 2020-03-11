@@ -7,7 +7,7 @@ menu: Components
 # Reference
 
 import { Playground, Props } from 'docz';
-import { ReferenceEditor } from './EntryReferenceEditor.tsx';
+import { EntryReferenceEditor } from './EntryReferenceEditor.tsx';
 import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 
 ## In Action
@@ -15,10 +15,10 @@ import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 <Playground>
   {() => {
     const [field] = createFakeFieldAPI();
-    return <ReferenceEditor field={field} locales={locales} isInitiallyDisabled={false} />;
+    return <EntryReferenceEditor field={field} locales={locales} isInitiallyDisabled={false} />;
   }}
 </Playground>
 
 ## Props
 
-<Props of={ReferenceEditor} />
+<Props of={EntryReferenceEditor} />
