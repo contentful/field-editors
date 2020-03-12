@@ -1,14 +1,12 @@
-// @ts-ignore
-const { MARKS, BLOCKS } = require('@contentful/rich-text-types');
-// @ts-ignore
-const { document: doc, block, text } = require('../../packages/rich-text/src/helpers/nodeFactory');
+import { MARKS, BLOCKS } from '@contentful/rich-text-types';
+import { document as doc, block, text } from '../../packages/rich-text/src/helpers/nodeFactory';
 
 function expectRichTextFieldValue(expectedValue) {
   cy.getRichTextField().then(field => {
     expect(field.getValue()).to.deep.eq(expectedValue);
   });
 
-  cy.editorEvents().should('include', { id: 1, type: 'setValue', value: expectedValue });
+  cy.editorEvents().should('deep.include', { id: 1, type: 'setValue', value: expectedValue });
 }
 
 describe('Rich Text Editor', () => {
