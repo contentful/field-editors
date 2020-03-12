@@ -92,15 +92,17 @@ describe('Markdown Editor / Insert Table Dialog', () => {
 
     selectors.inputs
       .getRowsInput()
-      .clear()
+      .focus()
+      .type('{selectall}')
       .type('1');
 
     cy.findByText('Should be between 2 and 100').should('be.visible');
 
     selectors.inputs
       .getColsInput()
-      .clear()
-      .type('150');
+      .focus()
+      .type('{selectall}')
+      .type('100');
 
     cy.findByText('Should be between 1 and 100').should('be.visible');
 
@@ -120,11 +122,13 @@ describe('Markdown Editor / Insert Table Dialog', () => {
     selectors.getInsertTableButton().click();
     selectors.inputs
       .getRowsInput()
-      .clear()
+      .focus()
+      .type('{selectall}')
       .type('3');
     selectors.inputs
       .getColsInput()
-      .clear()
+      .focus()
+      .type('{selectall}')
       .type('2');
     selectors.getConfirmButton().click();
     checkValue(
