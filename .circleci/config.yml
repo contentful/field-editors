@@ -1,34 +1,73 @@
 version: 2.1
 
+cache-key: &cache-key
+  key: dependency-cache-primary-{{ arch }}-yarn-packages-{{ checksum ".nvmrc" }}-{{ checksum "yarn.lock" }}
+
 jobs:
-  build:
+  lint:
     docker:
       - image: cypress/browsers:node13.3.0-chrome79-ff70
+    environment:
+      CYPRESS_INSTALL_BINARY: 0
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - yarn-packages-{{ checksum ".nvmrc" }}-{{ checksum "yarn.lock" }}
+      - restore_cache: *cache-key
       - run: yarn install --frozen-lockfile
       - save_cache:
-          key: yarn-packages-{{ checksum ".nvmrc" }}-{{ checksum "yarn.lock" }}
+          <<: *cache-key
           paths:
             - ~/.cache/yarn
       - run: yarn lint
       - run: yarn build
       - run: yarn tsc
+  unit-tests:
+    docker:
+      - image: cypress/browsers:node13.3.0-chrome79-ff70
+    environment:
+      CYPRESS_INSTALL_BINARY: 0
+    steps:
+      - checkout
+      - restore_cache: *cache-key
+      - run: yarn install --frozen-lockfile
+      - save_cache:
+          <<: *cache-key
+          paths:
+            - ~/.cache/yarn
+      - run: yarn build
       - run: yarn test:ci
-      - run: yarn test:integration
-      - store_test_results:
+  integration-tests:
+    docker:
+      - image: cypress/browsers:node13.3.0-chrome79-ff70
+    steps:
+      - checkout
+      - restore_cache: *cache-key
+      - run: yarn install --frozen-lockfile
+      - save_cache:
+          <<: *cache-key
+          paths:
+            - ~/.cache/yarn
+      - run: yarn build
+      - run:
+          name: Run Cypress tests
+          environment:
+            CYPRESS_RETRIES: 3
+          command: |
+            set -e
+            npm run test:integration
+      - run: npm run merge-report
+      - run: npm run generate-report
+      - store_artifacts:
           path: cypress/reports
       - store_artifacts:
-          path: cypress/videos
-      - store_artifacts:
           path: cypress/screenshots
+      - store_artifacts:
+          path: cypress/videos
 
 workflows:
   version: 2
   # run on every commit
   commit:
     jobs:
-      - build
+      - lint
+      - unit-tests
+      - integration-tests
