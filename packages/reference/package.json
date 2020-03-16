@@ -28,6 +28,7 @@
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15",
+    "moment": "^2.20.0",
     "constate": "2.0.0"
   },
   "devDependencies": {
