@@ -36,6 +36,11 @@ export const ScheduledIconWithTooltip = ({
   }
 
   const jobs = status.jobs ? status.jobs : [];
+
+  if (jobs.length === 0) {
+    return null;
+  }
+
   const mostRelevantJob = jobs[0];
 
   return (
