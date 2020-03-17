@@ -1,13 +1,29 @@
 import * as React from 'react';
-import { EntryCard, DropdownList, DropdownListItem } from '@contentful/forma-36-react-components';
+import { css } from 'emotion';
+import tokens from '@contentful/forma-36-tokens';
+import { SpaceAPI } from 'contentful-ui-extensions-sdk';
+import {
+  EntryCard,
+  DropdownList,
+  DropdownListItem,
+  Icon
+} from '@contentful/forma-36-react-components';
 import { Entry, File, ContentType } from '../types';
 import { entityHelpers } from '@contentful/field-editor-shared';
 import { AssetThumbnail, isValidImage } from '../AssetThumbnail/AssetThumbnail';
 import { MissingEntityCard } from '../MissingEntityCard/MissingEntityCard';
+import { ScheduledIconWithTooltip } from '../ScheduledIconWithTooltip/ScheduledIconWithTooltip';
 
 const { getEntryTitle, getEntityDescription, getEntryStatus, getEntryImage } = entityHelpers;
 
+const styles = {
+  scheduleIcon: css({
+    marginRight: tokens.spacing2Xs
+  })
+};
+
 interface WrappedEntryCardProps {
+  getEntityScheduledActions: SpaceAPI['getEntityScheduledActions'];
   getAsset: (assetId: string) => Promise<unknown>;
   getEntryUrl?: (entryId: string) => string;
   size: 'small' | 'default';
@@ -108,6 +124,20 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
       contentType={contentType?.name}
       size={props.size}
       status={status}
+      statusIcon={
+        <ScheduledIconWithTooltip
+          getEntityScheduledActions={props.getEntityScheduledActions}
+          entityType="Entry"
+          entityId={props.entry.sys.id}>
+          <Icon
+            className={styles.scheduleIcon}
+            icon="Clock"
+            size="small"
+            color="muted"
+            testId="schedule-icon"
+          />
+        </ScheduledIconWithTooltip>
+      }
       thumbnailElement={file && isValidImage(file) ? <AssetThumbnail file={file} /> : null}
       dropdownListElements={
         <EntryActions disabled={props.disabled} onEdit={props.onEdit} onRemove={props.onRemove} />

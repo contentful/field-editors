@@ -146,6 +146,7 @@ function SingleEntryReferenceEditor(props: SingleEntryReferenceEditorProps) {
   return (
     <WrappedEntryCard
       getAsset={props.baseSdk.space.getAsset}
+      getEntityScheduledActions={props.baseSdk.space.getEntityScheduledActions}
       getEntryUrl={props.getEntryUrl}
       disabled={disabled}
       size={size}

@@ -41,7 +41,12 @@ export default class Hyperlink extends React.Component {
     const target = node.data.get('target');
 
     return (
-      <span {...this.props.attributes} onClick={this.props.onEdit} onKeyDown={e => this.onKeyDown(e)} role="button" tabIndex={0}>
+      <span
+        {...this.props.attributes}
+        onClick={this.props.onEdit}
+        onKeyDown={e => this.onKeyDown(e)}
+        role="button"
+        tabIndex={0}>
         {target ? this.renderEntityLink(target) : this.renderLink({ tooltip: uri })}
       </span>
       // TODO: Add contentEditable={false} to tooltip to fix text cursor bug
@@ -58,6 +63,7 @@ export default class Hyperlink extends React.Component {
         content={tooltip}
         className={styles.tooltipContainer}
         targetWrapperClassName={styles.hyperlinkWrapper}
+        place="bottom"
         maxWidth="auto">
         {SUPPORTS_NATIVE_SLATE_HYPERLINKS ? (
           <TextLink
