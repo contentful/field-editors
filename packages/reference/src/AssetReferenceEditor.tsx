@@ -5,6 +5,7 @@ import { ViewType, AssetReferenceValue, BaseExtensionSDK, Link } from './types';
 import { LinkActions } from './LinkActions/LinkActions';
 import { MissingEntityCard } from './MissingEntityCard/MissingEntityCard';
 import { FetchedWrappedAssetCard } from './WrappedAssetCard/WrappedAssetCard';
+import { fromFieldValidations, ReferenceValidations } from './utils/fromFieldValidations';
 import { AssetsProvider, useAssetsStore } from './EntityStore/EntityStore';
 
 export interface AssetReferenceEditorProps {
@@ -32,11 +33,12 @@ type SingleAssetReferenceEditorProps = AssetReferenceEditorProps & {
   value: AssetReferenceValue | null | undefined;
   disabled: boolean;
   setValue: (value: AssetReferenceValue | null | undefined) => void;
+  validations: ReferenceValidations;
 };
 
 function LinkSingleAssetReference(props: SingleAssetReferenceEditorProps) {
   const { disabled, baseSdk, setValue } = props;
-  // todo: need to analyze validations and apply it
+
   return (
     <LinkActions
       entityType="asset"
@@ -61,7 +63,8 @@ function LinkSingleAssetReference(props: SingleAssetReferenceEditorProps) {
       }}
       onLinkExisting={async () => {
         const item = await baseSdk.dialogs.selectSingleAsset<Link>({
-          locale: props.field.locale
+          locale: props.field.locale,
+          mimetypeGroups: props.validations.mimetypeGroups
         });
         if (!item) {
           return;
@@ -154,6 +157,8 @@ function SingleAssetReferenceEditor(props: SingleAssetReferenceEditorProps) {
 export function AssetReferenceEditor(props: AssetReferenceEditorProps) {
   const { field } = props;
 
+  const validations = fromFieldValidations(field.validations);
+
   return (
     <AssetsProvider sdk={props.baseSdk}>
       <FieldConnector<AssetReferenceValue>
@@ -165,6 +170,7 @@ export function AssetReferenceEditor(props: AssetReferenceEditorProps) {
             <SingleAssetReferenceEditor
               key={`single-asset-${externalReset}`}
               {...props}
+              validations={validations}
               disabled={disabled}
               value={value}
               setValue={setValue}

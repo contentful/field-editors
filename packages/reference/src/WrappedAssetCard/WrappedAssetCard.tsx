@@ -23,7 +23,7 @@ const groupToIconMap = {
 };
 
 export interface WrappedAssetCardProps {
-  entityFile: File;
+  entityFile?: File;
   entityTitle: string;
   entityStatus: 'archived' | 'changed' | 'draft' | 'published';
   href?: string;
@@ -70,8 +70,9 @@ export const FetchedWrappedAssetCard = (
     defaultTitle: 'Untitled'
   });
 
-  const entityFile =
-    props.asset.fields.file[props.localeCode] || props.asset.fields.file[props.defaultLocaleCode];
+  const entityFile = props.asset.fields.file
+    ? props.asset.fields.file[props.localeCode] || props.asset.fields.file[props.defaultLocaleCode]
+    : undefined;
 
   return (
     <WrappedAssetCard
