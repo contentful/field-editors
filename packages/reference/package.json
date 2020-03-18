@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-reference",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "main": "dist/index.js",
   "module": "dist/field-editor-reference.esm.js",
   "typings": "dist/index.d.ts",
@@ -23,10 +23,10 @@
   "dependencies": {
     "@contentful/field-editor-shared": "^0.8.0",
     "@contentful/forma-36-react-components": "^3.31.8",
-    "contentful-ui-extensions-sdk": "^3.11.1",
     "@contentful/forma-36-tokens": "^0.5.1",
     "@contentful/mimetype": "^1.1.4",
     "constate": "2.0.0",
+    "contentful-ui-extensions-sdk": "^3.11.1",
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15",
