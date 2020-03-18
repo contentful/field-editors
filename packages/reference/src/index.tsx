@@ -4,3 +4,4 @@ export { CreateEntryMenuTrigger } from './CreateEntryLinkButton/CreateEntryMenuT
 export { CreateEntryLinkButton } from './CreateEntryLinkButton/CreateEntryLinkButton';
 export { AssetThumbnail } from './AssetThumbnail/AssetThumbnail';
 export { WrappedEntryCard } from './WrappedEntryCard/WrappedEntryCard';
+export { ScheduleTooltipContent } from './ScheduledIconWithTooltip';

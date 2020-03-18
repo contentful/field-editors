@@ -6,6 +6,7 @@ import noop from 'lodash/noop';
 import isHotKey from 'is-hotkey';
 import styles from './styles';
 import { SUPPORTS_NATIVE_SLATE_HYPERLINKS } from '../../helpers/browserSupport';
+import { EntityHyperlinkTooltip } from './EntityHyperlinkTootip';
 
 export default class Hyperlink extends React.Component {
   static propTypes = {
@@ -13,18 +14,13 @@ export default class Hyperlink extends React.Component {
     node: PropTypes.object.isRequired,
     children: PropTypes.node,
     editor: PropTypes.object,
+    richTextAPI: PropTypes.object.isRequired,
     createHyperlinkDialog: PropTypes.func,
-    onEdit: PropTypes.func,
-    renderEntityHyperlinkTooltip: PropTypes.func
+    onEdit: PropTypes.func
   };
 
   static defaultProps = {
-    onEdit: noop,
-    renderEntityHyperlinkTooltip: target => (
-      <div>
-        {target.sys.linkType} <code>{target.sys.id}</code>
-      </div>
-    )
+    onEdit: noop
   };
 
   onKeyDown(e) {
@@ -81,7 +77,7 @@ export default class Hyperlink extends React.Component {
   }
 
   renderEntityLink(target) {
-    const tooltip = this.props.renderEntityHyperlinkTooltip(target);
+    const tooltip = <EntityHyperlinkTooltip richTextAPI={this.props.richTextAPI} target={target} />;
     return this.renderLink({ tooltip });
   }
 }

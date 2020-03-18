@@ -70,12 +70,12 @@ export class AssetCardActions extends React.PureComponent<{
         <DropdownListItem isTitle>File info</DropdownListItem>
         {fileName && (
           <DropdownListItem>
-            <div className="u-truncate">{fileName}</div>
+            <div>{fileName}</div>
           </DropdownListItem>
         )}
         {mimeType && (
           <DropdownListItem>
-            <div className="u-truncate">{mimeType}</div>
+            <div>{mimeType}</div>
           </DropdownListItem>
         )}
         {fileSize && <DropdownListItem>{shortenStorageUnit(fileSize, 'B')}</DropdownListItem>}

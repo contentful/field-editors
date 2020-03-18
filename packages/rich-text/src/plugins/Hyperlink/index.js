@@ -11,13 +11,13 @@ export default ToolbarIcon;
 
 export const HyperlinkPlugin = ({ richTextAPI }) => ({
   renderNode: (props, _editor, next) => {
-    const { widgetAPI, logViewportAction, customRenderers } = richTextAPI;
-    const { renderEntityHyperlinkTooltip } = customRenderers;
+    const { widgetAPI, logViewportAction } = richTextAPI;
     const { node, editor } = props;
     if (isHyperlink(node.type)) {
       return (
         <Hyperlink
           {...props}
+          richTextAPI={richTextAPI}
           onEdit={event => {
             event.preventDefault(); // Don't follow `href`
 
@@ -26,7 +26,6 @@ export const HyperlinkPlugin = ({ richTextAPI }) => ({
               editLink(editor, widgetAPI.dialogs.createHyperlink, logViewportAction);
             }
           }}
-          renderEntityHyperlinkTooltip={renderEntityHyperlinkTooltip}
         />
       );
     }
