@@ -106,8 +106,7 @@ export class ConnectedRichTextEditor extends React.Component {
     actionsDisabled: PropTypes.bool,
     customRenderers: PropTypes.shape({
       renderEntityBlockEmbed: PropTypes.func,
-      renderEntryInlineEmbed: PropTypes.func,
-      renderEntityHyperlinkTooltip: PropTypes.func
+      renderEntryInlineEmbed: PropTypes.func
     })
   };
 

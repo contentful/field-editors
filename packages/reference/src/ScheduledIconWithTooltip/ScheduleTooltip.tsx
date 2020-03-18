@@ -30,7 +30,7 @@ const styles = {
   })
 };
 
-const ScheduleTooltipContent = ({
+export const ScheduleTooltipContent = ({
   job,
   jobsCount
 }: {

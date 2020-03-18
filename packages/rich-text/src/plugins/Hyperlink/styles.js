@@ -1,6 +1,23 @@
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 
+export const hyperlinkTooltipStyles = {
+  entityContentType: css({
+    color: tokens.colorTextLightest,
+    marginRight: tokens.spacingXs,
+    '&:after': {
+      content: '""'
+    }
+  }),
+  entityTitle: css({
+    marginRight: tokens.spacingXs
+  }),
+  separator: css({
+    background: tokens.colorTextMid,
+    margin: tokens.spacingXs
+  })
+};
+
 export default {
   hyperlinkWrapper: css({
     display: 'inline',
