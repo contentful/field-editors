@@ -1,6 +1,6 @@
 import React from 'react';
 import { AssetCard } from '@contentful/forma-36-react-components';
-import { AssetCardActions } from './AssetCardActions';
+import { renderActions, renderAssetInfo } from './AssetCardActions';
 import { File, Asset } from '../types';
 import { entityHelpers } from '@contentful/field-editor-shared';
 import { MissingEntityCard } from '../MissingEntityCard/MissingEntityCard';
@@ -85,7 +85,18 @@ export const FetchedWrappedAssetCard = (
 };
 
 export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
-  const { entityFile, entityTitle, className, href, entityStatus, onEdit, size, readOnly } = props;
+  const {
+    entityFile,
+    entityTitle,
+    className,
+    href,
+    entityStatus,
+    onEdit,
+    onRemove,
+    size,
+    readOnly,
+    disabled
+  } = props;
 
   return (
     <AssetCard
@@ -101,23 +112,18 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
             : `${entityFile.url}?h=300`
           : ''
       }
+      // @ts-ignore
       onClick={(e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
         onEdit();
       }}
       // cardDragHandleComponent={cardDragHandleComponent}
       // withDragHandle={!!cardDragHandleComponent}
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-      // @ts-ignore
       dropdownListElements={
-        readOnly ? null : (
-          <AssetCardActions
-            entityFile={props.entityFile}
-            isDisabled={props.disabled}
-            onEdit={props.onEdit}
-            onRemove={props.onRemove}
-          />
-        )
+        <React.Fragment>
+          {!readOnly ? renderActions({ entityFile, isDisabled: disabled, onEdit, onRemove }) : null}
+          {entityFile ? renderAssetInfo({ entityFile }) : null}
+        </React.Fragment>
       }
       size={size}
     />

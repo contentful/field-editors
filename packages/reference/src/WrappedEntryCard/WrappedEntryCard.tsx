@@ -36,36 +36,6 @@ interface WrappedEntryCardProps {
   entry: Entry;
 }
 
-const EntryActions = (props: { disabled: boolean; onEdit: Function; onRemove: Function }) => {
-  const { disabled, onEdit, onRemove } = props;
-  return (
-    <DropdownList>
-      {onEdit && (
-        <DropdownListItem
-          isDisabled={disabled}
-          onClick={e => {
-            e.stopPropagation();
-            onEdit();
-          }}
-          testId="edit">
-          Edit
-        </DropdownListItem>
-      )}
-      {onRemove && (
-        <DropdownListItem
-          onClick={e => {
-            e.stopPropagation();
-            onRemove();
-          }}
-          isDisabled={disabled}
-          testId="delete">
-          Remove
-        </DropdownListItem>
-      )}
-    </DropdownList>
-  );
-};
-
 export function WrappedEntryCard(props: WrappedEntryCardProps) {
   const [file, setFile] = React.useState<null | File>(null);
 
@@ -140,7 +110,35 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
       }
       thumbnailElement={file && isValidImage(file) ? <AssetThumbnail file={file} /> : null}
       dropdownListElements={
-        <EntryActions disabled={props.disabled} onEdit={props.onEdit} onRemove={props.onRemove} />
+        <React.Fragment>
+          <DropdownList
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
+            onClick={e => {
+              e.stopPropagation();
+            }}>
+            {props.onEdit && (
+              <DropdownListItem
+                isDisabled={props.disabled}
+                onClick={() => {
+                  props.onEdit();
+                }}
+                testId="edit">
+                Edit
+              </DropdownListItem>
+            )}
+            {props.onRemove && (
+              <DropdownListItem
+                onClick={() => {
+                  props.onRemove();
+                }}
+                isDisabled={props.disabled}
+                testId="delete">
+                Remove
+              </DropdownListItem>
+            )}
+          </DropdownList>
+        </React.Fragment>
       }
       onClick={e => {
         e.preventDefault();
