@@ -20,7 +20,7 @@ export class AssetCardActions extends React.PureComponent<{
   onEdit: () => void;
   onRemove: () => void;
   isDisabled: boolean;
-  entityFile: File;
+  entityFile?: File;
 }> {
   renderActions() {
     const { entityFile, isDisabled, onEdit, onRemove } = this.props;
@@ -88,7 +88,7 @@ export class AssetCardActions extends React.PureComponent<{
     return (
       <React.Fragment>
         {this.renderActions()}
-        {this.renderAssetInfo()}
+        {this.props.entityFile ? this.renderAssetInfo() : null}
       </React.Fragment>
     );
   }
