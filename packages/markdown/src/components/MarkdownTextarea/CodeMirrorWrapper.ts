@@ -119,7 +119,8 @@ export function create(
     setFullsize: () => {
       cm.setSize('100%', '100%');
       cm.refresh();
-    }
+    },
+    refresh: () => cm.refresh()
   };
 
   function destroy() {

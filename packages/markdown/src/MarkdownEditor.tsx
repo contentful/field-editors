@@ -51,6 +51,10 @@ export function MarkdownEditor(
   React.useEffect(() => {
     if (editor && props.onReady) {
       props.onReady(editor);
+      // fix: http://codemirror.977696.n3.nabble.com/codemirror-content-not-visible-in-bootstrap-modal-td4026988.html
+      setTimeout(() => {
+        editor.refresh();
+      }, 1);
     }
   }, [editor]);
 
