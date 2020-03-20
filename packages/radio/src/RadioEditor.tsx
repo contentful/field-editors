@@ -52,7 +52,7 @@ export function RadioEditor(props: RadioEditorProps) {
             spacing="condensed"
             className={cx(styles.form, direction === 'rtl' ? styles.rightToLeft : '')}>
             {options.map((item, index) => {
-              const id = ['entity', field.id, field.locale, index].join('.');
+              const id = ['entity', field.id, field.locale, index, item.id].join('.');
               const checked = value === item.value;
               return (
                 <React.Fragment key={id}>

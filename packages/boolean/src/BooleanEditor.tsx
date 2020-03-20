@@ -1,5 +1,6 @@
 import * as React from 'react';
 import get from 'lodash/get';
+import nanoid from 'nanoid';
 import { css, cx } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 import { FieldAPI, ParametersAPI, FieldConnector } from '@contentful/field-editor-shared';
@@ -25,8 +26,8 @@ export function BooleanEditor(props: BooleanEditorProps) {
   const { field } = props;
 
   const options = [
-    { value: true, label: get(props.parameters, ['instance', 'trueLabel'], 'Yes') },
-    { value: false, label: get(props.parameters, ['instance', 'falseLabel'], 'No') }
+    { value: true, label: get(props.parameters, ['instance', 'trueLabel'], 'Yes'), id: nanoid(6) },
+    { value: false, label: get(props.parameters, ['instance', 'falseLabel'], 'No'), id: nanoid(6) }
   ];
 
   return (
@@ -46,7 +47,7 @@ export function BooleanEditor(props: BooleanEditorProps) {
         return (
           <div data-test-id="boolean-editor" className={cx(css({ marginTop: tokens.spacingS }))}>
             {options.map(item => {
-              const id = ['entity', field.id, field.locale, item.value].join('.');
+              const id = ['entity', field.id, field.locale, item.value, item.id].join('.');
               const checked = value === item.value;
               return (
                 <React.Fragment key={id}>
