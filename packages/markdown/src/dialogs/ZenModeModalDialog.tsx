@@ -118,6 +118,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
   React.useEffect(() => {
     setTimeout(() => {
       editor?.setFullsize();
+      editor?.refresh();
     }, 150);
   }, [editor]);
 
