@@ -1,6 +1,8 @@
+import nanoid from 'nanoid';
 import { FieldAPI } from '@contentful/field-editor-shared';
 
 type DropdownOption = {
+  id: string;
   value: string | number | undefined;
   label: string;
 };
@@ -27,6 +29,7 @@ export function getOptions(field: FieldAPI): DropdownOption[] {
 
   return firstPredefinedValues
     .map((value: string) => ({
+      id: nanoid(6),
       value: parseValue(value, field.type),
       label: String(value)
     }))
