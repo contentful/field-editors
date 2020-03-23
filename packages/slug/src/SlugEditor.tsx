@@ -64,7 +64,7 @@ export function SlugEditor(props: SlugEditorProps) {
         <FieldConnector<string>
           field={field}
           isInitiallyDisabled={props.isInitiallyDisabled}
-          throttle={300}>
+          throttle={0}>
           {({ value, errors, disabled, setValue, externalReset }) => {
             const shouldTrackTitle = isPublished === false && isSame === false;
 
@@ -72,10 +72,12 @@ export function SlugEditor(props: SlugEditorProps) {
 
             // it is needed to silent permission errors
             // this happens when setValue is called on a field which is disabled for permission reasons
-            const safeSetValue = (...args: Parameters<typeof setValue>): void => {
-              setValue(...args).catch(() => {
+            const safeSetValue = async (...args: Parameters<typeof setValue>) => {
+              try {
+                await setValue(...args);
+              } catch (e) {
                 // do nothing
-              });
+              }
             };
 
             return (
