@@ -12,7 +12,7 @@ export interface FieldConnectorChildProps<ValueType> {
   value: ValueType | Nullable;
   disabled: boolean;
   errors: string[];
-  setValue: (value: ValueType | Nullable) => void;
+  setValue: (value: ValueType | Nullable) => Promise<unknown>;
 }
 
 interface FieldConnectorState<ValueType> {
@@ -74,23 +74,33 @@ export class FieldConnector<ValueType> extends React.Component<
   setValue = throttle(
     (value: ValueType | Nullable) => {
       if (this.props.isEmptyValue(value === undefined ? null : value)) {
-        this.setState(
-          {
-            lastSetValue: undefined
-          },
-          () => {
-            this.props.field.removeValue();
-          }
-        );
+        return new Promise((resolve, reject) => {
+          this.setState(
+            {
+              lastSetValue: undefined
+            },
+            () => {
+              this.props.field
+                .removeValue()
+                .then(resolve)
+                .catch(reject);
+            }
+          );
+        });
       } else {
-        this.setState(
-          {
-            lastSetValue: value
-          },
-          () => {
-            this.props.field.setValue(value);
-          }
-        );
+        return new Promise((resolve, reject) => {
+          this.setState(
+            {
+              lastSetValue: value
+            },
+            () => {
+              this.props.field
+                .setValue(value)
+                .then(resolve)
+                .catch(reject);
+            }
+          );
+        });
       }
     },
     this.props.throttle,

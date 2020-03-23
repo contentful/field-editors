@@ -70,6 +70,14 @@ export function SlugEditor(props: SlugEditorProps) {
 
             const Component = shouldTrackTitle ? SlugEditorField : SlugEditorFieldStatic;
 
+            // it is needed to silent permission errors
+            // this happens when setValue is called on a field which is disabled for permission reasons
+            const safeSetValue = (...args: Parameters<typeof setValue>): void => {
+              setValue(...args).catch(() => {
+                // do nothing
+              });
+            };
+
             return (
               <div data-test-id="slug-editor">
                 <Component
@@ -82,7 +90,7 @@ export function SlugEditor(props: SlugEditorProps) {
                   isOptionalLocaleWithFallback={isOptionalLocaleWithFallback}
                   isDisabled={disabled}
                   titleValue={titleValue}
-                  setValue={setValue}
+                  setValue={safeSetValue}
                 />
               </div>
             );
