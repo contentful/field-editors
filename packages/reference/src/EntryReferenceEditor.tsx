@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
+import { FieldConnector } from '@contentful/field-editor-shared';
 import { EntryCard } from '@contentful/forma-36-react-components';
-import { ViewType, EntryReferenceValue, BaseExtensionSDK, Link, ContentType } from './types';
+import { ViewType, EntryReferenceValue, Link, ContentType, FieldExtensionSDK } from './types';
 import { LinkActions } from './LinkActions/LinkActions';
 import { fromFieldValidations, ReferenceValidations } from './utils/fromFieldValidations';
 import { WrappedEntryCard } from './WrappedEntryCard/WrappedEntryCard';
@@ -14,9 +14,7 @@ export interface EntryReferenceEditorProps {
    */
   isInitiallyDisabled: boolean;
 
-  baseSdk: BaseExtensionSDK;
-
-  field: FieldAPI;
+  sdk: FieldExtensionSDK;
 
   viewType: ViewType;
 
@@ -38,7 +36,7 @@ export type SingleEntryReferenceEditorProps = EntryReferenceEditorProps & {
 };
 
 function LinkSingleEntryReference(props: SingleEntryReferenceEditorProps) {
-  const { baseSdk, validations, setValue } = props;
+  const { sdk, validations, setValue } = props;
 
   const allowedContentTypes = props.validations.contentTypes
     ? props.allContentTypes.filter(contentType => {
@@ -48,7 +46,7 @@ function LinkSingleEntryReference(props: SingleEntryReferenceEditorProps) {
 
   const onCreate = React.useCallback(async (contentTypeId?: string) => {
     if (contentTypeId) {
-      const { entity } = await baseSdk.navigator.openNewEntry(contentTypeId, {
+      const { entity } = await sdk.navigator.openNewEntry(contentTypeId, {
         slideIn: { waitForClose: true }
       });
       if (!entity) {
@@ -65,8 +63,8 @@ function LinkSingleEntryReference(props: SingleEntryReferenceEditorProps) {
   }, []);
 
   const onLinkExisting = React.useCallback(async () => {
-    const item = await baseSdk.dialogs.selectSingleEntry<Link>({
-      locale: props.field.locale,
+    const item = await sdk.dialogs.selectSingleEntry<Link>({
+      locale: props.sdk.field.locale,
       contentTypes: validations.contentTypes
     });
     if (!item) {
@@ -95,7 +93,7 @@ function LinkSingleEntryReference(props: SingleEntryReferenceEditorProps) {
 }
 
 function SingleEntryReferenceEditor(props: SingleEntryReferenceEditorProps) {
-  const { value, baseSdk, disabled, setValue } = props;
+  const { value, sdk, disabled, setValue } = props;
   const { loadEntry, entries } = useEntriesStore();
 
   React.useEffect(() => {
@@ -105,19 +103,17 @@ function SingleEntryReferenceEditor(props: SingleEntryReferenceEditorProps) {
   }, [value?.sys.id]);
 
   React.useEffect(() => {
-    const unsubscribe = baseSdk.navigator.onSlideInNavigation(
-      ({ oldSlideLevel, newSlideLevel }) => {
-        if (value?.sys.id) {
-          if (oldSlideLevel > newSlideLevel) {
-            loadEntry(value.sys.id);
-          }
+    const unsubscribe = sdk.navigator.onSlideInNavigation(({ oldSlideLevel, newSlideLevel }) => {
+      if (value?.sys.id) {
+        if (oldSlideLevel > newSlideLevel) {
+          loadEntry(value.sys.id);
         }
       }
-    );
+    });
     return () => {
       unsubscribe();
     };
-  }, [baseSdk]);
+  }, [sdk]);
 
   const size = props.viewType === 'link' ? 'small' : 'default';
 
@@ -145,22 +141,22 @@ function SingleEntryReferenceEditor(props: SingleEntryReferenceEditorProps) {
 
   return (
     <WrappedEntryCard
-      getAsset={props.baseSdk.space.getAsset}
-      getEntityScheduledActions={props.baseSdk.space.getEntityScheduledActions}
+      getAsset={props.sdk.space.getAsset}
+      getEntityScheduledActions={props.sdk.space.getEntityScheduledActions}
       getEntryUrl={props.getEntryUrl}
       disabled={disabled}
       size={size}
-      localeCode={props.field.locale}
-      defaultLocaleCode={baseSdk.locales.default}
+      localeCode={props.sdk.field.locale}
+      defaultLocaleCode={sdk.locales.default}
       allContentTypes={props.allContentTypes}
       entry={entry}
       onEdit={async () => {
         try {
-          await baseSdk.navigator.openEntry(entry.sys.id, {
+          await sdk.navigator.openEntry(entry.sys.id, {
             slideIn: { waitForClose: true }
           });
         } catch (e) {
-          baseSdk.notifier.error('Could not load the entry');
+          sdk.notifier.error('Could not load the entry');
         }
       }}
       onRemove={() => {
@@ -171,16 +167,14 @@ function SingleEntryReferenceEditor(props: SingleEntryReferenceEditorProps) {
 }
 
 export function EntryReferenceEditor(props: EntryReferenceEditorProps) {
-  const { field } = props;
-
-  const validations = fromFieldValidations(field.validations);
-  const allContentTypes = props.baseSdk.space.getCachedContentTypes();
+  const validations = fromFieldValidations(props.sdk.field.validations);
+  const allContentTypes = props.sdk.space.getCachedContentTypes();
 
   return (
-    <EntriesProvider sdk={props.baseSdk}>
+    <EntriesProvider sdk={props.sdk}>
       <FieldConnector<EntryReferenceValue>
         throttle={0}
-        field={field}
+        field={props.sdk.field}
         isInitiallyDisabled={props.isInitiallyDisabled}>
         {({ value, setValue, disabled, externalReset }) => {
           return (

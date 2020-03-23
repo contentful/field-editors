@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
+import { FieldConnector } from '@contentful/field-editor-shared';
 import { AssetCard } from '@contentful/forma-36-react-components';
-import { ViewType, AssetReferenceValue, BaseExtensionSDK, Link } from './types';
+import { ViewType, AssetReferenceValue, FieldExtensionSDK, Link } from './types';
 import { LinkActions } from './LinkActions/LinkActions';
 import { MissingEntityCard } from './MissingEntityCard/MissingEntityCard';
 import { FetchedWrappedAssetCard } from './WrappedAssetCard/WrappedAssetCard';
@@ -14,9 +14,7 @@ export interface AssetReferenceEditorProps {
    */
   isInitiallyDisabled: boolean;
 
-  baseSdk: BaseExtensionSDK;
-
-  field: FieldAPI;
+  sdk: FieldExtensionSDK;
 
   viewType: ViewType;
 
@@ -37,7 +35,7 @@ type SingleAssetReferenceEditorProps = AssetReferenceEditorProps & {
 };
 
 function LinkSingleAssetReference(props: SingleAssetReferenceEditorProps) {
-  const { disabled, baseSdk, setValue } = props;
+  const { disabled, sdk, setValue } = props;
 
   return (
     <LinkActions
@@ -47,7 +45,7 @@ function LinkSingleAssetReference(props: SingleAssetReferenceEditorProps) {
       disabled={disabled}
       canCreateEntity={props.parameters.instance.canCreateAsset}
       onCreate={async () => {
-        const { entity } = await baseSdk.navigator.openNewAsset({
+        const { entity } = await sdk.navigator.openNewAsset({
           slideIn: { waitForClose: true }
         });
         if (!entity) {
@@ -62,8 +60,8 @@ function LinkSingleAssetReference(props: SingleAssetReferenceEditorProps) {
         });
       }}
       onLinkExisting={async () => {
-        const item = await baseSdk.dialogs.selectSingleAsset<Link>({
-          locale: props.field.locale,
+        const item = await sdk.dialogs.selectSingleAsset<Link>({
+          locale: props.sdk.field.locale,
           mimetypeGroups: props.validations.mimetypeGroups
         });
         if (!item) {
@@ -82,7 +80,7 @@ function LinkSingleAssetReference(props: SingleAssetReferenceEditorProps) {
 }
 
 function SingleAssetReferenceEditor(props: SingleAssetReferenceEditorProps) {
-  const { value, baseSdk, disabled } = props;
+  const { value, sdk, disabled } = props;
 
   const { loadAsset, assets } = useAssetsStore();
 
@@ -93,19 +91,17 @@ function SingleAssetReferenceEditor(props: SingleAssetReferenceEditorProps) {
   }, [value?.sys.id]);
 
   React.useEffect(() => {
-    const unsubscribe = baseSdk.navigator.onSlideInNavigation(
-      ({ oldSlideLevel, newSlideLevel }) => {
-        if (value?.sys.id) {
-          if (oldSlideLevel > newSlideLevel) {
-            loadAsset(value.sys.id);
-          }
+    const unsubscribe = sdk.navigator.onSlideInNavigation(({ oldSlideLevel, newSlideLevel }) => {
+      if (value?.sys.id) {
+        if (oldSlideLevel > newSlideLevel) {
+          loadAsset(value.sys.id);
         }
       }
-    );
+    });
     return () => {
       unsubscribe();
     };
-  }, [baseSdk]);
+  }, [sdk]);
 
   if (!value) {
     return <LinkSingleAssetReference {...props} />;
@@ -135,16 +131,16 @@ function SingleAssetReferenceEditor(props: SingleAssetReferenceEditorProps) {
       size="default"
       readOnly={false}
       href={props.getAssetUrl ? props.getAssetUrl(value.sys.id) : ''}
-      localeCode={props.field.locale}
-      defaultLocaleCode={props.baseSdk.locales.default}
+      localeCode={props.sdk.field.locale}
+      defaultLocaleCode={props.sdk.locales.default}
       asset={asset}
       onEdit={async () => {
         try {
-          await baseSdk.navigator.openAsset(value.sys.id, {
+          await sdk.navigator.openAsset(value.sys.id, {
             slideIn: { waitForClose: true }
           });
         } catch (e) {
-          baseSdk.notifier.error('Could not load the asset');
+          sdk.notifier.error('Could not load the asset');
         }
       }}
       onRemove={() => {
@@ -155,15 +151,13 @@ function SingleAssetReferenceEditor(props: SingleAssetReferenceEditorProps) {
 }
 
 export function AssetReferenceEditor(props: AssetReferenceEditorProps) {
-  const { field } = props;
-
-  const validations = fromFieldValidations(field.validations);
+  const validations = fromFieldValidations(props.sdk.field.validations);
 
   return (
-    <AssetsProvider sdk={props.baseSdk}>
+    <AssetsProvider sdk={props.sdk}>
       <FieldConnector<AssetReferenceValue>
         throttle={0}
-        field={field}
+        field={props.sdk.field}
         isInitiallyDisabled={props.isInitiallyDisabled}>
         {({ value, setValue, disabled, externalReset }) => {
           return (

@@ -1,5 +1,6 @@
 export {
   BaseExtensionSDK,
+  FieldExtensionSDK,
   ContentType,
   ContentTypeField,
   Link
