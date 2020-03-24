@@ -151,14 +151,10 @@ function SingleEntryReferenceEditor(props: SingleEntryReferenceEditorProps) {
       defaultLocaleCode={sdk.locales.default}
       allContentTypes={props.allContentTypes}
       entry={entry}
-      onEdit={async () => {
-        try {
-          await sdk.navigator.openEntry(entry.sys.id, {
-            slideIn: { waitForClose: true }
-          });
-        } catch (e) {
-          sdk.notifier.error('Could not load the entry');
-        }
+      onEdit={() => {
+        sdk.navigator.openEntry(entry.sys.id, {
+          slideIn: true
+        });
       }}
       onRemove={() => {
         props.setValue(null);

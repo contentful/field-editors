@@ -135,14 +135,8 @@ function SingleAssetReferenceEditor(props: SingleAssetReferenceEditorProps) {
       localeCode={props.sdk.field.locale}
       defaultLocaleCode={props.sdk.locales.default}
       asset={asset}
-      onEdit={async () => {
-        try {
-          await sdk.navigator.openAsset(value.sys.id, {
-            slideIn: { waitForClose: true }
-          });
-        } catch (e) {
-          sdk.notifier.error('Could not load the asset');
-        }
+      onEdit={() => {
+        sdk.navigator.openAsset(value.sys.id, { slideIn: true });
       }}
       onRemove={() => {
         props.setValue(null);
