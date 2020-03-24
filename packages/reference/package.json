@@ -28,6 +28,7 @@
     "constate": "2.0.0",
     "contentful-ui-extensions-sdk": "^3.11.1",
     "emotion": "^10.0.17",
+    "deep-equal": "1.1.0",
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15",
     "moment": "^2.20.0"

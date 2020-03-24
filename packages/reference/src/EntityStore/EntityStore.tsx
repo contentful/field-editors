@@ -13,7 +13,7 @@ type AssetsMap = {
 function useEntries(props: { sdk: BaseExtensionSDK }) {
   const [entries, setEntries] = React.useState<EntriesMap>({});
 
-  const loadEntry = React.useCallback((id: string) => {
+  const loadEntry = (id: string) => {
     props.sdk.space
       .getEntry<Entry>(id)
       .then(entry => {
@@ -28,14 +28,14 @@ function useEntries(props: { sdk: BaseExtensionSDK }) {
           [id]: 'failed'
         });
       });
-  }, []);
+  };
 
-  const setEntry = React.useCallback((id: string, entry: Entry) => {
+  const setEntry = (id: string, entry: Entry) => {
     setEntries({
       ...entries,
       [id]: entry
     });
-  }, []);
+  };
 
   return { loadEntry, setEntry, entries };
 }
@@ -43,7 +43,7 @@ function useEntries(props: { sdk: BaseExtensionSDK }) {
 function useAssets(props: { sdk: BaseExtensionSDK }) {
   const [assets, setAssets] = React.useState<AssetsMap>({});
 
-  const loadAsset = React.useCallback((id: string) => {
+  const loadAsset = (id: string) => {
     props.sdk.space
       .getAsset<Asset>(id)
       .then(asset => {
@@ -58,14 +58,14 @@ function useAssets(props: { sdk: BaseExtensionSDK }) {
           [id]: 'failed'
         });
       });
-  }, []);
+  };
 
-  const setAsset = React.useCallback((id: string, asset: Asset) => {
+  const setAsset = (id: string, asset: Asset) => {
     setAssets({
       ...assets,
       [id]: asset
     });
-  }, []);
+  };
 
   return { loadAsset, setAsset, assets };
 }

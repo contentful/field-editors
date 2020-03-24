@@ -1,4 +1,5 @@
 import * as React from 'react';
+import deepEqual from 'deep-equal';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import { AssetCard } from '@contentful/forma-36-react-components';
 import { ViewType, AssetReferenceValue, FieldExtensionSDK, Link } from './types';
@@ -158,7 +159,10 @@ export function AssetReferenceEditor(props: AssetReferenceEditorProps) {
       <FieldConnector<AssetReferenceValue>
         throttle={0}
         field={props.sdk.field}
-        isInitiallyDisabled={props.isInitiallyDisabled}>
+        isInitiallyDisabled={props.isInitiallyDisabled}
+        isEqualValues={(value1, value2) => {
+          return deepEqual(value1, value2);
+        }}>
         {({ value, setValue, disabled, externalReset }) => {
           return (
             <SingleAssetReferenceEditor
