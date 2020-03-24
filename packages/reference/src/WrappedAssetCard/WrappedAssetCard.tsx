@@ -121,8 +121,12 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
       // withDragHandle={!!cardDragHandleComponent}
       dropdownListElements={
         <React.Fragment>
-          {!readOnly ? renderActions({ entityFile, isDisabled: disabled, onEdit, onRemove }) : null}
-          {entityFile ? renderAssetInfo({ entityFile }) : null}
+          {!readOnly ? (
+            renderActions({ entityFile, isDisabled: disabled, onEdit, onRemove })
+          ) : (
+            <span />
+          )}
+          {entityFile ? renderAssetInfo({ entityFile }) : <span />}
         </React.Fragment>
       }
       size={size}
