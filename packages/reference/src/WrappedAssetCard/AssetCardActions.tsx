@@ -9,6 +9,11 @@ import { shortenStorageUnit } from './shortenStorageUnit';
 const styles = {
   cardDropdown: css({
     width: '300px'
+  }),
+  truncated: css({
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis'
   })
 };
 
@@ -33,7 +38,7 @@ export function renderAssetInfo(props: { entityFile: File }) {
       <DropdownListItem isTitle>File info</DropdownListItem>
       {fileName && (
         <DropdownListItem>
-          <div>{fileName}</div>
+          <div className={styles.truncated}>{fileName}</div>
         </DropdownListItem>
       )}
       {mimeType && (
