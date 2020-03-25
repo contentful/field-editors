@@ -7,7 +7,7 @@ import { LinkActions } from './LinkActions/LinkActions';
 import { MissingEntityCard } from './MissingEntityCard/MissingEntityCard';
 import { FetchedWrappedAssetCard } from './WrappedAssetCard/WrappedAssetCard';
 import { fromFieldValidations, ReferenceValidations } from './utils/fromFieldValidations';
-import { AssetsProvider, useAssetsStore } from './EntityStore/EntityStore';
+import { AssetsProvider, useAssets } from './EntityStore/EntityStore';
 
 export interface AssetReferenceEditorProps {
   /**
@@ -83,7 +83,7 @@ function LinkSingleAssetReference(props: SingleAssetReferenceEditorProps) {
 function SingleAssetReferenceEditor(props: SingleAssetReferenceEditorProps) {
   const { value, sdk, disabled } = props;
 
-  const { loadAsset, assets } = useAssetsStore();
+  const { loadAsset, assets } = useAssets();
 
   React.useEffect(() => {
     if (value) {
@@ -102,7 +102,7 @@ function SingleAssetReferenceEditor(props: SingleAssetReferenceEditorProps) {
     return () => {
       unsubscribe();
     };
-  }, [sdk]);
+  }, [sdk, value?.sys.id]);
 
   if (!value) {
     return <LinkSingleAssetReference {...props} />;

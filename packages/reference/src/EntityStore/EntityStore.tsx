@@ -10,7 +10,7 @@ type AssetsMap = {
   [key: string]: 'failed' | undefined | Asset;
 };
 
-function useEntries(props: { sdk: BaseExtensionSDK }) {
+function useEntriesStore(props: { sdk: BaseExtensionSDK }) {
   const [entries, setEntries] = React.useState<EntriesMap>({});
 
   const loadEntry = (id: string) => {
@@ -40,7 +40,7 @@ function useEntries(props: { sdk: BaseExtensionSDK }) {
   return { loadEntry, setEntry, entries };
 }
 
-function useAssets(props: { sdk: BaseExtensionSDK }) {
+function useAssetsStore(props: { sdk: BaseExtensionSDK }) {
   const [assets, setAssets] = React.useState<AssetsMap>({});
 
   const loadAsset = (id: string) => {
@@ -70,7 +70,7 @@ function useAssets(props: { sdk: BaseExtensionSDK }) {
   return { loadAsset, setAsset, assets };
 }
 
-const [EntriesProvider, useEntriesStore] = constate(useEntries);
-const [AssetsProvider, useAssetsStore] = constate(useAssets);
+const [EntriesProvider, useEntries] = constate(useEntriesStore);
+const [AssetsProvider, useAssets] = constate(useAssetsStore);
 
-export { EntriesProvider, useEntriesStore, AssetsProvider, useAssetsStore };
+export { EntriesProvider, useEntries, AssetsProvider, useAssets };
