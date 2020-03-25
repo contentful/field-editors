@@ -7,7 +7,7 @@ import { LinkActions } from './LinkActions/LinkActions';
 import { fromFieldValidations, ReferenceValidations } from './utils/fromFieldValidations';
 import { WrappedEntryCard } from './WrappedEntryCard/WrappedEntryCard';
 import { MissingEntityCard } from './MissingEntityCard/MissingEntityCard';
-import { EntriesProvider, useEntriesStore } from './EntityStore/EntityStore';
+import { EntriesProvider, useEntries } from './EntityStore/EntityStore';
 
 export interface EntryReferenceEditorProps {
   /**
@@ -95,7 +95,7 @@ function LinkSingleEntryReference(props: SingleEntryReferenceEditorProps) {
 
 function SingleEntryReferenceEditor(props: SingleEntryReferenceEditorProps) {
   const { value, sdk, disabled, setValue } = props;
-  const { loadEntry, entries } = useEntriesStore();
+  const { loadEntry, entries } = useEntries();
 
   React.useEffect(() => {
     if (value?.sys.id) {
@@ -114,7 +114,7 @@ function SingleEntryReferenceEditor(props: SingleEntryReferenceEditorProps) {
     return () => {
       unsubscribe();
     };
-  }, [sdk]);
+  }, [sdk, value?.sys.id]);
 
   const size = props.viewType === 'link' ? 'small' : 'default';
 
