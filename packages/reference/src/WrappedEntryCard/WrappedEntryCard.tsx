@@ -119,7 +119,6 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
             }}>
             {props.onEdit && (
               <DropdownListItem
-                isDisabled={props.disabled}
                 onClick={() => {
                   props.onEdit();
                 }}
