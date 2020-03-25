@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { BaseExtensionSDK, Entry, Asset } from '../types';
+import { BaseExtensionSDK, Entry, Asset, Action } from '../types';
 import constate from 'constate';
 
 type EntriesMap = {
@@ -10,7 +10,7 @@ type AssetsMap = {
   [key: string]: 'failed' | undefined | Asset;
 };
 
-function useEntriesStore(props: { sdk: BaseExtensionSDK }) {
+function useEntriesStore(props: { sdk: BaseExtensionSDK; onAction?: (action: Action) => void }) {
   const [entries, setEntries] = React.useState<EntriesMap>({});
 
   const loadEntry = (id: string) => {
@@ -40,7 +40,7 @@ function useEntriesStore(props: { sdk: BaseExtensionSDK }) {
   return { loadEntry, setEntry, entries };
 }
 
-function useAssetsStore(props: { sdk: BaseExtensionSDK }) {
+function useAssetsStore(props: { sdk: BaseExtensionSDK; onAction?: (action: Action) => void }) {
   const [assets, setAssets] = React.useState<AssetsMap>({});
 
   const loadAsset = (id: string) => {

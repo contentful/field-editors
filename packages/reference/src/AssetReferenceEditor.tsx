@@ -2,7 +2,7 @@ import * as React from 'react';
 import deepEqual from 'deep-equal';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import { AssetCard } from '@contentful/forma-36-react-components';
-import { ViewType, AssetReferenceValue, FieldExtensionSDK, Link } from './types';
+import { ViewType, AssetReferenceValue, FieldExtensionSDK, Asset, Action } from './types';
 import { LinkActions } from './LinkActions/LinkActions';
 import { MissingEntityCard } from './MissingEntityCard/MissingEntityCard';
 import { FetchedWrappedAssetCard } from './WrappedAssetCard/WrappedAssetCard';
@@ -20,6 +20,8 @@ export interface AssetReferenceEditorProps {
   viewType: ViewType;
 
   getAssetUrl?: (assetId: string) => string;
+
+  onAction?: (action: Action) => void;
 
   parameters: {
     instance: {
@@ -46,7 +48,7 @@ function LinkSingleAssetReference(props: SingleAssetReferenceEditorProps) {
       disabled={disabled}
       canCreateEntity={props.parameters.instance.canCreateAsset}
       onCreate={async () => {
-        const { entity } = await sdk.navigator.openNewAsset({
+        const { entity } = await sdk.navigator.openNewAsset<Asset>({
           slideIn: { waitForClose: true }
         });
         if (!entity) {
@@ -59,22 +61,26 @@ function LinkSingleAssetReference(props: SingleAssetReferenceEditorProps) {
             id: entity.sys.id
           }
         });
+        props.onAction &&
+          props.onAction({ type: 'create_and_link', entity: 'Asset', entityData: entity });
       }}
       onLinkExisting={async () => {
-        const item = await sdk.dialogs.selectSingleAsset<Link>({
+        const entity = await sdk.dialogs.selectSingleAsset<Asset>({
           locale: props.sdk.field.locale,
           mimetypeGroups: props.validations.mimetypeGroups
         });
-        if (!item) {
+        if (!entity) {
           return;
         }
         setValue({
           sys: {
             type: 'Link',
             linkType: 'Asset',
-            id: item.sys.id
+            id: entity.sys.id
           }
         });
+        props.onAction &&
+          props.onAction({ type: 'select_and_link', entity: 'Asset', entityData: entity });
       }}
     />
   );
@@ -135,11 +141,18 @@ function SingleAssetReferenceEditor(props: SingleAssetReferenceEditorProps) {
       localeCode={props.sdk.field.locale}
       defaultLocaleCode={props.sdk.locales.default}
       asset={asset}
+      onRender={() => {
+        props.onAction && props.onAction({ type: 'rendered', entity: 'Asset' });
+      }}
       onEdit={() => {
         sdk.navigator.openAsset(value.sys.id, { slideIn: true });
+        props.onAction &&
+          props.onAction({ entity: 'Asset', type: 'edit', id: value.sys.id, contentTypeId: '' });
       }}
       onRemove={() => {
         props.setValue(null);
+        props.onAction &&
+          props.onAction({ entity: 'Asset', type: 'delete', id: value.sys.id, contentTypeId: '' });
       }}
     />
   );
