@@ -30,6 +30,7 @@ interface WrappedEntryCardProps {
   disabled: boolean;
   onRemove: () => void;
   onEdit: () => void;
+  onRender?: () => void;
   localeCode: string;
   defaultLocaleCode: string;
   allContentTypes: ContentType[];
@@ -42,6 +43,10 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
   const contentType = props.allContentTypes.find(
     contentType => contentType.sys.id === props.entry?.sys.contentType.sys.id
   );
+
+  React.useEffect(() => {
+    props.onRender && props.onRender();
+  }, []);
 
   React.useEffect(() => {
     if (props.entry) {

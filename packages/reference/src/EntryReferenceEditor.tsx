@@ -2,7 +2,14 @@ import * as React from 'react';
 import deepEqual from 'deep-equal';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import { EntryCard } from '@contentful/forma-36-react-components';
-import { ViewType, EntryReferenceValue, Link, ContentType, FieldExtensionSDK } from './types';
+import {
+  ViewType,
+  EntryReferenceValue,
+  Entry,
+  ContentType,
+  FieldExtensionSDK,
+  Action
+} from './types';
 import { LinkActions } from './LinkActions/LinkActions';
 import { fromFieldValidations, ReferenceValidations } from './utils/fromFieldValidations';
 import { WrappedEntryCard } from './WrappedEntryCard/WrappedEntryCard';
@@ -20,6 +27,8 @@ export interface EntryReferenceEditorProps {
   viewType: ViewType;
 
   getEntryUrl?: (entryId: string) => string;
+
+  onAction?: (action: Action) => void;
 
   parameters: {
     instance: {
@@ -47,12 +56,13 @@ function LinkSingleEntryReference(props: SingleEntryReferenceEditorProps) {
 
   const onCreate = React.useCallback(async (contentTypeId?: string) => {
     if (contentTypeId) {
-      const { entity } = await sdk.navigator.openNewEntry(contentTypeId, {
+      const { entity } = await sdk.navigator.openNewEntry<Entry>(contentTypeId, {
         slideIn: { waitForClose: true }
       });
       if (!entity) {
         return;
       }
+
       setValue({
         sys: {
           type: 'Link',
@@ -60,24 +70,28 @@ function LinkSingleEntryReference(props: SingleEntryReferenceEditorProps) {
           id: entity.sys.id
         }
       });
+      props.onAction &&
+        props.onAction({ type: 'create_and_link', entity: 'Entry', entityData: entity });
     }
   }, []);
 
   const onLinkExisting = React.useCallback(async () => {
-    const item = await sdk.dialogs.selectSingleEntry<Link>({
+    const entity = await sdk.dialogs.selectSingleEntry<Entry>({
       locale: props.sdk.field.locale,
       contentTypes: validations.contentTypes
     });
-    if (!item) {
+    if (!entity) {
       return;
     }
     setValue({
       sys: {
         type: 'Link',
         linkType: 'Entry',
-        id: item.sys.id
+        id: entity.sys.id
       }
     });
+    props.onAction &&
+      props.onAction({ type: 'select_and_link', entity: 'Entry', entityData: entity });
   }, []);
 
   return (
@@ -151,13 +165,30 @@ function SingleEntryReferenceEditor(props: SingleEntryReferenceEditorProps) {
       defaultLocaleCode={sdk.locales.default}
       allContentTypes={props.allContentTypes}
       entry={entry}
+      onRender={() => {
+        props.onAction && props.onAction({ type: 'rendered', entity: 'Entry' });
+      }}
       onEdit={() => {
         sdk.navigator.openEntry(entry.sys.id, {
           slideIn: true
         });
+        props.onAction &&
+          props.onAction({
+            entity: 'Entry',
+            type: 'edit',
+            id: entry.sys.id,
+            contentTypeId: entry.sys.contentType.sys.id
+          });
       }}
       onRemove={() => {
         props.setValue(null);
+        props.onAction &&
+          props.onAction({
+            entity: 'Entry',
+            type: 'delete',
+            id: entry.sys.id,
+            contentTypeId: entry.sys.contentType.sys.id
+          });
       }}
     />
   );

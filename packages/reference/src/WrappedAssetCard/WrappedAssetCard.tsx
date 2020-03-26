@@ -31,6 +31,7 @@ export interface WrappedAssetCardProps {
   disabled: boolean;
   onEdit: () => void;
   onRemove: () => void;
+  onRender?: () => void;
   readOnly: boolean;
   size: 'default' | 'small';
 }
@@ -52,10 +53,14 @@ function getFileType(file?: File): any {
 export const FetchedWrappedAssetCard = (
   props: { asset: Asset; localeCode: string; defaultLocaleCode: string } & Pick<
     WrappedAssetCardProps,
-    'href' | 'size' | 'readOnly' | 'disabled' | 'onRemove' | 'onEdit'
+    'href' | 'size' | 'readOnly' | 'disabled' | 'onRemove' | 'onEdit' | 'onRender'
   >
 ) => {
   const status = entityHelpers.getEntryStatus(props.asset.sys);
+
+  React.useEffect(() => {
+    props.onRender && props.onRender();
+  }, []);
 
   if (status === 'deleted') {
     return (
