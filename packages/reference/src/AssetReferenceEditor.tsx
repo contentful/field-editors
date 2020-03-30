@@ -48,7 +48,7 @@ function LinkSingleAssetReference(props: SingleAssetReferenceEditorProps) {
       disabled={disabled}
       canCreateEntity={props.parameters.instance.canCreateAsset}
       onCreate={async () => {
-        const { entity } = await sdk.navigator.openNewAsset<Asset>({
+        const { entity, slide } = await sdk.navigator.openNewAsset<Asset>({
           slideIn: true
         });
         if (!entity) {
@@ -62,7 +62,7 @@ function LinkSingleAssetReference(props: SingleAssetReferenceEditorProps) {
           }
         });
         props.onAction &&
-          props.onAction({ type: 'create_and_link', entity: 'Asset', entityData: entity });
+          props.onAction({ type: 'create_and_link', entity: 'Asset', entityData: entity, slide });
       }}
       onLinkExisting={async () => {
         const entity = await sdk.dialogs.selectSingleAsset<Asset>({
@@ -144,10 +144,16 @@ function SingleAssetReferenceEditor(props: SingleAssetReferenceEditorProps) {
       onRender={() => {
         props.onAction && props.onAction({ type: 'rendered', entity: 'Asset' });
       }}
-      onEdit={() => {
-        sdk.navigator.openAsset(value.sys.id, { slideIn: true });
+      onEdit={async () => {
+        const { slide } = await sdk.navigator.openAsset(value.sys.id, { slideIn: true });
         props.onAction &&
-          props.onAction({ entity: 'Asset', type: 'edit', id: value.sys.id, contentTypeId: '' });
+          props.onAction({
+            entity: 'Asset',
+            type: 'edit',
+            id: value.sys.id,
+            contentTypeId: '',
+            slide
+          });
       }}
       onRemove={() => {
         props.setValue(null);

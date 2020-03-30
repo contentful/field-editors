@@ -56,9 +56,10 @@ function LinkSingleEntryReference(props: SingleEntryReferenceEditorProps) {
 
   const onCreate = React.useCallback(async (contentTypeId?: string) => {
     if (contentTypeId) {
-      const { entity } = await sdk.navigator.openNewEntry<Entry>(contentTypeId, {
+      const { entity, slide } = await sdk.navigator.openNewEntry<Entry>(contentTypeId, {
         slideIn: true
       });
+
       if (!entity) {
         return;
       }
@@ -70,7 +71,7 @@ function LinkSingleEntryReference(props: SingleEntryReferenceEditorProps) {
         }
       });
       props.onAction &&
-        props.onAction({ type: 'create_and_link', entity: 'Entry', entityData: entity });
+        props.onAction({ type: 'create_and_link', entity: 'Entry', entityData: entity, slide });
     }
   }, []);
 
@@ -167,8 +168,8 @@ function SingleEntryReferenceEditor(props: SingleEntryReferenceEditorProps) {
       onRender={() => {
         props.onAction && props.onAction({ type: 'rendered', entity: 'Entry' });
       }}
-      onEdit={() => {
-        sdk.navigator.openEntry(entry.sys.id, {
+      onEdit={async () => {
+        const { slide } = await sdk.navigator.openEntry(entry.sys.id, {
           slideIn: true
         });
         props.onAction &&
@@ -176,7 +177,8 @@ function SingleEntryReferenceEditor(props: SingleEntryReferenceEditorProps) {
             entity: 'Entry',
             type: 'edit',
             id: entry.sys.id,
-            contentTypeId: entry.sys.contentType.sys.id
+            contentTypeId: entry.sys.contentType.sys.id,
+            slide
           });
       }}
       onRemove={() => {
