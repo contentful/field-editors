@@ -49,7 +49,7 @@ function LinkSingleAssetReference(props: SingleAssetReferenceEditorProps) {
       canCreateEntity={props.parameters.instance.canCreateAsset}
       onCreate={async () => {
         const { entity } = await sdk.navigator.openNewAsset<Asset>({
-          slideIn: { waitForClose: true }
+          slideIn: true
         });
         if (!entity) {
           return;

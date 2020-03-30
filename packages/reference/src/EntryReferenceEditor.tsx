@@ -57,12 +57,11 @@ function LinkSingleEntryReference(props: SingleEntryReferenceEditorProps) {
   const onCreate = React.useCallback(async (contentTypeId?: string) => {
     if (contentTypeId) {
       const { entity } = await sdk.navigator.openNewEntry<Entry>(contentTypeId, {
-        slideIn: { waitForClose: true }
+        slideIn: true
       });
       if (!entity) {
         return;
       }
-
       setValue({
         sys: {
           type: 'Link',
