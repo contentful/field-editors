@@ -30,7 +30,7 @@
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15",
-    "markdown-to-jsx": "6.10.3"
+    "markdown-to-jsx": "^6.11.0"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
