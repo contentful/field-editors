@@ -8,11 +8,10 @@ import {
   DropdownListItem,
   Icon
 } from '@contentful/forma-36-react-components';
-import { Entry, File, ContentType } from '../types';
+import { Entry, File, ContentType } from '../../types';
+import { isValidImage } from '../../utils/isValidImage';
 import { entityHelpers } from '@contentful/field-editor-shared';
-import { AssetThumbnail, isValidImage } from '../AssetThumbnail/AssetThumbnail';
-import { MissingEntityCard } from '../MissingEntityCard/MissingEntityCard';
-import { ScheduledIconWithTooltip } from '../ScheduledIconWithTooltip/ScheduledIconWithTooltip';
+import { MissingEntityCard, ScheduledIconWithTooltip, AssetThumbnail } from '../../components';
 
 const { getEntryTitle, getEntityDescription, getEntryStatus, getEntryImage } = entityHelpers;
 
@@ -30,7 +29,6 @@ interface WrappedEntryCardProps {
   disabled: boolean;
   onRemove: () => void;
   onEdit: () => void;
-  onRender?: () => void;
   localeCode: string;
   defaultLocaleCode: string;
   allContentTypes: ContentType[];
@@ -43,10 +41,6 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
   const contentType = props.allContentTypes.find(
     contentType => contentType.sys.id === props.entry?.sys.contentType.sys.id
   );
-
-  React.useEffect(() => {
-    props.onRender && props.onRender();
-  }, []);
 
   React.useEffect(() => {
     if (props.entry) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { DropdownList, DropdownListItem } from '@contentful/forma-36-react-components';
 import { css } from 'emotion';
-import { File } from '../types';
+import { File } from '../../types';
 import get from 'lodash/get';
 
 import { shortenStorageUnit } from './shortenStorageUnit';

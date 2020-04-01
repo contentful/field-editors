@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, SectionHeading, IconButton } from '@contentful/forma-36-react-components';
-import { ReferenceEntityType } from '../types';
+import { ReferenceEntityType } from '../../types';
 import * as styles from './styles';
 
 export function MissingEntityCard(props: {

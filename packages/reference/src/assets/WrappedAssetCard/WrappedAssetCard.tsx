@@ -1,9 +1,10 @@
 import React from 'react';
 import { AssetCard } from '@contentful/forma-36-react-components';
 import { renderActions, renderAssetInfo } from './AssetCardActions';
-import { File, Asset } from '../types';
+import { File, Asset } from '../../types';
 import { entityHelpers } from '@contentful/field-editor-shared';
-import { MissingEntityCard } from '../MissingEntityCard/MissingEntityCard';
+import { MissingEntityCard } from '../../components';
+
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import mimetype from '@contentful/mimetype';

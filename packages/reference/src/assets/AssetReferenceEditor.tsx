@@ -2,12 +2,11 @@ import * as React from 'react';
 import deepEqual from 'deep-equal';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import { AssetCard } from '@contentful/forma-36-react-components';
-import { ViewType, AssetReferenceValue, FieldExtensionSDK, Asset, Action } from './types';
-import { LinkActions } from './LinkActions/LinkActions';
-import { MissingEntityCard } from './MissingEntityCard/MissingEntityCard';
+import { ViewType, AssetReferenceValue, FieldExtensionSDK, Asset, Action } from '../types';
+import { MissingEntityCard, LinkActions } from '../components';
 import { FetchedWrappedAssetCard } from './WrappedAssetCard/WrappedAssetCard';
-import { fromFieldValidations, ReferenceValidations } from './utils/fromFieldValidations';
-import { AssetsProvider, useAssets } from './EntityStore/EntityStore';
+import { fromFieldValidations, ReferenceValidations } from '../utils/fromFieldValidations';
+import { AssetsProvider, useAssets } from './AssetsStore';
 
 export interface AssetReferenceEditorProps {
   /**

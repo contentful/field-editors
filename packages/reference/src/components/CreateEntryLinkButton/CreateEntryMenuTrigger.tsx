@@ -4,7 +4,7 @@ import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { css } from 'emotion';
 import get from 'lodash/get';
 import tokens from '@contentful/forma-36-tokens';
-import { ContentType } from '../types';
+import { ContentType } from '../../types';
 import {
   Dropdown,
   DropdownList,

@@ -11,7 +11,7 @@ import {
 } from '@testing-library/react';
 
 import { CreateEntryLinkButton } from './CreateEntryLinkButton';
-import { ContentType } from '../types';
+import { ContentType } from '../../types';
 
 configure({
   testIdAttribute: 'data-test-id'

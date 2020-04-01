@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { TextLink } from '@contentful/forma-36-react-components';
 import * as styles from './styles';
-import { ReferenceEntityType, ContentType } from '../types';
+import { ReferenceEntityType, ContentType } from '../../types';
 import { CreateEntryLinkButton } from '../CreateEntryLinkButton/CreateEntryLinkButton';
 
 interface LinkActionsProps {
