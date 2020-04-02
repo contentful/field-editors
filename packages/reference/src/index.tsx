@@ -5,4 +5,4 @@ export {
   AssetThumbnail
 } from './components';
 export { SingleEntryReferenceEditor, MultipleEntryReferenceEditor } from './entries';
-export { SingleAssetReferenceEditor } from './assets';
+export { SingleAssetReferenceEditor, MultipleAssetReferenceEditor } from './assets';

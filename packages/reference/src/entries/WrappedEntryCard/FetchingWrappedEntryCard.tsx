@@ -4,9 +4,9 @@ import { ContentType } from '../../types';
 import { WrappedEntryCard } from './WrappedEntryCard';
 import { MissingEntityCard } from '../../components';
 import { useEntities } from '../../EntityStore';
-import { EntryReferenceEditorProps } from '../EntryReferenceEditor';
+import { ReferenceEditorProps } from '../../ReferenceEditor';
 
-export type EntryCardReferenceEditorProps = EntryReferenceEditorProps & {
+export type EntryCardReferenceEditorProps = ReferenceEditorProps & {
   entryId: string;
   allContentTypes: ContentType[];
   disabled: boolean;
@@ -39,7 +39,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
     <WrappedEntryCard
       getAsset={props.sdk.space.getAsset}
       getEntityScheduledActions={props.sdk.space.getEntityScheduledActions}
-      getEntryUrl={props.getEntryUrl}
+      getEntryUrl={props.getEntityUrl}
       disabled={props.disabled}
       size={size}
       localeCode={props.sdk.field.locale}

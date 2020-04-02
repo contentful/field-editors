@@ -11,8 +11,9 @@ type FetchingWrappedAssetCardProps = {
   sdk: FieldExtensionSDK;
   viewType: 'link' | 'item' | 'small_item';
   onRemove: () => void;
-  getAssetUrl?: (assetId: string) => string;
+  getEntityUrl?: (id: string) => string;
   onAction?: (action: Action) => void;
+  cardDragHandle?: React.ReactElement;
 };
 
 export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
@@ -43,7 +44,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       disabled={disabled}
       size={size}
       readOnly={false}
-      href={props.getAssetUrl ? props.getAssetUrl(assetId) : ''}
+      href={props.getEntityUrl ? props.getEntityUrl(assetId) : ''}
       localeCode={props.sdk.field.locale}
       defaultLocaleCode={props.sdk.locales.default}
       asset={asset}
@@ -58,6 +59,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
             slide
           });
       }}
+      cardDragHandle={props.cardDragHandle}
       onRemove={() => {
         props.onRemove();
         props.onAction &&

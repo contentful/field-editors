@@ -34,6 +34,7 @@ export interface WrappedAssetCardProps {
   onRemove: () => void;
   readOnly: boolean;
   size: 'default' | 'small';
+  cardDragHandle?: React.ReactElement;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -91,8 +92,8 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
         e.preventDefault();
         onEdit();
       }}
-      // cardDragHandleComponent={cardDragHandleComponent}
-      // withDragHandle={!!cardDragHandleComponent}
+      cardDragHandleComponent={props.cardDragHandle}
+      withDragHandle={!!props.cardDragHandle}
       dropdownListElements={
         <React.Fragment>
           {!readOnly ? (

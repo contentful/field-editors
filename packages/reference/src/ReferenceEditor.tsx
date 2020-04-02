@@ -1,10 +1,10 @@
 import * as React from 'react';
 import deepEqual from 'deep-equal';
 import { FieldConnector } from '@contentful/field-editor-shared';
-import { EntityProvider } from '../EntityStore';
-import { ViewType, FieldExtensionSDK, Action } from '../types';
+import { EntityProvider } from './EntityStore';
+import { ViewType, FieldExtensionSDK, Action } from './types';
 
-export interface EntryReferenceEditorProps {
+export interface ReferenceEditorProps {
   /**
    * is the field disabled initially
    */
@@ -14,19 +14,19 @@ export interface EntryReferenceEditorProps {
 
   viewType: ViewType;
 
-  getEntryUrl?: (entryId: string) => string;
+  getEntityUrl?: (entryId: string) => string;
 
   onAction?: (action: Action) => void;
 
   parameters: {
     instance: {
-      canCreateEntry: boolean;
+      canCreateEntity: boolean;
     };
   };
 }
 
-export function EntryReferenceEditor<T>(
-  props: EntryReferenceEditorProps & {
+export function ReferenceEditor<T>(
+  props: ReferenceEditorProps & {
     children: FieldConnector<T>['props']['children'];
   }
 ) {
@@ -45,6 +45,6 @@ export function EntryReferenceEditor<T>(
   );
 }
 
-EntryReferenceEditor.defaultProps = {
+ReferenceEditor.defaultProps = {
   isInitiallyDisabled: true
 };

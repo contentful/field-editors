@@ -4,7 +4,8 @@ import { init, FieldExtensionSDK } from 'contentful-ui-extensions-sdk';
 import {
   SingleEntryReferenceEditor,
   MultipleEntryReferenceEditor,
-  SingleAssetReferenceEditor
+  SingleAssetReferenceEditor,
+  MultipleAssetReferenceEditor
 } from '../../../packages/reference/src/index';
 
 import '@contentful/forma-36-react-components/dist/styles.css';
@@ -23,7 +24,7 @@ init<FieldExtensionSDK>(sdk => {
           isInitiallyDisabled={true}
           parameters={{
             instance: {
-              canCreateEntry: true
+              canCreateEntity: true
             }
           }}
         />
@@ -35,19 +36,31 @@ init<FieldExtensionSDK>(sdk => {
           isInitiallyDisabled={true}
           parameters={{
             instance: {
-              canCreateAsset: true
+              canCreateEntity: true
             }
           }}
         />
       )}
-      {fieldSdk.field.type === 'Array' && (
+      {fieldSdk.field.type === 'Array' && fieldSdk.field.id !== 'assets' && (
         <MultipleEntryReferenceEditor
           viewType="link"
           sdk={fieldSdk}
           isInitiallyDisabled={true}
           parameters={{
             instance: {
-              canCreateEntry: true
+              canCreateEntity: true
+            }
+          }}
+        />
+      )}
+      {fieldSdk.field.type === 'Array' && fieldSdk.field.id === 'assets' && (
+        <MultipleAssetReferenceEditor
+          viewType="card"
+          sdk={fieldSdk}
+          isInitiallyDisabled={true}
+          parameters={{
+            instance: {
+              canCreateEntity: true
             }
           }}
         />

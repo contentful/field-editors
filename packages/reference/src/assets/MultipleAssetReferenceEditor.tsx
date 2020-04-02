@@ -1,18 +1,17 @@
 import * as React from 'react';
 import arrayMove from 'array-move';
-import { EntryReferenceValue, ContentType, Entry } from '../types';
+import { AssetReferenceValue, Entry } from '../types';
 import { fromFieldValidations } from '../utils/fromFieldValidations';
-import { ReferenceEditor, ReferenceEditorProps } from '../ReferenceEditor';
-import { LinkEntryActions } from './LinkEntryActions';
+import { ReferenceEditorProps, ReferenceEditor } from '../ReferenceEditor';
+import { LinkAssetActions } from './LinkAssetActions';
 import { SortableLinkList } from './SortableElements';
 import { SortEndHandler, SortStartHandler } from 'react-sortable-hoc';
 
 class Editor extends React.Component<
   ReferenceEditorProps & {
-    items: EntryReferenceValue[];
+    items: AssetReferenceValue[];
     disabled: boolean;
-    setValue: (value: EntryReferenceValue[]) => void;
-    allContentTypes: ContentType[];
+    setValue: (value: AssetReferenceValue[]) => void;
   }
 > {
   onSortStart: SortStartHandler = (_, event) => event.preventDefault();
@@ -28,7 +27,7 @@ class Editor extends React.Component<
       {
         sys: {
           type: 'Link',
-          linkType: 'Entry',
+          linkType: 'Asset',
           id: entry.sys.id
         }
       }
@@ -42,7 +41,7 @@ class Editor extends React.Component<
         return {
           sys: {
             type: 'Link',
-            linkType: 'Entry',
+            linkType: 'Asset',
             id: entry.sys.id
           } as const
         };
@@ -57,19 +56,18 @@ class Editor extends React.Component<
       <>
         <SortableLinkList
           {...this.props}
-          axis="y"
+          axis="xy"
           useDragHandle={true}
           // Fixes dragging in Firefox
           onSortStart={this.onSortStart}
           onSortEnd={this.onSortEnd}
         />
-        <LinkEntryActions
-          allContentTypes={this.props.allContentTypes}
+        <LinkAssetActions
           validations={validations}
           sdk={this.props.sdk}
           disabled={this.props.disabled}
           multiple={true}
-          canCreateEntry={this.props.parameters.instance.canCreateEntity}
+          canCreateAsset={this.props.parameters.instance.canCreateEntity}
           onCreate={this.onCreate}
           onLink={this.onLink}
         />
@@ -78,15 +76,13 @@ class Editor extends React.Component<
   }
 }
 
-export function MultipleEntryReferenceEditor(props: ReferenceEditorProps) {
-  const allContentTypes = props.sdk.space.getCachedContentTypes();
-
+export function MultipleAssetReferenceEditor(props: ReferenceEditorProps) {
   React.useEffect(() => {
     props.onAction && props.onAction({ type: 'rendered', entity: 'Entry' });
   }, []);
 
   return (
-    <ReferenceEditor<EntryReferenceValue[]> {...props}>
+    <ReferenceEditor<AssetReferenceValue[]> {...props}>
       {({ value, disabled, setValue, externalReset }) => {
         const items = value || [];
         return (
@@ -96,7 +92,6 @@ export function MultipleEntryReferenceEditor(props: ReferenceEditorProps) {
             disabled={disabled}
             setValue={setValue}
             key={`${externalReset}-list`}
-            allContentTypes={allContentTypes}
           />
         );
       }}

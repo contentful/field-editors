@@ -2,10 +2,10 @@ import * as React from 'react';
 import { EntryReferenceValue } from '../types';
 import { fromFieldValidations } from '../utils/fromFieldValidations';
 import { LinkEntryActions } from './LinkEntryActions';
-import { EntryReferenceEditor, EntryReferenceEditorProps } from './EntryReferenceEditor';
+import { ReferenceEditor, ReferenceEditorProps } from '../ReferenceEditor';
 import { FetchingWrappedEntryCard } from './WrappedEntryCard/FetchingWrappedEntryCard';
 
-export function SingleEntryReferenceEditor(props: EntryReferenceEditorProps) {
+export function SingleEntryReferenceEditor(props: ReferenceEditorProps) {
   const allContentTypes = props.sdk.space.getCachedContentTypes();
 
   React.useEffect(() => {
@@ -13,7 +13,7 @@ export function SingleEntryReferenceEditor(props: EntryReferenceEditorProps) {
   }, []);
 
   return (
-    <EntryReferenceEditor<EntryReferenceValue> {...props}>
+    <ReferenceEditor<EntryReferenceValue> {...props}>
       {({ value, setValue, disabled, externalReset }) => {
         if (!value) {
           const validations = fromFieldValidations(props.sdk.field.validations);
@@ -24,7 +24,7 @@ export function SingleEntryReferenceEditor(props: EntryReferenceEditorProps) {
               sdk={props.sdk}
               disabled={disabled}
               multiple={false}
-              canCreateEntry={props.parameters.instance.canCreateEntry}
+              canCreateEntry={props.parameters.instance.canCreateEntity}
               onCreate={entry => {
                 setValue({
                   sys: {
@@ -59,6 +59,6 @@ export function SingleEntryReferenceEditor(props: EntryReferenceEditorProps) {
           />
         );
       }}
-    </EntryReferenceEditor>
+    </ReferenceEditor>
   );
 }

@@ -4,15 +4,15 @@ import { fromFieldValidations } from '../utils/fromFieldValidations';
 import { FetchingWrappedAssetCard } from './WrappedAssetCard/FetchingWrappedAssetCard';
 import { LinkAssetActions } from './LinkAssetActions';
 
-import { AssetReferenceEditor, AssetReferenceEditorProps } from './AssetReferenceEditor';
+import { ReferenceEditor, ReferenceEditorProps } from '../ReferenceEditor';
 
-export function SingleAssetReferenceEditor(props: AssetReferenceEditorProps) {
+export function SingleAssetReferenceEditor(props: ReferenceEditorProps) {
   React.useEffect(() => {
     props.onAction && props.onAction({ type: 'rendered', entity: 'Asset' });
   }, []);
 
   return (
-    <AssetReferenceEditor<AssetReferenceValue> {...props}>
+    <ReferenceEditor<AssetReferenceValue> {...props}>
       {({ value, setValue, disabled, externalReset }) => {
         if (!value) {
           const validations = fromFieldValidations(props.sdk.field.validations);
@@ -20,7 +20,7 @@ export function SingleAssetReferenceEditor(props: AssetReferenceEditorProps) {
             <LinkAssetActions
               sdk={props.sdk}
               onAction={props.onAction}
-              canCreateAsset={props.parameters.instance.canCreateAsset}
+              canCreateAsset={props.parameters.instance.canCreateEntity}
               multiple={false}
               validations={validations}
               disabled={disabled}
@@ -58,7 +58,7 @@ export function SingleAssetReferenceEditor(props: AssetReferenceEditorProps) {
           />
         );
       }}
-    </AssetReferenceEditor>
+    </ReferenceEditor>
   );
 }
 
