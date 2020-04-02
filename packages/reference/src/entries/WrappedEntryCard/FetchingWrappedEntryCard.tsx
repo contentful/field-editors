@@ -27,7 +27,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
 
   if (entry === 'failed') {
     return (
-      <MissingEntityCard entityType="entry" disabled={props.disabled} onRemove={props.onRemove} />
+      <MissingEntityCard entityType="Entry" disabled={props.disabled} onRemove={props.onRemove} />
     );
   }
 

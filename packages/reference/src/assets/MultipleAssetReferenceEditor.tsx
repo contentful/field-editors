@@ -1,15 +1,16 @@
 import * as React from 'react';
 import arrayMove from 'array-move';
-import { AssetReferenceValue, Entry } from '../types';
+import { AssetReferenceValue, ContentType } from '../types';
 import { fromFieldValidations } from '../utils/fromFieldValidations';
 import { ReferenceEditorProps, ReferenceEditor } from '../ReferenceEditor';
-import { LinkAssetActions } from './LinkAssetActions';
+import { LinkEntityActions } from '../components';
 import { SortableLinkList } from './SortableElements';
 import { SortEndHandler, SortStartHandler } from 'react-sortable-hoc';
 
 class Editor extends React.Component<
   ReferenceEditorProps & {
     items: AssetReferenceValue[];
+    allContentTypes: ContentType[];
     disabled: boolean;
     setValue: (value: AssetReferenceValue[]) => void;
   }
@@ -21,28 +22,28 @@ class Editor extends React.Component<
     this.props.setValue(newItems);
   };
 
-  onCreate = (entry: Entry) => {
+  onCreate = (id: string) => {
     this.props.setValue([
       ...this.props.items,
       {
         sys: {
           type: 'Link',
           linkType: 'Asset',
-          id: entry.sys.id
+          id
         }
       }
     ]);
   };
 
-  onLink = (entries: Entry[]) => {
+  onLink = (ids: string[]) => {
     this.props.setValue([
       ...this.props.items,
-      ...entries.map(entry => {
+      ...ids.map(id => {
         return {
           sys: {
             type: 'Link',
             linkType: 'Asset',
-            id: entry.sys.id
+            id
           } as const
         };
       })
@@ -62,12 +63,14 @@ class Editor extends React.Component<
           onSortStart={this.onSortStart}
           onSortEnd={this.onSortEnd}
         />
-        <LinkAssetActions
+        <LinkEntityActions
+          entityType="Asset"
+          allContentTypes={this.props.allContentTypes}
           validations={validations}
           sdk={this.props.sdk}
           disabled={this.props.disabled}
           multiple={true}
-          canCreateAsset={this.props.parameters.instance.canCreateEntity}
+          canCreateEntity={this.props.parameters.instance.canCreateEntity}
           onCreate={this.onCreate}
           onLink={this.onLink}
         />
@@ -77,6 +80,8 @@ class Editor extends React.Component<
 }
 
 export function MultipleAssetReferenceEditor(props: ReferenceEditorProps) {
+  const allContentTypes = props.sdk.space.getCachedContentTypes();
+
   React.useEffect(() => {
     props.onAction && props.onAction({ type: 'rendered', entity: 'Entry' });
   }, []);
@@ -88,6 +93,7 @@ export function MultipleAssetReferenceEditor(props: ReferenceEditorProps) {
         return (
           <Editor
             {...props}
+            allContentTypes={allContentTypes}
             items={items}
             disabled={disabled}
             setValue={setValue}

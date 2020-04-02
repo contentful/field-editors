@@ -30,7 +30,7 @@ export function LinkActions(props: LinkActionsProps) {
     <div className={styles.container}>
       {props.canCreateEntity && (
         <>
-          {props.entityType === 'entry' && (
+          {props.entityType === 'Entry' && (
             <CreateEntryLinkButton
               testId={testIds.createAndLink}
               disabled={props.disabled}
@@ -47,7 +47,7 @@ export function LinkActions(props: LinkActionsProps) {
               }}
             />
           )}
-          {props.entityType === 'asset' && (
+          {props.entityType === 'Asset' && (
             <TextLink
               disabled={props.disabled}
               testId={testIds.createAndLink}
@@ -70,8 +70,8 @@ export function LinkActions(props: LinkActionsProps) {
         }}
         linkType="primary"
         icon="Link">
-        {props.entityType === 'entry' && labels.linkExisting(props.multiple ? 'entries' : 'entry')}
-        {props.entityType === 'asset' && labels.linkExisting(props.multiple ? 'assets' : 'asset')}
+        {props.entityType === 'Entry' && labels.linkExisting(props.multiple ? 'entries' : 'entry')}
+        {props.entityType === 'Asset' && labels.linkExisting(props.multiple ? 'assets' : 'asset')}
       </TextLink>
     </div>
   );

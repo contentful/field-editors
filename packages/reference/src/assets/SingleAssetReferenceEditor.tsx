@@ -2,11 +2,13 @@ import * as React from 'react';
 import { AssetReferenceValue } from '../types';
 import { fromFieldValidations } from '../utils/fromFieldValidations';
 import { FetchingWrappedAssetCard } from './WrappedAssetCard/FetchingWrappedAssetCard';
-import { LinkAssetActions } from './LinkAssetActions';
+import { LinkEntityActions } from '../components';
 
 import { ReferenceEditor, ReferenceEditorProps } from '../ReferenceEditor';
 
 export function SingleAssetReferenceEditor(props: ReferenceEditorProps) {
+  const allContentTypes = props.sdk.space.getCachedContentTypes();
+
   React.useEffect(() => {
     props.onAction && props.onAction({ type: 'rendered', entity: 'Asset' });
   }, []);
@@ -17,28 +19,30 @@ export function SingleAssetReferenceEditor(props: ReferenceEditorProps) {
         if (!value) {
           const validations = fromFieldValidations(props.sdk.field.validations);
           return (
-            <LinkAssetActions
+            <LinkEntityActions
               sdk={props.sdk}
+              allContentTypes={allContentTypes}
+              entityType="Asset"
               onAction={props.onAction}
-              canCreateAsset={props.parameters.instance.canCreateEntity}
+              canCreateEntity={props.parameters.instance.canCreateEntity}
               multiple={false}
               validations={validations}
               disabled={disabled}
-              onCreate={asset => {
+              onCreate={id => {
                 setValue({
                   sys: {
                     type: 'Link',
                     linkType: 'Asset',
-                    id: asset.sys.id
+                    id
                   }
                 });
               }}
-              onLink={([asset]) => {
+              onLink={([id]) => {
                 setValue({
                   sys: {
                     type: 'Link',
                     linkType: 'Asset',
-                    id: asset.sys.id
+                    id
                   }
                 });
               }}

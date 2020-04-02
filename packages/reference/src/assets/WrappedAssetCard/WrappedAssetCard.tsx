@@ -58,7 +58,7 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
 
   if (status === 'deleted') {
     return (
-      <MissingEntityCard entityType="asset" disabled={props.disabled} onRemove={props.onRemove} />
+      <MissingEntityCard entityType="Asset" disabled={props.disabled} onRemove={props.onRemove} />
     );
   }
 

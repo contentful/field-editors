@@ -1,5 +1,5 @@
-import { EntityType, NavigatorSlideInfo } from 'contentful-ui-extensions-sdk';
-import { Entry, Asset } from '@contentful/field-editor-shared';
+import { NavigatorSlideInfo } from 'contentful-ui-extensions-sdk';
+import { Entry, Asset, ReferenceEntityType } from '@contentful/field-editor-shared';
 
 export {
   BaseExtensionSDK,
@@ -33,17 +33,17 @@ export type ViewType = 'card' | 'link';
 export type Action =
   | {
       type: 'create_and_link';
-      entity: EntityType;
+      entity: ReferenceEntityType;
       entityData: Entry | Asset;
       slide?: NavigatorSlideInfo;
     }
-  | { type: 'select_and_link'; entity: EntityType; entityData: Entry | Asset }
+  | { type: 'select_and_link'; entity: ReferenceEntityType; entityData: Entry | Asset }
   | {
       type: 'edit';
       contentTypeId: string;
       id: string;
-      entity: EntityType;
+      entity: ReferenceEntityType;
       slide?: NavigatorSlideInfo;
     }
-  | { type: 'delete'; contentTypeId: string; id: string; entity: EntityType }
-  | { type: 'rendered'; entity: EntityType };
+  | { type: 'delete'; contentTypeId: string; id: string; entity: ReferenceEntityType }
+  | { type: 'rendered'; entity: ReferenceEntityType };

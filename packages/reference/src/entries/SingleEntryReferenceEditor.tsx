@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { EntryReferenceValue } from '../types';
 import { fromFieldValidations } from '../utils/fromFieldValidations';
-import { LinkEntryActions } from './LinkEntryActions';
+import { LinkEntityActions } from '../components';
 import { ReferenceEditor, ReferenceEditorProps } from '../ReferenceEditor';
 import { FetchingWrappedEntryCard } from './WrappedEntryCard/FetchingWrappedEntryCard';
 
@@ -18,28 +18,29 @@ export function SingleEntryReferenceEditor(props: ReferenceEditorProps) {
         if (!value) {
           const validations = fromFieldValidations(props.sdk.field.validations);
           return (
-            <LinkEntryActions
+            <LinkEntityActions
+              entityType="Entry"
               allContentTypes={allContentTypes}
               validations={validations}
               sdk={props.sdk}
               disabled={disabled}
               multiple={false}
-              canCreateEntry={props.parameters.instance.canCreateEntity}
-              onCreate={entry => {
+              canCreateEntity={props.parameters.instance.canCreateEntity}
+              onCreate={id => {
                 setValue({
                   sys: {
                     type: 'Link',
                     linkType: 'Entry',
-                    id: entry.sys.id
+                    id
                   }
                 });
               }}
-              onLink={([entry]) => {
+              onLink={([id]) => {
                 setValue({
                   sys: {
                     type: 'Link',
                     linkType: 'Entry',
-                    id: entry.sys.id
+                    id
                   }
                 });
               }}

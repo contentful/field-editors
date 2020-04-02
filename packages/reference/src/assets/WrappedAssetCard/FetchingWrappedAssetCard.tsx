@@ -31,7 +31,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
 
   if (asset === 'failed') {
     return (
-      <MissingEntityCard entityType="asset" disabled={props.disabled} onRemove={props.onRemove} />
+      <MissingEntityCard entityType="Asset" disabled={props.disabled} onRemove={props.onRemove} />
     );
   }
 

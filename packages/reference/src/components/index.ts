@@ -1,5 +1,5 @@
 export { MissingEntityCard } from './MissingEntityCard/MissingEntityCard';
-export { LinkActions } from './LinkActions/LinkActions';
+export { LinkEntityActions } from './LinkActions/LinkEntityActions';
 export { CreateEntryLinkButton } from './CreateEntryLinkButton/CreateEntryLinkButton';
 export { CreateEntryMenuTrigger } from './CreateEntryLinkButton/CreateEntryMenuTrigger';
 export { ScheduledIconWithTooltip } from './ScheduledIconWithTooltip/ScheduledIconWithTooltip';

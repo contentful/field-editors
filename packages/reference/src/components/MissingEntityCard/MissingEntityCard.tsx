@@ -11,8 +11,8 @@ export function MissingEntityCard(props: {
   return (
     <Card className={styles.card}>
       <SectionHeading>
-        {props.entityType === 'entry' && 'Entry is missing or inaccessible'}
-        {props.entityType === 'asset' && 'Asset is missing or inaccessible'}
+        {props.entityType === 'Entry' && 'Entry is missing or inaccessible'}
+        {props.entityType === 'Asset' && 'Asset is missing or inaccessible'}
       </SectionHeading>
       {!props.disabled && (
         <IconButton

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import arrayMove from 'array-move';
-import { EntryReferenceValue, ContentType, Entry } from '../types';
+import { EntryReferenceValue, ContentType } from '../types';
 import { fromFieldValidations } from '../utils/fromFieldValidations';
 import { ReferenceEditor, ReferenceEditorProps } from '../ReferenceEditor';
-import { LinkEntryActions } from './LinkEntryActions';
+import { LinkEntityActions } from '../components';
 import { SortableLinkList } from './SortableElements';
 import { SortEndHandler, SortStartHandler } from 'react-sortable-hoc';
 
@@ -22,28 +22,28 @@ class Editor extends React.Component<
     this.props.setValue(newItems);
   };
 
-  onCreate = (entry: Entry) => {
+  onCreate = (id: string) => {
     this.props.setValue([
       ...this.props.items,
       {
         sys: {
           type: 'Link',
           linkType: 'Entry',
-          id: entry.sys.id
+          id
         }
       }
     ]);
   };
 
-  onLink = (entries: Entry[]) => {
+  onLink = (ids: string[]) => {
     this.props.setValue([
       ...this.props.items,
-      ...entries.map(entry => {
+      ...ids.map(id => {
         return {
           sys: {
             type: 'Link',
             linkType: 'Entry',
-            id: entry.sys.id
+            id
           } as const
         };
       })
@@ -63,13 +63,14 @@ class Editor extends React.Component<
           onSortStart={this.onSortStart}
           onSortEnd={this.onSortEnd}
         />
-        <LinkEntryActions
+        <LinkEntityActions
+          entityType="Entry"
           allContentTypes={this.props.allContentTypes}
           validations={validations}
           sdk={this.props.sdk}
           disabled={this.props.disabled}
           multiple={true}
-          canCreateEntry={this.props.parameters.instance.canCreateEntity}
+          canCreateEntity={this.props.parameters.instance.canCreateEntity}
           onCreate={this.onCreate}
           onLink={this.onLink}
         />
