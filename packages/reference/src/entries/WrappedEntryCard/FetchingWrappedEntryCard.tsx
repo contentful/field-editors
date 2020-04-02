@@ -20,21 +20,6 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
     loadEntry(props.entryId);
   }, [props.entryId]);
 
-  React.useEffect(() => {
-    const unsubscribe = props.sdk.navigator.onSlideInNavigation(
-      ({ oldSlideLevel, newSlideLevel }) => {
-        if (props.entryId) {
-          if (oldSlideLevel > newSlideLevel) {
-            loadEntry(props.entryId);
-          }
-        }
-      }
-    );
-    return () => {
-      unsubscribe();
-    };
-  }, [props.sdk, props.entryId]);
-
   const size = props.viewType === 'link' ? 'small' : 'default';
 
   const entry = entries[props.entryId];
