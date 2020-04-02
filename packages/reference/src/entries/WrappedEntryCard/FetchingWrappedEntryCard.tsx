@@ -3,7 +3,7 @@ import { EntryCard } from '@contentful/forma-36-react-components';
 import { ContentType } from '../../types';
 import { WrappedEntryCard } from './WrappedEntryCard';
 import { MissingEntityCard } from '../../components';
-import { useEntries } from '../EntryStore';
+import { useEntities } from '../../EntityStore';
 import { EntryReferenceEditorProps } from '../EntryReferenceEditor';
 
 export type EntryCardReferenceEditorProps = EntryReferenceEditorProps & {
@@ -15,7 +15,7 @@ export type EntryCardReferenceEditorProps = EntryReferenceEditorProps & {
 };
 
 export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
-  const { loadEntry, entries } = useEntries();
+  const { loadEntry, entries } = useEntities();
 
   React.useEffect(() => {
     loadEntry(props.entryId);

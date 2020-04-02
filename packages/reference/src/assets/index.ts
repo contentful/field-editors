@@ -1,0 +1,1 @@
+export { SingleAssetReferenceEditor } from './SingleAssetReferenceEditor';

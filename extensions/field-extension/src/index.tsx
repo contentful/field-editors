@@ -3,7 +3,8 @@ import { render } from 'react-dom';
 import { init, FieldExtensionSDK } from 'contentful-ui-extensions-sdk';
 import {
   SingleEntryReferenceEditor,
-  MultipleEntryReferenceEditor
+  MultipleEntryReferenceEditor,
+  SingleAssetReferenceEditor
 } from '../../../packages/reference/src/index';
 
 import '@contentful/forma-36-react-components/dist/styles.css';
@@ -15,7 +16,7 @@ init<FieldExtensionSDK>(sdk => {
   fieldSdk.window.startAutoResizer();
   render(
     <div style={{ minHeight: 400 }}>
-      {fieldSdk.field.type === 'Link' ? (
+      {fieldSdk.field.type === 'Link' && fieldSdk.field.id !== 'media' && (
         <SingleEntryReferenceEditor
           viewType="link"
           sdk={fieldSdk}
@@ -26,7 +27,20 @@ init<FieldExtensionSDK>(sdk => {
             }
           }}
         />
-      ) : (
+      )}
+      {fieldSdk.field.type === 'Link' && fieldSdk.field.id === 'media' && (
+        <SingleAssetReferenceEditor
+          viewType="card"
+          sdk={fieldSdk}
+          isInitiallyDisabled={true}
+          parameters={{
+            instance: {
+              canCreateAsset: true
+            }
+          }}
+        />
+      )}
+      {fieldSdk.field.type === 'Array' && (
         <MultipleEntryReferenceEditor
           viewType="link"
           sdk={fieldSdk}

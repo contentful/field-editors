@@ -24,15 +24,14 @@ const groupToIconMap = {
 };
 
 export interface WrappedAssetCardProps {
-  entityFile?: File;
-  entityTitle: string;
-  entityStatus: 'archived' | 'changed' | 'draft' | 'published';
+  asset: Asset;
+  localeCode: string;
+  defaultLocaleCode: string;
   href?: string;
   className?: string;
   disabled: boolean;
   onEdit: () => void;
   onRemove: () => void;
-  onRender?: () => void;
   readOnly: boolean;
   size: 'default' | 'small';
 }
@@ -51,17 +50,10 @@ function getFileType(file?: File): any {
   return groupToIconMap[groupName] || 'archive';
 }
 
-export const FetchedWrappedAssetCard = (
-  props: { asset: Asset; localeCode: string; defaultLocaleCode: string } & Pick<
-    WrappedAssetCardProps,
-    'href' | 'size' | 'readOnly' | 'disabled' | 'onRemove' | 'onEdit' | 'onRender'
-  >
-) => {
-  const status = entityHelpers.getEntryStatus(props.asset.sys);
+export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
+  const { className, href, onEdit, onRemove, size, readOnly, disabled } = props;
 
-  React.useEffect(() => {
-    props.onRender && props.onRender();
-  }, []);
+  const status = entityHelpers.getEntryStatus(props.asset.sys);
 
   if (status === 'deleted') {
     return (
@@ -81,36 +73,12 @@ export const FetchedWrappedAssetCard = (
     : undefined;
 
   return (
-    <WrappedAssetCard
-      {...props}
-      entityFile={entityFile}
-      entityStatus={status}
-      entityTitle={entityTitle}
-    />
-  );
-};
-
-export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
-  const {
-    entityFile,
-    entityTitle,
-    className,
-    href,
-    entityStatus,
-    onEdit,
-    onRemove,
-    size,
-    readOnly,
-    disabled
-  } = props;
-
-  return (
     <AssetCard
       type={getFileType(entityFile)}
       title={entityTitle}
       className={className}
       href={href}
-      status={entityStatus}
+      status={status}
       src={
         entityFile
           ? size === 'small'

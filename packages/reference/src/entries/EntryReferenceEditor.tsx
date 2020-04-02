@@ -1,7 +1,7 @@
 import * as React from 'react';
 import deepEqual from 'deep-equal';
 import { FieldConnector } from '@contentful/field-editor-shared';
-import { EntriesProvider } from './EntryStore';
+import { EntityProvider } from '../EntityStore';
 import { ViewType, FieldExtensionSDK, Action } from '../types';
 
 export interface EntryReferenceEditorProps {
@@ -31,7 +31,7 @@ export function EntryReferenceEditor<T>(
   }
 ) {
   return (
-    <EntriesProvider sdk={props.sdk}>
+    <EntityProvider sdk={props.sdk}>
       <FieldConnector<T>
         throttle={0}
         field={props.sdk.field}
@@ -41,7 +41,7 @@ export function EntryReferenceEditor<T>(
         }}>
         {props.children}
       </FieldConnector>
-    </EntriesProvider>
+    </EntityProvider>
   );
 }
 
