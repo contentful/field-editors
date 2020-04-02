@@ -33,6 +33,7 @@ interface WrappedEntryCardProps {
   defaultLocaleCode: string;
   allContentTypes: ContentType[];
   entry: Entry;
+  cardDragHandle?: React.ReactElement;
 }
 
 export function WrappedEntryCard(props: WrappedEntryCardProps) {
@@ -108,6 +109,8 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
         </ScheduledIconWithTooltip>
       }
       thumbnailElement={file && isValidImage(file) ? <AssetThumbnail file={file} /> : null}
+      cardDragHandleComponent={props.cardDragHandle}
+      withDragHandle={!!props.cardDragHandle}
       dropdownListElements={
         <React.Fragment>
           <DropdownList

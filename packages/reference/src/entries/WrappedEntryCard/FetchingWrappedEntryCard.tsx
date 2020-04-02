@@ -11,6 +11,7 @@ export type EntryCardReferenceEditorProps = EntryReferenceEditorProps & {
   allContentTypes: ContentType[];
   disabled: boolean;
   onRemove: () => void;
+  cardDragHandle?: React.ReactElement;
 };
 
 export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
@@ -45,6 +46,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       defaultLocaleCode={props.sdk.locales.default}
       allContentTypes={props.allContentTypes}
       entry={entry}
+      cardDragHandle={props.cardDragHandle}
       onEdit={async () => {
         const { slide } = await props.sdk.navigator.openEntry(entry.sys.id, {
           slideIn: true
