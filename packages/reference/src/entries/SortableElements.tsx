@@ -32,7 +32,7 @@ const SortableLink = SortableElement((props: { children: React.ReactElement }) =
 export const SortableLinkList = SortableContainer((props: SortableLinkListProps) => (
   <div className={styles.containter}>
     {props.items.map((item, index) => (
-      <SortableLink key={`${item.sys.id}-${index}`} index={index}>
+      <SortableLink disabled={props.disabled} key={`${item.sys.id}-${index}`} index={index}>
         <FetchingWrappedEntryCard
           {...props}
           key={`${item.sys.id}-${index}`}
@@ -44,7 +44,7 @@ export const SortableLinkList = SortableContainer((props: SortableLinkListProps)
               props.items.filter(filteringItem => filteringItem.sys.id !== item.sys.id)
             );
           }}
-          cardDragHandle={<DragHandle />}
+          cardDragHandle={props.disabled ? undefined : <DragHandle />}
         />
       </SortableLink>
     ))}

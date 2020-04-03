@@ -1,29 +1,11 @@
 import React from 'react';
-import { AssetCard } from '@contentful/forma-36-react-components';
+import { EntryCard } from '@contentful/forma-36-react-components';
 import { renderActions, renderAssetInfo } from './AssetCardActions';
-import { File, Asset } from '../../types';
+import { Asset } from '../../types';
 import { entityHelpers } from '@contentful/field-editor-shared';
 import { MissingEntityCard } from '../../components';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
-import mimetype from '@contentful/mimetype';
-
-const groupToIconMap = {
-  image: 'image',
-  video: 'video',
-  audio: 'audio',
-  richtext: 'richtext',
-  presentation: 'presentation',
-  spreadsheet: 'spreadsheet',
-  pdfdocument: 'pdf',
-  archive: 'archive',
-  plaintext: 'plaintext',
-  code: 'code',
-  markup: 'markup'
-};
-
-export interface WrappedAssetCardProps {
+export interface WrappedAssetLinkProps {
   asset: Asset;
   localeCode: string;
   defaultLocaleCode: string;
@@ -32,26 +14,11 @@ export interface WrappedAssetCardProps {
   disabled: boolean;
   onEdit: () => void;
   onRemove: () => void;
-  size: 'default' | 'small';
   cardDragHandle?: React.ReactElement;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function getFileType(file?: File): any {
-  if (!file) {
-    return 'archive';
-  }
-
-  const groupName: keyof typeof groupToIconMap = mimetype.getGroupLabel({
-    type: file.contentType,
-    fallbackFileName: file.fileName
-  });
-
-  return groupToIconMap[groupName] || 'archive';
-}
-
-export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
-  const { className, href, onEdit, onRemove, size, disabled } = props;
+export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
+  const { className, href, onEdit, onRemove, disabled } = props;
 
   const status = entityHelpers.getEntryStatus(props.asset.sys);
 
@@ -73,19 +40,13 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
     : undefined;
 
   return (
-    <AssetCard
-      type={getFileType(entityFile)}
+    <EntryCard
+      contentType="Asset"
       title={entityTitle}
       className={className}
       href={href}
+      size="small"
       status={status}
-      src={
-        entityFile
-          ? size === 'small'
-            ? `${entityFile.url}?w=150&h=150&fit=thumb`
-            : `${entityFile.url}?h=300`
-          : ''
-      }
       // @ts-ignore
       onClick={(e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
@@ -99,7 +60,6 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
           {entityFile ? renderAssetInfo({ entityFile }) : <span />}
         </React.Fragment>
       }
-      size={size}
     />
   );
 };

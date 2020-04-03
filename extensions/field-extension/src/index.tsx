@@ -41,7 +41,7 @@ init<FieldExtensionSDK>(sdk => {
           }}
         />
       )}
-      {fieldSdk.field.type === 'Array' && fieldSdk.field.id !== 'assets' && (
+      {fieldSdk.field.type === 'Array' && !fieldSdk.field.id.startsWith('assets') && (
         <MultipleEntryReferenceEditor
           viewType="link"
           sdk={fieldSdk}
@@ -56,6 +56,18 @@ init<FieldExtensionSDK>(sdk => {
       {fieldSdk.field.type === 'Array' && fieldSdk.field.id === 'assets' && (
         <MultipleAssetReferenceEditor
           viewType="card"
+          sdk={fieldSdk}
+          isInitiallyDisabled={true}
+          parameters={{
+            instance: {
+              canCreateEntity: true
+            }
+          }}
+        />
+      )}
+      {fieldSdk.field.type === 'Array' && fieldSdk.field.id === 'assets2' && (
+        <MultipleAssetReferenceEditor
+          viewType="link"
           sdk={fieldSdk}
           isInitiallyDisabled={true}
           parameters={{

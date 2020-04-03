@@ -9,8 +9,8 @@ export function SingleAssetReferenceEditor(props: ReferenceEditorProps) {
       {({ externalReset, entityId, disabled, onRemove }) => (
         <FetchingWrappedAssetCard
           key={`single-asset-${externalReset}`}
-          {...props}
-          viewType="item"
+          sdk={props.sdk}
+          viewType="big_card"
           assetId={entityId}
           disabled={disabled}
           onRemove={onRemove}

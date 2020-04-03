@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { BaseExtensionSDK, Entry, Asset } from './types';
+import { BaseExtensionSDK, Entry, Asset } from '../types';
 import constate from 'constate';
 
 type EntriesMap = {

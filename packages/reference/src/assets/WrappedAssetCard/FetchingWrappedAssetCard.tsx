@@ -1,15 +1,16 @@
 import * as React from 'react';
-import { AssetCard } from '@contentful/forma-36-react-components';
-import { FieldExtensionSDK, Action } from '../../types';
+import { AssetCard, EntryCard } from '@contentful/forma-36-react-components';
+import { FieldExtensionSDK, Action, Asset, ViewType } from '../../types';
 import { MissingEntityCard } from '../../components';
 import { WrappedAssetCard } from './WrappedAssetCard';
+import { WrappedAssetLink } from './WrappedAssetLink';
 import { useEntities } from '../../common/EntityStore';
 
 type FetchingWrappedAssetCardProps = {
   assetId: string;
   disabled: boolean;
   sdk: FieldExtensionSDK;
-  viewType: 'link' | 'item' | 'small_item';
+  viewType: ViewType | 'big_card';
   onRemove: () => void;
   getEntityUrl?: (id: string) => string;
   onAction?: (action: Action) => void;
@@ -17,17 +18,13 @@ type FetchingWrappedAssetCardProps = {
 };
 
 export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
-  const { assetId, sdk, disabled } = props;
-
   const { loadAsset, assets } = useEntities();
 
   React.useEffect(() => {
-    loadAsset(assetId);
-  }, [assetId]);
+    loadAsset(props.assetId);
+  }, [props.assetId]);
 
-  const asset = assets[assetId];
-
-  const size = props.viewType === 'item' ? 'default' : 'small';
+  const asset = assets[props.assetId];
 
   if (asset === 'failed') {
     return (
@@ -35,36 +32,43 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
     );
   }
 
+  const commonProps = {
+    disabled: props.disabled,
+    href: props.getEntityUrl ? props.getEntityUrl(props.assetId) : '',
+    localeCode: props.sdk.field.locale,
+    defaultLocaleCode: props.sdk.locales.default,
+    asset: asset as Asset,
+    onEdit: async () => {
+      const { slide } = await props.sdk.navigator.openAsset(props.assetId, { slideIn: true });
+      props.onAction &&
+        props.onAction({
+          entity: 'Asset',
+          type: 'edit',
+          id: props.assetId,
+          contentTypeId: '',
+          slide
+        });
+    },
+    cardDragHandle: props.cardDragHandle,
+    onRemove: () => {
+      props.onRemove();
+      props.onAction &&
+        props.onAction({ entity: 'Asset', type: 'delete', id: props.assetId, contentTypeId: '' });
+    }
+  };
+
+  if (props.viewType === 'link') {
+    if (asset === undefined) {
+      return <EntryCard size="small" loading />;
+    }
+    return <WrappedAssetLink {...commonProps} />;
+  }
+
+  const size = props.viewType === 'big_card' ? 'default' : 'small';
+
   if (asset === undefined) {
     return <AssetCard size={size} isLoading title="" src="" href="" />;
   }
 
-  return (
-    <WrappedAssetCard
-      disabled={disabled}
-      size={size}
-      readOnly={false}
-      href={props.getEntityUrl ? props.getEntityUrl(assetId) : ''}
-      localeCode={props.sdk.field.locale}
-      defaultLocaleCode={props.sdk.locales.default}
-      asset={asset}
-      onEdit={async () => {
-        const { slide } = await sdk.navigator.openAsset(assetId, { slideIn: true });
-        props.onAction &&
-          props.onAction({
-            entity: 'Asset',
-            type: 'edit',
-            id: assetId,
-            contentTypeId: '',
-            slide
-          });
-      }}
-      cardDragHandle={props.cardDragHandle}
-      onRemove={() => {
-        props.onRemove();
-        props.onAction &&
-          props.onAction({ entity: 'Asset', type: 'delete', id: assetId, contentTypeId: '' });
-      }}
-    />
-  );
+  return <WrappedAssetCard size={size} {...commonProps} />;
 }

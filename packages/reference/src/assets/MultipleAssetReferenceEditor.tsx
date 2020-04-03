@@ -6,7 +6,13 @@ import { SortableLinkList } from './SortableElements';
 export function MultipleAssetReferenceEditor(props: ReferenceEditorProps) {
   return (
     <MultipleReferenceEditor {...props} entityType="Asset">
-      {childrenProps => <SortableLinkList {...childrenProps} axis="xy" useDragHandle={true} />}
+      {childrenProps => (
+        <SortableLinkList
+          {...childrenProps}
+          axis={props.viewType === 'card' ? 'xy' : 'y'}
+          useDragHandle={true}
+        />
+      )}
     </MultipleReferenceEditor>
   );
 }

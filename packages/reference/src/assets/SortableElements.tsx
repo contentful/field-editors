@@ -8,10 +8,13 @@ import { SortableContainer, SortableElement, SortableHandle } from 'react-sortab
 import { CardDragHandle } from '@contentful/forma-36-react-components';
 
 const styles = {
-  containter: css({
+  gridContainter: css({
     position: 'relative',
     display: 'flex',
     flexWrap: 'wrap'
+  }),
+  container: css({
+    position: 'relative'
   }),
   item: css({
     marginBottom: tokens.spacingM,
@@ -32,21 +35,21 @@ const SortableLink = SortableElement((props: { children: React.ReactElement }) =
 ));
 
 export const SortableLinkList = SortableContainer((props: SortableLinkListProps) => (
-  <div className={styles.containter}>
+  <div className={props.viewType === 'card' ? styles.gridContainter : styles.container}>
     {props.items.map((item, index) => (
-      <SortableLink key={`${item.sys.id}-${index}`} index={index}>
+      <SortableLink disabled={props.disabled} key={`${item.sys.id}-${index}`} index={index}>
         <FetchingWrappedAssetCard
-          {...props}
+          sdk={props.sdk}
           key={`${item.sys.id}-${index}`}
           disabled={props.disabled}
           assetId={item.sys.id}
-          viewType="small_item"
+          viewType={props.viewType}
           onRemove={() => {
             props.setValue(
               props.items.filter(filteringItem => filteringItem.sys.id !== item.sys.id)
             );
           }}
-          cardDragHandle={<DragHandle />}
+          cardDragHandle={props.disabled ? undefined : <DragHandle />}
         />
       </SortableLink>
     ))}
