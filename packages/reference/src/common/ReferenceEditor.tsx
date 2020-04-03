@@ -2,7 +2,7 @@ import * as React from 'react';
 import deepEqual from 'deep-equal';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import { EntityProvider } from './EntityStore';
-import { ViewType, FieldExtensionSDK, Action } from './types';
+import { ViewType, FieldExtensionSDK, Action } from '../types';
 
 export interface ReferenceEditorProps {
   /**

@@ -3,7 +3,7 @@ import { AssetCard } from '@contentful/forma-36-react-components';
 import { FieldExtensionSDK, Action } from '../../types';
 import { MissingEntityCard } from '../../components';
 import { WrappedAssetCard } from './WrappedAssetCard';
-import { useEntities } from '../../EntityStore';
+import { useEntities } from '../../common/EntityStore';
 
 type FetchingWrappedAssetCardProps = {
   assetId: string;

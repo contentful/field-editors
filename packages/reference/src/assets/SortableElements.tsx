@@ -2,8 +2,8 @@ import React from 'react';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 import { FetchingWrappedAssetCard } from './WrappedAssetCard/FetchingWrappedAssetCard';
-import { AssetReferenceValue } from '../types';
-import { ReferenceEditorProps } from '../ReferenceEditor';
+import { ReferenceValue } from '../types';
+import { ReferenceEditorProps } from '../common/ReferenceEditor';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 import { CardDragHandle } from '@contentful/forma-36-react-components';
 
@@ -20,8 +20,8 @@ const styles = {
 };
 
 type SortableLinkListProps = ReferenceEditorProps & {
-  items: AssetReferenceValue[];
-  setValue: (value: AssetReferenceValue[]) => void;
+  items: ReferenceValue[];
+  setValue: (value: ReferenceValue[]) => void;
   disabled: boolean;
 };
 
@@ -34,7 +34,7 @@ const SortableLink = SortableElement((props: { children: React.ReactElement }) =
 export const SortableLinkList = SortableContainer((props: SortableLinkListProps) => (
   <div className={styles.containter}>
     {props.items.map((item, index) => (
-      <SortableLink key={item.sys.id} index={index}>
+      <SortableLink key={`${item.sys.id}-${index}`} index={index}>
         <FetchingWrappedAssetCard
           {...props}
           key={`${item.sys.id}-${index}`}

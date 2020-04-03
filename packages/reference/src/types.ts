@@ -12,6 +12,14 @@ export {
 
 export { ReferenceEntityType, Entry, File, Asset } from '@contentful/field-editor-shared';
 
+export type ReferenceValue = {
+  sys: {
+    type: 'Link';
+    id: string;
+    linkType: ReferenceEntityType;
+  };
+};
+
 export type EntryReferenceValue = {
   sys: {
     type: 'Link';

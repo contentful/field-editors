@@ -3,8 +3,8 @@ import { EntryCard } from '@contentful/forma-36-react-components';
 import { ContentType } from '../../types';
 import { WrappedEntryCard } from './WrappedEntryCard';
 import { MissingEntityCard } from '../../components';
-import { useEntities } from '../../EntityStore';
-import { ReferenceEditorProps } from '../../ReferenceEditor';
+import { useEntities } from '../../common/EntityStore';
+import { ReferenceEditorProps } from '../../common/ReferenceEditor';
 
 export type EntryCardReferenceEditorProps = ReferenceEditorProps & {
   entryId: string;
