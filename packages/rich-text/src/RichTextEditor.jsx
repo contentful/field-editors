@@ -196,7 +196,7 @@ export class ConnectedRichTextEditor extends React.Component {
     );
 
     return (
-      <div className={styles.root}>
+      <div className={styles.root} data-test-id="rich-text-editor">
         {!this.props.isToolbarHidden && (
           <StickyToolbarWrapper isDisabled={this.props.isDisabled}>
             <Toolbar
