@@ -11,7 +11,7 @@ import { MultipleEntryReferenceEditor } from './MultipleEntryReferenceEditor.tsx
 import { createFakeFieldAPI, createFakeSpaceAPI, createFakeLocalesAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
 import emptyEntry from '../__fixtures__/empty_entry.json';
 import publishedEntry from '../__fixtures__/published_entry.json';
-import draftEntry from '../__fixtures__/draft_entry.json';
+import changedEntry from '../__fixtures__/changed_entry.json';
 
 ## In Action
 
@@ -35,8 +35,8 @@ import draftEntry from '../__fixtures__/draft_entry.json';
           if (id === 'published_entry') {
             return Promise.resolve(publishedEntry);
           }
-          if (id === 'draft_entry') {
-            return Promise.resolve(draftEntry);
+          if (id === 'changed_entry') {
+            return Promise.resolve(changedEntry);
           }
           return Promise.reject();
         },
@@ -54,7 +54,7 @@ import draftEntry from '../__fixtures__/draft_entry.json';
             },
             {
               sys: {
-                id: 'draft_entry'
+                id: 'changed_entry'
               }
             }
           ]

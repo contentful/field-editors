@@ -11,7 +11,7 @@ import { MultipleMediaEditor } from './MultipleMediaEditor.tsx'
 import { createFakeFieldAPI, createFakeSpaceAPI, createFakeLocalesAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
 import emptyAsset from '../__fixtures__/empty_asset.json';
 import publishedAsset from '../__fixtures__/published_asset.json';
-import draftAsset from '../__fixtures__/draft_asset.json';
+import changedAsset from '../__fixtures__/changed_asset.json';
 
 ## In Action
 
@@ -35,8 +35,8 @@ import draftAsset from '../__fixtures__/draft_asset.json';
           if (id === 'published_asset') {
             return Promise.resolve(publishedAsset);
           }
-          if (id === 'draft_asset') {
-            return Promise.resolve(draftAsset);
+          if (id === 'changed_asset') {
+            return Promise.resolve(changedAsset);
           }
           return Promise.reject();
         },
@@ -51,7 +51,7 @@ import draftAsset from '../__fixtures__/draft_asset.json';
             },
             {
               sys: {
-                id: 'draft_asset'
+                id: 'changed_asset'
               }
             }
           ]

@@ -7,7 +7,7 @@
         "id": "my-test-space"
       }
     },
-    "id": "draft_asset",
+    "id": "changed_asset",
     "type": "Asset",
     "createdAt": "2019-12-16T16:22:27.593Z",
     "updatedAt": "2019-12-16T16:22:30.322Z",
@@ -36,7 +36,7 @@
       }
     },
     "publishedCounter": 1,
-    "version": 3,
+    "version": 4,
     "publishedBy": {
       "sys": {
         "type": "Link",
