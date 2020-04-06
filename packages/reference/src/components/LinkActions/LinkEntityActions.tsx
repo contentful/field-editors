@@ -1,18 +1,11 @@
 import * as React from 'react';
-import {
-  Asset,
-  Entry,
-  FieldExtensionSDK,
-  ReferenceEntityType,
-  Action,
-  ContentType
-} from '../../types';
+import { Asset, Entry, FieldExtensionSDK, EntityType, Action, ContentType } from '../../types';
 import { ReferenceValidations } from '../../utils/fromFieldValidations';
 import { LinkActions } from './LinkActions';
 
 async function createEntity(props: {
   sdk: FieldExtensionSDK;
-  entityType: ReferenceEntityType;
+  entityType: EntityType;
   contentTypeId?: string;
 }) {
   if (props.entityType === 'Entry') {
@@ -33,7 +26,7 @@ async function createEntity(props: {
 
 async function selectSingleEntity(props: {
   sdk: FieldExtensionSDK;
-  entityType: ReferenceEntityType;
+  entityType: EntityType;
   validations: ReferenceValidations;
 }) {
   if (props.entityType === 'Entry') {
@@ -51,7 +44,7 @@ async function selectSingleEntity(props: {
 
 async function selectMultipleEntities(props: {
   sdk: FieldExtensionSDK;
-  entityType: ReferenceEntityType;
+  entityType: EntityType;
   validations: ReferenceValidations;
 }) {
   if (props.entityType === 'Entry') {
@@ -68,7 +61,7 @@ async function selectMultipleEntities(props: {
 }
 
 export function LinkEntityActions(props: {
-  entityType: ReferenceEntityType;
+  entityType: EntityType;
   sdk: FieldExtensionSDK;
   allContentTypes: ContentType[];
   disabled: boolean;

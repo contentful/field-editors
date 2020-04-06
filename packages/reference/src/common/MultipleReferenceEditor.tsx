@@ -1,13 +1,13 @@
 import * as React from 'react';
 import arrayMove from 'array-move';
-import { ReferenceValue, ReferenceEntityType, ContentType } from '../types';
+import { ReferenceValue, EntityType, ContentType } from '../types';
 import { fromFieldValidations } from '../utils/fromFieldValidations';
 import { ReferenceEditor, ReferenceEditorProps } from '../common/ReferenceEditor';
 import { LinkEntityActions } from '../components';
 import { SortEndHandler, SortStartHandler } from 'react-sortable-hoc';
 
 type ChildProps = {
-  entityType: ReferenceEntityType;
+  entityType: EntityType;
   items: ReferenceValue[];
   disabled: boolean;
   setValue: (value: ReferenceValue[]) => void;
@@ -85,7 +85,7 @@ class Editor extends React.Component<
 
 export function MultipleReferenceEditor(
   props: ReferenceEditorProps & {
-    entityType: ReferenceEntityType;
+    entityType: EntityType;
     children: (props: ReferenceEditorProps & ChildProps) => React.ReactElement;
   }
 ) {

@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { ReferenceValue, ReferenceEntityType, ContentType } from '../types';
+import { ReferenceValue, EntityType, ContentType } from '../types';
 import { fromFieldValidations } from '../utils/fromFieldValidations';
 import { LinkEntityActions } from '../components';
 import { ReferenceEditor, ReferenceEditorProps } from '../common/ReferenceEditor';
 
 export function SingleReferenceEditor(
   props: ReferenceEditorProps & {
-    entityType: ReferenceEntityType;
+    entityType: EntityType;
     children: (props: {
       entityId: string;
       disabled: boolean;
