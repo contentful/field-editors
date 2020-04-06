@@ -1,6 +1,6 @@
 # @contentful/field-editor-reference
 
-This package contains `EntryReferenceEditor` and `AssetReferenceEditor` React components and an extension that is used as a default for the `Entry`, `Entries`, `Asset` and `Assets` field types in the Contentful web application.
+This package contains `SingleEntryReferenceEditor`, `MultipleEntryReferenceEditor`, `SingleMediaEditor`, and `MultipleMediaEditor` React components and an extension that is used as a default for the `Entry`, `Entries`, `Asset` and `Assets` field types in the Contentful web application.
 
 ## Commands
 

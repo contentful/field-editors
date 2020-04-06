@@ -1,16 +1,17 @@
 ---
-name: Reference - Single Asset
-route: /single-asset-reference
+name: Media - Multiple files
+route: /media-multiple
 menu: Components
 ---
 
-# Reference - Single Asset
+# Media - Multiple files
 
 import { Playground, Props } from 'docz';
-import { SingleAssetReferenceEditor } from './SingleAssetReferenceEditor.tsx'
+import { MultipleMediaEditor } from './MultipleMediaEditor.tsx'
 import { createFakeFieldAPI, createFakeSpaceAPI, createFakeLocalesAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
 import emptyAsset from '../__fixtures__/empty_asset.json';
 import publishedAsset from '../__fixtures__/published_asset.json';
+import draftAsset from '../__fixtures__/draft_asset.json';
 
 ## In Action
 
@@ -34,16 +35,26 @@ import publishedAsset from '../__fixtures__/published_asset.json';
           if (id === 'published_asset') {
             return Promise.resolve(publishedAsset);
           }
+          if (id === 'draft_asset') {
+            return Promise.resolve(draftAsset);
+          }
           return Promise.reject();
         },
       },
       dialogs: {
-        selectSingleAsset: () => {
-          return {
-            sys: {
-              id: 'published_asset'
+        selectMultipleAssets: () => {
+          return [
+            {
+              sys: {
+                id: 'published_asset'
+              }
+            },
+            {
+              sys: {
+                id: 'draft_asset'
+              }
             }
-          }
+          ]
         }
       },
       navigator: {
@@ -57,7 +68,7 @@ import publishedAsset from '../__fixtures__/published_asset.json';
           }
         },
         openAsset: () => {
-          alert('open asset in slide in');
+          alert('open Asset in slide in');
           return Promise.resolve({});
         },
         onSlideInNavigation: () => () => {}
@@ -65,7 +76,7 @@ import publishedAsset from '../__fixtures__/published_asset.json';
     };
     return (
       <div>
-        <SingleAssetReferenceEditor
+        <MultipleMediaEditor
           viewType="card"
           sdk={sdk}
           isInitiallyDisabled={false}

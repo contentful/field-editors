@@ -3,7 +3,7 @@ import { FetchingWrappedAssetCard } from './WrappedAssetCard/FetchingWrappedAsse
 import { ReferenceEditorProps } from '../common/ReferenceEditor';
 import { SingleReferenceEditor } from '../common/SingleReferenceEditor';
 
-export function SingleAssetReferenceEditor(props: ReferenceEditorProps) {
+export function SingleMediaEditor(props: ReferenceEditorProps) {
   return (
     <SingleReferenceEditor {...props} entityType="Asset">
       {({ externalReset, entityId, disabled, onRemove }) => (
@@ -20,6 +20,6 @@ export function SingleAssetReferenceEditor(props: ReferenceEditorProps) {
   );
 }
 
-SingleAssetReferenceEditor.defaultProps = {
+SingleMediaEditor.defaultProps = {
   isInitiallyDisabled: true
 };

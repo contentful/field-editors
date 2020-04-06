@@ -1,17 +1,16 @@
 ---
-name: Reference - Multiple Assets
-route: /multiple-asset-reference
+name: Media
+route: /media-single
 menu: Components
 ---
 
-# Reference - Multiple Assets
+# Reference - Media
 
 import { Playground, Props } from 'docz';
-import { MultipleAssetReferenceEditor } from './MultipleAssetReferenceEditor.tsx'
+import { SingleMediaEditor } from './SingleMediaEditor.tsx'
 import { createFakeFieldAPI, createFakeSpaceAPI, createFakeLocalesAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
 import emptyAsset from '../__fixtures__/empty_asset.json';
 import publishedAsset from '../__fixtures__/published_asset.json';
-import draftAsset from '../__fixtures__/draft_asset.json';
 
 ## In Action
 
@@ -35,26 +34,16 @@ import draftAsset from '../__fixtures__/draft_asset.json';
           if (id === 'published_asset') {
             return Promise.resolve(publishedAsset);
           }
-          if (id === 'draft_asset') {
-            return Promise.resolve(draftAsset);
-          }
           return Promise.reject();
         },
       },
       dialogs: {
-        selectMultipleAssets: () => {
-          return [
-            {
-              sys: {
-                id: 'published_asset'
-              }
-            },
-            {
-              sys: {
-                id: 'draft_asset'
-              }
+        selectSingleAsset: () => {
+          return {
+            sys: {
+              id: 'published_asset'
             }
-          ]
+          }
         }
       },
       navigator: {
@@ -68,7 +57,7 @@ import draftAsset from '../__fixtures__/draft_asset.json';
           }
         },
         openAsset: () => {
-          alert('open Asset in slide in');
+          alert('open asset in slide in');
           return Promise.resolve({});
         },
         onSlideInNavigation: () => () => {}
@@ -76,7 +65,7 @@ import draftAsset from '../__fixtures__/draft_asset.json';
     };
     return (
       <div>
-        <MultipleAssetReferenceEditor
+        <SingleMediaEditor
           viewType="card"
           sdk={sdk}
           isInitiallyDisabled={false}

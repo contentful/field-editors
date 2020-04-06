@@ -1,2 +1,2 @@
-export { SingleAssetReferenceEditor } from './SingleAssetReferenceEditor';
-export { MultipleAssetReferenceEditor } from './MultipleAssetReferenceEditor';
+export { SingleMediaEditor } from './SingleMediaEditor';
+export { MultipleMediaEditor } from './MultipleMediaEditor';

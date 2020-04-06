@@ -3,7 +3,7 @@ import { ReferenceEditorProps } from '../common/ReferenceEditor';
 import { MultipleReferenceEditor } from '../common/MultipleReferenceEditor';
 import { SortableLinkList } from './SortableElements';
 
-export function MultipleAssetReferenceEditor(props: ReferenceEditorProps) {
+export function MultipleMediaEditor(props: ReferenceEditorProps) {
   return (
     <MultipleReferenceEditor {...props} entityType="Asset">
       {childrenProps => (
@@ -16,3 +16,7 @@ export function MultipleAssetReferenceEditor(props: ReferenceEditorProps) {
     </MultipleReferenceEditor>
   );
 }
+
+MultipleMediaEditor.defaultProps = {
+  isInitiallyDisabled: true
+};
