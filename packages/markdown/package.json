@@ -30,7 +30,7 @@
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15",
-    "markdown-to-jsx": "git://github.com/contentful/markdown-to-jsx.git#7af79aef2b581eaa0b1103e8642d639ba1fab196"
+    "markdown-to-jsx": "^6.11.1"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
