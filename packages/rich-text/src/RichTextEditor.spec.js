@@ -14,12 +14,14 @@ jest.mock('ng/debounce', () => jest.fn(), { virtual: true });
 
 const fakeProps = props => ({
   widgetAPI: {
-    permissions: {
-      canAccessAssets: true
-    },
     field: {
       id: 'FIELD_ID,',
       locale: 'FIELD_LOCALE'
+    },
+    parameters: {
+      instance: {
+        canAccessAssets: true
+      }
     }
   },
   value: undefined,
