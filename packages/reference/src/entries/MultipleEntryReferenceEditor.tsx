@@ -6,7 +6,9 @@ import { SortableLinkList } from './SortableElements';
 export function MultipleEntryReferenceEditor(props: ReferenceEditorProps) {
   return (
     <MultipleReferenceEditor {...props} entityType="Entry">
-      {childrenProps => <SortableLinkList {...childrenProps} axis="y" useDragHandle={true} />}
+      {childrenProps => (
+        <SortableLinkList {...props} {...childrenProps} axis="y" useDragHandle={true} />
+      )}
     </MultipleReferenceEditor>
   );
 }

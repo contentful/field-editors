@@ -8,6 +8,7 @@ export function MultipleMediaEditor(props: ReferenceEditorProps) {
     <MultipleReferenceEditor {...props} entityType="Asset">
       {childrenProps => (
         <SortableLinkList
+          {...props}
           {...childrenProps}
           axis={props.viewType === 'card' ? 'xy' : 'y'}
           useDragHandle={true}

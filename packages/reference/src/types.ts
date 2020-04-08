@@ -7,7 +7,8 @@ export {
   ContentType,
   ContentTypeField,
   Link,
-  EntityType
+  EntityType,
+  NavigatorSlideInfo
 } from 'contentful-ui-extensions-sdk';
 
 export { Entry, File, Asset } from '@contentful/field-editor-shared';

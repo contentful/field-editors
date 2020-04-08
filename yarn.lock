@@ -4303,7 +4303,7 @@ array-includes@^3.0.3, array-includes@^3.1.1:
     es-abstract "^1.17.0"
     is-string "^1.0.5"
 
-array-move@^2.1.0:
+array-move@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/array-move/-/array-move-2.2.1.tgz#16d5b68cb949c43e8821d63e4622f3a3336f254d"
   integrity sha512-qQpEHBnVT6HAFgEVUwRdHVd8TYJThrZIT5wSXpEUTPwBaYhPLclw12mEpyUvRWVdl1VwPOqnIy6LqTFN3cSeUQ==
@@ -6278,10 +6278,10 @@ contentful-ui-extensions-sdk@^3.11.0:
   dependencies:
     es6-promise "^4.2.8"
 
-contentful-ui-extensions-sdk@^3.11.2:
-  version "3.11.2"
-  resolved "https://registry.yarnpkg.com/contentful-ui-extensions-sdk/-/contentful-ui-extensions-sdk-3.11.2.tgz#0a8e8a5cf949f7f1b70a6e25fccd11d5df0ad5be"
-  integrity sha512-8I8wcE30e+XS1+DCYmzI90FEtLYa8bhYLHMmj8yqoKG8Uxhd2LT/QLT68ovB9dTZboiNDb5ZaRTLZv3PafEhJA==
+contentful-ui-extensions-sdk@^3.12.0:
+  version "3.12.0"
+  resolved "https://registry.yarnpkg.com/contentful-ui-extensions-sdk/-/contentful-ui-extensions-sdk-3.12.0.tgz#e42389600bf881c41baf3c7858369b6a5c8959a5"
+  integrity sha512-dNeeF/5B6q0nmqVSX6X0uDD6L5N/yN3GU8aVm5TbU9EXlKJ1Hs9HFtdbSHYe4zavnmTK3MLK7G0E8077FQFmPQ==
   dependencies:
     es6-promise "^4.2.8"
 
