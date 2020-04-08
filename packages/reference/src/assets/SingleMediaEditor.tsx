@@ -6,13 +6,13 @@ import { SingleReferenceEditor } from '../common/SingleReferenceEditor';
 export function SingleMediaEditor(props: ReferenceEditorProps) {
   return (
     <SingleReferenceEditor {...props} entityType="Asset">
-      {({ externalReset, entityId, disabled, onRemove }) => (
+      {({ externalReset, entityId, isDisabled, onRemove }) => (
         <FetchingWrappedAssetCard
           key={`single-asset-${externalReset}`}
           sdk={props.sdk}
           viewType="big_card"
           assetId={entityId}
-          disabled={disabled}
+          isDisabled={isDisabled}
           onRemove={onRemove}
         />
       )}

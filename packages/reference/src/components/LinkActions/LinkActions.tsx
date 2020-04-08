@@ -2,14 +2,14 @@ import * as React from 'react';
 import { TextLink } from '@contentful/forma-36-react-components';
 import * as styles from './styles';
 import { EntityType, ContentType } from '../../types';
-import { CreateEntryLinkButton } from '../CreateEntryLinkButton/CreateEntryLinkButton';
+import { CreateEntryLinkButton } from '..';
 
 interface LinkActionsProps {
   entityType: EntityType;
   contentTypes: ContentType[];
   canCreateEntity: boolean;
   multiple: boolean;
-  disabled: boolean;
+  isDisabled: boolean;
   onCreate: (contentType?: string) => Promise<unknown>;
   onLinkExisting: () => void;
 }
@@ -33,7 +33,7 @@ export function LinkActions(props: LinkActionsProps) {
           {props.entityType === 'Entry' && (
             <CreateEntryLinkButton
               testId={testIds.createAndLink}
-              disabled={props.disabled}
+              disabled={props.isDisabled}
               text={labels.createAndLink(
                 props.contentTypes.length === 1 ? props.contentTypes[0].name : 'entry'
               )}
@@ -49,7 +49,7 @@ export function LinkActions(props: LinkActionsProps) {
           )}
           {props.entityType === 'Asset' && (
             <TextLink
-              disabled={props.disabled}
+              disabled={props.isDisabled}
               testId={testIds.createAndLink}
               onClick={() => {
                 props.onCreate();
@@ -63,7 +63,7 @@ export function LinkActions(props: LinkActionsProps) {
         </>
       )}
       <TextLink
-        disabled={props.disabled}
+        disabled={props.isDisabled}
         testId={testIds.linkExisting}
         onClick={() => {
           props.onLinkExisting();

@@ -8,7 +8,7 @@ import { useEntities } from '../../common/EntityStore';
 
 type FetchingWrappedAssetCardProps = {
   assetId: string;
-  disabled: boolean;
+  isDisabled: boolean;
   sdk: FieldExtensionSDK;
   viewType: ViewType | 'big_card';
   onRemove: () => void;
@@ -28,12 +28,16 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
 
   if (asset === 'failed') {
     return (
-      <MissingEntityCard entityType="Asset" disabled={props.disabled} onRemove={props.onRemove} />
+      <MissingEntityCard
+        entityType="Asset"
+        isDisabled={props.isDisabled}
+        onRemove={props.onRemove}
+      />
     );
   }
 
   const commonProps = {
-    disabled: props.disabled,
+    isDisabled: props.isDisabled,
     href: props.getEntityUrl ? props.getEntityUrl(props.assetId) : '',
     localeCode: props.sdk.field.locale,
     defaultLocaleCode: props.sdk.locales.default,

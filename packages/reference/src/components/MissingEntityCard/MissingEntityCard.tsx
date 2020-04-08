@@ -5,7 +5,7 @@ import * as styles from './styles';
 
 export function MissingEntityCard(props: {
   entityType: EntityType;
-  disabled: boolean;
+  isDisabled: boolean;
   onRemove: Function;
 }) {
   return (
@@ -14,7 +14,7 @@ export function MissingEntityCard(props: {
         {props.entityType === 'Entry' && 'Entry is missing or inaccessible'}
         {props.entityType === 'Asset' && 'Asset is missing or inaccessible'}
       </SectionHeading>
-      {!props.disabled && (
+      {!props.isDisabled && (
         <IconButton
           buttonType="muted"
           label="Delete"

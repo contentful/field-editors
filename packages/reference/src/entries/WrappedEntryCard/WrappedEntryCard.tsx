@@ -26,7 +26,7 @@ interface WrappedEntryCardProps {
   getAsset: (assetId: string) => Promise<unknown>;
   getEntryUrl?: (entryId: string) => string;
   size: 'small' | 'default';
-  disabled: boolean;
+  isDisabled: boolean;
   onRemove: () => void;
   onEdit: () => void;
   localeCode: string;
@@ -67,7 +67,11 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
 
   if (status === 'deleted') {
     return (
-      <MissingEntityCard entityType="Entry" disabled={props.disabled} onRemove={props.onRemove} />
+      <MissingEntityCard
+        entityType="Entry"
+        isDisabled={props.isDisabled}
+        onRemove={props.onRemove}
+      />
     );
   }
 
@@ -133,7 +137,7 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
                 onClick={() => {
                   props.onRemove();
                 }}
-                isDisabled={props.disabled}
+                isDisabled={props.isDisabled}
                 testId="delete">
                 Remove
               </DropdownListItem>

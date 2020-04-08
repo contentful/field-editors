@@ -29,7 +29,7 @@ export interface WrappedAssetCardProps {
   defaultLocaleCode: string;
   href?: string;
   className?: string;
-  disabled: boolean;
+  isDisabled: boolean;
   onEdit: () => void;
   onRemove: () => void;
   size: 'default' | 'small';
@@ -51,13 +51,17 @@ function getFileType(file?: File): any {
 }
 
 export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
-  const { className, href, onEdit, onRemove, size, disabled } = props;
+  const { className, href, onEdit, onRemove, size, isDisabled } = props;
 
   const status = entityHelpers.getEntryStatus(props.asset.sys);
 
   if (status === 'deleted') {
     return (
-      <MissingEntityCard entityType="Asset" disabled={props.disabled} onRemove={props.onRemove} />
+      <MissingEntityCard
+        entityType="Asset"
+        isDisabled={props.isDisabled}
+        onRemove={props.onRemove}
+      />
     );
   }
 
@@ -95,7 +99,7 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
       withDragHandle={!!props.cardDragHandle}
       dropdownListElements={
         <React.Fragment>
-          {renderActions({ entityFile, isDisabled: disabled, onEdit, onRemove })}
+          {renderActions({ entityFile, isDisabled: isDisabled, onEdit, onRemove })}
           {entityFile ? renderAssetInfo({ entityFile }) : <span />}
         </React.Fragment>
       }

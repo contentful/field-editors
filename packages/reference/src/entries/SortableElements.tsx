@@ -19,7 +19,7 @@ const styles = {
 type SortableLinkListProps = ReferenceEditorProps & {
   items: ReferenceValue[];
   setValue: (value: ReferenceValue[]) => void;
-  disabled: boolean;
+  isDisabled: boolean;
   allContentTypes: ContentType[];
 };
 
@@ -32,19 +32,19 @@ const SortableLink = SortableElement((props: { children: React.ReactElement }) =
 export const SortableLinkList = SortableContainer((props: SortableLinkListProps) => (
   <div className={styles.containter}>
     {props.items.map((item, index) => (
-      <SortableLink disabled={props.disabled} key={`${item.sys.id}-${index}`} index={index}>
+      <SortableLink disabled={props.isDisabled} key={`${item.sys.id}-${index}`} index={index}>
         <FetchingWrappedEntryCard
           {...props}
           key={`${item.sys.id}-${index}`}
           allContentTypes={props.allContentTypes}
-          disabled={props.disabled}
+          isDisabled={props.isDisabled}
           entryId={item.sys.id}
           onRemove={() => {
             props.setValue(
               props.items.filter(filteringItem => filteringItem.sys.id !== item.sys.id)
             );
           }}
-          cardDragHandle={props.disabled ? undefined : <DragHandle />}
+          cardDragHandle={props.isDisabled ? undefined : <DragHandle />}
         />
       </SortableLink>
     ))}

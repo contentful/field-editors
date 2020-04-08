@@ -2,14 +2,14 @@ import * as React from 'react';
 import arrayMove from 'array-move';
 import { ReferenceValue, EntityType, ContentType } from '../types';
 import { fromFieldValidations } from '../utils/fromFieldValidations';
-import { ReferenceEditor, ReferenceEditorProps } from '../common/ReferenceEditor';
+import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
 import { LinkEntityActions } from '../components';
 import { SortEndHandler, SortStartHandler } from 'react-sortable-hoc';
 
 type ChildProps = {
   entityType: EntityType;
   items: ReferenceValue[];
-  disabled: boolean;
+  isDisabled: boolean;
   setValue: (value: ReferenceValue[]) => void;
   allContentTypes: ContentType[];
   onSortStart: SortStartHandler;
@@ -72,7 +72,7 @@ class Editor extends React.Component<
           allContentTypes={this.props.allContentTypes}
           validations={validations}
           sdk={this.props.sdk}
-          disabled={this.props.disabled}
+          isDisabled={this.props.isDisabled}
           multiple={true}
           canCreateEntity={this.props.parameters.instance.canCreateEntity}
           onCreate={this.onCreate}
@@ -103,7 +103,7 @@ export function MultipleReferenceEditor(
           <Editor
             {...props}
             items={items}
-            disabled={disabled}
+            isDisabled={disabled}
             setValue={setValue}
             key={`${externalReset}-list`}
             allContentTypes={allContentTypes}

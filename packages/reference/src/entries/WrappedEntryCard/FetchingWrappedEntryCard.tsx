@@ -9,7 +9,7 @@ import { ReferenceEditorProps } from '../../common/ReferenceEditor';
 export type EntryCardReferenceEditorProps = ReferenceEditorProps & {
   entryId: string;
   allContentTypes: ContentType[];
-  disabled: boolean;
+  isDisabled: boolean;
   onRemove: () => void;
   cardDragHandle?: React.ReactElement;
 };
@@ -27,7 +27,11 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
 
   if (entry === 'failed') {
     return (
-      <MissingEntityCard entityType="Entry" disabled={props.disabled} onRemove={props.onRemove} />
+      <MissingEntityCard
+        entityType="Entry"
+        isDisabled={props.isDisabled}
+        onRemove={props.onRemove}
+      />
     );
   }
 
@@ -40,7 +44,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       getAsset={props.sdk.space.getAsset}
       getEntityScheduledActions={props.sdk.space.getEntityScheduledActions}
       getEntryUrl={props.getEntityUrl}
-      disabled={props.disabled}
+      isDisabled={props.isDisabled}
       size={size}
       localeCode={props.sdk.field.locale}
       defaultLocaleCode={props.sdk.locales.default}

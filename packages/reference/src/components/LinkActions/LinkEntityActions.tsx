@@ -64,7 +64,7 @@ export function LinkEntityActions(props: {
   entityType: EntityType;
   sdk: FieldExtensionSDK;
   allContentTypes: ContentType[];
-  disabled: boolean;
+  isDisabled: boolean;
   multiple: boolean;
   canCreateEntity: boolean;
   validations: ReferenceValidations;
@@ -137,7 +137,7 @@ export function LinkEntityActions(props: {
     <LinkActions
       entityType={props.entityType}
       multiple={props.multiple}
-      disabled={props.disabled}
+      isDisabled={props.isDisabled}
       canCreateEntity={props.canCreateEntity}
       contentTypes={availableContentTypes}
       onCreate={onCreate}

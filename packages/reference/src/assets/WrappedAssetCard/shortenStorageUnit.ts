@@ -22,9 +22,9 @@ type UnitOfMeasure = 'PB' | 'TB' | 'GB' | 'MB' | 'KB' | 'B';
  * Make a storage unit number more readable by making them smaller
  * shortenStorageUnit(1000, 'GB'); // "1 TB"
  * shortenStorageUnit(0.001, 'TB'); // "1 GB"
- * @param {Number} number
- * @param {String} uom Unit of measure
- * @returns {String}
+ * @param value
+ * @param uom Unit of measure
+ * @returns
  */
 export function shortenStorageUnit(value: number, uom: UnitOfMeasure) {
   if (value <= 0) {

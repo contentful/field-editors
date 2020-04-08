@@ -11,20 +11,24 @@ export interface WrappedAssetLinkProps {
   defaultLocaleCode: string;
   href?: string;
   className?: string;
-  disabled: boolean;
+  isDisabled: boolean;
   onEdit: () => void;
   onRemove: () => void;
   cardDragHandle?: React.ReactElement;
 }
 
 export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
-  const { className, href, onEdit, onRemove, disabled } = props;
+  const { className, href, onEdit, onRemove, isDisabled } = props;
 
   const status = entityHelpers.getEntryStatus(props.asset.sys);
 
   if (status === 'deleted') {
     return (
-      <MissingEntityCard entityType="Asset" disabled={props.disabled} onRemove={props.onRemove} />
+      <MissingEntityCard
+        entityType="Asset"
+        isDisabled={props.isDisabled}
+        onRemove={props.onRemove}
+      />
     );
   }
 
@@ -56,7 +60,7 @@ export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
       withDragHandle={!!props.cardDragHandle}
       dropdownListElements={
         <React.Fragment>
-          {renderActions({ entityFile, isDisabled: disabled, onEdit, onRemove })}
+          {renderActions({ entityFile, isDisabled: isDisabled, onEdit, onRemove })}
           {entityFile ? renderAssetInfo({ entityFile }) : <span />}
         </React.Fragment>
       }

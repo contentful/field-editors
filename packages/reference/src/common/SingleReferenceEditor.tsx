@@ -2,14 +2,14 @@ import * as React from 'react';
 import { ReferenceValue, EntityType, ContentType } from '../types';
 import { fromFieldValidations } from '../utils/fromFieldValidations';
 import { LinkEntityActions } from '../components';
-import { ReferenceEditor, ReferenceEditorProps } from '../common/ReferenceEditor';
+import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
 
 export function SingleReferenceEditor(
   props: ReferenceEditorProps & {
     entityType: EntityType;
     children: (props: {
       entityId: string;
-      disabled: boolean;
+      isDisabled: boolean;
       allContentTypes: ContentType[];
       externalReset: number;
       onRemove: () => void;
@@ -33,7 +33,7 @@ export function SingleReferenceEditor(
               allContentTypes={allContentTypes}
               validations={validations}
               sdk={props.sdk}
-              disabled={disabled}
+              isDisabled={disabled}
               multiple={false}
               canCreateEntity={props.parameters.instance.canCreateEntity}
               onCreate={id => {
@@ -61,7 +61,7 @@ export function SingleReferenceEditor(
         return props.children({
           externalReset,
           allContentTypes,
-          disabled,
+          isDisabled: disabled,
           entityId: value.sys.id,
           onRemove: () => {
             setValue(null);

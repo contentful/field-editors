@@ -25,7 +25,7 @@ const styles = {
 type SortableLinkListProps = ReferenceEditorProps & {
   items: ReferenceValue[];
   setValue: (value: ReferenceValue[]) => void;
-  disabled: boolean;
+  isDisabled: boolean;
 };
 
 const DragHandle = SortableHandle(() => <CardDragHandle>Reorder item</CardDragHandle>);
@@ -37,11 +37,11 @@ const SortableLink = SortableElement((props: { children: React.ReactElement }) =
 export const SortableLinkList = SortableContainer((props: SortableLinkListProps) => (
   <div className={props.viewType === 'card' ? styles.gridContainter : styles.container}>
     {props.items.map((item, index) => (
-      <SortableLink disabled={props.disabled} key={`${item.sys.id}-${index}`} index={index}>
+      <SortableLink disabled={props.isDisabled} key={`${item.sys.id}-${index}`} index={index}>
         <FetchingWrappedAssetCard
           sdk={props.sdk}
           key={`${item.sys.id}-${index}`}
-          disabled={props.disabled}
+          isDisabled={props.isDisabled}
           assetId={item.sys.id}
           viewType={props.viewType}
           onRemove={() => {
@@ -49,7 +49,7 @@ export const SortableLinkList = SortableContainer((props: SortableLinkListProps)
               props.items.filter(filteringItem => filteringItem.sys.id !== item.sys.id)
             );
           }}
-          cardDragHandle={props.disabled ? undefined : <DragHandle />}
+          cardDragHandle={props.isDisabled ? undefined : <DragHandle />}
         />
       </SortableLink>
     ))}
