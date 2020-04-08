@@ -9,7 +9,7 @@ export function SingleMediaEditor(props: ReferenceEditorProps) {
       {({ externalReset, entityId, isDisabled, onRemove }) => (
         <FetchingWrappedAssetCard
           key={`single-asset-${externalReset}`}
-          sdk={props.sdk}
+          {...props}
           viewType="big_card"
           assetId={entityId}
           isDisabled={isDisabled}
