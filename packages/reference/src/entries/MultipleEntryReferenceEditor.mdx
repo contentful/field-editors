@@ -1,0 +1,98 @@
+---
+name: Reference - Multiple entries
+route: /reference-multiple
+menu: Components
+---
+
+# Reference - Multiple entries
+
+import { Playground, Props } from 'docz';
+import { MultipleEntryReferenceEditor } from './MultipleEntryReferenceEditor.tsx'
+import { createFakeFieldAPI, createFakeSpaceAPI, createFakeLocalesAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
+import emptyEntry from '../__fixtures__/empty_entry.json';
+import publishedEntry from '../__fixtures__/published_entry.json';
+import changedEntry from '../__fixtures__/changed_entry.json';
+
+## In Action
+
+<Playground>
+  {() => {
+    const initialValue = window.localStorage.getItem('initialValue');
+    const isInitiallyDisabled = window.localStorage.getItem('initialDisabled');
+    const instanceParams = window.localStorage.getItem('instanceParams');
+    const [field, mitt] = createFakeFieldAPI(field => field, initialValue);
+    const space = createFakeSpaceAPI();
+    const locales = createFakeLocalesAPI();
+    const sdk = {
+      field,
+      locales,
+      space: {
+        ...space,
+        getEntry: (id) => {
+          if (id === 'empty_entry') {
+            return Promise.resolve(emptyEntry);
+          }
+          if (id === 'published_entry') {
+            return Promise.resolve(publishedEntry);
+          }
+          if (id === 'changed_entry') {
+            return Promise.resolve(changedEntry);
+          }
+          return Promise.reject();
+        },
+        getEntityScheduledActions() {
+          return Promise.resolve([]);
+        }
+      },
+      dialogs: {
+        selectMultipleEntries: () => {
+          return [
+            {
+              sys: {
+                id: 'published_entry'
+              }
+            },
+            {
+              sys: {
+                id: 'changed_entry'
+              }
+            }
+          ]
+        }
+      },
+      navigator: {
+        openNewEntry: async () => {
+          return {
+            entity: {
+              sys: {
+                id: 'empty_entry'
+              }
+            }
+          }
+        },
+        openEntry: () => {
+          alert('open entry in slide in');
+          return Promise.resolve({});
+        },
+        onSlideInNavigation: () => () => {}
+      }
+    };
+    return (
+      <div>
+        <MultipleEntryReferenceEditor
+          viewType="link"
+          sdk={sdk}
+          isInitiallyDisabled={false}
+          parameters={{
+            instance: {
+              canCreateEntity: true
+            }
+          }}
+         />
+        <ActionsPlayground mitt={mitt} />
+      </div>
+    );
+
+}}
+
+</Playground>

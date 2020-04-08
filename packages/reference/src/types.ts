@@ -1,4 +1,4 @@
-import { EntityType, NavigatorSlideInfo } from 'contentful-ui-extensions-sdk';
+import { NavigatorSlideInfo, EntityType } from 'contentful-ui-extensions-sdk';
 import { Entry, Asset } from '@contentful/field-editor-shared';
 
 export {
@@ -10,7 +10,15 @@ export {
   EntityType
 } from 'contentful-ui-extensions-sdk';
 
-export { ReferenceEntityType, Entry, File, Asset } from '@contentful/field-editor-shared';
+export { Entry, File, Asset } from '@contentful/field-editor-shared';
+
+export type ReferenceValue = {
+  sys: {
+    type: 'Link';
+    id: string;
+    linkType: EntityType;
+  };
+};
 
 export type EntryReferenceValue = {
   sys: {

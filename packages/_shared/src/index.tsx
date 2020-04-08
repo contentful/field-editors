@@ -16,4 +16,4 @@ export { entityHelpers };
 import * as ConstraintsUtils from './utils/constraints';
 export { ConstraintsUtils };
 
-export { Entry, File, ReferenceEntityType, Asset } from './typesEntity';
+export { Entry, File, Asset } from './typesEntity';

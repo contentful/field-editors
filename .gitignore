@@ -1,5 +1,6 @@
 node_modules
 .docz/
+.idea/
 *.log
 .DS_Store
 node_modules

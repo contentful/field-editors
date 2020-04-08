@@ -25,13 +25,15 @@
     "@contentful/forma-36-react-components": "^3.31.8",
     "@contentful/forma-36-tokens": "^0.5.1",
     "@contentful/mimetype": "^1.1.4",
+    "array-move": "^2.2.1",
     "constate": "2.0.0",
     "contentful-ui-extensions-sdk": "^3.11.2",
     "deep-equal": "1.1.0",
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15",
-    "moment": "^2.20.0"
+    "moment": "^2.20.0",
+    "react-sortable-hoc": "^1.11.0"
   },
   "devDependencies": {
     "@contentful/field-editor-test-utils": "^0.5.0"

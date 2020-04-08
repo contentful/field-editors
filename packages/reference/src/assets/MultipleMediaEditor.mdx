@@ -1,0 +1,95 @@
+---
+name: Media - Multiple files
+route: /media-multiple
+menu: Components
+---
+
+# Media - Multiple files
+
+import { Playground, Props } from 'docz';
+import { MultipleMediaEditor } from './MultipleMediaEditor.tsx'
+import { createFakeFieldAPI, createFakeSpaceAPI, createFakeLocalesAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
+import emptyAsset from '../__fixtures__/empty_asset.json';
+import publishedAsset from '../__fixtures__/published_asset.json';
+import changedAsset from '../__fixtures__/changed_asset.json';
+
+## In Action
+
+<Playground>
+  {() => {
+    const initialValue = window.localStorage.getItem('initialValue');
+    const isInitiallyDisabled = window.localStorage.getItem('initialDisabled');
+    const instanceParams = window.localStorage.getItem('instanceParams');
+    const [field, mitt] = createFakeFieldAPI(field => field, initialValue);
+    const space = createFakeSpaceAPI();
+    const locales = createFakeLocalesAPI();
+    const sdk = {
+      field,
+      locales,
+      space: {
+        ...space,
+        getAsset: (id) => {
+          if (id === 'empty_asset') {
+            return Promise.resolve(emptyAsset);
+          }
+          if (id === 'published_asset') {
+            return Promise.resolve(publishedAsset);
+          }
+          if (id === 'changed_asset') {
+            return Promise.resolve(changedAsset);
+          }
+          return Promise.reject();
+        },
+      },
+      dialogs: {
+        selectMultipleAssets: () => {
+          return [
+            {
+              sys: {
+                id: 'published_asset'
+              }
+            },
+            {
+              sys: {
+                id: 'changed_asset'
+              }
+            }
+          ]
+        }
+      },
+      navigator: {
+        openNewAsset: async () => {
+          return {
+            entity: {
+              sys: {
+                id: 'empty_asset'
+              }
+            }
+          }
+        },
+        openAsset: () => {
+          alert('open Asset in slide in');
+          return Promise.resolve({});
+        },
+        onSlideInNavigation: () => () => {}
+      }
+    };
+    return (
+      <div>
+        <MultipleMediaEditor
+          viewType="card"
+          sdk={sdk}
+          isInitiallyDisabled={false}
+          parameters={{
+            instance: {
+              canCreateEntity: true
+            }
+          }}
+         />
+        <ActionsPlayground mitt={mitt} />
+      </div>
+    );
+
+}}
+
+</Playground>

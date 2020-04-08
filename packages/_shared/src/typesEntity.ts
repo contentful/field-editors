@@ -8,8 +8,6 @@ export {
   EntrySys
 } from 'contentful-ui-extensions-sdk';
 
-export type ReferenceEntityType = 'entry' | 'asset';
-
 export interface Entry {
   sys: EntrySys;
   fields: {

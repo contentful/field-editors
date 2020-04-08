@@ -1,0 +1,84 @@
+---
+name: Media
+route: /media-single
+menu: Components
+---
+
+# Reference - Media
+
+import { Playground, Props } from 'docz';
+import { SingleMediaEditor } from './SingleMediaEditor.tsx'
+import { createFakeFieldAPI, createFakeSpaceAPI, createFakeLocalesAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
+import emptyAsset from '../__fixtures__/empty_asset.json';
+import publishedAsset from '../__fixtures__/published_asset.json';
+
+## In Action
+
+<Playground>
+  {() => {
+    const initialValue = window.localStorage.getItem('initialValue');
+    const isInitiallyDisabled = window.localStorage.getItem('initialDisabled');
+    const instanceParams = window.localStorage.getItem('instanceParams');
+    const [field, mitt] = createFakeFieldAPI(field => field, initialValue);
+    const space = createFakeSpaceAPI();
+    const locales = createFakeLocalesAPI();
+    const sdk = {
+      field,
+      locales,
+      space: {
+        ...space,
+        getAsset: (id) => {
+          if (id === 'empty_asset') {
+            return Promise.resolve(emptyAsset);
+          }
+          if (id === 'published_asset') {
+            return Promise.resolve(publishedAsset);
+          }
+          return Promise.reject();
+        },
+      },
+      dialogs: {
+        selectSingleAsset: () => {
+          return {
+            sys: {
+              id: 'published_asset'
+            }
+          }
+        }
+      },
+      navigator: {
+        openNewAsset: async () => {
+          return {
+            entity: {
+              sys: {
+                id: 'empty_asset'
+              }
+            }
+          }
+        },
+        openAsset: () => {
+          alert('open asset in slide in');
+          return Promise.resolve({});
+        },
+        onSlideInNavigation: () => () => {}
+      }
+    };
+    return (
+      <div>
+        <SingleMediaEditor
+          viewType="card"
+          sdk={sdk}
+          isInitiallyDisabled={false}
+          parameters={{
+            instance: {
+              canCreateEntity: true
+            }
+          }}
+         />
+        <ActionsPlayground mitt={mitt} />
+      </div>
+    );
+
+}}
+
+</Playground>

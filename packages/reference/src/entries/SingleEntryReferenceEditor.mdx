@@ -1,0 +1,87 @@
+---
+name: Reference - Single
+route: /reference-single
+menu: Components
+---
+
+# Reference - Single
+
+import { Playground, Props } from 'docz';
+import { SingleEntryReferenceEditor } from './SingleEntryReferenceEditor.tsx'
+import { createFakeFieldAPI, createFakeSpaceAPI, createFakeLocalesAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
+import emptyEntry from '../__fixtures__/empty_entry.json';
+import publishedEntry from '../__fixtures__/published_entry.json';
+
+## In Action
+
+<Playground>
+  {() => {
+    const initialValue = window.localStorage.getItem('initialValue');
+    const isInitiallyDisabled = window.localStorage.getItem('initialDisabled');
+    const instanceParams = window.localStorage.getItem('instanceParams');
+    const [field, mitt] = createFakeFieldAPI(field => field, initialValue);
+    const space = createFakeSpaceAPI();
+    const locales = createFakeLocalesAPI();
+    const sdk = {
+      field,
+      locales,
+      space: {
+        ...space,
+        getEntry: (id) => {
+          if (id === 'empty_entry') {
+            return Promise.resolve(emptyEntry);
+          }
+          if (id === 'published_entry') {
+            return Promise.resolve(publishedEntry);
+          }
+          return Promise.reject();
+        },
+        getEntityScheduledActions() {
+          return Promise.resolve([]);
+        }
+      },
+      dialogs: {
+        selectSingleEntry: () => {
+          return {
+            sys: {
+              id: 'published_entry'
+            }
+          }
+        }
+      },
+      navigator: {
+        openNewEntry: async () => {
+          return {
+            entity: {
+              sys: {
+                id: 'empty_entry'
+              }
+            }
+          }
+        },
+        openEntry: () => {
+          alert('open entry in slide in');
+          return Promise.resolve({});
+        },
+        onSlideInNavigation: () => () => {}
+      }
+    };
+    return (
+      <div>
+        <SingleEntryReferenceEditor
+          viewType="card"
+          sdk={sdk}
+          isInitiallyDisabled={false}
+          parameters={{
+            instance: {
+              canCreateEntity: true
+            }
+          }}
+         />
+        <ActionsPlayground mitt={mitt} />
+      </div>
+    );
+
+}}
+
+</Playground>

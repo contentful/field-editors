@@ -23,6 +23,16 @@ const testContentTypes: ContentType[] = [
         required: true,
         type: 'Symbol',
         validations: []
+      },
+      {
+        id: 'exDesc',
+        disabled: false,
+        localized: false,
+        name: 'Description Field',
+        omitted: false,
+        required: false,
+        type: 'Text',
+        validations: []
       }
     ],
     displayField: 'exField',
