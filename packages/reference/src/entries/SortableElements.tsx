@@ -36,6 +36,7 @@ export const SortableLinkList = SortableContainer((props: SortableLinkListProps)
         <FetchingWrappedEntryCard
           {...props}
           key={`${item.sys.id}-${index}`}
+          index={index}
           allContentTypes={props.allContentTypes}
           isDisabled={props.isDisabled}
           entryId={item.sys.id}

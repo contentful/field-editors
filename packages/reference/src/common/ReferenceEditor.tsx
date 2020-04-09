@@ -21,6 +21,7 @@ export interface ReferenceEditorProps {
   parameters: {
     instance: {
       canCreateEntity: boolean;
+      bulkEditing?: boolean;
     };
   };
 }

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { EntryCard } from '@contentful/forma-36-react-components';
-import { ContentType } from '../../types';
+import { ContentType, FieldExtensionSDK, NavigatorSlideInfo } from '../../types';
 import { WrappedEntryCard } from './WrappedEntryCard';
 import { MissingEntityCard } from '../../components';
 import { useEntities } from '../../common/EntityStore';
@@ -8,11 +8,42 @@ import { ReferenceEditorProps } from '../../common/ReferenceEditor';
 
 export type EntryCardReferenceEditorProps = ReferenceEditorProps & {
   entryId: string;
+  index?: number;
   allContentTypes: ContentType[];
   isDisabled: boolean;
   onRemove: () => void;
   cardDragHandle?: React.ReactElement;
 };
+
+async function openEntry(
+  sdk: FieldExtensionSDK,
+  entryId: string,
+  options: { bulkEditing?: boolean; index?: number }
+) {
+  let slide: NavigatorSlideInfo | undefined = undefined;
+
+  if (options.bulkEditing) {
+    try {
+      const result = await sdk.navigator.openBulkEditor(sdk.entry.getSys().id, {
+        fieldId: sdk.field.id,
+        locale: sdk.field.locale,
+        index: options.index ?? 0
+      });
+      slide = result.slide;
+      return slide;
+    } catch (e) {
+      // we don't allow to open multiple bulk editors for performance reasons
+      // proceed with a default openEntry
+    }
+  }
+
+  const result = await sdk.navigator.openEntry(entryId, {
+    slideIn: true
+  });
+  slide = result.slide;
+
+  return slide;
+}
 
 export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
   const { loadEntry, entries } = useEntities();
@@ -52,8 +83,9 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       entry={entry}
       cardDragHandle={props.cardDragHandle}
       onEdit={async () => {
-        const { slide } = await props.sdk.navigator.openEntry(entry.sys.id, {
-          slideIn: true
+        const slide = await openEntry(props.sdk, entry.sys.id, {
+          bulkEditing: props.parameters.instance.bulkEditing,
+          index: props.index
         });
         props.onAction &&
           props.onAction({
