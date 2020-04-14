@@ -1,30 +1,39 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import {
-  DisplayText,
-  Paragraph,
-  SectionHeading,
-  Form
-} from '@contentful/forma-36-react-components';
+import { DisplayText, Form } from '@contentful/forma-36-react-components';
 import { init, locations, EditorExtensionSDK } from 'contentful-ui-extensions-sdk';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import '@contentful/forma-36-fcss/dist/styles.css';
 import './index.css';
+import { SingleLineEditor } from '../../../packages/single-line/src/index';
+import { EntryFieldAPI, LocalesAPI } from '@contentful/field-editor-shared';
 
 interface AppProps {
   sdk: EditorExtensionSDK;
 }
+const Fieldo = ({ field, locales }: { field: EntryFieldAPI; locales: LocalesAPI }) => {
+  switch (field.type) {
+    case 'Symbol':
+      return <SingleLineEditor field={field} locales={locales} />;
+  }
+  console.log(field);
+  return (
+    <div>
+      field {field.id} of type {field.type} was not implemented yet
+    </div>
+  );
+};
 
 export class App extends React.Component<AppProps> {
   render() {
+    const { fields } = this.props.sdk.entry;
+    console.log(this.props.sdk);
     return (
       <Form className="f36-margin--l">
         <DisplayText testId="title">Entry extension demo</DisplayText>
-        <Paragraph>
-          This demo uses a single UI Extension to render the whole editor for an entry.
-        </Paragraph>
-        <SectionHeading>Title</SectionHeading>
-        <SectionHeading>Body</SectionHeading>
+        {Object.keys(fields).map(k => (
+          <Fieldo key={k} field={fields[k]} locales={this.props.sdk.locales} />
+        ))}
       </Form>
     );
   }
