@@ -6,6 +6,7 @@ import '@contentful/forma-36-react-components/dist/styles.css';
 import '@contentful/forma-36-fcss/dist/styles.css';
 import './index.css';
 import { SingleLineEditor } from '../../../packages/single-line/src/index';
+import { NumberEditor } from '../../../packages/number/src/index';
 import { EntryFieldAPI, LocalesAPI } from '@contentful/field-editor-shared';
 
 interface AppProps {
@@ -15,6 +16,8 @@ const Fieldo = ({ field, locales }: { field: EntryFieldAPI; locales: LocalesAPI 
   switch (field.type) {
     case 'Symbol':
       return <SingleLineEditor field={field} locales={locales} />;
+    case 'Integer':
+      return <NumberEditor field={field} />;
   }
   console.log(field);
   return (
