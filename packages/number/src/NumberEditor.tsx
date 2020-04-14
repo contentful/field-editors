@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { TextInput } from '@contentful/forma-36-react-components';
-import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
+import { FieldAPI, EntryFieldAPI, FieldConnector } from '@contentful/field-editor-shared';
 import { parseNumber } from './parseNumber';
 
 export interface NumberEditorProps {
@@ -9,12 +9,12 @@ export interface NumberEditorProps {
    */
   isInitiallyDisabled: boolean;
 
-  field: FieldAPI;
+  field: FieldAPI | EntryFieldAPI;
 }
 
 type RangeValidation = { min?: number; max?: number };
 
-function getRangeFromField(field: FieldAPI): RangeValidation {
+function getRangeFromField(field: FieldAPI | EntryFieldAPI): RangeValidation {
   const validations = field.validations || [];
   const result = validations.find(validation => (validation as any).range) as
     | { range: RangeValidation }
@@ -44,7 +44,9 @@ export function NumberEditor(props: NumberEditorProps) {
               value={value === undefined ? '' : String(value)}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 const parseResult = parseNumber(e.target.value, field.type);
-                field.setInvalid(!parseResult.isValid);
+                if ('setInvalid' in field) {
+                  field.setInvalid(!parseResult.isValid);
+                }
                 if (parseResult.isValid) {
                   setValue(parseResult.value);
                 }
