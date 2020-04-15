@@ -1,6 +1,15 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { DisplayText, Form, TextLink, Modal, Button } from '@contentful/forma-36-react-components';
+import {
+  DisplayText,
+  Form,
+  TextLink,
+  Modal,
+  Button,
+  Dropdown,
+  DropdownList,
+  DropdownListItem,
+} from '@contentful/forma-36-react-components';
 import { init, locations, EditorExtensionSDK } from 'contentful-ui-extensions-sdk';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import '@contentful/forma-36-fcss/dist/styles.css';
@@ -19,7 +28,10 @@ interface FieldGroup {
 
 type FieldKey = string;
 
-const AppContext = React.createContext<{ state: AppState; dispatch: any } | undefined>(undefined);
+const AppContext = React.createContext<{ state: AppState; dispatch: any }>(undefined!);
+// non null statement here is to avoid having to continually assert context
+// throughout the code
+
 
 interface AppState {
   fields: FieldKey[];
@@ -29,24 +41,29 @@ interface AppState {
 enum ActionTypes {
   CREATE_FIELD_GROUP,
   DELETE_FIELD_GROUP,
-  RENAME_FIELD_GROUP
+  RENAME_FIELD_GROUP,
+
+  ADD_FIELD_TO_GROUP,
 }
 type Action =
   | { type: ActionTypes.CREATE_FIELD_GROUP }
   | { type: ActionTypes.DELETE_FIELD_GROUP; index: number }
-  | { type: ActionTypes.RENAME_FIELD_GROUP; index: number; name: string };
+  | { type: ActionTypes.RENAME_FIELD_GROUP; index: number; name: string }
+  | { type: ActionTypes.ADD_FIELD_TO_GROUP; index: number; fieldKey: FieldKey };
 
-const initialState: AppState = {
-  fields: [],
-  fieldGroups: []
+const initialState = (fields: string[]): AppState => {
+  return {
+    fields,
+    fieldGroups: [],
+  };
 };
 
-function deleteFieldGroup(state: AppState, action: any) {
+const deleteFieldGroup = (state: AppState, action: any): AppState => {
   const fieldGroups = state.fieldGroups
     .slice(0, action.index)
     .concat(state.fieldGroups.slice(action.index + 1));
   return { ...state, fieldGroups };
-}
+};
 
 const reducer = (state: AppState, action: Action): AppState => {
   switch (action.type) {
@@ -58,21 +75,38 @@ const reducer = (state: AppState, action: Action): AppState => {
       const fieldGroups = [...state.fieldGroups];
       fieldGroups[action.index].name = action.name;
       return { ...state, fieldGroups };
+    case ActionTypes.ADD_FIELD_TO_GROUP:
+      const newFieldGroups = [...state.fieldGroups];
+      newFieldGroups[action.index].fields.push(action.fieldKey);
+      return { ...state, fieldGroups: newFieldGroups };
   }
   return { ...state };
 };
 
+// UTILS
+const findUnassignedFields = (appState: AppState): FieldKey[] => {
+  const assignedFields = appState.fieldGroups
+    .flatMap((fg: FieldGroup) => fg.fields)
+    .reduce((acc, field: FieldKey) => {
+      acc[field] = true;
+      return acc;
+    }, {});
+
+  console.log(assignedFields);
+  return appState.fields.filter(f => !assignedFields[f]);
+};
+
 export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
   const { fields } = props.sdk.entry;
-  console.log(props.sdk);
-  const [state, dispatch] = React.useReducer(reducer, initialState);
+
+  const [state, dispatch] = React.useReducer(reducer, initialState(Object.keys(fields)));
   console.log(state);
   const [dialogOpen, setDialogOpen] = React.useState(false);
   return (
     <AppContext.Provider value={{ state, dispatch }}>
       <Form className="f36-margin--l">
         <DisplayText testId="title">Entry extension demo</DisplayText>
-        {Object.keys(fields).map(k => (
+        {findUnassignedFields(state).map(k => (
           <Field key={k} field={fields[k]} locales={props.sdk.locales} />
         ))}
         <TextLink onClick={() => setDialogOpen(true)}>Edit field groups</TextLink>
@@ -90,6 +124,10 @@ export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
   );
 };
 
+
+// -----------------
+// THE EDITOR DIALOGUE
+// -----------------
 interface FieldGroupEditorProps {
   sdk: EditorExtensionSDK;
   fieldGroups: FieldGroup[];
@@ -99,7 +137,6 @@ interface FieldGroupEditorProps {
 
 class FieldGroupEditor extends React.Component<FieldGroupEditorProps> {
   render() {
-    // const { fields } = this.props.sdk.entry;
     const { fieldGroups } = this.props;
 
     return (
@@ -121,6 +158,7 @@ interface FieldGroupProps extends FieldGroup {
 
 const FieldGroup: React.FC<FieldGroupProps> = ({ name, fields, index }: FieldGroupProps) => {
   const { state, dispatch } = React.useContext(AppContext);
+  const [dropdownOpen, setDropdownOpen] = React.useState(false);
   return (
     <div>
       <input
@@ -129,19 +167,40 @@ const FieldGroup: React.FC<FieldGroupProps> = ({ name, fields, index }: FieldGro
           dispatch({
             type: ActionTypes.RENAME_FIELD_GROUP,
             index,
-            name: e.target.value
+            name: e.target.value,
           })
         }
       />
-      <h3>{index}</h3>
       <button onClick={() => dispatch({ type: ActionTypes.DELETE_FIELD_GROUP, index })}>
         delete group
       </button>
-      <div>
-        {fields.map(() => (
-          <p>field</p>
-        ))}
-      </div>
+      <h3>Fields</h3>
+      <div>select a field to add</div>
+      <Dropdown
+        isOpen={dropdownOpen}
+        onClose={() => setDropdownOpen(false)}
+        toggleElement={
+          <Button
+            size="small"
+            buttonType="muted"
+            onClick={() => setDropdownOpen(true)}
+            indicateDropdown>
+            Select a field to add
+          </Button>
+        }>
+        <DropdownList>
+          {findUnassignedFields(state).map((fieldKey: FieldKey) => (
+            <DropdownListItem
+              onClick={() => dispatch({ type: ActionTypes.ADD_FIELD_TO_GROUP, index, fieldKey })}
+              key={fieldKey}>
+              {fieldKey}
+            </DropdownListItem>
+          ))}
+        </DropdownList>
+      </Dropdown>
+      {fields.map(field => (
+        <div>{field}</div>
+      ))}
     </div>
   );
 };
