@@ -4,7 +4,7 @@ import {
   Button,
   Dropdown,
   DropdownList,
-  DropdownListItem,
+  DropdownListItem
 } from '@contentful/forma-36-react-components';
 import { EditorExtensionSDK } from 'contentful-ui-extensions-sdk';
 import { ActionTypes, FieldKey, FieldGroup, findUnassignedFields, AppContext } from './shared';
@@ -52,7 +52,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({ name, fields, index }: Fi
           dispatch({
             type: ActionTypes.RENAME_FIELD_GROUP,
             index,
-            name: e.target.value,
+            name: e.target.value
           })
         }
       />

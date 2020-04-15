@@ -17,9 +17,8 @@ export enum ActionTypes {
   DELETE_FIELD_GROUP,
   RENAME_FIELD_GROUP,
 
-  ADD_FIELD_TO_GROUP,
+  ADD_FIELD_TO_GROUP
 }
-
 
 export const AppContext = React.createContext<{ state: AppState; dispatch: any }>(undefined!);
 // non null statement here is to avoid having to continually assert context

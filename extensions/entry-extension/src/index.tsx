@@ -6,6 +6,7 @@ import '@contentful/forma-36-react-components/dist/styles.css';
 import '@contentful/forma-36-fcss/dist/styles.css';
 import './index.css';
 import { LocalesAPI } from '@contentful/field-editor-shared';
+import produce from 'immer';
 
 import { Field } from './Field';
 import { FieldGroupsEditor } from './FieldGroupsEditor';
@@ -29,44 +30,37 @@ const initialState = (fields: string[]): AppState => {
   };
 };
 
-const deleteFieldGroup = (state: AppState, action: any): AppState => {
-  const fieldGroups = state.fieldGroups
-    .slice(0, action.index)
-    .concat(state.fieldGroups.slice(action.index + 1));
-  return { ...state, fieldGroups };
-};
-
 type Action =
   | { type: ActionTypes.CREATE_FIELD_GROUP }
   | { type: ActionTypes.DELETE_FIELD_GROUP; index: number }
   | { type: ActionTypes.RENAME_FIELD_GROUP; index: number; name: string }
   | { type: ActionTypes.ADD_FIELD_TO_GROUP; index: number; fieldKey: FieldKey };
 
-type Reducer = (state: AppState, action: Action) => AppState;
-
-const reducer: Reducer = (state, action) => {
+const reducer: React.Reducer<AppState, Action> = (state, action) => {
   switch (action.type) {
     case ActionTypes.CREATE_FIELD_GROUP:
-      return { ...state, fieldGroups: [...state.fieldGroups, { name: '', fields: [] }] };
+      state.fieldGroups.push({ name: '', fields: [] });
+      return state
     case ActionTypes.DELETE_FIELD_GROUP:
-      return deleteFieldGroup(state, action);
+      state.fieldGroups = state.fieldGroups
+        .slice(0, action.index)
+        .concat(state.fieldGroups.slice(action.index + 1));
+      return state
     case ActionTypes.RENAME_FIELD_GROUP:
-      const fieldGroups = [...state.fieldGroups];
-      fieldGroups[action.index].name = action.name;
-      return { ...state, fieldGroups };
+      state.fieldGroups[action.index].name = action.name;
+      return state
     case ActionTypes.ADD_FIELD_TO_GROUP:
-      const newFieldGroups = [...state.fieldGroups];
-      newFieldGroups[action.index].fields.push(action.fieldKey);
-      return { ...state, fieldGroups: newFieldGroups };
+      state.fieldGroups[action.index].fields.push(action.fieldKey);
+      return state
   }
-  return { ...state };
+  return state;
 };
 
 const useLocalStateReducer = (
-  reducer: Reducer,
+  reducer: React.Reducer<AppState, Action>,
   defaultState: AppState
-): [React.ReducerState<Reducer>, React.Dispatch<Action>] => {
-  const [state, dispatch] = React.useReducer(reducer, defaultState, state => {
+): [React.ReducerState<React.Reducer<AppState, Action>>, React.Dispatch<Action>] => {
+  const [state, dispatch] = React.useReducer(produce(reducer), defaultState, state => {
     const stored = localStorage.getItem('entry-editor-storage');
     if (stored) {
       return JSON.parse(stored);
