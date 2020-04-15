@@ -32,7 +32,8 @@ const styles = {
     position: 'absolute',
     bottom: '-65px',
     left: 0,
-    minWidth: '400px'
+    minWidth: '400px',
+    zIndex: 1
   })
 };
 
