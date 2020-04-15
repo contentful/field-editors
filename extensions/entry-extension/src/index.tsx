@@ -5,19 +5,12 @@ import { init, locations, EditorExtensionSDK } from 'contentful-ui-extensions-sd
 import '@contentful/forma-36-react-components/dist/styles.css';
 import '@contentful/forma-36-fcss/dist/styles.css';
 import './index.css';
-import { LocalesAPI } from '@contentful/field-editor-shared';
 import produce from 'immer';
 
 import { Field } from './Field';
 import { FieldGroupsEditor } from './FieldGroupsEditor';
-import {
-  FieldGroup,
-  FieldKey,
-  ActionTypes,
-  findUnassignedFields,
-  AppState,
-  AppContext,
-} from './shared';
+import { CollapsibleFieldGroup } from './CollapsibleFieldGroup';
+import { FieldKey, ActionTypes, findUnassignedFields, AppState, AppContext } from './shared';
 
 interface AppProps {
   sdk: EditorExtensionSDK;
@@ -26,7 +19,7 @@ interface AppProps {
 const initialState = (fields: string[]): AppState => {
   return {
     fields,
-    fieldGroups: [],
+    fieldGroups: []
   };
 };
 
@@ -40,18 +33,18 @@ const reducer: React.Reducer<AppState, Action> = (state, action) => {
   switch (action.type) {
     case ActionTypes.CREATE_FIELD_GROUP:
       state.fieldGroups.push({ name: '', fields: [] });
-      return state
+      return state;
     case ActionTypes.DELETE_FIELD_GROUP:
       state.fieldGroups = state.fieldGroups
         .slice(0, action.index)
         .concat(state.fieldGroups.slice(action.index + 1));
-      return state
+      return state;
     case ActionTypes.RENAME_FIELD_GROUP:
       state.fieldGroups[action.index].name = action.name;
-      return state
+      return state;
     case ActionTypes.ADD_FIELD_TO_GROUP:
       state.fieldGroups[action.index].fields.push(action.fieldKey);
-      return state
+      return state;
   }
   return state;
 };
@@ -111,26 +104,6 @@ export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
         )}
       </Modal>
     </AppContext.Provider>
-  );
-};
-
-interface CollapsibleFieldGroupProps {
-  fieldGroup: FieldGroup;
-  fields: any;
-  locales: LocalesAPI;
-}
-const CollapsibleFieldGroup: React.FC<CollapsibleFieldGroupProps> = ({
-  fieldGroup,
-  fields,
-  locales,
-}: CollapsibleFieldGroupProps) => {
-  return (
-    <React.Fragment>
-      <h3>{fieldGroup.name}</h3>
-      {fieldGroup.fields.map((k: FieldKey) => (
-        <Field key={k} field={fields[k]} locales={locales} />
-      ))}
-    </React.Fragment>
   );
 };
 
