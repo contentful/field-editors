@@ -1,6 +1,5 @@
 export {
   FieldAPI,
-  EntryFieldAPI,
   ParametersAPI,
   LocalesAPI,
   BaseExtensionSDK,

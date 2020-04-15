@@ -1,7 +1,7 @@
 import React from 'react';
 import throttle from 'lodash/throttle';
 import isEqual from 'lodash/isEqual';
-import { FieldAPI, EntryFieldAPI } from 'contentful-ui-extensions-sdk';
+import { FieldAPI } from 'contentful-ui-extensions-sdk';
 
 type Nullable = null | undefined;
 
@@ -26,7 +26,7 @@ interface FieldConnectorState<ValueType> {
 }
 
 interface FieldConnectorProps<ValueType> {
-  field: FieldAPI | EntryFieldAPI;
+  field: FieldAPI;
   isInitiallyDisabled: boolean;
   children: (state: FieldConnectorChildProps<ValueType>) => React.ReactNode;
   isEmptyValue: (value: ValueType | null) => boolean;
@@ -109,13 +109,11 @@ export class FieldConnector<ValueType> extends React.Component<
 
   componentDidMount() {
     const { field } = this.props;
-    if ('onSchemaErrorsChanged' in field) {
-      this.unsubscribeErrors = field.onSchemaErrorsChanged((errors: string[]) => {
-        this.setState({
-          errors: errors || []
-        });
+    this.unsubscribeErrors = field.onSchemaErrorsChanged((errors: string[]) => {
+      this.setState({
+        errors: errors || []
       });
-    }
+    });
     this.unsubscribeDisabled = field.onIsDisabledChanged((disabled: boolean) => {
       this.setState({
         disabled

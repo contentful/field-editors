@@ -1,5 +1,5 @@
 import React from 'react';
-import { BaseExtensionSDK, FieldAPI, EntryFieldAPI } from 'contentful-ui-extensions-sdk';
+import { BaseExtensionSDK, FieldAPI } from 'contentful-ui-extensions-sdk';
 
 type Nullable = null | undefined;
 
@@ -11,7 +11,7 @@ interface TitleFieldConnectorState<ValueType> {
 
 interface TitleFieldConnectorProps<ValueType> {
   sdk: BaseExtensionSDK;
-  field: FieldAPI | EntryFieldAPI;
+  field: FieldAPI;
   defaultLocale: string;
   isOptionalLocaleWithFallback: boolean;
   children: (state: TitleFieldConnectorState<ValueType>) => React.ReactNode;
@@ -62,30 +62,21 @@ export class TitleFieldConnector<ValueType> extends React.Component<
       return;
     }
 
-    let locale: string;
-
-    if ('locale' in this.props.field) {
-      locale = this.props.field.locale;
-    } else {
-      locale = this.props.field.locales[0];
-      // TODO: this is probably the wrong behaviour!
-    }
-
     if (!this.state.isSame) {
       this.unsubscribeLocalizedValue = titleField.onValueChanged(
-        locale,
+        this.props.field.locale,
         (value: ValueType | Nullable) => {
           this.setState({ titleValue: value });
         }
       );
     }
 
-    if (locale !== this.props.defaultLocale) {
+    if (this.props.field.locale !== this.props.defaultLocale) {
       if (!this.props.isOptionalLocaleWithFallback) {
         this.unsubscribeValue = titleField.onValueChanged(
           this.props.defaultLocale,
           (value: ValueType | Nullable) => {
-            if (!titleField.getValue(locale)) {
+            if (!titleField.getValue(this.props.field.locale)) {
               this.setState({ titleValue: value });
             }
           }

@@ -2,7 +2,6 @@ import * as React from 'react';
 import { TextInput } from '@contentful/forma-36-react-components';
 import {
   FieldAPI,
-  EntryFieldAPI,
   FieldConnector,
   ConstraintsUtils,
   CharCounter,
@@ -17,7 +16,7 @@ export interface SingleLineEditorProps {
    */
   isInitiallyDisabled: boolean;
 
-  field: FieldAPI | EntryFieldAPI;
+  field: FieldAPI;
 
   locales: LocalesAPI;
 }
@@ -36,13 +35,7 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
   // eslint-disable-next-line
   const constraints = ConstraintsUtils.fromFieldValidations(field.validations, field.type);
   const checkConstraint = ConstraintsUtils.makeChecker(constraints);
-
-  let direction: string;
-  if ('locale' in field) {
-    direction = locales.direction[field.locale] || 'ltr';
-  } else {
-    direction = 'ltr';
-  }
+  const direction = locales.direction[field.locale] || 'ltr';
 
   return (
     <FieldConnector<string> field={field} isInitiallyDisabled={props.isInitiallyDisabled}>
