@@ -17,6 +17,8 @@ import {
 } from '@contentful/field-editor-test-utils';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { css } from 'emotion';
+import publishedEntry from '../../reference/src/__fixtures__/published_entry.json';
+import publishedAsset from '../../reference/src/__fixtures__/published_asset.json';
 
 ## In Action
 
@@ -42,7 +44,21 @@ import { css } from 'emotion';
     const space = createFakeSpaceAPI();
     const navigator = createFakeNavigatorAPI();
     const sdk = {
-      space,
+      space: {
+        ...space,
+        getEntry: () => {
+          return Promise.resolve(publishedEntry);
+        },
+        getAsset: () => {
+          return Promise.resolve(publishedAsset);
+        },
+        getEntityScheduledActions: () => {
+          return Promise.resolve([]);
+        },
+        getAssets: () => {
+          return Promise.resolve({ items: [publishedAsset] });
+        }
+      },
       field,
       locales: createFakeLocalesAPI(),
       navigator: {

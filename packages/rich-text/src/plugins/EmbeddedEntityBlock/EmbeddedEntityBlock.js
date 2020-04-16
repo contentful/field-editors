@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card } from '@contentful/forma-36-react-components';
 import { css } from 'emotion';
+import { FetchingWrappedEntryCard } from './FetchingWrappedEntryCard';
+import { FetchingWrappedAssetCard } from './FetchingWrappedAssetCard';
 
 const styles = {
   root: css({
@@ -15,8 +16,7 @@ export default class LinkedEntityBlock extends React.Component {
     isSelected: PropTypes.bool.isRequired,
     attributes: PropTypes.object.isRequired,
     editor: PropTypes.object.isRequired,
-    node: PropTypes.object.isRequired,
-    onEntityFetchComplete: PropTypes.func
+    node: PropTypes.object.isRequired
   };
 
   getEntitySys() {
@@ -42,26 +42,39 @@ export default class LinkedEntityBlock extends React.Component {
   };
 
   render() {
-    const { sdk, editor, isSelected, onEntityFetchComplete } = this.props;
-    const isDisabled = editor.props.readOnly;
-    const isReadOnly = editor.props.actionsDisabled;
+    const { sdk, editor, isSelected } = this.props;
+    const isDisabled = editor.props.readOnly || editor.props.actionsDisabled;
     const { id: entityId, type: entityType } = this.getEntitySys();
-    const props = {
-      sdk,
-      entityType,
-      entityId,
-      isSelected,
-      isDisabled,
-      isReadOnly,
-      onEntityFetchComplete,
-      onRemove: this.handleRemoveClick,
-      onOpenEntity: this.handleEditClick
-    };
     return (
       <div {...this.props.attributes} className={styles.root}>
-        <Card selected={props.isSelected}>
-          {props.entityType} <code>{props.entityId}</code>
-        </Card>
+        {entityType === 'Entry' && (
+          <FetchingWrappedEntryCard
+            sdk={sdk}
+            entryId={entityId}
+            isDisabled={isDisabled}
+            isSelected={isSelected}
+            onRemove={this.handleRemoveClick}
+            onEdit={this.handleEditClick}
+            getEntryUrl={() => {
+              // todo: provide a real url from params
+              return '';
+            }}
+          />
+        )}
+        {entityType === 'Asset' && (
+          <FetchingWrappedAssetCard
+            sdk={sdk}
+            assetId={entityId}
+            isDisabled={isDisabled}
+            isSelected={isSelected}
+            onRemove={this.handleRemoveClick}
+            onEdit={this.handleEditClick}
+            getAssetUrl={() => {
+              // todo: provide a real url from params
+              return '';
+            }}
+          />
+        )}
       </div>
     );
   }

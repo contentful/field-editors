@@ -8,20 +8,11 @@ import { selectEntryAndInsert, hasOnlyInlineEntryInSelection, canInsertInline } 
 
 export default ToolbarIcon;
 
-export const EmbeddedEntryInlinePlugin = ({
-  richTextAPI: { sdk, logShortcutAction, logViewportAction }
-}) => ({
+export const EmbeddedEntryInlinePlugin = ({ richTextAPI: { sdk, logShortcutAction } }) => ({
   renderNode: (props, _editor, next) => {
-    const { node, attributes, key } = props;
+    const { node, attributes } = props;
     if (node.type === INLINES.EMBEDDED_ENTRY) {
-      return (
-        <EmbeddedEntryInline
-          sdk={sdk}
-          {...props}
-          {...attributes}
-          onEntityFetchComplete={() => logViewportAction('linkRendered', { key })}
-        />
-      );
+      return <EmbeddedEntryInline sdk={sdk} {...props} {...attributes} />;
     }
     return next();
   },

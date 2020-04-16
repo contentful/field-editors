@@ -23,8 +23,7 @@ class EmbeddedEntryInline extends React.Component {
     isSelected: PropTypes.bool.isRequired,
     attributes: PropTypes.object.isRequired,
     editor: PropTypes.object.isRequired,
-    node: PropTypes.object.isRequired,
-    onEntityFetchComplete: PropTypes.func
+    node: PropTypes.object.isRequired
   };
 
   getEntitySys() {
@@ -45,7 +44,7 @@ class EmbeddedEntryInline extends React.Component {
   };
 
   render() {
-    const { sdk, editor, isSelected, onEntityFetchComplete } = this.props;
+    const { sdk, editor, isSelected } = this.props;
     const isDisabled = editor.props.readOnly;
     const isReadOnly = editor.props.actionsDisabled;
     const { id: entryId } = this.getEntitySys();
@@ -55,7 +54,6 @@ class EmbeddedEntryInline extends React.Component {
       isSelected,
       isDisabled,
       isReadOnly,
-      onEntityFetchComplete,
       onRemove: this.handleRemoveClick,
       onOpenEntity: this.handleEditClick
     };

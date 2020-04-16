@@ -2,8 +2,13 @@ export {
   CreateEntryMenuTrigger,
   CreateEntryLinkButton,
   ScheduleTooltipContent,
-  AssetThumbnail
+  AssetThumbnail,
+  MissingEntityCard
 } from './components';
-export { SingleEntryReferenceEditor, MultipleEntryReferenceEditor } from './entries';
-export { SingleMediaEditor, MultipleMediaEditor } from './assets';
+export {
+  SingleEntryReferenceEditor,
+  MultipleEntryReferenceEditor,
+  WrappedEntryCard
+} from './entries';
+export { SingleMediaEditor, MultipleMediaEditor, WrappedAssetCard } from './assets';
 export { EntityProvider, useEntities } from './common/EntityStore';

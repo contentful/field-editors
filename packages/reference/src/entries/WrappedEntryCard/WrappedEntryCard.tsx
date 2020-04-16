@@ -27,6 +27,7 @@ interface WrappedEntryCardProps {
   getEntryUrl?: (entryId: string) => string;
   size: 'small' | 'default';
   isDisabled: boolean;
+  isSelected?: boolean;
   onRemove: () => void;
   onEdit: () => void;
   localeCode: string;
@@ -97,6 +98,8 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
       description={description}
       contentType={contentType?.name}
       size={props.size}
+      // @ts-ignore
+      selected={props.isSelected}
       status={status}
       statusIcon={
         <ScheduledIconWithTooltip
