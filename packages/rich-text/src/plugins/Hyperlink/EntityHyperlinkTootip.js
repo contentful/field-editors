@@ -6,14 +6,14 @@ import { ScheduleTooltipContent } from '@contentful/field-editor-reference';
 import { entityHelpers } from '@contentful/field-editor-shared';
 import { truncate } from './truncate';
 
-async function fetchAllData({ widgetAPI, entityId, entityType, localeCode, defaultLocaleCode }) {
+async function fetchAllData({ sdk, entityId, entityType, localeCode, defaultLocaleCode }) {
   let contentType;
 
-  const getEntity = entityType === 'Entry' ? widgetAPI.space.getEntry : widgetAPI.space.getAsset;
+  const getEntity = entityType === 'Entry' ? sdk.space.getEntry : sdk.space.getAsset;
   const entity = await getEntity(entityId);
   if (entity.sys.contentType) {
     const contentTypeId = entity.sys.contentType.sys.id;
-    contentType = await widgetAPI.space.getContentType(contentTypeId);
+    contentType = await sdk.space.getContentType(contentTypeId);
   }
 
   const entityTitle =
@@ -39,7 +39,7 @@ async function fetchAllData({ widgetAPI, entityId, entityType, localeCode, defau
     defaultLocaleCode
   });
 
-  const jobs = await widgetAPI.space.getEntityScheduledActions(entityType, entityId);
+  const jobs = await sdk.space.getEntityScheduledActions(entityType, entityId);
 
   const entityStatus = entityHelpers.getEntryStatus(entity.sys);
 
@@ -85,18 +85,18 @@ EntityStatusTag.propTypes = {
 };
 
 export function EntityHyperlinkTooltip(props) {
-  const { widgetAPI } = props.richTextAPI;
+  const { sdk } = props.richTextAPI;
   const { target } = props;
 
   const [requestStatus, setRequestStatus] = React.useState({ type: 'loading' });
 
   React.useEffect(() => {
     fetchAllData({
-      widgetAPI,
+      sdk,
       entityId: target.sys.id,
       entityType: target.sys.linkType,
-      localeCode: widgetAPI.field.locale,
-      defaultLocaleCode: widgetAPI.locales.default
+      localeCode: sdk.field.locale,
+      defaultLocaleCode: sdk.locales.default
     })
       .then(entityInfo => {
         setRequestStatus({ type: 'success', data: entityInfo });

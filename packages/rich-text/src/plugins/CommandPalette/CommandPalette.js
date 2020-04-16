@@ -12,7 +12,7 @@ class CommandPalette extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    const { field } = this.props.richTextAPI.widgetAPI;
+    const { field } = this.props.richTextAPI.sdk;
 
     this.state = {
       embedsEnabled: isEmbeddingEnabled(field)

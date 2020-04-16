@@ -11,7 +11,7 @@ export default ToolbarIcon;
 
 export const HyperlinkPlugin = ({ richTextAPI }) => ({
   renderNode: (props, _editor, next) => {
-    const { widgetAPI, logViewportAction } = richTextAPI;
+    const { sdk, logViewportAction } = richTextAPI;
     const { node, editor } = props;
     if (isHyperlink(node.type)) {
       return (
@@ -23,7 +23,7 @@ export const HyperlinkPlugin = ({ richTextAPI }) => ({
 
             editor.moveToRangeOfNode(node).focus();
             if (mayEditLink(editor.value)) {
-              editLink(editor, widgetAPI.dialogs.createHyperlink, logViewportAction);
+              editLink(editor, sdk.dialogs.createHyperlink, logViewportAction);
             }
           }}
         />
@@ -32,14 +32,14 @@ export const HyperlinkPlugin = ({ richTextAPI }) => ({
     return next();
   },
   onKeyDown: (event, editor, next) => {
-    const { widgetAPI, logShortcutAction } = richTextAPI;
+    const { sdk, logShortcutAction } = richTextAPI;
     const hotkey = ['mod+k'];
 
     if (isHotkey(hotkey, event) && hasOnlyHyperlinkInlines(editor.value)) {
       if (mayEditLink(editor.value)) {
-        editLink(editor, widgetAPI.dialogs.createHyperlink, logShortcutAction);
+        editLink(editor, sdk.dialogs.createHyperlink, logShortcutAction);
       } else {
-        toggleLink(editor, widgetAPI.dialogs.createHyperlink, logShortcutAction);
+        toggleLink(editor, sdk.dialogs.createHyperlink, logShortcutAction);
       }
       return;
     }

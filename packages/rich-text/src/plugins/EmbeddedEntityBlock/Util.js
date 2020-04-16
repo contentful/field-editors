@@ -16,14 +16,14 @@ export const hasBlockOfType = (editor, type) => {
 /**
  * Invokes entity selector modal and inserts block embed.
  * @param {string} nodeType
- * @param {WidgetAPI} widgetAPI
+ * @param {import('@contentful/field-editor-reference/dist/types').FieldExtensionSDK} sdk
  * @param {slate.Editor} editor
  * @param {function} logAction
  */
-export async function selectEntityAndInsert(nodeType, widgetAPI, editor, logAction) {
+export async function selectEntityAndInsert(nodeType, sdk, editor, logAction) {
   logAction('openCreateEmbedDialog', { nodeType });
 
-  const { field, dialogs } = widgetAPI;
+  const { field, dialogs } = sdk;
   const baseConfig = newEntitySelectorConfigFromRichTextField(field, nodeType);
   const selectEntity =
     baseConfig.entityType === 'Asset' ? dialogs.selectSingleAsset : dialogs.selectSingleEntry;

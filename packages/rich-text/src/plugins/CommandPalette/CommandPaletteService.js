@@ -7,22 +7,22 @@ const ACTIONS = {
   CREATE_EMBED: 'create_embed'
 };
 
-export async function fetchAssets(widgetAPI, query = '') {
-  const assets = await widgetAPI.space.getAssets({ query });
+export async function fetchAssets(sdk, query = '') {
+  const assets = await sdk.space.getAssets({ query });
   return assets.items.map(asset => ({
     contentTypeName: 'Asset',
-    displayTitle: asset.fields.title ? asset.fields.title[widgetAPI.field.locale] : 'Untitled',
+    displayTitle: asset.fields.title ? asset.fields.title[sdk.field.locale] : 'Untitled',
     id: asset.sys.id,
     entry: asset,
     thumbnail:
       asset.fields.file &&
-      asset.fields.file[widgetAPI.field.locale] &&
-      `${asset.fields.file[widgetAPI.field.locale].url}?h=30`
+      asset.fields.file[sdk.field.locale] &&
+      `${asset.fields.file[sdk.field.locale].url}?h=30`
   }));
 }
 
-export async function fetchEntries(widgetAPI, contentType, query = '') {
-  const entries = await widgetAPI.space.getEntries({
+export async function fetchEntries(sdk, contentType, query = '') {
+  const entries = await sdk.space.getEntries({
     content_type: contentType.sys.id,
     query
   });
@@ -32,14 +32,14 @@ export async function fetchEntries(widgetAPI, contentType, query = '') {
       const description = entityHelpers.getEntityDescription({
         contentType,
         entity: entry,
-        localeCode: widgetAPI.field.locale,
-        defaultLocaleCode: widgetAPI.locales.default
+        localeCode: sdk.field.locale,
+        defaultLocaleCode: sdk.locales.default
       });
       const displayTitle = entityHelpers.getEntryTitle({
         entry,
         contentType,
-        localeCode: widgetAPI.field.locale,
-        defaultLocaleCode: widgetAPI.locales.default,
+        localeCode: sdk.field.locale,
+        defaultLocaleCode: sdk.locales.default,
         defaultTitle: 'Untitled'
       });
       return {

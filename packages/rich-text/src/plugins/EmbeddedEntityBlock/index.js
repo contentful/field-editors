@@ -9,22 +9,20 @@ import { hasBlockOfType, selectEntityAndInsert } from './Util';
 export default ToolbarIcon;
 
 export const EmbeddedEntityBlockPlugin = ({
-  richTextAPI: { widgetAPI, customRenderers, logShortcutAction, logViewportAction },
+  richTextAPI: { sdk, logShortcutAction, logViewportAction },
   nodeType,
   hotkey
 }) => {
   return {
     renderNode: (props, _editor, next) => {
-      const { renderEntityBlockEmbed } = customRenderers;
       const { node, attributes, key } = props;
       if (node.type === nodeType) {
         return (
           <EntityLinkBlock
-            widgetAPI={widgetAPI}
+            sdk={sdk}
             {...props}
             {...attributes}
             onEntityFetchComplete={() => logViewportAction('linkRendered', { key })}
-            renderEntity={renderEntityBlockEmbed}
           />
         );
       }
@@ -32,7 +30,7 @@ export const EmbeddedEntityBlockPlugin = ({
     },
     onKeyDown(e, editor, next) {
       if (hotkey && isHotkey(hotkey, e)) {
-        selectEntityAndInsert(nodeType, widgetAPI, editor, logShortcutAction);
+        selectEntityAndInsert(nodeType, sdk, editor, logShortcutAction);
         return;
       }
       if (isHotkey('enter', e) && hasBlockOfType(editor, nodeType)) {

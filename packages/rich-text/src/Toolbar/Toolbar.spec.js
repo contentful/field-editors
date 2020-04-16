@@ -16,7 +16,7 @@ const fakeProps = () => ({
     logToolbarAction: jest.fn(),
     logShortcutAction: jest.fn(),
     logViewportAction: jest.fn(),
-    widgetAPI: {
+    sdk: {
       field: {}
     }
   },
@@ -56,7 +56,7 @@ describe('Toolbar', () => {
 
   it('renders no icons if no formatting options enabled', () => {
     const props = fakeProps();
-    props.richTextAPI.widgetAPI.field.validations = [
+    props.richTextAPI.sdk.field.validations = [
       { [VALIDATIONS.ENABLED_NODE_TYPES]: [] },
       { [VALIDATIONS.ENABLED_MARKS]: [] }
     ];
@@ -84,14 +84,14 @@ describe('Toolbar', () => {
 
   it('hides group separator if no marks enabled', () => {
     const props = fakeProps();
-    props.richTextAPI.widgetAPI.field.validations = [{ [VALIDATIONS.ENABLED_MARKS]: [] }];
+    props.richTextAPI.sdk.field.validations = [{ [VALIDATIONS.ENABLED_MARKS]: [] }];
     const toolbar = Enzyme.mount(<Toolbar {...props} />);
     expect(toolbar.find('[data-test-id="mark-divider"]')).toHaveLength(0);
   });
 
   it('hides group separator if no lists, quotes, or hr enabled', () => {
     const props = fakeProps();
-    props.richTextAPI.widgetAPI.field.validations = [
+    props.richTextAPI.sdk.field.validations = [
       {
         [VALIDATIONS.ENABLED_NODE_TYPES]: VALIDATABLE_NODE_TYPES.filter(
           nodeType => ![BLOCKS.OL_LIST, BLOCKS.UL_LIST, BLOCKS.QUOTE, BLOCKS.HR].includes(nodeType)
@@ -104,7 +104,7 @@ describe('Toolbar', () => {
 
   it('hides the group separator when no hyperlinks are enabled', () => {
     const props = fakeProps();
-    props.richTextAPI.widgetAPI.field.validations = [
+    props.richTextAPI.sdk.field.validations = [
       {
         [VALIDATIONS.ENABLED_NODE_TYPES]: VALIDATABLE_NODE_TYPES.filter(
           nodeType =>
@@ -120,7 +120,7 @@ describe('Toolbar', () => {
 
   it('hides the embeds dropdown when no embeds are enabled', () => {
     const props = fakeProps();
-    props.richTextAPI.widgetAPI.field.validations = [
+    props.richTextAPI.sdk.field.validations = [
       {
         [VALIDATIONS.ENABLED_NODE_TYPES]: VALIDATABLE_NODE_TYPES.filter(
           nodeType => !dropDownEmbedNodeTypes.includes(nodeType)
@@ -134,7 +134,7 @@ describe('Toolbar', () => {
   it('hides embed dropdown option when no relevant embed is enabled', () => {
     for (const embedNodeType of dropDownEmbedNodeTypes) {
       const props = fakeProps();
-      props.richTextAPI.widgetAPI.field.validations = [
+      props.richTextAPI.sdk.field.validations = [
         {
           [VALIDATIONS.ENABLED_NODE_TYPES]: VALIDATABLE_NODE_TYPES.filter(
             nodeType => nodeType !== embedNodeType
@@ -155,7 +155,7 @@ describe('Toolbar', () => {
   it(`hides the ${BLOCKS.EMBEDDED_ASSET} dropdown option when the user has no asset access permissions`, () => {
     const props = fakeProps();
     props.permissions.canAccessAssets = false;
-    props.richTextAPI.widgetAPI.field.validations = [
+    props.richTextAPI.sdk.field.validations = [
       { [VALIDATIONS.ENABLED_NODE_TYPES]: VALIDATABLE_NODE_TYPES }
     ];
     const toolbar = Enzyme.mount(<Toolbar {...props} />);

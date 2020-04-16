@@ -45,14 +45,17 @@ import { css } from 'emotion';
       space,
       field,
       locales: createFakeLocalesAPI(),
-      navigator,
+      navigator: {
+        ...navigator,
+        onSlideInNavigation: () => () => {}
+      },
       parameters: {
         instance: {
           permissions: {
             canAccessAssets: true,
             canCreateAssets: false,
-            canCreateEntryOfContentType: (contentTypeId) => {
-                return contentTypeId === 'exampleCT';
+            canCreateEntryOfContentType: contentTypeId => {
+              return contentTypeId === 'exampleCT';
             }
           }
         }
@@ -81,7 +84,7 @@ import { css } from 'emotion';
     window.richTextField = field;
     return (
       <div data-test-id="rich-text-editor-integration-test">
-        <RichTextEditor widgetAPI={sdk} isInitiallyDisabled={false} />
+        <RichTextEditor sdk={sdk} isInitiallyDisabled={false} />
         <ActionsPlayground mitt={mitt} renderValue={renderRT} />
       </div>
     );

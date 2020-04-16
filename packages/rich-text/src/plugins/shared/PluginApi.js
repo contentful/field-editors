@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import mapValues from 'lodash/mapValues';
 
 /**
  * All known origins for Rich Text actions
@@ -19,19 +18,17 @@ const createActionLogger = (onAction, origin) => (name, data) => {
 /**
  * Creates an api that is passed to editor and toolbar widgets.
  *
- * @param {object} widgetAPI
+ * @param {object} sdk
  * @param {function } onAction
- * @param {object?} customRenderers
- * @returns {{ widgetAPI: {object}, logViewportAction: {function}, createActionLogger: {function}, createActionLogger: {function} }}
+ * @returns {{ sdk: {object}, logViewportAction: {function}, createActionLogger: {function}, createActionLogger: {function} }}
  */
-export const createRichTextAPI = ({ widgetAPI, onAction, customRenderers = {} }) => {
+export const createRichTextAPI = ({ sdk, onAction }) => {
   const richTextAPI = {
-    widgetAPI,
+    sdk,
     logViewportAction: createActionLogger(onAction, actionOrigin.VIEWPORT),
     logShortcutAction: createActionLogger(onAction, actionOrigin.SHORTCUT),
     logToolbarAction: createActionLogger(onAction, actionOrigin.TOOLBAR),
-    logCommandPaletteAction: createActionLogger(onAction, actionOrigin.COMMAND_PALETTE),
-    customRenderers: mapValues(customRenderers, fn => (...args) => fn(richTextAPI, ...args))
+    logCommandPaletteAction: createActionLogger(onAction, actionOrigin.COMMAND_PALETTE)
   };
   return richTextAPI;
 };
@@ -42,11 +39,10 @@ export const createRichTextAPI = ({ widgetAPI, onAction, customRenderers = {} })
  */
 export const EDITOR_PLUGIN_PROP_TYPES = {
   richTextAPI: PropTypes.shape({
-    widgetAPI: PropTypes.object.isRequired,
+    sdk: PropTypes.object.isRequired,
     logViewportAction: PropTypes.func.isRequired,
     logShortcutAction: PropTypes.func.isRequired,
-    logToolbarAction: PropTypes.func.isRequired,
-    customRenderers: PropTypes.object
+    logToolbarAction: PropTypes.func.isRequired
   })
 };
 

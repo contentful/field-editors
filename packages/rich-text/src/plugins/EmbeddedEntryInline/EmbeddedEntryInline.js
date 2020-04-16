@@ -19,21 +19,12 @@ const styles = {
 
 class EmbeddedEntryInline extends React.Component {
   static propTypes = {
-    widgetAPI: PropTypes.object.isRequired,
+    sdk: PropTypes.object.isRequired,
     isSelected: PropTypes.bool.isRequired,
     attributes: PropTypes.object.isRequired,
     editor: PropTypes.object.isRequired,
     node: PropTypes.object.isRequired,
-    onEntityFetchComplete: PropTypes.func,
-    renderEntity: PropTypes.func
-  };
-
-  static defaultProps = {
-    renderEntity: ({ entryId, isSelected }) => (
-      <InlineEntryCard testId={INLINES.EMBEDDED_ENTRY} selected={isSelected}>
-        Entry <code>{entryId}</code>
-      </InlineEntryCard>
-    )
+    onEntityFetchComplete: PropTypes.func
   };
 
   getEntitySys() {
@@ -45,7 +36,7 @@ class EmbeddedEntryInline extends React.Component {
   }
 
   handleEditClick = entry => {
-    this.props.widgetAPI.navigator.openEntry(entry.sys.id, { slideIn: true });
+    this.props.sdk.navigator.openEntry(entry.sys.id, { slideIn: true });
   };
 
   handleRemoveClick = () => {
@@ -54,12 +45,12 @@ class EmbeddedEntryInline extends React.Component {
   };
 
   render() {
-    const { widgetAPI, editor, isSelected, onEntityFetchComplete, renderEntity } = this.props;
+    const { sdk, editor, isSelected, onEntityFetchComplete } = this.props;
     const isDisabled = editor.props.readOnly;
     const isReadOnly = editor.props.actionsDisabled;
     const { id: entryId } = this.getEntitySys();
     const props = {
-      widgetAPI,
+      sdk,
       entryId,
       isSelected,
       isDisabled,
@@ -70,7 +61,9 @@ class EmbeddedEntryInline extends React.Component {
     };
     return (
       <span {...this.props.attributes} className={styles.root}>
-        {renderEntity(props)}
+        <InlineEntryCard testId={INLINES.EMBEDDED_ENTRY} selected={props.isSelected}>
+          Entry <code>{props.entryId}</code>
+        </InlineEntryCard>
       </span>
     );
   }

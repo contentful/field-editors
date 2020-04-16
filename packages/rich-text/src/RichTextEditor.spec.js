@@ -13,7 +13,7 @@ jest.mock('ng/entityCreator', () => ({}), { virtual: true });
 jest.mock('ng/debounce', () => jest.fn(), { virtual: true });
 
 const fakeProps = props => ({
-  widgetAPI: {
+  sdk: {
     field: {
       id: 'FIELD_ID,',
       locale: 'FIELD_LOCALE'
@@ -26,6 +26,11 @@ const fakeProps = props => ({
           canCreateEntryOfContentType: () => false
         }
       }
+    }
+  },
+  navigator: {
+    onSlideInNavigation: () => () => {
+      return;
     }
   },
   value: undefined,

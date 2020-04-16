@@ -9,13 +9,10 @@
     "paths": {
       "*": ["src/*", "node_modules/*"]
     },
-
     "noImplicitAny": false,
-
     "allowJs": true,
     "jsx": "react"
   },
-
   "linterOptions": {
     "exclude": ["src/**"]
   }

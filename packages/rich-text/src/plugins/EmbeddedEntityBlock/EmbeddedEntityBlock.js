@@ -11,21 +11,12 @@ const styles = {
 
 export default class LinkedEntityBlock extends React.Component {
   static propTypes = {
-    widgetAPI: PropTypes.object.isRequired,
+    sdk: PropTypes.object.isRequired,
     isSelected: PropTypes.bool.isRequired,
     attributes: PropTypes.object.isRequired,
     editor: PropTypes.object.isRequired,
     node: PropTypes.object.isRequired,
-    onEntityFetchComplete: PropTypes.func,
-    renderEntity: PropTypes.func
-  };
-
-  static defaultProps = {
-    renderEntity: ({ entityId, entityType, isSelected }) => (
-      <Card selected={isSelected}>
-        {entityType} <code>{entityId}</code>
-      </Card>
-    )
+    onEntityFetchComplete: PropTypes.func
   };
 
   getEntitySys() {
@@ -38,7 +29,7 @@ export default class LinkedEntityBlock extends React.Component {
 
   handleEditClick = () => {
     const { type, id } = this.getEntitySys();
-    const { navigator } = this.props.widgetAPI;
+    const { navigator } = this.props.sdk;
     const openEntity = type === 'Asset' ? navigator.openAsset : navigator.openEntry;
     return openEntity(id, { slideIn: true });
   };
@@ -51,12 +42,12 @@ export default class LinkedEntityBlock extends React.Component {
   };
 
   render() {
-    const { widgetAPI, editor, isSelected, onEntityFetchComplete, renderEntity } = this.props;
+    const { sdk, editor, isSelected, onEntityFetchComplete } = this.props;
     const isDisabled = editor.props.readOnly;
     const isReadOnly = editor.props.actionsDisabled;
     const { id: entityId, type: entityType } = this.getEntitySys();
     const props = {
-      widgetAPI,
+      sdk,
       entityType,
       entityId,
       isSelected,
@@ -68,7 +59,9 @@ export default class LinkedEntityBlock extends React.Component {
     };
     return (
       <div {...this.props.attributes} className={styles.root}>
-        {renderEntity(props)}
+        <Card selected={props.isSelected}>
+          {props.entityType} <code>{props.entityId}</code>
+        </Card>
       </div>
     );
   }

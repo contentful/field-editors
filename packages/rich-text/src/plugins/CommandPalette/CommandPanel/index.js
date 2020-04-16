@@ -132,9 +132,9 @@ class CommandPalette extends React.PureComponent {
 
   onCreateAndEmbedEntity = async (contentTypeId, nodeType) => {
     const { richTextAPI, editor, command } = this.props;
-    const { widgetAPI } = richTextAPI;
+    const { sdk } = richTextAPI;
     removeCommand(editor, command);
-    const { createAsset, createEntry } = widgetAPI.space;
+    const { createAsset, createEntry } = sdk.space;
     const isAsset = contentTypeId === null;
     const createEntity = () => (isAsset ? createAsset({}) : createEntry(contentTypeId, {}));
     const entity = await createEntity();
@@ -148,7 +148,7 @@ class CommandPalette extends React.PureComponent {
       nodeType
     });
 
-    const { navigator } = widgetAPI;
+    const { navigator } = sdk;
     const openEntity = entityType === 'Asset' ? navigator.openAsset : navigator.openEntry;
     return openEntity(entityId, { slideIn: true });
   };
@@ -200,8 +200,8 @@ class CommandPalette extends React.PureComponent {
   createCommands = async (contentType, type, command) => {
     this.setState({ isUpdating: true });
     const allEntries = !contentType
-      ? await fetchAssets(this.props.richTextAPI.widgetAPI, command)
-      : await fetchEntries(this.props.richTextAPI.widgetAPI, contentType, command);
+      ? await fetchAssets(this.props.richTextAPI.sdk, command)
+      : await fetchEntries(this.props.richTextAPI.sdk, contentType, command);
 
     if (this.isComponentMounted) {
       this.setState({
@@ -227,14 +227,14 @@ class CommandPalette extends React.PureComponent {
   };
 
   createInitialCommands = () => {
-    const { widgetAPI } = this.props.richTextAPI;
-    const allContentTypes = widgetAPI.space.getCachedContentTypes();
+    const { sdk } = this.props.richTextAPI;
+    const allContentTypes = sdk.space.getCachedContentTypes();
     this.setState({
       isLoading: false
     });
     const actionBuilder = new CommandPaletteActionBuilder(
-      widgetAPI.field,
-      widgetAPI.parameters.instance.permissions
+      sdk.field,
+      sdk.parameters.instance.permissions
     );
     const contentTypeActions = flatten(
       allContentTypes.map(ct => this.createContentTypeActions(actionBuilder, ct))
