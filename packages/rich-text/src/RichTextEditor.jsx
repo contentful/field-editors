@@ -94,9 +94,11 @@ export class ConnectedRichTextEditor extends React.Component {
       }).isRequired,
       parameters: PropTypes.shape({
         instance: PropTypes.shape({
-          canAccessAssets: PropTypes.bool.isRequired,
-          canCreateAssets: PropTypes.bool.isRequired,
-          canCreateEntryOfContentType: PropTypes.object.isRequired
+          permissions: PropTypes.shape({
+            canAccessAssets: PropTypes.bool.isRequired,
+            canCreateAssets: PropTypes.bool.isRequired,
+            canCreateEntryOfContentType: PropTypes.func.isRequired
+          })
         })
       }).isRequired
     }).isRequired,
@@ -205,7 +207,7 @@ export class ConnectedRichTextEditor extends React.Component {
               editor={this.editor.current || new BasicEditor({ readOnly: true })}
               onChange={this.onChange}
               isDisabled={this.props.isDisabled}
-              permissions={this.props.widgetAPI.parameters.instance}
+              permissions={this.props.widgetAPI.parameters.instance.permissions}
               richTextAPI={this.richTextAPI}
             />
           </StickyToolbarWrapper>

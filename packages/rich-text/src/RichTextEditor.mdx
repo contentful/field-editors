@@ -48,10 +48,12 @@ import { css } from 'emotion';
       navigator,
       parameters: {
         instance: {
-          canAccessAssets: true,
-          canCreateAssets: false,
-          canCreateEntryOfContentType: {
-            exampleCT: true
+          permissions: {
+            canAccessAssets: true,
+            canCreateAssets: false,
+            canCreateEntryOfContentType: (contentTypeId) => {
+                return contentTypeId === 'exampleCT';
+            }
           }
         }
       },

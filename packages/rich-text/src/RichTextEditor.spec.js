@@ -20,7 +20,11 @@ const fakeProps = props => ({
     },
     parameters: {
       instance: {
-        canAccessAssets: true
+        permissions: {
+          canAccessAssets: true,
+          canCreateAssets: true,
+          canCreateEntryOfContentType: () => false
+        }
       }
     }
   },
