@@ -6,10 +6,14 @@ import {
   DropdownList,
   DropdownListItem,
   TextLink,
+  HelpText,
   Icon,
+  TextField,
 } from '@contentful/forma-36-react-components';
+import tokens from '@contentful/forma-36-tokens';
 import { ActionTypes, FieldType, FieldGroupType, findUnassignedFields, AppContext } from './shared';
 
+import { css } from 'emotion';
 // -----------------
 // THE EDITOR DIALOGUE
 // -----------------
@@ -17,29 +21,52 @@ interface FieldGroupsEditorProps {
   fieldGroups: FieldGroupType[];
   addGroup: () => void;
   onClose: () => void;
-  // fields
 }
+
+const styles = {
+  controls: css({
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: `${tokens.spacingM} ${tokens.spacingXl}`,
+    borderBottom: `1px solid ${tokens.colorElementMid}`,
+  }),
+  saveButton: css({
+    marginLeft: tokens.spacingS,
+  }),
+};
 
 export class FieldGroupsEditor extends React.Component<FieldGroupsEditorProps> {
   render() {
     const { fieldGroups } = this.props;
 
     return (
-      <Modal.Content>
-        <p> group fields to seperate concerns in the entry editor</p>
-        <Button onClick={this.props.addGroup}>Add Group</Button>
-        <Button onClick={this.props.onClose}>save</Button>
-        {fieldGroups.map(({ name, fields, id }, index) => (
-          <FieldGroupEditor
-            first={index === 0}
-            last={index === fieldGroups.length - 1}
-            key={id}
-            groupId={id}
-            name={name}
-            fields={fields}
-          />
-        ))}
-      </Modal.Content>
+      <React.Fragment>
+        <div className={styles.controls}>
+          <HelpText>Group fields to seperate concerns in the entry editor</HelpText>
+          <div>
+            <Button onClick={this.props.addGroup}>Add Group</Button>
+            <Button
+              className={styles.saveButton}
+              buttonType="positive"
+              onClick={this.props.onClose}>
+              save
+            </Button>
+          </div>
+        </div>
+        <Modal.Content>
+          {fieldGroups.map(({ name, fields, id }, index) => (
+            <FieldGroupEditor
+              first={index === 0}
+              last={index === fieldGroups.length - 1}
+              key={id}
+              groupId={id}
+              name={name}
+              fields={fields}
+            />
+          ))}
+        </Modal.Content>
+      </React.Fragment>
     );
   }
 }
@@ -62,7 +89,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
   const { state, dispatch } = React.useContext(AppContext);
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
 
-  const updateName = (e: React.FormEvent<HTMLInputElement>) =>
+  const updateName = (e: React.ChangeEvent<HTMLInputElement>) =>
     dispatch({
       type: ActionTypes.RENAME_FIELD_GROUP,
       groupId,
@@ -71,7 +98,13 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
 
   return (
     <div>
-      <input value={name} onChange={updateName} />
+      <TextField
+        id={`${groupId}-name-input`}
+        name={`${groupId}-name-input`}
+        labelText="Name"
+        onChange={updateName}
+        value={name}
+      />
       <h3>Fields</h3>
       <div>select a field to add</div>
       <Dropdown

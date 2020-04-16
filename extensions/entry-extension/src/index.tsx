@@ -131,6 +131,8 @@ export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
   const [state, dispatch] = useLocalStateReducer(reducer, initialState(fieldDetails));
 
   const [dialogOpen, setDialogOpen] = React.useState(false);
+  const closeDialog = () => setDialogOpen(false);
+  const openDialog = () => setDialogOpen(true);
 
   return (
     <SDKContext.Provider value={props.sdk}>
@@ -152,16 +154,19 @@ export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
             {findUnassignedFields(state).map(({ id }) => (
               <Field key={id} field={fields[id]} locales={props.sdk.locales} />
             ))}
-            <TextLink onClick={() => setDialogOpen(true)}>Edit field groups</TextLink>
+            <TextLink onClick={openDialog}>Edit field groups</TextLink>
           </div>
         </Form>
-        <Modal isShown={dialogOpen} onClose={() => setDialogOpen(false)}>
+        <Modal size="large" isShown={dialogOpen} onClose={closeDialog}>
           {() => (
-            <FieldGroupsEditor
-              addGroup={() => dispatch({ type: ActionTypes.CREATE_FIELD_GROUP })}
-              fieldGroups={state.fieldGroups}
-              onClose={() => setDialogOpen(false)}
-            />
+            <React.Fragment>
+              <Modal.Header onClose={closeDialog} title="Edit field groups" />
+              <FieldGroupsEditor
+                addGroup={() => dispatch({ type: ActionTypes.CREATE_FIELD_GROUP })}
+                fieldGroups={state.fieldGroups}
+                onClose={closeDialog}
+              />
+            </React.Fragment>
           )}
         </Modal>
       </AppContext.Provider>
