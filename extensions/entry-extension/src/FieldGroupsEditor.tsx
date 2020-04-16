@@ -4,17 +4,15 @@ import {
   Button,
   Dropdown,
   DropdownList,
-  DropdownListItem
+  DropdownListItem,
 } from '@contentful/forma-36-react-components';
-import { EditorExtensionSDK } from 'contentful-ui-extensions-sdk';
-import { ActionTypes, FieldKey, FieldGroup, findUnassignedFields, AppContext } from './shared';
+import { ActionTypes, FieldType, FieldGroupType, findUnassignedFields, AppContext } from './shared';
 
 // -----------------
 // THE EDITOR DIALOGUE
 // -----------------
 interface FieldGroupsEditorProps {
-  sdk: EditorExtensionSDK;
-  fieldGroups: FieldGroup[];
+  fieldGroups: FieldGroupType[];
   addGroup: () => void;
   onClose: () => void;
   // fields
@@ -37,25 +35,26 @@ export class FieldGroupsEditor extends React.Component<FieldGroupsEditorProps> {
   }
 }
 
-interface FieldGroupProps extends FieldGroup {
+interface FieldGroupProps {
+  name: string;
   index: number;
+  fields: FieldType[];
 }
 
 const FieldGroupEditor: React.FC<FieldGroupProps> = ({ name, fields, index }: FieldGroupProps) => {
   const { state, dispatch } = React.useContext(AppContext);
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
+
+  const updateName = (e: React.FormEvent<HTMLInputElement>) =>
+    dispatch({
+      type: ActionTypes.RENAME_FIELD_GROUP,
+      index,
+      name: e.currentTarget.value,
+    });
+
   return (
     <div>
-      <input
-        value={name}
-        onChange={e =>
-          dispatch({
-            type: ActionTypes.RENAME_FIELD_GROUP,
-            index,
-            name: e.target.value
-          })
-        }
-      />
+      <input value={name} onChange={updateName} />
       <button onClick={() => dispatch({ type: ActionTypes.DELETE_FIELD_GROUP, index })}>
         delete group
       </button>
@@ -74,17 +73,19 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({ name, fields, index }: Fi
           </Button>
         }>
         <DropdownList>
-          {findUnassignedFields(state).map((fieldKey: FieldKey) => (
+          {findUnassignedFields(state).map(({ id, name }: FieldType) => (
             <DropdownListItem
-              onClick={() => dispatch({ type: ActionTypes.ADD_FIELD_TO_GROUP, index, fieldKey })}
-              key={fieldKey}>
-              {fieldKey}
+              onClick={() =>
+                dispatch({ type: ActionTypes.ADD_FIELD_TO_GROUP, index, fieldKey: id })
+              }
+              key={id}>
+              {name}
             </DropdownListItem>
           ))}
         </DropdownList>
       </Dropdown>
-      {fields.map(field => (
-        <div>{field}</div>
+      {fields.map((field: FieldType) => (
+        <div key={field.id}>{field.name}</div>
       ))}
     </div>
   );

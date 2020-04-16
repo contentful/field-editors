@@ -10,16 +10,19 @@ import produce from 'immer';
 import { Field } from './Field';
 import { FieldGroupsEditor } from './FieldGroupsEditor';
 import { CollapsibleFieldGroup } from './CollapsibleFieldGroup';
-import { FieldKey, ActionTypes, findUnassignedFields, AppState, AppContext } from './shared';
+import { FieldType, ActionTypes, findUnassignedFields, AppState, AppContext } from './shared';
 
 interface AppProps {
   sdk: EditorExtensionSDK;
 }
 
-const initialState = (fields: string[]): AppState => {
+// ------------
+// state management
+// ------------
+const initialState = (fields: FieldType[]): AppState => {
   return {
     fields,
-    fieldGroups: []
+    fieldGroups: [],
   };
 };
 
@@ -27,7 +30,7 @@ type Action =
   | { type: ActionTypes.CREATE_FIELD_GROUP }
   | { type: ActionTypes.DELETE_FIELD_GROUP; index: number }
   | { type: ActionTypes.RENAME_FIELD_GROUP; index: number; name: string }
-  | { type: ActionTypes.ADD_FIELD_TO_GROUP; index: number; fieldKey: FieldKey };
+  | { type: ActionTypes.ADD_FIELD_TO_GROUP; index: number; fieldKey: string };
 
 const reducer: React.Reducer<AppState, Action> = (state, action) => {
   switch (action.type) {
@@ -56,7 +59,13 @@ const useLocalStateReducer = (
   const [state, dispatch] = React.useReducer(produce(reducer), defaultState, state => {
     const stored = localStorage.getItem('entry-editor-storage');
     if (stored) {
-      return JSON.parse(stored);
+      const parsed = JSON.parse(stored);
+      console.log(parsed, defaultState);
+      if (parsed.fields !== defaultState.fields) {
+        // in case the content model has been updated to add new fields
+        parsed.fields = [...defaultState.fields];
+      }
+      return parsed;
     } else {
       return state;
     }
@@ -69,15 +78,25 @@ const useLocalStateReducer = (
   return [state, dispatch];
 };
 
+// --------------------
+// main application
+// --------------------
+
 export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
   const { fields } = props.sdk.entry;
 
-  const [state, dispatch] = useLocalStateReducer(reducer, initialState(Object.keys(fields)));
+  const fieldDetails = props.sdk.contentType.fields;
+
+  const [state, dispatch] = useLocalStateReducer(reducer, initialState(fieldDetails));
+
   const [dialogOpen, setDialogOpen] = React.useState(false);
+
   return (
     <AppContext.Provider value={{ state, dispatch }}>
-      <Form className="f36-margin--l">
-        <DisplayText testId="title">Entry extension demo</DisplayText>
+      <Form>
+        <DisplayText className="f36-margin--l" testId="title">
+          Entry extension demo
+        </DisplayText>
         {state.fieldGroups.map(fieldGroup => (
           // name is not a good key - as it is constantly changing...
           <CollapsibleFieldGroup
@@ -87,17 +106,18 @@ export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
             fields={fields}
           />
         ))}
-        <h3>unassigned fields</h3>
-        {findUnassignedFields(state).map(k => (
-          <Field key={k} field={fields[k]} locales={props.sdk.locales} />
-        ))}
-        <TextLink onClick={() => setDialogOpen(true)}>Edit field groups</TextLink>
+        <div className="f36-margin--l">
+          <h3>unassigned fields</h3>
+          {findUnassignedFields(state).map(({ id }) => (
+            <Field key={id} field={fields[id]} locales={props.sdk.locales} />
+          ))}
+          <TextLink onClick={() => setDialogOpen(true)}>Edit field groups</TextLink>
+        </div>
       </Form>
       <Modal isShown={dialogOpen} onClose={() => setDialogOpen(false)}>
         {() => (
           <FieldGroupsEditor
             addGroup={() => dispatch({ type: ActionTypes.CREATE_FIELD_GROUP })}
-            sdk={props.sdk}
             fieldGroups={state.fieldGroups}
             onClose={() => setDialogOpen(false)}
           />

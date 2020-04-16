@@ -1,15 +1,20 @@
 import React from 'react';
 
 export interface AppState {
-  fields: FieldKey[];
-  fieldGroups: FieldGroup[];
+  fields: FieldType[];
+  fieldGroups: FieldGroupType[];
 }
 
-export type FieldKey = string;
+export type FieldId = string;
 
-export interface FieldGroup {
+export interface FieldType {
   name: string;
-  fields: FieldKey[];
+  id: FieldId;
+}
+
+export interface FieldGroupType {
+  name: string;
+  fields: string[];
 }
 
 export enum ActionTypes {
@@ -17,7 +22,7 @@ export enum ActionTypes {
   DELETE_FIELD_GROUP,
   RENAME_FIELD_GROUP,
 
-  ADD_FIELD_TO_GROUP
+  ADD_FIELD_TO_GROUP,
 }
 
 export const AppContext = React.createContext<{ state: AppState; dispatch: any }>(undefined!);
@@ -25,14 +30,16 @@ export const AppContext = React.createContext<{ state: AppState; dispatch: any }
 // throughout the code
 
 // UTILS
-export const findUnassignedFields = (appState: AppState): FieldKey[] => {
+export const findUnassignedFields = (appState: AppState): FieldType[] => {
   const assignedFields = appState.fieldGroups
-    .flatMap((fg: FieldGroup) => fg.fields)
-    .reduce((acc, field: FieldKey) => {
+    .flatMap((fg: FieldGroupType) => fg.fields)
+    .reduce((acc, field: FieldId) => {
       acc[field] = true;
       return acc;
     }, {});
 
   console.log(assignedFields);
-  return appState.fields.filter(f => !assignedFields[f]);
+  console.log(appState.fields)
+  console.log(appState.fields.filter(f => !assignedFields[f.id]))
+  return appState.fields.filter(f => !assignedFields[f.id]);
 };
