@@ -27,8 +27,8 @@ export class FieldGroupsEditor extends React.Component<FieldGroupsEditorProps> {
         <p> group fields to seperate concerns in the entry editor</p>
         <Button onClick={this.props.addGroup}>Add Group</Button>
         <Button onClick={this.props.onClose}>save</Button>
-        {fieldGroups.map(({ name, fields }, index) => (
-          <FieldGroupEditor name={name} fields={fields} index={index} />
+        {fieldGroups.map(({ name, fields, id }) => (
+          <FieldGroupEditor key={id} groupId={id} name={name} fields={fields} />
         ))}
       </Modal.Content>
     );
@@ -37,25 +37,25 @@ export class FieldGroupsEditor extends React.Component<FieldGroupsEditorProps> {
 
 interface FieldGroupProps {
   name: string;
-  index: number;
+  groupId: string;
   fields: FieldType[];
 }
 
-const FieldGroupEditor: React.FC<FieldGroupProps> = ({ name, fields, index }: FieldGroupProps) => {
+const FieldGroupEditor: React.FC<FieldGroupProps> = ({ name, fields, groupId  }: FieldGroupProps) => {
   const { state, dispatch } = React.useContext(AppContext);
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
 
   const updateName = (e: React.FormEvent<HTMLInputElement>) =>
     dispatch({
       type: ActionTypes.RENAME_FIELD_GROUP,
-      index,
+      groupId,
       name: e.currentTarget.value,
     });
 
   return (
     <div>
       <input value={name} onChange={updateName} />
-      <button onClick={() => dispatch({ type: ActionTypes.DELETE_FIELD_GROUP, index })}>
+      <button onClick={() => dispatch({ type: ActionTypes.DELETE_FIELD_GROUP, groupId })}>
         delete group
       </button>
       <h3>Fields</h3>
@@ -76,7 +76,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({ name, fields, index }: Fi
           {findUnassignedFields(state).map(({ id, name }: FieldType) => (
             <DropdownListItem
               onClick={() =>
-                dispatch({ type: ActionTypes.ADD_FIELD_TO_GROUP, index, fieldKey: id })
+                dispatch({ type: ActionTypes.ADD_FIELD_TO_GROUP, groupId, fieldKey: id, fieldName: name })
               }
               key={id}>
               {name}

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { LocalesAPI } from '@contentful/field-editor-shared';
 import { Field } from './Field';
-import { FieldGroupType, FieldKey } from './shared';
+import { FieldGroupType, FieldType } from './shared';
 import { css } from 'emotion';
-import { Icon } from '@contentful/forma-36-react-components';
+import { Icon, HelpText } from '@contentful/forma-36-react-components';
 import tokens from '@contentful/forma-36-tokens';
 
 interface CollapsibleFieldGroupProps {
@@ -29,7 +29,7 @@ const styles = {
     backgroundColor: tokens.colorElementLight,
     borderRadius: '2px',
     padding: '3px',
-    marginRight: '2px',
+    marginRight: tokens.spacingXs,
   }),
 
   fieldsContainer: css({
@@ -53,12 +53,12 @@ export const CollapsibleFieldGroup: React.FC<CollapsibleFieldGroupProps> = ({
           <Icon className={styles.icon} icon={isOpen ? 'ChevronDown' : 'ChevronRight'} />
           <h3>{fieldGroup.name}</h3>
         </button>
-        <p>{fieldGroup.fields.length} fields</p>
+        <HelpText>{fieldGroup.fields.length} fields</HelpText>
       </div>
       {isOpen ? (
         <div className={styles.fieldsContainer}>
-          {fieldGroup.fields.map((k: FieldKey) => (
-            <Field key={k} field={fields[k]} locales={locales} />
+          {fieldGroup.fields.map((k: FieldType) => (
+            <Field key={k.id} field={fields[k.id]} locales={locales} />
           ))}
         </div>
       ) : null}

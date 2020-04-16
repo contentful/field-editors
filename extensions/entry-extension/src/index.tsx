@@ -6,11 +6,17 @@ import '@contentful/forma-36-react-components/dist/styles.css';
 import '@contentful/forma-36-fcss/dist/styles.css';
 import './index.css';
 import produce from 'immer';
-
 import { Field } from './Field';
 import { FieldGroupsEditor } from './FieldGroupsEditor';
 import { CollapsibleFieldGroup } from './CollapsibleFieldGroup';
-import { FieldType, ActionTypes, findUnassignedFields, AppState, AppContext } from './shared';
+import {
+  FieldType,
+  ActionTypes,
+  findUnassignedFields,
+  AppState,
+  AppContext,
+  SDKContext,
+} from './shared';
 
 interface AppProps {
   sdk: EditorExtensionSDK;
@@ -28,25 +34,38 @@ const initialState = (fields: FieldType[]): AppState => {
 
 type Action =
   | { type: ActionTypes.CREATE_FIELD_GROUP }
-  | { type: ActionTypes.DELETE_FIELD_GROUP; index: number }
-  | { type: ActionTypes.RENAME_FIELD_GROUP; index: number; name: string }
-  | { type: ActionTypes.ADD_FIELD_TO_GROUP; index: number; fieldKey: string };
+  | { type: ActionTypes.DELETE_FIELD_GROUP; groupId: string }
+  | { type: ActionTypes.RENAME_FIELD_GROUP; groupId: string; name: string }
+  | { type: ActionTypes.ADD_FIELD_TO_GROUP; groupId: string; fieldKey: string; fieldName: string };
+
+const createId = (): string => {
+  const c = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  return [...Array(5)].map(() => c[~~(Math.random() * c.length)]).join('');
+};
 
 const reducer: React.Reducer<AppState, Action> = (state, action) => {
   switch (action.type) {
     case ActionTypes.CREATE_FIELD_GROUP:
-      state.fieldGroups.push({ name: '', fields: [] });
+      state.fieldGroups.push({ name: '', fields: [], id: createId() });
       return state;
     case ActionTypes.DELETE_FIELD_GROUP:
-      state.fieldGroups = state.fieldGroups
-        .slice(0, action.index)
-        .concat(state.fieldGroups.slice(action.index + 1));
+      state.fieldGroups = state.fieldGroups.filter(fieldGroup => fieldGroup.id !== action.groupId);
       return state;
     case ActionTypes.RENAME_FIELD_GROUP:
-      state.fieldGroups[action.index].name = action.name;
+      state.fieldGroups = state.fieldGroups.map(fieldGroup => {
+        if (fieldGroup.id === action.groupId) {
+          fieldGroup.name = action.name;
+        }
+        return fieldGroup;
+      });
       return state;
     case ActionTypes.ADD_FIELD_TO_GROUP:
-      state.fieldGroups[action.index].fields.push(action.fieldKey);
+      state.fieldGroups = state.fieldGroups.map(fieldGroup => {
+        if (fieldGroup.id === action.groupId) {
+          fieldGroup.fields.push({ name: action.fieldName, id: action.fieldKey });
+        }
+        return fieldGroup;
+      });
       return state;
   }
   return state;
@@ -92,38 +111,39 @@ export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
   const [dialogOpen, setDialogOpen] = React.useState(false);
 
   return (
-    <AppContext.Provider value={{ state, dispatch }}>
-      <Form>
-        <DisplayText className="f36-margin--l" testId="title">
-          Entry extension demo
-        </DisplayText>
-        {state.fieldGroups.map(fieldGroup => (
-          // name is not a good key - as it is constantly changing...
-          <CollapsibleFieldGroup
-            key={fieldGroup.name}
-            locales={props.sdk.locales}
-            fieldGroup={fieldGroup}
-            fields={fields}
-          />
-        ))}
-        <div className="f36-margin--l">
-          <h3>unassigned fields</h3>
-          {findUnassignedFields(state).map(({ id }) => (
-            <Field key={id} field={fields[id]} locales={props.sdk.locales} />
+    <SDKContext.Provider value={props.sdk}>
+      <AppContext.Provider value={{ state, dispatch }}>
+        <Form>
+          <DisplayText className="f36-margin--l" testId="title">
+            Entry extension demo
+          </DisplayText>
+          {state.fieldGroups.map(fieldGroup => (
+            <CollapsibleFieldGroup
+              key={fieldGroup.id}
+              locales={props.sdk.locales}
+              fieldGroup={fieldGroup}
+              fields={fields}
+            />
           ))}
-          <TextLink onClick={() => setDialogOpen(true)}>Edit field groups</TextLink>
-        </div>
-      </Form>
-      <Modal isShown={dialogOpen} onClose={() => setDialogOpen(false)}>
-        {() => (
-          <FieldGroupsEditor
-            addGroup={() => dispatch({ type: ActionTypes.CREATE_FIELD_GROUP })}
-            fieldGroups={state.fieldGroups}
-            onClose={() => setDialogOpen(false)}
-          />
-        )}
-      </Modal>
-    </AppContext.Provider>
+          <div className="f36-margin--l">
+            <h3>unassigned fields</h3>
+            {findUnassignedFields(state).map(({ id }) => (
+              <Field key={id} field={fields[id]} locales={props.sdk.locales} />
+            ))}
+            <TextLink onClick={() => setDialogOpen(true)}>Edit field groups</TextLink>
+          </div>
+        </Form>
+        <Modal isShown={dialogOpen} onClose={() => setDialogOpen(false)}>
+          {() => (
+            <FieldGroupsEditor
+              addGroup={() => dispatch({ type: ActionTypes.CREATE_FIELD_GROUP })}
+              fieldGroups={state.fieldGroups}
+              onClose={() => setDialogOpen(false)}
+            />
+          )}
+        </Modal>
+      </AppContext.Provider>
+    </SDKContext.Provider>
   );
 };
 
