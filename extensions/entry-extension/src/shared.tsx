@@ -25,6 +25,8 @@ export enum ActionTypes {
   RENAME_FIELD_GROUP,
 
   ADD_FIELD_TO_GROUP,
+  MOVE_FIELD_GROUP_UP,
+  MOVE_FIELD_GROUP_DOWN,
 }
 
 export const SDKContext = React.createContext<EditorExtensionSDK>(undefined!);

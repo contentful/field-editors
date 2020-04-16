@@ -36,7 +36,9 @@ type Action =
   | { type: ActionTypes.CREATE_FIELD_GROUP }
   | { type: ActionTypes.DELETE_FIELD_GROUP; groupId: string }
   | { type: ActionTypes.RENAME_FIELD_GROUP; groupId: string; name: string }
-  | { type: ActionTypes.ADD_FIELD_TO_GROUP; groupId: string; fieldKey: string; fieldName: string };
+  | { type: ActionTypes.ADD_FIELD_TO_GROUP; groupId: string; fieldKey: string; fieldName: string }
+  | { type: ActionTypes.MOVE_FIELD_GROUP_UP; groupId: string }
+  | { type: ActionTypes.MOVE_FIELD_GROUP_DOWN; groupId: string };
 
 const createId = (): string => {
   const c = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -48,9 +50,11 @@ const reducer: React.Reducer<AppState, Action> = (state, action) => {
     case ActionTypes.CREATE_FIELD_GROUP:
       state.fieldGroups.push({ name: '', fields: [], id: createId() });
       return state;
+
     case ActionTypes.DELETE_FIELD_GROUP:
       state.fieldGroups = state.fieldGroups.filter(fieldGroup => fieldGroup.id !== action.groupId);
       return state;
+
     case ActionTypes.RENAME_FIELD_GROUP:
       state.fieldGroups = state.fieldGroups.map(fieldGroup => {
         if (fieldGroup.id === action.groupId) {
@@ -59,6 +63,7 @@ const reducer: React.Reducer<AppState, Action> = (state, action) => {
         return fieldGroup;
       });
       return state;
+
     case ActionTypes.ADD_FIELD_TO_GROUP:
       state.fieldGroups = state.fieldGroups.map(fieldGroup => {
         if (fieldGroup.id === action.groupId) {
@@ -67,7 +72,24 @@ const reducer: React.Reducer<AppState, Action> = (state, action) => {
         return fieldGroup;
       });
       return state;
+
+    case ActionTypes.MOVE_FIELD_GROUP_UP:
+      const currentIndex = state.fieldGroups.findIndex(({ id }) => id === action.groupId);
+      const a = state.fieldGroups[currentIndex];
+      const b = state.fieldGroups[currentIndex - 1];
+      state.fieldGroups[currentIndex] = { ...b };
+      state.fieldGroups[currentIndex - 1] = { ...a };
+      return state;
+
+    case ActionTypes.MOVE_FIELD_GROUP_DOWN:
+      const currentIndex = state.fieldGroups.findIndex(({ id }) => id === action.groupId);
+      const a = state.fieldGroups[currentIndex];
+      const b = state.fieldGroups[currentIndex + 1];
+      state.fieldGroups[currentIndex] = { ...b };
+      state.fieldGroups[currentIndex + 1] = { ...a };
+      return state;
   }
+
   return state;
 };
 
