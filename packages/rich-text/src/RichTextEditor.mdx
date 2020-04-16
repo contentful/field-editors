@@ -28,7 +28,14 @@ import { css } from 'emotion';
     });
     const newEntitySelectorDummyDialog = (fnName, type) => async () => {
       return confirm(`sdk.dialogs.${fnName}()\nSimulate selecting a random entity or cancel?`)
-        ? { sys: { id: Math.random().toString(36).substring(7), type } }
+        ? {
+            sys: {
+              id: Math.random()
+                .toString(36)
+                .substring(7),
+              type
+            }
+          }
         : Promise.reject(); // Simulate cancellation.
     };
     const [field, mitt] = createFakeFieldAPI();
@@ -39,37 +46,39 @@ import { css } from 'emotion';
       field,
       locales: createFakeLocalesAPI(),
       navigator,
-      permissions: {
-        canAccessAssets: true,
-        canCreateAssets: false,
-        canCreateEntryOfContentType: {
-          'exampleCT': true
+      parameters: {
+        instance: {
+          permissions: {
+            canAccessAssets: true,
+            canCreateAssets: false,
+            canCreateEntryOfContentType: (contentTypeId) => {
+                return contentTypeId === 'exampleCT';
+            }
+          }
         }
       },
       dialogs: {
         createHyperlink: async () => {
           alert('sdk.dialogs.createHyperlink()');
           return Promise.reject(); // Simulate cancellation.
-	    },
-	    selectSingleAsset: newEntitySelectorDummyDialog('selectSingleAsset', 'Asset'),
-	    selectSingleEntry: newEntitySelectorDummyDialog('selectSingleEntry', 'Entry')
-      },
+        },
+        selectSingleAsset: newEntitySelectorDummyDialog('selectSingleAsset', 'Asset'),
+        selectSingleEntry: newEntitySelectorDummyDialog('selectSingleEntry', 'Entry')
+      }
     };
     const renderRT = (value, type) => {
       const logValue = () => {
-        console.log(type, value)
-      }
+        console.log(type, value);
+      };
       const valueString = JSON.stringify(value, null, 2);
       const valueDom = documentToReactComponents(value);
       return (
-        <div
-          className={rtPreviewStyle}
-          title={valueString}
-          onClick={logValue}
-        >{valueDom}</div>
-	  );
-    }
-    window.richTextField = field
+        <div className={rtPreviewStyle} title={valueString} onClick={logValue}>
+          {valueDom}
+        </div>
+      );
+    };
+    window.richTextField = field;
     return (
       <div data-test-id="rich-text-editor-integration-test">
         <RichTextEditor widgetAPI={sdk} isInitiallyDisabled={false} />

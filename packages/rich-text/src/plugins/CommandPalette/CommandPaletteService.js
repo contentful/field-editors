@@ -115,7 +115,7 @@ export class CommandPaletteActionBuilder {
       if (!isValidLinkedContentType(this.field, contentType, embedType)) {
         return false;
       }
-      if (!this.permissions.canCreateEntryOfContentType[contentType.sys.id]) {
+      if (!this.permissions.canCreateEntryOfContentType(contentType.sys.id)) {
         return false;
       }
     } else if (!this.permissions.canCreateAssets) {

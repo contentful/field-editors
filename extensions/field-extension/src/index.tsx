@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { init, FieldExtensionSDK } from 'contentful-ui-extensions-sdk';
 import { SingleEntryReferenceEditor } from '../../../packages/reference/src/index';
-
+import { init, FieldExtensionSDK } from 'contentful-ui-extensions-sdk';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import '@contentful/forma-36-fcss/dist/styles.css';
 import './index.css';
@@ -10,6 +9,7 @@ import './index.css';
 init<FieldExtensionSDK>(sdk => {
   const fieldSdk = sdk as FieldExtensionSDK;
   fieldSdk.window.startAutoResizer();
+
   render(
     <div style={{ minHeight: 400 }}>
       <SingleEntryReferenceEditor
