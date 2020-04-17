@@ -25,6 +25,7 @@ export enum ActionTypes {
   RENAME_FIELD_GROUP,
 
   ADD_FIELD_TO_GROUP,
+  REMOVE_FIELD_FROM_GROUP,
   MOVE_FIELD_GROUP_UP,
   MOVE_FIELD_GROUP_DOWN,
 }
@@ -43,8 +44,5 @@ export const findUnassignedFields = (appState: AppState): FieldType[] => {
       return acc;
     }, {});
 
-  console.log(assignedFields);
-  console.log(appState.fields);
-  console.log(appState.fields.filter(f => !assignedFields[f.id]));
   return appState.fields.filter(f => !assignedFields[f.id]);
 };

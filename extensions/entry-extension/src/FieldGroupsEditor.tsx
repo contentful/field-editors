@@ -9,6 +9,11 @@ import {
   HelpText,
   Icon,
   TextField,
+  FormLabel,
+  FieldGroup,
+  Card,
+  Paragraph,
+  IconButton,
 } from '@contentful/forma-36-react-components';
 import tokens from '@contentful/forma-36-tokens';
 import { ActionTypes, FieldType, FieldGroupType, findUnassignedFields, AppContext } from './shared';
@@ -33,6 +38,22 @@ const styles = {
   }),
   saveButton: css({
     marginLeft: tokens.spacingS,
+  }),
+  editor: css({
+    background: tokens.colorElementLightest,
+    padding: tokens.spacingL,
+    marginBottom: tokens.spacingM,
+  }),
+  dropDownTrigger: css({
+    width: '100%',
+  }),
+  card: css({
+    marginBottom: tokens.spacingXs,
+    paddingTop: tokens.spacingXs,
+    paddingBottoBottom: tokens.spacingXs,
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   }),
 };
 
@@ -96,8 +117,18 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
       name: e.currentTarget.value,
     });
 
+  const unassignedFields = findUnassignedFields(state);
+  const closeDropdown = () => setDropdownOpen(false);
+  const openDropdown = () => {
+    if (unassignedFields.length > 0) {
+      setDropdownOpen(true);
+    } else {
+      setDropdownOpen(false);
+    }
+  };
+
   return (
-    <div>
+    <div className={styles.editor}>
       <TextField
         id={`${groupId}-name-input`}
         name={`${groupId}-name-input`}
@@ -105,40 +136,65 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
         onChange={updateName}
         value={name}
       />
-      <h3>Fields</h3>
-      <div>select a field to add</div>
-      <Dropdown
-        isOpen={dropdownOpen}
-        onClose={() => setDropdownOpen(false)}
-        toggleElement={
-          <Button
-            size="small"
-            buttonType="muted"
-            onClick={() => setDropdownOpen(true)}
-            indicateDropdown>
-            Select a field to add
-          </Button>
-        }>
-        <DropdownList>
-          {findUnassignedFields(state).map(({ id, name }: FieldType) => (
-            <DropdownListItem
-              onClick={() =>
+      <FieldGroup>
+        <FormLabel>Fields</FormLabel>
+        <Dropdown
+          className={styles.dropDownTrigger}
+          isOpen={dropdownOpen}
+          onClose={closeDropdown}
+          toggleElement={
+            <Button
+              className={styles.dropDownTrigger}
+              size="small"
+              buttonType="muted"
+              onClick={openDropdown}
+              indicateDropdown>
+              Select a field to add
+            </Button>
+          }>
+          <DropdownList>
+            {unassignedFields.map(({ id, name }: FieldType) => (
+              <DropdownListItem
+                onClick={() => {
+                  dispatch({
+                    type: ActionTypes.ADD_FIELD_TO_GROUP,
+                    groupId,
+                    fieldKey: id,
+                    fieldName: name,
+                  });
+                  closeDropdown();
+                }}
+                key={id}>
+                {name}
+              </DropdownListItem>
+            ))}
+          </DropdownList>
+        </Dropdown>
+      </FieldGroup>
+      {fields.map((field: FieldType) => {
+        // TODO - drag and drop reordering
+
+        return (
+          <Card className={styles.card} key={field.id}>
+            <div className={css({ display: 'flex' })}>
+              <Paragraph className={css({ marginRight: tokens.spacingXs })}>{field.name}</Paragraph>
+              <Paragraph>FIELD TYPE</Paragraph>
+            </div>
+            <IconButton
+              label="Remove field"
+              buttonType="negative"
+              iconProps={{ icon: 'Close' }}
+              onClick={() => {
                 dispatch({
-                  type: ActionTypes.ADD_FIELD_TO_GROUP,
+                  type: ActionTypes.REMOVE_FIELD_FROM_GROUP,
                   groupId,
-                  fieldKey: id,
-                  fieldName: name,
-                })
-              }
-              key={id}>
-              {name}
-            </DropdownListItem>
-          ))}
-        </DropdownList>
-      </Dropdown>
-      {fields.map((field: FieldType) => (
-        <div key={field.id}>{field.name}</div>
-      ))}
+                  fieldKey: field.id,
+                });
+              }}
+            />
+          </Card>
+        );
+      })}
       <div>
         <TextLink
           linkType="negative"

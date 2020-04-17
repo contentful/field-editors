@@ -18,6 +18,7 @@ const styles = {
     justifyContent: 'space-between',
     margin: tokens.spacingL,
   }),
+
   button: css({
     background: 'none',
     border: 'none',
@@ -25,15 +26,16 @@ const styles = {
     alignItems: 'center',
     padding: '0',
   }),
+
   icon: css({
-    backgroundColor: tokens.colorElementLight,
+    backgroundColor: tokens.colorElementLightest,
     borderRadius: '2px',
     padding: '3px',
     marginRight: tokens.spacingXs,
   }),
 
   fieldsContainer: css({
-    backgroundColor: tokens.colorElementLight,
+    backgroundColor: tokens.colorElementLightest,
     padding: tokens.spacingL,
   }),
 };

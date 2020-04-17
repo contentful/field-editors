@@ -37,6 +37,7 @@ type Action =
   | { type: ActionTypes.DELETE_FIELD_GROUP; groupId: string }
   | { type: ActionTypes.RENAME_FIELD_GROUP; groupId: string; name: string }
   | { type: ActionTypes.ADD_FIELD_TO_GROUP; groupId: string; fieldKey: string; fieldName: string }
+  | { type: ActionTypes.REMOVE_FIELD_FROM_GROUP; groupId: string; fieldKey: string }
   | { type: ActionTypes.MOVE_FIELD_GROUP_UP; groupId: string }
   | { type: ActionTypes.MOVE_FIELD_GROUP_DOWN; groupId: string };
 
@@ -68,6 +69,15 @@ const reducer: React.Reducer<AppState, Action> = (state, action) => {
       state.fieldGroups = state.fieldGroups.map(fieldGroup => {
         if (fieldGroup.id === action.groupId) {
           fieldGroup.fields.push({ name: action.fieldName, id: action.fieldKey });
+        }
+        return fieldGroup;
+      });
+      return state;
+
+    case ActionTypes.REMOVE_FIELD_FROM_GROUP:
+      state.fieldGroups = state.fieldGroups.map(fieldGroup => {
+        if (fieldGroup.id === action.groupId) {
+          fieldGroup.fields = fieldGroup.fields.filter(({ id }) => id !== action.fieldKey);
         }
         return fieldGroup;
       });
