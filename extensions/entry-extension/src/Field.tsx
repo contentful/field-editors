@@ -8,6 +8,7 @@ import { SDKContext } from './shared';
 import { NumberEditor } from '../../../packages/number/src/index';
 import { SingleLineEditor } from '../../../packages/single-line/src/index';
 import { BooleanEditor } from '../../../packages/boolean/src/index';
+import { DateEditor } from '../../../packages/date/src/index';
 
 const styles = {
   wrapper: css({
@@ -17,12 +18,12 @@ const styles = {
     marginTop: '19px',
     transition: 'border-color 0.18s linear',
     '&:focus-within': {
-      borderColor: tokens.colorPrimary,
-    },
+      borderColor: tokens.colorPrimary
+    }
   }),
   label: css({
-    color: tokens.colorTextLightest,
-  }),
+    color: tokens.colorTextLightest
+  })
 };
 
 interface FieldProps {
@@ -55,6 +56,7 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
             </label>
           </FieldWrapper>
         );
+
       case 'Integer':
         return (
           <FieldWrapper>
@@ -67,6 +69,7 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
             </label>
           </FieldWrapper>
         );
+
       case 'Boolean':
         return (
           <FieldWrapper>
@@ -79,8 +82,23 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
             </label>
           </FieldWrapper>
         );
+
+      // TODO: the styling for date fields looks very wrong at the moment
+      case 'Date':
+        return (
+          <FieldWrapper>
+            <label>
+              <HelpText>
+                {fieldDetails.name}
+                {fieldDetails.required ? ' (required)' : ''}
+              </HelpText>
+              <DateEditor field={field} />
+            </label>
+          </FieldWrapper>
+        );
     }
 
+    console.log(field);
     return (
       <FieldWrapper>
         field {fieldDetails.name} of type {field.type} was not implemented yet
