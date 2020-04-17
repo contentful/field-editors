@@ -10,6 +10,10 @@ import { SingleLineEditor } from '../../../packages/single-line/src/index';
 import { BooleanEditor } from '../../../packages/boolean/src/index';
 import { DateEditor } from '../../../packages/date/src/index';
 import { LocationEditor } from '../../../packages/location/src/index';
+// import {
+//   SingleEntryReferenceEditor,
+//   SingleMediaEditor,
+// } from '../../../packages/reference/src/index';
 
 const styles = {
   wrapper: css({
@@ -110,6 +114,38 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
             </label>
           </FieldWrapper>
         );
+
+      case 'Link':
+        // Reference editors don't work at the moment, as I have access to the
+        // wrong SDK here.
+        return null;
+      // if (fieldDetails.linkType === 'Asset') {
+      //   return (
+      //     <FieldWrapper>
+      //       <label>
+      //         <HelpText>
+      //           {fieldDetails.name}
+      //           {fieldDetails.required ? ' (required)' : ''}
+      //         </HelpText>
+      //         <SingleMediaEditor sdk={sdk} field={field} />
+      //       </label>
+      //     </FieldWrapper>
+      //   );
+      // }
+
+      // if (fieldDetails.linkType === 'Entry') {
+      //   return (
+      //     <FieldWrapper>
+      //       <label>
+      //         <HelpText>
+      //           {fieldDetails.name}
+      //           {fieldDetails.required ? ' (required)' : ''}
+      //         </HelpText>
+      //         <SingleEntryReferenceEditor sdk={sdk} field={field} />
+      //       </label>
+      //     </FieldWrapper>
+      //   );
+      // }
     }
 
     return (
