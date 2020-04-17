@@ -13,15 +13,12 @@ import {
   FieldGroup,
   Card,
   Paragraph,
-  IconButton,
+  IconButton
 } from '@contentful/forma-36-react-components';
 import tokens from '@contentful/forma-36-tokens';
 import { ActionTypes, FieldType, FieldGroupType, findUnassignedFields, AppContext } from './shared';
-
 import { css } from 'emotion';
-// -----------------
-// THE EDITOR DIALOGUE
-// -----------------
+
 interface FieldGroupsEditorProps {
   fieldGroups: FieldGroupType[];
   addGroup: () => void;
@@ -34,18 +31,18 @@ const styles = {
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: `${tokens.spacingM} ${tokens.spacingXl}`,
-    borderBottom: `1px solid ${tokens.colorElementMid}`,
+    borderBottom: `1px solid ${tokens.colorElementMid}`
   }),
   saveButton: css({
-    marginLeft: tokens.spacingS,
+    marginLeft: tokens.spacingS
   }),
   editor: css({
     background: tokens.colorElementLightest,
     padding: tokens.spacingL,
-    marginBottom: tokens.spacingM,
+    marginBottom: tokens.spacingM
   }),
   dropDownTrigger: css({
-    width: '100%',
+    width: '100%'
   }),
   card: css({
     marginBottom: tokens.spacingXs,
@@ -53,8 +50,8 @@ const styles = {
     paddingBottoBottom: tokens.spacingXs,
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center',
-  }),
+    alignItems: 'center'
+  })
 };
 
 export class FieldGroupsEditor extends React.Component<FieldGroupsEditorProps> {
@@ -105,7 +102,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
   last,
   name,
   fields,
-  groupId,
+  groupId
 }: FieldGroupProps) => {
   const { state, dispatch } = React.useContext(AppContext);
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
@@ -114,7 +111,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
     dispatch({
       type: ActionTypes.RENAME_FIELD_GROUP,
       groupId,
-      name: e.currentTarget.value,
+      name: e.currentTarget.value
     });
 
   const unassignedFields = findUnassignedFields(state);
@@ -160,7 +157,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
                     type: ActionTypes.ADD_FIELD_TO_GROUP,
                     groupId,
                     fieldKey: id,
-                    fieldName: name,
+                    fieldName: name
                   });
                   closeDropdown();
                 }}
@@ -188,7 +185,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
                 dispatch({
                   type: ActionTypes.REMOVE_FIELD_FROM_GROUP,
                   groupId,
-                  fieldKey: field.id,
+                  fieldKey: field.id
                 });
               }}
             />

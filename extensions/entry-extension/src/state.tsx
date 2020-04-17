@@ -80,7 +80,7 @@ export const useAppState = (
 ): [React.ReducerState<React.Reducer<AppState, Action>>, React.Dispatch<Action>] => {
   const defaultState = {
     fields,
-    fieldGroups: [],
+    fieldGroups: []
   };
 
   const [state, dispatch] = React.useReducer(produce(reducer), defaultState, state => {
@@ -98,7 +98,6 @@ export const useAppState = (
       return state;
     }
   });
-
 
   // On each state change save the new state in local storage
   React.useEffect(() => {

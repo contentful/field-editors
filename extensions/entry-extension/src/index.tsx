@@ -47,7 +47,7 @@ export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
               fieldGroup={{
                 name: 'Unassigned fields',
                 fields: unassignedFields,
-                id: 'unassigned-fields',
+                id: 'unassigned-fields'
               }}
               fields={fields}
             />
