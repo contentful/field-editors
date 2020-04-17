@@ -232,7 +232,10 @@ class CommandPalette extends React.PureComponent {
     this.setState({
       isLoading: false
     });
-    const actionBuilder = new CommandPaletteActionBuilder(widgetAPI.field, widgetAPI.permissions);
+    const actionBuilder = new CommandPaletteActionBuilder(
+      widgetAPI.field,
+      widgetAPI.parameters.instance.permissions
+    );
     const contentTypeActions = flatten(
       allContentTypes.map(ct => this.createContentTypeActions(actionBuilder, ct))
     );
