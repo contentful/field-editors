@@ -54,16 +54,18 @@ const styles = {
     justifyContent: 'space-between',
     alignItems: 'center',
     zIndex: 102, // TODO is there a better way??
-    cursor: 'pointer',
   }),
 };
 
+const DragHandle = SortableHandle(() => <CardDragHandle>Reorder item</CardDragHandle>);
+
 const SortableFieldItem = SortableElement(
   ({ field, groupId }: { field: FieldType; groupId: string }) => {
-    const { dispatch } = React.useContext(AppContext);
+    const { dispatch} = React.useContext(AppContext);
     return (
       <Card className={styles.card}>
         <div className={css({ display: 'flex' })}>
+          <DragHandle />
           <Paragraph className={css({ marginRight: tokens.spacingXs })}>{field.name}</Paragraph>
           <Paragraph>TODO FIELD TYPE</Paragraph>
         </div>
