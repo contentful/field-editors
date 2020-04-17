@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { InlineEntryCard } from '@contentful/forma-36-react-components';
 import { css } from 'emotion';
-import { INLINES } from '@contentful/rich-text-types';
+import { FetchingWrappedInlineEntryCard } from './FetchingWrappedInlineEntryCard';
 
 const styles = {
   root: css({
@@ -34,8 +33,9 @@ class EmbeddedEntryInline extends React.Component {
     };
   }
 
-  handleEditClick = entry => {
-    this.props.sdk.navigator.openEntry(entry.sys.id, { slideIn: true });
+  handleEditClick = () => {
+    const { id } = this.getEntitySys();
+    return this.props.sdk.navigator.openEntry(id, { slideIn: true });
   };
 
   handleRemoveClick = () => {
@@ -48,20 +48,21 @@ class EmbeddedEntryInline extends React.Component {
     const isDisabled = editor.props.readOnly;
     const isReadOnly = editor.props.actionsDisabled;
     const { id: entryId } = this.getEntitySys();
-    const props = {
-      sdk,
-      entryId,
-      isSelected,
-      isDisabled,
-      isReadOnly,
-      onRemove: this.handleRemoveClick,
-      onOpenEntity: this.handleEditClick
-    };
     return (
       <span {...this.props.attributes} className={styles.root}>
-        <InlineEntryCard testId={INLINES.EMBEDDED_ENTRY} selected={props.isSelected}>
-          Entry <code>{props.entryId}</code>
-        </InlineEntryCard>
+        <FetchingWrappedInlineEntryCard
+          sdk={sdk}
+          entryId={entryId}
+          isSelected={isSelected}
+          isDisabled={isDisabled}
+          isReadOnly={isReadOnly}
+          onRemove={this.handleRemoveClick}
+          onEdit={this.handleEditClick}
+          getEntryUrl={() => {
+            // todo: provide a real url from params
+            return '';
+          }}
+        />
       </span>
     );
   }

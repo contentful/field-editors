@@ -2,6 +2,7 @@ export {
   CreateEntryMenuTrigger,
   CreateEntryLinkButton,
   ScheduleTooltipContent,
+  ScheduledIconWithTooltip,
   AssetThumbnail,
   MissingEntityCard
 } from './components';

@@ -63,7 +63,9 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
       locales: createFakeLocalesAPI(),
       navigator: {
         ...navigator,
-        onSlideInNavigation: () => () => {}
+        onSlideInNavigation: () => {
+          return () => {};
+        }
       },
       parameters: {
         instance: {
