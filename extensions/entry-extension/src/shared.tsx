@@ -19,18 +19,6 @@ export interface FieldGroupType {
   id: string;
 }
 
-// move to the state module
-export enum ActionTypes {
-  CREATE_FIELD_GROUP,
-  DELETE_FIELD_GROUP,
-  RENAME_FIELD_GROUP,
-
-  ADD_FIELD_TO_GROUP,
-  REMOVE_FIELD_FROM_GROUP,
-  MOVE_FIELD_GROUP_UP,
-  MOVE_FIELD_GROUP_DOWN,
-  REORDER_GROUP
-}
 
 export const SDKContext = React.createContext<EditorExtensionSDK>(undefined!);
 export const AppContext = React.createContext<{ state: AppState; dispatch: any }>(undefined!);

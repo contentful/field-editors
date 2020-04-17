@@ -5,11 +5,10 @@ import { init, locations, EditorExtensionSDK } from 'contentful-ui-extensions-sd
 import '@contentful/forma-36-react-components/dist/styles.css';
 import '@contentful/forma-36-fcss/dist/styles.css';
 import './index.css';
-import { Field } from './Field';
 import { FieldGroupsEditor } from './FieldGroupsEditor';
 import { CollapsibleFieldGroup } from './CollapsibleFieldGroup';
-import { ActionTypes, findUnassignedFields, AppContext, SDKContext } from './shared';
-import { useAppState } from './state';
+import { findUnassignedFields, AppContext, SDKContext } from './shared';
+import { useAppState, ActionTypes } from './state';
 
 interface AppProps {
   sdk: EditorExtensionSDK;

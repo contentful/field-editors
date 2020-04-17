@@ -17,7 +17,8 @@ import {
   CardDragHandle,
 } from '@contentful/forma-36-react-components';
 import tokens from '@contentful/forma-36-tokens';
-import { ActionTypes, FieldType, FieldGroupType, findUnassignedFields, AppContext } from './shared';
+import { FieldType, FieldGroupType, findUnassignedFields, AppContext } from './shared';
+import { ActionTypes } from './state';
 import { css } from 'emotion';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 
@@ -61,7 +62,7 @@ const DragHandle = SortableHandle(() => <CardDragHandle>Reorder item</CardDragHa
 
 const SortableFieldItem = SortableElement(
   ({ field, groupId }: { field: FieldType; groupId: string }) => {
-    const { dispatch} = React.useContext(AppContext);
+    const { dispatch } = React.useContext(AppContext);
     return (
       <Card className={styles.card}>
         <div className={css({ display: 'flex' })}>
