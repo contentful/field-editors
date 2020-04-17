@@ -13,11 +13,13 @@ import {
   FieldGroup,
   Card,
   Paragraph,
-  IconButton
+  IconButton,
+  CardDragHandle,
 } from '@contentful/forma-36-react-components';
 import tokens from '@contentful/forma-36-tokens';
 import { ActionTypes, FieldType, FieldGroupType, findUnassignedFields, AppContext } from './shared';
 import { css } from 'emotion';
+import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 
 interface FieldGroupsEditorProps {
   fieldGroups: FieldGroupType[];
@@ -31,18 +33,18 @@ const styles = {
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: `${tokens.spacingM} ${tokens.spacingXl}`,
-    borderBottom: `1px solid ${tokens.colorElementMid}`
+    borderBottom: `1px solid ${tokens.colorElementMid}`,
   }),
   saveButton: css({
-    marginLeft: tokens.spacingS
+    marginLeft: tokens.spacingS,
   }),
   editor: css({
     background: tokens.colorElementLightest,
     padding: tokens.spacingL,
-    marginBottom: tokens.spacingM
+    marginBottom: tokens.spacingM,
   }),
   dropDownTrigger: css({
-    width: '100%'
+    width: '100%',
   }),
   card: css({
     marginBottom: tokens.spacingXs,
@@ -50,9 +52,47 @@ const styles = {
     paddingBottoBottom: tokens.spacingXs,
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center'
-  })
+    alignItems: 'center',
+    zIndex: 102, // TODO is there a better way??
+    cursor: 'pointer',
+  }),
 };
+
+const SortableFieldItem = SortableElement(
+  ({ field, groupId }: { field: FieldType; groupId: string }) => {
+    const { dispatch } = React.useContext(AppContext);
+    return (
+      <Card className={styles.card}>
+        <div className={css({ display: 'flex' })}>
+          <Paragraph className={css({ marginRight: tokens.spacingXs })}>{field.name}</Paragraph>
+          <Paragraph>TODO FIELD TYPE</Paragraph>
+        </div>
+        <IconButton
+          label="Remove field"
+          buttonType="negative"
+          iconProps={{ icon: 'Close' }}
+          onClick={() => {
+            dispatch({
+              type: ActionTypes.REMOVE_FIELD_FROM_GROUP,
+              groupId,
+              fieldKey: field.id,
+            });
+          }}
+        />
+      </Card>
+    );
+  }
+);
+
+const SortableFieldList = SortableContainer(
+  ({ items, groupId }: { items: FieldType[]; groupId: string }) => (
+    <ul className={css({ paddingLeft: '0px' })}>
+      {items.map((field: FieldType, index: number) => (
+        <SortableFieldItem groupId={groupId} key={`item-${field.id}`} index={index} field={field} />
+      ))}
+    </ul>
+  )
+);
 
 export class FieldGroupsEditor extends React.Component<FieldGroupsEditorProps> {
   render() {
@@ -102,7 +142,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
   last,
   name,
   fields,
-  groupId
+  groupId,
 }: FieldGroupProps) => {
   const { state, dispatch } = React.useContext(AppContext);
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
@@ -111,7 +151,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
     dispatch({
       type: ActionTypes.RENAME_FIELD_GROUP,
       groupId,
-      name: e.currentTarget.value
+      name: e.currentTarget.value,
     });
 
   const unassignedFields = findUnassignedFields(state);
@@ -122,6 +162,15 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
     } else {
       setDropdownOpen(false);
     }
+  };
+
+  const onSortEnd = ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => {
+    dispatch({
+      type: ActionTypes.REORDER_GROUP,
+      groupId,
+      oldIndex,
+      newIndex,
+    });
   };
 
   return (
@@ -157,7 +206,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
                     type: ActionTypes.ADD_FIELD_TO_GROUP,
                     groupId,
                     fieldKey: id,
-                    fieldName: name
+                    fieldName: name,
                   });
                   closeDropdown();
                 }}
@@ -168,30 +217,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
           </DropdownList>
         </Dropdown>
       </FieldGroup>
-      {fields.map((field: FieldType) => {
-        // TODO - drag and drop reordering
-
-        return (
-          <Card className={styles.card} key={field.id}>
-            <div className={css({ display: 'flex' })}>
-              <Paragraph className={css({ marginRight: tokens.spacingXs })}>{field.name}</Paragraph>
-              <Paragraph>TODO FIELD TYPE</Paragraph>
-            </div>
-            <IconButton
-              label="Remove field"
-              buttonType="negative"
-              iconProps={{ icon: 'Close' }}
-              onClick={() => {
-                dispatch({
-                  type: ActionTypes.REMOVE_FIELD_FROM_GROUP,
-                  groupId,
-                  fieldKey: field.id
-                });
-              }}
-            />
-          </Card>
-        );
-      })}
+      <SortableFieldList onSortEnd={onSortEnd} items={fields} groupId={groupId} />
       <div>
         <TextLink
           linkType="negative"

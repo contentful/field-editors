@@ -14,7 +14,8 @@ type Action =
   | { type: ActionTypes.ADD_FIELD_TO_GROUP; groupId: string; fieldKey: string; fieldName: string }
   | { type: ActionTypes.REMOVE_FIELD_FROM_GROUP; groupId: string; fieldKey: string }
   | { type: ActionTypes.MOVE_FIELD_GROUP_UP; groupId: string }
-  | { type: ActionTypes.MOVE_FIELD_GROUP_DOWN; groupId: string };
+  | { type: ActionTypes.MOVE_FIELD_GROUP_DOWN; groupId: string }
+  | { type: ActionTypes.REORDER_GROUP; groupId: string; oldIndex: number; newIndex: number };
 
 const reducer: React.Reducer<AppState, Action> = (state, action) => {
   switch (action.type) {
@@ -70,6 +71,16 @@ const reducer: React.Reducer<AppState, Action> = (state, action) => {
       state.fieldGroups[currentIndex] = { ...b };
       state.fieldGroups[currentIndex + 1] = { ...a };
       return state;
+
+    case ActionTypes.REORDER_GROUP:
+      state.fieldGroups = state.fieldGroups.map(fieldGroup => {
+        if (fieldGroup.id === action.groupId) {
+          const movedElement = fieldGroup.fields.splice(action.oldIndex, 1)[0];
+          fieldGroup.fields.splice(action.newIndex, 0, movedElement);
+        }
+
+        return fieldGroup;
+      });
   }
 
   return state;
@@ -80,7 +91,7 @@ export const useAppState = (
 ): [React.ReducerState<React.Reducer<AppState, Action>>, React.Dispatch<Action>] => {
   const defaultState = {
     fields,
-    fieldGroups: []
+    fieldGroups: [],
   };
 
   const [state, dispatch] = React.useReducer(produce(reducer), defaultState, state => {
