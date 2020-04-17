@@ -9,6 +9,7 @@ import { NumberEditor } from '../../../packages/number/src/index';
 import { SingleLineEditor } from '../../../packages/single-line/src/index';
 import { BooleanEditor } from '../../../packages/boolean/src/index';
 import { DateEditor } from '../../../packages/date/src/index';
+import { LocationEditor } from '../../../packages/location/src/index';
 
 const styles = {
   wrapper: css({
@@ -96,9 +97,21 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
             </label>
           </FieldWrapper>
         );
+
+      case 'Location':
+        return (
+          <FieldWrapper>
+            <label>
+              <HelpText>
+                {fieldDetails.name}
+                {fieldDetails.required ? ' (required)' : ''}
+              </HelpText>
+              <LocationEditor field={field} />
+            </label>
+          </FieldWrapper>
+        );
     }
 
-    console.log(field);
     return (
       <FieldWrapper>
         field {fieldDetails.name} of type {field.type} was not implemented yet
