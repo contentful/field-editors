@@ -6,9 +6,6 @@ import { NumberEditor } from '../../../packages/number/src/index';
 import { LocalesAPI } from '@contentful/field-editor-shared';
 import { css } from 'emotion';
 import { SDKContext } from './shared';
-import '@contentful/forma-36-react-components/dist/styles.css';
-import '@contentful/forma-36-fcss/dist/styles.css';
-import './index.css';
 
 const styles = {
   wrapper: css({

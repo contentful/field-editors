@@ -178,7 +178,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
           <Card className={styles.card} key={field.id}>
             <div className={css({ display: 'flex' })}>
               <Paragraph className={css({ marginRight: tokens.spacingXs })}>{field.name}</Paragraph>
-              <Paragraph>FIELD TYPE</Paragraph>
+              <Paragraph>TODO FIELD TYPE</Paragraph>
             </div>
             <IconButton
               label="Remove field"

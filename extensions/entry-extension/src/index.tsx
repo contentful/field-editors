@@ -5,144 +5,26 @@ import { init, locations, EditorExtensionSDK } from 'contentful-ui-extensions-sd
 import '@contentful/forma-36-react-components/dist/styles.css';
 import '@contentful/forma-36-fcss/dist/styles.css';
 import './index.css';
-import produce from 'immer';
 import { Field } from './Field';
 import { FieldGroupsEditor } from './FieldGroupsEditor';
 import { CollapsibleFieldGroup } from './CollapsibleFieldGroup';
-import {
-  FieldType,
-  ActionTypes,
-  findUnassignedFields,
-  AppState,
-  AppContext,
-  SDKContext,
-} from './shared';
+import { ActionTypes, findUnassignedFields, AppContext, SDKContext } from './shared';
+import { useAppState } from './state';
 
 interface AppProps {
   sdk: EditorExtensionSDK;
 }
 
-// ------------
-// state management
-// ------------
-const initialState = (fields: FieldType[]): AppState => {
-  return {
-    fields,
-    fieldGroups: [],
-  };
-};
-
-type Action =
-  | { type: ActionTypes.CREATE_FIELD_GROUP }
-  | { type: ActionTypes.DELETE_FIELD_GROUP; groupId: string }
-  | { type: ActionTypes.RENAME_FIELD_GROUP; groupId: string; name: string }
-  | { type: ActionTypes.ADD_FIELD_TO_GROUP; groupId: string; fieldKey: string; fieldName: string }
-  | { type: ActionTypes.REMOVE_FIELD_FROM_GROUP; groupId: string; fieldKey: string }
-  | { type: ActionTypes.MOVE_FIELD_GROUP_UP; groupId: string }
-  | { type: ActionTypes.MOVE_FIELD_GROUP_DOWN; groupId: string };
-
-const createId = (): string => {
-  const c = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-  return [...Array(5)].map(() => c[~~(Math.random() * c.length)]).join('');
-};
-
-const reducer: React.Reducer<AppState, Action> = (state, action) => {
-  switch (action.type) {
-    case ActionTypes.CREATE_FIELD_GROUP:
-      state.fieldGroups.push({ name: '', fields: [], id: createId() });
-      return state;
-
-    case ActionTypes.DELETE_FIELD_GROUP:
-      state.fieldGroups = state.fieldGroups.filter(fieldGroup => fieldGroup.id !== action.groupId);
-      return state;
-
-    case ActionTypes.RENAME_FIELD_GROUP:
-      state.fieldGroups = state.fieldGroups.map(fieldGroup => {
-        if (fieldGroup.id === action.groupId) {
-          fieldGroup.name = action.name;
-        }
-        return fieldGroup;
-      });
-      return state;
-
-    case ActionTypes.ADD_FIELD_TO_GROUP:
-      state.fieldGroups = state.fieldGroups.map(fieldGroup => {
-        if (fieldGroup.id === action.groupId) {
-          fieldGroup.fields.push({ name: action.fieldName, id: action.fieldKey });
-        }
-        return fieldGroup;
-      });
-      return state;
-
-    case ActionTypes.REMOVE_FIELD_FROM_GROUP:
-      state.fieldGroups = state.fieldGroups.map(fieldGroup => {
-        if (fieldGroup.id === action.groupId) {
-          fieldGroup.fields = fieldGroup.fields.filter(({ id }) => id !== action.fieldKey);
-        }
-        return fieldGroup;
-      });
-      return state;
-
-    case ActionTypes.MOVE_FIELD_GROUP_UP:
-      const currentIndex = state.fieldGroups.findIndex(({ id }) => id === action.groupId);
-      const a = state.fieldGroups[currentIndex];
-      const b = state.fieldGroups[currentIndex - 1];
-      state.fieldGroups[currentIndex] = { ...b };
-      state.fieldGroups[currentIndex - 1] = { ...a };
-      return state;
-
-    case ActionTypes.MOVE_FIELD_GROUP_DOWN:
-      const currentIndex = state.fieldGroups.findIndex(({ id }) => id === action.groupId);
-      const a = state.fieldGroups[currentIndex];
-      const b = state.fieldGroups[currentIndex + 1];
-      state.fieldGroups[currentIndex] = { ...b };
-      state.fieldGroups[currentIndex + 1] = { ...a };
-      return state;
-  }
-
-  return state;
-};
-
-const useLocalStateReducer = (
-  reducer: React.Reducer<AppState, Action>,
-  defaultState: AppState
-): [React.ReducerState<React.Reducer<AppState, Action>>, React.Dispatch<Action>] => {
-  const [state, dispatch] = React.useReducer(produce(reducer), defaultState, state => {
-    const stored = localStorage.getItem('entry-editor-storage');
-    if (stored) {
-      const parsed = JSON.parse(stored);
-      console.log(parsed, defaultState);
-      if (parsed.fields !== defaultState.fields) {
-        // in case the content model has been updated to add new fields
-        parsed.fields = [...defaultState.fields];
-      }
-      return parsed;
-    } else {
-      return state;
-    }
-  });
-
-  React.useEffect(() => {
-    localStorage.setItem('entry-editor-storage', JSON.stringify(state));
-  }, [state]);
-
-  return [state, dispatch];
-};
-
-// --------------------
-// main application
-// --------------------
-
 export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
   const { fields } = props.sdk.entry;
 
-  const fieldDetails = props.sdk.contentType.fields;
-
-  const [state, dispatch] = useLocalStateReducer(reducer, initialState(fieldDetails));
+  const [state, dispatch] = useAppState(props.sdk.contentType.fields);
 
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const closeDialog = () => setDialogOpen(false);
   const openDialog = () => setDialogOpen(true);
+
+  const unassignedFields = findUnassignedFields(state);
 
   return (
     <SDKContext.Provider value={props.sdk}>
@@ -159,13 +41,20 @@ export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
               fields={fields}
             />
           ))}
-          <div className="f36-margin--l">
-            <h3>unassigned fields</h3>
-            {findUnassignedFields(state).map(({ id }) => (
-              <Field key={id} field={fields[id]} locales={props.sdk.locales} />
-            ))}
-            <TextLink onClick={openDialog}>Edit field groups</TextLink>
-          </div>
+          {unassignedFields.length > 0 ? (
+            <CollapsibleFieldGroup
+              locales={props.sdk.locales}
+              fieldGroup={{
+                name: 'Unassigned fields',
+                fields: unassignedFields,
+                id: 'unassigned-fields',
+              }}
+              fields={fields}
+            />
+          ) : null}
+          <TextLink className="f36-margin--l" onClick={openDialog}>
+            Edit field groups
+          </TextLink>
         </Form>
         <Modal size="large" isShown={dialogOpen} onClose={closeDialog}>
           {() => (
