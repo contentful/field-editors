@@ -1938,6 +1938,17 @@
     read-pkg-up "^7.0.1"
     semver "^7.1.2"
 
+"@contentful/field-editor-shared@^0.7.1":
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/@contentful/field-editor-shared/-/field-editor-shared-0.7.2.tgz#75f51957d66b86ecfadde1beac920798cbc46f6c"
+  integrity sha512-VLqFP/W/sCMF1AoUdRWbCYQ9kJxNOWLrRytVTZYJYGN7eo/zzHAp1FTSLIjVN2GVhojrgPl8nE260Z8MnKKwuw==
+  dependencies:
+    "@contentful/forma-36-tokens" "^0.5.1"
+    contentful-ui-extensions-sdk "^3.10.11"
+    emotion "^10.0.17"
+    lodash "^4.17.15"
+    lodash-es "^4.17.15"
+
 "@contentful/forma-36-fcss@^0.0.20":
   version "0.0.20"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-fcss/-/forma-36-fcss-0.0.20.tgz#346e9229ce9c39519d1b47a540db2a6fcfd471e8"
@@ -6967,12 +6978,12 @@ contentful-sdk-core@^6.4.0:
     lodash "^4.17.10"
     qs "^6.5.2"
 
-contentful-ui-extensions-sdk@3.9.0:
-  version "3.9.0"
-  resolved "https://registry.yarnpkg.com/contentful-ui-extensions-sdk/-/contentful-ui-extensions-sdk-3.9.0.tgz#017e9b3b02b691d4e59bae73c19bd83d10431a5a"
-  integrity sha512-4h6T/t6eOunVd7LGOUfrq45ZZY+ig8/V6Fopa/mwHG26QJzUp4n47Mv78xTwLFKKUO4lIHU88cF3TW3uI3ygHA==
+contentful-ui-extensions-sdk@^3.10.11:
+  version "3.12.1"
+  resolved "https://registry.yarnpkg.com/contentful-ui-extensions-sdk/-/contentful-ui-extensions-sdk-3.12.1.tgz#0d98344a45151a28e5064db48b28b230fba042d0"
+  integrity sha512-PV8DqGcEZvwPGgUEkGO705mXQawHKQ8zvTySgXlvYA7WhLTqacThNcWaI4oSN6ysRZXx3LmPjtoj4K4Zw8XbpA==
   dependencies:
-    es6-promise "^4.2.6"
+    es6-promise "^4.2.8"
 
 contentful-ui-extensions-sdk@^3.11.0:
   version "3.11.0"
@@ -8686,7 +8697,7 @@ es6-iterator@~2.0.3:
     es5-ext "^0.10.35"
     es6-symbol "^3.1.1"
 
-es6-promise@^4.0.3, es6-promise@^4.2.6, es6-promise@^4.2.8:
+es6-promise@^4.0.3, es6-promise@^4.2.8:
   version "4.2.8"
   resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-4.2.8.tgz#4eb21594c972bc40553d276e510539143db53e0a"
   integrity sha512-HJDGx5daxeIvxdBxvG2cb9g4tEvwIk3i8+nhX0yGrYmZUzbkdg8QbDevheDB8gd0//uPj4c1EQua8Q+MViT0/w==
