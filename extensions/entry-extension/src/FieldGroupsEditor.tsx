@@ -14,7 +14,7 @@ import {
   Card,
   Paragraph,
   IconButton,
-  CardDragHandle,
+  CardDragHandle
 } from '@contentful/forma-36-react-components';
 import tokens from '@contentful/forma-36-tokens';
 import { FieldType, FieldGroupType, findUnassignedFields, AppContext } from './shared';
@@ -34,18 +34,18 @@ const styles = {
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: `${tokens.spacingM} ${tokens.spacingXl}`,
-    borderBottom: `1px solid ${tokens.colorElementMid}`,
+    borderBottom: `1px solid ${tokens.colorElementMid}`
   }),
   saveButton: css({
-    marginLeft: tokens.spacingS,
+    marginLeft: tokens.spacingS
   }),
   editor: css({
     background: tokens.colorElementLightest,
     padding: tokens.spacingL,
-    marginBottom: tokens.spacingM,
+    marginBottom: tokens.spacingM
   }),
   dropDownTrigger: css({
-    width: '100%',
+    width: '100%'
   }),
   card: css({
     marginBottom: tokens.spacingXs,
@@ -54,8 +54,8 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    zIndex: 102, // TODO is there a better way??
-  }),
+    zIndex: 102 // This is to stop the sortable cards disappearing behind their container
+  })
 };
 
 const DragHandle = SortableHandle(() => <CardDragHandle>Reorder item</CardDragHandle>);
@@ -78,7 +78,7 @@ const SortableFieldItem = SortableElement(
             dispatch({
               type: ActionTypes.REMOVE_FIELD_FROM_GROUP,
               groupId,
-              fieldKey: field.id,
+              fieldKey: field.id
             });
           }}
         />
@@ -145,7 +145,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
   last,
   name,
   fields,
-  groupId,
+  groupId
 }: FieldGroupProps) => {
   const { state, dispatch } = React.useContext(AppContext);
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
@@ -154,7 +154,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
     dispatch({
       type: ActionTypes.RENAME_FIELD_GROUP,
       groupId,
-      name: e.currentTarget.value,
+      name: e.currentTarget.value
     });
 
   const unassignedFields = findUnassignedFields(state);
@@ -172,7 +172,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
       type: ActionTypes.REORDER_GROUP,
       groupId,
       oldIndex,
-      newIndex,
+      newIndex
     });
   };
 
@@ -209,7 +209,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
                     type: ActionTypes.ADD_FIELD_TO_GROUP,
                     groupId,
                     fieldKey: id,
-                    fieldName: name,
+                    fieldName: name
                   });
                   closeDropdown();
                 }}
