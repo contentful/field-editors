@@ -58,7 +58,10 @@ class Editor extends React.Component<
   };
 
   render() {
-    const validations = fromFieldValidations(this.props.sdk.field.validations);
+    const validations = fromFieldValidations([
+      ...this.props.sdk.field.validations,
+      ...(this.props.sdk.field.items?.validations ?? [])
+    ]);
 
     return (
       <>
