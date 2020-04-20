@@ -80,6 +80,7 @@ class Editor extends React.Component<
           canCreateEntity={this.props.parameters.instance.canCreateEntity}
           onCreate={this.onCreate}
           onLink={this.onLink}
+          onAction={this.props.onAction}
         />
       </>
     );
