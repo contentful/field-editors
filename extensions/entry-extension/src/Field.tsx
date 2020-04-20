@@ -15,6 +15,11 @@ import { JsonEditor } from '../../../packages/json/src/index';
 import '../../../packages/json/src/codemirrorImports';
 import { MultipleLineEditor } from '../../../packages/multiple-line/src/index';
 import { TagsEditor } from '../../../packages/tags/src/index';
+import { SlugEditor } from '../../../packages/slug/src/index';
+import { DropdownEditor } from '../../../packages/dropdown/src/index';
+import { UrlEditor } from '../../../packages/url/src/index';
+import { RadioEditor } from '../../../packages/radio/src/index';
+import { RatingEditor } from '../../../packages/rating/src/index';
 
 const styles = {
   wrapper: css({
@@ -48,16 +53,29 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
   const sdk = React.useContext(SDKContext);
 
   const fieldDetails = sdk.contentType.fields.find(({ id }) => id === extendedField.id);
+  const fieldEditorInterface = sdk.editor.editorInterface?.controls?.find(
+    ({ fieldId }) => fieldId === extendedField.id
+  );
 
-  console.log(extendedField, fieldDetails);
-  // TODO: based on appearance selected in content model, render different
-  // editor types editor.editorInterface. Render based on editorInterface first,
-  // then fallback to type default
-  // TODO: lists
+  // not used editors
+  // - checkbox
+  // - list
+  //
   // TODO: extract fieldwrapper etc to common component
-  if (fieldDetails) {
-    switch (extendedField.type) {
-      case 'Symbol':
+  if (fieldDetails && fieldEditorInterface) {
+    console.log(fieldEditorInterface.widgetId);
+    switch (fieldEditorInterface.widgetId) {
+      case 'markdown':
+      case 'assetLinkEditor':
+      case 'entryLinkEditor':
+        return (
+          <FieldWrapper>
+            widget for {fieldDetails.name} of type {fieldEditorInterface.widgetId} was not
+            implemented yet
+          </FieldWrapper>
+        );
+
+      case 'multipleLine':
         return (
           <FieldWrapper>
             <label>
@@ -65,25 +83,12 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
                 {fieldDetails.name}
                 {fieldDetails.required ? ' (required)' : ''}
               </HelpText>
-              <SingleLineEditor field={extendedField} locales={locales} />
+              <MultipleLineEditor field={extendedField} locales={locales} />
             </label>
           </FieldWrapper>
         );
 
-      case 'Integer':
-        return (
-          <FieldWrapper>
-            <label>
-              <HelpText>
-                {fieldDetails.name}
-                {fieldDetails.required ? ' (required)' : ''}
-              </HelpText>
-              <NumberEditor field={extendedField} />
-            </label>
-          </FieldWrapper>
-        );
-
-      case 'Boolean':
+      case 'boolean':
         return (
           <FieldWrapper>
             <label>
@@ -96,34 +101,7 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
           </FieldWrapper>
         );
 
-      // TODO timezone dropdown style looks wrong
-      case 'Date':
-        return (
-          <FieldWrapper>
-            <label>
-              <HelpText>
-                {fieldDetails.name}
-                {fieldDetails.required ? ' (required)' : ''}
-              </HelpText>
-              <DateEditor field={extendedField} />
-            </label>
-          </FieldWrapper>
-        );
-
-      case 'Location':
-        return (
-          <FieldWrapper>
-            <label>
-              <HelpText>
-                {fieldDetails.name}
-                {fieldDetails.required ? ' (required)' : ''}
-              </HelpText>
-              <LocationEditor field={extendedField} />
-            </label>
-          </FieldWrapper>
-        );
-
-      case 'Object':
+      case 'objectEditor':
         return (
           <FieldWrapper>
             <label>
@@ -136,8 +114,7 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
           </FieldWrapper>
         );
 
-      case 'Text':
-        // TODO: convert this to use rich text when available
+      case 'datePicker':
         return (
           <FieldWrapper>
             <label>
@@ -145,12 +122,51 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
                 {fieldDetails.name}
                 {fieldDetails.required ? ' (required)' : ''}
               </HelpText>
-              <MultipleLineEditor locales={locales} field={extendedField} />
+              <DateEditor field={extendedField} />
             </label>
           </FieldWrapper>
         );
 
-      case 'Array':
+      case 'locationEditor':
+        return (
+          <FieldWrapper>
+            <label>
+              <HelpText>
+                {fieldDetails.name}
+                {fieldDetails.required ? ' (required)' : ''}
+              </HelpText>
+              <LocationEditor field={extendedField} />
+            </label>
+          </FieldWrapper>
+        );
+
+      case 'rating':
+        return (
+          <FieldWrapper>
+            <label>
+              <HelpText>
+                {fieldDetails.name}
+                {fieldDetails.required ? ' (required)' : ''}
+              </HelpText>
+              <RatingEditor field={extendedField} />
+            </label>
+          </FieldWrapper>
+        );
+
+      case 'radio':
+        return (
+          <FieldWrapper>
+            <label>
+              <HelpText>
+                {fieldDetails.name}
+                {fieldDetails.required ? ' (required)' : ''}
+              </HelpText>
+              <RadioEditor field={extendedField} locales={locales} />
+            </label>
+          </FieldWrapper>
+        );
+
+      case 'tagEditor':
         return (
           <FieldWrapper>
             <label>
@@ -162,18 +178,80 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
             </label>
           </FieldWrapper>
         );
-      case 'Link':
-      case 'RichText':
-        // these field editors are not fully implemented yet
+
+      case 'numberEditor':
         return (
           <FieldWrapper>
-            field {fieldDetails.name} of type {extendedField.type} was not implemented yet
+            <label>
+              <HelpText>
+                {fieldDetails.name}
+                {fieldDetails.required ? ' (required)' : ''}
+              </HelpText>
+              <NumberEditor field={extendedField} />
+            </label>
+          </FieldWrapper>
+        );
+
+      case 'urlEditor':
+        // TODO: verify this is correct - as it appears identical to normal
+        // single line editor..
+        return (
+          <FieldWrapper>
+            <label>
+              <HelpText>
+                {fieldDetails.name}
+                {fieldDetails.required ? ' (required)' : ''}
+              </HelpText>
+              <UrlEditor field={extendedField} />
+            </label>
+          </FieldWrapper>
+        );
+
+      case 'slugEditor':
+        return (
+          <FieldWrapper>
+            <label>
+              <HelpText>
+                {fieldDetails.name}
+                {fieldDetails.required ? ' (required)' : ''}
+              </HelpText>
+              <SlugEditor field={extendedField} baseSdk={sdk} />
+            </label>
+          </FieldWrapper>
+        );
+
+      case 'singleLine':
+        return (
+          <FieldWrapper>
+            <label>
+              <HelpText>
+                {fieldDetails.name}
+                {fieldDetails.required ? ' (required)' : ''}
+              </HelpText>
+              <SingleLineEditor field={extendedField} locales={locales} />
+            </label>
+          </FieldWrapper>
+        );
+
+      case 'dropdown':
+        return (
+          <FieldWrapper>
+            <label>
+              <HelpText>
+                {fieldDetails.name}
+                {fieldDetails.required ? ' (required)' : ''}
+              </HelpText>
+              <DropdownEditor field={extendedField} locales={locales} />
+            </label>
           </FieldWrapper>
         );
     }
+    throw new Error(
+      `unrecognised widget ${fieldEditorInterface.widgetId} for field of type ${extendedField.type}`
+    );
+  } else {
+    return null;
   }
-
-  throw new Error(`unrecognised field type ${extendedField.type}`);
 };
 
 interface FieldWrapperProps {
