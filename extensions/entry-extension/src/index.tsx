@@ -72,7 +72,6 @@ export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
 };
 
 init(sdk => {
-  console.log(locations);
   if (sdk.location.is(locations.LOCATION_ENTRY_EDITOR)) {
     render(<App sdk={sdk as EditorExtensionSDK} />, document.getElementById('root'));
   }

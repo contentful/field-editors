@@ -89,7 +89,6 @@ export const useAppState = (
     // TODO: look at contenttype sys version to check if I need to update
     if (stored) {
       const parsed = JSON.parse(stored);
-      console.log(parsed, defaultState);
       if (parsed.fields !== defaultState.fields) {
         // in case the content model has been updated to add new fields
         parsed.fields = [...defaultState.fields];

@@ -63,7 +63,6 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
   //
   // TODO: extract fieldwrapper etc to common component
   if (fieldDetails && fieldEditorInterface) {
-    console.log(fieldEditorInterface.widgetId);
     switch (fieldEditorInterface.widgetId) {
       case 'markdown':
       case 'assetLinkEditor':
