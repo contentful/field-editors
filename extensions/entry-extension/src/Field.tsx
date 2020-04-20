@@ -10,10 +10,8 @@ import { SingleLineEditor } from '../../../packages/single-line/src/index';
 import { BooleanEditor } from '../../../packages/boolean/src/index';
 import { DateEditor } from '../../../packages/date/src/index';
 import { LocationEditor } from '../../../packages/location/src/index';
-// import {
-//   SingleEntryReferenceEditor,
-//   SingleMediaEditor,
-// } from '../../../packages/reference/src/index';
+
+import { EntryFieldAPI } from 'contentful-ui-extensions-sdk';
 
 const styles = {
   wrapper: css({
@@ -32,23 +30,25 @@ const styles = {
 };
 
 interface FieldProps {
-  field: any;
+  field: EntryFieldAPI;
   locales: LocalesAPI;
 }
 
 export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
   // these properties are mocked to make the entryFieldAPI
-  // work, or at least no crash, when used in the palce of FieldAPI
-  field.onSchemaErrorsChanged = () => null;
-  field.setInvalid = () => null;
-  field.locale = 'en-US';
-  locales.direction = {};
-  locales.direction['en-US'] = 'ltr';
+  // work, or at least not crash, when used in the palce of FieldAPI
+  const extendedField: any = field;
+  extendedField.onSchemaErrorsChanged = () => null;
+  extendedField.setInvalid = () => null;
+  extendedField.locale = 'en-US';
+  locales.direction = { 'en-US': 'ltr' };
 
   const sdk = React.useContext(SDKContext);
-  const fieldDetails = sdk.contentType.fields.find(({ id }) => id === field.id);
+
+  const fieldDetails = sdk.contentType.fields.find(({ id }) => id === extendedField.id);
+
   if (fieldDetails) {
-    switch (field.type) {
+    switch (extendedField.type) {
       case 'Symbol':
         return (
           <FieldWrapper>
@@ -57,7 +57,7 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
                 {fieldDetails.name}
                 {fieldDetails.required ? ' (required)' : ''}
               </HelpText>
-              <SingleLineEditor field={field} locales={locales} />
+              <SingleLineEditor field={extendedField} locales={locales} />
             </label>
           </FieldWrapper>
         );
@@ -70,7 +70,7 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
                 {fieldDetails.name}
                 {fieldDetails.required ? ' (required)' : ''}
               </HelpText>
-              <NumberEditor field={field} />
+              <NumberEditor field={extendedField} />
             </label>
           </FieldWrapper>
         );
@@ -83,7 +83,7 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
                 {fieldDetails.name}
                 {fieldDetails.required ? ' (required)' : ''}
               </HelpText>
-              <BooleanEditor field={field} />
+              <BooleanEditor field={extendedField} />
             </label>
           </FieldWrapper>
         );
@@ -97,7 +97,7 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
                 {fieldDetails.name}
                 {fieldDetails.required ? ' (required)' : ''}
               </HelpText>
-              <DateEditor field={field} />
+              <DateEditor field={extendedField} />
             </label>
           </FieldWrapper>
         );
@@ -110,51 +110,23 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
                 {fieldDetails.name}
                 {fieldDetails.required ? ' (required)' : ''}
               </HelpText>
-              <LocationEditor field={field} />
+              <LocationEditor field={extendedField} />
             </label>
           </FieldWrapper>
         );
 
       case 'Link':
-        // Reference editors don't work at the moment, as I have access to the
-        // wrong SDK here.
-        return null;
-      // if (fieldDetails.linkType === 'Asset') {
-      //   return (
-      //     <FieldWrapper>
-      //       <label>
-      //         <HelpText>
-      //           {fieldDetails.name}
-      //           {fieldDetails.required ? ' (required)' : ''}
-      //         </HelpText>
-      //         <SingleMediaEditor sdk={sdk} field={field} />
-      //       </label>
-      //     </FieldWrapper>
-      //   );
-      // }
-
-      // if (fieldDetails.linkType === 'Entry') {
-      //   return (
-      //     <FieldWrapper>
-      //       <label>
-      //         <HelpText>
-      //           {fieldDetails.name}
-      //           {fieldDetails.required ? ' (required)' : ''}
-      //         </HelpText>
-      //         <SingleEntryReferenceEditor sdk={sdk} field={field} />
-      //       </label>
-      //     </FieldWrapper>
-      //   );
-      // }
+      case 'RichText':
+        // these field editors are not fully implemented yet
+        return (
+          <FieldWrapper>
+            field {fieldDetails.name} of type {extendedField.type} was not implemented yet
+          </FieldWrapper>
+        );
     }
-
-    return (
-      <FieldWrapper>
-        field {fieldDetails.name} of type {field.type} was not implemented yet
-      </FieldWrapper>
-    );
   }
-  return null;
+
+  throw new Error(`unrecognised field type ${extendedField.type}`);
 };
 
 interface FieldWrapperProps {
