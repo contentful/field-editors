@@ -5,17 +5,21 @@ import * as styles from './styles';
 
 export function MissingEntityCard(props: {
   entityType: EntityType;
+  asSquare?: boolean;
   isDisabled: boolean;
   onRemove: Function;
 }) {
   return (
     <Card className={styles.card}>
-      <SectionHeading>
-        {props.entityType === 'Entry' && 'Entry is missing or inaccessible'}
-        {props.entityType === 'Asset' && 'Asset is missing or inaccessible'}
-      </SectionHeading>
+      <div className={props.asSquare ? styles.squareCard : ''}>
+        <SectionHeading>
+          {props.entityType === 'Entry' && 'Entry is missing or inaccessible'}
+          {props.entityType === 'Asset' && 'Asset is missing or inaccessible'}
+        </SectionHeading>
+      </div>
       {!props.isDisabled && (
         <IconButton
+          className={styles.close}
           buttonType="muted"
           label="Delete"
           iconProps={{ icon: 'Close' }}

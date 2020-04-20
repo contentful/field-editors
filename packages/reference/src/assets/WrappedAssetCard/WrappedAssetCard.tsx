@@ -59,6 +59,7 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
     return (
       <MissingEntityCard
         entityType="Asset"
+        asSquare
         isDisabled={props.isDisabled}
         onRemove={props.onRemove}
       />
