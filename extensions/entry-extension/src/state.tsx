@@ -61,7 +61,7 @@ const reducer: React.Reducer<AppState, Action> = (state, action) => {
       state.fieldGroups = moveFieldGroup(state.fieldGroups, action.groupId, +1);
       return state;
 
-    case ActionTypes.REORDER_GROUP:
+    case ActionTypes.REORDER_GROUP: // TODO: rename - reorder field within group
       state.fieldGroups = state.fieldGroups.map(fieldGroup => {
         if (fieldGroup.id === action.groupId) {
           const movedElement = fieldGroup.fields.splice(action.oldIndex, 1)[0];
@@ -84,8 +84,9 @@ export const useAppState = (
   };
 
   const [state, dispatch] = React.useReducer(produce(reducer), defaultState, state => {
-    const stored = localStorage.getItem('entry-editor-storage');
+    const stored = localStorage.getItem('entry-editor-storage'); // TODO: prepend contenttype/space_id/environment_id/content_id
 
+    // TODO: look at contenttype sys version to check if I need to update
     if (stored) {
       const parsed = JSON.parse(stored);
       console.log(parsed, defaultState);

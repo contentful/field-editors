@@ -1,18 +1,18 @@
 import * as React from 'react';
 import tokens from '@contentful/forma-36-tokens';
 import { HelpText } from '@contentful/forma-36-react-components';
-import { LocalesAPI } from '@contentful/field-editor-shared';
+import { LocalesAPI, FieldAPI } from '@contentful/field-editor-shared';
 import { css } from 'emotion';
 import { SDKContext } from './shared';
-
+import { EntryFieldAPI } from 'contentful-ui-extensions-sdk';
 import { NumberEditor } from '../../../packages/number/src/index';
 import { SingleLineEditor } from '../../../packages/single-line/src/index';
 import { BooleanEditor } from '../../../packages/boolean/src/index';
 import { DateEditor } from '../../../packages/date/src/index';
+import '../../../packages/date/styles/styles';
 import { LocationEditor } from '../../../packages/location/src/index';
 import { JsonEditor } from '../../../packages/json/src/index';
-
-import { EntryFieldAPI } from 'contentful-ui-extensions-sdk';
+import '../../../packages/json/src/codemirrorImports';
 
 const styles = {
   wrapper: css({
@@ -38,16 +38,21 @@ interface FieldProps {
 export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
   // these properties are mocked to make the entryFieldAPI
   // work, or at least not crash, when used in the palce of FieldAPI
-  const extendedField: any = field;
-  extendedField.onSchemaErrorsChanged = () => null;
+  const extendedField = (field as any) as FieldAPI;
+  extendedField.onSchemaErrorsChanged = () => () => null;
   extendedField.setInvalid = () => null;
   extendedField.locale = 'en-US';
-  locales.direction = { 'en-US': 'ltr' };
 
   const sdk = React.useContext(SDKContext);
 
   const fieldDetails = sdk.contentType.fields.find(({ id }) => id === extendedField.id);
 
+  console.log(extendedField, fieldDetails);
+  // TODO: based on appearance selected in content model, render different
+  // editor types editor.editorInterface. Render based on editorInterface first,
+  // then fallback to type default
+  // TODO: lists
+  // TODO: extract fieldwrapper etc to common component
   if (fieldDetails) {
     switch (extendedField.type) {
       case 'Symbol':
@@ -89,7 +94,7 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
           </FieldWrapper>
         );
 
-      // TODO: the styling for date fields looks very wrong at the moment
+      // TODO timezone dropdown style looks wrong
       case 'Date':
         return (
           <FieldWrapper>

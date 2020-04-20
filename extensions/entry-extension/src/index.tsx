@@ -41,7 +41,7 @@ export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
               fields={fields}
             />
           ))}
-          {unassignedFields.length > 0 ? (
+          {unassignedFields.length > 0 ? ( // TODO: ask fabianm
             <CollapsibleFieldGroup
               locales={props.sdk.locales}
               fieldGroup={{
