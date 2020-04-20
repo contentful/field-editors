@@ -10,6 +10,7 @@ import { SingleLineEditor } from '../../../packages/single-line/src/index';
 import { BooleanEditor } from '../../../packages/boolean/src/index';
 import { DateEditor } from '../../../packages/date/src/index';
 import { LocationEditor } from '../../../packages/location/src/index';
+import { JsonEditor } from '../../../packages/json/src/index';
 
 import { EntryFieldAPI } from 'contentful-ui-extensions-sdk';
 
@@ -111,6 +112,19 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
                 {fieldDetails.required ? ' (required)' : ''}
               </HelpText>
               <LocationEditor field={extendedField} />
+            </label>
+          </FieldWrapper>
+        );
+
+      case 'Object':
+        return (
+          <FieldWrapper>
+            <label>
+              <HelpText>
+                {fieldDetails.name}
+                {fieldDetails.required ? ' (required)' : ''}
+              </HelpText>
+              <JsonEditor isInitiallyDisabled={false} field={extendedField} />
             </label>
           </FieldWrapper>
         );
