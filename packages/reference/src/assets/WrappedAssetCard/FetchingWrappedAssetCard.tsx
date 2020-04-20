@@ -30,6 +30,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
     return (
       <MissingEntityCard
         entityType="Asset"
+        asSquare={props.viewType !== 'link'}
         isDisabled={props.isDisabled}
         onRemove={props.onRemove}
       />

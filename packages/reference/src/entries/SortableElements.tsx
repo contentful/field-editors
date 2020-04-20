@@ -42,7 +42,9 @@ export const SortableLinkList = SortableContainer((props: SortableLinkListProps)
           entryId={item.sys.id}
           onRemove={() => {
             props.setValue(
-              props.items.filter(filteringItem => filteringItem.sys.id !== item.sys.id)
+              props.items.filter((_value, i) => {
+                return i !== index;
+              })
             );
           }}
           cardDragHandle={props.isDisabled ? undefined : <DragHandle />}

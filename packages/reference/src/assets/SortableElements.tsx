@@ -39,14 +39,15 @@ export const SortableLinkList = SortableContainer((props: SortableLinkListProps)
     {props.items.map((item, index) => (
       <SortableLink disabled={props.isDisabled} key={`${item.sys.id}-${index}`} index={index}>
         <FetchingWrappedAssetCard
+          {...props}
           sdk={props.sdk}
           key={`${item.sys.id}-${index}`}
-          isDisabled={props.isDisabled}
           assetId={item.sys.id}
-          viewType={props.viewType}
           onRemove={() => {
             props.setValue(
-              props.items.filter(filteringItem => filteringItem.sys.id !== item.sys.id)
+              props.items.filter((_value, i) => {
+                return i !== index;
+              })
             );
           }}
           cardDragHandle={props.isDisabled ? undefined : <DragHandle />}

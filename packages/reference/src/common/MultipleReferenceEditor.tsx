@@ -58,7 +58,10 @@ class Editor extends React.Component<
   };
 
   render() {
-    const validations = fromFieldValidations(this.props.sdk.field.validations);
+    const validations = fromFieldValidations([
+      ...this.props.sdk.field.validations,
+      ...(this.props.sdk.field.items?.validations ?? [])
+    ]);
 
     return (
       <>
@@ -77,6 +80,7 @@ class Editor extends React.Component<
           canCreateEntity={this.props.parameters.instance.canCreateEntity}
           onCreate={this.onCreate}
           onLink={this.onLink}
+          onAction={this.props.onAction}
         />
       </>
     );

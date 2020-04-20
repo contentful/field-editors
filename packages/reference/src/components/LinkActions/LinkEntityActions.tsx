@@ -48,9 +48,13 @@ async function selectMultipleEntities(props: {
   validations: ReferenceValidations;
 }) {
   if (props.entityType === 'Entry') {
+    const min = props.validations.numberOfLinks?.min;
+    const max = props.validations.numberOfLinks?.max;
     return await props.sdk.dialogs.selectMultipleEntries<Entry>({
       locale: props.sdk.field.locale,
-      contentTypes: props.validations.contentTypes
+      contentTypes: props.validations.contentTypes,
+      min,
+      max
     });
   } else {
     return props.sdk.dialogs.selectMultipleAssets<Asset>({

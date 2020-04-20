@@ -54,6 +54,7 @@ export function SingleReferenceEditor(
                   }
                 });
               }}
+              onAction={props.onAction}
             />
           );
         }
