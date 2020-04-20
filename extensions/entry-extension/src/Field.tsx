@@ -13,6 +13,8 @@ import '../../../packages/date/styles/styles';
 import { LocationEditor } from '../../../packages/location/src/index';
 import { JsonEditor } from '../../../packages/json/src/index';
 import '../../../packages/json/src/codemirrorImports';
+import { MultipleLineEditor } from '../../../packages/multiple-line/src/index';
+import { TagsEditor } from '../../../packages/tags/src/index';
 
 const styles = {
   wrapper: css({
@@ -134,6 +136,32 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
           </FieldWrapper>
         );
 
+      case 'Text':
+        // TODO: convert this to use rich text when available
+        return (
+          <FieldWrapper>
+            <label>
+              <HelpText>
+                {fieldDetails.name}
+                {fieldDetails.required ? ' (required)' : ''}
+              </HelpText>
+              <MultipleLineEditor locales={locales} field={extendedField} />
+            </label>
+          </FieldWrapper>
+        );
+
+      case 'Array':
+        return (
+          <FieldWrapper>
+            <label>
+              <HelpText>
+                {fieldDetails.name}
+                {fieldDetails.required ? ' (required)' : ''}
+              </HelpText>
+              <TagsEditor field={extendedField} />
+            </label>
+          </FieldWrapper>
+        );
       case 'Link':
       case 'RichText':
         // these field editors are not fully implemented yet
