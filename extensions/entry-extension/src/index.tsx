@@ -8,7 +8,8 @@ import './index.css';
 import { FieldGroupsEditor } from './FieldGroupsEditor';
 import { CollapsibleFieldGroup } from './CollapsibleFieldGroup';
 import { findUnassignedFields, AppContext, SDKContext } from './shared';
-import { useAppState, ActionTypes } from './state';
+import { useAppState } from './state';
+import { ActionTypes } from './types';
 
 interface AppProps {
   sdk: EditorExtensionSDK;

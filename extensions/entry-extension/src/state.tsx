@@ -1,34 +1,18 @@
 import * as React from 'react';
 import produce from 'immer';
-import { FieldType, FieldGroupType, AppState } from './shared';
-
-export enum ActionTypes {
-  CREATE_FIELD_GROUP,
-  DELETE_FIELD_GROUP,
-  RENAME_FIELD_GROUP,
-
-  ADD_FIELD_TO_GROUP,
-  REMOVE_FIELD_FROM_GROUP,
-  MOVE_FIELD_GROUP_UP,
-  MOVE_FIELD_GROUP_DOWN,
-  REORDER_GROUP,
-}
+import { Action, ActionTypes, FieldType, FieldGroupType, AppState } from './types';
 
 const createId = (): string => {
   const c = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   return [...Array(5)].map(() => c[~~(Math.random() * c.length)]).join('');
 };
 
-
-type Action =
-  | { type: ActionTypes.CREATE_FIELD_GROUP }
-  | { type: ActionTypes.DELETE_FIELD_GROUP; groupId: string }
-  | { type: ActionTypes.RENAME_FIELD_GROUP; groupId: string; name: string }
-  | { type: ActionTypes.ADD_FIELD_TO_GROUP; groupId: string; fieldKey: string; fieldName: string }
-  | { type: ActionTypes.REMOVE_FIELD_FROM_GROUP; groupId: string; fieldKey: string }
-  | { type: ActionTypes.MOVE_FIELD_GROUP_UP; groupId: string }
-  | { type: ActionTypes.MOVE_FIELD_GROUP_DOWN; groupId: string }
-  | { type: ActionTypes.REORDER_GROUP; groupId: string; oldIndex: number; newIndex: number };
+const moveFieldGroup = (fieldGroups: FieldGroupType[], id: string, move: number) => {
+  const currentIndex = fieldGroups.findIndex(fieldGroup => fieldGroup.id === id);
+  const movedElement = fieldGroups.splice(currentIndex, 1)[0];
+  fieldGroups.splice(currentIndex + move, 0, movedElement);
+  return fieldGroups;
+};
 
 const reducer: React.Reducer<AppState, Action> = (state, action) => {
   switch (action.type) {
@@ -70,15 +54,11 @@ const reducer: React.Reducer<AppState, Action> = (state, action) => {
       return state;
 
     case ActionTypes.MOVE_FIELD_GROUP_UP:
-      const currentIndex = state.fieldGroups.findIndex(({ id }) => id === action.groupId);
-      const movedElement = state.fieldGroups.splice(currentIndex, 1)[0];
-      state.fieldGroups.splice(currentIndex - 1, 0, movedElement);
+      state.fieldGroups = moveFieldGroup(state.fieldGroups, action.groupId, -1);
       return state;
 
     case ActionTypes.MOVE_FIELD_GROUP_DOWN:
-      const currentIndex = state.fieldGroups.findIndex(({ id }) => id === action.groupId);
-      const movedElement = state.fieldGroups.splice(currentIndex, 1)[0];
-      state.fieldGroups.splice(currentIndex + 1, 0, movedElement);
+      state.fieldGroups = moveFieldGroup(state.fieldGroups, action.groupId, +1);
       return state;
 
     case ActionTypes.REORDER_GROUP:
@@ -100,7 +80,7 @@ export const useAppState = (
 ): [React.ReducerState<React.Reducer<AppState, Action>>, React.Dispatch<Action>] => {
   const defaultState = {
     fields,
-    fieldGroups: [],
+    fieldGroups: []
   };
 
   const [state, dispatch] = React.useReducer(produce(reducer), defaultState, state => {

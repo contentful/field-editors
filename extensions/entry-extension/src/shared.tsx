@@ -1,29 +1,6 @@
 import React from 'react';
 import { EditorExtensionSDK } from 'contentful-ui-extensions-sdk';
-
-export interface AppState {
-  fields: FieldType[];
-  fieldGroups: FieldGroupType[];
-}
-
-export type FieldId = string;
-
-export interface FieldType {
-  name: string;
-  id: FieldId;
-}
-
-export interface FieldGroupType {
-  name: string;
-  fields: FieldType[];
-  id: string;
-}
-
-
-export const SDKContext = React.createContext<EditorExtensionSDK>(undefined!);
-export const AppContext = React.createContext<{ state: AppState; dispatch: any }>(undefined!);
-// non null statement here is to avoid having to continually assert context
-// throughout the code
+import { AppState, FieldType, FieldGroupType, Action } from './types';
 
 // UTILS
 export const findUnassignedFields = (appState: AppState): FieldType[] => {
@@ -36,3 +13,11 @@ export const findUnassignedFields = (appState: AppState): FieldType[] => {
 
   return appState.fields.filter(f => !assignedFields[f.id]);
 };
+
+export const SDKContext = React.createContext<EditorExtensionSDK>(undefined!);
+export const AppContext = React.createContext<{
+  state: AppState;
+  dispatch: React.Dispatch<Action>;
+}>(undefined!);
+// non null statement here is to avoid having to continually assert context
+// throughout the code

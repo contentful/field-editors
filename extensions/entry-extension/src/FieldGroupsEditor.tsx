@@ -17,8 +17,9 @@ import {
   CardDragHandle
 } from '@contentful/forma-36-react-components';
 import tokens from '@contentful/forma-36-tokens';
-import { FieldType, FieldGroupType, findUnassignedFields, AppContext } from './shared';
-import { ActionTypes } from './state';
+import { findUnassignedFields, AppContext } from './shared';
+import { FieldType, FieldGroupType } from './types';
+import { ActionTypes } from './types';
 import { css } from 'emotion';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 
