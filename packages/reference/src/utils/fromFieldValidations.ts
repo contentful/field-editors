@@ -2,8 +2,8 @@ import isNumber from 'lodash/isNumber';
 
 type NumberOfLinksValidation =
   | { type: 'min-max'; min: number; max: number }
-  | { type: 'min'; min: number }
-  | { type: 'max'; max: number };
+  | { type: 'min'; min: number; max: undefined }
+  | { type: 'max'; max: number; min: undefined };
 
 export type ReferenceValidations = {
   contentTypes?: string[];
@@ -33,12 +33,14 @@ export function fromFieldValidations(
   } else if (isNumber(min)) {
     numberOfLinks = {
       type: 'min',
-      min
+      min,
+      max: undefined
     };
   } else if (isNumber(max)) {
     numberOfLinks = {
       type: 'max',
-      max
+      max,
+      min: undefined
     };
   }
 
