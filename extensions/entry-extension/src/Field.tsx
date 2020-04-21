@@ -57,18 +57,17 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
     ({ fieldId }) => fieldId === extendedField.id
   );
 
-  // not used editors
+  // These field editors are currently unused
   // - checkbox
   // - list
-  //
-  // TODO: extract fieldwrapper etc to common component
+
   if (fieldDetails && fieldEditorInterface) {
     switch (fieldEditorInterface.widgetId) {
       case 'markdown':
       case 'assetLinkEditor':
       case 'entryLinkEditor':
         return (
-          <FieldWrapper>
+          <FieldWrapper name={fieldDetails.name} required={false}>
             widget for {fieldDetails.name} of type {fieldEditorInterface.widgetId} was not
             implemented yet
           </FieldWrapper>
@@ -76,118 +75,64 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
 
       case 'multipleLine':
         return (
-          <FieldWrapper>
-            <label>
-              <HelpText>
-                {fieldDetails.name}
-                {fieldDetails.required ? ' (required)' : ''}
-              </HelpText>
-              <MultipleLineEditor field={extendedField} locales={locales} />
-            </label>
+          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+            <MultipleLineEditor field={extendedField} locales={locales} />
           </FieldWrapper>
         );
 
       case 'boolean':
         return (
-          <FieldWrapper>
-            <label>
-              <HelpText>
-                {fieldDetails.name}
-                {fieldDetails.required ? ' (required)' : ''}
-              </HelpText>
-              <BooleanEditor field={extendedField} />
-            </label>
+          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+            <BooleanEditor field={extendedField} />
           </FieldWrapper>
         );
 
       case 'objectEditor':
         return (
-          <FieldWrapper>
-            <label>
-              <HelpText>
-                {fieldDetails.name}
-                {fieldDetails.required ? ' (required)' : ''}
-              </HelpText>
-              <JsonEditor isInitiallyDisabled={false} field={extendedField} />
-            </label>
+          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+            <JsonEditor isInitiallyDisabled={false} field={extendedField} />
           </FieldWrapper>
         );
 
       case 'datePicker':
         return (
-          <FieldWrapper>
-            <label>
-              <HelpText>
-                {fieldDetails.name}
-                {fieldDetails.required ? ' (required)' : ''}
-              </HelpText>
-              <DateEditor field={extendedField} />
-            </label>
+          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+            <DateEditor field={extendedField} />
           </FieldWrapper>
         );
 
       case 'locationEditor':
         return (
-          <FieldWrapper>
-            <label>
-              <HelpText>
-                {fieldDetails.name}
-                {fieldDetails.required ? ' (required)' : ''}
-              </HelpText>
-              <LocationEditor field={extendedField} />
-            </label>
+          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+            <LocationEditor field={extendedField} />
           </FieldWrapper>
         );
 
       case 'rating':
         return (
-          <FieldWrapper>
-            <label>
-              <HelpText>
-                {fieldDetails.name}
-                {fieldDetails.required ? ' (required)' : ''}
-              </HelpText>
-              <RatingEditor field={extendedField} />
-            </label>
+          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+            <RatingEditor field={extendedField} />
           </FieldWrapper>
         );
 
       case 'radio':
         return (
-          <FieldWrapper>
-            <label>
-              <HelpText>
-                {fieldDetails.name}
-                {fieldDetails.required ? ' (required)' : ''}
-              </HelpText>
-              <RadioEditor field={extendedField} locales={locales} />
-            </label>
+          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+            <RadioEditor field={extendedField} locales={locales} />
           </FieldWrapper>
         );
 
       case 'tagEditor':
         return (
-          <FieldWrapper>
-            <label>
-              <HelpText>
-                {fieldDetails.name}
-                {fieldDetails.required ? ' (required)' : ''}
-              </HelpText>
-              <TagsEditor field={extendedField} />
-            </label>
+          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+            <TagsEditor field={extendedField} />
           </FieldWrapper>
         );
 
       case 'numberEditor':
         return (
-          <FieldWrapper>
-            <label>
-              <HelpText>
-                {fieldDetails.name}
-                {fieldDetails.required ? ' (required)' : ''}
-              </HelpText>
-              <NumberEditor field={extendedField} />
-            </label>
+          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+            <NumberEditor field={extendedField} />
           </FieldWrapper>
         );
 
@@ -195,53 +140,29 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
         // TODO: verify this is correct - as it appears identical to normal
         // single line editor..
         return (
-          <FieldWrapper>
-            <label>
-              <HelpText>
-                {fieldDetails.name}
-                {fieldDetails.required ? ' (required)' : ''}
-              </HelpText>
-              <UrlEditor field={extendedField} />
-            </label>
+          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+            <UrlEditor field={extendedField} />
           </FieldWrapper>
         );
 
       case 'slugEditor':
         return (
-          <FieldWrapper>
-            <label>
-              <HelpText>
-                {fieldDetails.name}
-                {fieldDetails.required ? ' (required)' : ''}
-              </HelpText>
-              <SlugEditor field={extendedField} baseSdk={sdk} />
-            </label>
+          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+            <SlugEditor field={extendedField} baseSdk={sdk} />
           </FieldWrapper>
         );
 
       case 'singleLine':
         return (
-          <FieldWrapper>
-            <label>
-              <HelpText>
-                {fieldDetails.name}
-                {fieldDetails.required ? ' (required)' : ''}
-              </HelpText>
-              <SingleLineEditor field={extendedField} locales={locales} />
-            </label>
+          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+            <SingleLineEditor field={extendedField} locales={locales} />
           </FieldWrapper>
         );
 
       case 'dropdown':
         return (
-          <FieldWrapper>
-            <label>
-              <HelpText>
-                {fieldDetails.name}
-                {fieldDetails.required ? ' (required)' : ''}
-              </HelpText>
-              <DropdownEditor field={extendedField} locales={locales} />
-            </label>
+          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+            <DropdownEditor field={extendedField} locales={locales} />
           </FieldWrapper>
         );
     }
@@ -255,7 +176,23 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
 
 interface FieldWrapperProps {
   children: React.ReactNode;
+  name: string;
+  required: boolean;
 }
-const FieldWrapper: React.FC<FieldWrapperProps> = function({ children }: FieldWrapperProps) {
-  return <div className={styles.wrapper}>{children}</div>;
+const FieldWrapper: React.FC<FieldWrapperProps> = function({
+  children,
+  name,
+  required
+}: FieldWrapperProps) {
+  return (
+    <div className={styles.wrapper}>
+      <label>
+        <HelpText>
+          {name}
+          {required ? ' (required)' : ''}
+        </HelpText>
+        {children}
+      </label>
+    </div>
+  );
 };
