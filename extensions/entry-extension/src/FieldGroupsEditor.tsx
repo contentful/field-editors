@@ -17,7 +17,7 @@ import {
   CardDragHandle
 } from '@contentful/forma-36-react-components';
 import tokens from '@contentful/forma-36-tokens';
-import { findUnassignedFields, AppContext } from './shared';
+import { findUnassignedFields, AppContext, SDKContext } from './shared';
 import { FieldType, FieldGroupType } from './types';
 import { ActionTypes } from './types';
 import { css } from 'emotion';
@@ -51,25 +51,40 @@ const styles = {
   card: css({
     marginBottom: tokens.spacingXs,
     paddingTop: tokens.spacingXs,
-    paddingBottoBottom: tokens.spacingXs,
+    paddingBottom: tokens.spacingXs,
+    paddingLeft: tokens.spacing2Xs,
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     zIndex: 102 // This is to stop the sortable cards disappearing behind their container
+  }),
+  fieldName: css({
+    marginRight: tokens.spacingXs,
+    marginLeft: tokens.spacingXs,
+    fontWeight: 700
+  }),
+  handle: css({
+    border: 'none',
+    background: 'none'
   })
 };
 
-const DragHandle = SortableHandle(() => <CardDragHandle>Reorder item</CardDragHandle>);
+const DragHandle = SortableHandle(() => (
+  <CardDragHandle className={styles.handle}>Reorder item</CardDragHandle>
+));
 
 const SortableFieldItem = SortableElement(
   ({ field, groupId }: { field: FieldType; groupId: string }) => {
     const { dispatch } = React.useContext(AppContext);
+    const sdk = React.useContext(SDKContext);
+    const fieldDetails = sdk.contentType.fields.find(({ id }) => id === field.id);
+
     return (
       <Card className={styles.card}>
-        <div className={css({ display: 'flex' })}>
+        <div className={css({ display: 'flex', alignItems: 'center' })}>
           <DragHandle />
-          <Paragraph className={css({ marginRight: tokens.spacingXs })}>{field.name}</Paragraph>
-          <Paragraph>TODO FIELD TYPE</Paragraph>
+          <Paragraph className={styles.fieldName}>{field.name}</Paragraph>
+          {fieldDetails ? <Paragraph>{fieldDetails.type}</Paragraph> : null}
         </div>
         <IconButton
           label="Remove field"
