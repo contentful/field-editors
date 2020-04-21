@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { DisplayText, TextLink, Modal } from '@contentful/forma-36-react-components';
+import { TextLink, Modal } from '@contentful/forma-36-react-components';
 import { init, locations, EditorExtensionSDK } from 'contentful-ui-extensions-sdk';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import '@contentful/forma-36-fcss/dist/styles.css';
@@ -42,9 +42,6 @@ export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
   return (
     <SDKContext.Provider value={props.sdk}>
       <AppContext.Provider value={{ state, dispatch }}>
-        <DisplayText className="f36-margin--l" testId="title">
-          Entry extension demo
-        </DisplayText>
         {state.fieldGroups.map(fieldGroup => (
           <CollapsibleFieldGroup
             key={fieldGroup.id}
