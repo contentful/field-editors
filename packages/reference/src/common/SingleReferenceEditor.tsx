@@ -4,70 +4,95 @@ import { fromFieldValidations } from '../utils/fromFieldValidations';
 import { LinkEntityActions } from '../components';
 import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
 
+type ChildProps = {
+  entityId: string;
+  entityType: EntityType;
+  isDisabled: boolean;
+  setValue: (value: ReferenceValue | null | undefined) => void;
+  allContentTypes: ContentType[];
+};
+
+class Editor extends React.Component<
+  ReferenceEditorProps &
+    ChildProps & {
+      children: (props: ReferenceEditorProps & ChildProps) => React.ReactElement;
+    }
+> {
+  componentDidMount() {
+    this.props.onAction && this.props.onAction({ type: 'rendered', entity: this.props.entityType });
+  }
+
+  onCreate = (id: string) => {
+    this.props.setValue({
+      sys: {
+        type: 'Link',
+        linkType: this.props.entityType,
+        id
+      }
+    });
+  };
+
+  onLink = (ids: string[]) => {
+    const [id] = ids;
+    this.props.setValue({
+      sys: {
+        type: 'Link',
+        linkType: this.props.entityType,
+        id
+      }
+    });
+  };
+
+  render() {
+    if (!this.props.entityId) {
+      const validations = fromFieldValidations(this.props.sdk.field.validations);
+      return (
+        <LinkEntityActions
+          entityType={this.props.entityType}
+          allContentTypes={this.props.allContentTypes}
+          validations={validations}
+          sdk={this.props.sdk}
+          isDisabled={this.props.isDisabled}
+          multiple={false}
+          canCreateEntity={this.props.parameters.instance.canCreateEntity}
+          onCreate={this.onCreate}
+          onLink={this.onLink}
+          onAction={this.props.onAction}
+        />
+      );
+    }
+
+    return this.props.children({
+      ...this.props,
+      allContentTypes: this.props.allContentTypes,
+      isDisabled: this.props.isDisabled,
+      entityId: this.props.entityId,
+      setValue: this.props.setValue
+    });
+  }
+}
+
 export function SingleReferenceEditor(
   props: ReferenceEditorProps & {
     entityType: EntityType;
-    children: (props: {
-      entityId: string;
-      isDisabled: boolean;
-      allContentTypes: ContentType[];
-      externalReset: number;
-      onRemove: () => void;
-    }) => React.ReactElement;
+    children: (props: ChildProps) => React.ReactElement;
   }
 ) {
   const allContentTypes = props.sdk.space.getCachedContentTypes();
 
-  React.useEffect(() => {
-    props.onAction && props.onAction({ type: 'rendered', entity: props.entityType });
-  }, []);
-
   return (
     <ReferenceEditor<ReferenceValue> {...props}>
       {({ value, setValue, disabled, externalReset }) => {
-        if (!value) {
-          const validations = fromFieldValidations(props.sdk.field.validations);
-          return (
-            <LinkEntityActions
-              entityType={props.entityType}
-              allContentTypes={allContentTypes}
-              validations={validations}
-              sdk={props.sdk}
-              isDisabled={disabled}
-              multiple={false}
-              canCreateEntity={props.parameters.instance.canCreateEntity}
-              onCreate={id => {
-                setValue({
-                  sys: {
-                    type: 'Link',
-                    linkType: props.entityType,
-                    id
-                  }
-                });
-              }}
-              onLink={([id]) => {
-                setValue({
-                  sys: {
-                    type: 'Link',
-                    linkType: props.entityType,
-                    id
-                  }
-                });
-              }}
-              onAction={props.onAction}
-            />
-          );
-        }
-
-        return props.children({
-          externalReset,
-          allContentTypes,
-          isDisabled: disabled,
-          entityId: value.sys.id,
-          onRemove: () => {
-            setValue(null);
-          }
-        });
+        return (
+          <Editor
+            {...props}
+            key={`${externalReset}-reference`}
+            entityId={value ? value.sys.id : ''}
+            isDisabled={disabled}
+            setValue={setValue}
+            allContentTypes={allContentTypes}
+          />
+        );
       }}
     </ReferenceEditor>
   );

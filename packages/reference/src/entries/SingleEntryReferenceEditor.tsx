@@ -6,15 +6,16 @@ import { FetchingWrappedEntryCard } from './WrappedEntryCard/FetchingWrappedEntr
 export function SingleEntryReferenceEditor(props: ReferenceEditorProps) {
   return (
     <SingleReferenceEditor {...props} entityType="Entry">
-      {({ allContentTypes, isDisabled, entityId, externalReset, onRemove }) => {
+      {({ allContentTypes, isDisabled, entityId, setValue }) => {
         return (
           <FetchingWrappedEntryCard
-            key={`reference-${externalReset}`}
             {...props}
             allContentTypes={allContentTypes}
             isDisabled={isDisabled}
             entryId={entityId}
-            onRemove={onRemove}
+            onRemove={() => {
+              setValue(null);
+            }}
           />
         );
       }}
