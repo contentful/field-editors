@@ -26,6 +26,12 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
 
   const asset = assets[props.assetId];
 
+  React.useEffect(() => {
+    if (asset) {
+      props.onAction && props.onAction({ type: 'rendered', entity: 'Asset' });
+    }
+  }, [asset]);
+
   if (asset === 'failed') {
     return (
       <MissingEntityCard

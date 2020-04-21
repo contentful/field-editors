@@ -56,6 +56,12 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
 
   const entry = entries[props.entryId];
 
+  React.useEffect(() => {
+    if (entry) {
+      props.onAction && props.onAction({ type: 'rendered', entity: 'Entry' });
+    }
+  }, [entry]);
+
   if (entry === 'failed') {
     return (
       <MissingEntityCard

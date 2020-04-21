@@ -22,10 +22,6 @@ class Editor extends React.Component<
       children: (props: ReferenceEditorProps & ChildProps) => React.ReactElement;
     }
 > {
-  componentDidMount() {
-    this.props.onAction && this.props.onAction({ type: 'rendered', entity: this.props.entityType });
-  }
-
   onSortStart: SortStartHandler = (_, event) => event.preventDefault();
 
   onSortEnd: SortEndHandler = ({ oldIndex, newIndex }) => {
