@@ -1,8 +1,7 @@
 import * as React from 'react';
-import tokens from '@contentful/forma-36-tokens';
 import { HelpText } from '@contentful/forma-36-react-components';
 import { LocalesAPI, FieldAPI } from '@contentful/field-editor-shared';
-import { css } from 'emotion';
+import styles from './styles';
 import { SDKContext } from './shared';
 import { EntryFieldAPI } from 'contentful-ui-extensions-sdk';
 import { NumberEditor } from '../../../packages/number/src/index';
@@ -28,22 +27,6 @@ import {
   SingleMediaEditor,
   MultipleMediaEditor
 } from '../../../packages/reference/src/index';
-
-const styles = {
-  wrapper: css({
-    borderLeft: '3px solid #c5d2d8',
-    paddingLeft: '1em',
-    marginBottom: '29px',
-    marginTop: '19px',
-    transition: 'border-color 0.18s linear',
-    '&:focus-within': {
-      borderColor: tokens.colorPrimary
-    }
-  }),
-  label: css({
-    color: tokens.colorTextLightest
-  })
-};
 
 interface FieldProps {
   field: EntryFieldAPI;
@@ -312,7 +295,7 @@ const FieldWrapper: React.FC<FieldWrapperProps> = function({
   required
 }: FieldWrapperProps) {
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.fieldWrapper}>
       <label>
         <HelpText>
           {name}

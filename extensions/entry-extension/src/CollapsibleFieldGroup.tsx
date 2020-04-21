@@ -2,9 +2,8 @@ import * as React from 'react';
 import { LocalesAPI } from '@contentful/field-editor-shared';
 import { Field } from './Field';
 import { FieldGroupType, FieldType } from './types';
-import { css } from 'emotion';
+import styles from './styles';
 import { Icon, HelpText } from '@contentful/forma-36-react-components';
-import tokens from '@contentful/forma-36-tokens';
 import { EntryFieldAPI } from 'contentful-ui-extensions-sdk';
 
 interface CollapsibleFieldGroupProps {
@@ -12,34 +11,6 @@ interface CollapsibleFieldGroupProps {
   fields: { [key: string]: EntryFieldAPI };
   locales: LocalesAPI;
 }
-
-const styles = {
-  heading: css({
-    display: 'flex',
-    justifyContent: 'space-between',
-    margin: tokens.spacingL
-  }),
-
-  button: css({
-    background: 'none',
-    border: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    padding: '0'
-  }),
-
-  icon: css({
-    backgroundColor: tokens.colorElementLightest,
-    borderRadius: '2px',
-    padding: '3px',
-    marginRight: tokens.spacingXs
-  }),
-
-  fieldsContainer: css({
-    backgroundColor: tokens.colorElementLightest,
-    padding: tokens.spacingL
-  })
-};
 
 export const CollapsibleFieldGroup: React.FC<CollapsibleFieldGroupProps> = ({
   fieldGroup,

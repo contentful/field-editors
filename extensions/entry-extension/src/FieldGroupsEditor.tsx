@@ -16,11 +16,10 @@ import {
   IconButton,
   CardDragHandle
 } from '@contentful/forma-36-react-components';
-import tokens from '@contentful/forma-36-tokens';
 import { findUnassignedFields, AppContext, SDKContext } from './shared';
 import { FieldType, FieldGroupType } from './types';
 import { ActionTypes } from './types';
-import { css } from 'emotion';
+import styles from './styles';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 
 interface FieldGroupsEditorProps {
@@ -28,46 +27,6 @@ interface FieldGroupsEditorProps {
   addGroup: () => void;
   onClose: () => void;
 }
-
-const styles = {
-  controls: css({
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: `${tokens.spacingM} ${tokens.spacingXl}`,
-    borderBottom: `1px solid ${tokens.colorElementMid}`
-  }),
-  saveButton: css({
-    marginLeft: tokens.spacingS
-  }),
-  editor: css({
-    background: tokens.colorElementLightest,
-    padding: tokens.spacingL,
-    marginBottom: tokens.spacingM
-  }),
-  dropDownTrigger: css({
-    width: '100%'
-  }),
-  card: css({
-    marginBottom: tokens.spacingXs,
-    paddingTop: tokens.spacingXs,
-    paddingBottom: tokens.spacingXs,
-    paddingLeft: tokens.spacing2Xs,
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    zIndex: 102 // This is to stop the sortable cards disappearing behind their container
-  }),
-  fieldName: css({
-    marginRight: tokens.spacingXs,
-    marginLeft: tokens.spacingXs,
-    fontWeight: 700
-  }),
-  handle: css({
-    border: 'none',
-    background: 'none'
-  })
-};
 
 const DragHandle = SortableHandle(() => (
   <CardDragHandle className={styles.handle}>Reorder item</CardDragHandle>
@@ -81,7 +40,7 @@ const SortableFieldItem = SortableElement(
 
     return (
       <Card className={styles.card}>
-        <div className={css({ display: 'flex', alignItems: 'center' })}>
+        <div className={styles.cardInfo}>
           <DragHandle />
           <Paragraph className={styles.fieldName}>{field.name}</Paragraph>
           {fieldDetails ? <Paragraph>{fieldDetails.type}</Paragraph> : null}
@@ -105,7 +64,7 @@ const SortableFieldItem = SortableElement(
 
 const SortableFieldList = SortableContainer(
   ({ items, groupId }: { items: FieldType[]; groupId: string }) => (
-    <ul className={css({ paddingLeft: '0px' })}>
+    <ul className={styles.listContainer}>
       {items.map((field: FieldType, index: number) => (
         <SortableFieldItem groupId={groupId} key={`item-${field.id}`} index={index} field={field} />
       ))}
@@ -202,7 +161,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
         value={name}
       />
       <FieldGroup>
-        <FormLabel className={css({ marginTop: tokens.spacingS })}>Fields</FormLabel>
+        <FormLabel className={styles.formLabel}>Fields</FormLabel>
         <Dropdown
           className={styles.dropDownTrigger}
           isOpen={dropdownOpen}
