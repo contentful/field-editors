@@ -90,13 +90,13 @@ const SortableFieldItem = SortableElement(
           label="Remove field"
           buttonType="negative"
           iconProps={{ icon: 'Close' }}
-          onClick={() => {
+          onClick={() =>
             dispatch({
               type: ActionTypes.REMOVE_FIELD_FROM_GROUP,
               groupId,
               fieldKey: field.id
-            });
-          }}
+            })
+          }
         />
       </Card>
     );
@@ -202,7 +202,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
         value={name}
       />
       <FieldGroup>
-        <FormLabel>Fields</FormLabel>
+        <FormLabel className={css({ marginTop: tokens.spacingS })}>Fields</FormLabel>
         <Dropdown
           className={styles.dropDownTrigger}
           isOpen={dropdownOpen}
@@ -236,7 +236,12 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
           </DropdownList>
         </Dropdown>
       </FieldGroup>
-      <SortableFieldList onSortEnd={onSortEnd} items={fields} groupId={groupId} />
+      <SortableFieldList
+        distance={1 /* this hack is to allow buttons in the drag containers to work*/}
+        onSortEnd={onSortEnd}
+        items={fields}
+        groupId={groupId}
+      />
       <div>
         <TextLink
           linkType="negative"
