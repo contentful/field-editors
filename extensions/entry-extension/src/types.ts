@@ -25,7 +25,7 @@ export enum ActionTypes {
   REMOVE_FIELD_FROM_GROUP,
   MOVE_FIELD_GROUP_UP,
   MOVE_FIELD_GROUP_DOWN,
-  REORDER_GROUP
+  MOVE_FIELD_IN_GROUP
 }
 
 export type Action =
@@ -36,4 +36,4 @@ export type Action =
   | { type: ActionTypes.REMOVE_FIELD_FROM_GROUP; groupId: string; fieldKey: string }
   | { type: ActionTypes.MOVE_FIELD_GROUP_UP; groupId: string }
   | { type: ActionTypes.MOVE_FIELD_GROUP_DOWN; groupId: string }
-  | { type: ActionTypes.REORDER_GROUP; groupId: string; oldIndex: number; newIndex: number };
+  | { type: ActionTypes.MOVE_FIELD_IN_GROUP; groupId: string; oldIndex: number; newIndex: number };

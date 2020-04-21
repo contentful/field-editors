@@ -185,7 +185,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
 
   const onSortEnd = ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => {
     dispatch({
-      type: ActionTypes.REORDER_GROUP,
+      type: ActionTypes.MOVE_FIELD_IN_GROUP,
       groupId,
       oldIndex,
       newIndex

@@ -61,7 +61,7 @@ const reducer: React.Reducer<AppState, Action> = (state, action) => {
       state.fieldGroups = moveFieldGroup(state.fieldGroups, action.groupId, +1);
       return state;
 
-    case ActionTypes.REORDER_GROUP: // TODO: rename - reorder field within group
+    case ActionTypes.MOVE_FIELD_IN_GROUP:
       state.fieldGroups = state.fieldGroups.map(fieldGroup => {
         if (fieldGroup.id === action.groupId) {
           const movedElement = fieldGroup.fields.splice(action.oldIndex, 1)[0];
