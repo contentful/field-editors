@@ -20,6 +20,8 @@ import { DropdownEditor } from '../../../packages/dropdown/src/index';
 import { UrlEditor } from '../../../packages/url/src/index';
 import { RadioEditor } from '../../../packages/radio/src/index';
 import { RatingEditor } from '../../../packages/rating/src/index';
+import { CheckboxEditor } from '../../../packages/checkbox/src/index';
+import { ListEditor } from '../../../packages/list/src/index';
 import {
   SingleEntryReferenceEditor,
   MultipleEntryReferenceEditor,
@@ -63,10 +65,6 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
     ({ fieldId }) => fieldId === extendedField.id
   );
 
-  // These field editors are currently unused
-  // - checkbox
-  // - list
-
   if (fieldDetails && fieldEditorInterface) {
     switch (fieldEditorInterface.widgetId) {
       case 'multipleLine':
@@ -101,6 +99,20 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
         return (
           <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
             <LocationEditor field={extendedField} />
+          </FieldWrapper>
+        );
+
+      case 'checkbox':
+        return (
+          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+            <CheckboxEditor field={extendedField} locales={locales} />
+          </FieldWrapper>
+        );
+
+      case 'listInput':
+        return (
+          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+            <ListEditor field={extendedField} locales={locales} />
           </FieldWrapper>
         );
 
