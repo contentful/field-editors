@@ -5,10 +5,11 @@ import { FieldGroupType, FieldType } from './types';
 import { css } from 'emotion';
 import { Icon, HelpText } from '@contentful/forma-36-react-components';
 import tokens from '@contentful/forma-36-tokens';
+import { EntryFieldAPI } from 'contentful-ui-extensions-sdk';
 
 interface CollapsibleFieldGroupProps {
   fieldGroup: FieldGroupType;
-  fields: any; // wuh oh
+  fields: { [key: string]: EntryFieldAPI };
   locales: LocalesAPI;
 }
 
