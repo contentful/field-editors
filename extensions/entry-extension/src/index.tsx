@@ -9,7 +9,8 @@ import { FieldGroupsEditor } from './FieldGroupsEditor';
 import { CollapsibleFieldGroup } from './CollapsibleFieldGroup';
 import { findUnassignedFields, AppContext, SDKContext } from './shared';
 import { useAppState } from './state';
-import { ActionTypes } from './types';
+import { ActionTypes, FieldType } from './types';
+import { Field } from './Field';
 
 interface AppProps {
   sdk: EditorExtensionSDK;
@@ -40,17 +41,13 @@ export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
             fields={fields}
           />
         ))}
-        {unassignedFields.length > 0 ? ( // TODO: ask fabianm
-          <CollapsibleFieldGroup
-            locales={props.sdk.locales}
-            fieldGroup={{
-              name: 'Unassigned fields',
-              fields: unassignedFields,
-              id: 'unassigned-fields'
-            }}
-            fields={fields}
-          />
-        ) : null}
+
+        <div className="f36-margin--l">
+          {unassignedFields.map((k: FieldType) => (
+            <Field key={k.id} field={fields[k.id]} locales={props.sdk.locales} />
+          ))}
+        </div>
+
         <TextLink className="f36-margin--l" onClick={openDialog}>
           Edit field groups
         </TextLink>
