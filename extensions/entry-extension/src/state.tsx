@@ -76,33 +76,35 @@ const reducer: React.Reducer<AppState, Action> = (state, action) => {
 };
 
 export const useAppState = (
-  fields: FieldType[]
+  fields: FieldType[],
+  storageId: string,
+  updatedAt: string | undefined
 ): [React.ReducerState<React.Reducer<AppState, Action>>, React.Dispatch<Action>] => {
   const defaultState = {
     fields,
+    updatedAt,
     fieldGroups: []
   };
 
   const [state, dispatch] = React.useReducer(produce(reducer), defaultState, state => {
-    const stored = localStorage.getItem('entry-editor-storage'); // TODO: prepend contenttype/space_id/environment_id/content_id
+    const stored = localStorage.getItem(storageId);
 
-    // TODO: look at contenttype sys version to check if I need to update
     if (stored) {
       const parsed = JSON.parse(stored);
-      if (parsed.fields !== defaultState.fields) {
-        // in case the content model has been updated to add new fields
-        parsed.fields = [...defaultState.fields];
+      // if the stored updatedAt state does not match the current one from SDK,
+      // then reset the state
+      if (parsed.updatedAt === updatedAt) {
+        return parsed;
       }
-      return parsed;
-    } else {
-      return state;
     }
+
+    return state;
   });
 
   // On each state change save the new state in local storage
   React.useEffect(() => {
-    localStorage.setItem('entry-editor-storage', JSON.stringify(state));
-  }, [state]);
+    localStorage.setItem(storageId, JSON.stringify(state));
+  }, [state, storageId]);
 
   return [state, dispatch];
 };

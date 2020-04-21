@@ -16,10 +16,22 @@ interface AppProps {
   sdk: EditorExtensionSDK;
 }
 
+const storageId = (sdk: EditorExtensionSDK): string => {
+  const contentId = sdk.contentType.sys.id;
+  const spaceId = sdk.contentType.sys.space?.sys.id;
+  const environmentId = sdk.contentType.sys.environment?.sys.id;
+
+  return `${contentId}-${spaceId}-${environmentId}`;
+};
+
 export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
   const { fields } = props.sdk.entry;
 
-  const [state, dispatch] = useAppState(props.sdk.contentType.fields);
+  const [state, dispatch] = useAppState(
+    props.sdk.contentType.fields,
+    storageId(props.sdk),
+    props.sdk.contentType.sys.updatedAt
+  );
 
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const closeDialog = () => setDialogOpen(false);
