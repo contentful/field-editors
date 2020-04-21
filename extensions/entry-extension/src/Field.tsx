@@ -20,6 +20,12 @@ import { DropdownEditor } from '../../../packages/dropdown/src/index';
 import { UrlEditor } from '../../../packages/url/src/index';
 import { RadioEditor } from '../../../packages/radio/src/index';
 import { RatingEditor } from '../../../packages/rating/src/index';
+import {
+  SingleEntryReferenceEditor,
+  MultipleEntryReferenceEditor,
+  SingleMediaEditor,
+  MultipleMediaEditor
+} from '../../../packages/reference/src/index';
 
 const styles = {
   wrapper: css({
@@ -63,16 +69,6 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
 
   if (fieldDetails && fieldEditorInterface) {
     switch (fieldEditorInterface.widgetId) {
-      case 'markdown':
-      case 'assetLinkEditor':
-      case 'entryLinkEditor':
-        return (
-          <FieldWrapper name={fieldDetails.name} required={false}>
-            widget for {fieldDetails.name} of type {fieldEditorInterface.widgetId} was not
-            implemented yet
-          </FieldWrapper>
-        );
-
       case 'multipleLine':
         return (
           <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
@@ -165,10 +161,129 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
             <DropdownEditor field={extendedField} locales={locales} />
           </FieldWrapper>
         );
+
+      case 'entryLinkEditor': {
+        const fieldSdk: any = sdk;
+
+        fieldSdk.field = extendedField;
+
+        return (
+          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+            <SingleEntryReferenceEditor
+              parameters={{ instance: { canCreateEntity: false } }}
+              viewType="link"
+              sdk={fieldSdk}
+            />
+          </FieldWrapper>
+        );
+      }
+
+      case 'entryCardEditor': {
+        const fieldSdk: any = sdk;
+
+        fieldSdk.field = extendedField;
+
+        return (
+          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+            <SingleEntryReferenceEditor
+              parameters={{ instance: { canCreateEntity: false } }}
+              viewType="card"
+              sdk={fieldSdk}
+            />
+          </FieldWrapper>
+        );
+      }
+
+      case 'entryLinksEditor': {
+        const fieldSdk: any = sdk;
+
+        fieldSdk.field = extendedField;
+
+        return (
+          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+            <MultipleEntryReferenceEditor
+              isInitiallyDisabled={false}
+              parameters={{ instance: { canCreateEntity: false } }}
+              viewType="link"
+              sdk={fieldSdk}
+            />
+          </FieldWrapper>
+        );
+      }
+
+      case 'entryCardsEditor': {
+        const fieldSdk: any = sdk;
+
+        fieldSdk.field = extendedField;
+
+        return (
+          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+            <MultipleEntryReferenceEditor
+              isInitiallyDisabled={false}
+              parameters={{ instance: { canCreateEntity: false } }}
+              viewType="card"
+              sdk={fieldSdk}
+            />
+          </FieldWrapper>
+        );
+      }
+
+      case 'assetLinkEditor': {
+        const fieldSdk: any = sdk;
+
+        fieldSdk.field = extendedField;
+
+        return (
+          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+            <SingleMediaEditor
+              parameters={{ instance: { canCreateEntity: false } }}
+              viewType="link"
+              sdk={fieldSdk}
+            />
+          </FieldWrapper>
+        );
+      }
+
+      case 'assetLinksEditor': {
+        const fieldSdk: any = sdk;
+
+        fieldSdk.field = extendedField;
+
+        return (
+          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+            <MultipleMediaEditor
+              parameters={{ instance: { canCreateEntity: false } }}
+              viewType="link"
+              sdk={fieldSdk}
+            />
+          </FieldWrapper>
+        );
+      }
+
+      case 'assetGalleryEditor': {
+        const fieldSdk: any = sdk;
+
+        fieldSdk.field = extendedField;
+
+        return (
+          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+            <MultipleMediaEditor
+              parameters={{ instance: { canCreateEntity: false } }}
+              viewType="card"
+              sdk={fieldSdk}
+            />
+          </FieldWrapper>
+        );
+      }
+
+      default:
+        return (
+          <FieldWrapper name={fieldDetails.name} required={false}>
+            widget for {fieldDetails.name} of type {fieldEditorInterface.widgetId} was not
+            implemented yet
+          </FieldWrapper>
+        );
     }
-    throw new Error(
-      `unrecognised widget ${fieldEditorInterface.widgetId} for field of type ${extendedField.type}`
-    );
   } else {
     return null;
   }
