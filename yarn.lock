@@ -1949,13 +1949,6 @@
     lodash "^4.17.15"
     lodash-es "^4.17.15"
 
-"@contentful/forma-36-fcss@^0.0.20":
-  version "0.0.20"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-fcss/-/forma-36-fcss-0.0.20.tgz#346e9229ce9c39519d1b47a540db2a6fcfd471e8"
-  integrity sha512-czXsm4lLTnsFXseMoNeZsFfRccTKNXF0PNP34Ij3BhH6BDR9iPbSoyLUnYGO1qezfyK9hkpy3+L8AqYOjjgUGA==
-  dependencies:
-    "@contentful/forma-36-tokens" "^0.3.0"
-
 "@contentful/forma-36-fcss@^0.0.34":
   version "0.0.34"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-fcss/-/forma-36-fcss-0.0.34.tgz#afc4514e9b946c67339202ac61df94dc702b3bbe"
@@ -1963,18 +1956,12 @@
   dependencies:
     "@contentful/forma-36-tokens" "^0.5.1"
 
-"@contentful/forma-36-react-components@^3.11.3":
-  version "3.35.0"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.35.0.tgz#f405e0f6c4f8f922c000d78a238d0a2935259d21"
-  integrity sha512-em5rFZnxnRSuzaDEYykSjWDqQBELkAYnFE+iE+XfjCx3i/AwK/Do2W5tzi4J/WwOXrLQr/qQXKx+vO2zSNTfyA==
+"@contentful/forma-36-fcss@^0.0.35":
+  version "0.0.35"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-fcss/-/forma-36-fcss-0.0.35.tgz#a6803307b029161a0bffc17ef787e20af04a1c8a"
+  integrity sha512-ER81LumiXEZF0y0XgpGTLTj1119wjgs3xIYyphYz0qvzQghzNH28XE/8qBMG5WeqdtThtZFVK6E7nDa1e/MSYw==
   dependencies:
-    "@babel/runtime" "^7.3.4"
-    classnames "^2.2.6"
-    react-animate-height "^2.0.7"
-    react-copy-to-clipboard "^5.0.1"
-    react-modal "3.6.1"
-    react-transition-group "^2.4.0"
-    truncate "^2.0.1"
+    "@contentful/forma-36-tokens" "^0.5.2"
 
 "@contentful/forma-36-react-components@^3.18.4", "@contentful/forma-36-react-components@^3.20.3", "@contentful/forma-36-react-components@^3.20.4", "@contentful/forma-36-react-components@^3.24.0", "@contentful/forma-36-react-components@^3.28.13", "@contentful/forma-36-react-components@^3.28.17", "@contentful/forma-36-react-components@^3.28.21":
   version "3.31.7"
@@ -2002,10 +1989,18 @@
     react-transition-group "^2.4.0"
     truncate "^2.0.1"
 
-"@contentful/forma-36-tokens@^0.3.0":
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.3.3.tgz#a01ffbb7c0b5606a0e39880d0afb2c5a02700a35"
-  integrity sha512-wk1ufpSjot9O1/Zea+6VQ+jZlOIgxA9p8tA8/x9Tpkff+c7R7crWRhS2VLl49jbYtK9B7kEKGluTZx6CtYJazg==
+"@contentful/forma-36-react-components@^3.36.1":
+  version "3.36.1"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.36.1.tgz#e72319b1bda966c1a858918c716a9cd58e5decb5"
+  integrity sha512-Vj4rFMO10IKUHalhee6OmU1yg2avseUDZgi5zX6g/MEUldcIbEIkpI/VzpxWH1cdBewBwqMOugs/qUmdgGyH7A==
+  dependencies:
+    "@babel/runtime" "^7.3.4"
+    classnames "^2.2.6"
+    react-animate-height "^2.0.7"
+    react-copy-to-clipboard "^5.0.1"
+    react-modal "3.6.1"
+    react-transition-group "^2.4.0"
+    truncate "^2.0.1"
 
 "@contentful/forma-36-tokens@^0.4.5":
   version "0.4.5"
@@ -2016,6 +2011,11 @@
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.5.1.tgz#427130f4e65f3aef4ec987873c4a1b61dab8cdaf"
   integrity sha512-KeI181dInXcgSQw/ibPHEyshDFrEOPVEwHZ4a720yEJczT64zmKC/CLecsv3C7tUiQlnSnTZD1fcFBXmeOIThw==
+
+"@contentful/forma-36-tokens@^0.5.2":
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.5.2.tgz#736dde76b1830f78cfec3bed0fba8d9652705c32"
+  integrity sha512-YAhp7bJzlIvThO6ybZHCGCeVXf5ojRrVBVx7dCkoWK6SYtZJkr5trWymG6gAnNpO9pDiWvgIMKmFHx/hWDjiRA==
 
 "@contentful/mimetype@^1.1.4":
   version "1.1.4"
