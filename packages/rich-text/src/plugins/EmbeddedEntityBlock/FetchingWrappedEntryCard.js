@@ -16,6 +16,12 @@ export function FetchingWrappedEntryCard(props) {
 
   const entry = entries[props.entryId];
 
+  React.useEffect(() => {
+    if (entry) {
+      props.onEntityFetchComplete && props.onEntityFetchComplete();
+    }
+  }, [entry]);
+
   if (entry === 'failed') {
     return (
       <MissingEntityCard
@@ -57,5 +63,6 @@ FetchingWrappedEntryCard.propTypes = {
   isSelected: PropTypes.bool.isRequired,
   onRemove: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
-  getEntryUrl: PropTypes.func
+  getEntryUrl: PropTypes.func,
+  onEntityFetchComplete: PropTypes.func
 };

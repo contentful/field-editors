@@ -16,7 +16,8 @@ export default class LinkedEntityBlock extends React.Component {
     isSelected: PropTypes.bool.isRequired,
     attributes: PropTypes.object.isRequired,
     editor: PropTypes.object.isRequired,
-    node: PropTypes.object.isRequired
+    node: PropTypes.object.isRequired,
+    onEntityFetchComplete: PropTypes.func.isRequired
   };
 
   getEntitySys() {
@@ -59,6 +60,7 @@ export default class LinkedEntityBlock extends React.Component {
               const getEntryUrl = sdk.parameters.instance.getEntryUrl;
               return typeof getEntryUrl === 'function' ? getEntryUrl(entityId) : '';
             }}
+            onEntityFetchComplete={this.props.onEntityFetchComplete}
           />
         )}
         {entityType === 'Asset' && (
@@ -73,6 +75,7 @@ export default class LinkedEntityBlock extends React.Component {
               const getAssetUrl = sdk.parameters.instance.getAssetUrl;
               return typeof getAssetUrl === 'function' ? getAssetUrl(entityId) : '';
             }}
+            onEntityFetchComplete={this.props.onEntityFetchComplete}
           />
         )}
       </div>

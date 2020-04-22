@@ -22,7 +22,8 @@ class EmbeddedEntryInline extends React.Component {
     isSelected: PropTypes.bool.isRequired,
     attributes: PropTypes.object.isRequired,
     editor: PropTypes.object.isRequired,
-    node: PropTypes.object.isRequired
+    node: PropTypes.object.isRequired,
+    onEntityFetchComplete: PropTypes.func.isRequired
   };
 
   getEntitySys() {
@@ -62,6 +63,7 @@ class EmbeddedEntryInline extends React.Component {
             const getEntryUrl = sdk.parameters.instance.getEntryUrl;
             return typeof getEntryUrl === 'function' ? getEntryUrl(entryId) : '';
           }}
+          onEntityFetchComplete={this.props.onEntityFetchComplete}
         />
       </span>
     );

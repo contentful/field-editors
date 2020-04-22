@@ -16,6 +16,12 @@ export function FetchingWrappedAssetCard(props) {
 
   const asset = assets[props.assetId];
 
+  React.useEffect(() => {
+    if (asset) {
+      props.onEntityFetchComplete && props.onEntityFetchComplete();
+    }
+  }, [asset]);
+
   if (asset === 'failed') {
     return (
       <MissingEntityCard
@@ -54,5 +60,6 @@ FetchingWrappedAssetCard.propTypes = {
   isSelected: PropTypes.bool.isRequired,
   onRemove: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
-  getAssetUrl: PropTypes.func
+  getAssetUrl: PropTypes.func,
+  onEntityFetchComplete: PropTypes.func
 };
