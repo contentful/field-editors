@@ -56,8 +56,8 @@ export default class LinkedEntityBlock extends React.Component {
             onRemove={this.handleRemoveClick}
             onEdit={this.handleEditClick}
             getEntryUrl={() => {
-              // todo: provide a real url from params
-              return '';
+              const getEntryUrl = sdk.parameters.instance.getEntryUrl;
+              return typeof getEntryUrl === 'function' ? getEntryUrl(entityId) : '';
             }}
           />
         )}
@@ -70,8 +70,8 @@ export default class LinkedEntityBlock extends React.Component {
             onRemove={this.handleRemoveClick}
             onEdit={this.handleEditClick}
             getAssetUrl={() => {
-              // todo: provide a real url from params
-              return '';
+              const getAssetUrl = sdk.parameters.instance.getAssetUrl;
+              return typeof getAssetUrl === 'function' ? getAssetUrl(entityId) : '';
             }}
           />
         )}

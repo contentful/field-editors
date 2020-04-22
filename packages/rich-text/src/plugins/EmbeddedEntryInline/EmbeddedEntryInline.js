@@ -59,8 +59,8 @@ class EmbeddedEntryInline extends React.Component {
           onRemove={this.handleRemoveClick}
           onEdit={this.handleEditClick}
           getEntryUrl={() => {
-            // todo: provide a real url from params
-            return '';
+            const getEntryUrl = sdk.parameters.instance.getEntryUrl;
+            return typeof getEntryUrl === 'function' ? getEntryUrl(entryId) : '';
           }}
         />
       </span>
