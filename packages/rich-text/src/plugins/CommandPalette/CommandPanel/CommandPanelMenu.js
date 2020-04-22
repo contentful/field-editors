@@ -70,7 +70,10 @@ const styles = {
     textOverflow: 'ellipsis',
     width: '100%',
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    border: 'none',
+    background: 'transparent',
+    fontSize: tokens.fontSizeM
   }),
   navBar: css({
     display: 'flex',

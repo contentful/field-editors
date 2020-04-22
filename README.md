@@ -27,7 +27,7 @@ We currently provide the following field editors:
 - [Markdown](./packages/markdown/README.md)
 - [Slug](./packages/slug/README.md)
 - [Entry reference / Media](./packages/reference/README.md)
-- Rich Text - **coming soon**
+- [Rich Text](./packages/rich-text/README.md)
 
 Feel free to reach out to us with the ones that'd be the most useful to have
 here by filing a [Github issue][github-issues]!

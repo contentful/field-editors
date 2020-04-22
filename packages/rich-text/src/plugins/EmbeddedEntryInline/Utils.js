@@ -36,15 +36,15 @@ export const hasOnlyInlineEntryInSelection = editor => {
 
 /**
  * Invokes entity selector modal and inserts inline embed.
- * @param {WidgetAPI} widgetAPI
+ * @param {import('@contentful/field-editor-reference/dist/types').FieldExtensionSDK} sdk
  * @param {slate.Editor} editor
  * @param {function} logAction
  */
-export const selectEntryAndInsert = async (widgetAPI, editor, logAction) => {
+export const selectEntryAndInsert = async (sdk, editor, logAction) => {
   const nodeType = INLINES.EMBEDDED_ENTRY;
   logAction('openCreateEmbedDialog', { nodeType });
 
-  const { field, dialogs } = widgetAPI;
+  const { field, dialogs } = sdk;
   const baseConfig = newEntitySelectorConfigFromRichTextField(field, nodeType);
   const config = { ...baseConfig, withCreate: true };
   try {

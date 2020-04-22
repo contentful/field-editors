@@ -65,7 +65,7 @@ export default class Toolbar extends React.Component {
 
   state = {
     headingMenuOpen: false,
-    ...getValidationInfo(this.props.richTextAPI.widgetAPI.field)
+    ...getValidationInfo(this.props.richTextAPI.sdk.field)
   };
 
   onChange = (...args) => {
@@ -84,7 +84,7 @@ export default class Toolbar extends React.Component {
     });
 
   renderEmbeds = props => {
-    const field = this.props.richTextAPI.widgetAPI.field;
+    const field = this.props.richTextAPI.sdk.field;
 
     const inlineEntryEmbedEnabled = isNodeTypeEnabled(field, INLINES.EMBEDDED_ENTRY);
     const blockEntryEmbedEnabled = isNodeTypeEnabled(field, BLOCKS.EMBEDDED_ENTRY);
@@ -149,7 +149,7 @@ export default class Toolbar extends React.Component {
       disabled: isDisabled,
       richTextAPI
     };
-    const { field } = richTextAPI.widgetAPI;
+    const { field } = richTextAPI.sdk;
     const { isAnyHyperlinkEnabled, isAnyListEnabled, isAnyMarkEnabled } = this.state;
     const currentBlockType = props.editor.value.blocks.getIn([0, 'type']);
     return (

@@ -9,6 +9,7 @@ import deepEquals from 'fast-deep-equal';
 
 import { BLOCKS, EMPTY_DOCUMENT } from '@contentful/rich-text-types';
 import { toContentfulDocument, toSlatejsDocument } from '@contentful/contentful-slatejs-adapter';
+import { EntityProvider } from '@contentful/field-editor-reference';
 
 import schema from './constants/Schema';
 import { createRichTextAPI } from './plugins/shared/PluginApi';
@@ -87,13 +88,15 @@ const EMPTY_SLATE_DOCUMENT = createSlateValue(EMPTY_DOCUMENT);
 
 export class ConnectedRichTextEditor extends React.Component {
   static propTypes = {
-    widgetAPI: PropTypes.shape({
+    sdk: PropTypes.shape({
       field: PropTypes.shape({
         id: PropTypes.string.isRequired,
         locale: PropTypes.string.isRequired
       }).isRequired,
       parameters: PropTypes.shape({
         instance: PropTypes.shape({
+          getEntryUrl: PropTypes.func,
+          getAssetUrl: PropTypes.func,
           permissions: PropTypes.shape({
             canAccessAssets: PropTypes.bool.isRequired,
             canCreateAssets: PropTypes.bool.isRequired,
@@ -107,11 +110,7 @@ export class ConnectedRichTextEditor extends React.Component {
     onChange: PropTypes.func,
     onAction: PropTypes.func,
     isToolbarHidden: PropTypes.bool,
-    actionsDisabled: PropTypes.bool,
-    customRenderers: PropTypes.shape({
-      renderEntityBlockEmbed: PropTypes.func,
-      renderEntryInlineEmbed: PropTypes.func
-    })
+    actionsDisabled: PropTypes.bool
   };
 
   static defaultProps = {
@@ -120,8 +119,7 @@ export class ConnectedRichTextEditor extends React.Component {
     onAction: noop,
     isDisabled: false,
     isToolbarHidden: false,
-    actionsDisabled: false,
-    customRenderers: {}
+    actionsDisabled: false
   };
 
   state = {
@@ -135,9 +133,8 @@ export class ConnectedRichTextEditor extends React.Component {
   editor = React.createRef();
 
   richTextAPI = createRichTextAPI({
-    widgetAPI: this.props.widgetAPI,
-    onAction: this.props.onAction,
-    customRenderers: this.props.customRenderers
+    sdk: this.props.sdk,
+    onAction: this.props.onAction
   });
 
   slatePlugins = buildPlugins(this.richTextAPI);
@@ -207,7 +204,7 @@ export class ConnectedRichTextEditor extends React.Component {
               editor={this.editor.current || new BasicEditor({ readOnly: true })}
               onChange={this.onChange}
               isDisabled={this.props.isDisabled}
-              permissions={this.props.widgetAPI.parameters.instance.permissions}
+              permissions={this.props.sdk.parameters.instance.permissions}
               richTextAPI={this.richTextAPI}
             />
           </StickyToolbarWrapper>
@@ -252,34 +249,36 @@ function isRelevantOperation(op) {
 
 export default function RichTextEditor(props) {
   /* eslint-disable react/prop-types */
-  const { widgetAPI, isInitiallyDisabled, ...otherProps } = props;
+  const { sdk, isInitiallyDisabled, ...otherProps } = props;
   return (
-    <FieldConnector
-      throttle={0}
-      field={widgetAPI.field}
-      isInitiallyDisabled={isInitiallyDisabled}
-      isEmptyValue={value => {
-        return !value || deepEquals(value, EMPTY_DOCUMENT);
-      }}
-      isEqualValues={(value1, value2) => {
-        return deepEquals(value1, value2);
-      }}>
-      {({ lastRemoteValue, disabled, setValue, externalReset }) => {
-        return (
-          <ConnectedRichTextEditor
-            {...otherProps}
-            // on external change reset component completely and init with initial value again
-            key={`rich-text-editor-${externalReset}`}
-            value={lastRemoteValue}
-            widgetAPI={widgetAPI}
-            isDisabled={disabled}
-            onChange={value => {
-              setValue(value);
-            }}
-          />
-        );
-      }}
-    </FieldConnector>
+    <EntityProvider sdk={sdk}>
+      <FieldConnector
+        throttle={0}
+        field={sdk.field}
+        isInitiallyDisabled={isInitiallyDisabled}
+        isEmptyValue={value => {
+          return !value || deepEquals(value, EMPTY_DOCUMENT);
+        }}
+        isEqualValues={(value1, value2) => {
+          return deepEquals(value1, value2);
+        }}>
+        {({ lastRemoteValue, disabled, setValue, externalReset }) => {
+          return (
+            <ConnectedRichTextEditor
+              {...otherProps}
+              // on external change reset component completely and init with initial value again
+              key={`rich-text-editor-${externalReset}`}
+              value={lastRemoteValue}
+              sdk={sdk}
+              isDisabled={disabled}
+              onChange={value => {
+                setValue(value);
+              }}
+            />
+          );
+        }}
+      </FieldConnector>
+    </EntityProvider>
   );
 }
 

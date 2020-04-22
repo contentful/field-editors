@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card } from '@contentful/forma-36-react-components';
 import { css } from 'emotion';
+import { FetchingWrappedEntryCard } from './FetchingWrappedEntryCard';
+import { FetchingWrappedAssetCard } from './FetchingWrappedAssetCard';
 
 const styles = {
   root: css({
@@ -11,21 +12,12 @@ const styles = {
 
 export default class LinkedEntityBlock extends React.Component {
   static propTypes = {
-    widgetAPI: PropTypes.object.isRequired,
+    sdk: PropTypes.object.isRequired,
     isSelected: PropTypes.bool.isRequired,
     attributes: PropTypes.object.isRequired,
     editor: PropTypes.object.isRequired,
     node: PropTypes.object.isRequired,
-    onEntityFetchComplete: PropTypes.func,
-    renderEntity: PropTypes.func
-  };
-
-  static defaultProps = {
-    renderEntity: ({ entityId, entityType, isSelected }) => (
-      <Card selected={isSelected}>
-        {entityType} <code>{entityId}</code>
-      </Card>
-    )
+    onEntityFetchComplete: PropTypes.func.isRequired
   };
 
   getEntitySys() {
@@ -38,7 +30,7 @@ export default class LinkedEntityBlock extends React.Component {
 
   handleEditClick = () => {
     const { type, id } = this.getEntitySys();
-    const { navigator } = this.props.widgetAPI;
+    const { navigator } = this.props.sdk;
     const openEntity = type === 'Asset' ? navigator.openAsset : navigator.openEntry;
     return openEntity(id, { slideIn: true });
   };
@@ -51,24 +43,41 @@ export default class LinkedEntityBlock extends React.Component {
   };
 
   render() {
-    const { widgetAPI, editor, isSelected, onEntityFetchComplete, renderEntity } = this.props;
-    const isDisabled = editor.props.readOnly;
-    const isReadOnly = editor.props.actionsDisabled;
+    const { sdk, editor, isSelected } = this.props;
+    const isDisabled = editor.props.readOnly || editor.props.actionsDisabled;
     const { id: entityId, type: entityType } = this.getEntitySys();
-    const props = {
-      widgetAPI,
-      entityType,
-      entityId,
-      isSelected,
-      isDisabled,
-      isReadOnly,
-      onEntityFetchComplete,
-      onRemove: this.handleRemoveClick,
-      onOpenEntity: this.handleEditClick
-    };
     return (
       <div {...this.props.attributes} className={styles.root}>
-        {renderEntity(props)}
+        {entityType === 'Entry' && (
+          <FetchingWrappedEntryCard
+            sdk={sdk}
+            entryId={entityId}
+            isDisabled={isDisabled}
+            isSelected={isSelected}
+            onRemove={this.handleRemoveClick}
+            onEdit={this.handleEditClick}
+            getEntryUrl={() => {
+              const getEntryUrl = sdk.parameters.instance.getEntryUrl;
+              return typeof getEntryUrl === 'function' ? getEntryUrl(entityId) : '';
+            }}
+            onEntityFetchComplete={this.props.onEntityFetchComplete}
+          />
+        )}
+        {entityType === 'Asset' && (
+          <FetchingWrappedAssetCard
+            sdk={sdk}
+            assetId={entityId}
+            isDisabled={isDisabled}
+            isSelected={isSelected}
+            onRemove={this.handleRemoveClick}
+            onEdit={this.handleEditClick}
+            getAssetUrl={() => {
+              const getAssetUrl = sdk.parameters.instance.getAssetUrl;
+              return typeof getAssetUrl === 'function' ? getAssetUrl(entityId) : '';
+            }}
+            onEntityFetchComplete={this.props.onEntityFetchComplete}
+          />
+        )}
       </div>
     );
   }

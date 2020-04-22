@@ -27,8 +27,9 @@ export interface WrappedAssetCardProps {
   asset: Asset;
   localeCode: string;
   defaultLocaleCode: string;
-  href?: string;
+  getAssetUrl?: (assetId: string) => string;
   className?: string;
+  isSelected?: boolean;
   isDisabled: boolean;
   onEdit: () => void;
   onRemove: () => void;
@@ -51,7 +52,7 @@ function getFileType(file?: File): any {
 }
 
 export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
-  const { className, href, onEdit, onRemove, size, isDisabled } = props;
+  const { className, onEdit, getAssetUrl, onRemove, size, isDisabled, isSelected } = props;
 
   const status = entityHelpers.getEntryStatus(props.asset.sys);
 
@@ -82,7 +83,9 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
       type={getFileType(entityFile)}
       title={entityTitle}
       className={className}
-      href={href}
+      // @ts-ignore
+      selected={isSelected}
+      href={getAssetUrl ? getAssetUrl(props.asset.sys.id) : undefined}
       status={status}
       src={
         entityFile

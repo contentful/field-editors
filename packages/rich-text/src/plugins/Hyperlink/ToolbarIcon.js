@@ -12,9 +12,9 @@ export default class HyperlinkToolbarIcon extends Component {
     const {
       onToggle,
       editor,
-      richTextAPI: { widgetAPI, logToolbarAction }
+      richTextAPI: { sdk, logToolbarAction }
     } = this.props;
-    await toggleLink(editor, widgetAPI.dialogs.createHyperlink, logToolbarAction);
+    await toggleLink(editor, sdk.dialogs.createHyperlink, logToolbarAction);
     onToggle(editor);
   };
 

@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { InlineEntryCard } from '@contentful/forma-36-react-components';
 import { css } from 'emotion';
-import { INLINES } from '@contentful/rich-text-types';
+import { FetchingWrappedInlineEntryCard } from './FetchingWrappedInlineEntryCard';
 
 const styles = {
   root: css({
@@ -19,21 +18,12 @@ const styles = {
 
 class EmbeddedEntryInline extends React.Component {
   static propTypes = {
-    widgetAPI: PropTypes.object.isRequired,
+    sdk: PropTypes.object.isRequired,
     isSelected: PropTypes.bool.isRequired,
     attributes: PropTypes.object.isRequired,
     editor: PropTypes.object.isRequired,
     node: PropTypes.object.isRequired,
-    onEntityFetchComplete: PropTypes.func,
-    renderEntity: PropTypes.func
-  };
-
-  static defaultProps = {
-    renderEntity: ({ entryId, isSelected }) => (
-      <InlineEntryCard testId={INLINES.EMBEDDED_ENTRY} selected={isSelected}>
-        Entry <code>{entryId}</code>
-      </InlineEntryCard>
-    )
+    onEntityFetchComplete: PropTypes.func.isRequired
   };
 
   getEntitySys() {
@@ -44,8 +34,9 @@ class EmbeddedEntryInline extends React.Component {
     };
   }
 
-  handleEditClick = entry => {
-    this.props.widgetAPI.navigator.openEntry(entry.sys.id, { slideIn: true });
+  handleEditClick = () => {
+    const { id } = this.getEntitySys();
+    return this.props.sdk.navigator.openEntry(id, { slideIn: true });
   };
 
   handleRemoveClick = () => {
@@ -54,23 +45,26 @@ class EmbeddedEntryInline extends React.Component {
   };
 
   render() {
-    const { widgetAPI, editor, isSelected, onEntityFetchComplete, renderEntity } = this.props;
+    const { sdk, editor, isSelected } = this.props;
     const isDisabled = editor.props.readOnly;
     const isReadOnly = editor.props.actionsDisabled;
     const { id: entryId } = this.getEntitySys();
-    const props = {
-      widgetAPI,
-      entryId,
-      isSelected,
-      isDisabled,
-      isReadOnly,
-      onEntityFetchComplete,
-      onRemove: this.handleRemoveClick,
-      onOpenEntity: this.handleEditClick
-    };
     return (
       <span {...this.props.attributes} className={styles.root}>
-        {renderEntity(props)}
+        <FetchingWrappedInlineEntryCard
+          sdk={sdk}
+          entryId={entryId}
+          isSelected={isSelected}
+          isDisabled={isDisabled}
+          isReadOnly={isReadOnly}
+          onRemove={this.handleRemoveClick}
+          onEdit={this.handleEditClick}
+          getEntryUrl={() => {
+            const getEntryUrl = sdk.parameters.instance.getEntryUrl;
+            return typeof getEntryUrl === 'function' ? getEntryUrl(entryId) : '';
+          }}
+          onEntityFetchComplete={this.props.onEntityFetchComplete}
+        />
       </span>
     );
   }

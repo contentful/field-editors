@@ -9,19 +9,19 @@ import { selectEntryAndInsert, hasOnlyInlineEntryInSelection, canInsertInline } 
 export default ToolbarIcon;
 
 export const EmbeddedEntryInlinePlugin = ({
-  richTextAPI: { widgetAPI, customRenderers, logShortcutAction, logViewportAction }
+  richTextAPI: { sdk, logShortcutAction, logViewportAction }
 }) => ({
   renderNode: (props, _editor, next) => {
-    const { renderEntryInlineEmbed } = customRenderers;
     const { node, attributes, key } = props;
     if (node.type === INLINES.EMBEDDED_ENTRY) {
       return (
         <EmbeddedEntryInline
-          widgetAPI={widgetAPI}
+          sdk={sdk}
           {...props}
           {...attributes}
-          onEntityFetchComplete={() => logViewportAction('linkRendered', { key })}
-          renderEntity={renderEntryInlineEmbed}
+          onEntityFetchComplete={() => {
+            logViewportAction('linkRendered', { key });
+          }}
         />
       );
     }
@@ -31,7 +31,7 @@ export const EmbeddedEntryInlinePlugin = ({
     const hotkey = ['mod+shift+2'];
     if (isHotkey(hotkey, event)) {
       if (canInsertInline(editor)) {
-        selectEntryAndInsert(widgetAPI, editor, logShortcutAction);
+        selectEntryAndInsert(sdk, editor, logShortcutAction);
         return;
       }
     }
