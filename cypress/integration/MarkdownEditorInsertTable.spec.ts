@@ -4,7 +4,7 @@ describe('Markdown Editor / Insert Table Dialog', () => {
       return cy.findByTestId('markdown-textarea').get('textarea');
     },
     getDialogTitle() {
-      return cy.findByTestId('markdown-dialog-title').within(() => {
+      return cy.findByTestId('dialog-title').within(() => {
         return cy.get('h1');
       });
     },

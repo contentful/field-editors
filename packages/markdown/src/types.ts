@@ -1,5 +1,3 @@
-import { OpenCustomWidgetOptions } from '@contentful/field-editor-shared';
-
 export type MarkdownTab = 'editor' | 'preview';
 
 export type HeadingType = 'h1' | 'h2' | 'h3';
@@ -48,10 +46,6 @@ export type MarkdownDialogsParams =
         thumbnailAltText: string;
       }>;
     };
-
-export type OpenMarkdownDialogParams<T = any> = OpenCustomWidgetOptions & {
-  parameters?: T;
-};
 
 export type MarkdownActions = {
   simple: {
