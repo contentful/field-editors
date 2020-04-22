@@ -17,6 +17,7 @@ import { useAppState } from './state';
 import { ActionTypes, FieldType } from './types';
 import { Field } from './Field';
 import { renderMarkdownDialog } from '../../../packages/markdown/src/index';
+import styles from './styles';
 
 interface AppProps {
   sdk: EditorExtensionSDK;
@@ -48,36 +49,38 @@ export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
   return (
     <SDKContext.Provider value={props.sdk}>
       <AppContext.Provider value={{ state, dispatch }}>
-        {state.fieldGroups.map(fieldGroup => (
-          <CollapsibleFieldGroup
-            key={fieldGroup.id}
-            locales={props.sdk.locales}
-            fieldGroup={fieldGroup}
-            fields={fields}
-          />
-        ))}
-
-        <div className="f36-margin--l">
-          {unassignedFields.map((k: FieldType) => (
-            <Field key={k.id} field={fields[k.id]} locales={props.sdk.locales} />
+        <div className={styles.container}>
+          {state.fieldGroups.map(fieldGroup => (
+            <CollapsibleFieldGroup
+              key={fieldGroup.id}
+              locales={props.sdk.locales}
+              fieldGroup={fieldGroup}
+              fields={fields}
+            />
           ))}
-        </div>
 
-        <TextLink className="f36-margin--l" onClick={openDialog}>
-          Edit field groups
-        </TextLink>
-        <Modal size="large" isShown={dialogOpen} onClose={closeDialog}>
-          {() => (
-            <React.Fragment>
-              <Modal.Header onClose={closeDialog} title="Edit field groups" />
-              <FieldGroupsEditor
-                addGroup={() => dispatch({ type: ActionTypes.CREATE_FIELD_GROUP })}
-                fieldGroups={state.fieldGroups}
-                onClose={closeDialog}
-              />
-            </React.Fragment>
-          )}
-        </Modal>
+          <div className="f36-margin--l">
+            {unassignedFields.map((k: FieldType) => (
+              <Field key={k.id} field={fields[k.id]} locales={props.sdk.locales} />
+            ))}
+          </div>
+
+          <TextLink icon="Edit" className="f36-margin--l" onClick={openDialog}>
+            Edit field groups
+          </TextLink>
+          <Modal size="large" isShown={dialogOpen} onClose={closeDialog}>
+            {() => (
+              <React.Fragment>
+                <Modal.Header onClose={closeDialog} title="Edit field groups" />
+                <FieldGroupsEditor
+                  addGroup={() => dispatch({ type: ActionTypes.CREATE_FIELD_GROUP })}
+                  fieldGroups={state.fieldGroups}
+                  onClose={closeDialog}
+                />
+              </React.Fragment>
+            )}
+          </Modal>
+        </div>
       </AppContext.Provider>
     </SDKContext.Provider>
   );

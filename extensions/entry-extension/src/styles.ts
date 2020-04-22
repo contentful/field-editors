@@ -2,13 +2,26 @@ import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 
 const styles = {
-  heading: css({
-    display: 'flex',
-    justifyContent: 'space-between',
-    margin: tokens.spacingL
+  container: css({
+    marginTop: tokens.spacingM
   }),
 
-  button: css({
+  collapsibleContainerHeader: css({
+    marginLeft: tokens.spacingL,
+    marginRight: tokens.spacingL,
+    marginBottom: tokens.spacingXs
+  }),
+
+  collapsibleContainerButton: css({
+    border: 'none',
+    background: 'none',
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  }),
+
+  collapsibleContainerInfo: css({
     background: 'none',
     border: 'none',
     display: 'flex',
@@ -55,9 +68,6 @@ const styles = {
     padding: tokens.spacingL,
     marginBottom: tokens.spacingM
   }),
-  dropDownTrigger: css({
-    width: '100%'
-  }),
   card: css({
     marginBottom: tokens.spacingXs,
     paddingTop: tokens.spacingXs,
@@ -80,7 +90,7 @@ const styles = {
   listContainer: css({
     paddingLeft: '0px'
   }),
-  formLabel: css({ marginTop: tokens.spacingS })
+  formLabel: css({ marginTop: tokens.spacingM })
 };
 
 export default styles;

@@ -7,7 +7,6 @@ import {
   DropdownListItem,
   TextLink,
   HelpText,
-  Icon,
   TextField,
   FormLabel,
   FieldGroup,
@@ -86,7 +85,7 @@ export class FieldGroupsEditor extends React.Component<FieldGroupsEditorProps> {
               className={styles.saveButton}
               buttonType="positive"
               onClick={this.props.onClose}>
-              save
+              Save
             </Button>
           </div>
         </div>
@@ -163,16 +162,10 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
       <FieldGroup>
         <FormLabel className={styles.formLabel}>Fields</FormLabel>
         <Dropdown
-          className={styles.dropDownTrigger}
           isOpen={dropdownOpen}
           onClose={closeDropdown}
           toggleElement={
-            <Button
-              className={styles.dropDownTrigger}
-              size="small"
-              buttonType="muted"
-              onClick={openDropdown}
-              indicateDropdown>
+            <Button size="small" buttonType="muted" onClick={openDropdown} indicateDropdown>
               Select a field to add
             </Button>
           }>
@@ -204,17 +197,22 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
       <div>
         <TextLink
           linkType="negative"
+          icon="Close"
           onClick={() => dispatch({ type: ActionTypes.DELETE_FIELD_GROUP, groupId })}>
-          <Icon color="negative" icon="Close" /> Remove
+          Remove
         </TextLink>
         {!last ? (
-          <TextLink onClick={() => dispatch({ type: ActionTypes.MOVE_FIELD_GROUP_DOWN, groupId })}>
-            <Icon icon="ChevronDown" /> Move down
+          <TextLink
+            icon="ChevronDown"
+            onClick={() => dispatch({ type: ActionTypes.MOVE_FIELD_GROUP_DOWN, groupId })}>
+            Move down
           </TextLink>
         ) : null}
         {!first ? (
-          <TextLink onClick={() => dispatch({ type: ActionTypes.MOVE_FIELD_GROUP_UP, groupId })}>
-            <Icon icon="ChevronUp" /> Move up
+          <TextLink
+            icon="ChevronUp"
+            onClick={() => dispatch({ type: ActionTypes.MOVE_FIELD_GROUP_UP, groupId })}>
+            Move up
           </TextLink>
         ) : null}
       </div>

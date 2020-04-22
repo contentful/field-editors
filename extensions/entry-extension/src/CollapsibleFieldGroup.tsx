@@ -22,12 +22,14 @@ export const CollapsibleFieldGroup: React.FC<CollapsibleFieldGroupProps> = ({
 
   return (
     <div>
-      <div className={styles.heading}>
-        <button className={styles.button} onClick={toggleOpen}>
-          <Icon className={styles.icon} icon={isOpen ? 'ChevronDown' : 'ChevronRight'} />
-          <h3>{fieldGroup.name}</h3>
+      <div className={styles.collapsibleContainerHeader}>
+        <button className={styles.collapsibleContainerButton} onClick={toggleOpen}>
+          <div className={styles.collapsibleContainerInfo}>
+            <Icon className={styles.icon} icon={isOpen ? 'ChevronDown' : 'ChevronRight'} />
+            <h3>{fieldGroup.name}</h3>
+          </div>
+          <HelpText>{fieldGroup.fields.length} fields</HelpText>
         </button>
-        <HelpText>{fieldGroup.fields.length} fields</HelpText>
       </div>
       {isOpen ? (
         <div className={styles.fieldsContainer}>
