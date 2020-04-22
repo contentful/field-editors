@@ -77,7 +77,8 @@ class Editor extends React.Component<
           sdk={this.props.sdk}
           isDisabled={this.props.isDisabled}
           multiple={true}
-          canCreateEntity={this.props.parameters.instance.canCreateEntity}
+          canCreateEntity={this.props.parameters.instance.canCreateEntity ?? true}
+          canLinkEntity={this.props.parameters.instance.canLinkEntity ?? true}
           onCreate={this.onCreate}
           onLink={this.onLink}
           onAction={this.props.onAction}
