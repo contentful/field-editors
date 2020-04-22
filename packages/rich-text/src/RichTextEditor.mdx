@@ -7,7 +7,7 @@ menu: Components
 # Rich Text
 
 import { Playground } from 'docz';
-import RichTextEditor from './RichTextEditor.jsx';
+import { RichTextEditor, openRichTextDialog } from './index';
 import {
   createFakeFieldAPI,
   ActionsPlayground,
@@ -43,7 +43,7 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
     const [field, mitt] = createFakeFieldAPI();
     const space = createFakeSpaceAPI();
     const navigator = createFakeNavigatorAPI();
-    const sdk = {
+    let sdk = {
       space: {
         ...space,
         getEntry: () => {
@@ -79,10 +79,7 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
         }
       },
       dialogs: {
-        createHyperlink: async () => {
-          alert('sdk.dialogs.createHyperlink()');
-          return Promise.reject(); // Simulate cancellation.
-        },
+        openExtension: openRichTextDialog(sdk),
         selectSingleAsset: newEntitySelectorDummyDialog('selectSingleAsset', 'Asset'),
         selectSingleEntry: newEntitySelectorDummyDialog('selectSingleEntry', 'Entry')
       }

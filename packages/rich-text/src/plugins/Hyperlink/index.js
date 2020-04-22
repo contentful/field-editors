@@ -23,7 +23,7 @@ export const HyperlinkPlugin = ({ richTextAPI }) => ({
 
             editor.moveToRangeOfNode(node).focus();
             if (mayEditLink(editor.value)) {
-              editLink(editor, sdk.dialogs.createHyperlink, logViewportAction);
+              editLink(editor, sdk, logViewportAction);
             }
           }}
         />
@@ -37,9 +37,9 @@ export const HyperlinkPlugin = ({ richTextAPI }) => ({
 
     if (isHotkey(hotkey, event) && hasOnlyHyperlinkInlines(editor.value)) {
       if (mayEditLink(editor.value)) {
-        editLink(editor, sdk.dialogs.createHyperlink, logShortcutAction);
+        editLink(editor, sdk, logShortcutAction);
       } else {
-        toggleLink(editor, sdk.dialogs.createHyperlink, logShortcutAction);
+        toggleLink(editor, sdk, logShortcutAction);
       }
       return;
     }
