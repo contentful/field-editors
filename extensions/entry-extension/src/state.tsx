@@ -91,10 +91,18 @@ export const useAppState = (
 
     if (stored) {
       const parsed = JSON.parse(stored);
-      // if the stored updatedAt state does not match the current one from SDK,
-      // then reset the state
       if (parsed.updatedAt === updatedAt) {
         return parsed;
+      } else {
+        // if the stored updatedAt state does not match the current one from SDK,
+        // then we remove any fields from fieldGroups that have been removed
+        const fieldGroups = parsed.fieldGroups.map((fg: FieldGroupType) => ({
+          ...fg,
+          fields: fg.fields.filter((field: FieldType) => {
+            return fields.some(({ id }) => id === field.id);
+          })
+        }));
+        return { updatedAt, fields: state.fields, fieldGroups };
       }
     }
 
