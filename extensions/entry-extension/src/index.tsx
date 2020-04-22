@@ -1,7 +1,12 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import { TextLink, Modal } from '@contentful/forma-36-react-components';
-import { init, locations, EditorExtensionSDK } from 'contentful-ui-extensions-sdk';
+import {
+  init,
+  locations,
+  EditorExtensionSDK,
+  DialogExtensionSDK
+} from 'contentful-ui-extensions-sdk';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import '@contentful/forma-36-fcss/dist/styles.css';
 import './index.css';
@@ -11,6 +16,7 @@ import { findUnassignedFields, AppContext, SDKContext } from './shared';
 import { useAppState } from './state';
 import { ActionTypes, FieldType } from './types';
 import { Field } from './Field';
+import { renderMarkdownDialog } from '../../../packages/markdown/src/index';
 
 interface AppProps {
   sdk: EditorExtensionSDK;
@@ -80,6 +86,9 @@ export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
 init(sdk => {
   if (sdk.location.is(locations.LOCATION_ENTRY_EDITOR)) {
     render(<App sdk={sdk as EditorExtensionSDK} />, document.getElementById('root'));
+  } else if (sdk.location.is(locations.LOCATION_DIALOG)) {
+    const dialogSdk = sdk as DialogExtensionSDK;
+    render(renderMarkdownDialog(dialogSdk as any), document.getElementById('root'));
   }
 });
 

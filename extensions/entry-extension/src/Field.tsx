@@ -28,6 +28,9 @@ import {
   MultipleMediaEditor
 } from '../../../packages/reference/src/index';
 
+import { RichTextEditor } from '../../../packages/rich-text/src/index';
+import { MarkdownEditor } from '../../../packages/markdown/src/index';
+
 interface FieldProps {
   field: EntryFieldAPI;
   locales: LocalesAPI;
@@ -271,6 +274,43 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
         );
       }
 
+      case 'richTextEditor': {
+        let fieldSdk: any = sdk;
+
+        fieldSdk.field = extendedField;
+
+        fieldSdk = Object.assign(fieldSdk, {
+          parameters: {
+            instance: {
+              permissions: {
+                canAccessAssets: true,
+                canCreateAssets: true,
+                canCreateEntryOfContentType: () => true
+              }
+            }
+          }
+        });
+
+        return (
+          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+            <RichTextEditor sdk={sdk} />
+          </FieldWrapper>
+        );
+      }
+
+      case 'markdown': {
+        const fieldSdk: any = sdk;
+
+        fieldSdk.field = extendedField;
+
+        const parameters = { instance: { canUploadAssets: false } };
+        return (
+          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+            <MarkdownEditor sdk={fieldSdk} parameters={parameters} isInitiallyDisabled={false} />
+          </FieldWrapper>
+        );
+      }
+
       default:
         return (
           <FieldWrapper name={fieldDetails.name} required={false}>
@@ -296,13 +336,11 @@ const FieldWrapper: React.FC<FieldWrapperProps> = function({
 }: FieldWrapperProps) {
   return (
     <div className={styles.fieldWrapper}>
-      <label>
-        <HelpText>
-          {name}
-          {required ? ' (required)' : ''}
-        </HelpText>
-        {children}
-      </label>
+      <HelpText>
+        {name}
+        {required ? ' (required)' : ''}
+      </HelpText>
+      {children}
     </div>
   );
 };
