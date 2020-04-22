@@ -20,7 +20,8 @@ export interface ReferenceEditorProps {
 
   parameters: {
     instance: {
-      canCreateEntity: boolean;
+      canCreateEntity?: boolean;
+      canLinkEntity?: boolean;
       bulkEditing?: boolean;
     };
   };

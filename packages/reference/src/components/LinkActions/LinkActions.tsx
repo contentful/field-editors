@@ -8,6 +8,7 @@ interface LinkActionsProps {
   entityType: EntityType;
   contentTypes: ContentType[];
   canCreateEntity: boolean;
+  canLinkEntity: boolean;
   multiple: boolean;
   isDisabled: boolean;
   onCreate: (contentType?: string) => Promise<unknown>;
@@ -62,17 +63,20 @@ export function LinkActions(props: LinkActionsProps) {
           <span className={styles.separator} />
         </>
       )}
-      <TextLink
-        disabled={props.isDisabled}
-        testId={testIds.linkExisting}
-        onClick={() => {
-          props.onLinkExisting();
-        }}
-        linkType="primary"
-        icon="Link">
-        {props.entityType === 'Entry' && labels.linkExisting(props.multiple ? 'entries' : 'entry')}
-        {props.entityType === 'Asset' && labels.linkExisting(props.multiple ? 'assets' : 'asset')}
-      </TextLink>
+      {props.canLinkEntity && (
+        <TextLink
+          disabled={props.isDisabled}
+          testId={testIds.linkExisting}
+          onClick={() => {
+            props.onLinkExisting();
+          }}
+          linkType="primary"
+          icon="Link">
+          {props.entityType === 'Entry' &&
+            labels.linkExisting(props.multiple ? 'entries' : 'entry')}
+          {props.entityType === 'Asset' && labels.linkExisting(props.multiple ? 'assets' : 'asset')}
+        </TextLink>
+      )}
     </div>
   );
 }

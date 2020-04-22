@@ -83,6 +83,7 @@ export function LinkEntityActions(props: {
   isDisabled: boolean;
   multiple: boolean;
   canCreateEntity: boolean;
+  canLinkEntity: boolean;
   validations: ReferenceValidations;
   onCreate: (id: string) => void;
   onLink: (ids: string[]) => void;
@@ -155,6 +156,7 @@ export function LinkEntityActions(props: {
       multiple={props.multiple}
       isDisabled={props.isDisabled}
       canCreateEntity={props.canCreateEntity}
+      canLinkEntity={props.canLinkEntity}
       contentTypes={availableContentTypes}
       onCreate={onCreate}
       onLinkExisting={props.multiple ? onLinkSeveralExisting : onLinkExisting}
