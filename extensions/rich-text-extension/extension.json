@@ -3,6 +3,6 @@
   "name": "rich-text-extension",
   "srcdoc": "./build/index.html",
   "fieldTypes": [
-    "Text"
+    "RichText"
   ]
 }
