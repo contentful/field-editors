@@ -6925,6 +6925,13 @@ contentful-sdk-core@^6.4.0:
     lodash "^4.17.10"
     qs "^6.5.2"
 
+contentful-ui-extensions-sdk@3.12.1, contentful-ui-extensions-sdk@^3.12.1:
+  version "3.12.1"
+  resolved "https://registry.yarnpkg.com/contentful-ui-extensions-sdk/-/contentful-ui-extensions-sdk-3.12.1.tgz#0d98344a45151a28e5064db48b28b230fba042d0"
+  integrity sha512-PV8DqGcEZvwPGgUEkGO705mXQawHKQ8zvTySgXlvYA7WhLTqacThNcWaI4oSN6ysRZXx3LmPjtoj4K4Zw8XbpA==
+  dependencies:
+    es6-promise "^4.2.8"
+
 contentful-ui-extensions-sdk@^3.11.0:
   version "3.11.0"
   resolved "https://registry.yarnpkg.com/contentful-ui-extensions-sdk/-/contentful-ui-extensions-sdk-3.11.0.tgz#12ca5b0a41e1a1181374708210a5d2376a0edf1c"
@@ -6936,13 +6943,6 @@ contentful-ui-extensions-sdk@^3.12.0:
   version "3.12.0"
   resolved "https://registry.yarnpkg.com/contentful-ui-extensions-sdk/-/contentful-ui-extensions-sdk-3.12.0.tgz#e42389600bf881c41baf3c7858369b6a5c8959a5"
   integrity sha512-dNeeF/5B6q0nmqVSX6X0uDD6L5N/yN3GU8aVm5TbU9EXlKJ1Hs9HFtdbSHYe4zavnmTK3MLK7G0E8077FQFmPQ==
-  dependencies:
-    es6-promise "^4.2.8"
-
-contentful-ui-extensions-sdk@^3.12.1:
-  version "3.12.1"
-  resolved "https://registry.yarnpkg.com/contentful-ui-extensions-sdk/-/contentful-ui-extensions-sdk-3.12.1.tgz#0d98344a45151a28e5064db48b28b230fba042d0"
-  integrity sha512-PV8DqGcEZvwPGgUEkGO705mXQawHKQ8zvTySgXlvYA7WhLTqacThNcWaI4oSN6ysRZXx3LmPjtoj4K4Zw8XbpA==
   dependencies:
     es6-promise "^4.2.8"
 
