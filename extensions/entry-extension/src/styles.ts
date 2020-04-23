@@ -3,8 +3,9 @@ import tokens from '@contentful/forma-36-tokens';
 
 const styles = {
   editGroupsButton: css({
-    marginLeft: tokens.spacingL,
-    marginTop: tokens.spacingM
+    marginLeft: tokens.spacingXl,
+    marginTop: tokens.spacingM,
+    marginBottom: tokens.spacingXs
   }),
 
   container: css({
@@ -18,6 +19,7 @@ const styles = {
   }),
 
   collapsibleContainerButton: css({
+    margin: '0px',
     border: 'none',
     background: 'none',
     width: '100%',
