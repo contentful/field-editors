@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { init, FieldExtensionSDK } from 'contentful-ui-extensions-sdk';
+import { init, FieldExtensionSDK, locations } from 'contentful-ui-extensions-sdk';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import '@contentful/forma-36-fcss/dist/styles.css';
 import './index.css';
-import { RichTextEditor } from '../../../packages/rich-text/src/index';
+import { RichTextEditor, renderRichTextDialog } from '../../../packages/rich-text/src/index';
 
 interface AppProps {
   sdk: FieldExtensionSDK;
@@ -33,7 +33,11 @@ export class App extends React.Component<AppProps, AppState> {
 
 init((sdk: FieldExtensionSDK) => {
   sdk.window.startAutoResizer();
-  render(<App sdk={sdk as FieldExtensionSDK} />, document.getElementById('root'));
+  if (sdk.location.is(locations.LOCATION_DIALOG)) {
+    render(renderRichTextDialog(sdk), document.getElementById('root'));
+  } else {
+    render(<App sdk={sdk} />, document.getElementById('root'));
+  }
 });
 
 /**
