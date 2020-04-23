@@ -5,7 +5,7 @@ import { HyperlinkDialog } from './HypelinkDialog/HyperlinkDialog';
 export const openRichTextDialog = sdk => options => {
   if (options.parameters && options.parameters.type === 'rich-text-hyperlink-dialog') {
     return ModalDialogLauncher.openDialog(options, ({ onClose }) => {
-      return <HyperlinkDialog onClose={onClose} sdk={sdk} />;
+      return <HyperlinkDialog {...options.parameters} onClose={onClose} sdk={sdk} />;
     });
   }
   return Promise.reject();

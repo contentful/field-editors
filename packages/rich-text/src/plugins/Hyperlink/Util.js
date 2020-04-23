@@ -1,9 +1,25 @@
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { haveInlines } from '../shared/UtilHave';
-import { openHyperlinkDialog } from '../../dialogs/HypelinkDialog/HyperlinkDialog';
+import { openHyperlinkDialog, LINK_TYPES } from '../../dialogs/HypelinkDialog/HyperlinkDialog';
+import { isNodeTypeEnabled } from '../../validations/index';
 
 const { HYPERLINK, ENTRY_HYPERLINK, ASSET_HYPERLINK } = INLINES;
 const HYPERLINK_TYPES = [HYPERLINK, ENTRY_HYPERLINK, ASSET_HYPERLINK];
+
+const nodeToHyperlinkType = {
+  [INLINES.ENTRY_HYPERLINK]: LINK_TYPES.ENTRY,
+  [INLINES.ASSET_HYPERLINK]: LINK_TYPES.ASSET,
+  [INLINES.HYPERLINK]: LINK_TYPES.URI
+};
+
+function getAllowedHyperlinkTypes(field) {
+  const hyperlinkTypes = [INLINES.ENTRY_HYPERLINK, INLINES.ASSET_HYPERLINK, INLINES.HYPERLINK];
+  if (field.type === 'RichText') {
+    return hyperlinkTypes.filter(nodeType => isNodeTypeEnabled(field, nodeType));
+  }
+
+  return hyperlinkTypes.map(nodeType => nodeToHyperlinkType[nodeType]);
+}
 
 /**
  * Returns whether or not the current value selection would allow for a user
@@ -60,7 +76,8 @@ async function insertLink(change, sdk, logAction) {
 
   const result = await openHyperlinkDialog(sdk.dialogs, {
     showTextInput,
-    value: { text: change.value.fragment.text || '' }
+    value: { text: change.value.fragment.text || '' },
+    allowedHyperlinkTypes: getAllowedHyperlinkTypes(sdk.field)
   });
   if (!result) {
     logAction('cancelCreateHyperlinkDialog');
@@ -106,7 +123,8 @@ export async function editLink(change, sdk, logAction) {
   const { uri: oldUri, target: oldTarget } = link.data.toJSON();
   const result = await openHyperlinkDialog(sdk.dialogs, {
     showTextInput: false,
-    value: oldTarget ? { target: oldTarget } : { uri: oldUri }
+    value: oldTarget ? { target: oldTarget } : { uri: oldUri },
+    allowedHyperlinkTypes: getAllowedHyperlinkTypes(sdk.field)
   });
   if (!result) {
     logAction('cancelEditHyperlinkDialog');
