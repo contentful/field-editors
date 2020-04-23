@@ -10,6 +10,9 @@ export { PredefinedValuesError } from './PredefinedValuesError';
 export { CharCounter } from './CharCounter';
 export { CharValidation } from './CharValidation';
 
+import * as ModalDialogLauncher from './ModalDialogLauncher';
+export { ModalDialogLauncher };
+
 import * as entityHelpers from './utils/entityHelpers';
 export { entityHelpers };
 

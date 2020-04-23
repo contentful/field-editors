@@ -1,7 +1,7 @@
 describe('Markdown Editor / Cheatsheet Dialog', () => {
   const selectors = {
     getDialogTitle() {
-      return cy.findByTestId('markdown-dialog-title').within(() => {
+      return cy.findByTestId('dialog-title').within(() => {
         return cy.get('h1');
       });
     },

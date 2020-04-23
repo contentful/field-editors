@@ -1,5 +1,3 @@
-import { OpenCustomWidgetOptions } from '@contentful/field-editor-shared';
-
 export type MarkdownTab = 'editor' | 'preview';
 
 export type HeadingType = 'h1' | 'h2' | 'h3';
@@ -7,13 +5,13 @@ export type HeadingType = 'h1' | 'h2' | 'h3';
 export type EditorDirection = 'ltr' | 'rtl';
 
 export enum MarkdownDialogType {
-  cheatsheet = 'cheatsheet',
-  insertLink = 'insertLink',
-  insertSpecialCharacter = 'insertSpecialCharacter',
-  insertTable = 'insertTable',
-  embedExternalContent = 'embedExternalContent',
-  confirmInsertAsset = 'confirmInsertAsset',
-  zenMode = 'zenMode'
+  cheatsheet = 'markdown-cheatsheet',
+  insertLink = 'markdown-insertLink',
+  insertSpecialCharacter = 'markdown-insertSpecialCharacter',
+  insertTable = 'markdown-insertTable',
+  embedExternalContent = 'markdown-embedExternalContent',
+  confirmInsertAsset = 'markdown-confirmInsertAsset',
+  zenMode = 'markdown-zenMode'
 }
 
 export type MarkdownDialogsParams =
@@ -48,10 +46,6 @@ export type MarkdownDialogsParams =
         thumbnailAltText: string;
       }>;
     };
-
-export type OpenMarkdownDialogParams<T = any> = OpenCustomWidgetOptions & {
-  parameters?: T;
-};
 
 export type MarkdownActions = {
   simple: {

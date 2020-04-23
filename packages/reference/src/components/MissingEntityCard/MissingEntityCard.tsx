@@ -7,7 +7,7 @@ export function MissingEntityCard(props: {
   entityType: EntityType;
   asSquare?: boolean;
   isDisabled: boolean;
-  onRemove: Function;
+  onRemove?: Function;
 }) {
   return (
     <Card className={styles.card}>
@@ -17,14 +17,14 @@ export function MissingEntityCard(props: {
           {props.entityType === 'Asset' && 'Asset is missing or inaccessible'}
         </SectionHeading>
       </div>
-      {!props.isDisabled && (
+      {!props.isDisabled && props.onRemove && (
         <IconButton
           className={styles.close}
           buttonType="muted"
           label="Delete"
           iconProps={{ icon: 'Close' }}
           onClick={() => {
-            props.onRemove();
+            props.onRemove && props.onRemove();
           }}
         />
       )}

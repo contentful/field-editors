@@ -53,8 +53,8 @@ export function renderAssetInfo(props: { entityFile: File }) {
 }
 
 export function renderActions(props: {
-  onEdit: () => void;
-  onRemove: () => void;
+  onEdit?: () => void;
+  onRemove?: () => void;
   isDisabled: boolean;
   entityFile?: File;
 }) {

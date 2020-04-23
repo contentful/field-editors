@@ -15,7 +15,6 @@ export default class Hyperlink extends React.Component {
     children: PropTypes.node,
     editor: PropTypes.object,
     richTextAPI: PropTypes.object.isRequired,
-    createHyperlinkDialog: PropTypes.func,
     onEdit: PropTypes.func
   };
 

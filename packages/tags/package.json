@@ -22,8 +22,8 @@
   },
   "dependencies": {
     "@contentful/field-editor-shared": "^0.9.1",
-    "@contentful/forma-36-react-components": "^3.18.4",
-    "@contentful/forma-36-tokens": "^0.4.5",
+    "@contentful/forma-36-react-components": "^3.36.1",
+    "@contentful/forma-36-tokens": "^0.5.2",
     "array-move": "^2.2.1",
     "emotion": "^10.0.0",
     "lodash": "^4.17.15",

@@ -31,8 +31,8 @@ export interface WrappedAssetCardProps {
   className?: string;
   isSelected?: boolean;
   isDisabled: boolean;
-  onEdit: () => void;
-  onRemove: () => void;
+  onEdit?: () => void;
+  onRemove?: () => void;
   size: 'default' | 'small';
   cardDragHandle?: React.ReactElement;
 }
@@ -97,7 +97,7 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
       // @ts-ignore
       onClick={(e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
-        onEdit();
+        onEdit && onEdit();
       }}
       cardDragHandleComponent={props.cardDragHandle}
       withDragHandle={!!props.cardDragHandle}

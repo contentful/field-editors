@@ -4,7 +4,7 @@ import React from 'react';
 import isNumber from 'lodash/isNumber';
 import ReactDOM from 'react-dom';
 import { Modal } from '@contentful/forma-36-react-components';
-import { OpenMarkdownDialogParams } from '../types';
+import { OpenCustomWidgetOptions } from 'contentful-ui-extensions-sdk';
 
 export function open(componentRenderer: (params: { onClose: Function; isShown: boolean }) => any) {
   let rootDom: any = null;
@@ -12,7 +12,7 @@ export function open(componentRenderer: (params: { onClose: Function; isShown: b
   const getRoot = () => {
     if (rootDom === null) {
       rootDom = document.createElement('div');
-      rootDom.setAttribute('id', 'markdown-modal-root');
+      rootDom.setAttribute('id', 'field-editor-modal-root');
       document.body.appendChild(rootDom);
     }
     return rootDom;
@@ -40,7 +40,7 @@ export function open(componentRenderer: (params: { onClose: Function; isShown: b
 }
 
 export function openDialog<T>(
-  options: OpenMarkdownDialogParams,
+  options: OpenCustomWidgetOptions,
   Component: React.SFC<{ onClose: (result: T) => void }>
 ) {
   const key = Date.now();
@@ -60,11 +60,7 @@ export function openDialog<T>(
         {() => (
           <>
             {options.title && (
-              <Modal.Header
-                testId="markdown-dialog-title"
-                title={options.title}
-                onClose={onCloseHandler}
-              />
+              <Modal.Header testId="dialog-title" title={options.title} onClose={onCloseHandler} />
             )}
             <div style={{ minHeight: options.minHeight || 'auto' }}>
               <Component onClose={onClose as any} />

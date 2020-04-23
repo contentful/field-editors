@@ -1,8 +1,42 @@
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { haveInlines } from '../shared/UtilHave';
+import { openHyperlinkDialog, LINK_TYPES } from '../../dialogs/HypelinkDialog/HyperlinkDialog';
+import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
+import { isNodeTypeEnabled } from '../../validations/index';
 
 const { HYPERLINK, ENTRY_HYPERLINK, ASSET_HYPERLINK } = INLINES;
 const HYPERLINK_TYPES = [HYPERLINK, ENTRY_HYPERLINK, ASSET_HYPERLINK];
+
+const nodeToHyperlinkType = {
+  [INLINES.ENTRY_HYPERLINK]: LINK_TYPES.ENTRY,
+  [INLINES.ASSET_HYPERLINK]: LINK_TYPES.ASSET,
+  [INLINES.HYPERLINK]: LINK_TYPES.URI
+};
+
+function getAllowedHyperlinkTypes(field) {
+  const hyperlinkTypes = [INLINES.ENTRY_HYPERLINK, INLINES.ASSET_HYPERLINK, INLINES.HYPERLINK];
+  if (field.type === 'RichText') {
+    return hyperlinkTypes
+      .filter(nodeType => isNodeTypeEnabled(field, nodeType))
+      .map(nodeType => nodeToHyperlinkType[nodeType]);
+  }
+
+  return hyperlinkTypes.map(nodeType => nodeToHyperlinkType[nodeType]);
+}
+
+function getEntitySelectorConfigs(field) {
+  const config = {};
+
+  // TODO: Don't pass specific key if CT validation prohibits its type:
+  if (isNodeTypeEnabled(field, INLINES.ENTRY_HYPERLINK)) {
+    config.Entry = newEntitySelectorConfigFromRichTextField(field, 'entry-hyperlink');
+  }
+  if (isNodeTypeEnabled(field, INLINES.ASSET_HYPERLINK)) {
+    config.Asset = newEntitySelectorConfigFromRichTextField(field, 'asset-hyperlink');
+  }
+
+  return config;
+}
 
 /**
  * Returns whether or not the current value selection would allow for a user
@@ -41,40 +75,46 @@ export function hasOnlyHyperlinkInlines(value) {
  * the user.
  *
  * @param {slate.Editor} editor Will be mutated with the required operations.
- * @param {function} createHyperlinkDialog
+ * @param {Object} sdk
  * @param {function} logAction
  * @returns {Promise<void>}
  */
-export async function toggleLink(editor, createHyperlinkDialog, logAction) {
+export async function toggleLink(editor, sdk, logAction) {
   if (hasHyperlink(editor.value)) {
     removeLinks(editor, logAction);
   } else {
-    await insertLink(editor, createHyperlinkDialog, logAction);
+    await insertLink(editor, sdk, logAction);
   }
 }
 
-async function insertLink(change, createHyperlinkDialog, logAction) {
+async function insertLink(change, sdk, logAction) {
   logAction('openCreateHyperlinkDialog');
   const showTextInput = !change.value.isExpanded || change.value.fragment.text.trim() === '';
-  try {
-    const { text, type: linkType, uri, target } = await createHyperlinkDialog({
-      showTextInput,
-      value: { text: change.value.fragment.text || '' }
-    });
-    if (showTextInput) {
-      if (change.isVoid(change.value.blocks.last())) {
-        change.insertBlock(BLOCKS.PARAGRAPH);
-      }
-      change.insertText(text).moveFocusForward(0 - text.length);
-    }
-    const data = target ? { target } : { uri };
-    change.call(wrapLink, linkType, data);
-    const nodeType = linkTypeToNodeType(linkType);
-    logAction('insert', { nodeType, linkType });
-  } catch (e) {
-    if (e) throw e;
+
+  const result = await openHyperlinkDialog(sdk.dialogs, {
+    showTextInput,
+    value: { text: change.value.fragment.text || '' },
+    allowedHyperlinkTypes: getAllowedHyperlinkTypes(sdk.field),
+    entitySelectorConfigs: getEntitySelectorConfigs(sdk.field)
+  });
+
+  if (!result) {
     logAction('cancelCreateHyperlinkDialog');
+    change.focus();
+    return;
   }
+  const { text, type: linkType, uri, target } = result;
+  if (showTextInput) {
+    if (change.isVoid(change.value.blocks.last())) {
+      change.insertBlock(BLOCKS.PARAGRAPH);
+    }
+    change.insertText(text).moveFocusForward(0 - text.length);
+  }
+  const data = target ? { target } : { uri };
+  change.call(wrapLink, linkType, data);
+  const nodeType = linkTypeToNodeType(linkType);
+  logAction('insert', { nodeType, linkType });
+
   change.focus();
 }
 
@@ -89,30 +129,34 @@ function removeLinks(change, logAction) {
  * a dialog and applying the change.
  *
  * @param {slate.Editor} change Will be mutated with the required operations.
- * @param {function} createHyperlinkDialog
+ * @param {Object} sdk
  * @param {function} logAction
  * @returns {Promise<void>}
  */
-export async function editLink(change, createHyperlinkDialog, logAction) {
+export async function editLink(change, sdk, logAction) {
   const link = change.value.inlines.get(0);
   if (!link) {
     throw new Error('Change object contains no link to be edited.');
   }
   logAction('openEditHyperlinkDialog');
   const { uri: oldUri, target: oldTarget } = link.data.toJSON();
-  try {
-    const { type: linkType, uri, target } = await createHyperlinkDialog({
-      showTextInput: false,
-      value: oldTarget ? { target: oldTarget } : { uri: oldUri }
-    });
-    const nodeType = linkTypeToNodeType(linkType);
-    const data = target ? { target } : { uri };
-    change.setInlines({ type: nodeType, data });
-    logAction('edit', { nodeType, linkType });
-  } catch (e) {
-    if (e) throw e;
+  const result = await openHyperlinkDialog(sdk.dialogs, {
+    showTextInput: false,
+    value: oldTarget ? { target: oldTarget } : { uri: oldUri },
+    allowedHyperlinkTypes: getAllowedHyperlinkTypes(sdk.field),
+    entitySelectorConfigs: getEntitySelectorConfigs(sdk.field)
+  });
+  if (!result) {
     logAction('cancelEditHyperlinkDialog');
+    change.focus();
+    return;
   }
+
+  const { type: linkType, uri, target } = result;
+  const nodeType = linkTypeToNodeType(linkType);
+  const data = target ? { target } : { uri };
+  change.setInlines({ type: nodeType, data });
+  logAction('edit', { nodeType, linkType });
   change.focus();
 }
 
