@@ -1,4 +1,4 @@
-# Contentful Field Editors ![early access program](https://img.shields.io/badge/careful-early_access_program-orange)
+# Contentful Field Editors
 
 This is the monorepo for all field editors and extensions by [Contentful][contentful].
 
@@ -8,7 +8,8 @@ It uses [Typescript][typescript], [React][react], [Forma36][forma36] (a design s
 
 ## Available field editors
 
-We currently provide the following field editors:
+This repository has all editorial components that you can find in the Contentful Web application.
+You can run each this component as a custom field extension or compose them into one custom entry extension.
 
 - [Single line editor](./packages/single-line/README.md)
 - [Multi line editor](./packages/multiple-line/README.md)
@@ -32,9 +33,23 @@ We currently provide the following field editors:
 Feel free to reach out to us with the ones that'd be the most useful to have
 here by filing a [Github issue][github-issues]!
 
-## Contributing
+## Getting started & contributing
 
-We'd love to have your helping hand on `@contentful/field-editors`! See [CONTRIBUTING.md](CONTRIBUTING.md) for more information on how to get started.
+### Requirements
+
+- Node.js: `>=12.13.1`
+- Yarn: `>=1.21.1`
+
+To install all dependencies and build all packages run the following commands from the root of the project.
+
+```
+yarn
+yarn build
+```
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for more information on how to get started.
+
+We'd love to have your helping hand on `@contentful/field-editors`!
 
 ## Links
 
