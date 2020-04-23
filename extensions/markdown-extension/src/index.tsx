@@ -1,21 +1,22 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { init, FieldExtensionSDK } from 'contentful-ui-extensions-sdk';
+import {
+  init,
+  locations,
+  FieldExtensionSDK,
+  DialogExtensionSDK
+} from 'contentful-ui-extensions-sdk';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import '@contentful/forma-36-fcss/dist/styles.css';
 import './index.css';
 import '../../../packages/markdown/src/codemirrorImports';
-import { MarkdownEditor } from '../../../packages/markdown/src/index';
+import { MarkdownEditor, renderMarkdownDialog } from '../../../packages/markdown/src/index';
 
 interface AppProps {
   sdk: FieldExtensionSDK;
 }
 
-interface AppState {
-  value?: string;
-}
-
-export class App extends React.Component<AppProps, AppState> {
+export class App extends React.Component<AppProps> {
   render = () => {
     return (
       <MarkdownEditor
@@ -33,7 +34,12 @@ export class App extends React.Component<AppProps, AppState> {
 
 init((sdk: FieldExtensionSDK) => {
   sdk.window.startAutoResizer();
-  render(<App sdk={sdk as FieldExtensionSDK} />, document.getElementById('root'));
+  if (sdk.location.is(locations.LOCATION_DIALOG)) {
+    const dialogSdk = sdk as DialogExtensionSDK;
+    render(renderMarkdownDialog(dialogSdk as any), document.getElementById('root'));
+  } else {
+    render(<App sdk={sdk as FieldExtensionSDK} />, document.getElementById('root'));
+  }
 });
 
 /**
