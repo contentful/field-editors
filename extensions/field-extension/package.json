@@ -13,7 +13,7 @@
     "@contentful/field-editor-shared": "^0.7.1",
     "@contentful/forma-36-fcss": "^0.0.34",
     "@contentful/forma-36-react-components": "^3.28.21",
-    "@contentful/forma-36-tokens": "^0.5.1",
+    "@contentful/forma-36-tokens": "^0.5.2",
     "contentful-ui-extensions-sdk": "^3.12.0",
     "@contentful/field-editor-markdown": "*",
     "@contentful/field-editor-reference": "*",

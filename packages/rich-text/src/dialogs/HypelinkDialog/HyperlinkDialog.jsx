@@ -245,6 +245,7 @@ export class HyperlinkDialog extends React.Component {
             {type === LINK_TYPES.ENTRY && (
               <FetchingWrappedEntryCard
                 sdk={this.props.sdk}
+                locale={this.props.entitySelectorConfigs.Entry.locale}
                 entryId={entityLink.sys.id}
                 isDisabled
                 isSelected={false}
@@ -253,6 +254,7 @@ export class HyperlinkDialog extends React.Component {
             {type == LINK_TYPES.ASSET && (
               <FetchingWrappedAssetCard
                 sdk={this.props.sdk}
+                locale={this.props.entitySelectorConfigs.Asset.locale}
                 assetId={entityLink.sys.id}
                 isDisabled
                 isSelected={false}

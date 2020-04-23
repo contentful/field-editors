@@ -1938,24 +1938,6 @@
     read-pkg-up "^7.0.1"
     semver "^7.1.2"
 
-"@contentful/field-editor-shared@^0.7.1":
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/@contentful/field-editor-shared/-/field-editor-shared-0.7.2.tgz#75f51957d66b86ecfadde1beac920798cbc46f6c"
-  integrity sha512-VLqFP/W/sCMF1AoUdRWbCYQ9kJxNOWLrRytVTZYJYGN7eo/zzHAp1FTSLIjVN2GVhojrgPl8nE260Z8MnKKwuw==
-  dependencies:
-    "@contentful/forma-36-tokens" "^0.5.1"
-    contentful-ui-extensions-sdk "^3.10.11"
-    emotion "^10.0.17"
-    lodash "^4.17.15"
-    lodash-es "^4.17.15"
-
-"@contentful/forma-36-fcss@^0.0.34":
-  version "0.0.34"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-fcss/-/forma-36-fcss-0.0.34.tgz#afc4514e9b946c67339202ac61df94dc702b3bbe"
-  integrity sha512-AhK2QJn2pQ/MWR8d10H4B6g625MU1rz4lkakkw8/0E0KFpeow53XW2lbN0vTdOXDaNM1TeMOP0F700qFIoeMkA==
-  dependencies:
-    "@contentful/forma-36-tokens" "^0.5.1"
-
 "@contentful/forma-36-fcss@^0.0.35":
   version "0.0.35"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-fcss/-/forma-36-fcss-0.0.35.tgz#a6803307b029161a0bffc17ef787e20af04a1c8a"
@@ -1963,33 +1945,7 @@
   dependencies:
     "@contentful/forma-36-tokens" "^0.5.2"
 
-"@contentful/forma-36-react-components@^3.18.4", "@contentful/forma-36-react-components@^3.20.3", "@contentful/forma-36-react-components@^3.20.4", "@contentful/forma-36-react-components@^3.24.0", "@contentful/forma-36-react-components@^3.28.13", "@contentful/forma-36-react-components@^3.28.17", "@contentful/forma-36-react-components@^3.28.21":
-  version "3.31.7"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.31.7.tgz#e03c41f86245c8c9f20ad03e3f6a248cc044c349"
-  integrity sha512-lcTC/iXlGRqEUM/EZl2qqH+7KX4J4npbSINA0AjWK2tf3ukZkIfbZDF8tUMmUCAHyEGtXKCRKMXTIrlq/lDnXQ==
-  dependencies:
-    "@babel/runtime" "^7.3.4"
-    classnames "^2.2.6"
-    react-animate-height "^2.0.7"
-    react-copy-to-clipboard "^5.0.1"
-    react-modal "3.6.1"
-    react-transition-group "^2.4.0"
-    truncate "^2.0.1"
-
-"@contentful/forma-36-react-components@^3.31.8":
-  version "3.31.8"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.31.8.tgz#694f28743854439acc6fdfb111764c1f3fd6ef82"
-  integrity sha512-StklNW6JL5WANZxZdyEydoPcxTJwn3sM6EHxNqyGPcZkLvVwdCX2ocKMWCNXZNud8nvstHG351FfRXeAr5GEsQ==
-  dependencies:
-    "@babel/runtime" "^7.3.4"
-    classnames "^2.2.6"
-    react-animate-height "^2.0.7"
-    react-copy-to-clipboard "^5.0.1"
-    react-modal "3.6.1"
-    react-transition-group "^2.4.0"
-    truncate "^2.0.1"
-
-"@contentful/forma-36-react-components@^3.36.1":
+"@contentful/forma-36-react-components@3.36.1", "@contentful/forma-36-react-components@^3.36.1":
   version "3.36.1"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.36.1.tgz#e72319b1bda966c1a858918c716a9cd58e5decb5"
   integrity sha512-Vj4rFMO10IKUHalhee6OmU1yg2avseUDZgi5zX6g/MEUldcIbEIkpI/VzpxWH1cdBewBwqMOugs/qUmdgGyH7A==
@@ -2002,17 +1958,7 @@
     react-transition-group "^2.4.0"
     truncate "^2.0.1"
 
-"@contentful/forma-36-tokens@^0.4.5":
-  version "0.4.5"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.4.5.tgz#86880a06178de9ebfb542db983550b7c5ae531d3"
-  integrity sha512-wygRxC9r+Wr4FR4wEp1MVjt+Hx5n1lCux4EOXfva3Au1CXzjcl821ukR8mMaurYM7/3TMrv/olQorySNwGpllg==
-
-"@contentful/forma-36-tokens@^0.5.1":
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.5.1.tgz#427130f4e65f3aef4ec987873c4a1b61dab8cdaf"
-  integrity sha512-KeI181dInXcgSQw/ibPHEyshDFrEOPVEwHZ4a720yEJczT64zmKC/CLecsv3C7tUiQlnSnTZD1fcFBXmeOIThw==
-
-"@contentful/forma-36-tokens@^0.5.2":
+"@contentful/forma-36-tokens@0.5.2", "@contentful/forma-36-tokens@^0.5.1", "@contentful/forma-36-tokens@^0.5.2":
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.5.2.tgz#736dde76b1830f78cfec3bed0fba8d9652705c32"
   integrity sha512-YAhp7bJzlIvThO6ybZHCGCeVXf5ojRrVBVx7dCkoWK6SYtZJkr5trWymG6gAnNpO9pDiWvgIMKmFHx/hWDjiRA==
@@ -6978,13 +6924,6 @@ contentful-sdk-core@^6.4.0:
     lodash "^4.17.10"
     qs "^6.5.2"
 
-contentful-ui-extensions-sdk@^3.10.11:
-  version "3.12.1"
-  resolved "https://registry.yarnpkg.com/contentful-ui-extensions-sdk/-/contentful-ui-extensions-sdk-3.12.1.tgz#0d98344a45151a28e5064db48b28b230fba042d0"
-  integrity sha512-PV8DqGcEZvwPGgUEkGO705mXQawHKQ8zvTySgXlvYA7WhLTqacThNcWaI4oSN6ysRZXx3LmPjtoj4K4Zw8XbpA==
-  dependencies:
-    es6-promise "^4.2.8"
-
 contentful-ui-extensions-sdk@^3.11.0:
   version "3.11.0"
   resolved "https://registry.yarnpkg.com/contentful-ui-extensions-sdk/-/contentful-ui-extensions-sdk-3.11.0.tgz#12ca5b0a41e1a1181374708210a5d2376a0edf1c"
@@ -6996,6 +6935,13 @@ contentful-ui-extensions-sdk@^3.12.0:
   version "3.12.0"
   resolved "https://registry.yarnpkg.com/contentful-ui-extensions-sdk/-/contentful-ui-extensions-sdk-3.12.0.tgz#e42389600bf881c41baf3c7858369b6a5c8959a5"
   integrity sha512-dNeeF/5B6q0nmqVSX6X0uDD6L5N/yN3GU8aVm5TbU9EXlKJ1Hs9HFtdbSHYe4zavnmTK3MLK7G0E8077FQFmPQ==
+  dependencies:
+    es6-promise "^4.2.8"
+
+contentful-ui-extensions-sdk@^3.12.1:
+  version "3.12.1"
+  resolved "https://registry.yarnpkg.com/contentful-ui-extensions-sdk/-/contentful-ui-extensions-sdk-3.12.1.tgz#0d98344a45151a28e5064db48b28b230fba042d0"
+  integrity sha512-PV8DqGcEZvwPGgUEkGO705mXQawHKQ8zvTySgXlvYA7WhLTqacThNcWaI4oSN6ysRZXx3LmPjtoj4K4Zw8XbpA==
   dependencies:
     es6-promise "^4.2.8"
 

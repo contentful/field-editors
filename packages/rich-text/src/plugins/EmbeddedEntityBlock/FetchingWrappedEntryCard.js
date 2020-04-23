@@ -46,7 +46,7 @@ export function FetchingWrappedEntryCard(props) {
       size="default"
       isSelected={props.isSelected}
       isDisabled={props.isDisabled}
-      localeCode={props.sdk.field.locale}
+      localeCode={props.locale}
       defaultLocaleCode={props.sdk.locales.default}
       allContentTypes={allContentTypes}
       entry={entry}
@@ -59,6 +59,7 @@ export function FetchingWrappedEntryCard(props) {
 FetchingWrappedEntryCard.propTypes = {
   sdk: PropTypes.object.isRequired,
   entryId: PropTypes.string.isRequired,
+  locale: PropTypes.string.isRequired,
   isDisabled: PropTypes.bool.isRequired,
   isSelected: PropTypes.bool.isRequired,
   onRemove: PropTypes.func,

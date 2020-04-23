@@ -52,6 +52,7 @@ export default class LinkedEntityBlock extends React.Component {
           <FetchingWrappedEntryCard
             sdk={sdk}
             entryId={entityId}
+            locale={sdk.field.locale}
             isDisabled={isDisabled}
             isSelected={isSelected}
             onRemove={this.handleRemoveClick}
@@ -67,6 +68,7 @@ export default class LinkedEntityBlock extends React.Component {
           <FetchingWrappedAssetCard
             sdk={sdk}
             assetId={entityId}
+            locale={sdk.field.locale}
             isDisabled={isDisabled}
             isSelected={isSelected}
             onRemove={this.handleRemoveClick}

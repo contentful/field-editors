@@ -17,6 +17,7 @@ import { useAppState } from './state';
 import { ActionTypes, FieldType } from './types';
 import { Field } from './Field';
 import { renderMarkdownDialog } from '../../../packages/markdown/src/index';
+import { renderRichTextDialog } from '../../../packages/rich-text/src/index';
 import styles from './styles';
 
 interface AppProps {
@@ -86,12 +87,21 @@ export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
   );
 };
 
+function renderAtRoot(element: JSX.Element) {
+  render(element, document.getElementById('root'));
+}
+
 init(sdk => {
   if (sdk.location.is(locations.LOCATION_ENTRY_EDITOR)) {
-    render(<App sdk={sdk as EditorExtensionSDK} />, document.getElementById('root'));
+    renderAtRoot(<App sdk={sdk as EditorExtensionSDK} />);
   } else if (sdk.location.is(locations.LOCATION_DIALOG)) {
     const dialogSdk = sdk as DialogExtensionSDK;
-    render(renderMarkdownDialog(dialogSdk as any), document.getElementById('root'));
+    const invocationParams = sdk.parameters.invocation as { type: string };
+    if (invocationParams.type.startsWith('markdown')) {
+      renderAtRoot(renderMarkdownDialog(dialogSdk as any));
+    } else if (invocationParams.type.startsWith('rich-text')) {
+      renderAtRoot(renderRichTextDialog(dialogSdk as any));
+    }
   }
 });
 

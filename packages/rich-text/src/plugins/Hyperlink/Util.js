@@ -16,7 +16,9 @@ const nodeToHyperlinkType = {
 function getAllowedHyperlinkTypes(field) {
   const hyperlinkTypes = [INLINES.ENTRY_HYPERLINK, INLINES.ASSET_HYPERLINK, INLINES.HYPERLINK];
   if (field.type === 'RichText') {
-    return hyperlinkTypes.filter(nodeType => isNodeTypeEnabled(field, nodeType));
+    return hyperlinkTypes
+      .filter(nodeType => isNodeTypeEnabled(field, nodeType))
+      .map(nodeType => nodeToHyperlinkType[nodeType]);
   }
 
   return hyperlinkTypes.map(nodeType => nodeToHyperlinkType[nodeType]);
