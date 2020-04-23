@@ -2,6 +2,11 @@ import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 
 const styles = {
+  editGroupsButton: css({
+    marginLeft: tokens.spacingL,
+    marginTop: tokens.spacingM
+  }),
+
   container: css({
     marginTop: tokens.spacingM
   }),

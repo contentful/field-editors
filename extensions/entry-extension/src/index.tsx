@@ -49,6 +49,22 @@ export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
   return (
     <SDKContext.Provider value={props.sdk}>
       <AppContext.Provider value={{ state, dispatch }}>
+        <TextLink icon="Edit" className={styles.editGroupsButton} onClick={openDialog}>
+          Edit field groups
+        </TextLink>
+        <Modal size="large" isShown={dialogOpen} onClose={closeDialog}>
+          {() => (
+            <React.Fragment>
+              <Modal.Header onClose={closeDialog} title="Edit field groups" />
+              <FieldGroupsEditor
+                addGroup={() => dispatch({ type: ActionTypes.CREATE_FIELD_GROUP })}
+                fieldGroups={state.fieldGroups}
+                onClose={closeDialog}
+              />
+            </React.Fragment>
+          )}
+        </Modal>
+
         <div className={styles.container}>
           {state.fieldGroups.map(fieldGroup => (
             <CollapsibleFieldGroup
@@ -64,22 +80,6 @@ export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
               <Field key={k.id} field={fields[k.id]} locales={props.sdk.locales} />
             ))}
           </div>
-
-          <TextLink icon="Edit" className="f36-margin--l" onClick={openDialog}>
-            Edit field groups
-          </TextLink>
-          <Modal size="large" isShown={dialogOpen} onClose={closeDialog}>
-            {() => (
-              <React.Fragment>
-                <Modal.Header onClose={closeDialog} title="Edit field groups" />
-                <FieldGroupsEditor
-                  addGroup={() => dispatch({ type: ActionTypes.CREATE_FIELD_GROUP })}
-                  fieldGroups={state.fieldGroups}
-                  onClose={closeDialog}
-                />
-              </React.Fragment>
-            )}
-          </Modal>
         </div>
       </AppContext.Provider>
     </SDKContext.Provider>
