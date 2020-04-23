@@ -28,8 +28,8 @@ interface WrappedEntryCardProps {
   size: 'small' | 'default';
   isDisabled: boolean;
   isSelected?: boolean;
-  onRemove: () => void;
-  onEdit: () => void;
+  onRemove?: () => void;
+  onEdit?: () => void;
   localeCode: string;
   defaultLocaleCode: string;
   allContentTypes: ContentType[];
@@ -119,38 +119,42 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
       cardDragHandleComponent={props.cardDragHandle}
       withDragHandle={!!props.cardDragHandle}
       dropdownListElements={
-        <React.Fragment>
-          <DropdownList
-            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-            // @ts-ignore
-            onClick={e => {
-              e.stopPropagation();
-            }}>
-            {props.onEdit && (
-              <DropdownListItem
-                onClick={() => {
-                  props.onEdit();
-                }}
-                testId="edit">
-                Edit
-              </DropdownListItem>
-            )}
-            {props.onRemove && (
-              <DropdownListItem
-                onClick={() => {
-                  props.onRemove();
-                }}
-                isDisabled={props.isDisabled}
-                testId="delete">
-                Remove
-              </DropdownListItem>
-            )}
-          </DropdownList>
-        </React.Fragment>
+        props.onEdit || props.onRemove ? (
+          <React.Fragment>
+            <DropdownList
+              // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+              // @ts-ignore
+              onClick={e => {
+                e.stopPropagation();
+              }}>
+              {props.onEdit && (
+                <DropdownListItem
+                  onClick={() => {
+                    props.onEdit && props.onEdit();
+                  }}
+                  testId="edit">
+                  Edit
+                </DropdownListItem>
+              )}
+              {props.onRemove && (
+                <DropdownListItem
+                  onClick={() => {
+                    props.onRemove && props.onRemove();
+                  }}
+                  isDisabled={props.isDisabled}
+                  testId="delete">
+                  Remove
+                </DropdownListItem>
+              )}
+            </DropdownList>
+          </React.Fragment>
+        ) : (
+          undefined
+        )
       }
       onClick={e => {
         e.preventDefault();
-        props.onEdit();
+        props.onEdit && props.onEdit();
       }}
     />
   );

@@ -1,5 +1,7 @@
 import React from 'react';
+import { css } from 'emotion';
 import PropTypes from 'prop-types';
+import tokens from '@contentful/forma-36-tokens';
 import {
   Modal,
   TextField,
@@ -10,6 +12,9 @@ import {
   SelectField,
   Option
 } from '@contentful/forma-36-react-components';
+import { EntityProvider } from '@contentful/field-editor-reference';
+import { FetchingWrappedEntryCard } from '../../plugins/EmbeddedEntityBlock/FetchingWrappedEntryCard';
+import { FetchingWrappedAssetCard } from '../../plugins/EmbeddedEntityBlock/FetchingWrappedAssetCard';
 
 export const LINK_TYPES = {
   URI: 'uri',
@@ -28,6 +33,7 @@ function entityToLink(entity) {
 
 export class HyperlinkDialog extends React.Component {
   static propTypes = {
+    sdk: PropTypes.object.isRequired,
     labels: PropTypes.shape({
       title: PropTypes.string,
       confirm: PropTypes.string
@@ -118,29 +124,43 @@ export class HyperlinkDialog extends React.Component {
     this.props.onClose(this.getValue());
   };
 
+  selectEntry = async () => {
+    const { locale, contentTypes } = this.props.entitySelectorConfigs.Entry;
+    const entry = await this.props.sdk.dialogs.selectSingleEntry({ locale, contentTypes });
+    this.setTargetEntity(LINK_TYPES.ENTRY, entry);
+  };
+
+  selectAsset = async () => {
+    const { locale } = this.props.entitySelectorConfigs.Asset;
+    const asset = await this.props.sdk.dialogs.selectSingleAsset({ locale });
+    this.setTargetEntity(LINK_TYPES.ASSET, asset);
+  };
+
   render() {
     const { labels } = this.props;
     return (
-      <React.Fragment>
-        <Modal.Content>{this.renderFields()}</Modal.Content>
-        <Modal.Controls>
-          <Button
-            type="submit"
-            buttonType="positive"
-            onClick={this.handleSubmit}
-            disabled={!this.isLinkComplete()}
-            testId="confirm-cta">
-            {labels.confirm}
-          </Button>
-          <Button
-            type="button"
-            onClick={() => this.props.onClose(null)}
-            buttonType="muted"
-            testId="cancel-cta">
-            Cancel
-          </Button>
-        </Modal.Controls>
-      </React.Fragment>
+      <EntityProvider sdk={this.props.sdk}>
+        <React.Fragment>
+          <Modal.Content>{this.renderFields()}</Modal.Content>
+          <Modal.Controls>
+            <Button
+              type="submit"
+              buttonType="positive"
+              onClick={this.handleSubmit}
+              disabled={!this.isLinkComplete()}
+              testId="confirm-cta">
+              {labels.confirm}
+            </Button>
+            <Button
+              type="button"
+              onClick={() => this.props.onClose(null)}
+              buttonType="muted"
+              testId="cancel-cta">
+              Cancel
+            </Button>
+          </Modal.Controls>
+        </React.Fragment>
+      </EntityProvider>
     );
   }
 
@@ -216,36 +236,43 @@ export class HyperlinkDialog extends React.Component {
           Link target
         </FormLabel>
         {!isEntitySelectorVisible && (
-          <TextLink className="entity-selector-dialog__change-selection-link" onClick={resetEntity}>
-            Change selection
+          <TextLink className={css({ marginLeft: tokens.spacingS })} onClick={resetEntity}>
+            Remove selection
           </TextLink>
         )}
         {entityLink && (
           <div>
-            <div>entity card</div>
-            {/* <FetchedEntityCard
-              className="entity-selector-dialog__asset-card"
-              entityId={entityLink.sys.id}
-              entityType={entityLink.sys.linkType}
-              readOnly={true}
-              disabled={false}
-              selected={false}
-            /> */}
+            {type === LINK_TYPES.ENTRY && (
+              <FetchingWrappedEntryCard
+                sdk={this.props.sdk}
+                entryId={entityLink.sys.id}
+                isDisabled
+                isSelected={false}
+              />
+            )}
+            {type == LINK_TYPES.ASSET && (
+              <FetchingWrappedAssetCard
+                sdk={this.props.sdk}
+                assetId={entityLink.sys.id}
+                isDisabled
+                isSelected={false}
+              />
+            )}
           </div>
         )}
         {/* Keep all entity selectors in the DOM for super fast types switching ux.*/}
-        {this.renderEntitySelector(LINK_TYPES.ENTRY, isEntitySelectorVisible)}
-        {this.renderEntitySelector(LINK_TYPES.ASSET, isEntitySelectorVisible)}
+        {isEntitySelectorVisible && this.renderEntitySelector(type, isEntitySelectorVisible)}
       </div>
     );
   }
 
-  renderEntitySelector(type, isVisible) {
-    if (isVisible) {
-      return <div>Not implemented {type}</div>;
-    }
-
-    return null;
+  renderEntitySelector(type) {
+    return (
+      <div className={css({ marginTop: tokens.spacingS })}>
+        {type === LINK_TYPES.ENTRY && <TextLink onClick={this.selectEntry}>Select entry</TextLink>}
+        {type === LINK_TYPES.ASSET && <TextLink onClick={this.selectAsset}>Select asset</TextLink>}
+      </div>
+    );
   }
 }
 

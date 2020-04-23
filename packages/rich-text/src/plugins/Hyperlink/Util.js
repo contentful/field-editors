@@ -101,7 +101,6 @@ async function insertLink(change, sdk, logAction) {
     change.focus();
     return;
   }
-
   const { text, type: linkType, uri, target } = result;
   if (showTextInput) {
     if (change.isVoid(change.value.blocks.last())) {
@@ -113,6 +112,7 @@ async function insertLink(change, sdk, logAction) {
   change.call(wrapLink, linkType, data);
   const nodeType = linkTypeToNodeType(linkType);
   logAction('insert', { nodeType, linkType });
+
   change.focus();
 }
 
