@@ -10,11 +10,7 @@ interface AppProps {
   sdk: FieldExtensionSDK;
 }
 
-interface AppState {
-  value?: string;
-}
-
-export class App extends React.Component<AppProps, AppState> {
+export class App extends React.Component<AppProps> {
   render = () => {
     const sdk = Object.assign(this.props.sdk, {
       parameters: {
