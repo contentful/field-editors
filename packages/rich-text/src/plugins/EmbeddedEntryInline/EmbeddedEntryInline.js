@@ -59,10 +59,6 @@ class EmbeddedEntryInline extends React.Component {
           isReadOnly={isReadOnly}
           onRemove={this.handleRemoveClick}
           onEdit={this.handleEditClick}
-          getEntryUrl={() => {
-            const getEntryUrl = sdk.parameters.instance.getEntryUrl;
-            return typeof getEntryUrl === 'function' ? getEntryUrl(entryId) : '';
-          }}
           onEntityFetchComplete={this.props.onEntityFetchComplete}
         />
       </span>

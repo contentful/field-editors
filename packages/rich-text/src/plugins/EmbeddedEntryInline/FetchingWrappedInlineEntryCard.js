@@ -79,7 +79,6 @@ export const FetchingWrappedInlineEntryCard = props => {
 
   return (
     <InlineEntryCard
-      href={props.getEntryUrl ? props.getEntryUrl(entry.sys.id) : ''}
       testId={INLINES.EMBEDDED_ENTRY}
       selected={props.isSelected}
       title={`${contentTypeName}: ${title}`}
@@ -94,13 +93,13 @@ export const FetchingWrappedInlineEntryCard = props => {
           </DropdownList>
         ) : null
       }>
-      {title}
       <ScheduledIconWithTooltip
         getEntityScheduledActions={props.sdk.space.getEntityScheduledActions}
         entityType="Entry"
         entityId={entry.sys.id}>
         <Icon className={styles.scheduledIcon} icon="Clock" color="muted" testId="scheduled-icon" />
       </ScheduledIconWithTooltip>
+      {title}
     </InlineEntryCard>
   );
 };
@@ -113,6 +112,5 @@ FetchingWrappedInlineEntryCard.propTypes = {
   isReadOnly: PropTypes.bool.isRequired,
   onRemove: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
-  getEntryUrl: PropTypes.func,
   onEntityFetchComplete: PropTypes.func
 };
