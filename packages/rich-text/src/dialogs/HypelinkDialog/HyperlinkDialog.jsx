@@ -242,14 +242,17 @@ export class HyperlinkDialog extends React.Component {
 
   renderEntitySelector(type, isVisible) {
     if (isVisible) {
-      return <div>Not implemented</div>;
+      return <div>Not implemented {type}</div>;
     }
 
     return null;
   }
 }
 
-export const openHyperlinkDialog = (dialogs, { value, showTextInput, allowedHyperlinkTypes }) => {
+export const openHyperlinkDialog = (
+  dialogs,
+  { value, showTextInput, allowedHyperlinkTypes, entitySelectorConfigs }
+) => {
   const isNew = !(value.uri || value.target);
   const props = {
     labels: {
@@ -258,15 +261,13 @@ export const openHyperlinkDialog = (dialogs, { value, showTextInput, allowedHype
     },
     value,
     hideText: !showTextInput,
-    allowedHyperlinkTypes
+    allowedHyperlinkTypes,
+    entitySelectorConfigs
   };
-
-  console.log(props);
 
   return dialogs.openExtension({
     title: props.labels.title,
     width: 'large',
-    minHeight: '290px',
     shouldCloseOnEscapePress: true,
     shouldCloseOnOverlayClick: true,
     parameters: {

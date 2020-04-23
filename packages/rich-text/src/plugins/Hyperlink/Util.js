@@ -1,6 +1,7 @@
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { haveInlines } from '../shared/UtilHave';
 import { openHyperlinkDialog, LINK_TYPES } from '../../dialogs/HypelinkDialog/HyperlinkDialog';
+import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
 import { isNodeTypeEnabled } from '../../validations/index';
 
 const { HYPERLINK, ENTRY_HYPERLINK, ASSET_HYPERLINK } = INLINES;
@@ -19,6 +20,20 @@ function getAllowedHyperlinkTypes(field) {
   }
 
   return hyperlinkTypes.map(nodeType => nodeToHyperlinkType[nodeType]);
+}
+
+function getEntitySelectorConfigs(field) {
+  const config = {};
+
+  // TODO: Don't pass specific key if CT validation prohibits its type:
+  if (isNodeTypeEnabled(field, INLINES.ENTRY_HYPERLINK)) {
+    config.Entry = newEntitySelectorConfigFromRichTextField(field, 'entry-hyperlink');
+  }
+  if (isNodeTypeEnabled(field, INLINES.ASSET_HYPERLINK)) {
+    config.Asset = newEntitySelectorConfigFromRichTextField(field, 'asset-hyperlink');
+  }
+
+  return config;
 }
 
 /**
@@ -77,8 +92,10 @@ async function insertLink(change, sdk, logAction) {
   const result = await openHyperlinkDialog(sdk.dialogs, {
     showTextInput,
     value: { text: change.value.fragment.text || '' },
-    allowedHyperlinkTypes: getAllowedHyperlinkTypes(sdk.field)
+    allowedHyperlinkTypes: getAllowedHyperlinkTypes(sdk.field),
+    entitySelectorConfigs: getEntitySelectorConfigs(sdk.field)
   });
+
   if (!result) {
     logAction('cancelCreateHyperlinkDialog');
     change.focus();
@@ -124,7 +141,8 @@ export async function editLink(change, sdk, logAction) {
   const result = await openHyperlinkDialog(sdk.dialogs, {
     showTextInput: false,
     value: oldTarget ? { target: oldTarget } : { uri: oldUri },
-    allowedHyperlinkTypes: getAllowedHyperlinkTypes(sdk.field)
+    allowedHyperlinkTypes: getAllowedHyperlinkTypes(sdk.field),
+    entitySelectorConfigs: getEntitySelectorConfigs(sdk.field)
   });
   if (!result) {
     logAction('cancelEditHyperlinkDialog');
