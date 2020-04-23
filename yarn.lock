@@ -6520,6 +6520,48 @@ contentful-batch-libs@^9.0.1:
     lodash "^4.0.1"
     moment "^2.18.1"
 
+contentful-cli@0.33.2:
+  version "0.33.2"
+  resolved "https://registry.yarnpkg.com/contentful-cli/-/contentful-cli-0.33.2.tgz#c479a02460d4cd63e60172e0acdaffdb059e414d"
+  integrity sha512-WuYXezo6t9SPOaQM/hk7yhz58gK08oTmo6ks7YBWfkuyLtewRJJ5sTRk3c4n1Pl0whU2phthDDjA0mkp/kkp/A==
+  dependencies:
+    ast-types "^0.11.5"
+    bfj "^6.1.1"
+    blessed "^0.1.81"
+    bluebird "^3.5.0"
+    camelcase "^5.0.0"
+    chalk "^2.4.1"
+    cli-table3 "^0.5.1"
+    command-exists "^1.2.7"
+    contentful-export "^7.6.0"
+    contentful-import "^7.5.1"
+    contentful-management "^5.9.0"
+    contentful-migration "^0.19.0"
+    emojic "^1.1.11"
+    execa "^0.10.0"
+    figlet "^1.2.0"
+    find-up "^3.0.0"
+    https-proxy-agent "^2.2.1"
+    inquirer "^6.0.0"
+    inquirer-select-directory "^1.1.2"
+    listr "^0.14.1"
+    lodash "^4.17.10"
+    markdown-cli "^1.6.0"
+    mkdirp "^0.5.1"
+    mz "^2.6.0"
+    opn "^5.3.0"
+    path "^0.12.7"
+    prettier "^1.14.0"
+    recast "^0.15.3"
+    rxjs "^5.5.6"
+    shell-escape "^0.2.0"
+    tar "^4.4.4"
+    to-ast "^1.0.0"
+    tree-kill "^1.1.0"
+    wrap-ansi "^3.0.1"
+    yargs "^13.2.4"
+    zlib "^1.0.5"
+
 contentful-cli@0.36.2:
   version "0.36.2"
   resolved "https://registry.yarnpkg.com/contentful-cli/-/contentful-cli-0.36.2.tgz#6f0ff6dbf38ee1beef17428b31d36c2ec1d85d4e"
@@ -6655,7 +6697,7 @@ contentful-management@^5.11.0, contentful-management@^5.12.0, contentful-managem
     contentful-sdk-core "^6.4.0"
     lodash "^4.17.11"
 
-contentful-migration@^0.19.3:
+contentful-migration@^0.19.0, contentful-migration@^0.19.3:
   version "0.19.8"
   resolved "https://registry.yarnpkg.com/contentful-migration/-/contentful-migration-0.19.8.tgz#bd60454435c71ccb63a0c68bb883a7eee8e6c131"
   integrity sha512-72POy+4KcgQ6vMLnqDpcPPBVhkk7q8/vifIRb4g9HW724cxCr7rrvBo8+P6fuWjdMK9dekKFK6GpfmCe8/g4TA==
@@ -13554,7 +13596,14 @@ make-dir@^2.0.0, make-dir@^2.1.0:
     pify "^4.0.1"
     semver "^5.6.0"
 
-make-dir@^3.0.0, make-dir@^3.0.2:
+make-dir@^3.0.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/make-dir/-/make-dir-3.1.0.tgz#415e967046b3a7f1d185277d84aa58203726a13f"
+  integrity sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw==
+  dependencies:
+    semver "^6.0.0"
+
+make-dir@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/make-dir/-/make-dir-3.0.2.tgz#04a1acbf22221e1d6ef43559f43e05a90dbb4392"
   integrity sha512-rYKABKutXa6vXTXhoV18cBE7PaewPXHe/Bdq4v+ZLMhxbWApkFFplT0LcbMW+6BbjnQXzZ/sAvSE/JdguApG5w==
@@ -14894,7 +14943,7 @@ opener@^1.4.2, opener@^1.5.1:
   resolved "https://registry.yarnpkg.com/opener/-/opener-1.5.1.tgz#6d2f0e77f1a0af0032aca716c2c1fbb8e7e8abed"
   integrity sha512-goYSy5c2UXE4Ra1xixabeVh1guIX/ZV/YokJksb6q2lubWu6UbvPQ20p542/sFIll1nl8JnCyK9oBaOcCWXwvA==
 
-opn@^5.1.0, opn@^5.5.0:
+opn@^5.1.0, opn@^5.3.0, opn@^5.5.0:
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/opn/-/opn-5.5.0.tgz#fc7164fab56d235904c51c3b27da6758ca3b9bfc"
   integrity sha512-PqHpggC9bLV0VeWcdKhkpxY+3JTzetLSqTCWL/z/tFIbI6G8JCjondXklT1JinczLz2Xib62sSp0T/gKT4KksA==
@@ -17784,10 +17833,17 @@ resolve@1.12.0:
   dependencies:
     path-parse "^1.0.6"
 
-resolve@1.x, resolve@^1.1.5, resolve@^1.1.6, resolve@^1.10.0, resolve@^1.10.1, resolve@^1.11.0, resolve@^1.11.1, resolve@^1.12.0, resolve@^1.13.1, resolve@^1.15.1, resolve@^1.3.2, resolve@^1.4.0, resolve@^1.7.1, resolve@^1.8.1:
-  version "1.16.1"
-  resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.16.1.tgz#49fac5d8bacf1fd53f200fa51247ae736175832c"
-  integrity sha512-rmAglCSqWWMrrBv/XM6sW0NuRFiKViw/W4d9EbC4pt+49H8JwHy+mcGmALTEg504AUDcLTvb1T2q3E9AnmY+ig==
+resolve@1.x, resolve@^1.1.5, resolve@^1.1.6, resolve@^1.10.0, resolve@^1.10.1, resolve@^1.11.0, resolve@^1.11.1, resolve@^1.12.0, resolve@^1.13.1, resolve@^1.3.2, resolve@^1.4.0, resolve@^1.7.1, resolve@^1.8.1:
+  version "1.15.1"
+  resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.15.1.tgz#27bdcdeffeaf2d6244b95bb0f9f4b4653451f3e8"
+  integrity sha512-84oo6ZTtoTUpjgNEr5SJyzQhzL72gaRodsSfyxC/AXRvwu0Yse9H8eF9IpGo7b8YetZhlI6v7ZQ6bKBFV/6S7w==
+  dependencies:
+    path-parse "^1.0.6"
+
+resolve@^1.15.1:
+  version "1.17.0"
+  resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.17.0.tgz#b25941b54968231cc2d1bb76a79cb7f2c0bf8444"
+  integrity sha512-ic+7JYiV8Vi2yzQGFWOkiZD5Z9z7O2Zhm9XMaTxdJExKasieFCr+yXZ/WmXsckHiKl12ar0y6XiXDx3m4RHn1w==
   dependencies:
     path-parse "^1.0.6"
 
@@ -20009,7 +20065,7 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@3.3.4000, typescript@3.7.3, typescript@3.8.3, typescript@^3.5.2, typescript@^3.7.3, typescript@^3.7.5:
+typescript@3.3.4000, typescript@3.5.2, typescript@3.7.3, typescript@3.8.3, typescript@^3.5.2, typescript@^3.7.3, typescript@^3.7.5:
   version "3.7.3"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.3.tgz#b36840668a16458a7025b9eabfad11b66ab85c69"
   integrity sha512-Mcr/Qk7hXqFBXMN7p7Lusj1ktCBydylfQM/FZCk5glCNQJrCUKPkMHdo9R0MTFWsC/4kPFvDS0fDPvukfCkFsw==
