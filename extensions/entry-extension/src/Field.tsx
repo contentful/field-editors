@@ -40,11 +40,12 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
   // these properties are mocked to make the entryFieldAPI
   // work, or at least not crash, when used in the palce of FieldAPI
   const extendedField = (field as any) as FieldAPI;
-  extendedField.onSchemaErrorsChanged = () => () => null;
-  extendedField.setInvalid = () => null;
-  extendedField.locale = 'en-US';
 
   const sdk = React.useContext(SDKContext);
+
+  extendedField.onSchemaErrorsChanged = () => () => null;
+  extendedField.setInvalid = () => null;
+  extendedField.locale = sdk.locales.default;
 
   const fieldDetails = sdk.contentType.fields.find(({ id }) => id === extendedField.id);
   const fieldEditorInterface = sdk.editor.editorInterface?.controls?.find(
