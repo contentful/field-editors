@@ -15,8 +15,6 @@
     "@contentful/forma-36-react-components": "^3.28.21",
     "@contentful/forma-36-tokens": "^0.5.2",
     "contentful-ui-extensions-sdk": "^3.12.0",
-    "@contentful/field-editor-markdown": "*",
-    "@contentful/field-editor-reference": "*",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
@@ -27,6 +25,7 @@
     "not ie <= 11"
   ],
   "devDependencies": {
+    "@contentful/contentful-extension-scripts": "0.15.1",
     "@babel/core": "^7.5.5"
   }
 }
