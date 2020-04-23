@@ -8,6 +8,8 @@ It uses [Typescript][typescript], [React][react], [Forma36][forma36] (a design s
 
 ## Available field editors
 
+[Playground with all components: https://contentful-field-editors.netlify.app/](https://contentful-field-editors.netlify.app/)
+
 This repository has all editorial components that you can find in the Contentful Web application.
 You can run each this component as a custom field extension or compose them into one custom entry extension.
 
@@ -29,6 +31,8 @@ You can run each this component as a custom field extension or compose them into
 - [Slug](./packages/slug/README.md)
 - [Entry reference / Media](./packages/reference/README.md)
 - [Rich Text](./packages/rich-text/README.md)
+
+[Playground with all components: https://contentful-field-editors.netlify.app/](https://contentful-field-editors.netlify.app/)
 
 Feel free to reach out to us with the ones that'd be the most useful to have
 here by filing a [Github issue][github-issues]!
