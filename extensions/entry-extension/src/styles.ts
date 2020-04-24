@@ -2,13 +2,19 @@ import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 
 const styles = {
+  widthContainer: css({
+    maxWidth: '768px',
+    marginLeft: 'auto',
+    marginRight: 'auto'
+  }),
+
   editGroupsButton: css({
     marginLeft: tokens.spacingXl,
     marginTop: tokens.spacingM,
     marginBottom: tokens.spacingXs
   }),
 
-  container: css({
+  fieldGroupsContainer: css({
     marginTop: tokens.spacingM
   }),
 
@@ -45,10 +51,13 @@ const styles = {
 
   fieldsContainer: css({
     backgroundColor: tokens.colorElementLightest,
-    padding: tokens.spacingL
+    paddingBottom: tokens.spacingL,
+    paddingTop: tokens.spacingL
   }),
 
   fieldWrapper: css({
+    marginLeft: tokens.spacingL,
+    marginRight: tokens.spacingL,
     borderLeft: '3px solid #c5d2d8',
     paddingLeft: '1em',
     marginBottom: '29px',

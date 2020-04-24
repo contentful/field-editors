@@ -22,20 +22,24 @@ export const CollapsibleFieldGroup: React.FC<CollapsibleFieldGroupProps> = ({
 
   return (
     <div>
-      <div className={styles.collapsibleContainerHeader}>
-        <button className={styles.collapsibleContainerButton} onClick={toggleOpen}>
-          <div className={styles.collapsibleContainerInfo}>
-            <Icon className={styles.icon} icon={isOpen ? 'ChevronDown' : 'ChevronRight'} />
-            <h3>{fieldGroup.name}</h3>
-          </div>
-          <HelpText>{fieldGroup.fields.length} fields</HelpText>
-        </button>
+      <div className={styles.widthContainer}>
+        <div className={styles.collapsibleContainerHeader}>
+          <button className={styles.collapsibleContainerButton} onClick={toggleOpen}>
+            <div className={styles.collapsibleContainerInfo}>
+              <Icon className={styles.icon} icon={isOpen ? 'ChevronDown' : 'ChevronRight'} />
+              <h3>{fieldGroup.name}</h3>
+            </div>
+            <HelpText>{fieldGroup.fields.length} fields</HelpText>
+          </button>
+        </div>
       </div>
       {isOpen ? (
         <div className={styles.fieldsContainer}>
-          {fieldGroup.fields.map((k: FieldType) => (
-            <Field key={k.id} field={fields[k.id]} locales={locales} />
-          ))}
+          <div className={styles.widthContainer}>
+            {fieldGroup.fields.map((k: FieldType) => (
+              <Field key={k.id} field={fields[k.id]} locales={locales} />
+            ))}
+          </div>
         </div>
       ) : null}
     </div>
