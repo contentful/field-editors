@@ -1,0 +1,8 @@
+{
+  "id": "singleline-extension",
+  "name": "singleline-extension",
+  "srcdoc": "./build/index.html",
+  "fieldTypes": [
+    "Text"
+  ]
+}
