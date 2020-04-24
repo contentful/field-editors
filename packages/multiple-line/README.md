@@ -1,6 +1,6 @@
 # @contentful/field-editor-multiple-line
 
-This package contains a React `MultipleLineEditor` component and an extension that is used as a default for the `Text` field type in the Contentful web application.
+This package contains a React `MultipleLineEditor` component that is used as a default for the `Text` field type in the Contentful web application.
 
 ## Commands
 

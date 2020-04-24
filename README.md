@@ -1,6 +1,6 @@
-# Contentful Field Editors
+# @contentful/field-editors
 
-[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/))
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
 
 This is the monorepo for all field editors and extensions by [Contentful][contentful].
 
@@ -15,24 +15,24 @@ Playground with all components: [https://contentful-field-editors.netlify.app/](
 This repository has all editorial components that you can find in the Contentful Web application.
 You can run each this component as a custom field extension or compose them into one custom entry extension.
 
-- [Single line editor](./packages/single-line/README.md)
-- [Multi line editor](./packages/multiple-line/README.md)
-- [Dropdown](./packages/dropdown/README.md)
-- [Tags](./packages/tags/README.md)
-- [List](./packages/list/README.md)
-- [Checkbox](./packages/checkbox/README.md)
-- [Radio](./packages/radio/README.md)
-- [Boolean](./packages/boolean/README.md)
-- [Rating](./packages/rating/README.md)
-- [Number](./packages/number/README.md)
-- [Url](./packages/url/README.md)
-- [JSON](./packages/json/README.md)
-- [Location](./packages/location/README.md)
-- [Date](./packages/date/README.md)
-- [Markdown](./packages/markdown/README.md)
-- [Slug](./packages/slug/README.md)
-- [Entry reference / Media](./packages/reference/README.md)
-- [Rich Text](./packages/rich-text/README.md)
+- Single line editor
+- Multi line editor
+- Dropdown
+- Tags
+- List
+- Checkbox
+- Radio
+- Boolean
+- Rating
+- Number
+- Url
+- JSON
+- Location
+- Date
+- Markdown
+- Slug
+- Entry reference / Media
+- Rich Text
 
 Feel free to reach out to us with the ones that'd be the most useful to have
 here by filing a [Github issue][github-issues]!
