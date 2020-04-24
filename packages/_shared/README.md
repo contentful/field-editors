@@ -2,22 +2,27 @@
 
 This package contains shared code (components, utilities, test utilities) that is used by all other field editor packages.
 
-## Commands
+The most useful component for developing any kind of extensions is `FieldConnector` that helps you to subscribe to field changes in a convenient way.
 
-Uses [`tsdx`](https://github.com/palmerhq/tsdx) - a zero-config CLI that helps you develop, test, and publish modern TypeScript packages with ease.
+Checkout a simple implementation of extension for `Boolean` field:
 
-### `yarn watch`
+```jsx
 
-Runs the project in development/watch mode. Your library will be rebuilt if you make edits.
+import { FieldConnector } from '@contentful/field-editor-shared';
 
-### `yarn build`
+<FieldConnector<boolean> field={sdk.field}>
+    {({ disabled, value, setValue }) => {
+      return (
+        <div>
+          <div>{value ? 'I am true' : 'I am false'}</div>
+          <button onClick={() => {
+            setValue(!value)
+          }}>
+            toggle
+          </button>
+        </div>
+      )
+    }}
+</FieldConnector>
 
-Bundles the package to the `dist` folder.
-The package is optimized and bundled with Rollup into multiple formats (CommonJS, UMD, and ES Module).
-
-### `yarn test`
-
-Runs the test watcher (Jest) in an interactive mode.
-By default, runs tests related to files changed since the last commit.
-
-For more information check [`tsdx` documentation](https://github.com/palmerhq/tsdx) out.
+```

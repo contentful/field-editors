@@ -29,7 +29,7 @@ export default {
       raw: `<style>${forma36Styles}</style><style>${pikadayStyles}</style>`
     }
   },
-  menu: ['Introduction', 'Editors'],
+  menu: ['Introduction', 'Editors', 'Shared'],
   modifyBabelRc: babelrc => {
     const newBabelRc = {
       ...babelrc,
