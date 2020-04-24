@@ -34,6 +34,8 @@ You can run each this component as a custom field extension or compose them into
 - Entry reference / Media
 - Rich Text
 
+Also this repository contains shared packages that simplify development and testing of field and entry extensions.
+
 Feel free to reach out to us with the ones that'd be the most useful to have
 here by filing a [Github issue][github-issues]!
 
