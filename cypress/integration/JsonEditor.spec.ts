@@ -1,10 +1,10 @@
 describe('JSON Editor', () => {
   const selectors = {
     getInput: () => {
-      return cy.findByTestId('json-editor-code-mirror').get('textarea');
+      return cy.get('[data-test-id="json-editor-code-mirror"] textarea');
     },
     getCode: () => {
-      return cy.findByTestId('json-editor-code-mirror').get('.CodeMirror-code');
+      return cy.get('[data-test-id="json-editor-code-mirror"] .CodeMirror-code');
     },
     getRedoButton: () => {
       return cy.findByTestId('json-editor-redo');
@@ -110,7 +110,7 @@ describe('JSON Editor', () => {
       { id: 1, type: 'setValue', value: { foo: { bar: 'xyz' } } }
     ]);
 
-    checkCode('{\n    "something": "new"\n}');
+    checkCode('{\n    "something": "new"\n}');
     selectors.getRedoButton().should('be.disabled');
     selectors.getUndoButton().should('be.disabled');
   });
