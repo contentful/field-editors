@@ -10,6 +10,7 @@ import '@contentful/forma-36-react-components/dist/styles.css';
 import '@contentful/forma-36-fcss/dist/styles.css';
 import './index.css';
 import '../../../packages/markdown/src/codemirrorImports';
+import 'codemirror/lib/codemirror.css';
 import { MarkdownEditor, renderMarkdownDialog } from '../../../packages/markdown/src/index';
 
 interface AppProps {
