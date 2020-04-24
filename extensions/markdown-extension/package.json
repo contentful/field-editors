@@ -22,10 +22,6 @@
   },
   "scripts": {
     "start": "contentful-extension-scripts start",
-    "build": "contentful-extension-scripts build",
-    "lint": "eslint ./ --ext .js,.jsx,.ts,.tsx && tsc -p ./ --noEmit",
-    "test": "contentful-extension-scripts test --env=jsdom --watch",
-    "test:coverage": "contentful-extension-scripts test --env=jsdom --coverage",
     "deploy": "npm run build && contentful extension update --force",
     "configure": "contentful space use && contentful space environment use",
     "login": "contentful login",
