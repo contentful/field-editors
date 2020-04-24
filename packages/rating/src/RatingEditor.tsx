@@ -12,8 +12,14 @@ export interface RatingEditorProps {
    */
   isInitiallyDisabled: boolean;
 
+  /**
+   * sdk.field
+   */
   field: FieldAPI;
 
+  /**
+   * sdk.parameters
+   */
   parameters?: ParametersAPI & {
     instance: {
       stars?: number;

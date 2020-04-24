@@ -8,15 +8,24 @@ menu: Editors
 
 import { Playground, Props } from 'docz';
 import { MultipleLineEditor } from './MultipleLineEditor.tsx';
-import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
+import {
+  createFakeFieldAPI,
+  createFakeLocalesAPI,
+  ActionsPlayground
+} from '@contentful/field-editor-test-utils';
 
 ## In Action
 
 <Playground>
   {() => {
-    const [field] = createFakeFieldAPI();
+    const [field, mitt] = createFakeFieldAPI();
     const locales = createFakeLocalesAPI();
-    return <MultipleLineEditor field={field} locales={locales} isInitiallyDisabled={false} />;
+    return (
+      <div>
+        <MultipleLineEditor field={field} locales={locales} isInitiallyDisabled={false} />
+        <ActionsPlayground mitt={mitt} />
+      </div>
+    );
   }}
 </Playground>
 

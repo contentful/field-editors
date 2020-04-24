@@ -9,13 +9,13 @@ menu: Editors
 import { Playground, Props } from 'docz';
 import { SingleLineEditor } from '../../single-line/src/index.tsx'
 import { SlugEditor } from './SlugEditor.tsx';
-import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
+import { createFakeFieldAPI, createFakeLocalesAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
 
 ## Default locale
 
 <Playground>
   {() => {
-    const [field] = createFakeFieldAPI(
+    const [field, mitt] = createFakeFieldAPI(
       field => ({
         ...field,
         id: 'slug-id',
@@ -61,6 +61,7 @@ import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-edit
         <SingleLineEditor field={sdk.entry.fields['title-id']} locales={sdk.locales} isInitiallyDisabled={false} />
         <div style={{ marginTop: 20 }} />
         <SlugEditor baseSdk={sdk} field={field} isInitiallyDisabled={false} />
+        <ActionsPlayground mitt={mitt} />
       </React.Fragment>
     );
   }}
@@ -134,3 +135,8 @@ import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-edit
     );
   }}
 </Playground>
+
+
+## Props
+
+<Props of={SlugEditor} />

@@ -6,15 +6,24 @@ menu: Editors
 
 # Boolean
 
-import { Playground } from 'docz';
+import { Playground, Props } from 'docz';
 import { BooleanEditor } from './BooleanEditor.tsx';
-import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
+import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
 
 ## In Action
 
 <Playground>
   {() => {
-    const [field] = createFakeFieldAPI();
-    return <BooleanEditor field={field} isInitiallyDisabled={false} />;
+    const [field, mitt] = createFakeFieldAPI();
+    return (
+      <div>
+        <BooleanEditor field={field} isInitiallyDisabled={false} />
+        <ActionsPlayground mitt={mitt} />
+      </div>
+    );
   }}
 </Playground>
+
+## Props
+
+<Props of={BooleanEditor} />

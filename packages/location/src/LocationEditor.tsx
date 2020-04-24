@@ -19,8 +19,14 @@ export interface LocationEditorConnectedProps {
    */
   isInitiallyDisabled: boolean;
 
+  /**
+   * sdk.field
+   */
   field: FieldAPI;
 
+  /**
+   * sdk.parameters
+   */
   parameters?: ParametersAPI & {
     instance: {
       googleMapsKey?: string;
@@ -142,7 +148,7 @@ export class LocationEditor extends React.Component<
   }
 }
 
-export default function LocationEditorConnected(props: LocationEditorConnectedProps) {
+export function LocationEditorConnected(props: LocationEditorConnectedProps) {
   const { field } = props;
   const googleMapsKey = props.parameters ? props.parameters.instance.googleMapsKey : undefined;
   const [selectedView, setSelectedView] = React.useState<ViewType>(ViewType.Address);

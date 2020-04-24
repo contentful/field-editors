@@ -8,7 +8,11 @@ menu: Editors
 
 import { Playground, Props } from 'docz';
 import { DropdownEditor } from './DropdownEditor.tsx';
-import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
+import {
+  createFakeFieldAPI,
+  createFakeLocalesAPI,
+  ActionsPlayground
+} from '@contentful/field-editor-test-utils';
 
 ## In Action
 
@@ -16,14 +20,21 @@ import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-edit
 
 <Playground>
   {() => {
-    const [field] = createFakeFieldAPI(mock => {
+    const [field, mitt] = createFakeFieldAPI(mock => {
       return {
         ...mock,
         validations: [{ in: ['banana', 'orange', 'strawberry'] }]
       };
     });
     return (
-      <DropdownEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+      <div>
+        <DropdownEditor
+          field={field}
+          locales={createFakeLocalesAPI()}
+          isInitiallyDisabled={false}
+        />
+        <ActionsPlayground mitt={mitt} />
+      </div>
     );
   }}
 </Playground>

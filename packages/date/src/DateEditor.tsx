@@ -20,8 +20,14 @@ export interface DateEditorProps {
    */
   isInitiallyDisabled: boolean;
 
+  /**
+   * sdk.field
+   */
   field: FieldAPI;
 
+  /**
+   * sdk.parameters
+   */
   parameters?: ParametersAPI & {
     instance?: {
       format?: DateTimeFormat;

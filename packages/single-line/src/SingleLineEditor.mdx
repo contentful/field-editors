@@ -2,21 +2,31 @@
 name: Single Line
 route: /single-line
 menu: Editors
+order: 1
 ---
 
 # Single Line
 
 import { Playground, Props } from 'docz';
 import { SingleLineEditor } from './SingleLineEditor.tsx';
-import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
+import {
+  createFakeFieldAPI,
+  createFakeLocalesAPI,
+  ActionsPlayground
+} from '@contentful/field-editor-test-utils';
 
 ## In Action
 
 <Playground>
   {() => {
-    const [field] = createFakeFieldAPI();
+    const [field, mitt] = createFakeFieldAPI();
     const locales = createFakeLocalesAPI();
-    return <SingleLineEditor field={field} locales={locales} isInitiallyDisabled={false} />;
+    return (
+      <div>
+        <SingleLineEditor field={field} locales={locales} isInitiallyDisabled={false} />
+        <ActionsPlayground mitt={mitt} />
+      </div>
+    );
   }}
 </Playground>
 

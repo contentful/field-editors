@@ -1,2 +1,3 @@
-import LocationEditor from './LocationEditor';
-export { LocationEditor };
+import { LocationEditorConnected } from './LocationEditor';
+
+export const LocationEditor = LocationEditorConnected;

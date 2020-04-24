@@ -6,9 +6,9 @@ menu: Editors
 
 # Tags
 
-import { Playground } from 'docz';
-import { TagsEditor } from './index.tsx';
-import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
+import { Playground, Props } from 'docz';
+import { TagsEditorContainer as TagsEditor } from './TagsEditorContainer.tsx';
+import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
 
 ## In Action
 
@@ -16,8 +16,13 @@ import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 
 <Playground>
   {() => {
-    const [field] = createFakeFieldAPI();
-    return <TagsEditor field={field} isInitiallyDisabled={false} />;
+    const [field, mitt] = createFakeFieldAPI();
+    return (
+      <div>
+        <TagsEditor field={field} isInitiallyDisabled={false} />
+        <ActionsPlayground mitt={mitt} />
+      </div>
+    );
   }}
 </Playground>
 
@@ -46,3 +51,7 @@ import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
     return <TagsEditor field={field} isInitiallyDisabled={false} />;
   }}
 </Playground>
+
+## Props
+
+<Props of={TagsEditor} />
