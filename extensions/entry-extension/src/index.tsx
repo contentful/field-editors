@@ -50,9 +50,11 @@ export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
   return (
     <SDKContext.Provider value={props.sdk}>
       <AppContext.Provider value={{ state, dispatch }}>
-        <TextLink icon="Edit" className={styles.editGroupsButton} onClick={openDialog}>
-          Edit field groups
-        </TextLink>
+        <div className={styles.widthContainer}>
+          <TextLink icon="Edit" className={styles.editGroupsButton} onClick={openDialog}>
+            Edit field groups
+          </TextLink>
+        </div>
         <Modal size="large" isShown={dialogOpen} onClose={closeDialog}>
           {() => (
             <React.Fragment>
@@ -66,7 +68,7 @@ export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
           )}
         </Modal>
 
-        <div className={styles.container}>
+        <div className={styles.fieldGroupsContainer}>
           {state.fieldGroups.map(fieldGroup => (
             <CollapsibleFieldGroup
               key={fieldGroup.id}
@@ -76,10 +78,12 @@ export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
             />
           ))}
 
-          <div className="f36-margin--l">
-            {unassignedFields.map((k: FieldType) => (
-              <Field key={k.id} field={fields[k.id]} locales={props.sdk.locales} />
-            ))}
+          <div className={styles.widthContainer}>
+            <div>
+              {unassignedFields.map((k: FieldType) => (
+                <Field key={k.id} field={fields[k.id]} locales={props.sdk.locales} />
+              ))}
+            </div>
           </div>
         </div>
       </AppContext.Provider>
