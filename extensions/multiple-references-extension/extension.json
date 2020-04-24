@@ -1,0 +1,6 @@
+{
+  "id": "multiple-references-editor-extension",
+  "name": "Multiple entry references",
+  "srcdoc": "./build/index.html",
+  "fieldTypes": ["Entries"]
+}

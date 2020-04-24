@@ -1,8 +1,6 @@
 {
   "id": "markdown-extension",
-  "name": "markdown-extension",
+  "name": "Markdown Extension",
   "srcdoc": "./build/index.html",
-  "fieldTypes": [
-    "Text"
-  ]
+  "fieldTypes": ["Text"]
 }

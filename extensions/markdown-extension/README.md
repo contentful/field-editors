@@ -1,8 +1,6 @@
-# Single Line + Fetching data extension
+# Markdown field extension
 
-This extension demonstrates how you would use the simplest field we have `SingleLineEditor` with your own custom logic.
-
-![demo](./docs/demo.png)
+This extension demonstrates how you would use `MarkdownEditor` as your own field extension.
 
 ## Commands
 
