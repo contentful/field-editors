@@ -1,21 +1,28 @@
 ---
 name: Rating
 route: /rating
-menu: Components
+menu: Editors
 ---
 
-# Rating
+import Readme from '../README.md';
 
-import { Playground } from 'docz';
+<Readme />
+
+import { Playground, Props } from 'docz';
 import { RatingEditor } from './RatingEditor.tsx';
-import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
+import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
 
 ## In Action
 
 <Playground>
   {() => {
-    const [field] = createFakeFieldAPI();
-    return <RatingEditor field={field} isInitiallyDisabled={false} />;
+    const [field, mitt] = createFakeFieldAPI();
+    return (
+      <div>
+        <RatingEditor field={field} isInitiallyDisabled={false} />
+        <ActionsPlayground mitt={mitt} />
+      </div>
+    );
   }}
 </Playground>
 
@@ -42,3 +49,7 @@ import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
     );
   }}
 </Playground>
+
+## Props
+
+<Props of={RatingEditor} />

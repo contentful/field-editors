@@ -1,7 +1,7 @@
 describe('Markdown Editor / Organize Links', () => {
   const selectors = {
     getInput: () => {
-      return cy.findByTestId('markdown-textarea').get('textarea');
+      return cy.get('[data-test-id="markdown-textarea"] textarea');
     },
     getToggleAdditionalActionsButton: () => {
       return cy.findByTestId('markdown-action-button-toggle-additional');

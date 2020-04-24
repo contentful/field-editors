@@ -12,6 +12,9 @@ export interface SlugEditorProps {
 
   baseSdk: BaseExtensionSDK;
 
+  /**
+   * sdk.field
+   */
   field: FieldAPI;
 }
 

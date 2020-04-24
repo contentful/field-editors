@@ -1,10 +1,16 @@
 ---
 name: Reference - Multiple entries
 route: /reference-multiple
-menu: Components
+menu: Editors
 ---
 
-# Reference - Multiple entries
+import Readme from '../../README.md';
+
+<Readme />
+
+```jsx
+import { MultipleEntryReferenceEditor } from '@contentful/field-editor-reference';
+```
 
 import { Playground, Props } from 'docz';
 import { MultipleEntryReferenceEditor } from './MultipleEntryReferenceEditor.tsx'
@@ -97,3 +103,7 @@ import changedEntry from '../__fixtures__/changed_entry.json';
 }}
 
 </Playground>
+
+## Props
+
+<Props of={MultipleEntryReferenceEditor} />

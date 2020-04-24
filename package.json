@@ -2,7 +2,7 @@
   "name": "@contentful/field-editors",
   "private": true,
   "version": "1.0.0",
-  "description": "",
+  "description": "React components and extensions for building Contentful entry editor",
   "author": "Contentful GmbH",
   "license": "MIT",
   "repository": {
@@ -140,8 +140,7 @@
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged",
-      "pre-push": "yarn run tsc && yarn run test:ci"
+      "pre-commit": "lint-staged"
     }
   },
   "engines": {

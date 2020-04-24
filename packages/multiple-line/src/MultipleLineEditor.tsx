@@ -9,8 +9,14 @@ export interface MultipleLineEditorProps {
    */
   isInitiallyDisabled: boolean;
 
+  /**
+   * sdk.field
+   */
   field: FieldAPI;
 
+  /**
+   * sdk.locales
+   */
   locales: LocalesAPI;
 }
 

@@ -2,6 +2,22 @@
 
 Please take a moment to review this document in order to make the contribution process easy and effective for everyone involved.
 
+## Getting started
+
+### Requirements
+
+- Node.js: `>=12.13.1`
+- Yarn: `>=1.21.1`
+
+To install all dependencies and build all packages run the following commands from the root of the project.
+
+```
+yarn
+yarn build
+```
+
+You are ready to go! You can either develop your extensions from `extensions` folder or run a playground of all components in `development` mode.
+
 ## Submitting a Pull Request
 
 Good pull requests, such as patches, improvements, and new features, are a fantastic help. They should remain focused in scope and avoid containing unrelated commits.

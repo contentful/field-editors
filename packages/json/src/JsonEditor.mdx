@@ -1,10 +1,12 @@
 ---
 name: JSON
 route: /json
-menu: Components
+menu: Editors
 ---
 
-# JSON
+import Readme from '../README.md';
+
+<Readme />
 
 import { Playground, Props } from 'docz';
 import JsonEditor from './JsonEditor.tsx';
@@ -25,3 +27,8 @@ import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-
 }}
 
 </Playground>
+
+
+## Props
+
+<Props of={JsonEditor} />

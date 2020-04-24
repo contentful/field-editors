@@ -1,22 +1,31 @@
 ---
 name: List
 route: /list
-menu: Components
+menu: Editors
 ---
 
-# List
+import Readme from '../README.md';
 
-import { Playground } from 'docz';
+<Readme />
+
+import { Playground, Props } from 'docz';
 import { ListEditor } from './ListEditor.tsx';
-import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
+import {
+  createFakeFieldAPI,
+  createFakeLocalesAPI,
+  ActionsPlayground
+} from '@contentful/field-editor-test-utils';
 
 ## In Action
 
 <Playground>
   {() => {
-    const [field] = createFakeFieldAPI();
+    const [field, mitt] = createFakeFieldAPI();
     return (
-      <ListEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+      <div>
+        <ListEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+        <ActionsPlayground mitt={mitt} />
+      </div>
     );
   }}
 </Playground>
@@ -31,3 +40,7 @@ import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-edit
     );
   }}
 </Playground>
+
+## Props
+
+<Props of={ListEditor} />

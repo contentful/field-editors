@@ -1,10 +1,16 @@
 ---
 name: Media - Multiple files
 route: /media-multiple
-menu: Components
+menu: Editors
 ---
 
-# Media - Multiple files
+import Readme from '../../README.md';
+
+<Readme />
+
+```jsx
+import { MultipleMediaEditor } from '@contentful/field-editor-reference';
+```
 
 import { Playground, Props } from 'docz';
 import { MultipleMediaEditor } from './MultipleMediaEditor.tsx'
@@ -94,3 +100,8 @@ import changedAsset from '../__fixtures__/changed_asset.json';
 }}
 
 </Playground>
+
+
+## Props
+
+<Props of={MultipleMediaEditor} />

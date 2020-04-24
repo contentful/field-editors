@@ -12,8 +12,14 @@ export interface BooleanEditorProps {
    */
   isInitiallyDisabled: boolean;
 
+  /**
+   * sdk.field
+   */
   field: FieldAPI;
 
+  /**
+   * sdk.parameters
+   */
   parameters?: ParametersAPI & {
     instance: {
       trueLabel?: string;

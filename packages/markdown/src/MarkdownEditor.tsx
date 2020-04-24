@@ -27,7 +27,11 @@ export interface MarkdownEditorProps {
    * is the field disabled initially
    */
   isInitiallyDisabled: boolean;
+
   sdk: FieldExtensionSDK;
+  /**
+   * sdk.parameters
+   */
   parameters: {
     instance: {
       canUploadAssets: boolean;

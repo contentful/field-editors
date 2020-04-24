@@ -14,9 +14,14 @@ export interface DropdownEditorProps {
    * is the field disabled initially
    */
   isInitiallyDisabled: boolean;
-
+  /**
+   * sdk.field
+   */
   field: FieldAPI;
 
+  /**
+   * sdk.locales
+   */
   locales: LocalesAPI;
 }
 

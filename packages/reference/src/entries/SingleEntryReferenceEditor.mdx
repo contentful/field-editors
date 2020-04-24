@@ -1,10 +1,16 @@
 ---
 name: Reference - Single
 route: /reference-single
-menu: Components
+menu: Editors
 ---
 
-# Reference - Single
+import Readme from '../../README.md';
+
+<Readme />
+
+```jsx
+import { SingleEntryReferenceEditor } from '@contentful/field-editor-reference';
+```
 
 import { Playground, Props } from 'docz';
 import { SingleEntryReferenceEditor } from './SingleEntryReferenceEditor.tsx'
@@ -86,3 +92,7 @@ import publishedEntry from '../__fixtures__/published_entry.json';
 }}
 
 </Playground>
+
+## Props
+
+<Props of={SingleEntryReferenceEditor} />

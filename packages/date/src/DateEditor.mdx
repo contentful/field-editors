@@ -1,10 +1,12 @@
 ---
 name: Date
 route: /date
-menu: Components
+menu: Editors
 ---
 
-# DateEditor
+import Readme from '../README.md';
+
+<Readme />
 
 import { Playground, Props } from 'docz';
 import { DateEditor } from './DateEditor.tsx';
@@ -34,3 +36,7 @@ import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-
 }}
 
 </Playground>
+
+## Props
+
+<Props of={DateEditor} />

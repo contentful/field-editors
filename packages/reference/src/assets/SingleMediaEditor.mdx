@@ -1,10 +1,16 @@
 ---
 name: Media
 route: /media-single
-menu: Components
+menu: Editors
 ---
 
-# Reference - Media
+import Readme from '../../README.md';
+
+<Readme />
+
+```jsx
+import { SingleMediaEditor } from '@contentful/field-editor-reference';
+```
 
 import { Playground, Props } from 'docz';
 import { SingleMediaEditor } from './SingleMediaEditor.tsx'
@@ -83,3 +89,8 @@ import publishedAsset from '../__fixtures__/published_asset.json';
 }}
 
 </Playground>
+
+
+## Props
+
+<Props of={SingleMediaEditor} />

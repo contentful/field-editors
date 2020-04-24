@@ -8,6 +8,9 @@ export interface UrlEditorProps {
    */
   isInitiallyDisabled: boolean;
 
+  /**
+   * sdk.field
+   */
   field: FieldAPI;
 
   children?: (props: { value: string | null | undefined }) => React.ReactNode;

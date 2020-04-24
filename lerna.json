@@ -8,7 +8,7 @@
       "message": "chore(release): publish %s"
     },
     "publish": {
-      "ignoreChanges": ["*.md"]
+      "ignoreChanges": ["*.md", "*.mdx"]
     }
   }
 }

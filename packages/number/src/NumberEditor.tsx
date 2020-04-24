@@ -9,6 +9,9 @@ export interface NumberEditorProps {
    */
   isInitiallyDisabled: boolean;
 
+  /**
+   * sdk.field
+   */
   field: FieldAPI;
 }
 

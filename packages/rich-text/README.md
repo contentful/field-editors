@@ -1,25 +1,13 @@
 # @contentful/field-editor-rich-text
 
-This package contains a React `RichTextEditor` component and an extension that is used as default for `RichText` field type in the Contentful web application.
+```bash
+npm install @contentful/field-editor-rich-text
+```
+
+This package contains a React `RichTextEditor` component that is used as default for `RichText` field type in the Contentful web application.
 
 This editor extension is built on top of [Slate](https://github.com/ianstormtaylor/slate), a third party framework for building highly customizable rich text editing solutions.
 
-## Commands
-
-Uses [`tsdx`](https://github.com/palmerhq/tsdx) - a zero-config CLI that helps you develop, test, and publish modern TypeScript packages with ease.
-
-### `yarn watch`
-
-Runs the project in development/watch mode. Your library will be rebuilt if you make edits.
-
-### `yarn build`
-
-Bundles the package to the `dist` folder.
-The package is optimized and bundled with Rollup into multiple formats (CommonJS, UMD, and ES Module).
-
-### `yarn test`
-
-Runs the test watcher (Jest) in an interactive mode.
-By default, runs tests related to files changed since the last commit.
-
-For more information check [`tsdx` documentation](https://github.com/palmerhq/tsdx) out.
+```js
+import { RichTextEditor } from '@contentful/field-editor-rich-text';
+```

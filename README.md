@@ -1,4 +1,6 @@
-# Contentful Field Editors ![early access program](https://img.shields.io/badge/careful-early_access_program-orange)
+# @contentful/field-editors
+
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
 
 This is the monorepo for all field editors and extensions by [Contentful][contentful].
 
@@ -8,35 +10,54 @@ It uses [Typescript][typescript], [React][react], [Forma36][forma36] (a design s
 
 ## Available field editors
 
-We currently provide the following field editors:
+Playground with all components: [https://contentful-field-editors.netlify.app/](https://contentful-field-editors.netlify.app/)
 
-- [Single line editor](./packages/single-line/README.md)
-- [Multi line editor](./packages/multiple-line/README.md)
-- [Dropdown](./packages/dropdown/README.md)
-- [Tags](./packages/tags/README.md)
-- [List](./packages/list/README.md)
-- [Checkbox](./packages/checkbox/README.md)
-- [Radio](./packages/radio/README.md)
-- [Boolean](./packages/boolean/README.md)
-- [Rating](./packages/rating/README.md)
-- [Number](./packages/number/README.md)
-- [Url](./packages/url/README.md)
-- [JSON](./packages/json/README.md)
-- [Location](./packages/location/README.md)
-- [Date](./packages/date/README.md)
-- [Markdown](./packages/markdown/README.md)
-- [Slug](./packages/slug/README.md)
-- [Entry reference / Media](./packages/reference/README.md)
-- [Rich Text](./packages/rich-text/README.md)
+This repository has all editorial components that you can find in the Contentful Web application.
+You can run each this component as a custom field extension or compose them into one custom entry extension.
+
+- Single line editor
+- Multi line editor
+- Dropdown
+- Tags
+- List
+- Checkbox
+- Radio
+- Boolean
+- Rating
+- Number
+- Url
+- JSON
+- Location
+- Date
+- Markdown
+- Slug
+- Entry reference / Media
+- Rich Text
+
+Also this repository contains shared packages that simplify development and testing of field and entry extensions.
 
 Feel free to reach out to us with the ones that'd be the most useful to have
 here by filing a [Github issue][github-issues]!
 
-## Contributing
+## Getting started & contributing
 
-We'd love to have your helping hand on `@contentful/field-editors`! See [CONTRIBUTING.md](CONTRIBUTING.md) for more information on how to get started.
+### Requirements
 
-## Links
+- Node.js: `>=12.13.1`
+- Yarn: `>=1.21.1`
+
+To install all dependencies and build all packages run the following commands from the root of the project.
+
+```
+yarn
+yarn build
+```
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for more information on how to get started.
+
+We'd love to have your helping hand on `@contentful/field-editors`!
+
+## Links & related repositories
 
 - [UI Extensions SDK][ui-extensions-sdk]
 - [Create Contentful Extension CLI][create-contentful-extension]
@@ -55,8 +76,8 @@ All field editor packages are open source software [licensed as MIT](./LICENSE).
 [contentful]: https://www.contentful.com
 [ui-extensions-sdk]: https://github.com/contentful/ui-extensions-sdk
 [create-contentful-extension]: https://github.com/contentful/create-contentful-extension
-[github-issues]: https://github.com/contentful/core-field-editors/issues
-[forma36]: https://f36.contentful.com/
+[github-issues]: https://github.com/contentful/field-editors/issues
+[forma36]: https://github.com/contentful/forma-36
 [typescript]: https://www.typescriptlang.org/
 [react]: https://reactjs.org/
 [lerna]: https://github.com/lerna/lerna

@@ -1,13 +1,15 @@
 ---
 name: Location
 route: /location
-menu: Components
+menu: Editors
 ---
 
-# LocationEditor
+import Readme from '../README.md';
+
+<Readme />
 
 import { Playground, Props } from 'docz';
-import LocationEditor from './LocationEditor.tsx';
+import { LocationEditorConnected as LocationEditor } from './LocationEditor.tsx';
 import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
 
 ## In Action
@@ -37,3 +39,7 @@ import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-
 }}
 
 </Playground>
+
+## Props
+
+<Props of={LocationEditor} />

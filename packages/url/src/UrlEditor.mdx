@@ -1,31 +1,51 @@
 ---
 name: Url
 route: /url
-menu: Components
+menu: Editors
 ---
 
-# Url
+import Readme from '../README.md';
+
+<Readme />
 
 import { Playground, Props } from 'docz';
 import { UrlEditor } from './UrlEditor.tsx';
-import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
+import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
 
 ## In Action
 
 <Playground>
   {() => {
-    const [field] = createFakeFieldAPI();
-    return <UrlEditor field={field} isInitiallyDisabled={false} />;
+    const [field, mitt] = createFakeFieldAPI();
+    return (
+      <div>
+      <UrlEditor field={field} isInitiallyDisabled={false} />
+      <ActionsPlayground mitt={mitt} />
+      </div>
+    )
   }}
 </Playground>
 
+### with custom preview component
+
 <Playground>
   {() => {
-    const [field] = createFakeFieldAPI();
+    const [field] = createFakeFieldAPI(
+      _ => _,
+      'https://d21buns5ku92am.cloudfront.net/41748/images/347873-Mark_Circular_white_no%20shadow-3d0a86-large-1582585736.png'
+    );
     return (
       <UrlEditor field={field} isInitiallyDisabled={false}>
-        {({ value }) => <div>Custom preview for: {value}</div>}
+        {({ value }) => (
+          <div style={{ marginTop: 20 }}>
+            <img src={value} width="50%" />
+          </div>
+        )}
       </UrlEditor>
     );
   }}
 </Playground>
+
+## Props
+
+<Props of={UrlEditor} />
