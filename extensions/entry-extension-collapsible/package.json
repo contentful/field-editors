@@ -1,5 +1,5 @@
 {
-  "name": "entry-extension",
+  "name": "entry-extension-collapsible",
   "version": "0.2.0",
   "private": true,
   "devDependencies": {

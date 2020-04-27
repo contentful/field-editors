@@ -1,4 +1,6 @@
-# Field extension
+# RichText field extension
+
+This extension demonstrates how you would use `RichTextEditor` as your own field extension.
 
 ## Commands
 
