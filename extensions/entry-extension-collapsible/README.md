@@ -1,4 +1,8 @@
-# Entry extension
+# Entry extension with collapsible groups
+
+This extension demonstrates how you would use all existing field editors to create a complex entry extension.
+
+![demo](./docs/demo.png)
 
 ## Commands
 
