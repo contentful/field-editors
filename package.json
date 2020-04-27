@@ -23,7 +23,7 @@
     "cy:open": "TZ=UTC cypress open",
     "cy:run": "TZ=UTC cypress run --browser chrome",
     "docz:dev": "docz dev",
-    "docz:build": "docz build",
+    "docz:build": "docz build && cp _redirects .docz/dist",
     "cm": "git-cz",
     "clean-reports": "rm -rf cypress/reports",
     "merge-report": "mochawesome-merge ./cypress/reports/separate-reports/*.json > ./cypress/reports/full_report.json",
