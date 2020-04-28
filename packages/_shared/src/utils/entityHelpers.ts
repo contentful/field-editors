@@ -1,13 +1,20 @@
 import get from 'lodash/get';
 import isObject from 'lodash/isObject';
+import isString from 'lodash/isString';
 import { File, ContentType, Entry, ContentTypeField, EntrySys } from '../typesEntity';
 
-function titleOrDefault(title: string | undefined, defaultTitle: string) {
-  if (!title || title.match(/^\s*$/)) {
+function titleOrDefault(title: string | undefined, defaultTitle: string): string {
+  if (!isString(title)) {
     return defaultTitle;
-  } else {
-    return title;
   }
+  if (title) {
+    // check if title consist only from whitespace symbols
+    if (typeof title.match === 'function' && title.match(/^\s*$/)) {
+      return defaultTitle;
+    }
+    return title.trim();
+  }
+  return defaultTitle;
 }
 
 export function getFieldValue({
