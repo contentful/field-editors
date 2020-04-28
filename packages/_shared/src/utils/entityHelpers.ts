@@ -8,11 +8,11 @@ function titleOrDefault(title: string | undefined, defaultTitle: string): string
     return defaultTitle;
   }
   if (title) {
-    // check if title consist only from whitespace symbols
-    if (typeof title.match === 'function' && title.match(/^\s*$/)) {
+    const trimmedTitle = title.trim();
+    if (trimmedTitle.length === 0) {
       return defaultTitle;
     }
-    return title.trim();
+    return trimmedTitle;
   }
   return defaultTitle;
 }
