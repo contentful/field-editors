@@ -1670,13 +1670,6 @@
     read-pkg-up "^7.0.1"
     semver "^7.1.2"
 
-"@contentful/forma-36-fcss@^0.0.34":
-  version "0.0.34"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-fcss/-/forma-36-fcss-0.0.34.tgz#afc4514e9b946c67339202ac61df94dc702b3bbe"
-  integrity sha512-AhK2QJn2pQ/MWR8d10H4B6g625MU1rz4lkakkw8/0E0KFpeow53XW2lbN0vTdOXDaNM1TeMOP0F700qFIoeMkA==
-  dependencies:
-    "@contentful/forma-36-tokens" "^0.5.1"
-
 "@contentful/forma-36-fcss@^0.0.35":
   version "0.0.35"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-fcss/-/forma-36-fcss-0.0.35.tgz#a6803307b029161a0bffc17ef787e20af04a1c8a"
@@ -1684,7 +1677,7 @@
   dependencies:
     "@contentful/forma-36-tokens" "^0.5.2"
 
-"@contentful/forma-36-react-components@3.36.1", "@contentful/forma-36-react-components@^3.28.13", "@contentful/forma-36-react-components@^3.36.1":
+"@contentful/forma-36-react-components@3.36.1", "@contentful/forma-36-react-components@^3.36.1":
   version "3.36.1"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.36.1.tgz#e72319b1bda966c1a858918c716a9cd58e5decb5"
   integrity sha512-Vj4rFMO10IKUHalhee6OmU1yg2avseUDZgi5zX6g/MEUldcIbEIkpI/VzpxWH1cdBewBwqMOugs/qUmdgGyH7A==
@@ -4212,9 +4205,9 @@ acorn@6.0.5:
   integrity sha512-i33Zgp3XWtmZBMNvCr4azvOFeWVw1Rk6p3hfi3LUDvIFraOMywb1kAtrbi+med14m4Xfpqm3zRZMT+c0FNE7kg==
 
 acorn@^5.0.0, acorn@^5.0.3, acorn@^5.5.3:
-  version "5.7.3"
-  resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.7.3.tgz#67aa231bf8812974b85235a96771eb6bd07ea279"
-  integrity sha512-T/zvzYRfbVojPWahDsE5evJdHb3oJoQfFbsrKM7w5Zcs++Tr257tia3BmMP8XYVjp1S9RZXQMh7gao96BlqZOw==
+  version "5.7.4"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.7.4.tgz#3e8d8a9947d0599a1796d10225d7432f4a4acf5e"
+  integrity sha512-1D++VG7BhrtvQpNbBzovKNc1FLGGEE/oGe7b9xJm/RFHMBeUaUGpluV9RLjZa47YFdPcDAenEYuq9pQPcMdLJg==
 
 acorn@^6.0.1, acorn@^6.0.4, acorn@^6.0.7, acorn@^6.2.1:
   version "6.4.0"
