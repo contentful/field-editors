@@ -1,6 +1,6 @@
 import * as React from 'react';
 import get from 'lodash/get';
-import nanoid from 'nanoid';
+import { nanoid } from 'nanoid';
 import { css, cx } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 import { FieldAPI, ParametersAPI, FieldConnector } from '@contentful/field-editor-shared';

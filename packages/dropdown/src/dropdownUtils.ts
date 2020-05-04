@@ -1,4 +1,4 @@
-import nanoid from 'nanoid';
+import { nanoid } from 'nanoid';
 import { FieldAPI } from '@contentful/field-editor-shared';
 
 type DropdownOption = {
