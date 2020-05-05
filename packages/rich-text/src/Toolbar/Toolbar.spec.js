@@ -12,6 +12,7 @@ const fakeProps = () => ({
   isDisabled: false,
   editor: new Editor(),
   onChange: jest.fn(),
+  canAccessAssets: true,
   richTextAPI: {
     logToolbarAction: jest.fn(),
     logShortcutAction: jest.fn(),
@@ -19,9 +20,6 @@ const fakeProps = () => ({
     sdk: {
       field: {}
     }
-  },
-  permissions: {
-    canAccessAssets: true
   }
 });
 
@@ -154,7 +152,7 @@ describe('Toolbar', () => {
 
   it(`hides the ${BLOCKS.EMBEDDED_ASSET} dropdown option when the user has no asset access permissions`, () => {
     const props = fakeProps();
-    props.permissions.canAccessAssets = false;
+    props.canAccessAssets = false;
     props.richTextAPI.sdk.field.validations = [
       { [VALIDATIONS.ENABLED_NODE_TYPES]: VALIDATABLE_NODE_TYPES }
     ];

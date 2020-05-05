@@ -18,13 +18,17 @@ const fakeProps = props => ({
       id: 'FIELD_ID,',
       locale: 'FIELD_LOCALE'
     },
-    parameters: {
-      instance: {
-        permissions: {
-          canAccessAssets: true,
-          canCreateAssets: true,
-          canCreateEntryOfContentType: () => false
+    access: {
+      can: (access, entityType) => {
+        if (entityType === 'Asset') {
+          if (access === 'create') {
+            return Promise.resolve(true);
+          }
+          if (access === 'read') {
+            return Promise.resolve(true);
+          }
         }
+        return Promise.resolve(false);
       }
     }
   },

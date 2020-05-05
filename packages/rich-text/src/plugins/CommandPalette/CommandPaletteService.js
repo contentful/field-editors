@@ -86,40 +86,45 @@ export const isEmbeddingEnabled = field =>
   isNodeTypeEnabled(field, INLINES.EMBEDDED_ENTRY);
 
 export class CommandPaletteActionBuilder {
-  constructor(field, permissions) {
-    this.field = field;
-    this.permissions = permissions;
+  constructor(sdk) {
+    this.sdk = sdk;
   }
 
   // TODO: Let's create dedicated functions for assets so we do not have to pass a CT.
 
   maybeBuildEmbedAction(embedType, contentType, callback) {
-    if (!isNodeTypeEnabled(this.field, embedType)) {
+    if (!isNodeTypeEnabled(this.sdk.field, embedType)) {
       return false;
     }
     const isAsset = !contentType;
-    if (!isAsset && !isValidLinkedContentType(this.field, contentType, embedType)) {
+    if (!isAsset && !isValidLinkedContentType(this.sdk.field, contentType, embedType)) {
       return false;
     }
 
     return buildAction(embedType, contentType, ACTIONS.EMBED, callback);
   }
 
-  maybeBuildCreateAndEmbedAction(embedType, contentType, callback) {
-    if (!isNodeTypeEnabled(this.field, embedType)) {
+  async maybeBuildCreateAndEmbedAction(embedType, contentType, callback) {
+    if (!isNodeTypeEnabled(this.sdk.field, embedType)) {
       return false;
     }
 
     const isAsset = !contentType;
     if (!isAsset) {
-      if (!isValidLinkedContentType(this.field, contentType, embedType)) {
+      if (!isValidLinkedContentType(this.sdk.field, contentType, embedType)) {
         return false;
       }
-      if (!this.permissions.canCreateEntryOfContentType(contentType.sys.id)) {
+
+      const canCreateContentType = await this.sdk.access.can('create', contentType);
+
+      if (canCreateContentType === false) {
         return false;
       }
-    } else if (!this.permissions.canCreateAssets) {
-      return false;
+    } else {
+      const canCreateAssets = await this.sdk.access.can('create', 'Asset');
+      if (canCreateAssets === false) {
+        return false;
+      }
     }
 
     return buildAction(embedType, contentType, ACTIONS.CREATE_EMBED, callback);
