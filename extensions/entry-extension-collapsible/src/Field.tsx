@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { HelpText } from '@contentful/forma-36-react-components';
-import { LocalesAPI, FieldAPI } from '@contentful/field-editor-shared';
+import { LocalesAPI } from '@contentful/field-editor-shared';
 import styles from './styles';
 import { SDKContext } from './shared';
 import { EntryFieldAPI } from 'contentful-ui-extensions-sdk';
@@ -37,17 +37,12 @@ interface FieldProps {
 }
 
 export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
-  // these properties are mocked to make the entryFieldAPI
-  // work, or at least not crash, when used in the palce of FieldAPI
-  const extendedField = (field as any) as FieldAPI;
-
   const sdk = React.useContext(SDKContext);
 
-  extendedField.onSchemaErrorsChanged = () => () => null;
-  extendedField.setInvalid = () => null;
-  extendedField.locale = sdk.locales.default;
+  const extendedField = field.getForLocale(sdk.locales.default);
 
   const fieldDetails = sdk.contentType.fields.find(({ id }) => id === extendedField.id);
+
   const fieldEditorInterface = sdk.editor.editorInterface?.controls?.find(
     ({ fieldId }) => fieldId === extendedField.id
   );
