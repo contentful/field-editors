@@ -69,20 +69,22 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
           return () => {};
         }
       },
-      parameters: {
-        instance: {
-          permissions: {
-            canAccessAssets: true,
-            canCreateAssets: false,
-            canCreateEntryOfContentType: contentTypeId => {
-              return contentTypeId === 'exampleCT';
-            }
-          }
-        }
-      },
       dialogs: {
         selectSingleAsset: newEntitySelectorDummyDialog('selectSingleAsset', 'Asset'),
         selectSingleEntry: newEntitySelectorDummyDialog('selectSingleEntry', 'Entry')
+      },
+      access: {
+        can: (access, entityType) => {
+          if (entityType === 'Asset') {
+            if (access === 'create') {
+              return Promise.resolve(false);
+            }
+            if (access === 'read') {
+              return Promise.resolve(true);
+            }
+          }
+          return Promise.resolve(false);
+        }
       }
     };
 

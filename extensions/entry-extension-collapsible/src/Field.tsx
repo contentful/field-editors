@@ -127,8 +127,6 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
         );
 
       case 'urlEditor':
-        // TODO: verify this is correct - as it appears identical to normal
-        // single line editor..
         return (
           <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
             <UrlEditor field={extendedField} />
@@ -164,7 +162,7 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
         return (
           <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
             <SingleEntryReferenceEditor
-              parameters={{ instance: { canCreateEntity: false } }}
+              parameters={{ instance: { canCreateEntity: true, canLinkEntity: true } }}
               viewType="link"
               sdk={fieldSdk}
             />
@@ -180,7 +178,7 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
         return (
           <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
             <SingleEntryReferenceEditor
-              parameters={{ instance: { canCreateEntity: false } }}
+              parameters={{ instance: { canCreateEntity: true, canLinkEntity: true } }}
               viewType="card"
               sdk={fieldSdk}
             />
@@ -197,7 +195,7 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
           <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
             <MultipleEntryReferenceEditor
               isInitiallyDisabled={false}
-              parameters={{ instance: { canCreateEntity: false } }}
+              parameters={{ instance: { canCreateEntity: true, canLinkEntity: true } }}
               viewType="link"
               sdk={fieldSdk}
             />
@@ -214,7 +212,7 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
           <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
             <MultipleEntryReferenceEditor
               isInitiallyDisabled={false}
-              parameters={{ instance: { canCreateEntity: false } }}
+              parameters={{ instance: { canCreateEntity: true, canLinkEntity: true } }}
               viewType="card"
               sdk={fieldSdk}
             />
@@ -230,7 +228,7 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
         return (
           <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
             <SingleMediaEditor
-              parameters={{ instance: { canCreateEntity: false } }}
+              parameters={{ instance: { canCreateEntity: true, canLinkEntity: true } }}
               viewType="link"
               sdk={fieldSdk}
             />
@@ -246,7 +244,7 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
         return (
           <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
             <MultipleMediaEditor
-              parameters={{ instance: { canCreateEntity: false } }}
+              parameters={{ instance: { canCreateEntity: true, canLinkEntity: true } }}
               viewType="link"
               sdk={fieldSdk}
             />
@@ -262,7 +260,7 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
         return (
           <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
             <MultipleMediaEditor
-              parameters={{ instance: { canCreateEntity: false } }}
+              parameters={{ instance: { canCreateEntity: true, canLinkEntity: true } }}
               viewType="card"
               sdk={fieldSdk}
             />
@@ -271,21 +269,8 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
       }
 
       case 'richTextEditor': {
-        let fieldSdk: any = sdk;
-
+        const fieldSdk: any = sdk;
         fieldSdk.field = extendedField;
-
-        fieldSdk = Object.assign(fieldSdk, {
-          parameters: {
-            instance: {
-              permissions: {
-                canAccessAssets: true,
-                canCreateAssets: true,
-                canCreateEntryOfContentType: () => true
-              }
-            }
-          }
-        });
 
         return (
           <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
@@ -296,7 +281,6 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
 
       case 'markdown': {
         const fieldSdk: any = sdk;
-
         fieldSdk.field = extendedField;
 
         return (

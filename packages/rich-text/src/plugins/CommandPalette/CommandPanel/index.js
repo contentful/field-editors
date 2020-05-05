@@ -37,7 +37,7 @@ class CommandPalette extends React.PureComponent {
 
   async componentDidMount() {
     this.isComponentMounted = true;
-    this.createInitialCommands();
+    await this.createInitialCommands();
     this.updatePanelPosition();
     this.paletteDimensions = {
       height: this.palette.getBoundingClientRect().height,
@@ -153,8 +153,8 @@ class CommandPalette extends React.PureComponent {
     return openEntity(entityId, { slideIn: true });
   };
 
-  createContentTypeActions = (actionBuilder, contentType) =>
-    [
+  createContentTypeActions = async (actionBuilder, contentType) => {
+    const actions = await Promise.all([
       actionBuilder.maybeBuildEmbedAction(BLOCKS.EMBEDDED_ENTRY, contentType, () => {
         this.setState({ breadcrumb: contentType.name, isLoading: true });
         this.createCommands(contentType);
@@ -171,10 +171,12 @@ class CommandPalette extends React.PureComponent {
       actionBuilder.maybeBuildCreateAndEmbedAction(INLINES.EMBEDDED_ENTRY, contentType, () =>
         this.onCreateAndEmbedEntity(contentType.sys.id, INLINES.EMBEDDED_ENTRY)
       )
-    ].filter(action => action);
+    ]);
+    return actions.filter(action => action);
+  };
 
-  createAssetActions = actionBuilder =>
-    [
+  createAssetActions = async actionBuilder => {
+    const actions = await Promise.all([
       actionBuilder.maybeBuildEmbedAction(BLOCKS.EMBEDDED_ASSET, null, () => {
         this.setState({ breadcrumb: 'Asset', isLoading: true });
         this.createCommands(null, BLOCKS.EMBEDDED_ASSET);
@@ -183,7 +185,9 @@ class CommandPalette extends React.PureComponent {
       actionBuilder.maybeBuildCreateAndEmbedAction(BLOCKS.EMBEDDED_ASSET, null, () =>
         this.onCreateAndEmbedEntity(null, BLOCKS.EMBEDDED_ASSET)
       )
-    ].filter(action => action);
+    ]);
+    return actions.filter(action => action);
+  };
 
   handleScroll = e => {
     if (e.target.nodeName !== 'UL') {
@@ -226,22 +230,25 @@ class CommandPalette extends React.PureComponent {
     }
   };
 
-  createInitialCommands = () => {
+  createInitialCommands = async () => {
     const { sdk } = this.props.richTextAPI;
+
     const allContentTypes = sdk.space.getCachedContentTypes();
+
     this.setState({
       isLoading: false
     });
-    const actionBuilder = new CommandPaletteActionBuilder(
-      sdk.field,
-      sdk.parameters.instance.permissions
-    );
+
+    const actionBuilder = new CommandPaletteActionBuilder(sdk);
+
     const contentTypeActions = flatten(
-      allContentTypes.map(ct => this.createContentTypeActions(actionBuilder, ct))
+      await Promise.all(allContentTypes.map(ct => this.createContentTypeActions(actionBuilder, ct)))
     );
 
+    const assetActions = await this.createAssetActions(actionBuilder);
+
     this.setState(prevState => ({
-      items: [...prevState.items, ...contentTypeActions, ...this.createAssetActions(actionBuilder)]
+      items: [...prevState.items, ...contentTypeActions, ...assetActions]
     }));
   };
 

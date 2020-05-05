@@ -58,9 +58,7 @@ export default class Toolbar extends React.Component {
     isDisabled: PropTypes.bool.isRequired,
     editor: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired,
-    permissions: PropTypes.shape({
-      canAccessAssets: PropTypes.bool.isRequired
-    }).isRequired
+    canAccessAssets: PropTypes.bool.isRequired
   };
 
   state = {
@@ -89,7 +87,7 @@ export default class Toolbar extends React.Component {
     const inlineEntryEmbedEnabled = isNodeTypeEnabled(field, INLINES.EMBEDDED_ENTRY);
     const blockEntryEmbedEnabled = isNodeTypeEnabled(field, BLOCKS.EMBEDDED_ENTRY);
     const blockAssetEmbedEnabled =
-      this.props.permissions.canAccessAssets && isNodeTypeEnabled(field, BLOCKS.EMBEDDED_ASSET);
+      this.props.canAccessAssets && isNodeTypeEnabled(field, BLOCKS.EMBEDDED_ASSET);
 
     const numEnabledEmbeds = [
       inlineEntryEmbedEnabled,
