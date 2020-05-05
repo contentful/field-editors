@@ -106,7 +106,11 @@ const styles = {
   listContainer: css({
     paddingLeft: '0px'
   }),
-  formLabel: css({ marginTop: tokens.spacingM })
+  formLabel: css({ marginTop: tokens.spacingM }),
+
+  fieldGroupConfigurationTextLink: css({
+    marginRight: tokens.spacingS
+  })
 };
 
 export default styles;

@@ -196,6 +196,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
       />
       <div>
         <TextLink
+    className={styles.fieldGroupConfigurationTextLink}
           linkType="negative"
           icon="Close"
           onClick={() => dispatch({ type: ActionTypes.DELETE_FIELD_GROUP, groupId })}>
@@ -203,6 +204,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
         </TextLink>
         {!last ? (
           <TextLink
+    className={styles.fieldGroupConfigurationTextLink}
             icon="ChevronDown"
             onClick={() => dispatch({ type: ActionTypes.MOVE_FIELD_GROUP_DOWN, groupId })}>
             Move down
@@ -210,6 +212,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
         ) : null}
         {!first ? (
           <TextLink
+    className={styles.fieldGroupConfigurationTextLink}
             icon="ChevronUp"
             onClick={() => dispatch({ type: ActionTypes.MOVE_FIELD_GROUP_UP, groupId })}>
             Move up
