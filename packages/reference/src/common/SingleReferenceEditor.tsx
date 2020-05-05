@@ -12,12 +12,45 @@ type ChildProps = {
   allContentTypes: ContentType[];
 };
 
-class Editor extends React.Component<
-  ReferenceEditorProps &
-    ChildProps & {
-      children: (props: ReferenceEditorProps & ChildProps) => React.ReactElement;
+type EditorProps = ReferenceEditorProps &
+  ChildProps & {
+    children: (props: ReferenceEditorProps & ChildProps) => React.ReactElement;
+  };
+
+type EditorState = {
+  canCreateEntity: boolean;
+};
+
+class Editor extends React.Component<EditorProps, EditorState> {
+  constructor(props: EditorProps) {
+    super(props);
+    this.state = {
+      canCreateEntity: true
+    };
+  }
+
+  componentDidMount() {
+    if (this.props.entityType === 'Asset') {
+      this.props.sdk.access.can('create', 'Asset').then(value => {
+        this.setState({ canCreateEntity: value });
+      });
     }
-> {
+  }
+
+  canCreateEntity = () => {
+    if (this.props.parameters.instance.canCreateEntity === false) {
+      return false;
+    }
+    return this.state.canCreateEntity;
+  };
+
+  canLinkEntity = () => {
+    if (this.props.parameters.instance.canLinkEntity !== undefined) {
+      return this.props.parameters.instance.canLinkEntity;
+    }
+    return true;
+  };
+
   onCreate = (id: string) => {
     this.props.setValue({
       sys: {
@@ -50,8 +83,8 @@ class Editor extends React.Component<
           sdk={this.props.sdk}
           isDisabled={this.props.isDisabled}
           multiple={false}
-          canCreateEntity={this.props.parameters.instance.canCreateEntity ?? true}
-          canLinkEntity={this.props.parameters.instance.canLinkEntity ?? true}
+          canCreateEntity={this.canCreateEntity()}
+          canLinkEntity={this.canLinkEntity()}
           onCreate={this.onCreate}
           onLink={this.onLink}
           onAction={this.props.onAction}
