@@ -67,6 +67,14 @@ import publishedAsset from '../__fixtures__/published_asset.json';
           return Promise.resolve({});
         },
         onSlideInNavigation: () => () => {}
+      },
+      access: {
+        can: (access, entityType) => {
+          if (access === 'create' && entityType === 'Asset') {
+            return Promise.resolve(true);
+          }
+          return Promise.resolve(false);
+        }
       }
     };
     return (
