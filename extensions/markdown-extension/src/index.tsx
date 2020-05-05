@@ -19,17 +19,7 @@ interface AppProps {
 
 export class App extends React.Component<AppProps> {
   render = () => {
-    return (
-      <MarkdownEditor
-        isInitiallyDisabled={false}
-        parameters={{
-          instance: {
-            canUploadAssets: true
-          }
-        }}
-        sdk={this.props.sdk}
-      />
-    );
+    return <MarkdownEditor isInitiallyDisabled={false} sdk={this.props.sdk} />;
   };
 }
 

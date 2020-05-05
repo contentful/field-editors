@@ -299,10 +299,9 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
 
         fieldSdk.field = extendedField;
 
-        const parameters = { instance: { canUploadAssets: false } };
         return (
           <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
-            <MarkdownEditor sdk={fieldSdk} parameters={parameters} isInitiallyDisabled={false} />
+            <MarkdownEditor sdk={fieldSdk} isInitiallyDisabled={false} />
           </FieldWrapper>
         );
       }
