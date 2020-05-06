@@ -29,7 +29,7 @@
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15",
-    "react-codemirror2": "6.0.0"
+    "react-codemirror2": "7.1.0"
   },
   "devDependencies": {
     "@contentful/field-editor-test-utils": "^0.6.1"
