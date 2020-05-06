@@ -3702,10 +3702,10 @@
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.2.tgz#690a1475b84f2a884fd07cd797c00f5f31356ea8"
   integrity sha512-ce5d3q03Ex0sy4R14722Rmt6MT07Ua+k4FwDfdcToYJcMKNtRVQvJ6JCAPdAmAnbRb6CsX6aYb9m96NGod9uTw==
 
-"@types/react-codemirror@1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@types/react-codemirror/-/react-codemirror-1.0.2.tgz#f70f6283e873e7e9c0cb551e85aa84968610c246"
-  integrity sha512-59UY5C5EVaFq/f+p1mkgLpNQELehdCNGTiLuFYacjptTzDDSyMKF4Zrs1z2WJWQSh53vIeuS8i2JrPFyfHjxBw==
+"@types/react-codemirror@1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@types/react-codemirror/-/react-codemirror-1.0.3.tgz#5b0e4d5529a6bc934e992c49f3d1fa77daacc59b"
+  integrity sha512-EAyys2Wpys7bJatgnfpXXs4Gi1Vktj23mNngG4Ex2Q0W6eVgfkP4GP7qHyDVU2wbW3T0K7Jqatf2dCob25ptMw==
   dependencies:
     "@types/codemirror" "*"
     "@types/react" "*"
