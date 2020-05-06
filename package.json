@@ -55,7 +55,7 @@
     "@types/jest": "^24.0.19",
     "@types/lodash": "4.14.144",
     "@types/lodash-es": "4.17.3",
-    "@types/react": "16.9.23",
+    "@types/react": "16.9.34",
     "@types/react-dom": "16.9.7",
     "@types/testing-library__cypress": "5.0.5",
     "@types/webpack-env": "1.15.2",
@@ -100,7 +100,7 @@
     "@contentful/forma-36-react-components": "3.36.1",
     "@contentful/forma-36-tokens": "0.5.2",
     "typescript": "3.7.3",
-    "@types/react": "16.9.23",
+    "@types/react": "16.9.34",
     "react": "16.10.2",
     "react-dom": "16.10.2",
     "cypress": "4.1.0"
