@@ -34,7 +34,7 @@
     "@productboard/slate-edit-list": "^0.19.1",
     "@wikifactory/slate-trailing-block": "^0.6.0",
     "classnames": "^2.2.6",
-    "detect-browser": "^3.0.1",
+    "detect-browser": "^5.1.0",
     "emotion": "10.0.17",
     "fast-deep-equal": "^2.0.1",
     "immutable": "^3.8.2",
