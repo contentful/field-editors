@@ -110,6 +110,13 @@ const styles = {
 
   fieldGroupConfigurationTextLink: css({
     marginRight: tokens.spacingS
+  }),
+
+  errorList: css({ listStyle: 'none', paddingLeft: '0' }),
+
+  error: css({
+    color: tokens.colorRedBase,
+    fontSize: tokens.fontSizeM
   })
 };
 
