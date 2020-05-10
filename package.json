@@ -47,7 +47,7 @@
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
     "@contentful/contentful-extension-scripts": "^0.16.0",
-    "@contentful/eslint-config-extension": "0.2.0",
+    "@contentful/eslint-config-extension": "0.3.1",
     "@contentful/forma-36-fcss": "^0.0.35",
     "@contentful/forma-36-react-components": "^3.36.1",
     "@contentful/forma-36-tokens": "^0.5.2",
