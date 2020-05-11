@@ -7179,7 +7179,7 @@ contentful-sdk-core@^6.4.0:
     lodash "^4.17.10"
     qs "^6.5.2"
 
-contentful-ui-extensions-sdk@3.14.1, contentful-ui-extensions-sdk@^3.14.1:
+contentful-ui-extensions-sdk@^3.14.1:
   version "3.14.1"
   resolved "https://registry.yarnpkg.com/contentful-ui-extensions-sdk/-/contentful-ui-extensions-sdk-3.14.1.tgz#3b5f6660054d809731745dab7bb8478ab0f7a3b0"
   integrity sha512-XaNMRkRNMgQ1RJI6vUfUivREm7/X9UWUSLsjKsHmc6s7HWQjFSggeC04eJevTqOF+O1fHd+pp0Ef4aOEDh3VTA==
