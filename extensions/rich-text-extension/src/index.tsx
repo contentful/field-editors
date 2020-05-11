@@ -6,33 +6,12 @@ import '@contentful/forma-36-fcss/dist/styles.css';
 import './index.css';
 import { RichTextEditor, renderRichTextDialog } from '../../../packages/rich-text/src/index';
 
-interface AppProps {
-  sdk: FieldExtensionSDK;
-}
-
-export class App extends React.Component<AppProps> {
-  render = () => {
-    const sdk = Object.assign(this.props.sdk, {
-      parameters: {
-        instance: {
-          permissions: {
-            canAccessAssets: true,
-            canCreateAssets: true,
-            canCreateEntryOfContentType: () => true
-          }
-        }
-      }
-    });
-    return <RichTextEditor sdk={sdk} />;
-  };
-}
-
 init((sdk: FieldExtensionSDK) => {
   sdk.window.startAutoResizer();
   if (sdk.location.is(locations.LOCATION_DIALOG)) {
     render(renderRichTextDialog(sdk), document.getElementById('root'));
   } else {
-    render(<App sdk={sdk} />, document.getElementById('root'));
+    render(<RichTextEditor sdk={sdk} />, document.getElementById('root'));
   }
 });
 

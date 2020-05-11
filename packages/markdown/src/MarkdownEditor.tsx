@@ -29,14 +29,7 @@ export interface MarkdownEditorProps {
   isInitiallyDisabled: boolean;
 
   sdk: FieldExtensionSDK;
-  /**
-   * sdk.parameters
-   */
-  parameters: {
-    instance: {
-      canUploadAssets: boolean;
-    };
-  };
+
   previewComponents?: PreviewComponents;
   onReady?: Function;
 }
@@ -51,6 +44,7 @@ export function MarkdownEditor(
   const [currentValue, setCurrentValue] = React.useState<string>(props.initialValue ?? '');
   const [selectedTab, setSelectedTab] = React.useState<MarkdownTab>('editor');
   const [editor, setEditor] = React.useState<InitializedEditorType | null>(null);
+  const [canUploadAssets, setCanUploadAssets] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     if (editor && props.onReady) {
@@ -61,6 +55,12 @@ export function MarkdownEditor(
       }, 1);
     }
   }, [editor]);
+
+  React.useEffect(() => {
+    props.sdk.access.can('create', 'Asset').then(value => {
+      setCanUploadAssets(value);
+    });
+  }, []);
 
   React.useEffect(() => {
     if (editor) {
@@ -91,7 +91,7 @@ export function MarkdownEditor(
       <MarkdownToolbar
         mode="default"
         disabled={isActionDisabled}
-        canUploadAssets={props.parameters.instance.canUploadAssets}
+        canUploadAssets={canUploadAssets}
         actions={actions}
       />
       <MarkdownTextarea

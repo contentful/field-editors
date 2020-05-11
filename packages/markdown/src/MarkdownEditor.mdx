@@ -56,12 +56,13 @@ import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-
         updateHeight: () => {},
         startAutoResizer: () => {}
       },
-      parameters: {
-        instance: {
-          canUploadAssets: true
-        },
-        invocation: {},
-        installation: {}
+      access: {
+        can: (access, entity) => {
+          if (access === 'create' && entity === 'Asset') {
+            return Promise.resolve(true)
+          }
+          return Promise.resolve(false)
+        }
       }
     };
 
