@@ -121,17 +121,6 @@ describe('Location Editor', () => {
     ]);
   });
 
-  it('should show validation error if address does not exist', () => {
-    selectors.getSearchInput().type('something that clearly does not exist');
-    cy.wait(500);
-    selectors
-      .getValidationError()
-      .should(
-        'have.text',
-        'No results found for something that clearly does not exist. Please make sure that address is spelled correctly.'
-      );
-  });
-
   it('should disable all elements if isDisabled is true', () => {
     cy.setInitialDisabled(true);
     cy.reload();
