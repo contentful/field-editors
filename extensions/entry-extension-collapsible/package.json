@@ -1,6 +1,6 @@
 {
   "name": "entry-extension-collapsible",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "private": true,
   "devDependencies": {
     "@babel/core": "7.3.4",
@@ -29,7 +29,7 @@
     "help": "contentful-extension-scripts help"
   },
   "dependencies": {
-    "@contentful/field-editor-shared": "^0.10.1",
+    "@contentful/field-editor-shared": "^0.10.2",
     "@contentful/forma-36-fcss": "^0.0.35",
     "@contentful/forma-36-react-components": "^3.36.1",
     "@contentful/forma-36-tokens": "^0.5.2",
