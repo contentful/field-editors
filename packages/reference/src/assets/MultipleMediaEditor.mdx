@@ -80,11 +80,11 @@ import changedAsset from '../__fixtures__/changed_asset.json';
         onSlideInNavigation: () => () => {}
       },
       access: {
-        can: async (access, entityType) => {
+        can: (access, entityType) => {
           if (access === 'create' && entityType === 'Asset') {
-            return true;
+            return Promise.resolve(true);
           }
-          return false;
+          return Promise.resolve(false);
         }
       }
     };

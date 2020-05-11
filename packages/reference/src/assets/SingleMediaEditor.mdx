@@ -71,9 +71,9 @@ import publishedAsset from '../__fixtures__/published_asset.json';
       access: {
         can: async (access, entityType) => {
           if (access === 'create' && entityType === 'Asset') {
-            return true;
+            return Promise.resolve(true);
           }
-          return false;
+          return Promise.resolve(false);
         }
       }
     };
