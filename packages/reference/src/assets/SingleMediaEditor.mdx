@@ -69,7 +69,7 @@ import publishedAsset from '../__fixtures__/published_asset.json';
         onSlideInNavigation: () => () => {}
       },
       access: {
-        can: async (access, entityType) => {
+        can: (access, entityType) => {
           if (access === 'create' && entityType === 'Asset') {
             return Promise.resolve(true);
           }
