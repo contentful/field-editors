@@ -44,7 +44,7 @@ export function MarkdownEditor(
   const [currentValue, setCurrentValue] = React.useState<string>(props.initialValue ?? '');
   const [selectedTab, setSelectedTab] = React.useState<MarkdownTab>('editor');
   const [editor, setEditor] = React.useState<InitializedEditorType | null>(null);
-  const [canUploadAssets, canUploadAssetsSet] = React.useState<boolean>(false);
+  const [canUploadAssets, setCanUploadAssets] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     if (editor && props.onReady) {
@@ -58,7 +58,7 @@ export function MarkdownEditor(
 
   React.useEffect(() => {
     props.sdk.access.can('create', 'Asset').then(value => {
-      canUploadAssetsSet(value);
+      setCanUploadAssets(value);
     });
   }, []);
 

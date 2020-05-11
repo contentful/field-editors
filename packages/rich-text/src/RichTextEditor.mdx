@@ -74,16 +74,16 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
         selectSingleEntry: newEntitySelectorDummyDialog('selectSingleEntry', 'Entry')
       },
       access: {
-        can: (access, entityType) => {
+        can: async (access, entityType) => {
           if (entityType === 'Asset') {
             if (access === 'create') {
-              return Promise.resolve(false);
+              return false;
             }
             if (access === 'read') {
-              return Promise.resolve(true);
+              return true;
             }
           }
-          return Promise.resolve(false);
+          return false;
         }
       }
     };
