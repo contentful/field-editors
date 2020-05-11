@@ -19,16 +19,16 @@ const fakeProps = props => ({
       locale: 'FIELD_LOCALE'
     },
     access: {
-      can: (access, entityType) => {
+      can: async (access, entityType) => {
         if (entityType === 'Asset') {
           if (access === 'create') {
-            return Promise.resolve(true);
+            return true;
           }
           if (access === 'read') {
-            return Promise.resolve(true);
+            return true;
           }
         }
-        return Promise.resolve(false);
+        return false;
       }
     }
   },
