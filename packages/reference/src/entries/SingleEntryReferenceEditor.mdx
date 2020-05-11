@@ -96,3 +96,20 @@ import publishedEntry from '../__fixtures__/published_entry.json';
 ## Props
 
 <Props of={SingleEntryReferenceEditor} />
+
+
+## As field extension
+
+```js
+import { SingleEntryReferenceEditor } from '@contentful/field-editor-reference';
+
+/// your extension code
+init(sdk => {
+  if (sdk.location.is(locations.LOCATION_ENTRY_FIELD)) {
+    render(
+      <SingleEntryReferenceEditor viewType="card" sdk={sdk} />,
+      document.getElementById('root')
+    );
+  }
+});
+```

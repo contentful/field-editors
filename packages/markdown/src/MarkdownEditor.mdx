@@ -85,3 +85,19 @@ import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-
 ## Props
 
 <Props of={MarkdownEditor} />
+
+## As field extension
+
+```js
+import 'codemirror/lib/codemirror.css';
+import { MarkdownEditor, renderMarkdownDialog } from '@contentful/field-editor-markdown';
+
+/// your extension code
+init(sdk => {
+  if (sdk.location.is(locations.LOCATION_DIALOG)) {
+    render(renderMarkdownDialog(sdk), document.getElementById('root'));
+  } else if (sdk.location.is(locations.LOCATION_ENTRY_FIELD)) {
+    render(<MarkdownEditor sdk={sdk} />, document.getElementById('root'));
+  }
+});
+```
