@@ -115,7 +115,14 @@ export class CommandPaletteActionBuilder {
         return false;
       }
 
-      const canCreateEntryOfContentType = await this.sdk.access.can('create', contentType);
+      const canCreateEntryOfContentType = await this.sdk.access.can('create', {
+        sys: {
+          type: 'Entry',
+          contentType: {
+            sys: contentType.sys
+          }
+        }
+      });
 
       if (canCreateEntryOfContentType === false) {
         return false;
