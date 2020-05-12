@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { HelpText } from '@contentful/forma-36-react-components';
-import { LocalesAPI } from '@contentful/field-editor-shared';
+import { LocalesAPI, FieldAPI } from '@contentful/field-editor-shared';
 import styles from './styles';
 import { SDKContext } from './shared';
 import { EntryFieldAPI } from 'contentful-ui-extensions-sdk';
@@ -51,105 +51,150 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
     switch (fieldEditorInterface.widgetId) {
       case 'multipleLine':
         return (
-          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+          <FieldWrapper
+            field={extendedField}
+            name={fieldDetails.name}
+            required={fieldDetails.required}>
             <MultipleLineEditor field={extendedField} locales={locales} />
           </FieldWrapper>
         );
 
       case 'boolean':
         return (
-          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+          <FieldWrapper
+            field={extendedField}
+            name={fieldDetails.name}
+            required={fieldDetails.required}>
             <BooleanEditor field={extendedField} />
           </FieldWrapper>
         );
 
       case 'objectEditor':
         return (
-          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+          <FieldWrapper
+            field={extendedField}
+            name={fieldDetails.name}
+            required={fieldDetails.required}>
             <JsonEditor isInitiallyDisabled={false} field={extendedField} />
           </FieldWrapper>
         );
 
       case 'datePicker':
         return (
-          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+          <FieldWrapper
+            field={extendedField}
+            name={fieldDetails.name}
+            required={fieldDetails.required}>
             <DateEditor field={extendedField} />
           </FieldWrapper>
         );
 
       case 'locationEditor':
         return (
-          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+          <FieldWrapper
+            field={extendedField}
+            name={fieldDetails.name}
+            required={fieldDetails.required}>
             <LocationEditor field={extendedField} />
           </FieldWrapper>
         );
 
       case 'checkbox':
         return (
-          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+          <FieldWrapper
+            field={extendedField}
+            name={fieldDetails.name}
+            required={fieldDetails.required}>
             <CheckboxEditor field={extendedField} locales={locales} />
           </FieldWrapper>
         );
 
       case 'listInput':
         return (
-          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+          <FieldWrapper
+            field={extendedField}
+            name={fieldDetails.name}
+            required={fieldDetails.required}>
             <ListEditor field={extendedField} locales={locales} />
           </FieldWrapper>
         );
 
       case 'rating':
         return (
-          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+          <FieldWrapper
+            field={extendedField}
+            name={fieldDetails.name}
+            required={fieldDetails.required}>
             <RatingEditor field={extendedField} />
           </FieldWrapper>
         );
 
       case 'radio':
         return (
-          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+          <FieldWrapper
+            field={extendedField}
+            name={fieldDetails.name}
+            required={fieldDetails.required}>
             <RadioEditor field={extendedField} locales={locales} />
           </FieldWrapper>
         );
 
       case 'tagEditor':
         return (
-          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+          <FieldWrapper
+            field={extendedField}
+            name={fieldDetails.name}
+            required={fieldDetails.required}>
             <TagsEditor field={extendedField} />
           </FieldWrapper>
         );
 
       case 'numberEditor':
         return (
-          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+          <FieldWrapper
+            field={extendedField}
+            name={fieldDetails.name}
+            required={fieldDetails.required}>
             <NumberEditor field={extendedField} />
           </FieldWrapper>
         );
 
       case 'urlEditor':
         return (
-          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+          <FieldWrapper
+            field={extendedField}
+            name={fieldDetails.name}
+            required={fieldDetails.required}>
             <UrlEditor field={extendedField} />
           </FieldWrapper>
         );
 
       case 'slugEditor':
         return (
-          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+          <FieldWrapper
+            field={extendedField}
+            name={fieldDetails.name}
+            required={fieldDetails.required}>
             <SlugEditor field={extendedField} baseSdk={sdk} />
           </FieldWrapper>
         );
 
       case 'singleLine':
         return (
-          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+          <FieldWrapper
+            field={extendedField}
+            name={fieldDetails.name}
+            required={fieldDetails.required}>
             <SingleLineEditor field={extendedField} locales={locales} />
           </FieldWrapper>
         );
 
       case 'dropdown':
         return (
-          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+          <FieldWrapper
+            field={extendedField}
+            name={fieldDetails.name}
+            required={fieldDetails.required}>
             <DropdownEditor field={extendedField} locales={locales} />
           </FieldWrapper>
         );
@@ -160,7 +205,10 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
         fieldSdk.field = extendedField;
 
         return (
-          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+          <FieldWrapper
+            field={extendedField}
+            name={fieldDetails.name}
+            required={fieldDetails.required}>
             <SingleEntryReferenceEditor
               parameters={{ instance: { canCreateEntity: true, canLinkEntity: true } }}
               viewType="link"
@@ -176,7 +224,10 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
         fieldSdk.field = extendedField;
 
         return (
-          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+          <FieldWrapper
+            field={extendedField}
+            name={fieldDetails.name}
+            required={fieldDetails.required}>
             <SingleEntryReferenceEditor
               parameters={{ instance: { canCreateEntity: true, canLinkEntity: true } }}
               viewType="card"
@@ -192,7 +243,10 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
         fieldSdk.field = extendedField;
 
         return (
-          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+          <FieldWrapper
+            field={extendedField}
+            name={fieldDetails.name}
+            required={fieldDetails.required}>
             <MultipleEntryReferenceEditor
               isInitiallyDisabled={false}
               parameters={{ instance: { canCreateEntity: true, canLinkEntity: true } }}
@@ -209,7 +263,10 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
         fieldSdk.field = extendedField;
 
         return (
-          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+          <FieldWrapper
+            field={extendedField}
+            name={fieldDetails.name}
+            required={fieldDetails.required}>
             <MultipleEntryReferenceEditor
               isInitiallyDisabled={false}
               parameters={{ instance: { canCreateEntity: true, canLinkEntity: true } }}
@@ -226,7 +283,10 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
         fieldSdk.field = extendedField;
 
         return (
-          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+          <FieldWrapper
+            field={extendedField}
+            name={fieldDetails.name}
+            required={fieldDetails.required}>
             <SingleMediaEditor
               parameters={{ instance: { canCreateEntity: true, canLinkEntity: true } }}
               viewType="link"
@@ -242,7 +302,10 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
         fieldSdk.field = extendedField;
 
         return (
-          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+          <FieldWrapper
+            field={extendedField}
+            name={fieldDetails.name}
+            required={fieldDetails.required}>
             <MultipleMediaEditor
               parameters={{ instance: { canCreateEntity: true, canLinkEntity: true } }}
               viewType="link"
@@ -258,7 +321,10 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
         fieldSdk.field = extendedField;
 
         return (
-          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+          <FieldWrapper
+            field={extendedField}
+            name={fieldDetails.name}
+            required={fieldDetails.required}>
             <MultipleMediaEditor
               parameters={{ instance: { canCreateEntity: true, canLinkEntity: true } }}
               viewType="card"
@@ -273,7 +339,10 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
         fieldSdk.field = extendedField;
 
         return (
-          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+          <FieldWrapper
+            field={extendedField}
+            name={fieldDetails.name}
+            required={fieldDetails.required}>
             <RichTextEditor sdk={sdk} />
           </FieldWrapper>
         );
@@ -284,7 +353,10 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
         fieldSdk.field = extendedField;
 
         return (
-          <FieldWrapper name={fieldDetails.name} required={fieldDetails.required}>
+          <FieldWrapper
+            field={extendedField}
+            name={fieldDetails.name}
+            required={fieldDetails.required}>
             <MarkdownEditor sdk={fieldSdk} isInitiallyDisabled={false} />
           </FieldWrapper>
         );
@@ -292,10 +364,10 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
 
       default:
         return (
-          <FieldWrapper name={fieldDetails.name} required={false}>
+          <div>
             widget for {fieldDetails.name} of type {fieldEditorInterface.widgetId} was not
             implemented yet
-          </FieldWrapper>
+          </div>
         );
     }
   } else {
@@ -307,19 +379,40 @@ interface FieldWrapperProps {
   children: React.ReactNode;
   name: string;
   required: boolean;
+  field: FieldAPI;
 }
 const FieldWrapper: React.FC<FieldWrapperProps> = function({
   children,
   name,
-  required
+  required,
+  field
 }: FieldWrapperProps) {
+  const [errors, setErrors] = React.useState<{ message: string; path: string[] }[]>([]);
+  React.useEffect(() => {
+    field.onSchemaErrorsChanged((newErrors: { message: string; path: string[] }[]) => {
+      if (Array.isArray(newErrors)) {
+        setErrors(newErrors);
+      } else {
+        setErrors([]);
+      }
+    });
+  }, [field, setErrors]);
   return (
     <div className={styles.fieldWrapper}>
       <HelpText>
         {name}
         {required ? ' (required)' : ''}
       </HelpText>
+
       {children}
+
+      <ul className={styles.errorList}>
+        {errors.map(error => (
+          <li key={error.path.join('')} className={styles.error}>
+            {error.message}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
