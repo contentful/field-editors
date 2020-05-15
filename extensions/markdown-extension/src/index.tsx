@@ -1,11 +1,6 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import {
-  init,
-  locations,
-  FieldExtensionSDK,
-  DialogExtensionSDK
-} from 'contentful-ui-extensions-sdk';
+import { init, locations, FieldExtensionSDK } from 'contentful-ui-extensions-sdk';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import '@contentful/forma-36-fcss/dist/styles.css';
 import './index.css';
@@ -26,8 +21,7 @@ export class App extends React.Component<AppProps> {
 init((sdk: FieldExtensionSDK) => {
   sdk.window.startAutoResizer();
   if (sdk.location.is(locations.LOCATION_DIALOG)) {
-    const dialogSdk = sdk as DialogExtensionSDK;
-    render(renderMarkdownDialog(dialogSdk as any), document.getElementById('root'));
+    render(renderMarkdownDialog(sdk as any), document.getElementById('root'));
   } else {
     render(<App sdk={sdk as FieldExtensionSDK} />, document.getElementById('root'));
   }
