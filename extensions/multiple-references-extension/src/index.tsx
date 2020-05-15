@@ -18,8 +18,8 @@ init<FieldExtensionSDK>(sdk => {
         isInitiallyDisabled={true}
         parameters={{
           instance: {
-            canCreateEntity: true,
-            canLinkEntity: true
+            showCreateEntityAction: true,
+            showLinkEntityAction: true
           }
         }}
       />

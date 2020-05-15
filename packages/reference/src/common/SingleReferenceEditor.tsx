@@ -38,15 +38,15 @@ class Editor extends React.Component<EditorProps, EditorState> {
   }
 
   canCreateEntity = () => {
-    if (this.props.parameters.instance.canCreateEntity === false) {
+    if (this.props.parameters.instance.showCreateEntityAction === false) {
       return false;
     }
     return this.state.canCreateEntity;
   };
 
   canLinkEntity = () => {
-    if (this.props.parameters.instance.canLinkEntity !== undefined) {
-      return this.props.parameters.instance.canLinkEntity;
+    if (this.props.parameters.instance.showLinkEntityAction !== undefined) {
+      return this.props.parameters.instance.showLinkEntityAction;
     }
     return true;
   };

@@ -210,7 +210,9 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
             name={fieldDetails.name}
             required={fieldDetails.required}>
             <SingleEntryReferenceEditor
-              parameters={{ instance: { canCreateEntity: true, canLinkEntity: true } }}
+              parameters={{
+                instance: { showCreateEntityAction: true, showLinkEntityAction: true }
+              }}
               viewType="link"
               sdk={fieldSdk}
             />
@@ -229,7 +231,9 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
             name={fieldDetails.name}
             required={fieldDetails.required}>
             <SingleEntryReferenceEditor
-              parameters={{ instance: { canCreateEntity: true, canLinkEntity: true } }}
+              parameters={{
+                instance: { showCreateEntityAction: true, showLinkEntityAction: true }
+              }}
               viewType="card"
               sdk={fieldSdk}
             />
@@ -249,7 +253,9 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
             required={fieldDetails.required}>
             <MultipleEntryReferenceEditor
               isInitiallyDisabled={false}
-              parameters={{ instance: { canCreateEntity: true, canLinkEntity: true } }}
+              parameters={{
+                instance: { showCreateEntityAction: true, showLinkEntityAction: true }
+              }}
               viewType="link"
               sdk={fieldSdk}
             />
@@ -269,7 +275,9 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
             required={fieldDetails.required}>
             <MultipleEntryReferenceEditor
               isInitiallyDisabled={false}
-              parameters={{ instance: { canCreateEntity: true, canLinkEntity: true } }}
+              parameters={{
+                instance: { showCreateEntityAction: true, showLinkEntityAction: true }
+              }}
               viewType="card"
               sdk={fieldSdk}
             />
@@ -288,7 +296,9 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
             name={fieldDetails.name}
             required={fieldDetails.required}>
             <SingleMediaEditor
-              parameters={{ instance: { canCreateEntity: true, canLinkEntity: true } }}
+              parameters={{
+                instance: { showCreateEntityAction: true, showLinkEntityAction: true }
+              }}
               viewType="link"
               sdk={fieldSdk}
             />
@@ -307,7 +317,9 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
             name={fieldDetails.name}
             required={fieldDetails.required}>
             <MultipleMediaEditor
-              parameters={{ instance: { canCreateEntity: true, canLinkEntity: true } }}
+              parameters={{
+                instance: { showCreateEntityAction: true, showLinkEntityAction: true }
+              }}
               viewType="link"
               sdk={fieldSdk}
             />
@@ -326,7 +338,9 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
             name={fieldDetails.name}
             required={fieldDetails.required}>
             <MultipleMediaEditor
-              parameters={{ instance: { canCreateEntity: true, canLinkEntity: true } }}
+              parameters={{
+                instance: { showCreateEntityAction: true, showLinkEntityAction: true }
+              }}
               viewType="card"
               sdk={fieldSdk}
             />
