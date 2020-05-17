@@ -87,7 +87,7 @@
     "remark-validate-links": "^10.0.0",
     "start-server-and-test": "^1.11.0",
     "tsdx": "^0.12.3",
-    "tslib": "^1.11.2",
+    "tslib": "^2.0.0",
     "typescript": "3.8.3",
     "webpack": "4.43.0",
     "ts-loader": "7.0.3",
