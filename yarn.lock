@@ -3781,17 +3781,10 @@
   resolved "https://registry.yarnpkg.com/@types/chai/-/chai-4.2.7.tgz#1c8c25cbf6e59ffa7d6b9652c78e547d9a41692d"
   integrity sha512-luq8meHGYwvky0O7u0eQZdA7B4Wd9owUCqvbw2m3XCrCU8mplYOujMBbvyS547AxJkC+pGnd0Cm15eNxEUNU8g==
 
-"@types/codemirror@*":
-  version "0.0.86"
-  resolved "https://registry.yarnpkg.com/@types/codemirror/-/codemirror-0.0.86.tgz#f6972d60e57024f7d787839a72cec8bdcb98edbb"
-  integrity sha512-BKUn2ojSwB0VMUzIOglC3Ka1+AjZDciak4h0CX1rpnzZ/ceawx0X0RyLMDLVfoeaDABmnYp9SfKY3go0RJKBvQ==
-  dependencies:
-    "@types/tern" "*"
-
-"@types/codemirror@0.0.81":
-  version "0.0.81"
-  resolved "https://registry.yarnpkg.com/@types/codemirror/-/codemirror-0.0.81.tgz#3cea2c1006406973d4aad212e617638cbfc2965b"
-  integrity sha512-QoeIb9tn/TZp0IzNyMKlcwHR6pHxNoIW9mKqF7asAsj+AWqpFOEUsxia756L6WKBQNk2psHpu+aFuIFqo3Ac0A==
+"@types/codemirror@*", "@types/codemirror@0.0.93":
+  version "0.0.93"
+  resolved "https://registry.yarnpkg.com/@types/codemirror/-/codemirror-0.0.93.tgz#74ce5e1132325cb2c88a9bb91fd819294fe0c8ed"
+  integrity sha512-7F2ksY4U5amV/bIkMTev0n22RWcFO2BBuFuFYmAJIT19gr3kDElr1phgjPsNKV/Pj301bujnMjSy5GlWla+cow==
   dependencies:
     "@types/tern" "*"
 
