@@ -3,7 +3,7 @@ import {
   Button,
   Dropdown,
   DropdownList,
-  DropdownListItem
+  DropdownListItem,
 } from '@contentful/forma-36-react-components';
 
 interface InsertLinkSelectorProps {

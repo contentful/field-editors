@@ -2,7 +2,7 @@ import React from 'react';
 import {
   FieldExtensionSDK,
   DialogExtensionSDK,
-  OpenCustomWidgetOptions
+  OpenCustomWidgetOptions,
 } from 'contentful-ui-extensions-sdk';
 import { ModalDialogLauncher } from '@contentful/field-editor-shared';
 import { MarkdownDialogsParams, PreviewComponents } from '../types';
@@ -15,7 +15,7 @@ import { InsertTableModal, InsertTableModalResult } from './InsertTableModalDial
 import { ConfirmInsertAssetModalDialog } from './ConfirmInsertAssetModalDialog';
 import {
   EmbedExternalContentModal,
-  EmbedExternalContentModalResult
+  EmbedExternalContentModalResult,
 } from './EmdebExternalContentDialog';
 import { ZenModeModalDialog, ZenModeResult } from './ZenModeModalDialog';
 
@@ -63,7 +63,7 @@ export const openMarkdownDialog = (
     return ModalDialogLauncher.openDialog<ZenModeResult>(options, ({ onClose }) => {
       return (
         <ZenModeModalDialog
-          saveValueToSDK={value => {
+          saveValueToSDK={(value) => {
             if (value) {
               return sdk?.field?.setValue(value);
             }

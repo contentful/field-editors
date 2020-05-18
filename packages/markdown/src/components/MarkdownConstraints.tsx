@@ -10,8 +10,8 @@ const styles = {
     justifyContent: 'space-between',
     fontSize: tokens.fontSizeM,
     marginTop: tokens.spacingXs,
-    color: tokens.colorTextMid
-  })
+    color: tokens.colorTextMid,
+  }),
 };
 
 export function MarkdownConstraints(props: { sdk: FieldExtensionSDK; value: string }) {

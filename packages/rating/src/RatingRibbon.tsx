@@ -15,7 +15,7 @@ type RatingRibbonState = {
 
 export class RatingRibbon extends React.Component<RatingRibbonProps, RatingRibbonState> {
   state = {
-    hovered: null
+    hovered: null,
   };
 
   isSelected = (num: number) => {
@@ -51,7 +51,7 @@ export class RatingRibbon extends React.Component<RatingRibbonProps, RatingRibbo
 
     return (
       <>
-        {items.map(num => (
+        {items.map((num) => (
           <IconButton
             data-selected={this.isSelected(num) ? 'true' : 'false'}
             testId="rating-editor-star"

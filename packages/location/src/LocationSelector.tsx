@@ -5,7 +5,7 @@ import {
   RadioButtonField,
   FieldGroup,
   TextInput,
-  TextLink
+  TextLink,
 } from '@contentful/forma-36-react-components';
 import { LocationSearchInput } from './LocationSearchInput';
 
@@ -26,14 +26,14 @@ const styles = {
     display: 'flex',
     flexDirection: 'row',
     marginTop: tokens.spacingS,
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
   }),
   main: css({
-    flexGrow: 1
+    flexGrow: 1,
   }),
   secondary: css({
     minWidth: '70px',
-    textAlign: 'right'
+    textAlign: 'right',
   }),
   inputsRow: css({
     display: 'flex',
@@ -41,14 +41,14 @@ const styles = {
     fontSize: tokens.fontSizeM,
     color: tokens.colorTextDark,
     fontFamily: tokens.fontStackPrimary,
-    alignItems: 'center'
+    alignItems: 'center',
   }),
   splitter: css({
-    width: tokens.spacingL
+    width: tokens.spacingL,
   }),
   clearBtn: css({
-    marginBottom: tokens.spacingS
-  })
+    marginBottom: tokens.spacingS,
+  }),
 };
 
 export function LocationSelector(props: LocationSelectorProps) {
@@ -66,7 +66,7 @@ export function LocationSelector(props: LocationSelectorProps) {
               props.onChangeView(ViewType.Address);
             }}
             inputProps={{
-              testId: 'location-editor-address-radio'
+              testId: 'location-editor-address-radio',
             }}
             checked={props.view === ViewType.Address}
           />
@@ -80,7 +80,7 @@ export function LocationSelector(props: LocationSelectorProps) {
               props.onChangeView(ViewType.Coordinates);
             }}
             inputProps={{
-              testId: 'location-editor-coordinates-radio'
+              testId: 'location-editor-coordinates-radio',
             }}
             checked={props.view === ViewType.Coordinates}
           />
@@ -106,10 +106,10 @@ export function LocationSelector(props: LocationSelectorProps) {
               placeholder="Between -90 and 90"
               disabled={props.disabled}
               value={props.value ? String(props.value.lat) : ''}
-              onChange={e => {
+              onChange={(e) => {
                 props.onChangeLocation({
                   lng: props.value && props.value.lng !== undefined ? props.value.lng : 0,
-                  lat: Number(e.target.value) || 0
+                  lat: Number(e.target.value) || 0,
                 });
               }}
               type="number"
@@ -126,10 +126,10 @@ export function LocationSelector(props: LocationSelectorProps) {
               placeholder="Between -180 and 180"
               disabled={props.disabled}
               value={props.value ? String(props.value.lng) : ''}
-              onChange={e => {
+              onChange={(e) => {
                 props.onChangeLocation({
                   lat: props.value && props.value.lat !== undefined ? props.value.lat : 0,
-                  lng: Number(e.target.value) || 0
+                  lng: Number(e.target.value) || 0,
                 });
               }}
               type="number"

@@ -13,7 +13,7 @@ export const ScheduledIconWithTooltip = ({
   entityType,
   entityId,
   getEntityScheduledActions,
-  children
+  children,
 }: ScheduledIconWithTooltipProps) => {
   const [status, setStatus] = React.useState<
     | { type: 'loading' }
@@ -23,10 +23,10 @@ export const ScheduledIconWithTooltip = ({
 
   React.useEffect(() => {
     getEntityScheduledActions(entityType, entityId)
-      .then(data => {
+      .then((data) => {
         setStatus({ type: 'loaded', jobs: data });
       })
-      .catch(e => {
+      .catch((e) => {
         setStatus({ type: 'error', error: e });
       });
   }, []);

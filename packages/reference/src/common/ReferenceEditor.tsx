@@ -48,5 +48,5 @@ export function ReferenceEditor<T>(
 }
 
 ReferenceEditor.defaultProps = {
-  isInitiallyDisabled: true
+  isInitiallyDisabled: true,
 };

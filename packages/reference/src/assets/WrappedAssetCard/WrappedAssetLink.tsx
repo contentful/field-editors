@@ -36,7 +36,7 @@ export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
     asset: props.asset,
     localeCode: props.localeCode,
     defaultLocaleCode: props.defaultLocaleCode,
-    defaultTitle: 'Untitled'
+    defaultTitle: 'Untitled',
   });
 
   const entityFile = props.asset.fields.file

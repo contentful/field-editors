@@ -11,7 +11,7 @@ import {
   RadioButtonField,
   CheckboxField,
   Button,
-  Form
+  Form,
 } from '@contentful/forma-36-react-components';
 import { isValidUrl } from '../utils/isValidUrl';
 
@@ -19,22 +19,22 @@ const styles = {
   widthFiledGroup: css({
     display: 'flex',
     flexWrap: 'nowrap',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
   }),
   radioButtonGroup: css({
     display: 'inline-flex',
     alignItems: 'flex-start',
-    paddingTop: tokens.spacingXl
+    paddingTop: tokens.spacingXl,
   }),
   radioButton: css({
-    marginLeft: tokens.spacingM
+    marginLeft: tokens.spacingM,
   }),
   controlsContainer: css({
     display: 'flex',
     button: {
-      marginRight: tokens.spacingM
-    }
-  })
+      marginRight: tokens.spacingM,
+    },
+  }),
 };
 
 export type EmbedExternalContentModalResult = string | false | undefined;
@@ -49,7 +49,7 @@ const makeEmbedlyLink = ({
   url,
   width,
   selectedUnit,
-  attachSocial
+  attachSocial,
 }: {
   url: string;
   width: number;
@@ -61,7 +61,7 @@ const makeEmbedlyLink = ({
     '<a href="' + url + '" class="embedly-card" ',
     'data-card-width="' + width + s[selectedUnit] + '" ',
     'data-card-controls="' + (attachSocial ? '1' : '0') + '"',
-    '>Embedded content: ' + url + '</a>'
+    '>Embedded content: ' + url + '</a>',
   ].join('');
 };
 
@@ -98,7 +98,7 @@ export const EmbedExternalContentModal = ({ onClose }: EmbedExternalContentModal
           textInputProps={{
             testId: 'external-link-url-field',
             placeholder: 'https://example.com',
-            inputRef: mainInputRef
+            inputRef: mainInputRef,
           }}
           required
           validationMessage={urlIsValid ? '' : 'URL is invalid'}
@@ -116,7 +116,7 @@ export const EmbedExternalContentModal = ({ onClose }: EmbedExternalContentModal
             textInputProps={{
               testId: 'embedded-content-width',
               type: 'number',
-              width: 'small'
+              width: 'small',
             }}
             required
             validationMessage={
@@ -193,7 +193,7 @@ export const openEmbedExternalContentDialog = (
     shouldCloseOnEscapePress: true,
     shouldCloseOnOverlayClick: true,
     parameters: {
-      type: MarkdownDialogType.embedExternalContent
-    } as MarkdownDialogsParams
+      type: MarkdownDialogType.embedExternalContent,
+    } as MarkdownDialogsParams,
   });
 };

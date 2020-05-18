@@ -4,7 +4,7 @@ import {
   FieldAPI,
   FieldConnector,
   PredefinedValuesError,
-  LocalesAPI
+  LocalesAPI,
 } from '@contentful/field-editor-shared';
 import { getOptions, parseValue } from '@contentful/field-editor-dropdown';
 import { Form, RadioButtonField, TextLink } from '@contentful/forma-36-react-components';
@@ -91,5 +91,5 @@ export function RadioEditor(props: RadioEditorProps) {
 }
 
 RadioEditor.defaultProps = {
-  isInitiallyDisabled: true
+  isInitiallyDisabled: true,
 };

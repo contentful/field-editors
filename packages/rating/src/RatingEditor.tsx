@@ -31,11 +31,11 @@ const styles = {
   root: css({
     marginTop: tokens.spacingS,
     display: 'flex',
-    flexDirection: 'row'
+    flexDirection: 'row',
   }),
   clearBtn: css({
-    marginLeft: tokens.spacingM
-  })
+    marginLeft: tokens.spacingM,
+  }),
 };
 
 function isValidCount(count?: string | number): count is number {
@@ -76,7 +76,7 @@ export function RatingEditor(props: RatingEditorProps) {
               disabled={disabled}
               value={value}
               stars={starsCount}
-              onSelect={num => {
+              onSelect={(num) => {
                 setValue(num);
               }}
             />
@@ -96,5 +96,5 @@ export function RatingEditor(props: RatingEditorProps) {
 }
 
 RatingEditor.defaultProps = {
-  isInitiallyDisabled: true
+  isInitiallyDisabled: true,
 };

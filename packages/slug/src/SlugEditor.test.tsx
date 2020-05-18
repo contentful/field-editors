@@ -6,34 +6,34 @@ import { SlugEditor } from './SlugEditor';
 import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
 
 configure({
-  testIdAttribute: 'data-test-id'
+  testIdAttribute: 'data-test-id',
 });
 
 jest.mock(
   'lodash/throttle',
   () => ({
-    default: identity
+    default: identity,
   }),
   { virtual: true }
 );
 
 function createMocks(initialValues: { field?: string; titleField?: string } = {}) {
   const [field] = createFakeFieldAPI(
-    field => ({
+    (field) => ({
       ...field,
       id: 'slug-id',
       onValueChanged: jest.fn().mockImplementation(field.onValueChanged),
-      setValue: jest.fn().mockImplementation(field.setValue)
+      setValue: jest.fn().mockImplementation(field.setValue),
     }),
     initialValues.field || ''
   );
   const [titleField] = createFakeFieldAPI(
-    field => ({
+    (field) => ({
       ...field,
       id: 'title-id',
       setValue: jest.fn().mockImplementation(field.setValue),
       getValue: jest.fn().mockImplementation(field.getValue),
-      onValueChanged: jest.fn().mockImplementation(field.onValueChanged)
+      onValueChanged: jest.fn().mockImplementation(field.onValueChanged),
     }),
     initialValues.titleField || ''
   );
@@ -41,7 +41,7 @@ function createMocks(initialValues: { field?: string; titleField?: string } = {}
   const sdk = {
     locales: createFakeLocalesAPI(),
     space: {
-      getEntries: jest.fn().mockResolvedValue({ total: 0 })
+      getEntries: jest.fn().mockResolvedValue({ total: 0 }),
     },
     entry: {
       getSys: jest.fn().mockReturnValue({
@@ -50,25 +50,25 @@ function createMocks(initialValues: { field?: string; titleField?: string } = {}
         createdAt: '2020-01-24T15:33:47.906Z',
         contentType: {
           sys: {
-            id: 'content-type-id'
-          }
-        }
+            id: 'content-type-id',
+          },
+        },
       }),
       onSysChanged: jest.fn(),
       fields: {
         'title-id': titleField,
-        'entry-id': field
-      }
+        'entry-id': field,
+      },
     },
     contentType: {
-      displayField: 'title-id'
-    }
+      displayField: 'title-id',
+    },
   };
 
   return {
     field,
     titleField,
-    sdk
+    sdk,
   };
 }
 
@@ -80,7 +80,7 @@ describe('SlugEditor', () => {
       const { field, titleField, sdk } = createMocks();
 
       sdk.entry.getSys.mockReturnValue({
-        publishedVersion: 2
+        publishedVersion: 2,
       });
 
       render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />);
@@ -110,7 +110,7 @@ describe('SlugEditor', () => {
     it('when a saved slug is different from a title at the render', async () => {
       const { field, titleField, sdk } = createMocks({
         titleField: 'Hello world!',
-        field: 'something-different'
+        field: 'something-different',
       });
 
       render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />);
@@ -126,7 +126,7 @@ describe('SlugEditor', () => {
     it('if it is published', async () => {
       const { field, titleField, sdk } = createMocks({
         titleField: 'Slug value',
-        field: 'slug-value'
+        field: 'slug-value',
       });
 
       sdk.entry.getSys.mockReturnValue({
@@ -134,9 +134,9 @@ describe('SlugEditor', () => {
         publishedVersion: 2,
         contentType: {
           sys: {
-            id: 'content-type-id'
-          }
-        }
+            id: 'content-type-id',
+          },
+        },
       });
 
       sdk.space.getEntries.mockResolvedValue({ total: 0 });
@@ -153,7 +153,7 @@ describe('SlugEditor', () => {
         'fields.slug-id.en-US': 'slug-value',
         limit: 0,
         'sys.id[ne]': 'entry-id',
-        'sys.publishedAt[exists]': true
+        'sys.publishedAt[exists]': true,
       });
       expect(sdk.space.getEntries).toHaveBeenCalledTimes(1);
       expect(queryByTestId('slug-editor-spinner')).not.toBeInTheDocument();
@@ -165,7 +165,7 @@ describe('SlugEditor', () => {
     it('if it is not published', async () => {
       const { field, titleField, sdk } = createMocks({
         titleField: 'Slug value',
-        field: 'slug-value'
+        field: 'slug-value',
       });
 
       sdk.entry.getSys.mockReturnValue({
@@ -173,9 +173,9 @@ describe('SlugEditor', () => {
         publishedVersion: undefined,
         contentType: {
           sys: {
-            id: 'content-type-id'
-          }
-        }
+            id: 'content-type-id',
+          },
+        },
       });
 
       sdk.space.getEntries.mockResolvedValue({ total: 2 });
@@ -192,7 +192,7 @@ describe('SlugEditor', () => {
         'fields.slug-id.en-US': 'slug-value',
         limit: 0,
         'sys.id[ne]': 'entry-id',
-        'sys.publishedAt[exists]': true
+        'sys.publishedAt[exists]': true,
       });
       expect(sdk.space.getEntries).toHaveBeenCalledTimes(1);
 
@@ -217,7 +217,7 @@ describe('SlugEditor', () => {
         'fields.slug-id.en-US': '123',
         limit: 0,
         'sys.id[ne]': 'entry-id',
-        'sys.publishedAt[exists]': true
+        'sys.publishedAt[exists]': true,
       });
 
       expect(
@@ -230,7 +230,7 @@ describe('SlugEditor', () => {
     it('when field is disabled', async () => {
       const { field, titleField, sdk } = createMocks({
         field: '',
-        titleField: ''
+        titleField: '',
       });
 
       render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={true} />);
@@ -247,7 +247,7 @@ describe('SlugEditor', () => {
     it('should generate unique value with date if title is empty', async () => {
       const { field, titleField, sdk } = createMocks({
         field: '',
-        titleField: ''
+        titleField: '',
       });
 
       render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />);
@@ -276,7 +276,7 @@ describe('SlugEditor', () => {
     it('should generate value from title if it is not empty', async () => {
       const { field, titleField, sdk } = createMocks({
         field: '',
-        titleField: 'This is initial title value'
+        titleField: 'This is initial title value',
       });
 
       render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />);
@@ -298,7 +298,7 @@ describe('SlugEditor', () => {
     it('should stop tracking value after user intentionally changes slug value', async () => {
       const { field, titleField, sdk } = createMocks({
         field: '',
-        titleField: ''
+        titleField: '',
       });
 
       const { getByTestId } = render(
@@ -335,7 +335,7 @@ describe('SlugEditor', () => {
     it('should start tracking again after potential slug equals real one', async () => {
       const { field, sdk } = createMocks({
         field: '',
-        titleField: ''
+        titleField: '',
       });
 
       const { getByTestId } = render(
@@ -391,11 +391,11 @@ describe('SlugEditor', () => {
       sdk.locales.default = 'de-DE';
       sdk.locales.optional = {
         'de-DE': false,
-        'ru-RU': false
+        'ru-RU': false,
       };
       sdk.locales.fallbacks = {
         'de-DE': undefined,
-        'ru-RU': undefined
+        'ru-RU': undefined,
       };
 
       render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />);
@@ -416,11 +416,11 @@ describe('SlugEditor', () => {
       sdk.locales.default = 'de-DE';
       sdk.locales.optional = {
         'de-DE': false,
-        'ru-RU': true
+        'ru-RU': true,
       };
       sdk.locales.fallbacks = {
         'de-DE': undefined,
-        'ru-RU': 'de-DE'
+        'ru-RU': 'de-DE',
       };
 
       render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />);
@@ -436,7 +436,7 @@ describe('SlugEditor', () => {
   it('slug suggestion is limited to 75 symbols', async () => {
     const { field, sdk } = createMocks({
       field: '',
-      titleField: ''
+      titleField: '',
     });
 
     render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />);
@@ -453,7 +453,7 @@ describe('SlugEditor', () => {
   it('slug suggestion does not contain cut-off words', async () => {
     const { field, sdk } = createMocks({
       field: '',
-      titleField: ''
+      titleField: '',
     });
 
     render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />);

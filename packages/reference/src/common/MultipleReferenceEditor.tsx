@@ -29,13 +29,13 @@ class Editor extends React.Component<EditorProps, EditorState> {
   constructor(props: EditorProps) {
     super(props);
     this.state = {
-      canCreateEntity: true
+      canCreateEntity: true,
     };
   }
 
   componentDidMount() {
     if (this.props.entityType === 'Asset') {
-      this.props.sdk.access.can('create', 'Asset').then(value => {
+      this.props.sdk.access.can('create', 'Asset').then((value) => {
         this.setState({ canCreateEntity: value });
       });
     }
@@ -69,31 +69,31 @@ class Editor extends React.Component<EditorProps, EditorState> {
         sys: {
           type: 'Link',
           linkType: this.props.entityType,
-          id
-        }
-      }
+          id,
+        },
+      },
     ]);
   };
 
   onLink = (ids: string[]) => {
     this.props.setValue([
       ...this.props.items,
-      ...ids.map(id => {
+      ...ids.map((id) => {
         return {
           sys: {
             type: 'Link',
             linkType: this.props.entityType,
-            id
-          } as const
+            id,
+          } as const,
         };
-      })
+      }),
     ]);
   };
 
   render() {
     const validations = fromFieldValidations([
       ...this.props.sdk.field.validations,
-      ...(this.props.sdk.field.items?.validations ?? [])
+      ...(this.props.sdk.field.items?.validations ?? []),
     ]);
 
     return (
@@ -101,7 +101,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
         {this.props.children({
           ...this.props,
           onSortStart: this.onSortStart,
-          onSortEnd: this.onSortEnd
+          onSortEnd: this.onSortEnd,
         })}
         <LinkEntityActions
           entityType={this.props.entityType}

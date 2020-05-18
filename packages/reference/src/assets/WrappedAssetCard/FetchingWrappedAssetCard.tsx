@@ -57,7 +57,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
           type: 'edit',
           id: props.assetId,
           contentTypeId: '',
-          slide
+          slide,
         });
     },
     cardDragHandle: props.cardDragHandle,
@@ -65,7 +65,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       props.onRemove();
       props.onAction &&
         props.onAction({ entity: 'Asset', type: 'delete', id: props.assetId, contentTypeId: '' });
-    }
+    },
   };
 
   if (props.viewType === 'link') {

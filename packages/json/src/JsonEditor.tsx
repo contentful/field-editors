@@ -41,7 +41,7 @@ class ConnectedJsonEditor extends React.Component<
   ConnectedJsonEditorState
 > {
   static defaultProps = {
-    isInitiallyDisabled: true
+    isInitiallyDisabled: true,
   };
 
   constructor(props: ConnectedJsonEditorProps) {
@@ -50,19 +50,19 @@ class ConnectedJsonEditor extends React.Component<
       value: stringifyJSON(props.initialValue),
       isValidJson: true,
       undoStack: [],
-      redoStack: []
+      redoStack: [],
     };
   }
 
   setValidJson = (value: boolean) => {
     this.setState({
-      isValidJson: value
+      isValidJson: value,
     });
   };
 
   pushUndo = throttle((value: string) => {
-    this.setState(state => ({
-      undoStack: [...state.undoStack, value]
+    this.setState((state) => ({
+      undoStack: [...state.undoStack, value],
     }));
   }, 400);
 
@@ -73,7 +73,7 @@ class ConnectedJsonEditor extends React.Component<
 
     this.setState({
       value,
-      isValidJson: parsed.valid
+      isValidJson: parsed.valid,
     });
 
     if (parsed.valid) {
@@ -93,12 +93,12 @@ class ConnectedJsonEditor extends React.Component<
     const parsedValue = parseJSON(value);
 
     this.setState(
-      state => ({
+      (state) => ({
         ...state,
         value,
         isValidJson: parsedValue.valid,
         undoStack,
-        redoStack: [...state.redoStack, state.value]
+        redoStack: [...state.redoStack, state.value],
       }),
       () => {
         if (parsedValue.valid) {
@@ -120,12 +120,12 @@ class ConnectedJsonEditor extends React.Component<
     const parsedValue = parseJSON(value);
 
     this.setState(
-      state => ({
+      (state) => ({
         ...state,
         value,
         isValidJson: parsedValue.valid,
         redoStack,
-        undoStack: [...state.undoStack, state.value]
+        undoStack: [...state.undoStack, state.value],
       }),
       () => {
         if (parsedValue.valid) {

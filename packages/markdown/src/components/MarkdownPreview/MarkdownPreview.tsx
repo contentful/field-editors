@@ -143,16 +143,16 @@ const styles = {
   framed: css({
     height: '100%',
     maxHeight: '500px',
-    overflowY: 'auto'
+    overflowY: 'auto',
   }),
   zen: css({
     maxWidth: '650px',
     margin: '0 auto',
-    border: 'none !important'
+    border: 'none !important',
   }),
   rtl: css({
-    direction: 'rtl'
-  })
+    direction: 'rtl',
+  }),
 };
 
 type MarkdownPreviewProps = {
@@ -198,7 +198,7 @@ function removeChildScripts(element: ReactElement): ReactElement {
   }
   return {
     ...element,
-    props: { ...element.props, children }
+    props: { ...element.props, children },
   };
 }
 
@@ -218,16 +218,16 @@ export const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
           overrides: {
             svg: {
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              component: SvgWrapper as any
+              component: SvgWrapper as any,
             },
             a: {
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               component: MarkdownLink as any,
               props: {
-                Embedly: props.previewComponents?.embedly
-              }
-            }
-          }
+                Embedly: props.previewComponents?.embedly,
+              },
+            },
+          },
         }}>
         {props.value}
       </Markdown>

@@ -5,7 +5,7 @@ import {
   Paragraph,
   Typography,
   EntityList,
-  EntityListItem
+  EntityListItem,
 } from '@contentful/forma-36-react-components';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
@@ -16,9 +16,9 @@ const styles = {
   controlButton: css({
     marginTop: tokens.spacingL,
     button: {
-      marginRight: tokens.spacingM
-    }
-  })
+      marginRight: tokens.spacingM,
+    },
+  }),
 };
 
 interface ConfirmInsertAssetModalDialogProps {
@@ -35,7 +35,7 @@ interface ConfirmInsertAssetModalDialogProps {
 export const ConfirmInsertAssetModalDialog = ({
   onClose,
   assets,
-  locale
+  locale,
 }: ConfirmInsertAssetModalDialogProps) => {
   const localesNumber = assets.length;
 
@@ -96,7 +96,7 @@ export const openConfirmInsertAsset = (
     shouldCloseOnOverlayClick: true,
     parameters: {
       type: MarkdownDialogType.confirmInsertAsset,
-      ...options
-    } as MarkdownDialogsParams
+      ...options,
+    } as MarkdownDialogsParams,
   });
 };

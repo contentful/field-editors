@@ -35,21 +35,21 @@ const styles = {
     left: 0,
     right: 0,
     top: 0,
-    bottom: 0
+    bottom: 0,
   }),
   topSplit: css({
     position: 'fixed',
     top: 0,
     height: '48px',
     left: 0,
-    right: 0
+    right: 0,
   }),
   bottomSplit: css({
     position: 'fixed',
     bottom: 0,
     left: 0,
     right: 0,
-    height: '36px'
+    height: '36px',
   }),
   editorSplit: css({
     width: '50%',
@@ -58,12 +58,12 @@ const styles = {
     left: 0,
     bottom: '36px',
     overflowX: 'hidden',
-    overflowY: 'scroll'
+    overflowY: 'scroll',
   }),
   editorSplitFullscreen: css({
     left: 0,
     right: 0,
-    width: '100%'
+    width: '100%',
   }),
   previewSplit: css({
     width: '50%',
@@ -72,7 +72,7 @@ const styles = {
     right: 0,
     bottom: '36px',
     overflowX: 'hidden',
-    overflowY: 'scroll'
+    overflowY: 'scroll',
   }),
   separator: css({
     position: 'fixed',
@@ -80,7 +80,7 @@ const styles = {
     bottom: '36px',
     width: '1px',
     background: tokens.colorElementDark,
-    left: '50%'
+    left: '50%',
   }),
   button: css({
     position: 'fixed',
@@ -90,18 +90,18 @@ const styles = {
     height: '30px',
     backgroundColor: tokens.colorElementLightest,
     border: `1px solid ${tokens.colorElementDark}`,
-    padding: 0
+    padding: 0,
   }),
   hideButton: css({
-    left: '50%'
+    left: '50%',
   }),
   showButton: css({
     right: 0,
-    borderRightWidth: 0
+    borderRightWidth: 0,
   }),
   icon: css({
-    verticalAlign: 'middle'
-  })
+    verticalAlign: 'middle',
+  }),
 };
 
 export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
@@ -129,7 +129,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
   actions.closeZenMode = () => {
     props.onClose({
       value: currentValue,
-      cursor: editor?.getCursor()
+      cursor: editor?.getCursor(),
     });
   };
 
@@ -143,14 +143,14 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
 
       <div
         className={cx(styles.editorSplit, {
-          [styles.editorSplitFullscreen]: showPreview === false
+          [styles.editorSplitFullscreen]: showPreview === false,
         })}>
         <MarkdownTextarea
           mode="zen"
           visible
           disabled={false}
           direction={direction}
-          onReady={editor => {
+          onReady={(editor) => {
             editor.setContent(props.initialValue ?? '');
             editor.setReadOnly(false);
             setEditor(editor);
@@ -218,7 +218,7 @@ export const openZenMode = (
     parameters: {
       type: MarkdownDialogType.zenMode,
       initialValue: options.initialValue,
-      locale: options.locale
-    } as MarkdownDialogsParams
+      locale: options.locale,
+    } as MarkdownDialogsParams,
   });
 };

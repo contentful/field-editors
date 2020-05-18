@@ -13,12 +13,12 @@ async function createEntity(props: {
       return {};
     }
     const { entity, slide } = await props.sdk.navigator.openNewEntry<Entry>(props.contentTypeId, {
-      slideIn: true
+      slideIn: true,
     });
     return { entity, slide };
   } else {
     const { entity, slide } = await props.sdk.navigator.openNewAsset<Asset>({
-      slideIn: true
+      slideIn: true,
     });
     return { entity, slide };
   }
@@ -32,12 +32,12 @@ async function selectSingleEntity(props: {
   if (props.entityType === 'Entry') {
     return await props.sdk.dialogs.selectSingleEntry<Entry>({
       locale: props.sdk.field.locale,
-      contentTypes: props.validations.contentTypes
+      contentTypes: props.validations.contentTypes,
     });
   } else {
     return props.sdk.dialogs.selectSingleAsset<Asset>({
       locale: props.sdk.field.locale,
-      mimetypeGroups: props.validations.mimetypeGroups
+      mimetypeGroups: props.validations.mimetypeGroups,
     });
   }
 }
@@ -64,14 +64,14 @@ async function selectMultipleEntities(props: {
       locale: props.sdk.field.locale,
       contentTypes: props.validations.contentTypes,
       min,
-      max
+      max,
     });
   } else {
     return props.sdk.dialogs.selectMultipleAssets<Asset>({
       locale: props.sdk.field.locale,
       mimetypeGroups: props.validations.mimetypeGroups,
       min,
-      max
+      max,
     });
   }
 }
@@ -93,7 +93,7 @@ export function LinkEntityActions(props: {
 
   if (props.entityType === 'Entry') {
     availableContentTypes = props.validations.contentTypes
-      ? props.allContentTypes.filter(contentType => {
+      ? props.allContentTypes.filter((contentType) => {
           return props.validations.contentTypes?.includes(contentType.sys.id);
         })
       : props.allContentTypes;
@@ -103,7 +103,7 @@ export function LinkEntityActions(props: {
     const { entity, slide } = await createEntity({
       sdk: props.sdk,
       entityType: props.entityType,
-      contentTypeId
+      contentTypeId,
     });
     if (!entity) {
       return;
@@ -114,7 +114,7 @@ export function LinkEntityActions(props: {
         type: 'create_and_link',
         entity: props.entityType,
         entityData: entity,
-        slide
+        slide,
       });
   }, []);
 
@@ -122,7 +122,7 @@ export function LinkEntityActions(props: {
     const entity = await selectSingleEntity({
       sdk: props.sdk,
       entityType: props.entityType,
-      validations: props.validations
+      validations: props.validations,
     });
     if (!entity) {
       return;
@@ -136,15 +136,15 @@ export function LinkEntityActions(props: {
     const entities = await selectMultipleEntities({
       sdk: props.sdk,
       entityType: props.entityType,
-      validations: props.validations
+      validations: props.validations,
     });
 
     if (!entities || entities.length === 0) {
       return;
     }
-    props.onLink(entities.map(item => item.sys.id));
+    props.onLink(entities.map((item) => item.sys.id));
 
-    entities.forEach(entity => {
+    entities.forEach((entity) => {
       props.onAction &&
         props.onAction({ type: 'select_and_link', entity: props.entityType, entityData: entity });
     });

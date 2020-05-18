@@ -5,7 +5,7 @@ import {
   FieldAPI,
   LocalesAPI,
   FieldConnector,
-  PredefinedValuesError
+  PredefinedValuesError,
 } from '@contentful/field-editor-shared';
 import { CheckboxField, Form } from '@contentful/forma-36-react-components';
 import * as styles from './styles';
@@ -41,8 +41,8 @@ export function getOptions(field: FieldAPI): CheckboxOption[] {
   >[];
 
   const predefinedValues = validations
-    .filter(validation => validation.in)
-    .map(validation => validation.in);
+    .filter((validation) => validation.in)
+    .map((validation) => validation.in);
 
   const firstPredefinedValues = (predefinedValues.length > 0
     ? predefinedValues[0]
@@ -51,7 +51,7 @@ export function getOptions(field: FieldAPI): CheckboxOption[] {
   return firstPredefinedValues.map((value: string, index) => ({
     id: ['entity', field.id, field.locale, index].join('.'),
     value,
-    label: value
+    label: value,
   }));
 }
 
@@ -77,12 +77,12 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
         const values = value || [];
 
         const addValue = (value: string) => {
-          const newValues = [...values.filter(item => item !== value), value];
+          const newValues = [...values.filter((item) => item !== value), value];
           setValue(newValues);
         };
 
         const removeValue = (value: string) => {
-          const newValues = values.filter(item => item !== value);
+          const newValues = values.filter((item) => item !== value);
           setValue(newValues);
         };
 
@@ -91,7 +91,7 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
             testId="checkbox-editor"
             spacing="condensed"
             className={cx(styles.form, direction === 'rtl' ? styles.rightToLeft : '')}>
-            {options.map(item => (
+            {options.map((item) => (
               <CheckboxField
                 key={item.id}
                 labelIsLight
@@ -118,5 +118,5 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
 }
 
 CheckboxEditor.defaultProps = {
-  isInitiallyDisabled: true
+  isInitiallyDisabled: true,
 };

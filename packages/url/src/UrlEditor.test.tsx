@@ -6,13 +6,13 @@ import { UrlEditor } from './UrlEditor';
 import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 
 configure({
-  testIdAttribute: 'data-test-id'
+  testIdAttribute: 'data-test-id',
 });
 
 jest.mock(
   'lodash/throttle',
   () => ({
-    default: identity
+    default: identity,
   }),
   { virtual: true }
 );
@@ -28,13 +28,13 @@ describe('UrlEditor', () => {
   it('reads initial value from field.getValue', () => {
     const initialValue = 'initial-value';
 
-    const [field] = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI((field) => {
       return {
         ...field,
         id: 'field-id',
         getValue: () => {
           return initialValue;
-        }
+        },
       };
     });
 
@@ -44,12 +44,12 @@ describe('UrlEditor', () => {
   });
 
   it('calls field.setValue when user types and calls field.removeValue when user clears the input', () => {
-    const [field] = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI((field) => {
       jest.spyOn(field, 'setValue');
       jest.spyOn(field, 'removeValue');
       return {
         ...field,
-        id: 'field-id'
+        id: 'field-id',
       };
     });
 
@@ -60,7 +60,7 @@ describe('UrlEditor', () => {
     expect($input).toHaveValue('');
 
     fireEvent.change($input, {
-      target: { value: 'new-value' }
+      target: { value: 'new-value' },
     });
 
     expect($input).toHaveValue('new-value');
@@ -68,7 +68,7 @@ describe('UrlEditor', () => {
     expect(field.setValue).toHaveBeenLastCalledWith('new-value');
 
     fireEvent.change($input, {
-      target: { value: '' }
+      target: { value: '' },
     });
 
     expect($input).toHaveValue('');
@@ -79,13 +79,13 @@ describe('UrlEditor', () => {
   it('gives an ability to render custom preview', () => {
     const initialValue = 'initial-value';
 
-    const [field] = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI((field) => {
       return {
         ...field,
         id: 'field-id',
         getValue: () => {
           return initialValue;
-        }
+        },
       };
     });
 
@@ -104,7 +104,7 @@ describe('UrlEditor', () => {
     expect(getByText('Custom preview: initial-value')).toBeInTheDocument();
 
     fireEvent.change($input, {
-      target: { value: 'new-value' }
+      target: { value: 'new-value' },
     });
 
     expect(getByText('Custom preview: new-value')).toBeInTheDocument();

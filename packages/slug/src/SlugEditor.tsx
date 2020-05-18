@@ -50,9 +50,9 @@ export function SlugEditor(props: SlugEditorProps) {
       [`fields.${field.id}.${field.locale}`]: value,
       'sys.id[ne]': entrySys.id,
       'sys.publishedAt[exists]': true,
-      limit: 0
+      limit: 0,
     };
-    return space.getEntries(searchQuery).then(res => {
+    return space.getEntries(searchQuery).then((res) => {
       return res.total === 0;
     });
   }, []);
@@ -107,5 +107,5 @@ export function SlugEditor(props: SlugEditorProps) {
 }
 
 SlugEditor.defaultProps = {
-  isInitiallyDisabled: true
+  isInitiallyDisabled: true,
 };

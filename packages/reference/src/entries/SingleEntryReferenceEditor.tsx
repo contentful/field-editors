@@ -24,5 +24,5 @@ export function SingleEntryReferenceEditor(props: ReferenceEditorProps) {
 }
 
 SingleEntryReferenceEditor.defaultProps = {
-  isInitiallyDisabled: true
+  isInitiallyDisabled: true,
 };

@@ -9,7 +9,7 @@ import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 const styles = {
   buttonPanel: css({
     display: 'flex',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
   }),
   charButton: css({
     border: `1px solid ${tokens.colorElementDarkest}`,
@@ -17,30 +17,30 @@ const styles = {
     height: '4.1rem',
     fontSize: tokens.fontSizeXl,
     marginTop: tokens.spacing2Xs,
-    marginRight: tokens.spacing2Xs
+    marginRight: tokens.spacing2Xs,
   }),
   selectedCharButton: css({
-    backgroundColor: tokens.colorElementLightest
+    backgroundColor: tokens.colorElementLightest,
   }),
   tooltip: css({ zIndex: 1000 }),
   button: css({
     marginTop: tokens.spacingM,
-    marginRight: tokens.spacingS
+    marginRight: tokens.spacingS,
   }),
   charContainer: css({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    marginBottom: tokens.spacingM
+    marginBottom: tokens.spacingM,
   }),
   selectedCharacter: css({
     fontSize: tokens.fontSize3Xl,
-    margin: 'auto'
+    margin: 'auto',
   }),
   selectedCharacterDesc: css({
     fontSize: tokens.fontSizeM,
-    margin: 'auto'
-  })
+    margin: 'auto',
+  }),
 };
 
 export type SpecialCharacterModalResult = string | false | undefined;
@@ -64,7 +64,7 @@ export const SpecialCharacterModalDialog = ({ onClose }: SpecialCharacterModalDi
         </DisplayText>
       </div>
       <div className={styles.buttonPanel}>
-        {specialCharacters.map(char => (
+        {specialCharacters.map((char) => (
           <div key={char.code}>
             <Tooltip className={styles.tooltip} content={char.desc}>
               <Button
@@ -107,7 +107,7 @@ export const openInsertSpecialCharacter = (
     shouldCloseOnEscapePress: true,
     shouldCloseOnOverlayClick: true,
     parameters: {
-      type: MarkdownDialogType.insertSpecialCharacter
-    } as MarkdownDialogsParams
+      type: MarkdownDialogType.insertSpecialCharacter,
+    } as MarkdownDialogsParams,
   });
 };

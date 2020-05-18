@@ -8,13 +8,13 @@ import { shortenStorageUnit } from './shortenStorageUnit';
 
 const styles = {
   cardDropdown: css({
-    width: '300px'
+    width: '300px',
   }),
   truncated: css({
     overflow: 'hidden',
     whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis'
-  })
+    textOverflow: 'ellipsis',
+  }),
 };
 
 function downloadAsset(url: string) {
@@ -32,7 +32,7 @@ export function renderAssetInfo(props: { entityFile: File }) {
       border="top"
       className={styles.cardDropdown}
       // @ts-ignore
-      onClick={e => {
+      onClick={(e) => {
         e.stopPropagation();
       }}>
       <DropdownListItem isTitle>File info</DropdownListItem>
@@ -63,7 +63,7 @@ export function renderActions(props: {
     <DropdownList
       className={styles.cardDropdown}
       // @ts-ignore
-      onClick={e => {
+      onClick={(e) => {
         e.stopPropagation();
       }}>
       <DropdownListItem isTitle>Actions</DropdownListItem>

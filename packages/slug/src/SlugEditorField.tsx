@@ -27,7 +27,7 @@ function useSlugUpdater(props: SlugEditorFieldProps, check: boolean) {
     const newSlug = makeSlug(titleValue, {
       isOptionalLocaleWithFallback,
       locale,
-      createdAt
+      createdAt,
     });
     if (newSlug !== value) {
       setValue(newSlug);
@@ -51,7 +51,7 @@ function useUniqueChecker(props: SlugEditorFieldProps) {
     }
     setStatus('checking');
     performUniqueCheck(value)
-      .then(unique => {
+      .then((unique) => {
         setStatus(unique ? 'unique' : 'duplicate');
       })
       .catch(() => {
@@ -110,7 +110,7 @@ export function SlugEditorField(props: SlugEditorFieldProps) {
     const potentialSlug = makeSlug(props.titleValue, {
       isOptionalLocaleWithFallback: props.isOptionalLocaleWithFallback,
       locale: props.locale,
-      createdAt: props.createdAt
+      createdAt: props.createdAt,
     });
     return props.value === potentialSlug;
   };

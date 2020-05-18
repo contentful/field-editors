@@ -10,9 +10,9 @@ const styles = {
   controlsContainer: css({
     display: 'flex',
     button: {
-      marginRight: tokens.spacingM
-    }
-  })
+      marginRight: tokens.spacingM,
+    },
+  }),
 };
 
 type InsertLinkModalPositiveResult = { url: string; text: string; title: string };
@@ -52,7 +52,7 @@ export const InsertLinkModal = ({ selectedText, onClose }: InsertLinkModalProps)
           }}
           textInputProps={{
             disabled: Boolean(selectedText),
-            testId: 'link-text-field'
+            testId: 'link-text-field',
           }}
         />
         <TextField
@@ -70,7 +70,7 @@ export const InsertLinkModal = ({ selectedText, onClose }: InsertLinkModalProps)
             placeholder: 'https://',
             maxLength: 2100,
             testId: 'target-url-field',
-            inputRef: mainInputRef
+            inputRef: mainInputRef,
           }}
         />
         <TextField
@@ -83,7 +83,7 @@ export const InsertLinkModal = ({ selectedText, onClose }: InsertLinkModalProps)
             setTitle(e.target.value);
           }}
           textInputProps={{
-            testId: 'link-title-field'
+            testId: 'link-title-field',
           }}
         />
       </Form>
@@ -117,7 +117,7 @@ export const openInsertLinkDialog = (
     shouldCloseOnOverlayClick: true,
     parameters: {
       type: MarkdownDialogType.insertLink,
-      ...params
-    } as MarkdownDialogsParams
+      ...params,
+    } as MarkdownDialogsParams,
   });
 };

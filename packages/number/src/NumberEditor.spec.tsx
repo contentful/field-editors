@@ -6,13 +6,13 @@ import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 import { NumberEditor } from './NumberEditor';
 
 configure({
-  testIdAttribute: 'data-test-id'
+  testIdAttribute: 'data-test-id',
 });
 
 jest.mock(
   'lodash/throttle',
   () => ({
-    default: identity
+    default: identity,
   }),
   { virtual: true }
 );
@@ -22,13 +22,13 @@ describe('NumberEditor', () => {
 
   it('calls setValue if user select on default option', () => {
     const initialValue = 42;
-    const [field] = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI((field) => {
       jest.spyOn(field, 'setValue');
       jest.spyOn(field, 'removeValue');
       jest.spyOn(field, 'setInvalid');
       return {
         ...field,
-        type: 'Integer'
+        type: 'Integer',
       };
     }, initialValue);
 

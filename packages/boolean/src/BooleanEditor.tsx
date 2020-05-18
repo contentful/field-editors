@@ -33,7 +33,7 @@ export function BooleanEditor(props: BooleanEditorProps) {
 
   const options = [
     { value: true, label: get(props.parameters, ['instance', 'trueLabel'], 'Yes'), id: nanoid(6) },
-    { value: false, label: get(props.parameters, ['instance', 'falseLabel'], 'No'), id: nanoid(6) }
+    { value: false, label: get(props.parameters, ['instance', 'falseLabel'], 'No'), id: nanoid(6) },
   ];
 
   return (
@@ -52,7 +52,7 @@ export function BooleanEditor(props: BooleanEditorProps) {
 
         return (
           <div data-test-id="boolean-editor" className={cx(css({ marginTop: tokens.spacingS }))}>
-            {options.map(item => {
+            {options.map((item) => {
               const id = ['entity', field.id, field.locale, item.value, item.id].join('.');
               const checked = value === item.value;
               return (
@@ -83,5 +83,5 @@ export function BooleanEditor(props: BooleanEditorProps) {
 }
 
 BooleanEditor.defaultProps = {
-  isInitiallyDisabled: true
+  isInitiallyDisabled: true,
 };

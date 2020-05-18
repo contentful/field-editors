@@ -5,17 +5,17 @@ import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-edit
 import { DropdownEditor } from './DropdownEditor';
 
 configure({
-  testIdAttribute: 'data-test-id'
+  testIdAttribute: 'data-test-id',
 });
 
 describe('DropdownEditor', () => {
   afterEach(cleanup);
 
   it('renders a warning if no options are present', () => {
-    const [field] = createFakeFieldAPI(mock => {
+    const [field] = createFakeFieldAPI((mock) => {
       return {
         ...mock,
-        validations: []
+        validations: [],
       };
     });
 
@@ -29,10 +29,10 @@ describe('DropdownEditor', () => {
 
   it('renders option tags for predefined values', () => {
     const predefined = ['banana', 'orange', 'strawberry'];
-    const [field] = createFakeFieldAPI(mock => {
+    const [field] = createFakeFieldAPI((mock) => {
       return {
         ...mock,
-        validations: [{ in: predefined }]
+        validations: [{ in: predefined }],
       };
     });
     const { container, getByText } = render(
@@ -41,18 +41,18 @@ describe('DropdownEditor', () => {
 
     expect(container.querySelectorAll('option')).toHaveLength(4);
     expect(getByText('Choose a value')).toHaveValue('');
-    predefined.forEach(item => {
+    predefined.forEach((item) => {
       expect(getByText(item)).toHaveValue(item);
     });
   });
 
   it('calls setValue if user select on default option', () => {
-    const [field] = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI((field) => {
       jest.spyOn(field, 'setValue');
       jest.spyOn(field, 'removeValue');
       return {
         ...field,
-        validations: [{ in: ['initial'] }]
+        validations: [{ in: ['initial'] }],
       };
     });
     const { getByTestId } = render(
@@ -68,12 +68,12 @@ describe('DropdownEditor', () => {
   });
 
   it('calls removeValue if user selects default option', () => {
-    const [field] = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI((field) => {
       jest.spyOn(field, 'removeValue');
       return {
         ...field,
         getValue: () => 'initial',
-        validations: [{ in: ['initial'] }]
+        validations: [{ in: ['initial'] }],
       };
     });
     const { getByTestId } = render(
@@ -86,15 +86,15 @@ describe('DropdownEditor', () => {
     expect(field.removeValue).toHaveBeenCalledTimes(1);
   });
 
-  it('calls #setValue with number for Number fields', function() {
+  it('calls #setValue with number for Number fields', function () {
     const predefined = [1, '2.71', 3];
-    const [field] = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI((field) => {
       jest.spyOn(field, 'setValue');
       jest.spyOn(field, 'removeValue');
       return {
         ...field,
         type: 'Number',
-        validations: [{ in: predefined }]
+        validations: [{ in: predefined }],
       };
     });
 
@@ -114,15 +114,15 @@ describe('DropdownEditor', () => {
     expect(field.setValue).toHaveBeenCalledTimes(1);
   });
 
-  it('calls #setValue with number for Integer fields', function() {
+  it('calls #setValue with number for Integer fields', function () {
     const predefined = [0, 1, '2', 3];
-    const [field] = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI((field) => {
       jest.spyOn(field, 'setValue');
       jest.spyOn(field, 'removeValue');
       return {
         ...field,
         type: 'Number',
-        validations: [{ in: predefined }]
+        validations: [{ in: predefined }],
       };
     });
 

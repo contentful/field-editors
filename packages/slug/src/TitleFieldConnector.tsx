@@ -29,7 +29,7 @@ export class TitleFieldConnector<ValueType> extends React.Component<
   static defaultProps = {
     children: () => {
       return null;
-    }
+    },
   };
 
   constructor(props: TitleFieldConnectorProps<ValueType>) {
@@ -40,7 +40,7 @@ export class TitleFieldConnector<ValueType> extends React.Component<
     this.state = {
       titleValue: titleField ? titleField.getValue() : '',
       isPublished: Boolean(entrySys.publishedVersion),
-      isSame
+      isSame,
     };
   }
 
@@ -49,9 +49,9 @@ export class TitleFieldConnector<ValueType> extends React.Component<
   unsubscribeSysChanges: Function | null = null;
 
   componentDidMount() {
-    this.unsubscribeSysChanges = this.props.sdk.entry.onSysChanged(sys => {
+    this.unsubscribeSysChanges = this.props.sdk.entry.onSysChanged((sys) => {
       this.setState({
-        isPublished: Boolean(sys.publishedVersion)
+        isPublished: Boolean(sys.publishedVersion),
       });
     });
 
@@ -99,7 +99,7 @@ export class TitleFieldConnector<ValueType> extends React.Component<
 
   render() {
     return this.props.children({
-      ...this.state
+      ...this.state,
     });
   }
 }

@@ -49,5 +49,5 @@ export function MultipleLineEditor(props: MultipleLineEditorProps) {
 }
 
 MultipleLineEditor.defaultProps = {
-  isInitiallyDisabled: true
+  isInitiallyDisabled: true,
 };

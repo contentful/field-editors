@@ -11,7 +11,7 @@ export const findUnassignedFields = (appState: AppState): FieldType[] => {
       return acc;
     }, {});
 
-  return appState.fields.filter(f => !assignedFields[f.id]);
+  return appState.fields.filter((f) => !assignedFields[f.id]);
 };
 
 export const SDKContext = React.createContext<EditorExtensionSDK>(undefined!);

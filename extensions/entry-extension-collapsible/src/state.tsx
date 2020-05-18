@@ -8,7 +8,7 @@ const createId = (): string => {
 };
 
 const moveFieldGroup = (fieldGroups: FieldGroupType[], id: string, move: number) => {
-  const currentIndex = fieldGroups.findIndex(fieldGroup => fieldGroup.id === id);
+  const currentIndex = fieldGroups.findIndex((fieldGroup) => fieldGroup.id === id);
   const movedElement = fieldGroups.splice(currentIndex, 1)[0];
   fieldGroups.splice(currentIndex + move, 0, movedElement);
   return fieldGroups;
@@ -62,7 +62,7 @@ const reducer: React.Reducer<AppState, Action> = (state, action) => {
       return state;
 
     case ActionTypes.MOVE_FIELD_IN_GROUP:
-      state.fieldGroups = state.fieldGroups.map(fieldGroup => {
+      state.fieldGroups = state.fieldGroups.map((fieldGroup) => {
         if (fieldGroup.id === action.groupId) {
           const movedElement = fieldGroup.fields.splice(action.oldIndex, 1)[0];
           fieldGroup.fields.splice(action.newIndex, 0, movedElement);
@@ -83,10 +83,10 @@ export const useAppState = (
   const defaultState = {
     fields,
     updatedAt,
-    fieldGroups: []
+    fieldGroups: [],
   };
 
-  const [state, dispatch] = React.useReducer(produce(reducer), defaultState, state => {
+  const [state, dispatch] = React.useReducer(produce(reducer), defaultState, (state) => {
     const stored = localStorage.getItem(storageId);
 
     if (stored) {
@@ -100,7 +100,7 @@ export const useAppState = (
           ...fg,
           fields: fg.fields.filter((field: FieldType) => {
             return fields.some(({ id }) => id === field.id);
-          })
+          }),
         }));
         return { updatedAt, fields: state.fields, fieldGroups };
       }

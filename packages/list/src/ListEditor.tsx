@@ -43,8 +43,8 @@ export function ListEditor(props: ListEditorProps) {
         const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
           const valueAsArray = e.target.value
             .split(',')
-            .map(item => item.trim())
-            .filter(item => item);
+            .map((item) => item.trim())
+            .filter((item) => item);
           setValue(valueAsArray);
         };
 
@@ -65,5 +65,5 @@ export function ListEditor(props: ListEditorProps) {
 }
 
 ListEditor.defaultProps = {
-  isInitiallyDisabled: true
+  isInitiallyDisabled: true,
 };

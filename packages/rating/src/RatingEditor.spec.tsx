@@ -5,7 +5,7 @@ import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 import { RatingEditor } from './RatingEditor';
 
 configure({
-  testIdAttribute: 'data-test-id'
+  testIdAttribute: 'data-test-id',
 });
 
 describe('RatingEditor', () => {
@@ -30,11 +30,11 @@ describe('RatingEditor', () => {
   });
 
   it('should should setValue by clicking on a item and removeValue by clicking on clear', () => {
-    const [field] = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI((field) => {
       jest.spyOn(field, 'setValue');
       jest.spyOn(field, 'removeValue');
       return {
-        ...field
+        ...field,
       };
     });
     const { container, getAllByTestId, getByTestId, queryByTestId } = render(
@@ -61,11 +61,11 @@ describe('RatingEditor', () => {
   });
 
   it('should should setValue by focusing and using Enter', () => {
-    const [field] = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI((field) => {
       jest.spyOn(field, 'setValue');
       jest.spyOn(field, 'removeValue');
       return {
-        ...field
+        ...field,
       };
     });
     const { container, getAllByTestId, queryByTestId } = render(

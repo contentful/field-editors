@@ -10,11 +10,11 @@ const styles = {
   chevronIcon: css({
     float: 'right',
     marginLeft: tokens.spacingXs,
-    marginRight: -tokens.spacing2Xs
+    marginRight: -tokens.spacing2Xs,
   }),
   spinnerMargin: css({
-    marginRight: tokens.spacingXs
-  })
+    marginRight: tokens.spacingXs,
+  }),
 };
 
 interface CreateEntryLinkButtonProps {
@@ -39,9 +39,9 @@ export const CreateEntryLinkButton = ({
   hasPlusIcon,
   suggestedContentTypeId,
   dropdownSettings,
-  disabled
+  disabled,
 }: CreateEntryLinkButtonProps) => {
-  const suggestedContentType = contentTypes.find(ct => ct.sys.id === suggestedContentTypeId);
+  const suggestedContentType = contentTypes.find((ct) => ct.sys.id === suggestedContentTypeId);
   const buttonText =
     text ||
     `Add ${get(
@@ -86,5 +86,5 @@ export const CreateEntryLinkButton = ({
 
 CreateEntryLinkButton.defaultProps = {
   hasPlusIcon: false,
-  disabled: false
+  disabled: false,
 };

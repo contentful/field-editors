@@ -25,7 +25,7 @@ import {
   SingleEntryReferenceEditor,
   MultipleEntryReferenceEditor,
   SingleMediaEditor,
-  MultipleMediaEditor
+  MultipleMediaEditor,
 } from '../../../packages/reference/src/index';
 
 import { RichTextEditor } from '../../../packages/rich-text/src/index';
@@ -211,7 +211,7 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
             required={fieldDetails.required}>
             <SingleEntryReferenceEditor
               parameters={{
-                instance: { showCreateEntityAction: true, showLinkEntityAction: true }
+                instance: { showCreateEntityAction: true, showLinkEntityAction: true },
               }}
               viewType="link"
               sdk={fieldSdk}
@@ -232,7 +232,7 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
             required={fieldDetails.required}>
             <SingleEntryReferenceEditor
               parameters={{
-                instance: { showCreateEntityAction: true, showLinkEntityAction: true }
+                instance: { showCreateEntityAction: true, showLinkEntityAction: true },
               }}
               viewType="card"
               sdk={fieldSdk}
@@ -254,7 +254,7 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
             <MultipleEntryReferenceEditor
               isInitiallyDisabled={false}
               parameters={{
-                instance: { showCreateEntityAction: true, showLinkEntityAction: true }
+                instance: { showCreateEntityAction: true, showLinkEntityAction: true },
               }}
               viewType="link"
               sdk={fieldSdk}
@@ -276,7 +276,7 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
             <MultipleEntryReferenceEditor
               isInitiallyDisabled={false}
               parameters={{
-                instance: { showCreateEntityAction: true, showLinkEntityAction: true }
+                instance: { showCreateEntityAction: true, showLinkEntityAction: true },
               }}
               viewType="card"
               sdk={fieldSdk}
@@ -297,7 +297,7 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
             required={fieldDetails.required}>
             <SingleMediaEditor
               parameters={{
-                instance: { showCreateEntityAction: true, showLinkEntityAction: true }
+                instance: { showCreateEntityAction: true, showLinkEntityAction: true },
               }}
               viewType="link"
               sdk={fieldSdk}
@@ -318,7 +318,7 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
             required={fieldDetails.required}>
             <MultipleMediaEditor
               parameters={{
-                instance: { showCreateEntityAction: true, showLinkEntityAction: true }
+                instance: { showCreateEntityAction: true, showLinkEntityAction: true },
               }}
               viewType="link"
               sdk={fieldSdk}
@@ -339,7 +339,7 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
             required={fieldDetails.required}>
             <MultipleMediaEditor
               parameters={{
-                instance: { showCreateEntityAction: true, showLinkEntityAction: true }
+                instance: { showCreateEntityAction: true, showLinkEntityAction: true },
               }}
               viewType="card"
               sdk={fieldSdk}
@@ -395,11 +395,11 @@ interface FieldWrapperProps {
   required: boolean;
   field: FieldAPI;
 }
-const FieldWrapper: React.FC<FieldWrapperProps> = function({
+const FieldWrapper: React.FC<FieldWrapperProps> = function ({
   children,
   name,
   required,
-  field
+  field,
 }: FieldWrapperProps) {
   const [errors, setErrors] = React.useState<{ message: string; path: string[] }[]>([]);
   React.useEffect(() => {
@@ -421,7 +421,7 @@ const FieldWrapper: React.FC<FieldWrapperProps> = function({
       {children}
 
       <ul className={styles.errorList}>
-        {errors.map(error => (
+        {errors.map((error) => (
           <li key={error.path.join('')} className={styles.error}>
             {error.message}
           </li>

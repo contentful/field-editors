@@ -11,7 +11,7 @@ const styles = {
     justifyContent: 'flex-end',
     overflow: 'hidden',
     marginBottom: '-1px',
-    fontSize: tokens.fontSizeM
+    fontSize: tokens.fontSizeM,
   }),
   tab: css({
     cursor: 'pointer',
@@ -27,17 +27,17 @@ const styles = {
     borderBottomColor: tokens.colorElementLightest,
     outline: 'none',
     '&:focus': {
-      boxShadow: tokens.boxShadowHeavy
+      boxShadow: tokens.boxShadowHeavy,
     },
-    transition: `all ${tokens.transitionEasingDefault} ${tokens.transitionDurationShort}`
+    transition: `all ${tokens.transitionEasingDefault} ${tokens.transitionDurationShort}`,
   }),
   inactiveTab: css({
     background: tokens.colorElementLight,
     borderBottomColor: tokens.colorElementDark,
     '&:hover': {
-      background: tokens.colorElementMid
-    }
-  })
+      background: tokens.colorElementMid,
+    },
+  }),
 };
 
 interface MarkdownTabsProps {
@@ -55,12 +55,12 @@ function MarkdownTabItem(props: {
   return (
     <div
       className={cx(styles.tab, {
-        [styles.inactiveTab]: props.isActive === false
+        [styles.inactiveTab]: props.isActive === false,
       })}
       onClick={() => {
         props.onSelect(props.name);
       }}
-      onKeyDown={e => {
+      onKeyDown={(e) => {
         if (e.keyCode === 13) {
           props.onSelect(props.name);
         }

@@ -16,7 +16,7 @@ const srOnly = css({
   margin: '-1px',
   overflow: 'hidden',
   clip: 'rect(0, 0, 0, 0)',
-  border: '0'
+  border: '0',
 });
 
 export const Bold = ({ label, ...rest }: IconProps) => (

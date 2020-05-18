@@ -17,7 +17,7 @@ export const HeadingSelector = (props: {
       isOpen={isOpen}
       onClose={() => setOpen(false)}
       toggleElement={React.cloneElement(props.children, {
-        onClick: () => setOpen(!isOpen)
+        onClick: () => setOpen(!isOpen),
       })}>
       <DropdownList>
         <DropdownListItem

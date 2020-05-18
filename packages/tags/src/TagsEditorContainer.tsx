@@ -42,8 +42,8 @@ export function TagsEditorContainer(props: TagsEditorContainerProps) {
   const validations = field.validations || [];
 
   const sizeValidations = (validations as { size?: Constraint }[])
-    .filter(validation => validation.size)
-    .map(validation => validation.size);
+    .filter((validation) => validation.size)
+    .map((validation) => validation.size);
 
   const constraints = sizeValidations.length > 0 ? sizeValidations[0] : {};
 
@@ -64,7 +64,7 @@ export function TagsEditorContainer(props: TagsEditorContainerProps) {
             isDisabled={disabled}
             hasError={errors.length > 0}
             items={items}
-            onUpdate={items => {
+            onUpdate={(items) => {
               setValue(items);
             }}
           />
@@ -75,5 +75,5 @@ export function TagsEditorContainer(props: TagsEditorContainerProps) {
 }
 
 TagsEditorContainer.defaultProps = {
-  isInitiallyDisabled: true
+  isInitiallyDisabled: true,
 };

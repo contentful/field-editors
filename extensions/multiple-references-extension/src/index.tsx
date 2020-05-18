@@ -6,7 +6,7 @@ import '@contentful/forma-36-react-components/dist/styles.css';
 import '@contentful/forma-36-fcss/dist/styles.css';
 import './index.css';
 
-init<FieldExtensionSDK>(sdk => {
+init<FieldExtensionSDK>((sdk) => {
   const fieldSdk = sdk as FieldExtensionSDK;
   fieldSdk.window.startAutoResizer();
 
@@ -19,8 +19,8 @@ init<FieldExtensionSDK>(sdk => {
         parameters={{
           instance: {
             showCreateEntityAction: true,
-            showLinkEntityAction: true
-          }
+            showLinkEntityAction: true,
+          },
         }}
       />
     </div>,

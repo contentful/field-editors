@@ -18,8 +18,8 @@ const styles = {
   container: css({
     display: 'flex',
     flexDirection: 'column',
-    fontFamily: tokens.fontStackPrimary
-  })
+    fontFamily: tokens.fontStackPrimary,
+  }),
 };
 
 export interface MarkdownEditorProps {
@@ -57,7 +57,7 @@ export function MarkdownEditor(
   }, [editor]);
 
   React.useEffect(() => {
-    props.sdk.access.can('create', 'Asset').then(value => {
+    props.sdk.access.can('create', 'Asset').then((value) => {
       setCanUploadAssets(value);
     });
   }, []);
@@ -84,7 +84,7 @@ export function MarkdownEditor(
     <div className={styles.container} data-test-id="markdown-editor">
       <MarkdownTabs
         active={selectedTab}
-        onSelect={tab => {
+        onSelect={(tab) => {
           setSelectedTab(tab);
         }}
       />
@@ -99,7 +99,7 @@ export function MarkdownEditor(
         visible={selectedTab === 'editor'}
         disabled={isActionDisabled}
         direction={direction}
-        onReady={editor => {
+        onReady={(editor) => {
           editor.setContent(props.initialValue ?? '');
           editor.setReadOnly(props.disabled);
           setEditor(editor);
