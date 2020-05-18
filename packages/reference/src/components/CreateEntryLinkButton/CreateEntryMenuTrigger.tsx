@@ -10,7 +10,7 @@ import {
   DropdownList,
   Icon,
   DropdownListItem,
-  TextInput
+  TextInput,
 } from '@contentful/forma-36-react-components';
 import { useGlobalMouseUp } from './useGlobalMouseUp';
 
@@ -18,37 +18,37 @@ const MAX_ITEMS_WITHOUT_SEARCH = 20;
 
 const styles = {
   wrapper: css({
-    position: 'relative'
+    position: 'relative',
   }),
   searchInput: css({
     '& > input': {
       borderColor: 'transparent',
       paddingRight: tokens.spacing2Xl,
       '::placeholder': {
-        color: tokens.colorTextLight
-      }
-    }
+        color: tokens.colorTextLight,
+      },
+    },
   }),
   searchIcon: css({
     position: 'absolute',
     right: tokens.spacingM,
     top: tokens.spacingS,
     zIndex: Number(tokens.zIndexDefault),
-    fill: tokens.colorTextLight
+    fill: tokens.colorTextLight,
   }),
   separator: css({
     background: tokens.colorElementLight,
-    margin: '10px 0'
+    margin: '10px 0',
   }),
   dropdownList: css({
-    borderColor: tokens.colorElementLight
-  })
+    borderColor: tokens.colorElementLight,
+  }),
 };
 
 export type CreateEntryMenuTriggerChild = ({
   isOpen,
   isSelecting,
-  openMenu
+  openMenu,
 }: {
   isOpen: boolean;
   isSelecting: boolean;
@@ -74,9 +74,9 @@ export const CreateEntryMenuTrigger = ({
   testId,
   dropdownSettings = {
     isAutoalignmentEnabled: false,
-    position: 'bottom-left'
+    position: 'bottom-left',
   },
-  suggestedContentTypeId
+  suggestedContentTypeId,
 }: CreateEntryMenuTrigger) => {
   const [isOpen, setOpen] = useState(false);
   const [isSelecting, setSelecting] = useState(false);
@@ -94,7 +94,7 @@ export const CreateEntryMenuTrigger = ({
   const [dropdownWidth, setDropdownWidth] = useState(0);
 
   const mouseUpHandler = useCallback(
-    event => {
+    (event) => {
       if (
         wrapper &&
         wrapper.current &&
@@ -148,13 +148,10 @@ export const CreateEntryMenuTrigger = ({
 
   const isSearchable = contentTypes.length > MAX_ITEMS_WITHOUT_SEARCH;
   const maxDropdownHeight = suggestedContentTypeId ? 300 : 250;
-  const suggestedContentType = contentTypes.find(ct => ct.sys.id === suggestedContentTypeId);
+  const suggestedContentType = contentTypes.find((ct) => ct.sys.id === suggestedContentTypeId);
   const filteredContentTypes = contentTypes.filter(
-    ct =>
-      !searchInput ||
-      get(ct, 'name', 'Untitled')
-        .toLowerCase()
-        .includes(searchInput.toLowerCase())
+    (ct) =>
+      !searchInput || get(ct, 'name', 'Untitled').toLowerCase().includes(searchInput.toLowerCase())
   );
 
   return (
@@ -166,7 +163,7 @@ export const CreateEntryMenuTrigger = ({
         toggleElement={children({ isOpen, isSelecting, openMenu })}
         testId="add-entry-menu"
         // @ts-ignore
-        getContainerRef={ref => {
+        getContainerRef={(ref) => {
           dropdownRef.current = ref;
           if (!dropdownWidth) {
             setDropdownWidth(ref.clientWidth);
@@ -179,7 +176,7 @@ export const CreateEntryMenuTrigger = ({
               placeholder="Search all content types"
               testId="add-entry-menu-search"
               value={searchInput}
-              onChange={e => setSearchInput(e.target.value)}
+              onChange={(e) => setSearchInput(e.target.value)}
             />
             <Icon icon="Search" className={styles.searchIcon} />
           </div>
@@ -189,7 +186,7 @@ export const CreateEntryMenuTrigger = ({
           border="top"
           styles={{
             width: dropdownWidth || '',
-            maxHeight: maxDropdownHeight
+            maxHeight: maxDropdownHeight,
           }}
           maxHeight={maxDropdownHeight}>
           {searchInput && renderSearchResultsCount(filteredContentTypes.length)}
@@ -226,5 +223,5 @@ export const CreateEntryMenuTrigger = ({
 };
 
 CreateEntryMenuTrigger.defaultProps = {
-  testId: 'create-entry-button-menu-trigger'
+  testId: 'create-entry-button-menu-trigger',
 };

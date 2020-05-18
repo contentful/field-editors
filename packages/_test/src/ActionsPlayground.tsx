@@ -25,10 +25,10 @@ function reducer(state: ActionPlaygroundState, action: Actions): ActionPlaygroun
         {
           id: state.events.length + 1,
           type: action.payload.type,
-          value: action.payload.value
+          value: action.payload.value,
         },
-        ...state.events
-      ]
+        ...state.events,
+      ],
     };
   }
   return state;
@@ -42,8 +42,8 @@ function ActionsPlayground(props: ActionsPlaygroundProps) {
       type: 'add',
       payload: {
         type,
-        value: event
-      }
+        value: event,
+      },
     });
   };
 
@@ -73,15 +73,15 @@ function ActionsPlayground(props: ActionsPlaygroundProps) {
       className={css({
         border: `1px solid ${tokens.colorElementLight}`,
         padding: tokens.spacingS,
-        marginTop: tokens.spacingXl
+        marginTop: tokens.spacingXl,
       })}>
       <div
         className={css({
           height: 150,
           overflowY: 'scroll',
-          fontSize: tokens.fontSizeM
+          fontSize: tokens.fontSizeM,
         })}>
-        {state.events.map(log => (
+        {state.events.map((log) => (
           <div key={log.id}>
             <div>
               <code>
@@ -99,7 +99,7 @@ function ActionsPlayground(props: ActionsPlaygroundProps) {
 ActionsPlayground.defaultProps = {
   renderValue: function JsonStringifiedValue(value: any) {
     return <pre>{JSON.stringify(value, null, 2)}</pre>;
-  }
+  },
 };
 
 export { ActionsPlayground };

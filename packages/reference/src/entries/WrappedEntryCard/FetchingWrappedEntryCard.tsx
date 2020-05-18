@@ -27,7 +27,7 @@ async function openEntry(
       const result = await sdk.navigator.openBulkEditor(sdk.entry.getSys().id, {
         fieldId: sdk.field.id,
         locale: sdk.field.locale,
-        index: options.index ?? 0
+        index: options.index ?? 0,
       });
       slide = result.slide;
       return slide;
@@ -38,7 +38,7 @@ async function openEntry(
   }
 
   const result = await sdk.navigator.openEntry(entryId, {
-    slideIn: true
+    slideIn: true,
   });
   slide = result.slide;
 
@@ -91,7 +91,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       onEdit={async () => {
         const slide = await openEntry(props.sdk, entry.sys.id, {
           bulkEditing: props.parameters.instance.bulkEditing,
-          index: props.index
+          index: props.index,
         });
         props.onAction &&
           props.onAction({
@@ -99,7 +99,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
             type: 'edit',
             id: entry.sys.id,
             contentTypeId: entry.sys.contentType.sys.id,
-            slide
+            slide,
           });
       }}
       onRemove={() => {
@@ -109,7 +109,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
             entity: 'Entry',
             type: 'delete',
             id: entry.sys.id,
-            contentTypeId: entry.sys.contentType.sys.id
+            contentTypeId: entry.sys.contentType.sys.id,
           });
       }}
     />

@@ -5,7 +5,7 @@ import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 import { BooleanEditor } from './BooleanEditor';
 
 configure({
-  testIdAttribute: 'data-test-id'
+  testIdAttribute: 'data-test-id',
 });
 
 describe('BooleanEditor', () => {
@@ -20,18 +20,21 @@ describe('BooleanEditor', () => {
     const $inputs = container.querySelectorAll('input[type="radio"]');
 
     expect($inputs).toHaveLength(2);
-    [{ value: 'true', label: 'Yes' }, { value: 'false', label: 'No' }].forEach((item, index) => {
+    [
+      { value: 'true', label: 'Yes' },
+      { value: 'false', label: 'No' },
+    ].forEach((item, index) => {
       expect(($inputs[index] as HTMLInputElement).value).toEqual(item.value);
       getByLabelText(item.label);
     });
   });
 
   it('calls setValue and removeValue properly', () => {
-    const [field] = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI((field) => {
       jest.spyOn(field, 'setValue');
       jest.spyOn(field, 'removeValue');
       return {
-        ...field
+        ...field,
       };
     });
     const { getByLabelText, queryByText, getByText } = render(
@@ -42,8 +45,8 @@ describe('BooleanEditor', () => {
           installation: {},
           instance: {
             trueLabel: 'Yeah, obviously',
-            falseLabel: 'No, of course'
-          }
+            falseLabel: 'No, of course',
+          },
         }}
       />
     );

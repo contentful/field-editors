@@ -18,7 +18,7 @@ export function open(componentRenderer: (params: { onClose: Function; isShown: b
     return rootDom;
   };
 
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     let currentConfig = { onClose, isShown: true };
 
     function render({ onClose, isShown }: { onClose: Function; isShown: boolean }) {
@@ -28,7 +28,7 @@ export function open(componentRenderer: (params: { onClose: Function; isShown: b
     function onClose(...args: any[]) {
       currentConfig = {
         ...currentConfig,
-        isShown: false
+        isShown: false,
       };
       render(currentConfig);
       resolve(...args);
@@ -73,5 +73,5 @@ export function openDialog<T>(
 }
 
 export default {
-  openDialog
+  openDialog,
 };

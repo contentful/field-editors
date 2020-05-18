@@ -11,15 +11,15 @@ const styles = {
   gridContainter: css({
     position: 'relative',
     display: 'flex',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
   }),
   container: css({
-    position: 'relative'
+    position: 'relative',
   }),
   item: css({
     marginBottom: tokens.spacingM,
-    marginRight: tokens.spacingM
-  })
+    marginRight: tokens.spacingM,
+  }),
 };
 
 type SortableLinkListProps = ReferenceEditorProps & {

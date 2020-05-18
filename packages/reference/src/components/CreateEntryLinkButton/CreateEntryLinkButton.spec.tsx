@@ -7,14 +7,14 @@ import {
   waitForElement,
   waitForElementToBeRemoved,
   act,
-  configure
+  configure,
 } from '@testing-library/react';
 
 import { CreateEntryLinkButton } from './CreateEntryLinkButton';
 import { ContentType } from '../../types';
 
 configure({
-  testIdAttribute: 'data-test-id'
+  testIdAttribute: 'data-test-id',
 });
 
 const CONTENT_TYPE_1 = { name: 'name-1', sys: { id: 'ID_1' } } as ContentType;
@@ -28,7 +28,7 @@ describe('CreateEntryLinkButton general', () => {
     contentTypes: [CONTENT_TYPE_1, CONTENT_TYPE_2, CONTENT_TYPE_3],
     onSelect: () => {
       return Promise.resolve();
-    }
+    },
   };
 
   it('renders with multiple content types as list', () => {
@@ -79,7 +79,7 @@ describe('CreateEntryLinkButton general', () => {
   it('renders custom text, icon', () => {
     const propsOverrides = {
       text: 'CUSTOM_TEXT',
-      hasPlusIcon: true
+      hasPlusIcon: true,
     };
     const { getByTestId } = render(<CreateEntryLinkButton {...props} {...propsOverrides} />);
     const link = findButton(getByTestId);
@@ -93,7 +93,7 @@ describe('CreateEntryLinkButton with multiple entries', () => {
     contentTypes: [CONTENT_TYPE_1, CONTENT_TYPE_2, CONTENT_TYPE_3],
     onSelect: () => {
       return Promise.resolve();
-    }
+    },
   };
 
   it('should display and close menu on button click', () => {
@@ -135,7 +135,7 @@ describe('CreateEntryLinkButton with a single entry', () => {
     contentTypes: [CONTENT_TYPE_1],
     onSelect: () => {
       return Promise.resolve();
-    }
+    },
   };
 
   it('should fire the onSelect function when clicked', () => {
@@ -151,7 +151,7 @@ describe('CreateEntryLinkButton with a single entry', () => {
 
 describe('CreateEntryLinkButton common', () => {
   it('should render a spinner if onSelect returns a promise', async () => {
-    const onSelect = jest.fn(() => new Promise(resolve => setTimeout(resolve, 1000)));
+    const onSelect = jest.fn(() => new Promise((resolve) => setTimeout(resolve, 1000)));
     const { getByTestId, container } = render(
       <CreateEntryLinkButton contentTypes={[CONTENT_TYPE_1]} onSelect={onSelect} />
     );
@@ -163,7 +163,7 @@ describe('CreateEntryLinkButton common', () => {
   });
 
   it('should hide a spinner after the promise from onSelect resolves', async () => {
-    const onSelect = jest.fn(() => new Promise(resolve => setTimeout(resolve, 500)));
+    const onSelect = jest.fn(() => new Promise((resolve) => setTimeout(resolve, 500)));
     const { getByTestId, container } = render(
       <CreateEntryLinkButton contentTypes={[CONTENT_TYPE_1]} onSelect={onSelect} />
     );
@@ -176,7 +176,7 @@ describe('CreateEntryLinkButton common', () => {
   });
 
   it('does not emit onSelect on subsequent click before the promise from onSelect resolves', async () => {
-    const onSelect = jest.fn(() => new Promise(resolve => setTimeout(() => resolve(), 200)));
+    const onSelect = jest.fn(() => new Promise((resolve) => setTimeout(() => resolve(), 200)));
     const { getByTestId } = render(
       <CreateEntryLinkButton contentTypes={[CONTENT_TYPE_1]} onSelect={onSelect} />
     );

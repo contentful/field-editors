@@ -6,7 +6,7 @@ import {
   EntryCard,
   DropdownList,
   DropdownListItem,
-  Icon
+  Icon,
 } from '@contentful/forma-36-react-components';
 import { Entry, File, ContentType } from '../../types';
 import { isValidImage } from '../../utils/isValidImage';
@@ -17,8 +17,8 @@ const { getEntryTitle, getEntityDescription, getEntryStatus, getEntryImage } = e
 
 const styles = {
   scheduleIcon: css({
-    marginRight: tokens.spacing2Xs
-  })
+    marginRight: tokens.spacing2Xs,
+  }),
 };
 
 interface WrappedEntryCardProps {
@@ -41,7 +41,7 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
   const [file, setFile] = React.useState<null | File>(null);
 
   const contentType = props.allContentTypes.find(
-    contentType => contentType.sys.id === props.entry?.sys.contentType.sys.id
+    (contentType) => contentType.sys.id === props.entry?.sys.contentType.sys.id
   );
 
   React.useEffect(() => {
@@ -51,11 +51,11 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
           entry: props.entry,
           contentType,
           localeCode: props.localeCode,
-          defaultLocaleCode: props.defaultLocaleCode
+          defaultLocaleCode: props.defaultLocaleCode,
         },
         props.getAsset
       )
-        .then(file => {
+        .then((file) => {
           setFile(file);
         })
         .catch(() => {
@@ -81,14 +81,14 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
     contentType,
     localeCode: props.localeCode,
     defaultLocaleCode: props.defaultLocaleCode,
-    defaultTitle: 'Untitled'
+    defaultTitle: 'Untitled',
   });
 
   const description = getEntityDescription({
     entity: props.entry,
     contentType,
     localeCode: props.localeCode,
-    defaultLocaleCode: props.defaultLocaleCode
+    defaultLocaleCode: props.defaultLocaleCode,
   });
 
   return (
@@ -124,7 +124,7 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
             <DropdownList
               // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
               // @ts-ignore
-              onClick={e => {
+              onClick={(e) => {
                 e.stopPropagation();
               }}>
               {props.onEdit && (
@@ -148,11 +148,9 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
               )}
             </DropdownList>
           </React.Fragment>
-        ) : (
-          undefined
-        )
+        ) : undefined
       }
-      onClick={e => {
+      onClick={(e) => {
         e.preventDefault();
         props.onEdit && props.onEdit();
       }}

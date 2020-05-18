@@ -22,5 +22,5 @@ export function SingleMediaEditor(props: ReferenceEditorProps) {
 }
 
 SingleMediaEditor.defaultProps = {
-  isInitiallyDisabled: true
+  isInitiallyDisabled: true,
 };

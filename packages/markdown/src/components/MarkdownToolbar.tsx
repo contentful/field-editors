@@ -15,34 +15,34 @@ const styles = {
     border: `1px solid ${tokens.colorElementDark}`,
     backgroundColor: tokens.colorElementLightest,
     padding: tokens.spacingXs,
-    borderTopLeftRadius: '2px'
+    borderTopLeftRadius: '2px',
   }),
   actionsRow: css({
     display: 'flex',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   }),
   additionalRow: css({
-    marginTop: tokens.spacingXs
+    marginTop: tokens.spacingXs,
   }),
   actionsGroup: css({
-    display: 'flex'
+    display: 'flex',
   }),
   button: css({
-    minWidth: '46px'
+    minWidth: '46px',
   }),
   icon: css({
     fill: tokens.colorTextMid,
-    verticalAlign: 'middle'
+    verticalAlign: 'middle',
   }),
   zenButton: css({
-    marginLeft: tokens.spacingXs
+    marginLeft: tokens.spacingXs,
   }),
   zenButtonPressed: css({
-    backgroundColor: tokens.colorElementDark
+    backgroundColor: tokens.colorElementDark,
   }),
   tooltip: css({
-    zIndex: Number(tokens.zIndexTooltip)
-  })
+    zIndex: Number(tokens.zIndexTooltip),
+  }),
 };
 
 function ToolbarButton(props: {
@@ -63,7 +63,7 @@ function ToolbarButton(props: {
     className,
     buttonType = 'naked',
     tooltipPlace = 'top',
-    disabled = false
+    disabled = false,
   } = props;
 
   const button = (
@@ -104,7 +104,7 @@ function MainButtons(props: MarkdownToolbarProps) {
   return (
     <>
       <HeadingSelector
-        onSelect={heading => {
+        onSelect={(heading) => {
           if (heading && props.actions.headings[heading]) {
             props.actions.headings[heading]();
           }

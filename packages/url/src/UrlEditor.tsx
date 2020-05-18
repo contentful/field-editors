@@ -42,5 +42,5 @@ export function UrlEditor(props: UrlEditorProps) {
 }
 
 UrlEditor.defaultProps = {
-  isInitiallyDisabled: true
+  isInitiallyDisabled: true,
 };

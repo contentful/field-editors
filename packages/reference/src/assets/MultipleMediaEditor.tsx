@@ -6,7 +6,7 @@ import { SortableLinkList } from './SortableElements';
 export function MultipleMediaEditor(props: ReferenceEditorProps) {
   return (
     <MultipleReferenceEditor {...props} entityType="Asset">
-      {childrenProps => (
+      {(childrenProps) => (
         <SortableLinkList
           {...props}
           {...childrenProps}
@@ -19,5 +19,5 @@ export function MultipleMediaEditor(props: ReferenceEditorProps) {
 }
 
 MultipleMediaEditor.defaultProps = {
-  isInitiallyDisabled: true
+  isInitiallyDisabled: true,
 };

@@ -85,15 +85,15 @@ const styles = {
   `,
   framed: css({
     '.CodeMirror': {
-      maxHeight: '500px'
-    }
+      maxHeight: '500px',
+    },
   }),
   zen: css({
     border: 'none !important',
     '.CodeMirror-lines': {
       maxWidth: '650px',
-      margin: '0 auto'
-    }
+      margin: '0 auto',
+    },
   }),
   disabled: css`
     .CodeMirror {
@@ -102,7 +102,7 @@ const styles = {
     .CodeMirror-cursors {
       visibility: hidden !important;
     }
-  `
+  `,
 };
 
 export const MarkdownTextarea = React.memo((props: MarkdownTextareaProps) => {
@@ -118,12 +118,12 @@ export const MarkdownTextarea = React.memo((props: MarkdownTextareaProps) => {
             {},
             {
               direction: props.direction,
-              readOnly: true
+              readOnly: true,
             },
             props.mode === 'zen'
               ? {
                   fixedHeight: true,
-                  height: '100%'
+                  height: '100%',
                 }
               : {}
           )

@@ -5,7 +5,7 @@ import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-edit
 import { ListEditor } from './ListEditor';
 
 configure({
-  testIdAttribute: 'data-test-id'
+  testIdAttribute: 'data-test-id',
 });
 
 describe('ListEditor', () => {
@@ -22,10 +22,10 @@ describe('ListEditor', () => {
   }
 
   it('renders empty value properly', () => {
-    const [field] = createFakeFieldAPI(mock => {
+    const [field] = createFakeFieldAPI((mock) => {
       return {
         ...mock,
-        validations: []
+        validations: [],
       };
     });
     const renderResult = render(
@@ -38,10 +38,10 @@ describe('ListEditor', () => {
   it('renders non-empty value properly', () => {
     const initialValue = ['test1', 'test2', 'test3'];
 
-    const [field] = createFakeFieldAPI(mock => {
+    const [field] = createFakeFieldAPI((mock) => {
       return {
         ...mock,
-        validations: []
+        validations: [],
       };
     }, initialValue);
 
@@ -53,12 +53,12 @@ describe('ListEditor', () => {
   });
 
   it('calls setValue and removeValue when user inputs data', () => {
-    const [field] = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI((field) => {
       jest.spyOn(field, 'setValue');
       jest.spyOn(field, 'removeValue');
       return {
         ...field,
-        validations: []
+        validations: [],
       };
     });
 

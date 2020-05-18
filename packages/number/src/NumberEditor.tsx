@@ -19,7 +19,7 @@ type RangeValidation = { min?: number; max?: number };
 
 function getRangeFromField(field: FieldAPI): RangeValidation {
   const validations = field.validations || [];
-  const result = validations.find(validation => (validation as any).range) as
+  const result = validations.find((validation) => (validation as any).range) as
     | { range: RangeValidation }
     | undefined;
   return result ? result.range : {};
@@ -61,5 +61,5 @@ export function NumberEditor(props: NumberEditorProps) {
 }
 
 NumberEditor.defaultProps = {
-  isInitiallyDisabled: true
+  isInitiallyDisabled: true,
 };

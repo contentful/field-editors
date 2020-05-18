@@ -15,7 +15,7 @@ interface CollapsibleFieldGroupProps {
 export const CollapsibleFieldGroup: React.FC<CollapsibleFieldGroupProps> = ({
   fieldGroup,
   fields,
-  locales
+  locales,
 }: CollapsibleFieldGroupProps) => {
   const [isOpen, setOpen] = React.useState(false);
   const toggleOpen = () => setOpen(!isOpen);

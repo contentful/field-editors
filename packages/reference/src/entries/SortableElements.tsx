@@ -9,11 +9,11 @@ import { CardDragHandle } from '@contentful/forma-36-react-components';
 
 const styles = {
   containter: css({
-    position: 'relative'
+    position: 'relative',
   }),
   item: css({
-    marginBottom: tokens.spacingM
-  })
+    marginBottom: tokens.spacingM,
+  }),
 };
 
 type SortableLinkListProps = ReferenceEditorProps & {

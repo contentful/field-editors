@@ -8,59 +8,59 @@ import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 const styles = {
   flexColumnContainer: css({
     display: 'flex',
-    flexWrap: 'nowrap'
+    flexWrap: 'nowrap',
   }),
   flexColumn: css({
-    flexGrow: 1
+    flexGrow: 1,
   }),
   verticalDivider: css({
     borderRight: `1px solid ${tokens.colorElementDarkest}`,
     paddingRight: tokens.spacing3Xl,
-    marginRight: tokens.spacing2Xl
+    marginRight: tokens.spacing2Xl,
   }),
   preview: css({
     display: 'inline-block',
     paddingRight: tokens.spacingL,
-    width: '50%'
+    width: '50%',
   }),
   unOrderedListPreview: css({
     listStyleType: 'disc',
-    marginLeft: tokens.spacingS
+    marginLeft: tokens.spacingS,
   }),
   orderedListPreview: css({
     listStyleType: 'decimal',
-    marginLeft: tokens.spacingS
+    marginLeft: tokens.spacingS,
   }),
   markup: css({
     display: 'inline-block',
     color: tokens.colorTextLight,
     paddingLeft: tokens.spacingL,
-    width: '50%'
+    width: '50%',
   }),
   h1: css({
-    fontSize: tokens.fontSize2Xl
+    fontSize: tokens.fontSize2Xl,
   }),
   h2: css({
-    fontSize: tokens.fontSizeXl
+    fontSize: tokens.fontSizeXl,
   }),
   h3: css({
-    fontSize: tokens.fontSizeL
+    fontSize: tokens.fontSizeL,
   }),
   helpItem: css({
     marginBottom: tokens.spacingS,
     display: 'flex',
     alignItems: 'flex-end',
-    height: tokens.spacingXl
+    height: tokens.spacingXl,
   }),
   helpLink: css({
-    margin: 'auto'
+    margin: 'auto',
   }),
   flexRowContainer: css({
     display: 'flex',
     width: '100%',
     justifyContent: 'center',
-    marginTop: tokens.spacingXl
-  })
+    marginTop: tokens.spacingXl,
+  }),
 };
 
 export const CheatsheetModalDialog = () => {
@@ -155,7 +155,7 @@ export const openCheatsheetModal = (dialogs: DialogsAPI): Promise<void> => {
     shouldCloseOnEscapePress: true,
     shouldCloseOnOverlayClick: true,
     parameters: {
-      type: MarkdownDialogType.cheatsheet
-    } as MarkdownDialogsParams
+      type: MarkdownDialogType.cheatsheet,
+    } as MarkdownDialogsParams,
   });
 };

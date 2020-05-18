@@ -10,29 +10,29 @@ const styles = {
   // @ts-ignore
   statusTag: css({
     marginLeft: tokens.spacingM,
-    zIndex: '0 !important'
+    zIndex: '0 !important',
   }),
   positiveColor: css({
-    color: tokens.colorPositive
+    color: tokens.colorPositive,
   }),
   secondaryColor: css({
-    color: tokens.colorElementDarkest
+    color: tokens.colorElementDarkest,
   }),
   marginRightXS: css({
-    marginRight: tokens.spacing2Xs
+    marginRight: tokens.spacing2Xs,
   }),
   paragraph: css({
     textAlign: 'center',
-    color: tokens.colorElementDarkest
+    color: tokens.colorElementDarkest,
   }),
   time: css({
-    color: tokens.colorElementLight
-  })
+    color: tokens.colorElementLight,
+  }),
 };
 
 export const ScheduleTooltipContent = ({
   job,
-  jobsCount
+  jobsCount,
 }: {
   job: ScheduledAction;
   jobsCount: number;
@@ -68,7 +68,7 @@ export const ScheduleTooltipContent = ({
 export const ScheduleTooltip = ({
   job,
   jobsCount,
-  children
+  children,
 }: {
   job: ScheduledAction;
   jobsCount: number;

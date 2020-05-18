@@ -25,13 +25,13 @@ class Editor extends React.Component<EditorProps, EditorState> {
   constructor(props: EditorProps) {
     super(props);
     this.state = {
-      canCreateEntity: true
+      canCreateEntity: true,
     };
   }
 
   componentDidMount() {
     if (this.props.entityType === 'Asset') {
-      this.props.sdk.access.can('create', 'Asset').then(value => {
+      this.props.sdk.access.can('create', 'Asset').then((value) => {
         this.setState({ canCreateEntity: value });
       });
     }
@@ -56,8 +56,8 @@ class Editor extends React.Component<EditorProps, EditorState> {
       sys: {
         type: 'Link',
         linkType: this.props.entityType,
-        id
-      }
+        id,
+      },
     });
   };
 
@@ -67,8 +67,8 @@ class Editor extends React.Component<EditorProps, EditorState> {
       sys: {
         type: 'Link',
         linkType: this.props.entityType,
-        id
-      }
+        id,
+      },
     });
   };
 
@@ -97,7 +97,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
       allContentTypes: this.props.allContentTypes,
       isDisabled: this.props.isDisabled,
       entityId: this.props.entityId,
-      setValue: this.props.setValue
+      setValue: this.props.setValue,
     });
   }
 }

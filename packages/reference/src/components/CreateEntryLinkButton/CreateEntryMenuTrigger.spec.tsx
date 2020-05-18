@@ -9,7 +9,7 @@ import '@testing-library/jest-dom/extend-expect';
 import { CreateEntryMenuTrigger, CreateEntryMenuTriggerChild } from './CreateEntryMenuTrigger';
 
 configure({
-  testIdAttribute: 'data-test-id'
+  testIdAttribute: 'data-test-id',
 });
 
 const CONTENT_TYPE_1 = { name: 'name-1', sys: { id: 'ID_1' } };
@@ -21,11 +21,11 @@ describe('CreateEntryMenuTrigger general', () => {
     contentTypes: [CONTENT_TYPE_1, CONTENT_TYPE_2, CONTENT_TYPE_3] as ContentType[],
     onSelect: () => {
       return Promise.resolve();
-    }
+    },
   };
 
   it('shares the state and functions for the menu', () => {
-    const stub: CreateEntryMenuTriggerChild = api => {
+    const stub: CreateEntryMenuTriggerChild = (api) => {
       expect(api.isOpen).toBe(false);
       expect(api.isSelecting).toBe(false);
       expect(typeof api.openMenu).toBe('function');
@@ -38,12 +38,12 @@ describe('CreateEntryMenuTrigger general', () => {
   it('should open menu after the openMenu call', () => {
     const stub = jest
       .fn()
-      .mockImplementationOnce(api => {
+      .mockImplementationOnce((api) => {
         expect(api.isOpen).toBe(false);
         api.openMenu();
         return null;
       })
-      .mockImplementationOnce(api => {
+      .mockImplementationOnce((api) => {
         expect(api.isOpen).toBe(true);
         return null;
       });
@@ -63,17 +63,17 @@ describe('CreateEntryMenuTrigger general', () => {
   it('should set isSelecting to true in case onSelect returns a promise', async () => {
     const stub = jest
       .fn()
-      .mockImplementationOnce(api => {
+      .mockImplementationOnce((api) => {
         expect(api.isOpen).toBe(false);
         api.openMenu();
         return null;
       })
       .mockImplementationOnce(() => null)
-      .mockImplementationOnce(api => {
+      .mockImplementationOnce((api) => {
         expect(api.isSelecting).toBe(true);
         return null;
       });
-    const selectStub = jest.fn(() => new Promise(resolve => setTimeout(resolve, 1000)));
+    const selectStub = jest.fn(() => new Promise((resolve) => setTimeout(resolve, 1000)));
 
     const { getAllByTestId } = render(
       <CreateEntryMenuTrigger {...props} onSelect={selectStub}>
@@ -91,13 +91,13 @@ describe('CreateEntryMenuTrigger general', () => {
   it('should not set isSelecting to true in case onSelect is sync', async () => {
     const stub = jest
       .fn()
-      .mockImplementationOnce(api => {
+      .mockImplementationOnce((api) => {
         expect(api.isOpen).toBe(false);
         api.openMenu();
         return null;
       })
       .mockImplementationOnce(() => null)
-      .mockImplementationOnce(api => {
+      .mockImplementationOnce((api) => {
         expect(api.isSelecting).toBe(false);
         return null;
       });
@@ -119,7 +119,7 @@ describe('CreateEntryMenuTrigger general', () => {
   it('renders text input if contentTypes.length > 20', () => {
     const stub = jest
       .fn()
-      .mockImplementationOnce(api => {
+      .mockImplementationOnce((api) => {
         api.openMenu();
         return null;
       })
@@ -138,7 +138,7 @@ describe('CreateEntryMenuTrigger general', () => {
   it('shows the search results if typed in input', () => {
     const stub = jest
       .fn()
-      .mockImplementationOnce(api => {
+      .mockImplementationOnce((api) => {
         api.openMenu();
         return null;
       })
@@ -171,7 +171,7 @@ describe('CreateEntryMenuTrigger general', () => {
   it('shows suggestedContentType in the list', () => {
     const stub = jest
       .fn()
-      .mockImplementationOnce(api => {
+      .mockImplementationOnce((api) => {
         api.openMenu();
         return null;
       })

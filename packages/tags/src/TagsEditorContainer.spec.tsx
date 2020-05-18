@@ -5,7 +5,7 @@ import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 import { TagsEditorContainer } from './TagsEditorContainer';
 
 configure({
-  testIdAttribute: 'data-test-id'
+  testIdAttribute: 'data-test-id',
 });
 
 describe('TagsEditor', () => {
@@ -38,16 +38,16 @@ describe('TagsEditor', () => {
   }
 
   function clickRemoveTag({ getAllByTestId }: RenderResult, index: number) {
-    fireEvent.click(getAllByTestId('tag-editor-pill')[index].querySelector(
-      'button'
-    ) as HTMLButtonElement);
+    fireEvent.click(
+      getAllByTestId('tag-editor-pill')[index].querySelector('button') as HTMLButtonElement
+    );
   }
 
   it('renders empty value properly', () => {
-    const [field] = createFakeFieldAPI(mock => {
+    const [field] = createFakeFieldAPI((mock) => {
       return {
         ...mock,
-        validations: []
+        validations: [],
       };
     });
     const renderResult = render(<TagsEditorContainer field={field} isInitiallyDisabled={false} />);
@@ -60,10 +60,10 @@ describe('TagsEditor', () => {
   it('renders non-empty value properly', () => {
     const initialValue = ['test1', 'test2', 'test3'];
 
-    const [field] = createFakeFieldAPI(mock => {
+    const [field] = createFakeFieldAPI((mock) => {
       return {
         ...mock,
-        validations: []
+        validations: [],
       };
     }, initialValue);
 
@@ -82,41 +82,41 @@ describe('TagsEditor', () => {
       {
         testType: 'max',
         validation: { max: 10 },
-        expected: 'Requires no more than 10 tags'
+        expected: 'Requires no more than 10 tags',
       },
       {
         testType: 'max-one',
         validation: { max: 1 },
-        expected: 'Requires no more than 1 tag'
+        expected: 'Requires no more than 1 tag',
       },
       {
         testType: 'min',
         validation: { min: 20 },
-        expected: 'Requires at least 20 tags'
+        expected: 'Requires at least 20 tags',
       },
       {
         testType: 'min-one',
         validation: { min: 1 },
-        expected: 'Requires at least 1 tag'
+        expected: 'Requires at least 1 tag',
       },
       {
         testType: 'min-max',
         validation: { min: 10, max: 20 },
-        expected: 'Requires between 10 and 20 tags'
+        expected: 'Requires between 10 and 20 tags',
       },
       {
         testType: 'min-max-equal',
         validation: { min: 10, max: 10 },
-        expected: 'Requires exactly 10 tags'
-      }
+        expected: 'Requires exactly 10 tags',
+      },
     ];
 
-    conditions.forEach(condition => {
+    conditions.forEach((condition) => {
       it(condition.testType, () => {
-        const [field] = createFakeFieldAPI(mock => {
+        const [field] = createFakeFieldAPI((mock) => {
           return {
             ...mock,
-            validations: [{ size: condition.validation }]
+            validations: [{ size: condition.validation }],
           };
         });
 
@@ -131,12 +131,12 @@ describe('TagsEditor', () => {
   });
 
   it('adds and removes values', () => {
-    const [field] = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI((field) => {
       jest.spyOn(field, 'setValue');
       jest.spyOn(field, 'removeValue');
       return {
         ...field,
-        validations: []
+        validations: [],
       };
     });
 

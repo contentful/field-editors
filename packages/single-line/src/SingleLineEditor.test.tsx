@@ -6,13 +6,13 @@ import { SingleLineEditor } from './SingleLineEditor';
 import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
 
 configure({
-  testIdAttribute: 'data-test-id'
+  testIdAttribute: 'data-test-id',
 });
 
 jest.mock(
   'lodash/throttle',
   () => ({
-    default: identity
+    default: identity,
   }),
   { virtual: true }
 );
@@ -21,10 +21,10 @@ describe('SingleLineEditor', () => {
   afterEach(cleanup);
 
   it('renders without crashing', () => {
-    const [field] = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI((field) => {
       return {
         ...field,
-        type: 'Symbol'
+        type: 'Symbol',
       };
     });
 
@@ -40,14 +40,14 @@ describe('SingleLineEditor', () => {
   it('reads initial value from field.getValue', () => {
     const initialValue = 'initial-value';
 
-    const [field] = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI((field) => {
       return {
         ...field,
         id: 'field-id',
         type: 'Symbol',
         getValue: () => {
           return initialValue;
-        }
+        },
       };
     });
 
@@ -65,13 +65,13 @@ describe('SingleLineEditor', () => {
   });
 
   it('calls field.setValue when user types and calls field.removeValue when user clears the input', () => {
-    const [field] = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI((field) => {
       jest.spyOn(field, 'setValue');
       jest.spyOn(field, 'removeValue');
       return {
         ...field,
         id: 'field-id',
-        type: 'Symbol'
+        type: 'Symbol',
       };
     });
 
@@ -88,7 +88,7 @@ describe('SingleLineEditor', () => {
     expect($input).toHaveValue('');
 
     fireEvent.change($input, {
-      target: { value: 'new-value' }
+      target: { value: 'new-value' },
     });
 
     expect($input).toHaveValue('new-value');
@@ -96,7 +96,7 @@ describe('SingleLineEditor', () => {
     expect(field.setValue).toHaveBeenLastCalledWith('new-value');
 
     fireEvent.change($input, {
-      target: { value: '' }
+      target: { value: '' },
     });
 
     expect($input).toHaveValue('');
@@ -105,11 +105,11 @@ describe('SingleLineEditor', () => {
   });
 
   it('shows proper validation message (Symbol)', () => {
-    const [field] = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI((field) => {
       return {
         ...field,
         type: 'Symbol',
-        id: 'field-id'
+        id: 'field-id',
       };
     });
 
@@ -126,11 +126,11 @@ describe('SingleLineEditor', () => {
   });
 
   it('shows proper validation message (Text)', () => {
-    const [field] = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI((field) => {
       return {
         ...field,
         type: 'Text',
-        id: 'field-id'
+        id: 'field-id',
       };
     });
 
@@ -147,7 +147,7 @@ describe('SingleLineEditor', () => {
   });
 
   it('shows proper min-max validation message', () => {
-    const [field] = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI((field) => {
       return {
         ...field,
         type: 'Symbol',
@@ -155,11 +155,11 @@ describe('SingleLineEditor', () => {
           {
             size: {
               min: 100,
-              max: 1000
-            }
-          }
+              max: 1000,
+            },
+          },
         ],
-        id: 'field-id'
+        id: 'field-id',
       };
     });
 
@@ -176,18 +176,18 @@ describe('SingleLineEditor', () => {
   });
 
   it('shows proper min validation message', () => {
-    const [field] = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI((field) => {
       return {
         ...field,
         type: 'Symbol',
         validations: [
           {
             size: {
-              min: 1000
-            }
-          }
+              min: 1000,
+            },
+          },
         ],
-        id: 'field-id'
+        id: 'field-id',
       };
     });
 

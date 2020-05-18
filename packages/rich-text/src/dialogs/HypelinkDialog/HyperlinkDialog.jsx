@@ -10,7 +10,7 @@ import {
   FormLabel,
   TextLink,
   SelectField,
-  Option
+  Option,
 } from '@contentful/forma-36-react-components';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { FetchingWrappedEntryCard } from '../../plugins/EmbeddedEntityBlock/FetchingWrappedEntryCard';
@@ -19,7 +19,7 @@ import { FetchingWrappedAssetCard } from '../../plugins/EmbeddedEntityBlock/Fetc
 export const LINK_TYPES = {
   URI: 'uri',
   ENTRY: 'Entry',
-  ASSET: 'Asset'
+  ASSET: 'Asset',
 };
 
 function isFeaturingEntitySelector(entitySelectorConfigs = {}) {
@@ -36,32 +36,32 @@ export class HyperlinkDialog extends React.Component {
     sdk: PropTypes.object.isRequired,
     labels: PropTypes.shape({
       title: PropTypes.string,
-      confirm: PropTypes.string
+      confirm: PropTypes.string,
     }),
     value: PropTypes.shape({
       text: PropTypes.string,
       uri: PropTypes.string,
       target: PropTypes.object,
       // Will be overwritten accordingly if `uri` or `target.sys.linkType` are set.
-      type: PropTypes.oneOf(['uri', 'Entry', 'Asset'])
+      type: PropTypes.oneOf(['uri', 'Entry', 'Asset']),
     }),
     entitySelectorConfigs: PropTypes.object,
     allowedHyperlinkTypes: PropTypes.arrayOf(
       PropTypes.oneOf([LINK_TYPES.ENTRY, LINK_TYPES.ASSET, LINK_TYPES.URI])
     ),
     hideText: PropTypes.bool,
-    onClose: PropTypes.func.isRequired
+    onClose: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     labels: {
       title: 'Insert link',
-      confirm: 'Insert link'
+      confirm: 'Insert link',
     },
     value: {},
     hideText: false,
     entitySelectorConfigs: {},
-    allowedHyperlinkTypes: [LINK_TYPES.ENTRY, LINK_TYPES.ASSET, LINK_TYPES.URI]
+    allowedHyperlinkTypes: [LINK_TYPES.ENTRY, LINK_TYPES.ASSET, LINK_TYPES.URI],
   };
 
   constructor(props) {
@@ -71,7 +71,7 @@ export class HyperlinkDialog extends React.Component {
     const isEntityLink = Boolean(target);
     const entityLinks = {
       [LINK_TYPES.ENTRY]: null,
-      [LINK_TYPES.ASSET]: null
+      [LINK_TYPES.ASSET]: null,
     };
     let linkType = type;
 
@@ -88,11 +88,11 @@ export class HyperlinkDialog extends React.Component {
   }
 
   setTargetEntity(type, entity) {
-    this.setState(state => ({
+    this.setState((state) => ({
       entityLinks: {
         ...state.entityLinks,
-        [type]: entity ? entityToLink(entity) : undefined
-      }
+        [type]: entity ? entityToLink(entity) : undefined,
+      },
     }));
   }
 
@@ -119,7 +119,7 @@ export class HyperlinkDialog extends React.Component {
     return (type === LINK_TYPES.URI && uri) || target;
   }
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
     this.props.onClose(this.getValue());
   };
@@ -175,11 +175,11 @@ export class HyperlinkDialog extends React.Component {
             required
             labelText="Link text"
             value={text || ''}
-            onChange={e => this.setState({ text: e.target.value })}
+            onChange={(e) => this.setState({ text: e.target.value })}
             id="link-text"
             name="link-text"
             textInputProps={{
-              testId: 'link-text-input'
+              testId: 'link-text-input',
             }}
           />
         )}
@@ -187,7 +187,7 @@ export class HyperlinkDialog extends React.Component {
           <SelectField
             labelText="Link type"
             value={type}
-            onChange={e => this.setState({ type: e.target.value })}
+            onChange={(e) => this.setState({ type: e.target.value })}
             name="link-type"
             id="link-type"
             selectProps={{ testId: 'link-type-select' }}>
@@ -211,10 +211,10 @@ export class HyperlinkDialog extends React.Component {
             textInputProps={{
               placeholder: 'https://',
               testId: 'link-uri-input',
-              autoFocus: true
+              autoFocus: true,
             }}
             helpText="A protocol may be required, e.g. https://"
-            onChange={e => this.setState({ uri: e.target.value })}
+            onChange={(e) => this.setState({ uri: e.target.value })}
             id="link-uri"
             name="link-uri"
           />
@@ -286,12 +286,12 @@ export const openHyperlinkDialog = (
   const props = {
     labels: {
       title: isNew ? 'Insert hyperlink' : 'Edit hyperlink',
-      confirm: isNew ? 'Insert' : 'Update'
+      confirm: isNew ? 'Insert' : 'Update',
     },
     value,
     hideText: !showTextInput,
     allowedHyperlinkTypes,
-    entitySelectorConfigs
+    entitySelectorConfigs,
   };
 
   return dialogs.openExtension({
@@ -301,7 +301,7 @@ export const openHyperlinkDialog = (
     shouldCloseOnOverlayClick: true,
     parameters: {
       type: 'rich-text-hyperlink-dialog',
-      ...props
-    }
+      ...props,
+    },
   });
 };

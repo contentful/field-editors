@@ -11,7 +11,7 @@ export type TimezonepickerProps = {
 export const TimezonepickerInput = ({
   disabled,
   onChange,
-  value = defaultZoneOffset
+  value = defaultZoneOffset,
 }: TimezonepickerProps) => {
   return (
     <Select
@@ -23,7 +23,7 @@ export const TimezonepickerInput = ({
       onChange={(e: ChangeEvent<HTMLSelectElement>) => {
         onChange(e.currentTarget.value);
       }}>
-      {zoneOffsets.map(offset => (
+      {zoneOffsets.map((offset) => (
         <Option key={offset} value={offset}>
           UTC{offset}
         </Option>

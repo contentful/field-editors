@@ -11,18 +11,18 @@ const styles = {
     justifyContent: 'space-between',
     backgroundColor: tokens.colorElementLightest,
     border: `1px solid ${tokens.colorElementLight}`,
-    borderBottom: 'none'
+    borderBottom: 'none',
   }),
   title: css({
     fontFamily: tokens.fontStackPrimary,
     fontSize: tokens.fontSizeM,
-    color: tokens.colorTextLight
+    color: tokens.colorTextLight,
   }),
   actions: css({
     button: {
-      marginLeft: tokens.spacingS
-    }
-  })
+      marginLeft: tokens.spacingS,
+    },
+  }),
 };
 
 type JsonEditorToolbarProps = {

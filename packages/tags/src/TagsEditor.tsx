@@ -21,15 +21,15 @@ const styles = {
   dropContainer: css({
     whiteSpace: 'nowrap',
     display: 'flex',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
   }),
   input: css({
     marginTop: tokens.spacingS,
-    marginBottom: tokens.spacingM
+    marginBottom: tokens.spacingM,
   }),
   pill: css({
     marginRight: tokens.spacingS,
-    marginBottom: tokens.spacingS
+    marginBottom: tokens.spacingS,
   }),
   handle: css({
     lineHeight: '1.5rem',
@@ -39,9 +39,9 @@ const styles = {
     userSelect: 'none',
     svg: {
       fill: tokens.colorTextLightest,
-      verticalAlign: 'middle'
-    }
-  })
+      verticalAlign: 'middle',
+    },
+  }),
 };
 
 const SortablePillHandle = SortableHandle(() => (
@@ -86,7 +86,7 @@ export function TagsEditor(props: TagsEditorProps) {
   const { isDisabled, items, constraints, constraintsType, hasError } = props;
 
   const removeItem = useCallback(
-    index => {
+    (index) => {
       const newItems = props.items.filter((_, filterIndex) => index !== filterIndex);
       props.onUpdate(newItems);
     },

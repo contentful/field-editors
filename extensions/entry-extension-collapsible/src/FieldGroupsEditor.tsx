@@ -13,7 +13,7 @@ import {
   Card,
   Paragraph,
   IconButton,
-  CardDragHandle
+  CardDragHandle,
 } from '@contentful/forma-36-react-components';
 import { findUnassignedFields, AppContext, SDKContext } from './shared';
 import { FieldType, FieldGroupType } from './types';
@@ -52,7 +52,7 @@ const SortableFieldItem = SortableElement(
             dispatch({
               type: ActionTypes.REMOVE_FIELD_FROM_GROUP,
               groupId,
-              fieldKey: field.id
+              fieldKey: field.id,
             })
           }
         />
@@ -119,7 +119,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
   last,
   name,
   fields,
-  groupId
+  groupId,
 }: FieldGroupProps) => {
   const { state, dispatch } = React.useContext(AppContext);
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
@@ -128,7 +128,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
     dispatch({
       type: ActionTypes.RENAME_FIELD_GROUP,
       groupId,
-      name: e.currentTarget.value
+      name: e.currentTarget.value,
     });
 
   const unassignedFields = findUnassignedFields(state);
@@ -146,7 +146,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
       type: ActionTypes.MOVE_FIELD_IN_GROUP,
       groupId,
       oldIndex,
-      newIndex
+      newIndex,
     });
   };
 
@@ -177,7 +177,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
                     type: ActionTypes.ADD_FIELD_TO_GROUP,
                     groupId,
                     fieldKey: id,
-                    fieldName: name
+                    fieldName: name,
                   });
                   closeDropdown();
                 }}
@@ -196,7 +196,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
       />
       <div>
         <TextLink
-    className={styles.fieldGroupConfigurationTextLink}
+          className={styles.fieldGroupConfigurationTextLink}
           linkType="negative"
           icon="Close"
           onClick={() => dispatch({ type: ActionTypes.DELETE_FIELD_GROUP, groupId })}>
@@ -204,7 +204,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
         </TextLink>
         {!last ? (
           <TextLink
-    className={styles.fieldGroupConfigurationTextLink}
+            className={styles.fieldGroupConfigurationTextLink}
             icon="ChevronDown"
             onClick={() => dispatch({ type: ActionTypes.MOVE_FIELD_GROUP_DOWN, groupId })}>
             Move down
@@ -212,7 +212,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
         ) : null}
         {!first ? (
           <TextLink
-    className={styles.fieldGroupConfigurationTextLink}
+            className={styles.fieldGroupConfigurationTextLink}
             icon="ChevronUp"
             onClick={() => dispatch({ type: ActionTypes.MOVE_FIELD_GROUP_UP, groupId })}>
             Move up

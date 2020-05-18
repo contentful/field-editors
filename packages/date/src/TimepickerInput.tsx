@@ -23,7 +23,7 @@ const validInputFormats = [
   'h A',
   'h',
   'hh',
-  'HH'
+  'HH',
 ];
 
 function parseRawInput(raw: string): moment.Moment | null {
@@ -50,7 +50,7 @@ export const TimepickerInput = ({
   uses12hClock,
   time = '12:00',
   ampm = 'AM',
-  onChange
+  onChange,
 }: TimepickerProps) => {
   const formatToString = (value: moment.Moment): string => {
     return uses12hClock ? value.format('hh:mm A') : value.format('HH:mm');
@@ -68,7 +68,7 @@ export const TimepickerInput = ({
     setSelectedTime(e.currentTarget.value);
   }, []);
 
-  const handleFocus = useCallback(e => {
+  const handleFocus = useCallback((e) => {
     e.preventDefault();
     e.target.select();
   }, []);

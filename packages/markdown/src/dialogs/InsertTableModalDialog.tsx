@@ -9,9 +9,9 @@ import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 const styles = {
   controlButton: css({
     button: {
-      marginRight: tokens.spacingM
-    }
-  })
+      marginRight: tokens.spacingM,
+    },
+  }),
 };
 
 type InsertTableModalPositiveResult = { cols: number; rows: number };
@@ -51,7 +51,7 @@ export const InsertTableModal = ({ onClose }: InsertTableModalProps) => {
             type: 'number',
             width: 'small',
             autoComplete: 'off',
-            inputRef: mainInputRef
+            inputRef: mainInputRef,
           }}
           validationMessage={!rowsAreValid ? 'Should be between 2 and 100' : ''}
           required
@@ -69,7 +69,7 @@ export const InsertTableModal = ({ onClose }: InsertTableModalProps) => {
             pattern: '[1-9][0-9]*',
             type: 'number',
             width: 'small',
-            autoComplete: 'off'
+            autoComplete: 'off',
           }}
           validationMessage={!colsAreValid ? 'Should be between 1 and 100' : ''}
           required
@@ -99,7 +99,7 @@ export const openInsertTableDialog = (dialogs: DialogsAPI): Promise<InsertTableM
     shouldCloseOnEscapePress: true,
     shouldCloseOnOverlayClick: true,
     parameters: {
-      type: MarkdownDialogType.insertTable
-    } as MarkdownDialogsParams
+      type: MarkdownDialogType.insertTable,
+    } as MarkdownDialogsParams,
   });
 };

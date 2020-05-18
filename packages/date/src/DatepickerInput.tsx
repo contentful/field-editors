@@ -11,14 +11,14 @@ import { CalendarIcon } from './icons/CalendarIcon';
 const styles = {
   datePickerWrapper: css({
     position: 'relative',
-    maxHeight: 70
+    maxHeight: 70,
   }),
   datePicker: css({
     zIndex: 1002,
     display: 'block',
     '.is-hidden': {
-      display: 'none'
-    }
+      display: 'none',
+    },
   }),
   input: css({
     width: '270px',
@@ -26,17 +26,17 @@ const styles = {
       cursor: 'pointer',
       paddingRight: '40px',
       '&:disabled': {
-        cursor: 'not-allowed'
-      }
-    }
+        cursor: 'not-allowed',
+      },
+    },
   }),
   icon: css({
     cursor: 'pointer',
     zIndex: 50,
     position: 'absolute',
     top: '12px',
-    right: '12px'
-  })
+    right: '12px',
+  }),
 };
 
 export type DatePickerProps = {
@@ -49,7 +49,7 @@ export type DatePickerProps = {
 export class DatepickerInput extends Component<DatePickerProps> {
   static defaultProps: Partial<DatePickerProps> = {
     onChange: noop,
-    onBlur: noop
+    onBlur: noop,
   };
 
   pikaday?: Pikaday;
@@ -65,14 +65,14 @@ export class DatepickerInput extends Component<DatePickerProps> {
       position: 'bottom left',
       reposition: false,
       theme: cx(styles.datePicker, 'hide-carret'),
-      toString: date => {
+      toString: (date) => {
         return formatDateDisplay(moment(date));
       },
       // we need to keep this function like this
       // so `this` refers to pikaday instance
       onSelect: function onSelect() {
         onChange(this.getMoment() || undefined);
-      }
+      },
     });
   }
 

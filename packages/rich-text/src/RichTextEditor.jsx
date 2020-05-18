@@ -24,7 +24,7 @@ const STYLE_EDITOR_BORDER = `1px solid ${tokens.colorElementDark}`;
 
 const styles = {
   root: css({
-    position: 'relative'
+    position: 'relative',
   }),
   editor: css({
     borderRadius: '0 0 3px 3px',
@@ -42,13 +42,13 @@ const styles = {
       span: {
         cursor: 'not-allowed',
         '&:hover': {
-          cursor: 'not-allowed'
-        }
-      }
-    }
+          cursor: 'not-allowed',
+        },
+      },
+    },
   }),
   hiddenToolbar: css({
-    borderTop: STYLE_EDITOR_BORDER
+    borderTop: STYLE_EDITOR_BORDER,
   }),
   enabled: css({
     background: tokens.colorWhite,
@@ -56,24 +56,24 @@ const styles = {
       span: {
         cursor: 'pointer',
         '&:hover': {
-          cursor: 'pointer'
-        }
-      }
-    }
+          cursor: 'pointer',
+        },
+      },
+    },
   }),
   disabled: css({
-    background: tokens.colorElementLightest
-  })
+    background: tokens.colorElementLightest,
+  }),
 };
 
-const createSlateValue = contentfulDocument => {
+const createSlateValue = (contentfulDocument) => {
   const document = toSlatejsDocument({
     document: contentfulDocument,
-    schema
+    schema,
   });
   const value = Value.fromJSON({
     document,
-    schema
+    schema,
   });
   // Normalize document instead of doing this in the Editor instance as this would
   // trigger unwanted operations that would result in an unwanted version bump.
@@ -91,24 +91,24 @@ export class ConnectedRichTextEditor extends React.Component {
     sdk: PropTypes.shape({
       field: PropTypes.shape({
         id: PropTypes.string.isRequired,
-        locale: PropTypes.string.isRequired
+        locale: PropTypes.string.isRequired,
       }).isRequired,
       access: PropTypes.shape({
-        can: PropTypes.func.isRequired
+        can: PropTypes.func.isRequired,
       }).isRequired,
       parameters: PropTypes.shape({
         instance: PropTypes.shape({
           getEntryUrl: PropTypes.func,
-          getAssetUrl: PropTypes.func
-        }).isRequired
-      })
+          getAssetUrl: PropTypes.func,
+        }).isRequired,
+      }),
     }).isRequired,
     value: PropTypes.object,
     isDisabled: PropTypes.bool,
     onChange: PropTypes.func,
     onAction: PropTypes.func,
     isToolbarHidden: PropTypes.bool,
-    actionsDisabled: PropTypes.bool
+    actionsDisabled: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -117,7 +117,7 @@ export class ConnectedRichTextEditor extends React.Component {
     onAction: noop,
     isDisabled: false,
     isToolbarHidden: false,
-    actionsDisabled: false
+    actionsDisabled: false,
   };
 
   state = {
@@ -126,29 +126,29 @@ export class ConnectedRichTextEditor extends React.Component {
     value:
       this.props.value && this.props.value.nodeType === BLOCKS.DOCUMENT
         ? createSlateValue(this.props.value)
-        : EMPTY_SLATE_DOCUMENT
+        : EMPTY_SLATE_DOCUMENT,
   };
 
   editor = React.createRef();
 
   richTextAPI = createRichTextAPI({
     sdk: this.props.sdk,
-    onAction: this.props.onAction
+    onAction: this.props.onAction,
   });
 
   slatePlugins = buildPlugins(this.richTextAPI);
 
   componentDidMount() {
-    this.props.sdk.access.can('read', 'Asset').then(canReadAssets => {
+    this.props.sdk.access.can('read', 'Asset').then((canReadAssets) => {
       this.setState({ canAccessAssets: canReadAssets });
     });
   }
 
-  onChange = editor => {
+  onChange = (editor) => {
     const { value, operations } = editor;
     this.setState({
       value,
-      lastOperations: operations.filter(isRelevantOperation)
+      lastOperations: operations.filter(isRelevantOperation),
     });
   };
 
@@ -164,7 +164,7 @@ export class ConnectedRichTextEditor extends React.Component {
   callOnChange = debounce(() => {
     const doc = toContentfulDocument({
       document: this.state.value.document.toJSON(),
-      schema
+      schema,
     });
     this.props.onChange(doc);
   }, 500);
@@ -178,7 +178,7 @@ export class ConnectedRichTextEditor extends React.Component {
       this.setState({ lastOperations: List() }, () => this.callOnChange());
     } else if (isIncomingChange()) {
       this.setState({
-        value: createSlateValue(this.props.value)
+        value: createSlateValue(this.props.value),
       });
     }
   }
@@ -226,7 +226,7 @@ export class ConnectedRichTextEditor extends React.Component {
           className={classNames}
           actionsDisabled={this.props.actionsDisabled}
           options={{
-            normalize: false // No initial normalizaiton as we pass a normalized document.
+            normalize: false, // No initial normalizaiton as we pass a normalized document.
           }}
         />
       </div>
@@ -261,7 +261,7 @@ export default function RichTextEditor(props) {
         throttle={0}
         field={sdk.field}
         isInitiallyDisabled={isInitiallyDisabled}
-        isEmptyValue={value => {
+        isEmptyValue={(value) => {
           return !value || deepEquals(value, EMPTY_DOCUMENT);
         }}
         isEqualValues={(value1, value2) => {
@@ -276,7 +276,7 @@ export default function RichTextEditor(props) {
               value={lastRemoteValue}
               sdk={sdk}
               isDisabled={disabled}
-              onChange={value => {
+              onChange={(value) => {
                 setValue(value);
               }}
             />
@@ -288,5 +288,5 @@ export default function RichTextEditor(props) {
 }
 
 RichTextEditor.defaultProps = {
-  isInitiallyDisabled: true
+  isInitiallyDisabled: true,
 };

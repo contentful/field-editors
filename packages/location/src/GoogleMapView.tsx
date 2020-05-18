@@ -8,13 +8,13 @@ import { Coords } from './types';
 const styles = {
   root: css({
     height: '300px',
-    width: '100%'
-  })
+    width: '100%',
+  }),
 };
 
 const BerlinLocation = {
   lat: 52.5018,
-  lng: 13.41115439
+  lng: 13.41115439,
 };
 
 type GoogleMapViewProps = {
@@ -35,7 +35,7 @@ export class GoogleMapView extends React.Component<GoogleMapViewProps, GoogleMap
     super(props);
     this.state = {
       marker: undefined,
-      maps: undefined
+      maps: undefined,
     };
   }
 
@@ -57,7 +57,7 @@ export class GoogleMapView extends React.Component<GoogleMapViewProps, GoogleMap
       map,
       position: map.getCenter(),
       draggable: true,
-      visible: Boolean(this.props.location)
+      visible: Boolean(this.props.location),
     });
 
     maps.event.addListener(map, 'click', (event: any) => {
@@ -68,14 +68,14 @@ export class GoogleMapView extends React.Component<GoogleMapViewProps, GoogleMap
       this.state.marker.setVisible(true);
       this.props.onChangeLocation({
         lat: event.latLng.lat(),
-        lng: event.latLng.lng()
+        lng: event.latLng.lng(),
       });
     });
 
     maps.event.addListener(marker, 'dragend', (event: any) => {
       this.props.onChangeLocation({
         lat: event.latLng.lat(),
-        lng: event.latLng.lng()
+        lng: event.latLng.lng(),
       });
     });
     this.setState({ marker, maps }, () => {
@@ -95,7 +95,7 @@ export class GoogleMapView extends React.Component<GoogleMapViewProps, GoogleMap
           center={this.props.location}
           options={{
             scrollwheel: false,
-            mapTypeId: 'roadmap'
+            mapTypeId: 'roadmap',
           }}
           defaultZoom={6}
           yesIWantToUseGoogleMapApiInternals

@@ -7,34 +7,34 @@ import {
   ValidationMessage,
   DropdownList,
   DropdownListItem,
-  Card
+  Card,
 } from '@contentful/forma-36-react-components';
 import { Coords, GeocodeApiResponse } from './types';
 
 const styles = {
   root: css({
-    width: '100%'
+    width: '100%',
   }),
   input: css({
     position: 'relative',
-    width: '100%'
+    width: '100%',
   }),
   spinner: css({
     position: 'absolute',
     right: 10,
     top: 10,
-    zIndex: 99
+    zIndex: 99,
   }),
   validationMessage: css({
-    marginTop: tokens.spacingS
+    marginTop: tokens.spacingS,
   }),
   suggesion: css({
     position: 'absolute',
     bottom: '-65px',
     left: 0,
     minWidth: '400px',
-    zIndex: 1
-  })
+    zIndex: 1,
+  }),
 };
 
 type LocationSearchInputProps = {
@@ -56,7 +56,7 @@ export function LocationSearchInput(props: LocationSearchInputProps) {
 
   React.useEffect(() => {
     setIsSearching(true);
-    props.onGetAddressFromLocation(props.value, address).then(address => {
+    props.onGetAddressFromLocation(props.value, address).then((address) => {
       setAddress(address);
       setIsSearching(false);
     });
@@ -70,7 +70,7 @@ export function LocationSearchInput(props: LocationSearchInputProps) {
           error={hasError}
           placeholder="Start typing to find location"
           value={address}
-          onChange={e => {
+          onChange={(e) => {
             setAddress(e.target.value);
             setHasError(false);
             setSuggestion(null);
@@ -81,7 +81,7 @@ export function LocationSearchInput(props: LocationSearchInputProps) {
             }
 
             setIsSearching(true);
-            props.onSearchAddress(e.target.value).then(value => {
+            props.onSearchAddress(e.target.value).then((value) => {
               setIsSearching(false);
               if (value === null) {
                 setHasError(false);
@@ -92,19 +92,9 @@ export function LocationSearchInput(props: LocationSearchInputProps) {
                 setSuggestion({
                   address: value[0].formatted_address,
                   location: {
-                    lat: Number(
-                      value[0].geometry.location
-                        .lat()
-                        .toString()
-                        .slice(0, 8)
-                    ),
-                    lng: Number(
-                      value[0].geometry.location
-                        .lng()
-                        .toString()
-                        .slice(0, 8)
-                    )
-                  }
+                    lat: Number(value[0].geometry.location.lat().toString().slice(0, 8)),
+                    lng: Number(value[0].geometry.location.lng().toString().slice(0, 8)),
+                  },
                 });
               }
             });

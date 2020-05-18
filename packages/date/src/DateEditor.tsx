@@ -10,7 +10,7 @@ import {
   userInputFromDatetime,
   buildFieldValue,
   getDefaultAMPM,
-  getDefaultUtcOffset
+  getDefaultUtcOffset,
 } from './utils/date';
 import { TimeFormat, DateTimeFormat, TimeResult } from './types';
 
@@ -39,11 +39,11 @@ export interface DateEditorProps {
 const styles = {
   root: css({
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
   }),
   separator: css({
-    marginLeft: tokens.spacingM
-  })
+    marginLeft: tokens.spacingM,
+  }),
 };
 
 function useEffectWithoutFirstRender(callback: Function, deps: Array<any>) {
@@ -64,7 +64,7 @@ function DateEditorContainer({
   uses12hClock,
   disabled,
   hasClear,
-  onChange
+  onChange,
 }: {
   initialValue: TimeResult;
   usesTime: boolean;
@@ -85,10 +85,10 @@ function DateEditorContainer({
       <DatepickerInput
         disabled={disabled}
         value={value.date}
-        onChange={date => {
-          setValue(value => ({
+        onChange={(date) => {
+          setValue((value) => ({
             ...value,
-            date
+            date,
           }));
         }}
       />
@@ -100,10 +100,10 @@ function DateEditorContainer({
             time={value.time}
             ampm={value.ampm}
             onChange={({ time, ampm }) => {
-              setValue(value => ({
+              setValue((value) => ({
                 ...value,
                 time,
-                ampm
+                ampm,
               }));
             }}
             uses12hClock={uses12hClock}
@@ -116,10 +116,10 @@ function DateEditorContainer({
           <TimezonepickerInput
             disabled={disabled}
             value={value.utcOffset}
-            onChange={utcOffset => {
-              setValue(value => ({
+            onChange={(utcOffset) => {
+              setValue((value) => ({
                 ...value,
-                utcOffset
+                utcOffset,
               }));
             }}
           />
@@ -136,7 +136,7 @@ function DateEditorContainer({
                 date: undefined,
                 time: undefined,
                 ampm: getDefaultAMPM(),
-                utcOffset: getDefaultUtcOffset()
+                utcOffset: getDefaultUtcOffset(),
               });
             }}>
             Clear
@@ -165,7 +165,7 @@ export function DateEditor(props: DateEditorProps) {
       {({ value, disabled, setValue, externalReset }) => {
         const datetimeValue = userInputFromDatetime({
           value,
-          uses12hClock
+          uses12hClock,
         });
         return (
           <DateEditorContainer
@@ -175,7 +175,7 @@ export function DateEditor(props: DateEditorProps) {
             usesTime={usesTime}
             disabled={disabled}
             hasClear={Boolean(value)}
-            onChange={data => {
+            onChange={(data) => {
               const fieldValue = buildFieldValue({ data, usesTime, usesTimezone });
               if (fieldValue.invalid) {
                 return;
@@ -195,5 +195,5 @@ export function DateEditor(props: DateEditorProps) {
 }
 
 DateEditor.defaultProps = {
-  isInitiallyDisabled: true
+  isInitiallyDisabled: true,
 };

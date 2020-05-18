@@ -4,7 +4,7 @@ import {
   FieldAPI,
   FieldConnector,
   PredefinedValuesError,
-  LocalesAPI
+  LocalesAPI,
 } from '@contentful/field-editor-shared';
 import { getOptions, parseValue } from './dropdownUtils';
 import * as styles from './styles';
@@ -55,7 +55,7 @@ export function DropdownEditor(props: DropdownEditorProps) {
             setValue(parseValue(value, field.type));
           }}>
           <Option value="">Choose a value</Option>
-          {options.map(option => (
+          {options.map((option) => (
             <Option key={option.value} value={String(option.value)}>
               {option.label}
             </Option>
@@ -67,5 +67,5 @@ export function DropdownEditor(props: DropdownEditorProps) {
 }
 
 DropdownEditor.defaultProps = {
-  isInitiallyDisabled: true
+  isInitiallyDisabled: true,
 };

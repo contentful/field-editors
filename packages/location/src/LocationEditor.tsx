@@ -8,7 +8,7 @@ import {
   ViewType,
   NullableLocationValue,
   Coords,
-  GeocodeApiResponse
+  GeocodeApiResponse,
 } from './types';
 import { LocationSelector } from './LocationSelector';
 import { GoogleMapView } from './GoogleMapView';
@@ -65,14 +65,14 @@ export class LocationEditor extends React.Component<
       localValue: props.value
         ? {
             lng: props.value.lon,
-            lat: props.value.lat
+            lat: props.value.lat,
           }
         : undefined,
-      mapsObject: null
+      mapsObject: null,
     };
   }
 
-  onSearchAddress: (value: string) => Promise<GeocodeApiResponse> = throttle(value => {
+  onSearchAddress: (value: string) => Promise<GeocodeApiResponse> = throttle((value) => {
     if (!this.state.mapsObject) {
       return Promise.resolve(null);
     }
@@ -80,7 +80,7 @@ export class LocationEditor extends React.Component<
     if (!value) {
       return Promise.resolve(null);
     }
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       const geocoder = new mapsObject.Geocoder();
       geocoder.geocode({ address: value }, resolve, () => {
         resolve(null);
@@ -93,14 +93,14 @@ export class LocationEditor extends React.Component<
       return Promise.resolve('');
     }
     const { mapsObject } = this.state;
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       const geocoder = new mapsObject.Geocoder();
       geocoder.geocode(
         { location },
         (result: GeocodeApiResponse) => {
           if (result && result.length > 0) {
-            const addresses = result.map(item => item.formatted_address);
-            resolve(addresses.find(item => item === value) || addresses[0]);
+            const addresses = result.map((item) => item.formatted_address);
+            resolve(addresses.find((item) => item === value) || addresses[0]);
           } else {
             resolve('');
           }
@@ -124,7 +124,7 @@ export class LocationEditor extends React.Component<
           onGoogleApiLoaded={({ maps }) => {
             this.setState({ mapsObject: maps });
           }}
-          onChangeLocation={coords => {
+          onChangeLocation={(coords) => {
             this.setState({ localValue: coords });
             this.props.setValue(toLocationValue(coords));
           }}
@@ -133,10 +133,10 @@ export class LocationEditor extends React.Component<
           disabled={this.props.disabled || mapsObject === null}
           value={localValue}
           view={this.props.selectedView}
-          onChangeView={view => {
+          onChangeView={(view) => {
             this.props.setSelectedView(view);
           }}
-          onChangeLocation={coords => {
+          onChangeLocation={(coords) => {
             this.setState({ localValue: coords });
             this.props.setValue(toLocationValue(coords));
           }}
@@ -179,5 +179,5 @@ export function LocationEditorConnected(props: LocationEditorConnectedProps) {
 }
 
 LocationEditorConnected.defaultProps = {
-  isInitiallyDisabled: true
+  isInitiallyDisabled: true,
 };

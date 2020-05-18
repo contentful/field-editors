@@ -5,17 +5,17 @@ import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-edit
 import { RadioEditor } from './RadioEditor';
 
 configure({
-  testIdAttribute: 'data-test-id'
+  testIdAttribute: 'data-test-id',
 });
 
 describe('RadioEditor', () => {
   afterEach(cleanup);
 
   it('renders a warning if no options are present', () => {
-    const [field] = createFakeFieldAPI(mock => {
+    const [field] = createFakeFieldAPI((mock) => {
       return {
         ...mock,
-        validations: []
+        validations: [],
       };
     });
 
@@ -29,10 +29,10 @@ describe('RadioEditor', () => {
 
   it('renders inputs for predefined values', () => {
     const predefined = ['banana', 'orange', 'strawberry'];
-    const [field] = createFakeFieldAPI(mock => {
+    const [field] = createFakeFieldAPI((mock) => {
       return {
         ...mock,
-        validations: [{ in: predefined }]
+        validations: [{ in: predefined }],
       };
     });
     const { container } = render(
@@ -48,12 +48,12 @@ describe('RadioEditor', () => {
   });
 
   it('calls setValue and removeValue properly', () => {
-    const [field] = createFakeFieldAPI(field => {
+    const [field] = createFakeFieldAPI((field) => {
       jest.spyOn(field, 'setValue');
       jest.spyOn(field, 'removeValue');
       return {
         ...field,
-        validations: [{ in: ['banana', 'orange', 'strawberry'] }]
+        validations: [{ in: ['banana', 'orange', 'strawberry'] }],
       };
     });
     const { container, queryByText, getByText } = render(
@@ -78,15 +78,15 @@ describe('RadioEditor', () => {
   });
 
   describe('Number field', () => {
-    it('calls setValue and removeValue properly', function() {
+    it('calls setValue and removeValue properly', function () {
       const predefined = [1, '2.71', '0'];
-      const [field] = createFakeFieldAPI(field => {
+      const [field] = createFakeFieldAPI((field) => {
         jest.spyOn(field, 'setValue');
         jest.spyOn(field, 'removeValue');
         return {
           ...field,
           type: 'Number',
-          validations: [{ in: predefined }]
+          validations: [{ in: predefined }],
         };
       });
 
@@ -118,15 +118,15 @@ describe('RadioEditor', () => {
   });
 
   describe('Integer field', () => {
-    it('calls setValue and removeValue properly', function() {
+    it('calls setValue and removeValue properly', function () {
       const predefined = [0, '65', '99', 100];
-      const [field] = createFakeFieldAPI(field => {
+      const [field] = createFakeFieldAPI((field) => {
         jest.spyOn(field, 'setValue');
         jest.spyOn(field, 'removeValue');
         return {
           ...field,
           type: 'Number',
-          validations: [{ in: predefined }]
+          validations: [{ in: predefined }],
         };
       });
 

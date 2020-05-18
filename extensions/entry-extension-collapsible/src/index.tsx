@@ -5,7 +5,7 @@ import {
   init,
   locations,
   EditorExtensionSDK,
-  DialogExtensionSDK
+  DialogExtensionSDK,
 } from 'contentful-ui-extensions-sdk';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import '@contentful/forma-36-fcss/dist/styles.css';
@@ -69,7 +69,7 @@ export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
         </Modal>
 
         <div className={styles.fieldGroupsContainer}>
-          {state.fieldGroups.map(fieldGroup => (
+          {state.fieldGroups.map((fieldGroup) => (
             <CollapsibleFieldGroup
               key={fieldGroup.id}
               locales={props.sdk.locales}
@@ -95,7 +95,7 @@ function renderAtRoot(element: JSX.Element) {
   render(element, document.getElementById('root'));
 }
 
-init(sdk => {
+init((sdk) => {
   if (sdk.location.is(locations.LOCATION_ENTRY_EDITOR)) {
     renderAtRoot(<App sdk={sdk as EditorExtensionSDK} />);
   } else if (sdk.location.is(locations.LOCATION_DIALOG)) {

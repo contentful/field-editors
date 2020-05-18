@@ -20,7 +20,7 @@ const groupToIconMap = {
   archive: 'archive',
   plaintext: 'plaintext',
   code: 'code',
-  markup: 'markup'
+  markup: 'markup',
 };
 
 export interface WrappedAssetCardProps {
@@ -45,7 +45,7 @@ function getFileType(file?: File): any {
 
   const groupName: keyof typeof groupToIconMap = mimetype.getGroupLabel({
     type: file.contentType,
-    fallbackFileName: file.fileName
+    fallbackFileName: file.fileName,
   });
 
   return groupToIconMap[groupName] || 'archive';
@@ -71,7 +71,7 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
     asset: props.asset,
     localeCode: props.localeCode,
     defaultLocaleCode: props.defaultLocaleCode,
-    defaultTitle: 'Untitled'
+    defaultTitle: 'Untitled',
   });
 
   const entityFile = props.asset.fields.file

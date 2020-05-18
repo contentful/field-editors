@@ -4,12 +4,12 @@ export {
   ScheduleTooltipContent,
   ScheduledIconWithTooltip,
   AssetThumbnail,
-  MissingEntityCard
+  MissingEntityCard,
 } from './components';
 export {
   SingleEntryReferenceEditor,
   MultipleEntryReferenceEditor,
-  WrappedEntryCard
+  WrappedEntryCard,
 } from './entries';
 export { SingleMediaEditor, MultipleMediaEditor, WrappedAssetCard } from './assets';
 export { EntityProvider, useEntities } from './common/EntityStore';

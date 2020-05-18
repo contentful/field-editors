@@ -9,8 +9,8 @@ interface CharCounterProps {
 
 const styles = {
   invalid: css({
-    color: tokens.colorRedBase
-  })
+    color: tokens.colorRedBase,
+  }),
 };
 
 export function CharCounter(props: CharCounterProps) {
@@ -23,7 +23,7 @@ export function CharCounter(props: CharCounterProps) {
     <span
       data-status-code={valid ? null : 'invalid-size'}
       className={cx({
-        [styles.invalid]: !valid
+        [styles.invalid]: !valid,
       })}>
       {count} characters
     </span>

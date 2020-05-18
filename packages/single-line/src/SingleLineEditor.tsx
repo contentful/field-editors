@@ -6,7 +6,7 @@ import {
   ConstraintsUtils,
   CharCounter,
   CharValidation,
-  LocalesAPI
+  LocalesAPI,
 } from '@contentful/field-editor-shared';
 import * as styles from './styles';
 
@@ -69,5 +69,5 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
 }
 
 SingleLineEditor.defaultProps = {
-  isInitiallyDisabled: true
+  isInitiallyDisabled: true,
 };

@@ -11,15 +11,15 @@ const styles = {
     border: `1px solid ${tokens.colorElementDark}`,
     borderBottomLeftRadius: '2px',
     borderBottomRightRadius: '2px',
-    padding: `${tokens.spacingXs} ${tokens.spacingS}`
+    padding: `${tokens.spacingXs} ${tokens.spacingS}`,
   }),
   help: css({
     color: tokens.colorTextMid,
     fontSize: tokens.fontSizeS,
     button: {
-      fontSize: tokens.fontSizeS
-    }
-  })
+      fontSize: tokens.fontSizeS,
+    },
+  }),
 };
 
 export function MarkdownCounter(props: { words: number; characters: number }) {

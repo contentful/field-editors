@@ -17,13 +17,13 @@ interface LinkActionsProps {
 
 export const labels = {
   createAndLink: (name: string) => `Create new ${name} and link`,
-  linkExisting: (name: string) => `Link existing ${name}`
+  linkExisting: (name: string) => `Link existing ${name}`,
 };
 
 export const testIds = {
   createAndLink: 'linkEditor.createAndLink',
   createAndLinkWrapper: 'create-entry-button-menu-trigger',
-  linkExisting: 'linkEditor.linkExisting'
+  linkExisting: 'linkEditor.linkExisting',
 };
 
 export function LinkActions(props: LinkActionsProps) {
@@ -40,7 +40,7 @@ export function LinkActions(props: LinkActionsProps) {
               )}
               contentTypes={props.contentTypes}
               hasPlusIcon={true}
-              onSelect={contentTypeId => {
+              onSelect={(contentTypeId) => {
                 if (contentTypeId) {
                   return props.onCreate(contentTypeId);
                 }

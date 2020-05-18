@@ -5,20 +5,20 @@ import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-edit
 import { CheckboxEditor } from './CheckboxEditor';
 
 configure({
-  testIdAttribute: 'data-test-id'
+  testIdAttribute: 'data-test-id',
 });
 
 describe('CheckboxEditor', () => {
   afterEach(cleanup);
 
   it('renders a warning if no options are present', () => {
-    const [field] = createFakeFieldAPI(mock => {
+    const [field] = createFakeFieldAPI((mock) => {
       return {
         ...mock,
         items: {
           type: '',
-          validations: []
-        }
+          validations: [],
+        },
       };
     });
 
@@ -32,13 +32,13 @@ describe('CheckboxEditor', () => {
 
   it('renders checkboxes for predefined values', () => {
     const predefined = ['banana', 'orange', 'strawberry'];
-    const [field] = createFakeFieldAPI(mock => {
+    const [field] = createFakeFieldAPI((mock) => {
       return {
         ...mock,
         items: {
           type: '',
-          validations: [{ in: predefined }]
-        }
+          validations: [{ in: predefined }],
+        },
       };
     });
     const { container } = render(
@@ -55,15 +55,15 @@ describe('CheckboxEditor', () => {
 
   it('it calls setValue for every check event and removeValue if all items are unclicked', () => {
     const predefined = ['banana', 'orange', 'strawberry'];
-    const [field] = createFakeFieldAPI(mock => {
+    const [field] = createFakeFieldAPI((mock) => {
       jest.spyOn(mock, 'setValue');
       jest.spyOn(mock, 'removeValue');
       return {
         ...mock,
         items: {
           type: '',
-          validations: [{ in: predefined }]
-        }
+          validations: [{ in: predefined }],
+        },
       };
     });
     const { container } = render(
@@ -88,7 +88,7 @@ describe('CheckboxEditor', () => {
     expect(field.setValue).toHaveBeenCalledTimes(3);
 
     // removing all values
-    $inputs.forEach($input => {
+    $inputs.forEach(($input) => {
       fireEvent.click($input);
     });
 

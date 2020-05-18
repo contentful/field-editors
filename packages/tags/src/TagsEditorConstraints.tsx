@@ -8,8 +8,8 @@ const styles = {
   constraints: css({
     fontStyle: 'italic',
     marginTop: tokens.spacingS,
-    color: tokens.colorTextLight
-  })
+    color: tokens.colorTextLight,
+  }),
 };
 
 interface TagEditorConstraintsProps {

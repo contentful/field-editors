@@ -11,7 +11,7 @@ const CODE_MIRROR_CONFIG = {
   indentUnit: 4,
   indentWithTabs: true,
   height: 'auto',
-  theme: 'none'
+  theme: 'none',
 };
 
 type JsonEditorFieldProps = {
@@ -30,12 +30,12 @@ const styles = {
     '.CodeMirror': {
       height: 'auto',
       color: tokens.colorTextDark,
-      fontFamily: tokens.fontStackMonospace
+      fontFamily: tokens.fontStackMonospace,
     },
     '.CodeMirror-scroll': {
-      minHeight: '6rem'
-    }
-  })
+      minHeight: '6rem',
+    },
+  }),
 };
 
 export function JsonEditorField(props: JsonEditorFieldProps) {
@@ -48,7 +48,7 @@ export function JsonEditorField(props: JsonEditorFieldProps) {
         }}
         options={{
           ...CODE_MIRROR_CONFIG,
-          readOnly: props.isDisabled
+          readOnly: props.isDisabled,
         }}
       />
     </div>
