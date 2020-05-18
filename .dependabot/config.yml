@@ -9,3 +9,10 @@ update_configs:
       - 'dependabot'
     commit_message:
       prefix: 'chore'
+    automerged_updates:
+      - match:
+          dependency_type: 'development'
+          update_type: 'semver:minor'
+      - match:
+          dependency_type: 'production'
+          update_type: 'semver:patch'
