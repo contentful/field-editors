@@ -42,10 +42,11 @@ here by filing a [Github issue][github-issues]!
 
 ### Styles
 
-If you are using field editors in a project, for them to render
-correctly you'll also need to include Contentful's Forma36 styles. You can
-achieve this by importing the file `@contentful/forma-36-react-components/dist/styles.css`
-to your project
+To achieve the same field editor look as in the Contentful UI, you need to include Contentful's Forma 36 styles in your project.
+
+```
+import '@contentful/forma-36-react-components/dist/styles.css';
+```
 
 ## Getting started & contributing
 
