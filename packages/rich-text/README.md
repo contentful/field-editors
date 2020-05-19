@@ -9,5 +9,7 @@ This package contains a React `RichTextEditor` component that is used as default
 This editor extension is built on top of [Slate](https://github.com/ianstormtaylor/slate), a third party framework for building highly customizable rich text editing solutions.
 
 ```js
+import 'codemirror/lib/codemirror.css';
+import '@contentful/forma-36-react-components/dist/styles.css';
 import { RichTextEditor } from '@contentful/field-editor-rich-text';
 ```

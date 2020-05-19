@@ -39,6 +39,12 @@ Also this repository contains shared packages that simplify development and test
 Feel free to reach out to us with the ones that'd be the most useful to have
 here by filing a [Github issue][github-issues]!
 
+### Styles
+
+If you are using field editors in a project, for them to render
+correctly you'll also need to include Contentful's Forma36 styles. You can
+achieve this by importing the file `@contentful/forma-36-react-components/dist/styles.css`.
+
 ## Getting started & contributing
 
 ### Requirements
