@@ -13,7 +13,8 @@ It uses [Typescript][typescript], [React][react], [Forma36][forma36] (a design s
 Playground with all components: [https://contentful-field-editors.netlify.app/](https://contentful-field-editors.netlify.app/)
 
 This repository has all editorial components that you can find in the Contentful Web application.
-You can run each this component as a custom field extension or compose them into one custom entry extension.
+You can run each of these component as a custom field extension or compose them into a custom entry extension.
+You could also use these components as the basis for a custom [Contentful App](https://www.contentful.com/app-framework/)
 
 - Single line editor
 - Multi line editor
@@ -43,7 +44,8 @@ here by filing a [Github issue][github-issues]!
 
 If you are using field editors in a project, for them to render
 correctly you'll also need to include Contentful's Forma36 styles. You can
-achieve this by importing the file `@contentful/forma-36-react-components/dist/styles.css`.
+achieve this by importing the file `@contentful/forma-36-react-components/dist/styles.css`
+to your project
 
 ## Getting started & contributing
 
