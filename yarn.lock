@@ -3743,10 +3743,10 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
-"@types/google-map-react@1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@types/google-map-react/-/google-map-react-1.1.0.tgz#35c65a49040a67a54849e7cb33fa377cba32a225"
-  integrity sha512-9fhSj5ZLagFRN2PrLTTJYmJJGocyePODqgahNmzZ32gcq/XYPmOxtxtmjRALdSeLTo8a0vOkhzF6cGggK+oE0g==
+"@types/google-map-react@1.1.7":
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/@types/google-map-react/-/google-map-react-1.1.7.tgz#f4a6589ed33a72ee0fa315ec8fa537855d533f6e"
+  integrity sha512-/hX+vtt/NAWmc7n5WLTTnxf0MzReAC4qXQdRw9OHmVdToNvQ1XWmmLMjXr0LfZYmaijMlVD3ox9VdtQMlof30g==
   dependencies:
     "@types/react" "*"
 

@@ -22,7 +22,7 @@
     "@contentful/field-editor-shared": "^0.10.3",
     "@contentful/forma-36-react-components": "^3.36.1",
     "@contentful/forma-36-tokens": "^0.5.2",
-    "@types/google-map-react": "1.1.0",
+    "@types/google-map-react": "1.1.7",
     "deep-equal": "2.0.3",
     "emotion": "^10.0.17",
     "google-map-react": "1.1.7",
