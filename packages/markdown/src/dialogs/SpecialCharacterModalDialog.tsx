@@ -100,7 +100,7 @@ export const SpecialCharacterModalDialog = ({ onClose }: SpecialCharacterModalDi
 export const openInsertSpecialCharacter = (
   dialogs: DialogsAPI
 ): Promise<SpecialCharacterModalResult> => {
-  return dialogs.openExtension({
+  return dialogs.openDialog({
     title: 'Insert special character',
     width: 'large',
     minHeight: '615px',

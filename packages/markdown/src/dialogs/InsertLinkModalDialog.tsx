@@ -109,7 +109,7 @@ export const openInsertLinkDialog = (
   dialogs: DialogsAPI,
   params: { selectedText?: string }
 ): Promise<InsertLinkModalResult> => {
-  return dialogs.openExtension({
+  return dialogs.openDialog({
     title: 'Insert link',
     width: 'large',
     minHeight: '441px',

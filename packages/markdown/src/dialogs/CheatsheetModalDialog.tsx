@@ -148,7 +148,7 @@ export const CheatsheetModalDialog = () => {
 };
 
 export const openCheatsheetModal = (dialogs: DialogsAPI): Promise<void> => {
-  return dialogs.openExtension({
+  return dialogs.openDialog({
     title: 'Markdown formatting help',
     width: 'large',
     minHeight: '425px',
