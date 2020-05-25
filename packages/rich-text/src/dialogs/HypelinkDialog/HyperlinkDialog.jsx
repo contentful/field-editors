@@ -294,7 +294,7 @@ export const openHyperlinkDialog = (
     entitySelectorConfigs,
   };
 
-  return dialogs.openExtension({
+  return dialogs.openCurrent({
     title: props.labels.title,
     width: 'large',
     shouldCloseOnEscapePress: true,

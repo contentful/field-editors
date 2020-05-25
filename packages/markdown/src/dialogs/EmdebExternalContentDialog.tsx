@@ -186,7 +186,7 @@ export const EmbedExternalContentModal = ({ onClose }: EmbedExternalContentModal
 export const openEmbedExternalContentDialog = (
   dialogs: DialogsAPI
 ): Promise<EmbedExternalContentModalResult> => {
-  return dialogs.openDialog({
+  return dialogs.openCurrent({
     title: 'Embed external content',
     width: 'large',
     minHeight: '475px',
