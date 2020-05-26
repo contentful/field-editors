@@ -7030,13 +7030,6 @@ contentful-sdk-core@^6.4.0:
     lodash "^4.17.10"
     qs "^6.5.2"
 
-contentful-ui-extensions-sdk@^3.14.3:
-  version "3.14.3"
-  resolved "https://registry.yarnpkg.com/contentful-ui-extensions-sdk/-/contentful-ui-extensions-sdk-3.14.3.tgz#cc95d5c2a2576e5863878868b0d16f2e34f729c7"
-  integrity sha512-Qu5BLtv08YfxhoserC4qAZ+vOGYG0cqCCpldO+QOwtZEsjUGF/12i9+Pfw+jQJSyOmPJzfz7TkNIoUbZFcxpaw==
-  dependencies:
-    es6-promise "^4.2.8"
-
 contentful-ui-extensions-sdk@^3.15.0:
   version "3.15.0"
   resolved "https://registry.yarnpkg.com/contentful-ui-extensions-sdk/-/contentful-ui-extensions-sdk-3.15.0.tgz#9480f80f7d7113bcc44ded390a0c6a4dbee8f331"
