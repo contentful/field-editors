@@ -88,7 +88,7 @@ export const openConfirmInsertAsset = (
     }>;
   }
 ): Promise<boolean> => {
-  return dialogs.openExtension({
+  return dialogs.openCurrent({
     title: 'Confirm using fallback assets',
     width: 'medium',
     minHeight: '290px',

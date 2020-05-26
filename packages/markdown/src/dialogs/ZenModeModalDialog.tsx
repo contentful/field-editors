@@ -210,7 +210,7 @@ export const openZenMode = (
   dialogs: DialogsAPI,
   options: { initialValue: string; locale: string }
 ): Promise<ZenModeResult> => {
-  return dialogs.openExtension({
+  return dialogs.openCurrent({
     width: 'zen' as any, // eslint-disable-line @typescript-eslint/no-explicit-any
     shouldCloseOnEscapePress: false,
     minHeight: '100vh',
