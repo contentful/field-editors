@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-date",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "main": "dist/index.js",
   "module": "dist/field-editor-date.esm.js",
   "typings": "dist/index.d.ts",
@@ -23,7 +23,7 @@
     "test:ci": "tsdx test --env=jsdom --ci"
   },
   "dependencies": {
-    "@contentful/field-editor-shared": "^0.10.3",
+    "@contentful/field-editor-shared": "^0.10.4",
     "@contentful/forma-36-react-components": "^3.36.1",
     "@contentful/forma-36-tokens": "^0.5.2",
     "emotion": "^10.0.17",
@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.7.4",
-    "@contentful/field-editor-test-utils": "^0.6.3",
+    "@contentful/field-editor-test-utils": "^0.6.4",
     "@types/pikaday": "^1.7.4"
   },
   "peerDependencies": {
