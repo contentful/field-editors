@@ -1640,9 +1640,9 @@
   integrity sha512-YAhp7bJzlIvThO6ybZHCGCeVXf5ojRrVBVx7dCkoWK6SYtZJkr5trWymG6gAnNpO9pDiWvgIMKmFHx/hWDjiRA==
 
 "@contentful/mimetype@^1.1.4":
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/@contentful/mimetype/-/mimetype-1.1.5.tgz#1970a1e42c9d9d6805884c898a22906284aa94cc"
-  integrity sha512-mA9weQY4ydClGYNLhMVThws3pZWUAgqyx4bz0WcfdgEK0b9eW2R0doc17NmBsNNWhRmcAadR2rEQqoFXLIfejw==
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@contentful/mimetype/-/mimetype-1.2.0.tgz#84462e20c82c44bf209cc1eb2dea97911676a700"
+  integrity sha512-F7lCIIvfO9mG/euJ7H6GoeSWG64nEohMkay9DKMUAkMl3tSPzziAaRlwNwnvP7aUSUoQ1CpexvnGOP1zuzPC8A==
   dependencies:
     lodash "^4.17.15"
 
@@ -21656,7 +21656,7 @@ yargs-parser@10.x, yargs-parser@^10.0.0:
   dependencies:
     camelcase "^4.1.0"
 
-yargs-parser@13.1.2, yargs-parser@^13.1.1, yargs-parser@^13.1.2:
+yargs-parser@13.1.2, yargs-parser@^13.1.2:
   version "13.1.2"
   resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-13.1.2.tgz#130f09702ebaeef2650d54ce6e3e5706f7a4fb38"
   integrity sha512-3lbsNRf/j+A4QuSZfDRA7HRSfWrzO0YjqTJd5kjAq37Zep1CEgaYmrH9Q3GwPiB9cHyd1Y1UwggGhJGoxipbzg==
