@@ -4,7 +4,7 @@ import { AssetCard } from '@contentful/forma-36-react-components';
 import {
   useEntities,
   MissingEntityCard,
-  WrappedAssetCard
+  WrappedAssetCard,
 } from '@contentful/field-editor-reference';
 
 export function FetchingWrappedAssetCard(props) {
@@ -49,6 +49,7 @@ export function FetchingWrappedAssetCard(props) {
       asset={asset}
       onEdit={props.onEdit}
       onRemove={props.onRemove}
+      isClickable={false}
     />
   );
 }
@@ -62,5 +63,5 @@ FetchingWrappedAssetCard.propTypes = {
   onRemove: PropTypes.func,
   onEdit: PropTypes.func,
   getAssetUrl: PropTypes.func,
-  onEntityFetchComplete: PropTypes.func
+  onEntityFetchComplete: PropTypes.func,
 };
