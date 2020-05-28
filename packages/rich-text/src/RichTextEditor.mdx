@@ -4,7 +4,7 @@ route: /rich-text
 menu: Editors
 ---
 
-import Readme from '../README.md'
+import Readme from '../README.md';
 
 <Readme />
 
@@ -15,7 +15,7 @@ import {
   ActionsPlayground,
   createFakeSpaceAPI,
   createFakeLocalesAPI,
-  createFakeNavigatorAPI
+  createFakeNavigatorAPI,
 } from '@contentful/field-editor-test-utils';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { css } from 'emotion';
@@ -85,6 +85,11 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
           }
           return Promise.resolve(false);
         }
+      },
+      parameters: {
+        instance: {
+          getEntryUrl: () => '#'
+        }
       }
     };
 
@@ -110,26 +115,22 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
         <ActionsPlayground mitt={mitt} renderValue={renderRT} />
       </div>
     );
-  }}
+
+}}
+
 </Playground>
 
 ## As field extension
-
 
 ```js
 import { RichTextEditor, renderRichTextDialog } from '@contentful/field-editor-rich-text';
 
 /// your extension code
-init(sdk => {
+init((sdk) => {
   if (sdk.location.is(locations.LOCATION_DIALOG)) {
     render(renderRichTextDialog(sdk), document.getElementById('root'));
   } else if (sdk.location.is(locations.LOCATION_ENTRY_FIELD)) {
-    render(
-      <RichTextEditor
-        sdk={sdk}
-      />,
-      document.getElementById('root')
-    );
+    render(<RichTextEditor sdk={sdk} />, document.getElementById('root'));
   }
 });
 ```
