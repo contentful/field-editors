@@ -53,8 +53,13 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
   }, [props.entryId]);
 
   const size = props.viewType === 'link' ? 'small' : 'default';
-
   const entry = entries[props.entryId];
+  const entryKey =
+    entry === 'failed' // TODO: Why mixed values???
+      ? 'failed'
+      : entry === undefined
+      ? 'undefined'
+      : `:${entry.sys.id}`;
 
   React.useEffect(() => {
     if (entry) {
@@ -62,56 +67,56 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
     }
   }, [entry]);
 
-  if (entry === 'failed') {
+  return React.useMemo(() => {
+    if (entry === 'failed') {
+      return (
+        <MissingEntityCard
+          entityType="Entry"
+          isDisabled={props.isDisabled}
+          onRemove={props.onRemove}
+        />
+      );
+    }
+    if (entry === undefined) {
+      return <EntryCard size={size} loading />;
+    }
     return (
-      <MissingEntityCard
-        entityType="Entry"
+      <WrappedEntryCard
+        getAsset={props.sdk.space.getAsset}
+        getEntityScheduledActions={props.sdk.space.getEntityScheduledActions}
+        getEntryUrl={props.getEntityUrl}
         isDisabled={props.isDisabled}
-        onRemove={props.onRemove}
+        size={size}
+        localeCode={props.sdk.field.locale}
+        defaultLocaleCode={props.sdk.locales.default}
+        allContentTypes={props.allContentTypes}
+        entry={entry}
+        cardDragHandle={props.cardDragHandle}
+        onEdit={async () => {
+          const slide = await openEntry(props.sdk, entry.sys.id, {
+            bulkEditing: props.parameters.instance.bulkEditing,
+            index: props.index,
+          });
+          props.onAction &&
+            props.onAction({
+              entity: 'Entry',
+              type: 'edit',
+              id: entry.sys.id,
+              contentTypeId: entry.sys.contentType.sys.id,
+              slide,
+            });
+        }}
+        onRemove={() => {
+          props.onRemove();
+          props.onAction &&
+            props.onAction({
+              entity: 'Entry',
+              type: 'delete',
+              id: entry.sys.id,
+              contentTypeId: entry.sys.contentType.sys.id,
+            });
+        }}
       />
     );
-  }
-
-  if (entry === undefined) {
-    return <EntryCard size={size} loading />;
-  }
-
-  return (
-    <WrappedEntryCard
-      getAsset={props.sdk.space.getAsset}
-      getEntityScheduledActions={props.sdk.space.getEntityScheduledActions}
-      getEntryUrl={props.getEntityUrl}
-      isDisabled={props.isDisabled}
-      size={size}
-      localeCode={props.sdk.field.locale}
-      defaultLocaleCode={props.sdk.locales.default}
-      allContentTypes={props.allContentTypes}
-      entry={entry}
-      cardDragHandle={props.cardDragHandle}
-      onEdit={async () => {
-        const slide = await openEntry(props.sdk, entry.sys.id, {
-          bulkEditing: props.parameters.instance.bulkEditing,
-          index: props.index,
-        });
-        props.onAction &&
-          props.onAction({
-            entity: 'Entry',
-            type: 'edit',
-            id: entry.sys.id,
-            contentTypeId: entry.sys.contentType.sys.id,
-            slide,
-          });
-      }}
-      onRemove={() => {
-        props.onRemove();
-        props.onAction &&
-          props.onAction({
-            entity: 'Entry',
-            type: 'delete',
-            id: entry.sys.id,
-            contentTypeId: entry.sys.contentType.sys.id,
-          });
-      }}
-    />
-  );
+  }, [entryKey]);
 }
