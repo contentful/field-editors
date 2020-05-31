@@ -76,7 +76,7 @@
     "eslint-plugin-react-hooks": "^4.0.0",
     "husky": "^4.2.5",
     "lerna": "^3.20.2",
-    "lint-staged": "10.2.2",
+    "lint-staged": "10.2.7",
     "prettier": "2.0.5",
     "react": "16.10.2",
     "react-dom": "16.10.2",
