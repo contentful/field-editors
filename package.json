@@ -52,7 +52,7 @@
     "@contentful/forma-36-react-components": "^3.36.1",
     "@contentful/forma-36-tokens": "^0.5.2",
     "@testing-library/cypress": "5.3.1",
-    "@testing-library/jest-dom": "5.7.0",
+    "@testing-library/jest-dom": "5.9.0",
     "@testing-library/react": "9.4.0",
     "@types/jest": "^25.2.1",
     "@types/lodash": "4.14.151",
