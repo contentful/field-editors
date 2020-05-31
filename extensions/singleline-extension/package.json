@@ -18,7 +18,7 @@
     "contentful-cli": "1.4.3",
     "cssnano": "4.1.10",
     "eslint": "^6.0.1",
-    "typescript": "3.8.3"
+    "typescript": "3.9.3"
   },
   "scripts": {
     "start": "contentful-extension-scripts start",
