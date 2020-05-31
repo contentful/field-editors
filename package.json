@@ -92,7 +92,7 @@
     "webpack": "4.43.0",
     "ts-loader": "7.0.5",
     "@cypress/webpack-preprocessor": "4.1.5",
-    "git-cz": "4.5.0",
+    "git-cz": "4.6.2",
     "mocha": "^7.1.2",
     "mochawesome": "^6.1.1",
     "mochawesome-merge": "^4.0.3",
