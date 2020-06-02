@@ -54,12 +54,12 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
 
   const size = props.viewType === 'link' ? 'small' : 'default';
   const entry = entries[props.entryId];
-  const entryKey =
-    entry === 'failed' // TODO: Why mixed values???
+  const entityKey =
+    entry === 'failed'
       ? 'failed'
       : entry === undefined
       ? 'undefined'
-      : `:${entry.sys.id}`;
+      : `:${entry.sys.id}:${entry.sys.version}`;
 
   React.useEffect(() => {
     if (entry) {
@@ -118,5 +118,5 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
         }}
       />
     );
-  }, [entryKey]);
+  }, [props, entityKey]);
 }
