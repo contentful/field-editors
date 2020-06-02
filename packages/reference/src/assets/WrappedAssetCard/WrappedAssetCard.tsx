@@ -35,7 +35,12 @@ export interface WrappedAssetCardProps {
   onRemove?: () => void;
   size: 'default' | 'small';
   cardDragHandle?: React.ReactElement;
+  isClickable: boolean;
 }
+
+const defaultProps = {
+  isClickable: true,
+};
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function getFileType(file?: File): any {
@@ -52,7 +57,16 @@ function getFileType(file?: File): any {
 }
 
 export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
-  const { className, onEdit, getAssetUrl, onRemove, size, isDisabled, isSelected } = props;
+  const {
+    className,
+    onEdit,
+    getAssetUrl,
+    onRemove,
+    size,
+    isDisabled,
+    isSelected,
+    isClickable,
+  } = props;
 
   const status = entityHelpers.getEntryStatus(props.asset.sys);
 
@@ -85,7 +99,7 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
       className={className}
       // @ts-ignore
       selected={isSelected}
-      href={getAssetUrl ? getAssetUrl(props.asset.sys.id) : undefined}
+      href={isClickable && getAssetUrl ? getAssetUrl(props.asset.sys.id) : undefined}
       status={status}
       src={
         entityFile
@@ -97,6 +111,7 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
       // @ts-ignore
       onClick={(e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
+        if (!props.isClickable) return;
         onEdit && onEdit();
       }}
       cardDragHandleComponent={props.cardDragHandle}
@@ -111,3 +126,5 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
     />
   );
 };
+
+WrappedAssetCard.defaultProps = defaultProps;

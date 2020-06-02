@@ -4,7 +4,7 @@ import { EntryCard } from '@contentful/forma-36-react-components';
 import {
   useEntities,
   MissingEntityCard,
-  WrappedEntryCard
+  WrappedEntryCard,
 } from '@contentful/field-editor-reference';
 
 export function FetchingWrappedEntryCard(props) {
@@ -52,6 +52,7 @@ export function FetchingWrappedEntryCard(props) {
       entry={entry}
       onEdit={props.onEdit}
       onRemove={props.onRemove}
+      isClickable={false}
     />
   );
 }
@@ -65,5 +66,5 @@ FetchingWrappedEntryCard.propTypes = {
   onRemove: PropTypes.func,
   onEdit: PropTypes.func,
   getEntryUrl: PropTypes.func,
-  onEntityFetchComplete: PropTypes.func
+  onEntityFetchComplete: PropTypes.func,
 };

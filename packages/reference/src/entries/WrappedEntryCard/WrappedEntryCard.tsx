@@ -35,7 +35,12 @@ interface WrappedEntryCardProps {
   allContentTypes: ContentType[];
   entry: Entry;
   cardDragHandle?: React.ReactElement;
+  isClickable: boolean;
 }
+
+const defaultProps = {
+  isClickable: true,
+};
 
 export function WrappedEntryCard(props: WrappedEntryCardProps) {
   const [file, setFile] = React.useState<null | File>(null);
@@ -93,7 +98,9 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
 
   return (
     <EntryCard
-      href={props.getEntryUrl ? props.getEntryUrl(props.entry.sys.id) : undefined}
+      href={
+        props.getEntryUrl && props.isClickable ? props.getEntryUrl(props.entry.sys.id) : undefined
+      }
       title={title}
       description={description}
       contentType={contentType?.name}
@@ -152,8 +159,11 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
       }
       onClick={(e) => {
         e.preventDefault();
+        if (!props.isClickable) return;
         props.onEdit && props.onEdit();
       }}
     />
   );
 }
+
+WrappedEntryCard.defaultProps = defaultProps;
