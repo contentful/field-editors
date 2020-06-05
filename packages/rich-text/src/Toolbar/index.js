@@ -16,7 +16,7 @@ import {
   Heading5,
   Heading6,
   Paragraph,
-  HeadingDropdown
+  HeadingDropdown,
 } from '../plugins/Heading';
 
 import Hyperlink from '../plugins/Hyperlink';
@@ -39,7 +39,7 @@ const styles = {
     webkitAlignSelf: 'flex-start',
     alignSelf: 'flex-start',
     msFlexItemAlign: 'start',
-    marginLeft: 'auto'
+    marginLeft: 'auto',
   }),
   formattingOptionsWrapper: css({
     display: ['-webkit-box', '-ms-flexbox', 'flex'],
@@ -48,8 +48,8 @@ const styles = {
     alignItems: 'center',
     msFlexWrap: 'wrap',
     flexWrap: 'wrap',
-    marginRight: '20px'
-  })
+    marginRight: '20px',
+  }),
 };
 
 export default class Toolbar extends React.Component {
@@ -58,13 +58,19 @@ export default class Toolbar extends React.Component {
     isDisabled: PropTypes.bool.isRequired,
     editor: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired,
-    canAccessAssets: PropTypes.bool.isRequired
   };
 
   state = {
     headingMenuOpen: false,
-    ...getValidationInfo(this.props.richTextAPI.sdk.field)
+    canAccessAssets: false,
+    ...getValidationInfo(this.props.richTextAPI.sdk.field),
   };
+
+  componentDidMount() {
+    this.props.richTextAPI.sdk.access
+      .can('read', 'Asset')
+      .then((canReadAssets) => this.setState({ canAccessAssets: canReadAssets }));
+  }
 
   onChange = (...args) => {
     this.setState({ headingMenuOpen: false });
@@ -72,27 +78,27 @@ export default class Toolbar extends React.Component {
   };
 
   toggleEmbedDropdown = () =>
-    this.setState(prevState => ({
-      isEmbedDropdownOpen: !prevState.isEmbedDropdownOpen
+    this.setState((prevState) => ({
+      isEmbedDropdownOpen: !prevState.isEmbedDropdownOpen,
     }));
 
   handleEmbedDropdownClose = () =>
     this.setState({
-      isEmbedDropdownOpen: false
+      isEmbedDropdownOpen: false,
     });
 
-  renderEmbeds = props => {
+  renderEmbeds = (props) => {
     const field = this.props.richTextAPI.sdk.field;
 
     const inlineEntryEmbedEnabled = isNodeTypeEnabled(field, INLINES.EMBEDDED_ENTRY);
     const blockEntryEmbedEnabled = isNodeTypeEnabled(field, BLOCKS.EMBEDDED_ENTRY);
     const blockAssetEmbedEnabled =
-      this.props.canAccessAssets && isNodeTypeEnabled(field, BLOCKS.EMBEDDED_ASSET);
+      this.state.canAccessAssets && isNodeTypeEnabled(field, BLOCKS.EMBEDDED_ASSET);
 
     const numEnabledEmbeds = [
       inlineEntryEmbedEnabled,
       blockEntryEmbedEnabled,
-      blockAssetEmbedEnabled
+      blockAssetEmbedEnabled,
     ].filter(Boolean).length;
 
     return (
@@ -126,16 +132,16 @@ export default class Toolbar extends React.Component {
     );
   };
 
-  toggleHeadingMenu = event => {
+  toggleHeadingMenu = (event) => {
     event.preventDefault();
-    this.setState(prevState => ({
-      headingMenuOpen: !prevState.headingMenuOpen
+    this.setState((prevState) => ({
+      headingMenuOpen: !prevState.headingMenuOpen,
     }));
   };
 
   closeHeadingMenu = () =>
     this.setState({
-      headingMenuOpen: false
+      headingMenuOpen: false,
     });
 
   render() {
@@ -145,7 +151,7 @@ export default class Toolbar extends React.Component {
       onToggle: this.onChange,
       onCloseEmbedMenu: this.toggleEmbedDropdown,
       disabled: isDisabled,
-      richTextAPI
+      richTextAPI,
     };
     const { field } = richTextAPI.sdk;
     const { isAnyHyperlinkEnabled, isAnyListEnabled, isAnyMarkEnabled } = this.state;
@@ -211,6 +217,6 @@ function getValidationInfo(field) {
   return {
     isAnyMarkEnabled,
     isAnyHyperlinkEnabled,
-    isAnyListEnabled
+    isAnyListEnabled,
   };
 }

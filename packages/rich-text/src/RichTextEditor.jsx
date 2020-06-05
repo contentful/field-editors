@@ -122,7 +122,6 @@ export class ConnectedRichTextEditor extends React.Component {
 
   state = {
     lastOperations: List(),
-    canAccessAssets: false,
     value:
       this.props.value && this.props.value.nodeType === BLOCKS.DOCUMENT
         ? createSlateValue(this.props.value)
@@ -137,12 +136,6 @@ export class ConnectedRichTextEditor extends React.Component {
   });
 
   slatePlugins = buildPlugins(this.richTextAPI);
-
-  componentDidMount() {
-    this.props.sdk.access.can('read', 'Asset').then((canReadAssets) => {
-      this.setState({ canAccessAssets: canReadAssets });
-    });
-  }
 
   onChange = (editor) => {
     const { value, operations } = editor;
@@ -209,7 +202,6 @@ export class ConnectedRichTextEditor extends React.Component {
               editor={this.editor.current || new BasicEditor({ readOnly: true })}
               onChange={this.onChange}
               isDisabled={this.props.isDisabled}
-              canAccessAssets={this.state.canAccessAssets}
               richTextAPI={this.richTextAPI}
             />
           </StickyToolbarWrapper>
