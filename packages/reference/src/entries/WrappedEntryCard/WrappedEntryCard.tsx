@@ -98,9 +98,7 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
 
   return (
     <EntryCard
-      href={
-        props.getEntryUrl && props.isClickable ? props.getEntryUrl(props.entry.sys.id) : undefined
-      }
+      href={props.getEntryUrl ? props.getEntryUrl(props.entry.sys.id) : undefined}
       title={title}
       description={description}
       contentType={contentType?.name}
