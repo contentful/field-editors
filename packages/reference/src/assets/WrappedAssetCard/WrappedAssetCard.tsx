@@ -99,7 +99,7 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
       className={className}
       // @ts-ignore
       selected={isSelected}
-      href={isClickable && getAssetUrl ? getAssetUrl(props.asset.sys.id) : undefined}
+      href={getAssetUrl ? getAssetUrl(props.asset.sys.id) : undefined}
       status={status}
       src={
         entityFile
@@ -111,7 +111,7 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
       // @ts-ignore
       onClick={(e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
-        if (!props.isClickable) return;
+        if (!isClickable) return;
         onEdit && onEdit();
       }}
       cardDragHandleComponent={props.cardDragHandle}
