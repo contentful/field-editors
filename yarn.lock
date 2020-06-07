@@ -6775,10 +6775,10 @@ contentful-batch-libs@^9.0.1:
     lodash "^4.0.1"
     moment "^2.18.1"
 
-contentful-cli@1.4.3, contentful-cli@^1.3.29:
-  version "1.4.3"
-  resolved "https://registry.yarnpkg.com/contentful-cli/-/contentful-cli-1.4.3.tgz#633a5023857a93f47a6ec63d17dd868f823a6697"
-  integrity sha512-lD1UPqP8dr/KbF/6QBHwiu1BGuZQIgEx2mUHyQFueEVCJ0wkDgoRiRRwF2BHAajFebvRgUA+9hvsKahQT5W9QA==
+contentful-cli@1.4.6, contentful-cli@^1.3.29:
+  version "1.4.6"
+  resolved "https://registry.yarnpkg.com/contentful-cli/-/contentful-cli-1.4.6.tgz#25e2f280a36d9efadf5e8372124945d29ed54958"
+  integrity sha512-cIoSVV/ATt8JcYwdBYjahIVKrvPXyYZZ+q9nDB5ekpg+Fni1IIefHYsp9IPZcyWeI9cxufzyVZuP0Ofr2w1vYQ==
   dependencies:
     ast-types "^0.13.3"
     bfj "^6.1.1"
@@ -6814,7 +6814,7 @@ contentful-cli@1.4.3, contentful-cli@^1.3.29:
     to-ast "^1.0.0"
     tree-kill "^1.2.2"
     wrap-ansi "^6.2.0"
-    yargs "^13.2.4"
+    yargs "^15.3.1"
     zlib "^1.0.5"
 
 contentful-export@^7.8.16:
@@ -21670,7 +21670,7 @@ yargs@12.0.5, yargs@^12.0.1:
     y18n "^3.2.1 || ^4.0.0"
     yargs-parser "^11.1.1"
 
-yargs@13.3.2, yargs@^13.2.2, yargs@^13.2.4, yargs@^13.3.0:
+yargs@13.3.2, yargs@^13.2.2, yargs@^13.3.0:
   version "13.3.2"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-13.3.2.tgz#ad7ffefec1aa59565ac915f82dccb38a9c31a2dd"
   integrity sha512-AX3Zw5iPruN5ie6xGRIDgqkT+ZhnRlZMLMHAs8tg7nRruy2Nb+i5o9bwghAogtM08q1dpr2LVoS8KSTMYpWXUw==
