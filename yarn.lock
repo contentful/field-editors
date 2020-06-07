@@ -17523,10 +17523,10 @@ remark-lint-no-duplicate-definitions@^2.0.0:
     unist-util-stringify-position "^2.0.0"
     unist-util-visit "^2.0.0"
 
-remark-lint-no-empty-sections@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/remark-lint-no-empty-sections/-/remark-lint-no-empty-sections-3.0.0.tgz#403455c33aea1e5dfead616d6e31d19dd9d47d4b"
-  integrity sha512-yFQ62vZXG3kasLuHmkYouFizZFQJQrYCgaJQ4UJHWrVNNHp/Q+rf13xVkeOFtrkaqOglG+8LERPKFe2pn81NAw==
+remark-lint-no-empty-sections@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/remark-lint-no-empty-sections/-/remark-lint-no-empty-sections-4.0.0.tgz#be207583704a09098fb7aa992f8cd24552e694a1"
+  integrity sha512-Tx1nCu7Dq3dsJ500402sSvM0uVK/6khSuEjx8K8u9aHN+Y4vjL6h88xVzdzCmZq2J2yqyFnvMjG1y7lQv+DRvg==
   dependencies:
     mdast-util-to-string "^1.0.2"
     unified-lint-rule "^1.0.0"
