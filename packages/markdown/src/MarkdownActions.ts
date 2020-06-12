@@ -22,19 +22,19 @@ export function createMarkdownActions(props: {
       const { links, fallbacks } = await insertAssetLinks(assets, {
         localeCode: locale,
         defaultLocaleCode: sdk.locales.default,
-        fallbackCode: sdk.locales.fallbacks[locale]
+        fallbackCode: sdk.locales.fallbacks[locale],
       });
       if (links && links.length > 0) {
         if (fallbacks) {
           const insertAnyway = await openConfirmInsertAsset(sdk.dialogs, {
             locale: locale,
-            assets: fallbacks
+            assets: fallbacks,
           });
           if (!insertAnyway) {
             throw Error('User decided to not use fallbacks');
           }
         }
-        return links.map(link => link.asMarkdown).join('\n\n');
+        return links.map((link) => link.asMarkdown).join('\n\n');
       }
     }
     return '';
@@ -50,7 +50,10 @@ export function createMarkdownActions(props: {
       },
       h3: () => {
         editor?.actions.h3();
-      }
+      },
+      h4: () => {
+        editor?.actions.h4();
+      },
     },
     simple: {
       italic: () => {
@@ -82,7 +85,7 @@ export function createMarkdownActions(props: {
       },
       dedent: () => {
         editor?.actions.dedent();
-      }
+      },
     },
     history: {
       undo: () => {
@@ -90,7 +93,7 @@ export function createMarkdownActions(props: {
       },
       redo: () => {
         editor?.actions.redo();
-      }
+      },
     },
     insertLink: async () => {
       if (!editor) {
@@ -149,7 +152,7 @@ export function createMarkdownActions(props: {
       }
       try {
         const { entity: asset } = (await sdk.navigator.openNewAsset({
-          slideIn: { waitForClose: true }
+          slideIn: { waitForClose: true },
         })) as any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
         const markdownLinks = await insertAssetsWithConfirmation([asset]);
@@ -164,7 +167,7 @@ export function createMarkdownActions(props: {
       }
       try {
         const assets = await sdk.dialogs.selectMultipleAssets({
-          locale: locale
+          locale: locale,
         });
         const markdownLinks = await insertAssetsWithConfirmation(assets);
         editor.insert(markdownLinks);
@@ -178,7 +181,7 @@ export function createMarkdownActions(props: {
       }
       const result = await openZenMode(sdk.dialogs, {
         initialValue: editor.getContent(),
-        locale: props.locale
+        locale: props.locale,
       });
 
       editor.setContent(result.value);
@@ -192,6 +195,6 @@ export function createMarkdownActions(props: {
     closeZenMode: () => {
       // do nothing
       // this method is overwritten in dialog extension
-    }
+    },
   };
 }

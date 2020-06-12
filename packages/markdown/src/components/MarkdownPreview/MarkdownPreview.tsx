@@ -15,18 +15,24 @@ const styles = {
     font-size: ${tokens.fontSizeM};
     font-family: ${tokens.fontStackPrimary};
     line-height: ${tokens.lineHeightDefault};
-    color: ${tokens.colorTextMid};
+    color: ${tokens.colorWhite};
+    background-color: ${tokens.colorContrastMid};
     white-space: pre-line;
 
     h1,
     h2,
     h3,
-    h4,
     h5,
     h6 {
       margin-top: ${tokens.spacingL};
       margin-bottom: ${tokens.spacingM};
       color: ${tokens.colorTextDark};
+    }
+
+    h4 {
+      margin-top: ${tokens.spacingL};
+      margin-bottom: ${tokens.spacingM};
+      color: ${tokens.colorRedDark};
     }
 
     h1:first-child,
