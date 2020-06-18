@@ -1780,7 +1780,14 @@
   dependencies:
     "@contentful/forma-36-tokens" "^0.5.2"
 
-"@contentful/forma-36-react-components@3.36.1", "@contentful/forma-36-react-components@^3.36.1":
+"@contentful/forma-36-fcss@^0.1.2-alpha.1":
+  version "0.1.2-alpha.1"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-fcss/-/forma-36-fcss-0.1.2-alpha.1.tgz#393924818c4ad899d341f0f9970d4365526b3fe8"
+  integrity sha512-J6fuHioDZLhnQDvNxMErgyx0Ulmv/uV99eawRDapGJ+aVCtwPzKheQNsUyQj+hRPykmFikd4ZVtJDnrNUuk8Hw==
+  dependencies:
+    "@contentful/forma-36-tokens" "^0.6.2-alpha.1"
+
+"@contentful/forma-36-react-components@3.36.1", "@contentful/forma-36-react-components@^3.36.1", "@contentful/forma-36-react-components@^3.38.3-alpha.1":
   version "3.36.1"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.36.1.tgz#e72319b1bda966c1a858918c716a9cd58e5decb5"
   integrity sha512-Vj4rFMO10IKUHalhee6OmU1yg2avseUDZgi5zX6g/MEUldcIbEIkpI/VzpxWH1cdBewBwqMOugs/qUmdgGyH7A==
@@ -1793,7 +1800,7 @@
     react-transition-group "^2.4.0"
     truncate "^2.0.1"
 
-"@contentful/forma-36-tokens@0.5.2", "@contentful/forma-36-tokens@^0.5.1", "@contentful/forma-36-tokens@^0.5.2":
+"@contentful/forma-36-tokens@0.5.2", "@contentful/forma-36-tokens@^0.5.1", "@contentful/forma-36-tokens@^0.5.2", "@contentful/forma-36-tokens@^0.6.2-alpha.1":
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.5.2.tgz#736dde76b1830f78cfec3bed0fba8d9652705c32"
   integrity sha512-YAhp7bJzlIvThO6ybZHCGCeVXf5ojRrVBVx7dCkoWK6SYtZJkr5trWymG6gAnNpO9pDiWvgIMKmFHx/hWDjiRA==
