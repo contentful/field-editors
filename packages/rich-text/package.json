@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-rich-text",
-  "version": "0.10.7",
+  "version": "0.11.0",
   "source": "./src/index.tsx",
   "main": "./dist/index.js",
   "module": "dist/field-editor-rich-text.esm.js",
@@ -24,9 +24,9 @@
   },
   "dependencies": {
     "@contentful/contentful-slatejs-adapter": "^14.1.0",
-    "@contentful/field-editor-reference": "^0.9.6",
-    "@contentful/field-editor-shared": "^0.10.4",
-    "@contentful/field-editor-test-utils": "^0.6.4",
+    "@contentful/field-editor-reference": "^0.10.0",
+    "@contentful/field-editor-shared": "^0.11.0",
+    "@contentful/field-editor-test-utils": "^0.7.0",
     "@contentful/forma-36-react-components": "^3.40.1",
     "@contentful/forma-36-tokens": "^0.7.1",
     "@contentful/rich-text-plain-text-renderer": "^14.0.0",
