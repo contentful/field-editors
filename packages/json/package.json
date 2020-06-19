@@ -20,8 +20,8 @@
   },
   "dependencies": {
     "@contentful/field-editor-shared": "^0.10.4",
-    "@contentful/forma-36-react-components": "^3.36.1",
-    "@contentful/forma-36-tokens": "^0.5.2",
+    "@contentful/forma-36-react-components": "^3.40.1",
+    "@contentful/forma-36-tokens": "^0.7.1",
     "@types/deep-equal": "1.0.1",
     "@types/react-codemirror": "1.0.3",
     "codemirror": "^5.48.0",
