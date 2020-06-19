@@ -23,8 +23,8 @@
   "dependencies": {
     "@contentful/field-editor-dropdown": "^0.8.4",
     "@contentful/field-editor-shared": "^0.10.4",
-    "@contentful/forma-36-react-components": "^3.36.1",
-    "@contentful/forma-36-tokens": "^0.5.2",
+    "@contentful/forma-36-react-components": "^3.40.1",
+    "@contentful/forma-36-tokens": "^0.7.1",
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15",

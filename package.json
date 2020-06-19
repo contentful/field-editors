@@ -34,7 +34,6 @@
     "extensions/**"
   ],
   "devDependencies": {
-
     "@babel/core": "^7.9.6",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.8.3",
@@ -48,9 +47,9 @@
     "@commitlint/config-conventional": "^8.3.4",
     "@contentful/contentful-extension-scripts": "^0.16.0",
     "@contentful/eslint-config-extension": "0.2.0",
-    "@contentful/forma-36-fcss": "^0.0.35",
-    "@contentful/forma-36-react-components": "^3.36.1",
-    "@contentful/forma-36-tokens": "^0.5.2",
+    "@contentful/forma-36-fcss": "^0.2.1",
+    "@contentful/forma-36-react-components": "^3.40.1",
+    "@contentful/forma-36-tokens": "^0.7.1",
     "@testing-library/cypress": "5.3.1",
     "@testing-library/jest-dom": "5.10.1",
     "@testing-library/react": "9.5.0",
@@ -99,8 +98,8 @@
     "mochawesome-report-generator": "^5.1.0"
   },
   "resolutions": {
-    "@contentful/forma-36-react-components": "3.36.1",
-    "@contentful/forma-36-tokens": "0.5.2",
+    "@contentful/forma-36-react-components": "3.40.1",
+    "@contentful/forma-36-tokens": "0.7.1",
     "typescript": "3.8.3",
     "@types/react": "16.9.36",
     "react": "16.10.2",
