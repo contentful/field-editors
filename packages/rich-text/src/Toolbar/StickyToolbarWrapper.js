@@ -8,16 +8,16 @@ const styles = {
     position: sticky;
     top: -1px;
     z-index: 2;
-  `
+  `,
 };
 
 const StickyToolbarWrapper = ({ isDisabled, children }) => (
-  <div className={!isDisabled && styles.nativeSticky}>{children}</div>
+  <div className={isDisabled ? '' : styles.nativeSticky}>{children}</div>
 );
 
 StickyToolbarWrapper.propTypes = {
   isDisabled: PropTypes.bool,
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 export default StickyToolbarWrapper;
