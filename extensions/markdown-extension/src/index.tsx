@@ -4,9 +4,10 @@ import { init, locations, FieldExtensionSDK } from 'contentful-ui-extensions-sdk
 import '@contentful/forma-36-react-components/dist/styles.css';
 import '@contentful/forma-36-fcss/dist/styles.css';
 import './index.css';
+// import { MarkdownEditor, renderMarkdownDialog } from '@contentful/field-editor-markdown';
 import '../../../packages/markdown/src/codemirrorImports';
-import 'codemirror/lib/codemirror.css';
 import { MarkdownEditor, renderMarkdownDialog } from '../../../packages/markdown/src/index';
+import 'codemirror/lib/codemirror.css';
 
 interface AppProps {
   sdk: FieldExtensionSDK;
