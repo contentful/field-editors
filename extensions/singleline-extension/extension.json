@@ -1,6 +1,6 @@
 {
   "id": "single-line-extension",
-  "name": "Single Line + Fetching data extension",
+  "name": "Single Line",
   "srcdoc": "./build/index.html",
-  "fieldTypes": ["Text"]
+  "fieldTypes": ["Symbol", "Text"]
 }
