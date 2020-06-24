@@ -18,7 +18,7 @@ const styles = {
 };
 
 function downloadAsset(url: string) {
-  window.open(url, '_blank');
+  window.open(url, '_blank', 'noopener,noreferrer');
 }
 
 export function renderAssetInfo(props: { entityFile: File }) {
