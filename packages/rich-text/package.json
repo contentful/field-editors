@@ -61,6 +61,6 @@
     "@contentful/rich-text-react-renderer": "^13.4.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
-    "jest": "26.0.1"
+    "jest": "26.1.0"
   }
 }
