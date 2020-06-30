@@ -17,6 +17,7 @@ const styles = {
     line-height: ${tokens.lineHeightDefault};
     color: ${tokens.colorTextMid};
     white-space: pre-line;
+    background: ${tokens.colorTextDark};
 
     h1,
     h2,
@@ -26,7 +27,7 @@ const styles = {
     h6 {
       margin-top: ${tokens.spacingL};
       margin-bottom: ${tokens.spacingM};
-      color: ${tokens.colorTextDark};
+      color: ${tokens.colorTextLightest};
     }
 
     h1:first-child,

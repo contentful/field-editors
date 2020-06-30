@@ -35,6 +35,11 @@ export const HeadingSelector = (props: {
           onClick={() => handleMenuClick('h3')}>
           Heading 3
         </DropdownListItem>
+        <DropdownListItem
+          testId="markdown-action-button-heading-h4"
+          onClick={() => handleMenuClick('h4')}>
+          Heading 4
+        </DropdownListItem>
       </DropdownList>
     </Dropdown>
   );

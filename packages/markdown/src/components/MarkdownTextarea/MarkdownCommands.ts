@@ -77,18 +77,19 @@ export function create(editor: EditorInstanceType) {
     h1: toggleHeader(editor, 1),
     h2: toggleHeader(editor, 2),
     h3: toggleHeader(editor, 3),
+    h4: toggleHeader(editor, 4),
     ul: modifySelection(editor, ulToggleFn, true),
     ol: modifySelection(editor, olToggleFn, true),
-    undo: function() {
+    undo: function () {
       editor.cmd('undo');
     },
-    redo: function() {
+    redo: function () {
       editor.cmd('redo');
     },
     hr,
     indent,
     dedent,
-    table
+    table,
   };
 
   /**
@@ -348,7 +349,7 @@ function selectHeader(editor: EditorInstanceType) {
   function getPos(modifier: number) {
     return {
       line: editor.getCurrentLineNumber(),
-      ch: indentation.length + modifier
+      ch: indentation.length + modifier,
     };
   }
 }

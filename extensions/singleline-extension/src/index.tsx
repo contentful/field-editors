@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import { init, FieldExtensionSDK } from 'contentful-ui-extensions-sdk';
 // import { SingleLineEditor } from '@contentful/field-editor-single-line';
 import { SingleLineEditor } from '../../../packages/single-line/src';
+import { Button } from '@contentful/forma-36-react-components';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import './index.css';
 
@@ -14,6 +15,19 @@ const App: React.FC<AppProps> = (props: AppProps) => {
   return (
     <div>
       <SingleLineEditor field={props.sdk.field} locales={props.sdk.locales} />
+      <Button
+        buttonType="primary"
+        onClick={function () {
+          fetch('https://catfact.ninja/fact')
+            .then(function (response) {
+              return response.json();
+            })
+            .then(function (data) {
+              props.sdk.field.setValue(data.fact);
+            });
+        }}>
+        Cat Button
+      </Button>
     </div>
   );
 };

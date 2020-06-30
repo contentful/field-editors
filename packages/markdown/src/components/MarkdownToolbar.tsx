@@ -173,14 +173,14 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
   const tooltipPlace = props.mode === 'zen' ? 'bottom' : 'top';
   return (
     <>
-      <ToolbarButton
+      {/* <ToolbarButton
         disabled={props.disabled}
         testId="markdown-action-button-strike"
         tooltip="Strike out"
         tooltipPlace={tooltipPlace}
         onClick={props.actions.simple.strike}>
         <Icons.Strikethrough label="Strike out" className={styles.icon} />
-      </ToolbarButton>
+      </ToolbarButton> */}
       <ToolbarButton
         disabled={props.disabled}
         testId="markdown-action-button-code"

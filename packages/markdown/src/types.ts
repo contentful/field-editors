@@ -1,6 +1,6 @@
 export type MarkdownTab = 'editor' | 'preview';
 
-export type HeadingType = 'h1' | 'h2' | 'h3';
+export type HeadingType = 'h1' | 'h2' | 'h3' | 'h4';
 
 export type EditorDirection = 'ltr' | 'rtl';
 
@@ -11,7 +11,7 @@ export enum MarkdownDialogType {
   insertTable = 'markdown-insertTable',
   embedExternalContent = 'markdown-embedExternalContent',
   confirmInsertAsset = 'markdown-confirmInsertAsset',
-  zenMode = 'markdown-zenMode'
+  zenMode = 'markdown-zenMode',
 }
 
 export type MarkdownDialogsParams =
@@ -64,6 +64,7 @@ export type MarkdownActions = {
     h1: Function;
     h2: Function;
     h3: Function;
+    h4: Function;
   };
   history: {
     undo: Function;
