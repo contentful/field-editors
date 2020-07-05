@@ -6892,10 +6892,10 @@ contentful-batch-libs@^9.0.1:
     lodash "^4.0.1"
     moment "^2.18.1"
 
-contentful-cli@1.4.16, contentful-cli@^1.3.29:
-  version "1.4.16"
-  resolved "https://registry.yarnpkg.com/contentful-cli/-/contentful-cli-1.4.16.tgz#4068caec23965befe8acfc447fc6e390eeddf505"
-  integrity sha512-XJMv74fEGGlHidzUiXNJT/jeVW+lHk1ye6QZf5dQY7Go3Wy2oUddMiAEmoYIYoa2/gSC8DYEzRhDyMx5jYx0sA==
+contentful-cli@1.4.17, contentful-cli@^1.3.29:
+  version "1.4.17"
+  resolved "https://registry.yarnpkg.com/contentful-cli/-/contentful-cli-1.4.17.tgz#440280a13b6ea648b5a2b5a1675a6296ef2f08bf"
+  integrity sha512-gRYUA2BxLrJX7tTvl/mmt0a4cMBn0Qn4yg40kNSXAA90+X053RwLmVe56rg6X5sD+zRRh3UUzZPnaZkg56/8cQ==
   dependencies:
     ast-types "^0.13.3"
     bfj "^6.1.1"
