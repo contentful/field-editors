@@ -1,5 +1,7 @@
 export {
   FieldAPI,
+  SpaceAPI,
+  ContentType,
   ParametersAPI,
   LocalesAPI,
   BaseExtensionSDK,

@@ -1,0 +1,45 @@
+{
+  "name": "@contentful/field-editor-validation-errors",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "module": "dist/field-editor-validation-errors.esm.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "author": "Contentful GmbH",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/contentful/field-editors"
+  },
+  "scripts": {
+    "watch": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --env=jsdom --watch",
+    "test:ci": "tsdx test --env=jsdom --ci",
+    "tsc": "tsc -p ./ --noEmit"
+  },
+  "dependencies": {
+    "@contentful/field-editor-shared": "^0.11.0",
+    "@contentful/forma-36-react-components": "^3.40.1",
+    "@contentful/forma-36-tokens": "^0.7.1",
+    "emotion": "^10.0.17"
+  },
+  "devDependencies": {
+    "@contentful/field-editor-test-utils": "^0.7.0"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0"
+  },
+  "jest": {
+    "testMatch": [
+      "**/?(*.)+(spec|test).[jt]s?(x)"
+    ],
+    "globals": {
+      "ts-jest": {
+        "diagnostics": false
+      }
+    }
+  }
+}
