@@ -1,5 +1,4 @@
 import React from 'react';
-import diff from 'lodash/difference';
 import type {
   SpaceAPI,
   Entry,
@@ -61,12 +60,11 @@ function UniquenessError(props: UniquenessErrorProps) {
   );
 
   React.useEffect(() => {
+    const entryIds = state.entries.map((entry) => entry.id);
     const conflictIds = props.error.conflicting?.map((entry) => entry.sys.id) || [];
 
-    const entryIds = state.entries.map((entry) => entry.id);
-
     // Avoid unnecessary refetching
-    if (diff(conflictIds, entryIds).length === 0) {
+    if (conflictIds.every((id) => entryIds.includes(id))) {
       return;
     }
 
