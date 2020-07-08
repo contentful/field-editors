@@ -1,5 +1,12 @@
-import * as React from 'react';
-import type * as shared from '@contentful/field-editor-shared';
+import React from 'react';
+import diff from 'lodash/difference';
+import type {
+  SpaceAPI,
+  Entry,
+  ContentType,
+  FieldAPI,
+  LocalesAPI,
+} from '@contentful/field-editor-shared';
 import { entityHelpers } from '@contentful/field-editor-shared';
 import { TextLink, List } from '@contentful/forma-36-react-components';
 
@@ -13,23 +20,23 @@ export type ValidationError = {
 
 type UniquenessErrorProps = {
   error: ValidationError;
-  space: shared.SpaceAPI;
+  space: SpaceAPI;
   localeCode: string;
   defaultLocaleCode: string;
-  getEntryURL: (entry: shared.Entry) => string;
+  getEntryURL: (entry: Entry) => string;
 };
 
 function UniquenessError(props: UniquenessErrorProps) {
   const [state, setState] = React.useState<{
     loading: boolean;
-    entries: { title: string; href: string }[];
+    entries: { id: string; title: string; href: string }[];
   }>({
     loading: true,
     entries: [],
   });
 
   const contentTypesById = React.useMemo(
-    (): Record<string, shared.ContentType> =>
+    (): Record<string, ContentType> =>
       // Maps ID => Content Type
       props.space.getCachedContentTypes().reduce(
         (prev, ct) => ({
@@ -41,24 +48,37 @@ function UniquenessError(props: UniquenessErrorProps) {
     [props.space]
   );
 
-  React.useEffect(() => {
-    setState((state) => ({ ...state, loading: true }));
-
-    const getTitle = (entry: shared.Entry) =>
+  const getTitle = React.useCallback(
+    (entry: Entry) =>
       entityHelpers.getEntryTitle({
         entry,
         defaultTitle: 'Untitled',
         localeCode: props.localeCode,
         defaultLocaleCode: props.defaultLocaleCode,
         contentType: contentTypesById[entry.sys.contentType.sys.id],
-      });
+      }),
+    [props.localeCode, props.defaultLocaleCode, contentTypesById]
+  );
+
+  React.useEffect(() => {
+    const conflictIds = props.error.conflicting?.map((entry) => entry.sys.id) || [];
+
+    const entryIds = state.entries.map((entry) => entry.id);
+
+    // Avoid unnecessary refetching
+    if (diff(conflictIds, entryIds).length === 0) {
+      return;
+    }
+
+    setState((state) => ({ ...state, loading: true }));
 
     const query = {
-      'sys.id[in]': props.error.conflicting?.map((entry) => entry.sys.id).join(','),
+      'sys.id[in]': conflictIds.join(','),
     };
 
-    props.space.getEntries<shared.Entry>(query).then(({ items }) => {
+    props.space.getEntries<Entry>(query).then(({ items }) => {
       const entries = items.map((entry) => ({
+        id: entry.sys.id,
         title: getTitle(entry),
         href: props.getEntryURL(entry),
       }));
@@ -68,7 +88,7 @@ function UniquenessError(props: UniquenessErrorProps) {
         entries,
       });
     });
-  }, [props]);
+  }, [getTitle, state.entries, props.error.conflicting, props.space.getEntries, props.getEntryURL]);
 
   return (
     <List className={styles.errorList} data-test-id="uniqueness-conflicts-list">
@@ -78,7 +98,7 @@ function UniquenessError(props: UniquenessErrorProps) {
         ) : (
           state.entries.map((entry) => (
             <TextLink
-              key={entry.href}
+              key={entry.id}
               href={entry.href}
               icon="ExternalLink"
               iconPosition="right"
@@ -94,10 +114,10 @@ function UniquenessError(props: UniquenessErrorProps) {
 }
 
 export interface ValidationErrorsProps {
-  field: shared.FieldAPI;
-  space: shared.SpaceAPI;
-  locales: shared.LocalesAPI;
-  getEntryURL: (entry: shared.Entry) => string;
+  field: FieldAPI;
+  space: SpaceAPI;
+  locales: LocalesAPI;
+  getEntryURL: (entry: Entry) => string;
 }
 
 export function ValidationErrors(props: ValidationErrorsProps) {
