@@ -7,7 +7,7 @@ import type {
   LocalesAPI,
 } from '@contentful/field-editor-shared';
 import { entityHelpers } from '@contentful/field-editor-shared';
-import { TextLink, List } from '@contentful/forma-36-react-components';
+import { TextLink, List, ListItem, Icon } from '@contentful/forma-36-react-components';
 
 import * as styles from './styles';
 
@@ -90,7 +90,7 @@ function UniquenessError(props: UniquenessErrorProps) {
 
   return (
     <List className={styles.errorList} data-test-id="uniqueness-conflicts-list">
-      <li className={styles.errorItem}>
+      <ListItem className={styles.entryLink}>
         {state.loading ? (
           <div>Loading title for conflicting entry…</div>
         ) : (
@@ -101,12 +101,13 @@ function UniquenessError(props: UniquenessErrorProps) {
               icon="ExternalLink"
               iconPosition="right"
               linkType="negative"
+              target="_blank"
               rel="noopener noreferrer">
               {entry.title}
             </TextLink>
           ))
         )}
-      </li>
+      </ListItem>
     </List>
   );
 }
@@ -141,17 +142,21 @@ export function ValidationErrors(props: ValidationErrorsProps) {
             key={index}
             role="status"
             aria-roledescription="field-locale-schema"
-            data-error-code={`entry.schema.${error.name}`}>
-            {error.message}
-            {error.name === 'unique' && (
-              <UniquenessError
-                error={error}
-                space={props.space}
-                localeCode={props.field.locale}
-                defaultLocaleCode={props.locales.default}
-                getEntryURL={props.getEntryURL}
-              />
-            )}
+            data-error-code={`entry.schema.${error.name}`}
+            className={styles.errorItem}>
+            <Icon icon="InfoCircle" color="negative" />
+            <div className={styles.errorMessage}>
+              {error.message}
+              {error.name === 'unique' && (
+                <UniquenessError
+                  error={error}
+                  space={props.space}
+                  localeCode={props.field.locale}
+                  defaultLocaleCode={props.locales.default}
+                  getEntryURL={props.getEntryURL}
+                />
+              )}
+            </div>
           </li>
         );
       })}

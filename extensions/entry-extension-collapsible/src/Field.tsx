@@ -2,7 +2,7 @@ import * as React from 'react';
 import { HelpText } from '@contentful/forma-36-react-components';
 import { LocalesAPI, FieldAPI } from '@contentful/field-editor-shared';
 import styles from './styles';
-import { SDKContext } from './shared';
+import { SDKContext, getEntryURL } from './shared';
 import { EntryFieldAPI } from 'contentful-ui-extensions-sdk';
 import { NumberEditor } from '../../../packages/number/src/index';
 import { SingleLineEditor } from '../../../packages/single-line/src/index';
@@ -30,6 +30,7 @@ import {
 
 import { RichTextEditor } from '../../../packages/rich-text/src/index';
 import { MarkdownEditor } from '../../../packages/markdown/src/index';
+import { ValidationErrors } from '../../../packages/validation-errors/src/index';
 
 interface FieldProps {
   field: EntryFieldAPI;
@@ -401,16 +402,8 @@ const FieldWrapper: React.FC<FieldWrapperProps> = function ({
   required,
   field,
 }: FieldWrapperProps) {
-  const [errors, setErrors] = React.useState<{ message: string; path: string[] }[]>([]);
-  React.useEffect(() => {
-    field.onSchemaErrorsChanged((newErrors: { message: string; path: string[] }[]) => {
-      if (Array.isArray(newErrors)) {
-        setErrors(newErrors);
-      } else {
-        setErrors([]);
-      }
-    });
-  }, [field, setErrors]);
+  const sdk = React.useContext(SDKContext);
+
   return (
     <div className={styles.fieldWrapper}>
       <HelpText>
@@ -420,13 +413,12 @@ const FieldWrapper: React.FC<FieldWrapperProps> = function ({
 
       {children}
 
-      <ul className={styles.errorList}>
-        {errors.map((error) => (
-          <li key={error.path.join('')} className={styles.error}>
-            {error.message}
-          </li>
-        ))}
-      </ul>
+      <ValidationErrors
+        field={field}
+        space={sdk.space}
+        locales={sdk.locales}
+        getEntryURL={getEntryURL}
+      />
     </div>
   );
 };
