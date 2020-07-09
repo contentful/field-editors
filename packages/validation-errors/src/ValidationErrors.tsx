@@ -101,6 +101,7 @@ function UniquenessError(props: UniquenessErrorProps) {
               icon="ExternalLink"
               iconPosition="right"
               linkType="negative"
+              target="_blank"
               rel="noopener noreferrer">
               {entry.title}
             </TextLink>
