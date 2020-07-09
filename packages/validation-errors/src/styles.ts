@@ -2,14 +2,23 @@ import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 
 export const errorList = css({
+  padding: 0,
   wordWrap: 'break-word',
   marginTop: tokens.spacingS,
-  marginBottom: 0,
   color: tokens.colorRedMid,
+  listStyleType: 'none',
+});
+
+export const errorMessage = css({
+  display: 'inline-flex',
+  flexDirection: 'column',
+  marginLeft: tokens.spacingXs,
 });
 
 export const errorItem = css({
-  listStyleType: 'disc',
-  marginLeft: tokens.spacingM,
+  display: 'flex',
+});
+
+export const entryLink = css({
   fontWeight: Number(tokens.fontWeightDemiBold),
 });
