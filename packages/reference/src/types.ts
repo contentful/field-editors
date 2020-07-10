@@ -8,7 +8,7 @@ export {
   ContentTypeField,
   Link,
   EntityType,
-  NavigatorSlideInfo
+  NavigatorSlideInfo,
 } from 'contentful-ui-extensions-sdk';
 
 export { Entry, File, Asset } from '@contentful/field-editor-shared';
@@ -55,4 +55,4 @@ export type Action =
       slide?: NavigatorSlideInfo;
     }
   | { type: 'delete'; contentTypeId: string; id: string; entity: EntityType }
-  | { type: 'rendered'; entity: EntityType };
+  | { type: 'rendered'; entity?: EntityType };

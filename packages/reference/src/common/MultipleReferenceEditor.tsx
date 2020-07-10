@@ -5,6 +5,7 @@ import { fromFieldValidations } from '../utils/fromFieldValidations';
 import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
 import { LinkEntityActions } from '../components';
 import { SortEndHandler, SortStartHandler } from 'react-sortable-hoc';
+import { useMultipleReferenceLoadTracking } from './useMultipleReferenceLoadTracking';
 
 type ChildProps = {
   entityType: EntityType;
@@ -128,11 +129,16 @@ export function MultipleReferenceEditor(
   }
 ) {
   const allContentTypes = props.sdk.space.getCachedContentTypes();
+  const [onAction, setItemsToLoadCount] = useMultipleReferenceLoadTracking(props.onAction);
 
   return (
     <ReferenceEditor<ReferenceValue[]> {...props}>
       {({ value, disabled, setValue, externalReset }) => {
         const items = value || [];
+        if (value) {
+          setItemsToLoadCount(value.length);
+        }
+
         return (
           <Editor
             {...props}
@@ -141,6 +147,7 @@ export function MultipleReferenceEditor(
             setValue={setValue}
             key={`${externalReset}-list`}
             allContentTypes={allContentTypes}
+            onAction={onAction}
           />
         );
       }}
