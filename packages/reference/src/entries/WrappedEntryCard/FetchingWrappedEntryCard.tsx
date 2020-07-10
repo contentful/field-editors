@@ -13,6 +13,7 @@ export type EntryCardReferenceEditorProps = ReferenceEditorProps & {
   isDisabled: boolean;
   onRemove: () => void;
   cardDragHandle?: React.ReactElement;
+  renderCard: Function
 };
 
 async function openEntry(
@@ -61,6 +62,52 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       ? 'undefined'
       : `:${entry.sys.id}:${entry.sys.version}`;
 
+  // TODO:xxx Expose `WrappedEntryCard` as part of this lib.
+  const cardProp: WrappedEntryCardProps = {
+    // TODO:xxx take props passed to `WrappedEntryCard` and define in here instead
+  };
+
+  const renderOriginalCard = () => (
+    <WrappedEntryCard
+      // TODO:xxx
+      // {...cardProps}
+      getAsset={props.sdk.space.getAsset}
+      getEntityScheduledActions={props.sdk.space.getEntityScheduledActions}
+      getEntryUrl={props.getEntityUrl}
+      isDisabled={props.isDisabled}
+      size={size}
+      localeCode={props.sdk.field.locale}
+      defaultLocaleCode={props.sdk.locales.default}
+      allContentTypes={props.allContentTypes}
+      entry={entry}
+      cardDragHandle={props.cardDragHandle}
+      onEdit={async () => {
+        const slide = await openEntry(props.sdk, entry.sys.id, {
+          bulkEditing: props.parameters.instance.bulkEditing,
+          index: props.index,
+        });
+        props.onAction &&
+        props.onAction({
+          entity: 'Entry',
+          type: 'edit',
+          id: entry.sys.id,
+          contentTypeId: entry.sys.contentType.sys.id,
+          slide,
+        });
+      }}
+      onRemove={() => {
+        props.onRemove();
+        props.onAction &&
+        props.onAction({
+          entity: 'Entry',
+          type: 'delete',
+          id: entry.sys.id,
+          contentTypeId: entry.sys.contentType.sys.id,
+        });
+      }}
+    />
+  );
+
   React.useEffect(() => {
     if (entry) {
       props.onAction && props.onAction({ type: 'rendered', entity: 'Entry' });
@@ -80,43 +127,12 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
     if (entry === undefined) {
       return <EntryCard size={size} loading />;
     }
-    return (
-      <WrappedEntryCard
-        getAsset={props.sdk.space.getAsset}
-        getEntityScheduledActions={props.sdk.space.getEntityScheduledActions}
-        getEntryUrl={props.getEntityUrl}
-        isDisabled={props.isDisabled}
-        size={size}
-        localeCode={props.sdk.field.locale}
-        defaultLocaleCode={props.sdk.locales.default}
-        allContentTypes={props.allContentTypes}
-        entry={entry}
-        cardDragHandle={props.cardDragHandle}
-        onEdit={async () => {
-          const slide = await openEntry(props.sdk, entry.sys.id, {
-            bulkEditing: props.parameters.instance.bulkEditing,
-            index: props.index,
-          });
-          props.onAction &&
-            props.onAction({
-              entity: 'Entry',
-              type: 'edit',
-              id: entry.sys.id,
-              contentTypeId: entry.sys.contentType.sys.id,
-              slide,
-            });
-        }}
-        onRemove={() => {
-          props.onRemove();
-          props.onAction &&
-            props.onAction({
-              entity: 'Entry',
-              type: 'delete',
-              id: entry.sys.id,
-              contentTypeId: entry.sys.contentType.sys.id,
-            });
-        }}
-      />
-    );
+    if(props.renderCard) {
+      const renderedCustomCard = props.renderCard(cardProps);
+      // Only `false` indicates to render the original card. E.g. `null` would result in no card.
+      return renderedCustomCard === false ? renderOriginalCard() : renderedCustomCard;
+    } else {
+      return renderOriginalCard()
+    }
   }, [props, entityKey]);
 }
