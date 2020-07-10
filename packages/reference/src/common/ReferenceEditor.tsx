@@ -14,6 +14,8 @@ export interface ReferenceEditorProps {
 
   viewType: ViewType;
 
+  renderCard?: Function; // TODO: Work out correct type for renderCard
+
   getEntityUrl?: (entryId: string) => string;
 
   onAction?: (action: Action) => void;

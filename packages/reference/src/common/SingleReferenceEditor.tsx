@@ -10,6 +10,7 @@ type ChildProps = {
   isDisabled: boolean;
   setValue: (value: ReferenceValue | null | undefined) => void;
   allContentTypes: ContentType[];
+  renderCard?: Function; // TODO: Work out correct type for renderCard
 };
 
 type EditorProps = ReferenceEditorProps &

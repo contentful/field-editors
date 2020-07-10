@@ -14,8 +14,20 @@ import { MultipleEntryReferenceEditor } from '@contentful/field-editor-reference
 ```
 
 import { Playground, Props } from 'docz';
-import { MultipleEntryReferenceEditor } from './MultipleEntryReferenceEditor.tsx'
-import { createFakeFieldAPI, createFakeSpaceAPI, createFakeLocalesAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
+import { MultipleEntryReferenceEditor } from './MultipleEntryReferenceEditor.tsx';
+import {
+  createFakeFieldAPI,
+  createFakeSpaceAPI,
+  createFakeLocalesAPI,
+  ActionsPlayground,
+} from '@contentful/field-editor-test-utils';
+import {
+  Card,
+  Button,
+  Typography,
+  Paragraph,
+  Heading,
+} from '@contentful/forma-36-react-components';
 import emptyEntry from '../__fixtures__/empty_entry.json';
 import publishedEntry from '../__fixtures__/published_entry.json';
 import changedEntry from '../__fixtures__/changed_entry.json';
@@ -96,6 +108,100 @@ import changedEntry from '../__fixtures__/changed_entry.json';
               canLinkEntity: true
             }
           }}
+         />
+        <ActionsPlayground mitt={mitt} />
+      </div>
+    );
+
+}}
+
+</Playground>
+
+## With custom card
+
+<Playground>
+  {() => {
+    const initialValue = window.localStorage.getItem('initialValue');
+    const isInitiallyDisabled = window.localStorage.getItem('initialDisabled');
+    const instanceParams = window.localStorage.getItem('instanceParams');
+    const [field, mitt] = createFakeFieldAPI(field => field, initialValue);
+    const space = createFakeSpaceAPI();
+    const locales = createFakeLocalesAPI();
+    const sdk = {
+      field,
+      locales,
+      space: {
+        ...space,
+        getEntry: (id) => {
+          if (id === 'empty_entry') {
+            return Promise.resolve(emptyEntry);
+          }
+          if (id === 'published_entry') {
+            return Promise.resolve(publishedEntry);
+          }
+          if (id === 'changed_entry') {
+            return Promise.resolve(changedEntry);
+          }
+          return Promise.reject();
+        },
+        getEntityScheduledActions() {
+          return Promise.resolve([]);
+        }
+      },
+      dialogs: {
+        selectMultipleEntries: () => {
+          return [
+            {
+              sys: {
+                id: 'published_entry'
+              }
+            },
+            {
+              sys: {
+                id: 'changed_entry'
+              }
+            }
+          ]
+        }
+      },
+      navigator: {
+        openNewEntry: async () => {
+          return {
+            entity: {
+              sys: {
+                id: 'empty_entry'
+              }
+            }
+          }
+        },
+        openEntry: () => {
+          alert('open entry in slide in');
+          return Promise.resolve({});
+        },
+        onSlideInNavigation: () => () => {}
+      }
+    };
+    return (
+      <div>
+        <MultipleEntryReferenceEditor
+          viewType="link"
+          sdk={sdk}
+          isInitiallyDisabled={false}
+          parameters={{
+            instance: {
+              canCreateEntity: true,
+              canLinkEntity: true
+            }
+          }}
+          renderCard={(props) => <Card>
+              <Typography style={{marginBottom: '20px'}}>
+                <Heading>{props.entry.fields.exField.en}</Heading>
+                <Paragraph>{props.entry.fields.exDesc.en}</Paragraph>
+              </Typography>
+              <Button onClick={props.onEdit} style={{marginRight: '10px'}}>Edit</Button>
+              <Button onClick={props.onRemove}>Remove</Button>
+            </Card>
+          }
          />
         <ActionsPlayground mitt={mitt} />
       </div>
