@@ -2,8 +2,7 @@ import * as React from 'react';
 import { ReferenceValue, EntityType, ContentType } from '../types';
 import { fromFieldValidations } from '../utils/fromFieldValidations';
 import { LinkEntityActions } from '../components';
-import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
-import { CustomEntryCardProps } from '../entries';
+import { CustomEntryCardProps, ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
 
 type ChildProps = {
   entityId: string;

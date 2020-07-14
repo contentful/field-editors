@@ -36,19 +36,21 @@ export function FetchingWrappedEntryCard(props) {
     return <EntryCard size="default" loading />;
   }
 
-  const allContentTypes = props.sdk.space.getCachedContentTypes();
+  const contentType = props.sdk.space
+    .getCachedContentTypes()
+    .find((contentType) => contentType.sys.id === entry.sys.contentType.sys.id);
 
   return (
     <WrappedEntryCard
       getAsset={props.sdk.space.getAsset}
       getEntityScheduledActions={props.sdk.space.getEntityScheduledActions}
-      getEntryUrl={props.getEntryUrl}
+      entryUrl={props.getEntryUrl && props.getEntryUrl(entry.sys.id)}
       size="default"
       isSelected={props.isSelected}
       isDisabled={props.isDisabled}
       localeCode={props.locale}
       defaultLocaleCode={props.sdk.locales.default}
-      allContentTypes={allContentTypes}
+      contentType={contentType}
       entry={entry}
       onEdit={props.onEdit}
       onRemove={props.onRemove}
