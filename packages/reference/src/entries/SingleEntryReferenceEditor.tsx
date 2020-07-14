@@ -6,14 +6,14 @@ import { FetchingWrappedEntryCard } from './WrappedEntryCard/FetchingWrappedEntr
 export function SingleEntryReferenceEditor(props: ReferenceEditorProps) {
   return (
     <SingleReferenceEditor {...props} entityType="Entry">
-      {({ allContentTypes, isDisabled, entityId, setValue, renderCard }) => {
+      {({ allContentTypes, isDisabled, entityId, setValue, renderCustomCard }) => {
         return (
           <FetchingWrappedEntryCard
             {...props}
             allContentTypes={allContentTypes}
             isDisabled={isDisabled}
             entryId={entityId}
-            renderCard={renderCard}
+            renderCustomCard={renderCustomCard}
             onRemove={() => {
               setValue(null);
             }}

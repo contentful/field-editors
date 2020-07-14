@@ -64,7 +64,7 @@ again to showcase inserting another reference rendered by the stardard card rend
     return (
       <div>
         <SingleEntryReferenceEditor
-          renderCard={(props) => props.entry.fields.exField ? <Card testId='custom-card'>
+          renderCustomCard={(props) => props.entry.fields.exField ? <Card testId='custom-card'>
               <Typography style={{marginBottom: '20px'}}>
                 <Heading>{props.entry.fields.exField.en}</Heading>
                 <Paragraph>{props.entry.fields.exDesc.en}</Paragraph>

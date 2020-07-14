@@ -10,7 +10,7 @@ type ChildProps = {
   isDisabled: boolean;
   setValue: (value: ReferenceValue | null | undefined) => void;
   allContentTypes: ContentType[];
-  renderCard?: (props: CustomEntryCardProps) => React.ReactElement | false;
+  renderCustomCard?: (props: CustomEntryCardProps) => React.ReactElement | false;
 };
 
 type EditorProps = ReferenceEditorProps &

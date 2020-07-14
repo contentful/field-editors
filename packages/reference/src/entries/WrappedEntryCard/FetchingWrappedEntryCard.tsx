@@ -15,7 +15,7 @@ export type EntryCardReferenceEditorProps = ReferenceEditorProps & {
   isDisabled: boolean;
   onRemove: () => void;
   cardDragHandle?: React.ReactElement;
-  renderCard?: (props: CustomEntryCardProps) => React.ReactElement | false;
+  renderCustomCard?: (props: CustomEntryCardProps) => React.ReactElement | false;
 };
 
 async function openEntry(
@@ -122,8 +122,8 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       onEdit,
       onRemove,
     };
-    if (props.renderCard) {
-      const renderedCustomCard = props.renderCard(sharedCardProps);
+    if (props.renderCustomCard) {
+      const renderedCustomCard = props.renderCustomCard(sharedCardProps);
       // Only `false` indicates to render the original card. E.g. `null` would result in no card.
       if (renderedCustomCard !== false) {
         return renderedCustomCard;

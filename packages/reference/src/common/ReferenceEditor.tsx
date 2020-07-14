@@ -14,7 +14,7 @@ export interface ReferenceEditorProps {
   isInitiallyDisabled: boolean;
   sdk: FieldExtensionSDK;
   viewType: ViewType;
-  renderCard?: (props: CustomEntryCardProps) => React.ReactElement | false;
+  renderCustomCard?: (props: CustomEntryCardProps) => React.ReactElement | false;
   getEntityUrl?: (entryId: string) => string;
   onAction?: (action: Action) => void;
   parameters: {
