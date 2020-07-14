@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ReferenceValue, EntityType, ContentType } from '../types';
 import { fromFieldValidations } from '../utils/fromFieldValidations';
 import { LinkEntityActions } from '../components';
-import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
+import { CustomEntryCardProps, ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
 
 type ChildProps = {
   entityId: string;
@@ -10,6 +10,7 @@ type ChildProps = {
   isDisabled: boolean;
   setValue: (value: ReferenceValue | null | undefined) => void;
   allContentTypes: ContentType[];
+  renderCustomCard?: (props: CustomEntryCardProps) => React.ReactElement | false;
 };
 
 type EditorProps = ReferenceEditorProps &

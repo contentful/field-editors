@@ -14,65 +14,24 @@ import { SingleEntryReferenceEditor } from '@contentful/field-editor-reference';
 ```
 
 import { Playground, Props } from 'docz';
-import { SingleEntryReferenceEditor } from './SingleEntryReferenceEditor.tsx'
-import { createFakeFieldAPI, createFakeSpaceAPI, createFakeLocalesAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
-import emptyEntry from '../__fixtures__/empty_entry.json';
-import publishedEntry from '../__fixtures__/published_entry.json';
+import { SingleEntryReferenceEditor } from './SingleEntryReferenceEditor.tsx';
+import { ActionsPlayground } from '@contentful/field-editor-test-utils';
+import {
+  Card,
+  Button,
+  Typography,
+  Paragraph,
+  Heading,
+} from '@contentful/forma-36-react-components';
+import { newReferenceEditorFakeSdk } from '../__fixtures__/FakeSdk'
 
 ## In Action
 
 <Playground>
   {() => {
-    const initialValue = window.localStorage.getItem('initialValue');
     const isInitiallyDisabled = window.localStorage.getItem('initialDisabled');
     const instanceParams = window.localStorage.getItem('instanceParams');
-    const [field, mitt] = createFakeFieldAPI(field => field, initialValue);
-    const space = createFakeSpaceAPI();
-    const locales = createFakeLocalesAPI();
-    const sdk = {
-      field,
-      locales,
-      space: {
-        ...space,
-        getEntry: (id) => {
-          if (id === 'empty_entry') {
-            return Promise.resolve(emptyEntry);
-          }
-          if (id === 'published_entry') {
-            return Promise.resolve(publishedEntry);
-          }
-          return Promise.reject();
-        },
-        getEntityScheduledActions() {
-          return Promise.resolve([]);
-        }
-      },
-      dialogs: {
-        selectSingleEntry: () => {
-          return {
-            sys: {
-              id: 'published_entry'
-            }
-          }
-        }
-      },
-      navigator: {
-        openNewEntry: async () => {
-          return {
-            entity: {
-              sys: {
-                id: 'empty_entry'
-              }
-            }
-          }
-        },
-        openEntry: () => {
-          alert('open entry in slide in');
-          return Promise.resolve({});
-        },
-        onSlideInNavigation: () => () => {}
-      }
-    };
+    const [sdk, mitt] = newReferenceEditorFakeSdk();
     return (
       <div>
         <SingleEntryReferenceEditor
@@ -89,15 +48,50 @@ import publishedEntry from '../__fixtures__/published_entry.json';
         <ActionsPlayground mitt={mitt} />
       </div>
     );
+  }}
+</Playground>
 
-}}
+## With custom card
 
+Insert a reference via _Link existing entry_. Remove the inserted reference and click
+again to showcase inserting another reference rendered by the stardard card renderer.
+
+<Playground>
+  {() => {
+    const isInitiallyDisabled = window.localStorage.getItem('initialDisabled');
+    const instanceParams = window.localStorage.getItem('instanceParams');
+    const [sdk, mitt] = newReferenceEditorFakeSdk();
+    return (
+      <div>
+        <SingleEntryReferenceEditor
+          renderCustomCard={(props) => props.entry.fields.exField ? <Card testId='custom-card'>
+              <Typography style={{marginBottom: '20px'}}>
+                <Heading>{props.entry.fields.exField.en}</Heading>
+                <Paragraph>{props.entry.fields.exDesc.en}</Paragraph>
+              </Typography>
+              <Button onClick={props.onEdit} style={{marginRight: '10px'}}>Edit</Button>
+              <Button onClick={props.onRemove}>Remove</Button>
+            </Card> : false
+          }
+          viewType="card"
+          sdk={sdk}
+          isInitiallyDisabled={false}
+          parameters={{
+            instance: instanceParams || {
+              canCreateEntity: true,
+              canLinkEntity: true
+            }
+          }}
+         />
+        <ActionsPlayground mitt={mitt} />
+      </div>
+    );
+  }}
 </Playground>
 
 ## Props
 
 <Props of={SingleEntryReferenceEditor} />
-
 
 ## As field extension
 
@@ -105,7 +99,7 @@ import publishedEntry from '../__fixtures__/published_entry.json';
 import { SingleEntryReferenceEditor } from '@contentful/field-editor-reference';
 
 /// your extension code
-init(sdk => {
+init((sdk) => {
   if (sdk.location.is(locations.LOCATION_ENTRY_FIELD)) {
     render(
       <SingleEntryReferenceEditor viewType="card" sdk={sdk} />,
