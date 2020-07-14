@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { EntryCard } from '@contentful/forma-36-react-components';
-import { ContentType, Entry, FieldExtensionSDK, NavigatorSlideInfo } from '../../types';
-import { SpaceAPI } from 'contentful-ui-extensions-sdk';
+import { ContentType, FieldExtensionSDK, NavigatorSlideInfo } from '../../types';
 import { WrappedEntryCard } from './WrappedEntryCard';
 import { MissingEntityCard } from '../../components';
 import { useEntities } from '../../common/EntityStore';
-import { ReferenceEditorProps } from '../../common/ReferenceEditor';
+import { CustomEntryCardProps, ReferenceEditorProps } from '../../common/ReferenceEditor';
 import get from 'lodash/get';
+import { WrappedEntryCardProps } from './WrappedEntryCard';
 
 export type EntryCardReferenceEditorProps = ReferenceEditorProps & {
   entryId: string;
@@ -15,22 +15,7 @@ export type EntryCardReferenceEditorProps = ReferenceEditorProps & {
   isDisabled: boolean;
   onRemove: () => void;
   cardDragHandle?: React.ReactElement;
-  renderCard?: Function; // TODO: What's the correct type to use here?
-};
-
-export type WrappedEntryCardProps = {
-  getAsset: (assetId: string) => Promise<unknown>;
-  getEntityScheduledActions: SpaceAPI['getEntityScheduledActions'];
-  getEntryUrl?: (entryId: string) => string;
-  isDisabled: boolean;
-  size: 'default' | 'small';
-  localeCode: string;
-  defaultLocaleCode: string;
-  allContentTypes: ContentType[];
-  entry: 'failed' | undefined | Entry; // TODO: Work out correct type for entry
-  cardDragHandle?: React.ReactElement;
-  onEdit?: () => void;
-  onRemove?: () => void;
+  renderCard?: (props: CustomEntryCardProps) => React.ReactElement | false;
 };
 
 async function openEntry(
@@ -79,45 +64,30 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       ? 'undefined'
       : `:${entry.sys.id}:${entry.sys.version}`;
 
-  const cardProps: WrappedEntryCardProps = {
-    getAsset: props.sdk.space.getAsset,
-    getEntityScheduledActions: props.sdk.space.getEntityScheduledActions,
-    getEntryUrl: props.getEntityUrl,
-    isDisabled: props.isDisabled,
-    size,
-    localeCode: props.sdk.field.locale,
-    defaultLocaleCode: props.sdk.locales.default,
-    allContentTypes: props.allContentTypes,
-    entry,
-    cardDragHandle: props.cardDragHandle,
-    onEdit: async () => {
-      const slide = await openEntry(props.sdk, get(entry, 'sys.id'), {
-        bulkEditing: props.parameters.instance.bulkEditing,
-        index: props.index,
+  const onEdit = async () => {
+    const slide = await openEntry(props.sdk, get(entry, 'sys.id'), {
+      bulkEditing: props.parameters.instance.bulkEditing,
+      index: props.index,
+    });
+    props.onAction &&
+      props.onAction({
+        entity: 'Entry',
+        type: 'edit',
+        id: get(entry, 'sys.id'),
+        contentTypeId: get(entry, 'sys.contentType.sys.id'),
+        slide,
       });
-      props.onAction &&
-        props.onAction({
-          entity: 'Entry',
-          type: 'edit',
-          id: get(entry, 'sys.id'),
-          contentTypeId: get(entry, 'sys.contentType.sys.id'),
-          slide,
-        });
-    },
-    onRemove: () => {
-      props.onRemove();
-      props.onAction &&
-        props.onAction({
-          entity: 'Entry',
-          type: 'delete',
-          id: get(entry, 'sys.id'),
-          contentTypeId: get(entry, 'sys.contentType.sys.id'),
-        });
-    },
   };
-
-  // TODO: Work out correct type for entry
-  const renderOriginalCard = () => <WrappedEntryCard {...cardProps} />;
+  const onRemove = () => {
+    props.onRemove();
+    props.onAction &&
+      props.onAction({
+        entity: 'Entry',
+        type: 'delete',
+        id: get(entry, 'sys.id'),
+        contentTypeId: get(entry, 'sys.contentType.sys.id'),
+      });
+  };
 
   React.useEffect(() => {
     if (entry) {
@@ -138,12 +108,33 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
     if (entry === undefined) {
       return <EntryCard size={size} loading />;
     }
+    const sharedCardProps: CustomEntryCardProps = {
+      entry,
+      entryUrl: props.getEntityUrl && props.getEntityUrl(entry.sys.id),
+      contentType: props.allContentTypes.find(
+        (contentType) => contentType.sys.id === entry.sys.contentType.sys.id
+      ),
+      isDisabled: props.isDisabled,
+      size,
+      localeCode: props.sdk.field.locale,
+      defaultLocaleCode: props.sdk.locales.default,
+      cardDragHandle: props.cardDragHandle,
+      onEdit,
+      onRemove,
+    };
     if (props.renderCard) {
-      const renderedCustomCard = props.renderCard(cardProps);
+      const renderedCustomCard = props.renderCard(sharedCardProps);
       // Only `false` indicates to render the original card. E.g. `null` would result in no card.
-      return renderedCustomCard === false ? renderOriginalCard() : renderedCustomCard;
-    } else {
-      return renderOriginalCard();
+      if (renderedCustomCard !== false) {
+        return renderedCustomCard;
+      }
     }
+    const builtinCardProps: WrappedEntryCardProps = {
+      ...sharedCardProps,
+      isClickable: false,
+      getAsset: props.sdk.space.getAsset,
+      getEntityScheduledActions: props.sdk.space.getEntityScheduledActions,
+    };
+    return <WrappedEntryCard {...builtinCardProps} />;
   }, [props, entityKey]);
 }

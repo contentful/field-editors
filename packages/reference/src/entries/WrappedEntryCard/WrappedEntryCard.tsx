@@ -21,10 +21,10 @@ const styles = {
   }),
 };
 
-interface WrappedEntryCardProps {
+export interface WrappedEntryCardProps {
   getEntityScheduledActions: SpaceAPI['getEntityScheduledActions'];
   getAsset: (assetId: string) => Promise<unknown>;
-  getEntryUrl?: (entryId: string) => string;
+  entryUrl?: string;
   size: 'small' | 'default';
   isDisabled: boolean;
   isSelected?: boolean;
@@ -32,7 +32,7 @@ interface WrappedEntryCardProps {
   onEdit?: () => void;
   localeCode: string;
   defaultLocaleCode: string;
-  allContentTypes: ContentType[];
+  contentType?: ContentType;
   entry: Entry;
   cardDragHandle?: React.ReactElement;
   isClickable: boolean;
@@ -45,9 +45,7 @@ const defaultProps = {
 export function WrappedEntryCard(props: WrappedEntryCardProps) {
   const [file, setFile] = React.useState<null | File>(null);
 
-  const contentType = props.allContentTypes.find(
-    (contentType) => contentType.sys.id === props.entry?.sys.contentType.sys.id
-  );
+  const { contentType } = props;
 
   React.useEffect(() => {
     if (props.entry) {
@@ -97,8 +95,10 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
   });
 
   return (
+    // TODO: There should be dedicated components for each `size` with a different
+    //  set of params (e.g. `file` should only be relevant for the "small" size card.
     <EntryCard
-      href={props.getEntryUrl ? props.getEntryUrl(props.entry.sys.id) : undefined}
+      href={props.entryUrl}
       title={title}
       description={description}
       contentType={contentType?.name}

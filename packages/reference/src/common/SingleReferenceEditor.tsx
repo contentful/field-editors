@@ -3,6 +3,7 @@ import { ReferenceValue, EntityType, ContentType } from '../types';
 import { fromFieldValidations } from '../utils/fromFieldValidations';
 import { LinkEntityActions } from '../components';
 import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
+import { CustomEntryCardProps } from '../entries';
 
 type ChildProps = {
   entityId: string;
@@ -10,7 +11,7 @@ type ChildProps = {
   isDisabled: boolean;
   setValue: (value: ReferenceValue | null | undefined) => void;
   allContentTypes: ContentType[];
-  renderCard?: Function; // TODO: Work out correct type for renderCard
+  renderCard?: (props: CustomEntryCardProps) => React.ReactElement | false;
 };
 
 type EditorProps = ReferenceEditorProps &
