@@ -1,4 +1,5 @@
 import mitt from 'mitt';
+import type { Emitter, Handler } from 'mitt';
 import { FieldAPI } from 'contentful-ui-extensions-sdk';
 
 function identity<T>(item: T): T {
@@ -10,8 +11,8 @@ type CustomizeMockFn = (fieldApi: FieldAPI) => FieldAPI;
 export function createFakeFieldAPI<T>(
   customizeMock: CustomizeMockFn = identity,
   initialValue?: T
-): [FieldAPI, mitt.Emitter] {
-  const emitter: mitt.Emitter = mitt();
+): [FieldAPI, Emitter] {
+  const emitter: Emitter = mitt();
 
   // eslint-disable-next-line
   let _value: any = initialValue;
@@ -30,21 +31,21 @@ export function createFakeFieldAPI<T>(
         } else {
           fn = args[0];
         }
-        emitter.on('onValueChanged', fn as mitt.Handler);
+        emitter.on('onValueChanged', fn as Handler);
         return () => {
-          emitter.off('onValueChanged', fn as mitt.Handler);
+          emitter.off('onValueChanged', fn as Handler);
         };
       },
       onIsDisabledChanged: (fn: Function) => {
-        emitter.on('onIsDisabledChanged', fn as mitt.Handler);
+        emitter.on('onIsDisabledChanged', fn as Handler);
         return () => {
-          emitter.off('onIsDisabledChanged', fn as mitt.Handler);
+          emitter.off('onIsDisabledChanged', fn as Handler);
         };
       },
       onSchemaErrorsChanged: (fn: Function) => {
-        emitter.on('onSchemaErrorsChanged', fn as mitt.Handler);
+        emitter.on('onSchemaErrorsChanged', fn as Handler);
         return () => {
-          emitter.off('onSchemaErrorsChanged', fn as mitt.Handler);
+          emitter.off('onSchemaErrorsChanged', fn as Handler);
         };
       },
       getValue: () => {
@@ -65,8 +66,8 @@ export function createFakeFieldAPI<T>(
         emitter.emit('removeValue');
         emitter.emit('onValueChanged', undefined);
         return Promise.resolve();
-      }
+      },
     }),
-    emitter
+    emitter,
   ];
 }
