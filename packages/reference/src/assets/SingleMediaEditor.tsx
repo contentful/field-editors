@@ -3,7 +3,10 @@ import { FetchingWrappedAssetCard } from './WrappedAssetCard/FetchingWrappedAsse
 import { ReferenceEditorProps } from '../common/ReferenceEditor';
 import { SingleReferenceEditor } from '../common/SingleReferenceEditor';
 
-export function SingleMediaEditor(props: ReferenceEditorProps) {
+// TODO: Implement `renderCustomCard` prop for SingleMediaEditor.
+type EditorProps = Omit<ReferenceEditorProps, 'renderCustomCard'>;
+
+export function SingleMediaEditor(props: EditorProps) {
   return (
     <SingleReferenceEditor {...props} entityType="Asset">
       {({ entityId, isDisabled, setValue }) => (
