@@ -1,5 +1,5 @@
 import React from 'react';
-import { Emitter } from 'mitt';
+import type { Emitter } from 'mitt';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 
