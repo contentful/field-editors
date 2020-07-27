@@ -17629,9 +17629,9 @@ remark-lint-no-blockquote-without-marker@^3.0.0:
     vfile-location "^3.0.0"
 
 remark-lint-no-dead-urls@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/remark-lint-no-dead-urls/-/remark-lint-no-dead-urls-1.0.2.tgz#707e96d296e2ce9269832a879853780cce282b57"
-  integrity sha512-YfTrZB3D5SMyoasvq9zMLXHnh/DD6/wOqpCEmzHRz/GL8Ps3SwvaTODGT48er7HoSUylX3t2BeCZw+ib3o1cDg==
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/remark-lint-no-dead-urls/-/remark-lint-no-dead-urls-1.1.0.tgz#c3ba46ba0bf5f28e3789446295e27bcab68d4349"
+  integrity sha512-it3EZmMQ+hwGhUf60NkXN0mMIFuFkS0cxdbgEbhZ/Fj1PlUBpe3gDBtWJ/sqNwSNvQlNSzpvMQkNHSoAhlsVjA==
   dependencies:
     check-links "^1.1.8"
     is-online "^8.2.1"
