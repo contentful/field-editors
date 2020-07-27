@@ -1813,11 +1813,11 @@
   integrity sha512-RAoHI3yYmBxlYs7qFpHaQ1BzbRxEmcwyVZ0S5xP+SRHDO3R2ggnjLJKSli5FvifFxaKFKzhTVTnneiPGtNIJiw==
 
 "@contentful/mimetype@^1.1.4":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@contentful/mimetype/-/mimetype-1.2.0.tgz#84462e20c82c44bf209cc1eb2dea97911676a700"
-  integrity sha512-F7lCIIvfO9mG/euJ7H6GoeSWG64nEohMkay9DKMUAkMl3tSPzziAaRlwNwnvP7aUSUoQ1CpexvnGOP1zuzPC8A==
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@contentful/mimetype/-/mimetype-1.2.2.tgz#7e31e8d815587567b2478060263d7e464704f066"
+  integrity sha512-g9jbPC2ZycbNNrCXoXDwkgYy9Bw76Lvz7pPmDlruIDyu8c3pB5KN2OwxLQKZ1PVvj365Y/hLXUZQXQqHqP+hdg==
   dependencies:
-    lodash "^4.17.15"
+    lodash "^4.17.19"
 
 "@contentful/rich-text-plain-text-renderer@^14.0.0":
   version "14.1.1"
