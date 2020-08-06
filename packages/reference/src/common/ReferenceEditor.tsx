@@ -15,6 +15,7 @@ export interface ReferenceEditorProps {
   sdk: FieldExtensionSDK;
   viewType: ViewType;
   renderCustomCard?: (props: CustomEntryCardProps) => React.ReactElement | false;
+  hasCardEditActions: boolean;
   getEntityUrl?: (entryId: string) => string;
   onAction?: (action: Action) => void;
   parameters: {
@@ -63,4 +64,5 @@ export function ReferenceEditor<T>(
 
 ReferenceEditor.defaultProps = {
   isInitiallyDisabled: true,
+  hasCardEditActions: true,
 };

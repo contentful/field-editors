@@ -4,7 +4,7 @@ import { MultipleReferenceEditor } from '../common/MultipleReferenceEditor';
 import { SortableLinkList } from './SortableElements';
 
 // TODO: Implement `renderCustomCard` prop for MultipleMediaEditor.
-type EditorProps = Omit<ReferenceEditorProps, 'renderCustomCard'>;
+type EditorProps = Omit<ReferenceEditorProps, 'renderCustomCard' | 'hasCardEditActions'>;
 
 export function MultipleMediaEditor(props: EditorProps) {
   return (

@@ -11,6 +11,7 @@ type ChildProps = {
   setValue: (value: ReferenceValue | null | undefined) => void;
   allContentTypes: ContentType[];
   renderCustomCard?: (props: CustomEntryCardProps) => React.ReactElement | false;
+  hasCardEditActions: boolean;
 };
 
 type EditorProps = ReferenceEditorProps &
@@ -128,3 +129,7 @@ export function SingleReferenceEditor(
     </ReferenceEditor>
   );
 }
+
+SingleReferenceEditor.defaultProps = {
+  hasCardEditActions: true,
+};
