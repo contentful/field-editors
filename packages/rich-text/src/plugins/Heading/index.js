@@ -2,6 +2,7 @@ import isHotkey from 'is-hotkey';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { toggleChange } from '../shared/BlockToggleDecorator';
 import CommonNode from '../shared/NodeDecorator';
+import newHeadingDropdownItem from './HeadingDropdownItem';
 
 const newPlugin = (defaultType, tagName, hotkey) => ({ type = defaultType, richTextAPI }) => ({
   renderNode: (props, _editor, next) => {
@@ -32,7 +33,7 @@ const newPlugin = (defaultType, tagName, hotkey) => ({ type = defaultType, richT
       return;
     }
     return next();
-  }
+  },
 });
 
 // TODO: move hotkeys to components
@@ -43,11 +44,11 @@ export const Heading4Plugin = newPlugin(BLOCKS.HEADING_4, 'h4', ['mod+opt+4']);
 export const Heading5Plugin = newPlugin(BLOCKS.HEADING_5, 'h5', ['mod+opt+5']);
 export const Heading6Plugin = newPlugin(BLOCKS.HEADING_6, 'h6', ['mod+opt+6']);
 
-export { default as Heading1 } from './Heading1';
-export { default as Heading2 } from './Heading2';
-export { default as Heading3 } from './Heading3';
-export { default as Heading4 } from './Heading4';
-export { default as Heading5 } from './Heading5';
-export { default as Heading6 } from './Heading6';
+export const Heading1 = newHeadingDropdownItem(BLOCKS.HEADING_1);
+export const Heading2 = newHeadingDropdownItem(BLOCKS.HEADING_2);
+export const Heading3 = newHeadingDropdownItem(BLOCKS.HEADING_3);
+export const Heading4 = newHeadingDropdownItem(BLOCKS.HEADING_4);
+export const Heading5 = newHeadingDropdownItem(BLOCKS.HEADING_5);
+export const Heading6 = newHeadingDropdownItem(BLOCKS.HEADING_6);
 export { default as Paragraph } from './Paragraph';
 export { default as HeadingDropdown } from './HeadingDropdown';
