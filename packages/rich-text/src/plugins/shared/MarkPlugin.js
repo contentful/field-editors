@@ -1,16 +1,15 @@
 import isHotkey from 'is-hotkey';
 import markDecorator from './MarkDecorator';
 import { haveMarks } from './UtilHave';
-import { css, cx } from 'emotion';
+import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 
 const styles = {
+  // TODO: Ensure a bold mark on a headline makes the heading appear even
+  //  bolder. Consider to make headings non-bold by default.
   bold: css({
     color: 'inherit',
     fontWeight: tokens.fontWeightDemiBold,
-  }),
-  headingBold: css({
-    fontWeight: 900, // Make headings which are already bold even bolder.
   }),
   italic: css({
     fontStyle: 'italic',
@@ -21,16 +20,11 @@ const styles = {
   }),
 };
 
-const isHeading = (tagName) => /^h[1-6]$/.test(tagName);
-
-const getMarkStyles = (type, tagName) =>
-  type === 'bold' ? cx(styles.bold, isHeading(tagName) && styles.headingBold) : styles[type];
-
 export default function ({ type, tagName, hotkey, richTextAPI }) {
   return {
     renderMark: (props, _editor, next) => {
       if (props.mark.type === type) {
-        return markDecorator(tagName, { className: getMarkStyles(type, tagName) })(props);
+        return markDecorator(tagName, { className: styles[type] })(props);
       }
       return next();
     },
