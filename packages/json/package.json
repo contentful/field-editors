@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-json",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "main": "dist/index.js",
   "module": "dist/field-editor-json.esm.js",
   "typings": "dist/index.d.ts",
@@ -32,7 +32,7 @@
     "react-codemirror2": "6.0.1"
   },
   "devDependencies": {
-    "@contentful/field-editor-test-utils": "^0.7.1"
+    "@contentful/field-editor-test-utils": "^0.7.2"
   },
   "peerDependencies": {
     "react": ">=16.8.0"

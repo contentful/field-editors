@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-multiple-line",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "main": "dist/index.js",
   "module": "dist/field-editor-multiple-line.esm.js",
   "typings": "dist/index.d.ts",
@@ -29,7 +29,7 @@
     "lodash-es": "^4.17.15"
   },
   "devDependencies": {
-    "@contentful/field-editor-test-utils": "^0.7.1"
+    "@contentful/field-editor-test-utils": "^0.7.2"
   },
   "peerDependencies": {
     "react": ">=16.8.0"
