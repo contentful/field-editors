@@ -36,10 +36,12 @@ export interface WrappedEntryCardProps {
   entry: Entry;
   cardDragHandle?: React.ReactElement;
   isClickable: boolean;
+  hasCardEditActions: boolean;
 }
 
 const defaultProps = {
   isClickable: true,
+  hasCardEditActions: true,
 };
 
 export function WrappedEntryCard(props: WrappedEntryCardProps) {
@@ -132,7 +134,7 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
               onClick={(e) => {
                 e.stopPropagation();
               }}>
-              {props.onEdit && (
+              {props.hasCardEditActions && props.onEdit && (
                 <DropdownListItem
                   onClick={() => {
                     props.onEdit && props.onEdit();

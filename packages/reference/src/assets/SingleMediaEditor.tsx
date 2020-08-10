@@ -4,7 +4,7 @@ import { ReferenceEditorProps } from '../common/ReferenceEditor';
 import { SingleReferenceEditor } from '../common/SingleReferenceEditor';
 
 // TODO: Implement `renderCustomCard` prop for SingleMediaEditor.
-type EditorProps = Omit<ReferenceEditorProps, 'renderCustomCard'>;
+type EditorProps = Omit<ReferenceEditorProps, 'renderCustomCard' | 'hasCardEditActions'>;
 
 export function SingleMediaEditor(props: EditorProps) {
   return (

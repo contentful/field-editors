@@ -16,6 +16,7 @@ export type EntryCardReferenceEditorProps = ReferenceEditorProps & {
   onRemove: () => void;
   cardDragHandle?: React.ReactElement;
   renderCustomCard?: (props: CustomEntryCardProps) => React.ReactElement | false;
+  hasCardEditActions: boolean;
 };
 
 async function openEntry(
@@ -78,6 +79,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
         slide,
       });
   };
+
   const onRemove = () => {
     props.onRemove();
     props.onAction &&
@@ -132,6 +134,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
     const builtinCardProps: WrappedEntryCardProps = {
       ...sharedCardProps,
       isClickable: false,
+      hasCardEditActions: props.hasCardEditActions,
       getAsset: props.sdk.space.getAsset,
       getEntityScheduledActions: props.sdk.space.getEntityScheduledActions,
     };

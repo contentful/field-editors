@@ -147,3 +147,7 @@ export function MultipleReferenceEditor(
     </ReferenceEditor>
   );
 }
+
+MultipleReferenceEditor.defaultProps = {
+  hasCardEditActions: true,
+};
