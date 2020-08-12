@@ -4,30 +4,36 @@ import { INLINES } from '@contentful/rich-text-types';
 
 import { selectEntryAndInsert, canInsertInline } from './Utils';
 import { TOOLBAR_PLUGIN_PROP_TYPES } from '../shared/PluginApi';
+import { toolbarActionHandlerWithSafeAutoFocus } from '../shared/Util';
 
 export default class EntryLinkToolbarIcon extends Component {
   static propTypes = TOOLBAR_PLUGIN_PROP_TYPES;
 
   static defaultProps = {
-    isButton: false
+    isButton: false,
   };
-  handleClick = async event => {
+
+  handleClick = (e) => {
     this.props.onCloseEmbedMenu();
-    event.preventDefault();
+    this.handleAction(e);
+  };
+
+  handleAction = toolbarActionHandlerWithSafeAutoFocus(this, async () => {
     const {
       editor,
-      richTextAPI: { sdk, logToolbarAction }
+      richTextAPI: { sdk, logToolbarAction },
     } = this.props;
     await selectEntryAndInsert(sdk, editor, logToolbarAction);
     this.props.onToggle(editor);
-  };
+  });
+
   render() {
     return this.props.isButton ? (
       <Button
         disabled={this.props.disabled}
         className={`${INLINES.EMBEDDED_ENTRY}-button`}
         size="small"
-        onClick={event => this.handleClick(event)}
+        onClick={(event) => this.handleClick(event)}
         icon="EmbeddedEntryInline"
         buttonType="muted"
         testId={`toolbar-toggle-${INLINES.EMBEDDED_ENTRY}`}>
@@ -40,7 +46,7 @@ export default class EntryLinkToolbarIcon extends Component {
         size="small"
         icon="Entry"
         testId={`toolbar-toggle-${INLINES.EMBEDDED_ENTRY}`}
-        onClick={event => this.handleClick(event)}>
+        onClick={this.handleClick}>
         <div className="cf-flex-grid">
           <Icon
             icon="EmbeddedEntryInline"

@@ -4,28 +4,32 @@ import { DropdownListItem, Button, Icon } from '@contentful/forma-36-react-compo
 
 import { selectEntityAndInsert } from './Util';
 import { TOOLBAR_PLUGIN_PROP_TYPES } from '../shared/PluginApi';
+import { toolbarActionHandlerWithSafeAutoFocus } from '../shared/Util';
 
 export default class EntityLinkToolbarIcon extends Component {
   static propTypes = {
     ...TOOLBAR_PLUGIN_PROP_TYPES,
-    isButton: PropTypes.bool
+    isButton: PropTypes.bool,
   };
 
   static defaultProps = {
-    isButton: false
+    isButton: false,
   };
 
-  handleClick = async event => {
+  handleClick = (e) => {
     this.props.onCloseEmbedMenu();
-    event.preventDefault();
+    this.handleAction(e);
+  };
+
+  handleAction = toolbarActionHandlerWithSafeAutoFocus(this, async () => {
     const {
       editor,
       nodeType,
-      richTextAPI: { sdk, logToolbarAction }
+      richTextAPI: { sdk, logToolbarAction },
     } = this.props;
     await selectEntityAndInsert(nodeType, sdk, editor, logToolbarAction);
     this.props.onToggle(editor);
-  };
+  });
 
   render() {
     const { nodeType } = this.props;
@@ -36,7 +40,7 @@ export default class EntityLinkToolbarIcon extends Component {
         disabled={this.props.disabled}
         className={`${baseClass}-button`}
         size="small"
-        onClick={event => this.handleClick(event)}
+        onClick={this.handleClick}
         icon={type === 'Asset' ? 'Asset' : 'EmbeddedEntryBlock'}
         buttonType="muted"
         testId={`toolbar-toggle-${nodeType}`}>
@@ -47,7 +51,7 @@ export default class EntityLinkToolbarIcon extends Component {
         isDisabled={this.props.disabled}
         className={`${baseClass}-list-item`}
         size="small"
-        onClick={event => this.handleClick(event)}
+        onClick={this.handleClick}
         testId={`toolbar-toggle-${nodeType}`}>
         <div className="cf-flex-grid">
           <Icon

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { haveBlocks } from './UtilHave';
+import { toolbarActionHandlerWithSafeAutoFocus } from './Util';
 import { TOOLBAR_PLUGIN_PROP_TYPES } from './PluginApi';
 
 /**
@@ -18,29 +19,23 @@ export const toggleChange = (editor, type) => {
 
 const isBlockActive = (editor, type) => haveBlocks(editor, type);
 
-export default ({
-  type,
-  title,
-  icon,
-  applyChange = toggleChange,
-  isActive = isBlockActive
-}) => Block => {
+export default ({ type, title, icon, applyChange = toggleChange, isActive = isBlockActive }) => (
+  Block
+) => {
   return class BlockToggleDecorator extends React.Component {
     static propTypes = TOOLBAR_PLUGIN_PROP_TYPES;
 
-    handleToggle = e => {
+    handleToggle = toolbarActionHandlerWithSafeAutoFocus(this, () => {
       const {
         editor,
         onToggle,
-        richTextAPI: { logToolbarAction }
+        richTextAPI: { logToolbarAction },
       } = this.props;
-      e.preventDefault();
-
       const isActive = applyChange(editor, type);
       onToggle(editor);
       const actionName = isActive ? 'insert' : 'remove';
       logToolbarAction(actionName, { nodeType: type });
-    };
+    });
 
     render() {
       const { editor, disabled, richTextAPI } = this.props;

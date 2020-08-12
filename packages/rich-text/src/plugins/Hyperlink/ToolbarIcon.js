@@ -2,21 +2,21 @@ import React, { Component } from 'react';
 import { INLINES } from '@contentful/rich-text-types';
 import ToolbarIcon from '../shared/ToolbarIcon';
 import { TOOLBAR_PLUGIN_PROP_TYPES } from '../shared/PluginApi';
+import { toolbarActionHandlerWithSafeAutoFocus } from '../shared/Util';
 import { hasHyperlink, toggleLink, hasOnlyHyperlinkInlines } from './Util';
 
 export default class HyperlinkToolbarIcon extends Component {
   static propTypes = TOOLBAR_PLUGIN_PROP_TYPES;
 
-  handleClick = async event => {
-    event.preventDefault();
+  handleClick = toolbarActionHandlerWithSafeAutoFocus(this, async () => {
     const {
       onToggle,
       editor,
-      richTextAPI: { sdk, logToolbarAction }
+      richTextAPI: { sdk, logToolbarAction },
     } = this.props;
     await toggleLink(editor, sdk, logToolbarAction);
     onToggle(editor);
-  };
+  });
 
   render() {
     const { disabled, editor } = this.props;
@@ -27,7 +27,7 @@ export default class HyperlinkToolbarIcon extends Component {
         type={INLINES.HYPERLINK}
         icon="Link"
         title="Hyperlink"
-        onToggle={event => this.handleClick(event)}
+        onToggle={this.handleClick}
         isActive={hasHyperlink(editor.value)}
       />
     );

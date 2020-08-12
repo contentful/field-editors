@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { TOOLBAR_PLUGIN_PROP_TYPES } from '../shared/PluginApi';
+import { toolbarActionHandlerWithSafeAutoFocus } from '../shared/Util';
 import EditList from './EditListWrapper';
 
 const applyChange = (editor, type, logAction) => {
   const {
     utils,
-    changes: { unwrapList, wrapInList }
+    changes: { unwrapList, wrapInList },
   } = EditList();
 
   if (utils.isSelectionInList(editor.value)) {
@@ -34,20 +35,19 @@ const isActive = (editor, type) => {
   return false;
 };
 
-export default ({ type, title, icon }) => Block => {
+export default ({ type, title, icon }) => (Block) => {
   return class ToolbarDecorator extends React.Component {
     static propTypes = TOOLBAR_PLUGIN_PROP_TYPES;
 
-    handleToggle = e => {
+    handleToggle = toolbarActionHandlerWithSafeAutoFocus(this, () => {
       const {
         editor,
         onToggle,
-        richTextAPI: { logToolbarAction }
+        richTextAPI: { logToolbarAction },
       } = this.props;
-      e.preventDefault();
       applyChange(editor, type, logToolbarAction);
       onToggle(editor);
-    };
+    });
 
     render() {
       const { editor } = this.props;
