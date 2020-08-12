@@ -104,7 +104,9 @@ export function MarkdownEditor(
           editor.setReadOnly(props.disabled);
           setEditor(editor);
           editor.events.onChange((value: string) => {
-            props.saveValueToSDK(value);
+            // Trim empty lines
+            const trimmedValue = value.replace(/^\s+$/gm, '');
+            props.saveValueToSDK(trimmedValue);
             setCurrentValue(value);
           });
         }}
