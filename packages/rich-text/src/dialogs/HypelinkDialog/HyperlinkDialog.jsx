@@ -167,6 +167,7 @@ export class HyperlinkDialog extends React.Component {
   renderFields() {
     const { hideText, allowedHyperlinkTypes, entitySelectorConfigs } = this.props;
     const { uri, text, type } = this.state;
+    const isUriInputAutoFocused = type === LINK_TYPES.URI && (hideText || !!text);
 
     return (
       <Form>
@@ -180,6 +181,7 @@ export class HyperlinkDialog extends React.Component {
             name="link-text"
             textInputProps={{
               testId: 'link-text-input',
+              autoFocus: !isUriInputAutoFocused,
             }}
           />
         )}
@@ -211,7 +213,7 @@ export class HyperlinkDialog extends React.Component {
             textInputProps={{
               placeholder: 'https://',
               testId: 'link-uri-input',
-              autoFocus: true,
+              autoFocus: isUriInputAutoFocused,
             }}
             helpText="A protocol may be required, e.g. https://"
             onChange={(e) => this.setState({ uri: e.target.value })}
