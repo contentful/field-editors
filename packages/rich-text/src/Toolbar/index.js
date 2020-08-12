@@ -60,6 +60,8 @@ export default class Toolbar extends React.Component {
     onChange: PropTypes.func.isRequired,
   };
 
+  isReadyToSetFocusProgrammatically = false;
+
   state = {
     headingMenuOpen: false,
     canAccessAssets: false,
@@ -146,12 +148,18 @@ export default class Toolbar extends React.Component {
 
   render() {
     const { editor, isDisabled, richTextAPI } = this.props;
+    if (editor.value.selection.isFocused) {
+      // If the Slate input has ever been focused by the user, we can now also
+      // programmatically use `editor.setFocus()` without undesired side-effects.
+      this.isReadyToSetFocusProgrammatically = true;
+    }
     const props = {
       editor,
       onToggle: this.onChange,
       onCloseEmbedMenu: this.toggleEmbedDropdown,
       disabled: isDisabled,
       richTextAPI,
+      canAutoFocus: this.isReadyToSetFocusProgrammatically,
     };
     const { field } = richTextAPI.sdk;
     const { isAnyHyperlinkEnabled, isAnyListEnabled, isAnyMarkEnabled } = this.state;
