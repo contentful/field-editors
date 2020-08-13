@@ -11,7 +11,7 @@ export function create(
   options: {
     direction: EditorDirection;
     readOnly: boolean;
-    fixedHeight?: number;
+    fixedHeight?: number | boolean;
     height?: number | string;
   }
 ) {
@@ -24,9 +24,9 @@ export function create(
   const LF = '\n';
 
   const EDITOR_SIZE = {
-    min: height || 300,
+    min: Number(height) || 300,
     max: 500,
-    shift: 50
+    shift: 50,
   };
 
   // eslint-disable-next-line
@@ -46,7 +46,7 @@ export function create(
     theme: 'elegant',
     tabSize: 2,
     indentWithTabs: false,
-    indentUnit: 2
+    indentUnit: 2,
   });
 
   cm.setSize('100%', EDITOR_SIZE.min);
@@ -56,13 +56,13 @@ export function create(
   }
 
   cm.setOption('extraKeys', {
-    Tab: function() {
+    Tab: function () {
       replaceSelectedText(getIndentation());
     },
     Enter: 'newlineAndIndentContinueMarkdownList',
     Esc: () => {
       cm.getInputField().blur();
-    }
+    },
   });
 
   /**
@@ -120,10 +120,11 @@ export function create(
       cm.setSize('100%', '100%');
       cm.refresh();
     },
-    refresh: () => cm.refresh()
+    refresh: () => cm.refresh(),
   };
 
   function destroy() {
+    // @ts-expect-error
     cm.toTextArea();
   }
 
@@ -239,7 +240,7 @@ export function create(
 
   function restoreCursor(character: number, lineNumber?: number, noFocus?: boolean) {
     cm.setCursor(defaultToCurrentLineNumber(lineNumber), character, {
-      scroll: !noFocus
+      scroll: !noFocus,
     });
     if (!noFocus) {
       cm.focus();
@@ -249,7 +250,7 @@ export function create(
   function moveToLineEnd(lineNumber?: number) {
     cm.setCursor({
       line: defaultToCurrentLineNumber(lineNumber),
-      ch: getCurrentLineLength()
+      ch: getCurrentLineLength(),
     });
     cm.focus();
   }
@@ -280,7 +281,7 @@ export function create(
     function getPos(modifier: number) {
       return {
         line: getCurrentLineNumber(),
-        ch: getCurrentCharacter() + modifier
+        ch: getCurrentCharacter() + modifier,
       };
     }
   }
@@ -290,6 +291,9 @@ export function create(
 
     function getPos(prop: 'anchor' | 'head', modifier: number): CodeMirror.Position {
       const selection = getSelection();
+      if (!selection) {
+        return { line: 0, ch: 0 };
+      }
       return { line: selection[prop].line, ch: selection[prop].ch + modifier };
     }
   }
