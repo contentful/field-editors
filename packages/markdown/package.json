@@ -22,8 +22,8 @@
   },
   "dependencies": {
     "@contentful/field-editor-shared": "^0.11.1",
-    "@contentful/forma-36-react-components": "^3.40.1",
-    "@contentful/forma-36-tokens": "^0.7.1",
+    "@contentful/forma-36-react-components": "^3.45.1",
+    "@contentful/forma-36-tokens": "^0.7.2",
     "@types/codemirror": "0.0.97",
     "@types/markdown-to-jsx": "6.11.1",
     "codemirror": "^5.48.0",
