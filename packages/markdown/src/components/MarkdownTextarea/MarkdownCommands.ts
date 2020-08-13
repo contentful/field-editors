@@ -79,16 +79,16 @@ export function create(editor: EditorInstanceType) {
     h3: toggleHeader(editor, 3),
     ul: modifySelection(editor, ulToggleFn, true),
     ol: modifySelection(editor, olToggleFn, true),
-    undo: function() {
+    undo: function () {
       editor.cmd('undo');
     },
-    redo: function() {
+    redo: function () {
       editor.cmd('redo');
     },
     hr,
     indent,
     dedent,
-    table
+    table,
   };
 
   /**
@@ -164,10 +164,11 @@ function modifySelection(
   return () => {
     editor.usePrimarySelection();
 
-    if (editor.getSelection()) {
+    const selection = editor.getSelection();
+    if (selection) {
       // there's a selection - toggle list bullet for each line
       // listNumber is 1, 2, 3... and can be used as ol bullet
-      forLineIn(editor.getSelection(), (lineNumber: number, listNumber: number) => {
+      forLineIn(selection, (lineNumber: number, listNumber: number) => {
         // TODO move this into forLineIn
         editor.moveToLineBeginning(lineNumber);
         toggleFn(editor, listNumber);
@@ -348,7 +349,7 @@ function selectHeader(editor: EditorInstanceType) {
   function getPos(modifier: number) {
     return {
       line: editor.getCurrentLineNumber(),
-      ch: indentation.length + modifier
+      ch: indentation.length + modifier,
     };
   }
 }

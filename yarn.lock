@@ -1811,10 +1811,10 @@
   dependencies:
     "@contentful/forma-36-tokens" "^0.7.1"
 
-"@contentful/forma-36-react-components@3.40.1", "@contentful/forma-36-react-components@^3.40.1", "@contentful/forma-36-react-components@^3.45.1":
-  version "3.40.1"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.40.1.tgz#03ce5a0651c72fef3564eaa528677f63a832e0e5"
-  integrity sha512-diFj6E0RCYcGLxPdEun3mudHUpB430KIL6gUPFLeFiRG/OSK9CdYNuYqlmx06uIsMfNZNHkXnQJZtOMUW+IhGA==
+"@contentful/forma-36-react-components@3.45.1", "@contentful/forma-36-react-components@^3.40.1", "@contentful/forma-36-react-components@^3.45.1":
+  version "3.45.1"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.45.1.tgz#0c8e959f9cf97232280dbc6697621c3d7d429cae"
+  integrity sha512-To7wUMunNsRUY4BgEutZezSEiUmktmextk//nlACy+43TdaEOZSv61BivPn3l0s6hs1roZqpq3AlcBbdGo50vA==
   dependencies:
     "@babel/runtime" "^7.3.4"
     classnames "^2.2.6"
@@ -1824,10 +1824,10 @@
     react-transition-group "^2.4.0"
     truncate "^2.0.1"
 
-"@contentful/forma-36-tokens@0.7.1", "@contentful/forma-36-tokens@^0.7.1", "@contentful/forma-36-tokens@^0.7.2":
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.7.1.tgz#38a524eb4591891297d4b765c6d5d3de1bb1b389"
-  integrity sha512-RAoHI3yYmBxlYs7qFpHaQ1BzbRxEmcwyVZ0S5xP+SRHDO3R2ggnjLJKSli5FvifFxaKFKzhTVTnneiPGtNIJiw==
+"@contentful/forma-36-tokens@0.7.2", "@contentful/forma-36-tokens@^0.7.1", "@contentful/forma-36-tokens@^0.7.2":
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.7.2.tgz#69c2ef26b8e6436324badf8fa3570ac6ea6a0a21"
+  integrity sha512-pIBIFYrtKo9xmbXps9R6PBG4cA6sNzytm57gotPftUWJgOS6BCuCYUOme3mlx9gDV+3wXc4k12QePwU2AkRraw==
 
 "@contentful/mimetype@^1.1.4":
   version "1.2.2"
@@ -20195,10 +20195,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@3.3.4000, typescript@3.8.3, typescript@^3.7.3, typescript@^3.7.5:
-  version "3.8.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.8.3.tgz#409eb8544ea0335711205869ec458ab109ee1061"
-  integrity sha512-MYlEfn5VrLNsgudQTVJeNaQFUAI7DkhnOjdpAp4T+ku1TfQClewlbSuTVHiA+8skNBgaf02TL/kLOvig4y3G8w==
+typescript@3.3.4000, typescript@3.9.7, typescript@^3.7.3, typescript@^3.7.5:
+  version "3.9.7"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.7.tgz#98d600a5ebdc38f40cb277522f12dc800e9e25fa"
+  integrity sha512-BLbiRkiBzAwsjut4x/dsibSTB6yWpwT5qWmC2OfuCg3GgVQCSgMs4vEctYPhsaGtd0AeuuHMkjZ2h2WG8MSzRw==
 
 ua-parser-js@^0.7.18:
   version "0.7.21"

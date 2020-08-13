@@ -9,7 +9,7 @@ export function createMarkdownEditor(
   options: {
     direction: EditorDirection;
     readOnly: boolean;
-    fixedHeight?: number;
+    fixedHeight?: number | boolean;
     height?: number | string;
   }
 ) {
@@ -24,23 +24,23 @@ export function createMarkdownEditor(
   const api = {
     actions: Commands.create(editor),
     history: {
-      hasUndo: function() {
+      hasUndo: function () {
         return editor.getHistorySize('undo') > 0;
       },
-      hasRedo: function() {
+      hasRedo: function () {
         return editor.getHistorySize('redo') > 0;
-      }
+      },
     },
     events: {
-      onScroll: function(fn: Function) {
+      onScroll: function (fn: Function) {
         editor.attachEvent('scroll', fn, 150);
       },
-      onChange: function(fn: Function) {
+      onChange: function (fn: Function) {
         editor.attachEvent('change', wrapChange(fn), 0);
       },
-      onPaste: function(fn: Function) {
+      onPaste: function (fn: Function) {
         editor.attachEvent('paste', fn, 0);
-      }
+      },
     },
     insert: editor.insertAtCursor,
     focus: editor.focus,
@@ -56,12 +56,12 @@ export function createMarkdownEditor(
     clear: () => editor.setValue(''),
     selectAll: editor.selectAll,
     setFullsize: editor.setFullsize,
-    refresh: editor.refresh
+    refresh: editor.refresh,
   };
 
   editor.addKeyShortcuts({
     B: api.actions.bold,
-    I: api.actions.italic
+    I: api.actions.italic,
   });
 
   return api;

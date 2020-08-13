@@ -7,7 +7,7 @@ function identity<T>(item: T): T {
   return item;
 }
 
-type CustomizeMockFn = (api: SpaceAPI) => Partial<SpaceAPI>;
+type CustomizeMockFn = (api: SpaceAPI) => SpaceAPI;
 
 const testContentTypes: ContentType[] = [
   {
@@ -22,7 +22,7 @@ const testContentTypes: ContentType[] = [
         omitted: false,
         required: true,
         type: 'Symbol',
-        validations: []
+        validations: [],
       },
       {
         id: 'exDesc',
@@ -32,19 +32,19 @@ const testContentTypes: ContentType[] = [
         omitted: false,
         required: false,
         type: 'Text',
-        validations: []
-      }
+        validations: [],
+      },
     ],
     displayField: 'exField',
-    description: ''
+    description: '',
   },
   {
     name: 'Another Content Type',
     sys: { id: 'anotherCT', type: 'ContentType' },
     fields: [],
     displayField: '',
-    description: ''
-  }
+    description: '',
+  },
 ];
 
 export function createFakeSpaceAPI(customizeMock: CustomizeMockFn = identity): SpaceAPI {
@@ -60,21 +60,21 @@ export function createFakeSpaceAPI(customizeMock: CustomizeMockFn = identity): S
         total: testContentTypes.length,
         skip: 0,
         limit: 100,
-        sys: { type: 'Array' }
+        sys: { type: 'Array' },
       });
     },
     // @ts-ignore
     getEntries(query?: SearchQuery) {
       const items: Entry[] = [
         createEntry('exampleCT', { exField: { 'en-US': 'Hello world' } }),
-        createEntry('exampleCT', {})
+        createEntry('exampleCT', {}),
       ];
       return Promise.resolve({
         items: !query || query.content_type === 'exampleCT' ? items : [],
         total: items.length,
         skip: 0,
         limit: 100,
-        sys: { type: 'Array' }
+        sys: { type: 'Array' },
       });
     },
     getAssets() {
@@ -83,7 +83,7 @@ export function createFakeSpaceAPI(customizeMock: CustomizeMockFn = identity): S
         total: 0,
         skip: 0,
         limit: 100,
-        sys: { type: 'Array' }
+        sys: { type: 'Array' },
       });
     },
     // @ts-ignore
@@ -93,6 +93,6 @@ export function createFakeSpaceAPI(customizeMock: CustomizeMockFn = identity): S
     // @ts-ignore
     createAsset() {
       return Promise.resolve({});
-    }
+    },
   });
 }
