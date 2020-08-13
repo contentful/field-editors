@@ -1811,7 +1811,7 @@
   dependencies:
     "@contentful/forma-36-tokens" "^0.7.1"
 
-"@contentful/forma-36-react-components@3.40.1", "@contentful/forma-36-react-components@^3.40.1":
+"@contentful/forma-36-react-components@3.40.1", "@contentful/forma-36-react-components@^3.40.1", "@contentful/forma-36-react-components@^3.45.1":
   version "3.40.1"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.40.1.tgz#03ce5a0651c72fef3564eaa528677f63a832e0e5"
   integrity sha512-diFj6E0RCYcGLxPdEun3mudHUpB430KIL6gUPFLeFiRG/OSK9CdYNuYqlmx06uIsMfNZNHkXnQJZtOMUW+IhGA==
@@ -1824,7 +1824,7 @@
     react-transition-group "^2.4.0"
     truncate "^2.0.1"
 
-"@contentful/forma-36-tokens@0.7.1", "@contentful/forma-36-tokens@^0.7.1":
+"@contentful/forma-36-tokens@0.7.1", "@contentful/forma-36-tokens@^0.7.1", "@contentful/forma-36-tokens@^0.7.2":
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.7.1.tgz#38a524eb4591891297d4b765c6d5d3de1bb1b389"
   integrity sha512-RAoHI3yYmBxlYs7qFpHaQ1BzbRxEmcwyVZ0S5xP+SRHDO3R2ggnjLJKSli5FvifFxaKFKzhTVTnneiPGtNIJiw==
@@ -6867,10 +6867,10 @@ contentful-sdk-core@^6.4.0:
     lodash "^4.17.10"
     qs "^6.5.2"
 
-contentful-ui-extensions-sdk@^3.15.0:
-  version "3.15.0"
-  resolved "https://registry.yarnpkg.com/contentful-ui-extensions-sdk/-/contentful-ui-extensions-sdk-3.15.0.tgz#9480f80f7d7113bcc44ded390a0c6a4dbee8f331"
-  integrity sha512-I1W+eprrsaD+h0iMTIqPFc0uMKz3Vdg6AQlxFOATpOwYqQAD14ZJwx16GmfX73e2dycaOT/5HaXSQT48J0jx/w==
+contentful-ui-extensions-sdk@^3.18.0:
+  version "3.18.0"
+  resolved "https://registry.yarnpkg.com/contentful-ui-extensions-sdk/-/contentful-ui-extensions-sdk-3.18.0.tgz#9811a74f0f4f8aa72c008904cf1fdcf6165c16b7"
+  integrity sha512-UugVg/urkd/J9ciDiO4R3D1CK1Z606Nf5VPizWpaHDP5dm4jlbsUwnpPade2JfYfYNORfF1DJZl636Kch9P6NQ==
   dependencies:
     es6-promise "^4.2.8"
 
