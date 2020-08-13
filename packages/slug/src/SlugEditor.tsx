@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { BaseExtensionSDK, FieldAPI } from 'contentful-ui-extensions-sdk';
 import { FieldConnector } from '@contentful/field-editor-shared';
-import { TitleFieldConnector } from './TitleFieldConnector';
+import { TrackingFieldConnector } from './TrackingFieldConnector';
 import { SlugEditorField, SlugEditorFieldStatic } from './SlugEditorField';
 
 export interface SlugEditorProps {
@@ -16,6 +16,12 @@ export interface SlugEditorProps {
    * sdk.field
    */
   field: FieldAPI;
+
+  parameters?: {
+    instance: {
+      trackingFieldId?: string;
+    };
+  };
 }
 
 function isSupportedFieldTypes(val: string): val is 'Symbol' {
@@ -23,13 +29,14 @@ function isSupportedFieldTypes(val: string): val is 'Symbol' {
 }
 
 export function SlugEditor(props: SlugEditorProps) {
-  const { field } = props;
+  const { field, parameters } = props;
   const { locales, entry, space } = props.baseSdk;
 
   if (!isSupportedFieldTypes(field.type)) {
     throw new Error(`"${field.type}" field type is not supported by SlugEditor`);
   }
 
+  const trackingFieldId = parameters?.instance?.trackingFieldId ?? undefined;
   const entrySys = entry.getSys();
 
   const isLocaleOptional = locales.optional[field.locale];
@@ -58,11 +65,12 @@ export function SlugEditor(props: SlugEditorProps) {
   }, []);
 
   return (
-    <TitleFieldConnector<string>
+    <TrackingFieldConnector<string>
       sdk={props.baseSdk}
       field={field}
       defaultLocale={locales.default}
-      isOptionalLocaleWithFallback={isOptionalLocaleWithFallback}>
+      isOptionalLocaleWithFallback={isOptionalLocaleWithFallback}
+      trackingFieldId={trackingFieldId}>
       {({ titleValue, isPublished, isSame }) => (
         <FieldConnector<string>
           field={field}
@@ -102,7 +110,7 @@ export function SlugEditor(props: SlugEditorProps) {
           }}
         </FieldConnector>
       )}
-    </TitleFieldConnector>
+    </TrackingFieldConnector>
   );
 }
 

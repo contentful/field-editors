@@ -3,28 +3,32 @@ import { BaseExtensionSDK, FieldAPI } from 'contentful-ui-extensions-sdk';
 
 type Nullable = null | undefined;
 
-interface TitleFieldConnectorState<ValueType> {
+interface TrackingFieldConnectorState<ValueType> {
   titleValue: ValueType | Nullable;
   isPublished: boolean;
   isSame: boolean;
 }
 
-interface TitleFieldConnectorProps<ValueType> {
+interface TrackingFieldConnectorProps<ValueType> {
   sdk: BaseExtensionSDK;
   field: FieldAPI;
   defaultLocale: string;
+  trackingFieldId?: string;
   isOptionalLocaleWithFallback: boolean;
-  children: (state: TitleFieldConnectorState<ValueType>) => React.ReactNode;
+  children: (state: TrackingFieldConnectorState<ValueType>) => React.ReactNode;
 }
 
-function getTitleField(sdk: BaseExtensionSDK) {
+function getTitleField(sdk: BaseExtensionSDK, trackingFieldId?: string) {
   const { entry, contentType } = sdk;
+  if (trackingFieldId && entry.fields[trackingFieldId]) {
+    return entry.fields[trackingFieldId];
+  }
   return entry.fields[contentType.displayField];
 }
 
-export class TitleFieldConnector<ValueType> extends React.Component<
-  TitleFieldConnectorProps<ValueType>,
-  TitleFieldConnectorState<ValueType>
+export class TrackingFieldConnector<ValueType> extends React.Component<
+  TrackingFieldConnectorProps<ValueType>,
+  TrackingFieldConnectorState<ValueType>
 > {
   static defaultProps = {
     children: () => {
@@ -32,9 +36,9 @@ export class TitleFieldConnector<ValueType> extends React.Component<
     },
   };
 
-  constructor(props: TitleFieldConnectorProps<ValueType>) {
+  constructor(props: TrackingFieldConnectorProps<ValueType>) {
     super(props);
-    const titleField = getTitleField(props.sdk);
+    const titleField = getTitleField(props.sdk, props.trackingFieldId);
     const entrySys = props.sdk.entry.getSys();
     const isSame = titleField ? props.field.id === titleField.id : false;
     this.state = {
@@ -55,7 +59,7 @@ export class TitleFieldConnector<ValueType> extends React.Component<
       });
     });
 
-    const titleField = getTitleField(this.props.sdk);
+    const titleField = getTitleField(this.props.sdk, this.props.trackingFieldId);
 
     // the content type's display field might not exist
     if (!titleField) {

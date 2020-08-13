@@ -17,7 +17,9 @@ jest.mock(
   { virtual: true }
 );
 
-function createMocks(initialValues: { field?: string; titleField?: string } = {}) {
+function createMocks(
+  initialValues: { field?: string; titleField?: string; descriptionField?: string } = {}
+) {
   const [field] = createFakeFieldAPI(
     (field) => ({
       ...field,
@@ -27,6 +29,7 @@ function createMocks(initialValues: { field?: string; titleField?: string } = {}
     }),
     initialValues.field || ''
   );
+
   const [titleField] = createFakeFieldAPI(
     (field) => ({
       ...field,
@@ -36,6 +39,17 @@ function createMocks(initialValues: { field?: string; titleField?: string } = {}
       onValueChanged: jest.fn().mockImplementation(field.onValueChanged),
     }),
     initialValues.titleField || ''
+  );
+
+  const [descriptionField] = createFakeFieldAPI(
+    (field) => ({
+      ...field,
+      id: 'description-id',
+      setValue: jest.fn().mockImplementation(field.setValue),
+      getValue: jest.fn().mockImplementation(field.getValue),
+      onValueChanged: jest.fn().mockImplementation(field.onValueChanged),
+    }),
+    initialValues.descriptionField || ''
   );
 
   const sdk = {
@@ -58,6 +72,7 @@ function createMocks(initialValues: { field?: string; titleField?: string } = {}
       fields: {
         'title-id': titleField,
         'entry-id': field,
+        'description-id': descriptionField,
       },
     },
     contentType: {
@@ -68,6 +83,7 @@ function createMocks(initialValues: { field?: string; titleField?: string } = {}
   return {
     field,
     titleField,
+    descriptionField,
     sdk,
   };
 }
@@ -465,5 +481,36 @@ describe('SlugEditor', () => {
 
     const expectedSlug = 'one-two-three';
     expect(field.setValue).toHaveBeenLastCalledWith(expectedSlug);
+  });
+
+  it('should subscribe for changes in custom field id', async () => {
+    const { field, titleField, descriptionField, sdk } = createMocks({
+      field: '',
+      titleField: 'This is initial title value',
+      descriptionField: 'This is initial description value',
+    });
+
+    render(
+      <SlugEditor
+        field={field}
+        baseSdk={sdk as any}
+        isInitiallyDisabled={false}
+        parameters={{ instance: { trackingFieldId: 'description-id' } }}
+      />
+    );
+
+    await wait();
+
+    expect(titleField.onValueChanged).not.toHaveBeenCalled();
+    expect(descriptionField.onValueChanged).toHaveBeenCalledWith('en-US', expect.any(Function));
+    expect(field.setValue).toHaveBeenCalledTimes(1);
+    expect(field.setValue).toHaveBeenLastCalledWith('this-is-initial-description-value');
+
+    await sdk.entry.fields['description-id'].setValue('Hello world!');
+    await wait();
+
+    expect(field.setValue).toHaveBeenCalledTimes(2);
+    expect(field.setValue).toHaveBeenLastCalledWith('hello-world');
+    expect(sdk.space.getEntries).toHaveBeenCalledTimes(2);
   });
 });
