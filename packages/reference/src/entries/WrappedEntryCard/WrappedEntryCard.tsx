@@ -35,7 +35,7 @@ export interface WrappedEntryCardProps {
   contentType?: ContentType;
   entry: Entry;
   cardDragHandle?: React.ReactElement;
-  isClickable: boolean;
+  isClickable?: boolean;
   hasCardEditActions: boolean;
 }
 

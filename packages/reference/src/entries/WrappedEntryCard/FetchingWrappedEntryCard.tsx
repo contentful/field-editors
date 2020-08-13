@@ -133,7 +133,6 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
     }
     const builtinCardProps: WrappedEntryCardProps = {
       ...sharedCardProps,
-      isClickable: false,
       hasCardEditActions: props.hasCardEditActions,
       getAsset: props.sdk.space.getAsset,
       getEntityScheduledActions: props.sdk.space.getEntityScheduledActions,
