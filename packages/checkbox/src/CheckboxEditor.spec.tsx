@@ -94,4 +94,32 @@ describe('CheckboxEditor', () => {
 
     expect(field.removeValue).toHaveBeenCalledTimes(1);
   });
+
+  it('it renders invalid text and remove link when value set is not in predefined values', () => {
+    const predefined = ['banana', 'orange', 'strawberry'];
+    const [field] = createFakeFieldAPI((mock) => {
+      jest.spyOn(mock, 'setValue');
+      jest.spyOn(mock, 'removeValue');
+      return {
+        ...mock,
+        items: {
+          type: '',
+          validations: [{ in: predefined }],
+        },
+      };
+    });
+
+    // value not included in predefined values
+    field.setValue(['mango']);
+
+    const { getByTestId } = render(
+      <CheckboxEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+    );
+
+    expect(getByTestId('invalid-text')).toBeInTheDocument();
+    expect(getByTestId('cf-ui-text-link')).toBeInTheDocument();
+
+    fireEvent.click(getByTestId('cf-ui-text-link'));
+    expect(field.removeValue).toHaveBeenCalledTimes(1);
+  });
 });

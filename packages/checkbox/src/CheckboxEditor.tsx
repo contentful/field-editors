@@ -27,7 +27,7 @@ export interface CheckboxEditorProps {
 
 type ListValue = string[];
 
-type CheckboxOption = { id: string; value: string; label: string };
+type CheckboxOption = { id: string; value: string; label: string; invalid?: boolean };
 
 function isEmptyListValue(value: ListValue | null) {
   return value === null || value.length === 0;
@@ -55,17 +55,22 @@ export function getOptions(field: FieldAPI): CheckboxOption[] {
   }));
 }
 
-const getMergedOptions = (values: string[], options: CheckboxOption[]): CheckboxOption[] => {
+const getInvalidValues = (
+  field: FieldAPI,
+  values: string[],
+  options: CheckboxOption[]
+): CheckboxOption[] => {
   const getValueFromOptions = (options as CheckboxOption[]).map((item) => item.value);
   const invalidValues = values
     .filter((value) => !getValueFromOptions.includes(value))
     .map((value, index) => ({
-      id: `invalid-${index}`,
+      id: ['entity', field.id, field.locale, index, 'invalid'].join('.'),
       label: value,
+      invalid: true,
       value,
     }));
 
-  return [...options, ...invalidValues];
+  return invalidValues;
 };
 
 export function CheckboxEditor(props: CheckboxEditorProps) {
@@ -99,7 +104,8 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
           setValue(newValues);
         };
 
-        const mergedOptions = getMergedOptions(values, options);
+        const invalidValues = getInvalidValues(field, values, options);
+        const mergedOptions = [...options, ...invalidValues];
 
         return (
           <Form
@@ -125,9 +131,11 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
                     }
                   }}
                 />
-                {item.id.includes('invalid') && (
+                {item.invalid && (
                   <>
-                    <span className={styles.invalidText}>(invalid)</span>
+                    <span data-test-id="invalid-text" className={styles.invalidText}>
+                      (invalid)
+                    </span>
                     <TextLink className={styles.removeBtn} onClick={() => removeValue(item.value)}>
                       Remove
                     </TextLink>
