@@ -10,18 +10,18 @@ const HYPERLINK_TYPES = [HYPERLINK, ENTRY_HYPERLINK, ASSET_HYPERLINK];
 const nodeToHyperlinkType = {
   [INLINES.ENTRY_HYPERLINK]: LINK_TYPES.ENTRY,
   [INLINES.ASSET_HYPERLINK]: LINK_TYPES.ASSET,
-  [INLINES.HYPERLINK]: LINK_TYPES.URI
+  [INLINES.HYPERLINK]: LINK_TYPES.URI,
 };
 
 function getAllowedHyperlinkTypes(field) {
   const hyperlinkTypes = [INLINES.ENTRY_HYPERLINK, INLINES.ASSET_HYPERLINK, INLINES.HYPERLINK];
   if (field.type === 'RichText') {
     return hyperlinkTypes
-      .filter(nodeType => isNodeTypeEnabled(field, nodeType))
-      .map(nodeType => nodeToHyperlinkType[nodeType]);
+      .filter((nodeType) => isNodeTypeEnabled(field, nodeType))
+      .map((nodeType) => nodeToHyperlinkType[nodeType]);
   }
 
-  return hyperlinkTypes.map(nodeType => nodeToHyperlinkType[nodeType]);
+  return hyperlinkTypes.map((nodeType) => nodeToHyperlinkType[nodeType]);
 }
 
 function getEntitySelectorConfigs(field) {
@@ -56,7 +56,7 @@ export function mayEditLink(value) {
  * @returns {boolean}
  */
 export function hasHyperlink(value) {
-  return HYPERLINK_TYPES.some(type => haveInlines({ value }, type));
+  return HYPERLINK_TYPES.some((type) => haveInlines({ value }, type));
 }
 
 /**
@@ -66,7 +66,7 @@ export function hasHyperlink(value) {
  * @returns {boolean}
  */
 export function hasOnlyHyperlinkInlines(value) {
-  return value.inlines.every(inline => HYPERLINK_TYPES.includes(inline.type));
+  return value.inlines.every((inline) => HYPERLINK_TYPES.includes(inline.type));
 }
 
 /**
@@ -88,6 +88,8 @@ export async function toggleLink(editor, sdk, logAction) {
 }
 
 async function insertLink(change, sdk, logAction) {
+  change.blur(); // Ensures modal input auto-focus will work.
+
   logAction('openCreateHyperlinkDialog');
   const showTextInput = !change.value.isExpanded || change.value.fragment.text.trim() === '';
 
@@ -95,7 +97,7 @@ async function insertLink(change, sdk, logAction) {
     showTextInput,
     value: { text: change.value.fragment.text || '' },
     allowedHyperlinkTypes: getAllowedHyperlinkTypes(sdk.field),
-    entitySelectorConfigs: getEntitySelectorConfigs(sdk.field)
+    entitySelectorConfigs: getEntitySelectorConfigs(sdk.field),
   });
 
   if (!result) {
@@ -119,7 +121,7 @@ async function insertLink(change, sdk, logAction) {
 }
 
 function removeLinks(change, logAction) {
-  HYPERLINK_TYPES.forEach(type => change.unwrapInline(type));
+  HYPERLINK_TYPES.forEach((type) => change.unwrapInline(type));
   change.focus();
   logAction('unlinkHyperlinks');
 }
@@ -138,13 +140,14 @@ export async function editLink(change, sdk, logAction) {
   if (!link) {
     throw new Error('Change object contains no link to be edited.');
   }
+  change.blur(); // Ensures modal input auto-focus will work.
   logAction('openEditHyperlinkDialog');
   const { uri: oldUri, target: oldTarget } = link.data.toJSON();
   const result = await openHyperlinkDialog(sdk.dialogs, {
     showTextInput: false,
     value: oldTarget ? { target: oldTarget } : { uri: oldUri },
     allowedHyperlinkTypes: getAllowedHyperlinkTypes(sdk.field),
-    entitySelectorConfigs: getEntitySelectorConfigs(sdk.field)
+    entitySelectorConfigs: getEntitySelectorConfigs(sdk.field),
   });
   if (!result) {
     logAction('cancelEditHyperlinkDialog');
@@ -163,7 +166,7 @@ export async function editLink(change, sdk, logAction) {
 function wrapLink(change, linkType, data) {
   change.wrapInline({
     type: linkTypeToNodeType(linkType),
-    data
+    data,
   });
   change.moveToEnd();
 }
