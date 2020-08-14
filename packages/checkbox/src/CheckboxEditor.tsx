@@ -7,7 +7,7 @@ import {
   FieldConnector,
   PredefinedValuesError,
 } from '@contentful/field-editor-shared';
-import { CheckboxField, Form } from '@contentful/forma-36-react-components';
+import { CheckboxField, Form, TextLink } from '@contentful/forma-36-react-components';
 import * as styles from './styles';
 
 export interface CheckboxEditorProps {
@@ -27,7 +27,7 @@ export interface CheckboxEditorProps {
 
 type ListValue = string[];
 
-type CheckboxOption = { id: string; value: string; label: string };
+type CheckboxOption = { id: string; value: string; label: string; invalid?: boolean };
 
 function isEmptyListValue(value: ListValue | null) {
   return value === null || value.length === 0;
@@ -54,6 +54,24 @@ export function getOptions(field: FieldAPI): CheckboxOption[] {
     label: value,
   }));
 }
+
+const getInvalidValues = (
+  field: FieldAPI,
+  values: string[],
+  options: CheckboxOption[]
+): CheckboxOption[] => {
+  const getValueFromOptions = (options as CheckboxOption[]).map((item) => item.value);
+  const invalidValues = values
+    .filter((value) => !getValueFromOptions.includes(value))
+    .map((value, index) => ({
+      id: ['entity', field.id, field.locale, index, 'invalid'].join('.'),
+      label: value,
+      invalid: true,
+      value,
+    }));
+
+  return invalidValues;
+};
 
 export function CheckboxEditor(props: CheckboxEditorProps) {
   const { field, locales } = props;
@@ -86,29 +104,44 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
           setValue(newValues);
         };
 
+        const invalidValues = getInvalidValues(field, values, options);
+        const mergedOptions = [...options, ...invalidValues];
+
         return (
           <Form
             testId="checkbox-editor"
             spacing="condensed"
             className={cx(styles.form, direction === 'rtl' ? styles.rightToLeft : '')}>
-            {options.map((item) => (
-              <CheckboxField
-                key={item.id}
-                labelIsLight
-                id={item.id}
-                checked={values.includes(item.value)}
-                labelText={item.label}
-                disabled={disabled}
-                value={item.value}
-                name={`${field.id}.${field.locale}`}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  if (e.target.checked) {
-                    addValue(item.value);
-                  } else {
-                    removeValue(item.value);
-                  }
-                }}
-              />
+            {mergedOptions.map((item) => (
+              <div key={item.id}>
+                <CheckboxField
+                  key={item.id}
+                  labelIsLight
+                  id={item.id}
+                  checked={values.includes(item.value)}
+                  labelText={item.label}
+                  disabled={disabled}
+                  value={item.value}
+                  name={`${field.id}.${field.locale}`}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    if (e.target.checked) {
+                      addValue(item.value);
+                    } else {
+                      removeValue(item.value);
+                    }
+                  }}
+                />
+                {item.invalid && (
+                  <>
+                    <span data-test-id="invalid-text" className={styles.invalidText}>
+                      (invalid)
+                    </span>
+                    <TextLink className={styles.removeBtn} onClick={() => removeValue(item.value)}>
+                      Remove
+                    </TextLink>
+                  </>
+                )}
+              </div>
             ))}
           </Form>
         );
