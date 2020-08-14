@@ -13,6 +13,7 @@ const styles = {
   }),
   italic: css({
     fontStyle: 'italic',
+    lineHeight: 1, // Prevents vertical jitter effect when applying code mark.
   }),
   code: css({
     fontFamily: tokens.fontStackMonospace,
