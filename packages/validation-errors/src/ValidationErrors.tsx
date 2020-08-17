@@ -89,7 +89,7 @@ function UniquenessError(props: UniquenessErrorProps) {
   }, [getTitle, state.entries, props.error.conflicting, props.space.getEntries, props.getEntryURL]);
 
   return (
-    <List className={styles.errorList} data-test-id="uniqueness-conflicts-list">
+    <List className={styles.errorList} testId="validation-errors-uniqueness">
       <ListItem className={styles.entryLink}>
         {state.loading ? (
           <div>Loading title for conflicting entry…</div>
@@ -135,7 +135,7 @@ export function ValidationErrors(props: ValidationErrorsProps) {
   }
 
   return (
-    <List className={styles.errorList}>
+    <List className={styles.errorList} testId="validation-errors">
       {errors.map((error, index) => {
         return (
           <li
