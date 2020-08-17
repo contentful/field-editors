@@ -3,6 +3,17 @@ version: 2.1
 cache-key: &cache-key
   key: dependency-cache-primary-{{ arch }}-yarn-packages-{{ checksum ".nvmrc" }}-{{ checksum "yarn.lock" }}
 
+commands:
+  yarn_install:
+    steps:
+      - restore_cache: *cache-key
+      - run: 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc'
+      - run: yarn install --prefer-offline --pure-lockfile
+      - save_cache:
+          <<: *cache-key
+          paths:
+            - ~/.cache/yarn
+
 jobs:
   lint:
     docker:
@@ -11,12 +22,7 @@ jobs:
       CYPRESS_INSTALL_BINARY: 0
     steps:
       - checkout
-      - restore_cache: *cache-key
-      - run: yarn install --frozen-lockfile
-      - save_cache:
-          <<: *cache-key
-          paths:
-            - ~/.cache/yarn
+      - yarn_install
       - run: yarn lint
       - run: yarn build
       - run: yarn tsc
@@ -27,12 +33,7 @@ jobs:
       CYPRESS_INSTALL_BINARY: 0
     steps:
       - checkout
-      - restore_cache: *cache-key
-      - run: yarn install --frozen-lockfile
-      - save_cache:
-          <<: *cache-key
-          paths:
-            - ~/.cache/yarn
+      - yarn_install
       - run: yarn build
       - run: yarn test:ci
   integration-tests:
@@ -40,12 +41,7 @@ jobs:
       - image: cypress/browsers:node13.3.0-chrome79-ff70
     steps:
       - checkout
-      - restore_cache: *cache-key
-      - run: yarn install --frozen-lockfile
-      - save_cache:
-          <<: *cache-key
-          paths:
-            - ~/.cache/yarn
+      - yarn_install
       - run: yarn build
       - run:
           name: Run Cypress tests
@@ -62,6 +58,23 @@ jobs:
           path: cypress/screenshots
       - store_artifacts:
           path: cypress/videos
+  release:
+    docker:
+      - image: circleci/node:12
+    environment:
+      CYPRESS_INSTALL_BINARY: 0
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - '0a:3c:fe:6b:3d:08:6c:0e:d2:8d:ae:d4:5a:82:89:b3'
+      - run: git config --global user.email "prd-dev-workflows+ecosystem-bot@contentful.com"
+      - run: git config --global user.name "contentful-ecosystem-bot"
+      - yarn_install
+      - run: yarn build
+      - run: yarn lerna version --no-private --conventional-commits --create-release github --yes
+      - run: yarn lerna publish from-git --yes
+
 
 workflows:
   version: 2
@@ -71,3 +84,11 @@ workflows:
       - lint
       - unit-tests
       - integration-tests
+      - release:
+          filters:
+            branches:
+              only: master
+          requires:
+            - lint
+            - unit-tests
+            - integration-tests
