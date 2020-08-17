@@ -13,7 +13,7 @@ commands:
           <<: *cache-key
           paths:
             - ~/.cache/yarn
-            -
+
 jobs:
   lint:
     docker:
