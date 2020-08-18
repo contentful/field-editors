@@ -21,6 +21,7 @@ export { FieldConnector } from './FieldConnector';
 export { PredefinedValuesError } from './PredefinedValuesError';
 export { CharCounter } from './CharCounter';
 export { CharValidation } from './CharValidation';
+export { Field } from './Field';
 
 import * as ModalDialogLauncher from './ModalDialogLauncher';
 export { ModalDialogLauncher };
