@@ -2,7 +2,7 @@ import * as React from 'react';
 import { HelpText } from '@contentful/forma-36-react-components';
 import { LocalesAPI, FieldAPI } from '@contentful/field-editor-shared';
 import { EntryFieldAPI } from 'contentful-ui-extensions-sdk';
-import { Field as BaseField } from '../../../packages/_shared';
+import { Field as BaseField } from '../../../packages/field/src/index';
 import styles from './styles';
 import { SDKContext, getEntryURL } from './shared';
 import '../../../packages/date/styles/styles';

@@ -23,7 +23,7 @@ import {
 } from '@contentful/field-editor-reference';
 import { RichTextEditor } from '@contentful/field-editor-rich-text';
 import { MarkdownEditor } from '@contentful/field-editor-markdown';
-import { FieldAPI, LocalesAPI } from './index';
+import { FieldAPI, LocalesAPI } from '@contentful/field-editor-shared';
 
 type WidgetType =
   | 'multipleLine'
