@@ -23,7 +23,7 @@ import {
 } from '@contentful/field-editor-reference';
 import { RichTextEditor } from '@contentful/field-editor-rich-text';
 import { MarkdownEditor } from '@contentful/field-editor-markdown';
-import { FieldAPI, LocalesAPI } from '@contentful/field-editor-shared';
+import { FieldAPI } from '@contentful/field-editor-shared';
 
 type WidgetType =
   | 'multipleLine'
@@ -54,7 +54,6 @@ type WidgetType =
 
 type FieldProps = {
   sdk: FieldExtensionSDK;
-  locales: LocalesAPI;
   widgetId: WidgetType;
   isInitiallyDisabled: boolean;
   renderFieldEditor?: (
@@ -66,12 +65,12 @@ type FieldProps = {
 
 export const Field: React.FC<FieldProps> = ({
   sdk,
-  locales,
   widgetId,
   isInitiallyDisabled,
   renderFieldEditor,
 }: FieldProps) => {
   const field = sdk.field;
+  const locales = sdk.locales;
 
   if (renderFieldEditor) {
     const customEditor = renderFieldEditor(widgetId, field, isInitiallyDisabled);

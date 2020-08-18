@@ -24,6 +24,7 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
   const widgetId = fieldEditorInterface?.widgetId ?? '';
   const fieldSdk: any = sdk;
   fieldSdk.field = extendedField;
+  fieldSdk.locales = locales;
 
   if (!fieldDetails || !fieldEditorInterface) {
     return null;
@@ -31,7 +32,7 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
 
   return (
     <FieldWrapper field={extendedField} name={fieldDetails.name} required={fieldDetails.required}>
-      <BaseField widgetId={widgetId} sdk={fieldSdk} locales={locales} isInitiallyDisabled={false} />
+      <BaseField widgetId={widgetId} sdk={fieldSdk} isInitiallyDisabled={false} />
     </FieldWrapper>
   );
 };
