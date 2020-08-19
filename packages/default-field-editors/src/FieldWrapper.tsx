@@ -1,14 +1,14 @@
 import * as React from 'react';
-import { BaseExtensionSDK, Entry, FieldAPI } from '@contentful/field-editor-shared';
-import { HelpText } from '@contentful/forma-36-react-components';
+import { HelpText, FieldGroup, FormLabel } from '@contentful/forma-36-react-components';
 import { ValidationErrors } from '@contentful/field-editor-validation-errors';
+import type { BaseExtensionSDK, Entry, FieldAPI } from '@contentful/field-editor-shared';
 
 type FieldWrapperProps = {
   sdk: BaseExtensionSDK;
+  field: FieldAPI;
   children: React.ReactNode;
   name: string;
   required: boolean;
-  field: FieldAPI;
   className?: string;
   getEntryURL: (entry: Entry) => string;
 };
@@ -22,12 +22,14 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = function ({
   className,
   getEntryURL,
 }: FieldWrapperProps) {
+  const helpText = (sdk.parameters.instance as any).helpText;
+
   return (
-    <div className={className}>
-      <HelpText>
+    <FieldGroup className={className}>
+      <FormLabel htmlFor={field.id}>
         {name}
         {required ? ' (required)' : ''}
-      </HelpText>
+      </FormLabel>
 
       {children}
 
@@ -37,6 +39,8 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = function ({
         locales={sdk.locales}
         getEntryURL={getEntryURL}
       />
-    </div>
+
+      {helpText && <HelpText testId="field-hint">{helpText}</HelpText>}
+    </FieldGroup>
   );
 };

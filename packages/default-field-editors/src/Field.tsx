@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { FieldExtensionSDK } from 'contentful-ui-extensions-sdk';
 import { NumberEditor } from '@contentful/field-editor-number';
 import { SingleLineEditor } from '@contentful/field-editor-single-line';
 import { BooleanEditor } from '@contentful/field-editor-boolean';
@@ -23,33 +22,8 @@ import {
 } from '@contentful/field-editor-reference';
 import { RichTextEditor } from '@contentful/field-editor-rich-text';
 import { MarkdownEditor } from '@contentful/field-editor-markdown';
-
-export type WidgetType =
-  | 'multipleLine'
-  | 'boolean'
-  | 'objectEditor'
-  | 'datePicker'
-  | 'locationEditor'
-  | 'checkbox'
-  | 'listInput'
-  | 'rating'
-  | 'radio'
-  | 'tagEditor'
-  | 'numberEditor'
-  | 'urlEditor'
-  | 'slugEditor'
-  | 'singleLine'
-  | 'dropdown'
-  | 'entryLinkEditor'
-  | 'entryCardEditor'
-  | 'entryLinksEditor'
-  | 'entryCardsEditor'
-  | 'assetLinkEditor'
-  | 'assetLinksEditor'
-  | 'assetGalleryEditor'
-  | 'richTextEditor'
-  | 'markdown'
-  | string;
+import type { FieldExtensionSDK } from '@contentful/field-editor-shared';
+import type { WidgetType } from './types';
 
 type FieldProps = {
   sdk: FieldExtensionSDK;
@@ -70,6 +44,12 @@ export const Field: React.FC<FieldProps> = ({
 }: FieldProps) => {
   const field = sdk.field;
   const locales = sdk.locales;
+  const referenceEditorParams = {
+    instance: sdk.parameters.instance || {
+      showCreateEntityAction: true,
+      showLinkEntityAction: true,
+    },
+  };
 
   if (renderFieldEditor) {
     const customEditor = renderFieldEditor(widgetId, sdk, isInitiallyDisabled);
@@ -136,9 +116,7 @@ export const Field: React.FC<FieldProps> = ({
           sdk={sdk}
           isInitiallyDisabled={isInitiallyDisabled}
           hasCardEditActions={true}
-          parameters={{
-            instance: { showCreateEntityAction: true, showLinkEntityAction: true },
-          }}
+          parameters={referenceEditorParams}
         />
       );
     }
@@ -149,9 +127,7 @@ export const Field: React.FC<FieldProps> = ({
           sdk={sdk}
           isInitiallyDisabled={isInitiallyDisabled}
           hasCardEditActions={true}
-          parameters={{
-            instance: { showCreateEntityAction: true, showLinkEntityAction: true },
-          }}
+          parameters={referenceEditorParams}
         />
       );
     }
@@ -162,9 +138,7 @@ export const Field: React.FC<FieldProps> = ({
           sdk={sdk}
           isInitiallyDisabled={isInitiallyDisabled}
           hasCardEditActions={true}
-          parameters={{
-            instance: { showCreateEntityAction: true, showLinkEntityAction: true },
-          }}
+          parameters={referenceEditorParams}
         />
       );
     }
@@ -175,9 +149,7 @@ export const Field: React.FC<FieldProps> = ({
           sdk={sdk}
           isInitiallyDisabled={isInitiallyDisabled}
           hasCardEditActions={true}
-          parameters={{
-            instance: { showCreateEntityAction: true, showLinkEntityAction: true },
-          }}
+          parameters={referenceEditorParams}
         />
       );
     }
@@ -187,9 +159,7 @@ export const Field: React.FC<FieldProps> = ({
           viewType="link"
           sdk={sdk}
           isInitiallyDisabled={isInitiallyDisabled}
-          parameters={{
-            instance: { showCreateEntityAction: true, showLinkEntityAction: true },
-          }}
+          parameters={referenceEditorParams}
         />
       );
     }
@@ -199,9 +169,7 @@ export const Field: React.FC<FieldProps> = ({
           viewType="link"
           sdk={sdk}
           isInitiallyDisabled={isInitiallyDisabled}
-          parameters={{
-            instance: { showCreateEntityAction: true, showLinkEntityAction: true },
-          }}
+          parameters={referenceEditorParams}
         />
       );
     }
@@ -211,9 +179,7 @@ export const Field: React.FC<FieldProps> = ({
           viewType="card"
           sdk={sdk}
           isInitiallyDisabled={isInitiallyDisabled}
-          parameters={{
-            instance: { showCreateEntityAction: true, showLinkEntityAction: true },
-          }}
+          parameters={referenceEditorParams}
         />
       );
     }

@@ -1,5 +1,5 @@
 {
-  "name": "@contentful/field-editor-field",
+  "name": "@contentful/default-field-editors",
   "version": "0.1.1",
   "main": "dist/index.js",
   "module": "dist/field-editor-field.esm.js",
@@ -21,7 +21,6 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
-    "contentful-ui-extensions-sdk": "^3.18.0",
     "@contentful/forma-36-react-components": "^3.46.0",
     "@contentful/field-editor-validation-errors": "^0.2.1",
     "@contentful/field-editor-number": "^0.9.0",
