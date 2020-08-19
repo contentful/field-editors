@@ -45,7 +45,7 @@ export const Field: React.FC<FieldProps> = ({
   const field = sdk.field;
   const locales = sdk.locales;
   const referenceEditorParams = {
-    instance: sdk.parameters.instance || {
+    instance: sdk.parameters?.instance || {
       showCreateEntityAction: true,
       showLinkEntityAction: true,
     },

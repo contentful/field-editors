@@ -41,7 +41,8 @@
     "@contentful/field-editor-reference": "^1.1.2",
     "@contentful/field-editor-rich-text": "^0.14.2",
     "@contentful/field-editor-markdown": "^0.9.0",
-    "@contentful/field-editor-shared": "^0.12.0"
+    "@contentful/field-editor-shared": "^0.12.0",
+    "emotion": "^10.0.27"
   },
   "devDependencies": {
     "@contentful/field-editor-test-utils": "^0.8.0"
