@@ -23,6 +23,8 @@ import {
 import { RichTextEditor } from '@contentful/field-editor-rich-text';
 import { MarkdownEditor } from '@contentful/field-editor-markdown';
 import type { FieldExtensionSDK } from '@contentful/field-editor-shared';
+import '@contentful/field-editor-date/styles/styles.css';
+import '@contentful/field-editor-json/src/codemirrorImports';
 import type { WidgetType } from './types';
 
 type FieldProps = {
