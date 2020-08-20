@@ -37,7 +37,6 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
       className={styles.fieldWrapper}
       field={extendedField}
       name={fieldDetails.name}
-      required={fieldDetails.required}
       getEntryURL={getEntryURL}>
       <BaseField widgetId={widgetId} sdk={fieldSdk} isInitiallyDisabled={false} />
     </FieldWrapper>
