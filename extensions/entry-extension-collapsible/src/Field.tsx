@@ -26,6 +26,7 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
   const fieldSdk: any = sdk;
   fieldSdk.field = extendedField;
   fieldSdk.locales = locales;
+  fieldSdk.parameters.instance = { helpText: (fieldEditorInterface?.settings as any)?.helpText };
 
   if (!fieldDetails || !fieldEditorInterface) {
     return null;

@@ -45,12 +45,15 @@ export const Field: React.FC<FieldProps> = ({
 }: FieldProps) => {
   const field = sdk.field;
   const locales = sdk.locales;
-  const referenceEditorParams = {
-    instance: sdk.parameters?.instance || {
-      showCreateEntityAction: true,
-      showLinkEntityAction: true,
-    },
-  };
+  const referenceEditorParams =
+    'instance' in sdk.parameters
+      ? sdk.parameters
+      : {
+          instance: {
+            showCreateEntityAction: true,
+            showLinkEntityAction: true,
+          },
+        };
 
   if (renderFieldEditor) {
     const customEditor = renderFieldEditor(widgetId, sdk, isInitiallyDisabled);
