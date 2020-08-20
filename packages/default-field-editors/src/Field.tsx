@@ -29,7 +29,7 @@ import type { WidgetType } from './types';
 type FieldProps = {
   sdk: FieldExtensionSDK;
   widgetId: WidgetType;
-  isInitiallyDisabled: boolean;
+  isInitiallyDisabled?: boolean;
   renderFieldEditor?: (
     widgetId: WidgetType,
     sdk: FieldExtensionSDK,
@@ -40,7 +40,7 @@ type FieldProps = {
 export const Field: React.FC<FieldProps> = ({
   sdk,
   widgetId,
-  isInitiallyDisabled,
+  isInitiallyDisabled = false,
   renderFieldEditor,
 }: FieldProps) => {
   const field = sdk.field;

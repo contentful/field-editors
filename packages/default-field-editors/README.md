@@ -1,11 +1,17 @@
-# @contentful/field-editor-field
+# @contentful/default-field-editors
 
 ```bash
-npm install @contentful/field-editor-field
+npm install @contentful/default-field-editors
 ```
 
-This package contains a React `Field` component which is used to render different field editors based on the widget ID.
+This package provides React components for rendering all supported field editors with the same structure and style as in Contentful web app.
 
 ```js
-import { Field } from 'packages/default-field-editors';
+import { Field, FieldWrapper } from 'packages/default-field-editors';
+
+const fieldEditor = (
+  <FieldWrapper sdk={fieldExtensionSdk} name={fieldName}>
+    <Field sdk={fieldExtensionSdk} widgetId={widgetId} />
+  </FieldWrapper>
+);
 ```
