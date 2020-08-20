@@ -54,6 +54,9 @@
     "testMatch": [
       "**/?(*.)+(spec|test).[jt]s?(x)"
     ],
+    "moduleNameMapper": {
+      "^.+\\.css$": "<rootDir>/src/__mocks__/styles.ts"
+    },
     "globals": {
       "ts-jest": {
         "diagnostics": false
