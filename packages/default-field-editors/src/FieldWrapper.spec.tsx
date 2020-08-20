@@ -23,7 +23,7 @@ describe('Field', () => {
     sdk.parameters = { instance: { helpText: 'help' } } as any;
 
     const { queryByTestId } = render(
-      <FieldWrapper name="field" sdk={sdk} field={sdk.field} getEntryURL={getEntryURL}>
+      <FieldWrapper name="field" sdk={sdk} getEntryURL={getEntryURL}>
         <div data-test-id="children">children</div>
       </FieldWrapper>
     );
@@ -32,7 +32,7 @@ describe('Field', () => {
       emitter.emit('onSchemaErrorsChanged', ['error']);
     });
 
-    expect(queryByTestId('cf-ui-field-group')).toBeInTheDocument();
+    expect(queryByTestId('entity-field-controls')).toBeInTheDocument();
     expect(queryByTestId('cf-ui-form-label')).toBeInTheDocument();
     expect(queryByTestId('children')).toBeInTheDocument();
     expect(queryByTestId('validation-errors')).toBeInTheDocument();
@@ -44,9 +44,8 @@ describe('Field', () => {
       <FieldWrapper
         name="field"
         sdk={sdk}
-        field={sdk.field}
         getEntryURL={getEntryURL}
-        renderLabel={() => <div data-test-id="custom-label">custom label</div>}>
+        renderHeading={() => <div data-test-id="custom-label">custom label</div>}>
         <div>children</div>
       </FieldWrapper>
     );
@@ -58,7 +57,6 @@ describe('Field', () => {
       <FieldWrapper
         name="field"
         sdk={sdk}
-        field={sdk.field}
         getEntryURL={getEntryURL}
         renderHelpText={() => <div data-test-id="custom-hint">custom hint</div>}>
         <div>children</div>

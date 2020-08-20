@@ -5,23 +5,23 @@ const styles = {
   widthContainer: css({
     maxWidth: '768px',
     marginLeft: 'auto',
-    marginRight: 'auto'
+    marginRight: 'auto',
   }),
 
   editGroupsButton: css({
     marginLeft: tokens.spacingXl,
     marginTop: tokens.spacingM,
-    marginBottom: tokens.spacingXs
+    marginBottom: tokens.spacingXs,
   }),
 
   fieldGroupsContainer: css({
-    marginTop: tokens.spacingM
+    marginTop: tokens.spacingM,
   }),
 
   collapsibleContainerHeader: css({
     marginLeft: tokens.spacingL,
     marginRight: tokens.spacingL,
-    marginBottom: tokens.spacingXs
+    marginBottom: tokens.spacingXs,
   }),
 
   collapsibleContainerButton: css({
@@ -31,7 +31,7 @@ const styles = {
     width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
   }),
 
   collapsibleContainerInfo: css({
@@ -39,33 +39,20 @@ const styles = {
     border: 'none',
     display: 'flex',
     alignItems: 'center',
-    padding: '0'
+    padding: '0',
   }),
 
   icon: css({
     backgroundColor: tokens.colorElementLightest,
     borderRadius: '2px',
     padding: '3px',
-    marginRight: tokens.spacingXs
+    marginRight: tokens.spacingXs,
   }),
 
   fieldsContainer: css({
     backgroundColor: tokens.colorElementLightest,
     paddingBottom: tokens.spacingL,
-    paddingTop: tokens.spacingL
-  }),
-
-  fieldWrapper: css({
-    marginLeft: tokens.spacingL,
-    marginRight: tokens.spacingL,
-    borderLeft: '3px solid #c5d2d8',
-    paddingLeft: '1em',
-    marginBottom: '29px',
-    marginTop: '19px',
-    transition: 'border-color 0.18s linear',
-    '&:focus-within': {
-      borderColor: tokens.colorPrimary
-    }
+    paddingTop: tokens.spacingL,
   }),
 
   cardInfo: css({ display: 'flex', alignItems: 'center' }),
@@ -74,15 +61,15 @@ const styles = {
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: `${tokens.spacingM} ${tokens.spacingXl}`,
-    borderBottom: `1px solid ${tokens.colorElementMid}`
+    borderBottom: `1px solid ${tokens.colorElementMid}`,
   }),
   saveButton: css({
-    marginLeft: tokens.spacingS
+    marginLeft: tokens.spacingS,
   }),
   editor: css({
     background: tokens.colorElementLightest,
     padding: tokens.spacingL,
-    marginBottom: tokens.spacingM
+    marginBottom: tokens.spacingM,
   }),
   card: css({
     marginBottom: tokens.spacingXs,
@@ -92,32 +79,32 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    zIndex: 102 // This is to stop the sortable cards disappearing behind their container
+    zIndex: 102, // This is to stop the sortable cards disappearing behind their container
   }),
   fieldName: css({
     marginRight: tokens.spacingXs,
     marginLeft: tokens.spacingXs,
-    fontWeight: 700
+    fontWeight: 700,
   }),
   handle: css({
     border: 'none',
-    background: 'none'
+    background: 'none',
   }),
   listContainer: css({
-    paddingLeft: '0px'
+    paddingLeft: '0px',
   }),
   formLabel: css({ marginTop: tokens.spacingM }),
 
   fieldGroupConfigurationTextLink: css({
-    marginRight: tokens.spacingS
+    marginRight: tokens.spacingS,
   }),
 
   errorList: css({ listStyle: 'none', paddingLeft: '0' }),
 
   error: css({
     color: tokens.colorRedBase,
-    fontSize: tokens.fontSizeM
-  })
+    fontSize: tokens.fontSizeM,
+  }),
 };
 
 export default styles;

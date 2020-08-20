@@ -1,41 +1,52 @@
 import * as React from 'react';
+import { cx } from 'emotion';
 import { HelpText, FieldGroup, FormLabel } from '@contentful/forma-36-react-components';
 import { ValidationErrors } from '@contentful/field-editor-validation-errors';
-import type { BaseExtensionSDK, Entry, FieldAPI } from '@contentful/field-editor-shared';
+import type { FieldExtensionSDK, Entry } from '@contentful/field-editor-shared';
 import { styles } from './FieldWrapper.styles';
 
 type FieldWrapperProps = {
   name: string;
-  sdk: BaseExtensionSDK;
-  field: FieldAPI;
+  sdk: FieldExtensionSDK;
   getEntryURL: (entry: Entry) => string;
   className?: string;
   children: React.ReactNode;
-  renderLabel?: (name: string, field: FieldAPI) => JSX.Element | null;
+  renderHeading?: (name: string) => JSX.Element | null;
   renderHelpText?: (helpText: string) => JSX.Element | null;
 };
 
 export const FieldWrapper: React.FC<FieldWrapperProps> = function ({
   name,
   sdk,
-  field,
   getEntryURL,
   className,
   children,
-  renderLabel,
+  renderHeading,
   renderHelpText,
 }: FieldWrapperProps) {
-  const helpText = (sdk.parameters?.instance as any)?.helpText;
+  const { field } = sdk;
+  const helpText = (sdk.parameters?.instance as any)?.helpText ?? '';
   const required = field.required;
 
+  const [hasErrors, setHasErrors] = React.useState(false);
+  React.useEffect(() => {
+    return field.onSchemaErrorsChanged((errors: unknown[]) => {
+      setHasErrors((errors || []).length > 0);
+    });
+  });
+
   return (
-    <FieldGroup className={className}>
-      {renderLabel ? (
-        renderLabel(name, field)
+    <FieldGroup
+      testId="entity-field-controls"
+      data-test-id="entity-field-controls"
+      className={cx(styles.fieldGroup, className)}
+      aria-invalid={hasErrors}>
+      {renderHeading ? (
+        renderHeading(name)
       ) : (
-        <FormLabel htmlFor={field.id}>
+        <FormLabel className={styles.label} htmlFor={field.id}>
           {name}
-          {required ? ' (required)' : ''}
+          {required && <span> (required)</span>}
         </FormLabel>
       )}
 
@@ -48,13 +59,13 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = function ({
         getEntryURL={getEntryURL}
       />
 
-      {renderHelpText
-        ? renderHelpText(helpText)
-        : helpText && (
-            <HelpText className={styles.helpText} testId="field-hint">
-              {helpText}
-            </HelpText>
-          )}
+      {renderHelpText ? (
+        renderHelpText(helpText)
+      ) : (
+        <HelpText className={styles.helpText} testId="field-hint">
+          {helpText}
+        </HelpText>
+      )}
     </FieldGroup>
   );
 };

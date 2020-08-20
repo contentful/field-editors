@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { LocalesAPI } from '@contentful/field-editor-shared';
+import { FieldExtensionSDK, LocalesAPI } from '@contentful/field-editor-shared';
 import { EntryFieldAPI } from 'contentful-ui-extensions-sdk';
 import {
   Field as BaseField,
   FieldWrapper,
 } from '../../../packages/default-field-editors/src/index';
-import styles from './styles';
 import { SDKContext, getEntryURL } from './shared';
 import '../../../packages/date/styles/styles';
 import '../../../packages/json/src/codemirrorImports';
@@ -23,22 +22,26 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
     ({ fieldId }) => fieldId === extendedField.id
   );
   const widgetId = fieldEditorInterface?.widgetId ?? '';
-  const fieldSdk: any = sdk;
-  fieldSdk.field = extendedField;
-  fieldSdk.locales = locales;
-  fieldSdk.parameters.instance = { helpText: (fieldEditorInterface?.settings as any)?.helpText };
 
   if (!fieldDetails || !fieldEditorInterface) {
     return null;
   }
 
+  const fieldSdk: FieldExtensionSDK = {
+    ...sdk,
+    field: extendedField,
+    locales,
+    parameters: {
+      ...sdk.parameters,
+      instance: {
+        ...sdk.parameters.instance,
+        ...fieldEditorInterface?.settings,
+      },
+    },
+  } as any;
+
   return (
-    <FieldWrapper
-      sdk={sdk}
-      className={styles.fieldWrapper}
-      field={extendedField}
-      name={fieldDetails.name}
-      getEntryURL={getEntryURL}>
+    <FieldWrapper sdk={fieldSdk} name={fieldDetails.name} getEntryURL={getEntryURL}>
       <BaseField widgetId={widgetId} sdk={fieldSdk} isInitiallyDisabled={false} />
     </FieldWrapper>
   );
