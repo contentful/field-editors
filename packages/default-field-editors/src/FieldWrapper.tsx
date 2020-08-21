@@ -10,6 +10,7 @@ type FieldWrapperProps = {
   sdk: FieldExtensionSDK;
   getEntryURL: (entry: Entry) => string;
   className?: string;
+  showFocusBar?: boolean;
   children: React.ReactNode;
   renderHeading?: (name: string) => JSX.Element | null;
   renderHelpText?: (helpText: string) => JSX.Element | null;
@@ -23,6 +24,7 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = function ({
   children,
   renderHeading,
   renderHelpText,
+  showFocusBar = true,
 }: FieldWrapperProps) {
   const { field } = sdk;
   const helpText = (sdk.parameters?.instance as any)?.helpText ?? '';
@@ -39,7 +41,7 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = function ({
     <FieldGroup
       testId="entity-field-controls"
       data-test-id="entity-field-controls"
-      className={cx(styles.fieldGroup, className)}
+      className={cx(showFocusBar && styles.withFocusBar, className)}
       aria-invalid={hasErrors}>
       {renderHeading ? (
         renderHeading(name)

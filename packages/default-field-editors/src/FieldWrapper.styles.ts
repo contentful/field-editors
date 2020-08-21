@@ -2,7 +2,7 @@ import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 
 export const styles = {
-  fieldGroup: css({
+  withFocusBar: css({
     marginLeft: tokens.spacingL,
     marginRight: tokens.spacingL,
     marginBottom: '29px',
