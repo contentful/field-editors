@@ -46,7 +46,7 @@ export const Field: React.FC<FieldProps> = ({
   const field = sdk.field;
   const locales = sdk.locales;
   const referenceEditorParams =
-    'instance' in sdk.parameters
+    sdk.parameters && 'instance' in sdk.parameters
       ? sdk.parameters
       : {
           instance: {
