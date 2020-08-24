@@ -35,7 +35,7 @@ type FieldProps = {
     sdk: FieldExtensionSDK,
     isInitiallyDisabled: boolean
   ) => JSX.Element | false;
-  getOptions?: (widgetId: WidgetType, sdk: FieldExtensionSDK) => Partial<EditorOptions>;
+  getOptions?: (widgetId: WidgetType, sdk: FieldExtensionSDK) => EditorOptions;
 };
 
 export const Field: React.FC<FieldProps> = ({
