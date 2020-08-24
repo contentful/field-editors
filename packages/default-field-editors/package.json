@@ -21,7 +21,7 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
-    "@contentful/forma-36-react-components": "^3.46.0",
+    "@contentful/forma-36-react-components": "^3.47.1",
     "@contentful/field-editor-validation-errors": "^0.2.1",
     "@contentful/field-editor-number": "^0.9.0",
     "@contentful/field-editor-single-line": "^0.10.0",

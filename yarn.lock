@@ -1818,10 +1818,10 @@
   dependencies:
     "@contentful/forma-36-tokens" "^0.7.1"
 
-"@contentful/forma-36-react-components@3.45.1", "@contentful/forma-36-react-components@^3.40.1", "@contentful/forma-36-react-components@^3.45.1", "@contentful/forma-36-react-components@^3.46.0":
-  version "3.45.1"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.45.1.tgz#0c8e959f9cf97232280dbc6697621c3d7d429cae"
-  integrity sha512-To7wUMunNsRUY4BgEutZezSEiUmktmextk//nlACy+43TdaEOZSv61BivPn3l0s6hs1roZqpq3AlcBbdGo50vA==
+"@contentful/forma-36-react-components@3.47.1", "@contentful/forma-36-react-components@^3.40.1", "@contentful/forma-36-react-components@^3.45.1", "@contentful/forma-36-react-components@^3.47.1":
+  version "3.47.1"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.47.1.tgz#98a8886a19bbc921190f467753128661d784ab8c"
+  integrity sha512-40Ym8zMMtWlGRH9fvWADIz+QeDCMu2iIIG2Qg8d1c7h7NG9ehosKmHPP0jQ+s27Kh2XWjCe7h/tMMHruWRtu2A==
   dependencies:
     "@babel/runtime" "^7.3.4"
     classnames "^2.2.6"
