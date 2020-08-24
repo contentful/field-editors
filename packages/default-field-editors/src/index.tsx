@@ -1,3 +1,3 @@
 export { Field } from './Field';
 export { FieldWrapper } from './FieldWrapper';
-export type { WidgetType } from './types';
+export type { WidgetType, EditorOptions } from './types';

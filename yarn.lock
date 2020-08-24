@@ -1811,17 +1811,6 @@
     read-pkg-up "^7.0.1"
     semver "^7.1.2"
 
-"@contentful/field-editor-shared@^0.12.0":
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/@contentful/field-editor-shared/-/field-editor-shared-0.12.0.tgz#f76253dc159e98eea58aa02eb8c5f692db47f875"
-  integrity sha512-+VfKT1b1pujJolcZ2w55jQfl9NL5hK4wlmZElzoR0fDU7ruiaM2vr6QMNjjEMPTo0tqaCnGzhLQfzYXWCoQTqQ==
-  dependencies:
-    "@contentful/forma-36-tokens" "^0.7.2"
-    contentful-ui-extensions-sdk "^3.18.0"
-    emotion "^10.0.17"
-    lodash "^4.17.15"
-    lodash-es "^4.17.15"
-
 "@contentful/forma-36-fcss@^0.2.1":
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-fcss/-/forma-36-fcss-0.2.1.tgz#f768beda02be6491dc56bdae51c82a5a205cde54"
