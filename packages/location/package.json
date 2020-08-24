@@ -25,7 +25,7 @@
     "@types/google-map-react": "1.1.8",
     "deep-equal": "2.0.3",
     "emotion": "^10.0.17",
-    "google-map-react": "1.1.7",
+    "google-map-react": "2.0.8",
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15"
   },
