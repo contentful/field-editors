@@ -6775,45 +6775,45 @@ contentful-batch-libs@^9.0.1:
     lodash "^4.0.1"
     moment "^2.18.1"
 
-contentful-cli@1.4.17, contentful-cli@^1.3.29:
-  version "1.4.17"
-  resolved "https://registry.yarnpkg.com/contentful-cli/-/contentful-cli-1.4.17.tgz#440280a13b6ea648b5a2b5a1675a6296ef2f08bf"
-  integrity sha512-gRYUA2BxLrJX7tTvl/mmt0a4cMBn0Qn4yg40kNSXAA90+X053RwLmVe56rg6X5sD+zRRh3UUzZPnaZkg56/8cQ==
+contentful-cli@1.4.25, contentful-cli@^1.3.29:
+  version "1.4.25"
+  resolved "https://registry.yarnpkg.com/contentful-cli/-/contentful-cli-1.4.25.tgz#9b196ff791902038e271035985b52ac90641d6f8"
+  integrity sha512-Hm8w0lD3LkEeXKcR8R2DAAMZRS5jViQqZNtMmIWEAHY6Ogno/Y64jSggRgcQKeHmIkm9737t49Fhd0jMbJfthg==
   dependencies:
     ast-types "^0.13.3"
-    bfj "^6.1.1"
+    bfj "^7.0.2"
     blessed "^0.1.81"
     bluebird "^3.5.0"
-    camelcase "^5.0.0"
+    camelcase "^6.0.0"
     chalk "^2.4.1"
     cli-table3 "^0.6.0"
     command-exists "^1.2.7"
     contentful-export "^7.8.16"
     contentful-import "^7.8.0"
     contentful-management "^5.12.0"
-    contentful-migration "^v1.0.13"
+    contentful-migration "^v1.6.1"
     emojic "^1.1.11"
     execa "^4.0.0"
     figlet "^1.2.0"
-    find-up "^4.1.0"
+    find-up "^5.0.0"
     https-proxy-agent "^5.0.0"
     inquirer "^7.0.0"
     inquirer-select-directory "^1.2.0"
     listr "^0.14.1"
     lodash "^4.17.15"
-    marked "^0.8.0"
+    marked "^1.1.1"
     mkdirp "^1.0.3"
     mz "^2.6.0"
     open "^7.0.3"
     path "^0.12.7"
     prettier "^2.0.2"
-    recast "^0.18.8"
+    recast "^0.19.1"
     rxjs "^6.0.0"
     shell-escape "^0.2.0"
     tar "^6.0.1"
     to-ast "^1.0.0"
     tree-kill "^1.2.2"
-    wrap-ansi "^6.2.0"
+    wrap-ansi "^7.0.0"
     yargs "~13.3.0"
     zlib "^1.0.5"
 
@@ -6867,10 +6867,10 @@ contentful-management@^5.11.0, contentful-management@^5.12.0, contentful-managem
     contentful-sdk-core "^6.4.0"
     lodash "^4.17.11"
 
-contentful-migration@^v1.0.13:
-  version "1.0.25"
-  resolved "https://registry.yarnpkg.com/contentful-migration/-/contentful-migration-1.0.25.tgz#60d80e4e16b67d4fbc22c88ff2e3e7713cfa8e69"
-  integrity sha512-V82Z/iZ2G0Hc8jXCVfMM7Q3sxidy62NfG4u+4Uzj0i0A0Sv06wgdtbKA1DiBFVNDXfZH4KcxZlz12y2a2mtoLg==
+contentful-migration@^v1.6.1:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/contentful-migration/-/contentful-migration-1.6.2.tgz#2234cba1bc22a112eb9ee2cf5f69956184d59c83"
+  integrity sha512-w0Jmw8XUT8432i5KzYhpWM+tI0LgS6RCK7oz6LKq36p52PApRObNT44lsSrM0IwMhhvcKN05TgQhq10Vu8rjAw==
   dependencies:
     axios "^0.19.2"
     bluebird "^3.7.2"
@@ -9618,6 +9618,14 @@ find-up@^2.0.0, find-up@^2.1.0:
   integrity sha1-RdG35QbHF93UgndaK3eSCjwMV6c=
   dependencies:
     locate-path "^2.0.0"
+
+find-up@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/find-up/-/find-up-5.0.0.tgz#4c92819ecb7083561e4f4a240a86be5198f536fc"
+  integrity sha512-78/PXT1wlLLDgTzDs7sjq9hzz0vXD+zn+7wypEe4fXQxCmdmqfGsEPQxmiCSQI3ajFV91bVSsvNtrJRiW6nGng==
+  dependencies:
+    locate-path "^6.0.0"
+    path-exists "^4.0.0"
 
 find-versions@^3.2.0:
   version "3.2.0"
@@ -13677,6 +13685,13 @@ locate-path@^5.0.0:
   dependencies:
     p-locate "^4.1.0"
 
+locate-path@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/locate-path/-/locate-path-6.0.0.tgz#55321eb309febbc59c4801d931a72452a681d286"
+  integrity sha512-iPZK6eYjbxRu3uB4/WZ3EsEIMJFMqAoopl3R+zuq0UjcAm/MO6KCweDgPfP3elTztoKP3KtnVHxTn2NHBSDVUw==
+  dependencies:
+    p-locate "^5.0.0"
+
 lodash-es@^4.17.15:
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.15.tgz#21bd96839354412f23d7a10340e5eac6ee455d78"
@@ -14093,10 +14108,10 @@ markdown-to-jsx@^6.11.1:
     prop-types "^15.6.2"
     unquote "^1.1.0"
 
-marked@^0.8.0:
-  version "0.8.2"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-0.8.2.tgz#4faad28d26ede351a7a1aaa5fec67915c869e355"
-  integrity sha512-EGwzEeCcLniFX51DhTpmTom+dSA/MG/OBUDjnWtHbEnjAH180VzUeAw+oE4+Zv+CoYBWyRlYOTR0N8SO9R1PVw==
+marked@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-1.1.1.tgz#e5d61b69842210d5df57b05856e0c91572703e6a"
+  integrity sha512-mJzT8D2yPxoPh7h0UXkB+dBj4FykPJ2OIfxAWeIHrvoHDkFxukV/29QxoFQoPM6RLEwhIFdJpmKBlqVM3s2ZIw==
 
 match-sorter@^3.0.0:
   version "3.1.1"
@@ -15441,6 +15456,13 @@ p-limit@^2.0.0, p-limit@^2.2.0:
   dependencies:
     p-try "^2.0.0"
 
+p-limit@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/p-limit/-/p-limit-3.0.2.tgz#1664e010af3cadc681baafd3e2a437be7b0fb5fe"
+  integrity sha512-iwqZSOoWIW+Ew4kAGUlN16J4M7OB3ysMLSZtnhmqx7njIHFPlxWBX8xo3lVTyFVq6mI/lL9qt2IsN1sHwaxJkg==
+  dependencies:
+    p-try "^2.0.0"
+
 p-locate@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/p-locate/-/p-locate-2.0.0.tgz#20a0103b222a70c8fd39cc2e580680f3dde5ec43"
@@ -15461,6 +15483,13 @@ p-locate@^4.1.0:
   integrity sha512-R79ZZ/0wAxKGu3oYMlz8jy/kbhsNrS7SKZ7PxEHBgJ5+F2mtFW2fK2cOtBh1cHYkQsbzFV7I+EoRKe6Yt0oK7A==
   dependencies:
     p-limit "^2.2.0"
+
+p-locate@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/p-locate/-/p-locate-5.0.0.tgz#83c8315c6785005e3bd021839411c9e110e6d834"
+  integrity sha512-LaNjtRWUBY++zB5nE/NwcaoMylSPk+S+ZHNB1TzdbMJMny6dynpAGt7X/tl/QYq3TIeE6nxHppbo2LGymrG5Pw==
+  dependencies:
+    p-limit "^3.0.2"
 
 p-map-series@^1.0.0:
   version "1.0.0"
@@ -17255,10 +17284,10 @@ recast@^0.17.3, recast@^0.17.6:
     private "^0.1.8"
     source-map "~0.6.1"
 
-recast@^0.18.8:
-  version "0.18.10"
-  resolved "https://registry.yarnpkg.com/recast/-/recast-0.18.10.tgz#605ebbe621511eb89b6356a7e224bff66ed91478"
-  integrity sha512-XNvYvkfdAN9QewbrxeTOjgINkdY/odTgTS56ZNEWL9Ml0weT4T3sFtvnTuF+Gxyu46ANcRm1ntrF6F5LAJPAaQ==
+recast@^0.19.1:
+  version "0.19.1"
+  resolved "https://registry.yarnpkg.com/recast/-/recast-0.19.1.tgz#555f3612a5a10c9f44b9a923875c51ff775de6c8"
+  integrity sha512-8FCjrBxjeEU2O6I+2hyHyBFH1siJbMBLwIRvVr1T3FD2cL754sOaJDsJ/8h3xYltasbJ8jqWRIhMuDGBSiSbjw==
   dependencies:
     ast-types "0.13.3"
     esprima "~4.0.0"
@@ -21467,6 +21496,15 @@ wrap-ansi@^6.2.0:
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-6.2.0.tgz#e9393ba07102e6c91a3b221478f0257cd2856e53"
   integrity sha512-r6lPcBGxZXlIcymEu7InxDMhdW0KDxpLgoFLcguasxCaJ/SOIZwINatK9KY/tf+ZrlywOKU0UDj3ATXUBfxJXA==
+  dependencies:
+    ansi-styles "^4.0.0"
+    string-width "^4.1.0"
+    strip-ansi "^6.0.0"
+
+wrap-ansi@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
+  integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
   dependencies:
     ansi-styles "^4.0.0"
     string-width "^4.1.0"
