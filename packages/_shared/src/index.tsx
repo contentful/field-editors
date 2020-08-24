@@ -15,6 +15,7 @@ export {
   AppConfigAPI,
   LocationAPI,
   BaseExtensionSDK,
+  FieldExtensionSDK,
   OpenCustomWidgetOptions,
 } from 'contentful-ui-extensions-sdk';
 export { FieldConnector } from './FieldConnector';
