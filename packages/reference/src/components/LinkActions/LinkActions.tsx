@@ -50,8 +50,8 @@ export const testIds = {
 export function LinkActions(props: LinkActionsProps) {
   const labels = Object.assign(
     {},
-    props.actionLabels,
-    props.entityType === 'Entry' ? defaultEntryLabels : defaultAssetLabels
+    props.entityType === 'Entry' ? defaultEntryLabels : defaultAssetLabels,
+    props.actionLabels
   );
 
   return (
