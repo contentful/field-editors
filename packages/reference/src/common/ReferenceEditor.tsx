@@ -2,7 +2,7 @@ import * as React from 'react';
 import deepEqual from 'deep-equal';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import { EntityProvider } from './EntityStore';
-import { ViewType, FieldExtensionSDK, Action, Entry, ContentType } from '../types';
+import { ViewType, FieldExtensionSDK, Action, Entry, ContentType, ActionLabels } from '../types';
 
 // TODO: Rename common base for reference/media editors to something neutral,
 //  e.g. `LinkEditor<T>`.
@@ -12,12 +12,13 @@ export interface ReferenceEditorProps {
    * Whether or not the field should be disabled initially.
    */
   isInitiallyDisabled: boolean;
+  hasCardEditActions: boolean;
   sdk: FieldExtensionSDK;
   viewType: ViewType;
   renderCustomCard?: (props: CustomEntryCardProps) => React.ReactElement | false;
-  hasCardEditActions: boolean;
   getEntityUrl?: (entryId: string) => string;
   onAction?: (action: Action) => void;
+  actionLabels?: Partial<ActionLabels>;
   parameters: {
     instance: {
       showCreateEntityAction?: boolean;
