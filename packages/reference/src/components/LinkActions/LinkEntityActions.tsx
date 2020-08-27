@@ -1,5 +1,13 @@
 import * as React from 'react';
-import { Asset, Entry, FieldExtensionSDK, EntityType, Action, ContentType } from '../../types';
+import {
+  Asset,
+  Entry,
+  FieldExtensionSDK,
+  EntityType,
+  Action,
+  ContentType,
+  ActionLabels,
+} from '../../types';
 import { ReferenceValidations } from '../../utils/fromFieldValidations';
 import { LinkActions } from './LinkActions';
 
@@ -88,6 +96,7 @@ export function LinkEntityActions(props: {
   onCreate: (id: string) => void;
   onLink: (ids: string[]) => void;
   onAction?: (action: Action) => void;
+  actionLabels?: Partial<ActionLabels>;
 }) {
   let availableContentTypes: ContentType[] = [];
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { TextLink } from '@contentful/forma-36-react-components';
 import * as styles from './styles';
-import { EntityType, ContentType } from '../../types';
+import { EntityType, ContentType, ActionLabels } from '../../types';
 import { CreateEntryLinkButton } from '../CreateEntryLinkButton/CreateEntryLinkButton';
 
 interface LinkActionsProps {
@@ -13,11 +13,32 @@ interface LinkActionsProps {
   isDisabled: boolean;
   onCreate: (contentType?: string) => Promise<unknown>;
   onLinkExisting: () => void;
+  actionLabels?: Partial<ActionLabels>;
 }
 
-export const labels = {
-  createAndLink: (name: string) => `Create new ${name} and link`,
-  linkExisting: (name: string) => `Link existing ${name}`,
+const defaultEntryLabels: ActionLabels = {
+  createNew: (props) => {
+    if (props?.contentType) {
+      return `Create new ${props.contentType} and link`;
+    }
+    return 'Create new entry and link';
+  },
+  linkExisting: (props) => {
+    if (props?.multiple) {
+      return 'Link existing entries';
+    }
+    return 'Link existing entry';
+  },
+};
+
+const defaultAssetLabels: ActionLabels = {
+  createNew: () => `Create new asset and link`,
+  linkExisting: (props) => {
+    if (props?.multiple) {
+      return 'Link existing assets';
+    }
+    return 'Link existing asset';
+  },
 };
 
 export const testIds = {
@@ -27,6 +48,12 @@ export const testIds = {
 };
 
 export function LinkActions(props: LinkActionsProps) {
+  const labels = Object.assign(
+    {},
+    props.actionLabels,
+    props.entityType === 'Entry' ? defaultEntryLabels : defaultAssetLabels
+  );
+
   return (
     <div className={styles.container}>
       {props.canCreateEntity && (
@@ -35,9 +62,10 @@ export function LinkActions(props: LinkActionsProps) {
             <CreateEntryLinkButton
               testId={testIds.createAndLink}
               disabled={props.isDisabled}
-              text={labels.createAndLink(
-                props.contentTypes.length === 1 ? props.contentTypes[0].name : 'entry'
-              )}
+              text={labels.createNew({
+                contentType:
+                  props.contentTypes.length === 1 ? props.contentTypes[0].name : undefined,
+              })}
               contentTypes={props.contentTypes}
               hasPlusIcon={true}
               onSelect={(contentTypeId) => {
@@ -57,7 +85,7 @@ export function LinkActions(props: LinkActionsProps) {
               }}
               linkType="primary"
               icon="Plus">
-              {labels.createAndLink('asset')}
+              {labels.createNew()}
             </TextLink>
           )}
           <span className={styles.separator} />
@@ -72,9 +100,8 @@ export function LinkActions(props: LinkActionsProps) {
           }}
           linkType="primary"
           icon="Link">
-          {props.entityType === 'Entry' &&
-            labels.linkExisting(props.multiple ? 'entries' : 'entry')}
-          {props.entityType === 'Asset' && labels.linkExisting(props.multiple ? 'assets' : 'asset')}
+          {props.entityType === 'Entry' && labels.linkExisting({ multiple: props.multiple })}
+          {props.entityType === 'Asset' && labels.linkExisting({ multiple: props.multiple })}
         </TextLink>
       )}
     </div>

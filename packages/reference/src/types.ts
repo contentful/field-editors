@@ -8,7 +8,7 @@ export {
   ContentTypeField,
   Link,
   EntityType,
-  NavigatorSlideInfo
+  NavigatorSlideInfo,
 } from 'contentful-ui-extensions-sdk';
 
 export { Entry, File, Asset } from '@contentful/field-editor-shared';
@@ -56,3 +56,8 @@ export type Action =
     }
   | { type: 'delete'; contentTypeId: string; id: string; entity: EntityType }
   | { type: 'rendered'; entity: EntityType };
+
+export type ActionLabels = {
+  createNew: (props?: { contentType?: string }) => string;
+  linkExisting: (props?: { multiple?: boolean }) => string;
+};
