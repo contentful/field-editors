@@ -21,24 +21,24 @@ export default {
     colors: {
       primary: tokens.colorBlueBase,
       secondary: tokens.colorIceMid,
-      gray: tokens.colorElementMid
-    }
+      gray: tokens.colorElementMid,
+    },
   },
   htmlContext: {
     head: {
-      raw: `<style>${forma36Styles}</style><style>${pikadayStyles}</style>`
-    }
+      raw: `<style>${forma36Styles}</style><style>${pikadayStyles}</style>`,
+    },
   },
   menu: ['Introduction', 'Editors', 'Shared'],
-  modifyBabelRc: babelrc => {
+  modifyBabelRc: (babelrc) => {
     const newBabelRc = {
       ...babelrc,
       plugins: [
         ...babelrc.plugins,
         '@babel/plugin-proposal-optional-chaining',
-        '@babel/plugin-proposal-nullish-coalescing-operator'
-      ]
+        '@babel/plugin-proposal-nullish-coalescing-operator',
+      ],
     };
     return newBabelRc;
-  }
+  },
 };

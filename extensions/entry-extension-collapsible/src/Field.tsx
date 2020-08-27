@@ -6,8 +6,8 @@ import {
   FieldWrapper,
 } from '../../../packages/default-field-editors/src/index';
 import { SDKContext, getEntryURL } from './shared';
-import '../../../packages/date/styles/styles';
-import '../../../packages/json/src/codemirrorImports';
+import 'codemirror/lib/codemirror.css';
+import '@contentful/field-editor-date/styles/styles.css';
 
 interface FieldProps {
   field: EntryFieldAPI;

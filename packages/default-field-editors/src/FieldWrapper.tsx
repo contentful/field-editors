@@ -16,16 +16,17 @@ type FieldWrapperProps = {
   renderHelpText?: (helpText: string) => JSX.Element | null;
 };
 
-export const FieldWrapper: React.FC<FieldWrapperProps> = function ({
-  name,
-  sdk,
-  getEntryURL,
-  className,
-  children,
-  renderHeading,
-  renderHelpText,
-  showFocusBar = true,
-}: FieldWrapperProps) {
+export const FieldWrapper: React.FC<FieldWrapperProps> = function (props: FieldWrapperProps) {
+  const {
+    name,
+    sdk,
+    getEntryURL,
+    className,
+    children,
+    renderHeading,
+    renderHelpText,
+    showFocusBar = true,
+  } = props;
   const { field } = sdk;
   const helpText = (sdk.parameters?.instance as any)?.helpText ?? '';
   const required = field.required;
