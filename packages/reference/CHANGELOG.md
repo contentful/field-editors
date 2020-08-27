@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.2.0...@contentful/field-editor-reference@1.2.1) (2020-08-27)
+
+
+### Bug Fixes
+
+* 🐛 pass actionLabels properly ([32683c7](https://github.com/contentful/field-editors/commit/32683c70454bbeb9b5ec8706c78aa758ab103359))
+
+
+
+
+
 # [1.2.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.1.3...@contentful/field-editor-reference@1.2.0) (2020-08-27)
 
 
