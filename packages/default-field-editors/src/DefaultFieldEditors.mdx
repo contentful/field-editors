@@ -1,0 +1,54 @@
+---
+name: default-field-editors
+route: /shared/default-field-editors
+menu: Shared
+---
+
+import Readme from '../README.md';
+
+<Readme />
+
+import { Playground, Props } from 'docz';
+import { createFakeFieldAPI, createFakeSpaceAPI, createFakeLocalesAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
+import { Field } from './Field.tsx';
+import { FieldWrapper } from './FieldWrapper.tsx';
+
+
+## In Action
+
+<Playground>
+  {() => {
+    const [field, mitt] = createFakeFieldAPI();
+    const space = createFakeSpaceAPI();
+    const locales = createFakeLocalesAPI();
+    const sdk = {
+      field,
+      space,
+      locales,
+    };
+
+    return (
+      <div data-test-id="default-field-editors-test">
+        <FieldWrapper
+          sdk={sdk}
+          name="field"
+          getEntryURL={(entry) => `/${entry.sys.id}`}
+        >
+          <Field sdk={sdk} widgetId="singleLine" />
+        </FieldWrapper>
+
+        <ActionsPlayground mitt={mitt} />
+      </div>
+    );
+}}
+</Playground>
+
+
+## FieldWrapper props
+
+<Props of={FieldWrapper} />
+
+## Field props
+
+<Props of={Field} />
+
