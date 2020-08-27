@@ -169,6 +169,7 @@ export function LinkEntityActions(props: {
       contentTypes={availableContentTypes}
       onCreate={onCreate}
       onLinkExisting={props.multiple ? onLinkSeveralExisting : onLinkExisting}
+      actionLabels={props.actionLabels}
     />
   );
 }
