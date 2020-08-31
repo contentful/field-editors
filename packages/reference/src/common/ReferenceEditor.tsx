@@ -3,6 +3,7 @@ import deepEqual from 'deep-equal';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import { EntityProvider } from './EntityStore';
 import { ViewType, FieldExtensionSDK, Action, Entry, ContentType, ActionLabels } from '../types';
+import type { LinkActionsProps } from '../components/LinkActions/LinkActions';
 
 // TODO: Rename common base for reference/media editors to something neutral,
 //  e.g. `LinkEditor<T>`.
@@ -16,6 +17,7 @@ export interface ReferenceEditorProps {
   sdk: FieldExtensionSDK;
   viewType: ViewType;
   renderCustomCard?: (props: CustomEntryCardProps) => React.ReactElement | false;
+  renderCustomActions?: (props: CustomActionProps) => React.ReactElement;
   getEntityUrl?: (entryId: string) => string;
   onAction?: (action: Action) => void;
   actionLabels?: Partial<ActionLabels>;
@@ -27,6 +29,8 @@ export interface ReferenceEditorProps {
     };
   };
 }
+
+export type CustomActionProps = LinkActionsProps;
 
 // TODO: When making this available to media editor, consider introducing a
 //  separate interface vs. making this more generic  using `entity` over `entry`

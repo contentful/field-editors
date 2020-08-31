@@ -16,6 +16,7 @@ import { MultipleMediaEditor } from '@contentful/field-editor-reference';
 import { Playground, Props } from 'docz';
 import { MultipleMediaEditor } from './MultipleMediaEditor.tsx'
 import { createFakeFieldAPI, createFakeSpaceAPI, createFakeLocalesAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
+import { TextLink } from '@contentful/forma-36-react-components';
 import emptyAsset from '../__fixtures__/empty_asset.json';
 import publishedAsset from '../__fixtures__/published_asset.json';
 import changedAsset from '../__fixtures__/changed_asset.json';
@@ -90,11 +91,94 @@ import changedAsset from '../__fixtures__/changed_asset.json';
       }
     };
     return (
-      <div>
+      <div data-test-id="multiple-media-editor-integration-test">
         <MultipleMediaEditor
           viewType="card"
           sdk={sdk}
           isInitiallyDisabled={false}
+          parameters={{
+            instance: {
+              canCreateEntity: true,
+              canLinkEntity: true
+            }
+          }}
+         />
+        <ActionsPlayground mitt={mitt} />
+      </div>
+    );
+
+}}
+
+</Playground>
+
+
+## With custom actions
+
+<Playground>
+  {() => {
+    const initialValue = window.localStorage.getItem('initialValue');
+    const isInitiallyDisabled = window.localStorage.getItem('initialDisabled');
+    const instanceParams = window.localStorage.getItem('instanceParams');
+    const [field, mitt] = createFakeFieldAPI(field => field, initialValue);
+    const space = createFakeSpaceAPI();
+    const locales = createFakeLocalesAPI();
+    const sdk = {
+      field,
+      locales,
+      space: {
+        ...space,
+        getAsset: (id) => {
+          if (id === 'published_asset') {
+            return Promise.resolve(publishedAsset);
+          }
+          if (id === 'changed_asset') {
+            return Promise.resolve(changedAsset);
+          }
+
+          return Promise.reject();
+        },
+      },
+      dialogs: {
+        selectMultipleAssets: () => {
+          return [
+            {
+              sys: {
+                id: 'published_asset'
+              }
+            },
+            {
+              sys: {
+                id: 'changed_asset'
+              }
+            }
+          ]
+        }
+      },
+      navigator: {
+        openAsset: () => {
+          alert('open Asset in slide in');
+          return Promise.resolve({});
+        },
+        onSlideInNavigation: () => () => {}
+      },
+      access: {
+        can: () => Promise.resolve(true)
+      }
+    };
+    return (
+      <div data-test-id="multiple-media-editor-custom-actions-integration-test">
+        <MultipleMediaEditor
+          viewType="card"
+          sdk={sdk}
+          isInitiallyDisabled={false}
+          renderCustomActions={(props) => <TextLink disabled={props.isDisabled} testId='custom-link'
+              onClick={props.onLinkExisting}
+              linkType="primary"
+              icon="ThumbUp"
+              iconPosition="right">
+            Re-use something
+            </TextLink>
+          }
           parameters={{
             instance: {
               canCreateEntity: true,
