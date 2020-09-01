@@ -84,12 +84,12 @@ async function selectMultipleEntities(props: {
   }
 }
 
-export function LinkEntityActions(props: {
+type LinkEntityActionsProps = {
   entityType: EntityType;
+  canLinkMultiple: boolean;
   sdk: FieldExtensionSDK;
   allContentTypes: ContentType[];
   isDisabled: boolean;
-  multiple: boolean;
   canCreateEntity: boolean;
   canLinkEntity: boolean;
   validations: ReferenceValidations;
@@ -98,7 +98,9 @@ export function LinkEntityActions(props: {
   onAction?: (action: Action) => void;
   renderCustomActions?: (props: LinkActionsProps) => React.ReactElement;
   actionLabels?: Partial<ActionLabels>;
-}) {
+};
+
+export function LinkEntityActions(props: LinkEntityActionsProps) {
   let availableContentTypes: ContentType[] = [];
 
   if (props.entityType === 'Entry') {
@@ -162,13 +164,13 @@ export function LinkEntityActions(props: {
 
   const linkActionProps = {
     entityType: props.entityType,
-    multiple: props.multiple,
+    canLinkMultiple: props.canLinkMultiple,
     isDisabled: props.isDisabled,
     canCreateEntity: props.canCreateEntity,
     canLinkEntity: props.canLinkEntity,
     contentTypes: availableContentTypes,
     onCreate: onCreate,
-    onLinkExisting: props.multiple ? onLinkSeveralExisting : onLinkExisting,
+    onLinkExisting: props.canLinkMultiple ? onLinkSeveralExisting : onLinkExisting,
     actionLabels: props.actionLabels,
   };
 

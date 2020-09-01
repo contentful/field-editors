@@ -59,5 +59,5 @@ export type Action =
 
 export type ActionLabels = {
   createNew: (props?: { contentType?: string }) => string;
-  linkExisting: (props?: { multiple?: boolean }) => string;
+  linkExisting: (props?: { canLinkMultiple?: boolean }) => string;
 };
