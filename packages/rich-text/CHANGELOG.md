@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@0.14.8...@contentful/field-editor-rich-text@0.14.9) (2020-09-01)
+
+
+### Bug Fixes
+
+* 🐛 allow heigh overflow for hyperlink dialog ([#386](https://github.com/contentful/field-editors/issues/386)) ([2cfd46c](https://github.com/contentful/field-editors/commit/2cfd46c3d238ee32abad6a2ca48b422115d285c3))
+
+
+
+
+
 ## [0.14.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@0.14.7...@contentful/field-editor-rich-text@0.14.8) (2020-09-01)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
