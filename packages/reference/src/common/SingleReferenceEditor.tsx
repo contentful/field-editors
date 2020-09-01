@@ -90,6 +90,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
           onCreate={this.onCreate}
           onLink={this.onLink}
           onAction={this.props.onAction}
+          renderCustomActions={this.props.renderCustomActions}
           actionLabels={this.props.actionLabels}
         />
       );

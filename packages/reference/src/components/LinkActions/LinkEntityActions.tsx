@@ -9,7 +9,7 @@ import {
   ActionLabels,
 } from '../../types';
 import { ReferenceValidations } from '../../utils/fromFieldValidations';
-import { LinkActions } from './LinkActions';
+import { LinkActions, LinkActionsProps } from './LinkActions';
 
 async function createEntity(props: {
   sdk: FieldExtensionSDK;
@@ -96,6 +96,7 @@ export function LinkEntityActions(props: {
   onCreate: (id: string) => void;
   onLink: (ids: string[]) => void;
   onAction?: (action: Action) => void;
+  renderCustomActions?: (props: LinkActionsProps) => React.ReactElement;
   actionLabels?: Partial<ActionLabels>;
 }) {
   let availableContentTypes: ContentType[] = [];
@@ -159,17 +160,21 @@ export function LinkEntityActions(props: {
     });
   }, []);
 
-  return (
-    <LinkActions
-      entityType={props.entityType}
-      multiple={props.multiple}
-      isDisabled={props.isDisabled}
-      canCreateEntity={props.canCreateEntity}
-      canLinkEntity={props.canLinkEntity}
-      contentTypes={availableContentTypes}
-      onCreate={onCreate}
-      onLinkExisting={props.multiple ? onLinkSeveralExisting : onLinkExisting}
-      actionLabels={props.actionLabels}
-    />
+  const linkActionProps = {
+    entityType: props.entityType,
+    multiple: props.multiple,
+    isDisabled: props.isDisabled,
+    canCreateEntity: props.canCreateEntity,
+    canLinkEntity: props.canLinkEntity,
+    contentTypes: availableContentTypes,
+    onCreate: onCreate,
+    onLinkExisting: props.multiple ? onLinkSeveralExisting : onLinkExisting,
+    actionLabels: props.actionLabels,
+  };
+
+  return props.renderCustomActions ? (
+    props.renderCustomActions(linkActionProps)
+  ) : (
+    <LinkActions {...linkActionProps} />
   );
 }

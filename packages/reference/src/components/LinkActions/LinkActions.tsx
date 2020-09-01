@@ -4,7 +4,7 @@ import * as styles from './styles';
 import { EntityType, ContentType, ActionLabels } from '../../types';
 import { CreateEntryLinkButton } from '../CreateEntryLinkButton/CreateEntryLinkButton';
 
-interface LinkActionsProps {
+export interface LinkActionsProps {
   entityType: EntityType;
   contentTypes: ContentType[];
   canCreateEntity: boolean;
