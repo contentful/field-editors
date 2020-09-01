@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.2.2...@contentful/field-editor-reference@1.3.0) (2020-09-01)
+
+
+### Features
+
+* 🎸 customize actions on reference editors ([#385](https://github.com/contentful/field-editors/issues/385)) ([b1cea11](https://github.com/contentful/field-editors/commit/b1cea1176b0211bf23bed1e869eba79e1bdccb24))
+
+
+
+
+
 ## [1.2.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.2.1...@contentful/field-editor-reference@1.2.2) (2020-08-27)
 
 
