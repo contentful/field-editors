@@ -301,6 +301,7 @@ export const openHyperlinkDialog = (
     width: 'large',
     shouldCloseOnEscapePress: true,
     shouldCloseOnOverlayClick: true,
+    allowHeightOverflow: true,
     parameters: {
       type: 'rich-text-hyperlink-dialog',
       ...props,
