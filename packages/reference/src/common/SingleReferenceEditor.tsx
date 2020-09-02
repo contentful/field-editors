@@ -80,11 +80,11 @@ class Editor extends React.Component<EditorProps, EditorState> {
       return (
         <LinkEntityActions
           entityType={this.props.entityType}
+          canLinkMultiple={false}
           allContentTypes={this.props.allContentTypes}
           validations={validations}
           sdk={this.props.sdk}
           isDisabled={this.props.isDisabled}
-          multiple={false}
           canCreateEntity={this.canCreateEntity()}
           canLinkEntity={this.canLinkEntity()}
           onCreate={this.onCreate}

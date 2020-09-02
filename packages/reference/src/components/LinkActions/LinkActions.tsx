@@ -9,7 +9,7 @@ export interface LinkActionsProps {
   contentTypes: ContentType[];
   canCreateEntity: boolean;
   canLinkEntity: boolean;
-  multiple: boolean;
+  canLinkMultiple: boolean;
   isDisabled: boolean;
   onCreate: (contentType?: string) => Promise<unknown>;
   onLinkExisting: () => void;
@@ -24,7 +24,7 @@ const defaultEntryLabels: ActionLabels = {
     return 'Create new entry and link';
   },
   linkExisting: (props) => {
-    if (props?.multiple) {
+    if (props?.canLinkMultiple) {
       return 'Link existing entries';
     }
     return 'Link existing entry';
@@ -34,7 +34,7 @@ const defaultEntryLabels: ActionLabels = {
 const defaultAssetLabels: ActionLabels = {
   createNew: () => `Create new asset and link`,
   linkExisting: (props) => {
-    if (props?.multiple) {
+    if (props?.canLinkMultiple) {
       return 'Link existing assets';
     }
     return 'Link existing asset';
@@ -100,8 +100,10 @@ export function LinkActions(props: LinkActionsProps) {
           }}
           linkType="primary"
           icon="Link">
-          {props.entityType === 'Entry' && labels.linkExisting({ multiple: props.multiple })}
-          {props.entityType === 'Asset' && labels.linkExisting({ multiple: props.multiple })}
+          {props.entityType === 'Entry' &&
+            labels.linkExisting({ canLinkMultiple: props.canLinkMultiple })}
+          {props.entityType === 'Asset' &&
+            labels.linkExisting({ canLinkMultiple: props.canLinkMultiple })}
         </TextLink>
       )}
     </div>

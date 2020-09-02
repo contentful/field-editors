@@ -105,11 +105,11 @@ class Editor extends React.Component<EditorProps, EditorState> {
         })}
         <LinkEntityActions
           entityType={this.props.entityType}
+          canLinkMultiple={true}
           allContentTypes={this.props.allContentTypes}
           validations={validations}
           sdk={this.props.sdk}
           isDisabled={this.props.isDisabled}
-          multiple={true}
           canCreateEntity={this.canCreateEntity()}
           canLinkEntity={this.canLinkEntity()}
           onCreate={this.onCreate}
