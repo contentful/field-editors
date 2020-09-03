@@ -202,4 +202,34 @@ describe('SingleLineEditor', () => {
     expect(getByText('0 characters')).toBeInTheDocument();
     expect(getByText('Requires at least 1000 characters')).toBeInTheDocument();
   });
+
+  it('renders no validation message if withCharValidation is falsy', () => {
+    const [field] = createFakeFieldAPI((field) => {
+      return {
+        ...field,
+        type: 'Symbol',
+        validations: [
+          {
+            size: {
+              min: 100,
+              max: 1000,
+            },
+          },
+        ],
+        id: 'field-id',
+      };
+    });
+
+    const { getByText, queryByText } = render(
+      <SingleLineEditor
+        field={field}
+        withCharValidation={false}
+        isInitiallyDisabled={false}
+        locales={createFakeLocalesAPI()}
+      />
+    );
+
+    expect(getByText('0 characters')).toBeInTheDocument();
+    expect(queryByText('Requires between 100 and 1000 characters')).not.toBeInTheDocument();
+  });
 });

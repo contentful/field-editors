@@ -15,6 +15,11 @@ export interface SingleLineEditorProps {
    * is the field disabled initially
    */
   isInitiallyDisabled: boolean;
+
+  /**
+   * whether char validation should be shown or not
+   */
+  withCharValidation: boolean;
   /**
    * sdk.field
    */
@@ -57,10 +62,17 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
                 setValue(e.target.value);
               }}
             />
-            <div className={styles.validationRow}>
-              <CharCounter value={value || ''} checkConstraint={checkConstraint} />
-              <CharValidation constraints={constraints} />
-            </div>
+            {props.withCharValidation && (
+              <div className={styles.validationRow}>
+                <CharCounter value={value || ''} checkConstraint={checkConstraint} />
+                <CharValidation constraints={constraints} />
+              </div>
+            )}
+            {props.withCharValidation === false && (
+              <div className={styles.validationRow}>
+                <CharCounter value={value || ''} checkConstraint={() => true} />
+              </div>
+            )}
           </div>
         );
       }}
@@ -70,4 +82,5 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
 
 SingleLineEditor.defaultProps = {
   isInitiallyDisabled: true,
+  withCharValidation: true,
 };
