@@ -69,7 +69,7 @@
     "emotion": "10.0.27",
     "eslint": "6.8.0",
     "eslint-plugin-cypress": "^2.7.0",
-    "eslint-plugin-jest": "^23.6.0",
+    "eslint-plugin-jest": "^24.0.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.18.0",
     "eslint-plugin-react-hooks": "^4.0.0",
