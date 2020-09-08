@@ -1,6 +1,6 @@
 {
   "name": "@contentful/default-field-editors",
-  "version": "0.3.9",
+  "version": "0.3.10",
   "main": "dist/index.js",
   "module": "dist/field-editor-field.esm.js",
   "typings": "dist/index.d.ts",
@@ -40,7 +40,7 @@
     "@contentful/field-editor-slug": "^0.6.1",
     "@contentful/field-editor-tags": "^0.9.1",
     "@contentful/field-editor-url": "^0.8.1",
-    "@contentful/field-editor-validation-errors": "^0.2.2",
+    "@contentful/field-editor-validation-errors": "^0.2.3",
     "@contentful/forma-36-react-components": "^3.47.1",
     "emotion": "^10.0.27"
   },
