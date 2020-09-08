@@ -17,6 +17,7 @@ export const errorMessage = css({
 
 export const errorItem = css({
   display: 'flex',
+  alignItems: 'center',
 });
 
 export const entryLink = css({
