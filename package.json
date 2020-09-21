@@ -44,7 +44,7 @@
     "@babel/preset-react": "^7.9.4",
     "trim-right": "^1.0.1",
     "@commitlint/cli": "^9.0.1",
-    "@commitlint/config-conventional": "^9.0.1",
+    "@commitlint/config-conventional": "^11.0.0",
     "@contentful/contentful-extension-scripts": "^0.16.0",
     "@contentful/eslint-config-extension": "0.2.0",
     "@contentful/forma-36-fcss": "^0.2.1",
