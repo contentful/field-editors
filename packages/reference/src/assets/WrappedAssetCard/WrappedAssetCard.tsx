@@ -102,7 +102,7 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
       href={getAssetUrl ? getAssetUrl(props.asset.sys.id) : undefined}
       status={status}
       src={
-        entityFile
+        entityFile && entityFile.url
           ? size === 'small'
             ? `${entityFile.url}?w=150&h=150&fit=thumb`
             : `${entityFile.url}?h=300`
