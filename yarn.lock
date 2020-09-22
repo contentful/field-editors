@@ -1818,7 +1818,7 @@
   dependencies:
     "@contentful/forma-36-tokens" "^0.7.1"
 
-"@contentful/forma-36-react-components@3.47.1", "@contentful/forma-36-react-components@^3.40.1", "@contentful/forma-36-react-components@^3.45.1", "@contentful/forma-36-react-components@^3.47.1":
+"@contentful/forma-36-react-components@3.47.1", "@contentful/forma-36-react-components@^3.40.1", "@contentful/forma-36-react-components@^3.45.1", "@contentful/forma-36-react-components@^3.47.1", "@contentful/forma-36-react-components@^3.54.2":
   version "3.47.1"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.47.1.tgz#98a8886a19bbc921190f467753128661d784ab8c"
   integrity sha512-40Ym8zMMtWlGRH9fvWADIz+QeDCMu2iIIG2Qg8d1c7h7NG9ehosKmHPP0jQ+s27Kh2XWjCe7h/tMMHruWRtu2A==
@@ -1831,12 +1831,12 @@
     react-transition-group "^2.4.0"
     truncate "^2.0.1"
 
-"@contentful/forma-36-tokens@0.7.2", "@contentful/forma-36-tokens@^0.7.1", "@contentful/forma-36-tokens@^0.7.2":
+"@contentful/forma-36-tokens@0.7.2", "@contentful/forma-36-tokens@^0.7.1", "@contentful/forma-36-tokens@^0.7.2", "@contentful/forma-36-tokens@^0.8.0":
   version "0.7.2"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.7.2.tgz#69c2ef26b8e6436324badf8fa3570ac6ea6a0a21"
   integrity sha512-pIBIFYrtKo9xmbXps9R6PBG4cA6sNzytm57gotPftUWJgOS6BCuCYUOme3mlx9gDV+3wXc4k12QePwU2AkRraw==
 
-"@contentful/mimetype@^1.1.4":
+"@contentful/mimetype@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@contentful/mimetype/-/mimetype-1.4.0.tgz#e2d40fb55a138e2843d62009f03e737b7f3acea6"
   integrity sha512-uUU4P21caAU997+dlIPpuZq1E59ojveivbQlVxdmPeBYlRDsBUV+hpBSizvNUGyCGmh44NNl9k2ILoSw+d8R4w==
