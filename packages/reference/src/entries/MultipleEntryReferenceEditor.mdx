@@ -29,7 +29,7 @@ import { newReferenceEditorFakeSdk } from '../__fixtures__/FakeSdk'
 
 <Playground>
   {() => {
-    const isInitiallyDisabled = window.localStorage.getItem('initialDisabled');
+    const isInitiallyDisabled = !!window.localStorage.getItem('initialDisabled');
     const instanceParams = window.localStorage.getItem('instanceParams');
     const [sdk, mitt] = newReferenceEditorFakeSdk();
     return (
@@ -59,7 +59,7 @@ another reference rendered by the stardard card renderer.
 
 <Playground>
   {() => {
-    const isInitiallyDisabled = window.localStorage.getItem('initialDisabled');
+    const isInitiallyDisabled = !!window.localStorage.getItem('initialDisabled');
     const instanceParams = window.localStorage.getItem('instanceParams');
     const [sdk, mitt] = newReferenceEditorFakeSdk();
     return (
