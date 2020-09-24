@@ -17,28 +17,16 @@ export interface LinkActionsProps {
 }
 
 const defaultEntryLabels: ActionLabels = {
-  createNew: (props) => {
-    if (props?.contentType) {
-      return `Create new ${props.contentType} and link`;
-    }
-    return 'Create new entry and link';
-  },
-  linkExisting: (props) => {
-    if (props?.canLinkMultiple) {
-      return 'Link existing entries';
-    }
-    return 'Link existing entry';
-  },
+  createNew: (props) =>
+    props?.contentType ? `Create new ${props.contentType} and link` : 'Create new entry and link',
+  linkExisting: (props) =>
+    props?.canLinkMultiple ? 'Link existing entries' : 'Link existing entry',
 };
 
 const defaultAssetLabels: ActionLabels = {
   createNew: () => `Create new asset and link`,
-  linkExisting: (props) => {
-    if (props?.canLinkMultiple) {
-      return 'Link existing assets';
-    }
-    return 'Link existing asset';
-  },
+  linkExisting: (props) =>
+    props?.canLinkMultiple ? 'Link existing assets' : 'Link existing asset',
 };
 
 export const testIds = {
@@ -48,11 +36,11 @@ export const testIds = {
 };
 
 export function LinkActions(props: LinkActionsProps) {
-  const labels = Object.assign(
-    {},
-    props.entityType === 'Entry' ? defaultEntryLabels : defaultAssetLabels,
-    props.actionLabels
-  );
+  const defaultLabels = props.entityType === 'Entry' ? defaultEntryLabels : defaultAssetLabels;
+  const labels = {
+    ...defaultLabels,
+    ...props.actionLabels,
+  };
 
   return (
     <div className={styles.container}>
@@ -69,10 +57,7 @@ export function LinkActions(props: LinkActionsProps) {
               contentTypes={props.contentTypes}
               hasPlusIcon={true}
               onSelect={(contentTypeId) => {
-                if (contentTypeId) {
-                  return props.onCreate(contentTypeId);
-                }
-                return Promise.resolve();
+                return contentTypeId ? props.onCreate(contentTypeId) : Promise.resolve();
               }}
             />
           )}
@@ -100,10 +85,7 @@ export function LinkActions(props: LinkActionsProps) {
           }}
           linkType="primary"
           icon="Link">
-          {props.entityType === 'Entry' &&
-            labels.linkExisting({ canLinkMultiple: props.canLinkMultiple })}
-          {props.entityType === 'Asset' &&
-            labels.linkExisting({ canLinkMultiple: props.canLinkMultiple })}
+          {labels.linkExisting({ canLinkMultiple: props.canLinkMultiple })}
         </TextLink>
       )}
     </div>

@@ -45,38 +45,46 @@ const styles = {
   }),
 };
 
-export type CreateEntryMenuTriggerChild = ({
-  isOpen,
-  isSelecting,
-  openMenu,
-}: {
+type CreateEntryMenuTriggerChildProps = {
   isOpen: boolean;
   isSelecting: boolean;
   openMenu: Function;
+};
+export type CreateEntryMenuTriggerChild = (
+  props: CreateEntryMenuTriggerChildProps
+) => React.ReactElement;
+export type CreateCustomEntryMenuItems = ({
+  closeMenu,
+}: {
+  closeMenu: Function;
 }) => React.ReactElement;
 
 interface CreateEntryMenuTrigger {
   contentTypes: ContentType[];
   suggestedContentTypeId?: string;
+  contentTypesLabel?: string;
   onSelect: (contentTypeId: string) => Promise<unknown>;
   testId?: string;
   dropdownSettings?: {
     isAutoalignmentEnabled: boolean;
     position: 'bottom-left' | 'bottom-right';
   };
+  renderCustomDropdownItems?: CreateCustomEntryMenuItems;
   children: CreateEntryMenuTriggerChild;
 }
 
 export const CreateEntryMenuTrigger = ({
   contentTypes,
+  suggestedContentTypeId,
+  contentTypesLabel,
   onSelect,
-  children,
   testId,
   dropdownSettings = {
     isAutoalignmentEnabled: false,
     position: 'bottom-left',
   },
-  suggestedContentTypeId,
+  renderCustomDropdownItems,
+  children,
 }: CreateEntryMenuTrigger) => {
   const [isOpen, setOpen] = useState(false);
   const [isSelecting, setSelecting] = useState(false);
@@ -93,32 +101,12 @@ export const CreateEntryMenuTrigger = ({
   */
   const [dropdownWidth, setDropdownWidth] = useState(0);
 
-  const mouseUpHandler = useCallback(
-    (event) => {
-      if (
-        wrapper &&
-        wrapper.current &&
-        dropdownRef &&
-        dropdownRef.current &&
-        !wrapper.current.contains(event.target) &&
-        !dropdownRef.current.contains(event.target)
-      ) {
-        setOpen(false);
-      }
-    },
-    [wrapper]
-  );
+  const hasDropdown = contentTypes.length > 1 || !!renderCustomDropdownItems;
 
-  useGlobalMouseUp(mouseUpHandler);
-
-  useEffect(() => {
-    if (!isOpen) {
-      setSearchInput('');
-    }
-  }, [isOpen]);
+  const closeMenu = () => setOpen(false);
 
   const handleSelect = (item: ContentType) => {
-    setOpen(false);
+    closeMenu();
     const res = onSelect(item.sys.id);
 
     // TODO: Convert to controllable component.
@@ -131,13 +119,37 @@ export const CreateEntryMenuTrigger = ({
     }
   };
 
-  const openMenu = () => {
-    if (contentTypes.length === 1) {
-      handleSelect(contentTypes[0]);
-    } else {
+  const toggleMenu = () => {
+    if (hasDropdown) {
       setOpen(!isOpen);
+    } else {
+      handleSelect(contentTypes[0]);
     }
   };
+
+  const mouseUpHandler = useCallback(
+    (event) => {
+      if (
+        wrapper &&
+        wrapper.current &&
+        dropdownRef &&
+        dropdownRef.current &&
+        !wrapper.current.contains(event.target) &&
+        !dropdownRef.current.contains(event.target)
+      ) {
+        closeMenu();
+      }
+    },
+    [wrapper]
+  );
+
+  useGlobalMouseUp(mouseUpHandler);
+
+  useEffect(() => {
+    if (!isOpen) {
+      setSearchInput('');
+    }
+  }, [isOpen]);
 
   const renderSearchResultsCount = (resultsLength: number) =>
     resultsLength ? (
@@ -159,8 +171,8 @@ export const CreateEntryMenuTrigger = ({
       <Dropdown
         position={dropdownSettings.position}
         isAutoalignmentEnabled={dropdownSettings.isAutoalignmentEnabled}
-        isOpen={isOpen && contentTypes.length > 1}
-        toggleElement={children({ isOpen, isSelecting, openMenu })}
+        isOpen={isOpen && hasDropdown}
+        toggleElement={children({ isOpen, isSelecting, openMenu: toggleMenu })}
         testId="add-entry-menu"
         // @ts-ignore
         getContainerRef={(ref) => {
@@ -201,7 +213,7 @@ export const CreateEntryMenuTrigger = ({
               <hr className={styles.separator} />
             </>
           )}
-          {!searchInput && <DropdownListItem isTitle>All Content Types</DropdownListItem>}
+          {!searchInput && <DropdownListItem isTitle>{contentTypesLabel}</DropdownListItem>}
           {filteredContentTypes.length ? (
             filteredContentTypes.map((contentType, i) => (
               <DropdownListItem
@@ -217,6 +229,11 @@ export const CreateEntryMenuTrigger = ({
             </DropdownListItem>
           )}
         </DropdownList>
+        {renderCustomDropdownItems && (
+          <DropdownList className={styles.dropdownList} border="top">
+            {renderCustomDropdownItems({ closeMenu })}
+          </DropdownList>
+        )}
       </Dropdown>
     </span>
   );
@@ -224,4 +241,5 @@ export const CreateEntryMenuTrigger = ({
 
 CreateEntryMenuTrigger.defaultProps = {
   testId: 'create-entry-button-menu-trigger',
+  contentTypesLabel: 'All Content Types',
 };

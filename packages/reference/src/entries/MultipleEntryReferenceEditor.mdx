@@ -15,6 +15,7 @@ import { MultipleEntryReferenceEditor } from '@contentful/field-editor-reference
 
 import { Playground, Props } from 'docz';
 import { MultipleEntryReferenceEditor } from './MultipleEntryReferenceEditor.tsx';
+import { CombinedLinkActions } from '../../src';
 import { ActionsPlayground } from '@contentful/field-editor-test-utils';
 import {
   Card,
@@ -54,7 +55,7 @@ import { newReferenceEditorFakeSdk } from '../__fixtures__/FakeSdk'
 
 ## With custom card
 
-Insert some references via _Link existing entries_. Click again to showcase inserting
+Click _Link existing entries_ to insert some references with custom layout rendered via `renderCustomCard` prop. Click again to showcase inserting
 another reference rendered by the stardard card renderer.
 
 <Playground>
@@ -74,6 +75,35 @@ another reference rendered by the stardard card renderer.
               <Button onClick={props.onRemove}>Remove</Button>
             </Card> : false
           }
+          viewType="link"
+          sdk={sdk}
+          isInitiallyDisabled={isInitiallyDisabled}
+          parameters={{
+            instance: instanceParams || {
+              canCreateEntity: true,
+              canLinkEntity: true
+            }
+          }}
+        />
+        <ActionsPlayground mitt={mitt} />
+      </div>
+    );
+  }}
+</Playground>
+
+## With custom actions
+
+Note the alternative link actions injected via the `renderCustomActions` prop.
+
+<Playground>
+  {() => {
+    const isInitiallyDisabled = window.localStorage.getItem('initialDisabled');
+    const instanceParams = window.localStorage.getItem('instanceParams');
+    const [sdk, mitt] = newReferenceEditorFakeSdk();
+    return (
+      <div>
+        <MultipleEntryReferenceEditor
+          renderCustomActions={(props) => (<CombinedLinkActions {...props}/>)}
           viewType="link"
           sdk={sdk}
           isInitiallyDisabled={isInitiallyDisabled}
