@@ -19,7 +19,7 @@ import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-
 <Playground>
   {() => {
     const initialValue = window.localStorage.getItem('initialValue');
-    const isInitiallyDisabled = window.localStorage.getItem('initialDisabled');
+    const isInitiallyDisabled = !!window.localStorage.getItem('initialDisabled');
     const [field, mitt] = createFakeFieldAPI(field => field, initialValue ? JSON.parse(initialValue) : undefined);
     return (
       <div data-test-id="location-editor-integration-test">
