@@ -22,43 +22,91 @@ export function CombinedLinkActions(props: LinkActionsProps) {
   //  border wouldn't be nicely aligned with asset cards.
   return (
     <div className={styles.spaciousContainer}>
-      {props.canCreateEntity && (
-        <>
-          {props.entityType === 'Entry' && <CombinedEntryLinkActions {...props} />}
-          {props.entityType === 'Asset' && <CombinedAssetLinkActions {...props} />}
-        </>
-      )}
+      {props.entityType === 'Entry' && <CombinedEntryLinkActions {...props} />}
+      {props.entityType === 'Asset' && <CombinedAssetLinkActions {...props} />}
     </div>
   );
 }
 
 function CombinedEntryLinkActions(props: LinkActionsProps) {
-  return (
-    <CreateEntryLinkButton
-      testId={testIds.actionsWrapper}
-      disabled={props.isDisabled}
-      text="Add content"
-      contentTypes={props.contentTypes}
-      hasPlusIcon={true}
-      onSelect={(contentTypeId) => {
-        return contentTypeId ? props.onCreate(contentTypeId) : Promise.resolve();
-      }}
-      renderCustomDropdownItems={({ closeMenu }) => (
-        <DropdownListItem
-          testId={testIds.linkExisting}
-          onClick={() => {
-            closeMenu();
-            props.onLinkExisting();
-          }}>
-          Add existing content
-        </DropdownListItem>
-      )}
-    />
-  );
+  if (props.canCreateEntity) {
+    return (
+      <CreateEntryLinkButton
+        testId={testIds.actionsWrapper}
+        disabled={props.isDisabled}
+        text="Add content"
+        contentTypes={props.contentTypes}
+        hasPlusIcon={true}
+        onSelect={(contentTypeId) => {
+          return contentTypeId ? props.onCreate(contentTypeId) : Promise.resolve();
+        }}
+        renderCustomDropdownItems={
+          props.canLinkEntity
+            ? ({ closeMenu }) => (
+                <DropdownListItem
+                  testId={testIds.linkExisting}
+                  onClick={() => {
+                    closeMenu();
+                    props.onLinkExisting();
+                  }}>
+                  Add existing content
+                </DropdownListItem>
+              )
+            : undefined
+        }
+      />
+    );
+  } else if (props.canLinkEntity) {
+    return (
+      <TextLink
+        disabled={props.isDisabled}
+        testId={testIds.linkExisting}
+        onClick={() => {
+          props.onLinkExisting();
+        }}
+        linkType="primary"
+        icon="Link">
+        Add existing content
+      </TextLink>
+    );
+  }
+  return null;
 }
 
 function CombinedAssetLinkActions(props: LinkActionsProps) {
   const [isOpen, setOpen] = React.useState(false);
+
+  if (!props.canLinkEntity || !props.canCreateEntity) {
+    if (props.canLinkEntity) {
+      return (
+        <TextLink
+          disabled={props.isDisabled}
+          testId={testIds.linkExisting}
+          onClick={() => {
+            props.onLinkExisting();
+          }}
+          linkType="primary"
+          icon="Link">
+          Add existing media
+        </TextLink>
+      );
+    }
+    if (props.canCreateEntity) {
+      return (
+        <TextLink
+          disabled={props.isDisabled}
+          testId={testIds.createAndLink}
+          onClick={() => {
+            props.onCreate();
+          }}
+          linkType="primary"
+          icon="PlusCircle">
+          Add new media
+        </TextLink>
+      );
+    }
+    return null;
+  }
 
   // TODO: If we fully switch to this new layout, make a more generic `CreateEntityLinkButton`
   //  that works without content types to cover asset use-case.
