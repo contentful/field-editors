@@ -26,7 +26,7 @@
     "@contentful/forma-36-tokens": "^0.8.0",
     "@contentful/mimetype": "^1.4.0",
     "array-move": "^3.0.0",
-    "constate": "2.0.0",
+    "constate": "3.0.1",
     "contentful-ui-extensions-sdk": "^3.18.0",
     "deep-equal": "2.0.3",
     "emotion": "^10.0.17",

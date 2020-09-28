@@ -6733,10 +6733,10 @@ constants-browserify@^1.0.0:
   resolved "https://registry.yarnpkg.com/constants-browserify/-/constants-browserify-1.0.0.tgz#c20b96d8c617748aaf1c16021760cd27fcb8cb75"
   integrity sha1-wguW2MYXdIqvHBYCF2DNJ/y4y3U=
 
-constate@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/constate/-/constate-2.0.0.tgz#ba9bf91217c306292c1f8a7e45e0ff5a76c38a55"
-  integrity sha512-oYpbnxDH1BSZTyBHGpSabuT0h/rLU7UDTC8p8J/TLt8G69ePIHCaNyDCz+LUl1QJpCrzrk0jO4D524rJlh4edg==
+constate@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/constate/-/constate-3.0.1.tgz#12fa3241b40fd30db4494b1670eaec1ce98dc66d"
+  integrity sha512-/NAwv6IfWd8CBPanHo/1/y7j5PfvCALdKPnsuI4hgcjAboizFEn5QoOnHW0Rm3XAedMH9Aq+4XfpQxHha6a0yQ==
 
 contains-path@^0.1.0:
   version "0.1.0"
