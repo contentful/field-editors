@@ -23,7 +23,7 @@ describe('Location Editor', () => {
     },
     getValidationError: () => {
       return cy.findByTestId('location-editor-not-found');
-    }
+    },
   };
 
   beforeEach(() => {
@@ -74,7 +74,7 @@ describe('Location Editor', () => {
       { id: 4, type: 'onValueChanged', value: { lon: 9.98413, lat: 53.54132 } },
       { id: 3, type: 'setValue', value: { lon: 9.98413, lat: 53.54132 } },
       { id: 2, type: 'onValueChanged', value: { lon: 0, lat: 53.54132 } },
-      { id: 1, type: 'setValue', value: { lon: 0, lat: 53.54132 } }
+      { id: 1, type: 'setValue', value: { lon: 0, lat: 53.54132 } },
     ]);
 
     selectors.getSearchInput().clear();
@@ -87,7 +87,7 @@ describe('Location Editor', () => {
       { id: 4, type: 'onValueChanged', value: { lon: 9.98413, lat: 53.54132 } },
       { id: 3, type: 'setValue', value: { lon: 9.98413, lat: 53.54132 } },
       { id: 2, type: 'onValueChanged', value: { lon: 0, lat: 53.54132 } },
-      { id: 1, type: 'setValue', value: { lon: 0, lat: 53.54132 } }
+      { id: 1, type: 'setValue', value: { lon: 0, lat: 53.54132 } },
     ]);
   });
 
@@ -101,12 +101,12 @@ describe('Location Editor', () => {
 
     selectors.getCoordinatesRadio().click();
 
-    selectors.getLatitudeInput().should('have.value', '52.5389');
-    selectors.getLongitudeInput().should('have.value', '13.38369');
+    selectors.getLatitudeInput().should('have.value', '52.53886');
+    selectors.getLongitudeInput().should('have.value', '13.38379');
 
     cy.editorEvents().should('deep.equal', [
-      { id: 2, type: 'onValueChanged', value: { lon: 13.38369, lat: 52.5389 } },
-      { id: 1, type: 'setValue', value: { lon: 13.38369, lat: 52.5389 } }
+      { id: 2, type: 'onValueChanged', value: { lon: 13.38379, lat: 52.53886 } },
+      { id: 1, type: 'setValue', value: { lon: 13.38379, lat: 52.53886 } },
     ]);
 
     selectors.getAddressRadio().click();
@@ -116,8 +116,8 @@ describe('Location Editor', () => {
     cy.editorEvents().should('deep.equal', [
       { id: 4, type: 'onValueChanged', value: undefined },
       { id: 3, type: 'removeValue', value: undefined },
-      { id: 2, type: 'onValueChanged', value: { lon: 13.38369, lat: 52.5389 } },
-      { id: 1, type: 'setValue', value: { lon: 13.38369, lat: 52.5389 } }
+      { id: 2, type: 'onValueChanged', value: { lon: 13.38379, lat: 52.53886 } },
+      { id: 1, type: 'setValue', value: { lon: 13.38379, lat: 52.53886 } },
     ]);
   });
 
