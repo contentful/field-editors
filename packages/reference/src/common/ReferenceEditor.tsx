@@ -3,7 +3,7 @@ import deepEqual from 'deep-equal';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import { EntityProvider } from './EntityStore';
 import { ViewType, FieldExtensionSDK, Action, Entry, ContentType, ActionLabels } from '../types';
-import type { LinkActionsProps } from '../components/LinkActions/LinkActions';
+import type { LinkActionsProps } from '../components';
 
 // TODO: Rename common base for reference/media editors to something neutral,
 //  e.g. `LinkEditor<T>`.

@@ -15,6 +15,7 @@ import { MultipleMediaEditor } from '@contentful/field-editor-reference';
 
 import { Playground, Props } from 'docz';
 import { MultipleMediaEditor } from './MultipleMediaEditor.tsx'
+import { CombinedLinkActions } from '../../src';
 import { createFakeFieldAPI, createFakeSpaceAPI, createFakeLocalesAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
 import { TextLink } from '@contentful/forma-36-react-components';
 import emptyAsset from '../__fixtures__/empty_asset.json';
@@ -114,6 +115,8 @@ import changedAsset from '../__fixtures__/changed_asset.json';
 
 ## With custom actions
 
+Note the alternative link actions injected via the `renderCustomActions` prop.
+
 <Playground>
   {() => {
     const initialValue = window.localStorage.getItem('initialValue');
@@ -159,6 +162,15 @@ import changedAsset from '../__fixtures__/changed_asset.json';
           alert('open Asset in slide in');
           return Promise.resolve({});
         },
+        openNewAsset: async () => {
+          return {
+            entity: {
+              sys: {
+                id: 'changed_asset',
+              },
+            },
+          };
+        },
         onSlideInNavigation: () => () => {}
       },
       access: {
@@ -171,14 +183,7 @@ import changedAsset from '../__fixtures__/changed_asset.json';
           viewType="card"
           sdk={sdk}
           isInitiallyDisabled={false}
-          renderCustomActions={(props) => <TextLink disabled={props.isDisabled} testId='custom-link'
-              onClick={props.onLinkExisting}
-              linkType="primary"
-              icon="ThumbUp"
-              iconPosition="right">
-            Re-use something
-            </TextLink>
-          }
+          renderCustomActions={(props) => (<CombinedLinkActions {...props}/>)}
           parameters={{
             instance: {
               canCreateEntity: true,

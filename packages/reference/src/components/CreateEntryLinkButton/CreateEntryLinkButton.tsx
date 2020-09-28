@@ -4,7 +4,7 @@ import { css } from 'emotion';
 import { ContentType } from '../../types';
 import { Icon, TextLink, Spinner } from '@contentful/forma-36-react-components';
 import tokens from '@contentful/forma-36-tokens';
-import { CreateEntryMenuTrigger } from './CreateEntryMenuTrigger';
+import { CreateEntryMenuTrigger, CreateCustomEntryMenuItems } from './CreateEntryMenuTrigger';
 
 const styles = {
   chevronIcon: css({
@@ -21,6 +21,7 @@ interface CreateEntryLinkButtonProps {
   contentTypes: ContentType[];
   suggestedContentTypeId?: string;
   onSelect: (contentTypeId: string) => Promise<unknown>;
+  renderCustomDropdownItems?: CreateCustomEntryMenuItems;
   disabled?: boolean;
   hasPlusIcon: boolean;
   text?: string;
@@ -34,6 +35,7 @@ interface CreateEntryLinkButtonProps {
 export const CreateEntryLinkButton = ({
   contentTypes,
   onSelect,
+  renderCustomDropdownItems,
   text,
   testId,
   hasPlusIcon,
@@ -49,14 +51,21 @@ export const CreateEntryLinkButton = ({
       'name',
       'entry'
     )}`;
+  // TODO: Introduce `icon: string` and remove `hasPlusIcon` or remove "Plus" if we keep new layout.
+  const plusIcon = !hasPlusIcon ? undefined : renderCustomDropdownItems ? 'PlusCircle' : 'Plus';
+  // TODO: Always use "New content" here if we fully switch to new layout.
+  const contentTypesLabel = renderCustomDropdownItems ? 'New content' : undefined;
+  const hasDropdown = contentTypes.length > 1 || renderCustomDropdownItems;
 
   return (
     <CreateEntryMenuTrigger
       contentTypes={contentTypes}
       suggestedContentTypeId={suggestedContentTypeId}
+      contentTypesLabel={contentTypesLabel}
       onSelect={onSelect}
       testId={testId}
-      dropdownSettings={dropdownSettings}>
+      dropdownSettings={dropdownSettings}
+      renderCustomDropdownItems={renderCustomDropdownItems}>
       {({ openMenu, isSelecting }) => (
         <>
           {isSelecting && <Spinner size="small" key="spinner" className={styles.spinnerMargin} />}
@@ -66,10 +75,10 @@ export const CreateEntryLinkButton = ({
               openMenu();
             }}
             disabled={disabled || isSelecting || (contentTypes && contentTypes.length === 0)}
-            icon={isSelecting || !hasPlusIcon ? undefined : 'Plus'}
+            icon={isSelecting ? undefined : plusIcon}
             testId="create-entry-link-button">
             {buttonText}
-            {contentTypes.length > 1 && (
+            {hasDropdown && (
               <Icon
                 data-test-id="dropdown-icon"
                 icon="ChevronDown"

@@ -162,7 +162,7 @@ export function LinkEntityActions(props: LinkEntityActionsProps) {
     });
   }, []);
 
-  const linkActionProps = {
+  const linkActionProps: LinkActionsProps = {
     entityType: props.entityType,
     canLinkMultiple: props.canLinkMultiple,
     isDisabled: props.isDisabled,
@@ -173,10 +173,9 @@ export function LinkEntityActions(props: LinkEntityActionsProps) {
     onLinkExisting: props.canLinkMultiple ? onLinkSeveralExisting : onLinkExisting,
     actionLabels: props.actionLabels,
   };
+  const renderLinkActions = props.renderCustomActions
+    ? props.renderCustomActions
+    : (props: LinkActionsProps) => <LinkActions {...props} />;
 
-  return props.renderCustomActions ? (
-    props.renderCustomActions(linkActionProps)
-  ) : (
-    <LinkActions {...linkActionProps} />
-  );
+  return renderLinkActions(linkActionProps);
 }

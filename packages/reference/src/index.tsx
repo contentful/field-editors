@@ -5,6 +5,7 @@ export {
   ScheduledIconWithTooltip,
   AssetThumbnail,
   MissingEntityCard,
+  CombinedLinkActions,
 } from './components';
 export {
   SingleEntryReferenceEditor,
