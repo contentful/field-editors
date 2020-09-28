@@ -16,7 +16,10 @@ export interface ReferenceEditorProps {
   hasCardEditActions: boolean;
   sdk: FieldExtensionSDK;
   viewType: ViewType;
-  renderCustomCard?: (props: CustomEntryCardProps) => React.ReactElement | false;
+  renderCustomCard?: (
+    props: CustomEntryCardProps,
+    linkActionsProps: CustomActionProps
+  ) => React.ReactElement | false;
   renderCustomActions?: (props: CustomActionProps) => React.ReactElement;
   getEntityUrl?: (entryId: string) => string;
   onAction?: (action: Action) => void;

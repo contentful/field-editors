@@ -1,88 +1,9 @@
 import * as React from 'react';
-import {
-  Asset,
-  Entry,
-  FieldExtensionSDK,
-  EntityType,
-  Action,
-  ContentType,
-  ActionLabels,
-} from '../../types';
+import { useMemo } from 'react';
+import { Action, ActionLabels, ContentType, EntityType, FieldExtensionSDK } from '../../types';
 import { ReferenceValidations } from '../../utils/fromFieldValidations';
 import { LinkActions, LinkActionsProps } from './LinkActions';
-
-async function createEntity(props: {
-  sdk: FieldExtensionSDK;
-  entityType: EntityType;
-  contentTypeId?: string;
-}) {
-  if (props.entityType === 'Entry') {
-    if (!props.contentTypeId) {
-      return {};
-    }
-    const { entity, slide } = await props.sdk.navigator.openNewEntry<Entry>(props.contentTypeId, {
-      slideIn: true,
-    });
-    return { entity, slide };
-  } else {
-    const { entity, slide } = await props.sdk.navigator.openNewAsset<Asset>({
-      slideIn: true,
-    });
-    return { entity, slide };
-  }
-}
-
-async function selectSingleEntity(props: {
-  sdk: FieldExtensionSDK;
-  entityType: EntityType;
-  validations: ReferenceValidations;
-}) {
-  if (props.entityType === 'Entry') {
-    return await props.sdk.dialogs.selectSingleEntry<Entry>({
-      locale: props.sdk.field.locale,
-      contentTypes: props.validations.contentTypes,
-    });
-  } else {
-    return props.sdk.dialogs.selectSingleAsset<Asset>({
-      locale: props.sdk.field.locale,
-      mimetypeGroups: props.validations.mimetypeGroups,
-    });
-  }
-}
-
-async function selectMultipleEntities(props: {
-  sdk: FieldExtensionSDK;
-  entityType: EntityType;
-  validations: ReferenceValidations;
-}) {
-  const value = props.sdk.field.getValue();
-
-  const linkCount = Array.isArray(value) ? value.length : value ? 1 : 0;
-
-  // TODO: Why not always set `min: 1` by default? Does it make sense to enforce
-  //  user to select as many entities as the field's "min" requires? What if e.g.
-  // "min" is 4 and the user wants to insert 2 entities first, then create 2 new ones?
-  const min = Math.max((props.validations.numberOfLinks?.min || 1) - linkCount, 1);
-  // TODO: Consider same for max. If e.g. "max" is 4, we disable the button if the
-  //  user wants to select 5 but we show no information why the button is disabled.
-  const max = (props.validations.numberOfLinks?.max || +Infinity) - linkCount;
-
-  if (props.entityType === 'Entry') {
-    return await props.sdk.dialogs.selectMultipleEntries<Entry>({
-      locale: props.sdk.field.locale,
-      contentTypes: props.validations.contentTypes,
-      min,
-      max,
-    });
-  } else {
-    return props.sdk.dialogs.selectMultipleAssets<Asset>({
-      locale: props.sdk.field.locale,
-      mimetypeGroups: props.validations.mimetypeGroups,
-      min,
-      max,
-    });
-  }
-}
+import { createEntity, selectMultipleEntities, selectSingleEntity } from './helpers';
 
 type LinkEntityActionsProps = {
   entityType: EntityType;
@@ -96,60 +17,60 @@ type LinkEntityActionsProps = {
   onCreate: (id: string) => void;
   onLink: (ids: string[]) => void;
   onAction?: (action: Action) => void;
-  renderCustomActions?: (props: LinkActionsProps) => React.ReactElement;
   actionLabels?: Partial<ActionLabels>;
 };
 
-export function LinkEntityActions(props: LinkEntityActionsProps) {
+export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsProps {
+  const {
+    sdk,
+    validations,
+    entityType,
+    canLinkMultiple,
+    canLinkEntity,
+    isDisabled,
+    canCreateEntity,
+    actionLabels,
+  } = props;
   let availableContentTypes: ContentType[] = [];
 
-  if (props.entityType === 'Entry') {
-    availableContentTypes = props.validations.contentTypes
+  if (entityType === 'Entry') {
+    availableContentTypes = validations.contentTypes
       ? props.allContentTypes.filter((contentType) => {
-          return props.validations.contentTypes?.includes(contentType.sys.id);
+          return validations.contentTypes?.includes(contentType.sys.id);
         })
       : props.allContentTypes;
   }
 
-  const onCreate = React.useCallback(async (contentTypeId?: string) => {
-    const { entity, slide } = await createEntity({
-      sdk: props.sdk,
-      entityType: props.entityType,
-      contentTypeId,
-    });
-    if (!entity) {
-      return;
-    }
-    props.onCreate(entity.sys.id);
-    props.onAction &&
-      props.onAction({
-        type: 'create_and_link',
-        entity: props.entityType,
-        entityData: entity,
-        slide,
-      });
-  }, []);
+  const onCreate = React.useCallback(
+    async (contentTypeId?: string) => {
+      const { entity, slide } = await createEntity({ sdk, entityType, contentTypeId });
+      if (!entity) {
+        return;
+      }
+      props.onCreate(entity.sys.id);
+      props.onAction &&
+        props.onAction({
+          type: 'create_and_link',
+          entity: entityType,
+          entityData: entity,
+          slide,
+        });
+    },
+    [sdk, entityType, props.onCreate, props.onAction]
+  );
 
   const onLinkExisting = React.useCallback(async () => {
-    const entity = await selectSingleEntity({
-      sdk: props.sdk,
-      entityType: props.entityType,
-      validations: props.validations,
-    });
+    const entity = await selectSingleEntity({ sdk, entityType, validations });
     if (!entity) {
       return;
     }
     props.onLink([entity.sys.id]);
     props.onAction &&
-      props.onAction({ type: 'select_and_link', entity: props.entityType, entityData: entity });
-  }, []);
+      props.onAction({ type: 'select_and_link', entity: entityType, entityData: entity });
+  }, [sdk, entityType, props.onLink, props.onAction]);
 
   const onLinkSeveralExisting = React.useCallback(async () => {
-    const entities = await selectMultipleEntities({
-      sdk: props.sdk,
-      entityType: props.entityType,
-      validations: props.validations,
-    });
+    const entities = await selectMultipleEntities({ sdk, entityType, validations });
 
     if (!entities || entities.length === 0) {
       return;
@@ -158,24 +79,46 @@ export function LinkEntityActions(props: LinkEntityActionsProps) {
 
     entities.forEach((entity) => {
       props.onAction &&
-        props.onAction({ type: 'select_and_link', entity: props.entityType, entityData: entity });
+        props.onAction({ type: 'select_and_link', entity: entityType, entityData: entity });
     });
-  }, []);
+  }, [sdk, entityType, props.onLink, props.onAction]);
 
-  const linkActionProps: LinkActionsProps = {
-    entityType: props.entityType,
-    canLinkMultiple: props.canLinkMultiple,
-    isDisabled: props.isDisabled,
-    canCreateEntity: props.canCreateEntity,
-    canLinkEntity: props.canLinkEntity,
-    contentTypes: availableContentTypes,
-    onCreate: onCreate,
-    onLinkExisting: props.canLinkMultiple ? onLinkSeveralExisting : onLinkExisting,
-    actionLabels: props.actionLabels,
-  };
-  const renderLinkActions = props.renderCustomActions
-    ? props.renderCustomActions
+  return useMemo(
+    () => ({
+      entityType,
+      canLinkMultiple,
+      isDisabled,
+      canCreateEntity,
+      canLinkEntity,
+      contentTypes: availableContentTypes,
+      onCreate,
+      onLinkExisting: canLinkMultiple ? onLinkSeveralExisting : onLinkExisting,
+      actionLabels,
+    }),
+    [
+      entityType,
+      canLinkMultiple,
+      isDisabled,
+      canCreateEntity,
+      canLinkEntity,
+      actionLabels,
+      availableContentTypes.map((ct) => ct.sys.id).join(':'),
+      onCreate,
+      onLinkExisting,
+      onLinkSeveralExisting,
+    ]
+  );
+}
+
+export function LinkEntityActions({
+  renderCustomActions,
+  ...props
+}: LinkActionsProps & {
+  renderCustomActions?: (props: LinkActionsProps) => React.ReactElement;
+}) {
+  const renderLinkActions = renderCustomActions
+    ? renderCustomActions
     : (props: LinkActionsProps) => <LinkActions {...props} />;
 
-  return renderLinkActions(linkActionProps);
+  return renderLinkActions(props);
 }

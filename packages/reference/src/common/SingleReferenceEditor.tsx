@@ -1,8 +1,16 @@
 import * as React from 'react';
-import { ReferenceValue, EntityType, ContentType } from '../types';
-import { fromFieldValidations } from '../utils/fromFieldValidations';
+import { ContentType, EntityType, ReferenceValue } from '../types';
 import { LinkEntityActions } from '../components';
-import { CustomEntryCardProps, ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
+import {
+  CustomActionProps,
+  CustomEntryCardProps,
+  ReferenceEditor,
+  ReferenceEditorProps,
+} from './ReferenceEditor';
+import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions';
+import { useCallback } from 'react';
+import { fromFieldValidations } from '../utils/fromFieldValidations';
+import { useEntityPermissions } from './useEntityPermissions';
 
 type ChildProps = {
   entityId: string;
@@ -10,7 +18,10 @@ type ChildProps = {
   isDisabled: boolean;
   setValue: (value: ReferenceValue | null | undefined) => void;
   allContentTypes: ContentType[];
-  renderCustomCard?: (props: CustomEntryCardProps) => React.ReactElement | false;
+  renderCustomCard?: (
+    props: CustomEntryCardProps,
+    linkActionsProps: CustomActionProps
+  ) => React.ReactElement | false;
   hasCardEditActions: boolean;
 };
 
@@ -19,91 +30,48 @@ type EditorProps = ReferenceEditorProps &
     children: (props: ReferenceEditorProps & ChildProps) => React.ReactElement;
   };
 
-type EditorState = {
-  canCreateEntity: boolean;
-};
+function Editor(props: EditorProps) {
+  const { setValue, entityType } = props;
+  const { canCreateEntity, canLinkEntity } = useEntityPermissions(props);
 
-class Editor extends React.Component<EditorProps, EditorState> {
-  constructor(props: EditorProps) {
-    super(props);
-    this.state = {
-      canCreateEntity: true,
-    };
+  const onCreate = useCallback(
+    (id: string) => void setValue({ sys: { type: 'Link', linkType: entityType, id } }),
+    [setValue, entityType]
+  );
+  const onLink = useCallback(
+    (ids: string[]) => {
+      const [id] = ids;
+      setValue({ sys: { type: 'Link', linkType: entityType, id } });
+    },
+    [setValue, entityType]
+  );
+
+  const validations = fromFieldValidations(props.sdk.field.validations);
+  const linkActionsProps = useLinkActionsProps({
+    ...props,
+    canLinkMultiple: false,
+    validations,
+    canCreateEntity,
+    canLinkEntity,
+    onCreate,
+    onLink,
+  });
+  const customCardRenderer = useCallback(
+    (cardProps: CustomEntryCardProps) =>
+      props.renderCustomCard ? props.renderCustomCard(cardProps, linkActionsProps) : false,
+    [linkActionsProps]
+  );
+
+  if (!props.entityId) {
+    return (
+      <LinkEntityActions renderCustomActions={props.renderCustomActions} {...linkActionsProps} />
+    );
   }
 
-  componentDidMount() {
-    if (this.props.entityType === 'Asset') {
-      this.props.sdk.access.can('create', 'Asset').then((value) => {
-        this.setState({ canCreateEntity: value });
-      });
-    }
-  }
-
-  canCreateEntity = () => {
-    if (this.props.parameters.instance.showCreateEntityAction === false) {
-      return false;
-    }
-    return this.state.canCreateEntity;
-  };
-
-  canLinkEntity = () => {
-    if (this.props.parameters.instance.showLinkEntityAction !== undefined) {
-      return this.props.parameters.instance.showLinkEntityAction;
-    }
-    return true;
-  };
-
-  onCreate = (id: string) => {
-    this.props.setValue({
-      sys: {
-        type: 'Link',
-        linkType: this.props.entityType,
-        id,
-      },
-    });
-  };
-
-  onLink = (ids: string[]) => {
-    const [id] = ids;
-    this.props.setValue({
-      sys: {
-        type: 'Link',
-        linkType: this.props.entityType,
-        id,
-      },
-    });
-  };
-
-  render() {
-    if (!this.props.entityId) {
-      const validations = fromFieldValidations(this.props.sdk.field.validations);
-      return (
-        <LinkEntityActions
-          entityType={this.props.entityType}
-          canLinkMultiple={false}
-          allContentTypes={this.props.allContentTypes}
-          validations={validations}
-          sdk={this.props.sdk}
-          isDisabled={this.props.isDisabled}
-          canCreateEntity={this.canCreateEntity()}
-          canLinkEntity={this.canLinkEntity()}
-          onCreate={this.onCreate}
-          onLink={this.onLink}
-          onAction={this.props.onAction}
-          renderCustomActions={this.props.renderCustomActions}
-          actionLabels={this.props.actionLabels}
-        />
-      );
-    }
-
-    return this.props.children({
-      ...this.props,
-      allContentTypes: this.props.allContentTypes,
-      isDisabled: this.props.isDisabled,
-      entityId: this.props.entityId,
-      setValue: this.props.setValue,
-    });
-  }
+  return props.children({
+    ...props,
+    renderCustomCard: props.renderCustomCard && customCardRenderer,
+  });
 }
 
 export function SingleReferenceEditor(
