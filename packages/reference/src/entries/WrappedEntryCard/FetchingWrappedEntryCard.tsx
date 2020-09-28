@@ -118,6 +118,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       return <EntryCard size={size} loading />;
     }
     const sharedCardProps: CustomEntryCardProps = {
+      index: props.index,
       entry,
       entryUrl: props.getEntityUrl && props.getEntityUrl(entry.sys.id),
       contentType: props.allContentTypes.find(
