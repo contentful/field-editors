@@ -43,7 +43,7 @@
     "@babel/preset-env": "^7.9.6",
     "@babel/preset-react": "^7.9.4",
     "trim-right": "^1.0.1",
-    "@commitlint/cli": "^9.0.1",
+    "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
     "@contentful/contentful-extension-scripts": "^0.16.0",
     "@contentful/eslint-config-extension": "0.2.0",
