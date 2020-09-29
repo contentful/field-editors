@@ -21,7 +21,8 @@ export type EntryCardReferenceEditorProps = ReferenceEditorProps & {
   cardDragHandle?: React.ReactElement;
   renderCustomCard?: (
     props: CustomEntryCardProps,
-    linkActionsProps: CustomActionProps
+    linkActionsProps: CustomActionProps,
+    renderDefaultCard: (props?: CustomEntryCardProps) => React.ReactElement
   ) => React.ReactElement | false;
   hasCardEditActions: boolean;
 };
@@ -132,20 +133,33 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       onEdit,
       onRemove,
     };
+
+    const { hasCardEditActions, sdk } = props;
+
+    function renderDefaultCard(props?: CustomEntryCardProps) {
+      const builtinCardProps: WrappedEntryCardProps = {
+        ...sharedCardProps,
+        hasCardEditActions: hasCardEditActions,
+        getAsset: sdk.space.getAsset,
+        getEntityScheduledActions: sdk.space.getEntityScheduledActions,
+        ...props,
+      };
+
+      return <WrappedEntryCard {...builtinCardProps} />;
+    }
     if (props.renderCustomCard) {
       // LinkActionsProps are injected higher SingleReferenceEditor/MultipleReferenceEditor
-      const renderedCustomCard = props.renderCustomCard(sharedCardProps, {} as LinkActionsProps);
+      const renderedCustomCard = props.renderCustomCard(
+        sharedCardProps,
+        {} as LinkActionsProps,
+        renderDefaultCard
+      );
       // Only `false` indicates to render the original card. E.g. `null` would result in no card.
       if (renderedCustomCard !== false) {
         return renderedCustomCard;
       }
     }
-    const builtinCardProps: WrappedEntryCardProps = {
-      ...sharedCardProps,
-      hasCardEditActions: props.hasCardEditActions,
-      getAsset: props.sdk.space.getAsset,
-      getEntityScheduledActions: props.sdk.space.getEntityScheduledActions,
-    };
-    return <WrappedEntryCard {...builtinCardProps} />;
+
+    return renderDefaultCard();
   }, [props, entityKey]);
 }
