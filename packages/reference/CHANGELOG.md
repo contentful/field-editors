@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.4.0...@contentful/field-editor-reference@1.5.0) (2020-09-29)
+
+
+### Features
+
+* 🎸 pass link actions props to a custom card renderer ([#427](https://github.com/contentful/field-editors/issues/427)) ([e62856c](https://github.com/contentful/field-editors/commit/e62856c3c3ff89a82ccf9eb6af43f26695eea225))
+
+
+
+
+
 # [1.4.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.3.3...@contentful/field-editor-reference@1.4.0) (2020-09-29)
 
 
