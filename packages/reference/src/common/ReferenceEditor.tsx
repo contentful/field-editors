@@ -16,7 +16,10 @@ export interface ReferenceEditorProps {
   hasCardEditActions: boolean;
   sdk: FieldExtensionSDK;
   viewType: ViewType;
-  renderCustomCard?: (props: CustomEntryCardProps) => React.ReactElement | false;
+  renderCustomCard?: (
+    props: CustomEntryCardProps,
+    linkActionsProps: CustomActionProps
+  ) => React.ReactElement | false;
   renderCustomActions?: (props: CustomActionProps) => React.ReactElement;
   getEntityUrl?: (entryId: string) => string;
   onAction?: (action: Action) => void;
@@ -35,6 +38,7 @@ export type CustomActionProps = LinkActionsProps;
 // TODO: When making this available to media editor, consider introducing a
 //  separate interface vs. making this more generic  using `entity` over `entry`
 export type CustomEntryCardProps = {
+  index?: number;
   entry: Entry;
   entryUrl?: string;
   contentType?: ContentType;

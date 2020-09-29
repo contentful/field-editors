@@ -2,9 +2,13 @@ import * as React from 'react';
 import { EntryCard } from '@contentful/forma-36-react-components';
 import { ContentType, FieldExtensionSDK, NavigatorSlideInfo } from '../../types';
 import { WrappedEntryCard } from './WrappedEntryCard';
-import { MissingEntityCard } from '../../components';
+import { LinkActionsProps, MissingEntityCard } from '../../components';
 import { useEntities } from '../../common/EntityStore';
-import { CustomEntryCardProps, ReferenceEditorProps } from '../../common/ReferenceEditor';
+import {
+  CustomActionProps,
+  CustomEntryCardProps,
+  ReferenceEditorProps,
+} from '../../common/ReferenceEditor';
 import get from 'lodash/get';
 import { WrappedEntryCardProps } from './WrappedEntryCard';
 
@@ -15,7 +19,10 @@ export type EntryCardReferenceEditorProps = ReferenceEditorProps & {
   isDisabled: boolean;
   onRemove: () => void;
   cardDragHandle?: React.ReactElement;
-  renderCustomCard?: (props: CustomEntryCardProps) => React.ReactElement | false;
+  renderCustomCard?: (
+    props: CustomEntryCardProps,
+    linkActionsProps: CustomActionProps
+  ) => React.ReactElement | false;
   hasCardEditActions: boolean;
 };
 
@@ -111,6 +118,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       return <EntryCard size={size} loading />;
     }
     const sharedCardProps: CustomEntryCardProps = {
+      index: props.index,
       entry,
       entryUrl: props.getEntityUrl && props.getEntityUrl(entry.sys.id),
       contentType: props.allContentTypes.find(
@@ -125,7 +133,8 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       onRemove,
     };
     if (props.renderCustomCard) {
-      const renderedCustomCard = props.renderCustomCard(sharedCardProps);
+      // LinkActionsProps are injected higher SingleReferenceEditor/MultipleReferenceEditor
+      const renderedCustomCard = props.renderCustomCard(sharedCardProps, {} as LinkActionsProps);
       // Only `false` indicates to render the original card. E.g. `null` would result in no card.
       if (renderedCustomCard !== false) {
         return renderedCustomCard;
