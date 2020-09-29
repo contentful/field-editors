@@ -13,55 +13,55 @@ import { configure } from '@testing-library/cypress';
 
 configure({ testIdAttribute: 'data-test-id' });
 
-Cypress.Commands.add('editorEvents', () => {
-  cy.window().then(win => {
-    return win.editorEvents;
+Cypress.Commands.add('editorEvents', (lastN = Infinity) => {
+  cy.window().then((win) => {
+    return win.editorEvents.slice(0, lastN);
   });
 });
 
-Cypress.Commands.add('setValueExternal', value => {
-  return cy.window().then(win => {
+Cypress.Commands.add('setValueExternal', (value) => {
+  return cy.window().then((win) => {
     win.setValueExternal(value);
     return win;
   });
 });
 
 Cypress.Commands.add('setGoogleMapsKey', () => {
-  return cy.window().then(win => {
+  return cy.window().then((win) => {
     win.localStorage.setItem('googleMapsKey', Cypress.env('googleMapsKey'));
     return win;
   });
 });
 
-Cypress.Commands.add('setInitialValue', initialValue => {
-  return cy.window().then(win => {
+Cypress.Commands.add('setInitialValue', (initialValue) => {
+  return cy.window().then((win) => {
     win.localStorage.setItem('initialValue', initialValue);
     return win;
   });
 });
 
-Cypress.Commands.add('setInitialDisabled', initialDisabled => {
-  return cy.window().then(win => {
+Cypress.Commands.add('setInitialDisabled', (initialDisabled) => {
+  return cy.window().then((win) => {
     win.localStorage.setItem('initialDisabled', initialDisabled);
     return win;
   });
 });
 
-Cypress.Commands.add('setInstanceParams', instanceParams => {
-  return cy.window().then(win => {
+Cypress.Commands.add('setInstanceParams', (instanceParams) => {
+  return cy.window().then((win) => {
     win.localStorage.setItem('instanceParams', JSON.stringify(instanceParams));
     return win;
   });
 });
 
 Cypress.Commands.add('getMarkdownInstance', () => {
-  return cy.window().then(win => {
+  return cy.window().then((win) => {
     return win.markdownEditor;
   });
 });
 
 Cypress.Commands.add('getRichTextField', () => {
-  return cy.window().then(win => {
+  return cy.window().then((win) => {
     return win.richTextField;
   });
 });

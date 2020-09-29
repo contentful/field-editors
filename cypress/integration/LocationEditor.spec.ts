@@ -1,3 +1,12 @@
+const LOCATION_1 = {
+  address: 'Platz der Deutschen Einheit 1, 20457 Hamburg, Germany',
+  value: { lon: 9.98413, lat: 53.54132 },
+};
+const LOCATION_2 = {
+  address: 'Max-Urich-Straße 1, 13355 Berlin, Germany',
+  value: { lon: 13.38379, lat: 52.53886 },
+};
+
 describe('Location Editor', () => {
   const selectors = {
     getAddressRadio: () => {
@@ -59,65 +68,64 @@ describe('Location Editor', () => {
 
     selectors.getCoordinatesRadio().click();
 
-    selectors.getLatitudeInput().type('53.54132', { delay: 0 });
+    selectors.getLatitudeInput().type(LOCATION_1.value.lat.toString(), { delay: 0 });
     cy.wait(500);
-    selectors.getLongitudeInput().type('9.98413', { delay: 0 });
+
+    cy.editorEvents().should('deep.equal', [
+      { id: 2, type: 'onValueChanged', value: { lon: 0, lat: LOCATION_1.value.lat } },
+      { id: 1, type: 'setValue', value: { lon: 0, lat: LOCATION_1.value.lat } },
+    ]);
+
+    selectors.getLongitudeInput().type(LOCATION_1.value.lon.toString(), { delay: 0 });
 
     selectors.getAddressRadio().click();
     cy.wait(500);
 
-    selectors
-      .getSearchInput()
-      .should('have.value', 'Platz der Deutschen Einheit 1, 20457 Hamburg, Germany');
+    selectors.getSearchInput().should('have.value', LOCATION_1.address);
 
-    cy.editorEvents().should('deep.equal', [
-      { id: 4, type: 'onValueChanged', value: { lon: 9.98413, lat: 53.54132 } },
-      { id: 3, type: 'setValue', value: { lon: 9.98413, lat: 53.54132 } },
-      { id: 2, type: 'onValueChanged', value: { lon: 0, lat: 53.54132 } },
-      { id: 1, type: 'setValue', value: { lon: 0, lat: 53.54132 } },
+    cy.editorEvents().should('have.length', 4);
+    cy.editorEvents(2).should('deep.equal', [
+      { id: 4, type: 'onValueChanged', value: LOCATION_1.value },
+      { id: 3, type: 'setValue', value: LOCATION_1.value },
     ]);
 
     selectors.getSearchInput().clear();
 
     cy.wait(500);
 
-    cy.editorEvents().should('deep.equal', [
+    cy.editorEvents().should('have.length', 6);
+    cy.editorEvents(2).should('deep.equal', [
       { id: 6, type: 'onValueChanged', value: undefined },
       { id: 5, type: 'removeValue', value: undefined },
-      { id: 4, type: 'onValueChanged', value: { lon: 9.98413, lat: 53.54132 } },
-      { id: 3, type: 'setValue', value: { lon: 9.98413, lat: 53.54132 } },
-      { id: 2, type: 'onValueChanged', value: { lon: 0, lat: 53.54132 } },
-      { id: 1, type: 'setValue', value: { lon: 0, lat: 53.54132 } },
     ]);
   });
 
   it('should set value after using search input', () => {
     cy.editorEvents().should('deep.equal', []);
 
-    selectors.getSearchInput().type('Max-Urich-Straße 1, 13355 Berlin, Germany');
+    selectors.getSearchInput().type(LOCATION_2.address);
     cy.wait(1000);
     selectors.getLocationSuggestion().click();
     cy.wait(500);
 
     selectors.getCoordinatesRadio().click();
 
-    selectors.getLatitudeInput().should('have.value', '52.53886');
-    selectors.getLongitudeInput().should('have.value', '13.38379');
+    selectors.getLatitudeInput().should('have.value', LOCATION_2.value.lat.toString());
+    selectors.getLongitudeInput().should('have.value', LOCATION_2.value.lon.toString());
 
     cy.editorEvents().should('deep.equal', [
-      { id: 2, type: 'onValueChanged', value: { lon: 13.38379, lat: 52.53886 } },
-      { id: 1, type: 'setValue', value: { lon: 13.38379, lat: 52.53886 } },
+      { id: 2, type: 'onValueChanged', value: LOCATION_2.value },
+      { id: 1, type: 'setValue', value: LOCATION_2.value },
     ]);
 
     selectors.getAddressRadio().click();
     selectors.getClearBtn().click();
     cy.wait(500);
 
-    cy.editorEvents().should('deep.equal', [
+    cy.editorEvents().should('have.length', 4);
+    cy.editorEvents(2).should('deep.equal', [
       { id: 4, type: 'onValueChanged', value: undefined },
       { id: 3, type: 'removeValue', value: undefined },
-      { id: 2, type: 'onValueChanged', value: { lon: 13.38379, lat: 52.53886 } },
-      { id: 1, type: 'setValue', value: { lon: 13.38379, lat: 52.53886 } },
     ]);
   });
 
