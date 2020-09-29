@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.3.3...@contentful/field-editor-reference@1.4.0) (2020-09-29)
+
+
+### Bug Fixes
+
+* 🐛 isInitiallyDisabled being null in examples ([#414](https://github.com/contentful/field-editors/issues/414)) ([df53405](https://github.com/contentful/field-editors/commit/df534055cfa64c533725cb5bca392a0a82e54be6))
+
+
+### Features
+
+* 🎸 introduce experimental CombinedAssetLinkActions ([#413](https://github.com/contentful/field-editors/issues/413)) ([39b5bfa](https://github.com/contentful/field-editors/commit/39b5bfa32336fdd87848d0a937fe70c2a13ca5ef))
+
+
+
+
+
 ## [1.3.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.3.2...@contentful/field-editor-reference@1.3.3) (2020-09-22)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
