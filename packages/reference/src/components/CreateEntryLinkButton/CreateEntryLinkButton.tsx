@@ -6,7 +6,7 @@ import { Icon, TextLink, Spinner } from '@contentful/forma-36-react-components';
 import tokens from '@contentful/forma-36-tokens';
 import { CreateEntryMenuTrigger, CreateCustomEntryMenuItems } from './CreateEntryMenuTrigger';
 
-const styles = {
+const standardStyles = {
   chevronIcon: css({
     float: 'right',
     marginLeft: tokens.spacingXs,
@@ -14,6 +14,14 @@ const styles = {
   }),
   spinnerMargin: css({
     marginRight: tokens.spacingXs,
+  }),
+  action: undefined,
+};
+const redesignStyles = {
+  ...standardStyles,
+  action: css({
+    textDecoration: 'none',
+    fontWeight: 'bold',
   }),
 };
 
@@ -24,6 +32,7 @@ interface CreateEntryLinkButtonProps {
   renderCustomDropdownItems?: CreateCustomEntryMenuItems;
   disabled?: boolean;
   hasPlusIcon: boolean;
+  useExperimentalStyles?: boolean;
   text?: string;
   testId?: string;
   dropdownSettings?: {
@@ -39,6 +48,7 @@ export const CreateEntryLinkButton = ({
   text,
   testId,
   hasPlusIcon,
+  useExperimentalStyles,
   suggestedContentTypeId,
   dropdownSettings,
   disabled,
@@ -51,11 +61,13 @@ export const CreateEntryLinkButton = ({
       'name',
       'entry'
     )}`;
-  // TODO: Introduce `icon: string` and remove `hasPlusIcon` or remove "Plus" if we keep new layout.
-  const plusIcon = !hasPlusIcon ? undefined : renderCustomDropdownItems ? 'PlusCircle' : 'Plus';
-  // TODO: Always use "New content" here if we fully switch to new layout.
-  const contentTypesLabel = renderCustomDropdownItems ? 'New content' : undefined;
   const hasDropdown = contentTypes.length > 1 || renderCustomDropdownItems;
+
+  // TODO: Introduce `icon: string` and remove `hasPlusIcon` or remove "Plus" if we keep new layout.
+  const plusIcon = !hasPlusIcon ? undefined : useExperimentalStyles ? 'PlusCircle' : 'Plus';
+  // TODO: Always use "New content" here if we fully switch to new layout.
+  const contentTypesLabel = useExperimentalStyles ? 'New content' : undefined;
+  const styles = useExperimentalStyles ? redesignStyles : standardStyles;
 
   return (
     <CreateEntryMenuTrigger
@@ -76,6 +88,7 @@ export const CreateEntryLinkButton = ({
             }}
             disabled={disabled || isSelecting || (contentTypes && contentTypes.length === 0)}
             icon={isSelecting ? undefined : plusIcon}
+            className={styles.action}
             testId="create-entry-link-button">
             {buttonText}
             {hasDropdown && (
