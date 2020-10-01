@@ -4,6 +4,7 @@ import { LinkEntityActions } from '../components';
 import {
   CustomActionProps,
   CustomEntryCardProps,
+  DefaultCardRenderer,
   ReferenceEditor,
   ReferenceEditorProps,
 } from './ReferenceEditor';
@@ -21,7 +22,7 @@ type ChildProps = {
   renderCustomCard?: (
     props: CustomEntryCardProps,
     linkActionsProps: CustomActionProps,
-    renderDefaultCard: (props?: CustomEntryCardProps) => React.ReactElement
+    renderDefaultCard: DefaultCardRenderer
   ) => React.ReactElement | false;
   hasCardEditActions: boolean;
 };

@@ -8,6 +8,7 @@ import {
   CustomActionProps,
   CustomEntryCardProps,
   ReferenceEditorProps,
+  DefaultCardRenderer,
 } from '../../common/ReferenceEditor';
 import get from 'lodash/get';
 import { WrappedEntryCardProps } from './WrappedEntryCard';
@@ -22,7 +23,7 @@ export type EntryCardReferenceEditorProps = ReferenceEditorProps & {
   renderCustomCard?: (
     props: CustomEntryCardProps,
     linkActionsProps: CustomActionProps,
-    renderDefaultCard: (props?: CustomEntryCardProps) => React.ReactElement
+    renderDefaultCard: DefaultCardRenderer
   ) => React.ReactElement | false;
   hasCardEditActions: boolean;
 };
