@@ -45,6 +45,11 @@ describe('Markdown Editor / Insert Special Character Dialog', () => {
     selectors.getInsertCharacterButton().click({ force: true });
   }
 
+  function insertSpecialCharacter(char: string) {
+    selectors.getSpecialCharacterButtons().findByText(char).click({ force: true });
+    selectors.getConfirmButton().click();
+  }
+
   it('should have correct title', () => {
     openDialog();
     selectors.getDialogTitle().should('have.text', 'Insert special character');
@@ -61,12 +66,10 @@ describe('Markdown Editor / Insert Special Character Dialog', () => {
     checkValue('');
     openDialog();
     selectors.getSpecialCharacterButtons().should('have.length', 54);
-    selectors.getSpecialCharacterButtons().eq(10).click({ force: true });
-    selectors.getConfirmButton().click();
+    insertSpecialCharacter('¼');
 
     openDialog();
-    selectors.getSpecialCharacterButtons().eq(30).click({ force: true });
-    selectors.getConfirmButton().click();
+    insertSpecialCharacter('€');
     checkValue('¼€');
   });
 
