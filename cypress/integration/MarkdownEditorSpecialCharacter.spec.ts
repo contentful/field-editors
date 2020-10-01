@@ -25,11 +25,11 @@ describe('Markdown Editor / Insert Special Character Dialog', () => {
     },
     getSpecialCharacterButtons() {
       return cy.findAllByTestId('special-character-button');
-    }
+    },
   };
 
-  const checkValue = value => {
-    cy.getMarkdownInstance().then(markdown => {
+  const checkValue = (value) => {
+    cy.getMarkdownInstance().then((markdown) => {
       expect(markdown.getContent()).eq(value);
     });
   };
@@ -42,7 +42,7 @@ describe('Markdown Editor / Insert Special Character Dialog', () => {
   });
 
   function openDialog() {
-    selectors.getInsertCharacterButton().click();
+    selectors.getInsertCharacterButton().click({ force: true });
   }
 
   it('should have correct title', () => {
@@ -61,17 +61,11 @@ describe('Markdown Editor / Insert Special Character Dialog', () => {
     checkValue('');
     openDialog();
     selectors.getSpecialCharacterButtons().should('have.length', 54);
-    selectors
-      .getSpecialCharacterButtons()
-      .eq(10)
-      .click();
+    selectors.getSpecialCharacterButtons().eq(10).click({ force: true });
     selectors.getConfirmButton().click();
 
     openDialog();
-    selectors
-      .getSpecialCharacterButtons()
-      .eq(30)
-      .click();
+    selectors.getSpecialCharacterButtons().eq(30).click({ force: true });
     selectors.getConfirmButton().click();
     checkValue('¼€');
   });

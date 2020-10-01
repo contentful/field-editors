@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@contentful/field-editor-shared": "^0.13.0",
-    "@contentful/forma-36-react-components": "^3.54.2",
+    "@contentful/forma-36-react-components": "^3.57.1",
     "@contentful/forma-36-tokens": "^0.8.0",
     "@contentful/mimetype": "^1.4.0",
     "array-move": "^3.0.0",

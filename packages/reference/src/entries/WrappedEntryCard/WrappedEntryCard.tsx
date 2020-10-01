@@ -25,7 +25,7 @@ export interface WrappedEntryCardProps {
   getEntityScheduledActions: SpaceAPI['getEntityScheduledActions'];
   getAsset: (assetId: string) => Promise<unknown>;
   entryUrl?: string;
-  size: 'small' | 'default';
+  size: 'small' | 'default' | 'auto';
   isDisabled: boolean;
   isSelected?: boolean;
   onRemove?: () => void;

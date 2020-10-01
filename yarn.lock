@@ -1818,16 +1818,18 @@
   dependencies:
     "@contentful/forma-36-tokens" "^0.7.1"
 
-"@contentful/forma-36-react-components@3.47.1", "@contentful/forma-36-react-components@^3.40.1", "@contentful/forma-36-react-components@^3.45.1", "@contentful/forma-36-react-components@^3.47.1", "@contentful/forma-36-react-components@^3.54.2":
-  version "3.47.1"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.47.1.tgz#98a8886a19bbc921190f467753128661d784ab8c"
-  integrity sha512-40Ym8zMMtWlGRH9fvWADIz+QeDCMu2iIIG2Qg8d1c7h7NG9ehosKmHPP0jQ+s27Kh2XWjCe7h/tMMHruWRtu2A==
+"@contentful/forma-36-react-components@3.57.1", "@contentful/forma-36-react-components@^3.40.1", "@contentful/forma-36-react-components@^3.45.1", "@contentful/forma-36-react-components@^3.47.1", "@contentful/forma-36-react-components@^3.57.1":
+  version "3.57.1"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.57.1.tgz#e9625cd4db3902ab76b9d25b023f86540e4c38b8"
+  integrity sha512-493CaYyq3Epo+mAc5Tlgi+xfCUugH7qwBYGTDglkBCaRu/+wXX3flgh1/LRI/mCEExz2zCzBKf7+RmEtZVKFEA==
   dependencies:
     "@babel/runtime" "^7.3.4"
+    "@popperjs/core" "^2.4.4"
     classnames "^2.2.6"
     react-animate-height "^2.0.7"
     react-copy-to-clipboard "^5.0.1"
     react-modal "3.6.1"
+    react-popper "^2.2.3"
     react-transition-group "^2.4.0"
     truncate "^2.0.1"
 
@@ -3487,6 +3489,11 @@
   dependencies:
     "@parcel/utils" "^1.11.0"
     physical-cpu-count "^2.0.0"
+
+"@popperjs/core@^2.4.4":
+  version "2.5.3"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.5.3.tgz#4982b0b66b7a4cf949b86f5d25a8cf757d3cfd9d"
+  integrity sha512-RFwCobxsvZ6j7twS7dHIZQZituMIDJJNHS/qY6iuthVebxS3zhRY+jaC2roEKiAYaVuTcGmX6Luc6YBcf6zJVg==
 
 "@productboard/slate-edit-list@^0.19.1":
   version "0.19.1"
@@ -17001,6 +17008,11 @@ react-error-overlay@^6.0.3:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.6.tgz#ac4d9dc4c1b5c536c2c312bf66aa2b09bfa384e2"
   integrity sha512-Yzpno3enVzSrSCnnljmr4b/2KUQSMZaPuqmS26t9k4nW7uwJk6STWmH9heNjPuvqUTO3jOSPkHoKgO4+Dw7uIw==
 
+react-fast-compare@^3.0.1:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-3.2.0.tgz#641a9da81b6a6320f270e89724fb45a0b39e43bb"
+  integrity sha512-rtGImPZ0YyLrscKI9xTpV8psd6I8VAtjKCzQDlzyDvqJA8XOW78TXYQwNRNd8g8JZnDu8q9Fu/1v4HPAVwVdHA==
+
 react-feather@^1.1.6:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/react-feather/-/react-feather-1.1.6.tgz#2a547e3d5cd5e383d3da0128d593cbdb3c1b32f7"
@@ -17066,6 +17078,14 @@ react-perfect-scrollbar@^1.5.0:
   dependencies:
     perfect-scrollbar "^1.5.0"
     prop-types "^15.6.1"
+
+react-popper@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/react-popper/-/react-popper-2.2.3.tgz#33d425fa6975d4bd54d9acd64897a89d904b9d97"
+  integrity sha512-mOEiMNT1249js0jJvkrOjyHsGvqcJd3aGW/agkiMoZk3bZ1fXN1wQszIQSjHIai48fE67+zwF8Cs+C4fWqlfjw==
+  dependencies:
+    react-fast-compare "^3.0.1"
+    warning "^4.0.2"
 
 react-simple-code-editor@^0.9.0:
   version "0.9.15"
@@ -21085,7 +21105,7 @@ warning@^3.0.0:
   dependencies:
     loose-envify "^1.0.0"
 
-warning@^4.0.3:
+warning@^4.0.2, warning@^4.0.3:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/warning/-/warning-4.0.3.tgz#16e9e077eb8a86d6af7d64aa1e05fd85b4678ca3"
   integrity sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==
