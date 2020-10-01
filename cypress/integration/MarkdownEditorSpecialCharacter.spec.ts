@@ -42,6 +42,7 @@ describe('Markdown Editor / Insert Special Character Dialog', () => {
   });
 
   function openDialog() {
+    // we need to force the click here as a tooltip covers it
     selectors.getInsertCharacterButton().click({ force: true });
   }
 
