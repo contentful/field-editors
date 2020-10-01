@@ -59,11 +59,11 @@ function Editor(props: EditorProps) {
     onLink,
   });
   const customCardRenderer = useCallback(
-    (cardProps: CustomEntryCardProps, linkActionsProps, renderDefaultCard) =>
+    (cardProps: CustomEntryCardProps, _, renderDefaultCard) =>
       props.renderCustomCard
         ? props.renderCustomCard(cardProps, linkActionsProps, renderDefaultCard)
         : false,
-    []
+    [linkActionsProps]
   );
 
   if (!props.entityId) {
