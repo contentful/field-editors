@@ -46,7 +46,7 @@ describe('Markdown Editor / Insert Special Character Dialog', () => {
   }
 
   function insertSpecialCharacter(char: string) {
-    selectors.getSpecialCharacterButtons().findByText(char).click({ force: true });
+    selectors.getSpecialCharacterButtons().findByText(char).click();
     selectors.getConfirmButton().click();
   }
 
