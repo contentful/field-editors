@@ -20,7 +20,8 @@ type ChildProps = {
   allContentTypes: ContentType[];
   renderCustomCard?: (
     props: CustomEntryCardProps,
-    linkActionsProps: CustomActionProps
+    linkActionsProps: CustomActionProps,
+    renderDefaultCard: (props?: CustomEntryCardProps) => React.ReactElement
   ) => React.ReactElement | false;
   hasCardEditActions: boolean;
 };
@@ -57,9 +58,11 @@ function Editor(props: EditorProps) {
     onLink,
   });
   const customCardRenderer = useCallback(
-    (cardProps: CustomEntryCardProps) =>
-      props.renderCustomCard ? props.renderCustomCard(cardProps, linkActionsProps) : false,
-    [linkActionsProps]
+    (cardProps: CustomEntryCardProps, linkActionsProps, renderDefaultCard) =>
+      props.renderCustomCard
+        ? props.renderCustomCard(cardProps, linkActionsProps, renderDefaultCard)
+        : false,
+    []
   );
 
   if (!props.entityId) {

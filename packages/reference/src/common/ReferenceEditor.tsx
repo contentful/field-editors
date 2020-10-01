@@ -18,7 +18,8 @@ export interface ReferenceEditorProps {
   viewType: ViewType;
   renderCustomCard?: (
     props: CustomEntryCardProps,
-    linkActionsProps: CustomActionProps
+    linkActionsProps: CustomActionProps,
+    renderDefaultCard: (props?: CustomEntryCardProps) => React.ReactElement
   ) => React.ReactElement | false;
   renderCustomActions?: (props: CustomActionProps) => React.ReactElement;
   getEntityUrl?: (entryId: string) => string;
