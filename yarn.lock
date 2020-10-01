@@ -1818,7 +1818,7 @@
   dependencies:
     "@contentful/forma-36-tokens" "^0.7.1"
 
-"@contentful/forma-36-react-components@3.57.1", "@contentful/forma-36-react-components@^3.40.1", "@contentful/forma-36-react-components@^3.45.1", "@contentful/forma-36-react-components@^3.47.1", "@contentful/forma-36-react-components@^3.54.2":
+"@contentful/forma-36-react-components@3.57.1", "@contentful/forma-36-react-components@^3.40.1", "@contentful/forma-36-react-components@^3.45.1", "@contentful/forma-36-react-components@^3.47.1", "@contentful/forma-36-react-components@^3.57.1":
   version "3.57.1"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.57.1.tgz#e9625cd4db3902ab76b9d25b023f86540e4c38b8"
   integrity sha512-493CaYyq3Epo+mAc5Tlgi+xfCUugH7qwBYGTDglkBCaRu/+wXX3flgh1/LRI/mCEExz2zCzBKf7+RmEtZVKFEA==
