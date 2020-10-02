@@ -58,7 +58,6 @@ again to showcase inserting another reference rendered by the stardard card rend
 
 <Playground>
   {() => {
-    const isInitiallyDisabled = !!window.localStorage.getItem('initialDisabled');
     const instanceParams = window.localStorage.getItem('instanceParams');
     const [sdk, mitt] = newReferenceEditorFakeSdk();
     return (
@@ -83,6 +82,35 @@ again to showcase inserting another reference rendered by the stardard card rend
             }
           }}
          />
+        <ActionsPlayground mitt={mitt} />
+      </div>
+    );
+  }}
+</Playground>
+
+
+## With custom card relying on default card
+
+<Playground>
+  {() => {
+    const instanceParams = window.localStorage.getItem('instanceParams');
+    const [sdk, mitt] = newReferenceEditorFakeSdk();
+    return (
+      <div data-test-id="custom-card-using-default">
+        <SingleEntryReferenceEditor
+          renderCustomCard={(props, _, renderDefaultCard) => {
+            return renderDefaultCard({size: 'small'}) 
+          }}
+          viewType="card"
+          sdk={sdk}
+          isInitiallyDisabled={false}
+          parameters={{
+            instance: instanceParams || {
+              canCreateEntity: true,
+              canLinkEntity: true
+            }
+          }}
+        />
         <ActionsPlayground mitt={mitt} />
       </div>
     );

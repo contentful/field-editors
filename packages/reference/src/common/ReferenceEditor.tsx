@@ -18,7 +18,8 @@ export interface ReferenceEditorProps {
   viewType: ViewType;
   renderCustomCard?: (
     props: CustomEntryCardProps,
-    linkActionsProps: CustomActionProps
+    linkActionsProps: CustomActionProps,
+    renderDefaultCard: DefaultCardRenderer
   ) => React.ReactElement | false;
   renderCustomActions?: (props: CustomActionProps) => React.ReactElement;
   getEntityUrl?: (entryId: string) => string;
@@ -50,6 +51,8 @@ export type CustomEntryCardProps = {
   onEdit?: () => void;
   onRemove?: () => void;
 };
+
+export type DefaultCardRenderer = (props?: CustomEntryCardProps) => React.ReactElement;
 
 export function ReferenceEditor<T>(
   props: ReferenceEditorProps & {

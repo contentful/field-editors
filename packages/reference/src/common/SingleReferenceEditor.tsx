@@ -4,6 +4,7 @@ import { LinkEntityActions } from '../components';
 import {
   CustomActionProps,
   CustomEntryCardProps,
+  DefaultCardRenderer,
   ReferenceEditor,
   ReferenceEditorProps,
 } from './ReferenceEditor';
@@ -20,7 +21,8 @@ type ChildProps = {
   allContentTypes: ContentType[];
   renderCustomCard?: (
     props: CustomEntryCardProps,
-    linkActionsProps: CustomActionProps
+    linkActionsProps: CustomActionProps,
+    renderDefaultCard: DefaultCardRenderer
   ) => React.ReactElement | false;
   hasCardEditActions: boolean;
 };
@@ -57,8 +59,10 @@ function Editor(props: EditorProps) {
     onLink,
   });
   const customCardRenderer = useCallback(
-    (cardProps: CustomEntryCardProps) =>
-      props.renderCustomCard ? props.renderCustomCard(cardProps, linkActionsProps) : false,
+    (cardProps: CustomEntryCardProps, _, renderDefaultCard) =>
+      props.renderCustomCard
+        ? props.renderCustomCard(cardProps, linkActionsProps, renderDefaultCard)
+        : false,
     [linkActionsProps]
   );
 

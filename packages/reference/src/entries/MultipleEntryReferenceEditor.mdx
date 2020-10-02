@@ -123,3 +123,34 @@ Note the alternative link actions injected via the `renderCustomActions` prop.
 ## Props
 
 <Props of={MultipleEntryReferenceEditor} />
+
+
+## With custom card relying on default card
+
+
+<Playground>
+  {() => {
+    const isInitiallyDisabled = !!window.localStorage.getItem('initialDisabled');
+    const instanceParams = window.localStorage.getItem('instanceParams');
+    const [sdk, mitt] = newReferenceEditorFakeSdk();
+    return (
+      <div data-test-id="multiple-references-editor-custom-cards-with-default-integration-test">
+        <MultipleEntryReferenceEditor
+          renderCustomCard={(props, _, renderDefaultCard) => {
+            return renderDefaultCard({size: 'small'}) 
+          }}
+          viewType="link"
+          sdk={sdk}
+          isInitiallyDisabled={isInitiallyDisabled}
+          parameters={{
+            instance: instanceParams || {
+              canCreateEntity: true,
+              canLinkEntity: true
+            }
+          }}
+        />
+        <ActionsPlayground mitt={mitt} />
+      </div>
+    );
+  }}
+</Playground>
