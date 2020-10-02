@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Dropdown, DropdownListItem, Icon, TextLink } from '@contentful/forma-36-react-components';
-import * as styles from './styles';
+import * as styles from './redesignStyles';
 import { CreateEntryLinkButton } from '../CreateEntryLinkButton/CreateEntryLinkButton';
 import { testIds as sharedTextIds, LinkActionsProps } from './LinkActions';
 
@@ -21,7 +21,7 @@ export function CombinedLinkActions(props: LinkActionsProps) {
   //  are already assets linked (in case of entries, always show it) as the
   //  border wouldn't be nicely aligned with asset cards.
   return (
-    <div className={styles.spaciousContainer}>
+    <div className={styles.container}>
       {props.entityType === 'Entry' && <CombinedEntryLinkActions {...props} />}
       {props.entityType === 'Asset' && <CombinedAssetLinkActions {...props} />}
     </div>
@@ -37,6 +37,7 @@ function CombinedEntryLinkActions(props: LinkActionsProps) {
         text="Add content"
         contentTypes={props.contentTypes}
         hasPlusIcon={true}
+        useExperimentalStyles={true}
         onSelect={(contentTypeId) => {
           return contentTypeId ? props.onCreate(contentTypeId) : Promise.resolve();
         }}
@@ -61,6 +62,7 @@ function CombinedEntryLinkActions(props: LinkActionsProps) {
       <TextLink
         disabled={props.isDisabled}
         testId={testIds.linkExisting}
+        className={styles.action}
         onClick={() => {
           props.onLinkExisting();
         }}
@@ -82,6 +84,7 @@ function CombinedAssetLinkActions(props: LinkActionsProps) {
         <TextLink
           disabled={props.isDisabled}
           testId={testIds.linkExisting}
+          className={styles.action}
           onClick={() => {
             props.onLinkExisting();
           }}
@@ -96,12 +99,13 @@ function CombinedAssetLinkActions(props: LinkActionsProps) {
         <TextLink
           disabled={props.isDisabled}
           testId={testIds.createAndLink}
+          className={styles.action}
           onClick={() => {
             props.onCreate();
           }}
           linkType="primary"
           icon="PlusCircle">
-          Add new media
+          Add media
         </TextLink>
       );
     }
@@ -119,6 +123,7 @@ function CombinedAssetLinkActions(props: LinkActionsProps) {
           <TextLink
             disabled={props.isDisabled}
             testId={testIds.actionsWrapper}
+            className={styles.action}
             onClick={() => {
               setOpen(!isOpen);
             }}
