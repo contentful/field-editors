@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.6.0...@contentful/field-editor-reference@1.7.0) (2020-10-02)
+
+
+### Features
+
+* 🎸 pass renderDefaultCard to renderCustomCard ([#430](https://github.com/contentful/field-editors/issues/430)) ([fcae1d5](https://github.com/contentful/field-editors/commit/fcae1d5dc1423df1b4c4b346cdeee3ed9f2e6340))
+
+
+
+
+
 # [1.6.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.5.1...@contentful/field-editor-reference@1.6.0) (2020-10-02)
 
 
