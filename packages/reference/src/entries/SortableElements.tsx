@@ -8,7 +8,7 @@ import { SortableContainer, SortableElement, SortableHandle } from 'react-sortab
 import { CardDragHandle } from '@contentful/forma-36-react-components';
 
 const styles = {
-  containter: css({
+  container: css({
     position: 'relative',
   }),
   item: css({
@@ -30,7 +30,7 @@ const SortableLink = SortableElement((props: { children: React.ReactElement }) =
 ));
 
 export const SortableLinkList = SortableContainer((props: SortableLinkListProps) => (
-  <div className={styles.containter}>
+  <div className={styles.container}>
     {props.items.map((item, index) => (
       <SortableLink disabled={props.isDisabled} key={`${item.sys.id}-${index}`} index={index}>
         <FetchingWrappedEntryCard
