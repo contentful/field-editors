@@ -12,6 +12,7 @@ export interface LinkActionsProps {
   canLinkMultiple: boolean;
   isDisabled: boolean;
   isFull: boolean;
+  isEmpty: boolean;
   onCreate: (contentType?: string) => Promise<unknown>;
   onLinkExisting: () => void;
   actionLabels?: Partial<ActionLabels>;
