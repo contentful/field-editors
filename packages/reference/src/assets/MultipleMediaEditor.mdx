@@ -16,81 +16,14 @@ import { MultipleMediaEditor } from '@contentful/field-editor-reference';
 import { Playground, Props } from 'docz';
 import { MultipleMediaEditor } from './MultipleMediaEditor.tsx'
 import { CombinedLinkActions } from '../../src';
-import { createFakeFieldAPI, createFakeSpaceAPI, createFakeLocalesAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
-import { TextLink } from '@contentful/forma-36-react-components';
-import emptyAsset from '../__fixtures__/empty_asset.json';
-import publishedAsset from '../__fixtures__/published_asset.json';
-import changedAsset from '../__fixtures__/changed_asset.json';
+import { ActionsPlayground } from '@contentful/field-editor-test-utils';
+import { newReferenceEditorFakeSdk } from '../__fixtures__/FakeSdk';
 
 ## In Action
 
 <Playground>
   {() => {
-    const initialValue = window.localStorage.getItem('initialValue');
-    const isInitiallyDisabled = !!window.localStorage.getItem('initialDisabled');
-    const instanceParams = window.localStorage.getItem('instanceParams');
-    const [field, mitt] = createFakeFieldAPI(field => field, initialValue);
-    const space = createFakeSpaceAPI();
-    const locales = createFakeLocalesAPI();
-    const sdk = {
-      field,
-      locales,
-      space: {
-        ...space,
-        getAsset: (id) => {
-          if (id === 'empty_asset') {
-            return Promise.resolve(emptyAsset);
-          }
-          if (id === 'published_asset') {
-            return Promise.resolve(publishedAsset);
-          }
-          if (id === 'changed_asset') {
-            return Promise.resolve(changedAsset);
-          }
-          return Promise.reject();
-        },
-      },
-      dialogs: {
-        selectMultipleAssets: () => {
-          return [
-            {
-              sys: {
-                id: 'published_asset'
-              }
-            },
-            {
-              sys: {
-                id: 'changed_asset'
-              }
-            }
-          ]
-        }
-      },
-      navigator: {
-        openNewAsset: async () => {
-          return {
-            entity: {
-              sys: {
-                id: 'empty_asset'
-              }
-            }
-          }
-        },
-        openAsset: () => {
-          alert('open Asset in slide in');
-          return Promise.resolve({});
-        },
-        onSlideInNavigation: () => () => {}
-      },
-      access: {
-        can: (access, entityType) => {
-          if (access === 'create' && entityType === 'Asset') {
-            return Promise.resolve(true);
-          }
-          return Promise.resolve(false);
-        }
-      }
-    };
+    const [sdk, mitt] = newReferenceEditorFakeSdk();
     return (
       <div data-test-id="multiple-media-editor-integration-test">
         <MultipleMediaEditor
@@ -107,7 +40,6 @@ import changedAsset from '../__fixtures__/changed_asset.json';
         <ActionsPlayground mitt={mitt} />
       </div>
     );
-
 }}
 
 </Playground>
@@ -119,64 +51,7 @@ Note the alternative link actions injected via the `renderCustomActions` prop.
 
 <Playground>
   {() => {
-    const initialValue = window.localStorage.getItem('initialValue');
-    const isInitiallyDisabled = !!window.localStorage.getItem('initialDisabled');
-    const instanceParams = window.localStorage.getItem('instanceParams');
-    const [field, mitt] = createFakeFieldAPI(field => field, initialValue);
-    const space = createFakeSpaceAPI();
-    const locales = createFakeLocalesAPI();
-    const sdk = {
-      field,
-      locales,
-      space: {
-        ...space,
-        getAsset: (id) => {
-          if (id === 'published_asset') {
-            return Promise.resolve(publishedAsset);
-          }
-          if (id === 'changed_asset') {
-            return Promise.resolve(changedAsset);
-          }
-
-          return Promise.reject();
-        },
-      },
-      dialogs: {
-        selectMultipleAssets: () => {
-          return [
-            {
-              sys: {
-                id: 'published_asset'
-              }
-            },
-            {
-              sys: {
-                id: 'changed_asset'
-              }
-            }
-          ]
-        }
-      },
-      navigator: {
-        openAsset: () => {
-          alert('open Asset in slide in');
-          return Promise.resolve({});
-        },
-        openNewAsset: async () => {
-          return {
-            entity: {
-              sys: {
-                id: 'changed_asset',
-              },
-            },
-          };
-        },
-        onSlideInNavigation: () => () => {}
-      },
-      access: {
-        can: () => Promise.resolve(true)
-      }
-    };
+    const [sdk, mitt] = newReferenceEditorFakeSdk();
     return (
       <div data-test-id="multiple-media-editor-custom-actions-integration-test">
         <MultipleMediaEditor
@@ -194,7 +69,6 @@ Note the alternative link actions injected via the `renderCustomActions` prop.
         <ActionsPlayground mitt={mitt} />
       </div>
     );
-
 }}
 
 </Playground>

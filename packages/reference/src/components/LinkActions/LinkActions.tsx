@@ -11,6 +11,7 @@ export interface LinkActionsProps {
   canLinkEntity: boolean;
   canLinkMultiple: boolean;
   isDisabled: boolean;
+  isFull: boolean;
   onCreate: (contentType?: string) => Promise<unknown>;
   onLinkExisting: () => void;
   actionLabels?: Partial<ActionLabels>;
@@ -36,6 +37,9 @@ export const testIds = {
 };
 
 export function LinkActions(props: LinkActionsProps) {
+  if (props.isFull) {
+    return null; // Don't render link actions if we reached max allowed links.
+  }
   const defaultLabels = props.entityType === 'Entry' ? defaultEntryLabels : defaultAssetLabels;
   const labels = {
     ...defaultLabels,

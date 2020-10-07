@@ -35,7 +35,7 @@ Cypress.Commands.add('setGoogleMapsKey', () => {
 
 Cypress.Commands.add('setInitialValue', (initialValue) => {
   return cy.window().then((win) => {
-    win.localStorage.setItem('initialValue', initialValue);
+    win.localStorage.setItem('initialValue', JSON.stringify(initialValue));
     return win;
   });
 });
@@ -43,6 +43,13 @@ Cypress.Commands.add('setInitialValue', (initialValue) => {
 Cypress.Commands.add('setInitialDisabled', (initialDisabled) => {
   return cy.window().then((win) => {
     win.localStorage.setItem('initialDisabled', initialDisabled);
+    return win;
+  });
+});
+
+Cypress.Commands.add('setFieldValidations', (validations) => {
+  return cy.window().then((win) => {
+    win.localStorage.setItem('fieldValidations', JSON.stringify(validations));
     return win;
   });
 });

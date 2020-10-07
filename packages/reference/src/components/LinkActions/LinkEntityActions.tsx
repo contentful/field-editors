@@ -40,6 +40,10 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
         })
       : props.allContentTypes;
   }
+  const maxLinksCount = validations.numberOfLinks?.max;
+  const value = sdk.field.getValue();
+  const linkCount = Array.isArray(value) ? value.length : value ? 1 : 0;
+  const isFull = !!maxLinksCount && maxLinksCount <= linkCount;
 
   const onCreate = React.useCallback(
     async (contentTypeId?: string) => {
@@ -88,6 +92,7 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
       entityType,
       canLinkMultiple,
       isDisabled,
+      isFull,
       canCreateEntity,
       canLinkEntity,
       contentTypes: availableContentTypes,
@@ -99,6 +104,7 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
       entityType,
       canLinkMultiple,
       isDisabled,
+      isFull,
       canCreateEntity,
       canLinkEntity,
       actionLabels,

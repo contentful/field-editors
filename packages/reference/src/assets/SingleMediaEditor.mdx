@@ -15,70 +15,15 @@ import { SingleMediaEditor } from '@contentful/field-editor-reference';
 
 import { Playground, Props } from 'docz';
 import { SingleMediaEditor } from './SingleMediaEditor.tsx'
-import { createFakeFieldAPI, createFakeSpaceAPI, createFakeLocalesAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
 import { TextLink } from '@contentful/forma-36-react-components';
-import emptyAsset from '../__fixtures__/empty_asset.json';
-import publishedAsset from '../__fixtures__/published_asset.json';
+import { ActionsPlayground } from '@contentful/field-editor-test-utils';
+import { newReferenceEditorFakeSdk } from '../__fixtures__/FakeSdk';
 
 ## In Action
 
 <Playground>
   {() => {
-    const initialValue = window.localStorage.getItem('initialValue');
-    const isInitiallyDisabled = !!window.localStorage.getItem('initialDisabled');
-    const instanceParams = window.localStorage.getItem('instanceParams');
-    const [field, mitt] = createFakeFieldAPI(field => field, initialValue);
-    const space = createFakeSpaceAPI();
-    const locales = createFakeLocalesAPI();
-    const sdk = {
-      field,
-      locales,
-      space: {
-        ...space,
-        getAsset: (id) => {
-          if (id === 'empty_asset') {
-            return Promise.resolve(emptyAsset);
-          }
-          if (id === 'published_asset') {
-            return Promise.resolve(publishedAsset);
-          }
-          return Promise.reject();
-        },
-      },
-      dialogs: {
-        selectSingleAsset: () => {
-          return {
-            sys: {
-              id: 'published_asset'
-            }
-          }
-        }
-      },
-      navigator: {
-        openNewAsset: async () => {
-          return {
-            entity: {
-              sys: {
-                id: 'empty_asset'
-              }
-            }
-          }
-        },
-        openAsset: () => {
-          alert('open asset in slide in');
-          return Promise.resolve({});
-        },
-        onSlideInNavigation: () => () => {}
-      },
-      access: {
-        can: (access, entityType) => {
-          if (access === 'create' && entityType === 'Asset') {
-            return Promise.resolve(true);
-          }
-          return Promise.resolve(false);
-        }
-      }
-    };
+    const [sdk, mitt] = newReferenceEditorFakeSdk();
     return (
       <div>
         <SingleMediaEditor
@@ -95,7 +40,6 @@ import publishedAsset from '../__fixtures__/published_asset.json';
         <ActionsPlayground mitt={mitt} />
       </div>
     );
-
 }}
 
 </Playground>
@@ -107,43 +51,7 @@ Note the alternative link actions injected via the `renderCustomActions` prop.
 
 <Playground>
   {() => {
-    const initialValue = window.localStorage.getItem('initialValue');
-    const isInitiallyDisabled = !!window.localStorage.getItem('initialDisabled');
-    const instanceParams = window.localStorage.getItem('instanceParams');
-    const [field, mitt] = createFakeFieldAPI(field => field, initialValue);
-    const space = createFakeSpaceAPI();
-    const locales = createFakeLocalesAPI();
-    const sdk = {
-      field,
-      locales,
-      space: {
-        ...space,
-        getAsset: (id) => {
-          if (id === 'empty_asset') {
-            return Promise.resolve(emptyAsset);
-          }
-          if (id === 'published_asset') {
-            return Promise.resolve(publishedAsset);
-          }
-          return Promise.reject();
-        },
-      },
-      dialogs: {
-        selectSingleAsset: () => {
-          return {
-            sys: {
-              id: 'published_asset'
-            }
-          }
-        }
-      },
-      navigator: {
-        onSlideInNavigation: () => () => {}
-      },
-      access: {
-        can: () => Promise.resolve(true)
-      }
-    };
+    const [sdk, mitt] = newReferenceEditorFakeSdk();
     return (
       <div>
         <SingleMediaEditor
@@ -168,7 +76,6 @@ Note the alternative link actions injected via the `renderCustomActions` prop.
         <ActionsPlayground mitt={mitt} />
       </div>
     );
-
 }}
 
 </Playground>
