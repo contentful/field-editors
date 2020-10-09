@@ -3,31 +3,41 @@ import {
   createFakeLocalesAPI,
   createFakeSpaceAPI,
 } from '@contentful/field-editor-test-utils';
+import { FieldAPI, Link } from 'contentful-ui-extensions-sdk';
 import emptyEntry from './empty_entry.json';
 import publishedEntry from './published_entry.json';
 import changedEntry from './changed_entry.json';
+import emptyAsset from './empty_asset.json';
+import publishedAsset from './published_asset.json';
+import changedAsset from './changed_asset.json';
 
+const newLink = (linkType: string, id: string): Link => ({
+  sys: {
+    id,
+    linkType,
+    type: 'Link',
+  },
+});
 export function newReferenceEditorFakeSdk() {
-  const initialValue = window.localStorage.getItem('initialValue');
-  const [field, mitt] = createFakeFieldAPI((field) => field, initialValue);
+  const rawInitialValue = window.localStorage.getItem('initialValue');
+  const initialValue = rawInitialValue ? JSON.parse(rawInitialValue) : undefined;
+  const rawValidations = window.localStorage.getItem('fieldValidations');
+  const validations = rawValidations ? JSON.parse(rawValidations) : undefined;
+  const customizeMock = (field: FieldAPI): FieldAPI => {
+    return validations ? { ...field, validations } : field;
+  };
+  const [field, mitt] = createFakeFieldAPI(customizeMock, initialValue);
   const space = createFakeSpaceAPI();
   const locales = createFakeLocalesAPI();
-  const links = [
-    {
-      sys: {
-        id: 'published_entry',
-      },
-    },
-    {
-      sys: {
-        id: 'changed_entry',
-      },
-    },
-    {
-      sys: {
-        id: 'empty_entry',
-      },
-    },
+  const entryLinks = [
+    newLink('Entry', publishedEntry.sys.id),
+    newLink('Entry', changedEntry.sys.id),
+    newLink('Entry', emptyEntry.sys.id),
+  ];
+  const assetLinks = [
+    newLink('Asset', publishedAsset.sys.id),
+    newLink('Asset', changedAsset.sys.id),
+    newLink('Asset', emptyAsset.sys.id),
   ];
   let selectorCounter = 0;
   const sdk = {
@@ -35,14 +45,26 @@ export function newReferenceEditorFakeSdk() {
     locales,
     space: {
       ...space,
+      getAsset: async (id: string) => {
+        if (id === emptyAsset.sys.id) {
+          return emptyAsset;
+        }
+        if (id === publishedAsset.sys.id) {
+          return publishedAsset;
+        }
+        if (id === changedAsset.sys.id) {
+          return changedAsset;
+        }
+        return Promise.reject();
+      },
       getEntry: async (id: string) => {
-        if (id === 'empty_entry') {
+        if (id === emptyEntry.sys.id) {
           return emptyEntry;
         }
-        if (id === 'published_entry') {
+        if (id === publishedEntry.sys.id) {
           return publishedEntry;
         }
-        if (id === 'changed_entry') {
+        if (id === changedEntry.sys.id) {
           return changedEntry;
         }
         return Promise.reject();
@@ -52,28 +74,44 @@ export function newReferenceEditorFakeSdk() {
       },
     },
     dialogs: {
+      selectSingleAsset: () => {
+        selectorCounter++;
+        return assetLinks[selectorCounter % assetLinks.length];
+      },
+      selectMultipleAssets: () => {
+        selectorCounter++;
+        return selectorCounter % 2 ? assetLinks.slice(0, 2) : [assetLinks[2]];
+      },
       selectSingleEntry: () => {
         selectorCounter++;
-        return links[selectorCounter % links.length];
+        return entryLinks[selectorCounter % entryLinks.length];
       },
       selectMultipleEntries: () => {
         selectorCounter++;
-        return selectorCounter % 2 ? links.slice(0, 2) : [links[2]];
+        return selectorCounter % 2 ? entryLinks.slice(0, 2) : [entryLinks[2]];
       },
     },
     navigator: {
+      openNewAsset: async () => ({
+        entity: newLink('Asset', emptyAsset.sys.id),
+      }),
+      openAsset: async () => {
+        alert('open Asset in slide in');
+        return {};
+      },
       openNewEntry: async () => ({
-        entity: {
-          sys: {
-            id: 'empty_entry',
-          },
-        },
+        entity: newLink('Entry', emptyEntry.sys.id),
       }),
       openEntry: async () => {
         alert('open entry in slide in');
         return {};
       },
       onSlideInNavigation: () => () => ({}),
+    },
+    access: {
+      can: async (access: string, entityType: string) => {
+        return access === 'create' && entityType === 'Asset';
+      },
     },
   };
   return [sdk, mitt];

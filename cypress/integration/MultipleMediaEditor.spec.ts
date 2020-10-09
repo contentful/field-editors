@@ -1,6 +1,8 @@
 describe('Multiple Media Editor', () => {
+  const openPage = () => cy.visit('/media-multiple');
+
   beforeEach(() => {
-    cy.visit('/media-multiple');
+    openPage();
   });
 
   const findCreateAndLinkBtn = (parent: Cypress.Chainable) =>
@@ -35,6 +37,8 @@ describe('Multiple Media Editor', () => {
 
   describe('custom actions injected actions dropdown', () => {
     beforeEach(() => {
+      cy.setFieldValidations([{ size: { max: 2 } }]);
+      openPage();
       cy.findByTestId('multiple-media-editor-custom-actions-integration-test').as('wrapper');
     });
 
@@ -46,6 +50,13 @@ describe('Multiple Media Editor', () => {
       findCustomActionsDropdownTrigger(cy.get('@wrapper')).click();
       findLinkExistingBtn(findCustomActionsDropdown()).click();
       findCards(cy.get('body')).should('have.length', 2);
+    });
+
+    it('hides actions when max number of allowed links is reached', () => {
+      findCustomActionsDropdownTrigger(cy.get('@wrapper')).click();
+      findLinkExistingBtn(findCustomActionsDropdown()).click();
+      findCards(cy.get('body')).should('have.length', 2);
+      findCustomActionsDropdownTrigger(cy.get('@wrapper')).should('not.be.visible');
     });
   });
 });

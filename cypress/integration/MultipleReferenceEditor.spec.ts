@@ -1,6 +1,8 @@
 describe('Multiple Reference Editor', () => {
+  const openPage = () => cy.visit('/reference-multiple');
+
   beforeEach(() => {
-    cy.visit('/reference-multiple');
+    openPage();
   });
 
   const getWrapper = () =>
@@ -24,5 +26,13 @@ describe('Multiple Reference Editor', () => {
     findLinkExistingBtn().click(); // Inserts another card using standard card renderer.
     findDefaultCards().should('have.length', 1);
     findCustomCards().should('have.length', 2);
+  });
+
+  it('hides actions when max number of allowed links is reached', () => {
+    cy.setFieldValidations([{ size: { max: 3 } }]);
+    openPage();
+    findLinkExistingBtn().click();
+    findLinkExistingBtn().click(); // inserts 2 cards
+    findLinkExistingBtn().should('not.be.visible'); // limit reached, button hidden.
   });
 });
