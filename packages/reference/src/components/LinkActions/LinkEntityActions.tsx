@@ -44,6 +44,7 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
   const value = sdk.field.getValue();
   const linkCount = Array.isArray(value) ? value.length : value ? 1 : 0;
   const isFull = !!maxLinksCount && maxLinksCount <= linkCount;
+  const isEmpty = linkCount === 0;
 
   const onCreate = React.useCallback(
     async (contentTypeId?: string) => {
@@ -92,6 +93,7 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
       entityType,
       canLinkMultiple,
       isDisabled,
+      isEmpty,
       isFull,
       canCreateEntity,
       canLinkEntity,
@@ -104,6 +106,7 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
       entityType,
       canLinkMultiple,
       isDisabled,
+      isEmpty,
       isFull,
       canCreateEntity,
       canLinkEntity,

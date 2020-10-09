@@ -20,11 +20,12 @@ export function CombinedLinkActions(props: LinkActionsProps) {
   if (props.isFull) {
     return null; // Don't render link actions if we reached max allowed links.
   }
-  // TODO: We don't want to render a spacious container in case there are
-  //  are already assets linked (in case of entries, always show it) as the
-  //  border wouldn't be nicely aligned with asset cards.
+  // We don't want to render a spacious container in case there are are already
+  // assets linked (in case of entries, always show it) as the border wouldn't be
+  // nicely aligned with asset cards.
+  const hideEmptyCard = props.entityType === 'Asset' && !props.isEmpty;
   return (
-    <div className={styles.container}>
+    <div className={hideEmptyCard ? '' : styles.container}>
       {props.entityType === 'Entry' && <CombinedEntryLinkActions {...props} />}
       {props.entityType === 'Asset' && <CombinedAssetLinkActions {...props} />}
     </div>
