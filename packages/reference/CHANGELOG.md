@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.8.0...@contentful/field-editor-reference@1.9.0) (2020-10-09)
+
+
+### Features
+
+* 🎸 hide CombinedLinkActions asset card on non‐empty field ([#438](https://github.com/contentful/field-editors/issues/438)) ([7fb1c2a](https://github.com/contentful/field-editors/commit/7fb1c2ad0fd47a2befad019da98bf2031f8cc8ce))
+
+
+
+
+
 # [1.8.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.7.0...@contentful/field-editor-reference@1.8.0) (2020-10-09)
 
 
