@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.8.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.7.0...@contentful/field-editor-reference@1.8.0) (2020-10-09)
+
+
+### Features
+
+* 🎸 do not show link actions on full reference/media fields ([#437](https://github.com/contentful/field-editors/issues/437)) ([4d11496](https://github.com/contentful/field-editors/commit/4d11496acda86046710e650948b7d87c97925205))
+
+
+
+
+
 # [1.7.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.6.0...@contentful/field-editor-reference@1.7.0) (2020-10-02)
 
 
