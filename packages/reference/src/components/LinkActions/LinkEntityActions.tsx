@@ -14,8 +14,8 @@ type LinkEntityActionsProps = {
   canCreateEntity: boolean;
   canLinkEntity: boolean;
   validations: ReferenceValidations;
-  onCreate: (id: string) => void;
-  onLink: (ids: string[]) => void;
+  onCreate: (id: string, index?: number) => void;
+  onLink: (ids: string[], index?: number) => void;
   onAction?: (action: Action) => void;
   actionLabels?: Partial<ActionLabels>;
 };
@@ -47,12 +47,12 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
   const isEmpty = linkCount === 0;
 
   const onCreate = React.useCallback(
-    async (contentTypeId?: string) => {
+    async (contentTypeId?: string, index?: number) => {
       const { entity, slide } = await createEntity({ sdk, entityType, contentTypeId });
       if (!entity) {
         return;
       }
-      props.onCreate(entity.sys.id);
+      props.onCreate(entity.sys.id, index);
       props.onAction &&
         props.onAction({
           type: 'create_and_link',
@@ -64,29 +64,38 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
     [sdk, entityType, props.onCreate, props.onAction]
   );
 
-  const onLinkExisting = React.useCallback(async () => {
-    const entity = await selectSingleEntity({ sdk, entityType, validations });
-    if (!entity) {
-      return;
-    }
-    props.onLink([entity.sys.id]);
-    props.onAction &&
-      props.onAction({ type: 'select_and_link', entity: entityType, entityData: entity });
-  }, [sdk, entityType, props.onLink, props.onAction]);
-
-  const onLinkSeveralExisting = React.useCallback(async () => {
-    const entities = await selectMultipleEntities({ sdk, entityType, validations });
-
-    if (!entities || entities.length === 0) {
-      return;
-    }
-    props.onLink(entities.map((item) => item.sys.id));
-
-    entities.forEach((entity) => {
+  const onLinkExisting = React.useCallback(
+    async (index?: number) => {
+      const entity = await selectSingleEntity({ sdk, entityType, validations });
+      if (!entity) {
+        return;
+      }
+      props.onLink([entity.sys.id], index);
       props.onAction &&
         props.onAction({ type: 'select_and_link', entity: entityType, entityData: entity });
-    });
-  }, [sdk, entityType, props.onLink, props.onAction]);
+    },
+    [sdk, entityType, props.onLink, props.onAction]
+  );
+
+  const onLinkSeveralExisting = React.useCallback(
+    async (index?: number) => {
+      const entities = await selectMultipleEntities({ sdk, entityType, validations });
+
+      if (!entities || entities.length === 0) {
+        return;
+      }
+      props.onLink(
+        entities.map((item) => item.sys.id),
+        index
+      );
+
+      entities.forEach((entity) => {
+        props.onAction &&
+          props.onAction({ type: 'select_and_link', entity: entityType, entityData: entity });
+      });
+    },
+    [sdk, entityType, props.onLink, props.onAction]
+  );
 
   return useMemo(
     () => ({

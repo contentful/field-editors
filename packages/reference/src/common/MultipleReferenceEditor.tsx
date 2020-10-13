@@ -24,6 +24,21 @@ type EditorProps = ReferenceEditorProps &
     children: (props: ReferenceEditorProps & ChildProps) => React.ReactElement;
   };
 
+function onLinkOrCreate(
+  setValue: ChildProps['setValue'],
+  entityType: ChildProps['entityType'],
+  items: ChildProps['items'],
+  ids: string[],
+  index?: number
+): void {
+  const links: ReferenceValue[] = ids.map((id) => ({
+    sys: { type: 'Link', linkType: entityType, id },
+  }));
+  const newItems = Array.from(items);
+  newItems.splice(index !== undefined ? index : items.length, 0, ...links);
+  setValue(newItems);
+}
+
 function Editor(props: EditorProps) {
   const { items, setValue, entityType } = props;
   const { canCreateEntity, canLinkEntity } = useEntityPermissions(props);
@@ -38,19 +53,12 @@ function Editor(props: EditorProps) {
   );
 
   const onCreate = useCallback(
-    (id: string) => {
-      setValue([...items, { sys: { type: 'Link', linkType: entityType, id } }]);
-    },
+    (id: string, index?: number) => onLinkOrCreate(setValue, entityType, items, [id], index),
     [setValue, items, entityType]
   );
 
   const onLink = useCallback(
-    (ids: string[]) => {
-      setValue([
-        ...items,
-        ...ids.map((id) => ({ sys: { type: 'Link', linkType: entityType, id } as const })),
-      ]);
-    },
+    (ids: string[], index?: number) => onLinkOrCreate(setValue, entityType, items, ids, index),
     [setValue, items, entityType]
   );
 
@@ -64,8 +72,8 @@ function Editor(props: EditorProps) {
     validations,
     canCreateEntity,
     canLinkEntity,
-    onCreate: onCreate,
-    onLink: onLink,
+    onCreate,
+    onLink,
   });
   const customCardRenderer = useCallback(
     (cardProps: CustomEntryCardProps, _, renderDefaultCard) =>

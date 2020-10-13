@@ -13,8 +13,8 @@ export interface LinkActionsProps {
   isDisabled: boolean;
   isFull: boolean;
   isEmpty: boolean;
-  onCreate: (contentType?: string) => Promise<unknown>;
-  onLinkExisting: () => void;
+  onCreate: (contentType?: string, index?: number) => Promise<unknown>;
+  onLinkExisting: (index?: number) => void;
   actionLabels?: Partial<ActionLabels>;
 }
 
