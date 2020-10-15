@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.9.0...@contentful/field-editor-reference@1.10.0) (2020-10-15)
+
+
+### Features
+
+* **reference-editor:** insert at index ([#442](https://github.com/contentful/field-editors/issues/442)) ([742dca7](https://github.com/contentful/field-editors/commit/742dca757ad83f229df2356410635b5bcaed483a))
+
+
+
+
+
 # [1.9.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.8.0...@contentful/field-editor-reference@1.9.0) (2020-10-09)
 
 
