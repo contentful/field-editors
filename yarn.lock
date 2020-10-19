@@ -3843,7 +3843,7 @@
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
   integrity sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==
 
-"@types/deep-equal@1.0.1":
+"@types/deep-equal@1.0.1", "@types/deep-equal@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@types/deep-equal/-/deep-equal-1.0.1.tgz#71cfabb247c22bcc16d536111f50c0ed12476b03"
   integrity sha512-mMUu4nWHLBlHtxXY17Fg6+ucS/MnndyOWyOe7MmwkoMYxvfQU2ajtRaEvqSUv+aVkMqH/C0NCI8UoVfRNQ10yg==
@@ -8514,9 +8514,9 @@ envinfo@^7.3.1:
   integrity sha512-jDgnJaF/Btomk+m3PZDTTCb5XIIIX3zYItnCRfF73zVgvinLoRomuhi75Y4su0PtQxWz4v66XnLLckyvyJTOIQ==
 
 enzyme-adapter-react-16@^1.15.2:
-  version "1.15.4"
-  resolved "https://registry.yarnpkg.com/enzyme-adapter-react-16/-/enzyme-adapter-react-16-1.15.4.tgz#328a782365a363ecb424f99283c4833dd92c0f21"
-  integrity sha512-wPzxs+JaGDK2TPYzl5a9YWGce6i2SQ3Cg51ScLeyj2WotUZ8Obcq1ke/U1Y2VGpYlb9rrX2yCjzSMgtKCeAt5w==
+  version "1.15.5"
+  resolved "https://registry.yarnpkg.com/enzyme-adapter-react-16/-/enzyme-adapter-react-16-1.15.5.tgz#7a6f0093d3edd2f7025b36e7fbf290695473ee04"
+  integrity sha512-33yUJGT1nHFQlbVI5qdo5Pfqvu/h4qPwi1o0a6ZZsjpiqq92a3HjynDhwd1IeED+Su60HDWV8mxJqkTnLYdGkw==
   dependencies:
     enzyme-adapter-utils "^1.13.1"
     enzyme-shallow-equal "^1.0.4"
