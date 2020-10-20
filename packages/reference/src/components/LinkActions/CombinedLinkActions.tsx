@@ -38,7 +38,7 @@ function CombinedEntryLinkActions(props: LinkActionsProps) {
       <CreateEntryLinkButton
         testId={testIds.actionsWrapper}
         disabled={props.isDisabled}
-        text="Add content"
+        text={props.combinedActionsLabel || 'Add content'}
         contentTypes={props.contentTypes}
         hasPlusIcon={true}
         useExperimentalStyles={true}

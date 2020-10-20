@@ -24,7 +24,7 @@ import {
   Paragraph,
   Heading,
 } from '@contentful/forma-36-react-components';
-import { newReferenceEditorFakeSdk } from '../__fixtures__/FakeSdk'
+import { newReferenceEditorFakeSdk } from '../__fixtures__/FakeSdk';
 
 ## In Action
 
@@ -42,16 +42,15 @@ import { newReferenceEditorFakeSdk } from '../__fixtures__/FakeSdk'
           parameters={{
             instance: instanceParams || {
               canCreateEntity: true,
-              canLinkEntity: true
-            }
+              canLinkEntity: true,
+            },
           }}
-         />
+        />
         <ActionsPlayground mitt={mitt} />
       </div>
     );
   }}
 </Playground>
-
 
 ## With custom card
 
@@ -66,14 +65,21 @@ another reference rendered by the stardard card renderer.
     return (
       <div data-test-id="multiple-references-editor-custom-cards-integration-test">
         <MultipleEntryReferenceEditor
-          renderCustomCard={(props) => props.entry.fields.exField ? <Card testId='custom-card'>
-              <Typography style={{marginBottom: '20px'}}>
-                <Heading>{props.entry.fields.exField.en}</Heading>
-                <Paragraph>{props.entry.fields.exDesc.en}</Paragraph>
-              </Typography>
-              <Button onClick={props.onEdit} style={{marginRight: '10px'}}>Edit</Button>
-              <Button onClick={props.onRemove}>Remove</Button>
-            </Card> : false
+          renderCustomCard={(props) =>
+            props.entry.fields.exField ? (
+              <Card testId="custom-card">
+                <Typography style={{ marginBottom: '20px' }}>
+                  <Heading>{props.entry.fields.exField.en}</Heading>
+                  <Paragraph>{props.entry.fields.exDesc.en}</Paragraph>
+                </Typography>
+                <Button onClick={props.onEdit} style={{ marginRight: '10px' }}>
+                  Edit
+                </Button>
+                <Button onClick={props.onRemove}>Remove</Button>
+              </Card>
+            ) : (
+              false
+            )
           }
           viewType="link"
           sdk={sdk}
@@ -81,8 +87,8 @@ another reference rendered by the stardard card renderer.
           parameters={{
             instance: instanceParams || {
               canCreateEntity: true,
-              canLinkEntity: true
-            }
+              canLinkEntity: true,
+            },
           }}
         />
         <ActionsPlayground mitt={mitt} />
@@ -103,15 +109,46 @@ Note the alternative link actions injected via the `renderCustomActions` prop.
     return (
       <div>
         <MultipleEntryReferenceEditor
-          renderCustomActions={(props) => (<CombinedLinkActions {...props}/>)}
+          renderCustomActions={(props) => <CombinedLinkActions {...props} />}
           viewType="link"
           sdk={sdk}
           isInitiallyDisabled={isInitiallyDisabled}
           parameters={{
             instance: instanceParams || {
               canCreateEntity: true,
-              canLinkEntity: true
-            }
+              canLinkEntity: true,
+            },
+          }}
+        />
+        <ActionsPlayground mitt={mitt} />
+      </div>
+    );
+  }}
+</Playground>
+
+## With custom actions and custom label
+
+Note the alternative link actions injected via the `renderCustomActions` prop.
+
+<Playground>
+  {() => {
+    const isInitiallyDisabled = window.localStorage.getItem('initialDisabled');
+    const instanceParams = window.localStorage.getItem('instanceParams');
+    const [sdk, mitt] = newReferenceEditorFakeSdk();
+    return (
+      <div>
+        <MultipleEntryReferenceEditor
+          renderCustomActions={(props) => (
+            <CombinedLinkActions {...props} combinedActionsLabel="My custom label" />
+          )}
+          viewType="link"
+          sdk={sdk}
+          isInitiallyDisabled={isInitiallyDisabled}
+          parameters={{
+            instance: instanceParams || {
+              canCreateEntity: true,
+              canLinkEntity: true,
+            },
           }}
         />
         <ActionsPlayground mitt={mitt} />
@@ -131,7 +168,7 @@ Note the alternative link actions injected via the `renderCustomActions` prop.
       <div data-test-id="multiple-references-editor-custom-cards-with-default-integration-test">
         <MultipleEntryReferenceEditor
           renderCustomCard={(props, _, renderDefaultCard) => {
-            return renderDefaultCard({size: 'small'}) 
+            return renderDefaultCard({ size: 'small' });
           }}
           viewType="link"
           sdk={sdk}
@@ -139,8 +176,8 @@ Note the alternative link actions injected via the `renderCustomActions` prop.
           parameters={{
             instance: instanceParams || {
               canCreateEntity: true,
-              canLinkEntity: true
-            }
+              canLinkEntity: true,
+            },
           }}
         />
         <ActionsPlayground mitt={mitt} />
