@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.11.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.10.0...@contentful/field-editor-reference@1.11.0) (2020-10-21)
+
+
+### Features
+
+* add custom combined link action label ([#451](https://github.com/contentful/field-editors/issues/451)) ([b12b4ec](https://github.com/contentful/field-editors/commit/b12b4ec2e9f76ec89f5092f5d62a0a4ad6186cfc))
+
+
+
+
+
 # [1.10.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.9.0...@contentful/field-editor-reference@1.10.0) (2020-10-15)
 
 
