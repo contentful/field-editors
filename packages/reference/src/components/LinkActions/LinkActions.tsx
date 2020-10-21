@@ -16,6 +16,7 @@ export interface LinkActionsProps {
   onCreate: (contentType?: string, index?: number) => Promise<unknown>;
   onLinkExisting: (index?: number) => void;
   actionLabels?: Partial<ActionLabels>;
+  combinedActionsLabel?: string | React.ReactElement;
 }
 
 const defaultEntryLabels: ActionLabels = {

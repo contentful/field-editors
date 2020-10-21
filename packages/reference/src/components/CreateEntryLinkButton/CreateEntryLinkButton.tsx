@@ -33,7 +33,7 @@ interface CreateEntryLinkButtonProps {
   disabled?: boolean;
   hasPlusIcon: boolean;
   useExperimentalStyles?: boolean;
-  text?: string;
+  text?: string | React.ReactElement;
   testId?: string;
   dropdownSettings?: {
     isAutoalignmentEnabled: boolean;
