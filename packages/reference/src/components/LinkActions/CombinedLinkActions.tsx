@@ -42,6 +42,10 @@ function CombinedEntryLinkActions(props: LinkActionsProps) {
         contentTypes={props.contentTypes}
         hasPlusIcon={true}
         useExperimentalStyles={true}
+        dropdownSettings={{
+          isAutoalignmentEnabled: true,
+          position: 'bottom-left',
+        }}
         onSelect={(contentTypeId) => {
           return contentTypeId ? props.onCreate(contentTypeId) : Promise.resolve();
         }}
