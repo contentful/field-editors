@@ -7,7 +7,7 @@ export const container = css({
   border: `1px dashed ${tokens.colorElementMid}`,
   borderRadius: '3px',
   justifyContent: 'center',
-  padding: tokens.spacing3Xl,
+  padding: tokens.spacingXl,
 });
 
 export const action = css({
