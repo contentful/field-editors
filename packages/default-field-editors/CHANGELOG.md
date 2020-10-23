@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.23](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@0.3.22...@contentful/default-field-editors@0.3.23) (2020-10-23)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+
+
+
+
 ## [0.3.22](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@0.3.21...@contentful/default-field-editors@0.3.22) (2020-10-21)
 
 **Note:** Version bump only for package @contentful/default-field-editors
