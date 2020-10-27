@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.23](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@0.14.22...@contentful/field-editor-rich-text@0.14.23) (2020-10-27)
+
+
+### Bug Fixes
+
+* do not call set state on unmounted rich-text ([#463](https://github.com/contentful/field-editors/issues/463)) ([5cc5ef4](https://github.com/contentful/field-editors/commit/5cc5ef4fc18f8c039626b1efd3a5072f2edc7628))
+
+
+
+
+
 ## [0.14.22](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@0.14.21...@contentful/field-editor-rich-text@0.14.22) (2020-10-23)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
