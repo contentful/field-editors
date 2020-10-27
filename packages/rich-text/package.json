@@ -27,7 +27,7 @@
     "@contentful/field-editor-reference": "^1.11.1",
     "@contentful/field-editor-shared": "^0.13.0",
     "@contentful/field-editor-test-utils": "^0.8.1",
-    "@contentful/forma-36-react-components": "^3.45.1",
+    "@contentful/forma-36-react-components": "^3.63.6",
     "@contentful/forma-36-tokens": "^0.7.2",
     "@contentful/rich-text-plain-text-renderer": "^14.0.0",
     "@contentful/rich-text-types": "^14.0.1",

@@ -41,7 +41,7 @@
     "@contentful/field-editor-tags": "^0.9.1",
     "@contentful/field-editor-url": "^0.8.1",
     "@contentful/field-editor-validation-errors": "^0.2.3",
-    "@contentful/forma-36-react-components": "^3.47.1",
+    "@contentful/forma-36-react-components": "^3.63.6",
     "emotion": "^10.0.27"
   },
   "devDependencies": {

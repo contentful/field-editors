@@ -177,7 +177,7 @@ export const CreateEntryMenuTrigger = ({
         // @ts-ignore
         getContainerRef={(ref) => {
           dropdownRef.current = ref;
-          if (!dropdownWidth) {
+          if (!dropdownWidth && ref) {
             setDropdownWidth(ref.clientWidth);
           }
         }}>
