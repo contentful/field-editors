@@ -1,4 +1,5 @@
 titleAndCommits: true
+anyCommit: true
 allowMergeCommits: false
 types:
   - feat

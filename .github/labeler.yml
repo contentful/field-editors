@@ -1,0 +1,14 @@
+package:$1:
+  - packages/([^/]+)/.*
+
+extension:$1:
+  - extensions/([^/]+)/.*
+
+tools:
+  - .circleci/**/*
+  - .dependabot/**/*
+  - .github/**/*
+
+tests:
+  - src/**/*.spec.{js,tsx,ts}
+  - cypress/**/*
