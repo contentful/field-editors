@@ -60,7 +60,7 @@ export default class Toolbar extends React.Component {
     onChange: PropTypes.func.isRequired,
   };
 
-  isMounted = false;
+  hasMounted = false;
 
   isReadyToSetFocusProgrammatically = false;
 
@@ -71,9 +71,9 @@ export default class Toolbar extends React.Component {
   };
 
   componentDidMount() {
-    this.isMounted = true;
+    this.hasMounted = true;
     this.props.richTextAPI.sdk.access.can('read', 'Asset').then((canReadAssets) => {
-      if (this.isMounted) {
+      if (this.hasMounted) {
         // Prevent setting state on unmounted component
         this.setState({ canAccessAssets: canReadAssets });
       }
@@ -81,7 +81,7 @@ export default class Toolbar extends React.Component {
   }
 
   componentWillUnmount() {
-    this.isMounted = false;
+    this.hasMounted = false;
   }
 
   onChange = (...args) => {
