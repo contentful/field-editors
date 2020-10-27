@@ -1842,14 +1842,15 @@
   dependencies:
     "@contentful/forma-36-tokens" "^0.7.1"
 
-"@contentful/forma-36-react-components@3.57.1", "@contentful/forma-36-react-components@^3.40.1", "@contentful/forma-36-react-components@^3.45.1", "@contentful/forma-36-react-components@^3.47.1", "@contentful/forma-36-react-components@^3.57.1":
-  version "3.57.1"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.57.1.tgz#e9625cd4db3902ab76b9d25b023f86540e4c38b8"
-  integrity sha512-493CaYyq3Epo+mAc5Tlgi+xfCUugH7qwBYGTDglkBCaRu/+wXX3flgh1/LRI/mCEExz2zCzBKf7+RmEtZVKFEA==
+"@contentful/forma-36-react-components@3.63.5", "@contentful/forma-36-react-components@^3.63.5":
+  version "3.63.5"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.63.5.tgz#ad588faed7f48ad5ef6c185550f58ff20d8eea4e"
+  integrity sha512-r66OGfXaL+8g5l2QGAoUMRouRRA4gndn8+HGvJ4pqM62hcf7KrdSayS9nbpEvu5ji4kKDQTyqpyhhYj6faTatQ==
   dependencies:
     "@babel/runtime" "^7.3.4"
     "@popperjs/core" "^2.4.4"
     classnames "^2.2.6"
+    dayjs "^1.9.1"
     react-animate-height "^2.0.7"
     react-copy-to-clipboard "^5.0.1"
     react-modal "3.6.1"
@@ -7637,6 +7638,11 @@ dateformat@^3.0.0, dateformat@^3.0.2:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-3.0.3.tgz#a6e37499a4d9a9cf85ef5872044d62901c9889ae"
   integrity sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==
+
+dayjs@^1.9.1:
+  version "1.9.4"
+  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.9.4.tgz#fcde984e227f4296f04e7b05720adad2e1071f1b"
+  integrity sha512-ABSF3alrldf7nM9sQ2U+Ln67NRwmzlLOqG7kK03kck0mw3wlSSEKv/XhKGGxUjQcS57QeiCyNdrFgtj9nWlrng==
 
 deasync@^0.1.14:
   version "0.1.19"

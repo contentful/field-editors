@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@contentful/field-editor-shared": "^0.13.0",
-    "@contentful/forma-36-react-components": "^3.45.1",
+    "@contentful/forma-36-react-components": "^3.63.5",
     "@contentful/forma-36-tokens": "^0.7.2",
     "@types/google-map-react": "1.1.8",
     "deep-equal": "2.0.3",
