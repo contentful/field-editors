@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.12.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.11.1...@contentful/field-editor-reference@1.12.0) (2020-10-28)
+
+
+### Features
+
+* 🎸 auto position combined link actions dropdown ([#453](https://github.com/contentful/field-editors/issues/453)) ([d5f4f8b](https://github.com/contentful/field-editors/commit/d5f4f8bb06181880efd0bd026e7e9af2b190027c))
+
+
+
+
+
 ## [1.11.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.11.0...@contentful/field-editor-reference@1.11.1) (2020-10-23)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
