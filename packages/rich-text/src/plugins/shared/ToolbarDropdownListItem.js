@@ -8,56 +8,56 @@ const styles = {
   root: css({
     button: {
       span: {
-        fontWeight: tokens.fontWeightDemiBold
-      }
-    }
+        fontWeight: tokens.fontWeightDemiBold,
+      },
+    },
   }),
   h1: css({
     button: {
       span: {
-        fontSize: '1.625rem'
-      }
-    }
+        fontSize: '1.625rem',
+      },
+    },
   }),
   h2: css({
     button: {
       span: {
-        fontSize: '1.4375rem'
-      }
-    }
+        fontSize: '1.4375rem',
+      },
+    },
   }),
   h3: css({
     button: {
       span: {
-        fontSize: '1.25rem'
-      }
-    }
+        fontSize: '1.25rem',
+      },
+    },
   }),
   h4: css({
     button: {
       span: {
-        fontSize: '1.125rem'
-      }
-    }
+        fontSize: '1.125rem',
+      },
+    },
   }),
   h5: css({
     button: {
       span: {
-        fontSize: '1rem'
-      }
-    }
+        fontSize: '1rem',
+      },
+    },
   }),
   h6: css({
     button: {
       span: {
-        fontSize: '0.875rem'
-      }
-    }
-  })
+        fontSize: '0.875rem',
+      },
+    },
+  }),
 };
 
 // Necessary because we can't use kebab-case for style identifiers.
-const getStyleForType = type => type.replace('heading-', 'h')
+const getStyleForType = (type) => type.replace('heading-', 'h');
 
 export default class ToolbarDropdownListItem extends Component {
   static propTypes = {
@@ -65,10 +65,10 @@ export default class ToolbarDropdownListItem extends Component {
     onToggle: PropTypes.func.isRequired,
     title: PropTypes.string.isRequired,
     type: PropTypes.string,
-    children: PropTypes.node
+    children: PropTypes.node,
   };
 
-  handleMouseDown = event => {
+  handleClick = (event) => {
     /*
       We're using the mousedown event rather than onclick because onclick will
       steal the focus.
@@ -86,7 +86,7 @@ export default class ToolbarDropdownListItem extends Component {
         isActive={isActive}
         data-test-id={`toolbar-toggle-${type}`}
         className={cx(styles.root, styles[getStyleForType(type)])}
-        onMouseDown={this.handleMouseDown}>
+        onClick={this.handleClick}>
         {children}
       </DropdownListItem>
     );

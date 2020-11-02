@@ -10,17 +10,17 @@ const styles = {
     width: '110px',
 
     [`@media (min-width: ${tokens.contentWidthDefault})`]: {
-      width: '145px'
+      width: '145px',
     },
 
     svg: {
-      marginLeft: 'auto'
+      marginLeft: 'auto',
     },
 
     '> span': {
-      padding: '0 2px!important'
-    }
-  })
+      padding: '0 2px!important',
+    },
+  }),
 };
 
 export const blockTitles = {
@@ -32,7 +32,7 @@ export const blockTitles = {
   [BLOCKS.HEADING_6]: 'Heading 6',
   [BLOCKS.PARAGRAPH]: 'Normal Text',
   [BLOCKS.EMBEDDED_ENTRY]: 'Embedded Entry',
-  [BLOCKS.EMBEDDED_ASSET]: 'Embedded Asset'
+  [BLOCKS.EMBEDDED_ASSET]: 'Embedded Asset',
 };
 
 class HeadingDropdown extends Component {
@@ -42,7 +42,7 @@ class HeadingDropdown extends Component {
     disabled: PropTypes.bool,
     onClose: PropTypes.func,
     onToggle: PropTypes.func,
-    currentBlockType: PropTypes.string
+    currentBlockType: PropTypes.string,
   };
   getStyleNameForChange = () => {
     return blockTitles[this.props.currentBlockType] || blockTitles[BLOCKS.PARAGRAPH];
@@ -54,7 +54,7 @@ class HeadingDropdown extends Component {
       <Dropdown
         toggleElement={
           <Button
-            onMouseDown={onToggle}
+            onClick={onToggle}
             data-test-id="toolbar-heading-toggle"
             className={styles.root}
             indicateDropdown

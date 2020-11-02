@@ -10,15 +10,10 @@ export default class ToolbarIcon extends Component {
     onToggle: PropTypes.func.isRequired,
     icon: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    type: PropTypes.string
+    type: PropTypes.string,
   };
 
-  handleMouseDown = event => {
-    /*
-      We're using the mousedown event rather than onclick because onclick will
-      steal the focus.
-    */
-
+  handleClick = (event) => {
     event.preventDefault();
     this.props.onToggle(event);
   };
@@ -34,7 +29,7 @@ export default class ToolbarIcon extends Component {
         isActive={isActive}
         disabled={disabled}
         data-test-id={`toolbar-toggle-${type}`}
-        onMouseDown={this.handleMouseDown}
+        onClick={this.handleClick}
       />
     );
   }
