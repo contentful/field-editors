@@ -21,6 +21,7 @@ type SortableLinkListProps = ReferenceEditorProps & {
   setValue: (value: ReferenceValue[]) => void;
   isDisabled: boolean;
   allContentTypes: ContentType[];
+  onMove: (oldIndex: number, newIndex: number) => void;
 };
 
 const DragHandle = SortableHandle(() => <CardDragHandle>Reorder item</CardDragHandle>);
@@ -29,27 +30,33 @@ const SortableLink = SortableElement((props: { children: React.ReactElement }) =
   <div className={styles.item}>{props.children}</div>
 ));
 
-export const SortableLinkList = SortableContainer((props: SortableLinkListProps) => (
-  <div className={styles.containter}>
-    {props.items.map((item, index) => (
-      <SortableLink disabled={props.isDisabled} key={`${item.sys.id}-${index}`} index={index}>
-        <FetchingWrappedEntryCard
-          {...props}
-          key={`${item.sys.id}-${index}`}
-          index={index}
-          allContentTypes={props.allContentTypes}
-          isDisabled={props.isDisabled}
-          entryId={item.sys.id}
-          onRemove={() => {
-            props.setValue(
-              props.items.filter((_value, i) => {
-                return i !== index;
-              })
-            );
-          }}
-          cardDragHandle={props.isDisabled ? undefined : <DragHandle />}
-        />
-      </SortableLink>
-    ))}
-  </div>
-));
+export const SortableLinkList = SortableContainer((props: SortableLinkListProps) => {
+  const lastIndex = props.items.length - 1;
+
+  return (
+    <div className={styles.containter}>
+      {props.items.map((item, index) => (
+        <SortableLink disabled={props.isDisabled} key={`${item.sys.id}-${index}`} index={index}>
+          <FetchingWrappedEntryCard
+            {...props}
+            key={`${item.sys.id}-${index}`}
+            index={index}
+            allContentTypes={props.allContentTypes}
+            isDisabled={props.isDisabled}
+            entryId={item.sys.id}
+            onRemove={() => {
+              props.setValue(
+                props.items.filter((_value, i) => {
+                  return i !== index;
+                })
+              );
+            }}
+            onMoveTop={index !== 0 ? () => props.onMove(index, 0) : undefined}
+            onMoveBottom={index !== lastIndex ? () => props.onMove(index, lastIndex) : undefined}
+            cardDragHandle={props.isDisabled ? undefined : <DragHandle />}
+          />
+        </SortableLink>
+      ))}
+    </div>
+  );
+});

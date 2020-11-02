@@ -37,6 +37,8 @@ export interface WrappedEntryCardProps {
   cardDragHandle?: React.ReactElement;
   isClickable?: boolean;
   hasCardEditActions: boolean;
+  onMoveTop?: () => void;
+  onMoveBottom?: () => void;
 }
 
 const defaultProps = {
@@ -126,8 +128,8 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
       cardDragHandleComponent={props.cardDragHandle}
       withDragHandle={!!props.cardDragHandle}
       dropdownListElements={
-        props.onEdit || props.onRemove ? (
-          <React.Fragment>
+        <React.Fragment>
+          {props.onEdit || props.onRemove ? (
             <DropdownList
               // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
               // @ts-ignore
@@ -154,8 +156,32 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
                 </DropdownListItem>
               )}
             </DropdownList>
-          </React.Fragment>
-        ) : undefined
+          ) : undefined}
+          {props.onMoveTop || props.onMoveBottom ? (
+            <DropdownList
+              border="top"
+              // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+              // @ts-ignore
+              onClick={(e) => {
+                e.stopPropagation();
+              }}>
+              {props.onMoveTop && (
+                <DropdownListItem
+                  onClick={() => props.onMoveTop && props.onMoveTop()}
+                  testId="move-top">
+                  Move to top
+                </DropdownListItem>
+              )}
+              {props.onMoveBottom && (
+                <DropdownListItem
+                  onClick={() => props.onMoveBottom && props.onMoveBottom()}
+                  testId="move-bottom">
+                  Move to bottom
+                </DropdownListItem>
+              )}
+            </DropdownList>
+          ) : undefined}
+        </React.Fragment>
       }
       onClick={(e) => {
         e.preventDefault();

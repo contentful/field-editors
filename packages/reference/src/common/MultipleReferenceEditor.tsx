@@ -17,10 +17,11 @@ type ChildProps = {
   allContentTypes: ContentType[];
   onSortStart: SortStartHandler;
   onSortEnd: SortEndHandler;
+  onMove: (oldIndex: number, newIndex: number) => void;
 };
 
 type EditorProps = ReferenceEditorProps &
-  Omit<ChildProps, 'onSortStart' | 'onSortEnd'> & {
+  Omit<ChildProps, 'onSortStart' | 'onSortEnd' | 'onMove'> & {
     children: (props: ReferenceEditorProps & ChildProps) => React.ReactElement;
   };
 
@@ -46,6 +47,13 @@ function Editor(props: EditorProps) {
   const onSortStart: SortStartHandler = useCallback((_, event) => event.preventDefault(), []);
   const onSortEnd: SortEndHandler = useCallback(
     ({ oldIndex, newIndex }) => {
+      const newItems = arrayMove(items, oldIndex, newIndex);
+      setValue(newItems);
+    },
+    [items, setValue]
+  );
+  const onMove = useCallback(
+    (oldIndex, newIndex) => {
       const newItems = arrayMove(items, oldIndex, newIndex);
       setValue(newItems);
     },
@@ -89,6 +97,7 @@ function Editor(props: EditorProps) {
         ...props,
         onSortStart: onSortStart,
         onSortEnd: onSortEnd,
+        onMove,
         renderCustomCard: props.renderCustomCard && customCardRenderer,
       })}
       <LinkEntityActions renderCustomActions={props.renderCustomActions} {...linkActionsProps} />

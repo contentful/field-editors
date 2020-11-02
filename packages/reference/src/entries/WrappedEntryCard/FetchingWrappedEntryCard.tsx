@@ -26,6 +26,8 @@ export type EntryCardReferenceEditorProps = ReferenceEditorProps & {
     renderDefaultCard: DefaultCardRenderer
   ) => React.ReactElement | false;
   hasCardEditActions: boolean;
+  onMoveTop?: () => void;
+  onMoveBottom?: () => void;
 };
 
 async function openEntry(
@@ -133,17 +135,19 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       cardDragHandle: props.cardDragHandle,
       onEdit,
       onRemove,
+      onMoveTop: props.onMoveTop,
+      onMoveBottom: props.onMoveBottom,
     };
 
     const { hasCardEditActions, sdk } = props;
 
     function renderDefaultCard(props?: CustomEntryCardProps) {
       const builtinCardProps: WrappedEntryCardProps = {
+        ...props,
         ...sharedCardProps,
         hasCardEditActions: hasCardEditActions,
         getAsset: sdk.space.getAsset,
         getEntityScheduledActions: sdk.space.getEntityScheduledActions,
-        ...props,
       };
 
       return <WrappedEntryCard {...builtinCardProps} />;
