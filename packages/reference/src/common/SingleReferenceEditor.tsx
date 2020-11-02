@@ -2,16 +2,14 @@ import * as React from 'react';
 import { ContentType, EntityType, ReferenceValue } from '../types';
 import { LinkEntityActions } from '../components';
 import {
-  CustomActionProps,
-  CustomEntryCardProps,
-  DefaultCardRenderer,
   ReferenceEditor,
-  ReferenceEditorProps,
+  ReferenceEditorProps
 } from './ReferenceEditor';
 import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions';
 import { useCallback } from 'react';
 import { fromFieldValidations } from '../utils/fromFieldValidations';
 import { useEntityPermissions } from './useEntityPermissions';
+import { CustomAssetCardProps, CustomEntryCardProps } from './customCardTypes';
 
 type ChildProps = {
   entityId: string;
@@ -19,11 +17,7 @@ type ChildProps = {
   isDisabled: boolean;
   setValue: (value: ReferenceValue | null | undefined) => void;
   allContentTypes: ContentType[];
-  renderCustomCard?: (
-    props: CustomEntryCardProps,
-    linkActionsProps: CustomActionProps,
-    renderDefaultCard: DefaultCardRenderer
-  ) => React.ReactElement | false;
+  renderCustomCard?: ReferenceEditorProps['renderCustomCard'];
   hasCardEditActions: boolean;
 };
 
@@ -58,8 +52,9 @@ function Editor(props: EditorProps) {
     onCreate,
     onLink,
   });
+  // Inject card actions props into the given custom card renderer
   const customCardRenderer = useCallback(
-    (cardProps: CustomEntryCardProps, _, renderDefaultCard) =>
+    (cardProps: CustomEntryCardProps | CustomAssetCardProps, _, renderDefaultCard) =>
       props.renderCustomCard
         ? props.renderCustomCard(cardProps, linkActionsProps, renderDefaultCard)
         : false,

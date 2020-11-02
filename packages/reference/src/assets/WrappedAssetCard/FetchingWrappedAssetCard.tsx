@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { AssetCard, EntryCard } from '@contentful/forma-36-react-components';
-import { FieldExtensionSDK, Action, Asset, ViewType } from '../../types';
-import { MissingEntityCard } from '../../components';
+import { Action, Asset, FieldExtensionSDK, ViewType } from '../../types';
+import { LinkActionsProps, MissingEntityCard } from '../../components';
 import { WrappedAssetCard } from './WrappedAssetCard';
 import { WrappedAssetLink } from './WrappedAssetLink';
 import { useEntities } from '../../common/EntityStore';
+import { CustomAssetCardProps } from '../..';
+import { CustomCardRenderer } from '../../common/customCardTypes';
 
 type FetchingWrappedAssetCardProps = {
   assetId: string;
@@ -15,6 +17,7 @@ type FetchingWrappedAssetCardProps = {
   getEntityUrl?: (id: string) => string;
   onAction?: (action: Action) => void;
   cardDragHandle?: React.ReactElement;
+  renderCustomCard?: CustomCardRenderer<CustomAssetCardProps>;
 };
 
 export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
@@ -50,12 +53,14 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       );
     }
 
+    const size = props.viewType === 'big_card' ? 'default' : 'small';
     const commonProps = {
       isDisabled: props.isDisabled,
       href: props.getEntityUrl ? props.getEntityUrl(props.assetId) : '',
       localeCode: props.sdk.field.locale,
       defaultLocaleCode: props.sdk.locales.default,
       asset: asset as Asset,
+      cardDragHandle: props.cardDragHandle,
       onEdit: async () => {
         const { slide } = await props.sdk.navigator.openAsset(props.assetId, { slideIn: true });
         props.onAction &&
@@ -67,13 +72,16 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
             slide,
           });
       },
-      cardDragHandle: props.cardDragHandle,
       onRemove: () => {
         props.onRemove();
         props.onAction &&
           props.onAction({ entity: 'Asset', type: 'delete', id: props.assetId, contentTypeId: '' });
       },
     };
+
+    function renderDefaultCard(props?: CustomAssetCardProps) {
+      return <WrappedAssetCard size={size} {...commonProps} {...props} />;
+    }
 
     if (props.viewType === 'link') {
       if (asset === undefined) {
@@ -82,12 +90,28 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       return <WrappedAssetLink {...commonProps} />;
     }
 
-    const size = props.viewType === 'big_card' ? 'default' : 'small';
-
     if (asset === undefined) {
       return <AssetCard size={size} isLoading title="" src="" href="" />;
     }
 
-    return <WrappedAssetCard size={size} {...commonProps} />;
+    if (props.renderCustomCard) {
+      const customProps = {
+        ...commonProps,
+        size: size as 'default' | 'small',
+      };
+
+      // LinkActionsProps are injected higher SingleReferenceEditor/MultipleReferenceEditor
+      const renderedCustomCard = props.renderCustomCard(
+        customProps,
+        {} as LinkActionsProps,
+        renderDefaultCard
+      );
+      // Only `false` indicates to render the original card. E.g. `null` would result in no card.
+      if (renderedCustomCard !== false) {
+        return renderedCustomCard;
+      }
+    }
+
+    return renderDefaultCard();
   }, [props, entityKey]);
 }

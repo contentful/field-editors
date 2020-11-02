@@ -1,17 +1,12 @@
 import * as React from 'react';
 import { EntryCard } from '@contentful/forma-36-react-components';
 import { ContentType, FieldExtensionSDK, NavigatorSlideInfo } from '../../types';
-import { WrappedEntryCard } from './WrappedEntryCard';
+import { WrappedEntryCard, WrappedEntryCardProps } from './WrappedEntryCard';
 import { LinkActionsProps, MissingEntityCard } from '../../components';
 import { useEntities } from '../../common/EntityStore';
-import {
-  CustomActionProps,
-  CustomEntryCardProps,
-  ReferenceEditorProps,
-  DefaultCardRenderer,
-} from '../../common/ReferenceEditor';
+import { ReferenceEditorProps } from '../../common/ReferenceEditor';
 import get from 'lodash/get';
-import { WrappedEntryCardProps } from './WrappedEntryCard';
+import { CustomCardRenderer, CustomEntryCardProps } from '../../common/customCardTypes';
 
 export type EntryCardReferenceEditorProps = ReferenceEditorProps & {
   entryId: string;
@@ -20,11 +15,7 @@ export type EntryCardReferenceEditorProps = ReferenceEditorProps & {
   isDisabled: boolean;
   onRemove: () => void;
   cardDragHandle?: React.ReactElement;
-  renderCustomCard?: (
-    props: CustomEntryCardProps,
-    linkActionsProps: CustomActionProps,
-    renderDefaultCard: DefaultCardRenderer
-  ) => React.ReactElement | false;
+  renderCustomCard?: CustomCardRenderer<CustomEntryCardProps>;
   hasCardEditActions: boolean;
 };
 
@@ -148,6 +139,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
 
       return <WrappedEntryCard {...builtinCardProps} />;
     }
+
     if (props.renderCustomCard) {
       // LinkActionsProps are injected higher SingleReferenceEditor/MultipleReferenceEditor
       const renderedCustomCard = props.renderCustomCard(
