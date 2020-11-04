@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.12.1...@contentful/field-editor-reference@1.12.2) (2020-11-04)
+
+
+### Bug Fixes
+
+* 🐛 use onAction for all remove actions (including missing) ([#471](https://github.com/contentful/field-editors/issues/471)) ([96122f7](https://github.com/contentful/field-editors/commit/96122f77a9e8bb58c9264582640f915069cac438))
+
+
+
+
+
 ## [1.12.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.12.0...@contentful/field-editor-reference@1.12.1) (2020-10-28)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
