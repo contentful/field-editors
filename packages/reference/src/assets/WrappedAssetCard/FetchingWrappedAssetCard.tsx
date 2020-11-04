@@ -38,6 +38,12 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
     }
   }, [asset]);
 
+  const onRemoveAsset = () => {
+    props.onRemove();
+    props.onAction &&
+      props.onAction({ entity: 'Asset', type: 'delete', id: props.assetId, contentTypeId: '' });
+  };
+
   return React.useMemo(() => {
     if (asset === 'failed') {
       return (
@@ -45,7 +51,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
           entityType="Asset"
           asSquare={props.viewType !== 'link'}
           isDisabled={props.isDisabled}
-          onRemove={props.onRemove}
+          onRemove={onRemoveAsset}
         />
       );
     }
@@ -68,11 +74,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
           });
       },
       cardDragHandle: props.cardDragHandle,
-      onRemove: () => {
-        props.onRemove();
-        props.onAction &&
-          props.onAction({ entity: 'Asset', type: 'delete', id: props.assetId, contentTypeId: '' });
-      },
+      onRemove: onRemoveAsset,
     };
 
     if (props.viewType === 'link') {
