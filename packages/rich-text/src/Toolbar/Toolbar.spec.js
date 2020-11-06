@@ -145,7 +145,7 @@ describe('Toolbar', () => {
       let toolbar = Enzyme.mount(<Toolbar {...props} />);
       await toolbar.instance().busy;
       toolbar = toolbar.update();
-      toolbar.find('button[data-test-id="toolbar-entry-dropdown-toggle"]').simulate('mouseDown');
+      toolbar.find('button[data-test-id="toolbar-entry-dropdown-toggle"]').simulate('click');
       expect(toolbar.find(`[data-test-id="toolbar-toggle-${embedNodeType}"]`)).toHaveLength(0);
       dropDownEmbedNodeTypes
         .filter((nodeType) => nodeType !== embedNodeType)
@@ -162,7 +162,7 @@ describe('Toolbar', () => {
       { [VALIDATIONS.ENABLED_NODE_TYPES]: VALIDATABLE_NODE_TYPES },
     ];
     const toolbar = Enzyme.mount(<Toolbar {...props} />);
-    toolbar.find('button[data-test-id="toolbar-entry-dropdown-toggle"]').simulate('mouseDown');
+    toolbar.find('button[data-test-id="toolbar-entry-dropdown-toggle"]').simulate('click');
     expect(toolbar.find(`[data-test-id="toolbar-toggle-${BLOCKS.EMBEDDED_ASSET}"]`)).toHaveLength(
       0
     );
