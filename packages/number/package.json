@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-number",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "main": "dist/index.js",
   "module": "dist/field-editor-number.esm.js",
   "typings": "dist/index.d.ts",

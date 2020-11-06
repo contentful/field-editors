@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-tags",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "main": "dist/index.js",
   "module": "dist/field-editor-tags.esm.js",
   "typings": "dist/index.d.ts",

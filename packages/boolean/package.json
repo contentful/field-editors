@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-boolean",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "main": "dist/index.js",
   "module": "dist/field-editor-boolean.esm.js",
   "typings": "dist/index.d.ts",
