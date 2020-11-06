@@ -23,7 +23,7 @@ export const styles = {
     maxWidth: '800px',
     color: tokens.colorTextLightest,
     fontSize: tokens.fontSizeM,
-    fontWeight: parseInt(tokens.fontWeightNormal, 10),
+    fontWeight: tokens.fontWeightNormal,
     lineHeight: tokens.lineHeightDefault,
     whiteSpace: 'pre-wrap',
   }),
