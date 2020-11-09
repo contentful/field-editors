@@ -80,7 +80,7 @@ export const CreateEntryMenuTrigger = ({
   onSelect,
   testId,
   dropdownSettings = {
-    isAutoalignmentEnabled: false,
+    isAutoalignmentEnabled: true,
     position: 'bottom-left',
   },
   renderCustomDropdownItems,
