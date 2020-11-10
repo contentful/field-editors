@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.13.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.12.5...@contentful/field-editor-reference@1.13.0) (2020-11-10)
+
+
+### Features
+
+* "move to top", "move to bottom" reference actions ([#468](https://github.com/contentful/field-editors/issues/468)) ([d3e405d](https://github.com/contentful/field-editors/commit/d3e405d4e632f166029db3667e7bbbac61920701))
+
+
+
+
+
 ## [1.12.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.12.4...@contentful/field-editor-reference@1.12.5) (2020-11-09)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
