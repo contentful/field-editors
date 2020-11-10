@@ -5,8 +5,7 @@ import { LinkActionsProps, MissingEntityCard } from '../../components';
 import { WrappedAssetCard } from './WrappedAssetCard';
 import { WrappedAssetLink } from './WrappedAssetLink';
 import { useEntities } from '../../common/EntityStore';
-import { CustomAssetCardProps } from '../..';
-import { CustomCardRenderer } from '../../common/customCardTypes';
+import { CustomCardProps, CustomCardRenderer } from '../../common/customCardTypes';
 
 type FetchingWrappedAssetCardProps = {
   assetId: string;
@@ -17,7 +16,7 @@ type FetchingWrappedAssetCardProps = {
   getEntityUrl?: (id: string) => string;
   onAction?: (action: Action) => void;
   cardDragHandle?: React.ReactElement;
-  renderCustomCard?: CustomCardRenderer<CustomAssetCardProps>;
+  renderCustomCard?: CustomCardRenderer<CustomCardProps>;
 };
 
 export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
@@ -81,7 +80,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       onRemove: onRemoveAsset,
     };
 
-    function renderDefaultCard(props?: CustomAssetCardProps) {
+    function renderDefaultCard(props?: CustomCardProps) {
       return <WrappedAssetCard size={size} {...commonProps} {...props} />;
     }
 

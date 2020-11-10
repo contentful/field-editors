@@ -21,15 +21,12 @@ export type CustomCardProps = {
   cardDragHandle?: React.ReactElement;
   onEdit?: () => void;
   onRemove?: () => void;
-};
-
-export type CustomEntryCardProps = CustomCardProps & {
-  entry: Entry;
+  // TODO: specific types should be used instead of these props, but for that the ReferenceEditor props should accept a generic
+  // Entry editor
+  entry?: Entry;
   entryUrl?: string;
   contentType?: ContentType;
-};
-
-export type CustomAssetCardProps = CustomCardProps & {
-  asset: Asset;
-  href: string;
+  // Asset editor
+  asset?: Asset;
+  href?: string;
 };

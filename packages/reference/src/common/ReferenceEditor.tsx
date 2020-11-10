@@ -17,6 +17,7 @@ export interface ReferenceEditorProps {
   hasCardEditActions: boolean;
   sdk: FieldExtensionSDK;
   viewType: ViewType;
+  // TODO: The generic type should be exposed to ReferenceEditorProps and be specified for each entry/editor separately
   renderCustomCard?: CustomCardRenderer<CustomCardProps>;
   renderCustomActions?: (props: CustomActionProps) => React.ReactElement;
   getEntityUrl?: (entryId: string) => string;

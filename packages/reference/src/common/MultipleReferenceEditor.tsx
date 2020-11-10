@@ -8,7 +8,7 @@ import { SortEndHandler, SortStartHandler } from 'react-sortable-hoc';
 import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions';
 import { useCallback } from 'react';
 import { useEntityPermissions } from './useEntityPermissions';
-import { CustomEntryCardProps } from './customCardTypes';
+import { CustomCardProps } from './customCardTypes';
 
 type ChildProps = {
   entityType: EntityType;
@@ -77,7 +77,7 @@ function Editor(props: EditorProps) {
     onLink,
   });
   const customCardRenderer = useCallback(
-    (cardProps: CustomEntryCardProps, _, renderDefaultCard) =>
+    (cardProps: CustomCardProps, _, renderDefaultCard) =>
       props.renderCustomCard
         ? props.renderCustomCard(cardProps, linkActionsProps, renderDefaultCard)
         : false,

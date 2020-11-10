@@ -9,7 +9,7 @@ import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions
 import { useCallback } from 'react';
 import { fromFieldValidations } from '../utils/fromFieldValidations';
 import { useEntityPermissions } from './useEntityPermissions';
-import { CustomAssetCardProps, CustomEntryCardProps } from './customCardTypes';
+import { CustomCardProps } from './customCardTypes';
 
 type ChildProps = {
   entityId: string;
@@ -54,7 +54,7 @@ function Editor(props: EditorProps) {
   });
   // Inject card actions props into the given custom card renderer
   const customCardRenderer = useCallback(
-    (cardProps: CustomEntryCardProps | CustomAssetCardProps, _, renderDefaultCard) =>
+    (cardProps: CustomCardProps, _, renderDefaultCard) =>
       props.renderCustomCard
         ? props.renderCustomCard(cardProps, linkActionsProps, renderDefaultCard)
         : false,
