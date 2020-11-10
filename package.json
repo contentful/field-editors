@@ -40,23 +40,23 @@
     "@babel/plugin-proposal-optional-chaining": "^7.9.0",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/plugin-transform-runtime": "^7.9.6",
-    "@babel/preset-env": "^7.9.6",
-    "@babel/preset-react": "^7.9.4",
+    "@babel/preset-env": "7.12.1",
+    "@babel/preset-react": "7.12.1",
     "trim-right": "^1.0.1",
     "@commitlint/cli": "^9.0.1",
     "@commitlint/config-conventional": "^11.0.0",
     "@contentful/contentful-extension-scripts": "^0.16.0",
     "@contentful/eslint-config-extension": "0.2.0",
-    "@contentful/forma-36-fcss": "^0.2.1",
-    "@contentful/forma-36-react-components": "^3.63.6",
-    "@contentful/forma-36-tokens": "^0.7.2",
+    "@contentful/forma-36-fcss": "^0.2.12",
+    "@contentful/forma-36-react-components": "^3.64.2",
+    "@contentful/forma-36-tokens": "^0.9.2",
     "@testing-library/cypress": "5.3.1",
     "@testing-library/jest-dom": "5.11.4",
     "@testing-library/react": "9.5.0",
     "@types/jest": "^26.0.0",
     "@types/lodash": "4.14.159",
     "@types/lodash-es": "4.17.3",
-    "@types/react": "16.9.53",
+    "@types/react": "16.9.56",
     "@types/react-dom": "16.9.8",
     "@types/testing-library__cypress": "5.0.6",
     "@types/webpack-env": "1.15.3",
@@ -98,13 +98,12 @@
     "mochawesome-report-generator": "^5.1.0"
   },
   "resolutions": {
-    "@contentful/forma-36-react-components": "3.63.6",
-    "@contentful/forma-36-tokens": "0.7.2",
-    "typescript": "3.9.7",
-    "@types/react": "16.9.53",
+    "@types/react": "16.9.56",
+    "babel-preset-react-app": "9.1.2",
+    "cypress": "5.2.0",
     "react": "16.10.2",
     "react-dom": "16.10.2",
-    "cypress": "5.2.0"
+    "typescript": "3.9.7"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -142,7 +141,7 @@
     }
   },
   "engines": {
-    "node": ">=12.13.1",
+    "node": ">=12.8.1",
     "yarn": ">=1.21.1"
   },
   "config": {
