@@ -80,7 +80,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       });
   };
 
-  const onRemove = () => {
+  const onRemoveEntry = () => {
     props.onRemove();
     props.onAction &&
       props.onAction({
@@ -103,7 +103,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
         <MissingEntityCard
           entityType="Entry"
           isDisabled={props.isDisabled}
-          onRemove={props.onRemove}
+          onRemove={onRemoveEntry}
         />
       );
     }
@@ -123,7 +123,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       defaultLocaleCode: props.sdk.locales.default,
       cardDragHandle: props.cardDragHandle,
       onEdit,
-      onRemove,
+      onRemove: onRemoveEntry,
     };
 
     const { hasCardEditActions, sdk } = props;

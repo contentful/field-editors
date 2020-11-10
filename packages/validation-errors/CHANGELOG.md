@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@0.2.5...@contentful/field-editor-validation-errors@0.2.6) (2020-11-06)
+
+**Note:** Version bump only for package @contentful/field-editor-validation-errors
+
+
+
+
+
+## [0.2.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@0.2.4...@contentful/field-editor-validation-errors@0.2.5) (2020-11-06)
+
+**Note:** Version bump only for package @contentful/field-editor-validation-errors
+
+
+
+
+
 ## [0.2.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@0.2.3...@contentful/field-editor-validation-errors@0.2.4) (2020-10-28)
 
 **Note:** Version bump only for package @contentful/field-editor-validation-errors

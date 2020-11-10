@@ -8,7 +8,7 @@ class EntryEmbedDropdown extends Component {
     isOpen: PropTypes.bool,
     disabled: PropTypes.bool,
     onClose: PropTypes.func,
-    onToggle: PropTypes.func
+    onToggle: PropTypes.func,
   };
 
   render() {
@@ -19,7 +19,7 @@ class EntryEmbedDropdown extends Component {
         position="bottom-right"
         toggleElement={
           <Button
-            onMouseDown={onToggle}
+            onClick={onToggle}
             data-test-id="toolbar-entry-dropdown-toggle"
             className="toolbar-entry-dropdown-toggle"
             indicateDropdown
