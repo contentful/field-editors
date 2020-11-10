@@ -50,6 +50,8 @@ export type CustomEntryCardProps = {
   cardDragHandle?: React.ReactElement;
   onEdit?: () => void;
   onRemove?: () => void;
+  onMoveTop?: () => void;
+  onMoveBottom?: () => void;
 };
 
 export type DefaultCardRenderer = (props?: CustomEntryCardProps) => React.ReactElement;

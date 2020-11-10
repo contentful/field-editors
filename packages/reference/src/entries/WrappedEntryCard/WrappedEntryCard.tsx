@@ -3,15 +3,15 @@ import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 import { SpaceAPI } from 'contentful-ui-extensions-sdk';
 import {
-  EntryCard,
   DropdownList,
   DropdownListItem,
+  EntryCard,
   Icon,
 } from '@contentful/forma-36-react-components';
-import { Entry, File, ContentType } from '../../types';
+import { ContentType, Entry, File } from '../../types';
 import { isValidImage } from '../../utils/isValidImage';
 import { entityHelpers } from '@contentful/field-editor-shared';
-import { MissingEntityCard, ScheduledIconWithTooltip, AssetThumbnail } from '../../components';
+import { AssetThumbnail, MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
 
 const { getEntryTitle, getEntityDescription, getEntryStatus, getEntryImage } = entityHelpers;
 
@@ -37,6 +37,8 @@ export interface WrappedEntryCardProps {
   cardDragHandle?: React.ReactElement;
   isClickable?: boolean;
   hasCardEditActions: boolean;
+  onMoveTop?: () => void;
+  onMoveBottom?: () => void;
 }
 
 const defaultProps = {
@@ -153,6 +155,26 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
                   Remove
                 </DropdownListItem>
               )}
+            </DropdownList>
+            <DropdownList
+              border="top"
+              // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+              // @ts-ignore
+              onClick={(e) => {
+                e.stopPropagation();
+              }}>
+              <DropdownListItem
+                onClick={() => props.onMoveTop && props.onMoveTop()}
+                isDisabled={!props.onMoveTop}
+                testId="move-top">
+                Move to top
+              </DropdownListItem>
+              <DropdownListItem
+                onClick={() => props.onMoveBottom && props.onMoveBottom()}
+                isDisabled={!props.onMoveBottom}
+                testId="move-bottom">
+                Move to bottom
+              </DropdownListItem>
             </DropdownList>
           </React.Fragment>
         ) : undefined
