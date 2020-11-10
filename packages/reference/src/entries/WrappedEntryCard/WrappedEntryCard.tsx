@@ -3,15 +3,15 @@ import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 import { SpaceAPI } from 'contentful-ui-extensions-sdk';
 import {
-  EntryCard,
   DropdownList,
   DropdownListItem,
+  EntryCard,
   Icon,
 } from '@contentful/forma-36-react-components';
-import { Entry, File, ContentType } from '../../types';
+import { ContentType, Entry, File } from '../../types';
 import { isValidImage } from '../../utils/isValidImage';
 import { entityHelpers } from '@contentful/field-editor-shared';
-import { MissingEntityCard, ScheduledIconWithTooltip, AssetThumbnail } from '../../components';
+import { AssetThumbnail, MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
 
 const { getEntryTitle, getEntityDescription, getEntryStatus, getEntryImage } = entityHelpers;
 
@@ -128,8 +128,8 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
       cardDragHandleComponent={props.cardDragHandle}
       withDragHandle={!!props.cardDragHandle}
       dropdownListElements={
-        <React.Fragment>
-          {props.onEdit || props.onRemove ? (
+        props.onEdit || props.onRemove ? (
+          <React.Fragment>
             <DropdownList
               // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
               // @ts-ignore
@@ -156,8 +156,6 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
                 </DropdownListItem>
               )}
             </DropdownList>
-          ) : undefined}
-          {props.onMoveTop || props.onMoveBottom ? (
             <DropdownList
               border="top"
               // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
@@ -165,23 +163,21 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
               onClick={(e) => {
                 e.stopPropagation();
               }}>
-              {props.onMoveTop && (
-                <DropdownListItem
-                  onClick={() => props.onMoveTop && props.onMoveTop()}
-                  testId="move-top">
-                  Move to top
-                </DropdownListItem>
-              )}
-              {props.onMoveBottom && (
-                <DropdownListItem
-                  onClick={() => props.onMoveBottom && props.onMoveBottom()}
-                  testId="move-bottom">
-                  Move to bottom
-                </DropdownListItem>
-              )}
+              <DropdownListItem
+                onClick={() => props.onMoveTop && props.onMoveTop()}
+                isDisabled={!props.onMoveTop}
+                testId="move-top">
+                Move to top
+              </DropdownListItem>
+              <DropdownListItem
+                onClick={() => props.onMoveBottom && props.onMoveBottom()}
+                isDisabled={!props.onMoveBottom}
+                testId="move-bottom">
+                Move to bottom
+              </DropdownListItem>
             </DropdownList>
-          ) : undefined}
-        </React.Fragment>
+          </React.Fragment>
+        ) : undefined
       }
       onClick={(e) => {
         e.preventDefault();
