@@ -86,7 +86,7 @@ Note the alternative link actions injected via the `renderCustomActions` prop.
   {() => {
     const [sdk, mitt] = newReferenceEditorFakeSdk();
     return (
-      <div>
+      <div data-test-id="multiple-media-editor-custom-cards-integration-test">
         <MultipleMediaEditor
           viewType="card"
           sdk={sdk}
@@ -99,6 +99,9 @@ Note the alternative link actions injected via the `renderCustomActions` prop.
           }}
           renderCustomCard={(props) => {
             const title = props.asset.fields.title;
+            if (!title) {
+              return false;
+            }
             const file = props.asset.fields.file;
             return (
               <Card testId="custom-card">
