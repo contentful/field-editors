@@ -53,7 +53,7 @@ describe('CheckboxEditor', () => {
     });
   });
 
-  it('it calls setValue for every check event and removeValue if all items are unclicked', () => {
+  it('calls setValue for every check event and removeValue if all items are unclicked', () => {
     const predefined = ['banana', 'orange', 'strawberry'];
     const [field] = createFakeFieldAPI((mock) => {
       jest.spyOn(mock, 'setValue');
@@ -95,7 +95,7 @@ describe('CheckboxEditor', () => {
     expect(field.removeValue).toHaveBeenCalledTimes(1);
   });
 
-  it('it renders invalid text and remove link when value set is not in predefined values', () => {
+  it('renders invalid text and remove link when value set is not in predefined values', () => {
     const predefined = ['banana', 'orange', 'strawberry'];
     const [field] = createFakeFieldAPI((mock) => {
       jest.spyOn(mock, 'setValue');
