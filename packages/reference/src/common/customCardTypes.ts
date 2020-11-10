@@ -21,6 +21,8 @@ export type CustomCardProps = {
   cardDragHandle?: React.ReactElement;
   onEdit?: () => void;
   onRemove?: () => void;
+  onMoveTop?: () => void;
+  onMoveBottom?: () => void;
   // TODO: specific types should be used instead of these props, but for that the ReferenceEditor props should accept a generic
   // Entry editor
   entry?: Entry;
