@@ -2,7 +2,8 @@ import * as React from 'react';
 import { EntryCard } from '@contentful/forma-36-react-components';
 import { ContentType, FieldExtensionSDK, NavigatorSlideInfo } from '../../types';
 import { WrappedEntryCard } from './WrappedEntryCard';
-import { LinkActionsProps, MissingEntityCard } from '../../components';
+import { MissingEntityCard } from '../../components';
+import type { LinkActionsProps } from '../../components';
 import { useEntities } from '../../common/EntityStore';
 import {
   CustomActionProps,
