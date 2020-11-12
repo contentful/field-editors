@@ -59,6 +59,7 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
           entity: entityType,
           entityData: entity,
           slide,
+          index,
         });
     },
     [sdk, entityType, props.onCreate, props.onAction]
@@ -72,7 +73,7 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
       }
       props.onLink([entity.sys.id], index);
       props.onAction &&
-        props.onAction({ type: 'select_and_link', entity: entityType, entityData: entity });
+        props.onAction({ type: 'select_and_link', entity: entityType, entityData: entity, index });
     },
     [sdk, entityType, props.onLink, props.onAction]
   );
@@ -91,7 +92,12 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
 
       entities.forEach((entity) => {
         props.onAction &&
-          props.onAction({ type: 'select_and_link', entity: entityType, entityData: entity });
+          props.onAction({
+            type: 'select_and_link',
+            entity: entityType,
+            entityData: entity,
+            index,
+          });
       });
     },
     [sdk, entityType, props.onLink, props.onAction]
