@@ -144,8 +144,8 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
 
     function renderDefaultCard(props?: CustomEntryCardProps) {
       const builtinCardProps: WrappedEntryCardProps = {
-        ...props,
         ...sharedCardProps,
+        ...props,
         hasCardEditActions: hasCardEditActions,
         getAsset: sdk.space.getAsset,
         getEntityScheduledActions: sdk.space.getEntityScheduledActions,
