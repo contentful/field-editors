@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.14.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.13.1...@contentful/field-editor-reference@1.14.0) (2020-11-13)
+
+
+### Features
+
+* **link-actions:** add reference index to action props ([#482](https://github.com/contentful/field-editors/issues/482)) ([b5aa172](https://github.com/contentful/field-editors/commit/b5aa17236ac3ed246e970168ae95a8ea2610eb61))
+
+
+
+
+
 ## [1.13.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.13.0...@contentful/field-editor-reference@1.13.1) (2020-11-11)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
