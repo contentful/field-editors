@@ -98,11 +98,11 @@ Note the alternative link actions injected via the `renderCustomActions` prop.
             },
           }}
           renderCustomCard={(props) => {
-            const title = props.asset.fields.title;
+            const title = props.entity.fields.title;
             if (!title) {
               return false;
             }
-            const file = props.asset.fields.file;
+            const file = props.entity.fields.file;
             return (
               <Card testId="custom-card">
                 <Typography style={{ marginBottom: '20px' }}>

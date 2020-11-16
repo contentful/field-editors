@@ -4,7 +4,7 @@ import { FieldConnector } from '@contentful/field-editor-shared';
 import { EntityProvider } from './EntityStore';
 import { Action, ActionLabels, FieldExtensionSDK, ViewType } from '../types';
 import type { LinkActionsProps } from '../components';
-import { CustomCardProps, CustomCardRenderer } from './customCardTypes';
+import { CustomCardRenderer } from './customCardTypes';
 
 // TODO: Rename common base for reference/media editors to something neutral,
 //  e.g. `LinkEditor<T>`.
@@ -17,8 +17,7 @@ export interface ReferenceEditorProps {
   hasCardEditActions: boolean;
   sdk: FieldExtensionSDK;
   viewType: ViewType;
-  // TODO: The generic type should be exposed to ReferenceEditorProps and be specified for each entry/editor separately
-  renderCustomCard?: CustomCardRenderer<CustomCardProps>;
+  renderCustomCard?: CustomCardRenderer;
   renderCustomActions?: (props: CustomActionProps) => React.ReactElement;
   getEntityUrl?: (entryId: string) => string;
   onAction?: (action: Action) => void;

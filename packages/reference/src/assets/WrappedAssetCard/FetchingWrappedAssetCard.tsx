@@ -2,10 +2,10 @@ import * as React from 'react';
 import { AssetCard, EntryCard } from '@contentful/forma-36-react-components';
 import { Action, Asset, FieldExtensionSDK, ViewType } from '../../types';
 import { LinkActionsProps, MissingEntityCard } from '../../components';
-import { WrappedAssetCard } from './WrappedAssetCard';
+import { WrappedAssetCard, WrappedAssetCardProps } from './WrappedAssetCard';
 import { WrappedAssetLink } from './WrappedAssetLink';
 import { useEntities } from '../../common/EntityStore';
-import { CustomCardProps, CustomCardRenderer } from '../../common/customCardTypes';
+import { CustomEntityCardProps, CustomCardRenderer } from '../../common/customCardTypes';
 
 type FetchingWrappedAssetCardProps = {
   assetId: string;
@@ -16,7 +16,7 @@ type FetchingWrappedAssetCardProps = {
   getEntityUrl?: (id: string) => string;
   onAction?: (action: Action) => void;
   cardDragHandle?: React.ReactElement;
-  renderCustomCard?: CustomCardRenderer<CustomCardProps>;
+  renderCustomCard?: CustomCardRenderer;
 };
 
 export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
@@ -40,7 +40,19 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
     }
   }, [asset]);
 
-  const onRemoveAsset = () => {
+  const onEdit = async () => {
+    const { slide } = await props.sdk.navigator.openAsset(props.assetId, { slideIn: true });
+    props.onAction &&
+    props.onAction({
+      entity: 'Asset',
+      type: 'edit',
+      id: props.assetId,
+      contentTypeId: '',
+      slide,
+    });
+  };
+
+  const onRemove = () => {
     props.onRemove();
     props.onAction &&
       props.onAction({ entity: 'Asset', type: 'delete', id: props.assetId, contentTypeId: '' });
@@ -53,52 +65,52 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
           entityType="Asset"
           asSquare={props.viewType !== 'link'}
           isDisabled={props.isDisabled}
-          onRemove={onRemoveAsset}
+          onRemove={onRemove}
         />
       );
     }
 
+    const { getEntityUrl } = props;
     const size = props.viewType === 'big_card' ? 'default' : 'small';
     const commonProps = {
+      asset: asset as Asset,
+      entityUrl: getEntityUrl && getEntityUrl(props.assetId),
+      size: size as 'default' | 'small',
       isDisabled: props.isDisabled,
-      href: props.getEntityUrl ? props.getEntityUrl(props.assetId) : '',
       localeCode: props.sdk.field.locale,
       defaultLocaleCode: props.sdk.locales.default,
-      asset: asset as Asset,
       cardDragHandle: props.cardDragHandle,
-      onEdit: async () => {
-        const { slide } = await props.sdk.navigator.openAsset(props.assetId, { slideIn: true });
-        props.onAction &&
-          props.onAction({
-            entity: 'Asset',
-            type: 'edit',
-            id: props.assetId,
-            contentTypeId: '',
-            slide,
-          });
-      },
-      onRemove: onRemoveAsset,
+      onEdit,
+      onRemove,
     };
-
-    function renderDefaultCard(props?: CustomCardProps) {
-      return <WrappedAssetCard size={size} {...commonProps} {...props} />;
-    }
 
     if (props.viewType === 'link') {
       if (asset === undefined) {
         return <EntryCard size="small" loading />;
       }
-      return <WrappedAssetLink {...commonProps} />;
+      return <WrappedAssetLink {...commonProps} href={commonProps.entityUrl} />;
     }
 
     if (asset === undefined) {
       return <AssetCard size={size} isLoading title="" src="" href="" />;
     }
 
-    if (props.renderCustomCard) {
-      const customProps = {
+    function renderDefaultCard(props?: CustomEntityCardProps) {
+      // isClickable has a default value, so omit it from the props
+      const builtinCardProps: Omit<WrappedAssetCardProps, 'isClickable'> = {
         ...commonProps,
-        size: size as 'default' | 'small',
+        ...props,
+        asset: (props?.entity as Asset) || commonProps.asset,
+        getAssetUrl: getEntityUrl,
+      };
+
+      return <WrappedAssetCard {...builtinCardProps} />;
+    }
+
+    if (props.renderCustomCard) {
+      const customProps: CustomEntityCardProps = {
+        ...commonProps,
+        entity: commonProps.asset,
       };
 
       // LinkActionsProps are injected higher SingleReferenceEditor/MultipleReferenceEditor

@@ -2,17 +2,19 @@ import { Asset, ContentType, Entry } from '../types';
 import * as React from 'react';
 import { CustomActionProps } from './ReferenceEditor';
 
-export type DefaultCardRenderer<T extends CustomCardProps> = (
-  props?: T
-) => React.ReactElement;
+export type DefaultCardRenderer = (props?: CustomEntityCardProps) => React.ReactElement;
 
-export type CustomCardRenderer<T extends CustomCardProps> = (
-  props: T,
+export type CustomCardRenderer = (
+  props: CustomEntityCardProps,
   linkActionsProps: CustomActionProps,
-  renderDefaultCard: DefaultCardRenderer<T>
+  renderDefaultCard: DefaultCardRenderer
 ) => React.ReactElement | false;
 
-export type CustomCardProps = {
+export type CustomEntityCardProps = {
+  entity: Entry | Asset;
+  entityUrl?: string;
+  contentType?: ContentType;
+
   index?: number;
   localeCode: string;
   defaultLocaleCode: string;
@@ -23,12 +25,4 @@ export type CustomCardProps = {
   onRemove?: () => void;
   onMoveTop?: () => void;
   onMoveBottom?: () => void;
-  // TODO: specific types should be used instead of these props, but for that the ReferenceEditor props should accept a generic
-  // Entry editor
-  entry?: Entry;
-  entryUrl?: string;
-  contentType?: ContentType;
-  // Asset editor
-  asset?: Asset;
-  href?: string;
 };

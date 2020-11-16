@@ -6,7 +6,7 @@ import { LinkActionsProps, MissingEntityCard } from '../../components';
 import { useEntities } from '../../common/EntityStore';
 import { ReferenceEditorProps } from '../../common/ReferenceEditor';
 import get from 'lodash/get';
-import { CustomCardProps } from '../../common/customCardTypes';
+import { CustomEntityCardProps } from '../../common/customCardTypes';
 
 export type EntryCardReferenceEditorProps = ReferenceEditorProps & {
   entryId: string;
@@ -111,10 +111,10 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
     if (entry === undefined) {
       return <EntryCard size={size} loading />;
     }
-    const sharedCardProps: CustomCardProps = {
+    const sharedCardProps: CustomEntityCardProps = {
       index: props.index,
-      entry,
-      entryUrl: props.getEntityUrl && props.getEntityUrl(entry.sys.id),
+      entity: entry,
+      entityUrl: props.getEntityUrl && props.getEntityUrl(entry.sys.id),
       contentType: props.allContentTypes.find(
         (contentType) => contentType.sys.id === entry.sys.contentType.sys.id
       ),
@@ -131,14 +131,15 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
 
     const { hasCardEditActions, sdk } = props;
 
-    function renderDefaultCard(props?: CustomCardProps) {
+    function renderDefaultCard(props?: CustomEntityCardProps) {
       const builtinCardProps: WrappedEntryCardProps = {
         ...sharedCardProps,
+        ...props,
         hasCardEditActions: hasCardEditActions,
         getAsset: sdk.space.getAsset,
         getEntityScheduledActions: sdk.space.getEntityScheduledActions,
-        entry: sharedCardProps.entry!,
-        ...props,
+        entry: props?.entity || sharedCardProps.entity,
+        entryUrl: props?.entityUrl || sharedCardProps.entityUrl,
       };
 
       return <WrappedEntryCard {...builtinCardProps} />;
