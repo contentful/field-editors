@@ -3,6 +3,47 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.14.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.14.0...@contentful/field-editor-reference@1.14.1) (2020-11-13)
+
+
+### Bug Fixes
+
+* **field-editors-reference:** prefer default card render props to shared ([#483](https://github.com/contentful/field-editors/issues/483)) ([49e00ca](https://github.com/contentful/field-editors/commit/49e00ca2ecc4fcb8975af3ae41882f985ea32137))
+
+
+
+
+
+# [1.14.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.13.1...@contentful/field-editor-reference@1.14.0) (2020-11-13)
+
+
+### Features
+
+* **link-actions:** add reference index to action props ([#482](https://github.com/contentful/field-editors/issues/482)) ([b5aa172](https://github.com/contentful/field-editors/commit/b5aa17236ac3ed246e970168ae95a8ea2610eb61))
+
+
+
+
+
+## [1.13.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.13.0...@contentful/field-editor-reference@1.13.1) (2020-11-11)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+
+
+
+
+# [1.13.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.12.5...@contentful/field-editor-reference@1.13.0) (2020-11-10)
+
+
+### Features
+
+* "move to top", "move to bottom" reference actions ([#468](https://github.com/contentful/field-editors/issues/468)) ([d3e405d](https://github.com/contentful/field-editors/commit/d3e405d4e632f166029db3667e7bbbac61920701))
+
+
+
+
+
 ## [1.12.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.12.4...@contentful/field-editor-reference@1.12.5) (2020-11-09)
 
 **Note:** Version bump only for package @contentful/field-editor-reference

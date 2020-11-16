@@ -112,6 +112,7 @@ describe('TagsEditor', () => {
     ];
 
     conditions.forEach((condition) => {
+      // eslint-disable-next-line jest/valid-title
       it(condition.testType, () => {
         const [field] = createFakeFieldAPI((mock) => {
           return {

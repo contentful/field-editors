@@ -1,4 +1,4 @@
-export { LinkActionsProps } from './LinkActions/LinkActions';
+export type { LinkActionsProps } from './LinkActions/LinkActions';
 export { CombinedLinkActions } from './LinkActions/CombinedLinkActions';
 export { MissingEntityCard } from './MissingEntityCard/MissingEntityCard';
 export { LinkEntityActions } from './LinkActions/LinkEntityActions';

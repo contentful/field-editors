@@ -45,8 +45,9 @@ export type Action =
       entity: EntityType;
       entityData: Entry | Asset;
       slide?: NavigatorSlideInfo;
+      index?: number;
     }
-  | { type: 'select_and_link'; entity: EntityType; entityData: Entry | Asset }
+  | { type: 'select_and_link'; entity: EntityType; entityData: Entry | Asset; index?: number }
   | {
       type: 'edit';
       contentTypeId: string;
