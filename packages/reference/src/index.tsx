@@ -15,4 +15,4 @@ export {
 export { SingleMediaEditor, MultipleMediaEditor, WrappedAssetCard } from './assets';
 export { EntityProvider, useEntities } from './common/EntityStore';
 export type { CustomActionProps } from './common/ReferenceEditor';
-export type { DefaultCardRenderer } from './common/customCardTypes';
+export type { CustomEntityCardProps } from './common/customCardTypes';
