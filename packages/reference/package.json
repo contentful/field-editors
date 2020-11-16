@@ -30,7 +30,7 @@
     "constate": "2.0.0",
     "contentful-ui-extensions-sdk": "^3.18.0",
     "deep-equal": "2.0.3",
-    "emotion": "^10.0.17",
+    "emotion": "^11.0.0",
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15",
     "moment": "^2.20.0",
