@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.0.0...@contentful/field-editor-reference@2.1.0) (2020-11-17)
+
+
+### Features
+
+* export default card renderer type ([#489](https://github.com/contentful/field-editors/issues/489)) ([bede341](https://github.com/contentful/field-editors/commit/bede3413e11de802fb5196cb38230be88a4d0b66))
+
+
+
+
+
 # [2.0.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.14.1...@contentful/field-editor-reference@2.0.0) (2020-11-17)
 
 
