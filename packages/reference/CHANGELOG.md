@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.14.1...@contentful/field-editor-reference@2.0.0) (2020-11-17)
+
+
+* feat!: support custom card rendered in media ref editors (#469) ([1cdd68d](https://github.com/contentful/field-editors/commit/1cdd68d87dbafa0c19b89cffb9e3881c914ffbe7)), closes [#469](https://github.com/contentful/field-editors/issues/469)
+
+
+### BREAKING CHANGES
+
+* "renderCustomCard" signature is changed and now accepts a new generalized CustomEntityCardProps where "entry", "entryUrl" properties are replaced with "entity", "entityUrl"
+
+
+
+
+
 ## [1.14.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@1.14.0...@contentful/field-editor-reference@1.14.1) (2020-11-13)
 
 
