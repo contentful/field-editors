@@ -14,8 +14,15 @@ import { SingleMediaEditor } from '@contentful/field-editor-reference';
 ```
 
 import { Playground, Props } from 'docz';
-import { SingleMediaEditor } from './SingleMediaEditor.tsx'
-import { TextLink } from '@contentful/forma-36-react-components';
+import { SingleMediaEditor } from './SingleMediaEditor.tsx';
+import {
+  TextLink,
+  Card,
+  Button,
+  Typography,
+  Heading,
+  Asset,
+} from '@contentful/forma-36-react-components';
 import { ActionsPlayground } from '@contentful/field-editor-test-utils';
 import { newReferenceEditorFakeSdk } from '../__fixtures__/FakeSdk';
 
@@ -41,6 +48,7 @@ import { newReferenceEditorFakeSdk } from '../__fixtures__/FakeSdk';
       </div>
     );
 }}
+
 
 </Playground>
 
@@ -78,8 +86,51 @@ Note the alternative link actions injected via the `renderCustomActions` prop.
     );
 }}
 
+
 </Playground>
 
+
+## With custom card
+
+<Playground>
+  {() => {
+    const [sdk, mitt] = newReferenceEditorFakeSdk();
+    return (
+      <div>
+        <SingleMediaEditor
+          viewType="card"
+          sdk={sdk}
+          isInitiallyDisabled={false}
+          parameters={{
+            instance: {
+              canCreateEntity: true,
+              canLinkEntity: true,
+            },
+          }}
+          renderCustomCard={(props) => {
+            const title = props.entity.fields.title;
+            const file = props.entity.fields.file;
+            return (
+            <Card testId="custom-card">
+              <Typography style={{ marginBottom: '20px' }}>
+                <Heading>{title && title['en-US']}</Heading>
+                <Asset
+                  src={file && file['en-US'].url }
+                  title={file && file['en-US'].fileName}
+                />
+              </Typography>
+              <Button onClick={props.onEdit} style={{ marginRight: '10px' }}>
+                Edit
+              </Button>
+              <Button onClick={props.onRemove}>Remove</Button>
+            </Card>
+          )}}
+        />
+        <ActionsPlayground mitt={mitt} />
+      </div>
+    );
+  }}
+</Playground>
 
 ## Props
 

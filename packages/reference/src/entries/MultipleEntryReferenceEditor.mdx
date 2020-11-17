@@ -66,11 +66,11 @@ another reference rendered by the stardard card renderer.
       <div data-test-id="multiple-references-editor-custom-cards-integration-test">
         <MultipleEntryReferenceEditor
           renderCustomCard={(props) =>
-            props.entry.fields.exField ? (
+            props.entity.fields.exField ? (
               <Card testId="custom-card">
                 <Typography style={{ marginBottom: '20px' }}>
-                  <Heading>{props.entry.fields.exField.en}</Heading>
-                  <Paragraph>{props.entry.fields.exDesc.en}</Paragraph>
+                  <Heading>{props.entity.fields.exField.en}</Heading>
+                  <Paragraph>{props.entity.fields.exDesc.en}</Paragraph>
                 </Typography>
                 <Button onClick={props.onEdit} style={{ marginRight: '10px' }}>
                   Edit

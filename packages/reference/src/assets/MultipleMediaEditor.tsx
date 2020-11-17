@@ -3,8 +3,7 @@ import { ReferenceEditorProps } from '../common/ReferenceEditor';
 import { MultipleReferenceEditor } from '../common/MultipleReferenceEditor';
 import { SortableLinkList } from './SortableElements';
 
-// TODO: Implement `renderCustomCard` prop for MultipleMediaEditor.
-type EditorProps = Omit<ReferenceEditorProps, 'renderCustomCard' | 'hasCardEditActions'>;
+type EditorProps = Omit<ReferenceEditorProps, 'hasCardEditActions'>;
 
 export function MultipleMediaEditor(props: EditorProps) {
   return (

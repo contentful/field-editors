@@ -13,6 +13,7 @@ describe('Multiple Media Editor', () => {
     parent.findAllByTestId('link-actions-menu-trigger');
   const findCustomActionsDropdown = () => cy.findAllByTestId('cf-ui-dropdown-container');
   const findCards = (parent: Cypress.Chainable) => parent.findAllByTestId('cf-ui-asset-card');
+  const findCustomCards = (parent: Cypress.Chainable) => parent.findAllByTestId('custom-card');
 
   describe('default editor', () => {
     beforeEach(() => {
@@ -59,4 +60,22 @@ describe('Multiple Media Editor', () => {
       findCustomActionsDropdownTrigger(cy.get('@wrapper')).should('not.be.visible');
     });
   });
+
+  describe('custom card', () => {
+    beforeEach(() => {
+      cy.findByTestId('multiple-media-editor-custom-cards-integration-test').as('wrapper');
+    });
+
+    it('renders custom cards', () => {
+      findLinkExistingBtn(cy.get('@wrapper')).click();
+      findCustomCards(cy.get('@wrapper')).should('have.length', 2);
+    });
+
+    it('renders default card instead of custom card', () => {
+      findLinkExistingBtn(cy.get('@wrapper')).click();
+      findLinkExistingBtn(cy.get('@wrapper')).click(); // Inserts another card using standard card renderer.
+      findCards(cy.get('@wrapper')).should('have.length', 1);
+      findCustomCards(cy.get('@wrapper')).should('have.length', 2);
+    });
+  })
 });

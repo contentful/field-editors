@@ -1,18 +1,13 @@
 import * as React from 'react';
 import { EntryCard } from '@contentful/forma-36-react-components';
 import { ContentType, FieldExtensionSDK, NavigatorSlideInfo } from '../../types';
-import { WrappedEntryCard } from './WrappedEntryCard';
+import { WrappedEntryCard, WrappedEntryCardProps } from './WrappedEntryCard';
 import { MissingEntityCard } from '../../components';
 import type { LinkActionsProps } from '../../components';
 import { useEntities } from '../../common/EntityStore';
-import {
-  CustomActionProps,
-  CustomEntryCardProps,
-  ReferenceEditorProps,
-  DefaultCardRenderer,
-} from '../../common/ReferenceEditor';
+import { ReferenceEditorProps } from '../../common/ReferenceEditor';
 import get from 'lodash/get';
-import { WrappedEntryCardProps } from './WrappedEntryCard';
+import { CustomEntityCardProps } from '../../common/customCardTypes';
 
 export type EntryCardReferenceEditorProps = ReferenceEditorProps & {
   entryId: string;
@@ -21,11 +16,6 @@ export type EntryCardReferenceEditorProps = ReferenceEditorProps & {
   isDisabled: boolean;
   onRemove: () => void;
   cardDragHandle?: React.ReactElement;
-  renderCustomCard?: (
-    props: CustomEntryCardProps,
-    linkActionsProps: CustomActionProps,
-    renderDefaultCard: DefaultCardRenderer
-  ) => React.ReactElement | false;
   hasCardEditActions: boolean;
   onMoveTop?: () => void;
   onMoveBottom?: () => void;
@@ -36,7 +26,7 @@ async function openEntry(
   entryId: string,
   options: { bulkEditing?: boolean; index?: number }
 ) {
-  let slide: NavigatorSlideInfo | undefined = undefined;
+  let slide: NavigatorSlideInfo | undefined;
 
   if (options.bulkEditing) {
     try {
@@ -122,10 +112,10 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
     if (entry === undefined) {
       return <EntryCard size={size} loading />;
     }
-    const sharedCardProps: CustomEntryCardProps = {
+    const sharedCardProps: CustomEntityCardProps = {
       index: props.index,
-      entry,
-      entryUrl: props.getEntityUrl && props.getEntityUrl(entry.sys.id),
+      entity: entry,
+      entityUrl: props.getEntityUrl && props.getEntityUrl(entry.sys.id),
       contentType: props.allContentTypes.find(
         (contentType) => contentType.sys.id === entry.sys.contentType.sys.id
       ),
@@ -142,17 +132,20 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
 
     const { hasCardEditActions, sdk } = props;
 
-    function renderDefaultCard(props?: CustomEntryCardProps) {
+    function renderDefaultCard(props?: CustomEntityCardProps) {
       const builtinCardProps: WrappedEntryCardProps = {
         ...sharedCardProps,
         ...props,
         hasCardEditActions: hasCardEditActions,
         getAsset: sdk.space.getAsset,
         getEntityScheduledActions: sdk.space.getEntityScheduledActions,
+        entry: props?.entity || sharedCardProps.entity,
+        entryUrl: props?.entityUrl || sharedCardProps.entityUrl,
       };
 
       return <WrappedEntryCard {...builtinCardProps} />;
     }
+
     if (props.renderCustomCard) {
       // LinkActionsProps are injected higher SingleReferenceEditor/MultipleReferenceEditor
       const renderedCustomCard = props.renderCustomCard(

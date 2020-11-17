@@ -2,12 +2,13 @@ import * as React from 'react';
 import arrayMove from 'array-move';
 import { ReferenceValue, EntityType, ContentType } from '../types';
 import { fromFieldValidations } from '../utils/fromFieldValidations';
-import { CustomEntryCardProps, ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
+import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
 import { LinkEntityActions } from '../components';
 import { SortEndHandler, SortStartHandler } from 'react-sortable-hoc';
 import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions';
 import { useCallback } from 'react';
 import { useEntityPermissions } from './useEntityPermissions';
+import { CustomEntityCardProps } from './customCardTypes';
 
 type ChildProps = {
   entityType: EntityType;
@@ -84,7 +85,7 @@ function Editor(props: EditorProps) {
     onLink,
   });
   const customCardRenderer = useCallback(
-    (cardProps: CustomEntryCardProps, _, renderDefaultCard) =>
+    (cardProps: CustomEntityCardProps, _, renderDefaultCard) =>
       props.renderCustomCard
         ? props.renderCustomCard(cardProps, linkActionsProps, renderDefaultCard)
         : false,
