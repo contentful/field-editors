@@ -33,6 +33,7 @@ const defaultAssetLabels: ActionLabels = {
 };
 
 export const testIds = {
+  dropdown: 'linkEditor.dropdown',
   createAndLink: 'linkEditor.createAndLink',
   createAndLinkWrapper: 'create-entry-button-menu-trigger',
   linkExisting: 'linkEditor.linkExisting',
