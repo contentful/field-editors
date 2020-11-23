@@ -1,5 +1,11 @@
 import * as React from 'react';
-import { Dropdown, DropdownListItem, Icon, TextLink } from '@contentful/forma-36-react-components';
+import {
+  Dropdown,
+  DropdownList,
+  DropdownListItem,
+  Icon,
+  TextLink,
+} from '@contentful/forma-36-react-components';
 import * as styles from './redesignStyles';
 import { CreateEntryLinkButton } from '../CreateEntryLinkButton/CreateEntryLinkButton';
 import { testIds as sharedTextIds, LinkActionsProps } from './LinkActions';
@@ -147,22 +153,24 @@ function CombinedAssetLinkActions(props: LinkActionsProps) {
           </TextLink>
         </>
       }>
-      <DropdownListItem
-        testId={testIds.createAndLink}
-        onClick={() => {
-          setOpen(false);
-          props.onCreate();
-        }}>
-        Add new media
-      </DropdownListItem>
-      <DropdownListItem
-        testId={testIds.linkExisting}
-        onClick={() => {
-          setOpen(false);
-          props.onLinkExisting();
-        }}>
-        Add existing media
-      </DropdownListItem>
+      <DropdownList testId={testIds.dropdown}>
+        <DropdownListItem
+          testId={testIds.createAndLink}
+          onClick={() => {
+            setOpen(false);
+            props.onCreate();
+          }}>
+          Add new media
+        </DropdownListItem>
+        <DropdownListItem
+          testId={testIds.linkExisting}
+          onClick={() => {
+            setOpen(false);
+            props.onLinkExisting();
+          }}>
+          Add existing media
+        </DropdownListItem>
+      </DropdownList>
     </Dropdown>
   );
 }
