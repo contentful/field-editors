@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.1.1...@contentful/field-editor-reference@2.1.2) (2020-11-23)
+
+
+### Bug Fixes
+
+* 🐛 add missing DropdownList component ([#490](https://github.com/contentful/field-editors/issues/490)) ([3b59c0d](https://github.com/contentful/field-editors/commit/3b59c0dbc0fa1da84e9a787ea2a865695bc6ec68))
+
+
+
+
+
 ## [2.1.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.1.0...@contentful/field-editor-reference@2.1.1) (2020-11-23)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
