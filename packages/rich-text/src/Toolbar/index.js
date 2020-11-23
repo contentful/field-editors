@@ -7,6 +7,8 @@ import Bold from '../plugins/Bold';
 import Italic from '../plugins/Italic';
 import Underlined from '../plugins/Underlined';
 import Code from '../plugins/Code';
+import Superscript from '../plugins/Superscript';
+import Subscript from '../plugins/Subscript';
 import Quote from '../plugins/Quote';
 import {
   Heading1,
@@ -30,6 +32,7 @@ import { UnorderedList, OrderedList } from '../plugins/List';
 import Hr from '../plugins/Hr';
 
 import { BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types';
+import { CUSTOM_TAGS } from '../helpers/customTags';
 
 import { isNodeTypeEnabled, isMarkEnabled } from '../validations';
 
@@ -208,6 +211,8 @@ export default class Toolbar extends React.Component {
           {isNodeTypeEnabled(field, BLOCKS.OL_LIST) && <OrderedList {...props} />}
           {isNodeTypeEnabled(field, BLOCKS.QUOTE) && <Quote {...props} />}
           {isNodeTypeEnabled(field, BLOCKS.HR) && <Hr {...props} />}
+          {isMarkEnabled(field, CUSTOM_TAGS.SUPERSCRIPT) && <Superscript {...props} />}
+          {isMarkEnabled(field, CUSTOM_TAGS.SUBSCRIPT) && <Subscript {...props} />}
         </div>
         {this.renderEmbeds(props)}
       </EditorToolbar>
@@ -221,6 +226,8 @@ function getValidationInfo(field) {
     isMarkEnabled(field, MARKS.ITALIC) ||
     isMarkEnabled(field, MARKS.UNDERLINE) ||
     isMarkEnabled(field, MARKS.CODE);
+  isMarkEnabled(field, CUSTOM_TAGS.SUPERSCRIPT);
+  isMarkEnabled(field, CUSTOM_TAGS.SUBSCRIPT);
 
   const isAnyHyperlinkEnabled =
     isNodeTypeEnabled(field, INLINES.HYPERLINK) ||
