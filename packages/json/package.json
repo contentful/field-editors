@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-json",
-  "version": "0.8.4",
+  "version": "0.8.5",
   "main": "dist/index.js",
   "module": "dist/field-editor-json.esm.js",
   "typings": "dist/index.d.ts",
