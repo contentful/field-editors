@@ -76,7 +76,7 @@
     "husky": "^4.2.5",
     "lerna": "^3.20.2",
     "lint-staged": "10.5.1",
-    "prettier": "2.1.2",
+    "prettier": "2.2.0",
     "react": "16.10.2",
     "react-dom": "16.10.2",
     "remark-cli": "^8.0.0",
