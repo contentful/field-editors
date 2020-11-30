@@ -1482,9 +1482,9 @@
     yargs "15.1.0"
 
 "@contentful/contentful-slatejs-adapter@^14.1.0":
-  version "14.1.1"
-  resolved "https://registry.yarnpkg.com/@contentful/contentful-slatejs-adapter/-/contentful-slatejs-adapter-14.1.1.tgz#5a0d0921ca3316acdcd096e8f9ddddd475d3a4d2"
-  integrity sha512-9xMSXZfSF6SlaYBflva8TJSdXoEf7VWKjzwmOqkt8+Yf3XrbJLfus9p6EwRqw7Huh0KLUvJSAvvszZZ+J0vByQ==
+  version "14.1.2"
+  resolved "https://registry.yarnpkg.com/@contentful/contentful-slatejs-adapter/-/contentful-slatejs-adapter-14.1.2.tgz#22fbacd93ee4b7cb2315978e1ed2b9326c362381"
+  integrity sha512-kxIdzOI8M84TDtyw3U40lXmu9iX89zI+e0t5wmv6pmWcHbTpitAT5xe7V3XsixWqj7+5F5RMziBPzstXlkCUjg==
   dependencies:
     "@contentful/rich-text-types" "^5.0.0"
     lodash.flatmap "^4.5.0"
