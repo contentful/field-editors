@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.1.2...@contentful/field-editor-reference@2.1.3) (2020-12-10)
+
+
+### Bug Fixes
+
+* allow user to remove corrupt values in link arrays ([#520](https://github.com/contentful/field-editors/issues/520)) ([1f2199b](https://github.com/contentful/field-editors/commit/1f2199b581b23b98cee3806f4af504c464b86926))
+
+
+
+
+
 ## [2.1.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.1.1...@contentful/field-editor-reference@2.1.2) (2020-11-23)
 
 
