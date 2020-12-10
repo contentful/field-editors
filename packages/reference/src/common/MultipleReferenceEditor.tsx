@@ -117,7 +117,13 @@ export function MultipleReferenceEditor(
   return (
     <ReferenceEditor<ReferenceValue[]> {...props}>
       {({ value, disabled, setValue, externalReset }) => {
-        const items = value || [];
+        const items = (value || [])
+          // If null values have found their way into the persisted
+          // value for the multiref field, replace them with an object
+          // that has the shape of a Link to make the missing entry/asset
+          // card render
+          .map((link) => link || { sys: { id: 'null-value' } });
+
         return (
           <Editor
             {...props}
