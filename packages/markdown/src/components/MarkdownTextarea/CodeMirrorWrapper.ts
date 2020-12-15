@@ -6,6 +6,19 @@ import CodeMirror from 'codemirror';
 import * as userAgent from '../../utils/userAgent';
 import { EditorDirection } from '../../types';
 
+function stripUnit(value: number | string): number {
+  if (typeof value !== 'string') return value;
+
+  const cssRegex = /^([+-]?(?:\d+|\d*\.\d+))([a-z]*|%)$/;
+  const matchedValue = value.match(cssRegex);
+
+  if (!matchedValue) {
+    throw new Error("Couldn't match unit in given string");
+  }
+
+  return parseFloat(value);
+}
+
 export function create(
   host: HTMLElement,
   options: {
@@ -24,7 +37,7 @@ export function create(
   const LF = '\n';
 
   const EDITOR_SIZE = {
-    min: Number(height) || 300,
+    min: height ? stripUnit(height) : 300,
     max: 500,
     shift: 50,
   };
