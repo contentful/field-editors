@@ -7,6 +7,10 @@ import { EditorDirection } from '../../types';
 export type InitializedEditorType = ReturnType<typeof createMarkdownEditor>;
 
 type MarkdownTextareaProps = {
+  /**
+   * Minimum height to set for the markdown text area
+   */
+  minHeight?: string | number;
   mode: 'default' | 'zen';
   direction: EditorDirection;
   disabled: boolean;
@@ -125,7 +129,8 @@ export const MarkdownTextarea = React.memo((props: MarkdownTextareaProps) => {
                   fixedHeight: true,
                   height: '100%',
                 }
-              : {}
+              : {},
+            props.minHeight !== undefined ? { height: props.minHeight } : {}
           )
         )
       );
@@ -140,6 +145,7 @@ export const MarkdownTextarea = React.memo((props: MarkdownTextareaProps) => {
 
   const className = cx(
     styles.root,
+    props.minHeight !== undefined ? css({ minHeight: props.minHeight }) : undefined,
     props.mode === 'default' ? styles.framed : styles.zen,
     props.disabled && styles.disabled
   );

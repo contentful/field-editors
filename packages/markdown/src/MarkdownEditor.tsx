@@ -27,6 +27,10 @@ export interface MarkdownEditorProps {
    * is the field disabled initially
    */
   isInitiallyDisabled: boolean;
+  /**
+   * Minimum height to set for the markdown text area and preview
+   */
+  minHeight?: string | number;
 
   sdk: FieldExtensionSDK;
 
@@ -95,6 +99,7 @@ export function MarkdownEditor(
         actions={actions}
       />
       <MarkdownTextarea
+        minHeight={props.minHeight}
         mode="default"
         visible={selectedTab === 'editor'}
         disabled={isActionDisabled}
@@ -114,6 +119,7 @@ export function MarkdownEditor(
       {selectedTab === 'preview' && (
         <MarkdownPreview
           direction={direction}
+          minHeight={props.minHeight}
           mode="default"
           value={currentValue}
           previewComponents={props.previewComponents}

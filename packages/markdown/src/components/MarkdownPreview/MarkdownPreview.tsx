@@ -1,7 +1,7 @@
 import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import tokens from '@contentful/forma-36-tokens';
-import { css } from 'emotion';
+import { css, cx } from 'emotion';
 import { EditorDirection, PreviewComponents } from '../../types';
 
 const styles = {
@@ -156,6 +156,10 @@ const styles = {
 };
 
 type MarkdownPreviewProps = {
+  /**
+   * Minimum height to set for the markdown preview
+   */
+  minHeight?: string | number;
   mode: 'default' | 'zen';
   direction: EditorDirection;
   value: string;
@@ -207,12 +211,15 @@ export const SvgWrapper = (props: { children: React.ReactElement[] }) => (
 );
 
 export const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
+  const className = cx(
+    styles.root,
+    props.minHeight !== undefined ? css({ minHeight: props.minHeight }) : undefined,
+    props.mode === 'default' ? styles.framed : styles.zen,
+    props.direction === 'rtl' ? styles.rtl : undefined
+  );
+
   return (
-    <div
-      className={`${styles.root} ${props.mode === 'default' ? styles.framed : styles.zen} ${
-        props.direction === 'rtl' ? styles.rtl : ''
-      }`}
-      data-test-id="markdown-preview">
+    <div className={className} data-test-id="markdown-preview">
       <Markdown
         options={{
           overrides: {
