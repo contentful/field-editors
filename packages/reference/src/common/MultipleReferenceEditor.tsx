@@ -85,11 +85,6 @@ function Editor(props: EditorProps) {
     [linkActionsProps]
   );
 
-  const testProps = {
-    ...linkActionsProps,
-    id: props.sdk.field.id,
-  };
-
   return (
     <>
       {props.children({
@@ -99,7 +94,7 @@ function Editor(props: EditorProps) {
         onMove,
         renderCustomCard: props.renderCustomCard && customCardRenderer,
       })}
-      <LinkEntityActions renderCustomActions={props.renderCustomActions} {...testProps} />
+      <LinkEntityActions renderCustomActions={props.renderCustomActions} {...linkActionsProps} />
     </>
   );
 }
