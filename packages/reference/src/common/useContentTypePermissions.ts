@@ -43,7 +43,7 @@ export function useContentTypePermissions(
     }
 
     return props.allContentTypes;
-  }, [props.validations.contentTypes, props.entityType]);
+  }, [props.allContentTypes, props.validations.contentTypes, props.entityType]);
   const [creatableContentTypes, setCreatableContentTypes] = useState(availableContentTypes);
   const [readableContentTypes, setReadableContentTypes] = useState(availableContentTypes);
   const { canOnEntryOfType } = useAccessApi(props.sdk.access);
