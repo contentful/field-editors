@@ -17,7 +17,7 @@ commands:
 jobs:
   lint:
     docker:
-      - image: cypress/browsers:node12.8.1-chrome80-ff72
+      - image: cypress/browsers:node12.13.0-chrome80-ff73
     environment:
       CYPRESS_INSTALL_BINARY: 0
     steps:
@@ -28,7 +28,7 @@ jobs:
       - run: yarn tsc
   unit-tests:
     docker:
-      - image: cypress/browsers:node12.8.1-chrome80-ff72
+      - image: cypress/browsers:node12.13.0-chrome80-ff73
     environment:
       CYPRESS_INSTALL_BINARY: 0
     steps:
@@ -38,7 +38,7 @@ jobs:
       - run: yarn test:ci
   integration-tests:
     docker:
-      - image: cypress/browsers:node12.8.1-chrome80-ff72
+      - image: cypress/browsers:node12.13.0-chrome80-ff73
     steps:
       - checkout
       - yarn_install
