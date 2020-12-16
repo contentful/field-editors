@@ -51,7 +51,6 @@ export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
       href={href}
       size="small"
       status={status}
-      // @ts-ignore
       onClick={(e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
         onEdit();

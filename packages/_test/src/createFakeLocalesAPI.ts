@@ -7,22 +7,20 @@ function identity<T>(item: T): T {
 type CustomizeMockFn = (fieldApi: LocalesAPI) => LocalesAPI;
 
 export function createFakeLocalesAPI(customizeMock: CustomizeMockFn = identity): LocalesAPI {
-  return customizeMock({
+  return customizeMock(({
     default: 'en-US',
     available: ['en-US'],
     fallbacks: {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-      // @ts-ignore
-      'en-US': undefined
+      'en-US': undefined,
     },
     names: {
-      'en-US': 'English'
+      'en-US': 'English',
     },
     optional: {
-      'en-US': false
+      'en-US': false,
     },
     direction: {
-      'en-US': 'ltr'
-    }
-  });
+      'en-US': 'ltr',
+    },
+  } as unknown) as LocalesAPI);
 }

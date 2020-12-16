@@ -195,7 +195,7 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         tooltip="Horizontal rule"
         tooltipPlace={tooltipPlace}
         onClick={props.actions.simple.hr}>
-        <Icons.HR label="Horizontal rule" className={styles.icon} />
+        <Icons.Hr label="Horizontal rule" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
         disabled={props.disabled}

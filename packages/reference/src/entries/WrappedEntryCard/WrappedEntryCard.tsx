@@ -107,7 +107,6 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
       description={description}
       contentType={contentType?.name}
       size={props.size}
-      // @ts-ignore
       selected={props.isSelected}
       status={status}
       statusIcon={
@@ -131,8 +130,7 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
         props.onEdit || props.onRemove ? (
           <React.Fragment>
             <DropdownList
-              // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-              // @ts-ignore
+              // @ts-expect-error
               onClick={(e) => {
                 e.stopPropagation();
               }}>
@@ -158,8 +156,7 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
             </DropdownList>
             <DropdownList
               border="top"
-              // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-              // @ts-ignore
+              // @ts-expect-error
               onClick={(e) => {
                 e.stopPropagation();
               }}>

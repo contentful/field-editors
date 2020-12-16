@@ -6,8 +6,7 @@ import tokens from '@contentful/forma-36-tokens';
 import { formatDateAndTime } from './formatDateAndTime';
 
 const styles = {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-  // @ts-ignore
+  // @ts-expect-error
   statusTag: css({
     marginLeft: tokens.spacingM,
     zIndex: '0 !important',

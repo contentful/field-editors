@@ -91,11 +91,9 @@ function useEntitiesStore(props: { sdk: BaseExtensionSDK }) {
   };
 
   React.useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore
+    // @ts-expect-error
     if (typeof props.sdk.space.onEntityChanged !== 'undefined') {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-      // @ts-ignore
+      // @ts-expect-error
       const onEntityChanged = props.sdk.space.onEntityChanged;
       const listeners: Function[] = [];
       Object.keys(state.entries).forEach((id) => {
