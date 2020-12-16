@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.1.3...@contentful/field-editor-reference@2.2.0) (2020-12-16)
+
+
+### Features
+
+* use access api to hide inaccessible content ([#530](https://github.com/contentful/field-editors/issues/530)) ([1b0ad96](https://github.com/contentful/field-editors/commit/1b0ad96d657b8535a30e859f558b1532f9e6b125))
+
+
+
+
+
 ## [2.1.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.1.2...@contentful/field-editor-reference@2.1.3) (2020-12-10)
 
 
