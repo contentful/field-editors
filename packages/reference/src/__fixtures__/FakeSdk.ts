@@ -109,9 +109,7 @@ export function newReferenceEditorFakeSdk() {
       onSlideInNavigation: () => () => ({}),
     },
     access: {
-      can: async (access: string, entityType: string) => {
-        return access === 'create' && entityType === 'Asset';
-      },
+      can: async () => true,
     },
   };
   return [sdk, mitt];

@@ -1,14 +1,13 @@
 import * as React from 'react';
 import arrayMove from 'array-move';
 import { ReferenceValue, EntityType, ContentType } from '../types';
-import { fromFieldValidations } from '../utils/fromFieldValidations';
 import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
 import { LinkEntityActions } from '../components';
 import { SortEndHandler, SortStartHandler } from 'react-sortable-hoc';
 import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions';
 import { useCallback } from 'react';
-import { useEntityPermissions } from './useEntityPermissions';
 import { CustomEntityCardProps } from './customCardTypes';
+import { useEditorPermissions } from './useEditorPermissions';
 
 type ChildProps = {
   entityType: EntityType;
@@ -43,7 +42,7 @@ function onLinkOrCreate(
 
 function Editor(props: EditorProps) {
   const { items, setValue, entityType } = props;
-  const { canCreateEntity, canLinkEntity } = useEntityPermissions(props);
+  const editorPermissions = useEditorPermissions(props);
 
   const onSortStart: SortStartHandler = useCallback((_, event) => event.preventDefault(), []);
   const onSortEnd: SortEndHandler = useCallback(
@@ -71,16 +70,10 @@ function Editor(props: EditorProps) {
     [setValue, items, entityType]
   );
 
-  const validations = fromFieldValidations([
-    ...props.sdk.field.validations,
-    ...(props.sdk.field.items?.validations ?? []),
-  ]);
   const linkActionsProps = useLinkActionsProps({
     ...props,
     canLinkMultiple: true,
-    validations,
-    canCreateEntity,
-    canLinkEntity,
+    editorPermissions,
     onCreate,
     onLink,
   });
@@ -92,6 +85,11 @@ function Editor(props: EditorProps) {
     [linkActionsProps]
   );
 
+  const testProps = {
+    ...linkActionsProps,
+    id: props.sdk.field.id,
+  };
+
   return (
     <>
       {props.children({
@@ -101,7 +99,7 @@ function Editor(props: EditorProps) {
         onMove,
         renderCustomCard: props.renderCustomCard && customCardRenderer,
       })}
-      <LinkEntityActions renderCustomActions={props.renderCustomActions} {...linkActionsProps} />
+      <LinkEntityActions renderCustomActions={props.renderCustomActions} {...testProps} />
     </>
   );
 }

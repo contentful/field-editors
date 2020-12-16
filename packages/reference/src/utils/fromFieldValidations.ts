@@ -1,4 +1,5 @@
 import isNumber from 'lodash/isNumber';
+import { FieldAPI } from 'contentful-ui-extensions-sdk';
 
 type NumberOfLinksValidation =
   | { type: 'min-max'; min: number; max: number }
@@ -11,13 +12,15 @@ export type ReferenceValidations = {
   numberOfLinks?: NumberOfLinksValidation;
 };
 
-export function fromFieldValidations(
+export function fromFieldValidations(field: FieldAPI): ReferenceValidations {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  validations: Record<string, any>[] = []
-): ReferenceValidations {
-  const linkContentTypeValidations = validations.find(v => 'linkContentType' in v);
-  const linkMimetypeGroupValidations = validations.find(v => 'linkMimetypeGroup' in v);
-  const sizeValidations = validations.find(v => 'size' in v);
+  const validations: Record<string, any>[] = [
+    ...field.validations,
+    ...(field.items?.validations ?? []),
+  ];
+  const linkContentTypeValidations = validations.find((v) => 'linkContentType' in v);
+  const linkMimetypeGroupValidations = validations.find((v) => 'linkMimetypeGroup' in v);
+  const sizeValidations = validations.find((v) => 'size' in v);
   const size = (sizeValidations && sizeValidations.size) || {};
   const min = size.min;
   const max = size.max;
@@ -28,26 +31,26 @@ export function fromFieldValidations(
     numberOfLinks = {
       type: 'min-max',
       min,
-      max
+      max,
     };
   } else if (isNumber(min)) {
     numberOfLinks = {
       type: 'min',
       min,
-      max: undefined
+      max: undefined,
     };
   } else if (isNumber(max)) {
     numberOfLinks = {
       type: 'max',
       max,
-      min: undefined
+      min: undefined,
     };
   }
 
   const result: ReferenceValidations = {
     contentTypes: linkContentTypeValidations?.linkContentType ?? undefined,
     mimetypeGroups: linkMimetypeGroupValidations?.linkMimetypeGroup ?? undefined,
-    numberOfLinks
+    numberOfLinks,
     // todo: there are multiple BE problems that need to be solved first, for now we don't want to apply size constraints
     // linkedFileSize: findValidation(field, 'assetFileSize', {}),
     // linkedImageDimensions: findValidation(field, 'assetImageDimensions', {})

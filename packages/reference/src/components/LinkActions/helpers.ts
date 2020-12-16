@@ -1,5 +1,7 @@
-import { Asset, EntityType, Entry, FieldExtensionSDK } from '../../types';
-import { ReferenceValidations } from '../../utils/fromFieldValidations';
+import { Asset, ContentType, EntityType, Entry, FieldExtensionSDK } from '../../types';
+import { EditorPermissions } from '../../common/useEditorPermissions';
+
+const getContentTypeIds = (contentTypes: ContentType[]) => contentTypes.map((ct) => ct.sys.id);
 
 export async function createEntity(props: {
   sdk: FieldExtensionSDK;
@@ -25,17 +27,17 @@ export async function createEntity(props: {
 export async function selectSingleEntity(props: {
   sdk: FieldExtensionSDK;
   entityType: EntityType;
-  validations: ReferenceValidations;
+  editorPermissions: EditorPermissions;
 }) {
   if (props.entityType === 'Entry') {
     return await props.sdk.dialogs.selectSingleEntry<Entry>({
       locale: props.sdk.field.locale,
-      contentTypes: props.validations.contentTypes,
+      contentTypes: getContentTypeIds(props.editorPermissions.readableContentTypes),
     });
   } else {
     return props.sdk.dialogs.selectSingleAsset<Asset>({
       locale: props.sdk.field.locale,
-      mimetypeGroups: props.validations.mimetypeGroups,
+      mimetypeGroups: props.editorPermissions.validations.mimetypeGroups,
     });
   }
 }
@@ -43,7 +45,7 @@ export async function selectSingleEntity(props: {
 export async function selectMultipleEntities(props: {
   sdk: FieldExtensionSDK;
   entityType: EntityType;
-  validations: ReferenceValidations;
+  editorPermissions: EditorPermissions;
 }) {
   const value = props.sdk.field.getValue();
 
@@ -52,22 +54,25 @@ export async function selectMultipleEntities(props: {
   // TODO: Why not always set `min: 1` by default? Does it make sense to enforce
   //  user to select as many entities as the field's "min" requires? What if e.g.
   // "min" is 4 and the user wants to insert 2 entities first, then create 2 new ones?
-  const min = Math.max((props.validations.numberOfLinks?.min || 1) - linkCount, 1);
+  const min = Math.max(
+    (props.editorPermissions.validations.numberOfLinks?.min || 1) - linkCount,
+    1
+  );
   // TODO: Consider same for max. If e.g. "max" is 4, we disable the button if the
   //  user wants to select 5 but we show no information why the button is disabled.
-  const max = (props.validations.numberOfLinks?.max || +Infinity) - linkCount;
+  const max = (props.editorPermissions.validations.numberOfLinks?.max || +Infinity) - linkCount;
 
   if (props.entityType === 'Entry') {
     return await props.sdk.dialogs.selectMultipleEntries<Entry>({
       locale: props.sdk.field.locale,
-      contentTypes: props.validations.contentTypes,
+      contentTypes: getContentTypeIds(props.editorPermissions.readableContentTypes),
       min,
       max,
     });
   } else {
     return props.sdk.dialogs.selectMultipleAssets<Asset>({
       locale: props.sdk.field.locale,
-      mimetypeGroups: props.validations.mimetypeGroups,
+      mimetypeGroups: props.editorPermissions.validations.mimetypeGroups,
       min,
       max,
     });

@@ -43,13 +43,13 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
   const onEdit = async () => {
     const { slide } = await props.sdk.navigator.openAsset(props.assetId, { slideIn: true });
     props.onAction &&
-    props.onAction({
-      entity: 'Asset',
-      type: 'edit',
-      id: props.assetId,
-      contentTypeId: '',
-      slide,
-    });
+      props.onAction({
+        entity: 'Asset',
+        type: 'edit',
+        id: props.assetId,
+        contentTypeId: '',
+        slide,
+      });
   };
 
   const onRemove = () => {

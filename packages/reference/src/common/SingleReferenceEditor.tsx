@@ -1,15 +1,11 @@
 import * as React from 'react';
 import { ContentType, EntityType, ReferenceValue } from '../types';
 import { LinkEntityActions } from '../components';
-import {
-  ReferenceEditor,
-  ReferenceEditorProps
-} from './ReferenceEditor';
+import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
 import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions';
 import { useCallback } from 'react';
-import { fromFieldValidations } from '../utils/fromFieldValidations';
-import { useEntityPermissions } from './useEntityPermissions';
 import { CustomEntityCardProps } from './customCardTypes';
+import { useEditorPermissions } from './useEditorPermissions';
 
 type ChildProps = {
   entityId: string;
@@ -28,7 +24,7 @@ type EditorProps = ReferenceEditorProps &
 
 function Editor(props: EditorProps) {
   const { setValue, entityType } = props;
-  const { canCreateEntity, canLinkEntity } = useEntityPermissions(props);
+  const editorPermissions = useEditorPermissions(props);
 
   const onCreate = useCallback(
     (id: string) => void setValue({ sys: { type: 'Link', linkType: entityType, id } }),
@@ -42,13 +38,10 @@ function Editor(props: EditorProps) {
     [setValue, entityType]
   );
 
-  const validations = fromFieldValidations(props.sdk.field.validations);
   const linkActionsProps = useLinkActionsProps({
     ...props,
     canLinkMultiple: false,
-    validations,
-    canCreateEntity,
-    canLinkEntity,
+    editorPermissions,
     onCreate,
     onLink,
   });

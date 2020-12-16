@@ -1,19 +1,16 @@
 import * as React from 'react';
 import { useMemo } from 'react';
-import { Action, ActionLabels, ContentType, EntityType, FieldExtensionSDK } from '../../types';
-import { ReferenceValidations } from '../../utils/fromFieldValidations';
+import { Action, ActionLabels, EntityType, FieldExtensionSDK } from '../../types';
 import { LinkActions, LinkActionsProps } from './LinkActions';
 import { createEntity, selectMultipleEntities, selectSingleEntity } from './helpers';
+import { EditorPermissions } from '../../common/useEditorPermissions';
 
 type LinkEntityActionsProps = {
   entityType: EntityType;
   canLinkMultiple: boolean;
   sdk: FieldExtensionSDK;
-  allContentTypes: ContentType[];
   isDisabled: boolean;
-  canCreateEntity: boolean;
-  canLinkEntity: boolean;
-  validations: ReferenceValidations;
+  editorPermissions: EditorPermissions;
   onCreate: (id: string, index?: number) => void;
   onLink: (ids: string[], index?: number) => void;
   onAction?: (action: Action) => void;
@@ -21,26 +18,9 @@ type LinkEntityActionsProps = {
 };
 
 export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsProps {
-  const {
-    sdk,
-    validations,
-    entityType,
-    canLinkMultiple,
-    canLinkEntity,
-    isDisabled,
-    canCreateEntity,
-    actionLabels,
-  } = props;
-  let availableContentTypes: ContentType[] = [];
+  const { sdk, editorPermissions, entityType, canLinkMultiple, isDisabled, actionLabels } = props;
 
-  if (entityType === 'Entry') {
-    availableContentTypes = validations.contentTypes
-      ? props.allContentTypes.filter((contentType) => {
-          return validations.contentTypes?.includes(contentType.sys.id);
-        })
-      : props.allContentTypes;
-  }
-  const maxLinksCount = validations.numberOfLinks?.max;
+  const maxLinksCount = editorPermissions.validations.numberOfLinks?.max;
   const value = sdk.field.getValue();
   const linkCount = Array.isArray(value) ? value.length : value ? 1 : 0;
   const isFull = !!maxLinksCount && maxLinksCount <= linkCount;
@@ -67,7 +47,11 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
 
   const onLinkExisting = React.useCallback(
     async (index?: number) => {
-      const entity = await selectSingleEntity({ sdk, entityType, validations });
+      const entity = await selectSingleEntity({
+        sdk,
+        entityType,
+        editorPermissions,
+      });
       if (!entity) {
         return;
       }
@@ -80,7 +64,11 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
 
   const onLinkSeveralExisting = React.useCallback(
     async (index?: number) => {
-      const entities = await selectMultipleEntities({ sdk, entityType, validations });
+      const entities = await selectMultipleEntities({
+        sdk,
+        entityType,
+        editorPermissions,
+      });
 
       if (!entities || entities.length === 0) {
         return;
@@ -110,9 +98,9 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
       isDisabled,
       isEmpty,
       isFull,
-      canCreateEntity,
-      canLinkEntity,
-      contentTypes: availableContentTypes,
+      canCreateEntity: editorPermissions.canCreateEntity,
+      canLinkEntity: editorPermissions.canLinkEntity,
+      contentTypes: editorPermissions.creatableContentTypes,
       onCreate,
       onLinkExisting: canLinkMultiple ? onLinkSeveralExisting : onLinkExisting,
       actionLabels,
@@ -123,10 +111,10 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
       isDisabled,
       isEmpty,
       isFull,
-      canCreateEntity,
-      canLinkEntity,
+      editorPermissions.canCreateEntity,
+      editorPermissions.canLinkEntity,
       actionLabels,
-      availableContentTypes.map((ct) => ct.sys.id).join(':'),
+      editorPermissions.creatableContentTypes.map((ct) => ct.sys.id).join(':'),
       onCreate,
       onLinkExisting,
       onLinkSeveralExisting,
