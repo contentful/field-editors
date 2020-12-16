@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.15.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@0.14.39...@contentful/field-editor-rich-text@0.15.0) (2020-12-16)
+
+
+### Features
+
+* minHeight props ([#529](https://github.com/contentful/field-editors/issues/529)) ([672e5d1](https://github.com/contentful/field-editors/commit/672e5d10356547ba99888dfeedc5ffd7b6e264cb))
+
+
+
+
+
 ## [0.14.39](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@0.14.38...@contentful/field-editor-rich-text@0.14.39) (2020-12-10)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text

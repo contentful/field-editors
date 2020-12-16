@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-markdown",
-  "version": "0.9.9",
+  "version": "0.10.0",
   "main": "dist/index.js",
   "module": "dist/field-editor-markdown.esm.js",
   "typings": "dist/index.d.ts",
