@@ -31,7 +31,7 @@ export function renderAssetInfo(props: { entityFile: File }) {
     <DropdownList
       border="top"
       className={styles.cardDropdown}
-      // @ts-ignore
+      // @ts-expect-error
       onClick={(e) => {
         e.stopPropagation();
       }}>
@@ -62,7 +62,7 @@ export function renderActions(props: {
   return (
     <DropdownList
       className={styles.cardDropdown}
-      // @ts-ignore
+      // @ts-expect-error
       onClick={(e) => {
         e.stopPropagation();
       }}>

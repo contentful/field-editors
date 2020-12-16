@@ -50,7 +50,7 @@ export class FieldConnector<ValueType> extends React.Component<
     isEqualValues: (value1: any | Nullable, value2: any | Nullable) => {
       return isEqual(value1, value2);
     },
-    throttle: 300
+    throttle: 300,
   };
 
   constructor(props: FieldConnectorProps<ValueType>) {
@@ -63,7 +63,7 @@ export class FieldConnector<ValueType> extends React.Component<
       lastSetValue: initialValue,
       lastRemoteValue: initialValue,
       disabled: props.isInitiallyDisabled,
-      errors: []
+      errors: [],
     };
   }
 
@@ -77,13 +77,10 @@ export class FieldConnector<ValueType> extends React.Component<
         return new Promise((resolve, reject) => {
           this.setState(
             {
-              lastSetValue: undefined
+              lastSetValue: undefined,
             },
             () => {
-              this.props.field
-                .removeValue()
-                .then(resolve)
-                .catch(reject);
+              this.props.field.removeValue().then(resolve).catch(reject);
             }
           );
         });
@@ -91,13 +88,10 @@ export class FieldConnector<ValueType> extends React.Component<
         return new Promise((resolve, reject) => {
           this.setState(
             {
-              lastSetValue: value
+              lastSetValue: value,
             },
             () => {
-              this.props.field
-                .setValue(value)
-                .then(resolve)
-                .catch(reject);
+              this.props.field.setValue(value).then(resolve).catch(reject);
             }
           );
         });
@@ -111,16 +105,16 @@ export class FieldConnector<ValueType> extends React.Component<
     const { field } = this.props;
     this.unsubscribeErrors = field.onSchemaErrorsChanged((errors: string[]) => {
       this.setState({
-        errors: errors || []
+        errors: errors || [],
       });
     });
     this.unsubscribeDisabled = field.onIsDisabledChanged((disabled: boolean) => {
       this.setState({
-        disabled
+        disabled,
       });
     });
     this.unsubscribeValue = field.onValueChanged((value: ValueType | Nullable) => {
-      this.setState(currentState => {
+      this.setState((currentState) => {
         const isLocalValueChange = this.props.isEqualValues(value, currentState.lastSetValue);
         const lastRemoteValue = isLocalValueChange ? currentState.lastRemoteValue : value;
         const externalReset = currentState.externalReset + (isLocalValueChange ? 0 : 1);
@@ -129,7 +123,7 @@ export class FieldConnector<ValueType> extends React.Component<
           lastSetValue: value,
           lastRemoteValue,
           isLocalValueChange,
-          externalReset
+          externalReset,
         };
       });
     });
@@ -151,10 +145,13 @@ export class FieldConnector<ValueType> extends React.Component<
     const childProps = { ...this.state };
     // `lastSetValue` can be either the `setValue()` value right after it got called
     // or the current remote value. No use-case for passing this to child.
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     delete childProps.lastSetValue;
     return this.props.children({
       ...childProps,
-      setValue: this.setValue
+      // @ts-expect-error
+      setValue: this.setValue,
     });
   }
 }

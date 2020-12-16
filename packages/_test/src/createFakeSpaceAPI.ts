@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-ignore */
 import { ContentType, SearchQuery, SpaceAPI } from 'contentful-ui-extensions-sdk';
 import { Entry } from '@contentful/field-editor-shared';
 import { createEntry } from './fakesFactory';
@@ -48,12 +47,10 @@ const testContentTypes: ContentType[] = [
 ];
 
 export function createFakeSpaceAPI(customizeMock: CustomizeMockFn = identity): SpaceAPI {
-  return customizeMock({
-    // @ts-ignore
+  return customizeMock(({
     getCachedContentTypes() {
       return testContentTypes;
     },
-    // @ts-ignore
     getContentTypes() {
       return Promise.resolve({
         items: testContentTypes,
@@ -63,7 +60,6 @@ export function createFakeSpaceAPI(customizeMock: CustomizeMockFn = identity): S
         sys: { type: 'Array' },
       });
     },
-    // @ts-ignore
     getEntries(query?: SearchQuery) {
       const items: Entry[] = [
         createEntry('exampleCT', { exField: { 'en-US': 'Hello world' } }),
@@ -86,13 +82,11 @@ export function createFakeSpaceAPI(customizeMock: CustomizeMockFn = identity): S
         sys: { type: 'Array' },
       });
     },
-    // @ts-ignore
     createEntry(contentTypeId: string) {
       return Promise.resolve(createEntry(contentTypeId, {}));
     },
-    // @ts-ignore
     createAsset() {
       return Promise.resolve({});
     },
-  });
+  } as unknown) as SpaceAPI);
 }

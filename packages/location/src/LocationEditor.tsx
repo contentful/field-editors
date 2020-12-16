@@ -72,6 +72,7 @@ export class LocationEditor extends React.Component<
     };
   }
 
+  // @ts-expect-error
   onSearchAddress: (value: string) => Promise<GeocodeApiResponse> = throttle((value) => {
     if (!this.state.mapsObject) {
       return Promise.resolve(null);

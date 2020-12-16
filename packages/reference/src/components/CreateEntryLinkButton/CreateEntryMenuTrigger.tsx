@@ -174,7 +174,6 @@ export const CreateEntryMenuTrigger = ({
         isOpen={isOpen && hasDropdown}
         toggleElement={children({ isOpen, isSelecting, openMenu: toggleMenu })}
         testId="add-entry-menu"
-        // @ts-ignore
         getContainerRef={(ref) => {
           dropdownRef.current = ref;
           if (!dropdownWidth && ref) {

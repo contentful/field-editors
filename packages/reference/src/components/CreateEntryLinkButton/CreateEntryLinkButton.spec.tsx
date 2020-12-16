@@ -121,7 +121,7 @@ describe('CreateEntryLinkButton with multiple entries', () => {
     );
     fireEvent.click(findButton(getByTestId));
     fireEvent.click(
-      // @ts-ignore
+      // @ts-expect-error
       getAllByTestId('contentType')[1].querySelector(
         '[data-test-id="cf-ui-dropdown-list-item-button"]'
       )

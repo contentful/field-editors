@@ -5,8 +5,7 @@ import { File, Asset } from '../../types';
 import { entityHelpers } from '@contentful/field-editor-shared';
 import { MissingEntityCard } from '../../components';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
+// @ts-expect-error
 import mimetype from '@contentful/mimetype';
 
 const groupToIconMap = {
@@ -97,7 +96,6 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
       type={getFileType(entityFile)}
       title={entityTitle}
       className={className}
-      // @ts-ignore
       selected={isSelected}
       href={getAssetUrl ? getAssetUrl(props.asset.sys.id) : undefined}
       status={status}
@@ -108,7 +106,7 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
             : `${entityFile.url}?h=300`
           : ''
       }
-      // @ts-ignore
+      // @ts-expect-error
       onClick={(e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
         if (!isClickable) return;
