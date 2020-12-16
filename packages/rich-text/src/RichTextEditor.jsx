@@ -88,6 +88,7 @@ const EMPTY_SLATE_DOCUMENT = createSlateValue(EMPTY_DOCUMENT);
 
 export class ConnectedRichTextEditor extends React.Component {
   static propTypes = {
+    minHeight: PropTypes.oneOf([PropTypes.string, PropTypes.number]),
     sdk: PropTypes.shape({
       field: PropTypes.shape({
         id: PropTypes.string.isRequired,
@@ -190,6 +191,7 @@ export class ConnectedRichTextEditor extends React.Component {
   render() {
     const classNames = cx(
       styles.editor,
+      this.props.minHeight !== undefined ? css({ minHeight: this.props.minHeight }) : undefined,
       this.props.isDisabled ? styles.disabled : styles.enabled,
       this.props.isToolbarHidden && styles.hiddenToolbar
     );
