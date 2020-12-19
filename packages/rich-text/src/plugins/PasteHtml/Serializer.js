@@ -156,7 +156,7 @@ const marks = {
         nodes: next(el.childNodes)
       };
     }
-  },
+  }
 };
 
 const blocks = {
