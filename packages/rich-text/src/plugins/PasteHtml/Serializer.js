@@ -29,7 +29,7 @@ const MARK_TAGS = {
   u: MARKS.UNDERLINE,
   code: MARKS.CODE,
   sup: MARKS.SUPERSCRIPT,
-  sub: MARKS.SUBSCRIPT,
+  sub: MARKS.SUBSCRIPT
 };
 
 const isGoogleWrapper = el =>
@@ -153,7 +153,7 @@ const marks = {
       return {
         object: 'mark',
         type: mark,
-        nodes: next(el.childNodes),
+        nodes: next(el.childNodes)
       };
     }
   },
@@ -168,7 +168,7 @@ const blocks = {
       return {
         object: 'block',
         type: block,
-        nodes: childNodes.length > 0 ? childNodes : [{ object: 'text' }],
+        nodes: childNodes.length > 0 ? childNodes : [{ object: 'text' }]
       };
     }
   }
