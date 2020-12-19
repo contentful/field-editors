@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import ToolbarIcon from '../shared/ToolbarIcon';
 import markPlugin from '../shared/MarkPlugin';
 import markToggleDecorator from '../shared/MarkToggleDecorator';
-import { CUSTOM_TAGS } from '../../helpers/customTags';
+import { MARKS } from '@contentful/rich-text-types';
 
 export const SubscriptPlugin = ({ richTextAPI }) => {
   return markPlugin({
-    type: CUSTOM_TAGS.SUBSCRIPT,
+    type: MARKS.SUBSCRIPT,
     tagName: 'sub',
-    hotkey: ['mod+shift+b'], // - need to decide what key combination assign
-    richTextAPI,
+    hotkey: ['mod+='],
+    richTextAPI
   });
 };
 
@@ -20,7 +20,7 @@ class Subscript extends Component {
 }
 
 export default markToggleDecorator({
-  type: CUSTOM_TAGS.SUBSCRIPT,
+  type: MARKS.SUBSCRIPT,
   title: 'Subscript',
-  icon: 'Subscript',
+  icon: 'Subscript'
 })(Subscript);

@@ -31,9 +31,6 @@
     "@contentful/forma-36-tokens": "^0.9.2",
     "@contentful/rich-text-plain-text-renderer": "^14.0.0",
     "@contentful/rich-text-types": "^14.0.1",
-    "@fortawesome/fontawesome-svg-core": "^1.2.32",
-    "@fortawesome/free-solid-svg-icons": "^5.15.1",
-    "@fortawesome/react-fontawesome": "^0.1.12",
     "@productboard/slate-edit-list": "^0.19.1",
     "@wikifactory/slate-trailing-block": "^0.6.0",
     "classnames": "^2.2.6",
@@ -64,7 +61,6 @@
     "@contentful/rich-text-react-renderer": "^14.1.1",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
-    "is-hotkey": "^0.1.6",
     "jest": "26.6.3"
   }
 }

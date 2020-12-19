@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import ToolbarIcon from '../shared/ToolbarIcon';
 import markPlugin from '../shared/MarkPlugin';
 import markToggleDecorator from '../shared/MarkToggleDecorator';
-import { CUSTOM_TAGS } from '../../helpers/customTags';
+import { MARKS } from '@contentful/rich-text-types';
 
 export const SuperscriptPlugin = ({ richTextAPI }) => {
   return markPlugin({
-    type: CUSTOM_TAGS.SUPERSCRIPT,
+    type: MARKS.SUPERSCRIPT,
     tagName: 'sup',
-    hotkey: ['mod+shift+s'], // - need to decide what key combination assign
-    richTextAPI,
+    hotkey: ['mod+shift++'],
+    richTextAPI
   });
 };
 
@@ -20,7 +20,7 @@ class Superscript extends Component {
 }
 
 export default markToggleDecorator({
-  type: CUSTOM_TAGS.SUPERSCRIPT,
+  type: MARKS.SUPERSCRIPT,
   title: 'Superscript',
-  icon: 'Superscript',
+  icon: 'Superscript'
 })(Superscript);

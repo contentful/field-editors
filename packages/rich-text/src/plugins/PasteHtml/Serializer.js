@@ -1,6 +1,5 @@
 import HtmlSerializer from 'slate-html-serializer';
 import { BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types';
-import { CUSTOM_TAGS } from '../../helpers/customTags';
 
 /**
  * Tags to block types mapping
@@ -16,7 +15,7 @@ const BLOCK_TAGS = {
   h3: BLOCKS.HEADING_3,
   h4: BLOCKS.HEADING_4,
   h5: BLOCKS.HEADING_5,
-  h6: BLOCKS.HEADING_6,
+  h6: BLOCKS.HEADING_6
 };
 
 /**
@@ -29,22 +28,22 @@ const MARK_TAGS = {
   i: MARKS.ITALIC,
   u: MARKS.UNDERLINE,
   code: MARKS.CODE,
-  sup: CUSTOM_TAGS.SUPERSCRIPT,
-  sub: CUSTOM_TAGS.SUBSCRIPT,
+  sup: MARKS.SUPERSCRIPT,
+  sub: MARKS.SUBSCRIPT,
 };
 
-const isGoogleWrapper = (el) =>
+const isGoogleWrapper = el =>
   el.tagName.toLowerCase() === 'b' && el.id.startsWith('docs-internal-guid-');
 
-const isGoogleBold = (el) => {
+const isGoogleBold = el => {
   return el.style.fontWeight === '700';
 };
 
-const isGoogleItalic = (el) => {
+const isGoogleItalic = el => {
   return el.style.fontStyle === 'italic';
 };
 
-const isGoogleUnderline = (el) => {
+const isGoogleUnderline = el => {
   return el.style.textDecoration === 'underline';
 };
 
@@ -81,14 +80,14 @@ const gDocsRules = {
           {
             object: 'leaf',
             text: el.textContent,
-            marks: marks.map((type) => ({ object: 'mark', type })),
-          },
-        ],
+            marks: marks.map(type => ({ object: 'mark', type }))
+          }
+        ]
       };
 
       return textNode;
     }
-  },
+  }
 };
 
 const listItems = {
@@ -97,12 +96,12 @@ const listItems = {
     if (el.tagName.toLowerCase() === 'li') {
       let childNodes = next(el.childNodes);
 
-      childNodes = childNodes.map((node) => {
+      childNodes = childNodes.map(node => {
         if (node.object === 'text') {
           return {
             object: 'block',
             type: BLOCKS.PARAGRAPH,
-            nodes: [node],
+            nodes: [node]
           };
         } else {
           return node;
@@ -112,10 +111,10 @@ const listItems = {
       return {
         object: 'block',
         type: BLOCKS.LIST_ITEM,
-        nodes: childNodes,
+        nodes: childNodes
       };
     }
-  },
+  }
 };
 
 const links = {
@@ -129,14 +128,14 @@ const links = {
           type: INLINES.HYPERLINK,
           nodes: next(el.childNodes),
           data: {
-            uri: el.getAttribute('href'),
-          },
+            uri: el.getAttribute('href')
+          }
         };
       } else {
         return next(el.childNodes);
       }
     }
-  },
+  }
 };
 
 const macOSTrailingBreak = {
@@ -144,7 +143,7 @@ const macOSTrailingBreak = {
     if (el.tagName.toLowerCase() === 'br' && el.classList.contains('Apple-interchange-newline')) {
       return null;
     }
-  },
+  }
 };
 
 const marks = {
@@ -172,13 +171,13 @@ const blocks = {
         nodes: childNodes.length > 0 ? childNodes : [{ object: 'text' }],
       };
     }
-  },
+  }
 };
 
 const RULES = [gDocsRules, listItems, links, macOSTrailingBreak, marks, blocks];
 
 export const create = () => {
   return new HtmlSerializer({
-    rules: RULES,
+    rules: RULES
   });
 };

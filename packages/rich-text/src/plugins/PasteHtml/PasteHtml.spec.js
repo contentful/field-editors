@@ -46,6 +46,8 @@ describe('PasteHtml Plugin', () => {
     ['supports italic em', '<em>Text</em>', markDocFactory(MARKS.ITALIC)],
     ['supports underline', '<u>Text</u>', markDocFactory(MARKS.UNDERLINE)],
     ['supports code', '<code>Text</code>', markDocFactory(MARKS.CODE)],
+    ['supports superscript', '<sup>Text</sup>', markDocFactory(MARKS.SUPERSCRIPT)],
+    ['supports subscript', '<sub>Text</sub>', markDocFactory(MARKS.SUBSCRIPT)],
     ...[1, 2, 3, 4, 5, 6].map(headingTestDataFactory),
     [
       'supports anchor',
