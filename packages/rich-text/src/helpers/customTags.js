@@ -1,4 +1,0 @@
-export const CUSTOM_TAGS = {
-  SUPERSCRIPT: 'SUPERSCRIPT',
-  SUBSCRIPT: 'SUBSCRIPT',
-};
