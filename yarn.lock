@@ -1571,9 +1571,9 @@
   integrity sha512-OEdESP60bCumsi8q4zT+5dbB5FnwR2vJxAufezYqeTJjn3WOq1/SIRtnpAkxLJ4qXaT0dCJDA6tzuVdFJq7oqg==
 
 "@contentful/mimetype@^1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@contentful/mimetype/-/mimetype-1.4.0.tgz#e2d40fb55a138e2843d62009f03e737b7f3acea6"
-  integrity sha512-uUU4P21caAU997+dlIPpuZq1E59ojveivbQlVxdmPeBYlRDsBUV+hpBSizvNUGyCGmh44NNl9k2ILoSw+d8R4w==
+  version "1.4.17"
+  resolved "https://registry.yarnpkg.com/@contentful/mimetype/-/mimetype-1.4.17.tgz#ebbc3652200f6fa04396fa0263de2e4caeee0604"
+  integrity sha512-JeGH5axGF6vCGNfPRD/qkhM4his+0Zmi0oPgcuB5vY6IsYA/GWZwddEayEP/dQCcWRkw8Ixu6H3ZIdcsMnnmuA==
   dependencies:
     lodash "^4.17.20"
 
