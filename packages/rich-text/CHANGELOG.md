@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.15.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@0.15.3...@contentful/field-editor-rich-text@0.15.4) (2020-12-23)
+
+
+### Bug Fixes
+
+* use correct prop types ([#538](https://github.com/contentful/field-editors/issues/538)) ([f878a3a](https://github.com/contentful/field-editors/commit/f878a3a4f5c2d32455ac7932540d612a1c1a461a))
+
+
+
+
+
 ## [0.15.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@0.15.2...@contentful/field-editor-rich-text@0.15.3) (2020-12-21)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
