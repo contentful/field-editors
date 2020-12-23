@@ -88,7 +88,7 @@ const EMPTY_SLATE_DOCUMENT = createSlateValue(EMPTY_DOCUMENT);
 
 export class ConnectedRichTextEditor extends React.Component {
   static propTypes = {
-    minHeight: PropTypes.oneOf([PropTypes.string, PropTypes.number]),
+    minHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     sdk: PropTypes.shape({
       field: PropTypes.shape({
         id: PropTypes.string.isRequired,
