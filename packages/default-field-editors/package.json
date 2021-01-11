@@ -1,6 +1,6 @@
 {
   "name": "@contentful/default-field-editors",
-  "version": "0.3.49",
+  "version": "0.3.50",
   "main": "dist/index.js",
   "module": "dist/field-editor-field.esm.js",
   "typings": "dist/index.d.ts",
@@ -21,7 +21,7 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
-    "@contentful/field-editor-boolean": "^0.8.5",
+    "@contentful/field-editor-boolean": "^0.8.6",
     "@contentful/field-editor-checkbox": "^0.10.6",
     "@contentful/field-editor-date": "^0.8.4",
     "@contentful/field-editor-dropdown": "^0.10.5",

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-boolean@0.8.5...@contentful/field-editor-boolean@0.8.6) (2021-01-11)
+
+
+### Bug Fixes
+
+* clear button should respect disabled state ([#551](https://github.com/contentful/field-editors/issues/551)) ([a33c3ec](https://github.com/contentful/field-editors/commit/a33c3ec1f88753dfcea09fb62f5c1725fe379120))
+
+
+
+
+
 ## [0.8.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-boolean@0.8.4...@contentful/field-editor-boolean@0.8.5) (2020-12-16)
 
 **Note:** Version bump only for package @contentful/field-editor-boolean
