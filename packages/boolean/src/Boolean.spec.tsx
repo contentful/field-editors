@@ -65,4 +65,19 @@ describe('BooleanEditor', () => {
     fireEvent.click(getByText('Clear'));
     expect(field.removeValue).toHaveBeenCalledTimes(1);
   });
+
+  it('all interactive elements are disabled if field is disabled', () => {
+    const [field] = createFakeFieldAPI((field) => {
+      return field;
+    }, true);
+
+    const { getByTestId, getByLabelText } = render(
+      <BooleanEditor field={field} isInitiallyDisabled={true} />
+    );
+
+    expect(getByLabelText('Yes')).toBeDisabled();
+    expect(getByLabelText('No')).toBeDisabled();
+
+    expect(getByTestId('boolean-editor-clear')).toBeDisabled();
+  });
 });

@@ -74,7 +74,11 @@ export function BooleanEditor(props: BooleanEditorProps) {
                 </React.Fragment>
               );
             })}
-            {value !== undefined && <TextLink onClick={clearOption}>Clear</TextLink>}
+            {value !== undefined && (
+              <TextLink testId="boolean-editor-clear" disabled={disabled} onClick={clearOption}>
+                Clear
+              </TextLink>
+            )}
           </div>
         );
       }}
