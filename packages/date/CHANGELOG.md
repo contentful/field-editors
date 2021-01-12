@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@0.9.0...@contentful/field-editor-date@0.9.1) (2021-01-12)
+
+
+### Bug Fixes
+
+* use forma tokens for border radiuses ([#553](https://github.com/contentful/field-editors/issues/553)) ([f4eb745](https://github.com/contentful/field-editors/commit/f4eb74568c7bc0cc25028542821ba64e50e226bd))
+
+
+
+
+
 # [0.9.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@0.8.4...@contentful/field-editor-date@0.9.0) (2021-01-12)
 
 
