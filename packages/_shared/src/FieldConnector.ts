@@ -11,7 +11,7 @@ export interface FieldConnectorChildProps<ValueType> {
   lastRemoteValue: ValueType | Nullable;
   value: ValueType | Nullable;
   disabled: boolean;
-  errors: string[];
+  errors: Error[];
   setValue: (value: ValueType | Nullable) => Promise<unknown>;
 }
 
@@ -22,7 +22,7 @@ interface FieldConnectorState<ValueType> {
   lastRemoteValue: ValueType | Nullable;
   value: ValueType | Nullable;
   disabled: boolean;
-  errors: string[];
+  errors: Error[];
 }
 
 interface FieldConnectorProps<ValueType> {
@@ -103,7 +103,7 @@ export class FieldConnector<ValueType> extends React.Component<
 
   componentDidMount() {
     const { field } = this.props;
-    this.unsubscribeErrors = field.onSchemaErrorsChanged((errors: string[]) => {
+    this.unsubscribeErrors = field.onSchemaErrorsChanged((errors: Error[]) => {
       this.setState({
         errors: errors || [],
       });
