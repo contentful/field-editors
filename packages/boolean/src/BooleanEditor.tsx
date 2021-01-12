@@ -1,10 +1,8 @@
 import * as React from 'react';
 import get from 'lodash/get';
 import { nanoid } from 'nanoid';
-import { css, cx } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
 import { FieldAPI, ParametersAPI, FieldConnector } from '@contentful/field-editor-shared';
-import { RadioButtonField, TextLink } from '@contentful/forma-36-react-components';
+import { RadioButtonField, TextLink, Flex } from '@contentful/forma-36-react-components';
 
 export interface BooleanEditorProps {
   /**
@@ -51,15 +49,14 @@ export function BooleanEditor(props: BooleanEditorProps) {
         };
 
         return (
-          <div data-test-id="boolean-editor" className={cx(css({ marginTop: tokens.spacingS }))}>
+          <Flex testId="boolean-editor" alignItems="center" marginTop="spacingS">
             {options.map((item) => {
               const id = ['entity', field.id, field.locale, item.value, item.id].join('.');
               const checked = value === item.value;
               return (
-                <React.Fragment key={id}>
+                <Flex marginRight="spacingM" key={id}>
                   <RadioButtonField
                     labelIsLight
-                    className={css({ marginRight: tokens.spacingM })}
                     id={id}
                     checked={checked}
                     labelText={item.label}
@@ -71,7 +68,7 @@ export function BooleanEditor(props: BooleanEditorProps) {
                       }
                     }}
                   />
-                </React.Fragment>
+                </Flex>
               );
             })}
             {value !== undefined && (
@@ -79,7 +76,7 @@ export function BooleanEditor(props: BooleanEditorProps) {
                 Clear
               </TextLink>
             )}
-          </div>
+          </Flex>
         );
       }}
     </FieldConnector>

@@ -45,6 +45,10 @@ const getDefaultTime = () => {
   return moment(`12:00 AM`, 'hh:mm A');
 };
 
+const formatToString = (uses12hClock: boolean, value: moment.Moment): string => {
+  return uses12hClock ? value.format('hh:mm A') : value.format('HH:mm');
+};
+
 export const TimepickerInput = ({
   disabled,
   uses12hClock,
@@ -52,17 +56,13 @@ export const TimepickerInput = ({
   ampm = 'AM',
   onChange,
 }: TimepickerProps) => {
-  const formatToString = (value: moment.Moment): string => {
-    return uses12hClock ? value.format('hh:mm A') : value.format('HH:mm');
-  };
-
   const [selectedTime, setSelectedTime] = useState<string>(() => {
-    return formatToString(getDefaultTime());
+    return formatToString(uses12hClock, getDefaultTime());
   });
 
   useEffect(() => {
-    setSelectedTime(formatToString(moment(`${time} ${ampm}`, 'hh:mm A')));
-  }, [time, ampm]);
+    setSelectedTime(formatToString(uses12hClock, moment(`${time} ${ampm}`, 'hh:mm A')));
+  }, [time, ampm, uses12hClock]);
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedTime(e.currentTarget.value);
@@ -76,7 +76,7 @@ export const TimepickerInput = ({
   const handleBlur = () => {
     const parsedTime = parseRawInput(selectedTime);
     const value = parsedTime ?? getDefaultTime();
-    setSelectedTime(formatToString(value));
+    setSelectedTime(formatToString(uses12hClock, value));
     onChange({ time: value.format('hh:mm'), ampm: value.format('A') });
   };
 

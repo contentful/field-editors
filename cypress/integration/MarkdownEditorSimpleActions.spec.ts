@@ -6,7 +6,7 @@ describe('Markdown Editor / Simple Actions', () => {
     getHeadingsSelectorButton: () => {
       return cy.findByTestId('markdown-action-button-heading');
     },
-    getHeadingButton: type => {
+    getHeadingButton: (type) => {
       return cy.findByTestId('markdown-action-button-heading-' + type);
     },
     getBoldButton: () => {
@@ -41,16 +41,16 @@ describe('Markdown Editor / Simple Actions', () => {
     },
     getDedentButton: () => {
       return cy.findByTestId('markdown-action-button-dedent');
-    }
+    },
   };
 
   const examples = {
     long:
       'This course helps you understand the basics behind Contentful. It contains modules that introduce you to core concepts and how your app consumes content from Contentful. This content is pulled from Contentful APIs using a Contentful SDK.',
-    code: 'console.log("This is Javascript code!");'
+    code: 'console.log("This is Javascript code!");',
   };
 
-  const type = value => {
+  const type = (value) => {
     return selectors.getInput().type(value, { force: true });
   };
 
@@ -59,25 +59,25 @@ describe('Markdown Editor / Simple Actions', () => {
   };
 
   const clearAll = () => {
-    cy.getMarkdownInstance().then(markdown => {
+    cy.getMarkdownInstance().then((markdown) => {
       markdown.clear();
     });
   };
 
   const selectAll = () => {
-    cy.getMarkdownInstance().then(markdown => {
+    cy.getMarkdownInstance().then((markdown) => {
       markdown.selectAll();
     });
   };
 
-  const checkValue = value => {
-    cy.getMarkdownInstance().then(markdown => {
+  const checkValue = (value) => {
+    cy.getMarkdownInstance().then((markdown) => {
       expect(markdown.getContent()).eq(value);
     });
   };
 
   const selectBackwards = (skip, len) => {
-    cy.getMarkdownInstance().then(markdown => {
+    cy.getMarkdownInstance().then((markdown) => {
       markdown.selectBackwards(skip, len);
     });
   };
@@ -89,8 +89,8 @@ describe('Markdown Editor / Simple Actions', () => {
   });
 
   describe('headings', () => {
-    const clickHeading = value => {
-      selectors.getHeadingsSelectorButton().click();
+    const clickHeading = (value) => {
+      selectors.getHeadingsSelectorButton().click({ force: true });
       selectors.getHeadingButton(value).click();
     };
 

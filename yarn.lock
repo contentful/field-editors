@@ -1524,17 +1524,17 @@
     read-pkg-up "^7.0.1"
     semver "^7.3.2"
 
-"@contentful/forma-36-fcss@^0.2.12":
-  version "0.2.12"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-fcss/-/forma-36-fcss-0.2.12.tgz#1763e50be13073bee91b24651a27724c9ddd9cd9"
-  integrity sha512-2t4cVAeYf1lVrjL5/QyKGRR6wfRC638LWwMHP2FSyi4LbFoI/OKVWMIy9P57MZRnHFHRZAJOCguiIUCpuqiAwA==
+"@contentful/forma-36-fcss@^0.2.14":
+  version "0.2.14"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-fcss/-/forma-36-fcss-0.2.14.tgz#9188693685c89ff72b58539387f9520c90a04a91"
+  integrity sha512-2SUvjG+CJAKsi9dQthg4Xm55v1M//Odf5TqNn+GU02RvibcfCiOaNthstA8QZPfcP+vDm+Y+w21kqOWi475wCg==
   dependencies:
-    "@contentful/forma-36-tokens" "^0.9.2"
+    "@contentful/forma-36-tokens" "^0.9.4"
 
-"@contentful/forma-36-react-components@^3.64.2":
-  version "3.64.2"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.64.2.tgz#879638eb81b9660271d53708969cf4094569009f"
-  integrity sha512-LDyU6F9ftwaPNDnfwIAvn5vToIUTjL9bVjM1dS8FA/Ep/eGuZuuJ06/riRzxlSr3hTOXfEJ20ZkHqNr/5P3f0A==
+"@contentful/forma-36-react-components@^3.73.12":
+  version "3.73.12"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.73.12.tgz#63e34ce394f14a9c8a8bd1928476c92c295f9fa9"
+  integrity sha512-plRL215Oo6UjrJ1FyZqQeZCvjN391Uq6seuIjRcgWMn1pSWaZXVPDq2BaOJeiIHW6AI4echN9VDZBSN1WhEG7w==
   dependencies:
     "@babel/runtime" "^7.3.4"
     "@popperjs/core" "^2.4.4"
@@ -1547,15 +1547,10 @@
     react-transition-group "^2.4.0"
     truncate "^2.0.1"
 
-"@contentful/forma-36-tokens@^0.8.0":
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.8.1.tgz#e37b06e18e180947cd620bab2c23a5e3a353a232"
-  integrity sha512-gf+2CyJOcDtMTBwolFDpogY9o7oTQv5V1DrFl6OpyEoIQnvP0bPc3H88zizZHJNLFakwOqwxYuLb+ehMmf6PdA==
-
-"@contentful/forma-36-tokens@^0.9.2":
-  version "0.9.2"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.9.2.tgz#c2c0da2e6b01d9f1031a1294fb9c6eeac33ea0ca"
-  integrity sha512-OEdESP60bCumsi8q4zT+5dbB5FnwR2vJxAufezYqeTJjn3WOq1/SIRtnpAkxLJ4qXaT0dCJDA6tzuVdFJq7oqg==
+"@contentful/forma-36-tokens@^0.9.2", "@contentful/forma-36-tokens@^0.9.4":
+  version "0.9.4"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.9.4.tgz#e4ad397a30c3b1af9e708beb353454ad00d16dad"
+  integrity sha512-lCv9MGjivCUYV25g2sNeGmqJmCk3KUF7EHy4iDru8Xo2DzqciVIumOZIyx7TVWzAckK94f4rEJ8E2PlRL5gYvg==
 
 "@contentful/mimetype@^1.4.0":
   version "1.4.17"
@@ -4778,14 +4773,7 @@ axios@^0.19.1:
   dependencies:
     follow-redirects "1.5.10"
 
-axios@^0.21.0:
-  version "0.21.0"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.0.tgz#26df088803a2350dff2c27f96fef99fe49442aca"
-  integrity sha512-fmkJBknJKoZwem3/IKSSLpkdNXZeBu5Q7GA/aRsr2btgrptmSCxi2oFjZHqGdK9DoTil9PIHlPIZw2EcRJXRvw==
-  dependencies:
-    follow-redirects "^1.10.0"
-
-axios@^0.21.1:
+axios@^0.21.0, axios@^0.21.1:
   version "0.21.1"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.1.tgz#22563481962f4d6bde9a76d516ef0e5d3c09b2b8"
   integrity sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==
@@ -6586,15 +6574,7 @@ contentful-resolve-response@^1.1.4:
   dependencies:
     lodash "^4.17.4"
 
-contentful-sdk-core@^6.4.0:
-  version "6.4.0"
-  resolved "https://registry.yarnpkg.com/contentful-sdk-core/-/contentful-sdk-core-6.4.0.tgz#3b42991ae9084baf1bc5d01c61cb54441f740803"
-  integrity sha512-UvYQ/Wrt5EntlMSBbgqgvKfTBRzf6fIT2p5Wp7bsnA3/KLEiYcYd/2qhUKw4x9nfp+0G8B1s4TpDwxV0oymBiA==
-  dependencies:
-    lodash "^4.17.10"
-    qs "^6.5.2"
-
-contentful-sdk-core@^6.7.0:
+contentful-sdk-core@^6.4.0, contentful-sdk-core@^6.7.0:
   version "6.7.0"
   resolved "https://registry.yarnpkg.com/contentful-sdk-core/-/contentful-sdk-core-6.7.0.tgz#c014f12d7a716548c248e905dd8e095a6dbf7a0f"
   integrity sha512-+b8UXVE249Z6WzMLXvsu3CIvN/s5xXRZ9o+zY7zDdPkIYBMW15xcs9N2ATI6ncmc+s1uj4XZij/2skflletHiw==
@@ -9457,12 +9437,7 @@ follow-redirects@1.5.10:
   dependencies:
     debug "=3.1.0"
 
-follow-redirects@^1.0.0:
-  version "1.13.0"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.13.0.tgz#b42e8d93a2a7eea5ed88633676d6597bc8e384db"
-  integrity sha512-aq6gF1BEKje4a9i9+5jimNFIpq4Q1WiwBToeRK5NvZBd/TRsmW8BsJfOEGkr76TbOyPVD3OVDN910EcUNtRYEA==
-
-follow-redirects@^1.10.0:
+follow-redirects@^1.0.0, follow-redirects@^1.10.0:
   version "1.13.1"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.13.1.tgz#5f69b813376cee4fd0474a3aba835df04ab763b7"
   integrity sha512-SSG5xmZh1mkPGyKzjZP8zLjltIfpW32Y5QpdNJyjcfGxK3qo3NDDkZOZSFiGn1A6SclQxY9GzEwAHQ3dmYRWpg==
@@ -16237,11 +16212,6 @@ qs@6.7.0:
   version "6.7.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
   integrity sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
-
-qs@^6.5.2:
-  version "6.9.1"
-  resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.1.tgz#20082c65cb78223635ab1a9eaca8875a29bf8ec9"
-  integrity sha512-Cxm7/SS/y/Z3MHWSxXb8lIFqgqBowP5JMlTUFyJN88y0SGQhVmZnqFK/PeuMX9LzUyWsqqhNxIyg0jlzq946yA==
 
 qs@^6.9.4:
   version "6.9.4"
