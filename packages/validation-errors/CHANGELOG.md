@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@0.2.7...@contentful/field-editor-validation-errors@0.3.0) (2021-01-12)
+
+
+### Features
+
+* update minimal required Forma version to the 3.73.12 ([#552](https://github.com/contentful/field-editors/issues/552)) ([2816fd9](https://github.com/contentful/field-editors/commit/2816fd960c28815faebf49a9ef8f4c4c0d91fc36))
+
+
+
+
+
 ## [0.2.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@0.2.6...@contentful/field-editor-validation-errors@0.2.7) (2020-12-16)
 
 **Note:** Version bump only for package @contentful/field-editor-validation-errors

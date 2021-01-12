@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.16.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@0.15.5...@contentful/field-editor-rich-text@0.16.0) (2021-01-12)
+
+
+### Features
+
+* update minimal required Forma version to the 3.73.12 ([#552](https://github.com/contentful/field-editors/issues/552)) ([2816fd9](https://github.com/contentful/field-editors/commit/2816fd960c28815faebf49a9ef8f4c4c0d91fc36))
+
+
+
+
+
 ## [0.15.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@0.15.4...@contentful/field-editor-rich-text@0.15.5) (2021-01-11)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@0.3.50...@contentful/default-field-editors@0.4.0) (2021-01-12)
+
+
+### Features
+
+* update minimal required Forma version to the 3.73.12 ([#552](https://github.com/contentful/field-editors/issues/552)) ([2816fd9](https://github.com/contentful/field-editors/commit/2816fd960c28815faebf49a9ef8f4c4c0d91fc36))
+
+
+
+
+
 ## [0.3.50](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@0.3.49...@contentful/default-field-editors@0.3.50) (2021-01-11)
 
 **Note:** Version bump only for package @contentful/default-field-editors
