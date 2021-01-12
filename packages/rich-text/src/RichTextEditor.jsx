@@ -27,7 +27,7 @@ const styles = {
     position: 'relative',
   }),
   editor: css({
-    borderRadius: '0 0 3px 3px',
+    borderRadius: `0 0 ${tokens.borderRadiusMedium} ${tokens.borderRadiusMedium}`,
     border: STYLE_EDITOR_BORDER,
     borderTop: 0,
     padding: '20px',

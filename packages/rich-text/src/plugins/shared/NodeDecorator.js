@@ -7,17 +7,17 @@ import tokens from '@contentful/forma-36-tokens';
 const headingCss = {
   fontWeight: tokens.fontWeightMedium,
   lineHeight: '1.3',
-  margin: `0 0 ${tokens.spacingS}`
+  margin: `0 0 ${tokens.spacingS}`,
 };
 
 const styles = {
   paragraph: css({
     lineHeight: tokens.lineHeightDefault,
-    marginBottom: '1.5em'
+    marginBottom: '1.5em',
   }),
   bold: css({
     color: 'inherit',
-    fontWeight: tokens.fontWeightDemiBold
+    fontWeight: tokens.fontWeightDemiBold,
   }),
   blockquote: css({
     margin: '0 0 1.3125rem',
@@ -25,17 +25,17 @@ const styles = {
     paddingLeft: '0.875rem',
     fontStyle: 'normal',
     '& a': {
-      color: 'inherit'
-    }
+      color: 'inherit',
+    },
   }),
   code: css({
     background: tokens.colorElementLight,
     padding: '0px',
     color: tokens.colorTextMid,
-    borderRadius: '2px'
+    borderRadius: tokens.borderRadiusSmall,
   }),
   textLink: css({
-    fontSize: 'inherit'
+    fontSize: 'inherit',
   }),
   orderedList: css({
     margin: '0 0 1.25rem 1.25rem',
@@ -45,14 +45,14 @@ const styles = {
       '[data-test-id="ordered-list"]': {
         listStyleType: 'lower-roman',
         '[data-test-id="ordered-list"]': {
-          listStyleType: 'lower-alpha'
-        }
-      }
+          listStyleType: 'lower-alpha',
+        },
+      },
     },
     '[data-test-id="paragraph"]': {
       margin: 0,
-      lineHeight: tokens.lineHeightDefault
-    }
+      lineHeight: tokens.lineHeightDefault,
+    },
   }),
   unorderedList: css({
     margin: '0 0 1.25rem 1.25rem',
@@ -60,48 +60,48 @@ const styles = {
     '[data-test-id="unordered-list"]': {
       listStyleType: 'circle',
       '[data-test-id="unordered-list"]': {
-        listStyleType: 'square'
-      }
+        listStyleType: 'square',
+      },
     },
     '[data-test-id="paragraph"]': {
       margin: 0,
-      lineHeight: tokens.lineHeightDefault
-    }
+      lineHeight: tokens.lineHeightDefault,
+    },
   }),
   listItem: css({
     listStyle: 'inherit',
     margin: 0,
     '[data-test-id="ordered-list"], [data-test-id="unordered-list"]': {
-      margin: `0 0 0 ${tokens.spacingL}`
-    }
+      margin: `0 0 0 ${tokens.spacingL}`,
+    },
   }),
   heading1: css({
     ...headingCss,
-    fontSize: '1.875rem'
+    fontSize: '1.875rem',
   }),
   heading2: css({
     ...headingCss,
-    fontSize: '1.5625rem'
+    fontSize: '1.5625rem',
   }),
   heading3: css({
     ...headingCss,
-    fontSize: '1.375rem'
+    fontSize: '1.375rem',
   }),
   heading4: css({
     ...headingCss,
-    fontSize: '1.25rem'
+    fontSize: '1.25rem',
   }),
   heading5: css({
     ...headingCss,
-    fontSize: '1.125rem'
+    fontSize: '1.125rem',
   }),
   heading6: css({
     ...headingCss,
-    fontSize: '1rem'
-  })
+    fontSize: '1rem',
+  }),
 };
 
-export default function(Tag, tagProps = {}) {
+export default function (Tag, tagProps = {}) {
   const CommonNode = ({ attributes, children, node }) => {
     return (
       <Tag

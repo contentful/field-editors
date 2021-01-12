@@ -5,7 +5,7 @@ export const container = css({
   display: 'flex',
   backgroundColor: tokens.colorWhite,
   border: `1px dashed ${tokens.colorElementMid}`,
-  borderRadius: '3px',
+  borderRadius: tokens.borderRadiusMedium,
   justifyContent: 'center',
   padding: tokens.spacingXl,
 });

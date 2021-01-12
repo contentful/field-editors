@@ -20,7 +20,7 @@ const styles = {
     background: tokens.colorWhite,
     boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1), 0 5px 10px -5px rgba(0, 0, 0, 0.3)',
     border: `1px solid ${tokens.colorElementDark}`,
-    borderRadius: '3px',
+    borderRadius: tokens.borderRadiusMedium,
     fontFamily: tokens.fontStackPrimary,
     width: '500px',
     overflowY: 'auto',

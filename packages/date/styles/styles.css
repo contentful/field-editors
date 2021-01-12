@@ -158,10 +158,10 @@
   background: #e5ebed;
 }
 .pika-table thead th:first-child {
-  border-radius: 3px 0 0 3px;
+  border-radius: 4px 0 0 4px;
 }
 .pika-table thead th:last-child {
-  border-radius: 0 3px 3px 0;
+  border-radius: 0 4px 4px 0;
 }
 .pika-table thead abbr {
   border-bottom: none;
@@ -193,7 +193,7 @@
   font-size: 12px;
   line-height: 15px;
   text-align: center;
-  border-radius: 3px;
+  border-radius: 4px;
 }
 .pika-button::-moz-focus-inner {
   border: 0;
