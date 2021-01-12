@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SharedEditorSDK, BaseExtensionSDK, FieldAPI } from 'contentful-ui-extensions-sdk';
+import { FieldExtensionSDK, FieldAPI } from 'contentful-ui-extensions-sdk';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import { TrackingFieldConnector } from './TrackingFieldConnector';
 import { SlugEditorField, SlugEditorFieldStatic } from './SlugEditorField';
@@ -10,7 +10,7 @@ export interface SlugEditorProps {
    */
   isInitiallyDisabled: boolean;
 
-  baseSdk: BaseExtensionSDK & SharedEditorSDK;
+  baseSdk: FieldExtensionSDK;
 
   /**
    * sdk.field

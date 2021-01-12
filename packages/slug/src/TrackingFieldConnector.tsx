@@ -1,5 +1,5 @@
 import React from 'react';
-import { BaseExtensionSDK, SharedEditorSDK, FieldAPI } from 'contentful-ui-extensions-sdk';
+import { FieldExtensionSDK, FieldAPI } from 'contentful-ui-extensions-sdk';
 
 type Nullable = null | undefined;
 
@@ -10,7 +10,7 @@ interface TrackingFieldConnectorState<ValueType> {
 }
 
 interface TrackingFieldConnectorProps<ValueType> {
-  sdk: BaseExtensionSDK & SharedEditorSDK;
+  sdk: FieldExtensionSDK;
   field: FieldAPI;
   defaultLocale: string;
   trackingFieldId?: string;
@@ -18,7 +18,7 @@ interface TrackingFieldConnectorProps<ValueType> {
   children: (state: TrackingFieldConnectorState<ValueType>) => React.ReactNode;
 }
 
-function getTitleField(sdk: BaseExtensionSDK & SharedEditorSDK, trackingFieldId?: string) {
+function getTitleField(sdk: FieldExtensionSDK, trackingFieldId?: string) {
   const { entry, contentType } = sdk;
   if (trackingFieldId && entry.fields[trackingFieldId]) {
     return entry.fields[trackingFieldId];
