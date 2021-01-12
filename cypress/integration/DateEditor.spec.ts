@@ -237,7 +237,7 @@ describe('Date Editor', () => {
       ]);
     });
 
-    it.only('should reset field state on external change', () => {
+    it('should reset field state on external change', () => {
       cy.setInitialValue('1990-01-03T22:53');
 
       openPage();
