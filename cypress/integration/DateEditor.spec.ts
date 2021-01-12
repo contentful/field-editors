@@ -29,7 +29,7 @@ describe('Date Editor', () => {
     },
     getCalendarSelectedDate: () => {
       return cy.get('.pika-lendar .is-selected');
-    }
+    },
   };
 
   const getToday = () => {
@@ -39,7 +39,7 @@ describe('Date Editor', () => {
     return {
       month,
       year,
-      date
+      date,
     };
   };
 
@@ -77,20 +77,14 @@ describe('Date Editor', () => {
     it('should render date, time (24 format) and timezone inputs by default', () => {
       openPage();
 
-      selectors
-        .getDateInput()
-        .should('be.visible')
-        .should('have.value', '');
+      selectors.getDateInput().should('be.visible').should('have.value', '');
       selectors
         .getTimeInput()
         .should('be.visible')
         .should('have.attr', 'date-time-type', '24')
         .should('have.attr', 'placeholder', '00:00')
         .should('have.value', '00:00');
-      selectors
-        .getTimezoneInput()
-        .should('be.visible')
-        .should('have.value', '+00:00');
+      selectors.getTimezoneInput().should('be.visible').should('have.value', '+00:00');
     });
 
     it('calendar should show current year, month and date', () => {
@@ -108,25 +102,13 @@ describe('Date Editor', () => {
 
     it('correct actions are called when user interacts with editor', () => {
       openPage();
-      selectors
-        .getTimezoneInput()
-        .select('+08:00')
-        .blur()
-        .should('have.value', '+08:00');
+      selectors.getTimezoneInput().select('+08:00').blur().should('have.value', '+08:00');
 
       selectors.getDateInput().click();
       selectors.getCalendarTodayDate().click();
-      selectors
-        .getDateInput()
-        .blur()
-        .should('have.value', 'Friday, February 15th 2019');
+      selectors.getDateInput().blur().should('have.value', 'Friday, February 15th 2019');
 
-      selectors
-        .getTimeInput()
-        .focus()
-        .type('15:00')
-        .blur()
-        .should('have.value', '15:00');
+      selectors.getTimeInput().focus().type('15:00').blur().should('have.value', '15:00');
 
       selectors.getClearBtn().click();
 
@@ -144,7 +126,7 @@ describe('Date Editor', () => {
         { id: 4, type: 'onValueChanged', value: '2019-02-15T15:00+08:00' },
         { id: 3, type: 'setValue', value: '2019-02-15T15:00+08:00' },
         { id: 2, type: 'onValueChanged', value: '2019-02-15T00:00+08:00' },
-        { id: 1, type: 'setValue', value: '2019-02-15T00:00+08:00' }
+        { id: 1, type: 'setValue', value: '2019-02-15T00:00+08:00' },
       ]);
     });
 
@@ -158,6 +140,8 @@ describe('Date Editor', () => {
       selectors.getTimezoneInput().should('have.value', '+03:00');
 
       cy.setValueExternal('1992-01-03T21:40+05:00');
+
+      cy.wait(500);
 
       selectors.getDateInput().should('have.value', 'Friday, January 3rd 1992');
       selectors.getTimeInput().should('have.value', '21:40');
@@ -174,15 +158,11 @@ describe('Date Editor', () => {
         ['5', '05:00'],
         ['99', '00:00'],
         ['asdasd', '00:00'],
-        ['9:43 AM', '09:43']
+        ['9:43 AM', '09:43'],
       ];
 
-      pairs.forEach(pair => {
-        selectors
-          .getTimeInput()
-          .type(pair[0])
-          .blur()
-          .should('have.value', pair[1]);
+      pairs.forEach((pair) => {
+        selectors.getTimeInput().type(pair[0]).blur().should('have.value', pair[1]);
       });
     });
   });
@@ -191,7 +171,7 @@ describe('Date Editor', () => {
     beforeEach(() => {
       cy.setInstanceParams({
         format: 'time',
-        ampm: '12'
+        ampm: '12',
       });
     });
 
@@ -221,15 +201,11 @@ describe('Date Editor', () => {
         ['5', '05:00 AM'],
         ['99', '12:00 AM'],
         ['asdasd', '12:00 AM'],
-        ['9:43', '09:43 AM']
+        ['9:43', '09:43 AM'],
       ];
 
-      pairs.forEach(pair => {
-        selectors
-          .getTimeInput()
-          .type(pair[0])
-          .blur()
-          .should('have.value', pair[1]);
+      pairs.forEach((pair) => {
+        selectors.getTimeInput().type(pair[0]).blur().should('have.value', pair[1]);
       });
     });
 
@@ -238,17 +214,9 @@ describe('Date Editor', () => {
 
       selectors.getDateInput().click();
       selectors.getCalendarTodayDate().click();
-      selectors
-        .getDateInput()
-        .blur()
-        .should('have.value', 'Friday, February 15th 2019');
+      selectors.getDateInput().blur().should('have.value', 'Friday, February 15th 2019');
 
-      selectors
-        .getTimeInput()
-        .focus()
-        .type('3:00 PM')
-        .blur()
-        .should('have.value', '03:00 PM');
+      selectors.getTimeInput().focus().type('3:00 PM').blur().should('have.value', '03:00 PM');
 
       selectors.getClearBtn().click();
 
@@ -265,11 +233,11 @@ describe('Date Editor', () => {
         { id: 4, type: 'onValueChanged', value: '2019-02-15T15:00' },
         { id: 3, type: 'setValue', value: '2019-02-15T15:00' },
         { id: 2, type: 'onValueChanged', value: '2019-02-15T00:00' },
-        { id: 1, type: 'setValue', value: '2019-02-15T00:00' }
+        { id: 1, type: 'setValue', value: '2019-02-15T00:00' },
       ]);
     });
 
-    it('should reset field state on external change', () => {
+    it.only('should reset field state on external change', () => {
       cy.setInitialValue('1990-01-03T22:53');
 
       openPage();
@@ -279,6 +247,8 @@ describe('Date Editor', () => {
 
       cy.setValueExternal('1992-01-03T21:40');
 
+      cy.wait(500);
+
       selectors.getDateInput().should('have.value', 'Friday, January 3rd 1992');
       selectors.getTimeInput().should('have.value', '09:40 PM');
     });
@@ -287,7 +257,7 @@ describe('Date Editor', () => {
   describe('without timezone and time', () => {
     beforeEach(() => {
       cy.setInstanceParams({
-        format: 'dateonly'
+        format: 'dateonly',
       });
     });
 
@@ -312,10 +282,7 @@ describe('Date Editor', () => {
 
       selectors.getDateInput().click();
       selectors.getCalendarTodayDate().click();
-      selectors
-        .getDateInput()
-        .blur()
-        .should('have.value', 'Friday, February 15th 2019');
+      selectors.getDateInput().blur().should('have.value', 'Friday, February 15th 2019');
 
       selectors.getClearBtn().click();
 
@@ -329,7 +296,7 @@ describe('Date Editor', () => {
         { id: 4, type: 'onValueChanged', value: undefined },
         { id: 3, type: 'removeValue', value: undefined },
         { id: 2, type: 'onValueChanged', value: '2019-02-15' },
-        { id: 1, type: 'setValue', value: '2019-02-15' }
+        { id: 1, type: 'setValue', value: '2019-02-15' },
       ]);
     });
 
