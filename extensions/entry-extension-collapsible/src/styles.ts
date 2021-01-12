@@ -44,8 +44,8 @@ const styles = {
 
   icon: css({
     backgroundColor: tokens.colorElementLightest,
-    borderRadius: '2px',
-    padding: '3px',
+    borderRadius: tokens.borderRadiusSmall,
+    padding: tokens.spacingXs,
     marginRight: tokens.spacingXs,
   }),
 

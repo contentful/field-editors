@@ -9,8 +9,8 @@ const styles = {
     justifyContent: 'space-between',
     background: tokens.colorElementLightest,
     border: `1px solid ${tokens.colorElementDark}`,
-    borderBottomLeftRadius: '2px',
-    borderBottomRightRadius: '2px',
+    borderBottomLeftRadius: tokens.borderRadiusSmall,
+    borderBottomRightRadius: tokens.borderRadiusSmall,
     padding: `${tokens.spacingXs} ${tokens.spacingS}`,
   }),
   help: css({

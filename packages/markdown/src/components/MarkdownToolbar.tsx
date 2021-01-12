@@ -15,7 +15,7 @@ const styles = {
     border: `1px solid ${tokens.colorElementDark}`,
     backgroundColor: tokens.colorElementLightest,
     padding: tokens.spacingXs,
-    borderTopLeftRadius: '2px',
+    borderTopLeftRadius: tokens.borderRadiusSmall,
   }),
   actionsRow: css({
     display: 'flex',
