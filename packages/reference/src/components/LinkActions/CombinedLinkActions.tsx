@@ -9,6 +9,7 @@ import {
 import * as styles from './redesignStyles';
 import { CreateEntryLinkButton } from '../CreateEntryLinkButton/CreateEntryLinkButton';
 import { testIds as sharedTextIds, LinkActionsProps } from './LinkActions';
+import { NoLinkPermissionsInfo } from './NoLinkPermissionsInfo';
 
 const testIds = {
   ...sharedTextIds,
@@ -32,6 +33,7 @@ export function CombinedLinkActions(props: LinkActionsProps) {
   const hideEmptyCard = props.entityType === 'Asset' && !props.isEmpty;
   return (
     <div className={hideEmptyCard ? '' : styles.container}>
+      {!props.canCreateEntity && !props.canLinkEntity && <NoLinkPermissionsInfo />}
       {props.entityType === 'Entry' && <CombinedEntryLinkActions {...props} />}
       {props.entityType === 'Asset' && <CombinedAssetLinkActions {...props} />}
     </div>
