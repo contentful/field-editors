@@ -3,6 +3,7 @@ import { TextLink } from '@contentful/forma-36-react-components';
 import * as styles from './styles';
 import { EntityType, ContentType, ActionLabels } from '../../types';
 import { CreateEntryLinkButton } from '../CreateEntryLinkButton/CreateEntryLinkButton';
+import { NoLinkPermissionsInfo } from './NoLinkPermissionsInfo';
 
 export interface LinkActionsProps {
   entityType: EntityType;
@@ -95,6 +96,8 @@ export function LinkActions(props: LinkActionsProps) {
           {labels.linkExisting({ canLinkMultiple: props.canLinkMultiple })}
         </TextLink>
       )}
+
+      {!props.canCreateEntity && !props.canLinkEntity && <NoLinkPermissionsInfo />}
     </div>
   );
 }
