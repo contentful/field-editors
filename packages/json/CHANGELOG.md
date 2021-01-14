@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@0.9.0...@contentful/field-editor-json@0.9.1) (2021-01-14)
+
+
+### Bug Fixes
+
+* 🐛 use tokens for border-radius ([ec56c06](https://github.com/contentful/field-editors/commit/ec56c06ddd01718086a96c4cb2bc2877071644a9))
+
+
+
+
+
 # [0.9.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@0.8.6...@contentful/field-editor-json@0.9.0) (2021-01-12)
 
 
