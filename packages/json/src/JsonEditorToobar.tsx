@@ -11,6 +11,8 @@ const styles = {
     justifyContent: 'space-between',
     backgroundColor: tokens.colorElementLightest,
     border: `1px solid ${tokens.colorElementLight}`,
+    borderTopLeftRadius: tokens.borderRadiusSmall,
+    borderTopRightRadius: tokens.borderRadiusSmall,
     borderBottom: 'none',
   }),
   title: css({

@@ -26,6 +26,8 @@ const styles = {
     padding: tokens.spacingS,
     border: `1px solid ${tokens.colorElementLight}`,
     borderTop: 'none',
+    borderBottomLeftRadius: tokens.borderRadiusSmall,
+    borderBottomRightRadius: tokens.borderRadiusSmall,
     fontSize: tokens.fontSizeM,
     '.CodeMirror': {
       height: 'auto',
