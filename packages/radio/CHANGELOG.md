@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-radio@0.10.0...@contentful/field-editor-radio@0.10.1) (2021-01-15)
+
+
+### Bug Fixes
+
+* 🐛 small layout adjustments ([#555](https://github.com/contentful/field-editors/issues/555)) ([235c594](https://github.com/contentful/field-editors/commit/235c5941db152d2921a9ef134c1a71b0069a4dc2))
+
+
+
+
+
 # [0.10.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-radio@0.9.5...@contentful/field-editor-radio@0.10.0) (2021-01-12)
 
 
