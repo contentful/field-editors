@@ -7,7 +7,7 @@ import {
   LocalesAPI,
 } from '@contentful/field-editor-shared';
 import { getOptions, parseValue } from '@contentful/field-editor-dropdown';
-import { Form, RadioButtonField, TextLink } from '@contentful/forma-36-react-components';
+import { Form, RadioButtonField, TextLink, Flex } from '@contentful/forma-36-react-components';
 import * as styles from './styles';
 
 export interface RadioEditorProps {
@@ -61,7 +61,7 @@ export function RadioEditor(props: RadioEditorProps) {
               const id = ['entity', field.id, field.locale, index, item.id].join('.');
               const checked = value === item.value;
               return (
-                <React.Fragment key={id}>
+                <Flex key={id} alignItems="center">
                   <RadioButtonField
                     labelIsLight
                     id={id}
@@ -80,7 +80,7 @@ export function RadioEditor(props: RadioEditorProps) {
                       Clear
                     </TextLink>
                   )}
-                </React.Fragment>
+                </Flex>
               );
             })}
           </Form>

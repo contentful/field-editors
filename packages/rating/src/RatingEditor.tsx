@@ -1,9 +1,7 @@
 import * as React from 'react';
 import get from 'lodash/get';
-import { css } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
 import { FieldAPI, ParametersAPI, FieldConnector } from '@contentful/field-editor-shared';
-import { TextLink } from '@contentful/forma-36-react-components';
+import { TextLink, Flex } from '@contentful/forma-36-react-components';
 import { RatingRibbon } from './RatingRibbon';
 
 export interface RatingEditorProps {
@@ -26,17 +24,6 @@ export interface RatingEditorProps {
     };
   };
 }
-
-const styles = {
-  root: css({
-    marginTop: tokens.spacingS,
-    display: 'flex',
-    flexDirection: 'row',
-  }),
-  clearBtn: css({
-    marginLeft: tokens.spacingM,
-  }),
-};
 
 function isValidCount(count?: string | number): count is number {
   return typeof count === 'number' && !isNaN(count) && count > 0;
@@ -71,7 +58,7 @@ export function RatingEditor(props: RatingEditorProps) {
         };
 
         return (
-          <div data-test-id="rating-editor" className={styles.root}>
+          <Flex testId="rating-editor" flexDirection="row" marginTop="spacingS">
             <RatingRibbon
               disabled={disabled}
               value={value}
@@ -81,14 +68,13 @@ export function RatingEditor(props: RatingEditorProps) {
               }}
             />
             {value !== undefined && !disabled && (
-              <TextLink
-                testId="rating-editor-clear"
-                className={styles.clearBtn}
-                onClick={clearOption}>
-                Clear
-              </TextLink>
+              <Flex marginLeft="spacingM">
+                <TextLink testId="rating-editor-clear" onClick={clearOption}>
+                  Clear
+                </TextLink>
+              </Flex>
             )}
-          </div>
+          </Flex>
         );
       }}
     </FieldConnector>
