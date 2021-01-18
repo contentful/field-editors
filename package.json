@@ -93,7 +93,7 @@
     "remark-validate-links": "^10.0.0",
     "start-server-and-test": "^1.11.0",
     "trim-right": "^1.0.1",
-    "ts-loader": "8.0.13",
+    "ts-loader": "8.0.14",
     "tsdx": "^0.14.1",
     "tslib": "^2.0.0",
     "typescript": "3.9.7",
