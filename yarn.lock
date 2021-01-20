@@ -1524,19 +1524,21 @@
     read-pkg-up "^7.0.1"
     semver "^7.3.2"
 
-"@contentful/forma-36-fcss@^0.2.14":
-  version "0.2.14"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-fcss/-/forma-36-fcss-0.2.14.tgz#9188693685c89ff72b58539387f9520c90a04a91"
-  integrity sha512-2SUvjG+CJAKsi9dQthg4Xm55v1M//Odf5TqNn+GU02RvibcfCiOaNthstA8QZPfcP+vDm+Y+w21kqOWi475wCg==
+"@contentful/forma-36-fcss@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-fcss/-/forma-36-fcss-0.3.0.tgz#f4883c7f06bff6c0bc728265475d32c5ee76ee1d"
+  integrity sha512-fAlV3+Z5+KpXNnJ+af8MGM8Y9jGKj5nx3d+BIUjzTWJW6T1Fo1LY0NdXZ8xdbnix457OTd/+uWsD8x8d3iiFGg==
   dependencies:
-    "@contentful/forma-36-tokens" "^0.9.4"
+    "@contentful/forma-36-tokens" "^0.10.0"
 
-"@contentful/forma-36-react-components@^3.73.12":
-  version "3.73.12"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.73.12.tgz#63e34ce394f14a9c8a8bd1928476c92c295f9fa9"
-  integrity sha512-plRL215Oo6UjrJ1FyZqQeZCvjN391Uq6seuIjRcgWMn1pSWaZXVPDq2BaOJeiIHW6AI4echN9VDZBSN1WhEG7w==
+"@contentful/forma-36-react-components@^3.75.0":
+  version "3.75.0"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.75.0.tgz#039d991b7a5cfe830fc16a42c3903dd29e55c821"
+  integrity sha512-m3fuHQRtXHcD2DaM7IZNfJaFwf5+G2CCytCLcvdlZBcWL8gcgJl+cCqNCROZd3Wpl0UH69+WUbS+aro7QM48Qg==
   dependencies:
     "@babel/runtime" "^7.3.4"
+    "@contentful/forma-36-fcss" "^0.3.0"
+    "@contentful/forma-36-tokens" "^0.10.0"
     "@popperjs/core" "^2.4.4"
     classnames "^2.2.6"
     dayjs "^1.9.1"
@@ -1547,7 +1549,12 @@
     react-transition-group "^2.4.0"
     truncate "^2.0.1"
 
-"@contentful/forma-36-tokens@^0.9.2", "@contentful/forma-36-tokens@^0.9.4":
+"@contentful/forma-36-tokens@^0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.10.0.tgz#7de41cbe31413703aa006cbfc0e3641f37e668e1"
+  integrity sha512-HGl9S1oaA4fb2/9zAAYst1Qjl3N49FzNv0SCuSkSWeXtQag4Q7D8YHe5QzpaeXGvttucXRvQW5iAyBRcYXa/hA==
+
+"@contentful/forma-36-tokens@^0.9.2":
   version "0.9.4"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.9.4.tgz#e4ad397a30c3b1af9e708beb353454ad00d16dad"
   integrity sha512-lCv9MGjivCUYV25g2sNeGmqJmCk3KUF7EHy4iDru8Xo2DzqciVIumOZIyx7TVWzAckK94f4rEJ8E2PlRL5gYvg==
