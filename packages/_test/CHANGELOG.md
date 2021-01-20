@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@0.8.4...@contentful/field-editor-test-utils@0.9.0) (2021-01-20)
+
+
+### Features
+
+* update minimal forma-36 versions to use updated design ([#565](https://github.com/contentful/field-editors/issues/565)) ([332c734](https://github.com/contentful/field-editors/commit/332c734bfaf54f0e9773fcbb460d743b1f5459ec))
+
+
+
+
+
 ## [0.8.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@0.8.3...@contentful/field-editor-test-utils@0.8.4) (2021-01-12)
 
 **Note:** Version bump only for package @contentful/field-editor-test-utils

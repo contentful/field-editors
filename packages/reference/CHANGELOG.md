@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.5.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.4.0...@contentful/field-editor-reference@2.5.0) (2021-01-20)
+
+
+### Features
+
+* update minimal forma-36 versions to use updated design ([#565](https://github.com/contentful/field-editors/issues/565)) ([332c734](https://github.com/contentful/field-editors/commit/332c734bfaf54f0e9773fcbb460d743b1f5459ec))
+
+
+
+
+
 # [2.4.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.3.2...@contentful/field-editor-reference@2.4.0) (2021-01-20)
 
 

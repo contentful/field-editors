@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@0.4.5...@contentful/default-field-editors@0.5.0) (2021-01-20)
+
+
+### Features
+
+* update minimal forma-36 versions to use updated design ([#565](https://github.com/contentful/field-editors/issues/565)) ([332c734](https://github.com/contentful/field-editors/commit/332c734bfaf54f0e9773fcbb460d743b1f5459ec))
+
+
+
+
+
 ## [0.4.5](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@0.4.4...@contentful/default-field-editors@0.4.5) (2021-01-20)
 
 **Note:** Version bump only for package @contentful/default-field-editors
