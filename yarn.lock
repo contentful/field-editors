@@ -1554,11 +1554,6 @@
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.10.0.tgz#7de41cbe31413703aa006cbfc0e3641f37e668e1"
   integrity sha512-HGl9S1oaA4fb2/9zAAYst1Qjl3N49FzNv0SCuSkSWeXtQag4Q7D8YHe5QzpaeXGvttucXRvQW5iAyBRcYXa/hA==
 
-"@contentful/forma-36-tokens@^0.9.2":
-  version "0.9.4"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.9.4.tgz#e4ad397a30c3b1af9e708beb353454ad00d16dad"
-  integrity sha512-lCv9MGjivCUYV25g2sNeGmqJmCk3KUF7EHy4iDru8Xo2DzqciVIumOZIyx7TVWzAckK94f4rEJ8E2PlRL5gYvg==
-
 "@contentful/mimetype@^1.4.0":
   version "1.4.17"
   resolved "https://registry.yarnpkg.com/@contentful/mimetype/-/mimetype-1.4.17.tgz#ebbc3652200f6fa04396fa0263de2e4caeee0604"
