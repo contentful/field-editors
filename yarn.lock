@@ -1524,19 +1524,21 @@
     read-pkg-up "^7.0.1"
     semver "^7.3.2"
 
-"@contentful/forma-36-fcss@^0.2.14":
-  version "0.2.14"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-fcss/-/forma-36-fcss-0.2.14.tgz#9188693685c89ff72b58539387f9520c90a04a91"
-  integrity sha512-2SUvjG+CJAKsi9dQthg4Xm55v1M//Odf5TqNn+GU02RvibcfCiOaNthstA8QZPfcP+vDm+Y+w21kqOWi475wCg==
+"@contentful/forma-36-fcss@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-fcss/-/forma-36-fcss-0.3.0.tgz#f4883c7f06bff6c0bc728265475d32c5ee76ee1d"
+  integrity sha512-fAlV3+Z5+KpXNnJ+af8MGM8Y9jGKj5nx3d+BIUjzTWJW6T1Fo1LY0NdXZ8xdbnix457OTd/+uWsD8x8d3iiFGg==
   dependencies:
-    "@contentful/forma-36-tokens" "^0.9.4"
+    "@contentful/forma-36-tokens" "^0.10.0"
 
-"@contentful/forma-36-react-components@^3.73.12":
-  version "3.73.12"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.73.12.tgz#63e34ce394f14a9c8a8bd1928476c92c295f9fa9"
-  integrity sha512-plRL215Oo6UjrJ1FyZqQeZCvjN391Uq6seuIjRcgWMn1pSWaZXVPDq2BaOJeiIHW6AI4echN9VDZBSN1WhEG7w==
+"@contentful/forma-36-react-components@^3.75.0":
+  version "3.75.0"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.75.0.tgz#039d991b7a5cfe830fc16a42c3903dd29e55c821"
+  integrity sha512-m3fuHQRtXHcD2DaM7IZNfJaFwf5+G2CCytCLcvdlZBcWL8gcgJl+cCqNCROZd3Wpl0UH69+WUbS+aro7QM48Qg==
   dependencies:
     "@babel/runtime" "^7.3.4"
+    "@contentful/forma-36-fcss" "^0.3.0"
+    "@contentful/forma-36-tokens" "^0.10.0"
     "@popperjs/core" "^2.4.4"
     classnames "^2.2.6"
     dayjs "^1.9.1"
@@ -1547,10 +1549,10 @@
     react-transition-group "^2.4.0"
     truncate "^2.0.1"
 
-"@contentful/forma-36-tokens@^0.9.2", "@contentful/forma-36-tokens@^0.9.4":
-  version "0.9.4"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.9.4.tgz#e4ad397a30c3b1af9e708beb353454ad00d16dad"
-  integrity sha512-lCv9MGjivCUYV25g2sNeGmqJmCk3KUF7EHy4iDru8Xo2DzqciVIumOZIyx7TVWzAckK94f4rEJ8E2PlRL5gYvg==
+"@contentful/forma-36-tokens@^0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.10.0.tgz#7de41cbe31413703aa006cbfc0e3641f37e668e1"
+  integrity sha512-HGl9S1oaA4fb2/9zAAYst1Qjl3N49FzNv0SCuSkSWeXtQag4Q7D8YHe5QzpaeXGvttucXRvQW5iAyBRcYXa/hA==
 
 "@contentful/mimetype@^1.4.0":
   version "1.4.17"
@@ -14711,14 +14713,7 @@ onetime@^2.0.0:
   dependencies:
     mimic-fn "^1.0.0"
 
-onetime@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/onetime/-/onetime-5.1.0.tgz#fff0f3c91617fe62bb50189636e99ac8a6df7be5"
-  integrity sha512-5NcSkPHhwTVFIQN+TUqXoS5+dlElHXdpAWu9I0HP20YOtIi+aZ0Ct82jdlILDxjLEAWwvm+qj1m6aEtsDVmm6Q==
-  dependencies:
-    mimic-fn "^2.1.0"
-
-onetime@^5.1.2:
+onetime@^5.1.0, onetime@^5.1.2:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/onetime/-/onetime-5.1.2.tgz#d0e96ebb56b07476df1dd9c4806e5237985ca45e"
   integrity sha512-kbpaSSGJTWdAY5KPVeMOKXSrPtr8C8C7wodJbcsd51jRnmD+GZu8Y0VoU6Dm5Z4vWr0Ig/1NKuWRKf7j5aaYSg==
@@ -18113,12 +18108,7 @@ side-channel@^1.0.2, side-channel@^1.0.3:
     es-abstract "^1.18.0-next.0"
     object-inspect "^1.8.0"
 
-signal-exit@^3.0.0, signal-exit@^3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
-  integrity sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=
-
-signal-exit@^3.0.3:
+signal-exit@^3.0.0, signal-exit@^3.0.2, signal-exit@^3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.3.tgz#a1410c2edd8f077b08b4e253c8eacfcaf057461c"
   integrity sha512-VUJ49FC8U1OxwZLxIbTTrDvLnf/6TDgxZcK8wxR8zs13xpx7xbG60ndBlhNrFi2EMuFRoeDoJO7wthSLq42EjA==
@@ -19635,12 +19625,7 @@ tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
 
-tslib@^2.0.0, tslib@^2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.0.3.tgz#8e0741ac45fc0c226e58a17bfc3e64b9bc6ca61c"
-  integrity sha512-uZtkfKblCEQtZKBF6EBXVZeQNl82yqtDQdv+eck8u7tdPxjLu2/lp5/uPW+um2tpuxINHWy3GhiccY7QgEaVHQ==
-
-tslib@^2.0.1:
+tslib@^2.0.0, tslib@^2.0.1, tslib@^2.0.3:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.1.0.tgz#da60860f1c2ecaa5703ab7d39bc05b6bf988b97a"
   integrity sha512-hcVC3wYEziELGGmEEXue7D75zbwIIVUMWAVbHItGPx0ziyXxrOMQx4rQEVEV45Ut/1IotuEvwqPopzIOkDMf0A==
