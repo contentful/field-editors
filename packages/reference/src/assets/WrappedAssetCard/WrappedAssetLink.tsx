@@ -1,11 +1,20 @@
 import React from 'react';
-import { EntryCard } from '@contentful/forma-36-react-components';
+import { css } from 'emotion';
+import tokens from '@contentful/forma-36-tokens';
+import { EntryCard, Icon } from '@contentful/forma-36-react-components';
 import { renderActions, renderAssetInfo } from './AssetCardActions';
 import { Asset } from '../../types';
-import { entityHelpers } from '@contentful/field-editor-shared';
-import { MissingEntityCard } from '../../components';
+import { entityHelpers, SpaceAPI } from '@contentful/field-editor-shared';
+import { MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
+
+const styles = {
+  scheduleIcon: css({
+    marginRight: tokens.spacing2Xs,
+  }),
+};
 
 export interface WrappedAssetLinkProps {
+  getEntityScheduledActions: SpaceAPI['getEntityScheduledActions'];
   asset: Asset;
   localeCode: string;
   defaultLocaleCode: string;
@@ -51,6 +60,20 @@ export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
       href={href}
       size="small"
       status={status}
+      statusIcon={
+        <ScheduledIconWithTooltip
+          getEntityScheduledActions={props.getEntityScheduledActions}
+          entityType="Asset"
+          entityId={props.asset.sys.id}>
+          <Icon
+            className={styles.scheduleIcon}
+            icon="Clock"
+            size="small"
+            color="muted"
+            testId="schedule-icon"
+          />
+        </ScheduledIconWithTooltip>
+      }
       onClick={(e) => {
         e.preventDefault();
         onEdit();

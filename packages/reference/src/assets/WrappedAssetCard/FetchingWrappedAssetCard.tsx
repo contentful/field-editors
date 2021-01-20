@@ -70,7 +70,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       );
     }
 
-    const { getEntityUrl } = props;
+    const { getEntityUrl, sdk } = props;
     const size = props.viewType === 'big_card' ? 'default' : 'small';
     const commonProps = {
       asset: asset as Asset,
@@ -88,7 +88,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       if (asset === undefined) {
         return <EntryCard size="small" loading />;
       }
-      return <WrappedAssetLink {...commonProps} href={commonProps.entityUrl} />;
+      return <WrappedAssetLink {...commonProps} href={commonProps.entityUrl} getEntityScheduledActions={sdk.space.getEntityScheduledActions} />;
     }
 
     if (asset === undefined) {
@@ -100,6 +100,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       const builtinCardProps: Omit<WrappedAssetCardProps, 'isClickable'> = {
         ...commonProps,
         ...props,
+        getEntityScheduledActions: sdk.space.getEntityScheduledActions,
         asset: (props?.entity as Asset) || commonProps.asset,
         getAssetUrl: getEntityUrl,
       };
