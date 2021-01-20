@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-reference",
-  "version": "2.3.2",
+  "version": "2.4.0",
   "main": "dist/index.js",
   "module": "dist/field-editor-reference.esm.js",
   "typings": "dist/index.d.ts",

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.4.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.3.2...@contentful/field-editor-reference@2.4.0) (2021-01-20)
+
+
+### Features
+
+* **asset reference:** add support for scheduled icon ([#564](https://github.com/contentful/field-editors/issues/564)) ([6b567ce](https://github.com/contentful/field-editors/commit/6b567ce482379bbcd691d0ef013c2f743030c01e))
+
+
+
+
+
 ## [2.3.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.3.1...@contentful/field-editor-reference@2.3.2) (2021-01-13)
 
 
