@@ -1524,6 +1524,17 @@
     read-pkg-up "^7.0.1"
     semver "^7.3.2"
 
+"@contentful/field-editor-shared@^0.13.0":
+  version "0.13.3"
+  resolved "https://registry.yarnpkg.com/@contentful/field-editor-shared/-/field-editor-shared-0.13.3.tgz#43ff84fd783b446e022eb2fa21b96a57467344a8"
+  integrity sha512-drwP0mWd7j/anDt3vXJ1gY6ZekuvSaKfMhgvm8cXSMunc7UNi1xvBBjElQn6yGbic0TUxUp8d8OD3XMdTbKSiw==
+  dependencies:
+    "@contentful/forma-36-tokens" "^0.9.2"
+    contentful-ui-extensions-sdk "^3.29.2"
+    emotion "^10.0.17"
+    lodash "^4.17.15"
+    lodash-es "^4.17.15"
+
 "@contentful/forma-36-fcss@^0.3.0":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-fcss/-/forma-36-fcss-0.3.0.tgz#f4883c7f06bff6c0bc728265475d32c5ee76ee1d"
@@ -1553,6 +1564,11 @@
   version "0.10.0"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.10.0.tgz#7de41cbe31413703aa006cbfc0e3641f37e668e1"
   integrity sha512-HGl9S1oaA4fb2/9zAAYst1Qjl3N49FzNv0SCuSkSWeXtQag4Q7D8YHe5QzpaeXGvttucXRvQW5iAyBRcYXa/hA==
+
+"@contentful/forma-36-tokens@^0.9.2":
+  version "0.9.4"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.9.4.tgz#e4ad397a30c3b1af9e708beb353454ad00d16dad"
+  integrity sha512-lCv9MGjivCUYV25g2sNeGmqJmCk3KUF7EHy4iDru8Xo2DzqciVIumOZIyx7TVWzAckK94f4rEJ8E2PlRL5gYvg==
 
 "@contentful/mimetype@^1.4.0":
   version "1.4.17"
@@ -6457,10 +6473,10 @@ contentful-batch-libs@^9.0.1:
     lodash "^4.0.1"
     moment "^2.18.1"
 
-contentful-cli@1.5.10, contentful-cli@^1.3.29:
-  version "1.5.10"
-  resolved "https://registry.yarnpkg.com/contentful-cli/-/contentful-cli-1.5.10.tgz#a02ba202432617761fcdc5da07eaf819bb190d4a"
-  integrity sha512-lqiRgnGPgol58YFQ/GFKD02p99PKOvc7cMjBmIRvtqus7EXBex0G4N1rSgcXAvA97tc5ZGMr1PZtAnzoJPS0+A==
+contentful-cli@1.5.14, contentful-cli@^1.3.29:
+  version "1.5.14"
+  resolved "https://registry.yarnpkg.com/contentful-cli/-/contentful-cli-1.5.14.tgz#c5f850b7ecfd52d3ec8c872a9448d2b54fafcf60"
+  integrity sha512-Zr+1nxYqyj31dZ0BpXNN0o1f9Fx1NIXfxAARoDYpVwH3df/Vqo+zDFLJAgLAa0UOcKZj+MGwcYcQ+x+irZ2TcA==
   dependencies:
     ast-types "^0.14.2"
     bfj "^7.0.2"
