@@ -97,7 +97,7 @@
     "tsdx": "^0.14.1",
     "tslib": "^2.0.0",
     "typescript": "3.9.7",
-    "webpack": "4.44.1"
+    "webpack": "4.46.0"
   },
   "resolutions": {
     "@types/react": "16.9.56",
