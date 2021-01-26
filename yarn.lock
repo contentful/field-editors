@@ -1560,6 +1560,24 @@
     react-transition-group "^2.4.0"
     truncate "^2.0.1"
 
+"@contentful/forma-36-react-components@^3.75.1":
+  version "3.75.1"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.75.1.tgz#3d2a072221550eef9a00c55993826b7af97b89ca"
+  integrity sha512-M9L92U4DYDBwO40oAcIEekD5W9PZwf+wzZDfBBWQZsVz3sruTES4fopMgY48AJ8knzkEUbLJWaJENvlKnnE/dw==
+  dependencies:
+    "@babel/runtime" "^7.3.4"
+    "@contentful/forma-36-fcss" "^0.3.0"
+    "@contentful/forma-36-tokens" "^0.10.0"
+    "@popperjs/core" "^2.4.4"
+    classnames "^2.2.6"
+    dayjs "^1.9.1"
+    react-animate-height "^2.0.7"
+    react-copy-to-clipboard "^5.0.1"
+    react-modal "^3.11.2"
+    react-popper "^2.2.3"
+    react-transition-group "^2.4.0"
+    truncate "^2.0.1"
+
 "@contentful/forma-36-tokens@^0.10.0":
   version "0.10.0"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.10.0.tgz#7de41cbe31413703aa006cbfc0e3641f37e668e1"
