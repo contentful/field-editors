@@ -3,7 +3,7 @@ import {
   FieldExtensionSDK,
   DialogExtensionSDK,
   OpenCustomWidgetOptions,
-} from 'contentful-ui-extensions-sdk';
+} from '@contentful/app-sdk';
 import { ModalDialogLauncher } from '@contentful/field-editor-shared';
 import { MarkdownDialogsParams, PreviewComponents } from '../types';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
-import { FieldExtensionSDK } from 'contentful-ui-extensions-sdk';
+import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { ConstraintsUtils, CharCounter, CharValidation } from '@contentful/field-editor-shared';
 
 const styles = {

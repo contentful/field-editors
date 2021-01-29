@@ -4,7 +4,7 @@
 
 This is the monorepo for all field editors and extensions by [Contentful][contentful].
 
-Since these are developed using the [UI Extensions SDK][ui-extensions-sdk], this will allow you to understand how each editor works, fork existing extensions or create your own extensions based on existing Contentful components' source rather than starting from scratch.
+Since these are developed using the [App SDK][app-sdk], this will allow you to understand how each editor works, fork existing extensions or create your own extensions based on existing Contentful components' source rather than starting from scratch.
 
 It uses [Typescript][typescript], [React][react], [Forma36][forma36] (a design system & component library by Contentful) and is managed using [Lerna][lerna]. Code is automatically formatted with [Prettier][prettier] and checked with [ESLint][eslint] on every commit using Git hooks.
 
@@ -68,7 +68,7 @@ We'd love to have your helping hand on `@contentful/field-editors`!
 
 ## Links & related repositories
 
-- [UI Extensions SDK][ui-extensions-sdk]
+- [App SDK][app-sdk]
 - [Create Contentful Extension CLI][create-contentful-extension]
 - [Forma36][forma36]
 
@@ -83,7 +83,7 @@ We want to provide a safe, inclusive, welcoming, and harassment-free space and e
 All field editor packages are open source software [licensed as MIT](./LICENSE).
 
 [contentful]: https://www.contentful.com
-[ui-extensions-sdk]: https://github.com/contentful/ui-extensions-sdk
+[app sdk]: https://github.com/contentful/ui-extensions-sdk
 [create-contentful-extension]: https://github.com/contentful/create-contentful-extension
 [github-issues]: https://github.com/contentful/field-editors/issues
 [forma36]: https://github.com/contentful/forma-36

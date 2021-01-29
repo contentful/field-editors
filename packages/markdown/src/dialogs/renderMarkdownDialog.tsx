@@ -1,5 +1,5 @@
 import React from 'react';
-import { DialogExtensionSDK } from 'contentful-ui-extensions-sdk';
+import { DialogExtensionSDK } from '@contentful/app-sdk';
 import { MarkdownDialogsParams, MarkdownDialogType } from '../types';
 import { SpecialCharacterModalDialog } from './SpecialCharacterModalDialog';
 import { CheatsheetModalDialog } from './CheatsheetModalDialog';

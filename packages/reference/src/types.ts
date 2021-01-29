@@ -1,4 +1,4 @@
-import { NavigatorSlideInfo, EntityType } from 'contentful-ui-extensions-sdk';
+import { NavigatorSlideInfo, EntityType } from '@contentful/app-sdk';
 import { Entry, Asset } from '@contentful/field-editor-shared';
 
 export {
@@ -9,7 +9,7 @@ export {
   Link,
   EntityType,
   NavigatorSlideInfo,
-} from 'contentful-ui-extensions-sdk';
+} from '@contentful/app-sdk';
 
 export { Entry, File, Asset } from '@contentful/field-editor-shared';
 

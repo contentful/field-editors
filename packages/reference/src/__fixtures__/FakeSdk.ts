@@ -3,7 +3,7 @@ import {
   createFakeLocalesAPI,
   createFakeSpaceAPI,
 } from '@contentful/field-editor-test-utils';
-import { FieldAPI, Link } from 'contentful-ui-extensions-sdk';
+import { FieldAPI, Link } from '@contentful/app-sdk';
 import emptyEntry from './empty_entry.json';
 import publishedEntry from './published_entry.json';
 import changedEntry from './changed_entry.json';

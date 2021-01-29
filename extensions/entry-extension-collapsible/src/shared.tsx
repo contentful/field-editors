@@ -1,6 +1,6 @@
 import React from 'react';
 import { Entry } from '@contentful/field-editor-shared';
-import { EditorExtensionSDK } from 'contentful-ui-extensions-sdk';
+import { EditorExtensionSDK } from '@contentful/app-sdk';
 import { AppState, FieldType, FieldGroupType, Action } from './types';
 
 // UTILS

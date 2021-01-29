@@ -1451,6 +1451,11 @@
   resolved "https://registry.yarnpkg.com/@commitlint/types/-/types-11.0.0.tgz#719cf05fcc1abb6533610a2e0f5dd1e61eac14fe"
   integrity sha512-VoNqai1vR5anRF5Tuh/+SWDFk7xi7oMwHrHrbm1BprYXjB2RJsWLhUrStMssDxEl5lW/z3EUdg8RvH/IUBccSQ==
 
+"@contentful/app-sdk@^3.29.2":
+  version "3.31.1"
+  resolved "https://registry.yarnpkg.com/@contentful/app-sdk/-/app-sdk-3.31.1.tgz#30eb42bdc96ee56b96fb025fdafad18f9cfca16b"
+  integrity sha512-CyDspzHi4HnXCfujYM+pc79KmnvK+HWckbac1j+B5r591VByYk2y9v/XarHXYVQTdne5ylMSu5CWiit51uxAjQ==
+
 "@contentful/contentful-extension-scripts@0.15.1":
   version "0.15.1"
   resolved "https://registry.yarnpkg.com/@contentful/contentful-extension-scripts/-/contentful-extension-scripts-0.15.1.tgz#1c6e2df5dce8f6b42f23582d9a07a8d164fc20d7"

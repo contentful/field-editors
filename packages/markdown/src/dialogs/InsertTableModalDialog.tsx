@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { css } from 'emotion';
-import { DialogsAPI } from 'contentful-ui-extensions-sdk';
+import { DialogsAPI } from '@contentful/app-sdk';
 import tokens from '@contentful/forma-36-tokens';
 import { Modal, TextField, Button, Form } from '@contentful/forma-36-react-components';
 import inRange from 'lodash/inRange';

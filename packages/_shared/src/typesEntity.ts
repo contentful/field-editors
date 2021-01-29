@@ -1,12 +1,12 @@
-import { EntrySys } from 'contentful-ui-extensions-sdk';
+import { EntrySys } from '@contentful/app-sdk';
 
 export {
   BaseExtensionSDK,
   ContentType,
   ContentTypeField,
   Link,
-  EntrySys
-} from 'contentful-ui-extensions-sdk';
+  EntrySys,
+} from '@contentful/app-sdk';
 
 export interface Entry {
   sys: EntrySys;

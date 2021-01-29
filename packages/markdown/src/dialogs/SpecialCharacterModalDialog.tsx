@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DialogsAPI } from 'contentful-ui-extensions-sdk';
+import { DialogsAPI } from '@contentful/app-sdk';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 import { Modal, Button, Tooltip, DisplayText } from '@contentful/forma-36-react-components';

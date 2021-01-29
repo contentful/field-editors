@@ -28,7 +28,7 @@
     "@types/deep-equal": "^1.0.1",
     "array-move": "^3.0.0",
     "constate": "2.0.0",
-    "contentful-ui-extensions-sdk": "^3.29.2",
+    "@contentful/app-sdk": "^3.29.2",
     "deep-equal": "2.0.5",
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",

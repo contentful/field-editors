@@ -1,4 +1,4 @@
-import { LocalesAPI } from 'contentful-ui-extensions-sdk';
+import { LocalesAPI } from '@contentful/app-sdk';
 
 function identity<T>(item: T): T {
   return item;

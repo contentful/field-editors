@@ -3,7 +3,7 @@ import type {
   ArchiveableAction,
   CrudAction,
   PublishableAction,
-} from 'contentful-ui-extensions-sdk';
+} from '@contentful/app-sdk';
 import type { Entry } from '@contentful/field-editor-shared';
 
 function makeEntryFromType(contentTypeId: string) {

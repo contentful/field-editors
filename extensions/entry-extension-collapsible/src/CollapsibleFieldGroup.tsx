@@ -4,7 +4,7 @@ import { Field } from './Field';
 import { FieldGroupType, FieldType } from './types';
 import styles from './styles';
 import { Icon, HelpText } from '@contentful/forma-36-react-components';
-import { EntryFieldAPI } from 'contentful-ui-extensions-sdk';
+import { EntryFieldAPI } from '@contentful/app-sdk';
 
 interface CollapsibleFieldGroupProps {
   fieldGroup: FieldGroupType;

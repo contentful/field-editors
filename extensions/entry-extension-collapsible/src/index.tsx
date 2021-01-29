@@ -1,12 +1,7 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import { TextLink, Modal } from '@contentful/forma-36-react-components';
-import {
-  init,
-  locations,
-  EditorExtensionSDK,
-  DialogExtensionSDK,
-} from 'contentful-ui-extensions-sdk';
+import { init, locations, EditorExtensionSDK, DialogExtensionSDK } from '@contentful/app-sdk';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import '@contentful/forma-36-fcss/dist/styles.css';
 import './index.css';

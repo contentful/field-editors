@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { FieldExtensionSDK, LocalesAPI } from '@contentful/field-editor-shared';
-import { EntryFieldAPI } from 'contentful-ui-extensions-sdk';
+import { EntryFieldAPI } from '@contentful/app-sdk';
 import {
   Field as BaseField,
   FieldWrapper,
