@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.6.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.5.1...@contentful/field-editor-reference@2.6.0) (2021-02-01)
+
+
+### Features
+
+* swap ui-extension-sdk to app-sdk ([#576](https://github.com/contentful/field-editors/issues/576)) ([ac88b4b](https://github.com/contentful/field-editors/commit/ac88b4bd4573a72f521246fc8fcc873520ca90d4))
+
+
+
+
+
 ## [2.5.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.5.0...@contentful/field-editor-reference@2.5.1) (2021-01-25)
 
 **Note:** Version bump only for package @contentful/field-editor-reference

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.15.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@0.14.0...@contentful/field-editor-shared@0.15.0) (2021-02-01)
+
+
+### Features
+
+* swap ui-extension-sdk to app-sdk ([#576](https://github.com/contentful/field-editors/issues/576)) ([ac88b4b](https://github.com/contentful/field-editors/commit/ac88b4bd4573a72f521246fc8fcc873520ca90d4))
+
+
+
+
+
 # [0.14.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@0.13.3...@contentful/field-editor-shared@0.14.0) (2021-01-20)
 
 
