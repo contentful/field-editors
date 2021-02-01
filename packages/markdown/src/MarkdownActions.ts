@@ -1,5 +1,5 @@
 import { InitializedEditorType } from './components/MarkdownTextarea/MarkdownTextarea';
-import { KnownSDK } from 'contentful-ui-extensions-sdk';
+import { KnownSDK } from '@contentful/app-sdk';
 import { openInsertLinkDialog } from './dialogs/InsertLinkModalDialog';
 import { openInsertSpecialCharacter } from './dialogs/SpecialCharacterModalDialog';
 import { openInsertTableDialog } from './dialogs/InsertTableModalDialog';

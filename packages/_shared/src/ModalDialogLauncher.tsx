@@ -4,7 +4,7 @@ import React from 'react';
 import isNumber from 'lodash/isNumber';
 import ReactDOM from 'react-dom';
 import { Modal } from '@contentful/forma-36-react-components';
-import { OpenCustomWidgetOptions } from 'contentful-ui-extensions-sdk';
+import { OpenCustomWidgetOptions } from '@contentful/app-sdk';
 
 export function open(componentRenderer: (params: { onClose: Function; isShown: boolean }) => any) {
   let rootDom: any = null;

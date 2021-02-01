@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScheduledAction } from 'contentful-ui-extensions-sdk';
+import { ScheduledAction } from '@contentful/app-sdk';
 import { css, cx } from 'emotion';
 import { Tag, Tooltip, Paragraph } from '@contentful/forma-36-react-components';
 import tokens from '@contentful/forma-36-tokens';

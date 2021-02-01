@@ -1,5 +1,5 @@
 import React from 'react';
-import { FieldExtensionSDK, FieldAPI } from 'contentful-ui-extensions-sdk';
+import { FieldExtensionSDK, FieldAPI } from '@contentful/app-sdk';
 
 type Nullable = null | undefined;
 

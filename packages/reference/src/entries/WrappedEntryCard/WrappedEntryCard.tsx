@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
-import { SpaceAPI } from 'contentful-ui-extensions-sdk';
+import { SpaceAPI } from '@contentful/app-sdk';
 import {
   DropdownList,
   DropdownListItem,

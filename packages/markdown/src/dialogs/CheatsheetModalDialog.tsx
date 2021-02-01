@@ -1,6 +1,6 @@
 import React from 'react';
 import { css, cx } from 'emotion';
-import { DialogsAPI } from 'contentful-ui-extensions-sdk';
+import { DialogsAPI } from '@contentful/app-sdk';
 import { Modal, TextLink, Heading } from '@contentful/forma-36-react-components';
 import tokens from '@contentful/forma-36-tokens';
 import { MarkdownDialogType, MarkdownDialogsParams } from '../types';

@@ -2,7 +2,7 @@ import { EditorPermissionsProps, useEditorPermissions } from './useEditorPermiss
 import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 import { FieldExtensionSDK } from '../types';
 import { renderHook } from '@testing-library/react-hooks';
-import { AccessAPI, ContentType, FieldAPI } from 'contentful-ui-extensions-sdk';
+import { AccessAPI, ContentType, FieldAPI } from '@contentful/app-sdk';
 
 describe('useEditorPermissions', () => {
   type MockedFieldExtensionSDK = Omit<FieldExtensionSDK, 'access'> & {

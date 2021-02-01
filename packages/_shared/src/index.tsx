@@ -17,7 +17,7 @@ export {
   BaseExtensionSDK,
   FieldExtensionSDK,
   OpenCustomWidgetOptions,
-} from 'contentful-ui-extensions-sdk';
+} from '@contentful/app-sdk';
 export { FieldConnector } from './FieldConnector';
 export { PredefinedValuesError } from './PredefinedValuesError';
 export { CharCounter } from './CharCounter';

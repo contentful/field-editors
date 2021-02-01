@@ -10,11 +10,11 @@
     "help": "contentful-extension-scripts help"
   },
   "dependencies": {
-    "@contentful/field-editor-shared": "^0.7.1",
+    "@contentful/field-editor-shared": "^0.14.0",
     "@contentful/forma-36-fcss": "^0.3.0",
     "@contentful/forma-36-react-components": "^3.75.0",
     "@contentful/forma-36-tokens": "^0.10.0",
-    "contentful-ui-extensions-sdk": "^3.29.2",
+    "@contentful/app-sdk": "^3.29.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
   },

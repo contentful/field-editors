@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FieldExtensionSDK, FieldAPI } from 'contentful-ui-extensions-sdk';
+import { FieldExtensionSDK, FieldAPI } from '@contentful/app-sdk';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import { TrackingFieldConnector } from './TrackingFieldConnector';
 import { SlugEditorField, SlugEditorFieldStatic } from './SlugEditorField';

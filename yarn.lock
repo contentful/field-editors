@@ -1451,6 +1451,11 @@
   resolved "https://registry.yarnpkg.com/@commitlint/types/-/types-11.0.0.tgz#719cf05fcc1abb6533610a2e0f5dd1e61eac14fe"
   integrity sha512-VoNqai1vR5anRF5Tuh/+SWDFk7xi7oMwHrHrbm1BprYXjB2RJsWLhUrStMssDxEl5lW/z3EUdg8RvH/IUBccSQ==
 
+"@contentful/app-sdk@^3.29.2":
+  version "3.31.1"
+  resolved "https://registry.yarnpkg.com/@contentful/app-sdk/-/app-sdk-3.31.1.tgz#30eb42bdc96ee56b96fb025fdafad18f9cfca16b"
+  integrity sha512-CyDspzHi4HnXCfujYM+pc79KmnvK+HWckbac1j+B5r591VByYk2y9v/XarHXYVQTdne5ylMSu5CWiit51uxAjQ==
+
 "@contentful/contentful-extension-scripts@0.15.1":
   version "0.15.1"
   resolved "https://registry.yarnpkg.com/@contentful/contentful-extension-scripts/-/contentful-extension-scripts-0.15.1.tgz#1c6e2df5dce8f6b42f23582d9a07a8d164fc20d7"
@@ -1524,17 +1529,6 @@
     read-pkg-up "^7.0.1"
     semver "^7.3.2"
 
-"@contentful/field-editor-shared@^0.13.0":
-  version "0.13.3"
-  resolved "https://registry.yarnpkg.com/@contentful/field-editor-shared/-/field-editor-shared-0.13.3.tgz#43ff84fd783b446e022eb2fa21b96a57467344a8"
-  integrity sha512-drwP0mWd7j/anDt3vXJ1gY6ZekuvSaKfMhgvm8cXSMunc7UNi1xvBBjElQn6yGbic0TUxUp8d8OD3XMdTbKSiw==
-  dependencies:
-    "@contentful/forma-36-tokens" "^0.9.2"
-    contentful-ui-extensions-sdk "^3.29.2"
-    emotion "^10.0.17"
-    lodash "^4.17.15"
-    lodash-es "^4.17.15"
-
 "@contentful/forma-36-fcss@^0.3.0":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-fcss/-/forma-36-fcss-0.3.0.tgz#f4883c7f06bff6c0bc728265475d32c5ee76ee1d"
@@ -1564,11 +1558,6 @@
   version "0.10.0"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.10.0.tgz#7de41cbe31413703aa006cbfc0e3641f37e668e1"
   integrity sha512-HGl9S1oaA4fb2/9zAAYst1Qjl3N49FzNv0SCuSkSWeXtQag4Q7D8YHe5QzpaeXGvttucXRvQW5iAyBRcYXa/hA==
-
-"@contentful/forma-36-tokens@^0.9.2":
-  version "0.9.4"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.9.4.tgz#e4ad397a30c3b1af9e708beb353454ad00d16dad"
-  integrity sha512-lCv9MGjivCUYV25g2sNeGmqJmCk3KUF7EHy4iDru8Xo2DzqciVIumOZIyx7TVWzAckK94f4rEJ8E2PlRL5gYvg==
 
 "@contentful/mimetype@^1.4.0":
   version "1.4.22"
@@ -6602,11 +6591,6 @@ contentful-sdk-core@^6.4.0, contentful-sdk-core@^6.7.0:
   dependencies:
     fast-copy "^2.1.0"
     qs "^6.9.4"
-
-contentful-ui-extensions-sdk@^3.29.2:
-  version "3.29.2"
-  resolved "https://registry.yarnpkg.com/contentful-ui-extensions-sdk/-/contentful-ui-extensions-sdk-3.29.2.tgz#bc9798e759f641b93216cf618d6337fbc8dab3d0"
-  integrity sha512-6K5V6yRUBY4GG1vpd0HZ33XbTfEDVGJ+BHRMeXhcsLwPGBhjsgDEgas9LTOJruBBIfW7GReDfxyj7EKX4ya61g==
 
 contentful@^7.14.0:
   version "7.14.3"

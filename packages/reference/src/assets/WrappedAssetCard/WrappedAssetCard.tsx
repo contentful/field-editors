@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
-import { SpaceAPI } from 'contentful-ui-extensions-sdk';
+import { SpaceAPI } from '@contentful/app-sdk';
 import { AssetCard, Icon } from '@contentful/forma-36-react-components';
 import { renderActions, renderAssetInfo } from './AssetCardActions';
 import { File, Asset } from '../../types';
