@@ -63,11 +63,10 @@ describe('useEditorPermissions', () => {
       expect(sdk.access.can).not.toHaveBeenCalledWith();
     });
 
-    it(`checks basic access`, async () => {
-      const { sdk } = await renderEditorPermissions({ entityType: 'Asset' });
+    it(`defaults link entity action visibility to true`, async () => {
+      const { result } = await renderEditorPermissions({ entityType: 'Asset' });
 
-      expect(sdk.access.can).toHaveBeenCalledWith('create', 'Asset');
-      expect(sdk.access.can).toHaveBeenCalledWith('read', 'Asset');
+      expect(result.current.canLinkEntity).toBeTruthy();
     });
 
     it(`returns empty contentTypes`, async () => {
