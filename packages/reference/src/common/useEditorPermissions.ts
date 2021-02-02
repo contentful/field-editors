@@ -59,7 +59,7 @@ export function useEditorPermissions(props: EditorPermissionsProps) {
           setCanLinkEntity(readableContentTypes.length > 0);
         }
       } else {
-        setCanCreateEntity(true)
+        setCanLinkEntity(true)
       }
     }
 
