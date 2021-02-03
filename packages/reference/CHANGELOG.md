@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.7.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.6.0...@contentful/field-editor-reference@2.7.0) (2021-02-03)
+
+
+### Features
+
+* **reference:** adjust permissions ([#580](https://github.com/contentful/field-editors/issues/580)) ([0024219](https://github.com/contentful/field-editors/commit/0024219ce3e2e5045e60e5acb39bf010022416f5))
+
+
+
+
+
 # [2.6.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.5.1...@contentful/field-editor-reference@2.6.0) (2021-02-01)
 
 
