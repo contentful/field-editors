@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@0.5.3...@contentful/default-field-editors@0.6.0) (2021-02-04)
+
+
+### Features
+
+* 🎸 fallback to a default inferred widget id ([#582](https://github.com/contentful/field-editors/issues/582)) ([cf15155](https://github.com/contentful/field-editors/commit/cf15155b32c11f7c93612bd4afe386e95a21b62f))
+
+
+
+
+
 ## [0.5.3](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@0.5.2...@contentful/default-field-editors@0.5.3) (2021-02-03)
 
 **Note:** Version bump only for package @contentful/default-field-editors
