@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.1](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@0.6.0...@contentful/default-field-editors@0.6.1) (2021-02-04)
+
+
+### Bug Fixes
+
+* 🐛 proper resolving default fallack for references ([#583](https://github.com/contentful/field-editors/issues/583)) ([b5811b9](https://github.com/contentful/field-editors/commit/b5811b9d26b820200ae3b08dd2733cad931dba67))
+
+
+
+
+
 # [0.6.0](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@0.5.3...@contentful/default-field-editors@0.6.0) (2021-02-04)
 
 
