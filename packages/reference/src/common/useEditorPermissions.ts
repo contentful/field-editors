@@ -20,7 +20,7 @@ export function useEditorPermissions(props: EditorPermissionsProps) {
   const {
     creatableContentTypes,
     readableContentTypes,
-    availableContentTypes
+    availableContentTypes,
   } = useContentTypePermissions({ ...props, validations });
   const { canOnEntity } = useAccessApi(sdk.access);
 
@@ -50,21 +50,17 @@ export function useEditorPermissions(props: EditorPermissionsProps) {
     }
 
     async function checkLinkAccess() {
-      if (props.allContentTypes?.length) {
-        if (entityType === 'Asset') {
-          const canRead = await canOnEntity('read', 'Asset');
-          setCanLinkEntity(canRead);
-        }
-        if (entityType === 'Entry') {
-          setCanLinkEntity(readableContentTypes.length > 0);
-        }
-      } else {
-        setCanLinkEntity(true)
+      if (entityType === 'Asset') {
+        const canRead = await canOnEntity('read', 'Asset');
+        setCanLinkEntity(canRead);
+      }
+      if (entityType === 'Entry') {
+        setCanLinkEntity(readableContentTypes.length > 0);
       }
     }
 
     void checkLinkAccess();
-  }, [entityType, parameters.instance, readableContentTypes, props.allContentTypes]);
+  }, [entityType, parameters.instance, readableContentTypes]);
 
   return {
     canCreateEntity,
@@ -72,7 +68,7 @@ export function useEditorPermissions(props: EditorPermissionsProps) {
     creatableContentTypes,
     readableContentTypes,
     availableContentTypes,
-    validations
+    validations,
   };
 }
 

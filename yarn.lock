@@ -1529,6 +1529,17 @@
     read-pkg-up "^7.0.1"
     semver "^7.3.2"
 
+"@contentful/field-editor-shared@^0.14.0":
+  version "0.14.0"
+  resolved "https://registry.yarnpkg.com/@contentful/field-editor-shared/-/field-editor-shared-0.14.0.tgz#13e942e36ee5350c27978ce625ac74152495c270"
+  integrity sha512-z8PT7hkuUWHcgJNnxIA2VbC2DWEVu/6yhpSKIv4iaFRHsAZjyFQ1s/0QIVK8E0nm+qHZaV5RJKDm6wEkp3G+3A==
+  dependencies:
+    "@contentful/forma-36-tokens" "^0.10.0"
+    contentful-ui-extensions-sdk "^3.29.2"
+    emotion "^10.0.17"
+    lodash "^4.17.15"
+    lodash-es "^4.17.15"
+
 "@contentful/forma-36-fcss@^0.3.0":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-fcss/-/forma-36-fcss-0.3.0.tgz#f4883c7f06bff6c0bc728265475d32c5ee76ee1d"
@@ -6591,6 +6602,11 @@ contentful-sdk-core@^6.4.0, contentful-sdk-core@^6.7.0:
   dependencies:
     fast-copy "^2.1.0"
     qs "^6.9.4"
+
+contentful-ui-extensions-sdk@^3.29.2:
+  version "3.32.0"
+  resolved "https://registry.yarnpkg.com/contentful-ui-extensions-sdk/-/contentful-ui-extensions-sdk-3.32.0.tgz#1aee2ee98ed5a32873a78108412197bf41d79b7e"
+  integrity sha512-S36eeOV4a5IE1ZWpN60Sfl3USi5srXJ7QxH7EplTFIk57/lCTqPpdZZPiJMO3HNq9tBCAOTC+b8neql/+jtBQQ==
 
 contentful@^7.14.0:
   version "7.14.3"

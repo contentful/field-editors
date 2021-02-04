@@ -14,6 +14,9 @@ function makeEntryFromType(contentTypeId: string) {
         sys: { id: contentTypeId },
       },
     },
+    metadata: {
+      tags: [],
+    },
     fields: {},
   } as Entry;
 }

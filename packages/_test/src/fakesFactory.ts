@@ -24,6 +24,9 @@ export const createEntry = (contentTypeId: string, fields: Fields): Entry => ({
     createdBy: { sys: { id: 'u123', type: 'Link', linkType: 'User' } },
     updatedBy: { sys: { id: 'u123', type: 'Link', linkType: 'User' } },
     publishedBy: { sys: { id: 'u123', type: 'Link', linkType: 'User' } },
-    contentType: { sys: { id: contentTypeId, type: 'Link', linkType: 'ContentType' } }
-  }
+    contentType: { sys: { id: contentTypeId, type: 'Link', linkType: 'ContentType' } },
+  },
+  metadata: {
+    tags: [],
+  },
 });
