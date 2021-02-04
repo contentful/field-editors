@@ -13,11 +13,7 @@ export const DEFAULTS: { [key: string]: WidgetType } = {
   Location: 'locationEditor',
   Object: 'objectEditor',
   RichText: 'richTextEditor',
-  Entry: 'entryLinkEditor',
-  Asset: 'assetLinkEditor',
   Symbols: 'tagEditor',
-  Entries: 'entryLinksEditor',
-  Assets: 'assetLinksEditor',
   File: 'fileEditor',
 };
 
@@ -30,6 +26,21 @@ export function getDefaultWidgetId(
 
   if (hasInValidation && DROPDOWN_TYPES.includes(fieldType)) {
     return 'dropdown';
+  }
+
+  if (fieldType === 'Array') {
+    if (field.items?.linkType === 'Asset') {
+      return 'assetLinksEditor';
+    }
+    return 'entryLinksEditor';
+  }
+
+  if (fieldType === 'Link') {
+    // @ts-expect-error
+    if (field.linkType === 'Asset') {
+      return 'assetLinkEditor';
+    }
+    return 'entryLinkEditor';
   }
 
   const displayFieldId = sdk.contentType.displayField;
