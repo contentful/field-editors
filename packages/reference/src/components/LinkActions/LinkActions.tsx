@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TextLink } from '@contentful/forma-36-react-components';
+import { Button } from '@contentful/forma-36-react-components';
 import * as styles from './styles';
 import { EntityType, ContentType, ActionLabels } from '../../types';
 import { CreateEntryLinkButton } from '../CreateEntryLinkButton/CreateEntryLinkButton';
@@ -70,31 +70,33 @@ export function LinkActions(props: LinkActionsProps) {
             />
           )}
           {props.entityType === 'Asset' && (
-            <TextLink
+            <Button
               disabled={props.isDisabled}
               testId={testIds.createAndLink}
               onClick={() => {
                 props.onCreate();
               }}
-              linkType="primary"
-              icon="Plus">
+              buttonType="muted"
+              icon="Plus"
+              size="small">
               {labels.createNew()}
-            </TextLink>
+            </Button>
           )}
           <span className={styles.separator} />
         </>
       )}
       {props.canLinkEntity && (
-        <TextLink
+        <Button
           disabled={props.isDisabled}
           testId={testIds.linkExisting}
           onClick={() => {
             props.onLinkExisting();
           }}
-          linkType="primary"
-          icon="Link">
+          buttonType="muted"
+          icon="Link"
+          size="small">
           {labels.linkExisting({ canLinkMultiple: props.canLinkMultiple })}
-        </TextLink>
+        </Button>
       )}
 
       {!props.canCreateEntity && !props.canLinkEntity && <NoLinkPermissionsInfo />}

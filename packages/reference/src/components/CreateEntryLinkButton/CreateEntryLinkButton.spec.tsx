@@ -37,7 +37,6 @@ describe('CreateEntryLinkButton general', () => {
     const link = findButton(getByTestId);
     expect(link).toBeDefined();
     expect(link.textContent).toBe('Add entry');
-    expect(getByTestId('dropdown-icon')).toBeDefined();
     expect(() => getByTestId('add-entry-menu-container')).toThrow(
       'Unable to find an element by: [data-test-id="add-entry-menu-container"]'
     );
