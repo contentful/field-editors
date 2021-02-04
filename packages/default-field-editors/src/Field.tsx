@@ -24,10 +24,11 @@ import { RichTextEditor } from '@contentful/field-editor-rich-text';
 import { MarkdownEditor } from '@contentful/field-editor-markdown';
 import type { FieldExtensionSDK } from '@contentful/field-editor-shared';
 import type { EditorOptions, WidgetType } from './types';
+import { getDefaultWidgetId } from './getDefaultWidgetId';
 
 type FieldProps = {
   sdk: FieldExtensionSDK;
-  widgetId: WidgetType;
+  widgetId?: WidgetType;
   isInitiallyDisabled?: boolean;
   renderFieldEditor?: (
     widgetId: WidgetType,
@@ -38,9 +39,17 @@ type FieldProps = {
 };
 
 export const Field: React.FC<FieldProps> = (props: FieldProps) => {
-  const { sdk, widgetId, isInitiallyDisabled = false, renderFieldEditor, getOptions } = props;
+  const {
+    sdk,
+    widgetId: possiblyUndefinedWidgetId,
+    isInitiallyDisabled = false,
+    renderFieldEditor,
+    getOptions,
+  } = props;
   const field = sdk.field;
   const locales = sdk.locales;
+
+  const widgetId = possiblyUndefinedWidgetId ?? getDefaultWidgetId(sdk);
 
   if (renderFieldEditor) {
     const customEditor = renderFieldEditor(widgetId, sdk, isInitiallyDisabled);
