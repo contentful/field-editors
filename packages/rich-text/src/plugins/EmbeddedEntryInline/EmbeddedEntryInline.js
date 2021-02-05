@@ -1,20 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { css } from 'emotion';
-import { FetchingWrappedInlineEntryCard } from './FetchingWrappedInlineEntryCard';
 
-const styles = {
-  root: css({
-    margin: '0px 5px',
-    fontSize: 'inherit',
-    span: {
-      webkitUserSelect: 'none',
-      mozUserSelect: 'none',
-      msUserSelect: 'none',
-      userSelect: 'none'
-    }
-  })
-};
+import { FetchingWrappedInlineEntryCard } from './FetchingWrappedInlineEntryCard';
+import { styles } from './EmbeddedEntryInline.styles';
 
 class EmbeddedEntryInline extends React.Component {
   static propTypes = {
@@ -23,14 +11,14 @@ class EmbeddedEntryInline extends React.Component {
     attributes: PropTypes.object.isRequired,
     editor: PropTypes.object.isRequired,
     node: PropTypes.object.isRequired,
-    onEntityFetchComplete: PropTypes.func.isRequired
+    onEntityFetchComplete: PropTypes.func.isRequired,
   };
 
   getEntitySys() {
     const data = this.props.node.data;
     return {
       id: data.get('target').sys.id,
-      type: data.get('target').sys.linkType
+      type: data.get('target').sys.linkType,
     };
   }
 

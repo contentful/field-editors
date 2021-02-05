@@ -11,6 +11,7 @@ import { fetchEntries, fetchAssets, CommandPaletteActionBuilder } from '../Comma
 import { removeCommand } from '../Util';
 import CommandPanelMenu from './CommandPanelMenu';
 import { InViewport } from '@contentful/forma-36-react-components';
+import tokens from '@contentful/forma-36-tokens';
 
 const DEFAULT_POSITION = {
   top: 0,
@@ -287,6 +288,7 @@ class CommandPalette extends React.PureComponent {
           minWidth: 200,
           top: this.state.anchorPosition.top,
           left: this.state.anchorPosition.left,
+          zIndex: tokens.zIndexDropdown,
         }}>
         <InViewport
           onOverflowBottom={() => {

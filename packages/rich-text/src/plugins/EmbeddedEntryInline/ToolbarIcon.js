@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { DropdownListItem, Icon, Button } from '@contentful/forma-36-react-components';
+import { DropdownListItem, Flex, Icon, Button } from '@contentful/forma-36-react-components';
 import { INLINES } from '@contentful/rich-text-types';
 
 import { selectEntryAndInsert, canInsertInline } from './Utils';
 import { TOOLBAR_PLUGIN_PROP_TYPES } from '../shared/PluginApi';
 import { toolbarActionHandlerWithSafeAutoFocus } from '../shared/Util';
+import { styles } from './EmbeddedEntryInline.styles';
 
 export default class EntryLinkToolbarIcon extends Component {
   static propTypes = TOOLBAR_PLUGIN_PROP_TYPES;
@@ -47,14 +48,14 @@ export default class EntryLinkToolbarIcon extends Component {
         icon="Entry"
         testId={`toolbar-toggle-${INLINES.EMBEDDED_ENTRY}`}
         onClick={this.handleClick}>
-        <div className="cf-flex-grid">
+        <Flex alignItems="center" flexDirection="row">
           <Icon
             icon="EmbeddedEntryInline"
             color="secondary"
-            className="rich-text__embedded-entry-list-icon"
+            className={`rich-text__embedded-entry-list-icon ${styles.icon}`}
           />
-          Inline entry
-        </div>
+          <span>Inline entry</span>
+        </Flex>
       </DropdownListItem>
     );
   }
