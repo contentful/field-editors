@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { DropdownListItem, Button, Icon } from '@contentful/forma-36-react-components';
+import { DropdownListItem, Button, Flex, Icon } from '@contentful/forma-36-react-components';
 
 import { selectEntityAndInsert } from './Util';
 import { TOOLBAR_PLUGIN_PROP_TYPES } from '../shared/PluginApi';
 import { toolbarActionHandlerWithSafeAutoFocus } from '../shared/Util';
+import { styles } from './EmbeddedEntityBlock.styles';
 
 export default class EntityLinkToolbarIcon extends Component {
   static propTypes = {
@@ -53,14 +54,14 @@ export default class EntityLinkToolbarIcon extends Component {
         size="small"
         onClick={this.handleClick}
         testId={`toolbar-toggle-${nodeType}`}>
-        <div className="cf-flex-grid">
+        <Flex alignItems="center" flexDirection="row">
           <Icon
             icon={type === 'Asset' ? 'Asset' : 'EmbeddedEntryBlock'}
-            className="rich-text__embedded-entry-list-icon"
+            className={`rich-text__embedded-entry-list-icon ${styles.icon}`}
             color="secondary"
           />
-          {type}
-        </div>
+          <span>{type}</span>
+        </Flex>
       </DropdownListItem>
     );
   }
