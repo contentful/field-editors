@@ -20,15 +20,19 @@ const styles = {
   wrapper: css({
     position: 'relative',
   }),
-  searchInput: css({
-    '& > input': {
-      borderColor: 'transparent',
-      paddingRight: tokens.spacing2Xl,
-      '::placeholder': {
-        color: tokens.colorTextLight,
+  searchInput: (parentHasDropdown: boolean) =>
+    css({
+      '& > input': {
+        borderColor: 'transparent',
+        borderRadius: parentHasDropdown ? 0 : undefined,
+        borderLeft: parentHasDropdown ? 'none' : undefined,
+        borderRight: parentHasDropdown ? 'none' : undefined,
+        paddingRight: tokens.spacing2Xl,
+        '::placeholder': {
+          color: tokens.colorTextLight,
+        },
       },
-    },
-  }),
+    }),
   searchIcon: css({
     position: 'absolute',
     right: tokens.spacingM,
@@ -66,7 +70,7 @@ interface CreateEntryMenuTrigger {
   onSelect: (contentTypeId: string) => Promise<unknown>;
   testId?: string;
   dropdownSettings?: {
-    isAutoalignmentEnabled: boolean;
+    isAutoalignmentEnabled?: boolean;
     position: 'bottom-left' | 'bottom-right';
   };
   renderCustomDropdownItems?: CreateCustomEntryMenuItems;
@@ -80,7 +84,6 @@ export const CreateEntryMenuTrigger = ({
   onSelect,
   testId,
   dropdownSettings = {
-    isAutoalignmentEnabled: true,
     position: 'bottom-left',
   },
   renderCustomDropdownItems,
@@ -180,10 +183,15 @@ export const CreateEntryMenuTrigger = ({
             setDropdownWidth(ref.clientWidth);
           }
         }}>
+        {renderCustomDropdownItems && (
+          <DropdownList className={styles.dropdownList} border="top">
+            {renderCustomDropdownItems({ closeMenu })}
+          </DropdownList>
+        )}
         {isSearchable && (
           <div className={styles.wrapper}>
             <TextInput
-              className={styles.searchInput}
+              className={styles.searchInput(hasDropdown)}
               placeholder="Search all content types"
               testId="add-entry-menu-search"
               value={searchInput}
@@ -228,11 +236,6 @@ export const CreateEntryMenuTrigger = ({
             </DropdownListItem>
           )}
         </DropdownList>
-        {renderCustomDropdownItems && (
-          <DropdownList className={styles.dropdownList} border="top">
-            {renderCustomDropdownItems({ closeMenu })}
-          </DropdownList>
-        )}
       </Dropdown>
     </span>
   );

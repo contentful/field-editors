@@ -1,10 +1,9 @@
 import * as React from 'react';
 import {
+  Button,
   Dropdown,
   DropdownList,
   DropdownListItem,
-  Icon,
-  TextLink,
 } from '@contentful/forma-36-react-components';
 import * as styles from './redesignStyles';
 import { CreateEntryLinkButton } from '../CreateEntryLinkButton/CreateEntryLinkButton';
@@ -51,7 +50,6 @@ function CombinedEntryLinkActions(props: LinkActionsProps) {
         hasPlusIcon={true}
         useExperimentalStyles={true}
         dropdownSettings={{
-          isAutoalignmentEnabled: true,
           position: 'bottom-left',
         }}
         onSelect={(contentTypeId) => {
@@ -75,17 +73,18 @@ function CombinedEntryLinkActions(props: LinkActionsProps) {
     );
   } else if (props.canLinkEntity) {
     return (
-      <TextLink
+      <Button
         disabled={props.isDisabled}
         testId={testIds.linkExisting}
         className={styles.action}
         onClick={() => {
           props.onLinkExisting();
         }}
-        linkType="primary"
-        icon="Link">
+        buttonType="muted"
+        icon="Link"
+        size="small">
         Add existing content
-      </TextLink>
+      </Button>
     );
   }
   return null;
@@ -97,32 +96,34 @@ function CombinedAssetLinkActions(props: LinkActionsProps) {
   if (!props.canLinkEntity || !props.canCreateEntity) {
     if (props.canLinkEntity) {
       return (
-        <TextLink
+        <Button
           disabled={props.isDisabled}
           testId={testIds.linkExisting}
           className={styles.action}
           onClick={() => {
             props.onLinkExisting();
           }}
-          linkType="primary"
-          icon="Link">
+          buttonType="muted"
+          icon="Plus"
+          size="small">
           Add existing media
-        </TextLink>
+        </Button>
       );
     }
     if (props.canCreateEntity) {
       return (
-        <TextLink
+        <Button
           disabled={props.isDisabled}
           testId={testIds.createAndLink}
           className={styles.action}
           onClick={() => {
             props.onCreate();
           }}
-          linkType="primary"
-          icon="PlusCircle">
+          buttonType="muted"
+          icon="Plus"
+          size="small">
           Add media
-        </TextLink>
+        </Button>
       );
     }
     return null;
@@ -136,23 +137,19 @@ function CombinedAssetLinkActions(props: LinkActionsProps) {
       onClose={() => setOpen(false)}
       toggleElement={
         <>
-          <TextLink
+          <Button
             disabled={props.isDisabled}
             testId={testIds.actionsWrapper}
             className={styles.action}
             onClick={() => {
               setOpen(!isOpen);
             }}
-            linkType="primary"
-            icon="PlusCircle">
+            buttonType="muted"
+            icon="Plus"
+            indicateDropdown
+            size="small">
             Add media
-            <Icon
-              data-test-id="dropdown-icon"
-              icon="ChevronDown"
-              color="secondary"
-              className={styles.chevronIcon}
-            />
-          </TextLink>
+          </Button>
         </>
       }>
       <DropdownList testId={testIds.dropdown}>
