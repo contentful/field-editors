@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.17.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@0.17.3...@contentful/field-editor-rich-text@0.17.4) (2021-02-05)
+
+
+### Bug Fixes
+
+* **rich-text:** command palette and embed dropdown icons ([#585](https://github.com/contentful/field-editors/issues/585)) ([7a1c301](https://github.com/contentful/field-editors/commit/7a1c301dca784700a35e98e23f85c92562d41081))
+
+
+
+
+
 ## [0.17.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@0.17.2...@contentful/field-editor-rich-text@0.17.3) (2021-02-03)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.8.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.7.0...@contentful/field-editor-reference@2.8.0) (2021-02-05)
+
+
+### Features
+
+* **reference:** change text links to button ([#581](https://github.com/contentful/field-editors/issues/581)) ([a068ae0](https://github.com/contentful/field-editors/commit/a068ae0a67300c76ac613b177db068dceefa2ea6))
+
+
+
+
+
 # [2.7.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.6.0...@contentful/field-editor-reference@2.7.0) (2021-02-03)
 
 
