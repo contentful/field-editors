@@ -16,6 +16,9 @@ export interface Entry {
       [localeKey: string]: any;
     };
   };
+  metadata: {
+    tags: [];
+  };
 }
 
 export type Asset = {
@@ -27,6 +30,9 @@ export type Asset = {
     file: {
       [locale: string]: File;
     };
+  };
+  metadata: {
+    tags: [];
   };
 };
 
