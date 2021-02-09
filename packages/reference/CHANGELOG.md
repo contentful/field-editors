@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.8.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.8.1...@contentful/field-editor-reference@2.8.2) (2021-02-09)
+
+
+### Bug Fixes
+
+* **tags:** Editor permissions handles entities with metadata ([#584](https://github.com/contentful/field-editors/issues/584)) ([32636da](https://github.com/contentful/field-editors/commit/32636daf05e0ba9abb47eafe9893850db2c6601f))
+
+
+
+
+
 ## [2.8.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.8.0...@contentful/field-editor-reference@2.8.1) (2021-02-08)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
