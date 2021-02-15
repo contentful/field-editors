@@ -4754,13 +4754,6 @@ axe-core@^4.0.2:
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.1.1.tgz#70a7855888e287f7add66002211a423937063eaf"
   integrity sha512-5Kgy8Cz6LPC9DJcNb3yjAXTu3XihQgEdnIg50c//zOC/MyLP0Clg+Y8Sh9ZjjnvBrDZU4DgXS9C3T9r4/scGZQ==
 
-axios@^0.19.1:
-  version "0.19.2"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.19.2.tgz#3ea36c5d8818d0d5f8a8a97a6d36b86cdc00cb27"
-  integrity sha512-fjgm5MvRHLhx+osE2xoekY70AhARk3a6hkN+3Io1jc00jtquGvxYlKlsFUhmUET0V5te6CcZI7lcv2Ym61mjHA==
-  dependencies:
-    follow-redirects "1.5.10"
-
 axios@^0.21.0, axios@^0.21.1:
   version "0.21.1"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.1.tgz#22563481962f4d6bde9a76d516ef0e5d3c09b2b8"
@@ -6440,10 +6433,10 @@ contentful-batch-libs@^9.0.1:
     lodash "^4.0.1"
     moment "^2.18.1"
 
-contentful-cli@1.5.24, contentful-cli@^1.3.29:
-  version "1.5.24"
-  resolved "https://registry.yarnpkg.com/contentful-cli/-/contentful-cli-1.5.24.tgz#023f2413a4639cfe0eba19921cf7a60c1481372e"
-  integrity sha512-JUoQv6ZBIz2YXXlpz9HQ1br6ZnbMr0wpbANNthg+BReqb5X0+U0Gc13hCw77WmCM8usBx9HKr83knB+y1RKeHw==
+contentful-cli@1.5.28, contentful-cli@^1.3.29:
+  version "1.5.28"
+  resolved "https://registry.yarnpkg.com/contentful-cli/-/contentful-cli-1.5.28.tgz#0def66491ea403d98551d934b67abb1a5549d14b"
+  integrity sha512-uSXg3HTdjpdvo6vOATu9U4blGnND8+IiNvUS8tQjnydgUVev5XJ2QSGPDGRKr5ZkUEZ2qIqExECfskHTA5EQfg==
   dependencies:
     ast-types "^0.14.2"
     bfj "^7.0.2"
@@ -6453,7 +6446,7 @@ contentful-cli@1.5.24, contentful-cli@^1.3.29:
     chalk "^2.4.1"
     cli-table3 "^0.6.0"
     command-exists "^1.2.7"
-    contentful-export "^7.10.17"
+    contentful-export "^7.11.5"
     contentful-import "^7.9.23"
     contentful-management "^7.3.1"
     contentful-migration "^4.0.0"
@@ -6482,15 +6475,15 @@ contentful-cli@1.5.24, contentful-cli@^1.3.29:
     yargs "~13.3.0"
     zlib "^1.0.5"
 
-contentful-export@^7.10.17:
-  version "7.10.22"
-  resolved "https://registry.yarnpkg.com/contentful-export/-/contentful-export-7.10.22.tgz#123ca18183dd578a5862a2492660b6b3f3d61d95"
-  integrity sha512-Cbp9Z3U6cNE0or/4kf0KzpVyU1ySm2nPKX7U48quEhBr4xabO0aS+DIckOS2gdna2IQv+OdRf0VRHw9s+soi3w==
+contentful-export@^7.11.5:
+  version "7.11.6"
+  resolved "https://registry.yarnpkg.com/contentful-export/-/contentful-export-7.11.6.tgz#24385c2c9b9cb00bc975fe4a1da5fcaeb3d788ba"
+  integrity sha512-kcxmKPaalsl2P1miY3cGDvpDtuyy81uooxqK7uItPv4ROmJcW64RTZsiqUVNL/FVuTKH2MDOoXstzbaGDZMfBA==
   dependencies:
     bfj "^7.0.2"
     bluebird "^3.3.3"
     cli-table3 "^0.6.0"
-    contentful "^7.14.0"
+    contentful "^8.1.7"
     contentful-batch-libs "^9.0.1"
     contentful-management "^7.3.1"
     echo-cli "^1.0.8"
@@ -6555,14 +6548,14 @@ contentful-migration@^4.0.0:
     lodash "^4.17.15"
     yargs "^15.3.1"
 
-contentful-resolve-response@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/contentful-resolve-response/-/contentful-resolve-response-1.1.4.tgz#9eb656876eecb2cd00444f0adf26bd91a5ec1992"
-  integrity sha512-oFq6n6zjbiwD9/7mBa8YHPwvPM0B0D4uOgg1n/rVzpQPhCrzeIixNj6fbJAbDiJt05rZqxiY3K1Db7pPRhRaZw==
+contentful-resolve-response@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/contentful-resolve-response/-/contentful-resolve-response-1.3.0.tgz#79530897b109d326c47a32c4b327afa04966cbb7"
+  integrity sha512-FFa4it5VXW1YGyim5rhPbnwmN4c8OcmkpLrsylTL2Y1YpoC+6qnZSSU/QZyvHomLdEgwXaSXhGVJkWjpdz5IMg==
   dependencies:
-    lodash "^4.17.4"
+    fast-copy "^2.1.0"
 
-contentful-sdk-core@^6.4.0, contentful-sdk-core@^6.7.0:
+contentful-sdk-core@^6.5.0, contentful-sdk-core@^6.7.0:
   version "6.7.0"
   resolved "https://registry.yarnpkg.com/contentful-sdk-core/-/contentful-sdk-core-6.7.0.tgz#c014f12d7a716548c248e905dd8e095a6dbf7a0f"
   integrity sha512-+b8UXVE249Z6WzMLXvsu3CIvN/s5xXRZ9o+zY7zDdPkIYBMW15xcs9N2ATI6ncmc+s1uj4XZij/2skflletHiw==
@@ -6575,16 +6568,16 @@ contentful-ui-extensions-sdk@^3.29.2:
   resolved "https://registry.yarnpkg.com/contentful-ui-extensions-sdk/-/contentful-ui-extensions-sdk-3.32.0.tgz#1aee2ee98ed5a32873a78108412197bf41d79b7e"
   integrity sha512-S36eeOV4a5IE1ZWpN60Sfl3USi5srXJ7QxH7EplTFIk57/lCTqPpdZZPiJMO3HNq9tBCAOTC+b8neql/+jtBQQ==
 
-contentful@^7.14.0:
-  version "7.14.3"
-  resolved "https://registry.yarnpkg.com/contentful/-/contentful-7.14.3.tgz#bc4986f6163462168b6e51b06104cb0b6931a6af"
-  integrity sha512-4ggdJkRUM+hi8D2kQEap/iT2OtJf6wTyj+zWOI6hCarPjfmEjYDSsZ7hMt9lxmnkEllPRgUww+e47uMiGgzcwQ==
+contentful@^8.1.7:
+  version "8.1.7"
+  resolved "https://registry.yarnpkg.com/contentful/-/contentful-8.1.7.tgz#24786d5eb98118368cafd2a7bf718de9a1f99bae"
+  integrity sha512-dFlpRjkrTp+TG6kCjERIgzsBRTfjflRnjosE0uQus7dENrz2nrVEYhFO/T3WrKQfAbTyozKcTpWr5pEZiXpm2A==
   dependencies:
-    axios "^0.19.1"
-    contentful-resolve-response "^1.1.4"
-    contentful-sdk-core "^6.4.0"
+    axios "^0.21.0"
+    contentful-resolve-response "^1.3.0"
+    contentful-sdk-core "^6.5.0"
+    fast-copy "^2.1.0"
     json-stringify-safe "^5.0.1"
-    lodash "^4.17.11"
 
 conventional-changelog-angular@^5.0.0, conventional-changelog-angular@^5.0.3:
   version "5.0.6"
@@ -7289,7 +7282,7 @@ debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.0, debug@^2.6.9:
   dependencies:
     ms "2.0.0"
 
-debug@3.1.0, debug@=3.1.0:
+debug@3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
   integrity sha512-OX8XqP7/1a9cqkxYw2yXss15f26NKWBpDXQd0/uK/KPqdQhxbPa994hnzjcE2VqQpDslf55723cKPUOGSmMY3g==
@@ -9439,13 +9432,6 @@ flush-write-stream@^1.0.0:
   dependencies:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
-
-follow-redirects@1.5.10:
-  version "1.5.10"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.5.10.tgz#7b7a9f9aea2fdff36786a94ff643ed07f4ff5e2a"
-  integrity sha512-0V5l4Cizzvqt5D44aTXbFZz+FtyXV1vrDN6qrelxtfYQKW0KO0W2T/hkE8xvGa/540LkZlkaUjO4ailYTFtHVQ==
-  dependencies:
-    debug "=3.1.0"
 
 follow-redirects@^1.0.0, follow-redirects@^1.10.0:
   version "1.13.1"
