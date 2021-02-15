@@ -4,9 +4,13 @@ import { FieldExtensionSDK } from '../types';
 import { renderHook } from '@testing-library/react-hooks';
 import { AccessAPI, ContentType, FieldAPI } from '@contentful/app-sdk';
 
+type ExtendedAccessAPI = AccessAPI & {
+  canPerformActionOnEntryOfType: (action: string, contentTypeId: string) => Promise<boolean>;
+};
+
 describe('useEditorPermissions', () => {
   type MockedFieldExtensionSDK = Omit<FieldExtensionSDK, 'access'> & {
-    access: jest.Mocked<AccessAPI>;
+    access: jest.Mocked<ExtendedAccessAPI>;
   };
 
   const makeFieldExtensionSDK = (customizeMock?: (fieldApi: FieldAPI) => FieldAPI) =>
@@ -14,6 +18,7 @@ describe('useEditorPermissions', () => {
       field: createFakeFieldAPI(customizeMock)[0],
       access: {
         can: jest.fn().mockResolvedValue(true),
+        canPerformActionOnEntryOfType: jest.fn().mockResolvedValue(true),
       },
     } as unknown) as MockedFieldExtensionSDK);
 
@@ -93,17 +98,15 @@ describe('useEditorPermissions', () => {
       allowedAction: string,
       ...allowed: string[]
     ) => {
-      sdk.access.can.mockImplementation(async (action: string, entity: any) => {
-        if (typeof entity === 'string') {
-          return true;
-        }
+      sdk.access.canPerformActionOnEntryOfType.mockImplementation(
+        async (action: string, contentTypeId: any) => {
+          if (allowedAction === action && allowed.includes(contentTypeId)) {
+            return true;
+          }
 
-        if (allowedAction === action && allowed.includes(entity.sys.contentType.sys.id)) {
-          return true;
+          return false;
         }
-
-        return false;
-      });
+      );
     };
 
     it(`wont check access when turned off via instance params`, async () => {
