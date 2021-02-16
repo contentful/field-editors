@@ -46,11 +46,13 @@ export function useContentTypePermissions(
   }, [props.allContentTypes, props.validations.contentTypes, props.entityType]);
   const [creatableContentTypes, setCreatableContentTypes] = useState(availableContentTypes);
   const [readableContentTypes, setReadableContentTypes] = useState(availableContentTypes);
-  const { canOnEntryOfType } = useAccessApi(props.sdk.access);
+  const { canPerformActionOnEntryOfType } = useAccessApi(props.sdk.access);
 
   useEffect(() => {
     function getContentTypes(action: 'create' | 'read') {
-      return filter(availableContentTypes, (ct) => canOnEntryOfType(action, ct.sys.id));
+      return filter(availableContentTypes, (ct) =>
+        canPerformActionOnEntryOfType(action, ct.sys.id)
+      );
     }
 
     async function checkContentTypeAccess() {
