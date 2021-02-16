@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.8.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.8.2...@contentful/field-editor-reference@2.8.3) (2021-02-16)
+
+
+### Bug Fixes
+
+* 🐛 handle lack of proper acccess checks in the webapp ([#601](https://github.com/contentful/field-editors/issues/601)) ([366aa87](https://github.com/contentful/field-editors/commit/366aa87e511d9811f603a7d89bd6fd765676d367))
+
+
+
+
+
 ## [2.8.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.8.1...@contentful/field-editor-reference@2.8.2) (2021-02-09)
 
 
