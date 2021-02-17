@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.7](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@0.6.6...@contentful/default-field-editors@0.6.7) (2021-02-17)
+
+
+### Bug Fixes
+
+* 🐛 revert package bump due to failed publish ([#603](https://github.com/contentful/field-editors/issues/603)) ([4d2f17c](https://github.com/contentful/field-editors/commit/4d2f17cce86dfa98d55aa861416076d6457a9edd))
+
+
+
+
+
 ## [0.6.6](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@0.6.5...@contentful/default-field-editors@0.6.6) (2021-02-16)
 
 **Note:** Version bump only for package @contentful/default-field-editors
