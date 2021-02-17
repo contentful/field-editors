@@ -15,7 +15,9 @@ export interface LinkActionsProps {
   isFull: boolean;
   isEmpty: boolean;
   onCreate: (contentType?: string, index?: number) => Promise<unknown>;
+  onEntryCreated: (id: string, index?: number) => void;
   onLinkExisting: (index?: number) => void;
+  onEntryLinked: (ids: string[], index?: number) => void;
   actionLabels?: Partial<ActionLabels>;
   combinedActionsLabel?: string | React.ReactElement;
 }

@@ -102,7 +102,9 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
       canLinkEntity: editorPermissions.canLinkEntity,
       contentTypes: editorPermissions.creatableContentTypes,
       onCreate,
+      onEntryCreated: props.onCreate,
       onLinkExisting: canLinkMultiple ? onLinkSeveralExisting : onLinkExisting,
+      onEntryLinked: props.onLink,
       actionLabels,
     }),
     [
@@ -116,7 +118,9 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
       actionLabels,
       editorPermissions.creatableContentTypes.map((ct) => ct.sys.id).join(':'),
       onCreate,
+      props.onCreate,
       onLinkExisting,
+      props.onLink,
       onLinkSeveralExisting,
     ]
   );
