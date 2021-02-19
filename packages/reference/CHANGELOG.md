@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.9.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.8.3...@contentful/field-editor-reference@2.9.0) (2021-02-19)
+
+
+### Features
+
+* bump min version of forma-36 ([#606](https://github.com/contentful/field-editors/issues/606)) ([fd57c7a](https://github.com/contentful/field-editors/commit/fd57c7a4312766af38c01507f17706ab22992617))
+
+
+
+
+
 ## [2.8.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.8.2...@contentful/field-editor-reference@2.8.3) (2021-02-16)
 
 

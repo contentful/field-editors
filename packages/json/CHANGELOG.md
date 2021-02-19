@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@0.10.3...@contentful/field-editor-json@0.11.0) (2021-02-19)
+
+
+### Features
+
+* bump min version of forma-36 ([#606](https://github.com/contentful/field-editors/issues/606)) ([fd57c7a](https://github.com/contentful/field-editors/commit/fd57c7a4312766af38c01507f17706ab22992617))
+
+
+
+
+
 ## [0.10.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@0.10.2...@contentful/field-editor-json@0.10.3) (2021-02-09)
 
 **Note:** Version bump only for package @contentful/field-editor-json

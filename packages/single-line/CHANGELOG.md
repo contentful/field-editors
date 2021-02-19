@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.14.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-single-line@0.13.2...@contentful/field-editor-single-line@0.14.0) (2021-02-19)
+
+
+### Features
+
+* bump min version of forma-36 ([#606](https://github.com/contentful/field-editors/issues/606)) ([fd57c7a](https://github.com/contentful/field-editors/commit/fd57c7a4312766af38c01507f17706ab22992617))
+
+
+
+
+
 ## [0.13.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-single-line@0.13.1...@contentful/field-editor-single-line@0.13.2) (2021-02-09)
 
 **Note:** Version bump only for package @contentful/field-editor-single-line

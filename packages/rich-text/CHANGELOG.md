@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.18.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@0.17.7...@contentful/field-editor-rich-text@0.18.0) (2021-02-19)
+
+
+### Features
+
+* bump min version of forma-36 ([#606](https://github.com/contentful/field-editors/issues/606)) ([fd57c7a](https://github.com/contentful/field-editors/commit/fd57c7a4312766af38c01507f17706ab22992617))
+
+
+
+
+
 ## [0.17.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@0.17.6...@contentful/field-editor-rich-text@0.17.7) (2021-02-16)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
