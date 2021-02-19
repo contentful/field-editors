@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@contentful/app-sdk": "^3.29.2",
-    "@contentful/forma-36-tokens": "^0.10.0",
+    "@contentful/forma-36-tokens": "^0.10.1",
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15"
