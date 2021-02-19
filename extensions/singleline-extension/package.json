@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@contentful/forma-36-fcss": "^0.3.0",
-    "@contentful/forma-36-react-components": "^3.75.0",
+    "@contentful/forma-36-react-components": "^3.79.0",
     "@contentful/forma-36-tokens": "^0.10.0",
     "@contentful/app-sdk": "^3.29.2",
     "prop-types": "^15.7.2",

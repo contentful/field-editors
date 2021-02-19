@@ -1546,16 +1546,24 @@
   dependencies:
     "@contentful/forma-36-tokens" "^0.10.0"
 
-"@contentful/forma-36-react-components@^3.75.0":
-  version "3.75.0"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.75.0.tgz#039d991b7a5cfe830fc16a42c3903dd29e55c821"
-  integrity sha512-m3fuHQRtXHcD2DaM7IZNfJaFwf5+G2CCytCLcvdlZBcWL8gcgJl+cCqNCROZd3Wpl0UH69+WUbS+aro7QM48Qg==
+"@contentful/forma-36-fcss@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-fcss/-/forma-36-fcss-0.3.1.tgz#b111e14a0075693678325a528d4751a7a4cea925"
+  integrity sha512-rzf2VM057ExIRIqdAES336LwpMlO9yGLXbap01P77vv1kXl/gqXOxqpXZCRZhCr5rOwZfKyVeManxK8EJ0FNCQ==
+  dependencies:
+    "@contentful/forma-36-tokens" "^0.10.1"
+
+"@contentful/forma-36-react-components@^3.79.0":
+  version "3.79.5"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.79.5.tgz#b8448ffa35774dff9a98d75505292e44a695a10c"
+  integrity sha512-qCwPf/3EB31NWL/P1O/PboSVIzThe/RWmmrVVbNuBWqBIkvOggvAzeuy062NYeTIFgJrkgqmIG4UIhaDMgJKHg==
   dependencies:
     "@babel/runtime" "^7.3.4"
-    "@contentful/forma-36-fcss" "^0.3.0"
-    "@contentful/forma-36-tokens" "^0.10.0"
+    "@contentful/forma-36-fcss" "^0.3.1"
+    "@contentful/forma-36-tokens" "^0.10.1"
     "@popperjs/core" "^2.4.4"
     classnames "^2.2.6"
+    csstype "^3.0.5"
     dayjs "^1.9.1"
     react-animate-height "^2.0.7"
     react-copy-to-clipboard "^5.0.1"
@@ -1568,6 +1576,11 @@
   version "0.10.0"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.10.0.tgz#7de41cbe31413703aa006cbfc0e3641f37e668e1"
   integrity sha512-HGl9S1oaA4fb2/9zAAYst1Qjl3N49FzNv0SCuSkSWeXtQag4Q7D8YHe5QzpaeXGvttucXRvQW5iAyBRcYXa/hA==
+
+"@contentful/forma-36-tokens@^0.10.1":
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.10.1.tgz#e98f4cabc8381927317c7507279fcd6721c46735"
+  integrity sha512-K0HX1N9N7H4iofqXmljAfwf6BnPYqeHIeFkiQnXN4+XCI0Z7Dyg++D1880lN5EhyCjEkgPUBViU/hjUj2ULZhw==
 
 "@contentful/mimetype@^1.4.0":
   version "1.4.22"
@@ -7151,6 +7164,11 @@ csstype@^3.0.2:
   version "3.0.5"
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.0.5.tgz#7fdec6a28a67ae18647c51668a9ff95bb2fa7bb8"
   integrity sha512-uVDi8LpBUKQj6sdxNaTetL6FpeCqTjOvAQuQUa/qAqq8oOd4ivkbhgnqayl0dnPal8Tb/yB1tF+gOvCBiicaiQ==
+
+csstype@^3.0.5:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.0.6.tgz#865d0b5833d7d8d40f4e5b8a6d76aea3de4725ef"
+  integrity sha512-+ZAmfyWMT7TiIlzdqJgjMb7S4f1beorDbWbsocyK4RaiqA5RTX3K14bnBWmmA9QEM0gRdsjyyrEmcyga8Zsxmw==
 
 currently-unhandled@^0.4.1:
   version "0.4.1"

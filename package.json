@@ -47,7 +47,7 @@
     "@contentful/contentful-extension-scripts": "^0.20.4",
     "@contentful/eslint-config-extension": "0.4.2",
     "@contentful/forma-36-fcss": "^0.3.0",
-    "@contentful/forma-36-react-components": "^3.75.0",
+    "@contentful/forma-36-react-components": "^3.79.0",
     "@contentful/forma-36-tokens": "^0.10.0",
     "@cypress/webpack-preprocessor": "4.1.5",
     "@testing-library/cypress": "5.3.1",
