@@ -10,45 +10,16 @@ import Readme from '../README.md';
 
 import { Playground, Props } from 'docz';
 import { BooleanEditor } from './BooleanEditor.tsx';
-import { createFakeFieldAPI, createFakeLocalesAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
-import { Heading } from '@contentful/forma-36-react-components';
-import { RadioEditor } from '../../radio/src/RadioEditor';
+import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
 
 ## In Action
 
 <Playground>
   {() => {
-    const [field, mitt] = createFakeFieldAPI(undefined, true);
-    const [checkedField] = createFakeFieldAPI(
-      mock => ({
-        ...mock,
-        type: 'Symbol',
-        validations: [{ in: ['yes', 'no'] }]
-      }),
-      'yes'
-    );
-    checkedField.onValueChanged((value) => {
-      field.setValue(value === 'yes');
-    });
-    const [disabledField] = createFakeFieldAPI(
-      mock => ({
-        ...mock,
-        type: 'Symbol',
-        validations: [{ in: ['yes', 'no'] }]
-      }),
-      'yes'
-    );
-    disabledField.onValueChanged((value) => {
-      setDisabled(value === 'yes');
-    });
-
-
+    const [field, mitt] = createFakeFieldAPI();
     return (
       <div>
-        Disabled field: <BooleanEditor field={field} isInitiallyDisabled={true} />
-        Enabled field: <BooleanEditor field={field} isInitiallyDisabled={false} />
-        <Heading style={{paddingTop: '2rem'}}>Checked?</Heading>
-        <RadioEditor field={checkedField} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+        <BooleanEditor field={field} isInitiallyDisabled={false} />
         <ActionsPlayground mitt={mitt} />
       </div>
     );
