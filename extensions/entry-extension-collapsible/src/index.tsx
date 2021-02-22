@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { TextLink, Modal } from '@contentful/forma-36-react-components';
 import { init, locations, EditorExtensionSDK, DialogExtensionSDK } from '@contentful/app-sdk';
+import { TextLink, Modal } from '@contentful/forma-36-react-components';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import '@contentful/forma-36-fcss/dist/styles.css';
+
 import './index.css';
 import { FieldGroupsEditor } from './FieldGroupsEditor';
 import { CollapsibleFieldGroup } from './CollapsibleFieldGroup';
@@ -11,8 +12,8 @@ import { findUnassignedFields, AppContext, SDKContext } from './shared';
 import { useAppState } from './state';
 import { ActionTypes, FieldType } from './types';
 import { Field } from './Field';
-import { renderMarkdownDialog } from '../../../packages/markdown/src/index';
-import { renderRichTextDialog } from '../../../packages/rich-text/src/index';
+import { renderMarkdownDialog } from '@contentful/field-editor-markdown';
+import { renderRichTextDialog } from '@contentful/field-editor-rich-text';
 import styles from './styles';
 
 interface AppProps {
@@ -103,11 +104,3 @@ init((sdk) => {
     }
   }
 });
-
-/**
- * By default, iframe of the extension is fully reloaded on every save of a source file.
- * If you want to use HMR (hot module reload) instead of full reload, uncomment the following lines
- */
-// if (module.hot) {
-//   module.hot.accept();
-// }

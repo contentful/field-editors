@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { MultipleEntryReferenceEditor } from '../../../packages/reference/src/index';
+import { MultipleEntryReferenceEditor } from '@contentful/field-editor-reference';
 import { init, FieldExtensionSDK } from '@contentful/app-sdk';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import '@contentful/forma-36-fcss/dist/styles.css';
@@ -16,6 +16,7 @@ init<FieldExtensionSDK>((sdk) => {
         viewType="link"
         sdk={fieldSdk}
         isInitiallyDisabled={true}
+        hasCardEditActions
         parameters={{
           instance: {
             showCreateEntityAction: true,
@@ -27,11 +28,3 @@ init<FieldExtensionSDK>((sdk) => {
     document.getElementById('root')
   );
 });
-
-/**
- * By default, iframe of the extension is fully reloaded on every save of a source file.
- * If you want to use HMR (hot module reload) instead of full reload, uncomment the following lines
- */
-// if (module.hot) {
-//   module.hot.accept();
-// }

@@ -2,7 +2,7 @@
   "name": "@contentful/field-editors",
   "private": true,
   "version": "1.0.0",
-  "description": "React components and extensions for building Contentful entry editor",
+  "description": "React components and apps for building Contentful entry editor",
   "author": "Contentful GmbH",
   "license": "MIT",
   "repository": {

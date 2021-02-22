@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import { init, FieldExtensionSDK } from '@contentful/app-sdk';
-// import { SingleLineEditor } from '@contentful/field-editor-single-line';
-import { SingleLineEditor } from '../../../packages/single-line/src';
+import { SingleLineEditor } from '@contentful/field-editor-single-line';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import './index.css';
 
@@ -22,11 +21,3 @@ init((sdk: FieldExtensionSDK) => {
   sdk.window.startAutoResizer();
   render(<App sdk={sdk as FieldExtensionSDK} />, document.getElementById('root'));
 });
-
-/**
- * By default, iframe of the extension is fully reloaded on every save of a source file.
- * If you want to use HMR (hot module reload) instead of full reload, uncomment the following lines
- */
-// if (module.hot) {
-//   module.hot.accept();
-// }

@@ -4,9 +4,12 @@ import { init, locations, FieldExtensionSDK } from '@contentful/app-sdk';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import '@contentful/forma-36-fcss/dist/styles.css';
 import './index.css';
-// import { MarkdownEditor, renderMarkdownDialog } from '@contentful/field-editor-markdown';
-import '../../../packages/markdown/src/codemirrorImports';
-import { MarkdownEditor, renderMarkdownDialog } from '../../../packages/markdown/src/index';
+// import '@contentful/field-editor-markdown/dist/codemirrorImports';
+import 'codemirror/mode/markdown/markdown';
+import 'codemirror/mode/xml/xml';
+import 'codemirror/addon/edit/continuelist';
+import 'codemirror/addon/mode/overlay';
+import { MarkdownEditor, renderMarkdownDialog } from '@contentful/field-editor-markdown';
 import 'codemirror/lib/codemirror.css';
 
 interface AppProps {
@@ -27,11 +30,3 @@ init((sdk: FieldExtensionSDK) => {
     render(<App sdk={sdk as FieldExtensionSDK} />, document.getElementById('root'));
   }
 });
-
-/**
- * By default, iframe of the extension is fully reloaded on every save of a source file.
- * If you want to use HMR (hot module reload) instead of full reload, uncomment the following lines
- */
-// if (module.hot) {
-//   module.hot.accept();
-// }
