@@ -8,7 +8,7 @@ import { styles } from './FieldWrapper.styles';
 type FieldWrapperProps = {
   name: string;
   sdk: FieldExtensionSDK;
-  getEntryURL: (entry: Entry) => string;
+  getEntryURL?: (entry: Entry) => string;
   className?: string;
   showFocusBar?: boolean;
   children: React.ReactNode;
@@ -16,16 +16,18 @@ type FieldWrapperProps = {
   renderHelpText?: (helpText: string) => JSX.Element | null;
 };
 
+const defaultGetEntryUrl = (entry: Entry) => `/${entry.sys.id}`;
+
 export const FieldWrapper: React.FC<FieldWrapperProps> = function (props: FieldWrapperProps) {
   const {
     name,
     sdk,
-    getEntryURL,
     className,
     children,
     renderHeading,
     renderHelpText,
     showFocusBar = true,
+    getEntryURL = defaultGetEntryUrl,
   } = props;
   const { field } = sdk;
   const helpText = (sdk.parameters?.instance as any)?.helpText ?? '';
