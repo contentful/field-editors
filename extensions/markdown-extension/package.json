@@ -1,6 +1,6 @@
 {
-  "name": "markdown-extension-app",
-  "version": "0.1.0",
+  "name": "markdown-extension",
+  "version": "0.2.6",
   "private": true,
   "dependencies": {
     "@contentful/app-sdk": "^3.32.1",

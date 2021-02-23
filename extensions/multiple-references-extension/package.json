@@ -1,6 +1,5 @@
 {
-  "name": "multiple-references-editor-app",
-  "version": "0.1.0",
+  "name": "field-editor-example",
   "private": true,
   "dependencies": {
     "@contentful/app-sdk": "^3.32.1",

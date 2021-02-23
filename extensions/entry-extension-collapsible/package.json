@@ -1,6 +1,6 @@
 {
-  "name": "collapsible-entry-editor",
-  "version": "0.1.0",
+  "name": "entry-extension-collapsible",
+  "version": "0.3.7",
   "private": true,
   "dependencies": {
     "@contentful/app-sdk": "^3.32.0",
