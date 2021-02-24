@@ -8,6 +8,9 @@ import { styles } from './FieldWrapper.styles';
 type FieldWrapperProps = {
   name: string;
   sdk: FieldExtensionSDK;
+  /**
+   * Generates a link to another entry with the same value when a "non unique" validation error occurs
+   */
   getEntryURL?: (entry: Entry) => string;
   className?: string;
   showFocusBar?: boolean;
@@ -16,9 +19,12 @@ type FieldWrapperProps = {
   renderHelpText?: (helpText: string) => JSX.Element | null;
 };
 
-const defaultGetEntryUrl = (entry: Entry) => `/${entry.sys.id}`;
-
 export const FieldWrapper: React.FC<FieldWrapperProps> = function (props: FieldWrapperProps) {
+  const { ids } = props.sdk;
+  const defaultGetEntryUrl = (entry: Entry) =>
+    `/spaces/${ids.space}/environments/${ids.environmentAlias || ids.environment}/entries/${
+      entry.sys.id
+    }`;
   const {
     name,
     sdk,
@@ -61,7 +67,7 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = function (props: FieldW
         field={field}
         space={sdk.space}
         locales={sdk.locales}
-        getEntryURL={getEntryURL}
+        getEntryURL={getEntryURL || defaultGetEntryUrl}
       />
 
       {renderHelpText ? (
