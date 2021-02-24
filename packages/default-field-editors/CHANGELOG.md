@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@0.7.0...@contentful/default-field-editors@0.8.0) (2021-02-24)
+
+
+### Features
+
+* default-field-editors doc improvements ([#612](https://github.com/contentful/field-editors/issues/612)) ([21229dd](https://github.com/contentful/field-editors/commit/21229dd7040b75681c3a2eab427cd34ccb83e06f))
+
+
+
+
+
 # [0.7.0](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@0.6.7...@contentful/default-field-editors@0.7.0) (2021-02-19)
 
 
