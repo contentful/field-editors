@@ -74,19 +74,19 @@ export function newReferenceEditorFakeSdk() {
       },
     },
     dialogs: {
-      selectSingleAsset: () => {
+      selectSingleAsset: async () => {
         selectorCounter++;
         return assetLinks[selectorCounter % assetLinks.length];
       },
-      selectMultipleAssets: () => {
+      selectMultipleAssets: async () => {
         selectorCounter++;
         return selectorCounter % 2 ? assetLinks.slice(0, 2) : [assetLinks[2]];
       },
-      selectSingleEntry: () => {
+      selectSingleEntry: async () => {
         selectorCounter++;
         return entryLinks[selectorCounter % entryLinks.length];
       },
-      selectMultipleEntries: () => {
+      selectMultipleEntries: async () => {
         selectorCounter++;
         return selectorCounter % 2 ? entryLinks.slice(0, 2) : [entryLinks[2]];
       },

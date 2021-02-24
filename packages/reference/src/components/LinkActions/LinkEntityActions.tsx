@@ -48,7 +48,7 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
     },
     [entityType, props.onCreate, props.onAction]
   );
-  const onLinked = React.useCallback(
+  const onLinkedExisting = React.useCallback(
     (entities: Array<Entry | Asset>, index?: number) => {
       props.onLink(
         entities.map((item) => item.sys.id),
@@ -90,9 +90,9 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
         return;
       }
 
-      onLinked([entity], index);
+      onLinkedExisting([entity], index);
     },
-    [sdk, entityType, onLinked]
+    [sdk, entityType, onLinkedExisting]
   );
 
   const onLinkSeveralExisting = React.useCallback(
@@ -106,9 +106,9 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
       if (!entities || entities.length === 0) {
         return;
       }
-      onLinked(entities, index);
+      onLinkedExisting(entities, index);
     },
-    [sdk, entityType, onLinked]
+    [sdk, entityType, onLinkedExisting]
   );
 
   return useMemo(
@@ -125,7 +125,7 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
       onLinkExisting: canLinkMultiple ? onLinkSeveralExisting : onLinkExisting,
       actionLabels,
       onCreated,
-      onLinked,
+      onLinkedExisting,
     }),
     [
       entityType,
@@ -141,7 +141,7 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
       onLinkExisting,
       onLinkSeveralExisting,
       onCreated,
-      onLinked,
+      onLinkedExisting,
     ]
   );
 }

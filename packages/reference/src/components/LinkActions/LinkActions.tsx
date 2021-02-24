@@ -24,7 +24,7 @@ export interface LinkActionsProps {
   onCreate: (contentType?: string, index?: number) => Promise<unknown>;
   onCreated: (entity: Entry | Asset, index?: number, slide?: NavigatorSlideInfo) => void;
   onLinkExisting: (index?: number) => void;
-  onLinked: (entities: Array<Entry | Asset>, index?: number) => void;
+  onLinkedExisting: (entities: Array<Entry | Asset>, index?: number) => void;
   actionLabels?: Partial<ActionLabels>;
   combinedActionsLabel?: string | React.ReactElement;
 }
