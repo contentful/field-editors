@@ -5,44 +5,95 @@ menu: Shared
 ---
 
 import Readme from '../README.md';
-
-<Readme />
-
 import { Playground, Props } from 'docz';
-import { createFakeFieldAPI, createFakeSpaceAPI, createFakeLocalesAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
+import {
+  ActionsPlayground,
+  createFakeFieldAPI,
+  createFakeLocalesAPI,
+  createFakeSpaceAPI,
+} from '@contentful/field-editor-test-utils';
+import { BooleanEditor } from '@contentful/field-editor-boolean';
+import { HelpText, Icon } from '@contentful/forma-36-react-components';
 import { Field } from './Field.tsx';
 import { FieldWrapper } from './FieldWrapper.tsx';
 
+<Readme />
 
 ## In Action
 
 <Playground>
   {() => {
-    const [field, mitt] = createFakeFieldAPI();
+    const [field, mitt] = createFakeFieldAPI((mock) => ({
+      ...mock,
+      items: {
+        validations: [{ in: ["test1", "test2"] }],
+      },
+    }), []);
     const space = createFakeSpaceAPI();
     const locales = createFakeLocalesAPI();
     const sdk = {
       field,
       space,
       locales,
+      contentType: { displayField: "name" },
+      parameters: {
+        instance: {
+          helpText: "Field help text",
+        },
+      },
     };
 
     return (
       <div data-test-id="default-field-editors-test">
+        <FieldWrapper sdk={sdk} name="field">
+          <Field sdk={sdk} widgetId="singleLine" />
+        </FieldWrapper>
+
+        <FieldWrapper sdk={sdk} name="anotherField">
+          <Field sdk={sdk} widgetId="rating" />
+        </FieldWrapper>
+
         <FieldWrapper
           sdk={sdk}
-          name="field"
-          getEntryURL={(entry) => `/${entry.sys.id}`}
+          name="customField"
+          renderHeading={(name) => (
+            <div>
+              <Icon icon="Edit" size="tiny" /> Custom {name} heading
+            </div>
+          )}
+          renderHelpText={(helpText) => (
+            <HelpText>
+              <Icon icon="HelpCircle" size="tiny" /> Custom help text:{" "}
+              {helpText}
+            </HelpText>
+          )}
         >
-          <Field sdk={sdk} widgetId="singleLine" />
+          <Field sdk={sdk} widgetId="datePicker" />
+        </FieldWrapper>
+
+        <FieldWrapper sdk={sdk} name="customEditor">
+          <Field
+            sdk={sdk}
+            renderFieldEditor={(widgetId, sdk, isInitiallyDisabled) => {
+              return (
+                <div>
+                  Custom editor with custom options.
+                  <BooleanEditor
+                    isInitiallyDisabled={isInitiallyDisabled}
+                    field={sdk.field}
+                    parameters={{instance: {trueLabel: 'Yay', falseLabel: 'Nope'}}}
+                  />
+                </div>
+              );
+            }}
+          />
         </FieldWrapper>
 
         <ActionsPlayground mitt={mitt} />
       </div>
     );
-}}
+  }}
 </Playground>
-
 
 ## FieldWrapper props
 
@@ -51,4 +102,3 @@ import { FieldWrapper } from './FieldWrapper.tsx';
 ## Field props
 
 <Props of={Field} />
-

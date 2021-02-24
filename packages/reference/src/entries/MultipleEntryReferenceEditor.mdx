@@ -139,7 +139,7 @@ Note the alternative link actions injected via the `renderCustomActions` prop.
       <div>
         <MultipleEntryReferenceEditor
           renderCustomActions={(props) => (
-            <CombinedLinkActions {...props} combinedActionsLabel="My custom label" />
+            <CombinedLinkActions {...props} combinedActionsLabel="My custom label" onCreate={(ct) => window.alert('clicked' + ct)} />
           )}
           viewType="link"
           sdk={sdk}
