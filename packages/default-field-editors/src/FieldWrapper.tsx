@@ -8,7 +8,10 @@ import { styles } from './FieldWrapper.styles';
 type FieldWrapperProps = {
   name: string;
   sdk: FieldExtensionSDK;
-  getEntryURL: (entry: Entry) => string;
+  /**
+   * Generates a link to another entry with the same value when a "non unique" validation error occurs
+   */
+  getEntryURL?: (entry: Entry) => string;
   className?: string;
   showFocusBar?: boolean;
   children: React.ReactNode;
@@ -17,15 +20,20 @@ type FieldWrapperProps = {
 };
 
 export const FieldWrapper: React.FC<FieldWrapperProps> = function (props: FieldWrapperProps) {
+  const { ids } = props.sdk;
+  const defaultGetEntryUrl = (entry: Entry) =>
+    `/spaces/${ids.space}/environments/${ids.environmentAlias || ids.environment}/entries/${
+      entry.sys.id
+    }`;
   const {
     name,
     sdk,
-    getEntryURL,
     className,
     children,
     renderHeading,
     renderHelpText,
     showFocusBar = true,
+    getEntryURL = defaultGetEntryUrl,
   } = props;
   const { field } = sdk;
   const helpText = (sdk.parameters?.instance as any)?.helpText ?? '';
@@ -59,7 +67,7 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = function (props: FieldW
         field={field}
         space={sdk.space}
         locales={sdk.locales}
-        getEntryURL={getEntryURL}
+        getEntryURL={getEntryURL || defaultGetEntryUrl}
       />
 
       {renderHelpText ? (
