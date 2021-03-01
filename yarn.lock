@@ -3136,10 +3136,10 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.5.3.tgz#4982b0b66b7a4cf949b86f5d25a8cf757d3cfd9d"
   integrity sha512-RFwCobxsvZ6j7twS7dHIZQZituMIDJJNHS/qY6iuthVebxS3zhRY+jaC2roEKiAYaVuTcGmX6Luc6YBcf6zJVg==
 
-"@productboard/slate-edit-list@^0.19.1":
-  version "0.19.1"
-  resolved "https://registry.yarnpkg.com/@productboard/slate-edit-list/-/slate-edit-list-0.19.1.tgz#a09f02255c902a00eb17e05fd2dbcdfd58de31a7"
-  integrity sha512-NbTGnTt+uVxtZe5zKSFs2TB9owXyfR9bJGJFs30I9UZdoB3WwrFjG/ExZI8a/eZNfxXX34EjrcJ8ofTR8FPSyg==
+"@productboard/slate-edit-list@^0.21.5":
+  version "0.21.5"
+  resolved "https://registry.yarnpkg.com/@productboard/slate-edit-list/-/slate-edit-list-0.21.5.tgz#450fd17c3dd912384bd5f4ad5185326ad08edaed"
+  integrity sha512-FABqyZPHA+/tzxSBgFnbINvT5XOeQI1toc15oMLWTOHuuqcJjAE7RaGdBZu/0kJAiKm52XTmKxYXkzbzRmRUUw==
 
 "@reach/router@^1.2.1":
   version "1.3.1"

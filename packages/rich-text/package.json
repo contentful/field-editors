@@ -31,7 +31,7 @@
     "@contentful/forma-36-tokens": "^0.10.1",
     "@contentful/rich-text-plain-text-renderer": "^14.0.0",
     "@contentful/rich-text-types": "^14.0.1",
-    "@productboard/slate-edit-list": "^0.19.1",
+    "@productboard/slate-edit-list": "^0.21.5",
     "@wikifactory/slate-trailing-block": "^0.6.0",
     "classnames": "^2.2.6",
     "detect-browser": "^3.0.1",
