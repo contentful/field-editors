@@ -20,7 +20,7 @@ export function UrlEditor(props: UrlEditorProps) {
   const { field } = props;
 
   return (
-    <FieldConnector<string> field={field} isInitiallyDisabled={props.isInitiallyDisabled}>
+    <FieldConnector<string> field={field} isInitiallyDisabled={props.isInitiallyDisabled ?? true}>
       {({ value, errors, disabled, setValue }) => {
         return (
           <div data-test-id="url-editor">
@@ -40,7 +40,3 @@ export function UrlEditor(props: UrlEditorProps) {
     </FieldConnector>
   );
 }
-
-UrlEditor.defaultProps = {
-  isInitiallyDisabled: true,
-};

@@ -91,7 +91,3 @@ export function SingleReferenceEditor(
     </ReferenceEditor>
   );
 }
-
-SingleReferenceEditor.defaultProps = {
-  hasCardEditActions: true,
-};

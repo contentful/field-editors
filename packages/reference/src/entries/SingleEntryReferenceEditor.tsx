@@ -31,7 +31,3 @@ export function SingleEntryReferenceEditor(props: ReferenceEditorProps) {
     </SingleReferenceEditor>
   );
 }
-
-SingleEntryReferenceEditor.defaultProps = {
-  isInitiallyDisabled: true,
-};

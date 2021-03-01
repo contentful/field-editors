@@ -160,7 +160,7 @@ export function LocationEditorConnected(props: LocationEditorConnectedProps) {
         return deepEqual(value1, value2);
       }}
       field={field}
-      isInitiallyDisabled={props.isInitiallyDisabled}>
+      isInitiallyDisabled={props.isInitiallyDisabled ?? true}>
       {({ value, disabled, setValue, externalReset }) => {
         return (
           <LocationEditor
@@ -178,7 +178,3 @@ export function LocationEditorConnected(props: LocationEditorConnectedProps) {
     </FieldConnector>
   );
 }
-
-LocationEditorConnected.defaultProps = {
-  isInitiallyDisabled: true,
-};

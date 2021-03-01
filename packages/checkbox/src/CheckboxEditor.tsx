@@ -90,7 +90,7 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
       throttle={0}
       isEmptyValue={isEmptyListValue}
       field={field}
-      isInitiallyDisabled={props.isInitiallyDisabled}>
+      isInitiallyDisabled={props.isInitiallyDisabled ?? true}>
       {({ disabled, value, setValue }) => {
         const values = value || [];
 
@@ -149,7 +149,3 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
     </FieldConnector>
   );
 }
-
-CheckboxEditor.defaultProps = {
-  isInitiallyDisabled: true,
-};

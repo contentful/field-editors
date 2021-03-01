@@ -27,8 +27,7 @@ function getRangeFromField(field: FieldAPI): RangeValidation {
 
 export function NumberEditor(props: NumberEditorProps) {
   const { field } = props;
-
-  const range = getRangeFromField(field);
+  const range = getRangeFromField(props.field);
 
   return (
     <FieldConnector<number> field={field} isInitiallyDisabled={props.isInitiallyDisabled}>
@@ -59,7 +58,3 @@ export function NumberEditor(props: NumberEditorProps) {
     </FieldConnector>
   );
 }
-
-NumberEditor.defaultProps = {
-  isInitiallyDisabled: true,
-};

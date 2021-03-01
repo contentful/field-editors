@@ -254,7 +254,7 @@ export default function RichTextEditor(props) {
       <FieldConnector
         throttle={0}
         field={sdk.field}
-        isInitiallyDisabled={isInitiallyDisabled}
+        isInitiallyDisabled={isInitiallyDisabled ?? true}
         isEmptyValue={(value) => {
           return !value || deepEquals(value, EMPTY_DOCUMENT);
         }}
@@ -280,7 +280,3 @@ export default function RichTextEditor(props) {
     </EntityProvider>
   );
 }
-
-RichTextEditor.defaultProps = {
-  isInitiallyDisabled: true,
-};

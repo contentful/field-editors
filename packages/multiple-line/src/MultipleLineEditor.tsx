@@ -26,7 +26,7 @@ export function MultipleLineEditor(props: MultipleLineEditorProps) {
   const direction = locales.direction[field.locale] || 'ltr';
 
   return (
-    <FieldConnector<string> field={field} isInitiallyDisabled={props.isInitiallyDisabled}>
+    <FieldConnector<string> field={field} isInitiallyDisabled={props.isInitiallyDisabled ?? true}>
       {({ errors, disabled, value, setValue }) => {
         return (
           <div data-test-id="multiple-line-editor">
@@ -47,7 +47,3 @@ export function MultipleLineEditor(props: MultipleLineEditorProps) {
     </FieldConnector>
   );
 }
-
-MultipleLineEditor.defaultProps = {
-  isInitiallyDisabled: true,
-};

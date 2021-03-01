@@ -74,7 +74,7 @@ export function SlugEditor(props: SlugEditorProps) {
       {({ titleValue, isPublished, isSame }) => (
         <FieldConnector<string>
           field={field}
-          isInitiallyDisabled={props.isInitiallyDisabled}
+          isInitiallyDisabled={props.isInitiallyDisabled ?? true}
           throttle={0}>
           {({ value, errors, disabled, setValue, externalReset }) => {
             const shouldTrackTitle = isPublished === false && isSame === false;
@@ -113,7 +113,3 @@ export function SlugEditor(props: SlugEditorProps) {
     </TrackingFieldConnector>
   );
 }
-
-SlugEditor.defaultProps = {
-  isInitiallyDisabled: true,
-};

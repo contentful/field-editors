@@ -52,7 +52,7 @@ export function TagsEditorContainer(props: TagsEditorContainerProps) {
   return (
     <FieldConnector<TagEditorValue>
       field={field}
-      isInitiallyDisabled={props.isInitiallyDisabled}
+      isInitiallyDisabled={props.isInitiallyDisabled ?? true}
       isEmptyValue={isEmptyTagsValue}
       throttle={0}>
       {({ disabled, value, errors, setValue }) => {
@@ -73,7 +73,3 @@ export function TagsEditorContainer(props: TagsEditorContainerProps) {
     </FieldConnector>
   );
 }
-
-TagsEditorContainer.defaultProps = {
-  isInitiallyDisabled: true,
-};

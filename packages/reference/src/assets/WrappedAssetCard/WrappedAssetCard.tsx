@@ -47,10 +47,6 @@ export interface WrappedAssetCardProps {
   isClickable: boolean;
 }
 
-const defaultProps = {
-  isClickable: true,
-};
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function getFileType(file?: File): any {
   if (!file) {
@@ -148,5 +144,3 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
     />
   );
 };
-
-WrappedAssetCard.defaultProps = defaultProps;

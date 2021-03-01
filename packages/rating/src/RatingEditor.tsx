@@ -51,7 +51,7 @@ export function RatingEditor(props: RatingEditorProps) {
     <FieldConnector<number>
       throttle={0}
       field={field}
-      isInitiallyDisabled={props.isInitiallyDisabled}>
+      isInitiallyDisabled={props.isInitiallyDisabled ?? true}>
       {({ disabled, value, setValue }) => {
         const clearOption = () => {
           setValue(null);
@@ -80,7 +80,3 @@ export function RatingEditor(props: RatingEditorProps) {
     </FieldConnector>
   );
 }
-
-RatingEditor.defaultProps = {
-  isInitiallyDisabled: true,
-};

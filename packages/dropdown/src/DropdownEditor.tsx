@@ -41,7 +41,7 @@ export function DropdownEditor(props: DropdownEditorProps) {
     <FieldConnector<string | number>
       throttle={0}
       field={field}
-      isInitiallyDisabled={props.isInitiallyDisabled}>
+      isInitiallyDisabled={props.isInitiallyDisabled ?? true}>
       {({ value, errors, disabled, setValue }) => (
         <Select
           testId="dropdown-editor"
@@ -65,7 +65,3 @@ export function DropdownEditor(props: DropdownEditorProps) {
     </FieldConnector>
   );
 }
-
-DropdownEditor.defaultProps = {
-  isInitiallyDisabled: true,
-};

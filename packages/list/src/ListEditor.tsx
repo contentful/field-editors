@@ -36,7 +36,7 @@ export function ListEditor(props: ListEditorProps) {
       throttle={0}
       isEmptyValue={isEmptyListValue}
       field={field}
-      isInitiallyDisabled={props.isInitiallyDisabled}>
+      isInitiallyDisabled={props.isInitiallyDisabled ?? true}>
       {({ setValue, value, errors, disabled }) => {
         const valueAsString = (value || []).join(', ');
 
@@ -63,7 +63,3 @@ export function ListEditor(props: ListEditorProps) {
     </FieldConnector>
   );
 }
-
-ListEditor.defaultProps = {
-  isInitiallyDisabled: true,
-};

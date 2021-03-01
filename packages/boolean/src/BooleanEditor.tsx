@@ -38,7 +38,7 @@ export function BooleanEditor(props: BooleanEditorProps) {
     <FieldConnector<boolean>
       throttle={0}
       field={field}
-      isInitiallyDisabled={props.isInitiallyDisabled}>
+      isInitiallyDisabled={props.isInitiallyDisabled ?? true}>
       {({ disabled, value, setValue }) => {
         const setOption = (value: string) => {
           setValue(value === 'true' ? true : false);
@@ -82,7 +82,3 @@ export function BooleanEditor(props: BooleanEditorProps) {
     </FieldConnector>
   );
 }
-
-BooleanEditor.defaultProps = {
-  isInitiallyDisabled: true,
-};

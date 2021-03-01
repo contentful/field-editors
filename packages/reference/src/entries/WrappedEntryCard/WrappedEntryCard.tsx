@@ -41,11 +41,6 @@ export interface WrappedEntryCardProps {
   onMoveBottom?: () => void;
 }
 
-const defaultProps = {
-  isClickable: true,
-  hasCardEditActions: true,
-};
-
 export function WrappedEntryCard(props: WrappedEntryCardProps) {
   const [file, setFile] = React.useState<null | File>(null);
 
@@ -184,5 +179,3 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
     />
   );
 }
-
-WrappedEntryCard.defaultProps = defaultProps;

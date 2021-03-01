@@ -160,7 +160,7 @@ export function DateEditor(props: DateEditorProps) {
   return (
     <FieldConnector<string>
       field={field}
-      isInitiallyDisabled={props.isInitiallyDisabled}
+      isInitiallyDisabled={props.isInitiallyDisabled ?? true}
       throttle={0}>
       {({ value, disabled, setValue, externalReset }) => {
         const datetimeValue = userInputFromDatetime({
@@ -193,7 +193,3 @@ export function DateEditor(props: DateEditorProps) {
     </FieldConnector>
   );
 }
-
-DateEditor.defaultProps = {
-  isInitiallyDisabled: true,
-};

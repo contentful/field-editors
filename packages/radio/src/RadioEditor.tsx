@@ -43,7 +43,7 @@ export function RadioEditor(props: RadioEditorProps) {
     <FieldConnector<string | number>
       throttle={0}
       field={field}
-      isInitiallyDisabled={props.isInitiallyDisabled}>
+      isInitiallyDisabled={props.isInitiallyDisabled ?? true}>
       {({ disabled, value, setValue }) => {
         const setOption = (value: string) => {
           setValue(parseValue(value, field.type));
@@ -89,7 +89,3 @@ export function RadioEditor(props: RadioEditorProps) {
     </FieldConnector>
   );
 }
-
-RadioEditor.defaultProps = {
-  isInitiallyDisabled: true,
-};

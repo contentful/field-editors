@@ -181,6 +181,7 @@ export const Field: React.FC<FieldProps> = (props: FieldProps) => {
           field={field}
           locales={locales}
           isInitiallyDisabled={isInitiallyDisabled}
+          withCharValidation={false}
           {...options[widgetId]}
         />
       );

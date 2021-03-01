@@ -19,7 +19,3 @@ export function MultipleMediaEditor(props: EditorProps) {
     </MultipleReferenceEditor>
   );
 }
-
-MultipleMediaEditor.defaultProps = {
-  isInitiallyDisabled: true,
-};
