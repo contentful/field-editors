@@ -1709,6 +1709,34 @@
     lodash.get "^4.4.2"
     lodash.omit "^4.5.0"
 
+"@contentful/default-field-editors@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@contentful/default-field-editors/-/default-field-editors-0.7.0.tgz#990ba5c798b760ba4b2a401b860a96e02a7f9a0d"
+  integrity sha512-oQT1Cy8bYQ2tzfPwPDpeCHe4XdPx7DGYHRV45UOaj33SpFS9FUdmdcMi9Hvu6PhZp1Wt6eDF6v4mSGXeAEpX1A==
+  dependencies:
+    "@contentful/field-editor-boolean" "^0.11.0"
+    "@contentful/field-editor-checkbox" "^0.13.0"
+    "@contentful/field-editor-date" "^0.11.0"
+    "@contentful/field-editor-dropdown" "^0.13.0"
+    "@contentful/field-editor-json" "^0.11.0"
+    "@contentful/field-editor-list" "^0.14.0"
+    "@contentful/field-editor-location" "^0.11.0"
+    "@contentful/field-editor-markdown" "^0.14.0"
+    "@contentful/field-editor-multiple-line" "^0.12.0"
+    "@contentful/field-editor-number" "^0.12.0"
+    "@contentful/field-editor-radio" "^0.12.0"
+    "@contentful/field-editor-rating" "^0.11.0"
+    "@contentful/field-editor-reference" "^2.9.0"
+    "@contentful/field-editor-rich-text" "^0.18.0"
+    "@contentful/field-editor-shared" "^0.16.0"
+    "@contentful/field-editor-single-line" "^0.14.0"
+    "@contentful/field-editor-slug" "^0.10.0"
+    "@contentful/field-editor-tags" "^0.12.0"
+    "@contentful/field-editor-url" "^0.11.0"
+    "@contentful/field-editor-validation-errors" "^0.5.0"
+    "@contentful/forma-36-react-components" "^3.79.5"
+    emotion "^10.0.27"
+
 "@contentful/eslint-config-extension@0.4.2":
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/@contentful/eslint-config-extension/-/eslint-config-extension-0.4.2.tgz#6d05e14474fd5a959a9e3a9d02565cf2bea15388"
@@ -20969,12 +20997,12 @@ typescript@3.3.4000:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.3.4000.tgz#76b0f89cfdbf97827e1112d64f283f1151d6adf0"
   integrity sha512-jjOcCZvpkl2+z7JFn0yBOoLQyLoIkNZAs/fYJkUG6VKy6zLPHJGfQJYFHzibB6GJaF/8QrcECtlQ5cpvRHSMEA==
 
-typescript@^3.7.3, typescript@^3.7.5, typescript@^3.9.7:
+typescript@^3.7.3, typescript@^3.9.7:
   version "3.9.9"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.9.tgz#e69905c54bc0681d0518bd4d587cc6f2d0b1a674"
   integrity sha512-kdMjTiekY+z/ubJCATUPlRDl39vXYiMV9iyeMuEuXZh2we6zz80uovNN2WlAxmmdE/Z/YQe+EbOEXB5RHEED3w==
 
-typescript@^4.0.5, typescript@^4.1.4, typescript@^4.1.5:
+typescript@^4.1.4, typescript@^4.1.5:
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.2.2.tgz#1450f020618f872db0ea17317d16d8da8ddb8c4c"
   integrity sha512-tbb+NVrLfnsJy3M59lsDgrzWIflR4d4TIUjz+heUnHZwdF7YsrMTKoRERiIvI2lvBG95dfpLxB21WZhys1bgaQ==
