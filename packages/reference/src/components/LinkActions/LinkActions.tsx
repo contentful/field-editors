@@ -1,7 +1,14 @@
 import * as React from 'react';
 import { Button } from '@contentful/forma-36-react-components';
 import * as styles from './styles';
-import { EntityType, ContentType, ActionLabels } from '../../types';
+import {
+  EntityType,
+  ContentType,
+  ActionLabels,
+  Entry,
+  Asset,
+  NavigatorSlideInfo,
+} from '../../types';
 import { CreateEntryLinkButton } from '../CreateEntryLinkButton/CreateEntryLinkButton';
 import { NoLinkPermissionsInfo } from './NoLinkPermissionsInfo';
 
@@ -15,7 +22,9 @@ export interface LinkActionsProps {
   isFull: boolean;
   isEmpty: boolean;
   onCreate: (contentType?: string, index?: number) => Promise<unknown>;
+  onCreated: (entity: Entry | Asset, index?: number, slide?: NavigatorSlideInfo) => void;
   onLinkExisting: (index?: number) => void;
+  onLinkedExisting: (entities: Array<Entry | Asset>, index?: number) => void;
   actionLabels?: Partial<ActionLabels>;
   combinedActionsLabel?: string | React.ReactElement;
 }

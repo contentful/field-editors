@@ -139,11 +139,72 @@ Note the alternative link actions injected via the `renderCustomActions` prop.
       <div>
         <MultipleEntryReferenceEditor
           renderCustomActions={(props) => (
-            <CombinedLinkActions {...props} combinedActionsLabel="My custom label" onCreate={(ct) => window.alert('clicked' + ct)} />
+            <CombinedLinkActions
+              {...props}
+              combinedActionsLabel="My custom label"
+              onCreate={(ct) => window.alert('clicked' + ct)}
+            />
           )}
           viewType="link"
           sdk={sdk}
           isInitiallyDisabled={isInitiallyDisabled}
+          parameters={{
+            instance: instanceParams || {
+              canCreateEntity: true,
+              canLinkEntity: true,
+            },
+          }}
+        />
+        <ActionsPlayground mitt={mitt} />
+      </div>
+    );
+  }}
+</Playground>
+
+## With custom onCreate, onLinkExisting actions
+
+In this case we override standard `onCreate` to create a custom entry, then tell the field editor about it using `onCreated` and then open it.
+
+Same applies to `onLinkExisting` property that can be overriden to customize the linking process, at the end the `onLinkedExisting` callback should be called.
+
+<Playground>
+  {() => {
+    const instanceParams = window.localStorage.getItem('instanceParams');
+    const [sdk, mitt] = newReferenceEditorFakeSdk();
+    return (
+      <div data-test-id="custom-card-using-default">
+        <MultipleEntryReferenceEditor
+          renderCustomActions={(props) => (
+            <CombinedLinkActions
+              {...props}
+              onCreate={(ct) => {
+                sdk.space
+                  .createEntry(ct, {
+                    fields: { exField: { en: 'Custom initial value' } },
+                  })
+                  .then((entry) => {
+                    props.onCreated(entry);
+                    sdk.navigator.openEntry(entry.sys.id);
+                  });
+              }}
+              onLinkExisting={(index) => {
+                sdk.dialogs
+                  .selectMultipleEntries({
+                    locale: sdk.field.locale,
+                    contentTypes: ['exampleCT'],
+                  })
+                  .then((entries) => {
+                    if (entries.length) {
+                      window.alert(`Custom linking of ${entries.length} entries`);
+                      props.onLinkedExisting(entries, index);
+                    }
+                  });
+              }}
+            />
+          )}
+          viewType="card"
+          sdk={sdk}
+          isInitiallyDisabled={false}
           parameters={{
             instance: instanceParams || {
               canCreateEntity: true,
