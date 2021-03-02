@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.10.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.9.0...@contentful/field-editor-reference@2.10.0) (2021-03-02)
+
+
+### Features
+
+* default-field-editors doc improvements ([#612](https://github.com/contentful/field-editors/issues/612)) ([21229dd](https://github.com/contentful/field-editors/commit/21229dd7040b75681c3a2eab427cd34ccb83e06f))
+* reference editor onCreated onLinkedExisting callbacks ([#613](https://github.com/contentful/field-editors/issues/613)) ([c7895df](https://github.com/contentful/field-editors/commit/c7895df56dee4f800885b0d1e12da72a572605a7))
+
+
+
+
+
 # [2.9.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.8.3...@contentful/field-editor-reference@2.9.0) (2021-02-19)
 
 
