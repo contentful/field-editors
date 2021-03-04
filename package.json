@@ -12,7 +12,8 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean",
-    "build": "lerna run --concurrency 1 --stream build",
+    "build": "lerna run --concurrency 1 --stream --scope=@contentful/** build",
+    "build:extensions": "lerna run --concurrency 1 --stream --scope={'markdown-extension,entry-extension-collapsible,field-editor-example,rich-text-extension,singleline-extension'} build",
     "lint": "eslint ./ --ext .js,.jsx,.ts,.tsx",
     "lint:md": "remark --no-stdout --frail *.md */*.md",
     "watch": "lerna run --stream watch",

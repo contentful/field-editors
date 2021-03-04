@@ -26,6 +26,7 @@ jobs:
       - run: yarn lint
       - run: yarn bootstrap 
       - run: yarn build
+      - run: yarn build:extensions
       - run: yarn tsc
   unit-tests:
     docker:
