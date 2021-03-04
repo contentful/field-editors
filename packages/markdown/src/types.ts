@@ -11,7 +11,7 @@ export enum MarkdownDialogType {
   insertTable = 'markdown-insertTable',
   embedExternalContent = 'markdown-embedExternalContent',
   confirmInsertAsset = 'markdown-confirmInsertAsset',
-  zenMode = 'markdown-zenMode'
+  zenMode = 'markdown-zenMode',
 }
 
 export type MarkdownDialogsParams =
@@ -81,5 +81,5 @@ export type MarkdownActions = {
 };
 
 export type PreviewComponents = {
-  embedly?: React.Component<{ url: string }>;
+  embedly?: React.ComponentType<{ url: string }>;
 };
