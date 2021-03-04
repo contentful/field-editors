@@ -24,6 +24,7 @@ jobs:
       - checkout
       - yarn_install
       - run: yarn lint
+      - run: yarn bootstrap 
       - run: yarn build
       - run: yarn tsc
   unit-tests:
