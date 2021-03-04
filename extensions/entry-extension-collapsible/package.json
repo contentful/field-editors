@@ -4,10 +4,6 @@
   "private": true,
   "devDependencies": {
     "@babel/core": "7.3.4",
-    "@babel/plugin-proposal-class-properties": "7.13.0",
-    "@babel/plugin-transform-runtime": "7.12.15",
-    "@babel/preset-env": "7.12.11",
-    "@babel/preset-react": "7.12.10",
     "@contentful/contentful-extension-scripts": "0.15.1",
     "@contentful/eslint-config-extension": "0.4.2",
     "@testing-library/react": "11.2.5",
@@ -22,6 +18,7 @@
   },
   "scripts": {
     "start": "contentful-extension-scripts start",
+    "build": "contentful-extension-scripts build",
     "deploy": "contentful-extension-scripts build && contentful extension update --force",
     "configure": "contentful space use && contentful space environment use",
     "login": "contentful login",
@@ -29,11 +26,11 @@
     "help": "contentful-extension-scripts help"
   },
   "dependencies": {
+    "@contentful/app-sdk": "^3.29.2",
     "@contentful/field-editor-shared": "^0.14.0",
     "@contentful/forma-36-fcss": "^0.3.1",
     "@contentful/forma-36-react-components": "^3.79.5",
     "@contentful/forma-36-tokens": "^0.10.1",
-    "@contentful/app-sdk": "^3.29.2",
     "emotion": "^10.0.17",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
