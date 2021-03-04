@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.11.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.10.0...@contentful/field-editor-reference@2.11.0) (2021-03-04)
+
+
+### Features
+
+* allow rendering of custom missing entity card ([#623](https://github.com/contentful/field-editors/issues/623)) ([b016e89](https://github.com/contentful/field-editors/commit/b016e89fcc30c5eadbdbcd7bf43f8c77aacbcf18))
+
+
+
+
+
 # [2.10.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.9.0...@contentful/field-editor-reference@2.10.0) (2021-03-02)
 
 
