@@ -107,7 +107,6 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
         <WrappedAssetLink
           {...commonProps}
           href={commonProps.entityUrl}
-          // @ts-expect-error
           getEntityScheduledActions={sdk.space.getEntityScheduledActions}
         />
       );
