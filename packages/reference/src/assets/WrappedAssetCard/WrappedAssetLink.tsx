@@ -62,6 +62,7 @@ export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
       status={status}
       statusIcon={
         <ScheduledIconWithTooltip
+          // @ts-expect-error
           getEntityScheduledActions={props.getEntityScheduledActions}
           entityType="Asset"
           entityId={props.asset.sys.id}>

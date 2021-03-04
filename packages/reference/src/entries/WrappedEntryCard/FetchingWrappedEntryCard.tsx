@@ -7,7 +7,7 @@ import type { LinkActionsProps } from '../../components';
 import { useEntities } from '../../common/EntityStore';
 import { ReferenceEditorProps } from '../../common/ReferenceEditor';
 import get from 'lodash/get';
-import { CustomEntityCardProps } from '../../common/customCardTypes';
+import { CustomEntityCardProps, RenderCustomMissingEntityCard } from '../../common/customCardTypes';
 
 export type EntryCardReferenceEditorProps = ReferenceEditorProps & {
   entryId: string;
@@ -19,6 +19,7 @@ export type EntryCardReferenceEditorProps = ReferenceEditorProps & {
   hasCardEditActions: boolean;
   onMoveTop?: () => void;
   onMoveBottom?: () => void;
+  renderCustomMissingEntityCard?: RenderCustomMissingEntityCard;
 };
 
 async function openEntry(
@@ -101,13 +102,23 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
 
   return React.useMemo(() => {
     if (entry === 'failed') {
-      return (
+      const card = (
         <MissingEntityCard
           entityType="Entry"
           isDisabled={props.isDisabled}
           onRemove={onRemoveEntry}
         />
       );
+      if (props.renderCustomMissingEntityCard) {
+        return props.renderCustomMissingEntityCard({
+          defaultCard: card,
+          entity: {
+            id: props.entryId,
+            type: 'Entry',
+          },
+        });
+      }
+      return card;
     }
     if (entry === undefined) {
       return <EntryCard size={size} loading />;

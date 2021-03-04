@@ -2,6 +2,18 @@ import { Asset, ContentType, Entry } from '../types';
 import * as React from 'react';
 import { CustomActionProps } from './ReferenceEditor';
 
+export type MissingEntityCardProps = {
+  defaultCard: React.ReactElement;
+  entity: {
+    id: string;
+    type: 'Asset' | 'Entry';
+  };
+};
+
+export type RenderCustomMissingEntityCard = ({
+  defaultCard,
+}: MissingEntityCardProps) => React.ReactElement;
+
 export type DefaultCardRenderer = (props?: CustomEntityCardProps) => React.ReactElement;
 
 export type CustomCardRenderer = (

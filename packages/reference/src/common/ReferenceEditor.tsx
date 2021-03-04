@@ -4,7 +4,7 @@ import { FieldConnector } from '@contentful/field-editor-shared';
 import { EntityProvider } from './EntityStore';
 import { Action, ActionLabels, FieldExtensionSDK, ViewType } from '../types';
 import type { LinkActionsProps } from '../components';
-import { CustomCardRenderer } from './customCardTypes';
+import { CustomCardRenderer, RenderCustomMissingEntityCard } from './customCardTypes';
 
 // TODO: Rename common base for reference/media editors to something neutral,
 //  e.g. `LinkEditor<T>`.
@@ -19,6 +19,7 @@ export interface ReferenceEditorProps {
   viewType: ViewType;
   renderCustomCard?: CustomCardRenderer;
   renderCustomActions?: (props: CustomActionProps) => React.ReactElement;
+  renderCustomMissingEntityCard?: RenderCustomMissingEntityCard;
   getEntityUrl?: (entryId: string) => string;
   onAction?: (action: Action) => void;
   actionLabels?: Partial<ActionLabels>;

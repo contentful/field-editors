@@ -5,7 +5,11 @@ import { LinkActionsProps, MissingEntityCard } from '../../components';
 import { WrappedAssetCard, WrappedAssetCardProps } from './WrappedAssetCard';
 import { WrappedAssetLink } from './WrappedAssetLink';
 import { useEntities } from '../../common/EntityStore';
-import { CustomEntityCardProps, CustomCardRenderer } from '../../common/customCardTypes';
+import {
+  CustomEntityCardProps,
+  CustomCardRenderer,
+  RenderCustomMissingEntityCard,
+} from '../../common/customCardTypes';
 
 type FetchingWrappedAssetCardProps = {
   assetId: string;
@@ -17,6 +21,7 @@ type FetchingWrappedAssetCardProps = {
   onAction?: (action: Action) => void;
   cardDragHandle?: React.ReactElement;
   renderCustomCard?: CustomCardRenderer;
+  renderCustomMissingEntityCard?: RenderCustomMissingEntityCard;
 };
 
 export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
@@ -60,7 +65,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
 
   return React.useMemo(() => {
     if (asset === 'failed') {
-      return (
+      const card = (
         <MissingEntityCard
           entityType="Asset"
           asSquare={props.viewType !== 'link'}
@@ -68,6 +73,16 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
           onRemove={onRemove}
         />
       );
+      if (props.renderCustomMissingEntityCard) {
+        return props.renderCustomMissingEntityCard({
+          defaultCard: card,
+          entity: {
+            id: props.assetId,
+            type: 'Asset',
+          },
+        });
+      }
+      return card;
     }
 
     const { getEntityUrl, sdk } = props;
@@ -88,7 +103,14 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       if (asset === undefined) {
         return <EntryCard size="small" loading />;
       }
-      return <WrappedAssetLink {...commonProps} href={commonProps.entityUrl} getEntityScheduledActions={sdk.space.getEntityScheduledActions} />;
+      return (
+        <WrappedAssetLink
+          {...commonProps}
+          href={commonProps.entityUrl}
+          // @ts-expect-error
+          getEntityScheduledActions={sdk.space.getEntityScheduledActions}
+        />
+      );
     }
 
     if (asset === undefined) {
