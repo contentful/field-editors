@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@0.11.0...@contentful/field-editor-test-utils@0.11.1) (2021-03-05)
+
+
+### Bug Fixes
+
+* **_test,default-field-editors:** correct esm entry file ([#624](https://github.com/contentful/field-editors/issues/624)) ([4089d57](https://github.com/contentful/field-editors/commit/4089d572e90d370c52e1d6f42192c335984907dd))
+
+
+
+
+
 # [0.11.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@0.10.1...@contentful/field-editor-test-utils@0.11.0) (2021-02-19)
 
 

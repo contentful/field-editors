@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-markdown",
-  "version": "0.14.1",
+  "version": "0.14.2",
   "main": "dist/index.js",
   "module": "dist/field-editor-markdown.esm.js",
   "typings": "dist/index.d.ts",
@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
-    "@contentful/field-editor-test-utils": "^0.11.0"
+    "@contentful/field-editor-test-utils": "^0.11.1"
   },
   "peerDependencies": {
     "react": ">=16.8.0"

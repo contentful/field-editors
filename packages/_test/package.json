@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-test-utils",
-  "version": "0.11.0",
+  "version": "0.11.1",
   "main": "dist/index.js",
   "module": "dist/field-editor-test-utils.esm.js",
   "typings": "dist/index.d.ts",

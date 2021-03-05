@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-reference",
-  "version": "2.11.0",
+  "version": "2.11.1",
   "main": "dist/index.js",
   "module": "dist/field-editor-reference.esm.js",
   "typings": "dist/index.d.ts",
@@ -37,7 +37,7 @@
     "react-sortable-hoc": "^1.11.0"
   },
   "devDependencies": {
-    "@contentful/field-editor-test-utils": "^0.11.0",
+    "@contentful/field-editor-test-utils": "^0.11.1",
     "@testing-library/react-hooks": "^5.0.3"
   },
   "peerDependencies": {
