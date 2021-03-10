@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-rich-text",
-  "version": "0.18.3",
+  "version": "0.18.4",
   "source": "./src/index.tsx",
   "main": "./dist/index.js",
   "module": "dist/field-editor-rich-text.esm.js",
