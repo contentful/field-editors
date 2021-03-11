@@ -53,10 +53,10 @@ async function openEntry(
 }
 
 export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
-  const { loadEntry, getOrLoadAsset, entries } = useEntities();
+  const { getOrLoadEntry, getOrLoadAsset, entries } = useEntities();
 
   React.useEffect(() => {
-    loadEntry(props.entryId);
+    getOrLoadEntry(props.entryId);
   }, [props.entryId]);
 
   const size = props.viewType === 'link' ? 'small' : 'default';

@@ -108,6 +108,16 @@ function useEntitiesStore(props: { sdk: BaseExtensionSDK }) {
     [state.assets, loadAsset]
   );
 
+  const getOrLoadEntry = React.useCallback(
+    (id: string) => {
+      if (state.entries[id]) {
+        return Promise.resolve(state.entries[id]);
+      }
+      return loadEntry(id);
+    },
+    [state.entries, loadEntry]
+  );
+
   React.useEffect(() => {
     // @ts-expect-error
     if (typeof props.sdk.space.onEntityChanged !== 'undefined') {
@@ -152,7 +162,7 @@ function useEntitiesStore(props: { sdk: BaseExtensionSDK }) {
     }) as { (): void };
   }, [props.sdk, state.assets, state.entries]);
 
-  return { loadEntry, loadAsset, getOrLoadAsset, ...state };
+  return { getOrLoadEntry, getOrLoadAsset, ...state };
 }
 
 const [EntityProvider, useEntities] = constate(useEntitiesStore);

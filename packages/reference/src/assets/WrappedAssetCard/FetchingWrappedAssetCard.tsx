@@ -25,10 +25,10 @@ type FetchingWrappedAssetCardProps = {
 };
 
 export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
-  const { loadAsset, assets } = useEntities();
+  const { getOrLoadAsset, assets } = useEntities();
 
   React.useEffect(() => {
-    loadAsset(props.assetId);
+    getOrLoadAsset(props.assetId);
   }, [props.assetId]);
 
   const asset = assets[props.assetId];
