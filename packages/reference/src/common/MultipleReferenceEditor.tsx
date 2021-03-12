@@ -40,9 +40,23 @@ function onLinkOrCreate(
   setValue(newItems);
 }
 
+const emptyArray: ReferenceValue[] = [];
+const nullableValue = { sys: { id: 'null-value' } };
+
 function Editor(props: EditorProps) {
-  const { items, setValue, entityType } = props;
+  const { setValue, entityType } = props;
   const editorPermissions = useEditorPermissions(props);
+
+  const items = React.useMemo(() => {
+    return (
+      (props.items || [])
+        // If null values have found their way into the persisted
+        // value for the multiref field, replace them with an object
+        // that has the shape of a Link to make the missing entry/asset
+        // card render
+        .map((link) => link || nullableValue)
+    );
+  }, [props.items]);
 
   const onSortStart: SortStartHandler = useCallback((_, event) => event.preventDefault(), []);
   const onSortEnd: SortEndHandler = useCallback(
@@ -110,17 +124,10 @@ export function MultipleReferenceEditor(
   return (
     <ReferenceEditor<ReferenceValue[]> {...props}>
       {({ value, disabled, setValue, externalReset }) => {
-        const items = (value || [])
-          // If null values have found their way into the persisted
-          // value for the multiref field, replace them with an object
-          // that has the shape of a Link to make the missing entry/asset
-          // card render
-          .map((link) => link || { sys: { id: 'null-value' } });
-
         return (
           <Editor
             {...props}
-            items={items}
+            items={value || emptyArray}
             isDisabled={disabled}
             setValue={setValue}
             key={`${externalReset}-list`}

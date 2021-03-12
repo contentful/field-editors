@@ -53,10 +53,10 @@ async function openEntry(
 }
 
 export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
-  const { loadEntry, entries } = useEntities();
+  const { getOrLoadEntry, getOrLoadAsset, entries } = useEntities();
 
   React.useEffect(() => {
-    loadEntry(props.entryId);
+    getOrLoadEntry(props.entryId);
   }, [props.entryId]);
 
   const size = props.viewType === 'link' ? 'small' : 'default';
@@ -148,7 +148,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
         ...sharedCardProps,
         ...props,
         hasCardEditActions: hasCardEditActions,
-        getAsset: sdk.space.getAsset,
+        getAsset: getOrLoadAsset,
         getEntityScheduledActions: sdk.space.getEntityScheduledActions,
         entry: props?.entity || sharedCardProps.entity,
         entryUrl: props?.entityUrl || sharedCardProps.entityUrl,

@@ -68,27 +68,55 @@ const initialState: State = {
 function useEntitiesStore(props: { sdk: BaseExtensionSDK }) {
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
-  const loadEntry = (id: string) => {
-    props.sdk.space
-      .getEntry<Entry>(id)
-      .then((entry) => {
-        dispatch({ type: 'set_entry', id, entry });
-      })
-      .catch(() => {
-        dispatch({ type: 'set_entry_failed', id });
-      });
-  };
+  const loadEntry = React.useCallback(
+    (id: string) => {
+      return props.sdk.space
+        .getEntry<Entry>(id)
+        .then((entry) => {
+          dispatch({ type: 'set_entry', id, entry });
+          return entry;
+        })
+        .catch(() => {
+          dispatch({ type: 'set_entry_failed', id });
+        });
+    },
+    [props.sdk.space]
+  );
 
-  const loadAsset = (id: string) => {
-    props.sdk.space
-      .getAsset<Asset>(id)
-      .then((asset) => {
-        dispatch({ type: 'set_asset', id, asset });
-      })
-      .catch(() => {
-        dispatch({ type: 'set_asset_failed', id });
-      });
-  };
+  const loadAsset = React.useCallback(
+    (id: string) => {
+      return props.sdk.space
+        .getAsset<Asset>(id)
+        .then((asset) => {
+          dispatch({ type: 'set_asset', id, asset });
+          return asset;
+        })
+        .catch(() => {
+          dispatch({ type: 'set_asset_failed', id });
+        });
+    },
+    [props.sdk.space]
+  );
+
+  const getOrLoadAsset = React.useCallback(
+    (id: string) => {
+      if (state.assets[id]) {
+        return Promise.resolve(state.assets[id]);
+      }
+      return loadAsset(id);
+    },
+    [state.assets, loadAsset]
+  );
+
+  const getOrLoadEntry = React.useCallback(
+    (id: string) => {
+      if (state.entries[id]) {
+        return Promise.resolve(state.entries[id]);
+      }
+      return loadEntry(id);
+    },
+    [state.entries, loadEntry]
+  );
 
   React.useEffect(() => {
     // @ts-expect-error
@@ -134,7 +162,7 @@ function useEntitiesStore(props: { sdk: BaseExtensionSDK }) {
     }) as { (): void };
   }, [props.sdk, state.assets, state.entries]);
 
-  return { loadEntry, loadAsset, ...state };
+  return { getOrLoadEntry, getOrLoadAsset, ...state };
 }
 
 const [EntityProvider, useEntities] = constate(useEntitiesStore);
