@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@0.18.5...@contentful/field-editor-rich-text@0.18.6) (2021-03-12)
+
+
+### Bug Fixes
+
+* 🐛 fetching in rich text and optimize scheduled actions ([#630](https://github.com/contentful/field-editors/issues/630)) ([d3ff315](https://github.com/contentful/field-editors/commit/d3ff315364bfd542361c9506f4692e4884687821))
+
+
+
+
+
 ## [0.18.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@0.18.4...@contentful/field-editor-rich-text@0.18.5) (2021-03-12)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text

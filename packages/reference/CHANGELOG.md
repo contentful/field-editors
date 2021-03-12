@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.12.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.12.0...@contentful/field-editor-reference@2.12.1) (2021-03-12)
+
+
+### Bug Fixes
+
+* 🐛 fetching in rich text and optimize scheduled actions ([#630](https://github.com/contentful/field-editors/issues/630)) ([d3ff315](https://github.com/contentful/field-editors/commit/d3ff315364bfd542361c9506f4692e4884687821))
+
+
+
+
+
 # [2.12.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.11.1...@contentful/field-editor-reference@2.12.0) (2021-03-12)
 
 
