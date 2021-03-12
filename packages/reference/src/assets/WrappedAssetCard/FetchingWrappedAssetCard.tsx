@@ -25,7 +25,7 @@ type FetchingWrappedAssetCardProps = {
 };
 
 export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
-  const { getOrLoadAsset, assets } = useEntities();
+  const { getOrLoadAsset, loadEntityScheduledActions, assets } = useEntities();
 
   React.useEffect(() => {
     getOrLoadAsset(props.assetId);
@@ -121,7 +121,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       const builtinCardProps: Omit<WrappedAssetCardProps, 'isClickable'> = {
         ...commonProps,
         ...props,
-        getEntityScheduledActions: sdk.space.getEntityScheduledActions,
+        getEntityScheduledActions: loadEntityScheduledActions,
         asset: (props?.entity as Asset) || commonProps.asset,
         getAssetUrl: getEntityUrl,
       };

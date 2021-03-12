@@ -9,6 +9,7 @@ export {
   Link,
   EntityType,
   NavigatorSlideInfo,
+  ScheduledAction,
 } from '@contentful/app-sdk';
 
 export { Entry, File, Asset } from '@contentful/field-editor-shared';

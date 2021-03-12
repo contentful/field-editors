@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { BaseExtensionSDK, Entry, Asset } from '../types';
+import { BaseExtensionSDK, Entry, Asset, ScheduledAction } from '../types';
 import constate from 'constate';
 
 type EntriesMap = {
@@ -10,16 +10,26 @@ type AssetsMap = {
   [key: string]: 'failed' | undefined | Asset;
 };
 
+type ScheduledActionsMap = {
+  [key: string]: ScheduledAction[];
+};
+
 type State = {
   entries: EntriesMap;
   assets: AssetsMap;
+  scheduledActions: ScheduledActionsMap;
 };
 
 type DispatchAction =
   | { type: 'set_entry'; id: string; entry: Entry }
   | { type: 'set_entry_failed'; id: string }
   | { type: 'set_asset'; id: string; asset: Asset }
-  | { type: 'set_asset_failed'; id: string };
+  | { type: 'set_asset_failed'; id: string }
+  | {
+      type: 'set_scheduled_actions';
+      key: string;
+      actions: ScheduledAction[] | undefined;
+    };
 
 function reducer(state: State, action: DispatchAction): State {
   switch (action.type) {
@@ -63,10 +73,31 @@ function reducer(state: State, action: DispatchAction): State {
 const initialState: State = {
   entries: {},
   assets: {},
+  scheduledActions: {},
 };
 
 function useEntitiesStore(props: { sdk: BaseExtensionSDK }) {
   const [state, dispatch] = React.useReducer(reducer, initialState);
+
+  const loadEntityScheduledActions = React.useCallback(
+    (entityType: 'Entry' | 'Asset', id: string) => {
+      const key = `${entityType}:${id}`;
+      if (state.scheduledActions[key]) {
+        return Promise.resolve(state.scheduledActions[key]);
+      }
+      return props.sdk.space
+        .getEntityScheduledActions(entityType, id)
+        .then((data) => {
+          dispatch({ type: 'set_scheduled_actions', key, actions: data });
+          return data;
+        })
+        .catch(() => {
+          dispatch({ type: 'set_scheduled_actions', key, actions: undefined });
+          return [];
+        });
+    },
+    [props.sdk.space, state.scheduledActions]
+  );
 
   const loadEntry = React.useCallback(
     (id: string) => {
@@ -100,7 +131,7 @@ function useEntitiesStore(props: { sdk: BaseExtensionSDK }) {
 
   const getOrLoadAsset = React.useCallback(
     (id: string) => {
-      if (state.assets[id]) {
+      if (state.assets[id] && state.assets[id] !== 'failed') {
         return Promise.resolve(state.assets[id]);
       }
       return loadAsset(id);
@@ -110,7 +141,7 @@ function useEntitiesStore(props: { sdk: BaseExtensionSDK }) {
 
   const getOrLoadEntry = React.useCallback(
     (id: string) => {
-      if (state.entries[id]) {
+      if (state.entries[id] && state.entries[id] !== 'failed') {
         return Promise.resolve(state.entries[id]);
       }
       return loadEntry(id);
@@ -162,7 +193,7 @@ function useEntitiesStore(props: { sdk: BaseExtensionSDK }) {
     }) as { (): void };
   }, [props.sdk, state.assets, state.entries]);
 
-  return { getOrLoadEntry, getOrLoadAsset, ...state };
+  return { getOrLoadEntry, getOrLoadAsset, loadEntityScheduledActions, ...state };
 }
 
 const [EntityProvider, useEntities] = constate(useEntitiesStore);

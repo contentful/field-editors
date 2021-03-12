@@ -8,10 +8,10 @@ import {
 } from '@contentful/field-editor-reference';
 
 export function FetchingWrappedEntryCard(props) {
-  const { loadEntry, entries } = useEntities();
+  const { getOrLoadEntry, loadEntityScheduledActions, entries } = useEntities();
 
   React.useEffect(() => {
-    loadEntry(props.entryId);
+    getOrLoadEntry(props.entryId);
   }, [props.entryId]);
 
   const entry = entries[props.entryId];
@@ -43,7 +43,7 @@ export function FetchingWrappedEntryCard(props) {
   return (
     <WrappedEntryCard
       getAsset={props.sdk.space.getAsset}
-      getEntityScheduledActions={props.sdk.space.getEntityScheduledActions}
+      getEntityScheduledActions={loadEntityScheduledActions}
       entryUrl={props.getEntryUrl && props.getEntryUrl(entry.sys.id)}
       size="default"
       isSelected={props.isSelected}
