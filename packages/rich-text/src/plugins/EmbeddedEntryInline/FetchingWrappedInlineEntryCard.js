@@ -6,7 +6,7 @@ import {
   InlineEntryCard,
   DropdownListItem,
   DropdownList,
-  Icon
+  Icon,
 } from '@contentful/forma-36-react-components';
 import { entityHelpers } from '@contentful/field-editor-shared';
 import { useEntities, ScheduledIconWithTooltip } from '@contentful/field-editor-reference';
@@ -18,15 +18,15 @@ const { getEntryTitle, getEntryStatus } = entityHelpers;
 const styles = {
   scheduledIcon: css({
     verticalAlign: 'text-bottom',
-    marginRight: tokens.spacing2Xs
-  })
+    marginRight: tokens.spacing2Xs,
+  }),
 };
 
-export const FetchingWrappedInlineEntryCard = props => {
-  const { loadEntry, entries } = useEntities();
+export const FetchingWrappedInlineEntryCard = (props) => {
+  const { getOrLoadEntry, loadEntityScheduledActions, entries } = useEntities();
 
   React.useEffect(() => {
-    loadEntry(props.entryId);
+    getOrLoadEntry(props.entryId);
   }, [props.entryId]);
 
   const entry = entries[props.entryId];
@@ -52,7 +52,7 @@ export const FetchingWrappedInlineEntryCard = props => {
   const allContentTypes = props.sdk.space.getCachedContentTypes();
 
   const contentType = allContentTypes.find(
-    contentType => contentType.sys.id === entry.sys.contentType.sys.id
+    (contentType) => contentType.sys.id === entry.sys.contentType.sys.id
   );
   const contentTypeName = contentType ? contentType.name : '';
 
@@ -74,7 +74,7 @@ export const FetchingWrappedInlineEntryCard = props => {
     contentType,
     localeCode: props.sdk.field.locale,
     defaultLocaleCode: props.sdk.locales.default,
-    defaultTitle: 'Untitled'
+    defaultTitle: 'Untitled',
   });
 
   return (
@@ -94,7 +94,7 @@ export const FetchingWrappedInlineEntryCard = props => {
         ) : null
       }>
       <ScheduledIconWithTooltip
-        getEntityScheduledActions={props.sdk.space.getEntityScheduledActions}
+        getEntityScheduledActions={loadEntityScheduledActions}
         entityType="Entry"
         entityId={entry.sys.id}>
         <Icon className={styles.scheduledIcon} icon="Clock" color="muted" testId="scheduled-icon" />
@@ -112,5 +112,5 @@ FetchingWrappedInlineEntryCard.propTypes = {
   isReadOnly: PropTypes.bool.isRequired,
   onRemove: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
-  onEntityFetchComplete: PropTypes.func
+  onEntityFetchComplete: PropTypes.func,
 };

@@ -53,7 +53,7 @@ async function openEntry(
 }
 
 export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
-  const { getOrLoadEntry, getOrLoadAsset, entries } = useEntities();
+  const { getOrLoadEntry, getOrLoadAsset, loadEntityScheduledActions, entries } = useEntities();
 
   React.useEffect(() => {
     getOrLoadEntry(props.entryId);
@@ -141,7 +141,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       onMoveBottom: props.onMoveBottom,
     };
 
-    const { hasCardEditActions, sdk } = props;
+    const { hasCardEditActions } = props;
 
     function renderDefaultCard(props?: CustomEntityCardProps) {
       const builtinCardProps: WrappedEntryCardProps = {
@@ -149,7 +149,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
         ...props,
         hasCardEditActions: hasCardEditActions,
         getAsset: getOrLoadAsset,
-        getEntityScheduledActions: sdk.space.getEntityScheduledActions,
+        getEntityScheduledActions: loadEntityScheduledActions,
         entry: props?.entity || sharedCardProps.entity,
         entryUrl: props?.entityUrl || sharedCardProps.entityUrl,
       };
