@@ -13448,7 +13448,7 @@ lodash.uniq@4.5.0, lodash.uniq@^4.5.0:
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
   integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
 
-"lodash@>=3.5 <5", lodash@^4.0.1, lodash@^4.1.1, lodash@^4.15.0, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.12, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20, lodash@^4.17.4, lodash@^4.2.1, lodash@^4.3.0:
+"lodash@>=3.5 <5", lodash@^4.0.1, lodash@^4.1.1, lodash@^4.15.0, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.12, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20, lodash@^4.17.21, lodash@^4.17.4, lodash@^4.2.1, lodash@^4.3.0:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -18701,9 +18701,9 @@ stack-utils@^2.0.2:
     escape-string-regexp "^2.0.0"
 
 start-server-and-test@^1.11.0:
-  version "1.12.0"
-  resolved "https://registry.yarnpkg.com/start-server-and-test/-/start-server-and-test-1.12.0.tgz#e836553c928a13026f79c740757d378b92bee8d6"
-  integrity sha512-y3M/PLUPkPBsgKoengMIMQeceT8uOnOc4bkdor/RSCK9Ih/j8z4WthSCrAboXLjgtJJWOporAiEQsnYox+THXg==
+  version "1.12.1"
+  resolved "https://registry.yarnpkg.com/start-server-and-test/-/start-server-and-test-1.12.1.tgz#bf84eb5c5a4c8a98b93ed36519035b3f76179f0e"
+  integrity sha512-qGQ2HQiF2yDIfyaHsXkHfoE5UOl4zJUbJ/gx2xOkfX7iPMXW9qHmoFyaMfIDJVLNkxCK7RxSrvWEI9hNVKQluw==
   dependencies:
     bluebird "3.7.2"
     check-more-types "2.24.0"
@@ -18711,7 +18711,7 @@ start-server-and-test@^1.11.0:
     execa "3.4.0"
     lazy-ass "1.6.0"
     ps-tree "1.2.0"
-    wait-on "5.2.1"
+    wait-on "5.3.0"
 
 state-toggle@^1.0.0:
   version "1.0.3"
@@ -20618,14 +20618,14 @@ wait-for-expect@^3.0.2:
   resolved "https://registry.yarnpkg.com/wait-for-expect/-/wait-for-expect-3.0.2.tgz#d2f14b2f7b778c9b82144109c8fa89ceaadaa463"
   integrity sha512-cfS1+DZxuav1aBYbaO/kE06EOS8yRw7qOFoD3XtjTkYvCvh3zUvNST8DXK/nPaeqIzIv3P3kL3lRJn8iwOiSag==
 
-wait-on@5.2.1:
-  version "5.2.1"
-  resolved "https://registry.yarnpkg.com/wait-on/-/wait-on-5.2.1.tgz#05b66fcb4d7f5da01537f03e7cf96e8836422996"
-  integrity sha512-H2F986kNWMU9hKlI9l/ppO6tN8ZSJd35yBljMLa1/vjzWP++Qh6aXyt77/u7ySJFZQqBtQxnvm/xgG48AObXcw==
+wait-on@5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/wait-on/-/wait-on-5.3.0.tgz#584e17d4b3fe7b46ac2b9f8e5e102c005c2776c7"
+  integrity sha512-DwrHrnTK+/0QFaB9a8Ol5Lna3k7WvUR4jzSKmz0YaPBpuN2sACyiPVKVfj6ejnjcajAcvn3wlbTyMIn9AZouOg==
   dependencies:
     axios "^0.21.1"
     joi "^17.3.0"
-    lodash "^4.17.20"
+    lodash "^4.17.21"
     minimist "^1.2.5"
     rxjs "^6.6.3"
 
