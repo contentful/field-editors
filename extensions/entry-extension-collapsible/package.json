@@ -35,7 +35,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-sortable-hoc": "^1.11.0"
+    "react-sortable-hoc": "^2.0.0"
   },
   "browserslist": [
     "last 5 Chrome version",
