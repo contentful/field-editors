@@ -27,6 +27,7 @@ export interface LinkActionsProps {
   onLinkedExisting: (entities: Array<Entry | Asset>, index?: number) => void;
   actionLabels?: Partial<ActionLabels>;
   combinedActionsLabel?: string | React.ReactElement;
+  itemsLength?: number
 }
 
 const defaultEntryLabels: ActionLabels = {
@@ -74,7 +75,7 @@ export function LinkActions(props: LinkActionsProps) {
               contentTypes={props.contentTypes}
               hasPlusIcon={true}
               onSelect={(contentTypeId) => {
-                return contentTypeId ? props.onCreate(contentTypeId) : Promise.resolve();
+                return contentTypeId ? props.onCreate(contentTypeId, props.itemsLength) : Promise.resolve();
               }}
             />
           )}
@@ -83,7 +84,7 @@ export function LinkActions(props: LinkActionsProps) {
               disabled={props.isDisabled}
               testId={testIds.createAndLink}
               onClick={() => {
-                props.onCreate();
+                props.onCreate(undefined, props.itemsLength);
               }}
               buttonType="muted"
               icon="Plus"

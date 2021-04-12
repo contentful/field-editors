@@ -30,13 +30,13 @@ function onLinkOrCreate(
   entityType: ChildProps['entityType'],
   items: ChildProps['items'],
   ids: string[],
-  index?: number
+  index = items.length,
 ): void {
   const links: ReferenceValue[] = ids.map((id) => ({
     sys: { type: 'Link', linkType: entityType, id },
   }));
   const newItems = Array.from(items);
-  newItems.splice(index !== undefined ? index : items.length, 0, ...links);
+  newItems.splice(index, 0, ...links);
   setValue(newItems);
 }
 
@@ -90,7 +90,9 @@ function Editor(props: EditorProps) {
     editorPermissions,
     onCreate,
     onLink,
+    itemsLength: items.length,
   });
+
   const customCardRenderer = useCallback(
     (cardProps: CustomEntityCardProps, _, renderDefaultCard) =>
       props.renderCustomCard
