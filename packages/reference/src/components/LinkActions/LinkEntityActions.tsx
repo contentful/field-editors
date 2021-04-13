@@ -23,10 +23,11 @@ type LinkEntityActionsProps = {
   onLink: (ids: string[], index?: number) => void;
   onAction?: (action: Action) => void;
   actionLabels?: Partial<ActionLabels>;
+  itemsLength?: number;
 };
 
 export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsProps {
-  const { sdk, editorPermissions, entityType, canLinkMultiple, isDisabled, actionLabels } = props;
+  const { sdk, editorPermissions, entityType, canLinkMultiple, isDisabled, actionLabels, itemsLength } = props;
 
   const maxLinksCount = editorPermissions.validations.numberOfLinks?.max;
   const value = sdk.field.getValue();
@@ -35,7 +36,7 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
   const isEmpty = linkCount === 0;
 
   const onCreated = React.useCallback(
-    (entity: Entry | Asset, index?: number, slide?: NavigatorSlideInfo) => {
+    (entity: Entry | Asset, index = itemsLength, slide?: NavigatorSlideInfo) => {
       props.onCreate(entity.sys.id, index);
       props.onAction &&
         props.onAction({
@@ -49,18 +50,18 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
     [entityType, props.onCreate, props.onAction]
   );
   const onLinkedExisting = React.useCallback(
-    (entities: Array<Entry | Asset>, index?: number) => {
+    (entities: Array<Entry | Asset>, index = itemsLength) => {
       props.onLink(
         entities.map((item) => item.sys.id),
         index
       );
-      entities.forEach((entity) => {
+      entities.forEach((entity, i) => {
         props.onAction &&
           props.onAction({
             type: 'select_and_link',
             entity: entityType,
             entityData: entity,
-            index,
+            index: index === undefined ? undefined : index + i,
           });
       });
     },
@@ -126,6 +127,7 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
       actionLabels,
       onCreated,
       onLinkedExisting,
+      itemsLength,
     }),
     [
       entityType,
@@ -142,6 +144,7 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
       onLinkSeveralExisting,
       onCreated,
       onLinkedExisting,
+      itemsLength,
     ]
   );
 }
