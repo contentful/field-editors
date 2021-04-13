@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.13.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.13.0...@contentful/field-editor-reference@2.13.1) (2021-04-13)
+
+
+### Bug Fixes
+
+* **reference:** multi-reference create and link actions always with index ([#683](https://github.com/contentful/field-editors/issues/683)) ([fa4eac8](https://github.com/contentful/field-editors/commit/fa4eac83477de75b635663c868db714562e5463a))
+
+
+
+
+
 # [2.13.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.12.2...@contentful/field-editor-reference@2.13.0) (2021-04-06)
 
 
