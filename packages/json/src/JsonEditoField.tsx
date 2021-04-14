@@ -12,6 +12,7 @@ const CODE_MIRROR_CONFIG = {
   indentWithTabs: true,
   height: 'auto',
   theme: 'none',
+  autoRefresh: true
 };
 
 type JsonEditorFieldProps = {
