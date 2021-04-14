@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@0.11.1...@contentful/field-editor-json@0.11.2) (2021-04-14)
+
+
+### Bug Fixes
+
+* [] auto refresh json and markdown when rendered out of view ([#684](https://github.com/contentful/field-editors/issues/684)) ([faea939](https://github.com/contentful/field-editors/commit/faea93910c934f6ed74ebe4a949ee1d2eea7b28b))
+
+
+
+
+
 ## [0.11.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@0.11.0...@contentful/field-editor-json@0.11.1) (2021-03-05)
 
 **Note:** Version bump only for package @contentful/field-editor-json
