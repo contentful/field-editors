@@ -136,7 +136,7 @@ export class ConnectedRichTextEditor extends React.Component {
     onAction: this.props.onAction,
   });
 
-  slatePlugins = buildPlugins(this.richTextAPI);
+  slatePlugins = buildPlugins(this.richTextAPI, this.props.customPlugins);
 
   onChange = (editor) => {
     const { value, operations } = editor;
