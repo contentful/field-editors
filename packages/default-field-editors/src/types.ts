@@ -45,6 +45,7 @@ export type WidgetType =
   | 'assetLinksEditor'
   | 'assetGalleryEditor'
   | 'richTextEditor'
+  | 'alpharichTextEditor'
   | 'markdown'
   | string;
 
@@ -72,5 +73,6 @@ export type EditorOptions = {
   assetLinksEditor?: Partial<Parameters<typeof MultipleMediaEditor>[0]>;
   assetGalleryEditor?: Partial<Parameters<typeof MultipleMediaEditor>[0]>;
   richTextEditor?: Partial<Parameters<typeof RichTextEditor>[0]>;
+  alphaRichTextEditor?: void; // for now, the alpha rich text editor has no params
   markdown?: Partial<Parameters<typeof MarkdownEditor>[0]>;
 };
