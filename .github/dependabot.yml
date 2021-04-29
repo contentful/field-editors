@@ -1,0 +1,97 @@
+version: 2
+registries:
+  npm-registry-registry-npmjs-org:
+    type: npm-registry
+    url: https://registry.npmjs.org
+    token: "${{secrets.NPM_REGISTRY_REGISTRY_NPMJS_ORG_TOKEN}}"
+
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: weekly
+    time: "00:00"
+    timezone: Etc/UCT
+  open-pull-requests-limit: 99
+  target-branch: master
+  labels:
+  - dependencies
+  - dependabot
+  ignore:
+  - dependency-name: "@babel/preset-env"
+    versions:
+    - ">= 7.10.a, < 7.11"
+  - dependency-name: "@babel/preset-env"
+    versions:
+    - ">= 7.11.a, < 7.12"
+  - dependency-name: cypress
+    versions:
+    - ">= 6.a, < 7"
+  - dependency-name: detect-browser
+    versions:
+    - "> 3.0.1"
+  - dependency-name: docz
+    versions:
+    - ">= 2.a, < 3"
+  - dependency-name: eslint
+    versions:
+    - "> 6.8.0"
+  - dependency-name: eslint-plugin-react
+    versions:
+    - ">= 7.20.a, < 7.21"
+  - dependency-name: husky
+    versions:
+    - ">= 5.a, < 6"
+  - dependency-name: react-codemirror2
+    versions:
+    - ">= 7.a, < 8"
+  - dependency-name: slate
+    versions:
+    - "> 0.44.10"
+  - dependency-name: slate-react
+    versions:
+    - "> 0.21.16"
+  - dependency-name: speakingurl
+    versions:
+    - ">= 14.a, < 15"
+  - dependency-name: "@testing-library/cypress"
+    versions:
+    - ">= 6.a, < 7"
+  - dependency-name: "@testing-library/react"
+    versions:
+    - ">= 10.a, < 11"
+  - dependency-name: typescript
+    versions:
+    - ">= 4.a, < 5"
+  - dependency-name: "@types/react"
+    versions:
+    - ">= 17.a, < 18"
+  - dependency-name: "@types/react-dom"
+    versions:
+    - ">= 17.a, < 18"
+  - dependency-name: cypress
+    versions:
+    - 7.0.1
+  - dependency-name: "@babel/preset-env"
+    versions:
+    - 7.13.12
+  - dependency-name: "@testing-library/cypress"
+    versions:
+    - 7.0.4
+    - 7.0.5
+  - dependency-name: codemirror
+    versions:
+    - 5.60.0
+  - dependency-name: "@productboard/slate-edit-list"
+    versions:
+    - 0.21.5
+  - dependency-name: "@testing-library/react"
+    versions:
+    - 11.2.3
+  - dependency-name: contentful-cli
+    versions:
+    - 1.5.14
+  commit-message:
+    prefix: chore
+  registries:
+  - npm-registry-registry-npmjs-org
