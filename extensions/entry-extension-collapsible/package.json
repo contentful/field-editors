@@ -6,7 +6,7 @@
     "@babel/core": "7.3.4",
     "@contentful/contentful-extension-scripts": "0.15.1",
     "@contentful/eslint-config-extension": "0.4.2",
-    "@testing-library/react": "11.2.5",
+    "@testing-library/react": "11.2.6",
     "@types/jest": "26.0.22",
     "@types/react": "^16.8.17",
     "@types/react-dom": "^16.8.4",
