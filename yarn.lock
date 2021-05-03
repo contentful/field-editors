@@ -1710,9 +1710,9 @@
   integrity sha512-K0HX1N9N7H4iofqXmljAfwf6BnPYqeHIeFkiQnXN4+XCI0Z7Dyg++D1880lN5EhyCjEkgPUBViU/hjUj2ULZhw==
 
 "@contentful/mimetype@^1.4.0":
-  version "1.4.37"
-  resolved "https://registry.yarnpkg.com/@contentful/mimetype/-/mimetype-1.4.37.tgz#de1d65ded81f431b80b3b061c992fe57b521899b"
-  integrity sha512-8y356NI/9w7Na1L+28sAHj3epQFzNKgAOzsvNgsV6GaIHHhNPr2PzNV8FoFFJsJhPfis97AT3OFxuqmsexhfrg==
+  version "1.4.38"
+  resolved "https://registry.yarnpkg.com/@contentful/mimetype/-/mimetype-1.4.38.tgz#631ba5239deae17b8043ad0041a310575a6dc209"
+  integrity sha512-qbclESU58heOo3CmFuAbDAdF9/XsfBVs/KHZJ1iKO1uAcidzdiC/UAuYytAJbvhC4ni0umFQLyBFbOHqtjWC6g==
   dependencies:
     lodash "^4.17.20"
 
