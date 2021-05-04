@@ -1,11 +1,10 @@
-// Import React dependencies.
 import React, { useMemo, useState } from 'react'
-
-// Import the Slate editor factory.
 import { createEditor, BaseEditor } from 'slate'
-
-// Import the Slate components and React plugin.
 import { Slate, Editable, withReact, ReactEditor } from 'slate-react'
+import debounce from 'lodash-es/debounce'
+import { toContentfulDocument } from '@contentful/contentful-slatejs-adapter'
+import * as Contentful from '@contentful/rich-text-types';
+import schema from './constants/Schema';
 
 type CustomElement = {
   type: 'paragraph';
@@ -21,11 +20,18 @@ declare module 'slate' {
   }
 }
 
+const toContentfulDocumentDebounced = debounce((document, schema) => {
+  return toContentfulDocument({ document, schema });
+}, 500);
+
+type Props = {
+  onChange: (doc: Contentful.Document) => unknown;
+};
+
 // Define our app...
-const RichTextEditor = () => {
+const RichTextEditor = (props: Props) => {
   const editor = useMemo(() => withReact(createEditor()), [])
 
-  // Keep track of state for the value of the editor.
   const [value, setValue] = useState([
     {
       type: 'paragraph',
@@ -33,12 +39,15 @@ const RichTextEditor = () => {
     },
   ] as CustomElement[])
 
-  // Render the Slate context.
   return (
     <Slate
       editor={editor}
       value={value}
-      onChange={newValue => setValue(newValue as CustomElement[])}>
+      onChange={newValue => {
+        setValue(newValue as CustomElement[]);
+        const doc = toContentfulDocumentDebounced(newValue, schema);
+        props.onChange(doc);
+      }}>
       <Editable />
     </Slate>
   )
