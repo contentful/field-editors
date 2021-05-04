@@ -21,7 +21,6 @@ import {
   MultipleMediaEditor,
 } from '@contentful/field-editor-reference';
 import { RichTextEditor } from '@contentful/field-editor-rich-text';
-import { AlphaRichTextEditor } from '@contentful/field-editor-rich-text-alpha';
 import { MarkdownEditor } from '@contentful/field-editor-markdown';
 import type { FieldExtensionSDK } from '@contentful/field-editor-shared';
 import type { EditorOptions, WidgetType } from './types';
@@ -277,16 +276,7 @@ export const Field: React.FC<FieldProps> = (props: FieldProps) => {
     }
     case 'richTextEditor': {
       return (
-        <RichTextEditor
-          sdk={sdk}
-          isInitiallyDisabled={isInitiallyDisabled}
-          {...options[widgetId]}
-        />
-      );
-    }
-    case 'alphaRichTextEditor': {
-      return (
-        <AlphaRichTextEditor />
+        <RichTextEditor />
       );
     }
     case 'markdown': {
