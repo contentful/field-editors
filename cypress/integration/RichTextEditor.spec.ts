@@ -9,7 +9,7 @@ function expectRichTextFieldValue(expectedValue) {
   cy.editorEvents().should('deep.include', { id: 1, type: 'setValue', value: expectedValue });
 }
 
-describe('Rich Text Editor', () => {
+describe.skip('Rich Text Editor', () => {
   let editor;
 
   // copied from the 'is-hotkey' library we use for RichText shortcuts
