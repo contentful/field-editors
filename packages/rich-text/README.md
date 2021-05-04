@@ -4,7 +4,7 @@
 npm install @contentful/field-editor-rich-text
 ```
 
-This package contains a React `RichTextEditor` component that is used as default for `RichText` field type in the Contentful web application.
+This package contains the updated rich text editor, currently in an **ALPHA** state (i.e., not suitable for production use and subject to breaking changes).
 
 This editor app is built on top of [Slate](https://github.com/ianstormtaylor/slate), a third party framework for building highly customizable rich text editing solutions.
 
