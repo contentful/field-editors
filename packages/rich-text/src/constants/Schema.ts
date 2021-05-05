@@ -104,6 +104,7 @@ export default {
         }
       ],
       normalize: (editor, error) => {
+        // TODO: still a relevant error code from Slate?
         if (error.code === 'child_type_invalid') {
           return editor.unwrapBlockByKey(error.node.key, BLOCKS.QUOTE);
         }

@@ -15,5 +15,5 @@ import { css } from 'emotion';
 ## In Action
 
 <Playground>
-  <RichTextEditor onChange={console.log} />
+  <RichTextEditor onChange={(value) => console.log(JSON.stringify(value, ' ', 2))}/>
 </Playground>
