@@ -10,10 +10,110 @@ import Readme from '../README.md';
 
 import { Playground } from 'docz';
 import { RichTextEditor } from './index';
+import {
+  createFakeFieldAPI,
+  ActionsPlayground,
+  createFakeSpaceAPI,
+  createFakeLocalesAPI,
+  createFakeNavigatorAPI,
+} from '@contentful/field-editor-test-utils';
+import { BLOCKS } from '@contentful/rich-text-types';
+import { document, block, text } from './helpers/nodeFactory'
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { css } from 'emotion';
 
 ## In Action
 
 <Playground>
-  <RichTextEditor onChange={(value) => console.log(JSON.stringify(value, ' ', 2))}/>
+  {() => {
+    const rtPreviewStyle = css({
+      backgroundColor: 'whitesmoke',
+      padding: '0 0.5em'
+    });
+    const newEntitySelectorDummyDialog = (fnName, type) => async () => {
+      return confirm(`sdk.dialogs.${fnName}()\nSimulate selecting a random entity or cancel?`)
+        ? {
+            sys: {
+              id: Math.random()
+                .toString(36)
+                .substring(7),
+              type
+            }
+          }
+        : Promise.reject(); // Simulate cancellation.
+    };
+    const [field, mitt] = createFakeFieldAPI();
+    const space = createFakeSpaceAPI();
+    const navigator = createFakeNavigatorAPI();
+    let sdk = {
+      space: {
+        ...space,
+        getEntry: () => {
+          return Promise.resolve(publishedEntry);
+        },
+        getAsset: () => {
+          return Promise.resolve(publishedAsset);
+        },
+        getEntityScheduledActions: () => {
+          return Promise.resolve([]);
+        },
+        getAssets: () => {
+          return Promise.resolve({ items: [publishedAsset] });
+        }
+      },
+      field: {
+        ...field,
+        getValue: () => document(block(BLOCKS.PARAGRAPH, {}, text('Hello world!')))
+      },
+      locales: createFakeLocalesAPI(),
+      navigator: {
+        ...navigator,
+        onSlideInNavigation: () => {
+          return () => {};
+        }
+      },
+      dialogs: {
+        selectSingleAsset: newEntitySelectorDummyDialog('selectSingleAsset', 'Asset'),
+        selectSingleEntry: newEntitySelectorDummyDialog('selectSingleEntry', 'Entry')
+      },
+      access: {
+        can: (access, entityType) => {
+          if (entityType === 'Asset') {
+            if (access === 'create') {
+              return Promise.resolve(false);
+            }
+            if (access === 'read') {
+              return Promise.resolve(true);
+            }
+          }
+          return Promise.resolve(false);
+        }
+      },
+      parameters: {
+        instance: {
+          getEntryUrl: () => '#'
+        }
+      }
+    };
+
+    const renderRT = (value, type) => {
+      const logValue = () => {
+        console.log(type, value);
+      };
+      const valueString = JSON.stringify(value, null, 2);
+      const valueDom = documentToReactComponents(value);
+      return (
+        <div className={rtPreviewStyle} title={valueString} onClick={logValue}>
+          {valueDom}
+        </div>
+      );
+    };
+    window.richTextField = field;
+    return (
+      <div data-test-id="rich-text-editor-integration-test">
+        <RichTextEditor sdk={sdk} isInitiallyDisabled={false} />
+        <ActionsPlayground mitt={mitt} renderValue={renderRT} />
+      </div>
+    );
+  }}
 </Playground>

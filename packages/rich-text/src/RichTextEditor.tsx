@@ -45,6 +45,7 @@ const ConnectedRichTextEditor = (props: ConnectedProps) => {
     document: props.value || Contentful.EMPTY_DOCUMENT,
     schema
   });
+  
   const [value, setValue] = useState(document as CustomElement[])
 
   return (
@@ -60,7 +61,7 @@ const ConnectedRichTextEditor = (props: ConnectedProps) => {
       <Editable />
     </Slate>
   )
-}
+};
 
 type Props = ConnectedProps & { isInitiallyDisabled: boolean };
 
