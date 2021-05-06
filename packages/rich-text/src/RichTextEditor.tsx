@@ -28,14 +28,14 @@ const toContentfulDocumentDebounced = (document, schema) => {
 };
 
 type ConnectedProps = {
-  minHeight: string | number
   sdk: FieldExtensionSDK,
-  value: object,
-  isDisabled: boolean,
-  onChange: (doc: Contentful.Document) => unknown;
-  onAction: () => unknown,
-  isToolbarHidden: boolean,
-  actionsDisabled: boolean,
+  minHeight?: string | number
+  value?: object,
+  isDisabled?: boolean,
+  onChange?: (doc: Contentful.Document) => unknown;
+  onAction?: () => unknown,
+  isToolbarHidden?: boolean,
+  actionsDisabled?: boolean,
 };
 
 const ConnectedRichTextEditor = (props: ConnectedProps) => {
@@ -56,7 +56,7 @@ const ConnectedRichTextEditor = (props: ConnectedProps) => {
       onChange={newValue => {
         setValue(newValue as CustomElement[]);
         const doc = toContentfulDocumentDebounced(newValue, schema);
-        props.onChange(doc);
+        props.onChange && props.onChange(doc);
       }}>
       <Editable />
     </Slate>

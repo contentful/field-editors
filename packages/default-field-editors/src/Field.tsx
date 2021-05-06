@@ -276,7 +276,11 @@ export const Field: React.FC<FieldProps> = (props: FieldProps) => {
     }
     case 'richTextEditor': {
       return (
-        <RichTextEditor />
+        <RichTextEditor
+          sdk={sdk}
+          isInitiallyDisabled={isInitiallyDisabled}
+          {...options[widgetId]}
+        />
       );
     }
     case 'markdown': {
