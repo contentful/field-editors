@@ -45,7 +45,7 @@ import { css } from 'emotion';
     const [field, mitt] = createFakeFieldAPI();
     const space = createFakeSpaceAPI();
     const navigator = createFakeNavigatorAPI();
-    let sdk = {
+    const sdk = {
       space: {
         ...space,
         getEntry: () => {
@@ -61,10 +61,7 @@ import { css } from 'emotion';
           return Promise.resolve({ items: [publishedAsset] });
         }
       },
-      field: {
-        ...field,
-        getValue: () => document(block(BLOCKS.PARAGRAPH, {}, text('Hello world!')))
-      },
+      field,
       locales: createFakeLocalesAPI(),
       navigator: {
         ...navigator,
@@ -108,7 +105,9 @@ import { css } from 'emotion';
         </div>
       );
     };
+
     window.richTextField = field;
+
     return (
       <div data-test-id="rich-text-editor-integration-test">
         <RichTextEditor sdk={sdk} isInitiallyDisabled={false} />

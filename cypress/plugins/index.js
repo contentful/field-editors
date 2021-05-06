@@ -6,6 +6,10 @@ module.exports = on => {
       resolve: {
         extensions: ['.ts', '.js']
       },
+      output: {
+        hotUpdateChunkFilename: '[id].[fullhash].hot-update.js',
+        hotUpdateMainFilename: '[runtime].[fullhash].hot-update.json',
+      },
       performance: false,
       module: {
         rules: [

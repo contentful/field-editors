@@ -6,10 +6,10 @@ function expectRichTextFieldValue(expectedValue) {
     expect(field.getValue()).to.deep.eq(expectedValue);
   });
 
-  cy.editorEvents().should('deep.include', { id: 1, type: 'setValue', value: expectedValue });
+  cy.editorEvents().should('deep.include', { id: 3, type: 'setValue', value: expectedValue });
 }
 
-describe.skip('Rich Text Editor', () => {
+describe('Rich Text Editor', () => {
   let editor;
 
   // copied from the 'is-hotkey' library we use for RichText shortcuts
@@ -27,7 +27,20 @@ describe.skip('Rich Text Editor', () => {
     cy.editorEvents().should('deep.equal', []);
   });
 
-  describe('Marks', () => {
+  it('allows typing', () => {
+    editor.click().typeInSlate('some text').click();
+
+    cy.wait(500);
+
+    const expectedValue = doc(
+      block(BLOCKS.PARAGRAPH, {}, text('some text'))
+    );
+
+    expectRichTextFieldValue(expectedValue);
+  })
+
+  // TODO: unskip when marks are present
+  describe.skip('Marks', () => {
     [
       [MARKS.BOLD, `{${mod}}b`],
       [MARKS.ITALIC, `{${mod}}i`]

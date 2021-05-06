@@ -72,3 +72,11 @@ Cypress.Commands.add('getRichTextField', () => {
     return win.richTextField;
   });
 });
+
+Cypress.Commands.add('typeInSlate', { prevSubject: true }, (subject, text) => {
+  return cy.wrap(subject)
+    .then(subject => {
+      subject[0].dispatchEvent(new InputEvent('beforeinput', { inputType: 'insertText', data: text }));
+      return subject;
+    })
+});
