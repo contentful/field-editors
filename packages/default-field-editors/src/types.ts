@@ -18,6 +18,7 @@ import { UrlEditor } from '@contentful/field-editor-url';
 import { SlugEditor } from '@contentful/field-editor-slug';
 import { SingleLineEditor } from '@contentful/field-editor-single-line';
 import { DropdownEditor } from '@contentful/field-editor-dropdown';
+import { RichTextEditor } from '@contentful/field-editor-rich-text';
 import { MarkdownEditor } from '@contentful/field-editor-markdown';
 
 export type WidgetType =
@@ -70,6 +71,6 @@ export type EditorOptions = {
   assetLinkEditor?: Partial<Parameters<typeof SingleMediaEditor>[0]>;
   assetLinksEditor?: Partial<Parameters<typeof MultipleMediaEditor>[0]>;
   assetGalleryEditor?: Partial<Parameters<typeof MultipleMediaEditor>[0]>;
-  richTextEditor?: void; // for now, the alpha rich text editor has no params
+  richTextEditor?: Partial<Parameters<typeof RichTextEditor>[0]>;
   markdown?: Partial<Parameters<typeof MarkdownEditor>[0]>;
 };
