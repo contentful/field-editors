@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { createEditor, BaseEditor } from 'slate'
 import { Slate, Editable, withReact, ReactEditor } from 'slate-react'
 import { toContentfulDocument, toSlatejsDocument } from '@contentful/contentful-slatejs-adapter'
@@ -64,13 +64,14 @@ type Props = ConnectedProps & { isInitiallyDisabled: boolean };
 
 const RichTextEditor = (props: Props) => {
   const { sdk, isInitiallyDisabled, ...otherProps } = props;
+  const isEmptyValue = useCallback((value) => !value || deepEquals(value, Contentful.EMPTY_DOCUMENT), [])
   return (
     <EntityProvider sdk={sdk}>
       <FieldConnector
         throttle={0}
         field={sdk.field}
         isInitiallyDisabled={isInitiallyDisabled}
-        isEmptyValue={(value) => !value || deepEquals(value, Contentful.EMPTY_DOCUMENT)}
+        isEmptyValue={isEmptyValue}
         isEqualValues={deepEquals}>
         {({ lastRemoteValue, disabled, setValue, externalReset }) => (
           <ConnectedRichTextEditor
