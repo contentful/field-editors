@@ -53,7 +53,7 @@ const ConnectedRichTextEditor = (props: ConnectedProps) => {
       onChange={newValue => {
         setValue(newValue as CustomElement[]);
         const doc = toContentfulDocument({ document: newValue, schema });
-        props.onChange && props.onChange(doc);
+        props.onChange?.(doc);
       }}>
       <Editable />
     </Slate>
