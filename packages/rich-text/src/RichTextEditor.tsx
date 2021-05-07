@@ -52,6 +52,7 @@ const ConnectedRichTextEditor = (props: ConnectedProps) => {
     <Slate
       editor={editor}
       // TODO: normalize like in the webapp?
+      // cf. https://github.com/contentful/field-editors/blob/master/packages/rich-text/src/RichTextEditor.jsx#L69-L85
       value={value}
       onChange={newValue => {
         setValue(newValue as CustomElement[]);

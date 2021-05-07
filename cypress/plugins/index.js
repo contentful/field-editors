@@ -6,6 +6,8 @@ module.exports = on => {
       resolve: {
         extensions: ['.ts', '.js']
       },
+      // needed to prevent ReferenceErrors
+      // cf. https://github.com/webpack/webpack/issues/6693#issuecomment-745688108
       output: {
         hotUpdateChunkFilename: '[id].[fullhash].hot-update.js',
         hotUpdateMainFilename: '[runtime].[fullhash].hot-update.json',
