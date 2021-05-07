@@ -28,7 +28,7 @@ describe('Rich Text Editor', () => {
   });
 
   it('allows typing', () => {
-    editor.type('some text').click();
+    editor.click().typeInSlate('some text').click();
 
     cy.wait(500);
 
