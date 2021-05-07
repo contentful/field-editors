@@ -7,6 +7,7 @@ import { EntityProvider } from '@contentful/field-editor-reference';
 import { FieldExtensionSDK, FieldConnector } from '@contentful/field-editor-shared';
 import schema from './constants/Schema';
 import deepEquals from 'fast-deep-equal';
+import debounce from 'lodash-es/debounce';
 
 type CustomElement = {
   type: 'paragraph';
@@ -22,10 +23,9 @@ declare module 'slate' {
   }
 }
 
-const toContentfulDocumentDebounced = (document, schema) => {
-  // TODO: Do we need to debounce 500ms, like in master?
+const toContentfulDocumentDebounced = debounce((document, schema) => {
   return toContentfulDocument({ document, schema });
-};
+}, 500);
 
 type ConnectedProps = {
   sdk: FieldExtensionSDK,
