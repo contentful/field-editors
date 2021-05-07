@@ -6,7 +6,7 @@ function expectRichTextFieldValue(expectedValue) {
     expect(field.getValue()).to.deep.eq(expectedValue);
   });
 
-  cy.editorEvents().should('deep.include', { id: 3, type: 'setValue', value: expectedValue });
+  cy.editorEvents().should('deep.include', { id: 1, type: 'setValue', value: expectedValue });
 }
 
 describe('Rich Text Editor', () => {
@@ -28,7 +28,7 @@ describe('Rich Text Editor', () => {
   });
 
   it('allows typing', () => {
-    editor.click().typeInSlate('some text').click();
+    editor.type('some text').click();
 
     cy.wait(500);
 

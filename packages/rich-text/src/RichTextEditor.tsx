@@ -7,7 +7,7 @@ import { EntityProvider } from '@contentful/field-editor-reference';
 import { FieldExtensionSDK, FieldConnector } from '@contentful/field-editor-shared';
 import schema from './constants/Schema';
 import deepEquals from 'fast-deep-equal';
-import debounce from 'lodash-es/debounce';
+import debounce from 'lodash/debounce';
 
 type CustomElement = {
   type: 'paragraph';
@@ -22,10 +22,6 @@ declare module 'slate' {
     Text: CustomText
   }
 }
-
-const toContentfulDocumentDebounced = debounce((document, schema) => {
-  return toContentfulDocument({ document, schema });
-}, 500);
 
 type ConnectedProps = {
   sdk: FieldExtensionSDK,
@@ -56,7 +52,7 @@ const ConnectedRichTextEditor = (props: ConnectedProps) => {
       value={value}
       onChange={newValue => {
         setValue(newValue as CustomElement[]);
-        const doc = toContentfulDocumentDebounced(newValue, schema);
+        const doc = toContentfulDocument({ document: newValue, schema });
         props.onChange && props.onChange(doc);
       }}>
       <Editable />
@@ -85,7 +81,7 @@ const RichTextEditor = (props: Props) => {
             value={lastRemoteValue}
             sdk={sdk}
             isDisabled={disabled}
-            onChange={setValue}
+            onChange={debounce(setValue, 500)}
           />
         )
       }
