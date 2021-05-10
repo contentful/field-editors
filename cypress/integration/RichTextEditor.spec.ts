@@ -2,7 +2,7 @@ import { MARKS, BLOCKS } from '@contentful/rich-text-types';
 import { document as doc, block, text } from '../../packages/rich-text/src/helpers/nodeFactory';
 
 function expectRichTextFieldValue(expectedValue) {
-  cy.getRichTextField().then(field => {
+  cy.getRichTextField().then((field) => {
     expect(field.getValue()).to.deep.eq(expectedValue);
   });
 
@@ -32,28 +32,26 @@ describe('Rich Text Editor', () => {
 
     cy.wait(500);
 
-    const expectedValue = doc(
-      block(BLOCKS.PARAGRAPH, {}, text('some text'))
-    );
+    const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text')));
 
     expectRichTextFieldValue(expectedValue);
-  })
+  });
 
-  // TODO: unskip when marks are present
-  describe.skip('Marks', () => {
+  describe('Marks', () => {
     [
       [MARKS.BOLD, `{${mod}}b`],
-      [MARKS.ITALIC, `{${mod}}i`]
-      // TODO: debug failing tests for 'underline' and 'code' marks
-      // [MARKS.UNDERLINE, `{${mod}}u`],
-      // [MARKS.CODE, `{${mod}}/`]
+      [MARKS.ITALIC, `{${mod}}i`],
+      [MARKS.UNDERLINE, `{${mod}}u`],
+      [MARKS.CODE, `{${mod}}/`],
     ].forEach(([mark, shortcut]) => {
-      const toggleMarkViaToolbar = () => cy.findByTestId(`toolbar-toggle-${mark}`).click();
+      // TODO: unskip when toolbar is available
+      // const toggleMarkViaToolbar = () => cy.findByTestId(`toolbar-toggle-${mark}`).click();
       const toggleMarkViaShortcut = () => editor.type(shortcut);
 
       [
-        ['toolbar', toggleMarkViaToolbar],
-        ['shortcut', toggleMarkViaShortcut]
+        // TODO: unskip when toolbar is available
+        // ['toolbar', toggleMarkViaToolbar],
+        ['shortcut', toggleMarkViaShortcut],
       ].forEach(([toggleType, toggleMark]) => {
         describe(`${mark} mark toggle via ${toggleType}`, () => {
           it('allows writing marked text', () => {
@@ -61,8 +59,8 @@ describe('Rich Text Editor', () => {
 
             // @ts-ignore
             toggleMark();
-            // TODO: this click should not be needed
-            editor.click().type('some text');
+
+            editor.type('some text');
 
             // updates to RichText value are debounced with 500
             cy.wait(500);
@@ -81,8 +79,7 @@ describe('Rich Text Editor', () => {
             // @ts-ignore
             toggleMark();
 
-            // TODO: this click should not be needed
-            editor.click().type('some text');
+            editor.type('some text');
 
             // updates to RichText value are debounced with 500
             cy.wait(500);
