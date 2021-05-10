@@ -1637,14 +1637,16 @@
     yargs "16.1.0"
 
 "@contentful/contentful-slatejs-adapter@^14.1.0":
-  version "14.1.2"
-  resolved "https://registry.yarnpkg.com/@contentful/contentful-slatejs-adapter/-/contentful-slatejs-adapter-14.1.2.tgz#22fbacd93ee4b7cb2315978e1ed2b9326c362381"
-  integrity sha512-kxIdzOI8M84TDtyw3U40lXmu9iX89zI+e0t5wmv6pmWcHbTpitAT5xe7V3XsixWqj7+5F5RMziBPzstXlkCUjg==
+  version "14.2.0"
+  resolved "https://registry.yarnpkg.com/@contentful/contentful-slatejs-adapter/-/contentful-slatejs-adapter-14.2.0.tgz#52c75e13d11d7cbdd3bbcd8c42756c2cb15425da"
+  integrity sha512-xBdv3iMJItA4SqOP2tI622hAYKdxPF3VXR7AoXE3bO2EbK3Ce8IF50HxWYQLu2NBAB57EzHXhGph2DEl/PWOLg==
   dependencies:
     "@contentful/rich-text-types" "^5.0.0"
+    jest "^26.6.3"
     lodash.flatmap "^4.5.0"
     lodash.get "^4.4.2"
     lodash.omit "^4.5.0"
+    typescript "^4.2.4"
 
 "@contentful/eslint-config-extension@0.4.2":
   version "0.4.2"
@@ -12760,7 +12762,7 @@ jest-worker@^26.6.2:
     merge-stream "^2.0.0"
     supports-color "^7.0.0"
 
-jest@26.6.3, jest@^26.6.1:
+jest@26.6.3, jest@^26.6.1, jest@^26.6.3:
   version "26.6.3"
   resolved "https://registry.yarnpkg.com/jest/-/jest-26.6.3.tgz#40e8fdbe48f00dfa1f0ce8121ca74b88ac9148ef"
   integrity sha512-lGS5PXGAzR4RF7V5+XObhqz2KZIDUA1yD0DG6pBVmy10eh0ZIXQImRuzocsI/N2XZ1GrLFwTS27In2i2jlpq1Q==
@@ -20020,20 +20022,20 @@ typescript@3.3.4000:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.3.4000.tgz#76b0f89cfdbf97827e1112d64f283f1151d6adf0"
   integrity sha512-jjOcCZvpkl2+z7JFn0yBOoLQyLoIkNZAs/fYJkUG6VKy6zLPHJGfQJYFHzibB6GJaF/8QrcECtlQ5cpvRHSMEA==
 
-typescript@3.9.7, typescript@^3.7.3, typescript@^3.7.5:
+typescript@3.9.7:
   version "3.9.7"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.7.tgz#98d600a5ebdc38f40cb277522f12dc800e9e25fa"
   integrity sha512-BLbiRkiBzAwsjut4x/dsibSTB6yWpwT5qWmC2OfuCg3GgVQCSgMs4vEctYPhsaGtd0AeuuHMkjZ2h2WG8MSzRw==
 
-typescript@^3.9.7:
+typescript@^3.7.3, typescript@^3.7.5, typescript@^3.9.7:
   version "3.9.9"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.9.tgz#e69905c54bc0681d0518bd4d587cc6f2d0b1a674"
   integrity sha512-kdMjTiekY+z/ubJCATUPlRDl39vXYiMV9iyeMuEuXZh2we6zz80uovNN2WlAxmmdE/Z/YQe+EbOEXB5RHEED3w==
 
-typescript@^4.0.5:
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.2.2.tgz#1450f020618f872db0ea17317d16d8da8ddb8c4c"
-  integrity sha512-tbb+NVrLfnsJy3M59lsDgrzWIflR4d4TIUjz+heUnHZwdF7YsrMTKoRERiIvI2lvBG95dfpLxB21WZhys1bgaQ==
+typescript@^4.0.5, typescript@^4.2.4:
+  version "4.2.4"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.2.4.tgz#8610b59747de028fda898a8aef0e103f156d0961"
+  integrity sha512-V+evlYHZnQkaz8TRBuxTA92yZBPotr5H+WhQ7bD3hZUndx5tGOa1fuCgeSjxAzM1RiN5IzvadIXTVefuuwZCRg==
 
 ua-parser-js@^0.7.18:
   version "0.7.21"
