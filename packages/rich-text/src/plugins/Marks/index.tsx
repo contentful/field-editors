@@ -33,11 +33,11 @@ interface MarkEvent {
 }
 
 export function createMarkEvent({ editor, key, type, event }: MarkEvent): void {
-  if ((!event.ctrlKey || !event.metaKey) && event.key !== key) return;
+  if ((event.ctrlKey || event.metaKey) && event.key === key) {
+    event.preventDefault();
 
-  event.preventDefault();
-
-  editor.toggleMark(type);
+    editor.toggleMark(type);
+  }
 }
 
 // TODO: Add props and events
