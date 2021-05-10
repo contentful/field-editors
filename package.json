@@ -84,7 +84,7 @@
     "mochawesome": "^6.1.1",
     "mochawesome-merge": "^4.0.3",
     "mochawesome-report-generator": "^5.1.0",
-    "prettier": "2.2.1",
+    "prettier": "2.3.0",
     "react": "16.10.2",
     "react-dom": "16.10.2",
     "remark-cli": "^8.0.0",
