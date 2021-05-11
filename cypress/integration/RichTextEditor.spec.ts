@@ -57,8 +57,8 @@ describe('Rich Text Editor', () => {
           it('allows writing marked text', () => {
             editor.click().type(shortcut).typeInSlate('some text');
 
-            // updates to RichText value are debounced with 500
-            cy.wait(500);
+            // updates to RichText value are debounced with 600 to compensate any kind of latency, original value is 500
+            cy.wait(600);
 
             const expectedValue = doc(
               block(BLOCKS.PARAGRAPH, {}, text('some text', [{ type: mark }]))
@@ -70,8 +70,8 @@ describe('Rich Text Editor', () => {
           it('allows writing unmarked text', () => {
             editor.click().type(shortcut).type(shortcut).typeInSlate('some text');
 
-            // updates to RichText value are debounced with 500
-            cy.wait(500);
+            // updates to RichText value are debounced with 600 to compensate any kind of latency, original value is 500
+            cy.wait(600);
 
             const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text', [])));
 
