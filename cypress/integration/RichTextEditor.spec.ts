@@ -60,7 +60,7 @@ describe('Rich Text Editor', () => {
             // @ts-ignore
             toggleMark();
 
-            editor.type('some text');
+            editor.typeInSlate('some text');
 
             // updates to RichText value are debounced with 500
             cy.wait(500);
@@ -79,7 +79,7 @@ describe('Rich Text Editor', () => {
             // @ts-ignore
             toggleMark();
 
-            editor.type('some text');
+            editor.typeInSlate('some text');
 
             // updates to RichText value are debounced with 500
             cy.wait(500);
