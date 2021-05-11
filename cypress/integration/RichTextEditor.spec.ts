@@ -46,21 +46,20 @@ describe('Rich Text Editor', () => {
     ].forEach(([mark, shortcut]) => {
       // TODO: unskip when toolbar is available
       // const toggleMarkViaToolbar = () => cy.findByTestId(`toolbar-toggle-${mark}`).click();
-      const toggleMarkViaShortcut = () => editor.type(shortcut);
+      // const toggleMarkViaShortcut = () => editor.type(shortcut);
 
       [
         // TODO: unskip when toolbar is available
         // ['toolbar', toggleMarkViaToolbar],
-        ['shortcut', toggleMarkViaShortcut],
-      ].forEach(([toggleType, toggleMark]) => {
-        describe(`${mark} mark toggle via ${toggleType}`, () => {
+        ['shortcut' /*, toggleMarkViaShortcut */],
+      ].forEach(([toggleType]) => {
+        describe.only(`${mark} mark toggle via ${toggleType}`, () => {
+          beforeEach(() => {
+            editor.clearInSlate();
+          });
+
           it('allows writing marked text', () => {
-            editor.click();
-
-            // @ts-ignore
-            toggleMark();
-
-            editor.typeInSlate('some text');
+            editor.type(shortcut).typeInSlate('some text');
 
             // updates to RichText value are debounced with 500
             cy.wait(500);
@@ -73,13 +72,7 @@ describe('Rich Text Editor', () => {
           });
 
           it('allows writing unmarked text', () => {
-            editor.click();
-            // @ts-ignore
-            toggleMark();
-            // @ts-ignore
-            toggleMark();
-
-            editor.typeInSlate('some text');
+            editor.type(shortcut).type(shortcut).typeInSlate('some text');
 
             // updates to RichText value are debounced with 500
             cy.wait(500);
