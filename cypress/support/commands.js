@@ -73,15 +73,6 @@ Cypress.Commands.add('getRichTextField', () => {
   });
 });
 
-Cypress.Commands.add('clearInSlate', { prevSubject: true }, (subject) => {
-  return cy.wrap(subject).then((subject) => {
-    subject[0].dispatchEvent(
-      new InputEvent('beforeinput', { inputType: 'deleteHardLineBackward' })
-    );
-    return subject;
-  });
-});
-
 Cypress.Commands.add('typeInSlate', { prevSubject: true }, (subject, text) => {
   // Needed because cypress's `type` doesn't trigger `beforeinput` events by default.
   // This is the primary way Slate picks up on UI events

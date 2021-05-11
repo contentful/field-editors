@@ -53,13 +53,9 @@ describe('Rich Text Editor', () => {
         // ['toolbar', toggleMarkViaToolbar],
         ['shortcut' /*, toggleMarkViaShortcut */],
       ].forEach(([toggleType]) => {
-        describe.only(`${mark} mark toggle via ${toggleType}`, () => {
-          beforeEach(() => {
-            editor.clearInSlate();
-          });
-
+        describe(`${mark} mark toggle via ${toggleType}`, () => {
           it('allows writing marked text', () => {
-            editor.type(shortcut).typeInSlate('some text');
+            editor.click().type(shortcut).typeInSlate('some text');
 
             // updates to RichText value are debounced with 500
             cy.wait(500);
@@ -72,7 +68,7 @@ describe('Rich Text Editor', () => {
           });
 
           it('allows writing unmarked text', () => {
-            editor.type(shortcut).type(shortcut).typeInSlate('some text');
+            editor.click().type(shortcut).type(shortcut).typeInSlate('some text');
 
             // updates to RichText value are debounced with 500
             cy.wait(500);
