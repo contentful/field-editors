@@ -12,7 +12,7 @@ import { toContentfulDocument, toSlatejsDocument } from '@contentful/contentful-
 import * as Contentful from '@contentful/rich-text-types';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { css, cx } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
+import { styles } from './RichTextEditor.styles';
 import { FieldExtensionSDK, FieldConnector } from '@contentful/field-editor-shared';
 import schema from './constants/Schema';
 import deepEquals from 'fast-deep-equal';
@@ -83,53 +83,6 @@ const ConnectedRichTextEditor = (props: ConnectedProps) => {
     return <Leaf {...props} />;
   }, []);
 
-  // TODO: Move into own css file?
-  const STYLE_EDITOR_BORDER = `1px solid ${tokens.colorElementDark}`;
-
-  const styles = {
-    root: css({
-      position: 'relative',
-    }),
-    editor: css({
-      borderRadius: `0 0 ${tokens.borderRadiusMedium} ${tokens.borderRadiusMedium}`,
-      border: STYLE_EDITOR_BORDER,
-      borderTop: 0,
-      padding: '20px',
-      fontSize: tokens.spacingM,
-      minHeight: '400px',
-      background: tokens.colorWhite,
-      outline: 'none',
-      whiteSpace: 'pre-wrap',
-      overflowWrap: 'break-word',
-      webkitUserModify: 'read-write-plaintext-only',
-      a: {
-        span: {
-          cursor: 'not-allowed',
-          '&:hover': {
-            cursor: 'not-allowed',
-          },
-        },
-      },
-    }),
-    hiddenToolbar: css({
-      borderTop: STYLE_EDITOR_BORDER,
-    }),
-    enabled: css({
-      background: tokens.colorWhite,
-      a: {
-        span: {
-          cursor: 'pointer',
-          '&:hover': {
-            cursor: 'pointer',
-          },
-        },
-      },
-    }),
-    disabled: css({
-      background: tokens.colorElementLightest,
-    }),
-  };
-
   const classNames = cx(
     styles.editor,
     props.minHeight !== undefined ? css({ minHeight: props.minHeight }) : undefined,
@@ -139,12 +92,6 @@ const ConnectedRichTextEditor = (props: ConnectedProps) => {
 
   return (
     <div className={styles.root} data-test-id="rich-text-editor">
-      {!props.isToolbarHidden && (
-        <StickyToolbarWrapper isDisabled={props.isDisabled}>
-          <Toolbar isDisabled={props.isDisabled} />
-        </StickyToolbarWrapper>
-      )}
-
       <Slate
         editor={editor}
         // TODO: normalize like in the webapp?
@@ -155,6 +102,11 @@ const ConnectedRichTextEditor = (props: ConnectedProps) => {
           const doc = toContentfulDocument({ document: newValue, schema });
           props.onChange?.(doc);
         }}>
+        {!props.isToolbarHidden && (
+          <StickyToolbarWrapper isDisabled={props.isDisabled}>
+            <Toolbar isDisabled={props.isDisabled} />
+          </StickyToolbarWrapper>
+        )}
         <Editable
           className={classNames}
           renderElement={renderElement}
