@@ -18,7 +18,7 @@ import {
   createFakeNavigatorAPI,
 } from '@contentful/field-editor-test-utils';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { document, block, text } from './helpers/nodeFactory'
+import { document, block, text } from './helpers/nodeFactory';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { css } from 'emotion';
 
@@ -114,5 +114,7 @@ import { css } from 'emotion';
         <ActionsPlayground mitt={mitt} renderValue={renderRT} />
       </div>
     );
-  }}
+
+}}
+
 </Playground>
