@@ -11,6 +11,8 @@ import {
 import { toContentfulDocument, toSlatejsDocument } from '@contentful/contentful-slatejs-adapter';
 import * as Contentful from '@contentful/rich-text-types';
 import { EntityProvider } from '@contentful/field-editor-reference';
+import { css, cx } from 'emotion';
+import { styles } from './RichTextEditor.styles';
 import { FieldExtensionSDK, FieldConnector } from '@contentful/field-editor-shared';
 import schema from './constants/Schema';
 import deepEquals from 'fast-deep-equal';
@@ -23,6 +25,9 @@ import { withMarksPlugin } from './plugins/Marks';
 import { withUnderlineEvents } from './plugins/Underline';
 import { Leaf } from './plugins/Leaf';
 import { ContentfulEditor } from './types';
+
+import Toolbar from './Toolbar';
+import StickyToolbarWrapper from './Toolbar/StickyToolbarWrapper';
 
 type CustomElement = {
   type: 'paragraph';
@@ -78,23 +83,39 @@ const ConnectedRichTextEditor = (props: ConnectedProps) => {
     return <Leaf {...props} />;
   }, []);
 
+  const classNames = cx(
+    styles.editor,
+    props.minHeight !== undefined ? css({ minHeight: props.minHeight }) : undefined,
+    props.isDisabled ? styles.disabled : styles.enabled,
+    props.isToolbarHidden && styles.hiddenToolbar
+  );
+
   return (
-    <Slate
-      editor={editor}
-      // TODO: normalize like in the webapp?
-      // cf. https://github.com/contentful/field-editors/blob/master/packages/rich-text/src/RichTextEditor.jsx#L69-L85
-      value={value}
-      onChange={(newValue) => {
-        setValue(newValue as CustomElement[]);
-        const doc = toContentfulDocument({ document: newValue, schema });
-        props.onChange?.(doc);
-      }}>
-      <Editable
-        renderElement={renderElement}
-        renderLeaf={renderLeaf}
-        onKeyDown={withEvents(editor)}
-      />
-    </Slate>
+    <div className={styles.root} data-test-id="rich-text-editor">
+      <Slate
+        editor={editor}
+        // TODO: normalize like in the webapp?
+        // cf. https://github.com/contentful/field-editors/blob/master/packages/rich-text/src/RichTextEditor.jsx#L69-L85
+        value={value}
+        onChange={(newValue) => {
+          setValue(newValue as CustomElement[]);
+          const doc = toContentfulDocument({ document: newValue, schema });
+          props.onChange?.(doc);
+        }}>
+        {!props.isToolbarHidden && (
+          <StickyToolbarWrapper isDisabled={props.isDisabled}>
+            <Toolbar isDisabled={props.isDisabled} />
+          </StickyToolbarWrapper>
+        )}
+        <Editable
+          className={classNames}
+          renderElement={renderElement}
+          renderLeaf={renderLeaf}
+          onKeyDown={withEvents(editor)}
+          readOnly={props.isDisabled}
+        />
+      </Slate>
+    </div>
   );
 };
 
