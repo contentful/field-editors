@@ -37,40 +37,33 @@ describe('Rich Text Editor', () => {
 
     cy.wait(500);
 
-    const expectedValue = doc(
-      block(BLOCKS.PARAGRAPH, {}, text('some text'))
-    );
+    const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text')));
 
     expectRichTextFieldValue(expectedValue);
-  })
+  });
 
-  // TODO: unskip when marks are present
-  describe.skip('Marks', () => {
+  describe('Marks', () => {
     [
       [MARKS.BOLD, `{${mod}}b`],
       [MARKS.ITALIC, `{${mod}}i`],
-      // TODO: debug failing tests for 'underline' and 'code' marks
-      // [MARKS.UNDERLINE, `{${mod}}u`],
-      // [MARKS.CODE, `{${mod}}/`]
+      [MARKS.UNDERLINE, `{${mod}}u`],
+      [MARKS.CODE, `{${mod}}/`],
     ].forEach(([mark, shortcut]) => {
-      const toggleMarkViaToolbar = () => cy.findByTestId(`toolbar-toggle-${mark}`).click();
-      const toggleMarkViaShortcut = () => editor.type(shortcut);
+      // TODO: unskip when toolbar is available
+      // const toggleMarkViaToolbar = () => cy.findByTestId(`toolbar-toggle-${mark}`).click();
+      // const toggleMarkViaShortcut = () => editor.type(shortcut);
 
       [
-        ['toolbar', toggleMarkViaToolbar],
-        ['shortcut', toggleMarkViaShortcut],
-      ].forEach(([toggleType, toggleMark]) => {
+        // TODO: unskip when toolbar is available
+        // ['toolbar', toggleMarkViaToolbar],
+        ['shortcut' /*, toggleMarkViaShortcut */],
+      ].forEach(([toggleType]) => {
         describe(`${mark} mark toggle via ${toggleType}`, () => {
           it('allows writing marked text', () => {
-            editor.click();
+            editor.click().type(shortcut).typeInSlate('some text');
 
-            // @ts-ignore
-            toggleMark();
-            // TODO: this click should not be needed
-            editor.click().type('some text');
-
-            // updates to RichText value are debounced with 500
-            cy.wait(500);
+            // updates to RichText value are debounced with 600 to compensate any kind of latency, original value is 500
+            cy.wait(600);
 
             const expectedValue = doc(
               block(BLOCKS.PARAGRAPH, {}, text('some text', [{ type: mark }]))
@@ -80,17 +73,10 @@ describe('Rich Text Editor', () => {
           });
 
           it('allows writing unmarked text', () => {
-            editor.click();
-            // @ts-ignore
-            toggleMark();
-            // @ts-ignore
-            toggleMark();
+            editor.click().type(shortcut).type(shortcut).typeInSlate('some text');
 
-            // TODO: this click should not be needed
-            editor.click().type('some text');
-
-            // updates to RichText value are debounced with 500
-            cy.wait(500);
+            // updates to RichText value are debounced with 600 to compensate any kind of latency, original value is 500
+            cy.wait(600);
 
             const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text', [])));
 
