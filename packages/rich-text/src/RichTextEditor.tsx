@@ -26,6 +26,9 @@ import { withUnderlineEvents } from './plugins/Underline';
 import { Leaf } from './plugins/Leaf';
 import { ContentfulEditor } from './types';
 
+import Toolbar from './Toolbar';
+import StickyToolbarWrapper from './Toolbar/StickyToolbarWrapper';
+
 type CustomElement = {
   type: 'paragraph';
   children: CustomText[];
@@ -127,19 +130,21 @@ const ConnectedRichTextEditor = (props: ConnectedProps) => {
     }),
   };
 
-  const classNames = cx(styles.editor);
-
-  // TODO: Fix props - possibly want to move Editable to its own wrapped component?
-  // const classNames = cx(
-  //   styles.editor,
-  //   this.props.minHeight !== undefined ? css({ minHeight: this.props.minHeight }) : undefined,
-  //   this.props.isDisabled ? styles.disabled : styles.enabled,
-  //   this.props.isToolbarHidden && styles.hiddenToolbar
-  // );
+  const classNames = cx(
+    styles.editor,
+    props.minHeight !== undefined ? css({ minHeight: props.minHeight }) : undefined,
+    props.isDisabled ? styles.disabled : styles.enabled,
+    props.isToolbarHidden && styles.hiddenToolbar
+  );
 
   return (
     <div className={styles.root} data-test-id="rich-text-editor">
-      <div>Toolbar</div>
+      {!props.isToolbarHidden && (
+        <StickyToolbarWrapper isDisabled={props.isDisabled}>
+          <Toolbar isDisabled={props.isDisabled} />
+        </StickyToolbarWrapper>
+      )}
+
       <Slate
         editor={editor}
         // TODO: normalize like in the webapp?
@@ -155,6 +160,7 @@ const ConnectedRichTextEditor = (props: ConnectedProps) => {
           renderElement={renderElement}
           renderLeaf={renderLeaf}
           onKeyDown={withEvents(editor)}
+          readOnly={props.isDisabled}
         />
       </Slate>
     </div>
