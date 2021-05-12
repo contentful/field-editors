@@ -80,10 +80,10 @@ Cypress.Commands.add('typeInSlate', { prevSubject: true }, (subject, text) => {
   // TODO: this is solved in cypress 5.5.0, but upgrading breaks several other
   // test suites. We should update and tweak those spots so we don't have to
   // type using this hack.
-  return cy.wrap(subject).then(subject => {
+  return cy.wrap(subject).then((subject) => {
     const event = new InputEvent('beforeinput', {
       inputType: 'insertText',
-      data: text
+      data: text,
     });
     subject[0].dispatchEvent(event);
     return subject;
