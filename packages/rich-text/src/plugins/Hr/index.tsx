@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as Slate from 'slate-react';
 import { css, cx } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
+import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { Transforms, Editor } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { useCustomEditor } from '../../hooks/useCustomEditor';
@@ -12,6 +13,7 @@ const styles = {
     margin: 0 0 ${tokens.spacingL};
   `,
   hr: css`
+    margin: 0;
     height: ${tokens.spacingM};
     background: transparent;
     position: relative;
@@ -35,8 +37,10 @@ const styles = {
       box-shadow: 0px 0px 5px ${tokens.colorPrimary};
     }
   `,
-  invisibleChildren: css`
-    display: none;
+  children: css`
+    height: 0px;
+    overflow: hidden;
+    margin: 0;
   `,
 };
 
@@ -50,7 +54,11 @@ export function withHrEvents(editor: CustomEditor, event: KeyboardEvent) {
   // }
 }
 
-export function ToolbarHrButton() {
+interface ToolbarHrButtonProps {
+  isDisabled?: boolean;
+}
+
+export function ToolbarHrButton(props: ToolbarHrButtonProps) {
   const editor = useCustomEditor();
 
   function handleOnClick() {
@@ -82,9 +90,13 @@ export function ToolbarHrButton() {
   }
 
   return (
-    <button onClick={handleOnClick} type="button">
-      Hr {editor.isBlockSelected('blockquote') ? 'selected' : 'not selected'}
-    </button>
+    <EditorToolbarButton
+      icon="HorizontalRule"
+      tooltip="HR"
+      label="HR"
+      disabled={props.isDisabled}
+      onClick={handleOnClick}
+    />
   );
 }
 
@@ -93,8 +105,10 @@ export function Hr(props: Slate.RenderLeafProps) {
 
   return (
     <div {...props.attributes} className={styles.container}>
-      <hr className={cx(styles.hr, isSelected && styles.hrSelected)} />
-      <div className={styles.invisibleChildren}>{props.children}</div>
+      <div contentEditable={false}>
+        <hr className={cx(styles.hr, isSelected && styles.hrSelected)} />
+      </div>
+      <div className={styles.children}>{props.children}</div>
     </div>
   );
 }
