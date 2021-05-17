@@ -38,9 +38,10 @@ const styles = {
   `,
   children: css`
     height: 0px;
-    overflow: hidden;
-    margin: 0;
-  `,
+    color: transparent;
+    outline: none;
+    position: absolute;
+  `, // To remove text cursor, took it from SlateJS example codes
 };
 
 interface ToolbarHrButtonProps {
@@ -85,11 +86,12 @@ export function ToolbarHrButton(props: ToolbarHrButtonProps) {
 
 export function Hr(props: Slate.RenderLeafProps) {
   const isSelected = Slate.useSelected();
+  const isFocused = Slate.useFocused();
 
   return (
     <div {...props.attributes} className={styles.container}>
       <div contentEditable={false}>
-        <hr className={cx(styles.hr, isSelected && styles.hrSelected)} />
+        <hr className={cx(styles.hr, isSelected && isFocused ? styles.hrSelected : undefined)} />
       </div>
       <div className={styles.children}>{props.children}</div>
     </div>
