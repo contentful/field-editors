@@ -1,13 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { createEditor, BaseEditor } from 'slate';
-import {
-  Slate,
-  Editable,
-  withReact,
-  ReactEditor,
-  DefaultElement,
-  RenderLeafProps,
-} from 'slate-react';
+import { createEditor } from 'slate';
+import { Slate, Editable, withReact, DefaultElement, RenderLeafProps } from 'slate-react';
 import { toContentfulDocument, toSlatejsDocument } from '@contentful/contentful-slatejs-adapter';
 import * as Contentful from '@contentful/rich-text-types';
 import { EntityProvider } from '@contentful/field-editor-reference';
@@ -23,25 +16,12 @@ import { withItalicEvents } from './plugins/Italic';
 import { withCodeEvents } from './plugins/Code';
 import { withMarksPlugin } from './plugins/Marks';
 import { withUnderlineEvents } from './plugins/Underline';
+import { withEditorPlugin } from './plugins/Editor';
+import { Hr, withHrEvents } from './plugins/Hr';
 import { Leaf } from './plugins/Leaf';
-import { ContentfulEditor } from './types';
-
 import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/StickyToolbarWrapper';
-
-type CustomElement = {
-  type: 'paragraph';
-  children: CustomText[];
-};
-type CustomText = { text: string };
-
-declare module 'slate' {
-  interface CustomTypes {
-    Editor: BaseEditor & ReactEditor;
-    Element: CustomElement;
-    Text: CustomText;
-  }
-}
+import { CustomEditor, CustomElement } from './types';
 
 type ConnectedProps = {
   sdk: FieldExtensionSDK;
@@ -54,15 +34,19 @@ type ConnectedProps = {
   actionsDisabled?: boolean;
 };
 
-const withPlugins = flow([withReact, withMarksPlugin]);
+const withPlugins = flow([withReact, withMarksPlugin, withEditorPlugin]);
 
 const withEvents = (editor) => (event) =>
-  [withBoldEvents, withItalicEvents, withCodeEvents, withUnderlineEvents].forEach((fn) =>
-    fn(editor, event)
-  );
+  [
+    withBoldEvents,
+    withItalicEvents,
+    withCodeEvents,
+    withUnderlineEvents,
+    withHrEvents,
+  ].forEach((fn) => fn(editor, event));
 
 const ConnectedRichTextEditor = (props: ConnectedProps) => {
-  const editor = useMemo<ContentfulEditor>(() => withReact(withPlugins(createEditor())), []);
+  const editor = useMemo(() => withReact<CustomEditor>(withPlugins(createEditor())), []);
 
   const document = toSlatejsDocument({
     document: props.value || Contentful.EMPTY_DOCUMENT,
@@ -74,6 +58,8 @@ const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const renderElement = useCallback((props) => {
     switch (props.element.type) {
       // TODO: add the components for `code`, `paragraph`, `image`, etc
+      case Contentful.BLOCKS.HR:
+        return <Hr {...props} />;
       default:
         return <DefaultElement {...props} />;
     }
