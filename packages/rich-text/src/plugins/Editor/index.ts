@@ -1,4 +1,4 @@
-import { Editor, Element } from 'slate';
+import { Editor, Element, Text } from 'slate';
 import { CustomEditor, CustomElement } from '../../types';
 
 export function withEditorPlugin(editor: CustomEditor): CustomEditor {
@@ -20,7 +20,7 @@ export function withEditorPlugin(editor: CustomEditor): CustomEditor {
   function hasSelectionText() {
     return editor.selection
       ? Editor.node(editor, editor.selection.focus.path).some(
-          (node) => node.text && node.text !== ''
+          (node) => Text.isText(node) && node.text !== ''
         )
       : false;
   }
