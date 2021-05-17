@@ -15,6 +15,7 @@ export type CustomEditor = BaseEditor &
     toggleMark: (type: string) => void;
     isBlockSelected: (type: string) => boolean;
     isVoid: (element: CustomElement) => boolean;
+    hasSelectionText: () => boolean;
   };
 
 declare module 'slate' {

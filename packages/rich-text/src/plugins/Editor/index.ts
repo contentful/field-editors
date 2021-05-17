@@ -17,8 +17,17 @@ export function withEditorPlugin(editor: CustomEditor): CustomEditor {
     return element.isVoid || originalIsVoid(element);
   }
 
+  function hasSelectionText() {
+    return editor.selection
+      ? Editor.node(editor, editor.selection.focus.path).some(
+          (node) => node.text && node.text !== ''
+        )
+      : false;
+  }
+
   editor.isBlockSelected = isBlockSelected;
   editor.isVoid = isVoid;
+  editor.hasSelectionText = hasSelectionText;
 
   return editor;
 }

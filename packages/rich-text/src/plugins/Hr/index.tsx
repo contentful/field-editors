@@ -61,13 +61,7 @@ export function ToolbarHrButton(props: ToolbarHrButtonProps) {
       children: [{ text: '' }],
     };
 
-    const hasText = editor.selection
-      ? Editor.node(editor, editor.selection.focus.path).some(
-          (node) => node.text && node.text !== ''
-        )
-      : false;
-
-    if (editor.children.length <= 1 || hasText) {
+    if (editor.children.length <= 1 || editor.hasSelectionText()) {
       Transforms.insertNodes(editor, hr);
     } else {
       Transforms.setNodes(editor, hr);
