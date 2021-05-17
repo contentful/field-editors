@@ -1,10 +1,10 @@
 import * as React from 'react';
 import * as Slate from 'slate-react';
 import { css } from 'emotion';
-import { ContentfulEditor } from 'types';
+import { CustomEditor } from 'types';
 import { createMarkEvent } from '../Marks';
 
-export function withBoldEvents(editor: ContentfulEditor, event: KeyboardEvent): void {
+export function withBoldEvents(editor: CustomEditor, event: KeyboardEvent): void {
   createMarkEvent({ editor, key: 'b', type: 'bold', event });
 }
 
