@@ -6,7 +6,6 @@ import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { Transforms, Editor } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { useCustomEditor } from '../../hooks/useCustomEditor';
-import { CustomEditor } from 'types';
 
 const styles = {
   container: css`
@@ -43,16 +42,6 @@ const styles = {
     margin: 0;
   `,
 };
-
-export function withHrEvents(editor: CustomEditor, event: KeyboardEvent) {
-  // const [element] = editor.getFragment();
-  // if (event.keyCode === 13 && element?.type === 'hr') {
-  //   event.preventDefault();
-  //   const hasText = editor.getFragment().some(node => {
-  //     console.log({ node });
-  //   })
-  // }
-}
 
 interface ToolbarHrButtonProps {
   isDisabled?: boolean;
