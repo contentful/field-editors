@@ -13,7 +13,7 @@ export function withEditorPlugin(editor: CustomEditor): CustomEditor {
     return !!match;
   }
 
-  function isVoid(element: CustomElement): boolean {
+  function isVoid(element): boolean {
     return element.isVoid || originalIsVoid(element);
   }
 
