@@ -17,6 +17,7 @@ const styles = {
     background: transparent;
     position: relative;
     border: 0;
+    user-select: none;
     &:hover {
       cursor: pointer;
     }
