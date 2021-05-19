@@ -91,6 +91,7 @@ export function ToolbarHrButton(props: ToolbarHrButtonProps) {
       label="HR"
       disabled={props.isDisabled}
       onClick={handleOnClick}
+      testId="hr-toolbar-button"
     />
   );
 }

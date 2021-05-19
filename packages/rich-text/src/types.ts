@@ -1,9 +1,9 @@
-import { BaseEditor, Element } from 'slate';
+import { BaseEditor, Element as SlateElement, Descendant } from 'slate';
 import { ReactEditor } from 'slate-react';
 
-export type CustomElement = Element & {
+export type CustomElement = SlateElement & {
   type: string;
-  children: CustomElement[];
+  children: Descendant[];
   isVoid?: boolean;
 };
 

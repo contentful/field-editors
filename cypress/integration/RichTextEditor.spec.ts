@@ -81,4 +81,52 @@ describe('Rich Text Editor', () => {
       });
     });
   });
+
+  describe.only('HR', () => {
+    describe('toolbar button', () => {
+      function getHrToolbarButton() {
+        return cy.findByTestId('hr-toolbar-button');
+      }
+
+      it('be visible', () => {
+        getHrToolbarButton().should('be.visible');
+      });
+
+      it('should add a new line when clicking', () => {
+        editor.click().typeInSlate('some text');
+
+        getHrToolbarButton().click();
+
+        cy.wait(600);
+
+        const expectedValue = doc(
+          block(BLOCKS.PARAGRAPH, {}, text('some text', [])),
+          block(BLOCKS.HR, {}),
+          block(BLOCKS.PARAGRAPH, {}, text('', []))
+        );
+
+        expectRichTextFieldValue(expectedValue);
+      });
+
+      it('should end with an empty paragraph', () => {
+        editor.click().typeInSlate('some text');
+
+        getHrToolbarButton().click();
+        getHrToolbarButton().click();
+        getHrToolbarButton().click();
+
+        cy.wait(600);
+
+        const expectedValue = doc(
+          block(BLOCKS.PARAGRAPH, {}, text('some text', [])),
+          block(BLOCKS.HR, {}),
+          block(BLOCKS.HR, {}),
+          block(BLOCKS.HR, {}),
+          block(BLOCKS.PARAGRAPH, {}, text('', []))
+        );
+
+        expectRichTextFieldValue(expectedValue);
+      });
+    });
+  });
 });
