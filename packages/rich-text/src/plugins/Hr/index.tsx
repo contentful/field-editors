@@ -36,12 +36,6 @@ const styles = {
       box-shadow: 0px 0px 5px ${tokens.colorPrimary};
     }
   `,
-  children: css`
-    height: 0px;
-    color: transparent;
-    outline: none;
-    position: absolute;
-  `, // To remove text cursor, took it from SlateJS example codes
 };
 
 interface ToolbarHrButtonProps {
@@ -55,6 +49,7 @@ export function ToolbarHrButton(props: ToolbarHrButtonProps) {
     const hr = {
       type: BLOCKS.HR,
       children: [{ text: '' }],
+      isVoid: true,
     };
 
     const paragraph = {
@@ -93,7 +88,7 @@ export function Hr(props: Slate.RenderLeafProps) {
       <div contentEditable={false}>
         <hr className={cx(styles.hr, isSelected && isFocused ? styles.hrSelected : undefined)} />
       </div>
-      <div className={styles.children}>{props.children}</div>
+      {props.children}
     </div>
   );
 }
