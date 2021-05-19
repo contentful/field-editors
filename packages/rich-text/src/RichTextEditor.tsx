@@ -17,7 +17,7 @@ import { withCodeEvents } from './plugins/Code';
 import { withMarksPlugin } from './plugins/Marks';
 import { withUnderlineEvents } from './plugins/Underline';
 import { withEditorPlugin } from './plugins/Editor';
-import { Hr } from './plugins/Hr';
+import { withHrEvents, Hr } from './plugins/Hr';
 import { Leaf } from './plugins/Leaf';
 import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/StickyToolbarWrapper';
@@ -37,9 +37,13 @@ type ConnectedProps = {
 const withPlugins = flow([withReact, withMarksPlugin, withEditorPlugin]);
 
 const withEvents = (editor) => (event) =>
-  [withBoldEvents, withItalicEvents, withCodeEvents, withUnderlineEvents].forEach((fn) =>
-    fn(editor, event)
-  );
+  [
+    withBoldEvents,
+    withItalicEvents,
+    withCodeEvents,
+    withUnderlineEvents,
+    withHrEvents,
+  ].forEach((fn) => fn(editor, event));
 
 const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const editor = useMemo(() => withReact<CustomEditor>(withPlugins(createEditor())), []);

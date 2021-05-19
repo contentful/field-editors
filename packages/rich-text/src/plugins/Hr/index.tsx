@@ -3,9 +3,10 @@ import * as Slate from 'slate-react';
 import { css, cx } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
-import { Transforms } from 'slate';
+import { Transforms, Editor } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { useCustomEditor } from '../../hooks/useCustomEditor';
+import { CustomElement } from 'types';
 
 const styles = {
   container: css`
@@ -41,6 +42,20 @@ const styles = {
 
 interface ToolbarHrButtonProps {
   isDisabled?: boolean;
+}
+
+export function withHrEvents(editor, event) {
+  const [currentFragment] = Editor.fragment(editor, editor.selection.focus.path) as CustomElement[];
+
+  if (
+    event.keyCode === 13 &&
+    Editor.isVoid(editor, currentFragment) &&
+    currentFragment.type === BLOCKS.HR
+  ) {
+    event.preventDefault();
+
+    Transforms.move(editor, { distance: 1 });
+  }
 }
 
 export function ToolbarHrButton(props: ToolbarHrButtonProps) {
