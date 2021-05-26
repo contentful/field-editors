@@ -2,10 +2,10 @@ import * as React from 'react';
 import * as Slate from 'slate-react';
 import { css } from 'emotion';
 
-import { ContentfulEditor } from 'types';
+import { CustomEditor } from 'types';
 import { createMarkEvent } from '../Marks';
 
-export function withItalicEvents(editor: ContentfulEditor, event: KeyboardEvent): void {
+export function withItalicEvents(editor: CustomEditor, event: KeyboardEvent): void {
   createMarkEvent({ editor, key: 'i', type: 'italic', event });
 }
 

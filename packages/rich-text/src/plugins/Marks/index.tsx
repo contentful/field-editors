@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Editor } from 'slate';
 import { RenderElementProps } from 'slate-react';
-import { ContentfulEditor } from 'types';
+import { CustomEditor } from 'types';
 
-export function withMarksPlugin(editor: ContentfulEditor) {
+export function withMarksPlugin(editor: CustomEditor) {
   function isMarkActive(type: string) {
     const marks = Editor.marks(editor);
     return !!marks?.[type];
@@ -26,7 +26,7 @@ export function withMarksPlugin(editor: ContentfulEditor) {
 }
 
 interface MarkEvent {
-  editor: ContentfulEditor;
+  editor: CustomEditor;
   key: string;
   type: string;
   event: KeyboardEvent;
