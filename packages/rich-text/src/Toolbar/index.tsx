@@ -9,6 +9,9 @@ import {
 import { ToolbarHrButton } from '../plugins/Hr';
 import { ToolbarHeadingButton } from '../plugins/Heading';
 
+import { ToolbarQuoteButton } from '../plugins/Quote';
+import { ToolbarHrButton } from '../plugins/Hr';
+
 type ToolbarProps = {
   isDisabled?: boolean;
 };
@@ -47,6 +50,8 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
           label="Italic"
           disabled={isDisabled}
         />
+        <ToolbarQuoteButton />
+        <ToolbarHrButton />
         <EditorToolbarButton
           icon="FormatUnderlined"
           tooltip="Underline"
