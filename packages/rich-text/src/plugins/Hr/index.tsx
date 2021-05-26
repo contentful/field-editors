@@ -46,12 +46,10 @@ interface ToolbarHrButtonProps {
 
 export function withHrEvents(editor, event) {
   const [currentFragment] = Editor.fragment(editor, editor.selection.focus.path) as CustomElement[];
+  const isEnter = event.keyCode === 13;
+  const isCurrentBlockHr = currentFragment.type === BLOCKS.HR;
 
-  if (
-    event.keyCode === 13 &&
-    Editor.isVoid(editor, currentFragment) &&
-    currentFragment.type === BLOCKS.HR
-  ) {
+  if (isEnter && isCurrentBlockHr) {
     event.preventDefault();
 
     Transforms.move(editor, { distance: 1 });
