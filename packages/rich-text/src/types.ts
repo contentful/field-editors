@@ -16,6 +16,7 @@ export type CustomEditor = BaseEditor &
     isBlockSelected: (type: string) => boolean;
     isVoid: (element: CustomElement) => boolean;
     hasSelectionText: () => boolean;
+    moveToTheNextLine: () => void;
   };
 
 declare module 'slate' {

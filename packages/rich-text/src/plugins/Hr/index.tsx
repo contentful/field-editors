@@ -6,7 +6,7 @@ import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { Transforms, Editor } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { useCustomEditor } from '../../hooks/useCustomEditor';
-import { CustomElement } from 'types';
+import { CustomElement, CustomEditor } from 'types';
 
 const styles = {
   container: css`
@@ -44,7 +44,9 @@ interface ToolbarHrButtonProps {
   isDisabled?: boolean;
 }
 
-export function withHrEvents(editor, event) {
+export function withHrEvents(editor: CustomEditor, event: KeyboardEvent) {
+  if (!editor.selection) return;
+
   const [currentFragment] = Editor.fragment(editor, editor.selection.focus.path) as CustomElement[];
   const isEnter = event.keyCode === 13;
   const isCurrentBlockHr = currentFragment.type === BLOCKS.HR;
@@ -52,7 +54,7 @@ export function withHrEvents(editor, event) {
   if (isEnter && isCurrentBlockHr) {
     event.preventDefault();
 
-    Transforms.move(editor, { distance: 1 });
+    editor.moveToTheNextLine();
   }
 }
 
