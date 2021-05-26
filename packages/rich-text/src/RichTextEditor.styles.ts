@@ -13,6 +13,8 @@ export const styles = {
     borderTop: 0,
     padding: '20px',
     fontSize: tokens.spacingM,
+    fontFamily:
+      '-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol',
     minHeight: '400px',
     background: tokens.colorWhite,
     outline: 'none',
