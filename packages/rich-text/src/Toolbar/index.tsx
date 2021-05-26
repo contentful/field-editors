@@ -6,6 +6,7 @@ import {
   EditorToolbarDivider,
   EditorToolbarButton,
 } from '@contentful/forma-36-react-components';
+import { ToolbarHrButton } from '../plugins/Hr';
 
 type ToolbarProps = {
   isDisabled?: boolean;
@@ -48,7 +49,7 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
           disabled={isDisabled}
         />
         <EditorToolbarDivider />
-        <EditorToolbarButton icon="HorizontalRule" tooltip="HR" label="HR" disabled={isDisabled} />
+        <ToolbarHrButton isDisabled={isDisabled} />
       </div>
     </EditorToolbar>
   );
