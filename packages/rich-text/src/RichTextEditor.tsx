@@ -9,7 +9,7 @@ import { styles } from './RichTextEditor.styles';
 import { FieldExtensionSDK, FieldConnector } from '@contentful/field-editor-shared';
 import schema from './constants/Schema';
 import deepEquals from 'fast-deep-equal';
-import debounce from 'lodash/debounce';
+// import debounce from 'lodash/debounce';
 import flow from 'lodash/flow';
 import { withHistory } from 'slate-history';
 import { withBoldEvents } from './plugins/Bold';
@@ -23,6 +23,7 @@ import { Leaf } from './plugins/Leaf';
 import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/StickyToolbarWrapper';
 import { CustomEditor, CustomElement } from './types';
+import { H1, H2, H3, H4, H5, H6, withHeadingEvents } from './plugins/Heading';
 
 type ConnectedProps = {
   sdk: FieldExtensionSDK;
@@ -44,6 +45,7 @@ const withEvents = (editor) => (event) =>
     withCodeEvents,
     withUnderlineEvents,
     withHrEvents,
+    withHeadingEvents,
   ].forEach((fn) => fn(editor, event));
 
 const ConnectedRichTextEditor = (props: ConnectedProps) => {
@@ -61,6 +63,18 @@ const ConnectedRichTextEditor = (props: ConnectedProps) => {
       // TODO: add the components for `code`, `paragraph`, `image`, etc
       case Contentful.BLOCKS.HR:
         return <Hr {...props} />;
+      case Contentful.BLOCKS.HEADING_1:
+        return <H1 {...props} />;
+      case Contentful.BLOCKS.HEADING_2:
+        return <H2 {...props} />;
+      case Contentful.BLOCKS.HEADING_3:
+        return <H3 {...props} />;
+      case Contentful.BLOCKS.HEADING_4:
+        return <H4 {...props} />;
+      case Contentful.BLOCKS.HEADING_5:
+        return <H5 {...props} />;
+      case Contentful.BLOCKS.HEADING_6:
+        return <H6 {...props} />;
       default:
         return <DefaultElement {...props} />;
     }
@@ -131,7 +145,8 @@ const RichTextEditor = (props: Props) => {
             value={lastRemoteValue}
             sdk={sdk}
             isDisabled={disabled}
-            onChange={debounce(setValue, 500)}
+            // onChange={debounce(setValue, 500)} TODO: This is delaying feedbacks to the users. Question: do we need it?
+            onChange={setValue}
           />
         )}
       </FieldConnector>
