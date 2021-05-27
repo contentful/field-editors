@@ -8,55 +8,10 @@ import {
   Button,
 } from '@contentful/forma-36-react-components';
 import tokens from '@contentful/forma-36-tokens';
-import { Editor, Transforms, Element as SlateElement, Text } from 'slate';
+import { Editor, Transforms, Element, Location, Range, Node } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
-
-const LABELS = {
-  [BLOCKS.PARAGRAPH]: 'Normal text',
-  [BLOCKS.HEADING_1]: 'Heading 1',
-  [BLOCKS.HEADING_2]: 'Heading 2',
-  [BLOCKS.HEADING_3]: 'Heading 3',
-  [BLOCKS.HEADING_4]: 'Heading 4',
-  [BLOCKS.HEADING_5]: 'Heading 5',
-  [BLOCKS.HEADING_6]: 'Heading 6',
-};
-
-const LIST_TYPES = [BLOCKS.OL_LIST, BLOCKS.UL_LIST];
-
-const isBlockActive = (editor, format) => {
-  const [match] = Editor.nodes(editor, {
-    match: (n) => !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === format,
-  });
-
-  return !!match;
-};
-
-const toggleBlock = (editor, type) => {
-  const isActive = isBlockActive(editor, type);
-  const isList = LIST_TYPES.includes(type);
-
-  Transforms.unwrapNodes(editor, {
-    match: (n) => LIST_TYPES.includes(!Editor.isEditor(n) && SlateElement.isElement(n) && n.type),
-    split: true,
-  });
-  const newProperties: Partial<SlateElement> = {
-    type: isActive ? BLOCKS.PARAGRAPH : isList ? BLOCKS.LIST_ITEM : type,
-  };
-  Transforms.setNodes(editor, newProperties);
-
-  if (!isActive && isList) {
-    const block = { type, children: [] };
-    Transforms.wrapNodes(editor, block);
-  }
-};
-
-function hasSelectionText(editor) {
-  return editor.selection
-    ? Editor.node(editor, editor.selection.focus.path).some(
-        (node) => Text.isText(node) && node.text !== ''
-      )
-    : false;
-}
+import { CustomEditor, CustomElement } from '../../types';
+import { useCustomEditor } from '../../hooks/useCustomEditor';
 
 const styles = {
   dropdown: {
@@ -112,8 +67,11 @@ const styles = {
   },
 };
 
-export function withHeadingEvents(editor, event: KeyboardEvent) {
-  const headings = [
+export function withHeadingEvents(editor: CustomEditor, event: KeyboardEvent) {
+  if (!editor.selection) return;
+
+  // Enter a new line on a heading element
+  const headings: string[] = [
     BLOCKS.HEADING_1,
     BLOCKS.HEADING_2,
     BLOCKS.HEADING_3,
@@ -121,7 +79,6 @@ export function withHeadingEvents(editor, event: KeyboardEvent) {
     BLOCKS.HEADING_5,
     BLOCKS.HEADING_6,
   ];
-
   const [currentFragment] = Editor.fragment(editor, editor.selection.focus.path) as CustomElement[];
   const isEnter = event.keyCode === 13;
   const isCurrentFragmentAHeading = headings.includes(currentFragment.type);
@@ -129,41 +86,80 @@ export function withHeadingEvents(editor, event: KeyboardEvent) {
   if (isEnter && isCurrentFragmentAHeading) {
     event.preventDefault();
 
-    if (hasSelectionText(editor)) {
-      Transforms.insertNodes(editor, { type: BLOCKS.PARAGRAPH, children: [{ text: '' }] });
+    const text = { text: '' };
+    const paragraph = { type: BLOCKS.PARAGRAPH, children: [text] };
+    const heading = { type: currentFragment.type, children: [text] };
+
+    if (editor.hasSelectionText()) {
+      const currentOffset = editor.selection.focus.offset;
+      const currentTextLength = Node.string(currentFragment).length;
+      const cursorIsAtTheBeginning = currentOffset === 0;
+      const cursorIsAtTheEnd = currentTextLength === currentOffset;
+
+      if (cursorIsAtTheBeginning) {
+        Transforms.insertNodes(editor, paragraph, { at: editor.selection });
+      } else if (cursorIsAtTheEnd) {
+        Transforms.insertNodes(editor, paragraph);
+      } else {
+        // Otherwise the cursor is in the middle
+        Transforms.splitNodes(editor);
+        Transforms.setNodes(editor, paragraph);
+      }
     } else {
-      Transforms.setNodes(editor, { type: BLOCKS.PARAGRAPH, children: [{ text: '' }] });
-      Transforms.insertNodes(editor, { type: currentFragment.type, children: [{ text: '' }] });
+      Transforms.setNodes(editor, paragraph);
+      Transforms.insertNodes(editor, heading);
     }
+  }
+
+  // Toggle heading blocks when pressing cmd/ctrl+alt+1|2|3|4|5|6
+  const headingKeyCodes = {
+    49: BLOCKS.HEADING_1,
+    50: BLOCKS.HEADING_2,
+    51: BLOCKS.HEADING_3,
+    52: BLOCKS.HEADING_4,
+    53: BLOCKS.HEADING_5,
+    54: BLOCKS.HEADING_6,
+  };
+  const isMod = event.ctrlKey || event.metaKey;
+  const isAltOrOption = event.altKey;
+  const headingKey = headingKeyCodes[event.keyCode];
+
+  if (isMod && isAltOrOption && headingKey) {
+    event.preventDefault();
+
+    editor.toggleBlock(headingKey);
   }
 }
 
+const LABELS = {
+  [BLOCKS.PARAGRAPH]: 'Normal text',
+  [BLOCKS.HEADING_1]: 'Heading 1',
+  [BLOCKS.HEADING_2]: 'Heading 2',
+  [BLOCKS.HEADING_3]: 'Heading 3',
+  [BLOCKS.HEADING_4]: 'Heading 4',
+  [BLOCKS.HEADING_5]: 'Heading 5',
+  [BLOCKS.HEADING_6]: 'Heading 6',
+};
+
 export function ToolbarHeadingButton() {
-  const editor = Slate.useSlateStatic();
+  const editor = useCustomEditor();
   const [isOpen, setOpen] = React.useState(false);
-  const [selected, setSelected] = React.useState(BLOCKS.PARAGRAPH);
+  const [selected, setSelected] = React.useState<string>(BLOCKS.PARAGRAPH);
 
   React.useEffect(() => {
     if (!editor.selection) return;
 
-    const [element] = Array.from(
-      Editor.nodes(editor, {
-        at: editor.selection.focus,
-        match: (node) => SlateElement.isElement(node),
-      })
-    ).flat();
+    const [element] = editor.getElementFromCurrentSelection();
 
-    setSelected(element.type ?? BLOCKS.PARAGRAPH);
+    setSelected(element ? (element as CustomElement).type : BLOCKS.PARAGRAPH);
   }, [editor.selection]); // eslint-disable-line
 
-  function handleOnSelectItem(type: BLOCKS): void {
+  function handleOnSelectItem(type: string): void {
     if (!editor.selection) return;
 
     setSelected(type);
     setOpen(false);
-
-    toggleBlock(editor, type);
-
+    editor.toggleBlock(type);
     Slate.ReactEditor.focus(editor);
   }
 
@@ -172,126 +168,37 @@ export function ToolbarHeadingButton() {
       isOpen={isOpen}
       onClose={() => setOpen(false)}
       toggleElement={
-        <Button
-          size="small"
-          buttonType="naked"
-          indicateDropdown
-          // disabled={!editor.selection}
-          onClick={() => setOpen(!isOpen)}>
+        <Button size="small" buttonType="naked" indicateDropdown onClick={() => setOpen(!isOpen)}>
           {LABELS[selected]}
         </Button>
       }>
       <DropdownList>
-        <DropdownListItem
-          isActive={selected === BLOCKS.PARAGRAPH}
-          onClick={() => handleOnSelectItem(BLOCKS.PARAGRAPH)}>
-          <span className={cx(styles.dropdown.root, styles.dropdown[BLOCKS.PARAGRAPH])}>
-            Normal text
-          </span>
-        </DropdownListItem>
-        <DropdownListItem
-          isActive={selected === BLOCKS.HEADING_1}
-          onClick={() => handleOnSelectItem(BLOCKS.HEADING_1)}>
-          <span className={cx(styles.dropdown.root, styles.dropdown[BLOCKS.HEADING_1])}>
-            Heading 1
-          </span>
-        </DropdownListItem>
-        <DropdownListItem
-          isActive={selected === BLOCKS.HEADING_2}
-          onClick={() => handleOnSelectItem(BLOCKS.HEADING_2)}>
-          <span className={cx(styles.dropdown.root, styles.dropdown[BLOCKS.HEADING_2])}>
-            Heading 2
-          </span>
-        </DropdownListItem>
-        <DropdownListItem
-          isActive={selected === BLOCKS.HEADING_3}
-          onClick={() => handleOnSelectItem(BLOCKS.HEADING_3)}>
-          <span className={cx(styles.dropdown.root, styles.dropdown[BLOCKS.HEADING_3])}>
-            Heading 3
-          </span>
-        </DropdownListItem>
-        <DropdownListItem
-          isActive={selected === BLOCKS.HEADING_4}
-          onClick={() => handleOnSelectItem(BLOCKS.HEADING_4)}>
-          <span className={cx(styles.dropdown.root, styles.dropdown[BLOCKS.HEADING_4])}>
-            Heading 4
-          </span>
-        </DropdownListItem>
-        <DropdownListItem
-          isActive={selected === BLOCKS.HEADING_5}
-          onClick={() => handleOnSelectItem(BLOCKS.HEADING_5)}>
-          <span className={cx(styles.dropdown.root, styles.dropdown[BLOCKS.HEADING_5])}>
-            Heading 5
-          </span>
-        </DropdownListItem>
-        <DropdownListItem
-          isActive={selected === BLOCKS.HEADING_6}
-          onClick={() => handleOnSelectItem(BLOCKS.HEADING_6)}>
-          <span className={cx(styles.dropdown.root, styles.dropdown[BLOCKS.HEADING_6])}>
-            Heading 6
-          </span>
-        </DropdownListItem>
+        {Object.keys(LABELS).map((key) => (
+          <DropdownListItem
+            key={key}
+            isActive={selected === key}
+            onClick={() => handleOnSelectItem(key)}>
+            <span className={cx(styles.dropdown.root, styles.dropdown[key])}>{LABELS[key]}</span>
+          </DropdownListItem>
+        ))}
       </DropdownList>
     </Dropdown>
   );
 }
 
-export function H1(props: Slate.RenderElementProps) {
-  return (
-    <h1
-      {...props.attributes}
-      className={cx(styles.headings.root, styles.headings[BLOCKS.HEADING_1])}>
-      {props.children}
-    </h1>
-  );
+export function createHeading(Tag, block: BLOCKS) {
+  return function Heading(props: Slate.RenderElementProps) {
+    return (
+      <Tag {...props.attributes} className={cx(styles.headings.root, styles.headings[block])}>
+        {props.children}
+      </Tag>
+    );
+  };
 }
 
-export function H2(props: Slate.RenderElementProps) {
-  return (
-    <h2
-      {...props.attributes}
-      className={cx(styles.headings.root, styles.headings[BLOCKS.HEADING_2])}>
-      {props.children}
-    </h2>
-  );
-}
-
-export function H3(props: Slate.RenderElementProps) {
-  return (
-    <h3
-      {...props.attributes}
-      className={cx(styles.headings.root, styles.headings[BLOCKS.HEADING_3])}>
-      {props.children}
-    </h3>
-  );
-}
-
-export function H4(props: Slate.RenderElementProps) {
-  return (
-    <h4
-      {...props.attributes}
-      className={cx(styles.headings.root, styles.headings[BLOCKS.HEADING_4])}>
-      {props.children}
-    </h4>
-  );
-}
-
-export function H5(props: Slate.RenderElementProps) {
-  return (
-    <h5
-      {...props.attributes}
-      className={cx(styles.headings.root, styles.headings[BLOCKS.HEADING_5])}>
-      {props.children}
-    </h5>
-  );
-}
-
-export function H6(props: Slate.RenderElementProps) {
-  return (
-    <h6
-      {...props.attributes}
-      className={cx(styles.dropdown.root, styles.dropdown[BLOCKS.HEADING_6])}>
-      {props.children}
-    </h6>
-  );
-}
+export const H1 = createHeading('h1', BLOCKS.HEADING_1);
+export const H2 = createHeading('h2', BLOCKS.HEADING_2);
+export const H3 = createHeading('h3', BLOCKS.HEADING_3);
+export const H4 = createHeading('h4', BLOCKS.HEADING_4);
+export const H5 = createHeading('h1', BLOCKS.HEADING_5);
+export const H6 = createHeading('h1', BLOCKS.HEADING_6);
