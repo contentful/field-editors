@@ -8,7 +8,7 @@ import {
   Button,
 } from '@contentful/forma-36-react-components';
 import tokens from '@contentful/forma-36-tokens';
-import { Editor, Transforms, Element, Location, Range, Node } from 'slate';
+import { Editor, Transforms, Node } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { CustomEditor, CustomElement } from '../../types';
 import { useCustomEditor } from '../../hooks/useCustomEditor';

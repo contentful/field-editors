@@ -37,7 +37,9 @@ export function withEditorPlugin(editor: CustomEditor): CustomEditor {
 
     Transforms.unwrapNodes(editor, {
       match: (node) =>
-        LIST_TYPES.includes(!Editor.isEditor(node) && Element.isElement(node) && node.type),
+        !Editor.isEditor(node) &&
+        Element.isElement(node) &&
+        LIST_TYPES.includes((node as CustomElement).type),
       split: true,
     });
     const newProperties: Partial<CustomElement> = {

@@ -134,7 +134,7 @@ describe('Rich Text Editor', () => {
     });
   });
 
-  describe.only('Headings', () => {
+  describe('Headings', () => {
     function getDropdownToolbarButton() {
       return cy.findByTestId('dropdown-heading');
     }
