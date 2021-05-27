@@ -6,7 +6,7 @@ function expectRichTextFieldValue(expectedValue) {
     expect(field.getValue()).to.deep.eq(expectedValue);
   });
 
-  cy.editorEvents().should('deep.include', { id: 1, type: 'setValue', value: expectedValue });
+  // cy.editorEvents().should('deep.include', { id: 1, type: 'setValue', value: expectedValue });
 }
 
 describe('Rich Text Editor', () => {
@@ -16,6 +16,10 @@ describe('Rich Text Editor', () => {
   const IS_MAC =
     typeof window != 'undefined' && /Mac|iPod|iPhone|iPad/.test(window.navigator.platform);
   const mod = IS_MAC ? 'meta' : 'control';
+
+  function getEditor() {
+    return cy.get('[data-slate-editor=true]').click();
+  }
 
   beforeEach(() => {
     cy.visit('/rich-text');
@@ -82,13 +86,13 @@ describe('Rich Text Editor', () => {
     });
   });
 
-  describe.only('HR', () => {
+  describe('HR', () => {
     describe('toolbar button', () => {
       function getHrToolbarButton() {
         return cy.findByTestId('hr-toolbar-button');
       }
 
-      it('be visible', () => {
+      it('should be visible', () => {
         getHrToolbarButton().should('be.visible');
       });
 
@@ -126,6 +130,82 @@ describe('Rich Text Editor', () => {
         );
 
         expectRichTextFieldValue(expectedValue);
+      });
+    });
+  });
+
+  describe.only('Headings', () => {
+    function getDropdownToolbarButton() {
+      return cy.findByTestId('dropdown-heading');
+    }
+
+    function getDropdownList() {
+      return cy.findByTestId('dropdown-heading-list');
+    }
+
+    function getDropdownItem(type: string) {
+      return cy.findByTestId(`dropdown-option-${type}`);
+    }
+
+    const headings = [
+      [BLOCKS.PARAGRAPH, 'Normal text'],
+      [BLOCKS.HEADING_1, 'Heading 1', `{${mod}}{alt}1`],
+      [BLOCKS.HEADING_2, 'Heading 2', `{${mod}}{alt}2`],
+      [BLOCKS.HEADING_3, 'Heading 3', `{${mod}}{alt}3`],
+      [BLOCKS.HEADING_4, 'Heading 4', `{${mod}}{alt}4`],
+      [BLOCKS.HEADING_5, 'Heading 5', `{${mod}}{alt}5`],
+      [BLOCKS.HEADING_6, 'Heading 6', `{${mod}}{alt}6`],
+    ];
+
+    headings.forEach(([heading, label, shortcut]) => {
+      describe(label, () => {
+        it(`allows typing ${label} (${heading})`, () => {
+          getEditor();
+
+          getDropdownToolbarButton().click();
+          getDropdownItem(heading).click();
+          getEditor().typeInSlate('some text');
+
+          const expectedValue = doc(block(heading, {}, text('some text', [])));
+          expectRichTextFieldValue(expectedValue);
+        });
+
+        if (shortcut) {
+          it(`allows writing ${label} (${heading}) via hotkeys ${shortcut}`, () => {
+            getEditor().type(shortcut).typeInSlate('some text');
+
+            const expectedValue = doc(block(heading, {}, text('some text', [])));
+            expectRichTextFieldValue(expectedValue);
+          });
+        }
+
+        it(`should set the dropdown label to ${label}`, () => {
+          getEditor();
+
+          getDropdownToolbarButton().click();
+          getDropdownItem(heading).click();
+          getEditor().typeInSlate('some text');
+
+          getDropdownToolbarButton().should('have.text', label);
+        });
+      });
+    });
+
+    describe('Toolbar', () => {
+      it('should be visible', () => {
+        getDropdownToolbarButton().should('be.visible');
+
+        getDropdownToolbarButton().click();
+        getDropdownList().should('be.visible');
+      });
+
+      it(`should have ${headings.length} items`, () => {
+        getDropdownToolbarButton().click();
+        getDropdownList().children().should('have.length', headings.length);
+
+        headings.forEach(([, label], index) => {
+          getDropdownList().children().eq(index).should('have.text', label);
+        });
       });
     });
   });

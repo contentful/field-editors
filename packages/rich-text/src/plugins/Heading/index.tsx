@@ -167,17 +167,19 @@ export function ToolbarHeadingButton() {
     <Dropdown
       isOpen={isOpen}
       onClose={() => setOpen(false)}
+      testId="dropdown-heading"
       toggleElement={
         <Button size="small" buttonType="naked" indicateDropdown onClick={() => setOpen(!isOpen)}>
           {LABELS[selected]}
         </Button>
       }>
-      <DropdownList>
+      <DropdownList testId="dropdown-heading-list">
         {Object.keys(LABELS).map((key) => (
           <DropdownListItem
             key={key}
             isActive={selected === key}
-            onClick={() => handleOnSelectItem(key)}>
+            onClick={() => handleOnSelectItem(key)}
+            testId={`dropdown-option-${key}`}>
             <span className={cx(styles.dropdown.root, styles.dropdown[key])}>{LABELS[key]}</span>
           </DropdownListItem>
         ))}

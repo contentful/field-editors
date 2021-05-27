@@ -34,7 +34,7 @@ const styles = {
 
 const Toolbar = ({ isDisabled }: ToolbarProps) => {
   return (
-    <EditorToolbar data-test-id="toolbar">
+    <EditorToolbar testId="toolbar">
       <div className={styles.formattingOptionsWrapper}>
         <ToolbarHeadingButton />
 
