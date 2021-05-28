@@ -157,24 +157,24 @@ describe('Rich Text Editor', () => {
       [BLOCKS.HEADING_6, 'Heading 6', `{${mod}}{alt}6`],
     ];
 
-    headings.forEach(([heading, label, shortcut]) => {
+    headings.forEach(([type, label, shortcut]) => {
       describe(label, () => {
-        it(`allows typing ${label} (${heading})`, () => {
+        it(`allows typing ${label} (${type})`, () => {
           getEditor();
 
           getDropdownToolbarButton().click();
-          getDropdownItem(heading).click();
+          getDropdownItem(type).click();
           getEditor().typeInSlate('some text');
 
-          const expectedValue = doc(block(heading, {}, text('some text', [])));
+          const expectedValue = doc(block(type, {}, text('some text', [])));
           expectRichTextFieldValue(expectedValue);
         });
 
         if (shortcut) {
-          it(`allows writing ${label} (${heading}) via hotkeys ${shortcut}`, () => {
+          it(`allows writing ${label} (${type}) via hotkeys ${shortcut}`, () => {
             getEditor().type(shortcut).typeInSlate('some text');
 
-            const expectedValue = doc(block(heading, {}, text('some text', [])));
+            const expectedValue = doc(block(type, {}, text('some text', [])));
             expectRichTextFieldValue(expectedValue);
           });
         }
@@ -183,7 +183,7 @@ describe('Rich Text Editor', () => {
           getEditor();
 
           getDropdownToolbarButton().click();
-          getDropdownItem(heading).click();
+          getDropdownItem(type).click();
           getEditor().typeInSlate('some text');
 
           getDropdownToolbarButton().should('have.text', label);
