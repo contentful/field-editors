@@ -3,7 +3,7 @@ import { document as doc, block, text } from '../../packages/rich-text/src/helpe
 
 function expectRichTextFieldValue(expectedValue) {
   cy.getRichTextField().then((field) => {
-    expect(field.getValue()).to.eql(expectedValue);
+    expect(field.getValue()).to.deep.eq(expectedValue);
   });
 
   // cy.editorEvents().should('deep.include', { id: 1, type: 'setValue', value: expectedValue });
@@ -16,10 +16,6 @@ describe('Rich Text Editor', () => {
   const IS_MAC =
     typeof window != 'undefined' && /Mac|iPod|iPhone|iPad/.test(window.navigator.platform);
   const mod = IS_MAC ? 'meta' : 'control';
-
-  function getEditor() {
-    return cy.get('[data-slate-editor=true]').click();
-  }
 
   beforeEach(() => {
     cy.visit('/rich-text');
@@ -160,11 +156,10 @@ describe('Rich Text Editor', () => {
     headings.forEach(([type, label, shortcut]) => {
       describe(label, () => {
         it(`allows typing ${label} (${type})`, () => {
-          getEditor();
+          editor.click().typeInSlate('some text');
 
           getDropdownToolbarButton().click();
           getDropdownItem(type).click();
-          getEditor().typeInSlate('some text');
 
           const expectedValue = doc(block(type, {}, text('some text', [])));
           expectRichTextFieldValue(expectedValue);
@@ -172,7 +167,7 @@ describe('Rich Text Editor', () => {
 
         if (shortcut) {
           it(`allows writing ${label} (${type}) via hotkeys ${shortcut}`, () => {
-            getEditor().type(shortcut).typeInSlate('some text');
+            editor.click().type(shortcut).typeInSlate('some text');
 
             const expectedValue = doc(block(type, {}, text('some text', [])));
             expectRichTextFieldValue(expectedValue);
@@ -180,11 +175,10 @@ describe('Rich Text Editor', () => {
         }
 
         it(`should set the dropdown label to ${label}`, () => {
-          getEditor();
+          editor.click().typeInSlate('some text');
 
           getDropdownToolbarButton().click();
           getDropdownItem(type).click();
-          getEditor().typeInSlate('some text');
 
           getDropdownToolbarButton().should('have.text', label);
         });
