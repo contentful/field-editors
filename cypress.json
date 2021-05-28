@@ -7,5 +7,11 @@
     "overwrite": false,
     "html": false,
     "json": true
-  }
+  },
+  "defaultCommandTimeout": 15000,
+  "execTimeout": 120000,
+  "taskTimeout": 120000,
+  "pageLoadTimeout": 120000,
+  "requestTimeout": 15000,
+  "responseTimeout": 60000
 }

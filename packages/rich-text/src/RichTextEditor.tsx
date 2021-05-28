@@ -22,7 +22,7 @@ import { withHrEvents, Hr } from './plugins/Hr';
 import { Leaf } from './plugins/Leaf';
 import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/StickyToolbarWrapper';
-import { CustomEditor, CustomElement } from './types';
+import { CustomElement, CustomEditor } from './types';
 import { H1, H2, H3, H4, H5, H6, withHeadingEvents } from './plugins/Heading';
 
 type ConnectedProps = {
@@ -49,7 +49,7 @@ const withEvents = (editor) => (event) =>
   ].forEach((fn) => fn(editor, event));
 
 const ConnectedRichTextEditor = (props: ConnectedProps) => {
-  const editor = useMemo(() => withReact<CustomEditor>(withPlugins(createEditor())), []);
+  const editor = useMemo<CustomEditor>(() => withPlugins(createEditor()), []);
 
   const document = toSlatejsDocument({
     document: props.value || Contentful.EMPTY_DOCUMENT,
