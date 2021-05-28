@@ -38,6 +38,33 @@ type FieldProps = {
   getOptions?: (widgetId: WidgetType, sdk: FieldExtensionSDK) => EditorOptions;
 };
 
+const widgetComponents: Record<string, [React.ComponentType<any>, any?]> = {
+  multipleLine: [MultipleLineEditor],
+  boolean: [BooleanEditor],
+  objectEditor: [JsonEditor],
+  datePicker: [DateEditor],
+  locationEditor: [LocationEditor],
+  checkbox: [CheckboxEditor],
+  listInput: [ListEditor],
+  rating: [RatingEditor],
+  radio: [RadioEditor],
+  tagEditor: [TagsEditor],
+  numberEditor: [NumberEditor],
+  urlEditor: [UrlEditor],
+  slugEditor: [SlugEditor],
+  singleLine: [SingleLineEditor],
+  dropdown: [DropdownEditor],
+  entryLinkEditor: [SingleEntryReferenceEditor, { viewType: 'link', hasCardEditActions: true }],
+  entryCardEditor: [SingleEntryReferenceEditor, { viewType: 'card', hasCardEditActions: true }],
+  entryLinksEditor: [MultipleEntryReferenceEditor, { viewType: 'link', hasCardEditActions: true }],
+  entryCardsEditor: [MultipleEntryReferenceEditor, { viewType: 'card', hasCardEditActions: true }],
+  assetLinkEditor: [SingleMediaEditor, { viewType: 'link' }],
+  assetLinksEditor: [MultipleMediaEditor, { viewType: 'link' }],
+  assetGalleryEditor: [MultipleMediaEditor, { viewType: 'card' }],
+  richTextEditor: [RichTextEditor],
+  markdown: [MarkdownEditor],
+};
+
 export const Field: React.FC<FieldProps> = (props: FieldProps) => {
   const {
     sdk,
@@ -69,230 +96,22 @@ export const Field: React.FC<FieldProps> = (props: FieldProps) => {
           },
         };
 
-  switch (widgetId) {
-    case 'multipleLine':
-      return (
-        <MultipleLineEditor
-          field={field}
-          locales={locales}
-          isInitiallyDisabled={isInitiallyDisabled}
-          {...options[widgetId]}
-        />
-      );
-    case 'boolean':
-      return (
-        <BooleanEditor
-          field={field}
-          isInitiallyDisabled={isInitiallyDisabled}
-          {...options[widgetId]}
-        />
-      );
-    case 'objectEditor':
-      return (
-        <JsonEditor
-          field={field}
-          isInitiallyDisabled={isInitiallyDisabled}
-          {...options[widgetId]}
-        />
-      );
-    case 'datePicker':
-      return (
-        <DateEditor
-          field={field}
-          isInitiallyDisabled={isInitiallyDisabled}
-          {...options[widgetId]}
-        />
-      );
-    case 'locationEditor':
-      return (
-        <LocationEditor
-          field={field}
-          isInitiallyDisabled={isInitiallyDisabled}
-          {...options[widgetId]}
-        />
-      );
-    case 'checkbox':
-      return (
-        <CheckboxEditor
-          field={field}
-          locales={locales}
-          isInitiallyDisabled={isInitiallyDisabled}
-          {...options[widgetId]}
-        />
-      );
-    case 'listInput':
-      return (
-        <ListEditor
-          field={field}
-          locales={locales}
-          isInitiallyDisabled={isInitiallyDisabled}
-          {...options[widgetId]}
-        />
-      );
-    case 'rating':
-      return (
-        <RatingEditor
-          field={field}
-          isInitiallyDisabled={isInitiallyDisabled}
-          {...options[widgetId]}
-        />
-      );
-    case 'radio':
-      return (
-        <RadioEditor
-          field={field}
-          locales={locales}
-          isInitiallyDisabled={isInitiallyDisabled}
-          {...options[widgetId]}
-        />
-      );
-    case 'tagEditor':
-      return (
-        <TagsEditor
-          field={field}
-          isInitiallyDisabled={isInitiallyDisabled}
-          {...options[widgetId]}
-        />
-      );
-    case 'numberEditor':
-      return (
-        <NumberEditor
-          field={field}
-          isInitiallyDisabled={isInitiallyDisabled}
-          {...options[widgetId]}
-        />
-      );
-    case 'urlEditor':
-      return (
-        <UrlEditor field={field} isInitiallyDisabled={isInitiallyDisabled} {...options[widgetId]} />
-      );
-    case 'slugEditor':
-      return (
-        <SlugEditor
-          field={field}
-          baseSdk={sdk}
-          isInitiallyDisabled={isInitiallyDisabled}
-          {...options[widgetId]}
-        />
-      );
-    case 'singleLine':
-      return (
-        <SingleLineEditor
-          field={field}
-          locales={locales}
-          isInitiallyDisabled={isInitiallyDisabled}
-          {...options[widgetId]}
-        />
-      );
-    case 'dropdown':
-      return (
-        <DropdownEditor
-          field={field}
-          locales={locales}
-          isInitiallyDisabled={isInitiallyDisabled}
-          {...options[widgetId]}
-        />
-      );
-    case 'entryLinkEditor': {
-      return (
-        <SingleEntryReferenceEditor
-          viewType="link"
-          sdk={sdk}
-          isInitiallyDisabled={isInitiallyDisabled}
-          hasCardEditActions={true}
-          parameters={referenceEditorParams}
-          {...options[widgetId]}
-        />
-      );
-    }
-    case 'entryCardEditor': {
-      return (
-        <SingleEntryReferenceEditor
-          viewType="card"
-          sdk={sdk}
-          isInitiallyDisabled={isInitiallyDisabled}
-          hasCardEditActions={true}
-          parameters={referenceEditorParams}
-          {...options[widgetId]}
-        />
-      );
-    }
-    case 'entryLinksEditor': {
-      return (
-        <MultipleEntryReferenceEditor
-          viewType="link"
-          sdk={sdk}
-          isInitiallyDisabled={isInitiallyDisabled}
-          hasCardEditActions={true}
-          parameters={referenceEditorParams}
-          {...options[widgetId]}
-        />
-      );
-    }
-    case 'entryCardsEditor': {
-      return (
-        <MultipleEntryReferenceEditor
-          viewType="card"
-          sdk={sdk}
-          isInitiallyDisabled={isInitiallyDisabled}
-          hasCardEditActions={true}
-          parameters={referenceEditorParams}
-          {...options[widgetId]}
-        />
-      );
-    }
-    case 'assetLinkEditor': {
-      return (
-        <SingleMediaEditor
-          viewType="link"
-          sdk={sdk}
-          isInitiallyDisabled={isInitiallyDisabled}
-          parameters={referenceEditorParams}
-          {...options[widgetId]}
-        />
-      );
-    }
-    case 'assetLinksEditor': {
-      return (
-        <MultipleMediaEditor
-          viewType="link"
-          sdk={sdk}
-          isInitiallyDisabled={isInitiallyDisabled}
-          parameters={referenceEditorParams}
-          {...options[widgetId]}
-        />
-      );
-    }
-    case 'assetGalleryEditor': {
-      return (
-        <MultipleMediaEditor
-          viewType="card"
-          sdk={sdk}
-          isInitiallyDisabled={isInitiallyDisabled}
-          parameters={referenceEditorParams}
-          {...options[widgetId]}
-        />
-      );
-    }
-    case 'richTextEditor': {
-      return (
-        <RichTextEditor
-          sdk={sdk}
-          isInitiallyDisabled={isInitiallyDisabled}
-          {...options[widgetId]}
-        />
-      );
-    }
-    case 'markdown': {
-      return (
-        <MarkdownEditor
-          sdk={sdk}
-          isInitiallyDisabled={isInitiallyDisabled}
-          {...options[widgetId]}
-        />
-      );
-    }
-    default:
-      return null;
-  }
+  if (!widgetComponents[widgetId]) return null;
+
+  const [WidgetComponent, widgetStaticProps] = widgetComponents[widgetId];
+
+  const widgetComponentProps = {
+    sdk,
+    field,
+    locales,
+    isInitiallyDisabled,
+    parameters: referenceEditorParams,
+    ...widgetStaticProps,
+    // @ts-expect-error
+    ...options[widgetId],
+  };
+
+  const baseSdk = widgetId === 'slugEditor' ? sdk : undefined
+
+  return <WidgetComponent key={sdk.field.locale} {...widgetComponentProps} baseSdk={baseSdk} />;
 };

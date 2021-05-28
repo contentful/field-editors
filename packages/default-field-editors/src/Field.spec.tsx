@@ -14,16 +14,22 @@ jest.mock('@contentful/field-editor-reference', () => ({
   SingleEntryReferenceEditor: jest.fn(() => <div>mock</div>),
 }));
 
-const [field] = createFakeFieldAPI();
-const sdk: FieldExtensionSDK = {
-  field,
-  locales: createFakeLocalesAPI(),
-} as any;
+const getSdk = (customize?: (field: any) => any, initialValue?: any) => {
+  const [field] = createFakeFieldAPI(customize, initialValue);
+  const sdk: FieldExtensionSDK = {
+    field,
+    locales: createFakeLocalesAPI(locales => {locales.available.push('de'); return locales}),
+  } as any;
+
+  return sdk;
+};
 
 describe('Field', () => {
   afterEach(cleanup);
 
   it('renders custom field editor specified by renderFieldEditor', () => {
+    const sdk = getSdk();
+
     const { queryByTestId } = render(
       <Field
         sdk={sdk}
@@ -39,6 +45,8 @@ describe('Field', () => {
   });
 
   it('renders with specified options', () => {
+    const sdk = getSdk();
+
     const options = {
       entryLinkEditor: {
         onAction: jest.fn(),
@@ -57,5 +65,25 @@ describe('Field', () => {
       onAction: options.entryLinkEditor.onAction,
       renderCustomCard: options.entryLinkEditor.renderCustomCard,
     } as Partial<Parameters<typeof SingleEntryReferenceEditor>[0]>);
+  });
+
+  it('re-renders single field editor when locale changes', () => {
+    const props = { isInitiallyDisabled: false, widgetId: 'singleLine' };
+
+    const { container, rerender } = render(
+      <Field {...props} sdk={getSdk((field: any) => { field.locale = 'en-US'; return field }, 'english value')} />
+    );
+
+    expect(container.querySelector('input')?.value).toEqual(
+      'english value'
+    );
+
+    rerender(
+      <Field {...props} sdk={getSdk((field: any) => { field.locale = 'de'; return field }, 'german value')} />
+    );
+
+    expect(container.querySelector('input')?.value).toEqual(
+      'german value'
+    );
   });
 });
