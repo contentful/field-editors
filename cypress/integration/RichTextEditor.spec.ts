@@ -3,11 +3,7 @@ import { document as doc, block, text } from '../../packages/rich-text/src/helpe
 
 function expectRichTextFieldValue(expectedValue) {
   cy.getRichTextField().then((field) => {
-    console.log({
-      fieldValue: JSON.stringify(field.getValue(), null, 2),
-      expectedValue: JSON.stringify(expectedValue, null, 2),
-    });
-    expect(field.getValue()).to.deep.eq(expectedValue);
+    expect(field.getValue()).to.eql(expectedValue);
   });
 
   // cy.editorEvents().should('deep.include', { id: 1, type: 'setValue', value: expectedValue });
@@ -138,7 +134,7 @@ describe('Rich Text Editor', () => {
     });
   });
 
-  describe.only('Headings', () => {
+  describe('Headings', () => {
     function getDropdownToolbarButton() {
       return cy.findByTestId('dropdown-heading');
     }
