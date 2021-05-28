@@ -3,6 +3,10 @@ import { document as doc, block, text } from '../../packages/rich-text/src/helpe
 
 function expectRichTextFieldValue(expectedValue) {
   cy.getRichTextField().then((field) => {
+    console.log({
+      fieldValue: JSON.stringify(field.getValue(), null, 2),
+      expectedValue: JSON.stringify(expectedValue, null, 2),
+    });
     expect(field.getValue()).to.deep.eq(expectedValue);
   });
 
@@ -134,7 +138,7 @@ describe('Rich Text Editor', () => {
     });
   });
 
-  describe('Headings', () => {
+  describe.only('Headings', () => {
     function getDropdownToolbarButton() {
       return cy.findByTestId('dropdown-heading');
     }
