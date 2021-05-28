@@ -3,7 +3,7 @@ import { document as doc, block, text } from '../../packages/rich-text/src/helpe
 
 function expectRichTextFieldValue(expectedValue) {
   cy.getRichTextField().then((field) => {
-    expect(field.getValue()).to.deep.eq(expectedValue);
+    expect(field.getValue()).to.deep.include(expectedValue);
   });
 
   // cy.editorEvents().should('deep.include', { id: 1, type: 'setValue', value: expectedValue });
