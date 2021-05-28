@@ -11,6 +11,7 @@ import schema from './constants/Schema';
 import deepEquals from 'fast-deep-equal';
 import debounce from 'lodash/debounce';
 import flow from 'lodash/flow';
+import { withHistory } from 'slate-history';
 import { withBoldEvents } from './plugins/Bold';
 import { withItalicEvents } from './plugins/Italic';
 import { withCodeEvents } from './plugins/Code';
@@ -34,7 +35,7 @@ type ConnectedProps = {
   actionsDisabled?: boolean;
 };
 
-const withPlugins = flow([withReact, withMarksPlugin, withEditorPlugin]);
+const withPlugins = flow([withReact, withHistory, withMarksPlugin, withEditorPlugin]);
 
 const withEvents = (editor) => (event) =>
   [

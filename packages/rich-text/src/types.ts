@@ -1,5 +1,6 @@
-import { BaseEditor, Descendant } from 'slate';
+import { Descendant } from 'slate';
 import { ReactEditor } from 'slate-react';
+import { HistoryEditor } from 'slate-history';
 
 export type CustomElement = {
   type: string;
@@ -9,7 +10,7 @@ export type CustomElement = {
 
 export type CustomText = { text: string };
 
-export type CustomEditor = BaseEditor &
+export type CustomEditor = HistoryEditor &
   ReactEditor & {
     isMarkActive: (type: string) => boolean;
     toggleMark: (type: string) => void;
