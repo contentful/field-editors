@@ -1,9 +1,10 @@
 import { MARKS, BLOCKS } from '@contentful/rich-text-types';
+import * as deepEquals from 'fast-deep-equal';
 import { document as doc, block, text } from '../../packages/rich-text/src/helpers/nodeFactory';
 
 function expectRichTextFieldValue(expectedValue) {
   cy.getRichTextField().then((field) => {
-    expect(field.getValue()).eql(expectedValue);
+    expect(deepEquals(field.getValue(), expectedValue)).to.be.true;
   });
 
   // cy.editorEvents().should('deep.include', { id: 1, type: 'setValue', value: expectedValue });
@@ -130,7 +131,7 @@ describe('Rich Text Editor', () => {
     });
   });
 
-  describe('Headings', () => {
+  describe.only('Headings', () => {
     function getDropdownToolbarButton() {
       return cy.findByTestId('dropdown-heading');
     }
