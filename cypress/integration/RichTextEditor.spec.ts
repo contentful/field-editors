@@ -6,8 +6,6 @@ function expectRichTextFieldValue(expectedValue) {
   cy.getRichTextField().then((field) => {
     expect(deepEquals(field.getValue(), expectedValue)).to.be.true;
   });
-
-  // cy.editorEvents().should('deep.include', { id: 1, type: 'setValue', value: expectedValue });
 }
 
 describe('Rich Text Editor', () => {
@@ -172,15 +170,16 @@ describe('Rich Text Editor', () => {
 
             const expectedValue = doc(block(type, {}, text('some text', [])));
 
+            // TOOD: Can we improve it? `expectRichTextFieldValue` fails for this test on CI but it runs fine locally. Somehow the property order of the object fails when comparing it deeply.
             cy.getRichTextField().then((field) => {
               const value = field.getValue();
 
               expect(value).to.have.property('nodeType', 'document');
               expect(value).to.have.deep.property('content', expectedValue.content);
 
-              expect(value.content[0].content[0]).to.have.property('nodeType', 'text');
-              expect(value.content[0].content[0]).to.have.property(
-                'value',
+              expect(value).to.have.nested.property('content[0].content[0].nodeType', 'text');
+              expect(value).to.have.nested.property(
+                'content[0].content[0].value',
                 expectedValue.content[0].content[0].value
               );
             });
