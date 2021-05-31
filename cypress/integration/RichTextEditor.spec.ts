@@ -1,10 +1,9 @@
 import { MARKS, BLOCKS } from '@contentful/rich-text-types';
-import * as deepEquals from 'fast-deep-equal';
 import { document as doc, block, text } from '../../packages/rich-text/src/helpers/nodeFactory';
 
 function expectRichTextFieldValue(expectedValue) {
   cy.getRichTextField().then((field) => {
-    expect(deepEquals(field.getValue(), expectedValue)).to.be.true;
+    expect(field.getValue()).to.deep.eq(expectedValue);
   });
 }
 
@@ -129,7 +128,7 @@ describe('Rich Text Editor', () => {
     });
   });
 
-  describe.only('Headings', () => {
+  describe('Headings', () => {
     function getDropdownToolbarButton() {
       return cy.findByTestId('dropdown-heading');
     }
@@ -154,7 +153,7 @@ describe('Rich Text Editor', () => {
 
     headings.forEach(([type, label, shortcut]) => {
       describe.only(label, () => {
-        it.skip(`allows typing ${label} (${type})`, () => {
+        it(`allows typing ${label} (${type})`, () => {
           editor.click().typeInSlate('some text');
 
           getDropdownToolbarButton().click();
@@ -186,7 +185,7 @@ describe('Rich Text Editor', () => {
           });
         }
 
-        it.skip(`should set the dropdown label to ${label}`, () => {
+        it(`should set the dropdown label to ${label}`, () => {
           editor.click().typeInSlate('some text');
 
           getDropdownToolbarButton().click();
