@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as Slate from 'slate-react';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
-import { Transforms, Editor } from 'slate';
+import { Transforms, Editor, Node } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { useCustomEditor } from '../../hooks/useCustomEditor';
 import { CustomEditor } from 'types';
@@ -20,60 +20,70 @@ const styles = {
 };
 
 export function withQuoteEvents(editor: CustomEditor, event: KeyboardEvent) {
-  const [element] = editor.getFragment();
-  const ENTER_KEY = 13;
-  if (event.keyCode === ENTER_KEY && element?.type === 'blockquote') {
-    // This doesn't do what I thought it might do, but possibly closer to cracking it!
-    // Psuedo code description of what I want - if enter key is pressed and the current element is a blockquote, append the new paragraph within the currently focused blockquote
-    // Transforms.wrapNodes(
-    //   editor,
-    //   { type: 'blockquote', children: [] },
-    //   {
-    //     at: editor.selection.anchor,
-    //     match: (node) => Editor.isBlock(editor, node),
-    //   }
-    // );
+  if (!editor.selection) return;
+
+  const [currentFragment] = Editor.fragment(editor, editor.selection.focus.path) as CustomElement[];
+  const isEnter = event.keyCode === 13;
+
+  if (isEnter && currentFragment?.type === BLOCKS.QUOTE) {
+    event.preventDefault();
+
+    const text = { text: '' };
+    const paragraph = { type: BLOCKS.PARAGRAPH, children: [text] };
+    const quote = { type: BLOCKS.QUOTE, children: [text] };
+
+    if (editor.hasSelectionText()) {
+      const currentOffset = editor.selection.focus.offset;
+      const currentTextLength = Node.string(currentFragment).length;
+      const cursorIsAtTheBeginning = currentOffset === 0;
+      const cursorIsAtTheEnd = currentTextLength === currentOffset;
+
+      if (cursorIsAtTheBeginning) {
+        Transforms.insertNodes(editor, paragraph, { at: editor.selection });
+      } else if (cursorIsAtTheEnd) {
+        Transforms.insertNodes(editor, paragraph);
+      } else {
+        // Otherwise the cursor is in the middle
+        Transforms.splitNodes(editor);
+        Transforms.setNodes(editor, paragraph);
+      }
+    } else {
+      Transforms.setNodes(editor, paragraph);
+      Transforms.insertNodes(editor, quote);
+    }
+  }
+
+  const isBackspace = event.keyCode === 8;
+  const isMod = event.ctrlKey || event.metaKey;
+  const isShift = event.shiftKey;
+  const isOneKey = event.keyCode === 49;
+
+  // shift + cmd/ctrl + 1 = shortcut to toggle blockquote
+  if (isMod && isShift && isOneKey) {
+    editor.toggleBlock(BLOCKS.QUOTE);
+  }
+
+  // On backspace, check if quote is empty. If it's empty, switch the current fragment to a paragraph
+  if (isBackspace && currentFragment?.type === BLOCKS.QUOTE) {
+    if (currentFragment.children.every((children) => children.text === '')) {
+      editor.toggleBlock(BLOCKS.PARAGRAPH);
+    }
   }
 }
 
 export function ToolbarQuoteButton() {
   const editor = useCustomEditor();
 
-  console.log({ editor });
-
-  // TODO: Multiline quotes need to implemented - check if currently in quote and hijack enter key?
-  // TODO: Backspace to remove quote if quote is empty
-  // TODO: Implement hotkey (mod+shift+1)
-  // TODO (future): needs to account for lists
-
   function handleOnClick() {
-    const hasText = editor.selection
-      ? Editor.node(editor, editor.selection.focus.path).some(
-          (node) => node.text && node.text !== ''
-        )
-      : false;
+    console.log({ editor });
 
-    const quote = {
-      type: BLOCKS.QUOTE,
-      children: [{ text: hasText ? 'get the content to wrap in quote block' : '' }],
-    };
-
-    const paragraph = {
-      type: BLOCKS.PARAGRAPH,
-      children: [{ text: '' }],
-    };
-
-    Transforms.setNodes(editor, quote);
-    Transforms.insertNodes(editor, paragraph);
-
+    editor.toggleBlock(BLOCKS.QUOTE);
     Slate.ReactEditor.focus(editor);
+
+    // TODO: Multiline quotes need to implemented - check if currently in quote and hijack enter key?
   }
 
-  return (
-    <button onClick={handleOnClick} type="button">
-      Quote {editor.isBlockSelected('blockquote') ? 'selected' : 'not selected'}
-    </button>
-  );
+  return <button onClick={handleOnClick}>Quote</button>;
 }
 
 export function Quote(props: Slate.RenderLeafProps) {
