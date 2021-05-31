@@ -1,4 +1,4 @@
-import { Descendant } from 'slate';
+import { BaseEditor, Descendant, Path, BaseElement, BaseText } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { HistoryEditor } from 'slate-history';
 
@@ -18,6 +18,8 @@ export type CustomEditor = HistoryEditor &
     isVoid: (element: CustomElement) => boolean;
     hasSelectionText: () => boolean;
     moveToTheNextLine: () => void;
+    toggleBlock: (type: string) => void;
+    getElementFromCurrentSelection: () => (BaseEditor | BaseElement | BaseText | Path)[];
   };
 
 declare module 'slate' {
