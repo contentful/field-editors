@@ -167,6 +167,8 @@ describe('Rich Text Editor', () => {
           it(`allows writing ${label} (${type}) via hotkeys ${shortcut}`, () => {
             editor.click().type(shortcut).typeInSlate('some text');
 
+            cy.wait(600);
+
             const expectedValue = doc(block(type, {}, text('some text', [])));
 
             // TOOD: Can we improve it? `expectRichTextFieldValue` fails for this test on CI but it runs fine locally. Somehow the property order of the object fails when comparing it deeply.
