@@ -9,7 +9,6 @@ import { styles } from './RichTextEditor.styles';
 import { FieldExtensionSDK, FieldConnector } from '@contentful/field-editor-shared';
 import schema from './constants/Schema';
 import deepEquals from 'fast-deep-equal';
-// import debounce from 'lodash/debounce';
 import flow from 'lodash/flow';
 import { withHistory } from 'slate-history';
 import { withBoldEvents } from './plugins/Bold';
@@ -145,7 +144,6 @@ const RichTextEditor = (props: Props) => {
             value={lastRemoteValue}
             sdk={sdk}
             isDisabled={disabled}
-            // onChange={debounce(setValue, 500)} TODO: This is delaying feedbacks to the users. Question: do we need it?
             onChange={setValue}
           />
         )}
