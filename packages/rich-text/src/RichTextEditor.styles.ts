@@ -13,6 +13,7 @@ export const styles = {
     borderTop: 0,
     padding: '20px',
     fontSize: tokens.spacingM,
+    fontFamily: tokens.fontStackPrimary,
     minHeight: '400px',
     background: tokens.colorWhite,
     outline: 'none',

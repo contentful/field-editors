@@ -7,6 +7,7 @@ import {
   EditorToolbarButton,
 } from '@contentful/forma-36-react-components';
 import { ToolbarHrButton } from '../plugins/Hr';
+import { ToolbarHeadingButton } from '../plugins/Heading';
 
 type ToolbarProps = {
   isDisabled?: boolean;
@@ -33,8 +34,12 @@ const styles = {
 
 const Toolbar = ({ isDisabled }: ToolbarProps) => {
   return (
-    <EditorToolbar data-test-id="toolbar">
+    <EditorToolbar testId="toolbar">
       <div className={styles.formattingOptionsWrapper}>
+        <ToolbarHeadingButton />
+
+        <EditorToolbarDivider />
+
         <EditorToolbarButton icon="FormatBold" tooltip="Bold" label="Bold" disabled={isDisabled} />
         <EditorToolbarButton
           icon="FormatItalic"
@@ -48,6 +53,7 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
           label="Underline"
           disabled={isDisabled}
         />
+
         <EditorToolbarDivider />
         <ToolbarHrButton isDisabled={isDisabled} />
       </div>

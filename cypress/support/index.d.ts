@@ -14,7 +14,8 @@ declare namespace Cypress {
       selectAll: () => void;
     }>;
     getRichTextField(): Chainable<{
-      getValue: () => object;
+      getValue: () => Record<any, any>;
     }>;
+    typeInSlate(text: string): Chainable<void>;
   }
 }
