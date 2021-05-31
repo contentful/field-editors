@@ -55,7 +55,6 @@ describe('Rich Text Editor', () => {
           it('allows writing marked text', () => {
             editor.click().type(shortcut).typeInSlate('some text');
 
-            // updates to RichText value are debounced with 600 to compensate any kind of latency, original value is 500
             cy.wait(600);
 
             const expectedValue = doc(
@@ -68,7 +67,6 @@ describe('Rich Text Editor', () => {
           it('allows writing unmarked text', () => {
             editor.click().type(shortcut).type(shortcut).typeInSlate('some text');
 
-            // updates to RichText value are debounced with 600 to compensate any kind of latency, original value is 500
             cy.wait(600);
 
             const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text', [])));
@@ -171,21 +169,7 @@ describe('Rich Text Editor', () => {
 
             const expectedValue = doc(block(type, {}, text('some text', [])));
 
-            // TOOD: Can we improve it? `expectRichTextFieldValue` fails for this test on CI but it runs fine locally. Somehow the property order of the object fails when comparing it deeply.
-            cy.getRichTextField().then((field) => {
-              const value = field.getValue();
-
-              expect(value).to.have.property('nodeType', 'document');
-              expect(value).to.have.nested.property(
-                'content[0].nodeType',
-                expectedValue.content[0].nodeType
-              );
-              expect(value).to.have.nested.property('content[0].content[0].nodeType', 'text');
-              expect(value).to.have.nested.property(
-                'content[0].content[0].value',
-                expectedValue.content[0].content[0].value
-              );
-            });
+            expectRichTextFieldValue(expectedValue);
           });
         }
 
