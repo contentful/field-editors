@@ -174,8 +174,10 @@ describe('Rich Text Editor', () => {
               const value = field.getValue();
 
               expect(value).to.have.property('nodeType', 'document');
-              expect(value).to.have.deep.property('content', expectedValue.content);
-
+              expect(value).to.have.nested.property(
+                'content[0].nodeType',
+                expectedValue.content[0].nodeType
+              );
               expect(value).to.have.nested.property('content[0].content[0].nodeType', 'text');
               expect(value).to.have.nested.property(
                 'content[0].content[0].value',
