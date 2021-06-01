@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.15.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@0.14.4...@contentful/field-editor-markdown@0.15.0) (2021-06-01)
+
+
+### Features
+
+* gracefully handle void elements ([#734](https://github.com/contentful/field-editors/issues/734)) ([c359196](https://github.com/contentful/field-editors/commit/c35919604512d526340036f198268d1f26260603))
+
+
+
+
+
 ## [0.14.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@0.14.3...@contentful/field-editor-markdown@0.14.4) (2021-04-14)
 
 
