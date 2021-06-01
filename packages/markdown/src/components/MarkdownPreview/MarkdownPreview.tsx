@@ -3,6 +3,24 @@ import Markdown from 'markdown-to-jsx';
 import tokens from '@contentful/forma-36-tokens';
 import { css, cx } from 'emotion';
 import { EditorDirection, PreviewComponents } from '../../types';
+import {
+  AreaElement,
+  BaseElement,
+  BrElement,
+  ColElement,
+  CommandElement,
+  EmbedElement,
+  HrElement,
+  ImgElement,
+  InputElement,
+  KeygenElement,
+  LinkElement,
+  MetaElement,
+  ParamElement,
+  SourceElement,
+  TrackElement,
+  WbrElement
+} from '../VoidElements';
 
 const styles = {
   root: css`
@@ -223,6 +241,27 @@ export const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
       <Markdown
         options={{
           overrides: {
+            // these are all void elements, if the user provides children
+            // with it the rendering will fail due to the browser
+            // by overriding them we can surface the problem
+            // see https://www.w3.org/TR/2011/WD-html-markup-20110113/syntax.html#void-element
+            area: { component: AreaElement },
+            base: { component: BaseElement },
+            br: { component: BrElement },
+            col: { component: ColElement },
+            command: { component: CommandElement },
+            embed: { component: EmbedElement },
+            hr: { component: HrElement },
+            img: { component: ImgElement },
+            input: { component: InputElement },
+            keygen: { component: KeygenElement },
+            link: { component: LinkElement },
+            meta: { component: MetaElement },
+            param: { component: ParamElement },
+            source: { component: SourceElement },
+            track: { component: TrackElement },
+            wbr: { component: WbrElement },
+
             svg: {
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               component: SvgWrapper as any,
