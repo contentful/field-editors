@@ -20,6 +20,7 @@ export type CustomEditor = HistoryEditor &
     moveToTheNextLine: () => void;
     toggleBlock: (type: string) => void;
     getElementFromCurrentSelection: () => (BaseEditor | BaseElement | BaseText | Path)[];
+    isList: () => boolean;
   };
 
 declare module 'slate' {

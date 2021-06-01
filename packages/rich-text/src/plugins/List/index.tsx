@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as Slate from 'slate-react';
 import { css } from 'emotion';
-import { Editor, Transforms, Node } from 'slate';
+import { Editor, Transforms, Node, Element } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { CustomEditor, CustomElement } from '../../types';
@@ -9,6 +9,37 @@ import { useCustomEditor } from '../../hooks/useCustomEditor';
 
 export function withListEvents(editor: CustomEditor, event: KeyboardEvent) {
   if (!editor.selection) return;
+
+  const isEnter = event.keyCode === 13;
+  if (isEnter && editor.isList() && !editor.hasSelectionText()) {
+    event.preventDefault();
+
+    const text = { text: '' };
+    const paragraph = { type: BLOCKS.PARAGRAPH, children: [text] };
+    // const li = { type: BLOCKS.LIST_ITEM, children: [text] };
+
+    Transforms.setNodes(editor, paragraph);
+    Transforms.liftNodes(editor, { at: editor.selection });
+  }
+
+  // // Toggle heading blocks when pressing cmd/ctrl+alt+1|2|3|4|5|6
+  // const headingKeyCodes = {
+  //   49: BLOCKS.HEADING_1,
+  //   50: BLOCKS.HEADING_2,
+  //   51: BLOCKS.HEADING_3,
+  //   52: BLOCKS.HEADING_4,
+  //   53: BLOCKS.HEADING_5,
+  //   54: BLOCKS.HEADING_6,
+  // };
+  // const isMod = event.ctrlKey || event.metaKey;
+  // const isAltOrOption = event.altKey;
+  // const headingKey = headingKeyCodes[event.keyCode];
+
+  // if (isMod && isAltOrOption && headingKey) {
+  //   event.preventDefault();
+
+  //   editor.toggleBlock(headingKey);
+  // }
 }
 
 export function ToolbarListButton() {

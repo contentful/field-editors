@@ -4,6 +4,7 @@ import { BLOCKS } from '@contentful/rich-text-types';
 
 export function withEditorPlugin(editor: CustomEditor): CustomEditor {
   const { isVoid: originalIsVoid } = editor;
+  const LIST_TYPES: string[] = [BLOCKS.OL_LIST, BLOCKS.UL_LIST];
 
   function isBlockSelected(type: string): boolean {
     const [match] = Array.from(
@@ -31,7 +32,6 @@ export function withEditorPlugin(editor: CustomEditor): CustomEditor {
   }
 
   function toggleBlock(type: string): void {
-    const LIST_TYPES: string[] = [BLOCKS.OL_LIST, BLOCKS.UL_LIST];
     const isActive = isBlockSelected(type);
     const isList = LIST_TYPES.includes(type);
     const isQuote = type === BLOCKS.QUOTE;
@@ -72,12 +72,22 @@ export function withEditorPlugin(editor: CustomEditor): CustomEditor {
     ).flat();
   }
 
+  function isList() {
+    const element = getElementFromCurrentSelection();
+
+    return element.some(
+      (element) =>
+        Element.isElement(element) && LIST_TYPES.includes((element as CustomElement).type)
+    );
+  }
+
   editor.isBlockSelected = isBlockSelected;
   editor.isVoid = isVoid;
   editor.hasSelectionText = hasSelectionText;
   editor.moveToTheNextLine = moveToTheNextLine;
   editor.toggleBlock = toggleBlock;
   editor.getElementFromCurrentSelection = getElementFromCurrentSelection;
+  editor.isList = isList;
 
   return editor;
 }
