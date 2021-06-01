@@ -8,10 +8,10 @@ import { CustomEditor, CustomElement } from '../../types';
 import { useCustomEditor } from '../../hooks/useCustomEditor';
 
 export function withListEvents(editor: CustomEditor, event: KeyboardEvent) {
-  if (!editor.selection) return;
+  if (!editor.selection || !editor.isList()) return;
 
   const isEnter = event.keyCode === 13;
-  if (isEnter && editor.isList() && !editor.hasSelectionText()) {
+  if (isEnter && !editor.hasSelectionText()) {
     event.preventDefault();
 
     const text = { text: '' };
@@ -60,6 +60,7 @@ export function ToolbarListButton() {
         label="UL"
         testId="ul-toolbar-button"
         onClick={() => handleClick(BLOCKS.UL_LIST)}
+        isActive={editor.isBlockSelected(BLOCKS.UL_LIST)}
       />
       <EditorToolbarButton
         icon="ListNumbered"
@@ -67,6 +68,7 @@ export function ToolbarListButton() {
         label="OL"
         testId="ol-toolbar-button"
         onClick={() => handleClick(BLOCKS.OL_LIST)}
+        isActive={editor.isBlockSelected(BLOCKS.OL_LIST)}
       />
     </React.Fragment>
   );
