@@ -24,6 +24,7 @@ import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/StickyToolbarWrapper';
 import { CustomElement, CustomEditor } from './types';
 import { H1, H2, H3, H4, H5, H6, withHeadingEvents } from './plugins/Heading';
+import { UL, OL, LI, withListEvents } from './plugins/List';
 
 type ConnectedProps = {
   sdk: FieldExtensionSDK;
@@ -47,7 +48,22 @@ const withEvents = (editor) => (event) =>
     withHrEvents,
     withHeadingEvents,
     withQuoteEvents,
+    withListEvents,
   ].forEach((fn) => fn(editor, event));
+
+const elements = {
+  [Contentful.BLOCKS.HR]: Hr,
+  [Contentful.BLOCKS.HEADING_1]: H1,
+  [Contentful.BLOCKS.HEADING_2]: H2,
+  [Contentful.BLOCKS.HEADING_3]: H3,
+  [Contentful.BLOCKS.HEADING_4]: H4,
+  [Contentful.BLOCKS.HEADING_5]: H5,
+  [Contentful.BLOCKS.HEADING_6]: H6,
+  [Contentful.BLOCKS.UL_LIST]: UL,
+  [Contentful.BLOCKS.OL_LIST]: OL,
+  [Contentful.BLOCKS.LIST_ITEM]: LI,
+  [Contentful.BLOCKS.QUOTE]: Quote,
+};
 
 const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const editor = useMemo<CustomEditor>(() => withPlugins(createEditor()), []);
@@ -60,27 +76,7 @@ const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const [value, setValue] = useState(document as CustomElement[]);
 
   const renderElement = useCallback((props) => {
-    switch (props.element.type) {
-      // TODO: add the components for `code`, `paragraph`, `image`, etc
-      case Contentful.BLOCKS.HR:
-        return <Hr {...props} />;
-      case Contentful.BLOCKS.HEADING_1:
-        return <H1 {...props} />;
-      case Contentful.BLOCKS.HEADING_2:
-        return <H2 {...props} />;
-      case Contentful.BLOCKS.HEADING_3:
-        return <H3 {...props} />;
-      case Contentful.BLOCKS.HEADING_4:
-        return <H4 {...props} />;
-      case Contentful.BLOCKS.HEADING_5:
-        return <H5 {...props} />;
-      case Contentful.BLOCKS.HEADING_6:
-        return <H6 {...props} />;
-      case Contentful.BLOCKS.QUOTE:
-        return <Quote {...props} />;
-      default:
-        return <DefaultElement {...props} />;
-    }
+    return React.createElement(elements[props.element.type] ?? DefaultElement, { ...props });
   }, []);
 
   const renderLeaf = useCallback((props: RenderLeafProps) => {

@@ -10,6 +10,7 @@ import {
 import { ToolbarHrButton } from '../plugins/Hr';
 import { ToolbarHeadingButton } from '../plugins/Heading';
 import { ToolbarQuoteButton } from '../plugins/Quote';
+import { ToolbarListButton } from '../plugins/List';
 
 type ToolbarProps = {
   isDisabled?: boolean;
@@ -58,6 +59,8 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
 
         <EditorToolbarDivider />
         <ToolbarQuoteButton isDisabled={isDisabled} />
+
+        <ToolbarListButton />
         <ToolbarHrButton isDisabled={isDisabled} />
       </div>
     </EditorToolbar>

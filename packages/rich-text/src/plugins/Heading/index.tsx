@@ -150,8 +150,9 @@ export function ToolbarHeadingButton() {
     if (!editor.selection) return;
 
     const [element] = editor.getElementFromCurrentSelection();
+    const type = (element as CustomElement).type;
 
-    setSelected(element ? (element as CustomElement).type : BLOCKS.PARAGRAPH);
+    setSelected(LABELS[type] ? type : BLOCKS.PARAGRAPH);
   }, [editor.selection]); // eslint-disable-line
 
   function handleOnSelectItem(type: string): void {
