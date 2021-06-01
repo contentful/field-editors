@@ -48,8 +48,8 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
         <ToolbarCodeButton isDisabled={isDisabled} />
 
         <EditorToolbarDivider />
-        <ToolbarQuoteButton isDisabled={isDisabled} />
 
+        <ToolbarQuoteButton isDisabled={isDisabled} />
         <ToolbarListButton isDisabled={isDisabled} />
         <ToolbarHrButton isDisabled={isDisabled} />
       </div>
