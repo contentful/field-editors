@@ -26,7 +26,7 @@ export function VoidElementsWarning() {
   return (
     <Note noteType="warning" hasCloseButton={false} className={styles.note} testId="markdown-void-elements-warning">
       <Paragraph className={styles.paragraph}>
-        Your markdown contains <TextLink linkType="primary" icon="ExternalLink" iconPosition="right"
+        Your markdown contains <TextLink linkType="primary" icon="ExternalLink" iconPosition="right" target="_blank"
                                          href="https://www.w3.org/TR/2011/WD-html-markup-20110113/syntax.html#void-element">void
         elements</TextLink> that causes the preview to skip those parts.
       </Paragraph>
