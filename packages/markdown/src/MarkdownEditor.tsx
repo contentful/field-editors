@@ -13,6 +13,7 @@ import { openCheatsheetModal } from './dialogs/CheatsheetModalDialog';
 import { MarkdownPreview } from './components/MarkdownPreview/MarkdownPreview';
 import { MarkdownConstraints } from './components/MarkdownConstraints';
 import { createMarkdownActions } from './MarkdownActions';
+import { VoidElementsWarning, VoidElementsContext } from './components/VoidElements';
 
 const styles = {
   container: css({
@@ -86,49 +87,52 @@ export function MarkdownEditor(
 
   return (
     <div className={styles.container} data-test-id="markdown-editor">
-      <MarkdownTabs
-        active={selectedTab}
-        onSelect={(tab) => {
-          setSelectedTab(tab);
-        }}
-      />
-      <MarkdownToolbar
-        mode="default"
-        disabled={isActionDisabled}
-        canUploadAssets={canUploadAssets}
-        actions={actions}
-      />
-      <MarkdownTextarea
-        minHeight={props.minHeight}
-        mode="default"
-        visible={selectedTab === 'editor'}
-        disabled={isActionDisabled}
-        direction={direction}
-        onReady={(editor) => {
-          editor.setContent(props.initialValue ?? '');
-          editor.setReadOnly(props.disabled);
-          setEditor(editor);
-          editor.events.onChange((value: string) => {
-            // Trim empty lines
-            const trimmedValue = value.replace(/^\s+$/gm, '');
-            props.saveValueToSDK(trimmedValue);
-            setCurrentValue(value);
-          });
-        }}
-      />
-      {selectedTab === 'preview' && (
-        <MarkdownPreview
-          direction={direction}
+      <VoidElementsContext>
+        {selectedTab === 'preview' && <VoidElementsWarning />}
+        <MarkdownTabs
+          active={selectedTab}
+          onSelect={(tab) => {
+            setSelectedTab(tab);
+          }}
+        />
+        <MarkdownToolbar
+          mode="default"
+          disabled={isActionDisabled}
+          canUploadAssets={canUploadAssets}
+          actions={actions}
+        />
+        <MarkdownTextarea
           minHeight={props.minHeight}
           mode="default"
-          value={currentValue}
-          previewComponents={props.previewComponents}
+          visible={selectedTab === 'editor'}
+          disabled={isActionDisabled}
+          direction={direction}
+          onReady={(editor) => {
+            editor.setContent(props.initialValue ?? '');
+            editor.setReadOnly(props.disabled);
+            setEditor(editor);
+            editor.events.onChange((value: string) => {
+              // Trim empty lines
+              const trimmedValue = value.replace(/^\s+$/gm, '');
+              props.saveValueToSDK(trimmedValue);
+              setCurrentValue(value);
+            });
+          }}
         />
-      )}
-      <MarkdownBottomBar>
-        <MarkdownHelp onClick={openMarkdownHelp} />
-      </MarkdownBottomBar>
-      <MarkdownConstraints sdk={props.sdk} value={currentValue} />
+        {selectedTab === 'preview' && (
+          <MarkdownPreview
+            direction={direction}
+            minHeight={props.minHeight}
+            mode="default"
+            value={currentValue}
+            previewComponents={props.previewComponents}
+          />
+        )}
+        <MarkdownBottomBar>
+          <MarkdownHelp onClick={openMarkdownHelp} />
+        </MarkdownBottomBar>
+        <MarkdownConstraints sdk={props.sdk} value={currentValue} />
+      </VoidElementsContext>
     </div>
   );
 }
