@@ -39,7 +39,7 @@ describe('Rich Text Editor', () => {
     expectRichTextFieldValue(expectedValue);
   });
 
-  it.only('supports undo and redo', () => {
+  it('supports undo and redo', () => {
     const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text.')));
 
     // type
