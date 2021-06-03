@@ -92,6 +92,7 @@ export function ToolbarHrButton(props: ToolbarHrButtonProps) {
       disabled={props.isDisabled}
       onClick={handleOnClick}
       testId="hr-toolbar-button"
+      isActive={editor.isBlockSelected(BLOCKS.HR)}
     />
   );
 }
