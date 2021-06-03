@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as Slate from 'slate-react';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
+import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { Transforms, Editor, Node } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { useCustomEditor } from '../../hooks/useCustomEditor';
@@ -19,6 +20,10 @@ const styles = {
   }),
 };
 
+const createBlockQuote = (editor: CustomEditor) => {
+  editor.toggleBlock(BLOCKS.QUOTE);
+};
+
 export function withQuoteEvents(editor: CustomEditor, event: KeyboardEvent) {
   if (!editor.selection) return;
 
@@ -30,7 +35,6 @@ export function withQuoteEvents(editor: CustomEditor, event: KeyboardEvent) {
 
     const text = { text: '' };
     const paragraph = { type: BLOCKS.PARAGRAPH, children: [text] };
-    const quote = { type: BLOCKS.QUOTE, children: [text] };
 
     if (editor.hasSelectionText()) {
       const currentOffset = editor.selection.focus.offset;
@@ -41,6 +45,7 @@ export function withQuoteEvents(editor: CustomEditor, event: KeyboardEvent) {
       if (cursorIsAtTheBeginning) {
         Transforms.insertNodes(editor, paragraph, { at: editor.selection });
       } else if (cursorIsAtTheEnd) {
+        console.log('cursor at end');
         Transforms.insertNodes(editor, paragraph);
       } else {
         // Otherwise the cursor is in the middle
@@ -49,7 +54,6 @@ export function withQuoteEvents(editor: CustomEditor, event: KeyboardEvent) {
       }
     } else {
       Transforms.setNodes(editor, paragraph);
-      Transforms.insertNodes(editor, quote);
     }
   }
 
@@ -60,12 +64,16 @@ export function withQuoteEvents(editor: CustomEditor, event: KeyboardEvent) {
 
   // shift + cmd/ctrl + 1 = shortcut to toggle blockquote
   if (isMod && isShift && isOneKey) {
-    editor.toggleBlock(BLOCKS.QUOTE);
+    createBlockQuote(editor);
   }
 
   // On backspace, check if quote is empty. If it's empty, switch the current fragment to a paragraph
   if (isBackspace && currentFragment?.type === BLOCKS.QUOTE) {
-    if (currentFragment.children.every((children) => children.text === '')) {
+    if (
+      editor
+        .getElementFromCurrentSelection()[0]
+        .children.every((item) => item.children.every((item) => item.text === ''))
+    ) {
       editor.toggleBlock(BLOCKS.PARAGRAPH);
     }
   }
@@ -75,15 +83,19 @@ export function ToolbarQuoteButton() {
   const editor = useCustomEditor();
 
   function handleOnClick() {
-    console.log({ editor });
-
-    editor.toggleBlock(BLOCKS.QUOTE);
+    createBlockQuote(editor);
     Slate.ReactEditor.focus(editor);
-
-    // TODO: Multiline quotes need to implemented - check if currently in quote and hijack enter key?
   }
 
-  return <button onClick={handleOnClick}>Quote</button>;
+  return (
+    <EditorToolbarButton
+      icon="Quote"
+      tooltip="Blockquote"
+      label="Blockquote"
+      onClick={handleOnClick}
+      testId="quote-toolbar-button"
+    />
+  );
 }
 
 export function Quote(props: Slate.RenderLeafProps) {

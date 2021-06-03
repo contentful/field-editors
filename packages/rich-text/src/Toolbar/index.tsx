@@ -49,8 +49,6 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
           label="Italic"
           disabled={isDisabled}
         />
-        <ToolbarQuoteButton />
-        <ToolbarHrButton />
         <EditorToolbarButton
           icon="FormatUnderlined"
           tooltip="Underline"
@@ -59,6 +57,7 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
         />
 
         <EditorToolbarDivider />
+        <ToolbarQuoteButton isDisabled={isDisabled} />
         <ToolbarHrButton isDisabled={isDisabled} />
       </div>
     </EditorToolbar>
