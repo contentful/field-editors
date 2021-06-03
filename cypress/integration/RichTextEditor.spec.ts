@@ -1,12 +1,14 @@
 import { MARKS, BLOCKS } from '@contentful/rich-text-types';
 import { document as doc, block, text } from '../../packages/rich-text/src/helpers/nodeFactory';
 
-function expectRichTextFieldValue(expectedValue, { id = 1, type = 'setValue' } = {}) {
+function expectRichTextFieldValue(expectedValue, editorEvents?) {
   cy.getRichTextField().then((field) => {
     expect(field.getValue()).to.deep.eq(expectedValue);
   });
 
-  cy.editorEvents().should('deep.include', { id, type, value: expectedValue });
+  if (editorEvents) {
+    cy.editorEvents().should('deep.include', { ...editorEvents, value: expectedValue });
+  }
 }
 
 describe('Rich Text Editor', () => {
@@ -47,7 +49,7 @@ describe('Rich Text Editor', () => {
 
     cy.wait(500);
 
-    expectRichTextFieldValue(expectedValue, { id: 3 });
+    expectRichTextFieldValue(expectedValue, { id: 3, type: 'setValue' });
 
     // undo
     editor().click().type(`{${mod}}z`).click();
@@ -55,7 +57,7 @@ describe('Rich Text Editor', () => {
 
     // redo
     editor().click().type(`{${mod}}{shift}z`).click();
-    expectRichTextFieldValue(expectedValue, { id: 9 });
+    expectRichTextFieldValue(expectedValue, { id: 9, type: 'setValue' });
   });
 
   describe('Marks', () => {
@@ -173,7 +175,7 @@ describe('Rich Text Editor', () => {
     ];
 
     headings.forEach(([type, label, shortcut]) => {
-      describe.only(label, () => {
+      describe(label, () => {
         it(`allows typing ${label} (${type})`, () => {
           editor().click().typeInSlate('some text');
 
