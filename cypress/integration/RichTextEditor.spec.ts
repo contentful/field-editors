@@ -1,14 +1,18 @@
 import { MARKS, BLOCKS } from '@contentful/rich-text-types';
 import { document as doc, block, text } from '../../packages/rich-text/src/helpers/nodeFactory';
 
-function expectRichTextFieldValue(expectedValue) {
+function expectRichTextFieldValue(expectedValue, editorEvents?) {
   cy.getRichTextField().then((field) => {
     expect(field.getValue()).to.deep.eq(expectedValue);
   });
+
+  if (editorEvents) {
+    cy.editorEvents().should('deep.include', { ...editorEvents, value: expectedValue });
+  }
 }
 
 describe('Rich Text Editor', () => {
-  let editor;
+  let editor: () => Cypress.Chainable<any>;
 
   // copied from the 'is-hotkey' library we use for RichText shortcuts
   const IS_MAC =
@@ -17,8 +21,10 @@ describe('Rich Text Editor', () => {
 
   beforeEach(() => {
     cy.visit('/rich-text');
-    const wrapper = cy.findByTestId('rich-text-editor-integration-test').should('be.visible');
-    editor = wrapper.find('[data-slate-editor=true]').should('be.visible');
+    const wrapper = () => cy.findByTestId('rich-text-editor-integration-test');
+    editor = () => wrapper().find('[data-slate-editor=true]');
+    wrapper().should('be.visible');
+    editor().should('be.visible');
   });
 
   it('is empty by default', () => {
@@ -26,13 +32,32 @@ describe('Rich Text Editor', () => {
   });
 
   it('allows typing', () => {
-    editor.click().typeInSlate('some text').click();
+    editor().click().typeInSlate('some text').click();
 
     cy.wait(500);
 
     const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text')));
 
     expectRichTextFieldValue(expectedValue);
+  });
+
+  it('supports undo and redo', () => {
+    const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text.')));
+
+    // type
+    editor().click().typeInSlate('some text.').click();
+
+    cy.wait(500);
+
+    expectRichTextFieldValue(expectedValue, { id: 3, type: 'setValue' });
+
+    // undo
+    editor().click().type(`{${mod}}z`).click();
+    expectRichTextFieldValue(undefined, { id: 6, type: 'removeValue' });
+
+    // redo
+    editor().click().type(`{${mod}}{shift}z`).click();
+    expectRichTextFieldValue(expectedValue, { id: 9, type: 'setValue' });
   });
 
   describe('Marks', () => {
@@ -53,7 +78,7 @@ describe('Rich Text Editor', () => {
       ].forEach(([toggleType]) => {
         describe(`${mark} mark toggle via ${toggleType}`, () => {
           it('allows writing marked text', () => {
-            editor.click().type(shortcut).typeInSlate('some text');
+            editor().click().type(shortcut).typeInSlate('some text');
 
             cy.wait(600);
 
@@ -65,7 +90,7 @@ describe('Rich Text Editor', () => {
           });
 
           it('allows writing unmarked text', () => {
-            editor.click().type(shortcut).type(shortcut).typeInSlate('some text');
+            editor().click().type(shortcut).type(shortcut).typeInSlate('some text');
 
             cy.wait(600);
 
@@ -89,7 +114,7 @@ describe('Rich Text Editor', () => {
       });
 
       it('should add a new line when clicking', () => {
-        editor.click().typeInSlate('some text');
+        editor().click().typeInSlate('some text');
 
         getHrToolbarButton().click();
 
@@ -105,7 +130,7 @@ describe('Rich Text Editor', () => {
       });
 
       it('should end with an empty paragraph', () => {
-        editor.click().typeInSlate('some text');
+        editor().click().typeInSlate('some text');
 
         getHrToolbarButton().click();
         getHrToolbarButton().click();
@@ -150,9 +175,9 @@ describe('Rich Text Editor', () => {
     ];
 
     headings.forEach(([type, label, shortcut]) => {
-      describe.only(label, () => {
+      describe(label, () => {
         it(`allows typing ${label} (${type})`, () => {
-          editor.click().typeInSlate('some text');
+          editor().click().typeInSlate('some text');
 
           getDropdownToolbarButton().click();
           getDropdownItem(type).click();
@@ -163,7 +188,7 @@ describe('Rich Text Editor', () => {
 
         if (shortcut) {
           it(`allows writing ${label} (${type}) via hotkeys ${shortcut}`, () => {
-            editor.click().type(shortcut).typeInSlate('some text');
+            editor().click().type(shortcut).typeInSlate('some text');
 
             cy.wait(600);
 
@@ -174,7 +199,7 @@ describe('Rich Text Editor', () => {
         }
 
         it(`should set the dropdown label to ${label}`, () => {
-          editor.click().typeInSlate('some text');
+          editor().click().typeInSlate('some text');
 
           getDropdownToolbarButton().click();
           getDropdownItem(type).click();
