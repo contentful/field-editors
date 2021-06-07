@@ -3,7 +3,7 @@ import * as Slate from 'slate-react';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
-import { Transforms, Editor, Node } from 'slate';
+import { Transforms, Editor, Node, Path } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { useCustomEditor } from '../../hooks/useCustomEditor';
 import { CustomEditor } from 'types';
@@ -21,7 +21,20 @@ const styles = {
 };
 
 const createBlockQuote = (editor: CustomEditor) => {
+  if (!editor.selection) return;
+
+  const text = { text: '' };
+  const paragraph = { type: BLOCKS.PARAGRAPH, children: [text] };
+  const path = editor.selection.focus.path;
+  const parent = Editor.parent(editor, path);
+  const next = Editor.next(editor, { at: parent[1] });
+
   editor.toggleBlock(BLOCKS.QUOTE);
+
+  if (!next) {
+    const next = Path.next(parent[1]);
+    Transforms.insertNodes(editor, paragraph, { at: next });
+  }
 };
 
 export function withQuoteEvents(editor: CustomEditor, event: KeyboardEvent) {
@@ -94,6 +107,7 @@ export function ToolbarQuoteButton() {
       label="Blockquote"
       onClick={handleOnClick}
       testId="quote-toolbar-button"
+      isActive={editor.isBlockSelected(BLOCKS.QUOTE)}
     />
   );
 }
@@ -101,7 +115,7 @@ export function ToolbarQuoteButton() {
 export function Quote(props: Slate.RenderLeafProps) {
   return (
     <blockquote {...props.attributes} className={styles.blockquote}>
-      <div>{props.children}</div>
+      {props.children}
     </blockquote>
   );
 }
