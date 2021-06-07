@@ -227,4 +227,84 @@ describe('Rich Text Editor', () => {
       });
     });
   });
+
+  describe('Quote', () => {
+    describe('quote button', () => {
+      function getQuoteToolbarButton() {
+        return cy.findByTestId('quote-toolbar-button');
+      }
+
+      it('should be visible', () => {
+        getQuoteToolbarButton().should('be.visible');
+      });
+
+      it('should add a block quote when clicking followed by a trailing empty paragraph', () => {
+        editor().click();
+
+        getQuoteToolbarButton().click();
+
+        cy.wait(600);
+
+        const expectedValue = doc(
+          block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text('', []))),
+          block(BLOCKS.PARAGRAPH, {}, text('', []))
+        );
+
+        expectRichTextFieldValue(expectedValue);
+      });
+
+      it('should convert existing paragraph into a block quote', () => {
+        editor().click().typeInSlate('some text');
+
+        getQuoteToolbarButton().click();
+
+        cy.wait(600);
+
+        const expectedValue = doc(
+          block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text('some text', []))),
+          block(BLOCKS.PARAGRAPH, {}, text('', []))
+        );
+
+        expectRichTextFieldValue(expectedValue);
+      });
+
+      it('should convert block quote back to paragraph', () => {
+        editor().click().typeInSlate('some text');
+
+        getQuoteToolbarButton().click();
+        getQuoteToolbarButton().click();
+
+        cy.wait(600);
+
+        const expectedValue = doc(
+          block(BLOCKS.PARAGRAPH, {}, text('some text', [])),
+          block(BLOCKS.PARAGRAPH, {}, text('', []))
+        );
+
+        expectRichTextFieldValue(expectedValue);
+      });
+
+      it('should add multi-paragraph block quotes', () => {
+        editor().click().typeInSlate('paragraph 1');
+
+        getQuoteToolbarButton().click();
+
+        editor().type('{enter}').typeInSlate('paragraph 2');
+
+        cy.wait(600);
+
+        const expectedValue = doc(
+          block(
+            BLOCKS.QUOTE,
+            {},
+            block(BLOCKS.PARAGRAPH, {}, text('paragraph 1', [])),
+            block(BLOCKS.PARAGRAPH, {}, text('paragraph 2', []))
+          ),
+          block(BLOCKS.PARAGRAPH, {}, text('', []))
+        );
+
+        expectRichTextFieldValue(expectedValue);
+      });
+    });
+  });
 });

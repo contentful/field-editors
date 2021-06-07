@@ -58,7 +58,6 @@ export function withQuoteEvents(editor: CustomEditor, event: KeyboardEvent) {
       if (cursorIsAtTheBeginning) {
         Transforms.insertNodes(editor, paragraph, { at: editor.selection });
       } else if (cursorIsAtTheEnd) {
-        console.log('cursor at end');
         Transforms.insertNodes(editor, paragraph);
       } else {
         // Otherwise the cursor is in the middle
