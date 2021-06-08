@@ -20,6 +20,10 @@ const styles = {
   }),
 };
 
+interface ToolbarQuoteButtonProps {
+  isDisabled?: boolean;
+}
+
 const createBlockQuote = (editor: CustomEditor) => {
   if (!editor.selection) return;
 
@@ -91,7 +95,7 @@ export function withQuoteEvents(editor: CustomEditor, event: KeyboardEvent) {
   }
 }
 
-export function ToolbarQuoteButton() {
+export function ToolbarQuoteButton(props: ToolbarQuoteButtonProps) {
   const editor = useCustomEditor();
 
   function handleOnClick() {
@@ -106,6 +110,7 @@ export function ToolbarQuoteButton() {
       label="Blockquote"
       onClick={handleOnClick}
       testId="quote-toolbar-button"
+      disabled={props.isDisabled}
       isActive={editor.isBlockSelected(BLOCKS.QUOTE)}
     />
   );
