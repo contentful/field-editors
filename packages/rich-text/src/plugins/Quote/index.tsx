@@ -6,7 +6,7 @@ import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { Transforms, Editor, Node, Path } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { useCustomEditor } from '../../hooks/useCustomEditor';
-import { CustomEditor } from 'types';
+import { CustomElement, CustomEditor } from 'types';
 
 const styles = {
   blockquote: css({
