@@ -86,9 +86,9 @@ export function withQuoteEvents(editor: CustomEditor, event: KeyboardEvent) {
   // On backspace, check if quote is empty. If it's empty, switch the current fragment to a paragraph
   if (isBackspace && currentFragment?.type === BLOCKS.QUOTE) {
     if (
-      editor
-        .getElementFromCurrentSelection()[0]
-        .children.every((item) => item.children.every((item) => item.text === ''))
+      (editor.getElementFromCurrentSelection()[0] as CustomElement).children.every(
+        (item: CustomElement) => item.children.every((item) => item.text === '')
+      )
     ) {
       editor.toggleBlock(BLOCKS.PARAGRAPH);
     }
