@@ -3,10 +3,10 @@ import * as Slate from 'slate-react';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
-import { Transforms, Editor, Node, Path } from 'slate';
+import { Transforms, Editor, Node, Path, Element, Text } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { useCustomEditor } from '../../hooks/useCustomEditor';
-import { CustomElement, CustomEditor } from 'types';
+import { CustomElement, CustomEditor } from '../../types';
 
 const styles = {
   blockquote: css({
@@ -87,7 +87,9 @@ export function withQuoteEvents(editor: CustomEditor, event: KeyboardEvent) {
   // On backspace, check if quote is empty. If it's empty, switch the current fragment to a paragraph
   if (isBackspace && currentFragment?.type === BLOCKS.QUOTE) {
     const quoteIsEmpty = (editor.getElementFromCurrentSelection()[0] as CustomElement).children.every(
-      (item: CustomElement) => item.children.every((item) => item.text === '')
+      (item) =>
+        Element.isElement(item) &&
+        item.children.every((item) => Text.isText(item) && item.text === '')
     );
 
     if (quoteIsEmpty) editor.toggleBlock(BLOCKS.PARAGRAPH);
