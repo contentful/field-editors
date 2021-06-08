@@ -4,6 +4,7 @@ import { HelpText, FieldGroup, FormLabel } from '@contentful/forma-36-react-comp
 import { ValidationErrors } from '@contentful/field-editor-validation-errors';
 import type { FieldExtensionSDK, Entry } from '@contentful/field-editor-shared';
 import { styles } from './FieldWrapper.styles';
+import type { ValidationErrorsProps } from '@contentful/field-editor-validation-errors';
 
 type FieldWrapperProps = {
   name: string;
@@ -17,10 +18,12 @@ type FieldWrapperProps = {
   children: React.ReactNode;
   renderHeading?: (name: string) => JSX.Element | null;
   renderHelpText?: (helpText: string) => JSX.Element | null;
+  ValidationComponent?: React.Component<ValidationErrorsProps>
 };
 
 export const FieldWrapper: React.FC<FieldWrapperProps> = function (props: FieldWrapperProps) {
-  const { ids } = props.sdk;
+  const { ValidationComponent = ValidationErrors, sdk } = props;
+  const { ids } = sdk;
   const defaultGetEntryUrl = (entry: Entry) =>
     `/spaces/${ids.space}/environments/${ids.environmentAlias || ids.environment}/entries/${
       entry.sys.id
@@ -63,7 +66,7 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = function (props: FieldW
 
       {children}
 
-      <ValidationErrors
+      <ValidationComponent
         field={field}
         space={sdk.space}
         locales={sdk.locales}
