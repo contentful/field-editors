@@ -17,7 +17,8 @@ import { withCodeEvents } from './plugins/Code';
 import { withMarksPlugin } from './plugins/Marks';
 import { withUnderlineEvents } from './plugins/Underline';
 import { withEditorPlugin } from './plugins/Editor';
-import { withHrEvents, Hr } from './plugins/Hr';
+import { Hr, withHrEvents } from './plugins/Hr';
+import { Quote, withQuoteEvents } from './plugins/Quote';
 import { Leaf } from './plugins/Leaf';
 import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/StickyToolbarWrapper';
@@ -45,6 +46,7 @@ const withEvents = (editor) => (event) =>
     withUnderlineEvents,
     withHrEvents,
     withHeadingEvents,
+    withQuoteEvents,
   ].forEach((fn) => fn(editor, event));
 
 const ConnectedRichTextEditor = (props: ConnectedProps) => {
@@ -74,6 +76,8 @@ const ConnectedRichTextEditor = (props: ConnectedProps) => {
         return <H5 {...props} />;
       case Contentful.BLOCKS.HEADING_6:
         return <H6 {...props} />;
+      case Contentful.BLOCKS.QUOTE:
+        return <Quote {...props} />;
       default:
         return <DefaultElement {...props} />;
     }
