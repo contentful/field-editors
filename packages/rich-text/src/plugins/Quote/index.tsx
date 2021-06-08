@@ -35,6 +35,7 @@ const createBlockQuote = (editor: CustomEditor) => {
 
   editor.toggleBlock(BLOCKS.QUOTE);
 
+  // TODO: Likely to break when links are being worked on, consider a better way to do this (see https://github.com/contentful/field-editors/pull/737#discussion_r647296301)
   if (!next) {
     const next = Path.next(parent[1]);
     Transforms.insertNodes(editor, paragraph, { at: next });
@@ -85,13 +86,11 @@ export function withQuoteEvents(editor: CustomEditor, event: KeyboardEvent) {
 
   // On backspace, check if quote is empty. If it's empty, switch the current fragment to a paragraph
   if (isBackspace && currentFragment?.type === BLOCKS.QUOTE) {
-    if (
-      (editor.getElementFromCurrentSelection()[0] as CustomElement).children.every(
-        (item: CustomElement) => item.children.every((item) => item.text === '')
-      )
-    ) {
-      editor.toggleBlock(BLOCKS.PARAGRAPH);
-    }
+    const quoteIsEmpty = (editor.getElementFromCurrentSelection()[0] as CustomElement).children.every(
+      (item: CustomElement) => item.children.every((item) => item.text === '')
+    );
+
+    if (quoteIsEmpty) editor.toggleBlock(BLOCKS.PARAGRAPH);
   }
 }
 
