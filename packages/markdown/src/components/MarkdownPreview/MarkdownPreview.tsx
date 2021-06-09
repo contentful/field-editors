@@ -19,7 +19,7 @@ import {
   ParamElement,
   SourceElement,
   TrackElement,
-  WbrElement
+  WbrElement,
 } from '../VoidElements';
 
 const styles = {
@@ -171,6 +171,12 @@ const styles = {
   rtl: css({
     direction: 'rtl',
   }),
+  sandbox: css({
+    display: 'block',
+    width: '100%',
+    height: '100%',
+    border: 0,
+  }),
 };
 
 type MarkdownPreviewProps = {
@@ -224,8 +230,16 @@ function removeChildScripts(element: ReactElement): ReactElement {
   };
 }
 
-export const wrapInSandbox = (html: string) =>
-  `<iframe height="100%" width="100%" srcdoc="${html}" sandbox></iframe>`;
+export const wrapInSandbox = (html: string) => {
+  // Convert HTML string to Data URL
+  // See: https://en.wikipedia.org/wiki/Data_URI_scheme
+  //
+  // We could also use "srcdoc" here. But it doesn't work very well in some
+  // Edge versions.
+  const dataURL = `data:text/html;charset=UTF-8,${encodeURIComponent(html)}`;
+
+  return `<iframe class="${styles.sandbox}" src="${dataURL}" sandbox></iframe>`;
+};
 
 export const SvgWrapper = (props: { children: React.ReactElement[] }) => (
   <svg {...props}>{removeChildScripts({ props }).props.children}</svg>

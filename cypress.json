@@ -6,6 +6,7 @@
     "reportDir": "./cypress/reports/separate-reports",
     "overwrite": false,
     "html": false,
-    "json": true
+    "json": true,
+    "numTestsKeptInMemory": 1
   }
 }
