@@ -224,6 +224,9 @@ function removeChildScripts(element: ReactElement): ReactElement {
   };
 }
 
+export const wrapInSandbox = (html: string) =>
+  `<iframe height="100%" width="100%" srcdoc="${html}" sandbox></iframe>`;
+
 export const SvgWrapper = (props: { children: React.ReactElement[] }) => (
   <svg {...props}>{removeChildScripts({ props }).props.children}</svg>
 );
@@ -275,7 +278,7 @@ export const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
             },
           },
         }}>
-        {props.value}
+        {wrapInSandbox(props.value)}
       </Markdown>
     </div>
   );
