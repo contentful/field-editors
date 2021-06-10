@@ -1,54 +1,25 @@
 import * as React from 'react';
 import * as Slate from 'slate-react';
 import { css } from 'emotion';
-import { Editor, Transforms, Node, Element } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
-import { CustomEditor, CustomElement } from '../../types';
-import { useCustomEditor } from '../../hooks/useCustomEditor';
+import { ELEMENT_LI, ELEMENT_UL, ELEMENT_OL, toggleList } from '@udecode/slate-plugins-list';
+import { useStoreEditor } from '@udecode/slate-plugins-core';
+import { isBlockSelected } from '../../helpers/editor';
+import { CustomSlatePluginOptions } from 'types';
 
-export function withListEvents(editor: CustomEditor, event: KeyboardEvent) {
-  if (!editor.selection || !editor.isList()) return;
-
-  const isEnter = event.keyCode === 13;
-  if (isEnter && !editor.hasSelectionText()) {
-    event.preventDefault();
-
-    const text = { text: '' };
-    const paragraph = { type: BLOCKS.PARAGRAPH, children: [text] };
-    // const li = { type: BLOCKS.LIST_ITEM, children: [text] };
-
-    Transforms.setNodes(editor, paragraph);
-    Transforms.liftNodes(editor, { at: editor.selection });
-  }
-
-  // // Toggle heading blocks when pressing cmd/ctrl+alt+1|2|3|4|5|6
-  // const headingKeyCodes = {
-  //   49: BLOCKS.HEADING_1,
-  //   50: BLOCKS.HEADING_2,
-  //   51: BLOCKS.HEADING_3,
-  //   52: BLOCKS.HEADING_4,
-  //   53: BLOCKS.HEADING_5,
-  //   54: BLOCKS.HEADING_6,
-  // };
-  // const isMod = event.ctrlKey || event.metaKey;
-  // const isAltOrOption = event.altKey;
-  // const headingKey = headingKeyCodes[event.keyCode];
-
-  // if (isMod && isAltOrOption && headingKey) {
-  //   event.preventDefault();
-
-  //   editor.toggleBlock(headingKey);
-  // }
+interface ToolbarListButtonProps {
+  isDisabled?: boolean;
 }
 
-export function ToolbarListButton() {
-  const editor = useCustomEditor();
+export function ToolbarListButton(props: ToolbarListButtonProps) {
+  const editor = useStoreEditor();
 
   function handleClick(type: string): void {
-    if (!editor.selection) return;
+    if (!editor?.selection) return;
 
-    editor.toggleBlock(type);
+    toggleList(editor, { type });
+
     Slate.ReactEditor.focus(editor);
   }
 
@@ -60,7 +31,8 @@ export function ToolbarListButton() {
         label="UL"
         testId="ul-toolbar-button"
         onClick={() => handleClick(BLOCKS.UL_LIST)}
-        isActive={editor.isBlockSelected(BLOCKS.UL_LIST)}
+        isActive={isBlockSelected(editor, BLOCKS.UL_LIST)}
+        disabled={props.isDisabled}
       />
       <EditorToolbarButton
         icon="ListNumbered"
@@ -68,7 +40,8 @@ export function ToolbarListButton() {
         label="OL"
         testId="ol-toolbar-button"
         onClick={() => handleClick(BLOCKS.OL_LIST)}
-        isActive={editor.isBlockSelected(BLOCKS.OL_LIST)}
+        isActive={isBlockSelected(editor, BLOCKS.OL_LIST)}
+        disabled={props.isDisabled}
       />
     </React.Fragment>
   );
@@ -101,3 +74,18 @@ export function createList(Tag, block: BLOCKS) {
 export const UL = createList('ul', BLOCKS.UL_LIST);
 export const OL = createList('ol', BLOCKS.OL_LIST);
 export const LI = createList('li', BLOCKS.LIST_ITEM);
+
+export const withListOptions: CustomSlatePluginOptions = {
+  [ELEMENT_LI]: {
+    type: BLOCKS.LIST_ITEM,
+    component: LI,
+  },
+  [ELEMENT_UL]: {
+    type: BLOCKS.UL_LIST,
+    component: UL,
+  },
+  [ELEMENT_OL]: {
+    type: BLOCKS.OL_LIST,
+    component: OL,
+  },
+};
