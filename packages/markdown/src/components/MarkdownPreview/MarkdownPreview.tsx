@@ -246,7 +246,7 @@ export const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
             // by overriding them we can surface the problem.
             //
             // Some elements are not listed here because we filter them out in
-            // the sanitizing step above.
+            // the cleaning step above.
             //
             // see https://www.w3.org/TR/2011/WD-html-markup-20110113/syntax.html#void-element
             area: { component: AreaElement },
