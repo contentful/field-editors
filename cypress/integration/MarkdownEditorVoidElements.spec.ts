@@ -30,7 +30,7 @@ describe('Markdown Editor / Void elements', () => {
     selectors.getPreviewButton().click();
 
     selectors.getVoidElementsWarning().should('be.visible');
-    selectors.getPreview().should('not.contain.text', 'link children');
+    selectors.getPreview().should('not.contain.text', 'br children');
   });
 
   it('does not render warning if void elements are able to render', () => {
