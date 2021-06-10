@@ -5,8 +5,9 @@ import tokens from '@contentful/forma-36-tokens';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { Transforms, Editor, Node, Path, Element, Text } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { useCustomEditor } from '../../hooks/useCustomEditor';
-import { CustomElement, CustomEditor } from '../../types';
+import { useStoreEditor, SPEditor } from '@udecode/slate-plugins-core';
+import { CustomElement } from '../../types';
+import { isBlockSelected } from '../../helpers/editor';
 
 const styles = {
   blockquote: css({
@@ -24,7 +25,7 @@ interface ToolbarQuoteButtonProps {
   isDisabled?: boolean;
 }
 
-const createBlockQuote = (editor: CustomEditor) => {
+const createBlockQuote = (editor: SPEditor) => {
   if (!editor.selection) return;
 
   const text = { text: '' };
@@ -42,7 +43,7 @@ const createBlockQuote = (editor: CustomEditor) => {
   }
 };
 
-export function withQuoteEvents(editor: CustomEditor, event: KeyboardEvent) {
+export function withQuoteEvents(editor: SPEditor, event: KeyboardEvent) {
   if (!editor.selection) return;
 
   const [currentFragment] = Editor.fragment(editor, editor.selection.focus.path) as CustomElement[];
@@ -97,12 +98,16 @@ export function withQuoteEvents(editor: CustomEditor, event: KeyboardEvent) {
 }
 
 export function ToolbarQuoteButton(props: ToolbarQuoteButtonProps) {
-  const editor = useCustomEditor();
+  const editor = useStoreEditor();
 
   function handleOnClick() {
+    if (!editor) return;
+
     createBlockQuote(editor);
     Slate.ReactEditor.focus(editor);
   }
+
+  if (!editor) return null;
 
   return (
     <EditorToolbarButton
@@ -112,7 +117,7 @@ export function ToolbarQuoteButton(props: ToolbarQuoteButtonProps) {
       onClick={handleOnClick}
       testId="quote-toolbar-button"
       disabled={props.isDisabled}
-      isActive={editor.isBlockSelected(BLOCKS.QUOTE)}
+      isActive={isBlockSelected(editor, BLOCKS.QUOTE)}
     />
   );
 }
