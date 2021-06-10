@@ -199,29 +199,6 @@ function MarkdownLink(props: {
   );
 }
 
-type ReactElement = { props: React.ReactElement['props'] };
-
-function removeChildScripts(element: ReactElement): ReactElement {
-  const children = [];
-  for (const childElement of element.props.children) {
-    if (childElement.type === 'script') {
-      continue;
-    } else if (childElement.props && Array.isArray(childElement.props.children)) {
-      children.push(removeChildScripts(childElement));
-    } else {
-      children.push(childElement);
-    }
-  }
-  return {
-    ...element,
-    props: { ...element.props, children },
-  };
-}
-
-export const SvgWrapper = (props: { children: React.ReactElement[] }) => (
-  <svg {...props}>{removeChildScripts({ props }).props.children}</svg>
-);
-
 export const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
   const className = cx(
     styles.root,
@@ -259,10 +236,6 @@ export const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
             track: { component: TrackElement },
             wbr: { component: WbrElement },
 
-            svg: {
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              component: SvgWrapper as any,
-            },
             a: {
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               component: MarkdownLink as any,
