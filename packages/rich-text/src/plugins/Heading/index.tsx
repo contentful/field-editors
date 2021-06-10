@@ -16,9 +16,13 @@ import {
   getRenderElement,
   SPEditor,
 } from '@udecode/slate-plugins-core';
-import { toggleNodeType, insertNodes, setNodes } from '@udecode/slate-plugins-common';
+import { insertNodes, setNodes } from '@udecode/slate-plugins-common';
 import { CustomElement, CustomSlatePluginOptions } from '../../types';
-import { getElementFromCurrentSelection, hasSelectionText } from '../../helpers/editor';
+import {
+  getElementFromCurrentSelection,
+  hasSelectionText,
+  toggleBlock,
+} from '../../helpers/editor';
 
 const styles = {
   dropdown: {
@@ -138,7 +142,7 @@ export function withHeadingEvents(editor: SPEditor) {
     if (isMod && isAltOrOption && headingKey) {
       event.preventDefault();
 
-      toggleNodeType(editor, { activeType: headingKey });
+      toggleBlock(editor, headingKey);
     }
   };
 }
@@ -176,7 +180,7 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
 
     setSelected(type);
     setOpen(false);
-    toggleNodeType(editor, { activeType: type });
+    toggleBlock(editor, type);
     Slate.ReactEditor.focus(editor);
   }
 
@@ -225,6 +229,10 @@ export const H6 = createHeading('h1', BLOCKS.HEADING_6);
 
 export function createHeadingPlugin(): SlatePlugin {
   const headings: string[] = [
+    // TOOD: We need to move paragraph to its own plugin if needed. We might also need to import 'p' as ELEMENT_PARAGRAPH from @udecode/slate-plugins-paragraph package
+    'p',
+    BLOCKS.PARAGRAPH,
+
     BLOCKS.HEADING_1,
     BLOCKS.HEADING_2,
     BLOCKS.HEADING_3,
@@ -241,6 +249,17 @@ export function createHeadingPlugin(): SlatePlugin {
 }
 
 export const withHeadingOptions: CustomSlatePluginOptions = {
+  // TOOD: We need to move paragraph to its own plugin if needed. We might also need to import 'p' as ELEMENT_PARAGRAPH from @udecode/slate-plugins-paragraph package
+  p: {
+    // We convert default slate plugins `p` to Contentful `BLOCKS.PARAGRAPH`
+    type: BLOCKS.PARAGRAPH,
+    component: Slate.DefaultElement,
+  },
+  [BLOCKS.PARAGRAPH]: {
+    type: BLOCKS.PARAGRAPH,
+    component: Slate.DefaultElement,
+  },
+
   [BLOCKS.HEADING_1]: {
     type: BLOCKS.HEADING_1,
     component: H1,

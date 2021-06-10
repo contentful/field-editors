@@ -34,25 +34,29 @@ export function moveToTheNextLine(editor) {
 export function toggleBlock(editor, type: string): void {
   const isActive = isBlockSelected(editor, type);
   const isList = LIST_TYPES.includes(type);
+  const isQuote = type === BLOCKS.QUOTE;
 
   Transforms.unwrapNodes(editor, {
     match: (node) =>
       !Editor.isEditor(node) &&
       Element.isElement(node) &&
-      LIST_TYPES.includes((node as CustomElement).type),
+      (LIST_TYPES.includes((node as CustomElement).type) ||
+        BLOCKS.QUOTE.includes((node as CustomElement).type)),
     split: true,
   });
   const newProperties: Partial<CustomElement> = {
-    type: isActive ? BLOCKS.PARAGRAPH : isList ? BLOCKS.LIST_ITEM : type,
+    type: isActive
+      ? BLOCKS.PARAGRAPH
+      : isList
+      ? BLOCKS.LIST_ITEM
+      : isQuote
+      ? BLOCKS.PARAGRAPH
+      : type,
   };
   Transforms.setNodes(editor, newProperties);
 
-  if (!isActive && isList) {
-    const block = {
-      type,
-      children: [],
-    };
-
+  if (!isActive && (isList || isQuote)) {
+    const block = { type, children: [] };
     Transforms.wrapNodes(editor, block);
   }
 }
