@@ -7,7 +7,12 @@ import { Transforms, Editor, Node, Path, Element, Text } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { useStoreEditor, SPEditor } from '@udecode/slate-plugins-core';
 import { CustomElement } from '../../types';
-import { isBlockSelected } from '../../helpers/editor';
+import {
+  isBlockSelected,
+  toggleBlock,
+  hasSelectionText,
+  getElementFromCurrentSelection,
+} from '../../helpers/editor';
 
 const styles = {
   blockquote: css({
@@ -34,7 +39,7 @@ const createBlockQuote = (editor: SPEditor) => {
   const parent = Editor.parent(editor, path);
   const next = Editor.next(editor, { at: parent[1] });
 
-  editor.toggleBlock(BLOCKS.QUOTE);
+  toggleBlock(editor, BLOCKS.QUOTE);
 
   // TODO: Likely to break when links are being worked on, consider a better way to do this (see https://github.com/contentful/field-editors/pull/737#discussion_r647296301)
   if (!next) {
@@ -55,7 +60,7 @@ export function withQuoteEvents(editor: SPEditor, event: KeyboardEvent) {
     const text = { text: '' };
     const paragraph = { type: BLOCKS.PARAGRAPH, children: [text] };
 
-    if (editor.hasSelectionText()) {
+    if (hasSelectionText(editor)) {
       const currentOffset = editor.selection.focus.offset;
       const currentTextLength = Node.string(currentFragment).length;
       const cursorIsAtTheBeginning = currentOffset === 0;
@@ -87,13 +92,15 @@ export function withQuoteEvents(editor: SPEditor, event: KeyboardEvent) {
 
   // On backspace, check if quote is empty. If it's empty, switch the current fragment to a paragraph
   if (isBackspace && currentFragment?.type === BLOCKS.QUOTE) {
-    const quoteIsEmpty = (editor.getElementFromCurrentSelection()[0] as CustomElement).children.every(
+    const quoteIsEmpty = (getElementFromCurrentSelection(
+      editor
+    )[0] as CustomElement).children.every(
       (item) =>
         Element.isElement(item) &&
         item.children.every((item) => Text.isText(item) && item.text === '')
     );
 
-    if (quoteIsEmpty) editor.toggleBlock(BLOCKS.PARAGRAPH);
+    if (quoteIsEmpty) toggleBlock(editor, BLOCKS.PARAGRAPH);
   }
 }
 
