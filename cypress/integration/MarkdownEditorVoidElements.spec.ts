@@ -1,4 +1,4 @@
-describe.only('Markdown Editor / Void elements', () => {
+describe('Markdown Editor / Void elements', () => {
   const selectors = {
     getInput() {
       return cy.get('[data-test-id="markdown-textarea"] textarea');
@@ -24,7 +24,7 @@ describe.only('Markdown Editor / Void elements', () => {
     cy.findByTestId('markdown-editor').should('be.visible');
   });
 
-  it.only('renders warning if void elements are used', () => {
+  it('renders warning if void elements are used', () => {
     type('<br>br children</br>');
 
     selectors.getPreviewButton().click();
