@@ -1,22 +1,16 @@
 import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import tokens from '@contentful/forma-36-tokens';
+import DOMPurify from 'dompurify';
 import { css, cx } from 'emotion';
 import { EditorDirection, PreviewComponents } from '../../types';
 import {
   AreaElement,
-  BaseElement,
   BrElement,
   ColElement,
-  CommandElement,
-  EmbedElement,
   HrElement,
   ImgElement,
   InputElement,
-  KeygenElement,
-  LinkElement,
-  MetaElement,
-  ParamElement,
   SourceElement,
   TrackElement,
   WbrElement,
@@ -171,12 +165,6 @@ const styles = {
   rtl: css({
     direction: 'rtl',
   }),
-  sandbox: css({
-    display: 'block',
-    width: '100%',
-    height: '100%',
-    border: 0,
-  }),
 };
 
 type MarkdownPreviewProps = {
@@ -230,17 +218,6 @@ function removeChildScripts(element: ReactElement): ReactElement {
   };
 }
 
-export const wrapInSandbox = (html: string) => {
-  // Convert HTML string to Data URL
-  // See: https://en.wikipedia.org/wiki/Data_URI_scheme
-  //
-  // We could also use "srcdoc" here. But it doesn't work very well in some
-  // Edge versions.
-  const dataURL = `data:text/html;charset=UTF-8,${encodeURIComponent(html)}`;
-
-  return `<iframe class="${styles.sandbox}" src="${dataURL}" sandbox></iframe>`;
-};
-
 export const SvgWrapper = (props: { children: React.ReactElement[] }) => (
   <svg {...props}>{removeChildScripts({ props }).props.children}</svg>
 );
@@ -253,6 +230,12 @@ export const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
     props.direction === 'rtl' ? styles.rtl : undefined
   );
 
+  // See the list of allowed Tags here:
+  // https://github.com/cure53/DOMPurify/blob/main/src/tags.js#L3-L121
+  const cleanHTML = React.useMemo(() => {
+    return DOMPurify.sanitize(props.value);
+  }, [props.value]);
+
   return (
     <div className={className} data-test-id="markdown-preview">
       <Markdown
@@ -260,21 +243,18 @@ export const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
           overrides: {
             // these are all void elements, if the user provides children
             // with it the rendering will fail due to the browser
-            // by overriding them we can surface the problem
+            // by overriding them we can surface the problem.
+            //
+            // Some elements are not listed here because we filter them out in
+            // the sanitizing step above.
+            //
             // see https://www.w3.org/TR/2011/WD-html-markup-20110113/syntax.html#void-element
             area: { component: AreaElement },
-            base: { component: BaseElement },
             br: { component: BrElement },
             col: { component: ColElement },
-            command: { component: CommandElement },
-            embed: { component: EmbedElement },
             hr: { component: HrElement },
             img: { component: ImgElement },
             input: { component: InputElement },
-            keygen: { component: KeygenElement },
-            link: { component: LinkElement },
-            meta: { component: MetaElement },
-            param: { component: ParamElement },
             source: { component: SourceElement },
             track: { component: TrackElement },
             wbr: { component: WbrElement },
@@ -292,7 +272,7 @@ export const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
             },
           },
         }}>
-        {wrapInSandbox(props.value)}
+        {cleanHTML}
       </Markdown>
     </div>
   );
