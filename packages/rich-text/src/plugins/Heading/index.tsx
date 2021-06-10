@@ -10,8 +10,15 @@ import {
 import tokens from '@contentful/forma-36-tokens';
 import { Editor, Transforms, Node } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { CustomEditor, CustomElement } from '../../types';
-import { useCustomEditor } from '../../hooks/useCustomEditor';
+import {
+  useStoreEditor,
+  SlatePlugin,
+  getRenderElement,
+  SPEditor,
+} from '@udecode/slate-plugins-core';
+import { toggleNodeType, insertNodes, setNodes } from '@udecode/slate-plugins-common';
+import { CustomElement, CustomSlatePluginOptions } from '../../types';
+import { getElementFromCurrentSelection, hasSelectionText } from '../../helpers/editor';
 
 const styles = {
   dropdown: {
@@ -67,68 +74,73 @@ const styles = {
   },
 };
 
-export function withHeadingEvents(editor: CustomEditor, event: KeyboardEvent) {
-  if (!editor.selection) return;
+export function withHeadingEvents(editor: SPEditor) {
+  return (event: KeyboardEvent) => {
+    if (!editor.selection) return;
 
-  // Enter a new line on a heading element
-  const headings: string[] = [
-    BLOCKS.HEADING_1,
-    BLOCKS.HEADING_2,
-    BLOCKS.HEADING_3,
-    BLOCKS.HEADING_4,
-    BLOCKS.HEADING_5,
-    BLOCKS.HEADING_6,
-  ];
-  const [currentFragment] = Editor.fragment(editor, editor.selection.focus.path) as CustomElement[];
-  const isEnter = event.keyCode === 13;
-  const isCurrentFragmentAHeading = headings.includes(currentFragment.type);
+    // Enter a new line on a heading element
+    const headings: string[] = [
+      BLOCKS.HEADING_1,
+      BLOCKS.HEADING_2,
+      BLOCKS.HEADING_3,
+      BLOCKS.HEADING_4,
+      BLOCKS.HEADING_5,
+      BLOCKS.HEADING_6,
+    ];
+    const [currentFragment] = Editor.fragment(
+      editor,
+      editor.selection.focus.path
+    ) as CustomElement[];
+    const isEnter = event.keyCode === 13;
+    const isCurrentFragmentAHeading = headings.includes(currentFragment.type);
 
-  if (isEnter && isCurrentFragmentAHeading) {
-    event.preventDefault();
+    if (isEnter && isCurrentFragmentAHeading) {
+      event.preventDefault();
 
-    const text = { text: '' };
-    const paragraph = { type: BLOCKS.PARAGRAPH, children: [text] };
-    const heading = { type: currentFragment.type, children: [text] };
+      const text = { text: '' };
+      const paragraph = { type: BLOCKS.PARAGRAPH, children: [text] };
+      const heading = { type: currentFragment.type, children: [text] };
 
-    if (editor.hasSelectionText()) {
-      const currentOffset = editor.selection.focus.offset;
-      const currentTextLength = Node.string(currentFragment).length;
-      const cursorIsAtTheBeginning = currentOffset === 0;
-      const cursorIsAtTheEnd = currentTextLength === currentOffset;
+      if (hasSelectionText(editor)) {
+        const currentOffset = editor.selection.focus.offset;
+        const currentTextLength = Node.string(currentFragment).length;
+        const cursorIsAtTheBeginning = currentOffset === 0;
+        const cursorIsAtTheEnd = currentTextLength === currentOffset;
 
-      if (cursorIsAtTheBeginning) {
-        Transforms.insertNodes(editor, paragraph, { at: editor.selection });
-      } else if (cursorIsAtTheEnd) {
-        Transforms.insertNodes(editor, paragraph);
+        if (cursorIsAtTheBeginning) {
+          insertNodes(editor, paragraph, { at: editor.selection });
+        } else if (cursorIsAtTheEnd) {
+          insertNodes(editor, paragraph);
+        } else {
+          // Otherwise the cursor is in the middle
+          Transforms.splitNodes(editor);
+          setNodes(editor, paragraph);
+        }
       } else {
-        // Otherwise the cursor is in the middle
-        Transforms.splitNodes(editor);
-        Transforms.setNodes(editor, paragraph);
+        setNodes(editor, paragraph);
+        insertNodes(editor, heading);
       }
-    } else {
-      Transforms.setNodes(editor, paragraph);
-      Transforms.insertNodes(editor, heading);
     }
-  }
 
-  // Toggle heading blocks when pressing cmd/ctrl+alt+1|2|3|4|5|6
-  const headingKeyCodes = {
-    49: BLOCKS.HEADING_1,
-    50: BLOCKS.HEADING_2,
-    51: BLOCKS.HEADING_3,
-    52: BLOCKS.HEADING_4,
-    53: BLOCKS.HEADING_5,
-    54: BLOCKS.HEADING_6,
+    // Toggle heading blocks when pressing cmd/ctrl+alt+1|2|3|4|5|6
+    const headingKeyCodes = {
+      49: BLOCKS.HEADING_1,
+      50: BLOCKS.HEADING_2,
+      51: BLOCKS.HEADING_3,
+      52: BLOCKS.HEADING_4,
+      53: BLOCKS.HEADING_5,
+      54: BLOCKS.HEADING_6,
+    };
+    const isMod = event.ctrlKey || event.metaKey;
+    const isAltOrOption = event.altKey;
+    const headingKey = headingKeyCodes[event.keyCode];
+
+    if (isMod && isAltOrOption && headingKey) {
+      event.preventDefault();
+
+      toggleNodeType(editor, { activeType: headingKey });
+    }
   };
-  const isMod = event.ctrlKey || event.metaKey;
-  const isAltOrOption = event.altKey;
-  const headingKey = headingKeyCodes[event.keyCode];
-
-  if (isMod && isAltOrOption && headingKey) {
-    event.preventDefault();
-
-    editor.toggleBlock(headingKey);
-  }
 }
 
 const LABELS = {
@@ -141,26 +153,30 @@ const LABELS = {
   [BLOCKS.HEADING_6]: 'Heading 6',
 };
 
-export function ToolbarHeadingButton() {
-  const editor = useCustomEditor();
+interface ToolbarHeadingButtonProps {
+  isDisabled?: boolean;
+}
+
+export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
+  const editor = useStoreEditor();
   const [isOpen, setOpen] = React.useState(false);
   const [selected, setSelected] = React.useState<string>(BLOCKS.PARAGRAPH);
 
   React.useEffect(() => {
-    if (!editor.selection) return;
+    if (!editor?.selection) return;
 
-    const [element] = editor.getElementFromCurrentSelection();
+    const [element] = getElementFromCurrentSelection(editor);
     const type = (element as CustomElement).type;
 
     setSelected(LABELS[type] ? type : BLOCKS.PARAGRAPH);
-  }, [editor.selection]); // eslint-disable-line
+  }, [editor?.selection]); // eslint-disable-line
 
   function handleOnSelectItem(type: string): void {
-    if (!editor.selection) return;
+    if (!editor?.selection) return;
 
     setSelected(type);
     setOpen(false);
-    editor.toggleBlock(type);
+    toggleNodeType(editor, { activeType: type });
     Slate.ReactEditor.focus(editor);
   }
 
@@ -180,7 +196,8 @@ export function ToolbarHeadingButton() {
             key={key}
             isActive={selected === key}
             onClick={() => handleOnSelectItem(key)}
-            testId={`dropdown-option-${key}`}>
+            testId={`dropdown-option-${key}`}
+            isDisabled={props.isDisabled}>
             <span className={cx(styles.dropdown.root, styles.dropdown[key])}>{LABELS[key]}</span>
           </DropdownListItem>
         ))}
@@ -205,3 +222,47 @@ export const H3 = createHeading('h3', BLOCKS.HEADING_3);
 export const H4 = createHeading('h4', BLOCKS.HEADING_4);
 export const H5 = createHeading('h1', BLOCKS.HEADING_5);
 export const H6 = createHeading('h1', BLOCKS.HEADING_6);
+
+export function createHeadingPlugin(): SlatePlugin {
+  const headings: string[] = [
+    BLOCKS.HEADING_1,
+    BLOCKS.HEADING_2,
+    BLOCKS.HEADING_3,
+    BLOCKS.HEADING_4,
+    BLOCKS.HEADING_5,
+    BLOCKS.HEADING_6,
+  ];
+
+  return {
+    renderElement: getRenderElement(headings),
+    pluginKeys: headings,
+    onKeyDown: withHeadingEvents,
+  };
+}
+
+export const withHeadingOptions: CustomSlatePluginOptions = {
+  [BLOCKS.HEADING_1]: {
+    type: BLOCKS.HEADING_1,
+    component: H1,
+  },
+  [BLOCKS.HEADING_2]: {
+    type: BLOCKS.HEADING_2,
+    component: H2,
+  },
+  [BLOCKS.HEADING_3]: {
+    type: BLOCKS.HEADING_3,
+    component: H3,
+  },
+  [BLOCKS.HEADING_4]: {
+    type: BLOCKS.HEADING_4,
+    component: H4,
+  },
+  [BLOCKS.HEADING_5]: {
+    type: BLOCKS.HEADING_5,
+    component: H5,
+  },
+  [BLOCKS.HEADING_6]: {
+    type: BLOCKS.HEADING_6,
+    component: H6,
+  },
+};
