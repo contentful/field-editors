@@ -1,26 +1,9 @@
 import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import tokens from '@contentful/forma-36-tokens';
+import DOMPurify from 'dompurify';
 import { css, cx } from 'emotion';
-import { EditorDirection, PreviewComponents } from '../../types';
-import {
-  AreaElement,
-  BaseElement,
-  BrElement,
-  ColElement,
-  CommandElement,
-  EmbedElement,
-  HrElement,
-  ImgElement,
-  InputElement,
-  KeygenElement,
-  LinkElement,
-  MetaElement,
-  ParamElement,
-  SourceElement,
-  TrackElement,
-  WbrElement
-} from '../VoidElements';
+import { EditorDirection, PreviewComponents } from '../types';
 
 const styles = {
   root: css`
@@ -205,29 +188,6 @@ function MarkdownLink(props: {
   );
 }
 
-type ReactElement = { props: React.ReactElement['props'] };
-
-function removeChildScripts(element: ReactElement): ReactElement {
-  const children = [];
-  for (const childElement of element.props.children) {
-    if (childElement.type === 'script') {
-      continue;
-    } else if (childElement.props && Array.isArray(childElement.props.children)) {
-      children.push(removeChildScripts(childElement));
-    } else {
-      children.push(childElement);
-    }
-  }
-  return {
-    ...element,
-    props: { ...element.props, children },
-  };
-}
-
-export const SvgWrapper = (props: { children: React.ReactElement[] }) => (
-  <svg {...props}>{removeChildScripts({ props }).props.children}</svg>
-);
-
 export const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
   const className = cx(
     styles.root,
@@ -236,36 +196,17 @@ export const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
     props.direction === 'rtl' ? styles.rtl : undefined
   );
 
+  // See the list of allowed Tags here:
+  // https://github.com/cure53/DOMPurify/blob/main/src/tags.js#L3-L121
+  const cleanHTML = React.useMemo(() => {
+    return DOMPurify.sanitize(props.value);
+  }, [props.value]);
+
   return (
     <div className={className} data-test-id="markdown-preview">
       <Markdown
         options={{
           overrides: {
-            // these are all void elements, if the user provides children
-            // with it the rendering will fail due to the browser
-            // by overriding them we can surface the problem
-            // see https://www.w3.org/TR/2011/WD-html-markup-20110113/syntax.html#void-element
-            area: { component: AreaElement },
-            base: { component: BaseElement },
-            br: { component: BrElement },
-            col: { component: ColElement },
-            command: { component: CommandElement },
-            embed: { component: EmbedElement },
-            hr: { component: HrElement },
-            img: { component: ImgElement },
-            input: { component: InputElement },
-            keygen: { component: KeygenElement },
-            link: { component: LinkElement },
-            meta: { component: MetaElement },
-            param: { component: ParamElement },
-            source: { component: SourceElement },
-            track: { component: TrackElement },
-            wbr: { component: WbrElement },
-
-            svg: {
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              component: SvgWrapper as any,
-            },
             a: {
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               component: MarkdownLink as any,
@@ -275,7 +216,7 @@ export const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
             },
           },
         }}>
-        {props.value}
+        {cleanHTML}
       </Markdown>
     </div>
   );

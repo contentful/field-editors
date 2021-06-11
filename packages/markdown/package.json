@@ -28,6 +28,7 @@
     "@types/markdown-to-jsx": "6.11.3",
     "codemirror": "^5.48.0",
     "constate": "^3.2.0",
+    "dompurify": "^2.2.9",
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15",
@@ -35,7 +36,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
-    "@contentful/field-editor-test-utils": "^0.11.1"
+    "@contentful/field-editor-test-utils": "^0.11.1",
+    "@types/dompurify": "^2.2.2"
   },
   "peerDependencies": {
     "react": ">=16.8.0"

@@ -11,10 +11,10 @@ describe('Markdown Editor / Void elements', () => {
     },
     getPreview() {
       return cy.findByTestId('markdown-preview');
-    }
+    },
   };
 
-  const type = value => {
+  const type = (value) => {
     return selectors.getInput().type(value, { force: true });
   };
 
@@ -24,21 +24,15 @@ describe('Markdown Editor / Void elements', () => {
     cy.findByTestId('markdown-editor').should('be.visible');
   });
 
-  it('renders warning if void elements are used', () => {
-    type('<link>link children</link>');
+  it('renders even with invalid use of void elements', () => {
+    type(`
+      <br>br</br>
+      <link>link</link>
+      <img></img>
+    `);
 
     selectors.getPreviewButton().click();
-
-    selectors.getVoidElementsWarning().should('be.visible');
-    selectors.getPreview().should('not.contain.text', 'link children');
-  });
-
-  it('does not render warning if void elements are able to render', () => {
-    type('<link>link children');
-
-    selectors.getPreviewButton().click();
-
-    selectors.getVoidElementsWarning().should('not.be.visible');
-    selectors.getPreview().should('contain.text', 'link children');
+    selectors.getPreview().should('contain.text', 'br');
+    selectors.getPreview().should('contain.text', 'link');
   });
 });
