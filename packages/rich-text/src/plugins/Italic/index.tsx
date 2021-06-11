@@ -14,6 +14,13 @@ interface ToolbarItalicButtonProps {
 export function ToolbarItalicButton(props: ToolbarItalicButtonProps) {
   const editor = useStoreEditor();
 
+  function handleClick() {
+    if (!editor?.selection) return;
+
+    toggleMark(editor, MARKS.ITALIC);
+    Slate.ReactEditor.focus(editor);
+  }
+
   if (!editor) return null;
 
   return (
@@ -21,7 +28,7 @@ export function ToolbarItalicButton(props: ToolbarItalicButtonProps) {
       icon="FormatItalic"
       tooltip="Italic"
       label="Italic"
-      onClick={() => toggleMark(editor, MARKS.ITALIC)}
+      onClick={handleClick}
       isActive={isMarkActive(editor, MARKS.ITALIC)}
       disabled={props.isDisabled}
     />

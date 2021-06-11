@@ -14,6 +14,13 @@ interface ToolbarCodeButtonProps {
 export function ToolbarCodeButton(props: ToolbarCodeButtonProps) {
   const editor = useStoreEditor();
 
+  function handleClick() {
+    if (!editor?.selection) return;
+
+    toggleMark(editor, MARKS.CODE);
+    Slate.ReactEditor.focus(editor);
+  }
+
   if (!editor) return null;
 
   return (
@@ -21,7 +28,7 @@ export function ToolbarCodeButton(props: ToolbarCodeButtonProps) {
       icon="Code"
       tooltip="Code"
       label="Code"
-      onClick={() => toggleMark(editor, MARKS.CODE)}
+      onClick={handleClick}
       isActive={isMarkActive(editor, MARKS.CODE)}
       disabled={props.isDisabled}
     />

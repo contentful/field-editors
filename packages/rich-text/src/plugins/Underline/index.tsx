@@ -13,6 +13,13 @@ interface ToolbarUnderlineButtonProps {
 export function ToolbarUnderlineButton(props: ToolbarUnderlineButtonProps) {
   const editor = useStoreEditor();
 
+  function handleClick() {
+    if (!editor?.selection) return;
+
+    toggleMark(editor, MARKS.UNDERLINE);
+    Slate.ReactEditor.focus(editor);
+  }
+
   if (!editor) return null;
 
   return (
@@ -20,7 +27,7 @@ export function ToolbarUnderlineButton(props: ToolbarUnderlineButtonProps) {
       icon="FormatUnderlined"
       tooltip="Underline"
       label="Underline"
-      onClick={() => toggleMark(editor, MARKS.UNDERLINE)}
+      onClick={handleClick}
       isActive={isMarkActive(editor, MARKS.UNDERLINE)}
       disabled={props.isDisabled}
     />

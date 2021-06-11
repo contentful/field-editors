@@ -14,6 +14,13 @@ interface ToolbarBoldButtonProps {
 export function ToolbarBoldButton(props: ToolbarBoldButtonProps) {
   const editor = useStoreEditor();
 
+  function handleClick() {
+    if (!editor?.selection) return;
+
+    toggleMark(editor, MARKS.BOLD);
+    Slate.ReactEditor.focus(editor);
+  }
+
   if (!editor) return null;
 
   return (
@@ -21,7 +28,7 @@ export function ToolbarBoldButton(props: ToolbarBoldButtonProps) {
       icon="FormatBold"
       tooltip="Bold"
       label="Bold"
-      onClick={() => toggleMark(editor, MARKS.BOLD)}
+      onClick={handleClick}
       isActive={isMarkActive(editor, MARKS.BOLD)}
       disabled={props.isDisabled}
     />
