@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.15.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@0.15.0...@contentful/field-editor-markdown@0.15.1) (2021-06-11)
+
+
+### Bug Fixes
+
+* **markdown:** sanitize Markdown output in preview mode ([#740](https://github.com/contentful/field-editors/issues/740)) ([c50655e](https://github.com/contentful/field-editors/commit/c50655e22df750f22b404e396fb97a9b5c1c9009))
+
+
+
+
+
 # [0.15.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@0.14.4...@contentful/field-editor-markdown@0.15.0) (2021-06-01)
 
 
