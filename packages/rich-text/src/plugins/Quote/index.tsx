@@ -5,8 +5,14 @@ import tokens from '@contentful/forma-36-tokens';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { Transforms, Editor, Node, Path, Element, Text } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { useStoreEditor, SPEditor } from '@udecode/slate-plugins-core';
+import {
+  SlatePlugin,
+  useStoreEditor,
+  SPEditor,
+  getRenderElement,
+} from '@udecode/slate-plugins-core';
 import { CustomElement } from '../../types';
+import { CustomSlatePluginOptions } from 'types';
 import {
   isBlockSelected,
   toggleBlock,
@@ -48,60 +54,65 @@ const createBlockQuote = (editor: SPEditor) => {
   }
 };
 
-export function withQuoteEvents(editor: SPEditor, event: KeyboardEvent) {
-  if (!editor.selection) return;
+export function withQuoteEvents(editor: SPEditor) {
+  return (event: KeyboardEvent) => {
+    if (!editor.selection) return;
 
-  const [currentFragment] = Editor.fragment(editor, editor.selection.focus.path) as CustomElement[];
-  const isEnter = event.keyCode === 13;
+    const [currentFragment] = Editor.fragment(
+      editor,
+      editor.selection.focus.path
+    ) as CustomElement[];
+    const isEnter = event.keyCode === 13;
 
-  if (isEnter && currentFragment?.type === BLOCKS.QUOTE) {
-    event.preventDefault();
+    if (isEnter && currentFragment?.type === BLOCKS.QUOTE) {
+      event.preventDefault();
 
-    const text = { text: '' };
-    const paragraph = { type: BLOCKS.PARAGRAPH, children: [text] };
+      const text = { text: '' };
+      const paragraph = { type: BLOCKS.PARAGRAPH, children: [text] };
 
-    if (hasSelectionText(editor)) {
-      const currentOffset = editor.selection.focus.offset;
-      const currentTextLength = Node.string(currentFragment).length;
-      const cursorIsAtTheBeginning = currentOffset === 0;
-      const cursorIsAtTheEnd = currentTextLength === currentOffset;
+      if (hasSelectionText(editor)) {
+        const currentOffset = editor.selection.focus.offset;
+        const currentTextLength = Node.string(currentFragment).length;
+        const cursorIsAtTheBeginning = currentOffset === 0;
+        const cursorIsAtTheEnd = currentTextLength === currentOffset;
 
-      if (cursorIsAtTheBeginning) {
-        Transforms.insertNodes(editor, paragraph, { at: editor.selection });
-      } else if (cursorIsAtTheEnd) {
-        Transforms.insertNodes(editor, paragraph);
+        if (cursorIsAtTheBeginning) {
+          Transforms.insertNodes(editor, paragraph, { at: editor.selection });
+        } else if (cursorIsAtTheEnd) {
+          Transforms.insertNodes(editor, paragraph);
+        } else {
+          // Otherwise the cursor is in the middle
+          Transforms.splitNodes(editor);
+          Transforms.setNodes(editor, paragraph);
+        }
       } else {
-        // Otherwise the cursor is in the middle
-        Transforms.splitNodes(editor);
         Transforms.setNodes(editor, paragraph);
       }
-    } else {
-      Transforms.setNodes(editor, paragraph);
     }
-  }
 
-  const isBackspace = event.keyCode === 8;
-  const isMod = event.ctrlKey || event.metaKey;
-  const isShift = event.shiftKey;
-  const isOneKey = event.keyCode === 49;
+    const isBackspace = event.keyCode === 8;
+    const isMod = event.ctrlKey || event.metaKey;
+    const isShift = event.shiftKey;
+    const isOneKey = event.keyCode === 49;
 
-  // shift + cmd/ctrl + 1 = shortcut to toggle blockquote
-  if (isMod && isShift && isOneKey) {
-    createBlockQuote(editor);
-  }
+    // shift + cmd/ctrl + 1 = shortcut to toggle blockquote
+    if (isMod && isShift && isOneKey) {
+      createBlockQuote(editor);
+    }
 
-  // On backspace, check if quote is empty. If it's empty, switch the current fragment to a paragraph
-  if (isBackspace && currentFragment?.type === BLOCKS.QUOTE) {
-    const quoteIsEmpty = (getElementFromCurrentSelection(
-      editor
-    )[0] as CustomElement).children.every(
-      (item) =>
-        Element.isElement(item) &&
-        item.children.every((item) => Text.isText(item) && item.text === '')
-    );
+    // On backspace, check if quote is empty. If it's empty, switch the current fragment to a paragraph
+    if (isBackspace && currentFragment?.type === BLOCKS.QUOTE) {
+      const quoteIsEmpty = (getElementFromCurrentSelection(
+        editor
+      )[0] as CustomElement).children.every(
+        (item) =>
+          Element.isElement(item) &&
+          item.children.every((item) => Text.isText(item) && item.text === '')
+      );
 
-    if (quoteIsEmpty) toggleBlock(editor, BLOCKS.PARAGRAPH);
-  }
+      if (quoteIsEmpty) toggleBlock(editor, BLOCKS.PARAGRAPH);
+    }
+  };
 }
 
 export function ToolbarQuoteButton(props: ToolbarQuoteButtonProps) {
@@ -136,3 +147,19 @@ export function Quote(props: Slate.RenderLeafProps) {
     </blockquote>
   );
 }
+
+export function createQuotePlugin(): SlatePlugin {
+  return {
+    pluginKeys: BLOCKS.QUOTE,
+    renderElement: getRenderElement(BLOCKS.QUOTE),
+    onKeyDown: withQuoteEvents,
+  };
+}
+
+export const withQuoteOptions: CustomSlatePluginOptions = {
+  [BLOCKS.QUOTE]: {
+    type: BLOCKS.QUOTE,
+    component: Quote,
+    hotkey: ['mod+shift+1'],
+  },
+};
