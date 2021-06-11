@@ -11,7 +11,8 @@
     },
     "noImplicitAny": false,
     "allowJs": true,
-    "jsx": "react"
+    "jsx": "react",
+    "downlevelIteration": true
   },
   "linterOptions": {
     "exclude": ["src/**"]

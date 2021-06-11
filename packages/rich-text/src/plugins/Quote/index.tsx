@@ -5,8 +5,14 @@ import tokens from '@contentful/forma-36-tokens';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { Transforms, Editor, Node, Path, Element, Text } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { useCustomEditor } from '../../hooks/useCustomEditor';
-import { CustomElement, CustomEditor } from '../../types';
+import { useStoreEditor, SPEditor } from '@udecode/slate-plugins-core';
+import { CustomElement } from '../../types';
+import {
+  isBlockSelected,
+  toggleBlock,
+  hasSelectionText,
+  getElementFromCurrentSelection,
+} from '../../helpers/editor';
 
 const styles = {
   blockquote: css({
@@ -24,7 +30,7 @@ interface ToolbarQuoteButtonProps {
   isDisabled?: boolean;
 }
 
-const createBlockQuote = (editor: CustomEditor) => {
+const createBlockQuote = (editor: SPEditor) => {
   if (!editor.selection) return;
 
   const text = { text: '' };
@@ -33,7 +39,7 @@ const createBlockQuote = (editor: CustomEditor) => {
   const parent = Editor.parent(editor, path);
   const next = Editor.next(editor, { at: parent[1] });
 
-  editor.toggleBlock(BLOCKS.QUOTE);
+  toggleBlock(editor, BLOCKS.QUOTE);
 
   // TODO: Likely to break when links are being worked on, consider a better way to do this (see https://github.com/contentful/field-editors/pull/737#discussion_r647296301)
   if (!next) {
@@ -42,7 +48,7 @@ const createBlockQuote = (editor: CustomEditor) => {
   }
 };
 
-export function withQuoteEvents(editor: CustomEditor, event: KeyboardEvent) {
+export function withQuoteEvents(editor: SPEditor, event: KeyboardEvent) {
   if (!editor.selection) return;
 
   const [currentFragment] = Editor.fragment(editor, editor.selection.focus.path) as CustomElement[];
@@ -54,7 +60,7 @@ export function withQuoteEvents(editor: CustomEditor, event: KeyboardEvent) {
     const text = { text: '' };
     const paragraph = { type: BLOCKS.PARAGRAPH, children: [text] };
 
-    if (editor.hasSelectionText()) {
+    if (hasSelectionText(editor)) {
       const currentOffset = editor.selection.focus.offset;
       const currentTextLength = Node.string(currentFragment).length;
       const cursorIsAtTheBeginning = currentOffset === 0;
@@ -86,23 +92,29 @@ export function withQuoteEvents(editor: CustomEditor, event: KeyboardEvent) {
 
   // On backspace, check if quote is empty. If it's empty, switch the current fragment to a paragraph
   if (isBackspace && currentFragment?.type === BLOCKS.QUOTE) {
-    const quoteIsEmpty = (editor.getElementFromCurrentSelection()[0] as CustomElement).children.every(
+    const quoteIsEmpty = (getElementFromCurrentSelection(
+      editor
+    )[0] as CustomElement).children.every(
       (item) =>
         Element.isElement(item) &&
         item.children.every((item) => Text.isText(item) && item.text === '')
     );
 
-    if (quoteIsEmpty) editor.toggleBlock(BLOCKS.PARAGRAPH);
+    if (quoteIsEmpty) toggleBlock(editor, BLOCKS.PARAGRAPH);
   }
 }
 
 export function ToolbarQuoteButton(props: ToolbarQuoteButtonProps) {
-  const editor = useCustomEditor();
+  const editor = useStoreEditor();
 
   function handleOnClick() {
+    if (!editor) return;
+
     createBlockQuote(editor);
     Slate.ReactEditor.focus(editor);
   }
+
+  if (!editor) return null;
 
   return (
     <EditorToolbarButton
@@ -112,7 +124,7 @@ export function ToolbarQuoteButton(props: ToolbarQuoteButtonProps) {
       onClick={handleOnClick}
       testId="quote-toolbar-button"
       disabled={props.isDisabled}
-      isActive={editor.isBlockSelected(BLOCKS.QUOTE)}
+      isActive={isBlockSelected(editor, BLOCKS.QUOTE)}
     />
   );
 }

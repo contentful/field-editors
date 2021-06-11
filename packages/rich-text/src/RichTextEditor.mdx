@@ -110,7 +110,7 @@ import { css } from 'emotion';
 
     return (
       <div data-test-id="rich-text-editor-integration-test">
-        <RichTextEditor sdk={sdk} isInitiallyDisabled={false} />
+        <RichTextEditor sdk={sdk} isInitiallyDisabled={false} editorId="demo" />
         <ActionsPlayground mitt={mitt} renderValue={renderRT} />
       </div>
     );

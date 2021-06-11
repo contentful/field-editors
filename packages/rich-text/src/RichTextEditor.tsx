@@ -1,6 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import { createEditor } from 'slate';
-import { Slate, Editable, withReact, DefaultElement, RenderLeafProps } from 'slate-react';
+import React, { useCallback, useState } from 'react';
 import { toContentfulDocument, toSlatejsDocument } from '@contentful/contentful-slatejs-adapter';
 import * as Contentful from '@contentful/rich-text-types';
 import { EntityProvider } from '@contentful/field-editor-reference';
@@ -9,23 +7,20 @@ import { styles } from './RichTextEditor.styles';
 import { FieldExtensionSDK, FieldConnector } from '@contentful/field-editor-shared';
 import schema from './constants/Schema';
 import deepEquals from 'fast-deep-equal';
-import flow from 'lodash/flow';
-import { withHistory } from 'slate-history';
-import { withBoldEvents } from './plugins/Bold';
-import { withItalicEvents } from './plugins/Italic';
-import { withCodeEvents } from './plugins/Code';
-import { withMarksPlugin } from './plugins/Marks';
-import { withUnderlineEvents } from './plugins/Underline';
-import { withEditorPlugin } from './plugins/Editor';
-import { Hr, withHrEvents } from './plugins/Hr';
-import { Quote, withQuoteEvents } from './plugins/Quote';
-import { Leaf } from './plugins/Leaf';
 import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/StickyToolbarWrapper';
-import { CustomElement, CustomEditor } from './types';
-import { H1, H2, H3, H4, H5, H6, withHeadingEvents } from './plugins/Heading';
+import { withListOptions } from './plugins/List';
+import { SlatePlugins, createHistoryPlugin, createReactPlugin } from '@udecode/slate-plugins-core';
+import { createListPlugin } from '@udecode/slate-plugins-list';
+import { createHrPlugin, withHrOptions } from './plugins/Hr';
+import { withHeadingOptions, createHeadingPlugin } from './plugins/Heading';
+import { createBoldPlugin, withBoldOptions } from './plugins/Bold';
+import { withCodeOptions, createCodePlugin } from './plugins/Code';
+import { withItalicOptions, createItalicPlugin } from './plugins/Italic';
+import { createUnderlinePlugin, withUnderlineOptions } from './plugins/Underline';
 
 type ConnectedProps = {
+  editorId?: string;
   sdk: FieldExtensionSDK;
   minHeight?: string | number;
   value?: object;
@@ -36,56 +31,43 @@ type ConnectedProps = {
   actionsDisabled?: boolean;
 };
 
-const withPlugins = flow([withReact, withHistory, withMarksPlugin, withEditorPlugin]);
+const plugins = [
+  // Core
+  createReactPlugin(),
+  createHistoryPlugin(),
 
-const withEvents = (editor) => (event) =>
-  [
-    withBoldEvents,
-    withItalicEvents,
-    withCodeEvents,
-    withUnderlineEvents,
-    withHrEvents,
-    withHeadingEvents,
-    withQuoteEvents,
-  ].forEach((fn) => fn(editor, event));
+  // Elements
+  createListPlugin(),
+  createHrPlugin(),
+  createHeadingPlugin(),
+
+  // Marks
+  createBoldPlugin(),
+  createCodePlugin(),
+  createItalicPlugin(),
+  createUnderlinePlugin(),
+];
+
+const options = {
+  // Elements
+  ...withListOptions,
+  ...withHrOptions,
+  ...withHeadingOptions,
+
+  // Marks
+  ...withBoldOptions,
+  ...withCodeOptions,
+  ...withItalicOptions,
+  ...withUnderlineOptions,
+};
 
 const ConnectedRichTextEditor = (props: ConnectedProps) => {
-  const editor = useMemo<CustomEditor>(() => withPlugins(createEditor()), []);
-
   const document = toSlatejsDocument({
     document: props.value || Contentful.EMPTY_DOCUMENT,
     schema,
   });
 
-  const [value, setValue] = useState(document as CustomElement[]);
-
-  const renderElement = useCallback((props) => {
-    switch (props.element.type) {
-      // TODO: add the components for `code`, `paragraph`, `image`, etc
-      case Contentful.BLOCKS.HR:
-        return <Hr {...props} />;
-      case Contentful.BLOCKS.HEADING_1:
-        return <H1 {...props} />;
-      case Contentful.BLOCKS.HEADING_2:
-        return <H2 {...props} />;
-      case Contentful.BLOCKS.HEADING_3:
-        return <H3 {...props} />;
-      case Contentful.BLOCKS.HEADING_4:
-        return <H4 {...props} />;
-      case Contentful.BLOCKS.HEADING_5:
-        return <H5 {...props} />;
-      case Contentful.BLOCKS.HEADING_6:
-        return <H6 {...props} />;
-      case Contentful.BLOCKS.QUOTE:
-        return <Quote {...props} />;
-      default:
-        return <DefaultElement {...props} />;
-    }
-  }, []);
-
-  const renderLeaf = useCallback((props: RenderLeafProps) => {
-    return <Leaf {...props} />;
-  }, []);
+  const [value, setValue] = useState(document);
 
   const classNames = cx(
     styles.editor,
@@ -96,29 +78,25 @@ const ConnectedRichTextEditor = (props: ConnectedProps) => {
 
   return (
     <div className={styles.root} data-test-id="rich-text-editor">
-      <Slate
-        editor={editor}
-        // TODO: normalize like in the webapp?
-        // cf. https://github.com/contentful/field-editors/blob/master/packages/rich-text/src/RichTextEditor.jsx#L69-L85
-        value={value}
+      <SlatePlugins
+        id={props.editorId}
+        initialValue={value}
+        plugins={plugins}
+        editableProps={{
+          className: classNames,
+        }}
         onChange={(newValue) => {
-          setValue(newValue as CustomElement[]);
+          setValue(newValue);
           const doc = toContentfulDocument({ document: newValue, schema });
           props.onChange?.(doc);
-        }}>
+        }}
+        options={options}>
         {!props.isToolbarHidden && (
           <StickyToolbarWrapper isDisabled={props.isDisabled}>
             <Toolbar isDisabled={props.isDisabled} />
           </StickyToolbarWrapper>
         )}
-        <Editable
-          className={classNames}
-          renderElement={renderElement}
-          renderLeaf={renderLeaf}
-          onKeyDown={withEvents(editor)}
-          readOnly={props.isDisabled}
-        />
-      </Slate>
+      </SlatePlugins>
     </div>
   );
 };

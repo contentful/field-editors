@@ -1,15 +1,15 @@
 import React from 'react';
 
 import { css } from 'emotion';
-import {
-  EditorToolbar,
-  EditorToolbarDivider,
-  EditorToolbarButton,
-} from '@contentful/forma-36-react-components';
-
+import { EditorToolbar, EditorToolbarDivider } from '@contentful/forma-36-react-components';
 import { ToolbarHrButton } from '../plugins/Hr';
 import { ToolbarHeadingButton } from '../plugins/Heading';
 import { ToolbarQuoteButton } from '../plugins/Quote';
+import { ToolbarListButton } from '../plugins/List';
+import { ToolbarBoldButton } from '../plugins/Bold';
+import { ToolbarCodeButton } from '../plugins/Code';
+import { ToolbarItalicButton } from '../plugins/Italic';
+import { ToolbarUnderlineButton } from '../plugins/Underline';
 
 type ToolbarProps = {
   isDisabled?: boolean;
@@ -38,26 +38,19 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
   return (
     <EditorToolbar testId="toolbar">
       <div className={styles.formattingOptionsWrapper}>
-        <ToolbarHeadingButton />
+        <ToolbarHeadingButton isDisabled={isDisabled} />
 
         <EditorToolbarDivider />
 
-        <EditorToolbarButton icon="FormatBold" tooltip="Bold" label="Bold" disabled={isDisabled} />
-        <EditorToolbarButton
-          icon="FormatItalic"
-          tooltip="Italic"
-          label="Italic"
-          disabled={isDisabled}
-        />
-        <EditorToolbarButton
-          icon="FormatUnderlined"
-          tooltip="Underline"
-          label="Underline"
-          disabled={isDisabled}
-        />
+        <ToolbarBoldButton isDisabled={isDisabled} />
+        <ToolbarItalicButton isDisabled={isDisabled} />
+        <ToolbarUnderlineButton isDisabled={isDisabled} />
+        <ToolbarCodeButton isDisabled={isDisabled} />
 
         <EditorToolbarDivider />
         <ToolbarQuoteButton isDisabled={isDisabled} />
+
+        <ToolbarListButton isDisabled={isDisabled} />
         <ToolbarHrButton isDisabled={isDisabled} />
       </div>
     </EditorToolbar>

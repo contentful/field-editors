@@ -3,10 +3,19 @@ import * as Slate from 'slate-react';
 import { css, cx } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
-import { Transforms, Editor } from 'slate';
+import { Transforms } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { useCustomEditor } from '../../hooks/useCustomEditor';
-import { CustomElement, CustomEditor } from 'types';
+import {
+  getSlatePluginTypes,
+  getRenderElement,
+  useStoreEditor,
+  SlatePlugin,
+  SPEditor,
+  isElement,
+} from '@udecode/slate-plugins-core';
+import { getText, setNodes, insertNodes, getNodes } from '@udecode/slate-plugins-common';
+import { isBlockSelected } from '../../helpers/editor';
+import { CustomSlatePluginOptions } from 'types';
 
 const styles = {
   container: css`
@@ -44,24 +53,31 @@ interface ToolbarHrButtonProps {
   isDisabled?: boolean;
 }
 
-export function withHrEvents(editor: CustomEditor, event: KeyboardEvent) {
-  if (!editor.selection) return;
+export function withHrEvents(editor: SPEditor) {
+  return (event) => {
+    if (!editor.selection) return;
 
-  const [currentFragment] = Editor.fragment(editor, editor.selection.focus.path) as CustomElement[];
-  const isEnter = event.keyCode === 13;
-  const isCurrentBlockHr = currentFragment.type === BLOCKS.HR;
+    const isEnter = event.keyCode === 13;
+    const [currentHrNode] = getNodes(editor, {
+      at: editor.selection.focus.path,
+      match: (node) => isElement(node) && node.type === BLOCKS.HR,
+    });
+    const isCurrentBlockHr = !!currentHrNode;
 
-  if (isEnter && isCurrentBlockHr) {
-    event.preventDefault();
+    if (isEnter && isCurrentBlockHr) {
+      event.preventDefault();
 
-    editor.moveToTheNextLine();
-  }
+      Transforms.move(editor, { distance: 1 });
+    }
+  };
 }
 
 export function ToolbarHrButton(props: ToolbarHrButtonProps) {
-  const editor = useCustomEditor();
+  const editor = useStoreEditor();
 
   function handleOnClick() {
+    if (!editor?.selection) return;
+
     const hr = {
       type: BLOCKS.HR,
       children: [{ text: '' }],
@@ -73,13 +89,11 @@ export function ToolbarHrButton(props: ToolbarHrButtonProps) {
       children: [{ text: '' }],
     };
 
-    if (editor.children.length <= 1 || editor.hasSelectionText()) {
-      Transforms.insertNodes(editor, hr);
-    } else {
-      Transforms.setNodes(editor, hr);
-    }
+    const hasText = !!getText(editor, editor.selection.focus.path);
 
-    Transforms.insertNodes(editor, paragraph);
+    hasText ? insertNodes(editor, hr) : setNodes(editor, hr);
+
+    insertNodes(editor, paragraph);
 
     Slate.ReactEditor.focus(editor);
   }
@@ -92,6 +106,7 @@ export function ToolbarHrButton(props: ToolbarHrButtonProps) {
       disabled={props.isDisabled}
       onClick={handleOnClick}
       testId="hr-toolbar-button"
+      isActive={isBlockSelected(editor, BLOCKS.HR)}
     />
   );
 }
@@ -109,3 +124,19 @@ export function Hr(props: Slate.RenderLeafProps) {
     </div>
   );
 }
+
+export function createHrPlugin(): SlatePlugin {
+  return {
+    renderElement: getRenderElement(BLOCKS.HR),
+    pluginKeys: BLOCKS.HR,
+    onKeyDown: withHrEvents,
+    voidTypes: getSlatePluginTypes(BLOCKS.HR),
+  };
+}
+
+export const withHrOptions: CustomSlatePluginOptions = {
+  [BLOCKS.HR]: {
+    type: BLOCKS.HR,
+    component: Hr,
+  },
+};

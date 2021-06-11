@@ -5361,6 +5361,39 @@
     "@typescript-eslint/types" "4.27.0"
     eslint-visitor-keys "^2.0.0"
 
+"@udecode/slate-plugins-common@^1.0.0-alpha.25":
+  version "1.0.0-alpha.25"
+  resolved "https://registry.yarnpkg.com/@udecode/slate-plugins-common/-/slate-plugins-common-1.0.0-alpha.25.tgz#ccadcacb6de06189d744f2fa42acca4bcc81563f"
+  integrity sha512-tiyXH5z3rwQM7zswfwW9aOKx0yt577+H8SN6cqrEH2yeEA1D3xSQ0CDqNc+tps58rTaJU+I0x6ogdMJ4alJD7g==
+  dependencies:
+    "@udecode/slate-plugins-core" "^1.0.0-alpha.25"
+    is-hotkey "^0.1.6"
+
+"@udecode/slate-plugins-core@^1.0.0-alpha.25":
+  version "1.0.0-alpha.25"
+  resolved "https://registry.yarnpkg.com/@udecode/slate-plugins-core/-/slate-plugins-core-1.0.0-alpha.25.tgz#e49f6539f07addf6765fb2ac75dc5c50a76ca056"
+  integrity sha512-54MdrMJ2qgJSBoKCGxeH5RZeVJJZHv7Eo6qgUizsr1rzCduQ1zzdgSSJi63mgvpE2ieRqSF+fCNxXo4AK3cNvQ==
+  dependencies:
+    lodash "^4.17.21"
+    zustand "^3.3.2"
+
+"@udecode/slate-plugins-list@^1.0.0-alpha.25":
+  version "1.0.0-alpha.25"
+  resolved "https://registry.yarnpkg.com/@udecode/slate-plugins-list/-/slate-plugins-list-1.0.0-alpha.25.tgz#e894aa0cdde5060dd3f3ab62d5715e9abfa3f79f"
+  integrity sha512-wOSNPzBYlP8YG7GT0+4G316hbaGMS49YHybpfxmGnDmIRRsGKNTithjUFDfNubzZYG2ZTKmGO44/ACI6/mYq5Q==
+  dependencies:
+    "@udecode/slate-plugins-common" "^1.0.0-alpha.25"
+    "@udecode/slate-plugins-core" "^1.0.0-alpha.25"
+    "@udecode/slate-plugins-reset-node" "^1.0.0-alpha.25"
+
+"@udecode/slate-plugins-reset-node@^1.0.0-alpha.25":
+  version "1.0.0-alpha.25"
+  resolved "https://registry.yarnpkg.com/@udecode/slate-plugins-reset-node/-/slate-plugins-reset-node-1.0.0-alpha.25.tgz#e0f3667f06e4bf49e86837c0522a96b6373fa062"
+  integrity sha512-G6BxAVhBtPjNpqCqYsxb7sfy59kOHMUXlP6EZwDc06/pGmIvDa15qWFWOvV1uZ5l8a/DDUn7se07MFmEiNRJwQ==
+  dependencies:
+    "@udecode/slate-plugins-common" "^1.0.0-alpha.25"
+    "@udecode/slate-plugins-core" "^1.0.0-alpha.25"
+
 "@ungap/promise-all-settled@1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@ungap/promise-all-settled/-/promise-all-settled-1.1.2.tgz#aa58042711d6e3275dd37dc597e5d31e8c290a44"
@@ -20500,6 +20533,13 @@ slate-history@^0.62.0:
     immer "^7.0.0"
     is-plain-object "^3.0.0"
 
+slate-hyperscript@^0.62.0:
+  version "0.62.0"
+  resolved "https://registry.yarnpkg.com/slate-hyperscript/-/slate-hyperscript-0.62.0.tgz#ff6f86e94936fbf90f8ec07d2ae8fbcd7e45a927"
+  integrity sha512-PbtxrrIr4qPvtPmKli4/FnvQFjf8zmnF0kyNeDQGHvUzpHnsoSYHM/i4POye3/qt5d8WGukiJBPL03QsIW+SIw==
+  dependencies:
+    is-plain-object "^3.0.0"
+
 slate-react@^0.62.0:
   version "0.62.0"
   resolved "https://registry.yarnpkg.com/slate-react/-/slate-react-0.62.0.tgz#023a2b797bd417adbb56b0a1e961768404f05be5"
@@ -23873,6 +23913,11 @@ zlib@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/zlib/-/zlib-1.0.5.tgz#6e7c972fc371c645a6afb03ab14769def114fcc0"
   integrity sha1-bnyXL8NxxkWmr7A6sUdp3vEU/MA=
+
+zustand@^3.3.2:
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/zustand/-/zustand-3.5.2.tgz#cf162a8bd1d86475bf308bc856c4d02ff13fd53c"
+  integrity sha512-HUCQI9O77/D/zvoWPNv4dwLriiiY2xtEqnQ0TVY8uaPjmOHls04Okd0w3sWUE9Ex2LaYlSk11DbPPIOZ6shEWg==
 
 zwitch@^1.0.0:
   version "1.0.5"
