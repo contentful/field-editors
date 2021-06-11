@@ -24,21 +24,15 @@ describe('Markdown Editor / Void elements', () => {
     cy.findByTestId('markdown-editor').should('be.visible');
   });
 
-  it('renders warning if void elements are used', () => {
-    type('<br>br children</br>');
+  it('renders even with invalid use of void elements', () => {
+    type(`
+      <br>br</br>
+      <link>link</link>
+      <img></img>
+    `);
 
     selectors.getPreviewButton().click();
-
-    selectors.getVoidElementsWarning().should('be.visible');
-    selectors.getPreview().should('not.contain.text', 'br children');
-  });
-
-  it('does not render warning if void elements are able to render', () => {
-    type('<br>br children');
-
-    selectors.getPreviewButton().click();
-
-    selectors.getVoidElementsWarning().should('not.be.visible');
-    selectors.getPreview().should('contain.text', 'br children');
+    selectors.getPreview().should('contain.text', 'br');
+    selectors.getPreview().should('contain.text', 'link');
   });
 });

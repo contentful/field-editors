@@ -3,18 +3,7 @@ import Markdown from 'markdown-to-jsx';
 import tokens from '@contentful/forma-36-tokens';
 import DOMPurify from 'dompurify';
 import { css, cx } from 'emotion';
-import { EditorDirection, PreviewComponents } from '../../types';
-import {
-  AreaElement,
-  BrElement,
-  ColElement,
-  HrElement,
-  ImgElement,
-  InputElement,
-  SourceElement,
-  TrackElement,
-  WbrElement,
-} from '../VoidElements';
+import { EditorDirection, PreviewComponents } from '../types';
 
 const styles = {
   root: css`
@@ -218,24 +207,6 @@ export const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
       <Markdown
         options={{
           overrides: {
-            // these are all void elements, if the user provides children
-            // with it the rendering will fail due to the browser
-            // by overriding them we can surface the problem.
-            //
-            // Some elements are not listed here because we filter them out in
-            // the cleaning step above.
-            //
-            // see https://www.w3.org/TR/2011/WD-html-markup-20110113/syntax.html#void-element
-            area: { component: AreaElement },
-            br: { component: BrElement },
-            col: { component: ColElement },
-            hr: { component: HrElement },
-            img: { component: ImgElement },
-            input: { component: InputElement },
-            source: { component: SourceElement },
-            track: { component: TrackElement },
-            wbr: { component: WbrElement },
-
             a: {
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               component: MarkdownLink as any,
