@@ -6,7 +6,7 @@ import { MarkdownDialogType, MarkdownDialogsParams, PreviewComponents } from '..
 import { InitializedEditorType } from '../components/MarkdownTextarea/MarkdownTextarea';
 import { MarkdownToolbar } from '../components/MarkdownToolbar';
 import { MarkdownTextarea } from '../components/MarkdownTextarea/MarkdownTextarea';
-import { MarkdownPreview } from '../components/MarkdownPreview/MarkdownPreview';
+import { MarkdownPreview } from '../components/MarkdownPreview';
 import { MarkdownBottomBar, MarkdownHelp } from '../components/MarkdownBottomBar';
 import { createMarkdownActions } from '../MarkdownActions';
 import { openCheatsheetModal } from '../dialogs/CheatsheetModalDialog';
