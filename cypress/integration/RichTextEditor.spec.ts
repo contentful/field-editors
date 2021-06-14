@@ -307,4 +307,69 @@ describe('Rich Text Editor', () => {
       });
     });
   });
+
+  describe.only('Lists', () => {
+    function getUlToolbarButton() {
+      return cy.findByTestId('ul-toolbar-button');
+    }
+
+    function getOlToolbarButton() {
+      return cy.findByTestId('ol-toolbar-button');
+    }
+
+    const lists = [
+      { getList: getUlToolbarButton, listType: BLOCKS.UL_LIST, label: 'Unordered List (UL)' },
+      { getList: getOlToolbarButton, listType: BLOCKS.OL_LIST, label: 'Ordered List (OL)' },
+    ];
+
+    lists.forEach((test) => {
+      describe(test.label, () => {
+        it('should be visible', () => {
+          test.getList().should('be.visible');
+        });
+
+        it('should add a new list', () => {
+          editor().click();
+
+          test.getList().click();
+
+          // TODO: Find a way to test deeper lists
+          /*
+            Having issues with `.type('{enter})` to break lines.
+            The error is:
+            Cannot resolve a Slate node from DOM node: [object HTMLSpanElement]
+          */
+          editor().click().typeInSlate('item 1');
+
+          cy.wait(600);
+
+          const expectedValue = doc(
+            block(
+              test.listType,
+              {},
+              block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.PARAGRAPH, {}, text('item 1', [])))
+            )
+          );
+
+          expectRichTextFieldValue(expectedValue);
+        });
+
+        it('should untoggle the list', () => {
+          editor().click();
+
+          test.getList().click();
+
+          editor().click().typeInSlate('some text');
+
+          test.getList().click();
+
+          cy.wait(600);
+
+          const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text', [])));
+
+          expectRichTextFieldValue(expectedValue);
+        });
+      });
+    });
+  });
 });
