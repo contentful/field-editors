@@ -27,6 +27,7 @@ export function ToolbarUnderlineButton(props: ToolbarUnderlineButtonProps) {
       icon="FormatUnderlined"
       tooltip="Underline"
       label="Underline"
+      testId="underline-toolbar-button"
       onClick={handleClick}
       isActive={isMarkActive(editor, MARKS.UNDERLINE)}
       disabled={props.isDisabled}
