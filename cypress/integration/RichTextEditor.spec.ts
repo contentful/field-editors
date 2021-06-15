@@ -69,37 +69,132 @@ describe('Rich Text Editor', () => {
       [MARKS.UNDERLINE, `{${mod}}u`],
       [MARKS.CODE, `{${mod}}/`],
     ].forEach(([mark, shortcut]) => {
-      // TODO: unskip when toolbar is available
-      // const toggleMarkViaToolbar = () => cy.findByTestId(`toolbar-toggle-${mark}`).click();
-      // const toggleMarkViaShortcut = () => editor.type(shortcut);
+      const toggleMarkViaToolbar = () => cy.findByTestId(`${mark}-toolbar-button`).click();
 
-      [
-        // TODO: unskip when toolbar is available
-        // ['toolbar', toggleMarkViaToolbar],
-        ['shortcut' /*, toggleMarkViaShortcut */],
-      ].forEach(([toggleType]) => {
-        describe(`${mark} mark toggle via ${toggleType}`, () => {
-          it('allows writing marked text', () => {
-            editor().click().type(shortcut).typeInSlate('some text');
+      describe(`${mark} mark toggle via toolbar`, () => {
+        it('allows writing marked text', () => {
+          editor().click();
 
-            cy.wait(600);
+          toggleMarkViaToolbar();
 
-            const expectedValue = doc(
-              block(BLOCKS.PARAGRAPH, {}, text('some text', [{ type: mark }]))
-            );
+          editor().typeInSlate('some text');
 
-            expectRichTextFieldValue(expectedValue);
-          });
+          cy.wait(600);
 
-          it('allows writing unmarked text', () => {
-            editor().click().type(shortcut).type(shortcut).typeInSlate('some text');
+          const expectedValue = doc(
+            block(BLOCKS.PARAGRAPH, {}, text('some text', [{ type: mark }]))
+          );
 
-            cy.wait(600);
+          expectRichTextFieldValue(expectedValue);
+        });
 
-            const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text', [])));
+        it('allows writing marked text by selecting text', () => {
+          editor().click().typeInSlate('some text');
 
-            expectRichTextFieldValue(expectedValue);
-          });
+          cy.wait(100);
+
+          editor().type('{selectall}');
+
+          toggleMarkViaToolbar();
+
+          cy.wait(600);
+
+          const expectedValue = doc(
+            block(BLOCKS.PARAGRAPH, {}, text('some text', [{ type: mark }]))
+          );
+
+          expectRichTextFieldValue(expectedValue);
+        });
+
+        it('allows writing unmarked text', () => {
+          editor().click();
+
+          toggleMarkViaToolbar();
+          toggleMarkViaToolbar();
+
+          editor().typeInSlate('some text');
+
+          cy.wait(600);
+
+          const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text', [])));
+
+          expectRichTextFieldValue(expectedValue);
+        });
+
+        it('allows writing unmarked text by selecting text', () => {
+          editor().click().typeInSlate('some text');
+
+          cy.wait(100);
+
+          editor().type('{selectall}');
+
+          toggleMarkViaToolbar();
+
+          cy.wait(100);
+
+          editor().click().type('{selectall}');
+
+          toggleMarkViaToolbar();
+
+          cy.wait(600);
+
+          const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text', [])));
+
+          expectRichTextFieldValue(expectedValue);
+        });
+      });
+
+      describe(`${mark} mark toggle via shortcut`, () => {
+        it('allows writing marked text', () => {
+          editor().click().type(shortcut).typeInSlate('some text');
+
+          cy.wait(600);
+
+          const expectedValue = doc(
+            block(BLOCKS.PARAGRAPH, {}, text('some text', [{ type: mark }]))
+          );
+
+          expectRichTextFieldValue(expectedValue);
+        });
+
+        it('allows writing marked text by selecting text', () => {
+          editor().click().typeInSlate('some text');
+
+          cy.wait(100);
+
+          editor().type('{selectall}').type(shortcut);
+
+          cy.wait(600);
+
+          const expectedValue = doc(
+            block(BLOCKS.PARAGRAPH, {}, text('some text', [{ type: mark }]))
+          );
+
+          expectRichTextFieldValue(expectedValue);
+        });
+
+        it('allows writing unmarked text', () => {
+          editor().click().type(shortcut).type(shortcut).typeInSlate('some text');
+
+          cy.wait(600);
+
+          const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text', [])));
+
+          expectRichTextFieldValue(expectedValue);
+        });
+
+        it('allows writing unmarked text by selecting text', () => {
+          editor().click().typeInSlate('some text');
+
+          cy.wait(100);
+
+          editor().type('{selectall}').type(shortcut).type('{selectall}').type(shortcut);
+
+          cy.wait(600);
+
+          const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text', [])));
+
+          expectRichTextFieldValue(expectedValue);
         });
       });
     });
@@ -306,6 +401,71 @@ describe('Rich Text Editor', () => {
         );
 
         expectRichTextFieldValue(expectedValue);
+      });
+    });
+  });
+
+  describe('Lists', () => {
+    function getUlToolbarButton() {
+      return cy.findByTestId('ul-toolbar-button');
+    }
+
+    function getOlToolbarButton() {
+      return cy.findByTestId('ol-toolbar-button');
+    }
+
+    const lists = [
+      { getList: getUlToolbarButton, listType: BLOCKS.UL_LIST, label: 'Unordered List (UL)' },
+      { getList: getOlToolbarButton, listType: BLOCKS.OL_LIST, label: 'Ordered List (OL)' },
+    ];
+
+    lists.forEach((test) => {
+      describe(test.label, () => {
+        it('should be visible', () => {
+          test.getList().should('be.visible');
+        });
+
+        it('should add a new list', () => {
+          editor().click();
+
+          test.getList().click();
+
+          // TODO: Find a way to test deeper lists
+          /*
+            Having issues with `.type('{enter})` to break lines.
+            The error is:
+            Cannot resolve a Slate node from DOM node: [object HTMLSpanElement]
+          */
+          editor().click().typeInSlate('item 1');
+
+          cy.wait(600);
+
+          const expectedValue = doc(
+            block(
+              test.listType,
+              {},
+              block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.PARAGRAPH, {}, text('item 1', [])))
+            )
+          );
+
+          expectRichTextFieldValue(expectedValue);
+        });
+
+        it('should untoggle the list', () => {
+          editor().click();
+
+          test.getList().click();
+
+          editor().click().typeInSlate('some text');
+
+          test.getList().click();
+
+          cy.wait(600);
+
+          const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text', [])));
+
+          expectRichTextFieldValue(expectedValue);
+        });
       });
     });
   });

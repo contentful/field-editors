@@ -28,6 +28,7 @@ export function ToolbarCodeButton(props: ToolbarCodeButtonProps) {
       icon="Code"
       tooltip="Code"
       label="Code"
+      testId="code-toolbar-button"
       onClick={handleClick}
       isActive={isMarkActive(editor, MARKS.CODE)}
       disabled={props.isDisabled}

@@ -3,7 +3,13 @@ import * as Slate from 'slate-react';
 import { css } from 'emotion';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
-import { ELEMENT_LI, ELEMENT_UL, ELEMENT_OL, toggleList } from '@udecode/slate-plugins-list';
+import {
+  ELEMENT_LI,
+  ELEMENT_UL,
+  ELEMENT_OL,
+  toggleList,
+  ELEMENT_LIC,
+} from '@udecode/slate-plugins-list';
 import { useStoreEditor } from '@udecode/slate-plugins-core';
 import { isBlockSelected } from '../../helpers/editor';
 import { CustomSlatePluginOptions } from 'types';
@@ -76,6 +82,12 @@ export const OL = createList('ol', BLOCKS.OL_LIST);
 export const LI = createList('li', BLOCKS.LIST_ITEM);
 
 export const withListOptions: CustomSlatePluginOptions = {
+  // ELEMENT_LIC is a child of li, slatejs does ul > li > lic + ul
+  [ELEMENT_LIC]: {
+    type: BLOCKS.PARAGRAPH,
+    // TODO: We might want to change it to our paragraph in case we develop one, otherwise we can simply use the slatejs default element
+    component: Slate.DefaultElement,
+  },
   [ELEMENT_LI]: {
     type: BLOCKS.LIST_ITEM,
     component: LI,
