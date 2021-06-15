@@ -32,6 +32,7 @@ import { CommandPalettePlugin } from './CommandPalette';
 import { InsertBeforeFirstVoidBlockPlugin } from './InsertBeforeFirstVoidBlock';
 
 import schema from '../constants/Schema';
+import { CustomPlugin } from './custom/customPlugin';
 
 export function buildPlugins(richTextAPI) {
   return [
@@ -43,6 +44,7 @@ export function buildPlugins(richTextAPI) {
     CodePlugin({ richTextAPI }),
     QuotePlugin({ richTextAPI }),
     HyperlinkPlugin({ richTextAPI }),
+    CustomPlugin({ richTextAPI }),
     Heading1Plugin({ richTextAPI }),
     Heading2Plugin({ richTextAPI }),
     Heading3Plugin({ richTextAPI }),

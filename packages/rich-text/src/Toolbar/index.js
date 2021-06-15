@@ -29,6 +29,9 @@ import EntryEmbedDropdown from '../plugins/EntryEmbedDropdown';
 import { UnorderedList, OrderedList } from '../plugins/List';
 import Hr from '../plugins/Hr';
 
+import { TextAlignCenter, TextAlignRight } from '../plugins/custom/TextAlign';
+import { SmallText } from '../plugins/custom/SmallText';
+
 import { BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types';
 
 import { isNodeTypeEnabled, isMarkEnabled } from '../validations';
@@ -208,6 +211,10 @@ export default class Toolbar extends React.Component {
           {isNodeTypeEnabled(field, BLOCKS.OL_LIST) && <OrderedList {...props} />}
           {isNodeTypeEnabled(field, BLOCKS.QUOTE) && <Quote {...props} />}
           {isNodeTypeEnabled(field, BLOCKS.HR) && <Hr {...props} />}
+          {<EditorToolbarDivider testId="customm-divider" />}
+          <SmallText {...props} />
+          <TextAlignCenter {...props} />
+          <TextAlignRight {...props} />
         </div>
         {this.renderEmbeds(props)}
       </EditorToolbar>

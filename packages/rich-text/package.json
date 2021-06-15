@@ -15,8 +15,8 @@
     "url": "https://github.com/contentful/field-editors"
   },
   "scripts": {
-    "watch": "tsdx watch",
-    "build": "tsdx build",
+    "watch": "npx tsdx watch",
+    "build": "npx tsdx build",
     "test": "jest --env=jsdom --watch --config jest.config.js",
     "test:ci": "jest --env=jsdom --ci",
     "tsc": "tsc -p ./ --noEmit",
@@ -41,6 +41,7 @@
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15",
     "prop-types": "^15.7.2",
+    "react-icons": "^4.2.0",
     "slate": "0.44.10",
     "slate-html-serializer": "0.7.34",
     "slate-plain-serializer": "0.6.34",
