@@ -87,7 +87,11 @@ describe('Rich Text Editor', () => {
         });
 
         it('allows writing marked text by selecting text', () => {
-          editor().click().typeInSlate('some text').type('{selectall}');
+          editor().click().typeInSlate('some text');
+
+          cy.wait(100);
+
+          editor().type('{selectall}');
 
           toggleMarkViaToolbar();
 
@@ -116,9 +120,15 @@ describe('Rich Text Editor', () => {
         });
 
         it('allows writing unmarked text by selecting text', () => {
-          editor().click().typeInSlate('some text').type('{selectall}');
+          editor().click().typeInSlate('some text');
+
+          cy.wait(100);
+
+          editor().type('{selectall}');
 
           toggleMarkViaToolbar();
+
+          cy.wait(100);
 
           editor().click().type('{selectall}');
 
@@ -146,7 +156,11 @@ describe('Rich Text Editor', () => {
         });
 
         it('allows writing marked text by selecting text', () => {
-          editor().click().typeInSlate('some text').type('{selectall}').type(shortcut);
+          editor().click().typeInSlate('some text');
+
+          cy.wait(100);
+
+          editor().type('{selectall}').type(shortcut);
 
           cy.wait(600);
 
@@ -168,13 +182,11 @@ describe('Rich Text Editor', () => {
         });
 
         it('allows writing unmarked text by selecting text', () => {
-          editor()
-            .click()
-            .typeInSlate('some text')
-            .type('{selectall}')
-            .type(shortcut)
-            .type('{selectall}')
-            .type(shortcut);
+          editor().click().typeInSlate('some text');
+
+          cy.wait(100);
+
+          editor().type('{selectall}').type(shortcut).type('{selectall}').type(shortcut);
 
           cy.wait(600);
 
