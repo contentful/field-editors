@@ -28,6 +28,7 @@ export function ToolbarItalicButton(props: ToolbarItalicButtonProps) {
       icon="FormatItalic"
       tooltip="Italic"
       label="Italic"
+      testId="italic-toolbar-button"
       onClick={handleClick}
       isActive={isMarkActive(editor, MARKS.ITALIC)}
       disabled={props.isDisabled}

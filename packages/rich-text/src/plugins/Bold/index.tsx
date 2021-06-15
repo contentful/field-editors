@@ -28,6 +28,7 @@ export function ToolbarBoldButton(props: ToolbarBoldButtonProps) {
       icon="FormatBold"
       tooltip="Bold"
       label="Bold"
+      testId="bold-toolbar-button"
       onClick={handleClick}
       isActive={isMarkActive(editor, MARKS.BOLD)}
       disabled={props.isDisabled}
