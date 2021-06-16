@@ -160,7 +160,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
         value={name}
       />
       <FieldGroup>
-        <FormLabel className={styles.formLabel}>Fields</FormLabel>
+        <FormLabel htmlFor={`${groupId}-name-input`} className={styles.formLabel}>Fields</FormLabel>
         <Dropdown
           isOpen={dropdownOpen}
           onClose={closeDropdown}
@@ -168,7 +168,8 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
             <Button size="small" buttonType="muted" onClick={openDropdown} indicateDropdown>
               Select a field to add
             </Button>
-          }>
+          }
+          >
           <DropdownList>
             {unassignedFields.map(({ id, name }: FieldType) => (
               <DropdownListItem
