@@ -4,11 +4,10 @@ import { EntryFieldAPI } from '@contentful/app-sdk';
 import {
   Field as BaseField,
   FieldWrapper,
-} from '@contentful/default-field-editors';
+} from '../../../packages/default-field-editors/src/index';
 import { SDKContext, getEntryURL } from './shared';
 import 'codemirror/lib/codemirror.css';
 import '@contentful/field-editor-date/styles/styles.css';
-import { BaseExtensionSDK } from '../../../packages/_shared/dist';
 
 interface FieldProps {
   field: EntryFieldAPI;

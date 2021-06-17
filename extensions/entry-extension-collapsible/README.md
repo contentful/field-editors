@@ -1,30 +1,34 @@
-# Entry extension with collapsible groups
+This project was bootstrapped with [Create Contentful App](https://github.com/contentful/create-contentful-app).
 
-This extension demonstrates how you would use all existing field editors to create a complex entry extension.
+## Available Scripts
 
-![demo](./docs/demo.gif)
+In the project directory, you can run:
 
-## Commands
+#### `npm start`
 
-This packages uses [create-contentful-extension](https://github.com/contentful/create-contentful-extension).
+Creates or updates your app definition in Contentful, and runs the app in development mode.
+Open your app to view it in the browser.
 
-### `yarn start`
+The page will reload if you make edits.
+You will also see any lint errors in the console.
 
-Starts the development server and deploys the extension in development mode.
+#### `npm run build`
 
-The extension will automatically reload if you make changes to the code.
+Builds the app for production to the `build` folder.
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-### `yarn build`
+The build is minified and the filenames include the hashes.
+Your app is ready to be deployed!
 
-Builds the extension for production to the build folder.
-It correctly bundles React and all dependencies in production mode and optimizes the build for the best performance.
+## Libraries to use
 
-### `yarn configure`
+To make your app look and feel like Contentful use the following libraries:
 
-Asks which space and environment you want to use for development and deployment. It saves your answers to local `.contentfulrc.json.`
+- [Forma 36](https://f36.contentful.com/) – Contentful's design system
+- [Contentful Field Editors](https://www.contentful.com/developers/docs/extensibility/field-editors/) – Contentful's field editor React components
 
-**Caution**: Do not commit `.contentfulrc.json` to your repository. It contains sensitive information and intended to be used only on your local machine.
+## Learn More
 
-## Links
+[Read more](https://www.contentful.com/developers/docs/extensibility/app-framework/create-contentful-app/) and check out the video on how to use the CLI.
 
-Checkout [this section](https://github.com/contentful/create-contentful-extension#commands) to learn about all `create-contentful-extension` commands.
+Create Contentful App uses [Create React App](https://create-react-app.dev/). You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started) and how to further customize your app.

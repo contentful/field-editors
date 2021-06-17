@@ -1,45 +1,55 @@
 {
-  "name": "entry-extension-collapsible",
-  "version": "0.3.7",
+  "name": "entry-extension-collapsible-test",
+  "version": "0.1.0",
   "private": true,
-  "devDependencies": {
-    "@babel/core": "7.3.4",
-    "@contentful/contentful-extension-scripts": "0.15.1",
-    "@contentful/eslint-config-extension": "0.4.2",
-    "@testing-library/react": "11.2.6",
-    "@types/jest": "26.0.23",
-    "@types/react": "^16.8.17",
-    "@types/react-dom": "^16.8.4",
-    "@types/webpack-env": "1.16.0",
-    "contentful-cli": "1.6.11",
-    "cssnano": "4.1.11",
-    "eslint": "^6.0.1",
-    "typescript": "3.9.7"
-  },
-  "scripts": {
-    "start": "contentful-extension-scripts start",
-    "build": "contentful-extension-scripts build",
-    "deploy": "contentful-extension-scripts build && contentful extension update --force",
-    "configure": "contentful space use && contentful space environment use",
-    "login": "contentful login",
-    "logout": "contentful logout",
-    "help": "contentful-extension-scripts help"
-  },
   "dependencies": {
-    "@contentful/app-sdk": "^3.29.2",
-    "@contentful/field-editor-shared": "^0.14.0",
-    "@contentful/forma-36-fcss": "^0.3.1",
-    "@contentful/forma-36-react-components": "^3.79.5",
-    "@contentful/forma-36-tokens": "^0.10.1",
     "emotion": "^10.0.17",
+    "@contentful/app-sdk": "^3.29.2",
+    "@contentful/field-editor-single-line": "^0.14.1",
+    "@contentful/field-editor-shared": "^0.14.0",
+    "@contentful/forma-36-fcss": "^0.3.2",
+    "@contentful/forma-36-react-components": "^3.90.1",
+    "@contentful/forma-36-tokens": "^0.10.2",
     "prop-types": "^15.7.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-sortable-hoc": "^2.0.0"
   },
-  "browserslist": [
-    "last 5 Chrome version",
-    "> 1%",
-    "not ie <= 11"
-  ]
+  "scripts": {
+    "start": "cross-env BROWSER=none react-scripts start",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "upload": "contentful-app-scripts upload --bundle-dir ./build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "devDependencies": {
+    "@contentful/app-scripts": "^0.9.17-alpha.16",
+    "@contentful/field-editor-test-utils": "^0.11.1",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^13.1.9",
+    "@types/jest": "^26.0.23",
+    "@types/node": "^14.17.3",
+    "@types/react": "^17.0.11",
+    "@types/react-dom": "^17.0.7",
+    "cross-env": "^7.0.3",
+    "react-scripts": "4.0.3",
+    "typescript": "^4.3.3"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "homepage": "."
 }
