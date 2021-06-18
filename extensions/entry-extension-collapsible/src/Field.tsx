@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { FieldExtensionSDK, LocalesAPI } from '@contentful/field-editor-shared';
+import { LocalesAPI } from '@contentful/field-editor-shared';
+import type { FieldExtensionSDK } from '@contentful/field-editor-shared';
 import { EntryFieldAPI } from '@contentful/app-sdk';
 import {
   Field as BaseField,
@@ -8,7 +9,6 @@ import {
 import { SDKContext, getEntryURL } from './shared';
 import 'codemirror/lib/codemirror.css';
 import '@contentful/field-editor-date/styles/styles.css';
-import { BaseExtensionSDK } from '../../../packages/_shared/dist';
 
 interface FieldProps {
   field: EntryFieldAPI;
