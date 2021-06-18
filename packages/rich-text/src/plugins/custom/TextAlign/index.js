@@ -1,6 +1,6 @@
 import React from 'react';
 import { ToolbarIconCustom } from '../ToolbarIconCustom';
-import { MdFormatAlignCenter, MdFormatAlignRight } from 'react-icons/md';
+import { MdFormatAlignLeft, MdFormatAlignCenter, MdFormatAlignRight } from 'react-icons/md';
 
 const onToggle = (editor, isActive, alignment) => {
   editor.value.blocks.forEach(block => {
@@ -10,6 +10,22 @@ const onToggle = (editor, isActive, alignment) => {
   });
 };
 
+// Text align left button.
+export const TextAlignLeft = ({ editor }) => {
+  const isActive = editor.value.blocks.some(block => block.data.get('textAlign') === 'left');
+  return (
+      <ToolbarIconCustom
+          isActive={isActive}
+          disabled={false}
+          onToggle={() => onToggle(editor, isActive, 'left')}
+          icon={'Text'}
+          title={'Text align left'}>
+        <MdFormatAlignLeft />
+      </ToolbarIconCustom>
+  );
+};
+
+// Text align center button.
 export const TextAlignCenter = ({ editor }) => {
   const isActive = editor.value.blocks.some(block => block.data.get('textAlign') === 'center');
   return (
@@ -24,6 +40,7 @@ export const TextAlignCenter = ({ editor }) => {
   );
 };
 
+// Text align right button.
 export const TextAlignRight = ({ editor }) => {
   const isActive = editor.value.blocks.some(block => block.data.get('textAlign') === 'right');
   return (

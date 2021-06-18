@@ -11,6 +11,7 @@ const blockToTagMap = {
   [BLOCKS.HEADING_6]: 'h6'
 };
 
+// Apply changes from our custom plugins to the RTE UI itself.
 export const CustomPlugin = () => ({
   renderNode: (props, editor, next) => {
     if (props.node.type in blockToTagMap) {
