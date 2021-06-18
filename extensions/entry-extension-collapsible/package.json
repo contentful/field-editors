@@ -1,6 +1,6 @@
 {
   "name": "entry-extension-collapsible",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "emotion": "^10.0.17",
@@ -17,7 +17,7 @@
   },
   "scripts": {
     "start": "SKIP_PREFLIGHT_CHECK=true cross-env BROWSER=none react-scripts start",
-    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "build": "SKIP_PREFLIGHT_CHECK=true GENERATE_SOURCEMAP=false react-scripts build",
     "upload": "contentful-app-scripts upload --bundle-dir ./build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
