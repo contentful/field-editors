@@ -1,6 +1,12 @@
-This project was bootstrapped with [Create Contentful App](https://github.com/contentful/create-contentful-app).
+# Entry extension with collapsible groups
+
+This extension demonstrates how you would use all existing field editors to create a complex entry extension.
+
+![demo](./docs/demo.gif)
 
 ## Available Scripts
+
+This project was bootstrapped with [Create Contentful App](https://github.com/contentful/create-contentful-app).
 
 In the project directory, you can run:
 
