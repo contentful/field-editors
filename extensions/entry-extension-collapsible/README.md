@@ -10,15 +10,16 @@ This project was bootstrapped with [Create Contentful App](https://github.com/co
 
 In the project directory, you can run:
 
-#### `npm start`
+#### `yarn start`
 
 Creates or updates your app definition in Contentful, and runs the app in development mode.
-Open your app to view it in the browser.
+
+Install the app in the Contentful WebApp interface to be able to add and view it in the Content Model interface.
 
 The page will reload if you make edits.
 You will also see any lint errors in the console.
 
-#### `npm run build`
+#### `yarn build`
 
 Builds the app for production to the `build` folder.
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -26,12 +27,9 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.
 Your app is ready to be deployed!
 
-## Libraries to use
+#### `yarn upload`
 
-To make your app look and feel like Contentful use the following libraries:
-
-- [Forma 36](https://f36.contentful.com/) – Contentful's design system
-- [Contentful Field Editors](https://www.contentful.com/developers/docs/extensibility/field-editors/) – Contentful's field editor React components
+Uploads the `build` folder to your Contentful space.
 
 ## Learn More
 
