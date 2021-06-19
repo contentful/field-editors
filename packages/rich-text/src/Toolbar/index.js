@@ -29,6 +29,8 @@ import EntryEmbedDropdown from '../plugins/EntryEmbedDropdown';
 import { UnorderedList, OrderedList } from '../plugins/List';
 import Hr from '../plugins/Hr';
 
+import CustomWrapper from '../plugins/custom/CustomWrapper';
+
 import { BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types';
 
 import { isNodeTypeEnabled, isMarkEnabled } from '../validations';
@@ -208,6 +210,7 @@ export default class Toolbar extends React.Component {
           {isNodeTypeEnabled(field, BLOCKS.OL_LIST) && <OrderedList {...props} />}
           {isNodeTypeEnabled(field, BLOCKS.QUOTE) && <Quote {...props} />}
           {isNodeTypeEnabled(field, BLOCKS.HR) && <Hr {...props} />}
+          <CustomWrapper {...props} />
         </div>
         {this.renderEmbeds(props)}
       </EditorToolbar>
