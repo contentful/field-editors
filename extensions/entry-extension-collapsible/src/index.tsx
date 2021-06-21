@@ -11,8 +11,8 @@ import { findUnassignedFields, AppContext, SDKContext } from './shared';
 import { useAppState } from './state';
 import { ActionTypes, FieldType } from './types';
 import { Field } from './Field';
-import { renderMarkdownDialog } from '../../../packages/markdown/src/index';
-import { renderRichTextDialog } from '../../../packages/rich-text/src/index';
+import { renderMarkdownDialog } from '@contentful/field-editor-markdown';
+import { renderRichTextDialog } from '@contentful/field-editor-rich-text';
 import styles from './styles';
 
 interface AppProps {
