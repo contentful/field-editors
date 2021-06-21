@@ -110,6 +110,7 @@ export class ConnectedRichTextEditor extends React.Component {
     onAction: PropTypes.func,
     isToolbarHidden: PropTypes.bool,
     actionsDisabled: PropTypes.bool,
+    customPlugins: PropTypes.arrayOf(PropTypes.func),
   };
 
   static defaultProps = {
