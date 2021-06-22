@@ -160,6 +160,5 @@ export const withQuoteOptions: CustomSlatePluginOptions = {
   [BLOCKS.QUOTE]: {
     type: BLOCKS.QUOTE,
     component: Quote,
-    hotkey: ['mod+shift+1'],
   },
 };
