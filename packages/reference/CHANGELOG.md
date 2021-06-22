@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.14.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.13.1...@contentful/field-editor-reference@2.14.0) (2021-06-22)
+
+
+### Features
+
+* [EXT-2826] make app-sdk a peer depedency ([#748](https://github.com/contentful/field-editors/issues/748)) ([f1d1d01](https://github.com/contentful/field-editors/commit/f1d1d01d89d59d70ab2c831a513ab2580ea64d7e))
+
+
+
+
+
 ## [2.13.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.13.0...@contentful/field-editor-reference@2.13.1) (2021-04-13)
 
 

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-checkbox@0.13.1...@contentful/field-editor-checkbox@0.13.2) (2021-06-22)
+
+**Note:** Version bump only for package @contentful/field-editor-checkbox
+
+
+
+
+
 ## [0.13.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-checkbox@0.13.0...@contentful/field-editor-checkbox@0.13.1) (2021-03-05)
 
 **Note:** Version bump only for package @contentful/field-editor-checkbox
