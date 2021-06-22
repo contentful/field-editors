@@ -2350,7 +2350,7 @@
     open "^8.0.5"
     ora "^5.4.0"
 
-"@contentful/app-sdk@^3.29.2":
+"@contentful/app-sdk@3.31.1", "@contentful/app-sdk@^3.29.2":
   version "3.31.1"
   resolved "https://registry.yarnpkg.com/@contentful/app-sdk/-/app-sdk-3.31.1.tgz#30eb42bdc96ee56b96fb025fdafad18f9cfca16b"
   integrity sha512-CyDspzHi4HnXCfujYM+pc79KmnvK+HWckbac1j+B5r591VByYk2y9v/XarHXYVQTdne5ylMSu5CWiit51uxAjQ==
@@ -2428,16 +2428,29 @@
     read-pkg-up "^7.0.1"
     semver "^7.3.2"
 
-"@contentful/field-editor-shared@^0.14.0":
-  version "0.14.0"
-  resolved "https://registry.yarnpkg.com/@contentful/field-editor-shared/-/field-editor-shared-0.14.0.tgz#13e942e36ee5350c27978ce625ac74152495c270"
-  integrity sha512-z8PT7hkuUWHcgJNnxIA2VbC2DWEVu/6yhpSKIv4iaFRHsAZjyFQ1s/0QIVK8E0nm+qHZaV5RJKDm6wEkp3G+3A==
+"@contentful/field-editor-shared@^0.16.0":
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/@contentful/field-editor-shared/-/field-editor-shared-0.16.0.tgz#2bbb5c7ea73969d3694c81d1981a88ffd2af759b"
+  integrity sha512-ya4P4HKRMjfJHurCQ5fb/yKyGxPHXisXSf/vwfR2pys62KAhspX9xrIdOFjYhAKaoCdUh9GzL5WL+YBy16NjyQ==
   dependencies:
-    "@contentful/forma-36-tokens" "^0.10.0"
-    contentful-ui-extensions-sdk "^3.29.2"
+    "@contentful/app-sdk" "^3.29.2"
+    "@contentful/forma-36-tokens" "^0.10.1"
     emotion "^10.0.17"
     lodash "^4.17.15"
     lodash-es "^4.17.15"
+
+"@contentful/field-editor-test-utils@^0.11.1":
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/@contentful/field-editor-test-utils/-/field-editor-test-utils-0.11.1.tgz#72f672ba181c18bcb3f04f29f98e527a8f6fcf19"
+  integrity sha512-hE6GG0F3OohVv4Xr9OM6RUasY2YjWjzvj805pjWAQICE7fpAWWbDQPzR3YGO9OF8VogUewiemaIN4NVyVInF+Q==
+  dependencies:
+    "@contentful/app-sdk" "^3.29.2"
+    "@contentful/field-editor-shared" "^0.16.0"
+    "@contentful/forma-36-tokens" "^0.10.1"
+    emotion "^10.0.17"
+    lodash "^4.17.15"
+    lodash-es "^4.17.15"
+    mitt "2.1.0"
 
 "@contentful/forma-36-fcss@^0.3.1":
   version "0.3.1"
@@ -2491,7 +2504,7 @@
     react-transition-group "^2.4.0"
     truncate "^2.0.1"
 
-"@contentful/forma-36-tokens@^0.10.0", "@contentful/forma-36-tokens@^0.10.1":
+"@contentful/forma-36-tokens@^0.10.1":
   version "0.10.1"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.10.1.tgz#e98f4cabc8381927317c7507279fcd6721c46735"
   integrity sha512-K0HX1N9N7H4iofqXmljAfwf6BnPYqeHIeFkiQnXN4+XCI0Z7Dyg++D1880lN5EhyCjEkgPUBViU/hjUj2ULZhw==
@@ -4912,6 +4925,13 @@
   version "17.0.7"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-17.0.7.tgz#b8ee15ead9e5d6c2c858b44949fdf2ebe5212232"
   integrity sha512-Wd5xvZRlccOrCTej8jZkoFZuZRKHzanDDv1xglI33oBNFMWrqOSzrvWFw7ngSiZjrpJAzPKFtX7JvuXpkNmQHA==
+  dependencies:
+    "@types/react" "*"
+
+"@types/react-dom@^17.0.8":
+  version "17.0.8"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-17.0.8.tgz#3180de6d79bf53762001ad854e3ce49f36dd71fc"
+  integrity sha512-0ohAiJAx1DAUEcY9UopnfwCE9sSMDGnY/oXjWMax6g3RpzmTt2GMyMVAXcbn0mo8XAff0SbQJl2/SBU+hjSZ1A==
   dependencies:
     "@types/react" "*"
 
@@ -8252,11 +8272,6 @@ contentful-sdk-core@^6.8.0:
   dependencies:
     fast-copy "^2.1.0"
     qs "^6.9.4"
-
-contentful-ui-extensions-sdk@^3.29.2:
-  version "3.32.0"
-  resolved "https://registry.yarnpkg.com/contentful-ui-extensions-sdk/-/contentful-ui-extensions-sdk-3.32.0.tgz#1aee2ee98ed5a32873a78108412197bf41d79b7e"
-  integrity sha512-S36eeOV4a5IE1ZWpN60Sfl3USi5srXJ7QxH7EplTFIk57/lCTqPpdZZPiJMO3HNq9tBCAOTC+b8neql/+jtBQQ==
 
 contentful@^8.1.7:
   version "8.1.7"
@@ -23021,6 +23036,11 @@ typescript@^4.3.3:
   version "4.3.3"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.3.3.tgz#5401db69bd3203daf1851a1a74d199cb3112c11a"
   integrity sha512-rUvLW0WtF7PF2b9yenwWUi9Da9euvDRhmH7BLyBG4DCFfOJ850LGNknmRpp8Z8kXNUPObdZQEfKOiHtXuQHHKA==
+
+typescript@^4.3.4:
+  version "4.3.4"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.3.4.tgz#3f85b986945bcf31071decdd96cf8bfa65f9dcbc"
+  integrity sha512-uauPG7XZn9F/mo+7MrsRjyvbxFpzemRjKEZXS4AK83oP2KKOJPvb+9cO/gmnv8arWZvhnjVOXz7B49m1l0e9Ew==
 
 ua-parser-js@^0.7.18:
   version "0.7.28"
