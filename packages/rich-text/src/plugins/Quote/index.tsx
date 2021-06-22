@@ -86,7 +86,7 @@ export function withQuoteEvents(editor: SPEditor) {
           Transforms.setNodes(editor, paragraph);
         }
       } else {
-        Transforms.setNodes(editor, paragraph);
+        Transforms.insertNodes(editor, paragraph);
       }
     }
 
