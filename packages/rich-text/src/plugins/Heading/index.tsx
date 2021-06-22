@@ -229,10 +229,6 @@ export const H6 = createHeading('h1', BLOCKS.HEADING_6);
 
 export function createHeadingPlugin(): SlatePlugin {
   const headings: string[] = [
-    // TOOD: We need to move paragraph to its own plugin if needed. We might also need to import 'p' as ELEMENT_PARAGRAPH from @udecode/slate-plugins-paragraph package
-    'p',
-    BLOCKS.PARAGRAPH,
-
     BLOCKS.HEADING_1,
     BLOCKS.HEADING_2,
     BLOCKS.HEADING_3,
@@ -249,17 +245,6 @@ export function createHeadingPlugin(): SlatePlugin {
 }
 
 export const withHeadingOptions: CustomSlatePluginOptions = {
-  // TOOD: We need to move paragraph to its own plugin if needed. We might also need to import 'p' as ELEMENT_PARAGRAPH from @udecode/slate-plugins-paragraph package
-  p: {
-    // We convert default slate plugins `p` to Contentful `BLOCKS.PARAGRAPH`
-    type: BLOCKS.PARAGRAPH,
-    component: Slate.DefaultElement,
-  },
-  [BLOCKS.PARAGRAPH]: {
-    type: BLOCKS.PARAGRAPH,
-    component: Slate.DefaultElement,
-  },
-
   [BLOCKS.HEADING_1]: {
     type: BLOCKS.HEADING_1,
     component: H1,

@@ -85,8 +85,6 @@ export const withListOptions: CustomSlatePluginOptions = {
   // ELEMENT_LIC is a child of li, slatejs does ul > li > lic + ul
   [ELEMENT_LIC]: {
     type: BLOCKS.PARAGRAPH,
-    // TODO: We might want to change it to our paragraph in case we develop one, otherwise we can simply use the slatejs default element
-    component: Slate.DefaultElement,
   },
   [ELEMENT_LI]: {
     type: BLOCKS.LIST_ITEM,
