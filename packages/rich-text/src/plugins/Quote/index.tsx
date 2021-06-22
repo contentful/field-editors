@@ -40,7 +40,7 @@ const createBlockQuote = (editor: SPEditor) => {
   if (!editor.selection) return;
 
   const text = { text: '' };
-  const paragraph = { type: BLOCKS.PARAGRAPH, children: [text] };
+  const paragraph = { type: BLOCKS.PARAGRAPH, data: {}, children: [text] };
   const path = editor.selection.focus.path;
   const parent = Editor.parent(editor, path);
   const next = Editor.next(editor, { at: parent[1] });
@@ -68,7 +68,7 @@ export function withQuoteEvents(editor: SPEditor) {
       event.preventDefault();
 
       const text = { text: '' };
-      const paragraph = { type: BLOCKS.PARAGRAPH, children: [text] };
+      const paragraph = { type: BLOCKS.PARAGRAPH, data: {}, children: [text] };
 
       if (hasSelectionText(editor)) {
         const currentOffset = editor.selection.focus.offset;
