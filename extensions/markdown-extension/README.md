@@ -2,27 +2,42 @@
 
 This extension demonstrates how you would use `MarkdownEditor` as your own field extension.
 
-## Commands
+## Available Scripts
 
-This packages uses [create-contentful-extension](https://github.com/contentful/create-contentful-extension).
+This project was bootstrapped with [Create Contentful App](https://github.com/contentful/create-contentful-app).
 
-### `yarn start`
+In the project directory, you can run:
 
-Starts the development server and deploys the extension in development mode.
+#### `yarn start`
 
-The extension will automatically reload if you make changes to the code.
+Creates or updates your app definition in Contentful, and runs the app in development mode.
 
-### `yarn build`
+Install the app in the Contentful WebApp interface to be able to add and view it in the Content Model interface.
 
-Builds the extension for production to the build folder.
-It correctly bundles React and all dependencies in production mode and optimizes the build for the best performance.
+The page will reload if you make edits.
+You will also see any lint errors in the console.
 
-### `yarn configure`
+#### `yarn build`
 
-Asks which space and environment you want to use for development and deployment. It saves your answers to local `.contentfulrc.json.`
+Builds the app for production to the `build` folder.
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-**Caution**: Do not commit `.contentfulrc.json` to your repository. It contains sensitive information and intended to be used only on your local machine.
+The build is minified and the filenames include the hashes.
+Your app is ready to be deployed!
 
-## Links
+#### `yarn upload`
 
-Checkout [this section](https://github.com/contentful/create-contentful-extension#commands) to learn about all `create-contentful-extension` commands.
+Uploads the `build` folder to your Contentful space.
+
+## Libraries to use
+
+To make your app look and feel like Contentful use the following libraries:
+
+- [Forma 36](https://f36.contentful.com/) – Contentful's design system
+- [Contentful Field Editors](https://www.contentful.com/developers/docs/extensibility/field-editors/) – Contentful's field editor React components
+
+## Learn More
+
+[Read more](https://www.contentful.com/developers/docs/extensibility/app-framework/create-contentful-app/) and check out the video on how to use the CLI.
+
+Create Contentful App uses [Create React App](https://create-react-app.dev/). You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started) and how to further customize your app.
