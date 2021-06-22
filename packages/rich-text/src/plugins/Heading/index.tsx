@@ -16,13 +16,9 @@ import {
   getRenderElement,
   SPEditor,
 } from '@udecode/slate-plugins-core';
-import { insertNodes, setNodes } from '@udecode/slate-plugins-common';
+import { insertNodes, setNodes, toggleNodeType } from '@udecode/slate-plugins-common';
 import { CustomElement, CustomSlatePluginOptions } from '../../types';
-import {
-  getElementFromCurrentSelection,
-  hasSelectionText,
-  toggleBlock,
-} from '../../helpers/editor';
+import { getElementFromCurrentSelection, hasSelectionText } from '../../helpers/editor';
 
 const styles = {
   dropdown: {
@@ -142,7 +138,7 @@ export function withHeadingEvents(editor: SPEditor) {
     if (isMod && isAltOrOption && headingKey) {
       event.preventDefault();
 
-      toggleBlock(editor, headingKey);
+      toggleNodeType(editor, { activeType: headingKey });
     }
   };
 }
@@ -173,14 +169,14 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
     const type = (element as CustomElement).type;
 
     setSelected(LABELS[type] ? type : BLOCKS.PARAGRAPH);
-  }, [editor?.selection]); // eslint-disable-line
+  }, [editor?.operations, editor?.selection]); // eslint-disable-line
 
   function handleOnSelectItem(type: string): void {
     if (!editor?.selection) return;
 
     setSelected(type);
     setOpen(false);
-    toggleBlock(editor, type);
+    toggleNodeType(editor, { activeType: type });
     Slate.ReactEditor.focus(editor);
   }
 
