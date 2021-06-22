@@ -20,8 +20,10 @@
     "test:ci": "tsdx test --env=jsdom --ci",
     "tsc": "tsc -p ./ --noEmit"
   },
+  "devDependencies": {
+    "@contentful/app-sdk": "^3.29.2"
+  },
   "dependencies": {
-    "@contentful/app-sdk": "^3.29.2",
     "@contentful/field-editor-shared": "^0.16.0",
     "@contentful/forma-36-tokens": "^0.10.1",
     "emotion": "^10.0.17",
@@ -30,6 +32,7 @@
     "mitt": "2.1.0"
   },
   "peerDependencies": {
+    "@contentful/app-sdk": "^3.29.2",
     "react": ">=16.8.0"
   },
   "jest": {
