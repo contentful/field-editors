@@ -24,9 +24,11 @@ export function Paragraph(props: RenderElementProps) {
 }
 
 export function createParagraphPlugin(): SlatePlugin {
+  const elementKeys: string[] = [ELEMENT_PARAGRAPH, BLOCKS.PARAGRAPH];
+
   return {
-    renderElement: getRenderElement([ELEMENT_PARAGRAPH, BLOCKS.PARAGRAPH]),
-    pluginKeys: [ELEMENT_PARAGRAPH, BLOCKS.PARAGRAPH],
+    renderElement: getRenderElement(elementKeys),
+    pluginKeys: elementKeys,
     onKeyDown: getToggleElementOnKeyDown(BLOCKS.PARAGRAPH),
   };
 }
