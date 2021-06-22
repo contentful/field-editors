@@ -138,7 +138,7 @@ export function withHeadingEvents(editor: SPEditor) {
     if (isMod && isAltOrOption && headingKey) {
       event.preventDefault();
 
-      toggleNodeType(editor, { activeType: headingKey });
+      toggleNodeType(editor, { activeType: headingKey, inactiveType: BLOCKS.PARAGRAPH });
     }
   };
 }
@@ -176,7 +176,7 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
 
     setSelected(type);
     setOpen(false);
-    toggleNodeType(editor, { activeType: type });
+    toggleNodeType(editor, { activeType: type, inactiveType: type });
     Slate.ReactEditor.focus(editor);
   }
 
