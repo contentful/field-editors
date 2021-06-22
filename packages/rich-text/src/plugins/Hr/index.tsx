@@ -111,7 +111,7 @@ export function ToolbarHrButton(props: ToolbarHrButtonProps) {
   );
 }
 
-export function Hr(props: Slate.RenderLeafProps) {
+export function Hr(props: Slate.RenderElementProps) {
   const isSelected = Slate.useSelected();
   const isFocused = Slate.useFocused();
 
