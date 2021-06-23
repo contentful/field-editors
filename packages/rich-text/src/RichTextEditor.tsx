@@ -43,7 +43,6 @@ const plugins = [
   createListPlugin(),
   createHrPlugin(),
   createHeadingPlugin(),
-  createHeadingPlugin(),
   createQuotePlugin(),
 
   // Marks
