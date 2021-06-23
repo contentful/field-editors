@@ -20,6 +20,7 @@ import { withItalicOptions, createItalicPlugin } from './plugins/Italic';
 import { createUnderlinePlugin, withUnderlineOptions } from './plugins/Underline';
 import { createParagraphPlugin, withParagraphOptions } from './plugins/Paragraph';
 import { createQuotePlugin, withQuoteOptions } from './plugins/Quote';
+import { createNewLinePlugin } from './plugins/NewLine';
 
 type ConnectedProps = {
   editorId?: string;
@@ -37,6 +38,9 @@ const plugins = [
   // Core
   createReactPlugin(),
   createHistoryPlugin(),
+
+  // Global shortcuts
+  createNewLinePlugin(),
 
   // Elements
   createParagraphPlugin(),
