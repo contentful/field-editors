@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import { init, FieldExtensionSDK } from '@contentful/app-sdk';
-// import { SingleLineEditor } from '@contentful/field-editor-single-line';
-import { SingleLineEditor } from '../../../packages/single-line/src';
+import { SingleLineEditor } from '@contentful/field-editor-single-line';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import './index.css';
 

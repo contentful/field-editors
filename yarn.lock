@@ -2334,6 +2334,22 @@
   dependencies:
     chalk "^4.0.0"
 
+"@contentful/app-scripts@^0.8.49":
+  version "0.8.49"
+  resolved "https://registry.yarnpkg.com/@contentful/app-scripts/-/app-scripts-0.8.49.tgz#80445327f11d900a8ce166e3cccb6653ef8f6479"
+  integrity sha512-XqgFuQp3XeOfZ7+nBL/QUxRUA4uPjib9TyE8YmeLkOyuZWu1EqljHFjvhv5ubS8yHELGjprHfmkJei2K1HQdZQ==
+  dependencies:
+    adm-zip "^0.5.5"
+    chalk "^4.1.0"
+    commander "^7.2.0"
+    contentful-management "^7.14.0"
+    dotenv "^10.0.0"
+    ignore "^5.1.8"
+    inquirer "^8.0.0"
+    lodash "^4.17.21"
+    open "^8.0.5"
+    ora "^5.4.0"
+
 "@contentful/app-scripts@^0.9.17-alpha.16":
   version "0.9.22"
   resolved "https://registry.yarnpkg.com/@contentful/app-scripts/-/app-scripts-0.9.22.tgz#801953cc17d627b7e844d3864c400fd1daf3a7b5"
@@ -4866,6 +4882,11 @@
   version "14.17.3"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.17.3.tgz#6d327abaa4be34a74e421ed6409a0ae2f47f4c3d"
   integrity sha512-e6ZowgGJmTuXa3GyaPbTGxX17tnThl2aSSizrFthQ7m9uLGZBXiGhgE55cjRZTF5kjZvYn9EOPOMljdjwbflxw==
+
+"@types/node@^15.12.4":
+  version "15.12.4"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-15.12.4.tgz#e1cf817d70a1e118e81922c4ff6683ce9d422e26"
+  integrity sha512-zrNj1+yqYF4WskCMOHwN+w9iuD12+dGm0rQ35HLl9/Ouuq52cEtd0CH9qMgrdNmi5ejC1/V7vKEXYubB+65DkA==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"

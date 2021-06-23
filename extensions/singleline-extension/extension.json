@@ -1,6 +1,0 @@
-{
-  "id": "single-line-extension",
-  "name": "Single Line",
-  "srcdoc": "./build/index.html",
-  "fieldTypes": ["Symbol", "Text"]
-}
