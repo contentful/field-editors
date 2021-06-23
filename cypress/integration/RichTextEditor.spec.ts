@@ -21,6 +21,26 @@ describe('Rich Text Editor', () => {
     typeof window != 'undefined' && /Mac|iPod|iPhone|iPad/.test(window.navigator.platform);
   const mod = IS_MAC ? 'meta' : 'control';
 
+  function getDropdownToolbarButton() {
+    return cy.findByTestId('dropdown-heading');
+  }
+
+  function getDropdownList() {
+    return cy.findByTestId('dropdown-heading-list');
+  }
+
+  function getDropdownItem(type: string) {
+    return cy.findByTestId(`dropdown-option-${type}`);
+  }
+
+  function getUlToolbarButton() {
+    return cy.findByTestId('ul-toolbar-button');
+  }
+
+  function getOlToolbarButton() {
+    return cy.findByTestId('ol-toolbar-button');
+  }
+
   beforeEach(() => {
     cy.visit('/rich-text');
     const wrapper = () => cy.findByTestId('rich-text-editor-integration-test');
@@ -249,18 +269,6 @@ describe('Rich Text Editor', () => {
   });
 
   describe('Headings', () => {
-    function getDropdownToolbarButton() {
-      return cy.findByTestId('dropdown-heading');
-    }
-
-    function getDropdownList() {
-      return cy.findByTestId('dropdown-heading-list');
-    }
-
-    function getDropdownItem(type: string) {
-      return cy.findByTestId(`dropdown-option-${type}`);
-    }
-
     const headings = [
       [BLOCKS.PARAGRAPH, 'Normal text'],
       [BLOCKS.HEADING_1, 'Heading 1', `{${mod}}{alt}1`],
@@ -406,14 +414,6 @@ describe('Rich Text Editor', () => {
   });
 
   describe('Lists', () => {
-    function getUlToolbarButton() {
-      return cy.findByTestId('ul-toolbar-button');
-    }
-
-    function getOlToolbarButton() {
-      return cy.findByTestId('ol-toolbar-button');
-    }
-
     const lists = [
       { getList: getUlToolbarButton, listType: BLOCKS.UL_LIST, label: 'Unordered List (UL)' },
       { getList: getOlToolbarButton, listType: BLOCKS.OL_LIST, label: 'Ordered List (OL)' },
@@ -467,6 +467,79 @@ describe('Rich Text Editor', () => {
           expectRichTextFieldValue(expectedValue);
         });
       });
+    });
+  });
+
+  describe('New Line', () => {
+    it('should add a new line on a paragraph', () => {
+      editor()
+        .click()
+        .typeInSlate('some text 1')
+        .type('{shift}{enter}')
+        .typeInSlate('some text 2')
+        .type('{shift}{enter}')
+        .typeInSlate('some text 3');
+
+      cy.wait(100);
+
+      const expectedValue = doc(
+        block(BLOCKS.PARAGRAPH, {}, text('some text 1\nsome text 2\nsome text 3'))
+      );
+
+      expectRichTextFieldValue(expectedValue);
+    });
+
+    it('should add a new line on a heading', () => {
+      editor().click();
+
+      getDropdownToolbarButton().click();
+      getDropdownItem(BLOCKS.HEADING_1).click();
+
+      editor()
+        .click()
+        .typeInSlate('some text 1')
+        .type('{shift}{enter}')
+        .typeInSlate('some text 2')
+        .type('{shift}{enter}')
+        .typeInSlate('some text 3');
+
+      cy.wait(100);
+
+      const expectedValue = doc(
+        block(BLOCKS.HEADING_1, {}, text('some text 1\nsome text 2\nsome text 3'))
+      );
+
+      expectRichTextFieldValue(expectedValue);
+    });
+
+    it('should add a new line on a list', () => {
+      editor().click();
+
+      getUlToolbarButton().click();
+
+      editor()
+        .click()
+        .typeInSlate('some text 1')
+        .type('{shift}{enter}')
+        .typeInSlate('some text 2')
+        .type('{shift}{enter}')
+        .typeInSlate('some text 3');
+
+      cy.wait(100);
+
+      const expectedValue = doc(
+        block(
+          BLOCKS.UL_LIST,
+          {},
+          block(
+            BLOCKS.LIST_ITEM,
+            {},
+            block(BLOCKS.PARAGRAPH, {}, text('some text 1\nsome text 2\nsome text 3', []))
+          )
+        )
+      );
+
+      expectRichTextFieldValue(expectedValue);
     });
   });
 });
