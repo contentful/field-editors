@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { init, locations, FieldExtensionSDK } from '@contentful/app-sdk';
+import { init, locations } from '@contentful/app-sdk';
+import type { FieldExtensionSDK } from '@contentful/app-sdk';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import '@contentful/forma-36-fcss/dist/styles.css';
 import './index.css';
-// import { MarkdownEditor, renderMarkdownDialog } from '@contentful/field-editor-markdown';
-import '../../../packages/markdown/src/codemirrorImports';
-import { MarkdownEditor, renderMarkdownDialog } from '../../../packages/markdown/src/index';
+import '@contentful/field-editor-markdown/src/codemirrorImports';
+import { MarkdownEditor, renderMarkdownDialog } from '@contentful/field-editor-markdown';
 import 'codemirror/lib/codemirror.css';
 
 interface AppProps {

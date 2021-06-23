@@ -16,7 +16,7 @@
     "react-sortable-hoc": "^2.0.0"
   },
   "scripts": {
-    "start": "SKIP_PREFLIGHT_CHECK=true cross-env BROWSER=none react-scripts start",
+    "start": "cross-env SKIP_PREFLIGHT_CHECK=true BROWSER=none react-scripts start",
     "build": "SKIP_PREFLIGHT_CHECK=true GENERATE_SOURCEMAP=false react-scripts build",
     "upload": "contentful-app-scripts upload --bundle-dir ./build",
     "test": "react-scripts test",

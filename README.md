@@ -69,7 +69,7 @@ We'd love to have your helping hand on `@contentful/field-editors`!
 ## Links & related repositories
 
 - [App SDK][app-sdk]
-- [Create Contentful Extension CLI][create-contentful-extension]
+- [Create Contentful App CLI][create-contentful-app]
 - [Forma36][forma36]
 
 ## Code of Conduct
@@ -83,8 +83,8 @@ We want to provide a safe, inclusive, welcoming, and harassment-free space and e
 All field editor packages are open source software [licensed as MIT](./LICENSE).
 
 [contentful]: https://www.contentful.com
-[app sdk]: https://github.com/contentful/ui-extensions-sdk
-[create-contentful-extension]: https://github.com/contentful/create-contentful-extension
+[app-sdk]: https://github.com/contentful/ui-extensions-sdk
+[create-contentful-app]: https://github.com/contentful/create-contentful-app
 [github-issues]: https://github.com/contentful/field-editors/issues
 [forma36]: https://github.com/contentful/forma-36
 [typescript]: https://www.typescriptlang.org/
