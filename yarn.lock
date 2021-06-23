@@ -2355,6 +2355,11 @@
   resolved "https://registry.yarnpkg.com/@contentful/app-sdk/-/app-sdk-3.31.1.tgz#30eb42bdc96ee56b96fb025fdafad18f9cfca16b"
   integrity sha512-CyDspzHi4HnXCfujYM+pc79KmnvK+HWckbac1j+B5r591VByYk2y9v/XarHXYVQTdne5ylMSu5CWiit51uxAjQ==
 
+"@contentful/app-sdk@^3.36.0":
+  version "3.36.0"
+  resolved "https://registry.yarnpkg.com/@contentful/app-sdk/-/app-sdk-3.36.0.tgz#83f102b40757578c73ecefe2d19a47cac2708d86"
+  integrity sha512-1KKPRChtmKHHly9z2+tOm04rdkuycxwf4e+NmL3lSV0bMq9y+qK78sAx7TaaLCjOr4WS1Sf1nqzepK+G/DOXoQ==
+
 "@contentful/contentful-extension-scripts@0.15.1":
   version "0.15.1"
   resolved "https://registry.yarnpkg.com/@contentful/contentful-extension-scripts/-/contentful-extension-scripts-0.15.1.tgz#1c6e2df5dce8f6b42f23582d9a07a8d164fc20d7"
@@ -2428,16 +2433,29 @@
     read-pkg-up "^7.0.1"
     semver "^7.3.2"
 
-"@contentful/field-editor-shared@^0.14.0":
-  version "0.14.0"
-  resolved "https://registry.yarnpkg.com/@contentful/field-editor-shared/-/field-editor-shared-0.14.0.tgz#13e942e36ee5350c27978ce625ac74152495c270"
-  integrity sha512-z8PT7hkuUWHcgJNnxIA2VbC2DWEVu/6yhpSKIv4iaFRHsAZjyFQ1s/0QIVK8E0nm+qHZaV5RJKDm6wEkp3G+3A==
+"@contentful/field-editor-shared@^0.16.0":
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/@contentful/field-editor-shared/-/field-editor-shared-0.16.0.tgz#2bbb5c7ea73969d3694c81d1981a88ffd2af759b"
+  integrity sha512-ya4P4HKRMjfJHurCQ5fb/yKyGxPHXisXSf/vwfR2pys62KAhspX9xrIdOFjYhAKaoCdUh9GzL5WL+YBy16NjyQ==
   dependencies:
-    "@contentful/forma-36-tokens" "^0.10.0"
-    contentful-ui-extensions-sdk "^3.29.2"
+    "@contentful/app-sdk" "^3.29.2"
+    "@contentful/forma-36-tokens" "^0.10.1"
     emotion "^10.0.17"
     lodash "^4.17.15"
     lodash-es "^4.17.15"
+
+"@contentful/field-editor-test-utils@^0.11.1":
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/@contentful/field-editor-test-utils/-/field-editor-test-utils-0.11.1.tgz#72f672ba181c18bcb3f04f29f98e527a8f6fcf19"
+  integrity sha512-hE6GG0F3OohVv4Xr9OM6RUasY2YjWjzvj805pjWAQICE7fpAWWbDQPzR3YGO9OF8VogUewiemaIN4NVyVInF+Q==
+  dependencies:
+    "@contentful/app-sdk" "^3.29.2"
+    "@contentful/field-editor-shared" "^0.16.0"
+    "@contentful/forma-36-tokens" "^0.10.1"
+    emotion "^10.0.17"
+    lodash "^4.17.15"
+    lodash-es "^4.17.15"
+    mitt "2.1.0"
 
 "@contentful/forma-36-fcss@^0.3.1":
   version "0.3.1"
@@ -2491,7 +2509,7 @@
     react-transition-group "^2.4.0"
     truncate "^2.0.1"
 
-"@contentful/forma-36-tokens@^0.10.0", "@contentful/forma-36-tokens@^0.10.1":
+"@contentful/forma-36-tokens@^0.10.1":
   version "0.10.1"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.10.1.tgz#e98f4cabc8381927317c7507279fcd6721c46735"
   integrity sha512-K0HX1N9N7H4iofqXmljAfwf6BnPYqeHIeFkiQnXN4+XCI0Z7Dyg++D1880lN5EhyCjEkgPUBViU/hjUj2ULZhw==
@@ -8252,11 +8270,6 @@ contentful-sdk-core@^6.8.0:
   dependencies:
     fast-copy "^2.1.0"
     qs "^6.9.4"
-
-contentful-ui-extensions-sdk@^3.29.2:
-  version "3.32.0"
-  resolved "https://registry.yarnpkg.com/contentful-ui-extensions-sdk/-/contentful-ui-extensions-sdk-3.32.0.tgz#1aee2ee98ed5a32873a78108412197bf41d79b7e"
-  integrity sha512-S36eeOV4a5IE1ZWpN60Sfl3USi5srXJ7QxH7EplTFIk57/lCTqPpdZZPiJMO3HNq9tBCAOTC+b8neql/+jtBQQ==
 
 contentful@^8.1.7:
   version "8.1.7"

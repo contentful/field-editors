@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { LocalesAPI } from '@contentful/field-editor-shared';
-import type { FieldExtensionSDK } from '@contentful/field-editor-shared';
-import { EntryFieldAPI } from '@contentful/app-sdk';
+import { EntryFieldAPI, FieldExtensionSDK } from '@contentful/app-sdk';
 import {
   Field as BaseField,
   FieldWrapper,
