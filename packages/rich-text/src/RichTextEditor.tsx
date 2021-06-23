@@ -18,6 +18,7 @@ import { createBoldPlugin, withBoldOptions } from './plugins/Bold';
 import { withCodeOptions, createCodePlugin } from './plugins/Code';
 import { withItalicOptions, createItalicPlugin } from './plugins/Italic';
 import { createUnderlinePlugin, withUnderlineOptions } from './plugins/Underline';
+import { createParagraphPlugin, withParagraphOptions } from './plugins/Paragraph';
 
 type ConnectedProps = {
   editorId?: string;
@@ -37,6 +38,7 @@ const plugins = [
   createHistoryPlugin(),
 
   // Elements
+  createParagraphPlugin(),
   createListPlugin(),
   createHrPlugin(),
   createHeadingPlugin(),
@@ -50,6 +52,7 @@ const plugins = [
 
 const options = {
   // Elements
+  ...withParagraphOptions,
   ...withListOptions,
   ...withHrOptions,
   ...withHeadingOptions,

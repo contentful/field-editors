@@ -16,13 +16,9 @@ import {
   getRenderElement,
   SPEditor,
 } from '@udecode/slate-plugins-core';
-import { insertNodes, setNodes } from '@udecode/slate-plugins-common';
+import { insertNodes, setNodes, toggleNodeType } from '@udecode/slate-plugins-common';
 import { CustomElement, CustomSlatePluginOptions } from '../../types';
-import {
-  getElementFromCurrentSelection,
-  hasSelectionText,
-  toggleBlock,
-} from '../../helpers/editor';
+import { getElementFromCurrentSelection, hasSelectionText } from '../../helpers/editor';
 
 const styles = {
   dropdown: {
@@ -142,7 +138,7 @@ export function withHeadingEvents(editor: SPEditor) {
     if (isMod && isAltOrOption && headingKey) {
       event.preventDefault();
 
-      toggleBlock(editor, headingKey);
+      toggleNodeType(editor, { activeType: headingKey, inactiveType: BLOCKS.PARAGRAPH });
     }
   };
 }
@@ -173,14 +169,14 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
     const type = (element as CustomElement).type;
 
     setSelected(LABELS[type] ? type : BLOCKS.PARAGRAPH);
-  }, [editor?.selection]); // eslint-disable-line
+  }, [editor?.operations, editor?.selection]); // eslint-disable-line
 
   function handleOnSelectItem(type: string): void {
     if (!editor?.selection) return;
 
     setSelected(type);
     setOpen(false);
-    toggleBlock(editor, type);
+    toggleNodeType(editor, { activeType: type, inactiveType: type });
     Slate.ReactEditor.focus(editor);
   }
 
@@ -229,10 +225,6 @@ export const H6 = createHeading('h1', BLOCKS.HEADING_6);
 
 export function createHeadingPlugin(): SlatePlugin {
   const headings: string[] = [
-    // TOOD: We need to move paragraph to its own plugin if needed. We might also need to import 'p' as ELEMENT_PARAGRAPH from @udecode/slate-plugins-paragraph package
-    'p',
-    BLOCKS.PARAGRAPH,
-
     BLOCKS.HEADING_1,
     BLOCKS.HEADING_2,
     BLOCKS.HEADING_3,
@@ -249,17 +241,6 @@ export function createHeadingPlugin(): SlatePlugin {
 }
 
 export const withHeadingOptions: CustomSlatePluginOptions = {
-  // TOOD: We need to move paragraph to its own plugin if needed. We might also need to import 'p' as ELEMENT_PARAGRAPH from @udecode/slate-plugins-paragraph package
-  p: {
-    // We convert default slate plugins `p` to Contentful `BLOCKS.PARAGRAPH`
-    type: BLOCKS.PARAGRAPH,
-    component: Slate.DefaultElement,
-  },
-  [BLOCKS.PARAGRAPH]: {
-    type: BLOCKS.PARAGRAPH,
-    component: Slate.DefaultElement,
-  },
-
   [BLOCKS.HEADING_1]: {
     type: BLOCKS.HEADING_1,
     component: H1,

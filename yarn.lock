@@ -5386,6 +5386,14 @@
     "@udecode/slate-plugins-core" "^1.0.0-alpha.25"
     "@udecode/slate-plugins-reset-node" "^1.0.0-alpha.25"
 
+"@udecode/slate-plugins-paragraph@^1.0.0-alpha.25":
+  version "1.0.0-alpha.25"
+  resolved "https://registry.yarnpkg.com/@udecode/slate-plugins-paragraph/-/slate-plugins-paragraph-1.0.0-alpha.25.tgz#bcb36021b20af4c8ac7d658adc01ff061eeb6eec"
+  integrity sha512-DGVFOhyxhu3P8yAfRCUl3dIEevYJEnRTpwqH9aq4S0TURUEG0FiumrXJKiY625f16R7M98HpVe15Xp01RT21qg==
+  dependencies:
+    "@udecode/slate-plugins-common" "^1.0.0-alpha.25"
+    "@udecode/slate-plugins-core" "^1.0.0-alpha.25"
+
 "@udecode/slate-plugins-reset-node@^1.0.0-alpha.25":
   version "1.0.0-alpha.25"
   resolved "https://registry.yarnpkg.com/@udecode/slate-plugins-reset-node/-/slate-plugins-reset-node-1.0.0-alpha.25.tgz#e0f3667f06e4bf49e86837c0522a96b6373fa062"
