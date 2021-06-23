@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "emotion": "^10.0.17",
-    "@contentful/app-sdk": "^3.29.2",
+    "@contentful/app-sdk": "^3.36.0",
     "@contentful/field-editor-single-line": "^0.14.1",
     "@contentful/field-editor-shared": "^0.16.0",
     "@contentful/forma-36-fcss": "^0.3.2",
