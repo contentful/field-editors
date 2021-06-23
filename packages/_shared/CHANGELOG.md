@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.18.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@0.17.0...@contentful/field-editor-shared@0.18.0) (2021-06-23)
+
+
+### Features
+
+* [] bump app sdk ([#755](https://github.com/contentful/field-editors/issues/755)) ([aa0c217](https://github.com/contentful/field-editors/commit/aa0c2179d4edbb1a37453e1e3bdf0ae11991166f))
+
+
+
+
+
 # [0.17.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@0.16.0...@contentful/field-editor-shared@0.17.0) (2021-06-22)
 
 
