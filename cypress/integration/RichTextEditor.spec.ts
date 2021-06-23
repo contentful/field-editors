@@ -325,7 +325,7 @@ describe('Rich Text Editor', () => {
     });
   });
 
-  describe.skip('Quote', () => {
+  describe('Quote', () => {
     describe('quote button', () => {
       function getQuoteToolbarButton() {
         return cy.findByTestId('quote-toolbar-button');
