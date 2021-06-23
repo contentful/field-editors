@@ -2350,7 +2350,7 @@
     open "^8.0.5"
     ora "^5.4.0"
 
-"@contentful/app-sdk@^3.29.2":
+"@contentful/app-sdk@3.31.1", "@contentful/app-sdk@^3.29.2":
   version "3.31.1"
   resolved "https://registry.yarnpkg.com/@contentful/app-sdk/-/app-sdk-3.31.1.tgz#30eb42bdc96ee56b96fb025fdafad18f9cfca16b"
   integrity sha512-CyDspzHi4HnXCfujYM+pc79KmnvK+HWckbac1j+B5r591VByYk2y9v/XarHXYVQTdne5ylMSu5CWiit51uxAjQ==

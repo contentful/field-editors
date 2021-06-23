@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { MultipleEntryReferenceEditor } from '../../../packages/reference/src/index';
-import { init, FieldExtensionSDK } from '@contentful/app-sdk';
+import { MultipleEntryReferenceEditor } from '@contentful/field-editor-reference';
+import { init } from '@contentful/app-sdk';
+import type { FieldExtensionSDK } from '@contentful/app-sdk';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import '@contentful/forma-36-fcss/dist/styles.css';
 import './index.css';
@@ -16,6 +17,7 @@ init<FieldExtensionSDK>((sdk) => {
         viewType="link"
         sdk={fieldSdk}
         isInitiallyDisabled={true}
+        hasCardEditActions={true}
         parameters={{
           instance: {
             showCreateEntityAction: true,
