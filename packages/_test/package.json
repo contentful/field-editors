@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-test-utils",
-  "version": "0.13.0",
+  "version": "0.14.0",
   "main": "dist/index.js",
   "module": "dist/field-editor-test-utils.esm.js",
   "typings": "dist/index.d.ts",
@@ -24,7 +24,7 @@
     "@contentful/app-sdk": "^3.36.0"
   },
   "dependencies": {
-    "@contentful/field-editor-shared": "^0.18.0",
+    "@contentful/field-editor-shared": "^0.19.0",
     "@contentful/forma-36-tokens": "^0.10.2",
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",

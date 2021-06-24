@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.19.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@0.18.0...@contentful/field-editor-shared@0.19.0) (2021-06-23)
+
+
+### Features
+
+* [] bump forma tokens ([#756](https://github.com/contentful/field-editors/issues/756)) ([befc60f](https://github.com/contentful/field-editors/commit/befc60f9f495b0d1e072e9cba969d139da8f674a))
+
+
+
+
+
 # [0.18.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@0.17.0...@contentful/field-editor-shared@0.18.0) (2021-06-23)
 
 
