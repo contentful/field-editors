@@ -22,6 +22,7 @@ import { createParagraphPlugin, withParagraphOptions } from './plugins/Paragraph
 import { createQuotePlugin, withQuoteOptions } from './plugins/Quote';
 import { createNewLinePlugin } from './plugins/NewLine';
 import { createTablePlugin, withTableOptions } from './plugins/Table';
+import { createHyperlinkPlugin, withHyperlinkOptions } from './plugins/Hyperlink';
 
 type ConnectedProps = {
   editorId?: string;
@@ -51,6 +52,9 @@ const plugins = [
   createQuotePlugin(),
   createTablePlugin(),
 
+  // Inline elements
+  createHyperlinkPlugin(),
+
   // Marks
   createBoldPlugin(),
   createCodePlugin(),
@@ -67,6 +71,9 @@ const options = {
   ...withQuoteOptions,
   ...withTableOptions,
 
+  // Inline elements
+  ...withHyperlinkOptions,
+
   // Marks
   ...withBoldOptions,
   ...withCodeOptions,
@@ -76,7 +83,123 @@ const options = {
 
 const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const document = toSlatejsDocument({
-    document: props.value || Contentful.EMPTY_DOCUMENT,
+    document:
+      {
+        nodeType: 'document',
+        data: {},
+        content: [
+          {
+            nodeType: 'paragraph',
+            content: [
+              {
+                nodeType: 'text',
+                value: '',
+                marks: [],
+                data: {},
+              },
+              {
+                nodeType: 'hyperlink',
+                content: [
+                  {
+                    nodeType: 'text',
+                    value: 'Normal Url Link',
+                    marks: [],
+                    data: {},
+                  },
+                ],
+                data: {
+                  uri: 'https://google.com',
+                },
+              },
+              {
+                nodeType: 'text',
+                value: '',
+                marks: [],
+                data: {},
+              },
+            ],
+            data: {},
+          },
+          {
+            nodeType: 'paragraph',
+            content: [
+              {
+                nodeType: 'text',
+                value: '',
+                marks: [],
+                data: {},
+              },
+              {
+                nodeType: 'entry-hyperlink',
+                content: [
+                  {
+                    nodeType: 'text',
+                    value: 'Entry Link',
+                    marks: [],
+                    data: {},
+                  },
+                ],
+                data: {
+                  target: {
+                    sys: {
+                      id: '6Pna4OrC1gL9f1idJpegEi',
+                      type: 'Link',
+                      linkType: 'Entry',
+                    },
+                  },
+                },
+              },
+              {
+                nodeType: 'text',
+                value: '',
+                marks: [],
+                data: {},
+              },
+            ],
+            data: {},
+          },
+          {
+            nodeType: 'paragraph',
+            content: [
+              {
+                nodeType: 'text',
+                value: '',
+                marks: [],
+                data: {},
+              },
+              {
+                nodeType: 'asset-hyperlink',
+                content: [
+                  {
+                    nodeType: 'text',
+                    value: 'Asset Link',
+                    marks: [],
+                    data: {},
+                  },
+                ],
+                data: {
+                  target: {
+                    sys: {
+                      id: '24umHh1bsK3M1CaPmr6eHx',
+                      type: 'Link',
+                      linkType: 'Asset',
+                    },
+                  },
+                },
+              },
+              {
+                nodeType: 'text',
+                value: '',
+                marks: [],
+                data: {},
+              },
+            ],
+            data: {},
+          },
+        ],
+      } ||
+      props.value ||
+      Contentful.EMPTY_DOCUMENT,
     schema,
   });
 
