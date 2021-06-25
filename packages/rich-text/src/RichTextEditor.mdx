@@ -120,12 +120,12 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
 
 </Playground>
 
-## As field extension
+## As field app
 
 ```js
 import { RichTextEditor, renderRichTextDialog } from '@contentful/field-editor-rich-text';
 
-/// your extension code
+/// your app code
 init((sdk) => {
   if (sdk.location.is(locations.LOCATION_DIALOG)) {
     render(renderRichTextDialog(sdk), document.getElementById('root'));

@@ -11,7 +11,7 @@ const pikadayStyles = fs.readFileSync(process.cwd() + '/packages/date/styles/sty
 
 export default {
   title: 'Contentful Field Editors',
-  description: 'React components and extensions for building Contentful entry editor',
+  description: 'React components and apps for building Contentful entry editor',
   src: './packages/',
   files: '**/*.mdx',
   typescript: true,

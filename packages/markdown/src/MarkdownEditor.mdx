@@ -87,13 +87,13 @@ import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-
 
 <Props of={MarkdownEditor} />
 
-## As field extension
+## As field app
 
 ```js
 import 'codemirror/lib/codemirror.css';
 import { MarkdownEditor, renderMarkdownDialog } from '@contentful/field-editor-markdown';
 
-/// your extension code
+/// your app code
 init(sdk => {
   if (sdk.location.is(locations.LOCATION_DIALOG)) {
     render(renderMarkdownDialog(sdk), document.getElementById('root'));

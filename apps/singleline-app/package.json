@@ -1,0 +1,52 @@
+{
+  "name": "singleline-app",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@contentful/app-sdk": "^3.36.0",
+    "@contentful/field-editor-single-line": "^0.14.1",
+    "@contentful/forma-36-fcss": "^0.3.2",
+    "@contentful/forma-36-react-components": "^3.90.1",
+    "@contentful/forma-36-tokens": "^0.10.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "scripts": {
+    "start": "cross-env SKIP_PREFLIGHT_CHECK=true BROWSER=none react-scripts start",
+    "build": "cross-env SKIP_PREFLIGHT_CHECK=true GENERATE_SOURCEMAP=false react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "upload": "contentful-app-scripts upload --bundle-dir ./build",
+    "upload-ci": "contentful-app-scripts upload --ci --bundle-dir ./build  --organization-id $CONTENTFUL_ORG_ID --definition-id $CONTENTFUL_APP_DEF_ID --token $CONTENTFUL_ACCESS_TOKEN"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@contentful/app-scripts": "^0.8.49",
+    "@contentful/field-editor-test-utils": "^0.11.1",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^13.1.9",
+    "@types/jest": "^26.0.23",
+    "@types/node": "^15.12.4",
+    "@types/react": "^17.0.11",
+    "@types/react-dom": "^17.0.8",
+    "cross-env": "^7.0.3",
+    "react-scripts": "4.0.3",
+    "typescript": "^4.3.4"
+  },
+  "homepage": "."
+}

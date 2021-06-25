@@ -2,9 +2,9 @@
 
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
 
-This is the monorepo for all field editors and extensions by [Contentful][contentful].
+This is the monorepo for all field editors and apps by [Contentful][contentful].
 
-Since these are developed using the [App SDK][app-sdk], this will allow you to understand how each editor works, fork existing extensions or create your own extensions based on existing Contentful components' source rather than starting from scratch.
+Since these are developed using the [App SDK][app-sdk], this will allow you to understand how each editor works, fork existing apps or create your own apps based on existing Contentful components' source rather than starting from scratch.
 
 It uses [Typescript][typescript], [React][react], [Forma36][forma36] (a design system & component library by Contentful) and is managed using [Lerna][lerna]. Code is automatically formatted with [Prettier][prettier] and checked with [ESLint][eslint] on every commit using Git hooks.
 
@@ -13,7 +13,7 @@ It uses [Typescript][typescript], [React][react], [Forma36][forma36] (a design s
 Playground with all components: [https://contentful-field-editors.netlify.app/](https://contentful-field-editors.netlify.app/)
 
 This repository has all editorial components that you can find in the Contentful Web application.
-You can run each of these component as a custom field extension or compose them into a custom entry extension.
+You can run each of these component as a custom field app or compose them into a custom entry app.
 You could also use these components as the basis for a custom [Contentful App](https://www.contentful.com/app-framework/)
 
 - Single line editor
@@ -35,7 +35,7 @@ You could also use these components as the basis for a custom [Contentful App](h
 - Entry reference / Media
 - Rich Text
 
-Also this repository contains shared packages that simplify development and testing of field and entry extensions.
+Also this repository contains shared packages that simplify development and testing of field and entry apps.
 
 Feel free to reach out to us with the ones that'd be the most useful to have
 here by filing a [Github issue][github-issues]!

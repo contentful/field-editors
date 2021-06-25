@@ -2,7 +2,7 @@
   "name": "@contentful/field-editors",
   "private": true,
   "version": "1.0.0",
-  "description": "React components and extensions for building Contentful entry editor",
+  "description": "React components and apps for building Contentful entry editor",
   "author": "Contentful GmbH",
   "license": "MIT",
   "repository": {
@@ -13,7 +13,7 @@
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean",
     "build": "lerna run --concurrency 1 --stream --scope=@contentful/** build",
-    "build:extensions": "lerna run --concurrency 1 --stream --scope={'markdown-extension,entry-extension-collapsible,field-editor-example,rich-text-extension,singleline-extension'} build",
+    "build:apps": "lerna run --concurrency 1 --stream --scope={'markdown-app,entry-app-collapsible,multiple-references-app,rich-text-app,singleline-app'} build",
     "lint": "eslint ./ --ext .js,.jsx,.ts,.tsx",
     "lint:md": "remark --no-stdout --frail *.md */*.md",
     "watch": "lerna run --stream watch",
@@ -32,7 +32,7 @@
   },
   "workspaces": [
     "packages/**",
-    "extensions/**"
+    "apps/**"
   ],
   "devDependencies": {
     "@babel/core": "^7.9.6",
