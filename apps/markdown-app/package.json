@@ -1,10 +1,11 @@
 {
-  "name": "multiple-references-extension",
+  "name": "markdown-app",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@contentful/app-sdk": "^3.36.0",
     "@contentful/field-editor-single-line": "^0.14.1",
+    "@contentful/field-editor-shared": "^0.16.0",
     "@contentful/forma-36-fcss": "^0.3.2",
     "@contentful/forma-36-react-components": "^3.90.1",
     "@contentful/forma-36-tokens": "^0.10.2",

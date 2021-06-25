@@ -1,5 +1,5 @@
 {
-  "name": "rich-text-extension",
+  "name": "rich-text-app",
   "version": "1.0.0",
   "private": true,
   "dependencies": {

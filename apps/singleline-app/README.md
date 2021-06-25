@@ -1,6 +1,6 @@
-# RichText field extension
+# Single Line + Fetching data app
 
-This extension demonstrates how you would use `RichTextEditor` as your own field extension.
+This app demonstrates how you would use the simplest field we have `SingleLineEditor`.
 
 ## Available Scripts
 

@@ -1,6 +1,6 @@
-# Markdown field extension
+# RichText field app
 
-This extension demonstrates how you would use `MarkdownEditor` as your own field extension.
+This app demonstrates how you would use `RichTextEditor` as your own field app.
 
 ## Available Scripts
 
@@ -27,7 +27,21 @@ Your app is ready to be deployed!
 
 #### `yarn upload`
 
-Uploads the `build` folder to your Contentful space.
+Uploads the build folder to contentful and creates a bundle that is automatically activated.
+The command guides you through the deployment process and asks for all required arguments.
+Read [here](https://www.contentful.com/developers/docs/extensibility/app-framework/create-contentful-app/#deploy-with-contentful) for more information about the deployment process.
+
+#### `yarn upload-ci`
+
+Similar to `yarn upload` it will upload your app to contentful and activate it. The only difference is   
+that with this command all required arguments are read from the environment variables, for example when you add
+the upload command to your CI pipeline.
+
+For this command to work, the following environment variables must be set: 
+
+- `CONTENTFUL_ORG_ID` - The ID of your organization
+- `CONTENTFUL_APP_DEF_ID` - The ID of the app to which to add the bundle
+- `CONTENTFUL_ACCESS_TOKEN` - A personal [access token](https://www.contentful.com/developers/docs/references/content-management-api/#/reference/personal-access-tokens)
 
 ## Libraries to use
 

@@ -1,6 +1,8 @@
-# MultipleEntryReferenceEditor field extension
+# Entry app with collapsible groups
 
-This extension demonstrates how you would use the simplest field we have `MultipleEntryReferenceEditor` with your own custom logic.
+This app demonstrates how you would use all existing field editors to create a complex entry app.
+
+![demo](./docs/demo.gif)
 
 ## Available Scripts
 

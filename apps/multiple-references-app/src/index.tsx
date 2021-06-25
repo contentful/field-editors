@@ -31,7 +31,7 @@ init<FieldExtensionSDK>((sdk) => {
 });
 
 /**
- * By default, iframe of the extension is fully reloaded on every save of a source file.
+ * By default, iframe of the app is fully reloaded on every save of a source file.
  * If you want to use HMR (hot module reload) instead of full reload, uncomment the following lines
  */
 // if (module.hot) {

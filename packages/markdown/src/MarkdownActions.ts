@@ -191,7 +191,7 @@ export function createMarkdownActions(props: {
     },
     closeZenMode: () => {
       // do nothing
-      // this method is overwritten in dialog extension
+      // this method is overwritten in dialog app
     },
   };
 }
