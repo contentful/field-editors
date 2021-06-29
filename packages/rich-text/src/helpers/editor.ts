@@ -1,6 +1,7 @@
 import { Text, Editor, Element, Transforms, Path } from 'slate';
-import { BLOCKS } from '@contentful/rich-text-types';
+import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { CustomElement } from '../types';
+import { SPEditor } from '@udecode/slate-plugins-core';
 
 const LIST_TYPES: string[] = [BLOCKS.OL_LIST, BLOCKS.UL_LIST];
 
@@ -25,6 +26,20 @@ export function hasSelectionText(editor) {
         (node) => Text.isText(node) && node.text !== ''
       )
     : false;
+}
+
+type NodeEntry = [CustomElement, Path];
+export function getNodeEntryFromSelection(
+  editor: Editor | SPEditor,
+  nodeType: BLOCKS | INLINES
+): NodeEntry | [] {
+  if (!editor.selection) return [];
+  const { path } = editor.selection.focus;
+  for (let i = 0; i < path.length; i++) {
+    const nodeEntry = Editor.node(editor, path.slice(0, i + 1)) as NodeEntry;
+    if (nodeEntry[0].type === nodeType) return nodeEntry;
+  }
+  return []
 }
 
 export function moveToTheNextLine(editor) {
@@ -56,7 +71,11 @@ export function toggleBlock(editor, type: string): void {
   Transforms.setNodes(editor, newProperties);
 
   if (!isActive && (isList || isQuote)) {
-    const block = { type, children: [] };
+    const block = {
+      type,
+      data: {},
+      children: []
+    };
     Transforms.wrapNodes(editor, block);
   }
 }

@@ -98,8 +98,8 @@ export function withHeadingEvents(editor: SPEditor) {
       event.preventDefault();
 
       const text = { text: '' };
-      const paragraph = { type: BLOCKS.PARAGRAPH, children: [text] };
-      const heading = { type: currentFragment.type, children: [text] };
+      const paragraph = { type: BLOCKS.PARAGRAPH, data: {}, children: [text] };
+      const heading = { type: currentFragment.type, data: {}, children: [text] };
 
       if (hasSelectionText(editor)) {
         const currentOffset = editor.selection.focus.offset;

@@ -27,7 +27,15 @@ type LinkEntityActionsProps = {
 };
 
 export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsProps {
-  const { sdk, editorPermissions, entityType, canLinkMultiple, isDisabled, actionLabels, itemsLength } = props;
+  const {
+    sdk,
+    editorPermissions,
+    entityType,
+    canLinkMultiple,
+    isDisabled,
+    actionLabels,
+    itemsLength,
+  } = props;
 
   const maxLinksCount = editorPermissions.validations.numberOfLinks?.max;
   const value = sdk.field.getValue();

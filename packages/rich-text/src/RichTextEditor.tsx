@@ -21,6 +21,7 @@ import { createUnderlinePlugin, withUnderlineOptions } from './plugins/Underline
 import { createParagraphPlugin, withParagraphOptions } from './plugins/Paragraph';
 import { createQuotePlugin, withQuoteOptions } from './plugins/Quote';
 import { createNewLinePlugin } from './plugins/NewLine';
+import { createTablePlugin, withTableOptions } from './plugins/Table';
 
 type ConnectedProps = {
   editorId?: string;
@@ -48,6 +49,7 @@ const plugins = [
   createHrPlugin(),
   createHeadingPlugin(),
   createQuotePlugin(),
+  createTablePlugin(),
 
   // Marks
   createBoldPlugin(),
@@ -63,6 +65,7 @@ const options = {
   ...withHrOptions,
   ...withHeadingOptions,
   ...withQuoteOptions,
+  ...withTableOptions,
 
   // Marks
   ...withBoldOptions,
