@@ -4,6 +4,7 @@ import { SlatePluginOptions } from '@udecode/slate-plugins-core';
 export type CustomElement = {
   type: string;
   children: Descendant[];
+  data: object;
   isVoid?: boolean;
 };
 

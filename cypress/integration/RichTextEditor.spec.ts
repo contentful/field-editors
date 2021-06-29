@@ -542,4 +542,230 @@ describe('Rich Text Editor', () => {
       expectRichTextFieldValue(expectedValue);
     });
   });
+
+  describe('Tables', () => { 
+    const buildHelper = (type) => (...children) => block(type, {}, ...children);
+    const table = buildHelper(BLOCKS.TABLE);
+    const row = buildHelper(BLOCKS.TABLE_ROW);
+    const cell = buildHelper(BLOCKS.TABLE_CELL);
+    const paragraph = buildHelper(BLOCKS.PARAGRAPH);
+    const paragraphWithText = (t) => paragraph(text(t, []));
+    const emptyParagraph = () => paragraphWithText('');
+    const emptyCell = () => cell(emptyParagraph());
+    const cellWithText = (t) => cell(paragraphWithText(t));
+    const insertTableWithExampleData = () => {
+      editor()
+        .type(`{${mod}}{,}`)
+        .typeInSlate('foo')
+        .type('{rightArrow}')
+        .typeInSlate('bar')
+        .type('{rightArrow}')
+        .typeInSlate('baz')
+        .type('{rightArrow}')
+        .typeInSlate('quux')
+    };
+    const expectDocumentStructure = (...elements) => {
+      cy.wait(100);
+      expectRichTextFieldValue(
+        doc(
+          emptyParagraph(),
+          ...elements,
+          emptyParagraph(),
+        )
+      );
+    }
+    const expectTable = (...tableElements) => expectDocumentStructure(
+      table(...tableElements)
+    );
+    const expectTableToBeDeleted = () => expectDocumentStructure();
+
+    it('allows creating a table', () => {
+      editor().type(`{${mod}}{,}`);
+
+      expectTable(
+        row(
+          emptyCell(),
+          emptyCell(),
+        ),
+        row(
+          emptyCell(),
+          emptyCell(),
+        )
+      );
+    });
+
+    it('allows filling a table with text', () => {
+      insertTableWithExampleData();
+
+      expectTable(
+        row(
+          cellWithText('foo'),
+          cellWithText('bar'),
+        ),
+        row(
+          cellWithText('baz'),
+          cellWithText('quux'),
+        )
+      );
+    });
+
+    it('allows adding rows and columns', () => {
+      insertTableWithExampleData();
+
+      editor()
+        .click()
+        .type(`{upArrow}`)
+        .type(`{upArrow}`)
+        .wait(100)
+        .type(`{${mod}}{rightArrow}`);
+
+      expectTable(
+        row(
+          cellWithText('foo'),
+          emptyCell(),
+          cellWithText('bar'),
+        ),
+        row(
+          cellWithText('baz'),
+          emptyCell(),
+          cellWithText('quux'),
+        )
+      );
+
+      editor()
+        .click()
+        .type(`{upArrow}`)
+        .type(`{upArrow}`)
+        .type(`{upArrow}`)
+        .type(`{upArrow}`)
+        .wait(100)
+        .type(`{${mod}}{downArrow}`);
+
+      expectTable(
+        row(
+          cellWithText('foo'),
+          emptyCell(),
+          cellWithText('bar'),
+        ),
+        row(
+          emptyCell(),
+          emptyCell(),
+          emptyCell(),
+        ),
+        row(
+          cellWithText('baz'),
+          emptyCell(),
+          cellWithText('quux'),
+        )
+      );
+    });
+
+    it('allows deleting a table by selection deletion', () => {
+      insertTableWithExampleData();
+
+      editor()
+        .click()
+        .type(`{upArrow}`)
+        .type(`{upArrow}`)
+        .wait(100)
+        .type(`{${mod}}{backspace}`);
+      
+      expectTable(
+        row(cellWithText('bar')),
+        row(cellWithText('quux')),
+      );
+
+      editor()
+        .click()
+        .type(`{upArrow}`)
+        .type(`{upArrow}`)
+        .wait(100)
+        .type(`{${mod}}{backspace}`)
+
+      expectTable(
+        row(cellWithText('quux'))
+      );
+
+      editor()
+        .click()
+        .type(`{upArrow}`)
+        .wait(100)
+        .type(`{${mod}}{backspace}`)
+
+      expectTableToBeDeleted();
+    });
+
+    it('allows removing rows and columns', () => {
+      insertTableWithExampleData();
+
+      editor()
+        .click()
+        .type(`{upArrow}`)
+        .type(`{upArrow}`)
+        .wait(100)
+        .type(`{${mod}}{leftArrow}`);
+      
+      expectTable(
+        row(cellWithText('bar')),
+        row(cellWithText('quux'))
+      );
+
+      editor()
+        .click()
+        .type(`{upArrow}`)
+        .type(`{upArrow}`)
+        .wait(100)
+        .type(`{${mod}}{upArrow}`)
+
+      expectTable(
+        row(cellWithText('quux'))
+      );
+
+      editor()
+        .click()
+        .type(`{upArrow}`)
+        .wait(100)
+        .type(`{${mod}}{upArrow}`)
+
+      expectTableToBeDeleted();
+
+      // Undo 3x... let's make sure we can do the same thing,
+      // but with reversed order column/row deletion
+      editor()
+        .type(`{${mod}}z`)
+        .type(`{${mod}}z`)
+        .type(`{${mod}}z`)
+      
+      editor()
+        .type(`{upArrow}`)
+        .type(`{upArrow}`)
+        .wait(100)
+        .type(`{${mod}}{upArrow}`);
+      
+      expectTable(
+        row(
+          cellWithText('baz'),
+          cellWithText('quux'),
+        ),
+      );
+  
+      editor()
+        .click()
+        .type(`{upArrow}`)
+        .wait(100)
+        .type(`{${mod}}{leftArrow}`)
+
+      expectTable(
+        row(cellWithText('baz'))
+      );
+
+      editor()
+        .click()
+        .type(`{upArrow}`)
+        .wait(100)
+        .type(`{${mod}}{leftArrow}`)
+
+      expectTableToBeDeleted();
+    });
+  });
 });

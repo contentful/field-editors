@@ -11,10 +11,13 @@ import {
   useStoreEditor,
   SlatePlugin,
   SPEditor,
-  isElement,
 } from '@udecode/slate-plugins-core';
-import { getText, setNodes, insertNodes, getNodes } from '@udecode/slate-plugins-common';
-import { isBlockSelected } from '../../helpers/editor';
+import { getText, setNodes } from '@udecode/slate-plugins-common';
+import {
+  getNodeEntryFromSelection,
+  isBlockSelected,
+  moveToTheNextLine,
+} from '../../helpers/editor';
 import { CustomSlatePluginOptions } from 'types';
 
 const styles = {
@@ -55,19 +58,17 @@ interface ToolbarHrButtonProps {
 
 export function withHrEvents(editor: SPEditor) {
   return (event) => {
-    if (!editor.selection) return;
-
     const isEnter = event.keyCode === 13;
-    const [currentHrNode] = getNodes(editor, {
-      at: editor.selection.focus.path,
-      match: (node) => isElement(node) && node.type === BLOCKS.HR,
-    });
-    const isCurrentBlockHr = !!currentHrNode;
+    const [, pathToSelectedHr] = getNodeEntryFromSelection(editor, BLOCKS.HR);
 
-    if (isEnter && isCurrentBlockHr) {
-      event.preventDefault();
-
-      Transforms.move(editor, { distance: 1 });
+    if (pathToSelectedHr) {
+      if (isEnter) {
+        event.preventDefault();
+        moveToTheNextLine(editor);
+      } else if (event.key === 'Backspace') {
+        event.preventDefault();
+        Transforms.removeNodes(editor, { at: pathToSelectedHr });
+      }
     }
   };
 }
@@ -80,20 +81,22 @@ export function ToolbarHrButton(props: ToolbarHrButtonProps) {
 
     const hr = {
       type: BLOCKS.HR,
+      data: {},
       children: [{ text: '' }],
       isVoid: true,
     };
 
     const paragraph = {
       type: BLOCKS.PARAGRAPH,
+      data: {},
       children: [{ text: '' }],
     };
 
     const hasText = !!getText(editor, editor.selection.focus.path);
 
-    hasText ? insertNodes(editor, hr) : setNodes(editor, hr);
+    hasText ? Transforms.insertNodes(editor, hr) : setNodes(editor, hr);
 
-    insertNodes(editor, paragraph);
+    Transforms.insertNodes(editor, paragraph);
 
     Slate.ReactEditor.focus(editor);
   }
@@ -111,7 +114,7 @@ export function ToolbarHrButton(props: ToolbarHrButtonProps) {
   );
 }
 
-export function Hr(props: Slate.RenderElementProps) {
+export function Hr(props: Slate.RenderLeafProps) {
   const isSelected = Slate.useSelected();
   const isFocused = Slate.useFocused();
 
