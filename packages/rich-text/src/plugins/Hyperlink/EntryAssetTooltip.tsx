@@ -2,13 +2,7 @@ import * as React from 'react';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 import { EntityType, ScheduledAction } from '@contentful/field-editor-reference/dist/types';
-import {
-  entityHelpers,
-  Entry,
-  Asset,
-  FieldExtensionSDK,
-  ContentType,
-} from '@contentful/field-editor-shared';
+import { entityHelpers, Entry, Asset, FieldExtensionSDK } from '@contentful/field-editor-shared';
 import { EntityStatusTag } from './EntityStatusTag';
 import { truncate } from '../../helpers/truncate';
 import { ScheduleTooltipContent } from './ScheduleTooltipContent';
@@ -65,10 +59,8 @@ export function EntryAssetTooltip({ id, type, sdk }: EntryAssetTooltipProps) {
 
         if (entity.sys.contentType) {
           const contentTypeId = entity.sys.contentType.sys.id;
-          const contentTypes = await sdk.space.getContentTypes();
-          contentType = contentTypes.items.find(
-            (ct) => (ct as ContentType).sys.id === contentTypeId
-          );
+          const contentTypes = sdk.space.getCachedContentTypes();
+          contentType = contentTypes.find((ct) => ct.sys.id === contentTypeId);
         }
 
         const entityTitle: string = actions[type].getEntityTitle({
