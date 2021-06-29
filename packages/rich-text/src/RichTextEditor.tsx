@@ -23,6 +23,7 @@ import { createQuotePlugin, withQuoteOptions } from './plugins/Quote';
 import { createNewLinePlugin } from './plugins/NewLine';
 import { createTablePlugin, withTableOptions } from './plugins/Table';
 import { createHyperlinkPlugin, withHyperlinkOptions } from './plugins/Hyperlink';
+import { SdkProvider } from './SdkProvider';
 
 type ConnectedProps = {
   editorId?: string;
@@ -247,25 +248,27 @@ const RichTextEditor = (props: Props) => {
   );
   return (
     <EntityProvider sdk={sdk}>
-      <FieldConnector
-        throttle={0}
-        field={sdk.field}
-        isInitiallyDisabled={isInitiallyDisabled}
-        isEmptyValue={isEmptyValue}
-        isEqualValues={deepEquals}>
-        {({ lastRemoteValue, disabled, setValue, externalReset }) => (
-          <ConnectedRichTextEditor
-            {...otherProps}
-            // TODO: do we still need this with ShareJS gone?
-            // on external change reset component completely and init with initial value again
-            key={`rich-text-editor-${externalReset}`}
-            value={lastRemoteValue}
-            sdk={sdk}
-            isDisabled={disabled}
-            onChange={setValue}
-          />
-        )}
-      </FieldConnector>
+      <SdkProvider sdk={sdk}>
+        <FieldConnector
+          throttle={0}
+          field={sdk.field}
+          isInitiallyDisabled={isInitiallyDisabled}
+          isEmptyValue={isEmptyValue}
+          isEqualValues={deepEquals}>
+          {({ lastRemoteValue, disabled, setValue, externalReset }) => (
+            <ConnectedRichTextEditor
+              {...otherProps}
+              // TODO: do we still need this with ShareJS gone?
+              // on external change reset component completely and init with initial value again
+              key={`rich-text-editor-${externalReset}`}
+              value={lastRemoteValue}
+              sdk={sdk}
+              isDisabled={disabled}
+              onChange={setValue}
+            />
+          )}
+        </FieldConnector>
+      </SdkProvider>
     </EntityProvider>
   );
 };
