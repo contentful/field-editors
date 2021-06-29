@@ -94,7 +94,7 @@ const ConnectedRichTextEditor = (props: ConnectedProps) => {
             content: [
               {
                 nodeType: 'text',
-                value: '',
+                value: 'Test with text and ',
                 marks: [],
                 data: {},
               },
@@ -103,7 +103,7 @@ const ConnectedRichTextEditor = (props: ConnectedProps) => {
                 content: [
                   {
                     nodeType: 'text',
-                    value: 'Normal Url Link',
+                    value: 'Normal Url L',
                     marks: [],
                     data: {},
                   },
@@ -118,6 +118,26 @@ const ConnectedRichTextEditor = (props: ConnectedProps) => {
                 marks: [],
                 data: {},
               },
+              {
+                nodeType: 'hyperlink',
+                content: [
+                  {
+                    nodeType: 'text',
+                    value: 'ink',
+                    marks: [],
+                    data: {},
+                  },
+                ],
+                data: {
+                  uri: 'https://google.com',
+                },
+              },
+              {
+                nodeType: 'text',
+                value: ' and text after',
+                marks: [],
+                data: {},
+              },
             ],
             data: {},
           },
@@ -126,7 +146,7 @@ const ConnectedRichTextEditor = (props: ConnectedProps) => {
             content: [
               {
                 nodeType: 'text',
-                value: '',
+                value: 'Test with text and ',
                 marks: [],
                 data: {},
               },
@@ -152,7 +172,7 @@ const ConnectedRichTextEditor = (props: ConnectedProps) => {
               },
               {
                 nodeType: 'text',
-                value: '',
+                value: ' and text after',
                 marks: [],
                 data: {},
               },
@@ -164,7 +184,7 @@ const ConnectedRichTextEditor = (props: ConnectedProps) => {
             content: [
               {
                 nodeType: 'text',
-                value: '',
+                value: 'Test with text and ',
                 marks: [],
                 data: {},
               },
@@ -188,6 +208,18 @@ const ConnectedRichTextEditor = (props: ConnectedProps) => {
                   },
                 },
               },
+              {
+                nodeType: 'text',
+                value: ' and text after',
+                marks: [],
+                data: {},
+              },
+            ],
+            data: {},
+          },
+          {
+            nodeType: 'paragraph',
+            content: [
               {
                 nodeType: 'text',
                 value: '',

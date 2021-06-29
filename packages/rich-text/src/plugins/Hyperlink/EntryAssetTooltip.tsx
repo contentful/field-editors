@@ -93,11 +93,11 @@ export function EntryAssetTooltip({ id, type, sdk }: EntryAssetTooltipProps) {
   }, [id, type, sdk]);
 
   if (isLoading) {
-    return <>`Loading ${type.toLowerCase()}...`</>;
+    return <>{`Loading ${type.toLowerCase()}...`}</>;
   }
 
   if (hasError) {
-    return <>`${type} missing or inaccessible`</>;
+    return <>{`${type} missing or inaccessible`}</>;
   }
 
   return (
