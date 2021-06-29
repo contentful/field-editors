@@ -6,7 +6,7 @@ import { Element } from 'slate';
 import { Tooltip, TextLink } from '@contentful/forma-36-react-components';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
-import { Link, EntityType } from '@contentful/field-editor-reference/dist/types';
+import { Link, EntityType, FieldExtensionSDK } from '@contentful/field-editor-reference/dist/types';
 import { CustomSlatePluginOptions } from '../../types';
 import { EntryAssetTooltip } from './EntryAssetTooltip';
 import { useSdkContext } from '../../SdkProvider';
@@ -89,7 +89,7 @@ function UrlHyperlink(props: HyperlinkElementProps) {
 
 function EntryAssetHyperlink(props: HyperlinkElementProps) {
   const { target } = props.element.data;
-  const { sdk } = useSdkContext();
+  const sdk: FieldExtensionSDK = useSdkContext();
 
   if (!target) return null;
 
