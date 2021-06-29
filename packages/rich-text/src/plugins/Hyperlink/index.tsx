@@ -5,27 +5,11 @@ import { RenderElementProps } from 'slate-react';
 import { Element } from 'slate';
 import { Tooltip, TextLink } from '@contentful/forma-36-react-components';
 import { css } from 'emotion';
-import { CustomSlatePluginOptions } from '../../types';
 import tokens from '@contentful/forma-36-tokens';
-import { useEntities } from '@contentful/field-editor-reference';
-import { Link } from '@contentful/field-editor-reference/dist/types';
-
-const hyperlinkTooltipStyles = {
-  entityContentType: css({
-    color: tokens.colorTextLightest,
-    marginRight: tokens.spacingXs,
-    '&:after': {
-      content: '""',
-    },
-  }),
-  entityTitle: css({
-    marginRight: tokens.spacingXs,
-  }),
-  separator: css({
-    background: tokens.colorTextMid,
-    margin: tokens.spacingXs,
-  }),
-};
+import { Link, EntityType } from '@contentful/field-editor-reference/dist/types';
+import { CustomSlatePluginOptions } from '../../types';
+import { EntryAssetTooltip } from './EntryAssetTooltip';
+import { useSdkContext } from '../../SdkProvider';
 
 const styles = {
   hyperlinkWrapper: css({
@@ -103,23 +87,17 @@ function UrlHyperlink(props: HyperlinkElementProps) {
   );
 }
 
-function EntryAssetTooltip(props) {
-  console.log({ props });
-  const a =  props.type === 'Entry' ? props.sdk.getOrLoadEntry(props.id) : props.sdk.getOrLoadAsset(props.id);
-
-
-  return <span>Test</span>;
-}
-
 function EntryAssetHyperlink(props: HyperlinkElementProps) {
   const { target } = props.element.data;
-  const sdk = useEntities();
+  const { sdk } = useSdkContext();
 
-  console.log({ sdk });
+  if (!target) return null;
 
   return (
     <Tooltip
-      content={<EntryAssetTooltip id={target?.sys.id} type={target?.sys.linkType} sdk={sdk} />}
+      content={
+        <EntryAssetTooltip id={target.sys.id} type={target.sys.linkType as EntityType} sdk={sdk} />
+      }
       targetWrapperClassName={styles.hyperlinkWrapper}
       place="bottom"
       maxWidth="auto">
