@@ -101,11 +101,12 @@ const styles = {
   }),
 };
 
-export default function (Tag, tagProps = {}) {
+export default function (Tag, tagProps = {}, additionalClasses = []) {
   const CommonNode = ({ attributes, children, node }) => {
+    const classes = `${additionalClasses.join(" ")} ${styles[camelCase(node.type)]}`.trim();
     return (
       <Tag
-        className={styles[camelCase(node.type)]}
+        className={classes}
         data-test-id={node.type}
         {...tagProps}
         {...attributes}>

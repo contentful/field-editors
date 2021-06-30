@@ -18,6 +18,7 @@ export const CustomPlugin = () => ({
       const styles = { style: {} };
       const textAlign = props.node.data.get('textAlign');
       const smallText = props.node.data.get('smallText');
+      const styleClass = props.node.data.get('class');
 
       if (textAlign) styles.style.textAlign = textAlign;
       if (smallText) {
@@ -25,7 +26,7 @@ export const CustomPlugin = () => ({
         styles.style.lineHeight = '1rem';
       }
 
-      return CommonNode(blockToTagMap[props.node.type], styles)(props);
+      return CommonNode(blockToTagMap[props.node.type], styles, [styleClass])(props);
     }
     return next();
   }
