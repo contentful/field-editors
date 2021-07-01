@@ -13,6 +13,7 @@ import {
 import { useStoreEditor } from '@udecode/slate-plugins-core';
 import { isBlockSelected } from '../../helpers/editor';
 import { CustomSlatePluginOptions } from 'types';
+import tokens from '@contentful/forma-36-tokens';
 
 interface ToolbarListButtonProps {
   isDisabled?: boolean;
@@ -53,17 +54,46 @@ export function ToolbarListButton(props: ToolbarListButtonProps) {
   );
 }
 
+const listStyles = `
+  padding: 0;
+  margin: 0 0 1.25rem 1.25rem;
+  div:first-child {
+    margin: 0;
+    line-height: ${tokens.lineHeightDefault};
+  }
+`;
+
 const styles = {
   [BLOCKS.UL_LIST]: css`
-    margin: 0 0 1.25rem 1.25rem;
-    list-style: disc;
+    ${listStyles}
+    list-style-type: disc;
+    ul {
+      list-style-type: circle;
+      ul {
+        list-style-type: square;
+      }
+    }
   `,
   [BLOCKS.OL_LIST]: css`
-    margin: 0 0 1.25rem 1.25rem;
-    list-style: decimal;
+    ${listStyles}
+    list-style-type: decimal;
+    ol {
+      list-style-type: upper-alpha;
+      ol {
+        list-style-type: lower-roman;
+        ol {
+          list-style-type: lower-alpha;
+        }
+      }
+    }
   `,
   [BLOCKS.LIST_ITEM]: css`
     margin: 0;
+    list-style: inherit;
+    ol,
+    ul {
+      margin: 0 0 0 ${tokens.spacingL};
+    }
   `,
 };
 
