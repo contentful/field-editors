@@ -1,11 +1,11 @@
 import { Text, Editor, Element, Transforms, Path, Range } from 'slate';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
-import { CustomElement } from '../types';
-import { SPEditor } from '@udecode/slate-plugins-core';
+import { CustomElement, CustomEditor } from '../types';
 
 const LIST_TYPES: string[] = [BLOCKS.OL_LIST, BLOCKS.UL_LIST];
+const LINK_TYPES: string[] = [INLINES.HYPERLINK, INLINES.ASSET_HYPERLINK, INLINES.ENTRY_HYPERLINK];
 
-export function isBlockSelected(editor, type: string): boolean {
+export function isBlockSelected(editor: CustomEditor, type: string): boolean {
   const [match] = Array.from(
     Editor.nodes(editor, {
       match: (node) => Element.isElement(node) && (node as CustomElement).type === type,
@@ -14,13 +14,13 @@ export function isBlockSelected(editor, type: string): boolean {
   return !!match;
 }
 
-export function isVoid(editor, element): boolean {
+export function isVoid(editor: CustomEditor, element): boolean {
   const { isVoid: originalIsVoid } = editor;
 
   return element.isVoid || originalIsVoid(element);
 }
 
-export function hasSelectionText(editor) {
+export function hasSelectionText(editor: CustomEditor) {
   return editor.selection
     ? Editor.node(editor, editor.selection.focus.path).some(
         (node) => Text.isText(node) && node.text !== ''
@@ -30,7 +30,7 @@ export function hasSelectionText(editor) {
 
 type NodeEntry = [CustomElement, Path];
 export function getNodeEntryFromSelection(
-  editor: Editor | SPEditor,
+  editor: CustomEditor,
   nodeType: BLOCKS | INLINES
 ): NodeEntry | [] {
   if (!editor.selection) return [];
@@ -42,11 +42,11 @@ export function getNodeEntryFromSelection(
   return [];
 }
 
-export function moveToTheNextLine(editor) {
+export function moveToTheNextLine(editor: CustomEditor) {
   Transforms.move(editor, { distance: 1 });
 }
 
-export function toggleBlock(editor, type: string): void {
+export function toggleBlock(editor: CustomEditor, type: string): void {
   const isActive = isBlockSelected(editor, type);
   const isList = LIST_TYPES.includes(type);
   const isQuote = type === BLOCKS.QUOTE;
@@ -80,7 +80,7 @@ export function toggleBlock(editor, type: string): void {
   }
 }
 
-export function getElementFromCurrentSelection(editor) {
+export function getElementFromCurrentSelection(editor: CustomEditor) {
   if (!editor.selection) return [];
 
   return Array.from(
@@ -91,7 +91,7 @@ export function getElementFromCurrentSelection(editor) {
   ).flat();
 }
 
-export function isList(editor) {
+export function isList(editor: CustomEditor) {
   const element = getElementFromCurrentSelection(editor);
 
   return element.some(
