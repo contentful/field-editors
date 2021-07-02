@@ -19,7 +19,7 @@ interface HyperlinkModalProps {
   linkText?: string;
   linkType?: string;
   linkTarget?: string;
-  onClose: Function;
+  onClose: (value: unknown) => void;
 }
 
 export function HyperlinkModal(props: HyperlinkModalProps) {
