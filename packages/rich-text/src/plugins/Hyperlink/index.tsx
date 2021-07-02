@@ -121,7 +121,8 @@ interface ToolbarHyperlinkButtonProps {
 
 export function ToolbarHyperlinkButton(props: ToolbarHyperlinkButtonProps) {
   const editor = useStoreEditor();
-  const isActive = editor && isLinkActive(editor);
+  const isActive = !!(editor && isLinkActive(editor));
+  const sdk: FieldExtensionSDK = useSdkContext();
 
   async function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
@@ -130,7 +131,7 @@ export function ToolbarHyperlinkButton(props: ToolbarHyperlinkButtonProps) {
     if (isActive) {
       unwrapLink(editor);
     } else {
-      addOrEditLink(editor, { linkType: INLINES.HYPERLINK });
+      addOrEditLink(editor, { sdk });
     }
   }
 
