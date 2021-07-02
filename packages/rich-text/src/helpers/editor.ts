@@ -1,4 +1,4 @@
-import { Text, Editor, Element, Transforms, Path } from 'slate';
+import { Text, Editor, Element, Transforms, Path, Range } from 'slate';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { CustomElement } from '../types';
 import { SPEditor } from '@udecode/slate-plugins-core';
@@ -39,7 +39,7 @@ export function getNodeEntryFromSelection(
     const nodeEntry = Editor.node(editor, path.slice(0, i + 1)) as NodeEntry;
     if (nodeEntry[0].type === nodeType) return nodeEntry;
   }
-  return []
+  return [];
 }
 
 export function moveToTheNextLine(editor) {
@@ -74,7 +74,7 @@ export function toggleBlock(editor, type: string): void {
     const block = {
       type,
       data: {},
-      children: []
+      children: [],
     };
     Transforms.wrapNodes(editor, block);
   }
@@ -101,4 +101,54 @@ export function isList(editor) {
 
 export function isFirstChild(path: Path) {
   return path[path.length - 1] === 0;
+}
+
+export function insertLink(editor, text, url) {
+  if (editor.selection) {
+    wrapLink(editor, text, url);
+  }
+}
+
+export function isLinkActive(editor) {
+  const [link] = Editor.nodes(editor, {
+    match: (node) =>
+      !Editor.isEditor(node) &&
+      Element.isElement(node) &&
+      (node as CustomElement).type === INLINES.HYPERLINK, // TODO: Support Entry and Asset links
+  });
+  return !!link;
+}
+
+export function unwrapLink(editor) {
+  Transforms.unwrapNodes(editor, {
+    match: (node) =>
+      !Editor.isEditor(node) &&
+      Element.isElement(node) &&
+      (node as CustomElement).type === INLINES.HYPERLINK, // TODO: Support Entry and Asset links
+  });
+}
+
+export function wrapLink(editor, text, url) {
+  if (isLinkActive(editor)) {
+    unwrapLink(editor);
+  }
+
+  const { selection } = editor;
+  const isCollapsed = selection && Range.isCollapsed(selection);
+  const link = {
+    type: INLINES.HYPERLINK, // TODO: Support Entry and Asset links
+    data: {
+      uri: url,
+    },
+    children: isCollapsed ? [{ text }] : [],
+  };
+
+  if (isCollapsed) {
+    Transforms.insertNodes(editor, link);
+  } else {
+    Transforms.wrapNodes(editor, link, { split: true });
+    Transforms.delete(editor);
+    Transforms.insertText(editor, text);
+    Transforms.collapse(editor, { edge: 'end' });
+  }
 }
