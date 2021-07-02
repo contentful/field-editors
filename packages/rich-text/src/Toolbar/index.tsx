@@ -10,6 +10,7 @@ import { ToolbarBoldButton } from '../plugins/Bold';
 import { ToolbarCodeButton } from '../plugins/Code';
 import { ToolbarItalicButton } from '../plugins/Italic';
 import { ToolbarUnderlineButton } from '../plugins/Underline';
+import { ToolbarHyperlinkButton } from '../plugins/Hyperlink';
 
 type ToolbarProps = {
   isDisabled?: boolean;
@@ -46,6 +47,10 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
         <ToolbarItalicButton isDisabled={isDisabled} />
         <ToolbarUnderlineButton isDisabled={isDisabled} />
         <ToolbarCodeButton isDisabled={isDisabled} />
+
+        <EditorToolbarDivider />
+
+        <ToolbarHyperlinkButton isDisabled={isDisabled} />
 
         <EditorToolbarDivider />
 
