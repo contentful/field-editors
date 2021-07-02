@@ -1,15 +1,21 @@
 import * as React from 'react';
-import { SlatePlugin, getRenderElement, getSlatePluginTypes } from '@udecode/slate-plugins-core';
+import {
+  SlatePlugin,
+  getRenderElement,
+  getSlatePluginTypes,
+  useStoreEditor,
+} from '@udecode/slate-plugins-core';
 import { INLINES } from '@contentful/rich-text-types';
 import { RenderElementProps } from 'slate-react';
 import { Element } from 'slate';
-import { Tooltip, TextLink } from '@contentful/forma-36-react-components';
+import { Tooltip, TextLink, EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 import { Link, EntityType, FieldExtensionSDK } from '@contentful/field-editor-reference/dist/types';
 import { CustomSlatePluginOptions } from '../../types';
 import { EntryAssetTooltip } from './EntryAssetTooltip';
 import { useSdkContext } from '../../SdkProvider';
+import { addOrEditLink } from './HyperlinkModal';
 
 const styles = {
   hyperlinkWrapper: css({
@@ -105,6 +111,36 @@ function EntryAssetHyperlink(props: HyperlinkElementProps) {
         {props.children}
       </TextLink>
     </Tooltip>
+  );
+}
+
+interface ToolbarHyperlinkButtonProps {
+  isDisabled: boolean | undefined;
+}
+
+export function ToolbarHyperlinkButton(props: ToolbarHyperlinkButtonProps) {
+  const editor = useStoreEditor();
+
+  async function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
+
+    if (!editor) return;
+
+    addOrEditLink(editor, { linkType: INLINES.HYPERLINK });
+  }
+
+  if (!editor) return null;
+
+  return (
+    <EditorToolbarButton
+      icon="Link"
+      tooltip="Hyperlink"
+      label="Hyperlink"
+      testId="hyperlink-toolbar-button"
+      onClick={handleClick}
+      isActive={false}
+      disabled={props.isDisabled}
+    />
   );
 }
 
