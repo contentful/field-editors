@@ -180,6 +180,8 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
     Slate.ReactEditor.focus(editor);
   }
 
+  if (!editor) return null;
+
   return (
     <Dropdown
       isOpen={isOpen}

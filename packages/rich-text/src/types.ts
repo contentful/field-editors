@@ -1,7 +1,5 @@
 import { Descendant } from 'slate';
-import { SlatePluginOptions, SPEditor } from '@udecode/slate-plugins-core';
-import { ReactEditor } from 'slate-react';
-import { HistoryEditor } from 'slate-history';
+import { SlatePluginOptions } from '@udecode/slate-plugins-core';
 
 export type CustomElement = {
   type: string;
@@ -13,8 +11,6 @@ export type CustomElement = {
 export type CustomSlatePluginOptions = {
   [key: string]: SlatePluginOptions;
 };
-
-export type CustomEditor = ReactEditor & HistoryEditor & SPEditor;
 
 declare module 'slate' {
   interface CustomTypes {
