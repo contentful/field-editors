@@ -1,6 +1,7 @@
 import { Text, Editor, Element, Transforms, Path, Range } from 'slate';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { CustomElement, CustomEditor } from '../types';
+import { Link } from '@contentful/field-editor-reference/dist/types';
 
 const LIST_TYPES: string[] = [BLOCKS.OL_LIST, BLOCKS.UL_LIST];
 const LINK_TYPES: string[] = [INLINES.HYPERLINK, INLINES.ASSET_HYPERLINK, INLINES.ENTRY_HYPERLINK];
@@ -105,7 +106,8 @@ export function isFirstChild(path: Path) {
 
 interface InsertLinkOptions {
   text: string;
-  url: string;
+  url?: string;
+  target?: Link;
   type: INLINES.HYPERLINK | INLINES.ENTRY_HYPERLINK | INLINES.ASSET_HYPERLINK;
 }
 
@@ -134,7 +136,7 @@ export function unwrapLink(editor: CustomEditor) {
   });
 }
 
-export function wrapLink(editor: CustomEditor, { text, url, type }: InsertLinkOptions) {
+export function wrapLink(editor: CustomEditor, { text, url, target, type }: InsertLinkOptions) {
   if (isLinkActive(editor)) {
     unwrapLink(editor);
   }
@@ -143,11 +145,17 @@ export function wrapLink(editor: CustomEditor, { text, url, type }: InsertLinkOp
   const isCollapsed = selection && Range.isCollapsed(selection);
   const link = {
     type,
-    data: {
-      uri: url,
-    },
+    data: {},
     children: isCollapsed ? [{ text }] : [],
   };
+
+  if (url) {
+    link.data = { url };
+  }
+
+  if (target) {
+    link.data = { target };
+  }
 
   if (isCollapsed) {
     Transforms.insertNodes(editor, link);
