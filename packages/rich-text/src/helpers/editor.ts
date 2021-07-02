@@ -103,32 +103,38 @@ export function isFirstChild(path: Path) {
   return path[path.length - 1] === 0;
 }
 
-export function insertLink(editor, text, url) {
+interface InsertLinkOptions {
+  text: string;
+  url: string;
+  type: INLINES.HYPERLINK | INLINES.ENTRY_HYPERLINK | INLINES.ASSET_HYPERLINK;
+}
+
+export function insertLink(editor: CustomEditor, options: InsertLinkOptions) {
   if (editor.selection) {
-    wrapLink(editor, text, url);
+    wrapLink(editor, options);
   }
 }
 
-export function isLinkActive(editor) {
+export function isLinkActive(editor: CustomEditor) {
   const [link] = Editor.nodes(editor, {
     match: (node) =>
       !Editor.isEditor(node) &&
       Element.isElement(node) &&
-      (node as CustomElement).type === INLINES.HYPERLINK, // TODO: Support Entry and Asset links
+      LINK_TYPES.includes((node as CustomElement).type), // TODO: Support Entry and Asset links
   });
   return !!link;
 }
 
-export function unwrapLink(editor) {
+export function unwrapLink(editor: CustomEditor) {
   Transforms.unwrapNodes(editor, {
     match: (node) =>
       !Editor.isEditor(node) &&
       Element.isElement(node) &&
-      (node as CustomElement).type === INLINES.HYPERLINK, // TODO: Support Entry and Asset links
+      LINK_TYPES.includes((node as CustomElement).type), // TODO: Support Entry and Asset links
   });
 }
 
-export function wrapLink(editor, text, url) {
+export function wrapLink(editor: CustomEditor, { text, url, type }: InsertLinkOptions) {
   if (isLinkActive(editor)) {
     unwrapLink(editor);
   }
@@ -136,7 +142,7 @@ export function wrapLink(editor, text, url) {
   const { selection } = editor;
   const isCollapsed = selection && Range.isCollapsed(selection);
   const link = {
-    type: INLINES.HYPERLINK, // TODO: Support Entry and Asset links
+    type,
     data: {
       uri: url,
     },

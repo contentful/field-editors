@@ -121,6 +121,7 @@ interface addOrEditLinkProps {
 interface HyperLinkDialogData {
   linkText: string;
   linkTarget: string;
+  linkType: INLINES.HYPERLINK | INLINES.ASSET_HYPERLINK | INLINES.ENTRY_HYPERLINK;
 }
 
 export async function addOrEditLink(
@@ -154,9 +155,9 @@ export async function addOrEditLink(
 
   if (!data) return;
 
-  const { linkText: text, linkTarget: url } = data as HyperLinkDialogData;
+  const { linkText: text, linkTarget: url, linkType: type } = data as HyperLinkDialogData;
 
   Transforms.select(editor, selectionBeforeBlur);
 
-  insertLink(editor, text, url);
+  insertLink(editor, { text, url, type });
 }
