@@ -16,6 +16,7 @@ import { CustomSlatePluginOptions } from '../../types';
 import { EntryAssetTooltip } from './EntryAssetTooltip';
 import { useSdkContext } from '../../SdkProvider';
 import { addOrEditLink } from './HyperlinkModal';
+import { isLinkActive } from '../../helpers/editor';
 
 const styles = {
   hyperlinkWrapper: css({
@@ -138,7 +139,7 @@ export function ToolbarHyperlinkButton(props: ToolbarHyperlinkButtonProps) {
       label="Hyperlink"
       testId="hyperlink-toolbar-button"
       onClick={handleClick}
-      isActive={false}
+      isActive={isLinkActive(editor)}
       disabled={props.isDisabled}
     />
   );
