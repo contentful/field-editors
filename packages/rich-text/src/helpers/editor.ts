@@ -147,7 +147,7 @@ export function wrapLink(editor, { text, url, target, type }: InsertLinkOptions)
   };
 
   if (url) {
-    link.data = { url };
+    link.data = { uri: url };
   }
 
   if (target) {
