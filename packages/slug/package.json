@@ -31,9 +31,11 @@
     "speakingurl": "^13.0.0"
   },
   "devDependencies": {
+    "@contentful/app-sdk": "^3.36.0",
     "@contentful/field-editor-test-utils": "^0.14.0"
   },
   "peerDependencies": {
+    "@contentful/app-sdk": "^3.36.0",
     "react": ">=16.8.0"
   },
   "jest": {
