@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@contentful/app-scripts": "^0.8.49",
-    "@contentful/field-editor-test-utils": "^0.11.1",
+    "@contentful/field-editor-test-utils": "^0.14.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^13.1.9",
