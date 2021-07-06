@@ -24,6 +24,8 @@ import { createNewLinePlugin } from './plugins/NewLine';
 import { createTablePlugin, withTableOptions } from './plugins/Table';
 import { createHyperlinkPlugin, withHyperlinkOptions } from './plugins/Hyperlink';
 import { SdkProvider } from './SdkProvider';
+import { sanitizeSlateDoc } from './helpers/sanitizeSlateDoc';
+import { TextOrCustomElement } from 'types';
 
 type ConnectedProps = {
   editorId?: string;
@@ -107,9 +109,10 @@ const ConnectedRichTextEditor = (props: ConnectedProps) => {
           className: classNames,
         }}
         onChange={(newValue) => {
-          setValue(newValue);
-          const doc = toContentfulDocument({ document: newValue, schema });
-          props.onChange?.(doc);
+          const slateDoc = sanitizeSlateDoc(newValue as TextOrCustomElement[]);
+          setValue(slateDoc);
+          const contentfulDoc = toContentfulDocument({ document: slateDoc, schema });
+          props.onChange?.(contentfulDoc);
         }}
         options={options}>
         {!props.isToolbarHidden && (
