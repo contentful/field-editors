@@ -175,7 +175,7 @@ describe('CreateEntryLinkButton common', () => {
   });
 
   it('does not emit onSelect on subsequent click before the promise from onSelect resolves', async () => {
-    const onSelect = jest.fn(() => new Promise((resolve) => setTimeout(() => resolve(), 200)));
+    const onSelect = jest.fn(() => new Promise<void>((resolve) => setTimeout(() => resolve(), 200)));
     const { getByTestId } = render(
       <CreateEntryLinkButton contentTypes={[CONTENT_TYPE_1]} onSelect={onSelect} />
     );

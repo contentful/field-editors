@@ -23,9 +23,11 @@ export const ScheduledIconWithTooltip = ({
 
   React.useEffect(() => {
     getEntityScheduledActions(entityType, entityId)
+      // @ts-expect-error
       .then((data) => {
         setStatus({ type: 'loaded', jobs: data });
       })
+      // @ts-expect-error
       .catch((e) => {
         setStatus({ type: 'error', error: e });
       });

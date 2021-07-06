@@ -87,6 +87,7 @@ function useEntitiesStore(props: { sdk: BaseExtensionSDK }) {
       }
       return props.sdk.space
         .getEntityScheduledActions(entityType, id)
+        // @ts-expect-error
         .then((data) => {
           dispatch({ type: 'set_scheduled_actions', key, actions: data });
           return data;
@@ -103,6 +104,7 @@ function useEntitiesStore(props: { sdk: BaseExtensionSDK }) {
     (id: string) => {
       return props.sdk.space
         .getEntry<Entry>(id)
+        // @ts-expect-error
         .then((entry) => {
           dispatch({ type: 'set_entry', id, entry });
           return entry;
@@ -118,6 +120,7 @@ function useEntitiesStore(props: { sdk: BaseExtensionSDK }) {
     (id: string) => {
       return props.sdk.space
         .getAsset<Asset>(id)
+        // @ts-expect-error
         .then((asset) => {
           dispatch({ type: 'set_asset', id, asset });
           return asset;
@@ -150,9 +153,7 @@ function useEntitiesStore(props: { sdk: BaseExtensionSDK }) {
   );
 
   React.useEffect(() => {
-    // @ts-expect-error
     if (typeof props.sdk.space.onEntityChanged !== 'undefined') {
-      // @ts-expect-error
       const onEntityChanged = props.sdk.space.onEntityChanged;
       const listeners: Function[] = [];
       Object.keys(state.entries).forEach((id) => {

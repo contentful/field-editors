@@ -36,10 +36,12 @@
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
+    "@contentful/app-sdk": "^4.0.0-alpha.17",
     "@contentful/field-editor-test-utils": "^0.14.0",
     "@types/dompurify": "^2.2.2"
   },
   "peerDependencies": {
+    "@contentful/app-sdk": "^4.0.0-alpha.17",
     "react": ">=16.8.0"
   },
   "jest": {

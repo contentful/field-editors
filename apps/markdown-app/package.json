@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@contentful/app-sdk": "^3.36.0",
+    "@contentful/app-sdk": "^4.0.0-alpha.17",
     "@contentful/field-editor-markdown": "^0.15.4",
     "@contentful/field-editor-shared": "^0.16.0",
     "@contentful/field-editor-single-line": "^0.14.1",

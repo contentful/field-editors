@@ -1,12 +1,7 @@
-import { EntrySys } from '@contentful/app-sdk';
+import { ContentEntitySys as EntrySys } from '@contentful/app-sdk';
 
-export {
-  BaseExtensionSDK,
-  ContentType,
-  ContentTypeField,
-  Link,
-  EntrySys,
-} from '@contentful/app-sdk';
+export { BaseExtensionSDK, ContentType, ContentTypeField, Link } from '@contentful/app-sdk';
+export { EntrySys };
 
 export interface Entry {
   sys: EntrySys;

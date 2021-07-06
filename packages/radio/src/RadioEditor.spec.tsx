@@ -79,7 +79,7 @@ describe('RadioEditor', () => {
 
   describe('Number field', () => {
     it('calls setValue and removeValue properly', function () {
-      const predefined = [1, '2.71', '0'];
+      const predefined = ['1', '2.71', '0'];
       const [field] = createFakeFieldAPI((field) => {
         jest.spyOn(field, 'setValue');
         jest.spyOn(field, 'removeValue');
@@ -119,7 +119,7 @@ describe('RadioEditor', () => {
 
   describe('Integer field', () => {
     it('calls setValue and removeValue properly', function () {
-      const predefined = [0, '65', '99', 100];
+      const predefined = ['0', '65', '99', '100'];
       const [field] = createFakeFieldAPI((field) => {
         jest.spyOn(field, 'setValue');
         jest.spyOn(field, 'removeValue');

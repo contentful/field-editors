@@ -1,9 +1,8 @@
-import type {
-  AccessAPI,
-  ArchiveableAction,
-  CrudAction,
-  PublishableAction,
-} from '@contentful/app-sdk';
+import type { AccessAPI } from '@contentful/app-sdk';
+
+type CrudAction = 'create' | 'read' | 'update' | 'delete';
+type PublishableAction = 'publish' | 'unpublish';
+type ArchiveableAction = 'archive' | 'unarchive';
 
 type EntryAction = CrudAction | PublishableAction | ArchiveableAction;
 

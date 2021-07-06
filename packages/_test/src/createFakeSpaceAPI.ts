@@ -11,7 +11,7 @@ type CustomizeMockFn = (api: SpaceAPI) => SpaceAPI;
 const testContentTypes: ContentType[] = [
   {
     name: 'Example Content Type',
-    sys: { id: 'exampleCT', type: 'ContentType' },
+    sys: { id: 'exampleCT', type: 'ContentType' } as ContentType['sys'],
     fields: [
       {
         id: 'exField',
@@ -39,7 +39,7 @@ const testContentTypes: ContentType[] = [
   },
   {
     name: 'Another Content Type',
-    sys: { id: 'anotherCT', type: 'ContentType' },
+    sys: { id: 'anotherCT', type: 'ContentType' } as ContentType['sys'],
     fields: [],
     displayField: '',
     description: '',

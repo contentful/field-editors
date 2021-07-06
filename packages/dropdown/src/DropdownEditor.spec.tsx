@@ -87,7 +87,7 @@ describe('DropdownEditor', () => {
   });
 
   it('calls #setValue with number for Number fields', function () {
-    const predefined = [1, '2.71', 3];
+    const predefined = ['1', '2.71', '3'];
     const [field] = createFakeFieldAPI((field) => {
       jest.spyOn(field, 'setValue');
       jest.spyOn(field, 'removeValue');
@@ -115,7 +115,7 @@ describe('DropdownEditor', () => {
   });
 
   it('calls #setValue with number for Integer fields', function () {
-    const predefined = [0, 1, '2', 3];
+    const predefined = ['0', '1', '2', '3'];
     const [field] = createFakeFieldAPI((field) => {
       jest.spyOn(field, 'setValue');
       jest.spyOn(field, 'removeValue');

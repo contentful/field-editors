@@ -12,15 +12,15 @@ export async function createEntity(props: {
     if (!props.contentTypeId) {
       return {};
     }
-    const { entity, slide } = await props.sdk.navigator.openNewEntry<Entry>(props.contentTypeId, {
+    const { entity, slide } = await props.sdk.navigator.openNewEntry(props.contentTypeId, {
       slideIn: true,
     });
-    return { entity, slide };
+    return { entity: entity as Entry, slide };
   } else {
-    const { entity, slide } = await props.sdk.navigator.openNewAsset<Asset>({
+    const { entity, slide } = await props.sdk.navigator.openNewAsset({
       slideIn: true,
     });
-    return { entity, slide };
+    return { entity: entity as Asset, slide };
   }
 }
 

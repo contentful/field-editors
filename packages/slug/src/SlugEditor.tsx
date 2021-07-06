@@ -59,6 +59,7 @@ export function SlugEditor(props: SlugEditorProps) {
       'sys.publishedAt[exists]': true,
       limit: 0,
     };
+    // @ts-expect-error
     return space.getEntries(searchQuery).then((res) => {
       return res.total === 0;
     });

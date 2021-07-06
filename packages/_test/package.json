@@ -21,7 +21,7 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "devDependencies": {
-    "@contentful/app-sdk": "^3.36.0"
+    "@contentful/app-sdk": "^4.0.0-alpha.17"
   },
   "dependencies": {
     "@contentful/field-editor-shared": "^0.19.0",
@@ -32,7 +32,7 @@
     "mitt": "2.1.0"
   },
   "peerDependencies": {
-    "@contentful/app-sdk": "^3.36.0",
+    "@contentful/app-sdk": "^4.0.0-alpha.17",
     "react": ">=16.8.0"
   },
   "jest": {

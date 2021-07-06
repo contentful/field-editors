@@ -25,7 +25,7 @@ export function open(componentRenderer: (params: { onClose: Function; isShown: b
       ReactDOM.render(componentRenderer({ onClose, isShown }), getRoot());
     }
 
-    function onClose(...args: any[]) {
+    function onClose(...args: [any]) {
       currentConfig = {
         ...currentConfig,
         isShown: false,

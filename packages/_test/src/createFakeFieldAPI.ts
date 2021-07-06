@@ -55,11 +55,11 @@ export function createFakeFieldAPI<T>(
       setInvalid: () => {
         emitter.emit('setInvalid');
       },
-      setValue: (value: string) => {
+      setValue<Value = string>(value: Value) {
         _value = value;
         emitter.emit('setValue', _value);
         emitter.emit('onValueChanged', _value);
-        return Promise.resolve();
+        return Promise.resolve(value);
       },
       removeValue: () => {
         _value = undefined;

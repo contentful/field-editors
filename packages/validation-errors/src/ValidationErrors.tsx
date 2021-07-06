@@ -38,6 +38,7 @@ function UniquenessError(props: UniquenessErrorProps) {
     (): Record<string, ContentType> =>
       // Maps ID => Content Type
       props.space.getCachedContentTypes().reduce(
+        // @ts-expect-error
         (prev, ct) => ({
           ...prev,
           [ct.sys.id]: ct,
@@ -74,7 +75,9 @@ function UniquenessError(props: UniquenessErrorProps) {
       'sys.id[in]': conflictIds.join(','),
     };
 
+    // @ts-expect-error
     props.space.getEntries<Entry>(query).then(({ items }) => {
+      // @ts-expect-error
       const entries = items.map((entry) => ({
         id: entry.sys.id,
         title: getTitle(entry),
@@ -127,6 +130,7 @@ export function ValidationErrors(props: ValidationErrorsProps) {
       setErrors(errors || []);
     };
 
+    // @ts-expect-error will be fixed after bumping to app-sdk@4
     return props.field.onSchemaErrorsChanged(onErrors);
   }, [props.field]);
 

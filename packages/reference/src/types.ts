@@ -1,4 +1,4 @@
-import { NavigatorSlideInfo, EntityType } from '@contentful/app-sdk';
+import { NavigatorSlideInfo, ContentEntityType as EntityType } from '@contentful/app-sdk';
 import { Entry, Asset } from '@contentful/field-editor-shared';
 
 export {
@@ -7,10 +7,10 @@ export {
   ContentType,
   ContentTypeField,
   Link,
-  EntityType,
   NavigatorSlideInfo,
   ScheduledAction,
 } from '@contentful/app-sdk';
+export { EntityType };
 
 export { Entry, File, Asset } from '@contentful/field-editor-shared';
 

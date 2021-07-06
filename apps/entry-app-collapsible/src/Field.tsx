@@ -41,6 +41,7 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
   } as any;
 
   return (
+    // @ts-expect-error getEntryURL entry sys mismatch
     <FieldWrapper sdk={fieldSdk} name={fieldDetails.name} getEntryURL={getEntryURL}>
       <BaseField widgetId={widgetId} sdk={fieldSdk} isInitiallyDisabled={false} />
     </FieldWrapper>
