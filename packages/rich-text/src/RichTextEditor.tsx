@@ -24,7 +24,7 @@ import { createNewLinePlugin } from './plugins/NewLine';
 import { createTablePlugin, withTableOptions } from './plugins/Table';
 import { createHyperlinkPlugin, withHyperlinkOptions } from './plugins/Hyperlink';
 import { SdkProvider } from './SdkProvider';
-import { sanitizeSlateDoc } from './helpers/sanitizeSlateDoc';
+import { sanitizeIncomingSlateDoc, sanitizeSlateDoc } from './helpers/sanitizeSlateDoc';
 import { TextOrCustomElement } from 'types';
 
 type ConnectedProps = {
@@ -85,12 +85,14 @@ const options = {
 };
 
 const ConnectedRichTextEditor = (props: ConnectedProps) => {
-  const document = toSlatejsDocument({
+  const docFromAdapter = toSlatejsDocument({
     document: props.value || Contentful.EMPTY_DOCUMENT,
     schema,
   });
 
-  const [value, setValue] = useState(document);
+  const doc = sanitizeIncomingSlateDoc(docFromAdapter);
+
+  const [value, setValue] = useState(doc);
 
   const classNames = cx(
     styles.editor,
