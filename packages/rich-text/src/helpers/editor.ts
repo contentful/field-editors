@@ -42,6 +42,15 @@ export function getNodeEntryFromSelection(
   return [];
 }
 
+export function isNodeTypeSelected(
+  editor: SPEditor,
+  nodeType: BLOCKS | INLINES
+): boolean {
+  if (!editor) return false;
+  const [node] = getNodeEntryFromSelection(editor, nodeType);
+  return !!node;
+};
+
 export function moveToTheNextLine(editor) {
   Transforms.move(editor, { distance: 1 });
 }
