@@ -551,9 +551,9 @@ describe('Rich Text Editor', () => {
     const emptyParagraph = () => paragraphWithText('');
     const emptyCell = () => cell(emptyParagraph());
     const cellWithText = (t) => cell(paragraphWithText(t));
+    const insertTable = () => editor().type(`{${mod}}{,}`);
     const insertTableWithExampleData = () => {
-      editor()
-        .type(`{${mod}}{,}`)
+      insertTable()
         .typeInSlate('foo')
         .type('{rightArrow}')
         .typeInSlate('bar')
@@ -764,6 +764,48 @@ describe('Rich Text Editor', () => {
         .type(`{${mod}}{leftArrow}`)
 
       expectTableToBeDeleted();
+    });
+
+    it('disables block element toolbar buttons when selected', () => {
+      insertTable();
+
+      cy.findByTestId('quote-toolbar-button').should('be.disabled');
+      cy.findByTestId('ul-toolbar-button').should('be.disabled');
+      cy.findByTestId('ol-toolbar-button').should('be.disabled');
+      cy.findByTestId('hr-toolbar-button').should('be.disabled');
+
+      getDropdownToolbarButton().click();
+      [
+        BLOCKS.PARAGRAPH,
+        BLOCKS.HEADING_1,
+        BLOCKS.HEADING_2,
+        BLOCKS.HEADING_3,
+        BLOCKS.HEADING_4,
+        BLOCKS.HEADING_5,
+        BLOCKS.HEADING_6,
+      ].map((type) => getDropdownItem(type).get('button').should('be.disabled'));
+
+      // select outside the table
+      editor()
+        .click()
+        .type('{downArrow}')
+        .wait(100);
+
+      cy.findByTestId('quote-toolbar-button').should('not.be.disabled');
+      cy.findByTestId('ul-toolbar-button').should('not.be.disabled');
+      cy.findByTestId('ol-toolbar-button').should('not.be.disabled');
+      cy.findByTestId('list-toolbar-button').should('not.be.disabled');
+
+      getDropdownToolbarButton().click();
+      [
+        BLOCKS.PARAGRAPH,
+        BLOCKS.HEADING_1,
+        BLOCKS.HEADING_2,
+        BLOCKS.HEADING_3,
+        BLOCKS.HEADING_4,
+        BLOCKS.HEADING_5,
+        BLOCKS.HEADING_6,
+      ].map((type) => getDropdownItem(type).get('button').should('not.be.disabled'));
     });
   });
 });
