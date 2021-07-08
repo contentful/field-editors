@@ -18,6 +18,7 @@ import {
   toggleBlock,
   hasSelectionText,
   getElementFromCurrentSelection,
+  isNodeTypeSelected,
 } from '../../helpers/editor';
 
 const styles = {
@@ -96,7 +97,7 @@ export function withQuoteEvents(editor: SPEditor) {
     const isOneKey = event.keyCode === 49;
 
     // shift + cmd/ctrl + 1 = shortcut to toggle blockquote
-    if (isMod && isShift && isOneKey) {
+    if (isMod && isShift && isOneKey && !isNodeTypeSelected(editor, BLOCKS.TABLE)) {
       createBlockQuote(editor);
     }
 
