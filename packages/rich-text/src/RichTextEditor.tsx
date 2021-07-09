@@ -39,7 +39,7 @@ type ConnectedProps = {
   actionsDisabled?: boolean;
 };
 
-const plugins = [
+const getPlugins = (sdk: FieldExtensionSDK) => [
   // Core
   createReactPlugin(),
   createHistoryPlugin(),
@@ -56,7 +56,7 @@ const plugins = [
   createTablePlugin(),
 
   // Inline elements
-  createHyperlinkPlugin(),
+  createHyperlinkPlugin(sdk),
 
   // Marks
   createBoldPlugin(),
@@ -100,6 +100,8 @@ const ConnectedRichTextEditor = (props: ConnectedProps) => {
     props.isDisabled ? styles.disabled : styles.enabled,
     props.isToolbarHidden && styles.hiddenToolbar
   );
+
+  const plugins = React.useMemo(() => getPlugins(props.sdk), [props.sdk]);
 
   return (
     <div className={styles.root} data-test-id="rich-text-editor">

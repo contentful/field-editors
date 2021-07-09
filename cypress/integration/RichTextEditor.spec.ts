@@ -1,5 +1,5 @@
-import { MARKS, BLOCKS } from '@contentful/rich-text-types';
-import { document as doc, block, text } from '../../packages/rich-text/src/helpers/nodeFactory';
+import { MARKS, BLOCKS, INLINES } from '@contentful/rich-text-types';
+import { document as doc, block, inline, text } from '../../packages/rich-text/src/helpers/nodeFactory';
 
 function expectRichTextFieldValue(expectedValue, editorEvents?) {
   cy.getRichTextField().then((field) => {
@@ -807,5 +807,274 @@ describe('Rich Text Editor', () => {
         BLOCKS.HEADING_6,
       ].map((type) => getDropdownItem(type).get('button').should('not.be.disabled'));
     });
+  });
+
+  describe('Links', () => {
+    const getLinkTextInput = () => cy.findByTestId('link-text-input');
+    const getLinkTypeSelect = () => cy.findByTestId('link-type-input');
+    const getLinkTargetInput = () => cy.findByTestId('link-target-input');
+    const getSubmitButton = () => cy.findByTestId('confirm-cta');
+    const getEntityTextLink = () => cy.findByTestId('cf-ui-form').findByTestId('cf-ui-text-link');
+    const expectDocumentStructure = (...nodes) => {
+      expectRichTextFieldValue(
+        doc(
+          block(
+            BLOCKS.PARAGRAPH,
+            {},
+            ...nodes.map(([nodeType, ...content]) => {
+              if (nodeType === 'text') return text(...content);
+              const [data, textContent] = content;
+              return inline(nodeType, data, text(textContent));
+            })
+          )
+        )
+      );
+    };
+
+    const methods: [string, () => void][] = [
+      [
+        'using the link toolbar button',
+        () => {
+          cy.findByTestId('hyperlink-toolbar-button').click();
+          cy.wait(100);
+        },
+      ],
+      [
+        'using the link keyboard shortcut',
+        () => {
+          editor().type(`{${mod}}k`);
+          cy.wait(100);
+        }
+      ]
+    ];
+
+    for (const [triggerMethod, triggerLinkModal] of methods) {
+      describe(triggerMethod, () => {
+        it('adds and removes hyperlinks', () => {
+          editor().click().typeInSlate('The quick brown fox jumps over the lazy ');
+
+          cy.wait(500);
+
+          triggerLinkModal();
+
+          getSubmitButton().should('be.disabled');
+          getLinkTextInput().type('dog');
+          getSubmitButton().should('be.disabled');
+          getLinkTargetInput().type('https://zombo.com');
+          getSubmitButton().should('not.be.disabled');
+          getSubmitButton().click();
+
+          cy.wait(100);
+
+          expectDocumentStructure(
+            ['text', 'The quick brown fox jumps over the lazy '],
+            [INLINES.HYPERLINK, { uri: 'https://zombo.com' }, 'dog'],
+            ['text', ''],
+          );
+
+          editor().click().type('{selectall}');
+          // TODO: This should just be
+          // ```
+          // triggerLinkModal();
+          // ``
+          // but with the keyboard shortcut, this causes an error in Cypress I
+          // haven't been able to replicate in the editor. As it's not
+          // replicable in "normal" usage we use the toolbar button both places
+          // in this test.
+          cy.findByTestId('hyperlink-toolbar-button').click();
+
+          cy.wait(100);
+
+          expectDocumentStructure(
+            // TODO: the editor should normalize this
+            ['text', 'The quick brown fox jumps over the lazy '],
+            ['text', 'dog'],
+          );
+        });
+
+        it('converts text to URL hyperlink', () => {
+          editor().click().typeInSlate('My cool website').click().type('{selectall}');
+
+          cy.wait(500);
+
+          triggerLinkModal();
+
+          getLinkTextInput().should('have.value', 'My cool website');
+          getLinkTypeSelect().should('have.value', 'hyperlink');
+          getSubmitButton().should('be.disabled');
+          getLinkTargetInput().type('https://zombo.com');
+          getSubmitButton().should('not.be.disabled');
+          getSubmitButton().click();
+
+          cy.wait(100);
+
+          expectDocumentStructure(
+            ['text', ''],
+            [INLINES.HYPERLINK, { uri: 'https://zombo.com' }, 'My cool website'],
+            ['text', ''],
+          );
+        });
+
+        it('converts text to entry hyperlink', () => {
+          editor().click().typeInSlate('My cool entry').click().type('{selectall}');
+
+          cy.wait(500);
+
+          triggerLinkModal();
+
+          getLinkTextInput().should('have.value', 'My cool entry');
+          getSubmitButton().should('be.disabled');
+          getLinkTypeSelect().should('have.value', 'hyperlink').select('entry-hyperlink');
+          getSubmitButton().should('be.disabled');
+          cy.findByTestId('cf-ui-entry-card').should('not.exist');
+          getEntityTextLink().should('have.text', 'Select entry').click();
+          cy.findByTestId('cf-ui-entry-card').should('exist');
+          getEntityTextLink().should('have.text', 'Remove selection').click();
+          cy.findByTestId('cf-ui-entry-card').should('not.exist');
+          getEntityTextLink().should('have.text', 'Select entry').click();
+          cy.findByTestId('cf-ui-entry-card').should('exist');
+          getSubmitButton().click();
+
+          cy.wait(100);
+
+          expectDocumentStructure(
+            ['text', ''],
+            [
+              INLINES.ENTRY_HYPERLINK,
+              { target: { sys: { id: 'example-entity-id', type: 'Link', linkType: 'Entry' } } },
+              'My cool entry',
+            ],
+            ['text', ''],
+          );
+        });
+
+        it('converts text to asset hyperlink', () => {
+          editor().click().typeInSlate('My cool asset').click().type('{selectall}');
+
+          cy.wait(500);
+
+          triggerLinkModal();
+
+          getLinkTextInput().should('have.value', 'My cool asset');
+          getSubmitButton().should('be.disabled');
+          getLinkTypeSelect().should('have.value', 'hyperlink').select('asset-hyperlink');
+          getSubmitButton().should('be.disabled');
+          cy.findByTestId('cf-ui-asset-card').should('not.exist');
+          getEntityTextLink().should('have.text', 'Select asset').click();
+          cy.findByTestId('cf-ui-asset-card').should('exist');
+          getEntityTextLink().should('have.text', 'Remove selection').click();
+          cy.findByTestId('cf-ui-asset-card').should('not.exist');
+          getEntityTextLink().should('have.text', 'Select asset').click();
+          cy.findByTestId('cf-ui-asset-card').should('exist');
+          getSubmitButton().click();
+
+          cy.wait(100);
+
+          expectDocumentStructure(
+            ['text', ''],
+            [
+              INLINES.ASSET_HYPERLINK,
+              { target: { sys: { id: 'example-entity-id', type: 'Link', linkType: 'Asset' } } },
+              'My cool asset',
+            ],
+            ['text', ''],
+          );
+        });
+
+        it('edits hyperlinks', () => {
+          editor().click().typeInSlate('My cool website').click().type('{selectall}');
+
+          cy.wait(500);
+
+          triggerLinkModal();
+
+          // Part 1:
+          // Create a hyperlink
+
+          getLinkTextInput().should('have.value', 'My cool website');
+          getLinkTargetInput().type('https://zombo.com');
+          getSubmitButton().click();
+
+          cy.wait(100);
+
+          expectDocumentStructure(
+            ['text', ''],
+            [INLINES.HYPERLINK, { uri: 'https://zombo.com' }, 'My cool website'],
+            ['text', ''],
+          );
+
+          // Part 2:
+          // Update hyperlink to entry link
+
+          editor()
+            .findByTestId('cf-ui-text-link')
+            .should('have.text', 'My cool website')
+            .click({ force: true });
+
+          getLinkTextInput().should('have.value', 'My cool website').type('{selectall}My cool entry');
+          getLinkTypeSelect().should('have.value', 'hyperlink').select('entry-hyperlink');
+          getEntityTextLink().should('have.text', 'Select entry').click();
+          getSubmitButton().click();
+
+          cy.wait(100);
+
+          expectDocumentStructure(
+            ['text', ''],
+            [
+              INLINES.ENTRY_HYPERLINK,
+              { target: { sys: { id: 'example-entity-id', type: 'Link', linkType: 'Entry' } } },
+              'My cool entry',
+            ],
+            ['text', ''],
+          );
+
+          // Part 3:
+          // Update entry link to asset link
+
+          editor()
+            .findByTestId('cf-ui-text-link')
+            .should('have.text', 'My cool entry')
+            .click({ force: true });
+
+          getLinkTextInput().should('have.value', 'My cool entry').type('{selectall}My cool asset');
+          getLinkTypeSelect().should('have.value', 'entry-hyperlink').select('asset-hyperlink');
+          getEntityTextLink().should('have.text', 'Select asset').click();
+          getSubmitButton().click();
+
+          cy.wait(100);
+
+          expectDocumentStructure(
+            ['text', ''],
+            [
+              INLINES.ASSET_HYPERLINK,
+              { target: { sys: { id: 'example-entity-id', type: 'Link', linkType: 'Asset' } } },
+              'My cool asset',
+            ],
+            ['text', ''],
+          );
+
+          // Part 3:
+          // Update asset link to hyperlink
+
+          editor()
+            .findByTestId('cf-ui-text-link')
+            .should('have.text', 'My cool asset')
+            .click({ force: true });
+
+          getLinkTextInput().should('have.value', 'My cool asset').type('{selectall}My cool website');
+          getLinkTypeSelect().should('have.value', 'asset-hyperlink').select('hyperlink');
+          getLinkTargetInput().type('https://zombo.com');
+          getSubmitButton().click();
+
+          cy.wait(100);
+
+          expectDocumentStructure(
+            ['text', ''],
+            [INLINES.HYPERLINK, { uri: 'https://zombo.com' }, 'My cool website'],
+            ['text', ''],
+          );
+        });
+      });
+    }
   });
 });
