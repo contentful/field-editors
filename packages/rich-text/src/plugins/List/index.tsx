@@ -30,6 +30,8 @@ export function ToolbarListButton(props: ToolbarListButtonProps) {
     Slate.ReactEditor.focus(editor);
   }
 
+  if (!editor) return null;
+
   return (
     <React.Fragment>
       <EditorToolbarButton

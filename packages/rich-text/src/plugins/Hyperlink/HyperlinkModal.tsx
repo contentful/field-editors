@@ -7,108 +7,214 @@ import {
   Button,
   SelectField,
   Option,
+  FormLabel,
+  TextLink,
 } from '@contentful/forma-36-react-components';
-import { ModalDialogLauncher } from '@contentful/field-editor-shared';
+import { ModalDialogLauncher, FieldExtensionSDK } from '@contentful/field-editor-shared';
 import { SPEditor } from '@udecode/slate-plugins-core';
 import { Editor, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { HistoryEditor } from 'slate-history';
+import flow from 'lodash/flow';
+import find from 'lodash/find'; // eslint-disable-line you-dont-need-lodash-underscore/find
+import get from 'lodash/get';
+import { EntityProvider } from '@contentful/field-editor-reference';
+import { css } from 'emotion';
+import tokens from '@contentful/forma-36-tokens';
 import { insertLink } from '../../helpers/editor';
+import { FetchingWrappedEntryCard } from './FetchingWrappedEntryCard';
+import { Link } from '@contentful/field-editor-reference/dist/types';
+import { FetchingWrappedAssetCard } from './FetchingWrappedAssetCard';
+
+const styles = {
+  removeSelectionLabel: css`
+    margin-left: ${tokens.spacingS};
+  `,
+};
 
 interface HyperlinkModalProps {
   linkText?: string;
   linkType?: string;
   linkTarget?: string;
+  linkEntity?: Link;
   onClose: (value: unknown) => void;
+  sdk: FieldExtensionSDK;
 }
 
 export function HyperlinkModal(props: HyperlinkModalProps) {
   const [linkText, setLinkText] = React.useState(props.linkText ?? '');
   const [linkType, setLinkType] = React.useState(props.linkType ?? INLINES.HYPERLINK);
   const [linkTarget, setLinkTarget] = React.useState(props.linkTarget ?? '');
-
-  function handleOnSubmit(event: React.MouseEvent<HTMLButtonElement>) {
-    event.preventDefault();
-
-    props.onClose({ linkText, linkType, linkTarget });
-  }
+  const [linkEntity, setLinkEntity] = React.useState<Link | null>(props.linkEntity ?? null);
 
   function isLinkComplete() {
-    if (linkType === INLINES.HYPERLINK) {
-      return linkText && linkTarget;
+    const isRegularLink = linkType === INLINES.HYPERLINK;
+    if (isRegularLink) {
+      return !!(linkText && linkTarget);
+    }
+
+    const entityLinks: string[] = [INLINES.ENTRY_HYPERLINK, INLINES.ASSET_HYPERLINK];
+    const isEntityLink = entityLinks.includes(linkType);
+    if (isEntityLink) {
+      return !!(linkText && linkEntity);
     }
 
     return false;
   }
 
+  function handleOnSubmit(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
+
+    props.onClose({ linkText, linkType, linkTarget, linkEntity });
+  }
+
+  function entityToLink(entity) {
+    const { id, type } = entity.sys;
+
+    return { sys: { id, type: 'Link', linkType: type } };
+  }
+
+  async function selectEntry() {
+    const options = {
+      locale: props.sdk.field.locale,
+      contentTypes: getLinkedContentTypeIdsForNodeType(props.sdk.field, INLINES.ENTRY_HYPERLINK),
+    };
+    const entry = await props.sdk.dialogs.selectSingleEntry(options);
+    setLinkEntity(entityToLink(entry));
+  }
+
+  async function selectAsset() {
+    const options = {
+      locale: props.sdk.field.locale,
+    };
+    const asset = await props.sdk.dialogs.selectSingleAsset(options);
+    setLinkEntity(entityToLink(asset));
+  }
+
+  function resetLinkEntity(event: React.MouseEvent) {
+    event.preventDefault();
+
+    setLinkEntity(null);
+  }
+
   return (
-    <React.Fragment>
-      <Modal.Content>
-        <Form>
-          <TextField
-            name="linkText"
-            id="linkText"
-            labelText="Link text"
-            value={linkText}
-            required={true}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              setLinkText(event.target.value)
-            }
-            textInputProps={{
-              testId: 'link-text-input',
-            }}
-          />
-
-          <SelectField
-            labelText="Link type"
-            value={linkType}
-            onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
-              setLinkType(event.target.value)
-            }
-            name="linkType"
-            id="linkType"
-            selectProps={{ testId: ' link-type-input' }}>
-            <Option value={INLINES.HYPERLINK}>URL</Option>
-            <Option value={INLINES.ENTRY_HYPERLINK}>Entry</Option>
-            <Option value={INLINES.ASSET_HYPERLINK}>Asset</Option>
-          </SelectField>
-
-          {linkType === INLINES.HYPERLINK && (
+    <EntityProvider sdk={props.sdk}>
+      <React.Fragment>
+        <Modal.Content>
+          <Form>
             <TextField
-              name="linkTarget"
-              id="linkTarget"
-              labelText="Link target"
-              helpText="A protocol may be required, e.g. https://"
-              value={linkTarget}
+              name="linkText"
+              id="linkText"
+              labelText="Link text"
+              value={linkText}
               required={true}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                setLinkTarget(event.target.value)
+                setLinkText(event.target.value)
               }
               textInputProps={{
-                testId: 'link-target-input',
+                testId: 'link-text-input',
               }}
             />
-          )}
-        </Form>
-      </Modal.Content>
-      <Modal.Controls>
-        <Button
-          type="submit"
-          buttonType="positive"
-          disabled={!isLinkComplete()}
-          onClick={handleOnSubmit}
-          testId="confirm-cta">
-          Insert
-        </Button>
-        <Button
-          type="button"
-          onClick={() => props.onClose(null)}
-          buttonType="muted"
-          testId="cancel-cta">
-          Cancel
-        </Button>
-      </Modal.Controls>
-    </React.Fragment>
+
+            <SelectField
+              labelText="Link type"
+              value={linkType}
+              onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
+                setLinkType(event.target.value)
+              }
+              name="linkType"
+              id="linkType"
+              selectProps={{ testId: ' link-type-input' }}>
+              <Option value={INLINES.HYPERLINK}>URL</Option>
+              <Option value={INLINES.ENTRY_HYPERLINK}>Entry</Option>
+              <Option value={INLINES.ASSET_HYPERLINK}>Asset</Option>
+            </SelectField>
+
+            {linkType === INLINES.HYPERLINK && (
+              <TextField
+                name="linkTarget"
+                id="linkTarget"
+                labelText="Link target"
+                helpText="A protocol may be required, e.g. https://"
+                value={linkTarget}
+                required={true}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                  setLinkTarget(event.target.value)
+                }
+                textInputProps={{
+                  testId: 'link-target-input',
+                }}
+              />
+            )}
+
+            {linkType !== INLINES.HYPERLINK && (
+              <div>
+                <FormLabel required htmlFor="">
+                  Link target{' '}
+                </FormLabel>
+
+                {linkEntity && (
+                  <TextLink onClick={resetLinkEntity} className={styles.removeSelectionLabel}>
+                    Remove selection
+                  </TextLink>
+                )}
+
+                {linkEntity && (
+                  <div>
+                    {linkType === INLINES.ENTRY_HYPERLINK && (
+                      <FetchingWrappedEntryCard
+                        sdk={props.sdk}
+                        locale={props.sdk.field.locale}
+                        entryId={linkEntity.sys.id}
+                        isDisabled={true}
+                        isSelected={false}
+                      />
+                    )}
+                    {linkType === INLINES.ASSET_HYPERLINK && (
+                      <FetchingWrappedAssetCard
+                        sdk={props.sdk}
+                        locale={props.sdk.field.locale}
+                        assetId={linkEntity.sys.id}
+                        isDisabled={true}
+                        isSelected={false}
+                      />
+                    )}
+                  </div>
+                )}
+
+                {!linkEntity && (
+                  <div>
+                    {linkType === INLINES.ENTRY_HYPERLINK && (
+                      <TextLink onClick={selectEntry}>Select entry</TextLink>
+                    )}
+                    {linkType === INLINES.ASSET_HYPERLINK && (
+                      <TextLink onClick={selectAsset}>Select asset</TextLink>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
+          </Form>
+        </Modal.Content>
+        <Modal.Controls>
+          <Button
+            type="submit"
+            buttonType="positive"
+            disabled={!isLinkComplete()}
+            onClick={handleOnSubmit}
+            testId="confirm-cta">
+            Insert
+          </Button>
+          <Button
+            type="button"
+            onClick={() => props.onClose(null)}
+            buttonType="muted"
+            testId="cancel-cta">
+            Cancel
+          </Button>
+        </Modal.Controls>
+      </React.Fragment>
+    </EntityProvider>
   );
 }
 
@@ -116,16 +222,19 @@ interface addOrEditLinkProps {
   linkText?: string;
   linkTarget?: string;
   linkType?: INLINES.HYPERLINK | INLINES.ASSET_HYPERLINK | INLINES.ENTRY_HYPERLINK;
+  sdk: FieldExtensionSDK;
 }
 
 interface HyperLinkDialogData {
   linkText: string;
-  linkTarget: string;
+  linkType: INLINES.HYPERLINK | INLINES.ASSET_HYPERLINK | INLINES.ENTRY_HYPERLINK;
+  linkTarget?: string;
+  linkEntity?: Link;
 }
 
 export async function addOrEditLink(
   editor: ReactEditor & HistoryEditor & SPEditor,
-  { linkText, linkTarget, linkType }: addOrEditLinkProps = {}
+  { linkText, linkTarget, linkType, sdk }: addOrEditLinkProps
 ) {
   if (!editor.selection) return;
 
@@ -143,10 +252,11 @@ export async function addOrEditLink(
     ({ onClose }) => {
       return (
         <HyperlinkModal
-          onClose={onClose}
-          linkText={currentLinkText}
           linkTarget={linkTarget}
+          linkText={currentLinkText}
           linkType={linkType}
+          onClose={onClose}
+          sdk={sdk}
         />
       );
     }
@@ -154,9 +264,45 @@ export async function addOrEditLink(
 
   if (!data) return;
 
-  const { linkText: text, linkTarget: url } = data as HyperLinkDialogData;
+  const {
+    linkText: text,
+    linkTarget: url,
+    linkType: type,
+    linkEntity: target,
+  } = data as HyperLinkDialogData;
 
   Transforms.select(editor, selectionBeforeBlur);
 
-  insertLink(editor, text, url);
+  insertLink(editor, { text, url, type, target });
+}
+
+/**
+ * Given a field object and a rich text node type, return a list of valid
+ * content type IDs associated with the node type, based on that node type's
+ * `linkContentType` validation.
+ *
+ * If there is no such validation or the validation is empty, return an empty
+ * array.
+ *
+ * The navigation here is explained by the `nodes` validation having signature:
+ * { nodes: { [nodeType]: validationObject[] } }
+ *
+ * We defensively navigate through this object because
+ * 1) the field may not have a `validations` array,
+ * 2) the `validations` array may be empty,
+ * 3) the `validations` array may not have a `nodes` validation,
+ * 4) the `nodes` validation may not validate the `nodeType`, and
+ * 5) the `nodeType` validations may not have a `linkContentType` validation.
+ *
+ * Note that passing an empty array will result in all possible content types
+ * being whitelisted.
+ *
+ */
+function getLinkedContentTypeIdsForNodeType(field, nodeType) {
+  return flow(
+    (v) => find(v, 'nodes'),
+    (v) => get(v, ['nodes', nodeType]),
+    (v) => find(v, 'linkContentType'),
+    (v) => get(v, 'linkContentType', [])
+  )(field.validations);
 }

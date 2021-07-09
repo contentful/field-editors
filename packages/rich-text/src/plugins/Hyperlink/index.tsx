@@ -16,6 +16,7 @@ import { CustomSlatePluginOptions } from '../../types';
 import { EntryAssetTooltip } from './EntryAssetTooltip';
 import { useSdkContext } from '../../SdkProvider';
 import { addOrEditLink } from './HyperlinkModal';
+import { isLinkActive, unwrapLink } from '../../helpers/editor';
 
 const styles = {
   hyperlinkWrapper: css({
@@ -120,13 +121,18 @@ interface ToolbarHyperlinkButtonProps {
 
 export function ToolbarHyperlinkButton(props: ToolbarHyperlinkButtonProps) {
   const editor = useStoreEditor();
+  const isActive = !!(editor && isLinkActive(editor));
+  const sdk: FieldExtensionSDK = useSdkContext();
 
   async function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
-
     if (!editor) return;
 
-    addOrEditLink(editor, { linkType: INLINES.HYPERLINK });
+    if (isActive) {
+      unwrapLink(editor);
+    } else {
+      addOrEditLink(editor, { sdk });
+    }
   }
 
   if (!editor) return null;
@@ -138,7 +144,7 @@ export function ToolbarHyperlinkButton(props: ToolbarHyperlinkButtonProps) {
       label="Hyperlink"
       testId="hyperlink-toolbar-button"
       onClick={handleClick}
-      isActive={false}
+      isActive={isActive}
       disabled={props.isDisabled}
     />
   );
