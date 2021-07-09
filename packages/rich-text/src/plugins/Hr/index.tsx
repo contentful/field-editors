@@ -10,7 +10,6 @@ import {
   getRenderElement,
   useStoreEditor,
   SlatePlugin,
-  SPEditor,
 } from '@udecode/slate-plugins-core';
 import { getText, setNodes } from '@udecode/slate-plugins-common';
 import {
@@ -56,8 +55,10 @@ interface ToolbarHrButtonProps {
   isDisabled?: boolean;
 }
 
-export function withHrEvents(editor: SPEditor) {
+export function withHrEvents(editor) {
   return (event) => {
+    if (!editor) return;
+
     const isEnter = event.keyCode === 13;
     const [, pathToSelectedHr] = getNodeEntryFromSelection(editor, BLOCKS.HR);
 
@@ -100,6 +101,8 @@ export function ToolbarHrButton(props: ToolbarHrButtonProps) {
 
     Slate.ReactEditor.focus(editor);
   }
+
+  if (!editor) return null;
 
   return (
     <EditorToolbarButton
