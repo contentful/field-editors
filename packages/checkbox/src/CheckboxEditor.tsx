@@ -10,6 +10,7 @@ import {
 import { CheckboxField, Form, TextLink } from '@contentful/forma-36-react-components';
 import * as styles from './styles';
 import { nanoid } from 'nanoid';
+import { useMemo } from 'react';
 
 export interface CheckboxEditorProps {
   /**
@@ -78,7 +79,7 @@ const getInvalidValues = (
 export function CheckboxEditor(props: CheckboxEditorProps) {
   const { field, locales } = props;
 
-  const options = getOptions(field);
+  const options = useMemo(() => getOptions(field), [field]);
   const misconfigured = options.length === 0;
 
   if (misconfigured) {
