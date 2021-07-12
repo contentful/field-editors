@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.14.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-checkbox@0.13.6...@contentful/field-editor-checkbox@0.14.0) (2021-07-12)
+
+
+### Features
+
+* fix non-unique checkbox labels for multiple editors ([#775](https://github.com/contentful/field-editors/issues/775)) ([a5e09b3](https://github.com/contentful/field-editors/commit/a5e09b3359fb48a0b6d27629905df5fccc1a1b37))
+
+
+
+
+
 ## [0.13.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-checkbox@0.13.3...@contentful/field-editor-checkbox@0.13.6) (2021-07-06)
 
 **Note:** Version bump only for package @contentful/field-editor-checkbox
