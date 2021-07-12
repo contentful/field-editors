@@ -9,6 +9,7 @@ import {
 } from '@contentful/field-editor-shared';
 import { CheckboxField, Form, TextLink } from '@contentful/forma-36-react-components';
 import * as styles from './styles';
+import { nanoid } from 'nanoid';
 
 export interface CheckboxEditorProps {
   /**
@@ -44,12 +45,13 @@ export function getOptions(field: FieldAPI): CheckboxOption[] {
     .filter((validation) => validation.in)
     .map((validation) => validation.in);
 
-  const firstPredefinedValues = (predefinedValues.length > 0
-    ? predefinedValues[0]
-    : []) as string[];
+  const firstPredefinedValues = (
+    predefinedValues.length > 0 ? predefinedValues[0] : []
+  ) as string[];
 
   return firstPredefinedValues.map((value: string, index) => ({
-    id: ['entity', field.id, field.locale, index].join('.'),
+    // Append a random id to distinguish between checkboxes opened in two editors (e.g. slide-in)
+    id: ['entity', field.id, field.locale, index, nanoid(6)].join('.'),
     value,
     label: value,
   }));

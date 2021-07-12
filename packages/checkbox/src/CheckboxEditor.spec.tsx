@@ -122,4 +122,30 @@ describe('CheckboxEditor', () => {
     fireEvent.click(getByTestId('cf-ui-text-link'));
     expect(field.removeValue).toHaveBeenCalledTimes(1);
   });
+
+  it('renders checkboxes with unique ids', async () => {
+    const predefined = ['banana', 'orange', 'strawberry'];
+    const [field] = createFakeFieldAPI((mock) => {
+      return {
+        ...mock,
+        items: {
+          type: '',
+          validations: [{ in: predefined }],
+        },
+      };
+    });
+    const locales = createFakeLocalesAPI();
+    const { findAllByTestId } = render(
+      <div>
+        <CheckboxEditor field={field} locales={locales} isInitiallyDisabled={false} />
+        <CheckboxEditor field={field} locales={locales} isInitiallyDisabled={false} />
+      </div>
+    );
+
+    const $labels = await findAllByTestId('cf-ui-form-label');
+
+    expect($labels).toHaveLength(6);
+    const uniqueIds = Array.from(new Set($labels.map((label) => label.getAttribute('for'))));
+    expect(uniqueIds).toHaveLength(6);
+  });
 });
