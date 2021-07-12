@@ -1,14 +1,16 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { cx } from 'emotion';
 import get from 'lodash/get';
 import {
   FieldAPI,
-  LocalesAPI,
   FieldConnector,
+  LocalesAPI,
   PredefinedValuesError,
 } from '@contentful/field-editor-shared';
 import { CheckboxField, Form, TextLink } from '@contentful/forma-36-react-components';
 import * as styles from './styles';
+import { nanoid } from 'nanoid';
 
 export interface CheckboxEditorProps {
   /**
@@ -33,7 +35,7 @@ function isEmptyListValue(value: ListValue | null) {
   return value === null || value.length === 0;
 }
 
-export function getOptions(field: FieldAPI): CheckboxOption[] {
+function getOptions(field: FieldAPI, id: string): CheckboxOption[] {
   // Get first object that has a 'in' property
   const validations = get(field, ['items', 'validations'], []) as Record<
     string,
@@ -44,12 +46,13 @@ export function getOptions(field: FieldAPI): CheckboxOption[] {
     .filter((validation) => validation.in)
     .map((validation) => validation.in);
 
-  const firstPredefinedValues = (predefinedValues.length > 0
-    ? predefinedValues[0]
-    : []) as string[];
+  const firstPredefinedValues = (
+    predefinedValues.length > 0 ? predefinedValues[0] : []
+  ) as string[];
 
   return firstPredefinedValues.map((value: string, index) => ({
-    id: ['entity', field.id, field.locale, index].join('.'),
+    // Append a random id to distinguish between checkboxes opened in two editors (e.g. slide-in)
+    id: ['entity', field.id, field.locale, index, id].join('.'),
     value,
     label: value,
   }));
@@ -74,9 +77,10 @@ const getInvalidValues = (
 };
 
 export function CheckboxEditor(props: CheckboxEditorProps) {
+  const [id] = useState(() => nanoid(6));
   const { field, locales } = props;
 
-  const options = getOptions(field);
+  const options = getOptions(field, id);
   const misconfigured = options.length === 0;
 
   if (misconfigured) {
