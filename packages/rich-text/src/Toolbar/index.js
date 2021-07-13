@@ -7,6 +7,8 @@ import Bold from '../plugins/Bold';
 import Italic from '../plugins/Italic';
 import Underlined from '../plugins/Underlined';
 import Code from '../plugins/Code';
+import Superscript from '../plugins/Superscript';
+import Subscript from '../plugins/Subscript';
 import Quote from '../plugins/Quote';
 import {
   Heading1,
@@ -208,6 +210,8 @@ export default class Toolbar extends React.Component {
           {isNodeTypeEnabled(field, BLOCKS.OL_LIST) && <OrderedList {...props} />}
           {isNodeTypeEnabled(field, BLOCKS.QUOTE) && <Quote {...props} />}
           {isNodeTypeEnabled(field, BLOCKS.HR) && <Hr {...props} />}
+          {isMarkEnabled(field, MARKS.SUPERSCRIPT) && <Superscript {...props} />}
+          {isMarkEnabled(field, MARKS.SUBSCRIPT) && <Subscript {...props} />}
         </div>
         {this.renderEmbeds(props)}
       </EditorToolbar>
@@ -221,6 +225,8 @@ function getValidationInfo(field) {
     isMarkEnabled(field, MARKS.ITALIC) ||
     isMarkEnabled(field, MARKS.UNDERLINE) ||
     isMarkEnabled(field, MARKS.CODE);
+    isMarkEnabled(field, MARKS.SUPERSCRIPT);
+    isMarkEnabled(field, MARKS.SUBSCRIPT);
 
   const isAnyHyperlinkEnabled =
     isNodeTypeEnabled(field, INLINES.HYPERLINK) ||

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import { Icon } from '@contentful/forma-36-react-components';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 
 export default class ToolbarIcon extends Component {

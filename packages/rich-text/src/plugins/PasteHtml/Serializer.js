@@ -27,7 +27,9 @@ const MARK_TAGS = {
   em: MARKS.ITALIC,
   i: MARKS.ITALIC,
   u: MARKS.UNDERLINE,
-  code: MARKS.CODE
+  code: MARKS.CODE,
+  sup: MARKS.SUPERSCRIPT,
+  sub: MARKS.SUBSCRIPT
 };
 
 const isGoogleWrapper = el =>

@@ -3,6 +3,8 @@ import { BoldPlugin } from './Bold';
 import { ItalicPlugin } from './Italic';
 import { UnderlinedPlugin } from './Underlined';
 import { CodePlugin } from './Code';
+import { SuperscriptPlugin } from './Superscript';
+import { SubscriptPlugin } from './Subscript';
 import { QuotePlugin } from './Quote';
 import { HyperlinkPlugin } from './Hyperlink';
 import {
@@ -41,6 +43,8 @@ export function buildPlugins(richTextAPI) {
     ItalicPlugin({ richTextAPI }),
     UnderlinedPlugin({ richTextAPI }),
     CodePlugin({ richTextAPI }),
+    SuperscriptPlugin({ richTextAPI }),
+    SubscriptPlugin({ richTextAPI }),
     QuotePlugin({ richTextAPI }),
     HyperlinkPlugin({ richTextAPI }),
     Heading1Plugin({ richTextAPI }),
