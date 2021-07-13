@@ -8,6 +8,7 @@ import type {
 } from '@contentful/field-editor-shared';
 import { entityHelpers } from '@contentful/field-editor-shared';
 import { TextLink, List, ListItem, Icon } from '@contentful/forma-36-react-components';
+import { cx } from 'emotion';
 
 import * as styles from './styles';
 
@@ -117,6 +118,7 @@ export interface ValidationErrorsProps {
   space: SpaceAPI;
   locales: LocalesAPI;
   getEntryURL: (entry: Entry) => string;
+  className?: string;
 }
 
 export function ValidationErrors(props: ValidationErrorsProps) {
@@ -135,7 +137,7 @@ export function ValidationErrors(props: ValidationErrorsProps) {
   }
 
   return (
-    <List className={styles.errorList} testId="validation-errors">
+    <List className={cx(styles.errorList, props.className)} testId="validation-errors">
       {errors.map((error, index) => {
         return (
           <li
