@@ -33,9 +33,10 @@ import { InsertBeforeFirstVoidBlockPlugin } from './InsertBeforeFirstVoidBlock';
 
 import schema from '../constants/Schema';
 
-export function buildPlugins(richTextAPI) {
+export function buildPlugins(richTextAPI, customPlugins = []) {
   return [
     { schema },
+    ...customPlugins.map(plugin => plugin({ richTextAPI })),
     InsertBeforeFirstVoidBlockPlugin({ richTextAPI }),
     BoldPlugin({ richTextAPI }),
     ItalicPlugin({ richTextAPI }),
