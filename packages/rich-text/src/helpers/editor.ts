@@ -137,12 +137,14 @@ export function insertLink(editor, options: InsertLinkOptions) {
 }
 
 export function isLinkActive(editor) {
-  const [link] = Editor.nodes(editor, {
-    match: (node) =>
-      !Editor.isEditor(node) &&
-      Element.isElement(node) &&
-      LINK_TYPES.includes((node as CustomElement).type as INLINES),
-  });
+  const [link] = Array.from(
+    Editor.nodes(editor, {
+      match: (node) =>
+        !Editor.isEditor(node) &&
+        Element.isElement(node) &&
+        LINK_TYPES.includes((node as CustomElement).type as INLINES),
+    })
+  );
   return !!link;
 }
 
