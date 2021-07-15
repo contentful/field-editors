@@ -1,11 +1,10 @@
-import { Descendant } from 'slate';
 import { SlatePluginOptions } from '@udecode/slate-plugins-core';
 
 export type TextElement = { text: string };
 
 export type CustomElement = {
   type: string;
-  children: Descendant[];
+  children: TextOrCustomElement[];
   data: object;
   isVoid?: boolean;
 };

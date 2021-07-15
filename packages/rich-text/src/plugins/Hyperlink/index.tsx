@@ -16,7 +16,7 @@ import { CustomSlatePluginOptions } from '../../types';
 import { EntryAssetTooltip } from './EntryAssetTooltip';
 import { useSdkContext } from '../../SdkProvider';
 import { addOrEditLink } from './HyperlinkModal';
-import { isLinkActive, unwrapLink } from '../../helpers/editor';
+import { isLinkActive, LINK_TYPES, unwrapLink } from '../../helpers/editor';
 
 const styles = {
   hyperlinkWrapper: css({
@@ -57,13 +57,37 @@ const styles = {
   }),
 };
 
-export function createHyperlinkPlugin(): SlatePlugin {
-  const keys: string[] = [INLINES.HYPERLINK, INLINES.ENTRY_HYPERLINK, INLINES.ASSET_HYPERLINK];
-
+export function createHyperlinkPlugin(sdk: FieldExtensionSDK): SlatePlugin {
   return {
-    renderElement: getRenderElement(keys),
-    pluginKeys: keys,
-    inlineTypes: getSlatePluginTypes(keys),
+    renderElement: getRenderElement(LINK_TYPES),
+    pluginKeys: LINK_TYPES,
+    inlineTypes: getSlatePluginTypes(LINK_TYPES),
+    onKeyDown: buildHyperlinkEventHandler(sdk),
+  };
+}
+
+type K = 75;
+type KEvent = KeyboardEvent & { keyCode: K };
+type CtrlEvent = KeyboardEvent & { ctrlKey: true };
+type MetaEvent = KeyboardEvent & { metaKey: true };
+type ModEvent = CtrlEvent | MetaEvent;
+type HyperlinkEvent = ModEvent & KEvent;
+
+const isMod = (event: KeyboardEvent): event is ModEvent => event.ctrlKey || event.metaKey;
+const isK = (event: KeyboardEvent): event is KEvent => event.keyCode === 75;
+const wasHyperlinkEventTriggered = (event: KeyboardEvent): event is HyperlinkEvent =>
+  isMod(event) && isK(event);
+
+export function buildHyperlinkEventHandler(sdk) {
+  return function withHyperlinkEvents(editor) {
+    return function handleKeyDown(event: KeyboardEvent) {
+      if (!editor.selection || !wasHyperlinkEventTriggered(event)) return;
+      if (isLinkActive(editor)) {
+        unwrapLink(editor);
+      } else {
+        addOrEditLink(editor, sdk);
+      }
+    };
   };
 }
 
@@ -79,7 +103,16 @@ interface HyperlinkElementProps extends RenderElementProps {
 }
 
 function UrlHyperlink(props: HyperlinkElementProps) {
+  const editor = useStoreEditor();
+  const sdk: FieldExtensionSDK = useSdkContext();
   const { uri } = props.element.data;
+
+  async function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
+    event.stopPropagation();
+    if (!editor) return;
+    addOrEditLink(editor, sdk);
+  }
 
   return (
     <Tooltip
@@ -87,18 +120,30 @@ function UrlHyperlink(props: HyperlinkElementProps) {
       targetWrapperClassName={styles.hyperlinkWrapper}
       place="bottom"
       maxWidth="auto">
-      <TextLink href={uri} rel="noopener noreferrer" className={styles.hyperlink}>
+      <TextLink
+        href={uri}
+        rel="noopener noreferrer"
+        onClick={handleClick}
+        className={styles.hyperlink}>
         {props.children}
       </TextLink>
     </Tooltip>
   );
 }
 
-function EntryAssetHyperlink(props: HyperlinkElementProps) {
-  const { target } = props.element.data;
+function EntityHyperlink(props: HyperlinkElementProps) {
+  const editor = useStoreEditor();
   const sdk: FieldExtensionSDK = useSdkContext();
+  const { target } = props.element.data;
 
   if (!target) return null;
+
+  async function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
+    event.stopPropagation();
+    if (!editor) return;
+    addOrEditLink(editor, sdk);
+  }
 
   return (
     <Tooltip
@@ -108,7 +153,11 @@ function EntryAssetHyperlink(props: HyperlinkElementProps) {
       targetWrapperClassName={styles.hyperlinkWrapper}
       place="bottom"
       maxWidth="auto">
-      <TextLink href="javascript:void(0)" rel="noopener noreferrer" className={styles.hyperlink}>
+      <TextLink
+        href="javascript:void(0)"
+        rel="noopener noreferrer"
+        onClick={handleClick}
+        className={styles.hyperlink}>
         {props.children}
       </TextLink>
     </Tooltip>
@@ -131,7 +180,7 @@ export function ToolbarHyperlinkButton(props: ToolbarHyperlinkButtonProps) {
     if (isActive) {
       unwrapLink(editor);
     } else {
-      addOrEditLink(editor, { sdk });
+      addOrEditLink(editor, sdk);
     }
   }
 
@@ -157,10 +206,10 @@ export const withHyperlinkOptions: CustomSlatePluginOptions = {
   },
   [INLINES.ENTRY_HYPERLINK]: {
     type: INLINES.ENTRY_HYPERLINK,
-    component: EntryAssetHyperlink,
+    component: EntityHyperlink,
   },
   [INLINES.ASSET_HYPERLINK]: {
     type: INLINES.ASSET_HYPERLINK,
-    component: EntryAssetHyperlink,
+    component: EntityHyperlink,
   },
 };

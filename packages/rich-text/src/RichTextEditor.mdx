@@ -36,9 +36,7 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
       return confirm(`sdk.dialogs.${fnName}()\nSimulate selecting a random entity or cancel?`)
         ? {
             sys: {
-              id: Math.random()
-                .toString(36)
-                .substring(7),
+              id: 'example-entity-id',
               type
             }
           }

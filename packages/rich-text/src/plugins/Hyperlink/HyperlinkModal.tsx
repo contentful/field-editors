@@ -21,7 +21,7 @@ import get from 'lodash/get';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
-import { insertLink } from '../../helpers/editor';
+import { getNodeEntryFromSelection, insertLink, LINK_TYPES } from '../../helpers/editor';
 import { FetchingWrappedEntryCard } from './FetchingWrappedEntryCard';
 import { Link } from '@contentful/field-editor-reference/dist/types';
 import { FetchingWrappedAssetCard } from './FetchingWrappedAssetCard';
@@ -40,6 +40,11 @@ interface HyperlinkModalProps {
   onClose: (value: unknown) => void;
   sdk: FieldExtensionSDK;
 }
+
+const SYS_LINK_TYPES = {
+  [INLINES.ENTRY_HYPERLINK]: 'Entry',
+  [INLINES.ASSET_HYPERLINK]: 'Asset',
+};
 
 export function HyperlinkModal(props: HyperlinkModalProps) {
   const [linkText, setLinkText] = React.useState(props.linkText ?? '');
@@ -80,6 +85,7 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
       contentTypes: getLinkedContentTypeIdsForNodeType(props.sdk.field, INLINES.ENTRY_HYPERLINK),
     };
     const entry = await props.sdk.dialogs.selectSingleEntry(options);
+    setLinkTarget('');
     setLinkEntity(entityToLink(entry));
   }
 
@@ -88,6 +94,7 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
       locale: props.sdk.field.locale,
     };
     const asset = await props.sdk.dialogs.selectSingleAsset(options);
+    setLinkTarget('');
     setLinkEntity(entityToLink(asset));
   }
 
@@ -124,7 +131,7 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
               }
               name="linkType"
               id="linkType"
-              selectProps={{ testId: ' link-type-input' }}>
+              selectProps={{ testId: 'link-type-input' }}>
               <Option value={INLINES.HYPERLINK}>URL</Option>
               <Option value={INLINES.ENTRY_HYPERLINK}>Entry</Option>
               <Option value={INLINES.ASSET_HYPERLINK}>Asset</Option>
@@ -138,9 +145,10 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
                 helpText="A protocol may be required, e.g. https://"
                 value={linkTarget}
                 required={true}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                  setLinkTarget(event.target.value)
-                }
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  setLinkEntity(null);
+                  setLinkTarget(event.target.value);
+                }}
                 textInputProps={{
                   testId: 'link-target-input',
                 }}
@@ -153,36 +161,33 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
                   Link target{' '}
                 </FormLabel>
 
-                {linkEntity && (
-                  <TextLink onClick={resetLinkEntity} className={styles.removeSelectionLabel}>
-                    Remove selection
-                  </TextLink>
-                )}
-
-                {linkEntity && (
-                  <div>
-                    {linkType === INLINES.ENTRY_HYPERLINK && (
-                      <FetchingWrappedEntryCard
-                        sdk={props.sdk}
-                        locale={props.sdk.field.locale}
-                        entryId={linkEntity.sys.id}
-                        isDisabled={true}
-                        isSelected={false}
-                      />
-                    )}
-                    {linkType === INLINES.ASSET_HYPERLINK && (
-                      <FetchingWrappedAssetCard
-                        sdk={props.sdk}
-                        locale={props.sdk.field.locale}
-                        assetId={linkEntity.sys.id}
-                        isDisabled={true}
-                        isSelected={false}
-                      />
-                    )}
-                  </div>
-                )}
-
-                {!linkEntity && (
+                {linkEntity && linkEntity.sys.linkType === SYS_LINK_TYPES[linkType] ? (
+                  <>
+                    <TextLink onClick={resetLinkEntity} className={styles.removeSelectionLabel}>
+                      Remove selection
+                    </TextLink>
+                    <div>
+                      {linkType === INLINES.ENTRY_HYPERLINK && (
+                        <FetchingWrappedEntryCard
+                          sdk={props.sdk}
+                          locale={props.sdk.field.locale}
+                          entryId={linkEntity.sys.id}
+                          isDisabled={true}
+                          isSelected={false}
+                        />
+                      )}
+                      {linkType === INLINES.ASSET_HYPERLINK && (
+                        <FetchingWrappedAssetCard
+                          sdk={props.sdk}
+                          locale={props.sdk.field.locale}
+                          assetId={linkEntity.sys.id}
+                          isDisabled={true}
+                          isSelected={false}
+                        />
+                      )}
+                    </div>
+                  </>
+                ) : (
                   <div>
                     {linkType === INLINES.ENTRY_HYPERLINK && (
                       <TextLink onClick={selectEntry}>Select entry</TextLink>
@@ -203,7 +208,7 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
             disabled={!isLinkComplete()}
             onClick={handleOnSubmit}
             testId="confirm-cta">
-            Insert
+            {props.linkType ? 'Update' : 'Insert'}
           </Button>
           <Button
             type="button"
@@ -218,13 +223,6 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
   );
 }
 
-interface addOrEditLinkProps {
-  linkText?: string;
-  linkTarget?: string;
-  linkType?: INLINES.HYPERLINK | INLINES.ASSET_HYPERLINK | INLINES.ENTRY_HYPERLINK;
-  sdk: FieldExtensionSDK;
-}
-
 interface HyperLinkDialogData {
   linkText: string;
   linkType: INLINES.HYPERLINK | INLINES.ASSET_HYPERLINK | INLINES.ENTRY_HYPERLINK;
@@ -234,16 +232,29 @@ interface HyperLinkDialogData {
 
 export async function addOrEditLink(
   editor: ReactEditor & HistoryEditor & SPEditor,
-  { linkText, linkTarget, linkType, sdk }: addOrEditLinkProps
+  sdk: FieldExtensionSDK
 ) {
   if (!editor.selection) return;
 
+  let linkType;
+  let linkText;
+  let linkTarget;
+  let linkEntity;
+
+  const [node, path] = getNodeEntryFromSelection(editor, LINK_TYPES);
+  if (node && path) {
+    linkType = node.type;
+    linkText = Editor.string(editor, path);
+    linkTarget = (node.data as { uri: string }).uri || '';
+    linkEntity = (node.data as { target: Link }).target;
+  }
+
   const selectionBeforeBlur = { ...editor.selection };
-  const currentLinkText = linkText ?? Editor.string(editor, editor.selection);
+  const currentLinkText = linkText || Editor.string(editor, editor.selection);
 
   const data = await ModalDialogLauncher.openDialog(
     {
-      title: 'Insert hyperlink', // TODO: Add support for edit hyperlink
+      title: linkType ? 'Edit hyperlink' : 'Insert hyperlink',
       width: 'large',
       shouldCloseOnEscapePress: true,
       shouldCloseOnOverlayClick: true,
@@ -255,6 +266,7 @@ export async function addOrEditLink(
           linkTarget={linkTarget}
           linkText={currentLinkText}
           linkType={linkType}
+          linkEntity={linkEntity}
           onClose={onClose}
           sdk={sdk}
         />
@@ -273,7 +285,7 @@ export async function addOrEditLink(
 
   Transforms.select(editor, selectionBeforeBlur);
 
-  insertLink(editor, { text, url, type, target });
+  insertLink(editor, { text, url, type, target, path });
 }
 
 /**
