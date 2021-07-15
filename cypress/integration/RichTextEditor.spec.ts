@@ -1,7 +1,10 @@
-/* eslint-disable mocha/no-setup-in-describe */
-
-import { MARKS, BLOCKS } from '@contentful/rich-text-types';
-import { document as doc, block, text } from '../../packages/rich-text/src/helpers/nodeFactory';
+import { MARKS, BLOCKS, INLINES } from '@contentful/rich-text-types';
+import {
+  document as doc,
+  block,
+  inline,
+  text,
+} from '../../packages/rich-text/src/helpers/nodeFactory';
 
 function expectRichTextFieldValue(expectedValue, editorEvents?) {
   cy.getRichTextField().then((field) => {
@@ -543,8 +546,11 @@ describe('Rich Text Editor', () => {
     });
   });
 
-  describe('Tables', () => { 
-    const buildHelper = (type) => (...children) => block(type, {}, ...children);
+  describe('Tables', () => {
+    const buildHelper =
+      (type) =>
+      (...children) =>
+        block(type, {}, ...children);
     const table = buildHelper(BLOCKS.TABLE);
     const row = buildHelper(BLOCKS.TABLE_ROW);
     const cell = buildHelper(BLOCKS.TABLE_CELL);
@@ -562,74 +568,38 @@ describe('Rich Text Editor', () => {
         .type('{rightArrow}')
         .typeInSlate('baz')
         .type('{rightArrow}')
-        .typeInSlate('quux')
+        .typeInSlate('quux');
     };
     const expectDocumentStructure = (...elements) => {
       cy.wait(100);
-      expectRichTextFieldValue(
-        doc(
-          emptyParagraph(),
-          ...elements,
-          emptyParagraph(),
-        )
-      );
-    }
-    const expectTable = (...tableElements) => expectDocumentStructure(
-      table(...tableElements)
-    );
+      expectRichTextFieldValue(doc(emptyParagraph(), ...elements, emptyParagraph()));
+    };
+    const expectTable = (...tableElements) => expectDocumentStructure(table(...tableElements));
     const expectTableToBeDeleted = () => expectDocumentStructure();
 
     it('allows creating a table', () => {
       editor().type(`{${mod}}{,}`);
 
-      expectTable(
-        row(
-          emptyCell(),
-          emptyCell(),
-        ),
-        row(
-          emptyCell(),
-          emptyCell(),
-        )
-      );
+      expectTable(row(emptyCell(), emptyCell()), row(emptyCell(), emptyCell()));
     });
 
     it('allows filling a table with text', () => {
       insertTableWithExampleData();
 
       expectTable(
-        row(
-          cellWithText('foo'),
-          cellWithText('bar'),
-        ),
-        row(
-          cellWithText('baz'),
-          cellWithText('quux'),
-        )
+        row(cellWithText('foo'), cellWithText('bar')),
+        row(cellWithText('baz'), cellWithText('quux'))
       );
     });
 
     it('allows adding rows and columns', () => {
       insertTableWithExampleData();
 
-      editor()
-        .click()
-        .type(`{upArrow}`)
-        .type(`{upArrow}`)
-        .wait(100)
-        .type(`{${mod}}{rightArrow}`);
+      editor().click().type(`{upArrow}`).type(`{upArrow}`).wait(100).type(`{${mod}}{rightArrow}`);
 
       expectTable(
-        row(
-          cellWithText('foo'),
-          emptyCell(),
-          cellWithText('bar'),
-        ),
-        row(
-          cellWithText('baz'),
-          emptyCell(),
-          cellWithText('quux'),
-        )
+        row(cellWithText('foo'), emptyCell(), cellWithText('bar')),
+        row(cellWithText('baz'), emptyCell(), cellWithText('quux'))
       );
 
       editor()
@@ -642,55 +612,24 @@ describe('Rich Text Editor', () => {
         .type(`{${mod}}{downArrow}`);
 
       expectTable(
-        row(
-          cellWithText('foo'),
-          emptyCell(),
-          cellWithText('bar'),
-        ),
-        row(
-          emptyCell(),
-          emptyCell(),
-          emptyCell(),
-        ),
-        row(
-          cellWithText('baz'),
-          emptyCell(),
-          cellWithText('quux'),
-        )
+        row(cellWithText('foo'), emptyCell(), cellWithText('bar')),
+        row(emptyCell(), emptyCell(), emptyCell()),
+        row(cellWithText('baz'), emptyCell(), cellWithText('quux'))
       );
     });
 
     it('allows deleting a table by selection deletion', () => {
       insertTableWithExampleData();
 
-      editor()
-        .click()
-        .type(`{upArrow}`)
-        .type(`{upArrow}`)
-        .wait(100)
-        .type(`{${mod}}{backspace}`);
-      
-      expectTable(
-        row(cellWithText('bar')),
-        row(cellWithText('quux')),
-      );
+      editor().click().type(`{upArrow}`).type(`{upArrow}`).wait(100).type(`{${mod}}{backspace}`);
 
-      editor()
-        .click()
-        .type(`{upArrow}`)
-        .type(`{upArrow}`)
-        .wait(100)
-        .type(`{${mod}}{backspace}`)
+      expectTable(row(cellWithText('bar')), row(cellWithText('quux')));
 
-      expectTable(
-        row(cellWithText('quux'))
-      );
+      editor().click().type(`{upArrow}`).type(`{upArrow}`).wait(100).type(`{${mod}}{backspace}`);
 
-      editor()
-        .click()
-        .type(`{upArrow}`)
-        .wait(100)
-        .type(`{${mod}}{backspace}`)
+      expectTable(row(cellWithText('quux')));
+
+      editor().click().type(`{upArrow}`).wait(100).type(`{${mod}}{backspace}`);
 
       expectTableToBeDeleted();
     });
@@ -698,72 +637,31 @@ describe('Rich Text Editor', () => {
     it('allows removing rows and columns', () => {
       insertTableWithExampleData();
 
-      editor()
-        .click()
-        .type(`{upArrow}`)
-        .type(`{upArrow}`)
-        .wait(100)
-        .type(`{${mod}}{leftArrow}`);
-      
-      expectTable(
-        row(cellWithText('bar')),
-        row(cellWithText('quux'))
-      );
+      editor().click().type(`{upArrow}`).type(`{upArrow}`).wait(100).type(`{${mod}}{leftArrow}`);
 
-      editor()
-        .click()
-        .type(`{upArrow}`)
-        .type(`{upArrow}`)
-        .wait(100)
-        .type(`{${mod}}{upArrow}`)
+      expectTable(row(cellWithText('bar')), row(cellWithText('quux')));
 
-      expectTable(
-        row(cellWithText('quux'))
-      );
+      editor().click().type(`{upArrow}`).type(`{upArrow}`).wait(100).type(`{${mod}}{upArrow}`);
 
-      editor()
-        .click()
-        .type(`{upArrow}`)
-        .wait(100)
-        .type(`{${mod}}{upArrow}`)
+      expectTable(row(cellWithText('quux')));
+
+      editor().click().type(`{upArrow}`).wait(100).type(`{${mod}}{upArrow}`);
 
       expectTableToBeDeleted();
 
       // Undo 3x... let's make sure we can do the same thing,
       // but with reversed order column/row deletion
-      editor()
-        .type(`{${mod}}z`)
-        .type(`{${mod}}z`)
-        .type(`{${mod}}z`)
-      
-      editor()
-        .type(`{upArrow}`)
-        .type(`{upArrow}`)
-        .wait(100)
-        .type(`{${mod}}{upArrow}`);
-      
-      expectTable(
-        row(
-          cellWithText('baz'),
-          cellWithText('quux'),
-        ),
-      );
-  
-      editor()
-        .click()
-        .type(`{upArrow}`)
-        .wait(100)
-        .type(`{${mod}}{leftArrow}`)
+      editor().type(`{${mod}}z`).type(`{${mod}}z`).type(`{${mod}}z`);
 
-      expectTable(
-        row(cellWithText('baz'))
-      );
+      editor().type(`{upArrow}`).type(`{upArrow}`).wait(100).type(`{${mod}}{upArrow}`);
 
-      editor()
-        .click()
-        .type(`{upArrow}`)
-        .wait(100)
-        .type(`{${mod}}{leftArrow}`)
+      expectTable(row(cellWithText('baz'), cellWithText('quux')));
+
+      editor().click().type(`{upArrow}`).wait(100).type(`{${mod}}{leftArrow}`);
+
+      expectTable(row(cellWithText('baz')));
+
+      editor().click().type(`{upArrow}`).wait(100).type(`{${mod}}{leftArrow}`);
 
       expectTableToBeDeleted();
     });
@@ -788,10 +686,7 @@ describe('Rich Text Editor', () => {
       ].map((type) => getDropdownItem(type).get('button').should('be.disabled'));
 
       // select outside the table
-      editor()
-        .click()
-        .type('{downArrow}')
-        .wait(100);
+      editor().click().type('{downArrow}').wait(100);
 
       cy.findByTestId('quote-toolbar-button').should('not.be.disabled');
       cy.findByTestId('ul-toolbar-button').should('not.be.disabled');
@@ -809,5 +704,278 @@ describe('Rich Text Editor', () => {
         BLOCKS.HEADING_6,
       ].map((type) => getDropdownItem(type).get('button').should('not.be.disabled'));
     });
+  });
+
+  describe('Links', () => {
+    const getLinkTextInput = () => cy.findByTestId('link-text-input');
+    const getLinkTypeSelect = () => cy.findByTestId('link-type-input');
+    const getLinkTargetInput = () => cy.findByTestId('link-target-input');
+    const getSubmitButton = () => cy.findByTestId('confirm-cta');
+    const getEntityTextLink = () => cy.findByTestId('cf-ui-form').findByTestId('cf-ui-text-link');
+    const expectDocumentStructure = (...nodes) => {
+      expectRichTextFieldValue(
+        doc(
+          block(
+            BLOCKS.PARAGRAPH,
+            {},
+            ...nodes.map(([nodeType, ...content]) => {
+              if (nodeType === 'text') return text(...content);
+              const [data, textContent] = content;
+              return inline(nodeType, data, text(textContent));
+            })
+          )
+        )
+      );
+    };
+
+    const methods: [string, () => void][] = [
+      [
+        'using the link toolbar button',
+        () => {
+          cy.findByTestId('hyperlink-toolbar-button').click();
+          cy.wait(100);
+        },
+      ],
+      [
+        'using the link keyboard shortcut',
+        () => {
+          editor().type(`{${mod}}k`);
+          cy.wait(100);
+        },
+      ],
+    ];
+
+    for (const [triggerMethod, triggerLinkModal] of methods) {
+      describe(triggerMethod, () => {
+        it('adds and removes hyperlinks', () => {
+          editor().click().typeInSlate('The quick brown fox jumps over the lazy ');
+
+          cy.wait(500);
+
+          triggerLinkModal();
+
+          getSubmitButton().should('be.disabled');
+          getLinkTextInput().type('dog');
+          getSubmitButton().should('be.disabled');
+          getLinkTargetInput().type('https://zombo.com');
+          getSubmitButton().should('not.be.disabled');
+          getSubmitButton().click();
+
+          cy.wait(100);
+
+          expectDocumentStructure(
+            ['text', 'The quick brown fox jumps over the lazy '],
+            [INLINES.HYPERLINK, { uri: 'https://zombo.com' }, 'dog'],
+            ['text', '']
+          );
+
+          editor().click().type('{selectall}');
+          // TODO: This should just be
+          // ```
+          // triggerLinkModal();
+          // ``
+          // but with the keyboard shortcut, this causes an error in Cypress I
+          // haven't been able to replicate in the editor. As it's not
+          // replicable in "normal" usage we use the toolbar button both places
+          // in this test.
+          cy.findByTestId('hyperlink-toolbar-button').click();
+
+          cy.wait(100);
+
+          expectDocumentStructure(
+            // TODO: the editor should normalize this
+            ['text', 'The quick brown fox jumps over the lazy '],
+            ['text', 'dog']
+          );
+        });
+
+        it('converts text to URL hyperlink', () => {
+          editor().click().typeInSlate('My cool website').click().type('{selectall}');
+
+          cy.wait(500);
+
+          triggerLinkModal();
+
+          getLinkTextInput().should('have.value', 'My cool website');
+          getLinkTypeSelect().should('have.value', 'hyperlink');
+          getSubmitButton().should('be.disabled');
+          getLinkTargetInput().type('https://zombo.com');
+          getSubmitButton().should('not.be.disabled');
+          getSubmitButton().click();
+
+          cy.wait(100);
+
+          expectDocumentStructure(
+            ['text', ''],
+            [INLINES.HYPERLINK, { uri: 'https://zombo.com' }, 'My cool website'],
+            ['text', '']
+          );
+        });
+
+        it('converts text to entry hyperlink', () => {
+          editor().click().typeInSlate('My cool entry').click().type('{selectall}');
+
+          cy.wait(500);
+
+          triggerLinkModal();
+
+          getLinkTextInput().should('have.value', 'My cool entry');
+          getSubmitButton().should('be.disabled');
+          getLinkTypeSelect().should('have.value', 'hyperlink').select('entry-hyperlink');
+          getSubmitButton().should('be.disabled');
+          cy.findByTestId('cf-ui-entry-card').should('not.exist');
+          getEntityTextLink().should('have.text', 'Select entry').click();
+          cy.findByTestId('cf-ui-entry-card').should('exist');
+          getEntityTextLink().should('have.text', 'Remove selection').click();
+          cy.findByTestId('cf-ui-entry-card').should('not.exist');
+          getEntityTextLink().should('have.text', 'Select entry').click();
+          cy.findByTestId('cf-ui-entry-card').should('exist');
+          getSubmitButton().click();
+
+          cy.wait(100);
+
+          expectDocumentStructure(
+            ['text', ''],
+            [
+              INLINES.ENTRY_HYPERLINK,
+              { target: { sys: { id: 'example-entity-id', type: 'Link', linkType: 'Entry' } } },
+              'My cool entry',
+            ],
+            ['text', '']
+          );
+        });
+
+        it('converts text to asset hyperlink', () => {
+          editor().click().typeInSlate('My cool asset').click().type('{selectall}');
+
+          cy.wait(500);
+
+          triggerLinkModal();
+
+          getLinkTextInput().should('have.value', 'My cool asset');
+          getSubmitButton().should('be.disabled');
+          getLinkTypeSelect().should('have.value', 'hyperlink').select('asset-hyperlink');
+          getSubmitButton().should('be.disabled');
+          cy.findByTestId('cf-ui-asset-card').should('not.exist');
+          getEntityTextLink().should('have.text', 'Select asset').click();
+          cy.findByTestId('cf-ui-asset-card').should('exist');
+          getEntityTextLink().should('have.text', 'Remove selection').click();
+          cy.findByTestId('cf-ui-asset-card').should('not.exist');
+          getEntityTextLink().should('have.text', 'Select asset').click();
+          cy.findByTestId('cf-ui-asset-card').should('exist');
+          getSubmitButton().click();
+
+          cy.wait(100);
+
+          expectDocumentStructure(
+            ['text', ''],
+            [
+              INLINES.ASSET_HYPERLINK,
+              { target: { sys: { id: 'example-entity-id', type: 'Link', linkType: 'Asset' } } },
+              'My cool asset',
+            ],
+            ['text', '']
+          );
+        });
+
+        it('edits hyperlinks', () => {
+          editor().click().typeInSlate('My cool website').click().type('{selectall}');
+
+          cy.wait(500);
+
+          triggerLinkModal();
+
+          // Part 1:
+          // Create a hyperlink
+
+          getLinkTextInput().should('have.value', 'My cool website');
+          getLinkTargetInput().type('https://zombo.com');
+          getSubmitButton().click();
+
+          cy.wait(100);
+
+          expectDocumentStructure(
+            ['text', ''],
+            [INLINES.HYPERLINK, { uri: 'https://zombo.com' }, 'My cool website'],
+            ['text', '']
+          );
+
+          // Part 2:
+          // Update hyperlink to entry link
+
+          editor()
+            .findByTestId('cf-ui-text-link')
+            .should('have.text', 'My cool website')
+            .click({ force: true });
+
+          getLinkTextInput()
+            .should('have.value', 'My cool website')
+            .type('{selectall}My cool entry');
+          getLinkTypeSelect().should('have.value', 'hyperlink').select('entry-hyperlink');
+          getEntityTextLink().should('have.text', 'Select entry').click();
+          getSubmitButton().click();
+
+          cy.wait(100);
+
+          expectDocumentStructure(
+            ['text', ''],
+            [
+              INLINES.ENTRY_HYPERLINK,
+              { target: { sys: { id: 'example-entity-id', type: 'Link', linkType: 'Entry' } } },
+              'My cool entry',
+            ],
+            ['text', '']
+          );
+
+          // Part 3:
+          // Update entry link to asset link
+
+          editor()
+            .findByTestId('cf-ui-text-link')
+            .should('have.text', 'My cool entry')
+            .click({ force: true });
+
+          getLinkTextInput().should('have.value', 'My cool entry').type('{selectall}My cool asset');
+          getLinkTypeSelect().should('have.value', 'entry-hyperlink').select('asset-hyperlink');
+          getEntityTextLink().should('have.text', 'Select asset').click();
+          getSubmitButton().click();
+
+          cy.wait(100);
+
+          expectDocumentStructure(
+            ['text', ''],
+            [
+              INLINES.ASSET_HYPERLINK,
+              { target: { sys: { id: 'example-entity-id', type: 'Link', linkType: 'Asset' } } },
+              'My cool asset',
+            ],
+            ['text', '']
+          );
+
+          // Part 3:
+          // Update asset link to hyperlink
+
+          editor()
+            .findByTestId('cf-ui-text-link')
+            .should('have.text', 'My cool asset')
+            .click({ force: true });
+
+          getLinkTextInput()
+            .should('have.value', 'My cool asset')
+            .type('{selectall}My cool website');
+          getLinkTypeSelect().should('have.value', 'asset-hyperlink').select('hyperlink');
+          getLinkTargetInput().type('https://zombo.com');
+          getSubmitButton().click();
+
+          cy.wait(100);
+
+          expectDocumentStructure(
+            ['text', ''],
+            [INLINES.HYPERLINK, { uri: 'https://zombo.com' }, 'My cool website'],
+            ['text', '']
+          );
+        });
+      });
+    }
   });
 });

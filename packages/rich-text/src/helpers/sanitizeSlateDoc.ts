@@ -1,22 +1,21 @@
 import { BLOCKS, INLINES, VOID_BLOCKS, Text } from '@contentful/rich-text-types';
 import { CustomElement, TextElement, TextOrCustomElement } from 'types';
+import values from 'lodash/values'; // eslint-disable-line you-dont-need-lodash-underscore/values
 
 type NodeType = BLOCKS | INLINES | Text['nodeType'];
 
 const TEXT_PARENT_NODES: string[] =
-  VOID_BLOCKS.concat(
-    INLINES[INLINES.HYPERLINK],
-    INLINES[INLINES.ASSET_HYPERLINK],
-    INLINES[INLINES.ENTRY_HYPERLINK],
-    INLINES[INLINES.EMBEDDED_ENTRY],
-    BLOCKS.PARAGRAPH,
-    BLOCKS.HEADING_1,
-    BLOCKS.HEADING_2,
-    BLOCKS.HEADING_3,
-    BLOCKS.HEADING_4,
-    BLOCKS.HEADING_5,
-    BLOCKS.HEADING_6,
-  );
+  (VOID_BLOCKS as string[])
+    .concat(values(INLINES) as string[])
+    .concat(
+      BLOCKS.PARAGRAPH,
+      BLOCKS.HEADING_1,
+      BLOCKS.HEADING_2,
+      BLOCKS.HEADING_3,
+      BLOCKS.HEADING_4,
+      BLOCKS.HEADING_5,
+      BLOCKS.HEADING_6,
+    );
 
 const isTextElement = (
   node: TextOrCustomElement

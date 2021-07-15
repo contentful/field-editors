@@ -3,8 +3,15 @@ import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { CustomElement } from '../types';
 import { Link } from '@contentful/field-editor-reference/dist/types';
 
-const LIST_TYPES: string[] = [BLOCKS.OL_LIST, BLOCKS.UL_LIST];
-const LINK_TYPES: string[] = [INLINES.HYPERLINK, INLINES.ASSET_HYPERLINK, INLINES.ENTRY_HYPERLINK];
+export const LINK_TYPES: INLINES[] = [
+  INLINES.HYPERLINK,
+  INLINES.ASSET_HYPERLINK,
+  INLINES.ENTRY_HYPERLINK,
+];
+const LIST_TYPES: BLOCKS[] = [
+  BLOCKS.OL_LIST,
+  BLOCKS.UL_LIST,
+];
 
 export function isBlockSelected(editor, type: string): boolean {
   const [match] = Array.from(
@@ -30,18 +37,23 @@ export function hasSelectionText(editor) {
 }
 
 type NodeEntry = [CustomElement, Path];
-export function getNodeEntryFromSelection(editor, nodeType: BLOCKS | INLINES): NodeEntry | [] {
+type NodeType = BLOCKS | INLINES;
+export function getNodeEntryFromSelection(
+  editor,
+  nodeTypeOrTypes: NodeType | NodeType[]
+): NodeEntry | [] {
   if (!editor.selection) return [];
+  const nodeTypes = Array.isArray(nodeTypeOrTypes) ? nodeTypeOrTypes : [nodeTypeOrTypes]
   const { path } = editor.selection.focus;
   for (let i = 0; i < path.length; i++) {
     const nodeEntry = Editor.node(editor, path.slice(0, i + 1)) as NodeEntry;
-    if (nodeEntry[0].type === nodeType) return nodeEntry;
+    if (nodeTypes.includes(nodeEntry[0].type as NodeType)) return nodeEntry;
   }
   return [];
 }
 
 export function isNodeTypeSelected(
-  editor: SPEditor,
+  editor,
   nodeType: BLOCKS | INLINES
 ): boolean {
   if (!editor) return false;
@@ -55,15 +67,15 @@ export function moveToTheNextLine(editor) {
 
 export function toggleBlock(editor, type: string): void {
   const isActive = isBlockSelected(editor, type);
-  const isList = LIST_TYPES.includes(type);
+  const isList = LIST_TYPES.includes(type as BLOCKS);
   const isQuote = type === BLOCKS.QUOTE;
 
   Transforms.unwrapNodes(editor, {
     match: (node) =>
       !Editor.isEditor(node) &&
       Element.isElement(node) &&
-      (LIST_TYPES.includes((node as CustomElement).type) ||
-        BLOCKS.QUOTE.includes((node as CustomElement).type)),
+      (LIST_TYPES.includes((node as CustomElement).type as BLOCKS) ||
+        (node as CustomElement).type === BLOCKS.QUOTE),
     split: true,
   });
   const newProperties: Partial<CustomElement> = {
@@ -102,7 +114,7 @@ export function isList(editor) {
   const element = getElementFromCurrentSelection(editor);
 
   return element.some(
-    (element) => Element.isElement(element) && LIST_TYPES.includes((element as CustomElement).type)
+    (element) => Element.isElement(element) && LIST_TYPES.includes((element as CustomElement).type as BLOCKS)
   );
 }
 
@@ -112,9 +124,10 @@ export function isFirstChild(path: Path) {
 
 interface InsertLinkOptions {
   text: string;
+  type: INLINES.HYPERLINK | INLINES.ENTRY_HYPERLINK | INLINES.ASSET_HYPERLINK;
   url?: string;
   target?: Link;
-  type: INLINES.HYPERLINK | INLINES.ENTRY_HYPERLINK | INLINES.ASSET_HYPERLINK;
+  path?: Path;
 }
 
 export function insertLink(editor, options: InsertLinkOptions) {
@@ -124,12 +137,14 @@ export function insertLink(editor, options: InsertLinkOptions) {
 }
 
 export function isLinkActive(editor) {
-  const [link] = Editor.nodes(editor, {
-    match: (node) =>
-      !Editor.isEditor(node) &&
-      Element.isElement(node) &&
-      LINK_TYPES.includes((node as CustomElement).type), // TODO: Support Entry and Asset links
-  });
+  const [link] = Array.from(
+    Editor.nodes(editor, {
+      match: (node) =>
+        !Editor.isEditor(node) &&
+        Element.isElement(node) &&
+        LINK_TYPES.includes((node as CustomElement).type as INLINES),
+    })
+  );
   return !!link;
 }
 
@@ -138,12 +153,12 @@ export function unwrapLink(editor) {
     match: (node) =>
       !Editor.isEditor(node) &&
       Element.isElement(node) &&
-      LINK_TYPES.includes((node as CustomElement).type), // TODO: Support Entry and Asset links
+      LINK_TYPES.includes((node as CustomElement).type as INLINES),
   });
 }
 
-export function wrapLink(editor, { text, url, target, type }: InsertLinkOptions) {
-  if (isLinkActive(editor)) {
+export function wrapLink(editor, { text, url, target, type, path }: InsertLinkOptions) {
+  if (isLinkActive(editor) && !path) {
     unwrapLink(editor);
   }
 
@@ -163,7 +178,12 @@ export function wrapLink(editor, { text, url, target, type }: InsertLinkOptions)
     link.data = { target };
   }
 
-  if (isCollapsed) {
+  // TODO: always set the selection to the end of the inserted link
+  if (path) {
+    Transforms.setNodes(editor, link, { at: path });
+    Transforms.insertText(editor, text, { at: path });
+    Transforms.select(editor, path);
+  } else if (isCollapsed) {
     Transforms.insertNodes(editor, link);
   } else {
     Transforms.wrapNodes(editor, link, { split: true });
