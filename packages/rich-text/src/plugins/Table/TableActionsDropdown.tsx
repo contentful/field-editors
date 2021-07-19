@@ -1,4 +1,6 @@
 import React from 'react';
+import { css } from 'emotion';
+import tokens from '@contentful/forma-36-tokens';
 import { SPEditor, useStoreEditor } from '@udecode/slate-plugins-core';
 import {
   addRow,
@@ -8,7 +10,6 @@ import {
   deleteRow,
   deleteTable,
 } from '@udecode/slate-plugins-table';
-
 import {
   IconButton,
   Dropdown,
@@ -16,14 +17,21 @@ import {
   DropdownListItem,
 } from '@contentful/forma-36-react-components';
 
-import { styles } from './styles';
-import { addRowBefore, addColumnLeft } from '../../actions';
+import { addRowBefore, addColumnLeft } from './actions';
+
+export const styles = {
+  topRight: css({
+    position: 'absolute',
+    top: tokens.spacingXs,
+    right: tokens.spacingXs,
+  }),
+};
 
 type TableAction = (e: SPEditor, o: TablePluginOptions) => void;
 
 export const TableActionsDropdown = () => {
-  const [isOpen, setOpen] = React.useState(false);
   const editor = useStoreEditor();
+  const [isOpen, setOpen] = React.useState(false);
 
   const action = (cb: TableAction) => () => {
     setOpen(false);

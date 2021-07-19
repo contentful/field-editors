@@ -15,7 +15,7 @@ import tokens from '@contentful/forma-36-tokens';
 import { SPEditor, useStoreEditor } from '@udecode/slate-plugins-core';
 import { getKeyboardEvents, insertTableWithTrailingParagraph } from './helpers';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
-import { TableActionsDropdown } from './components/TableActions';
+import { TableActionsDropdown } from './TableActionsDropdown';
 // import { someNode } from '@udecode/slate-plugins-common';
 
 const styles = {
