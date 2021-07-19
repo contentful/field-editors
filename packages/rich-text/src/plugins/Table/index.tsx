@@ -159,8 +159,7 @@ export function ToolbarTableButton(props: ToolbarTableButtonProps) {
 
   return (
     <EditorToolbarButton
-      // TODO: fix icon
-      icon="Drag"
+      icon="Table"
       tooltip="Table"
       label="Table"
       testId="table-toolbar-button"
