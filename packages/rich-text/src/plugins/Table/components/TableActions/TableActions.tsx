@@ -8,6 +8,7 @@ import {
   deleteRow,
   deleteTable,
 } from '@udecode/slate-plugins-table';
+import { cx } from 'emotion';
 
 import {
   IconButton,
@@ -20,12 +21,13 @@ import { styles } from './styles';
 import { addRowBefore } from '../../actions';
 
 export interface TableActionsDropdown {
-  isShown: boolean;
+  isShown?: boolean;
+  className: string;
 }
 
 type TableAction = (e: SPEditor, o: TablePluginOptions) => void;
 
-export const TableActionsDropdown = () => {
+export const TableActionsDropdown = (props: TableActionsDropdown) => {
   const [isOpen, setOpen] = React.useState(false);
   const editor = useStoreEditor();
 
@@ -38,7 +40,7 @@ export const TableActionsDropdown = () => {
 
   return (
     <Dropdown
-      className={styles.topRight}
+      className={cx(styles.topRight, props.className)}
       position="left"
       isOpen={isOpen}
       onClose={() => setOpen(false)}

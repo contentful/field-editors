@@ -40,6 +40,14 @@ const styles = {
     div:last-child {
       margin-bottom: 0;
     }
+
+    .actions {
+      display: none;
+    }
+
+    &:hover .actions {
+      display: initial;
+    }
   `,
 };
 
@@ -64,7 +72,7 @@ export const TD = (props: Slate.RenderElementProps) => {
       className={styles[BLOCKS.TABLE_CELL]}>
       {props.children}
 
-      <TableActionsDropdown />
+      <TableActionsDropdown className="actions" />
     </td>
   );
 };
