@@ -18,8 +18,8 @@ export const addRowBefore = (editor: SPEditor, { header }: TablePluginOptions) =
     });
 
     if (currentRowItem) {
-      console.log('current row is', currentRowItem);
       const [currentRowElem, currentRowPath] = currentRowItem;
+
       insertNodes<TElement>(
         editor,
         // @ts-expect-error

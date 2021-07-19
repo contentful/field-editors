@@ -8,6 +8,7 @@ import {
   ELEMENT_TABLE,
   createTablePlugin as createTablePluginFromUdecode,
   getTableOnKeyDown,
+  // getTableCellEntry,
 } from '@udecode/slate-plugins-table';
 import { CustomSlatePluginOptions } from 'types';
 import tokens from '@contentful/forma-36-tokens';
@@ -15,6 +16,7 @@ import { SPEditor, useStoreEditor } from '@udecode/slate-plugins-core';
 import { getKeyboardEvents, insertTableWithTrailingParagraph } from './helpers';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { TableActionsDropdown } from './components/TableActions';
+// import { someNode } from '@udecode/slate-plugins-common';
 
 const styles = {
   [BLOCKS.TABLE]: css`
@@ -40,14 +42,6 @@ const styles = {
     div:last-child {
       margin-bottom: 0;
     }
-
-    .actions {
-      display: none;
-    }
-
-    &:hover .actions {
-      display: initial;
-    }
   `,
 };
 
@@ -63,16 +57,51 @@ export const TR = (props: Slate.RenderElementProps) => (
   </tr>
 );
 
+export const useWindowSelection = () => {
+  const [selection, setSelection] = React.useState(() => window.getSelection());
+
+  React.useEffect(() => {
+    const cb = () => {
+      setSelection(window.getSelection());
+    };
+    window.addEventListener('mousedown', cb);
+
+    return () => window.removeEventListener('mousedown', cb);
+  }, []);
+
+  return selection;
+};
+
 export const TD = (props: Slate.RenderElementProps) => {
+  const editor = useStoreEditor();
+  const selection = useWindowSelection();
+
+  const [isFocused, setFocused] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!editor) {
+      return;
+    }
+
+    // console.log(getTableCellEntry(editor));
+    // // console.log(props.children);
+
+    setFocused(
+      !!(
+        // someNode(editor, { match: { type: ELEMENT_TD } }) &&
+        (selection && props.attributes.ref.current?.contains(selection.anchorNode))
+      )
+    );
+  }, [editor, selection, props.attributes]);
+
   return (
     <td
       {...props.attributes}
       // may include `colspan` and/or `rowspan`
       {...(props.element.data as TableCell['data'])}
       className={styles[BLOCKS.TABLE_CELL]}>
+      {isFocused && <TableActionsDropdown className="actions" />}
       {props.children}
-
-      <TableActionsDropdown className="actions" />
     </td>
   );
 };
