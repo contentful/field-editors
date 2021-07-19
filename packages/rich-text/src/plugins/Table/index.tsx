@@ -100,7 +100,7 @@ export const TD = (props: Slate.RenderElementProps) => {
       // may include `colspan` and/or `rowspan`
       {...(props.element.data as TableCell['data'])}
       className={styles[BLOCKS.TABLE_CELL]}>
-      {isFocused && <TableActionsDropdown className="actions" />}
+      {isFocused && <TableActionsDropdown />}
       {props.children}
     </td>
   );

@@ -8,7 +8,6 @@ import {
   deleteRow,
   deleteTable,
 } from '@udecode/slate-plugins-table';
-import { cx } from 'emotion';
 
 import {
   IconButton,
@@ -18,16 +17,11 @@ import {
 } from '@contentful/forma-36-react-components';
 
 import { styles } from './styles';
-import { addRowBefore } from '../../actions';
-
-export interface TableActionsDropdown {
-  isShown?: boolean;
-  className: string;
-}
+import { addRowBefore, addColumnLeft } from '../../actions';
 
 type TableAction = (e: SPEditor, o: TablePluginOptions) => void;
 
-export const TableActionsDropdown = (props: TableActionsDropdown) => {
+export const TableActionsDropdown = () => {
   const [isOpen, setOpen] = React.useState(false);
   const editor = useStoreEditor();
 
@@ -40,7 +34,7 @@ export const TableActionsDropdown = (props: TableActionsDropdown) => {
 
   return (
     <Dropdown
-      className={cx(styles.topRight, props.className)}
+      className={styles.topRight}
       position="left"
       isOpen={isOpen}
       onClose={() => setOpen(false)}
@@ -53,7 +47,7 @@ export const TableActionsDropdown = (props: TableActionsDropdown) => {
       <DropdownList>
         <DropdownListItem onClick={action(addRowBefore)}>Add row above</DropdownListItem>
         <DropdownListItem onClick={action(addRow)}>Add row below</DropdownListItem>
-        <DropdownListItem>Add column left</DropdownListItem>
+        <DropdownListItem onClick={action(addColumnLeft)}>Add column left</DropdownListItem>
         <DropdownListItem onClick={action(addColumn)}>Add column right</DropdownListItem>
       </DropdownList>
       <DropdownList border="top">
