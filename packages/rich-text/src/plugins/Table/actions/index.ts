@@ -1,2 +1,2 @@
-export * from './addRowBefore';
+export * from './addRowAbove';
 export * from './addColumnLeft';

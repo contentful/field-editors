@@ -7,7 +7,7 @@ import {
   getEmptyRowNode,
 } from '@udecode/slate-plugins-table';
 
-export const addRowBefore = (editor: SPEditor, { header }: TablePluginOptions) => {
+export const addRowAbove = (editor: SPEditor, { header }: TablePluginOptions) => {
   if (
     someNode(editor, {
       match: { type: getSlatePluginType(editor, ELEMENT_TABLE) },

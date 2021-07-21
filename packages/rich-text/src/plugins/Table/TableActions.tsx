@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from 'emotion';
+import { css, cx } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 import { SPEditor, useStoreEditor } from '@udecode/slate-plugins-core';
 import {
@@ -17,7 +17,7 @@ import {
   DropdownListItem,
 } from '@contentful/forma-36-react-components';
 
-import { addRowBefore, addColumnLeft } from './actions';
+import { addRowAbove, addColumnLeft } from './actions';
 
 export const styles = {
   topRight: css({
@@ -42,7 +42,7 @@ export const TableActions = () => {
 
   return (
     <Dropdown
-      className={styles.topRight}
+      className={cx(styles.topRight, 'cf-table-actions')}
       position="left"
       isOpen={isOpen}
       onClose={() => setOpen(false)}
@@ -53,7 +53,7 @@ export const TableActions = () => {
         />
       }>
       <DropdownList>
-        <DropdownListItem onClick={action(addRowBefore)}>Add row above</DropdownListItem>
+        <DropdownListItem onClick={action(addRowAbove)}>Add row above</DropdownListItem>
         <DropdownListItem onClick={action(addRow)}>Add row below</DropdownListItem>
         <DropdownListItem onClick={action(addColumnLeft)}>Add column left</DropdownListItem>
         <DropdownListItem onClick={action(addColumn)}>Add column right</DropdownListItem>
