@@ -8,8 +8,12 @@ import {
   deleteColumn,
   deleteRow,
   deleteTable,
+  ELEMENT_TABLE,
+  ELEMENT_TH,
+  ELEMENT_TD,
+  ELEMENT_TR,
 } from '@udecode/slate-plugins-table';
-import { getNodeEntryFromSelection } from '../../helpers/editor';
+import { getNodeEntryFromSelection, isBlockSelected } from '../../helpers/editor';
 import { CustomElement, CustomSlatePluginOptions } from '../../types';
 
 export enum KEYBOARD_TRIGGERS {
@@ -179,4 +183,9 @@ export function insertTableWithTrailingParagraph(
     children: [{ text: '' }],
   };
   Transforms.insertNodes(editor, paragraph, { at: insertPath });
+}
+
+export function isTableActive(editor: SPEditor) {
+  const tableElements = [ELEMENT_TABLE, ELEMENT_TH, ELEMENT_TR, ELEMENT_TD];
+  return tableElements.some((el) => isBlockSelected(editor, el));
 }

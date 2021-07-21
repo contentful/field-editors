@@ -13,10 +13,11 @@ import {
 import { CustomSlatePluginOptions } from 'types';
 import tokens from '@contentful/forma-36-tokens';
 import { SPEditor, useStoreEditor } from '@udecode/slate-plugins-core';
-import { getKeyboardEvents, insertTableWithTrailingParagraph } from './helpers';
+import { getKeyboardEvents, insertTableWithTrailingParagraph, isTableActive } from './helpers';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { TableActionsDropdown } from './TableActionsDropdown';
-// import { someNode } from '@udecode/slate-plugins-common';
+import { someNode } from '@udecode/slate-plugins-common';
+import { useAnchorNode } from './useAnchorNode';
 
 const styles = {
   [BLOCKS.TABLE]: css`
@@ -57,25 +58,9 @@ export const TR = (props: Slate.RenderElementProps) => (
   </tr>
 );
 
-export const useWindowSelection = () => {
-  const [selection, setSelection] = React.useState(() => window.getSelection());
-
-  React.useEffect(() => {
-    const cb = () => {
-      setSelection(window.getSelection());
-    };
-    window.addEventListener('mousedown', cb);
-
-    return () => window.removeEventListener('mousedown', cb);
-  }, []);
-
-  return selection;
-};
-
 export const TD = (props: Slate.RenderElementProps) => {
   const editor = useStoreEditor();
-  const selection = useWindowSelection();
-
+  const selectedNode = useAnchorNode();
   const [isFocused, setFocused] = React.useState(false);
 
   React.useEffect(() => {
@@ -83,16 +68,13 @@ export const TD = (props: Slate.RenderElementProps) => {
       return;
     }
 
-    // console.log(getTableCellEntry(editor));
-    // // console.log(props.children);
-
     setFocused(
       !!(
-        // someNode(editor, { match: { type: ELEMENT_TD } }) &&
-        (selection && props.attributes.ref.current?.contains(selection.anchorNode))
+        someNode(editor, { match: { type: ELEMENT_TABLE } }) &&
+        props.attributes.ref.current?.contains(selectedNode)
       )
     );
-  }, [editor, selection, props.attributes]);
+  }, [editor, selectedNode, props.attributes, setFocused]);
 
   return (
     <td
@@ -147,6 +129,7 @@ interface ToolbarTableButtonProps {
 
 export function ToolbarTableButton(props: ToolbarTableButtonProps) {
   const editor = useStoreEditor();
+  const isActive = editor && isTableActive(editor);
 
   async function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
@@ -164,6 +147,8 @@ export function ToolbarTableButton(props: ToolbarTableButtonProps) {
       label="Table"
       testId="table-toolbar-button"
       onClick={handleClick}
+      // TODO: active state looks off since the button will be disabled. Do we still need it?
+      isActive={isActive}
       disabled={props.isDisabled}
     />
   );
