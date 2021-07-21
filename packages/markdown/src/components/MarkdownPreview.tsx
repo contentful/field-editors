@@ -7,7 +7,7 @@ import { EditorDirection, PreviewComponents } from '../types';
 
 const styles = {
   root: css`
-    border: 1px solid ${tokens.colorElementDark};
+    border: 1px solid ${tokens.gray400};
     border-width: 0 1px;
     word-wrap: break-word;
     overflow-wrap: break-word;
@@ -16,7 +16,7 @@ const styles = {
     font-size: ${tokens.fontSizeM};
     font-family: ${tokens.fontStackPrimary};
     line-height: ${tokens.lineHeightDefault};
-    color: ${tokens.colorTextMid};
+    color: ${tokens.gray700};
     white-space: pre-line;
 
     h1,
@@ -27,7 +27,7 @@ const styles = {
     h6 {
       margin-top: ${tokens.spacingL};
       margin-bottom: ${tokens.spacingM};
-      color: ${tokens.colorTextDark};
+      color: ${tokens.gray900};
     }
 
     h1:first-child,
@@ -86,7 +86,7 @@ const styles = {
       margin: ${tokens.spacingM} auto;
       border-spacing: 0;
       border-collapse: collapse;
-      border: 1px solid ${tokens.colorElementMid};
+      border: 1px solid ${tokens.gray300};
     }
 
     table th,
@@ -97,27 +97,27 @@ const styles = {
     }
 
     table th {
-      background: ${tokens.colorElementLight};
+      background: ${tokens.gray200};
     }
 
     table td {
-      border: 1px solid ${tokens.colorElementMid};
+      border: 1px solid ${tokens.gray300};
     }
 
     a {
-      color: ${tokens.colorBlueMid};
+      color: ${tokens.blue500};
     }
 
     hr {
       margin-top: ${tokens.spacingL};
       margin-bottom: ${tokens.spacingL};
       height: 1px;
-      background-color: ${tokens.colorElementMid};
+      background-color: ${tokens.gray300};
       border: none;
     }
 
     blockquote {
-      border-left: 4px solid ${tokens.colorElementLight};
+      border-left: 4px solid ${tokens.gray200};
       padding-left: ${tokens.spacingL};
       margin: 0;
       margin-top: ${tokens.spacingM};

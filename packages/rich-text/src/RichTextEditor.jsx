@@ -20,7 +20,7 @@ import { FieldConnector } from '@contentful/field-editor-shared';
 import { css, cx } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 
-const STYLE_EDITOR_BORDER = `1px solid ${tokens.colorElementDark}`;
+const STYLE_EDITOR_BORDER = `1px solid ${tokens.gray400}`;
 
 const styles = {
   root: css({
@@ -62,7 +62,7 @@ const styles = {
     },
   }),
   disabled: css({
-    background: tokens.colorElementLightest,
+    background: tokens.gray100,
   }),
 };
 

@@ -43,14 +43,14 @@ const styles = {
   }),
 
   icon: css({
-    backgroundColor: tokens.colorElementLightest,
+    backgroundColor: tokens.gray100,
     borderRadius: tokens.borderRadiusSmall,
     padding: tokens.spacingXs,
     marginRight: tokens.spacingXs,
   }),
 
   fieldsContainer: css({
-    backgroundColor: tokens.colorElementLightest,
+    backgroundColor: tokens.gray100,
     paddingBottom: tokens.spacingL,
     paddingTop: tokens.spacingL,
   }),
@@ -61,13 +61,13 @@ const styles = {
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: `${tokens.spacingM} ${tokens.spacingXl}`,
-    borderBottom: `1px solid ${tokens.colorElementMid}`,
+    borderBottom: `1px solid ${tokens.gray300}`,
   }),
   saveButton: css({
     marginLeft: tokens.spacingS,
   }),
   editor: css({
-    background: tokens.colorElementLightest,
+    background: tokens.gray100,
     padding: tokens.spacingL,
     marginBottom: tokens.spacingM,
   }),
@@ -102,7 +102,7 @@ const styles = {
   errorList: css({ listStyle: 'none', paddingLeft: '0' }),
 
   error: css({
-    color: tokens.colorRedBase,
+    color: tokens.red600,
     fontSize: tokens.fontSizeM,
   }),
 };

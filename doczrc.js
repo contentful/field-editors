@@ -19,9 +19,9 @@ export default {
   codeSandbox: false,
   themeConfig: {
     colors: {
-      primary: tokens.colorBlueBase,
-      secondary: tokens.colorIceMid,
-      gray: tokens.colorElementMid,
+      primary: tokens.blue600,
+      secondary: tokens.blue100,
+      gray: tokens.gray300,
     },
   },
   htmlContext: {
