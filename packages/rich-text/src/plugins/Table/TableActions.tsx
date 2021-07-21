@@ -1,5 +1,5 @@
 import React from 'react';
-import { css, cx } from 'emotion';
+import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 import { SPEditor, useStoreEditor } from '@udecode/slate-plugins-core';
 import {
@@ -29,7 +29,7 @@ export const styles = {
 
 type TableAction = (e: SPEditor, o: TablePluginOptions) => void;
 
-export const TableActionsDropdown = () => {
+export const TableActions = () => {
   const editor = useStoreEditor();
   const [isOpen, setOpen] = React.useState(false);
 
@@ -42,7 +42,7 @@ export const TableActionsDropdown = () => {
 
   return (
     <Dropdown
-      className={cx(styles.topRight, 'cf-table-actions-dropdown')}
+      className={styles.topRight}
       position="left"
       isOpen={isOpen}
       onClose={() => setOpen(false)}

@@ -15,7 +15,7 @@ import tokens from '@contentful/forma-36-tokens';
 import { SPEditor, useStoreEditor } from '@udecode/slate-plugins-core';
 import { getKeyboardEvents, insertTableWithTrailingParagraph, isTableActive } from './helpers';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
-import { TableActionsDropdown } from './TableActionsDropdown';
+import { TableActions } from './TableActions';
 import { someNode } from '@udecode/slate-plugins-common';
 import { useAnchorNode } from './useAnchorNode';
 
@@ -82,7 +82,7 @@ export const TD = (props: Slate.RenderElementProps) => {
       // may include `colspan` and/or `rowspan`
       {...(props.element.data as TableCell['data'])}
       className={styles[BLOCKS.TABLE_CELL]}>
-      {isFocused && <TableActionsDropdown />}
+      {isFocused && <TableActions />}
       {props.children}
     </td>
   );
