@@ -25,14 +25,14 @@ const styles = {
   root: css({
     cursor: 'text',
     padding: tokens.spacingS,
-    border: `1px solid ${tokens.colorElementLight}`,
+    border: `1px solid ${tokens.gray200}`,
     borderTop: 'none',
     borderBottomLeftRadius: tokens.borderRadiusSmall,
     borderBottomRightRadius: tokens.borderRadiusSmall,
     fontSize: tokens.fontSizeM,
     '.CodeMirror': {
       height: 'auto',
-      color: tokens.colorTextDark,
+      color: tokens.gray900,
       fontFamily: tokens.fontStackMonospace,
     },
     '.CodeMirror-scroll': {

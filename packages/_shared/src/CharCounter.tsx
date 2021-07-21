@@ -9,7 +9,7 @@ interface CharCounterProps {
 
 const styles = {
   invalid: css({
-    color: tokens.colorRedBase,
+    color: tokens.red600,
   }),
 };
 

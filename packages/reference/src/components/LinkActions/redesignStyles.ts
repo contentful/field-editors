@@ -3,7 +3,7 @@ import tokens from '@contentful/forma-36-tokens';
 
 export const container = css({
   display: 'flex',
-  border: `1px dashed ${tokens.colorElementDarkest}`,
+  border: `1px dashed ${tokens.gray500}`,
   borderRadius: tokens.borderRadiusMedium,
   justifyContent: 'center',
   padding: tokens.spacingXl,

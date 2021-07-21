@@ -8,20 +8,20 @@ export const styles = {
     marginBottom: '29px',
     marginTop: '19px',
     paddingLeft: tokens.spacingM,
-    borderLeft: `3px solid ${tokens.colorElementMid}`,
+    borderLeft: `3px solid ${tokens.gray300}`,
     transition: 'border-color 0.18s linear',
     '&:focus-within': {
       borderColor: tokens.colorPrimary,
     },
     '&[aria-invalid="true"]': {
-      borderLeftColor: tokens.colorRedMid,
+      borderLeftColor: tokens.red500,
     },
   }),
   label: css({
     display: 'flex',
     width: '100%',
     maxWidth: '800px',
-    color: tokens.colorTextLightest,
+    color: tokens.gray500,
     fontSize: tokens.fontSizeM,
     fontWeight: tokens.fontWeightNormal,
     lineHeight: tokens.lineHeightDefault,

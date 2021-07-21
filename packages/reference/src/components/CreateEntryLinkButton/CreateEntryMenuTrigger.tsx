@@ -29,7 +29,7 @@ const styles = {
         borderRight: parentHasDropdown ? 'none' : undefined,
         paddingRight: tokens.spacing2Xl,
         '::placeholder': {
-          color: tokens.colorTextLight,
+          color: tokens.gray600,
         },
       },
     }),
@@ -38,14 +38,14 @@ const styles = {
     right: tokens.spacingM,
     top: tokens.spacingS,
     zIndex: Number(tokens.zIndexDefault),
-    fill: tokens.colorTextLight,
+    fill: tokens.gray600,
   }),
   separator: css({
-    background: tokens.colorElementLight,
+    background: tokens.gray200,
     margin: '10px 0',
   }),
   dropdownList: css({
-    borderColor: tokens.colorElementLight,
+    borderColor: tokens.gray200,
   }),
 };
 

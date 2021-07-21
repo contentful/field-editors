@@ -20,7 +20,7 @@ const styles = {
       position: absolute;
       width: 100%;
       height: 1px;
-      background: ${tokens.colorElementMid};
+      background: ${tokens.gray300};
       top: 50%;
     }
   `,

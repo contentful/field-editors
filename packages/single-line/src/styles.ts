@@ -6,7 +6,7 @@ export const validationRow = css({
   justifyContent: 'space-between',
   fontSize: tokens.fontSizeM,
   marginTop: tokens.spacingXs,
-  color: tokens.colorTextMid
+  color: tokens.gray700
 });
 
 export const rightToLeft = css({

@@ -21,7 +21,7 @@ const styles = {
   }),
   blockquote: css({
     margin: '0 0 1.3125rem',
-    borderLeft: `6px solid ${tokens.colorElementLight}`,
+    borderLeft: `6px solid ${tokens.gray200}`,
     paddingLeft: '0.875rem',
     fontStyle: 'normal',
     '& a': {
@@ -29,9 +29,9 @@ const styles = {
     },
   }),
   code: css({
-    background: tokens.colorElementLight,
+    background: tokens.gray200,
     padding: '0px',
-    color: tokens.colorTextMid,
+    color: tokens.gray700,
     borderRadius: tokens.borderRadiusSmall,
   }),
   textLink: css({

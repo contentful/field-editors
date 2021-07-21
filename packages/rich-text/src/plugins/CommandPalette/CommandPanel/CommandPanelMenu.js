@@ -19,7 +19,7 @@ const styles = {
     display: 'block',
     background: tokens.colorWhite,
     boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1), 0 5px 10px -5px rgba(0, 0, 0, 0.3)',
-    border: `1px solid ${tokens.colorElementDark}`,
+    border: `1px solid ${tokens.gray400}`,
     borderRadius: tokens.borderRadiusMedium,
     fontFamily: tokens.fontStackPrimary,
     width: '500px',
@@ -37,9 +37,9 @@ const styles = {
     fontSize: tokens.fontSizeM,
     lineHeight: tokens.lineHeightDefault,
     padding: `${tokens.spacingS} ${tokens.spacingXs}`,
-    borderBottom: `1px solid ${tokens.colorElementMid}`,
+    borderBottom: `1px solid ${tokens.gray300}`,
     margin: 0,
-    color: tokens.colorTextDark,
+    color: tokens.gray900,
   }),
   divider: css({
     fontWeight: tokens.fontWeightDemiBold,
@@ -47,16 +47,16 @@ const styles = {
     letterSpacing: tokens.letterSpacingWide,
     fontSize: tokens.fontSizeS,
     textTransform: 'uppercase',
-    borderBottom: `1px solid ${tokens.colorElementDark}`,
+    borderBottom: `1px solid ${tokens.gray400}`,
     margin: 0,
     lineHeight: tokens.lineHeightDefault,
-    color: tokens.colorTextDark,
+    color: tokens.gray900,
   }),
   icon: css({
     marginRight: 10,
   }),
   isSelected: css({
-    background: tokens.colorElementLight,
+    background: tokens.gray200,
   }),
   skeletonContainer: css({
     padding: tokens.spacingM,
@@ -78,7 +78,7 @@ const styles = {
   navBar: css({
     display: 'flex',
     bottom: 0,
-    background: tokens.colorElementLightest,
+    background: tokens.gray100,
     padding: `${tokens.spacingS} ${tokens.spacingXs}`,
     width: '100%',
   }),
@@ -90,7 +90,7 @@ const styles = {
   }),
   instruction: css({
     marginRight: 15,
-    color: tokens.colorTextLight,
+    color: tokens.gray600,
   }),
   closeButton: css({
     marginLeft: 'auto',

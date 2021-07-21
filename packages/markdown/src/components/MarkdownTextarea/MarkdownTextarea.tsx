@@ -20,7 +20,7 @@ type MarkdownTextareaProps = {
 
 const styles = {
   root: css`
-    border: 1px solid ${tokens.colorElementDark};
+    border: 1px solid ${tokens.gray400};
     border-width: 0 1px;
     overflow-y: auto;
     height: auto;
@@ -31,7 +31,7 @@ const styles = {
       line-height: ${tokens.lineHeightDefault};
     }
     .CodeMirror-lines {
-      color: ${tokens.colorTextMid};
+      color: ${tokens.gray700};
       padding: ${tokens.spacingL};
     }
     .CodeMirror-code {
@@ -43,10 +43,10 @@ const styles = {
     }
 
     .cm-header {
-      color: ${tokens.colorTextDark};
+      color: ${tokens.gray900};
     }
     span.cm-variable-2 {
-      color: ${tokens.colorTextMid};
+      color: ${tokens.gray700};
     }
     .cm-header-1 {
       font-size: 1.9em;
@@ -70,18 +70,18 @@ const styles = {
     span.cm-tag,
     span.cm-string,
     span.cm-attribute {
-      color: ${tokens.colorRedBase};
+      color: ${tokens.red600};
     }
     span.cm-string {
       text-decoration: none !important;
     }
     span.cm-quote,
     span.cm-comment {
-      color: ${tokens.colorTextLight};
+      color: ${tokens.gray600};
     }
     span.cm-link,
     span.cm-url {
-      color: ${tokens.colorBlueMid} !important;
+      color: ${tokens.blue500} !important;
     }
     span.cm-link {
       text-decoration: underline;
@@ -101,7 +101,7 @@ const styles = {
   }),
   disabled: css`
     .CodeMirror {
-      background: ${tokens.colorElementLightest};
+      background: ${tokens.gray100};
     }
     .CodeMirror-cursors {
       visibility: hidden !important;

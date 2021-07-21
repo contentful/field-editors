@@ -7,14 +7,14 @@ const styles = {
   root: css({
     display: 'flex',
     justifyContent: 'space-between',
-    background: tokens.colorElementLightest,
-    border: `1px solid ${tokens.colorElementDark}`,
+    background: tokens.gray100,
+    border: `1px solid ${tokens.gray400}`,
     borderBottomLeftRadius: tokens.borderRadiusSmall,
     borderBottomRightRadius: tokens.borderRadiusSmall,
     padding: `${tokens.spacingXs} ${tokens.spacingS}`,
   }),
   help: css({
-    color: tokens.colorTextMid,
+    color: tokens.gray700,
     fontSize: tokens.fontSizeS,
     button: {
       fontSize: tokens.fontSizeS,

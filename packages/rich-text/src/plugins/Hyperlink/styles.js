@@ -3,7 +3,7 @@ import tokens from '@contentful/forma-36-tokens';
 
 export const hyperlinkTooltipStyles = {
   entityContentType: css({
-    color: tokens.colorTextLightest,
+    color: tokens.gray500,
     marginRight: tokens.spacingXs,
     '&:after': {
       content: '""'
@@ -13,7 +13,7 @@ export const hyperlinkTooltipStyles = {
     marginRight: tokens.spacingXs
   }),
   separator: css({
-    background: tokens.colorTextMid,
+    background: tokens.gray700,
     margin: tokens.spacingXs
   })
 };

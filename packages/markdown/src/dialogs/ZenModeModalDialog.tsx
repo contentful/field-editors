@@ -79,7 +79,7 @@ const styles = {
     top: '48px',
     bottom: '36px',
     width: '1px',
-    background: tokens.colorElementDark,
+    background: tokens.gray400,
     left: '50%',
   }),
   button: css({
@@ -88,8 +88,8 @@ const styles = {
     zIndex: 105,
     top: '49%',
     height: '30px',
-    backgroundColor: tokens.colorElementLightest,
-    border: `1px solid ${tokens.colorElementDark}`,
+    backgroundColor: tokens.gray100,
+    border: `1px solid ${tokens.gray400}`,
     padding: 0,
   }),
   hideButton: css({

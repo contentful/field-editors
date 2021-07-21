@@ -6,7 +6,7 @@ export const validationRow = css({
   flexDirection: 'row-reverse',
   fontSize: tokens.fontSizeM,
   marginTop: tokens.spacingXs,
-  color: tokens.colorTextMid
+  color: tokens.gray700
 });
 
 export const inputContainer = css({
@@ -26,7 +26,7 @@ export const icon = css({
   zIndex: 2,
   width: '25px',
   height: '25px',
-  fill: tokens.colorElementDarkest
+  fill: tokens.gray500
 });
 
 export const spinnerContainer = css({
