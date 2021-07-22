@@ -8,7 +8,6 @@ import {
   ELEMENT_TABLE,
   createTablePlugin as createTablePluginFromUdecode,
   getTableOnKeyDown,
-  // getTableCellEntry,
 } from '@udecode/slate-plugins-table';
 import { CustomSlatePluginOptions } from 'types';
 import tokens from '@contentful/forma-36-tokens';
@@ -68,6 +67,8 @@ export const TD = (props: Slate.RenderElementProps) => {
       return;
     }
 
+    // Checks if this TD is focused by verifying that the HTML
+    // Node under the cursor is a child of this TD.
     setFocused(
       !!(
         someNode(editor, { match: { type: ELEMENT_TABLE } }) &&

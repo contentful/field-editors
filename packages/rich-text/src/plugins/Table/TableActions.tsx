@@ -27,7 +27,7 @@ export const styles = {
   }),
 };
 
-type TableAction = (e: SPEditor, o: TablePluginOptions) => void;
+type TableAction = (editor: SPEditor, options: TablePluginOptions) => void;
 
 export const TableActions = () => {
   const editor = useStoreEditor();

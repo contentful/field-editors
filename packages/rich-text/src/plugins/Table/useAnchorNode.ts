@@ -1,9 +1,9 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 
 export const useAnchorNode = () => {
-  const [selection, setSelection] = React.useState<Node | null>(null);
+  const [selection, setSelection] = useState<Node | null>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const cb = () => {
       setSelection(window.getSelection()?.anchorNode || null);
     };
