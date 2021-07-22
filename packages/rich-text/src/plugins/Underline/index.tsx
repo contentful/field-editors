@@ -5,6 +5,7 @@ import { MARKS } from '@contentful/rich-text-types';
 import { getToggleMarkOnKeyDown, toggleMark, isMarkActive } from '@udecode/slate-plugins-common';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { CustomSlatePluginOptions } from 'types';
+import { deserializeLeaf } from '../../helpers/deserializer';
 
 interface ToolbarUnderlineButtonProps {
   isDisabled?: boolean;
@@ -44,6 +45,7 @@ export function createUnderlinePlugin(): SlatePlugin {
     pluginKeys: MARKS.UNDERLINE,
     renderLeaf: getRenderLeaf(MARKS.UNDERLINE),
     onKeyDown: getToggleMarkOnKeyDown(MARKS.UNDERLINE),
+    deserialize: deserializeLeaf(MARKS.UNDERLINE),
   };
 }
 

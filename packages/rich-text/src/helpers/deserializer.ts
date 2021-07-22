@@ -36,6 +36,14 @@ const leafRules: LeafRules = {
       },
     },
   ],
+  [MARKS.UNDERLINE]: [
+    { nodeNames: ['u'] },
+    {
+      style: {
+        textDecoration: ['underline'],
+      },
+    },
+  ],
 };
 
 export function deserializeLeaf(type: string, options = {}): Deserialize {
