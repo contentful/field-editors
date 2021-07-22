@@ -724,9 +724,9 @@ describe('Rich Text Editor', () => {
           .then((el) => moveCursorTo(el[0]))
           .then((el) => el.trigger('mousedown'))
           // Rewriting the text to force focus
-          .type(text);
+          .typeInSlate(text);
 
-        cy.wait(300);
+        cy.wait(500);
       };
 
       beforeEach(() => {
