@@ -56,7 +56,7 @@ export function createBoldPlugin(): SlatePlugin {
     pluginKeys: MARKS.BOLD,
     renderLeaf: getRenderLeaf(MARKS.BOLD),
     onKeyDown: getToggleMarkOnKeyDown(MARKS.BOLD),
-    deserialize: (editor) => deserializeLeaf(editor, MARKS.BOLD),
+    deserialize: deserializeLeaf(MARKS.BOLD),
   };
 }
 

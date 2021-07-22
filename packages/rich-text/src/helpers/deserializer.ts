@@ -1,4 +1,4 @@
-import { getSlatePluginOptions, SPEditor } from '@udecode/slate-plugins-core';
+import { getSlatePluginOptions, SPEditor, Deserialize } from '@udecode/slate-plugins-core';
 import { getLeafDeserializer } from '@udecode/slate-plugins-common';
 import { MARKS } from '@contentful/rich-text-types';
 
@@ -11,16 +11,26 @@ const leafRules = {
       },
     },
   ],
+  [MARKS.CODE]: [
+    { nodeNames: ['CODE', 'PRE'] },
+    {
+      style: {
+        fontFamily: ['monospace'],
+      },
+    },
+  ],
 };
 
-export function deserializeLeaf(editor: SPEditor, type: string, options = {}) {
-  const pluginOptions = getSlatePluginOptions(editor, type);
+export function deserializeLeaf(type: string, options = {}): Deserialize {
+  return function (editor: SPEditor) {
+    const pluginOptions = getSlatePluginOptions(editor, type);
 
-  return {
-    leaf: getLeafDeserializer({
-      rules: leafRules[type],
-      ...pluginOptions,
-      ...options,
-    }),
+    return {
+      leaf: getLeafDeserializer({
+        rules: leafRules[type],
+        ...pluginOptions,
+        ...options,
+      }),
+    };
   };
 }

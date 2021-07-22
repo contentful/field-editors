@@ -6,6 +6,7 @@ import { MARKS } from '@contentful/rich-text-types';
 import { getToggleMarkOnKeyDown, isMarkActive, toggleMark } from '@udecode/slate-plugins-common';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { CustomSlatePluginOptions } from 'types';
+import { deserializeLeaf } from '../../helpers/deserializer';
 
 interface ToolbarCodeButtonProps {
   isDisabled?: boolean;
@@ -56,6 +57,7 @@ export function createCodePlugin(): SlatePlugin {
     pluginKeys: MARKS.CODE,
     renderLeaf: getRenderLeaf(MARKS.CODE),
     onKeyDown: getToggleMarkOnKeyDown(MARKS.CODE),
+    deserialize: deserializeLeaf(MARKS.CODE),
   };
 }
 
