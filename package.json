@@ -82,6 +82,7 @@
     "lerna": "^3.20.2",
     "lint-staged": "10.5.4",
     "mocha": "^8.0.1",
+    "mocha-multi-reporters": "^1.5.1",
     "mochawesome": "^6.1.1",
     "mochawesome-merge": "^4.0.3",
     "mochawesome-report-generator": "^5.1.0",

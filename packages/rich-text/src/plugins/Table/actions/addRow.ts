@@ -8,7 +8,11 @@ import {
   getEmptyRowNode,
 } from '@udecode/slate-plugins-table';
 
-const addRow = (editor: SPEditor, { header }: TablePluginOptions, nextRowPath: Path) => {
+const addRow = (
+  editor: SPEditor,
+  { header }: TablePluginOptions,
+  getNextRowPath: (currentRowPath: Path) => Path
+) => {
   if (
     someNode(editor, {
       match: { type: getSlatePluginType(editor, ELEMENT_TABLE) },
@@ -18,7 +22,8 @@ const addRow = (editor: SPEditor, { header }: TablePluginOptions, nextRowPath: P
       match: { type: getSlatePluginType(editor, ELEMENT_TR) },
     });
     if (currentRowItem) {
-      const currentRowElem = currentRowItem[0];
+      const [currentRowElem, currentRowPath] = currentRowItem;
+      const nextRowPath = getNextRowPath(currentRowPath);
 
       insertNodes<TElement>(
         editor,
@@ -40,25 +45,15 @@ const addRow = (editor: SPEditor, { header }: TablePluginOptions, nextRowPath: P
   }
 };
 
-export const addRowBelow = (editor: SPEditor, { header }: TablePluginOptions) => {
-  const currentRowItem = getAbove(editor, {
-    match: { type: getSlatePluginType(editor, ELEMENT_TR) },
+export const addRowBelow = (editor: SPEditor, options: TablePluginOptions) => {
+  addRow(editor, options, (currentRowPath) => {
+    return Path.next(currentRowPath);
   });
-
-  if (currentRowItem) {
-    const currentRowPath = currentRowItem[1];
-    const nextRowPath = Path.next(currentRowPath);
-    addRow(editor, { header }, nextRowPath);
-  }
 };
 
-export const addRowAbove = (editor: SPEditor, { header }: TablePluginOptions) => {
-  const currentRowItem = getAbove(editor, {
-    match: { type: getSlatePluginType(editor, ELEMENT_TR) },
+export const addRowAbove = (editor: SPEditor, options: TablePluginOptions) => {
+  addRow(editor, options, (currentRowPath) => {
+    // The new row will be in in-place of the old row
+    return currentRowPath;
   });
-
-  if (currentRowItem) {
-    const nextRowPath = currentRowItem[1];
-    addRow(editor, { header }, nextRowPath);
-  }
 };
