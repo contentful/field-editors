@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { css } from 'emotion';
 import { EditorToolbar, EditorToolbarDivider } from '@contentful/forma-36-react-components';
@@ -12,6 +12,8 @@ import { ToolbarItalicButton } from '../plugins/Italic';
 import { ToolbarUnderlineButton } from '../plugins/Underline';
 import { ToolbarHyperlinkButton } from '../plugins/Hyperlink';
 import { ToolbarTableButton } from '../plugins/Table';
+import { EmbeddedEntityDropdownButton } from '../plugins/EmbeddedEntity';
+import { ToolbarIcon as EmbeddedEntityBlockToolbarIcon } from '../plugins/EmbeddedEntityBlock';
 import { SPEditor, useStoreEditor } from '@udecode/slate-plugins-core';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { isNodeTypeSelected } from '../helpers/editor';
@@ -42,6 +44,10 @@ const styles = {
 const Toolbar = ({ isDisabled }: ToolbarProps) => {
   const editor = useStoreEditor() as SPEditor;
   const canInsertBlocks = !isNodeTypeSelected(editor, BLOCKS.TABLE);
+  const [isEmbedDropdownOpen, setEmbedDropdownOpen] = useState(false);
+  const onCloseEntityDropdown = () => setEmbedDropdownOpen(false);
+  const onToggleEntityDropdown = () => setEmbedDropdownOpen(!isEmbedDropdownOpen);
+
   return (
     <EditorToolbar testId="toolbar">
       <div className={styles.formattingOptionsWrapper}>
@@ -65,6 +71,24 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
         <ToolbarHrButton isDisabled={isDisabled || !canInsertBlocks} />
 
         <ToolbarTableButton isDisabled={isDisabled || !canInsertBlocks} />
+      </div>
+      <div className={styles.embedActionsWrapper}>
+        <EmbeddedEntityDropdownButton
+          isDisabled={isDisabled}
+          onClose={onCloseEntityDropdown}
+          onToggle={onToggleEntityDropdown}
+          isOpen={isEmbedDropdownOpen}>
+          <EmbeddedEntityBlockToolbarIcon
+            isDisabled={!!isDisabled}
+            nodeType={BLOCKS.EMBEDDED_ENTRY}
+            onClose={onCloseEntityDropdown}
+          />
+          <EmbeddedEntityBlockToolbarIcon
+            isDisabled={!!isDisabled}
+            nodeType={BLOCKS.EMBEDDED_ASSET}
+            onClose={onCloseEntityDropdown}
+          />
+        </EmbeddedEntityDropdownButton>
       </div>
     </EditorToolbar>
   );

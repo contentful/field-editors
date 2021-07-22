@@ -19,12 +19,12 @@ import flow from 'lodash/flow';
 import find from 'lodash/find'; // eslint-disable-line you-dont-need-lodash-underscore/find
 import get from 'lodash/get';
 import { EntityProvider } from '@contentful/field-editor-reference';
+import { Link } from '@contentful/field-editor-reference/dist/types';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 import { getNodeEntryFromSelection, insertLink, LINK_TYPES } from '../../helpers/editor';
-import { FetchingWrappedEntryCard } from './FetchingWrappedEntryCard';
-import { Link } from '@contentful/field-editor-reference/dist/types';
-import { FetchingWrappedAssetCard } from './FetchingWrappedAssetCard';
+import { FetchingWrappedEntryCard } from '../shared/FetchingWrappedEntryCard';
+import { FetchingWrappedAssetCard } from '../shared/FetchingWrappedAssetCard';
 
 const styles = {
   removeSelectionLabel: css`

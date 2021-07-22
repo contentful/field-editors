@@ -24,6 +24,12 @@ import { createQuotePlugin, withQuoteOptions } from './plugins/Quote';
 import { createNewLinePlugin } from './plugins/NewLine';
 import { createTablePlugin, withTableOptions } from './plugins/Table';
 import { createHyperlinkPlugin, withHyperlinkOptions } from './plugins/Hyperlink';
+import {
+  createEmbeddedAssetBlockPlugin,
+  createEmbeddedEntryBlockPlugin,
+  withEmbeddedAssetBlockOptions,
+  withEmbeddedEntryBlockOptions,
+} from './plugins/EmbeddedEntityBlock';
 import { SdkProvider } from './SdkProvider';
 import { sanitizeIncomingSlateDoc, sanitizeSlateDoc } from './helpers/sanitizeSlateDoc';
 import { TextOrCustomElement } from 'types';
@@ -49,13 +55,15 @@ const getPlugins = (sdk: FieldExtensionSDK) => {
     // Global shortcuts
     createNewLinePlugin(),
 
-    // Elements
+    // Block Elements
     createParagraphPlugin(),
     createListPlugin(),
     createHrPlugin(),
     createHeadingPlugin(),
     createQuotePlugin(),
     createTablePlugin(),
+    createEmbeddedEntryBlockPlugin(sdk),
+    createEmbeddedAssetBlockPlugin(sdk),
 
     // Inline elements
     createHyperlinkPlugin(sdk),
@@ -71,13 +79,15 @@ const getPlugins = (sdk: FieldExtensionSDK) => {
 };
 
 const options = {
-  // Elements
+  // Block elements
   ...withParagraphOptions,
   ...withListOptions,
   ...withHrOptions,
   ...withHeadingOptions,
   ...withQuoteOptions,
   ...withTableOptions,
+  ...withEmbeddedEntryBlockOptions,
+  ...withEmbeddedAssetBlockOptions,
 
   // Inline elements
   ...withHyperlinkOptions,
