@@ -12,6 +12,7 @@ import StickyToolbarWrapper from './Toolbar/StickyToolbarWrapper';
 import { withListOptions } from './plugins/List';
 import { SlatePlugins, createHistoryPlugin, createReactPlugin } from '@udecode/slate-plugins-core';
 import { createListPlugin } from '@udecode/slate-plugins-list';
+import { createDeserializeHTMLPlugin } from '@udecode/slate-plugins-html-serializer';
 import { createHrPlugin, withHrOptions } from './plugins/Hr';
 import { withHeadingOptions, createHeadingPlugin } from './plugins/Heading';
 import { createBoldPlugin, withBoldOptions } from './plugins/Bold';
@@ -39,31 +40,35 @@ type ConnectedProps = {
   actionsDisabled?: boolean;
 };
 
-const getPlugins = (sdk: FieldExtensionSDK) => [
-  // Core
-  createReactPlugin(),
-  createHistoryPlugin(),
+const getPlugins = (sdk: FieldExtensionSDK) => {
+  const plugins = [
+    // Core
+    createReactPlugin(),
+    createHistoryPlugin(),
 
-  // Global shortcuts
-  createNewLinePlugin(),
+    // Global shortcuts
+    createNewLinePlugin(),
 
-  // Elements
-  createParagraphPlugin(),
-  createListPlugin(),
-  createHrPlugin(),
-  createHeadingPlugin(),
-  createQuotePlugin(),
-  createTablePlugin(),
+    // Elements
+    createParagraphPlugin(),
+    createListPlugin(),
+    createHrPlugin(),
+    createHeadingPlugin(),
+    createQuotePlugin(),
+    createTablePlugin(),
 
-  // Inline elements
-  createHyperlinkPlugin(sdk),
+    // Inline elements
+    createHyperlinkPlugin(sdk),
 
-  // Marks
-  createBoldPlugin(),
-  createCodePlugin(),
-  createItalicPlugin(),
-  createUnderlinePlugin(),
-];
+    // Marks
+    createBoldPlugin(),
+    createCodePlugin(),
+    createItalicPlugin(),
+    createUnderlinePlugin(),
+  ];
+
+  return [...plugins, createDeserializeHTMLPlugin({ plugins })];
+};
 
 const options = {
   // Elements
