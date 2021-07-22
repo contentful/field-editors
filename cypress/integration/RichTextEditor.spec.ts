@@ -709,6 +709,7 @@ describe('Rich Text Editor', () => {
       const doAction = (action: string) => {
         cy.findByTestId('cf-table-actions').click();
         cy.findByText(action).click();
+        cy.wait(100);
       };
 
       const focusOnCellWithText = (text: string) => {
