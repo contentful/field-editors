@@ -6,6 +6,7 @@ import { MARKS } from '@contentful/rich-text-types';
 import { getToggleMarkOnKeyDown, isMarkActive, toggleMark } from '@udecode/slate-plugins-common';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { CustomSlatePluginOptions } from 'types';
+import { deserializeLeaf } from '../../helpers/deserializer';
 
 interface ToolbarBoldButtonProps {
   isDisabled?: boolean;
@@ -55,6 +56,7 @@ export function createBoldPlugin(): SlatePlugin {
     pluginKeys: MARKS.BOLD,
     renderLeaf: getRenderLeaf(MARKS.BOLD),
     onKeyDown: getToggleMarkOnKeyDown(MARKS.BOLD),
+    deserialize: (editor) => deserializeLeaf(editor, MARKS.BOLD),
   };
 }
 
