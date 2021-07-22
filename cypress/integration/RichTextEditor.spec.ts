@@ -705,7 +705,7 @@ describe('Rich Text Editor', () => {
       ].map((type) => getDropdownItem(type).get('button').should('not.be.disabled'));
     });
 
-    describe.only('Table Actions', () => {
+    describe('Table Actions', () => {
       const doAction = (action: string) => {
         cy.findByTestId('cf-table-actions').find('button').click();
         cy.findByText(action).click();
