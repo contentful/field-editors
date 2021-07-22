@@ -29,7 +29,7 @@ const leafRules: LeafRules = {
     },
   ],
   [MARKS.ITALIC]: [
-    { nodeNames: ['I'] },
+    { nodeNames: ['I', 'EM'] },
     {
       style: {
         fontStyle: ['italic'],
