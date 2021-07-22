@@ -7,5 +7,6 @@
     "overwrite": false,
     "html": false,
     "json": true
-  }
+  },
+  "numTestsKeptInMemory": 1
 }

@@ -7,6 +7,8 @@ import {
   ELEMENT_TD,
 } from '@udecode/slate-plugins-table';
 
+export { addColumn as addColumnRight } from '@udecode/slate-plugins-table';
+
 export const addColumnLeft = (editor: SPEditor, { header }: TablePluginOptions) => {
   if (
     someNode(editor, {

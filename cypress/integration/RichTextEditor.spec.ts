@@ -546,7 +546,7 @@ describe('Rich Text Editor', () => {
     });
   });
 
-  describe.only('Tables', () => {
+  describe('Tables', () => {
     const buildHelper = (type) => (...children) => block(type, {}, ...children);
     const table = buildHelper(BLOCKS.TABLE);
     const row = buildHelper(BLOCKS.TABLE_ROW);
@@ -707,9 +707,8 @@ describe('Rich Text Editor', () => {
 
     describe('Table Actions', () => {
       const doAction = (action: string) => {
-        cy.findByTestId('cf-table-actions').click();
+        cy.findByTestId('cf-table-actions').find('button').click();
         cy.findByText(action).click();
-        cy.wait(100);
       };
 
       const focusOnCellWithText = (text: string) => {
@@ -726,6 +725,8 @@ describe('Rich Text Editor', () => {
           .then((el) => el.trigger('mousedown'))
           // Rewriting the text to force focus
           .type(text);
+
+        cy.wait(300);
       };
 
       beforeEach(() => {

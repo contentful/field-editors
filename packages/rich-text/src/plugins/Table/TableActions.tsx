@@ -4,8 +4,6 @@ import * as Slate from 'slate-react';
 import tokens from '@contentful/forma-36-tokens';
 import { SPEditor, useStoreEditor } from '@udecode/slate-plugins-core';
 import {
-  addRow,
-  addColumn,
   TablePluginOptions,
   deleteColumn,
   deleteRow,
@@ -18,7 +16,7 @@ import {
   DropdownListItem,
 } from '@contentful/forma-36-react-components';
 
-import { addRowAbove, addColumnLeft } from './actions';
+import { addRowAbove, addColumnLeft, addColumnRight, addRowBelow } from './actions';
 
 export const styles = {
   topRight: css({
@@ -34,12 +32,21 @@ export const TableActions = () => {
   const editor = useStoreEditor();
   const [isOpen, setOpen] = React.useState(false);
 
-  const action = (cb: TableAction) => () => {
+  const close = () => {
     setOpen(false);
+
     if (!editor) return;
 
-    cb(editor, {});
+    // Makes sure we keep the editor in focus when clicking on/out
+    // the dropdown menu
     Slate.ReactEditor.focus(editor);
+  };
+
+  const action = (cb: TableAction) => () => {
+    if (!editor) return;
+
+    close();
+    cb(editor, {});
   };
 
   return (
@@ -47,7 +54,7 @@ export const TableActions = () => {
       className={styles.topRight}
       position="left"
       isOpen={isOpen}
-      onClose={() => setOpen(false)}
+      onClose={close}
       testId="cf-table-actions"
       toggleElement={
         <IconButton
@@ -57,9 +64,9 @@ export const TableActions = () => {
       }>
       <DropdownList>
         <DropdownListItem onClick={action(addRowAbove)}>Add row above</DropdownListItem>
-        <DropdownListItem onClick={action(addRow)}>Add row below</DropdownListItem>
+        <DropdownListItem onClick={action(addRowBelow)}>Add row below</DropdownListItem>
         <DropdownListItem onClick={action(addColumnLeft)}>Add column left</DropdownListItem>
-        <DropdownListItem onClick={action(addColumn)}>Add column right</DropdownListItem>
+        <DropdownListItem onClick={action(addColumnRight)}>Add column right</DropdownListItem>
       </DropdownList>
       <DropdownList border="top">
         <DropdownListItem onClick={action(deleteRow)}>Delete row</DropdownListItem>
