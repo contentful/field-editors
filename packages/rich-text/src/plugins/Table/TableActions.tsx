@@ -1,5 +1,6 @@
 import React from 'react';
 import { css } from 'emotion';
+import * as Slate from 'slate-react';
 import tokens from '@contentful/forma-36-tokens';
 import { SPEditor, useStoreEditor } from '@udecode/slate-plugins-core';
 import {
@@ -38,6 +39,7 @@ export const TableActions = () => {
     if (!editor) return;
 
     cb(editor, {});
+    Slate.ReactEditor.focus(editor);
   };
 
   return (

@@ -15,8 +15,6 @@ import { SPEditor, useStoreEditor } from '@udecode/slate-plugins-core';
 import { getKeyboardEvents, insertTableWithTrailingParagraph, isTableActive } from './helpers';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { TableActions } from './TableActions';
-import { someNode } from '@udecode/slate-plugins-common';
-import { useAnchorNode } from './useAnchorNode';
 
 const styles = {
   [BLOCKS.TABLE]: css`
@@ -58,24 +56,7 @@ export const TR = (props: Slate.RenderElementProps) => (
 );
 
 export const TD = (props: Slate.RenderElementProps) => {
-  const editor = useStoreEditor();
-  const selectedNode = useAnchorNode();
-  const [isFocused, setFocused] = React.useState(false);
-
-  React.useEffect(() => {
-    if (!editor) {
-      return;
-    }
-
-    // Checks if this TD is focused by verifying that the HTML
-    // Node under the cursor is a child of this TD.
-    setFocused(
-      !!(
-        someNode(editor, { match: { type: ELEMENT_TABLE } }) &&
-        props.attributes.ref.current?.contains(selectedNode)
-      )
-    );
-  }, [editor, selectedNode, props.attributes, setFocused]);
+  const isSelected = Slate.useSelected();
 
   return (
     <td
@@ -83,7 +64,7 @@ export const TD = (props: Slate.RenderElementProps) => {
       // may include `colspan` and/or `rowspan`
       {...(props.element.data as TableCell['data'])}
       className={styles[BLOCKS.TABLE_CELL]}>
-      {isFocused && <TableActions />}
+      {isSelected && <TableActions />}
       {props.children}
     </td>
   );
@@ -137,6 +118,7 @@ export function ToolbarTableButton(props: ToolbarTableButtonProps) {
     if (!editor) return;
 
     insertTableWithTrailingParagraph(editor, {});
+    Slate.ReactEditor.focus(editor);
   }
 
   if (!editor) return null;
