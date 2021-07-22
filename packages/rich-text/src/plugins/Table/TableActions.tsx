@@ -1,5 +1,5 @@
 import React from 'react';
-import { css, cx } from 'emotion';
+import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 import { SPEditor, useStoreEditor } from '@udecode/slate-plugins-core';
 import {
@@ -42,10 +42,11 @@ export const TableActions = () => {
 
   return (
     <Dropdown
-      className={cx(styles.topRight, 'cf-table-actions')}
+      className={styles.topRight}
       position="left"
       isOpen={isOpen}
       onClose={() => setOpen(false)}
+      testId="cf-table-actions"
       toggleElement={
         <IconButton
           iconProps={{ icon: 'ChevronDown', size: 'tiny' }}
