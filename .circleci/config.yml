@@ -56,7 +56,6 @@ jobs:
             yarn cy:run \
               --spec "${TESTFILES}" \
               --reporter mocha-multi-reporters
-      - run: mv coverage/e2e/coverage-final.json coverage/e2e/$CIRCLE_WORKFLOW_JOB_ID-index-$CIRCLE_NODE_INDEX-coverage-final.json
       - persist_to_workspace:
           root: ~/
           paths:
