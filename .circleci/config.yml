@@ -53,13 +53,7 @@ jobs:
           command: |
             TESTFILES=$(circleci tests glob "cypress/integration/**/*.ts" | circleci tests split --split-by=timings --timings-type=filename | tr '\n' ',')
             yarn wait-on -t 60000 http://localhost:9000
-            yarn cy:run \
-              --spec "${TESTFILES}" \
-              --reporter mocha-multi-reporters
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - 'project/coverage/e2e/*'
+            yarn cy:run --spec "${TESTFILES}"
       - store_test_results:
           path: cypress/results
       - store_artifacts:

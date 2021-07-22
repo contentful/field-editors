@@ -705,7 +705,7 @@ describe('Rich Text Editor', () => {
       ].map((type) => getDropdownItem(type).get('button').should('not.be.disabled'));
     });
 
-    describe('Table Actions', () => {
+    describe.only('Table Actions', () => {
       const doAction = (action: string) => {
         cy.findByTestId('cf-table-actions').find('button').click();
         cy.findByText(action).click();
@@ -719,14 +719,15 @@ describe('Rich Text Editor', () => {
           sel.selectAllChildren(el);
         };
 
-        editor()
-          .findByText(text)
-          .then((el) => moveCursorTo(el[0]))
-          .then((el) => el.trigger('mousedown'))
-          // Rewriting the text to force focus
-          .typeInSlate(text);
-
-        cy.wait(500);
+        return (
+          editor()
+            .findByText(text)
+            .then((el) => moveCursorTo(el[0]))
+            .wait(200)
+            .then((el) => el.trigger('mousedown'))
+            // Rewriting the text to force focus
+            .typeInSlate(text)
+        );
       };
 
       beforeEach(() => {
@@ -734,11 +735,13 @@ describe('Rich Text Editor', () => {
       });
 
       it('adds row above', () => {
-        focusOnCellWithText('foo');
-        doAction('Add row above');
+        focusOnCellWithText('foo').then(() => {
+          doAction('Add row above');
+        });
 
-        focusOnCellWithText('baz');
-        doAction('Add row above');
+        focusOnCellWithText('baz').then(() => {
+          doAction('Add row above');
+        });
 
         expectTable(
           row(emptyCell(), emptyCell()),
@@ -749,11 +752,13 @@ describe('Rich Text Editor', () => {
       });
 
       it('adds row below', () => {
-        focusOnCellWithText('foo');
-        doAction('Add row below');
+        focusOnCellWithText('foo').then(() => {
+          doAction('Add row below');
+        });
 
-        focusOnCellWithText('baz');
-        doAction('Add row below');
+        focusOnCellWithText('baz').then(() => {
+          doAction('Add row below');
+        });
 
         expectTable(
           row(cellWithText('foo'), cellWithText('bar')),
@@ -764,11 +769,13 @@ describe('Rich Text Editor', () => {
       });
 
       it('adds column left', () => {
-        focusOnCellWithText('foo');
-        doAction('Add column left');
+        focusOnCellWithText('foo').then(() => {
+          doAction('Add column left');
+        });
 
-        focusOnCellWithText('bar');
-        doAction('Add column left');
+        focusOnCellWithText('bar').then(() => {
+          doAction('Add column left');
+        });
 
         expectTable(
           row(emptyCell(), cellWithText('foo'), emptyCell(), cellWithText('bar')),
@@ -777,11 +784,13 @@ describe('Rich Text Editor', () => {
       });
 
       it('adds column right', () => {
-        focusOnCellWithText('foo');
-        doAction('Add column right');
+        focusOnCellWithText('foo').then(() => {
+          doAction('Add column right');
+        });
 
-        focusOnCellWithText('bar');
-        doAction('Add column right');
+        focusOnCellWithText('bar').then(() => {
+          doAction('Add column right');
+        });
 
         expectTable(
           row(cellWithText('foo'), emptyCell(), cellWithText('bar'), emptyCell()),
@@ -790,21 +799,22 @@ describe('Rich Text Editor', () => {
       });
 
       it('deletes row', () => {
-        focusOnCellWithText('foo');
-        doAction('Delete row');
+        focusOnCellWithText('foo').then(() => {
+          doAction('Delete row');
+        });
 
         expectTable(row(cellWithText('baz'), cellWithText('quux')));
       });
 
       it('deletes column', () => {
-        focusOnCellWithText('foo');
-        doAction('Delete column');
+        focusOnCellWithText('foo').then(() => {
+          doAction('Delete column');
+        });
 
         expectTable(row(cellWithText('bar')), row(cellWithText('quux')));
       });
 
       it('deletes table', () => {
-        focusOnCellWithText('foo');
         doAction('Delete table');
 
         expectTableToBeDeleted();
