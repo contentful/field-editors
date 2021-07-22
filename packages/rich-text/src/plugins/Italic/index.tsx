@@ -6,6 +6,7 @@ import { getToggleMarkOnKeyDown, toggleMark, isMarkActive } from '@udecode/slate
 import { MARKS } from '@contentful/rich-text-types';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { CustomSlatePluginOptions } from 'types';
+import { deserializeLeaf } from '../../helpers/deserializer';
 
 interface ToolbarItalicButtonProps {
   isDisabled?: boolean;
@@ -55,6 +56,7 @@ export function createItalicPlugin(): SlatePlugin {
     pluginKeys: MARKS.ITALIC,
     renderLeaf: getRenderLeaf(MARKS.ITALIC),
     onKeyDown: getToggleMarkOnKeyDown(MARKS.ITALIC),
+    deserialize: deserializeLeaf(MARKS.ITALIC),
   };
 }
 

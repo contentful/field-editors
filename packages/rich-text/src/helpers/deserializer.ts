@@ -1,8 +1,17 @@
-import { getSlatePluginOptions, SPEditor, Deserialize } from '@udecode/slate-plugins-core';
+import {
+  getSlatePluginOptions,
+  SPEditor,
+  Deserialize,
+  GetNodeDeserializerRule,
+} from '@udecode/slate-plugins-core';
 import { getLeafDeserializer } from '@udecode/slate-plugins-common';
 import { MARKS } from '@contentful/rich-text-types';
 
-const leafRules = {
+type LeafRules = {
+  [key: string]: GetNodeDeserializerRule[];
+};
+
+const leafRules: LeafRules = {
   [MARKS.BOLD]: [
     { nodeNames: ['STRONG'] },
     {
@@ -16,6 +25,14 @@ const leafRules = {
     {
       style: {
         fontFamily: ['monospace'],
+      },
+    },
+  ],
+  [MARKS.ITALIC]: [
+    { nodeNames: ['I'] },
+    {
+      style: {
+        fontStyle: ['italic'],
       },
     },
   ],
