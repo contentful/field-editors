@@ -38,6 +38,8 @@ jobs:
       - run: yarn build
       - run: yarn test:ci
   integration-tests:
+    resource_class: medium+
+    parallelism: 3
     docker:
       - image: cypress/browsers:node12.14.0-chrome79-ff71
     steps:
@@ -45,16 +47,23 @@ jobs:
       - yarn_install
       - run: yarn build
       - run:
-          name: Run Cypress tests
-          environment:
-            CYPRESS_RETRIES: 3
+          command: yarn docz:dev
+          background: true
+      - run:
           command: |
-            set -e
-            npm run test:integration
-      - run: npm run merge-report
-      - run: npm run generate-report
-      - store_artifacts:
-          path: cypress/reports
+            TESTFILES=$(circleci tests glob "cypress/integration/**/*.ts" | circleci tests split --split-by=timings --timings-type=filename | tr '\n' ',')
+            yarn wait-on -t 60000 http://localhost:9000
+            yarn cy:run \
+              --spec "${TESTFILES}" \
+              --reporter mocha-multi-reporters \
+              --reporter-options configFile=./cypress.reporter.json
+      - run: mv coverage/e2e/coverage-final.json coverage/e2e/$CIRCLE_WORKFLOW_JOB_ID-index-$CIRCLE_NODE_INDEX-coverage-final.json
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - 'project/coverage/e2e/*'
+      - store_test_results:
+          path: cypress/results
       - store_artifacts:
           path: cypress/screenshots
       - store_artifacts:
