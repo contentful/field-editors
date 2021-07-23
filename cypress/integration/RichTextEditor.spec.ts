@@ -711,50 +711,14 @@ describe('Rich Text Editor', () => {
         cy.findByText(action).click();
       };
 
-      const focusOnCellWithText = (text: string) => {
-        const moveCursorTo = (el: any) => {
-          // @ts-expect-error
-          Cypress.dom.getHostContenteditable(el).focus();
-          const sel = el.ownerDocument.getSelection();
-          sel.selectAllChildren(el);
-        };
-
-        editor()
-          .findByText(text)
-          .then((el) => moveCursorTo(el[0]))
-          .then((el) => el.trigger('mousedown'))
-          // Rewriting the text to force focus
-          .typeInSlate(text)
-          // A hack to force waiting for the cell to be focused
-          // otherwise, it fails in CI
-          .then((el) => {
-            return new Cypress.Promise((resolve) => {
-              const interval = setInterval(() => {
-                const nodeText = el[0].ownerDocument.getSelection().toString();
-
-                if (nodeText === text) {
-                  clearInterval(interval);
-                  resolve();
-                }
-              }, 100);
-            });
-          })
-          .wait(300);
-      };
-
       beforeEach(() => {
         insertTableWithExampleData();
       });
 
-      it.only('adds row above', () => {
-        focusOnCellWithText('foo');
-        doAction('Add row above');
-
-        focusOnCellWithText('baz');
+      it('adds row above', () => {
         doAction('Add row above');
 
         expectTable(
-          row(emptyCell(), emptyCell()),
           row(cellWithText('foo'), cellWithText('bar')),
           row(emptyCell(), emptyCell()),
           row(cellWithText('baz'), cellWithText('quux'))
@@ -762,62 +726,46 @@ describe('Rich Text Editor', () => {
       });
 
       it('adds row below', () => {
-        focusOnCellWithText('foo');
-        doAction('Add row below');
-
-        focusOnCellWithText('baz');
         doAction('Add row below');
 
         expectTable(
           row(cellWithText('foo'), cellWithText('bar')),
-          row(emptyCell(), emptyCell()),
           row(cellWithText('baz'), cellWithText('quux')),
           row(emptyCell(), emptyCell())
         );
       });
 
       it('adds column left', () => {
-        focusOnCellWithText('foo');
-        doAction('Add column left');
-
-        focusOnCellWithText('bar');
         doAction('Add column left');
 
         expectTable(
-          row(emptyCell(), cellWithText('foo'), emptyCell(), cellWithText('bar')),
-          row(emptyCell(), cellWithText('baz'), emptyCell(), cellWithText('quux'))
+          row(cellWithText('foo'), emptyCell(), cellWithText('bar')),
+          row(cellWithText('baz'), emptyCell(), cellWithText('quux'))
         );
       });
 
       it('adds column right', () => {
-        focusOnCellWithText('foo');
-        doAction('Add column right');
-
-        focusOnCellWithText('bar');
         doAction('Add column right');
 
         expectTable(
-          row(cellWithText('foo'), emptyCell(), cellWithText('bar'), emptyCell()),
-          row(cellWithText('baz'), emptyCell(), cellWithText('quux'), emptyCell())
+          row(cellWithText('foo'), cellWithText('bar'), emptyCell()),
+          row(cellWithText('baz'), cellWithText('quux'), emptyCell())
         );
       });
 
       it('deletes row', () => {
-        focusOnCellWithText('foo');
         doAction('Delete row');
 
-        expectTable(row(cellWithText('baz'), cellWithText('quux')));
+        expectTable(row(cellWithText('foo'), cellWithText('bar')));
       });
 
       it('deletes column', () => {
-        focusOnCellWithText('foo');
         doAction('Delete column');
 
-        expectTable(row(cellWithText('bar')), row(cellWithText('quux')));
+        expectTable(row(cellWithText('foo')), row(cellWithText('baz')));
       });
 
       it('deletes table', () => {
-        focusOnCellWithText('foo');
         doAction('Delete table');
 
         expectTableToBeDeleted();
