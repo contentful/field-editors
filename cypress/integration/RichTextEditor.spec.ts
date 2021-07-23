@@ -719,29 +719,39 @@ describe('Rich Text Editor', () => {
           sel.selectAllChildren(el);
         };
 
-        return (
-          editor()
-            .findByText(text)
-            .then((el) => moveCursorTo(el[0]))
-            .wait(200)
-            .then((el) => el.trigger('mousedown'))
-            // Rewriting the text to force focus
-            .typeInSlate(text)
-        );
+        editor()
+          .findByText(text)
+          .then((el) => moveCursorTo(el[0]))
+          .then((el) => el.trigger('mousedown'))
+          // Rewriting the text to force focus
+          .typeInSlate(text)
+          // A hack to force waiting for the cell to be focused
+          // otherwise, it fails in CI
+          .then((el) => {
+            return new Cypress.Promise((resolve) => {
+              const interval = setInterval(() => {
+                const nodeText = el[0].ownerDocument.getSelection().toString();
+
+                if (nodeText === text) {
+                  clearInterval(interval);
+                  resolve();
+                }
+              }, 100);
+            });
+          })
+          .wait(300);
       };
 
       beforeEach(() => {
         insertTableWithExampleData();
       });
 
-      it('adds row above', () => {
-        focusOnCellWithText('foo').then(() => {
-          doAction('Add row above');
-        });
+      it.only('adds row above', () => {
+        focusOnCellWithText('foo');
+        doAction('Add row above');
 
-        focusOnCellWithText('baz').then(() => {
-          doAction('Add row above');
-        });
+        focusOnCellWithText('baz');
+        doAction('Add row above');
 
         expectTable(
           row(emptyCell(), emptyCell()),
@@ -752,13 +762,11 @@ describe('Rich Text Editor', () => {
       });
 
       it('adds row below', () => {
-        focusOnCellWithText('foo').then(() => {
-          doAction('Add row below');
-        });
+        focusOnCellWithText('foo');
+        doAction('Add row below');
 
-        focusOnCellWithText('baz').then(() => {
-          doAction('Add row below');
-        });
+        focusOnCellWithText('baz');
+        doAction('Add row below');
 
         expectTable(
           row(cellWithText('foo'), cellWithText('bar')),
@@ -769,13 +777,11 @@ describe('Rich Text Editor', () => {
       });
 
       it('adds column left', () => {
-        focusOnCellWithText('foo').then(() => {
-          doAction('Add column left');
-        });
+        focusOnCellWithText('foo');
+        doAction('Add column left');
 
-        focusOnCellWithText('bar').then(() => {
-          doAction('Add column left');
-        });
+        focusOnCellWithText('bar');
+        doAction('Add column left');
 
         expectTable(
           row(emptyCell(), cellWithText('foo'), emptyCell(), cellWithText('bar')),
@@ -784,13 +790,11 @@ describe('Rich Text Editor', () => {
       });
 
       it('adds column right', () => {
-        focusOnCellWithText('foo').then(() => {
-          doAction('Add column right');
-        });
+        focusOnCellWithText('foo');
+        doAction('Add column right');
 
-        focusOnCellWithText('bar').then(() => {
-          doAction('Add column right');
-        });
+        focusOnCellWithText('bar');
+        doAction('Add column right');
 
         expectTable(
           row(cellWithText('foo'), emptyCell(), cellWithText('bar'), emptyCell()),
@@ -799,22 +803,21 @@ describe('Rich Text Editor', () => {
       });
 
       it('deletes row', () => {
-        focusOnCellWithText('foo').then(() => {
-          doAction('Delete row');
-        });
+        focusOnCellWithText('foo');
+        doAction('Delete row');
 
         expectTable(row(cellWithText('baz'), cellWithText('quux')));
       });
 
       it('deletes column', () => {
-        focusOnCellWithText('foo').then(() => {
-          doAction('Delete column');
-        });
+        focusOnCellWithText('foo');
+        doAction('Delete column');
 
         expectTable(row(cellWithText('bar')), row(cellWithText('quux')));
       });
 
       it('deletes table', () => {
+        focusOnCellWithText('foo');
         doAction('Delete table');
 
         expectTableToBeDeleted();
