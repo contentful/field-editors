@@ -8,6 +8,7 @@
 // https://on.cypress.io/custom-commands
 // ***********************************************
 
+import 'cypress-wait-until';
 import '@testing-library/cypress/add-commands';
 import { configure } from '@testing-library/cypress';
 
