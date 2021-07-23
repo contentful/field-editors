@@ -1,3 +1,4 @@
+import { Path } from 'slate';
 import { getAbove, insertNodes, someNode } from '@udecode/slate-plugins-common';
 import { getSlatePluginType, SPEditor, TElement } from '@udecode/slate-plugins-core';
 import {
@@ -7,9 +8,11 @@ import {
   ELEMENT_TD,
 } from '@udecode/slate-plugins-table';
 
-export { addColumn as addColumnRight } from '@udecode/slate-plugins-table';
-
-export const addColumnLeft = (editor: SPEditor, { header }: TablePluginOptions) => {
+const addColumn = (
+  editor: SPEditor,
+  { header }: TablePluginOptions,
+  getNextCellPath: (currentCellPath: Path) => Path
+) => {
   if (
     someNode(editor, {
       match: { type: getSlatePluginType(editor, ELEMENT_TABLE) },
@@ -26,10 +29,9 @@ export const addColumnLeft = (editor: SPEditor, { header }: TablePluginOptions) 
     });
 
     if (currentCellItem && currentTableItem) {
-      const nextCellPath = currentCellItem[1];
+      const nextCellPath = getNextCellPath(currentCellItem[1]);
       const newCellPath = nextCellPath.slice();
       const replacePathPos = newCellPath.length - 2;
-      const currentRowIdx = nextCellPath[replacePathPos];
 
       currentTableItem[0].children.forEach((_, rowIdx) => {
         newCellPath[replacePathPos] = rowIdx;
@@ -37,9 +39,18 @@ export const addColumnLeft = (editor: SPEditor, { header }: TablePluginOptions) 
         // @ts-expect-error
         insertNodes<TElement>(editor, getEmptyCellNode(editor, { header }), {
           at: newCellPath,
-          select: rowIdx === currentRowIdx,
+          // Select the first cell of the new column
+          select: rowIdx === 0,
         });
       });
     }
   }
+};
+
+export const addColumnRight = (editor: SPEditor, options: TablePluginOptions) => {
+  addColumn(editor, options, (currentCellPath) => Path.next(currentCellPath));
+};
+
+export const addColumnLeft = (editor: SPEditor, options: TablePluginOptions) => {
+  addColumn(editor, options, (currentCellPath) => currentCellPath);
 };
