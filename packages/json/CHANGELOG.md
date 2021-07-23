@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.12.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@0.11.7...@contentful/field-editor-json@0.12.0) (2021-07-23)
+
+
+### Features
+
+* 💡 new color tokens ([#778](https://github.com/contentful/field-editors/issues/778)) ([fba548d](https://github.com/contentful/field-editors/commit/fba548de32305016df7f2685634eefb14294828f))
+
+
+
+
+
 ## [0.11.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@0.11.4...@contentful/field-editor-json@0.11.7) (2021-07-06)
 
 **Note:** Version bump only for package @contentful/field-editor-json

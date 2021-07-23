@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.19.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.18.0...@contentful/field-editor-reference@2.19.0) (2021-07-23)
+
+
+### Features
+
+* 💡 new color tokens ([#778](https://github.com/contentful/field-editors/issues/778)) ([fba548d](https://github.com/contentful/field-editors/commit/fba548de32305016df7f2685634eefb14294828f))
+
+
+
+
+
 # [2.18.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.15.0...@contentful/field-editor-reference@2.18.0) (2021-07-06)
 
 
