@@ -1,6 +1,11 @@
 import * as React from 'react';
 import * as Slate from 'slate-react';
-import { SlatePlugin, getRenderLeaf, useStoreEditor } from '@udecode/slate-plugins-core';
+import {
+  SlatePlugin,
+  getRenderLeaf,
+  useStoreEditor,
+  GetNodeDeserializerRule,
+} from '@udecode/slate-plugins-core';
 import { MARKS } from '@contentful/rich-text-types';
 import { getToggleMarkOnKeyDown, toggleMark, isMarkActive } from '@udecode/slate-plugins-common';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
@@ -41,11 +46,20 @@ export function Underline(props: Slate.RenderLeafProps) {
 }
 
 export function createUnderlinePlugin(): SlatePlugin {
+  const deserializeRules: GetNodeDeserializerRule[] = [
+    { nodeNames: ['U'] },
+    {
+      style: {
+        textDecoration: ['underline'],
+      },
+    },
+  ];
+
   return {
     pluginKeys: MARKS.UNDERLINE,
     renderLeaf: getRenderLeaf(MARKS.UNDERLINE),
     onKeyDown: getToggleMarkOnKeyDown(MARKS.UNDERLINE),
-    deserialize: deserializeLeaf(MARKS.UNDERLINE),
+    deserialize: deserializeLeaf(MARKS.UNDERLINE, deserializeRules),
   };
 }
 
