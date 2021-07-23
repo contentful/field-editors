@@ -38,7 +38,7 @@ const styles = {
     cursor: 'grab',
     userSelect: 'none',
     svg: {
-      fill: tokens.colorTextLightest,
+      fill: tokens.gray500,
       verticalAlign: 'middle',
     },
   }),

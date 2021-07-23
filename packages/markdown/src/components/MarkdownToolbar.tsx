@@ -12,8 +12,8 @@ const styles = {
   root: css({
     position: 'relative',
     zIndex: Number(tokens.zIndexWorkbenchHeader),
-    border: `1px solid ${tokens.colorElementDark}`,
-    backgroundColor: tokens.colorElementLightest,
+    border: `1px solid ${tokens.gray400}`,
+    backgroundColor: tokens.gray100,
     padding: tokens.spacingXs,
     borderTopLeftRadius: tokens.borderRadiusSmall,
   }),
@@ -31,14 +31,14 @@ const styles = {
     minWidth: '46px',
   }),
   icon: css({
-    fill: tokens.colorTextMid,
+    fill: tokens.gray700,
     verticalAlign: 'middle',
   }),
   zenButton: css({
     marginLeft: tokens.spacingXs,
   }),
   zenButtonPressed: css({
-    backgroundColor: tokens.colorElementDark,
+    backgroundColor: tokens.gray400,
   }),
   tooltip: css({
     zIndex: Number(tokens.zIndexTooltip),
