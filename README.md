@@ -70,7 +70,7 @@ We'd love to have your helping hand on `@contentful/field-editors`!
 
 - [App SDK][app-sdk]
 - [Create Contentful App CLI][create-contentful-app]
-- [Forma36][forma36]
+- [Forma 36][forma36]
 
 ## Code of Conduct
 
