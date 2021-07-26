@@ -85,7 +85,8 @@ describe('Rich Text Editor', () => {
     expectRichTextFieldValue(expectedValue, { id: 9, type: 'setValue' });
   });
 
-  describe('Marks', () => {
+  // FIXME: tests are flaky
+  describe.skip('Marks', () => {
     [
       [MARKS.BOLD, `{${mod}}b`],
       [MARKS.ITALIC, `{${mod}}i`],
