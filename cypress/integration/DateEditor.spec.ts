@@ -65,7 +65,8 @@ describe('Date Editor', () => {
   });
 
   describe('default configuration', () => {
-    it('should read initial value', () => {
+    // FIXME: test is flaky
+    it.skip('should read initial value', () => {
       cy.setInitialValue('2018-01-03T05:53+03:00');
       openPage();
 
@@ -130,7 +131,8 @@ describe('Date Editor', () => {
       ]);
     });
 
-    it('should reset field state on external change', () => {
+    // FIXME: test is flaky
+    it.skip('should reset field state on external change', () => {
       cy.setInitialValue('1990-01-03T22:53+03:00');
 
       openPage();
@@ -175,7 +177,8 @@ describe('Date Editor', () => {
       });
     });
 
-    it('should read initial value', () => {
+    // FIXME: test is flaky
+    it.skip('should read initial value', () => {
       cy.setInitialValue('1990-01-03T22:53+03:00');
       openPage();
 
@@ -237,7 +240,8 @@ describe('Date Editor', () => {
       ]);
     });
 
-    it('should reset field state on external change', () => {
+    // FIXME: test is flaky
+    it.skip('should reset field state on external change', () => {
       cy.setInitialValue('1990-01-03T22:53');
 
       openPage();
@@ -261,7 +265,8 @@ describe('Date Editor', () => {
       });
     });
 
-    it('should read initial value', () => {
+    // FIXME: test is flaky
+    it.skip('should read initial value', () => {
       cy.setInitialValue('1990-01-03T22:53');
       openPage();
 
@@ -300,7 +305,8 @@ describe('Date Editor', () => {
       ]);
     });
 
-    it('should reset field state on external change', () => {
+    // FIXME: test is flaky
+    it.skip('should reset field state on external change', () => {
       cy.setInitialValue('1990-01-03');
 
       openPage();

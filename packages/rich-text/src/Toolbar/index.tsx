@@ -11,6 +11,7 @@ import { ToolbarCodeButton } from '../plugins/Code';
 import { ToolbarItalicButton } from '../plugins/Italic';
 import { ToolbarUnderlineButton } from '../plugins/Underline';
 import { ToolbarHyperlinkButton } from '../plugins/Hyperlink';
+import { ToolbarTableButton } from '../plugins/Table';
 import { SPEditor, useStoreEditor } from '@udecode/slate-plugins-core';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { isNodeTypeSelected } from '../helpers/editor';
@@ -62,6 +63,8 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
         <ToolbarQuoteButton isDisabled={isDisabled || !canInsertBlocks} />
         <ToolbarListButton isDisabled={isDisabled || !canInsertBlocks} />
         <ToolbarHrButton isDisabled={isDisabled || !canInsertBlocks} />
+
+        <ToolbarTableButton isDisabled={isDisabled || !canInsertBlocks} />
       </div>
     </EditorToolbar>
   );
