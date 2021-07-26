@@ -34,7 +34,7 @@
     "@contentful/field-editor-radio": "^0.13.0",
     "@contentful/field-editor-rating": "^0.12.0",
     "@contentful/field-editor-reference": "^2.19.0",
-    "@contentful/field-editor-rich-text": "^0.19.0",
+    "@contentful/field-editor-rich-text": "^0.19.1",
     "@contentful/field-editor-shared": "^0.22.0",
     "@contentful/field-editor-single-line": "^0.15.0",
     "@contentful/field-editor-slug": "^0.11.0",
