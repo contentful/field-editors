@@ -28,6 +28,7 @@
     "@contentful/rich-text-types": "^15.0.0",
     "@udecode/slate-plugins-common": "^1.0.0-alpha.25",
     "@udecode/slate-plugins-core": "^1.0.0-alpha.25",
+    "@udecode/slate-plugins-html-serializer": "^1.0.0-alpha.25",
     "@udecode/slate-plugins-list": "^1.0.0-alpha.25",
     "@udecode/slate-plugins-paragraph": "^1.0.0-alpha.25",
     "@udecode/slate-plugins-table": "^1.0.0-alpha.25",

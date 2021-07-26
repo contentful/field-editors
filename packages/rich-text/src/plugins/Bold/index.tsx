@@ -55,6 +55,30 @@ export function createBoldPlugin(): SlatePlugin {
     pluginKeys: MARKS.BOLD,
     renderLeaf: getRenderLeaf(MARKS.BOLD),
     onKeyDown: getToggleMarkOnKeyDown(MARKS.BOLD),
+    deserialize: () => {
+      return {
+        leaf: [
+          {
+            type: MARKS.BOLD,
+            deserialize: (element) => {
+              // We ignore it otherwise everything will be bold
+              const isGoogleBoldWrapper =
+                element.id.startsWith('docs-internal-guid') && element.tagName === 'B';
+
+              const isBold =
+                ['600', '700', 'bold'].includes(element.style.fontWeight) ||
+                ['STRONG', 'B'].includes(element.tagName);
+
+              if (isGoogleBoldWrapper || !isBold) return undefined;
+
+              return {
+                [MARKS.BOLD]: true,
+              };
+            },
+          },
+        ],
+      };
+    },
   };
 }
 
