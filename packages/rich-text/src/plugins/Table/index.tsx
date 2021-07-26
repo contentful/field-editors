@@ -11,8 +11,10 @@ import {
 } from '@udecode/slate-plugins-table';
 import { CustomSlatePluginOptions } from 'types';
 import tokens from '@contentful/forma-36-tokens';
-import { SPEditor } from '@udecode/slate-plugins-core';
-import { getKeyboardEvents } from './helpers';
+import { SPEditor, useStoreEditor } from '@udecode/slate-plugins-core';
+import { getKeyboardEvents, insertTableWithTrailingParagraph, isTableActive } from './helpers';
+import { EditorToolbarButton } from '@contentful/forma-36-react-components';
+import { TableActions } from './TableActions';
 
 const styles = {
   [BLOCKS.TABLE]: css`
@@ -34,6 +36,7 @@ const styles = {
     border: 1px solid ${tokens.colorElementDark};
     padding: 10px 12px;
     min-width: 48px;
+    position: relative;
     div:last-child {
       margin-bottom: 0;
     }
@@ -52,15 +55,20 @@ export const TR = (props: Slate.RenderElementProps) => (
   </tr>
 );
 
-export const TD = (props: Slate.RenderElementProps) => (
-  <td
-    {...props.attributes}
-    // may include `colspan` and/or `rowspan`
-    {...(props.element.data as TableCell['data'])}
-    className={styles[BLOCKS.TABLE_CELL]}>
-    {props.children}
-  </td>
-);
+export const TD = (props: Slate.RenderElementProps) => {
+  const isSelected = Slate.useSelected();
+
+  return (
+    <td
+      {...props.attributes}
+      // may include `colspan` and/or `rowspan`
+      {...(props.element.data as TableCell['data'])}
+      className={styles[BLOCKS.TABLE_CELL]}>
+      {isSelected && <TableActions />}
+      {props.children}
+    </td>
+  );
+};
 
 export const withTableOptions: CustomSlatePluginOptions = {
   [ELEMENT_TABLE]: {
@@ -96,3 +104,35 @@ export const createTablePlugin: typeof createTablePluginFromUdecode = () => ({
   ...createTablePluginFromUdecode(),
   onKeyDown: withTableEvents,
 });
+
+interface ToolbarTableButtonProps {
+  isDisabled: boolean | undefined;
+}
+
+export function ToolbarTableButton(props: ToolbarTableButtonProps) {
+  const editor = useStoreEditor();
+  const isActive = editor && isTableActive(editor);
+
+  async function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
+    if (!editor) return;
+
+    insertTableWithTrailingParagraph(editor, {});
+    Slate.ReactEditor.focus(editor);
+  }
+
+  if (!editor) return null;
+
+  return (
+    <EditorToolbarButton
+      icon="Table"
+      tooltip="Table"
+      label="Table"
+      testId="table-toolbar-button"
+      onClick={handleClick}
+      // TODO: active state looks off since the button will be disabled. Do we still need it?
+      isActive={isActive}
+      disabled={props.isDisabled}
+    />
+  );
+}

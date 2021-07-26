@@ -85,7 +85,8 @@ describe('Rich Text Editor', () => {
     expectRichTextFieldValue(expectedValue, { id: 9, type: 'setValue' });
   });
 
-  describe('Marks', () => {
+  // FIXME: tests are flaky
+  describe.skip('Marks', () => {
     [
       [MARKS.BOLD, `{${mod}}b`],
       [MARKS.ITALIC, `{${mod}}i`],
@@ -669,10 +670,11 @@ describe('Rich Text Editor', () => {
     it('disables block element toolbar buttons when selected', () => {
       insertTable();
 
-      cy.findByTestId('quote-toolbar-button').should('be.disabled');
-      cy.findByTestId('ul-toolbar-button').should('be.disabled');
-      cy.findByTestId('ol-toolbar-button').should('be.disabled');
-      cy.findByTestId('hr-toolbar-button').should('be.disabled');
+      const blockElements = ['quote', 'ul', 'ol', 'hr', 'table'];
+
+      blockElements.forEach((el) => {
+        cy.findByTestId(`${el}-toolbar-button`).should('be.disabled');
+      });
 
       getDropdownToolbarButton().click();
       [
@@ -703,6 +705,73 @@ describe('Rich Text Editor', () => {
         BLOCKS.HEADING_5,
         BLOCKS.HEADING_6,
       ].map((type) => getDropdownItem(type).get('button').should('not.be.disabled'));
+    });
+
+    describe('Table Actions', () => {
+      const doAction = (action: string) => {
+        cy.findByTestId('cf-table-actions').find('button').click();
+        cy.findByText(action).click();
+      };
+
+      beforeEach(() => {
+        insertTableWithExampleData();
+      });
+
+      it('adds row above', () => {
+        doAction('Add row above');
+
+        expectTable(
+          row(cellWithText('foo'), cellWithText('bar')),
+          row(emptyCell(), emptyCell()),
+          row(cellWithText('baz'), cellWithText('quux'))
+        );
+      });
+
+      it('adds row below', () => {
+        doAction('Add row below');
+
+        expectTable(
+          row(cellWithText('foo'), cellWithText('bar')),
+          row(cellWithText('baz'), cellWithText('quux')),
+          row(emptyCell(), emptyCell())
+        );
+      });
+
+      it('adds column left', () => {
+        doAction('Add column left');
+
+        expectTable(
+          row(cellWithText('foo'), emptyCell(), cellWithText('bar')),
+          row(cellWithText('baz'), emptyCell(), cellWithText('quux'))
+        );
+      });
+
+      it('adds column right', () => {
+        doAction('Add column right');
+
+        expectTable(
+          row(cellWithText('foo'), cellWithText('bar'), emptyCell()),
+          row(cellWithText('baz'), cellWithText('quux'), emptyCell())
+        );
+      });
+
+      it('deletes row', () => {
+        doAction('Delete row');
+
+        expectTable(row(cellWithText('foo'), cellWithText('bar')));
+      });
+
+      it('deletes column', () => {
+        doAction('Delete column');
+
+        expectTable(row(cellWithText('foo')), row(cellWithText('baz')));
+      });
+
+      it('deletes table', () => {
+        doAction('Delete table');
+
+        expectTableToBeDeleted();
+      });
     });
   });
 
