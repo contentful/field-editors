@@ -39,8 +39,8 @@ import { newReferenceEditorFakeSdk } from '../__fixtures__/FakeSdk';
           isInitiallyDisabled={false}
           parameters={{
             instance: {
-              canCreateEntity: true,
-              canLinkEntity: true
+              showCreateEntityAction: true,
+              showLinkEntityAction: true,
             }
           }}
          />
@@ -76,8 +76,8 @@ Note the alternative link actions injected via the `renderCustomActions` prop.
           }
           parameters={{
             instance: {
-              canCreateEntity: true,
-              canLinkEntity: true
+              showCreateEntityAction: true,
+              showLinkEntityAction: true,
             }
           }}
          />
@@ -103,8 +103,8 @@ Note the alternative link actions injected via the `renderCustomActions` prop.
           isInitiallyDisabled={false}
           parameters={{
             instance: {
-              canCreateEntity: true,
-              canLinkEntity: true,
+              showCreateEntityAction: true,
+              showLinkEntityAction: true,
             },
           }}
           renderCustomCard={(props) => {

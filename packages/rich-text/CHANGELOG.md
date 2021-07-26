@@ -3,6 +3,57 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.19.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@0.18.16...@contentful/field-editor-rich-text@0.19.0) (2021-07-23)
+
+
+### Features
+
+* 💡 new color tokens ([#778](https://github.com/contentful/field-editors/issues/778)) ([fba548d](https://github.com/contentful/field-editors/commit/fba548de32305016df7f2685634eefb14294828f))
+
+
+
+
+
+## [0.18.16](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@0.18.13...@contentful/field-editor-rich-text@0.18.16) (2021-07-06)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+
+
+
+
+## [0.18.15](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@0.18.13...@contentful/field-editor-rich-text@0.18.15) (2021-07-06)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+
+
+
+
+## [0.18.14](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@0.18.13...@contentful/field-editor-rich-text@0.18.14) (2021-06-23)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+
+
+
+
+## [0.18.13](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@0.18.12...@contentful/field-editor-rich-text@0.18.13) (2021-06-23)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+
+
+
+
+## [0.18.12](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@0.18.11...@contentful/field-editor-rich-text@0.18.12) (2021-06-22)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+
+
+
+
 ## [0.18.11](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@0.18.10...@contentful/field-editor-rich-text@0.18.11) (2021-05-20)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text

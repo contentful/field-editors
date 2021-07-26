@@ -3,6 +3,57 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.14.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-tags@0.13.5...@contentful/field-editor-tags@0.14.0) (2021-07-23)
+
+
+### Features
+
+* 💡 new color tokens ([#778](https://github.com/contentful/field-editors/issues/778)) ([fba548d](https://github.com/contentful/field-editors/commit/fba548de32305016df7f2685634eefb14294828f))
+
+
+
+
+
+## [0.13.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-tags@0.13.2...@contentful/field-editor-tags@0.13.5) (2021-07-06)
+
+**Note:** Version bump only for package @contentful/field-editor-tags
+
+
+
+
+
+## [0.13.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-tags@0.13.2...@contentful/field-editor-tags@0.13.4) (2021-07-06)
+
+**Note:** Version bump only for package @contentful/field-editor-tags
+
+
+
+
+
+## [0.13.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-tags@0.13.2...@contentful/field-editor-tags@0.13.3) (2021-06-23)
+
+**Note:** Version bump only for package @contentful/field-editor-tags
+
+
+
+
+
+## [0.13.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-tags@0.13.1...@contentful/field-editor-tags@0.13.2) (2021-06-23)
+
+**Note:** Version bump only for package @contentful/field-editor-tags
+
+
+
+
+
+## [0.13.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-tags@0.13.0...@contentful/field-editor-tags@0.13.1) (2021-06-22)
+
+**Note:** Version bump only for package @contentful/field-editor-tags
+
+
+
+
+
 # [0.13.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-tags@0.12.1...@contentful/field-editor-tags@0.13.0) (2021-04-06)
 
 

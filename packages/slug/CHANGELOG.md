@@ -3,6 +3,57 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@0.10.6...@contentful/field-editor-slug@0.11.0) (2021-07-23)
+
+
+### Features
+
+* 💡 new color tokens ([#778](https://github.com/contentful/field-editors/issues/778)) ([fba548d](https://github.com/contentful/field-editors/commit/fba548de32305016df7f2685634eefb14294828f))
+
+
+
+
+
+## [0.10.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@0.10.3...@contentful/field-editor-slug@0.10.6) (2021-07-06)
+
+**Note:** Version bump only for package @contentful/field-editor-slug
+
+
+
+
+
+## [0.10.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@0.10.3...@contentful/field-editor-slug@0.10.5) (2021-07-06)
+
+**Note:** Version bump only for package @contentful/field-editor-slug
+
+
+
+
+
+## [0.10.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@0.10.3...@contentful/field-editor-slug@0.10.4) (2021-06-23)
+
+**Note:** Version bump only for package @contentful/field-editor-slug
+
+
+
+
+
+## [0.10.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@0.10.2...@contentful/field-editor-slug@0.10.3) (2021-06-23)
+
+**Note:** Version bump only for package @contentful/field-editor-slug
+
+
+
+
+
+## [0.10.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@0.10.1...@contentful/field-editor-slug@0.10.2) (2021-06-22)
+
+**Note:** Version bump only for package @contentful/field-editor-slug
+
+
+
+
+
 ## [0.10.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@0.10.0...@contentful/field-editor-slug@0.10.1) (2021-03-05)
 
 **Note:** Version bump only for package @contentful/field-editor-slug

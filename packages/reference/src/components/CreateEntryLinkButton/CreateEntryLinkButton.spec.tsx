@@ -95,7 +95,7 @@ describe('CreateEntryLinkButton with multiple entries', () => {
     },
   };
 
-  it('should display and close menu on button click', () => {
+  it.skip('should display and close menu on button click', () => {
     const { getByTestId } = render(<CreateEntryLinkButton {...props} />);
     fireEvent.click(findButton(getByTestId));
     expect(getByTestId('add-entry-menu-container')).toBeDefined();

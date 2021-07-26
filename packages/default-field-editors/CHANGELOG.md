@@ -3,6 +3,84 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@0.8.23...@contentful/default-field-editors@0.9.0) (2021-07-23)
+
+
+### Features
+
+* 💡 new color tokens ([#778](https://github.com/contentful/field-editors/issues/778)) ([fba548d](https://github.com/contentful/field-editors/commit/fba548de32305016df7f2685634eefb14294828f))
+
+
+
+
+
+## [0.8.23](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@0.8.22...@contentful/default-field-editors@0.8.23) (2021-07-12)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+
+
+
+
+## [0.8.22](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@0.8.19...@contentful/default-field-editors@0.8.22) (2021-07-06)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+
+
+
+
+## [0.8.21](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@0.8.19...@contentful/default-field-editors@0.8.21) (2021-07-06)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+
+
+
+
+## [0.8.20](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@0.8.19...@contentful/default-field-editors@0.8.20) (2021-06-23)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+
+
+
+
+## [0.8.19](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@0.8.18...@contentful/default-field-editors@0.8.19) (2021-06-23)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+
+
+
+
+## [0.8.18](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@0.8.17...@contentful/default-field-editors@0.8.18) (2021-06-22)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+
+
+
+
+## [0.8.17](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@0.8.16...@contentful/default-field-editors@0.8.17) (2021-06-11)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+
+
+
+
+## [0.8.16](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@0.8.15...@contentful/default-field-editors@0.8.16) (2021-06-07)
+
+
+### Bug Fixes
+
+* **default-field-editors:** re-render Field children on locale change ([#733](https://github.com/contentful/field-editors/issues/733)) ([b34c833](https://github.com/contentful/field-editors/commit/b34c8338027bec8497e036345c576983b7c1053f))
+
+
+
+
+
 ## [0.8.15](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@0.8.14...@contentful/default-field-editors@0.8.15) (2021-06-01)
 
 **Note:** Version bump only for package @contentful/default-field-editors

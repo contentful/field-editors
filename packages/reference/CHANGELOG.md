@@ -3,6 +3,72 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.19.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.18.0...@contentful/field-editor-reference@2.19.0) (2021-07-23)
+
+
+### Features
+
+* 💡 new color tokens ([#778](https://github.com/contentful/field-editors/issues/778)) ([fba548d](https://github.com/contentful/field-editors/commit/fba548de32305016df7f2685634eefb14294828f))
+
+
+
+
+
+# [2.18.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.15.0...@contentful/field-editor-reference@2.18.0) (2021-07-06)
+
+
+### Features
+
+* [] bump forma tokens ([#756](https://github.com/contentful/field-editors/issues/756)) ([befc60f](https://github.com/contentful/field-editors/commit/befc60f9f495b0d1e072e9cba969d139da8f674a))
+
+
+
+
+
+# [2.17.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.15.0...@contentful/field-editor-reference@2.17.0) (2021-07-06)
+
+
+### Features
+
+* [] bump forma tokens ([#756](https://github.com/contentful/field-editors/issues/756)) ([befc60f](https://github.com/contentful/field-editors/commit/befc60f9f495b0d1e072e9cba969d139da8f674a))
+
+
+
+
+
+# [2.16.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.15.0...@contentful/field-editor-reference@2.16.0) (2021-06-23)
+
+
+### Features
+
+* [] bump forma tokens ([#756](https://github.com/contentful/field-editors/issues/756)) ([befc60f](https://github.com/contentful/field-editors/commit/befc60f9f495b0d1e072e9cba969d139da8f674a))
+
+
+
+
+
+# [2.15.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.14.0...@contentful/field-editor-reference@2.15.0) (2021-06-23)
+
+
+### Features
+
+* [] bump app sdk ([#755](https://github.com/contentful/field-editors/issues/755)) ([aa0c217](https://github.com/contentful/field-editors/commit/aa0c2179d4edbb1a37453e1e3bdf0ae11991166f))
+
+
+
+
+
+# [2.14.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.13.1...@contentful/field-editor-reference@2.14.0) (2021-06-22)
+
+
+### Features
+
+* [EXT-2826] make app-sdk a peer depedency ([#748](https://github.com/contentful/field-editors/issues/748)) ([f1d1d01](https://github.com/contentful/field-editors/commit/f1d1d01d89d59d70ab2c831a513ab2580ea64d7e))
+
+
+
+
+
 ## [2.13.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.13.0...@contentful/field-editor-reference@2.13.1) (2021-04-13)
 
 
