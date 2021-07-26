@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.1](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@0.9.0...@contentful/default-field-editors@0.9.1) (2021-07-26)
+
+
+### Bug Fixes
+
+* adjust rich-text version manually ([#781](https://github.com/contentful/field-editors/issues/781)) ([f770e4f](https://github.com/contentful/field-editors/commit/f770e4f731f1ebec0ac64881c8c60015709fa26d))
+
+
+
+
+
 # [0.9.0](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@0.8.23...@contentful/default-field-editors@0.9.0) (2021-07-23)
 
 
