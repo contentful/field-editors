@@ -46,9 +46,8 @@ jobs:
       - checkout
       - yarn_install
       - run: yarn build
-      - run: yarn docz:build
       - run:
-          command: yarn serve .docz/dist -n -s -p 9000
+          command: yarn docz:dev
           background: true
       - run:
           command: |
