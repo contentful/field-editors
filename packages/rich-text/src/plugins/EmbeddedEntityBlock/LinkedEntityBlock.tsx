@@ -5,7 +5,7 @@ import { FetchingWrappedAssetCard } from '../shared/FetchingWrappedAssetCard';
 import { useSdkContext } from '../../SdkProvider';
 import { useStoreEditor } from '@udecode/slate-plugins-core';
 import { CustomElement } from 'types';
-import { ReactEditor } from 'slate-react';
+import { ReactEditor, useSelected } from 'slate-react';
 import { Transforms } from 'slate';
 
 const styles = {
@@ -30,12 +30,12 @@ interface LinkedEntityBlockProps {
   attributes: object;
   children: [{ text: '' }];
   element: EntityElement;
-  isSelected: boolean;
   onEntityFetchComplete: () => void;
 }
 
 export function LinkedEntityBlock(props: LinkedEntityBlockProps) {
-  const { attributes, children, element, isSelected, onEntityFetchComplete } = props;
+  const { attributes, children, element, onEntityFetchComplete } = props;
+  const isSelected = useSelected();
   const editor = useStoreEditor();
   const sdk = useSdkContext();
   const { id: entityId, linkType: entityType } = element.data.target.sys;
