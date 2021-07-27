@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0-alpha.0](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@0.8.13...@contentful/default-field-editors@0.9.0-alpha.0) (2021-07-27)
+
+
+### Features
+
+* add alpha rich text editor ([#703](https://github.com/contentful/field-editors/issues/703)) ([7d2e2a0](https://github.com/contentful/field-editors/commit/7d2e2a0cc6c6085c105795a14e9efd7e8be13336))
+* use rich text adapter ([#709](https://github.com/contentful/field-editors/issues/709)) ([98be082](https://github.com/contentful/field-editors/commit/98be08264fd358614c7db8ac1bd020cb33ee3b6b))
+
+
+
+
+
 ## [0.8.13](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@0.8.12...@contentful/default-field-editors@0.8.13) (2021-04-14)
 
 **Note:** Version bump only for package @contentful/default-field-editors

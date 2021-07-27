@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.12.0-alpha.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@0.11.2...@contentful/field-editor-json@0.12.0-alpha.0) (2021-07-27)
+
+
+### Features
+
+* add tables ([#754](https://github.com/contentful/field-editors/issues/754)) ([301c3d3](https://github.com/contentful/field-editors/commit/301c3d3933dd7a8c63aebaceaf8e182290b1aea5))
+
+
+
+
+
 ## [0.11.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@0.11.1...@contentful/field-editor-json@0.11.2) (2021-04-14)
 
 

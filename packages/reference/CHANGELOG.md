@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.14.0-alpha.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.13.1...@contentful/field-editor-reference@2.14.0-alpha.0) (2021-07-27)
+
+
+### Features
+
+* add tables ([#754](https://github.com/contentful/field-editors/issues/754)) ([301c3d3](https://github.com/contentful/field-editors/commit/301c3d3933dd7a8c63aebaceaf8e182290b1aea5))
+
+
+
+
+
 ## [2.13.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.13.0...@contentful/field-editor-reference@2.13.1) (2021-04-13)
 
 
