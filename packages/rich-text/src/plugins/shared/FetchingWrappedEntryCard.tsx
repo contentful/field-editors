@@ -45,7 +45,7 @@ export function FetchingWrappedEntryCard(props: FetchingWrappedEntryCardProps) {
   }
 
   if (entry === undefined) {
-    return <EntryCard size="default" loading />;
+    return <EntryCard size="default" loading={true} />;
   }
 
   const contentType = props.sdk.space
