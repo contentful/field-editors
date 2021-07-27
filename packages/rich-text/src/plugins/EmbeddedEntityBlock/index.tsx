@@ -26,14 +26,12 @@ export const withEmbeddedEntryBlockOptions: CustomSlatePluginOptions = {
   [BLOCKS.EMBEDDED_ENTRY]: {
     type: BLOCKS.EMBEDDED_ENTRY,
     component: LinkedEntityBlock,
-    hotkey: ['mod+shift+e'],
   },
 };
 export const withEmbeddedAssetBlockOptions: CustomSlatePluginOptions = {
   [BLOCKS.EMBEDDED_ASSET]: {
     type: BLOCKS.EMBEDDED_ASSET,
     component: LinkedEntityBlock,
-    hotkey: ['mod+shift+a'],
   },
 };
 
