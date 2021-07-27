@@ -15,9 +15,6 @@ import { SPEditor } from '@udecode/slate-plugins-core';
 import { Editor, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { HistoryEditor } from 'slate-history';
-import flow from 'lodash/flow';
-import find from 'lodash/find'; // eslint-disable-line you-dont-need-lodash-underscore/find
-import get from 'lodash/get';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { Link } from '@contentful/field-editor-reference/dist/types';
 import { css } from 'emotion';
@@ -25,6 +22,7 @@ import tokens from '@contentful/forma-36-tokens';
 import { getNodeEntryFromSelection, insertLink, LINK_TYPES } from '../../helpers/editor';
 import { FetchingWrappedEntryCard } from '../shared/FetchingWrappedEntryCard';
 import { FetchingWrappedAssetCard } from '../shared/FetchingWrappedAssetCard';
+import getLinkedContentTypeIdsForNodeType from '../../helpers/getLinkedContentTypeIdsForNodeType';
 
 const styles = {
   removeSelectionLabel: css`
@@ -286,35 +284,4 @@ export async function addOrEditLink(
   Transforms.select(editor, selectionBeforeBlur);
 
   insertLink(editor, { text, url, type, target, path });
-}
-
-/**
- * Given a field object and a rich text node type, return a list of valid
- * content type IDs associated with the node type, based on that node type's
- * `linkContentType` validation.
- *
- * If there is no such validation or the validation is empty, return an empty
- * array.
- *
- * The navigation here is explained by the `nodes` validation having signature:
- * { nodes: { [nodeType]: validationObject[] } }
- *
- * We defensively navigate through this object because
- * 1) the field may not have a `validations` array,
- * 2) the `validations` array may be empty,
- * 3) the `validations` array may not have a `nodes` validation,
- * 4) the `nodes` validation may not validate the `nodeType`, and
- * 5) the `nodeType` validations may not have a `linkContentType` validation.
- *
- * Note that passing an empty array will result in all possible content types
- * being whitelisted.
- *
- */
-function getLinkedContentTypeIdsForNodeType(field, nodeType) {
-  return flow(
-    (v) => find(v, 'nodes'),
-    (v) => get(v, ['nodes', nodeType]),
-    (v) => find(v, 'linkContentType'),
-    (v) => get(v, 'linkContentType', [])
-  )(field.validations);
 }

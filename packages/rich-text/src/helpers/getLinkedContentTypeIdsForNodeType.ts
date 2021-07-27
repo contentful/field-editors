@@ -28,10 +28,11 @@ import get from 'lodash/get';
  * @param {string} nodeType
  * @returns {string[]}
  */
-export default (field, nodeType): string[] =>
-  flow(
-    v => find(v, 'nodes'),
-    v => get(v, ['nodes', nodeType]),
-    v => find(v, 'linkContentType'),
-    v => get(v, 'linkContentType', [])
+export default function getLinkedContentTypeIdsForNodeType(field, nodeType): string[] {
+  return flow(
+    (v) => find(v, 'nodes'),
+    (v) => get(v, ['nodes', nodeType]),
+    (v) => find(v, 'linkContentType'),
+    (v) => get(v, 'linkContentType', [])
   )(field.validations);
+}
