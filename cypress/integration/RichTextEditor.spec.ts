@@ -1047,4 +1047,188 @@ describe('Rich Text Editor', () => {
       });
     }
   });
+
+  describe('Embedded Entry Blocks', () => {
+    const methods: [string, () => void][] = [
+      [
+        'using the toolbar button',
+        () => {
+          cy.findByTestId('toolbar-entity-dropdown-toggle').click();
+          cy.findByTestId('toolbar-toggle-embedded-entry-block').click();
+          cy.wait(100);
+        },
+      ],
+      [
+        'using the keyboard shortcut',
+        () => {
+          editor().type(`{${mod}}{shift}e`);
+          cy.wait(100);
+        }
+      ]
+    ];
+
+    for (const [triggerMethod, triggerEmbeddedEntry] of methods) {
+      describe(triggerMethod, () => {
+        it('adds and removes embedded entries', () => {
+          editor().click();
+          triggerEmbeddedEntry();
+
+          cy.wait(500);
+
+          expectRichTextFieldValue(
+            doc(
+              block(
+                BLOCKS.EMBEDDED_ENTRY,
+                {
+                  target: {
+                    sys: {
+                      id: 'example-entity-id',
+                      type: 'Link',
+                      linkType: 'Entry',
+                    },
+                  },
+                },
+              ),
+              block(BLOCKS.PARAGRAPH, {}, text('')),
+            )
+          );
+
+          cy.findByTestId('cf-ui-card-actions').findByTestId('cf-ui-icon-button').click();
+          cy.findByTestId('delete').click();
+
+          cy.wait(500);
+
+          expectRichTextFieldValue(void 0);
+        });
+
+        it('adds embedded entries between words', () => {
+          editor()
+            .click()
+            .typeInSlate('foobar')
+            .type('{leftArrow}')
+            .type('{leftArrow}')
+            .type('{leftArrow}')
+            .wait(100);
+
+          triggerEmbeddedEntry();
+
+          cy.wait(100);
+
+          expectRichTextFieldValue(
+            doc(
+              block(BLOCKS.PARAGRAPH, {}, text('foo')),
+              block(
+                BLOCKS.EMBEDDED_ENTRY,
+                {
+                  target: {
+                    sys: {
+                      id: 'example-entity-id',
+                      type: 'Link',
+                      linkType: 'Entry',
+                    },
+                  },
+                },
+              ),
+              block(BLOCKS.PARAGRAPH, {}, text('')), // TODO: ideally we wouldn't have this extra paragraph
+              block(BLOCKS.PARAGRAPH, {}, text('bar')),
+            )
+          );
+        });
+      });
+    }
+  });
+
+  describe('Embedded Asset Blocks', () => {
+    const methods: [string, () => void][] = [
+      [
+        'using the toolbar button',
+        () => {
+          cy.findByTestId('toolbar-entity-dropdown-toggle').click();
+          cy.findByTestId('toolbar-toggle-embedded-asset-block').click();
+          cy.wait(100);
+        },
+      ],
+
+      // TODO:
+      // This works in the browser, but not in Cypress. Maybe upgrading will help.
+      // For now, it's okay to ensure addition via the toolbar button works.
+      // [
+      //   'using the keyboard shortcut',
+      //   () => {
+      //     editor().type(`{${mod}}{shift}a`);
+      //     cy.wait(100);
+      //   }
+      // ]
+    ];
+
+    for (const [triggerMethod, triggerEmbeddedAsset] of methods) {
+      describe(triggerMethod, () => {
+        it('adds and removes embedded assets', () => {
+          editor().click();
+          triggerEmbeddedAsset();
+
+          cy.wait(500);
+
+          expectRichTextFieldValue(
+            doc(
+              block(
+                BLOCKS.EMBEDDED_ASSET,
+                {
+                  target: {
+                    sys: {
+                      id: 'example-entity-id',
+                      type: 'Link',
+                      linkType: 'Asset',
+                    },
+                  },
+                },
+              ),
+              block(BLOCKS.PARAGRAPH, {}, text('')),
+            )
+          );
+
+          cy.findByTestId('cf-ui-card-actions').findByTestId('cf-ui-icon-button').click();
+          cy.findByTestId('card-action-remove').click();
+
+          cy.wait(500);
+
+          expectRichTextFieldValue(void 0);
+        });
+
+        it('adds embedded assets between words', () => {
+          editor()
+            .click()
+            .typeInSlate('foobar')
+            .type('{leftArrow}')
+            .type('{leftArrow}')
+            .type('{leftArrow}')
+            .wait(100);
+
+          triggerEmbeddedAsset();
+
+          cy.wait(100);
+
+          expectRichTextFieldValue(
+            doc(
+              block(BLOCKS.PARAGRAPH, {}, text('foo')),
+              block(
+                BLOCKS.EMBEDDED_ASSET,
+                {
+                  target: {
+                    sys: {
+                      id: 'example-entity-id',
+                      type: 'Link',
+                      linkType: 'Asset',
+                    },
+                  },
+                },
+              ),
+              block(BLOCKS.PARAGRAPH, {}, text('')), // TODO: ideally we wouldn't have this extra paragraph
+              block(BLOCKS.PARAGRAPH, {}, text('bar')),
+            )
+          );
+        });
+      });
+    }
+  });
 });
