@@ -75,8 +75,8 @@ jobs:
       - run: git config --global user.name "contentful-ecosystem-bot"
       - yarn_install
       - run: yarn build
-      - run: yarn lerna version --no-private --conventional-commits --create-release github --yes
-      - run: yarn lerna publish from-git --yes
+      - run: yarn lerna version --no-private --conventional-commits --conventional-prerelease --create-release github --yes
+      - run: yarn lerna publish from-git --yes --dist-tag next
 
 workflows:
   version: 2
@@ -89,7 +89,9 @@ workflows:
       - release:
           filters:
             branches:
-              only: master
+              only:
+                - master
+                - next
           requires:
             - lint
             - unit-tests
