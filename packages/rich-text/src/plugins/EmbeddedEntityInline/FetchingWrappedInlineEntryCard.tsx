@@ -87,10 +87,16 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
       status={status}
       dropdownListElements={
         <DropdownList>
-          <DropdownListItem onClick={props.onEdit} isDisabled={props.isDisabled}>
+          <DropdownListItem
+            onClick={props.onEdit}
+            isDisabled={props.isDisabled}
+            testId="card-action-edit">
             Edit
           </DropdownListItem>
-          <DropdownListItem onClick={props.onRemove} isDisabled={props.isDisabled}>
+          <DropdownListItem
+            onClick={props.onRemove}
+            isDisabled={props.isDisabled}
+            testId="card-action-remove">
             Remove
           </DropdownListItem>
         </DropdownList>

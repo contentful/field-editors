@@ -83,6 +83,32 @@ interface ToolbarEmbeddedEntityInlineButtonProps {
   isButton?: boolean;
 }
 
+async function selectEntityAndInsert(editor, sdk: FieldExtensionSDK) {
+  const config = {
+    ...newEntitySelectorConfigFromRichTextField(sdk.field, INLINES.EMBEDDED_ENTRY),
+    withCreate: true,
+  };
+  const entry = await sdk.dialogs.selectSingleEntry<Entry>(config);
+  if (!entry) return;
+
+  const inlineEntryNode = {
+    type: INLINES.EMBEDDED_ENTRY,
+    children: [{ text: '' }],
+    data: {
+      target: {
+        sys: {
+          id: entry.sys.id,
+          type: 'Link',
+          linkType: 'Entry',
+        },
+      },
+    },
+  };
+
+  Transforms.insertNodes(editor, inlineEntryNode);
+
+}
+
 export function ToolbarEmbeddedEntityInlineButton(props: ToolbarEmbeddedEntityInlineButtonProps) {
   const editor = useStoreEditor();
   const sdk: FieldExtensionSDK = useSdkContext();
@@ -94,28 +120,7 @@ export function ToolbarEmbeddedEntityInlineButton(props: ToolbarEmbeddedEntityIn
 
     props.onClose();
 
-    const config = {
-      ...newEntitySelectorConfigFromRichTextField(sdk.field, INLINES.EMBEDDED_ENTRY),
-      withCreate: true,
-    };
-    const entry = await sdk.dialogs.selectSingleEntry<Entry>(config);
-    if (!entry) return;
-
-    const inlineEntryNode = {
-      type: INLINES.EMBEDDED_ENTRY,
-      children: [{ text: '' }],
-      data: {
-        target: {
-          sys: {
-            id: entry.sys.id,
-            type: 'Link',
-            linkType: 'Entry',
-          },
-        },
-      },
-    };
-
-    Transforms.insertNodes(editor, inlineEntryNode);
+    await selectEntityAndInsert(editor, sdk);
   }
 
   return props.isButton ? (
@@ -147,11 +152,12 @@ export function ToolbarEmbeddedEntityInlineButton(props: ToolbarEmbeddedEntityIn
   );
 }
 
-export function createEmbeddedEntityInlinePlugin(): SlatePlugin {
+export function createEmbeddedEntityInlinePlugin(sdk): SlatePlugin {
   return {
     renderElement: getRenderElement(INLINES.EMBEDDED_ENTRY),
     pluginKeys: INLINES.EMBEDDED_ENTRY,
     inlineTypes: getSlatePluginTypes(INLINES.EMBEDDED_ENTRY),
+    onKeyDown: getWithEmbeddedEntryInlineEvents(sdk),
   };
 }
 
@@ -161,3 +167,30 @@ export const withEmbeddedEntityInlineOptions: CustomSlatePluginOptions = {
     component: EmbeddedEntityInline,
   },
 };
+
+// TODO: DRY up types from embedded entry block and elsewhere
+type TWO = 50;
+type TwoEvent = KeyboardEvent & { keyCode: TWO };
+type ShiftEvent = KeyboardEvent & { shiftKey: true };
+type CtrlEvent = KeyboardEvent & { ctrlKey: true };
+type MetaEvent = KeyboardEvent & { metaKey: true };
+type ModEvent = CtrlEvent | MetaEvent;
+type EmbeddedEntryInlineEvent = ModEvent & ShiftEvent & TwoEvent;
+
+const isTwo = (event: KeyboardEvent): event is TwoEvent => event.keyCode === 50;
+const isMod = (event: KeyboardEvent): event is ModEvent => event.ctrlKey || event.metaKey;
+const isShift = (event: KeyboardEvent): event is ShiftEvent => event.shiftKey;
+const wasEmbeddedEntryInlineEventTriggered = (event: KeyboardEvent): event is EmbeddedEntryInlineEvent =>
+  isMod(event) && isShift(event) && isTwo(event);
+
+function getWithEmbeddedEntryInlineEvents(sdk) {
+  return function withEmbeddedEntryInlineEvents(editor) {
+    return function handleEvent(event) {
+      if (!editor) return;
+
+      if (wasEmbeddedEntryInlineEventTriggered(event)) {
+        selectEntityAndInsert(editor, sdk);
+      }
+    };
+  };
+}
