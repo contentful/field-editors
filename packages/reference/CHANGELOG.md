@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.20.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.20.0...@contentful/field-editor-reference@2.20.1) (2021-07-28)
+
+
+### Bug Fixes
+
+* render dropdown list or fragment ([#785](https://github.com/contentful/field-editors/issues/785)) ([bf951b2](https://github.com/contentful/field-editors/commit/bf951b2d15234c3698a535898e7a5c233765e856))
+
+
+
+
+
 # [2.20.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.19.0...@contentful/field-editor-reference@2.20.0) (2021-07-28)
 
 
