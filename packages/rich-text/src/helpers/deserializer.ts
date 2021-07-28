@@ -12,8 +12,9 @@ export function deserializeLeaf(type: string, rules: GetNodeDeserializerRule[]):
 
     return {
       leaf: getLeafDeserializer({
+        type,
         rules,
-        ...pluginOptions,
+        ...pluginOptions.deserialize,
       }),
     };
   };
@@ -25,8 +26,9 @@ export function deserializeElement(type: string, rules: GetNodeDeserializerRule[
 
     return {
       element: getElementDeserializer({
+        type,
         rules,
-        ...pluginOptions,
+        ...pluginOptions.deserialize,
       }),
     };
   };
