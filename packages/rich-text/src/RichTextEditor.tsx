@@ -30,9 +30,13 @@ import {
   withEmbeddedAssetBlockOptions,
   withEmbeddedEntryBlockOptions,
 } from './plugins/EmbeddedEntityBlock';
+import {
+  createEmbeddedEntityInlinePlugin,
+  withEmbeddedEntityInlineOptions,
+} from './plugins/EmbeddedEntityInline';
 import { SdkProvider } from './SdkProvider';
 import { sanitizeIncomingSlateDoc, sanitizeSlateDoc } from './helpers/sanitizeSlateDoc';
-import { TextOrCustomElement } from 'types';
+import { TextOrCustomElement } from './types';
 
 type ConnectedProps = {
   editorId?: string;
@@ -67,6 +71,7 @@ const getPlugins = (sdk: FieldExtensionSDK) => {
 
     // Inline elements
     createHyperlinkPlugin(sdk),
+    createEmbeddedEntityInlinePlugin(),
 
     // Marks
     createBoldPlugin(),
@@ -91,6 +96,7 @@ const options = {
 
   // Inline elements
   ...withHyperlinkOptions,
+  ...withEmbeddedEntityInlineOptions,
 
   // Marks
   ...withBoldOptions,

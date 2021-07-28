@@ -17,6 +17,7 @@ import { ToolbarIcon as EmbeddedEntityBlockToolbarIcon } from '../plugins/Embedd
 import { SPEditor, useStoreEditor } from '@udecode/slate-plugins-core';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { isNodeTypeSelected } from '../helpers/editor';
+import { ToolbarEmbeddedEntityInlineButton } from '../plugins/EmbeddedEntityInline';
 
 type ToolbarProps = {
   isDisabled?: boolean;
@@ -81,6 +82,10 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
           <EmbeddedEntityBlockToolbarIcon
             isDisabled={!!isDisabled}
             nodeType={BLOCKS.EMBEDDED_ENTRY}
+            onClose={onCloseEntityDropdown}
+          />
+          <ToolbarEmbeddedEntityInlineButton
+            isDisabled={!!isDisabled}
             onClose={onCloseEntityDropdown}
           />
           <EmbeddedEntityBlockToolbarIcon
