@@ -156,7 +156,7 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
                 </DropdownListItem>
               )}
             </DropdownList>
-            {props.hasMoveOptions && (
+            {props.hasMoveOptions ? (
               <DropdownList
                 border="top"
                 // @ts-expect-error
@@ -176,7 +176,7 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
                   Move to bottom
                 </DropdownListItem>
               </DropdownList>
-            )}
+            ) : <React.Fragment />}
           </React.Fragment>
         ) : undefined
       }
