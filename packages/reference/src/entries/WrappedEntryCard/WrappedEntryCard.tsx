@@ -39,11 +39,13 @@ export interface WrappedEntryCardProps {
   hasCardEditActions: boolean;
   onMoveTop?: () => void;
   onMoveBottom?: () => void;
+  hasMoveOptions?: boolean;
 }
 
 const defaultProps = {
   isClickable: true,
   hasCardEditActions: true,
+  hasMoveOptions: true,
 };
 
 export function WrappedEntryCard(props: WrappedEntryCardProps) {
@@ -69,7 +71,7 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
           setFile(null);
         });
     }
-  }, [props.entry, contentType, props.localeCode, props.defaultLocaleCode]);
+  }, [props.entry, props.getAsset, contentType, props.localeCode, props.defaultLocaleCode]);
 
   const status = getEntryStatus(props.entry?.sys);
 
@@ -154,31 +156,33 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
                 </DropdownListItem>
               )}
             </DropdownList>
-            <DropdownList
-              border="top"
-              // @ts-expect-error
-              onClick={(e) => {
-                e.stopPropagation();
-              }}>
-              <DropdownListItem
-                onClick={() => props.onMoveTop && props.onMoveTop()}
-                isDisabled={!props.onMoveTop}
-                testId="move-top">
-                Move to top
-              </DropdownListItem>
-              <DropdownListItem
-                onClick={() => props.onMoveBottom && props.onMoveBottom()}
-                isDisabled={!props.onMoveBottom}
-                testId="move-bottom">
-                Move to bottom
-              </DropdownListItem>
-            </DropdownList>
+            {props.hasMoveOptions && (
+              <DropdownList
+                border="top"
+                // @ts-expect-error
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}>
+                <DropdownListItem
+                  onClick={() => props.onMoveTop && props.onMoveTop()}
+                  isDisabled={!props.onMoveTop}
+                  testId="move-top">
+                  Move to top
+                </DropdownListItem>
+                <DropdownListItem
+                  onClick={() => props.onMoveBottom && props.onMoveBottom()}
+                  isDisabled={!props.onMoveBottom}
+                  testId="move-bottom">
+                  Move to bottom
+                </DropdownListItem>
+              </DropdownList>
+            )}
           </React.Fragment>
         ) : undefined
       }
       onClick={(e) => {
-        e.preventDefault();
         if (!props.isClickable) return;
+        e.preventDefault();
         props.onEdit && props.onEdit();
       }}
     />
