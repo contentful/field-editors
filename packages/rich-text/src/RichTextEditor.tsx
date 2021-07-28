@@ -126,6 +126,7 @@ const ConnectedRichTextEditor = (props: ConnectedProps) => {
         plugins={plugins}
         editableProps={{
           className: classNames,
+          readOnly: props.isDisabled,
         }}
         onChange={(newValue) => {
           const slateDoc = sanitizeSlateDoc(newValue as TextOrCustomElement[]);
