@@ -35,7 +35,7 @@ export const withEmbeddedAssetBlockOptions: CustomSlatePluginOptions = {
   },
 };
 
-type A = 64;
+type A = 65;
 type E = 69;
 type AEvent = KeyboardEvent & { keyCode: A };
 type EEvent = KeyboardEvent & { keyCode: E };
@@ -46,7 +46,7 @@ type ModEvent = CtrlEvent | MetaEvent;
 type EmbeddedAssetEvent = ModEvent & ShiftEvent & AEvent;
 type EmbeddedEntryEvent = ModEvent & ShiftEvent & EEvent;
 
-const isA = (event: KeyboardEvent): event is AEvent => event.keyCode === 64;
+const isA = (event: KeyboardEvent): event is AEvent => event.keyCode === 65;
 const isE = (event: KeyboardEvent): event is EEvent => event.keyCode === 69;
 const isMod = (event: KeyboardEvent): event is ModEvent => event.ctrlKey || event.metaKey;
 const isShift = (event: KeyboardEvent): event is ShiftEvent => event.shiftKey;
