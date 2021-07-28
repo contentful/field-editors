@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.20.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.19.0...@contentful/field-editor-reference@2.20.0) (2021-07-28)
+
+
+### Features
+
+* add hasMoveOptions property ([#784](https://github.com/contentful/field-editors/issues/784)) ([8a522f0](https://github.com/contentful/field-editors/commit/8a522f0e1e0c21d9eb6642bde4f509760448dc37))
+
+
+
+
+
 # [2.19.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.18.0...@contentful/field-editor-reference@2.19.0) (2021-07-23)
 
 
