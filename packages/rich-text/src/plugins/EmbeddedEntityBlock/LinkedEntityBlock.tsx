@@ -5,7 +5,7 @@ import { FetchingWrappedAssetCard } from '../shared/FetchingWrappedAssetCard';
 import { useSdkContext } from '../../SdkProvider';
 import { useStoreEditor } from '@udecode/slate-plugins-core';
 import { CustomElement } from 'types';
-import { ReactEditor, useSelected } from 'slate-react';
+import { ReactEditor, useSelected, useReadOnly } from 'slate-react';
 import { Transforms } from 'slate';
 
 const styles = {
@@ -38,6 +38,7 @@ export function LinkedEntityBlock(props: LinkedEntityBlockProps) {
   const isSelected = useSelected();
   const editor = useStoreEditor();
   const sdk = useSdkContext();
+  const isDisabled = useReadOnly();
   const { id: entityId, linkType: entityType } = element.data.target.sys;
 
   const handleEditClick = () => {
@@ -51,8 +52,6 @@ export function LinkedEntityBlock(props: LinkedEntityBlockProps) {
     Transforms.removeNodes(editor, { at: pathToElement });
   };
 
-  // TODO: fixme -- props not available on new editor
-  const isDisabled = false; // editor.props.readOnly || editor.props.actionsDisabled;
   return (
     <div {...attributes} className={styles.root}>
       <div contentEditable={false}>

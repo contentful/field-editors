@@ -1676,6 +1676,25 @@
     read-pkg-up "^7.0.1"
     semver "^7.3.2"
 
+"@contentful/field-editor-reference@^2.20.1":
+  version "2.20.1"
+  resolved "https://registry.yarnpkg.com/@contentful/field-editor-reference/-/field-editor-reference-2.20.1.tgz#984fa0c0009352bc092f1f417006046281a26413"
+  integrity sha512-EpgT0TnWU2UcI4VDFMZ4ZqXtH3kLbm2kQuH4mzX5rdHiCIsxo3bCjx3gi3NEDXMerXQYZts7jHRzVvKJuR4xdw==
+  dependencies:
+    "@contentful/field-editor-shared" "^0.22.0"
+    "@contentful/forma-36-react-components" "^3.93.1"
+    "@contentful/forma-36-tokens" "^0.11.0"
+    "@contentful/mimetype" "^1.4.0"
+    "@types/deep-equal" "^1.0.1"
+    array-move "^3.0.0"
+    constate "3.2.0"
+    deep-equal "2.0.5"
+    emotion "^10.0.17"
+    lodash "^4.17.15"
+    lodash-es "^4.17.15"
+    moment "^2.20.0"
+    react-sortable-hoc "^2.0.0"
+
 "@contentful/field-editor-shared@^0.14.0":
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/@contentful/field-editor-shared/-/field-editor-shared-0.14.0.tgz#13e942e36ee5350c27978ce625ac74152495c270"
@@ -1683,6 +1702,16 @@
   dependencies:
     "@contentful/forma-36-tokens" "^0.10.0"
     contentful-ui-extensions-sdk "^3.29.2"
+    emotion "^10.0.17"
+    lodash "^4.17.15"
+    lodash-es "^4.17.15"
+
+"@contentful/field-editor-shared@^0.22.0":
+  version "0.22.0"
+  resolved "https://registry.yarnpkg.com/@contentful/field-editor-shared/-/field-editor-shared-0.22.0.tgz#7c675c73bb3f4977fb3064eaef4af45ef675efa4"
+  integrity sha512-PJLcisKSDkN/1BqfuAhUoPkf3ncFtiU+pkL0O+QnlqojG1QlKg8hMua0AfLCCPaP2OLzJfHzioCN6QkPNqUvQQ==
+  dependencies:
+    "@contentful/forma-36-tokens" "^0.11.0"
     emotion "^10.0.17"
     lodash "^4.17.15"
     lodash-es "^4.17.15"
@@ -1700,6 +1729,13 @@
   integrity sha512-QTN/vmEV2SEDVmyk8FRDmi4DarykWATIBfZwR0ZQTkWxI3mBMULPias1mQlSBnqdgQ2wVU3StKs6QXfQE7Z+nw==
   dependencies:
     "@contentful/forma-36-tokens" "^0.10.2"
+
+"@contentful/forma-36-fcss@^0.3.3":
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-fcss/-/forma-36-fcss-0.3.3.tgz#ea0a11a5c3fea05f99d93113cda27b9e279828f2"
+  integrity sha512-QvXbGLAWPiohMQNzcUB1sMGbc02G0v+tod/iMgiQQQnTQh9ovlgmkENG9XFY2aOhLJGIeS1GDRN1/sU8XwyBfg==
+  dependencies:
+    "@contentful/forma-36-tokens" "^0.11.0"
 
 "@contentful/forma-36-react-components@^3.79.5":
   version "3.79.5"
@@ -1739,6 +1775,25 @@
     react-transition-group "^4.4.2"
     truncate "^2.0.1"
 
+"@contentful/forma-36-react-components@^3.93.1":
+  version "3.93.2"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.93.2.tgz#c054076b5adff2df261155c3b945a8a9c8778158"
+  integrity sha512-knMdxRPZFodyvTuNvrymmQLah6xe6dkmEaKgiauii99t9Qo4y5fOwiFceKXD5P5RHc6O8Xbb9KeOheRrV4E16Q==
+  dependencies:
+    "@babel/runtime" "^7.3.4"
+    "@contentful/forma-36-fcss" "^0.3.3"
+    "@contentful/forma-36-tokens" "^0.11.0"
+    "@popperjs/core" "^2.4.4"
+    classnames "^2.2.6"
+    csstype "^3.0.5"
+    dayjs "^1.9.1"
+    react-animate-height "^2.0.7"
+    react-copy-to-clipboard "^5.0.1"
+    react-modal "^3.11.2"
+    react-popper "^2.2.3"
+    react-transition-group "^4.4.2"
+    truncate "^2.0.1"
+
 "@contentful/forma-36-tokens@^0.10.0", "@contentful/forma-36-tokens@^0.10.1":
   version "0.10.1"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.10.1.tgz#e98f4cabc8381927317c7507279fcd6721c46735"
@@ -1748,6 +1803,11 @@
   version "0.10.2"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.10.2.tgz#a6f806e6e21f50dc38ff577762a4fb3f29352d67"
   integrity sha512-HHLwIN8mQv41GYxcTBYJjiDwpmmWwbcIRV09ciSDxhciYJ+wQkIurQ2lmnKHebPwv35X6fHXB4OdSTK1d9mUug==
+
+"@contentful/forma-36-tokens@^0.11.0":
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.11.0.tgz#c28a9b30ecab33eaae4c4544eaacfbbdaa6a9bc5"
+  integrity sha512-PP+gia5E0u7H2TyfB31YHGeE2OOZtuIe9aKayH6fIwONO3XHTNN5mElnD5uVcockVQ36laAU2Iif8eVe3Zpvnw==
 
 "@contentful/mimetype@^1.4.0":
   version "1.4.38"
