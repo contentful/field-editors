@@ -51,13 +51,16 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
         defaultLocaleCode: props.sdk.locales.default,
         defaultTitle: 'Untitled',
       }),
-    [entry, contentType, props.sdk]
+    [entry, contentType, props.sdk.field.locale, props.sdk.locales.default]
   );
 
   React.useEffect(() => {
     if (!props.entryId) return;
     getOrLoadEntry(props.entryId);
-  }, [props.entryId]); // eslint-disable-line
+  // We don't include getOrLoadEntry below because it's part of the constate-derived
+  // useEntities(), not props.
+  // eslint-disable-next-line
+  }, [props.entryId]);
 
   if (entry === 'failed') {
     return (
