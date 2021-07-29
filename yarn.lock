@@ -1384,7 +1384,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.10.2", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.2.0", "@babel/runtime@^7.3.4", "@babel/runtime@^7.4.4", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.3", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.7", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7", "@babel/runtime@^7.9.2":
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.10.2", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.2.0", "@babel/runtime@^7.3.4", "@babel/runtime@^7.4.4", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.3", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.7", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7", "@babel/runtime@^7.9.2":
   version "7.14.8"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.14.8.tgz#7119a56f421018852694290b9f9148097391b446"
   integrity sha512-twj3L8Og5SaCRCErB4x4ajbvBIVV77CGeFglHpeg5WC5FF8TZzBWXtTJ4MqaD9QszLYTtr+IsaAL2rEUevb+eg==
@@ -1989,17 +1989,36 @@
     "@contentful/forma-36-tokens" "^0.10.1"
     emotion "^10.0.17"
 
-"@contentful/forma-36-fcss@^0.3.2", "@contentful/forma-36-fcss@^0.3.3":
+"@contentful/forma-36-fcss@^0.3.3":
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-fcss/-/forma-36-fcss-0.3.3.tgz#ea0a11a5c3fea05f99d93113cda27b9e279828f2"
   integrity sha512-QvXbGLAWPiohMQNzcUB1sMGbc02G0v+tod/iMgiQQQnTQh9ovlgmkENG9XFY2aOhLJGIeS1GDRN1/sU8XwyBfg==
   dependencies:
     "@contentful/forma-36-tokens" "^0.11.0"
 
-"@contentful/forma-36-react-components@^3.79.5", "@contentful/forma-36-react-components@^3.93.1":
+"@contentful/forma-36-react-components@^3.79.5":
   version "3.93.2"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.93.2.tgz#c054076b5adff2df261155c3b945a8a9c8778158"
   integrity sha512-knMdxRPZFodyvTuNvrymmQLah6xe6dkmEaKgiauii99t9Qo4y5fOwiFceKXD5P5RHc6O8Xbb9KeOheRrV4E16Q==
+  dependencies:
+    "@babel/runtime" "^7.3.4"
+    "@contentful/forma-36-fcss" "^0.3.3"
+    "@contentful/forma-36-tokens" "^0.11.0"
+    "@popperjs/core" "^2.4.4"
+    classnames "^2.2.6"
+    csstype "^3.0.5"
+    dayjs "^1.9.1"
+    react-animate-height "^2.0.7"
+    react-copy-to-clipboard "^5.0.1"
+    react-modal "^3.11.2"
+    react-popper "^2.2.3"
+    react-transition-group "^4.4.2"
+    truncate "^2.0.1"
+
+"@contentful/forma-36-react-components@^3.93.4":
+  version "3.93.5"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.93.5.tgz#2443b02fd52dd7578c0fcac764235cf4a8cd5d54"
+  integrity sha512-Oi3JetsK+utH9WBBstJz2FQoYLPYE6ziRSp+LAroDh2kFyikihwVj1WE66jUMWS3sifU0TxrcQ97mPJBYGS71w==
   dependencies:
     "@babel/runtime" "^7.3.4"
     "@contentful/forma-36-fcss" "^0.3.3"
@@ -8837,13 +8856,6 @@ dom-converter@^0.2.0:
   integrity sha512-gd3ypIPfOMr9h5jIKq8E3sHOTCjeirnl0WK5ZdS1AW0Odt0b1PaWaHdJ4Qk4klv+YB9aJBS7mESXjFoDQPu6DA==
   dependencies:
     utila "~0.4"
-
-dom-helpers@^3.4.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/dom-helpers/-/dom-helpers-3.4.0.tgz#e9b369700f959f62ecde5a6babde4bccd9169af8"
-  integrity sha512-LnuPJ+dwqKDIyotW1VzmOZ5TONUN7CwkCR5hrgawTUbkBGYdeoNLZo6nNfGkCrjtE1nXXaj7iMMpDa8/d9WoIA==
-  dependencies:
-    "@babel/runtime" "^7.1.2"
 
 dom-helpers@^5.0.1:
   version "5.2.1"
@@ -18325,16 +18337,6 @@ react-test-renderer@^16.0.0-0:
     prop-types "^15.6.2"
     react-is "^16.8.6"
     scheduler "^0.18.0"
-
-react-transition-group@^2.4.0:
-  version "2.9.0"
-  resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-2.9.0.tgz#df9cdb025796211151a436c69a8f3b97b5b07c8d"
-  integrity sha512-+HzNTCHpeQyl4MJ/bdE0u6XRMe9+XG/+aL4mCxVN4DnPBQ0/5bfHWPDuOZUzYdMj94daZaZdCCc1Dzt9R/xSSg==
-  dependencies:
-    dom-helpers "^3.4.0"
-    loose-envify "^1.4.0"
-    prop-types "^15.6.2"
-    react-lifecycles-compat "^3.0.4"
 
 react-transition-group@^4.4.2:
   version "4.4.2"
