@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-radio",
-  "version": "0.13.0",
+  "version": "0.13.1",
   "main": "dist/index.js",
   "module": "dist/field-editor-radio.esm.js",
   "typings": "dist/index.d.ts",
@@ -21,7 +21,7 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
-    "@contentful/field-editor-dropdown": "^0.14.0",
+    "@contentful/field-editor-dropdown": "^0.14.1",
     "@contentful/field-editor-shared": "^0.22.0",
     "@contentful/forma-36-react-components": "^3.93.4",
     "@contentful/forma-36-tokens": "^0.11.0",
