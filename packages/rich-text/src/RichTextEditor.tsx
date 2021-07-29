@@ -10,7 +10,13 @@ import deepEquals from 'fast-deep-equal';
 import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/StickyToolbarWrapper';
 import { withListOptions } from './plugins/List';
-import { SlatePlugins, createHistoryPlugin, createReactPlugin, SlatePlugin, SPEditor } from '@udecode/slate-plugins-core';
+import {
+  SlatePlugins,
+  createHistoryPlugin,
+  createReactPlugin,
+  SlatePlugin,
+  SPEditor,
+} from '@udecode/slate-plugins-core';
 import { createListPlugin } from '@udecode/slate-plugins-list';
 import { createDeserializeHTMLPlugin } from '@udecode/slate-plugins-html-serializer';
 import { createHrPlugin, withHrOptions } from './plugins/Hr';
@@ -80,9 +86,7 @@ const getPlugins = (sdk: FieldExtensionSDK) => {
     createUnderlinePlugin(),
   ];
 
-  return plugins.concat([
-    createDeserializeHTMLPlugin({ plugins })
-  ] as SlatePlugin<SPEditor>[]);
+  return plugins.concat([createDeserializeHTMLPlugin({ plugins })] as SlatePlugin<SPEditor>[]);
 };
 
 const options = {

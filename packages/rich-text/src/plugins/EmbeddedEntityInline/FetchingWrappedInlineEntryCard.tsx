@@ -57,9 +57,9 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
   React.useEffect(() => {
     if (!props.entryId) return;
     getOrLoadEntry(props.entryId);
-  // We don't include getOrLoadEntry below because it's part of the constate-derived
-  // useEntities(), not props.
-  // eslint-disable-next-line
+    // We don't include getOrLoadEntry below because it's part of the constate-derived
+    // useEntities(), not props.
+    // eslint-disable-next-line
   }, [props.entryId]);
 
   if (entry === 'failed') {

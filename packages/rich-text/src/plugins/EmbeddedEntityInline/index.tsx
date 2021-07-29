@@ -106,7 +106,6 @@ async function selectEntityAndInsert(editor, sdk: FieldExtensionSDK) {
   };
 
   Transforms.insertNodes(editor, inlineEntryNode);
-
 }
 
 export function ToolbarEmbeddedEntityInlineButton(props: ToolbarEmbeddedEntityInlineButtonProps) {
@@ -180,8 +179,9 @@ type EmbeddedEntryInlineEvent = ModEvent & ShiftEvent & TwoEvent;
 const isTwo = (event: KeyboardEvent): event is TwoEvent => event.keyCode === 50;
 const isMod = (event: KeyboardEvent): event is ModEvent => event.ctrlKey || event.metaKey;
 const isShift = (event: KeyboardEvent): event is ShiftEvent => event.shiftKey;
-const wasEmbeddedEntryInlineEventTriggered = (event: KeyboardEvent): event is EmbeddedEntryInlineEvent =>
-  isMod(event) && isShift(event) && isTwo(event);
+const wasEmbeddedEntryInlineEventTriggered = (
+  event: KeyboardEvent
+): event is EmbeddedEntryInlineEvent => isMod(event) && isShift(event) && isTwo(event);
 
 function getWithEmbeddedEntryInlineEvents(sdk) {
   return function withEmbeddedEntryInlineEvents(editor) {
