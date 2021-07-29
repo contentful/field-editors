@@ -67,6 +67,7 @@ export function FetchingWrappedEntryCard(props: FetchingWrappedEntryCardProps) {
       onEdit={props.onEdit}
       onRemove={props.onRemove}
       size="default"
+      hasMoveOptions={false}
     />
   );
 }

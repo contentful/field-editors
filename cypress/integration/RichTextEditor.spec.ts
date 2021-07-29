@@ -1148,17 +1148,13 @@ describe('Rich Text Editor', () => {
           cy.wait(100);
         },
       ],
-
-      // TODO:
-      // This works in the browser, but not in Cypress. Maybe upgrading will help.
-      // For now, it's okay to ensure addition via the toolbar button works.
-      // [
-      //   'using the keyboard shortcut',
-      //   () => {
-      //     editor().type(`{${mod}}{shift}a`);
-      //     cy.wait(100);
-      //   }
-      // ]
+      [
+        'using the keyboard shortcut',
+        () => {
+          editor().type(`{${mod}}{shift}a`);
+          cy.wait(100);
+        }
+      ]
     ];
 
     for (const [triggerMethod, triggerEmbeddedAsset] of methods) {
@@ -1227,6 +1223,79 @@ describe('Rich Text Editor', () => {
               block(BLOCKS.PARAGRAPH, {}, text('bar')),
             )
           );
+        });
+      });
+    }
+  });
+
+  describe('Embedded Entry Inlines', () => {
+    const methods: [string, () => void][] = [
+      [
+        'using the toolbar button',
+        () => {
+          cy.findByTestId('toolbar-entity-dropdown-toggle').click();
+          cy.findByTestId('toolbar-toggle-embedded-entry-inline').click();
+          cy.wait(100);
+        },
+      ],
+      [
+        'using the keyboard shortcut',
+        () => {
+          editor().type(`{${mod}}{shift}2`);
+          cy.wait(100);
+        }
+      ]
+    ];
+
+    for (const [triggerMethod, triggerEmbeddedAsset] of methods) {
+      describe(triggerMethod, () => {
+        it('adds and removes embedded entries', () => {
+          editor().click().typeInSlate('hello')
+          triggerEmbeddedAsset();
+          editor().click().typeInSlate('world')
+
+          cy.wait(500);
+
+          expectRichTextFieldValue(
+            doc(
+              block(
+                BLOCKS.PARAGRAPH,
+                {},
+                text('hello'),
+                inline(
+                  INLINES.EMBEDDED_ENTRY,
+                  {
+                    target: {
+                      sys: {
+                        id: 'example-entity-id',
+                        type: 'Link',
+                        linkType: 'Entry',
+                      },
+                    },
+                  },
+                ),
+                text('world')),
+            )
+          );
+
+          cy.findByTestId('cf-ui-card-actions').findByTestId('cf-ui-icon-button').click();
+          cy.findByTestId('card-action-remove').click();
+
+          cy.wait(500);
+
+          expectRichTextFieldValue(
+            doc(
+              block(
+                BLOCKS.PARAGRAPH,
+                {},
+                text('hello'),
+                text('world')
+              ),
+            )
+          );
+
+          // TODO: we should also test deletion via {backspace},
+          // but this breaks in cypress even though it works in the editor
         });
       });
     }
