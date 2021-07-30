@@ -104,7 +104,7 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
     // TODO: There should be dedicated components for each `size` with a different
     //  set of params (e.g. `file` should only be relevant for the "small" size card.
     <EntryCard
-      href={props.entryUrl}
+      href={props.isClickable ? props.entryUrl : undefined}
       title={title}
       description={description}
       contentType={contentType?.name}
