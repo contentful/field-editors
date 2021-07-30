@@ -152,6 +152,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
         getEntityScheduledActions: loadEntityScheduledActions,
         entry: props?.entity || sharedCardProps.entity,
         entryUrl: props?.entityUrl || sharedCardProps.entityUrl,
+        isClickable: true,
       };
 
       return <WrappedEntryCard {...builtinCardProps} />;

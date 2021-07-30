@@ -118,12 +118,13 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
 
     function renderDefaultCard(props?: CustomEntityCardProps) {
       // isClickable has a default value, so omit it from the props
-      const builtinCardProps: Omit<WrappedAssetCardProps, 'isClickable'> = {
+      const builtinCardProps: WrappedAssetCardProps = {
         ...commonProps,
         ...props,
         getEntityScheduledActions: loadEntityScheduledActions,
         asset: (props?.entity as Asset) || commonProps.asset,
         getAssetUrl: getEntityUrl,
+        isClickable: true,
       };
 
       return <WrappedAssetCard {...builtinCardProps} />;

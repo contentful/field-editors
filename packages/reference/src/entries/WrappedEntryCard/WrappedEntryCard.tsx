@@ -104,8 +104,8 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
     // TODO: There should be dedicated components for each `size` with a different
     //  set of params (e.g. `file` should only be relevant for the "small" size card.
     <EntryCard
-      href={props.isClickable ? props.entryUrl : undefined}
       title={title}
+      href={props.isClickable ? props.entryUrl : undefined}
       description={description}
       contentType={contentType?.name}
       size={props.size}
@@ -176,7 +176,9 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
                   Move to bottom
                 </DropdownListItem>
               </DropdownList>
-            ) : <React.Fragment />}
+            ) : (
+              <React.Fragment />
+            )}
           </React.Fragment>
         ) : undefined
       }
