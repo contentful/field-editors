@@ -176,13 +176,15 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
                   Move to bottom
                 </DropdownListItem>
               </DropdownList>
-            ) : <React.Fragment />}
+            ) : (
+              <React.Fragment />
+            )}
           </React.Fragment>
         ) : undefined
       }
       onClick={(e) => {
-        if (!props.isClickable) return;
         e.preventDefault();
+        if (!props.isClickable) return;
         props.onEdit && props.onEdit();
       }}
     />
