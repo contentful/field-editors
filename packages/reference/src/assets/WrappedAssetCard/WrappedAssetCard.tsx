@@ -107,7 +107,7 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
       title={entityTitle}
       className={className}
       selected={isSelected}
-      href={getAssetUrl ? getAssetUrl(props.asset.sys.id) : undefined}
+      href={getAssetUrl && isClickable ? getAssetUrl(props.asset.sys.id) : undefined}
       status={status}
       statusIcon={
         <ScheduledIconWithTooltip
@@ -132,8 +132,8 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
       }
       // @ts-expect-error
       onClick={(e: React.MouseEvent<HTMLElement>) => {
-        e.preventDefault();
         if (!isClickable) return;
+        e.preventDefault();
         onEdit && onEdit();
       }}
       cardDragHandleComponent={props.cardDragHandle}
