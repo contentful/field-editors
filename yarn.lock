@@ -1676,13 +1676,13 @@
     read-pkg-up "^7.0.1"
     semver "^7.3.2"
 
-"@contentful/field-editor-reference@^2.20.1":
-  version "2.20.1"
-  resolved "https://registry.yarnpkg.com/@contentful/field-editor-reference/-/field-editor-reference-2.20.1.tgz#984fa0c0009352bc092f1f417006046281a26413"
-  integrity sha512-EpgT0TnWU2UcI4VDFMZ4ZqXtH3kLbm2kQuH4mzX5rdHiCIsxo3bCjx3gi3NEDXMerXQYZts7jHRzVvKJuR4xdw==
+"@contentful/field-editor-reference@^2.20.3":
+  version "2.20.3"
+  resolved "https://registry.yarnpkg.com/@contentful/field-editor-reference/-/field-editor-reference-2.20.3.tgz#0b0fef6ac69cf50b1aff66c0e71775dd15156433"
+  integrity sha512-7Sk2x/YlYcc3Ri3Xtwy7dloSXxZd4BsJBnMO8AvLWTqZxkzVFZi/md0paUxfT4i29qgG0kt6qy85SZxUCgzTUQ==
   dependencies:
     "@contentful/field-editor-shared" "^0.22.0"
-    "@contentful/forma-36-react-components" "^3.93.1"
+    "@contentful/forma-36-react-components" "^3.93.4"
     "@contentful/forma-36-tokens" "^0.11.0"
     "@contentful/mimetype" "^1.4.0"
     "@types/deep-equal" "^1.0.1"
@@ -1775,10 +1775,10 @@
     react-transition-group "^4.4.2"
     truncate "^2.0.1"
 
-"@contentful/forma-36-react-components@^3.93.1":
-  version "3.93.2"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.93.2.tgz#c054076b5adff2df261155c3b945a8a9c8778158"
-  integrity sha512-knMdxRPZFodyvTuNvrymmQLah6xe6dkmEaKgiauii99t9Qo4y5fOwiFceKXD5P5RHc6O8Xbb9KeOheRrV4E16Q==
+"@contentful/forma-36-react-components@^3.93.4":
+  version "3.93.5"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.93.5.tgz#2443b02fd52dd7578c0fcac764235cf4a8cd5d54"
+  integrity sha512-Oi3JetsK+utH9WBBstJz2FQoYLPYE6ziRSp+LAroDh2kFyikihwVj1WE66jUMWS3sifU0TxrcQ97mPJBYGS71w==
   dependencies:
     "@babel/runtime" "^7.3.4"
     "@contentful/forma-36-fcss" "^0.3.3"
