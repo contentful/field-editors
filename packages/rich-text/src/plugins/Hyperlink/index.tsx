@@ -4,6 +4,7 @@ import {
   getRenderElement,
   getSlatePluginTypes,
   useStoreEditor,
+  getSlatePluginOptions,
 } from '@udecode/slate-plugins-core';
 import { INLINES } from '@contentful/rich-text-types';
 import { RenderElementProps } from 'slate-react';
@@ -63,6 +64,28 @@ export function createHyperlinkPlugin(sdk: FieldExtensionSDK): SlatePlugin {
     pluginKeys: LINK_TYPES,
     inlineTypes: getSlatePluginTypes(LINK_TYPES),
     onKeyDown: buildHyperlinkEventHandler(sdk),
+    deserialize: (editor) => {
+      const hyperlinkOptions = getSlatePluginOptions(editor, INLINES.HYPERLINK);
+
+      return {
+        element: [
+          {
+            type: INLINES.HYPERLINK,
+            deserialize: (element) => {
+              if (element.tagName !== 'A' && !element.getAttribute('href')) return undefined;
+
+              return {
+                type: INLINES.HYPERLINK,
+                data: {
+                  uri: element.getAttribute('href'),
+                },
+              };
+            },
+            ...hyperlinkOptions.deserialize,
+          },
+        ],
+      };
+    },
   };
 }
 
