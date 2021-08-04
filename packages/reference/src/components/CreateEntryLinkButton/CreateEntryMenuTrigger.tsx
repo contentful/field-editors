@@ -93,6 +93,7 @@ export const CreateEntryMenuTrigger = ({
   const [isSelecting, setSelecting] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const wrapper = useRef<any | null>(null);
+  const textField = useRef<any | null>(null);
   const dropdownRef = useRef<any | null>(null);
   /*
     By default, dropdown wraps it's content, so it's width = the width of the widest item
@@ -107,6 +108,15 @@ export const CreateEntryMenuTrigger = ({
   const hasDropdown = contentTypes.length > 1 || !!renderCustomDropdownItems;
 
   const closeMenu = () => setOpen(false);
+
+  useEffect(() => {
+    /*
+      This is a temporary workaround to keep the search input focused after the value is changed.
+      When the TextInput component is updated to use forwardRef we should update to pass the ref directly to it.
+      Since the input was being rerendered rather than updated when the value changed, this ref makes sure that the search field will keep the focus.
+    */
+    textField?.current?.querySelector('input')?.focus()
+  }, [searchInput])
 
   const handleSelect = (item: ContentType) => {
     closeMenu();
@@ -189,7 +199,7 @@ export const CreateEntryMenuTrigger = ({
           </DropdownList>
         )}
         {isSearchable && (
-          <div className={styles.wrapper}>
+          <div ref={textField} className={styles.wrapper}>
             <TextInput
               className={styles.searchInput(hasDropdown)}
               placeholder="Search all content types"
