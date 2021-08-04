@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.20.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.20.3...@contentful/field-editor-reference@2.20.4) (2021-08-04)
+
+
+### Bug Fixes
+
+* 🐛 search on dropdown losing focus after onchange ([#792](https://github.com/contentful/field-editors/issues/792)) ([972a2ea](https://github.com/contentful/field-editors/commit/972a2eac55f96cb3c50708cbb9177d532451caea))
+
+
+
+
+
 ## [2.20.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.20.2...@contentful/field-editor-reference@2.20.3) (2021-07-30)
 
 
