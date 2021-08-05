@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-multiple-line",
-  "version": "0.13.1",
+  "version": "0.14.0",
   "main": "dist/index.js",
   "module": "dist/field-editor-multiple-line.esm.js",
   "typings": "dist/index.d.ts",

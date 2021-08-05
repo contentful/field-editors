@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.14.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-multiple-line@0.13.1...@contentful/field-editor-multiple-line@0.14.0) (2021-08-05)
+
+
+### Features
+
+* 🎸 add char counter ([#795](https://github.com/contentful/field-editors/issues/795)) ([3237f6c](https://github.com/contentful/field-editors/commit/3237f6ce51cf5d29880e641858a61ffcd9c61fa4)), closes [#491](https://github.com/contentful/field-editors/issues/491)
+
+
+
+
+
 ## [0.13.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-multiple-line@0.13.0...@contentful/field-editor-multiple-line@0.13.1) (2021-07-29)
 
 **Note:** Version bump only for package @contentful/field-editor-multiple-line
