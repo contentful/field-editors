@@ -66,13 +66,24 @@ export function createHyperlinkPlugin(sdk: FieldExtensionSDK): SlatePlugin {
     onKeyDown: buildHyperlinkEventHandler(sdk),
     deserialize: (editor) => {
       const hyperlinkOptions = getSlatePluginOptions(editor, INLINES.HYPERLINK);
+      const entryHyperlinkOptions = getSlatePluginOptions(editor, INLINES.ENTRY_HYPERLINK);
+      const assetHyperlinkOptions = getSlatePluginOptions(editor, INLINES.ASSET_HYPERLINK);
+
+      const isAnchor = (element) =>
+        element.nodeName === 'A' &&
+        !!element.getAttribute('href') &&
+        element.getAttribute('href') !== '#';
+      const isEntryAnchor = (element) =>
+        isAnchor(element) && element.getAttribute('data-link-type') === 'Entry';
+      const isAssetAnchor = (element) =>
+        isAnchor(element) && element.getAttribute('data-link-type') === 'Asset';
 
       return {
         element: [
           {
             type: INLINES.HYPERLINK,
             deserialize: (element) => {
-              if (element.tagName !== 'A' && !element.getAttribute('href')) return undefined;
+              if (!isAnchor(element) || isEntryAnchor(element) || isAssetAnchor(element)) return;
 
               return {
                 type: INLINES.HYPERLINK,
@@ -82,6 +93,46 @@ export function createHyperlinkPlugin(sdk: FieldExtensionSDK): SlatePlugin {
               };
             },
             ...hyperlinkOptions.deserialize,
+          },
+          {
+            type: INLINES.ENTRY_HYPERLINK,
+            deserialize: (element) => {
+              if (!isEntryAnchor(element)) return;
+
+              return {
+                type: INLINES.ENTRY_HYPERLINK,
+                data: {
+                  target: {
+                    sys: {
+                      id: element.getAttribute('data-link-id'),
+                      linkType: element.getAttribute('data-link-type'),
+                      link: 'Link',
+                    },
+                  },
+                },
+              };
+            },
+            ...entryHyperlinkOptions.deserialize,
+          },
+          {
+            type: INLINES.ASSET_HYPERLINK,
+            deserialize: (element) => {
+              if (!isAssetAnchor(element)) return;
+
+              return {
+                type: INLINES.ASSET_HYPERLINK,
+                data: {
+                  target: {
+                    sys: {
+                      id: element.getAttribute('data-link-id'),
+                      linkType: element.getAttribute('data-link-type'),
+                      link: 'Link',
+                    },
+                  },
+                },
+              };
+            },
+            ...assetHyperlinkOptions.deserialize,
           },
         ],
       };
@@ -180,7 +231,9 @@ function EntityHyperlink(props: HyperlinkElementProps) {
         href="javascript:void(0)"
         rel="noopener noreferrer"
         onClick={handleClick}
-        className={styles.hyperlink}>
+        className={styles.hyperlink}
+        data-link-type={target.sys.linkType}
+        data-link-id={target.sys.id}>
         {props.children}
       </TextLink>
     </Tooltip>
