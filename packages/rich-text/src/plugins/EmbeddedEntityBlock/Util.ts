@@ -13,10 +13,12 @@ export async function selectEntityAndInsert(nodeType, sdk, editor, logAction) {
     baseConfig.entityType === 'Asset' ? dialogs.selectSingleAsset : dialogs.selectSingleEntry;
   const config = { ...baseConfig, withCreate: true };
   try {
+    const { selection } = editor;
     const entity = await selectEntity(config);
     if (!entity) {
       return;
     }
+    Transforms.select(editor, selection);
     insertBlock(editor, nodeType, entity);
     logAction('insert', { nodeType });
   } catch (error) {
