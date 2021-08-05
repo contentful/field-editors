@@ -4,6 +4,7 @@ import {
   getRenderElement,
   getSlatePluginTypes,
   useStoreEditor,
+  getSlatePluginOptions,
 } from '@udecode/slate-plugins-core';
 import { Transforms, Element } from 'slate';
 import { INLINES } from '@contentful/rich-text-types';
@@ -61,7 +62,7 @@ function EmbeddedEntityInline(props: EmbeddedEntityInlineProps) {
   }
 
   return (
-    <span {...props.attributes} className={styles.root}>
+    <span {...props.attributes} className={styles.root} data-emebedded-entity-inline-id={entryId}>
       <span contentEditable={false}>
         <FetchingWrappedInlineEntryCard
           sdk={sdk}
@@ -157,6 +158,37 @@ export function createEmbeddedEntityInlinePlugin(sdk): SlatePlugin {
     pluginKeys: INLINES.EMBEDDED_ENTRY,
     inlineTypes: getSlatePluginTypes(INLINES.EMBEDDED_ENTRY),
     onKeyDown: getWithEmbeddedEntryInlineEvents(sdk),
+    deserialize: (editor) => {
+      const options = getSlatePluginOptions(editor, INLINES.EMBEDDED_ENTRY);
+
+      return {
+        element: [
+          {
+            type: INLINES.EMBEDDED_ENTRY,
+            deserialize: (element) => {
+              const embeddedEntityInlineId = element.getAttribute(
+                'data-emebedded-entity-inline-id'
+              );
+              if (!embeddedEntityInlineId) return;
+
+              return {
+                type: INLINES.EMBEDDED_ENTRY,
+                data: {
+                  target: {
+                    sys: {
+                      id: embeddedEntityInlineId,
+                      type: 'Link',
+                      linkType: 'Entry',
+                    },
+                  },
+                },
+              };
+            },
+            ...options.deserialize,
+          },
+        ],
+      };
+    },
   };
 }
 
