@@ -20,7 +20,12 @@ import {
 
 <Playground>
   {() => {
-    const [field, mitt] = createFakeFieldAPI();
+    const [field, mitt] = createFakeFieldAPI(mock => {
+      return {
+        ...mock,
+        type: 'Text'
+      };
+    });
     const locales = createFakeLocalesAPI();
     return (
       <div>
