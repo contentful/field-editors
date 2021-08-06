@@ -110,13 +110,12 @@ export const CreateEntryMenuTrigger = ({
   const closeMenu = () => setOpen(false);
 
   useEffect(() => {
-    /*
-      This is a temporary workaround to keep the search input focused after the value is changed.
-      When the TextInput component is updated to use forwardRef we should update to pass the ref directly to it.
-      Since the input was being rerendered rather than updated when the value changed, this ref makes sure that the search field will keep the focus.
-    */
-    textField?.current?.querySelector('input')?.focus()
-  }, [searchInput])
+   if (isOpen) {
+    setTimeout(() => {
+      textField?.current?.querySelector('input')?.focus()
+    }, 200);
+   }
+  }, [isOpen])
 
   const handleSelect = (item: ContentType) => {
     closeMenu();
@@ -182,6 +181,7 @@ export const CreateEntryMenuTrigger = ({
   return (
     <span className={styles.wrapper} ref={wrapper} data-test-id={testId}>
       <Dropdown
+        focusContainerOnOpen={false}
         position={dropdownSettings.position}
         isAutoalignmentEnabled={dropdownSettings.isAutoalignmentEnabled}
         isOpen={isOpen && hasDropdown}
