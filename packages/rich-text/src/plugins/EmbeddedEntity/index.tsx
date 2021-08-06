@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Dropdown, DropdownList, Button } from '@contentful/forma-36-react-components';
 
 interface EmbeddedEntityDropdownButtonProps {
-  children: React.ReactNode[];
+  children: React.ReactNode;
   isDisabled: boolean | undefined;
   isOpen: boolean;
   onClose: () => void;

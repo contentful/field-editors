@@ -19,6 +19,8 @@ import {
 import { insertNodes, setNodes, toggleNodeType } from '@udecode/slate-plugins-common';
 import { CustomElement, CustomSlatePluginOptions } from '../../types';
 import { getElementFromCurrentSelection, hasSelectionText } from '../../helpers/editor';
+import { isNodeTypeEnabled } from '../../helpers/validations';
+import { useSdkContext } from '../../SdkProvider';
 
 const styles = {
   dropdown: {
@@ -158,6 +160,7 @@ interface ToolbarHeadingButtonProps {
 }
 
 export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
+  const sdk = useSdkContext();
   const editor = useStoreEditor();
   const [isOpen, setOpen] = React.useState(false);
   const [selected, setSelected] = React.useState<string>(BLOCKS.PARAGRAPH);
@@ -193,16 +196,23 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
         </Button>
       }>
       <DropdownList testId="dropdown-heading-list">
-        {Object.keys(LABELS).map((key) => (
-          <DropdownListItem
-            key={key}
-            isActive={selected === key}
-            onClick={() => handleOnSelectItem(key)}
-            testId={`dropdown-option-${key}`}
-            isDisabled={props.isDisabled}>
-            <span className={cx(styles.dropdown.root, styles.dropdown[key])}>{LABELS[key]}</span>
-          </DropdownListItem>
-        ))}
+        {Object.keys(LABELS)
+          .map(
+            (nodeType) =>
+              isNodeTypeEnabled(sdk.field, nodeType) && (
+                <DropdownListItem
+                  key={nodeType}
+                  isActive={selected === nodeType}
+                  onClick={() => handleOnSelectItem(nodeType)}
+                  testId={`dropdown-option-${nodeType}`}
+                  isDisabled={props.isDisabled}>
+                  <span className={cx(styles.dropdown.root, styles.dropdown[nodeType])}>
+                    {LABELS[nodeType]}
+                  </span>
+                </DropdownListItem>
+              )
+          )
+          .filter(Boolean)}
       </DropdownList>
     </Dropdown>
   );
