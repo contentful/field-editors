@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.20.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.20.4...@contentful/field-editor-reference@2.20.5) (2021-08-06)
+
+
+### Bug Fixes
+
+* focus on search input ([#797](https://github.com/contentful/field-editors/issues/797)) ([7e5ee40](https://github.com/contentful/field-editors/commit/7e5ee40c2d509f00869086e6ca666cc71d125fe2))
+
+
+
+
+
 ## [2.20.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.20.3...@contentful/field-editor-reference@2.20.4) (2021-08-04)
 
 
