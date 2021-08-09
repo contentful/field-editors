@@ -4,7 +4,7 @@ import { ELEMENT_PARAGRAPH } from '@udecode/slate-plugins-paragraph';
 import { BLOCKS } from '@contentful/rich-text-types';
 import tokens from '@contentful/forma-36-tokens';
 import { RenderElementProps } from 'slate-react';
-import { SlatePlugin, getRenderElement } from '@udecode/slate-plugins-core';
+import { SlatePlugin, getRenderElement, getSlatePluginOptions } from '@udecode/slate-plugins-core';
 import { getToggleElementOnKeyDown } from '@udecode/slate-plugins-common';
 import { CustomSlatePluginOptions } from '../../types';
 
@@ -30,6 +30,31 @@ export function createParagraphPlugin(): SlatePlugin {
     renderElement: getRenderElement(elementKeys),
     pluginKeys: elementKeys,
     onKeyDown: getToggleElementOnKeyDown(BLOCKS.PARAGRAPH),
+    deserialize: (editor) => {
+      const options = getSlatePluginOptions(editor, BLOCKS.PARAGRAPH);
+
+      return {
+        element: [
+          {
+            type: BLOCKS.PARAGRAPH,
+            deserialize: (element) => {
+              const isParagraphText = element.nodeName === 'P';
+              const isDivText =
+                element.nodeName === 'DIV' && !element.getAttribute('data-entity-type');
+              const isNotEmpty = element.textContent !== '';
+              const isText = (isDivText || isParagraphText) && isNotEmpty;
+
+              if (!isText) return;
+
+              return {
+                type: BLOCKS.PARAGRAPH,
+              };
+            },
+            ...options.deserialize,
+          },
+        ],
+      };
+    },
   };
 }
 

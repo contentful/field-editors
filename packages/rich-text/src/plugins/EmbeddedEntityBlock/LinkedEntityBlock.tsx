@@ -53,7 +53,11 @@ export function LinkedEntityBlock(props: LinkedEntityBlockProps) {
   };
 
   return (
-    <div {...attributes} className={styles.root}>
+    <div
+      {...attributes}
+      className={styles.root}
+      data-entity-type={entityType}
+      data-entity-id={entityId}>
       <div contentEditable={false}>
         {entityType === 'Entry' && (
           <FetchingWrappedEntryCard

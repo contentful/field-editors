@@ -1,5 +1,10 @@
 import { BLOCKS } from '@contentful/rich-text-types';
-import { getRenderElement, getSlatePluginTypes, SlatePlugin } from '@udecode/slate-plugins-core';
+import {
+  getRenderElement,
+  getSlatePluginTypes,
+  SlatePlugin,
+  getSlatePluginOptions,
+} from '@udecode/slate-plugins-core';
 import { Transforms } from 'slate';
 import { getNodeEntryFromSelection, moveToTheNextLine } from '../../helpers/editor';
 import { CustomSlatePluginOptions } from 'types';
@@ -17,6 +22,42 @@ const createEmbeddedEntityPlugin = (nodeType: BLOCKS.EMBEDDED_ENTRY | BLOCKS.EMB
   pluginKeys: nodeType,
   onKeyDown: getWithEmbeddedEntityEvents(nodeType, sdk),
   voidTypes: getSlatePluginTypes(nodeType),
+  deserialize: (editor) => {
+    const options = getSlatePluginOptions(editor, nodeType);
+    const entityTypes = {
+      [BLOCKS.EMBEDDED_ENTRY]: 'Entry',
+      [BLOCKS.EMBEDDED_ASSET]: 'Asset',
+    };
+
+    return {
+      element: [
+        {
+          type: nodeType,
+          deserialize: (element) => {
+            const entityType = element.getAttribute('data-entity-type');
+            const embeddedEntityId = element.getAttribute('data-entity-id');
+            const isBlock = entityType === entityTypes[nodeType];
+
+            if (!isBlock) return;
+
+            return {
+              type: nodeType,
+              data: {
+                target: {
+                  sys: {
+                    id: embeddedEntityId,
+                    linkType: entityType,
+                    type: 'Link',
+                  },
+                },
+              },
+            };
+          },
+          ...options.deserialize,
+        },
+      ],
+    };
+  },
 });
 
 export const createEmbeddedEntryBlockPlugin = createEmbeddedEntityPlugin(BLOCKS.EMBEDDED_ENTRY);

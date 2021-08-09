@@ -63,13 +63,13 @@ export function createBoldPlugin(): SlatePlugin {
             deserialize: (element) => {
               // We ignore it otherwise everything will be bold
               const isGoogleBoldWrapper =
-                element.id.startsWith('docs-internal-guid') && element.tagName === 'B';
+                element.id.startsWith('docs-internal-guid') && element.nodeName === 'B';
 
               const isBold =
                 ['600', '700', 'bold'].includes(element.style.fontWeight) ||
-                ['STRONG', 'B'].includes(element.tagName);
+                ['STRONG', 'B'].includes(element.nodeName);
 
-              if (isGoogleBoldWrapper || !isBold) return undefined;
+              if (isGoogleBoldWrapper || !isBold) return;
 
               return {
                 [MARKS.BOLD]: true,

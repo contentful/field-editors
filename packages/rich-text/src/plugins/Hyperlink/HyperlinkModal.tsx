@@ -284,4 +284,6 @@ export async function addOrEditLink(
   Transforms.select(editor, selectionBeforeBlur);
 
   insertLink(editor, { text, url, type, target, path });
+
+  ReactEditor.focus(editor);
 }

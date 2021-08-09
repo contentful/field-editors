@@ -18,6 +18,7 @@ import {
   moveToTheNextLine,
 } from '../../helpers/editor';
 import { CustomSlatePluginOptions } from 'types';
+import { deserializeElement } from '../../helpers/deserializer';
 
 const styles = {
   container: css`
@@ -137,6 +138,11 @@ export function createHrPlugin(): SlatePlugin {
     pluginKeys: BLOCKS.HR,
     onKeyDown: withHrEvents,
     voidTypes: getSlatePluginTypes(BLOCKS.HR),
+    deserialize: deserializeElement(BLOCKS.HR, [
+      {
+        nodeNames: ['HR'],
+      },
+    ]),
   };
 }
 
