@@ -60,11 +60,7 @@ export function Code(props: Slate.RenderLeafProps) {
 export function createCodePlugin(): SlatePlugin {
   const deserializeRule: GetNodeDeserializerRule[] = [
     { nodeNames: ['CODE', 'PRE'] },
-    {
-      style: {
-        fontFamily: ['monospace'],
-      },
-    },
+    { style: { fontFamily: 'monospace' } },
   ];
 
   return {

@@ -20,6 +20,7 @@ import {
   getElementFromCurrentSelection,
   isNodeTypeSelected,
 } from '../../helpers/editor';
+import { deserializeElement } from '../../helpers/deserializer';
 
 const styles = {
   blockquote: css({
@@ -154,6 +155,7 @@ export function createQuotePlugin(): SlatePlugin {
     pluginKeys: BLOCKS.QUOTE,
     renderElement: getRenderElement(BLOCKS.QUOTE),
     onKeyDown: withQuoteEvents,
+    deserialize: deserializeElement(BLOCKS.QUOTE, [{ nodeNames: 'BLOCKQUOTE' }]),
   };
 }
 
