@@ -62,7 +62,7 @@ function EmbeddedEntityInline(props: EmbeddedEntityInlineProps) {
   }
 
   return (
-    <span {...props.attributes} className={styles.root} data-emebedded-entity-inline-id={entryId}>
+    <span {...props.attributes} className={styles.root} data-embedded-entity-inline-id={entryId}>
       <span contentEditable={false}>
         <FetchingWrappedInlineEntryCard
           sdk={sdk}
@@ -166,9 +166,7 @@ export function createEmbeddedEntityInlinePlugin(sdk): SlatePlugin {
           {
             type: INLINES.EMBEDDED_ENTRY,
             deserialize: (element) => {
-              const embeddedEntityInlineId = element.getAttribute(
-                'data-emebedded-entity-inline-id'
-              );
+              const embeddedEntityInlineId = element.getAttribute('data-embedded-entity-inline-id');
               if (!embeddedEntityInlineId) return;
 
               return {
