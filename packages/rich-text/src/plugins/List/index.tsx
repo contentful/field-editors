@@ -12,14 +12,17 @@ import {
 } from '@udecode/slate-plugins-list';
 import { useStoreEditor } from '@udecode/slate-plugins-core';
 import { isBlockSelected } from '../../helpers/editor';
+import { isNodeTypeEnabled } from '../../helpers/validations';
 import { CustomSlatePluginOptions } from 'types';
 import tokens from '@contentful/forma-36-tokens';
+import { useSdkContext } from '../../SdkProvider';
 
 interface ToolbarListButtonProps {
   isDisabled?: boolean;
 }
 
 export function ToolbarListButton(props: ToolbarListButtonProps) {
+  const sdk = useSdkContext();
   const editor = useStoreEditor();
 
   function handleClick(type: string): void {
@@ -34,24 +37,28 @@ export function ToolbarListButton(props: ToolbarListButtonProps) {
 
   return (
     <React.Fragment>
-      <EditorToolbarButton
-        icon="ListBulleted"
-        tooltip="UL"
-        label="UL"
-        testId="ul-toolbar-button"
-        onClick={() => handleClick(BLOCKS.UL_LIST)}
-        isActive={isBlockSelected(editor, BLOCKS.UL_LIST)}
-        disabled={props.isDisabled}
-      />
-      <EditorToolbarButton
-        icon="ListNumbered"
-        tooltip="OL"
-        label="OL"
-        testId="ol-toolbar-button"
-        onClick={() => handleClick(BLOCKS.OL_LIST)}
-        isActive={isBlockSelected(editor, BLOCKS.OL_LIST)}
-        disabled={props.isDisabled}
-      />
+      {isNodeTypeEnabled(sdk.field, BLOCKS.UL_LIST) && (
+        <EditorToolbarButton
+          icon="ListBulleted"
+          tooltip="UL"
+          label="UL"
+          testId="ul-toolbar-button"
+          onClick={() => handleClick(BLOCKS.UL_LIST)}
+          isActive={isBlockSelected(editor, BLOCKS.UL_LIST)}
+          disabled={props.isDisabled}
+        />
+      )}
+      {isNodeTypeEnabled(sdk.field, BLOCKS.OL_LIST) && (
+        <EditorToolbarButton
+          icon="ListNumbered"
+          tooltip="OL"
+          label="OL"
+          testId="ol-toolbar-button"
+          onClick={() => handleClick(BLOCKS.OL_LIST)}
+          isActive={isBlockSelected(editor, BLOCKS.OL_LIST)}
+          disabled={props.isDisabled}
+        />
+      )}
     </React.Fragment>
   );
 }
