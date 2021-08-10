@@ -20,6 +20,8 @@ import {
 import { insertNodes, setNodes, toggleNodeType } from '@udecode/slate-plugins-common';
 import { CustomElement, CustomSlatePluginOptions } from '../../types';
 import { getElementFromCurrentSelection, hasSelectionText } from '../../helpers/editor';
+import { isNodeTypeEnabled } from '../../helpers/validations';
+import { useSdkContext } from '../../SdkProvider';
 
 const styles = {
   dropdown: {
@@ -159,6 +161,7 @@ interface ToolbarHeadingButtonProps {
 }
 
 export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
+  const sdk = useSdkContext();
   const editor = useStoreEditor();
   const [isOpen, setOpen] = React.useState(false);
   const [selected, setSelected] = React.useState<string>(BLOCKS.PARAGRAPH);
@@ -171,6 +174,14 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
 
     setSelected(LABELS[type] ? type : BLOCKS.PARAGRAPH);
   }, [editor?.operations, editor?.selection]); // eslint-disable-line
+
+  const [nodeTypesByEnablement, someHeadingsEnabled] = React.useMemo(() => {
+    const nodeTypesByEnablement = Object.fromEntries(
+      Object.keys(LABELS).map((nodeType) => [nodeType, isNodeTypeEnabled(sdk.field, nodeType)])
+    );
+    const someHeadingsEnabled = Object.values(nodeTypesByEnablement).filter(Boolean).length > 0;
+    return [nodeTypesByEnablement, someHeadingsEnabled];
+  }, [sdk.field]);
 
   function handleOnSelectItem(type: string): void {
     if (!editor?.selection) return;
@@ -189,21 +200,32 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
       onClose={() => setOpen(false)}
       testId="dropdown-heading"
       toggleElement={
-        <Button size="small" buttonType="naked" indicateDropdown onClick={() => setOpen(!isOpen)}>
+        <Button
+          size="small"
+          buttonType="naked"
+          indicateDropdown={someHeadingsEnabled}
+          onClick={() => someHeadingsEnabled && setOpen(!isOpen)}>
           {LABELS[selected]}
         </Button>
       }>
       <DropdownList testId="dropdown-heading-list">
-        {Object.keys(LABELS).map((key) => (
-          <DropdownListItem
-            key={key}
-            isActive={selected === key}
-            onClick={() => handleOnSelectItem(key)}
-            testId={`dropdown-option-${key}`}
-            isDisabled={props.isDisabled}>
-            <span className={cx(styles.dropdown.root, styles.dropdown[key])}>{LABELS[key]}</span>
-          </DropdownListItem>
-        ))}
+        {Object.keys(LABELS)
+          .map(
+            (nodeType) =>
+              nodeTypesByEnablement[nodeType] && (
+                <DropdownListItem
+                  key={nodeType}
+                  isActive={selected === nodeType}
+                  onClick={() => handleOnSelectItem(nodeType)}
+                  testId={`dropdown-option-${nodeType}`}
+                  isDisabled={props.isDisabled}>
+                  <span className={cx(styles.dropdown.root, styles.dropdown[nodeType])}>
+                    {LABELS[nodeType]}
+                  </span>
+                </DropdownListItem>
+              )
+          )
+          .filter(Boolean)}
       </DropdownList>
     </Dropdown>
   );
