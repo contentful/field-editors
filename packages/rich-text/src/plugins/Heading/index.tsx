@@ -174,6 +174,14 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
     setSelected(LABELS[type] ? type : BLOCKS.PARAGRAPH);
   }, [editor?.operations, editor?.selection]); // eslint-disable-line
 
+  const [nodeTypesByEnablement, someHeadingsEnabled] = React.useMemo(() => {
+    const nodeTypesByEnablement = Object.fromEntries(
+      Object.keys(LABELS).map((nodeType) => [nodeType, isNodeTypeEnabled(sdk.field, nodeType)])
+    );
+    const someHeadingsEnabled = Object.values(nodeTypesByEnablement).filter(Boolean).length > 0;
+    return [nodeTypesByEnablement, someHeadingsEnabled];
+  }, [sdk.field]);
+
   function handleOnSelectItem(type: string): void {
     if (!editor?.selection) return;
 
@@ -191,7 +199,11 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
       onClose={() => setOpen(false)}
       testId="dropdown-heading"
       toggleElement={
-        <Button size="small" buttonType="naked" indicateDropdown onClick={() => setOpen(!isOpen)}>
+        <Button
+          size="small"
+          buttonType="naked"
+          indicateDropdown={someHeadingsEnabled}
+          onClick={() => someHeadingsEnabled && setOpen(!isOpen)}>
           {LABELS[selected]}
         </Button>
       }>
@@ -199,7 +211,7 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
         {Object.keys(LABELS)
           .map(
             (nodeType) =>
-              isNodeTypeEnabled(sdk.field, nodeType) && (
+              nodeTypesByEnablement[nodeType] && (
                 <DropdownListItem
                   key={nodeType}
                   isActive={selected === nodeType}
