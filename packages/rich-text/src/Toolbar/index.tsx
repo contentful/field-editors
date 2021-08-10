@@ -52,7 +52,7 @@ const EmbedAssetsWidget = ({ isDisabled }: ToolbarProps) => {
   const onToggleEntityDropdown = () => setEmbedDropdownOpen(!isEmbedDropdownOpen);
 
   const [canAccessAssets, setCanAccessAssets] = useState(false);
-  React.useEffect(() => {
+  React.useMemo(() => {
     sdk.access.can('read', 'Asset').then(setCanAccessAssets);
   }, [sdk]);
   const inlineEntryEmbedEnabled = isNodeTypeEnabled(sdk.field, INLINES.EMBEDDED_ENTRY);
@@ -103,9 +103,8 @@ const EmbedAssetsWidget = ({ isDisabled }: ToolbarProps) => {
         {icons}
       </EmbeddedEntityDropdownButton>
     );
-  } else {
-    return icons;
   }
+  return icons;
 };
 
 const Toolbar = ({ isDisabled }: ToolbarProps) => {
