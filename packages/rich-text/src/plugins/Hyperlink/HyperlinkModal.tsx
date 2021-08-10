@@ -23,6 +23,7 @@ import { getNodeEntryFromSelection, insertLink, LINK_TYPES } from '../../helpers
 import { FetchingWrappedEntryCard } from '../shared/FetchingWrappedEntryCard';
 import { FetchingWrappedAssetCard } from '../shared/FetchingWrappedAssetCard';
 import getLinkedContentTypeIdsForNodeType from '../../helpers/getLinkedContentTypeIdsForNodeType';
+import { isNodeTypeEnabled } from '../../helpers/validations';
 
 const styles = {
   removeSelectionLabel: css`
@@ -44,9 +45,19 @@ const SYS_LINK_TYPES = {
   [INLINES.ASSET_HYPERLINK]: 'Asset',
 };
 
+const LINK_TYPE_SELECTION_VALUES = {
+  [INLINES.HYPERLINK]: 'URL',
+  [INLINES.ENTRY_HYPERLINK]: 'Entry',
+  [INLINES.ASSET_HYPERLINK]: 'Asset',
+};
+
 export function HyperlinkModal(props: HyperlinkModalProps) {
+  const enabledLinkTypes = LINK_TYPES.filter((nodeType) =>
+    isNodeTypeEnabled(props.sdk.field, nodeType)
+  );
+  const [defaultLinkType] = enabledLinkTypes;
   const [linkText, setLinkText] = React.useState(props.linkText ?? '');
-  const [linkType, setLinkType] = React.useState(props.linkType ?? INLINES.HYPERLINK);
+  const [linkType, setLinkType] = React.useState(props.linkType ?? defaultLinkType);
   const [linkTarget, setLinkTarget] = React.useState(props.linkTarget ?? '');
   const [linkEntity, setLinkEntity] = React.useState<Link | null>(props.linkEntity ?? null);
 
@@ -56,7 +67,7 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
       return !!(linkText && linkTarget);
     }
 
-    const entityLinks: string[] = [INLINES.ENTRY_HYPERLINK, INLINES.ASSET_HYPERLINK];
+    const entityLinks: string[] = Object.keys(SYS_LINK_TYPES);
     const isEntityLink = entityLinks.includes(linkType);
     if (isEntityLink) {
       return !!(linkText && linkEntity);
@@ -121,19 +132,23 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
               }}
             />
 
-            <SelectField
-              labelText="Link type"
-              value={linkType}
-              onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
-                setLinkType(event.target.value)
-              }
-              name="linkType"
-              id="linkType"
-              selectProps={{ testId: 'link-type-input' }}>
-              <Option value={INLINES.HYPERLINK}>URL</Option>
-              <Option value={INLINES.ENTRY_HYPERLINK}>Entry</Option>
-              <Option value={INLINES.ASSET_HYPERLINK}>Asset</Option>
-            </SelectField>
+            {enabledLinkTypes.length > 1 && (
+              <SelectField
+                labelText="Link type"
+                value={linkType}
+                onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
+                  setLinkType(event.target.value)
+                }
+                name="linkType"
+                id="linkType"
+                selectProps={{ testId: 'link-type-input' }}>
+                {enabledLinkTypes.map((nodeType) => (
+                  <Option key={nodeType} value={nodeType}>
+                    {LINK_TYPE_SELECTION_VALUES[nodeType]}
+                  </Option>
+                ))}
+              </SelectField>
+            )}
 
             {linkType === INLINES.HYPERLINK && (
               <TextField

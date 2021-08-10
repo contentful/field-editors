@@ -5,8 +5,8 @@ import { Link } from '@contentful/field-editor-reference/dist/types';
 
 export const LINK_TYPES: INLINES[] = [
   INLINES.HYPERLINK,
-  INLINES.ASSET_HYPERLINK,
   INLINES.ENTRY_HYPERLINK,
+  INLINES.ASSET_HYPERLINK,
 ];
 const LIST_TYPES: BLOCKS[] = [
   BLOCKS.OL_LIST,
