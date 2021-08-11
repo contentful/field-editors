@@ -17,6 +17,9 @@ import {
 } from '@contentful/forma-36-react-components';
 
 import { addRowAbove, addColumnLeft, addColumnRight, addRowBelow } from './actions';
+import { useTrackingContext } from '../../TrackingProvider';
+import { getNodeEntryFromSelection, getTableSize } from '../../helpers/editor';
+import { BLOCKS } from '@contentful/rich-text-types';
 
 export const styles = {
   topRight: css({
@@ -26,10 +29,16 @@ export const styles = {
   }),
 };
 
+const getCurrentTableSize = (editor: SPEditor): Record<'numRows' | 'numColumns', number> | null => {
+  const [table] = getNodeEntryFromSelection(editor, BLOCKS.TABLE);
+  return table ? getTableSize(table) : null;
+};
+
 type TableAction = (editor: SPEditor, options: TablePluginOptions) => void;
 
 export const TableActions = () => {
   const editor = useStoreEditor();
+  const { onViewportAction } = useTrackingContext();
   const [isOpen, setOpen] = React.useState(false);
 
   const close = () => {
@@ -42,11 +51,17 @@ export const TableActions = () => {
     Slate.ReactEditor.focus(editor);
   };
 
-  const action = (cb: TableAction) => () => {
-    if (!editor) return;
-
+  const action = (
+    cb: TableAction,
+    type: 'insert' | 'remove',
+    element: 'Table' | 'Row' | 'Column'
+  ) => () => {
+    if (!editor?.selection) return;
     close();
+    const tableSize = getCurrentTableSize(editor);
     cb(editor, {});
+    const actionName = `${type}Table${element === 'Table' ? '' : element}`;
+    onViewportAction(actionName, { tableSize });
   };
 
   return (
@@ -63,15 +78,27 @@ export const TableActions = () => {
         />
       }>
       <DropdownList>
-        <DropdownListItem onClick={action(addRowAbove)}>Add row above</DropdownListItem>
-        <DropdownListItem onClick={action(addRowBelow)}>Add row below</DropdownListItem>
-        <DropdownListItem onClick={action(addColumnLeft)}>Add column left</DropdownListItem>
-        <DropdownListItem onClick={action(addColumnRight)}>Add column right</DropdownListItem>
+        <DropdownListItem onClick={action(addRowAbove, 'insert', 'Row')}>
+          Add row above
+        </DropdownListItem>
+        <DropdownListItem onClick={action(addRowBelow, 'insert', 'Row')}>
+          Add row below
+        </DropdownListItem>
+        <DropdownListItem onClick={action(addColumnLeft, 'insert', 'Column')}>
+          Add column left
+        </DropdownListItem>
+        <DropdownListItem onClick={action(addColumnRight, 'insert', 'Column')}>
+          Add column right
+        </DropdownListItem>
       </DropdownList>
       <DropdownList border="top">
-        <DropdownListItem onClick={action(deleteRow)}>Delete row</DropdownListItem>
-        <DropdownListItem onClick={action(deleteColumn)}>Delete column</DropdownListItem>
-        <DropdownListItem onClick={action(deleteTable)}>Delete table</DropdownListItem>
+        <DropdownListItem onClick={action(deleteRow, 'remove', 'Row')}>Delete row</DropdownListItem>
+        <DropdownListItem onClick={action(deleteColumn, 'remove', 'Column')}>
+          Delete column
+        </DropdownListItem>
+        <DropdownListItem onClick={action(deleteTable, 'remove', 'Table')}>
+          Delete table
+        </DropdownListItem>
       </DropdownList>
     </Dropdown>
   );

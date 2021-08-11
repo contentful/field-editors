@@ -28,6 +28,7 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
 
 <Playground>
   {() => {
+    window.events = []
     const rtPreviewStyle = css({
       backgroundColor: 'whitesmoke',
       padding: '0 0.5em'
@@ -45,6 +46,7 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
     const [field, mitt] = createFakeFieldAPI();
     const space = createFakeSpaceAPI();
     const navigator = createFakeNavigatorAPI();
+    const onAction = (...args) => window.events.push(args);
     const sdk = {
       space: {
         ...space,
@@ -94,7 +96,8 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
         instance: {
           getEntryUrl: () => '#'
         }
-      }
+      },
+      events: []
     };
 
     const renderRT = (value, type) => {
@@ -114,7 +117,12 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
 
     return (
       <div data-test-id="rich-text-editor-integration-test">
-        <RichTextEditor sdk={sdk} isInitiallyDisabled={false} />
+        <RichTextEditor
+          sdk={sdk}
+          onAction={onAction}
+          isInitiallyDisabled={false}
+          editorId="demo"
+        />
         <ActionsPlayground mitt={mitt} renderValue={renderRT} />
       </div>
     );
