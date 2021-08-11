@@ -51,18 +51,21 @@ export function SlugEditor(props: SlugEditorProps) {
     isOptionalFieldLocale && localeFallbackCode && locales.available.includes(localeFallbackCode)
   );
 
-  const performUniqueCheck = React.useCallback((value: string) => {
-    const searchQuery = {
-      content_type: entrySys.contentType.sys.id,
-      [`fields.${field.id}.${field.locale}`]: value,
-      'sys.id[ne]': entrySys.id,
-      'sys.publishedAt[exists]': true,
-      limit: 0,
-    };
-    return space.getEntries(searchQuery).then((res) => {
-      return res.total === 0;
-    });
-  }, []);
+  const performUniqueCheck = React.useCallback(
+    (value: string) => {
+      const searchQuery = {
+        content_type: entrySys.contentType.sys.id,
+        [`fields.${field.id}.${field.locale}`]: value,
+        'sys.id[ne]': entrySys.id,
+        'sys.publishedAt[exists]': true,
+        limit: 0,
+      };
+      return space.getEntries(searchQuery).then((res) => {
+        return res.total === 0;
+      });
+    },
+    [entrySys.contentType.sys.id, field.id, field.locale, entrySys.id, space]
+  );
 
   return (
     <TrackingFieldConnector<string>
