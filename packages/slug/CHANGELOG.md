@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.12.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@0.11.1...@contentful/field-editor-slug@0.12.0) (2021-08-11)
+
+
+### Features
+
+* throttle slug editor uniqueness requests ([#799](https://github.com/contentful/field-editors/issues/799)) ([bfadaf0](https://github.com/contentful/field-editors/commit/bfadaf03a2c1a032a56218287ec30929c3581a25))
+
+
+
+
+
 ## [0.11.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@0.11.0...@contentful/field-editor-slug@0.11.1) (2021-07-29)
 
 **Note:** Version bump only for package @contentful/field-editor-slug
