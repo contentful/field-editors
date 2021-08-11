@@ -39,7 +39,7 @@ function useSlugUpdater(props: SlugEditorFieldProps, check: boolean) {
 function useUniqueChecker(props: SlugEditorFieldProps) {
   const { performUniqueCheck } = props;
   const [status, setStatus] = React.useState<CheckerState>(props.value ? 'checking' : 'unique');
-  const [debouncedValue] = useDebounce(props.value, 500, { leading: true });
+  const [debouncedValue] = useDebounce(props.value, 1000);
 
   /**
    * Check the uniqueness of the slug in the current space.
@@ -108,14 +108,16 @@ export function SlugEditorFieldStatic(
 }
 
 export function SlugEditorField(props: SlugEditorFieldProps) {
-  const areEqual = () => {
-    const potentialSlug = makeSlug(props.titleValue, {
-      isOptionalLocaleWithFallback: props.isOptionalLocaleWithFallback,
-      locale: props.locale,
-      createdAt: props.createdAt,
+  const { titleValue, isOptionalLocaleWithFallback, locale, createdAt, value } = props;
+
+  const areEqual = React.useCallback(() => {
+    const potentialSlug = makeSlug(titleValue, {
+      isOptionalLocaleWithFallback: isOptionalLocaleWithFallback,
+      locale: locale,
+      createdAt: createdAt,
     });
-    return props.value === potentialSlug;
-  };
+    return value === potentialSlug;
+  }, [titleValue, isOptionalLocaleWithFallback, locale, createdAt, value]);
 
   const [check, setCheck] = React.useState<boolean>(() => {
     if (props.value) {
@@ -131,7 +133,7 @@ export function SlugEditorField(props: SlugEditorFieldProps) {
     if (areEqual()) {
       setCheck(true);
     }
-  }, [props.titleValue]);
+  }, [props.titleValue, areEqual]);
 
   useSlugUpdater(props, check);
 
