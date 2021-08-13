@@ -16,6 +16,8 @@
   "scripts": {
     "watch": "tsdx watch",
     "build": "tsdx build",
+    "test": "tsdx test --env=jsdom --watch",
+    "test:ci": "tsdx test --env=jsdom --ci",
     "tsc": "tsc -p ./ --noEmit"
   },
   "devDependencies": {
