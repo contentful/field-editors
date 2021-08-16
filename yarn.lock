@@ -1698,7 +1698,7 @@
     read-pkg-up "^7.0.1"
     semver "^7.3.2"
 
-"@contentful/f36-badge@4.0.1-next-v4-6179.2211":
+"@contentful/f36-badge@next-v4":
   version "4.0.1-next-v4-6179.2211"
   resolved "https://registry.yarnpkg.com/@contentful/f36-badge/-/f36-badge-4.0.1-next-v4-6179.2211.tgz#abd4dec10f82952d05f0fc43d850b2de95890575"
   integrity sha512-ghDXzR13BENDkP2ae1iBC5z836Er5cbQDSH6aZrAU+RAcw12zILMLrosZpg8VNHHXVcMEsgBgOSsI7zhgPDcJw==
