@@ -24,6 +24,7 @@
     "@contentful/field-editor-shared": "^0.22.0",
     "@contentful/forma-36-react-components": "^3.93.4",
     "@contentful/forma-36-tokens": "^0.11.0",
+    "@contentful/f36-badge": "4.0.1-next-v4-6179.2211",
     "@contentful/mimetype": "^1.4.0",
     "@types/deep-equal": "^1.0.1",
     "array-move": "^3.0.0",
