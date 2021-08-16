@@ -31,7 +31,7 @@
     "@contentful/forma-36-tokens": "^0.11.0",
     "@contentful/rich-text-plain-text-renderer": "^14.0.0",
     "@contentful/rich-text-types": "^14.0.1",
-    "@contentful/f36-badge": "4.0.1-next-v4-6179",
+    "@contentful/f36-badge": "4.0.1-next-v4-6179.2211",
     "@productboard/slate-edit-list": "^0.19.1",
     "@wikifactory/slate-trailing-block": "^0.6.0",
     "classnames": "^2.2.6",
