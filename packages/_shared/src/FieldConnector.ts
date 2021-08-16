@@ -70,7 +70,7 @@ export class FieldConnector<ValueType> extends React.Component<
   unsubscribeValue: Function | null = null;
 
   setValue = async (value: ValueType | Nullable) => {
-    if (this.props.isEmptyValue(value === undefined ? null : value)) {
+    if (this.props.isEmptyValue(value ?? null)) {
       this.setState({ value: undefined });
     } else {
       this.setState({ value });
@@ -82,7 +82,7 @@ export class FieldConnector<ValueType> extends React.Component<
   triggerSetValueCallbacks = throttle(
     (value: ValueType | Nullable) => {
       return new Promise((resolve, reject) => {
-        if (this.props.isEmptyValue(value === undefined ? null : value)) {
+        if (this.props.isEmptyValue(value ?? null)) {
           this.props.field.removeValue().then(resolve).catch(reject);
         } else {
           this.props.field.setValue(value).then(resolve).catch(reject);
