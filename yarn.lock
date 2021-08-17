@@ -1698,71 +1698,72 @@
     read-pkg-up "^7.0.1"
     semver "^7.3.2"
 
-"@contentful/f36-accordion@4.0.1-next-v4-6321.2232+4fbeb4b9":
-  version "4.0.1-next-v4-6321.2232"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-accordion/-/f36-accordion-4.0.1-next-v4-6321.2232.tgz#07c6462a87349470ce4a7238b5b9e4d785ab925f"
-  integrity sha512-ul//7+OaFkiUny0rhkBgLa4tVbdkSR8VIV98+EHa6PjlW+WtfA2X/VlOFUJ/Rgw0CGORv50TpadAdVOT5+RKxw==
+"@contentful/f36-accordion@4.0.1-next-v4-6330.2234+82fc9a50":
+  version "4.0.1-next-v4-6330.2234"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-accordion/-/f36-accordion-4.0.1-next-v4-6330.2234.tgz#c311a047efaacf6b3d2c0f6dd174d1bbd6337ea2"
+  integrity sha512-mqU0gSBAMf7GmE/Ebj6ULDmY1s1aXN+Sn+1fIU2O6Pj9hAFfVvFRX+y9rJoaaxWomJT0c5y0AXHMjeBHY+q77A==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-icons" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-tokens" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-typography" "4.0.1-next-v4-6321.2232+4fbeb4b9"
+    "@contentful/f36-core" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-icons" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-tokens" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-typography" "4.0.1-next-v4-6330.2234+82fc9a50"
     emotion "^10.0.17"
 
-"@contentful/f36-badge@4.0.1-next-v4-6321.2232+4fbeb4b9":
-  version "4.0.1-next-v4-6321.2232"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-badge/-/f36-badge-4.0.1-next-v4-6321.2232.tgz#6d4372e26f1aa4e0771ad101ee477ab021d6c2df"
-  integrity sha512-GStMgsHqJq0c7eCqQyLvrHOxdVzcQtqBpxchCvoeSmH637c45F7+ugXWm6Hs/8xIFuhWXHLiwI+7JqFT1g2s2w==
+"@contentful/f36-badge@4.0.1-next-v4-6330.2234+82fc9a50":
+  version "4.0.1-next-v4-6330.2234"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-badge/-/f36-badge-4.0.1-next-v4-6330.2234.tgz#c102db29a149da69c1c75519d1646a14f1172e6d"
+  integrity sha512-ttLEDhkQGnuYVht9E08qR328gRqRuUhQytQEVIrUOyYfLIt/95XEA5jdsvF61GcH4KveLC24sXEtGcbTANcV2g==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-tokens" "4.0.1-next-v4-6321.2232+4fbeb4b9"
+    "@contentful/f36-core" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-tokens" "4.0.1-next-v4-6330.2234+82fc9a50"
     emotion "^10.0.17"
 
-"@contentful/f36-button@4.0.1-next-v4-6321.2232+4fbeb4b9":
-  version "4.0.1-next-v4-6321.2232"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-button/-/f36-button-4.0.1-next-v4-6321.2232.tgz#d3b2145bb322cab56835b704b60b269af2bb3dd9"
-  integrity sha512-OA9p8JjaZsh4V7kwfa0kH7T6peLiAB4fnfnD2+cgoT+jfzQ34bO4HIgl65yLdvHTc2Equ91/TCMW5akaMrsEsg==
+"@contentful/f36-button@4.0.1-next-v4-6330.2234+82fc9a50":
+  version "4.0.1-next-v4-6330.2234"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-button/-/f36-button-4.0.1-next-v4-6330.2234.tgz#351acc0b5e69d853500171dcb8c3c729728080ac"
+  integrity sha512-gIeEHbcU1dsLmh/mmErumktBvkKzJjmQal5mPtFidGRzc9muoSIOSePI5Bnpvr4bwR4sf9bQ1gmdxzQRVP6MSQ==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-spinner" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-tokens" "4.0.1-next-v4-6321.2232+4fbeb4b9"
+    "@contentful/f36-core" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-spinner" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-tokens" "4.0.1-next-v4-6330.2234+82fc9a50"
     emotion "^10.0.17"
 
-"@contentful/f36-components@4.0.1-next-v4-6321.2232+4fbeb4b9", "@contentful/f36-components@next-v4":
-  version "4.0.1-next-v4-6321.2232"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-components/-/f36-components-4.0.1-next-v4-6321.2232.tgz#924289694cee2200c1fe1e4e5b7a9982ac30e1d2"
-  integrity sha512-5FIcrBigP2kbOAby207PtYwZyjd9RgH5VSkQ517F2lnNftmBwLVnt6tES7FX3JfX1B7cP/HYUQNwqtcgstcJSQ==
+"@contentful/f36-components@4.0.1-next-v4-6330.2234+82fc9a50", "@contentful/f36-components@next-v4":
+  version "4.0.1-next-v4-6330.2234"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-components/-/f36-components-4.0.1-next-v4-6330.2234.tgz#25a0f6955b025c9c57970f0c20141f13a66baf51"
+  integrity sha512-ccNbAL6uaOBBMhhJogOH7Zrld+9Tb1xW9Emua0d3xwX8xYS+CIQ9IoyZr4p00vv5vuH0r/k495cQ9W/eGKzSKw==
   dependencies:
     "@babel/runtime" "^7.3.4"
-    "@contentful/f36-accordion" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-badge" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-button" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-copybutton" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-core" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-drag-handle" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-empty-state" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-forms" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-helptext" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-icon" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-icons" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-inputs" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-list" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-modal" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-note" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-pill" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-skeleton" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-spinner" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-table" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-text-link" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-tokens" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-tooltip" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-typography" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-utils" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-validation-message" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/forma-36-fcss" "0.2.13-next-v4-6321.288+4fbeb4b9"
+    "@contentful/f36-accordion" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-badge" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-button" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-copybutton" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-core" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-drag-handle" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-empty-state" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-forms" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-helptext" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-icon" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-icons" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-inputs" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-list" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-modal" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-note" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-pill" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-skeleton" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-spinner" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-table" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-tabs" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-text-link" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-tokens" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-tooltip" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-typography" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-utils" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-validation-message" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/forma-36-fcss" "0.2.13-next-v4-6330.290+82fc9a50"
     "@popperjs/core" "^2.4.4"
     "@types/react" "16.14.2"
     "@types/react-dom" "16.9.10"
@@ -1775,246 +1776,257 @@
     react-transition-group "^4.4.2"
     truncate "^2.0.1"
 
-"@contentful/f36-copybutton@4.0.1-next-v4-6321.2232+4fbeb4b9":
-  version "4.0.1-next-v4-6321.2232"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-copybutton/-/f36-copybutton-4.0.1-next-v4-6321.2232.tgz#4df185137ad6aee99e1c4ec0287f2cb606b8c10d"
-  integrity sha512-gSn4bKh5Gyv0d4mUowlx9z62Vq3a3+N5Xlq5xn7XlCOSP+CWfObQH71yYZnRg3p8+nW2KBRSWiWAZMOGqlcmdQ==
+"@contentful/f36-copybutton@4.0.1-next-v4-6330.2234+82fc9a50":
+  version "4.0.1-next-v4-6330.2234"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-copybutton/-/f36-copybutton-4.0.1-next-v4-6330.2234.tgz#f669431d9e38d435e2abbb0cf9a3e30ed07b0556"
+  integrity sha512-/xFzyfVStVhWNot7IhQdWSlGpHgW4c400cNBPeA/HiZ7RhVCfZyOFrj43q9LGN3aIUcUZet+TdvslH4/6hPwAA==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-icons" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-tokens" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-tooltip" "4.0.1-next-v4-6321.2232+4fbeb4b9"
+    "@contentful/f36-core" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-icons" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-tokens" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-tooltip" "4.0.1-next-v4-6330.2234+82fc9a50"
     emotion "^10.0.17"
     react-copy-to-clipboard "^5.0.3"
 
-"@contentful/f36-core@4.0.1-next-v4-6321.2232+4fbeb4b9":
-  version "4.0.1-next-v4-6321.2232"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-core/-/f36-core-4.0.1-next-v4-6321.2232.tgz#d5b975970419bebec4ffe78c0b45c0acf7aa69c5"
-  integrity sha512-VaKZe/LpSjf44bEWqy5/KOxMoY1NsqC7XuiT54Rtn18PzVq+yxu3gm7n5dUwD5jaia9hOCjbNiD8e/1S0h3SgA==
+"@contentful/f36-core@4.0.1-next-v4-6330.2234+82fc9a50":
+  version "4.0.1-next-v4-6330.2234"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-core/-/f36-core-4.0.1-next-v4-6330.2234.tgz#14bd18518bfd5862af8718e114afb0a3673df4bf"
+  integrity sha512-GQv7e4aWEikNvJAzU8fY9o5Hxy1w/h7jJi3qc3sf+tZ15ebx9uSzS8ljI1OD/G9OaY+ZOOo0gQ0A0Y24V+RkFA==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-tokens" "4.0.1-next-v4-6321.2232+4fbeb4b9"
+    "@contentful/f36-tokens" "4.0.1-next-v4-6330.2234+82fc9a50"
     "@emotion/is-prop-valid" "^1.1.0"
     emotion "^10.0.17"
 
-"@contentful/f36-drag-handle@4.0.1-next-v4-6321.2232+4fbeb4b9":
-  version "4.0.1-next-v4-6321.2232"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-drag-handle/-/f36-drag-handle-4.0.1-next-v4-6321.2232.tgz#e8232f59b692e960d1b8e8bf699e24b61424d7a8"
-  integrity sha512-3UZnb00JOjXtx2G8XqOIsK28W++9r887sGfg0ZM1kUQYatOWqOqShz5oz1wpRn4no0SfcpXkRIRG/sykwRh/uw==
+"@contentful/f36-drag-handle@4.0.1-next-v4-6330.2234+82fc9a50":
+  version "4.0.1-next-v4-6330.2234"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-drag-handle/-/f36-drag-handle-4.0.1-next-v4-6330.2234.tgz#729ff675f910047c3a14a17b2a2c21e02dbaba14"
+  integrity sha512-CbOjCwFrvxGHIxpKUtdIETfmNouU28znv8RqWk3+vEFi9dBeAK0FSrBFIAY/RZpE3zxPwQvlOBZedtVAPdrdTw==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-icons" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-tokens" "4.0.1-next-v4-6321.2232+4fbeb4b9"
+    "@contentful/f36-core" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-icons" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-tokens" "4.0.1-next-v4-6330.2234+82fc9a50"
     emotion "^10.0.17"
 
-"@contentful/f36-empty-state@4.0.1-next-v4-6321.2232+4fbeb4b9":
-  version "4.0.1-next-v4-6321.2232"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-empty-state/-/f36-empty-state-4.0.1-next-v4-6321.2232.tgz#d9fc406223437487c85e0cb7cf7c26e61da9d8a4"
-  integrity sha512-d/gGppGDOKLyQ4eadOwmWPY2XBtqLvTjdUEX1ls6wTimiFHJPoEzGVi4fMsLTdm/G5lM+LsU5lWbF5y5LQZKcQ==
+"@contentful/f36-empty-state@4.0.1-next-v4-6330.2234+82fc9a50":
+  version "4.0.1-next-v4-6330.2234"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-empty-state/-/f36-empty-state-4.0.1-next-v4-6330.2234.tgz#dcb47e2a1cdc6730c40666cad619e473ad9d97a9"
+  integrity sha512-s9lshJUVpxeOSYh6eHbAvcm92s61oKxvFwNh7d8bWXsTjcnj8Ic+5g6uJBHjqIKkkrQZPSnI7JQhwaB2uelPNQ==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-tokens" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-typography" "4.0.1-next-v4-6321.2232+4fbeb4b9"
+    "@contentful/f36-core" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-tokens" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-typography" "4.0.1-next-v4-6330.2234+82fc9a50"
     emotion "^10.0.17"
 
-"@contentful/f36-forms@4.0.1-next-v4-6321.2232+4fbeb4b9":
-  version "4.0.1-next-v4-6321.2232"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-forms/-/f36-forms-4.0.1-next-v4-6321.2232.tgz#63376aeb55effbaa559e82cf9dc8e3b3a5355830"
-  integrity sha512-0wR36En8Ur57o999CjQtgELbHzUdPZLbEWHAAGM25BLYQerkHHpBKnP1RH4fFFxtm8oHb3X3/i5sP1ZMMUdbbg==
+"@contentful/f36-forms@4.0.1-next-v4-6330.2234+82fc9a50":
+  version "4.0.1-next-v4-6330.2234"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-forms/-/f36-forms-4.0.1-next-v4-6330.2234.tgz#0e9b1df6ec3473cf28f85b847343d12bc9f3a27e"
+  integrity sha512-iu/UB0bJbi9mipOpM6FmQ4IjyolZsoaRkOy8wVU8VwqwgsjFrpSyRMcb5XmxDdNT3vxFUdTwGfk0y4mmOdKGWQ==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-components" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-core" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-helptext" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-inputs" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-tokens" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-validation-message" "4.0.1-next-v4-6321.2232+4fbeb4b9"
+    "@contentful/f36-components" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-core" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-helptext" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-inputs" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-tokens" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-validation-message" "4.0.1-next-v4-6330.2234+82fc9a50"
     emotion "^10.0.17"
 
-"@contentful/f36-helptext@4.0.1-next-v4-6321.2232+4fbeb4b9":
-  version "4.0.1-next-v4-6321.2232"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-helptext/-/f36-helptext-4.0.1-next-v4-6321.2232.tgz#bf9683d1b64e49316c61df911d7d8143491dab94"
-  integrity sha512-ZIz8siMYnkPXTdVb0KL4CFFFh25XJcbLww0yMLVXuPDe9+zMDUlV+3vmrx6MqybKU5wRVaSSSOvYFf/mYInmqA==
+"@contentful/f36-helptext@4.0.1-next-v4-6330.2234+82fc9a50":
+  version "4.0.1-next-v4-6330.2234"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-helptext/-/f36-helptext-4.0.1-next-v4-6330.2234.tgz#f3f2320d64a5e8584123be39d2458e0fa3277302"
+  integrity sha512-ToD40/Ys4lRMCf976Hd9Yu7R4bTiKAehozaZxpM+fyz5cyXIQ+0jas+x5AdwMFFgnnTCmFRLZod3mlVOorUwwQ==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-tokens" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-typography" "4.0.1-next-v4-6321.2232+4fbeb4b9"
+    "@contentful/f36-core" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-tokens" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-typography" "4.0.1-next-v4-6330.2234+82fc9a50"
     emotion "^10.0.17"
 
-"@contentful/f36-icon@4.0.1-next-v4-6321.2232+4fbeb4b9":
-  version "4.0.1-next-v4-6321.2232"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-icon/-/f36-icon-4.0.1-next-v4-6321.2232.tgz#ab8da9b26a5a5d4f0fceb226f06013778add47c3"
-  integrity sha512-IA2hpK1Y8e0hjO5lDXr2wewQKJCyLXpUtJI4doAUuILgBdHTlrPDLZfnp3hhFhpB76IA6L9ZOVJi0AU7r2WKOA==
+"@contentful/f36-icon@4.0.1-next-v4-6330.2234+82fc9a50":
+  version "4.0.1-next-v4-6330.2234"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-icon/-/f36-icon-4.0.1-next-v4-6330.2234.tgz#aeb37fe7f45a321c737c2ec3648496999452e435"
+  integrity sha512-Irf5QCtMzjVT+Xa0KprK6mlQSi3mNYLGvgAP/DSgMDxK97l6B7wOXKEJrEVhWmaEKO8hf5KRkLY2q461CAAERw==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-tokens" "4.0.1-next-v4-6321.2232+4fbeb4b9"
+    "@contentful/f36-core" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-tokens" "4.0.1-next-v4-6330.2234+82fc9a50"
     emotion "^10.0.17"
 
-"@contentful/f36-icons@4.0.1-next-v4-6321.2232+4fbeb4b9", "@contentful/f36-icons@next-v4":
-  version "4.0.1-next-v4-6321.2232"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-icons/-/f36-icons-4.0.1-next-v4-6321.2232.tgz#8c64b7f393b58428e4a47b1371569600d3cb693d"
-  integrity sha512-16FASHwrrAMQ2fxbFXzKOlbciRA/r9bYB/NrfX6EBo98oPZ4ynXAllGH/jy33KBHHRv2dDXBqjMbvPTvAYwxlw==
+"@contentful/f36-icons@4.0.1-next-v4-6330.2234+82fc9a50", "@contentful/f36-icons@next-v4":
+  version "4.0.1-next-v4-6330.2234"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-icons/-/f36-icons-4.0.1-next-v4-6330.2234.tgz#5f3956dc83705d7391d67e681824983c0a894e46"
+  integrity sha512-qEkQ1exD/HMw89R2WAesE29ffaCXUDs5QLuvV8613YTl08zyvhaFjk8zxk56EG+XOk7NXamQOY5AFCbvshjRMg==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-icon" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-tokens" "4.0.1-next-v4-6321.2232+4fbeb4b9"
+    "@contentful/f36-core" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-icon" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-tokens" "4.0.1-next-v4-6330.2234+82fc9a50"
     emotion "^10.0.17"
 
-"@contentful/f36-inputs@4.0.1-next-v4-6321.2232+4fbeb4b9":
-  version "4.0.1-next-v4-6321.2232"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-inputs/-/f36-inputs-4.0.1-next-v4-6321.2232.tgz#ad56bc0e80da389709b91573698f3c2dcaa86cc4"
-  integrity sha512-38piIP4eFp98/yHPkRAcgPvgerjNZoURbf9HC6IcWujJprmL/l468ov7msLIt8m7rziRQPtDgFe0EQ0GclzWZQ==
+"@contentful/f36-inputs@4.0.1-next-v4-6330.2234+82fc9a50":
+  version "4.0.1-next-v4-6330.2234"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-inputs/-/f36-inputs-4.0.1-next-v4-6330.2234.tgz#e46a27ee1a08a683716d599884e4e8a68fb49c34"
+  integrity sha512-Xk0hTbGKxy30yPQZ1va5HwqTj9Yv2rLtMfOJKz9srfO8bgiH8y9bWBeA1wTuob2KliMs8NF+OhMJklSXGCGdRw==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-icons" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-tokens" "4.0.1-next-v4-6321.2232+4fbeb4b9"
+    "@contentful/f36-core" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-icons" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-tokens" "4.0.1-next-v4-6330.2234+82fc9a50"
     emotion "^10.0.17"
 
-"@contentful/f36-list@4.0.1-next-v4-6321.2232+4fbeb4b9":
-  version "4.0.1-next-v4-6321.2232"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-list/-/f36-list-4.0.1-next-v4-6321.2232.tgz#903a897fd1c3394413b77a23d678fe6415ab1e85"
-  integrity sha512-2GQSvxWx167z9ugWN+GbJjaJ5N+1fdR4ACfhPOBmdd0V8nSCf0/RXjpK9lA+HsY6lkWT2Hsq6aZ9OB1OpAblNg==
+"@contentful/f36-list@4.0.1-next-v4-6330.2234+82fc9a50":
+  version "4.0.1-next-v4-6330.2234"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-list/-/f36-list-4.0.1-next-v4-6330.2234.tgz#4db87328cff99287859666efccf62f3c885c49db"
+  integrity sha512-8QEwDYPKn6//ykHMNKbBGw2pU/K2vTDBssRQMBsQykSOlo7StxorRaK+LVGQSBItcsmyMNd03RO0XzmMOcIn/Q==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-tokens" "4.0.1-next-v4-6321.2232+4fbeb4b9"
+    "@contentful/f36-core" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-tokens" "4.0.1-next-v4-6330.2234+82fc9a50"
     emotion "^10.0.17"
 
-"@contentful/f36-modal@4.0.1-next-v4-6321.2232+4fbeb4b9":
-  version "4.0.1-next-v4-6321.2232"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-modal/-/f36-modal-4.0.1-next-v4-6321.2232.tgz#022649aaaeab01111f101c307e63e7b0d897a02f"
-  integrity sha512-HssHDUoNQzY7SNOCkHGePoYNI6dJhwSmQFqPqV+WsJgX4v+YF/xF+bjuNCux3MTL8iUxYllHz/OwOaiWgUeLNg==
+"@contentful/f36-modal@4.0.1-next-v4-6330.2234+82fc9a50":
+  version "4.0.1-next-v4-6330.2234"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-modal/-/f36-modal-4.0.1-next-v4-6330.2234.tgz#c010c86c0e968d75746e8543eb1d56b381879621"
+  integrity sha512-OyBL99HSuunZicqLP9ohcc8I2340ZYxubo7uOnM0RahYDSiFiL9J8Rv+L6KukEGPH6/jvo0pRSldvYqttvWhEw==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-button" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-core" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-icons" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-tokens" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-typography" "4.0.1-next-v4-6321.2232+4fbeb4b9"
+    "@contentful/f36-button" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-core" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-icons" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-tokens" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-typography" "4.0.1-next-v4-6330.2234+82fc9a50"
     "@types/react-modal" "^3.12.1"
     emotion "^10.0.17"
     react-modal "^3.14.3"
 
-"@contentful/f36-note@4.0.1-next-v4-6321.2232+4fbeb4b9":
-  version "4.0.1-next-v4-6321.2232"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-note/-/f36-note-4.0.1-next-v4-6321.2232.tgz#d4b877df7e48d28ae87938fd2db78bbe590f19f3"
-  integrity sha512-52T6flDjpysBazGB4exqJz87ebD0Nocn55004SleNltMU1e96dQrWOXpw316faOjU3+iPWVz35flvDc7Cm8D7A==
+"@contentful/f36-note@4.0.1-next-v4-6330.2234+82fc9a50":
+  version "4.0.1-next-v4-6330.2234"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-note/-/f36-note-4.0.1-next-v4-6330.2234.tgz#66a8473f379a99cbea5cdf5714a9c80af1ae0448"
+  integrity sha512-doxJsPeu93EgGNRQL3FJj45AstOPNTQc4K15qwIsxEGIyrifY+H7Smf2/MMjtDhttLNMsW8JGHS1tC1JawaATQ==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-button" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-core" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-icons" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-tokens" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-typography" "4.0.1-next-v4-6321.2232+4fbeb4b9"
+    "@contentful/f36-button" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-core" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-icons" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-tokens" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-typography" "4.0.1-next-v4-6330.2234+82fc9a50"
     emotion "^10.0.17"
 
-"@contentful/f36-pill@4.0.1-next-v4-6321.2232+4fbeb4b9":
-  version "4.0.1-next-v4-6321.2232"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-pill/-/f36-pill-4.0.1-next-v4-6321.2232.tgz#15314a445b9481f4010b67e870643d7cfd183e6e"
-  integrity sha512-UNJ/esc5lf5OFKDxmrFnES4hdMBfDKTt8zpW7gUoA3j93HmNG6vgCnfI3huIZxHrjoO9CkhL3M9FYKKYH5PXQw==
+"@contentful/f36-pill@4.0.1-next-v4-6330.2234+82fc9a50":
+  version "4.0.1-next-v4-6330.2234"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-pill/-/f36-pill-4.0.1-next-v4-6330.2234.tgz#4cc665ea633968334861714e84cbfe20a02c93d5"
+  integrity sha512-0bob0YlTfdc6FWCNjn3zfp0EjVzjYG9D8B6bLWHI0FNsxDbLc5d+3+Iklhj+6SVLJQKgdnIg+JIY2XDaK7ko+g==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-icons" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-tokens" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-utils" "4.0.1-next-v4-6321.2232+4fbeb4b9"
+    "@contentful/f36-core" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-icons" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-tokens" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-utils" "4.0.1-next-v4-6330.2234+82fc9a50"
     emotion "^10.0.17"
 
-"@contentful/f36-skeleton@4.0.1-next-v4-6321.2232+4fbeb4b9":
-  version "4.0.1-next-v4-6321.2232"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-skeleton/-/f36-skeleton-4.0.1-next-v4-6321.2232.tgz#e472035759b10dc6cb81a0baa3db7090f9907cd6"
-  integrity sha512-xl4ytbbUG9fQxY4mI8eF8wB/zGnrtSIDXTePQmaJk/p4PaTL67RXOqdSfp/FD1AAPHjkh0tm/hHBhSagdNYOkw==
+"@contentful/f36-skeleton@4.0.1-next-v4-6330.2234+82fc9a50":
+  version "4.0.1-next-v4-6330.2234"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-skeleton/-/f36-skeleton-4.0.1-next-v4-6330.2234.tgz#8e49112aa096bab0c1f9eb1912d6fffcb1b7c8ee"
+  integrity sha512-VQ+kX5vJ3fUpBrCwbtPLbwPKt4IMMJEnrdC+LJYqPFRvzBVvLIRo9ZvRB/FPTNtpv2X3GVUomkWpfYRGdC51ew==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-table" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-tokens" "4.0.1-next-v4-6321.2232+4fbeb4b9"
+    "@contentful/f36-core" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-table" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-tokens" "4.0.1-next-v4-6330.2234+82fc9a50"
     emotion "^10.0.17"
 
-"@contentful/f36-spinner@4.0.1-next-v4-6321.2232+4fbeb4b9":
-  version "4.0.1-next-v4-6321.2232"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-spinner/-/f36-spinner-4.0.1-next-v4-6321.2232.tgz#72b774db2386818d438fb3227cc1297554701d3e"
-  integrity sha512-E83ucKA3VDDepPRciu6R6nthWdU6M7v1/FOqGKbIl3Fb88E8qiOypKlEb19swep0ufMDl38QH4+bTWOHO7QtGg==
+"@contentful/f36-spinner@4.0.1-next-v4-6330.2234+82fc9a50":
+  version "4.0.1-next-v4-6330.2234"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-spinner/-/f36-spinner-4.0.1-next-v4-6330.2234.tgz#73d3eeb149ca394f3ef4d434e61e18f46c3e98b6"
+  integrity sha512-Hd6AbPafJTm6xQA1SVYVL1mBai8PE6Z/TLTG+eXIg9CuDWWSKdh0DeDwt+mDDSmoRnxpfpuSD7rCgQeo4zku6g==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-tokens" "4.0.1-next-v4-6321.2232+4fbeb4b9"
+    "@contentful/f36-core" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-tokens" "4.0.1-next-v4-6330.2234+82fc9a50"
     emotion "^10.0.17"
 
-"@contentful/f36-table@4.0.1-next-v4-6321.2232+4fbeb4b9":
-  version "4.0.1-next-v4-6321.2232"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-table/-/f36-table-4.0.1-next-v4-6321.2232.tgz#6415d574f2f8f11c9533d8afeb680bbccd074745"
-  integrity sha512-73+FpVnHAwMaVH3xR8kwBGTahqF0BqN76i/eidygBSH6TwMRm+r9QJt943DPpYKF5Q1ZvLAgNH4fZiyfymO5nA==
+"@contentful/f36-table@4.0.1-next-v4-6330.2234+82fc9a50":
+  version "4.0.1-next-v4-6330.2234"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-table/-/f36-table-4.0.1-next-v4-6330.2234.tgz#c594c6fdbc83a92db89395cb21f2313cd29c7729"
+  integrity sha512-bf8fkHqkIP+z0SSnheqLAKyiLqGdHc6SY90oFZUZN33B0JuK3dhgglnYbqQ8ArvVq8QnlY8gfyhJ8ZYrLxuCsg==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-tokens" "4.0.1-next-v4-6321.2232+4fbeb4b9"
+    "@contentful/f36-core" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-tokens" "4.0.1-next-v4-6330.2234+82fc9a50"
     emotion "^10.0.17"
 
-"@contentful/f36-text-link@4.0.1-next-v4-6321.2232+4fbeb4b9":
-  version "4.0.1-next-v4-6321.2232"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-text-link/-/f36-text-link-4.0.1-next-v4-6321.2232.tgz#15c6b7d3489a3ede94399012075664a731ab6d3f"
-  integrity sha512-6X1TZmy7+1qgoX2DCqqhCMKSJgtP81aY8iZpZfwRL47HGWURKKKrgr2lpFlqIaGC+zeIpFfA77dxfkbKzmlPDg==
+"@contentful/f36-tabs@4.0.1-next-v4-6330.2234+82fc9a50":
+  version "4.0.1-next-v4-6330.2234"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-tabs/-/f36-tabs-4.0.1-next-v4-6330.2234.tgz#91f8cf4578f9539c5e29229df81fabde6e25c31a"
+  integrity sha512-ox+Tt7k5QB8t4OIzsA+qZXnUR90aXWKMg0SPtKNESWnMVvDtWo/XZmZLbRl30tBuuylBir5xgUzWd7doBjFxVA==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-tokens" "4.0.1-next-v4-6321.2232+4fbeb4b9"
+    "@contentful/f36-button" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-core" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-tokens" "4.0.1-next-v4-6330.2234+82fc9a50"
     emotion "^10.0.17"
 
-"@contentful/f36-tokens@4.0.1-next-v4-6321.2232+4fbeb4b9":
-  version "4.0.1-next-v4-6321.2232"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-tokens/-/f36-tokens-4.0.1-next-v4-6321.2232.tgz#84cc0cc2a2af41f8a73c12eeb0bdcf54e703214a"
-  integrity sha512-lWdpMyk6K5Wn91K695PN5eM8vwwim0r8Gd1+fGEbNn2lQtIOAg7r9999TgnkJY9rbMlKIRHzS2/S5A2O9Uo77g==
-
-"@contentful/f36-tooltip@4.0.1-next-v4-6321.2232+4fbeb4b9":
-  version "4.0.1-next-v4-6321.2232"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-tooltip/-/f36-tooltip-4.0.1-next-v4-6321.2232.tgz#c701b86a65c71a846c54bcb926c6376dff69497b"
-  integrity sha512-IqB4pOXT2RD2S/dnIO3H7oQd0j18iBy90hbTpBSXlr4sI3kOzfXgFDTtFk2CbVMZQ7Y9QSVeY7Fi400fYSeb0A==
+"@contentful/f36-text-link@4.0.1-next-v4-6330.2234+82fc9a50":
+  version "4.0.1-next-v4-6330.2234"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-text-link/-/f36-text-link-4.0.1-next-v4-6330.2234.tgz#b443558e9c4f49d3bee9efbe88a68fb374c68bf7"
+  integrity sha512-yyb08lnFx7fxKkNdWjNGywDK/MiSpPqmTn596tIlilt7ov+wJ94WEor1vtTW8h6L00EVq4+z7mH7oouL2khCsQ==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-tokens" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-utils" "4.0.1-next-v4-6321.2232+4fbeb4b9"
+    "@contentful/f36-core" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-tokens" "4.0.1-next-v4-6330.2234+82fc9a50"
+    emotion "^10.0.17"
+
+"@contentful/f36-tokens@4.0.1-next-v4-6330.2234+82fc9a50":
+  version "4.0.1-next-v4-6330.2234"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-tokens/-/f36-tokens-4.0.1-next-v4-6330.2234.tgz#6421b97cccdb80c59591815e44581fcc5118db79"
+  integrity sha512-godBteSbhHlL1BzanERFhDSsqNpCVBRq0EOOFqACEYP3LMi2Nnj3HfMNbWYe1ZfLPwC+gRpCmKzZb74gLDiz5g==
+
+"@contentful/f36-tooltip@4.0.1-next-v4-6330.2234+82fc9a50":
+  version "4.0.1-next-v4-6330.2234"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-tooltip/-/f36-tooltip-4.0.1-next-v4-6330.2234.tgz#8e2ba948e162b716a0b1b18c68a6130099e28d10"
+  integrity sha512-Fofb67XefqIZnIGVe6/Li2lhHbNbN5SEj5HFBOA8j06jjGtwiII5N6SJIohuYbJ8iOzLL8btD4F2Q0KVJKMhXQ==
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@contentful/f36-core" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-tokens" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-utils" "4.0.1-next-v4-6330.2234+82fc9a50"
     "@popperjs/core" "^2.4.4"
     csstype "^3.0.5"
     emotion "^10.0.17"
     react-popper "^2.2.3"
 
-"@contentful/f36-typography@4.0.1-next-v4-6321.2232+4fbeb4b9":
-  version "4.0.1-next-v4-6321.2232"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-typography/-/f36-typography-4.0.1-next-v4-6321.2232.tgz#1aa2764fe0e369ff0542297cd7665f34e5dcacea"
-  integrity sha512-+PVy7QXnC8i5ja2dMTtVv1du4nQM5fSSZlGzCHI7O6y88r+Dmj953t2Fno6QHwRZPiH2ZYyWr1WJ7A0FrYS4TQ==
+"@contentful/f36-typography@4.0.1-next-v4-6330.2234+82fc9a50":
+  version "4.0.1-next-v4-6330.2234"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-typography/-/f36-typography-4.0.1-next-v4-6330.2234.tgz#df234c3c98e2adddf4b671e8594597588e7227a1"
+  integrity sha512-8SULNMvC/7Rlq/O6mSuU6nyBgzoYX3l38ROiEI0rLHI0KZGNPSAceseZkEL6zERqx72PxY+KNxdf9LAn/xhPSQ==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-tokens" "4.0.1-next-v4-6321.2232+4fbeb4b9"
+    "@contentful/f36-core" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-tokens" "4.0.1-next-v4-6330.2234+82fc9a50"
     emotion "^10.0.17"
 
-"@contentful/f36-utils@4.0.1-next-v4-6321.2232+4fbeb4b9":
-  version "4.0.1-next-v4-6321.2232"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-utils/-/f36-utils-4.0.1-next-v4-6321.2232.tgz#fd58d32b8915a3b8284516b3c9467662788f5473"
-  integrity sha512-fk2QMvsMdlZumL+rXRRPKx9KsoRihDNX5pgnZLosmd4ZJjg3Tp1SP1F99SypRDJKqYJg+H2CGKbL6KQCPRB37w==
+"@contentful/f36-utils@4.0.1-next-v4-6330.2234+82fc9a50":
+  version "4.0.1-next-v4-6330.2234"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-utils/-/f36-utils-4.0.1-next-v4-6330.2234.tgz#66ebba95766167df9b4d5c8a9983dcd7394099f9"
+  integrity sha512-xx4kBd10Azgli8jUnbmwNVqfSyyPZajE72aEY5aPY5ylhqlJDKALCyBrn+Oowvj8E4t2WSHIPjUaN3xOrlVevg==
   dependencies:
     "@babel/runtime" "^7.6.2"
     emotion "^10.0.17"
 
-"@contentful/f36-validation-message@4.0.1-next-v4-6321.2232+4fbeb4b9":
-  version "4.0.1-next-v4-6321.2232"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-validation-message/-/f36-validation-message-4.0.1-next-v4-6321.2232.tgz#10d63de9246e0cde9fd89f73ff64a51bdf67a35a"
-  integrity sha512-A7Uvd/OjXBm9k5QML4iIizm1H9MQ0xp+ztV4LaxtTf4pLA40qZeP85HgF6hI6I3N95Cow8rHZINWPHLp0NK8/g==
+"@contentful/f36-validation-message@4.0.1-next-v4-6330.2234+82fc9a50":
+  version "4.0.1-next-v4-6330.2234"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-validation-message/-/f36-validation-message-4.0.1-next-v4-6330.2234.tgz#fb39a7d0c65e43a0b78c5639ca3ddcc80d4fc0b3"
+  integrity sha512-Zk+spPTCnRF0twP99FuAh7fh0W9d+oWi82li6QFACJxR0xs/fbjwFDZHk329Mxw2KfUTuaYfvRbTDivyv0AysQ==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-icons" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-tokens" "4.0.1-next-v4-6321.2232+4fbeb4b9"
-    "@contentful/f36-typography" "4.0.1-next-v4-6321.2232+4fbeb4b9"
+    "@contentful/f36-core" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-icons" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-tokens" "4.0.1-next-v4-6330.2234+82fc9a50"
+    "@contentful/f36-typography" "4.0.1-next-v4-6330.2234+82fc9a50"
     emotion "^10.0.17"
 
 "@contentful/field-editor-boolean@^0.11.6":
@@ -2315,12 +2327,12 @@
     "@contentful/forma-36-tokens" "^0.10.1"
     emotion "^10.0.17"
 
-"@contentful/forma-36-fcss@0.2.13-next-v4-6321.288+4fbeb4b9":
-  version "0.2.13-next-v4-6321.288"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-fcss/-/forma-36-fcss-0.2.13-next-v4-6321.288.tgz#5144a3a703a8e5dbd4745280e83252669564320f"
-  integrity sha512-C7tdQhwcqbfS18A706LZmaGGxTcZQXcIETT8oYMN9tYimZhE4m9FiCb/bIbfP3llYqwhBDBpKP61bH3WryLgwg==
+"@contentful/forma-36-fcss@0.2.13-next-v4-6330.290+82fc9a50":
+  version "0.2.13-next-v4-6330.290"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-fcss/-/forma-36-fcss-0.2.13-next-v4-6330.290.tgz#389bdb132eaf30305ffa175e4659961a61351105"
+  integrity sha512-oR8EtxbRaJ3nTfBj4y98FfdBPf8KjpKN0PBLcNADELJqX8R+5K3Z4oh3WaX6QhGkU99o5FY/aFWcqnQTgsWkxw==
   dependencies:
-    "@contentful/f36-tokens" "4.0.1-next-v4-6321.2232+4fbeb4b9"
+    "@contentful/f36-tokens" "4.0.1-next-v4-6330.2234+82fc9a50"
 
 "@contentful/forma-36-fcss@^0.3.3":
   version "0.3.3"
