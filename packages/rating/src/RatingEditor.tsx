@@ -1,8 +1,10 @@
 import * as React from 'react';
 import get from 'lodash/get';
 import { FieldAPI, ParametersAPI, FieldConnector } from '@contentful/field-editor-shared';
-import { TextLink, Flex } from '@contentful/forma-36-react-components';
+import { Flex } from '@contentful/forma-36-react-components';
 import { RatingRibbon } from './RatingRibbon';
+
+import { TextLink } from "@contentful/f36-components";
 
 export interface RatingEditorProps {
   /**
@@ -69,7 +71,7 @@ export function RatingEditor(props: RatingEditorProps) {
             />
             {value !== undefined && !disabled && (
               <Flex marginLeft="spacingM">
-                <TextLink testId="rating-editor-clear" onClick={clearOption}>
+                <TextLink as="button" testId="rating-editor-clear" onClick={clearOption}>
                   Clear
                 </TextLink>
               </Flex>

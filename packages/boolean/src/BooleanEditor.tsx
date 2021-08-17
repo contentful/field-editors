@@ -2,7 +2,9 @@ import * as React from 'react';
 import get from 'lodash/get';
 import { nanoid } from 'nanoid';
 import { FieldAPI, ParametersAPI, FieldConnector } from '@contentful/field-editor-shared';
-import { RadioButtonField, TextLink, Flex } from '@contentful/forma-36-react-components';
+import { RadioButtonField, Flex } from '@contentful/forma-36-react-components';
+
+import { TextLink } from "@contentful/f36-components";
 
 export interface BooleanEditorProps {
   /**
@@ -72,7 +74,11 @@ export function BooleanEditor(props: BooleanEditorProps) {
               );
             })}
             {value !== undefined && (
-              <TextLink testId="boolean-editor-clear" disabled={disabled} onClick={clearOption}>
+              <TextLink
+                as="button"
+                testId="boolean-editor-clear"
+                isDisabled={disabled}
+                onClick={clearOption}>
                 Clear
               </TextLink>
             )}

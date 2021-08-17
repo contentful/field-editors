@@ -5,7 +5,6 @@ import {
   Dropdown,
   DropdownList,
   DropdownListItem,
-  TextLink,
   HelpText,
   TextField,
   FormLabel,
@@ -20,6 +19,10 @@ import { FieldType, FieldGroupType } from './types';
 import { ActionTypes } from './types';
 import styles from './styles';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
+
+import { TextLink } from "@contentful/f36-components";
+
+import { CloseIcon, ChevronDownIcon, ChevronUpIcon } from "@contentful/f36-icons";
 
 interface FieldGroupsEditorProps {
   fieldGroups: FieldGroupType[];
@@ -196,24 +199,27 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
       />
       <div>
         <TextLink
+          as="button"
           className={styles.fieldGroupConfigurationTextLink}
-          linkType="negative"
-          icon="Close"
+          variant="negative"
+          icon={<CloseIcon />}
           onClick={() => dispatch({ type: ActionTypes.DELETE_FIELD_GROUP, groupId })}>
           Remove
         </TextLink>
         {!last ? (
           <TextLink
+            as="button"
             className={styles.fieldGroupConfigurationTextLink}
-            icon="ChevronDown"
+            icon={<ChevronDownIcon />}
             onClick={() => dispatch({ type: ActionTypes.MOVE_FIELD_GROUP_DOWN, groupId })}>
             Move down
           </TextLink>
         ) : null}
         {!first ? (
           <TextLink
+            as="button"
             className={styles.fieldGroupConfigurationTextLink}
-            icon="ChevronUp"
+            icon={<ChevronUpIcon />}
             onClick={() => dispatch({ type: ActionTypes.MOVE_FIELD_GROUP_UP, groupId })}>
             Move up
           </TextLink>

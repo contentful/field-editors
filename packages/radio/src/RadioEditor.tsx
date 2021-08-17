@@ -7,8 +7,10 @@ import {
   LocalesAPI,
 } from '@contentful/field-editor-shared';
 import { getOptions, parseValue } from '@contentful/field-editor-dropdown';
-import { Form, RadioButtonField, TextLink, Flex } from '@contentful/forma-36-react-components';
+import { Form, RadioButtonField, Flex } from '@contentful/forma-36-react-components';
 import * as styles from './styles';
+
+import { TextLink } from "@contentful/f36-components";
 
 export interface RadioEditorProps {
   /**
@@ -76,7 +78,7 @@ export function RadioEditor(props: RadioEditorProps) {
                     }}
                   />
                   {checked && (
-                    <TextLink className={styles.clearBtn} onClick={clearOption}>
+                    <TextLink as="button" className={styles.clearBtn} onClick={clearOption}>
                       Clear
                     </TextLink>
                   )}

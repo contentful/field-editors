@@ -1,15 +1,12 @@
 import React from 'react';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
-import {
-  RadioButtonField,
-  FieldGroup,
-  TextInput,
-  TextLink,
-} from '@contentful/forma-36-react-components';
+import { RadioButtonField, FieldGroup, TextInput } from '@contentful/forma-36-react-components';
 import { LocationSearchInput } from './LocationSearchInput';
 
 import { Coords, ViewType, GeocodeApiResponse } from './types';
+
+import { TextLink } from "@contentful/f36-components";
 
 interface LocationSelectorProps {
   disabled: boolean;
@@ -142,7 +139,8 @@ export function LocationSelector(props: LocationSelectorProps) {
       </div>
       <div className={styles.secondary}>
         <TextLink
-          disabled={props.disabled}
+          as="button"
+          isDisabled={props.disabled}
           testId="location-editor-clear"
           className={styles.clearBtn}
           onClick={() => {

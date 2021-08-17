@@ -3,17 +3,10 @@ import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 import { DialogsAPI } from '@contentful/app-sdk';
 import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
-import {
-  Modal,
-  HelpText,
-  TextLink,
-  TextField,
-  RadioButtonField,
-  CheckboxField,
-  Button,
-  Form,
-} from '@contentful/forma-36-react-components';
+import { Modal, HelpText, TextField, RadioButtonField, CheckboxField, Button, Form } from '@contentful/forma-36-react-components';
 import { isValidUrl } from '../utils/isValidUrl';
+
+import { TextLink } from "@contentful/f36-components";
 
 const styles = {
   widthFiledGroup: css({
@@ -103,7 +96,10 @@ export const EmbedExternalContentModal = ({ onClose }: EmbedExternalContentModal
           required
           validationMessage={urlIsValid ? '' : 'URL is invalid'}
         />
-        <TextLink href="http://embed.ly/providers" target="_blank" rel="noopener noreferrer">
+        <TextLink
+          href="http://embed.ly/providers"
+          target="_blank"
+          rel="noopener noreferrer">
           Supported sources
         </TextLink>
         <div className={styles.widthFiledGroup}>

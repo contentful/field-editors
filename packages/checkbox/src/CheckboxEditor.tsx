@@ -8,9 +8,11 @@ import {
   LocalesAPI,
   PredefinedValuesError,
 } from '@contentful/field-editor-shared';
-import { CheckboxField, Form, TextLink } from '@contentful/forma-36-react-components';
+import { CheckboxField, Form } from '@contentful/forma-36-react-components';
 import * as styles from './styles';
 import { nanoid } from 'nanoid';
+
+import { TextLink } from "@contentful/f36-components";
 
 export interface CheckboxEditorProps {
   /**
@@ -140,7 +142,10 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
                     <span data-test-id="invalid-text" className={styles.invalidText}>
                       (invalid)
                     </span>
-                    <TextLink className={styles.removeBtn} onClick={() => removeValue(item.value)}>
+                    <TextLink
+                      as="button"
+                      className={styles.removeBtn}
+                      onClick={() => removeValue(item.value)}>
                       Remove
                     </TextLink>
                   </>

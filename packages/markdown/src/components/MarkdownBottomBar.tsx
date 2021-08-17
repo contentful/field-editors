@@ -1,7 +1,9 @@
 import React from 'react';
 import { css } from 'emotion';
-import { Paragraph, TextLink } from '@contentful/forma-36-react-components';
+import { Paragraph } from '@contentful/forma-36-react-components';
 import tokens from '@contentful/forma-36-tokens';
+
+import { TextLink } from "@contentful/f36-components";
 
 const styles = {
   root: css({
@@ -36,6 +38,7 @@ export function MarkdownHelp(props: { onClick: () => void }) {
     <Paragraph className={styles.help}>
       Format your text like a pro with the{' '}
       <TextLink
+        as="button"
         testId="open-markdown-cheatsheet-button"
         onClick={() => {
           props.onClick();

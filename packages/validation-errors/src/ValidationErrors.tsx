@@ -7,9 +7,13 @@ import type {
   LocalesAPI,
 } from '@contentful/field-editor-shared';
 import { entityHelpers } from '@contentful/field-editor-shared';
-import { TextLink, List, ListItem, Icon } from '@contentful/forma-36-react-components';
+import { List, ListItem, Icon } from '@contentful/forma-36-react-components';
 
 import * as styles from './styles';
+
+import { TextLink } from "@contentful/f36-components";
+
+import { ExternalLinkIcon } from "@contentful/f36-icons";
 
 export type ValidationError = {
   name: string;
@@ -98,9 +102,9 @@ function UniquenessError(props: UniquenessErrorProps) {
             <TextLink
               key={entry.id}
               href={entry.href}
-              icon="ExternalLink"
-              iconPosition="right"
-              linkType="negative"
+              icon={<ExternalLinkIcon />}
+              alignIcon="end"
+              variant="negative"
               target="_blank"
               rel="noopener noreferrer">
               {entry.title}

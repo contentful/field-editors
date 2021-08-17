@@ -24,6 +24,7 @@
     "@contentful/field-editor-shared": "^0.22.0",
     "@contentful/forma-36-react-components": "^3.93.4",
     "@contentful/forma-36-tokens": "^0.11.0",
+    "@contentful/f36-components": "next-v4",
     "@types/codemirror": "0.0.108",
     "@types/markdown-to-jsx": "6.11.3",
     "codemirror": "^5.48.0",

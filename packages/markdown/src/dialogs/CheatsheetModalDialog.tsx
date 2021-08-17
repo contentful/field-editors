@@ -1,9 +1,11 @@
 import React from 'react';
 import { css, cx } from 'emotion';
 import { DialogsAPI } from '@contentful/app-sdk';
-import { Modal, TextLink, Heading } from '@contentful/forma-36-react-components';
+import { Modal, Heading } from '@contentful/forma-36-react-components';
 import tokens from '@contentful/forma-36-tokens';
 import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
+
+import { TextLink } from "@contentful/f36-components";
 
 const styles = {
   flexColumnContainer: css({
@@ -99,7 +101,7 @@ export const CheatsheetModalDialog = () => {
             <div className={styles.markup}>~~text~~</div>
           </div>
           <div className={styles.helpItem}>
-            <TextLink className={styles.preview}>Link</TextLink>
+            <TextLink as="button" className={styles.preview}>Link</TextLink>
             <div className={styles.markup}>[text](url)</div>
           </div>
         </div>
