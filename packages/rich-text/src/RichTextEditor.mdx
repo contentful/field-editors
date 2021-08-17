@@ -46,20 +46,10 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
     const space = createFakeSpaceAPI();
     const navigator = createFakeNavigatorAPI();
     const sdk = {
-      space: {
-        ...space,
-        getEntry: () => {
-          return Promise.resolve(publishedEntry);
-        },
-        getAsset: () => {
-          return Promise.resolve(publishedAsset);
-        },
-        getEntityScheduledActions: () => {
-          return Promise.resolve([]);
-        },
-        getAssets: () => {
-          return Promise.resolve({ items: [publishedAsset] });
-        }
+      space,
+      entry: {
+        ...publishedEntry,
+        getSys: ()=> publishedEntry.sys
       },
       field,
       locales: createFakeLocalesAPI(),
@@ -110,7 +100,7 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
 
     return (
       <div data-test-id="rich-text-editor-integration-test">
-        <RichTextEditor sdk={sdk} isInitiallyDisabled={false} editorId="demo" />
+        <RichTextEditor sdk={sdk} isInitiallyDisabled={false} />
         <ActionsPlayground mitt={mitt} renderValue={renderRT} />
       </div>
     );
