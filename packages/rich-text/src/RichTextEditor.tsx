@@ -45,7 +45,6 @@ import { sanitizeIncomingSlateDoc, sanitizeSlateDoc } from './helpers/sanitizeSl
 import { TextOrCustomElement } from './types';
 
 type ConnectedProps = {
-  editorId?: string;
   sdk: FieldExtensionSDK;
   minHeight?: string | number;
   value?: object;
@@ -130,10 +129,13 @@ const ConnectedRichTextEditor = (props: ConnectedProps) => {
 
   const plugins = React.useMemo(() => getPlugins(props.sdk), [props.sdk]);
 
+  const { entry, field } = props.sdk;
+  const entryId = entry.getSys().id;
+
   return (
     <div className={styles.root} data-test-id="rich-text-editor">
       <SlatePlugins
-        id={props.editorId}
+        id={`rich-text-editor-${entryId}-${field.id}-${field.locale}`}
         initialValue={value}
         plugins={plugins}
         editableProps={{
