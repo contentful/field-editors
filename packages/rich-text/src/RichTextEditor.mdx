@@ -59,7 +59,11 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
         },
         getAssets: () => {
           return Promise.resolve({ items: [publishedAsset] });
-        }
+        },
+      },
+      entry: {
+        ...publishedEntry,
+        getSys: ()=> publishedEntry.sys
       },
       field,
       locales: createFakeLocalesAPI(),
@@ -110,7 +114,7 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
 
     return (
       <div data-test-id="rich-text-editor-integration-test">
-        <RichTextEditor sdk={sdk} isInitiallyDisabled={false} editorId="demo" />
+        <RichTextEditor sdk={sdk} isInitiallyDisabled={false} />
         <ActionsPlayground mitt={mitt} renderValue={renderRT} />
       </div>
     );
