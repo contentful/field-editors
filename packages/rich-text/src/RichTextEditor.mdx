@@ -46,7 +46,21 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
     const space = createFakeSpaceAPI();
     const navigator = createFakeNavigatorAPI();
     const sdk = {
-      space,
+      space: {
+        ...space,
+        getEntry: () => {
+          return Promise.resolve(publishedEntry);
+        },
+        getAsset: () => {
+          return Promise.resolve(publishedAsset);
+        },
+        getEntityScheduledActions: () => {
+          return Promise.resolve([]);
+        },
+        getAssets: () => {
+          return Promise.resolve({ items: [publishedAsset] });
+        },
+      },
       entry: {
         ...publishedEntry,
         getSys: ()=> publishedEntry.sys
