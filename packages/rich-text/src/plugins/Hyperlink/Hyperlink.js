@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tooltip, TextLink } from '@contentful/forma-36-react-components';
+import { Tooltip } from '@contentful/forma-36-react-components';
 import PropTypes from 'prop-types';
 import { cx } from 'emotion';
 import noop from 'lodash/noop';
@@ -7,6 +7,8 @@ import isHotKey from 'is-hotkey';
 import styles from './styles';
 import { SUPPORTS_NATIVE_SLATE_HYPERLINKS } from '../../helpers/browserSupport';
 import { EntityHyperlinkTooltip } from './EntityHyperlinkTootip';
+
+import { TextLink } from "@contentful/f36-components";
 
 export default class Hyperlink extends React.Component {
   static propTypes = {
@@ -62,7 +64,8 @@ export default class Hyperlink extends React.Component {
         maxWidth="auto">
         {SUPPORTS_NATIVE_SLATE_HYPERLINKS ? (
           <TextLink
-            href={href} // Allows user to open uri link in new tab.
+            // Allows user to open uri link in new tab.
+            href={href}
             rel="noopener noreferrer"
             title={title}
             className={styles.hyperlink}>

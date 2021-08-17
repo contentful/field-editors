@@ -2,19 +2,12 @@ import React from 'react';
 import { css } from 'emotion';
 import PropTypes from 'prop-types';
 import tokens from '@contentful/forma-36-tokens';
-import {
-  Modal,
-  TextField,
-  Button,
-  Form,
-  FormLabel,
-  TextLink,
-  SelectField,
-  Option,
-} from '@contentful/forma-36-react-components';
+import { Modal, TextField, Button, Form, FormLabel, SelectField, Option } from '@contentful/forma-36-react-components';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { FetchingWrappedEntryCard } from '../../plugins/EmbeddedEntityBlock/FetchingWrappedEntryCard';
 import { FetchingWrappedAssetCard } from '../../plugins/EmbeddedEntityBlock/FetchingWrappedAssetCard';
+
+import { TextLink } from "@contentful/f36-components";
 
 export const LINK_TYPES = {
   URI: 'uri',
@@ -238,7 +231,10 @@ export class HyperlinkDialog extends React.Component {
           Link target
         </FormLabel>
         {!isEntitySelectorVisible && (
-          <TextLink className={css({ marginLeft: tokens.spacingS })} onClick={resetEntity}>
+          <TextLink
+            as="button"
+            className={css({ marginLeft: tokens.spacingS })}
+            onClick={resetEntity}>
             Remove selection
           </TextLink>
         )}
@@ -273,8 +269,8 @@ export class HyperlinkDialog extends React.Component {
   renderEntitySelector(type) {
     return (
       <div className={css({ marginTop: tokens.spacingS })}>
-        {type === LINK_TYPES.ENTRY && <TextLink onClick={this.selectEntry}>Select entry</TextLink>}
-        {type === LINK_TYPES.ASSET && <TextLink onClick={this.selectAsset}>Select asset</TextLink>}
+        {type === LINK_TYPES.ENTRY && <TextLink as="button" onClick={this.selectEntry}>Select entry</TextLink>}
+        {type === LINK_TYPES.ASSET && <TextLink as="button" onClick={this.selectAsset}>Select asset</TextLink>}
       </div>
     );
   }
