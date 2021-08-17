@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { hyperlinkTooltipStyles as styles } from './styles';
-import { EntityStatusBadge } from "@contentful/f36-badge";
+import { EntityStatusBadge } from "@contentful/f36-components";
 import { ScheduleTooltipContent } from '@contentful/field-editor-reference';
 import { entityHelpers } from '@contentful/field-editor-shared';
 import { truncate } from './truncate';

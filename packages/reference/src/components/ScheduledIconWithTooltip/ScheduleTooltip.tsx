@@ -2,7 +2,7 @@ import React from 'react';
 import { ScheduledAction } from '@contentful/app-sdk';
 import { css, cx } from 'emotion';
 import { Tooltip, Paragraph } from '@contentful/forma-36-react-components';
-import { Badge } from "@contentful/f36-badge";
+import { Badge } from '@contentful/f36-components';
 import tokens from '@contentful/forma-36-tokens';
 import { formatDateAndTime } from './formatDateAndTime';
 
