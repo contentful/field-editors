@@ -15,14 +15,9 @@ import { SingleMediaEditor } from '@contentful/field-editor-reference';
 
 import { Playground, Props } from 'docz';
 import { SingleMediaEditor } from './SingleMediaEditor.tsx';
-import {
-  TextLink,
-  Card,
-  Button,
-  Typography,
-  Heading,
-  Asset,
-} from '@contentful/forma-36-react-components';
+import { Card, Button, Typography, Heading, Asset } from '@contentful/forma-36-react-components';
+import { TextLink } from '@contentful/f36-components';
+import { ThumbUpIcon } from '@contentful/f36-icons';
 import { ActionsPlayground } from '@contentful/field-editor-test-utils';
 import { newReferenceEditorFakeSdk } from '../__fixtures__/FakeSdk';
 
@@ -49,9 +44,7 @@ import { newReferenceEditorFakeSdk } from '../__fixtures__/FakeSdk';
     );
 }}
 
-
 </Playground>
-
 
 ## With custom actions
 
@@ -68,9 +61,9 @@ Note the alternative link actions injected via the `renderCustomActions` prop.
           isInitiallyDisabled={false}
           renderCustomActions={(props) => <TextLink disabled={props.isDisabled} testId='custom-link'
               onClick={props.onLinkExisting}
-              linkType="primary"
-              icon="ThumbUp"
-              iconPosition="right">
+              variant="primary"
+              icon={<ThumbUpIcon />}
+              alignIcon="end">
             Re-use something
             </TextLink>
           }
@@ -86,9 +79,7 @@ Note the alternative link actions injected via the `renderCustomActions` prop.
     );
 }}
 
-
 </Playground>
-
 
 ## With custom card
 
@@ -111,20 +102,18 @@ Note the alternative link actions injected via the `renderCustomActions` prop.
             const title = props.entity.fields.title;
             const file = props.entity.fields.file;
             return (
-            <Card testId="custom-card">
-              <Typography style={{ marginBottom: '20px' }}>
-                <Heading>{title && title['en-US']}</Heading>
-                <Asset
-                  src={file && file['en-US'].url }
-                  title={file && file['en-US'].fileName}
-                />
-              </Typography>
-              <Button onClick={props.onEdit} style={{ marginRight: '10px' }}>
-                Edit
-              </Button>
-              <Button onClick={props.onRemove}>Remove</Button>
-            </Card>
-          )}}
+              <Card testId="custom-card">
+                <Typography style={{ marginBottom: '20px' }}>
+                  <Heading>{title && title['en-US']}</Heading>
+                  <Asset src={file && file['en-US'].url} title={file && file['en-US'].fileName} />
+                </Typography>
+                <Button onClick={props.onEdit} style={{ marginRight: '10px' }}>
+                  Edit
+                </Button>
+                <Button onClick={props.onRemove}>Remove</Button>
+              </Card>
+            );
+          }}
         />
         <ActionsPlayground mitt={mitt} />
       </div>
