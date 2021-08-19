@@ -12,7 +12,7 @@ import {
 import { CustomElement, CustomSlatePluginOptions } from 'types';
 import tokens from '@contentful/forma-36-tokens';
 import { SPEditor, useStoreEditor } from '@udecode/slate-plugins-core';
-import { getKeyboardEvents, insertTableWithTrailingParagraph, isTableActive } from './helpers';
+import { insertTableWithTrailingParagraph, isTableActive } from './helpers';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { TableActions } from './TableActions';
 import { TrackingProvider, useTrackingContext } from '../../TrackingProvider';
@@ -126,15 +126,7 @@ function createWithTableEvents(tracking: TrackingProvider) {
   return function withTableEvents(editor: SPEditor) {
     addTableTrackingEvents(editor, tracking);
     const withTableEventsFromUdecode = getTableOnKeyDown()(editor);
-    const keyboardEvents = getKeyboardEvents(withTableOptions);
     return function onKeyDown(e: KeyboardEvent) {
-      if (e.metaKey || e.ctrlKey) {
-        const tableAction = keyboardEvents[e.key];
-        if (tableAction) {
-          e.preventDefault();
-          return tableAction(editor);
-        }
-      }
       withTableEventsFromUdecode(e);
     };
   };
