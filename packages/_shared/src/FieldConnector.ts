@@ -1,6 +1,6 @@
 import React from 'react';
-import throttle from 'lodash/throttle';
 import isEqual from 'lodash/isEqual';
+import throttle from 'lodash/throttle';
 import { FieldAPI } from '@contentful/app-sdk';
 
 type Nullable = null | undefined;
@@ -18,7 +18,6 @@ export interface FieldConnectorChildProps<ValueType> {
 interface FieldConnectorState<ValueType> {
   isLocalValueChange: boolean;
   externalReset: number;
-  lastSetValue: ValueType | Nullable;
   lastRemoteValue: ValueType | Nullable;
   value: ValueType | Nullable;
   disabled: boolean;
@@ -60,7 +59,6 @@ export class FieldConnector<ValueType> extends React.Component<
       isLocalValueChange: false,
       externalReset: 0,
       value: initialValue,
-      lastSetValue: initialValue,
       lastRemoteValue: initialValue,
       disabled: props.isInitiallyDisabled,
       errors: [],
@@ -71,34 +69,30 @@ export class FieldConnector<ValueType> extends React.Component<
   unsubscribeDisabled: Function | null = null;
   unsubscribeValue: Function | null = null;
 
-  setValue = throttle(
+  setValue = async (value: ValueType | Nullable) => {
+    if (this.props.isEmptyValue(value ?? null)) {
+      this.setState({ value: undefined });
+    } else {
+      this.setState({ value });
+    }
+
+    await this.triggerSetValueCallbacks(value);
+  };
+
+  triggerSetValueCallbacks = throttle(
     (value: ValueType | Nullable) => {
-      if (this.props.isEmptyValue(value === undefined ? null : value)) {
-        return new Promise((resolve, reject) => {
-          this.setState(
-            {
-              lastSetValue: undefined,
-            },
-            () => {
-              this.props.field.removeValue().then(resolve).catch(reject);
-            }
-          );
-        });
-      } else {
-        return new Promise((resolve, reject) => {
-          this.setState(
-            {
-              lastSetValue: value,
-            },
-            () => {
-              this.props.field.setValue(value).then(resolve).catch(reject);
-            }
-          );
-        });
-      }
+      return new Promise((resolve, reject) => {
+        if (this.props.isEmptyValue(value ?? null)) {
+          this.props.field.removeValue().then(resolve).catch(reject);
+        } else {
+          this.props.field.setValue(value).then(resolve).catch(reject);
+        }
+      });
     },
     this.props.throttle,
-    { leading: this.props.throttle === 0 }
+    {
+      leading: this.props.throttle === 0,
+    }
   );
 
   componentDidMount() {
@@ -115,12 +109,11 @@ export class FieldConnector<ValueType> extends React.Component<
     });
     this.unsubscribeValue = field.onValueChanged((value: ValueType | Nullable) => {
       this.setState((currentState) => {
-        const isLocalValueChange = this.props.isEqualValues(value, currentState.lastSetValue);
+        const isLocalValueChange = this.props.isEqualValues(value, currentState.value);
         const lastRemoteValue = isLocalValueChange ? currentState.lastRemoteValue : value;
         const externalReset = currentState.externalReset + (isLocalValueChange ? 0 : 1);
         return {
           value,
-          lastSetValue: value,
           lastRemoteValue,
           isLocalValueChange,
           externalReset,
@@ -142,15 +135,8 @@ export class FieldConnector<ValueType> extends React.Component<
   }
 
   render() {
-    const childProps = { ...this.state };
-    // `lastSetValue` can be either the `setValue()` value right after it got called
-    // or the current remote value. No use-case for passing this to child.
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    delete childProps.lastSetValue;
     return this.props.children({
-      ...childProps,
-      // @ts-expect-error
+      ...this.state,
       setValue: this.setValue,
     });
   }
