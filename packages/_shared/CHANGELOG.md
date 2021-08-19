@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.22.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@0.22.0...@contentful/field-editor-shared@0.22.1) (2021-08-19)
+
+
+### Bug Fixes
+
+* FieldConnector setValue race conditions ([#803](https://github.com/contentful/field-editors/issues/803)) ([15a5aa6](https://github.com/contentful/field-editors/commit/15a5aa68a6f3f6c7183444c8fd11de1e70208aa7))
+
+
+
+
+
 # [0.22.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@0.21.0...@contentful/field-editor-shared@0.22.0) (2021-07-23)
 
 
