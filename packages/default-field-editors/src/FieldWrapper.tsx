@@ -44,7 +44,7 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = function (props: FieldW
     return field.onSchemaErrorsChanged((errors: unknown[]) => {
       setHasErrors((errors || []).length > 0);
     });
-  });
+  }, [field]);
 
   return (
     <FieldGroup
