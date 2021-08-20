@@ -28,6 +28,7 @@ import { getDefaultWidgetId } from './getDefaultWidgetId';
 
 type FieldProps = {
   sdk: FieldExtensionSDK;
+  onAction: (name: string, data: Record<string, unknown>) => unknown;
   widgetId?: WidgetType;
   isInitiallyDisabled?: boolean;
   renderFieldEditor?: (
@@ -68,6 +69,7 @@ const widgetComponents: Record<string, [React.ComponentType<any>, any?]> = {
 export const Field: React.FC<FieldProps> = (props: FieldProps) => {
   const {
     sdk,
+    onAction,
     widgetId: possiblyUndefinedWidgetId,
     isInitiallyDisabled = false,
     renderFieldEditor,
@@ -306,6 +308,7 @@ export const Field: React.FC<FieldProps> = (props: FieldProps) => {
         <RichTextEditor
           sdk={sdk}
           isInitiallyDisabled={isInitiallyDisabled}
+          onAction={onAction}
           {...options[widgetId]}
         />
       );

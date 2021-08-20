@@ -5,6 +5,7 @@ import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-edit
 import type { FieldExtensionSDK } from '@contentful/field-editor-shared';
 import { Field } from './Field';
 import { SingleEntryReferenceEditor } from '@contentful/field-editor-reference';
+import noop from 'lodash/noop';
 
 configure({
   testIdAttribute: 'data-test-id',
@@ -36,6 +37,7 @@ describe('Field', () => {
     const { queryByTestId } = render(
       <Field
         sdk={sdk}
+        onAction={noop}
         isInitiallyDisabled={false}
         widgetId="customEditor"
         renderFieldEditor={() => {
@@ -59,6 +61,7 @@ describe('Field', () => {
     render(
       <Field
         sdk={sdk}
+        onAction={noop}
         isInitiallyDisabled={false}
         widgetId="entryLinkEditor"
         getOptions={() => options}
