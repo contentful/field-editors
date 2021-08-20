@@ -118,6 +118,14 @@ export function isList(editor) {
   );
 }
 
+export function getTableSize(table: CustomElement): Record<'numRows' | 'numColumns', number> | null {
+  const numRows = table.children.length;
+  if (!numRows) return null;
+  const [firstRow] = table.children;
+  const numColumns = (firstRow as CustomElement).children?.length;
+  return { numRows, numColumns };
+}
+
 export function isFirstChild(path: Path) {
   return path[path.length - 1] === 0;
 }

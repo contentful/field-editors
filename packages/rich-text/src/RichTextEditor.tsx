@@ -41,21 +41,26 @@ import {
   withEmbeddedEntityInlineOptions,
 } from './plugins/EmbeddedEntityInline';
 import { SdkProvider } from './SdkProvider';
+import {
+  RichTextTrackingActionHandler,
+  TrackingProvider,
+  useTrackingContext,
+} from './TrackingProvider';
 import { sanitizeIncomingSlateDoc, sanitizeSlateDoc } from './helpers/sanitizeSlateDoc';
 import { TextOrCustomElement } from './types';
 
 type ConnectedProps = {
   sdk: FieldExtensionSDK;
+  onAction: RichTextTrackingActionHandler;
   minHeight?: string | number;
   value?: object;
   isDisabled?: boolean;
   onChange?: (doc: Contentful.Document) => unknown;
-  onAction?: () => unknown;
   isToolbarHidden?: boolean;
   actionsDisabled?: boolean;
 };
 
-const getPlugins = (sdk: FieldExtensionSDK) => {
+const getPlugins = (sdk: FieldExtensionSDK, tracking: TrackingProvider) => {
   const plugins = [
     // Core
     createReactPlugin(),
@@ -70,7 +75,7 @@ const getPlugins = (sdk: FieldExtensionSDK) => {
     createHrPlugin(),
     createHeadingPlugin(),
     createQuotePlugin(),
-    createTablePlugin(),
+    createTablePlugin(tracking),
     createEmbeddedEntryBlockPlugin(sdk),
     createEmbeddedAssetBlockPlugin(sdk),
 
@@ -111,6 +116,8 @@ const options = {
 };
 
 const ConnectedRichTextEditor = (props: ConnectedProps) => {
+  const tracking = useTrackingContext();
+
   const docFromAdapter = toSlatejsDocument({
     document: props.value || Contentful.EMPTY_DOCUMENT,
     schema,
@@ -127,7 +134,7 @@ const ConnectedRichTextEditor = (props: ConnectedProps) => {
     props.isToolbarHidden && styles.hiddenToolbar
   );
 
-  const plugins = React.useMemo(() => getPlugins(props.sdk), [props.sdk]);
+  const plugins = React.useMemo(() => getPlugins(props.sdk, tracking), [props.sdk, tracking]);
 
   const { entry, field } = props.sdk;
   const entryId = entry.getSys().id;
@@ -162,7 +169,7 @@ const ConnectedRichTextEditor = (props: ConnectedProps) => {
 type Props = ConnectedProps & { isInitiallyDisabled: boolean };
 
 const RichTextEditor = (props: Props) => {
-  const { sdk, isInitiallyDisabled, ...otherProps } = props;
+  const { sdk, isInitiallyDisabled, onAction, ...otherProps } = props;
   const isEmptyValue = useCallback(
     (value) => !value || deepEquals(value, Contentful.EMPTY_DOCUMENT),
     []
@@ -170,25 +177,28 @@ const RichTextEditor = (props: Props) => {
   return (
     <EntityProvider sdk={sdk}>
       <SdkProvider sdk={sdk}>
-        <FieldConnector
-          throttle={0}
-          field={sdk.field}
-          isInitiallyDisabled={isInitiallyDisabled}
-          isEmptyValue={isEmptyValue}
-          isEqualValues={deepEquals}>
-          {({ lastRemoteValue, disabled, setValue, externalReset }) => (
-            <ConnectedRichTextEditor
-              {...otherProps}
-              // TODO: do we still need this with ShareJS gone?
-              // on external change reset component completely and init with initial value again
-              key={`rich-text-editor-${externalReset}`}
-              value={lastRemoteValue}
-              sdk={sdk}
-              isDisabled={disabled}
-              onChange={setValue}
-            />
-          )}
-        </FieldConnector>
+        <TrackingProvider onAction={onAction}>
+          <FieldConnector
+            throttle={0}
+            field={sdk.field}
+            isInitiallyDisabled={isInitiallyDisabled}
+            isEmptyValue={isEmptyValue}
+            isEqualValues={deepEquals}>
+            {({ lastRemoteValue, disabled, setValue, externalReset }) => (
+              <ConnectedRichTextEditor
+                {...otherProps}
+                // TODO: do we still need this with ShareJS gone?
+                // on external change reset component completely and init with initial value again
+                key={`rich-text-editor-${externalReset}`}
+                value={lastRemoteValue}
+                sdk={sdk}
+                onAction={onAction}
+                isDisabled={disabled}
+                onChange={setValue}
+              />
+            )}
+          </FieldConnector>
+        </TrackingProvider>
       </SdkProvider>
     </EntityProvider>
   );

@@ -9,12 +9,13 @@ import {
   createTablePlugin as createTablePluginFromUdecode,
   getTableOnKeyDown,
 } from '@udecode/slate-plugins-table';
-import { CustomSlatePluginOptions } from 'types';
+import { CustomElement, CustomSlatePluginOptions } from 'types';
 import tokens from '@contentful/forma-36-tokens';
 import { SPEditor, useStoreEditor } from '@udecode/slate-plugins-core';
-import { getKeyboardEvents, insertTableWithTrailingParagraph, isTableActive } from './helpers';
+import { insertTableWithTrailingParagraph, isTableActive } from './helpers';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { TableActions } from './TableActions';
+import { TrackingProvider, useTrackingContext } from '../../TrackingProvider';
 
 const styles = {
   [BLOCKS.TABLE]: css`
@@ -85,24 +86,55 @@ export const withTableOptions: CustomSlatePluginOptions = {
   },
 };
 
-function withTableEvents(editor: SPEditor) {
-  const withTableEventsFromUdecode = getTableOnKeyDown()(editor);
-  const keyboardEvents = getKeyboardEvents(withTableOptions);
-  return function onKeyDown(e: KeyboardEvent) {
-    if (e.metaKey || e.ctrlKey) {
-      const tableAction = keyboardEvents[e.key];
-      if (tableAction) {
-        e.preventDefault();
-        return tableAction(editor);
-      }
+function addTableTrackingEvents(editor: SPEditor, { onViewportAction }: TrackingProvider) {
+  const { insertData } = editor;
+  editor.insertData = (data: DataTransfer) => {
+    const html = data.getData('text/html');
+
+    if (html) {
+      const { children: markupBefore } = editor;
+      insertData(data);
+      const { children: markupAfter } = editor;
+      setTimeout(() => {
+        if (hasTables(markupBefore)) return;
+        if (hasTables(markupAfter)) {
+          onViewportAction('paste', { tablePasted: true });
+        }
+      }, 1);
     }
-    withTableEventsFromUdecode(e);
   };
 }
 
-export const createTablePlugin: typeof createTablePluginFromUdecode = () => ({
+// We implement this as BFS because it's more likely
+// tables will appear earlier in the tree.
+function hasTables(nodes: CustomElement[]) {
+  const toCheck = ([] as CustomElement[]).concat(nodes);
+  while (toCheck.length) {
+    const { type, children } = toCheck.shift() as CustomElement;
+    if (type === BLOCKS.TABLE) {
+      return true;
+    } else if (children) {
+      // Ideally we'd simply spread here, but we'd need to
+      // upgrade TS first.
+      Array.prototype.push.apply(toCheck, children);
+    }
+  }
+  return false;
+}
+
+function createWithTableEvents(tracking: TrackingProvider) {
+  return function withTableEvents(editor: SPEditor) {
+    addTableTrackingEvents(editor, tracking);
+    const withTableEventsFromUdecode = getTableOnKeyDown()(editor);
+    return function onKeyDown(e: KeyboardEvent) {
+      withTableEventsFromUdecode(e);
+    };
+  };
+}
+
+export const createTablePlugin = (tracking: TrackingProvider) => ({
   ...createTablePluginFromUdecode(),
-  onKeyDown: withTableEvents,
+  onKeyDown: createWithTableEvents(tracking),
 });
 
 interface ToolbarTableButtonProps {
@@ -111,12 +143,14 @@ interface ToolbarTableButtonProps {
 
 export function ToolbarTableButton(props: ToolbarTableButtonProps) {
   const editor = useStoreEditor();
+  const { onViewportAction } = useTrackingContext();
   const isActive = editor && isTableActive(editor);
 
   async function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
     if (!editor) return;
 
+    onViewportAction('insertTable');
     insertTableWithTrailingParagraph(editor, {});
     Slate.ReactEditor.focus(editor);
   }
