@@ -557,7 +557,11 @@ describe('Rich Text Editor', () => {
     const emptyParagraph = () => paragraphWithText('');
     const emptyCell = () => cell(emptyParagraph());
     const cellWithText = (t) => cell(paragraphWithText(t));
-    const insertTable = () => editor().type(`{${mod}}{,}`);
+    const insertTable = () => {
+      editor().click();
+      cy.findByTestId('table-toolbar-button').click();
+      return editor();
+    };
     const insertTableWithExampleData = () => {
       insertTable()
         .typeInSlate('foo')
