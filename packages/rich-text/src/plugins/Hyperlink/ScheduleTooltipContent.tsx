@@ -15,17 +15,17 @@ const styles = {
     color: tokens.colorPositive,
   }),
   secondaryColor: css({
-    color: tokens.colorElementDarkest,
+    color: tokens.gray500,
   }),
   marginRightXS: css({
     marginRight: tokens.spacing2Xs,
   }),
   paragraph: css({
     textAlign: 'center',
-    color: tokens.colorElementDarkest,
+    color: tokens.gray500,
   }),
   time: css({
-    color: tokens.colorElementLight,
+    color: tokens.gray200,
   }),
 };
 

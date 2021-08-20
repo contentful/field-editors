@@ -1,7 +1,7 @@
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 
-const STYLE_EDITOR_BORDER = `1px solid ${tokens.colorElementDark}`;
+const STYLE_EDITOR_BORDER = `1px solid ${tokens.gray400}`;
 
 export const styles = {
   root: css({
@@ -48,6 +48,6 @@ export const styles = {
     },
   }),
   disabled: css({
-    background: tokens.colorElementLightest,
+    background: tokens.gray100,
   }),
 };
