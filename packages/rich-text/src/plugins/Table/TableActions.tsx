@@ -17,7 +17,7 @@ import {
 } from '@contentful/forma-36-react-components';
 
 import { addRowAbove, addColumnLeft, addColumnRight, addRowBelow } from './actions';
-import { useTrackingContext } from '../../TrackingProvider';
+import { RichTextTrackingActionName, useTrackingContext } from '../../TrackingProvider';
 import { getNodeEntryFromSelection, getTableSize } from '../../helpers/editor';
 import { BLOCKS } from '@contentful/rich-text-types';
 
@@ -61,7 +61,7 @@ export const TableActions = () => {
     const tableSize = getCurrentTableSize(editor);
     cb(editor, {});
     const actionName = `${type}Table${element === 'Table' ? '' : element}`;
-    onViewportAction(actionName, { tableSize });
+    onViewportAction(actionName as RichTextTrackingActionName, { tableSize });
   };
 
   return (

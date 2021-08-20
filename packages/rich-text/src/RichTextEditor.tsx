@@ -41,13 +41,17 @@ import {
   withEmbeddedEntityInlineOptions,
 } from './plugins/EmbeddedEntityInline';
 import { SdkProvider } from './SdkProvider';
-import { TrackingProvider, useTrackingContext } from './TrackingProvider';
+import {
+  RichTextTrackingActionHandler,
+  TrackingProvider,
+  useTrackingContext,
+} from './TrackingProvider';
 import { sanitizeIncomingSlateDoc, sanitizeSlateDoc } from './helpers/sanitizeSlateDoc';
 import { TextOrCustomElement } from './types';
 
 type ConnectedProps = {
   sdk: FieldExtensionSDK;
-  onAction: (name: string, data: Record<string, unknown>) => unknown;
+  onAction: RichTextTrackingActionHandler;
   minHeight?: string | number;
   value?: object;
   isDisabled?: boolean;

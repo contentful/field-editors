@@ -1,13 +1,27 @@
 import * as React from 'react';
 import constate from 'constate';
 
+export type RichTextTrackingActionName =
+  | 'insertTable'
+  | 'insertTableRow'
+  | 'insertTableColumn'
+  | 'removeTable'
+  | 'removeTableRow'
+  | 'removeTableColumn'
+  | 'paste';
+
+export type RichTextTrackingActionHandler = (
+  name: RichTextTrackingActionName,
+  data: Record<string, unknown>
+) => unknown;
+
 interface TrackingProviderProps {
-  onAction: (name: string, data: Record<string, unknown>) => unknown;
+  onAction: RichTextTrackingActionHandler;
 }
 
 export interface TrackingProvider {
   onViewportAction: (
-    actionName: string,
+    actionName: RichTextTrackingActionName,
     data?: Record<string, unknown>
   ) => ReturnType<TrackingProviderProps['onAction']>;
 }
@@ -15,8 +29,8 @@ export interface TrackingProvider {
 function useTracking({ onAction }: TrackingProviderProps): TrackingProvider {
   const trackingMemo = React.useMemo<TrackingProvider>(
     () => ({
-      onViewportAction: (actionName, data = {}) =>
-        onAction(actionName, { ...data, origin: 'viewport-interaction' }),
+      onViewportAction: (actionName: RichTextTrackingActionName, data = {}) =>
+        onAction(actionName, { origin: 'viewport-interaction', ...data }),
     }),
     [] // eslint-disable-line
   );

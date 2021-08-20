@@ -98,7 +98,7 @@ function addTableTrackingEvents(editor: SPEditor, { onViewportAction }: Tracking
       setTimeout(() => {
         if (hasTables(markupBefore)) return;
         if (hasTables(markupAfter)) {
-          onViewportAction('pasteTable');
+          onViewportAction('paste', { tablePasted: true });
         }
       }, 1);
     }
