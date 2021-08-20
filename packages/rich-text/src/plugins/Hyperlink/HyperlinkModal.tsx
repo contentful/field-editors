@@ -82,7 +82,7 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
     props.onClose({ linkText, linkType, linkTarget, linkEntity });
   }
 
-  function entityToLink(entity) {
+  function entityToLink(entity): Link {
     const { id, type } = entity.sys;
 
     return { sys: { id, type: 'Link', linkType: type } };
