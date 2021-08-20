@@ -3,6 +3,95 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@0.16.1...@contentful/field-editor-markdown@0.16.2) (2021-08-19)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+
+
+
+
+## [0.16.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@0.16.0...@contentful/field-editor-markdown@0.16.1) (2021-07-29)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+
+
+
+
+# [0.16.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@0.15.6...@contentful/field-editor-markdown@0.16.0) (2021-07-23)
+
+
+### Features
+
+* 💡 new color tokens ([#778](https://github.com/contentful/field-editors/issues/778)) ([fba548d](https://github.com/contentful/field-editors/commit/fba548de32305016df7f2685634eefb14294828f))
+
+
+
+
+
+## [0.15.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@0.15.3...@contentful/field-editor-markdown@0.15.6) (2021-07-06)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+
+
+
+
+## [0.15.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@0.15.3...@contentful/field-editor-markdown@0.15.5) (2021-07-06)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+
+
+
+
+## [0.15.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@0.15.3...@contentful/field-editor-markdown@0.15.4) (2021-06-23)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+
+
+
+
+## [0.15.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@0.15.2...@contentful/field-editor-markdown@0.15.3) (2021-06-23)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+
+
+
+
+## [0.15.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@0.15.1...@contentful/field-editor-markdown@0.15.2) (2021-06-22)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+
+
+
+
+## [0.15.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@0.15.0...@contentful/field-editor-markdown@0.15.1) (2021-06-11)
+
+
+### Bug Fixes
+
+* **markdown:** sanitize Markdown output in preview mode ([#740](https://github.com/contentful/field-editors/issues/740)) ([c50655e](https://github.com/contentful/field-editors/commit/c50655e22df750f22b404e396fb97a9b5c1c9009))
+
+
+
+
+
+# [0.15.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@0.14.4...@contentful/field-editor-markdown@0.15.0) (2021-06-01)
+
+
+### Features
+
+* gracefully handle void elements ([#734](https://github.com/contentful/field-editors/issues/734)) ([c359196](https://github.com/contentful/field-editors/commit/c35919604512d526340036f198268d1f26260603))
+
+
+
+
+
 ## [0.14.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@0.14.3...@contentful/field-editor-markdown@0.14.4) (2021-04-14)
 
 

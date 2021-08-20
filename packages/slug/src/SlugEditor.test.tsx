@@ -17,6 +17,10 @@ jest.mock(
   { virtual: true }
 );
 
+jest.mock('use-debounce', () => ({
+  useDebounce: (text: string) => [text],
+}));
+
 function createMocks(
   initialValues: { field?: string; titleField?: string; descriptionField?: string } = {}
 ) {

@@ -10,7 +10,7 @@ export const rightToLeft = css({
 });
 
 export const invalidText = css({
-  color: tokens.colorRedMid,
+  color: tokens.red500,
   marginLeft: tokens.spacing2Xs,
 });
 

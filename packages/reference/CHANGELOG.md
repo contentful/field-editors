@@ -3,6 +3,143 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.20.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.20.5...@contentful/field-editor-reference@2.20.6) (2021-08-19)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+
+
+
+
+## [2.20.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.20.4...@contentful/field-editor-reference@2.20.5) (2021-08-06)
+
+
+### Bug Fixes
+
+* focus on search input ([#797](https://github.com/contentful/field-editors/issues/797)) ([7e5ee40](https://github.com/contentful/field-editors/commit/7e5ee40c2d509f00869086e6ca666cc71d125fe2))
+
+
+
+
+
+## [2.20.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.20.3...@contentful/field-editor-reference@2.20.4) (2021-08-04)
+
+
+### Bug Fixes
+
+* 🐛 search on dropdown losing focus after onchange ([#792](https://github.com/contentful/field-editors/issues/792)) ([972a2ea](https://github.com/contentful/field-editors/commit/972a2eac55f96cb3c50708cbb9177d532451caea))
+
+
+
+
+
+## [2.20.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.20.2...@contentful/field-editor-reference@2.20.3) (2021-07-30)
+
+
+### Bug Fixes
+
+* revert prevent default ([#790](https://github.com/contentful/field-editors/issues/790)) ([8a6c65c](https://github.com/contentful/field-editors/commit/8a6c65c88bd7de0d7f52969e18654ba49232c438))
+
+
+
+
+
+## [2.20.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.20.1...@contentful/field-editor-reference@2.20.2) (2021-07-29)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+
+
+
+
+## [2.20.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.20.0...@contentful/field-editor-reference@2.20.1) (2021-07-28)
+
+
+### Bug Fixes
+
+* render dropdown list or fragment ([#785](https://github.com/contentful/field-editors/issues/785)) ([bf951b2](https://github.com/contentful/field-editors/commit/bf951b2d15234c3698a535898e7a5c233765e856))
+
+
+
+
+
+# [2.20.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.19.0...@contentful/field-editor-reference@2.20.0) (2021-07-28)
+
+
+### Features
+
+* add hasMoveOptions property ([#784](https://github.com/contentful/field-editors/issues/784)) ([8a522f0](https://github.com/contentful/field-editors/commit/8a522f0e1e0c21d9eb6642bde4f509760448dc37))
+
+
+
+
+
+# [2.19.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.18.0...@contentful/field-editor-reference@2.19.0) (2021-07-23)
+
+
+### Features
+
+* 💡 new color tokens ([#778](https://github.com/contentful/field-editors/issues/778)) ([fba548d](https://github.com/contentful/field-editors/commit/fba548de32305016df7f2685634eefb14294828f))
+
+
+
+
+
+# [2.18.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.15.0...@contentful/field-editor-reference@2.18.0) (2021-07-06)
+
+
+### Features
+
+* [] bump forma tokens ([#756](https://github.com/contentful/field-editors/issues/756)) ([befc60f](https://github.com/contentful/field-editors/commit/befc60f9f495b0d1e072e9cba969d139da8f674a))
+
+
+
+
+
+# [2.17.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.15.0...@contentful/field-editor-reference@2.17.0) (2021-07-06)
+
+
+### Features
+
+* [] bump forma tokens ([#756](https://github.com/contentful/field-editors/issues/756)) ([befc60f](https://github.com/contentful/field-editors/commit/befc60f9f495b0d1e072e9cba969d139da8f674a))
+
+
+
+
+
+# [2.16.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.15.0...@contentful/field-editor-reference@2.16.0) (2021-06-23)
+
+
+### Features
+
+* [] bump forma tokens ([#756](https://github.com/contentful/field-editors/issues/756)) ([befc60f](https://github.com/contentful/field-editors/commit/befc60f9f495b0d1e072e9cba969d139da8f674a))
+
+
+
+
+
+# [2.15.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.14.0...@contentful/field-editor-reference@2.15.0) (2021-06-23)
+
+
+### Features
+
+* [] bump app sdk ([#755](https://github.com/contentful/field-editors/issues/755)) ([aa0c217](https://github.com/contentful/field-editors/commit/aa0c2179d4edbb1a37453e1e3bdf0ae11991166f))
+
+
+
+
+
+# [2.14.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.13.1...@contentful/field-editor-reference@2.14.0) (2021-06-22)
+
+
+### Features
+
+* [EXT-2826] make app-sdk a peer depedency ([#748](https://github.com/contentful/field-editors/issues/748)) ([f1d1d01](https://github.com/contentful/field-editors/commit/f1d1d01d89d59d70ab2c831a513ab2580ea64d7e))
+
+
+
+
+
 ## [2.13.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.13.0...@contentful/field-editor-reference@2.13.1) (2021-04-13)
 
 

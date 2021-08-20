@@ -5,7 +5,7 @@ export const errorList = css({
   padding: 0,
   wordWrap: 'break-word',
   marginTop: tokens.spacingS,
-  color: tokens.colorRedMid,
+  color: tokens.red500,
   listStyleType: 'none',
 });
 

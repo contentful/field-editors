@@ -12,7 +12,7 @@ const styles = {
     flexWrap: 'wrap',
   }),
   charButton: css({
-    border: `1px solid ${tokens.colorElementDarkest}`,
+    border: `1px solid ${tokens.gray500}`,
     width: '4.1rem',
     height: '4.1rem',
     fontSize: tokens.fontSizeXl,
@@ -20,7 +20,7 @@ const styles = {
     marginRight: tokens.spacing2Xs,
   }),
   selectedCharButton: css({
-    backgroundColor: tokens.colorElementLightest,
+    backgroundColor: tokens.gray100,
   }),
   tooltip: css({ zIndex: 1000 }),
   button: css({

@@ -10,7 +10,7 @@ import { InitializedEditorType } from './components/MarkdownTextarea/MarkdownTex
 import { MarkdownBottomBar, MarkdownHelp } from './components/MarkdownBottomBar';
 import { MarkdownTab, PreviewComponents } from './types';
 import { openCheatsheetModal } from './dialogs/CheatsheetModalDialog';
-import { MarkdownPreview } from './components/MarkdownPreview/MarkdownPreview';
+import { MarkdownPreview } from './components/MarkdownPreview';
 import { MarkdownConstraints } from './components/MarkdownConstraints';
 import { createMarkdownActions } from './MarkdownActions';
 

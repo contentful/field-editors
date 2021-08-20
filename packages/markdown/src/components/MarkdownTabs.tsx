@@ -15,16 +15,16 @@ const styles = {
   }),
   tab: css({
     cursor: 'pointer',
-    color: tokens.colorTextMid,
+    color: tokens.gray700,
     padding: tokens.spacingXs,
     minWidth: '70px',
-    border: `1px solid ${tokens.colorElementDark}`,
+    border: `1px solid ${tokens.gray400}`,
     borderTopLeftRadius: tokens.borderRadiusSmall,
     borderTopRightRadius: tokens.borderRadiusSmall,
     marginLeft: tokens.spacingXs,
     textAlign: 'center',
-    backgroundColor: tokens.colorElementLightest,
-    borderBottomColor: tokens.colorElementLightest,
+    backgroundColor: tokens.gray100,
+    borderBottomColor: tokens.gray100,
     outline: 'none',
     '&:focus': {
       boxShadow: tokens.boxShadowHeavy,
@@ -32,10 +32,10 @@ const styles = {
     transition: `all ${tokens.transitionEasingDefault} ${tokens.transitionDurationShort}`,
   }),
   inactiveTab: css({
-    background: tokens.colorElementLight,
-    borderBottomColor: tokens.colorElementDark,
+    background: tokens.gray200,
+    borderBottomColor: tokens.gray400,
     '&:hover': {
-      background: tokens.colorElementMid,
+      background: tokens.gray300,
     },
   }),
 };

@@ -40,8 +40,8 @@ import { newReferenceEditorFakeSdk } from '../__fixtures__/FakeSdk'
           isInitiallyDisabled={false}
           parameters={{
             instance: {
-              canCreateEntity: true,
-              canLinkEntity: true
+              showCreateEntityAction: true,
+              showLinkEntityAction: true,
             }
           }}
          />
@@ -77,8 +77,8 @@ again to showcase inserting another reference rendered by the stardard card rend
           isInitiallyDisabled={false}
           parameters={{
             instance: instanceParams || {
-              canCreateEntity: true,
-              canLinkEntity: true
+              showCreateEntityAction: true,
+              showLinkEntityAction: true,
             }
           }}
          />
@@ -106,8 +106,8 @@ again to showcase inserting another reference rendered by the stardard card rend
           isInitiallyDisabled={false}
           parameters={{
             instance: instanceParams || {
-              canCreateEntity: true,
-              canLinkEntity: true
+              showCreateEntityAction: true,
+              showLinkEntityAction: true,
             }
           }}
         />
@@ -121,12 +121,12 @@ again to showcase inserting another reference rendered by the stardard card rend
 
 <Props of={SingleEntryReferenceEditor} />
 
-## As field extension
+## As field app
 
 ```js
 import { SingleEntryReferenceEditor } from '@contentful/field-editor-reference';
 
-/// your extension code
+/// your app code
 init((sdk) => {
   if (sdk.location.is(locations.LOCATION_ENTRY_FIELD)) {
     render(

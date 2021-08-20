@@ -1,0 +1,5 @@
+*                      @contentful/team-bauhaus
+
+apps/                  @contentful/team-extensibility
+packages/rich-text/    @contentful/team-shelley @contentful/team-bauhaus
+packages/reference/    @contentful/team-shelley @contentful/team-bauhaus

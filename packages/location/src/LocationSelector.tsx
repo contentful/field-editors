@@ -39,7 +39,7 @@ const styles = {
     display: 'flex',
     marginTop: tokens.spacingS,
     fontSize: tokens.fontSizeM,
-    color: tokens.colorTextDark,
+    color: tokens.gray900,
     fontFamily: tokens.fontStackPrimary,
     alignItems: 'center',
   }),

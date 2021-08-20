@@ -8,7 +8,7 @@ const styles = {
   constraints: css({
     fontStyle: 'italic',
     marginTop: tokens.spacingS,
-    color: tokens.colorTextLight,
+    color: tokens.gray600,
   }),
 };
 
