@@ -9,7 +9,7 @@ import { ScheduleTooltipContent } from './ScheduleTooltipContent';
 
 const styles = {
   entityContentType: css({
-    color: tokens.colorTextLightest,
+    color: tokens.gray500,
     marginRight: tokens.spacingXs,
     '&:after': {
       content: '""',
@@ -19,7 +19,7 @@ const styles = {
     marginRight: tokens.spacingXs,
   }),
   separator: css({
-    background: tokens.colorTextMid,
+    background: tokens.gray700,
     margin: tokens.spacingXs,
   }),
 };
