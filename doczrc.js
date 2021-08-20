@@ -11,7 +11,7 @@ const pikadayStyles = fs.readFileSync(process.cwd() + '/packages/date/styles/sty
 
 export default {
   title: 'Contentful Field Editors',
-  description: 'React components and extensions for building Contentful entry editor',
+  description: 'React components and apps for building Contentful entry editor',
   src: './packages/',
   files: '**/*.mdx',
   typescript: true,
@@ -19,9 +19,9 @@ export default {
   codeSandbox: false,
   themeConfig: {
     colors: {
-      primary: tokens.colorBlueBase,
-      secondary: tokens.colorIceMid,
-      gray: tokens.colorElementMid,
+      primary: tokens.blue600,
+      secondary: tokens.blue100,
+      gray: tokens.gray300,
     },
   },
   htmlContext: {

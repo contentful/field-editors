@@ -29,7 +29,7 @@ const styles = {
         borderRight: parentHasDropdown ? 'none' : undefined,
         paddingRight: tokens.spacing2Xl,
         '::placeholder': {
-          color: tokens.colorTextLight,
+          color: tokens.gray600,
         },
       },
     }),
@@ -38,14 +38,14 @@ const styles = {
     right: tokens.spacingM,
     top: tokens.spacingS,
     zIndex: Number(tokens.zIndexDefault),
-    fill: tokens.colorTextLight,
+    fill: tokens.gray600,
   }),
   separator: css({
-    background: tokens.colorElementLight,
+    background: tokens.gray200,
     margin: '10px 0',
   }),
   dropdownList: css({
-    borderColor: tokens.colorElementLight,
+    borderColor: tokens.gray200,
   }),
 };
 
@@ -93,6 +93,7 @@ export const CreateEntryMenuTrigger = ({
   const [isSelecting, setSelecting] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const wrapper = useRef<any | null>(null);
+  const textField = useRef<any | null>(null);
   const dropdownRef = useRef<any | null>(null);
   /*
     By default, dropdown wraps it's content, so it's width = the width of the widest item
@@ -107,6 +108,14 @@ export const CreateEntryMenuTrigger = ({
   const hasDropdown = contentTypes.length > 1 || !!renderCustomDropdownItems;
 
   const closeMenu = () => setOpen(false);
+
+  useEffect(() => {
+   if (isOpen) {
+    setTimeout(() => {
+      textField?.current?.querySelector('input')?.focus()
+    }, 200);
+   }
+  }, [isOpen])
 
   const handleSelect = (item: ContentType) => {
     closeMenu();
@@ -172,6 +181,7 @@ export const CreateEntryMenuTrigger = ({
   return (
     <span className={styles.wrapper} ref={wrapper} data-test-id={testId}>
       <Dropdown
+        focusContainerOnOpen={false}
         position={dropdownSettings.position}
         isAutoalignmentEnabled={dropdownSettings.isAutoalignmentEnabled}
         isOpen={isOpen && hasDropdown}
@@ -189,7 +199,7 @@ export const CreateEntryMenuTrigger = ({
           </DropdownList>
         )}
         {isSearchable && (
-          <div className={styles.wrapper}>
+          <div ref={textField} className={styles.wrapper}>
             <TextInput
               className={styles.searchInput(hasDropdown)}
               placeholder="Search all content types"
