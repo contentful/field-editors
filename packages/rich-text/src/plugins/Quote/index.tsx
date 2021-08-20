@@ -25,7 +25,7 @@ import { deserializeElement } from '../../helpers/deserializer';
 const styles = {
   blockquote: css({
     margin: '0 0 1.3125rem',
-    borderLeft: `6px solid ${tokens.colorElementLight}`,
+    borderLeft: `6px solid ${tokens.gray200}`,
     paddingLeft: '0.875rem',
     fontStyle: 'normal',
     '& a': {
