@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import noop from 'lodash/noop';
 import { toContentfulDocument, toSlatejsDocument } from '@contentful/contentful-slatejs-adapter';
 import * as Contentful from '@contentful/rich-text-types';
 import { EntityProvider } from '@contentful/field-editor-reference';
@@ -51,7 +52,7 @@ import { TextOrCustomElement } from './types';
 
 type ConnectedProps = {
   sdk: FieldExtensionSDK;
-  onAction: RichTextTrackingActionHandler;
+  onAction?: RichTextTrackingActionHandler;
   minHeight?: string | number;
   value?: object;
   isDisabled?: boolean;
@@ -115,7 +116,7 @@ const options = {
   ...withUnderlineOptions,
 };
 
-const ConnectedRichTextEditor = (props: ConnectedProps) => {
+export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const tracking = useTrackingContext();
 
   const docFromAdapter = toSlatejsDocument({
@@ -177,7 +178,7 @@ const RichTextEditor = (props: Props) => {
   return (
     <EntityProvider sdk={sdk}>
       <SdkProvider sdk={sdk}>
-        <TrackingProvider onAction={onAction}>
+        <TrackingProvider onAction={onAction || noop}>
           <FieldConnector
             throttle={0}
             field={sdk.field}
@@ -192,7 +193,7 @@ const RichTextEditor = (props: Props) => {
                 key={`rich-text-editor-${externalReset}`}
                 value={lastRemoteValue}
                 sdk={sdk}
-                onAction={onAction}
+                onAction={onAction || noop}
                 isDisabled={disabled}
                 onChange={setValue}
               />
