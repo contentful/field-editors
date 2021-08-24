@@ -109,6 +109,7 @@ export function ToolbarHrButton(props: ToolbarHrButtonProps) {
     <EditorToolbarButton
       icon="HorizontalRule"
       tooltip="HR"
+      tooltipPlace="bottom"
       label="HR"
       disabled={props.isDisabled}
       onClick={handleOnClick}
