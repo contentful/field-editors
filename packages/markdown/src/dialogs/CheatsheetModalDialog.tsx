@@ -14,7 +14,7 @@ const styles = {
     flexGrow: 1,
   }),
   verticalDivider: css({
-    borderRight: `1px solid ${tokens.colorElementDarkest}`,
+    borderRight: `1px solid ${tokens.gray500}`,
     paddingRight: tokens.spacing3Xl,
     marginRight: tokens.spacing2Xl,
   }),
@@ -33,7 +33,7 @@ const styles = {
   }),
   markup: css({
     display: 'inline-block',
-    color: tokens.colorTextLight,
+    color: tokens.gray600,
     paddingLeft: tokens.spacingL,
     width: '50%',
   }),

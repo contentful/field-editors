@@ -1,8 +1,8 @@
 package:$1:
   - packages/([^/]+)/.*
 
-extension:$1:
-  - extensions/([^/]+)/.*
+app:$1:
+  - apps/([^/]+)/.*
 
 tools:
   - .circleci/**/*

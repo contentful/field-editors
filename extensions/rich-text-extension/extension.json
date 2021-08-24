@@ -1,6 +1,0 @@
-{
-  "id": "rich-text-extension",
-  "name": "Rich Text Extension",
-  "srcdoc": "./build/index.html",
-  "fieldTypes": ["RichText"]
-}

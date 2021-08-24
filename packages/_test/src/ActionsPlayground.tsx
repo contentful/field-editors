@@ -71,7 +71,7 @@ function ActionsPlayground(props: ActionsPlaygroundProps) {
   return (
     <div
       className={css({
-        border: `1px solid ${tokens.colorElementLight}`,
+        border: `1px solid ${tokens.gray200}`,
         padding: tokens.spacingS,
         marginTop: tokens.spacingXl,
       })}>

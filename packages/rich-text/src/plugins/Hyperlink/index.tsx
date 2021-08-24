@@ -31,10 +31,10 @@ const styles = {
     fontSize: 'inherit !important',
     display: 'inline !important',
     '&:hover': {
-      fill: tokens.colorTextDark,
+      fill: tokens.gray900,
     },
     '&:focus': {
-      fill: tokens.colorTextDark,
+      fill: tokens.gray900,
     },
   }),
   hyperlinkIEFallback: css({
@@ -50,10 +50,10 @@ const styles = {
     webkitTransition: 'fill 100ms ease-in-out',
     transition: 'fill 100ms ease-in-out',
     '&:hover': {
-      fill: tokens.colorTextDark,
+      fill: tokens.gray900,
     },
     '&:focus': {
-      fill: tokens.colorTextDark,
+      fill: tokens.gray900,
     },
   }),
 };

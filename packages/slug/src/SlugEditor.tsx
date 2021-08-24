@@ -28,6 +28,59 @@ function isSupportedFieldTypes(val: string): val is 'Symbol' {
   return val === 'Symbol';
 }
 
+function FieldConnectorCallback({
+  Component,
+  value,
+  disabled,
+  setValue,
+  errors,
+  titleValue,
+  isOptionalLocaleWithFallback,
+  locale,
+  createdAt,
+  performUniqueCheck,
+}: {
+  Component: typeof SlugEditorFieldStatic | typeof SlugEditorField;
+  value: string | null | undefined;
+  disabled: boolean;
+  titleValue: string | null | undefined;
+  setValue: (value: string | null | undefined) => Promise<unknown>;
+  errors: Error[];
+  isOptionalLocaleWithFallback: boolean;
+  locale: FieldAPI['locale'];
+  createdAt: string;
+  performUniqueCheck: (value: string) => Promise<boolean>;
+}) {
+  // it is needed to silent permission errors
+  // this happens when setValue is called on a field which is disabled for permission reasons
+  const safeSetValue = React.useCallback(
+    async (...args: Parameters<typeof setValue>) => {
+      try {
+        await setValue(...args);
+      } catch (e) {
+        // do nothing
+      }
+    },
+    [setValue]
+  );
+
+  return (
+    <div data-test-id="slug-editor">
+      <Component
+        locale={locale}
+        createdAt={createdAt}
+        performUniqueCheck={performUniqueCheck}
+        hasError={errors.length > 0}
+        value={value}
+        isOptionalLocaleWithFallback={isOptionalLocaleWithFallback}
+        isDisabled={disabled}
+        titleValue={titleValue}
+        setValue={safeSetValue}
+      />
+    </div>
+  );
+}
+
 export function SlugEditor(props: SlugEditorProps) {
   const { field, parameters } = props;
   const { locales, entry, space } = props.baseSdk;
@@ -51,18 +104,21 @@ export function SlugEditor(props: SlugEditorProps) {
     isOptionalFieldLocale && localeFallbackCode && locales.available.includes(localeFallbackCode)
   );
 
-  const performUniqueCheck = React.useCallback((value: string) => {
-    const searchQuery = {
-      content_type: entrySys.contentType.sys.id,
-      [`fields.${field.id}.${field.locale}`]: value,
-      'sys.id[ne]': entrySys.id,
-      'sys.publishedAt[exists]': true,
-      limit: 0,
-    };
-    return space.getEntries(searchQuery).then((res) => {
-      return res.total === 0;
-    });
-  }, []);
+  const performUniqueCheck = React.useCallback(
+    (value: string) => {
+      const searchQuery = {
+        content_type: entrySys?.contentType?.sys?.id,
+        [`fields.${field.id}.${field.locale}`]: value,
+        'sys.id[ne]': entrySys.id,
+        'sys.publishedAt[exists]': true,
+        limit: 0,
+      };
+      return space.getEntries(searchQuery).then((res) => {
+        return res.total === 0;
+      });
+    },
+    [entrySys?.contentType?.sys?.id, field.id, field.locale, entrySys.id, space]
+  );
 
   return (
     <TrackingFieldConnector<string>
@@ -81,31 +137,20 @@ export function SlugEditor(props: SlugEditorProps) {
 
             const Component = shouldTrackTitle ? SlugEditorField : SlugEditorFieldStatic;
 
-            // it is needed to silent permission errors
-            // this happens when setValue is called on a field which is disabled for permission reasons
-            const safeSetValue = async (...args: Parameters<typeof setValue>) => {
-              try {
-                await setValue(...args);
-              } catch (e) {
-                // do nothing
-              }
-            };
-
             return (
-              <div data-test-id="slug-editor">
-                <Component
-                  key={`slug-editor-${externalReset}`}
-                  locale={field.locale}
-                  createdAt={entrySys.createdAt}
-                  performUniqueCheck={performUniqueCheck}
-                  hasError={errors.length > 0}
-                  value={value}
-                  isOptionalLocaleWithFallback={isOptionalLocaleWithFallback}
-                  isDisabled={disabled}
-                  titleValue={titleValue}
-                  setValue={safeSetValue}
-                />
-              </div>
+              <FieldConnectorCallback
+                Component={Component}
+                titleValue={titleValue}
+                value={value}
+                errors={errors}
+                disabled={disabled}
+                setValue={setValue}
+                isOptionalLocaleWithFallback={isOptionalLocaleWithFallback}
+                createdAt={entrySys.createdAt}
+                locale={field.locale}
+                performUniqueCheck={performUniqueCheck}
+                key={`slug-editor-${externalReset}`}
+              />
             );
           }}
         </FieldConnector>

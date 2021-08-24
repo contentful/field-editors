@@ -25,7 +25,7 @@ jobs:
       - yarn_install
       - run: yarn lint
       - run: yarn build
-      - run: yarn build:extensions
+      - run: yarn build:apps
       - run: yarn tsc
   unit-tests:
     docker:

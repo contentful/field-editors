@@ -16,7 +16,7 @@ yarn
 yarn build
 ```
 
-You are ready to go! You can either develop your extensions from `extensions` folder or run a playground of all components in `development` mode.
+You are ready to go! You can either develop your apps from `apps` folder or run a playground of all components in `development` mode.
 
 ## Submitting a Pull Request
 

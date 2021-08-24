@@ -23,18 +23,18 @@ const styles = {
     border-collapse: collapse;
     border-radius: 5px;
     border-style: hidden;
-    box-shadow: 0 0 0 1px ${tokens.colorElementDark};
+    box-shadow: 0 0 0 1px ${tokens.gray400};
     width: 100%;
     table-layout: fixed;
   `,
   [BLOCKS.TABLE_ROW]: css`
-    border: 1px solid ${tokens.colorElementDark};
+    border: 1px solid ${tokens.gray400};
     &:hover td {
       background-color: transparent !important;
     }
   `,
   [BLOCKS.TABLE_CELL]: css`
-    border: 1px solid ${tokens.colorElementDark};
+    border: 1px solid ${tokens.gray400};
     padding: 10px 12px;
     min-width: 48px;
     position: relative;

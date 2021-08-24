@@ -9,8 +9,8 @@ const styles = {
     alignItems: 'center',
     padding: tokens.spacingXs,
     justifyContent: 'space-between',
-    backgroundColor: tokens.colorElementLightest,
-    border: `1px solid ${tokens.colorElementLight}`,
+    backgroundColor: tokens.gray100,
+    border: `1px solid ${tokens.gray200}`,
     borderTopLeftRadius: tokens.borderRadiusSmall,
     borderTopRightRadius: tokens.borderRadiusSmall,
     borderBottom: 'none',
@@ -18,7 +18,7 @@ const styles = {
   title: css({
     fontFamily: tokens.fontStackPrimary,
     fontSize: tokens.fontSizeM,
-    color: tokens.colorTextLight,
+    color: tokens.gray600,
   }),
   actions: css({
     button: {
