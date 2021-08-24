@@ -27,6 +27,7 @@ export function ToolbarBoldButton(props: ToolbarBoldButtonProps) {
     <EditorToolbarButton
       icon="FormatBold"
       tooltip="Bold"
+      tooltipPlace="bottom"
       label="Bold"
       testId="bold-toolbar-button"
       onClick={handleClick}

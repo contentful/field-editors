@@ -33,6 +33,7 @@ export function ToolbarCodeButton(props: ToolbarCodeButtonProps) {
     <EditorToolbarButton
       icon="Code"
       tooltip="Code"
+      tooltipPlace="bottom"
       label="Code"
       testId="code-toolbar-button"
       onClick={handleClick}

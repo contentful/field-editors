@@ -33,6 +33,7 @@ export function ToolbarItalicButton(props: ToolbarItalicButtonProps) {
     <EditorToolbarButton
       icon="FormatItalic"
       tooltip="Italic"
+      tooltipPlace="bottom"
       label="Italic"
       testId="italic-toolbar-button"
       onClick={handleClick}

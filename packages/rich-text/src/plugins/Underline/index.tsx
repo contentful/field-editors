@@ -32,6 +32,7 @@ export function ToolbarUnderlineButton(props: ToolbarUnderlineButtonProps) {
     <EditorToolbarButton
       icon="FormatUnderlined"
       tooltip="Underline"
+      tooltipPlace="bottom"
       label="Underline"
       testId="underline-toolbar-button"
       onClick={handleClick}

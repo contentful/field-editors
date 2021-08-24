@@ -266,6 +266,7 @@ export function ToolbarHyperlinkButton(props: ToolbarHyperlinkButtonProps) {
     <EditorToolbarButton
       icon="Link"
       tooltip="Hyperlink"
+      tooltipPlace="bottom"
       label="Hyperlink"
       testId="hyperlink-toolbar-button"
       onClick={handleClick}

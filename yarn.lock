@@ -2008,6 +2008,13 @@
   dependencies:
     "@contentful/forma-36-tokens" "^0.11.0"
 
+"@contentful/forma-36-fcss@^0.3.4":
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-fcss/-/forma-36-fcss-0.3.4.tgz#eab17b9bac980aa6658259504631269017c27cd9"
+  integrity sha512-oKIi2RcaAtrx0pKnWnEc0qeUsPFxYOsVOCAAZssY8LOYkuXR7PnNkLnBGay4iabALEUBUUnPpj5UMPL6jBRZtg==
+  dependencies:
+    "@contentful/forma-36-tokens" "^0.11.1"
+
 "@contentful/forma-36-react-components@^3.79.5":
   version "3.93.2"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.93.2.tgz#c054076b5adff2df261155c3b945a8a9c8778158"
@@ -2046,6 +2053,25 @@
     react-transition-group "^4.4.2"
     truncate "^2.0.1"
 
+"@contentful/forma-36-react-components@^3.97.0":
+  version "3.97.0"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.97.0.tgz#7ff0275c984eea0749bf3aa8ece4154e6808e39b"
+  integrity sha512-0GnQipZX4k304xcW+r4OoPdF7Uedw6Em4GfXgErXvFWiJXYzG8uBgSM6EwZYhSwt2fy8+qYLg8ueqIkLtPu3+g==
+  dependencies:
+    "@babel/runtime" "^7.3.4"
+    "@contentful/forma-36-fcss" "^0.3.4"
+    "@contentful/forma-36-tokens" "^0.11.1"
+    "@popperjs/core" "^2.4.4"
+    classnames "^2.2.6"
+    csstype "^3.0.5"
+    dayjs "^1.9.1"
+    react-animate-height "^2.0.7"
+    react-copy-to-clipboard "^5.0.1"
+    react-modal "^3.11.2"
+    react-popper "^2.2.3"
+    react-transition-group "^4.4.2"
+    truncate "^2.0.1"
+
 "@contentful/forma-36-tokens@^0.10.1", "@contentful/forma-36-tokens@^0.10.2":
   version "0.10.2"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.10.2.tgz#a6f806e6e21f50dc38ff577762a4fb3f29352d67"
@@ -2055,6 +2081,11 @@
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.11.0.tgz#c28a9b30ecab33eaae4c4544eaacfbbdaa6a9bc5"
   integrity sha512-PP+gia5E0u7H2TyfB31YHGeE2OOZtuIe9aKayH6fIwONO3XHTNN5mElnD5uVcockVQ36laAU2Iif8eVe3Zpvnw==
+
+"@contentful/forma-36-tokens@^0.11.1":
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.11.1.tgz#0baafc1edaa3766fc471bf0073f1bcb9acb64e6b"
+  integrity sha512-VETMW/VV6Hzy1Jd3Q0evy3U5qmxDAqm/p0+B9Byo+N+PuNOgIuvB8U3+915TWT4BCJqxig0K/safJCEvwaZvAA==
 
 "@contentful/mimetype@^1.4.0":
   version "1.4.40"

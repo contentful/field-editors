@@ -23,6 +23,7 @@
     "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "@contentful/forma-36-react-components": "^3.97.0",
     "@contentful/contentful-slatejs-adapter": "^14.2.0",
     "@contentful/field-editor-reference": "^2.20.6",
     "@contentful/rich-text-types": "^15.0.0",
