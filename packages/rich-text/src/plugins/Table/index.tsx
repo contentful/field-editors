@@ -161,6 +161,7 @@ export function ToolbarTableButton(props: ToolbarTableButtonProps) {
     <EditorToolbarButton
       icon="Table"
       tooltip="Table"
+      tooltipPlace="bottom"
       label="Table"
       testId="table-toolbar-button"
       onClick={handleClick}

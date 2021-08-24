@@ -133,6 +133,7 @@ export function ToolbarQuoteButton(props: ToolbarQuoteButtonProps) {
     <EditorToolbarButton
       icon="Quote"
       tooltip="Blockquote"
+      tooltipPlace="bottom"
       label="Blockquote"
       onClick={handleOnClick}
       testId="quote-toolbar-button"

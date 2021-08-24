@@ -41,6 +41,7 @@ export function ToolbarListButton(props: ToolbarListButtonProps) {
         <EditorToolbarButton
           icon="ListBulleted"
           tooltip="UL"
+          tooltipPlace="bottom"
           label="UL"
           testId="ul-toolbar-button"
           onClick={() => handleClick(BLOCKS.UL_LIST)}
@@ -52,6 +53,7 @@ export function ToolbarListButton(props: ToolbarListButtonProps) {
         <EditorToolbarButton
           icon="ListNumbered"
           tooltip="OL"
+          tooltipPlace="bottom"
           label="OL"
           testId="ol-toolbar-button"
           onClick={() => handleClick(BLOCKS.OL_LIST)}
