@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 
 import { css } from 'emotion';
 import { EditorToolbar, EditorToolbarDivider } from '@contentful/forma-36-react-components';
@@ -12,15 +12,13 @@ import { ToolbarItalicButton } from '../plugins/Italic';
 import { ToolbarUnderlineButton } from '../plugins/Underline';
 import { ToolbarHyperlinkButton } from '../plugins/Hyperlink';
 import { ToolbarTableButton } from '../plugins/Table';
-import { EmbeddedEntityDropdownButton } from '../plugins/EmbeddedEntity';
-import { ToolbarIcon as EmbeddedEntityBlockToolbarIcon } from '../plugins/EmbeddedEntityBlock';
 import { SPEditor, useStoreEditor } from '@udecode/slate-plugins-core';
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types';
 import { isNodeTypeSelected } from '../helpers/editor';
 import { isNodeTypeEnabled, isMarkEnabled } from '../helpers/validations';
-import { ToolbarEmbeddedEntityInlineButton } from '../plugins/EmbeddedEntityInline';
 import { useSdkContext } from '../SdkProvider';
 import { FieldExtensionSDK } from '@contentful/field-editor-reference/dist/types';
+import { EmbedEntityWidget } from './EmbedEntityWidget';
 
 type ToolbarProps = {
   isDisabled?: boolean;
@@ -43,68 +41,6 @@ const styles = {
     flexWrap: 'wrap',
     marginRight: '20px',
   }),
-};
-
-const EmbedAssetsWidget = ({ isDisabled }: ToolbarProps) => {
-  const sdk = useSdkContext();
-  const [isEmbedDropdownOpen, setEmbedDropdownOpen] = useState(false);
-  const onCloseEntityDropdown = () => setEmbedDropdownOpen(false);
-  const onToggleEntityDropdown = () => setEmbedDropdownOpen(!isEmbedDropdownOpen);
-
-  const [canAccessAssets, setCanAccessAssets] = useState(false);
-  React.useMemo(() => {
-    sdk.access.can('read', 'Asset').then(setCanAccessAssets);
-  }, [sdk]);
-  const inlineEntryEmbedEnabled = isNodeTypeEnabled(sdk.field, INLINES.EMBEDDED_ENTRY);
-  const blockEntryEmbedEnabled = isNodeTypeEnabled(sdk.field, BLOCKS.EMBEDDED_ENTRY);
-  const blockAssetEmbedEnabled =
-    canAccessAssets && isNodeTypeEnabled(sdk.field, BLOCKS.EMBEDDED_ASSET);
-
-  const numEnabledEmbeds = [
-    inlineEntryEmbedEnabled,
-    blockEntryEmbedEnabled,
-    blockAssetEmbedEnabled,
-  ].filter(Boolean).length;
-  const shouldDisplayDropdown = numEnabledEmbeds > 1;
-
-  const icons = (
-    <Fragment>
-      {isNodeTypeEnabled(sdk.field, BLOCKS.EMBEDDED_ENTRY) && (
-        <EmbeddedEntityBlockToolbarIcon
-          isDisabled={!!isDisabled}
-          nodeType={BLOCKS.EMBEDDED_ENTRY}
-          onClose={onCloseEntityDropdown}
-          isButton={!shouldDisplayDropdown}
-        />
-      )}
-      {isNodeTypeEnabled(sdk.field, INLINES.EMBEDDED_ENTRY) && (
-        <ToolbarEmbeddedEntityInlineButton
-          isDisabled={!!isDisabled}
-          onClose={onCloseEntityDropdown}
-        />
-      )}
-      {isNodeTypeEnabled(sdk.field, BLOCKS.EMBEDDED_ASSET) && (
-        <EmbeddedEntityBlockToolbarIcon
-          isDisabled={!!isDisabled}
-          nodeType={BLOCKS.EMBEDDED_ASSET}
-          onClose={onCloseEntityDropdown}
-        />
-      )}
-    </Fragment>
-  );
-
-  if (shouldDisplayDropdown) {
-    return (
-      <EmbeddedEntityDropdownButton
-        isDisabled={isDisabled}
-        onClose={onCloseEntityDropdown}
-        onToggle={onToggleEntityDropdown}
-        isOpen={isEmbedDropdownOpen}>
-        {icons}
-      </EmbeddedEntityDropdownButton>
-    );
-  }
-  return icons;
 };
 
 const Toolbar = ({ isDisabled }: ToolbarProps) => {
@@ -148,7 +84,7 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
         )}
       </div>
       <div className={styles.embedActionsWrapper}>
-        <EmbedAssetsWidget isDisabled={isDisabled} />
+        <EmbedEntityWidget isDisabled={isDisabled} canInsertBlocks={canInsertBlocks} />
       </div>
     </EditorToolbar>
   );
