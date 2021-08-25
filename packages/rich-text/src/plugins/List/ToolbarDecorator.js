@@ -35,32 +35,33 @@ const isActive = (editor, type) => {
   return false;
 };
 
-export default ({ type, title, icon }) => (Block) => {
-  return class ToolbarDecorator extends React.Component {
-    static propTypes = TOOLBAR_PLUGIN_PROP_TYPES;
+export default ({ type, title, children }) =>
+  (Block) => {
+    return class ToolbarDecorator extends React.Component {
+      static propTypes = TOOLBAR_PLUGIN_PROP_TYPES;
 
-    handleToggle = toolbarActionHandlerWithSafeAutoFocus(this, () => {
-      const {
-        editor,
-        onToggle,
-        richTextAPI: { logToolbarAction },
-      } = this.props;
-      applyChange(editor, type, logToolbarAction);
-      onToggle(editor);
-    });
+      handleToggle = toolbarActionHandlerWithSafeAutoFocus(this, () => {
+        const {
+          editor,
+          onToggle,
+          richTextAPI: { logToolbarAction },
+        } = this.props;
+        applyChange(editor, type, logToolbarAction);
+        onToggle(editor);
+      });
 
-    render() {
-      const { editor } = this.props;
-      return (
-        <Block
-          type={type}
-          icon={icon}
-          title={title}
-          onToggle={this.handleToggle}
-          isActive={isActive(editor, type)}
-          disabled={this.props.disabled}
-        />
-      );
-    }
+      render() {
+        const { editor } = this.props;
+        return (
+          <Block
+            type={type}
+            title={title}
+            onToggle={this.handleToggle}
+            isActive={isActive(editor, type)}
+            disabled={this.props.disabled}>
+            {children}
+          </Block>
+        );
+      }
+    };
   };
-};

@@ -4,6 +4,7 @@ import ToolbarIcon from '../shared/ToolbarIcon';
 import { TOOLBAR_PLUGIN_PROP_TYPES } from '../shared/PluginApi';
 import { toolbarActionHandlerWithSafeAutoFocus } from '../shared/Util';
 import { hasHyperlink, toggleLink, hasOnlyHyperlinkInlines } from './Util';
+import { LinkIcon } from '@contentful/f36-icons';
 
 export default class HyperlinkToolbarIcon extends Component {
   static propTypes = TOOLBAR_PLUGIN_PROP_TYPES;
@@ -25,11 +26,11 @@ export default class HyperlinkToolbarIcon extends Component {
       <ToolbarIcon
         disabled={isDisabled}
         type={INLINES.HYPERLINK}
-        icon="Link"
         title="Hyperlink"
         onToggle={this.handleClick}
-        isActive={hasHyperlink(editor.value)}
-      />
+        isActive={hasHyperlink(editor.value)}>
+        <LinkIcon />
+      </ToolbarIcon>
     );
   }
 }

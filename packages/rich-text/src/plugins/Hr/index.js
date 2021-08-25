@@ -5,6 +5,7 @@ import blockSelectDecorator from '../shared/BlockSelectDecorator';
 import { haveTextInSomeBlocks } from '../shared/UtilHave';
 import { css, cx } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
+import { HorizontalRuleIcon } from '@contentful/f36-icons';
 
 const styles = {
   hr: css`
@@ -30,7 +31,7 @@ const styles = {
       -webkit-box-shadow: 0px 0px 5px ${tokens.colorPrimary};
       box-shadow: 0px 0px 5px ${tokens.colorPrimary};
     }
-  `
+  `,
 };
 
 export const HrPlugin = () => {
@@ -45,7 +46,7 @@ export const HrPlugin = () => {
         );
       }
       return next();
-    }
+    },
   };
 };
 
@@ -58,11 +59,11 @@ class Hr extends Component {
 export default blockSelectDecorator({
   type: BLOCKS.HR,
   title: 'HR',
-  icon: 'HorizontalRule',
+  children: <HorizontalRuleIcon />,
   applyChange: (editor, type) => {
     const hr = {
       type,
-      object: 'block'
+      object: 'block',
     };
 
     if (editor.value.blocks.size === 0 || haveTextInSomeBlocks(editor)) {
@@ -72,5 +73,5 @@ export default blockSelectDecorator({
     }
 
     editor.insertBlock(BLOCKS.PARAGRAPH).focus();
-  }
+  },
 })(Hr);

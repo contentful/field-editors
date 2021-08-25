@@ -7,6 +7,7 @@ import { css } from 'emotion';
 
 const styles = {
   root: css({
+    marginRight: tokens.spacing2Xs,
     width: '110px',
 
     [`@media (min-width: ${tokens.contentWidthDefault})`]: {

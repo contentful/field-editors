@@ -19,38 +19,37 @@ export const toggleChange = (editor, type) => {
 
 const isBlockActive = (editor, type) => haveBlocks(editor, type);
 
-export default ({ type, title, icon, applyChange = toggleChange, isActive = isBlockActive }) => (
-  Block
-) => {
-  return class BlockToggleDecorator extends React.Component {
-    static propTypes = TOOLBAR_PLUGIN_PROP_TYPES;
+export default ({ type, title, children, applyChange = toggleChange, isActive = isBlockActive }) =>
+  (Block) => {
+    return class BlockToggleDecorator extends React.Component {
+      static propTypes = TOOLBAR_PLUGIN_PROP_TYPES;
 
-    handleToggle = toolbarActionHandlerWithSafeAutoFocus(this, () => {
-      const {
-        editor,
-        onToggle,
-        richTextAPI: { logToolbarAction },
-      } = this.props;
-      const isActive = applyChange(editor, type);
-      onToggle(editor);
-      const actionName = isActive ? 'insert' : 'remove';
-      logToolbarAction(actionName, { nodeType: type });
-    });
+      handleToggle = toolbarActionHandlerWithSafeAutoFocus(this, () => {
+        const {
+          editor,
+          onToggle,
+          richTextAPI: { logToolbarAction },
+        } = this.props;
+        const isActive = applyChange(editor, type);
+        onToggle(editor);
+        const actionName = isActive ? 'insert' : 'remove';
+        logToolbarAction(actionName, { nodeType: type });
+      });
 
-    render() {
-      const { editor, disabled, richTextAPI } = this.props;
+      render() {
+        const { editor, disabled, richTextAPI } = this.props;
 
-      return (
-        <Block
-          type={type}
-          icon={icon}
-          title={title}
-          onToggle={this.handleToggle}
-          isActive={isActive(editor, type)}
-          disabled={disabled}
-          richTextAPI={richTextAPI}
-        />
-      );
-    }
+        return (
+          <Block
+            type={type}
+            title={title}
+            onToggle={this.handleToggle}
+            isActive={isActive(editor, type)}
+            disabled={disabled}
+            richTextAPI={richTextAPI}>
+            {children}
+          </Block>
+        );
+      }
+    };
   };
-};
