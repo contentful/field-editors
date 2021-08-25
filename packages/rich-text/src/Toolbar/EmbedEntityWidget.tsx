@@ -37,6 +37,14 @@ export const EmbedEntityWidget = ({ isDisabled, canInsertBlocks }: EmbedEntityWi
 
   const shouldDisplayDropdown = numEnabledEmbeds > 1;
 
+  // Avoids UI glitching when switching back and forth between
+  // different layouts
+  React.useEffect(() => {
+    if (!shouldDisplayDropdown) {
+      setEmbedDropdownOpen(false);
+    }
+  }, [shouldDisplayDropdown]);
+
   const actions = (
     <>
       {blockEntryEmbedEnabled && (
