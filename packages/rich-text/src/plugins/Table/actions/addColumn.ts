@@ -6,6 +6,7 @@ import {
   TablePluginOptions,
   ELEMENT_TABLE,
   ELEMENT_TD,
+  ELEMENT_TH,
 } from '@udecode/plate-table';
 
 const addColumn = (
@@ -20,7 +21,7 @@ const addColumn = (
   ) {
     const currentCellItem = getAbove(editor, {
       match: {
-        type: [getPlatePluginType(editor, ELEMENT_TD), getPlatePluginType(editor, ELEMENT_TD)],
+        type: [getPlatePluginType(editor, ELEMENT_TD), getPlatePluginType(editor, ELEMENT_TH)],
       },
     });
 
