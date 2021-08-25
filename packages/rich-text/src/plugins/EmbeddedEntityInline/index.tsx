@@ -16,6 +16,7 @@ import { CustomRenderElementProps, CustomSlatePluginOptions } from '../../types'
 import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
 import { useSdkContext } from '../../SdkProvider';
 import { FetchingWrappedInlineEntryCard } from './FetchingWrappedInlineEntryCard';
+import { createInlineEntryNode } from './Util'
 
 const styles = {
   icon: css({
@@ -23,7 +24,7 @@ const styles = {
   }),
 
   root: css({
-    margin: '0px 5px',
+    margin: '0 1px',
     fontSize: 'inherit',
     span: {
       webkitUserSelect: 'none',
@@ -83,24 +84,19 @@ async function selectEntityAndInsert(editor, sdk: FieldExtensionSDK) {
     ...newEntitySelectorConfigFromRichTextField(sdk.field, INLINES.EMBEDDED_ENTRY),
     withCreate: true,
   };
+  const selection = editor.selection;
+
   const entry = await sdk.dialogs.selectSingleEntry<Entry>(config);
+  ReactEditor.focus(editor); // Dialog steals focus from editor, return it.
   if (!entry) return;
 
-  const inlineEntryNode = {
-    type: INLINES.EMBEDDED_ENTRY,
-    children: [{ text: '' }],
-    data: {
-      target: {
-        sys: {
-          id: entry.sys.id,
-          type: 'Link',
-          linkType: 'Entry',
-        },
-      },
-    },
-  };
+  const inlineEntryNode = createInlineEntryNode(entry.sys.id)
 
-  Transforms.insertNodes(editor, inlineEntryNode);
+  // Got to wait until focus is really back on the editor or setSelection() won't work.
+  setTimeout(() => {
+    Transforms.setSelection(editor, selection)
+    Transforms.insertNodes(editor, inlineEntryNode);
+  }, 0)
 }
 
 export function ToolbarEmbeddedEntityInlineButton(props: ToolbarEmbeddedEntityInlineButtonProps) {
@@ -160,21 +156,10 @@ export function createEmbeddedEntityInlinePlugin(sdk): PlatePlugin {
           {
             type: INLINES.EMBEDDED_ENTRY,
             deserialize: (element) => {
-              const embeddedEntityInlineId = element.getAttribute('data-embedded-entity-inline-id');
-              if (!embeddedEntityInlineId) return;
-
-              return {
-                type: INLINES.EMBEDDED_ENTRY,
-                data: {
-                  target: {
-                    sys: {
-                      id: embeddedEntityInlineId,
-                      type: 'Link',
-                      linkType: 'Entry',
-                    },
-                  },
-                },
-              };
+              const entryId = element.getAttribute('data-embedded-entity-inline-id');
+              return entryId
+                ? createInlineEntryNode(entryId)
+                : undefined;
             },
             ...options.deserialize,
           },
