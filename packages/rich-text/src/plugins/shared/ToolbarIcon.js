@@ -26,7 +26,6 @@ export default class ToolbarIcon extends Component {
     title: PropTypes.string.isRequired,
     type: PropTypes.string,
     className: PropTypes.string,
-    testId: PropTypes.string,
   };
 
   handleClick = (event) => {
@@ -35,14 +34,14 @@ export default class ToolbarIcon extends Component {
   };
 
   render() {
-    const { title, testId, isActive, children, className, disabled = false } = this.props;
+    const { title, type, isActive, children, className, disabled = false } = this.props;
 
     const button = (
       <Button
         className={cx(styles.button, className)}
         isDisabled={disabled}
         onClick={this.handleClick}
-        testId={testId}
+        testId={`toolbar-toggle-${type}`}
         variant={isActive ? 'secondary' : 'transparent'}
         size="small">
         {children}
