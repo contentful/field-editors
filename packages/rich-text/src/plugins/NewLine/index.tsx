@@ -1,6 +1,7 @@
-import { SlatePlugin, SPEditor } from '@udecode/slate-plugins-core';
+import { KeyboardEvent } from 'react';
+import { PlatePlugin, SPEditor } from '@udecode/plate-core';
 
-export function createNewLinePlugin(): SlatePlugin {
+export function createNewLinePlugin(): PlatePlugin {
   return {
     onKeyDown: function (editor: SPEditor) {
       return (event: KeyboardEvent) => {

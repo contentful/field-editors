@@ -1,10 +1,11 @@
+import { KeyboardEvent } from 'react';
 import { BLOCKS } from '@contentful/rich-text-types';
 import {
   getRenderElement,
-  getSlatePluginTypes,
-  SlatePlugin,
-  getSlatePluginOptions,
-} from '@udecode/slate-plugins-core';
+  getPlatePluginTypes,
+  PlatePlugin,
+  getPlatePluginOptions,
+} from '@udecode/plate-core';
 import { Transforms } from 'slate';
 import { getNodeEntryFromSelection, moveToTheNextLine } from '../../helpers/editor';
 import { CustomSlatePluginOptions } from 'types';
@@ -17,13 +18,13 @@ export { EmbeddedEntityBlockToolbarIcon as ToolbarIcon } from './ToolbarIcon';
 
 const createEmbeddedEntityPlugin = (nodeType: BLOCKS.EMBEDDED_ENTRY | BLOCKS.EMBEDDED_ASSET) => (
   sdk: FieldExtensionSDK
-): SlatePlugin => ({
+): PlatePlugin => ({
   renderElement: getRenderElement(nodeType),
   pluginKeys: nodeType,
   onKeyDown: getWithEmbeddedEntityEvents(nodeType, sdk),
-  voidTypes: getSlatePluginTypes(nodeType),
+  voidTypes: getPlatePluginTypes(nodeType),
   deserialize: (editor) => {
-    const options = getSlatePluginOptions(editor, nodeType);
+    const options = getPlatePluginOptions(editor, nodeType);
     const entityTypes = {
       [BLOCKS.EMBEDDED_ENTRY]: 'Entry',
       [BLOCKS.EMBEDDED_ASSET]: 'Asset',
@@ -66,12 +67,14 @@ export const createEmbeddedAssetBlockPlugin = createEmbeddedEntityPlugin(BLOCKS.
 export const withEmbeddedEntryBlockOptions: CustomSlatePluginOptions = {
   [BLOCKS.EMBEDDED_ENTRY]: {
     type: BLOCKS.EMBEDDED_ENTRY,
+    // @ts-expect-error complains about onEntityFetchComplete
     component: LinkedEntityBlock,
   },
 };
 export const withEmbeddedAssetBlockOptions: CustomSlatePluginOptions = {
   [BLOCKS.EMBEDDED_ASSET]: {
     type: BLOCKS.EMBEDDED_ASSET,
+    // @ts-expect-error complains about onEntityFetchComplete
     component: LinkedEntityBlock,
   },
 };

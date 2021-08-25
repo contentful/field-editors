@@ -2,13 +2,8 @@ import React from 'react';
 import { css } from 'emotion';
 import * as Slate from 'slate-react';
 import tokens from '@contentful/forma-36-tokens';
-import { SPEditor, useStoreEditor } from '@udecode/slate-plugins-core';
-import {
-  TablePluginOptions,
-  deleteColumn,
-  deleteRow,
-  deleteTable,
-} from '@udecode/slate-plugins-table';
+import { SPEditor, useStoreEditorRef } from '@udecode/plate-core';
+import { TablePluginOptions, deleteColumn, deleteRow, deleteTable } from '@udecode/plate-table';
 import {
   IconButton,
   Dropdown,
@@ -37,7 +32,7 @@ const getCurrentTableSize = (editor: SPEditor): Record<'numRows' | 'numColumns',
 type TableAction = (editor: SPEditor, options: TablePluginOptions) => void;
 
 export const TableActions = () => {
-  const editor = useStoreEditor();
+  const editor = useStoreEditorRef();
   const { onViewportAction } = useTrackingContext();
   const [isOpen, setOpen] = React.useState(false);
 

@@ -12,14 +12,14 @@ import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/StickyToolbarWrapper';
 import { withListOptions } from './plugins/List';
 import {
-  SlatePlugins,
+  Plate,
   createHistoryPlugin,
   createReactPlugin,
-  SlatePlugin,
+  PlatePlugin,
   SPEditor,
-} from '@udecode/slate-plugins-core';
-import { createListPlugin } from '@udecode/slate-plugins-list';
-import { createDeserializeHTMLPlugin } from '@udecode/slate-plugins-html-serializer';
+} from '@udecode/plate-core';
+import { createListPlugin } from '@udecode/plate-list';
+import { createDeserializeHTMLPlugin } from '@udecode/plate-html-serializer';
 import { createHrPlugin, withHrOptions } from './plugins/Hr';
 import { withHeadingOptions, createHeadingPlugin } from './plugins/Heading';
 import { createBoldPlugin, withBoldOptions } from './plugins/Bold';
@@ -91,7 +91,7 @@ const getPlugins = (sdk: FieldExtensionSDK, tracking: TrackingProvider) => {
     createUnderlinePlugin(),
   ];
 
-  return plugins.concat([createDeserializeHTMLPlugin({ plugins })] as SlatePlugin<SPEditor>[]);
+  return plugins.concat([createDeserializeHTMLPlugin({ plugins })] as PlatePlugin<SPEditor>[]);
 };
 
 const options = {
@@ -142,7 +142,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
 
   return (
     <div className={styles.root} data-test-id="rich-text-editor">
-      <SlatePlugins
+      <Plate
         id={`rich-text-editor-${entryId}-${field.id}-${field.locale}`}
         initialValue={value}
         plugins={plugins}
@@ -156,13 +156,14 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
           const contentfulDoc = toContentfulDocument({ document: slateDoc, schema });
           props.onChange?.(contentfulDoc);
         }}
+        // @ts-expect-error PlateOptions conflicts with our custom types
         options={options}>
         {!props.isToolbarHidden && (
           <StickyToolbarWrapper isDisabled={props.isDisabled}>
             <Toolbar isDisabled={props.isDisabled} />
           </StickyToolbarWrapper>
         )}
-      </SlatePlugins>
+      </Plate>
     </div>
   );
 };

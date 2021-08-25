@@ -1,10 +1,11 @@
 import React from 'react';
 import { css } from 'emotion';
+import { Merge } from 'type-fest';
 import { FetchingWrappedEntryCard } from '../shared/FetchingWrappedEntryCard';
 import { FetchingWrappedAssetCard } from '../shared/FetchingWrappedAssetCard';
 import { useSdkContext } from '../../SdkProvider';
-import { useStoreEditor } from '@udecode/slate-plugins-core';
-import { CustomElement } from 'types';
+import { useStoreEditorRef } from '@udecode/plate-core';
+import { CustomRenderElementProps } from 'types';
 import { ReactEditor, useSelected, useReadOnly } from 'slate-react';
 import { Transforms } from 'slate';
 
@@ -14,8 +15,8 @@ const styles = {
   }),
 };
 
-type EntityElement = CustomElement & {
-  data: {
+type LinkedEntityBlockProps = Merge<
+  CustomRenderElementProps<{
     target: {
       sys: {
         id: string;
@@ -23,20 +24,14 @@ type EntityElement = CustomElement & {
         type: 'Link';
       };
     };
-  };
-};
-
-interface LinkedEntityBlockProps {
-  attributes: object;
-  children: [{ text: '' }];
-  element: EntityElement;
-  onEntityFetchComplete: () => void;
-}
+  }>,
+  { onEntityFetchComplete: () => void }
+>;
 
 export function LinkedEntityBlock(props: LinkedEntityBlockProps) {
   const { attributes, children, element, onEntityFetchComplete } = props;
   const isSelected = useSelected();
-  const editor = useStoreEditor();
+  const editor = useStoreEditorRef();
   const sdk = useSdkContext();
   const isDisabled = useReadOnly();
   const { id: entityId, linkType: entityType } = element.data.target.sys;

@@ -1,18 +1,18 @@
 import * as React from 'react';
 import {
-  SlatePlugin,
+  PlatePlugin,
   getRenderElement,
-  getSlatePluginTypes,
-  useStoreEditor,
-  getSlatePluginOptions,
-} from '@udecode/slate-plugins-core';
-import { Transforms, Element } from 'slate';
+  getPlatePluginTypes,
+  useStoreEditorRef,
+  getPlatePluginOptions,
+} from '@udecode/plate-core';
+import { Transforms } from 'slate';
 import { INLINES } from '@contentful/rich-text-types';
-import { RenderElementProps, useSelected, ReactEditor, useReadOnly } from 'slate-react';
+import { useSelected, ReactEditor, useReadOnly } from 'slate-react';
 import { Button, DropdownListItem, Icon, Flex } from '@contentful/forma-36-react-components';
 import { css } from 'emotion';
 import { FieldExtensionSDK, Entry, Link } from '@contentful/field-editor-reference/dist/types';
-import { CustomSlatePluginOptions } from '../../types';
+import { CustomRenderElementProps, CustomSlatePluginOptions } from '../../types';
 import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
 import { useSdkContext } from '../../SdkProvider';
 import { FetchingWrappedInlineEntryCard } from './FetchingWrappedInlineEntryCard';
@@ -34,18 +34,12 @@ const styles = {
   }),
 };
 
-interface EmbeddedEntityInlineProps extends RenderElementProps {
-  element: Element & {
-    data: {
-      target: Link;
-    };
-    type: string;
-    isVoid: boolean;
-  };
-}
+type EmbeddedEntityInlineProps = CustomRenderElementProps<{
+  target: Link;
+}>;
 
 function EmbeddedEntityInline(props: EmbeddedEntityInlineProps) {
-  const editor = useStoreEditor();
+  const editor = useStoreEditorRef();
   const sdk = useSdkContext();
   const isSelected = useSelected();
   const { id: entryId } = props.element.data.target.sys;
@@ -110,7 +104,7 @@ async function selectEntityAndInsert(editor, sdk: FieldExtensionSDK) {
 }
 
 export function ToolbarEmbeddedEntityInlineButton(props: ToolbarEmbeddedEntityInlineButtonProps) {
-  const editor = useStoreEditor();
+  const editor = useStoreEditorRef();
   const sdk: FieldExtensionSDK = useSdkContext();
 
   async function handleClick(event) {
@@ -152,14 +146,14 @@ export function ToolbarEmbeddedEntityInlineButton(props: ToolbarEmbeddedEntityIn
   );
 }
 
-export function createEmbeddedEntityInlinePlugin(sdk): SlatePlugin {
+export function createEmbeddedEntityInlinePlugin(sdk): PlatePlugin {
   return {
     renderElement: getRenderElement(INLINES.EMBEDDED_ENTRY),
     pluginKeys: INLINES.EMBEDDED_ENTRY,
-    inlineTypes: getSlatePluginTypes(INLINES.EMBEDDED_ENTRY),
+    inlineTypes: getPlatePluginTypes(INLINES.EMBEDDED_ENTRY),
     onKeyDown: getWithEmbeddedEntryInlineEvents(sdk),
     deserialize: (editor) => {
-      const options = getSlatePluginOptions(editor, INLINES.EMBEDDED_ENTRY);
+      const options = getPlatePluginOptions(editor, INLINES.EMBEDDED_ENTRY);
 
       return {
         element: [
@@ -199,18 +193,18 @@ export const withEmbeddedEntityInlineOptions: CustomSlatePluginOptions = {
 
 // TODO: DRY up types from embedded entry block and elsewhere
 type TWO = 50;
-type TwoEvent = KeyboardEvent & { keyCode: TWO };
-type ShiftEvent = KeyboardEvent & { shiftKey: true };
-type CtrlEvent = KeyboardEvent & { ctrlKey: true };
-type MetaEvent = KeyboardEvent & { metaKey: true };
+type TwoEvent = React.KeyboardEvent & { keyCode: TWO };
+type ShiftEvent = React.KeyboardEvent & { shiftKey: true };
+type CtrlEvent = React.KeyboardEvent & { ctrlKey: true };
+type MetaEvent = React.KeyboardEvent & { metaKey: true };
 type ModEvent = CtrlEvent | MetaEvent;
 type EmbeddedEntryInlineEvent = ModEvent & ShiftEvent & TwoEvent;
 
-const isTwo = (event: KeyboardEvent): event is TwoEvent => event.keyCode === 50;
-const isMod = (event: KeyboardEvent): event is ModEvent => event.ctrlKey || event.metaKey;
-const isShift = (event: KeyboardEvent): event is ShiftEvent => event.shiftKey;
+const isTwo = (event: React.KeyboardEvent): event is TwoEvent => event.keyCode === 50;
+const isMod = (event: React.KeyboardEvent): event is ModEvent => event.ctrlKey || event.metaKey;
+const isShift = (event: React.KeyboardEvent): event is ShiftEvent => event.shiftKey;
 const wasEmbeddedEntryInlineEventTriggered = (
-  event: KeyboardEvent
+  event: React.KeyboardEvent
 ): event is EmbeddedEntryInlineEvent => isMod(event) && isShift(event) && isTwo(event);
 
 function getWithEmbeddedEntryInlineEvents(sdk) {

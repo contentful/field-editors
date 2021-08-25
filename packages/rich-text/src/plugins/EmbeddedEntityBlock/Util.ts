@@ -1,5 +1,5 @@
 import { BLOCKS } from '@contentful/rich-text-types';
-import { getText } from '@udecode/slate-plugins-common';
+import { getText } from '@udecode/plate-common';
 import { Transforms } from 'slate';
 import * as Slate from 'slate-react';
 import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
@@ -37,9 +37,9 @@ const createNode = (nodeType, entity) => ({
       sys: {
         id: entity.sys.id,
         type: 'Link',
-        linkType: entity.sys.type
-      }
-    }
+        linkType: entity.sys.type,
+      },
+    },
   },
   children: [{ text: '' }],
   isVoid: true,
@@ -59,7 +59,7 @@ export function insertBlock(editor, nodeType, entity) {
   const hasText = editor.selection && !!getText(editor, editor.selection.focus.path);
 
   if (hasText) {
-    Transforms.insertNodes(editor, linkedEntityBlock)
+    Transforms.insertNodes(editor, linkedEntityBlock);
   } else {
     Transforms.setNodes(editor, linkedEntityBlock);
   }
