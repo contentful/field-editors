@@ -7,11 +7,11 @@ import type {
   LocalesAPI,
 } from '@contentful/field-editor-shared';
 import { entityHelpers } from '@contentful/field-editor-shared';
-import { List, ListItem, Icon } from '@contentful/forma-36-react-components';
+import { Icon } from '@contentful/forma-36-react-components';
 
 import * as styles from './styles';
 
-import { TextLink } from "@contentful/f36-components";
+import { TextLink, List, ListItem } from "@contentful/f36-components";
 
 import { ExternalLinkIcon } from "@contentful/f36-icons";
 
