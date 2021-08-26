@@ -10,7 +10,7 @@ import { getOptions, parseValue } from '@contentful/field-editor-dropdown';
 import { Form, RadioButtonField } from '@contentful/forma-36-react-components';
 import * as styles from './styles';
 
-import { TextLink, Flex } from "@contentful/f36-components";
+import { TextLink, Flex } from '@contentful/f36-components';
 
 export interface RadioEditorProps {
   /**

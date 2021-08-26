@@ -3,7 +3,7 @@ import { css } from 'emotion';
 import { Paragraph } from '@contentful/forma-36-react-components';
 import tokens from '@contentful/forma-36-tokens';
 
-import { TextLink } from "@contentful/f36-components";
+import { TextLink } from '@contentful/f36-components';
 
 const styles = {
   root: css({

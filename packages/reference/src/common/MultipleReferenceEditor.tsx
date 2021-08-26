@@ -30,7 +30,7 @@ function onLinkOrCreate(
   entityType: ChildProps['entityType'],
   items: ChildProps['items'],
   ids: string[],
-  index = items.length,
+  index = items.length
 ): void {
   const links: ReferenceValue[] = ids.map((id) => ({
     sys: { type: 'Link', linkType: entityType, id },

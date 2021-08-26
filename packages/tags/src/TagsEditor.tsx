@@ -8,7 +8,7 @@ import { ConstraintsType, Constraint } from './types';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 import arrayMove from 'array-move';
 
-import { Pill } from "@contentful/f36-components";
+import { Pill } from '@contentful/f36-components';
 
 export interface TagsEditorProps {
   items: string[];

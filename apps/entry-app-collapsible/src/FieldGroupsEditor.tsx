@@ -20,9 +20,9 @@ import { ActionTypes } from './types';
 import styles from './styles';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 
-import { TextLink } from "@contentful/f36-components";
+import { TextLink } from '@contentful/f36-components';
 
-import { CloseIcon, ChevronDownIcon, ChevronUpIcon } from "@contentful/f36-icons";
+import { CloseIcon, ChevronDownIcon, ChevronUpIcon } from '@contentful/f36-icons';
 
 interface FieldGroupsEditorProps {
   fieldGroups: FieldGroupType[];
@@ -163,7 +163,9 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
         value={name}
       />
       <FieldGroup>
-        <FormLabel htmlFor="entry-app-collapsible" className={styles.formLabel}>Fields</FormLabel>
+        <FormLabel htmlFor="entry-app-collapsible" className={styles.formLabel}>
+          Fields
+        </FormLabel>
         <Dropdown
           isOpen={dropdownOpen}
           onClose={closeDropdown}

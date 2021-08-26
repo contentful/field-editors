@@ -3,7 +3,7 @@ import get from 'lodash/get';
 import { FieldAPI, ParametersAPI, FieldConnector } from '@contentful/field-editor-shared';
 import { RatingRibbon } from './RatingRibbon';
 
-import { TextLink, Flex } from "@contentful/f36-components";
+import { TextLink, Flex } from '@contentful/f36-components';
 
 export interface RatingEditorProps {
   /**

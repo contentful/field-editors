@@ -12,7 +12,7 @@ import { CheckboxField, Form } from '@contentful/forma-36-react-components';
 import * as styles from './styles';
 import { nanoid } from 'nanoid';
 
-import { TextLink } from "@contentful/f36-components";
+import { TextLink } from '@contentful/f36-components';
 
 export interface CheckboxEditorProps {
   /**

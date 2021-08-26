@@ -15,9 +15,9 @@ import { renderMarkdownDialog } from '@contentful/field-editor-markdown';
 import { renderRichTextDialog } from '@contentful/field-editor-rich-text';
 import styles from './styles';
 
-import { TextLink } from "@contentful/f36-components";
+import { TextLink } from '@contentful/f36-components';
 
-import { EditIcon } from "@contentful/f36-icons";
+import { EditIcon } from '@contentful/f36-icons';
 
 interface AppProps {
   sdk: EditorExtensionSDK;

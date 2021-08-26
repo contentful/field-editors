@@ -6,7 +6,7 @@ import { LocationSearchInput } from './LocationSearchInput';
 
 import { Coords, ViewType, GeocodeApiResponse } from './types';
 
-import { TextLink } from "@contentful/f36-components";
+import { TextLink } from '@contentful/f36-components';
 
 interface LocationSelectorProps {
   disabled: boolean;

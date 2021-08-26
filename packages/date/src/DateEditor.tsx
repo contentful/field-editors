@@ -13,7 +13,7 @@ import {
 } from './utils/date';
 import { TimeFormat, DateTimeFormat, TimeResult } from './types';
 
-import { TextLink } from "@contentful/f36-components";
+import { TextLink } from '@contentful/f36-components';
 
 export interface DateEditorProps {
   /**

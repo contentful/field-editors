@@ -49,10 +49,11 @@ export function LocationSearchInput(props: LocationSearchInputProps) {
   const [isSearching, setIsSearching] = React.useState<boolean>(false);
   const [address, setAddress] = React.useState<string>('');
   const [hasError, setHasError] = React.useState<boolean>(false);
-  const [suggestion, setSuggestion] = React.useState<null | {
-    address: string;
-    location: { lat: number; lng: number };
-  }>(null);
+  const [suggestion, setSuggestion] =
+    React.useState<null | {
+      address: string;
+      location: { lat: number; lng: number };
+    }>(null);
 
   React.useEffect(() => {
     setIsSearching(true);

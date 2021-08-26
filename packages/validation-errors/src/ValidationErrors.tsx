@@ -11,9 +11,9 @@ import { Icon } from '@contentful/forma-36-react-components';
 
 import * as styles from './styles';
 
-import { TextLink, List, ListItem } from "@contentful/f36-components";
+import { TextLink, List, ListItem } from '@contentful/f36-components';
 
-import { ExternalLinkIcon } from "@contentful/f36-icons";
+import { ExternalLinkIcon } from '@contentful/f36-icons';
 
 export type ValidationError = {
   name: string;
