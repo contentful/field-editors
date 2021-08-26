@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.12](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@0.9.11...@contentful/default-field-editors@0.9.12) (2021-08-26)
+
+
+### Bug Fixes
+
+* do not resubscribe to errors on every render ([#808](https://github.com/contentful/field-editors/issues/808)) ([a4dc0f6](https://github.com/contentful/field-editors/commit/a4dc0f6f5f1b878d4428c9ac90bea41713a8da9a))
+
+
+
+
+
 ## [0.9.11](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@0.9.10...@contentful/default-field-editors@0.9.11) (2021-08-24)
 
 **Note:** Version bump only for package @contentful/default-field-editors
