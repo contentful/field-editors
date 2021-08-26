@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { DropdownListItem, Flex, Icon, Button } from '@contentful/forma-36-react-components';
+import { DropdownListItem, Icon, Button } from '@contentful/forma-36-react-components';
 import { INLINES } from '@contentful/rich-text-types';
 
 import { selectEntryAndInsert, canInsertInline } from './Utils';
 import { TOOLBAR_PLUGIN_PROP_TYPES } from '../shared/PluginApi';
 import { toolbarActionHandlerWithSafeAutoFocus } from '../shared/Util';
 import { styles } from './EmbeddedEntryInline.styles';
+
+import { Flex } from "@contentful/f36-components";
 
 export default class EntryLinkToolbarIcon extends Component {
   static propTypes = TOOLBAR_PLUGIN_PROP_TYPES;

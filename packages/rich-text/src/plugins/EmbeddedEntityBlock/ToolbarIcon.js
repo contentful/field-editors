@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { DropdownListItem, Button, Flex, Icon } from '@contentful/forma-36-react-components';
+import { DropdownListItem, Button, Icon } from '@contentful/forma-36-react-components';
 
 import { selectEntityAndInsert } from './Util';
 import { TOOLBAR_PLUGIN_PROP_TYPES } from '../shared/PluginApi';
 import { toolbarActionHandlerWithSafeAutoFocus } from '../shared/Util';
 import { styles } from './EmbeddedEntityBlock.styles';
+
+import { Flex } from "@contentful/f36-components";
 
 export default class EntityLinkToolbarIcon extends Component {
   static propTypes = {
