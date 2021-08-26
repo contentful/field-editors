@@ -1,10 +1,9 @@
 import * as React from 'react';
 import get from 'lodash/get';
 import { FieldAPI, ParametersAPI, FieldConnector } from '@contentful/field-editor-shared';
-import { Flex } from '@contentful/forma-36-react-components';
 import { RatingRibbon } from './RatingRibbon';
 
-import { TextLink } from "@contentful/f36-components";
+import { TextLink, Flex } from "@contentful/f36-components";
 
 export interface RatingEditorProps {
   /**

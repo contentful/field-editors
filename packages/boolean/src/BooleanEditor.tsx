@@ -2,9 +2,9 @@ import * as React from 'react';
 import get from 'lodash/get';
 import { nanoid } from 'nanoid';
 import { FieldAPI, ParametersAPI, FieldConnector } from '@contentful/field-editor-shared';
-import { RadioButtonField, Flex } from '@contentful/forma-36-react-components';
+import { RadioButtonField } from '@contentful/forma-36-react-components';
 
-import { TextLink } from "@contentful/f36-components";
+import { TextLink, Flex } from "@contentful/f36-components";
 
 export interface BooleanEditorProps {
   /**
