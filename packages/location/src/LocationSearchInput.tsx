@@ -1,10 +1,16 @@
 import React from 'react';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
-import { TextInput, ValidationMessage, DropdownList, DropdownListItem, Card } from '@contentful/forma-36-react-components';
+import {
+  TextInput,
+  ValidationMessage,
+  DropdownList,
+  DropdownListItem,
+  Card,
+} from '@contentful/forma-36-react-components';
 import { Coords, GeocodeApiResponse } from './types';
 
-import { Spinner } from "@contentful/f36-components";
+import { Spinner } from '@contentful/f36-components';
 
 const styles = {
   root: css({
@@ -97,7 +103,7 @@ export function LocationSearchInput(props: LocationSearchInputProps) {
           }}
           disabled={props.disabled}
         />
-        {isSearching && <Spinner size="default" className={styles.spinner} />}
+        {isSearching && <Spinner className={styles.spinner} />}
         {suggestion && (
           <Card padding="none" className={styles.suggesion}>
             <DropdownList>
