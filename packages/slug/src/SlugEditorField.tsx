@@ -95,7 +95,7 @@ export function SlugEditorFieldStatic(
       />
       {status === 'checking' && (
         <div className={styles.spinnerContainer}>
-          <Spinner testId="slug-editor-spinner" size="default" />
+          <Spinner testId="slug-editor-spinner" />
         </div>
       )}
       {status === 'duplicate' && (
