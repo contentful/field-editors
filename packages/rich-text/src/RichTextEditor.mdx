@@ -27,31 +27,31 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
 ## In Action
 
 <Playground>
-  {() => {
-    window.events = []
-    const rtPreviewStyle = css({
-      backgroundColor: 'whitesmoke',
-      padding: '0 0.5em'
-    });
-    const newEntitySelectorDummyDialog = (fnName, type) => async () => {
-      return confirm(`sdk.dialogs.${fnName}()\nSimulate selecting a random entity or cancel?`)
-        ? {
-            sys: {
-              id: 'example-entity-id',
-              type
-            }
-          }
-        : Promise.reject(); // Simulate cancellation.
+{() => {
+  window.events = []
+  const rtPreviewStyle = css({
+    backgroundColor: 'whitesmoke',
+    padding: '0 0.5em'
+  });
+  const newEntitySelectorDummyDialog = (fnName, type) => async () => {
+      return {
+        sys: {
+          id: 'example-entity-id',
+          type
+        }
+      }
     };
+  const onAction = (...args) => window.events.push(args);
+  const newSdk = (id) => {
+    const entry = {...publishedEntry, sys: {...publishedEntry.sys, id }};
     const [field, mitt] = createFakeFieldAPI();
     const space = createFakeSpaceAPI();
     const navigator = createFakeNavigatorAPI();
-    const onAction = (...args) => window.events.push(args);
     const sdk = {
       space: {
         ...space,
         getEntry: () => {
-          return Promise.resolve(publishedEntry);
+          return Promise.resolve(entry);
         },
         getAsset: () => {
           return Promise.resolve(publishedAsset);
@@ -64,15 +64,16 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
         },
       },
       entry: {
-        ...publishedEntry,
-        getSys: ()=> publishedEntry.sys
+        ...entry,
+        getSys: () => entry.sys
       },
       field,
       locales: createFakeLocalesAPI(),
       navigator: {
         ...navigator,
         onSlideInNavigation: () => {
-          return () => {};
+          return () => {
+          };
         }
       },
       dialogs: {
@@ -100,29 +101,40 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
       events: []
     };
 
-    const renderRT = (value, type) => {
-      const logValue = () => {
-        console.log(type, value);
-      };
-      const valueString = JSON.stringify(value, null, 2);
-      const valueDom = documentToReactComponents(value);
-      return (
-        <div className={rtPreviewStyle} title={valueString} onClick={logValue}>
-          {valueDom}
-        </div>
-      );
-    };
-
     window.richTextField = field;
-
+    return {sdk,mitt};
+  }
+  const renderRT = (value, type) => {
+    const logValue = () => {
+      console.log(type, value);
+    };
+    const valueString = JSON.stringify(value, null, 2);
+    const valueDom = documentToReactComponents(value);
     return (
+      <div className = { rtPreviewStyle }
+    title = { valueString }
+    onClick = { logValue } >
+      { valueDom }
+      < /div>
+  );
+  };
+
+  const {sdk: sdk1,mitt: mitt1} = newSdk('entry-id-1')
+  const {sdk: sdk2,mitt: mitt2} = newSdk('entry-id-2')
+  return (
       <div data-test-id="rich-text-editor-integration-test">
         <RichTextEditor
-          sdk={sdk}
+          sdk={sdk1}
           onAction={onAction}
           isInitiallyDisabled={false}
         />
-        <ActionsPlayground mitt={mitt} renderValue={renderRT} />
+        <RichTextEditor
+          sdk={sdk2}
+          onAction={onAction}
+          isInitiallyDisabled={false}
+        />
+        <ActionsPlayground mitt={mitt1} renderValue={renderRT} />
+        <ActionsPlayground mitt={mitt2} renderValue={renderRT} />
       </div>
     );
 
