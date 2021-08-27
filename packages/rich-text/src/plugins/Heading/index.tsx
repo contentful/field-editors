@@ -19,7 +19,14 @@ import {
 } from '@udecode/slate-plugins-core';
 import { insertNodes, setNodes, toggleNodeType } from '@udecode/slate-plugins-common';
 import { CustomElement, CustomSlatePluginOptions } from '../../types';
-import { getElementFromCurrentSelection, hasSelectionText } from '../../helpers/editor';
+import {
+  getElementFromCurrentSelection,
+  hasSelectionText,
+  isBlockSelected,
+  getAncestorPathFromSelection,
+  shouldUnwrapBlockquote,
+  unwrapFromRoot,
+} from '../../helpers/editor';
 import { isNodeTypeEnabled } from '../../helpers/validations';
 import { useSdkContext } from '../../SdkProvider';
 
@@ -141,6 +148,10 @@ export function withHeadingEvents(editor: SPEditor) {
     if (isMod && isAltOrOption && headingKey) {
       event.preventDefault();
 
+      if (shouldUnwrapBlockquote(editor, headingKey)) {
+        unwrapFromRoot(editor);
+      }
+
       toggleNodeType(editor, { activeType: headingKey, inactiveType: BLOCKS.PARAGRAPH });
     }
   };
@@ -188,6 +199,11 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
 
     setSelected(type);
     setOpen(false);
+
+    if (shouldUnwrapBlockquote(editor, type)) {
+      unwrapFromRoot(editor);
+    }
+
     toggleNodeType(editor, { activeType: type, inactiveType: type });
     Slate.ReactEditor.focus(editor);
   }
