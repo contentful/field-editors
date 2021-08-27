@@ -1,4 +1,4 @@
-import { SlatePluginOptions } from '@udecode/slate-plugins-core';
+import { PlatePluginOptions } from '@udecode/plate-core';
 
 export type TextElement = { text: string };
 
@@ -12,7 +12,7 @@ export type CustomElement = {
 export type TextOrCustomElement = CustomElement | TextElement;
 
 export type CustomSlatePluginOptions = {
-  [key: string]: SlatePluginOptions;
+  [key: string]: PlatePluginOptions;
 };
 
 declare module 'slate' {

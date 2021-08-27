@@ -11,7 +11,7 @@ import {
 } from '@udecode/slate-plugins-table';
 import { CustomElement, CustomSlatePluginOptions } from 'types';
 import tokens from '@contentful/forma-36-tokens';
-import { SPEditor, useStoreEditor } from '@udecode/slate-plugins-core';
+import { SPEditor, useStoreEditorRef } from '@udecode/plate-core';
 import { insertTableWithTrailingParagraph, isTableActive } from './helpers';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { TableActions } from './TableActions';
@@ -142,7 +142,7 @@ interface ToolbarTableButtonProps {
 }
 
 export function ToolbarTableButton(props: ToolbarTableButtonProps) {
-  const editor = useStoreEditor();
+  const editor = useStoreEditorRef();
   const { onViewportAction } = useTrackingContext();
   const isActive = editor && isTableActive(editor);
 

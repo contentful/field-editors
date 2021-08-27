@@ -1,10 +1,10 @@
 import { BLOCKS } from '@contentful/rich-text-types';
 import {
   getRenderElement,
-  getSlatePluginTypes,
-  SlatePlugin,
-  getSlatePluginOptions,
-} from '@udecode/slate-plugins-core';
+  getPlatePluginTypes,
+  PlatePlugin,
+  getPlatePluginOptions,
+} from '@udecode/plate-core';
 import { Transforms } from 'slate';
 import { getNodeEntryFromSelection, moveToTheNextLine } from '../../helpers/editor';
 import { CustomSlatePluginOptions } from 'types';
@@ -15,50 +15,50 @@ import noop from 'lodash/noop';
 
 export { EmbeddedEntityBlockToolbarIcon as ToolbarIcon } from './ToolbarIcon';
 
-const createEmbeddedEntityPlugin = (nodeType: BLOCKS.EMBEDDED_ENTRY | BLOCKS.EMBEDDED_ASSET) => (
-  sdk: FieldExtensionSDK
-): SlatePlugin => ({
-  renderElement: getRenderElement(nodeType),
-  pluginKeys: nodeType,
-  onKeyDown: getWithEmbeddedEntityEvents(nodeType, sdk),
-  voidTypes: getSlatePluginTypes(nodeType),
-  deserialize: (editor) => {
-    const options = getSlatePluginOptions(editor, nodeType);
-    const entityTypes = {
-      [BLOCKS.EMBEDDED_ENTRY]: 'Entry',
-      [BLOCKS.EMBEDDED_ASSET]: 'Asset',
-    };
+const createEmbeddedEntityPlugin =
+  (nodeType: BLOCKS.EMBEDDED_ENTRY | BLOCKS.EMBEDDED_ASSET) =>
+  (sdk: FieldExtensionSDK): PlatePlugin => ({
+    renderElement: getRenderElement(nodeType),
+    pluginKeys: nodeType,
+    onKeyDown: getWithEmbeddedEntityEvents(nodeType, sdk),
+    voidTypes: getPlatePluginTypes(nodeType),
+    deserialize: (editor) => {
+      const options = getPlatePluginOptions(editor, nodeType);
+      const entityTypes = {
+        [BLOCKS.EMBEDDED_ENTRY]: 'Entry',
+        [BLOCKS.EMBEDDED_ASSET]: 'Asset',
+      };
 
-    return {
-      element: [
-        {
-          type: nodeType,
-          deserialize: (element) => {
-            const entityType = element.getAttribute('data-entity-type');
-            const embeddedEntityId = element.getAttribute('data-entity-id');
-            const isBlock = entityType === entityTypes[nodeType];
+      return {
+        element: [
+          {
+            type: nodeType,
+            deserialize: (element) => {
+              const entityType = element.getAttribute('data-entity-type');
+              const embeddedEntityId = element.getAttribute('data-entity-id');
+              const isBlock = entityType === entityTypes[nodeType];
 
-            if (!isBlock) return;
+              if (!isBlock) return;
 
-            return {
-              type: nodeType,
-              data: {
-                target: {
-                  sys: {
-                    id: embeddedEntityId,
-                    linkType: entityType,
-                    type: 'Link',
+              return {
+                type: nodeType,
+                data: {
+                  target: {
+                    sys: {
+                      id: embeddedEntityId,
+                      linkType: entityType,
+                      type: 'Link',
+                    },
                   },
                 },
-              },
-            };
+              };
+            },
+            ...options.deserialize,
           },
-          ...options.deserialize,
-        },
-      ],
-    };
-  },
-});
+        ],
+      };
+    },
+  });
 
 export const createEmbeddedEntryBlockPlugin = createEmbeddedEntityPlugin(BLOCKS.EMBEDDED_ENTRY);
 export const createEmbeddedAssetBlockPlugin = createEmbeddedEntityPlugin(BLOCKS.EMBEDDED_ASSET);

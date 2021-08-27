@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as Slate from 'slate-react';
 import { css } from 'emotion';
-import { SlatePlugin, getRenderLeaf, useStoreEditor } from '@udecode/slate-plugins-core';
+import { PlatePlugin, getRenderLeaf, useStoreEditorRef } from '@udecode/plate-core';
 import { MARKS } from '@contentful/rich-text-types';
 import { getToggleMarkOnKeyDown, isMarkActive, toggleMark } from '@udecode/slate-plugins-common';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
@@ -12,7 +12,7 @@ interface ToolbarBoldButtonProps {
 }
 
 export function ToolbarBoldButton(props: ToolbarBoldButtonProps) {
-  const editor = useStoreEditor();
+  const editor = useStoreEditorRef();
 
   function handleClick() {
     if (!editor?.selection) return;
@@ -51,7 +51,7 @@ export function Bold(props: Slate.RenderLeafProps) {
   );
 }
 
-export function createBoldPlugin(): SlatePlugin {
+export function createBoldPlugin(): PlatePlugin {
   return {
     pluginKeys: MARKS.BOLD,
     renderLeaf: getRenderLeaf(MARKS.BOLD),

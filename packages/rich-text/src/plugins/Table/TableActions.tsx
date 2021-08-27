@@ -2,7 +2,7 @@ import React from 'react';
 import { css } from 'emotion';
 import * as Slate from 'slate-react';
 import tokens from '@contentful/forma-36-tokens';
-import { SPEditor, useStoreEditor } from '@udecode/slate-plugins-core';
+import { SPEditor, useStoreEditorRef } from '@udecode/plate-core';
 import {
   TablePluginOptions,
   deleteColumn,
@@ -37,7 +37,7 @@ const getCurrentTableSize = (editor: SPEditor): Record<'numRows' | 'numColumns',
 type TableAction = (editor: SPEditor, options: TablePluginOptions) => void;
 
 export const TableActions = () => {
-  const editor = useStoreEditor();
+  const editor = useStoreEditorRef();
   const { onViewportAction } = useTrackingContext();
   const [isOpen, setOpen] = React.useState(false);
 
@@ -51,18 +51,15 @@ export const TableActions = () => {
     Slate.ReactEditor.focus(editor);
   };
 
-  const action = (
-    cb: TableAction,
-    type: 'insert' | 'remove',
-    element: 'Table' | 'Row' | 'Column'
-  ) => () => {
-    if (!editor?.selection) return;
-    close();
-    const tableSize = getCurrentTableSize(editor);
-    cb(editor, {});
-    const actionName = `${type}Table${element === 'Table' ? '' : element}`;
-    onViewportAction(actionName as RichTextTrackingActionName, { tableSize });
-  };
+  const action =
+    (cb: TableAction, type: 'insert' | 'remove', element: 'Table' | 'Row' | 'Column') => () => {
+      if (!editor?.selection) return;
+      close();
+      const tableSize = getCurrentTableSize(editor);
+      cb(editor, {});
+      const actionName = `${type}Table${element === 'Table' ? '' : element}`;
+      onViewportAction(actionName as RichTextTrackingActionName, { tableSize });
+    };
 
   return (
     <Dropdown

@@ -11,12 +11,12 @@ import tokens from '@contentful/forma-36-tokens';
 import { Editor, Transforms, Node } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
 import {
-  useStoreEditor,
-  SlatePlugin,
+  useStoreEditorRef,
+  PlatePlugin,
   getRenderElement,
   SPEditor,
-  getSlatePluginOptions,
-} from '@udecode/slate-plugins-core';
+  getPlatePluginOptions,
+} from '@udecode/plate-core';
 import { insertNodes, setNodes, toggleNodeType } from '@udecode/slate-plugins-common';
 import { CustomElement, CustomSlatePluginOptions } from '../../types';
 import { getElementFromCurrentSelection, hasSelectionText } from '../../helpers/editor';
@@ -162,7 +162,7 @@ interface ToolbarHeadingButtonProps {
 
 export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
   const sdk = useSdkContext();
-  const editor = useStoreEditor();
+  const editor = useStoreEditorRef();
   const [isOpen, setOpen] = React.useState(false);
   const [selected, setSelected] = React.useState<string>(BLOCKS.PARAGRAPH);
 
@@ -248,7 +248,7 @@ export const H4 = createHeading('h4', BLOCKS.HEADING_4);
 export const H5 = createHeading('h1', BLOCKS.HEADING_5);
 export const H6 = createHeading('h1', BLOCKS.HEADING_6);
 
-export function createHeadingPlugin(): SlatePlugin {
+export function createHeadingPlugin(): PlatePlugin {
   const headings: string[] = [
     BLOCKS.HEADING_1,
     BLOCKS.HEADING_2,
@@ -265,7 +265,7 @@ export function createHeadingPlugin(): SlatePlugin {
     deserialize: (editor) => {
       return {
         element: headings.map((headingType, index) => {
-          const options = getSlatePluginOptions(editor, headingType);
+          const options = getPlatePluginOptions(editor, headingType);
 
           return {
             type: headingType,

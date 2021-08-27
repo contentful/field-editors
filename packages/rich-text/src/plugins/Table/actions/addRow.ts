@@ -1,6 +1,6 @@
 import { Transforms, Path, Editor } from 'slate';
 import { getAbove, insertNodes, someNode } from '@udecode/slate-plugins-common';
-import { getSlatePluginType, SPEditor, TElement } from '@udecode/slate-plugins-core';
+import { getPlatePluginType, SPEditor, TElement } from '@udecode/plate-core';
 import {
   ELEMENT_TABLE,
   ELEMENT_TR,
@@ -15,11 +15,11 @@ const addRow = (
 ) => {
   if (
     someNode(editor, {
-      match: { type: getSlatePluginType(editor, ELEMENT_TABLE) },
+      match: { type: getPlatePluginType(editor, ELEMENT_TABLE) },
     })
   ) {
     const currentRowItem = getAbove(editor, {
-      match: { type: getSlatePluginType(editor, ELEMENT_TR) },
+      match: { type: getPlatePluginType(editor, ELEMENT_TR) },
     });
     if (currentRowItem) {
       const [currentRowElem, currentRowPath] = currentRowItem;

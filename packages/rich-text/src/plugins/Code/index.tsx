@@ -2,11 +2,11 @@ import * as React from 'react';
 import * as Slate from 'slate-react';
 import { css } from 'emotion';
 import {
-  SlatePlugin,
+  PlatePlugin,
   getRenderLeaf,
-  useStoreEditor,
+  useStoreEditorRef,
   GetNodeDeserializerRule,
-} from '@udecode/slate-plugins-core';
+} from '@udecode/plate-core';
 import { MARKS } from '@contentful/rich-text-types';
 import { getToggleMarkOnKeyDown, isMarkActive, toggleMark } from '@udecode/slate-plugins-common';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
@@ -18,7 +18,7 @@ interface ToolbarCodeButtonProps {
 }
 
 export function ToolbarCodeButton(props: ToolbarCodeButtonProps) {
-  const editor = useStoreEditor();
+  const editor = useStoreEditorRef();
 
   function handleClick() {
     if (!editor?.selection) return;
@@ -58,7 +58,7 @@ export function Code(props: Slate.RenderLeafProps) {
   );
 }
 
-export function createCodePlugin(): SlatePlugin {
+export function createCodePlugin(): PlatePlugin {
   const deserializeRule: GetNodeDeserializerRule[] = [
     { nodeNames: ['CODE', 'PRE'] },
     { style: { fontFamily: 'monospace' } },

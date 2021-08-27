@@ -1,11 +1,11 @@
 import * as React from 'react';
 import {
-  SlatePlugin,
+  PlatePlugin,
   getRenderElement,
-  getSlatePluginTypes,
-  useStoreEditor,
-  getSlatePluginOptions,
-} from '@udecode/slate-plugins-core';
+  getPlatePluginTypes,
+  useStoreEditorRef,
+  getPlatePluginOptions,
+} from '@udecode/plate-core';
 import { Transforms, Element } from 'slate';
 import { INLINES } from '@contentful/rich-text-types';
 import { RenderElementProps, useSelected, ReactEditor, useReadOnly } from 'slate-react';
@@ -16,7 +16,7 @@ import { CustomSlatePluginOptions } from '../../types';
 import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
 import { useSdkContext } from '../../SdkProvider';
 import { FetchingWrappedInlineEntryCard } from './FetchingWrappedInlineEntryCard';
-import { createInlineEntryNode } from './Util'
+import { createInlineEntryNode } from './Util';
 
 const styles = {
   icon: css({
@@ -46,7 +46,7 @@ interface EmbeddedEntityInlineProps extends RenderElementProps {
 }
 
 function EmbeddedEntityInline(props: EmbeddedEntityInlineProps) {
-  const editor = useStoreEditor();
+  const editor = useStoreEditorRef();
   const sdk = useSdkContext();
   const isSelected = useSelected();
   const { id: entryId } = props.element.data.target.sys;
@@ -96,17 +96,17 @@ async function selectEntityAndInsert(editor, sdk: FieldExtensionSDK) {
   ReactEditor.focus(editor); // Dialog steals focus from editor, return it.
   if (!entry) return;
 
-  const inlineEntryNode = createInlineEntryNode(entry.sys.id)
+  const inlineEntryNode = createInlineEntryNode(entry.sys.id);
 
   // Got to wait until focus is really back on the editor or setSelection() won't work.
   setTimeout(() => {
-    Transforms.setSelection(editor, selection)
+    Transforms.setSelection(editor, selection);
     Transforms.insertNodes(editor, inlineEntryNode);
-  }, 0)
+  }, 0);
 }
 
 export function ToolbarEmbeddedEntityInlineButton(props: ToolbarEmbeddedEntityInlineButtonProps) {
-  const editor = useStoreEditor();
+  const editor = useStoreEditorRef();
   const sdk: FieldExtensionSDK = useSdkContext();
 
   async function handleClick(event) {
@@ -148,14 +148,14 @@ export function ToolbarEmbeddedEntityInlineButton(props: ToolbarEmbeddedEntityIn
   );
 }
 
-export function createEmbeddedEntityInlinePlugin(sdk): SlatePlugin {
+export function createEmbeddedEntityInlinePlugin(sdk): PlatePlugin {
   return {
     renderElement: getRenderElement(INLINES.EMBEDDED_ENTRY),
     pluginKeys: INLINES.EMBEDDED_ENTRY,
-    inlineTypes: getSlatePluginTypes(INLINES.EMBEDDED_ENTRY),
+    inlineTypes: getPlatePluginTypes(INLINES.EMBEDDED_ENTRY),
     onKeyDown: getWithEmbeddedEntryInlineEvents(sdk),
     deserialize: (editor) => {
-      const options = getSlatePluginOptions(editor, INLINES.EMBEDDED_ENTRY);
+      const options = getPlatePluginOptions(editor, INLINES.EMBEDDED_ENTRY);
 
       return {
         element: [
@@ -163,9 +163,7 @@ export function createEmbeddedEntityInlinePlugin(sdk): SlatePlugin {
             type: INLINES.EMBEDDED_ENTRY,
             deserialize: (element) => {
               const entryId = element.getAttribute('data-embedded-entity-inline-id');
-              return entryId
-                ? createInlineEntryNode(entryId)
-                : undefined;
+              return entryId ? createInlineEntryNode(entryId) : undefined;
             },
             ...options.deserialize,
           },

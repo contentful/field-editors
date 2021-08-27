@@ -1,11 +1,11 @@
 import * as React from 'react';
 import {
-  SlatePlugin,
+  PlatePlugin,
   getRenderElement,
-  getSlatePluginTypes,
-  useStoreEditor,
-  getSlatePluginOptions,
-} from '@udecode/slate-plugins-core';
+  getPlatePluginTypes,
+  useStoreEditorRef,
+  getPlatePluginOptions,
+} from '@udecode/plate-core';
 import { INLINES } from '@contentful/rich-text-types';
 import { RenderElementProps } from 'slate-react';
 import { Element } from 'slate';
@@ -58,16 +58,16 @@ const styles = {
   }),
 };
 
-export function createHyperlinkPlugin(sdk: FieldExtensionSDK): SlatePlugin {
+export function createHyperlinkPlugin(sdk: FieldExtensionSDK): PlatePlugin {
   return {
     renderElement: getRenderElement(LINK_TYPES),
     pluginKeys: LINK_TYPES,
-    inlineTypes: getSlatePluginTypes(LINK_TYPES),
+    inlineTypes: getPlatePluginTypes(LINK_TYPES),
     onKeyDown: buildHyperlinkEventHandler(sdk),
     deserialize: (editor) => {
-      const hyperlinkOptions = getSlatePluginOptions(editor, INLINES.HYPERLINK);
-      const entryHyperlinkOptions = getSlatePluginOptions(editor, INLINES.ENTRY_HYPERLINK);
-      const assetHyperlinkOptions = getSlatePluginOptions(editor, INLINES.ASSET_HYPERLINK);
+      const hyperlinkOptions = getPlatePluginOptions(editor, INLINES.HYPERLINK);
+      const entryHyperlinkOptions = getPlatePluginOptions(editor, INLINES.ENTRY_HYPERLINK);
+      const assetHyperlinkOptions = getPlatePluginOptions(editor, INLINES.ASSET_HYPERLINK);
 
       const isAnchor = (element) =>
         element.nodeName === 'A' &&
@@ -177,7 +177,7 @@ interface HyperlinkElementProps extends RenderElementProps {
 }
 
 function UrlHyperlink(props: HyperlinkElementProps) {
-  const editor = useStoreEditor();
+  const editor = useStoreEditorRef();
   const sdk: FieldExtensionSDK = useSdkContext();
   const { uri } = props.element.data;
 
@@ -206,7 +206,7 @@ function UrlHyperlink(props: HyperlinkElementProps) {
 }
 
 function EntityHyperlink(props: HyperlinkElementProps) {
-  const editor = useStoreEditor();
+  const editor = useStoreEditorRef();
   const sdk: FieldExtensionSDK = useSdkContext();
   const { target } = props.element.data;
 
@@ -245,7 +245,7 @@ interface ToolbarHyperlinkButtonProps {
 }
 
 export function ToolbarHyperlinkButton(props: ToolbarHyperlinkButtonProps) {
-  const editor = useStoreEditor();
+  const editor = useStoreEditorRef();
   const isActive = !!(editor && isLinkActive(editor));
   const sdk: FieldExtensionSDK = useSdkContext();
 

@@ -3,7 +3,7 @@ import { css } from 'emotion';
 import { FetchingWrappedEntryCard } from '../shared/FetchingWrappedEntryCard';
 import { FetchingWrappedAssetCard } from '../shared/FetchingWrappedAssetCard';
 import { useSdkContext } from '../../SdkProvider';
-import { useStoreEditor } from '@udecode/slate-plugins-core';
+import { useStoreEditorRef } from '@udecode/plate-core';
 import { CustomElement } from 'types';
 import { ReactEditor, useSelected, useReadOnly } from 'slate-react';
 import { Transforms } from 'slate';
@@ -36,7 +36,7 @@ interface LinkedEntityBlockProps {
 export function LinkedEntityBlock(props: LinkedEntityBlockProps) {
   const { attributes, children, element, onEntityFetchComplete } = props;
   const isSelected = useSelected();
-  const editor = useStoreEditor();
+  const editor = useStoreEditorRef();
   const sdk = useSdkContext();
   const isDisabled = useReadOnly();
   const { id: entityId, linkType: entityType } = element.data.target.sys;

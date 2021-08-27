@@ -4,7 +4,7 @@ import { ELEMENT_PARAGRAPH } from '@udecode/slate-plugins-paragraph';
 import { BLOCKS } from '@contentful/rich-text-types';
 import tokens from '@contentful/forma-36-tokens';
 import { RenderElementProps } from 'slate-react';
-import { SlatePlugin, getRenderElement, getSlatePluginOptions } from '@udecode/slate-plugins-core';
+import { PlatePlugin, getRenderElement, getPlatePluginOptions } from '@udecode/plate-core';
 import { getToggleElementOnKeyDown } from '@udecode/slate-plugins-common';
 import { CustomSlatePluginOptions } from '../../types';
 
@@ -23,7 +23,7 @@ export function Paragraph(props: RenderElementProps) {
   );
 }
 
-export function createParagraphPlugin(): SlatePlugin {
+export function createParagraphPlugin(): PlatePlugin {
   const elementKeys: string[] = [ELEMENT_PARAGRAPH, BLOCKS.PARAGRAPH];
 
   return {
@@ -31,7 +31,7 @@ export function createParagraphPlugin(): SlatePlugin {
     pluginKeys: elementKeys,
     onKeyDown: getToggleElementOnKeyDown(BLOCKS.PARAGRAPH),
     deserialize: (editor) => {
-      const options = getSlatePluginOptions(editor, BLOCKS.PARAGRAPH);
+      const options = getPlatePluginOptions(editor, BLOCKS.PARAGRAPH);
 
       return {
         element: [

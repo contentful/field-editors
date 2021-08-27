@@ -10,7 +10,7 @@ import {
   toggleList,
   ELEMENT_LIC,
 } from '@udecode/slate-plugins-list';
-import { useStoreEditor } from '@udecode/slate-plugins-core';
+import { useStoreEditorRef } from '@udecode/plate-core';
 import { isBlockSelected } from '../../helpers/editor';
 import { isNodeTypeEnabled } from '../../helpers/validations';
 import { CustomSlatePluginOptions } from 'types';
@@ -23,7 +23,7 @@ interface ToolbarListButtonProps {
 
 export function ToolbarListButton(props: ToolbarListButtonProps) {
   const sdk = useSdkContext();
-  const editor = useStoreEditor();
+  const editor = useStoreEditorRef();
 
   function handleClick(type: string): void {
     if (!editor?.selection) return;

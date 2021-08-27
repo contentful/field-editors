@@ -1,6 +1,6 @@
 import { Editor, Path, Transforms } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { SPEditor } from '@udecode/slate-plugins-core';
+import { SPEditor } from '@udecode/plate-core';
 import {
   insertTable,
   ELEMENT_TABLE,
