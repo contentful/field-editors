@@ -72,6 +72,7 @@ export const TableActions = () => {
         <IconButton
           iconProps={{ icon: 'ChevronDown', size: 'tiny' }}
           onClick={() => setOpen(true)}
+          tabIndex={-1}
         />
       }>
       <DropdownList>
