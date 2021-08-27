@@ -11,7 +11,7 @@ import {
   ELEMENT_LIC,
 } from '@udecode/slate-plugins-list';
 import { useStoreEditor } from '@udecode/slate-plugins-core';
-import { isBlockSelected } from '../../helpers/editor';
+import { isBlockSelected, unwrapFromRoot, shouldUnwrapBlockquote } from '../../helpers/editor';
 import { isNodeTypeEnabled } from '../../helpers/validations';
 import { CustomSlatePluginOptions } from 'types';
 import tokens from '@contentful/forma-36-tokens';
@@ -25,8 +25,12 @@ export function ToolbarListButton(props: ToolbarListButtonProps) {
   const sdk = useSdkContext();
   const editor = useStoreEditor();
 
-  function handleClick(type: string): void {
+  function handleClick(type: BLOCKS): void {
     if (!editor?.selection) return;
+
+    if (shouldUnwrapBlockquote(editor, type)) {
+      unwrapFromRoot(editor);
+    }
 
     toggleList(editor, { type });
 

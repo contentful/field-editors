@@ -205,11 +205,21 @@ export function getAncestorPathFromSelection(editor: SPEditor) {
   return Path.levels(editor.selection.focus.path).find((level) => level.length === 1);
 }
 
-export function shouldUnwrapBlockquote(editor: SPEditor, type: string) {
+export function shouldUnwrapBlockquote(editor: SPEditor, type: BLOCKS) {
   const isQuoteSelected = isBlockSelected(editor, BLOCKS.QUOTE);
-  const isHeadingClicked = type !== BLOCKS.PARAGRAPH;
+  const isValidType = [
+    BLOCKS.HEADING_1,
+    BLOCKS.HEADING_2,
+    BLOCKS.HEADING_3,
+    BLOCKS.HEADING_4,
+    BLOCKS.HEADING_5,
+    BLOCKS.HEADING_6,
 
-  return isQuoteSelected && isHeadingClicked;
+    BLOCKS.OL_LIST,
+    BLOCKS.UL_LIST,
+  ].includes(type);
+
+  return isQuoteSelected && isValidType;
 }
 
 export function unwrapFromRoot(editor: SPEditor) {

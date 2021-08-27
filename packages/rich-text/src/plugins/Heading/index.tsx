@@ -22,8 +22,6 @@ import { CustomElement, CustomSlatePluginOptions } from '../../types';
 import {
   getElementFromCurrentSelection,
   hasSelectionText,
-  isBlockSelected,
-  getAncestorPathFromSelection,
   shouldUnwrapBlockquote,
   unwrapFromRoot,
 } from '../../helpers/editor';
@@ -194,7 +192,7 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
     return [nodeTypesByEnablement, someHeadingsEnabled];
   }, [sdk.field]);
 
-  function handleOnSelectItem(type: string): void {
+  function handleOnSelectItem(type: BLOCKS): void {
     if (!editor?.selection) return;
 
     setSelected(type);
@@ -232,7 +230,7 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
                 <DropdownListItem
                   key={nodeType}
                   isActive={selected === nodeType}
-                  onClick={() => handleOnSelectItem(nodeType)}
+                  onClick={() => handleOnSelectItem(nodeType as BLOCKS)}
                   testId={`dropdown-option-${nodeType}`}
                   isDisabled={props.isDisabled}>
                   <span className={cx(styles.dropdown.root, styles.dropdown[nodeType])}>

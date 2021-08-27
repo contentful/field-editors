@@ -288,7 +288,7 @@ describe('Rich Text Editor', () => {
     ];
 
     headings.forEach(([type, label, shortcut]) => {
-      describe.only(label, () => {
+      describe(label, () => {
         it(`allows typing ${label} (${type})`, () => {
           editor().click().typeInSlate('some text');
 
@@ -509,6 +509,30 @@ describe('Rich Text Editor', () => {
           const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text', [])));
 
           expectRichTextFieldValue(expectedValue);
+        });
+
+        it('should unwrap blockquote', () => {
+          editor().click().typeInSlate('some text');
+
+          getQuoteToolbarButton().click();
+
+          const expectedQuoteValue = doc(
+            block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text('some text', []))),
+            block(BLOCKS.PARAGRAPH, {}, text('', []))
+          );
+          expectRichTextFieldValue(expectedQuoteValue);
+
+          test.getList().click();
+
+          const expectedHeadingValue = doc(
+            block(
+              test.listType,
+              {},
+              block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.PARAGRAPH, {}, text('some text', [])))
+            ),
+            block(BLOCKS.PARAGRAPH, {}, text('', []))
+          );
+          expectRichTextFieldValue(expectedHeadingValue);
         });
       });
     });
