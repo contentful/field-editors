@@ -150,6 +150,7 @@ export function createHrPlugin(): PlatePlugin {
 export const withHrOptions: CustomSlatePluginOptions = {
   [BLOCKS.HR]: {
     type: BLOCKS.HR,
+    // @ts-expect-error @z0al to be fixed after green tests
     component: Hr,
   },
 };

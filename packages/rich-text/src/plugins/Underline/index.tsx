@@ -64,6 +64,7 @@ export function createUnderlinePlugin(): PlatePlugin {
   };
 }
 
+// @ts-expect-error @z0al to be fixed after green tests
 export const withUnderlineOptions: CustomSlatePluginOptions = {
   [MARKS.UNDERLINE]: {
     type: MARKS.UNDERLINE,

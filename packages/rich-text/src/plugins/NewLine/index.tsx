@@ -1,3 +1,4 @@
+import { KeyboardEvent } from 'react';
 import { PlatePlugin, SPEditor } from '@udecode/plate-core';
 
 export function createNewLinePlugin(): PlatePlugin {

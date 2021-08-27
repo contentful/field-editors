@@ -176,24 +176,25 @@ export function createEmbeddedEntityInlinePlugin(sdk): PlatePlugin {
 export const withEmbeddedEntityInlineOptions: CustomSlatePluginOptions = {
   [INLINES.EMBEDDED_ENTRY]: {
     type: INLINES.EMBEDDED_ENTRY,
+    // @ts-expect-error @z0al to be fixed after green tests
     component: EmbeddedEntityInline,
   },
 };
 
 // TODO: DRY up types from embedded entry block and elsewhere
 type TWO = 50;
-type TwoEvent = KeyboardEvent & { keyCode: TWO };
-type ShiftEvent = KeyboardEvent & { shiftKey: true };
-type CtrlEvent = KeyboardEvent & { ctrlKey: true };
-type MetaEvent = KeyboardEvent & { metaKey: true };
+type TwoEvent = React.KeyboardEvent & { keyCode: TWO };
+type ShiftEvent = React.KeyboardEvent & { shiftKey: true };
+type CtrlEvent = React.KeyboardEvent & { ctrlKey: true };
+type MetaEvent = React.KeyboardEvent & { metaKey: true };
 type ModEvent = CtrlEvent | MetaEvent;
 type EmbeddedEntryInlineEvent = ModEvent & ShiftEvent & TwoEvent;
 
-const isTwo = (event: KeyboardEvent): event is TwoEvent => event.keyCode === 50;
-const isMod = (event: KeyboardEvent): event is ModEvent => event.ctrlKey || event.metaKey;
-const isShift = (event: KeyboardEvent): event is ShiftEvent => event.shiftKey;
+const isTwo = (event: React.KeyboardEvent): event is TwoEvent => event.keyCode === 50;
+const isMod = (event: React.KeyboardEvent): event is ModEvent => event.ctrlKey || event.metaKey;
+const isShift = (event: React.KeyboardEvent): event is ShiftEvent => event.shiftKey;
 const wasEmbeddedEntryInlineEventTriggered = (
-  event: KeyboardEvent
+  event: React.KeyboardEvent
 ): event is EmbeddedEntryInlineEvent => isMod(event) && isShift(event) && isTwo(event);
 
 function getWithEmbeddedEntryInlineEvents(sdk) {

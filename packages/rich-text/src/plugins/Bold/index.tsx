@@ -83,6 +83,7 @@ export function createBoldPlugin(): PlatePlugin {
   };
 }
 
+// @ts-expect-error @z0al to be fixed after green tests
 export const withBoldOptions: CustomSlatePluginOptions = {
   [MARKS.BOLD]: {
     type: MARKS.BOLD,

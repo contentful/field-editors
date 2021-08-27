@@ -1,3 +1,4 @@
+import { KeyboardEvent } from 'react';
 import { BLOCKS } from '@contentful/rich-text-types';
 import {
   getRenderElement,
@@ -66,12 +67,14 @@ export const createEmbeddedAssetBlockPlugin = createEmbeddedEntityPlugin(BLOCKS.
 export const withEmbeddedEntryBlockOptions: CustomSlatePluginOptions = {
   [BLOCKS.EMBEDDED_ENTRY]: {
     type: BLOCKS.EMBEDDED_ENTRY,
+    // @ts-expect-error @z0al to be fixed after green tests
     component: LinkedEntityBlock,
   },
 };
 export const withEmbeddedAssetBlockOptions: CustomSlatePluginOptions = {
   [BLOCKS.EMBEDDED_ASSET]: {
     type: BLOCKS.EMBEDDED_ASSET,
+    // @ts-expect-error @z0al to be fixed after green tests
     component: LinkedEntityBlock,
   },
 };

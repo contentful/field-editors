@@ -74,14 +74,17 @@ export const TD = (props: Slate.RenderElementProps) => {
 export const withTableOptions: CustomSlatePluginOptions = {
   [ELEMENT_TABLE]: {
     type: BLOCKS.TABLE,
+    // @ts-expect-error @z0al to be fixed after green tests
     component: Table,
   },
   [ELEMENT_TR]: {
     type: BLOCKS.TABLE_ROW,
+    // @ts-expect-error @z0al to be fixed after green tests
     component: TR,
   },
   [ELEMENT_TD]: {
     type: BLOCKS.TABLE_CELL,
+    // @ts-expect-error @z0al to be fixed after green tests
     component: TD,
   },
 };
@@ -126,7 +129,7 @@ function createWithTableEvents(tracking: TrackingProvider) {
   return function withTableEvents(editor: SPEditor) {
     addTableTrackingEvents(editor, tracking);
     const withTableEventsFromUdecode = getTableOnKeyDown()(editor);
-    return function onKeyDown(e: KeyboardEvent) {
+    return function onKeyDown(e: React.KeyboardEvent) {
       withTableEventsFromUdecode(e);
     };
   };

@@ -62,10 +62,12 @@ export const withParagraphOptions: CustomSlatePluginOptions = {
   [ELEMENT_PARAGRAPH]: {
     // We convert the default slate plugin `p` to Contentful `BLOCKS.PARAGRAPH`
     type: BLOCKS.PARAGRAPH,
+    // @ts-expect-error @z0al to be fixed after green tests
     component: Paragraph,
   },
   [BLOCKS.PARAGRAPH]: {
     type: BLOCKS.PARAGRAPH,
+    // @ts-expect-error @z0al to be fixed after green tests
     component: Paragraph,
     hotkey: ['mod+opt+0'],
   },

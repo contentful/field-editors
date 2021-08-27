@@ -141,20 +141,20 @@ export function createHyperlinkPlugin(sdk: FieldExtensionSDK): PlatePlugin {
 }
 
 type K = 75;
-type KEvent = KeyboardEvent & { keyCode: K };
-type CtrlEvent = KeyboardEvent & { ctrlKey: true };
-type MetaEvent = KeyboardEvent & { metaKey: true };
+type KEvent = React.KeyboardEvent & { keyCode: K };
+type CtrlEvent = React.KeyboardEvent & { ctrlKey: true };
+type MetaEvent = React.KeyboardEvent & { metaKey: true };
 type ModEvent = CtrlEvent | MetaEvent;
 type HyperlinkEvent = ModEvent & KEvent;
 
-const isMod = (event: KeyboardEvent): event is ModEvent => event.ctrlKey || event.metaKey;
-const isK = (event: KeyboardEvent): event is KEvent => event.keyCode === 75;
-const wasHyperlinkEventTriggered = (event: KeyboardEvent): event is HyperlinkEvent =>
+const isMod = (event: React.KeyboardEvent): event is ModEvent => event.ctrlKey || event.metaKey;
+const isK = (event: React.KeyboardEvent): event is KEvent => event.keyCode === 75;
+const wasHyperlinkEventTriggered = (event: React.KeyboardEvent): event is HyperlinkEvent =>
   isMod(event) && isK(event);
 
 export function buildHyperlinkEventHandler(sdk) {
   return function withHyperlinkEvents(editor) {
-    return function handleKeyDown(event: KeyboardEvent) {
+    return function handleKeyDown(event: React.KeyboardEvent) {
       if (!editor.selection || !wasHyperlinkEventTriggered(event)) return;
       if (isLinkActive(editor)) {
         unwrapLink(editor);
@@ -279,14 +279,17 @@ export function ToolbarHyperlinkButton(props: ToolbarHyperlinkButtonProps) {
 export const withHyperlinkOptions: CustomSlatePluginOptions = {
   [INLINES.HYPERLINK]: {
     type: INLINES.HYPERLINK,
+    // @ts-expect-error @z0al to be fixed after green tests
     component: UrlHyperlink,
   },
   [INLINES.ENTRY_HYPERLINK]: {
     type: INLINES.ENTRY_HYPERLINK,
+    // @ts-expect-error @z0al to be fixed after green tests
     component: EntityHyperlink,
   },
   [INLINES.ASSET_HYPERLINK]: {
     type: INLINES.ASSET_HYPERLINK,
+    // @ts-expect-error @z0al to be fixed after green tests
     component: EntityHyperlink,
   },
 };

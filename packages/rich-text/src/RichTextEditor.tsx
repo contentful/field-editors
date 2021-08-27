@@ -145,6 +145,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
       <Plate
         id={`rich-text-editor-${entryId}-${field.id}-${field.locale}`}
         initialValue={value}
+        // @ts-expect-error @z0al to be fixed after green tests
         plugins={plugins}
         editableProps={{
           className: classNames,

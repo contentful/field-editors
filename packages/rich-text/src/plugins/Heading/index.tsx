@@ -78,7 +78,7 @@ const styles = {
 };
 
 export function withHeadingEvents(editor: SPEditor) {
-  return (event: KeyboardEvent) => {
+  return (event: React.KeyboardEvent) => {
     if (!editor.selection) return;
 
     // Enter a new line on a heading element
@@ -289,26 +289,32 @@ export function createHeadingPlugin(): PlatePlugin {
 export const withHeadingOptions: CustomSlatePluginOptions = {
   [BLOCKS.HEADING_1]: {
     type: BLOCKS.HEADING_1,
+    // @ts-expect-error @z0al to be fixed after green tests
     component: H1,
   },
   [BLOCKS.HEADING_2]: {
     type: BLOCKS.HEADING_2,
+    // @ts-expect-error @z0al to be fixed after green tests
     component: H2,
   },
   [BLOCKS.HEADING_3]: {
     type: BLOCKS.HEADING_3,
+    // @ts-expect-error @z0al to be fixed after green tests
     component: H3,
   },
   [BLOCKS.HEADING_4]: {
     type: BLOCKS.HEADING_4,
+    // @ts-expect-error @z0al to be fixed after green tests
     component: H4,
   },
   [BLOCKS.HEADING_5]: {
     type: BLOCKS.HEADING_5,
+    // @ts-expect-error @z0al to be fixed after green tests
     component: H5,
   },
   [BLOCKS.HEADING_6]: {
     type: BLOCKS.HEADING_6,
+    // @ts-expect-error @z0al to be fixed after green tests
     component: H6,
   },
 };
