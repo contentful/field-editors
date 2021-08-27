@@ -1,5 +1,5 @@
 import React from 'react';
-import { Note } from '@contentful/f36-components';
+import { Note } from '@contentful/f36-note';
 
 export function PredefinedValuesError() {
   return (
