@@ -4,15 +4,10 @@ import isHotKey from 'is-hotkey';
 import cn from 'classnames';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
-import {
-  SkeletonContainer,
-  SkeletonBodyText,
-  Spinner,
-  SectionHeading,
-  Icon,
-  IconButton,
-} from '@contentful/forma-36-react-components';
+import { SkeletonContainer, SkeletonBodyText, SectionHeading, Icon, IconButton } from '@contentful/forma-36-react-components';
 import uniqBy from 'lodash/uniqBy';
+
+import { Spinner } from "@contentful/f36-components";
 
 const styles = {
   commandPanel: css({
