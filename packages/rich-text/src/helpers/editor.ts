@@ -217,6 +217,8 @@ export function shouldUnwrapBlockquote(editor: SPEditor, type: BLOCKS) {
 
     BLOCKS.OL_LIST,
     BLOCKS.UL_LIST,
+
+    BLOCKS.HR,
   ].includes(type);
 
   return isQuoteSelected && isValidType;

@@ -273,6 +273,28 @@ describe('Rich Text Editor', () => {
 
         expectRichTextFieldValue(expectedValue);
       });
+
+      it('should unwrap blockquote', () => {
+        editor().click().typeInSlate('some text');
+
+        getQuoteToolbarButton().click();
+
+        const expectedQuoteValue = doc(
+          block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text('some text', []))),
+          block(BLOCKS.PARAGRAPH, {}, text('', []))
+        );
+        expectRichTextFieldValue(expectedQuoteValue);
+
+        getHrToolbarButton().click();
+
+        const expectedHeadingValue = doc(
+          block(BLOCKS.PARAGRAPH, {}, text('some text', [])),
+          block(BLOCKS.HR, {}),
+          block(BLOCKS.PARAGRAPH, {}, text('', [])),
+          block(BLOCKS.PARAGRAPH, {}, text('', []))
+        );
+        expectRichTextFieldValue(expectedHeadingValue);
+      });
     });
   });
 
