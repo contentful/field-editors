@@ -2,9 +2,11 @@ import React from 'react';
 import get from 'lodash/get';
 import { css } from 'emotion';
 import { ContentType } from '../../types';
-import { Button, Spinner } from '@contentful/forma-36-react-components';
+import { Button } from '@contentful/forma-36-react-components';
 import tokens from '@contentful/forma-36-tokens';
 import { CreateEntryMenuTrigger, CreateCustomEntryMenuItems } from './CreateEntryMenuTrigger';
+
+import { Spinner } from "@contentful/f36-components";
 
 const standardStyles = {
   spinnerMargin: css({

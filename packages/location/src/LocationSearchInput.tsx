@@ -1,15 +1,10 @@
 import React from 'react';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
-import {
-  TextInput,
-  Spinner,
-  ValidationMessage,
-  DropdownList,
-  DropdownListItem,
-  Card,
-} from '@contentful/forma-36-react-components';
+import { TextInput, ValidationMessage, DropdownList, DropdownListItem, Card } from '@contentful/forma-36-react-components';
 import { Coords, GeocodeApiResponse } from './types';
+
+import { Spinner } from "@contentful/f36-components";
 
 const styles = {
   root: css({

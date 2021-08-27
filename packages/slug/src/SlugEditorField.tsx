@@ -1,8 +1,10 @@
 import React from 'react';
 import { useDebounce } from 'use-debounce';
-import { TextInput, Icon, Spinner, ValidationMessage } from '@contentful/forma-36-react-components';
+import { TextInput, Icon, ValidationMessage } from '@contentful/forma-36-react-components';
 import { makeSlug } from './services/makeSlug';
 import * as styles from './styles';
+
+import { Spinner } from "@contentful/f36-components";
 
 interface SlugEditorFieldProps {
   hasError: boolean;
