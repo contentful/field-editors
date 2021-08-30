@@ -48,6 +48,21 @@ describe('Rich Text Editor', () => {
     return cy.findByTestId('quote-toolbar-button');
   }
 
+  function addBlockquote(content = '') {
+    editor().click().typeInSlate(content);
+
+    getQuoteToolbarButton().click();
+
+    const expectedValue = doc(
+      block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text(content, []))),
+      block(BLOCKS.PARAGRAPH, {}, text('', []))
+    );
+
+    expectRichTextFieldValue(expectedValue);
+
+    return expectedValue;
+  }
+
   beforeEach(() => {
     cy.visit('/rich-text');
     const wrapper = () => cy.findByTestId('rich-text-editor-integration-test');
@@ -275,15 +290,7 @@ describe('Rich Text Editor', () => {
       });
 
       it('should unwrap blockquote', () => {
-        editor().click().typeInSlate('some text');
-
-        getQuoteToolbarButton().click();
-
-        const expectedQuoteValue = doc(
-          block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text('some text', []))),
-          block(BLOCKS.PARAGRAPH, {}, text('', []))
-        );
-        expectRichTextFieldValue(expectedQuoteValue);
+        addBlockquote('some text');
 
         getHrToolbarButton().click();
 
@@ -342,17 +349,10 @@ describe('Rich Text Editor', () => {
           getDropdownToolbarButton().should('have.text', label);
         });
 
+        // TODO: Move this test to either a single test with multiple assertions or for only one heading type due to performance
         if (type !== BLOCKS.PARAGRAPH) {
           it('should unwrap blockquote', () => {
-            editor().click().typeInSlate('some text');
-
-            getQuoteToolbarButton().click();
-
-            const expectedQuoteValue = doc(
-              block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text('some text', []))),
-              block(BLOCKS.PARAGRAPH, {}, text('', []))
-            );
-            expectRichTextFieldValue(expectedQuoteValue);
+            addBlockquote('some text');
 
             getDropdownToolbarButton().click();
             getDropdownItem(type).click();
@@ -365,15 +365,7 @@ describe('Rich Text Editor', () => {
           });
         } else {
           it('should not unwrap blockquote', () => {
-            editor().click().typeInSlate('some text');
-
-            getQuoteToolbarButton().click();
-
-            const expectedQuoteValue = doc(
-              block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text('some text', []))),
-              block(BLOCKS.PARAGRAPH, {}, text('', []))
-            );
-            expectRichTextFieldValue(expectedQuoteValue);
+            const expectedQuoteValue = addBlockquote('some text');
 
             getDropdownToolbarButton().click();
             getDropdownItem(type).click();
@@ -534,15 +526,7 @@ describe('Rich Text Editor', () => {
         });
 
         it('should unwrap blockquote', () => {
-          editor().click().typeInSlate('some text');
-
-          getQuoteToolbarButton().click();
-
-          const expectedQuoteValue = doc(
-            block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text('some text', []))),
-            block(BLOCKS.PARAGRAPH, {}, text('', []))
-          );
-          expectRichTextFieldValue(expectedQuoteValue);
+          addBlockquote('some text');
 
           test.getList().click();
 
