@@ -7,7 +7,7 @@ import {
   ELEMENT_TH,
   ELEMENT_TD,
   ELEMENT_TR,
-} from '@udecode/slate-plugins-table';
+} from '@udecode/plate-table';
 import { getNodeEntryFromSelection, isBlockSelected } from '../../helpers/editor';
 import { CustomSlatePluginOptions } from '../../types';
 

@@ -7,7 +7,7 @@ import {
   ELEMENT_TABLE,
   ELEMENT_TD,
   ELEMENT_TH,
-} from '@udecode/slate-plugins-table';
+} from '@udecode/plate-table';
 
 const addColumn = (
   editor: SPEditor,

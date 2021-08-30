@@ -6,7 +6,7 @@ import {
   ELEMENT_TR,
   TablePluginOptions,
   getEmptyRowNode,
-} from '@udecode/slate-plugins-table';
+} from '@udecode/plate-table';
 
 const addRow = (
   editor: SPEditor,

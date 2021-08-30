@@ -8,7 +8,7 @@ import {
   ELEMENT_TABLE,
   createTablePlugin as createTablePluginFromUdecode,
   getTableOnKeyDown,
-} from '@udecode/slate-plugins-table';
+} from '@udecode/plate-table';
 import { CustomElement, CustomSlatePluginOptions } from 'types';
 import tokens from '@contentful/forma-36-tokens';
 import { SPEditor, useStoreEditorRef } from '@udecode/plate-core';

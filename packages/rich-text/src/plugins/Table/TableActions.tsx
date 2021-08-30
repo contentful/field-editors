@@ -3,12 +3,7 @@ import { css } from 'emotion';
 import * as Slate from 'slate-react';
 import tokens from '@contentful/forma-36-tokens';
 import { SPEditor, useStoreEditorRef } from '@udecode/plate-core';
-import {
-  TablePluginOptions,
-  deleteColumn,
-  deleteRow,
-  deleteTable,
-} from '@udecode/slate-plugins-table';
+import { TablePluginOptions, deleteColumn, deleteRow, deleteTable } from '@udecode/plate-table';
 import {
   IconButton,
   Dropdown,
