@@ -287,13 +287,13 @@ describe('Rich Text Editor', () => {
 
         getHrToolbarButton().click();
 
-        const expectedHeadingValue = doc(
+        const expectedValue = doc(
           block(BLOCKS.PARAGRAPH, {}, text('some text', [])),
           block(BLOCKS.HR, {}),
           block(BLOCKS.PARAGRAPH, {}, text('', [])),
           block(BLOCKS.PARAGRAPH, {}, text('', []))
         );
-        expectRichTextFieldValue(expectedHeadingValue);
+        expectRichTextFieldValue(expectedValue);
       });
     });
   });
@@ -546,7 +546,7 @@ describe('Rich Text Editor', () => {
 
           test.getList().click();
 
-          const expectedHeadingValue = doc(
+          const expectedValue = doc(
             block(
               test.listType,
               {},
@@ -554,7 +554,7 @@ describe('Rich Text Editor', () => {
             ),
             block(BLOCKS.PARAGRAPH, {}, text('', []))
           );
-          expectRichTextFieldValue(expectedHeadingValue);
+          expectRichTextFieldValue(expectedValue);
         });
       });
     });
