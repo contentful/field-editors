@@ -19,7 +19,12 @@ import {
 } from '@udecode/slate-plugins-core';
 import { insertNodes, setNodes, toggleNodeType } from '@udecode/slate-plugins-common';
 import { CustomElement, CustomSlatePluginOptions } from '../../types';
-import { getElementFromCurrentSelection, hasSelectionText } from '../../helpers/editor';
+import {
+  getElementFromCurrentSelection,
+  hasSelectionText,
+  shouldUnwrapBlockquote,
+  unwrapFromRoot,
+} from '../../helpers/editor';
 import { isNodeTypeEnabled } from '../../helpers/validations';
 import { useSdkContext } from '../../SdkProvider';
 
@@ -141,6 +146,10 @@ export function withHeadingEvents(editor: SPEditor) {
     if (isMod && isAltOrOption && headingKey) {
       event.preventDefault();
 
+      if (shouldUnwrapBlockquote(editor, headingKey)) {
+        unwrapFromRoot(editor);
+      }
+
       toggleNodeType(editor, { activeType: headingKey, inactiveType: BLOCKS.PARAGRAPH });
     }
   };
@@ -183,11 +192,16 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
     return [nodeTypesByEnablement, someHeadingsEnabled];
   }, [sdk.field]);
 
-  function handleOnSelectItem(type: string): void {
+  function handleOnSelectItem(type: BLOCKS): void {
     if (!editor?.selection) return;
 
     setSelected(type);
     setOpen(false);
+
+    if (shouldUnwrapBlockquote(editor, type)) {
+      unwrapFromRoot(editor);
+    }
+
     toggleNodeType(editor, { activeType: type, inactiveType: type });
     Slate.ReactEditor.focus(editor);
   }
@@ -216,7 +230,7 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
                 <DropdownListItem
                   key={nodeType}
                   isActive={selected === nodeType}
-                  onClick={() => handleOnSelectItem(nodeType)}
+                  onClick={() => handleOnSelectItem(nodeType as BLOCKS)}
                   testId={`dropdown-option-${nodeType}`}
                   isDisabled={props.isDisabled}>
                   <span className={cx(styles.dropdown.root, styles.dropdown[nodeType])}>
