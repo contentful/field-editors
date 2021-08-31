@@ -11,10 +11,10 @@ export function createNewLinePlugin(): PlatePlugin {
         if (isEnter && isShift) {
           event.preventDefault();
           editor.insertText('\n');
-          return false; // To prevent the next handler from running
+          return true; // To prevent the next handler from running
         }
 
-        return true; // something like next()
+        return false; // something like next()
       };
     },
   };
