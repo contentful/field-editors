@@ -158,7 +158,7 @@ export function createQuotePlugin(): PlatePlugin {
 export const withQuoteOptions: CustomSlatePluginOptions = {
   [BLOCKS.QUOTE]: {
     type: BLOCKS.QUOTE,
-    // @ts-expect-error @z0al to be fixed after green tests
+
     component: Quote,
   },
 };

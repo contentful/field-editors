@@ -279,17 +279,17 @@ export function ToolbarHyperlinkButton(props: ToolbarHyperlinkButtonProps) {
 export const withHyperlinkOptions: CustomSlatePluginOptions = {
   [INLINES.HYPERLINK]: {
     type: INLINES.HYPERLINK,
-    // @ts-expect-error @z0al to be fixed after green tests
+
     component: UrlHyperlink,
   },
   [INLINES.ENTRY_HYPERLINK]: {
     type: INLINES.ENTRY_HYPERLINK,
-    // @ts-expect-error @z0al to be fixed after green tests
+
     component: EntityHyperlink,
   },
   [INLINES.ASSET_HYPERLINK]: {
     type: INLINES.ASSET_HYPERLINK,
-    // @ts-expect-error @z0al to be fixed after green tests
+
     component: EntityHyperlink,
   },
 };

@@ -75,7 +75,6 @@ export function createItalicPlugin(): PlatePlugin {
   };
 }
 
-// @ts-expect-error @z0al to be fixed after green tests
 export const withItalicOptions: CustomSlatePluginOptions = {
   [MARKS.ITALIC]: {
     type: MARKS.ITALIC,

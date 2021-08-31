@@ -72,7 +72,6 @@ export function createCodePlugin(): PlatePlugin {
   };
 }
 
-// @ts-expect-error @z0al to be fixed after green tests
 export const withCodeOptions: CustomSlatePluginOptions = {
   [MARKS.CODE]: {
     type: MARKS.CODE,

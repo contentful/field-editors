@@ -129,17 +129,17 @@ export const withListOptions: CustomSlatePluginOptions = {
   },
   [ELEMENT_LI]: {
     type: BLOCKS.LIST_ITEM,
-    // @ts-expect-error @z0al to be fixed after green tests
+
     component: LI,
   },
   [ELEMENT_UL]: {
     type: BLOCKS.UL_LIST,
-    // @ts-expect-error @z0al to be fixed after green tests
+
     component: UL,
   },
   [ELEMENT_OL]: {
     type: BLOCKS.OL_LIST,
-    // @ts-expect-error @z0al to be fixed after green tests
+
     component: OL,
   },
 };

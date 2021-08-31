@@ -176,7 +176,7 @@ export function createEmbeddedEntityInlinePlugin(sdk): PlatePlugin {
 export const withEmbeddedEntityInlineOptions: CustomSlatePluginOptions = {
   [INLINES.EMBEDDED_ENTRY]: {
     type: INLINES.EMBEDDED_ENTRY,
-    // @ts-expect-error @z0al to be fixed after green tests
+
     component: EmbeddedEntityInline,
   },
 };
