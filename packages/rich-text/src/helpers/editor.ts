@@ -2,16 +2,14 @@ import { Text, Editor, Element, Transforms, Path, Range } from 'slate';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { CustomElement } from '../types';
 import { Link } from '@contentful/field-editor-reference/dist/types';
+import { SPEditor } from '@udecode/slate-plugins-core';
 
 export const LINK_TYPES: INLINES[] = [
   INLINES.HYPERLINK,
   INLINES.ENTRY_HYPERLINK,
   INLINES.ASSET_HYPERLINK,
 ];
-const LIST_TYPES: BLOCKS[] = [
-  BLOCKS.OL_LIST,
-  BLOCKS.UL_LIST,
-];
+const LIST_TYPES: BLOCKS[] = [BLOCKS.OL_LIST, BLOCKS.UL_LIST];
 
 export function isBlockSelected(editor, type: string): boolean {
   const [match] = Array.from(
@@ -43,7 +41,7 @@ export function getNodeEntryFromSelection(
   nodeTypeOrTypes: NodeType | NodeType[]
 ): NodeEntry | [] {
   if (!editor.selection) return [];
-  const nodeTypes = Array.isArray(nodeTypeOrTypes) ? nodeTypeOrTypes : [nodeTypeOrTypes]
+  const nodeTypes = Array.isArray(nodeTypeOrTypes) ? nodeTypeOrTypes : [nodeTypeOrTypes];
   const { path } = editor.selection.focus;
   for (let i = 0; i < path.length; i++) {
     const nodeEntry = Editor.node(editor, path.slice(0, i + 1)) as NodeEntry;
@@ -52,14 +50,11 @@ export function getNodeEntryFromSelection(
   return [];
 }
 
-export function isNodeTypeSelected(
-  editor,
-  nodeType: BLOCKS | INLINES
-): boolean {
+export function isNodeTypeSelected(editor, nodeType: BLOCKS | INLINES): boolean {
   if (!editor) return false;
   const [node] = getNodeEntryFromSelection(editor, nodeType);
   return !!node;
-};
+}
 
 export function moveToTheNextLine(editor) {
   Transforms.move(editor, { distance: 1 });
@@ -114,11 +109,14 @@ export function isList(editor) {
   const element = getElementFromCurrentSelection(editor);
 
   return element.some(
-    (element) => Element.isElement(element) && LIST_TYPES.includes((element as CustomElement).type as BLOCKS)
+    (element) =>
+      Element.isElement(element) && LIST_TYPES.includes((element as CustomElement).type as BLOCKS)
   );
 }
 
-export function getTableSize(table: CustomElement): Record<'numRows' | 'numColumns', number> | null {
+export function getTableSize(
+  table: CustomElement
+): Record<'numRows' | 'numColumns', number> | null {
   const numRows = table.children.length;
   if (!numRows) return null;
   const [firstRow] = table.children;
@@ -199,4 +197,34 @@ export function wrapLink(editor, { text, url, target, type, path }: InsertLinkOp
     Transforms.insertText(editor, text);
     Transforms.collapse(editor, { edge: 'end' });
   }
+}
+
+export function getAncestorPathFromSelection(editor: SPEditor) {
+  if (!editor.selection) return undefined;
+
+  return Path.levels(editor.selection.focus.path).find((level) => level.length === 1);
+}
+
+export function shouldUnwrapBlockquote(editor: SPEditor, type: BLOCKS) {
+  const isQuoteSelected = isBlockSelected(editor, BLOCKS.QUOTE);
+  const isValidType = [
+    BLOCKS.HEADING_1,
+    BLOCKS.HEADING_2,
+    BLOCKS.HEADING_3,
+    BLOCKS.HEADING_4,
+    BLOCKS.HEADING_5,
+    BLOCKS.HEADING_6,
+
+    BLOCKS.OL_LIST,
+    BLOCKS.UL_LIST,
+
+    BLOCKS.HR,
+  ].includes(type);
+
+  return isQuoteSelected && isValidType;
+}
+
+export function unwrapFromRoot(editor: SPEditor) {
+  const ancestorPath = getAncestorPathFromSelection(editor);
+  Transforms.unwrapNodes(editor, { at: ancestorPath });
 }

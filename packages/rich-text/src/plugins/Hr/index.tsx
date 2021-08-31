@@ -16,6 +16,8 @@ import {
   getNodeEntryFromSelection,
   isBlockSelected,
   moveToTheNextLine,
+  shouldUnwrapBlockquote,
+  unwrapFromRoot,
 } from '../../helpers/editor';
 import { CustomSlatePluginOptions } from 'types';
 import { deserializeElement } from '../../helpers/deserializer';
@@ -64,6 +66,10 @@ export function withHrEvents(editor) {
     const [, pathToSelectedHr] = getNodeEntryFromSelection(editor, BLOCKS.HR);
 
     if (pathToSelectedHr) {
+      if (shouldUnwrapBlockquote(editor, BLOCKS.HR)) {
+        unwrapFromRoot(editor);
+      }
+
       if (isEnter) {
         event.preventDefault();
         moveToTheNextLine(editor);
@@ -80,6 +86,10 @@ export function ToolbarHrButton(props: ToolbarHrButtonProps) {
 
   function handleOnClick() {
     if (!editor?.selection) return;
+
+    if (shouldUnwrapBlockquote(editor, BLOCKS.HR)) {
+      unwrapFromRoot(editor);
+    }
 
     const hr = {
       type: BLOCKS.HR,
