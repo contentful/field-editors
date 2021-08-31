@@ -67,14 +67,12 @@ export const createEmbeddedAssetBlockPlugin = createEmbeddedEntityPlugin(BLOCKS.
 export const withEmbeddedEntryBlockOptions: CustomSlatePluginOptions = {
   [BLOCKS.EMBEDDED_ENTRY]: {
     type: BLOCKS.EMBEDDED_ENTRY,
-
     component: LinkedEntityBlock,
   },
 };
 export const withEmbeddedAssetBlockOptions: CustomSlatePluginOptions = {
   [BLOCKS.EMBEDDED_ASSET]: {
     type: BLOCKS.EMBEDDED_ASSET,
-
     component: LinkedEntityBlock,
   },
 };

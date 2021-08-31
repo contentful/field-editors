@@ -7,13 +7,11 @@ import {
   getPlatePluginOptions,
 } from '@udecode/plate-core';
 import { INLINES } from '@contentful/rich-text-types';
-import { RenderElementProps } from 'slate-react';
-import { Element } from 'slate';
 import { Tooltip, TextLink, EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 import { Link, EntityType, FieldExtensionSDK } from '@contentful/field-editor-reference/dist/types';
-import { CustomSlatePluginOptions } from '../../types';
+import { CustomSlatePluginOptions, CustomRenderElementProps } from '../../types';
 import { EntryAssetTooltip } from './EntryAssetTooltip';
 import { useSdkContext } from '../../SdkProvider';
 import { addOrEditLink } from './HyperlinkModal';
@@ -165,16 +163,10 @@ export function buildHyperlinkEventHandler(sdk) {
   };
 }
 
-interface HyperlinkElementProps extends RenderElementProps {
-  element: Element & {
-    data: {
-      uri?: string;
-      target?: Link;
-    };
-    type: string;
-    isVoid: boolean;
-  };
-}
+type HyperlinkElementProps = CustomRenderElementProps<{
+  uri?: string;
+  target?: Link;
+}>;
 
 function UrlHyperlink(props: HyperlinkElementProps) {
   const editor = useStoreEditorRef();
@@ -279,17 +271,14 @@ export function ToolbarHyperlinkButton(props: ToolbarHyperlinkButtonProps) {
 export const withHyperlinkOptions: CustomSlatePluginOptions = {
   [INLINES.HYPERLINK]: {
     type: INLINES.HYPERLINK,
-
     component: UrlHyperlink,
   },
   [INLINES.ENTRY_HYPERLINK]: {
     type: INLINES.ENTRY_HYPERLINK,
-
     component: EntityHyperlink,
   },
   [INLINES.ASSET_HYPERLINK]: {
     type: INLINES.ASSET_HYPERLINK,
-
     component: EntityHyperlink,
   },
 };

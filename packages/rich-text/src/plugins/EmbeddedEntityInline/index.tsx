@@ -6,13 +6,13 @@ import {
   useStoreEditorRef,
   getPlatePluginOptions,
 } from '@udecode/plate-core';
-import { Transforms, Element } from 'slate';
+import { Transforms } from 'slate';
 import { INLINES } from '@contentful/rich-text-types';
-import { RenderElementProps, useSelected, ReactEditor, useReadOnly } from 'slate-react';
+import { useSelected, ReactEditor, useReadOnly } from 'slate-react';
 import { Button, DropdownListItem, Icon, Flex } from '@contentful/forma-36-react-components';
 import { css } from 'emotion';
 import { FieldExtensionSDK, Entry, Link } from '@contentful/field-editor-reference/dist/types';
-import { CustomSlatePluginOptions } from '../../types';
+import { CustomSlatePluginOptions, CustomRenderElementProps } from '../../types';
 import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
 import { useSdkContext } from '../../SdkProvider';
 import { FetchingWrappedInlineEntryCard } from './FetchingWrappedInlineEntryCard';
@@ -35,15 +35,9 @@ const styles = {
   }),
 };
 
-interface EmbeddedEntityInlineProps extends RenderElementProps {
-  element: Element & {
-    data: {
-      target: Link;
-    };
-    type: string;
-    isVoid: boolean;
-  };
-}
+type EmbeddedEntityInlineProps = CustomRenderElementProps<{
+  target: Link;
+}>;
 
 function EmbeddedEntityInline(props: EmbeddedEntityInlineProps) {
   const editor = useStoreEditorRef();
@@ -176,7 +170,6 @@ export function createEmbeddedEntityInlinePlugin(sdk): PlatePlugin {
 export const withEmbeddedEntityInlineOptions: CustomSlatePluginOptions = {
   [INLINES.EMBEDDED_ENTRY]: {
     type: INLINES.EMBEDDED_ENTRY,
-
     component: EmbeddedEntityInline,
   },
 };

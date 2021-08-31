@@ -133,17 +133,14 @@ export const withListOptions: CustomSlatePluginOptions = {
   },
   [ELEMENT_LI]: {
     type: BLOCKS.LIST_ITEM,
-
     component: LI,
   },
   [ELEMENT_UL]: {
     type: BLOCKS.UL_LIST,
-
     component: UL,
   },
   [ELEMENT_OL]: {
     type: BLOCKS.OL_LIST,
-
     component: OL,
   },
 };

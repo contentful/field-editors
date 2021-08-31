@@ -10,6 +10,7 @@ import {
   getRenderElement,
   useStoreEditorRef,
   PlatePlugin,
+  SPEditor,
 } from '@udecode/plate-core';
 import { getText, setNodes } from '@udecode/slate-plugins-common';
 import {
@@ -58,8 +59,8 @@ interface ToolbarHrButtonProps {
   isDisabled?: boolean;
 }
 
-export function withHrEvents(editor) {
-  return (event) => {
+export function withHrEvents(editor: SPEditor) {
+  return (event: React.KeyboardEvent) => {
     if (!editor) return;
 
     const isEnter = event.keyCode === 13;
@@ -160,7 +161,6 @@ export function createHrPlugin(): PlatePlugin {
 export const withHrOptions: CustomSlatePluginOptions = {
   [BLOCKS.HR]: {
     type: BLOCKS.HR,
-
     component: Hr,
   },
 };

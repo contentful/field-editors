@@ -158,7 +158,6 @@ export function createQuotePlugin(): PlatePlugin {
 export const withQuoteOptions: CustomSlatePluginOptions = {
   [BLOCKS.QUOTE]: {
     type: BLOCKS.QUOTE,
-
     component: Quote,
   },
 };

@@ -74,17 +74,14 @@ export const TD = (props: Slate.RenderElementProps) => {
 export const withTableOptions: CustomSlatePluginOptions = {
   [ELEMENT_TABLE]: {
     type: BLOCKS.TABLE,
-
     component: Table,
   },
   [ELEMENT_TR]: {
     type: BLOCKS.TABLE_ROW,
-
     component: TR,
   },
   [ELEMENT_TD]: {
     type: BLOCKS.TABLE_CELL,
-
     component: TD,
   },
 };

@@ -303,32 +303,26 @@ export function createHeadingPlugin(): PlatePlugin {
 export const withHeadingOptions: CustomSlatePluginOptions = {
   [BLOCKS.HEADING_1]: {
     type: BLOCKS.HEADING_1,
-
     component: H1,
   },
   [BLOCKS.HEADING_2]: {
     type: BLOCKS.HEADING_2,
-
     component: H2,
   },
   [BLOCKS.HEADING_3]: {
     type: BLOCKS.HEADING_3,
-
     component: H3,
   },
   [BLOCKS.HEADING_4]: {
     type: BLOCKS.HEADING_4,
-
     component: H4,
   },
   [BLOCKS.HEADING_5]: {
     type: BLOCKS.HEADING_5,
-
     component: H5,
   },
   [BLOCKS.HEADING_6]: {
     type: BLOCKS.HEADING_6,
-
     component: H6,
   },
 };

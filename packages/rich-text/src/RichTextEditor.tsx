@@ -145,7 +145,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
       <Plate
         id={`rich-text-editor-${entryId}-${field.id}-${field.locale}`}
         initialValue={value}
-        // @ts-expect-error TODO: To be fixed after having green tests
+        // @ts-expect-error
         plugins={plugins}
         editableProps={{
           className: classNames,
@@ -157,6 +157,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
           const contentfulDoc = toContentfulDocument({ document: slateDoc, schema });
           props.onChange?.(contentfulDoc);
         }}
+        // @ts-expect-error
         options={options}>
         {!props.isToolbarHidden && (
           <StickyToolbarWrapper isDisabled={props.isDisabled}>
