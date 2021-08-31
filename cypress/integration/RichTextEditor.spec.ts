@@ -44,6 +44,25 @@ describe('Rich Text Editor', () => {
     return cy.findByTestId('ol-toolbar-button');
   }
 
+  function getQuoteToolbarButton() {
+    return cy.findByTestId('quote-toolbar-button');
+  }
+
+  function addBlockquote(content = '') {
+    editor().click().typeInSlate(content);
+
+    getQuoteToolbarButton().click();
+
+    const expectedValue = doc(
+      block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text(content, []))),
+      block(BLOCKS.PARAGRAPH, {}, text('', []))
+    );
+
+    expectRichTextFieldValue(expectedValue);
+
+    return expectedValue;
+  }
+
   beforeEach(() => {
     cy.visit('/rich-text');
     const wrapper = () => cy.findByTestId('rich-text-editor-integration-test');
@@ -269,6 +288,20 @@ describe('Rich Text Editor', () => {
 
         expectRichTextFieldValue(expectedValue);
       });
+
+      it('should unwrap blockquote', () => {
+        addBlockquote('some text');
+
+        getHrToolbarButton().click();
+
+        const expectedValue = doc(
+          block(BLOCKS.PARAGRAPH, {}, text('some text', [])),
+          block(BLOCKS.HR, {}),
+          block(BLOCKS.PARAGRAPH, {}, text('', [])),
+          block(BLOCKS.PARAGRAPH, {}, text('', []))
+        );
+        expectRichTextFieldValue(expectedValue);
+      });
     });
   });
 
@@ -315,6 +348,31 @@ describe('Rich Text Editor', () => {
 
           getDropdownToolbarButton().should('have.text', label);
         });
+
+        // TODO: Move this test to either a single test with multiple assertions or for only one heading type due to performance
+        if (type !== BLOCKS.PARAGRAPH) {
+          it('should unwrap blockquote', () => {
+            addBlockquote('some text');
+
+            getDropdownToolbarButton().click();
+            getDropdownItem(type).click();
+
+            const expectedHeadingValue = doc(
+              block(type, {}, text('some text', [])),
+              block(BLOCKS.PARAGRAPH, {}, text('', []))
+            );
+            expectRichTextFieldValue(expectedHeadingValue);
+          });
+        } else {
+          it('should not unwrap blockquote', () => {
+            const expectedQuoteValue = addBlockquote('some text');
+
+            getDropdownToolbarButton().click();
+            getDropdownItem(type).click();
+
+            expectRichTextFieldValue(expectedQuoteValue);
+          });
+        }
       });
     });
 
@@ -339,10 +397,6 @@ describe('Rich Text Editor', () => {
 
   describe('Quote', () => {
     describe('quote button', () => {
-      function getQuoteToolbarButton() {
-        return cy.findByTestId('quote-toolbar-button');
-      }
-
       it('should be visible', () => {
         getQuoteToolbarButton().should('be.visible');
       });
@@ -470,6 +524,22 @@ describe('Rich Text Editor', () => {
 
           expectRichTextFieldValue(expectedValue);
         });
+
+        it('should unwrap blockquote', () => {
+          addBlockquote('some text');
+
+          test.getList().click();
+
+          const expectedValue = doc(
+            block(
+              test.listType,
+              {},
+              block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.PARAGRAPH, {}, text('some text', [])))
+            ),
+            block(BLOCKS.PARAGRAPH, {}, text('', []))
+          );
+          expectRichTextFieldValue(expectedValue);
+        });
       });
     });
   });
@@ -548,7 +618,10 @@ describe('Rich Text Editor', () => {
   });
 
   describe('Tables', () => {
-    const buildHelper = (type) => (...children) => block(type, {}, ...children);
+    const buildHelper =
+      (type) =>
+      (...children) =>
+        block(type, {}, ...children);
     const table = buildHelper(BLOCKS.TABLE);
     const row = buildHelper(BLOCKS.TABLE_ROW);
     const cell = buildHelper(BLOCKS.TABLE_CELL);
@@ -975,8 +1048,8 @@ describe('Rich Text Editor', () => {
         () => {
           editor().type(`{${mod}}{shift}e`);
           cy.wait(100);
-        }
-      ]
+        },
+      ],
     ];
 
     for (const [triggerMethod, triggerEmbeddedEntry] of methods) {
@@ -989,19 +1062,16 @@ describe('Rich Text Editor', () => {
 
           expectRichTextFieldValue(
             doc(
-              block(
-                BLOCKS.EMBEDDED_ENTRY,
-                {
-                  target: {
-                    sys: {
-                      id: 'example-entity-id',
-                      type: 'Link',
-                      linkType: 'Entry',
-                    },
+              block(BLOCKS.EMBEDDED_ENTRY, {
+                target: {
+                  sys: {
+                    id: 'example-entity-id',
+                    type: 'Link',
+                    linkType: 'Entry',
                   },
                 },
-              ),
-              block(BLOCKS.PARAGRAPH, {}, text('')),
+              }),
+              block(BLOCKS.PARAGRAPH, {}, text(''))
             )
           );
 
@@ -1029,20 +1099,17 @@ describe('Rich Text Editor', () => {
           expectRichTextFieldValue(
             doc(
               block(BLOCKS.PARAGRAPH, {}, text('foo')),
-              block(
-                BLOCKS.EMBEDDED_ENTRY,
-                {
-                  target: {
-                    sys: {
-                      id: 'example-entity-id',
-                      type: 'Link',
-                      linkType: 'Entry',
-                    },
+              block(BLOCKS.EMBEDDED_ENTRY, {
+                target: {
+                  sys: {
+                    id: 'example-entity-id',
+                    type: 'Link',
+                    linkType: 'Entry',
                   },
                 },
-              ),
+              }),
               block(BLOCKS.PARAGRAPH, {}, text('')), // TODO: ideally we wouldn't have this extra paragraph
-              block(BLOCKS.PARAGRAPH, {}, text('bar')),
+              block(BLOCKS.PARAGRAPH, {}, text('bar'))
             )
           );
         });
@@ -1065,8 +1132,8 @@ describe('Rich Text Editor', () => {
         () => {
           editor().type(`{${mod}}{shift}a`);
           cy.wait(100);
-        }
-      ]
+        },
+      ],
     ];
 
     for (const [triggerMethod, triggerEmbeddedAsset] of methods) {
@@ -1079,19 +1146,16 @@ describe('Rich Text Editor', () => {
 
           expectRichTextFieldValue(
             doc(
-              block(
-                BLOCKS.EMBEDDED_ASSET,
-                {
-                  target: {
-                    sys: {
-                      id: 'example-entity-id',
-                      type: 'Link',
-                      linkType: 'Asset',
-                    },
+              block(BLOCKS.EMBEDDED_ASSET, {
+                target: {
+                  sys: {
+                    id: 'example-entity-id',
+                    type: 'Link',
+                    linkType: 'Asset',
                   },
                 },
-              ),
-              block(BLOCKS.PARAGRAPH, {}, text('')),
+              }),
+              block(BLOCKS.PARAGRAPH, {}, text(''))
             )
           );
 
@@ -1119,20 +1183,17 @@ describe('Rich Text Editor', () => {
           expectRichTextFieldValue(
             doc(
               block(BLOCKS.PARAGRAPH, {}, text('foo')),
-              block(
-                BLOCKS.EMBEDDED_ASSET,
-                {
-                  target: {
-                    sys: {
-                      id: 'example-entity-id',
-                      type: 'Link',
-                      linkType: 'Asset',
-                    },
+              block(BLOCKS.EMBEDDED_ASSET, {
+                target: {
+                  sys: {
+                    id: 'example-entity-id',
+                    type: 'Link',
+                    linkType: 'Asset',
                   },
                 },
-              ),
+              }),
               block(BLOCKS.PARAGRAPH, {}, text('')), // TODO: ideally we wouldn't have this extra paragraph
-              block(BLOCKS.PARAGRAPH, {}, text('bar')),
+              block(BLOCKS.PARAGRAPH, {}, text('bar'))
             )
           );
         });
@@ -1155,16 +1216,16 @@ describe('Rich Text Editor', () => {
         () => {
           editor().type(`{${mod}}{shift}2`);
           cy.wait(100);
-        }
-      ]
+        },
+      ],
     ];
 
     for (const [triggerMethod, triggerEmbeddedAsset] of methods) {
       describe(triggerMethod, () => {
         it('adds and removes embedded entries', () => {
-          editor().click().typeInSlate('hello')
+          editor().click().typeInSlate('hello');
           triggerEmbeddedAsset();
-          editor().click().typeInSlate('world')
+          editor().click().typeInSlate('world');
 
           cy.wait(500);
 
@@ -1174,19 +1235,17 @@ describe('Rich Text Editor', () => {
                 BLOCKS.PARAGRAPH,
                 {},
                 text('hello'),
-                inline(
-                  INLINES.EMBEDDED_ENTRY,
-                  {
-                    target: {
-                      sys: {
-                        id: 'example-entity-id',
-                        type: 'Link',
-                        linkType: 'Entry',
-                      },
+                inline(INLINES.EMBEDDED_ENTRY, {
+                  target: {
+                    sys: {
+                      id: 'example-entity-id',
+                      type: 'Link',
+                      linkType: 'Entry',
                     },
                   },
-                ),
-                text('world')),
+                }),
+                text('world')
+              )
             )
           );
 
@@ -1195,16 +1254,7 @@ describe('Rich Text Editor', () => {
 
           cy.wait(500);
 
-          expectRichTextFieldValue(
-            doc(
-              block(
-                BLOCKS.PARAGRAPH,
-                {},
-                text('hello'),
-                text('world')
-              ),
-            )
-          );
+          expectRichTextFieldValue(doc(block(BLOCKS.PARAGRAPH, {}, text('hello'), text('world'))));
 
           // TODO: we should also test deletion via {backspace},
           // but this breaks in cypress even though it works in the editor
