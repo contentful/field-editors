@@ -1,5 +1,5 @@
 import { Path } from 'slate';
-import { getAbove, insertNodes, someNode } from '@udecode/slate-plugins-common';
+import { getAbove, insertNodes, someNode } from '@udecode/plate-common';
 import { getPlatePluginType, SPEditor, TElement } from '@udecode/plate-core';
 import {
   getEmptyCellNode,

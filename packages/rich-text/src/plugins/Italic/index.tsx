@@ -7,7 +7,7 @@ import {
   useStoreEditorRef,
   GetNodeDeserializerRule,
 } from '@udecode/plate-core';
-import { getToggleMarkOnKeyDown, toggleMark, isMarkActive } from '@udecode/slate-plugins-common';
+import { getToggleMarkOnKeyDown, toggleMark, isMarkActive } from '@udecode/plate-common';
 import { MARKS } from '@contentful/rich-text-types';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { CustomSlatePluginOptions } from 'types';

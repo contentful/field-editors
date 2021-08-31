@@ -18,8 +18,8 @@ import {
   PlatePlugin,
   SPEditor,
 } from '@udecode/plate-core';
-import { createListPlugin } from '@udecode/slate-plugins-list';
-import { createDeserializeHTMLPlugin } from '@udecode/slate-plugins-html-serializer';
+import { createListPlugin } from '@udecode/plate-list';
+import { createDeserializeHTMLPlugin } from '@udecode/plate-html-serializer';
 import { createHrPlugin, withHrOptions } from './plugins/Hr';
 import { withHeadingOptions, createHeadingPlugin } from './plugins/Heading';
 import { createBoldPlugin, withBoldOptions } from './plugins/Bold';
@@ -145,7 +145,6 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
       <Plate
         id={`rich-text-editor-${entryId}-${field.id}-${field.locale}`}
         initialValue={value}
-        // @ts-expect-error
         plugins={plugins}
         editableProps={{
           className: classNames,

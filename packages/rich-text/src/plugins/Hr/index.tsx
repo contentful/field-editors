@@ -12,7 +12,7 @@ import {
   PlatePlugin,
   SPEditor,
 } from '@udecode/plate-core';
-import { getText, setNodes } from '@udecode/slate-plugins-common';
+import { getText, setNodes } from '@udecode/plate-common';
 import {
   getNodeEntryFromSelection,
   isBlockSelected,

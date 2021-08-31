@@ -3,13 +3,7 @@ import * as Slate from 'slate-react';
 import { css } from 'emotion';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
-import {
-  ELEMENT_LI,
-  ELEMENT_UL,
-  ELEMENT_OL,
-  toggleList,
-  ELEMENT_LIC,
-} from '@udecode/slate-plugins-list';
+import { ELEMENT_LI, ELEMENT_UL, ELEMENT_OL, toggleList, ELEMENT_LIC } from '@udecode/plate-list';
 import { useStoreEditorRef } from '@udecode/plate-core';
 import { isBlockSelected, unwrapFromRoot, shouldUnwrapBlockquote } from '../../helpers/editor';
 import { isNodeTypeEnabled } from '../../helpers/validations';

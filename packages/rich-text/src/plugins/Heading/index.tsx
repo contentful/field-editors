@@ -17,7 +17,7 @@ import {
   SPEditor,
   getPlatePluginOptions,
 } from '@udecode/plate-core';
-import { insertNodes, setNodes, toggleNodeType } from '@udecode/slate-plugins-common';
+import { insertNodes, setNodes, toggleNodeType } from '@udecode/plate-common';
 import { CustomElement, CustomSlatePluginOptions } from '../../types';
 import {
   getElementFromCurrentSelection,

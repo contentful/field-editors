@@ -4,7 +4,7 @@ import {
   Deserialize,
   GetNodeDeserializerRule,
 } from '@udecode/plate-core';
-import { getLeafDeserializer, getElementDeserializer } from '@udecode/slate-plugins-common';
+import { getLeafDeserializer, getElementDeserializer } from '@udecode/plate-common';
 
 export function deserializeLeaf(type: string, rules: GetNodeDeserializerRule[]): Deserialize {
   return function (editor: SPEditor) {

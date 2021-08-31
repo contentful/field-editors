@@ -8,7 +8,7 @@ import {
   GetNodeDeserializerRule,
 } from '@udecode/plate-core';
 import { MARKS } from '@contentful/rich-text-types';
-import { getToggleMarkOnKeyDown, isMarkActive, toggleMark } from '@udecode/slate-plugins-common';
+import { getToggleMarkOnKeyDown, isMarkActive, toggleMark } from '@udecode/plate-common';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { CustomSlatePluginOptions } from 'types';
 import { deserializeLeaf } from '../../helpers/deserializer';

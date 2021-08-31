@@ -4771,7 +4771,7 @@
     "@typescript-eslint/types" "4.27.0"
     eslint-visitor-keys "^2.0.0"
 
-"@udecode/plate-common@2.0.0":
+"@udecode/plate-common@2.0.0", "@udecode/plate-common@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@udecode/plate-common/-/plate-common-2.0.0.tgz#60587a7a4238ba88b5286a2b5c2e0c9838208711"
   integrity sha512-pWJYHx6YxrrwXocveEMSmf62VqofqHlUYLooO2Q2q0cdJi3BrpBabPQB/2hAjSgssgsBagr5uQuRadm7b5wWLw==
@@ -4787,6 +4787,48 @@
     lodash "^4.17.21"
     zustand "^3.4.2"
 
+"@udecode/plate-html-serializer@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-html-serializer/-/plate-html-serializer-2.0.0.tgz#70f3f2e88f80c12b5e54c66ffe0b6cf0430577d0"
+  integrity sha512-h7J/mrTtQ0ugfwooalYt56bjqzHlfqCkdAI8ZzCciHgceZxbn8tlnwmyFCVp3lyRhsTvsOG8wD3lAA1c6u4Duw==
+  dependencies:
+    "@udecode/plate-common" "2.0.0"
+    "@udecode/plate-core" "1.0.0"
+    "@udecode/plate-serializer" "2.0.0"
+
+"@udecode/plate-list@^3.0.4":
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-list/-/plate-list-3.0.4.tgz#abd8ff75d3bbbca05eb4faf37197d4f51cc6af46"
+  integrity sha512-yvow4GWIQM92fPf39s13fDqIPwoff56vDp/N71kbWw4wJAu+6RJpPNApEACzH7mlfigG/0/Ohue+RNyUC+NYxQ==
+  dependencies:
+    "@udecode/plate-common" "2.0.0"
+    "@udecode/plate-core" "1.0.0"
+    "@udecode/plate-reset-node" "2.0.0"
+
+"@udecode/plate-paragraph@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-paragraph/-/plate-paragraph-2.0.0.tgz#0103f5a6c01d73a79659b40902c0ef1769471c91"
+  integrity sha512-xTNtPht41n/0jU6UNG6XKDNNoFgJnXghaq5RWooil0ikDvjCZmzT9JGS9OIn2WrYtTjMaCFwM1zsZ8OgMbRUHw==
+  dependencies:
+    "@udecode/plate-common" "2.0.0"
+    "@udecode/plate-core" "1.0.0"
+
+"@udecode/plate-reset-node@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-reset-node/-/plate-reset-node-2.0.0.tgz#1fd4d96f224daec244c4a50227ac343cb064ec69"
+  integrity sha512-KqFSKlzBa8NCGOz5eVAmqZxo8d8z8UagS0i6FFbf7snd1qyorMs5uDN1m8vON7VQSH/vamh102gN0ptzulQvHw==
+  dependencies:
+    "@udecode/plate-common" "2.0.0"
+    "@udecode/plate-core" "1.0.0"
+
+"@udecode/plate-serializer@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-serializer/-/plate-serializer-2.0.0.tgz#f4325e17295f1f47ea738323e298338deca5fa73"
+  integrity sha512-s/S7hpJ4V6uU2cLJntdRvp8fALLJPgJih4iQ8Rx9uKqnuqtGzCUTh9o2wOIx3Dq5QF2CvfprTUr7SaLd2u7U6A==
+  dependencies:
+    "@udecode/plate-common" "2.0.0"
+    "@udecode/plate-core" "1.0.0"
+
 "@udecode/plate-table@^3.0.2":
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/@udecode/plate-table/-/plate-table-3.0.2.tgz#430e70439c9c0b41e7eeec2ac8576b1fe7dfd0b7"
@@ -4794,55 +4836,6 @@
   dependencies:
     "@udecode/plate-common" "2.0.0"
     "@udecode/plate-core" "1.0.0"
-
-"@udecode/slate-plugins-common@1.0.0-alpha.25", "@udecode/slate-plugins-common@^1.0.0-alpha.25":
-  version "1.0.0-alpha.25"
-  resolved "https://registry.yarnpkg.com/@udecode/slate-plugins-common/-/slate-plugins-common-1.0.0-alpha.25.tgz#ccadcacb6de06189d744f2fa42acca4bcc81563f"
-  integrity sha512-tiyXH5z3rwQM7zswfwW9aOKx0yt577+H8SN6cqrEH2yeEA1D3xSQ0CDqNc+tps58rTaJU+I0x6ogdMJ4alJD7g==
-  dependencies:
-    "@udecode/slate-plugins-core" "^1.0.0-alpha.25"
-    is-hotkey "^0.1.6"
-
-"@udecode/slate-plugins-core@^1.0.0-alpha.25":
-  version "1.0.0-alpha.25"
-  resolved "https://registry.yarnpkg.com/@udecode/slate-plugins-core/-/slate-plugins-core-1.0.0-alpha.25.tgz#e49f6539f07addf6765fb2ac75dc5c50a76ca056"
-  integrity sha512-54MdrMJ2qgJSBoKCGxeH5RZeVJJZHv7Eo6qgUizsr1rzCduQ1zzdgSSJi63mgvpE2ieRqSF+fCNxXo4AK3cNvQ==
-  dependencies:
-    lodash "^4.17.21"
-    zustand "^3.3.2"
-
-"@udecode/slate-plugins-html-serializer@1.0.0-alpha.25":
-  version "1.0.0-alpha.25"
-  resolved "https://registry.yarnpkg.com/@udecode/slate-plugins-html-serializer/-/slate-plugins-html-serializer-1.0.0-alpha.25.tgz#2b91a5f57c7dbc05aaa587efe04438cbb9fa28b6"
-  integrity sha512-t0n1coXm4pgSTNUfMaDnLKOQiLuMs+Ip9eYmTzCdH4z7VVB0CIZd81qFAWZv+WIZeMEjxLTMNW/SFdectnzw4Q==
-  dependencies:
-    "@udecode/slate-plugins-common" "^1.0.0-alpha.25"
-    "@udecode/slate-plugins-core" "^1.0.0-alpha.25"
-
-"@udecode/slate-plugins-list@1.0.0-alpha.25":
-  version "1.0.0-alpha.25"
-  resolved "https://registry.yarnpkg.com/@udecode/slate-plugins-list/-/slate-plugins-list-1.0.0-alpha.25.tgz#e894aa0cdde5060dd3f3ab62d5715e9abfa3f79f"
-  integrity sha512-wOSNPzBYlP8YG7GT0+4G316hbaGMS49YHybpfxmGnDmIRRsGKNTithjUFDfNubzZYG2ZTKmGO44/ACI6/mYq5Q==
-  dependencies:
-    "@udecode/slate-plugins-common" "^1.0.0-alpha.25"
-    "@udecode/slate-plugins-core" "^1.0.0-alpha.25"
-    "@udecode/slate-plugins-reset-node" "^1.0.0-alpha.25"
-
-"@udecode/slate-plugins-paragraph@1.0.0-alpha.25":
-  version "1.0.0-alpha.25"
-  resolved "https://registry.yarnpkg.com/@udecode/slate-plugins-paragraph/-/slate-plugins-paragraph-1.0.0-alpha.25.tgz#bcb36021b20af4c8ac7d658adc01ff061eeb6eec"
-  integrity sha512-DGVFOhyxhu3P8yAfRCUl3dIEevYJEnRTpwqH9aq4S0TURUEG0FiumrXJKiY625f16R7M98HpVe15Xp01RT21qg==
-  dependencies:
-    "@udecode/slate-plugins-common" "^1.0.0-alpha.25"
-    "@udecode/slate-plugins-core" "^1.0.0-alpha.25"
-
-"@udecode/slate-plugins-reset-node@^1.0.0-alpha.25":
-  version "1.0.0-alpha.25"
-  resolved "https://registry.yarnpkg.com/@udecode/slate-plugins-reset-node/-/slate-plugins-reset-node-1.0.0-alpha.25.tgz#e0f3667f06e4bf49e86837c0522a96b6373fa062"
-  integrity sha512-G6BxAVhBtPjNpqCqYsxb7sfy59kOHMUXlP6EZwDc06/pGmIvDa15qWFWOvV1uZ5l8a/DDUn7se07MFmEiNRJwQ==
-  dependencies:
-    "@udecode/slate-plugins-common" "^1.0.0-alpha.25"
-    "@udecode/slate-plugins-core" "^1.0.0-alpha.25"
 
 "@ungap/promise-all-settled@1.1.2":
   version "1.1.2"
@@ -23462,11 +23455,6 @@ zlib@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/zlib/-/zlib-1.0.5.tgz#6e7c972fc371c645a6afb03ab14769def114fcc0"
   integrity sha1-bnyXL8NxxkWmr7A6sUdp3vEU/MA=
-
-zustand@^3.3.2:
-  version "3.5.2"
-  resolved "https://registry.yarnpkg.com/zustand/-/zustand-3.5.2.tgz#cf162a8bd1d86475bf308bc856c4d02ff13fd53c"
-  integrity sha512-HUCQI9O77/D/zvoWPNv4dwLriiiY2xtEqnQ0TVY8uaPjmOHls04Okd0w3sWUE9Ex2LaYlSk11DbPPIOZ6shEWg==
 
 zustand@^3.4.2:
   version "3.5.10"
