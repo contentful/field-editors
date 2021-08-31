@@ -17,7 +17,8 @@ import {
   createReactPlugin,
   PlatePlugin,
   SPEditor,
-} from '@udecode/plate-core';
+  createPlateOptions,
+} from '@udecode/plate';
 import { createListPlugin } from '@udecode/slate-plugins-list';
 import { createDeserializeHTMLPlugin } from '@udecode/slate-plugins-html-serializer';
 import { createHrPlugin, withHrOptions } from './plugins/Hr';
@@ -94,7 +95,7 @@ const getPlugins = (sdk: FieldExtensionSDK, tracking: TrackingProvider) => {
   return plugins.concat([createDeserializeHTMLPlugin({ plugins })] as PlatePlugin<SPEditor>[]);
 };
 
-const options = {
+const options = createPlateOptions({
   // Block elements
   ...withParagraphOptions,
   ...withListOptions,
@@ -114,7 +115,7 @@ const options = {
   ...withCodeOptions,
   ...withItalicOptions,
   ...withUnderlineOptions,
-};
+});
 
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const tracking = useTrackingContext();

@@ -3,10 +3,9 @@ import { css } from 'emotion';
 import { ELEMENT_PARAGRAPH } from '@udecode/slate-plugins-paragraph';
 import { BLOCKS } from '@contentful/rich-text-types';
 import tokens from '@contentful/forma-36-tokens';
-import { RenderElementProps } from 'slate-react';
-import { PlatePlugin, getRenderElement, getPlatePluginOptions } from '@udecode/plate-core';
+import { PlatePlugin, PlatePluginComponent, getRenderElement, getPlatePluginOptions } from '@udecode/plate-core';
 import { getToggleElementOnKeyDown } from '@udecode/slate-plugins-common';
-import { CustomSlatePluginOptions } from '../../types';
+import { CustomSlatePluginOptions } from 'types';
 
 const styles = {
   [BLOCKS.PARAGRAPH]: css`
@@ -15,7 +14,7 @@ const styles = {
   `,
 };
 
-export function Paragraph(props: RenderElementProps) {
+export const Paragraph: PlatePluginComponent = (props) => {
   return (
     <div {...props.attributes} className={styles[BLOCKS.PARAGRAPH]}>
       {props.children}
@@ -62,12 +61,10 @@ export const withParagraphOptions: CustomSlatePluginOptions = {
   [ELEMENT_PARAGRAPH]: {
     // We convert the default slate plugin `p` to Contentful `BLOCKS.PARAGRAPH`
     type: BLOCKS.PARAGRAPH,
-    // @ts-expect-error @z0al to be fixed after green tests
     component: Paragraph,
   },
   [BLOCKS.PARAGRAPH]: {
     type: BLOCKS.PARAGRAPH,
-    // @ts-expect-error @z0al to be fixed after green tests
     component: Paragraph,
     hotkey: ['mod+opt+0'],
   },

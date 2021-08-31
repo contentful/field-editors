@@ -11,9 +11,7 @@ export type CustomElement = {
 
 export type TextOrCustomElement = CustomElement | TextElement;
 
-export type CustomSlatePluginOptions = {
-  [key: string]: PlatePluginOptions;
-};
+export type CustomSlatePluginOptions = Partial<Record<string, Partial<PlatePluginOptions>>>;
 
 declare module 'slate' {
   interface CustomTypes {
