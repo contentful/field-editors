@@ -2,12 +2,12 @@ import * as React from 'react';
 import * as Slate from 'slate-react';
 import { css } from 'emotion';
 import {
-  SlatePlugin,
+  PlatePlugin,
   getRenderLeaf,
-  useStoreEditor,
+  useStoreEditorRef,
   GetNodeDeserializerRule,
-} from '@udecode/slate-plugins-core';
-import { getToggleMarkOnKeyDown, toggleMark, isMarkActive } from '@udecode/slate-plugins-common';
+} from '@udecode/plate-core';
+import { getToggleMarkOnKeyDown, toggleMark, isMarkActive } from '@udecode/plate-common';
 import { MARKS } from '@contentful/rich-text-types';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { CustomSlatePluginOptions } from 'types';
@@ -18,7 +18,7 @@ interface ToolbarItalicButtonProps {
 }
 
 export function ToolbarItalicButton(props: ToolbarItalicButtonProps) {
-  const editor = useStoreEditor();
+  const editor = useStoreEditorRef();
 
   function handleClick() {
     if (!editor?.selection) return;
@@ -57,7 +57,7 @@ export function Italic(props: Slate.RenderLeafProps) {
   );
 }
 
-export function createItalicPlugin(): SlatePlugin {
+export function createItalicPlugin(): PlatePlugin {
   const deserializeRules: GetNodeDeserializerRule[] = [
     { nodeNames: ['I', 'EM'] },
     {

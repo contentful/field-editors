@@ -5,12 +5,7 @@ import tokens from '@contentful/forma-36-tokens';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { Transforms, Editor, Node, Path, Element, Text } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
-import {
-  SlatePlugin,
-  useStoreEditor,
-  SPEditor,
-  getRenderElement,
-} from '@udecode/slate-plugins-core';
+import { PlatePlugin, useStoreEditorRef, SPEditor, getRenderElement } from '@udecode/plate-core';
 import { CustomElement } from '../../types';
 import { CustomSlatePluginOptions } from 'types';
 import {
@@ -57,7 +52,7 @@ const createBlockQuote = (editor: SPEditor) => {
 };
 
 export function withQuoteEvents(editor: SPEditor) {
-  return (event: KeyboardEvent) => {
+  return (event: React.KeyboardEvent) => {
     if (!editor.selection) return;
 
     const [currentFragment] = Editor.fragment(
@@ -104,9 +99,9 @@ export function withQuoteEvents(editor: SPEditor) {
 
     // On backspace, check if quote is empty. If it's empty, switch the current fragment to a paragraph
     if (isBackspace && currentFragment?.type === BLOCKS.QUOTE) {
-      const quoteIsEmpty = (getElementFromCurrentSelection(
-        editor
-      )[0] as CustomElement).children.every(
+      const quoteIsEmpty = (
+        getElementFromCurrentSelection(editor)[0] as CustomElement
+      ).children.every(
         (item) =>
           Element.isElement(item) &&
           item.children.every((item) => Text.isText(item) && item.text === '')
@@ -118,7 +113,7 @@ export function withQuoteEvents(editor: SPEditor) {
 }
 
 export function ToolbarQuoteButton(props: ToolbarQuoteButtonProps) {
-  const editor = useStoreEditor();
+  const editor = useStoreEditorRef();
 
   function handleOnClick() {
     if (!editor) return;
@@ -151,7 +146,7 @@ export function Quote(props: Slate.RenderLeafProps) {
   );
 }
 
-export function createQuotePlugin(): SlatePlugin {
+export function createQuotePlugin(): PlatePlugin {
   return {
     pluginKeys: BLOCKS.QUOTE,
     renderElement: getRenderElement(BLOCKS.QUOTE),

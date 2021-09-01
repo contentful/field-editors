@@ -1,13 +1,13 @@
 import * as React from 'react';
 import * as Slate from 'slate-react';
 import {
-  SlatePlugin,
+  PlatePlugin,
   getRenderLeaf,
-  useStoreEditor,
+  useStoreEditorRef,
   GetNodeDeserializerRule,
-} from '@udecode/slate-plugins-core';
+} from '@udecode/plate-core';
 import { MARKS } from '@contentful/rich-text-types';
-import { getToggleMarkOnKeyDown, toggleMark, isMarkActive } from '@udecode/slate-plugins-common';
+import { getToggleMarkOnKeyDown, toggleMark, isMarkActive } from '@udecode/plate-common';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { CustomSlatePluginOptions } from 'types';
 import { deserializeLeaf } from '../../helpers/deserializer';
@@ -17,7 +17,7 @@ interface ToolbarUnderlineButtonProps {
 }
 
 export function ToolbarUnderlineButton(props: ToolbarUnderlineButtonProps) {
-  const editor = useStoreEditor();
+  const editor = useStoreEditorRef();
 
   function handleClick() {
     if (!editor?.selection) return;
@@ -46,7 +46,7 @@ export function Underline(props: Slate.RenderLeafProps) {
   return <u {...props.attributes}>{props.children}</u>;
 }
 
-export function createUnderlinePlugin(): SlatePlugin {
+export function createUnderlinePlugin(): PlatePlugin {
   const deserializeRules: GetNodeDeserializerRule[] = [
     { nodeNames: ['U'] },
     {

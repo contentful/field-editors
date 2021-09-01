@@ -8,10 +8,10 @@ import {
   ELEMENT_TABLE,
   createTablePlugin as createTablePluginFromUdecode,
   getTableOnKeyDown,
-} from '@udecode/slate-plugins-table';
+} from '@udecode/plate-table';
 import { CustomElement, CustomSlatePluginOptions } from 'types';
 import tokens from '@contentful/forma-36-tokens';
-import { SPEditor, useStoreEditor } from '@udecode/slate-plugins-core';
+import { SPEditor, useStoreEditorRef } from '@udecode/plate-core';
 import { insertTableWithTrailingParagraph, isTableActive } from './helpers';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { TableActions } from './TableActions';
@@ -126,7 +126,7 @@ function createWithTableEvents(tracking: TrackingProvider) {
   return function withTableEvents(editor: SPEditor) {
     addTableTrackingEvents(editor, tracking);
     const withTableEventsFromUdecode = getTableOnKeyDown()(editor);
-    return function onKeyDown(e: KeyboardEvent) {
+    return function onKeyDown(e: React.KeyboardEvent) {
       withTableEventsFromUdecode(e);
     };
   };
@@ -142,7 +142,7 @@ interface ToolbarTableButtonProps {
 }
 
 export function ToolbarTableButton(props: ToolbarTableButtonProps) {
-  const editor = useStoreEditor();
+  const editor = useStoreEditorRef();
   const { onViewportAction } = useTrackingContext();
   const isActive = editor && isTableActive(editor);
 
