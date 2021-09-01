@@ -1,13 +1,13 @@
 import { Editor, Path, Transforms } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { SPEditor } from '@udecode/slate-plugins-core';
+import { SPEditor } from '@udecode/plate-core';
 import {
   insertTable,
   ELEMENT_TABLE,
   ELEMENT_TH,
   ELEMENT_TD,
   ELEMENT_TR,
-} from '@udecode/slate-plugins-table';
+} from '@udecode/plate-table';
 import { getNodeEntryFromSelection, isBlockSelected } from '../../helpers/editor';
 import { CustomSlatePluginOptions } from '../../types';
 

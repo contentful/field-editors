@@ -1,7 +1,7 @@
 import React from 'react';
 import { DropdownListItem, Button, Flex, Icon } from '@contentful/forma-36-react-components';
 import { selectEntityAndInsert } from './Util';
-import { useStoreEditor } from '@udecode/slate-plugins-core';
+import { useStoreEditorRef } from '@udecode/plate-core';
 import { FieldExtensionSDK } from '@contentful/field-editor-shared';
 import noop from 'lodash/noop';
 import { useSdkContext } from '../../SdkProvider';
@@ -28,7 +28,7 @@ export function EmbeddedEntityBlockToolbarIcon({
   nodeType,
   onClose,
 }: EmbeddedEntityBlockToolbarIconProps) {
-  const editor = useStoreEditor();
+  const editor = useStoreEditorRef();
   const sdk: FieldExtensionSDK = useSdkContext();
 
   const handleClick = async () => {

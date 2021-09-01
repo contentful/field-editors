@@ -1,6 +1,7 @@
-import { SlatePlugin, SPEditor } from '@udecode/slate-plugins-core';
+import { KeyboardEvent } from 'react';
+import { PlatePlugin, SPEditor } from '@udecode/plate-core';
 
-export function createNewLinePlugin(): SlatePlugin {
+export function createNewLinePlugin(): PlatePlugin {
   return {
     onKeyDown: function (editor: SPEditor) {
       return (event: KeyboardEvent) => {
@@ -10,10 +11,10 @@ export function createNewLinePlugin(): SlatePlugin {
         if (isEnter && isShift) {
           event.preventDefault();
           editor.insertText('\n');
-          return false; // To prevent the next handler from running
+          return true; // To prevent the next handler from running
         }
 
-        return true; // something like next()
+        return false; // something like next()
       };
     },
   };

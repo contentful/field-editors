@@ -6,12 +6,13 @@ import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { Transforms } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
 import {
-  getSlatePluginTypes,
+  getPlatePluginTypes,
   getRenderElement,
-  useStoreEditor,
-  SlatePlugin,
-} from '@udecode/slate-plugins-core';
-import { getText, setNodes } from '@udecode/slate-plugins-common';
+  useStoreEditorRef,
+  PlatePlugin,
+  SPEditor,
+} from '@udecode/plate-core';
+import { getText, setNodes } from '@udecode/plate-common';
 import {
   getNodeEntryFromSelection,
   isBlockSelected,
@@ -58,8 +59,8 @@ interface ToolbarHrButtonProps {
   isDisabled?: boolean;
 }
 
-export function withHrEvents(editor) {
-  return (event) => {
+export function withHrEvents(editor: SPEditor) {
+  return (event: React.KeyboardEvent) => {
     if (!editor) return;
 
     const isEnter = event.keyCode === 13;
@@ -82,7 +83,7 @@ export function withHrEvents(editor) {
 }
 
 export function ToolbarHrButton(props: ToolbarHrButtonProps) {
-  const editor = useStoreEditor();
+  const editor = useStoreEditorRef();
 
   function handleOnClick() {
     if (!editor?.selection) return;
@@ -143,12 +144,12 @@ export function Hr(props: Slate.RenderLeafProps) {
   );
 }
 
-export function createHrPlugin(): SlatePlugin {
+export function createHrPlugin(): PlatePlugin {
   return {
     renderElement: getRenderElement(BLOCKS.HR),
     pluginKeys: BLOCKS.HR,
     onKeyDown: withHrEvents,
-    voidTypes: getSlatePluginTypes(BLOCKS.HR),
+    voidTypes: getPlatePluginTypes(BLOCKS.HR),
     deserialize: deserializeElement(BLOCKS.HR, [
       {
         nodeNames: ['HR'],

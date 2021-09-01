@@ -1,12 +1,13 @@
 import { Path } from 'slate';
-import { getAbove, insertNodes, someNode } from '@udecode/slate-plugins-common';
-import { getSlatePluginType, SPEditor, TElement } from '@udecode/slate-plugins-core';
+import { getAbove, insertNodes, someNode } from '@udecode/plate-common';
+import { getPlatePluginType, SPEditor, TElement } from '@udecode/plate-core';
 import {
   getEmptyCellNode,
   TablePluginOptions,
   ELEMENT_TABLE,
   ELEMENT_TD,
-} from '@udecode/slate-plugins-table';
+  ELEMENT_TH,
+} from '@udecode/plate-table';
 
 const addColumn = (
   editor: SPEditor,
@@ -15,17 +16,17 @@ const addColumn = (
 ) => {
   if (
     someNode(editor, {
-      match: { type: getSlatePluginType(editor, ELEMENT_TABLE) },
+      match: { type: getPlatePluginType(editor, ELEMENT_TABLE) },
     })
   ) {
     const currentCellItem = getAbove(editor, {
       match: {
-        type: [getSlatePluginType(editor, ELEMENT_TD), getSlatePluginType(editor, ELEMENT_TD)],
+        type: [getPlatePluginType(editor, ELEMENT_TD), getPlatePluginType(editor, ELEMENT_TH)],
       },
     });
 
     const currentTableItem = getAbove(editor, {
-      match: { type: getSlatePluginType(editor, ELEMENT_TABLE) },
+      match: { type: getPlatePluginType(editor, ELEMENT_TABLE) },
     });
 
     if (currentCellItem && currentTableItem) {

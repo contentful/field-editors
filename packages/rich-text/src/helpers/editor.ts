@@ -2,7 +2,7 @@ import { Text, Editor, Element, Transforms, Path, Range } from 'slate';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { CustomElement } from '../types';
 import { Link } from '@contentful/field-editor-reference/dist/types';
-import { SPEditor } from '@udecode/slate-plugins-core';
+import { SPEditor } from '@udecode/plate-core';
 
 export const LINK_TYPES: INLINES[] = [
   INLINES.HYPERLINK,
