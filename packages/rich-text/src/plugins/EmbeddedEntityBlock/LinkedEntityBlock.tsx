@@ -3,10 +3,10 @@ import { css } from 'emotion';
 import { FetchingWrappedEntryCard } from '../shared/FetchingWrappedEntryCard';
 import { FetchingWrappedAssetCard } from '../shared/FetchingWrappedAssetCard';
 import { useSdkContext } from '../../SdkProvider';
-import { useStoreEditorRef } from '@udecode/plate-core';
-import { CustomRenderElementProps } from 'types';
+import { CustomRenderElementProps } from '../../types';
 import { ReactEditor, useSelected, useReadOnly } from 'slate-react';
 import { Transforms } from 'slate';
+import { useContentfulEditor } from '../../ContentfulEditorProvider';
 
 const styles = {
   root: css({
@@ -32,7 +32,7 @@ type LinkedEntityBlockProps = CustomRenderElementProps<
 export function LinkedEntityBlock(props: LinkedEntityBlockProps) {
   const { attributes, children, element, onEntityFetchComplete } = props;
   const isSelected = useSelected();
-  const editor = useStoreEditorRef();
+  const editor = useContentfulEditor();
   const sdk = useSdkContext();
   const isDisabled = useReadOnly();
   const { id: entityId, linkType: entityType } = element.data.target.sys;

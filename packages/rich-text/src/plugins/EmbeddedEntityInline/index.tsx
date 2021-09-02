@@ -3,7 +3,6 @@ import {
   PlatePlugin,
   getRenderElement,
   getPlatePluginTypes,
-  useStoreEditorRef,
   getPlatePluginOptions,
 } from '@udecode/plate-core';
 import { Transforms } from 'slate';
@@ -17,6 +16,7 @@ import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySel
 import { useSdkContext } from '../../SdkProvider';
 import { FetchingWrappedInlineEntryCard } from './FetchingWrappedInlineEntryCard';
 import { createInlineEntryNode } from './Util';
+import { useContentfulEditor } from '../../ContentfulEditorProvider';
 
 const styles = {
   icon: css({
@@ -40,7 +40,7 @@ type EmbeddedEntityInlineProps = CustomRenderElementProps<{
 }>;
 
 function EmbeddedEntityInline(props: EmbeddedEntityInlineProps) {
-  const editor = useStoreEditorRef();
+  const editor = useContentfulEditor();
   const sdk = useSdkContext();
   const isSelected = useSelected();
   const { id: entryId } = props.element.data.target.sys;
@@ -100,7 +100,7 @@ async function selectEntityAndInsert(editor, sdk: FieldExtensionSDK) {
 }
 
 export function ToolbarEmbeddedEntityInlineButton(props: ToolbarEmbeddedEntityInlineButtonProps) {
-  const editor = useStoreEditorRef();
+  const editor = useContentfulEditor();
   const sdk: FieldExtensionSDK = useSdkContext();
 
   async function handleClick(event) {

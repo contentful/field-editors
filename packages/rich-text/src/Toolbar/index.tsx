@@ -12,13 +12,13 @@ import { ToolbarItalicButton } from '../plugins/Italic';
 import { ToolbarUnderlineButton } from '../plugins/Underline';
 import { ToolbarHyperlinkButton } from '../plugins/Hyperlink';
 import { ToolbarTableButton } from '../plugins/Table';
-import { SPEditor, useStoreEditorRef } from '@udecode/plate-core';
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types';
 import { isNodeTypeSelected } from '../helpers/editor';
 import { isNodeTypeEnabled, isMarkEnabled } from '../helpers/validations';
 import { useSdkContext } from '../SdkProvider';
 import { FieldExtensionSDK } from '@contentful/field-editor-reference/dist/types';
 import { EmbedEntityWidget } from './EmbedEntityWidget';
+import { useContentfulEditor } from '../ContentfulEditorProvider';
 
 type ToolbarProps = {
   isDisabled?: boolean;
@@ -45,7 +45,7 @@ const styles = {
 
 const Toolbar = ({ isDisabled }: ToolbarProps) => {
   const sdk = useSdkContext();
-  const editor = useStoreEditorRef() as SPEditor;
+  const editor = useContentfulEditor();
   const canInsertBlocks = !isNodeTypeSelected(editor, BLOCKS.TABLE);
   const validationInfo = React.useMemo(() => getValidationInfo(sdk.field), [sdk.field]);
 
