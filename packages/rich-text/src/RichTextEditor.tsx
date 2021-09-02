@@ -49,6 +49,7 @@ import {
 } from './TrackingProvider';
 import { sanitizeIncomingSlateDoc, sanitizeSlateDoc } from './helpers/sanitizeSlateDoc';
 import { TextOrCustomElement } from './types';
+import { ContentfulEditorProvider, getContentfulEditorId } from './ContentfulEditorProvider';
 
 type ConnectedProps = {
   sdk: FieldExtensionSDK;
@@ -179,28 +180,27 @@ const RichTextEditor = (props: Props) => {
   return (
     <EntityProvider sdk={sdk}>
       <SdkProvider sdk={sdk}>
-        <TrackingProvider onAction={onAction || noop}>
-          <FieldConnector
-            throttle={0}
-            field={sdk.field}
-            isInitiallyDisabled={isInitiallyDisabled}
-            isEmptyValue={isEmptyValue}
-            isEqualValues={deepEquals}>
-            {({ lastRemoteValue, disabled, setValue, externalReset }) => (
-              <ConnectedRichTextEditor
-                {...otherProps}
-                // TODO: do we still need this with ShareJS gone?
-                // on external change reset component completely and init with initial value again
-                key={`rich-text-editor-${externalReset}`}
-                value={lastRemoteValue}
-                sdk={sdk}
-                onAction={onAction || noop}
-                isDisabled={disabled}
-                onChange={setValue}
-              />
-            )}
-          </FieldConnector>
-        </TrackingProvider>
+        <ContentfulEditorProvider sdk={sdk}>
+          <TrackingProvider onAction={onAction || noop}>
+            <FieldConnector
+              throttle={0}
+              field={sdk.field}
+              isInitiallyDisabled={isInitiallyDisabled}
+              isEmptyValue={isEmptyValue}
+              isEqualValues={deepEquals}>
+              {({ lastRemoteValue, disabled, setValue }) => (
+                <ConnectedRichTextEditor
+                  {...otherProps}
+                  value={lastRemoteValue}
+                  sdk={sdk}
+                  onAction={onAction || noop}
+                  isDisabled={disabled}
+                  onChange={setValue}
+                />
+              )}
+            </FieldConnector>
+          </TrackingProvider>
+        </ContentfulEditorProvider>
       </SdkProvider>
     </EntityProvider>
   );
