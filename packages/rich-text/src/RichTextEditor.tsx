@@ -186,9 +186,10 @@ const RichTextEditor = (props: Props) => {
               isInitiallyDisabled={isInitiallyDisabled}
               isEmptyValue={isEmptyValue}
               isEqualValues={deepEquals}>
-              {({ lastRemoteValue, disabled, setValue }) => (
+              {({ lastRemoteValue, disabled, setValue, externalReset }) => (
                 <ConnectedRichTextEditor
                   {...otherProps}
+                  key={`rich-text-editor-${externalReset}`}
                   value={lastRemoteValue}
                   sdk={sdk}
                   onAction={onAction || noop}
