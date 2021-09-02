@@ -5,7 +5,6 @@ import * as Contentful from '@contentful/rich-text-types';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { css, cx } from 'emotion';
 import { styles } from './RichTextEditor.styles';
-import { FieldExtensionSDK, FieldConnector } from '@contentful/field-editor-shared';
 import schema from './constants/Schema';
 import deepEquals from 'fast-deep-equal';
 import Toolbar from './Toolbar';
@@ -50,6 +49,8 @@ import {
 import { sanitizeIncomingSlateDoc, sanitizeSlateDoc } from './helpers/sanitizeSlateDoc';
 import { TextOrCustomElement } from './types';
 import { ContentfulEditorProvider, getContentfulEditorId } from './ContentfulEditorProvider';
+import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { FieldConnector } from '@contentful/field-editor-shared';
 
 type ConnectedProps = {
   sdk: FieldExtensionSDK;

@@ -2,21 +2,14 @@ import * as React from 'react';
 import {
   PlatePlugin,
   getRenderElement,
-<<<<<<< Updated upstream
   getPlatePluginTypes,
-  useStoreEditorRef,
   getPlatePluginOptions,
 } from '@udecode/plate-core';
-=======
-  getSlatePluginTypes,
-  getSlatePluginOptions,
-} from '@udecode/slate-plugins-core';
->>>>>>> Stashed changes
 import { INLINES } from '@contentful/rich-text-types';
 import { Tooltip, TextLink, EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
-import { Link, EntityType, FieldExtensionSDK } from '@contentful/field-editor-reference/dist/types';
+import { FieldExtensionSDK, Link, EntityType } from '@contentful/app-sdk';
 import { CustomSlatePluginOptions, CustomRenderElementProps } from '../../types';
 import { EntryAssetTooltip } from './EntryAssetTooltip';
 import { useSdkContext } from '../../SdkProvider';
@@ -176,11 +169,7 @@ type HyperlinkElementProps = CustomRenderElementProps<{
 }>;
 
 function UrlHyperlink(props: HyperlinkElementProps) {
-<<<<<<< Updated upstream
-  const editor = useStoreEditorRef();
-=======
   const editor = useContentfulEditor();
->>>>>>> Stashed changes
   const sdk: FieldExtensionSDK = useSdkContext();
   const { uri } = props.element.data;
 
@@ -209,11 +198,7 @@ function UrlHyperlink(props: HyperlinkElementProps) {
 }
 
 function EntityHyperlink(props: HyperlinkElementProps) {
-<<<<<<< Updated upstream
-  const editor = useStoreEditorRef();
-=======
   const editor = useContentfulEditor();
->>>>>>> Stashed changes
   const sdk: FieldExtensionSDK = useSdkContext();
   const { target } = props.element.data;
 
@@ -252,11 +237,7 @@ interface ToolbarHyperlinkButtonProps {
 }
 
 export function ToolbarHyperlinkButton(props: ToolbarHyperlinkButtonProps) {
-<<<<<<< Updated upstream
-  const editor = useStoreEditorRef();
-=======
   const editor = useContentfulEditor();
->>>>>>> Stashed changes
   const isActive = !!(editor && isLinkActive(editor));
   const sdk: FieldExtensionSDK = useSdkContext();
 

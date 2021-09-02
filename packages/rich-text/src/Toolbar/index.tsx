@@ -16,7 +16,7 @@ import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types';
 import { isNodeTypeSelected } from '../helpers/editor';
 import { isNodeTypeEnabled, isMarkEnabled } from '../helpers/validations';
 import { useSdkContext } from '../SdkProvider';
-import { FieldExtensionSDK } from '@contentful/field-editor-reference/dist/types';
+import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { EmbedEntityWidget } from './EmbedEntityWidget';
 import { useContentfulEditor } from '../ContentfulEditorProvider';
 

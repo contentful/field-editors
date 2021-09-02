@@ -1,8 +1,8 @@
 import React from 'react';
 import { DropdownListItem, Button, Flex, Icon } from '@contentful/forma-36-react-components';
 import { selectEntityAndInsert } from './Util';
-import { FieldExtensionSDK } from '@contentful/field-editor-shared';
 import noop from 'lodash/noop';
+import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { useSdkContext } from '../../SdkProvider';
 import { css } from 'emotion';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
