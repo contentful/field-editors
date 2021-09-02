@@ -138,13 +138,10 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
 
   const plugins = React.useMemo(() => getPlugins(props.sdk, tracking), [props.sdk, tracking]);
 
-  const { entry, field } = props.sdk;
-  const entryId = entry.getSys().id;
-
   return (
     <div className={styles.root} data-test-id="rich-text-editor">
       <Plate
-        id={`rich-text-editor-${entryId}-${field.id}-${field.locale}`}
+        id={getContentfulEditorId(props.sdk)}
         initialValue={value}
         plugins={plugins}
         editableProps={{
