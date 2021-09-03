@@ -2,7 +2,7 @@ import React from 'react';
 import { css } from 'emotion';
 import * as Slate from 'slate-react';
 import tokens from '@contentful/forma-36-tokens';
-import { SPEditor, useStoreEditorRef } from '@udecode/plate-core';
+import { SPEditor } from '@udecode/plate-core';
 import { TablePluginOptions, deleteColumn, deleteRow, deleteTable } from '@udecode/plate-table';
 import {
   IconButton,
@@ -15,6 +15,7 @@ import { addRowAbove, addColumnLeft, addColumnRight, addRowBelow } from './actio
 import { RichTextTrackingActionName, useTrackingContext } from '../../TrackingProvider';
 import { getNodeEntryFromSelection, getTableSize } from '../../helpers/editor';
 import { BLOCKS } from '@contentful/rich-text-types';
+import { useContentfulEditor } from '../../ContentfulEditorProvider';
 
 export const styles = {
   topRight: css({
@@ -32,7 +33,7 @@ const getCurrentTableSize = (editor: SPEditor): Record<'numRows' | 'numColumns',
 type TableAction = (editor: SPEditor, options: TablePluginOptions) => void;
 
 export const TableActions = () => {
-  const editor = useStoreEditorRef();
+  const editor = useContentfulEditor();
   const { onViewportAction } = useTrackingContext();
   const [isOpen, setOpen] = React.useState(false);
 

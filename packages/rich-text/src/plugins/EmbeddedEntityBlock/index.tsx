@@ -11,7 +11,7 @@ import { getNodeEntryFromSelection, moveToTheNextLine } from '../../helpers/edit
 import { CustomSlatePluginOptions } from 'types';
 import { LinkedEntityBlock } from './LinkedEntityBlock';
 import { selectEntityAndInsert } from './Util';
-import { FieldExtensionSDK } from '@contentful/field-editor-shared';
+import { FieldExtensionSDK } from '@contentful/app-sdk';
 import noop from 'lodash/noop';
 
 export { EmbeddedEntityBlockToolbarIcon as ToolbarIcon } from './ToolbarIcon';

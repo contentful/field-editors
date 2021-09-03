@@ -5,13 +5,7 @@ import tokens from '@contentful/forma-36-tokens';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { Transforms } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
-import {
-  getPlatePluginTypes,
-  getRenderElement,
-  useStoreEditorRef,
-  PlatePlugin,
-  SPEditor,
-} from '@udecode/plate-core';
+import { getPlatePluginTypes, getRenderElement, PlatePlugin, SPEditor } from '@udecode/plate-core';
 import { getText, setNodes } from '@udecode/plate-common';
 import {
   getNodeEntryFromSelection,
@@ -20,8 +14,9 @@ import {
   shouldUnwrapBlockquote,
   unwrapFromRoot,
 } from '../../helpers/editor';
-import { CustomSlatePluginOptions } from 'types';
+import { CustomSlatePluginOptions } from '../../types';
 import { deserializeElement } from '../../helpers/deserializer';
+import { useContentfulEditor } from '../../ContentfulEditorProvider';
 
 const styles = {
   container: css`
@@ -83,7 +78,7 @@ export function withHrEvents(editor: SPEditor) {
 }
 
 export function ToolbarHrButton(props: ToolbarHrButtonProps) {
-  const editor = useStoreEditorRef();
+  const editor = useContentfulEditor();
 
   function handleOnClick() {
     if (!editor?.selection) return;

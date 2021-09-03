@@ -5,7 +5,7 @@ import {
   MissingEntityCard,
   WrappedEntryCard,
 } from '@contentful/field-editor-reference';
-import { FieldExtensionSDK } from '@contentful/field-editor-reference/dist/types';
+import { FieldExtensionSDK } from '@contentful/app-sdk';
 
 interface FetchingWrappedEntryCardProps {
   entryId: string;

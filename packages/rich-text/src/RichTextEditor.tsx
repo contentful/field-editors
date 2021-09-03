@@ -5,7 +5,6 @@ import * as Contentful from '@contentful/rich-text-types';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { css, cx } from 'emotion';
 import { styles } from './RichTextEditor.styles';
-import { FieldExtensionSDK, FieldConnector } from '@contentful/field-editor-shared';
 import schema from './constants/Schema';
 import deepEquals from 'fast-deep-equal';
 import Toolbar from './Toolbar';
@@ -49,6 +48,9 @@ import {
 } from './TrackingProvider';
 import { sanitizeIncomingSlateDoc, sanitizeSlateDoc } from './helpers/sanitizeSlateDoc';
 import { TextOrCustomElement } from './types';
+import { ContentfulEditorProvider, getContentfulEditorId } from './ContentfulEditorProvider';
+import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { FieldConnector } from '@contentful/field-editor-shared';
 
 type ConnectedProps = {
   sdk: FieldExtensionSDK;
@@ -137,13 +139,10 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
 
   const plugins = React.useMemo(() => getPlugins(props.sdk, tracking), [props.sdk, tracking]);
 
-  const { entry, field } = props.sdk;
-  const entryId = entry.getSys().id;
-
   return (
     <div className={styles.root} data-test-id="rich-text-editor">
       <Plate
-        id={`rich-text-editor-${entryId}-${field.id}-${field.locale}`}
+        id={getContentfulEditorId(props.sdk)}
         initialValue={value}
         plugins={plugins}
         editableProps={{
@@ -179,28 +178,28 @@ const RichTextEditor = (props: Props) => {
   return (
     <EntityProvider sdk={sdk}>
       <SdkProvider sdk={sdk}>
-        <TrackingProvider onAction={onAction || noop}>
-          <FieldConnector
-            throttle={0}
-            field={sdk.field}
-            isInitiallyDisabled={isInitiallyDisabled}
-            isEmptyValue={isEmptyValue}
-            isEqualValues={deepEquals}>
-            {({ lastRemoteValue, disabled, setValue, externalReset }) => (
-              <ConnectedRichTextEditor
-                {...otherProps}
-                // TODO: do we still need this with ShareJS gone?
-                // on external change reset component completely and init with initial value again
-                key={`rich-text-editor-${externalReset}`}
-                value={lastRemoteValue}
-                sdk={sdk}
-                onAction={onAction || noop}
-                isDisabled={disabled}
-                onChange={setValue}
-              />
-            )}
-          </FieldConnector>
-        </TrackingProvider>
+        <ContentfulEditorProvider sdk={sdk}>
+          <TrackingProvider onAction={onAction || noop}>
+            <FieldConnector
+              throttle={0}
+              field={sdk.field}
+              isInitiallyDisabled={isInitiallyDisabled}
+              isEmptyValue={isEmptyValue}
+              isEqualValues={deepEquals}>
+              {({ lastRemoteValue, disabled, setValue, externalReset }) => (
+                <ConnectedRichTextEditor
+                  {...otherProps}
+                  key={`rich-text-editor-${externalReset}`}
+                  value={lastRemoteValue}
+                  sdk={sdk}
+                  onAction={onAction || noop}
+                  isDisabled={disabled}
+                  onChange={setValue}
+                />
+              )}
+            </FieldConnector>
+          </TrackingProvider>
+        </ContentfulEditorProvider>
       </SdkProvider>
     </EntityProvider>
   );

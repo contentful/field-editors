@@ -1,6 +1,6 @@
 import * as React from 'react';
 import constate from 'constate';
-import { FieldExtensionSDK } from '@contentful/field-editor-reference/dist/types';
+import { FieldExtensionSDK } from '@contentful/app-sdk';
 
 interface SdkProviderProps {
   sdk: FieldExtensionSDK;
