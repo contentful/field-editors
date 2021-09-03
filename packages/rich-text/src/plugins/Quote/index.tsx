@@ -5,7 +5,7 @@ import tokens from '@contentful/forma-36-tokens';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { Transforms, Editor, Node, Path, Element, Text } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { PlatePlugin, useStoreEditorRef, SPEditor, getRenderElement } from '@udecode/plate-core';
+import { PlatePlugin, SPEditor, getRenderElement } from '@udecode/plate-core';
 import { CustomElement } from '../../types';
 import { CustomSlatePluginOptions } from 'types';
 import {
@@ -16,6 +16,7 @@ import {
   isNodeTypeSelected,
 } from '../../helpers/editor';
 import { deserializeElement } from '../../helpers/deserializer';
+import { useContentfulEditor } from '../../ContentfulEditorProvider';
 
 const styles = {
   blockquote: css({
@@ -113,7 +114,7 @@ export function withQuoteEvents(editor: SPEditor) {
 }
 
 export function ToolbarQuoteButton(props: ToolbarQuoteButtonProps) {
-  const editor = useStoreEditorRef();
+  const editor = useContentfulEditor();
 
   function handleOnClick() {
     if (!editor) return;

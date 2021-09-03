@@ -1,24 +1,20 @@
 import * as React from 'react';
 import * as Slate from 'slate-react';
 import { css } from 'emotion';
-import {
-  PlatePlugin,
-  getRenderLeaf,
-  useStoreEditorRef,
-  GetNodeDeserializerRule,
-} from '@udecode/plate-core';
+import { PlatePlugin, getRenderLeaf, GetNodeDeserializerRule } from '@udecode/plate-core';
 import { MARKS } from '@contentful/rich-text-types';
 import { getToggleMarkOnKeyDown, isMarkActive, toggleMark } from '@udecode/plate-common';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { CustomSlatePluginOptions } from 'types';
 import { deserializeLeaf } from '../../helpers/deserializer';
+import { useContentfulEditor } from '../../ContentfulEditorProvider';
 
 interface ToolbarCodeButtonProps {
   isDisabled?: boolean;
 }
 
 export function ToolbarCodeButton(props: ToolbarCodeButtonProps) {
-  const editor = useStoreEditorRef();
+  const editor = useContentfulEditor();
 
   function handleClick() {
     if (!editor?.selection) return;

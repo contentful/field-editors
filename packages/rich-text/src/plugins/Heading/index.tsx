@@ -11,7 +11,6 @@ import tokens from '@contentful/forma-36-tokens';
 import { Editor, Transforms, Node } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
 import {
-  useStoreEditorRef,
   PlatePlugin,
   getRenderElement,
   SPEditor,
@@ -27,6 +26,7 @@ import {
 } from '../../helpers/editor';
 import { isNodeTypeEnabled } from '../../helpers/validations';
 import { useSdkContext } from '../../SdkProvider';
+import { useContentfulEditor } from '../../ContentfulEditorProvider';
 
 const styles = {
   dropdown: {
@@ -171,7 +171,7 @@ interface ToolbarHeadingButtonProps {
 
 export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
   const sdk = useSdkContext();
-  const editor = useStoreEditorRef();
+  const editor = useContentfulEditor();
   const [isOpen, setOpen] = React.useState(false);
   const [selected, setSelected] = React.useState<string>(BLOCKS.PARAGRAPH);
 

@@ -3,19 +3,19 @@ import {
   PlatePlugin,
   getRenderElement,
   getPlatePluginTypes,
-  useStoreEditorRef,
   getPlatePluginOptions,
 } from '@udecode/plate-core';
 import { INLINES } from '@contentful/rich-text-types';
 import { Tooltip, TextLink, EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
-import { Link, EntityType, FieldExtensionSDK } from '@contentful/field-editor-reference/dist/types';
+import { FieldExtensionSDK, Link, EntityType } from '@contentful/app-sdk';
 import { CustomSlatePluginOptions, CustomRenderElementProps } from '../../types';
 import { EntryAssetTooltip } from './EntryAssetTooltip';
 import { useSdkContext } from '../../SdkProvider';
 import { addOrEditLink } from './HyperlinkModal';
 import { isLinkActive, LINK_TYPES, unwrapLink } from '../../helpers/editor';
+import { useContentfulEditor } from '../../ContentfulEditorProvider';
 
 const styles = {
   hyperlinkWrapper: css({
@@ -169,7 +169,7 @@ type HyperlinkElementProps = CustomRenderElementProps<{
 }>;
 
 function UrlHyperlink(props: HyperlinkElementProps) {
-  const editor = useStoreEditorRef();
+  const editor = useContentfulEditor();
   const sdk: FieldExtensionSDK = useSdkContext();
   const { uri } = props.element.data;
 
@@ -198,7 +198,7 @@ function UrlHyperlink(props: HyperlinkElementProps) {
 }
 
 function EntityHyperlink(props: HyperlinkElementProps) {
-  const editor = useStoreEditorRef();
+  const editor = useContentfulEditor();
   const sdk: FieldExtensionSDK = useSdkContext();
   const { target } = props.element.data;
 
@@ -237,7 +237,7 @@ interface ToolbarHyperlinkButtonProps {
 }
 
 export function ToolbarHyperlinkButton(props: ToolbarHyperlinkButtonProps) {
-  const editor = useStoreEditorRef();
+  const editor = useContentfulEditor();
   const isActive = !!(editor && isLinkActive(editor));
   const sdk: FieldExtensionSDK = useSdkContext();
 

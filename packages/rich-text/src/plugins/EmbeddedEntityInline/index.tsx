@@ -3,7 +3,6 @@ import {
   PlatePlugin,
   getRenderElement,
   getPlatePluginTypes,
-  useStoreEditorRef,
   getPlatePluginOptions,
 } from '@udecode/plate-core';
 import { Transforms } from 'slate';
@@ -11,12 +10,14 @@ import { INLINES } from '@contentful/rich-text-types';
 import { useSelected, ReactEditor, useReadOnly } from 'slate-react';
 import { Button, DropdownListItem, Icon, Flex } from '@contentful/forma-36-react-components';
 import { css } from 'emotion';
-import { FieldExtensionSDK, Entry, Link } from '@contentful/field-editor-reference/dist/types';
+import { Link, FieldExtensionSDK } from '@contentful/app-sdk';
+import { Entry } from '@contentful/field-editor-shared';
 import { CustomSlatePluginOptions, CustomRenderElementProps } from '../../types';
 import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
 import { useSdkContext } from '../../SdkProvider';
 import { FetchingWrappedInlineEntryCard } from './FetchingWrappedInlineEntryCard';
 import { createInlineEntryNode } from './Util';
+import { useContentfulEditor } from '../../ContentfulEditorProvider';
 
 const styles = {
   icon: css({
@@ -40,7 +41,7 @@ type EmbeddedEntityInlineProps = CustomRenderElementProps<{
 }>;
 
 function EmbeddedEntityInline(props: EmbeddedEntityInlineProps) {
-  const editor = useStoreEditorRef();
+  const editor = useContentfulEditor();
   const sdk = useSdkContext();
   const isSelected = useSelected();
   const { id: entryId } = props.element.data.target.sys;
@@ -100,7 +101,7 @@ async function selectEntityAndInsert(editor, sdk: FieldExtensionSDK) {
 }
 
 export function ToolbarEmbeddedEntityInlineButton(props: ToolbarEmbeddedEntityInlineButtonProps) {
-  const editor = useStoreEditorRef();
+  const editor = useContentfulEditor();
   const sdk: FieldExtensionSDK = useSdkContext();
 
   async function handleClick(event) {

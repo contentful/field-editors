@@ -1,18 +1,19 @@
 import * as React from 'react';
 import * as Slate from 'slate-react';
 import { css } from 'emotion';
-import { PlatePlugin, getRenderLeaf, useStoreEditorRef } from '@udecode/plate-core';
+import { getRenderLeaf, PlatePlugin } from '@udecode/plate-core';
 import { MARKS } from '@contentful/rich-text-types';
 import { getToggleMarkOnKeyDown, isMarkActive, toggleMark } from '@udecode/plate-common';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { CustomSlatePluginOptions } from 'types';
+import { useContentfulEditor } from '../../ContentfulEditorProvider';
 
 interface ToolbarBoldButtonProps {
   isDisabled?: boolean;
 }
 
 export function ToolbarBoldButton(props: ToolbarBoldButtonProps) {
-  const editor = useStoreEditorRef();
+  const editor = useContentfulEditor();
 
   function handleClick() {
     if (!editor?.selection) return;

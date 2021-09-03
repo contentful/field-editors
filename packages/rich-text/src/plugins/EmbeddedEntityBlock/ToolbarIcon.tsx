@@ -1,11 +1,11 @@
 import React from 'react';
 import { DropdownListItem, Button, Flex, Icon } from '@contentful/forma-36-react-components';
 import { selectEntityAndInsert } from './Util';
-import { useStoreEditorRef } from '@udecode/plate-core';
-import { FieldExtensionSDK } from '@contentful/field-editor-shared';
 import noop from 'lodash/noop';
+import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { useSdkContext } from '../../SdkProvider';
 import { css } from 'emotion';
+import { useContentfulEditor } from '../../ContentfulEditorProvider';
 
 export const styles = {
   icon: css({
@@ -28,7 +28,7 @@ export function EmbeddedEntityBlockToolbarIcon({
   nodeType,
   onClose,
 }: EmbeddedEntityBlockToolbarIconProps) {
-  const editor = useStoreEditorRef();
+  const editor = useContentfulEditor();
   const sdk: FieldExtensionSDK = useSdkContext();
 
   const handleClick = async () => {

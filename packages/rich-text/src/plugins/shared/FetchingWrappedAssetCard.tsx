@@ -5,7 +5,7 @@ import {
   MissingEntityCard,
   WrappedAssetCard,
 } from '@contentful/field-editor-reference';
-import { FieldExtensionSDK } from '@contentful/field-editor-reference/dist/types';
+import { FieldExtensionSDK } from '@contentful/app-sdk';
 
 interface FetchingWrappedAssetCardProps {
   assetId: string;

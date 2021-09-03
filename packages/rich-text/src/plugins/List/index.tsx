@@ -4,12 +4,12 @@ import { css } from 'emotion';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { ELEMENT_LI, ELEMENT_UL, ELEMENT_OL, toggleList, ELEMENT_LIC } from '@udecode/plate-list';
-import { useStoreEditorRef } from '@udecode/plate-core';
 import { isBlockSelected, unwrapFromRoot, shouldUnwrapBlockquote } from '../../helpers/editor';
 import { isNodeTypeEnabled } from '../../helpers/validations';
-import { CustomSlatePluginOptions } from 'types';
+import { CustomSlatePluginOptions } from '../../types';
 import tokens from '@contentful/forma-36-tokens';
 import { useSdkContext } from '../../SdkProvider';
+import { useContentfulEditor } from '../../ContentfulEditorProvider';
 
 interface ToolbarListButtonProps {
   isDisabled?: boolean;
@@ -17,7 +17,7 @@ interface ToolbarListButtonProps {
 
 export function ToolbarListButton(props: ToolbarListButtonProps) {
   const sdk = useSdkContext();
-  const editor = useStoreEditorRef();
+  const editor = useContentfulEditor();
 
   function handleClick(type: BLOCKS): void {
     if (!editor?.selection) return;
