@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-rich-text",
-  "version": "0.22.0-next",
+  "version": "0.22.1-next",
   "publishConfig": {
     "tag": "next"
   },
@@ -23,7 +23,8 @@
     "test": "tsdx test --env=jsdom --watch",
     "test:ci": "tsdx test --env=jsdom --ci --passWithNoTests",
     "tsc": "tsc -p ./ --noEmit",
-    "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {
     "@contentful/forma-36-react-components": "^3.97.0",
