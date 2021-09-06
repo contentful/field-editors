@@ -302,6 +302,25 @@ describe('Rich Text Editor', () => {
         );
         expectRichTextFieldValue(expectedValue);
       });
+
+      // TODO: Cypress throwing after {enter}: Cannot resolve a Slate node from DOM node: [object HTMLSpanElement]
+      // Question: Can we fix it by upgrading the Cypress version? Is this one of those issues that happen because Cypress doesn't fire all the events Slate needs in its current version?
+      it.skip('should add line if HR is the first void block', () => {
+        editor().click();
+
+        getHrToolbarButton().click();
+
+        cy.findByTestId('rich-text-editor-hr').click();
+
+        editor().type('{enter}');
+
+        const expectedValue = doc(
+          block(BLOCKS.PARAGRAPH, {}, text('', [])),
+          block(BLOCKS.HR, {}),
+          block(BLOCKS.PARAGRAPH, {}, text('', []))
+        );
+        expectRichTextFieldValue(expectedValue);
+      });
     });
   });
 
