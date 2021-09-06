@@ -29,6 +29,7 @@ import { createUnderlinePlugin, withUnderlineOptions } from './plugins/Underline
 import { createParagraphPlugin, withParagraphOptions } from './plugins/Paragraph';
 import { createQuotePlugin, withQuoteOptions } from './plugins/Quote';
 import { createNewLinePlugin } from './plugins/NewLine';
+import { createInsertBeforeFirstVoidBlockPlugin } from './plugins/InsertBeforeFirstVoidBlock';
 import { createTablePlugin, withTableOptions } from './plugins/Table';
 import { createHyperlinkPlugin, withHyperlinkOptions } from './plugins/Hyperlink';
 import {
@@ -69,6 +70,7 @@ const getPlugins = (sdk: FieldExtensionSDK, tracking: TrackingProvider) => {
 
     // Global shortcuts
     createNewLinePlugin(),
+    createInsertBeforeFirstVoidBlockPlugin(),
 
     // Block Elements
     createParagraphPlugin(),
