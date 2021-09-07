@@ -12,11 +12,12 @@ import {
 import { CustomElement, CustomSlatePluginOptions } from 'types';
 import tokens from '@contentful/forma-36-tokens';
 import { SPEditor } from '@udecode/plate-core';
-import { insertTableWithTrailingParagraph, isTableActive } from './helpers';
+import { isTableActive } from './helpers';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { TableActions } from './TableActions';
 import { TrackingProvider, useTrackingContext } from '../../TrackingProvider';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
+import { insertTable } from '@udecode/plate-table';
 
 const styles = {
   [BLOCKS.TABLE]: css`
@@ -152,7 +153,7 @@ export function ToolbarTableButton(props: ToolbarTableButtonProps) {
     if (!editor) return;
 
     onViewportAction('insertTable');
-    insertTableWithTrailingParagraph(editor, {});
+    insertTable(editor, {});
     Slate.ReactEditor.focus(editor);
   }
 
