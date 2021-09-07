@@ -3062,6 +3062,11 @@
   resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-15.0.0.tgz#bd676960dea3e4b5a56fd6653d8cc800a81d6bca"
   integrity sha512-e7aXF/BhXPOpLW+PsbD57Fyt0meiRYT3nTct2iLGa2WYRZMM6E+clnCAXhSRBQ8qhAso7SSUGeiBMxPeaO3KKQ==
 
+"@contentful/rich-text-types@^15.3.0":
+  version "15.3.0"
+  resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-15.3.0.tgz#faf2816e1eca01aab05434fd7208e5c51b80ff41"
+  integrity sha512-0ZtK6oOkSv4UOXfv29206g24Tsh6PmcWvVKeXK0bic0r5xJU93rZN3DzR/vy/EllORhaW9fA7F+CJzKjL7eJ0w==
+
 "@contentful/rich-text-types@^5.0.0":
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-5.0.0.tgz#d2d02d9b7c10115bcc960cee3e1c381eb9d16b84"
