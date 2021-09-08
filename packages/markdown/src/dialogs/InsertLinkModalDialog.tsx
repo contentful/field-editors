@@ -1,20 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { css } from 'emotion';
 import { DialogsAPI } from '@contentful/app-sdk';
 import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
-import tokens from '@contentful/forma-36-tokens';
 import { TextField, Form, Button } from '@contentful/forma-36-react-components';
-import { ModalContent } from '@contentful/f36-components';
+import { ModalContent, ModalControls } from '@contentful/f36-components';
 import { isValidUrl } from '../utils/isValidUrl';
-
-const styles = {
-  controlsContainer: css({
-    display: 'flex',
-    button: {
-      marginRight: tokens.spacingM,
-    },
-  }),
-};
 
 type InsertLinkModalPositiveResult = { url: string; text: string; title: string };
 export type InsertLinkModalResult = InsertLinkModalPositiveResult | false | undefined;
@@ -41,54 +30,56 @@ export const InsertLinkModal = ({ selectedText, onClose }: InsertLinkModalProps)
   }, [mainInputRef]);
 
   return (
-    <ModalContent testId="insert-link-modal">
-      <Form onSubmit={() => onInsert({ url, text, title })}>
-        <TextField
-          value={text}
-          name="link-text"
-          id="link-text-field"
-          labelText="Link text"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setText(e.target.value);
-          }}
-          textInputProps={{
-            disabled: Boolean(selectedText),
-            testId: 'link-text-field',
-          }}
-        />
-        <TextField
-          value={url}
-          name="target-url"
-          id="target-url-field"
-          labelText="Target URL"
-          helpText="Include protocol (e.g. https://)"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setUrl(e.target.value);
-            setTouched(true);
-          }}
-          validationMessage={touched && !urlIsValid ? 'Invalid URL' : ''}
-          textInputProps={{
-            placeholder: 'https://',
-            maxLength: 2100,
-            testId: 'target-url-field',
-            inputRef: mainInputRef,
-          }}
-        />
-        <TextField
-          value={title}
-          name="link-title"
-          id="link-title-field"
-          labelText="Link title"
-          helpText="Recommended for accessibility"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setTitle(e.target.value);
-          }}
-          textInputProps={{
-            testId: 'link-title-field',
-          }}
-        />
-      </Form>
-      <div className={styles.controlsContainer}>
+    <>
+      <ModalContent testId="insert-link-modal">
+        <Form onSubmit={() => onInsert({ url, text, title })}>
+          <TextField
+            value={text}
+            name="link-text"
+            id="link-text-field"
+            labelText="Link text"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setText(e.target.value);
+            }}
+            textInputProps={{
+              disabled: Boolean(selectedText),
+              testId: 'link-text-field',
+            }}
+          />
+          <TextField
+            value={url}
+            name="target-url"
+            id="target-url-field"
+            labelText="Target URL"
+            helpText="Include protocol (e.g. https://)"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setUrl(e.target.value);
+              setTouched(true);
+            }}
+            validationMessage={touched && !urlIsValid ? 'Invalid URL' : ''}
+            textInputProps={{
+              placeholder: 'https://',
+              maxLength: 2100,
+              testId: 'target-url-field',
+              inputRef: mainInputRef,
+            }}
+          />
+          <TextField
+            value={title}
+            name="link-title"
+            id="link-title-field"
+            labelText="Link title"
+            helpText="Recommended for accessibility"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setTitle(e.target.value);
+            }}
+            textInputProps={{
+              testId: 'link-title-field',
+            }}
+          />
+        </Form>
+      </ModalContent>
+      <ModalControls>
         <Button
           testId="insert-link-cancel"
           onClick={() => onClose(false)}
@@ -106,8 +97,8 @@ export const InsertLinkModal = ({ selectedText, onClose }: InsertLinkModalProps)
           size="small">
           Insert
         </Button>
-      </div>
-    </ModalContent>
+      </ModalControls>
+    </>
   );
 };
 
