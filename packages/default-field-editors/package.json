@@ -1,6 +1,6 @@
 {
   "name": "@contentful/default-field-editors",
-  "version": "0.9.11",
+  "version": "0.9.12",
   "main": "dist/index.js",
   "module": "dist/default-field-editors.esm.js",
   "typings": "dist/index.d.ts",
