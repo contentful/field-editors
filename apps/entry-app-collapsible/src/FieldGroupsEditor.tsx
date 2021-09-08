@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {
-  Modal,
   Button,
   Dropdown,
   DropdownList,
@@ -14,6 +13,7 @@ import {
   IconButton,
   CardDragHandle,
 } from '@contentful/forma-36-react-components';
+import { ModalContent } from '@contentful/f36-components';
 import { findUnassignedFields, AppContext, SDKContext } from './shared';
 import { FieldType, FieldGroupType } from './types';
 import { ActionTypes } from './types';
@@ -92,7 +92,7 @@ export class FieldGroupsEditor extends React.Component<FieldGroupsEditorProps> {
             </Button>
           </div>
         </div>
-        <Modal.Content>
+        <ModalContent>
           {fieldGroups.map(({ name, fields, id }, index) => (
             <FieldGroupEditor
               first={index === 0}
@@ -103,7 +103,7 @@ export class FieldGroupsEditor extends React.Component<FieldGroupsEditorProps> {
               fields={fields}
             />
           ))}
-        </Modal.Content>
+        </ModalContent>
       </React.Fragment>
     );
   }

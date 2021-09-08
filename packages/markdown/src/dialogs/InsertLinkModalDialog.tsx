@@ -3,7 +3,8 @@ import { css } from 'emotion';
 import { DialogsAPI } from '@contentful/app-sdk';
 import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 import tokens from '@contentful/forma-36-tokens';
-import { Modal, TextField, Form, Button } from '@contentful/forma-36-react-components';
+import { TextField, Form, Button } from '@contentful/forma-36-react-components';
+import { ModalContent } from '@contentful/f36-components';
 import { isValidUrl } from '../utils/isValidUrl';
 
 const styles = {
@@ -40,7 +41,7 @@ export const InsertLinkModal = ({ selectedText, onClose }: InsertLinkModalProps)
   }, [mainInputRef]);
 
   return (
-    <Modal.Content testId="insert-link-modal">
+    <ModalContent testId="insert-link-modal">
       <Form onSubmit={() => onInsert({ url, text, title })}>
         <TextField
           value={text}
@@ -89,19 +90,24 @@ export const InsertLinkModal = ({ selectedText, onClose }: InsertLinkModalProps)
       </Form>
       <div className={styles.controlsContainer}>
         <Button
+          testId="insert-link-cancel"
+          onClick={() => onClose(false)}
+          buttonType="muted"
+          size="small">
+          Cancel
+        </Button>
+        <Button
           testId="insert-link-confirm"
           onClick={() => {
             onInsert({ url, text, title });
           }}
           disabled={!urlIsValid}
-          buttonType="positive">
+          buttonType="positive"
+          size="small">
           Insert
         </Button>
-        <Button testId="insert-link-cancel" onClick={() => onClose(false)} buttonType="muted">
-          Cancel
-        </Button>
       </div>
-    </Modal.Content>
+    </ModalContent>
   );
 };
 

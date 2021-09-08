@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { DialogsAPI } from '@contentful/app-sdk';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
-import { Modal, Button, Tooltip, DisplayText } from '@contentful/forma-36-react-components';
+import { Button, Tooltip, DisplayText } from '@contentful/forma-36-react-components';
+import { ModalContent, ModalControls } from '@contentful/f36-components';
 import { specialCharacters } from '../utils/specialCharacters';
 import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 
@@ -54,46 +55,52 @@ export const SpecialCharacterModalDialog = ({ onClose }: SpecialCharacterModalDi
     specialCharacters[0]
   );
   return (
-    <Modal.Content testId="insert-special-character-modal">
-      <div className={styles.charContainer}>
-        <DisplayText element="p" className={styles.selectedCharacter}>
-          {String.fromCharCode(selectedCharacter.code)}
-        </DisplayText>
-        <DisplayText element="p" className={styles.selectedCharacterDesc}>
-          {selectedCharacter.desc}
-        </DisplayText>
-      </div>
-      <div className={styles.buttonPanel}>
-        {specialCharacters.map((char) => (
-          <div key={char.code}>
-            <Tooltip className={styles.tooltip} content={char.desc}>
-              <Button
-                testId="special-character-button"
-                isActive={char.code === selectedCharacter.code}
-                className={styles.charButton}
-                buttonType="naked"
-                onClick={() => setSelectedCharacter(char)}>
-                {String.fromCharCode(char.code)}
-              </Button>
-            </Tooltip>
-          </div>
-        ))}
-      </div>
-      <Button
-        className={styles.button}
-        testId="insert-character-confirm"
-        onClick={() => onClose(String.fromCharCode(selectedCharacter.code))}
-        buttonType="positive">
-        Insert selected
-      </Button>
-      <Button
-        testId="insert-character-cancel"
-        className={styles.button}
-        onClick={() => onClose(false)}
-        buttonType="muted">
-        Cancel
-      </Button>
-    </Modal.Content>
+    <>
+      <ModalContent testId="insert-special-character-modal">
+        <div className={styles.charContainer}>
+          <DisplayText element="p" className={styles.selectedCharacter}>
+            {String.fromCharCode(selectedCharacter.code)}
+          </DisplayText>
+          <DisplayText element="p" className={styles.selectedCharacterDesc}>
+            {selectedCharacter.desc}
+          </DisplayText>
+        </div>
+        <div className={styles.buttonPanel}>
+          {specialCharacters.map((char) => (
+            <div key={char.code}>
+              <Tooltip className={styles.tooltip} content={char.desc}>
+                <Button
+                  testId="special-character-button"
+                  isActive={char.code === selectedCharacter.code}
+                  className={styles.charButton}
+                  buttonType="naked"
+                  onClick={() => setSelectedCharacter(char)}>
+                  {String.fromCharCode(char.code)}
+                </Button>
+              </Tooltip>
+            </div>
+          ))}
+        </div>
+      </ModalContent>
+      <ModalControls>
+        <Button
+          testId="insert-character-cancel"
+          className={styles.button}
+          onClick={() => onClose(false)}
+          buttonType="muted"
+          size="small">
+          Cancel
+        </Button>
+        <Button
+          className={styles.button}
+          testId="insert-character-confirm"
+          onClick={() => onClose(String.fromCharCode(selectedCharacter.code))}
+          buttonType="positive"
+          size="small">
+          Insert selected
+        </Button>
+      </ModalControls>
+    </>
   );
 };
 
