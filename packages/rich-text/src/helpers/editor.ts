@@ -66,11 +66,23 @@ export function toggleBlock(editor, type: string): void {
   const isQuote = type === BLOCKS.QUOTE;
 
   Transforms.unwrapNodes(editor, {
-    match: (node) =>
-      !Editor.isEditor(node) &&
-      Element.isElement(node) &&
-      (LIST_TYPES.includes((node as CustomElement).type as BLOCKS) ||
-        (node as CustomElement).type === BLOCKS.QUOTE),
+    match: (node) => {
+      if (Editor.isEditor(node) || !Element.isElement(node)) {
+        return false;
+      }
+
+      // Lists
+      if (isList && LIST_TYPES.includes((node as CustomElement).type as BLOCKS)) {
+        return true;
+      }
+
+      // Quotes
+      if (isQuote && (node as CustomElement).type === BLOCKS.QUOTE) {
+        return true;
+      }
+
+      return false;
+    },
     split: true,
   });
   const newProperties: Partial<CustomElement> = {
