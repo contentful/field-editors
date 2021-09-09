@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { Modal } from '@contentful/forma-36-react-components';
+import { Modal, ModalHeader } from '@contentful/f36-components';
 import { init, locations, EditorExtensionSDK, DialogExtensionSDK } from '@contentful/app-sdk';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import '@contentful/forma-36-fcss/dist/styles.css';
@@ -61,7 +61,7 @@ export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
         <Modal size="large" isShown={dialogOpen} onClose={closeDialog}>
           {() => (
             <React.Fragment>
-              <Modal.Header onClose={closeDialog} title="Edit field groups" />
+              <ModalHeader onClose={closeDialog} title="Edit field groups" />
               <FieldGroupsEditor
                 addGroup={() => dispatch({ type: ActionTypes.CREATE_FIELD_GROUP })}
                 fieldGroups={state.fieldGroups}

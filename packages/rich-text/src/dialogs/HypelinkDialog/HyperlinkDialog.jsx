@@ -3,7 +3,6 @@ import { css } from 'emotion';
 import PropTypes from 'prop-types';
 import tokens from '@contentful/forma-36-tokens';
 import {
-  Modal,
   TextField,
   Button,
   Form,
@@ -11,6 +10,7 @@ import {
   SelectField,
   Option,
 } from '@contentful/forma-36-react-components';
+import { ModalContent, ModalControls } from '@contentful/f36-components';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { FetchingWrappedEntryCard } from '../../plugins/EmbeddedEntityBlock/FetchingWrappedEntryCard';
 import { FetchingWrappedAssetCard } from '../../plugins/EmbeddedEntityBlock/FetchingWrappedAssetCard';
@@ -142,24 +142,26 @@ export class HyperlinkDialog extends React.Component {
     return (
       <EntityProvider sdk={this.props.sdk}>
         <React.Fragment>
-          <Modal.Content>{this.renderFields()}</Modal.Content>
-          <Modal.Controls>
+          <ModalContent>{this.renderFields()}</ModalContent>
+          <ModalControls>
+            <Button
+              type="button"
+              onClick={() => this.props.onClose(null)}
+              buttonType="muted"
+              testId="cancel-cta"
+              size="small">
+              Cancel
+            </Button>
             <Button
               type="submit"
               buttonType="positive"
               onClick={this.handleSubmit}
               disabled={!this.isLinkComplete()}
-              testId="confirm-cta">
+              testId="confirm-cta"
+              size="small">
               {labels.confirm}
             </Button>
-            <Button
-              type="button"
-              onClick={() => this.props.onClose(null)}
-              buttonType="muted"
-              testId="cancel-cta">
-              Cancel
-            </Button>
-          </Modal.Controls>
+          </ModalControls>
         </React.Fragment>
       </EntityProvider>
     );
