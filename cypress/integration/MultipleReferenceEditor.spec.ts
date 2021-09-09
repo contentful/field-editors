@@ -33,6 +33,6 @@ describe('Multiple Reference Editor', () => {
     openPage();
     findLinkExistingBtn().click();
     findLinkExistingBtn().click(); // inserts 2 cards
-    findLinkExistingBtn().should('not.be.visible'); // limit reached, button hidden.
+    findLinkExistingBtn().should('not.exist'); // limit reached, button hidden.
   });
 });
