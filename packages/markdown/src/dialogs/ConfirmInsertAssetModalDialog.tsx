@@ -86,7 +86,7 @@ export const openConfirmInsertAsset = (
   return dialogs.openCurrent({
     title: 'Confirm using fallback assets',
     width: 'medium',
-    minHeight: '290px',
+    minHeight: '270px',
     shouldCloseOnEscapePress: true,
     shouldCloseOnOverlayClick: true,
     parameters: {

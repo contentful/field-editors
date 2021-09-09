@@ -32,7 +32,7 @@ const styles = {
     borderTop: 0,
     padding: '20px',
     fontSize: tokens.spacingM,
-    minHeight: '400px',
+    minHeight: '380px',
     background: tokens.colorWhite,
     outline: 'none',
     whiteSpace: 'pre-wrap',

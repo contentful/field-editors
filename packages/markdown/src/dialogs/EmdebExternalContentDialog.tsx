@@ -191,7 +191,7 @@ export const openEmbedExternalContentDialog = (
   return dialogs.openCurrent({
     title: 'Embed external content',
     width: 'large',
-    minHeight: '475px',
+    minHeight: '435px',
     shouldCloseOnEscapePress: true,
     shouldCloseOnOverlayClick: true,
     parameters: {

@@ -31,6 +31,8 @@ export function open(componentRenderer: (params: { onClose: Function; isShown: b
         isShown: false,
       };
       render(currentConfig);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       resolve(...args);
       getRoot().remove();
     }

@@ -110,7 +110,7 @@ export const openInsertSpecialCharacter = (
   return dialogs.openCurrent({
     title: 'Insert special character',
     width: 'large',
-    minHeight: '615px',
+    minHeight: '600px',
     shouldCloseOnEscapePress: true,
     shouldCloseOnOverlayClick: true,
     parameters: {

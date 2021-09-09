@@ -333,7 +333,7 @@ export function ZenMarkdownToolbar(props: MarkdownToolbarProps) {
           />
           <Button
             testId="markdown-action-button-zen-close"
-            buttonType="muted"
+            variant="secondary"
             size="small"
             className={cx(styles.zenButton, styles.zenButtonPressed)}
             onClick={() => {

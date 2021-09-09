@@ -95,7 +95,7 @@ export const openInsertTableDialog = (dialogs: DialogsAPI): Promise<InsertTableM
   return dialogs.openCurrent({
     title: 'Insert table',
     width: 'medium',
-    minHeight: '290px',
+    minHeight: '260px',
     shouldCloseOnEscapePress: true,
     shouldCloseOnOverlayClick: true,
     parameters: {

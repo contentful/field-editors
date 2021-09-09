@@ -2,7 +2,7 @@ import React from 'react';
 import { css, cx } from 'emotion';
 import { DialogsAPI } from '@contentful/app-sdk';
 import { Heading } from '@contentful/forma-36-react-components';
-import {  ModalContent } from '@contentful/f36-components';
+import { ModalContent } from '@contentful/f36-components';
 import tokens from '@contentful/forma-36-tokens';
 import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 
@@ -156,7 +156,7 @@ export const openCheatsheetModal = (dialogs: DialogsAPI): Promise<void> => {
   return dialogs.openCurrent({
     title: 'Markdown formatting help',
     width: 'large',
-    minHeight: '425px',
+    minHeight: '415px',
     shouldCloseOnEscapePress: true,
     shouldCloseOnOverlayClick: true,
     parameters: {

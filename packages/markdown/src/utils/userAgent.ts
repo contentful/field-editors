@@ -6,7 +6,9 @@ const platform = get(window, 'navigator.platform', '');
 let ctrlKey = 'Ctrl';
 
 const tests = {
-  ios: /(iphone os|ipad|iphone|ipod)/i.test(userAgent) && !window.MSStream
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore ignore missing MSStream
+  ios: /(iphone os|ipad|iphone|ipod)/i.test(userAgent) && !window.MSStream,
 };
 
 if (tests.ios || /mac(68k|ppc|intel)/i.test(platform)) {

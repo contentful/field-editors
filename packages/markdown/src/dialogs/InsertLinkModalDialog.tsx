@@ -109,7 +109,7 @@ export const openInsertLinkDialog = (
   return dialogs.openCurrent({
     title: 'Insert link',
     width: 'large',
-    minHeight: '441px',
+    minHeight: '410px',
     shouldCloseOnEscapePress: true,
     shouldCloseOnOverlayClick: true,
     parameters: {
