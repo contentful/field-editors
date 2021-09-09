@@ -17,7 +17,7 @@ commands:
 jobs:
   lint:
     docker:
-      - image: cypress/browsers:node12.14.0-chrome79-ff71
+      - image: cypress/browsers:chrome69
     environment:
       CYPRESS_INSTALL_BINARY: 0
     steps:
@@ -29,7 +29,7 @@ jobs:
       - run: yarn tsc
   unit-tests:
     docker:
-      - image: cypress/browsers:node12.14.0-chrome79-ff71
+      - image: cypress/browsers:chrome69
     environment:
       CYPRESS_INSTALL_BINARY: 0
     steps:
@@ -41,7 +41,7 @@ jobs:
     resource_class: medium+
     parallelism: 3
     docker:
-      - image: cypress/browsers:node12.14.0-chrome79-ff71
+      - image: cypress/browsers:chrome69
     steps:
       - checkout
       - yarn_install
