@@ -57,7 +57,11 @@ export function isNodeTypeSelected(editor, nodeType: BLOCKS | INLINES): boolean 
 }
 
 export function moveToTheNextLine(editor) {
-  Transforms.move(editor, { distance: 1 });
+  Transforms.move(editor, { distance: 1, unit: 'line' });
+}
+
+export function moveToThePreviousLine(editor) {
+  Transforms.move(editor, { distance: 1, unit: 'line', reverse: true });
 }
 
 export function toggleBlock(editor, type: string): void {
