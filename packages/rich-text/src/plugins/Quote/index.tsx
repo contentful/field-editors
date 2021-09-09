@@ -3,7 +3,7 @@ import * as Slate from 'slate-react';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
-import { Transforms, Editor, Node, Path, Element, Text } from 'slate';
+import { Transforms, Editor, Node, Element, Text } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { PlatePlugin, SPEditor, getRenderElement } from '@udecode/plate-core';
 import { CustomElement } from '../../types';
@@ -37,19 +37,19 @@ interface ToolbarQuoteButtonProps {
 const createBlockQuote = (editor: SPEditor) => {
   if (!editor.selection) return;
 
-  const text = { text: '' };
-  const paragraph = { type: BLOCKS.PARAGRAPH, data: {}, children: [text] };
-  const path = editor.selection.focus.path;
-  const parent = Editor.parent(editor, path);
-  const next = Editor.next(editor, { at: parent[1] });
+  // const text = { text: '' };
+  // const paragraph = { type: BLOCKS.PARAGRAPH, data: {}, children: [text] };
+  // const path = editor.selection.focus.path;
+  // const parent = Editor.parent(editor, path);
+  // const next = Editor.next(editor, { at: parent[1] });
 
   toggleBlock(editor, BLOCKS.QUOTE);
 
-  // TODO: Likely to break when links are being worked on, consider a better way to do this (see https://github.com/contentful/field-editors/pull/737#discussion_r647296301)
-  if (!next) {
-    const next = Path.next(parent[1]);
-    Transforms.insertNodes(editor, paragraph, { at: next });
-  }
+  // // TODO: Likely to break when links are being worked on, consider a better way to do this (see https://github.com/contentful/field-editors/pull/737#discussion_r647296301)
+  // if (!next) {
+  //   const next = Path.next(parent[1]);
+  //   Transforms.insertNodes(editor, paragraph, { at: next });
+  // }
 };
 
 export function withQuoteEvents(editor: SPEditor) {

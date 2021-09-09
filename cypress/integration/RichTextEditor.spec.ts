@@ -304,7 +304,6 @@ describe('Rich Text Editor', () => {
         const expectedValue = doc(
           block(BLOCKS.PARAGRAPH, {}, text('some text', [])),
           block(BLOCKS.HR, {}),
-          block(BLOCKS.PARAGRAPH, {}, text('', [])),
           block(BLOCKS.PARAGRAPH, {}, text('', []))
         );
         expectRichTextFieldValue(expectedValue);

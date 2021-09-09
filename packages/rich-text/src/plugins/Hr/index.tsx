@@ -94,17 +94,11 @@ export function ToolbarHrButton(props: ToolbarHrButtonProps) {
       isVoid: true,
     };
 
-    const paragraph = {
-      type: BLOCKS.PARAGRAPH,
-      data: {},
-      children: [{ text: '' }],
-    };
-
     const hasText = !!getText(editor, editor.selection.focus.path);
-
     hasText ? Transforms.insertNodes(editor, hr) : setNodes(editor, hr);
 
-    Transforms.insertNodes(editor, paragraph);
+    // Move focus to the next paragraph (added by TrailingParagraph plugin)
+    moveToTheNextLine(editor);
 
     Slate.ReactEditor.focus(editor);
   }
