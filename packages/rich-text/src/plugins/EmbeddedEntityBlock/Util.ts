@@ -1,4 +1,3 @@
-import { BLOCKS } from '@contentful/rich-text-types';
 import { getText } from '@udecode/plate-common';
 import { Transforms } from 'slate';
 import * as Slate from 'slate-react';
@@ -50,11 +49,6 @@ export function insertBlock(editor, nodeType, entity) {
   if (!editor?.selection) return;
 
   const linkedEntityBlock = createNode(nodeType, entity);
-  const paragraph = {
-    type: BLOCKS.PARAGRAPH,
-    data: {},
-    children: [{ text: '' }],
-  };
 
   const hasText = editor.selection && !!getText(editor, editor.selection.focus.path);
 
@@ -63,8 +57,6 @@ export function insertBlock(editor, nodeType, entity) {
   } else {
     Transforms.setNodes(editor, linkedEntityBlock);
   }
-
-  Transforms.insertNodes(editor, paragraph);
 
   Slate.ReactEditor.focus(editor);
 }
