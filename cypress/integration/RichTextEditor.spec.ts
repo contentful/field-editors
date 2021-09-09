@@ -498,14 +498,13 @@ describe('Rich Text Editor', () => {
           editor().click();
 
           test.getList().click();
-
           // TODO: Find a way to test deeper lists
           /*
             Having issues with `.type('{enter})` to break lines.
             The error is:
             Cannot resolve a Slate node from DOM node: [object HTMLSpanElement]
           */
-          editor().click().typeInSlate('item 1');
+          editor().typeInSlate('item 1');
 
           cy.wait(600);
 
@@ -514,7 +513,8 @@ describe('Rich Text Editor', () => {
               test.listType,
               {},
               block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.PARAGRAPH, {}, text('item 1', [])))
-            )
+            ),
+            emptyParagraph()
           );
 
           expectRichTextFieldValue(expectedValue);
@@ -525,13 +525,16 @@ describe('Rich Text Editor', () => {
 
           test.getList().click();
 
-          editor().click().typeInSlate('some text');
+          editor().typeInSlate('some text');
 
           test.getList().click();
 
           cy.wait(600);
 
-          const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text', [])));
+          const expectedValue = doc(
+            block(BLOCKS.PARAGRAPH, {}, text('some text', [])),
+            emptyParagraph()
+          );
 
           expectRichTextFieldValue(expectedValue);
         });
@@ -547,7 +550,7 @@ describe('Rich Text Editor', () => {
               {},
               block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.PARAGRAPH, {}, text('some text', [])))
             ),
-            block(BLOCKS.PARAGRAPH, {}, text('', []))
+            emptyParagraph()
           );
           expectRichTextFieldValue(expectedValue);
         });
@@ -581,7 +584,6 @@ describe('Rich Text Editor', () => {
       getDropdownItem(BLOCKS.HEADING_1).click();
 
       editor()
-        .click()
         .typeInSlate('some text 1')
         .type('{shift}{enter}')
         .typeInSlate('some text 2')
@@ -591,7 +593,8 @@ describe('Rich Text Editor', () => {
       cy.wait(100);
 
       const expectedValue = doc(
-        block(BLOCKS.HEADING_1, {}, text('some text 1\nsome text 2\nsome text 3'))
+        block(BLOCKS.HEADING_1, {}, text('some text 1\nsome text 2\nsome text 3')),
+        emptyParagraph()
       );
 
       expectRichTextFieldValue(expectedValue);
@@ -603,7 +606,6 @@ describe('Rich Text Editor', () => {
       getUlToolbarButton().click();
 
       editor()
-        .click()
         .typeInSlate('some text 1')
         .type('{shift}{enter}')
         .typeInSlate('some text 2')
@@ -621,7 +623,8 @@ describe('Rich Text Editor', () => {
             {},
             block(BLOCKS.PARAGRAPH, {}, text('some text 1\nsome text 2\nsome text 3', []))
           )
-        )
+        ),
+        emptyParagraph()
       );
 
       expectRichTextFieldValue(expectedValue);
@@ -1112,7 +1115,6 @@ describe('Rich Text Editor', () => {
                   },
                 },
               }),
-              block(BLOCKS.PARAGRAPH, {}, text('')), // TODO: ideally we wouldn't have this extra paragraph
               block(BLOCKS.PARAGRAPH, {}, text('bar'))
             )
           );
@@ -1196,7 +1198,6 @@ describe('Rich Text Editor', () => {
                   },
                 },
               }),
-              block(BLOCKS.PARAGRAPH, {}, text('')), // TODO: ideally we wouldn't have this extra paragraph
               block(BLOCKS.PARAGRAPH, {}, text('bar'))
             )
           );
