@@ -330,7 +330,12 @@ describe('Rich Text Editor', () => {
           getDropdownToolbarButton().click();
           getDropdownItem(type).click();
 
-          const expectedValue = doc(block(type, {}, text('some text', [])), emptyParagraph());
+          // Account for trailing paragraph
+          const expectedValue =
+            type === BLOCKS.PARAGRAPH
+              ? doc(block(type, {}, text('some text', [])))
+              : doc(block(type, {}, text('some text', [])), emptyParagraph());
+
           expectRichTextFieldValue(expectedValue);
         });
 
