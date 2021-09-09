@@ -9,9 +9,9 @@ import {
   TablePluginOptions,
   getEmptyRowNode,
 } from '@udecode/plate-table';
+import { insertNodes, someNode, getAbove } from '@udecode/plate-common';
 
 import { isBlockSelected, getNodeEntryFromSelection } from '../../helpers/editor';
-import { insertNodes, someNode, getAbove } from '@udecode/plate-common';
 
 // TODO: to be replaced with the upstream version once https://github.com/udecode/plate/pull/994
 // is merged
@@ -63,7 +63,7 @@ export function isTableActive(editor: SPEditor) {
 export function isTableHeaderEnabled(editor: SPEditor) {
   const tableInfo = getAbove(editor, {
     match: {
-      type: [getPlatePluginType(editor, ELEMENT_TABLE)],
+      type: BLOCKS.TABLE,
     },
   });
 

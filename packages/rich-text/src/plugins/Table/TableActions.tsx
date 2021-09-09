@@ -10,12 +10,13 @@ import {
   DropdownList,
   DropdownListItem,
 } from '@contentful/forma-36-react-components';
+import { getAbove } from '@udecode/plate-common';
+import { BLOCKS } from '@contentful/rich-text-types';
 
 import { isTableHeaderEnabled } from './helpers';
 import { addRowAbove, addColumnLeft, addColumnRight, addRowBelow } from './actions';
 import { RichTextTrackingActionName, useTrackingContext } from '../../TrackingProvider';
 import { getNodeEntryFromSelection, getTableSize } from '../../helpers/editor';
-import { BLOCKS } from '@contentful/rich-text-types';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 
 export const styles = {
@@ -62,6 +63,20 @@ export const TableActions = () => {
       onViewportAction(actionName as RichTextTrackingActionName, { tableSize });
     };
 
+  const canInsertRowAbove = React.useMemo(() => {
+    if (!editor) {
+      return false;
+    }
+
+    const headerCell = getAbove(editor, {
+      match: {
+        type: BLOCKS.TABLE_HEADER_CELL,
+      },
+    });
+
+    return !headerCell;
+  }, [editor]);
+
   return (
     <Dropdown
       className={styles.topRight}
@@ -77,9 +92,12 @@ export const TableActions = () => {
         />
       }>
       <DropdownList>
-        <DropdownListItem onClick={action(addRowAbove, 'insert', 'Row')}>
-          Add row above
-        </DropdownListItem>
+        {canInsertRowAbove && (
+          <DropdownListItem onClick={action(addRowAbove, 'insert', 'Row')}>
+            Add row above
+          </DropdownListItem>
+        )}
+
         <DropdownListItem onClick={action(addRowBelow, 'insert', 'Row')}>
           Add row below
         </DropdownListItem>
