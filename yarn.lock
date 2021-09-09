@@ -5832,6 +5832,14 @@
     "@udecode/plate-common" "2.0.0"
     "@udecode/plate-core" "1.0.0"
 
+"@udecode/plate-trailing-block@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-trailing-block/-/plate-trailing-block-2.0.0.tgz#9bec7a74b167c8beccf22672f12557d4c3eef037"
+  integrity sha512-uyaucdPZWDxeu9g5Nyl0GVfTs4V1x9lcr/s4KHeAEJkoB/AKqJ+J5gRD1jP9E794ms9rjNmIM6EbbdRmWoCGwQ==
+  dependencies:
+    "@udecode/plate-common" "2.0.0"
+    "@udecode/plate-core" "1.0.0"
+
 "@ungap/promise-all-settled@1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@ungap/promise-all-settled/-/promise-all-settled-1.1.2.tgz#aa58042711d6e3275dd37dc597e5d31e8c290a44"

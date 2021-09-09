@@ -51,6 +51,7 @@ import { TextOrCustomElement } from './types';
 import { ContentfulEditorProvider, getContentfulEditorId } from './ContentfulEditorProvider';
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { FieldConnector } from '@contentful/field-editor-shared';
+import { createTrailingParagraphPlugin } from './plugins/TrailingParagraph';
 
 type ConnectedProps = {
   sdk: FieldExtensionSDK;
@@ -91,6 +92,9 @@ const getPlugins = (sdk: FieldExtensionSDK, tracking: TrackingProvider) => {
     createCodePlugin(),
     createItalicPlugin(),
     createUnderlinePlugin(),
+
+    // Other
+    createTrailingParagraphPlugin(),
   ];
 
   return plugins.concat([createDeserializeHTMLPlugin({ plugins })] as PlatePlugin<SPEditor>[]);
