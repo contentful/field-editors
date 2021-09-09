@@ -40,6 +40,8 @@ const styles = {
     background-color: ${tokens.gray100};
     border: 1px solid ${tokens.gray400};
     padding: 10px 12px;
+    font-weight: ${tokens.fontWeightMedium};
+    text-align: left;
     min-width: 48px;
     position: relative;
     div:last-child {
