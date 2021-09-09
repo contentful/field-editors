@@ -11,6 +11,7 @@ import {
   DropdownListItem,
 } from '@contentful/forma-36-react-components';
 
+import { isTableHeaderEnabled } from './helpers';
 import { addRowAbove, addColumnLeft, addColumnRight, addRowBelow } from './actions';
 import { RichTextTrackingActionName, useTrackingContext } from '../../TrackingProvider';
 import { getNodeEntryFromSelection, getTableSize } from '../../helpers/editor';
@@ -51,8 +52,12 @@ export const TableActions = () => {
     (cb: TableAction, type: 'insert' | 'remove', element: 'Table' | 'Row' | 'Column') => () => {
       if (!editor?.selection) return;
       close();
+
       const tableSize = getCurrentTableSize(editor);
-      cb(editor, {});
+
+      cb(editor, { header: isTableHeaderEnabled(editor) });
+
+      // Tracking
       const actionName = `${type}Table${element === 'Table' ? '' : element}`;
       onViewportAction(actionName as RichTextTrackingActionName, { tableSize });
     };
