@@ -1,16 +1,35 @@
 import { Transforms } from 'slate';
-import { SPEditor } from '@udecode/plate-core';
+import { getPlatePluginType, SPEditor } from '@udecode/plate-core';
 import { BLOCKS } from '@contentful/rich-text-types';
 import {
   ELEMENT_TABLE,
   ELEMENT_TH,
   ELEMENT_TD,
   ELEMENT_TR,
-  insertTable,
+  TablePluginOptions,
+  getEmptyRowNode,
 } from '@udecode/plate-table';
 
-import { CustomSlatePluginOptions } from '../../types';
 import { isBlockSelected, getNodeEntryFromSelection } from '../../helpers/editor';
+import { insertNodes, someNode, getAbove } from '@udecode/plate-common';
+
+// TODO: to be replaced with the upstream version once https://github.com/udecode/plate/pull/994
+// is merged
+const insertTable = (editor: SPEditor, { header }: TablePluginOptions) => {
+  if (
+    !someNode(editor, {
+      match: { type: getPlatePluginType(editor, ELEMENT_TABLE) },
+    })
+  ) {
+    insertNodes<any>(editor, {
+      type: getPlatePluginType(editor, ELEMENT_TABLE),
+      children: [
+        getEmptyRowNode(editor, { header, colCount: 2 }),
+        getEmptyRowNode(editor, { header: false, colCount: 2 }),
+      ],
+    });
+  }
+};
 
 /**
  * Sets the UI focus to the first cell of the selected table.
@@ -31,15 +50,33 @@ function moveToFirstCellFromSelectedTable(editor) {
   Transforms.setSelection(editor, { anchor, focus: anchor });
 }
 
-export function insertTableAndFocusFirstCell(
-  editor: SPEditor,
-  withTableOptions: CustomSlatePluginOptions
-): void {
-  insertTable(editor, withTableOptions);
+export function insertTableAndFocusFirstCell(editor: SPEditor): void {
+  insertTable(editor, { header: true });
   moveToFirstCellFromSelectedTable(editor);
 }
 
 export function isTableActive(editor: SPEditor) {
   const tableElements = [ELEMENT_TABLE, ELEMENT_TH, ELEMENT_TR, ELEMENT_TD];
   return tableElements.some((el) => isBlockSelected(editor, el));
+}
+
+export function isTableHeaderEnabled(editor: SPEditor) {
+  const tableInfo = getAbove(editor, {
+    match: {
+      type: [getPlatePluginType(editor, ELEMENT_TABLE)],
+    },
+  });
+
+  const tableNode = tableInfo?.[0];
+  if (!tableNode) {
+    return false;
+  }
+
+  const firstRow = tableNode.children[0];
+
+  if (!firstRow) {
+    return false;
+  }
+
+  return firstRow.children.every((node) => node.type === BLOCKS.TABLE_HEADER_CELL);
 }
