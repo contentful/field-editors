@@ -14,10 +14,10 @@ import { getAbove } from '@udecode/plate-common';
 import { BLOCKS } from '@contentful/rich-text-types';
 
 import { isTableHeaderEnabled } from './helpers';
-import { addRowAbove, addColumnLeft, addColumnRight, addRowBelow } from './actions';
-import { RichTextTrackingActionName, useTrackingContext } from '../../TrackingProvider';
-import { getNodeEntryFromSelection, getTableSize } from '../../helpers/editor';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
+import { getNodeEntryFromSelection, getTableSize } from '../../helpers/editor';
+import { RichTextTrackingActionName, useTrackingContext } from '../../TrackingProvider';
+import { addRowAbove, addColumnLeft, addColumnRight, addRowBelow, setHeader } from './actions';
 
 export const styles = {
   topRight: css({
@@ -38,8 +38,9 @@ export const TableActions = () => {
   const editor = useContentfulEditor();
   const { onViewportAction } = useTrackingContext();
   const [isOpen, setOpen] = React.useState(false);
+  const [isHeaderEnabled, setHeaderEnabled] = React.useState(false);
 
-  const close = () => {
+  const close = React.useCallback(() => {
     setOpen(false);
 
     if (!editor) return;
@@ -47,21 +48,11 @@ export const TableActions = () => {
     // Makes sure we keep the editor in focus when clicking on/out
     // the dropdown menu
     Slate.ReactEditor.focus(editor);
-  };
+  }, [editor]);
 
-  const action =
-    (cb: TableAction, type: 'insert' | 'remove', element: 'Table' | 'Row' | 'Column') => () => {
-      if (!editor?.selection) return;
-      close();
-
-      const tableSize = getCurrentTableSize(editor);
-
-      cb(editor, { header: isTableHeaderEnabled(editor) });
-
-      // Tracking
-      const actionName = `${type}Table${element === 'Table' ? '' : element}`;
-      onViewportAction(actionName as RichTextTrackingActionName, { tableSize });
-    };
+  React.useEffect(() => {
+    setHeaderEnabled(editor && isTableHeaderEnabled(editor));
+  }, [editor]);
 
   const canInsertRowAbove = React.useMemo(() => {
     if (!editor) {
@@ -76,6 +67,35 @@ export const TableActions = () => {
 
     return !headerCell;
   }, [editor]);
+
+  const toggleHeader = React.useCallback(() => {
+    close();
+
+    if (!editor) {
+      return;
+    }
+
+    const value = !isHeaderEnabled;
+
+    setHeaderEnabled(value);
+    setHeader(editor, value);
+  }, [editor, close, isHeaderEnabled]);
+
+  const action = React.useCallback(
+    (cb: TableAction, type: 'insert' | 'remove', element: 'Table' | 'Row' | 'Column') => () => {
+      if (!editor?.selection) return;
+      close();
+
+      const tableSize = getCurrentTableSize(editor);
+
+      cb(editor, { header: isHeaderEnabled });
+
+      // Tracking
+      const actionName = `${type}Table${element === 'Table' ? '' : element}`;
+      onViewportAction(actionName as RichTextTrackingActionName, { tableSize });
+    },
+    [editor, isHeaderEnabled, close, onViewportAction]
+  );
 
   return (
     <Dropdown
@@ -106,6 +126,11 @@ export const TableActions = () => {
         </DropdownListItem>
         <DropdownListItem onClick={action(addColumnRight, 'insert', 'Column')}>
           Add column right
+        </DropdownListItem>
+      </DropdownList>
+      <DropdownList border="top">
+        <DropdownListItem onClick={toggleHeader}>
+          {isHeaderEnabled ? 'Disable table header' : 'Enable table header'}
         </DropdownListItem>
       </DropdownList>
       <DropdownList border="top">
