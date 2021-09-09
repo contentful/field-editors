@@ -624,7 +624,7 @@ describe('Rich Text Editor', () => {
     });
   });
 
-  describe.only('Tables', () => {
+  describe('Tables', () => {
     const table = buildHelper(BLOCKS.TABLE);
     const row = buildHelper(BLOCKS.TABLE_ROW);
     const cell = buildHelper(BLOCKS.TABLE_CELL);
