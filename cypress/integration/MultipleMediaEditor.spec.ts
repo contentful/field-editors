@@ -57,7 +57,7 @@ describe('Multiple Media Editor', () => {
       findCustomActionsDropdownTrigger(cy.get('@wrapper')).click();
       findLinkExistingBtn(findCustomActionsDropdown()).click();
       findCards(cy.get('body')).should('have.length', 2);
-      findCustomActionsDropdownTrigger(cy.get('@wrapper')).should('not.be.visible');
+      findCustomActionsDropdownTrigger(cy.get('@wrapper')).should('not.exist');
     });
   });
 
@@ -77,5 +77,5 @@ describe('Multiple Media Editor', () => {
       findCards(cy.get('@wrapper')).should('have.length', 1);
       findCustomCards(cy.get('@wrapper')).should('have.length', 2);
     });
-  })
+  });
 });
