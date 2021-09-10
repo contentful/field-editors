@@ -24,6 +24,9 @@ describe('Markdown Editor / Insert Special Character Dialog', () => {
     getSpecialCharacterButtons() {
       return cy.findAllByTestId('special-character-button');
     },
+    getCharButton(char: string) {
+      return cy.findByText(char);
+    },
   };
 
   const checkValue = (value) => {
@@ -45,7 +48,7 @@ describe('Markdown Editor / Insert Special Character Dialog', () => {
   }
 
   function insertSpecialCharacter(char: string) {
-    selectors.getSpecialCharacterButtons().findByText(char).click();
+    selectors.getCharButton(char).click();
     selectors.getConfirmButton().click();
   }
 
