@@ -744,7 +744,7 @@ describe('Rich Text Editor', () => {
           // Insert an empty table (focus is on first row by default)
           insertTable();
 
-          findAction('Add row above').should('not.exist');
+          findAction('Add row above').parent().should('be.disabled');
         });
 
         it('with table cell', () => {

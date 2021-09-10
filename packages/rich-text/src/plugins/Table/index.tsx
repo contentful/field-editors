@@ -42,10 +42,10 @@ const styles = {
     }
   `,
   [BLOCKS.TABLE_HEADER_CELL]: css`
-    background-color: ${tokens.gray100};
+    background-color: ${tokens.gray200};
     border: 1px solid ${tokens.gray400};
     padding: 10px 12px;
-    font-weight: ${tokens.fontWeightDemiBold};
+    font-weight: ${tokens.fontWeightMedium};
     text-align: left;
     min-width: 48px;
     position: relative;

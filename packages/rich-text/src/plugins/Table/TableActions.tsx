@@ -112,12 +112,11 @@ export const TableActions = () => {
         />
       }>
       <DropdownList>
-        {canInsertRowAbove && (
-          <DropdownListItem onClick={action(addRowAbove, 'insert', 'Row')}>
-            Add row above
-          </DropdownListItem>
-        )}
-
+        <DropdownListItem
+          onClick={action(addRowAbove, 'insert', 'Row')}
+          isDisabled={!canInsertRowAbove}>
+          Add row above
+        </DropdownListItem>
         <DropdownListItem onClick={action(addRowBelow, 'insert', 'Row')}>
           Add row below
         </DropdownListItem>
