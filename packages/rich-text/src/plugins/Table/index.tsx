@@ -150,6 +150,7 @@ function hasTables(nodes: CustomElement[]) {
 }
 
 // FIXME: Remove this once https://github.com/udecode/plate/pull/997 is merged
+// @ts-expect-error
 const getTableCellEntry = (editor: SPEditor) => {
   if (
     someNode(editor, {
