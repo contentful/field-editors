@@ -654,8 +654,11 @@ describe('Rich Text Editor', () => {
     const table = buildHelper(BLOCKS.TABLE);
     const row = buildHelper(BLOCKS.TABLE_ROW);
     const cell = buildHelper(BLOCKS.TABLE_CELL);
+    const header = buildHelper(BLOCKS.TABLE_HEADER_CELL);
     const emptyCell = () => cell(emptyParagraph());
+    const emptyHeader = () => header(emptyParagraph());
     const cellWithText = (t) => cell(paragraphWithText(t));
+    const headerWithText = (t) => header(paragraphWithText(t));
     const insertTable = () => {
       editor().click();
       cy.findByTestId('table-toolbar-button').click();
@@ -719,30 +722,47 @@ describe('Rich Text Editor', () => {
     });
 
     describe('Table Actions', () => {
-      const doAction = (action: string) => {
+      const findAction = (action: string) => {
         cy.findByTestId('cf-table-actions').find('button').click();
-        cy.findByText(action).click();
+        return cy.findByText(action);
+      };
+
+      const doAction = (action: string) => {
+        findAction(action).click();
       };
 
       beforeEach(() => {
         insertTableWithExampleData();
       });
 
-      it('adds row above', () => {
-        doAction('Add row above');
+      describe('adds row above', () => {
+        it('with table header cell', () => {
+          // Delete the table that was added in the beforeEach clause
+          // because we need the focus to be on the first row
+          doAction('Delete table');
 
-        expectTable(
-          row(cellWithText('foo'), cellWithText('bar')),
-          row(emptyCell(), emptyCell()),
-          row(cellWithText('baz'), cellWithText('quux'))
-        );
+          // Insert an empty table (focus is on first row by default)
+          insertTable();
+
+          findAction('Add row above').should('not.exist');
+        });
+
+        it('with table cell', () => {
+          doAction('Add row above');
+
+          expectTable(
+            row(headerWithText('foo'), headerWithText('bar')),
+            row(emptyCell(), emptyCell()),
+            row(cellWithText('baz'), cellWithText('quux'))
+          );
+        });
       });
 
       it('adds row below', () => {
         doAction('Add row below');
 
         expectTable(
-          row(cellWithText('foo'), cellWithText('bar')),
+          row(headerWithText('foo'), headerWithText('bar')),
           row(cellWithText('baz'), cellWithText('quux')),
           row(emptyCell(), emptyCell())
         );
@@ -752,7 +772,7 @@ describe('Rich Text Editor', () => {
         doAction('Add column left');
 
         expectTable(
-          row(cellWithText('foo'), emptyCell(), cellWithText('bar')),
+          row(headerWithText('foo'), emptyHeader(), headerWithText('bar')),
           row(cellWithText('baz'), emptyCell(), cellWithText('quux'))
         );
       });
@@ -761,21 +781,37 @@ describe('Rich Text Editor', () => {
         doAction('Add column right');
 
         expectTable(
-          row(cellWithText('foo'), cellWithText('bar'), emptyCell()),
+          row(headerWithText('foo'), headerWithText('bar'), emptyHeader()),
           row(cellWithText('baz'), cellWithText('quux'), emptyCell())
+        );
+      });
+
+      it('enables/disables table header', () => {
+        doAction('Disable table header');
+
+        expectTable(
+          row(cellWithText('foo'), cellWithText('bar')),
+          row(cellWithText('baz'), cellWithText('quux'))
+        );
+
+        doAction('Enable table header');
+
+        expectTable(
+          row(headerWithText('foo'), headerWithText('bar')),
+          row(cellWithText('baz'), cellWithText('quux'))
         );
       });
 
       it('deletes row', () => {
         doAction('Delete row');
 
-        expectTable(row(cellWithText('foo'), cellWithText('bar')));
+        expectTable(row(headerWithText('foo'), headerWithText('bar')));
       });
 
       it('deletes column', () => {
         doAction('Delete column');
 
-        expectTable(row(cellWithText('foo')), row(cellWithText('baz')));
+        expectTable(row(headerWithText('foo')), row(cellWithText('baz')));
       });
 
       it('deletes table', () => {
