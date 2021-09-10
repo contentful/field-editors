@@ -178,7 +178,6 @@ const getTableCellEntry = (editor: SPEditor) => {
     )
       return;
 
-    console.log({ tableCell });
     const tableRow = getParent(editor, tableCellPath);
     if (!tableRow) return;
     const [tableRowNode, tableRowPath] = tableRow;
@@ -206,7 +205,6 @@ function createWithTableEvents(tracking: TrackingProvider) {
       if (e.key === 'Tab') {
         e.preventDefault();
         const res = getTableCellEntry(editor);
-        console.log({ res });
         if (!res) return;
 
         const { tableRow, tableCell } = res;
