@@ -9,7 +9,7 @@ import {
   TablePluginOptions,
   getEmptyRowNode,
 } from '@udecode/plate-table';
-import { insertNodes, someNode, getAbove } from '@udecode/plate-common';
+import { insertNodes, someNode, getAbove, getChildren } from '@udecode/plate-common';
 
 import { isBlockSelected, getNodeEntryFromSelection } from '../../helpers/editor';
 
@@ -63,22 +63,23 @@ export function isTableActive(editor: SPEditor) {
 }
 
 export function isTableHeaderEnabled(editor: SPEditor) {
-  const tableInfo = getAbove(editor, {
+  const tableItem = getAbove(editor, {
     match: {
       type: BLOCKS.TABLE,
     },
   });
 
-  const tableNode = tableInfo?.[0];
-  if (!tableNode) {
+  if (!tableItem) {
     return false;
   }
 
-  const firstRow = tableNode.children[0];
+  const firstRow = getChildren(tableItem)[0];
 
   if (!firstRow) {
     return false;
   }
 
-  return firstRow.children.every((node) => node.type === BLOCKS.TABLE_HEADER_CELL);
+  return getChildren(firstRow).every(([node]) => {
+    return node.type === BLOCKS.TABLE_HEADER_CELL;
+  });
 }
