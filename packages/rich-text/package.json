@@ -27,10 +27,11 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@contentful/forma-36-react-components": "^3.97.0",
     "@contentful/contentful-slatejs-adapter": "^14.2.0",
     "@contentful/field-editor-reference": "^2.20.6",
+    "@contentful/forma-36-react-components": "^3.97.0",
     "@contentful/rich-text-types": "^15.3.0",
+    "@udecode/plate-break": "^3.0.3",
     "@udecode/plate-common": "^2.0.0",
     "@udecode/plate-core": "^1.0.0",
     "@udecode/plate-html-serializer": "^2.0.0",

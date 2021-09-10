@@ -5766,6 +5766,14 @@
     "@typescript-eslint/types" "4.27.0"
     eslint-visitor-keys "^2.0.0"
 
+"@udecode/plate-break@^3.0.3":
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-break/-/plate-break-3.0.3.tgz#a274f668dadab33c508bc4ec9cccfa8948a85e7e"
+  integrity sha512-2HowGJbuB8RAw6iFT694xDns+IiqUp13Y8D66ssmkz2KVQ7msKhaU5VedfAg+h3VO2aJJzTZLyYQH2V9N33NwA==
+  dependencies:
+    "@udecode/plate-common" "2.0.0"
+    "@udecode/plate-core" "1.0.0"
+
 "@udecode/plate-common@2.0.0", "@udecode/plate-common@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@udecode/plate-common/-/plate-common-2.0.0.tgz#60587a7a4238ba88b5286a2b5c2e0c9838208711"
