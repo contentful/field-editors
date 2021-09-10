@@ -51,6 +51,8 @@ function moveToFirstCellFromSelectedTable(editor) {
 }
 
 export function insertTableAndFocusFirstCell(editor: SPEditor): void {
+  // FIXME: a table should only be allowed at root level. Currently this
+  // code adds it at any level
   insertTable(editor, { header: true });
   moveToFirstCellFromSelectedTable(editor);
 }
