@@ -1,6 +1,9 @@
+import { css } from 'emotion';
 import * as React from 'react';
 import * as Slate from 'slate-react';
-import { css } from 'emotion';
+import { SPEditor } from '@udecode/plate-core';
+import tokens from '@contentful/forma-36-tokens';
+import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { BLOCKS, TableCell, TableHeaderCell } from '@contentful/rich-text-types';
 import {
   ELEMENT_TD,
@@ -8,21 +11,14 @@ import {
   ELEMENT_TH,
   ELEMENT_TABLE,
   createTablePlugin as createTablePluginFromUdecode,
-  // getTableOnKeyDown,
-  // getTableCellEntry,
-  getPreviousTableCell,
-  getNextTableCell,
+  getTableOnKeyDown,
 } from '@udecode/plate-table';
-import { CustomElement, CustomSlatePluginOptions } from 'types';
-import tokens from '@contentful/forma-36-tokens';
-import { SPEditor, getPlatePluginType } from '@udecode/plate-core';
-import { isTableActive, insertTableAndFocusFirstCell } from './helpers';
-import { EditorToolbarButton } from '@contentful/forma-36-react-components';
+
 import { TableActions } from './TableActions';
-import { TrackingProvider, useTrackingContext } from '../../TrackingProvider';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
-import { Transforms } from 'slate';
-import { someNode, getParent, getAbove } from '@udecode/plate-common';
+import { CustomElement, CustomSlatePluginOptions } from '../../types';
+import { isTableActive, insertTableAndFocusFirstCell } from './helpers';
+import { TrackingProvider, useTrackingContext } from '../../TrackingProvider';
 
 const styles = {
   [BLOCKS.TABLE]: css`
@@ -149,87 +145,10 @@ function hasTables(nodes: CustomElement[]) {
   });
 }
 
-// FIXME: Remove this once https://github.com/udecode/plate/pull/997 is merged
-// @ts-expect-error
-const getTableCellEntry = (editor: SPEditor) => {
-  if (
-    someNode(editor, {
-      match: {
-        type: [getPlatePluginType(editor, ELEMENT_TD), getPlatePluginType(editor, ELEMENT_TH)],
-      },
-    })
-  ) {
-    const selectionParent = getParent(editor, editor.selection as any);
-    if (!selectionParent) return;
-    const [, paragraphPath] = selectionParent;
-
-    const tableCell =
-      getAbove(editor, {
-        match: {
-          type: [getPlatePluginType(editor, ELEMENT_TD), getPlatePluginType(editor, ELEMENT_TH)],
-        },
-      }) || getParent(editor, paragraphPath);
-
-    if (!tableCell) return;
-    const [tableCellNode, tableCellPath] = tableCell;
-
-    if (
-      tableCellNode.type !== getPlatePluginType(editor, ELEMENT_TD) &&
-      tableCellNode.type !== getPlatePluginType(editor, ELEMENT_TH)
-    )
-      return;
-
-    const tableRow = getParent(editor, tableCellPath);
-    if (!tableRow) return;
-    const [tableRowNode, tableRowPath] = tableRow;
-
-    if (tableRowNode.type !== getPlatePluginType(editor, ELEMENT_TR)) return;
-
-    const tableElement = getParent(editor, tableRowPath);
-    if (!tableElement) return;
-
-    return {
-      tableElement,
-      tableRow,
-      tableCell,
-    };
-  }
-};
-
 function createWithTableEvents(tracking: TrackingProvider) {
   return function withTableEvents(editor: SPEditor) {
     addTableTrackingEvents(editor, tracking);
-    // const withTableEventsFromUdecode = getTableOnKeyDown()(editor);
-    // FIXE: replace with getTableOnKeyDown from udecode once
-    // https://github.com/udecode/plate/pull/997 is merged
-    return function onKeyDown(e: React.KeyboardEvent) {
-      if (e.key === 'Tab') {
-        e.preventDefault();
-        const res = getTableCellEntry(editor);
-        if (!res) return;
-
-        const { tableRow, tableCell } = res;
-
-        const [, tableCellPath] = tableCell;
-        const shiftTab = e.shiftKey;
-        const tab = !e.shiftKey;
-        if (shiftTab) {
-          // move left with shift+tab
-          const previousCell = getPreviousTableCell(editor, tableCell, tableCellPath, tableRow);
-          if (previousCell) {
-            const [, previousCellPath] = previousCell;
-            Transforms.select(editor, previousCellPath);
-          }
-        } else if (tab) {
-          // move right with tab
-          const nextCell = getNextTableCell(editor, tableCell, tableCellPath, tableRow);
-          if (nextCell) {
-            const [, nextCellPath] = nextCell;
-            Transforms.select(editor, nextCellPath);
-          }
-        }
-      }
-    };
+    return getTableOnKeyDown()(editor);
   };
 }
 

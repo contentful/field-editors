@@ -2063,10 +2063,10 @@
   resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-14.1.2.tgz#33162fdbf427891122a96030f806ca9a9cf0e844"
   integrity sha512-XbgZ7op5uyYYszipgQg/bYobF4b+llXyTwS8hISRniQY9xKESz544eP2OGmRc4J3MHx29M7Vmx7TVA/IK65giQ==
 
-"@contentful/rich-text-types@^15.0.0", "@contentful/rich-text-types@^15.3.0":
-  version "15.3.0"
-  resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-15.3.0.tgz#faf2816e1eca01aab05434fd7208e5c51b80ff41"
-  integrity sha512-0ZtK6oOkSv4UOXfv29206g24Tsh6PmcWvVKeXK0bic0r5xJU93rZN3DzR/vy/EllORhaW9fA7F+CJzKjL7eJ0w==
+"@contentful/rich-text-types@^15.0.0", "@contentful/rich-text-types@^15.3.3":
+  version "15.3.3"
+  resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-15.3.3.tgz#92e478abce9c2dde4e68324c4fddfa5d3161a980"
+  integrity sha512-eT16r2G/bZmVyP2vXUx2n3RWY5W4IaeZJaxFDGFewLUE8Lw8sX+AW3gQAaSe8A2pHxNkOdpotKGOMxGyH7i5cA==
 
 "@contentful/rich-text-types@^5.0.0":
   version "5.0.0"
@@ -4779,10 +4779,10 @@
     "@udecode/plate-common" "2.0.0"
     "@udecode/plate-core" "1.0.0"
 
-"@udecode/plate-table@^3.0.2":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@udecode/plate-table/-/plate-table-3.0.2.tgz#430e70439c9c0b41e7eeec2ac8576b1fe7dfd0b7"
-  integrity sha512-101uRZ468OnZ/fydkwARFwl+x+abPG7Wujl1vvBWw+QLZO+PeReR/xhk1NZUl08KrmdIL9xAznLtMMVHEDKcDw==
+"@udecode/plate-table@^3.1.2":
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-table/-/plate-table-3.1.2.tgz#f6e5552efe9d33295077753b4944c89ff50ccb4c"
+  integrity sha512-h2OAzbpIsz9AA2ZNZgU8+63bzxAXJCa+JP5z+dUmxmnTLO7t0ILsmj9XSwywlcQRQWanamS9b4CiktFGfOkByA==
   dependencies:
     "@udecode/plate-common" "2.0.0"
     "@udecode/plate-core" "1.0.0"
