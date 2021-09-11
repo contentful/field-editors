@@ -72,21 +72,3 @@ Cypress.Commands.add('getRichTextField', () => {
     return win.richTextField;
   });
 });
-
-Cypress.Commands.add('typeInSlate', { prevSubject: true }, (subject, text) => {
-  return cy.wrap(subject).type(text);
-  // Needed because cypress's `type` doesn't trigger `beforeinput` events by default.
-  // This is the primary way Slate picks up on UI events
-  // cf. https://github.com/ianstormtaylor/slate/issues/3476
-  // TODO: this is solved in cypress 5.5.0, but upgrading breaks several other
-  // test suites. We should update and tweak those spots so we don't have to
-  // type using this hack.
-  // return cy.wrap(subject).then((subject) => {
-  //   const event = new InputEvent('beforeinput', {
-  //     inputType: 'insertText',
-  //     data: text,
-  //   });
-  //   subject[0].dispatchEvent(event);
-  //   return subject;
-  // });
-});

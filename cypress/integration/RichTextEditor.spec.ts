@@ -56,7 +56,7 @@ describe('Rich Text Editor', () => {
   }
 
   function addBlockquote(content = '') {
-    editor().click().typeInSlate(content);
+    editor().click().type(content);
 
     getQuoteToolbarButton().click();
 
@@ -83,7 +83,7 @@ describe('Rich Text Editor', () => {
   });
 
   it('allows typing', () => {
-    editor().click().typeInSlate('some text').click();
+    editor().click().type('some text').click();
 
     cy.wait(500);
 
@@ -96,7 +96,7 @@ describe('Rich Text Editor', () => {
     const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text.')));
 
     // type
-    editor().click().typeInSlate('some text.').click();
+    editor().click().type('some text.').click();
 
     cy.wait(500);
 
@@ -127,7 +127,7 @@ describe('Rich Text Editor', () => {
 
           toggleMarkViaToolbar();
 
-          editor().typeInSlate('some text');
+          editor().type('some text');
 
           cy.wait(600);
 
@@ -139,7 +139,7 @@ describe('Rich Text Editor', () => {
         });
 
         it('allows writing marked text by selecting text', () => {
-          editor().click().typeInSlate('some text');
+          editor().click().type('some text');
 
           cy.wait(100);
 
@@ -162,7 +162,7 @@ describe('Rich Text Editor', () => {
           toggleMarkViaToolbar();
           toggleMarkViaToolbar();
 
-          editor().typeInSlate('some text');
+          editor().type('some text');
 
           cy.wait(600);
 
@@ -172,7 +172,7 @@ describe('Rich Text Editor', () => {
         });
 
         it('allows writing unmarked text by selecting text', () => {
-          editor().click().typeInSlate('some text');
+          editor().click().type('some text');
 
           cy.wait(100);
 
@@ -196,7 +196,7 @@ describe('Rich Text Editor', () => {
 
       describe(`${mark} mark toggle via shortcut`, () => {
         it('allows writing marked text', () => {
-          editor().click().type(shortcut).typeInSlate('some text');
+          editor().click().type(shortcut).type('some text');
 
           cy.wait(600);
 
@@ -208,7 +208,7 @@ describe('Rich Text Editor', () => {
         });
 
         it('allows writing marked text by selecting text', () => {
-          editor().click().typeInSlate('some text');
+          editor().click().type('some text');
 
           cy.wait(100);
 
@@ -224,7 +224,7 @@ describe('Rich Text Editor', () => {
         });
 
         it('allows writing unmarked text', () => {
-          editor().click().type(shortcut).type(shortcut).typeInSlate('some text');
+          editor().click().type(shortcut).type(shortcut).type('some text');
 
           cy.wait(600);
 
@@ -234,7 +234,7 @@ describe('Rich Text Editor', () => {
         });
 
         it('allows writing unmarked text by selecting text', () => {
-          editor().click().typeInSlate('some text');
+          editor().click().type('some text');
 
           cy.wait(100);
 
@@ -261,7 +261,7 @@ describe('Rich Text Editor', () => {
       });
 
       it('should add a new line when clicking', () => {
-        editor().click().typeInSlate('some text');
+        editor().click().type('some text');
 
         getHrToolbarButton().click();
 
@@ -277,7 +277,7 @@ describe('Rich Text Editor', () => {
       });
 
       it('should end with an empty paragraph', () => {
-        editor().click().typeInSlate('some text');
+        editor().click().type('some text');
 
         getHrToolbarButton().click();
         getHrToolbarButton().click();
@@ -344,7 +344,7 @@ describe('Rich Text Editor', () => {
     headings.forEach(([type, label, shortcut]) => {
       describe(label, () => {
         it(`allows typing ${label} (${type})`, () => {
-          editor().click().typeInSlate('some text');
+          editor().click().type('some text');
 
           getDropdownToolbarButton().click();
           getDropdownItem(type).click();
@@ -360,7 +360,7 @@ describe('Rich Text Editor', () => {
 
         if (shortcut) {
           it(`allows writing ${label} (${type}) via hotkeys ${shortcut}`, () => {
-            editor().click().type(shortcut).typeInSlate('some text');
+            editor().click().type(shortcut).type('some text');
 
             cy.wait(600);
 
@@ -371,7 +371,7 @@ describe('Rich Text Editor', () => {
         }
 
         it(`should set the dropdown label to ${label}`, () => {
-          editor().click().typeInSlate('some text');
+          editor().click().type('some text');
 
           getDropdownToolbarButton().click();
           getDropdownItem(type).click();
@@ -447,7 +447,7 @@ describe('Rich Text Editor', () => {
       });
 
       it('should convert existing paragraph into a block quote', () => {
-        editor().click().typeInSlate('some text');
+        editor().click().type('some text');
 
         getQuoteToolbarButton().click();
 
@@ -462,7 +462,7 @@ describe('Rich Text Editor', () => {
       });
 
       it('should convert block quote back to paragraph', () => {
-        editor().click().typeInSlate('some text');
+        editor().click().type('some text');
 
         getQuoteToolbarButton().click();
         getQuoteToolbarButton().click();
@@ -478,11 +478,11 @@ describe('Rich Text Editor', () => {
       });
 
       it('should add multi-paragraph block quotes', () => {
-        editor().click().typeInSlate('paragraph 1');
+        editor().click().type('paragraph 1');
 
         getQuoteToolbarButton().click();
 
-        editor().type('{enter}').typeInSlate('paragraph 2');
+        editor().type('{enter}').type('paragraph 2');
 
         cy.wait(600);
 
@@ -523,7 +523,7 @@ describe('Rich Text Editor', () => {
             The error is:
             Cannot resolve a Slate node from DOM node: [object HTMLSpanElement]
           */
-          editor().typeInSlate('item 1');
+          editor().type('item 1');
 
           cy.wait(600);
 
@@ -544,7 +544,7 @@ describe('Rich Text Editor', () => {
 
           test.getList().click();
 
-          editor().typeInSlate('some text');
+          editor().type('some text');
 
           test.getList().click();
 
@@ -581,11 +581,11 @@ describe('Rich Text Editor', () => {
     it('should add a new line on a paragraph', () => {
       editor()
         .click()
-        .typeInSlate('some text 1')
+        .type('some text 1')
         .type('{shift}{enter}')
-        .typeInSlate('some text 2')
+        .type('some text 2')
         .type('{shift}{enter}')
-        .typeInSlate('some text 3');
+        .type('some text 3');
 
       cy.wait(100);
 
@@ -603,11 +603,11 @@ describe('Rich Text Editor', () => {
       getDropdownItem(BLOCKS.HEADING_1).click();
 
       editor()
-        .typeInSlate('some text 1')
+        .type('some text 1')
         .type('{shift}{enter}')
-        .typeInSlate('some text 2')
+        .type('some text 2')
         .type('{shift}{enter}')
-        .typeInSlate('some text 3');
+        .type('some text 3');
 
       cy.wait(100);
 
@@ -625,11 +625,11 @@ describe('Rich Text Editor', () => {
       getUlToolbarButton().click();
 
       editor()
-        .typeInSlate('some text 1')
+        .type('some text 1')
         .type('{shift}{enter}')
-        .typeInSlate('some text 2')
+        .type('some text 2')
         .type('{shift}{enter}')
-        .typeInSlate('some text 3');
+        .type('some text 3');
 
       cy.wait(100);
 
@@ -666,13 +666,13 @@ describe('Rich Text Editor', () => {
     };
     const insertTableWithExampleData = () => {
       insertTable()
-        .typeInSlate('foo')
+        .type('foo')
         .type('{rightArrow}')
-        .typeInSlate('bar')
+        .type('bar')
         .type('{rightArrow}')
-        .typeInSlate('baz')
+        .type('baz')
         .type('{rightArrow}')
-        .typeInSlate('quux');
+        .type('quux');
     };
     const expectDocumentStructure = (...elements) => {
       cy.wait(100);
@@ -704,10 +704,9 @@ describe('Rich Text Editor', () => {
       // select outside the table
       editor().click().type('{downArrow}').wait(100);
 
-      cy.findByTestId('quote-toolbar-button').should('not.be.disabled');
-      cy.findByTestId('ul-toolbar-button').should('not.be.disabled');
-      cy.findByTestId('ol-toolbar-button').should('not.be.disabled');
-      cy.findByTestId('list-toolbar-button').should('not.be.disabled');
+      blockElements.forEach((el) => {
+        cy.findByTestId(`${el}-toolbar-button`).should('not.be.disabled');
+      });
 
       getDropdownToolbarButton().click();
       [
@@ -864,7 +863,7 @@ describe('Rich Text Editor', () => {
     for (const [triggerMethod, triggerLinkModal] of methods) {
       describe(triggerMethod, () => {
         it('adds and removes hyperlinks', () => {
-          editor().click().typeInSlate('The quick brown fox jumps over the lazy ');
+          editor().click().type('The quick brown fox jumps over the lazy ');
 
           cy.wait(500);
 
@@ -906,7 +905,7 @@ describe('Rich Text Editor', () => {
         });
 
         it('converts text to URL hyperlink', () => {
-          editor().click().typeInSlate('My cool website').click().type('{selectall}');
+          editor().click().type('My cool website').click().type('{selectall}');
 
           cy.wait(500);
 
@@ -929,7 +928,7 @@ describe('Rich Text Editor', () => {
         });
 
         it('converts text to entry hyperlink', () => {
-          editor().click().typeInSlate('My cool entry').click().type('{selectall}');
+          editor().click().type('My cool entry').click().type('{selectall}');
 
           cy.wait(500);
 
@@ -962,7 +961,7 @@ describe('Rich Text Editor', () => {
         });
 
         it('converts text to asset hyperlink', () => {
-          editor().click().typeInSlate('My cool asset').click().type('{selectall}');
+          editor().click().type('My cool asset').click().type('{selectall}');
 
           cy.wait(500);
 
@@ -995,7 +994,7 @@ describe('Rich Text Editor', () => {
         });
 
         it('edits hyperlinks', () => {
-          editor().click().typeInSlate('My cool website').click().type('{selectall}');
+          editor().click().type('My cool website').click().type('{selectall}');
 
           cy.wait(500);
 
@@ -1116,7 +1115,7 @@ describe('Rich Text Editor', () => {
 
     for (const [triggerMethod, triggerEmbeddedEntry] of methods) {
       describe(triggerMethod, () => {
-        it('adds and removes embedded entries', () => {
+        it.only('adds and removes embedded entries', () => {
           editor().click();
           triggerEmbeddedEntry();
 
@@ -1148,7 +1147,7 @@ describe('Rich Text Editor', () => {
         it('adds embedded entries between words', () => {
           editor()
             .click()
-            .typeInSlate('foobar')
+            .type('foobar')
             .type('{leftArrow}')
             .type('{leftArrow}')
             .type('{leftArrow}')
@@ -1231,7 +1230,7 @@ describe('Rich Text Editor', () => {
         it('adds embedded assets between words', () => {
           editor()
             .click()
-            .typeInSlate('foobar')
+            .type('foobar')
             .type('{leftArrow}')
             .type('{leftArrow}')
             .type('{leftArrow}')
@@ -1283,9 +1282,9 @@ describe('Rich Text Editor', () => {
     for (const [triggerMethod, triggerEmbeddedAsset] of methods) {
       describe(triggerMethod, () => {
         it('adds and removes embedded entries', () => {
-          editor().click().typeInSlate('hello');
+          editor().click().type('hello');
           triggerEmbeddedAsset();
-          editor().click().typeInSlate('world');
+          editor().click().type('world');
 
           cy.wait(500);
 
