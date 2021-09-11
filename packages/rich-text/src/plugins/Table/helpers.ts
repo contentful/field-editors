@@ -1,6 +1,7 @@
 import { Transforms } from 'slate';
 import { SPEditor } from '@udecode/plate-core';
 import { BLOCKS } from '@contentful/rich-text-types';
+import { getAbove, getChildren } from '@udecode/plate-common';
 import {
   ELEMENT_TABLE,
   ELEMENT_TH,
@@ -9,7 +10,6 @@ import {
   insertTable,
 } from '@udecode/plate-table';
 
-import { CustomSlatePluginOptions } from '../../types';
 import { isBlockSelected, getNodeEntryFromSelection } from '../../helpers/editor';
 
 /**
@@ -31,15 +31,36 @@ function moveToFirstCellFromSelectedTable(editor) {
   Transforms.setSelection(editor, { anchor, focus: anchor });
 }
 
-export function insertTableAndFocusFirstCell(
-  editor: SPEditor,
-  withTableOptions: CustomSlatePluginOptions
-): void {
-  insertTable(editor, withTableOptions);
+export function insertTableAndFocusFirstCell(editor: SPEditor): void {
+  // FIXME: a table should only be allowed at root level. Currently this
+  // code adds it at any level
+  insertTable(editor, { header: true });
   moveToFirstCellFromSelectedTable(editor);
 }
 
 export function isTableActive(editor: SPEditor) {
   const tableElements = [ELEMENT_TABLE, ELEMENT_TH, ELEMENT_TR, ELEMENT_TD];
   return tableElements.some((el) => isBlockSelected(editor, el));
+}
+
+export function isTableHeaderEnabled(editor: SPEditor) {
+  const tableItem = getAbove(editor, {
+    match: {
+      type: BLOCKS.TABLE,
+    },
+  });
+
+  if (!tableItem) {
+    return false;
+  }
+
+  const firstRow = getChildren(tableItem)[0];
+
+  if (!firstRow) {
+    return false;
+  }
+
+  return getChildren(firstRow).every(([node]) => {
+    return node.type === BLOCKS.TABLE_HEADER_CELL;
+  });
 }
