@@ -1,18 +1,9 @@
 import { Transforms, Path, Editor } from 'slate';
 import { getAbove, insertNodes, someNode } from '@udecode/plate-common';
 import { getPlatePluginType, SPEditor, TElement } from '@udecode/plate-core';
-import {
-  ELEMENT_TABLE,
-  ELEMENT_TR,
-  TablePluginOptions,
-  getEmptyRowNode,
-} from '@udecode/plate-table';
+import { ELEMENT_TABLE, ELEMENT_TR, getEmptyRowNode } from '@udecode/plate-table';
 
-const addRow = (
-  editor: SPEditor,
-  { header }: TablePluginOptions,
-  getNextRowPath: (currentRowPath: Path) => Path
-) => {
+const addRow = (editor: SPEditor, getNextRowPath: (currentRowPath: Path) => Path) => {
   if (
     someNode(editor, {
       match: { type: getPlatePluginType(editor, ELEMENT_TABLE) },
@@ -21,6 +12,7 @@ const addRow = (
     const currentRowItem = getAbove(editor, {
       match: { type: getPlatePluginType(editor, ELEMENT_TR) },
     });
+
     if (currentRowItem) {
       const [currentRowElem, currentRowPath] = currentRowItem;
       const nextRowPath = getNextRowPath(currentRowPath);
@@ -29,7 +21,7 @@ const addRow = (
         editor,
         // @ts-expect-error
         getEmptyRowNode(editor, {
-          header,
+          header: false,
           colCount: currentRowElem.children.length,
         }),
         {
@@ -45,14 +37,14 @@ const addRow = (
   }
 };
 
-export const addRowBelow = (editor: SPEditor, options: TablePluginOptions) => {
-  addRow(editor, options, (currentRowPath) => {
+export const addRowBelow = (editor: SPEditor) => {
+  addRow(editor, (currentRowPath) => {
     return Path.next(currentRowPath);
   });
 };
 
-export const addRowAbove = (editor: SPEditor, options: TablePluginOptions) => {
-  addRow(editor, options, (currentRowPath) => {
+export const addRowAbove = (editor: SPEditor) => {
+  addRow(editor, (currentRowPath) => {
     // The new row will be in in-place of the old row
     return currentRowPath;
   });
