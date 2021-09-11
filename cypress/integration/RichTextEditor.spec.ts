@@ -7,9 +7,9 @@ import {
 } from '../../packages/rich-text/src/helpers/nodeFactory';
 
 function expectRichTextFieldValue(expectedValue, editorEvents?) {
-  cy.getRichTextField()
-    .then((field) => field.getValue())
-    .should('deep.equal', expectedValue);
+  cy.getRichTextField().should((field) => {
+    expect(field.getValue()).to.deep.equal(expectedValue);
+  });
 
   if (editorEvents) {
     cy.editorEvents().should('deep.include', { ...editorEvents, value: expectedValue });
@@ -282,7 +282,7 @@ describe('Rich Text Editor', () => {
         getHrToolbarButton().click();
 
         // Move arrow up to select the HR then press ENTER
-        editor().type('{upArrow}{enter}');
+        editor().click().type('{upArrow}{enter}');
 
         const expectedValue = doc(
           block(BLOCKS.PARAGRAPH, {}, text('', [])),
@@ -400,8 +400,6 @@ describe('Rich Text Editor', () => {
 
         getQuoteToolbarButton().click();
 
-        cy.wait(600);
-
         const expectedValue = doc(
           block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text('', []))),
           block(BLOCKS.PARAGRAPH, {}, text('', []))
@@ -414,8 +412,6 @@ describe('Rich Text Editor', () => {
         editor().click().type('some text');
 
         getQuoteToolbarButton().click();
-
-        cy.wait(600);
 
         const expectedValue = doc(
           block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text('some text', []))),
@@ -431,8 +427,6 @@ describe('Rich Text Editor', () => {
         getQuoteToolbarButton().click();
         getQuoteToolbarButton().click();
 
-        cy.wait(600);
-
         const expectedValue = doc(
           block(BLOCKS.PARAGRAPH, {}, text('some text', [])),
           block(BLOCKS.PARAGRAPH, {}, text('', []))
@@ -447,8 +441,6 @@ describe('Rich Text Editor', () => {
         getQuoteToolbarButton().click();
 
         editor().type('{enter}').type('paragraph 2');
-
-        cy.wait(600);
 
         const expectedValue = doc(
           block(
@@ -1048,7 +1040,7 @@ describe('Rich Text Editor', () => {
           cy.findByTestId('cf-ui-card-actions').click();
           cy.findByTestId('delete').click();
 
-          expectRichTextFieldValue(void 0);
+          expectRichTextFieldValue(undefined);
         });
 
         it('adds embedded entries between words', () => {
@@ -1117,7 +1109,7 @@ describe('Rich Text Editor', () => {
           cy.findByTestId('cf-ui-card-actions').findByTestId('cf-ui-icon-button').click();
           cy.findByTestId('card-action-remove').click();
 
-          expectRichTextFieldValue(void 0);
+          expectRichTextFieldValue(undefined);
         });
 
         it('adds embedded assets between words', () => {
