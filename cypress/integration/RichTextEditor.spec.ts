@@ -1195,7 +1195,7 @@ describe('Rich Text Editor', () => {
 
     for (const [triggerMethod, triggerEmbeddedAsset] of methods) {
       describe(triggerMethod, () => {
-        it.only('adds and removes embedded assets', () => {
+        it('adds and removes embedded assets', () => {
           editor().click();
           triggerEmbeddedAsset();
 
