@@ -96,15 +96,15 @@ describe('Rich Text Editor', () => {
     // type
     editor().click().type('some text.').click();
 
-    expectRichTextFieldValue(expectedValue, { id: 3, type: 'setValue' });
+    expectRichTextFieldValue(expectedValue, { id: 21, type: 'setValue' });
 
     // undo
     editor().click().type(`{${mod}}z`).click();
-    expectRichTextFieldValue(undefined, { id: 6, type: 'removeValue' });
+    expectRichTextFieldValue(undefined, { id: 24, type: 'removeValue' });
 
     // redo
     editor().click().type(`{${mod}}{shift}z`).click();
-    expectRichTextFieldValue(expectedValue, { id: 9, type: 'setValue' });
+    expectRichTextFieldValue(expectedValue, { id: 27, type: 'setValue' });
   });
 
   describe('Marks', () => {
