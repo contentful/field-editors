@@ -281,6 +281,12 @@ describe('Rich Text Editor', () => {
 
         getHrToolbarButton().click();
 
+        // Not necessary for the test but here to "force" waiting until
+        // we have the expected document structure
+        expectRichTextFieldValue(
+          doc(block(BLOCKS.HR, {}), block(BLOCKS.PARAGRAPH, {}, text('', [])))
+        );
+
         // Move arrow up to select the HR then press ENTER
         editor().click().type('{upArrow}{enter}');
 
