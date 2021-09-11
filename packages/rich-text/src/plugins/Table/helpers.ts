@@ -1,35 +1,16 @@
 import { Transforms } from 'slate';
-import { getPlatePluginType, SPEditor } from '@udecode/plate-core';
+import { SPEditor } from '@udecode/plate-core';
 import { BLOCKS } from '@contentful/rich-text-types';
+import { getAbove, getChildren } from '@udecode/plate-common';
 import {
   ELEMENT_TABLE,
   ELEMENT_TH,
   ELEMENT_TD,
   ELEMENT_TR,
-  TablePluginOptions,
-  getEmptyRowNode,
+  insertTable,
 } from '@udecode/plate-table';
-import { insertNodes, someNode, getAbove, getChildren } from '@udecode/plate-common';
 
 import { isBlockSelected, getNodeEntryFromSelection } from '../../helpers/editor';
-
-// TODO: to be replaced with the upstream version once https://github.com/udecode/plate/pull/994
-// is merged
-const insertTable = (editor: SPEditor, { header }: TablePluginOptions) => {
-  if (
-    !someNode(editor, {
-      match: { type: getPlatePluginType(editor, ELEMENT_TABLE) },
-    })
-  ) {
-    insertNodes<any>(editor, {
-      type: getPlatePluginType(editor, ELEMENT_TABLE),
-      children: [
-        getEmptyRowNode(editor, { header, colCount: 2 }),
-        getEmptyRowNode(editor, { header: false, colCount: 2 }),
-      ],
-    });
-  }
-};
 
 /**
  * Sets the UI focus to the first cell of the selected table.
