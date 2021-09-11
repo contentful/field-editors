@@ -2001,59 +2001,14 @@
     "@contentful/forma-36-tokens" "^0.10.1"
     emotion "^10.0.17"
 
-"@contentful/forma-36-fcss@^0.3.3":
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-fcss/-/forma-36-fcss-0.3.3.tgz#ea0a11a5c3fea05f99d93113cda27b9e279828f2"
-  integrity sha512-QvXbGLAWPiohMQNzcUB1sMGbc02G0v+tod/iMgiQQQnTQh9ovlgmkENG9XFY2aOhLJGIeS1GDRN1/sU8XwyBfg==
-  dependencies:
-    "@contentful/forma-36-tokens" "^0.11.0"
-
-"@contentful/forma-36-fcss@^0.3.4":
+"@contentful/forma-36-fcss@^0.3.3", "@contentful/forma-36-fcss@^0.3.4":
   version "0.3.4"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-fcss/-/forma-36-fcss-0.3.4.tgz#eab17b9bac980aa6658259504631269017c27cd9"
   integrity sha512-oKIi2RcaAtrx0pKnWnEc0qeUsPFxYOsVOCAAZssY8LOYkuXR7PnNkLnBGay4iabALEUBUUnPpj5UMPL6jBRZtg==
   dependencies:
     "@contentful/forma-36-tokens" "^0.11.1"
 
-"@contentful/forma-36-react-components@^3.79.5":
-  version "3.93.2"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.93.2.tgz#c054076b5adff2df261155c3b945a8a9c8778158"
-  integrity sha512-knMdxRPZFodyvTuNvrymmQLah6xe6dkmEaKgiauii99t9Qo4y5fOwiFceKXD5P5RHc6O8Xbb9KeOheRrV4E16Q==
-  dependencies:
-    "@babel/runtime" "^7.3.4"
-    "@contentful/forma-36-fcss" "^0.3.3"
-    "@contentful/forma-36-tokens" "^0.11.0"
-    "@popperjs/core" "^2.4.4"
-    classnames "^2.2.6"
-    csstype "^3.0.5"
-    dayjs "^1.9.1"
-    react-animate-height "^2.0.7"
-    react-copy-to-clipboard "^5.0.1"
-    react-modal "^3.11.2"
-    react-popper "^2.2.3"
-    react-transition-group "^4.4.2"
-    truncate "^2.0.1"
-
-"@contentful/forma-36-react-components@^3.93.4":
-  version "3.93.5"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.93.5.tgz#2443b02fd52dd7578c0fcac764235cf4a8cd5d54"
-  integrity sha512-Oi3JetsK+utH9WBBstJz2FQoYLPYE6ziRSp+LAroDh2kFyikihwVj1WE66jUMWS3sifU0TxrcQ97mPJBYGS71w==
-  dependencies:
-    "@babel/runtime" "^7.3.4"
-    "@contentful/forma-36-fcss" "^0.3.3"
-    "@contentful/forma-36-tokens" "^0.11.0"
-    "@popperjs/core" "^2.4.4"
-    classnames "^2.2.6"
-    csstype "^3.0.5"
-    dayjs "^1.9.1"
-    react-animate-height "^2.0.7"
-    react-copy-to-clipboard "^5.0.1"
-    react-modal "^3.11.2"
-    react-popper "^2.2.3"
-    react-transition-group "^4.4.2"
-    truncate "^2.0.1"
-
-"@contentful/forma-36-react-components@^3.97.0":
+"@contentful/forma-36-react-components@^3.79.5", "@contentful/forma-36-react-components@^3.93.4", "@contentful/forma-36-react-components@^3.97.0":
   version "3.97.0"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-react-components/-/forma-36-react-components-3.97.0.tgz#7ff0275c984eea0749bf3aa8ece4154e6808e39b"
   integrity sha512-0GnQipZX4k304xcW+r4OoPdF7Uedw6Em4GfXgErXvFWiJXYzG8uBgSM6EwZYhSwt2fy8+qYLg8ueqIkLtPu3+g==
@@ -2077,12 +2032,7 @@
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.10.2.tgz#a6f806e6e21f50dc38ff577762a4fb3f29352d67"
   integrity sha512-HHLwIN8mQv41GYxcTBYJjiDwpmmWwbcIRV09ciSDxhciYJ+wQkIurQ2lmnKHebPwv35X6fHXB4OdSTK1d9mUug==
 
-"@contentful/forma-36-tokens@^0.11.0":
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.11.0.tgz#c28a9b30ecab33eaae4c4544eaacfbbdaa6a9bc5"
-  integrity sha512-PP+gia5E0u7H2TyfB31YHGeE2OOZtuIe9aKayH6fIwONO3XHTNN5mElnD5uVcockVQ36laAU2Iif8eVe3Zpvnw==
-
-"@contentful/forma-36-tokens@^0.11.1":
+"@contentful/forma-36-tokens@^0.11.0", "@contentful/forma-36-tokens@^0.11.1":
   version "0.11.1"
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.11.1.tgz#0baafc1edaa3766fc471bf0073f1bcb9acb64e6b"
   integrity sha512-VETMW/VV6Hzy1Jd3Q0evy3U5qmxDAqm/p0+B9Byo+N+PuNOgIuvB8U3+915TWT4BCJqxig0K/safJCEvwaZvAA==
@@ -2113,15 +2063,10 @@
   resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-14.1.2.tgz#33162fdbf427891122a96030f806ca9a9cf0e844"
   integrity sha512-XbgZ7op5uyYYszipgQg/bYobF4b+llXyTwS8hISRniQY9xKESz544eP2OGmRc4J3MHx29M7Vmx7TVA/IK65giQ==
 
-"@contentful/rich-text-types@^15.0.0":
-  version "15.0.0"
-  resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-15.0.0.tgz#bd676960dea3e4b5a56fd6653d8cc800a81d6bca"
-  integrity sha512-e7aXF/BhXPOpLW+PsbD57Fyt0meiRYT3nTct2iLGa2WYRZMM6E+clnCAXhSRBQ8qhAso7SSUGeiBMxPeaO3KKQ==
-
-"@contentful/rich-text-types@^15.3.0":
-  version "15.3.0"
-  resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-15.3.0.tgz#faf2816e1eca01aab05434fd7208e5c51b80ff41"
-  integrity sha512-0ZtK6oOkSv4UOXfv29206g24Tsh6PmcWvVKeXK0bic0r5xJU93rZN3DzR/vy/EllORhaW9fA7F+CJzKjL7eJ0w==
+"@contentful/rich-text-types@^15.0.0", "@contentful/rich-text-types@^15.3.3":
+  version "15.3.3"
+  resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-15.3.3.tgz#92e478abce9c2dde4e68324c4fddfa5d3161a980"
+  integrity sha512-eT16r2G/bZmVyP2vXUx2n3RWY5W4IaeZJaxFDGFewLUE8Lw8sX+AW3gQAaSe8A2pHxNkOdpotKGOMxGyH7i5cA==
 
 "@contentful/rich-text-types@^5.0.0":
   version "5.0.0"
@@ -4842,10 +4787,10 @@
     "@udecode/plate-common" "2.0.0"
     "@udecode/plate-core" "1.0.0"
 
-"@udecode/plate-table@^3.0.2":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@udecode/plate-table/-/plate-table-3.0.2.tgz#430e70439c9c0b41e7eeec2ac8576b1fe7dfd0b7"
-  integrity sha512-101uRZ468OnZ/fydkwARFwl+x+abPG7Wujl1vvBWw+QLZO+PeReR/xhk1NZUl08KrmdIL9xAznLtMMVHEDKcDw==
+"@udecode/plate-table@^3.1.2":
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-table/-/plate-table-3.1.2.tgz#f6e5552efe9d33295077753b4944c89ff50ccb4c"
+  integrity sha512-h2OAzbpIsz9AA2ZNZgU8+63bzxAXJCa+JP5z+dUmxmnTLO7t0ILsmj9XSwywlcQRQWanamS9b4CiktFGfOkByA==
   dependencies:
     "@udecode/plate-common" "2.0.0"
     "@udecode/plate-core" "1.0.0"
@@ -5351,12 +5296,7 @@ aproba@^2.0.0:
   resolved "https://registry.yarnpkg.com/aproba/-/aproba-2.0.0.tgz#52520b8ae5b569215b354efc0caa3fe1e45a8adc"
   integrity sha512-lYe4Gx7QT+MKGbDsA+Z+he/Wtef0BiwDOlK/XkBrdfsh9J/jPPXbX0tE9x9cl27Tmu5gg3QUbUrQYa/y+KOHPQ==
 
-arch@^2.1.0:
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/arch/-/arch-2.1.2.tgz#0c52bbe7344bb4fa260c443d2cbad9c00ff2f0bf"
-  integrity sha512-NTBIIbAfkJeIletyABbVtdPgeKfDafR+1mZV/AyyfC1UkVkp9iUjV+wwmqtUgphHYajbI86jejBJp5e+jkGTiQ==
-
-arch@^2.1.1, arch@^2.1.2:
+arch@^2.1.0, arch@^2.1.1, arch@^2.1.2:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/arch/-/arch-2.2.0.tgz#1bc47818f305764f23ab3306b0bfc086c5a29d11"
   integrity sha512-Of/R0wqp83cgHozfIYLbBMnej79U/SVGOOyuB3VVFv1NRM/PSFMK12x9KVtiYzJqmnU5WR2qp0Z5rHb7sWGnFQ==
@@ -10694,7 +10634,7 @@ fs-extra@8.1.0, fs-extra@^8.1.0:
     jsonfile "^4.0.0"
     universalify "^0.1.0"
 
-fs-extra@9.0.1, fs-extra@^9.0.0:
+fs-extra@9.0.1:
   version "9.0.1"
   resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-9.0.1.tgz#910da0062437ba4c39fedd863f1675ccfefcb9fc"
   integrity sha512-h2iAoN838FqAFJY2/qVpzFXy+EBxfVE220PalAqQLDVsFOHLJrZvut5puAbCdNv6WJk+B8ihI+k0c7JK5erwqQ==
@@ -10713,7 +10653,7 @@ fs-extra@^7.0.0, fs-extra@^7.0.1:
     jsonfile "^4.0.0"
     universalify "^0.1.0"
 
-fs-extra@^9.0.1:
+fs-extra@^9.0.0, fs-extra@^9.0.1:
   version "9.1.0"
   resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-9.1.0.tgz#5954460c764a8da2094ba3554bf839e6b9a7c86d"
   integrity sha512-hcg3ZmepS30/7BSFqRvoo3DOMQu7IjqxO5nCDt+zM9XWjb33Wg7ziNT+Qvqbuc3+gWpzO02JubVyk2G4Zvo1OQ==
@@ -13720,18 +13660,7 @@ joi@^13.4.0:
     isemail "3.x.x"
     topo "3.x.x"
 
-joi@^17.3.0:
-  version "17.3.0"
-  resolved "https://registry.yarnpkg.com/joi/-/joi-17.3.0.tgz#f1be4a6ce29bc1716665819ac361dfa139fff5d2"
-  integrity sha512-Qh5gdU6niuYbUIUV5ejbsMiiFmBdw8Kcp8Buj2JntszCkCfxJ9Cz76OtHxOZMPXrt5810iDIXs+n1nNVoquHgg==
-  dependencies:
-    "@hapi/hoek" "^9.0.0"
-    "@hapi/topo" "^5.0.0"
-    "@sideway/address" "^4.1.0"
-    "@sideway/formula" "^3.0.0"
-    "@sideway/pinpoint" "^2.0.0"
-
-joi@^17.4.0:
+joi@^17.3.0, joi@^17.4.0:
   version "17.4.1"
   resolved "https://registry.yarnpkg.com/joi/-/joi-17.4.1.tgz#15d2f23c8cbe4d1baded2dd190c58f8dbe11cca0"
   integrity sha512-gDPOwQ5sr+BUxXuPDGrC1pSNcVR/yGGcTI0aCnjYxZEa3za60K/iCQ+OFIkEHWZGVCUcUlXlFKvMmrlmxrG6UQ==
@@ -15348,12 +15277,7 @@ modify-values@^1.0.0:
   resolved "https://registry.yarnpkg.com/modify-values/-/modify-values-1.0.1.tgz#b3939fa605546474e3e3e3c63d64bd43b4ee6022"
   integrity sha512-xV2bxeN6F7oYjZWTe/YPAy6MN2M+sL4u/Rlm2AHCIVGfo2p1yGmBHQ6vHehl4bRTZBdHu3TSkWdYgkwpYzAGSw==
 
-moment@>=2.14.0, moment@^2.18.1, moment@^2.20.0, moment@^2.22.2:
-  version "2.27.0"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.27.0.tgz#8bff4e3e26a236220dfe3e36de756b6ebaa0105d"
-  integrity sha512-al0MUK7cpIcglMv3YF13qSgdAIqxHTO7brRtaz3DlSULbqfazqkc5kEjNrLDOM7fsjshoFIihnU8snrP7zUvhQ==
-
-moment@^2.27.0:
+moment@>=2.14.0, moment@^2.18.1, moment@^2.20.0, moment@^2.22.2, moment@^2.27.0:
   version "2.29.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
   integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
@@ -21763,15 +21687,10 @@ typescript@^3.7.3, typescript@^3.9.7:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.9.tgz#e69905c54bc0681d0518bd4d587cc6f2d0b1a674"
   integrity sha512-kdMjTiekY+z/ubJCATUPlRDl39vXYiMV9iyeMuEuXZh2we6zz80uovNN2WlAxmmdE/Z/YQe+EbOEXB5RHEED3w==
 
-typescript@^4.0.5, typescript@^4.3.3, typescript@^4.3.4:
+typescript@^4.0.5, typescript@^4.2.4, typescript@^4.3.3, typescript@^4.3.4:
   version "4.3.4"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.3.4.tgz#3f85b986945bcf31071decdd96cf8bfa65f9dcbc"
   integrity sha512-uauPG7XZn9F/mo+7MrsRjyvbxFpzemRjKEZXS4AK83oP2KKOJPvb+9cO/gmnv8arWZvhnjVOXz7B49m1l0e9Ew==
-
-typescript@^4.2.4:
-  version "4.2.4"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.2.4.tgz#8610b59747de028fda898a8aef0e103f156d0961"
-  integrity sha512-V+evlYHZnQkaz8TRBuxTA92yZBPotr5H+WhQ7bD3hZUndx5tGOa1fuCgeSjxAzM1RiN5IzvadIXTVefuuwZCRg==
 
 ua-parser-js@^0.7.18:
   version "0.7.28"

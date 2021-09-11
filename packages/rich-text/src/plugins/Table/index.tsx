@@ -1,22 +1,24 @@
+import { css } from 'emotion';
 import * as React from 'react';
 import * as Slate from 'slate-react';
-import { css } from 'emotion';
-import { BLOCKS, TableCell } from '@contentful/rich-text-types';
+import { SPEditor } from '@udecode/plate-core';
+import tokens from '@contentful/forma-36-tokens';
+import { EditorToolbarButton } from '@contentful/forma-36-react-components';
+import { BLOCKS, TableCell, TableHeaderCell } from '@contentful/rich-text-types';
 import {
   ELEMENT_TD,
   ELEMENT_TR,
+  ELEMENT_TH,
   ELEMENT_TABLE,
   createTablePlugin as createTablePluginFromUdecode,
   getTableOnKeyDown,
 } from '@udecode/plate-table';
-import { CustomElement, CustomSlatePluginOptions } from 'types';
-import tokens from '@contentful/forma-36-tokens';
-import { SPEditor } from '@udecode/plate-core';
-import { isTableActive, insertTableAndFocusFirstCell } from './helpers';
-import { EditorToolbarButton } from '@contentful/forma-36-react-components';
+
 import { TableActions } from './TableActions';
-import { TrackingProvider, useTrackingContext } from '../../TrackingProvider';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
+import { CustomElement, CustomSlatePluginOptions } from '../../types';
+import { isTableActive, insertTableAndFocusFirstCell } from './helpers';
+import { TrackingProvider, useTrackingContext } from '../../TrackingProvider';
 
 const styles = {
   [BLOCKS.TABLE]: css`
@@ -27,11 +29,24 @@ const styles = {
     box-shadow: 0 0 0 1px ${tokens.gray400};
     width: 100%;
     table-layout: fixed;
+    overflow: hidden;
   `,
   [BLOCKS.TABLE_ROW]: css`
     border: 1px solid ${tokens.gray400};
     &:hover td {
       background-color: transparent !important;
+    }
+  `,
+  [BLOCKS.TABLE_HEADER_CELL]: css`
+    background-color: ${tokens.gray200};
+    border: 1px solid ${tokens.gray400};
+    padding: 10px 12px;
+    font-weight: ${tokens.fontWeightMedium};
+    text-align: left;
+    min-width: 48px;
+    position: relative;
+    div:last-child {
+      margin-bottom: 0;
     }
   `,
   [BLOCKS.TABLE_CELL]: css`
@@ -57,6 +72,20 @@ export const TR = (props: Slate.RenderElementProps) => (
   </tr>
 );
 
+export const TH = (props: Slate.RenderElementProps) => {
+  const isSelected = Slate.useSelected();
+
+  return (
+    <th
+      {...props.attributes}
+      // may include `colspan` and/or `rowspan`
+      {...(props.element.data as TableHeaderCell['data'])}
+      className={styles[BLOCKS.TABLE_HEADER_CELL]}>
+      {isSelected && <TableActions />}
+      {props.children}
+    </th>
+  );
+};
 export const TD = (props: Slate.RenderElementProps) => {
   const isSelected = Slate.useSelected();
 
@@ -80,6 +109,10 @@ export const withTableOptions: CustomSlatePluginOptions = {
   [ELEMENT_TR]: {
     type: BLOCKS.TABLE_ROW,
     component: TR,
+  },
+  [ELEMENT_TH]: {
+    type: BLOCKS.TABLE_HEADER_CELL,
+    component: TH,
   },
   [ELEMENT_TD]: {
     type: BLOCKS.TABLE_CELL,
@@ -106,30 +139,16 @@ function addTableTrackingEvents(editor: SPEditor, { onViewportAction }: Tracking
   };
 }
 
-// We implement this as BFS because it's more likely
-// tables will appear earlier in the tree.
 function hasTables(nodes: CustomElement[]) {
-  const toCheck = ([] as CustomElement[]).concat(nodes);
-  while (toCheck.length) {
-    const { type, children } = toCheck.shift() as CustomElement;
-    if (type === BLOCKS.TABLE) {
-      return true;
-    } else if (children) {
-      // Ideally we'd simply spread here, but we'd need to
-      // upgrade TS first.
-      Array.prototype.push.apply(toCheck, children);
-    }
-  }
-  return false;
+  return nodes.some(({ type }) => {
+    return type === BLOCKS.TABLE;
+  });
 }
 
 function createWithTableEvents(tracking: TrackingProvider) {
   return function withTableEvents(editor: SPEditor) {
     addTableTrackingEvents(editor, tracking);
-    const withTableEventsFromUdecode = getTableOnKeyDown()(editor);
-    return function onKeyDown(e: React.KeyboardEvent) {
-      withTableEventsFromUdecode(e);
-    };
+    return getTableOnKeyDown()(editor);
   };
 }
 
@@ -152,7 +171,7 @@ export function ToolbarTableButton(props: ToolbarTableButtonProps) {
     if (!editor) return;
 
     onViewportAction('insertTable');
-    insertTableAndFocusFirstCell(editor, {});
+    insertTableAndFocusFirstCell(editor);
     Slate.ReactEditor.focus(editor);
   }
 

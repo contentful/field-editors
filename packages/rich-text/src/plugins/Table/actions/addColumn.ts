@@ -37,12 +37,16 @@ const addColumn = (
       currentTableItem[0].children.forEach((_, rowIdx) => {
         newCellPath[replacePathPos] = rowIdx;
 
-        // @ts-expect-error
-        insertNodes<TElement>(editor, getEmptyCellNode(editor, { header }), {
-          at: newCellPath,
-          // Select the first cell of the new column
-          select: rowIdx === 0,
-        });
+        insertNodes<TElement>(
+          editor,
+          // @ts-expect-error
+          getEmptyCellNode(editor, { header: header && rowIdx === 0 }),
+          {
+            at: newCellPath,
+            // Select the first cell of the new column
+            select: rowIdx === 0,
+          }
+        );
       });
     }
   }
