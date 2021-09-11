@@ -309,16 +309,13 @@ describe('Rich Text Editor', () => {
         expectRichTextFieldValue(expectedValue);
       });
 
-      // TODO: Cypress throwing after {enter}: Cannot resolve a Slate node from DOM node: [object HTMLSpanElement]
-      // Question: Can we fix it by upgrading the Cypress version? Is this one of those issues that happen because Cypress doesn't fire all the events Slate needs in its current version?
-      it.skip('should add line if HR is the first void block', () => {
+      it('should add line if HR is the first void block', () => {
         editor().click();
 
         getHrToolbarButton().click();
 
-        cy.findByTestId('rich-text-editor-hr').click();
-
-        editor().type('{enter}');
+        // Move arrow up to select the HR then press ENTER
+        editor().type('{upArrow}{enter}');
 
         const expectedValue = doc(
           block(BLOCKS.PARAGRAPH, {}, text('', [])),
@@ -1115,7 +1112,7 @@ describe('Rich Text Editor', () => {
 
     for (const [triggerMethod, triggerEmbeddedEntry] of methods) {
       describe(triggerMethod, () => {
-        it.only('adds and removes embedded entries', () => {
+        it('adds and removes embedded entries', () => {
           editor().click();
           triggerEmbeddedEntry();
 
@@ -1136,7 +1133,7 @@ describe('Rich Text Editor', () => {
             )
           );
 
-          cy.findByTestId('cf-ui-card-actions').findByTestId('cf-ui-icon-button').click();
+          cy.findByTestId('cf-ui-card-actions').click();
           cy.findByTestId('delete').click();
 
           cy.wait(500);
@@ -1198,7 +1195,7 @@ describe('Rich Text Editor', () => {
 
     for (const [triggerMethod, triggerEmbeddedAsset] of methods) {
       describe(triggerMethod, () => {
-        it('adds and removes embedded assets', () => {
+        it.only('adds and removes embedded assets', () => {
           editor().click();
           triggerEmbeddedAsset();
 
