@@ -7,9 +7,9 @@ import {
 } from '../../packages/rich-text/src/helpers/nodeFactory';
 
 function expectRichTextFieldValue(expectedValue, editorEvents?) {
-  cy.getRichTextField().then((field) => {
-    expect(field.getValue()).to.deep.eq(expectedValue);
-  });
+  cy.getRichTextField()
+    .then((field) => field.getValue())
+    .should('deep.equal', expectedValue);
 
   if (editorEvents) {
     cy.editorEvents().should('deep.include', { ...editorEvents, value: expectedValue });
@@ -85,8 +85,6 @@ describe('Rich Text Editor', () => {
   it('allows typing', () => {
     editor().click().type('some text').click();
 
-    cy.wait(500);
-
     const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text')));
 
     expectRichTextFieldValue(expectedValue);
@@ -97,8 +95,6 @@ describe('Rich Text Editor', () => {
 
     // type
     editor().click().type('some text.').click();
-
-    cy.wait(500);
 
     expectRichTextFieldValue(expectedValue, { id: 3, type: 'setValue' });
 
@@ -111,8 +107,7 @@ describe('Rich Text Editor', () => {
     expectRichTextFieldValue(expectedValue, { id: 9, type: 'setValue' });
   });
 
-  // FIXME: tests are flaky
-  describe.skip('Marks', () => {
+  describe('Marks', () => {
     [
       [MARKS.BOLD, `{${mod}}b`],
       [MARKS.ITALIC, `{${mod}}i`],
@@ -129,8 +124,6 @@ describe('Rich Text Editor', () => {
 
           editor().type('some text');
 
-          cy.wait(600);
-
           const expectedValue = doc(
             block(BLOCKS.PARAGRAPH, {}, text('some text', [{ type: mark }]))
           );
@@ -139,15 +132,9 @@ describe('Rich Text Editor', () => {
         });
 
         it('allows writing marked text by selecting text', () => {
-          editor().click().type('some text');
-
-          cy.wait(100);
-
-          editor().type('{selectall}');
+          editor().click().type('some text{selectall}');
 
           toggleMarkViaToolbar();
-
-          cy.wait(600);
 
           const expectedValue = doc(
             block(BLOCKS.PARAGRAPH, {}, text('some text', [{ type: mark }]))
@@ -164,19 +151,13 @@ describe('Rich Text Editor', () => {
 
           editor().type('some text');
 
-          cy.wait(600);
-
           const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text', [])));
 
           expectRichTextFieldValue(expectedValue);
         });
 
         it('allows writing unmarked text by selecting text', () => {
-          editor().click().type('some text');
-
-          cy.wait(100);
-
-          editor().type('{selectall}');
+          editor().click().type('some text{selectall}');
 
           toggleMarkViaToolbar();
 
@@ -185,8 +166,6 @@ describe('Rich Text Editor', () => {
           editor().click().type('{selectall}');
 
           toggleMarkViaToolbar();
-
-          cy.wait(600);
 
           const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text', [])));
 
@@ -197,8 +176,6 @@ describe('Rich Text Editor', () => {
       describe(`${mark} mark toggle via shortcut`, () => {
         it('allows writing marked text', () => {
           editor().click().type(shortcut).type('some text');
-
-          cy.wait(600);
 
           const expectedValue = doc(
             block(BLOCKS.PARAGRAPH, {}, text('some text', [{ type: mark }]))
@@ -214,8 +191,6 @@ describe('Rich Text Editor', () => {
 
           editor().type('{selectall}').type(shortcut);
 
-          cy.wait(600);
-
           const expectedValue = doc(
             block(BLOCKS.PARAGRAPH, {}, text('some text', [{ type: mark }]))
           );
@@ -225,8 +200,6 @@ describe('Rich Text Editor', () => {
 
         it('allows writing unmarked text', () => {
           editor().click().type(shortcut).type(shortcut).type('some text');
-
-          cy.wait(600);
 
           const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text', [])));
 
@@ -239,8 +212,6 @@ describe('Rich Text Editor', () => {
           cy.wait(100);
 
           editor().type('{selectall}').type(shortcut).type('{selectall}').type(shortcut);
-
-          cy.wait(600);
 
           const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text', [])));
 
@@ -265,8 +236,6 @@ describe('Rich Text Editor', () => {
 
         getHrToolbarButton().click();
 
-        cy.wait(600);
-
         const expectedValue = doc(
           block(BLOCKS.PARAGRAPH, {}, text('some text', [])),
           block(BLOCKS.HR, {}),
@@ -282,8 +251,6 @@ describe('Rich Text Editor', () => {
         getHrToolbarButton().click();
         getHrToolbarButton().click();
         getHrToolbarButton().click();
-
-        cy.wait(600);
 
         const expectedValue = doc(
           block(BLOCKS.PARAGRAPH, {}, text('some text', [])),
@@ -322,6 +289,7 @@ describe('Rich Text Editor', () => {
           block(BLOCKS.HR, {}),
           block(BLOCKS.PARAGRAPH, {}, text('', []))
         );
+
         expectRichTextFieldValue(expectedValue);
       });
     });
@@ -359,8 +327,6 @@ describe('Rich Text Editor', () => {
           it(`allows writing ${label} (${type}) via hotkeys ${shortcut}`, () => {
             editor().click().type(shortcut).type('some text');
 
-            cy.wait(600);
-
             const expectedValue = doc(block(type, {}, text('some text', [])), emptyParagraph());
 
             expectRichTextFieldValue(expectedValue);
@@ -388,6 +354,7 @@ describe('Rich Text Editor', () => {
               block(type, {}, text('some text', [])),
               block(BLOCKS.PARAGRAPH, {}, text('', []))
             );
+
             expectRichTextFieldValue(expectedHeadingValue);
           });
         } else {
@@ -522,8 +489,6 @@ describe('Rich Text Editor', () => {
           */
           editor().type('item 1');
 
-          cy.wait(600);
-
           const expectedValue = doc(
             block(
               test.listType,
@@ -544,8 +509,6 @@ describe('Rich Text Editor', () => {
           editor().type('some text');
 
           test.getList().click();
-
-          cy.wait(600);
 
           const expectedValue = doc(
             block(BLOCKS.PARAGRAPH, {}, text('some text', [])),
@@ -568,6 +531,7 @@ describe('Rich Text Editor', () => {
             ),
             emptyParagraph()
           );
+
           expectRichTextFieldValue(expectedValue);
         });
       });
@@ -583,8 +547,6 @@ describe('Rich Text Editor', () => {
         .type('some text 2')
         .type('{shift}{enter}')
         .type('some text 3');
-
-      cy.wait(100);
 
       const expectedValue = doc(
         block(BLOCKS.PARAGRAPH, {}, text('some text 1\nsome text 2\nsome text 3'))
@@ -606,8 +568,6 @@ describe('Rich Text Editor', () => {
         .type('{shift}{enter}')
         .type('some text 3');
 
-      cy.wait(100);
-
       const expectedValue = doc(
         block(BLOCKS.HEADING_1, {}, text('some text 1\nsome text 2\nsome text 3')),
         emptyParagraph()
@@ -627,8 +587,6 @@ describe('Rich Text Editor', () => {
         .type('some text 2')
         .type('{shift}{enter}')
         .type('some text 3');
-
-      cy.wait(100);
 
       const expectedValue = doc(
         block(
@@ -672,7 +630,6 @@ describe('Rich Text Editor', () => {
         .type('quux');
     };
     const expectDocumentStructure = (...elements) => {
-      cy.wait(100);
       expectRichTextFieldValue(doc(emptyParagraph(), ...elements, emptyParagraph()));
     };
     const expectTable = (...tableElements) => expectDocumentStructure(table(...tableElements));
@@ -845,14 +802,12 @@ describe('Rich Text Editor', () => {
         'using the link toolbar button',
         () => {
           cy.findByTestId('hyperlink-toolbar-button').click();
-          cy.wait(100);
         },
       ],
       [
         'using the link keyboard shortcut',
         () => {
           editor().type(`{${mod}}k`);
-          cy.wait(100);
         },
       ],
     ];
@@ -860,11 +815,7 @@ describe('Rich Text Editor', () => {
     for (const [triggerMethod, triggerLinkModal] of methods) {
       describe(triggerMethod, () => {
         it('adds and removes hyperlinks', () => {
-          editor().click().type('The quick brown fox jumps over the lazy ');
-
-          cy.wait(500);
-
-          triggerLinkModal();
+          editor().click().type('The quick brown fox jumps over the lazy ').then(triggerLinkModal);
 
           getSubmitButton().should('be.disabled');
           getLinkTextInput().type('dog');
@@ -872,8 +823,6 @@ describe('Rich Text Editor', () => {
           getLinkTargetInput().type('https://zombo.com');
           getSubmitButton().should('not.be.disabled');
           getSubmitButton().click();
-
-          cy.wait(100);
 
           expectDocumentStructure(
             ['text', 'The quick brown fox jumps over the lazy '],
@@ -892,8 +841,6 @@ describe('Rich Text Editor', () => {
           // in this test.
           cy.findByTestId('hyperlink-toolbar-button').click();
 
-          cy.wait(100);
-
           expectDocumentStructure(
             // TODO: the editor should normalize this
             ['text', 'The quick brown fox jumps over the lazy '],
@@ -902,11 +849,7 @@ describe('Rich Text Editor', () => {
         });
 
         it('converts text to URL hyperlink', () => {
-          editor().click().type('My cool website').click().type('{selectall}');
-
-          cy.wait(500);
-
-          triggerLinkModal();
+          editor().click().type('My cool website{selectall}').then(triggerLinkModal);
 
           getLinkTextInput().should('have.value', 'My cool website');
           getLinkTypeSelect().should('have.value', 'hyperlink');
@@ -914,8 +857,6 @@ describe('Rich Text Editor', () => {
           getLinkTargetInput().type('https://zombo.com');
           getSubmitButton().should('not.be.disabled');
           getSubmitButton().click();
-
-          cy.wait(100);
 
           expectDocumentStructure(
             ['text', ''],
@@ -925,11 +866,7 @@ describe('Rich Text Editor', () => {
         });
 
         it('converts text to entry hyperlink', () => {
-          editor().click().type('My cool entry').click().type('{selectall}');
-
-          cy.wait(500);
-
-          triggerLinkModal();
+          editor().click().type('My cool entry{selectall}').then(triggerLinkModal);
 
           getLinkTextInput().should('have.value', 'My cool entry');
           getSubmitButton().should('be.disabled');
@@ -944,8 +881,6 @@ describe('Rich Text Editor', () => {
           cy.findByTestId('cf-ui-entry-card').should('exist');
           getSubmitButton().click();
 
-          cy.wait(100);
-
           expectDocumentStructure(
             ['text', ''],
             [
@@ -958,11 +893,7 @@ describe('Rich Text Editor', () => {
         });
 
         it('converts text to asset hyperlink', () => {
-          editor().click().type('My cool asset').click().type('{selectall}');
-
-          cy.wait(500);
-
-          triggerLinkModal();
+          editor().click().type('My cool asset{selectall}').then(triggerLinkModal);
 
           getLinkTextInput().should('have.value', 'My cool asset');
           getSubmitButton().should('be.disabled');
@@ -977,8 +908,6 @@ describe('Rich Text Editor', () => {
           cy.findByTestId('cf-ui-asset-card').should('exist');
           getSubmitButton().click();
 
-          cy.wait(100);
-
           expectDocumentStructure(
             ['text', ''],
             [
@@ -991,11 +920,7 @@ describe('Rich Text Editor', () => {
         });
 
         it('edits hyperlinks', () => {
-          editor().click().type('My cool website').click().type('{selectall}');
-
-          cy.wait(500);
-
-          triggerLinkModal();
+          editor().click().type('My cool website{selectall}').then(triggerLinkModal);
 
           // Part 1:
           // Create a hyperlink
@@ -1003,8 +928,6 @@ describe('Rich Text Editor', () => {
           getLinkTextInput().should('have.value', 'My cool website');
           getLinkTargetInput().type('https://zombo.com');
           getSubmitButton().click();
-
-          cy.wait(100);
 
           expectDocumentStructure(
             ['text', ''],
@@ -1026,8 +949,6 @@ describe('Rich Text Editor', () => {
           getLinkTypeSelect().should('have.value', 'hyperlink').select('entry-hyperlink');
           getEntityTextLink().should('have.text', 'Select entry').click();
           getSubmitButton().click();
-
-          cy.wait(100);
 
           expectDocumentStructure(
             ['text', ''],
@@ -1051,8 +972,6 @@ describe('Rich Text Editor', () => {
           getLinkTypeSelect().should('have.value', 'entry-hyperlink').select('asset-hyperlink');
           getEntityTextLink().should('have.text', 'Select asset').click();
           getSubmitButton().click();
-
-          cy.wait(100);
 
           expectDocumentStructure(
             ['text', ''],
@@ -1079,8 +998,6 @@ describe('Rich Text Editor', () => {
           getLinkTargetInput().type('https://zombo.com');
           getSubmitButton().click();
 
-          cy.wait(100);
-
           expectDocumentStructure(
             ['text', ''],
             [INLINES.HYPERLINK, { uri: 'https://zombo.com' }, 'My cool website'],
@@ -1098,14 +1015,12 @@ describe('Rich Text Editor', () => {
         () => {
           cy.findByTestId('toolbar-entity-dropdown-toggle').click();
           cy.findByTestId('toolbar-toggle-embedded-entry-block').click();
-          cy.wait(100);
         },
       ],
       [
         'using the keyboard shortcut',
         () => {
           editor().type(`{${mod}}{shift}e`);
-          cy.wait(100);
         },
       ],
     ];
@@ -1113,10 +1028,7 @@ describe('Rich Text Editor', () => {
     for (const [triggerMethod, triggerEmbeddedEntry] of methods) {
       describe(triggerMethod, () => {
         it('adds and removes embedded entries', () => {
-          editor().click();
-          triggerEmbeddedEntry();
-
-          cy.wait(500);
+          editor().click().then(triggerEmbeddedEntry);
 
           expectRichTextFieldValue(
             doc(
@@ -1136,23 +1048,14 @@ describe('Rich Text Editor', () => {
           cy.findByTestId('cf-ui-card-actions').click();
           cy.findByTestId('delete').click();
 
-          cy.wait(500);
-
           expectRichTextFieldValue(void 0);
         });
 
         it('adds embedded entries between words', () => {
           editor()
             .click()
-            .type('foobar')
-            .type('{leftArrow}')
-            .type('{leftArrow}')
-            .type('{leftArrow}')
-            .wait(100);
-
-          triggerEmbeddedEntry();
-
-          cy.wait(100);
+            .type('foobar{leftArrow}{leftArrow}{leftArrow}')
+            .then(triggerEmbeddedEntry);
 
           expectRichTextFieldValue(
             doc(
@@ -1181,14 +1084,12 @@ describe('Rich Text Editor', () => {
         () => {
           cy.findByTestId('toolbar-entity-dropdown-toggle').click();
           cy.findByTestId('toolbar-toggle-embedded-asset-block').click();
-          cy.wait(100);
         },
       ],
       [
         'using the keyboard shortcut',
         () => {
           editor().type(`{${mod}}{shift}a`);
-          cy.wait(100);
         },
       ],
     ];
@@ -1196,10 +1097,7 @@ describe('Rich Text Editor', () => {
     for (const [triggerMethod, triggerEmbeddedAsset] of methods) {
       describe(triggerMethod, () => {
         it('adds and removes embedded assets', () => {
-          editor().click();
-          triggerEmbeddedAsset();
-
-          cy.wait(500);
+          editor().click().then(triggerEmbeddedAsset);
 
           expectRichTextFieldValue(
             doc(
@@ -1219,23 +1117,14 @@ describe('Rich Text Editor', () => {
           cy.findByTestId('cf-ui-card-actions').findByTestId('cf-ui-icon-button').click();
           cy.findByTestId('card-action-remove').click();
 
-          cy.wait(500);
-
           expectRichTextFieldValue(void 0);
         });
 
         it('adds embedded assets between words', () => {
           editor()
             .click()
-            .type('foobar')
-            .type('{leftArrow}')
-            .type('{leftArrow}')
-            .type('{leftArrow}')
-            .wait(100);
-
-          triggerEmbeddedAsset();
-
-          cy.wait(100);
+            .type('foobar{leftArrow}{leftArrow}{leftArrow}')
+            .then(triggerEmbeddedAsset);
 
           expectRichTextFieldValue(
             doc(
@@ -1258,20 +1147,18 @@ describe('Rich Text Editor', () => {
   });
 
   describe('Embedded Entry Inlines', () => {
-    const methods: [string, () => void][] = [
+    const methods: [string, () => Cypress.Chainable<any>][] = [
       [
         'using the toolbar button',
         () => {
           cy.findByTestId('toolbar-entity-dropdown-toggle').click();
-          cy.findByTestId('toolbar-toggle-embedded-entry-inline').click();
-          cy.wait(100);
+          return cy.findByTestId('toolbar-toggle-embedded-entry-inline').click();
         },
       ],
       [
         'using the keyboard shortcut',
         () => {
-          editor().type(`{${mod}}{shift}2`);
-          cy.wait(100);
+          return editor().type(`{${mod}}{shift}2`);
         },
       ],
     ];
@@ -1279,11 +1166,13 @@ describe('Rich Text Editor', () => {
     for (const [triggerMethod, triggerEmbeddedAsset] of methods) {
       describe(triggerMethod, () => {
         it('adds and removes embedded entries', () => {
-          editor().click().type('hello');
-          triggerEmbeddedAsset();
-          editor().click().type('world');
-
-          cy.wait(500);
+          editor()
+            .click()
+            .type('hello')
+            .then(triggerEmbeddedAsset)
+            .then(() => {
+              editor().click().type('world');
+            });
 
           expectRichTextFieldValue(
             doc(
@@ -1307,8 +1196,6 @@ describe('Rich Text Editor', () => {
 
           cy.findByTestId('cf-ui-card-actions').findByTestId('cf-ui-icon-button').click();
           cy.findByTestId('card-action-remove').click();
-
-          cy.wait(500);
 
           expectRichTextFieldValue(doc(block(BLOCKS.PARAGRAPH, {}, text('hello'), text('world'))));
 
