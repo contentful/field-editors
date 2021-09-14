@@ -288,7 +288,7 @@ describe('Rich Text Editor', () => {
         );
 
         // Move arrow up to select the HR then press ENTER
-        editor().click().type('{upArrow}{enter}');
+        editor().click().type('{uparrow}{enter}');
 
         const expectedValue = doc(
           block(BLOCKS.PARAGRAPH, {}, text('', [])),
@@ -304,12 +304,12 @@ describe('Rich Text Editor', () => {
   describe('Headings', () => {
     const headings = [
       [BLOCKS.PARAGRAPH, 'Normal text'],
-      [BLOCKS.HEADING_1, 'Heading 1', `{${mod}}{alt}1`],
-      [BLOCKS.HEADING_2, 'Heading 2', `{${mod}}{alt}2`],
-      [BLOCKS.HEADING_3, 'Heading 3', `{${mod}}{alt}3`],
-      [BLOCKS.HEADING_4, 'Heading 4', `{${mod}}{alt}4`],
-      [BLOCKS.HEADING_5, 'Heading 5', `{${mod}}{alt}5`],
-      [BLOCKS.HEADING_6, 'Heading 6', `{${mod}}{alt}6`],
+      [BLOCKS.HEADING_1, 'Heading 1', `{${mod}+alt+1}`],
+      [BLOCKS.HEADING_2, 'Heading 2', `{${mod}+alt+2}`],
+      [BLOCKS.HEADING_3, 'Heading 3', `{${mod}+alt+3}`],
+      [BLOCKS.HEADING_4, 'Heading 4', `{${mod}+alt+4}`],
+      [BLOCKS.HEADING_5, 'Heading 5', `{${mod}+alt+5}`],
+      [BLOCKS.HEADING_6, 'Heading 6', `{${mod}+alt+6}`],
     ];
 
     headings.forEach(([type, label, shortcut]) => {
@@ -541,9 +541,9 @@ describe('Rich Text Editor', () => {
       editor()
         .click()
         .type('some text 1')
-        .type('{shift}{enter}')
+        .type('{shift+enter}')
         .type('some text 2')
-        .type('{shift}{enter}')
+        .type('{shift+enter}')
         .type('some text 3');
 
       const expectedValue = doc(
@@ -561,9 +561,9 @@ describe('Rich Text Editor', () => {
 
       editor()
         .type('some text 1')
-        .type('{shift}{enter}')
+        .type('{shift+enter}')
         .type('some text 2')
-        .type('{shift}{enter}')
+        .type('{shift+enter}')
         .type('some text 3');
 
       const expectedValue = doc(
@@ -581,9 +581,9 @@ describe('Rich Text Editor', () => {
 
       editor()
         .type('some text 1')
-        .type('{shift}{enter}')
+        .type('{shift+enter}')
         .type('some text 2')
-        .type('{shift}{enter}')
+        .type('{shift+enter}')
         .type('some text 3');
 
       const expectedValue = doc(
@@ -620,11 +620,11 @@ describe('Rich Text Editor', () => {
     const insertTableWithExampleData = () => {
       insertTable()
         .type('foo')
-        .type('{rightArrow}')
+        .type('{rightarrow}')
         .type('bar')
-        .type('{rightArrow}')
+        .type('{rightarrow}')
         .type('baz')
-        .type('{rightArrow}')
+        .type('{rightarrow}')
         .type('quux');
     };
     const expectDocumentStructure = (...elements) => {
@@ -654,7 +654,7 @@ describe('Rich Text Editor', () => {
       ].map((type) => getDropdownItem(type).get('button').should('be.disabled'));
 
       // select outside the table
-      editor().click().type('{downArrow}').wait(100);
+      editor().click().type('{downarrow}').wait(100);
 
       blockElements.forEach((el) => {
         cy.findByTestId(`${el}-toolbar-button`).should('not.be.disabled');
@@ -1018,7 +1018,7 @@ describe('Rich Text Editor', () => {
       [
         'using the keyboard shortcut',
         () => {
-          editor().type(`{${mod}}{shift}e`);
+          editor().type(`{${mod}+shift+e}`);
         },
       ],
     ];
@@ -1052,7 +1052,7 @@ describe('Rich Text Editor', () => {
         it('adds embedded entries between words', () => {
           editor()
             .click()
-            .type('foobar{leftArrow}{leftArrow}{leftArrow}')
+            .type('foobar{leftarrow}{leftarrow}{leftarrow}')
             .then(triggerEmbeddedEntry);
 
           expectRichTextFieldValue(
@@ -1087,7 +1087,7 @@ describe('Rich Text Editor', () => {
       [
         'using the keyboard shortcut',
         () => {
-          editor().type(`{${mod}}{shift}a`);
+          editor().type(`{${mod}+shift+a}`);
         },
       ],
     ];
@@ -1121,7 +1121,7 @@ describe('Rich Text Editor', () => {
         it('adds embedded assets between words', () => {
           editor()
             .click()
-            .type('foobar{leftArrow}{leftArrow}{leftArrow}')
+            .type('foobar{leftarrow}{leftarrow}{leftarrow}')
             .then(triggerEmbeddedAsset);
 
           expectRichTextFieldValue(
@@ -1156,7 +1156,7 @@ describe('Rich Text Editor', () => {
       [
         'using the keyboard shortcut',
         () => {
-          return editor().type(`{${mod}}{shift}2`);
+          return editor().type(`{${mod}+shift+2}`);
         },
       ],
     ];
