@@ -1,16 +1,14 @@
 describe('Markdown Editor / Cheatsheet Dialog', () => {
   const selectors = {
     getDialogTitle() {
-      return cy.findByTestId('dialog-title').within(() => {
-        return cy.get('h1');
-      });
+      return cy.findByTestId('dialog-title').find('h1');
     },
     getOpenCheatsheetButton() {
       return cy.findByTestId('open-markdown-cheatsheet-button');
     },
     getCheatsheetContent() {
       return cy.findByTestId('markdown-cheatsheet-dialog-content');
-    }
+    },
   };
 
   beforeEach(() => {
