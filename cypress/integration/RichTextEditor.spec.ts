@@ -276,7 +276,7 @@ describe('Rich Text Editor', () => {
         expectRichTextFieldValue(expectedValue);
       });
 
-      it('should add line if HR is the first void block', () => {
+      it.skip('should add line if HR is the first void block', () => {
         editor().click();
 
         getHrToolbarButton().click();
@@ -795,6 +795,13 @@ describe('Rich Text Editor', () => {
       );
     };
 
+    // Type and wait for the text to be persisted
+    const safelyType = (text: string) => {
+      editor().type(text);
+
+      expectDocumentStructure(['text', text.replace('{selectall}', '')]);
+    };
+
     const methods: [string, () => void][] = [
       [
         'using the link toolbar button',
@@ -813,7 +820,9 @@ describe('Rich Text Editor', () => {
     for (const [triggerMethod, triggerLinkModal] of methods) {
       describe(triggerMethod, () => {
         it('adds and removes hyperlinks', () => {
-          editor().click().type('The quick brown fox jumps over the lazy ').then(triggerLinkModal);
+          safelyType('The quick brown fox jumps over the lazy ');
+
+          triggerLinkModal();
 
           getSubmitButton().should('be.disabled');
           getLinkTextInput().type('dog');
@@ -847,7 +856,9 @@ describe('Rich Text Editor', () => {
         });
 
         it('converts text to URL hyperlink', () => {
-          editor().click().type('My cool website{selectall}').then(triggerLinkModal);
+          safelyType('My cool website{selectall}');
+
+          triggerLinkModal();
 
           getLinkTextInput().should('have.value', 'My cool website');
           getLinkTypeSelect().should('have.value', 'hyperlink');
@@ -864,7 +875,8 @@ describe('Rich Text Editor', () => {
         });
 
         it('converts text to entry hyperlink', () => {
-          editor().click().type('My cool entry{selectall}').then(triggerLinkModal);
+          safelyType('My cool entry{selectall}');
+          triggerLinkModal();
 
           getLinkTextInput().should('have.value', 'My cool entry');
           getSubmitButton().should('be.disabled');
@@ -891,7 +903,9 @@ describe('Rich Text Editor', () => {
         });
 
         it('converts text to asset hyperlink', () => {
-          editor().click().type('My cool asset{selectall}').then(triggerLinkModal);
+          safelyType('My cool asset{selectall}');
+
+          triggerLinkModal();
 
           getLinkTextInput().should('have.value', 'My cool asset');
           getSubmitButton().should('be.disabled');
@@ -918,7 +932,9 @@ describe('Rich Text Editor', () => {
         });
 
         it('edits hyperlinks', () => {
-          editor().click().type('My cool website{selectall}').then(triggerLinkModal);
+          safelyType('My cool website{selectall}');
+
+          triggerLinkModal();
 
           // Part 1:
           // Create a hyperlink
