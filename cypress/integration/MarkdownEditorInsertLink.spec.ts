@@ -4,9 +4,7 @@ describe('Markdown Editor / Insert Link Dialog', () => {
       return cy.get('[data-test-id="markdown-textarea"] textarea');
     },
     getDialogTitle() {
-      return cy.findByTestId('dialog-title').within(() => {
-        return cy.get('h1');
-      });
+      return cy.findByTestId('dialog-title').find('h1');
     },
     getInsertDialogButton() {
       return cy.findByTestId('markdown-action-button-link');
@@ -23,7 +21,7 @@ describe('Markdown Editor / Insert Link Dialog', () => {
       },
       getLinkTitle() {
         return cy.findByTestId('link-title-field');
-      }
+      },
     },
     getConfirmButton() {
       return cy.findByTestId('insert-link-confirm');
@@ -33,27 +31,27 @@ describe('Markdown Editor / Insert Link Dialog', () => {
     },
     getInvalidMessage() {
       return cy.findByText('Invalid URL');
-    }
+    },
   };
 
-  const type = value => {
+  const type = (value) => {
     return selectors.getInput().type(value, { force: true });
   };
 
   const clearAll = () => {
-    cy.getMarkdownInstance().then(markdown => {
+    cy.getMarkdownInstance().then((markdown) => {
       markdown.clear();
     });
   };
 
-  const checkValue = value => {
-    cy.getMarkdownInstance().then(markdown => {
+  const checkValue = (value) => {
+    cy.getMarkdownInstance().then((markdown) => {
       expect(markdown.getContent()).eq(value);
     });
   };
 
   const selectBackwards = (skip, len) => {
-    cy.getMarkdownInstance().then(markdown => {
+    cy.getMarkdownInstance().then((markdown) => {
       markdown.selectBackwards(skip, len);
     });
   };
@@ -94,11 +92,8 @@ describe('Markdown Editor / Insert Link Dialog', () => {
 
     const correctValues = ['https://contentful.com', 'http://google.com', 'ftp://somefile'];
 
-    correctValues.forEach(value => {
-      selectors.inputs
-        .getTargetUrlInput()
-        .clear()
-        .type(value);
+    correctValues.forEach((value) => {
+      selectors.inputs.getTargetUrlInput().clear().type(value);
       selectors.getInvalidMessage().should('not.exist');
       selectors.getConfirmButton().should('not.be.disabled');
     });
@@ -108,14 +103,11 @@ describe('Markdown Editor / Insert Link Dialog', () => {
     const incorrectValues = [
       'does not look like an url, bro',
       'htp://contentful.com',
-      'http:/oops.com'
+      'http:/oops.com',
     ];
 
-    incorrectValues.forEach(value => {
-      selectors.inputs
-        .getTargetUrlInput()
-        .clear()
-        .type(value);
+    incorrectValues.forEach((value) => {
+      selectors.inputs.getTargetUrlInput().clear().type(value);
       selectors.getInvalidMessage().should('be.visible');
       selectors.getConfirmButton().should('be.disabled');
     });
@@ -137,10 +129,7 @@ describe('Markdown Editor / Insert Link Dialog', () => {
         .should('be.visible')
         .should('have.value', '')
         .should('have.focus');
-      selectors.inputs
-        .getLinkTitle()
-        .should('be.visible')
-        .should('have.value', '');
+      selectors.inputs.getLinkTitle().should('be.visible').should('have.value', '');
 
       selectors.getConfirmButton().should('be.disabled');
       selectors.getInvalidMessage().should('not.exist');
@@ -152,14 +141,8 @@ describe('Markdown Editor / Insert Link Dialog', () => {
       // with all fields provided
       selectors.getInsertDialogButton().click();
       selectors.inputs.getLinkTextInput().type('best headless CMS ever');
-      selectors.inputs
-        .getTargetUrlInput()
-        .clear()
-        .type('https://contentful.com');
-      selectors.inputs
-        .getLinkTitle()
-        .clear()
-        .type('Contentful');
+      selectors.inputs.getTargetUrlInput().clear().type('https://contentful.com');
+      selectors.inputs.getLinkTitle().clear().type('Contentful');
 
       selectors.getConfirmButton().click();
       selectors.getModalContent().should('not.exist');
@@ -170,10 +153,7 @@ describe('Markdown Editor / Insert Link Dialog', () => {
       checkValue('');
       selectors.getInsertDialogButton().click();
       selectors.inputs.getLinkTextInput().type('best headless CMS ever');
-      selectors.inputs
-        .getTargetUrlInput()
-        .clear()
-        .type('https://contentful.com');
+      selectors.inputs.getTargetUrlInput().clear().type('https://contentful.com');
       selectors.getConfirmButton().click();
       checkValue('[best headless CMS ever](https://contentful.com)');
 
@@ -181,10 +161,7 @@ describe('Markdown Editor / Insert Link Dialog', () => {
       clearAll();
       checkValue('');
       selectors.getInsertDialogButton().click();
-      selectors.inputs
-        .getTargetUrlInput()
-        .clear()
-        .type('https://contentful.com');
+      selectors.inputs.getTargetUrlInput().clear().type('https://contentful.com');
       selectors.getConfirmButton().click();
       checkValue('<https://contentful.com>');
     });
@@ -206,10 +183,7 @@ describe('Markdown Editor / Insert Link Dialog', () => {
         .should('be.visible')
         .should('have.value', '')
         .should('have.focus');
-      selectors.inputs
-        .getLinkTitle()
-        .should('be.visible')
-        .should('have.value', '');
+      selectors.inputs.getLinkTitle().should('be.visible').should('have.value', '');
 
       selectors.getConfirmButton().should('be.disabled');
       selectors.getInvalidMessage().should('not.exist');
@@ -222,14 +196,8 @@ describe('Markdown Editor / Insert Link Dialog', () => {
       // with all fields provided
 
       selectors.getInsertDialogButton().click();
-      selectors.inputs
-        .getTargetUrlInput()
-        .clear()
-        .type('https://contentful.com');
-      selectors.inputs
-        .getLinkTitle()
-        .clear()
-        .type('The best headless CMS ever');
+      selectors.inputs.getTargetUrlInput().clear().type('https://contentful.com');
+      selectors.inputs.getLinkTitle().clear().type('The best headless CMS ever');
 
       selectors.getConfirmButton().click();
       selectors.getModalContent().should('not.exist');
@@ -241,10 +209,7 @@ describe('Markdown Editor / Insert Link Dialog', () => {
       type('check out Contentful');
       selectBackwards(0, 10);
       selectors.getInsertDialogButton().click();
-      selectors.inputs
-        .getTargetUrlInput()
-        .clear()
-        .type('https://contentful.com');
+      selectors.inputs.getTargetUrlInput().clear().type('https://contentful.com');
       selectors.getConfirmButton().click();
       checkValue('check out [Contentful](https://contentful.com)');
     });

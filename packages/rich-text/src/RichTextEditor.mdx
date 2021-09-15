@@ -9,6 +9,7 @@ import Readme from '../README.md';
 <Readme />
 
 import { Playground } from 'docz';
+import { useMemo } from 'react';
 import { RichTextEditor } from './index';
 import {
   createFakeFieldAPI,
@@ -43,9 +44,9 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
           }
         : Promise.reject(); // Simulate cancellation.
     };
-    const [field, mitt] = createFakeFieldAPI();
-    const space = createFakeSpaceAPI();
-    const navigator = createFakeNavigatorAPI();
+    const [field, mitt] = useMemo(() => createFakeFieldAPI(), []);
+    const space = useMemo(() => createFakeSpaceAPI(), []);
+    const navigator = useMemo(() => createFakeNavigatorAPI(), []);
     const onAction = (...args) => window.events.push(args);
     const sdk = {
       space: {
@@ -140,7 +141,10 @@ init((sdk) => {
   if (sdk.location.is(locations.LOCATION_DIALOG)) {
     render(renderRichTextDialog(sdk), document.getElementById('root'));
   } else if (sdk.location.is(locations.LOCATION_ENTRY_FIELD)) {
-    render(<RichTextEditor sdk={sdk} isInitiallyDisabled={true} />, document.getElementById('root'));
+    render(
+      <RichTextEditor sdk={sdk} isInitiallyDisabled={true} />,
+      document.getElementById('root')
+    );
   }
 });
 ```
