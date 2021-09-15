@@ -1,12 +1,6 @@
 import React from 'react';
-import {
-  Button,
-  Paragraph,
-  Typography,
-  EntityList,
-  EntityListItem,
-} from '@contentful/forma-36-react-components';
-import { ModalContent, ModalControls } from '@contentful/f36-components';
+import { Button, EntityList, EntityListItem } from '@contentful/forma-36-react-components';
+import { ModalContent, ModalControls, Paragraph } from '@contentful/f36-components';
 import { DialogsAPI } from '@contentful/app-sdk';
 import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 
@@ -31,18 +25,16 @@ export const ConfirmInsertAssetModalDialog = ({
   return (
     <>
       <ModalContent testId="confirm-insert-asset">
-        <Typography>
-          <Paragraph>
-            {localesNumber === 1
-              ? `Link asset with missing file for locale ${locale}`
-              : `Link assets with missing files for locale ${locale}`}
-          </Paragraph>
-          <Paragraph>
-            {localesNumber === 1
-              ? 'Do you want to link to the file in its fallback locale?'
-              : 'Do you want to link to the files in their fallback locales?'}
-          </Paragraph>
-        </Typography>
+        <Paragraph>
+          {localesNumber === 1
+            ? `Link asset with missing file for locale ${locale}`
+            : `Link assets with missing files for locale ${locale}`}
+        </Paragraph>
+        <Paragraph>
+          {localesNumber === 1
+            ? 'Do you want to link to the file in its fallback locale?'
+            : 'Do you want to link to the files in their fallback locales?'}
+        </Paragraph>
         <EntityList>
           {assets.map(({ title, description, thumbnailUrl, thumbnailAltText }) => (
             <EntityListItem

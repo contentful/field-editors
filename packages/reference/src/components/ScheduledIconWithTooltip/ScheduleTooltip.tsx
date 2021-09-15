@@ -1,8 +1,8 @@
 import React from 'react';
 import { ScheduledAction } from '@contentful/app-sdk';
 import { css, cx } from 'emotion';
-import { Tooltip, Paragraph } from '@contentful/forma-36-react-components';
-import { Badge } from '@contentful/f36-components';
+import { Tooltip } from '@contentful/forma-36-react-components';
+import { Badge, Paragraph } from '@contentful/f36-components';
 import tokens from '@contentful/forma-36-tokens';
 import { formatDateAndTime } from './formatDateAndTime';
 
@@ -60,7 +60,11 @@ export const ScheduleTooltipContent = ({
         className={cx(styles.statusTag, colorPalette)}>
         {job.action.toUpperCase()}
       </Badge>
-      {jobsCount > 1 && <Paragraph className={styles.paragraph}>+ {jobsCount - 1} more</Paragraph>}
+      {jobsCount > 1 && (
+        <Paragraph marginBottom="none" className={styles.paragraph}>
+          + {jobsCount - 1} more
+        </Paragraph>
+      )}
     </>
   );
 };

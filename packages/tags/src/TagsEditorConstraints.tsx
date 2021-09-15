@@ -1,16 +1,8 @@
 import React from 'react';
 import { css } from 'emotion';
-import { Paragraph } from '@contentful/forma-36-react-components';
-import tokens from '@contentful/forma-36-tokens';
 import { Constraint, ConstraintsType } from './types';
 
-const styles = {
-  constraints: css({
-    fontStyle: 'italic',
-    marginTop: tokens.spacingS,
-    color: tokens.gray600,
-  }),
-};
+import { Text } from '@contentful/f36-components';
 
 interface TagEditorConstraintsProps {
   constraintsType: ConstraintsType;
@@ -20,7 +12,15 @@ interface TagEditorConstraintsProps {
 export function TagsEditorConstraints(props: TagEditorConstraintsProps) {
   const { constraintsType, constraints } = props;
   return (
-    <Paragraph className={styles.constraints} testId="tag-editor-constraints">
+    <Text
+      as="p"
+      fontColor="gray600"
+      marginBottom="none"
+      marginTop="spacingS"
+      className={css({
+        fontStyle: 'italic',
+      })}
+      testId="tag-editor-constraints">
       {constraintsType === 'min' && (
         <span>
           Requires at least {constraints.min} {constraints.min === 1 ? 'tag' : 'tags'}
@@ -41,6 +41,6 @@ export function TagsEditorConstraints(props: TagEditorConstraintsProps) {
           Requires exactly {constraints.max} {constraints.max === 1 ? 'tag' : 'tags'}
         </span>
       )}
-    </Paragraph>
+    </Text>
   );
 }

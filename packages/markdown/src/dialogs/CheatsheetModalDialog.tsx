@@ -1,12 +1,11 @@
 import React from 'react';
 import { css, cx } from 'emotion';
 import { DialogsAPI } from '@contentful/app-sdk';
-import { Heading } from '@contentful/forma-36-react-components';
 import { ModalContent } from '@contentful/f36-components';
 import tokens from '@contentful/forma-36-tokens';
 import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 
-import { TextLink } from '@contentful/f36-components';
+import { TextLink, Heading } from '@contentful/f36-components';
 
 const styles = {
   flexColumnContainer: css({
@@ -72,19 +71,19 @@ export const CheatsheetModalDialog = () => {
       <div className={styles.flexColumnContainer}>
         <div className={cx(styles.flexColumn, styles.verticalDivider)}>
           <div className={styles.helpItem}>
-            <Heading element="h1" className={cx(styles.preview, styles.h1)}>
+            <Heading marginBottom="none" as="h1" className={cx(styles.preview, styles.h1)}>
               H1
             </Heading>
             <div className={styles.markup}># heading</div>
           </div>
           <div className={styles.helpItem}>
-            <Heading element="h2" className={cx(styles.preview, styles.h2)}>
+            <Heading marginBottom="none" as="h2" className={cx(styles.preview, styles.h2)}>
               H2
             </Heading>
             <div className={styles.markup}>## heading</div>
           </div>
           <div className={styles.helpItem}>
-            <Heading element="h3" className={cx(styles.preview, styles.h3)}>
+            <Heading marginBottom="none" as="h3" className={cx(styles.preview, styles.h3)}>
               H3
             </Heading>
             <div className={styles.markup}>### heading</div>

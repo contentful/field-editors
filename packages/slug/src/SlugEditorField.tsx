@@ -4,7 +4,7 @@ import { TextInput, Icon, ValidationMessage } from '@contentful/forma-36-react-c
 import { makeSlug } from './services/makeSlug';
 import * as styles from './styles';
 
-import { Spinner } from "@contentful/f36-components";
+import { Spinner } from '@contentful/f36-components';
 
 interface SlugEditorFieldProps {
   hasError: boolean;

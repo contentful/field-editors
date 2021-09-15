@@ -4,10 +4,10 @@ import isHotKey from 'is-hotkey';
 import cn from 'classnames';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
-import { SkeletonContainer, SkeletonBodyText, SectionHeading, Icon, IconButton } from '@contentful/forma-36-react-components';
+import { SkeletonContainer, SkeletonBodyText, Icon, IconButton } from '@contentful/forma-36-react-components';
 import uniqBy from 'lodash/uniqBy';
 
-import { Spinner } from "@contentful/f36-components";
+import { Spinner, SectionHeading } from "@contentful/f36-components";
 
 const styles = {
   commandPanel: css({
@@ -263,7 +263,7 @@ export class CommandPanel extends React.Component {
 
   renderNavigationBar = () => (
     <div className={styles.navBar}>
-      <SectionHeading>
+      <SectionHeading marginBottom="none">
         {this.props.breadcrumb ? `Embed ${this.props.breadcrumb}` : 'Richtext Commands'}
       </SectionHeading>
       <IconButton

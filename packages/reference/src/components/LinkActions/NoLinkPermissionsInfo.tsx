@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Paragraph } from '@contentful/forma-36-react-components';
+import { Paragraph } from '@contentful/f36-components';
 
 export function NoLinkPermissionsInfo() {
   return (

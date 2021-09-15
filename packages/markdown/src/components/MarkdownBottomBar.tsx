@@ -1,9 +1,8 @@
 import React from 'react';
 import { css } from 'emotion';
-import { Paragraph } from '@contentful/forma-36-react-components';
 import tokens from '@contentful/forma-36-tokens';
 
-import { TextLink } from '@contentful/f36-components';
+import { TextLink, Paragraph } from '@contentful/f36-components';
 
 const styles = {
   root: css({
@@ -26,7 +25,7 @@ const styles = {
 
 export function MarkdownCounter(props: { words: number; characters: number }) {
   return (
-    <Paragraph className={styles.help}>
+    <Paragraph marginBottom="none" className={styles.help}>
       {props.words} {props.words !== 1 ? 'words' : 'word'}, {props.characters}{' '}
       {props.characters !== 1 ? 'characters' : 'character'}
     </Paragraph>
@@ -35,7 +34,7 @@ export function MarkdownCounter(props: { words: number; characters: number }) {
 
 export function MarkdownHelp(props: { onClick: () => void }) {
   return (
-    <Paragraph className={styles.help}>
+    <Paragraph marginBottom="none" className={styles.help}>
       Format your text like a pro with the{' '}
       <TextLink
         as="button"
