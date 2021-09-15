@@ -58,10 +58,10 @@ export const SpecialCharacterModalDialog = ({ onClose }: SpecialCharacterModalDi
     <>
       <ModalContent testId="insert-special-character-modal">
         <div className={styles.charContainer}>
-          <DisplayText marginBottom="none" as="p" className={styles.selectedCharacter}>
+          <DisplayText marginBottom="none" as="h3" className={styles.selectedCharacter}>
             {String.fromCharCode(selectedCharacter.code)}
           </DisplayText>
-          <DisplayText marginBottom="none" as="p" className={styles.selectedCharacterDesc}>
+          <DisplayText marginBottom="none" as="h3" className={styles.selectedCharacterDesc}>
             {selectedCharacter.desc}
           </DisplayText>
         </div>
