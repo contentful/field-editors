@@ -6,7 +6,7 @@ import { Button } from '@contentful/forma-36-react-components';
 import tokens from '@contentful/forma-36-tokens';
 import { CreateEntryMenuTrigger, CreateCustomEntryMenuItems } from './CreateEntryMenuTrigger';
 
-import { Spinner } from "@contentful/f36-components";
+import { Spinner } from '@contentful/f36-components';
 
 const standardStyles = {
   spinnerMargin: css({

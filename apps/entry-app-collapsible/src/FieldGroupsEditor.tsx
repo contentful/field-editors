@@ -43,7 +43,9 @@ const SortableFieldItem = SortableElement(
       <Card className={styles.card}>
         <div className={styles.cardInfo}>
           <DragHandle />
-          <Paragraph marginBottom="none" className={styles.fieldName}>{field.name}</Paragraph>
+          <Paragraph marginBottom="none" className={styles.fieldName}>
+            {field.name}
+          </Paragraph>
           {fieldDetails ? <Paragraph marginBottom="none">{fieldDetails.type}</Paragraph> : null}
         </div>
         <IconButton

@@ -49,18 +49,24 @@ export const ScheduleTooltipContent = ({
       colorPalette = styles.secondaryColor;
   }
 
-  return <>
-    <span className={styles.time} data-test-id="cf-scheduled-time-tootlip-content">
-      {formatDateAndTime(job.scheduledFor.datetime)}
-    </span>
-    <Badge
-      variant={job.action === 'publish' ? 'positive' : 'secondary'}
-      testId="scheduled-publish-trigger"
-      className={cx(styles.statusTag, colorPalette)}>
-      {job.action.toUpperCase()}
-    </Badge>
-    {jobsCount > 1 && <Paragraph marginBottom="none" className={styles.paragraph}>+ {jobsCount - 1} more</Paragraph>}
-  </>;
+  return (
+    <>
+      <span className={styles.time} data-test-id="cf-scheduled-time-tootlip-content">
+        {formatDateAndTime(job.scheduledFor.datetime)}
+      </span>
+      <Badge
+        variant={job.action === 'publish' ? 'positive' : 'secondary'}
+        testId="scheduled-publish-trigger"
+        className={cx(styles.statusTag, colorPalette)}>
+        {job.action.toUpperCase()}
+      </Badge>
+      {jobsCount > 1 && (
+        <Paragraph marginBottom="none" className={styles.paragraph}>
+          + {jobsCount - 1} more
+        </Paragraph>
+      )}
+    </>
+  );
 };
 
 export const ScheduleTooltip = ({

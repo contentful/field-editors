@@ -3,7 +3,7 @@ import { Card, IconButton } from '@contentful/forma-36-react-components';
 import { EntityType } from '../../types';
 import * as styles from './styles';
 
-import { SectionHeading } from "@contentful/f36-components";
+import { SectionHeading } from '@contentful/f36-components';
 
 export function MissingEntityCard(props: {
   entityType: EntityType;
