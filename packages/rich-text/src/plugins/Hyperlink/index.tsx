@@ -104,7 +104,7 @@ export function createHyperlinkPlugin(sdk: FieldExtensionSDK): PlatePlugin {
                     sys: {
                       id: element.getAttribute('data-link-id'),
                       linkType: element.getAttribute('data-link-type'),
-                      link: 'Link',
+                      type: 'Link',
                     },
                   },
                 },
@@ -124,7 +124,7 @@ export function createHyperlinkPlugin(sdk: FieldExtensionSDK): PlatePlugin {
                     sys: {
                       id: element.getAttribute('data-link-id'),
                       linkType: element.getAttribute('data-link-type'),
-                      link: 'Link',
+                      type: 'Link',
                     },
                   },
                 },
