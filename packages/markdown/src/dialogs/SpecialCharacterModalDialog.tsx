@@ -3,7 +3,7 @@ import { DialogsAPI } from '@contentful/app-sdk';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 import { Button, Tooltip } from '@contentful/forma-36-react-components';
-import { ModalContent, ModalControls, DisplayText } from '@contentful/f36-components';
+import { ModalContent, ModalControls, Text, Flex } from '@contentful/f36-components';
 import { specialCharacters } from '../utils/specialCharacters';
 import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 
@@ -28,20 +28,6 @@ const styles = {
     marginTop: tokens.spacingM,
     marginRight: tokens.spacingS,
   }),
-  charContainer: css({
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    marginBottom: tokens.spacingM,
-  }),
-  selectedCharacter: css({
-    fontSize: tokens.fontSize3Xl,
-    margin: 'auto',
-  }),
-  selectedCharacterDesc: css({
-    fontSize: tokens.fontSizeM,
-    margin: 'auto',
-  }),
 };
 
 export type SpecialCharacterModalResult = string | false | undefined;
@@ -57,14 +43,14 @@ export const SpecialCharacterModalDialog = ({ onClose }: SpecialCharacterModalDi
   return (
     <>
       <ModalContent testId="insert-special-character-modal">
-        <div className={styles.charContainer}>
-          <DisplayText marginBottom="none" as="h3" className={styles.selectedCharacter}>
+        <Flex flexDirection="column" alignItems="center">
+          <Text as="div" lineHeight="lineHeight3Xl" fontSize="fontSize3Xl" marginBottom="spacingS">
             {String.fromCharCode(selectedCharacter.code)}
-          </DisplayText>
-          <DisplayText marginBottom="none" as="h3" className={styles.selectedCharacterDesc}>
+          </Text>
+          <Text as="div" marginBottom="spacingS">
             {selectedCharacter.desc}
-          </DisplayText>
-        </div>
+          </Text>
+        </Flex>
         <div className={styles.buttonPanel}>
           {specialCharacters.map((char) => (
             <div key={char.code}>
