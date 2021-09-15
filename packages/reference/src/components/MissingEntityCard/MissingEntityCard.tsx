@@ -1,7 +1,9 @@
 import React from 'react';
-import { Card, SectionHeading, IconButton } from '@contentful/forma-36-react-components';
+import { Card, IconButton } from '@contentful/forma-36-react-components';
 import { EntityType } from '../../types';
 import * as styles from './styles';
+
+import { SectionHeading } from "@contentful/f36-components";
 
 export function MissingEntityCard(props: {
   entityType: EntityType;
@@ -12,7 +14,7 @@ export function MissingEntityCard(props: {
   return (
     <Card className={styles.card}>
       <div className={props.asSquare ? styles.squareCard : ''}>
-        <SectionHeading>
+        <SectionHeading marginBottom="none">
           {props.entityType === 'Entry' && 'Entry is missing or inaccessible'}
           {props.entityType === 'Asset' && 'Asset is missing or inaccessible'}
         </SectionHeading>

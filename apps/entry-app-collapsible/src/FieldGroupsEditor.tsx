@@ -9,7 +9,6 @@ import {
   FormLabel,
   FieldGroup,
   Card,
-  Paragraph,
   IconButton,
   CardDragHandle,
 } from '@contentful/forma-36-react-components';
@@ -20,7 +19,7 @@ import { ActionTypes } from './types';
 import styles from './styles';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 
-import { TextLink } from '@contentful/f36-components';
+import { TextLink, Paragraph } from '@contentful/f36-components';
 
 import { CloseIcon, ChevronDownIcon, ChevronUpIcon } from '@contentful/f36-icons';
 
@@ -44,8 +43,8 @@ const SortableFieldItem = SortableElement(
       <Card className={styles.card}>
         <div className={styles.cardInfo}>
           <DragHandle />
-          <Paragraph className={styles.fieldName}>{field.name}</Paragraph>
-          {fieldDetails ? <Paragraph>{fieldDetails.type}</Paragraph> : null}
+          <Paragraph marginBottom="none" className={styles.fieldName}>{field.name}</Paragraph>
+          {fieldDetails ? <Paragraph marginBottom="none">{fieldDetails.type}</Paragraph> : null}
         </div>
         <IconButton
           label="Remove field"

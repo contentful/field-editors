@@ -1,8 +1,8 @@
 import React from 'react';
 import { ScheduledAction } from '@contentful/app-sdk';
 import { css, cx } from 'emotion';
-import { Tooltip, Paragraph } from '@contentful/forma-36-react-components';
-import { Badge } from '@contentful/f36-components';
+import { Tooltip } from '@contentful/forma-36-react-components';
+import { Badge, Paragraph } from '@contentful/f36-components';
 import tokens from '@contentful/forma-36-tokens';
 import { formatDateAndTime } from './formatDateAndTime';
 
@@ -49,20 +49,18 @@ export const ScheduleTooltipContent = ({
       colorPalette = styles.secondaryColor;
   }
 
-  return (
-    <>
-      <span className={styles.time} data-test-id="cf-scheduled-time-tootlip-content">
-        {formatDateAndTime(job.scheduledFor.datetime)}
-      </span>
-      <Badge
-        variant={job.action === 'publish' ? 'positive' : 'secondary'}
-        testId="scheduled-publish-trigger"
-        className={cx(styles.statusTag, colorPalette)}>
-        {job.action.toUpperCase()}
-      </Badge>
-      {jobsCount > 1 && <Paragraph className={styles.paragraph}>+ {jobsCount - 1} more</Paragraph>}
-    </>
-  );
+  return <>
+    <span className={styles.time} data-test-id="cf-scheduled-time-tootlip-content">
+      {formatDateAndTime(job.scheduledFor.datetime)}
+    </span>
+    <Badge
+      variant={job.action === 'publish' ? 'positive' : 'secondary'}
+      testId="scheduled-publish-trigger"
+      className={cx(styles.statusTag, colorPalette)}>
+      {job.action.toUpperCase()}
+    </Badge>
+    {jobsCount > 1 && <Paragraph marginBottom="none" className={styles.paragraph}>+ {jobsCount - 1} more</Paragraph>}
+  </>;
 };
 
 export const ScheduleTooltip = ({
