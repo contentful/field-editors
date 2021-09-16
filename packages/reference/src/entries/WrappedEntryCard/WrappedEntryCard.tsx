@@ -9,8 +9,7 @@ import {
   Icon,
 } from '@contentful/forma-36-react-components';
 import { ContentType, Entry, File } from '../../types';
-import { isValidImage } from '../../utils/isValidImage';
-import { entityHelpers } from '@contentful/field-editor-shared';
+import { entityHelpers, isValidImage } from '@contentful/field-editor-shared';
 import { AssetThumbnail, MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
 
 const { getEntryTitle, getEntityDescription, getEntryStatus, getEntryImage } = entityHelpers;
