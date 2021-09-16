@@ -64,11 +64,6 @@ export function LinkedEntityBlock(props: LinkedEntityBlockProps) {
             isSelected={isSelected}
             onRemove={handleRemoveClick}
             onEdit={handleEditClick}
-            getEntryUrl={() => {
-              const getEntryUrl = sdk.parameters.instance.getEntryUrl;
-              return typeof getEntryUrl === 'function' ? getEntryUrl(entityId) : '';
-            }}
-            onEntityFetchComplete={onEntityFetchComplete}
           />
         )}
         {entityType === 'Asset' && (
