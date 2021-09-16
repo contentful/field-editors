@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {
-  Button,
   Dropdown,
   DropdownList,
   DropdownListItem,
@@ -19,7 +18,7 @@ import { ActionTypes } from './types';
 import styles from './styles';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 
-import { TextLink, Paragraph } from '@contentful/f36-components';
+import { TextLink, Paragraph, Button } from '@contentful/f36-components';
 
 import { CloseIcon, ChevronDownIcon, ChevronUpIcon } from '@contentful/f36-icons';
 
@@ -84,10 +83,10 @@ export class FieldGroupsEditor extends React.Component<FieldGroupsEditorProps> {
         <div className={styles.controls}>
           <HelpText>Group fields to seperate concerns in the entry editor</HelpText>
           <div>
-            <Button onClick={this.props.addGroup}>Add Group</Button>
+            <Button variant="primary" onClick={this.props.addGroup}>Add Group</Button>
             <Button
               className={styles.saveButton}
-              buttonType="positive"
+              variant="positive"
               onClick={this.props.onClose}>
               Save
             </Button>
@@ -171,7 +170,11 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
           isOpen={dropdownOpen}
           onClose={closeDropdown}
           toggleElement={
-            <Button size="small" buttonType="muted" onClick={openDropdown} indicateDropdown>
+            <Button
+              endIcon={<ChevronDownIcon />}
+              size="small"
+              variant="secondary"
+              onClick={openDropdown}>
               Select a field to add
             </Button>
           }>

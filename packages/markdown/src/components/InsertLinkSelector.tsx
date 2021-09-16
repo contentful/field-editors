@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import {
-  Button,
-  Dropdown,
-  DropdownList,
-  DropdownListItem,
-} from '@contentful/forma-36-react-components';
+import { Dropdown, DropdownList, DropdownListItem } from '@contentful/forma-36-react-components';
+
+import { Button } from "@contentful/f36-components";
+
+import { AssetIcon, ChevronDownIcon } from "@contentful/f36-icons";
 
 interface InsertLinkSelectorProps {
   onSelectExisting: Function;
@@ -19,11 +18,11 @@ export const InsertLinkSelector = (props: InsertLinkSelectorProps) => {
   } else {
     return (
       <Button
-        disabled={props.disabled}
-        icon="Asset"
+        isDisabled={props.disabled}
+        startIcon={<AssetIcon />}
         testId="markdownEditor.linkExistingAssets"
         size="small"
-        buttonType="muted"
+        variant="secondary"
         onClick={() => {
           props.onSelectExisting();
         }}>
@@ -46,12 +45,12 @@ const MultipleMediaContextMenu = (props: InsertLinkSelectorProps) => {
       onClose={() => setOpen(false)}
       toggleElement={
         <Button
-          disabled={props.disabled}
-          icon="Asset"
+          endIcon={<ChevronDownIcon />}
+          isDisabled={props.disabled}
+          startIcon={<AssetIcon />}
           testId="markdownEditor.insertMediaDropdownTrigger"
           size="small"
-          buttonType="muted"
-          indicateDropdown
+          variant="secondary"
           onClick={() => setOpen(!isOpen)}>
           Insert media
         </Button>
