@@ -32,4 +32,6 @@ export { entityHelpers };
 import * as ConstraintsUtils from './utils/constraints';
 export { ConstraintsUtils };
 
+export { isValidImage } from './utils/isValidImage';
+
 export { Entry, File, Asset } from './typesEntity';
