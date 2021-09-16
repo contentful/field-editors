@@ -63,7 +63,7 @@ describe('Location Editor', () => {
     cy.editorEvents().should('deep.equal', []);
   });
 
-  it('should set value after latitude and longitude change', () => {
+  it.skip('should set value after latitude and longitude change', () => {
     cy.editorEvents().should('deep.equal', []);
 
     selectors.getCoordinatesRadio().click();
