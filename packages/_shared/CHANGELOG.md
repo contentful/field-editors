@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.23.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@0.22.1...@contentful/field-editor-shared@0.23.0) (2021-09-16)
+
+
+### Features
+
+* export shared util to validate images ([#846](https://github.com/contentful/field-editors/issues/846)) ([f26c481](https://github.com/contentful/field-editors/commit/f26c481cc5abf275acb4e4a65b462be487708117))
+
+
+
+
+
 ## [0.22.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@0.22.0...@contentful/field-editor-shared@0.22.1) (2021-08-19)
 
 
