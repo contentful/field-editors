@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.24.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@0.23.0...@contentful/field-editor-shared@0.24.0) (2021-09-17)
+
+
+### Features
+
+* add shortenStorageUnit util to shared ([#852](https://github.com/contentful/field-editors/issues/852)) ([142472b](https://github.com/contentful/field-editors/commit/142472b57fc1ca2843dd414c5320fdb5b5b11e62))
+
+
+
+
+
 # [0.23.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@0.22.1...@contentful/field-editor-shared@0.23.0) (2021-09-16)
 
 
