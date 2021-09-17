@@ -9,6 +9,7 @@ import schema from './constants/Schema';
 import deepEquals from 'fast-deep-equal';
 import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/StickyToolbarWrapper';
+import { createPastePlugin } from './plugins/Paste';
 import { withListOptions } from './plugins/List';
 import {
   Plate,
@@ -71,6 +72,9 @@ const getPlugins = (sdk: FieldExtensionSDK, tracking: TrackingProvider) => {
     createReactPlugin(),
     createHistoryPlugin(),
 
+    // Behavior
+    createPastePlugin(),
+
     // Global shortcuts
     createNewLinePlugin(),
     createInsertBeforeFirstVoidBlockPlugin(),
@@ -123,7 +127,6 @@ const options = {
   ...withItalicOptions,
   ...withUnderlineOptions,
 };
-
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const tracking = useTrackingContext();
 
