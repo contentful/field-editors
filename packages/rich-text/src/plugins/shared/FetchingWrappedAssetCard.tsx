@@ -29,14 +29,14 @@ interface FetchingWrappedAssetCardProps {
   isDisabled: boolean;
   isSelected: boolean;
   locale: string;
-  onEdit: () => void;
-  onRemove: () => unknown;
+  onEdit?: () => void;
+  onRemove?: () => unknown;
   sdk: FieldExtensionSDK;
 }
 
 interface AssetDropdownMenuProps {
-  onEdit: () => void;
-  onRemove: () => void;
+  onEdit?: () => void;
+  onRemove?: () => void;
   isDisabled: boolean;
   entityFile: File;
 }
@@ -55,17 +55,21 @@ function AssetDropdownMenu({ onEdit, onRemove, isDisabled, entityFile }: AssetDr
     <React.Fragment>
       <DropdownList>
         <DropdownListItem isTitle={true}>Actions</DropdownListItem>
-        <DropdownListItem onClick={onEdit} testId="edit">
-          Edit
-        </DropdownListItem>
+        {onEdit && (
+          <DropdownListItem onClick={onEdit} testId="edit">
+            Edit
+          </DropdownListItem>
+        )}
         {entityFile && (
           <DropdownListItem onClick={downloadAsset} testId="card-action-download">
             Download
           </DropdownListItem>
         )}
-        <DropdownListItem onClick={onRemove} isDisabled={isDisabled} testId="delete">
-          Remove
-        </DropdownListItem>
+        {onRemove && (
+          <DropdownListItem onClick={onRemove} isDisabled={isDisabled} testId="delete">
+            Remove
+          </DropdownListItem>
+        )}
       </DropdownList>
 
       <DropdownList border="top">

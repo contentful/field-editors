@@ -15,9 +15,9 @@ interface FetchingWrappedEntryCardProps {
   isDisabled: boolean;
   isSelected: boolean;
   locale: string;
-  onEdit: () => void;
-  onRemove: () => void;
   sdk: FieldExtensionSDK;
+  onEdit?: () => void;
+  onRemove?: () => void;
 }
 
 interface EntryThumbnailProps {
@@ -84,6 +84,18 @@ export function FetchingWrappedEntryCard(props: FetchingWrappedEntryCardProps) {
     getOrLoadEntry(props.entryId);
   }, [props.entryId]); // eslint-disable-line
 
+  function renderDropdown() {
+    if (!props.onEdit || !props.onRemove) return undefined;
+
+    return (
+      <EntryDropdownMenu
+        isDisabled={props.isDisabled}
+        onEdit={props.onEdit}
+        onRemove={props.onRemove}
+      />
+    );
+  }
+
   if (entry === undefined) {
     return <EntryCard size="default" loading={true} />;
   }
@@ -135,13 +147,7 @@ export function FetchingWrappedEntryCard(props: FetchingWrappedEntryCardProps) {
       className={styles.entryCard}
       thumbnailElement={file ? <EntryThumbnail file={file} /> : null}
       statusIcon={<EntityStatusIcon entityType="Entry" entity={entry} />}
-      dropdownListElements={
-        <EntryDropdownMenu
-          isDisabled={props.isDisabled}
-          onEdit={props.onEdit}
-          onRemove={props.onRemove}
-        />
-      }
+      dropdownListElements={renderDropdown()}
     />
   );
 }
