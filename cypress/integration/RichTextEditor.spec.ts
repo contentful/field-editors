@@ -1159,6 +1159,31 @@ describe('Rich Text Editor', () => {
           expectRichTextFieldValue(undefined);
         });
 
+        it('adds and removes embedded assets by selecting and pressing `backspace`', () => {
+          editor().click().then(triggerEmbeddedAsset);
+
+          expectRichTextFieldValue(
+            doc(
+              block(BLOCKS.EMBEDDED_ASSET, {
+                target: {
+                  sys: {
+                    id: 'example-entity-id',
+                    type: 'Link',
+                    linkType: 'Asset',
+                  },
+                },
+              }),
+              block(BLOCKS.PARAGRAPH, {}, text(''))
+            )
+          );
+
+          cy.findByTestId('cf-ui-asset-card').click();
+          // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
+          editor().trigger('keydown', { keyCode: 8, which: 8, key: 'Backspace' }); // 8 = delete/backspace
+
+          expectRichTextFieldValue(undefined);
+        });
+
         it('adds embedded assets between words', () => {
           editor()
             .click()
