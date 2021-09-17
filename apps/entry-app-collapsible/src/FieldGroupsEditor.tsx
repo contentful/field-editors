@@ -3,7 +3,6 @@ import {
   Dropdown,
   DropdownList,
   DropdownListItem,
-  HelpText,
   TextField,
   FormLabel,
   FieldGroup,
@@ -11,7 +10,7 @@ import {
   IconButton,
   CardDragHandle,
 } from '@contentful/forma-36-react-components';
-import { ModalContent } from '@contentful/f36-components';
+import { ModalContent, Text } from '@contentful/f36-components';
 import { findUnassignedFields, AppContext, SDKContext } from './shared';
 import { FieldType, FieldGroupType } from './types';
 import { ActionTypes } from './types';
@@ -81,7 +80,9 @@ export class FieldGroupsEditor extends React.Component<FieldGroupsEditorProps> {
     return (
       <React.Fragment>
         <div className={styles.controls}>
-          <HelpText>Group fields to seperate concerns in the entry editor</HelpText>
+          <Text as="p" fontColor="gray500" marginTop="spacingXs">
+            Group fields to seperate concerns in the entry editor
+          </Text>
           <div>
             <Button variant="primary" onClick={this.props.addGroup}>Add Group</Button>
             <Button
