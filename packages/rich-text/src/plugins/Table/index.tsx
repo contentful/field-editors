@@ -19,6 +19,7 @@ import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { CustomElement, CustomSlatePluginOptions } from '../../types';
 import { isTableActive, insertTableAndFocusFirstCell } from './helpers';
 import { TrackingProvider, useTrackingContext } from '../../TrackingProvider';
+import { Element, Node, Text, Transforms } from 'slate';
 
 const styles = {
   [BLOCKS.TABLE]: css`
@@ -139,6 +140,29 @@ function addTableTrackingEvents(editor: SPEditor, { onViewportAction }: Tracking
   };
 }
 
+function addTableNormalization(editor) {
+  const { normalizeNode } = editor
+
+  editor.normalizeNode = (entry) => {
+    const [node, path] = entry;
+
+    // TODO: This should be enforced by sanitizeSlateDoc() but the internal
+    // editor value can be different.
+    // cf. https://github.com/ianstormtaylor/slate/issues/2206
+    const cellTypes: string[] = [BLOCKS.TABLE_CELL, BLOCKS.TABLE_HEADER_CELL];
+    if (Element.isElement(node) && cellTypes.includes((node as CustomElement).type)) {
+      for (const [child, childPath] of Node.children(editor, path)) {
+        if (Text.isText(child)) {
+          const paragraph = { type: BLOCKS.PARAGRAPH, data: {}, children: [] };
+          Transforms.wrapNodes(editor, paragraph, { at: childPath });
+        }
+      }
+    }
+
+    normalizeNode(entry)
+  }
+}
+
 function hasTables(nodes: CustomElement[]) {
   return nodes.some(({ type }) => {
     return type === BLOCKS.TABLE;
@@ -148,6 +172,7 @@ function hasTables(nodes: CustomElement[]) {
 function createWithTableEvents(tracking: TrackingProvider) {
   return function withTableEvents(editor: SPEditor) {
     addTableTrackingEvents(editor, tracking);
+    addTableNormalization(editor);
     return getTableOnKeyDown()(editor);
   };
 }
