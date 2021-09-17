@@ -1,26 +1,13 @@
 import * as React from 'react';
-import {
-  EntryCard,
-  DropdownList,
-  DropdownListItem,
-  Icon,
-} from '@contentful/forma-36-react-components';
-import {
-  useEntities,
-  MissingEntityCard,
-  ScheduledIconWithTooltip,
-  AssetThumbnail,
-} from '@contentful/field-editor-reference';
-import tokens from '@contentful/forma-36-tokens';
+import { EntryCard, DropdownList, DropdownListItem } from '@contentful/forma-36-react-components';
+import { useEntities, MissingEntityCard, AssetThumbnail } from '@contentful/field-editor-reference';
 import { FieldExtensionSDK } from '@contentful/app-sdk';
-import { entityHelpers, File, Entry, isValidImage } from '@contentful/field-editor-shared';
+import { entityHelpers, File, isValidImage } from '@contentful/field-editor-shared';
 import { css } from 'emotion';
+import { EntityStatusIcon } from './EntityStatusIcon';
 
 const styles = {
   entryCard: css({ cursor: 'pointer' }),
-  scheduleIcon: css({
-    marginRight: tokens.spacing2Xs,
-  }),
 };
 
 interface FetchingWrappedEntryCardProps {
@@ -37,10 +24,6 @@ interface EntryThumbnailProps {
   file: File;
 }
 
-interface EntryStatusIconProps {
-  entry: Entry;
-}
-
 interface EntryDropdownMenuProps {
   onEdit: () => void;
   onRemove: () => void;
@@ -53,28 +36,10 @@ function EntryThumbnail({ file }: EntryThumbnailProps) {
   return <AssetThumbnail file={file as File} />;
 }
 
-function EntryStatusIcon({ entry }: EntryStatusIconProps) {
-  const { loadEntityScheduledActions } = useEntities();
-
-  return (
-    <ScheduledIconWithTooltip
-      getEntityScheduledActions={loadEntityScheduledActions}
-      entityType="Entry"
-      entityId={entry.sys.id}>
-      <Icon
-        className={styles.scheduleIcon}
-        icon="Clock"
-        size="small"
-        color="muted"
-        testId="schedule-icon"
-      />
-    </ScheduledIconWithTooltip>
-  );
-}
-
 function EntryDropdownMenu({ onEdit, onRemove, isDisabled }: EntryDropdownMenuProps) {
   return (
     <DropdownList>
+      <DropdownListItem isTitle={true}>Actions</DropdownListItem>
       <DropdownListItem onClick={onEdit} testId="edit">
         Edit
       </DropdownListItem>
@@ -87,8 +52,8 @@ function EntryDropdownMenu({ onEdit, onRemove, isDisabled }: EntryDropdownMenuPr
 
 export function FetchingWrappedEntryCard(props: FetchingWrappedEntryCardProps) {
   const { getOrLoadEntry, entries } = useEntities();
-  const [file, setFile] = React.useState<null | File>(null);
-  const entry = React.useMemo(() => entries[props.entryId], [entries, props.entryId]);
+  const [file, setFile] = React.useState<File | null>(null);
+  const entry = entries[props.entryId];
   const contentType = React.useMemo(
     () =>
       props.sdk.space
@@ -96,11 +61,6 @@ export function FetchingWrappedEntryCard(props: FetchingWrappedEntryCardProps) {
         .find((contentType) => contentType.sys.id === entry?.sys.contentType.sys.id),
     [props.sdk, entry]
   );
-  const entryStatus = React.useMemo(
-    () => (entry ? entityHelpers.getEntryStatus(entry.sys) : undefined),
-    [entry]
-  );
-
   const defaultLocaleCode = props.sdk.locales.default;
 
   React.useEffect(() => {
@@ -138,6 +98,7 @@ export function FetchingWrappedEntryCard(props: FetchingWrappedEntryCardProps) {
     );
   }
 
+  const entryStatus = entry ? entityHelpers.getEntryStatus(entry.sys) : undefined;
   if (entryStatus === 'deleted') {
     return (
       <MissingEntityCard
@@ -173,7 +134,7 @@ export function FetchingWrappedEntryCard(props: FetchingWrappedEntryCardProps) {
       status={entryStatus}
       className={styles.entryCard}
       thumbnailElement={file ? <EntryThumbnail file={file} /> : null}
-      statusIcon={<EntryStatusIcon entry={entry} />}
+      statusIcon={<EntityStatusIcon entityType="Entry" entity={entry} />}
       dropdownListElements={
         <EntryDropdownMenu
           isDisabled={props.isDisabled}
