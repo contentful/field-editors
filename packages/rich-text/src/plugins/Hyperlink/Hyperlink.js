@@ -2,62 +2,61 @@ import React from 'react';
 import { Tooltip } from '@contentful/forma-36-react-components';
 import PropTypes from 'prop-types';
 import { cx } from 'emotion';
-import noop from 'lodash/noop';
 import isHotKey from 'is-hotkey';
 import styles from './styles';
 import { SUPPORTS_NATIVE_SLATE_HYPERLINKS } from '../../helpers/browserSupport';
-import { EntityHyperlinkTooltip } from './EntityHyperlinkTootip';
+import { useRequestStatus } from './useRequestStatus';
+import { getScheduleTooltipContent } from '@contentful/field-editor-reference';
+import { truncate } from './truncate';
 
-import { TextLink } from "@contentful/f36-components";
+import { TextLink } from '@contentful/f36-components';
 
-export default class Hyperlink extends React.Component {
-  static propTypes = {
-    attributes: PropTypes.object.isRequired,
-    node: PropTypes.object.isRequired,
-    children: PropTypes.node,
-    editor: PropTypes.object,
-    richTextAPI: PropTypes.object.isRequired,
-    onEdit: PropTypes.func
-  };
+function isUrl(string) {
+  return /^(?:[a-z]+:)?\/\//i.test(string) || /^mailto:/i.test(string);
+}
 
-  static defaultProps = {
-    onEdit: noop
-  };
+// eslint-disable-next-line react/prop-types
+function getEntityInfo({ entityTitle, entityStatus, contentTypeName }) {
+  const title = truncate(entityTitle, 60) || 'Untitled';
 
-  onKeyDown(e) {
+  return `${contentTypeName || 'Asset'} "${title}", ${entityStatus}`;
+}
+
+export default function Hyperlink(props) {
+  const { children, node } = props;
+  const title = node.data.get('title');
+  const uri = node.data.get('uri');
+  const href = isUrl(uri) ? uri : 'javascript:void(0)';
+  const target = node.data.get('target');
+  const requestStatus = useRequestStatus({richTextAPI: props.richTextAPI, target });
+
+  const getTooltipContent = () => {
+      if (requestStatus.type === 'loading') {
+    return `Loading ${target.sys.linkType.toLowerCase()}...`;
+  }
+  let tooltipContent = '';
+  if (requestStatus.type === 'error') {
+    tooltipContent = `${target.sys.linkType} missing or inaccessible`;
+  } else {
+    const { jobs, ...entityInfo } = requestStatus.data;
+    tooltipContent = `${getEntityInfo(entityInfo)}
+    ${jobs.length > 0 ? getScheduleTooltipContent({ job: jobs[0], jobsCount: jobs.length }) : ''}`;
+  }
+  return tooltipContent;
+  }
+
+  const onKeyDown = (e) => {
     if (isHotKey('enter', e)) {
       e.preventDefault();
       e.stopPropagation(); // Ensure Slate doesn't interpret as new paragraph.
-      this.props.onEdit(e);
+      props.onEdit(e);
     }
-  }
+  };
 
-  render() {
-    const { node } = this.props;
-    const uri = node.data.get('uri');
-    const target = node.data.get('target');
-
-    return (
-      <span
-        {...this.props.attributes}
-        onClick={this.props.onEdit}
-        onKeyDown={e => this.onKeyDown(e)}
-        role="button"
-        tabIndex={0}>
-        {target ? this.renderEntityLink(target) : this.renderLink({ tooltip: uri })}
-      </span>
-      // TODO: Add contentEditable={false} to tooltip to fix text cursor bug
-    );
-  }
-
-  renderLink({ tooltip }) {
-    const { children, node } = this.props;
-    const title = node.data.get('title');
-    const uri = node.data.get('uri');
-    const href = isUrl(uri) ? uri : 'javascript:void(0)';
+  const renderLink = ({tooltipContent}) => {
     return (
       <Tooltip
-        content={tooltip}
+        content={tooltipContent}
         className={styles.tooltipContainer}
         targetWrapperClassName={styles.hyperlinkWrapper}
         place="bottom"
@@ -76,14 +75,26 @@ export default class Hyperlink extends React.Component {
         )}
       </Tooltip>
     );
-  }
+  };
 
-  renderEntityLink(target) {
-    const tooltip = <EntityHyperlinkTooltip richTextAPI={this.props.richTextAPI} target={target} />;
-    return this.renderLink({ tooltip });
-  }
+  return (
+    <span
+      {...props.attributes}
+      onClick={props.onEdit}
+      onKeyDown={(e) => onKeyDown(e)}
+      role="button"
+      tabIndex={0}>
+      {target ? renderLink({ tooltipContent: getTooltipContent() }) : renderLink({ tooltipContent: uri })}
+    </span>
+    // TODO: Add contentEditable={false} to tooltip to fix text cursor bug
+  );
 }
 
-function isUrl(string) {
-  return /^(?:[a-z]+:)?\/\//i.test(string) || /^mailto:/i.test(string);
-}
+Hyperlink.propTypes = {
+  attributes: PropTypes.object.isRequired,
+  node: PropTypes.object.isRequired,
+  children: PropTypes.node,
+  editor: PropTypes.object,
+  richTextAPI: PropTypes.object.isRequired,
+  onEdit: PropTypes.func,
+};
