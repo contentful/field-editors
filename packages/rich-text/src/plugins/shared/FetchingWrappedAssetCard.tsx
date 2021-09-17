@@ -56,7 +56,7 @@ function AssetDropdownMenu({ onEdit, onRemove, isDisabled, entityFile }: AssetDr
       <DropdownList>
         <DropdownListItem isTitle={true}>Actions</DropdownListItem>
         {onEdit && (
-          <DropdownListItem onClick={onEdit} testId="edit">
+          <DropdownListItem onClick={onEdit} testId="card-action-edit">
             Edit
           </DropdownListItem>
         )}
@@ -66,7 +66,7 @@ function AssetDropdownMenu({ onEdit, onRemove, isDisabled, entityFile }: AssetDr
           </DropdownListItem>
         )}
         {onRemove && (
-          <DropdownListItem onClick={onRemove} isDisabled={isDisabled} testId="delete">
+          <DropdownListItem onClick={onRemove} isDisabled={isDisabled} testId="card-action-remove">
             Remove
           </DropdownListItem>
         )}

@@ -1060,7 +1060,7 @@ describe('Rich Text Editor', () => {
           );
 
           cy.findByTestId('cf-ui-card-actions').click();
-          cy.findByTestId('delete').click();
+          cy.findByTestId('card-action-remove').click();
 
           expectRichTextFieldValue(undefined);
         });

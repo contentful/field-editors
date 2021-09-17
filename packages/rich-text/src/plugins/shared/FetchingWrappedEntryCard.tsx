@@ -40,10 +40,10 @@ function EntryDropdownMenu({ onEdit, onRemove, isDisabled }: EntryDropdownMenuPr
   return (
     <DropdownList>
       <DropdownListItem isTitle={true}>Actions</DropdownListItem>
-      <DropdownListItem onClick={onEdit} testId="edit">
+      <DropdownListItem onClick={onEdit} testId="card-action-edit">
         Edit
       </DropdownListItem>
-      <DropdownListItem onClick={onRemove} isDisabled={isDisabled} testId="delete">
+      <DropdownListItem onClick={onRemove} isDisabled={isDisabled} testId="card-action-remove">
         Remove
       </DropdownListItem>
     </DropdownList>
