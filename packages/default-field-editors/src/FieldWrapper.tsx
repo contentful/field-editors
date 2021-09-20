@@ -74,6 +74,7 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = function (props: FieldW
       {renderHelpText ? (
         renderHelpText(helpText)
       ) : (
+        // TODO: Refactor to FormControl.HelpText when FormControl is used as a wrapper
         <Text
           as="p"
           fontColor="gray500"
