@@ -1,14 +1,13 @@
 import * as React from 'react';
-import {
-  Button,
-  Dropdown,
-  DropdownList,
-  DropdownListItem,
-} from '@contentful/forma-36-react-components';
+import { Dropdown, DropdownList, DropdownListItem } from '@contentful/forma-36-react-components';
 import * as styles from './redesignStyles';
 import { CreateEntryLinkButton } from '../CreateEntryLinkButton/CreateEntryLinkButton';
 import { testIds as sharedTextIds, LinkActionsProps } from './LinkActions';
 import { NoLinkPermissionsInfo } from './NoLinkPermissionsInfo';
+
+import { Button } from "@contentful/f36-components";
+
+import { LinkIcon, PlusIcon, ChevronDownIcon } from "@contentful/f36-icons";
 
 const testIds = {
   ...sharedTextIds,
@@ -74,14 +73,14 @@ function CombinedEntryLinkActions(props: LinkActionsProps) {
   } else if (props.canLinkEntity) {
     return (
       <Button
-        disabled={props.isDisabled}
+        isDisabled={props.isDisabled}
         testId={testIds.linkExisting}
         className={styles.action}
         onClick={() => {
           props.onLinkExisting();
         }}
-        buttonType="muted"
-        icon="Link"
+        variant="secondary"
+        startIcon={<LinkIcon />}
         size="small">
         Add existing content
       </Button>
@@ -97,14 +96,14 @@ function CombinedAssetLinkActions(props: LinkActionsProps) {
     if (props.canLinkEntity) {
       return (
         <Button
-          disabled={props.isDisabled}
+          isDisabled={props.isDisabled}
           testId={testIds.linkExisting}
           className={styles.action}
           onClick={() => {
             props.onLinkExisting();
           }}
-          buttonType="muted"
-          icon="Plus"
+          variant="secondary"
+          startIcon={<PlusIcon />}
           size="small">
           Add existing media
         </Button>
@@ -113,14 +112,14 @@ function CombinedAssetLinkActions(props: LinkActionsProps) {
     if (props.canCreateEntity) {
       return (
         <Button
-          disabled={props.isDisabled}
+          isDisabled={props.isDisabled}
           testId={testIds.createAndLink}
           className={styles.action}
           onClick={() => {
             props.onCreate();
           }}
-          buttonType="muted"
-          icon="Plus"
+          variant="secondary"
+          startIcon={<PlusIcon />}
           size="small">
           Add media
         </Button>
@@ -138,15 +137,15 @@ function CombinedAssetLinkActions(props: LinkActionsProps) {
       toggleElement={
         <>
           <Button
-            disabled={props.isDisabled}
+            endIcon={<ChevronDownIcon />}
+            isDisabled={props.isDisabled}
             testId={testIds.actionsWrapper}
             className={styles.action}
             onClick={() => {
               setOpen(!isOpen);
             }}
-            buttonType="muted"
-            icon="Plus"
-            indicateDropdown
+            variant="secondary"
+            startIcon={<PlusIcon />}
             size="small">
             Add media
           </Button>

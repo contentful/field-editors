@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button, EntityList, EntityListItem } from '@contentful/forma-36-react-components';
-import { ModalContent, ModalControls, Paragraph } from '@contentful/f36-components';
+import { EntityList, EntityListItem } from '@contentful/forma-36-react-components';
+import { ModalContent, ModalControls, Paragraph, Button } from '@contentful/f36-components';
 import { DialogsAPI } from '@contentful/app-sdk';
 import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 
@@ -22,45 +22,43 @@ export const ConfirmInsertAssetModalDialog = ({
 }: ConfirmInsertAssetModalDialogProps) => {
   const localesNumber = assets.length;
 
-  return (
-    <>
-      <ModalContent testId="confirm-insert-asset">
-        <Paragraph>
-          {localesNumber === 1
-            ? `Link asset with missing file for locale ${locale}`
-            : `Link assets with missing files for locale ${locale}`}
-        </Paragraph>
-        <Paragraph>
-          {localesNumber === 1
-            ? 'Do you want to link to the file in its fallback locale?'
-            : 'Do you want to link to the files in their fallback locales?'}
-        </Paragraph>
-        <EntityList>
-          {assets.map(({ title, description, thumbnailUrl, thumbnailAltText }) => (
-            <EntityListItem
-              key={thumbnailUrl}
-              title={title}
-              thumbnailUrl={`${thumbnailUrl}?w=46&h=46&fit=thumb`}
-              thumbnailAltText={thumbnailAltText}
-              description={description}
-            />
-          ))}
-        </EntityList>
-      </ModalContent>
-      <ModalControls>
-        <Button onClick={() => onClose(false)} buttonType="muted" size="small">
-          Cancel
-        </Button>
-        <Button
-          testId="confirm-insert-asset"
-          onClick={() => onClose(true)}
-          buttonType="positive"
-          size="small">
-          Confirm
-        </Button>
-      </ModalControls>
-    </>
-  );
+  return <>
+    <ModalContent testId="confirm-insert-asset">
+      <Paragraph>
+        {localesNumber === 1
+          ? `Link asset with missing file for locale ${locale}`
+          : `Link assets with missing files for locale ${locale}`}
+      </Paragraph>
+      <Paragraph>
+        {localesNumber === 1
+          ? 'Do you want to link to the file in its fallback locale?'
+          : 'Do you want to link to the files in their fallback locales?'}
+      </Paragraph>
+      <EntityList>
+        {assets.map(({ title, description, thumbnailUrl, thumbnailAltText }) => (
+          <EntityListItem
+            key={thumbnailUrl}
+            title={title}
+            thumbnailUrl={`${thumbnailUrl}?w=46&h=46&fit=thumb`}
+            thumbnailAltText={thumbnailAltText}
+            description={description}
+          />
+        ))}
+      </EntityList>
+    </ModalContent>
+    <ModalControls>
+      <Button onClick={() => onClose(false)} variant="secondary" size="small">
+        Cancel
+      </Button>
+      <Button
+        testId="confirm-insert-asset"
+        onClick={() => onClose(true)}
+        variant="positive"
+        size="small">
+        Confirm
+      </Button>
+    </ModalControls>
+  </>;
 };
 
 export const openConfirmInsertAsset = (
