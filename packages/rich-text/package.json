@@ -29,6 +29,7 @@
   "dependencies": {
     "@contentful/contentful-slatejs-adapter": "^15.3.5",
     "@contentful/field-editor-reference": "^2.20.6",
+    "@contentful/field-editor-shared": "^0.24.0",
     "@contentful/forma-36-react-components": "^3.98.3",
     "@contentful/rich-text-types": "^15.3.6",
     "@udecode/plate-break": "^3.2.0",

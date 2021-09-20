@@ -1060,7 +1060,32 @@ describe('Rich Text Editor', () => {
           );
 
           cy.findByTestId('cf-ui-card-actions').click();
-          cy.findByTestId('delete').click();
+          cy.findByTestId('card-action-remove').click();
+
+          expectRichTextFieldValue(undefined);
+        });
+
+        it('adds and removes embedded entries by selecting and pressing `backspace`', () => {
+          editor().click().then(triggerEmbeddedEntry);
+
+          expectRichTextFieldValue(
+            doc(
+              block(BLOCKS.EMBEDDED_ENTRY, {
+                target: {
+                  sys: {
+                    id: 'example-entity-id',
+                    type: 'Link',
+                    linkType: 'Entry',
+                  },
+                },
+              }),
+              block(BLOCKS.PARAGRAPH, {}, text(''))
+            )
+          );
+
+          cy.findByTestId('cf-ui-entry-card').click();
+          // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
+          editor().trigger('keydown', { keyCode: 8, which: 8, key: 'Backspace' }); // 8 = delete/backspace
 
           expectRichTextFieldValue(undefined);
         });
@@ -1130,6 +1155,31 @@ describe('Rich Text Editor', () => {
 
           cy.findByTestId('cf-ui-card-actions').findByTestId('cf-ui-icon-button').click();
           cy.findByTestId('card-action-remove').click();
+
+          expectRichTextFieldValue(undefined);
+        });
+
+        it('adds and removes embedded assets by selecting and pressing `backspace`', () => {
+          editor().click().then(triggerEmbeddedAsset);
+
+          expectRichTextFieldValue(
+            doc(
+              block(BLOCKS.EMBEDDED_ASSET, {
+                target: {
+                  sys: {
+                    id: 'example-entity-id',
+                    type: 'Link',
+                    linkType: 'Asset',
+                  },
+                },
+              }),
+              block(BLOCKS.PARAGRAPH, {}, text(''))
+            )
+          );
+
+          cy.findByTestId('cf-ui-asset-card').click();
+          // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
+          editor().trigger('keydown', { keyCode: 8, which: 8, key: 'Backspace' }); // 8 = delete/backspace
 
           expectRichTextFieldValue(undefined);
         });

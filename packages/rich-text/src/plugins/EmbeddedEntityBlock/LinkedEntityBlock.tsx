@@ -14,23 +14,18 @@ const styles = {
   }),
 };
 
-type LinkedEntityBlockProps = CustomRenderElementProps<
-  {
-    target: {
-      sys: {
-        id: string;
-        linkType: 'Entry' | 'Asset';
-        type: 'Link';
-      };
+type LinkedEntityBlockProps = CustomRenderElementProps<{
+  target: {
+    sys: {
+      id: string;
+      linkType: 'Entry' | 'Asset';
+      type: 'Link';
     };
-  },
-  {
-    onEntityFetchComplete: () => void;
-  }
->;
+  };
+}>;
 
 export function LinkedEntityBlock(props: LinkedEntityBlockProps) {
-  const { attributes, children, element, onEntityFetchComplete } = props;
+  const { attributes, children, element } = props;
   const isSelected = useSelected();
   const editor = useContentfulEditor();
   const sdk = useSdkContext();
@@ -64,11 +59,6 @@ export function LinkedEntityBlock(props: LinkedEntityBlockProps) {
             isSelected={isSelected}
             onRemove={handleRemoveClick}
             onEdit={handleEditClick}
-            getEntryUrl={() => {
-              const getEntryUrl = sdk.parameters.instance.getEntryUrl;
-              return typeof getEntryUrl === 'function' ? getEntryUrl(entityId) : '';
-            }}
-            onEntityFetchComplete={onEntityFetchComplete}
           />
         )}
         {entityType === 'Asset' && (
@@ -80,11 +70,6 @@ export function LinkedEntityBlock(props: LinkedEntityBlockProps) {
             isSelected={isSelected}
             onRemove={handleRemoveClick}
             onEdit={handleEditClick}
-            getAssetUrl={() => {
-              const getAssetUrl = sdk.parameters.instance.getAssetUrl;
-              return typeof getAssetUrl === 'function' ? getAssetUrl(entityId) : '';
-            }}
-            onEntityFetchComplete={onEntityFetchComplete}
           />
         )}
       </div>
