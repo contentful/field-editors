@@ -2857,6 +2857,16 @@
     lodash "^4.17.15"
     lodash-es "^4.17.15"
 
+"@contentful/field-editor-shared@^0.24.0":
+  version "0.24.0"
+  resolved "https://registry.yarnpkg.com/@contentful/field-editor-shared/-/field-editor-shared-0.24.0.tgz#9a53f2c40d57e23af96b67bb831aafa67071819a"
+  integrity sha512-OWNmRhOKwG5EEtS04EUhC0Y242m/suuuCX7oMq9JGo1cTuEoEAOWWzSySiZNH7NO7OheBjpIt5vcIommxQ9TCg==
+  dependencies:
+    "@contentful/forma-36-tokens" "^0.11.0"
+    emotion "^10.0.17"
+    lodash "^4.17.15"
+    lodash-es "^4.17.15"
+
 "@contentful/field-editor-single-line@^0.14.1", "@contentful/field-editor-single-line@^0.14.6":
   version "0.14.6"
   resolved "https://registry.yarnpkg.com/@contentful/field-editor-single-line/-/field-editor-single-line-0.14.6.tgz#9e2b78aa0c7537e6024241b40d9a856e4613ec6d"

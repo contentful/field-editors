@@ -1,38 +1,104 @@
 import * as React from 'react';
-import { EntryCard } from '@contentful/forma-36-react-components';
-import {
-  useEntities,
-  MissingEntityCard,
-  WrappedEntryCard,
-} from '@contentful/field-editor-reference';
+import { EntryCard, DropdownList, DropdownListItem } from '@contentful/forma-36-react-components';
+import { useEntities, MissingEntityCard, AssetThumbnail } from '@contentful/field-editor-reference';
 import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { entityHelpers, File, isValidImage } from '@contentful/field-editor-shared';
+import { css } from 'emotion';
+import { EntityStatusIcon } from './EntityStatusIcon';
+
+const styles = {
+  entryCard: css({ cursor: 'pointer' }),
+};
 
 interface FetchingWrappedEntryCardProps {
   entryId: string;
-  getEntryUrl?: (entryId: string) => string;
   isDisabled: boolean;
   isSelected: boolean;
   locale: string;
-  onEdit?: () => void;
-  onEntityFetchComplete?: () => void;
-  onRemove?: () => unknown;
   sdk: FieldExtensionSDK;
+  onEdit?: () => void;
+  onRemove?: () => void;
+}
+
+interface EntryThumbnailProps {
+  file: File;
+}
+
+interface EntryDropdownMenuProps {
+  onEdit: () => void;
+  onRemove: () => void;
+  isDisabled: boolean;
+}
+
+function EntryThumbnail({ file }: EntryThumbnailProps) {
+  if (!isValidImage(file)) return null;
+
+  return <AssetThumbnail file={file as File} />;
+}
+
+function EntryDropdownMenu({ onEdit, onRemove, isDisabled }: EntryDropdownMenuProps) {
+  return (
+    <DropdownList>
+      <DropdownListItem isTitle={true}>Actions</DropdownListItem>
+      <DropdownListItem onClick={onEdit} testId="card-action-edit">
+        Edit
+      </DropdownListItem>
+      <DropdownListItem onClick={onRemove} isDisabled={isDisabled} testId="card-action-remove">
+        Remove
+      </DropdownListItem>
+    </DropdownList>
+  );
 }
 
 export function FetchingWrappedEntryCard(props: FetchingWrappedEntryCardProps) {
-  const { getOrLoadEntry, loadEntityScheduledActions, entries } = useEntities();
+  const { getOrLoadEntry, entries } = useEntities();
+  const [file, setFile] = React.useState<File | null>(null);
+  const entry = entries[props.entryId];
+  const contentType = React.useMemo(
+    () =>
+      props.sdk.space
+        .getCachedContentTypes()
+        .find((contentType) => contentType.sys.id === entry?.sys.contentType.sys.id),
+    [props.sdk, entry]
+  );
+  const defaultLocaleCode = props.sdk.locales.default;
+
+  React.useEffect(() => {
+    if (!entry) return;
+
+    entityHelpers
+      .getEntryImage(
+        {
+          entry,
+          contentType,
+          localeCode: props.locale,
+          defaultLocaleCode,
+        },
+        props.sdk.space.getAsset
+      )
+      .then(setFile)
+      .catch(() => setFile(null));
+  }, [entry, contentType, props.locale, defaultLocaleCode, props.sdk, file]);
 
   React.useEffect(() => {
     getOrLoadEntry(props.entryId);
   }, [props.entryId]); // eslint-disable-line
 
-  const entry = entries[props.entryId];
+  function renderDropdown() {
+    if (!props.onEdit || !props.onRemove) return undefined;
 
-  React.useEffect(() => {
-    if (!entry) return;
+    return (
+      <EntryDropdownMenu
+        isDisabled={props.isDisabled}
+        onEdit={props.onEdit}
+        onRemove={props.onRemove}
+      />
+    );
+  }
 
-    props.onEntityFetchComplete && props.onEntityFetchComplete();
-  }, [entry]); // eslint-disable-line
+  if (entry === undefined) {
+    return <EntryCard size="default" loading={true} />;
+  }
 
   if (entry === 'failed') {
     return (
@@ -44,30 +110,44 @@ export function FetchingWrappedEntryCard(props: FetchingWrappedEntryCardProps) {
     );
   }
 
-  if (entry === undefined) {
-    return <EntryCard size="default" loading={true} />;
+  const entryStatus = entry ? entityHelpers.getEntryStatus(entry.sys) : undefined;
+  if (entryStatus === 'deleted') {
+    return (
+      <MissingEntityCard
+        entityType="Entry"
+        isDisabled={props.isDisabled}
+        onRemove={props.onRemove}
+      />
+    );
   }
 
-  const contentType = props.sdk.space
-    .getCachedContentTypes()
-    .find((contentType) => contentType.sys.id === entry.sys.contentType.sys.id);
+  const title = entityHelpers.getEntryTitle({
+    entry,
+    contentType,
+    localeCode: props.locale,
+    defaultLocaleCode,
+    defaultTitle: 'Untitled',
+  });
+
+  const description = entityHelpers.getEntityDescription({
+    entity: entry,
+    contentType,
+    localeCode: props.locale,
+    defaultLocaleCode,
+  });
 
   return (
-    <WrappedEntryCard
-      contentType={contentType}
-      defaultLocaleCode={props.sdk.locales.default}
-      entry={entry}
-      entryUrl={props.getEntryUrl && props.getEntryUrl(entry.sys.id)}
-      getAsset={props.sdk.space.getAsset}
-      getEntityScheduledActions={loadEntityScheduledActions}
-      isClickable={false}
-      isDisabled={props.isDisabled}
-      isSelected={props.isSelected}
-      localeCode={props.locale}
-      onEdit={props.onEdit}
-      onRemove={props.onRemove}
+    <EntryCard
+      contentType={contentType?.name}
+      title={title}
+      description={description}
       size="default"
-      hasMoveOptions={false}
+      selected={props.isSelected}
+      status={entryStatus}
+      className={styles.entryCard}
+      thumbnailElement={file ? <EntryThumbnail file={file} /> : null}
+      statusIcon={<EntityStatusIcon entityType="Entry" entity={entry} />}
+      dropdownListElements={renderDropdown()}
     />
   );
 }
