@@ -1,10 +1,9 @@
 import React from 'react';
 import { DropdownList, DropdownListItem } from '@contentful/forma-36-react-components';
+import { shortenStorageUnit } from '@contentful/field-editor-shared';
 import { css } from 'emotion';
 import { File } from '../../types';
 import get from 'lodash/get';
-
-import { shortenStorageUnit } from './shortenStorageUnit';
 
 const styles = {
   cardDropdown: css({
