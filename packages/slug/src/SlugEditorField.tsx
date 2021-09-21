@@ -77,7 +77,7 @@ export function SlugEditorFieldStatic(
 
   return (
     <div className={styles.inputContainer}>
-      <LinkIcon  className={styles.icon} />
+      <LinkIcon className={styles.icon} />
       <TextInput
         className={styles.input}
         error={hasError || status === 'duplicate'}
