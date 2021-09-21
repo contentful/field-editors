@@ -243,6 +243,7 @@ export function ToolbarHyperlinkButton(props: ToolbarHyperlinkButtonProps) {
 
   async function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
+
     if (!editor) return;
 
     if (isActive) {
@@ -261,7 +262,8 @@ export function ToolbarHyperlinkButton(props: ToolbarHyperlinkButtonProps) {
       tooltipPlace="bottom"
       label="Hyperlink"
       testId="hyperlink-toolbar-button"
-      onClick={handleClick}
+      // @ts-expect-error
+      onMouseDown={handleClick}
       isActive={isActive}
       disabled={props.isDisabled}
     />

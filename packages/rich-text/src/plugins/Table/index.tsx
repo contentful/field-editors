@@ -141,7 +141,7 @@ function addTableTrackingEvents(editor: SPEditor, { onViewportAction }: Tracking
 }
 
 function addTableNormalization(editor) {
-  const { normalizeNode } = editor
+  const { normalizeNode } = editor;
 
   editor.normalizeNode = (entry) => {
     const [node, path] = entry;
@@ -159,8 +159,8 @@ function addTableNormalization(editor) {
       }
     }
 
-    normalizeNode(entry)
-  }
+    normalizeNode(entry);
+  };
 }
 
 function hasTables(nodes: CustomElement[]) {
@@ -193,6 +193,7 @@ export function ToolbarTableButton(props: ToolbarTableButtonProps) {
 
   async function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
+
     if (!editor) return;
 
     onViewportAction('insertTable');
@@ -209,7 +210,8 @@ export function ToolbarTableButton(props: ToolbarTableButtonProps) {
       tooltipPlace="bottom"
       label="Table"
       testId="table-toolbar-button"
-      onClick={handleClick}
+      // @ts-expect-error
+      onMouseDown={handleClick}
       // TODO: active state looks off since the button will be disabled. Do we still need it?
       isActive={isActive}
       disabled={props.isDisabled}

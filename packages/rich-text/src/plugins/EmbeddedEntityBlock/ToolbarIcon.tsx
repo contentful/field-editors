@@ -31,7 +31,9 @@ export function EmbeddedEntityBlockToolbarIcon({
   const editor = useContentfulEditor();
   const sdk: FieldExtensionSDK = useSdkContext();
 
-  const handleClick = async () => {
+  const handleClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
     onClose();
     await selectEntityAndInsert(nodeType, sdk, editor, logAction || noop);
   };
@@ -43,7 +45,8 @@ export function EmbeddedEntityBlockToolbarIcon({
       disabled={isDisabled}
       className={`${baseClass}-button`}
       size="small"
-      onClick={handleClick}
+      // @ts-expect-error
+      onMouseDown={handleClick}
       icon={type === 'Asset' ? 'Asset' : 'EmbeddedEntryBlock'}
       buttonType="muted"
       testId={`toolbar-toggle-${nodeType}`}>
@@ -53,7 +56,7 @@ export function EmbeddedEntityBlockToolbarIcon({
     <DropdownListItem
       isDisabled={isDisabled}
       className={`${baseClass}-list-item`}
-      onClick={handleClick}
+      onMouseDown={handleClick}
       testId={`toolbar-toggle-${nodeType}`}>
       <Flex alignItems="center" flexDirection="row">
         <Icon

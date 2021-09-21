@@ -19,16 +19,20 @@ export function ToolbarListButton(props: ToolbarListButtonProps) {
   const sdk = useSdkContext();
   const editor = useContentfulEditor();
 
-  function handleClick(type: BLOCKS): void {
-    if (!editor?.selection) return;
+  function handleClick(type: BLOCKS): (event: React.MouseEvent<HTMLButtonElement>) => void {
+    return (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
 
-    if (shouldUnwrapBlockquote(editor, type)) {
-      unwrapFromRoot(editor);
-    }
+      if (!editor?.selection) return;
 
-    toggleList(editor, { type });
+      if (shouldUnwrapBlockquote(editor, type)) {
+        unwrapFromRoot(editor);
+      }
 
-    Slate.ReactEditor.focus(editor);
+      toggleList(editor, { type });
+
+      Slate.ReactEditor.focus(editor);
+    };
   }
 
   if (!editor) return null;
@@ -42,7 +46,8 @@ export function ToolbarListButton(props: ToolbarListButtonProps) {
           tooltipPlace="bottom"
           label="UL"
           testId="ul-toolbar-button"
-          onClick={() => handleClick(BLOCKS.UL_LIST)}
+          // @ts-expect-error
+          onMouseDown={handleClick(BLOCKS.UL_LIST)}
           isActive={isBlockSelected(editor, BLOCKS.UL_LIST)}
           disabled={props.isDisabled}
         />
@@ -54,7 +59,8 @@ export function ToolbarListButton(props: ToolbarListButtonProps) {
           tooltipPlace="bottom"
           label="OL"
           testId="ol-toolbar-button"
-          onClick={() => handleClick(BLOCKS.OL_LIST)}
+          // @ts-expect-error
+          onMouseDown={handleClick(BLOCKS.OL_LIST)}
           isActive={isBlockSelected(editor, BLOCKS.OL_LIST)}
           disabled={props.isDisabled}
         />

@@ -192,18 +192,22 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
     return [nodeTypesByEnablement, someHeadingsEnabled];
   }, [sdk.field]);
 
-  function handleOnSelectItem(type: BLOCKS): void {
-    if (!editor?.selection) return;
+  function handleOnSelectItem(type: BLOCKS): (event: React.MouseEvent<HTMLButtonElement>) => void {
+    return (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
 
-    setSelected(type);
-    setOpen(false);
+      if (!editor?.selection) return;
 
-    if (shouldUnwrapBlockquote(editor, type)) {
-      unwrapFromRoot(editor);
-    }
+      setSelected(type);
+      setOpen(false);
 
-    toggleNodeType(editor, { activeType: type, inactiveType: type });
-    Slate.ReactEditor.focus(editor);
+      if (shouldUnwrapBlockquote(editor, type)) {
+        unwrapFromRoot(editor);
+      }
+
+      toggleNodeType(editor, { activeType: type, inactiveType: type });
+      Slate.ReactEditor.focus(editor);
+    };
   }
 
   if (!editor) return null;
@@ -230,7 +234,7 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
                 <DropdownListItem
                   key={nodeType}
                   isActive={selected === nodeType}
-                  onClick={() => handleOnSelectItem(nodeType as BLOCKS)}
+                  onMouseDown={handleOnSelectItem(nodeType as BLOCKS)}
                   testId={`dropdown-option-${nodeType}`}
                   isDisabled={props.isDisabled}>
                   <span className={cx(styles.dropdown.root, styles.dropdown[nodeType])}>
