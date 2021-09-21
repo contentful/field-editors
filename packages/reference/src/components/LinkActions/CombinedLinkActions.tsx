@@ -5,9 +5,9 @@ import { CreateEntryLinkButton } from '../CreateEntryLinkButton/CreateEntryLinkB
 import { testIds as sharedTextIds, LinkActionsProps } from './LinkActions';
 import { NoLinkPermissionsInfo } from './NoLinkPermissionsInfo';
 
-import { Button } from "@contentful/f36-components";
+import { Button } from '@contentful/f36-components';
 
-import { LinkIcon, PlusIcon, ChevronDownIcon } from "@contentful/f36-icons";
+import { LinkIcon, PlusIcon, ChevronDownIcon } from '@contentful/f36-icons';
 
 const testIds = {
   ...sharedTextIds,

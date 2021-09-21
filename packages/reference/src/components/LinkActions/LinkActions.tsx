@@ -11,9 +11,9 @@ import {
 import { CreateEntryLinkButton } from '../CreateEntryLinkButton/CreateEntryLinkButton';
 import { NoLinkPermissionsInfo } from './NoLinkPermissionsInfo';
 
-import { Button } from "@contentful/f36-components";
+import { Button } from '@contentful/f36-components';
 
-import { PlusIcon, LinkIcon } from "@contentful/f36-icons";
+import { PlusIcon, LinkIcon } from '@contentful/f36-icons';
 
 export interface LinkActionsProps {
   entityType: EntityType;

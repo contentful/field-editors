@@ -8,9 +8,9 @@ import { isValidImage } from '../../utils/isValidImage';
 import { entityHelpers } from '@contentful/field-editor-shared';
 import { AssetThumbnail, MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
 
-import { Icon } from "@contentful/f36-components";
+import { Icon } from '@contentful/f36-components';
 
-import { ClockIcon } from "@contentful/f36-icons";
+import { ClockIcon } from '@contentful/f36-icons';
 
 const { getEntryTitle, getEntityDescription, getEntryStatus, getEntryImage } = entityHelpers;
 
@@ -120,7 +120,8 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
             icon={<ClockIcon />}
             size="small"
             variant="muted"
-            testId="schedule-icon" />
+            testId="schedule-icon"
+          />
         </ScheduledIconWithTooltip>
       }
       thumbnailElement={file && isValidImage(file) ? <AssetThumbnail file={file} /> : null}

@@ -6,7 +6,7 @@ import * as styles from './styles';
 
 import { Spinner, ValidationMessage, Icon } from '@contentful/f36-components';
 
-import { LinkIcon } from "@contentful/f36-icons";
+import { LinkIcon } from '@contentful/f36-icons';
 
 interface SlugEditorFieldProps {
   hasError: boolean;

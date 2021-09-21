@@ -5,12 +5,17 @@ import { css } from 'emotion';
 import get from 'lodash/get';
 import tokens from '@contentful/forma-36-tokens';
 import { ContentType } from '../../types';
-import { Dropdown, DropdownList, DropdownListItem, TextInput } from '@contentful/forma-36-react-components';
+import {
+  Dropdown,
+  DropdownList,
+  DropdownListItem,
+  TextInput,
+} from '@contentful/forma-36-react-components';
 import { useGlobalMouseUp } from './useGlobalMouseUp';
 
-import { Icon } from "@contentful/f36-components";
+import { Icon } from '@contentful/f36-components';
 
-import { SearchIcon } from "@contentful/f36-icons";
+import { SearchIcon } from '@contentful/f36-icons';
 
 const MAX_ITEMS_WITHOUT_SEARCH = 20;
 

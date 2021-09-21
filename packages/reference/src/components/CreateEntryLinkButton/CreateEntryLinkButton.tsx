@@ -7,7 +7,7 @@ import { CreateEntryMenuTrigger, CreateCustomEntryMenuItems } from './CreateEntr
 
 import { Spinner, Button } from '@contentful/f36-components';
 
-import { ChevronDownIcon, PlusIcon } from "@contentful/f36-icons";
+import { ChevronDownIcon, PlusIcon } from '@contentful/f36-icons';
 
 const standardStyles = {
   spinnerMargin: css({

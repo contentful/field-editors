@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Dropdown, DropdownList, DropdownListItem } from '@contentful/forma-36-react-components';
 
-import { Button } from "@contentful/f36-components";
+import { Button } from '@contentful/f36-components';
 
-import { AssetIcon, ChevronDownIcon } from "@contentful/f36-icons";
+import { AssetIcon, ChevronDownIcon } from '@contentful/f36-icons';
 
 interface InsertLinkSelectorProps {
   onSelectExisting: Function;

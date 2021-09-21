@@ -7,9 +7,9 @@ import { Asset } from '../../types';
 import { entityHelpers, SpaceAPI } from '@contentful/field-editor-shared';
 import { MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
 
-import { Icon } from "@contentful/f36-components";
+import { Icon } from '@contentful/f36-components';
 
-import { ClockIcon } from "@contentful/f36-icons";
+import { ClockIcon } from '@contentful/f36-icons';
 
 const styles = {
   scheduleIcon: css({
@@ -74,7 +74,8 @@ export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
             icon={<ClockIcon />}
             size="small"
             variant="muted"
-            testId="schedule-icon" />
+            testId="schedule-icon"
+          />
         </ScheduledIconWithTooltip>
       }
       onClick={(e) => {

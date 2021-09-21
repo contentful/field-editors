@@ -84,11 +84,10 @@ export class FieldGroupsEditor extends React.Component<FieldGroupsEditorProps> {
             Group fields to seperate concerns in the entry editor
           </Text>
           <div>
-            <Button variant="primary" onClick={this.props.addGroup}>Add Group</Button>
-            <Button
-              className={styles.saveButton}
-              variant="positive"
-              onClick={this.props.onClose}>
+            <Button variant="primary" onClick={this.props.addGroup}>
+              Add Group
+            </Button>
+            <Button className={styles.saveButton} variant="positive" onClick={this.props.onClose}>
               Save
             </Button>
           </div>

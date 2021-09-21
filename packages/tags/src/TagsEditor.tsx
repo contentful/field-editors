@@ -10,7 +10,7 @@ import arrayMove from 'array-move';
 
 import { Pill, Icon } from '@contentful/f36-components';
 
-import { DragIcon } from "@contentful/f36-icons";
+import { DragIcon } from '@contentful/f36-icons';
 
 export interface TagsEditorProps {
   items: string[];
