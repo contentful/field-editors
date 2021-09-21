@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { DropdownListItem, Button } from '@contentful/forma-36-react-components';
+import { DropdownListItem } from '@contentful/forma-36-react-components';
 
 import { selectEntityAndInsert } from './Util';
 import { TOOLBAR_PLUGIN_PROP_TYPES } from '../shared/PluginApi';
 import { toolbarActionHandlerWithSafeAutoFocus } from '../shared/Util';
 import { styles } from './EmbeddedEntityBlock.styles';
 
-import { Flex, Icon } from '@contentful/f36-components';
+import { Flex, Icon, Button } from '@contentful/f36-components';
 
 import { AssetIcon, EmbeddedEntryBlockIcon } from '@contentful/f36-icons';
 
@@ -42,12 +42,12 @@ export default class EntityLinkToolbarIcon extends Component {
     const baseClass = `rich-text__${nodeType}`;
     return this.props.isButton ? (
       <Button
-        disabled={this.props.disabled}
+        isDisabled={this.props.disabled}
         className={`${baseClass}-button`}
         size="small"
         onClick={this.handleClick}
-        icon={type === 'Asset' ? 'Asset' : 'EmbeddedEntryBlock'}
-        buttonType="muted"
+        startIcon={type === 'Asset' ? <AssetIcon /> : <EmbeddedEntryBlockIcon />}
+        variant="secondary"
         testId={`toolbar-toggle-${nodeType}`}>
         {`Embed ${type.toLowerCase()}`}
       </Button>

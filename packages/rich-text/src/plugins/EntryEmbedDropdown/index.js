@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Dropdown, DropdownList, Button } from '@contentful/forma-36-react-components';
+import { Dropdown, DropdownList } from '@contentful/forma-36-react-components';
+
+import { Button } from "@contentful/f36-components";
+
+import { PlusIcon, ChevronDownIcon } from "@contentful/f36-icons";
 
 class EntryEmbedDropdown extends Component {
   static propTypes = {
@@ -19,14 +23,14 @@ class EntryEmbedDropdown extends Component {
         position="bottom-right"
         toggleElement={
           <Button
+            endIcon={<ChevronDownIcon />}
             onClick={onToggle}
             data-test-id="toolbar-entry-dropdown-toggle"
             className="toolbar-entry-dropdown-toggle"
-            indicateDropdown
-            buttonType="muted"
+            variant="secondary"
             size="small"
-            icon="Plus"
-            disabled={this.props.disabled}>
+            startIcon={<PlusIcon />}
+            isDisabled={this.props.disabled}>
             Embed
           </Button>
         }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { DropdownListItem, Button } from '@contentful/forma-36-react-components';
+import { DropdownListItem } from '@contentful/forma-36-react-components';
 import { INLINES } from '@contentful/rich-text-types';
 
 import { selectEntryAndInsert, canInsertInline } from './Utils';
@@ -7,7 +7,7 @@ import { TOOLBAR_PLUGIN_PROP_TYPES } from '../shared/PluginApi';
 import { toolbarActionHandlerWithSafeAutoFocus } from '../shared/Util';
 import { styles } from './EmbeddedEntryInline.styles';
 
-import { Flex } from '@contentful/f36-components';
+import { Flex, Button } from '@contentful/f36-components';
 
 import { EmbeddedEntryInlineIcon } from '@contentful/f36-icons';
 
@@ -35,12 +35,12 @@ export default class EntryLinkToolbarIcon extends Component {
   render() {
     return this.props.isButton ? (
       <Button
-        disabled={this.props.disabled}
+        isDisabled={this.props.disabled}
         className={`${INLINES.EMBEDDED_ENTRY}-button`}
         size="small"
         onClick={(event) => this.handleClick(event)}
-        icon="EmbeddedEntryInline"
-        buttonType="muted"
+        startIcon={<EmbeddedEntryInlineIcon />}
+        variant="secondary"
         testId={`toolbar-toggle-${INLINES.EMBEDDED_ENTRY}`}>
         Embed inline entry
       </Button>

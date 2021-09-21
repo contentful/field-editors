@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { Dropdown, DropdownList, Button } from '@contentful/forma-36-react-components';
+import { Dropdown, DropdownList } from '@contentful/forma-36-react-components';
 import tokens from '@contentful/forma-36-tokens';
 import { css } from 'emotion';
+
+import { Button } from "@contentful/f36-components";
+
+import { ChevronDownIcon } from "@contentful/f36-icons";
 
 const styles = {
   root: css({
@@ -55,13 +59,13 @@ class HeadingDropdown extends Component {
       <Dropdown
         toggleElement={
           <Button
+            endIcon={<ChevronDownIcon />}
             onClick={onToggle}
             data-test-id="toolbar-heading-toggle"
             className={styles.root}
-            indicateDropdown
-            buttonType="naked"
+            variant="transparent"
             size="small"
-            disabled={this.props.disabled}>
+            isDisabled={this.props.disabled}>
             {this.getStyleNameForChange()}
           </Button>
         }
