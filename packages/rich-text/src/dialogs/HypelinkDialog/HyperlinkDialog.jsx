@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import tokens from '@contentful/forma-36-tokens';
 import {
   TextField,
-  Button,
   Form,
   FormLabel,
   SelectField,
@@ -15,7 +14,7 @@ import { EntityProvider } from '@contentful/field-editor-reference';
 import { FetchingWrappedEntryCard } from '../../plugins/EmbeddedEntityBlock/FetchingWrappedEntryCard';
 import { FetchingWrappedAssetCard } from '../../plugins/EmbeddedEntityBlock/FetchingWrappedAssetCard';
 
-import { TextLink } from '@contentful/f36-components';
+import { TextLink, Button } from '@contentful/f36-components';
 
 export const LINK_TYPES = {
   URI: 'uri',
@@ -147,16 +146,16 @@ export class HyperlinkDialog extends React.Component {
             <Button
               type="button"
               onClick={() => this.props.onClose(null)}
-              buttonType="muted"
+              variant="secondary"
               testId="cancel-cta"
               size="small">
               Cancel
             </Button>
             <Button
               type="submit"
-              buttonType="positive"
+              variant="positive"
               onClick={this.handleSubmit}
-              disabled={!this.isLinkComplete()}
+              isDisabled={!this.isLinkComplete()}
               testId="confirm-cta"
               size="small">
               {labels.confirm}

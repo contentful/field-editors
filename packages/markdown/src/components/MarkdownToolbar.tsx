@@ -2,7 +2,6 @@ import noop from 'lodash/noop';
 import React from 'react';
 import { css, cx } from 'emotion';
 import { Button, Flex, Tooltip } from '@contentful/f36-components';
-import { Icon } from '@contentful/forma-36-react-components';
 import tokens from '@contentful/forma-36-tokens';
 import {
   HeadingIcon,
@@ -14,6 +13,7 @@ import {
   LinkIcon,
   CodeIcon,
   HorizontalRuleIcon,
+  MoreHorizontalIcon,
 } from '@contentful/f36-icons';
 import * as Icons from './icons';
 import { HeadingSelector } from './HeadingSelector';
@@ -285,7 +285,7 @@ export function DefaultMarkdownToolbar(props: MarkdownToolbarProps) {
             onClick={() => {
               setShowAdditional(!showAdditional);
             }}>
-            <Icon className={styles.icon} icon="MoreHorizontal" />
+            <MoreHorizontalIcon className={styles.icon} />
           </ToolbarButton>
         </Flex>
         <Flex>

@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { DropdownListItem, Button, Icon } from '@contentful/forma-36-react-components';
+import { DropdownListItem } from '@contentful/forma-36-react-components';
 
 import { selectEntityAndInsert } from './Util';
 import { TOOLBAR_PLUGIN_PROP_TYPES } from '../shared/PluginApi';
 import { toolbarActionHandlerWithSafeAutoFocus } from '../shared/Util';
 import { styles } from './EmbeddedEntityBlock.styles';
 
-import { Flex } from "@contentful/f36-components";
+import { Flex, Icon, Button } from '@contentful/f36-components';
+
+import { AssetIcon, EmbeddedEntryBlockIcon } from '@contentful/f36-icons';
 
 export default class EntityLinkToolbarIcon extends Component {
   static propTypes = {
@@ -40,12 +42,12 @@ export default class EntityLinkToolbarIcon extends Component {
     const baseClass = `rich-text__${nodeType}`;
     return this.props.isButton ? (
       <Button
-        disabled={this.props.disabled}
+        isDisabled={this.props.disabled}
         className={`${baseClass}-button`}
         size="small"
         onClick={this.handleClick}
-        icon={type === 'Asset' ? 'Asset' : 'EmbeddedEntryBlock'}
-        buttonType="muted"
+        startIcon={type === 'Asset' ? <AssetIcon /> : <EmbeddedEntryBlockIcon />}
+        variant="secondary"
         testId={`toolbar-toggle-${nodeType}`}>
         {`Embed ${type.toLowerCase()}`}
       </Button>
@@ -58,9 +60,9 @@ export default class EntityLinkToolbarIcon extends Component {
         testId={`toolbar-toggle-${nodeType}`}>
         <Flex alignItems="center" flexDirection="row">
           <Icon
-            icon={type === 'Asset' ? 'Asset' : 'EmbeddedEntryBlock'}
+            as={type === 'Asset' ? AssetIcon : EmbeddedEntryBlockIcon}
             className={`rich-text__embedded-entry-list-icon ${styles.icon}`}
-            color="secondary"
+            variant="secondary"
           />
           <span>{type}</span>
         </Flex>

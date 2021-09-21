@@ -40,12 +40,12 @@ export default class ToolbarIcon extends Component {
       <Button
         className={cx(styles.button, className)}
         isDisabled={disabled}
+        startIcon={children}
         onClick={this.handleClick}
         testId={`toolbar-toggle-${type}`}
         variant={isActive ? 'secondary' : 'transparent'}
-        size="small">
-        {children}
-      </Button>
+        size="small"
+      />
     );
 
     if (title) {

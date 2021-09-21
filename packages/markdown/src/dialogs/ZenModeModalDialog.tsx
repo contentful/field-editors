@@ -1,7 +1,6 @@
 import React from 'react';
 import { css, cx } from 'emotion';
 import { DialogsAPI, DialogExtensionSDK } from '@contentful/app-sdk';
-import { Icon } from '@contentful/forma-36-react-components';
 import { MarkdownDialogType, MarkdownDialogsParams, PreviewComponents } from '../types';
 import { InitializedEditorType } from '../components/MarkdownTextarea/MarkdownTextarea';
 import { MarkdownToolbar } from '../components/MarkdownToolbar';
@@ -11,6 +10,8 @@ import { MarkdownBottomBar, MarkdownHelp } from '../components/MarkdownBottomBar
 import { createMarkdownActions } from '../MarkdownActions';
 import { openCheatsheetModal } from '../dialogs/CheatsheetModalDialog';
 import tokens from '@contentful/forma-36-tokens';
+
+import { ChevronRightIcon, ChevronLeftIcon } from '@contentful/f36-icons';
 
 export type ZenModeResult = {
   value: string;
@@ -180,7 +181,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
           onClick={() => {
             setShowPreview(false);
           }}>
-          <Icon icon="ChevronRight" color="muted" size="tiny" className={styles.icon} />
+          <ChevronRightIcon variant="muted" size="tiny" className={styles.icon} />
         </button>
       )}
       {!showPreview && (
@@ -190,7 +191,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
           onClick={() => {
             setShowPreview(true);
           }}>
-          <Icon icon="ChevronLeft" color="muted" size="tiny" className={styles.icon} />
+          <ChevronLeftIcon variant="muted" size="tiny" className={styles.icon} />
         </button>
       )}
       <div className={styles.bottomSplit}>

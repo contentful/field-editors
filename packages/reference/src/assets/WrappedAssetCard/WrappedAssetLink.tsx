@@ -1,11 +1,13 @@
 import React from 'react';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
-import { EntryCard, Icon } from '@contentful/forma-36-react-components';
+import { EntryCard } from '@contentful/forma-36-react-components';
 import { renderActions, renderAssetInfo } from './AssetCardActions';
 import { Asset } from '../../types';
 import { entityHelpers, SpaceAPI } from '@contentful/field-editor-shared';
 import { MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
+
+import { ClockIcon } from '@contentful/f36-icons';
 
 const styles = {
   scheduleIcon: css({
@@ -65,11 +67,10 @@ export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
           getEntityScheduledActions={props.getEntityScheduledActions}
           entityType="Asset"
           entityId={props.asset.sys.id}>
-          <Icon
+          <ClockIcon
             className={styles.scheduleIcon}
-            icon="Clock"
             size="small"
-            color="muted"
+            variant="muted"
             testId="schedule-icon"
           />
         </ScheduledIconWithTooltip>

@@ -2,7 +2,7 @@ import React from 'react';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 
-import { Button } from "@contentful/f36-components";
+import { Button } from '@contentful/f36-components';
 
 const styles = {
   toolbar: css({

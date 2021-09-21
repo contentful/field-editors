@@ -2,7 +2,7 @@ import React from 'react';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 import { SpaceAPI } from '@contentful/app-sdk';
-import { AssetCard, Icon } from '@contentful/forma-36-react-components';
+import { AssetCard } from '@contentful/forma-36-react-components';
 import { renderActions, renderAssetInfo } from './AssetCardActions';
 import { File, Asset } from '../../types';
 import { entityHelpers } from '@contentful/field-editor-shared';
@@ -10,6 +10,8 @@ import { MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
 
 // @ts-expect-error
 import mimetype from '@contentful/mimetype';
+
+import { ClockIcon } from '@contentful/f36-icons';
 
 const groupToIconMap = {
   image: 'image',
@@ -106,11 +108,10 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
           getEntityScheduledActions={props.getEntityScheduledActions}
           entityType="Asset"
           entityId={props.asset.sys.id}>
-          <Icon
+          <ClockIcon
             className={styles.scheduleIcon}
-            icon="Clock"
             size="small"
-            color="muted"
+            variant="muted"
             testId="schedule-icon"
           />
         </ScheduledIconWithTooltip>

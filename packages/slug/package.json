@@ -23,6 +23,8 @@
   "dependencies": {
     "@contentful/field-editor-shared": "^0.22.1",
     "@contentful/forma-36-react-components": "^3.93.4",
+    "@contentful/f36-components": "next-v4",
+    "@contentful/f36-icons": "next-v4",
     "@contentful/forma-36-tokens": "^0.11.0",
     "@types/speakingurl": "^13.0.2",
     "emotion": "^10.0.17",

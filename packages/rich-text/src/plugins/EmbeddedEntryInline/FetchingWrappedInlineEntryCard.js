@@ -6,12 +6,13 @@ import {
   InlineEntryCard,
   DropdownListItem,
   DropdownList,
-  Icon,
 } from '@contentful/forma-36-react-components';
 import { entityHelpers } from '@contentful/field-editor-shared';
 import { useEntities, ScheduledIconWithTooltip } from '@contentful/field-editor-reference';
 
 import { INLINES } from '@contentful/rich-text-types';
+
+import { ClockIcon } from '@contentful/f36-icons';
 
 const { getEntryTitle, getEntryStatus } = entityHelpers;
 
@@ -97,7 +98,7 @@ export const FetchingWrappedInlineEntryCard = (props) => {
         getEntityScheduledActions={loadEntityScheduledActions}
         entityType="Entry"
         entityId={entry.sys.id}>
-        <Icon className={styles.scheduledIcon} icon="Clock" color="muted" testId="scheduled-icon" />
+        <ClockIcon className={styles.scheduledIcon} variant="muted" testId="scheduled-icon" />
       </ScheduledIconWithTooltip>
       {title}
     </InlineEntryCard>

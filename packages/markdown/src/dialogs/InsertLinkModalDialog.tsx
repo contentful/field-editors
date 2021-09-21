@@ -29,75 +29,77 @@ export const InsertLinkModal = ({ selectedText, onClose }: InsertLinkModalProps)
     }
   }, [mainInputRef]);
 
-  return <>
-    <ModalContent testId="insert-link-modal">
-      <Form onSubmit={() => onInsert({ url, text, title })}>
-        <TextField
-          value={text}
-          name="link-text"
-          id="link-text-field"
-          labelText="Link text"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setText(e.target.value);
+  return (
+    <>
+      <ModalContent testId="insert-link-modal">
+        <Form onSubmit={() => onInsert({ url, text, title })}>
+          <TextField
+            value={text}
+            name="link-text"
+            id="link-text-field"
+            labelText="Link text"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setText(e.target.value);
+            }}
+            textInputProps={{
+              disabled: Boolean(selectedText),
+              testId: 'link-text-field',
+            }}
+          />
+          <TextField
+            value={url}
+            name="target-url"
+            id="target-url-field"
+            labelText="Target URL"
+            helpText="Include protocol (e.g. https://)"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setUrl(e.target.value);
+              setTouched(true);
+            }}
+            validationMessage={touched && !urlIsValid ? 'Invalid URL' : ''}
+            textInputProps={{
+              placeholder: 'https://',
+              maxLength: 2100,
+              testId: 'target-url-field',
+              inputRef: mainInputRef,
+            }}
+          />
+          <TextField
+            value={title}
+            name="link-title"
+            id="link-title-field"
+            labelText="Link title"
+            helpText="Recommended for accessibility"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setTitle(e.target.value);
+            }}
+            textInputProps={{
+              testId: 'link-title-field',
+            }}
+          />
+        </Form>
+      </ModalContent>
+      <ModalControls>
+        <Button
+          testId="insert-link-cancel"
+          onClick={() => onClose(false)}
+          variant="secondary"
+          size="small">
+          Cancel
+        </Button>
+        <Button
+          testId="insert-link-confirm"
+          onClick={() => {
+            onInsert({ url, text, title });
           }}
-          textInputProps={{
-            disabled: Boolean(selectedText),
-            testId: 'link-text-field',
-          }}
-        />
-        <TextField
-          value={url}
-          name="target-url"
-          id="target-url-field"
-          labelText="Target URL"
-          helpText="Include protocol (e.g. https://)"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setUrl(e.target.value);
-            setTouched(true);
-          }}
-          validationMessage={touched && !urlIsValid ? 'Invalid URL' : ''}
-          textInputProps={{
-            placeholder: 'https://',
-            maxLength: 2100,
-            testId: 'target-url-field',
-            inputRef: mainInputRef,
-          }}
-        />
-        <TextField
-          value={title}
-          name="link-title"
-          id="link-title-field"
-          labelText="Link title"
-          helpText="Recommended for accessibility"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setTitle(e.target.value);
-          }}
-          textInputProps={{
-            testId: 'link-title-field',
-          }}
-        />
-      </Form>
-    </ModalContent>
-    <ModalControls>
-      <Button
-        testId="insert-link-cancel"
-        onClick={() => onClose(false)}
-        variant="secondary"
-        size="small">
-        Cancel
-      </Button>
-      <Button
-        testId="insert-link-confirm"
-        onClick={() => {
-          onInsert({ url, text, title });
-        }}
-        isDisabled={!urlIsValid}
-        variant="positive"
-        size="small">
-        Insert
-      </Button>
-    </ModalControls>
-  </>;
+          isDisabled={!urlIsValid}
+          variant="positive"
+          size="small">
+          Insert
+        </Button>
+      </ModalControls>
+    </>
+  );
 };
 
 export const openInsertLinkDialog = (
