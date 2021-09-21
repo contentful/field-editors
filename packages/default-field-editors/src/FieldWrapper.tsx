@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { cx } from 'emotion';
-import { HelpText, FieldGroup, FormLabel } from '@contentful/forma-36-react-components';
+import { FieldGroup, FormLabel } from '@contentful/forma-36-react-components';
+import { Text } from '@contentful/f36-components';
 import { ValidationErrors } from '@contentful/field-editor-validation-errors';
 import type { FieldExtensionSDK, Entry } from '@contentful/field-editor-shared';
 import { styles } from './FieldWrapper.styles';
@@ -73,9 +74,15 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = function (props: FieldW
       {renderHelpText ? (
         renderHelpText(helpText)
       ) : (
-        <HelpText className={styles.helpText} testId="field-hint">
+        // TODO: Refactor to FormControl.HelpText when FormControl is used as a wrapper
+        <Text
+          as="p"
+          fontColor="gray500"
+          marginTop="spacingXs"
+          testId="field-hint"
+          className={styles.helpText}>
           {helpText}
-        </HelpText>
+        </Text>
       )}
     </FieldGroup>
   );

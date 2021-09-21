@@ -3,8 +3,8 @@ import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 import { DialogsAPI } from '@contentful/app-sdk';
 import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
-import { ModalContent, ModalControls } from '@contentful/f36-components';
-import { HelpText, TextField, RadioButtonField, CheckboxField, Form } from '@contentful/forma-36-react-components';
+import { ModalContent, ModalControls, Text } from '@contentful/f36-components';
+import { TextField, RadioButtonField, CheckboxField, Form } from '@contentful/forma-36-react-components';
 import { isValidUrl } from '../utils/isValidUrl';
 
 import { TextLink, Button } from '@contentful/f36-components';
@@ -142,7 +142,7 @@ export const EmbedExternalContentModal = ({ onClose }: EmbedExternalContentModal
           labelText="Attach social sharing links to this element"
           labelIsLight
         />
-        <HelpText>
+        <Text as="p" fontColor="gray500" marginTop="spacingXs">
           To enable this embedded content in your application make sure to add the&nbsp;
           <TextLink
             href="http://embed.ly/docs/products/cards"
@@ -151,7 +151,7 @@ export const EmbedExternalContentModal = ({ onClose }: EmbedExternalContentModal
             Embedly&apos;s platform.js
           </TextLink>
           &nbsp;on your development environment
-        </HelpText>
+        </Text>
         {/* <EmbedlyPreview previewUrl={url} /> */}
       </Form>
     </ModalContent>
