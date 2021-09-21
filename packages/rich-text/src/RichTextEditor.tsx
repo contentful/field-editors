@@ -187,15 +187,15 @@ const RichTextEditor = (props: Props) => {
   return (
     <EntityProvider sdk={sdk}>
       <SdkProvider sdk={sdk}>
-        <ContentfulEditorProvider sdk={sdk}>
-          <TrackingProvider onAction={onAction || noop}>
-            <FieldConnector
-              throttle={0}
-              field={sdk.field}
-              isInitiallyDisabled={isInitiallyDisabled}
-              isEmptyValue={isEmptyValue}
-              isEqualValues={deepEquals}>
-              {({ lastRemoteValue, disabled, setValue, externalReset }) => (
+        <TrackingProvider onAction={onAction || noop}>
+          <FieldConnector
+            throttle={0}
+            field={sdk.field}
+            isInitiallyDisabled={isInitiallyDisabled}
+            isEmptyValue={isEmptyValue}
+            isEqualValues={deepEquals}>
+            {({ lastRemoteValue, disabled, setValue, externalReset }) => (
+              <ContentfulEditorProvider sdk={sdk}>
                 <ConnectedRichTextEditor
                   {...otherProps}
                   key={`rich-text-editor-${externalReset}`}
@@ -205,10 +205,10 @@ const RichTextEditor = (props: Props) => {
                   isDisabled={disabled}
                   onChange={setValue}
                 />
-              )}
-            </FieldConnector>
-          </TrackingProvider>
-        </ContentfulEditorProvider>
+              </ContentfulEditorProvider>
+            )}
+          </FieldConnector>
+        </TrackingProvider>
       </SdkProvider>
     </EntityProvider>
   );
