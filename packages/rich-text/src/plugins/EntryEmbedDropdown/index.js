@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Dropdown, DropdownList } from '@contentful/forma-36-react-components';
 
-import { Button } from "@contentful/f36-components";
+import { Button } from '@contentful/f36-components';
 
-import { PlusIcon, ChevronDownIcon } from "@contentful/f36-icons";
+import { PlusIcon, ChevronDownIcon } from '@contentful/f36-icons';
 
 class EntryEmbedDropdown extends Component {
   static propTypes = {
@@ -25,7 +25,7 @@ class EntryEmbedDropdown extends Component {
           <Button
             endIcon={<ChevronDownIcon />}
             onClick={onToggle}
-            data-test-id="toolbar-entry-dropdown-toggle"
+            testId="toolbar-entry-dropdown-toggle"
             className="toolbar-entry-dropdown-toggle"
             variant="secondary"
             size="small"
