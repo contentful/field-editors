@@ -3,20 +3,31 @@ import { getNodeEntryFromSelection } from '../../../helpers/editor';
 import { removeChildNodesUsingPredicate, SanitizerTuple } from './helpers';
 
 const TAG_NAME_TABLE = 'TABLE';
+const TAG_NAME_TABLE_CAPTION = 'CAPTION';
+const DISALLOWED_TABLE_CHILD_ELEMENTS: Element['tagName'][] = [
+  TAG_NAME_TABLE,
+  TAG_NAME_TABLE_CAPTION,
+];
+type DisallowedTableChildElement
+  = HTMLTableElement
+  | HTMLTableCaptionElement;
 
 const isHTMLElement = (node: ChildNode): node is HTMLElement => node.nodeType === Node.ELEMENT_NODE;
 
 const isTableElement = (node: ChildNode): node is HTMLTableElement =>
   isHTMLElement(node) && node.tagName === TAG_NAME_TABLE;
 
-const removeTableChildren = removeChildNodesUsingPredicate(isTableElement);
+const isDisallowedTableChildElement = (node: ChildNode): node is DisallowedTableChildElement =>
+  isHTMLElement(node) && DISALLOWED_TABLE_CHILD_ELEMENTS.includes(node.tagName);
+
+const removeDisallowedTableChildElements = removeChildNodesUsingPredicate(isDisallowedTableChildElement);
 
 const removeTableGrandchildren = (nodeList: NodeList) => {
   const nodes = Array.from(nodeList);
   while (nodes.length > 0) {
     const node = nodes.pop() as ChildNode;
     if (isTableElement(node)) {
-      removeTableChildren(node.childNodes);
+      removeDisallowedTableChildElements(node.childNodes);
       continue;
     }
     for (const childNode of Array.from(node.childNodes)) {
@@ -30,7 +41,7 @@ export const sanitizeTables = ([doc, editor]: SanitizerTuple): SanitizerTuple =>
   const [node] = getNodeEntryFromSelection(editor, BLOCKS.TABLE);
   const isTableInCurrentSelection = !!node;
   if (isTableInCurrentSelection) {
-    removeTableChildren(doc.childNodes);
+    removeDisallowedTableChildElements(doc.childNodes);
   } else {
     removeTableGrandchildren(doc.childNodes);
   }
