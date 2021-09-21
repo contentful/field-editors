@@ -134,7 +134,7 @@ class CommandPanelItem extends React.Component {
           this.listItemRef = ref;
         }}>
         <button type="button" className={styles.button} onClick={item.callback && item.callback}>
-          {item.icon && <Icon className={styles.icon} icon={item.icon} variant="secondary" />}
+          {item.icon && <Icon className={styles.icon} as={item.icon} variant="secondary" />}
           {item.thumbnail && <img className={styles.thumbnail} src={item.thumbnail} alt="" />}
           {item.label}
         </button>

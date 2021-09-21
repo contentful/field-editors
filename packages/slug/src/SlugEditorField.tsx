@@ -4,7 +4,7 @@ import { TextInput } from '@contentful/forma-36-react-components';
 import { makeSlug } from './services/makeSlug';
 import * as styles from './styles';
 
-import { Spinner, ValidationMessage, Icon } from '@contentful/f36-components';
+import { Spinner, ValidationMessage } from '@contentful/f36-components';
 
 import { LinkIcon } from '@contentful/f36-icons';
 
@@ -77,7 +77,7 @@ export function SlugEditorFieldStatic(
 
   return (
     <div className={styles.inputContainer}>
-      <Icon icon={<LinkIcon />} className={styles.icon} />
+      <LinkIcon  className={styles.icon} />
       <TextInput
         className={styles.input}
         error={hasError || status === 'duplicate'}

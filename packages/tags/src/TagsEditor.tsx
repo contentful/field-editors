@@ -8,7 +8,7 @@ import { ConstraintsType, Constraint } from './types';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 import arrayMove from 'array-move';
 
-import { Pill, Icon } from '@contentful/f36-components';
+import { Pill } from '@contentful/f36-components';
 
 import { DragIcon } from '@contentful/f36-icons';
 
@@ -50,7 +50,7 @@ const styles = {
 
 const SortablePillHandle = SortableHandle(() => (
   <div className={styles.handle}>
-    <Icon icon={<DragIcon />} variant="muted" />
+    <DragIcon variant="muted" />
   </div>
 ));
 

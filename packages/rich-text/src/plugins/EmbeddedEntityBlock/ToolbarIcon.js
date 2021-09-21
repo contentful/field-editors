@@ -7,9 +7,9 @@ import { TOOLBAR_PLUGIN_PROP_TYPES } from '../shared/PluginApi';
 import { toolbarActionHandlerWithSafeAutoFocus } from '../shared/Util';
 import { styles } from './EmbeddedEntityBlock.styles';
 
-import { Flex, Icon } from "@contentful/f36-components";
+import { Flex, Icon } from '@contentful/f36-components';
 
-import { AssetIcon, EmbeddedEntryBlockIcon } from "@contentful/f36-icons";
+import { AssetIcon, EmbeddedEntryBlockIcon } from '@contentful/f36-icons';
 
 export default class EntityLinkToolbarIcon extends Component {
   static propTypes = {
@@ -60,9 +60,10 @@ export default class EntityLinkToolbarIcon extends Component {
         testId={`toolbar-toggle-${nodeType}`}>
         <Flex alignItems="center" flexDirection="row">
           <Icon
-            icon={type === 'Asset' ? <AssetIcon /> : <EmbeddedEntryBlockIcon />}
+            as={type === 'Asset' ? AssetIcon : EmbeddedEntryBlockIcon}
             className={`rich-text__embedded-entry-list-icon ${styles.icon}`}
-            variant="secondary" />
+            variant="secondary"
+          />
           <span>{type}</span>
         </Flex>
       </DropdownListItem>

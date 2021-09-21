@@ -10,7 +10,7 @@ import { entityHelpers } from '@contentful/field-editor-shared';
 
 import * as styles from './styles';
 
-import { TextLink, List, ListItem, Icon } from '@contentful/f36-components';
+import { TextLink, List, ListItem } from '@contentful/f36-components';
 
 import { ExternalLinkIcon, InfoCircleIcon } from '@contentful/f36-icons';
 
@@ -147,7 +147,7 @@ export function ValidationErrors(props: ValidationErrorsProps) {
             aria-roledescription="field-locale-schema"
             data-error-code={`entry.schema.${error.name}`}
             className={styles.errorItem}>
-            <Icon icon={<InfoCircleIcon />} variant="negative" />
+            <InfoCircleIcon variant="negative" />
             <div className={styles.errorMessage}>
               {error.message}
               {error.name === 'unique' && (

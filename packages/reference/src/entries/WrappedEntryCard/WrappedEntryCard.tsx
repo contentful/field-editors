@@ -8,8 +8,6 @@ import { isValidImage } from '../../utils/isValidImage';
 import { entityHelpers } from '@contentful/field-editor-shared';
 import { AssetThumbnail, MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
 
-import { Icon } from '@contentful/f36-components';
-
 import { ClockIcon } from '@contentful/f36-icons';
 
 const { getEntryTitle, getEntityDescription, getEntryStatus, getEntryImage } = entityHelpers;
@@ -115,9 +113,8 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
           getEntityScheduledActions={props.getEntityScheduledActions}
           entityType="Entry"
           entityId={props.entry.sys.id}>
-          <Icon
+          <ClockIcon
             className={styles.scheduleIcon}
-            icon={<ClockIcon />}
             size="small"
             variant="muted"
             testId="schedule-icon"

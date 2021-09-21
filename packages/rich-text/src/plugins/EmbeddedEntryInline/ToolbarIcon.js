@@ -7,9 +7,9 @@ import { TOOLBAR_PLUGIN_PROP_TYPES } from '../shared/PluginApi';
 import { toolbarActionHandlerWithSafeAutoFocus } from '../shared/Util';
 import { styles } from './EmbeddedEntryInline.styles';
 
-import { Flex, Icon } from "@contentful/f36-components";
+import { Flex } from '@contentful/f36-components';
 
-import { EmbeddedEntryInlineIcon } from "@contentful/f36-icons";
+import { EmbeddedEntryInlineIcon } from '@contentful/f36-icons';
 
 export default class EntryLinkToolbarIcon extends Component {
   static propTypes = TOOLBAR_PLUGIN_PROP_TYPES;
@@ -53,10 +53,10 @@ export default class EntryLinkToolbarIcon extends Component {
         testId={`toolbar-toggle-${INLINES.EMBEDDED_ENTRY}`}
         onClick={this.handleClick}>
         <Flex alignItems="center" flexDirection="row">
-          <Icon
-            icon={<EmbeddedEntryInlineIcon />}
+          <EmbeddedEntryInlineIcon
             variant="secondary"
-            className={`rich-text__embedded-entry-list-icon ${styles.icon}`} />
+            className={`rich-text__embedded-entry-list-icon ${styles.icon}`}
+          />
           <span>Inline entry</span>
         </Flex>
       </DropdownListItem>

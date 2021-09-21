@@ -13,8 +13,6 @@ import {
 } from '@contentful/forma-36-react-components';
 import { useGlobalMouseUp } from './useGlobalMouseUp';
 
-import { Icon } from '@contentful/f36-components';
-
 import { SearchIcon } from '@contentful/f36-icons';
 
 const MAX_ITEMS_WITHOUT_SEARCH = 20;
@@ -210,7 +208,7 @@ export const CreateEntryMenuTrigger = ({
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
             />
-            <Icon icon={<SearchIcon />} className={styles.searchIcon} />
+            <SearchIcon className={styles.searchIcon} />
           </div>
         )}
         <DropdownList
