@@ -13,7 +13,7 @@ import {
   createFakeSpaceAPI,
 } from '@contentful/field-editor-test-utils';
 import { BooleanEditor } from '@contentful/field-editor-boolean';
-import { Icon } from '@contentful/forma-36-react-components';
+import { EditIcon, HelpCircleIcon } from '@contentful/f36-icons';
 import { Text } from '@contentful/f36-components';
 import { Field } from './Field.tsx';
 import { FieldWrapper } from './FieldWrapper.tsx';
@@ -59,12 +59,12 @@ import { FieldWrapper } from './FieldWrapper.tsx';
           name="customField"
           renderHeading={(name) => (
             <div>
-              <Icon icon="Edit" size="tiny" /> Custom {name} heading
+              <EditIcon size="tiny" /> Custom {name} heading
             </div>
           )}
           renderHelpText={(helpText) => (
             <Text as="p" fontColor="gray500" marginTop="spacingXs">
-              <Icon icon="HelpCircle" size="tiny" /> Custom help text:{" "}
+              <HelpCircleIcon size="tiny" /> Custom help text:{" "}
               {helpText}
             </Text>
           )}
@@ -89,10 +89,11 @@ import { FieldWrapper } from './FieldWrapper.tsx';
             }}
           />
         </FieldWrapper>
-        
+
         <ActionsPlayground mitt={mitt} />
       </div>
     );
+
 }}
 
 </Playground>
