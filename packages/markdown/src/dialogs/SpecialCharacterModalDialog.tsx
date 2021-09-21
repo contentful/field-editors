@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { DialogsAPI } from '@contentful/app-sdk';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
-import { Tooltip } from '@contentful/forma-36-react-components';
-import { ModalContent, ModalControls, Text, Flex, Button } from '@contentful/f36-components';
+import { ModalContent, ModalControls, Text, Flex, Button, Tooltip } from '@contentful/f36-components';
 import { specialCharacters } from '../utils/specialCharacters';
 import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 

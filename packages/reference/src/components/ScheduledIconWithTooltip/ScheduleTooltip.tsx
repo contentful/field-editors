@@ -1,72 +1,20 @@
 import React from 'react';
 import { ScheduledAction } from '@contentful/app-sdk';
-import { css, cx } from 'emotion';
-import { Tooltip } from '@contentful/forma-36-react-components';
-import { Badge, Paragraph } from '@contentful/f36-components';
-import tokens from '@contentful/forma-36-tokens';
+import { Tooltip } from '@contentful/f36-components';
 import { formatDateAndTime } from './formatDateAndTime';
 
-const styles = {
-  // @ts-expect-error
-  statusTag: css({
-    marginLeft: tokens.spacingM,
-    zIndex: '0 !important',
-  }),
-  positiveColor: css({
-    color: tokens.colorPositive,
-  }),
-  secondaryColor: css({
-    color: tokens.gray500,
-  }),
-  marginRightXS: css({
-    marginRight: tokens.spacing2Xs,
-  }),
-  paragraph: css({
-    textAlign: 'center',
-    color: tokens.gray500,
-  }),
-  time: css({
-    color: tokens.gray200,
-  }),
-};
-
-export const ScheduleTooltipContent = ({
+export const getScheduleTooltipContent = ({
   job,
   jobsCount,
 }: {
   job: ScheduledAction;
   jobsCount: number;
 }) => {
-  let colorPalette = '';
-  switch (job.action.toLowerCase()) {
-    case 'publish':
-      colorPalette = styles.positiveColor;
-      break;
-    case 'unpublish':
-      colorPalette = styles.secondaryColor;
-      break;
-    default:
-      colorPalette = styles.secondaryColor;
-  }
 
-  return (
-    <>
-      <span className={styles.time} data-test-id="cf-scheduled-time-tootlip-content">
-        {formatDateAndTime(job.scheduledFor.datetime)}
-      </span>
-      <Badge
-        variant={job.action === 'publish' ? 'positive' : 'secondary'}
-        testId="scheduled-publish-trigger"
-        className={cx(styles.statusTag, colorPalette)}>
-        {job.action.toUpperCase()}
-      </Badge>
-      {jobsCount > 1 && (
-        <Paragraph marginBottom="none" className={styles.paragraph}>
-          + {jobsCount - 1} more
-        </Paragraph>
-      )}
-    </>
-  );
+  return `Will ${job.action.toLowerCase()} ${formatDateAndTime(job.scheduledFor.datetime).toLowerCase()}
+  ${jobsCount > 1 && (
+    `+ ${jobsCount - 1} more`
+)}`;
 };
 
 export const ScheduleTooltip = ({
@@ -80,10 +28,10 @@ export const ScheduleTooltip = ({
 }) => {
   return (
     <Tooltip
-      place="top"
+      placement="top"
       testId={job.sys.id}
-      containerElement="div"
-      content={<ScheduleTooltipContent job={job} jobsCount={jobsCount} />}>
+      as="div"
+      content={getScheduleTooltipContent({job, jobsCount})}>
       {children}
     </Tooltip>
   );

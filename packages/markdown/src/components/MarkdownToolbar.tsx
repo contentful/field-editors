@@ -1,8 +1,8 @@
 import noop from 'lodash/noop';
 import React from 'react';
 import { css, cx } from 'emotion';
-import { Button, Flex } from '@contentful/f36-components';
-import { Tooltip, Icon } from '@contentful/forma-36-react-components';
+import { Button, Flex, Tooltip } from '@contentful/f36-components';
+import { Icon } from '@contentful/forma-36-react-components';
 import tokens from '@contentful/forma-36-tokens';
 import {
   HeadingIcon,
@@ -87,7 +87,7 @@ function ToolbarButton(props: {
 
   if (tooltip) {
     return (
-      <Tooltip className={styles.tooltip} place={tooltipPlace} content={tooltip}>
+      <Tooltip className={styles.tooltip} placement={tooltipPlace} content={tooltip}>
         {button}
       </Tooltip>
     );
