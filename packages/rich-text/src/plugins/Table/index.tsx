@@ -133,7 +133,10 @@ function addTableTrackingEvents(editor: SPEditor, { onViewportAction }: Tracking
       setTimeout(() => {
         if (hasTables(markupBefore)) return;
         if (hasTables(markupAfter)) {
-          onViewportAction('paste', { tablePasted: true });
+          onViewportAction('paste', {
+            tablePasted: true,
+            hasHeadersOutsideFirstRow: hasHeadersOutsideFirstRow(markupAfter)
+          });
         }
       }, 1);
     }
@@ -167,6 +170,14 @@ function hasTables(nodes: CustomElement[]) {
   return nodes.some(({ type }) => {
     return type === BLOCKS.TABLE;
   });
+}
+
+const isTableHeaderCell = ({ type }) => type === BLOCKS.TABLE_HEADER_CELL;
+function hasHeadersOutsideFirstRow(nodes: CustomElement[]) {
+  return nodes
+    .filter(({ type }) => type === BLOCKS.TABLE)
+    .flatMap(({ children }) => children.slice(1) as CustomElement[])
+    .some(({ children }) => (children as CustomElement[]).some(isTableHeaderCell))
 }
 
 function createWithTableEvents(tracking: TrackingProvider) {
