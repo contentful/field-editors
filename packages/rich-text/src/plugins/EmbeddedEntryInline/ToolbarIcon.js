@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { DropdownListItem, Icon, Button } from '@contentful/forma-36-react-components';
+import { DropdownListItem, Button } from '@contentful/forma-36-react-components';
 import { INLINES } from '@contentful/rich-text-types';
 
 import { selectEntryAndInsert, canInsertInline } from './Utils';
@@ -7,7 +7,9 @@ import { TOOLBAR_PLUGIN_PROP_TYPES } from '../shared/PluginApi';
 import { toolbarActionHandlerWithSafeAutoFocus } from '../shared/Util';
 import { styles } from './EmbeddedEntryInline.styles';
 
-import { Flex } from "@contentful/f36-components";
+import { Flex, Icon } from "@contentful/f36-components";
+
+import { EmbeddedEntryInlineIcon } from "@contentful/f36-icons";
 
 export default class EntryLinkToolbarIcon extends Component {
   static propTypes = TOOLBAR_PLUGIN_PROP_TYPES;
@@ -52,10 +54,9 @@ export default class EntryLinkToolbarIcon extends Component {
         onClick={this.handleClick}>
         <Flex alignItems="center" flexDirection="row">
           <Icon
-            icon="EmbeddedEntryInline"
-            color="secondary"
-            className={`rich-text__embedded-entry-list-icon ${styles.icon}`}
-          />
+            icon={<EmbeddedEntryInlineIcon />}
+            variant="secondary"
+            className={`rich-text__embedded-entry-list-icon ${styles.icon}`} />
           <span>Inline entry</span>
         </Flex>
       </DropdownListItem>
