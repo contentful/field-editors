@@ -11,8 +11,6 @@ import { MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
 // @ts-expect-error
 import mimetype from '@contentful/mimetype';
 
-import { Icon } from '@contentful/f36-components';
-
 import { ClockIcon } from '@contentful/f36-icons';
 
 const groupToIconMap = {
