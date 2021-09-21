@@ -4,10 +4,16 @@ import isHotKey from 'is-hotkey';
 import cn from 'classnames';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
-import { Icon, IconButton } from '@contentful/forma-36-react-components';
+import { IconButton } from '@contentful/forma-36-react-components';
 import uniqBy from 'lodash/uniqBy';
 
-import { Spinner, SectionHeading, SkeletonContainer, SkeletonBodyText } from "@contentful/f36-components";
+import {
+  Spinner,
+  SectionHeading,
+  SkeletonContainer,
+  SkeletonBodyText,
+  Icon,
+} from '@contentful/f36-components';
 
 const styles = {
   commandPanel: css({
@@ -128,7 +134,7 @@ class CommandPanelItem extends React.Component {
           this.listItemRef = ref;
         }}>
         <button type="button" className={styles.button} onClick={item.callback && item.callback}>
-          {item.icon && <Icon className={styles.icon} icon={item.icon} color="secondary" />}
+          {item.icon && <Icon className={styles.icon} icon={item.icon} variant="secondary" />}
           {item.thumbnail && <img className={styles.thumbnail} src={item.thumbnail} alt="" />}
           {item.label}
         </button>
