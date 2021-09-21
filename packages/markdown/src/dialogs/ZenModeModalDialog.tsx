@@ -11,9 +11,7 @@ import { createMarkdownActions } from '../MarkdownActions';
 import { openCheatsheetModal } from '../dialogs/CheatsheetModalDialog';
 import tokens from '@contentful/forma-36-tokens';
 
-import { Icon } from "@contentful/f36-components";
-
-import { ChevronRightIcon, ChevronLeftIcon } from "@contentful/f36-icons";
+import { ChevronRightIcon, ChevronLeftIcon } from '@contentful/f36-icons';
 
 export type ZenModeResult = {
   value: string;
@@ -183,11 +181,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
           onClick={() => {
             setShowPreview(false);
           }}>
-          <Icon
-            icon={<ChevronRightIcon />}
-            variant="muted"
-            size="tiny"
-            className={styles.icon} />
+          <ChevronRightIcon variant="muted" size="tiny" className={styles.icon} />
         </button>
       )}
       {!showPreview && (
@@ -197,11 +191,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
           onClick={() => {
             setShowPreview(true);
           }}>
-          <Icon
-            icon={<ChevronLeftIcon />}
-            variant="muted"
-            size="tiny"
-            className={styles.icon} />
+          <ChevronLeftIcon variant="muted" size="tiny" className={styles.icon} />
         </button>
       )}
       <div className={styles.bottomSplit}>

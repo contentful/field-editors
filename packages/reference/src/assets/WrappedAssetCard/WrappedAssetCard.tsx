@@ -11,9 +11,9 @@ import { MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
 // @ts-expect-error
 import mimetype from '@contentful/mimetype';
 
-import { Icon } from "@contentful/f36-components";
+import { Icon } from '@contentful/f36-components';
 
-import { ClockIcon } from "@contentful/f36-icons";
+import { ClockIcon } from '@contentful/f36-icons';
 
 const groupToIconMap = {
   image: 'image',
@@ -110,12 +110,12 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
           getEntityScheduledActions={props.getEntityScheduledActions}
           entityType="Asset"
           entityId={props.asset.sys.id}>
-          <Icon
+          <ClockIcon
             className={styles.scheduleIcon}
-            icon={<ClockIcon />}
             size="small"
             variant="muted"
-            testId="schedule-icon" />
+            testId="schedule-icon"
+          />
         </ScheduledIconWithTooltip>
       }
       src={

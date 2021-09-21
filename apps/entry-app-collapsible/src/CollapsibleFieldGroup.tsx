@@ -3,7 +3,7 @@ import { LocalesAPI } from '@contentful/field-editor-shared';
 import { Field } from './Field';
 import { FieldGroupType, FieldType } from './types';
 import styles from './styles';
-import { Text, Icon } from '@contentful/f36-components';
+import { Text } from '@contentful/f36-components';
 import { EntryFieldAPI } from '@contentful/app-sdk';
 
 import { ChevronDownIcon, ChevronRightIcon } from '@contentful/f36-icons';
@@ -28,10 +28,11 @@ export const CollapsibleFieldGroup: React.FC<CollapsibleFieldGroupProps> = ({
         <div className={styles.collapsibleContainerHeader}>
           <button className={styles.collapsibleContainerButton} onClick={toggleOpen}>
             <div className={styles.collapsibleContainerInfo}>
-              <Icon
-                className={styles.icon}
-                icon={isOpen ? <ChevronDownIcon /> : <ChevronRightIcon />}
-              />
+              {isOpen ? (
+                <ChevronDownIcon className={styles.icon} />
+              ) : (
+                <ChevronRightIcon className={styles.icon} />
+              )}
               <h3>{fieldGroup.name}</h3>
             </div>
             <Text as="p" fontColor="gray500" marginTop="spacingXs">
