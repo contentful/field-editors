@@ -10,11 +10,10 @@ export const getScheduleTooltipContent = ({
   job: ScheduledAction;
   jobsCount: number;
 }) => {
-
-  return `Will ${job.action.toLowerCase()} ${formatDateAndTime(job.scheduledFor.datetime).toLowerCase()}
-  ${jobsCount > 1 && (
-    `+ ${jobsCount - 1} more`
-)}`;
+  return `Will ${job.action.toLowerCase()} ${formatDateAndTime(
+    job.scheduledFor.datetime
+  ).toLowerCase()}
+  ${jobsCount > 1 && `+ ${jobsCount - 1} more`}`;
 };
 
 export const ScheduleTooltip = ({
@@ -31,7 +30,7 @@ export const ScheduleTooltip = ({
       placement="top"
       testId={job.sys.id}
       as="div"
-      content={getScheduleTooltipContent({job, jobsCount})}>
+      content={getScheduleTooltipContent({ job, jobsCount })}>
       {children}
     </Tooltip>
   );
