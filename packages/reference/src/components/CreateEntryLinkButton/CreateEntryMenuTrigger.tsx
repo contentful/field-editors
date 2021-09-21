@@ -5,14 +5,12 @@ import { css } from 'emotion';
 import get from 'lodash/get';
 import tokens from '@contentful/forma-36-tokens';
 import { ContentType } from '../../types';
-import {
-  Dropdown,
-  DropdownList,
-  Icon,
-  DropdownListItem,
-  TextInput,
-} from '@contentful/forma-36-react-components';
+import { Dropdown, DropdownList, DropdownListItem, TextInput } from '@contentful/forma-36-react-components';
 import { useGlobalMouseUp } from './useGlobalMouseUp';
+
+import { Icon } from "@contentful/f36-components";
+
+import { SearchIcon } from "@contentful/f36-icons";
 
 const MAX_ITEMS_WITHOUT_SEARCH = 20;
 
@@ -207,7 +205,7 @@ export const CreateEntryMenuTrigger = ({
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
             />
-            <Icon icon="Search" className={styles.searchIcon} />
+            <Icon icon={<SearchIcon />} className={styles.searchIcon} />
           </div>
         )}
         <DropdownList

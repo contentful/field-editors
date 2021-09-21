@@ -2,16 +2,15 @@ import * as React from 'react';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 import { SpaceAPI } from '@contentful/app-sdk';
-import {
-  DropdownList,
-  DropdownListItem,
-  EntryCard,
-  Icon,
-} from '@contentful/forma-36-react-components';
+import { DropdownList, DropdownListItem, EntryCard } from '@contentful/forma-36-react-components';
 import { ContentType, Entry, File } from '../../types';
 import { isValidImage } from '../../utils/isValidImage';
 import { entityHelpers } from '@contentful/field-editor-shared';
 import { AssetThumbnail, MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
+
+import { Icon } from "@contentful/f36-components";
+
+import { ClockIcon } from "@contentful/f36-icons";
 
 const { getEntryTitle, getEntityDescription, getEntryStatus, getEntryImage } = entityHelpers;
 
@@ -118,11 +117,10 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
           entityId={props.entry.sys.id}>
           <Icon
             className={styles.scheduleIcon}
-            icon="Clock"
+            icon={<ClockIcon />}
             size="small"
-            color="muted"
-            testId="schedule-icon"
-          />
+            variant="muted"
+            testId="schedule-icon" />
         </ScheduledIconWithTooltip>
       }
       thumbnailElement={file && isValidImage(file) ? <AssetThumbnail file={file} /> : null}
