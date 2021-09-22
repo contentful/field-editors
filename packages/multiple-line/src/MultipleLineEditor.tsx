@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Textarea } from '@contentful/forma-36-react-components';
 import {
   FieldAPI,
   LocalesAPI,
@@ -9,6 +8,8 @@ import {
   ConstraintsUtils,
 } from '@contentful/field-editor-shared';
 import * as styles from './styles';
+
+import { Textarea } from '@contentful/f36-components';
 
 export interface MultipleLineEditorProps {
   /**
@@ -50,9 +51,9 @@ export function MultipleLineEditor(props: MultipleLineEditorProps) {
             <Textarea
               className={direction === 'rtl' ? styles.rightToLeft : ''}
               rows={3}
-              required={field.required}
-              error={errors.length > 0}
-              disabled={disabled}
+              isRequired={field.required}
+              isInvalid={errors.length > 0}
+              isDisabled={disabled}
               value={value || ''}
               onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
                 setValue(e.target.value);

@@ -1,15 +1,10 @@
 import React from 'react';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
-import {
-  TextInput,
-  DropdownList,
-  DropdownListItem,
-  Card,
-} from '@contentful/forma-36-react-components';
+import { DropdownList, DropdownListItem, Card } from '@contentful/forma-36-react-components';
 import { Coords, GeocodeApiResponse } from './types';
 
-import { Spinner, ValidationMessage } from '@contentful/f36-components';
+import { Spinner, ValidationMessage, TextInput } from '@contentful/f36-components';
 
 const styles = {
   root: css({
@@ -68,7 +63,7 @@ export function LocationSearchInput(props: LocationSearchInputProps) {
       <div className={styles.input}>
         <TextInput
           testId="location-editor-search"
-          error={hasError}
+          isInvalid={hasError}
           placeholder="Start typing to find location"
           value={address}
           onChange={(e) => {
@@ -100,7 +95,7 @@ export function LocationSearchInput(props: LocationSearchInputProps) {
               }
             });
           }}
-          disabled={props.disabled}
+          isDisabled={props.disabled}
         />
         {isSearching && <Spinner className={styles.spinner} />}
         {suggestion && (

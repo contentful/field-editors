@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { FieldAPI, LocalesAPI, FieldConnector } from '@contentful/field-editor-shared';
-import { TextInput } from '@contentful/forma-36-react-components';
 import * as styles from './styles';
+
+import { TextInput } from '@contentful/f36-components';
 
 export interface ListEditorProps {
   /**
@@ -52,9 +53,9 @@ export function ListEditor(props: ListEditorProps) {
           <TextInput
             testId="list-editor-input"
             className={direction === 'rtl' ? styles.rightToLeft : ''}
-            required={field.required}
-            error={errors.length > 0}
-            disabled={disabled}
+            isRequired={field.required}
+            isInvalid={errors.length > 0}
+            isDisabled={disabled}
             value={valueAsString}
             onChange={onChange}
           />
