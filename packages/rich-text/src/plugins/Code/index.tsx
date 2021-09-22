@@ -16,7 +16,9 @@ interface ToolbarCodeButtonProps {
 export function ToolbarCodeButton(props: ToolbarCodeButtonProps) {
   const editor = useContentfulEditor();
 
-  function handleClick() {
+  function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
+
     if (!editor?.selection) return;
 
     toggleMark(editor, MARKS.CODE);
@@ -32,7 +34,8 @@ export function ToolbarCodeButton(props: ToolbarCodeButtonProps) {
       tooltipPlace="bottom"
       label="Code"
       testId="code-toolbar-button"
-      onClick={handleClick}
+      // @ts-expect-error
+      onMouseDown={handleClick}
       isActive={isMarkActive(editor, MARKS.CODE)}
       disabled={props.isDisabled}
     />
