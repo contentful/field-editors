@@ -104,7 +104,9 @@ export function withQuoteEvents(editor: SPEditor) {
 export function ToolbarQuoteButton(props: ToolbarQuoteButtonProps) {
   const editor = useContentfulEditor();
 
-  function handleOnClick() {
+  function handleOnClick(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
+
     if (!editor) return;
 
     createBlockQuote(editor);
@@ -119,7 +121,8 @@ export function ToolbarQuoteButton(props: ToolbarQuoteButtonProps) {
       tooltip="Blockquote"
       tooltipPlace="bottom"
       label="Blockquote"
-      onClick={handleOnClick}
+      // @ts-expect-error
+      onMouseDown={handleOnClick}
       testId="quote-toolbar-button"
       disabled={props.isDisabled}
       isActive={isBlockSelected(editor, BLOCKS.QUOTE)}

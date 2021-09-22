@@ -15,7 +15,9 @@ interface ToolbarUnderlineButtonProps {
 export function ToolbarUnderlineButton(props: ToolbarUnderlineButtonProps) {
   const editor = useContentfulEditor();
 
-  function handleClick() {
+  function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
+
     if (!editor?.selection) return;
 
     toggleMark(editor, MARKS.UNDERLINE);
@@ -31,7 +33,8 @@ export function ToolbarUnderlineButton(props: ToolbarUnderlineButtonProps) {
       tooltipPlace="bottom"
       label="Underline"
       testId="underline-toolbar-button"
-      onClick={handleClick}
+      // @ts-expect-error
+      onMouseDown={handleClick}
       isActive={isMarkActive(editor, MARKS.UNDERLINE)}
       disabled={props.isDisabled}
     />

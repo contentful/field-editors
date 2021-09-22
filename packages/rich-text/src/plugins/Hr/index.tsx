@@ -80,7 +80,9 @@ export function withHrEvents(editor: SPEditor) {
 export function ToolbarHrButton(props: ToolbarHrButtonProps) {
   const editor = useContentfulEditor();
 
-  function handleOnClick() {
+  function handleOnClick(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
+
     if (!editor?.selection) return;
 
     if (shouldUnwrapBlockquote(editor, BLOCKS.HR)) {
@@ -112,7 +114,8 @@ export function ToolbarHrButton(props: ToolbarHrButtonProps) {
       tooltipPlace="bottom"
       label="HR"
       disabled={props.isDisabled}
-      onClick={handleOnClick}
+      // @ts-expect-error
+      onMouseDown={handleOnClick}
       testId="hr-toolbar-button"
       isActive={isBlockSelected(editor, BLOCKS.HR)}
     />

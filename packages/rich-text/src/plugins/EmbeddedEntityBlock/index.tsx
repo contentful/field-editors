@@ -44,6 +44,7 @@ const createEmbeddedEntityPlugin =
 
               return {
                 type: nodeType,
+                isVoid: true,
                 data: {
                   target: {
                     sys: {

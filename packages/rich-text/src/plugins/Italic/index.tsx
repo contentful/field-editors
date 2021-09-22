@@ -16,7 +16,9 @@ interface ToolbarItalicButtonProps {
 export function ToolbarItalicButton(props: ToolbarItalicButtonProps) {
   const editor = useContentfulEditor();
 
-  function handleClick() {
+  function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
+
     if (!editor?.selection) return;
 
     toggleMark(editor, MARKS.ITALIC);
@@ -32,7 +34,8 @@ export function ToolbarItalicButton(props: ToolbarItalicButtonProps) {
       tooltipPlace="bottom"
       label="Italic"
       testId="italic-toolbar-button"
-      onClick={handleClick}
+      // @ts-expect-error
+      onMouseDown={handleClick}
       isActive={isMarkActive(editor, MARKS.ITALIC)}
       disabled={props.isDisabled}
     />
