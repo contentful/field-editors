@@ -1,10 +1,9 @@
 import React from 'react';
 import { useDebounce } from 'use-debounce';
-import { TextInput } from '@contentful/forma-36-react-components';
 import { makeSlug } from './services/makeSlug';
 import * as styles from './styles';
 
-import { Spinner, ValidationMessage } from '@contentful/f36-components';
+import { Spinner, ValidationMessage, TextInput } from '@contentful/f36-components';
 
 import { LinkIcon } from '@contentful/f36-icons';
 
@@ -80,8 +79,8 @@ export function SlugEditorFieldStatic(
       <LinkIcon className={styles.icon} />
       <TextInput
         className={styles.input}
-        error={hasError || status === 'duplicate'}
-        disabled={isDisabled}
+        isInvalid={hasError || status === 'duplicate'}
+        isDisabled={isDisabled}
         value={value || ''}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           setValue(e.target.value);

@@ -1,12 +1,12 @@
 import React from 'react';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
-import { RadioButtonField, FieldGroup, TextInput } from '@contentful/forma-36-react-components';
+import { RadioButtonField, FieldGroup } from '@contentful/forma-36-react-components';
 import { LocationSearchInput } from './LocationSearchInput';
 
 import { Coords, ViewType, GeocodeApiResponse } from './types';
 
-import { TextLink } from '@contentful/f36-components';
+import { TextLink, TextInput } from '@contentful/f36-components';
 
 interface LocationSelectorProps {
   disabled: boolean;
@@ -101,7 +101,7 @@ export function LocationSelector(props: LocationSelectorProps) {
               id="latitude"
               testId="location-editor-latitude"
               placeholder="Between -90 and 90"
-              disabled={props.disabled}
+              isDisabled={props.disabled}
               value={props.value ? String(props.value.lat) : ''}
               onChange={(e) => {
                 props.onChangeLocation({
@@ -121,7 +121,7 @@ export function LocationSelector(props: LocationSelectorProps) {
               id="longitude"
               testId="location-editor-longitude"
               placeholder="Between -180 and 180"
-              disabled={props.disabled}
+              isDisabled={props.disabled}
               value={props.value ? String(props.value.lng) : ''}
               onChange={(e) => {
                 props.onChangeLocation({
