@@ -58,25 +58,23 @@ export class DatepickerInput extends Component<DatePickerProps> {
 
   componentDidMount() {
     const onChange = this.props.onChange;
-    setTimeout(() => {
-      const defaultDate = this.props.value ? this.props.value.toDate() : undefined;
-      this.pikaday = createPikaday({
-        field: this.datePickerNode && this.datePickerNode.current,
-        defaultDate,
-        setDefaultDate: defaultDate !== undefined,
-        position: 'bottom left',
-        reposition: false,
-        theme: cx(styles.datePicker, 'hide-carret'),
-        toString: (date) => {
-          return formatDateDisplay(moment(date));
-        },
-        // we need to keep this function like this
-        // so `this` refers to pikaday instance
-        onSelect: function onSelect() {
-          onChange(this.getMoment() || undefined);
-        },
-      });
-    }, 100);
+    const defaultDate = this.props.value ? this.props.value.toDate() : undefined;
+    this.pikaday = createPikaday({
+      field: this.datePickerNode && this.datePickerNode.current,
+      defaultDate,
+      setDefaultDate: defaultDate !== undefined,
+      position: 'bottom left',
+      reposition: false,
+      theme: cx(styles.datePicker, 'hide-carret'),
+      toString: (date) => {
+        return formatDateDisplay(moment(date));
+      },
+      // we need to keep this function like this
+      // so `this` refers to pikaday instance
+      onSelect: function onSelect() {
+        onChange(this.getMoment() || undefined);
+      },
+    });
   }
 
   focusInput = () => {
