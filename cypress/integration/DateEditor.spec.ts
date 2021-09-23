@@ -46,7 +46,7 @@ describe('Date Editor', () => {
   const openPage = () => {
     cy.visit('/date');
     cy.findByTestId('date-editor-integration-test').should('be.visible');
-    cy.wait(150);
+    cy.wait(200);
   };
 
   beforeEach(() => {
