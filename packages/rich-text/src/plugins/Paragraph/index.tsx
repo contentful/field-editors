@@ -39,10 +39,8 @@ export function createParagraphPlugin(): PlatePlugin {
             type: BLOCKS.PARAGRAPH,
             deserialize: (element) => {
               const isParagraphText = element.nodeName === 'P';
-              const isDivText =
-                element.nodeName === 'DIV' && !element.getAttribute('data-entity-type');
               const isNotEmpty = element.textContent !== '';
-              const isText = (isDivText || isParagraphText) && isNotEmpty;
+              const isText = isParagraphText && isNotEmpty;
 
               if (!isText) return;
 
