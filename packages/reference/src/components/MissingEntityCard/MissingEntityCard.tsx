@@ -1,9 +1,11 @@
 import React from 'react';
-import { Card, IconButton } from '@contentful/forma-36-react-components';
+import { Card } from '@contentful/forma-36-react-components';
 import { EntityType } from '../../types';
 import * as styles from './styles';
 
-import { SectionHeading } from '@contentful/f36-components';
+import { SectionHeading, IconButton } from '@contentful/f36-components';
+
+import { CloseIcon } from '@contentful/f36-icons';
 
 export function MissingEntityCard(props: {
   entityType: EntityType;
@@ -21,10 +23,10 @@ export function MissingEntityCard(props: {
       </div>
       {!props.isDisabled && props.onRemove && (
         <IconButton
+          variant="transparent"
+          icon={<CloseIcon variant="muted" />}
           className={styles.close}
-          buttonType="muted"
-          label="Delete"
-          iconProps={{ icon: 'Close' }}
+          aria-label="Delete"
           onClick={() => {
             props.onRemove && props.onRemove();
           }}

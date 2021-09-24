@@ -7,7 +7,6 @@ import {
   FormLabel,
   FieldGroup,
   Card,
-  IconButton,
   CardDragHandle,
 } from '@contentful/forma-36-react-components';
 import { ModalContent, Text } from '@contentful/f36-components';
@@ -17,7 +16,7 @@ import { ActionTypes } from './types';
 import styles from './styles';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 
-import { TextLink, Paragraph, Button } from '@contentful/f36-components';
+import { TextLink, Paragraph, Button, IconButton } from '@contentful/f36-components';
 
 import { CloseIcon, ChevronDownIcon, ChevronUpIcon } from '@contentful/f36-icons';
 
@@ -47,9 +46,9 @@ const SortableFieldItem = SortableElement(
           {fieldDetails ? <Paragraph marginBottom="none">{fieldDetails.type}</Paragraph> : null}
         </div>
         <IconButton
-          label="Remove field"
-          buttonType="negative"
-          iconProps={{ icon: 'Close' }}
+          variant="transparent"
+          icon={<CloseIcon variant="negative" />}
+          aria-label="Remove field"
           onClick={() =>
             dispatch({
               type: ActionTypes.REMOVE_FIELD_FROM_GROUP,

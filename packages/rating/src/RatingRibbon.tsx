@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { css } from 'emotion';
-import { IconButton } from '@contentful/forma-36-react-components';
+
+import { IconButton } from '@contentful/f36-components';
+
+import { StarIcon } from '@contentful/f36-icons';
 
 type RatingRibbonProps = {
   disabled: boolean;
@@ -53,12 +56,17 @@ export class RatingRibbon extends React.Component<RatingRibbonProps, RatingRibbo
       <>
         {items.map((num) => (
           <IconButton
+            variant="transparent"
+            icon={
+              <StarIcon
+                variant={this.isSelected(num) ? 'primary' : 'muted'}
+                className={css({ width: '22px', height: '22px' })}
+              />
+            }
             data-selected={this.isSelected(num) ? 'true' : 'false'}
             testId="rating-editor-star"
-            disabled={this.props.disabled}
+            isDisabled={this.props.disabled}
             key={num}
-            iconProps={{ icon: 'Star', className: css({ width: '22px', height: '22px' }) }}
-            buttonType={this.isSelected(num) ? 'primary' : 'muted'}
             onClick={() => {
               this.props.onSelect(num);
             }}
@@ -71,7 +79,7 @@ export class RatingRibbon extends React.Component<RatingRibbonProps, RatingRibbo
             onMouseLeave={this.onBlur}
             onFocus={this.onFocus(num)}
             onBlur={this.onBlur}
-            label={num.toString()}
+            aria-label={num.toString()}
           />
         ))}
       </>
