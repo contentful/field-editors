@@ -135,7 +135,7 @@ function addTableTrackingEvents(editor: SPEditor, { onViewportAction }: Tracking
         if (hasTables(markupAfter)) {
           onViewportAction('paste', {
             tablePasted: true,
-            hasHeadersOutsideFirstRow: hasHeadersOutsideFirstRow(markupAfter)
+            hasHeadersOutsideFirstRow: hasHeadersOutsideFirstRow(markupAfter),
           });
         }
       }, 1);
@@ -177,7 +177,7 @@ function hasHeadersOutsideFirstRow(nodes: CustomElement[]) {
   return nodes
     .filter(({ type }) => type === BLOCKS.TABLE)
     .flatMap(({ children }) => children.slice(1) as CustomElement[])
-    .some(({ children }) => (children as CustomElement[]).some(isTableHeaderCell))
+    .some(({ children }) => (children as CustomElement[]).some(isTableHeaderCell));
 }
 
 function createWithTableEvents(tracking: TrackingProvider) {
@@ -191,6 +191,28 @@ function createWithTableEvents(tracking: TrackingProvider) {
 export const createTablePlugin = (tracking: TrackingProvider) => ({
   ...createTablePluginFromUdecode(),
   onKeyDown: createWithTableEvents(tracking),
+  withOverrides: (editor) => {
+    const { insertFragment } = editor;
+
+    editor.insertFragment = (fragments) => {
+      // We need to make sure we have a new, empty and clean paragraph in order to paste tables as-is due to how Slate behaves
+      // More info: https://github.com/ianstormtaylor/slate/pull/4489 and https://github.com/ianstormtaylor/slate/issues/4542
+      const fragmentHasTable = fragments.some((fragment) => fragment.type === BLOCKS.TABLE);
+      if (fragmentHasTable) {
+        const emptyParagraph: CustomElement = {
+          type: BLOCKS.PARAGRAPH,
+          children: [{ text: '' }],
+          data: {},
+          isVoid: false,
+        };
+        Transforms.insertNodes(editor, emptyParagraph);
+      }
+
+      insertFragment(fragments);
+    };
+
+    return editor;
+  },
 });
 
 interface ToolbarTableButtonProps {
