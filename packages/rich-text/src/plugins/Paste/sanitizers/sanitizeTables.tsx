@@ -5,12 +5,9 @@ import { removeChildNodesUsingPredicate, SanitizerTuple } from './helpers';
 const TAG_NAME_TABLE = 'TABLE';
 const TAG_NAME_TABLE_CAPTION = 'CAPTION';
 const DISALLOWED_TABLE_CHILD_ELEMENTS: Element['tagName'][] = [
-  TAG_NAME_TABLE,
   TAG_NAME_TABLE_CAPTION,
 ];
-type DisallowedTableChildElement
-  = HTMLTableElement
-  | HTMLTableCaptionElement;
+type DisallowedTableChildElement = HTMLTableCaptionElement;
 
 const isHTMLElement = (node: ChildNode): node is HTMLElement => node.nodeType === Node.ELEMENT_NODE;
 
