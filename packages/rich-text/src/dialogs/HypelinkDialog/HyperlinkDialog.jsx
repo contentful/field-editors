@@ -2,19 +2,13 @@ import React from 'react';
 import { css } from 'emotion';
 import PropTypes from 'prop-types';
 import tokens from '@contentful/forma-36-tokens';
-import {
-  TextField,
-  Form,
-  FormLabel,
-  SelectField,
-  Option,
-} from '@contentful/forma-36-react-components';
+import { TextField, Form, FormLabel } from '@contentful/forma-36-react-components';
 import { ModalContent, ModalControls } from '@contentful/f36-components';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { FetchingWrappedEntryCard } from '../../plugins/EmbeddedEntityBlock/FetchingWrappedEntryCard';
 import { FetchingWrappedAssetCard } from '../../plugins/EmbeddedEntityBlock/FetchingWrappedAssetCard';
 
-import { TextLink, Button } from '@contentful/f36-components';
+import { TextLink, Button, FormControl, Select } from '@contentful/f36-components';
 
 export const LINK_TYPES = {
   URI: 'uri',
@@ -188,24 +182,24 @@ export class HyperlinkDialog extends React.Component {
           />
         )}
         {isFeaturingEntitySelector(entitySelectorConfigs) && (
-          <SelectField
-            labelText="Link type"
-            value={type}
-            onChange={(e) => this.setState({ type: e.target.value })}
-            name="link-type"
-            id="link-type"
-            selectProps={{ testId: 'link-type-select' }}>
-            {/* Show the option if the link type is allowed or the current link is of type that is no longer valid */}
-            {allowedHyperlinkTypes.includes(LINK_TYPES.URI) || type === LINK_TYPES.URI ? (
-              <Option value={LINK_TYPES.URI}>URL</Option>
-            ) : null}
-            {allowedHyperlinkTypes.includes(LINK_TYPES.ENTRY) || type === LINK_TYPES.ENTRY ? (
-              <Option value={LINK_TYPES.ENTRY}>Entry</Option>
-            ) : null}
-            {allowedHyperlinkTypes.includes(LINK_TYPES.ASSET) || type === LINK_TYPES.ASSET ? (
-              <Option value={LINK_TYPES.ASSET}>Asset</Option>
-            ) : null}
-          </SelectField>
+          <FormControl id="link-type" name="link-type">
+            <FormControl.Label>Link type</FormControl.Label>
+            <Select
+              value={type}
+              onChange={(e) => this.setState({ type: e.target.value })}
+              testId="link-type-select">
+              {/* Show the option if the link type is allowed or the current link is of type that is no longer valid */}
+              {allowedHyperlinkTypes.includes(LINK_TYPES.URI) || type === LINK_TYPES.URI ? (
+                <Select.Option value={LINK_TYPES.URI}>URL</Select.Option>
+              ) : null}
+              {allowedHyperlinkTypes.includes(LINK_TYPES.ENTRY) || type === LINK_TYPES.ENTRY ? (
+                <Select.Option value={LINK_TYPES.ENTRY}>Entry</Select.Option>
+              ) : null}
+              {allowedHyperlinkTypes.includes(LINK_TYPES.ASSET) || type === LINK_TYPES.ASSET ? (
+                <Select.Option value={LINK_TYPES.ASSET}>Asset</Select.Option>
+              ) : null}
+            </Select>
+          </FormControl>
         )}
         {type === LINK_TYPES.URI ? (
           <TextField
