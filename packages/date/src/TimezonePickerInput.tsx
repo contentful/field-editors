@@ -19,7 +19,6 @@ export const TimezonepickerInput = ({
       aria-label="Select timezone"
       testId="timezone-input"
       value={value}
-      size="medium"
       isDisabled={disabled}
       onChange={(e: ChangeEvent<HTMLSelectElement>) => {
         onChange(e.currentTarget.value);
