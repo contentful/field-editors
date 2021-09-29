@@ -9,6 +9,7 @@ import {
   PredefinedValuesError,
 } from '@contentful/field-editor-shared';
 import { CheckboxField, Form } from '@contentful/forma-36-react-components';
+import { Checkbox } from '@contentful/f36-components';
 import * as styles from './styles';
 import { nanoid } from 'nanoid';
 
@@ -120,13 +121,11 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
             className={cx(styles.form, direction === 'rtl' ? styles.rightToLeft : '')}>
             {mergedOptions.map((item) => (
               <div key={item.id}>
-                <CheckboxField
+                <Checkbox
                   key={item.id}
-                  labelIsLight
                   id={item.id}
-                  checked={values.includes(item.value)}
-                  labelText={item.label}
-                  disabled={disabled}
+                  isChecked={values.includes(item.value)}
+                  isDisabled={disabled}
                   value={item.value}
                   name={`${field.id}.${field.locale}`}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -136,7 +135,7 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
                       removeValue(item.value);
                     }
                   }}
-                />
+                >{item.label}</Checkbox>
                 {item.invalid && (
                   <>
                     <span data-test-id="invalid-text" className={styles.invalidText}>
