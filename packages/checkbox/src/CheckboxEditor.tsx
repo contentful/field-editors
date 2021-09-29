@@ -8,7 +8,7 @@ import {
   LocalesAPI,
   PredefinedValuesError,
 } from '@contentful/field-editor-shared';
-import { CheckboxField, Form } from '@contentful/forma-36-react-components';
+import { Form } from '@contentful/forma-36-react-components';
 import { Checkbox } from '@contentful/f36-components';
 import * as styles from './styles';
 import { nanoid } from 'nanoid';
