@@ -4,7 +4,7 @@ import * as Slate from 'slate-react';
 import { SPEditor } from '@udecode/plate-core';
 import tokens from '@contentful/forma-36-tokens';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
-import { BLOCKS, TableCell, TableHeaderCell } from '@contentful/rich-text-types';
+import { BLOCKS, CONTAINERS, TableCell, TableHeaderCell } from '@contentful/rich-text-types';
 import {
   ELEMENT_TD,
   ELEMENT_TR,
@@ -13,7 +13,10 @@ import {
   createTablePlugin as createTablePluginFromUdecode,
   getTableOnKeyDown,
 } from '@udecode/plate-table';
+import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
+import { toContentfulDocument } from '@contentful/contentful-slatejs-adapter';
 
+import schema from '../../constants/Schema';
 import { TableActions } from './TableActions';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { CustomElement, CustomSlatePluginOptions } from '../../types';
@@ -60,6 +63,11 @@ const styles = {
     }
   `,
 };
+
+const slateNodeToText = (node: CustomElement): string => {
+  const contentfulNode = toContentfulDocument({ document: [node], schema });
+  return documentToPlainTextString(contentfulNode);
+}
 
 export const Table = (props: Slate.RenderElementProps) => (
   <table {...props.attributes} className={styles[BLOCKS.TABLE]}>
@@ -143,6 +151,8 @@ function addTableTrackingEvents(editor: SPEditor, { onViewportAction }: Tracking
   };
 }
 
+const paragraph = () => ({ type: BLOCKS.PARAGRAPH, data: {}, children: [] });
+
 function addTableNormalization(editor) {
   const { normalizeNode } = editor;
 
@@ -156,8 +166,14 @@ function addTableNormalization(editor) {
     if (Element.isElement(node) && cellTypes.includes((node as CustomElement).type)) {
       for (const [child, childPath] of Node.children(editor, path)) {
         if (Text.isText(child)) {
-          const paragraph = { type: BLOCKS.PARAGRAPH, data: {}, children: [] };
-          Transforms.wrapNodes(editor, paragraph, { at: childPath });
+          Transforms.wrapNodes(editor, paragraph(), { at: childPath });
+        } else if (!CONTAINERS[node.type].includes(child.type)) {
+          const paragraphWithTextFromNode = {
+            ...paragraph(),
+            children: [{ text: slateNodeToText(child) }]
+          };
+          Transforms.removeNodes(editor, { at: childPath });
+          Transforms.insertNodes(editor, paragraphWithTextFromNode, { at: childPath });
         }
       }
     }
