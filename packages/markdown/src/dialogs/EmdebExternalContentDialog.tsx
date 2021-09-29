@@ -3,7 +3,7 @@ import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 import { DialogsAPI } from '@contentful/app-sdk';
 import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
-import { ModalContent, ModalControls, Text } from '@contentful/f36-components';
+import { ModalContent, ModalControls, Text, TextLink, Button } from '@contentful/f36-components';
 import {
   TextField,
   RadioButtonField,
@@ -11,8 +11,6 @@ import {
   Form,
 } from '@contentful/forma-36-react-components';
 import { isValidUrl } from '../utils/isValidUrl';
-
-import { TextLink, Button } from '@contentful/f36-components';
 
 const styles = {
   widthFiledGroup: css({
