@@ -54,6 +54,7 @@ import { ContentfulEditorProvider, getContentfulEditorId } from './ContentfulEdi
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import { createTrailingParagraphPlugin } from './plugins/TrailingParagraph';
+import { BLOCKS } from '@contentful/rich-text-types';
 
 type ConnectedProps = {
   sdk: FieldExtensionSDK;
@@ -81,7 +82,9 @@ const getPlugins = (sdk: FieldExtensionSDK, tracking: TrackingProvider) => {
 
     // Block Elements
     createParagraphPlugin(),
-    createListPlugin(),
+    createListPlugin({
+      validLiChildrenTypes: Object.values(BLOCKS),
+    }),
     createHrPlugin(),
     createHeadingPlugin(),
     createQuotePlugin(),
