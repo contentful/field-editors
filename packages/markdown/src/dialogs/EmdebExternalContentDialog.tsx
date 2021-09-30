@@ -3,16 +3,16 @@ import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 import { DialogsAPI } from '@contentful/app-sdk';
 import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
-import { ModalContent, ModalControls, Text } from '@contentful/f36-components';
 import {
-  TextField,
-  RadioButtonField,
-  CheckboxField,
-  Form,
-} from '@contentful/forma-36-react-components';
+  ModalContent,
+  ModalControls,
+  Text,
+  TextLink,
+  Button,
+  Checkbox,
+} from '@contentful/f36-components';
+import { TextField, RadioButtonField, Form } from '@contentful/forma-36-react-components';
 import { isValidUrl } from '../utils/isValidUrl';
-
-import { TextLink, Button } from '@contentful/f36-components';
 
 const styles = {
   widthFiledGroup: css({
@@ -138,16 +138,15 @@ export const EmbedExternalContentModal = ({ onClose }: EmbedExternalContentModal
               />
             </div>
           </div>
-          <CheckboxField
-            value="Yes"
-            testId="attach-social-checkbox"
+          <Checkbox
             id="attach-social-checkbox"
             name="attach-social-checkbox"
-            checked={attachSocial}
+            value="Yes"
+            isChecked={attachSocial}
             onChange={() => setAttachSocial(!attachSocial)}
-            labelText="Attach social sharing links to this element"
-            labelIsLight
-          />
+            testId="attach-social-checkbox">
+            Attach social sharing links to this element
+          </Checkbox>
           <Text as="p" fontColor="gray500" marginTop="spacingXs">
             To enable this embedded content in your application make sure to add the&nbsp;
             <TextLink
