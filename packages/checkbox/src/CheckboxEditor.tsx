@@ -134,8 +134,9 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
                     } else {
                       removeValue(item.value);
                     }
-                  }}
-                >{item.label}</Checkbox>
+                  }}>
+                  {item.label}
+                </Checkbox>
                 {item.invalid && (
                   <>
                     <span data-test-id="invalid-text" className={styles.invalidText}>
