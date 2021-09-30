@@ -10,7 +10,7 @@ import deepEquals from 'fast-deep-equal';
 import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/StickyToolbarWrapper';
 import { createPastePlugin } from './plugins/Paste';
-import { withListOptions } from './plugins/List';
+import { createListPlugin, withListOptions } from './plugins/List';
 import {
   Plate,
   createHistoryPlugin,
@@ -18,7 +18,6 @@ import {
   PlatePlugin,
   SPEditor,
 } from '@udecode/plate-core';
-import { createListPlugin } from '@udecode/plate-list';
 import { createDeserializeHTMLPlugin } from '@udecode/plate-html-serializer';
 import { createHrPlugin, withHrOptions } from './plugins/Hr';
 import { withHeadingOptions, createHeadingPlugin } from './plugins/Heading';
@@ -54,7 +53,6 @@ import { ContentfulEditorProvider, getContentfulEditorId } from './ContentfulEdi
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import { createTrailingParagraphPlugin } from './plugins/TrailingParagraph';
-import { BLOCKS } from '@contentful/rich-text-types';
 
 type ConnectedProps = {
   sdk: FieldExtensionSDK;
@@ -82,9 +80,7 @@ const getPlugins = (sdk: FieldExtensionSDK, tracking: TrackingProvider) => {
 
     // Block Elements
     createParagraphPlugin(),
-    createListPlugin({
-      validLiChildrenTypes: Object.values(BLOCKS),
-    }),
+    createListPlugin(),
     createHrPlugin(),
     createHeadingPlugin(),
     createQuotePlugin(),
