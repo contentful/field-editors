@@ -7,10 +7,10 @@ import {
   LocalesAPI,
 } from '@contentful/field-editor-shared';
 import { getOptions, parseValue } from '@contentful/field-editor-dropdown';
-import { Form, RadioButtonField } from '@contentful/forma-36-react-components';
+import { Form } from '@contentful/forma-36-react-components';
 import * as styles from './styles';
 
-import { TextLink, Flex } from '@contentful/f36-components';
+import { TextLink, Flex, Radio } from '@contentful/f36-components';
 
 export interface RadioEditorProps {
   /**
@@ -64,19 +64,18 @@ export function RadioEditor(props: RadioEditorProps) {
               const checked = value === item.value;
               return (
                 <Flex key={id} alignItems="center">
-                  <RadioButtonField
-                    labelIsLight
+                  <Radio
                     id={id}
-                    checked={checked}
-                    labelText={item.label}
-                    disabled={disabled}
+                    isDisabled={disabled}
                     value={item.value === undefined ? '' : String(item.value)}
+                    isChecked={checked}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                       if (e.target.checked) {
                         setOption(e.target.value);
                       }
-                    }}
-                  />
+                    }}>
+                    {item.label}
+                  </Radio>
                   {checked && (
                     <TextLink as="button" className={styles.clearBtn} onClick={clearOption}>
                       Clear

@@ -10,8 +10,9 @@ import {
   TextLink,
   Button,
   Checkbox,
+  Radio,
 } from '@contentful/f36-components';
-import { TextField, RadioButtonField, Form } from '@contentful/forma-36-react-components';
+import { TextField, Form } from '@contentful/forma-36-react-components';
 import { isValidUrl } from '../utils/isValidUrl';
 
 const styles = {
@@ -118,24 +119,22 @@ export const EmbedExternalContentModal = ({ onClose }: EmbedExternalContentModal
               }
             />
             <div className={styles.radioButtonGroup}>
-              <RadioButtonField
-                className={styles.radioButton}
+              <Radio
                 id="unit-option-percent"
-                checked={selectedUnit === 'percent'}
-                labelText="percent"
                 value="percent"
+                isChecked={selectedUnit === 'percent'}
                 onChange={() => setUnit('percent')}
-                labelIsLight
-              />
-              <RadioButtonField
-                className={styles.radioButton}
+                className={styles.radioButton}>
+                percent
+              </Radio>
+              <Radio
                 id="unit-option-pixels"
-                checked={selectedUnit === 'px'}
-                labelText="pixels"
                 value="pixels"
+                isChecked={selectedUnit === 'px'}
                 onChange={() => setUnit('px')}
-                labelIsLight
-              />
+                className={styles.radioButton}>
+                pixels
+              </Radio>
             </div>
           </div>
           <Checkbox
