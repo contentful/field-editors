@@ -8,12 +8,11 @@ import {
   LocalesAPI,
   PredefinedValuesError,
 } from '@contentful/field-editor-shared';
-import { Form } from '@contentful/forma-36-react-components';
 import { Checkbox } from '@contentful/f36-components';
 import * as styles from './styles';
 import { nanoid } from 'nanoid';
 
-import { TextLink } from '@contentful/f36-components';
+import { TextLink, Form } from '@contentful/f36-components';
 
 export interface CheckboxEditorProps {
   /**
@@ -117,7 +116,6 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
         return (
           <Form
             testId="checkbox-editor"
-            spacing="condensed"
             className={cx(styles.form, direction === 'rtl' ? styles.rightToLeft : '')}>
             {mergedOptions.map((item) => (
               <div key={item.id}>
