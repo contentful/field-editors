@@ -1,7 +1,8 @@
 import * as React from 'react';
 import * as Slate from 'slate-react';
 import { css } from 'emotion';
-import { BLOCKS } from '@contentful/rich-text-types';
+import { createListPlugin as createPlateListPlugin } from '@udecode/plate-list';
+import { BLOCKS, LIST_ITEM_BLOCKS } from '@contentful/rich-text-types';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { ELEMENT_LI, ELEMENT_UL, ELEMENT_OL, toggleList, ELEMENT_LIC } from '@udecode/plate-list';
 import { isBlockSelected, unwrapFromRoot, shouldUnwrapBlockquote } from '../../helpers/editor';
@@ -144,3 +145,8 @@ export const withListOptions: CustomSlatePluginOptions = {
     component: OL,
   },
 };
+
+export const createListPlugin = () =>
+  createPlateListPlugin({
+    validLiChildrenTypes: LIST_ITEM_BLOCKS,
+  });
