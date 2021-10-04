@@ -1,12 +1,12 @@
 import React from 'react';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
-import { RadioButtonField, FieldGroup } from '@contentful/forma-36-react-components';
+import { FieldGroup } from '@contentful/forma-36-react-components';
 import { LocationSearchInput } from './LocationSearchInput';
 
 import { Coords, ViewType, GeocodeApiResponse } from './types';
 
-import { TextLink, TextInput } from '@contentful/f36-components';
+import { TextLink, TextInput, Radio } from '@contentful/f36-components';
 
 interface LocationSelectorProps {
   disabled: boolean;
@@ -53,34 +53,28 @@ export function LocationSelector(props: LocationSelectorProps) {
     <div className={styles.root}>
       <div className={styles.main}>
         <FieldGroup row>
-          <RadioButtonField
-            labelText="Address"
-            labelIsLight
-            disabled={props.disabled}
+          <Radio
             id={ViewType.Address}
+            testId="location-editor-address-radio"
+            isDisabled={props.disabled}
             value={ViewType.Address}
+            isChecked={props.view === ViewType.Address}
             onChange={() => {
               props.onChangeView(ViewType.Address);
-            }}
-            inputProps={{
-              testId: 'location-editor-address-radio',
-            }}
-            checked={props.view === ViewType.Address}
-          />
-          <RadioButtonField
-            labelText="Coordinates"
-            labelIsLight
-            disabled={props.disabled}
+            }}>
+            Address
+          </Radio>
+          <Radio
             id={ViewType.Coordinates}
+            testId="location-editor-coordinates-radio"
+            isDisabled={props.disabled}
             value={ViewType.Coordinates}
+            isChecked={props.view === ViewType.Coordinates}
             onChange={() => {
               props.onChangeView(ViewType.Coordinates);
-            }}
-            inputProps={{
-              testId: 'location-editor-coordinates-radio',
-            }}
-            checked={props.view === ViewType.Coordinates}
-          />
+            }}>
+            Coordinates
+          </Radio>
         </FieldGroup>
         {props.view === ViewType.Address && (
           <div className={styles.inputsRow}>

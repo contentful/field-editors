@@ -10,10 +10,10 @@ const LOCATION_2 = {
 describe('Location Editor', () => {
   const selectors = {
     getAddressRadio: () => {
-      return cy.findByTestId('location-editor-address-radio');
+      return cy.findByTestId('location-editor-address-radio').find('input');
     },
     getCoordinatesRadio: () => {
-      return cy.findByTestId('location-editor-coordinates-radio');
+      return cy.findByTestId('location-editor-coordinates-radio').find('input');
     },
     getSearchInput: () => {
       return cy.findByTestId('location-editor-search');
