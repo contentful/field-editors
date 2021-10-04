@@ -10,7 +10,7 @@ import deepEquals from 'fast-deep-equal';
 import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/StickyToolbarWrapper';
 import { createPastePlugin } from './plugins/Paste';
-import { withListOptions } from './plugins/List';
+import { createListPlugin, withListOptions } from './plugins/List';
 import {
   Plate,
   createHistoryPlugin,
@@ -18,7 +18,6 @@ import {
   PlatePlugin,
   SPEditor,
 } from '@udecode/plate-core';
-import { createListPlugin } from '@udecode/plate-list';
 import { createDeserializeHTMLPlugin } from '@udecode/plate-html-serializer';
 import { createHrPlugin, withHrOptions } from './plugins/Hr';
 import { withHeadingOptions, createHeadingPlugin } from './plugins/Heading';

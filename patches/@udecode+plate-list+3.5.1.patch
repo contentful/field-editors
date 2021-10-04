@@ -1,0 +1,28 @@
+diff --git a/node_modules/@udecode/plate-list/dist/index.es.js b/node_modules/@udecode/plate-list/dist/index.es.js
+index f18857c..a901436 100644
+--- a/node_modules/@udecode/plate-list/dist/index.es.js
++++ b/node_modules/@udecode/plate-list/dist/index.es.js
+@@ -1514,6 +1514,9 @@ const normalizeListItem = (editor, {
+   if (Editor.isBlock(editor, firstLiChildNode) && !match(firstLiChildNode, {
+     type: getPlatePluginType(editor, ELEMENT_LIC)
+   })) {
++    if (validLiChildrenTypes.indexOf(firstLiChildNode.type) !== -1) {
++      return true;
++    }
+     setNodes(editor, {
+       type: getPlatePluginType(editor, ELEMENT_LIC)
+     }, {
+diff --git a/node_modules/@udecode/plate-list/dist/index.js b/node_modules/@udecode/plate-list/dist/index.js
+index 6ab8aec..7ed6c01 100644
+--- a/node_modules/@udecode/plate-list/dist/index.js
++++ b/node_modules/@udecode/plate-list/dist/index.js
+@@ -1518,6 +1518,9 @@ const normalizeListItem = (editor, {
+   if (slate.Editor.isBlock(editor, firstLiChildNode) && !plateCommon.match(firstLiChildNode, {
+     type: plateCore.getPlatePluginType(editor, ELEMENT_LIC)
+   })) {
++    if (validLiChildrenTypes.indexOf(firstLiChildNode.type) !== -1) {
++      return true;
++    }
+     plateCommon.setNodes(editor, {
+       type: plateCore.getPlatePluginType(editor, ELEMENT_LIC)
+     }, {
