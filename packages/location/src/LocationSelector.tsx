@@ -1,12 +1,11 @@
 import React from 'react';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
-import { FieldGroup } from '@contentful/forma-36-react-components';
 import { LocationSearchInput } from './LocationSearchInput';
 
 import { Coords, ViewType, GeocodeApiResponse } from './types';
 
-import { TextLink, TextInput, Radio } from '@contentful/f36-components';
+import { TextLink, TextInput, Radio, Flex } from '@contentful/f36-components';
 
 interface LocationSelectorProps {
   disabled: boolean;
@@ -52,8 +51,9 @@ export function LocationSelector(props: LocationSelectorProps) {
   return (
     <div className={styles.root}>
       <div className={styles.main}>
-        <FieldGroup row>
+        <Flex flexDirection="row">
           <Radio
+            className={css({ flexBasis: '100%' })}
             id={ViewType.Address}
             testId="location-editor-address-radio"
             isDisabled={props.disabled}
@@ -65,6 +65,7 @@ export function LocationSelector(props: LocationSelectorProps) {
             Address
           </Radio>
           <Radio
+            className={css({ flexBasis: '100%' })}
             id={ViewType.Coordinates}
             testId="location-editor-coordinates-radio"
             isDisabled={props.disabled}
@@ -75,7 +76,7 @@ export function LocationSelector(props: LocationSelectorProps) {
             }}>
             Coordinates
           </Radio>
-        </FieldGroup>
+        </Flex>
         {props.view === ViewType.Address && (
           <div className={styles.inputsRow}>
             <LocationSearchInput
