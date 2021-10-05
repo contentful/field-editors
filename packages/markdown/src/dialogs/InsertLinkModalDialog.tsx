@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { DialogsAPI } from '@contentful/app-sdk';
 import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
-import { TextField, Form } from '@contentful/forma-36-react-components';
-import { ModalContent, ModalControls, Button } from '@contentful/f36-components';
+import { TextField } from '@contentful/forma-36-react-components';
+import { ModalContent, ModalControls, Button, Form } from '@contentful/f36-components';
 import { isValidUrl } from '../utils/isValidUrl';
 
 type InsertLinkModalPositiveResult = { url: string; text: string; title: string };

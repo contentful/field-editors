@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { DialogsAPI } from '@contentful/app-sdk';
-import { TextField, Form } from '@contentful/forma-36-react-components';
+import { TextField } from '@contentful/forma-36-react-components';
 import inRange from 'lodash/inRange';
-import { ModalContent, ModalControls, Button } from '@contentful/f36-components';
+import { ModalContent, ModalControls, Button, Form } from '@contentful/f36-components';
 import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 
 type InsertTableModalPositiveResult = { cols: number; rows: number };

@@ -11,8 +11,9 @@ import {
   Button,
   Checkbox,
   Radio,
+  Form,
 } from '@contentful/f36-components';
-import { TextField, Form } from '@contentful/forma-36-react-components';
+import { TextField } from '@contentful/forma-36-react-components';
 import { isValidUrl } from '../utils/isValidUrl';
 
 const styles = {
@@ -118,6 +119,7 @@ export const EmbedExternalContentModal = ({ onClose }: EmbedExternalContentModal
                 isWidthValid(Number(width), selectedUnit) ? '' : 'Should be equal or less then 100'
               }
             />
+
             <div className={styles.radioButtonGroup}>
               <Radio
                 id="unit-option-percent"
