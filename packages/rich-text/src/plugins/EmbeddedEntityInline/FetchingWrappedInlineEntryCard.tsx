@@ -35,7 +35,7 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
 
   const allContentTypes = props.sdk.space.getCachedContentTypes();
   const contentType = React.useMemo(() => {
-    if (!entry || !allContentTypes) return undefined;
+    if (!entry || entry === 'failed' || !allContentTypes) return undefined;
 
     return allContentTypes.find(
       (contentType) => contentType.sys.id === entry.sys.contentType.sys.id

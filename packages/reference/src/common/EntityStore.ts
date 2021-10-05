@@ -204,6 +204,7 @@ function useEntitiesStore(props: { sdk: BaseExtensionSDK }) {
   return { getOrLoadEntry, getOrLoadAsset, loadEntityScheduledActions, ...state };
 }
 
+// TODO: These properties are not typed when exported elsewhere.
 const [EntityProvider, useEntities] = constate(useEntitiesStore);
 
 export { EntityProvider, useEntities };
