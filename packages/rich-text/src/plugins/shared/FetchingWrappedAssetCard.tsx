@@ -95,7 +95,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
   const { getOrLoadAsset, assets } = useEntities();
   const asset = assets[props.assetId];
   const defaultLocaleCode = props.sdk.locales.default;
-  const entityFile: File | undefined = asset?.fields.file
+  const entityFile: File | undefined = asset?.fields?.file
     ? asset.fields.file[props.locale] || asset.fields.file[defaultLocaleCode]
     : undefined;
 

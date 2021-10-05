@@ -54,17 +54,18 @@ export function FetchingWrappedEntryCard(props: FetchingWrappedEntryCardProps) {
   const { getOrLoadEntry, entries } = useEntities();
   const [file, setFile] = React.useState<File | null>(null);
   const entry = entries[props.entryId];
-  const contentType = React.useMemo(
-    () =>
-      props.sdk.space
-        .getCachedContentTypes()
-        .find((contentType) => contentType.sys.id === entry?.sys.contentType.sys.id),
-    [props.sdk, entry]
-  );
+  const contentType = React.useMemo(() => {
+    if (!entry || entry === 'failed') {
+      return undefined;
+    }
+    return props.sdk.space
+      .getCachedContentTypes()
+      .find((contentType) => contentType.sys.id === entry.sys.contentType.sys.id)
+  }, [props.sdk, entry]);
   const defaultLocaleCode = props.sdk.locales.default;
 
   React.useEffect(() => {
-    if (!entry) return;
+    if (!entry || entry === 'failed') return;
 
     entityHelpers
       .getEntryImage(
