@@ -1,7 +1,7 @@
 import get from 'lodash/get';
 import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
-import { File, ContentType, Entry, ContentTypeField, EntrySys } from '../typesEntity';
+import { File, ContentType, Entry, ContentTypeField } from '../typesEntity';
 
 function titleOrDefault(title: string | undefined, defaultTitle: string): string {
   if (!isString(title)) {
@@ -166,7 +166,7 @@ export function getEntryTitle({
   return titleOrDefault(title, defaultTitle);
 }
 
-export function getEntryStatus(sys: EntrySys) {
+export function getEntryStatus(sys: Entry['sys']) {
   if (!sys || (sys.type !== 'Entry' && sys.type !== 'Asset')) {
     throw new TypeError('Invalid entity metadata object');
   }

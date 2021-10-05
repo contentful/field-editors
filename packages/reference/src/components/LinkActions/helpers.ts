@@ -1,11 +1,11 @@
-import { Asset, ContentType, EntityType, Entry, FieldExtensionSDK } from '../../types';
+import { Asset, ContentType, ContentEntityType, Entry, FieldExtensionSDK } from '../../types';
 import { EditorPermissions } from '../../common/useEditorPermissions';
 
 const getContentTypeIds = (contentTypes: ContentType[]) => contentTypes.map((ct) => ct.sys.id);
 
 export async function createEntity(props: {
   sdk: FieldExtensionSDK;
-  entityType: EntityType;
+  entityType: ContentEntityType;
   contentTypeId?: string;
 }) {
   if (props.entityType === 'Entry') {
@@ -17,7 +17,7 @@ export async function createEntity(props: {
     });
     return { entity, slide };
   } else {
-    const { entity, slide } = await props.sdk.navigator.openNewAsset<Asset>({
+    const { entity, slide } = await props.sdk.navigator.openNewAsset({
       slideIn: true,
     });
     return { entity, slide };
@@ -26,7 +26,7 @@ export async function createEntity(props: {
 
 export async function selectSingleEntity(props: {
   sdk: FieldExtensionSDK;
-  entityType: EntityType;
+  entityType: ContentEntityType;
   editorPermissions: EditorPermissions;
 }) {
   if (props.entityType === 'Entry') {
@@ -44,7 +44,7 @@ export async function selectSingleEntity(props: {
 
 export async function selectMultipleEntities(props: {
   sdk: FieldExtensionSDK;
-  entityType: EntityType;
+  entityType: ContentEntityType;
   editorPermissions: EditorPermissions;
 }) {
   const value = props.sdk.field.getValue();

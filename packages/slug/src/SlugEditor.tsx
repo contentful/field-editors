@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FieldExtensionSDK, FieldAPI } from '@contentful/app-sdk';
+import { FieldExtensionSDK, FieldAPI, ValidationError } from '@contentful/app-sdk';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import { TrackingFieldConnector } from './TrackingFieldConnector';
 import { SlugEditorField, SlugEditorFieldStatic } from './SlugEditorField';
@@ -45,7 +45,7 @@ function FieldConnectorCallback({
   disabled: boolean;
   titleValue: string | null | undefined;
   setValue: (value: string | null | undefined) => Promise<unknown>;
-  errors: Error[];
+  errors: ValidationError[];
   isOptionalLocaleWithFallback: boolean;
   locale: FieldAPI['locale'];
   createdAt: string;

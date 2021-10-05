@@ -111,7 +111,7 @@ export const Field: React.FC<FieldProps> = (props: FieldProps) => {
     ...options[widgetId],
   };
 
-  const baseSdk = widgetId === 'slugEditor' ? sdk : undefined
+  const baseSdk = widgetId === 'slugEditor' ? sdk : undefined;
 
   return <WidgetComponent key={sdk.field.locale} {...widgetComponentProps} baseSdk={baseSdk} />;
 };

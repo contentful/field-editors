@@ -160,7 +160,9 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
         value={name}
       />
       <FieldGroup>
-        <FormLabel htmlFor="entry-app-collapsible" className={styles.formLabel}>Fields</FormLabel>
+        <FormLabel htmlFor="entry-app-collapsible" className={styles.formLabel}>
+          Fields
+        </FormLabel>
         <Dropdown
           isOpen={dropdownOpen}
           onClose={closeDropdown}

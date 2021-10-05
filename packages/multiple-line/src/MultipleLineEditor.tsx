@@ -6,7 +6,7 @@ import {
   FieldConnector,
   CharCounter,
   CharValidation,
-  ConstraintsUtils
+  ConstraintsUtils,
 } from '@contentful/field-editor-shared';
 import * as styles from './styles';
 
@@ -35,7 +35,10 @@ export interface MultipleLineEditorProps {
 export function MultipleLineEditor(props: MultipleLineEditorProps) {
   const { field, locales, isInitiallyDisabled, withCharValidation } = props;
 
-  const constraints = ConstraintsUtils.fromFieldValidations(field.validations, field.type as 'Text');
+  const constraints = ConstraintsUtils.fromFieldValidations(
+    field.validations,
+    field.type as 'Text'
+  );
   const checkConstraint = ConstraintsUtils.makeChecker(constraints);
   const direction = locales.direction[field.locale] || 'ltr';
 

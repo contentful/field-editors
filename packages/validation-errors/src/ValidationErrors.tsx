@@ -1,4 +1,5 @@
 import React from 'react';
+import { ValidationError } from '@contentful/app-sdk'
 import type {
   SpaceAPI,
   Entry,
@@ -11,11 +12,6 @@ import { TextLink, List, ListItem, Icon } from '@contentful/forma-36-react-compo
 
 import * as styles from './styles';
 
-export type ValidationError = {
-  name: string;
-  message: string;
-  conflicting?: Array<{ sys: { id: string } }>;
-};
 
 type UniquenessErrorProps = {
   error: ValidationError;
@@ -59,9 +55,13 @@ function UniquenessError(props: UniquenessErrorProps) {
     [props.localeCode, props.defaultLocaleCode, contentTypesById]
   );
 
+  let conflicting: any[] = []
+  if ('conflicting' in props.error) {
+    conflicting = props.error.conflicting
+  }
   React.useEffect(() => {
     const entryIds = state.entries.map((entry) => entry.id);
-    const conflictIds = props.error.conflicting?.map((entry) => entry.sys.id) || [];
+    const conflictIds = conflicting.map((entry) => entry.sys.id) 
 
     // Avoid unnecessary refetching
     if (conflictIds.every((id) => entryIds.includes(id))) {
@@ -86,7 +86,7 @@ function UniquenessError(props: UniquenessErrorProps) {
         entries,
       });
     });
-  }, [getTitle, state.entries, props.error.conflicting, props.space.getEntries, props.getEntryURL]);
+  }, [getTitle, state.entries, conflicting, props.space.getEntries, props.getEntryURL]);
 
   return (
     <List className={styles.errorList} testId="validation-errors-uniqueness">

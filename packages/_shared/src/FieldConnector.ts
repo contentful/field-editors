@@ -1,7 +1,7 @@
 import React from 'react';
 import isEqual from 'lodash/isEqual';
 import throttle from 'lodash/throttle';
-import { FieldAPI } from '@contentful/app-sdk';
+import { FieldAPI, ValidationError } from '@contentful/app-sdk';
 
 type Nullable = null | undefined;
 
@@ -11,7 +11,7 @@ export interface FieldConnectorChildProps<ValueType> {
   lastRemoteValue: ValueType | Nullable;
   value: ValueType | Nullable;
   disabled: boolean;
-  errors: Error[];
+  errors: ValidationError[];
   setValue: (value: ValueType | Nullable) => Promise<unknown>;
 }
 
@@ -21,7 +21,7 @@ interface FieldConnectorState<ValueType> {
   lastRemoteValue: ValueType | Nullable;
   value: ValueType | Nullable;
   disabled: boolean;
-  errors: Error[];
+  errors: ValidationError[];
 }
 
 interface FieldConnectorProps<ValueType> {
@@ -97,7 +97,7 @@ export class FieldConnector<ValueType> extends React.Component<
 
   componentDidMount() {
     const { field } = this.props;
-    this.unsubscribeErrors = field.onSchemaErrorsChanged((errors: Error[]) => {
+    this.unsubscribeErrors = field.onSchemaErrorsChanged((errors: ValidationError[]) => {
       this.setState({
         errors: errors || [],
       });

@@ -1606,10 +1606,10 @@
     open "^8.0.5"
     ora "^5.4.0"
 
-"@contentful/app-sdk@^3.36.0":
-  version "3.36.0"
-  resolved "https://registry.yarnpkg.com/@contentful/app-sdk/-/app-sdk-3.36.0.tgz#83f102b40757578c73ecefe2d19a47cac2708d86"
-  integrity sha512-1KKPRChtmKHHly9z2+tOm04rdkuycxwf4e+NmL3lSV0bMq9y+qK78sAx7TaaLCjOr4WS1Sf1nqzepK+G/DOXoQ==
+"@contentful/app-sdk@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@contentful/app-sdk/-/app-sdk-4.1.0.tgz#8c2490b5e3d2e4a69613f6a52d5c7a424bae0c7d"
+  integrity sha512-fag+GXlnrIYKD2QYEQhwI2gWKNHqSS/uYP2qyoag0OtdNDI9RcUZTuxJR1YxDypnh4xPARqP5OQJNmX8Z+GCtQ==
 
 "@contentful/contentful-extension-scripts@^0.20.4":
   version "0.20.4"

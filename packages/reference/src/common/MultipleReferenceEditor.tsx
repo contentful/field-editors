@@ -1,6 +1,6 @@
 import * as React from 'react';
 import arrayMove from 'array-move';
-import { ReferenceValue, EntityType, ContentType } from '../types';
+import { ReferenceValue, ContentEntityType, ContentType } from '../types';
 import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
 import { LinkEntityActions } from '../components';
 import { SortEndHandler, SortStartHandler } from 'react-sortable-hoc';
@@ -10,7 +10,7 @@ import { CustomEntityCardProps } from './customCardTypes';
 import { useEditorPermissions } from './useEditorPermissions';
 
 type ChildProps = {
-  entityType: EntityType;
+  entityType: ContentEntityType;
   items: ReferenceValue[];
   isDisabled: boolean;
   setValue: (value: ReferenceValue[]) => void;
@@ -30,7 +30,7 @@ function onLinkOrCreate(
   entityType: ChildProps['entityType'],
   items: ChildProps['items'],
   ids: string[],
-  index = items.length,
+  index = items.length
 ): void {
   const links: ReferenceValue[] = ids.map((id) => ({
     sys: { type: 'Link', linkType: entityType, id },
@@ -117,7 +117,7 @@ function Editor(props: EditorProps) {
 
 export function MultipleReferenceEditor(
   props: ReferenceEditorProps & {
-    entityType: EntityType;
+    entityType: ContentEntityType;
     children: (props: ReferenceEditorProps & ChildProps) => React.ReactElement;
   }
 ) {
