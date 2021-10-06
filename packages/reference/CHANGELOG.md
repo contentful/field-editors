@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.20.11](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.20.10...@contentful/field-editor-reference@2.20.11) (2021-10-06)
+
+
+### Bug Fixes
+
+* **reference:** consistent ordering of link actions ([#884](https://github.com/contentful/field-editors/issues/884)) ([1a6bae7](https://github.com/contentful/field-editors/commit/1a6bae7825b09d91151bd80e7f55c0c1cf5ec27c))
+
+
+
+
+
 ## [2.20.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.20.9...@contentful/field-editor-reference@2.20.10) (2021-09-20)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
