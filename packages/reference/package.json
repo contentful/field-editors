@@ -36,12 +36,12 @@
     "react-sortable-hoc": "^2.0.0"
   },
   "devDependencies": {
-    "@contentful/app-sdk": "^4.1.1",
+    "@contentful/app-sdk": "^4.2.0",
     "@contentful/field-editor-test-utils": "^0.17.3",
     "@testing-library/react-hooks": "^5.0.3"
   },
   "peerDependencies": {
-    "@contentful/app-sdk": "^4.1.1",
+    "@contentful/app-sdk": "^4.2.0",
     "@contentful/field-editor-test-utils": "^0.12.0",
     "react": ">=16.8.0"
   },
