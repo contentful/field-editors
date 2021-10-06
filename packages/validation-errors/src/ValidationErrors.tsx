@@ -1,5 +1,5 @@
 import React from 'react';
-import { ValidationError } from '@contentful/app-sdk'
+import { ValidationError, Link } from '@contentful/app-sdk'
 import type {
   SpaceAPI,
   Entry,
@@ -55,7 +55,7 @@ function UniquenessError(props: UniquenessErrorProps) {
     [props.localeCode, props.defaultLocaleCode, contentTypesById]
   );
 
-  let conflicting: any[] = []
+  let conflicting: Link<'Entry', 'Link'>[] = []
   if ('conflicting' in props.error) {
     conflicting = props.error.conflicting
   }

@@ -21,7 +21,7 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "devDependencies": {
-    "@contentful/app-sdk": "^4.1.0"
+    "@contentful/app-sdk": "^4.1.1"
   },
   "dependencies": {
     "@contentful/forma-36-tokens": "^0.11.0",
@@ -30,7 +30,7 @@
     "lodash-es": "^4.17.15"
   },
   "peerDependencies": {
-    "@contentful/app-sdk": "^4.1.0",
+    "@contentful/app-sdk": "^4.1.1",
     "react": ">=16.8.0"
   },
   "jest": {
