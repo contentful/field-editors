@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-validation-errors",
-  "version": "0.6.4",
+  "version": "0.7.0",
   "main": "dist/index.js",
   "module": "dist/field-editor-validation-errors.esm.js",
   "typings": "dist/index.d.ts",
@@ -21,13 +21,13 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
-    "@contentful/field-editor-shared": "^0.24.0",
+    "@contentful/field-editor-shared": "^0.25.0",
     "@contentful/forma-36-react-components": "^3.93.4",
     "@contentful/forma-36-tokens": "^0.11.0",
     "emotion": "^10.0.17"
   },
   "devDependencies": {
-    "@contentful/field-editor-test-utils": "^0.17.3"
+    "@contentful/field-editor-test-utils": "^0.18.0"
   },
   "peerDependencies": {
     "react": ">=16.8.0"
