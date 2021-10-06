@@ -89,7 +89,6 @@
     "mochawesome": "^6.1.1",
     "mochawesome-merge": "^4.0.3",
     "mochawesome-report-generator": "^5.1.0",
-    "patch-package": "^6.4.7",
     "prettier": "2.3.0",
     "react": ">=16.14.0",
     "react-dom": ">=16.14.0",
