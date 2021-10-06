@@ -1,5 +1,5 @@
 import React from 'react';
-import { ValidationError, Link } from '@contentful/app-sdk'
+import { ValidationError, Link } from '@contentful/app-sdk';
 import type {
   SpaceAPI,
   Entry,
@@ -11,7 +11,6 @@ import { entityHelpers } from '@contentful/field-editor-shared';
 import { TextLink, List, ListItem, Icon } from '@contentful/forma-36-react-components';
 
 import * as styles from './styles';
-
 
 type UniquenessErrorProps = {
   error: ValidationError;
@@ -55,13 +54,13 @@ function UniquenessError(props: UniquenessErrorProps) {
     [props.localeCode, props.defaultLocaleCode, contentTypesById]
   );
 
-  let conflicting: Link<'Entry', 'Link'>[] = []
+  let conflicting: Link<'Entry', 'Link'>[] = [];
   if ('conflicting' in props.error) {
-    conflicting = props.error.conflicting
+    conflicting = props.error.conflicting;
   }
   React.useEffect(() => {
     const entryIds = state.entries.map((entry) => entry.id);
-    const conflictIds = conflicting.map((entry) => entry.sys.id) 
+    const conflictIds = conflicting.map((entry) => entry.sys.id);
 
     // Avoid unnecessary refetching
     if (conflictIds.every((id) => entryIds.includes(id))) {

@@ -5,7 +5,7 @@ import { render, configure, cleanup, act } from '@testing-library/react';
 import * as utils from '@contentful/field-editor-test-utils';
 
 import type { ContentType } from '@contentful/field-editor-shared';
-import { ValidationError } from '@contentful/app-sdk'
+import { ValidationError } from '@contentful/app-sdk';
 
 import { ValidationErrors } from './ValidationErrors';
 
@@ -70,7 +70,7 @@ describe('ValidationErrors', () => {
       {
         name: 'test-error',
         message: 'The input is invalid',
-        path: []
+        path: [],
       },
     ];
 
@@ -89,13 +89,15 @@ describe('ValidationErrors', () => {
       emitter.emit('onSchemaErrorsChanged', errors);
     });
 
-    await Promise.all(errors.map((e) => {
-      if (e.message) {
-        return findByText(e.message)
-      } else {
-        return Promise.reject()
-      }
-    }));
+    await Promise.all(
+      errors.map((e) => {
+        if (e.message) {
+          return findByText(e.message);
+        } else {
+          return Promise.reject();
+        }
+      })
+    );
   });
 
   it('should fetch & render links to duplicated entries', async () => {
@@ -105,7 +107,7 @@ describe('ValidationErrors', () => {
         name: 'unique',
         message: 'entry is duplicated',
         conflicting: ids.map((id) => ({ sys: { id, type: 'Link', linkType: 'Entry' } })),
-        path: []
+        path: [],
       },
     ];
 
