@@ -110,12 +110,12 @@ export const CreateEntryMenuTrigger = ({
   const closeMenu = () => setOpen(false);
 
   useEffect(() => {
-   if (isOpen) {
-    setTimeout(() => {
-      textField?.current?.querySelector('input')?.focus()
-    }, 200);
-   }
-  }, [isOpen])
+    if (isOpen) {
+      setTimeout(() => {
+        textField?.current?.querySelector('input')?.focus();
+      }, 200);
+    }
+  }, [isOpen]);
 
   const handleSelect = (item: ContentType) => {
     closeMenu();

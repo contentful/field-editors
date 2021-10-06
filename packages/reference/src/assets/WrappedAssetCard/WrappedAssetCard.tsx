@@ -66,16 +66,8 @@ function getFileType(file?: File): any {
 }
 
 export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
-  const {
-    className,
-    onEdit,
-    getAssetUrl,
-    onRemove,
-    size,
-    isDisabled,
-    isSelected,
-    isClickable,
-  } = props;
+  const { className, onEdit, getAssetUrl, onRemove, size, isDisabled, isSelected, isClickable } =
+    props;
 
   const status = entityHelpers.getEntryStatus(props.asset.sys);
 

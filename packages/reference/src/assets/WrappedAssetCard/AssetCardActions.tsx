@@ -73,7 +73,11 @@ export function renderActions(props: {
       )}
       {entityFile && (
         <DropdownListItem
-          onClick={() => downloadAsset(entityFile.url)}
+          onClick={() => {
+            if (typeof entityFile.url === 'string') {
+              downloadAsset(entityFile.url);
+            }
+          }}
           testId="card-action-download">
           Download
         </DropdownListItem>

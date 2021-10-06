@@ -32,11 +32,11 @@
     "use-debounce": "^7.0.0"
   },
   "devDependencies": {
-    "@contentful/app-sdk": "^3.36.0",
+    "@contentful/app-sdk": "^4.2.0",
     "@contentful/field-editor-test-utils": "^0.17.3"
   },
   "peerDependencies": {
-    "@contentful/app-sdk": "^3.36.0",
+    "@contentful/app-sdk": "^4.2.0",
     "react": ">=16.8.0"
   },
   "jest": {

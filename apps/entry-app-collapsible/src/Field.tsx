@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { LocalesAPI } from '@contentful/field-editor-shared';
 import { EntryFieldAPI, FieldExtensionSDK } from '@contentful/app-sdk';
-import {
-  Field as BaseField,
-  FieldWrapper,
-} from '@contentful/default-field-editors';
+import { Field as BaseField, FieldWrapper } from '@contentful/default-field-editors';
 import { SDKContext, getEntryURL } from './shared';
 import 'codemirror/lib/codemirror.css';
 import '@contentful/field-editor-date/styles/styles.css';

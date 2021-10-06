@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Button } from '@contentful/forma-36-react-components';
 import * as styles from './styles';
 import {
-  EntityType,
+  ContentEntityType,
   ContentType,
   ActionLabels,
   Entry,
@@ -13,7 +13,7 @@ import { CreateEntryLinkButton } from '../CreateEntryLinkButton/CreateEntryLinkB
 import { NoLinkPermissionsInfo } from './NoLinkPermissionsInfo';
 
 export interface LinkActionsProps {
-  entityType: EntityType;
+  entityType: ContentEntityType;
   contentTypes: ContentType[];
   canCreateEntity: boolean;
   canLinkEntity: boolean;
@@ -27,7 +27,7 @@ export interface LinkActionsProps {
   onLinkedExisting: (entities: Array<Entry | Asset>, index?: number) => void;
   actionLabels?: Partial<ActionLabels>;
   combinedActionsLabel?: string | React.ReactElement;
-  itemsLength?: number
+  itemsLength?: number;
 }
 
 const defaultEntryLabels: ActionLabels = {
@@ -75,7 +75,9 @@ export function LinkActions(props: LinkActionsProps) {
               contentTypes={props.contentTypes}
               hasPlusIcon={true}
               onSelect={(contentTypeId) => {
-                return contentTypeId ? props.onCreate(contentTypeId, props.itemsLength) : Promise.resolve();
+                return contentTypeId
+                  ? props.onCreate(contentTypeId, props.itemsLength)
+                  : Promise.resolve();
               }}
             />
           )}
