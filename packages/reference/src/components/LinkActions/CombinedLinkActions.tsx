@@ -154,20 +154,20 @@ function CombinedAssetLinkActions(props: LinkActionsProps) {
       }>
       <DropdownList testId={testIds.dropdown}>
         <DropdownListItem
-          testId={testIds.createAndLink}
-          onClick={() => {
-            setOpen(false);
-            props.onCreate();
-          }}>
-          Add new media
-        </DropdownListItem>
-        <DropdownListItem
           testId={testIds.linkExisting}
           onClick={() => {
             setOpen(false);
             props.onLinkExisting();
           }}>
           Add existing media
+        </DropdownListItem>
+        <DropdownListItem
+          testId={testIds.createAndLink}
+          onClick={() => {
+            setOpen(false);
+            props.onCreate();
+          }}>
+          Add new media
         </DropdownListItem>
       </DropdownList>
     </Dropdown>
