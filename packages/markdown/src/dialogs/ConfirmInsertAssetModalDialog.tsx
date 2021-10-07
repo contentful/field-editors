@@ -1,6 +1,11 @@
 import React from 'react';
-import { EntityList, EntityListItem } from '@contentful/forma-36-react-components';
-import { ModalContent, ModalControls, Paragraph, Button } from '@contentful/f36-components';
+import {
+  ModalContent,
+  ModalControls,
+  Paragraph,
+  Button,
+  EntityList,
+} from '@contentful/f36-components';
 import { DialogsAPI } from '@contentful/app-sdk';
 import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 
@@ -37,7 +42,7 @@ export const ConfirmInsertAssetModalDialog = ({
         </Paragraph>
         <EntityList>
           {assets.map(({ title, description, thumbnailUrl, thumbnailAltText }) => (
-            <EntityListItem
+            <EntityList.Item
               key={thumbnailUrl}
               title={title}
               thumbnailUrl={`${thumbnailUrl}?w=46&h=46&fit=thumb`}
