@@ -4,8 +4,6 @@ import {
   DropdownList,
   DropdownListItem,
   TextField,
-  FormLabel,
-  FieldGroup,
   Card,
   CardDragHandle,
 } from '@contentful/forma-36-react-components';
@@ -16,7 +14,7 @@ import { ActionTypes } from './types';
 import styles from './styles';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 
-import { TextLink, Paragraph, Button, IconButton } from '@contentful/f36-components';
+import { TextLink, Paragraph, Button, IconButton, FormControl } from '@contentful/f36-components';
 
 import { CloseIcon, ChevronDownIcon, ChevronUpIcon } from '@contentful/f36-icons';
 
@@ -161,10 +159,10 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
         onChange={updateName}
         value={name}
       />
-      <FieldGroup>
-        <FormLabel htmlFor="entry-app-collapsible" className={styles.formLabel}>
+      <FormControl>
+        <FormControl.Label htmlFor="entry-app-collapsible" className={styles.formLabel}>
           Fields
-        </FormLabel>
+        </FormControl.Label>
         <Dropdown
           isOpen={dropdownOpen}
           onClose={closeDropdown}
@@ -195,7 +193,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
             ))}
           </DropdownList>
         </Dropdown>
-      </FieldGroup>
+      </FormControl>
       <SortableFieldList
         distance={1 /* this hack is to allow buttons in the drag containers to work*/}
         onSortEnd={onSortEnd}
