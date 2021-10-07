@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@contentful/app-sdk": "^3.36.0",
-    "@contentful/field-editor-rich-text": "^0.25.0-next",
+    "@contentful/field-editor-rich-text": "^0.26.0-next",
     "@contentful/field-editor-single-line": "^0.14.1",
     "@contentful/forma-36-fcss": "^0.3.3",
     "@contentful/forma-36-react-components": "^3.93.4",
