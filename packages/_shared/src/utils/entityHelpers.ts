@@ -24,7 +24,7 @@ export function getFieldValue({
   entity,
   fieldId,
   localeCode,
-  defaultLocaleCode
+  defaultLocaleCode,
 }: {
   entity: {
     fields: { [key: string]: { [valueKey: string]: string | undefined } };
@@ -47,7 +47,7 @@ export function getAssetTitle({
   asset,
   localeCode,
   defaultLocaleCode,
-  defaultTitle
+  defaultTitle,
 }: {
   asset: Entry;
   localeCode: string;
@@ -58,16 +58,52 @@ export function getAssetTitle({
     entity: asset,
     fieldId: 'title',
     localeCode,
-    defaultLocaleCode
+    defaultLocaleCode,
   });
   return titleOrDefault(title, defaultTitle);
+}
+
+/**
+ * Returns true if field is an Asset
+ *
+ * @param field
+ * @returns {boolean}
+ */
+export const isAssetField = (field: ContentTypeField): boolean =>
+  field.type === 'Link' && field.linkType === 'Asset';
+/**
+ * Returns true if field is a Title
+ */
+export function isDisplayField({
+  field,
+  contentType,
+}: {
+  field: ContentTypeField;
+  contentType: ContentType;
+}): boolean {
+  return field.id === contentType.displayField;
+}
+
+/**
+ * Returns true if field is a short Description
+ */
+export function isDescriptionField({
+  field,
+  contentType,
+}: {
+  field: ContentTypeField;
+  contentType: ContentType;
+}) {
+  const isTextField = (field: ContentTypeField) => ['Symbol', 'Text'].includes(field.type);
+  const isMaybeSlugField = (field: ContentTypeField) => /\bslug\b/.test(field.name);
+  return isTextField(field) && !isDisplayField({ field, contentType }) && !isMaybeSlugField(field);
 }
 
 export function getEntityDescription({
   entity,
   contentType,
   localeCode,
-  defaultLocaleCode
+  defaultLocaleCode,
 }: {
   entity: Entry;
   contentType?: ContentType;
@@ -78,13 +114,9 @@ export function getEntityDescription({
     return '';
   }
 
-  const isTextField = (field: ContentTypeField) => ['Symbol', 'Text'].includes(field.type);
-  const isDisplayField = (field: ContentTypeField) => field.id === contentType.displayField;
-  const isMaybeSlugField = (field: ContentTypeField) => /\bslug\b/.test(field.name);
-  const isDescriptionField = (field: ContentTypeField) =>
-    isTextField(field) && !isDisplayField(field) && !isMaybeSlugField(field);
-
-  const descriptionField = contentType.fields.find(isDescriptionField);
+  const descriptionField = contentType.fields.find((field) =>
+    isDescriptionField({ field, contentType })
+  );
 
   if (!descriptionField) {
     return '';
@@ -100,7 +132,7 @@ export function getEntryTitle({
   contentType,
   localeCode,
   defaultLocaleCode,
-  defaultTitle
+  defaultTitle,
 }: {
   entry: Entry;
   contentType?: ContentType;
@@ -119,7 +151,7 @@ export function getEntryTitle({
     return defaultTitle;
   }
 
-  const displayFieldInfo = contentType.fields.find(field => field.id === displayField);
+  const displayFieldInfo = contentType.fields.find((field) => field.id === displayField);
 
   if (!displayFieldInfo) {
     return defaultTitle;
@@ -133,7 +165,7 @@ export function getEntryTitle({
       entity: entry,
       fieldId: displayField,
       localeCode,
-      defaultLocaleCode
+      defaultLocaleCode,
     });
     if (!title) {
       // Older content types may return id/apiName, but some entry lookup paths do not fetch raw data
@@ -143,7 +175,7 @@ export function getEntryTitle({
         entity: entry,
         fieldId: displayFieldInfo.id,
         localeCode,
-        defaultLocaleCode
+        defaultLocaleCode,
       });
     }
   } else {
@@ -151,14 +183,14 @@ export function getEntryTitle({
       entity: entry,
       fieldId: displayField,
       defaultLocaleCode,
-      localeCode: ''
+      localeCode: '',
     });
     if (!title) {
       title = getFieldValue({
         entity: entry,
         fieldId: displayFieldInfo.id,
         defaultLocaleCode,
-        localeCode: ''
+        localeCode: '',
       });
     }
   }
@@ -193,7 +225,7 @@ export const getEntryImage = async (
   {
     entry,
     contentType,
-    localeCode
+    localeCode,
   }: {
     entry: Entry;
     contentType?: ContentType;
@@ -206,9 +238,7 @@ export const getEntryImage = async (
     return null;
   }
 
-  const assetLink = contentType.fields.find(
-    field => field.type === 'Link' && field.linkType === 'Asset'
-  );
+  const assetLink = contentType.fields.find(isAssetField);
 
   if (!assetLink) {
     return null;
