@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Dropdown, DropdownList, DropdownListItem } from '@contentful/forma-36-react-components';
+import React from 'react';
+import { Menu } from '@contentful/f36-components';
 
 import { Button } from '@contentful/f36-components';
 
@@ -33,40 +33,29 @@ export const InsertLinkSelector = (props: InsertLinkSelectorProps) => {
 };
 
 const MultipleMediaContextMenu = (props: InsertLinkSelectorProps) => {
-  const [isOpen, setOpen] = useState(false);
-  const handleMenuClick = (fn: Function) => {
-    fn();
-    setOpen(false);
-  };
   return (
-    <Dropdown
-      isOpen={isOpen}
-      position="bottom-right"
-      onClose={() => setOpen(false)}
-      toggleElement={
+    <Menu placement="bottom-end" usePortal={false}>
+      <Menu.Trigger>
         <Button
           endIcon={<ChevronDownIcon />}
           isDisabled={props.disabled}
           startIcon={<AssetIcon />}
           testId="markdownEditor.insertMediaDropdownTrigger"
           size="small"
-          variant="secondary"
-          onClick={() => setOpen(!isOpen)}>
+          variant="secondary">
           Insert media
         </Button>
-      }>
-      <DropdownList>
-        <DropdownListItem
-          testId="markdownEditor.uploadAssetsAndLink"
-          onClick={() => handleMenuClick(props.onAddNew)}>
+      </Menu.Trigger>
+      <Menu.List>
+        <Menu.Item testId="markdownEditor.uploadAssetsAndLink" onClick={() => props.onAddNew()}>
           Add new media and link
-        </DropdownListItem>
-        <DropdownListItem
+        </Menu.Item>
+        <Menu.Item
           testId="markdownEditor.linkExistingAssets"
-          onClick={() => handleMenuClick(props.onSelectExisting)}>
+          onClick={() => props.onSelectExisting()}>
           Link existing media
-        </DropdownListItem>
-      </DropdownList>
-    </Dropdown>
+        </Menu.Item>
+      </Menu.List>
+    </Menu>
   );
 };

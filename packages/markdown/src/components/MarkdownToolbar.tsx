@@ -1,7 +1,8 @@
-import noop from 'lodash/noop';
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { css, cx } from 'emotion';
 import { Button, Flex, Tooltip } from '@contentful/f36-components';
+import type { ButtonProps } from '@contentful/f36-components';
 import tokens from '@contentful/forma-36-tokens';
 import {
   HeadingIcon,
@@ -50,35 +51,34 @@ const styles = {
   }),
 };
 
-function ToolbarButton(props: {
-  variant?: 'transparent' | 'secondary';
-  isDisabled?: boolean;
-  onClick?: Function;
-  testId: string;
-  tooltipPlace?: 'top' | 'bottom';
-  tooltip?: string;
-  className?: string;
-  children: React.ReactNode;
-}) {
+const ToolbarButton = React.forwardRef<
+  HTMLButtonElement,
+  {
+    variant?: 'transparent' | 'secondary';
+    onClick?: Function;
+    tooltipPlace?: 'top' | 'bottom';
+    tooltip?: string;
+    children: React.ReactNode;
+  } & Omit<ButtonProps, 'onClick'>
+>((props, ref) => {
   const {
     tooltip,
-    onClick = noop,
-    testId,
+    onClick,
     children,
     className,
     variant = 'transparent',
     tooltipPlace = 'top',
     isDisabled = false,
+    ...otherProps
   } = props;
 
   const button = (
     <Button
+      {...otherProps}
+      ref={ref}
       className={cx(styles.button, className)}
       isDisabled={isDisabled}
-      onClick={() => {
-        onClick();
-      }}
-      testId={testId}
+      onClick={onClick as ButtonProps['onClick']}
       variant={variant}
       size="small">
       {children}
@@ -94,7 +94,8 @@ function ToolbarButton(props: {
   }
 
   return button;
-}
+});
+ToolbarButton.displayName = 'ToolbarButton';
 
 interface MarkdownToolbarProps {
   canUploadAssets: boolean;
