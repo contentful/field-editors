@@ -12,8 +12,9 @@ import {
   Checkbox,
   Radio,
   Form,
+  FormControl,
+  TextInput,
 } from '@contentful/f36-components';
-import { TextField } from '@contentful/forma-36-react-components';
 import { isValidUrl } from '../utils/isValidUrl';
 
 const styles = {
@@ -80,45 +81,48 @@ export const EmbedExternalContentModal = ({ onClose }: EmbedExternalContentModal
     <>
       <ModalContent testId="embed-external-dialog">
         <Form>
-          <TextField
-            value={url}
-            name="external-link-url"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              const value = e.target.value;
-              setUrl(value);
-              setUrlValidity(isValidUrl(value));
-            }}
-            labelText="Content URL"
-            id="external-link-url-field"
-            helpText="Include protocol (e.g. https://)"
-            textInputProps={{
-              testId: 'external-link-url-field',
-              placeholder: 'https://example.com',
-              inputRef: mainInputRef,
-            }}
-            required
-            validationMessage={urlIsValid ? '' : 'URL is invalid'}
-          />
+          <FormControl id="external-link-url-field" isRequired isInvalid={!urlIsValid}>
+            <FormControl.Label>Content URL</FormControl.Label>
+            <TextInput
+              name="external-link-url"
+              value={url}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                const value = e.target.value;
+                setUrl(value);
+                setUrlValidity(isValidUrl(value));
+              }}
+              testId="external-link-url-field"
+              placeholder="https://example.com"
+              ref={mainInputRef}
+            />
+            <FormControl.HelpText>Include protocol (e.g. https://)</FormControl.HelpText>
+            {!urlIsValid && (
+              <FormControl.ValidationMessage>URL is invalid</FormControl.ValidationMessage>
+            )}
+          </FormControl>
           <TextLink href="http://embed.ly/providers" target="_blank" rel="noopener noreferrer">
             Supported sources
           </TextLink>
           <div className={styles.widthFiledGroup}>
-            <TextField
-              value={width}
+            <FormControl
               id="embedded-content-width"
-              name="embedded-content-width"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setWidth(e.target.value)}
-              labelText="Width"
-              textInputProps={{
-                testId: 'embedded-content-width',
-                type: 'number',
-                width: 'small',
-              }}
-              required
-              validationMessage={
-                isWidthValid(Number(width), selectedUnit) ? '' : 'Should be equal or less then 100'
-              }
-            />
+              isRequired
+              isInvalid={!isWidthValid(Number(width), selectedUnit)}>
+              <FormControl.Label>Width</FormControl.Label>
+              <TextInput
+                value={width}
+                name="embedded-content-width"
+                testId="embedded-content-width"
+                type="number"
+                width="small"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setWidth(e.target.value)}
+              />
+              {!isWidthValid(Number(width), selectedUnit) && (
+                <FormControl.ValidationMessage>
+                  Should be equal or less then 100
+                </FormControl.ValidationMessage>
+              )}
+            </FormControl>
 
             <div className={styles.radioButtonGroup}>
               <Radio
