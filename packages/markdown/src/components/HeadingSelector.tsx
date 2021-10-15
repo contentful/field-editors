@@ -12,7 +12,7 @@ export const HeadingSelector = (props: {
   };
 
   return (
-    <Menu usePortal={false}>
+    <Menu>
       <Menu.Trigger>{props.children}</Menu.Trigger>
       <Menu.List>
         <Menu.Item testId="markdown-action-button-heading-h1" onClick={() => handleMenuClick('h1')}>

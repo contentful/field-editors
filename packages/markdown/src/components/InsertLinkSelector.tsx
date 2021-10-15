@@ -34,7 +34,7 @@ export const InsertLinkSelector = (props: InsertLinkSelectorProps) => {
 
 const MultipleMediaContextMenu = (props: InsertLinkSelectorProps) => {
   return (
-    <Menu placement="bottom-end" usePortal={false}>
+    <Menu placement="bottom-end">
       <Menu.Trigger>
         <Button
           endIcon={<ChevronDownIcon />}
