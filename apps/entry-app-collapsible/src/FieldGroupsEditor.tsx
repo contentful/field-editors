@@ -3,18 +3,24 @@ import {
   Dropdown,
   DropdownList,
   DropdownListItem,
-  TextField,
   Card,
   CardDragHandle,
 } from '@contentful/forma-36-react-components';
-import { ModalContent, Text } from '@contentful/f36-components';
+import {
+  ModalContent,
+  Text,
+  TextLink,
+  Paragraph,
+  Button,
+  IconButton,
+  FormControl,
+  TextInput,
+} from '@contentful/f36-components';
 import { findUnassignedFields, AppContext, SDKContext } from './shared';
 import { FieldType, FieldGroupType } from './types';
 import { ActionTypes } from './types';
 import styles from './styles';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
-
-import { TextLink, Paragraph, Button, IconButton, FormControl } from '@contentful/f36-components';
 
 import { CloseIcon, ChevronDownIcon, ChevronUpIcon } from '@contentful/f36-icons';
 
@@ -152,13 +158,10 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
 
   return (
     <div className={styles.editor}>
-      <TextField
-        id={`${groupId}-name-input`}
-        name={`${groupId}-name-input`}
-        labelText="Name"
-        onChange={updateName}
-        value={name}
-      />
+      <FormControl id={`${groupId}-name-input`}>
+        <FormControl.Label>Name</FormControl.Label>
+        <TextInput name={`${groupId}-name-input`} value={name} onChange={updateName} />
+      </FormControl>
       <FormControl>
         <FormControl.Label htmlFor="entry-app-collapsible" className={styles.formLabel}>
           Fields

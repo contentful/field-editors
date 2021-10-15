@@ -2,13 +2,20 @@ import React from 'react';
 import { css } from 'emotion';
 import PropTypes from 'prop-types';
 import tokens from '@contentful/forma-36-tokens';
-import { TextField, Form, FormLabel } from '@contentful/forma-36-react-components';
+import { Form } from '@contentful/forma-36-react-components';
 import { ModalContent, ModalControls } from '@contentful/f36-components';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { FetchingWrappedEntryCard } from '../../plugins/EmbeddedEntityBlock/FetchingWrappedEntryCard';
 import { FetchingWrappedAssetCard } from '../../plugins/EmbeddedEntityBlock/FetchingWrappedAssetCard';
 
-import { TextLink, Button, FormControl, Select } from '@contentful/f36-components';
+import {
+  TextLink,
+  Button,
+  FormControl,
+  FormLabel,
+  Select,
+  TextInput,
+} from '@contentful/f36-components';
 
 export const LINK_TYPES = {
   URI: 'uri',
@@ -168,18 +175,17 @@ export class HyperlinkDialog extends React.Component {
     return (
       <Form>
         {hideText ? null : (
-          <TextField
-            required
-            labelText="Link text"
-            value={text || ''}
-            onChange={(e) => this.setState({ text: e.target.value })}
-            id="link-text"
-            name="link-text"
-            textInputProps={{
-              testId: 'link-text-input',
-              autoFocus: !isUriInputAutoFocused,
-            }}
-          />
+          <FormControl id="link-text" isRequired>
+            <FormControl.Label>Link text</FormControl.Label>
+            <TextInput
+              testId="link-text-input"
+              name="link-text"
+              value={text || ''}
+              onChange={(e) => this.setState({ text: e.target.value })}
+              // eslint-disable-next-line jsx-a11y/no-autofocus
+              autoFocus={!isUriInputAutoFocused}
+            />
+          </FormControl>
         )}
         {isFeaturingEntitySelector(entitySelectorConfigs) && (
           <FormControl id="link-type" name="link-type">
@@ -202,20 +208,19 @@ export class HyperlinkDialog extends React.Component {
           </FormControl>
         )}
         {type === LINK_TYPES.URI ? (
-          <TextField
-            required
-            labelText="Link target"
-            value={uri || ''}
-            textInputProps={{
-              placeholder: 'https://',
-              testId: 'link-uri-input',
-              autoFocus: isUriInputAutoFocused,
-            }}
-            helpText="A protocol may be required, e.g. https://"
-            onChange={(e) => this.setState({ uri: e.target.value })}
-            id="link-uri"
-            name="link-uri"
-          />
+          <FormControl id="link-uri" isRequired>
+            <FormControl.Label>Link target</FormControl.Label>
+            <TextInput
+              testId="link-uri-input"
+              name="link-uri"
+              value={uri || ''}
+              placeholder="https://"
+              onChange={(e) => this.setState({ uri: e.target.value })}
+              // eslint-disable-next-line jsx-a11y/no-autofocus
+              autoFocus={isUriInputAutoFocused}
+            />
+            <FormControl.HelpText>A protocol may be required, e.g. https://</FormControl.HelpText>
+          </FormControl>
         ) : (
           this.renderEntityField()
         )}

@@ -1,8 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { DialogsAPI } from '@contentful/app-sdk';
 import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
-import { TextField } from '@contentful/forma-36-react-components';
-import { ModalContent, ModalControls, Button, Form } from '@contentful/f36-components';
+import {
+  ModalContent,
+  ModalControls,
+  Button,
+  Form,
+  FormControl,
+  TextInput,
+} from '@contentful/f36-components';
 import { isValidUrl } from '../utils/isValidUrl';
 
 type InsertLinkModalPositiveResult = { url: string; text: string; title: string };
@@ -33,50 +39,50 @@ export const InsertLinkModal = ({ selectedText, onClose }: InsertLinkModalProps)
     <>
       <ModalContent testId="insert-link-modal">
         <Form onSubmit={() => onInsert({ url, text, title })}>
-          <TextField
-            value={text}
-            name="link-text"
-            id="link-text-field"
-            labelText="Link text"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setText(e.target.value);
-            }}
-            textInputProps={{
-              disabled: Boolean(selectedText),
-              testId: 'link-text-field',
-            }}
-          />
-          <TextField
-            value={url}
-            name="target-url"
-            id="target-url-field"
-            labelText="Target URL"
-            helpText="Include protocol (e.g. https://)"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setUrl(e.target.value);
-              setTouched(true);
-            }}
-            validationMessage={touched && !urlIsValid ? 'Invalid URL' : ''}
-            textInputProps={{
-              placeholder: 'https://',
-              maxLength: 2100,
-              testId: 'target-url-field',
-              inputRef: mainInputRef,
-            }}
-          />
-          <TextField
-            value={title}
-            name="link-title"
-            id="link-title-field"
-            labelText="Link title"
-            helpText="Recommended for accessibility"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setTitle(e.target.value);
-            }}
-            textInputProps={{
-              testId: 'link-title-field',
-            }}
-          />
+          <FormControl id="link-text-field" isDisabled={Boolean(selectedText)}>
+            <FormControl.Label>Link text</FormControl.Label>
+            <TextInput
+              name="link-text"
+              value={text}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setText(e.target.value);
+              }}
+              testId="link-text-field"
+            />
+          </FormControl>
+
+          <FormControl id="target-url-field" isInvalid={touched && !urlIsValid}>
+            <FormControl.Label>Target URL</FormControl.Label>
+            <TextInput
+              name="target-url"
+              value={url}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setUrl(e.target.value);
+                setTouched(true);
+              }}
+              placeholder="https://"
+              maxLength={2100}
+              testId="target-url-field"
+              ref={mainInputRef}
+            />
+            <FormControl.HelpText>Include protocol (e.g. https://)</FormControl.HelpText>
+            {touched && !urlIsValid && (
+              <FormControl.ValidationMessage>Invalid URL</FormControl.ValidationMessage>
+            )}
+          </FormControl>
+
+          <FormControl id="link-title-field">
+            <FormControl.Label>Link title</FormControl.Label>
+            <TextInput
+              name="link-title"
+              value={title}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setTitle(e.target.value);
+              }}
+              testId="link-title-field"
+            />
+            <FormControl.HelpText>Recommended for accessibility</FormControl.HelpText>
+          </FormControl>
         </Form>
       </ModalContent>
       <ModalControls>
