@@ -1,58 +1,31 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { DropdownListItem } from '@contentful/forma-36-react-components';
+import { Menu } from '@contentful/f36-components';
 import { css, cx } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 
 const styles = {
   root: css({
-    button: {
-      span: {
-        fontWeight: tokens.fontWeightDemiBold,
-      },
-    },
+    fontWeight: tokens.fontWeightDemiBold,
+    lineHeight: 1.5,
   }),
   h1: css({
-    button: {
-      span: {
-        fontSize: '1.625rem',
-      },
-    },
+    fontSize: '1.625rem',
   }),
   h2: css({
-    button: {
-      span: {
-        fontSize: '1.4375rem',
-      },
-    },
+    fontSize: '1.4375rem',
   }),
   h3: css({
-    button: {
-      span: {
-        fontSize: '1.25rem',
-      },
-    },
+    fontSize: '1.25rem',
   }),
   h4: css({
-    button: {
-      span: {
-        fontSize: '1.125rem',
-      },
-    },
+    fontSize: '1.125rem',
   }),
   h5: css({
-    button: {
-      span: {
-        fontSize: '1rem',
-      },
-    },
+    fontSize: '1rem',
   }),
   h6: css({
-    button: {
-      span: {
-        fontSize: '0.875rem',
-      },
-    },
+    fontSize: '0.875rem',
   }),
 };
 
@@ -81,14 +54,14 @@ export default class ToolbarDropdownListItem extends Component {
   render() {
     const { isActive, title, type, children } = this.props;
     return (
-      <DropdownListItem
+      <Menu.Item
         label={title}
-        isActive={isActive}
+        isInitiallyFocused={isActive}
         data-test-id={`toolbar-toggle-${type}`}
         className={cx(styles.root, styles[getStyleForType(type)])}
         onClick={this.handleClick}>
         {children}
-      </DropdownListItem>
+      </Menu.Item>
     );
   }
 }

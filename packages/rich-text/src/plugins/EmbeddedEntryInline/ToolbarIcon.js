@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { DropdownListItem } from '@contentful/forma-36-react-components';
 import { INLINES } from '@contentful/rich-text-types';
 
 import { selectEntryAndInsert, canInsertInline } from './Utils';
@@ -7,7 +6,7 @@ import { TOOLBAR_PLUGIN_PROP_TYPES } from '../shared/PluginApi';
 import { toolbarActionHandlerWithSafeAutoFocus } from '../shared/Util';
 import { styles } from './EmbeddedEntryInline.styles';
 
-import { Flex, Button } from '@contentful/f36-components';
+import { Flex, Button, Menu } from '@contentful/f36-components';
 
 import { EmbeddedEntryInlineIcon } from '@contentful/f36-icons';
 
@@ -19,7 +18,6 @@ export default class EntryLinkToolbarIcon extends Component {
   };
 
   handleClick = (e) => {
-    this.props.onCloseEmbedMenu();
     this.handleAction(e);
   };
 
@@ -45,11 +43,9 @@ export default class EntryLinkToolbarIcon extends Component {
         Embed inline entry
       </Button>
     ) : (
-      <DropdownListItem
-        isDisabled={this.props.disabled || !canInsertInline(this.props.editor)}
+      <Menu.Item
+        disabled={this.props.disabled || !canInsertInline(this.props.editor)}
         className="rich-text__entry-link-block-button"
-        size="small"
-        icon="Entry"
         testId={`toolbar-toggle-${INLINES.EMBEDDED_ENTRY}`}
         onClick={this.handleClick}>
         <Flex alignItems="center" flexDirection="row">
@@ -59,7 +55,7 @@ export default class EntryLinkToolbarIcon extends Component {
           />
           <span>Inline entry</span>
         </Flex>
-      </DropdownListItem>
+      </Menu.Item>
     );
   }
 }

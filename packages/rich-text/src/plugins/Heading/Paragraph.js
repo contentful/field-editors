@@ -17,5 +17,5 @@ class Paragraph extends Component {
 export default blockSelectDecorator({
   type: BLOCKS.PARAGRAPH,
   title: blockTitles[BLOCKS.PARAGRAPH],
-  shouldToggle: false
+  shouldToggle: false,
 })(Paragraph);
