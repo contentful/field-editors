@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.19.19](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@0.19.18...@contentful/field-editor-rich-text@0.19.19) (2021-10-18)
+
+
+### Bug Fixes
+
+* [] Remove test utils from peer dependencies ([#889](https://github.com/contentful/field-editors/issues/889)) ([3694bd7](https://github.com/contentful/field-editors/commit/3694bd7e706b8beb1f685167125f36ef0cbe82de))
+
+
+
+
+
 ## [0.19.18](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@0.19.17...@contentful/field-editor-rich-text@0.19.18) (2021-10-14)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text

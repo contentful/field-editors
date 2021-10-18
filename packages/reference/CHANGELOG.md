@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.21.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.21.1...@contentful/field-editor-reference@2.21.2) (2021-10-18)
+
+
+### Bug Fixes
+
+* [] Remove test utils from peer dependencies ([#889](https://github.com/contentful/field-editors/issues/889)) ([3694bd7](https://github.com/contentful/field-editors/commit/3694bd7e706b8beb1f685167125f36ef0cbe82de))
+
+
+
+
+
 ## [2.21.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.21.0...@contentful/field-editor-reference@2.21.1) (2021-10-14)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
