@@ -1,22 +1,31 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { css } from 'emotion';
 import get from 'lodash/get';
 import tokens from '@contentful/forma-36-tokens';
 import { ContentType } from '../../types';
-import { Dropdown, DropdownList, DropdownListItem } from '@contentful/forma-36-react-components';
-import { useGlobalMouseUp } from './useGlobalMouseUp';
 
 import { SearchIcon } from '@contentful/f36-icons';
 
-import { TextInput } from '@contentful/f36-components';
+import { TextInput, Menu, MenuProps } from '@contentful/f36-components';
 
 const MAX_ITEMS_WITHOUT_SEARCH = 20;
+
+const menuPlacementMap: {
+  [key: string]: MenuProps['placement'];
+} = {
+  'bottom-left': 'bottom-start',
+  'bottom-right': 'bottom-end',
+};
 
 const styles = {
   wrapper: css({
     position: 'relative',
+  }),
+  inputWrapper: css({
+    position: 'relative',
+    padding: `0 ${tokens.spacing2Xs}`,
   }),
   searchInput: (parentHasDropdown: boolean) =>
     css({
@@ -50,7 +59,6 @@ const styles = {
 type CreateEntryMenuTriggerChildProps = {
   isOpen: boolean;
   isSelecting: boolean;
-  openMenu: Function;
 };
 export type CreateEntryMenuTriggerChild = (
   props: CreateEntryMenuTriggerChildProps
@@ -71,7 +79,7 @@ interface CreateEntryMenuTrigger {
     isAutoalignmentEnabled?: boolean;
     position: 'bottom-left' | 'bottom-right';
   };
-  renderCustomDropdownItems?: CreateCustomEntryMenuItems;
+  customDropdownItems?: React.ReactNode;
   children: CreateEntryMenuTriggerChild;
 }
 
@@ -84,7 +92,7 @@ export const CreateEntryMenuTrigger = ({
   dropdownSettings = {
     position: 'bottom-left',
   },
-  renderCustomDropdownItems,
+  customDropdownItems,
   children,
 }: CreateEntryMenuTrigger) => {
   const [isOpen, setOpen] = useState(false);
@@ -92,7 +100,7 @@ export const CreateEntryMenuTrigger = ({
   const [searchInput, setSearchInput] = useState('');
   const wrapper = useRef<any | null>(null);
   const textField = useRef<any | null>(null);
-  const dropdownRef = useRef<any | null>(null);
+  const menuListRef = useRef<any | null>(null);
   /*
     By default, dropdown wraps it's content, so it's width = the width of the widest item
     During search, menu items change, and so the widest menu item can change
@@ -101,19 +109,25 @@ export const CreateEntryMenuTrigger = ({
     And hardcode it through the class name. This way we ensure that even during search the menu will keep that max width
     That it had on initial mount and that fits any menu item in has
   */
-  const [dropdownWidth, setDropdownWidth] = useState(0);
+  const [dropdownWidth, setDropdownWidth] = useState();
 
-  const hasDropdown = contentTypes.length > 1 || !!renderCustomDropdownItems;
+  const hasDropdown = contentTypes.length > 1 || !!customDropdownItems;
 
   const closeMenu = () => setOpen(false);
 
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => {
-        textField?.current?.querySelector('input')?.focus();
+        textField.current?.querySelector('input')?.focus({ preventScroll: true });
       }, 200);
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    if (isOpen && !dropdownWidth) {
+      setDropdownWidth(menuListRef.current?.clientWidth);
+    }
+  }, [isOpen, dropdownWidth]);
 
   const handleSelect = (item: ContentType) => {
     closeMenu();
@@ -129,31 +143,13 @@ export const CreateEntryMenuTrigger = ({
     }
   };
 
-  const toggleMenu = () => {
+  const handleMenuOpen = () => {
     if (hasDropdown) {
-      setOpen(!isOpen);
+      setOpen(true);
     } else {
       handleSelect(contentTypes[0]);
     }
   };
-
-  const mouseUpHandler = useCallback(
-    (event) => {
-      if (
-        wrapper &&
-        wrapper.current &&
-        dropdownRef &&
-        dropdownRef.current &&
-        !wrapper.current.contains(event.target) &&
-        !dropdownRef.current.contains(event.target)
-      ) {
-        closeMenu();
-      }
-    },
-    [wrapper]
-  );
-
-  useGlobalMouseUp(mouseUpHandler);
 
   useEffect(() => {
     if (!isOpen) {
@@ -163,9 +159,9 @@ export const CreateEntryMenuTrigger = ({
 
   const renderSearchResultsCount = (resultsLength: number) =>
     resultsLength ? (
-      <DropdownListItem isTitle testId="add-entru-menu-search-results">
+      <Menu.SectionTitle testId="add-entru-menu-search-results">
         {resultsLength} result{resultsLength > 1 ? 's' : ''}
-      </DropdownListItem>
+      </Menu.SectionTitle>
     ) : null;
 
   const isSearchable = contentTypes.length > MAX_ITEMS_WITHOUT_SEARCH;
@@ -178,73 +174,70 @@ export const CreateEntryMenuTrigger = ({
 
   return (
     <span className={styles.wrapper} ref={wrapper} data-test-id={testId}>
-      <Dropdown
-        focusContainerOnOpen={false}
-        position={dropdownSettings.position}
+      <Menu
+        placement={menuPlacementMap[dropdownSettings.position]}
         isAutoalignmentEnabled={dropdownSettings.isAutoalignmentEnabled}
-        isOpen={isOpen && hasDropdown}
-        toggleElement={children({ isOpen, isSelecting, openMenu: toggleMenu })}
-        testId="add-entry-menu"
-        getContainerRef={(ref) => {
-          dropdownRef.current = ref;
-          if (!dropdownWidth && ref) {
-            setDropdownWidth(ref.clientWidth);
-          }
-        }}>
-        {renderCustomDropdownItems && (
-          <DropdownList className={styles.dropdownList} border="top">
-            {renderCustomDropdownItems({ closeMenu })}
-          </DropdownList>
-        )}
-        {isSearchable && (
-          <div ref={textField} className={styles.wrapper}>
-            <TextInput
-              className={styles.searchInput(hasDropdown)}
-              placeholder="Search all content types"
-              testId="add-entry-menu-search"
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-            />
-            <SearchIcon className={styles.searchIcon} />
-          </div>
-        )}
-        <DropdownList
+        isOpen={isOpen}
+        onClose={closeMenu}
+        onOpen={handleMenuOpen}>
+        <Menu.Trigger>{children({ isOpen, isSelecting })}</Menu.Trigger>
+
+        <Menu.List
           className={styles.dropdownList}
-          border="top"
-          styles={{
-            width: dropdownWidth || '',
-            maxHeight: maxDropdownHeight,
+          style={{
+            width: dropdownWidth != undefined ? `${dropdownWidth}px` : undefined,
+            maxHeight: `${maxDropdownHeight}px`,
           }}
-          maxHeight={maxDropdownHeight}>
+          ref={menuListRef}
+          testId="add-entry-menu">
+          {Boolean(customDropdownItems) && (
+            <>
+              {customDropdownItems}
+              <Menu.Divider />
+            </>
+          )}
+
+          {isSearchable && (
+            <>
+              <div ref={textField} className={styles.inputWrapper}>
+                <TextInput
+                  className={styles.searchInput(hasDropdown)}
+                  placeholder="Search all content types"
+                  testId="add-entry-menu-search"
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)}
+                />
+                <SearchIcon className={styles.searchIcon} />
+              </div>
+              <Menu.Divider />
+            </>
+          )}
+
           {searchInput && renderSearchResultsCount(filteredContentTypes.length)}
           {suggestedContentType && !searchInput && (
             <>
-              <DropdownListItem isTitle>Suggested Content Type</DropdownListItem>
-              <DropdownListItem
-                testId="suggested"
-                onClick={() => handleSelect(suggestedContentType)}>
+              <Menu.SectionTitle>Suggested Content Type</Menu.SectionTitle>
+              <Menu.Item testId="suggested" onClick={() => handleSelect(suggestedContentType)}>
                 {get(suggestedContentType, 'name')}
-              </DropdownListItem>
-              <hr className={styles.separator} />
+              </Menu.Item>
+              <Menu.Divider />
             </>
           )}
-          {!searchInput && <DropdownListItem isTitle>{contentTypesLabel}</DropdownListItem>}
+          {!searchInput && <Menu.SectionTitle>{contentTypesLabel}</Menu.SectionTitle>}
           {filteredContentTypes.length ? (
             filteredContentTypes.map((contentType, i) => (
-              <DropdownListItem
+              <Menu.Item
                 testId="contentType"
                 key={`${get(contentType, 'name')}-${i}`}
                 onClick={() => handleSelect(contentType)}>
                 {get(contentType, 'name', 'Untitled')}
-              </DropdownListItem>
+              </Menu.Item>
             ))
           ) : (
-            <DropdownListItem testId="add-entru-menu-search-results">
-              No results found
-            </DropdownListItem>
+            <Menu.Item testId="add-entru-menu-search-results">No results found</Menu.Item>
           )}
-        </DropdownList>
-      </Dropdown>
+        </Menu.List>
+      </Menu>
     </span>
   );
 };

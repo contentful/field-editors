@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { Dropdown, DropdownList, DropdownListItem } from '@contentful/forma-36-react-components';
+
 import * as styles from './redesignStyles';
 import { CreateEntryLinkButton } from '../CreateEntryLinkButton/CreateEntryLinkButton';
 import { testIds as sharedTextIds, LinkActionsProps } from './LinkActions';
 import { NoLinkPermissionsInfo } from './NoLinkPermissionsInfo';
 
-import { Button } from '@contentful/f36-components';
+import { Button, Menu } from '@contentful/f36-components';
 
 import { LinkIcon, PlusIcon, ChevronDownIcon } from '@contentful/f36-icons';
 
@@ -54,19 +54,16 @@ function CombinedEntryLinkActions(props: LinkActionsProps) {
         onSelect={(contentTypeId) => {
           return contentTypeId ? props.onCreate(contentTypeId) : Promise.resolve();
         }}
-        renderCustomDropdownItems={
-          props.canLinkEntity
-            ? ({ closeMenu }) => (
-                <DropdownListItem
-                  testId={testIds.linkExisting}
-                  onClick={() => {
-                    closeMenu();
-                    props.onLinkExisting();
-                  }}>
-                  Add existing content
-                </DropdownListItem>
-              )
-            : undefined
+        customDropdownItems={
+          props.canLinkEntity ? (
+            <Menu.Item
+              testId={testIds.linkExisting}
+              onClick={() => {
+                props.onLinkExisting();
+              }}>
+              Add existing content
+            </Menu.Item>
+          ) : undefined
         }
       />
     );
@@ -90,8 +87,6 @@ function CombinedEntryLinkActions(props: LinkActionsProps) {
 }
 
 function CombinedAssetLinkActions(props: LinkActionsProps) {
-  const [isOpen, setOpen] = React.useState(false);
-
   if (!props.canLinkEntity || !props.canCreateEntity) {
     if (props.canLinkEntity) {
       return (
@@ -131,44 +126,35 @@ function CombinedAssetLinkActions(props: LinkActionsProps) {
   // TODO: If we fully switch to this new layout, make a more generic `CreateEntityLinkButton`
   //  that works without content types to cover asset use-case.
   return (
-    <Dropdown
-      isOpen={isOpen}
-      onClose={() => setOpen(false)}
-      toggleElement={
-        <>
-          <Button
-            endIcon={<ChevronDownIcon />}
-            isDisabled={props.isDisabled}
-            testId={testIds.actionsWrapper}
-            className={styles.action}
-            onClick={() => {
-              setOpen(!isOpen);
-            }}
-            variant="secondary"
-            startIcon={<PlusIcon />}
-            size="small">
-            Add media
-          </Button>
-        </>
-      }>
-      <DropdownList testId={testIds.dropdown}>
-        <DropdownListItem
+    <Menu>
+      <Menu.Trigger>
+        <Button
+          endIcon={<ChevronDownIcon />}
+          isDisabled={props.isDisabled}
+          testId={testIds.actionsWrapper}
+          className={styles.action}
+          variant="secondary"
+          startIcon={<PlusIcon />}
+          size="small">
+          Add media
+        </Button>
+      </Menu.Trigger>
+      <Menu.List testId={testIds.dropdown}>
+        <Menu.Item
           testId={testIds.createAndLink}
           onClick={() => {
-            setOpen(false);
             props.onCreate();
           }}>
           Add new media
-        </DropdownListItem>
-        <DropdownListItem
+        </Menu.Item>
+        <Menu.Item
           testId={testIds.linkExisting}
           onClick={() => {
-            setOpen(false);
             props.onLinkExisting();
           }}>
           Add existing media
-        </DropdownListItem>
-      </DropdownList>
-    </Dropdown>
+        </Menu.Item>
+      </Menu.List>
+    </Menu>
   );
 }
