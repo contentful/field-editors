@@ -42,7 +42,6 @@
   },
   "peerDependencies": {
     "@contentful/app-sdk": "^4.2.0",
-    "@contentful/field-editor-test-utils": "^0.12.0",
     "react": ">=16.8.0"
   },
   "jest": {
