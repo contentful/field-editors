@@ -11,7 +11,7 @@ describe('Multiple Media Editor', () => {
     parent.findByTestId('linkEditor.linkExisting');
   const findCustomActionsDropdownTrigger = (parent: Cypress.Chainable) =>
     parent.findAllByTestId('link-actions-menu-trigger');
-  const findCustomActionsDropdown = () => cy.findAllByTestId('cf-ui-menu-list');
+  const findCustomActionsDropdown = () => cy.findAllByTestId('linkEditor.dropdown');
   const findCards = (parent: Cypress.Chainable) => parent.findAllByTestId('cf-ui-asset-card');
   const findCustomCards = (parent: Cypress.Chainable) => parent.findAllByTestId('custom-card');
 
