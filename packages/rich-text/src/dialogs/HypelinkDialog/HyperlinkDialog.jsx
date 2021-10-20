@@ -2,8 +2,6 @@ import React from 'react';
 import { css } from 'emotion';
 import PropTypes from 'prop-types';
 import tokens from '@contentful/forma-36-tokens';
-import { Form } from '@contentful/forma-36-react-components';
-import { ModalContent, ModalControls } from '@contentful/f36-components';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { FetchingWrappedEntryCard } from '../../plugins/EmbeddedEntityBlock/FetchingWrappedEntryCard';
 import { FetchingWrappedAssetCard } from '../../plugins/EmbeddedEntityBlock/FetchingWrappedAssetCard';
@@ -15,6 +13,9 @@ import {
   FormLabel,
   Select,
   TextInput,
+  Form,
+  ModalContent,
+  ModalControls,
 } from '@contentful/f36-components';
 
 export const LINK_TYPES = {

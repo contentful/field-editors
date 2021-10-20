@@ -4,15 +4,15 @@ import isHotKey from 'is-hotkey';
 import cn from 'classnames';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
-import { IconButton } from '@contentful/forma-36-react-components';
 import uniqBy from 'lodash/uniqBy';
-
+import { CloseIcon } from '@contentful/f36-icons';
 import {
   Spinner,
   SectionHeading,
   SkeletonContainer,
   SkeletonBodyText,
   Icon,
+  IconButton,
 } from '@contentful/f36-components';
 
 const styles = {
@@ -273,10 +273,10 @@ export class CommandPanel extends React.Component {
         {this.props.breadcrumb ? `Embed ${this.props.breadcrumb}` : 'Richtext Commands'}
       </SectionHeading>
       <IconButton
-        label="Close"
+        aria-label="Close"
         className={styles.closeButton}
-        iconProps={{ icon: 'Close' }}
-        buttonType="muted"
+        icon={<CloseIcon variant="muted" />}
+        variant="transparent"
         onClick={this.props.onClose}
       />
     </div>
