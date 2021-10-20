@@ -1,7 +1,8 @@
 import React from 'react';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
-import { DropdownList, DropdownListItem, Card } from '@contentful/forma-36-react-components';
+import { Card } from '@contentful/forma-36-react-components';
+import { Button } from '@contentful/f36-components';
 import { Coords, GeocodeApiResponse } from './types';
 
 import { Spinner, ValidationMessage, TextInput } from '@contentful/f36-components';
@@ -23,11 +24,11 @@ const styles = {
   validationMessage: css({
     marginTop: tokens.spacingS,
   }),
-  suggesion: css({
+  suggestion: css({
     position: 'absolute',
-    bottom: '-65px',
+    transform: 'translateY(100%)',
+    bottom: 0,
     left: 0,
-    minWidth: '400px',
     zIndex: 1,
   }),
 };
@@ -99,18 +100,17 @@ export function LocationSearchInput(props: LocationSearchInputProps) {
         />
         {isSearching && <Spinner className={styles.spinner} />}
         {suggestion && (
-          <Card padding="none" className={styles.suggesion}>
-            <DropdownList>
-              <DropdownListItem
-                testId="location-editor-suggestion"
-                onClick={() => {
-                  setAddress(suggestion.address);
-                  props.onChangeLocation(suggestion.location);
-                  setSuggestion(null);
-                }}>
-                {suggestion.address}
-              </DropdownListItem>
-            </DropdownList>
+          <Card padding="none" className={styles.suggestion}>
+            <Button
+              variant="transparent"
+              testId="location-editor-suggestion"
+              onClick={() => {
+                setAddress(suggestion.address);
+                props.onChangeLocation(suggestion.location);
+                setSuggestion(null);
+              }}>
+              {suggestion.address}
+            </Button>
           </Card>
         )}
         {hasError && (

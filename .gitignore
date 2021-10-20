@@ -17,3 +17,4 @@ cypress/videos
 cypress/screenshots
 cypress/reports
 cypress.env.json
+.vscode/

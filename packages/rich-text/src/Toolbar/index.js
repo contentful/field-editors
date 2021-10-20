@@ -103,10 +103,10 @@ export default class Toolbar extends React.Component {
     this.props.onChange(...args);
   };
 
-  toggleEmbedDropdown = () =>
-    this.setState((prevState) => ({
-      isEmbedDropdownOpen: !prevState.isEmbedDropdownOpen,
-    }));
+  handleEmbedDropdownOpen = () =>
+    this.setState({
+      isEmbedDropdownOpen: true,
+    });
 
   handleEmbedDropdownClose = () =>
     this.setState({
@@ -131,7 +131,7 @@ export default class Toolbar extends React.Component {
       <div className={styles.embedActionsWrapper}>
         {numEnabledEmbeds > 1 ? (
           <EntryEmbedDropdown
-            onToggle={this.toggleEmbedDropdown}
+            onOpen={this.handleEmbedDropdownOpen}
             isOpen={this.state.isEmbedDropdownOpen}
             disabled={props.disabled}
             onClose={this.handleEmbedDropdownClose}>
@@ -158,12 +158,10 @@ export default class Toolbar extends React.Component {
     );
   };
 
-  toggleHeadingMenu = (event) => {
-    event.preventDefault();
-    this.setState((prevState) => ({
-      headingMenuOpen: !prevState.headingMenuOpen,
-    }));
-  };
+  openHeadingMenu = () =>
+    this.setState({
+      headingMenuOpen: true,
+    });
 
   closeHeadingMenu = () =>
     this.setState({
@@ -180,7 +178,6 @@ export default class Toolbar extends React.Component {
     const props = {
       editor,
       onToggle: this.onChange,
-      onCloseEmbedMenu: this.toggleEmbedDropdown,
       disabled: isDisabled,
       richTextAPI,
       canAutoFocus: this.isReadyToSetFocusProgrammatically,
@@ -192,7 +189,7 @@ export default class Toolbar extends React.Component {
       <Flex testId="toolbar" className={styles.toolbar} alignItems="center">
         <div className={styles.formattingOptionsWrapper}>
           <HeadingDropdown
-            onToggle={this.toggleHeadingMenu}
+            onOpen={this.openHeadingMenu}
             isToggleActive={true}
             isOpen={this.state.headingMenuOpen}
             onClose={this.closeHeadingMenu}

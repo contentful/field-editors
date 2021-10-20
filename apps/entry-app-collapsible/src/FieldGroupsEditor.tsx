@@ -1,11 +1,5 @@
 import * as React from 'react';
-import {
-  Dropdown,
-  DropdownList,
-  DropdownListItem,
-  Card,
-  CardDragHandle,
-} from '@contentful/forma-36-react-components';
+import { Card, CardDragHandle } from '@contentful/forma-36-react-components';
 import {
   ModalContent,
   Text,
@@ -15,6 +9,7 @@ import {
   IconButton,
   FormControl,
   TextInput,
+  Menu,
 } from '@contentful/f36-components';
 import { findUnassignedFields, AppContext, SDKContext } from './shared';
 import { FieldType, FieldGroupType } from './types';
@@ -128,7 +123,6 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
   groupId,
 }: FieldGroupProps) => {
   const { state, dispatch } = React.useContext(AppContext);
-  const [dropdownOpen, setDropdownOpen] = React.useState(false);
 
   const updateName = (e: React.ChangeEvent<HTMLInputElement>) =>
     dispatch({
@@ -138,14 +132,6 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
     });
 
   const unassignedFields = findUnassignedFields(state);
-  const closeDropdown = () => setDropdownOpen(false);
-  const openDropdown = () => {
-    if (unassignedFields.length > 0) {
-      setDropdownOpen(true);
-    } else {
-      setDropdownOpen(false);
-    }
-  };
 
   const onSortEnd = ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => {
     dispatch({
@@ -166,36 +152,33 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
         <FormControl.Label htmlFor="entry-app-collapsible" className={styles.formLabel}>
           Fields
         </FormControl.Label>
-        <Dropdown
-          isOpen={dropdownOpen}
-          onClose={closeDropdown}
-          toggleElement={
-            <Button
-              endIcon={<ChevronDownIcon />}
-              size="small"
-              variant="secondary"
-              onClick={openDropdown}>
-              Select a field to add
-            </Button>
-          }>
-          <DropdownList>
-            {unassignedFields.map(({ id, name }: FieldType) => (
-              <DropdownListItem
-                onClick={() => {
-                  dispatch({
-                    type: ActionTypes.ADD_FIELD_TO_GROUP,
-                    groupId,
-                    fieldKey: id,
-                    fieldName: name,
-                  });
-                  closeDropdown();
-                }}
-                key={id}>
-                {name}
-              </DropdownListItem>
-            ))}
-          </DropdownList>
-        </Dropdown>
+        {unassignedFields.length > 0 ? (
+          <Menu>
+            <Menu.Trigger>
+              <Button endIcon={<ChevronDownIcon />} size="small" variant="secondary">
+                Select a field to add
+              </Button>
+            </Menu.Trigger>
+            <Menu.List>
+              {unassignedFields.map(({ id, name }: FieldType) => (
+                <Menu.Item
+                  onClick={() => {
+                    dispatch({
+                      type: ActionTypes.ADD_FIELD_TO_GROUP,
+                      groupId,
+                      fieldKey: id,
+                      fieldName: name,
+                    });
+                  }}
+                  key={id}>
+                  {name}
+                </Menu.Item>
+              ))}
+            </Menu.List>
+          </Menu>
+        ) : (
+          <FormControl.HelpText>No available fields to add.</FormControl.HelpText>
+        )}
       </FormControl>
       <SortableFieldList
         distance={1 /* this hack is to allow buttons in the drag containers to work*/}

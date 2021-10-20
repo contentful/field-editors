@@ -37,15 +37,15 @@ describe('CreateEntryLinkButton general', () => {
     const link = findButton(getByTestId);
     expect(link).toBeDefined();
     expect(link.textContent).toBe('Add entry');
-    expect(() => getByTestId('add-entry-menu-container')).toThrow(
-      'Unable to find an element by: [data-test-id="add-entry-menu-container"]'
+    expect(() => getByTestId('add-entry-menu')).toThrow(
+      'Unable to find an element by: [data-test-id="add-entry-menu"]'
     );
   });
 
   it('renders dropdown menu on click when with multiple content types', () => {
     const { getByTestId } = render(<CreateEntryLinkButton {...props} />);
     fireEvent.click(findButton(getByTestId));
-    const menu = getByTestId('add-entry-menu-container');
+    const menu = getByTestId('add-entry-menu');
     expect(menu).toBeDefined();
     const menuItems = menu.querySelectorAll('[data-test-id="contentType"]');
     expect(menuItems).toHaveLength(props.contentTypes.length);
@@ -95,22 +95,10 @@ describe('CreateEntryLinkButton with multiple entries', () => {
     },
   };
 
-  it('should display and close menu on button click', () => {
-    const { getByTestId } = render(<CreateEntryLinkButton {...props} />);
-    fireEvent.click(findButton(getByTestId));
-    expect(getByTestId('add-entry-menu-container')).toBeDefined();
-    fireEvent.click(findButton(getByTestId));
-    expect(() => getByTestId('add-entry-menu-container')).toThrow(
-      'Unable to find an element by: [data-test-id="add-entry-menu-container"]'
-    );
-  });
-
   it('should render dropdown items for each content type', () => {
     const { getByTestId, getAllByTestId } = render(<CreateEntryLinkButton {...props} />);
     fireEvent.click(findButton(getByTestId));
-    expect(getAllByTestId('cf-ui-dropdown-list-item-button')).toHaveLength(
-      props.contentTypes.length
-    );
+    expect(getAllByTestId('contentType')).toHaveLength(props.contentTypes.length);
   });
 
   it('calls onSelect after click on menu item', () => {
@@ -119,12 +107,7 @@ describe('CreateEntryLinkButton with multiple entries', () => {
       <CreateEntryLinkButton {...props} onSelect={selectSpy} />
     );
     fireEvent.click(findButton(getByTestId));
-    fireEvent.click(
-      // @ts-expect-error
-      getAllByTestId('contentType')[1].querySelector(
-        '[data-test-id="cf-ui-dropdown-list-item-button"]'
-      )
-    );
+    fireEvent.click(getAllByTestId('contentType')[1]);
     expect(selectSpy).toHaveBeenCalledWith(CONTENT_TYPE_2.sys.id);
   });
 });

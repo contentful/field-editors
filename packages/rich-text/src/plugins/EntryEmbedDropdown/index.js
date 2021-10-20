@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Dropdown, DropdownList } from '@contentful/forma-36-react-components';
 
-import { Button } from '@contentful/f36-components';
+import { Button, Menu } from '@contentful/f36-components';
 
 import { PlusIcon, ChevronDownIcon } from '@contentful/f36-icons';
 
@@ -12,19 +11,16 @@ class EntryEmbedDropdown extends Component {
     isOpen: PropTypes.bool,
     disabled: PropTypes.bool,
     onClose: PropTypes.func,
-    onToggle: PropTypes.func,
+    onOpen: PropTypes.func,
   };
 
   render() {
-    const { onToggle, isOpen, onClose, children } = this.props;
+    const { onOpen, isOpen, onClose, children } = this.props;
     return (
-      <Dropdown
-        className="toolbar-entry-dropdown"
-        position="bottom-right"
-        toggleElement={
+      <Menu placement="bottom-end" isOpen={isOpen} onClose={onClose} onOpen={onOpen}>
+        <Menu.Trigger>
           <Button
             endIcon={<ChevronDownIcon />}
-            onClick={onToggle}
             testId="toolbar-entry-dropdown-toggle"
             className="toolbar-entry-dropdown-toggle"
             variant="secondary"
@@ -33,11 +29,9 @@ class EntryEmbedDropdown extends Component {
             isDisabled={this.props.disabled}>
             Embed
           </Button>
-        }
-        isOpen={isOpen}
-        onClose={onClose}>
-        <DropdownList className="toolbar-entry-dropdown-list">{children}</DropdownList>
-      </Dropdown>
+        </Menu.Trigger>
+        <Menu.List className="toolbar-entry-dropdown-list">{children}</Menu.List>
+      </Menu>
     );
   }
 }
