@@ -3,7 +3,6 @@ import {
   Dropdown,
   DropdownList,
   DropdownListItem,
-  Card,
   CardDragHandle,
 } from '@contentful/forma-36-react-components';
 import {
@@ -15,6 +14,7 @@ import {
   IconButton,
   FormControl,
   TextInput,
+  Card,
 } from '@contentful/f36-components';
 import { findUnassignedFields, AppContext, SDKContext } from './shared';
 import { FieldType, FieldGroupType } from './types';
