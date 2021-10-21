@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Card, CardDragHandle } from '@contentful/forma-36-react-components';
+import { CardDragHandle } from '@contentful/forma-36-react-components';
 import {
   ModalContent,
   Text,
@@ -10,6 +10,7 @@ import {
   FormControl,
   TextInput,
   Menu,
+  Card,
 } from '@contentful/f36-components';
 import { findUnassignedFields, AppContext, SDKContext } from './shared';
 import { FieldType, FieldGroupType } from './types';

@@ -1,8 +1,7 @@
 import React from 'react';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
-import { Card } from '@contentful/forma-36-react-components';
-import { Button } from '@contentful/f36-components';
+import { Button, Card } from '@contentful/f36-components';
 import { Coords, GeocodeApiResponse } from './types';
 
 import { Spinner, ValidationMessage, TextInput } from '@contentful/f36-components';

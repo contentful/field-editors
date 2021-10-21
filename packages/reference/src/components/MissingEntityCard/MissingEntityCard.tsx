@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card } from '@contentful/forma-36-react-components';
+import { Card } from '@contentful/f36-components';
 import { EntityType } from '../../types';
 import * as styles from './styles';
 
