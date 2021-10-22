@@ -3,8 +3,7 @@ import noop from 'lodash/noop';
 import {
   render,
   fireEvent,
-  wait,
-  waitForElement,
+  waitFor,
   waitForElementToBeRemoved,
   act,
   configure,
@@ -32,14 +31,12 @@ describe('CreateEntryLinkButton general', () => {
   };
 
   it('renders with multiple content types as list', () => {
-    const { getByTestId } = render(<CreateEntryLinkButton {...props} />);
+    const { getByTestId, } = render(<CreateEntryLinkButton {...props} />);
     expect(getByTestId('create-entry-button-menu-trigger')).toBeDefined();
     const link = findButton(getByTestId);
     expect(link).toBeDefined();
     expect(link.textContent).toBe('Add entry');
-    expect(() => getByTestId('add-entry-menu')).toThrow(
-      'Unable to find an element by: [data-test-id="add-entry-menu"]'
-    );
+    expect(getByTestId('add-entry-menu')).toBeDefined();
   });
 
   it('renders dropdown menu on click when with multiple content types', () => {
@@ -139,7 +136,7 @@ describe('CreateEntryLinkButton common', () => {
     );
     fireEvent.click(findButton(getByTestId));
     expect(onSelect).toHaveBeenCalled();
-    const spinner = await waitForElement(() => getByTestId('cf-ui-spinner'), { container });
+    const spinner = await waitFor(() => getByTestId('cf-ui-spinner'), { container });
     expect(spinner).toBeDefined();
     expect(spinner.textContent).toMatch(/Loading/g);
   });
@@ -151,7 +148,7 @@ describe('CreateEntryLinkButton common', () => {
     );
     fireEvent.click(findButton(getByTestId));
     const getSpinner = () => getByTestId('cf-ui-spinner');
-    const spinner = await waitForElement(getSpinner, { container });
+    const spinner = await waitFor(getSpinner, { container });
     expect(spinner).toBeDefined();
     await waitForElementToBeRemoved(() => document.querySelector('[data-test-id="cf-ui-spinner"]'));
     expect(getSpinner).toThrow('Unable to find an element by: [data-test-id="cf-ui-spinner"]');
@@ -167,7 +164,7 @@ describe('CreateEntryLinkButton common', () => {
     fireEvent.click(findButton(getByTestId));
     fireEvent.click(findButton(getByTestId));
     fireEvent.click(findButton(getByTestId));
-    await wait(noop, { timeout: 1000 });
+    await waitFor(noop, { timeout: 1000 });
     expect(onSelect).toHaveBeenCalledTimes(1);
   });
 
@@ -178,7 +175,7 @@ describe('CreateEntryLinkButton common', () => {
     );
     await act(async () => {
       fireEvent.click(findButton(getByTestId));
-      await wait(noop, { timeout: 100 });
+      await waitFor(noop, { timeout: 100 });
       fireEvent.click(findButton(getByTestId));
     });
     expect(onSelect).toHaveBeenCalledTimes(2);
