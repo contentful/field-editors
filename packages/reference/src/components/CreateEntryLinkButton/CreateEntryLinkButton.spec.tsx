@@ -32,7 +32,7 @@ describe('CreateEntryLinkButton general', () => {
   };
 
   it('renders with multiple content types as list', () => {
-    const { getByTestId, } = render(<CreateEntryLinkButton {...props} />);
+    const { getByTestId } = render(<CreateEntryLinkButton {...props} />);
     expect(getByTestId('create-entry-button-menu-trigger')).toBeDefined();
     const link = findButton(getByTestId);
     expect(link).toBeDefined();
