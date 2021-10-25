@@ -1,21 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { cx, css } from 'emotion';
 
-export interface InViewportProps {
-  offset?: number;
-  onOverflowTop?: Function;
-  onOverflowRight?: Function;
-  onOverflowBottom?: Function;
-  onOverflowLeft?: Function;
-  className?: string;
-  children?: React.ReactNode;
-  testId?: string;
-}
 
-const throttle = (delay = 200, fn: Function) => {
+const throttle = (delay = 200, fn) => {
   let lastCall = 0;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const throttleExec = (...args: any[]) => {
+  const throttleExec = (...args) => {
     const now = new Date().getTime();
     if (now - lastCall < delay) {
       return;
@@ -26,19 +16,19 @@ const throttle = (delay = 200, fn: Function) => {
   return throttleExec;
 };
 
-const defaultProps: Partial<InViewportProps> = {
+const defaultProps = {
   testId: 'cf-ui-in-viewport',
   offset: 0,
 };
 
 const isBrowser = typeof window !== 'undefined';
 
-export class InViewport extends Component<InViewportProps> {
+export class InViewport extends Component {
   static defaultProps = defaultProps;
 
-  tGetDomPosition: EventListenerOrEventListenerObject | null = null;
-  nodeRef: HTMLDivElement | null = null;
-  lastOverflowAt: string | null = null;
+  tGetDomPosition = null;
+  nodeRef = null;
+  lastOverflowAt = null;
 
   tOnOverflowTop = this.props.onOverflowTop && throttle(100, this.props.onOverflowTop);
   tOnOverflowBottom = this.props.onOverflowBottom && throttle(100, this.props.onOverflowBottom);
@@ -80,15 +70,15 @@ export class InViewport extends Component<InViewportProps> {
   };
 
   handleOverflow = (
-    { top, left, bottom, right }: ClientRect | DOMRect,
-    windowWidth: number,
-    windowHeight: number
+    { top, left, bottom, right },
+    windowWidth,
+    windowHeight
   ) => {
     const { offset } = this.props;
-    const topThreshold = 0 - offset!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
-    const leftThreshold = 0 - offset!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
-    const rightThreshold = windowWidth + offset!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
-    const bottomThreshold = windowHeight + offset!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
+    const topThreshold = 0 - offset;
+    const leftThreshold = 0 - offset;
+    const rightThreshold = windowWidth + offset;
+    const bottomThreshold = windowHeight + offset;
 
     if (top + right + bottom + left !== 0) {
       if (top < topThreshold && this.lastOverflowAt !== 'bottom') {
@@ -137,4 +127,15 @@ export class InViewport extends Component<InViewportProps> {
       </div>
     );
   }
+}
+
+InViewport.propTypes = {
+  offset: PropTypes.number,
+  onOverflowTop: PropTypes.func,
+  onOverflowRight: PropTypes.func,
+  onOverflowBottom: PropTypes.func,
+  onOverflowLeft: PropTypes.func,
+  className: PropTypes.string,
+  children: PropTypes.any,
+  testId: PropTypes.string
 }
