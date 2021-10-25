@@ -15,8 +15,7 @@ import { SingleMediaEditor } from '@contentful/field-editor-reference';
 
 import { Playground, Props } from 'docz';
 import { SingleMediaEditor } from './SingleMediaEditor.tsx';
-import { Asset } from '@contentful/forma-36-react-components';
-import { TextLink, Button, Heading, Card } from '@contentful/f36-components';
+import { TextLink, Button, Heading, Card, Asset } from '@contentful/f36-components';
 import { ThumbUpIcon } from '@contentful/f36-icons';
 import { ActionsPlayground } from '@contentful/field-editor-test-utils';
 import { newReferenceEditorFakeSdk } from '../__fixtures__/FakeSdk';
@@ -104,7 +103,7 @@ Note the alternative link actions injected via the `renderCustomActions` prop.
             return (
               <Card testId="custom-card">
                   <Heading>{title && title['en-US']}</Heading>
-                  <Asset src={file && file['en-US'].url} title={file && file['en-US'].fileName} />
+                  <Asset src={file && file['en-US'].url} title={file && file['en-US'].fileName} style={{ width: 100, height: 100, marginBottom: '10px' }} />
                 <Button onClick={props.onEdit} style={{ marginRight: '10px' }}>
                   Edit
                 </Button>

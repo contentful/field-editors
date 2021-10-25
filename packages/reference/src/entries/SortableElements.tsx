@@ -5,7 +5,7 @@ import { FetchingWrappedEntryCard } from './WrappedEntryCard/FetchingWrappedEntr
 import { ContentType, ReferenceValue } from '../types';
 import { ReferenceEditorProps } from '../common/ReferenceEditor';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
-import { CardDragHandle } from '@contentful/forma-36-react-components';
+import { DragHandle } from '@contentful/f36-components';
 
 const styles = {
   containter: css({
@@ -24,7 +24,9 @@ type SortableLinkListProps = ReferenceEditorProps & {
   onMove: (oldIndex: number, newIndex: number) => void;
 };
 
-const DragHandle = SortableHandle(() => <CardDragHandle>Reorder item</CardDragHandle>);
+const SortableDragHandle = SortableHandle(() => (
+  <DragHandle label="reorder">Reorder item</DragHandle>
+));
 
 const SortableLink = SortableElement((props: { children: React.ReactElement }) => (
   <div className={styles.item}>{props.children}</div>
@@ -53,7 +55,7 @@ export const SortableLinkList = SortableContainer((props: SortableLinkListProps)
             }}
             onMoveTop={index !== 0 ? () => props.onMove(index, 0) : undefined}
             onMoveBottom={index !== lastIndex ? () => props.onMove(index, lastIndex) : undefined}
-            cardDragHandle={props.isDisabled ? undefined : <DragHandle />}
+            cardDragHandle={props.isDisabled ? undefined : <SortableDragHandle />}
           />
         </SortableLink>
       ))}
