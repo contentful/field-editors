@@ -147,6 +147,8 @@ function addTableTrackingEvents(editor: SPEditor, { onViewportAction }: Tracking
           });
         }
       }, 1);
+    } else {
+      insertData(data);
     }
   };
 }
