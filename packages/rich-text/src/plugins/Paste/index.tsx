@@ -30,6 +30,8 @@ function withPasteHandling(editor: SPEditor) {
         const sanitized = sanitizeHtml(html, editor);
         const newData = htmlToDataTransfer(sanitized);
         insertData(newData);
+      } else {
+        insertData(data);
       }
     };
   };
