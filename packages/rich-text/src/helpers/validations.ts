@@ -5,11 +5,12 @@ import get from 'lodash/get';
 import { BLOCKS, INLINES, TOP_LEVEL_BLOCKS } from '@contentful/rich-text-types';
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 
-// TODO: Move this into separate package (maybe rich-text-types) and share with FE.
+// TODO: Move these into separate package (maybe rich-text-types) and share with FE.
 export const VALIDATIONS = {
   ENABLED_MARKS: 'enabledMarks',
   ENABLED_NODE_TYPES: 'enabledNodeTypes'
 };
+export const DEFAULT_ENABLED_NODE_TYPES = [BLOCKS.DOCUMENT, BLOCKS.PARAGRAPH, 'text']
 
 export const VALIDATABLE_NODE_TYPES =
   ([] as Array<BLOCKS | INLINES>)
@@ -17,6 +18,7 @@ export const VALIDATABLE_NODE_TYPES =
     .filter(type => type !== BLOCKS.PARAGRAPH)
     .concat(Object.values(INLINES));
 
+// TODO: Memoize
 const getRichTextValidation = (field, validationType) =>
   flow(
     v => find(v, validationType),
@@ -26,11 +28,13 @@ const getRichTextValidation = (field, validationType) =>
 const isFormattingOptionEnabled = (field, validationType, nodeTypeOrMark) => {
   const enabledFormattings = getRichTextValidation(field, validationType);
 
+  // TODO: In the future, validations will always be opt-in. In that case
+  // we don't need this step.
   if (enabledFormattings === undefined) {
     return true;
   }
 
-  return enabledFormattings.includes(nodeTypeOrMark);
+  return DEFAULT_ENABLED_NODE_TYPES.concat(enabledFormattings).includes(nodeTypeOrMark);
 };
 
 export const isNodeTypeEnabled = (field: FieldExtensionSDK['field'], nodeType): boolean =>
