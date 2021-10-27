@@ -2,7 +2,6 @@ import React from 'react';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
 import { SpaceAPI } from '@contentful/app-sdk';
-import { AssetCard } from '@contentful/forma-36-react-components';
 import { renderActions, renderAssetInfo } from './AssetCardActions';
 import { File, Asset } from '../../types';
 import { entityHelpers } from '@contentful/field-editor-shared';
@@ -12,6 +11,8 @@ import { MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
 import mimetype from '@contentful/mimetype';
 
 import { ClockIcon } from '@contentful/f36-icons';
+
+import { AssetCard } from '@contentful/f36-components';
 
 const groupToIconMap = {
   image: 'image',
@@ -100,10 +101,10 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
       type={getFileType(entityFile)}
       title={entityTitle}
       className={className}
-      selected={isSelected}
+      isSelected={isSelected}
       href={getAssetUrl ? getAssetUrl(props.asset.sys.id) : undefined}
       status={status}
-      statusIcon={
+      icon={
         <ScheduledIconWithTooltip
           getEntityScheduledActions={props.getEntityScheduledActions}
           entityType="Asset"
@@ -129,14 +130,11 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
         if (!isClickable) return;
         onEdit && onEdit();
       }}
-      cardDragHandleComponent={props.cardDragHandle}
       withDragHandle={!!props.cardDragHandle}
-      dropdownListElements={
-        <React.Fragment>
-          {renderActions({ entityFile, isDisabled: isDisabled, onEdit, onRemove })}
-          {entityFile ? renderAssetInfo({ entityFile }) : <span />}
-        </React.Fragment>
-      }
+      actions={[
+        renderActions({ entityFile, isDisabled: isDisabled, onEdit, onRemove }),
+        entityFile ? renderAssetInfo({ entityFile }) : null,
+      ]}
       size={size}
     />
   );

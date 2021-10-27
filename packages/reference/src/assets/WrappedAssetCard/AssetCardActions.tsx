@@ -1,5 +1,5 @@
 import React from 'react';
-import { DropdownList, DropdownListItem } from '@contentful/forma-36-react-components';
+import { Menu } from '@contentful/f36-components';
 import { css } from 'emotion';
 import { File } from '../../types';
 import get from 'lodash/get';
@@ -28,27 +28,26 @@ export function renderAssetInfo(props: { entityFile: File }) {
   const fileSize = get(entityFile, 'details.size');
   const image = get(entityFile, 'details.image');
   return (
-    <DropdownList
-      border="top"
+    <Menu.List
       className={styles.cardDropdown}
-      // @ts-expect-error
+      key="asset-info"
       onClick={(e) => {
         e.stopPropagation();
       }}>
-      <DropdownListItem isTitle>File info</DropdownListItem>
+      <Menu.SectionTitle>File info</Menu.SectionTitle>
       {fileName && (
-        <DropdownListItem>
+        <Menu.Item>
           <div className={styles.truncated}>{fileName}</div>
-        </DropdownListItem>
+        </Menu.Item>
       )}
       {mimeType && (
-        <DropdownListItem>
+        <Menu.Item>
           <div>{mimeType}</div>
-        </DropdownListItem>
+        </Menu.Item>
       )}
-      {fileSize && <DropdownListItem>{shortenStorageUnit(fileSize, 'B')}</DropdownListItem>}
-      {image && <DropdownListItem>{`${image.width} × ${image.height}`}</DropdownListItem>}
-    </DropdownList>
+      {fileSize && <Menu.Item>{shortenStorageUnit(fileSize, 'B')}</Menu.Item>}
+      {image && <Menu.Item>{`${image.width} × ${image.height}`}</Menu.Item>}
+    </Menu.List>
   );
 }
 
@@ -60,30 +59,28 @@ export function renderActions(props: {
 }) {
   const { entityFile, isDisabled, onEdit, onRemove } = props;
   return (
-    <DropdownList
+    <Menu.List
       className={styles.cardDropdown}
-      // @ts-expect-error
+      key="actions"
       onClick={(e) => {
         e.stopPropagation();
       }}>
-      <DropdownListItem isTitle>Actions</DropdownListItem>
+      <Menu.SectionTitle>Actions</Menu.SectionTitle>
       {onEdit && (
-        <DropdownListItem onClick={onEdit} testId="card-action-edit">
+        <Menu.Item onClick={onEdit} testId="card-action-edit">
           Edit
-        </DropdownListItem>
+        </Menu.Item>
       )}
       {entityFile && (
-        <DropdownListItem
-          onClick={() => downloadAsset(entityFile.url)}
-          testId="card-action-download">
+        <Menu.Item onClick={() => downloadAsset(entityFile.url)} testId="card-action-download">
           Download
-        </DropdownListItem>
+        </Menu.Item>
       )}
       {onRemove && (
-        <DropdownListItem isDisabled={isDisabled} onClick={onRemove} testId="card-action-remove">
+        <Menu.Item disabled={isDisabled} onClick={onRemove} testId="card-action-remove">
           Remove
-        </DropdownListItem>
+        </Menu.Item>
       )}
-    </DropdownList>
+    </Menu.List>
   );
 }

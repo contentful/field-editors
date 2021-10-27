@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AssetCard, EntryCard } from '@contentful/forma-36-react-components';
+import { EntryCard } from '@contentful/forma-36-react-components';
 import { Action, Asset, FieldExtensionSDK, ViewType } from '../../types';
 import { LinkActionsProps, MissingEntityCard } from '../../components';
 import { WrappedAssetCard, WrappedAssetCardProps } from './WrappedAssetCard';
@@ -10,6 +10,8 @@ import {
   CustomCardRenderer,
   RenderCustomMissingEntityCard,
 } from '../../common/customCardTypes';
+
+import { AssetCard } from '@contentful/f36-components';
 
 type FetchingWrappedAssetCardProps = {
   assetId: string;
