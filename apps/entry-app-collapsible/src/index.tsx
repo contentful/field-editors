@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { Modal, ModalHeader } from '@contentful/f36-components';
+import { Modal, ModalHeader, GlobalStyles } from '@contentful/f36-components';
 import { init, locations, EditorExtensionSDK, DialogExtensionSDK } from '@contentful/app-sdk';
-import '@contentful/forma-36-react-components/dist/styles.css';
-import '@contentful/forma-36-fcss/dist/styles.css';
-import './index.css';
 import { FieldGroupsEditor } from './FieldGroupsEditor';
 import { CollapsibleFieldGroup } from './CollapsibleFieldGroup';
 import { findUnassignedFields, AppContext, SDKContext } from './shared';
@@ -95,7 +92,13 @@ export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
 };
 
 function renderAtRoot(element: JSX.Element) {
-  render(element, document.getElementById('root'));
+  render(
+    <>
+      <GlobalStyles />
+      {element}
+    </>,
+    document.getElementById('root')
+  );
 }
 
 init((sdk) => {

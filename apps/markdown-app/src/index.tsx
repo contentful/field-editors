@@ -2,11 +2,9 @@ import * as React from 'react';
 import { render } from 'react-dom';
 import { init, locations } from '@contentful/app-sdk';
 import type { FieldExtensionSDK } from '@contentful/app-sdk';
-import '@contentful/forma-36-react-components/dist/styles.css';
-import '@contentful/forma-36-fcss/dist/styles.css';
-import './index.css';
 import '@contentful/field-editor-markdown/src/codemirrorImports';
 import { MarkdownEditor, renderMarkdownDialog } from '@contentful/field-editor-markdown';
+import { GlobalStyles } from '@contentful/f36-components';
 import 'codemirror/lib/codemirror.css';
 
 interface AppProps {
@@ -15,14 +13,25 @@ interface AppProps {
 
 export class App extends React.Component<AppProps> {
   render = () => {
-    return <MarkdownEditor isInitiallyDisabled={false} sdk={this.props.sdk} />;
+    return (
+      <>
+        <GlobalStyles />
+        <MarkdownEditor isInitiallyDisabled={false} sdk={this.props.sdk} />
+      </>
+    );
   };
 }
 
 init((sdk: FieldExtensionSDK) => {
   sdk.window.startAutoResizer();
   if (sdk.location.is(locations.LOCATION_DIALOG)) {
-    render(renderMarkdownDialog(sdk as any), document.getElementById('root'));
+    render(
+      <>
+        <GlobalStyles />
+        {renderMarkdownDialog(sdk as any)}
+      </>,
+      document.getElementById('root')
+    );
   } else {
     render(<App sdk={sdk as FieldExtensionSDK} />, document.getElementById('root'));
   }

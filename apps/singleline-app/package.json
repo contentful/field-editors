@@ -3,11 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@contentful/app-sdk": "^4.2.0",
-    "@contentful/field-editor-single-line": "^0.14.1",
-    "@contentful/forma-36-fcss": "^0.3.3",
-    "@contentful/forma-36-react-components": "^3.93.4",
-    "@contentful/forma-36-tokens": "^0.11.0",
+    "@contentful/app-sdk": "^4.3.0",
+    "@contentful/field-editor-single-line": "^0.15.6",
+    "@contentful/f36-components": "next-v4",
+    "@contentful/f36-tokens": "next-v4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
