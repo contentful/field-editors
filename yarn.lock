@@ -2192,45 +2192,6 @@
     "@babel/runtime" "^7.6.2"
     emotion "^10.0.17"
 
-"@contentful/field-editor-boolean@^0.12.4":
-  version "0.12.4"
-  resolved "https://registry.yarnpkg.com/@contentful/field-editor-boolean/-/field-editor-boolean-0.12.4.tgz#96765f19d21f24775e7b591e6462c1212143e2b3"
-  integrity sha512-gLV9ve4gnqwtoYSsLTMTnhiUkZxfiXz62cbbfRTSElu+/OIDlzzM4TWmZuh+riGlqNmRmPCUQonmrSnqj6UWgQ==
-  dependencies:
-    "@contentful/field-editor-shared" "^0.24.0"
-    "@contentful/forma-36-react-components" "^3.93.4"
-    "@contentful/forma-36-tokens" "^0.11.0"
-    emotion "^10.0.17"
-    lodash "^4.17.15"
-    lodash-es "^4.17.15"
-    nanoid "^3.1.3"
-
-"@contentful/field-editor-checkbox@^0.15.4":
-  version "0.15.4"
-  resolved "https://registry.yarnpkg.com/@contentful/field-editor-checkbox/-/field-editor-checkbox-0.15.4.tgz#aaf10abcde313a079cd174b5829295c46080db90"
-  integrity sha512-zrdtKWJSr4A8883qWf7ezIfgP1NU/F8c9Oo7HFp7sYRIj4puI2qa+UfXOdnrNmAXffZA12PJL/id73TYYh1S6w==
-  dependencies:
-    "@contentful/field-editor-shared" "^0.24.0"
-    "@contentful/forma-36-react-components" "^3.93.4"
-    "@contentful/forma-36-tokens" "^0.11.0"
-    emotion "^10.0.17"
-    lodash "^4.17.15"
-    lodash-es "^4.17.15"
-
-"@contentful/field-editor-date@^0.12.4":
-  version "0.12.4"
-  resolved "https://registry.yarnpkg.com/@contentful/field-editor-date/-/field-editor-date-0.12.4.tgz#a9106e457e41922ce189332e60d378ada7d7d3c3"
-  integrity sha512-CgVvKNHU+zBkTWl/G4OTOuZGhQLB4mUte3Ei63hwACKNdXLlNaCVN0dKn1VM/XUM0txikmcnIm6bW19Mvyay6g==
-  dependencies:
-    "@contentful/field-editor-shared" "^0.24.0"
-    "@contentful/forma-36-react-components" "^3.93.4"
-    "@contentful/forma-36-tokens" "^0.11.0"
-    emotion "^10.0.17"
-    lodash "^4.17.15"
-    lodash-es "^4.17.15"
-    moment "^2.20.0"
-    pikaday "^1.8.2"
-
 "@contentful/field-editor-dropdown@^0.14.4":
   version "0.14.4"
   resolved "https://registry.yarnpkg.com/@contentful/field-editor-dropdown/-/field-editor-dropdown-0.14.4.tgz#4f07fccb5a28f96ec37f6e09155d5cebd055afd9"
@@ -2260,18 +2221,6 @@
     lodash "^4.17.15"
     lodash-es "^4.17.15"
     react-codemirror2 "6.0.1"
-
-"@contentful/field-editor-list@^0.15.4":
-  version "0.15.4"
-  resolved "https://registry.yarnpkg.com/@contentful/field-editor-list/-/field-editor-list-0.15.4.tgz#aff5bc4ccbef1e842579aa8dd817ddfc5e4f92b9"
-  integrity sha512-+9fDCBUfF0JBz/EaQr+jlM46/mT8vqv2tt7lK0cTBuLoNzDgaPjg0nTAIrotyizvsF9dMe0E/nFeyUYWcnSljg==
-  dependencies:
-    "@contentful/field-editor-shared" "^0.24.0"
-    "@contentful/forma-36-react-components" "^3.93.4"
-    "@contentful/forma-36-tokens" "^0.11.0"
-    emotion "^10.0.17"
-    lodash "^4.17.15"
-    lodash-es "^4.17.15"
 
 "@contentful/field-editor-location@^0.12.4":
   version "0.12.4"
@@ -2336,18 +2285,6 @@
     lodash "^4.17.15"
     lodash-es "^4.17.15"
 
-"@contentful/field-editor-number@^0.13.4":
-  version "0.13.4"
-  resolved "https://registry.yarnpkg.com/@contentful/field-editor-number/-/field-editor-number-0.13.4.tgz#ef4520f5cfa20f6bf0e5a73a241ca4491d409e0f"
-  integrity sha512-KWH1gMrUmHOaVSsOU9L+B9W8P7b54jeD9usICfNZUwZoi5R49VHE55DeTQYpFvGgoXy0sOvIiJwGkRs8h8ytbw==
-  dependencies:
-    "@contentful/field-editor-shared" "^0.24.0"
-    "@contentful/forma-36-react-components" "^3.93.4"
-    "@contentful/forma-36-tokens" "^0.11.0"
-    emotion "^10.0.17"
-    lodash "^4.17.15"
-    lodash-es "^4.17.15"
-
 "@contentful/field-editor-radio@^0.13.4":
   version "0.13.4"
   resolved "https://registry.yarnpkg.com/@contentful/field-editor-radio/-/field-editor-radio-0.13.4.tgz#a4516335b96007a483aef87151dd22efb2bcd03c"
@@ -2361,65 +2298,6 @@
     lodash "^4.17.15"
     lodash-es "^4.17.15"
     nanoid "^3.1.3"
-
-"@contentful/field-editor-rating@^0.12.4":
-  version "0.12.4"
-  resolved "https://registry.yarnpkg.com/@contentful/field-editor-rating/-/field-editor-rating-0.12.4.tgz#723061d2670a8854bb41bfe153c50d07ce6899c5"
-  integrity sha512-wgLkT9rCTDjeUKItgzYTcTZAmQwJKDuqjk/s+t1VZYBIMimaZOQ00yNnZVlPiNzqjf1ihozSSBdPnjNoCLgQRw==
-  dependencies:
-    "@contentful/field-editor-shared" "^0.24.0"
-    "@contentful/forma-36-react-components" "^3.93.4"
-    "@contentful/forma-36-tokens" "^0.11.0"
-    emotion "^10.0.17"
-    lodash "^4.17.15"
-    lodash-es "^4.17.15"
-
-"@contentful/field-editor-reference@^2.20.10":
-  version "2.20.10"
-  resolved "https://registry.yarnpkg.com/@contentful/field-editor-reference/-/field-editor-reference-2.20.10.tgz#79a8b1dca5ae6c76e16cd96bc70528d88a0d1389"
-  integrity sha512-s+Qt6AJj1Mjk9C9+yZoTvnTk9seUHRDMCuY3k1YyiXhtMDhL8BgjqsTXwvDa1PLREW2ATpyb3ZY62vFh/CLETQ==
-  dependencies:
-    "@contentful/field-editor-shared" "^0.24.0"
-    "@contentful/forma-36-react-components" "^3.93.4"
-    "@contentful/forma-36-tokens" "^0.11.0"
-    "@contentful/mimetype" "^1.4.0"
-    "@types/deep-equal" "^1.0.1"
-    array-move "^3.0.0"
-    constate "3.2.0"
-    deep-equal "2.0.5"
-    emotion "^10.0.17"
-    lodash "^4.17.15"
-    lodash-es "^4.17.15"
-    moment "^2.20.0"
-    react-sortable-hoc "^2.0.0"
-
-"@contentful/field-editor-rich-text@^0.19.15":
-  version "0.19.15"
-  resolved "https://registry.yarnpkg.com/@contentful/field-editor-rich-text/-/field-editor-rich-text-0.19.15.tgz#f8ddf0e05a1b8caf9fe503652a27387c1f2f95d0"
-  integrity sha512-YvbM/GkS7C5hOw5V9SocPh5gFUw/z3eLK0s+KZVH1ZaKwkgNCfN08lQtpY3lnxZ5ib1eahGytLRciUaT2ksMZw==
-  dependencies:
-    "@contentful/contentful-slatejs-adapter" "14.1.2"
-    "@contentful/field-editor-reference" "^2.20.10"
-    "@contentful/field-editor-shared" "^0.24.0"
-    "@contentful/field-editor-test-utils" "^0.17.3"
-    "@contentful/forma-36-react-components" "^3.93.4"
-    "@contentful/forma-36-tokens" "^0.11.0"
-    "@contentful/rich-text-plain-text-renderer" "^14.0.0"
-    "@contentful/rich-text-types" "^14.0.1"
-    "@productboard/slate-edit-list" "^0.19.1"
-    "@wikifactory/slate-trailing-block" "^0.6.0"
-    classnames "^2.2.6"
-    detect-browser "^3.0.1"
-    emotion "^10.0.17"
-    fast-deep-equal "^3.1.1"
-    immutable "^3.8.2"
-    lodash "^4.17.15"
-    lodash-es "^4.17.15"
-    prop-types "^15.7.2"
-    slate "0.44.10"
-    slate-html-serializer "0.7.34"
-    slate-plain-serializer "0.6.34"
-    slate-react "0.21.16"
 
 "@contentful/field-editor-shared@^0.19.0":
   version "0.19.0"
@@ -2463,18 +2341,6 @@
     lodash "^4.17.15"
     lodash-es "^4.17.15"
 
-"@contentful/field-editor-single-line@^0.15.4":
-  version "0.15.4"
-  resolved "https://registry.yarnpkg.com/@contentful/field-editor-single-line/-/field-editor-single-line-0.15.4.tgz#71d869d73394a4b5931f100c66255c123c082d12"
-  integrity sha512-nNs9SC4vk/KbEiRVxi7APoICpYJWf03VLkh/kDOV9bU5SfOyNTiEOWBQ649B0r5tJuUVqQA2tmTddDmqKeCnlg==
-  dependencies:
-    "@contentful/field-editor-shared" "^0.24.0"
-    "@contentful/forma-36-react-components" "^3.93.4"
-    "@contentful/forma-36-tokens" "^0.11.0"
-    emotion "^10.0.17"
-    lodash "^4.17.15"
-    lodash-es "^4.17.15"
-
 "@contentful/field-editor-slug@^0.12.3":
   version "0.12.3"
   resolved "https://registry.yarnpkg.com/@contentful/field-editor-slug/-/field-editor-slug-0.12.3.tgz#85e5391a85022e04d7e32cd87a40ffbc42b21638"
@@ -2490,20 +2356,6 @@
     speakingurl "^13.0.0"
     use-debounce "^7.0.0"
 
-"@contentful/field-editor-tags@^0.14.4":
-  version "0.14.4"
-  resolved "https://registry.yarnpkg.com/@contentful/field-editor-tags/-/field-editor-tags-0.14.4.tgz#37e84e69cd62596ba2f4223e5dfaa1a53a1f2bad"
-  integrity sha512-ruPZIaH+wBpibxEM8ITbFNDl37D4Mge/XPzFJXBDmMf0sDKMrrgAY/UnpcLu+YE23B0TRA/aedUJt7GLEi8AKg==
-  dependencies:
-    "@contentful/field-editor-shared" "^0.24.0"
-    "@contentful/forma-36-react-components" "^3.93.4"
-    "@contentful/forma-36-tokens" "^0.11.0"
-    array-move "^3.0.0"
-    emotion "^10.0.0"
-    lodash "^4.17.15"
-    lodash-es "^4.17.15"
-    react-sortable-hoc "^2.0.0"
-
 "@contentful/field-editor-test-utils@^0.14.0":
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/@contentful/field-editor-test-utils/-/field-editor-test-utils-0.14.0.tgz#8fcd2a41b9a0203dc00718b3aa4f5602b2d25cc5"
@@ -2515,30 +2367,6 @@
     lodash "^4.17.15"
     lodash-es "^4.17.15"
     mitt "2.1.0"
-
-"@contentful/field-editor-test-utils@^0.17.3":
-  version "0.17.3"
-  resolved "https://registry.yarnpkg.com/@contentful/field-editor-test-utils/-/field-editor-test-utils-0.17.3.tgz#479ba57f8ad29a567cbfbc1aaa02b6518744ce22"
-  integrity sha512-ct9Muux5YJLIziP2NXC8qd6NQRSKwBvCTdaeibQjIzIsHF2SQiFtDu3cUdKDTGW1o+spKix85YMZrXR7NOc/Dw==
-  dependencies:
-    "@contentful/field-editor-shared" "^0.24.0"
-    "@contentful/forma-36-tokens" "^0.11.0"
-    emotion "^10.0.17"
-    lodash "^4.17.15"
-    lodash-es "^4.17.15"
-    mitt "2.1.0"
-
-"@contentful/field-editor-url@^0.12.4":
-  version "0.12.4"
-  resolved "https://registry.yarnpkg.com/@contentful/field-editor-url/-/field-editor-url-0.12.4.tgz#797ddd80c81ca548aaea1de88b007adedb5f8f47"
-  integrity sha512-ysfQWTgiJXjuoNqkvspIJhdkgBnSxJhkaa/LiZiYSGvgifSi7li/LBi/CfnYrd1/PvneC712OFF797v+Tk+CYA==
-  dependencies:
-    "@contentful/field-editor-shared" "^0.24.0"
-    "@contentful/forma-36-react-components" "^3.93.4"
-    "@contentful/forma-36-tokens" "^0.11.0"
-    emotion "^10.0.17"
-    lodash "^4.17.15"
-    lodash-es "^4.17.15"
 
 "@contentful/field-editor-validation-errors@^0.6.4":
   version "0.6.4"
