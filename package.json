@@ -47,7 +47,7 @@
     "@commitlint/config-conventional": "^12.0.1",
     "@contentful/contentful-extension-scripts": "^0.20.4",
     "@contentful/eslint-config-extension": "0.4.2",
-    "@contentful/forma-36-react-components": "^3.93.4",
+    "@contentful/f36-components": "next-v4",
     "@contentful/f36-tokens": "next-v4",
     "@cypress/webpack-preprocessor": "4.1.5",
     "@testing-library/cypress": "5.3.1",
