@@ -1,6 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { EntryCard } from '@contentful/forma-36-react-components';
+import { EntryCard } from '@contentful/f36-components';
 import {
   useEntities,
   MissingEntityCard,
@@ -33,7 +33,7 @@ export function FetchingWrappedEntryCard(props) {
   }
 
   if (entry === undefined) {
-    return <EntryCard size="default" loading />;
+    return <EntryCard isLoading />;
   }
 
   const contentType = props.sdk.space
@@ -45,7 +45,6 @@ export function FetchingWrappedEntryCard(props) {
       getAsset={props.sdk.space.getAsset}
       getEntityScheduledActions={loadEntityScheduledActions}
       entryUrl={props.getEntryUrl && props.getEntryUrl(entry.sys.id)}
-      size="default"
       isSelected={props.isSelected}
       isDisabled={props.isDisabled}
       localeCode={props.locale}
