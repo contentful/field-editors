@@ -1,11 +1,11 @@
 import React from 'react';
 import { css } from 'emotion';
 import tokens from '@contentful/f36-tokens';
-import { EntryCard } from '@contentful/forma-36-react-components';
+import { EntryCard } from '@contentful/f36-components';
 import { renderActions, renderAssetInfo } from './AssetCardActions';
-import { Asset } from '../../types';
-import { entityHelpers, SpaceAPI } from '@contentful/field-editor-shared';
-import { MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
+import { Asset, RenderDragFn } from '../../types';
+import { entityHelpers, isValidImage, SpaceAPI } from '@contentful/field-editor-shared';
+import { MissingEntityCard, ScheduledIconWithTooltip, AssetThumbnail } from '../../components';
 
 import { ClockIcon } from '@contentful/f36-icons';
 
@@ -25,7 +25,7 @@ export interface WrappedAssetLinkProps {
   isDisabled: boolean;
   onEdit: () => void;
   onRemove: () => void;
-  cardDragHandle?: React.ReactElement;
+  renderDragHandle?: RenderDragFn;
 }
 
 export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
@@ -56,13 +56,17 @@ export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
 
   return (
     <EntryCard
+      as={href ? 'a' : 'article'}
       contentType="Asset"
       title={entityTitle}
       className={className}
       href={href}
       size="small"
       status={status}
-      statusIcon={
+      thumbnailElement={
+        entityFile && isValidImage(entityFile) ? <AssetThumbnail file={entityFile} /> : undefined
+      }
+      icon={
         <ScheduledIconWithTooltip
           getEntityScheduledActions={props.getEntityScheduledActions}
           entityType="Asset"
@@ -75,18 +79,16 @@ export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
           />
         </ScheduledIconWithTooltip>
       }
-      onClick={(e) => {
+      onClick={(e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
         onEdit();
       }}
-      cardDragHandleComponent={props.cardDragHandle}
-      withDragHandle={!!props.cardDragHandle}
-      dropdownListElements={
-        <React.Fragment>
-          {renderActions({ entityFile, isDisabled: isDisabled, onEdit, onRemove })}
-          {entityFile ? renderAssetInfo({ entityFile }) : <span />}
-        </React.Fragment>
-      }
+      dragHandleRender={props.renderDragHandle}
+      withDragHandle={!!props.renderDragHandle}
+      actions={[
+        renderActions({ entityFile, isDisabled: isDisabled, onEdit, onRemove }),
+        entityFile ? renderAssetInfo({ entityFile }) : null,
+      ].filter((item) => item)}
     />
   );
 };

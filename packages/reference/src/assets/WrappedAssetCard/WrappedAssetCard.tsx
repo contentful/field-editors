@@ -3,7 +3,7 @@ import { css } from 'emotion';
 import tokens from '@contentful/f36-tokens';
 import { SpaceAPI } from '@contentful/app-sdk';
 import { renderActions, renderAssetInfo } from './AssetCardActions';
-import { File, Asset } from '../../types';
+import { File, Asset, RenderDragFn } from '../../types';
 import { entityHelpers } from '@contentful/field-editor-shared';
 import { MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
 
@@ -46,7 +46,7 @@ export interface WrappedAssetCardProps {
   onEdit?: () => void;
   onRemove?: () => void;
   size: 'default' | 'small';
-  cardDragHandle?: React.ReactElement;
+  renderDragHandle?: RenderDragFn;
   isClickable: boolean;
 }
 
@@ -96,13 +96,16 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
     ? props.asset.fields.file[props.localeCode] || props.asset.fields.file[props.defaultLocaleCode]
     : undefined;
 
+  const href = getAssetUrl ? getAssetUrl(props.asset.sys.id) : undefined;
+
   return (
     <AssetCard
+      as={href ? 'a' : 'article'}
       type={getFileType(entityFile)}
       title={entityTitle}
       className={className}
       isSelected={isSelected}
-      href={getAssetUrl ? getAssetUrl(props.asset.sys.id) : undefined}
+      href={href}
       status={status}
       icon={
         <ScheduledIconWithTooltip
@@ -130,11 +133,12 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
         if (!isClickable) return;
         onEdit && onEdit();
       }}
-      withDragHandle={!!props.cardDragHandle}
+      dragHandleRender={props.renderDragHandle}
+      withDragHandle={!!props.renderDragHandle}
       actions={[
-        renderActions({ entityFile, isDisabled: isDisabled, onEdit, onRemove }),
-        entityFile ? renderAssetInfo({ entityFile }) : null,
-      ]}
+        ...renderActions({ entityFile, isDisabled: isDisabled, onEdit, onRemove }),
+        ...(entityFile ? renderAssetInfo({ entityFile }) : []),
+      ].filter((item) => item)}
       size={size}
     />
   );

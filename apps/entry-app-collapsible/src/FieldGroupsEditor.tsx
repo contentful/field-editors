@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CardDragHandle } from '@contentful/forma-36-react-components';
+import { CardDragHandle } from '@contentful/f36-components';
 import {
   ModalContent,
   Text,

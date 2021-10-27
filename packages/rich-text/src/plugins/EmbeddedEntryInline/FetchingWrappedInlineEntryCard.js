@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'emotion';
 import tokens from '@contentful/f36-tokens';
-import { InlineEntryCard, MenuItem } from '@contentful/f36-components';
+import { InlineEntryCard, MenuItem, Text } from '@contentful/f36-components';
 import { entityHelpers } from '@contentful/field-editor-shared';
 import { useEntities, ScheduledIconWithTooltip } from '@contentful/field-editor-reference';
 
@@ -37,7 +37,7 @@ export const FetchingWrappedInlineEntryCard = (props) => {
   if (entry === 'failed') {
     return (
       <InlineEntryCard testId={INLINES.EMBEDDED_ENTRY} isSelected={props.isSelected}>
-        Entry missing or inaccessible
+        <Text>Entry missing or inaccessible</Text>
       </InlineEntryCard>
     );
   }
@@ -65,7 +65,7 @@ export const FetchingWrappedInlineEntryCard = (props) => {
             Remove
           </MenuItem>,
         ]}>
-        Entry missing or inaccessible
+        <Text>Entry missing or inaccessible</Text>
       </InlineEntryCard>
     );
   }
@@ -102,7 +102,7 @@ export const FetchingWrappedInlineEntryCard = (props) => {
         entityId={entry.sys.id}>
         <ClockIcon className={styles.scheduledIcon} variant="muted" testId="scheduled-icon" />
       </ScheduledIconWithTooltip>
-      {title}
+      <Text>{title}</Text>
     </InlineEntryCard>
   );
 };

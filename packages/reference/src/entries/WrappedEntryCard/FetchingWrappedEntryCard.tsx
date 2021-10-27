@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { EntryCard } from '@contentful/forma-36-react-components';
-import { ContentType, FieldExtensionSDK, NavigatorSlideInfo } from '../../types';
+import { EntryCard } from '@contentful/f36-components';
+import { ContentType, FieldExtensionSDK, NavigatorSlideInfo, RenderDragFn } from '../../types';
 import { WrappedEntryCard, WrappedEntryCardProps } from './WrappedEntryCard';
 import { MissingEntityCard } from '../../components';
 import type { LinkActionsProps } from '../../components';
@@ -15,7 +15,7 @@ export type EntryCardReferenceEditorProps = ReferenceEditorProps & {
   allContentTypes: ContentType[];
   isDisabled: boolean;
   onRemove: () => void;
-  cardDragHandle?: React.ReactElement;
+  renderDragHandle?: RenderDragFn;
   hasCardEditActions: boolean;
   onMoveTop?: () => void;
   onMoveBottom?: () => void;
@@ -121,7 +121,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       return card;
     }
     if (entry === undefined) {
-      return <EntryCard size={size} loading />;
+      return <EntryCard size={size} isLoading />;
     }
     const sharedCardProps: CustomEntityCardProps = {
       index: props.index,
@@ -134,7 +134,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       size,
       localeCode: props.sdk.field.locale,
       defaultLocaleCode: props.sdk.locales.default,
-      cardDragHandle: props.cardDragHandle,
+      renderDragHandle: props.renderDragHandle,
       onEdit,
       onRemove: onRemoveEntry,
       onMoveTop: props.onMoveTop,

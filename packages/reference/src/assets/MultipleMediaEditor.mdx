@@ -44,6 +44,29 @@ import { newReferenceEditorFakeSdk } from '../__fixtures__/FakeSdk';
 
 </Playground>
 
+<Playground>
+  {() => {
+    const [sdk, mitt] = newReferenceEditorFakeSdk();
+    return (
+      <div>
+        <MultipleMediaEditor
+          viewType="link"
+          sdk={sdk}
+          isInitiallyDisabled={false}
+          parameters={{
+            instance: {
+              showCreateEntityAction: true,
+              showLinkEntityAction: true,
+            }
+          }}
+         />
+        <ActionsPlayground mitt={mitt} />
+      </div>
+    );
+}}
+
+</Playground>
+
 ## With custom actions
 
 Note the alternative link actions injected via the `renderCustomActions` prop.
