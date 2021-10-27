@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-shared",
-  "version": "0.22.1",
+  "version": "0.25.1",
   "main": "dist/index.js",
   "module": "dist/field-editor-shared.esm.js",
   "typings": "dist/index.d.ts",
@@ -21,7 +21,7 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "devDependencies": {
-    "@contentful/app-sdk": "^3.36.0"
+    "@contentful/app-sdk": "^4.2.0"
   },
   "dependencies": {
     "@contentful/f36-note": "next-v4",
@@ -31,7 +31,7 @@
     "lodash-es": "^4.17.15"
   },
   "peerDependencies": {
-    "@contentful/app-sdk": "^3.36.0",
+    "@contentful/app-sdk": "^4.2.0",
     "react": ">=16.8.0"
   },
   "jest": {

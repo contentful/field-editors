@@ -3,6 +3,79 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.21.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.21.1...@contentful/field-editor-reference@2.21.2) (2021-10-18)
+
+
+### Bug Fixes
+
+* [] Remove test utils from peer dependencies ([#889](https://github.com/contentful/field-editors/issues/889)) ([3694bd7](https://github.com/contentful/field-editors/commit/3694bd7e706b8beb1f685167125f36ef0cbe82de))
+
+
+
+
+
+## [2.21.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.21.0...@contentful/field-editor-reference@2.21.1) (2021-10-14)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+
+
+
+
+# [2.21.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.20.11...@contentful/field-editor-reference@2.21.0) (2021-10-06)
+
+
+### Features
+
+* [EXT-3161] bump app sdk to v4 ([#881](https://github.com/contentful/field-editors/issues/881)) ([9c4a2af](https://github.com/contentful/field-editors/commit/9c4a2af07da203d59fb5f15c3a5188ecc64b1d44))
+
+
+
+
+
+## [2.20.11](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.20.10...@contentful/field-editor-reference@2.20.11) (2021-10-06)
+
+
+### Bug Fixes
+
+* **reference:** consistent ordering of link actions ([#884](https://github.com/contentful/field-editors/issues/884)) ([1a6bae7](https://github.com/contentful/field-editors/commit/1a6bae7825b09d91151bd80e7f55c0c1cf5ec27c))
+
+
+
+
+
+## [2.20.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.20.9...@contentful/field-editor-reference@2.20.10) (2021-09-20)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+
+
+
+
+## [2.20.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.20.8...@contentful/field-editor-reference@2.20.9) (2021-09-17)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+
+
+
+
+## [2.20.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.20.7...@contentful/field-editor-reference@2.20.8) (2021-09-17)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+
+
+
+
+## [2.20.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.20.6...@contentful/field-editor-reference@2.20.7) (2021-09-16)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+
+
+
+
 ## [2.20.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@2.20.5...@contentful/field-editor-reference@2.20.6) (2021-08-19)
 
 **Note:** Version bump only for package @contentful/field-editor-reference

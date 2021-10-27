@@ -4,8 +4,7 @@ import tokens from '@contentful/forma-36-tokens';
 import { SpaceAPI } from '@contentful/app-sdk';
 import { DropdownList, DropdownListItem, EntryCard } from '@contentful/forma-36-react-components';
 import { ContentType, Entry, File } from '../../types';
-import { isValidImage } from '../../utils/isValidImage';
-import { entityHelpers } from '@contentful/field-editor-shared';
+import { entityHelpers, isValidImage } from '@contentful/field-editor-shared';
 import { AssetThumbnail, MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
 
 import { ClockIcon } from '@contentful/f36-icons';

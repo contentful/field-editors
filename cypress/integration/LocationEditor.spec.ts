@@ -1,5 +1,5 @@
 const LOCATION_1 = {
-  address: 'Platz der Deutschen Einheit 1, 20457 Hamburg, Germany',
+  address: 'Platz d. Deutschen Einheit 1, 20457 Hamburg, Germany',
   value: { lon: 9.98413, lat: 53.54132 },
 };
 const LOCATION_2 = {

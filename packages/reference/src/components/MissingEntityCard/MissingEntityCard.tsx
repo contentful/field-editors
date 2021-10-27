@@ -1,14 +1,12 @@
 import React from 'react';
-import { Card } from '@contentful/f36-components';
-import { EntityType } from '../../types';
-import * as styles from './styles';
-
-import { SectionHeading, IconButton } from '@contentful/f36-components';
-
+import { Card, SectionHeading, IconButton } from '@contentful/f36-components';
 import { CloseIcon } from '@contentful/f36-icons';
 
+import { ContentEntityType } from '../../types';
+import * as styles from './styles';
+
 export function MissingEntityCard(props: {
-  entityType: EntityType;
+  entityType: ContentEntityType;
   asSquare?: boolean;
   isDisabled: boolean;
   onRemove?: Function;

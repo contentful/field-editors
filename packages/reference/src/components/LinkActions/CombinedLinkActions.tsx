@@ -141,18 +141,18 @@ function CombinedAssetLinkActions(props: LinkActionsProps) {
       </Menu.Trigger>
       <Menu.List testId={testIds.dropdown}>
         <Menu.Item
-          testId={testIds.createAndLink}
-          onClick={() => {
-            props.onCreate();
-          }}>
-          Add new media
-        </Menu.Item>
-        <Menu.Item
           testId={testIds.linkExisting}
           onClick={() => {
             props.onLinkExisting();
           }}>
           Add existing media
+        </Menu.Item>
+        <Menu.Item
+          testId={testIds.createAndLink}
+          onClick={() => {
+            props.onCreate();
+          }}>
+          Add new media
         </Menu.Item>
       </Menu.List>
     </Menu>

@@ -1,13 +1,13 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useContentTypePermissions } from './useContentTypePermissions';
-import { ContentType, EntityType, FieldExtensionSDK } from '../types';
+import { ContentType, ContentEntityType, FieldExtensionSDK } from '../types';
 import { ReferenceEditorProps } from './ReferenceEditor';
 import { useAccessApi } from './useAccessApi';
 import { fromFieldValidations } from '../utils/fromFieldValidations';
 
 export type EditorPermissionsProps = {
   sdk: FieldExtensionSDK;
-  entityType: EntityType;
+  entityType: ContentEntityType;
   parameters: ReferenceEditorProps['parameters'];
   allContentTypes: ContentType[];
 };

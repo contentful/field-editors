@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import {
   Action,
   ActionLabels,
-  EntityType,
+  ContentEntityType,
   FieldExtensionSDK,
   Entry,
   Asset,
@@ -14,7 +14,7 @@ import { createEntity, selectMultipleEntities, selectSingleEntity } from './help
 import { EditorPermissions } from '../../common/useEditorPermissions';
 
 type LinkEntityActionsProps = {
-  entityType: EntityType;
+  entityType: ContentEntityType;
   canLinkMultiple: boolean;
   sdk: FieldExtensionSDK;
   isDisabled: boolean;

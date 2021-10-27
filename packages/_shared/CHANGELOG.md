@@ -3,6 +3,47 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.25.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@0.25.0...@contentful/field-editor-shared@0.25.1) (2021-10-14)
+
+**Note:** Version bump only for package @contentful/field-editor-shared
+
+
+
+
+
+# [0.25.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@0.24.0...@contentful/field-editor-shared@0.25.0) (2021-10-06)
+
+
+### Features
+
+* [EXT-3161] bump app sdk to v4 ([#881](https://github.com/contentful/field-editors/issues/881)) ([9c4a2af](https://github.com/contentful/field-editors/commit/9c4a2af07da203d59fb5f15c3a5188ecc64b1d44))
+
+
+
+
+
+# [0.24.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@0.23.0...@contentful/field-editor-shared@0.24.0) (2021-09-17)
+
+
+### Features
+
+* add shortenStorageUnit util to shared ([#852](https://github.com/contentful/field-editors/issues/852)) ([142472b](https://github.com/contentful/field-editors/commit/142472b57fc1ca2843dd414c5320fdb5b5b11e62))
+
+
+
+
+
+# [0.23.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@0.22.1...@contentful/field-editor-shared@0.23.0) (2021-09-16)
+
+
+### Features
+
+* export shared util to validate images ([#846](https://github.com/contentful/field-editors/issues/846)) ([f26c481](https://github.com/contentful/field-editors/commit/f26c481cc5abf275acb4e4a65b462be487708117))
+
+
+
+
+
 ## [0.22.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@0.22.0...@contentful/field-editor-shared@0.22.1) (2021-08-19)
 
 

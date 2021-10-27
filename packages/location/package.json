@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-location",
-  "version": "0.12.2",
+  "version": "0.13.1",
   "main": "dist/index.js",
   "module": "dist/field-editor-location.esm.js",
   "typings": "dist/index.d.ts",
@@ -19,7 +19,7 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
-    "@contentful/field-editor-shared": "^0.22.1",
+    "@contentful/field-editor-shared": "^0.25.1",
     "@contentful/forma-36-react-components": "^3.93.4",
     "@contentful/forma-36-tokens": "^0.11.0",
     "@contentful/f36-components": "next-v4",
@@ -31,7 +31,7 @@
     "lodash-es": "^4.17.15"
   },
   "devDependencies": {
-    "@contentful/field-editor-test-utils": "^0.17.1"
+    "@contentful/field-editor-test-utils": "^0.18.1"
   },
   "peerDependencies": {
     "react": ">=16.8.0"

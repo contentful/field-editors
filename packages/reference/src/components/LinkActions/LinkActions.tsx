@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as styles from './styles';
 import {
-  EntityType,
+  ContentEntityType,
   ContentType,
   ActionLabels,
   Entry,
@@ -16,7 +16,7 @@ import { Button } from '@contentful/f36-components';
 import { PlusIcon, LinkIcon } from '@contentful/f36-icons';
 
 export interface LinkActionsProps {
-  entityType: EntityType;
+  entityType: ContentEntityType;
   contentTypes: ContentType[];
   canCreateEntity: boolean;
   canLinkEntity: boolean;

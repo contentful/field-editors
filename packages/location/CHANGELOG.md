@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-location@0.13.0...@contentful/field-editor-location@0.13.1) (2021-10-14)
+
+**Note:** Version bump only for package @contentful/field-editor-location
+
+
+
+
+
+# [0.13.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-location@0.12.4...@contentful/field-editor-location@0.13.0) (2021-10-06)
+
+
+### Features
+
+* [EXT-3161] bump app sdk to v4 ([#881](https://github.com/contentful/field-editors/issues/881)) ([9c4a2af](https://github.com/contentful/field-editors/commit/9c4a2af07da203d59fb5f15c3a5188ecc64b1d44))
+
+
+
+
+
+## [0.12.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-location@0.12.3...@contentful/field-editor-location@0.12.4) (2021-09-17)
+
+**Note:** Version bump only for package @contentful/field-editor-location
+
+
+
+
+
+## [0.12.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-location@0.12.2...@contentful/field-editor-location@0.12.3) (2021-09-16)
+
+**Note:** Version bump only for package @contentful/field-editor-location
+
+
+
+
+
 ## [0.12.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-location@0.12.1...@contentful/field-editor-location@0.12.2) (2021-08-19)
 
 **Note:** Version bump only for package @contentful/field-editor-location

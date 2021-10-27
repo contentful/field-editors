@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@0.13.5...@contentful/field-editor-number@0.13.6) (2021-10-14)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+
+
+
+
+## [0.13.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@0.13.4...@contentful/field-editor-number@0.13.5) (2021-10-06)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+
+
+
+
+## [0.13.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@0.13.3...@contentful/field-editor-number@0.13.4) (2021-09-17)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+
+
+
+
+## [0.13.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@0.13.2...@contentful/field-editor-number@0.13.3) (2021-09-16)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+
+
+
+
 ## [0.13.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@0.13.1...@contentful/field-editor-number@0.13.2) (2021-08-19)
 
 **Note:** Version bump only for package @contentful/field-editor-number

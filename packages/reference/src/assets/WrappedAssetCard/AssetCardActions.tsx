@@ -1,10 +1,9 @@
 import React from 'react';
 import { Menu } from '@contentful/f36-components';
+import { shortenStorageUnit } from '@contentful/field-editor-shared';
 import { css } from 'emotion';
 import { File } from '../../types';
 import get from 'lodash/get';
-
-import { shortenStorageUnit } from './shortenStorageUnit';
 
 const styles = {
   cardDropdown: css({
@@ -72,7 +71,13 @@ export function renderActions(props: {
         </Menu.Item>
       )}
       {entityFile && (
-        <Menu.Item onClick={() => downloadAsset(entityFile.url)} testId="card-action-download">
+        <Menu.Item
+          onClick={() => {
+            if (typeof entityFile.url === 'string') {
+              downloadAsset(entityFile.url);
+            }
+          }}
+          testId="card-action-download">
           Download
         </Menu.Item>
       )}

@@ -117,7 +117,7 @@ function useEntitiesStore(props: { sdk: BaseExtensionSDK }) {
   const loadAsset = React.useCallback(
     (id: string) => {
       return props.sdk.space
-        .getAsset<Asset>(id)
+        .getAsset(id)
         .then((asset) => {
           dispatch({ type: 'set_asset', id, asset });
           return asset;
