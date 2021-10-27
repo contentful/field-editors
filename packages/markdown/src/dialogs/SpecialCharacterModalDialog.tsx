@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { DialogsAPI } from '@contentful/app-sdk';
 import { css } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 import {
   ModalContent,
   ModalControls,

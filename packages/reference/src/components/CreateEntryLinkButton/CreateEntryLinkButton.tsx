@@ -2,7 +2,7 @@ import React from 'react';
 import get from 'lodash/get';
 import { css } from 'emotion';
 import { ContentType } from '../../types';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 import { CreateEntryMenuTrigger } from './CreateEntryMenuTrigger';
 
 import { Button } from '@contentful/f36-components';

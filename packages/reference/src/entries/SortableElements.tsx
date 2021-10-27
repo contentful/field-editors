@@ -1,6 +1,6 @@
 import React from 'react';
 import { css } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 import { FetchingWrappedEntryCard } from './WrappedEntryCard/FetchingWrappedEntryCard';
 import { ContentType, ReferenceValue } from '../types';
 import { ReferenceEditorProps } from '../common/ReferenceEditor';

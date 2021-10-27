@@ -2,7 +2,7 @@ import isHotkey from 'is-hotkey';
 import markDecorator from './MarkDecorator';
 import { haveMarks } from './UtilHave';
 import { css } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 
 const styles = {
   // TODO: Ensure a bold mark on a headline makes the heading appear even

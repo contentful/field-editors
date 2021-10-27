@@ -1,6 +1,6 @@
 import React from 'react';
 import { css } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 import { SpaceAPI } from '@contentful/app-sdk';
 import { renderActions, renderAssetInfo } from './AssetCardActions';
 import { File, Asset } from '../../types';

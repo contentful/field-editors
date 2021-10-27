@@ -3,7 +3,7 @@ import React from 'react';
 import { css, cx } from 'emotion';
 import { Button, Flex, Tooltip } from '@contentful/f36-components';
 import type { ButtonProps } from '@contentful/f36-components';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 import {
   HeadingIcon,
   FormatBoldIcon,

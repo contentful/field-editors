@@ -1,6 +1,6 @@
 import React from 'react';
 import { css } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 import { EntryCard } from '@contentful/forma-36-react-components';
 import { renderActions, renderAssetInfo } from './AssetCardActions';
 import { Asset } from '../../types';

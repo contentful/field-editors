@@ -2,7 +2,7 @@
 
 import fs from 'fs';
 
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 
 const pikadayStyles = fs.readFileSync(process.cwd() + '/packages/date/styles/styles.css');
 

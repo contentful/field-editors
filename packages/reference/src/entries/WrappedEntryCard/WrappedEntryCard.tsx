@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { css } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 import { SpaceAPI } from '@contentful/app-sdk';
 import { DropdownList, DropdownListItem, EntryCard } from '@contentful/forma-36-react-components';
 import { ContentType, Entry, File } from '../../types';

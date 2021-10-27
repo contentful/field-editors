@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { css } from 'emotion';
 import get from 'lodash/get';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 import { ContentType } from '../../types';
 
 import { SearchIcon } from '@contentful/f36-icons';

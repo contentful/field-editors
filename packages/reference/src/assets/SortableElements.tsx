@@ -1,6 +1,6 @@
 import React from 'react';
 import { css } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 import { DragHandle } from '@contentful/f36-components';
 import { FetchingWrappedAssetCard } from './WrappedAssetCard/FetchingWrappedAssetCard';
 import { ReferenceValue } from '../types';
