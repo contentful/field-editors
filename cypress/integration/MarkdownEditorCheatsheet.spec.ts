@@ -10,7 +10,7 @@ describe('Markdown Editor / Cheatsheet Dialog', () => {
     },
     getCheatsheetContent() {
       return cy.findByTestId('markdown-cheatsheet-dialog-content');
-    }
+    },
   };
 
   beforeEach(() => {
