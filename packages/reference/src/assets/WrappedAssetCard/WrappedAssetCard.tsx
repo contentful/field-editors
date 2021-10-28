@@ -127,7 +127,6 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
             : `${entityFile.url}?h=300`
           : ''
       }
-      // @ts-expect-error
       onClick={(e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
         if (!isClickable) return;
