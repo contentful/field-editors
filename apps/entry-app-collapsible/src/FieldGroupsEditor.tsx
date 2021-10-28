@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CardDragHandle } from '@contentful/forma-36-react-components';
+import { DragHandle } from '@contentful/f36-components';
 import {
   ModalContent,
   Text,
@@ -26,8 +26,8 @@ interface FieldGroupsEditorProps {
   onClose: () => void;
 }
 
-const DragHandle = SortableHandle(() => (
-  <CardDragHandle className={styles.handle}>Reorder item</CardDragHandle>
+const SortableDragHandle = SortableHandle(() => (
+  <DragHandle label="Reorder item" className={styles.handle} />
 ));
 
 const SortableFieldItem = SortableElement(
@@ -39,7 +39,7 @@ const SortableFieldItem = SortableElement(
     return (
       <Card className={styles.card}>
         <div className={styles.cardInfo}>
-          <DragHandle />
+          <SortableDragHandle />
           <Paragraph marginBottom="none" className={styles.fieldName}>
             {field.name}
           </Paragraph>

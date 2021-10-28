@@ -4,7 +4,7 @@ import ToolbarIcon from '../shared/ToolbarIcon';
 import blockSelectDecorator from '../shared/BlockSelectDecorator';
 import { haveTextInSomeBlocks } from '../shared/UtilHave';
 import { css, cx } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 import { HorizontalRuleIcon } from '@contentful/f36-icons';
 
 const styles = {

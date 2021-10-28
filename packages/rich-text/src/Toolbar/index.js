@@ -32,7 +32,7 @@ import Hr from '../plugins/Hr';
 import { BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types';
 
 import { isNodeTypeEnabled, isMarkEnabled } from '../validations';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 
 const styles = {
   toolbar: css({

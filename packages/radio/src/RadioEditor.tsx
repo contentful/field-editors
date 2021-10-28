@@ -61,7 +61,7 @@ export function RadioEditor(props: RadioEditorProps) {
               const id = ['entity', field.id, field.locale, index, item.id].join('.');
               const checked = value === item.value;
               return (
-                <Flex key={id} alignItems="center">
+                <Flex key={id} alignItems="center" marginBottom="spacingS">
                   <Radio
                     id={id}
                     isDisabled={disabled}

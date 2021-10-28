@@ -42,10 +42,19 @@ here by filing a [Github issue][github-issues]!
 
 ### Styles
 
-To achieve the same field editor look as in the Contentful UI, you need to include Contentful's Forma 36 styles in your project.
+To achieve the same field editor look as in the Contentful UI, you need to render `GlobalStyled` component.
 
-```
-import '@contentful/forma-36-react-components/dist/styles.css';
+```jsx
+import { GlobalStyles } '@contentful/f36-components';
+
+function Root() {
+  return (
+    <>
+      <GlobalStyles />
+      <MyApp />
+    </>
+  );
+}
 ```
 
 ## Getting started & contributing

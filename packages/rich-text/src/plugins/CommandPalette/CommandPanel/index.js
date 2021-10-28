@@ -11,7 +11,7 @@ import { fetchEntries, fetchAssets, CommandPaletteActionBuilder } from '../Comma
 import { removeCommand } from '../Util';
 import CommandPanelMenu from './CommandPanelMenu';
 import { InViewport } from './InViewport/InViewport';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 
 const DEFAULT_POSITION = {
   top: 0,

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import isHotKey from 'is-hotkey';
 import cn from 'classnames';
 import { css } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 import uniqBy from 'lodash/uniqBy';
 import { CloseIcon } from '@contentful/f36-icons';
 import {

@@ -9,7 +9,7 @@ import { MarkdownPreview } from '../components/MarkdownPreview';
 import { MarkdownBottomBar, MarkdownHelp } from '../components/MarkdownBottomBar';
 import { createMarkdownActions } from '../MarkdownActions';
 import { openCheatsheetModal } from '../dialogs/CheatsheetModalDialog';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 
 import { ChevronRightIcon, ChevronLeftIcon } from '@contentful/f36-icons';
 

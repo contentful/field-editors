@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { css } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 import { SpaceAPI } from '@contentful/app-sdk';
-import { DropdownList, DropdownListItem, EntryCard } from '@contentful/forma-36-react-components';
-import { ContentType, Entry, File } from '../../types';
+import { EntryCard, MenuItem, MenuDivider } from '@contentful/f36-components';
+import { ContentType, Entry, File, RenderDragFn } from '../../types';
 import { entityHelpers, isValidImage } from '@contentful/field-editor-shared';
 import { AssetThumbnail, MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
 
@@ -30,7 +30,7 @@ export interface WrappedEntryCardProps {
   defaultLocaleCode: string;
   contentType?: ContentType;
   entry: Entry;
-  cardDragHandle?: React.ReactElement;
+  renderDragHandle?: RenderDragFn;
   isClickable?: boolean;
   hasCardEditActions: boolean;
   onMoveTop?: () => void;
@@ -97,17 +97,16 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
   });
 
   return (
-    // TODO: There should be dedicated components for each `size` with a different
-    //  set of params (e.g. `file` should only be relevant for the "small" size card.
     <EntryCard
+      as={props.entryUrl ? 'a' : 'article'}
       href={props.entryUrl}
       title={title}
       description={description}
       contentType={contentType?.name}
       size={props.size}
-      selected={props.isSelected}
+      isSelected={props.isSelected}
       status={status}
-      statusIcon={
+      icon={
         <ScheduledIconWithTooltip
           getEntityScheduledActions={props.getEntityScheduledActions}
           entityType="Entry"
@@ -120,64 +119,51 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
           />
         </ScheduledIconWithTooltip>
       }
-      thumbnailElement={file && isValidImage(file) ? <AssetThumbnail file={file} /> : null}
-      cardDragHandleComponent={props.cardDragHandle}
-      withDragHandle={!!props.cardDragHandle}
-      dropdownListElements={
-        props.onEdit || props.onRemove ? (
-          <React.Fragment>
-            <DropdownList
-              // @ts-expect-error
-              onClick={(e) => {
-                e.stopPropagation();
-              }}>
-              {props.hasCardEditActions && props.onEdit && (
-                <DropdownListItem
+      thumbnailElement={file && isValidImage(file) ? <AssetThumbnail file={file} /> : undefined}
+      dragHandleRender={props.renderDragHandle}
+      withDragHandle={!!props.renderDragHandle}
+      actions={
+        props.onEdit || props.onRemove
+          ? [
+              props.hasCardEditActions && props.onEdit ? (
+                <MenuItem
+                  key="edit"
+                  testId="edit"
                   onClick={() => {
                     props.onEdit && props.onEdit();
-                  }}
-                  testId="edit">
+                  }}>
                   Edit
-                </DropdownListItem>
-              )}
-              {props.onRemove && (
-                <DropdownListItem
+                </MenuItem>
+              ) : null,
+              props.onRemove ? (
+                <MenuItem
+                  key="delete"
+                  testId="delete"
                   onClick={() => {
                     props.onRemove && props.onRemove();
-                  }}
-                  isDisabled={props.isDisabled}
-                  testId="delete">
+                  }}>
                   Remove
-                </DropdownListItem>
-              )}
-            </DropdownList>
-            {props.hasMoveOptions ? (
-              <DropdownList
-                border="top"
-                // @ts-expect-error
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}>
-                <DropdownListItem
-                  onClick={() => props.onMoveTop && props.onMoveTop()}
-                  isDisabled={!props.onMoveTop}
-                  testId="move-top">
+                </MenuItem>
+              ) : null,
+              props.hasMoveOptions && (props.onMoveTop || props.onMoveBottom) ? (
+                <MenuDivider />
+              ) : null,
+              props.hasMoveOptions && props.onMoveTop ? (
+                <MenuItem onClick={() => props.onMoveTop && props.onMoveTop()} testId="move-top">
                   Move to top
-                </DropdownListItem>
-                <DropdownListItem
+                </MenuItem>
+              ) : null,
+              props.hasMoveOptions && props.onMoveBottom ? (
+                <MenuItem
                   onClick={() => props.onMoveBottom && props.onMoveBottom()}
-                  isDisabled={!props.onMoveBottom}
                   testId="move-bottom">
                   Move to bottom
-                </DropdownListItem>
-              </DropdownList>
-            ) : (
-              <React.Fragment />
-            )}
-          </React.Fragment>
-        ) : undefined
+                </MenuItem>
+              ) : null,
+            ].filter((item) => item)
+          : []
       }
-      onClick={(e) => {
+      onClick={(e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
         if (!props.isClickable) return;
         props.onEdit && props.onEdit();
