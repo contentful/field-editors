@@ -10,6 +10,7 @@ import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { entityHelpers, File, shortenStorageUnit } from '@contentful/field-editor-shared';
 import mimetype from '@contentful/mimetype';
 import { css } from 'emotion';
+import get from 'lodash/get';
 import { EntityStatusIcon } from './EntityStatusIcon';
 
 const styles = {
@@ -42,8 +43,10 @@ interface AssetDropdownMenuProps {
 }
 
 function AssetDropdownMenu({ onEdit, onRemove, isDisabled, entityFile }: AssetDropdownMenuProps) {
-  const { fileName, contentType: mimeType, details } = entityFile;
-  const { size: fileSize, image } = details;
+  const fileName = get(entityFile, 'fileName');
+  const fileSize = get(entityFile, 'details.size');
+  const image = get(entityFile, 'details.image');
+  const mimeType = get(entityFile, 'contentType');
 
   function downloadAsset() {
     if (!entityFile) return;
