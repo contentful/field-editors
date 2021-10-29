@@ -1,4 +1,3 @@
-import * as React from 'react';
 import constate from 'constate';
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { useStoreEditorRef } from '@udecode/plate-core';
@@ -17,17 +16,6 @@ interface useContentfulEditorHookProps {
 function useContentfulEditorHook({ sdk }: useContentfulEditorHookProps) {
   const editorId = getContentfulEditorId(sdk);
   const editor = useStoreEditorRef(editorId);
-  const [selection, setSelection] = React.useState(editor?.selection ?? null);
-
-  React.useEffect(() => {
-    if (!editor?.selection) return;
-
-    setSelection(editor.selection);
-  }, [editor?.selection]);
-
-  if (editor && !editor?.selection && selection) {
-    editor.selection = selection;
-  }
 
   return editor;
 }

@@ -31,11 +31,11 @@ export function EmbeddedEntityBlockToolbarIcon({
   const editor = useContentfulEditor();
   const sdk: FieldExtensionSDK = useSdkContext();
 
-  const handleClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
     onClose();
-    await selectEntityAndInsert(nodeType, sdk, editor, logAction || noop);
+    selectEntityAndInsert(nodeType, sdk, editor, logAction || noop);
   };
 
   const type = getEntityTypeFromNodeType(nodeType);
