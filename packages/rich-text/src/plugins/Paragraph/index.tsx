@@ -4,9 +4,10 @@ import { ELEMENT_PARAGRAPH } from '@udecode/plate-paragraph';
 import { BLOCKS } from '@contentful/rich-text-types';
 import tokens from '@contentful/forma-36-tokens';
 import { RenderElementProps } from 'slate-react';
-import { PlatePlugin, getRenderElement, getPlatePluginOptions } from '@udecode/plate-core';
+import { PlatePlugin, getRenderElement } from '@udecode/plate-core';
 import { getToggleElementOnKeyDown } from '@udecode/plate-common';
 import { CustomSlatePluginOptions } from '../../types';
+import { deserializeElement } from '../../helpers/deserializer';
 
 const styles = {
   [BLOCKS.PARAGRAPH]: css`
@@ -30,29 +31,11 @@ export function createParagraphPlugin(): PlatePlugin {
     renderElement: getRenderElement(elementKeys),
     pluginKeys: elementKeys,
     onKeyDown: getToggleElementOnKeyDown(BLOCKS.PARAGRAPH),
-    deserialize: (editor) => {
-      const options = getPlatePluginOptions(editor, BLOCKS.PARAGRAPH);
-
-      return {
-        element: [
-          {
-            type: BLOCKS.PARAGRAPH,
-            deserialize: (element) => {
-              const isParagraphText = element.nodeName === 'P';
-              const isNotEmpty = element.textContent !== '';
-              const isText = isParagraphText && isNotEmpty;
-
-              if (!isText) return;
-
-              return {
-                type: BLOCKS.PARAGRAPH,
-              };
-            },
-            ...options.deserialize,
-          },
-        ],
-      };
-    },
+    deserialize: deserializeElement(BLOCKS.PARAGRAPH, [
+      {
+        nodeNames: ['P'],
+      },
+    ]),
   };
 }
 
