@@ -4,7 +4,10 @@ export type SanitizerTuple = [Document, SPEditor];
 
 type Predicate = (node: ChildNode) => boolean;
 
-const removeChildNodes = (node: ChildNode, predicate: Predicate) =>
+export const isHTMLElement = (node: ChildNode): node is HTMLElement =>
+  node.nodeType === Node.ELEMENT_NODE;
+
+export const removeChildNodes = (node: ChildNode, predicate: Predicate = Boolean) =>
   Array.from(node.childNodes)
     .filter(predicate)
     .forEach((table) => node.removeChild(table));

@@ -1,15 +1,11 @@
 import { BLOCKS } from '@contentful/rich-text-types';
 import { getNodeEntryFromSelection } from '../../../helpers/editor';
-import { removeChildNodesUsingPredicate, SanitizerTuple } from './helpers';
+import { isHTMLElement, removeChildNodesUsingPredicate, SanitizerTuple } from './helpers';
 
 const TAG_NAME_TABLE = 'TABLE';
 const TAG_NAME_TABLE_CAPTION = 'CAPTION';
-const DISALLOWED_TABLE_CHILD_ELEMENTS: Element['tagName'][] = [
-  TAG_NAME_TABLE_CAPTION,
-];
+const DISALLOWED_TABLE_CHILD_ELEMENTS: Element['tagName'][] = [TAG_NAME_TABLE_CAPTION];
 type DisallowedTableChildElement = HTMLTableCaptionElement;
-
-const isHTMLElement = (node: ChildNode): node is HTMLElement => node.nodeType === Node.ELEMENT_NODE;
 
 const isTableElement = (node: ChildNode): node is HTMLTableElement =>
   isHTMLElement(node) && node.tagName === TAG_NAME_TABLE;
@@ -17,7 +13,9 @@ const isTableElement = (node: ChildNode): node is HTMLTableElement =>
 const isDisallowedTableChildElement = (node: ChildNode): node is DisallowedTableChildElement =>
   isHTMLElement(node) && DISALLOWED_TABLE_CHILD_ELEMENTS.includes(node.tagName);
 
-const removeDisallowedTableChildElements = removeChildNodesUsingPredicate(isDisallowedTableChildElement);
+const removeDisallowedTableChildElements = removeChildNodesUsingPredicate(
+  isDisallowedTableChildElement
+);
 
 const removeTableGrandchildren = (nodeList: NodeList) => {
   const nodes = Array.from(nodeList);
