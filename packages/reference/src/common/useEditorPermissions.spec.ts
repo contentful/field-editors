@@ -14,13 +14,13 @@ describe('useEditorPermissions', () => {
   };
 
   const makeFieldExtensionSDK = (customizeMock?: (fieldApi: FieldAPI) => FieldAPI) =>
-    (({
+    ({
       field: createFakeFieldAPI(customizeMock)[0],
       access: {
         can: jest.fn().mockResolvedValue(true),
         canPerformActionOnEntryOfType: jest.fn().mockResolvedValue(true),
       },
-    } as unknown) as MockedFieldExtensionSDK);
+    } as unknown as MockedFieldExtensionSDK);
 
   const makeContentType = (id: string) =>
     ({

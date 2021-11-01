@@ -2,10 +2,10 @@ import * as contentfulSlateJSAdapter from '@contentful/contentful-slatejs-adapte
 import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
 import schema from '../../constants/Schema';
 
-export const getCharacterCount = editor => {
+export const getCharacterCount = (editor) => {
   const document = contentfulSlateJSAdapter.toContentfulDocument({
     document: editor.value.document.toJSON(),
-    schema
+    schema,
   });
   return documentToPlainTextString(document).length;
 };

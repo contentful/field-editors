@@ -1,6 +1,6 @@
 import { BLOCKS } from '@contentful/rich-text-types';
 
-const getParent = editor => {
+const getParent = (editor) => {
   const range = editor.value.selection;
 
   if (!range.start.key) {
@@ -12,7 +12,7 @@ const getParent = editor => {
   return editor.value.document.getParent(startBlock.key);
 };
 
-export const isSelectionInQuote = editor => {
+export const isSelectionInQuote = (editor) => {
   const ancestor = getParent(editor);
 
   if (!ancestor) {
@@ -28,7 +28,7 @@ export const isSelectionInQuote = editor => {
  * @param {slate.Editor} editor
  * @returns {boolean} New toggle state after the change.
  */
-export const applyChange = editor => {
+export const applyChange = (editor) => {
   const isActive = isSelectionInQuote(editor);
   if (isActive) {
     editor.unwrapBlock(BLOCKS.QUOTE);

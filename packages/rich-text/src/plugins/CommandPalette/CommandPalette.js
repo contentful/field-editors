@@ -6,7 +6,7 @@ import CommandPanel from './CommandPanel';
 class CommandPalette extends React.PureComponent {
   static propTypes = {
     editor: PropTypes.object,
-    richTextAPI: PropTypes.object
+    richTextAPI: PropTypes.object,
   };
 
   constructor(props) {
@@ -15,7 +15,7 @@ class CommandPalette extends React.PureComponent {
     const { field } = this.props.richTextAPI.sdk;
 
     this.state = {
-      embedsEnabled: isEmbeddingEnabled(field)
+      embedsEnabled: isEmbeddingEnabled(field),
     };
   }
 

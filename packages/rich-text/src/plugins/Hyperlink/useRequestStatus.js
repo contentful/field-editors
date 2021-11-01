@@ -48,27 +48,27 @@ async function fetchAllData({ sdk, entityId, entityType, localeCode, defaultLoca
   };
 }
 
-export function useRequestStatus({richTextAPI, target}) {
+export function useRequestStatus({ richTextAPI, target }) {
   const { sdk } = richTextAPI;
 
   const [requestStatus, setRequestStatus] = React.useState({ type: 'loading' });
 
   React.useEffect(() => {
     if (target) {
-    fetchAllData({
-      sdk,
-      entityId: target?.sys?.id,
-      entityType: target?.sys?.linkType,
-      localeCode: sdk.field.locale,
-      defaultLocaleCode: sdk.locales.default,
-    })
-      .then((entityInfo) => {
-        setRequestStatus({ type: 'success', data: entityInfo });
+      fetchAllData({
+        sdk,
+        entityId: target?.sys?.id,
+        entityType: target?.sys?.linkType,
+        localeCode: sdk.field.locale,
+        defaultLocaleCode: sdk.locales.default,
       })
-      .catch((e) => {
-        console.log(e);
-        setRequestStatus({ type: 'error', error: e });
-      });
+        .then((entityInfo) => {
+          setRequestStatus({ type: 'success', data: entityInfo });
+        })
+        .catch((e) => {
+          console.log(e);
+          setRequestStatus({ type: 'error', error: e });
+        });
     }
   }, [target]); // eslint-disable-line
 

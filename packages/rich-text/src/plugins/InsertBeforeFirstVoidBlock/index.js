@@ -12,5 +12,5 @@ export const InsertBeforeFirstVoidBlockPlugin = () => ({
     }
 
     return next();
-  }
+  },
 });

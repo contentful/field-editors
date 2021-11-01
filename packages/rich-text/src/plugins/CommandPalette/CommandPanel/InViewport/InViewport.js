@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { cx, css } from 'emotion';
 
-
 const throttle = (delay = 200, fn) => {
   let lastCall = 0;
   const throttleExec = (...args) => {
@@ -69,11 +68,7 @@ export class InViewport extends Component {
     }
   };
 
-  handleOverflow = (
-    { top, left, bottom, right },
-    windowWidth,
-    windowHeight
-  ) => {
+  handleOverflow = ({ top, left, bottom, right }, windowWidth, windowHeight) => {
     const { offset } = this.props;
     const topThreshold = 0 - offset;
     const leftThreshold = 0 - offset;
@@ -137,5 +132,5 @@ InViewport.propTypes = {
   onOverflowLeft: PropTypes.func,
   className: PropTypes.string,
   children: PropTypes.any,
-  testId: PropTypes.string
-}
+  testId: PropTypes.string,
+};

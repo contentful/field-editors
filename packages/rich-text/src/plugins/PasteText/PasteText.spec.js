@@ -6,7 +6,7 @@ import {
   text,
   leaf,
   createPasteHtmlEvent,
-  createPasteEvent
+  createPasteEvent,
 } from './../shared/PasteTestHelpers';
 
 import { BLOCKS } from '@contentful/rich-text-types';
@@ -17,10 +17,10 @@ const emptyInitialValue = Value.create({
     nodes: [
       Block.create({
         type: BLOCKS.PARAGRAPH,
-        nodes: List([Text.create('')])
-      })
-    ]
-  })
+        nodes: List([Text.create('')]),
+      }),
+    ],
+  }),
 });
 
 describe('PasteText Plugin', () => {

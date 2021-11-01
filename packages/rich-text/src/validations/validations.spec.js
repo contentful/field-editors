@@ -6,18 +6,18 @@ const fakeFieldInfo = (enabledNodeTypes, enabledMarks) => {
 
   if (enabledNodeTypes) {
     validations.push({
-      enabledNodeTypes
+      enabledNodeTypes,
     });
   }
 
   if (enabledMarks) {
     validations.push({
-      enabledMarks
+      enabledMarks,
     });
   }
 
   return {
-    validations
+    validations,
   };
 };
 

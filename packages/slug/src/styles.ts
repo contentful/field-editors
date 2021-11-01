@@ -6,17 +6,17 @@ export const validationRow = css({
   flexDirection: 'row-reverse',
   fontSize: tokens.fontSizeM,
   marginTop: tokens.spacingXs,
-  color: tokens.gray700
+  color: tokens.gray700,
 });
 
 export const inputContainer = css({
-  position: 'relative'
+  position: 'relative',
 });
 
 export const input = css({
   input: {
-    paddingLeft: '40px'
-  }
+    paddingLeft: '40px',
+  },
 });
 
 export const icon = css({
@@ -26,16 +26,16 @@ export const icon = css({
   zIndex: 2,
   width: '25px',
   height: '25px',
-  fill: tokens.gray500
+  fill: tokens.gray500,
 });
 
 export const spinnerContainer = css({
   position: 'absolute',
   zIndex: 2,
   right: '8px',
-  top: '8px'
+  top: '8px',
 });
 
 export const uniqueValidationError = css({
-  marginTop: tokens.spacingS
+  marginTop: tokens.spacingS,
 });

@@ -2,7 +2,7 @@ import { css } from 'emotion';
 import tokens from '@contentful/f36-tokens';
 
 export const card = css({
-  position: 'relative'
+  position: 'relative',
 });
 
 export const squareCard = css({
@@ -10,11 +10,11 @@ export const squareCard = css({
   alignItems: 'center',
   width: '135px',
   height: '160px',
-  textAlign: 'center'
+  textAlign: 'center',
 });
 
 export const close = css({
   position: 'absolute',
   top: tokens.spacingS,
-  right: tokens.spacingS
+  right: tokens.spacingS,
 });

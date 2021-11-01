@@ -11,14 +11,14 @@ describe('date utils', () => {
             date: moment('2018-02-02'),
             time: '05:00',
             ampm: 'PM',
-            utcOffset: '+03:00'
+            utcOffset: '+03:00',
           },
           usesTimezone: true,
-          usesTime: true
+          usesTime: true,
         })
       ).toEqual({
         invalid: false,
-        valid: '2018-02-02T17:00+03:00'
+        valid: '2018-02-02T17:00+03:00',
       });
 
       expect(
@@ -27,14 +27,14 @@ describe('date utils', () => {
             date: moment('2015-01-14'),
             time: '05:00',
             ampm: 'AM',
-            utcOffset: '-05:00'
+            utcOffset: '-05:00',
           },
           usesTimezone: true,
-          usesTime: true
+          usesTime: true,
         })
       ).toEqual({
         invalid: false,
-        valid: '2015-01-14T05:00-05:00'
+        valid: '2015-01-14T05:00-05:00',
       });
 
       expect(
@@ -43,14 +43,14 @@ describe('date utils', () => {
             date: moment('2015-01-14'),
             time: '17:00',
             ampm: 'PM',
-            utcOffset: '-05:00'
+            utcOffset: '-05:00',
           },
           usesTimezone: true,
-          usesTime: true
+          usesTime: true,
         })
       ).toEqual({
         invalid: false,
-        valid: '2015-01-14T17:00-05:00'
+        valid: '2015-01-14T17:00-05:00',
       });
     });
   });

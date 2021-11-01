@@ -30,8 +30,8 @@ import get from 'lodash/get';
  */
 export default (field, nodeType) =>
   flow(
-    v => find(v, 'nodes'),
-    v => get(v, ['nodes', nodeType]),
-    v => find(v, 'linkContentType'),
-    v => get(v, 'linkContentType', [])
+    (v) => find(v, 'nodes'),
+    (v) => get(v, ['nodes', nodeType]),
+    (v) => find(v, 'linkContentType'),
+    (v) => get(v, 'linkContentType', [])
   )(field.validations);

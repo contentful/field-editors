@@ -1,7 +1,7 @@
 import React from 'react';
 import { MarkPropTypes } from './PropTypes';
 
-export default function(Tag, tagProps = {}) {
+export default function (Tag, tagProps = {}) {
   const CommonMark = ({ attributes, children }) => {
     return (
       <Tag {...tagProps} {...attributes}>

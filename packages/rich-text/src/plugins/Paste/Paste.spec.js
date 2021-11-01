@@ -6,14 +6,16 @@ import schema from '../../constants/Schema';
 describe('PastePlugin utils', () => {
   describe('getCharacterCount', () => {
     beforeEach(() => {
-      jest.spyOn(contentfulSlateJSAdapter, 'toContentfulDocument').mockImplementationOnce(args => {
-        if (args.document === 'document-json' && args.schema === schema) {
-          return 'contentful-document';
-        }
-      });
+      jest
+        .spyOn(contentfulSlateJSAdapter, 'toContentfulDocument')
+        .mockImplementationOnce((args) => {
+          if (args.document === 'document-json' && args.schema === schema) {
+            return 'contentful-document';
+          }
+        });
       jest
         .spyOn(richTextPlainTextRenderer, 'documentToPlainTextString')
-        .mockImplementationOnce(arg => {
+        .mockImplementationOnce((arg) => {
           if (arg === 'contentful-document') {
             return 'x'.repeat(2342);
           }
@@ -24,9 +26,9 @@ describe('PastePlugin utils', () => {
       const editor = {
         value: {
           document: {
-            toJSON: () => 'document-json'
-          }
-        }
+            toJSON: () => 'document-json',
+          },
+        },
       };
       const result = getCharacterCount(editor);
       expect(result).toBe(2342);

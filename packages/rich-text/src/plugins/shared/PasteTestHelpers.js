@@ -6,7 +6,7 @@ export const document = (props, ...nodes) => {
     object: 'document',
     ...defaultProps,
     ...props,
-    nodes
+    nodes,
   };
 };
 
@@ -17,7 +17,7 @@ export const block = (type, props, ...nodes) => {
     object: 'block',
     ...defaultProps,
     ...props,
-    nodes
+    nodes,
   };
 };
 
@@ -28,7 +28,7 @@ export const inline = (type, props, ...nodes) => {
     object: 'inline',
     ...defaultProps,
     ...props,
-    nodes
+    nodes,
   };
 };
 
@@ -36,7 +36,7 @@ export const text = (props, ...leaves) => {
   return {
     object: 'text',
     ...props,
-    leaves
+    leaves,
   };
 };
 
@@ -44,15 +44,15 @@ export const leaf = (text = '', ...marks) => {
   return {
     object: 'leaf',
     text,
-    marks
+    marks,
   };
 };
 
-export const mark = type => {
+export const mark = (type) => {
   return {
     type,
     object: 'mark',
-    data: {}
+    data: {},
   };
 };
 
@@ -63,7 +63,7 @@ export const emptyParagraph = () => {
     type: BLOCKS.PARAGRAPH,
     object: 'block',
     data: {},
-    nodes: [emptyText()]
+    nodes: [emptyText()],
   };
 };
 
@@ -74,7 +74,7 @@ class FakeDataTransfer {
   }
 
   getData(key) {
-    return this.items.find(item => item.key === key).value;
+    return this.items.find((item) => item.key === key).value;
   }
 
   setData(key, value) {
@@ -90,4 +90,4 @@ export const createPasteEvent = (type, value) => {
   return pasteEvent;
 };
 
-export const createPasteHtmlEvent = html => createPasteEvent('text/html', html);
+export const createPasteHtmlEvent = (html) => createPasteEvent('text/html', html);

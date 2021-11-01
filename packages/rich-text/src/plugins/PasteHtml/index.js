@@ -19,6 +19,6 @@ export const PasteHtmlPlugin = () => {
 
       editor.insertFragment(document);
       return;
-    }
+    },
   };
 };

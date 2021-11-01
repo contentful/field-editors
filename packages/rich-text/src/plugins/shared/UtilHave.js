@@ -1,13 +1,13 @@
 export const haveMarks = ({ value }, type) => {
-  return value.activeMarks.some(mark => mark.type === type);
+  return value.activeMarks.some((mark) => mark.type === type);
 };
 
 export const haveBlocks = ({ value }, type) => {
-  return value.blocks.some(node => node.type === type);
+  return value.blocks.some((node) => node.type === type);
 };
 
 export const haveInlines = ({ value }, type) => {
-  return value.inlines.some(inline => inline.type === type);
+  return value.inlines.some((inline) => inline.type === type);
 };
 
 export function haveAnyInlines({ value }) {
@@ -24,7 +24,7 @@ export function haveAnyInlines({ value }) {
  */
 export function haveEveryInlineOfType({ value }, type) {
   if (value.inlines.size > 0) {
-    return value.inlines.every(inline => inline.type === type);
+    return value.inlines.every((inline) => inline.type === type);
   }
 
   return false;
@@ -32,6 +32,6 @@ export function haveEveryInlineOfType({ value }, type) {
 
 export const haveTextInSomeBlocks = ({ value }) => {
   if (value.blocks.size > 0) {
-    return value.blocks.some(block => block.text);
+    return value.blocks.some((block) => block.text);
   }
 };

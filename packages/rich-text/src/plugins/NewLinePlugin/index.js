@@ -1,6 +1,6 @@
 import isHotkey from 'is-hotkey';
 
-export default function() {
+export default function () {
   return {
     onKeyDown(event, editor, next) {
       if (isHotkey('shift+enter', event)) {
@@ -8,6 +8,6 @@ export default function() {
         return;
       }
       return next();
-    }
+    },
   };
 }

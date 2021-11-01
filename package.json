@@ -20,7 +20,7 @@
     "tsc": "lerna run --concurrency 1 --stream tsc",
     "test:ci": "lerna run --concurrency 1 --stream test:ci",
     "test:integration": "start-server-and-test docz:dev http://localhost:9000 cy:run",
-    "prettier": "prettier **/*.{js,jsx,ts,tsx} --write",
+    "prettier": "prettier './**/*.{js,jsx,ts,tsx}' --write",
     "cy:open": "TZ=UTC cypress open",
     "cy:run": "TZ=UTC cypress run --browser chrome",
     "docz:dev": "docz dev",

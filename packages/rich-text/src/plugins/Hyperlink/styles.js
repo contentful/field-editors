@@ -6,16 +6,16 @@ export const hyperlinkTooltipStyles = {
     color: tokens.gray500,
     marginRight: tokens.spacingXs,
     '&:after': {
-      content: '""'
-    }
+      content: '""',
+    },
   }),
   entityTitle: css({
-    marginRight: tokens.spacingXs
+    marginRight: tokens.spacingXs,
   }),
   separator: css({
     background: tokens.gray700,
-    margin: tokens.spacingXs
-  })
+    margin: tokens.spacingXs,
+  }),
 };
 
 export default {
@@ -23,22 +23,22 @@ export default {
     display: 'inline',
     position: 'static',
     a: {
-      fontSize: 'inherit !important'
-    }
+      fontSize: 'inherit !important',
+    },
   }),
   hyperlink: css({
     fontSize: 'inherit !important',
     display: 'inline !important',
     '&:hover': {
-      fill: tokens.textColorDark
+      fill: tokens.textColorDark,
     },
     '&:focus': {
-      fill: tokens.textColorDark
-    }
+      fill: tokens.textColorDark,
+    },
   }),
   hyperlinkIEFallback: css({
     color: '#1683d0',
-    textDecoration: 'underline'
+    textDecoration: 'underline',
   }),
   // TODO: use these styles once we can use the icon
   hyperlinkIcon: css({
@@ -49,10 +49,10 @@ export default {
     webkitTransition: 'fill 100ms ease-in-out',
     transition: 'fill 100ms ease-in-out',
     '&:hover': {
-      fill: tokens.textColorDark
+      fill: tokens.textColorDark,
     },
     '&:focus': {
-      fill: tokens.textColorDark
-    }
-  })
+      fill: tokens.textColorDark,
+    },
+  }),
 };

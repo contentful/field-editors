@@ -27,35 +27,35 @@ function tail(text: string) {
 }
 
 const PROCESSORS = {
-  inline: function(match: any) {
+  inline: function (match: any) {
     return {
       match: match[0],
       text: match[1],
       href: head(match[2]),
-      title: extractTitle(tail(match[2]))
+      title: extractTitle(tail(match[2])),
     };
   },
-  ref: function(match: any) {
+  ref: function (match: any) {
     return {
       match: match[0],
       text: match[1],
-      id: match[2]
+      id: match[2],
     };
   },
-  label: function(match: any) {
+  label: function (match: any) {
     return {
       match: match[0],
       id: match[1],
       href: head(match[2]),
-      title: extractTitle(tail(match[2]))
+      title: extractTitle(tail(match[2])),
     };
-  }
+  },
 };
 
 const REGEXS = {
   inline: /\[([^\r\n[\]]+)]\(([^\r\n)]+)\)/,
   ref: /\[([^\r\n[\]]+)] ?\[([^\r\n[\]]+)]/,
-  label: /^ {0,3}\[([^\r\n[\]]+)]:\s+(.+)$/
+  label: /^ {0,3}\[([^\r\n[\]]+)]:\s+(.+)$/,
 };
 export const findInline = makeFinder('inline');
 export const findRefs = makeFinder('ref');
@@ -64,7 +64,7 @@ export const findLabels = makeFinder('label');
 export function convertInlineToRef(text: string) {
   let id = findMaxLabelId(text);
 
-  forEach(findInline(text), inline => {
+  forEach(findInline(text), (inline) => {
     id += 1;
     text = text.replace(inline.match, buildRef(inline, id));
     text += '\n' + buildLabel(inline, id);
@@ -77,7 +77,7 @@ function mergeLabels(text: string): any {
   const byHref: any = {};
   const byOldId: any = {};
 
-  forEach(findLabels(text), label => {
+  forEach(findLabels(text), (label) => {
     const alreadyAdded = byHref[label.href];
     const current = extend({}, label);
 
@@ -92,7 +92,7 @@ function mergeLabels(text: string): any {
 
   return {
     byHref: byHref,
-    byOldId: byOldId
+    byOldId: byOldId,
   };
 }
 
@@ -104,7 +104,7 @@ export function rewriteRefs(text: string) {
   let i = 1;
 
   // 1. compose list of labels with new ids, in order
-  forEach(findRefs(text), ref => {
+  forEach(findRefs(text), (ref) => {
     const oldLabel = merged.byOldId[ref.id];
     if (!oldLabel) {
       return;
@@ -123,7 +123,7 @@ export function rewriteRefs(text: string) {
   });
 
   // 2. remove all labels!
-  forEach(findLabels(text), label => {
+  forEach(findLabels(text), (label) => {
     text = text.replace(label.match, '');
   });
 
@@ -132,12 +132,12 @@ export function rewriteRefs(text: string) {
   text += '\n\n';
 
   // 4. apply rewrites
-  forEach(rewrites, ref => {
+  forEach(rewrites, (ref) => {
     text = text.replace(ref.match, buildRef(ref, ref.newId));
   });
 
   // 5. print new labels at the end of text
-  forEach(labels, label => {
+  forEach(labels, (label) => {
     text += '\n' + buildLabel(label, label.newId);
   });
 

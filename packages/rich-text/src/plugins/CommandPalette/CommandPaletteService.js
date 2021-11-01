@@ -4,12 +4,12 @@ import { entityHelpers } from '@contentful/field-editor-shared';
 
 const ACTIONS = {
   EMBED: 'embed',
-  CREATE_EMBED: 'create_embed'
+  CREATE_EMBED: 'create_embed',
 };
 
 export async function fetchAssets(sdk, query = '') {
   const assets = await sdk.space.getAssets({ query });
-  return assets.items.map(asset => ({
+  return assets.items.map((asset) => ({
     contentTypeName: 'Asset',
     displayTitle: asset.fields.title ? asset.fields.title[sdk.field.locale] : 'Untitled',
     id: asset.sys.id,
@@ -17,37 +17,37 @@ export async function fetchAssets(sdk, query = '') {
     thumbnail:
       asset.fields.file &&
       asset.fields.file[sdk.field.locale] &&
-      `${asset.fields.file[sdk.field.locale].url}?h=30`
+      `${asset.fields.file[sdk.field.locale].url}?h=30`,
   }));
 }
 
 export async function fetchEntries(sdk, contentType, query = '') {
   const entries = await sdk.space.getEntries({
     content_type: contentType.sys.id,
-    query
+    query,
   });
 
   return Promise.all(
-    entries.items.map(async entry => {
+    entries.items.map(async (entry) => {
       const description = entityHelpers.getEntityDescription({
         contentType,
         entity: entry,
         localeCode: sdk.field.locale,
-        defaultLocaleCode: sdk.locales.default
+        defaultLocaleCode: sdk.locales.default,
       });
       const displayTitle = entityHelpers.getEntryTitle({
         entry,
         contentType,
         localeCode: sdk.field.locale,
         defaultLocaleCode: sdk.locales.default,
-        defaultTitle: 'Untitled'
+        defaultTitle: 'Untitled',
       });
       return {
         contentTypeName: contentType.name,
         displayTitle: displayTitle,
         id: entry.sys.contentType.sys.id,
         description,
-        entry
+        entry,
       };
     })
   );
@@ -67,20 +67,20 @@ export const isValidLinkedContentType = (field, contentType, embedType) => {
     return true;
   }
 
-  const nodes = field.validations.filter(val => val.nodes)[0].nodes;
+  const nodes = field.validations.filter((val) => val.nodes)[0].nodes;
 
   if (nodes[embedType] === undefined) {
     return true;
   }
 
   return !!nodes[embedType]
-    .filter(typeVal => typeVal.linkContentType)
+    .filter((typeVal) => typeVal.linkContentType)
     .reduce((pre, cur) => [...pre, cur.linkContentType], [])
     .reduce((pre, cur) => [...pre, ...cur], [])
-    .find(ct => ct === contentType.sys.id);
+    .find((ct) => ct === contentType.sys.id);
 };
 
-export const isEmbeddingEnabled = field =>
+export const isEmbeddingEnabled = (field) =>
   isNodeTypeEnabled(field, BLOCKS.EMBEDDED_ASSET) ||
   isNodeTypeEnabled(field, BLOCKS.EMBEDDED_ENTRY) ||
   isNodeTypeEnabled(field, INLINES.EMBEDDED_ENTRY);
@@ -119,9 +119,9 @@ export class CommandPaletteActionBuilder {
         sys: {
           type: 'Entry',
           contentType: {
-            sys: contentType.sys
-          }
-        }
+            sys: contentType.sys,
+          },
+        },
       });
 
       if (canCreateEntryOfContentType === false) {
@@ -151,6 +151,6 @@ function buildAction(embedType, contentType, actionType, callback) {
     label,
     group: isAsset ? 'Assets' : contentType.name,
     callback,
-    icon
+    icon,
   };
 }
