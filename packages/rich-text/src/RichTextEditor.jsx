@@ -31,6 +31,7 @@ const styles = {
     border: STYLE_EDITOR_BORDER,
     borderTop: 0,
     padding: '20px',
+    fontFamily: tokens.fontStackPrimary,
     fontSize: tokens.spacingM,
     minHeight: '380px',
     background: tokens.colorWhite,
