@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-rich-text",
-  "version": "0.26.3-next",
+  "version": "0.26.4-next",
   "publishConfig": {
     "tag": "next"
   },
