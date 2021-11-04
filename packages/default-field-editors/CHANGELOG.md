@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.1](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.0.0...@contentful/default-field-editors@1.0.1) (2021-11-04)
+
+### Bug Fixes
+
+- pass a unique form-control id ([#908](https://github.com/contentful/field-editors/issues/908)) ([d0e0480](https://github.com/contentful/field-editors/commit/d0e048023287b77191e6ae4b7148472b169e5564))
+
 # [1.0.0](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@0.11.0...@contentful/default-field-editors@1.0.0) (2021-11-04)
 
 **Note:** Version bump only for package @contentful/default-field-editors
