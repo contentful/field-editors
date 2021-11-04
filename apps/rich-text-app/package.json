@@ -1,13 +1,13 @@
 {
   "name": "rich-text-app",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "dependencies": {
     "@contentful/app-sdk": "^4.3.0",
-    "@contentful/field-editor-rich-text": "^0.19.19",
-    "@contentful/field-editor-single-line": "^0.15.6",
     "@contentful/f36-components": "beta",
     "@contentful/f36-tokens": "beta",
+    "@contentful/field-editor-rich-text": "^0.19.19",
+    "@contentful/field-editor-single-line": "^0.15.6",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
