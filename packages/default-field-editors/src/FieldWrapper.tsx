@@ -45,7 +45,9 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = function (props: FieldW
     });
   }, [field]);
 
-  const fieldControlId = [field.id, field.locale].filter((item) => item).join('-');
+  const fieldControlId = [field.id, field.locale, sdk.contentType?.sys?.id]
+    .filter((item) => item)
+    .join('-');
 
   return (
     <FormControl
