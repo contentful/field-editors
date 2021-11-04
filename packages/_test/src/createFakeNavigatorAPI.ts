@@ -5,6 +5,6 @@ export function createFakeNavigatorAPI() {
     },
     openAsset(assetId: string) {
       window.alert(`Open asset ${assetId}`);
-    }
+    },
   };
 }

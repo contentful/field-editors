@@ -11,15 +11,15 @@ describe('Markdown Editor / Organize Links', () => {
     },
     getSuccessNotification() {
       return cy.get('[data-test-id="cf-ui-notification"][data-intent="success"]');
-    }
+    },
   };
 
-  const type = value => {
+  const type = (value) => {
     return selectors.getInput().type(value, { force: true });
   };
 
-  const checkValue = value => {
-    cy.getMarkdownInstance().then(markdown => {
+  const checkValue = (value) => {
+    cy.getMarkdownInstance().then((markdown) => {
       expect(markdown.getContent()).eq(value);
     });
   };

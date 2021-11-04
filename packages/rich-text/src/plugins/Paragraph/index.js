@@ -17,7 +17,7 @@ const plugin = (type, tagName, tagProps, hotkey) => {
         return;
       }
       return next();
-    }
+    },
   };
 };
 

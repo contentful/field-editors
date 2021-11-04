@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { EditorToolbar, EditorToolbarDivider } from '@contentful/forma-36-react-components';
+import { Flex } from '@contentful/f36-components';
 
 import Bold from '../plugins/Bold';
 import Italic from '../plugins/Italic';
@@ -32,8 +32,22 @@ import Hr from '../plugins/Hr';
 import { BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types';
 
 import { isNodeTypeEnabled, isMarkEnabled } from '../validations';
+import tokens from '@contentful/f36-tokens';
 
 const styles = {
+  toolbar: css({
+    border: `1px solid ${tokens.gray400}`,
+    backgroundColor: tokens.gray100,
+    padding: tokens.spacingXs,
+    borderRadius: `${tokens.borderRadiusMedium} ${tokens.borderRadiusMedium} 0 0`,
+  }),
+  divider: css({
+    display: 'inline-block',
+    height: '21px',
+    width: '1px',
+    background: tokens.gray300,
+    margin: `0 ${tokens.spacing2Xs}`,
+  }),
   embedActionsWrapper: css({
     display: ['-webkit-box', '-ms-flexbox', 'flex'],
     webkitAlignSelf: 'flex-start',
@@ -89,10 +103,10 @@ export default class Toolbar extends React.Component {
     this.props.onChange(...args);
   };
 
-  toggleEmbedDropdown = () =>
-    this.setState((prevState) => ({
-      isEmbedDropdownOpen: !prevState.isEmbedDropdownOpen,
-    }));
+  handleEmbedDropdownOpen = () =>
+    this.setState({
+      isEmbedDropdownOpen: true,
+    });
 
   handleEmbedDropdownClose = () =>
     this.setState({
@@ -117,7 +131,7 @@ export default class Toolbar extends React.Component {
       <div className={styles.embedActionsWrapper}>
         {numEnabledEmbeds > 1 ? (
           <EntryEmbedDropdown
-            onToggle={this.toggleEmbedDropdown}
+            onOpen={this.handleEmbedDropdownOpen}
             isOpen={this.state.isEmbedDropdownOpen}
             disabled={props.disabled}
             onClose={this.handleEmbedDropdownClose}>
@@ -144,12 +158,10 @@ export default class Toolbar extends React.Component {
     );
   };
 
-  toggleHeadingMenu = (event) => {
-    event.preventDefault();
-    this.setState((prevState) => ({
-      headingMenuOpen: !prevState.headingMenuOpen,
-    }));
-  };
+  openHeadingMenu = () =>
+    this.setState({
+      headingMenuOpen: true,
+    });
 
   closeHeadingMenu = () =>
     this.setState({
@@ -166,7 +178,6 @@ export default class Toolbar extends React.Component {
     const props = {
       editor,
       onToggle: this.onChange,
-      onCloseEmbedMenu: this.toggleEmbedDropdown,
       disabled: isDisabled,
       richTextAPI,
       canAutoFocus: this.isReadyToSetFocusProgrammatically,
@@ -175,10 +186,10 @@ export default class Toolbar extends React.Component {
     const { isAnyHyperlinkEnabled, isAnyListEnabled, isAnyMarkEnabled } = this.state;
     const currentBlockType = props.editor.value.blocks.getIn([0, 'type']);
     return (
-      <EditorToolbar data-test-id="toolbar">
+      <Flex testId="toolbar" className={styles.toolbar} alignItems="center">
         <div className={styles.formattingOptionsWrapper}>
           <HeadingDropdown
-            onToggle={this.toggleHeadingMenu}
+            onOpen={this.openHeadingMenu}
             isToggleActive={true}
             isOpen={this.state.headingMenuOpen}
             onClose={this.closeHeadingMenu}
@@ -192,25 +203,25 @@ export default class Toolbar extends React.Component {
             {isNodeTypeEnabled(field, BLOCKS.HEADING_5) && <Heading5 {...props} />}
             {isNodeTypeEnabled(field, BLOCKS.HEADING_6) && <Heading6 {...props} />}
           </HeadingDropdown>
-          {isAnyMarkEnabled && <EditorToolbarDivider testId="mark-divider" />}
+          {isAnyMarkEnabled && <span className={styles.divider} data-test-id="mark-divider" />}
           {isMarkEnabled(field, MARKS.BOLD) && <Bold {...props} />}
           {isMarkEnabled(field, MARKS.ITALIC) && <Italic {...props} />}
           {isMarkEnabled(field, MARKS.UNDERLINE) && <Underlined {...props} />}
           {isMarkEnabled(field, MARKS.CODE) && <Code {...props} />}
           {isAnyHyperlinkEnabled && (
             <React.Fragment>
-              <EditorToolbarDivider testId="hyperlink-divider" />
+              <span className={styles.divider} data-test-id="hyperlink-divider" />
               <Hyperlink {...props} />
             </React.Fragment>
           )}
-          {isAnyListEnabled && <EditorToolbarDivider testId="list-divider" />}
+          {isAnyListEnabled && <span className={styles.divider} data-test-id="list-divider" />}
           {isNodeTypeEnabled(field, BLOCKS.UL_LIST) && <UnorderedList {...props} />}
           {isNodeTypeEnabled(field, BLOCKS.OL_LIST) && <OrderedList {...props} />}
           {isNodeTypeEnabled(field, BLOCKS.QUOTE) && <Quote {...props} />}
           {isNodeTypeEnabled(field, BLOCKS.HR) && <Hr {...props} />}
         </div>
         {this.renderEmbeds(props)}
-      </EditorToolbar>
+      </Flex>
     );
   }
 }

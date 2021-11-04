@@ -5,9 +5,7 @@ import { TimeResult } from '../types';
 const ZONE_RX = /(Z|[+-]\d{2}[:+]?\d{2})$/;
 
 function startOfToday(format: string) {
-  return moment()
-    .set({ hours: 0, minutes: 0 })
-    .format(format);
+  return moment().set({ hours: 0, minutes: 0 }).format(format);
 }
 
 function fieldValueToMoment(datetimeString: string | null | undefined): moment.Moment | null {
@@ -35,9 +33,10 @@ function timeFromUserInput(input: TimeResult) {
  * indicated by returning '{invalid: true}'. If 'input.date' is
  * 'null' we return '{valid: null}'
  */
-function datetimeFromUserInput(
-  input: TimeResult
-): { invalid?: boolean; valid: moment.Moment | null } {
+function datetimeFromUserInput(input: TimeResult): {
+  invalid?: boolean;
+  valid: moment.Moment | null;
+} {
   if (!input.date) {
     return { valid: null };
   }
@@ -73,7 +72,7 @@ export function formatDateDisplay(date?: moment.Moment) {
 export function buildFieldValue({
   data,
   usesTime,
-  usesTimezone
+  usesTimezone,
 }: {
   data: TimeResult;
   usesTime: boolean;
@@ -82,7 +81,7 @@ export function buildFieldValue({
   const date = datetimeFromUserInput(data);
   if (date.invalid) {
     return {
-      invalid: true
+      invalid: true,
     };
   }
 
@@ -110,7 +109,7 @@ export function getDefaultUtcOffset() {
  */
 export function userInputFromDatetime({
   value,
-  uses12hClock
+  uses12hClock,
 }: {
   value: string | undefined | null;
   uses12hClock: boolean;
@@ -123,12 +122,12 @@ export function userInputFromDatetime({
       date: datetime,
       time: datetime.format(timeFormat),
       ampm: datetime.format('A'),
-      utcOffset: datetime.format('Z')
+      utcOffset: datetime.format('Z'),
     };
   } else {
     return {
       ampm: getDefaultAMPM(),
-      utcOffset: getDefaultUtcOffset()
+      utcOffset: getDefaultUtcOffset(),
     };
   }
 }

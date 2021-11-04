@@ -2,9 +2,12 @@ import React from 'react';
 import get from 'lodash/get';
 import { css } from 'emotion';
 import { ContentType } from '../../types';
-import { Button, Spinner } from '@contentful/forma-36-react-components';
-import tokens from '@contentful/forma-36-tokens';
-import { CreateEntryMenuTrigger, CreateCustomEntryMenuItems } from './CreateEntryMenuTrigger';
+import tokens from '@contentful/f36-tokens';
+import { CreateEntryMenuTrigger } from './CreateEntryMenuTrigger';
+
+import { Button } from '@contentful/f36-components';
+
+import { ChevronDownIcon, PlusIcon } from '@contentful/f36-icons';
 
 const standardStyles = {
   spinnerMargin: css({
@@ -24,7 +27,7 @@ interface CreateEntryLinkButtonProps {
   contentTypes: ContentType[];
   suggestedContentTypeId?: string;
   onSelect: (contentTypeId: string) => Promise<unknown>;
-  renderCustomDropdownItems?: CreateCustomEntryMenuItems;
+  customDropdownItems?: React.ReactNode;
   disabled?: boolean;
   hasPlusIcon?: boolean;
   useExperimentalStyles?: boolean;
@@ -39,7 +42,7 @@ interface CreateEntryLinkButtonProps {
 export const CreateEntryLinkButton = ({
   contentTypes,
   onSelect,
-  renderCustomDropdownItems,
+  customDropdownItems,
   text,
   testId,
   hasPlusIcon = false,
@@ -56,10 +59,10 @@ export const CreateEntryLinkButton = ({
       'name',
       'entry'
     )}`;
-  const hasDropdown = contentTypes.length > 1 || renderCustomDropdownItems;
+  const hasDropdown = contentTypes.length > 1 || customDropdownItems;
 
   // TODO: Introduce `icon: string` and remove `hasPlusIcon` or remove "Plus" if we keep new layout.
-  const plusIcon = hasPlusIcon ? 'Plus' : undefined;
+  const plusIcon = hasPlusIcon ? <PlusIcon /> : undefined;
   // TODO: Always use "New content" here if we fully switch to new layout.
   const contentTypesLabel = useExperimentalStyles ? 'New content' : undefined;
   const styles = useExperimentalStyles ? redesignStyles : standardStyles;
@@ -72,24 +75,19 @@ export const CreateEntryLinkButton = ({
       onSelect={onSelect}
       testId={testId}
       dropdownSettings={dropdownSettings}
-      renderCustomDropdownItems={renderCustomDropdownItems}>
-      {({ openMenu, isSelecting }) => (
-        <>
-          {isSelecting && <Spinner size="small" key="spinner" className={styles.spinnerMargin} />}
-          <Button
-            buttonType="muted"
-            onClick={() => {
-              openMenu();
-            }}
-            className={styles.action}
-            disabled={disabled || isSelecting || (contentTypes && contentTypes.length === 0)}
-            icon={isSelecting ? undefined : plusIcon}
-            indicateDropdown={Boolean(hasDropdown)}
-            size="small"
-            testId="create-entry-link-button">
-            {buttonText}
-          </Button>
-        </>
+      customDropdownItems={customDropdownItems}>
+      {({ isSelecting }) => (
+        <Button
+          endIcon={hasDropdown ? <ChevronDownIcon /> : undefined}
+          variant="secondary"
+          className={styles.action}
+          isDisabled={disabled || isSelecting || (contentTypes && contentTypes.length === 0)}
+          startIcon={isSelecting ? undefined : plusIcon}
+          size="small"
+          testId="create-entry-link-button"
+          isLoading={isSelecting}>
+          {buttonText}
+        </Button>
       )}
     </CreateEntryMenuTrigger>
   );

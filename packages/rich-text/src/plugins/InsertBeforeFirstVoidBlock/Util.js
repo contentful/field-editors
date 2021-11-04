@@ -20,9 +20,5 @@ export function isVoidBlockFirstAndFocused(editor) {
  */
 
 export function insertParagraphAndFocusToStartOfDocument(editor) {
-  editor
-    .splitBlock()
-    .moveToStartOfDocument()
-    .setBlocks(BLOCKS.PARAGRAPH)
-    .focus();
+  editor.splitBlock().moveToStartOfDocument().setBlocks(BLOCKS.PARAGRAPH).focus();
 }

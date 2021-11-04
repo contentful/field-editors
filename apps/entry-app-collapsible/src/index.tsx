@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { TextLink, Modal } from '@contentful/forma-36-react-components';
+import { Modal, ModalHeader, GlobalStyles } from '@contentful/f36-components';
 import { init, locations, EditorExtensionSDK, DialogExtensionSDK } from '@contentful/app-sdk';
-import '@contentful/forma-36-react-components/dist/styles.css';
-import '@contentful/forma-36-fcss/dist/styles.css';
-import './index.css';
 import { FieldGroupsEditor } from './FieldGroupsEditor';
 import { CollapsibleFieldGroup } from './CollapsibleFieldGroup';
 import { findUnassignedFields, AppContext, SDKContext } from './shared';
@@ -14,6 +11,10 @@ import { Field } from './Field';
 import { renderMarkdownDialog } from '@contentful/field-editor-markdown';
 import { renderRichTextDialog } from '@contentful/field-editor-rich-text';
 import styles from './styles';
+
+import { TextLink } from '@contentful/f36-components';
+
+import { EditIcon } from '@contentful/f36-icons';
 
 interface AppProps {
   sdk: EditorExtensionSDK;
@@ -46,14 +47,18 @@ export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
     <SDKContext.Provider value={props.sdk}>
       <AppContext.Provider value={{ state, dispatch }}>
         <div className={styles.widthContainer}>
-          <TextLink icon="Edit" className={styles.editGroupsButton} onClick={openDialog}>
+          <TextLink
+            as="button"
+            icon={<EditIcon />}
+            className={styles.editGroupsButton}
+            onClick={openDialog}>
             Edit field groups
           </TextLink>
         </div>
         <Modal size="large" isShown={dialogOpen} onClose={closeDialog}>
           {() => (
             <React.Fragment>
-              <Modal.Header onClose={closeDialog} title="Edit field groups" />
+              <ModalHeader onClose={closeDialog} title="Edit field groups" />
               <FieldGroupsEditor
                 addGroup={() => dispatch({ type: ActionTypes.CREATE_FIELD_GROUP })}
                 fieldGroups={state.fieldGroups}
@@ -87,7 +92,13 @@ export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
 };
 
 function renderAtRoot(element: JSX.Element) {
-  render(element, document.getElementById('root'));
+  render(
+    <>
+      <GlobalStyles />
+      {element}
+    </>,
+    document.getElementById('root')
+  );
 }
 
 init((sdk) => {

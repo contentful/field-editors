@@ -1,5 +1,5 @@
 import { css } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 
 const styles = {
   widthContainer: css({
@@ -93,7 +93,7 @@ const styles = {
   listContainer: css({
     paddingLeft: '0px',
   }),
-  formLabel: css({ marginTop: tokens.spacingM }),
+  formLabel: css({ marginTop: tokens.spacingM, display: 'block' }),
 
   fieldGroupConfigurationTextLink: css({
     marginRight: tokens.spacingS,

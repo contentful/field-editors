@@ -13,7 +13,7 @@ export default function newEntitySelectorConfigFromRichTextField(field, nodeType
   return {
     entityType: getEntityTypeFromRichTextNode(nodeType),
     locale: field.locale || null, // Will fall back to default locale.
-    contentTypes: getLinkedContentTypeIdsForNodeType(field, nodeType)
+    contentTypes: getLinkedContentTypeIdsForNodeType(field, nodeType),
   };
 }
 

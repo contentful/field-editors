@@ -3,9 +3,7 @@ import { render } from 'react-dom';
 import { MultipleEntryReferenceEditor } from '@contentful/field-editor-reference';
 import { init } from '@contentful/app-sdk';
 import type { FieldExtensionSDK } from '@contentful/app-sdk';
-import '@contentful/forma-36-react-components/dist/styles.css';
-import '@contentful/forma-36-fcss/dist/styles.css';
-import './index.css';
+import { GlobalStyles } from '@contentful/f36-components';
 
 init<FieldExtensionSDK>((sdk) => {
   const fieldSdk = sdk as FieldExtensionSDK;
@@ -13,6 +11,7 @@ init<FieldExtensionSDK>((sdk) => {
 
   render(
     <div style={{ minHeight: 400 }}>
+      <GlobalStyles />
       <MultipleEntryReferenceEditor
         viewType="link"
         sdk={fieldSdk}

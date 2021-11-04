@@ -18,7 +18,7 @@ import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/StickyToolbarWrapper';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import { css, cx } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 
 const STYLE_EDITOR_BORDER = `1px solid ${tokens.gray400}`;
 
@@ -33,7 +33,7 @@ const styles = {
     padding: '20px',
     fontFamily: tokens.fontStackPrimary,
     fontSize: tokens.spacingM,
-    minHeight: '400px',
+    minHeight: '380px',
     background: tokens.colorWhite,
     outline: 'none',
     whiteSpace: 'pre-wrap',

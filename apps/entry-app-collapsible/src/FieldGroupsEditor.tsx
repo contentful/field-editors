@@ -1,25 +1,24 @@
 import * as React from 'react';
+import { DragHandle } from '@contentful/f36-components';
 import {
-  Modal,
-  Button,
-  Dropdown,
-  DropdownList,
-  DropdownListItem,
+  ModalContent,
+  Text,
   TextLink,
-  HelpText,
-  TextField,
-  FormLabel,
-  FieldGroup,
-  Card,
   Paragraph,
+  Button,
   IconButton,
-  CardDragHandle,
-} from '@contentful/forma-36-react-components';
+  FormControl,
+  TextInput,
+  Menu,
+  Card,
+} from '@contentful/f36-components';
 import { findUnassignedFields, AppContext, SDKContext } from './shared';
 import { FieldType, FieldGroupType } from './types';
 import { ActionTypes } from './types';
 import styles from './styles';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
+
+import { CloseIcon, ChevronDownIcon, ChevronUpIcon } from '@contentful/f36-icons';
 
 interface FieldGroupsEditorProps {
   fieldGroups: FieldGroupType[];
@@ -27,8 +26,8 @@ interface FieldGroupsEditorProps {
   onClose: () => void;
 }
 
-const DragHandle = SortableHandle(() => (
-  <CardDragHandle className={styles.handle}>Reorder item</CardDragHandle>
+const SortableDragHandle = SortableHandle(() => (
+  <DragHandle label="Reorder item" className={styles.handle} />
 ));
 
 const SortableFieldItem = SortableElement(
@@ -40,14 +39,16 @@ const SortableFieldItem = SortableElement(
     return (
       <Card className={styles.card}>
         <div className={styles.cardInfo}>
-          <DragHandle />
-          <Paragraph className={styles.fieldName}>{field.name}</Paragraph>
-          {fieldDetails ? <Paragraph>{fieldDetails.type}</Paragraph> : null}
+          <SortableDragHandle />
+          <Paragraph marginBottom="none" className={styles.fieldName}>
+            {field.name}
+          </Paragraph>
+          {fieldDetails ? <Paragraph marginBottom="none">{fieldDetails.type}</Paragraph> : null}
         </div>
         <IconButton
-          label="Remove field"
-          buttonType="negative"
-          iconProps={{ icon: 'Close' }}
+          variant="transparent"
+          icon={<CloseIcon variant="negative" />}
+          aria-label="Remove field"
           onClick={() =>
             dispatch({
               type: ActionTypes.REMOVE_FIELD_FROM_GROUP,
@@ -78,18 +79,19 @@ export class FieldGroupsEditor extends React.Component<FieldGroupsEditorProps> {
     return (
       <React.Fragment>
         <div className={styles.controls}>
-          <HelpText>Group fields to seperate concerns in the entry editor</HelpText>
+          <Text as="p" fontColor="gray500" marginTop="spacingXs">
+            Group fields to seperate concerns in the entry editor
+          </Text>
           <div>
-            <Button onClick={this.props.addGroup}>Add Group</Button>
-            <Button
-              className={styles.saveButton}
-              buttonType="positive"
-              onClick={this.props.onClose}>
+            <Button variant="primary" onClick={this.props.addGroup}>
+              Add Group
+            </Button>
+            <Button className={styles.saveButton} variant="positive" onClick={this.props.onClose}>
               Save
             </Button>
           </div>
         </div>
-        <Modal.Content>
+        <ModalContent>
           {fieldGroups.map(({ name, fields, id }, index) => (
             <FieldGroupEditor
               first={index === 0}
@@ -100,7 +102,7 @@ export class FieldGroupsEditor extends React.Component<FieldGroupsEditorProps> {
               fields={fields}
             />
           ))}
-        </Modal.Content>
+        </ModalContent>
       </React.Fragment>
     );
   }
@@ -122,7 +124,6 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
   groupId,
 }: FieldGroupProps) => {
   const { state, dispatch } = React.useContext(AppContext);
-  const [dropdownOpen, setDropdownOpen] = React.useState(false);
 
   const updateName = (e: React.ChangeEvent<HTMLInputElement>) =>
     dispatch({
@@ -132,14 +133,6 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
     });
 
   const unassignedFields = findUnassignedFields(state);
-  const closeDropdown = () => setDropdownOpen(false);
-  const openDropdown = () => {
-    if (unassignedFields.length > 0) {
-      setDropdownOpen(true);
-    } else {
-      setDropdownOpen(false);
-    }
-  };
 
   const onSortEnd = ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => {
     dispatch({
@@ -152,44 +145,42 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
 
   return (
     <div className={styles.editor}>
-      <TextField
-        id={`${groupId}-name-input`}
-        name={`${groupId}-name-input`}
-        labelText="Name"
-        onChange={updateName}
-        value={name}
-      />
-      <FieldGroup>
-        <FormLabel htmlFor="entry-app-collapsible" className={styles.formLabel}>
+      <FormControl id={`${groupId}-name-input`}>
+        <FormControl.Label>Name</FormControl.Label>
+        <TextInput name={`${groupId}-name-input`} value={name} onChange={updateName} />
+      </FormControl>
+      <FormControl>
+        <FormControl.Label htmlFor="entry-app-collapsible" className={styles.formLabel}>
           Fields
-        </FormLabel>
-        <Dropdown
-          isOpen={dropdownOpen}
-          onClose={closeDropdown}
-          toggleElement={
-            <Button size="small" buttonType="muted" onClick={openDropdown} indicateDropdown>
-              Select a field to add
-            </Button>
-          }>
-          <DropdownList>
-            {unassignedFields.map(({ id, name }: FieldType) => (
-              <DropdownListItem
-                onClick={() => {
-                  dispatch({
-                    type: ActionTypes.ADD_FIELD_TO_GROUP,
-                    groupId,
-                    fieldKey: id,
-                    fieldName: name,
-                  });
-                  closeDropdown();
-                }}
-                key={id}>
-                {name}
-              </DropdownListItem>
-            ))}
-          </DropdownList>
-        </Dropdown>
-      </FieldGroup>
+        </FormControl.Label>
+        {unassignedFields.length > 0 ? (
+          <Menu>
+            <Menu.Trigger>
+              <Button endIcon={<ChevronDownIcon />} size="small" variant="secondary">
+                Select a field to add
+              </Button>
+            </Menu.Trigger>
+            <Menu.List>
+              {unassignedFields.map(({ id, name }: FieldType) => (
+                <Menu.Item
+                  onClick={() => {
+                    dispatch({
+                      type: ActionTypes.ADD_FIELD_TO_GROUP,
+                      groupId,
+                      fieldKey: id,
+                      fieldName: name,
+                    });
+                  }}
+                  key={id}>
+                  {name}
+                </Menu.Item>
+              ))}
+            </Menu.List>
+          </Menu>
+        ) : (
+          <FormControl.HelpText>No available fields to add.</FormControl.HelpText>
+        )}
+      </FormControl>
       <SortableFieldList
         distance={1 /* this hack is to allow buttons in the drag containers to work*/}
         onSortEnd={onSortEnd}
@@ -198,24 +189,27 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
       />
       <div>
         <TextLink
+          as="button"
           className={styles.fieldGroupConfigurationTextLink}
-          linkType="negative"
-          icon="Close"
+          variant="negative"
+          icon={<CloseIcon />}
           onClick={() => dispatch({ type: ActionTypes.DELETE_FIELD_GROUP, groupId })}>
           Remove
         </TextLink>
         {!last ? (
           <TextLink
+            as="button"
             className={styles.fieldGroupConfigurationTextLink}
-            icon="ChevronDown"
+            icon={<ChevronDownIcon />}
             onClick={() => dispatch({ type: ActionTypes.MOVE_FIELD_GROUP_DOWN, groupId })}>
             Move down
           </TextLink>
         ) : null}
         {!first ? (
           <TextLink
+            as="button"
             className={styles.fieldGroupConfigurationTextLink}
-            icon="ChevronUp"
+            icon={<ChevronUpIcon />}
             onClick={() => dispatch({ type: ActionTypes.MOVE_FIELD_GROUP_UP, groupId })}>
             Move up
           </TextLink>

@@ -1,15 +1,11 @@
 import React from 'react';
 import { css } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
-import {
-  RadioButtonField,
-  FieldGroup,
-  TextInput,
-  TextLink,
-} from '@contentful/forma-36-react-components';
+import tokens from '@contentful/f36-tokens';
 import { LocationSearchInput } from './LocationSearchInput';
 
 import { Coords, ViewType, GeocodeApiResponse } from './types';
+
+import { TextLink, TextInput, Radio, Flex } from '@contentful/f36-components';
 
 interface LocationSelectorProps {
   disabled: boolean;
@@ -55,36 +51,32 @@ export function LocationSelector(props: LocationSelectorProps) {
   return (
     <div className={styles.root}>
       <div className={styles.main}>
-        <FieldGroup row>
-          <RadioButtonField
-            labelText="Address"
-            labelIsLight
-            disabled={props.disabled}
+        <Flex flexDirection="row">
+          <Radio
+            className={css({ flexBasis: '100%' })}
             id={ViewType.Address}
+            testId="location-editor-address-radio"
+            isDisabled={props.disabled}
             value={ViewType.Address}
+            isChecked={props.view === ViewType.Address}
             onChange={() => {
               props.onChangeView(ViewType.Address);
-            }}
-            inputProps={{
-              testId: 'location-editor-address-radio',
-            }}
-            checked={props.view === ViewType.Address}
-          />
-          <RadioButtonField
-            labelText="Coordinates"
-            labelIsLight
-            disabled={props.disabled}
+            }}>
+            Address
+          </Radio>
+          <Radio
+            className={css({ flexBasis: '100%' })}
             id={ViewType.Coordinates}
+            testId="location-editor-coordinates-radio"
+            isDisabled={props.disabled}
             value={ViewType.Coordinates}
+            isChecked={props.view === ViewType.Coordinates}
             onChange={() => {
               props.onChangeView(ViewType.Coordinates);
-            }}
-            inputProps={{
-              testId: 'location-editor-coordinates-radio',
-            }}
-            checked={props.view === ViewType.Coordinates}
-          />
-        </FieldGroup>
+            }}>
+            Coordinates
+          </Radio>
+        </Flex>
         {props.view === ViewType.Address && (
           <div className={styles.inputsRow}>
             <LocationSearchInput
@@ -104,7 +96,7 @@ export function LocationSelector(props: LocationSelectorProps) {
               id="latitude"
               testId="location-editor-latitude"
               placeholder="Between -90 and 90"
-              disabled={props.disabled}
+              isDisabled={props.disabled}
               value={props.value ? String(props.value.lat) : ''}
               onChange={(e) => {
                 props.onChangeLocation({
@@ -124,7 +116,7 @@ export function LocationSelector(props: LocationSelectorProps) {
               id="longitude"
               testId="location-editor-longitude"
               placeholder="Between -180 and 180"
-              disabled={props.disabled}
+              isDisabled={props.disabled}
               value={props.value ? String(props.value.lng) : ''}
               onChange={(e) => {
                 props.onChangeLocation({
@@ -142,7 +134,8 @@ export function LocationSelector(props: LocationSelectorProps) {
       </div>
       <div className={styles.secondary}>
         <TextLink
-          disabled={props.disabled}
+          as="button"
+          isDisabled={props.disabled}
           testId="location-editor-clear"
           className={styles.clearBtn}
           onClick={() => {

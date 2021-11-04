@@ -10,8 +10,8 @@ import { insertInline } from '../../EmbeddedEntryInline/Utils';
 import { fetchEntries, fetchAssets, CommandPaletteActionBuilder } from '../CommandPaletteService';
 import { removeCommand } from '../Util';
 import CommandPanelMenu from './CommandPanelMenu';
-import { InViewport } from '@contentful/forma-36-react-components';
-import tokens from '@contentful/forma-36-tokens';
+import { InViewport } from './InViewport/InViewport';
+import tokens from '@contentful/f36-tokens';
 
 const DEFAULT_POSITION = {
   top: 0,

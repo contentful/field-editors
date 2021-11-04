@@ -52,5 +52,5 @@ export const specialCharacters = [
   { code: 8221, desc: 'right double quotation mark' },
   { code: 732, desc: 'small tilde' },
   { code: 9829, desc: 'black heart' },
-  { code: 9830, desc: 'diamond' }
+  { code: 9830, desc: 'diamond' },
 ];

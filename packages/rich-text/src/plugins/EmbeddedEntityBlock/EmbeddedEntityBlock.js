@@ -6,8 +6,8 @@ import { FetchingWrappedAssetCard } from './FetchingWrappedAssetCard';
 
 const styles = {
   root: css({
-    marginBottom: '1.25rem'
-  })
+    marginBottom: '1.25rem',
+  }),
 };
 
 export default class LinkedEntityBlock extends React.Component {
@@ -17,14 +17,14 @@ export default class LinkedEntityBlock extends React.Component {
     attributes: PropTypes.object.isRequired,
     editor: PropTypes.object.isRequired,
     node: PropTypes.object.isRequired,
-    onEntityFetchComplete: PropTypes.func.isRequired
+    onEntityFetchComplete: PropTypes.func.isRequired,
   };
 
   getEntitySys() {
     const data = this.props.node.data;
     return {
       id: data.get('target').sys.id,
-      type: data.get('target').sys.linkType
+      type: data.get('target').sys.linkType,
     };
   }
 

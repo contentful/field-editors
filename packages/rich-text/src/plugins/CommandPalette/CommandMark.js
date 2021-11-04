@@ -5,7 +5,7 @@ class CommandMark extends React.PureComponent {
   static propTypes = {
     children: PropTypes.node.isRequired,
     editor: PropTypes.object,
-    attributes: PropTypes.object
+    attributes: PropTypes.object,
   };
 
   render() {

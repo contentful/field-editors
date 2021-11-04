@@ -7,18 +7,18 @@ import { BLOCKS, INLINES, TOP_LEVEL_BLOCKS } from '@contentful/rich-text-types';
 // TODO: Move this into separate package (maybe rich-text-types) and share with FE.
 export const VALIDATIONS = {
   ENABLED_MARKS: 'enabledMarks',
-  ENABLED_NODE_TYPES: 'enabledNodeTypes'
+  ENABLED_NODE_TYPES: 'enabledNodeTypes',
 };
 
 export const VALIDATABLE_NODE_TYPES = [
-  ...TOP_LEVEL_BLOCKS.filter(type => type !== BLOCKS.PARAGRAPH),
-  ...Object.values(INLINES)
+  ...TOP_LEVEL_BLOCKS.filter((type) => type !== BLOCKS.PARAGRAPH),
+  ...Object.values(INLINES),
 ];
 
 const getRichTextValidation = (field, validationType) =>
   flow(
-    v => find(v, validationType),
-    v => get(v, validationType)
+    (v) => find(v, validationType),
+    (v) => get(v, validationType)
   )(field.validations);
 
 const isFormattingOptionEnabled = (field, validationType, nodeTypeOrMark) => {

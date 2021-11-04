@@ -3,12 +3,12 @@ import noop from 'lodash/noop';
 import {
   render,
   fireEvent,
-  wait,
-  waitForElement,
+  waitFor,
   waitForElementToBeRemoved,
   act,
   configure,
 } from '@testing-library/react';
+import '@testing-library/jest-dom';
 
 import { CreateEntryLinkButton } from './CreateEntryLinkButton';
 import { ContentType } from '../../types';
@@ -37,15 +37,13 @@ describe('CreateEntryLinkButton general', () => {
     const link = findButton(getByTestId);
     expect(link).toBeDefined();
     expect(link.textContent).toBe('Add entry');
-    expect(() => getByTestId('add-entry-menu-container')).toThrow(
-      'Unable to find an element by: [data-test-id="add-entry-menu-container"]'
-    );
+    expect(getByTestId('add-entry-menu')).not.toBeVisible();
   });
 
   it('renders dropdown menu on click when with multiple content types', () => {
     const { getByTestId } = render(<CreateEntryLinkButton {...props} />);
     fireEvent.click(findButton(getByTestId));
-    const menu = getByTestId('add-entry-menu-container');
+    const menu = getByTestId('add-entry-menu');
     expect(menu).toBeDefined();
     const menuItems = menu.querySelectorAll('[data-test-id="contentType"]');
     expect(menuItems).toHaveLength(props.contentTypes.length);
@@ -95,22 +93,10 @@ describe('CreateEntryLinkButton with multiple entries', () => {
     },
   };
 
-  it('should display and close menu on button click', () => {
-    const { getByTestId } = render(<CreateEntryLinkButton {...props} />);
-    fireEvent.click(findButton(getByTestId));
-    expect(getByTestId('add-entry-menu-container')).toBeDefined();
-    fireEvent.click(findButton(getByTestId));
-    expect(() => getByTestId('add-entry-menu-container')).toThrow(
-      'Unable to find an element by: [data-test-id="add-entry-menu-container"]'
-    );
-  });
-
   it('should render dropdown items for each content type', () => {
     const { getByTestId, getAllByTestId } = render(<CreateEntryLinkButton {...props} />);
     fireEvent.click(findButton(getByTestId));
-    expect(getAllByTestId('cf-ui-dropdown-list-item-button')).toHaveLength(
-      props.contentTypes.length
-    );
+    expect(getAllByTestId('contentType')).toHaveLength(props.contentTypes.length);
   });
 
   it('calls onSelect after click on menu item', () => {
@@ -119,12 +105,7 @@ describe('CreateEntryLinkButton with multiple entries', () => {
       <CreateEntryLinkButton {...props} onSelect={selectSpy} />
     );
     fireEvent.click(findButton(getByTestId));
-    fireEvent.click(
-      // @ts-expect-error
-      getAllByTestId('contentType')[1].querySelector(
-        '[data-test-id="cf-ui-dropdown-list-item-button"]'
-      )
-    );
+    fireEvent.click(getAllByTestId('contentType')[1]);
     expect(selectSpy).toHaveBeenCalledWith(CONTENT_TYPE_2.sys.id);
   });
 });
@@ -156,7 +137,7 @@ describe('CreateEntryLinkButton common', () => {
     );
     fireEvent.click(findButton(getByTestId));
     expect(onSelect).toHaveBeenCalled();
-    const spinner = await waitForElement(() => getByTestId('cf-ui-spinner'), { container });
+    const spinner = await waitFor(() => getByTestId('cf-ui-spinner'), { container });
     expect(spinner).toBeDefined();
     expect(spinner.textContent).toMatch(/Loading/g);
   });
@@ -168,21 +149,23 @@ describe('CreateEntryLinkButton common', () => {
     );
     fireEvent.click(findButton(getByTestId));
     const getSpinner = () => getByTestId('cf-ui-spinner');
-    const spinner = await waitForElement(getSpinner, { container });
+    const spinner = await waitFor(getSpinner, { container });
     expect(spinner).toBeDefined();
     await waitForElementToBeRemoved(() => document.querySelector('[data-test-id="cf-ui-spinner"]'));
     expect(getSpinner).toThrow('Unable to find an element by: [data-test-id="cf-ui-spinner"]');
   });
 
   it('does not emit onSelect on subsequent click before the promise from onSelect resolves', async () => {
-    const onSelect = jest.fn(() => new Promise((resolve) => setTimeout(() => resolve(), 200)));
+    const onSelect = jest.fn(
+      () => new Promise((resolve) => setTimeout(() => resolve(undefined), 200))
+    );
     const { getByTestId } = render(
       <CreateEntryLinkButton contentTypes={[CONTENT_TYPE_1]} onSelect={onSelect} />
     );
     fireEvent.click(findButton(getByTestId));
     fireEvent.click(findButton(getByTestId));
     fireEvent.click(findButton(getByTestId));
-    await wait(noop, { timeout: 1000 });
+    await waitFor(noop, { timeout: 1000 });
     expect(onSelect).toHaveBeenCalledTimes(1);
   });
 
@@ -193,7 +176,7 @@ describe('CreateEntryLinkButton common', () => {
     );
     await act(async () => {
       fireEvent.click(findButton(getByTestId));
-      await wait(noop, { timeout: 100 });
+      await waitFor(noop, { timeout: 100 });
       fireEvent.click(findButton(getByTestId));
     });
     expect(onSelect).toHaveBeenCalledTimes(2);

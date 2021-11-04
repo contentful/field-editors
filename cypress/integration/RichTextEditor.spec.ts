@@ -2,7 +2,7 @@ import { MARKS, BLOCKS } from '@contentful/rich-text-types';
 import { document as doc, block, text } from '../../packages/rich-text/src/helpers/nodeFactory';
 
 function expectRichTextFieldValue(expectedValue) {
-  cy.getRichTextField().then(field => {
+  cy.getRichTextField().then((field) => {
     expect(field.getValue()).to.deep.eq(expectedValue);
   });
 
@@ -30,7 +30,7 @@ describe('Rich Text Editor', () => {
   describe('Marks', () => {
     [
       [MARKS.BOLD, `{${mod}}b`],
-      [MARKS.ITALIC, `{${mod}}i`]
+      [MARKS.ITALIC, `{${mod}}i`],
       // TODO: debug failing tests for 'underline' and 'code' marks
       // [MARKS.UNDERLINE, `{${mod}}u`],
       // [MARKS.CODE, `{${mod}}/`]
@@ -40,7 +40,7 @@ describe('Rich Text Editor', () => {
 
       [
         ['toolbar', toggleMarkViaToolbar],
-        ['shortcut', toggleMarkViaShortcut]
+        ['shortcut', toggleMarkViaShortcut],
       ].forEach(([toggleType, toggleMark]) => {
         describe(`${mark} mark toggle via ${toggleType}`, () => {
           it('allows writing marked text', () => {

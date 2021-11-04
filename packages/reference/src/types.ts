@@ -48,7 +48,12 @@ export type Action =
       slide?: NavigatorSlideInfo;
       index?: number;
     }
-  | { type: 'select_and_link'; entity: ContentEntityType; entityData: Entry | Asset; index?: number }
+  | {
+      type: 'select_and_link';
+      entity: ContentEntityType;
+      entityData: Entry | Asset;
+      index?: number;
+    }
   | {
       type: 'edit';
       contentTypeId: string;
@@ -63,3 +68,8 @@ export type ActionLabels = {
   createNew: (props?: { contentType?: string }) => string;
   linkExisting: (props?: { canLinkMultiple?: boolean }) => string;
 };
+
+export type RenderDragFn = (props: {
+  drag: React.ReactElement;
+  isDragging?: boolean;
+}) => React.ReactElement;

@@ -35,18 +35,18 @@ describe('Markdown Editor / Embed External Dialog', () => {
       },
       getPixelRadio() {
         return cy.findByLabelText('pixels');
-      }
-    }
+      },
+    },
   };
 
-  const checkValue = value => {
-    cy.getMarkdownInstance().then(markdown => {
+  const checkValue = (value) => {
+    cy.getMarkdownInstance().then((markdown) => {
       expect(markdown.getContent()).eq(value);
     });
   };
 
   const clearAll = () => {
-    cy.getMarkdownInstance().then(markdown => {
+    cy.getMarkdownInstance().then((markdown) => {
       markdown.clear();
     });
   };
@@ -70,10 +70,7 @@ describe('Markdown Editor / Embed External Dialog', () => {
   it('should have correct default state', () => {
     openDialog();
 
-    selectors.inputs
-      .getUrlInput()
-      .should('have.value', 'https://')
-      .should('have.focus');
+    selectors.inputs.getUrlInput().should('have.value', 'https://');
 
     selectors.inputs.getWidthInput().should('have.value', '100');
     selectors.inputs.getPercentRadio().should('be.checked');
@@ -84,10 +81,7 @@ describe('Markdown Editor / Embed External Dialog', () => {
     checkValue('');
 
     openDialog();
-    selectors.inputs
-      .getUrlInput()
-      .clear()
-      .type('https://contentful.com');
+    selectors.inputs.getUrlInput().clear().type('https://contentful.com');
     selectors.getConfirmButton().click();
     selectors.getModalContent().should('not.exist');
     checkValue(
@@ -97,15 +91,9 @@ describe('Markdown Editor / Embed External Dialog', () => {
     clearAll();
 
     openDialog();
-    selectors.inputs
-      .getUrlInput()
-      .clear()
-      .type('https://contentful.com');
+    selectors.inputs.getUrlInput().clear().type('https://contentful.com');
     selectors.inputs.getPixelRadio().click();
-    selectors.inputs
-      .getWidthInput()
-      .clear()
-      .type('500');
+    selectors.inputs.getWidthInput().clear().type('500');
     selectors.getConfirmButton().click();
     selectors.getModalContent().should('not.exist');
     checkValue(

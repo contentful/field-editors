@@ -1,7 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { TextInput } from '@contentful/forma-36-react-components';
 // eslint-disable-next-line no-restricted-imports
 import moment from 'moment';
+import { css } from 'emotion';
+
+import { TextInput, Flex } from '@contentful/f36-components';
 
 export type TimepickerProps = {
   disabled: boolean;
@@ -81,17 +83,18 @@ export const TimepickerInput = ({
   };
 
   return (
-    <TextInput
-      aria-label="Select time"
-      placeholder={uses12hClock ? '12:00 AM' : '00:00'}
-      date-time-type={uses12hClock ? '12' : '24'}
-      testId="time-input"
-      value={selectedTime}
-      width="small"
-      disabled={disabled}
-      onFocus={handleFocus}
-      onBlur={handleBlur}
-      onChange={handleChange}
-    />
+    <Flex className={css({ width: '140px' })}>
+      <TextInput
+        aria-label="Select time"
+        placeholder={uses12hClock ? '12:00 AM' : '00:00'}
+        date-time-type={uses12hClock ? '12' : '24'}
+        testId="time-input"
+        value={selectedTime}
+        isDisabled={disabled}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        onChange={handleChange}
+      />
+    </Flex>
   );
 };

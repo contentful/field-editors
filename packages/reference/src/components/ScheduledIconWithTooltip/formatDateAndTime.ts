@@ -8,11 +8,7 @@ type DateFormatFn = (date: Date | string, short?: boolean) => string;
  * @param {boolean=} short Render only Today/Tomorrow/Yesterday if valid. Defaults to false
  */
 export const formatDate: DateFormatFn = (date, short) => {
-  switch (
-    moment()
-      .startOf('day')
-      .diff(moment(date).startOf('day'), 'days')
-  ) {
+  switch (moment().startOf('day').diff(moment(date).startOf('day'), 'days')) {
     case 0:
       return short ? 'Today' : `Today, ${moment(date).format('DD MMM YYYY')}`;
     case -1:
@@ -30,11 +26,8 @@ export const formatDate: DateFormatFn = (date, short) => {
  * == Examples
  * * `T15:36:45.000Z` => 3:36 PM (if in +0:00 offset)
  */
-export const formatTime: DateFormatFn = date => {
-  return moment
-    .utc(date)
-    .local()
-    .format('h:mm A');
+export const formatTime: DateFormatFn = (date) => {
+  return moment.utc(date).local().format('h:mm A');
 };
 
 export const formatDateAndTime: DateFormatFn = (date, short) => {

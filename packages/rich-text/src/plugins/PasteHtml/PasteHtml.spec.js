@@ -9,7 +9,7 @@ import {
   mark,
   emptyText,
   createPasteHtmlEvent,
-  createPasteEvent
+  createPasteEvent,
 } from './../shared/PasteTestHelpers';
 
 import { BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types';
@@ -21,10 +21,10 @@ const emptyInitialValue = Value.create({
     nodes: [
       Block.create({
         type: BLOCKS.PARAGRAPH,
-        nodes: List([Text.create('')])
-      })
-    ]
-  })
+        nodes: List([Text.create('')]),
+      }),
+    ],
+  }),
 });
 
 describe('PasteHtml Plugin', () => {
@@ -60,24 +60,24 @@ describe('PasteHtml Plugin', () => {
             INLINES.HYPERLINK,
             {
               data: {
-                uri: 'https://www.dict.cc/german-english/Herren.html'
-              }
+                uri: 'https://www.dict.cc/german-english/Herren.html',
+              },
             },
             text({}, leaf('Herren'))
           ),
           emptyText()
         )
-      )
+      ),
     ],
     [
       'ignores empty anchor',
       '<a>Herren</a>',
-      document({}, block(BLOCKS.PARAGRAPH, {}, text({}, leaf('Herren'))))
+      document({}, block(BLOCKS.PARAGRAPH, {}, text({}, leaf('Herren')))),
     ],
     [
       'supports paragraph',
       `<p>Herren</p>`,
-      document({}, block(BLOCKS.PARAGRAPH, {}, text({}, leaf('Herren'))))
+      document({}, block(BLOCKS.PARAGRAPH, {}, text({}, leaf('Herren')))),
     ],
     ['supports hr', `<hr />`, document({}, block(BLOCKS.HR, {}, emptyText()))],
     [
@@ -100,19 +100,19 @@ describe('PasteHtml Plugin', () => {
             )
           )
         )
-      )
+      ),
     ],
     ...listFactory(BLOCKS.OL_LIST),
     ...listFactory(BLOCKS.UL_LIST),
     [
       `handles not supported tag`,
       `<img src="/media/examples/frog.png" alt="Frog"/>`.trim(),
-      document({}, block(BLOCKS.PARAGRAPH, {}, text({}, leaf(''))))
+      document({}, block(BLOCKS.PARAGRAPH, {}, text({}, leaf('')))),
     ],
     [
       `handles not supported tag inside paragraph`,
       `<p><img src="/media/examples/frog.png" alt="Frog"/></p>`.trim(),
-      document({}, block(BLOCKS.PARAGRAPH, {}, text({}, leaf(''))))
+      document({}, block(BLOCKS.PARAGRAPH, {}, text({}, leaf('')))),
     ],
     [
       `handles unsupported root element`,
@@ -128,22 +128,22 @@ describe('PasteHtml Plugin', () => {
             leaf(' describes the structure of the page and its contents.')
           )
         )
-      )
+      ),
     ],
     [
       'removes Apple-interchange-newline',
       `<p>HyperText Markup Language</p><br class="Apple-interchange-newline" />`,
-      document({}, block(BLOCKS.PARAGRAPH, {}, text({}, leaf('HyperText Markup Language'))))
+      document({}, block(BLOCKS.PARAGRAPH, {}, text({}, leaf('HyperText Markup Language')))),
     ],
     [
       'retains soft-break',
       `<p>HyperText Markup<br/>Language</p>`,
-      document({}, block(BLOCKS.PARAGRAPH, {}, text({}, leaf('HyperText Markup\nLanguage'))))
+      document({}, block(BLOCKS.PARAGRAPH, {}, text({}, leaf('HyperText Markup\nLanguage')))),
     ],
     gDocFactory([
       'ignores wrapping b tag',
       `<meta charset='utf-8'><meta charset="utf-8"><b style="font-weight:normal;" id="docs-internal-guid-d3549954-7fff-0957-0dd2-f2ae4a9fbb1c"><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Sehr geehrte Damen und Herren</span></p></b>`,
-      document({}, block(BLOCKS.PARAGRAPH, {}, text({}, leaf('Sehr geehrte Damen und Herren'))))
+      document({}, block(BLOCKS.PARAGRAPH, {}, text({}, leaf('Sehr geehrte Damen und Herren')))),
     ]),
     gDocFactory([
       'bold',
@@ -155,7 +155,7 @@ describe('PasteHtml Plugin', () => {
           {},
           text({}, leaf('Sehr geehrte '), leaf('Damen', mark(MARKS.BOLD)), leaf(' und Herren'))
         )
-      )
+      ),
     ]),
     gDocFactory([
       'italic',
@@ -167,7 +167,7 @@ describe('PasteHtml Plugin', () => {
           {},
           text({}, leaf('Sehr geehrte '), leaf('Damen', mark(MARKS.ITALIC)), leaf(' und Herren'))
         )
-      )
+      ),
     ]),
     gDocFactory([
       'underline',
@@ -179,7 +179,7 @@ describe('PasteHtml Plugin', () => {
           {},
           text({}, leaf('Sehr geehrte '), leaf('Damen', mark(MARKS.UNDERLINE)), leaf(' und Herren'))
         )
-      )
+      ),
     ]),
     gDocFactory([
       'bold and italic',
@@ -196,8 +196,8 @@ describe('PasteHtml Plugin', () => {
             leaf(' und Herren')
           )
         )
-      )
-    ])
+      ),
+    ]),
   ])('html parsing', (testName, html, expected) => {
     it(`${testName}`, () => {
       const event = createPasteHtmlEvent(html);
@@ -217,7 +217,7 @@ function headingTestDataFactory(i) {
   return [
     `supports Heading ${i}`,
     `<h${i}>Heading ${i}</h${i}>`.trim(),
-    document({}, block(BLOCKS[`HEADING_${i}`], {}, text({}, leaf(`Heading ${i}`))))
+    document({}, block(BLOCKS[`HEADING_${i}`], {}, text({}, leaf(`Heading ${i}`)))),
   ];
 }
 
@@ -247,7 +247,7 @@ function listFactory(listType) {
             )
           )
         )
-      )
+      ),
     ],
     [
       `for ${htmlTag} preserves the child nodes of list items`,
@@ -269,7 +269,7 @@ function listFactory(listType) {
           ),
           block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.HR, {}, emptyText()))
         )
-      )
+      ),
     ],
     [
       `for ${htmlTag} supports nested lists`,
@@ -297,8 +297,8 @@ function listFactory(listType) {
             )
           )
         )
-      )
-    ]
+      ),
+    ],
   ];
 }
 

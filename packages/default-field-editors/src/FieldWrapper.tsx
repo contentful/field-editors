@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { cx } from 'emotion';
-import { HelpText, FieldGroup, FormLabel } from '@contentful/forma-36-react-components';
+import { FormControl } from '@contentful/f36-components';
 import { ValidationErrors } from '@contentful/field-editor-validation-errors';
 import type { FieldExtensionSDK, Entry } from '@contentful/field-editor-shared';
 import { styles } from './FieldWrapper.styles';
@@ -37,7 +37,6 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = function (props: FieldW
   } = props;
   const { field } = sdk;
   const helpText = (sdk.parameters?.instance as any)?.helpText ?? '';
-  const required = field.required;
 
   const [hasErrors, setHasErrors] = React.useState(false);
   React.useEffect(() => {
@@ -47,18 +46,18 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = function (props: FieldW
   }, [field]);
 
   return (
-    <FieldGroup
+    <FormControl
       testId="entity-field-controls"
       data-test-id="entity-field-controls"
       className={cx(showFocusBar && styles.withFocusBar, className)}
-      aria-invalid={hasErrors}>
+      aria-invalid={hasErrors}
+      isRequired={field.required}>
       {renderHeading ? (
         renderHeading(name)
       ) : (
-        <FormLabel className={styles.label} htmlFor={field.id}>
+        <FormControl.Label className={styles.label} htmlFor={field.id}>
           {name}
-          {required && <span> (required)</span>}
-        </FormLabel>
+        </FormControl.Label>
       )}
 
       {children}
@@ -73,10 +72,10 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = function (props: FieldW
       {renderHelpText ? (
         renderHelpText(helpText)
       ) : (
-        <HelpText className={styles.helpText} testId="field-hint">
+        <FormControl.HelpText testId="field-hint" className={styles.helpText}>
           {helpText}
-        </HelpText>
+        </FormControl.HelpText>
       )}
-    </FieldGroup>
+    </FormControl>
   );
 };

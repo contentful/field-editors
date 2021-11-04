@@ -8,9 +8,12 @@ import type {
   LocalesAPI,
 } from '@contentful/field-editor-shared';
 import { entityHelpers } from '@contentful/field-editor-shared';
-import { TextLink, List, ListItem, Icon } from '@contentful/forma-36-react-components';
 
 import * as styles from './styles';
+
+import { TextLink, List, ListItem } from '@contentful/f36-components';
+
+import { ExternalLinkIcon, InfoCircleIcon } from '@contentful/f36-icons';
 
 type UniquenessErrorProps = {
   error: ValidationError;
@@ -97,9 +100,9 @@ function UniquenessError(props: UniquenessErrorProps) {
             <TextLink
               key={entry.id}
               href={entry.href}
-              icon="ExternalLink"
-              iconPosition="right"
-              linkType="negative"
+              icon={<ExternalLinkIcon />}
+              alignIcon="end"
+              variant="negative"
               target="_blank"
               rel="noopener noreferrer">
               {entry.title}
@@ -143,7 +146,7 @@ export function ValidationErrors(props: ValidationErrorsProps) {
             aria-roledescription="field-locale-schema"
             data-error-code={`entry.schema.${error.name}`}
             className={styles.errorItem}>
-            <Icon icon="InfoCircle" color="negative" />
+            <InfoCircleIcon variant="negative" />
             <div className={styles.errorMessage}>
               {error.message}
               {error.name === 'unique' && (

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { NodePropTypes } from './PropTypes';
 import { css } from 'emotion';
 import camelCase from 'lodash/camelCase';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 
 const headingCss = {
   fontWeight: tokens.fontWeightMedium,

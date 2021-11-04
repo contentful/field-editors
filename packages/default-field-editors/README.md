@@ -10,7 +10,6 @@ This package provides React components for rendering all supported field editors
 
 ```js
 import 'codemirror/lib/codemirror.css';
-import '@contentful/forma-36-react-components/dist/styles.css';
 import '@contentful/field-editor-date/styles/styles.css';
 import { Field, FieldWrapper } from 'packages/default-field-editors';
 

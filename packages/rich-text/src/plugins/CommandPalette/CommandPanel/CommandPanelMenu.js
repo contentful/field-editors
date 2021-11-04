@@ -3,16 +3,17 @@ import PropTypes from 'prop-types';
 import isHotKey from 'is-hotkey';
 import cn from 'classnames';
 import { css } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
+import uniqBy from 'lodash/uniqBy';
+import { CloseIcon } from '@contentful/f36-icons';
 import {
-  SkeletonContainer,
-  SkeletonBodyText,
   Spinner,
   SectionHeading,
+  SkeletonContainer,
+  SkeletonBodyText,
   Icon,
   IconButton,
-} from '@contentful/forma-36-react-components';
-import uniqBy from 'lodash/uniqBy';
+} from '@contentful/f36-components';
 
 const styles = {
   commandPanel: css({
@@ -133,7 +134,7 @@ class CommandPanelItem extends React.Component {
           this.listItemRef = ref;
         }}>
         <button type="button" className={styles.button} onClick={item.callback && item.callback}>
-          {item.icon && <Icon className={styles.icon} icon={item.icon} color="secondary" />}
+          {item.icon && <Icon className={styles.icon} as={item.icon} variant="secondary" />}
           {item.thumbnail && <img className={styles.thumbnail} src={item.thumbnail} alt="" />}
           {item.label}
         </button>
@@ -268,14 +269,14 @@ export class CommandPanel extends React.Component {
 
   renderNavigationBar = () => (
     <div className={styles.navBar}>
-      <SectionHeading>
+      <SectionHeading marginBottom="none">
         {this.props.breadcrumb ? `Embed ${this.props.breadcrumb}` : 'Richtext Commands'}
       </SectionHeading>
       <IconButton
-        label="Close"
+        aria-label="Close"
         className={styles.closeButton}
-        iconProps={{ icon: 'Close' }}
-        buttonType="muted"
+        icon={<CloseIcon variant="muted" />}
+        variant="transparent"
         onClick={this.props.onClose}
       />
     </div>

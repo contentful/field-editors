@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { TextInput } from '@contentful/forma-36-react-components';
 import {
   FieldAPI,
   FieldConnector,
@@ -9,6 +8,8 @@ import {
   LocalesAPI,
 } from '@contentful/field-editor-shared';
 import * as styles from './styles';
+
+import { TextInput } from '@contentful/f36-components';
 
 export interface SingleLineEditorProps {
   /**
@@ -54,9 +55,9 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
           <div data-test-id="single-line-editor">
             <TextInput
               className={direction === 'rtl' ? styles.rightToLeft : ''}
-              required={field.required}
-              error={errors.length > 0}
-              disabled={disabled}
+              isRequired={field.required}
+              isInvalid={errors.length > 0}
+              isDisabled={disabled}
               value={value || ''}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setValue(e.target.value);

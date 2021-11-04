@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { DropdownListItem, Flex, Icon, Button } from '@contentful/forma-36-react-components';
 import { INLINES } from '@contentful/rich-text-types';
 
 import { selectEntryAndInsert, canInsertInline } from './Utils';
 import { TOOLBAR_PLUGIN_PROP_TYPES } from '../shared/PluginApi';
 import { toolbarActionHandlerWithSafeAutoFocus } from '../shared/Util';
 import { styles } from './EmbeddedEntryInline.styles';
+
+import { Flex, Button, Menu } from '@contentful/f36-components';
+
+import { EmbeddedEntryInlineIcon } from '@contentful/f36-icons';
 
 export default class EntryLinkToolbarIcon extends Component {
   static propTypes = TOOLBAR_PLUGIN_PROP_TYPES;
@@ -15,7 +18,6 @@ export default class EntryLinkToolbarIcon extends Component {
   };
 
   handleClick = (e) => {
-    this.props.onCloseEmbedMenu();
     this.handleAction(e);
   };
 
@@ -31,32 +33,29 @@ export default class EntryLinkToolbarIcon extends Component {
   render() {
     return this.props.isButton ? (
       <Button
-        disabled={this.props.disabled}
+        isDisabled={this.props.disabled}
         className={`${INLINES.EMBEDDED_ENTRY}-button`}
         size="small"
         onClick={(event) => this.handleClick(event)}
-        icon="EmbeddedEntryInline"
-        buttonType="muted"
+        startIcon={<EmbeddedEntryInlineIcon />}
+        variant="secondary"
         testId={`toolbar-toggle-${INLINES.EMBEDDED_ENTRY}`}>
         Embed inline entry
       </Button>
     ) : (
-      <DropdownListItem
-        isDisabled={this.props.disabled || !canInsertInline(this.props.editor)}
+      <Menu.Item
+        disabled={this.props.disabled || !canInsertInline(this.props.editor)}
         className="rich-text__entry-link-block-button"
-        size="small"
-        icon="Entry"
         testId={`toolbar-toggle-${INLINES.EMBEDDED_ENTRY}`}
         onClick={this.handleClick}>
         <Flex alignItems="center" flexDirection="row">
-          <Icon
-            icon="EmbeddedEntryInline"
-            color="secondary"
+          <EmbeddedEntryInlineIcon
+            variant="secondary"
             className={`rich-text__embedded-entry-list-icon ${styles.icon}`}
           />
           <span>Inline entry</span>
         </Flex>
-      </DropdownListItem>
+      </Menu.Item>
     );
   }
 }

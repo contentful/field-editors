@@ -22,11 +22,11 @@ export const PasteTextPlugin = () => {
 
       const { document } = PlainSerializer.deserialize(string, {
         defaultBlock: BLOCKS.PARAGRAPH,
-        delimiter: '\n\n' // We look for double new lines as a delimiter for paragraphs
+        delimiter: '\n\n', // We look for double new lines as a delimiter for paragraphs
       });
 
       editor.insertFragment(document);
       return;
-    }
+    },
   };
 };

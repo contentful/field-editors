@@ -4,37 +4,39 @@ import { toggleChange } from '../shared/BlockToggleDecorator';
 import CommonNode from '../shared/NodeDecorator';
 import newHeadingDropdownItem from './HeadingDropdownItem';
 
-const newPlugin = (defaultType, tagName, hotkey) => ({ type = defaultType, richTextAPI }) => ({
-  renderNode: (props, _editor, next) => {
-    if (props.node.type === type) {
-      return CommonNode(tagName, {})(props);
-    }
-    return next();
-  },
-  onKeyDown: (e, editor, next) => {
-    if (isHotkey('enter', e)) {
-      const currentBlock = editor.value.blocks.get(0);
-      if (currentBlock.type === type) {
-        const { value } = editor;
+const newPlugin =
+  (defaultType, tagName, hotkey) =>
+  ({ type = defaultType, richTextAPI }) => ({
+    renderNode: (props, _editor, next) => {
+      if (props.node.type === type) {
+        return CommonNode(tagName, {})(props);
+      }
+      return next();
+    },
+    onKeyDown: (e, editor, next) => {
+      if (isHotkey('enter', e)) {
+        const currentBlock = editor.value.blocks.get(0);
+        if (currentBlock.type === type) {
+          const { value } = editor;
 
-        if (value.selection.start.offset === 0) {
-          const initialRange = value.selection;
-          editor.splitBlock().setBlocksAtRange(initialRange, BLOCKS.PARAGRAPH);
-        } else {
-          editor.splitBlock().setBlocks(BLOCKS.PARAGRAPH);
+          if (value.selection.start.offset === 0) {
+            const initialRange = value.selection;
+            editor.splitBlock().setBlocksAtRange(initialRange, BLOCKS.PARAGRAPH);
+          } else {
+            editor.splitBlock().setBlocks(BLOCKS.PARAGRAPH);
+          }
+
+          return;
         }
-
+      } else if (isHotkey(hotkey, e)) {
+        const isActive = toggleChange(editor, type);
+        const actionName = isActive ? 'insert' : 'remove';
+        richTextAPI.logShortcutAction(actionName, { nodeType: type });
         return;
       }
-    } else if (isHotkey(hotkey, e)) {
-      const isActive = toggleChange(editor, type);
-      const actionName = isActive ? 'insert' : 'remove';
-      richTextAPI.logShortcutAction(actionName, { nodeType: type });
-      return;
-    }
-    return next();
-  },
-});
+      return next();
+    },
+  });
 
 // TODO: move hotkeys to components
 export const Heading1Plugin = newPlugin(BLOCKS.HEADING_1, 'h1', ['mod+opt+1']);

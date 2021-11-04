@@ -9,7 +9,6 @@ import Readme from '../../README.md';
 <Readme />
 
 ```jsx
-import '@contentful/forma-36-react-components/dist/styles.css';
 import { MultipleEntryReferenceEditor } from '@contentful/field-editor-reference';
 ```
 
@@ -17,13 +16,7 @@ import { Playground, Props } from 'docz';
 import { MultipleEntryReferenceEditor } from './MultipleEntryReferenceEditor.tsx';
 import { CombinedLinkActions } from '../../src';
 import { ActionsPlayground } from '@contentful/field-editor-test-utils';
-import {
-  Card,
-  Button,
-  Typography,
-  Paragraph,
-  Heading,
-} from '@contentful/forma-36-react-components';
+import { Button, Paragraph, Heading, Card } from '@contentful/f36-components';
 import { newReferenceEditorFakeSdk } from '../__fixtures__/FakeSdk';
 
 ## In Action
@@ -68,10 +61,8 @@ another reference rendered by the stardard card renderer.
           renderCustomCard={(props) =>
             props.entity.fields.exField ? (
               <Card testId="custom-card">
-                <Typography style={{ marginBottom: '20px' }}>
-                  <Heading>{props.entity.fields.exField.en}</Heading>
-                  <Paragraph>{props.entity.fields.exDesc.en}</Paragraph>
-                </Typography>
+                <Heading>{props.entity.fields.exField.en}</Heading>
+                <Paragraph>{props.entity.fields.exDesc.en}</Paragraph>
                 <Button onClick={props.onEdit} style={{ marginRight: '10px' }}>
                   Edit
                 </Button>

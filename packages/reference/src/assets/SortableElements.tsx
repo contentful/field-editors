@@ -1,11 +1,10 @@
 import React from 'react';
 import { css } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 import { FetchingWrappedAssetCard } from './WrappedAssetCard/FetchingWrappedAssetCard';
 import { ReferenceValue } from '../types';
 import { ReferenceEditorProps } from '../common/ReferenceEditor';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
-import { CardDragHandle } from '@contentful/forma-36-react-components';
 
 const styles = {
   gridContainter: css({
@@ -28,7 +27,10 @@ type SortableLinkListProps = ReferenceEditorProps & {
   isDisabled: boolean;
 };
 
-const DragHandle = SortableHandle(() => <CardDragHandle>Reorder item</CardDragHandle>);
+const DragHandle = (props: { drag: React.ReactElement }) => {
+  const SortableDragHandle = SortableHandle(() => props.drag);
+  return <SortableDragHandle />;
+};
 
 const SortableLink = SortableElement((props: { children: React.ReactElement }) => (
   <div className={styles.item}>{props.children}</div>
@@ -50,7 +52,7 @@ export const SortableLinkList = SortableContainer((props: SortableLinkListProps)
               })
             );
           }}
-          cardDragHandle={props.isDisabled ? undefined : <DragHandle />}
+          renderDragHandle={props.isDisabled ? undefined : DragHandle}
         />
       </SortableLink>
     ))}

@@ -15,10 +15,10 @@ export const PastePlugin = ({ richTextAPI: { logShortcutAction } }) => ({
       logShortcutAction('paste', {
         characterCountAfter,
         characterCountBefore,
-        characterCountSelection
+        characterCountSelection,
       });
     });
     next();
     return;
-  }
+  },
 });

@@ -80,7 +80,7 @@ function useEntitiesStore(props: { sdk: BaseExtensionSDK }) {
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
   const loadEntityScheduledActions = React.useCallback(
-    (entityType: 'Entry' | 'Asset', id: string) => {
+    (entityType: string, id: string) => {
       const key = `${entityType}:${id}`;
       if (state.scheduledActions[key]) {
         return Promise.resolve(state.scheduledActions[key]);

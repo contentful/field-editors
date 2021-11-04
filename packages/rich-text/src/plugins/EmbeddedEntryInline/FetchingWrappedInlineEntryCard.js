@@ -1,17 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
-import {
-  InlineEntryCard,
-  DropdownListItem,
-  DropdownList,
-  Icon,
-} from '@contentful/forma-36-react-components';
+import tokens from '@contentful/f36-tokens';
+import { InlineEntryCard, MenuItem, Text } from '@contentful/f36-components';
 import { entityHelpers } from '@contentful/field-editor-shared';
 import { useEntities, ScheduledIconWithTooltip } from '@contentful/field-editor-reference';
 
 import { INLINES } from '@contentful/rich-text-types';
+
+import { ClockIcon } from '@contentful/f36-icons';
 
 const { getEntryTitle, getEntryStatus } = entityHelpers;
 
@@ -39,14 +36,14 @@ export const FetchingWrappedInlineEntryCard = (props) => {
 
   if (entry === 'failed') {
     return (
-      <InlineEntryCard testId={INLINES.EMBEDDED_ENTRY} selected={props.isSelected}>
-        Entry missing or inaccessible
+      <InlineEntryCard testId={INLINES.EMBEDDED_ENTRY} isSelected={props.isSelected}>
+        <Text>Entry missing or inaccessible</Text>
       </InlineEntryCard>
     );
   }
 
   if (entry === undefined) {
-    return <InlineEntryCard loading />;
+    return <InlineEntryCard isLoading />;
   }
 
   const allContentTypes = props.sdk.space.getCachedContentTypes();
@@ -62,9 +59,13 @@ export const FetchingWrappedInlineEntryCard = (props) => {
     return (
       <InlineEntryCard
         testId={INLINES.EMBEDDED_ENTRY}
-        onRemove={props.onRemove}
-        selected={props.isSelected}>
-        Entry missing or inaccessible
+        isSelected={props.isSelected}
+        actions={[
+          <MenuItem key="remove" onClick={props.onRemove}>
+            Remove
+          </MenuItem>,
+        ]}>
+        <Text>Entry missing or inaccessible</Text>
       </InlineEntryCard>
     );
   }
@@ -80,26 +81,28 @@ export const FetchingWrappedInlineEntryCard = (props) => {
   return (
     <InlineEntryCard
       testId={INLINES.EMBEDDED_ENTRY}
-      selected={props.isSelected}
+      isSelected={props.isSelected}
       title={`${contentTypeName}: ${title}`}
       status={status}
-      dropdownListElements={
-        !props.isReadOnly ? (
-          <DropdownList>
-            <DropdownListItem onClick={props.onEdit}>Edit</DropdownListItem>
-            <DropdownListItem onClick={props.onRemove} isDisabled={props.isDisabled}>
-              Remove
-            </DropdownListItem>
-          </DropdownList>
-        ) : null
+      actions={
+        !props.isReadOnly
+          ? [
+              <MenuItem key="edit" onClick={props.onEdit}>
+                Edit
+              </MenuItem>,
+              <MenuItem key="edit" onClick={props.onRemove} isDisabled={props.isDisabled}>
+                Remove
+              </MenuItem>,
+            ]
+          : undefined
       }>
       <ScheduledIconWithTooltip
         getEntityScheduledActions={loadEntityScheduledActions}
         entityType="Entry"
         entityId={entry.sys.id}>
-        <Icon className={styles.scheduledIcon} icon="Clock" color="muted" testId="scheduled-icon" />
+        <ClockIcon className={styles.scheduledIcon} variant="muted" testId="scheduled-icon" />
       </ScheduledIconWithTooltip>
-      {title}
+      <Text>{title}</Text>
     </InlineEntryCard>
   );
 };

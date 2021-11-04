@@ -7,7 +7,7 @@ const RICH_TEXT_COMMANDS_CONTEXT_MARK_TYPE = 'richTextCommandsContext';
  * @param {Slate.Editor} editor
  * @returns {String}
  */
-export const getCommandText = editor => {
+export const getCommandText = (editor) => {
   // matches the character / literally (case sensitive)
   if (!editor.value.startText) {
     return null;
@@ -26,7 +26,7 @@ export const getCommandText = editor => {
  * @param {Slate.Editor} editor
  * @returns {Slate.Decoration?}
  */
-export const getDecorationOrDefault = editor => {
+export const getDecorationOrDefault = (editor) => {
   const value = editor.value;
   if (!value.startText) {
     return null;
@@ -40,22 +40,22 @@ export const getDecorationOrDefault = editor => {
     const decoration = {
       anchor: {
         key: selection.start.key,
-        offset: selection.start.offset - (inputValue.length + 1)
+        offset: selection.start.offset - (inputValue.length + 1),
       },
       focus: {
         key: selection.start.key,
-        offset: selection.start.offset
+        offset: selection.start.offset,
       },
       mark: {
-        type: RICH_TEXT_COMMANDS_CONTEXT_MARK_TYPE
-      }
+        type: RICH_TEXT_COMMANDS_CONTEXT_MARK_TYPE,
+      },
     };
     return decoration;
   }
   return null;
 };
 
-export const hasCommandPaletteMarkType = markType => {
+export const hasCommandPaletteMarkType = (markType) => {
   return markType === RICH_TEXT_COMMANDS_CONTEXT_MARK_TYPE;
 };
 
@@ -66,7 +66,7 @@ export const hasCommandPaletteMarkType = markType => {
  * @param {Slate.Editor} editor
  * @returns {Boolean}
  */
-export const hasCommandPaletteDecoration = editor => {
+export const hasCommandPaletteDecoration = (editor) => {
   const decorations = editor.value.document.getDecorations(editor);
 
   if (decorations.isEmpty()) {
@@ -74,7 +74,7 @@ export const hasCommandPaletteDecoration = editor => {
   }
 
   const commandPaletteDecoration = decorations.find(
-    d => d.mark.type === RICH_TEXT_COMMANDS_CONTEXT_MARK_TYPE
+    (d) => d.mark.type === RICH_TEXT_COMMANDS_CONTEXT_MARK_TYPE
   );
   return Boolean(commandPaletteDecoration);
 };

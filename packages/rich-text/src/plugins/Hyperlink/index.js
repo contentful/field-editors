@@ -18,7 +18,7 @@ export const HyperlinkPlugin = ({ richTextAPI }) => ({
         <Hyperlink
           {...props}
           richTextAPI={richTextAPI}
-          onEdit={event => {
+          onEdit={(event) => {
             event.preventDefault(); // Don't follow `href`
 
             editor.moveToRangeOfNode(node).focus();
@@ -51,11 +51,11 @@ export const HyperlinkPlugin = ({ richTextAPI }) => ({
       return () => {
         node
           .getInlines()
-          .forEach(inlineNode => editor.unwrapInlineByKey(inlineNode.key, node.type));
+          .forEach((inlineNode) => editor.unwrapInlineByKey(inlineNode.key, node.type));
       };
     }
     next();
-  }
+  },
 });
 
 function isHyperlink(type) {

@@ -52,10 +52,10 @@ export const createNode = (nodeType, entity) => ({
       sys: {
         id: entity.sys.id,
         type: 'Link',
-        linkType: entity.sys.type
-      }
-    }
-  }
+        linkType: entity.sys.type,
+      },
+    },
+  },
 });
 
 export function insertBlock(editor, nodeType, entity, focusNextLine = true) {

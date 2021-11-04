@@ -11,7 +11,7 @@ export default ToolbarIcon;
 export const EmbeddedEntityBlockPlugin = ({
   richTextAPI: { sdk, logShortcutAction, logViewportAction },
   nodeType,
-  hotkey
+  hotkey,
 }) => {
   return {
     renderNode: (props, _editor, next) => {
@@ -40,7 +40,7 @@ export const EmbeddedEntityBlockPlugin = ({
         return;
       }
       return next();
-    }
+    },
   };
 };
 
@@ -48,7 +48,7 @@ export const EmbeddedEntryBlockPlugin = ({ richTextAPI }) => {
   return EmbeddedEntityBlockPlugin({
     richTextAPI,
     nodeType: BLOCKS.EMBEDDED_ENTRY,
-    hotkey: ['mod+shift+e']
+    hotkey: ['mod+shift+e'],
   });
 };
 
@@ -56,6 +56,6 @@ export const EmbeddedAssetBlockPlugin = ({ richTextAPI }) => {
   return EmbeddedEntityBlockPlugin({
     richTextAPI,
     nodeType: BLOCKS.EMBEDDED_ASSET,
-    hotkey: ['mod+shift+a']
+    hotkey: ['mod+shift+a'],
   });
 };

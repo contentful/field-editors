@@ -1,15 +1,18 @@
 import React from 'react';
 import { css } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 import { SpaceAPI } from '@contentful/app-sdk';
-import { AssetCard, Icon } from '@contentful/forma-36-react-components';
 import { renderActions, renderAssetInfo } from './AssetCardActions';
-import { File, Asset } from '../../types';
+import { File, Asset, RenderDragFn } from '../../types';
 import { entityHelpers } from '@contentful/field-editor-shared';
 import { MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
 
 // @ts-expect-error
 import mimetype from '@contentful/mimetype';
+
+import { ClockIcon } from '@contentful/f36-icons';
+
+import { AssetCard } from '@contentful/f36-components';
 
 const groupToIconMap = {
   image: 'image',
@@ -43,7 +46,7 @@ export interface WrappedAssetCardProps {
   onEdit?: () => void;
   onRemove?: () => void;
   size: 'default' | 'small';
-  cardDragHandle?: React.ReactElement;
+  renderDragHandle?: RenderDragFn;
   isClickable: boolean;
 }
 
@@ -93,24 +96,26 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
     ? props.asset.fields.file[props.localeCode] || props.asset.fields.file[props.defaultLocaleCode]
     : undefined;
 
+  const href = getAssetUrl ? getAssetUrl(props.asset.sys.id) : undefined;
+
   return (
     <AssetCard
+      as={href ? 'a' : 'article'}
       type={getFileType(entityFile)}
       title={entityTitle}
       className={className}
-      selected={isSelected}
-      href={getAssetUrl ? getAssetUrl(props.asset.sys.id) : undefined}
+      isSelected={isSelected}
+      href={href}
       status={status}
-      statusIcon={
+      icon={
         <ScheduledIconWithTooltip
           getEntityScheduledActions={props.getEntityScheduledActions}
           entityType="Asset"
           entityId={props.asset.sys.id}>
-          <Icon
+          <ClockIcon
             className={styles.scheduleIcon}
-            icon="Clock"
             size="small"
-            color="muted"
+            variant="muted"
             testId="schedule-icon"
           />
         </ScheduledIconWithTooltip>
@@ -122,20 +127,17 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
             : `${entityFile.url}?h=300`
           : ''
       }
-      // @ts-expect-error
       onClick={(e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
         if (!isClickable) return;
         onEdit && onEdit();
       }}
-      cardDragHandleComponent={props.cardDragHandle}
-      withDragHandle={!!props.cardDragHandle}
-      dropdownListElements={
-        <React.Fragment>
-          {renderActions({ entityFile, isDisabled: isDisabled, onEdit, onRemove })}
-          {entityFile ? renderAssetInfo({ entityFile }) : <span />}
-        </React.Fragment>
-      }
+      dragHandleRender={props.renderDragHandle}
+      withDragHandle={!!props.renderDragHandle}
+      actions={[
+        ...renderActions({ entityFile, isDisabled: isDisabled, onEdit, onRemove }),
+        ...(entityFile ? renderAssetInfo({ entityFile }) : []),
+      ].filter((item) => item)}
       size={size}
     />
   );

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { AssetCard } from '@contentful/forma-36-react-components';
+import { AssetCard } from '@contentful/f36-components';
 import {
   useEntities,
   MissingEntityCard,

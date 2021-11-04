@@ -1,6 +1,7 @@
 import React, { ChangeEvent } from 'react';
-import { Select, Option } from '@contentful/forma-36-react-components';
 import { zoneOffsets, defaultZoneOffset } from './utils/zoneOffsets';
+
+import { Select } from '@contentful/f36-components';
 
 export type TimezonepickerProps = {
   disabled: boolean;
@@ -18,15 +19,14 @@ export const TimezonepickerInput = ({
       aria-label="Select timezone"
       testId="timezone-input"
       value={value}
-      width="medium"
       isDisabled={disabled}
       onChange={(e: ChangeEvent<HTMLSelectElement>) => {
         onChange(e.currentTarget.value);
       }}>
       {zoneOffsets.map((offset) => (
-        <Option key={offset} value={offset}>
+        <Select.Option key={offset} value={offset}>
           UTC{offset}
-        </Option>
+        </Select.Option>
       ))}
     </Select>
   );

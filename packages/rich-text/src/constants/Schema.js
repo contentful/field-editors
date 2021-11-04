@@ -4,13 +4,13 @@ import {
   INLINES,
   TOP_LEVEL_BLOCKS,
   VOID_BLOCKS,
-  CONTAINERS
+  CONTAINERS,
 } from '@contentful/rich-text-types';
 
 import ListPlugin from '../plugins/List/EditListWrapper';
 
-const mapVoidTypes = nodeTypes => {
-  return fromPairs(nodeTypes.map(nodeType => [nodeType, { isVoid: true }]));
+const mapVoidTypes = (nodeTypes) => {
+  return fromPairs(nodeTypes.map((nodeType) => [nodeType, { isVoid: true }]));
 };
 
 const listPlugin = ListPlugin();
@@ -19,80 +19,80 @@ export default {
   document: {
     nodes: [
       {
-        types: TOP_LEVEL_BLOCKS
-      }
-    ]
+        types: TOP_LEVEL_BLOCKS,
+      },
+    ],
   },
   blocks: {
     [BLOCKS.PARAGRAPH]: {
       nodes: [
         {
-          types: Object.values(INLINES)
+          types: Object.values(INLINES),
         },
         {
-          objects: ['text', 'inline']
-        }
-      ]
+          objects: ['text', 'inline'],
+        },
+      ],
     },
     [BLOCKS.HEADING_1]: {
       nodes: [
         {
-          types: Object.values(INLINES)
+          types: Object.values(INLINES),
         },
         {
-          objects: ['text', 'inline']
-        }
-      ]
+          objects: ['text', 'inline'],
+        },
+      ],
     },
     [BLOCKS.HEADING_2]: {
       nodes: [
         {
-          types: Object.values(INLINES)
+          types: Object.values(INLINES),
         },
         {
-          objects: ['text', 'inline']
-        }
-      ]
+          objects: ['text', 'inline'],
+        },
+      ],
     },
     [BLOCKS.HEADING_3]: {
       nodes: [
         {
-          types: Object.values(INLINES)
+          types: Object.values(INLINES),
         },
         {
-          objects: ['text', 'inline']
-        }
-      ]
+          objects: ['text', 'inline'],
+        },
+      ],
     },
     [BLOCKS.HEADING_4]: {
       nodes: [
         {
-          types: Object.values(INLINES)
+          types: Object.values(INLINES),
         },
         {
-          objects: ['text', 'inline']
-        }
-      ]
+          objects: ['text', 'inline'],
+        },
+      ],
     },
     [BLOCKS.HEADING_5]: {
       nodes: [
         {
-          types: Object.values(INLINES)
+          types: Object.values(INLINES),
         },
         {
-          objects: ['text', 'inline']
-        }
-      ]
+          objects: ['text', 'inline'],
+        },
+      ],
     },
     [BLOCKS.HEADING_6]: {
       nodes: [
         {
-          types: Object.values(INLINES)
+          types: Object.values(INLINES),
         },
         {
-          objects: ['text', 'inline']
-        }
-      ]
+          objects: ['text', 'inline'],
+        },
+      ],
     },
     ...mapVoidTypes(VOID_BLOCKS),
     // The schema for the lists and list-items is defined in the slate-edit-list plugin.
@@ -102,41 +102,41 @@ export default {
     [BLOCKS.QUOTE]: {
       nodes: [
         {
-          match: [CONTAINERS[BLOCKS.QUOTE].map(type => ({ type }))],
-          min: 1
-        }
+          match: [CONTAINERS[BLOCKS.QUOTE].map((type) => ({ type }))],
+          min: 1,
+        },
       ],
       normalize: (editor, error) => {
         if (error.code === 'child_type_invalid') {
           return editor.unwrapBlockByKey(error.node.key, BLOCKS.QUOTE);
         }
-      }
-    }
+      },
+    },
   },
   inlines: {
     [INLINES.HYPERLINK]: {
       nodes: [
         {
-          objects: ['text']
-        }
-      ]
+          objects: ['text'],
+        },
+      ],
     },
     [INLINES.ENTRY_HYPERLINK]: {
       nodes: [
         {
-          objects: ['text']
-        }
-      ]
+          objects: ['text'],
+        },
+      ],
     },
     [INLINES.ASSET_HYPERLINK]: {
       nodes: [
         {
-          objects: ['text']
-        }
-      ]
+          objects: ['text'],
+        },
+      ],
     },
     [INLINES.EMBEDDED_ENTRY]: {
-      isVoid: true
-    }
-  }
+      isVoid: true,
+    },
+  },
 };

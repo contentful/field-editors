@@ -12,7 +12,7 @@ export function fromFieldValidations(
   validations: Record<string, any>[] = [],
   fieldType: 'Symbol' | 'Text'
 ): ValidationType {
-  const sizeValidation = validations.find(v => 'size' in v);
+  const sizeValidation = validations.find((v) => 'size' in v);
   const size = (sizeValidation && sizeValidation.size) || {};
   const min = size.min;
   const max = size.max;
@@ -21,22 +21,22 @@ export function fromFieldValidations(
     return {
       type: 'min-max',
       min,
-      max
+      max,
     };
   } else if (isNumber(min)) {
     return {
       type: 'min',
-      min
+      min,
     };
   } else if (isNumber(max)) {
     return {
       type: 'max',
-      max
+      max,
     };
   } else {
     return {
       type: 'max',
-      max: fieldType === 'Symbol' ? 256 : 50000
+      max: fieldType === 'Symbol' ? 256 : 50000,
     };
   }
 }

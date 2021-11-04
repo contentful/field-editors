@@ -8,9 +8,11 @@ import {
   LocalesAPI,
   PredefinedValuesError,
 } from '@contentful/field-editor-shared';
-import { CheckboxField, Form, TextLink } from '@contentful/forma-36-react-components';
+import { Checkbox, Box } from '@contentful/f36-components';
 import * as styles from './styles';
 import { nanoid } from 'nanoid';
+
+import { TextLink, Form } from '@contentful/f36-components';
 
 export interface CheckboxEditorProps {
   /**
@@ -114,17 +116,14 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
         return (
           <Form
             testId="checkbox-editor"
-            spacing="condensed"
             className={cx(styles.form, direction === 'rtl' ? styles.rightToLeft : '')}>
             {mergedOptions.map((item) => (
-              <div key={item.id}>
-                <CheckboxField
+              <Box key={item.id} marginBottom="spacingS">
+                <Checkbox
                   key={item.id}
-                  labelIsLight
                   id={item.id}
-                  checked={values.includes(item.value)}
-                  labelText={item.label}
-                  disabled={disabled}
+                  isChecked={values.includes(item.value)}
+                  isDisabled={disabled}
                   value={item.value}
                   name={`${field.id}.${field.locale}`}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -133,19 +132,23 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
                     } else {
                       removeValue(item.value);
                     }
-                  }}
-                />
+                  }}>
+                  {item.label}
+                </Checkbox>
                 {item.invalid && (
                   <>
                     <span data-test-id="invalid-text" className={styles.invalidText}>
                       (invalid)
                     </span>
-                    <TextLink className={styles.removeBtn} onClick={() => removeValue(item.value)}>
+                    <TextLink
+                      as="button"
+                      className={styles.removeBtn}
+                      onClick={() => removeValue(item.value)}>
                       Remove
                     </TextLink>
                   </>
                 )}
-              </div>
+              </Box>
             ))}
           </Form>
         );
