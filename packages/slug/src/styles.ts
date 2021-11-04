@@ -14,9 +14,7 @@ export const inputContainer = css({
 });
 
 export const input = css({
-  input: {
-    paddingLeft: '40px',
-  },
+  paddingLeft: '40px',
 });
 
 export const icon = css({

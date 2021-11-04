@@ -8,7 +8,7 @@ import {
   LocalesAPI,
   PredefinedValuesError,
 } from '@contentful/field-editor-shared';
-import { Checkbox } from '@contentful/f36-components';
+import { Checkbox, Box } from '@contentful/f36-components';
 import * as styles from './styles';
 import { nanoid } from 'nanoid';
 
@@ -118,7 +118,7 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
             testId="checkbox-editor"
             className={cx(styles.form, direction === 'rtl' ? styles.rightToLeft : '')}>
             {mergedOptions.map((item) => (
-              <div key={item.id}>
+              <Box key={item.id} marginBottom="spacingS">
                 <Checkbox
                   key={item.id}
                   id={item.id}
@@ -148,7 +148,7 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
                     </TextLink>
                   </>
                 )}
-              </div>
+              </Box>
             ))}
           </Form>
         );

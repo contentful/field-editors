@@ -57,6 +57,7 @@ export class RatingRibbon extends React.Component<RatingRibbonProps, RatingRibbo
         {items.map((num) => (
           <IconButton
             variant="transparent"
+            size="small"
             icon={
               <StarIcon
                 variant={this.isSelected(num) ? 'primary' : 'muted'}
