@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.2](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.0.1...@contentful/default-field-editors@1.0.2) (2021-11-04)
+
+### Bug Fixes
+
+- add content type id to field id ([71f4d83](https://github.com/contentful/field-editors/commit/71f4d83fff6fff617430cb2048030bdaabfc6487))
+
 ## [1.0.1](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.0.0...@contentful/default-field-editors@1.0.1) (2021-11-04)
 
 ### Bug Fixes
