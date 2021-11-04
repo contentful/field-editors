@@ -22,8 +22,8 @@
   },
   "dependencies": {
     "@contentful/field-editor-shared": "^0.25.1",
-    "@contentful/f36-tokens": "next-v4",
-    "@contentful/f36-components": "next-v4",
+    "@contentful/f36-tokens": "beta",
+    "@contentful/f36-components": "beta",
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15"
