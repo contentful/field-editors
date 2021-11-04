@@ -45,8 +45,11 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = function (props: FieldW
     });
   }, [field]);
 
+  const fieldControlId = [field.id, field.locale].filter((item) => item).join('-');
+
   return (
     <FormControl
+      id={fieldControlId}
       testId="entity-field-controls"
       data-test-id="entity-field-controls"
       className={cx(showFocusBar && styles.withFocusBar, className)}
@@ -55,9 +58,7 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = function (props: FieldW
       {renderHeading ? (
         renderHeading(name)
       ) : (
-        <FormControl.Label className={styles.label} htmlFor={field.id}>
-          {name}
-        </FormControl.Label>
+        <FormControl.Label className={styles.label}>{name}</FormControl.Label>
       )}
 
       {children}
