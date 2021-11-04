@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@0.10.3...@contentful/default-field-editors@0.11.0) (2021-11-04)
+
+### Features
+
+- Forma v4 components adoption ([#805](https://github.com/contentful/field-editors/issues/805)) ([526bde6](https://github.com/contentful/field-editors/commit/526bde6e10e0ee3789705ec10fb31489af7ca59e))
+
+### BREAKING CHANGES
+
+- adopts a new Forma v4 beta
+
 ## [0.10.3](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@0.10.2...@contentful/default-field-editors@0.10.3) (2021-11-01)
 
 **Note:** Version bump only for package @contentful/default-field-editors

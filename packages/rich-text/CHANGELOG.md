@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.20.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@0.19.20...@contentful/field-editor-rich-text@0.20.0) (2021-11-04)
+
+### Features
+
+- Forma v4 components adoption ([#805](https://github.com/contentful/field-editors/issues/805)) ([526bde6](https://github.com/contentful/field-editors/commit/526bde6e10e0ee3789705ec10fb31489af7ca59e))
+
+### BREAKING CHANGES
+
+- adopts a new Forma v4 beta
+
 ## [0.19.20](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@0.19.19...@contentful/field-editor-rich-text@0.19.20) (2021-11-01)
 
 ### Bug Fixes
