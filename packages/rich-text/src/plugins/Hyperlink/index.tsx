@@ -9,7 +9,7 @@ import { INLINES } from '@contentful/rich-text-types';
 import { Tooltip, TextLink, EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
-import { FieldExtensionSDK, Link, EntityType } from '@contentful/app-sdk';
+import { FieldExtensionSDK, Link, ContentEntityType as EntityType } from '@contentful/app-sdk';
 import { CustomSlatePluginOptions, CustomRenderElementProps } from '../../types';
 import { EntryAssetTooltip } from './EntryAssetTooltip';
 import { useSdkContext } from '../../SdkProvider';

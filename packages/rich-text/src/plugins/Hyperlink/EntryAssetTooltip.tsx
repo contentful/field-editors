@@ -1,7 +1,10 @@
 import * as React from 'react';
 import { css } from 'emotion';
 import tokens from '@contentful/forma-36-tokens';
-import { EntityType, ScheduledAction } from '@contentful/field-editor-reference/dist/types';
+import {
+  ContentEntityType as EntityType,
+  ScheduledAction,
+} from '@contentful/field-editor-reference/dist/types';
 import { entityHelpers, Entry, Asset, FieldExtensionSDK } from '@contentful/field-editor-shared';
 import { EntityStatusTag } from './EntityStatusTag';
 import { truncate } from '../../helpers/truncate';
