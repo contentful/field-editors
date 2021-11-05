@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { Button } from '@contentful/forma-36-react-components';
 import * as styles from './styles';
 import {
-  EntityType,
+  ContentEntityType,
   ContentType,
   ActionLabels,
   Entry,
@@ -12,8 +11,12 @@ import {
 import { CreateEntryLinkButton } from '../CreateEntryLinkButton/CreateEntryLinkButton';
 import { NoLinkPermissionsInfo } from './NoLinkPermissionsInfo';
 
+import { Button } from '@contentful/f36-components';
+
+import { PlusIcon, LinkIcon } from '@contentful/f36-icons';
+
 export interface LinkActionsProps {
-  entityType: EntityType;
+  entityType: ContentEntityType;
   contentTypes: ContentType[];
   canCreateEntity: boolean;
   canLinkEntity: boolean;
@@ -83,13 +86,13 @@ export function LinkActions(props: LinkActionsProps) {
           )}
           {props.entityType === 'Asset' && (
             <Button
-              disabled={props.isDisabled}
+              isDisabled={props.isDisabled}
               testId={testIds.createAndLink}
               onClick={() => {
                 props.onCreate(undefined, props.itemsLength);
               }}
-              buttonType="muted"
-              icon="Plus"
+              variant="secondary"
+              startIcon={<PlusIcon />}
               size="small">
               {labels.createNew()}
             </Button>
@@ -99,13 +102,13 @@ export function LinkActions(props: LinkActionsProps) {
       )}
       {props.canLinkEntity && (
         <Button
-          disabled={props.isDisabled}
+          isDisabled={props.isDisabled}
           testId={testIds.linkExisting}
           onClick={() => {
             props.onLinkExisting();
           }}
-          buttonType="muted"
-          icon="Link"
+          variant="secondary"
+          startIcon={<LinkIcon />}
           size="small">
           {labels.linkExisting({ canLinkMultiple: props.canLinkMultiple })}
         </Button>

@@ -45,8 +45,7 @@ describe('Markdown Editor / Simple Actions', () => {
   };
 
   const examples = {
-    long:
-      'This course helps you understand the basics behind Contentful. It contains modules that introduce you to core concepts and how your app consumes content from Contentful. This content is pulled from Contentful APIs using a Contentful SDK.',
+    long: 'This course helps you understand the basics behind Contentful. It contains modules that introduce you to core concepts and how your app consumes content from Contentful. This content is pulled from Contentful APIs using a Contentful SDK.',
     code: 'console.log("This is Javascript code!");',
   };
 

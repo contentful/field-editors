@@ -1,4 +1,4 @@
-import { File } from '../types';
+import { File } from '../typesEntity';
 
 /**
  * Checks whether the passed content type matches one of our valid MIME types
@@ -15,7 +15,7 @@ export function isValidImage(file: File) {
     'image/pjpeg',
     'image/x-jps',
     'image/png',
-    'image/svg+xml'
+    'image/svg+xml',
   ];
 
   return validMimeTypes.includes(file.contentType);

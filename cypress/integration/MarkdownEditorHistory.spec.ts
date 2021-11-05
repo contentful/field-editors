@@ -11,15 +11,15 @@ describe('Markdown Editor / History', () => {
     },
     getUndoButton() {
       return cy.findByTestId('markdown-action-button-undo');
-    }
+    },
   };
 
-  const type = value => {
+  const type = (value) => {
     return selectors.getInput().type(value, { force: true });
   };
 
-  const checkValue = value => {
-    cy.getMarkdownInstance().then(markdown => {
+  const checkValue = (value) => {
+    cy.getMarkdownInstance().then((markdown) => {
       expect(markdown.getContent()).eq(value);
     });
   };

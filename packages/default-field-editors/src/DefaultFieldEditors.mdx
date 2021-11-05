@@ -13,7 +13,8 @@ import {
   createFakeSpaceAPI,
 } from '@contentful/field-editor-test-utils';
 import { BooleanEditor } from '@contentful/field-editor-boolean';
-import { HelpText, Icon } from '@contentful/forma-36-react-components';
+import { EditIcon, HelpCircleIcon } from '@contentful/f36-icons';
+import { Text } from '@contentful/f36-components';
 import { Field } from './Field.tsx';
 import { FieldWrapper } from './FieldWrapper.tsx';
 
@@ -58,14 +59,14 @@ import { FieldWrapper } from './FieldWrapper.tsx';
           name="customField"
           renderHeading={(name) => (
             <div>
-              <Icon icon="Edit" size="tiny" /> Custom {name} heading
+              <EditIcon size="tiny" /> Custom {name} heading
             </div>
           )}
           renderHelpText={(helpText) => (
-            <HelpText>
-              <Icon icon="HelpCircle" size="tiny" /> Custom help text:{" "}
+            <Text as="p" fontColor="gray500" marginTop="spacingXs">
+              <HelpCircleIcon size="tiny" /> Custom help text:{" "}
               {helpText}
-            </HelpText>
+            </Text>
           )}
         >
           <Field sdk={sdk} widgetId="datePicker" />
@@ -92,7 +93,9 @@ import { FieldWrapper } from './FieldWrapper.tsx';
         <ActionsPlayground mitt={mitt} />
       </div>
     );
-  }}
+
+}}
+
 </Playground>
 
 ## FieldWrapper props

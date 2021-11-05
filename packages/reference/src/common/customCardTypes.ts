@@ -1,4 +1,4 @@
-import { Asset, ContentType, Entry } from '../types';
+import { Asset, ContentType, Entry, RenderDragFn } from '../types';
 import * as React from 'react';
 import { CustomActionProps } from './ReferenceEditor';
 
@@ -32,7 +32,7 @@ export type CustomEntityCardProps = {
   defaultLocaleCode: string;
   isDisabled: boolean;
   size: 'default' | 'small';
-  cardDragHandle?: React.ReactElement;
+  renderDragHandle?: RenderDragFn;
   onEdit?: () => void;
   onRemove?: () => void;
   onMoveTop?: () => void;

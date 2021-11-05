@@ -8,21 +8,20 @@ import { FieldExtensionSDK } from '@contentful/app-sdk';
 // TODO: Move these into separate package (maybe rich-text-types) and share with FE.
 export const VALIDATIONS = {
   ENABLED_MARKS: 'enabledMarks',
-  ENABLED_NODE_TYPES: 'enabledNodeTypes'
+  ENABLED_NODE_TYPES: 'enabledNodeTypes',
 };
-export const DEFAULT_ENABLED_NODE_TYPES = [BLOCKS.DOCUMENT, BLOCKS.PARAGRAPH, 'text']
+export const DEFAULT_ENABLED_NODE_TYPES = [BLOCKS.DOCUMENT, BLOCKS.PARAGRAPH, 'text'];
 
-export const VALIDATABLE_NODE_TYPES =
-  ([] as Array<BLOCKS | INLINES>)
-    .concat(TOP_LEVEL_BLOCKS)
-    .filter(type => type !== BLOCKS.PARAGRAPH)
-    .concat(Object.values(INLINES));
+export const VALIDATABLE_NODE_TYPES = ([] as Array<BLOCKS | INLINES>)
+  .concat(TOP_LEVEL_BLOCKS)
+  .filter((type) => type !== BLOCKS.PARAGRAPH)
+  .concat(Object.values(INLINES));
 
 // TODO: Memoize
 const getRichTextValidation = (field, validationType) =>
   flow(
-    v => find(v, validationType),
-    v => get(v, validationType)
+    (v) => find(v, validationType),
+    (v) => get(v, validationType)
   )(field.validations);
 
 const isFormattingOptionEnabled = (field, validationType, nodeTypeOrMark) => {

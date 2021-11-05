@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 import { css, cx } from 'emotion';
 import { createMarkdownEditor } from './createMarkdownEditor';
 import { EditorDirection } from '../../types';

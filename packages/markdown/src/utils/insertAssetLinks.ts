@@ -67,7 +67,7 @@ function makeAssetLink(
       // it means we used a default locale - we filter empty values
       isFallback: Boolean(fallbackFile),
       // todo: tranform using fromHostname
-      asMarkdown: `![${title}](${file.url})`
+      asMarkdown: `![${title}](${file.url})`,
     };
   } else {
     return null;
@@ -77,14 +77,14 @@ function makeAssetLink(
 export async function insertAssetLinks(assets: Array<Asset>, locales: Locales) {
   // check whether do we have some assets, which don't have
   // a version in this field's locale
-  const otherLocales = assets.filter(asset => {
+  const otherLocales = assets.filter((asset) => {
     return !get(asset, ['fields', 'file', locales.localeCode]);
   });
 
   const linksWithMeta = assets
-    .map(asset => makeAssetLink(asset, locales))
+    .map((asset) => makeAssetLink(asset, locales))
     // remove empty links
-    .filter(asset => asset !== null) as LinkWithMedia[];
+    .filter((asset) => asset !== null) as LinkWithMedia[];
 
   // if there have values from fallback/default locales, we need to
   // provide user a warning so we show him modal
@@ -99,16 +99,16 @@ export async function insertAssetLinks(assets: Array<Asset>, locales: Locales) {
           thumbnailUrl: asset.fields.file[code as string].url,
           thumbnailAltText: title,
           description: isFallback ? `Fallback locale (${code})` : `Default locale (${code})`,
-          asset: asset
+          asset: asset,
         };
       });
 
     return {
       fallbacks: fallbackAssets,
-      links: linksWithMeta
+      links: linksWithMeta,
     };
   }
   return {
-    links: linksWithMeta
+    links: linksWithMeta,
   };
 }

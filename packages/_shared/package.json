@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-shared",
-  "version": "0.22.1",
+  "version": "1.0.0",
   "main": "dist/index.js",
   "module": "dist/field-editor-shared.esm.js",
   "typings": "dist/index.d.ts",
@@ -21,16 +21,17 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "devDependencies": {
-    "@contentful/app-sdk": "^3.36.0"
+    "@contentful/app-sdk": "^4.2.0"
   },
   "dependencies": {
-    "@contentful/forma-36-tokens": "^0.11.0",
+    "@contentful/f36-note": "beta",
+    "@contentful/f36-tokens": "beta",
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15"
   },
   "peerDependencies": {
-    "@contentful/app-sdk": "^3.36.0",
+    "@contentful/app-sdk": "^4.2.0",
     "react": ">=16.8.0"
   },
   "jest": {

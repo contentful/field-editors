@@ -39,7 +39,7 @@ describe('Link organizer', () => {
       '[1]:  http://test.com',
       '[2]: http://url.com',
       '[string]: http://url.com',
-      '[4]: http://test.com  "Hello world"'
+      '[4]: http://test.com  "Hello world"',
     ].join('\n');
 
     it('Finds all labels', () => {

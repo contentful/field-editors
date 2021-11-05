@@ -1,8 +1,11 @@
 import React from 'react';
 import { useDebounce } from 'use-debounce';
-import { TextInput, Icon, Spinner, ValidationMessage } from '@contentful/forma-36-react-components';
 import { makeSlug } from './services/makeSlug';
 import * as styles from './styles';
+
+import { Spinner, ValidationMessage, TextInput } from '@contentful/f36-components';
+
+import { LinkIcon } from '@contentful/f36-icons';
 
 interface SlugEditorFieldProps {
   hasError: boolean;
@@ -73,11 +76,11 @@ export function SlugEditorFieldStatic(
 
   return (
     <div className={styles.inputContainer}>
-      <Icon icon="Link" className={styles.icon} />
+      <LinkIcon className={styles.icon} />
       <TextInput
         className={styles.input}
-        error={hasError || status === 'duplicate'}
-        disabled={isDisabled}
+        isInvalid={hasError || status === 'duplicate'}
+        isDisabled={isDisabled}
         value={value || ''}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           setValue(e.target.value);
@@ -93,7 +96,7 @@ export function SlugEditorFieldStatic(
       />
       {status === 'checking' && (
         <div className={styles.spinnerContainer}>
-          <Spinner testId="slug-editor-spinner" size="default" />
+          <Spinner testId="slug-editor-spinner" />
         </div>
       )}
       {status === 'duplicate' && (

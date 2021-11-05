@@ -1,14 +1,13 @@
 {
   "name": "multiple-references-app",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "dependencies": {
-    "@contentful/app-sdk": "^3.36.0",
-    "@contentful/field-editor-reference": "^2.16.0",
-    "@contentful/field-editor-single-line": "^0.14.1",
-    "@contentful/forma-36-fcss": "^0.3.3",
-    "@contentful/forma-36-react-components": "^3.93.4",
-    "@contentful/forma-36-tokens": "^0.11.0",
+    "@contentful/app-sdk": "^4.2.0",
+    "@contentful/f36-components": "beta",
+    "@contentful/f36-tokens": "beta",
+    "@contentful/field-editor-reference": "^2.21.2",
+    "@contentful/field-editor-single-line": "^0.15.6",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },

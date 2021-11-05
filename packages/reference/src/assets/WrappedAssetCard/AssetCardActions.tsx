@@ -1,21 +1,8 @@
 import React from 'react';
-import { DropdownList, DropdownListItem } from '@contentful/forma-36-react-components';
-import { css } from 'emotion';
+import { Menu, Text } from '@contentful/f36-components';
+import { shortenStorageUnit } from '@contentful/field-editor-shared';
 import { File } from '../../types';
 import get from 'lodash/get';
-
-import { shortenStorageUnit } from './shortenStorageUnit';
-
-const styles = {
-  cardDropdown: css({
-    width: '300px',
-  }),
-  truncated: css({
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
-  }),
-};
 
 function downloadAsset(url: string) {
   window.open(url, '_blank', 'noopener,noreferrer');
@@ -27,29 +14,21 @@ export function renderAssetInfo(props: { entityFile: File }) {
   const mimeType = get(entityFile, 'contentType');
   const fileSize = get(entityFile, 'details.size');
   const image = get(entityFile, 'details.image');
-  return (
-    <DropdownList
-      border="top"
-      className={styles.cardDropdown}
-      // @ts-expect-error
-      onClick={(e) => {
-        e.stopPropagation();
-      }}>
-      <DropdownListItem isTitle>File info</DropdownListItem>
-      {fileName && (
-        <DropdownListItem>
-          <div className={styles.truncated}>{fileName}</div>
-        </DropdownListItem>
-      )}
-      {mimeType && (
-        <DropdownListItem>
-          <div>{mimeType}</div>
-        </DropdownListItem>
-      )}
-      {fileSize && <DropdownListItem>{shortenStorageUnit(fileSize, 'B')}</DropdownListItem>}
-      {image && <DropdownListItem>{`${image.width} × ${image.height}`}</DropdownListItem>}
-    </DropdownList>
-  );
+  return [
+    <Menu.SectionTitle key="file-section">File info</Menu.SectionTitle>,
+    fileName && (
+      <Menu.Item key="file-name">
+        <Text isTruncated>{fileName}</Text>
+      </Menu.Item>
+    ),
+    mimeType && (
+      <Menu.Item key="file-type">
+        <Text isTruncated>{mimeType}</Text>
+      </Menu.Item>
+    ),
+    fileSize && <Menu.Item key="file-size">{shortenStorageUnit(fileSize, 'B')}</Menu.Item>,
+    image && <Menu.Item key="file-dimentions">{`${image.width} × ${image.height}`}</Menu.Item>,
+  ].filter((item) => item);
 }
 
 export function renderActions(props: {
@@ -59,31 +38,30 @@ export function renderActions(props: {
   entityFile?: File;
 }) {
   const { entityFile, isDisabled, onEdit, onRemove } = props;
-  return (
-    <DropdownList
-      className={styles.cardDropdown}
-      // @ts-expect-error
-      onClick={(e) => {
-        e.stopPropagation();
-      }}>
-      <DropdownListItem isTitle>Actions</DropdownListItem>
-      {onEdit && (
-        <DropdownListItem onClick={onEdit} testId="card-action-edit">
-          Edit
-        </DropdownListItem>
-      )}
-      {entityFile && (
-        <DropdownListItem
-          onClick={() => downloadAsset(entityFile.url)}
-          testId="card-action-download">
-          Download
-        </DropdownListItem>
-      )}
-      {onRemove && (
-        <DropdownListItem isDisabled={isDisabled} onClick={onRemove} testId="card-action-remove">
-          Remove
-        </DropdownListItem>
-      )}
-    </DropdownList>
-  );
+
+  return [
+    <Menu.SectionTitle key="section-title">Actions</Menu.SectionTitle>,
+    onEdit ? (
+      <Menu.Item key="edit" onClick={onEdit} testId="card-action-edit">
+        Edit
+      </Menu.Item>
+    ) : null,
+    entityFile ? (
+      <Menu.Item
+        key="download"
+        onClick={() => {
+          if (typeof entityFile.url === 'string') {
+            downloadAsset(entityFile.url);
+          }
+        }}
+        testId="card-action-download">
+        Download
+      </Menu.Item>
+    ) : null,
+    onRemove ? (
+      <Menu.Item key="remove" disabled={isDisabled} onClick={onRemove} testId="card-action-remove">
+        Remove
+      </Menu.Item>
+    ) : null,
+  ].filter((item) => item);
 }

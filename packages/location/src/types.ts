@@ -5,7 +5,7 @@ export type NullableLocationValue = LocationValue | null | undefined;
 
 export enum ViewType {
   Address = 'Address',
-  Coordinates = 'Coordinates'
+  Coordinates = 'Coordinates',
 }
 
 export type GeocodeApiResponse = null | Array<{

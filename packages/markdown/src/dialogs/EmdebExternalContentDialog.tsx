@@ -1,18 +1,20 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { css } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 import { DialogsAPI } from '@contentful/app-sdk';
 import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 import {
-  Modal,
-  HelpText,
+  ModalContent,
+  ModalControls,
+  Text,
   TextLink,
-  TextField,
-  RadioButtonField,
-  CheckboxField,
   Button,
+  Checkbox,
+  Radio,
   Form,
-} from '@contentful/forma-36-react-components';
+  FormControl,
+  TextInput,
+} from '@contentful/f36-components';
 import { isValidUrl } from '../utils/isValidUrl';
 
 const styles = {
@@ -28,12 +30,6 @@ const styles = {
   }),
   radioButton: css({
     marginLeft: tokens.spacingM,
-  }),
-  controlsContainer: css({
-    display: 'flex',
-    button: {
-      marginRight: tokens.spacingM,
-    },
   }),
 };
 
@@ -82,104 +78,112 @@ export const EmbedExternalContentModal = ({ onClose }: EmbedExternalContentModal
   }, [mainInputRef]);
 
   return (
-    <Modal.Content testId="embed-external-dialog">
-      <Form>
-        <TextField
-          value={url}
-          name="external-link-url"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            const value = e.target.value;
-            setUrl(value);
-            setUrlValidity(isValidUrl(value));
-          }}
-          labelText="Content URL"
-          id="external-link-url-field"
-          helpText="Include protocol (e.g. https://)"
-          textInputProps={{
-            testId: 'external-link-url-field',
-            placeholder: 'https://example.com',
-            inputRef: mainInputRef,
-          }}
-          required
-          validationMessage={urlIsValid ? '' : 'URL is invalid'}
-        />
-        <TextLink href="http://embed.ly/providers" target="_blank" rel="noopener noreferrer">
-          Supported sources
-        </TextLink>
-        <div className={styles.widthFiledGroup}>
-          <TextField
-            value={width}
-            id="embedded-content-width"
-            name="embedded-content-width"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setWidth(e.target.value)}
-            labelText="Width"
-            textInputProps={{
-              testId: 'embedded-content-width',
-              type: 'number',
-              width: 'small',
-            }}
-            required
-            validationMessage={
-              isWidthValid(Number(width), selectedUnit) ? '' : 'Should be equal or less then 100'
-            }
-          />
-          <div className={styles.radioButtonGroup}>
-            <RadioButtonField
-              className={styles.radioButton}
-              id="unit-option-percent"
-              checked={selectedUnit === 'percent'}
-              labelText="percent"
-              value="percent"
-              onChange={() => setUnit('percent')}
-              labelIsLight
+    <>
+      <ModalContent testId="embed-external-dialog">
+        <Form>
+          <FormControl id="external-link-url-field" isRequired isInvalid={!urlIsValid}>
+            <FormControl.Label>Content URL</FormControl.Label>
+            <TextInput
+              name="external-link-url"
+              value={url}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                const value = e.target.value;
+                setUrl(value);
+                setUrlValidity(isValidUrl(value));
+              }}
+              testId="external-link-url-field"
+              placeholder="https://example.com"
+              ref={mainInputRef}
             />
-            <RadioButtonField
-              className={styles.radioButton}
-              id="unit-option-pixels"
-              checked={selectedUnit === 'px'}
-              labelText="pixels"
-              value="pixels"
-              onChange={() => setUnit('px')}
-              labelIsLight
-            />
-          </div>
-        </div>
-        <CheckboxField
-          value="Yes"
-          testId="attach-social-checkbox"
-          id="attach-social-checkbox"
-          name="attach-social-checkbox"
-          checked={attachSocial}
-          onChange={() => setAttachSocial(!attachSocial)}
-          labelText="Attach social sharing links to this element"
-          labelIsLight
-        />
-        <HelpText>
-          To enable this embedded content in your application make sure to add the&nbsp;
-          <TextLink
-            href="http://embed.ly/docs/products/cards"
-            target="_blank"
-            rel="noopener noreferrer">
-            Embedly&apos;s platform.js
+            <FormControl.HelpText>Include protocol (e.g. https://)</FormControl.HelpText>
+            {!urlIsValid && (
+              <FormControl.ValidationMessage>URL is invalid</FormControl.ValidationMessage>
+            )}
+          </FormControl>
+          <TextLink href="http://embed.ly/providers" target="_blank" rel="noopener noreferrer">
+            Supported sources
           </TextLink>
-          &nbsp;on your development environment
-        </HelpText>
-        {/* <EmbedlyPreview previewUrl={url} /> */}
-      </Form>
-      <div className={styles.controlsContainer}>
+          <div className={styles.widthFiledGroup}>
+            <FormControl
+              id="embedded-content-width"
+              isRequired
+              isInvalid={!isWidthValid(Number(width), selectedUnit)}>
+              <FormControl.Label>Width</FormControl.Label>
+              <TextInput
+                value={width}
+                name="embedded-content-width"
+                testId="embedded-content-width"
+                type="number"
+                width="small"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setWidth(e.target.value)}
+              />
+              {!isWidthValid(Number(width), selectedUnit) && (
+                <FormControl.ValidationMessage>
+                  Should be equal or less then 100
+                </FormControl.ValidationMessage>
+              )}
+            </FormControl>
+
+            <div className={styles.radioButtonGroup}>
+              <Radio
+                id="unit-option-percent"
+                value="percent"
+                isChecked={selectedUnit === 'percent'}
+                onChange={() => setUnit('percent')}
+                className={styles.radioButton}>
+                percent
+              </Radio>
+              <Radio
+                id="unit-option-pixels"
+                value="pixels"
+                isChecked={selectedUnit === 'px'}
+                onChange={() => setUnit('px')}
+                className={styles.radioButton}>
+                pixels
+              </Radio>
+            </div>
+          </div>
+          <Checkbox
+            id="attach-social-checkbox"
+            name="attach-social-checkbox"
+            value="Yes"
+            isChecked={attachSocial}
+            onChange={() => setAttachSocial(!attachSocial)}
+            testId="attach-social-checkbox">
+            Attach social sharing links to this element
+          </Checkbox>
+          <Text as="p" fontColor="gray500" marginTop="spacingXs">
+            To enable this embedded content in your application make sure to add the&nbsp;
+            <TextLink
+              href="http://embed.ly/docs/products/cards"
+              target="_blank"
+              rel="noopener noreferrer">
+              Embedly&apos;s platform.js
+            </TextLink>
+            &nbsp;on your development environment
+          </Text>
+          {/* <EmbedlyPreview previewUrl={url} /> */}
+        </Form>
+      </ModalContent>
+      <ModalControls>
+        <Button
+          testId="emded-external-cancel"
+          onClick={() => onClose(false)}
+          variant="secondary"
+          size="small">
+          Cancel
+        </Button>
         <Button
           testId="embed-external-confirm"
           onClick={() =>
             onClose(makeEmbedlyLink({ url, width: Number(width), selectedUnit, attachSocial }))
           }
-          buttonType="positive">
+          variant="positive"
+          size="small">
           Insert
         </Button>
-        <Button testId="emded-external-cancel" onClick={() => onClose(false)} buttonType="muted">
-          Cancel
-        </Button>
-      </div>
-    </Modal.Content>
+      </ModalControls>
+    </>
   );
 };
 
@@ -189,7 +193,7 @@ export const openEmbedExternalContentDialog = (
   return dialogs.openCurrent({
     title: 'Embed external content',
     width: 'large',
-    minHeight: '475px',
+    minHeight: '435px',
     shouldCloseOnEscapePress: true,
     shouldCloseOnOverlayClick: true,
     parameters: {

@@ -2,7 +2,8 @@ import * as React from 'react';
 import get from 'lodash/get';
 import { nanoid } from 'nanoid';
 import { FieldAPI, ParametersAPI, FieldConnector } from '@contentful/field-editor-shared';
-import { RadioButtonField, TextLink, Flex } from '@contentful/forma-36-react-components';
+
+import { TextLink, Flex, Radio } from '@contentful/f36-components';
 
 export interface BooleanEditorProps {
   /**
@@ -55,24 +56,27 @@ export function BooleanEditor(props: BooleanEditorProps) {
               const checked = value === item.value;
               return (
                 <Flex marginRight="spacingM" key={id}>
-                  <RadioButtonField
-                    labelIsLight
+                  <Radio
                     id={id}
-                    checked={checked}
-                    labelText={item.label}
-                    disabled={disabled}
+                    isDisabled={disabled}
                     value={item.value === undefined ? '' : String(item.value)}
+                    isChecked={checked}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                       if (e.target.checked) {
                         setOption(e.target.value);
                       }
-                    }}
-                  />
+                    }}>
+                    {item.label}
+                  </Radio>
                 </Flex>
               );
             })}
             {value !== undefined && (
-              <TextLink testId="boolean-editor-clear" disabled={disabled} onClick={clearOption}>
+              <TextLink
+                as="button"
+                testId="boolean-editor-clear"
+                isDisabled={disabled}
+                onClick={clearOption}>
                 Clear
               </TextLink>
             )}

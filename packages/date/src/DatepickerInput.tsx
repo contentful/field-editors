@@ -2,11 +2,12 @@ import React, { Component, FocusEventHandler, FocusEvent } from 'react';
 import noop from 'lodash/noop';
 // eslint-disable-next-line no-restricted-imports
 import moment from 'moment';
-import { TextInput } from '@contentful/forma-36-react-components';
 import { css, cx } from 'emotion';
 import { formatDateDisplay } from './utils/date';
 import { createPikaday } from './utils/createPikaday';
 import { CalendarIcon } from './icons/CalendarIcon';
+
+import { TextInput } from '@contentful/f36-components';
 
 const styles = {
   datePickerWrapper: css({
@@ -22,12 +23,10 @@ const styles = {
   }),
   input: css({
     width: '270px',
-    input: {
-      cursor: 'pointer',
-      paddingRight: '40px',
-      '&:disabled': {
-        cursor: 'not-allowed',
-      },
+    cursor: 'pointer',
+    paddingRight: '40px',
+    '&:disabled': {
+      cursor: 'not-allowed',
     },
   }),
   icon: css({
@@ -107,10 +106,10 @@ export class DatepickerInput extends Component<DatePickerProps> {
         <TextInput
           aria-label="Select date"
           testId="date-input"
-          readOnly
-          disabled={this.props.disabled}
+          isReadOnly
+          isDisabled={this.props.disabled}
           value={formatDateDisplay(this.props.value)}
-          inputRef={this.datePickerNode}
+          ref={this.datePickerNode}
           onFocus={this.handleOpen}
           onBlur={this.handleBlur}
           className={styles.input}

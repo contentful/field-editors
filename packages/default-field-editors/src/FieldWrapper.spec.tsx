@@ -11,6 +11,11 @@ configure({
 
 const [field, emitter] = createFakeFieldAPI();
 const sdk: FieldExtensionSDK = {
+  contentType: {
+    sys: {
+      id: 'content-type-id',
+    },
+  },
   field,
   locales: createFakeLocalesAPI(),
 } as any;

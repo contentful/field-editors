@@ -1,25 +1,13 @@
 import React from 'react';
 import {
-  Modal,
-  Button,
+  ModalContent,
+  ModalControls,
   Paragraph,
-  Typography,
+  Button,
   EntityList,
-  EntityListItem,
-} from '@contentful/forma-36-react-components';
-import { css } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
+} from '@contentful/f36-components';
 import { DialogsAPI } from '@contentful/app-sdk';
 import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
-
-const styles = {
-  controlButton: css({
-    marginTop: tokens.spacingL,
-    button: {
-      marginRight: tokens.spacingM,
-    },
-  }),
-};
 
 interface ConfirmInsertAssetModalDialogProps {
   onClose: (result: boolean) => void;
@@ -40,8 +28,8 @@ export const ConfirmInsertAssetModalDialog = ({
   const localesNumber = assets.length;
 
   return (
-    <Modal.Content testId="confirm-insert-asset">
-      <Typography>
+    <>
+      <ModalContent testId="confirm-insert-asset">
         <Paragraph>
           {localesNumber === 1
             ? `Link asset with missing file for locale ${locale}`
@@ -52,27 +40,31 @@ export const ConfirmInsertAssetModalDialog = ({
             ? 'Do you want to link to the file in its fallback locale?'
             : 'Do you want to link to the files in their fallback locales?'}
         </Paragraph>
-      </Typography>
-      <EntityList>
-        {assets.map(({ title, description, thumbnailUrl, thumbnailAltText }) => (
-          <EntityListItem
-            key={thumbnailUrl}
-            title={title}
-            thumbnailUrl={`${thumbnailUrl}?w=46&h=46&fit=thumb`}
-            thumbnailAltText={thumbnailAltText}
-            description={description}
-          />
-        ))}
-      </EntityList>
-      <div className={styles.controlButton}>
-        <Button testId="confirm-insert-asset" onClick={() => onClose(true)} buttonType="positive">
-          Confirm
-        </Button>
-        <Button onClick={() => onClose(false)} buttonType="muted">
+        <EntityList>
+          {assets.map(({ title, description, thumbnailUrl, thumbnailAltText }) => (
+            <EntityList.Item
+              key={thumbnailUrl}
+              title={title}
+              thumbnailUrl={`${thumbnailUrl}?w=46&h=46&fit=thumb`}
+              thumbnailAltText={thumbnailAltText}
+              description={description}
+            />
+          ))}
+        </EntityList>
+      </ModalContent>
+      <ModalControls>
+        <Button onClick={() => onClose(false)} variant="secondary" size="small">
           Cancel
         </Button>
-      </div>
-    </Modal.Content>
+        <Button
+          testId="confirm-insert-asset"
+          onClick={() => onClose(true)}
+          variant="positive"
+          size="small">
+          Confirm
+        </Button>
+      </ModalControls>
+    </>
   );
 };
 
@@ -91,7 +83,7 @@ export const openConfirmInsertAsset = (
   return dialogs.openCurrent({
     title: 'Confirm using fallback assets',
     width: 'medium',
-    minHeight: '290px',
+    minHeight: '270px',
     shouldCloseOnEscapePress: true,
     shouldCloseOnOverlayClick: true,
     parameters: {

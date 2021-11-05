@@ -60,7 +60,7 @@ export function create(
     tabSize: 2,
     indentWithTabs: false,
     indentUnit: 2,
-    autoRefresh: true
+    autoRefresh: true,
   });
 
   cm.setSize('100%', EDITOR_SIZE.min);

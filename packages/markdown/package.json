@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-markdown",
-  "version": "0.16.2",
+  "version": "1.0.0",
   "main": "dist/index.js",
   "module": "dist/field-editor-markdown.esm.js",
   "typings": "dist/index.d.ts",
@@ -21,9 +21,10 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
-    "@contentful/field-editor-shared": "^0.22.1",
-    "@contentful/forma-36-react-components": "^3.93.4",
-    "@contentful/forma-36-tokens": "^0.11.0",
+    "@contentful/f36-components": "beta",
+    "@contentful/f36-icons": "beta",
+    "@contentful/f36-tokens": "beta",
+    "@contentful/field-editor-shared": "^1.0.0",
     "@types/codemirror": "0.0.108",
     "@types/markdown-to-jsx": "6.11.3",
     "codemirror": "^5.48.0",
@@ -36,12 +37,12 @@
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
-    "@contentful/app-sdk": "^3.36.0",
-    "@contentful/field-editor-test-utils": "^0.17.1",
+    "@contentful/app-sdk": "^4.2.0",
+    "@contentful/field-editor-test-utils": "^1.0.0",
     "@types/dompurify": "^2.2.2"
   },
   "peerDependencies": {
-    "@contentful/app-sdk": "^3.36.0",
+    "@contentful/app-sdk": "^4.2.0",
     "react": ">=16.8.0"
   },
   "jest": {

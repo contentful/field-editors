@@ -9,21 +9,14 @@ import Readme from '../../README.md';
 <Readme />
 
 ```jsx
-import '@contentful/forma-36-react-components/dist/styles.css';
 import { SingleEntryReferenceEditor } from '@contentful/field-editor-reference';
 ```
 
 import { Playground, Props } from 'docz';
 import { SingleEntryReferenceEditor } from './SingleEntryReferenceEditor.tsx';
 import { ActionsPlayground } from '@contentful/field-editor-test-utils';
-import {
-  Card,
-  Button,
-  Typography,
-  Paragraph,
-  Heading,
-} from '@contentful/forma-36-react-components';
-import { newReferenceEditorFakeSdk } from '../__fixtures__/FakeSdk'
+import { Button, Paragraph, Heading, Card } from '@contentful/f36-components';
+import { newReferenceEditorFakeSdk } from '../__fixtures__/FakeSdk';
 
 ## In Action
 
@@ -42,9 +35,9 @@ import { newReferenceEditorFakeSdk } from '../__fixtures__/FakeSdk'
             instance: {
               showCreateEntityAction: true,
               showLinkEntityAction: true,
-            }
+            },
           }}
-         />
+        />
         <ActionsPlayground mitt={mitt} />
       </div>
     );
@@ -63,14 +56,19 @@ again to showcase inserting another reference rendered by the stardard card rend
     return (
       <div>
         <SingleEntryReferenceEditor
-          renderCustomCard={(props) => props.entity.fields.exField ? <Card testId='custom-card'>
-              <Typography style={{marginBottom: '20px'}}>
+          renderCustomCard={(props) =>
+            props.entity.fields.exField ? (
+              <Card testId="custom-card">
                 <Heading>{props.entity.fields.exField.en}</Heading>
                 <Paragraph>{props.entity.fields.exDesc.en}</Paragraph>
-              </Typography>
-              <Button onClick={props.onEdit} style={{marginRight: '10px'}}>Edit</Button>
-              <Button onClick={props.onRemove}>Remove</Button>
-            </Card> : false
+                <Button onClick={props.onEdit} style={{ marginRight: '10px' }}>
+                  Edit
+                </Button>
+                <Button onClick={props.onRemove}>Remove</Button>
+              </Card>
+            ) : (
+              false
+            )
           }
           viewType="card"
           sdk={sdk}
@@ -79,15 +77,14 @@ again to showcase inserting another reference rendered by the stardard card rend
             instance: instanceParams || {
               showCreateEntityAction: true,
               showLinkEntityAction: true,
-            }
+            },
           }}
-         />
+        />
         <ActionsPlayground mitt={mitt} />
       </div>
     );
   }}
 </Playground>
-
 
 ## With custom card relying on default card
 
@@ -99,7 +96,7 @@ again to showcase inserting another reference rendered by the stardard card rend
       <div data-test-id="custom-card-using-default">
         <SingleEntryReferenceEditor
           renderCustomCard={(props, _, renderDefaultCard) => {
-            return renderDefaultCard({size: 'small'})
+            return renderDefaultCard({ size: 'small' });
           }}
           viewType="card"
           sdk={sdk}
@@ -108,7 +105,7 @@ again to showcase inserting another reference rendered by the stardard card rend
             instance: instanceParams || {
               showCreateEntityAction: true,
               showLinkEntityAction: true,
-            }
+            },
           }}
         />
         <ActionsPlayground mitt={mitt} />
