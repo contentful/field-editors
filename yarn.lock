@@ -2519,7 +2519,7 @@
     lodash-es "^4.17.15"
     markdown-to-jsx "^7.1.1"
 
-"@contentful/field-editor-reference@^2.21.2":
+"@contentful/field-editor-reference@^2.20.6", "@contentful/field-editor-reference@^2.21.2":
   version "2.21.2"
   resolved "https://registry.yarnpkg.com/@contentful/field-editor-reference/-/field-editor-reference-2.21.2.tgz#15ad626d0ff00d29a304c6ca97d184f556c8c625"
   integrity sha512-EfyHQ3q5DrU0T+AC4Eshvyxrsaw1GP9KYj9Jx188IpSzpce50/fy14f8qdNtYmdbOa6dnOd5ospIDVBGN4L21A==
@@ -2820,6 +2820,34 @@
     "@contentful/field-editor-test-utils" "^0.16.0"
     "@contentful/forma-36-react-components" "^3.79.5"
     "@contentful/forma-36-tokens" "^0.10.1"
+    "@contentful/rich-text-plain-text-renderer" "^14.0.0"
+    "@contentful/rich-text-types" "^14.0.1"
+    "@productboard/slate-edit-list" "^0.19.1"
+    "@wikifactory/slate-trailing-block" "^0.6.0"
+    classnames "^2.2.6"
+    detect-browser "^3.0.1"
+    emotion "^10.0.17"
+    fast-deep-equal "^3.1.1"
+    immutable "^3.8.2"
+    lodash "^4.17.15"
+    lodash-es "^4.17.15"
+    prop-types "^15.7.2"
+    slate "0.44.10"
+    slate-html-serializer "0.7.34"
+    slate-plain-serializer "0.6.34"
+    slate-react "0.21.16"
+
+"@contentful/field-editor-rich-text@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@contentful/field-editor-rich-text/-/field-editor-rich-text-1.0.0.tgz#922d14e334a17544a323b1802ae63e6c65c5cc42"
+  integrity sha512-QXi4wrTjEn5GLBYZaF5PaXEVKFy08uVruAax9UV6Bo/KnuTZxjLwAle3bOWsVtYZ9Ot7no/SRljbobrHYqn18Q==
+  dependencies:
+    "@contentful/contentful-slatejs-adapter" "14.1.2"
+    "@contentful/f36-components" beta
+    "@contentful/f36-icons" beta
+    "@contentful/f36-tokens" beta
+    "@contentful/field-editor-reference" "^4.0.0"
+    "@contentful/field-editor-shared" "^1.0.0"
     "@contentful/rich-text-plain-text-renderer" "^14.0.0"
     "@contentful/rich-text-types" "^14.0.1"
     "@productboard/slate-edit-list" "^0.19.1"
@@ -5318,6 +5346,11 @@
   version "4.14.168"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.168.tgz#fe24632e79b7ade3f132891afff86caa5e5ce008"
   integrity sha512-oVfRvqHV/V6D1yifJbVRU3TMp8OT6o6BG+U9MkwuJ3U8/CsDHvalRpsxBqivn71ztOFZBTfJMvETbqHiaNSj7Q==
+
+"@types/lodash@^4.14.149":
+  version "4.14.176"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.176.tgz#641150fc1cda36fbfa329de603bbb175d7ee20c0"
+  integrity sha512-xZmuPTa3rlZoIbtDUyJKZQimJV3bxCmzMIO2c9Pz9afyDro6kr7R79GwcB6mRhuoPmV2p1Vb66WOJH7F886WKQ==
 
 "@types/markdown-to-jsx@6.11.3":
   version "6.11.3"
