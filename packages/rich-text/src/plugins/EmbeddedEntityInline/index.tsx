@@ -8,7 +8,8 @@ import {
 import { Transforms } from 'slate';
 import { INLINES } from '@contentful/rich-text-types';
 import { useSelected, ReactEditor, useReadOnly } from 'slate-react';
-import { Button, DropdownListItem, Icon, Flex } from '@contentful/forma-36-react-components';
+import { Button, Menu, Flex } from '@contentful/f36-components';
+import { EmbeddedEntryInlineIcon } from '@contentful/f36-icons';
 import { css } from 'emotion';
 import { Link, FieldExtensionSDK } from '@contentful/app-sdk';
 import { Entry } from '@contentful/field-editor-shared';
@@ -116,30 +117,29 @@ export function ToolbarEmbeddedEntityInlineButton(props: ToolbarEmbeddedEntityIn
 
   return props.isButton ? (
     <Button
-      disabled={props.isDisabled}
+      isDisabled={props.isDisabled}
       className={`${INLINES.EMBEDDED_ENTRY}-button`}
       size="small"
       onClick={handleClick}
-      icon="EmbeddedEntryInline"
-      buttonType="muted"
+      startIcon={<EmbeddedEntryInlineIcon />}
+      variant="secondary"
       testId={`toolbar-toggle-${INLINES.EMBEDDED_ENTRY}`}>
       Embed inline entry
     </Button>
   ) : (
-    <DropdownListItem
-      isDisabled={props.isDisabled}
+    <Menu.Item
+      disabled={props.isDisabled}
       className="rich-text__entry-link-block-button"
       testId={`toolbar-toggle-${INLINES.EMBEDDED_ENTRY}`}
       onClick={handleClick}>
       <Flex alignItems="center" flexDirection="row">
-        <Icon
-          icon="EmbeddedEntryInline"
-          color="secondary"
+        <EmbeddedEntryInlineIcon
+          variant="secondary"
           className={`rich-text__embedded-entry-list-icon ${styles.icon}`}
         />
         <span>Inline entry</span>
       </Flex>
-    </DropdownListItem>
+    </Menu.Item>
   );
 }
 
