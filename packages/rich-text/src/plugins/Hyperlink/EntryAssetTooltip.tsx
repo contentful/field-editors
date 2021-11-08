@@ -95,8 +95,8 @@ export function EntryAssetTooltip({ id, type, sdk }: EntryAssetTooltipProps) {
 
   return (
     <>
-      `${getEntityInfo({ entityTitle, contentTypeName: type, entityStatus })} $
-      {jobs.length > 0 ? getScheduleTooltipContent({ job: jobs[0], jobsCount: jobs.length }) : ''}`
+      {getEntityInfo({ entityTitle, contentTypeName: type, entityStatus })}{' '}
+      {jobs.length > 0 ? getScheduleTooltipContent({ job: jobs[0], jobsCount: jobs.length }) : ''}
     </>
   );
 }

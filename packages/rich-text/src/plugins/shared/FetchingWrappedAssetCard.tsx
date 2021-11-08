@@ -180,6 +180,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       type={getFileType()}
       status={status}
       icon={<EntityStatusIcon entityType="Asset" entity={asset} />}
+      withDragHandle={false}
       className={styles.assetCard}
       actions={[
         renderActions({
