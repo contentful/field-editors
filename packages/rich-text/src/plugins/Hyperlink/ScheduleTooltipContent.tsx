@@ -2,7 +2,7 @@ import * as React from 'react';
 import { css, cx } from 'emotion';
 import { ScheduledAction } from '@contentful/field-editor-reference/dist/types';
 import tokens from '@contentful/f36-tokens';
-import { Tag, Paragraph } from '@contentful/forma-36-react-components';
+import { Badge, Paragraph } from '@contentful/f36-components';
 import { formatDateAndTime } from '../../helpers/formatDateAndTime';
 
 const styles = {
@@ -53,12 +53,12 @@ export function ScheduleTooltipContent({
       <span className={styles.time} data-test-id="cf-scheduled-time-tootlip-content">
         {formatDateAndTime(job.scheduledFor.datetime)}
       </span>
-      <Tag
-        tagType={job.action === 'publish' ? 'positive' : 'secondary'}
+      <Badge
+        variant={job.action === 'publish' ? 'positive' : 'secondary'}
         testId="scheduled-publish-trigger"
         className={cx(styles.statusTag, colorPalette)}>
         {job.action.toUpperCase()}
-      </Tag>
+      </Badge>
       {jobsCount > 1 && <Paragraph className={styles.paragraph}>+ {jobsCount - 1} more</Paragraph>}
     </>
   );

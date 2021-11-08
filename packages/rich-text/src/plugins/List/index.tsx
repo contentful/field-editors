@@ -3,7 +3,8 @@ import * as Slate from 'slate-react';
 import { css } from 'emotion';
 import { createListPlugin as createPlateListPlugin } from '@udecode/plate-list';
 import { BLOCKS, LIST_ITEM_BLOCKS } from '@contentful/rich-text-types';
-import { EditorToolbarButton } from '@contentful/forma-36-react-components';
+import { ListBulletedIcon, ListNumberedIcon } from '@contentful/f36-icons';
+import { ToolbarButton } from '../shared/ToolbarButton';
 import { ELEMENT_LI, ELEMENT_UL, ELEMENT_OL, toggleList, ELEMENT_LIC } from '@udecode/plate-list';
 import { isBlockSelected, unwrapFromRoot, shouldUnwrapBlockquote } from '../../helpers/editor';
 import { isNodeTypeEnabled } from '../../helpers/validations';
@@ -41,30 +42,24 @@ export function ToolbarListButton(props: ToolbarListButtonProps) {
   return (
     <React.Fragment>
       {isNodeTypeEnabled(sdk.field, BLOCKS.UL_LIST) && (
-        <EditorToolbarButton
-          icon="ListBulleted"
-          tooltip="UL"
-          tooltipPlace="bottom"
-          label="UL"
+        <ToolbarButton
+          title="UL"
           testId="ul-toolbar-button"
-          // @ts-expect-error
-          onMouseDown={handleClick(BLOCKS.UL_LIST)}
+          onClick={handleClick(BLOCKS.UL_LIST)}
           isActive={isBlockSelected(editor, BLOCKS.UL_LIST)}
-          disabled={props.isDisabled}
-        />
+          isDisabled={props.isDisabled}>
+          <ListBulletedIcon />
+        </ToolbarButton>
       )}
       {isNodeTypeEnabled(sdk.field, BLOCKS.OL_LIST) && (
-        <EditorToolbarButton
-          icon="ListNumbered"
-          tooltip="OL"
-          tooltipPlace="bottom"
-          label="OL"
+        <ToolbarButton
+          title="OL"
           testId="ol-toolbar-button"
-          // @ts-expect-error
-          onMouseDown={handleClick(BLOCKS.OL_LIST)}
+          onClick={handleClick(BLOCKS.OL_LIST)}
           isActive={isBlockSelected(editor, BLOCKS.OL_LIST)}
-          disabled={props.isDisabled}
-        />
+          isDisabled={props.isDisabled}>
+          <ListNumberedIcon />
+        </ToolbarButton>
       )}
     </React.Fragment>
   );

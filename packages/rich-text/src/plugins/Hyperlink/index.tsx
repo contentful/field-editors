@@ -6,7 +6,9 @@ import {
   getPlatePluginOptions,
 } from '@udecode/plate-core';
 import { INLINES } from '@contentful/rich-text-types';
-import { Tooltip, TextLink, EditorToolbarButton } from '@contentful/forma-36-react-components';
+import { Tooltip, TextLink } from '@contentful/forma-36-react-components';
+import { LinkIcon } from '@contentful/f36-icons';
+import { ToolbarButton } from '../shared/ToolbarButton';
 import { css } from 'emotion';
 import tokens from '@contentful/f36-tokens';
 import { FieldExtensionSDK, Link, ContentEntityType as EntityType } from '@contentful/app-sdk';
@@ -256,17 +258,14 @@ export function ToolbarHyperlinkButton(props: ToolbarHyperlinkButtonProps) {
   if (!editor) return null;
 
   return (
-    <EditorToolbarButton
-      icon="Link"
-      tooltip="Hyperlink"
-      tooltipPlace="bottom"
-      label="Hyperlink"
+    <ToolbarButton
+      title="Hyperlink"
       testId="hyperlink-toolbar-button"
-      // @ts-expect-error
-      onMouseDown={handleClick}
+      onClick={handleClick}
       isActive={isActive}
-      disabled={props.isDisabled}
-    />
+      isDisabled={props.isDisabled}>
+      <LinkIcon />
+    </ToolbarButton>
   );
 }
 

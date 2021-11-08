@@ -3,7 +3,8 @@ import * as React from 'react';
 import * as Slate from 'slate-react';
 import { SPEditor } from '@udecode/plate-core';
 import tokens from '@contentful/f36-tokens';
-import { EditorToolbarButton } from '@contentful/forma-36-react-components';
+import { TableIcon } from '@contentful/f36-icons';
+import { ToolbarButton } from '../shared/ToolbarButton';
 import { BLOCKS, CONTAINERS, TableCell, TableHeaderCell } from '@contentful/rich-text-types';
 import {
   ELEMENT_TD,
@@ -255,17 +256,14 @@ export function ToolbarTableButton(props: ToolbarTableButtonProps) {
   if (!editor) return null;
 
   return (
-    <EditorToolbarButton
-      icon="Table"
-      tooltip="Table"
-      tooltipPlace="bottom"
-      label="Table"
+    <ToolbarButton
+      title="Table"
       testId="table-toolbar-button"
-      // @ts-expect-error
-      onMouseDown={handleClick}
+      onClick={handleClick}
       // TODO: active state looks off since the button will be disabled. Do we still need it?
       isActive={isActive}
-      disabled={props.isDisabled}
-    />
+      isDisabled={props.isDisabled}>
+      <TableIcon />
+    </ToolbarButton>
   );
 }
