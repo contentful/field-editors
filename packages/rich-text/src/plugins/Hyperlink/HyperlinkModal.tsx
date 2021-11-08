@@ -18,7 +18,7 @@ import { HistoryEditor } from 'slate-history';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { Link } from '@contentful/field-editor-reference/dist/types';
 import { css } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 import { getNodeEntryFromSelection, insertLink, LINK_TYPES } from '../../helpers/editor';
 import { FetchingWrappedEntryCard } from '../shared/FetchingWrappedEntryCard';
 import { FetchingWrappedAssetCard } from '../shared/FetchingWrappedAssetCard';

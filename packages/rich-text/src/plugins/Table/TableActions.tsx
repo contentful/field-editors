@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from 'emotion';
 import * as Slate from 'slate-react';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 import { SPEditor } from '@udecode/plate-core';
 import { TablePluginOptions, deleteColumn, deleteRow, deleteTable } from '@udecode/plate-table';
 import {

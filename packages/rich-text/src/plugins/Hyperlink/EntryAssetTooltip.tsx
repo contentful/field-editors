@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { css } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 import {
   ContentEntityType as EntityType,
   ScheduledAction,

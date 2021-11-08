@@ -7,7 +7,7 @@ import {
   DropdownListItem,
   Button,
 } from '@contentful/forma-36-react-components';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 import { Editor, Transforms, Node } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
 import {
