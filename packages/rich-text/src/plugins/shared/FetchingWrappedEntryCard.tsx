@@ -143,6 +143,7 @@ export function FetchingWrappedEntryCard(props: FetchingWrappedEntryCardProps) {
       className={styles.entryCard}
       thumbnailElement={file ? <EntryThumbnail file={file} /> : undefined}
       icon={<EntityStatusIcon entityType="Entry" entity={entry} />}
+      withDragHandle={false}
       actions={renderDropdown()}
     />
   );
