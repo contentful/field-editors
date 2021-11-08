@@ -10,6 +10,10 @@ export function createInsertBeforeFirstVoidBlockPlugin(): PlatePlugin {
         before: true,
         query: { filter: ([node, path]) => isFirstChild(path) && !!node.isVoid },
       },
+      {
+        hotkey: 'enter',
+        query: { filter: ([node, path]) => !isFirstChild(path) && !!node.isVoid },
+      },
     ],
   };
 
