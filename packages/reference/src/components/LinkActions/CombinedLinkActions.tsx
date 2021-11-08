@@ -87,6 +87,8 @@ function CombinedEntryLinkActions(props: LinkActionsProps) {
 }
 
 function CombinedAssetLinkActions(props: LinkActionsProps) {
+  const [isOpen, setOpen] = React.useState(false);
+
   if (!props.canLinkEntity || !props.canCreateEntity) {
     if (props.canLinkEntity) {
       return (
@@ -126,7 +128,14 @@ function CombinedAssetLinkActions(props: LinkActionsProps) {
   // TODO: If we fully switch to this new layout, make a more generic `CreateEntityLinkButton`
   //  that works without content types to cover asset use-case.
   return (
-    <Menu>
+    <Menu
+      isOpen={isOpen}
+      onClose={() => {
+        setOpen(false);
+      }}
+      onOpen={() => {
+        setOpen(true);
+      }}>
       <Menu.Trigger>
         <Button
           endIcon={<ChevronDownIcon />}
@@ -139,22 +148,24 @@ function CombinedAssetLinkActions(props: LinkActionsProps) {
           Add media
         </Button>
       </Menu.Trigger>
-      <Menu.List testId={testIds.dropdown}>
-        <Menu.Item
-          testId={testIds.linkExisting}
-          onClick={() => {
-            props.onLinkExisting();
-          }}>
-          Add existing media
-        </Menu.Item>
-        <Menu.Item
-          testId={testIds.createAndLink}
-          onClick={() => {
-            props.onCreate();
-          }}>
-          Add new media
-        </Menu.Item>
-      </Menu.List>
+      {isOpen && (
+        <Menu.List testId={testIds.dropdown}>
+          <Menu.Item
+            testId={testIds.linkExisting}
+            onClick={() => {
+              props.onLinkExisting();
+            }}>
+            Add existing media
+          </Menu.Item>
+          <Menu.Item
+            testId={testIds.createAndLink}
+            onClick={() => {
+              props.onCreate();
+            }}>
+            Add new media
+          </Menu.Item>
+        </Menu.List>
+      )}
     </Menu>
   );
 }
