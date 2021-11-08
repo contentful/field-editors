@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { EntryCard, DropdownList, DropdownListItem } from '@contentful/forma-36-react-components';
+import { EntryCard, MenuItem } from '@contentful/f36-components';
 import { useEntities, MissingEntityCard, AssetThumbnail } from '@contentful/field-editor-reference';
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { entityHelpers, File, isValidImage } from '@contentful/field-editor-shared';
@@ -24,30 +24,10 @@ interface EntryThumbnailProps {
   file: File;
 }
 
-interface EntryDropdownMenuProps {
-  onEdit: () => void;
-  onRemove: () => void;
-  isDisabled: boolean;
-}
-
 function EntryThumbnail({ file }: EntryThumbnailProps) {
   if (!isValidImage(file)) return null;
 
   return <AssetThumbnail file={file as File} />;
-}
-
-function EntryDropdownMenu({ onEdit, onRemove, isDisabled }: EntryDropdownMenuProps) {
-  return (
-    <DropdownList>
-      <DropdownListItem isTitle={true}>Actions</DropdownListItem>
-      <DropdownListItem onClick={onEdit} testId="card-action-edit">
-        Edit
-      </DropdownListItem>
-      <DropdownListItem onClick={onRemove} isDisabled={isDisabled} testId="card-action-remove">
-        Remove
-      </DropdownListItem>
-    </DropdownList>
-  );
 }
 
 export function FetchingWrappedEntryCard(props: FetchingWrappedEntryCardProps) {
@@ -88,17 +68,32 @@ export function FetchingWrappedEntryCard(props: FetchingWrappedEntryCardProps) {
   function renderDropdown() {
     if (!props.onEdit || !props.onRemove) return undefined;
 
-    return (
-      <EntryDropdownMenu
-        isDisabled={props.isDisabled}
-        onEdit={props.onEdit}
-        onRemove={props.onRemove}
-      />
-    );
+    return [
+      props.onEdit ? (
+        <MenuItem
+          key="edit"
+          testId="edit"
+          onClick={() => {
+            props.onEdit && props.onEdit();
+          }}>
+          Edit
+        </MenuItem>
+      ) : null,
+      props.onRemove ? (
+        <MenuItem
+          key="delete"
+          testId="delete"
+          onClick={() => {
+            props.onRemove && props.onRemove();
+          }}>
+          Remove
+        </MenuItem>
+      ) : null,
+    ].filter((item) => item);
   }
 
   if (entry === undefined) {
-    return <EntryCard size="default" loading={true} />;
+    return <EntryCard size="default" isLoading={true} />;
   }
 
   if (entry === 'failed') {
@@ -143,12 +138,12 @@ export function FetchingWrappedEntryCard(props: FetchingWrappedEntryCardProps) {
       title={title}
       description={description}
       size="default"
-      selected={props.isSelected}
+      isSelected={props.isSelected}
       status={entryStatus}
       className={styles.entryCard}
-      thumbnailElement={file ? <EntryThumbnail file={file} /> : null}
-      statusIcon={<EntityStatusIcon entityType="Entry" entity={entry} />}
-      dropdownListElements={renderDropdown()}
+      thumbnailElement={file ? <EntryThumbnail file={file} /> : undefined}
+      icon={<EntityStatusIcon entityType="Entry" entity={entry} />}
+      actions={renderDropdown()}
     />
   );
 }
