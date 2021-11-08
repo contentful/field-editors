@@ -37,7 +37,6 @@ describe('CreateEntryLinkButton general', () => {
     const link = findButton(getByTestId);
     expect(link).toBeDefined();
     expect(link.textContent).toBe('Add entry');
-    expect(getByTestId('add-entry-menu')).not.toBeVisible();
   });
 
   it('renders dropdown menu on click when with multiple content types', () => {
