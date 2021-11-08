@@ -1036,6 +1036,73 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
     for (const [triggerMethod, triggerEmbeddedEntry] of methods) {
       describe(triggerMethod, () => {
+        it('adds paragraph before the block when pressing enter if the block is first child', () => {
+          editor().click().then(triggerEmbeddedEntry);
+
+          editor().click().find('[data-entity-id="example-entity-id"]').click();
+
+          editor().trigger('keydown', { keyCode: 13, which: 13, key: 'Enter' }); // 13 = Enter
+
+          expectRichTextFieldValue(
+            doc(
+              block(BLOCKS.PARAGRAPH, {}, text('')),
+              block(BLOCKS.EMBEDDED_ENTRY, {
+                target: {
+                  sys: {
+                    id: 'example-entity-id',
+                    type: 'Link',
+                    linkType: 'Entry',
+                  },
+                },
+              }),
+              block(BLOCKS.PARAGRAPH, {}, text(''))
+            )
+          );
+        });
+
+        it('adds paragraph between two blocks when pressing enter', () => {
+          function addEmbeddedEntry() {
+            editor().click('bottom').then(triggerEmbeddedEntry);
+          }
+
+          function selectAndPressEnter() {
+            editor().click().get('[data-entity-id="example-entity-id"]').first().click();
+            editor().trigger('keydown', { keyCode: 13, which: 13, key: 'Enter' });
+          }
+
+          addEmbeddedEntry();
+          addEmbeddedEntry();
+
+          selectAndPressEnter();
+          selectAndPressEnter();
+
+          expectRichTextFieldValue(
+            doc(
+              block(BLOCKS.PARAGRAPH, {}, text('')),
+              block(BLOCKS.EMBEDDED_ENTRY, {
+                target: {
+                  sys: {
+                    id: 'example-entity-id',
+                    type: 'Link',
+                    linkType: 'Entry',
+                  },
+                },
+              }),
+              block(BLOCKS.PARAGRAPH, {}, text('')),
+              block(BLOCKS.EMBEDDED_ENTRY, {
+                target: {
+                  sys: {
+                    id: 'example-entity-id',
+                    type: 'Link',
+                    linkType: 'Entry',
+                  },
+                },
+              }),
+              block(BLOCKS.PARAGRAPH, {}, text(''))
+            )
+          );
+        });
+
         it('adds and removes embedded entries', () => {
           editor().click().then(triggerEmbeddedEntry);
 
@@ -1130,6 +1197,73 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
     for (const [triggerMethod, triggerEmbeddedAsset] of methods) {
       describe(triggerMethod, () => {
+        it('adds paragraph before the block when pressing enter if the block is first child', () => {
+          editor().click().then(triggerEmbeddedAsset);
+
+          editor().click().find('[data-entity-id="example-entity-id"]').click();
+
+          editor().trigger('keydown', { keyCode: 13, which: 13, key: 'Enter' }); // 13 = Enter
+
+          expectRichTextFieldValue(
+            doc(
+              block(BLOCKS.PARAGRAPH, {}, text('')),
+              block(BLOCKS.EMBEDDED_ASSET, {
+                target: {
+                  sys: {
+                    id: 'example-entity-id',
+                    type: 'Link',
+                    linkType: 'Asset',
+                  },
+                },
+              }),
+              block(BLOCKS.PARAGRAPH, {}, text(''))
+            )
+          );
+        });
+
+        it('adds paragraph between two blocks when pressing enter', () => {
+          function addEmbeddedEntry() {
+            editor().click('bottom').then(triggerEmbeddedAsset);
+          }
+
+          function selectAndPressEnter() {
+            editor().click().get('[data-entity-id="example-entity-id"]').first().click();
+            editor().trigger('keydown', { keyCode: 13, which: 13, key: 'Enter' });
+          }
+
+          addEmbeddedEntry();
+          addEmbeddedEntry();
+
+          selectAndPressEnter();
+          selectAndPressEnter();
+
+          expectRichTextFieldValue(
+            doc(
+              block(BLOCKS.PARAGRAPH, {}, text('')),
+              block(BLOCKS.EMBEDDED_ASSET, {
+                target: {
+                  sys: {
+                    id: 'example-entity-id',
+                    type: 'Link',
+                    linkType: 'Asset',
+                  },
+                },
+              }),
+              block(BLOCKS.PARAGRAPH, {}, text('')),
+              block(BLOCKS.EMBEDDED_ASSET, {
+                target: {
+                  sys: {
+                    id: 'example-entity-id',
+                    type: 'Link',
+                    linkType: 'Asset',
+                  },
+                },
+              }),
+              block(BLOCKS.PARAGRAPH, {}, text(''))
+            )
+          );
+        });
+
         it('adds and removes embedded assets', () => {
           editor().click().then(triggerEmbeddedAsset);
 
