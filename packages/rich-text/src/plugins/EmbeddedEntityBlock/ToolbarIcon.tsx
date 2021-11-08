@@ -1,5 +1,7 @@
 import React from 'react';
-import { DropdownListItem, Button, Flex, Icon } from '@contentful/forma-36-react-components';
+import { Flex, Icon, Button, Menu } from '@contentful/f36-components';
+
+import { AssetIcon, EmbeddedEntryBlockIcon } from '@contentful/f36-icons';
 import { selectEntityAndInsert } from './Util';
 import noop from 'lodash/noop';
 import { FieldExtensionSDK } from '@contentful/app-sdk';
@@ -42,31 +44,30 @@ export function EmbeddedEntityBlockToolbarIcon({
   const baseClass = `rich-text__${nodeType}`;
   return isButton ? (
     <Button
-      disabled={isDisabled}
+      isDisabled={isDisabled}
       className={`${baseClass}-button`}
       size="small"
-      // @ts-expect-error
-      onMouseDown={handleClick}
-      icon={type === 'Asset' ? 'Asset' : 'EmbeddedEntryBlock'}
-      buttonType="muted"
+      onClick={handleClick}
+      startIcon={type === 'Asset' ? <AssetIcon /> : <EmbeddedEntryBlockIcon />}
+      variant="secondary"
       testId={`toolbar-toggle-${nodeType}`}>
       {`Embed ${type.toLowerCase()}`}
     </Button>
   ) : (
-    <DropdownListItem
-      isDisabled={isDisabled}
+    <Menu.Item
+      disabled={isDisabled}
       className={`${baseClass}-list-item`}
-      onMouseDown={handleClick}
+      onClick={handleClick}
       testId={`toolbar-toggle-${nodeType}`}>
       <Flex alignItems="center" flexDirection="row">
         <Icon
-          icon={type === 'Asset' ? 'Asset' : 'EmbeddedEntryBlock'}
+          as={type === 'Asset' ? AssetIcon : EmbeddedEntryBlockIcon}
           className={`rich-text__embedded-entry-list-icon ${styles.icon}`}
-          color="secondary"
+          variant="secondary"
         />
         <span>{type}</span>
       </Flex>
-    </DropdownListItem>
+    </Menu.Item>
   );
 }
 

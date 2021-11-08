@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { Dropdown, DropdownList, Button } from '@contentful/forma-36-react-components';
+import { Button, Menu } from '@contentful/f36-components';
+
+import { PlusIcon, ChevronDownIcon } from '@contentful/f36-icons';
 
 interface EmbeddedEntityDropdownButtonProps {
   children: React.ReactNode;
@@ -17,24 +19,20 @@ export function EmbeddedEntityDropdownButton({
   onToggle,
 }: EmbeddedEntityDropdownButtonProps) {
   return (
-    <Dropdown
-      className="toolbar-entry-dropdown"
-      position="bottom-right"
-      toggleElement={
+    <Menu placement="bottom-end" isOpen={isOpen} onClose={onClose} onOpen={onToggle}>
+      <Menu.Trigger>
         <Button
-          onClick={onToggle}
-          data-test-id="toolbar-entity-dropdown-toggle"
-          indicateDropdown
-          buttonType="muted"
+          endIcon={<ChevronDownIcon />}
+          testId="toolbar-entry-dropdown-toggle"
+          className="toolbar-entry-dropdown-toggle"
+          variant="secondary"
           size="small"
-          icon="Plus"
-          disabled={isDisabled}>
+          startIcon={<PlusIcon />}
+          isDisabled={isDisabled}>
           Embed
         </Button>
-      }
-      isOpen={isOpen}
-      onClose={onClose}>
-      <DropdownList>{children}</DropdownList>
-    </Dropdown>
+      </Menu.Trigger>
+      <Menu.List className="toolbar-entry-dropdown-list">{children}</Menu.List>
+    </Menu>
   );
 }

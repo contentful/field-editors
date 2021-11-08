@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Entry, Asset } from '@contentful/field-editor-shared';
 import { useEntities, ScheduledIconWithTooltip } from '@contentful/field-editor-reference';
-import { Icon } from '@contentful/forma-36-react-components';
+import { ClockIcon } from '@contentful/f36-icons';
 import { css } from 'emotion';
 import tokens from '@contentful/f36-tokens';
 
@@ -24,9 +24,8 @@ export function EntityStatusIcon({ entity, entityType }: EntityStatusIconProps) 
       getEntityScheduledActions={loadEntityScheduledActions}
       entityType={entityType}
       entityId={entity.sys.id}>
-      <Icon
+      <ClockIcon
         className={styles.scheduleIcon}
-        icon="Clock"
         size="small"
         color="muted"
         testId="schedule-icon"
