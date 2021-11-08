@@ -182,61 +182,63 @@ export const CreateEntryMenuTrigger = ({
         onOpen={handleMenuOpen}>
         <Menu.Trigger>{children({ isOpen, isSelecting })}</Menu.Trigger>
 
-        <Menu.List
-          className={styles.dropdownList}
-          style={{
-            width: dropdownWidth != undefined ? `${dropdownWidth}px` : undefined,
-            maxHeight: `${maxDropdownHeight}px`,
-          }}
-          ref={menuListRef}
-          testId="add-entry-menu">
-          {Boolean(customDropdownItems) && (
-            <>
-              {customDropdownItems}
-              <Menu.Divider />
-            </>
-          )}
+        {isOpen && (
+          <Menu.List
+            className={styles.dropdownList}
+            style={{
+              width: dropdownWidth != undefined ? `${dropdownWidth}px` : undefined,
+              maxHeight: `${maxDropdownHeight}px`,
+            }}
+            ref={menuListRef}
+            testId="add-entry-menu">
+            {Boolean(customDropdownItems) && (
+              <>
+                {customDropdownItems}
+                <Menu.Divider />
+              </>
+            )}
 
-          {isSearchable && (
-            <>
-              <div ref={textField} className={styles.inputWrapper}>
-                <TextInput
-                  className={styles.searchInput(hasDropdown)}
-                  placeholder="Search all content types"
-                  testId="add-entry-menu-search"
-                  value={searchInput}
-                  onChange={(e) => setSearchInput(e.target.value)}
-                />
-                <SearchIcon className={styles.searchIcon} />
-              </div>
-              <Menu.Divider />
-            </>
-          )}
+            {isSearchable && (
+              <>
+                <div ref={textField} className={styles.inputWrapper}>
+                  <TextInput
+                    className={styles.searchInput(hasDropdown)}
+                    placeholder="Search all content types"
+                    testId="add-entry-menu-search"
+                    value={searchInput}
+                    onChange={(e) => setSearchInput(e.target.value)}
+                  />
+                  <SearchIcon className={styles.searchIcon} />
+                </div>
+                <Menu.Divider />
+              </>
+            )}
 
-          {searchInput && renderSearchResultsCount(filteredContentTypes.length)}
-          {suggestedContentType && !searchInput && (
-            <>
-              <Menu.SectionTitle>Suggested Content Type</Menu.SectionTitle>
-              <Menu.Item testId="suggested" onClick={() => handleSelect(suggestedContentType)}>
-                {get(suggestedContentType, 'name')}
-              </Menu.Item>
-              <Menu.Divider />
-            </>
-          )}
-          {!searchInput && <Menu.SectionTitle>{contentTypesLabel}</Menu.SectionTitle>}
-          {filteredContentTypes.length ? (
-            filteredContentTypes.map((contentType, i) => (
-              <Menu.Item
-                testId="contentType"
-                key={`${get(contentType, 'name')}-${i}`}
-                onClick={() => handleSelect(contentType)}>
-                {get(contentType, 'name', 'Untitled')}
-              </Menu.Item>
-            ))
-          ) : (
-            <Menu.Item testId="add-entru-menu-search-results">No results found</Menu.Item>
-          )}
-        </Menu.List>
+            {searchInput && renderSearchResultsCount(filteredContentTypes.length)}
+            {suggestedContentType && !searchInput && (
+              <>
+                <Menu.SectionTitle>Suggested Content Type</Menu.SectionTitle>
+                <Menu.Item testId="suggested" onClick={() => handleSelect(suggestedContentType)}>
+                  {get(suggestedContentType, 'name')}
+                </Menu.Item>
+                <Menu.Divider />
+              </>
+            )}
+            {!searchInput && <Menu.SectionTitle>{contentTypesLabel}</Menu.SectionTitle>}
+            {filteredContentTypes.length ? (
+              filteredContentTypes.map((contentType, i) => (
+                <Menu.Item
+                  testId="contentType"
+                  key={`${get(contentType, 'name')}-${i}`}
+                  onClick={() => handleSelect(contentType)}>
+                  {get(contentType, 'name', 'Untitled')}
+                </Menu.Item>
+              ))
+            ) : (
+              <Menu.Item testId="add-entru-menu-search-results">No results found</Menu.Item>
+            )}
+          </Menu.List>
+        )}
       </Menu>
     </span>
   );
