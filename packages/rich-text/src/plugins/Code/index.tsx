@@ -4,7 +4,8 @@ import { css } from 'emotion';
 import { PlatePlugin, getRenderLeaf, GetNodeDeserializerRule } from '@udecode/plate-core';
 import { MARKS } from '@contentful/rich-text-types';
 import { getToggleMarkOnKeyDown, isMarkActive, toggleMark } from '@udecode/plate-common';
-import { EditorToolbarButton } from '@contentful/forma-36-react-components';
+import { CodeIcon } from '@contentful/f36-icons';
+import { ToolbarButton } from '../shared/ToolbarButton';
 import { CustomSlatePluginOptions } from 'types';
 import { deserializeLeaf } from '../../helpers/deserializer';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
@@ -28,17 +29,14 @@ export function ToolbarCodeButton(props: ToolbarCodeButtonProps) {
   if (!editor) return null;
 
   return (
-    <EditorToolbarButton
-      icon="Code"
-      tooltip="Code"
-      tooltipPlace="bottom"
-      label="Code"
+    <ToolbarButton
+      title="Code"
       testId="code-toolbar-button"
-      // @ts-expect-error
-      onMouseDown={handleClick}
+      onClick={handleClick}
       isActive={isMarkActive(editor, MARKS.CODE)}
-      disabled={props.isDisabled}
-    />
+      isDisabled={props.isDisabled}>
+      <CodeIcon />
+    </ToolbarButton>
   );
 }
 

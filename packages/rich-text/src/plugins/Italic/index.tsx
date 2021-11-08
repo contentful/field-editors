@@ -4,7 +4,8 @@ import { css } from 'emotion';
 import { PlatePlugin, getRenderLeaf, GetNodeDeserializerRule } from '@udecode/plate-core';
 import { getToggleMarkOnKeyDown, toggleMark, isMarkActive } from '@udecode/plate-common';
 import { MARKS } from '@contentful/rich-text-types';
-import { EditorToolbarButton } from '@contentful/forma-36-react-components';
+import { FormatItalicIcon } from '@contentful/f36-icons';
+import { ToolbarButton } from '../shared/ToolbarButton';
 import { CustomSlatePluginOptions } from '../../types';
 import { deserializeLeaf } from '../../helpers/deserializer';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
@@ -28,17 +29,14 @@ export function ToolbarItalicButton(props: ToolbarItalicButtonProps) {
   if (!editor) return null;
 
   return (
-    <EditorToolbarButton
-      icon="FormatItalic"
-      tooltip="Italic"
-      tooltipPlace="bottom"
-      label="Italic"
+    <ToolbarButton
+      title="Italic"
       testId="italic-toolbar-button"
-      // @ts-expect-error
-      onMouseDown={handleClick}
+      onClick={handleClick}
       isActive={isMarkActive(editor, MARKS.ITALIC)}
-      disabled={props.isDisabled}
-    />
+      isDisabled={props.isDisabled}>
+      <FormatItalicIcon />
+    </ToolbarButton>
   );
 }
 
