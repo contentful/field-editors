@@ -1,31 +1,25 @@
 import * as React from 'react';
-import { css } from 'emotion';
-import tokens from '@contentful/f36-tokens';
 import {
   ContentEntityType as EntityType,
   ScheduledAction,
 } from '@contentful/field-editor-reference/dist/types';
 import { entityHelpers, Entry, Asset, FieldExtensionSDK } from '@contentful/field-editor-shared';
-import { EntityStatusTag } from './EntityStatusTag';
+import { getScheduleTooltipContent } from '@contentful/field-editor-reference';
 import { truncate } from '../../helpers/truncate';
-import { ScheduleTooltipContent } from './ScheduleTooltipContent';
 
-const styles = {
-  entityContentType: css({
-    color: tokens.gray500,
-    marginRight: tokens.spacingXs,
-    '&:after': {
-      content: '""',
-    },
-  }),
-  entityTitle: css({
-    marginRight: tokens.spacingXs,
-  }),
-  separator: css({
-    background: tokens.gray700,
-    margin: tokens.spacingXs,
-  }),
-};
+function getEntityInfo({
+  entityTitle,
+  entityStatus,
+  contentTypeName,
+}: {
+  entityTitle: string;
+  entityStatus: string;
+  contentTypeName?: string;
+}) {
+  const title = truncate(entityTitle, 60) || 'Untitled';
+
+  return `${contentTypeName || 'Asset'} "${title}", ${entityStatus}`;
+}
 
 interface EntryAssetTooltipProps {
   id: string;
@@ -101,17 +95,8 @@ export function EntryAssetTooltip({ id, type, sdk }: EntryAssetTooltipProps) {
 
   return (
     <>
-      <div>
-        <span className={styles.entityContentType}>{type || 'Asset'}</span>
-        <span className={styles.entityTitle}>{truncate(entityTitle, 60) ?? 'Untitled'}</span>
-        <EntityStatusTag statusLabel={entityStatus} />
-      </div>
-      {!!jobs.length && (
-        <>
-          <hr className={styles.separator} />
-          <ScheduleTooltipContent job={jobs[0]} jobsCount={jobs.length} />
-        </>
-      )}
+      `${getEntityInfo({ entityTitle, contentTypeName: type, entityStatus })} $
+      {jobs.length > 0 ? getScheduleTooltipContent({ job: jobs[0], jobsCount: jobs.length }) : ''}`
     </>
   );
 }
