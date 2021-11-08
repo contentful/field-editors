@@ -6,8 +6,8 @@
     "@contentful/app-sdk": "^4.2.0",
     "@contentful/f36-components": "beta",
     "@contentful/f36-tokens": "beta",
-    "@contentful/field-editor-reference": "^2.21.2",
-    "@contentful/field-editor-single-line": "^0.15.6",
+    "@contentful/field-editor-reference": "^4.0.0",
+    "@contentful/field-editor-single-line": "^1.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
@@ -22,7 +22,7 @@
     "extends": "react-app"
   },
   "devDependencies": {
-    "@contentful/field-editor-test-utils": "^0.14.0",
+    "@contentful/field-editor-test-utils": "^1.0.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^13.1.9",
