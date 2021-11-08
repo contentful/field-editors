@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.0.0...@contentful/field-editor-reference@4.0.1) (2021-11-08)
+
+### Bug Fixes
+
+- show create-entry-menu list only when it's open ([fa2371f](https://github.com/contentful/field-editors/commit/fa2371fbc05c7f172d90b8f3ec227782364a47d5))
+
 # [4.0.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@3.0.0...@contentful/field-editor-reference@4.0.0) (2021-11-04)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
