@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.0.1...@contentful/field-editor-reference@4.0.2) (2021-11-08)
+
+### Bug Fixes
+
+- controllable combined link actions visibility ([e500cbb](https://github.com/contentful/field-editors/commit/e500cbbe01de4864eb15338095dc453bd339e4a9))
+
 ## [4.0.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.0.0...@contentful/field-editor-reference@4.0.1) (2021-11-08)
 
 ### Bug Fixes
