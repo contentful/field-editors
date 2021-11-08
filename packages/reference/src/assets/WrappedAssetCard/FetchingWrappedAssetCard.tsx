@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { AssetCard, EntryCard } from '@contentful/forma-36-react-components';
-import { Action, Asset, FieldExtensionSDK, ViewType } from '../../types';
+import { Action, Asset, FieldExtensionSDK, ViewType, RenderDragFn } from '../../types';
 import { LinkActionsProps, MissingEntityCard } from '../../components';
 import { WrappedAssetCard, WrappedAssetCardProps } from './WrappedAssetCard';
 import { WrappedAssetLink } from './WrappedAssetLink';
@@ -11,6 +10,8 @@ import {
   RenderCustomMissingEntityCard,
 } from '../../common/customCardTypes';
 
+import { AssetCard, EntryCard } from '@contentful/f36-components';
+
 type FetchingWrappedAssetCardProps = {
   assetId: string;
   isDisabled: boolean;
@@ -19,7 +20,7 @@ type FetchingWrappedAssetCardProps = {
   onRemove: () => void;
   getEntityUrl?: (id: string) => string;
   onAction?: (action: Action) => void;
-  cardDragHandle?: React.ReactElement;
+  renderDragHandle?: RenderDragFn;
   renderCustomCard?: CustomCardRenderer;
   renderCustomMissingEntityCard?: RenderCustomMissingEntityCard;
 };
@@ -94,14 +95,14 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       isDisabled: props.isDisabled,
       localeCode: props.sdk.field.locale,
       defaultLocaleCode: props.sdk.locales.default,
-      cardDragHandle: props.cardDragHandle,
+      renderDragHandle: props.renderDragHandle,
       onEdit,
       onRemove,
     };
 
     if (props.viewType === 'link') {
       if (asset === undefined) {
-        return <EntryCard size="small" loading />;
+        return <EntryCard size="small" isLoading />;
       }
       return (
         <WrappedAssetLink
@@ -113,7 +114,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
     }
 
     if (asset === undefined) {
-      return <AssetCard size={size} isLoading title="" src="" href="" />;
+      return <AssetCard size={size} isLoading />;
     }
 
     function renderDefaultCard(props?: CustomEntityCardProps) {

@@ -11,7 +11,15 @@ type CustomizeMockFn = (api: SpaceAPI) => SpaceAPI;
 const testContentTypes: ContentType[] = [
   {
     name: 'Example Content Type',
-    sys: { id: 'exampleCT', type: 'ContentType' },
+    sys: {
+      id: 'exampleCT',
+      type: 'ContentType',
+      space: { sys: { id: 'space', type: 'link', linkType: 'Space' } },
+      environment: { sys: { id: 'env', type: 'link', linkType: 'Environment' } },
+      version: 1,
+      createdAt: '2020-08-11T09:30:29.326Z',
+      updatedAt: '2020-08-11T09:30:29.326Z',
+    },
     fields: [
       {
         id: 'exField',
@@ -39,7 +47,15 @@ const testContentTypes: ContentType[] = [
   },
   {
     name: 'Another Content Type',
-    sys: { id: 'anotherCT', type: 'ContentType' },
+    sys: {
+      id: 'anotherCT',
+      type: 'ContentType',
+      space: { sys: { id: 'space', type: 'link', linkType: 'Space' } },
+      environment: { sys: { id: 'env', type: 'link', linkType: 'Environment' } },
+      version: 1,
+      createdAt: '2020-08-11T09:30:29.326Z',
+      updatedAt: '2020-08-11T09:30:29.326Z',
+    },
     fields: [],
     displayField: '',
     description: '',
@@ -47,7 +63,7 @@ const testContentTypes: ContentType[] = [
 ];
 
 export function createFakeSpaceAPI(customizeMock: CustomizeMockFn = identity): SpaceAPI {
-  return customizeMock(({
+  return customizeMock({
     getCachedContentTypes() {
       return testContentTypes;
     },
@@ -88,5 +104,5 @@ export function createFakeSpaceAPI(customizeMock: CustomizeMockFn = identity): S
     createAsset() {
       return Promise.resolve({});
     },
-  } as unknown) as SpaceAPI);
+  } as unknown as SpaceAPI);
 }

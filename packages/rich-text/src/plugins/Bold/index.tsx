@@ -4,7 +4,8 @@ import { css } from 'emotion';
 import { getRenderLeaf, PlatePlugin } from '@udecode/plate-core';
 import { MARKS } from '@contentful/rich-text-types';
 import { getToggleMarkOnKeyDown, isMarkActive, toggleMark } from '@udecode/plate-common';
-import { EditorToolbarButton } from '@contentful/forma-36-react-components';
+import { FormatBoldIcon } from '@contentful/f36-icons';
+import { ToolbarButton } from '../shared/ToolbarButton';
 import { CustomSlatePluginOptions } from 'types';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 
@@ -27,17 +28,14 @@ export function ToolbarBoldButton(props: ToolbarBoldButtonProps) {
   if (!editor) return null;
 
   return (
-    <EditorToolbarButton
-      icon="FormatBold"
-      tooltip="Bold"
-      tooltipPlace="bottom"
-      label="Bold"
+    <ToolbarButton
+      title="Bold"
       testId="bold-toolbar-button"
-      // @ts-expect-error
-      onMouseDown={handleClick}
+      onClick={handleClick}
       isActive={isMarkActive(editor, MARKS.BOLD)}
-      disabled={props.isDisabled}
-    />
+      isDisabled={props.isDisabled}>
+      <FormatBoldIcon />
+    </ToolbarButton>
   );
 }
 

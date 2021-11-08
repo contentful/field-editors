@@ -142,7 +142,7 @@ describe('CheckboxEditor', () => {
       </div>
     );
 
-    const $labels = await findAllByTestId('cf-ui-form-label');
+    const $labels = await findAllByTestId('cf-ui-checkbox');
     const uniqueIds = Array.from(new Set($labels.map((label) => label.getAttribute('for'))));
     expect(uniqueIds).toHaveLength(6);
   });

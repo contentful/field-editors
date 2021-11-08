@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ContentType, EntityType, ReferenceValue } from '../types';
+import { ContentType, ContentEntityType, ReferenceValue } from '../types';
 import { LinkEntityActions } from '../components';
 import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
 import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions';
@@ -9,7 +9,7 @@ import { useEditorPermissions } from './useEditorPermissions';
 
 type ChildProps = {
   entityId: string;
-  entityType: EntityType;
+  entityType: ContentEntityType;
   isDisabled: boolean;
   setValue: (value: ReferenceValue | null | undefined) => void;
   allContentTypes: ContentType[];
@@ -68,7 +68,7 @@ function Editor(props: EditorProps) {
 
 export function SingleReferenceEditor(
   props: ReferenceEditorProps & {
-    entityType: EntityType;
+    entityType: ContentEntityType;
     children: (props: ChildProps) => React.ReactElement;
   }
 ) {

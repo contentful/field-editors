@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
-
+import tokens from '@contentful/f36-tokens';
 import { css } from 'emotion';
-import { EditorToolbar, EditorToolbarDivider } from '@contentful/forma-36-react-components';
+import { Flex } from '@contentful/f36-components';
 import { ToolbarHrButton } from '../plugins/Hr';
 import { ToolbarHeadingButton } from '../plugins/Heading';
 import { ToolbarQuoteButton } from '../plugins/Quote';
@@ -25,6 +25,19 @@ type ToolbarProps = {
 };
 
 const styles = {
+  toolbar: css({
+    border: `1px solid ${tokens.gray400}`,
+    backgroundColor: tokens.gray100,
+    padding: tokens.spacingXs,
+    borderRadius: `${tokens.borderRadiusMedium} ${tokens.borderRadiusMedium} 0 0`,
+  }),
+  divider: css({
+    display: 'inline-block',
+    height: '21px',
+    width: '1px',
+    background: tokens.gray300,
+    margin: `0 ${tokens.spacing2Xs}`,
+  }),
   embedActionsWrapper: css({
     display: ['-webkit-box', '-ms-flexbox', 'flex'],
     webkitAlignSelf: 'flex-start',
@@ -50,11 +63,11 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
   const validationInfo = React.useMemo(() => getValidationInfo(sdk.field), [sdk.field]);
 
   return (
-    <EditorToolbar testId="toolbar">
+    <Flex testId="toolbar" className={styles.toolbar} alignItems="center">
       <div className={styles.formattingOptionsWrapper}>
         <ToolbarHeadingButton isDisabled={isDisabled || !canInsertBlocks} />
 
-        {validationInfo.isAnyMarkEnabled && <EditorToolbarDivider />}
+        {validationInfo.isAnyMarkEnabled && <span className={styles.divider} />}
 
         {isMarkEnabled(sdk.field, MARKS.BOLD) && <ToolbarBoldButton isDisabled={isDisabled} />}
         {isMarkEnabled(sdk.field, MARKS.ITALIC) && <ToolbarItalicButton isDisabled={isDisabled} />}
@@ -65,12 +78,12 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
 
         {validationInfo.isAnyHyperlinkEnabled && (
           <Fragment>
-            <EditorToolbarDivider />
+            <span className={styles.divider} />
             <ToolbarHyperlinkButton isDisabled={isDisabled} />
           </Fragment>
         )}
 
-        {validationInfo.isAnyBlockFormattingEnabled && <EditorToolbarDivider />}
+        {validationInfo.isAnyBlockFormattingEnabled && <span className={styles.divider} />}
 
         {isNodeTypeEnabled(sdk.field, BLOCKS.QUOTE) && (
           <ToolbarQuoteButton isDisabled={isDisabled || !canInsertBlocks} />
@@ -86,7 +99,7 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
       <div className={styles.embedActionsWrapper}>
         <EmbedEntityWidget isDisabled={isDisabled} canInsertBlocks={canInsertBlocks} />
       </div>
-    </EditorToolbar>
+    </Flex>
   );
 };
 

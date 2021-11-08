@@ -1,5 +1,5 @@
 import { css } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 
 const STYLE_EDITOR_BORDER = `1px solid ${tokens.gray400}`;
 

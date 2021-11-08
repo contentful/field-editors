@@ -1,4 +1,5 @@
 import React from 'react';
+import { ValidationError, Link } from '@contentful/app-sdk';
 import type {
   SpaceAPI,
   Entry,
@@ -7,15 +8,12 @@ import type {
   LocalesAPI,
 } from '@contentful/field-editor-shared';
 import { entityHelpers } from '@contentful/field-editor-shared';
-import { TextLink, List, ListItem, Icon } from '@contentful/forma-36-react-components';
 
 import * as styles from './styles';
 
-export type ValidationError = {
-  name: string;
-  message: string;
-  conflicting?: Array<{ sys: { id: string } }>;
-};
+import { TextLink, List, ListItem } from '@contentful/f36-components';
+
+import { ExternalLinkIcon, InfoCircleIcon } from '@contentful/f36-icons';
 
 type UniquenessErrorProps = {
   error: ValidationError;
@@ -59,9 +57,13 @@ function UniquenessError(props: UniquenessErrorProps) {
     [props.localeCode, props.defaultLocaleCode, contentTypesById]
   );
 
+  let conflicting: Link<'Entry', 'Link'>[] = [];
+  if ('conflicting' in props.error) {
+    conflicting = props.error.conflicting;
+  }
   React.useEffect(() => {
     const entryIds = state.entries.map((entry) => entry.id);
-    const conflictIds = props.error.conflicting?.map((entry) => entry.sys.id) || [];
+    const conflictIds = conflicting.map((entry) => entry.sys.id);
 
     // Avoid unnecessary refetching
     if (conflictIds.every((id) => entryIds.includes(id))) {
@@ -86,7 +88,7 @@ function UniquenessError(props: UniquenessErrorProps) {
         entries,
       });
     });
-  }, [getTitle, state.entries, props.error.conflicting, props.space.getEntries, props.getEntryURL]);
+  }, [getTitle, state.entries, conflicting, props.space.getEntries, props.getEntryURL]);
 
   return (
     <List className={styles.errorList} testId="validation-errors-uniqueness">
@@ -98,9 +100,9 @@ function UniquenessError(props: UniquenessErrorProps) {
             <TextLink
               key={entry.id}
               href={entry.href}
-              icon="ExternalLink"
-              iconPosition="right"
-              linkType="negative"
+              icon={<ExternalLinkIcon />}
+              alignIcon="end"
+              variant="negative"
               target="_blank"
               rel="noopener noreferrer">
               {entry.title}
@@ -144,7 +146,7 @@ export function ValidationErrors(props: ValidationErrorsProps) {
             aria-roledescription="field-locale-schema"
             data-error-code={`entry.schema.${error.name}`}
             className={styles.errorItem}>
-            <Icon icon="InfoCircle" color="negative" />
+            <InfoCircleIcon variant="negative" />
             <div className={styles.errorMessage}>
               {error.message}
               {error.name === 'unique' && (

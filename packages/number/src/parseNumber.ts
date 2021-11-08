@@ -17,14 +17,14 @@ export function parseNumber(
   if (isEmpty(value)) {
     return {
       isValid: true,
-      value: undefined
+      value: undefined,
     };
   }
 
   if (isNaN(floatVal)) {
     return {
       isValid: false,
-      value: undefined
+      value: undefined,
     };
   }
 
@@ -33,19 +33,19 @@ export function parseNumber(
 
     return {
       isValid: false,
-      value: intVal
+      value: intVal,
     };
   }
 
   if (hasDot && !hasFractional) {
     return {
       isValid: false,
-      value: floatVal
+      value: floatVal,
     };
   }
 
   return {
     isValid: true,
-    value: floatVal
+    value: floatVal,
   };
 }

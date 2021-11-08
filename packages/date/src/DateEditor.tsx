@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { css } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
-import { TextLink } from '@contentful/forma-36-react-components';
+import tokens from '@contentful/f36-tokens';
 import { FieldAPI, FieldConnector, ParametersAPI } from '@contentful/field-editor-shared';
 import { DatepickerInput } from './DatepickerInput';
 import { TimepickerInput } from './TimepickerInput';
@@ -13,6 +12,8 @@ import {
   getDefaultUtcOffset,
 } from './utils/date';
 import { TimeFormat, DateTimeFormat, TimeResult } from './types';
+
+import { TextLink } from '@contentful/f36-components';
 
 export interface DateEditorProps {
   /**
@@ -129,7 +130,8 @@ function DateEditorContainer({
         <>
           <div className={styles.separator} />
           <TextLink
-            disabled={disabled}
+            as="button"
+            isDisabled={disabled}
             testId="date-clear"
             onClick={() => {
               setValue({

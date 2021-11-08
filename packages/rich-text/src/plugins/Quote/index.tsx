@@ -1,8 +1,9 @@
 import * as React from 'react';
 import * as Slate from 'slate-react';
 import { css } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
-import { EditorToolbarButton } from '@contentful/forma-36-react-components';
+import tokens from '@contentful/f36-tokens';
+import { QuoteIcon } from '@contentful/f36-icons';
+import { ToolbarButton } from '../shared/ToolbarButton';
 import { Transforms, Editor, Node, Element, Text } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { PlatePlugin, SPEditor, getRenderElement } from '@udecode/plate-core';
@@ -116,17 +117,14 @@ export function ToolbarQuoteButton(props: ToolbarQuoteButtonProps) {
   if (!editor) return null;
 
   return (
-    <EditorToolbarButton
-      icon="Quote"
-      tooltip="Blockquote"
-      tooltipPlace="bottom"
-      label="Blockquote"
-      // @ts-expect-error
-      onMouseDown={handleOnClick}
+    <ToolbarButton
+      title="Blockquote"
+      onClick={handleOnClick}
       testId="quote-toolbar-button"
-      disabled={props.isDisabled}
-      isActive={isBlockSelected(editor, BLOCKS.QUOTE)}
-    />
+      isDisabled={props.isDisabled}
+      isActive={isBlockSelected(editor, BLOCKS.QUOTE)}>
+      <QuoteIcon />
+    </ToolbarButton>
   );
 }
 

@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { TextInput } from '@contentful/forma-36-react-components';
 import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
+
+import { TextInput } from '@contentful/f36-components';
 
 export interface UrlEditorProps {
   /**
@@ -25,9 +26,9 @@ export function UrlEditor(props: UrlEditorProps) {
         return (
           <div data-test-id="url-editor">
             <TextInput
-              required={field.required}
-              error={errors.length > 0}
-              disabled={disabled}
+              isRequired={field.required}
+              isInvalid={errors.length > 0}
+              isDisabled={disabled}
               value={value || ''}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setValue(e.target.value);

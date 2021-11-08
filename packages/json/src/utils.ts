@@ -26,17 +26,17 @@ export function parseJSON(str: string): { valid: boolean; value?: JSONObject } {
   if (str === '') {
     return {
       value: undefined,
-      valid: true
+      valid: true,
     };
   } else if (isValidJson(str)) {
     return {
       value: JSON.parse(str),
-      valid: true
+      valid: true,
     };
   } else {
     return {
       value: undefined,
-      valid: false
+      valid: false,
     };
   }
 }

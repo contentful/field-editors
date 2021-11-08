@@ -28,7 +28,6 @@ import { getDefaultWidgetId } from './getDefaultWidgetId';
 
 type FieldProps = {
   sdk: FieldExtensionSDK;
-  onAction?: (name: string, data: Record<string, unknown>) => unknown;
   widgetId?: WidgetType;
   isInitiallyDisabled?: boolean;
   renderFieldEditor?: (
@@ -69,7 +68,6 @@ const widgetComponents: Record<string, [React.ComponentType<any>, any?]> = {
 export const Field: React.FC<FieldProps> = (props: FieldProps) => {
   const {
     sdk,
-    onAction,
     widgetId: possiblyUndefinedWidgetId,
     isInitiallyDisabled = false,
     renderFieldEditor,
@@ -104,7 +102,6 @@ export const Field: React.FC<FieldProps> = (props: FieldProps) => {
 
   const widgetComponentProps = {
     sdk,
-    onAction,
     field,
     locales,
     isInitiallyDisabled,
@@ -114,7 +111,7 @@ export const Field: React.FC<FieldProps> = (props: FieldProps) => {
     ...options[widgetId],
   };
 
-  const baseSdk = widgetId === 'slugEditor' ? sdk : undefined
+  const baseSdk = widgetId === 'slugEditor' ? sdk : undefined;
 
   return <WidgetComponent key={sdk.field.locale} {...widgetComponentProps} baseSdk={baseSdk} />;
 };

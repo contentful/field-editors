@@ -1,15 +1,10 @@
 import React from 'react';
 import { css } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
-import {
-  TextInput,
-  Spinner,
-  ValidationMessage,
-  DropdownList,
-  DropdownListItem,
-  Card,
-} from '@contentful/forma-36-react-components';
+import tokens from '@contentful/f36-tokens';
+import { Button, Card } from '@contentful/f36-components';
 import { Coords, GeocodeApiResponse } from './types';
+
+import { Spinner, ValidationMessage, TextInput } from '@contentful/f36-components';
 
 const styles = {
   root: css({
@@ -28,11 +23,11 @@ const styles = {
   validationMessage: css({
     marginTop: tokens.spacingS,
   }),
-  suggesion: css({
+  suggestion: css({
     position: 'absolute',
-    bottom: '-65px',
+    transform: 'translateY(100%)',
+    bottom: 0,
     left: 0,
-    minWidth: '400px',
     zIndex: 1,
   }),
 };
@@ -49,10 +44,11 @@ export function LocationSearchInput(props: LocationSearchInputProps) {
   const [isSearching, setIsSearching] = React.useState<boolean>(false);
   const [address, setAddress] = React.useState<string>('');
   const [hasError, setHasError] = React.useState<boolean>(false);
-  const [suggestion, setSuggestion] = React.useState<null | {
-    address: string;
-    location: { lat: number; lng: number };
-  }>(null);
+  const [suggestion, setSuggestion] =
+    React.useState<null | {
+      address: string;
+      location: { lat: number; lng: number };
+    }>(null);
 
   React.useEffect(() => {
     setIsSearching(true);
@@ -67,7 +63,7 @@ export function LocationSearchInput(props: LocationSearchInputProps) {
       <div className={styles.input}>
         <TextInput
           testId="location-editor-search"
-          error={hasError}
+          isInvalid={hasError}
           placeholder="Start typing to find location"
           value={address}
           onChange={(e) => {
@@ -99,22 +95,21 @@ export function LocationSearchInput(props: LocationSearchInputProps) {
               }
             });
           }}
-          disabled={props.disabled}
+          isDisabled={props.disabled}
         />
-        {isSearching && <Spinner size="default" className={styles.spinner} />}
+        {isSearching && <Spinner className={styles.spinner} />}
         {suggestion && (
-          <Card padding="none" className={styles.suggesion}>
-            <DropdownList>
-              <DropdownListItem
-                testId="location-editor-suggestion"
-                onClick={() => {
-                  setAddress(suggestion.address);
-                  props.onChangeLocation(suggestion.location);
-                  setSuggestion(null);
-                }}>
-                {suggestion.address}
-              </DropdownListItem>
-            </DropdownList>
+          <Card padding="none" className={styles.suggestion}>
+            <Button
+              variant="transparent"
+              testId="location-editor-suggestion"
+              onClick={() => {
+                setAddress(suggestion.address);
+                props.onChangeLocation(suggestion.location);
+                setSuggestion(null);
+              }}>
+              {suggestion.address}
+            </Button>
           </Card>
         )}
         {hasError && (

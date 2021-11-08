@@ -7,8 +7,9 @@ import {
   LocalesAPI,
 } from '@contentful/field-editor-shared';
 import { getOptions, parseValue } from '@contentful/field-editor-dropdown';
-import { Form, RadioButtonField, TextLink, Flex } from '@contentful/forma-36-react-components';
 import * as styles from './styles';
+
+import { TextLink, Flex, Radio, Form } from '@contentful/f36-components';
 
 export interface RadioEditorProps {
   /**
@@ -55,28 +56,26 @@ export function RadioEditor(props: RadioEditorProps) {
         return (
           <Form
             testId="radio-editor"
-            spacing="condensed"
             className={cx(styles.form, direction === 'rtl' ? styles.rightToLeft : '')}>
             {options.map((item, index) => {
               const id = ['entity', field.id, field.locale, index, item.id].join('.');
               const checked = value === item.value;
               return (
-                <Flex key={id} alignItems="center">
-                  <RadioButtonField
-                    labelIsLight
+                <Flex key={id} alignItems="center" marginBottom="spacingS">
+                  <Radio
                     id={id}
-                    checked={checked}
-                    labelText={item.label}
-                    disabled={disabled}
+                    isDisabled={disabled}
                     value={item.value === undefined ? '' : String(item.value)}
+                    isChecked={checked}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                       if (e.target.checked) {
                         setOption(e.target.value);
                       }
-                    }}
-                  />
+                    }}>
+                    {item.label}
+                  </Radio>
                   {checked && (
-                    <TextLink className={styles.clearBtn} onClick={clearOption}>
+                    <TextLink as="button" className={styles.clearBtn} onClick={clearOption}>
                       Clear
                     </TextLink>
                   )}

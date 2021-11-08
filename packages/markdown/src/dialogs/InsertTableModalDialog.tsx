@@ -1,18 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { css } from 'emotion';
 import { DialogsAPI } from '@contentful/app-sdk';
-import tokens from '@contentful/forma-36-tokens';
-import { Modal, TextField, Button, Form } from '@contentful/forma-36-react-components';
 import inRange from 'lodash/inRange';
+import {
+  ModalContent,
+  ModalControls,
+  Button,
+  Form,
+  FormControl,
+  TextInput,
+} from '@contentful/f36-components';
 import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
-
-const styles = {
-  controlButton: css({
-    button: {
-      marginRight: tokens.spacingM,
-    },
-  }),
-};
 
 type InsertTableModalPositiveResult = { cols: number; rows: number };
 export type InsertTableModalResult = InsertTableModalPositiveResult | false | undefined;
@@ -35,59 +32,73 @@ export const InsertTableModal = ({ onClose }: InsertTableModalProps) => {
   }, [mainInputRef]);
 
   return (
-    <Modal.Content testId="insert-table-modal">
-      <Form>
-        <TextField
-          labelText="Number of rows"
-          value={rows.toString()}
-          id="insert-table-rows-number-field"
-          name="rows"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRows(Number(e.target.value))}
-          textInputProps={{
-            testId: 'insert-table-rows-number-field',
-            min: 2,
-            max: 100,
-            pattern: '[1-9][0-9]*',
-            type: 'number',
-            width: 'small',
-            autoComplete: 'off',
-            inputRef: mainInputRef,
-          }}
-          validationMessage={!rowsAreValid ? 'Should be between 2 and 100' : ''}
-          required
-        />
-        <TextField
-          labelText="Number of columns"
-          value={cols.toString()}
-          id="insert-table-columns-number-field"
-          name="columns"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setColumns(Number(e.target.value))}
-          textInputProps={{
-            testId: 'insert-table-columns-number-field',
-            min: 1,
-            max: 100,
-            pattern: '[1-9][0-9]*',
-            type: 'number',
-            width: 'small',
-            autoComplete: 'off',
-          }}
-          validationMessage={!colsAreValid ? 'Should be between 1 and 100' : ''}
-          required
-        />
-      </Form>
-      <div className={styles.controlButton}>
+    <>
+      <ModalContent testId="insert-table-modal">
+        <Form>
+          <FormControl id="insert-table-rows-number-field" isRequired isInvalid={!rowsAreValid}>
+            <FormControl.Label>Number of rows</FormControl.Label>
+            <TextInput
+              name="rows"
+              value={rows.toString()}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRows(Number(e.target.value))}
+              testId="insert-table-rows-number-field"
+              min={2}
+              max={100}
+              pattern="[1-9][0-9]*"
+              type="number"
+              width="small"
+              autoComplete="off"
+              ref={mainInputRef}
+            />
+            {!rowsAreValid && (
+              <FormControl.ValidationMessage>
+                Should be between 2 and 100
+              </FormControl.ValidationMessage>
+            )}
+          </FormControl>
+
+          <FormControl id="insert-table-columns-number-field" isRequired isInvalid={!colsAreValid}>
+            <FormControl.Label>Number of columns</FormControl.Label>
+            <TextInput
+              name="columns"
+              value={cols.toString()}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setColumns(Number(e.target.value))
+              }
+              testId="insert-table-columns-number-field"
+              min={1}
+              max={100}
+              pattern="[1-9][0-9]*"
+              type="number"
+              width="small"
+              autoComplete="off"
+            />
+            {!colsAreValid && (
+              <FormControl.ValidationMessage>
+                Should be between 1 and 100
+              </FormControl.ValidationMessage>
+            )}
+          </FormControl>
+        </Form>
+      </ModalContent>
+      <ModalControls>
+        <Button
+          testId="insert-table-cancel"
+          onClick={() => onClose(false)}
+          variant="secondary"
+          size="small">
+          Cancel
+        </Button>
         <Button
           testId="insert-table-confirm"
           onClick={() => onClose({ rows, cols })}
-          buttonType="positive"
-          disabled={!rowsAreValid || !colsAreValid}>
+          variant="positive"
+          size="small"
+          isDisabled={!rowsAreValid || !colsAreValid}>
           Insert
         </Button>
-        <Button testId="insert-table-cancel" onClick={() => onClose(false)} buttonType="muted">
-          Cancel
-        </Button>
-      </div>
-    </Modal.Content>
+      </ModalControls>
+    </>
   );
 };
 
@@ -95,7 +106,7 @@ export const openInsertTableDialog = (dialogs: DialogsAPI): Promise<InsertTableM
   return dialogs.openCurrent({
     title: 'Insert table',
     width: 'medium',
-    minHeight: '290px',
+    minHeight: '260px',
     shouldCloseOnEscapePress: true,
     shouldCloseOnOverlayClick: true,
     parameters: {

@@ -1,11 +1,7 @@
 import * as React from 'react';
-import {
-  AssetCard,
-  AssetType,
-  DropdownList,
-  DropdownListItem,
-} from '@contentful/forma-36-react-components';
+import { AssetCard, AssetType, Menu, Text } from '@contentful/f36-components';
 import { useEntities, MissingEntityCard } from '@contentful/field-editor-reference';
+
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { entityHelpers, File, shortenStorageUnit } from '@contentful/field-editor-shared';
 import mimetype from '@contentful/mimetype';
@@ -24,7 +20,6 @@ const styles = {
     textOverflow: 'ellipsis',
   }),
 };
-
 interface FetchingWrappedAssetCardProps {
   assetId: string;
   isDisabled: boolean;
@@ -35,63 +30,66 @@ interface FetchingWrappedAssetCardProps {
   sdk: FieldExtensionSDK;
 }
 
-interface AssetDropdownMenuProps {
+function downloadAsset(url: string) {
+  window.open(url, '_blank', 'noopener,noreferrer');
+}
+
+export function renderAssetInfo(props: { entityFile: File }) {
+  const { entityFile } = props;
+  const fileName = get(entityFile, 'fileName');
+  const mimeType = get(entityFile, 'contentType');
+  const fileSize = get(entityFile, 'details.size');
+  const image = get(entityFile, 'details.image');
+  return [
+    <Menu.SectionTitle key="file-section">File info</Menu.SectionTitle>,
+    fileName && (
+      <Menu.Item key="file-name">
+        <Text isTruncated>{fileName}</Text>
+      </Menu.Item>
+    ),
+    mimeType && (
+      <Menu.Item key="file-type">
+        <Text isTruncated>{mimeType}</Text>
+      </Menu.Item>
+    ),
+    fileSize && <Menu.Item key="file-size">{shortenStorageUnit(fileSize, 'B')}</Menu.Item>,
+    image && <Menu.Item key="file-dimentions">{`${image.width} × ${image.height}`}</Menu.Item>,
+  ].filter((item) => item);
+}
+
+export function renderActions(props: {
   onEdit?: () => void;
   onRemove?: () => void;
   isDisabled: boolean;
-  entityFile: File;
-}
+  entityFile?: File;
+}) {
+  const { entityFile, isDisabled, onEdit, onRemove } = props;
 
-function AssetDropdownMenu({ onEdit, onRemove, isDisabled, entityFile }: AssetDropdownMenuProps) {
-  const fileName = get(entityFile, 'fileName');
-  const fileSize = get(entityFile, 'details.size');
-  const image = get(entityFile, 'details.image');
-  const mimeType = get(entityFile, 'contentType');
-
-  function downloadAsset() {
-    if (!entityFile) return;
-
-    window.open(entityFile.url, '_blank', 'noopener,noreferrer');
-  }
-
-  return (
-    <React.Fragment>
-      <DropdownList>
-        <DropdownListItem isTitle={true}>Actions</DropdownListItem>
-        {onEdit && (
-          <DropdownListItem onClick={onEdit} testId="card-action-edit">
-            Edit
-          </DropdownListItem>
-        )}
-        {entityFile && (
-          <DropdownListItem onClick={downloadAsset} testId="card-action-download">
-            Download
-          </DropdownListItem>
-        )}
-        {onRemove && (
-          <DropdownListItem onClick={onRemove} isDisabled={isDisabled} testId="card-action-remove">
-            Remove
-          </DropdownListItem>
-        )}
-      </DropdownList>
-
-      <DropdownList border="top">
-        <DropdownListItem isTitle={true}>File info</DropdownListItem>
-        {fileName && (
-          <DropdownListItem>
-            <div className={styles.truncated}>{fileName}</div>
-          </DropdownListItem>
-        )}
-        {mimeType && (
-          <DropdownListItem>
-            <div>{mimeType}</div>
-          </DropdownListItem>
-        )}
-        {fileSize && <DropdownListItem>{shortenStorageUnit(fileSize, 'B')}</DropdownListItem>}
-        {image && <DropdownListItem>{`${image.width} × ${image.height}`}</DropdownListItem>}
-      </DropdownList>
-    </React.Fragment>
-  );
+  return [
+    <Menu.SectionTitle key="section-title">Actions</Menu.SectionTitle>,
+    onEdit ? (
+      <Menu.Item key="edit" onClick={onEdit} testId="card-action-edit">
+        Edit
+      </Menu.Item>
+    ) : null,
+    entityFile ? (
+      <Menu.Item
+        key="download"
+        onClick={() => {
+          if (typeof entityFile.url === 'string') {
+            downloadAsset(entityFile.url);
+          }
+        }}
+        testId="card-action-download">
+        Download
+      </Menu.Item>
+    ) : null,
+    onRemove ? (
+      <Menu.Item key="remove" disabled={isDisabled} onClick={onRemove} testId="card-action-remove">
+        Remove
+      </Menu.Item>
+    ) : null,
+  ].filter((item) => item);
 }
 
 export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
@@ -141,7 +139,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
   }
 
   if (asset === undefined) {
-    return <AssetCard size="default" isLoading={true} title="" src="" href="" />;
+    return <AssetCard size="small" isLoading />;
   }
 
   if (asset === 'failed') {
@@ -176,23 +174,22 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
   return (
     <AssetCard
       title={entityTitle}
-      selected={props.isSelected}
-      size="default"
+      isSelected={props.isSelected}
+      size="small"
       src={getAssetSrc()}
       type={getFileType()}
       status={status}
-      statusIcon={<EntityStatusIcon entityType="Asset" entity={asset} />}
+      icon={<EntityStatusIcon entityType="Asset" entity={asset} />}
       className={styles.assetCard}
-      dropdownListElements={
-        entityFile && (
-          <AssetDropdownMenu
-            onEdit={props.onEdit}
-            onRemove={props.onRemove}
-            isDisabled={props.isDisabled}
-            entityFile={entityFile}
-          />
-        )
-      }
+      actions={[
+        renderActions({
+          entityFile,
+          isDisabled: props.isDisabled,
+          onEdit: props.onEdit,
+          onRemove: props.onRemove,
+        }),
+        entityFile ? renderAssetInfo({ entityFile }) : null,
+      ].filter((item) => item)}
     />
   );
 }

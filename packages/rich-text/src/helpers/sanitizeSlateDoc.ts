@@ -4,36 +4,27 @@ import values from 'lodash/values'; // eslint-disable-line you-dont-need-lodash-
 
 type NodeType = BLOCKS | INLINES | Text['nodeType'];
 
-const TEXT_PARENT_NODES: string[] =
-  (VOID_BLOCKS as string[])
-    .concat(values(INLINES) as string[])
-    .concat(
-      BLOCKS.PARAGRAPH,
-      BLOCKS.HEADING_1,
-      BLOCKS.HEADING_2,
-      BLOCKS.HEADING_3,
-      BLOCKS.HEADING_4,
-      BLOCKS.HEADING_5,
-      BLOCKS.HEADING_6,
-    );
+const TEXT_PARENT_NODES: string[] = (VOID_BLOCKS as string[])
+  .concat(values(INLINES) as string[])
+  .concat(
+    BLOCKS.PARAGRAPH,
+    BLOCKS.HEADING_1,
+    BLOCKS.HEADING_2,
+    BLOCKS.HEADING_3,
+    BLOCKS.HEADING_4,
+    BLOCKS.HEADING_5,
+    BLOCKS.HEADING_6
+  );
 
-const isTextElement = (
-  node: TextOrCustomElement
-): node is TextElement => 'text' in node;
+const isTextElement = (node: TextOrCustomElement): node is TextElement => 'text' in node;
 
-const wrapNode = (
-  type: BLOCKS,
-  node: TextOrCustomElement
-): CustomElement => ({
+const wrapNode = (type: BLOCKS, node: TextOrCustomElement): CustomElement => ({
   type,
   data: {},
   children: [node],
 });
 
-function wrapOrphanedTextNode(
-  parentNodeType: NodeType,
-  node: TextElement
-): CustomElement {
+function wrapOrphanedTextNode(parentNodeType: NodeType, node: TextElement): CustomElement {
   const paragraph = wrapNode(BLOCKS.PARAGRAPH, node);
   switch (parentNodeType) {
     case BLOCKS.OL_LIST:
@@ -59,17 +50,17 @@ function wrapOrphanedTextNode(
  */
 export function sanitizeSlateDoc(
   nodes: TextOrCustomElement[] = [],
-  parentNodeType: NodeType = BLOCKS.DOCUMENT,
+  parentNodeType: NodeType = BLOCKS.DOCUMENT
 ): TextOrCustomElement[] {
   return nodes.map((node: TextOrCustomElement): TextOrCustomElement => {
     if (isTextElement(node)) {
-      return TEXT_PARENT_NODES.includes(parentNodeType) 
+      return TEXT_PARENT_NODES.includes(parentNodeType)
         ? node
         : wrapOrphanedTextNode(parentNodeType, node);
     }
     return {
       ...node,
-      children: sanitizeSlateDoc(node.children, node.type as NodeType)
+      children: sanitizeSlateDoc(node.children, node.type as NodeType),
     };
   });
 }
@@ -77,9 +68,7 @@ export function sanitizeSlateDoc(
 /**
  * Ensures incoming void nodes have a child leaf text element.
  */
-export function sanitizeIncomingSlateDoc(
-  nodes: TextOrCustomElement[] = []
-): TextOrCustomElement[] {
+export function sanitizeIncomingSlateDoc(nodes: TextOrCustomElement[] = []): TextOrCustomElement[] {
   return nodes.map((node: TextOrCustomElement): TextOrCustomElement => {
     if (isTextElement(node)) {
       return node;

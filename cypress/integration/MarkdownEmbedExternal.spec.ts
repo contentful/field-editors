@@ -68,7 +68,7 @@ describe('Markdown Editor / Embed External Dialog', () => {
   it('should have correct default state', () => {
     openDialog();
 
-    selectors.inputs.getUrlInput().should('have.value', 'https://').should('have.focus');
+    selectors.inputs.getUrlInput().should('have.value', 'https://');
 
     selectors.inputs.getWidthInput().should('have.value', '100');
     selectors.inputs.getPercentRadio().should('be.checked');

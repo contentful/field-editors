@@ -3,7 +3,7 @@
 import React from 'react';
 import isNumber from 'lodash/isNumber';
 import ReactDOM from 'react-dom';
-import { Modal } from '@contentful/forma-36-react-components';
+import { Modal, ModalHeader } from '@contentful/f36-components';
 import { OpenCustomWidgetOptions } from '@contentful/app-sdk';
 
 export function open(componentRenderer: (params: { onClose: Function; isShown: boolean }) => any) {
@@ -31,6 +31,8 @@ export function open(componentRenderer: (params: { onClose: Function; isShown: b
         isShown: false,
       };
       render(currentConfig);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       resolve(...args);
       getRoot().remove();
     }
@@ -60,7 +62,7 @@ export function openDialog<T>(
         {() => (
           <>
             {options.title && (
-              <Modal.Header testId="dialog-title" title={options.title} onClose={onCloseHandler} />
+              <ModalHeader testId="dialog-title" title={options.title} onClose={onCloseHandler} />
             )}
             <div style={{ minHeight: options.minHeight || 'auto' }}>
               <Component onClose={onClose as any} />

@@ -1,7 +1,7 @@
 export {
   CreateEntryMenuTrigger,
   CreateEntryLinkButton,
-  ScheduleTooltipContent,
+  getScheduleTooltipContent,
   ScheduledIconWithTooltip,
   AssetThumbnail,
   MissingEntityCard,

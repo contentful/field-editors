@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { TextInput } from '@contentful/forma-36-react-components';
 import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
 import { parseNumber } from './parseNumber';
+
+import { TextInput } from '@contentful/f36-components';
 
 export interface NumberEditorProps {
   /**
@@ -41,9 +42,9 @@ export function NumberEditor(props: NumberEditorProps) {
               max={range.max !== undefined ? String(range.max) : ''}
               step={field.type === 'Integer' ? '1' : ''}
               type="number"
-              required={field.required}
-              error={errors.length > 0}
-              disabled={disabled}
+              isRequired={field.required}
+              isInvalid={errors.length > 0}
+              isDisabled={disabled}
               value={value === undefined ? '' : String(value)}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 const parseResult = parseNumber(e.target.value, field.type);

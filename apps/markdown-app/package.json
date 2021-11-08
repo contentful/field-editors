@@ -1,15 +1,14 @@
 {
   "name": "markdown-app",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "dependencies": {
-    "@contentful/app-sdk": "^3.36.0",
-    "@contentful/field-editor-markdown": "^0.15.4",
-    "@contentful/field-editor-shared": "^0.19.0",
-    "@contentful/field-editor-single-line": "^0.14.1",
-    "@contentful/forma-36-fcss": "^0.3.3",
-    "@contentful/forma-36-react-components": "^3.93.4",
-    "@contentful/forma-36-tokens": "^0.11.0",
+    "@contentful/app-sdk": "^4.3.0",
+    "@contentful/f36-components": "beta",
+    "@contentful/f36-tokens": "beta",
+    "@contentful/field-editor-markdown": "^1.0.0",
+    "@contentful/field-editor-shared": "^1.0.0",
+    "@contentful/field-editor-single-line": "^1.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
@@ -24,7 +23,7 @@
     "extends": "react-app"
   },
   "devDependencies": {
-    "@contentful/field-editor-test-utils": "^0.14.0",
+    "@contentful/field-editor-test-utils": "^1.0.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^13.1.9",

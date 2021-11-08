@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-reference",
-  "version": "2.20.6",
+  "version": "4.0.0",
   "main": "dist/index.js",
   "module": "dist/field-editor-reference.esm.js",
   "typings": "dist/index.d.ts",
@@ -21,9 +21,10 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
-    "@contentful/field-editor-shared": "^0.22.1",
-    "@contentful/forma-36-react-components": "^3.93.4",
-    "@contentful/forma-36-tokens": "^0.11.0",
+    "@contentful/f36-components": "beta",
+    "@contentful/f36-icons": "beta",
+    "@contentful/f36-tokens": "beta",
+    "@contentful/field-editor-shared": "^1.0.0",
     "@contentful/mimetype": "^1.4.0",
     "@types/deep-equal": "^1.0.1",
     "array-move": "^3.0.0",
@@ -36,13 +37,12 @@
     "react-sortable-hoc": "^2.0.0"
   },
   "devDependencies": {
-    "@contentful/app-sdk": "^3.36.0",
-    "@contentful/field-editor-test-utils": "^0.17.1",
+    "@contentful/app-sdk": "^4.2.0",
+    "@contentful/field-editor-test-utils": "^1.0.0",
     "@testing-library/react-hooks": "^5.0.3"
   },
   "peerDependencies": {
-    "@contentful/app-sdk": "^3.36.0",
-    "@contentful/field-editor-test-utils": "^0.12.0",
+    "@contentful/app-sdk": "^4.2.0",
     "react": ">=16.8.0"
   },
   "jest": {

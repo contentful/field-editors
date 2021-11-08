@@ -124,11 +124,8 @@ describe('Markdown Editor / Insert Link Dialog', () => {
         .should('be.visible')
         .should('have.value', '')
         .should('not.be.disabled');
-      selectors.inputs
-        .getTargetUrlInput()
-        .should('be.visible')
-        .should('have.value', '')
-        .should('have.focus');
+      selectors.inputs.getTargetUrlInput().should('be.visible').should('have.value', '');
+
       selectors.inputs.getLinkTitle().should('be.visible').should('have.value', '');
 
       selectors.getConfirmButton().should('be.disabled');

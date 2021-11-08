@@ -5,7 +5,6 @@ import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-edit
 import type { FieldExtensionSDK } from '@contentful/field-editor-shared';
 import { Field } from './Field';
 import { SingleEntryReferenceEditor } from '@contentful/field-editor-reference';
-import noop from 'lodash/noop';
 
 configure({
   testIdAttribute: 'data-test-id',
@@ -19,7 +18,10 @@ const getSdk = (customize?: (field: any) => any, initialValue?: any) => {
   const [field] = createFakeFieldAPI(customize, initialValue);
   const sdk: FieldExtensionSDK = {
     field,
-    locales: createFakeLocalesAPI(locales => {locales.available.push('de'); return locales}),
+    locales: createFakeLocalesAPI((locales) => {
+      locales.available.push('de');
+      return locales;
+    }),
   } as any;
 
   return sdk;
@@ -34,7 +36,6 @@ describe('Field', () => {
     const { queryByTestId } = render(
       <Field
         sdk={sdk}
-        onAction={noop}
         isInitiallyDisabled={false}
         widgetId="customEditor"
         renderFieldEditor={() => {
@@ -58,13 +59,12 @@ describe('Field', () => {
     render(
       <Field
         sdk={sdk}
-        onAction={noop}
         isInitiallyDisabled={false}
         widgetId="entryLinkEditor"
         getOptions={() => options}
       />
     );
-    expect(((SingleEntryReferenceEditor as unknown) as jest.Mock).mock.calls[0][0]).toMatchObject({
+    expect((SingleEntryReferenceEditor as unknown as jest.Mock).mock.calls[0][0]).toMatchObject({
       onAction: options.entryLinkEditor.onAction,
       renderCustomCard: options.entryLinkEditor.renderCustomCard,
     } as Partial<Parameters<typeof SingleEntryReferenceEditor>[0]>);
@@ -74,19 +74,27 @@ describe('Field', () => {
     const props = { isInitiallyDisabled: false, widgetId: 'singleLine' };
 
     const { container, rerender } = render(
-      <Field {...props} sdk={getSdk((field: any) => { field.locale = 'en-US'; return field }, 'english value')} />
+      <Field
+        {...props}
+        sdk={getSdk((field: any) => {
+          field.locale = 'en-US';
+          return field;
+        }, 'english value')}
+      />
     );
 
-    expect(container.querySelector('input')?.value).toEqual(
-      'english value'
-    );
+    expect(container.querySelector('input')?.value).toEqual('english value');
 
     rerender(
-      <Field {...props} sdk={getSdk((field: any) => { field.locale = 'de'; return field }, 'german value')} />
+      <Field
+        {...props}
+        sdk={getSdk((field: any) => {
+          field.locale = 'de';
+          return field;
+        }, 'german value')}
+      />
     );
 
-    expect(container.querySelector('input')?.value).toEqual(
-      'german value'
-    );
+    expect(container.querySelector('input')?.value).toEqual('german value');
   });
 });

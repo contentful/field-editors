@@ -15,15 +15,15 @@ const I18N = {
     'September',
     'October',
     'November',
-    'December'
+    'December',
   ],
   weekdaysShort: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-  weekdays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+  weekdays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
 };
 
 const DEFAULTS = {
   i18n: I18N,
-  yearRange: 100
+  yearRange: 100,
 };
 
 // Gets same options as Pikaday and returns a Pikaday instance

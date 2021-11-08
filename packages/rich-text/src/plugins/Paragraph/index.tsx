@@ -2,7 +2,7 @@ import * as React from 'react';
 import { css } from 'emotion';
 import { ELEMENT_PARAGRAPH } from '@udecode/plate-paragraph';
 import { BLOCKS } from '@contentful/rich-text-types';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 import { RenderElementProps } from 'slate-react';
 import { PlatePlugin, getRenderElement } from '@udecode/plate-core';
 import { getToggleElementOnKeyDown } from '@udecode/plate-common';

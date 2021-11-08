@@ -3,7 +3,8 @@ import * as Slate from 'slate-react';
 import { PlatePlugin, getRenderLeaf, GetNodeDeserializerRule } from '@udecode/plate-core';
 import { MARKS } from '@contentful/rich-text-types';
 import { getToggleMarkOnKeyDown, toggleMark, isMarkActive } from '@udecode/plate-common';
-import { EditorToolbarButton } from '@contentful/forma-36-react-components';
+import { FormatUnderlinedIcon } from '@contentful/f36-icons';
+import { ToolbarButton } from '../shared/ToolbarButton';
 import { CustomSlatePluginOptions } from 'types';
 import { deserializeLeaf } from '../../helpers/deserializer';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
@@ -27,17 +28,14 @@ export function ToolbarUnderlineButton(props: ToolbarUnderlineButtonProps) {
   if (!editor) return null;
 
   return (
-    <EditorToolbarButton
-      icon="FormatUnderlined"
-      tooltip="Underline"
-      tooltipPlace="bottom"
-      label="Underline"
+    <ToolbarButton
+      title="Underline"
       testId="underline-toolbar-button"
-      // @ts-expect-error
-      onMouseDown={handleClick}
+      onClick={handleClick}
       isActive={isMarkActive(editor, MARKS.UNDERLINE)}
-      disabled={props.isDisabled}
-    />
+      isDisabled={props.isDisabled}>
+      <FormatUnderlinedIcon />
+    </ToolbarButton>
   );
 }
 

@@ -1,12 +1,15 @@
 import noop from 'lodash/noop';
 import React, { useState, useCallback } from 'react';
 import { css } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
-import { TextInput, Pill, Icon } from '@contentful/forma-36-react-components';
+import tokens from '@contentful/f36-tokens';
 import { TagsEditorConstraints } from './TagsEditorConstraints';
 import { ConstraintsType, Constraint } from './types';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 import arrayMove from 'array-move';
+
+import { Pill, TextInput } from '@contentful/f36-components';
+
+import { DragIcon } from '@contentful/f36-icons';
 
 export interface TagsEditorProps {
   items: string[];
@@ -46,7 +49,7 @@ const styles = {
 
 const SortablePillHandle = SortableHandle(() => (
   <div className={styles.handle}>
-    <Icon icon="Drag" color="muted" />
+    <DragIcon variant="muted" />
   </div>
 ));
 
@@ -106,8 +109,8 @@ export function TagsEditor(props: TagsEditorProps) {
       <TextInput
         testId="tag-editor-input"
         className={styles.input}
-        disabled={isDisabled}
-        error={hasError}
+        isDisabled={isDisabled}
+        isInvalid={hasError}
         type="text"
         value={pendingValue}
         placeholder="Type the value and hit enter"

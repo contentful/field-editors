@@ -1,9 +1,11 @@
 import React from 'react';
 import { css, cx } from 'emotion';
 import { DialogsAPI } from '@contentful/app-sdk';
-import { Modal, TextLink, Heading } from '@contentful/forma-36-react-components';
-import tokens from '@contentful/forma-36-tokens';
+import { ModalContent } from '@contentful/f36-components';
+import tokens from '@contentful/f36-tokens';
 import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
+
+import { TextLink, Heading } from '@contentful/f36-components';
 
 const styles = {
   flexColumnContainer: css({
@@ -65,23 +67,23 @@ const styles = {
 
 export const CheatsheetModalDialog = () => {
   return (
-    <Modal.Content testId="markdown-cheatsheet-dialog-content">
+    <ModalContent testId="markdown-cheatsheet-dialog-content">
       <div className={styles.flexColumnContainer}>
         <div className={cx(styles.flexColumn, styles.verticalDivider)}>
           <div className={styles.helpItem}>
-            <Heading element="h1" className={cx(styles.preview, styles.h1)}>
+            <Heading marginBottom="none" as="h1" className={cx(styles.preview, styles.h1)}>
               H1
             </Heading>
             <div className={styles.markup}># heading</div>
           </div>
           <div className={styles.helpItem}>
-            <Heading element="h2" className={cx(styles.preview, styles.h2)}>
+            <Heading marginBottom="none" as="h2" className={cx(styles.preview, styles.h2)}>
               H2
             </Heading>
             <div className={styles.markup}>## heading</div>
           </div>
           <div className={styles.helpItem}>
-            <Heading element="h3" className={cx(styles.preview, styles.h3)}>
+            <Heading marginBottom="none" as="h3" className={cx(styles.preview, styles.h3)}>
               H3
             </Heading>
             <div className={styles.markup}>### heading</div>
@@ -99,7 +101,9 @@ export const CheatsheetModalDialog = () => {
             <div className={styles.markup}>~~text~~</div>
           </div>
           <div className={styles.helpItem}>
-            <TextLink className={styles.preview}>Link</TextLink>
+            <TextLink as="button" className={styles.preview}>
+              Link
+            </TextLink>
             <div className={styles.markup}>[text](url)</div>
           </div>
         </div>
@@ -143,7 +147,7 @@ export const CheatsheetModalDialog = () => {
           View the full GitHub-flavored Markdown syntax help (opens in a new window)
         </TextLink>
       </div>
-    </Modal.Content>
+    </ModalContent>
   );
 };
 
@@ -151,7 +155,7 @@ export const openCheatsheetModal = (dialogs: DialogsAPI): Promise<void> => {
   return dialogs.openCurrent({
     title: 'Markdown formatting help',
     width: 'large',
-    minHeight: '425px',
+    minHeight: '415px',
     shouldCloseOnEscapePress: true,
     shouldCloseOnOverlayClick: true,
     parameters: {

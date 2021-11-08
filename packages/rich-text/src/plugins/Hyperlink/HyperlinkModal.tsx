@@ -1,15 +1,16 @@
 import * as React from 'react';
 import { INLINES } from '@contentful/rich-text-types';
 import {
-  Modal,
-  Form,
-  TextField,
-  Button,
-  SelectField,
-  Option,
-  FormLabel,
   TextLink,
-} from '@contentful/forma-36-react-components';
+  Button,
+  FormControl,
+  FormLabel,
+  Select,
+  TextInput,
+  Form,
+  ModalContent,
+  ModalControls,
+} from '@contentful/f36-components';
 import { ModalDialogLauncher, FieldExtensionSDK } from '@contentful/field-editor-shared';
 import { SPEditor } from '@udecode/plate-core';
 import { Editor, Transforms } from 'slate';
@@ -18,7 +19,7 @@ import { HistoryEditor } from 'slate-history';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { Link } from '@contentful/field-editor-reference/dist/types';
 import { css } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 import { getNodeEntryFromSelection, insertLink, LINK_TYPES } from '../../helpers/editor';
 import { FetchingWrappedEntryCard } from '../shared/FetchingWrappedEntryCard';
 import { FetchingWrappedAssetCard } from '../shared/FetchingWrappedAssetCard';
@@ -116,61 +117,57 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
   return (
     <EntityProvider sdk={props.sdk}>
       <React.Fragment>
-        <Modal.Content>
+        <ModalContent>
           <Form>
-            <TextField
-              name="linkText"
-              id="linkText"
-              labelText="Link text"
-              value={linkText}
-              required={true}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                setLinkText(event.target.value)
-              }
-              textInputProps={{
-                testId: 'link-text-input',
-              }}
-            />
+            <FormControl id="link-text" isRequired>
+              <FormControl.Label>Link text</FormControl.Label>
+              <TextInput
+                testId="link-text-input"
+                name="link-text"
+                value={linkText}
+                onChange={(event) => setLinkText(event.target.value)}
+              />
+            </FormControl>
 
             {enabledLinkTypes.length > 1 && (
-              <SelectField
-                labelText="Link type"
-                value={linkType}
-                onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
-                  setLinkType(event.target.value)
-                }
-                name="linkType"
-                id="linkType"
-                selectProps={{ testId: 'link-type-input' }}>
-                {enabledLinkTypes.map((nodeType) => (
-                  <Option key={nodeType} value={nodeType}>
-                    {LINK_TYPE_SELECTION_VALUES[nodeType]}
-                  </Option>
-                ))}
-              </SelectField>
+              <FormControl id="link-type">
+                <FormControl.Label>Link type</FormControl.Label>
+                <Select
+                  value={linkType}
+                  onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
+                    setLinkType(event.target.value)
+                  }
+                  testId="link-type-select">
+                  {enabledLinkTypes.map((nodeType) => (
+                    <Select.Option key={nodeType} value={nodeType}>
+                      {LINK_TYPE_SELECTION_VALUES[nodeType]}
+                    </Select.Option>
+                  ))}
+                </Select>
+              </FormControl>
             )}
 
             {linkType === INLINES.HYPERLINK && (
-              <TextField
-                name="linkTarget"
-                id="linkTarget"
-                labelText="Link target"
-                helpText="A protocol may be required, e.g. https://"
-                value={linkTarget}
-                required={true}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  setLinkEntity(null);
-                  setLinkTarget(event.target.value);
-                }}
-                textInputProps={{
-                  testId: 'link-target-input',
-                }}
-              />
+              <FormControl id="linkTarget" isRequired>
+                <FormControl.Label>Link target</FormControl.Label>
+                <TextInput
+                  name="linkTarget"
+                  value={linkTarget}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    setLinkEntity(null);
+                    setLinkTarget(event.target.value);
+                  }}
+                  testId="link-uri-input"
+                />
+                <FormControl.HelpText>
+                  A protocol may be required, e.g. https://
+                </FormControl.HelpText>
+              </FormControl>
             )}
 
             {linkType !== INLINES.HYPERLINK && (
               <div>
-                <FormLabel required htmlFor="">
+                <FormLabel isRequired htmlFor="">
                   Link target{' '}
                 </FormLabel>
 
@@ -213,24 +210,26 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
               </div>
             )}
           </Form>
-        </Modal.Content>
-        <Modal.Controls>
+        </ModalContent>
+        <ModalControls>
+          <Button
+            type="button"
+            onClick={() => props.onClose(null)}
+            variant="secondary"
+            testId="cancel-cta"
+            size="small">
+            Cancel
+          </Button>
           <Button
             type="submit"
-            buttonType="positive"
-            disabled={!isLinkComplete()}
+            variant="positive"
+            size="small"
+            isDisabled={!isLinkComplete()}
             onClick={handleOnSubmit}
             testId="confirm-cta">
             {props.linkType ? 'Update' : 'Insert'}
           </Button>
-          <Button
-            type="button"
-            onClick={() => props.onClose(null)}
-            buttonType="muted"
-            testId="cancel-cta">
-            Cancel
-          </Button>
-        </Modal.Controls>
+        </ModalControls>
       </React.Fragment>
     </EntityProvider>
   );

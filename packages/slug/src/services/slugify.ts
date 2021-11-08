@@ -30,7 +30,7 @@ const languages = [
   'sr',
   'tr',
   'uk',
-  'vn'
+  'vn',
 ];
 
 /**
@@ -62,7 +62,7 @@ export function slugify(text: string, locale = 'en') {
       "'": '',
       '`': '',
       '’': '',
-      '‘': ''
-    }
+      '‘': '',
+    },
   });
 }

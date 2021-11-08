@@ -1,7 +1,8 @@
 import React from 'react';
 import { css } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
-import { Button } from '@contentful/forma-36-react-components';
+import tokens from '@contentful/f36-tokens';
+
+import { Button } from '@contentful/f36-components';
 
 const styles = {
   toolbar: css({
@@ -40,9 +41,9 @@ export function JsonEditorToolbar(props: JsonEditorToolbarProps) {
       <div className={styles.title}>JSON Editor</div>
       <div className={styles.actions}>
         <Button
-          buttonType="muted"
+          variant="secondary"
           size="small"
-          disabled={props.isUndoDisabled}
+          isDisabled={props.isUndoDisabled}
           testId="json-editor-undo"
           onClick={() => {
             props.onUndo();
@@ -50,9 +51,9 @@ export function JsonEditorToolbar(props: JsonEditorToolbarProps) {
           Undo
         </Button>
         <Button
-          buttonType="muted"
+          variant="secondary"
           size="small"
-          disabled={props.isRedoDisabled}
+          isDisabled={props.isRedoDisabled}
           testId="json-editor-redo"
           onClick={() => {
             props.onRedo();

@@ -25,7 +25,7 @@ export enum ActionTypes {
   REMOVE_FIELD_FROM_GROUP,
   MOVE_FIELD_GROUP_UP,
   MOVE_FIELD_GROUP_DOWN,
-  MOVE_FIELD_IN_GROUP
+  MOVE_FIELD_IN_GROUP,
 }
 
 export type Action =

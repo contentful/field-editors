@@ -1,8 +1,9 @@
 import * as React from 'react';
 import * as Slate from 'slate-react';
 import { css, cx } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
-import { EditorToolbarButton } from '@contentful/forma-36-react-components';
+import tokens from '@contentful/f36-tokens';
+import { HorizontalRuleIcon } from '@contentful/f36-icons';
+import { ToolbarButton } from '../shared/ToolbarButton';
 import { Transforms } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { getPlatePluginTypes, getRenderElement, PlatePlugin, SPEditor } from '@udecode/plate-core';
@@ -108,17 +109,14 @@ export function ToolbarHrButton(props: ToolbarHrButtonProps) {
   if (!editor) return null;
 
   return (
-    <EditorToolbarButton
-      icon="HorizontalRule"
-      tooltip="HR"
-      tooltipPlace="bottom"
-      label="HR"
-      disabled={props.isDisabled}
-      // @ts-expect-error
-      onMouseDown={handleOnClick}
+    <ToolbarButton
+      title="HR"
+      isDisabled={props.isDisabled}
+      onClick={handleOnClick}
       testId="hr-toolbar-button"
-      isActive={isBlockSelected(editor, BLOCKS.HR)}
-    />
+      isActive={isBlockSelected(editor, BLOCKS.HR)}>
+      <HorizontalRuleIcon />
+    </ToolbarButton>
   );
 }
 

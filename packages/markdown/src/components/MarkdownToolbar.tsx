@@ -1,8 +1,21 @@
-import noop from 'lodash/noop';
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { css, cx } from 'emotion';
-import { Button, Tooltip, Icon } from '@contentful/forma-36-react-components';
-import tokens from '@contentful/forma-36-tokens';
+import { Button, Flex, Tooltip } from '@contentful/f36-components';
+import type { ButtonProps } from '@contentful/f36-components';
+import tokens from '@contentful/f36-tokens';
+import {
+  HeadingIcon,
+  FormatBoldIcon,
+  FormatItalicIcon,
+  QuoteIcon,
+  ListBulletedIcon,
+  ListNumberedIcon,
+  LinkIcon,
+  CodeIcon,
+  HorizontalRuleIcon,
+  MoreHorizontalIcon,
+} from '@contentful/f36-icons';
 import * as Icons from './icons';
 import { HeadingSelector } from './HeadingSelector';
 import { InsertLinkSelector } from './InsertLinkSelector';
@@ -17,18 +30,11 @@ const styles = {
     padding: tokens.spacingXs,
     borderTopLeftRadius: tokens.borderRadiusSmall,
   }),
-  actionsRow: css({
-    display: 'flex',
-    justifyContent: 'space-between',
-  }),
-  additionalRow: css({
-    marginTop: tokens.spacingXs,
-  }),
-  actionsGroup: css({
-    display: 'flex',
-  }),
   button: css({
-    minWidth: '46px',
+    height: '30px',
+    width: '36px',
+    marginLeft: tokens.spacing2Xs,
+    marginRight: tokens.spacing2Xs,
   }),
   icon: css({
     fill: tokens.gray700,
@@ -45,36 +51,35 @@ const styles = {
   }),
 };
 
-function ToolbarButton(props: {
-  buttonType?: 'naked' | 'muted';
-  disabled?: boolean;
-  onClick?: Function;
-  testId: string;
-  tooltipPlace?: 'top' | 'bottom';
-  tooltip?: string;
-  className?: string;
-  children: React.ReactNode;
-}) {
+const ToolbarButton = React.forwardRef<
+  HTMLButtonElement,
+  {
+    variant?: 'transparent' | 'secondary';
+    onClick?: Function;
+    tooltipPlace?: 'top' | 'bottom';
+    tooltip?: string;
+    children: React.ReactNode;
+  } & Omit<ButtonProps, 'onClick'>
+>((props, ref) => {
   const {
     tooltip,
-    onClick = noop,
-    testId,
+    onClick,
     children,
     className,
-    buttonType = 'naked',
+    variant = 'transparent',
     tooltipPlace = 'top',
-    disabled = false,
+    isDisabled = false,
+    ...otherProps
   } = props;
 
   const button = (
     <Button
+      {...otherProps}
+      ref={ref}
       className={cx(styles.button, className)}
-      disabled={disabled}
-      onClick={() => {
-        onClick();
-      }}
-      testId={testId}
-      buttonType={buttonType}
+      isDisabled={isDisabled}
+      onClick={onClick as ButtonProps['onClick']}
+      variant={variant}
       size="small">
       {children}
     </Button>
@@ -82,14 +87,15 @@ function ToolbarButton(props: {
 
   if (tooltip) {
     return (
-      <Tooltip className={styles.tooltip} place={tooltipPlace} content={tooltip}>
+      <Tooltip className={styles.tooltip} placement={tooltipPlace} content={tooltip}>
         {button}
       </Tooltip>
     );
   }
 
   return button;
-}
+});
+ToolbarButton.displayName = 'ToolbarButton';
 
 interface MarkdownToolbarProps {
   canUploadAssets: boolean;
@@ -110,60 +116,60 @@ function MainButtons(props: MarkdownToolbarProps) {
           }
         }}>
         <ToolbarButton
-          disabled={props.disabled}
+          isDisabled={props.disabled}
           testId="markdown-action-button-heading"
           tooltip="Headings"
           tooltipPlace={tooltipPlace}>
-          <Icons.Heading label="Headings" className={styles.icon} />
+          <HeadingIcon aria-label="Headings" className={styles.icon} />
         </ToolbarButton>
       </HeadingSelector>
       <ToolbarButton
-        disabled={props.disabled}
+        isDisabled={props.disabled}
         testId="markdown-action-button-bold"
         tooltip="Bold"
         tooltipPlace={tooltipPlace}
         onClick={props.actions.simple.bold}>
-        <Icons.Bold label="Bold" className={styles.icon} />
+        <FormatBoldIcon aria-label="Bold" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
-        disabled={props.disabled}
+        isDisabled={props.disabled}
         testId="markdown-action-button-italic"
         tooltip="Italic"
         tooltipPlace={tooltipPlace}
         onClick={props.actions.simple.italic}>
-        <Icons.Italic label="Italic" className={styles.icon} />
+        <FormatItalicIcon aria-label="Italic" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
-        disabled={props.disabled}
+        isDisabled={props.disabled}
         testId="markdown-action-button-quote"
         tooltip="Quote"
         tooltipPlace={tooltipPlace}
         onClick={props.actions.simple.quote}>
-        <Icons.Quote label="Quote" className={styles.icon} />
+        <QuoteIcon aria-label="Quote" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
-        disabled={props.disabled}
+        isDisabled={props.disabled}
         testId="markdown-action-button-ul"
         tooltip="Unordered list"
         tooltipPlace={tooltipPlace}
         onClick={props.actions.simple.ul}>
-        <Icons.List label="Unordered list" className={styles.icon} />
+        <ListBulletedIcon aria-label="Unordered list" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
-        disabled={props.disabled}
+        isDisabled={props.disabled}
         testId="markdown-action-button-ol"
         tooltip="Ordered list"
         tooltipPlace={tooltipPlace}
         onClick={props.actions.simple.ol}>
-        <Icons.ListOl label="Ordered list" className={styles.icon} />
+        <ListNumberedIcon aria-label="Ordered list" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
-        disabled={props.disabled}
+        isDisabled={props.disabled}
         testId="markdown-action-button-link"
         tooltip="Link"
         tooltipPlace={tooltipPlace}
         onClick={props.actions.insertLink}>
-        <Icons.Link label="Link" className={styles.icon} />
+        <LinkIcon aria-label="Link" className={styles.icon} />
       </ToolbarButton>
     </>
   );
@@ -174,7 +180,7 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
   return (
     <>
       <ToolbarButton
-        disabled={props.disabled}
+        isDisabled={props.disabled}
         testId="markdown-action-button-strike"
         tooltip="Strike out"
         tooltipPlace={tooltipPlace}
@@ -182,23 +188,23 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         <Icons.Strikethrough label="Strike out" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
-        disabled={props.disabled}
+        isDisabled={props.disabled}
         testId="markdown-action-button-code"
         tooltip="Code block"
         tooltipPlace={tooltipPlace}
         onClick={props.actions.simple.code}>
-        <Icons.Code label="Code block" className={styles.icon} />
+        <CodeIcon aria-label="Code block" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
-        disabled={props.disabled}
+        isDisabled={props.disabled}
         testId="markdown-action-button-hr"
         tooltip="Horizontal rule"
         tooltipPlace={tooltipPlace}
         onClick={props.actions.simple.hr}>
-        <Icons.Hr label="Horizontal rule" className={styles.icon} />
+        <HorizontalRuleIcon aria-label="Horizontal rule" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
-        disabled={props.disabled}
+        isDisabled={props.disabled}
         testId="markdown-action-button-indent"
         tooltip="Increase indentation"
         tooltipPlace={tooltipPlace}
@@ -206,7 +212,7 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         <Icons.Indent label="Increase indentation" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
-        disabled={props.disabled}
+        isDisabled={props.disabled}
         testId="markdown-action-button-dedent"
         tooltip="Decrease indentation"
         tooltipPlace={tooltipPlace}
@@ -214,7 +220,7 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         <Icons.Dedent label="Decrease indentation" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
-        disabled={props.disabled}
+        isDisabled={props.disabled}
         testId="markdown-action-button-embed"
         tooltip="Embed external content"
         tooltipPlace={tooltipPlace}
@@ -222,7 +228,7 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         <Icons.Cubes label="Embed external content" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
-        disabled={props.disabled}
+        isDisabled={props.disabled}
         testId="markdown-action-button-table"
         tooltip="Insert table"
         tooltipPlace={tooltipPlace}
@@ -230,7 +236,7 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         <Icons.Table label="Insert table" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
-        disabled={props.disabled}
+        isDisabled={props.disabled}
         testId="markdown-action-button-special"
         tooltip="Insert special character"
         tooltipPlace={tooltipPlace}
@@ -238,7 +244,7 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         <Icons.SpecialChar label="Insert special character" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
-        disabled={props.disabled}
+        isDisabled={props.disabled}
         testId="markdown-action-button-organizeLinks"
         tooltip="Organize links"
         tooltipPlace={tooltipPlace}
@@ -246,7 +252,7 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         <Icons.OrgLinks label="Organize links" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
-        disabled={props.disabled}
+        isDisabled={props.disabled}
         testId="markdown-action-button-undo"
         tooltip="Undo"
         tooltipPlace={tooltipPlace}
@@ -254,7 +260,7 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         <Icons.Undo label="Undo" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
-        disabled={props.disabled}
+        isDisabled={props.disabled}
         testId="markdown-action-button-redo"
         tooltip="Redo"
         tooltipPlace={tooltipPlace}
@@ -270,20 +276,20 @@ export function DefaultMarkdownToolbar(props: MarkdownToolbarProps) {
 
   return (
     <div className={styles.root}>
-      <div className={styles.actionsRow}>
-        <div className={styles.actionsGroup}>
+      <Flex justifyContent="space-between">
+        <Flex>
           <MainButtons {...props} />
           <ToolbarButton
-            disabled={props.disabled}
+            isDisabled={props.disabled}
             testId="markdown-action-button-toggle-additional"
             tooltip={showAdditional ? 'Hide additional actions' : 'More actions'}
             onClick={() => {
               setShowAdditional(!showAdditional);
             }}>
-            <Icon className={styles.icon} icon="MoreHorizontal" />
+            <MoreHorizontalIcon className={styles.icon} />
           </ToolbarButton>
-        </div>
-        <div className={styles.actionsGroup}>
+        </Flex>
+        <Flex>
           <InsertLinkSelector
             disabled={props.disabled}
             onSelectExisting={props.actions.linkExistingMedia}
@@ -291,21 +297,21 @@ export function DefaultMarkdownToolbar(props: MarkdownToolbarProps) {
             canAddNew={props.canUploadAssets}
           />
           <ToolbarButton
-            disabled={props.disabled}
+            isDisabled={props.disabled}
             testId="markdown-action-button-zen"
-            buttonType="muted"
+            variant="secondary"
             onClick={props.actions.openZenMode}
             className={styles.zenButton}>
             <Icons.Zen label="Expand" className={styles.icon} />
           </ToolbarButton>
-        </div>
-      </div>
+        </Flex>
+      </Flex>
       {showAdditional && (
-        <div className={cx(styles.actionsRow, styles.additionalRow)}>
-          <div className={styles.actionsGroup}>
+        <Flex justifyContent="space-between" marginTop="spacingXs">
+          <Flex>
             <AdditionalButtons {...props} />
-          </div>
-        </div>
+          </Flex>
+        </Flex>
       )}
     </div>
   );
@@ -314,12 +320,12 @@ export function DefaultMarkdownToolbar(props: MarkdownToolbarProps) {
 export function ZenMarkdownToolbar(props: MarkdownToolbarProps) {
   return (
     <div className={styles.root}>
-      <div className={styles.actionsRow}>
-        <div className={styles.actionsGroup}>
+      <Flex justifyContent="space-between">
+        <Flex>
           <MainButtons {...props} />
           <AdditionalButtons {...props} />
-        </div>
-        <div className={styles.actionsGroup}>
+        </Flex>
+        <Flex>
           <InsertLinkSelector
             disabled={props.disabled}
             onSelectExisting={props.actions.linkExistingMedia}
@@ -328,7 +334,7 @@ export function ZenMarkdownToolbar(props: MarkdownToolbarProps) {
           />
           <Button
             testId="markdown-action-button-zen-close"
-            buttonType="muted"
+            variant="secondary"
             size="small"
             className={cx(styles.zenButton, styles.zenButtonPressed)}
             onClick={() => {
@@ -336,8 +342,8 @@ export function ZenMarkdownToolbar(props: MarkdownToolbarProps) {
             }}>
             <Icons.Zen label="Collapse" className={styles.icon} />
           </Button>
-        </div>
-      </div>
+        </Flex>
+      </Flex>
     </div>
   );
 }

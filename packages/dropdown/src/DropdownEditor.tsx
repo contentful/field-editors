@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Select, Option } from '@contentful/forma-36-react-components';
 import {
   FieldAPI,
   FieldConnector,
@@ -8,6 +7,8 @@ import {
 } from '@contentful/field-editor-shared';
 import { getOptions, parseValue } from './dropdownUtils';
 import * as styles from './styles';
+
+import { Select } from '@contentful/f36-components';
 
 export interface DropdownEditorProps {
   /**
@@ -45,20 +46,20 @@ export function DropdownEditor(props: DropdownEditorProps) {
       {({ value, errors, disabled, setValue }) => (
         <Select
           testId="dropdown-editor"
-          hasError={errors.length > 0}
+          isInvalid={errors.length > 0}
           isDisabled={disabled}
           className={direction === 'rtl' ? styles.rightToLeft : ''}
-          required={field.required}
+          isRequired={field.required}
           value={value === undefined ? '' : String(value)}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
             const value = e.target.value;
             setValue(parseValue(value, field.type));
           }}>
-          <Option value="">Choose a value</Option>
+          <Select.Option value="">Choose a value</Select.Option>
           {options.map((option) => (
-            <Option key={option.value} value={String(option.value)}>
+            <Select.Option key={option.value} value={String(option.value)}>
               {option.label}
-            </Option>
+            </Select.Option>
           ))}
         </Select>
       )}

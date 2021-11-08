@@ -2,8 +2,9 @@ import { css } from 'emotion';
 import * as React from 'react';
 import * as Slate from 'slate-react';
 import { SPEditor } from '@udecode/plate-core';
-import tokens from '@contentful/forma-36-tokens';
-import { EditorToolbarButton } from '@contentful/forma-36-react-components';
+import tokens from '@contentful/f36-tokens';
+import { TableIcon } from '@contentful/f36-icons';
+import { ToolbarButton } from '../shared/ToolbarButton';
 import { BLOCKS, CONTAINERS, TableCell, TableHeaderCell } from '@contentful/rich-text-types';
 import {
   ELEMENT_TD,
@@ -67,7 +68,7 @@ const styles = {
 const slateNodeToText = (node: CustomElement): string => {
   const contentfulNode = toContentfulDocument({ document: [node], schema });
   return documentToPlainTextString(contentfulNode);
-}
+};
 
 export const Table = (props: Slate.RenderElementProps) => (
   <table {...props.attributes} className={styles[BLOCKS.TABLE]}>
@@ -172,7 +173,7 @@ function addTableNormalization(editor) {
         } else if (!CONTAINERS[node.type].includes(child.type)) {
           const paragraphWithTextFromNode = {
             ...paragraph(),
-            children: [{ text: slateNodeToText(child) }]
+            children: [{ text: slateNodeToText(child) }],
           };
           Transforms.removeNodes(editor, { at: childPath });
           Transforms.insertNodes(editor, paragraphWithTextFromNode, { at: childPath });
@@ -255,17 +256,14 @@ export function ToolbarTableButton(props: ToolbarTableButtonProps) {
   if (!editor) return null;
 
   return (
-    <EditorToolbarButton
-      icon="Table"
-      tooltip="Table"
-      tooltipPlace="bottom"
-      label="Table"
+    <ToolbarButton
+      title="Table"
       testId="table-toolbar-button"
-      // @ts-expect-error
-      onMouseDown={handleClick}
+      onClick={handleClick}
       // TODO: active state looks off since the button will be disabled. Do we still need it?
       isActive={isActive}
-      disabled={props.isDisabled}
-    />
+      isDisabled={props.isDisabled}>
+      <TableIcon />
+    </ToolbarButton>
   );
 }

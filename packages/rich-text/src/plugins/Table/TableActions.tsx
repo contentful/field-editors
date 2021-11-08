@@ -1,15 +1,10 @@
 import React from 'react';
 import { css } from 'emotion';
 import * as Slate from 'slate-react';
-import tokens from '@contentful/forma-36-tokens';
 import { SPEditor } from '@udecode/plate-core';
 import { TablePluginOptions, deleteColumn, deleteRow, deleteTable } from '@udecode/plate-table';
-import {
-  IconButton,
-  Dropdown,
-  DropdownList,
-  DropdownListItem,
-} from '@contentful/forma-36-react-components';
+import { IconButton, Menu } from '@contentful/f36-components';
+import { ChevronDownIcon } from '@contentful/f36-icons';
 import { getAbove } from '@udecode/plate-common';
 import { BLOCKS } from '@contentful/rich-text-types';
 
@@ -22,8 +17,8 @@ import { addRowAbove, addColumnLeft, addColumnRight, addRowBelow, setHeader } fr
 export const styles = {
   topRight: css({
     position: 'absolute',
-    top: tokens.spacingXs,
-    right: tokens.spacingXs,
+    top: '6px',
+    right: '5px',
   }),
 };
 
@@ -51,7 +46,7 @@ export const TableActions = () => {
   }, [editor]);
 
   React.useEffect(() => {
-    setHeaderEnabled(editor && isTableHeaderEnabled(editor));
+    setHeaderEnabled(Boolean(editor && isTableHeaderEnabled(editor)));
   }, [editor]);
 
   const canInsertRowAbove = React.useMemo(() => {
@@ -98,49 +93,40 @@ export const TableActions = () => {
   );
 
   return (
-    <Dropdown
-      className={styles.topRight}
-      position="left"
+    <Menu
+      placement="left"
       isOpen={isOpen}
-      onClose={close}
-      testId="cf-table-actions"
-      toggleElement={
+      onOpen={() => {
+        setOpen(true);
+      }}
+      onClose={close}>
+      <Menu.Trigger>
         <IconButton
-          iconProps={{ icon: 'ChevronDown', size: 'tiny' }}
-          onClick={() => setOpen(true)}
+          size="small"
+          variant="transparent"
           tabIndex={-1}
+          className={styles.topRight}
+          icon={<ChevronDownIcon />}
+          aria-label="Open table menu"
+          testId="cf-table-actions"
         />
-      }>
-      <DropdownList>
-        <DropdownListItem
-          onClick={action(addRowAbove, 'insert', 'Row')}
-          isDisabled={!canInsertRowAbove}>
+      </Menu.Trigger>
+      <Menu.List>
+        <Menu.Item onClick={action(addRowAbove, 'insert', 'Row')} disabled={!canInsertRowAbove}>
           Add row above
-        </DropdownListItem>
-        <DropdownListItem onClick={action(addRowBelow, 'insert', 'Row')}>
-          Add row below
-        </DropdownListItem>
-        <DropdownListItem onClick={action(addColumnLeft, 'insert', 'Column')}>
-          Add column left
-        </DropdownListItem>
-        <DropdownListItem onClick={action(addColumnRight, 'insert', 'Column')}>
-          Add column right
-        </DropdownListItem>
-      </DropdownList>
-      <DropdownList border="top">
-        <DropdownListItem onClick={toggleHeader}>
+        </Menu.Item>
+        <Menu.Item onClick={action(addRowBelow, 'insert', 'Row')}>Add row below</Menu.Item>
+        <Menu.Item onClick={action(addColumnLeft, 'insert', 'Column')}>Add column left</Menu.Item>
+        <Menu.Item onClick={action(addColumnRight, 'insert', 'Column')}>Add column right</Menu.Item>
+        <Menu.Divider />
+        <Menu.Item onClick={toggleHeader}>
           {isHeaderEnabled ? 'Disable table header' : 'Enable table header'}
-        </DropdownListItem>
-      </DropdownList>
-      <DropdownList border="top">
-        <DropdownListItem onClick={action(deleteRow, 'remove', 'Row')}>Delete row</DropdownListItem>
-        <DropdownListItem onClick={action(deleteColumn, 'remove', 'Column')}>
-          Delete column
-        </DropdownListItem>
-        <DropdownListItem onClick={action(deleteTable, 'remove', 'Table')}>
-          Delete table
-        </DropdownListItem>
-      </DropdownList>
-    </Dropdown>
+        </Menu.Item>
+        <Menu.Divider />
+        <Menu.Item onClick={action(deleteRow, 'remove', 'Row')}>Delete row</Menu.Item>
+        <Menu.Item onClick={action(deleteColumn, 'remove', 'Column')}>Delete column</Menu.Item>
+        <Menu.Item onClick={action(deleteTable, 'remove', 'Table')}>Delete table</Menu.Item>
+      </Menu.List>
+    </Menu>
   );
 };

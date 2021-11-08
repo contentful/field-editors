@@ -1,13 +1,9 @@
 import * as React from 'react';
 import * as Slate from 'slate-react';
 import { css, cx } from 'emotion';
-import {
-  Dropdown,
-  DropdownList,
-  DropdownListItem,
-  Button,
-} from '@contentful/forma-36-react-components';
-import tokens from '@contentful/forma-36-tokens';
+import { Menu, Button } from '@contentful/f36-components';
+import { ChevronDownIcon } from '@contentful/f36-icons';
+import tokens from '@contentful/f36-tokens';
 import { Editor, Transforms, Node } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
 import {
@@ -213,39 +209,38 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
   if (!editor) return null;
 
   return (
-    <Dropdown
-      isOpen={isOpen}
-      onClose={() => setOpen(false)}
-      testId="dropdown-heading"
-      toggleElement={
+    <Menu isOpen={isOpen} onClose={() => setOpen(false)}>
+      <Menu.Trigger>
         <Button
           size="small"
-          buttonType="naked"
-          indicateDropdown={someHeadingsEnabled}
+          testId="toolbar-heading-toggle"
+          variant="transparent"
+          endIcon={<ChevronDownIcon />}
           onClick={() => someHeadingsEnabled && setOpen(!isOpen)}>
           {LABELS[selected]}
         </Button>
-      }>
-      <DropdownList testId="dropdown-heading-list">
+      </Menu.Trigger>
+      <Menu.List testId="dropdown-heading-list">
+        {' '}
         {Object.keys(LABELS)
           .map(
             (nodeType) =>
               nodeTypesByEnablement[nodeType] && (
-                <DropdownListItem
+                <Menu.Item
                   key={nodeType}
-                  isActive={selected === nodeType}
-                  onMouseDown={handleOnSelectItem(nodeType as BLOCKS)}
+                  isInitiallyFocused={selected === nodeType}
+                  onClick={handleOnSelectItem(nodeType as BLOCKS)}
                   testId={`dropdown-option-${nodeType}`}
-                  isDisabled={props.isDisabled}>
+                  disabled={props.isDisabled}>
                   <span className={cx(styles.dropdown.root, styles.dropdown[nodeType])}>
                     {LABELS[nodeType]}
                   </span>
-                </DropdownListItem>
+                </Menu.Item>
               )
           )
           .filter(Boolean)}
-      </DropdownList>
-    </Dropdown>
+      </Menu.List>
+    </Menu>
   );
 }
 

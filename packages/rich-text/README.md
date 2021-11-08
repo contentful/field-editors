@@ -10,6 +10,5 @@ This editor app is built on top of [Slate](https://github.com/ianstormtaylor/sla
 
 ```js
 import 'codemirror/lib/codemirror.css';
-import '@contentful/forma-36-react-components/dist/styles.css';
 import { RichTextEditor } from '@contentful/field-editor-rich-text';
 ```

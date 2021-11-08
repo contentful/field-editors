@@ -1,9 +1,10 @@
 import { MultipleLineEditor } from '@contentful/field-editor-multiple-line';
 import { BooleanEditor } from '@contentful/field-editor-boolean';
 import {
-  MultipleEntryReferenceEditor, MultipleMediaEditor,
+  MultipleEntryReferenceEditor,
+  MultipleMediaEditor,
   SingleEntryReferenceEditor,
-  SingleMediaEditor
+  SingleMediaEditor,
 } from '@contentful/field-editor-reference';
 import { JsonEditor } from '@contentful/field-editor-json';
 import { DateEditor } from '@contentful/field-editor-date';

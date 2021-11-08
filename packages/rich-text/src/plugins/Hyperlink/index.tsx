@@ -6,12 +6,14 @@ import {
   getPlatePluginOptions,
 } from '@udecode/plate-core';
 import { INLINES } from '@contentful/rich-text-types';
-import { Tooltip, TextLink, EditorToolbarButton } from '@contentful/forma-36-react-components';
-import { css } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
-import { FieldExtensionSDK, Link, EntityType } from '@contentful/app-sdk';
-import { CustomSlatePluginOptions, CustomRenderElementProps } from '../../types';
+import { Tooltip, TextLink } from '@contentful/f36-components';
 import { EntryAssetTooltip } from './EntryAssetTooltip';
+import { LinkIcon } from '@contentful/f36-icons';
+import { ToolbarButton } from '../shared/ToolbarButton';
+import { css } from 'emotion';
+import tokens from '@contentful/f36-tokens';
+import { FieldExtensionSDK, Link, ContentEntityType as EntityType } from '@contentful/app-sdk';
+import { CustomSlatePluginOptions, CustomRenderElementProps } from '../../types';
 import { useSdkContext } from '../../SdkProvider';
 import { addOrEditLink } from './HyperlinkModal';
 import { isLinkActive, LINK_TYPES, unwrapLink } from '../../helpers/editor';
@@ -173,7 +175,7 @@ function UrlHyperlink(props: HyperlinkElementProps) {
   const sdk: FieldExtensionSDK = useSdkContext();
   const { uri } = props.element.data;
 
-  async function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+  async function handleClick(event: React.MouseEvent<HTMLAnchorElement>) {
     event.preventDefault();
     event.stopPropagation();
     if (!editor) return;
@@ -184,9 +186,10 @@ function UrlHyperlink(props: HyperlinkElementProps) {
     <Tooltip
       content={uri}
       targetWrapperClassName={styles.hyperlinkWrapper}
-      place="bottom"
+      placement="bottom"
       maxWidth="auto">
       <TextLink
+        as="a"
         href={uri}
         rel="noopener noreferrer"
         onClick={handleClick}
@@ -214,14 +217,19 @@ function EntityHyperlink(props: HyperlinkElementProps) {
   return (
     <Tooltip
       content={
-        <EntryAssetTooltip id={target.sys.id} type={target.sys.linkType as EntityType} sdk={sdk} />
+        (
+          <EntryAssetTooltip
+            id={target.sys.id}
+            type={target.sys.linkType as EntityType}
+            sdk={sdk}
+          />
+        ) as unknown as string
       }
       targetWrapperClassName={styles.hyperlinkWrapper}
-      place="bottom"
+      placement="bottom"
       maxWidth="auto">
       <TextLink
-        href="javascript:void(0)"
-        rel="noopener noreferrer"
+        as="button"
         onClick={handleClick}
         className={styles.hyperlink}
         data-link-type={target.sys.linkType}
@@ -256,17 +264,14 @@ export function ToolbarHyperlinkButton(props: ToolbarHyperlinkButtonProps) {
   if (!editor) return null;
 
   return (
-    <EditorToolbarButton
-      icon="Link"
-      tooltip="Hyperlink"
-      tooltipPlace="bottom"
-      label="Hyperlink"
+    <ToolbarButton
+      title="Hyperlink"
       testId="hyperlink-toolbar-button"
-      // @ts-expect-error
-      onMouseDown={handleClick}
+      onClick={handleClick}
       isActive={isActive}
-      disabled={props.isDisabled}
-    />
+      isDisabled={props.isDisabled}>
+      <LinkIcon />
+    </ToolbarButton>
   );
 }
 
