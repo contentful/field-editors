@@ -12,6 +12,6 @@ export function createInlineEntryNode(id: string) {
           linkType: 'Entry',
         },
       },
-    }
+    },
   };
 }
