@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { css, cx } from 'emotion';
 import { ScheduledAction } from '@contentful/field-editor-reference/dist/types';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 import { Tag, Paragraph } from '@contentful/forma-36-react-components';
 import { formatDateAndTime } from '../../helpers/formatDateAndTime';
 

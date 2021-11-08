@@ -8,7 +8,7 @@ import { ELEMENT_LI, ELEMENT_UL, ELEMENT_OL, toggleList, ELEMENT_LIC } from '@ud
 import { isBlockSelected, unwrapFromRoot, shouldUnwrapBlockquote } from '../../helpers/editor';
 import { isNodeTypeEnabled } from '../../helpers/validations';
 import { CustomSlatePluginOptions } from '../../types';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 import { useSdkContext } from '../../SdkProvider';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 

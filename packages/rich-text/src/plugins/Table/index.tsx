@@ -2,7 +2,7 @@ import { css } from 'emotion';
 import * as React from 'react';
 import * as Slate from 'slate-react';
 import { SPEditor } from '@udecode/plate-core';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { BLOCKS, CONTAINERS, TableCell, TableHeaderCell } from '@contentful/rich-text-types';
 import {
@@ -67,7 +67,7 @@ const styles = {
 const slateNodeToText = (node: CustomElement): string => {
   const contentfulNode = toContentfulDocument({ document: [node], schema });
   return documentToPlainTextString(contentfulNode);
-}
+};
 
 export const Table = (props: Slate.RenderElementProps) => (
   <table {...props.attributes} className={styles[BLOCKS.TABLE]}>
@@ -172,7 +172,7 @@ function addTableNormalization(editor) {
         } else if (!CONTAINERS[node.type].includes(child.type)) {
           const paragraphWithTextFromNode = {
             ...paragraph(),
-            children: [{ text: slateNodeToText(child) }]
+            children: [{ text: slateNodeToText(child) }],
           };
           Transforms.removeNodes(editor, { at: childPath });
           Transforms.insertNodes(editor, paragraphWithTextFromNode, { at: childPath });

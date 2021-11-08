@@ -3,7 +3,7 @@ import { Entry, Asset } from '@contentful/field-editor-shared';
 import { useEntities, ScheduledIconWithTooltip } from '@contentful/field-editor-reference';
 import { Icon } from '@contentful/forma-36-react-components';
 import { css } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 
 const styles = {
   scheduleIcon: css({

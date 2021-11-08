@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as Slate from 'slate-react';
 import { css, cx } from 'emotion';
-import tokens from '@contentful/forma-36-tokens';
+import tokens from '@contentful/f36-tokens';
 import { EditorToolbarButton } from '@contentful/forma-36-react-components';
 import { Transforms } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
