@@ -60,7 +60,7 @@ export function FetchingWrappedEntryCard(props: FetchingWrappedEntryCardProps) {
     }
     return props.sdk.space
       .getCachedContentTypes()
-      .find((contentType) => contentType.sys.id === entry.sys.contentType.sys.id)
+      .find((contentType) => contentType.sys.id === entry.sys.contentType.sys.id);
   }, [props.sdk, entry]);
   const defaultLocaleCode = props.sdk.locales.default;
 
