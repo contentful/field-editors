@@ -34,7 +34,7 @@
     "@contentful/field-editor-reference": "^4.0.0",
     "@contentful/field-editor-shared": "^1.0.0",
     "@contentful/rich-text-plain-text-renderer": "^15.0.0",
-    "@contentful/rich-text-types": "^15.3.6",
+    "@contentful/rich-text-types": "^15.6.2",
     "@udecode/plate-break": "^4.4.0",
     "@udecode/plate-common": "^4.4.0",
     "@udecode/plate-core": "^4.3.7",
