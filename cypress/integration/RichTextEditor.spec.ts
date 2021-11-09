@@ -674,7 +674,7 @@ describe('Rich Text Editor', () => {
 
     describe('Table Actions', () => {
       const findAction = (action: string) => {
-        cy.findByTestId('cf-table-actions').find('button').click();
+        cy.findByTestId('cf-table-actions-button').click();
         return cy.findByText(action);
       };
 
@@ -695,7 +695,7 @@ describe('Rich Text Editor', () => {
           // Insert an empty table (focus is on first row by default)
           insertTable();
 
-          findAction('Add row above').parent().should('be.disabled');
+          findAction('Add row above').should('be.disabled');
         });
 
         it('with table cell', () => {
@@ -778,7 +778,7 @@ describe('Rich Text Editor', () => {
     const getLinkTypeSelect = () => cy.findByTestId('link-type-input');
     const getLinkTargetInput = () => cy.findByTestId('link-target-input');
     const getSubmitButton = () => cy.findByTestId('confirm-cta');
-    const getEntityTextLink = () => cy.findByTestId('cf-ui-form').findByTestId('cf-ui-text-link');
+    const getEntityTextLink = () => cy.findByTestId('entity-selection-link');
     const expectDocumentStructure = (...nodes) => {
       expectRichTextFieldValue(
         doc(
