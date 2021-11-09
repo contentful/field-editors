@@ -82,7 +82,7 @@ describe('Rich Text Editor', () => {
     cy.editorEvents().should('deep.equal', []);
   });
 
-  it('allows typing', () => {
+  it.only('allows typing', () => {
     editor().click().type('some text').click();
 
     const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text')));
