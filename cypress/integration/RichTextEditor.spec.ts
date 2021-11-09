@@ -32,7 +32,7 @@ describe('Rich Text Editor', () => {
   const emptyParagraph = () => paragraphWithText('');
 
   function getDropdownToolbarButton() {
-    return cy.findByTestId('dropdown-heading');
+    return cy.findByTestId('toolbar-heading-toggle');
   }
 
   function getDropdownList() {
