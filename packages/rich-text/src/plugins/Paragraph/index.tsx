@@ -33,7 +33,7 @@ export function createParagraphPlugin(): PlatePlugin {
     onKeyDown: getToggleElementOnKeyDown(BLOCKS.PARAGRAPH),
     deserialize: deserializeElement(BLOCKS.PARAGRAPH, [
       {
-        nodeNames: ['P'],
+        nodeNames: ['P', 'DIV'],
       },
     ]),
   };
