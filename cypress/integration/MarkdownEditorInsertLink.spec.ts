@@ -160,6 +160,7 @@ describe('Markdown Editor / Insert Link Dialog', () => {
       selectors.getInsertDialogButton().click();
       selectors.inputs.getTargetUrlInput().clear().type('https://contentful.com');
       selectors.getConfirmButton().click();
+      cy.wait(500);
       checkValue('<https://contentful.com>');
     });
   });
