@@ -1153,7 +1153,7 @@ describe('Rich Text Editor', () => {
             )
           );
 
-          cy.findByTestId('cf-ui-card-actions').findByTestId('cf-ui-icon-button').click();
+          cy.findByTestId('cf-ui-card-actions').click();
           cy.findByTestId('card-action-remove').click();
 
           expectRichTextFieldValue(undefined);
@@ -1258,7 +1258,7 @@ describe('Rich Text Editor', () => {
             )
           );
 
-          cy.findByTestId('cf-ui-card-actions').findByTestId('cf-ui-icon-button').click();
+          cy.findByTestId('cf-ui-card-actions').click();
           cy.findByTestId('card-action-remove').click();
 
           expectRichTextFieldValue(doc(block(BLOCKS.PARAGRAPH, {}, text('hello'), text('world'))));
