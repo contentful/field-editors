@@ -24,6 +24,17 @@ export function Paragraph(props: RenderElementProps) {
   );
 }
 
+function isEmbed(element: HTMLElement) {
+  return (
+    element.hasAttribute('data-embedded-entity-inline-id') ||
+    element.hasAttribute('data-entity-type')
+  );
+}
+
+function isParagraphDiv(element: HTMLElement) {
+  return element.nodeName === 'DIV' && !isEmbed(element);
+}
+
 export function createParagraphPlugin(): PlatePlugin {
   const elementKeys: string[] = [ELEMENT_PARAGRAPH, BLOCKS.PARAGRAPH];
 
@@ -44,9 +55,29 @@ export function createParagraphPlugin(): PlatePlugin {
         element: element?.map((deserializeNode) => ({
           ...deserializeNode,
           deserialize: (el: HTMLElement) => {
-            if (el.nodeName === 'DIV' && el.hasAttribute('data-entity-type')) {
+            if (el.textContent === '' || isEmbed(el)) {
               return;
             }
+
+            // if any anchestor is a div that we convert into a paragraph or
+            // but not an embed, we exit to not have nested paragraphs
+            let currentParent = el.parentElement;
+            let hasEmbedAnchestor = false;
+            let hasParagraphAnchestor = false;
+            while (currentParent !== null) {
+              if (isEmbed(currentParent)) {
+                hasEmbedAnchestor = true;
+                break;
+              }
+              if (isParagraphDiv(currentParent)) {
+                hasParagraphAnchestor = true;
+              }
+              currentParent = currentParent.parentElement;
+            }
+            if (!hasEmbedAnchestor && hasParagraphAnchestor) {
+              return;
+            }
+
             return deserializeNode.deserialize(el);
           },
         })),
