@@ -1,17 +1,21 @@
 import * as React from 'react';
 import * as Slate from 'slate-react';
 import { css } from 'emotion';
+import { match, getChildren, getLastChildPath } from '@udecode/plate-common';
+import { isElement, PEditor, getPlatePluginWithOverrides } from '@udecode/plate-core';
 import { createListPlugin as createPlateListPlugin } from '@udecode/plate-list';
 import { BLOCKS, LIST_ITEM_BLOCKS } from '@contentful/rich-text-types';
 import { ListBulletedIcon, ListNumberedIcon } from '@contentful/f36-icons';
-import { ToolbarButton } from '../shared/ToolbarButton';
 import { ELEMENT_LI, ELEMENT_UL, ELEMENT_OL, toggleList, ELEMENT_LIC } from '@udecode/plate-list';
+
+import { ToolbarButton } from '../shared/ToolbarButton';
 import { isBlockSelected, unwrapFromRoot, shouldUnwrapBlockquote } from '../../helpers/editor';
 import { isNodeTypeEnabled } from '../../helpers/validations';
 import { CustomSlatePluginOptions } from '../../types';
 import tokens from '@contentful/f36-tokens';
 import { useSdkContext } from '../../SdkProvider';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
+import { Editor, NodeEntry, Transforms } from 'slate';
 
 interface ToolbarListButtonProps {
   isDisabled?: boolean;
@@ -141,7 +145,63 @@ export const withListOptions: CustomSlatePluginOptions = {
   },
 };
 
+const addListNormalization =
+  () =>
+  <T extends PEditor>(editor: T) => {
+    const { normalizeNode } = editor;
+
+    const listTypes = [BLOCKS.OL_LIST, BLOCKS.UL_LIST];
+
+    const isListItem = (node: any) => node.type === BLOCKS.LIST_ITEM;
+
+    editor.normalizeNode = ([node, path]: NodeEntry) => {
+      if (!isElement(node)) return;
+
+      if (match(node, { type: listTypes })) {
+        if (node.children.length === 0) {
+          return;
+        }
+
+        const childrenWithRefs = getChildren([node, path]).map((child) => {
+          return {
+            item: child[0],
+            ref: Editor.pathRef(editor, child[1]),
+          };
+        });
+
+        // Move invalid nodes to the list item preceding them
+        childrenWithRefs.reverse().forEach(({ item, ref }, idx) => {
+          if (!isListItem(item)) {
+            // Get previous list item if any
+            const listItem = childrenWithRefs
+              .slice(0, idx)
+              .reverse()
+              .find(({ item }) => isListItem(item));
+
+            if (!listItem) {
+              // FIXME: what should we do here?
+              return;
+            }
+
+            const childPath = ref.unref();
+
+            Transforms.moveNodes(editor, {
+              at: childPath!,
+              to: getLastChildPath(listItem.item),
+            });
+          }
+        });
+      }
+
+      return normalizeNode([node, path]);
+    };
+
+    return editor;
+  };
+
 export const createListPlugin = () =>
   createPlateListPlugin({
     validLiChildrenTypes: LIST_ITEM_BLOCKS,
   });
+
+export const createListWithNormalizationPlugin = getPlatePluginWithOverrides(addListNormalization);
