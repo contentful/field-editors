@@ -202,7 +202,11 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
       }
 
       toggleNodeType(editor, { activeType: type, inactiveType: type });
-      Slate.ReactEditor.focus(editor);
+
+      // TODO: Figure out why focus only works with timeout here.
+      setTimeout(() => {
+        Slate.ReactEditor.focus(editor);
+      }, 0);
     };
   }
 
