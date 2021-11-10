@@ -320,6 +320,8 @@ describe('Rich Text Editor', () => {
           getDropdownToolbarButton().click();
           getDropdownItem(type).click();
 
+          // TODO: We should somehow assert that the editor is focused after this.
+
           // Account for trailing paragraph
           const expectedValue =
             type === BLOCKS.PARAGRAPH
