@@ -82,7 +82,7 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
         testId={INLINES.EMBEDDED_ENTRY}
         isSelected={props.isSelected}
         actions={[
-          <MenuItem key="remove" onClick={props.onRemove}>
+          <MenuItem key="remove" onClick={props.onRemove} testId="card-action-remove">
             Remove
           </MenuItem>,
         ]}
@@ -114,7 +114,11 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
         <MenuItem key="edit" onClick={props.onEdit}>
           Edit
         </MenuItem>,
-        <MenuItem key="edit" onClick={props.onRemove} disabled={props.isDisabled}>
+        <MenuItem
+          key="edit"
+          onClick={props.onRemove}
+          disabled={props.isDisabled}
+          testId="card-action-remove">
           Remove
         </MenuItem>,
       ]}

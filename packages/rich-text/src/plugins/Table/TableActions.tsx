@@ -108,7 +108,7 @@ export const TableActions = () => {
           className={styles.topRight}
           icon={<ChevronDownIcon />}
           aria-label="Open table menu"
-          testId="cf-table-actions"
+          testId="cf-table-actions-button"
         />
       </Menu.Trigger>
       <Menu.List>

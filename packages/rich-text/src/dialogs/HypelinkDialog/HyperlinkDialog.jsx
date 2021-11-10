@@ -1,20 +1,23 @@
 import React from 'react';
+
+import {
+  TextLink,
+  Button,
+  FormControl,
+  FormLabel,
+  Select,
+  TextInput,
+  Form,
+  ModalContent,
+  ModalControls,
+} from '@contentful/f36-components';
+import tokens from '@contentful/f36-tokens';
+import { EntityProvider } from '@contentful/field-editor-reference';
 import { css } from 'emotion';
 import PropTypes from 'prop-types';
-import tokens from '@contentful/forma-36-tokens';
-import {
-  Modal,
-  TextField,
-  Button,
-  Form,
-  FormLabel,
-  TextLink,
-  SelectField,
-  Option,
-} from '@contentful/forma-36-react-components';
-import { EntityProvider } from '@contentful/field-editor-reference';
-import { FetchingWrappedEntryCard } from '../../plugins/shared/FetchingWrappedEntryCard';
+
 import { FetchingWrappedAssetCard } from '../../plugins/shared/FetchingWrappedAssetCard';
+import { FetchingWrappedEntryCard } from '../../plugins/shared/FetchingWrappedEntryCard';
 
 export const LINK_TYPES = {
   URI: 'uri',
@@ -141,24 +144,26 @@ export class HyperlinkDialog extends React.Component {
     return (
       <EntityProvider sdk={this.props.sdk}>
         <React.Fragment>
-          <Modal.Content>{this.renderFields()}</Modal.Content>
-          <Modal.Controls>
-            <Button
-              type="submit"
-              buttonType="positive"
-              onClick={this.handleSubmit}
-              disabled={!this.isLinkComplete()}
-              testId="confirm-cta">
-              {labels.confirm}
-            </Button>
+          <ModalContent>{this.renderFields()}</ModalContent>
+          <ModalControls>
             <Button
               type="button"
               onClick={() => this.props.onClose(null)}
-              buttonType="muted"
-              testId="cancel-cta">
+              variant="secondary"
+              testId="cancel-cta"
+              size="small">
               Cancel
             </Button>
-          </Modal.Controls>
+            <Button
+              type="submit"
+              variant="positive"
+              onClick={this.handleSubmit}
+              isDisabled={!this.isLinkComplete()}
+              testId="confirm-cta"
+              size="small">
+              {labels.confirm}
+            </Button>
+          </ModalControls>
         </React.Fragment>
       </EntityProvider>
     );
@@ -172,54 +177,52 @@ export class HyperlinkDialog extends React.Component {
     return (
       <Form>
         {hideText ? null : (
-          <TextField
-            required
-            labelText="Link text"
-            value={text || ''}
-            onChange={(e) => this.setState({ text: e.target.value })}
-            id="link-text"
-            name="link-text"
-            textInputProps={{
-              testId: 'link-text-input',
-              autoFocus: !isUriInputAutoFocused,
-            }}
-          />
+          <FormControl id="link-text" isRequired>
+            <FormControl.Label>Link text</FormControl.Label>
+            <TextInput
+              testId="link-text-input"
+              name="link-text"
+              value={text || ''}
+              onChange={(e) => this.setState({ text: e.target.value })}
+              // eslint-disable-next-line jsx-a11y/no-autofocus
+              autoFocus={!isUriInputAutoFocused}
+            />
+          </FormControl>
         )}
         {isFeaturingEntitySelector(entitySelectorConfigs) && (
-          <SelectField
-            labelText="Link type"
-            value={type}
-            onChange={(e) => this.setState({ type: e.target.value })}
-            name="link-type"
-            id="link-type"
-            selectProps={{ testId: 'link-type-select' }}>
-            {/* Show the option if the link type is allowed or the current link is of type that is no longer valid */}
-            {allowedHyperlinkTypes.includes(LINK_TYPES.URI) || type === LINK_TYPES.URI ? (
-              <Option value={LINK_TYPES.URI}>URL</Option>
-            ) : null}
-            {allowedHyperlinkTypes.includes(LINK_TYPES.ENTRY) || type === LINK_TYPES.ENTRY ? (
-              <Option value={LINK_TYPES.ENTRY}>Entry</Option>
-            ) : null}
-            {allowedHyperlinkTypes.includes(LINK_TYPES.ASSET) || type === LINK_TYPES.ASSET ? (
-              <Option value={LINK_TYPES.ASSET}>Asset</Option>
-            ) : null}
-          </SelectField>
+          <FormControl id="link-type" name="link-type">
+            <FormControl.Label>Link type</FormControl.Label>
+            <Select
+              value={type}
+              onChange={(e) => this.setState({ type: e.target.value })}
+              testId="link-type-select">
+              {/* Show the option if the link type is allowed or the current link is of type that is no longer valid */}
+              {allowedHyperlinkTypes.includes(LINK_TYPES.URI) || type === LINK_TYPES.URI ? (
+                <Select.Option value={LINK_TYPES.URI}>URL</Select.Option>
+              ) : null}
+              {allowedHyperlinkTypes.includes(LINK_TYPES.ENTRY) || type === LINK_TYPES.ENTRY ? (
+                <Select.Option value={LINK_TYPES.ENTRY}>Entry</Select.Option>
+              ) : null}
+              {allowedHyperlinkTypes.includes(LINK_TYPES.ASSET) || type === LINK_TYPES.ASSET ? (
+                <Select.Option value={LINK_TYPES.ASSET}>Asset</Select.Option>
+              ) : null}
+            </Select>
+          </FormControl>
         )}
         {type === LINK_TYPES.URI ? (
-          <TextField
-            required
-            labelText="Link target"
-            value={uri || ''}
-            textInputProps={{
-              placeholder: 'https://',
-              testId: 'link-uri-input',
-              autoFocus: isUriInputAutoFocused,
-            }}
-            helpText="A protocol may be required, e.g. https://"
-            onChange={(e) => this.setState({ uri: e.target.value })}
-            id="link-uri"
-            name="link-uri"
-          />
+          <FormControl id="link-uri" isRequired>
+            <FormControl.Label>Link target</FormControl.Label>
+            <TextInput
+              testId="link-target-input"
+              name="link-uri"
+              value={uri || ''}
+              placeholder="https://"
+              onChange={(e) => this.setState({ uri: e.target.value })}
+              // eslint-disable-next-line jsx-a11y/no-autofocus
+              autoFocus={isUriInputAutoFocused}
+            />
+            <FormControl.HelpText>A protocol may be required, e.g. https://</FormControl.HelpText>
+          </FormControl>
         ) : (
           this.renderEntityField()
         )}
@@ -238,7 +241,10 @@ export class HyperlinkDialog extends React.Component {
           Link target
         </FormLabel>
         {!isEntitySelectorVisible && (
-          <TextLink className={css({ marginLeft: tokens.spacingS })} onClick={resetEntity}>
+          <TextLink
+            as="button"
+            className={css({ marginLeft: tokens.spacingS })}
+            onClick={resetEntity}>
             Remove selection
           </TextLink>
         )}
@@ -273,8 +279,16 @@ export class HyperlinkDialog extends React.Component {
   renderEntitySelector(type) {
     return (
       <div className={css({ marginTop: tokens.spacingS })}>
-        {type === LINK_TYPES.ENTRY && <TextLink onClick={this.selectEntry}>Select entry</TextLink>}
-        {type === LINK_TYPES.ASSET && <TextLink onClick={this.selectAsset}>Select asset</TextLink>}
+        {type === LINK_TYPES.ENTRY && (
+          <TextLink as="button" onClick={this.selectEntry}>
+            Select entry
+          </TextLink>
+        )}
+        {type === LINK_TYPES.ASSET && (
+          <TextLink as="button" onClick={this.selectAsset}>
+            Select asset
+          </TextLink>
+        )}
       </div>
     );
   }
