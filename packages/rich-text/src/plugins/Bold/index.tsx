@@ -16,9 +16,7 @@ interface ToolbarBoldButtonProps {
 export function ToolbarBoldButton(props: ToolbarBoldButtonProps) {
   const editor = useContentfulEditor();
 
-  function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
-    event.preventDefault();
-
+  function handleClick() {
     if (!editor?.selection) return;
 
     toggleMark(editor, MARKS.BOLD);
