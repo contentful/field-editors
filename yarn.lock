@@ -7047,13 +7047,6 @@ check-types@^8.0.3:
   resolved "https://registry.yarnpkg.com/check-types/-/check-types-8.0.3.tgz#3356cca19c889544f2d7a95ed49ce508a0ecf552"
   integrity sha512-YpeKZngUmG65rLudJ4taU7VLkOCTMhNl/u4ctNC56LQS/zJTyNH0Lrtwm1tfTsbLlwvlfsA2d1c8vCf/Kh2KwQ==
 
-checksum@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/checksum/-/checksum-0.1.1.tgz#dc6527d4c90be8560dbd1ed4cecf3297d528e9e9"
-  integrity sha1-3GUn1MkL6FYNvR7Uzs8yl9Uo6ek=
-  dependencies:
-    optimist "~0.3.5"
-
 chokidar@3.5.1, chokidar@^3.0.0, chokidar@^3.4.1:
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-3.5.1.tgz#ee9ce7bbebd2b79f49f304799d5468e31e14e68a"
@@ -16199,13 +16192,6 @@ opn@^5.1.0, opn@^5.5.0:
   dependencies:
     is-wsl "^1.1.0"
 
-optimist@~0.3.5:
-  version "0.3.7"
-  resolved "https://registry.yarnpkg.com/optimist/-/optimist-0.3.7.tgz#c90941ad59e4273328923074d2cf2e7cbc6ec0d9"
-  integrity sha1-yQlBrVnkJzMokjB00s8ufLxuwNk=
-  dependencies:
-    wordwrap "~0.0.2"
-
 optimize-css-assets-webpack-plugin@5.0.4:
   version "5.0.4"
   resolved "https://registry.yarnpkg.com/optimize-css-assets-webpack-plugin/-/optimize-css-assets-webpack-plugin-5.0.4.tgz#85883c6528aaa02e30bbad9908c92926bb52dc90"
@@ -18587,15 +18573,6 @@ read-pkg-up@^3.0.0:
     find-up "^2.0.0"
     read-pkg "^3.0.0"
 
-read-pkg-up@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/read-pkg-up/-/read-pkg-up-6.0.0.tgz#da75ce72762f2fa1f20c5a40d4dd80c77db969e3"
-  integrity sha512-odtTvLl+EXo1eTsMnoUHRmg/XmXdTkwXVxy4VFE9Kp6cCq7b3l7QMdBndND3eAFzrbSAXC/WCUOQQ9rLjifKZw==
-  dependencies:
-    find-up "^4.0.0"
-    read-pkg "^5.1.1"
-    type-fest "^0.5.0"
-
 read-pkg-up@^7.0.1:
   version "7.0.1"
   resolved "https://registry.yarnpkg.com/read-pkg-up/-/read-pkg-up-7.0.1.tgz#f3a6135758459733ae2b95638056e1854e7ef507"
@@ -18623,7 +18600,7 @@ read-pkg@^3.0.0:
     normalize-package-data "^2.3.2"
     path-type "^3.0.0"
 
-read-pkg@^5.1.1, read-pkg@^5.2.0:
+read-pkg@^5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/read-pkg/-/read-pkg-5.2.0.tgz#7bf295438ca5a33e56cd30e053b34ee7250c93cc"
   integrity sha512-Ug69mNOpfvKDAc2Q8DRpMjjzdtrnv9HcSMX+4VsZxD1aZ6ZzrIE7rlzXBtWTyhULSMKg076AW6WR5iZpD0JiOg==
@@ -18910,20 +18887,6 @@ relateurl@0.2.x, relateurl@^0.2.7:
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
   integrity sha1-VNvzd+UUQKypCkzSdGANP/LYiKk=
-
-relative-deps@^1.0.7:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/relative-deps/-/relative-deps-1.0.7.tgz#daa22f54f8c39b8247f38d6b3e42841afc7144e5"
-  integrity sha512-MYgnQJtA0O9ODDTmvuXMZqcCBLygBsuF5Wg6JSOyX9beWEVlCBIVOuF5vHYD9F7QM7M+3dA9XU90xMhxF0YJGA==
-  dependencies:
-    checksum "^0.1.1"
-    globby "^9.2.0"
-    lodash "^4.17.15"
-    read-pkg-up "^6.0.0"
-    rimraf "^2.6.3"
-    tar "^6.0.5"
-    yargs "^15.0.2"
-    yarn-or-npm "^3.0.1"
 
 remark-cli@^8.0.0:
   version "8.0.1"
@@ -21166,18 +21129,6 @@ tar@^6.0.1, tar@^6.0.2:
     mkdirp "^1.0.3"
     yallist "^4.0.0"
 
-tar@^6.0.5:
-  version "6.1.11"
-  resolved "https://registry.yarnpkg.com/tar/-/tar-6.1.11.tgz#6760a38f003afa1b2ffd0ffe9e9abbd0eab3d621"
-  integrity sha512-an/KZQzQUkZCkuoAA64hM92X0Urb6VpRhAFllDzz44U2mcD5scmT3zBc4VgVpkugF580+DQn8eAFSyoQt0tznA==
-  dependencies:
-    chownr "^2.0.0"
-    fs-minipass "^2.0.0"
-    minipass "^3.0.0"
-    minizlib "^2.1.1"
-    mkdirp "^1.0.3"
-    yallist "^4.0.0"
-
 tcomb-validation@^3.3.0:
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/tcomb-validation/-/tcomb-validation-3.4.1.tgz#a7696ec176ce56a081d9e019f8b732a5a8894b65"
@@ -21840,11 +21791,6 @@ type-fest@^0.3.0, type-fest@^0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.3.1.tgz#63d00d204e059474fe5e1b7c011112bbd1dc29e1"
   integrity sha512-cUGJnCdr4STbePCgqNFbpVNCepa+kAVohJs1sLhxzdH+gnEoOd8VhbYa7pD3zZYGiURWM2xzEII3fQcRizDkYQ==
-
-type-fest@^0.5.0:
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.5.2.tgz#d6ef42a0356c6cd45f49485c3b6281fc148e48a2"
-  integrity sha512-DWkS49EQKVX//Tbupb9TFa19c7+MK1XmzkrZUR8TAktmE/DizXoaoJV6TZ/tSIPXipqNiRI6CyAe7x69Jb6RSw==
 
 type-fest@^0.6.0:
   version "0.6.0"
@@ -23111,11 +23057,6 @@ wordwrap@^1.0.0:
   resolved "https://registry.yarnpkg.com/wordwrap/-/wordwrap-1.0.0.tgz#27584810891456a4171c8d0226441ade90cbcaeb"
   integrity sha1-J1hIEIkUVqQXHI0CJkQa3pDLyus=
 
-wordwrap@~0.0.2:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/wordwrap/-/wordwrap-0.0.3.tgz#a3d5da6cd5c0bc0008d37234bbaf1bed63059107"
-  integrity sha1-o9XabNXAvAAI03I0u68b7WMFkQc=
-
 workbox-background-sync@^5.1.4:
   version "5.1.4"
   resolved "https://registry.yarnpkg.com/workbox-background-sync/-/workbox-background-sync-5.1.4.tgz#5ae0bbd455f4e9c319e8d827c055bb86c894fd12"
@@ -23581,7 +23522,7 @@ yargs@^14.2.2:
     y18n "^4.0.0"
     yargs-parser "^15.0.1"
 
-yargs@^15.0.2, yargs@^15.3.1, yargs@^15.4.1:
+yargs@^15.3.1, yargs@^15.4.1:
   version "15.4.1"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-15.4.1.tgz#0d87a16de01aee9d8bec2bfbf74f67851730f4f8"
   integrity sha512-aePbxDmcYW++PaqBsJ+HYUFwCdv4LVvdnhBy78E57PIor8/OVvhMrADFFEDh8DHDFRv/O9i3lPhsENjO7QX0+A==
@@ -23597,14 +23538,6 @@ yargs@^15.0.2, yargs@^15.3.1, yargs@^15.4.1:
     which-module "^2.0.0"
     y18n "^4.0.0"
     yargs-parser "^18.1.2"
-
-yarn-or-npm@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/yarn-or-npm/-/yarn-or-npm-3.0.1.tgz#6336eea4dff7e23e226acc98c1a8ada17a1b8666"
-  integrity sha512-fTiQP6WbDAh5QZAVdbMQkecZoahnbOjClTQhzv74WX5h2Uaidj1isf9FDes11TKtsZ0/ZVfZsqZ+O3x6aLERHQ==
-  dependencies:
-    cross-spawn "^6.0.5"
-    pkg-dir "^4.2.0"
 
 yauzl@^2.10.0:
   version "2.10.0"
