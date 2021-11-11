@@ -15,29 +15,6 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     editor().should('be.visible');
   });
 
-  function paste(data: { [key: string]: string }) {
-    const dataTransfer = new DataTransfer();
-
-    for (const [format, value] of Object.entries(data)) {
-      dataTransfer.setData(format, value);
-    }
-
-    // this is a weird combination of Event class, type & other properties
-    // but necessary to pass all the Slate guard
-    const inputEvent = new InputEvent('beforeinput', {
-      inputType: 'insertFromPaste',
-      bubbles: true,
-      cancelable: true,
-      // @ts-expect-ignore Slate looks for this property specifically
-      dataTransfer,
-    });
-    const event = Object.assign(inputEvent, {
-      getTargetRanges: () => [],
-    });
-
-    editor().click().trigger('beforeinput', event);
-  }
-
   it.only('supports pasting', () => {
     const expectedValue = doc(
       block(
@@ -49,7 +26,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       block(BLOCKS.PARAGRAPH, {}, text(''))
     );
 
-    paste({
+    editor().click().paste({
       'text/html': '<ul><li>item #1</li><li>item #2</li></ul>',
     });
 
