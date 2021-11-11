@@ -24,6 +24,10 @@ import { CustomElement, CustomSlatePluginOptions } from '../../types';
 import { isTableActive, insertTableAndFocusFirstCell } from './helpers';
 import { TrackingProvider, useTrackingContext } from '../../TrackingProvider';
 import { Element, Node, Text, Transforms } from 'slate';
+import {
+  currentSelectionPrecedesTableCell,
+  currentSelectionStartsTableCell,
+} from '../../helpers/editor';
 
 const styles = {
   [BLOCKS.TABLE]: css`
@@ -203,7 +207,21 @@ function createWithTableEvents(tracking: TrackingProvider) {
   return function withTableEvents(editor: SPEditor) {
     addTableTrackingEvents(editor, tracking);
     addTableNormalization(editor);
-    return getTableOnKeyDown()(editor);
+    const handleKeyDownFromPlateUdecode = getTableOnKeyDown()(editor);
+    return function handleKeyDown(event: React.KeyboardEvent) {
+      if (
+        (event.key === 'Backspace' && currentSelectionStartsTableCell(editor)) ||
+        (event.key === 'Delete' && currentSelectionPrecedesTableCell(editor))
+      ) {
+        // The default behavior here would be to delete the preceding or forthcoming
+        // leaf node, in this case a cell or header cell. But we don't want to do that,
+        // because it would leave us with a non-standard number of table cells.
+        event.preventDefault();
+        event.stopPropagation();
+        return;
+      }
+      handleKeyDownFromPlateUdecode(event);
+    };
   };
 }
 
