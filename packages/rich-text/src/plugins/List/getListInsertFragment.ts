@@ -10,8 +10,18 @@ import {
   PlatePluginOptions,
   TDescendant,
 } from '@udecode/plate-core';
-import { Node, NodeEntry, Path, Transforms, Text } from 'slate';
+import { Node, NodeEntry, Path, Transforms } from 'slate';
 import { ELEMENT_LI, ELEMENT_OL, ELEMENT_UL } from '@udecode/plate-list';
+import { toContentfulDocument } from '@contentful/contentful-slatejs-adapter';
+import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
+
+import { CustomElement } from '../../types';
+import schema from '../../constants/Schema';
+
+const slateNodesToText = (nodes: CustomElement[]): string => {
+  const contentfulNode = toContentfulDocument({ document: nodes, schema });
+  return documentToPlainTextString(contentfulNode);
+};
 
 export const getListInsertFragment = (editor: PlateEditor) => {
   const { insertFragment } = editor;
@@ -70,19 +80,10 @@ export const getListInsertFragment = (editor: PlateEditor) => {
     if (liEntry) {
       const [, liPath] = liEntry;
 
-      // FIXME: support block elements
-      const nodes = fragment
-        .flatMap((node) => trimList(node))
-        .filter((node) => {
-          return Text.isText(node) || editor.isInline(node);
-        });
-      console.log('custom getListINsertFragment');
-      // FIXME: fork insertFragment for edge cases
-      // const editorSelection = editor.selection;
-      // const nextPath = Path.next(liPath);
-      // const currentBlock = getBlockAbove(editor);
-      // debugger;
-      return Transforms.insertNodes(editor, nodes, {
+      const nodes = fragment.flatMap((node) => trimList(node));
+      const text = slateNodesToText(nodes);
+
+      return Transforms.insertNodes(editor, [{ text }], {
         at: editor.selection || Path.next(liPath),
         select: true,
       });
