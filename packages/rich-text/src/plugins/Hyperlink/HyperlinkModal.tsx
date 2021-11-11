@@ -137,7 +137,7 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
                   onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
                     setLinkType(event.target.value)
                   }
-                  testId="link-type-select">
+                  testId="link-type-input">
                   {enabledLinkTypes.map((nodeType) => (
                     <Select.Option key={nodeType} value={nodeType}>
                       {LINK_TYPE_SELECTION_VALUES[nodeType]}
@@ -157,7 +157,7 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
                     setLinkEntity(null);
                     setLinkTarget(event.target.value);
                   }}
-                  testId="link-uri-input"
+                  testId="link-target-input"
                 />
                 <FormControl.HelpText>
                   A protocol may be required, e.g. https://
@@ -173,7 +173,10 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
 
                 {linkEntity && linkEntity.sys.linkType === SYS_LINK_TYPES[linkType] ? (
                   <>
-                    <TextLink onClick={resetLinkEntity} className={styles.removeSelectionLabel}>
+                    <TextLink
+                      testId="entity-selection-link"
+                      onClick={resetLinkEntity}
+                      className={styles.removeSelectionLabel}>
                       Remove selection
                     </TextLink>
                     <div>
@@ -200,10 +203,14 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
                 ) : (
                   <div>
                     {linkType === INLINES.ENTRY_HYPERLINK && (
-                      <TextLink onClick={selectEntry}>Select entry</TextLink>
+                      <TextLink testId="entity-selection-link" onClick={selectEntry}>
+                        Select entry
+                      </TextLink>
                     )}
                     {linkType === INLINES.ASSET_HYPERLINK && (
-                      <TextLink onClick={selectAsset}>Select asset</TextLink>
+                      <TextLink testId="entity-selection-link" onClick={selectAsset}>
+                        Select asset
+                      </TextLink>
                     )}
                   </div>
                 )}

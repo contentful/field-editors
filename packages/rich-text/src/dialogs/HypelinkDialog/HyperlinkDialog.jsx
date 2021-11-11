@@ -212,7 +212,7 @@ export class HyperlinkDialog extends React.Component {
           <FormControl id="link-uri" isRequired>
             <FormControl.Label>Link target</FormControl.Label>
             <TextInput
-              testId="link-uri-input"
+              testId="link-target-input"
               name="link-uri"
               value={uri || ''}
               placeholder="https://"

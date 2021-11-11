@@ -8,5 +8,6 @@
     "html": false,
     "json": true
   },
+  "retries": 2,
   "numTestsKeptInMemory": 1
 }

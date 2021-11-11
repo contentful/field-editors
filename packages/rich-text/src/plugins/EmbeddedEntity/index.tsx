@@ -23,8 +23,7 @@ export function EmbeddedEntityDropdownButton({
       <Menu.Trigger>
         <Button
           endIcon={<ChevronDownIcon />}
-          testId="toolbar-entry-dropdown-toggle"
-          className="toolbar-entry-dropdown-toggle"
+          testId="toolbar-entity-dropdown-toggle"
           variant="secondary"
           size="small"
           startIcon={<PlusIcon />}
@@ -32,7 +31,7 @@ export function EmbeddedEntityDropdownButton({
           Embed
         </Button>
       </Menu.Trigger>
-      <Menu.List className="toolbar-entry-dropdown-list">{children}</Menu.List>
+      <Menu.List className="toolbar-entity-dropdown-list">{children}</Menu.List>
     </Menu>
   );
 }

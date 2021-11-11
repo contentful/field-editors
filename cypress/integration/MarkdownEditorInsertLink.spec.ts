@@ -58,6 +58,7 @@ describe('Markdown Editor / Insert Link Dialog', () => {
 
   beforeEach(() => {
     cy.visit('/markdown');
+    cy.viewport('macbook-16');
     cy.wait(500);
     cy.findByTestId('markdown-editor').should('be.visible');
   });
@@ -152,14 +153,17 @@ describe('Markdown Editor / Insert Link Dialog', () => {
       selectors.inputs.getLinkTextInput().type('best headless CMS ever');
       selectors.inputs.getTargetUrlInput().clear().type('https://contentful.com');
       selectors.getConfirmButton().click();
+      selectors.getModalContent().should('not.exist');
       checkValue('[best headless CMS ever](https://contentful.com)');
 
       // only with url
       clearAll();
       checkValue('');
       selectors.getInsertDialogButton().click();
+      selectors.inputs.getLinkTextInput().clear();
       selectors.inputs.getTargetUrlInput().clear().type('https://contentful.com');
       selectors.getConfirmButton().click();
+      selectors.getModalContent().should('not.exist');
       checkValue('<https://contentful.com>');
     });
   });
@@ -208,6 +212,7 @@ describe('Markdown Editor / Insert Link Dialog', () => {
       selectors.getInsertDialogButton().click();
       selectors.inputs.getTargetUrlInput().clear().type('https://contentful.com');
       selectors.getConfirmButton().click();
+      selectors.getModalContent().should('not.exist');
       checkValue('check out [Contentful](https://contentful.com)');
     });
   });

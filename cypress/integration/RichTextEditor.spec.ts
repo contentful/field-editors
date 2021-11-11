@@ -16,7 +16,9 @@ function expectRichTextFieldValue(expectedValue, editorEvents?) {
   }
 }
 
-describe('Rich Text Editor', () => {
+// the sticky toolbar gets in the way of some of the tests, therefore
+// we increase the viewport height to fit the whole page on the screen
+describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
   let editor: () => Cypress.Chainable<any>;
 
   // copied from the 'is-hotkey' library we use for RichText shortcuts
@@ -32,7 +34,7 @@ describe('Rich Text Editor', () => {
   const emptyParagraph = () => paragraphWithText('');
 
   function getDropdownToolbarButton() {
-    return cy.findByTestId('dropdown-heading');
+    return cy.findByTestId('toolbar-heading-toggle');
   }
 
   function getDropdownList() {
@@ -53,6 +55,11 @@ describe('Rich Text Editor', () => {
 
   function getQuoteToolbarButton() {
     return cy.findByTestId('quote-toolbar-button');
+  }
+
+  function clickDropdownItem(type: string) {
+    getDropdownToolbarButton().click();
+    getDropdownItem(type).click({ force: true });
   }
 
   function addBlockquote(content = '') {
@@ -317,8 +324,9 @@ describe('Rich Text Editor', () => {
         it(`allows typing ${label} (${type})`, () => {
           editor().click().type('some text');
 
-          getDropdownToolbarButton().click();
-          getDropdownItem(type).click();
+          clickDropdownItem(type);
+
+          // TODO: We should somehow assert that the editor is focused after this.
 
           // Account for trailing paragraph
           const expectedValue =
@@ -342,8 +350,7 @@ describe('Rich Text Editor', () => {
         it(`should set the dropdown label to ${label}`, () => {
           editor().click().type('some text');
 
-          getDropdownToolbarButton().click();
-          getDropdownItem(type).click();
+          clickDropdownItem(type);
 
           getDropdownToolbarButton().should('have.text', label);
         });
@@ -353,8 +360,7 @@ describe('Rich Text Editor', () => {
           it('should unwrap blockquote', () => {
             addBlockquote('some text');
 
-            getDropdownToolbarButton().click();
-            getDropdownItem(type).click();
+            clickDropdownItem(type);
 
             const expectedHeadingValue = doc(
               block(type, {}, text('some text', [])),
@@ -367,8 +373,7 @@ describe('Rich Text Editor', () => {
           it('should not unwrap blockquote', () => {
             const expectedQuoteValue = addBlockquote('some text');
 
-            getDropdownToolbarButton().click();
-            getDropdownItem(type).click();
+            clickDropdownItem(type);
 
             expectRichTextFieldValue(expectedQuoteValue);
           });
@@ -556,8 +561,7 @@ describe('Rich Text Editor', () => {
     it('should add a new line on a heading', () => {
       editor().click();
 
-      getDropdownToolbarButton().click();
-      getDropdownItem(BLOCKS.HEADING_1).click();
+      clickDropdownItem(BLOCKS.HEADING_1);
 
       editor()
         .type('some text 1')
@@ -674,12 +678,12 @@ describe('Rich Text Editor', () => {
 
     describe('Table Actions', () => {
       const findAction = (action: string) => {
-        cy.findByTestId('cf-table-actions').find('button').click();
+        cy.findByTestId('cf-table-actions-button').click();
         return cy.findByText(action);
       };
 
       const doAction = (action: string) => {
-        findAction(action).click();
+        findAction(action).click({ force: true });
       };
 
       beforeEach(() => {
@@ -695,7 +699,7 @@ describe('Rich Text Editor', () => {
           // Insert an empty table (focus is on first row by default)
           insertTable();
 
-          findAction('Add row above').parent().should('be.disabled');
+          findAction('Add row above').should('be.disabled');
         });
 
         it('with table cell', () => {
@@ -778,7 +782,7 @@ describe('Rich Text Editor', () => {
     const getLinkTypeSelect = () => cy.findByTestId('link-type-input');
     const getLinkTargetInput = () => cy.findByTestId('link-target-input');
     const getSubmitButton = () => cy.findByTestId('confirm-cta');
-    const getEntityTextLink = () => cy.findByTestId('cf-ui-form').findByTestId('cf-ui-text-link');
+    const getEntityTextLink = () => cy.findByTestId('entity-selection-link');
     const expectDocumentStructure = (...nodes) => {
       expectRichTextFieldValue(
         doc(
@@ -1153,7 +1157,7 @@ describe('Rich Text Editor', () => {
             )
           );
 
-          cy.findByTestId('cf-ui-card-actions').findByTestId('cf-ui-icon-button').click();
+          cy.findByTestId('cf-ui-card-actions').click();
           cy.findByTestId('card-action-remove').click();
 
           expectRichTextFieldValue(undefined);
@@ -1258,7 +1262,7 @@ describe('Rich Text Editor', () => {
             )
           );
 
-          cy.findByTestId('cf-ui-card-actions').findByTestId('cf-ui-icon-button').click();
+          cy.findByTestId('cf-ui-card-actions').click();
           cy.findByTestId('card-action-remove').click();
 
           expectRichTextFieldValue(doc(block(BLOCKS.PARAGRAPH, {}, text('hello'), text('world'))));
