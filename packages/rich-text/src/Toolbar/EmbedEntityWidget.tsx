@@ -6,6 +6,8 @@ import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { isNodeTypeEnabled } from '../helpers/validations';
 import { ToolbarEmbeddedEntityInlineButton } from '../plugins/EmbeddedEntityInline';
 import { useSdkContext } from '../SdkProvider';
+import { isLinkActive } from '../helpers/editor';
+import { useContentfulEditor } from '../ContentfulEditorProvider';
 
 export interface EmbedEntityWidgetProps {
   isDisabled?: boolean;
@@ -14,6 +16,8 @@ export interface EmbedEntityWidgetProps {
 
 export const EmbedEntityWidget = ({ isDisabled, canInsertBlocks }: EmbedEntityWidgetProps) => {
   const sdk = useSdkContext();
+  const editor = useContentfulEditor();
+
   const [isEmbedDropdownOpen, setEmbedDropdownOpen] = useState(false);
   const onCloseEntityDropdown = () => setEmbedDropdownOpen(false);
   const onToggleEntityDropdown = () => setEmbedDropdownOpen(!isEmbedDropdownOpen);
@@ -57,7 +61,7 @@ export const EmbedEntityWidget = ({ isDisabled, canInsertBlocks }: EmbedEntityWi
       )}
       {inlineEntryEmbedEnabled && (
         <ToolbarEmbeddedEntityInlineButton
-          isDisabled={!!isDisabled}
+          isDisabled={!!isDisabled || isLinkActive(editor)}
           onClose={onCloseEntityDropdown}
           isButton={!shouldDisplayDropdown}
         />
