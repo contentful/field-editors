@@ -1042,10 +1042,10 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
     for (const [triggerMethod, triggerEmbeddedEntry] of methods) {
       describe(triggerMethod, () => {
-        it('adds paragraph before the block when pressing enter if the block is first child', () => {
+        it('adds paragraph before the block when pressing enter if the block is first document node', () => {
           editor().click().then(triggerEmbeddedEntry);
 
-          editor().click().find('[data-entity-id="example-entity-id"]').click();
+          editor().find('[data-entity-id="example-entity-id"]').click();
 
           editor().trigger('keydown', keys.enter);
 
@@ -1203,10 +1203,10 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
     for (const [triggerMethod, triggerEmbeddedAsset] of methods) {
       describe(triggerMethod, () => {
-        it('adds paragraph before the block when pressing enter if the block is first child', () => {
+        it('adds paragraph before the block when pressing enter if the block is first document node', () => {
           editor().click().then(triggerEmbeddedAsset);
 
-          editor().click().find('[data-entity-id="example-entity-id"]').click();
+          editor().find('[data-entity-id="example-entity-id"]').click();
 
           editor().trigger('keydown', keys.enter);
 
