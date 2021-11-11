@@ -1,5 +1,25 @@
 version: 2.1
 
+executors:
+  linux-node:
+    docker:
+      - image: cimg/node:14.17
+    environment:
+      CYPRESS_INSTALL_BINARY: 0
+  linux-cypress:
+    resource_class: large
+    docker:
+      - image: cypress/browsers:node14.17.0-chrome91-ff89
+    environment:
+      TZ: UTC
+      CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
+  linux-cypress-edge:
+    docker:
+      - image: cypress/browsers:node12.18.4-edge88
+#  macos:
+#    macos:
+#      xcode: 11.4
+
 cache-key: &cache-key
   key: dependency-cache-primary-{{ arch }}-yarn-packages-{{ checksum ".nvmrc" }}-{{ checksum "yarn.lock" }}
 
@@ -13,13 +33,16 @@ commands:
           <<: *cache-key
           paths:
             - ~/.cache/yarn
+  yarn_serve:
+    steps:
+      - run:
+          command: yarn serve .docz/dist -n -s -p 9000
+          background: true
+      - run: yarn wait-on -t 60000 http://localhost:9000
 
 jobs:
   lint:
-    docker:
-      - image: cypress/browsers:node14.17.0-chrome91-ff89
-    environment:
-      CYPRESS_INSTALL_BINARY: 0
+    executor: linux-node
     steps:
       - checkout
       - yarn_install
@@ -27,44 +50,42 @@ jobs:
       - run: yarn build
       - run: yarn tsc
   unit-tests:
-    docker:
-      - image: cypress/browsers:node14.17.0-chrome91-ff89
-    environment:
-      CYPRESS_INSTALL_BINARY: 0
+    executor: linux-node
     steps:
       - checkout
       - yarn_install
       - run: yarn build
       - run: yarn test:ci
+
   integration-tests:
-    resource_class: medium+
+    parameters:
+      executor:
+        type: executor
+      browser:
+        type: enum
+        enum: [chrome, firefox, edge]
+
     parallelism: 3
-    docker:
-      - image: cypress/browsers:node14.17.0-chrome91-ff89
+    executor: << parameters.executor >>
     steps:
       - checkout
       - yarn_install
       - run: yarn build
       - run: yarn docz:build
-      - run:
-          command: yarn serve .docz/dist -n -s -p 9000
-          background: true
+      - yarn_serve
       - run:
           command: |
             TESTFILES=$(circleci tests glob "cypress/integration/**/*.ts" | circleci tests split --split-by=timings --timings-type=filename | tr '\n' ',')
-            yarn wait-on -t 60000 http://localhost:9000
-            yarn cy:run --spec "${TESTFILES}"
+            npx cypress run --spec "${TESTFILES}" --browser << parameters.browser >>
       - store_test_results:
           path: cypress/results
       - store_artifacts:
           path: cypress/screenshots
       - store_artifacts:
           path: cypress/videos
+
   release:
-    docker:
-      - image: cimg/node:14.17
-    environment:
-      CYPRESS_INSTALL_BINARY: 0
+    executor: linux-node
     steps:
       - checkout
       - add_ssh_keys:
@@ -84,7 +105,20 @@ workflows:
     jobs:
       - lint
       - unit-tests
-      - integration-tests
+      - integration-tests:
+          name: integration-<< matrix.executor >>-<< matrix.browser >>
+          matrix:
+            alias: integration-tests-linux-chrome-ff
+            parameters:
+              executor: [linux-cypress]
+              browser: [chrome, firefox]
+      - integration-tests:
+          name: integration-<< matrix.executor >>-<< matrix.browser >>
+          matrix:
+            alias: integration-tests-linux-edge
+            parameters:
+              executor: [linux-cypress-edge]
+              browser: [edge]
       - release:
           filters:
             branches:
@@ -92,4 +126,4 @@ workflows:
           requires:
             - lint
             - unit-tests
-            - integration-tests
+            - integration-tests-linux-chrome-ff
