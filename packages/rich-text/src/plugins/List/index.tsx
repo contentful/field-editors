@@ -1,9 +1,15 @@
 import * as React from 'react';
 import * as Slate from 'slate-react';
 import { css } from 'emotion';
-import { match, getChildren, getLastChildPath } from '@udecode/plate-common';
-import { isElement, PEditor, getPlatePluginWithOverrides } from '@udecode/plate-core';
-import { createListPlugin as createPlateListPlugin } from '@udecode/plate-list';
+import {
+  createListPlugin as createPlateListPlugin,
+  WithListOptions,
+  getListInsertBreak,
+  getListDeleteBackward,
+  getListDeleteForward,
+  getListNormalizer,
+  getListDeleteFragment,
+} from '@udecode/plate-list';
 import { BLOCKS, LIST_ITEM_BLOCKS } from '@contentful/rich-text-types';
 import { ListBulletedIcon, ListNumberedIcon } from '@contentful/f36-icons';
 import { ELEMENT_LI, ELEMENT_UL, ELEMENT_OL, toggleList, ELEMENT_LIC } from '@udecode/plate-list';
@@ -15,7 +21,8 @@ import { CustomSlatePluginOptions } from '../../types';
 import tokens from '@contentful/f36-tokens';
 import { useSdkContext } from '../../SdkProvider';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
-import { Editor, NodeEntry, Transforms } from 'slate';
+import { WithOverride } from '@udecode/plate-core';
+import { getListInsertFragment } from './getListInsertFragment';
 
 interface ToolbarListButtonProps {
   isDisabled?: boolean;
@@ -145,63 +152,52 @@ export const withListOptions: CustomSlatePluginOptions = {
   },
 };
 
-const addListNormalization =
-  () =>
-  <T extends PEditor>(editor: T) => {
-    const { normalizeNode } = editor;
+// copy of https://github.com/udecode/plate/blob/main/packages/elements/list/src/withList.ts
+// to use our custom getListInsertFragment
+const withCustomList =
+  ({ validLiChildrenTypes }: WithListOptions = {}): WithOverride =>
+  (editor) => {
+    const { insertBreak, deleteBackward, deleteForward, deleteFragment } = editor;
 
-    const listTypes = [BLOCKS.OL_LIST, BLOCKS.UL_LIST];
+    editor.insertBreak = () => {
+      if (getListInsertBreak(editor)) return;
 
-    const isListItem = (node: any) => node.type === BLOCKS.LIST_ITEM;
-
-    editor.normalizeNode = ([node, path]: NodeEntry) => {
-      if (!isElement(node)) return;
-
-      if (match(node, { type: listTypes })) {
-        if (node.children.length === 0) {
-          return;
-        }
-
-        const childrenWithRefs = getChildren([node, path]).map((child) => {
-          return {
-            item: child[0],
-            ref: Editor.pathRef(editor, child[1]),
-          };
-        });
-
-        // Move invalid nodes to the list item preceding them
-        childrenWithRefs.reverse().forEach(({ item, ref }, idx) => {
-          if (!isListItem(item)) {
-            // Get previous list item if any
-            const listItem = childrenWithRefs
-              .slice(0, idx)
-              .reverse()
-              .find(({ item }) => isListItem(item));
-
-            if (!listItem) {
-              // FIXME: what should we do here?
-              return;
-            }
-
-            const childPath = ref.unref();
-
-            Transforms.moveNodes(editor, {
-              at: childPath!,
-              to: getLastChildPath(listItem.item),
-            });
-          }
-        });
-      }
-
-      return normalizeNode([node, path]);
+      insertBreak();
     };
+
+    editor.deleteBackward = (unit) => {
+      if (getListDeleteBackward(editor, unit)) return;
+
+      deleteBackward(unit);
+    };
+
+    editor.deleteForward = (unit) => {
+      if (getListDeleteForward(editor)) return;
+
+      deleteForward(unit);
+    };
+
+    editor.deleteFragment = () => {
+      if (getListDeleteFragment(editor)) return;
+
+      deleteFragment();
+    };
+
+    editor.insertFragment = getListInsertFragment(editor);
+
+    editor.normalizeNode = getListNormalizer(editor, { validLiChildrenTypes });
 
     return editor;
   };
 
-export const createListPlugin = () =>
-  createPlateListPlugin({
+export const createListPlugin = () => {
+  const options = {
     validLiChildrenTypes: LIST_ITEM_BLOCKS,
-  });
+  };
 
-export const createListWithNormalizationPlugin = getPlatePluginWithOverrides(addListNormalization);
+  const plugin = createPlateListPlugin(options);
+
+  plugin.withOverrides = withCustomList(options);
+
+  return plugin;
+};

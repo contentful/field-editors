@@ -2,7 +2,7 @@ import { Text, Editor, Element, Transforms, Path, Range } from 'slate';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { CustomElement } from '../types';
 import { Link } from '@contentful/field-editor-reference/dist/types';
-import { SPEditor } from '@udecode/plate-core';
+import { PlateEditor } from '@udecode/plate-core';
 
 export const LINK_TYPES: INLINES[] = [
   INLINES.HYPERLINK,
@@ -215,13 +215,13 @@ export function wrapLink(editor, { text, url, target, type, path }: InsertLinkOp
   }
 }
 
-export function getAncestorPathFromSelection(editor: SPEditor) {
+export function getAncestorPathFromSelection(editor: PlateEditor) {
   if (!editor.selection) return undefined;
 
   return Path.levels(editor.selection.focus.path).find((level) => level.length === 1);
 }
 
-export function shouldUnwrapBlockquote(editor: SPEditor, type: BLOCKS) {
+export function shouldUnwrapBlockquote(editor: PlateEditor, type: BLOCKS) {
   const isQuoteSelected = isBlockSelected(editor, BLOCKS.QUOTE);
   const isValidType = [
     BLOCKS.HEADING_1,
@@ -240,7 +240,7 @@ export function shouldUnwrapBlockquote(editor: SPEditor, type: BLOCKS) {
   return isQuoteSelected && isValidType;
 }
 
-export function unwrapFromRoot(editor: SPEditor) {
+export function unwrapFromRoot(editor: PlateEditor) {
   const ancestorPath = getAncestorPathFromSelection(editor);
   Transforms.unwrapNodes(editor, { at: ancestorPath });
 }

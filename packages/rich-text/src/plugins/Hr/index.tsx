@@ -6,7 +6,12 @@ import { HorizontalRuleIcon } from '@contentful/f36-icons';
 import { ToolbarButton } from '../shared/ToolbarButton';
 import { Transforms } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { getPlatePluginTypes, getRenderElement, PlatePlugin, SPEditor } from '@udecode/plate-core';
+import {
+  getPlatePluginTypes,
+  getRenderElement,
+  PlatePlugin,
+  PlateEditor,
+} from '@udecode/plate-core';
 import { getText, setNodes } from '@udecode/plate-common';
 import {
   getNodeEntryFromSelection,
@@ -55,7 +60,7 @@ interface ToolbarHrButtonProps {
   isDisabled?: boolean;
 }
 
-export function withHrEvents(editor: SPEditor) {
+export function withHrEvents(editor: PlateEditor) {
   return (event: React.KeyboardEvent) => {
     if (!editor) return;
 

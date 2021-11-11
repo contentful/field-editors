@@ -9,7 +9,7 @@ import { BLOCKS } from '@contentful/rich-text-types';
 import {
   PlatePlugin,
   getRenderElement,
-  SPEditor,
+  PlateEditor,
   getPlatePluginOptions,
 } from '@udecode/plate-core';
 import { insertNodes, setNodes, toggleNodeType } from '@udecode/plate-common';
@@ -78,7 +78,7 @@ const styles = {
   },
 };
 
-export function withHeadingEvents(editor: SPEditor) {
+export function withHeadingEvents(editor: PlateEditor) {
   return (event: React.KeyboardEvent) => {
     if (!editor.selection) return;
 

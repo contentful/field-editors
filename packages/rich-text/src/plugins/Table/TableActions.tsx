@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from 'emotion';
 import * as Slate from 'slate-react';
-import { SPEditor } from '@udecode/plate-core';
+import { PlateEditor } from '@udecode/plate-core';
 import { TablePluginOptions, deleteColumn, deleteRow, deleteTable } from '@udecode/plate-table';
 import { IconButton, Menu } from '@contentful/f36-components';
 import { ChevronDownIcon } from '@contentful/f36-icons';
@@ -22,12 +22,14 @@ export const styles = {
   }),
 };
 
-const getCurrentTableSize = (editor: SPEditor): Record<'numRows' | 'numColumns', number> | null => {
+const getCurrentTableSize = (
+  editor: PlateEditor
+): Record<'numRows' | 'numColumns', number> | null => {
   const [table] = getNodeEntryFromSelection(editor, BLOCKS.TABLE);
   return table ? getTableSize(table) : null;
 };
 
-type TableAction = (editor: SPEditor, options: TablePluginOptions) => void;
+type TableAction = (editor: PlateEditor, options: TablePluginOptions) => void;
 
 export const TableActions = () => {
   const editor = useContentfulEditor();

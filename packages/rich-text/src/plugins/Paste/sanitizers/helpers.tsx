@@ -1,6 +1,6 @@
-import { SPEditor } from '@udecode/plate-core';
+import { PlateEditor } from '@udecode/plate-core';
 
-export type SanitizerTuple = [Document, SPEditor];
+export type SanitizerTuple = [Document, PlateEditor];
 
 type Predicate = (node: ChildNode) => boolean;
 

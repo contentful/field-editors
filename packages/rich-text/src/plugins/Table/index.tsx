@@ -1,7 +1,7 @@
 import { css } from 'emotion';
 import * as React from 'react';
 import * as Slate from 'slate-react';
-import { SPEditor } from '@udecode/plate-core';
+import { PlateEditor } from '@udecode/plate-core';
 import tokens from '@contentful/f36-tokens';
 import { TableIcon } from '@contentful/f36-icons';
 import { ToolbarButton } from '../shared/ToolbarButton';
@@ -130,7 +130,7 @@ export const withTableOptions: CustomSlatePluginOptions = {
   },
 };
 
-function addTableTrackingEvents(editor: SPEditor, { onViewportAction }: TrackingProvider) {
+function addTableTrackingEvents(editor: PlateEditor, { onViewportAction }: TrackingProvider) {
   const { insertData } = editor;
   editor.insertData = (data: DataTransfer) => {
     const html = data.getData('text/html');
@@ -200,7 +200,7 @@ function hasHeadersOutsideFirstRow(nodes: CustomElement[]) {
 }
 
 function createWithTableEvents(tracking: TrackingProvider) {
-  return function withTableEvents(editor: SPEditor) {
+  return function withTableEvents(editor: PlateEditor) {
     addTableTrackingEvents(editor, tracking);
     addTableNormalization(editor);
     return getTableOnKeyDown()(editor);

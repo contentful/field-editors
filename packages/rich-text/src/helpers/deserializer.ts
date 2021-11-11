@@ -1,13 +1,13 @@
 import {
   getPlatePluginOptions,
-  SPEditor,
+  PlateEditor,
   Deserialize,
   GetNodeDeserializerRule,
 } from '@udecode/plate-core';
 import { getLeafDeserializer, getElementDeserializer } from '@udecode/plate-common';
 
 export function deserializeLeaf(type: string, rules: GetNodeDeserializerRule[]): Deserialize {
-  return function (editor: SPEditor) {
+  return function (editor: PlateEditor) {
     const pluginOptions = getPlatePluginOptions(editor, type);
 
     return {
@@ -21,7 +21,7 @@ export function deserializeLeaf(type: string, rules: GetNodeDeserializerRule[]):
 }
 
 export function deserializeElement(type: string, rules: GetNodeDeserializerRule[]): Deserialize {
-  return function (editor: SPEditor) {
+  return function (editor: PlateEditor) {
     const pluginOptions = getPlatePluginOptions(editor, type);
 
     return {

@@ -10,11 +10,7 @@ import deepEquals from 'fast-deep-equal';
 import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/StickyToolbarWrapper';
 import { createPastePlugin } from './plugins/Paste';
-import {
-  createListPlugin,
-  withListOptions,
-  createListWithNormalizationPlugin,
-} from './plugins/List';
+import { createListPlugin, withListOptions } from './plugins/List';
 import { Plate, createHistoryPlugin, createReactPlugin } from '@udecode/plate-core';
 import { createDeserializeAstPlugin } from '@udecode/plate-ast-serializer';
 import { createDeserializeHTMLPlugin } from '@udecode/plate-html-serializer';
@@ -80,7 +76,6 @@ const getPlugins = (sdk: FieldExtensionSDK, tracking: TrackingProvider) => {
     // Block Elements
     createParagraphPlugin(),
     createListPlugin(),
-    createListWithNormalizationPlugin(),
     createHrPlugin(),
     createHeadingPlugin(),
     createQuotePlugin(),

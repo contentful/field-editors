@@ -1,5 +1,5 @@
 import { Transforms } from 'slate';
-import { SPEditor } from '@udecode/plate-core';
+import { PlateEditor } from '@udecode/plate-core';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { getAbove, getChildren } from '@udecode/plate-common';
 import {
@@ -31,19 +31,19 @@ function moveToFirstCellFromSelectedTable(editor) {
   Transforms.setSelection(editor, { anchor, focus: anchor });
 }
 
-export function insertTableAndFocusFirstCell(editor: SPEditor): void {
+export function insertTableAndFocusFirstCell(editor: PlateEditor): void {
   // FIXME: a table should only be allowed at root level. Currently this
   // code adds it at any level
   insertTable(editor, { header: true });
   moveToFirstCellFromSelectedTable(editor);
 }
 
-export function isTableActive(editor: SPEditor) {
+export function isTableActive(editor: PlateEditor) {
   const tableElements = [ELEMENT_TABLE, ELEMENT_TH, ELEMENT_TR, ELEMENT_TD];
   return tableElements.some((el) => isBlockSelected(editor, el));
 }
 
-export function isTableHeaderEnabled(editor: SPEditor) {
+export function isTableHeaderEnabled(editor: PlateEditor) {
   const tableItem = getAbove(editor, {
     match: {
       type: BLOCKS.TABLE,

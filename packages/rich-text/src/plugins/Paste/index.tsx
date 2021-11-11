@@ -1,4 +1,4 @@
-import { PlatePlugin, SPEditor } from '@udecode/plate-core';
+import { PlatePlugin, PlateEditor } from '@udecode/plate-core';
 import * as sanitizers from './sanitizers';
 import flow from 'lodash/flow';
 
@@ -7,7 +7,7 @@ const MIME_TYPE_HTML = 'text/html';
 // TODO: Upgrade tslib so we can just flow(...sanitizers);
 const sanitizeDocument = flow.apply(this, Object.values(sanitizers));
 
-const sanitizeHtml = (html: string, editor: SPEditor): string => {
+const sanitizeHtml = (html: string, editor: PlateEditor): string => {
   const doc = new DOMParser().parseFromString(html, MIME_TYPE_HTML);
   const [sanitizedDoc] = sanitizeDocument([doc, editor]);
   const sanitizedData = new XMLSerializer().serializeToString(sanitizedDoc);
@@ -20,7 +20,7 @@ const htmlToDataTransfer = (html: string): DataTransfer => {
   return data;
 };
 
-function withPasteHandling(editor: SPEditor) {
+function withPasteHandling(editor: PlateEditor) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   return (_event: React.KeyboardEvent) => {
     const { insertData } = editor;
