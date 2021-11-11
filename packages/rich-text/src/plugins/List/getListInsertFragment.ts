@@ -80,6 +80,8 @@ export const getListInsertFragment = (editor: PlateEditor) => {
     if (liEntry) {
       const [, liPath] = liEntry;
 
+      // FIXME: this is a temporarily workaround and needs a follow-up to properly
+      // non-text elements
       const nodes = fragment.flatMap((node) => trimList(node));
       const text = slateNodesToText(nodes);
 
