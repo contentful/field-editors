@@ -15,7 +15,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     editor().should('be.visible');
   });
 
-  it.only('supports pasting', () => {
+  it('supports pasting of a simple list', () => {
     const expectedValue = doc(
       block(
         BLOCKS.UL_LIST,
