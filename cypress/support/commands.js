@@ -71,13 +71,25 @@ Cypress.Commands.add('setInstanceParams', (instanceParams) => {
 });
 
 Cypress.Commands.add('getMarkdownInstance', () => {
-  return cy.window().then((win) => {
-    return win.markdownEditor;
-  });
+  return cy
+    .window()
+    .then((win) => {
+      return win.markdownEditor;
+      // we want to make sure any kind of debounced behaviour
+      // is already triggered before we go on and assert the
+      // content of the field in any test
+    })
+    .wait(100);
 });
 
 Cypress.Commands.add('getRichTextField', () => {
-  return cy.window().then((win) => {
-    return win.richTextField;
-  });
+  return cy
+    .window()
+    .then((win) => {
+      return win.richTextField;
+      // we want to make sure any kind of debounced behaviour
+      // is already triggered before we go on and assert the
+      // content of the field in any test
+    })
+    .wait(100);
 });
