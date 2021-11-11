@@ -1,7 +1,8 @@
-import { Node as SlateNode, Transforms } from 'slate';
+import { Node as SlateNode, Transforms, Editor } from 'slate';
 import { PlatePlugin } from '@udecode/plate-core';
 import { CustomElement } from '../../types';
-import { BLOCKS, CONTAINERS } from '@contentful/rich-text-types';
+import { BLOCKS, CONTAINERS, INLINES } from '@contentful/rich-text-types';
+import { getNodes } from '@udecode/plate-common';
 
 export function createDragAndDropPlugin(): PlatePlugin {
   // Elements that don't allow other elements to be dragged into them and which callback should be used
@@ -10,11 +11,20 @@ export function createDragAndDropPlugin(): PlatePlugin {
     [BLOCKS.QUOTE]: Transforms.liftNodes,
   };
 
-  // DND_BLOCKED_ELEMENTS callbacks will run on those elements only
-  const DRAGGABLE_TYPES: string[] = [BLOCKS.EMBEDDED_ENTRY, BLOCKS.EMBEDDED_ASSET];
+  const DRAGGABLE_TYPES: string[] = [
+    BLOCKS.EMBEDDED_ENTRY,
+    BLOCKS.EMBEDDED_ASSET,
+    INLINES.EMBEDDED_ENTRY,
+  ];
 
-  // HTML node names where dropping should be disabled, usually when using `Transforms.removeNodes` callback
-  const ON_DROP_BLOCKED_TYPES = ['TABLE'];
+  /**
+   * HTML node names where dropping should be allowed
+   * Usually for elements where `Transforms.removeNodes` is needed
+   * TODO: looking up for html nodes is not the best solution and it won't scale but it works fine for our current cases/elements
+   */
+  const ON_DROP_ALLOWED_TYPES = {
+    TABLE: [INLINES.EMBEDDED_ENTRY],
+  };
 
   return {
     withOverrides: (editor) => {
@@ -51,16 +61,24 @@ export function createDragAndDropPlugin(): PlatePlugin {
 
       return editor;
     },
-    onDrop: () => (event) => {
-      /**
-       * If true, the next handlers will be skipped.
-       * In this case, the element that is being dragged will be copied,
-       * two versions of the same element on the document,
-       * so we need to remove it above on `normalizeNode`.
-       */
+
+    // If true, the next handlers will be skipped.
+    onDrop: (editor) => (event) => {
+      const [draggingBlock] = Array.from(
+        getNodes(editor, {
+          match: (node) => Editor.isBlock(editor, node) && DRAGGABLE_TYPES.includes(node.type),
+        })
+      );
+      if (!draggingBlock) return false;
+
+      const [draggingNode] = draggingBlock;
+
+      // TODO: looking up for html nodes is not the best solution and it won't scale, we need to find a way to know the dropping target slate element
       // @ts-expect-error
       return event.nativeEvent.path.some((node) => {
-        return ON_DROP_BLOCKED_TYPES.includes(node.nodeName);
+        return ON_DROP_ALLOWED_TYPES[node.nodeName]
+          ? !ON_DROP_ALLOWED_TYPES[node.nodeName]?.includes(draggingNode.type)
+          : false;
       });
     },
   };
