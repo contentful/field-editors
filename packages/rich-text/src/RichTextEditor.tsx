@@ -162,6 +162,10 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
           setValue(slateDoc);
           const contentfulDoc = toContentfulDocument({ document: slateDoc, schema });
           props.onChange?.(contentfulDoc);
+          console.log({
+            slateDoc,
+            contentfulDoc,
+          });
         }}
         // @ts-expect-error
         options={options}>
