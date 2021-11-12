@@ -9,6 +9,7 @@ import { expectRichTextFieldValue } from './utils';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
 // we increase the viewport height to fit the whole page on the screen
+
 describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
   let editor: () => Cypress.Chainable<any>;
 
@@ -23,6 +24,11 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
   const paragraph = buildHelper(BLOCKS.PARAGRAPH);
   const paragraphWithText = (t) => paragraph(text(t, []));
   const emptyParagraph = () => paragraphWithText('');
+
+  const keys = {
+    enter: { keyCode: 13, which: 13, key: 'Enter' },
+    backspace: { keyCode: 8, which: 8, key: 'Backspace' },
+  };
 
   function getDropdownToolbarButton() {
     return cy.findByTestId('toolbar-heading-toggle');
@@ -1036,6 +1042,73 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
     for (const [triggerMethod, triggerEmbeddedEntry] of methods) {
       describe(triggerMethod, () => {
+        it('adds paragraph before the block when pressing enter if the block is first document node', () => {
+          editor().click().then(triggerEmbeddedEntry);
+
+          editor().find('[data-entity-id="example-entity-id"]').click();
+
+          editor().trigger('keydown', keys.enter);
+
+          expectRichTextFieldValue(
+            doc(
+              block(BLOCKS.PARAGRAPH, {}, text('')),
+              block(BLOCKS.EMBEDDED_ENTRY, {
+                target: {
+                  sys: {
+                    id: 'example-entity-id',
+                    type: 'Link',
+                    linkType: 'Entry',
+                  },
+                },
+              }),
+              block(BLOCKS.PARAGRAPH, {}, text(''))
+            )
+          );
+        });
+
+        it('adds paragraph between two blocks when pressing enter', () => {
+          function addEmbeddedEntry() {
+            editor().click('bottom').then(triggerEmbeddedEntry);
+          }
+
+          function selectAndPressEnter() {
+            editor().click().get('[data-entity-id="example-entity-id"]').first().click();
+            editor().trigger('keydown', keys.enter);
+          }
+
+          addEmbeddedEntry();
+          addEmbeddedEntry();
+
+          selectAndPressEnter();
+          selectAndPressEnter();
+
+          expectRichTextFieldValue(
+            doc(
+              block(BLOCKS.PARAGRAPH, {}, text('')),
+              block(BLOCKS.EMBEDDED_ENTRY, {
+                target: {
+                  sys: {
+                    id: 'example-entity-id',
+                    type: 'Link',
+                    linkType: 'Entry',
+                  },
+                },
+              }),
+              block(BLOCKS.PARAGRAPH, {}, text('')),
+              block(BLOCKS.EMBEDDED_ENTRY, {
+                target: {
+                  sys: {
+                    id: 'example-entity-id',
+                    type: 'Link',
+                    linkType: 'Entry',
+                  },
+                },
+              }),
+              block(BLOCKS.PARAGRAPH, {}, text(''))
+            )
+          );
+        });
+
         it('adds and removes embedded entries', () => {
           editor().click().then(triggerEmbeddedEntry);
 
@@ -1080,7 +1153,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           cy.findByTestId('cf-ui-entry-card').click();
           // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
-          editor().trigger('keydown', { keyCode: 8, which: 8, key: 'Backspace' }); // 8 = delete/backspace
+          editor().trigger('keydown', keys.backspace);
 
           expectRichTextFieldValue(undefined);
         });
@@ -1130,6 +1203,73 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
     for (const [triggerMethod, triggerEmbeddedAsset] of methods) {
       describe(triggerMethod, () => {
+        it('adds paragraph before the block when pressing enter if the block is first document node', () => {
+          editor().click().then(triggerEmbeddedAsset);
+
+          editor().find('[data-entity-id="example-entity-id"]').click();
+
+          editor().trigger('keydown', keys.enter);
+
+          expectRichTextFieldValue(
+            doc(
+              block(BLOCKS.PARAGRAPH, {}, text('')),
+              block(BLOCKS.EMBEDDED_ASSET, {
+                target: {
+                  sys: {
+                    id: 'example-entity-id',
+                    type: 'Link',
+                    linkType: 'Asset',
+                  },
+                },
+              }),
+              block(BLOCKS.PARAGRAPH, {}, text(''))
+            )
+          );
+        });
+
+        it('adds paragraph between two blocks when pressing enter', () => {
+          function addEmbeddedEntry() {
+            editor().click('bottom').then(triggerEmbeddedAsset);
+          }
+
+          function selectAndPressEnter() {
+            editor().click().get('[data-entity-id="example-entity-id"]').first().click();
+            editor().trigger('keydown', keys.enter);
+          }
+
+          addEmbeddedEntry();
+          addEmbeddedEntry();
+
+          selectAndPressEnter();
+          selectAndPressEnter();
+
+          expectRichTextFieldValue(
+            doc(
+              block(BLOCKS.PARAGRAPH, {}, text('')),
+              block(BLOCKS.EMBEDDED_ASSET, {
+                target: {
+                  sys: {
+                    id: 'example-entity-id',
+                    type: 'Link',
+                    linkType: 'Asset',
+                  },
+                },
+              }),
+              block(BLOCKS.PARAGRAPH, {}, text('')),
+              block(BLOCKS.EMBEDDED_ASSET, {
+                target: {
+                  sys: {
+                    id: 'example-entity-id',
+                    type: 'Link',
+                    linkType: 'Asset',
+                  },
+                },
+              }),
+              block(BLOCKS.PARAGRAPH, {}, text(''))
+            )
+          );
+        });
+
         it('adds and removes embedded assets', () => {
           editor().click().then(triggerEmbeddedAsset);
 
@@ -1174,7 +1314,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           cy.findByTestId('cf-ui-asset-card').click();
           // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
-          editor().trigger('keydown', { keyCode: 8, which: 8, key: 'Backspace' }); // 8 = delete/backspace
+          editor().trigger('keydown', keys.backspace);
 
           expectRichTextFieldValue(undefined);
         });
