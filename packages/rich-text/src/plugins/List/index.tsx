@@ -32,10 +32,8 @@ export function ToolbarListButton(props: ToolbarListButtonProps) {
   const sdk = useSdkContext();
   const editor = useContentfulEditor();
 
-  function handleClick(type: BLOCKS): (event: React.MouseEvent<HTMLButtonElement>) => void {
-    return (event: React.MouseEvent<HTMLButtonElement>) => {
-      event.preventDefault();
-
+  function handleClick(type: BLOCKS): () => void {
+    return () => {
       if (!editor?.selection) return;
 
       if (shouldUnwrapBlockquote(editor, type)) {

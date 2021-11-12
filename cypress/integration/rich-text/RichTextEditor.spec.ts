@@ -657,6 +657,54 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       ].map((type) => getDropdownItem(type).get('button').should('not.be.disabled'));
     });
 
+    describe('Deleting text', () => {
+      describe('Backward deletion', () => {
+        it('removes the text, not the cell', () => {
+          insertTableWithExampleData();
+          cy.get('table > tbody > tr:last-child > td:last-child').click();
+          editor()
+            .type('{backspace}{backspace}{backspace}{backspace}{backspace}')
+            // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
+            .trigger('keydown', { keyCode: 8, which: 8, key: 'Backspace' }); // 8 = delete/backspace
+
+          expectTable(
+            row(headerWithText('foo'), headerWithText('bar')),
+            row(cellWithText('baz'), emptyCell())
+          );
+
+          // make sure it works for table header cells, too
+          cy.get('table > tbody > tr:first-child > th:first-child').click();
+          editor()
+            .type('{backspace}{backspace}{backspace}{backspace}{backspace}')
+            // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
+            .trigger('keydown', { keyCode: 8, which: 8, key: 'Backspace' }); // 8 = delete/backspace
+
+          expectTable(
+            row(emptyHeader(), headerWithText('bar')),
+            row(cellWithText('baz'), emptyCell())
+          );
+        });
+      });
+
+      describe('Forward deletion', () => {
+        it('removes the text, not the cell', () => {
+          insertTableWithExampleData();
+          cy.get('table > tbody > tr:first-child > th:first-child').click();
+          editor()
+            .type('{leftarrow}{leftarrow}{leftarrow}{del}{del}{del}{del}')
+            // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
+            .trigger('keydown', { keyCode: 8, which: 8, key: 'Delete' }) // 8 = delete/backspace
+            // try forward-deleting from outside the table for good measure
+            .type('{leftarrow}{del}')
+            .trigger('keydown', { keyCode: 8, which: 8, key: 'Delete' });
+          expectTable(
+            row(headerWithText(''), headerWithText('bar')),
+            row(cellWithText('baz'), cellWithText('quux'))
+          );
+        });
+      });
+    });
+
     describe('Table Actions', () => {
       const findAction = (action: string) => {
         cy.findByTestId('cf-table-actions-button').click();

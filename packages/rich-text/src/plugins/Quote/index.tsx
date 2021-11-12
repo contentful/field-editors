@@ -105,9 +105,7 @@ export function withQuoteEvents(editor: PlateEditor) {
 export function ToolbarQuoteButton(props: ToolbarQuoteButtonProps) {
   const editor = useContentfulEditor();
 
-  function handleOnClick(event: React.MouseEvent<HTMLButtonElement>) {
-    event.preventDefault();
-
+  function handleOnClick() {
     if (!editor) return;
 
     createBlockQuote(editor);

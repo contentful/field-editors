@@ -1,8 +1,9 @@
-import { Text, Editor, Element, Transforms, Path, Range } from 'slate';
-import { BLOCKS, INLINES } from '@contentful/rich-text-types';
+import { Text, Editor, Element, Transforms, Path, Range, Node } from 'slate';
+import { BLOCKS, INLINES, TABLE_BLOCKS } from '@contentful/rich-text-types';
 import { CustomElement } from '../types';
 import { Link } from '@contentful/field-editor-reference/dist/types';
 import { PlateEditor } from '@udecode/plate-core';
+import { getText } from '@udecode/plate-common';
 
 export const LINK_TYPES: INLINES[] = [
   INLINES.HYPERLINK,
@@ -243,4 +244,45 @@ export function shouldUnwrapBlockquote(editor: PlateEditor, type: BLOCKS) {
 export function unwrapFromRoot(editor: PlateEditor) {
   const ancestorPath = getAncestorPathFromSelection(editor);
   Transforms.unwrapNodes(editor, { at: ancestorPath });
+}
+
+export const isAtEndOfTextSelection = (editor: SPEditor) =>
+  editor.selection?.focus.offset === getText(editor, editor.selection?.focus.path).length;
+
+export function currentSelectionStartsTableCell(editor: SPEditor): boolean {
+  const [tableCellNode, path] = getNodeEntryFromSelection(editor, [
+    BLOCKS.TABLE_CELL,
+    BLOCKS.TABLE_HEADER_CELL,
+  ]);
+  return !!tableCellNode && (!getText(editor, path) || editor.selection?.focus.offset === 0);
+}
+
+/**
+ * This traversal strategy is unfortunately necessary because Slate doesn't
+ * expose something like Node.next(editor).
+ */
+export function getNextNode(editor: SPEditor): CustomElement | null {
+  if (!editor.selection) {
+    return null;
+  }
+  const descendants = Node.descendants(editor, { from: editor.selection.focus.path });
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
+    const { done, value } = descendants.next();
+    if (done) {
+      return null;
+    }
+    const [node, path] = value as NodeEntry;
+    if (Path.isCommon(path, editor.selection.focus.path)) {
+      continue;
+    }
+    return node as CustomElement;
+  }
+}
+
+export function currentSelectionPrecedesTableCell(editor: SPEditor): boolean {
+  const nextNode = getNextNode(editor);
+  return (
+    !!nextNode && TABLE_BLOCKS.includes(nextNode.type as BLOCKS) && isAtEndOfTextSelection(editor)
+  );
 }

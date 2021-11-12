@@ -17,9 +17,7 @@ interface ToolbarItalicButtonProps {
 export function ToolbarItalicButton(props: ToolbarItalicButtonProps) {
   const editor = useContentfulEditor();
 
-  function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
-    event.preventDefault();
-
+  function handleClick() {
     if (!editor?.selection) return;
 
     toggleMark(editor, MARKS.ITALIC);
