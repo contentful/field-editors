@@ -16,5 +16,6 @@ declare namespace Cypress {
     getRichTextField(): Chainable<{
       getValue: () => Record<any, any>;
     }>;
+    paste(data: { [key: string]: string }): Chainable<void>;
   }
 }

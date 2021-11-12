@@ -84,3 +84,26 @@ Cypress.Commands.add('getRichTextField', () => {
     })
     .wait(100);
 });
+
+Cypress.Commands.add('paste', { prevSubject: 'element' }, function (subject, data) {
+  const dataTransfer = new DataTransfer();
+
+  for (const [format, value] of Object.entries(data)) {
+    dataTransfer.setData(format, value);
+  }
+
+  // this is a weird combination of Event class, type & other properties
+  // but necessary to pass all the Slate guard
+  const inputEvent = new InputEvent('beforeinput', {
+    inputType: 'insertFromPaste',
+    bubbles: true,
+    cancelable: true,
+    // @ts-expect-ignore Slate looks for this property specifically
+    dataTransfer,
+  });
+  const event = Object.assign(inputEvent, {
+    getTargetRanges: () => [],
+  });
+
+  cy.wrap(subject).trigger('beforeinput', event);
+});

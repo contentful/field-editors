@@ -4,17 +4,8 @@ import {
   block,
   inline,
   text,
-} from '../../packages/rich-text/src/helpers/nodeFactory';
-
-function expectRichTextFieldValue(expectedValue, editorEvents?) {
-  cy.getRichTextField().should((field) => {
-    expect(field.getValue()).to.deep.equal(expectedValue);
-  });
-
-  if (editorEvents) {
-    cy.editorEvents().should('deep.include', { ...editorEvents, value: expectedValue });
-  }
-}
+} from '../../../packages/rich-text/src/helpers/nodeFactory';
+import { expectRichTextFieldValue } from './utils';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
 // we increase the viewport height to fit the whole page on the screen

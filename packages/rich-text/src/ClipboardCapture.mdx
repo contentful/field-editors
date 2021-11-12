@@ -1,0 +1,93 @@
+---
+name: Clipboard Capture
+route: /clipboard-capture
+menu: Utilities
+---
+
+import { Playground } from 'docz';
+import { useState, useCallback, useEffect } from 'react';
+import {
+  Table,
+  TableRow,
+  TableCell,
+  TableBody,
+  TableHead,
+  Textarea,
+  Heading,
+  CopyButton,
+  Subheading,
+  Flex
+} from '@contentful/f36-components';
+import { css } from 'emotion';
+import tokens from '@contentful/f36-tokens';
+
+## Capture clipboard data for Rich Text
+
+<Playground>
+  {() => {
+    const styles = {
+      textarea: css({
+        marginBottom: tokens.spacingL,
+        minHeight: '200px',
+      }),
+      copyButton: css({
+        marginBottom: tokens.spacingM,
+        'button, button:hover': {
+          border: 'none',
+          backgroundColor: 'transparent'
+        }
+      }),
+      dataCell: css({
+      })
+    }
+    const [data, setData] = useState([]);
+    const [copyButtonValue, setCopyButtonValue] = useState('');
+    useEffect(() => {
+      const value = data.reduce(
+        (acc, {type, data}) => ({ ...acc, [type]: data }),
+        {}
+      );
+      setCopyButtonValue(JSON.stringify(value));
+    }, [data]);
+    const handlePaste = useCallback((event) => {
+      if (!event.clipboardData) {
+        return setData([]);
+      }
+
+      const data = event.clipboardData.types.reduce(
+        (acc, type) => [...acc, { type, data: event.clipboardData.getData(type) }],
+        []
+      )
+      setData(data);
+    }, []);
+
+
+    return (
+      <>
+        <Heading>Paste your data from the clipboard</Heading>
+        <Textarea onPaste={handlePaste} className={styles.textarea} />
+        <Flex alignItems="center">
+          <Subheading>Your pasted data </Subheading>
+          <CopyButton className={styles.copyButton} size="small" value={copyButtonValue} isDisabled={data.length === 0} />
+        </Flex>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Type</TableCell>
+              <TableCell>Data</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {data.map(({ type, data }) => (
+              <TableRow>
+                <TableCell>{type}</TableCell>
+                <TableCell className={styles.dataCell}>{data.substr(0, 100)}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </>
+    )
+  }}
+
+</Playground>
