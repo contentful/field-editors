@@ -249,9 +249,7 @@ export function ToolbarHyperlinkButton(props: ToolbarHyperlinkButtonProps) {
   const isActive = !!(editor && isLinkActive(editor));
   const sdk: FieldExtensionSDK = useSdkContext();
 
-  async function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
-    event.preventDefault();
-
+  async function handleClick() {
     if (!editor) return;
 
     if (isActive) {

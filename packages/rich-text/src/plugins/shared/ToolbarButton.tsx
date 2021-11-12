@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { css, cx } from 'emotion';
 import { Button, Tooltip } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
@@ -17,7 +17,7 @@ const styles = {
 };
 
 interface ToolbarButtonProps {
-  onClick: React.MouseEventHandler;
+  onClick: () => void;
   isActive?: boolean;
   isDisabled?: boolean;
   children: any;
@@ -26,35 +26,32 @@ interface ToolbarButtonProps {
   testId?: string;
 }
 
-export class ToolbarButton extends Component<ToolbarButtonProps> {
-  handleClick = (event) => {
+export function ToolbarButton(props: ToolbarButtonProps) {
+  const { title, testId, isActive, children, className, isDisabled = false } = props;
+  const handleClick = (event) => {
     event.preventDefault();
-    this.props.onClick(event);
+    props.onClick();
   };
 
-  render() {
-    const { title, testId, isActive, children, className, isDisabled = false } = this.props;
+  const button = (
+    <Button
+      className={cx(styles.button, className)}
+      isDisabled={isDisabled}
+      startIcon={children}
+      onClick={handleClick}
+      testId={testId}
+      variant={isActive ? 'secondary' : 'transparent'}
+      size="small"
+    />
+  );
 
-    const button = (
-      <Button
-        className={cx(styles.button, className)}
-        isDisabled={isDisabled}
-        startIcon={children}
-        onClick={this.handleClick}
-        testId={testId}
-        variant={isActive ? 'secondary' : 'transparent'}
-        size="small"
-      />
+  if (title) {
+    return (
+      <Tooltip className={styles.tooltip} placement="bottom" content={title}>
+        {button}
+      </Tooltip>
     );
-
-    if (title) {
-      return (
-        <Tooltip className={styles.tooltip} placement="bottom" content={title}>
-          {button}
-        </Tooltip>
-      );
-    }
-
-    return button;
   }
+
+  return button;
 }
