@@ -1,0 +1,45 @@
+diff --git a/node_modules/slate-react/dist/index.es.js b/node_modules/slate-react/dist/index.es.js
+index d902656..b91739a 100644
+--- a/node_modules/slate-react/dist/index.es.js
++++ b/node_modules/slate-react/dist/index.es.js
+@@ -1268,9 +1268,7 @@ var Editable$1 = props => {
+               state.isComposing = false;
+             }
+ 
+-            var window = ReactEditor.getWindow(editor);
+-
+-            if (data instanceof window.DataTransfer) {
++            if (!!data && !!data.constructor && data.constructor.name === 'DataTransfer') {
+               ReactEditor.insertData(editor, data);
+             } else if (typeof data === 'string') {
+               // Only insertText operations use the native functionality, for now.
+diff --git a/node_modules/slate-react/dist/index.js b/node_modules/slate-react/dist/index.js
+index 3a3fefc..33e560a 100644
+--- a/node_modules/slate-react/dist/index.js
++++ b/node_modules/slate-react/dist/index.js
+@@ -1464,9 +1464,7 @@ var Editable$1 = function Editable(props) {
+               state.isComposing = false;
+             }
+ 
+-            var window = ReactEditor.getWindow(editor);
+-
+-            if (data instanceof window.DataTransfer) {
++            if (!!data && !!data.constructor && data.constructor.name === 'DataTransfer') {
+               ReactEditor.insertData(editor, data);
+             } else if (typeof data === 'string') {
+               // Only insertText operations use the native functionality, for now.
+diff --git a/node_modules/slate-react/dist/slate-react.js b/node_modules/slate-react/dist/slate-react.js
+index c1c6cda..adb502e 100644
+--- a/node_modules/slate-react/dist/slate-react.js
++++ b/node_modules/slate-react/dist/slate-react.js
+@@ -2376,9 +2376,7 @@
+ 	              state.isComposing = false;
+ 	            }
+ 
+-	            var window = ReactEditor.getWindow(editor);
+-
+-	            if (data instanceof window.DataTransfer) {
++              if (!!data && !!data.constructor && data.constructor.name === 'DataTransfer') {
+ 	              ReactEditor.insertData(editor, data);
+ 	            } else if (typeof data === 'string') {
+ 	              // Only insertText operations use the native functionality, for now.

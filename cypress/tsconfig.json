@@ -8,7 +8,7 @@
     "types": ["cypress", "@types/testing-library__cypress"]
   },
   "include": [
-    "*/*.ts",
+    "**/*.ts",
     "../node_modules/cypress",
     "../node_modules/@types/testing-library__cypress"
   ]
