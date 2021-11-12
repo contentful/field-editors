@@ -73,13 +73,26 @@ export function createDragAndDropPlugin(): PlatePlugin {
 
       const [draggingNode] = draggingBlock;
 
+      if (!event.nativeEvent.target) return false;
+
       // TODO: looking up for html nodes is not the best solution and it won't scale, we need to find a way to know the dropping target slate element
-      // @ts-expect-error
-      return event.nativeEvent.path.some((node) => {
+      return getParents(event.nativeEvent.target as Node).some((node) => {
         return ON_DROP_ALLOWED_TYPES[node.nodeName]
           ? !ON_DROP_ALLOWED_TYPES[node.nodeName]?.includes(draggingNode.type)
           : false;
       });
     },
   };
+}
+
+function getParents(el: Node): Node[] {
+  const parents: Node[] = [];
+
+  parents.push(el);
+  while (el.parentNode) {
+    parents.unshift(el.parentNode);
+    el = el.parentNode;
+  }
+
+  return parents;
 }
