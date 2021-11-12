@@ -8,6 +8,7 @@ import { PlatePlugin, getRenderElement, SPEditor } from '@udecode/plate-core';
 import { getToggleElementOnKeyDown } from '@udecode/plate-common';
 import { CustomSlatePluginOptions } from '../../types';
 import { deserializeElement } from '../../helpers/deserializer';
+import { Element, Node, Transforms } from 'slate';
 
 const styles = {
   [BLOCKS.PARAGRAPH]: css`
@@ -31,8 +32,8 @@ function isEmbed(element: HTMLElement) {
   );
 }
 
-function isParagraphDiv(element: HTMLElement) {
-  return element.nodeName === 'DIV' && !isEmbed(element);
+function isEmpty(element: HTMLElement) {
+  return element.textContent === '';
 }
 
 export function createParagraphPlugin(): PlatePlugin {
@@ -55,33 +56,33 @@ export function createParagraphPlugin(): PlatePlugin {
         element: element?.map((deserializeNode) => ({
           ...deserializeNode,
           deserialize: (el: HTMLElement) => {
-            if (el.textContent === '' || isEmbed(el)) {
+            if (isEmpty(el) || isEmbed(el)) {
               return;
             }
-
-            // if any anchestor is a div that we convert into a paragraph or
-            // but not an embed, we exit to not have nested paragraphs
-            let currentParent = el.parentElement;
-            let hasEmbedAnchestor = false;
-            let hasParagraphAnchestor = false;
-            while (currentParent !== null) {
-              if (isEmbed(currentParent)) {
-                hasEmbedAnchestor = true;
-                break;
-              }
-              if (isParagraphDiv(currentParent)) {
-                hasParagraphAnchestor = true;
-              }
-              currentParent = currentParent.parentElement;
-            }
-            if (!hasEmbedAnchestor && hasParagraphAnchestor) {
-              return;
-            }
-
             return deserializeNode.deserialize(el);
           },
         })),
       };
+    },
+    withOverrides: (editor) => {
+      const { normalizeNode } = editor;
+      editor.normalizeNode = (entry) => {
+        const [node, path] = entry;
+        // If the element is a paragraph, ensure its children are valid.
+        if (Element.isElement(node) && node.type === BLOCKS.PARAGRAPH) {
+          for (const [child, childPath] of Node.children(editor, path)) {
+            if (Element.isElement(child) && !editor.isInline(child)) {
+              Transforms.unwrapNodes(editor, {
+                at: childPath,
+              });
+              return;
+            }
+          }
+        }
+        // Fall back to the original `normalizeNode` to enforce other constraints.
+        normalizeNode(entry);
+      };
+      return editor;
     },
   };
 }
