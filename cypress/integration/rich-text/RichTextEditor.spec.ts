@@ -207,18 +207,14 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
   describe('HR', () => {
     describe('toolbar button', () => {
-      function getHrToolbarButton() {
-        return cy.findByTestId('hr-toolbar-button');
-      }
-
       it('should be visible', () => {
-        getHrToolbarButton().should('be.visible');
+        richText.toolbar.hr.should('be.visible');
       });
 
       it('should add a new line when clicking', () => {
         richText.editor.click().type('some text');
 
-        getHrToolbarButton().click();
+        richText.toolbar.hr.click();
 
         const expectedValue = doc(
           block(BLOCKS.PARAGRAPH, {}, text('some text', [])),
@@ -232,9 +228,9 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       it('should end with an empty paragraph', () => {
         richText.editor.click().type('some text');
 
-        getHrToolbarButton().click();
-        getHrToolbarButton().click();
-        getHrToolbarButton().click();
+        richText.toolbar.hr.click();
+        richText.toolbar.hr.click();
+        richText.toolbar.hr.click();
 
         const expectedValue = doc(
           block(BLOCKS.PARAGRAPH, {}, text('some text', [])),
@@ -250,7 +246,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       it('should unwrap blockquote', () => {
         addBlockquote('some text');
 
-        getHrToolbarButton().click();
+        richText.toolbar.hr.click();
 
         const expectedValue = doc(
           block(BLOCKS.PARAGRAPH, {}, text('some text', [])),
@@ -263,7 +259,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       it.skip('should add line if HR is the first void block', () => {
         richText.editor.click();
 
-        getHrToolbarButton().click();
+        richText.toolbar.hr.click();
 
         // Not necessary for the test but here to "force" waiting until
         // we have the expected document structure
@@ -597,7 +593,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     const headerWithText = (t) => header(paragraphWithText(t));
     const insertTable = () => {
       richText.editor.click();
-      cy.findByTestId('table-toolbar-button').click();
+      richText.toolbar.table.click();
       return richText.editor;
     };
     const insertTableWithExampleData = () => {
@@ -622,7 +618,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       const blockElements = ['quote', 'ul', 'ol', 'hr', 'table'];
 
       blockElements.forEach((el) => {
-        cy.findByTestId(`${el}-toolbar-button`).should('be.disabled');
+        richText.toolbar[el].should('be.disabled');
       });
 
       getDropdownToolbarButton().click();
@@ -789,7 +785,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       [
         'using the link toolbar button',
         () => {
-          cy.findByTestId('hyperlink-toolbar-button').click();
+          richText.toolbar.hyperlink.click();
         },
       ],
       [

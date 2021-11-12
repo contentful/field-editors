@@ -22,6 +22,17 @@ export class RichTextPage {
       get quote() {
         return cy.findByTestId('quote-toolbar-button');
       },
+
+      get hr() {
+        return cy.findByTestId('hr-toolbar-button');
+      },
+      get hyperlink() {
+        return cy.findByTestId('hyperlink-toolbar-button');
+      },
+
+      get table() {
+        return cy.findByTestId('table-toolbar-button');
+      },
     };
   }
 
