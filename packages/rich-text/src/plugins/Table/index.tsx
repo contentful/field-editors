@@ -243,9 +243,7 @@ export function ToolbarTableButton(props: ToolbarTableButtonProps) {
   const { onViewportAction } = useTrackingContext();
   const isActive = editor && isTableActive(editor);
 
-  async function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
-    event.preventDefault();
-
+  async function handleClick() {
     if (!editor) return;
 
     onViewportAction('insertTable');

@@ -81,9 +81,7 @@ export function withHrEvents(editor: SPEditor) {
 export function ToolbarHrButton(props: ToolbarHrButtonProps) {
   const editor = useContentfulEditor();
 
-  function handleOnClick(event: React.MouseEvent<HTMLButtonElement>) {
-    event.preventDefault();
-
+  function handleOnClick() {
     if (!editor?.selection) return;
 
     if (shouldUnwrapBlockquote(editor, BLOCKS.HR)) {

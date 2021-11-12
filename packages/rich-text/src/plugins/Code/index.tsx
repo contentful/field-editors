@@ -17,9 +17,7 @@ interface ToolbarCodeButtonProps {
 export function ToolbarCodeButton(props: ToolbarCodeButtonProps) {
   const editor = useContentfulEditor();
 
-  function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
-    event.preventDefault();
-
+  function handleClick() {
     if (!editor?.selection) return;
 
     toggleMark(editor, MARKS.CODE);
