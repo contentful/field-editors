@@ -1,5 +1,3 @@
-import { expectRichTextFieldValue } from './utils';
-
 export class RichTextPage {
   visit() {
     cy.visit('/rich-text');
@@ -28,6 +26,12 @@ export class RichTextPage {
   }
 
   expectValue(expectedValue: any, editorEvents?: any) {
-    expectRichTextFieldValue(expectedValue, editorEvents);
+    cy.getRichTextField().should((field) => {
+      expect(field.getValue()).to.deep.equal(expectedValue);
+    });
+
+    if (editorEvents) {
+      cy.editorEvents().should('deep.include', { ...editorEvents, value: expectedValue });
+    }
   }
 }
