@@ -1644,12 +1644,12 @@
     typescript "^4.0.5"
     yargs "16.1.0"
 
-"@contentful/contentful-slatejs-adapter@^15.3.5":
-  version "15.3.5"
-  resolved "https://registry.yarnpkg.com/@contentful/contentful-slatejs-adapter/-/contentful-slatejs-adapter-15.3.5.tgz#5d2403c1f43df72d03ecad1042292691645e3d6c"
-  integrity sha512-p4tZb/xzT3RmPgDBzGtTXt0qa7/hJofwcgxsF1cVmXWnhgOh3jZvUzjodYh6rNSxzF1FxQGEjWfIOG3VsSsbYA==
+"@contentful/contentful-slatejs-adapter@^15.8.0":
+  version "15.8.0"
+  resolved "https://registry.yarnpkg.com/@contentful/contentful-slatejs-adapter/-/contentful-slatejs-adapter-15.8.0.tgz#747ab3380ca4f0c47b14e70d6bf1c3691167f74d"
+  integrity sha512-VNbbVZtdrqx5khcE9sR7Ya08KrzyR/+j9df7N6QOG8edNiitsKjfuxdN5tGygDUWwo8D6G2WpxfSQO9nU9nn4w==
   dependencies:
-    "@contentful/rich-text-types" "^5.0.0"
+    "@contentful/rich-text-types" "^15.7.0"
     lodash.flatmap "^4.5.0"
     lodash.get "^4.4.2"
     lodash.omit "^4.5.0"
@@ -2085,39 +2085,29 @@
   dependencies:
     lodash "^4.17.20"
 
-"@contentful/rich-text-plain-text-renderer@^15.0.0":
-  version "15.5.1"
-  resolved "https://registry.yarnpkg.com/@contentful/rich-text-plain-text-renderer/-/rich-text-plain-text-renderer-15.5.1.tgz#f29d543e21e6082b9d0d76084e7c863da103bce5"
-  integrity sha512-VliAQeIgOHOGr86s5Yuu9YiRtyzEItKoGcjAyEzq6PysuLjjXXmGRm6TrazRQ4LuKPjZgnCbaJ+J4yojVNfsoA==
+"@contentful/rich-text-plain-text-renderer@^15.6.2":
+  version "15.6.2"
+  resolved "https://registry.yarnpkg.com/@contentful/rich-text-plain-text-renderer/-/rich-text-plain-text-renderer-15.6.2.tgz#a2c8172d0a1053eb4f3a7828b880bec02cf67fb9"
+  integrity sha512-VicDMI2KDT5We6zpmE2aj5/obrMDIL/aUGFDKMXsKROgPMq6XfpoW+nl+RJkz+V0YApLCKUbj+B0oQ4AANdVEw==
   dependencies:
-    "@contentful/rich-text-types" "^15.5.1"
+    "@contentful/rich-text-types" "^15.6.2"
 
-"@contentful/rich-text-react-renderer@^14.1.3":
-  version "14.1.3"
-  resolved "https://registry.yarnpkg.com/@contentful/rich-text-react-renderer/-/rich-text-react-renderer-14.1.3.tgz#501136677742d0ad3f4b50fa2c12b17fc1d68cc8"
-  integrity sha512-qieT2qEKlHarlYjDvDHpv6vwf2M9uI0Nf+WgyKBP6SFgakpzxuO5PR9j5CnxyusZ/NzsWcGBu9SDQMnKeM2iZw==
+"@contentful/rich-text-react-renderer@^15.6.2":
+  version "15.6.2"
+  resolved "https://registry.yarnpkg.com/@contentful/rich-text-react-renderer/-/rich-text-react-renderer-15.6.2.tgz#da778bcd4ec2f61fd5a7459d4411f7a292f795fc"
+  integrity sha512-kT7YKGr8Igi65aEnz9XWqEZiUHfGHKRClCyQNs6gYYJwwzUmKW6y53UqKvCxJOFWsv794Irsx6ijvo0R7NDfcg==
   dependencies:
-    "@contentful/rich-text-types" "^14.1.2"
-
-"@contentful/rich-text-types@^14.1.2":
-  version "14.1.2"
-  resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-14.1.2.tgz#33162fdbf427891122a96030f806ca9a9cf0e844"
-  integrity sha512-XbgZ7op5uyYYszipgQg/bYobF4b+llXyTwS8hISRniQY9xKESz544eP2OGmRc4J3MHx29M7Vmx7TVA/IK65giQ==
-
-"@contentful/rich-text-types@^15.5.1":
-  version "15.5.1"
-  resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-15.5.1.tgz#1fa318564307635225116502b2e120b130cb97c2"
-  integrity sha512-FEFyPv4s6yoBMONSabbnZQn2o6n89bwIvD+y1uqgi48qnsOf7LoodNIL7t7vaSzHCUj5wU3zKUiTmMaSB5Uptw==
+    "@contentful/rich-text-types" "^15.6.2"
 
 "@contentful/rich-text-types@^15.6.2":
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-15.6.2.tgz#fe213886970b2d8a867a7272de938753e95d1f6e"
   integrity sha512-PAgQo7rGmYjCzkNmzfs6VYqB4SXpNy9mBTH2vLYcNrOh2qEkG3hIjjgCZCH96mAz6WHEr5OaZ+BASP3kIeu2gA==
 
-"@contentful/rich-text-types@^5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-5.0.0.tgz#d2d02d9b7c10115bcc960cee3e1c381eb9d16b84"
-  integrity sha512-NPmsk0xCC/OoZUIpZqByFEYCktIcyUakKrzDlSA9YLklCdgahEr6qbSghIsQ/wVclnQhwVq28psJ0agHXdLCSQ==
+"@contentful/rich-text-types@^15.7.0":
+  version "15.7.0"
+  resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-15.7.0.tgz#7d2ef28b975778cab133fec5b8d12aca39fb5eb8"
+  integrity sha512-SrwNCHGYshsEhCVHZg6bn0G9rMdbtFBCw8f0L1PorZex1Us7r9Ix8YTAxKhs1LmWKCOZkXpjI3wR+ZOW/hZ6rw==
 
 "@csstools/convert-colors@^1.4.0":
   version "1.4.0"
