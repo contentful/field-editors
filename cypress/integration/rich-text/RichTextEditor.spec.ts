@@ -662,7 +662,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         it('removes the text, not the cell', () => {
           insertTableWithExampleData();
           cy.get('table > tbody > tr:last-child > td:last-child').click();
-          editor()
+          richText.editor
             .type('{backspace}{backspace}{backspace}{backspace}{backspace}')
             // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
             .trigger('keydown', { keyCode: 8, which: 8, key: 'Backspace' }); // 8 = delete/backspace
@@ -674,7 +674,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           // make sure it works for table header cells, too
           cy.get('table > tbody > tr:first-child > th:first-child').click();
-          editor()
+          richText.editor
             .type('{backspace}{backspace}{backspace}{backspace}{backspace}')
             // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
             .trigger('keydown', { keyCode: 8, which: 8, key: 'Backspace' }); // 8 = delete/backspace
@@ -690,7 +690,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         it('removes the text, not the cell', () => {
           insertTableWithExampleData();
           cy.get('table > tbody > tr:first-child > th:first-child').click();
-          editor()
+          richText.editor
             .type('{leftarrow}{leftarrow}{leftarrow}{del}{del}{del}{del}')
             // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
             .trigger('keydown', { keyCode: 8, which: 8, key: 'Delete' }) // 8 = delete/backspace
