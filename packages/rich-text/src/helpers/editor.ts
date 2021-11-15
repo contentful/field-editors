@@ -261,7 +261,7 @@ export function currentSelectionStartsTableCell(editor: PlateEditor): boolean {
  * This traversal strategy is unfortunately necessary because Slate doesn't
  * expose something like Node.next(editor).
  */
-export function getNextNode(editor: PEditor): CustomElement | null {
+export function getNextNode(editor: PlateEditor): CustomElement | null {
   if (!editor.selection) {
     return null;
   }
@@ -280,7 +280,7 @@ export function getNextNode(editor: PEditor): CustomElement | null {
   }
 }
 
-export function currentSelectionPrecedesTableCell(editor: PEditor): boolean {
+export function currentSelectionPrecedesTableCell(editor: PlateEditor): boolean {
   const nextNode = getNextNode(editor);
   return (
     !!nextNode && TABLE_BLOCKS.includes(nextNode.type as BLOCKS) && isAtEndOfTextSelection(editor)
