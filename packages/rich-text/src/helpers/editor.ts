@@ -246,10 +246,10 @@ export function unwrapFromRoot(editor: PlateEditor) {
   Transforms.unwrapNodes(editor, { at: ancestorPath });
 }
 
-export const isAtEndOfTextSelection = (editor: SPEditor) =>
+export const isAtEndOfTextSelection = (editor: PlateEditor) =>
   editor.selection?.focus.offset === getText(editor, editor.selection?.focus.path).length;
 
-export function currentSelectionStartsTableCell(editor: SPEditor): boolean {
+export function currentSelectionStartsTableCell(editor: PlateEditor): boolean {
   const [tableCellNode, path] = getNodeEntryFromSelection(editor, [
     BLOCKS.TABLE_CELL,
     BLOCKS.TABLE_HEADER_CELL,
@@ -261,7 +261,7 @@ export function currentSelectionStartsTableCell(editor: SPEditor): boolean {
  * This traversal strategy is unfortunately necessary because Slate doesn't
  * expose something like Node.next(editor).
  */
-export function getNextNode(editor: SPEditor): CustomElement | null {
+export function getNextNode(editor: PEditor): CustomElement | null {
   if (!editor.selection) {
     return null;
   }
@@ -280,7 +280,7 @@ export function getNextNode(editor: SPEditor): CustomElement | null {
   }
 }
 
-export function currentSelectionPrecedesTableCell(editor: SPEditor): boolean {
+export function currentSelectionPrecedesTableCell(editor: PEditor): boolean {
   const nextNode = getNextNode(editor);
   return (
     !!nextNode && TABLE_BLOCKS.includes(nextNode.type as BLOCKS) && isAtEndOfTextSelection(editor)
