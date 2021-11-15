@@ -75,7 +75,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
               BLOCKS.LIST_ITEM,
               {},
               block(BLOCKS.PARAGRAPH, {}, text('Item #1')),
-              block(BLOCKS.PARAGRAPH, {}, text('Header 1 Header 2 Cell 1 Cell 2'))
+              block(BLOCKS.PARAGRAPH, {}, text('Header 1 Header 2 Cell 1 Cell 2 '))
             )
           ),
           block(BLOCKS.PARAGRAPH, {}, text(''))
