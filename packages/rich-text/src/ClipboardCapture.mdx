@@ -47,7 +47,7 @@ import tokens from '@contentful/f36-tokens';
         (acc, {type, data}) => ({ ...acc, [type]: data }),
         {}
       );
-      setCopyButtonValue(JSON.stringify(value));
+      setCopyButtonValue(JSON.stringify(value, null, 2));
     }, [data]);
     const handlePaste = useCallback((event) => {
       if (!event.clipboardData) {
