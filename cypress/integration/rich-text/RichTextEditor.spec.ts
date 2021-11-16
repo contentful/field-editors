@@ -1125,10 +1125,9 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           }
 
           addEmbeddedEntry();
+          selectAndPressEnter(); // Inserts paragraph before embed because it's in the first line.
           addEmbeddedEntry();
-
-          selectAndPressEnter();
-          selectAndPressEnter();
+          selectAndPressEnter(); // inserts paragraph in-between embeds.
 
           expectRichTextFieldValue(
             doc(
