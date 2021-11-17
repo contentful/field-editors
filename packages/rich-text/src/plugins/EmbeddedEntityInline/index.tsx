@@ -19,6 +19,7 @@ import { useSdkContext } from '../../SdkProvider';
 import { FetchingWrappedInlineEntryCard } from './FetchingWrappedInlineEntryCard';
 import { createInlineEntryNode } from './Util';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
+import { HAS_BEFORE_INPUT_SUPPORT } from '../../helpers/environment';
 
 const styles = {
   icon: css({
@@ -63,8 +64,13 @@ function EmbeddedEntityInline(props: EmbeddedEntityInlineProps) {
       {...props.attributes}
       className={styles.root}
       data-embedded-entity-inline-id={entryId}
-      draggable={true}>
-      <span contentEditable={false}>
+      // COMPAT: This makes copy & paste work for Firefox
+      contentEditable={!HAS_BEFORE_INPUT_SUPPORT ? false : undefined}
+      draggable={!HAS_BEFORE_INPUT_SUPPORT ? true : undefined}>
+      <span
+        // COMPAT: This makes copy & paste work for Chromium/Blink browsers and Safari
+        contentEditable={HAS_BEFORE_INPUT_SUPPORT ? false : undefined}
+        draggable={HAS_BEFORE_INPUT_SUPPORT ? true : undefined}>
         <FetchingWrappedInlineEntryCard
           sdk={sdk}
           entryId={entryId}
