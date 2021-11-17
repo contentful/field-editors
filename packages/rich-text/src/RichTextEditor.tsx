@@ -53,6 +53,7 @@ import { ContentfulEditorProvider, getContentfulEditorId } from './ContentfulEdi
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import { createTrailingParagraphPlugin } from './plugins/TrailingParagraph';
+import { createDragAndDropPlugin } from './plugins/DragAndDrop';
 
 type ConnectedProps = {
   sdk: FieldExtensionSDK;
@@ -77,6 +78,7 @@ const getPlugins = (sdk: FieldExtensionSDK, tracking: TrackingProvider) => {
     // Global shortcuts
     createNewLinePlugin(),
     createInsertBeforeFirstVoidBlockPlugin(),
+    createDragAndDropPlugin(),
 
     // Block Elements
     createParagraphPlugin(),
