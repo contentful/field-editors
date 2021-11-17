@@ -28,6 +28,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
   const keys = {
     enter: { keyCode: 13, which: 13, key: 'Enter' },
+    rightArrow: { keyCode: 39, which: 39, key: 'ArrowRight' },
     backspace: { keyCode: 8, which: 8, key: 'Backspace' },
   };
 
@@ -1101,18 +1102,18 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         it('adds paragraph between two blocks when pressing enter', () => {
           function addEmbeddedEntry() {
             richText.editor.click('bottom').then(triggerEmbeddedEntry);
+            richText.editor.click().trigger('keydown', keys.rightArrow);
           }
 
           function selectAndPressEnter() {
-            richText.editor.click().get('[data-entity-id="example-entity-id"]').first().click();
+            richText.editor.get('[data-entity-id="example-entity-id"]').first().click();
             richText.editor.trigger('keydown', keys.enter);
           }
 
           addEmbeddedEntry();
           addEmbeddedEntry();
-
-          selectAndPressEnter();
-          selectAndPressEnter();
+          selectAndPressEnter(); // Inserts paragraph before embed because it's in the first line.
+          selectAndPressEnter(); // inserts paragraph in-between embeds.
 
           richText.expectValue(
             doc(
@@ -1262,6 +1263,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         it('adds paragraph between two blocks when pressing enter', () => {
           function addEmbeddedEntry() {
             richText.editor.click('bottom').then(triggerEmbeddedAsset);
+            richText.editor.click().trigger('keydown', keys.rightArrow);
           }
 
           function selectAndPressEnter() {
