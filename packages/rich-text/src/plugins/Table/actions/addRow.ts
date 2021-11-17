@@ -1,9 +1,9 @@
 import { Transforms, Path, Editor } from 'slate';
 import { getAbove, insertNodes, someNode } from '@udecode/plate-common';
-import { getPlatePluginType, SPEditor, TElement } from '@udecode/plate-core';
+import { getPlatePluginType, PlateEditor, TElement } from '@udecode/plate-core';
 import { ELEMENT_TABLE, ELEMENT_TR, getEmptyRowNode } from '@udecode/plate-table';
 
-const addRow = (editor: SPEditor, getNextRowPath: (currentRowPath: Path) => Path) => {
+const addRow = (editor: PlateEditor, getNextRowPath: (currentRowPath: Path) => Path) => {
   if (
     someNode(editor, {
       match: { type: getPlatePluginType(editor, ELEMENT_TABLE) },
@@ -37,13 +37,13 @@ const addRow = (editor: SPEditor, getNextRowPath: (currentRowPath: Path) => Path
   }
 };
 
-export const addRowBelow = (editor: SPEditor) => {
+export const addRowBelow = (editor: PlateEditor) => {
   addRow(editor, (currentRowPath) => {
     return Path.next(currentRowPath);
   });
 };
 
-export const addRowAbove = (editor: SPEditor) => {
+export const addRowAbove = (editor: PlateEditor) => {
   addRow(editor, (currentRowPath) => {
     // The new row will be in in-place of the old row
     return currentRowPath;

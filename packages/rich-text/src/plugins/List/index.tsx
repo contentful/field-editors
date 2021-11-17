@@ -1,17 +1,20 @@
 import * as React from 'react';
 import * as Slate from 'slate-react';
 import { css } from 'emotion';
-import { createListPlugin as createPlateListPlugin } from '@udecode/plate-list';
+import { createListPlugin as createPlateListPlugin, withList } from '@udecode/plate-list';
 import { BLOCKS, LIST_ITEM_BLOCKS } from '@contentful/rich-text-types';
 import { ListBulletedIcon, ListNumberedIcon } from '@contentful/f36-icons';
-import { ToolbarButton } from '../shared/ToolbarButton';
 import { ELEMENT_LI, ELEMENT_UL, ELEMENT_OL, toggleList, ELEMENT_LIC } from '@udecode/plate-list';
+
+import { ToolbarButton } from '../shared/ToolbarButton';
 import { isBlockSelected, unwrapFromRoot, shouldUnwrapBlockquote } from '../../helpers/editor';
 import { isNodeTypeEnabled } from '../../helpers/validations';
 import { CustomSlatePluginOptions } from '../../types';
 import tokens from '@contentful/f36-tokens';
 import { useSdkContext } from '../../SdkProvider';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
+import { WithOverride } from '@udecode/plate-core';
+import { getListInsertFragment } from './getListInsertFragment';
 
 interface ToolbarListButtonProps {
   isDisabled?: boolean;
@@ -139,7 +142,32 @@ export const withListOptions: CustomSlatePluginOptions = {
   },
 };
 
-export const createListPlugin = () =>
-  createPlateListPlugin({
+const withCustomList = (options): WithOverride => {
+  const withDefaultOverrides = withList(options);
+
+  return (editor) => {
+    const { insertFragment } = editor;
+
+    withDefaultOverrides(editor);
+
+    // Reverts any overrides to insertFragment
+    editor.insertFragment = insertFragment;
+
+    // Use our custom getListInsertFragment
+    editor.insertFragment = getListInsertFragment(editor);
+
+    return editor;
+  };
+};
+
+export const createListPlugin = () => {
+  const options = {
     validLiChildrenTypes: LIST_ITEM_BLOCKS,
-  });
+  };
+
+  const plugin = createPlateListPlugin(options);
+
+  plugin.withOverrides = withCustomList(options);
+
+  return plugin;
+};

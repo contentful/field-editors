@@ -5,13 +5,14 @@ import {
   inline,
   text,
 } from '../../../packages/rich-text/src/helpers/nodeFactory';
-import { expectRichTextFieldValue } from './utils';
+
+import { RichTextPage } from './RichTextPage';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
 // we increase the viewport height to fit the whole page on the screen
 
 describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
-  let editor: () => Cypress.Chainable<any>;
+  let richText: RichTextPage;
 
   // copied from the 'is-hotkey' library we use for RichText shortcuts
   const IS_MAC =
@@ -43,44 +44,29 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     return cy.findByTestId(`dropdown-option-${type}`);
   }
 
-  function getUlToolbarButton() {
-    return cy.findByTestId('ul-toolbar-button');
-  }
-
-  function getOlToolbarButton() {
-    return cy.findByTestId('ol-toolbar-button');
-  }
-
-  function getQuoteToolbarButton() {
-    return cy.findByTestId('quote-toolbar-button');
-  }
-
   function clickDropdownItem(type: string) {
     getDropdownToolbarButton().click();
     getDropdownItem(type).click({ force: true });
   }
 
   function addBlockquote(content = '') {
-    editor().click().type(content);
+    richText.editor.click().type(content);
 
-    getQuoteToolbarButton().click();
+    richText.toolbar.quote.click();
 
     const expectedValue = doc(
       block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text(content, []))),
       block(BLOCKS.PARAGRAPH, {}, text('', []))
     );
 
-    expectRichTextFieldValue(expectedValue);
+    richText.expectValue(expectedValue);
 
     return expectedValue;
   }
 
   beforeEach(() => {
-    cy.visit('/rich-text');
-    const wrapper = () => cy.findByTestId('rich-text-editor-integration-test');
-    editor = () => wrapper().find('[data-slate-editor=true]');
-    wrapper().should('be.visible');
-    editor().should('be.visible');
+    richText = new RichTextPage();
+    richText.visit();
   });
 
   it('is empty by default', () => {
@@ -88,28 +74,28 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
   });
 
   it('allows typing', () => {
-    editor().click().type('some text').click();
+    richText.editor.click().type('some text').click();
 
     const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text')));
 
-    expectRichTextFieldValue(expectedValue);
+    richText.expectValue(expectedValue);
   });
 
   it('supports undo and redo', () => {
     const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text.')));
 
     // type
-    editor().click().type('some text.').click();
+    richText.editor.click().type('some text.').click();
 
-    expectRichTextFieldValue(expectedValue, { id: 21, type: 'setValue' });
+    richText.expectValue(expectedValue, { id: 21, type: 'setValue' });
 
     // undo
-    editor().click().type(`{${mod}}z`).click();
-    expectRichTextFieldValue(undefined, { id: 24, type: 'removeValue' });
+    richText.editor.click().type(`{${mod}}z`).click();
+    richText.expectValue(undefined, { id: 24, type: 'removeValue' });
 
     // redo
-    editor().click().type(`{${mod}}{shift}z`).click();
-    expectRichTextFieldValue(expectedValue, { id: 27, type: 'setValue' });
+    richText.editor.click().type(`{${mod}}{shift}z`).click();
+    richText.expectValue(expectedValue, { id: 27, type: 'setValue' });
   });
 
   describe('Marks', () => {
@@ -123,21 +109,21 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
       describe(`${mark} mark toggle via toolbar`, () => {
         it('allows writing marked text', () => {
-          editor().click();
+          richText.editor.click();
 
           toggleMarkViaToolbar();
 
-          editor().type('some text');
+          richText.editor.type('some text');
 
           const expectedValue = doc(
             block(BLOCKS.PARAGRAPH, {}, text('some text', [{ type: mark }]))
           );
 
-          expectRichTextFieldValue(expectedValue);
+          richText.expectValue(expectedValue);
         });
 
         it('allows writing marked text by selecting text', () => {
-          editor().click().type('some text{selectall}');
+          richText.editor.click().type('some text{selectall}');
 
           toggleMarkViaToolbar();
 
@@ -145,82 +131,82 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
             block(BLOCKS.PARAGRAPH, {}, text('some text', [{ type: mark }]))
           );
 
-          expectRichTextFieldValue(expectedValue);
+          richText.expectValue(expectedValue);
         });
 
         it('allows writing unmarked text', () => {
-          editor().click();
+          richText.editor.click();
 
           toggleMarkViaToolbar();
           toggleMarkViaToolbar();
 
-          editor().type('some text');
+          richText.editor.type('some text');
 
           const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text', [])));
 
-          expectRichTextFieldValue(expectedValue);
+          richText.expectValue(expectedValue);
         });
 
         it('allows writing unmarked text by selecting text', () => {
-          editor().click().type('some text{selectall}');
+          richText.editor.click().type('some text{selectall}');
 
           toggleMarkViaToolbar();
 
           cy.wait(100);
 
-          editor().click().type('{selectall}');
+          richText.editor.click().type('{selectall}');
 
           toggleMarkViaToolbar();
 
           const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text', [])));
 
-          expectRichTextFieldValue(expectedValue);
+          richText.expectValue(expectedValue);
         });
       });
 
       describe(`${mark} mark toggle via shortcut`, () => {
         it('allows writing marked text', () => {
-          editor().click().type(shortcut).type('some text');
+          richText.editor.click().type(shortcut).type('some text');
 
           const expectedValue = doc(
             block(BLOCKS.PARAGRAPH, {}, text('some text', [{ type: mark }]))
           );
 
-          expectRichTextFieldValue(expectedValue);
+          richText.expectValue(expectedValue);
         });
 
         it('allows writing marked text by selecting text', () => {
-          editor().click().type('some text');
+          richText.editor.click().type('some text');
 
           cy.wait(100);
 
-          editor().type('{selectall}').type(shortcut);
+          richText.editor.type('{selectall}').type(shortcut);
 
           const expectedValue = doc(
             block(BLOCKS.PARAGRAPH, {}, text('some text', [{ type: mark }]))
           );
 
-          expectRichTextFieldValue(expectedValue);
+          richText.expectValue(expectedValue);
         });
 
         it('allows writing unmarked text', () => {
-          editor().click().type(shortcut).type(shortcut).type('some text');
+          richText.editor.click().type(shortcut).type(shortcut).type('some text');
 
           const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text', [])));
 
-          expectRichTextFieldValue(expectedValue);
+          richText.expectValue(expectedValue);
         });
 
         it('allows writing unmarked text by selecting text', () => {
-          editor().click().type('some text');
+          richText.editor.click().type('some text');
 
           cy.wait(100);
 
-          editor().type('{selectall}').type(shortcut).type('{selectall}').type(shortcut);
+          richText.editor.type('{selectall}').type(shortcut).type('{selectall}').type(shortcut);
 
           const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text', [])));
 
-          expectRichTextFieldValue(expectedValue);
+          richText.expectValue(expectedValue);
         });
       });
     });
@@ -228,18 +214,14 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
   describe('HR', () => {
     describe('toolbar button', () => {
-      function getHrToolbarButton() {
-        return cy.findByTestId('hr-toolbar-button');
-      }
-
       it('should be visible', () => {
-        getHrToolbarButton().should('be.visible');
+        richText.toolbar.hr.should('be.visible');
       });
 
       it('should add a new line when clicking', () => {
-        editor().click().type('some text');
+        richText.editor.click().type('some text');
 
-        getHrToolbarButton().click();
+        richText.toolbar.hr.click();
 
         const expectedValue = doc(
           block(BLOCKS.PARAGRAPH, {}, text('some text', [])),
@@ -247,15 +229,15 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           block(BLOCKS.PARAGRAPH, {}, text('', []))
         );
 
-        expectRichTextFieldValue(expectedValue);
+        richText.expectValue(expectedValue);
       });
 
       it('should end with an empty paragraph', () => {
-        editor().click().type('some text');
+        richText.editor.click().type('some text');
 
-        getHrToolbarButton().click();
-        getHrToolbarButton().click();
-        getHrToolbarButton().click();
+        richText.toolbar.hr.click();
+        richText.toolbar.hr.click();
+        richText.toolbar.hr.click();
 
         const expectedValue = doc(
           block(BLOCKS.PARAGRAPH, {}, text('some text', [])),
@@ -265,35 +247,33 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           block(BLOCKS.PARAGRAPH, {}, text('', []))
         );
 
-        expectRichTextFieldValue(expectedValue);
+        richText.expectValue(expectedValue);
       });
 
       it('should unwrap blockquote', () => {
         addBlockquote('some text');
 
-        getHrToolbarButton().click();
+        richText.toolbar.hr.click();
 
         const expectedValue = doc(
           block(BLOCKS.PARAGRAPH, {}, text('some text', [])),
           block(BLOCKS.HR, {}),
           block(BLOCKS.PARAGRAPH, {}, text('', []))
         );
-        expectRichTextFieldValue(expectedValue);
+        richText.expectValue(expectedValue);
       });
 
       it.skip('should add line if HR is the first void block', () => {
-        editor().click();
+        richText.editor.click();
 
-        getHrToolbarButton().click();
+        richText.toolbar.hr.click();
 
         // Not necessary for the test but here to "force" waiting until
         // we have the expected document structure
-        expectRichTextFieldValue(
-          doc(block(BLOCKS.HR, {}), block(BLOCKS.PARAGRAPH, {}, text('', [])))
-        );
+        richText.expectValue(doc(block(BLOCKS.HR, {}), block(BLOCKS.PARAGRAPH, {}, text('', []))));
 
         // Move arrow up to select the HR then press ENTER
-        editor().click().type('{uparrow}{enter}');
+        richText.editor.click().type('{uparrow}{enter}');
 
         const expectedValue = doc(
           block(BLOCKS.PARAGRAPH, {}, text('', [])),
@@ -301,7 +281,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           block(BLOCKS.PARAGRAPH, {}, text('', []))
         );
 
-        expectRichTextFieldValue(expectedValue);
+        richText.expectValue(expectedValue);
       });
     });
   });
@@ -320,7 +300,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     headings.forEach(([type, label, shortcut]) => {
       describe(label, () => {
         it(`allows typing ${label} (${type})`, () => {
-          editor().click().type('some text');
+          richText.editor.click().type('some text');
 
           clickDropdownItem(type);
 
@@ -332,21 +312,21 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
               ? doc(block(type, {}, text('some text', [])))
               : doc(block(type, {}, text('some text', [])), emptyParagraph());
 
-          expectRichTextFieldValue(expectedValue);
+          richText.expectValue(expectedValue);
         });
 
         if (shortcut) {
           it(`allows writing ${label} (${type}) via hotkeys ${shortcut}`, () => {
-            editor().click().type(shortcut).type('some text');
+            richText.editor.click().type(shortcut).type('some text');
 
             const expectedValue = doc(block(type, {}, text('some text', [])), emptyParagraph());
 
-            expectRichTextFieldValue(expectedValue);
+            richText.expectValue(expectedValue);
           });
         }
 
         it(`should set the dropdown label to ${label}`, () => {
-          editor().click().type('some text');
+          richText.editor.click().type('some text');
 
           clickDropdownItem(type);
 
@@ -365,7 +345,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
               block(BLOCKS.PARAGRAPH, {}, text('', []))
             );
 
-            expectRichTextFieldValue(expectedHeadingValue);
+            richText.expectValue(expectedHeadingValue);
           });
         } else {
           it('should not unwrap blockquote', () => {
@@ -373,7 +353,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
             clickDropdownItem(type);
 
-            expectRichTextFieldValue(expectedQuoteValue);
+            richText.expectValue(expectedQuoteValue);
           });
         }
       });
@@ -401,55 +381,55 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
   describe('Quote', () => {
     describe('quote button', () => {
       it('should be visible', () => {
-        getQuoteToolbarButton().should('be.visible');
+        richText.toolbar.quote.should('be.visible');
       });
 
       it('should add a block quote when clicking followed by a trailing empty paragraph', () => {
-        editor().click();
+        richText.editor.click();
 
-        getQuoteToolbarButton().click();
+        richText.toolbar.quote.click();
 
         const expectedValue = doc(
           block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text('', []))),
           block(BLOCKS.PARAGRAPH, {}, text('', []))
         );
 
-        expectRichTextFieldValue(expectedValue);
+        richText.expectValue(expectedValue);
       });
 
       it('should convert existing paragraph into a block quote', () => {
-        editor().click().type('some text');
+        richText.editor.click().type('some text');
 
-        getQuoteToolbarButton().click();
+        richText.toolbar.quote.click();
 
         const expectedValue = doc(
           block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text('some text', []))),
           block(BLOCKS.PARAGRAPH, {}, text('', []))
         );
 
-        expectRichTextFieldValue(expectedValue);
+        richText.expectValue(expectedValue);
       });
 
       it('should convert block quote back to paragraph', () => {
-        editor().click().type('some text');
+        richText.editor.click().type('some text');
 
-        getQuoteToolbarButton().click();
-        getQuoteToolbarButton().click();
+        richText.toolbar.quote.click();
+        richText.toolbar.quote.click();
 
         const expectedValue = doc(
           block(BLOCKS.PARAGRAPH, {}, text('some text', [])),
           block(BLOCKS.PARAGRAPH, {}, text('', []))
         );
 
-        expectRichTextFieldValue(expectedValue);
+        richText.expectValue(expectedValue);
       });
 
       it('should add multi-paragraph block quotes', () => {
-        editor().click().type('paragraph 1');
+        richText.editor.click().type('paragraph 1');
 
-        getQuoteToolbarButton().click();
+        richText.toolbar.quote.click();
 
-        editor().type('{enter}').type('paragraph 2');
+        richText.editor.type('{enter}').type('paragraph 2');
 
         const expectedValue = doc(
           block(
@@ -461,15 +441,19 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           block(BLOCKS.PARAGRAPH, {}, text('', []))
         );
 
-        expectRichTextFieldValue(expectedValue);
+        richText.expectValue(expectedValue);
       });
     });
   });
 
   describe('Lists', () => {
     const lists = [
-      { getList: getUlToolbarButton, listType: BLOCKS.UL_LIST, label: 'Unordered List (UL)' },
-      { getList: getOlToolbarButton, listType: BLOCKS.OL_LIST, label: 'Ordered List (OL)' },
+      {
+        getList: () => richText.toolbar.ul,
+        listType: BLOCKS.UL_LIST,
+        label: 'Unordered List (UL)',
+      },
+      { getList: () => richText.toolbar.ol, listType: BLOCKS.OL_LIST, label: 'Ordered List (OL)' },
     ];
 
     lists.forEach((test) => {
@@ -479,7 +463,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         });
 
         it('should add a new list', () => {
-          editor().click();
+          richText.editor.click();
 
           test.getList().click();
           // TODO: Find a way to test deeper lists
@@ -488,7 +472,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
             The error is:
             Cannot resolve a Slate node from DOM node: [object HTMLSpanElement]
           */
-          editor().type('item 1');
+          richText.editor.type('item 1');
 
           const expectedValue = doc(
             block(
@@ -499,15 +483,15 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
             emptyParagraph()
           );
 
-          expectRichTextFieldValue(expectedValue);
+          richText.expectValue(expectedValue);
         });
 
         it('should untoggle the list', () => {
-          editor().click();
+          richText.editor.click();
 
           test.getList().click();
 
-          editor().type('some text');
+          richText.editor.type('some text');
 
           test.getList().click();
 
@@ -516,7 +500,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
             emptyParagraph()
           );
 
-          expectRichTextFieldValue(expectedValue);
+          richText.expectValue(expectedValue);
         });
 
         it('should unwrap blockquote', () => {
@@ -533,7 +517,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
             emptyParagraph()
           );
 
-          expectRichTextFieldValue(expectedValue);
+          richText.expectValue(expectedValue);
         });
       });
     });
@@ -541,7 +525,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
   describe('New Line', () => {
     it('should add a new line on a paragraph', () => {
-      editor()
+      richText.editor
         .click()
         .type('some text 1')
         .type('{shift+enter}')
@@ -553,15 +537,15 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         block(BLOCKS.PARAGRAPH, {}, text('some text 1\nsome text 2\nsome text 3'))
       );
 
-      expectRichTextFieldValue(expectedValue);
+      richText.expectValue(expectedValue);
     });
 
     it('should add a new line on a heading', () => {
-      editor().click();
+      richText.editor.click();
 
       clickDropdownItem(BLOCKS.HEADING_1);
 
-      editor()
+      richText.editor
         .type('some text 1')
         .type('{shift+enter}')
         .type('some text 2')
@@ -573,15 +557,15 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         emptyParagraph()
       );
 
-      expectRichTextFieldValue(expectedValue);
+      richText.expectValue(expectedValue);
     });
 
     it('should add a new line on a list', () => {
-      editor().click();
+      richText.editor.click();
 
-      getUlToolbarButton().click();
+      richText.toolbar.ul.click();
 
-      editor()
+      richText.editor
         .type('some text 1')
         .type('{shift+enter}')
         .type('some text 2')
@@ -601,7 +585,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         emptyParagraph()
       );
 
-      expectRichTextFieldValue(expectedValue);
+      richText.expectValue(expectedValue);
     });
   });
 
@@ -615,9 +599,9 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     const cellWithText = (t) => cell(paragraphWithText(t));
     const headerWithText = (t) => header(paragraphWithText(t));
     const insertTable = () => {
-      editor().click();
-      cy.findByTestId('table-toolbar-button').click();
-      return editor();
+      richText.editor.click();
+      richText.toolbar.table.click();
+      return richText.editor;
     };
     const insertTableWithExampleData = () => {
       insertTable()
@@ -630,7 +614,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         .type('quux');
     };
     const expectDocumentStructure = (...elements) => {
-      expectRichTextFieldValue(doc(emptyParagraph(), ...elements, emptyParagraph()));
+      richText.expectValue(doc(emptyParagraph(), ...elements, emptyParagraph()));
     };
     const expectTable = (...tableElements) => expectDocumentStructure(table(...tableElements));
     const expectTableToBeDeleted = () => expectDocumentStructure();
@@ -641,7 +625,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       const blockElements = ['quote', 'ul', 'ol', 'hr', 'table'];
 
       blockElements.forEach((el) => {
-        cy.findByTestId(`${el}-toolbar-button`).should('be.disabled');
+        richText.toolbar[el].should('be.disabled');
       });
 
       getDropdownToolbarButton().click();
@@ -656,7 +640,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       ].map((type) => getDropdownItem(type).get('button').should('be.disabled'));
 
       // select outside the table
-      editor().click().type('{downarrow}').wait(100);
+      richText.editor.click().type('{downarrow}').wait(100);
 
       blockElements.forEach((el) => {
         cy.findByTestId(`${el}-toolbar-button`).should('not.be.disabled');
@@ -679,7 +663,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         it('removes the text, not the cell', () => {
           insertTableWithExampleData();
           cy.get('table > tbody > tr:last-child > td:last-child').click();
-          editor()
+          richText.editor
             .type('{backspace}{backspace}{backspace}{backspace}{backspace}')
             // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
             .trigger('keydown', { keyCode: 8, which: 8, key: 'Backspace' }); // 8 = delete/backspace
@@ -691,7 +675,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           // make sure it works for table header cells, too
           cy.get('table > tbody > tr:first-child > th:first-child').click();
-          editor()
+          richText.editor
             .type('{backspace}{backspace}{backspace}{backspace}{backspace}')
             // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
             .trigger('keydown', { keyCode: 8, which: 8, key: 'Backspace' }); // 8 = delete/backspace
@@ -707,7 +691,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         it('removes the text, not the cell', () => {
           insertTableWithExampleData();
           cy.get('table > tbody > tr:first-child > th:first-child').click();
-          editor()
+          richText.editor
             .type('{leftarrow}{leftarrow}{leftarrow}{del}{del}{del}{del}')
             // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
             .trigger('keydown', { keyCode: 8, which: 8, key: 'Delete' }) // 8 = delete/backspace
@@ -830,7 +814,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     const getSubmitButton = () => cy.findByTestId('confirm-cta');
     const getEntityTextLink = () => cy.findByTestId('entity-selection-link');
     const expectDocumentStructure = (...nodes) => {
-      expectRichTextFieldValue(
+      richText.expectValue(
         doc(
           block(
             BLOCKS.PARAGRAPH,
@@ -847,7 +831,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
     // Type and wait for the text to be persisted
     const safelyType = (text: string) => {
-      editor().type(text);
+      richText.editor.type(text);
 
       expectDocumentStructure(['text', text.replace('{selectall}', '')]);
     };
@@ -856,13 +840,13 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       [
         'using the link toolbar button',
         () => {
-          cy.findByTestId('hyperlink-toolbar-button').click();
+          richText.toolbar.hyperlink.click();
         },
       ],
       [
         'using the link keyboard shortcut',
         () => {
-          editor().type(`{${mod}}k`);
+          richText.editor.type(`{${mod}}k`);
         },
       ],
     ];
@@ -887,7 +871,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
             ['text', '']
           );
 
-          editor().click().type('{selectall}');
+          richText.editor.click().type('{selectall}');
           // TODO: This should just be
           // ```
           // triggerLinkModal();
@@ -1002,7 +986,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           // Part 2:
           // Update hyperlink to entry link
 
-          editor()
+          richText.editor
             .findByTestId('cf-ui-text-link')
             .should('have.text', 'My cool website')
             .click({ force: true });
@@ -1027,7 +1011,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           // Part 3:
           // Update entry link to asset link
 
-          editor()
+          richText.editor
             .findByTestId('cf-ui-text-link')
             .should('have.text', 'My cool entry')
             .click({ force: true });
@@ -1050,7 +1034,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           // Part 3:
           // Update asset link to hyperlink
 
-          editor()
+          richText.editor
             .findByTestId('cf-ui-text-link')
             .should('have.text', 'My cool asset')
             .click({ force: true });
@@ -1084,7 +1068,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       [
         'using the keyboard shortcut',
         () => {
-          editor().type(`{${mod}+shift+e}`);
+          richText.editor.type(`{${mod}+shift+e}`);
         },
       ],
     ];
@@ -1092,13 +1076,13 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     for (const [triggerMethod, triggerEmbeddedEntry] of methods) {
       describe(triggerMethod, () => {
         it('adds paragraph before the block when pressing enter if the block is first document node', () => {
-          editor().click().then(triggerEmbeddedEntry);
+          richText.editor.click().then(triggerEmbeddedEntry);
 
-          editor().find('[data-entity-id="example-entity-id"]').click();
+          richText.editor.find('[data-entity-id="example-entity-id"]').click();
 
-          editor().trigger('keydown', keys.enter);
+          richText.editor.trigger('keydown', keys.enter);
 
-          expectRichTextFieldValue(
+          richText.expectValue(
             doc(
               block(BLOCKS.PARAGRAPH, {}, text('')),
               block(BLOCKS.EMBEDDED_ENTRY, {
@@ -1117,13 +1101,13 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
         it('adds paragraph between two blocks when pressing enter', () => {
           function addEmbeddedEntry() {
-            editor().click('bottom').then(triggerEmbeddedEntry);
-            editor().click().trigger('keydown', keys.rightArrow);
+            richText.editor.click('bottom').then(triggerEmbeddedEntry);
+            richText.editor.click().trigger('keydown', keys.rightArrow);
           }
 
           function selectAndPressEnter() {
-            editor().get('[data-entity-id="example-entity-id"]').first().click();
-            editor().trigger('keydown', keys.enter);
+            richText.editor.get('[data-entity-id="example-entity-id"]').first().click();
+            richText.editor.trigger('keydown', keys.enter);
           }
 
           addEmbeddedEntry();
@@ -1131,7 +1115,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           selectAndPressEnter(); // Inserts paragraph before embed because it's in the first line.
           selectAndPressEnter(); // inserts paragraph in-between embeds.
 
-          expectRichTextFieldValue(
+          richText.expectValue(
             doc(
               block(BLOCKS.PARAGRAPH, {}, text('')),
               block(BLOCKS.EMBEDDED_ENTRY, {
@@ -1159,9 +1143,9 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         });
 
         it('adds and removes embedded entries', () => {
-          editor().click().then(triggerEmbeddedEntry);
+          richText.editor.click().then(triggerEmbeddedEntry);
 
-          expectRichTextFieldValue(
+          richText.expectValue(
             doc(
               block(BLOCKS.EMBEDDED_ENTRY, {
                 target: {
@@ -1179,13 +1163,13 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           cy.findByTestId('cf-ui-card-actions').click();
           cy.findByTestId('card-action-remove').click();
 
-          expectRichTextFieldValue(undefined);
+          richText.expectValue(undefined);
         });
 
         it('adds and removes embedded entries by selecting and pressing `backspace`', () => {
-          editor().click().then(triggerEmbeddedEntry);
+          richText.editor.click().then(triggerEmbeddedEntry);
 
-          expectRichTextFieldValue(
+          richText.expectValue(
             doc(
               block(BLOCKS.EMBEDDED_ENTRY, {
                 target: {
@@ -1202,18 +1186,18 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           cy.findByTestId('cf-ui-entry-card').click();
           // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
-          editor().trigger('keydown', keys.backspace);
+          richText.editor.trigger('keydown', keys.backspace);
 
-          expectRichTextFieldValue(undefined);
+          richText.expectValue(undefined);
         });
 
         it('adds embedded entries between words', () => {
-          editor()
+          richText.editor
             .click()
             .type('foobar{leftarrow}{leftarrow}{leftarrow}')
             .then(triggerEmbeddedEntry);
 
-          expectRichTextFieldValue(
+          richText.expectValue(
             doc(
               block(BLOCKS.PARAGRAPH, {}, text('foo')),
               block(BLOCKS.EMBEDDED_ENTRY, {
@@ -1245,7 +1229,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       [
         'using the keyboard shortcut',
         () => {
-          editor().type(`{${mod}+shift+a}`);
+          richText.editor.type(`{${mod}+shift+a}`);
         },
       ],
     ];
@@ -1253,13 +1237,13 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     for (const [triggerMethod, triggerEmbeddedAsset] of methods) {
       describe(triggerMethod, () => {
         it('adds paragraph before the block when pressing enter if the block is first document node', () => {
-          editor().click().then(triggerEmbeddedAsset);
+          richText.editor.click().then(triggerEmbeddedAsset);
 
-          editor().find('[data-entity-id="example-entity-id"]').click();
+          richText.editor.find('[data-entity-id="example-entity-id"]').click();
 
-          editor().trigger('keydown', keys.enter);
+          richText.editor.trigger('keydown', keys.enter);
 
-          expectRichTextFieldValue(
+          richText.expectValue(
             doc(
               block(BLOCKS.PARAGRAPH, {}, text('')),
               block(BLOCKS.EMBEDDED_ASSET, {
@@ -1278,13 +1262,13 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
         it('adds paragraph between two blocks when pressing enter', () => {
           function addEmbeddedEntry() {
-            editor().click('bottom').then(triggerEmbeddedAsset);
-            editor().click().trigger('keydown', keys.rightArrow);
+            richText.editor.click('bottom').then(triggerEmbeddedAsset);
+            richText.editor.click().trigger('keydown', keys.rightArrow);
           }
 
           function selectAndPressEnter() {
-            editor().click().get('[data-entity-id="example-entity-id"]').first().click();
-            editor().trigger('keydown', keys.enter);
+            richText.editor.click().get('[data-entity-id="example-entity-id"]').first().click();
+            richText.editor.trigger('keydown', keys.enter);
           }
 
           addEmbeddedEntry();
@@ -1293,7 +1277,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           selectAndPressEnter();
           selectAndPressEnter();
 
-          expectRichTextFieldValue(
+          richText.expectValue(
             doc(
               block(BLOCKS.PARAGRAPH, {}, text('')),
               block(BLOCKS.EMBEDDED_ASSET, {
@@ -1321,9 +1305,9 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         });
 
         it('adds and removes embedded assets', () => {
-          editor().click().then(triggerEmbeddedAsset);
+          richText.editor.click().then(triggerEmbeddedAsset);
 
-          expectRichTextFieldValue(
+          richText.expectValue(
             doc(
               block(BLOCKS.EMBEDDED_ASSET, {
                 target: {
@@ -1341,13 +1325,13 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           cy.findByTestId('cf-ui-card-actions').click();
           cy.findByTestId('card-action-remove').click();
 
-          expectRichTextFieldValue(undefined);
+          richText.expectValue(undefined);
         });
 
         it('adds and removes embedded assets by selecting and pressing `backspace`', () => {
-          editor().click().then(triggerEmbeddedAsset);
+          richText.editor.click().then(triggerEmbeddedAsset);
 
-          expectRichTextFieldValue(
+          richText.expectValue(
             doc(
               block(BLOCKS.EMBEDDED_ASSET, {
                 target: {
@@ -1364,18 +1348,18 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           cy.findByTestId('cf-ui-asset-card').click();
           // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
-          editor().trigger('keydown', keys.backspace);
+          richText.editor.trigger('keydown', keys.backspace);
 
-          expectRichTextFieldValue(undefined);
+          richText.expectValue(undefined);
         });
 
         it('adds embedded assets between words', () => {
-          editor()
+          richText.editor
             .click()
             .type('foobar{leftarrow}{leftarrow}{leftarrow}')
             .then(triggerEmbeddedAsset);
 
-          expectRichTextFieldValue(
+          richText.expectValue(
             doc(
               block(BLOCKS.PARAGRAPH, {}, text('foo')),
               block(BLOCKS.EMBEDDED_ASSET, {
@@ -1407,7 +1391,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       [
         'using the keyboard shortcut',
         () => {
-          return editor().type(`{${mod}+shift+2}`);
+          return richText.editor.type(`{${mod}+shift+2}`);
         },
       ],
     ];
@@ -1415,15 +1399,15 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     for (const [triggerMethod, triggerEmbeddedAsset] of methods) {
       describe(triggerMethod, () => {
         it('adds and removes embedded entries', () => {
-          editor()
+          richText.editor
             .click()
             .type('hello')
             .then(triggerEmbeddedAsset)
             .then(() => {
-              editor().click().type('world');
+              richText.editor.click().type('world');
             });
 
-          expectRichTextFieldValue(
+          richText.expectValue(
             doc(
               block(
                 BLOCKS.PARAGRAPH,
@@ -1446,7 +1430,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           cy.findByTestId('cf-ui-card-actions').click();
           cy.findByTestId('card-action-remove').click();
 
-          expectRichTextFieldValue(doc(block(BLOCKS.PARAGRAPH, {}, text('hello'), text('world'))));
+          richText.expectValue(doc(block(BLOCKS.PARAGRAPH, {}, text('hello'), text('world'))));
 
           // TODO: we should also test deletion via {backspace},
           // but this breaks in cypress even though it works in the editor

@@ -1,6 +1,6 @@
 import constate from 'constate';
 import { FieldExtensionSDK } from '@contentful/app-sdk';
-import { useStoreEditorRef } from '@udecode/plate-core';
+import { usePlateEditorRef } from '@udecode/plate-core';
 
 export function getContentfulEditorId(sdk: FieldExtensionSDK) {
   const { entry, field } = sdk;
@@ -15,7 +15,7 @@ interface useContentfulEditorHookProps {
 
 function useContentfulEditorHook({ sdk }: useContentfulEditorHookProps) {
   const editorId = getContentfulEditorId(sdk);
-  const editor = useStoreEditorRef(editorId);
+  const editor = usePlateEditorRef(editorId);
 
   return editor;
 }

@@ -11,13 +11,8 @@ import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/StickyToolbarWrapper';
 import { createPastePlugin } from './plugins/Paste';
 import { createListPlugin, withListOptions } from './plugins/List';
-import {
-  Plate,
-  createHistoryPlugin,
-  createReactPlugin,
-  PlatePlugin,
-  SPEditor,
-} from '@udecode/plate-core';
+import { Plate, createHistoryPlugin, createReactPlugin } from '@udecode/plate-core';
+import { createDeserializeAstPlugin } from '@udecode/plate-ast-serializer';
 import { createDeserializeHTMLPlugin } from '@udecode/plate-html-serializer';
 import { createHrPlugin, withHrOptions } from './plugins/Hr';
 import { withHeadingOptions, createHeadingPlugin } from './plugins/Heading';
@@ -104,7 +99,10 @@ const getPlugins = (sdk: FieldExtensionSDK, tracking: TrackingProvider) => {
     createTrailingParagraphPlugin(),
   ];
 
-  return plugins.concat([createDeserializeHTMLPlugin({ plugins })] as PlatePlugin<SPEditor>[]);
+  return plugins.concat([
+    createDeserializeHTMLPlugin({ plugins }),
+    createDeserializeAstPlugin({ plugins }),
+  ] as any);
 };
 
 const options = {

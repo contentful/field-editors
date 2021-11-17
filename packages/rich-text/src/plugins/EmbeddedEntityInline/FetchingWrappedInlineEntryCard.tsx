@@ -115,7 +115,7 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
           Edit
         </MenuItem>,
         <MenuItem
-          key="edit"
+          key="remove"
           onClick={props.onRemove}
           disabled={props.isDisabled}
           testId="card-action-remove">

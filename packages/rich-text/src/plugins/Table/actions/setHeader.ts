@@ -1,8 +1,8 @@
-import { SPEditor } from '@udecode/plate-core';
+import { PlateEditor } from '@udecode/plate-core';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { getAbove, setNodes, getChildren } from '@udecode/plate-common';
 
-export const setHeader = (editor: SPEditor, enable?: boolean) => {
+export const setHeader = (editor: PlateEditor, enable?: boolean) => {
   const tableItem = getAbove(editor, {
     match: { type: BLOCKS.TABLE },
   });

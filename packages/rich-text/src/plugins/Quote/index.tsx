@@ -6,7 +6,7 @@ import { QuoteIcon } from '@contentful/f36-icons';
 import { ToolbarButton } from '../shared/ToolbarButton';
 import { Transforms, Editor, Node, Element, Text } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { PlatePlugin, SPEditor, getRenderElement } from '@udecode/plate-core';
+import { PlatePlugin, PlateEditor, getRenderElement } from '@udecode/plate-core';
 import { CustomElement } from '../../types';
 import { CustomSlatePluginOptions } from 'types';
 import {
@@ -35,13 +35,13 @@ interface ToolbarQuoteButtonProps {
   isDisabled?: boolean;
 }
 
-const createBlockQuote = (editor: SPEditor) => {
+const createBlockQuote = (editor: PlateEditor) => {
   if (!editor.selection) return;
 
   toggleBlock(editor, BLOCKS.QUOTE);
 };
 
-export function withQuoteEvents(editor: SPEditor) {
+export function withQuoteEvents(editor: PlateEditor) {
   return (event: React.KeyboardEvent) => {
     if (!editor.selection) return;
 

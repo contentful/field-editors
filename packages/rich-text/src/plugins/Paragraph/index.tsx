@@ -4,7 +4,7 @@ import { ELEMENT_PARAGRAPH } from '@udecode/plate-paragraph';
 import { BLOCKS } from '@contentful/rich-text-types';
 import tokens from '@contentful/f36-tokens';
 import { RenderElementProps } from 'slate-react';
-import { PlatePlugin, getRenderElement, SPEditor } from '@udecode/plate-core';
+import { PlatePlugin, getRenderElement, PlateEditor } from '@udecode/plate-core';
 import { getToggleElementOnKeyDown } from '@udecode/plate-common';
 import { CustomSlatePluginOptions } from '../../types';
 import { deserializeElement } from '../../helpers/deserializer';
@@ -49,7 +49,7 @@ export function createParagraphPlugin(): PlatePlugin {
     renderElement: getRenderElement(elementKeys),
     pluginKeys: elementKeys,
     onKeyDown: getToggleElementOnKeyDown(BLOCKS.PARAGRAPH),
-    deserialize: (editor: SPEditor) => {
+    deserialize: (editor: PlateEditor) => {
       const { element, ...rest } = deserializer(editor);
       return {
         ...rest,
