@@ -1,15 +1,7 @@
 import * as React from 'react';
 import * as Slate from 'slate-react';
 import { css } from 'emotion';
-import {
-  createListPlugin as createPlateListPlugin,
-  WithListOptions,
-  getListInsertBreak,
-  getListDeleteBackward,
-  getListDeleteForward,
-  getListNormalizer,
-  getListDeleteFragment,
-} from '@udecode/plate-list';
+import { createListPlugin as createPlateListPlugin, withList } from '@udecode/plate-list';
 import { BLOCKS, LIST_ITEM_BLOCKS } from '@contentful/rich-text-types';
 import { ListBulletedIcon, ListNumberedIcon } from '@contentful/f36-icons';
 import { ELEMENT_LI, ELEMENT_UL, ELEMENT_OL, toggleList, ELEMENT_LIC } from '@udecode/plate-list';
@@ -150,43 +142,23 @@ export const withListOptions: CustomSlatePluginOptions = {
   },
 };
 
-// copy of https://github.com/udecode/plate/blob/main/packages/elements/list/src/withList.ts
-// to use our custom getListInsertFragment
-const withCustomList =
-  ({ validLiChildrenTypes }: WithListOptions = {}): WithOverride =>
-  (editor) => {
-    const { insertBreak, deleteBackward, deleteForward, deleteFragment } = editor;
+const withCustomList = (options): WithOverride => {
+  const withDefaultOverrides = withList(options);
 
-    editor.insertBreak = () => {
-      if (getListInsertBreak(editor)) return;
+  return (editor) => {
+    const { insertFragment } = editor;
 
-      insertBreak();
-    };
+    withDefaultOverrides(editor);
 
-    editor.deleteBackward = (unit) => {
-      if (getListDeleteBackward(editor, unit)) return;
+    // Reverts any overrides to insertFragment
+    editor.insertFragment = insertFragment;
 
-      deleteBackward(unit);
-    };
-
-    editor.deleteForward = (unit) => {
-      if (getListDeleteForward(editor)) return;
-
-      deleteForward(unit);
-    };
-
-    editor.deleteFragment = () => {
-      if (getListDeleteFragment(editor)) return;
-
-      deleteFragment();
-    };
-
+    // Use our custom getListInsertFragment
     editor.insertFragment = getListInsertFragment(editor);
-
-    editor.normalizeNode = getListNormalizer(editor, { validLiChildrenTypes });
 
     return editor;
   };
+};
 
 export const createListPlugin = () => {
   const options = {
