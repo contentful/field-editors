@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.5](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.0.4...@contentful/default-field-editors@1.0.5) (2021-11-17)
+
+### Bug Fixes
+
+- **card-actions:** update forma 36 to fix card actions click issue ([#927](https://github.com/contentful/field-editors/issues/927)) ([3dfdef2](https://github.com/contentful/field-editors/commit/3dfdef2c2b0045f12ea94ddafca89a8e9f25e7d0))
+
 ## [1.0.4](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.0.3...@contentful/default-field-editors@1.0.4) (2021-11-08)
 
 **Note:** Version bump only for package @contentful/default-field-editors
