@@ -59,7 +59,11 @@ function EmbeddedEntityInline(props: EmbeddedEntityInlineProps) {
   }
 
   return (
-    <span {...props.attributes} className={styles.root} data-embedded-entity-inline-id={entryId}>
+    <span
+      {...props.attributes}
+      className={styles.root}
+      data-embedded-entity-inline-id={entryId}
+      draggable={true}>
       <span contentEditable={false}>
         <FetchingWrappedInlineEntryCard
           sdk={sdk}
@@ -148,6 +152,7 @@ export function createEmbeddedEntityInlinePlugin(sdk): PlatePlugin {
     renderElement: getRenderElement(INLINES.EMBEDDED_ENTRY),
     pluginKeys: INLINES.EMBEDDED_ENTRY,
     inlineTypes: getPlatePluginTypes(INLINES.EMBEDDED_ENTRY),
+    voidTypes: getPlatePluginTypes(INLINES.EMBEDDED_ENTRY),
     onKeyDown: getWithEmbeddedEntryInlineEvents(sdk),
     deserialize: (editor) => {
       const options = getPlatePluginOptions(editor, INLINES.EMBEDDED_ENTRY);
