@@ -5,7 +5,7 @@ import {
   getPlatePluginTypes,
   PlatePlugin,
   getPlatePluginOptions,
-  SPEditor,
+  PlateEditor,
 } from '@udecode/plate-core';
 import { Transforms } from 'slate';
 import { getNodeEntryFromSelection, moveToTheNextLine } from '../../helpers/editor';
@@ -103,7 +103,7 @@ export function getWithEmbeddedEntityEvents(
   nodeType: BLOCKS.EMBEDDED_ENTRY | BLOCKS.EMBEDDED_ASSET,
   sdk: FieldExtensionSDK
 ) {
-  return function withEmbeddedEntityEvents(editor: SPEditor) {
+  return function withEmbeddedEntityEvents(editor: PlateEditor) {
     // TODO: Dry up copied code from HR
     return function handleEvent(event: KeyboardEvent) {
       if (!editor) return;

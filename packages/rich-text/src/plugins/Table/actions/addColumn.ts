@@ -1,6 +1,6 @@
 import { Path } from 'slate';
 import { getAbove, insertNodes, someNode } from '@udecode/plate-common';
-import { getPlatePluginType, SPEditor, TElement } from '@udecode/plate-core';
+import { getPlatePluginType, PlateEditor, TElement } from '@udecode/plate-core';
 import {
   getEmptyCellNode,
   TablePluginOptions,
@@ -10,7 +10,7 @@ import {
 } from '@udecode/plate-table';
 
 const addColumn = (
-  editor: SPEditor,
+  editor: PlateEditor,
   { header }: TablePluginOptions,
   getNextCellPath: (currentCellPath: Path) => Path
 ) => {
@@ -52,10 +52,10 @@ const addColumn = (
   }
 };
 
-export const addColumnRight = (editor: SPEditor, options: TablePluginOptions) => {
+export const addColumnRight = (editor: PlateEditor, options: TablePluginOptions) => {
   addColumn(editor, options, (currentCellPath) => Path.next(currentCellPath));
 };
 
-export const addColumnLeft = (editor: SPEditor, options: TablePluginOptions) => {
+export const addColumnLeft = (editor: PlateEditor, options: TablePluginOptions) => {
   addColumn(editor, options, (currentCellPath) => currentCellPath);
 };
