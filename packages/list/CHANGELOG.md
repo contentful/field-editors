@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-list@1.0.1...@contentful/field-editor-list@1.0.2) (2021-11-18)
+
+### Bug Fixes
+
+- fix list field preventing commas after forma36 v4 ([#930](https://github.com/contentful/field-editors/issues/930)) ([01bc621](https://github.com/contentful/field-editors/commit/01bc6217d0e43ed28f8b5c013475697c159dcd73))
+
 ## [1.0.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-list@1.0.0...@contentful/field-editor-list@1.0.1) (2021-11-17)
 
 ### Bug Fixes
