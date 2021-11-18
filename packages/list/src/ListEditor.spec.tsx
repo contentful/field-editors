@@ -79,4 +79,26 @@ describe('ListEditor', () => {
     expect(field.removeValue).toHaveBeenCalledTimes(1);
     expect(field.setValue).toHaveBeenCalledTimes(2);
   });
+
+  it('keeps trailing commas', () => {
+    const [field] = createFakeFieldAPI(
+      (field) => {
+        jest.spyOn(field, 'setValue');
+        return {
+          ...field,
+          validations: [],
+        };
+      },
+      ['test1']
+    );
+
+    const renderResult = render(
+      <ListEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+    );
+
+    changeInputValue(renderResult, 'test1,');
+
+    expect(field.setValue).toHaveBeenLastCalledWith(['test1']);
+    expectInputValue(renderResult, 'test1,');
+  });
 });
