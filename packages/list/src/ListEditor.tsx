@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { FieldAPI, FieldConnector, LocalesAPI } from '@contentful/field-editor-shared';
 import * as styles from './styles';
+import isEqual from 'lodash/isEqual';
 
 import { TextInput } from '@contentful/f36-components';
 import { FieldConnectorChildProps } from '@contentful/field-editor-shared/dist/FieldConnector';
@@ -57,13 +58,15 @@ function ListEditorInternal({
   const [valueState, setValueState] = React.useState(() => (value || []).join(', '));
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValueState(e.target.value);
-
     const valueAsArray = e.target.value
       .split(',')
       .map((item) => item.trim())
       .filter((item) => item);
+    const changed = !isEqual(valueAsArray, value);
     setValue(valueAsArray);
+
+    const valueAsString = valueAsArray.join(', ');
+    setValueState(changed ? valueAsString : e.target.value);
   };
 
   return (
