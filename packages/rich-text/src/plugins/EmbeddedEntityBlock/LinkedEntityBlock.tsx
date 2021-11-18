@@ -7,6 +7,7 @@ import { CustomRenderElementProps } from '../../types';
 import { ReactEditor, useSelected, useReadOnly } from 'slate-react';
 import { Transforms } from 'slate';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
+import { HAS_BEFORE_INPUT_SUPPORT } from '../../helpers/environment';
 
 const styles = {
   root: css({
@@ -49,9 +50,13 @@ export function LinkedEntityBlock(props: LinkedEntityBlockProps) {
       className={styles.root}
       data-entity-type={entityType}
       data-entity-id={entityId}
-      draggable={true}
-      contentEditable={false}>
-      <div>
+      // COMPAT: This makes copy & paste work for Firefox
+      contentEditable={!HAS_BEFORE_INPUT_SUPPORT ? false : undefined}
+      draggable={!HAS_BEFORE_INPUT_SUPPORT ? true : undefined}>
+      <div
+        // COMPAT: This makes copy & paste work for Chromium/Blink browsers and Safari
+        contentEditable={HAS_BEFORE_INPUT_SUPPORT ? false : undefined}
+        draggable={HAS_BEFORE_INPUT_SUPPORT ? true : undefined}>
         {entityType === 'Entry' && (
           <FetchingWrappedEntryCard
             sdk={sdk}
