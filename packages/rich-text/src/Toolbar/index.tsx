@@ -63,6 +63,9 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
   const validationInfo = React.useMemo(() => getValidationInfo(sdk.field), [sdk.field]);
   const isListSelected =
     isNodeTypeSelected(editor, BLOCKS.UL_LIST) || isNodeTypeSelected(editor, BLOCKS.OL_LIST);
+  const isBlockquoteSelected = isNodeTypeSelected(editor, BLOCKS.QUOTE);
+  const shouldDisableTables =
+    isDisabled || !canInsertBlocks || isListSelected || isBlockquoteSelected;
 
   return (
     <Flex testId="toolbar" className={styles.toolbar} alignItems="center">
@@ -95,7 +98,7 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
           <ToolbarHrButton isDisabled={isDisabled || !canInsertBlocks} />
         )}
         {isNodeTypeEnabled(sdk.field, BLOCKS.TABLE) && (
-          <ToolbarTableButton isDisabled={isDisabled || !canInsertBlocks || isListSelected} />
+          <ToolbarTableButton isDisabled={shouldDisableTables} />
         )}
       </div>
       <div className={styles.embedActionsWrapper}>
