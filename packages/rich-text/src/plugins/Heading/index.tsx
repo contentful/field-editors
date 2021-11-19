@@ -262,8 +262,8 @@ export const H1 = createHeading('h1', BLOCKS.HEADING_1);
 export const H2 = createHeading('h2', BLOCKS.HEADING_2);
 export const H3 = createHeading('h3', BLOCKS.HEADING_3);
 export const H4 = createHeading('h4', BLOCKS.HEADING_4);
-export const H5 = createHeading('h1', BLOCKS.HEADING_5);
-export const H6 = createHeading('h1', BLOCKS.HEADING_6);
+export const H5 = createHeading('h5', BLOCKS.HEADING_5);
+export const H6 = createHeading('h6', BLOCKS.HEADING_6);
 
 export function createHeadingPlugin(): PlatePlugin {
   const headings: string[] = [
