@@ -1,4 +1,4 @@
-import { getText } from '@udecode/plate-common';
+import { getText } from '@udecode/plate';
 import { Transforms } from 'slate';
 import * as Slate from 'slate-react';
 import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';

@@ -1,8 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@udecode/plate-test-utils';
-import { PlateEditor } from '@udecode/plate-core';
-import { createEditorPlugins } from '@udecode/plate';
-
+import { PlateEditor, createEditorPlugins } from '@udecode/plate';
 import { createListPlugin } from '../index';
 
 jsx;

@@ -4,7 +4,7 @@ import {
   getRenderElement,
   getPlatePluginTypes,
   getPlatePluginOptions,
-} from '@udecode/plate-core';
+} from '@udecode/plate';
 import { INLINES } from '@contentful/rich-text-types';
 import { Tooltip, TextLink } from '@contentful/f36-components';
 import { EntryAssetTooltip } from './EntryAssetTooltip';

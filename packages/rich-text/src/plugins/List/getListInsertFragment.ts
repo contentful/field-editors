@@ -2,16 +2,17 @@
  * A copy of Plate's list plugin with a few adjustments
  * to fix pasting text inside lists.
  */
-
-import { findNode } from '@udecode/plate-common';
 import {
+  findNode,
   getPlatePluginOptions,
   PlateEditor,
   PlatePluginOptions,
   TDescendant,
-} from '@udecode/plate-core';
+  ELEMENT_LI,
+  ELEMENT_OL,
+  ELEMENT_UL,
+} from '@udecode/plate';
 import { Node, NodeEntry, Path, Transforms } from 'slate';
-import { ELEMENT_LI, ELEMENT_OL, ELEMENT_UL } from '@udecode/plate-list';
 import { toContentfulDocument } from '@contentful/contentful-slatejs-adapter';
 import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
 

@@ -1,11 +1,16 @@
 import React from 'react';
 import { css } from 'emotion';
 import * as Slate from 'slate-react';
-import { PlateEditor } from '@udecode/plate-core';
-import { TablePluginOptions, deleteColumn, deleteRow, deleteTable } from '@udecode/plate-table';
+import {
+  PlateEditor,
+  TablePluginOptions,
+  deleteColumn,
+  deleteRow,
+  deleteTable,
+  getAbove,
+} from '@udecode/plate';
 import { IconButton, Menu } from '@contentful/f36-components';
 import { ChevronDownIcon } from '@contentful/f36-icons';
-import { getAbove } from '@udecode/plate-common';
 import { BLOCKS } from '@contentful/rich-text-types';
 
 import { isTableHeaderEnabled } from './helpers';
