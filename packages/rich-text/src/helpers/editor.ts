@@ -2,8 +2,7 @@ import { Text, Editor, Element, Transforms, Path, Range, Node } from 'slate';
 import { BLOCKS, INLINES, TABLE_BLOCKS } from '@contentful/rich-text-types';
 import { CustomElement } from '../types';
 import { Link } from '@contentful/field-editor-reference/dist/types';
-import { PlateEditor } from '@udecode/plate-core';
-import { getText } from '@udecode/plate-common';
+import { PlateEditor, getText } from '@udecode/plate';
 
 export const LINK_TYPES: INLINES[] = [
   INLINES.HYPERLINK,

@@ -1,10 +1,18 @@
 import * as React from 'react';
 import * as Slate from 'slate-react';
 import { css } from 'emotion';
-import { createListPlugin as createPlateListPlugin, withList } from '@udecode/plate-list';
+import {
+  createListPlugin as createPlateListPlugin,
+  withList,
+  ELEMENT_LI,
+  ELEMENT_UL,
+  ELEMENT_OL,
+  toggleList,
+  ELEMENT_LIC,
+  WithOverride,
+} from '@udecode/plate';
 import { BLOCKS, LIST_ITEM_BLOCKS } from '@contentful/rich-text-types';
 import { ListBulletedIcon, ListNumberedIcon } from '@contentful/f36-icons';
-import { ELEMENT_LI, ELEMENT_UL, ELEMENT_OL, toggleList, ELEMENT_LIC } from '@udecode/plate-list';
 
 import { ToolbarButton } from '../shared/ToolbarButton';
 import { isBlockSelected, unwrapFromRoot, shouldUnwrapBlockquote } from '../../helpers/editor';
@@ -13,7 +21,6 @@ import { CustomSlatePluginOptions } from '../../types';
 import tokens from '@contentful/f36-tokens';
 import { useSdkContext } from '../../SdkProvider';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
-import { WithOverride } from '@udecode/plate-core';
 import { getListInsertFragment } from './getListInsertFragment';
 
 interface ToolbarListButtonProps {

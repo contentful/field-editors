@@ -1,8 +1,14 @@
 import * as React from 'react';
 import * as Slate from 'slate-react';
 import { css } from 'emotion';
-import { PlatePlugin, getRenderLeaf, GetNodeDeserializerRule } from '@udecode/plate-core';
-import { getToggleMarkOnKeyDown, toggleMark, isMarkActive } from '@udecode/plate-common';
+import {
+  PlatePlugin,
+  getRenderLeaf,
+  GetNodeDeserializerRule,
+  getToggleMarkOnKeyDown,
+  toggleMark,
+  isMarkActive,
+} from '@udecode/plate';
 import { MARKS } from '@contentful/rich-text-types';
 import { FormatItalicIcon } from '@contentful/f36-icons';
 import { ToolbarButton } from '../shared/ToolbarButton';

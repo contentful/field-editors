@@ -1,8 +1,7 @@
 import { Node as SlateNode, Transforms, Editor } from 'slate';
-import { PlatePlugin } from '@udecode/plate-core';
+import { PlatePlugin, getNodes } from '@udecode/plate';
 import { CustomElement } from '../../types';
 import { BLOCKS, CONTAINERS, INLINES } from '@contentful/rich-text-types';
-import { getNodes } from '@udecode/plate-common';
 
 export function createDragAndDropPlugin(): PlatePlugin {
   // Elements that don't allow other elements to be dragged into them and which callback should be used

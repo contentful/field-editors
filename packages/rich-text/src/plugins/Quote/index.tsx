@@ -6,7 +6,7 @@ import { QuoteIcon } from '@contentful/f36-icons';
 import { ToolbarButton } from '../shared/ToolbarButton';
 import { Transforms, Editor, Node, Element, Text } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { PlatePlugin, PlateEditor, getRenderElement } from '@udecode/plate-core';
+import { PlatePlugin, PlateEditor, getRenderElement } from '@udecode/plate';
 import { CustomElement } from '../../types';
 import { CustomSlatePluginOptions } from 'types';
 import {

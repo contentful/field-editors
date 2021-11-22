@@ -1,11 +1,15 @@
 import * as React from 'react';
 import { css } from 'emotion';
-import { ELEMENT_PARAGRAPH } from '@udecode/plate-paragraph';
+import {
+  PlatePlugin,
+  getRenderElement,
+  PlateEditor,
+  ELEMENT_PARAGRAPH,
+  getToggleElementOnKeyDown,
+} from '@udecode/plate';
 import { BLOCKS } from '@contentful/rich-text-types';
 import tokens from '@contentful/f36-tokens';
 import { RenderElementProps } from 'slate-react';
-import { PlatePlugin, getRenderElement, PlateEditor } from '@udecode/plate-core';
-import { getToggleElementOnKeyDown } from '@udecode/plate-common';
 import { CustomSlatePluginOptions } from '../../types';
 import { deserializeElement } from '../../helpers/deserializer';
 import { Element, Node, Transforms } from 'slate';
