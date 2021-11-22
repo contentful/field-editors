@@ -25,6 +25,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
   const paragraph = buildHelper(BLOCKS.PARAGRAPH);
   const paragraphWithText = (t) => paragraph(text(t, []));
   const emptyParagraph = () => paragraphWithText('');
+  const expectDocumentToBeEmpty = () => richText.expectValue(undefined);
 
   const keys = {
     enter: { keyCode: 13, which: 13, key: 'Enter' },
@@ -614,10 +615,9 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         .type('quux');
     };
     const expectDocumentStructure = (...elements) => {
-      richText.expectValue(doc(emptyParagraph(), ...elements, emptyParagraph()));
+      richText.expectValue(doc(...elements, emptyParagraph()));
     };
     const expectTable = (...tableElements) => expectDocumentStructure(table(...tableElements));
-    const expectTableToBeDeleted = () => expectDocumentStructure();
 
     it('disables block element toolbar buttons when selected', () => {
       insertTable();
@@ -802,7 +802,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       it('deletes table', () => {
         doAction('Delete table');
 
-        expectTableToBeDeleted();
+        expectDocumentToBeEmpty();
       });
     });
   });
