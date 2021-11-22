@@ -658,6 +658,47 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       ].map((type) => getDropdownItem(type).get('button').should('not.be.disabled'));
     });
 
+    describe('Inserting Tables', () => {
+      it('replaces empty paragraphs with tables', () => {
+        insertTable();
+
+        richText.expectValue(
+          doc(
+            table(row(emptyHeader(), emptyHeader()), row(emptyCell(), emptyCell())),
+            emptyParagraph()
+          )
+        );
+      });
+
+      it('inserts new table below if paragraph is not empty', () => {
+        richText.editor.type('foo');
+
+        insertTable();
+
+        richText.expectValue(
+          doc(
+            paragraphWithText('foo'),
+            table(row(emptyHeader(), emptyHeader()), row(emptyCell(), emptyCell())),
+            emptyParagraph()
+          )
+        );
+      });
+
+      describe('Toolbar', () => {
+        const buttonsToDisableTable = ['quote', 'ul', 'ol'];
+
+        buttonsToDisableTable.forEach((button) => {
+          it(`should disable table button on toolbar if ${button} is selected`, () => {
+            richText.editor.click();
+
+            cy.findByTestId(`${button}-toolbar-button`).click();
+
+            richText.toolbar.table.should('be.disabled');
+          });
+        });
+      });
+    });
+
     describe('Deleting text', () => {
       describe('Backward deletion', () => {
         it('removes the text, not the cell', () => {
