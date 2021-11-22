@@ -85,6 +85,8 @@ export function replaceEmptyParagraphWithTable(editor: PlateEditor) {
     at: previousPath,
     match: (node) => (node as CustomElement).type === BLOCKS.PARAGRAPH,
   });
+  if (!nodes) return;
+
   const [previousNode] = nodes;
   const isPreviousNodeTextEmpty = isAncestorEmpty(editor, previousNode as Ancestor);
   if (isPreviousNodeTextEmpty) {
