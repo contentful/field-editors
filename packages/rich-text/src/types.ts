@@ -1,4 +1,4 @@
-import { PlatePluginOptions } from '@udecode/plate-core';
+import { PlatePluginOptions } from '@udecode/plate';
 import { RenderElementProps, RenderLeafProps } from 'slate-react';
 
 export type TextElement = { text: string };

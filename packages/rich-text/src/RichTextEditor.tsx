@@ -11,9 +11,13 @@ import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/StickyToolbarWrapper';
 import { createPastePlugin } from './plugins/Paste';
 import { createListPlugin, withListOptions } from './plugins/List';
-import { Plate, createHistoryPlugin, createReactPlugin } from '@udecode/plate-core';
-import { createDeserializeAstPlugin } from '@udecode/plate-ast-serializer';
-import { createDeserializeHTMLPlugin } from '@udecode/plate-html-serializer';
+import {
+  Plate,
+  createHistoryPlugin,
+  createReactPlugin,
+  createDeserializeAstPlugin,
+  createDeserializeHTMLPlugin,
+} from '@udecode/plate';
 import { createHrPlugin, withHrOptions } from './plugins/Hr';
 import { withHeadingOptions, createHeadingPlugin } from './plugins/Heading';
 import { createBoldPlugin, withBoldOptions } from './plugins/Bold';

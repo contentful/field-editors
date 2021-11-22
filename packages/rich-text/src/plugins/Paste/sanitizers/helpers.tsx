@@ -1,4 +1,4 @@
-import { PlateEditor } from '@udecode/plate-core';
+import { PlateEditor } from '@udecode/plate';
 
 export type SanitizerTuple = [Document, PlateEditor];
 

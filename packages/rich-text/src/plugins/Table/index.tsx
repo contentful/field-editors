@@ -1,19 +1,19 @@
 import { css } from 'emotion';
 import * as React from 'react';
 import * as Slate from 'slate-react';
-import { PlateEditor } from '@udecode/plate-core';
 import tokens from '@contentful/f36-tokens';
 import { TableIcon } from '@contentful/f36-icons';
 import { ToolbarButton } from '../shared/ToolbarButton';
 import { BLOCKS, CONTAINERS, TableCell, TableHeaderCell } from '@contentful/rich-text-types';
 import {
+  PlateEditor,
   ELEMENT_TD,
   ELEMENT_TR,
   ELEMENT_TH,
   ELEMENT_TABLE,
   createTablePlugin as createTablePluginFromUdecode,
   getTableOnKeyDown,
-} from '@udecode/plate-table';
+} from '@udecode/plate';
 import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
 import { toContentfulDocument } from '@contentful/contentful-slatejs-adapter';
 

@@ -1,14 +1,15 @@
 import { Transforms } from 'slate';
-import { PlateEditor } from '@udecode/plate-core';
-import { BLOCKS } from '@contentful/rich-text-types';
-import { getAbove, getChildren } from '@udecode/plate-common';
 import {
+  PlateEditor,
   ELEMENT_TABLE,
   ELEMENT_TH,
   ELEMENT_TD,
   ELEMENT_TR,
   insertTable,
-} from '@udecode/plate-table';
+  getAbove,
+  getChildren,
+} from '@udecode/plate';
+import { BLOCKS } from '@contentful/rich-text-types';
 
 import { isBlockSelected, getNodeEntryFromSelection } from '../../helpers/editor';
 
