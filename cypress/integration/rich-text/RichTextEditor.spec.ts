@@ -29,7 +29,6 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
   const keys = {
     enter: { keyCode: 13, which: 13, key: 'Enter' },
-    rightArrow: { keyCode: 39, which: 39, key: 'ArrowRight' },
     backspace: { keyCode: 8, which: 8, key: 'Backspace' },
   };
 
@@ -1142,10 +1141,10 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           );
         });
 
-        it('adds paragraph between two blocks when pressing enter', () => {
+        it.only('adds paragraph between two blocks when pressing enter', () => {
           function addEmbeddedEntry() {
             richText.editor.click('bottom').then(triggerEmbeddedEntry);
-            richText.editor.click().trigger('keydown', keys.rightArrow);
+            richText.editor.type('{rightarrow}');
           }
 
           function selectAndPressEnter() {
@@ -1303,10 +1302,10 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           );
         });
 
-        it('adds paragraph between two blocks when pressing enter', () => {
+        it.only('adds paragraph between two blocks when pressing enter', () => {
           function addEmbeddedEntry() {
             richText.editor.click('bottom').then(triggerEmbeddedAsset);
-            richText.editor.click().trigger('keydown', keys.rightArrow);
+            richText.editor.type('{rightarrow}');
           }
 
           function selectAndPressEnter() {
