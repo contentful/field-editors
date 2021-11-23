@@ -1144,7 +1144,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         it('adds paragraph between two blocks when pressing enter', () => {
           function addEmbeddedEntry() {
             richText.editor.click('bottom').then(triggerEmbeddedEntry);
-            richText.editor.type('{rightarrow}');
+            richText.editor.click('bottom');
           }
 
           function selectAndPressEnter() {
@@ -1305,7 +1305,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         it('adds paragraph between two blocks when pressing enter', () => {
           function addEmbeddedEntry() {
             richText.editor.click('bottom').then(triggerEmbeddedAsset);
-            richText.editor.type('{rightarrow}');
+            richText.editor.click('bottom');
           }
 
           function selectAndPressEnter() {
