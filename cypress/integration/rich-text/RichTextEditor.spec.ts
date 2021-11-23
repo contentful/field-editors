@@ -686,7 +686,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       describe('Toolbar', () => {
         const buttonsToDisableTable = ['ul', 'ol', 'quote'];
 
-        it.only(`should disable table button if ${buttonsToDisableTable.join(
+        it(`should disable table button if ${buttonsToDisableTable.join(
           ', '
         )} elements are focused`, () => {
           buttonsToDisableTable.forEach((button) => {
@@ -1141,7 +1141,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           );
         });
 
-        it.only('adds paragraph between two blocks when pressing enter', () => {
+        it('adds paragraph between two blocks when pressing enter', () => {
           function addEmbeddedEntry() {
             richText.editor.click('bottom').then(triggerEmbeddedEntry);
             richText.editor.type('{rightarrow}');
@@ -1302,7 +1302,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           );
         });
 
-        it.only('adds paragraph between two blocks when pressing enter', () => {
+        it('adds paragraph between two blocks when pressing enter', () => {
           function addEmbeddedEntry() {
             richText.editor.click('bottom').then(triggerEmbeddedAsset);
             richText.editor.type('{rightarrow}');
