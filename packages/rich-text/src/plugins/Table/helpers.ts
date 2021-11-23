@@ -1,4 +1,4 @@
-import { Transforms } from 'slate';
+import { Transforms, Path, Editor, Ancestor } from 'slate';
 import {
   PlateEditor,
   ELEMENT_TABLE,
@@ -8,10 +8,17 @@ import {
   insertTable,
   getAbove,
   getChildren,
+  isFirstChild,
+  isAncestorEmpty,
 } from '@udecode/plate';
 import { BLOCKS } from '@contentful/rich-text-types';
 
-import { isBlockSelected, getNodeEntryFromSelection } from '../../helpers/editor';
+import {
+  isBlockSelected,
+  getNodeEntryFromSelection,
+  getAncestorPathFromSelection,
+} from '../../helpers/editor';
+import { CustomElement } from '../../types';
 
 /**
  * Sets the UI focus to the first cell of the selected table.
@@ -37,6 +44,7 @@ export function insertTableAndFocusFirstCell(editor: PlateEditor): void {
   // code adds it at any level
   insertTable(editor, { header: true });
   moveToFirstCellFromSelectedTable(editor);
+  replaceEmptyParagraphWithTable(editor);
 }
 
 export function isTableActive(editor: PlateEditor) {
@@ -64,4 +72,27 @@ export function isTableHeaderEnabled(editor: PlateEditor) {
   return getChildren(firstRow).every(([node]) => {
     return node.type === BLOCKS.TABLE_HEADER_CELL;
   });
+}
+
+export function replaceEmptyParagraphWithTable(editor: PlateEditor) {
+  const tablePath = getAncestorPathFromSelection(editor);
+  if (!tablePath || isFirstChild(tablePath)) return;
+
+  const previousPath = Path.previous(tablePath);
+  if (!previousPath) return;
+
+  const [nodes] = Editor.nodes(editor, {
+    at: previousPath,
+    match: (node) => (node as CustomElement).type === BLOCKS.PARAGRAPH,
+  });
+  if (!nodes) return;
+
+  const [previousNode] = nodes;
+  const isPreviousNodeTextEmpty = isAncestorEmpty(editor, previousNode as Ancestor);
+  if (isPreviousNodeTextEmpty) {
+    // Switch table with previous empty paragraph
+    Transforms.moveNodes(editor, { at: tablePath, to: previousPath });
+    // Remove previous paragraph that now is under the table
+    Transforms.removeNodes(editor, { at: tablePath });
+  }
 }

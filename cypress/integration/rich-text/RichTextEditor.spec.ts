@@ -25,6 +25,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
   const paragraph = buildHelper(BLOCKS.PARAGRAPH);
   const paragraphWithText = (t) => paragraph(text(t, []));
   const emptyParagraph = () => paragraphWithText('');
+  const expectDocumentToBeEmpty = () => richText.expectValue(undefined);
 
   const keys = {
     enter: { keyCode: 13, which: 13, key: 'Enter' },
@@ -614,10 +615,9 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         .type('quux');
     };
     const expectDocumentStructure = (...elements) => {
-      richText.expectValue(doc(emptyParagraph(), ...elements, emptyParagraph()));
+      richText.expectValue(doc(...elements, emptyParagraph()));
     };
     const expectTable = (...tableElements) => expectDocumentStructure(table(...tableElements));
-    const expectTableToBeDeleted = () => expectDocumentStructure();
 
     it('disables block element toolbar buttons when selected', () => {
       insertTable();
@@ -656,6 +656,49 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         BLOCKS.HEADING_5,
         BLOCKS.HEADING_6,
       ].map((type) => getDropdownItem(type).get('button').should('not.be.disabled'));
+    });
+
+    describe('Inserting Tables', () => {
+      it('replaces empty paragraphs with tables', () => {
+        insertTable();
+
+        richText.expectValue(
+          doc(
+            table(row(emptyHeader(), emptyHeader()), row(emptyCell(), emptyCell())),
+            emptyParagraph()
+          )
+        );
+      });
+
+      it('inserts new table below if paragraph is not empty', () => {
+        richText.editor.type('foo');
+
+        insertTable();
+
+        richText.expectValue(
+          doc(
+            paragraphWithText('foo'),
+            table(row(emptyHeader(), emptyHeader()), row(emptyCell(), emptyCell())),
+            emptyParagraph()
+          )
+        );
+      });
+
+      describe('Toolbar', () => {
+        const buttonsToDisableTable = ['ul', 'ol', 'quote'];
+
+        it.only(`should disable table button if ${buttonsToDisableTable.join(
+          ', '
+        )} elements are focused`, () => {
+          buttonsToDisableTable.forEach((button) => {
+            richText.editor.click();
+
+            cy.findByTestId(`${button}-toolbar-button`).click();
+
+            richText.toolbar.table.should('be.disabled');
+          });
+        });
+      });
     });
 
     describe('Deleting text', () => {
@@ -802,7 +845,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       it('deletes table', () => {
         doAction('Delete table');
 
-        expectTableToBeDeleted();
+        expectDocumentToBeEmpty();
       });
     });
   });
