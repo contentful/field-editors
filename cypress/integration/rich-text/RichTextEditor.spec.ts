@@ -1,3 +1,5 @@
+/* eslint-disable mocha/no-setup-in-describe */
+
 import { MARKS, BLOCKS, INLINES } from '@contentful/rich-text-types';
 import {
   document as doc,
@@ -263,6 +265,8 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         richText.expectValue(expectedValue);
       });
 
+      // TODO: Seems to be failing on CI
+      // eslint-disable-next-line mocha/no-skipped-tests
       it.skip('should add line if HR is the first void block', () => {
         richText.editor.click();
 

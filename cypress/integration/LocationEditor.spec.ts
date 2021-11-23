@@ -63,6 +63,8 @@ describe('Location Editor', () => {
     cy.editorEvents().should('deep.equal', []);
   });
 
+  // TODO: Why are we skipping this test?
+  // eslint-disable-next-line mocha/no-skipped-tests
   it.skip('should set value after latitude and longitude change', () => {
     cy.editorEvents().should('deep.equal', []);
 
