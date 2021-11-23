@@ -685,10 +685,12 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       });
 
       describe('Toolbar', () => {
-        const buttonsToDisableTable = ['quote', 'ul', 'ol'];
+        const buttonsToDisableTable = ['ul', 'ol', 'quote'];
 
-        buttonsToDisableTable.forEach((button) => {
-          it(`should disable table button on toolbar if ${button} is selected`, () => {
+        it.only(`should disable table button if ${buttonsToDisableTable.join(
+          ', '
+        )} elements are focused`, () => {
+          buttonsToDisableTable.forEach((button) => {
             richText.editor.click();
 
             cy.findByTestId(`${button}-toolbar-button`).click();
