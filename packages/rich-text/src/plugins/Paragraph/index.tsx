@@ -9,10 +9,10 @@ import {
 } from '@udecode/plate';
 import { BLOCKS } from '@contentful/rich-text-types';
 import tokens from '@contentful/f36-tokens';
-import { RenderElementProps } from 'slate-react';
-import { CustomSlatePluginOptions } from '../../types';
-import { deserializeElement } from '../../helpers/deserializer';
 import { Element, Node, Transforms } from 'slate';
+import { RenderElementProps } from 'slate-react';
+import { CustomSlatePluginOptions, CustomElement } from '../../types';
+import { deserializeElement } from '../../helpers/deserializer';
 
 const styles = {
   [BLOCKS.PARAGRAPH]: css`
@@ -73,7 +73,7 @@ export function createParagraphPlugin(): PlatePlugin {
       editor.normalizeNode = (entry) => {
         const [node, path] = entry;
         // If the element is a paragraph, ensure its children are valid.
-        if (Element.isElement(node) && node.type === BLOCKS.PARAGRAPH) {
+        if (Element.isElement(node) && (node as CustomElement).type === BLOCKS.PARAGRAPH) {
           for (const [child, childPath] of Node.children(editor, path)) {
             if (Element.isElement(child) && !editor.isInline(child)) {
               Transforms.unwrapNodes(editor, {
