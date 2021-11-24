@@ -7,7 +7,9 @@ import {
   getPlatePluginOptions,
   PlateEditor,
 } from '@udecode/plate';
-import { CustomSlatePluginOptions } from '../../types';
+import { Transforms } from 'slate';
+import { getNodeEntryFromSelection } from '../../helpers/editor';
+import { CustomSlatePluginOptions } from 'types';
 import { LinkedEntityBlock } from './LinkedEntityBlock';
 import { selectEntityAndInsert } from './Util';
 import { FieldExtensionSDK } from '@contentful/app-sdk';
@@ -106,7 +108,17 @@ export function getWithEmbeddedEntityEvents(
     return function handleEvent(event: KeyboardEvent) {
       if (!editor) return;
 
-      if (
+      const [, pathToSelectedElement] = getNodeEntryFromSelection(editor, nodeType);
+
+      if (pathToSelectedElement) {
+        const isDelete = event.key === 'Delete';
+        const isBackspace = event.key === 'Backspace';
+
+        if (isDelete || isBackspace) {
+          event.preventDefault();
+          Transforms.removeNodes(editor, { at: pathToSelectedElement });
+        }
+      } else if (
         (nodeType === BLOCKS.EMBEDDED_ENTRY && wasEmbeddedEntryEventTriggered(event)) ||
         (nodeType === BLOCKS.EMBEDDED_ASSET && wasEmbeddedAssetEventTriggered(event))
       ) {
