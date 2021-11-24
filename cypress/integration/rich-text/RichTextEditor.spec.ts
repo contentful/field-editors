@@ -360,63 +360,55 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
             richText.expectValue(expectedQuoteValue);
           });
         }
-      });
-    });
 
-    it('should be deleted if empty when pressing delete', () => {
-      headings.forEach(([type]) => {
-        const value = 'some text';
-        richText.editor.click().type(value);
+        it('should be deleted if empty when pressing delete', () => {
+          const value = 'some text';
+          richText.editor.click().type(value);
 
-        clickDropdownItem(type);
+          clickDropdownItem(type);
 
-        cy.findByTestId('toolbar-entity-dropdown-toggle').click();
-        cy.findByTestId('toolbar-toggle-embedded-entry-block').click();
+          cy.findByTestId('toolbar-entity-dropdown-toggle').click();
+          cy.findByTestId('toolbar-toggle-embedded-entry-block').click();
 
-        richText.editor.type('{uparrow}').type(
-          Array(value.length)
-            .fill('')
-            .map(() => '{del}')
-            .concat('{del}')
-            .join('')
-        );
+          richText.editor.type('{uparrow}').type(
+            Array(value.length)
+              .fill('')
+              .map(() => '{del}')
+              .concat('{del}')
+              .join('')
+          );
 
-        richText.expectValue(
-          doc(
-            block(BLOCKS.EMBEDDED_ENTRY, {
-              target: {
-                sys: {
-                  id: 'example-entity-id',
-                  type: 'Link',
-                  linkType: 'Entry',
+          richText.expectValue(
+            doc(
+              block(BLOCKS.EMBEDDED_ENTRY, {
+                target: {
+                  sys: {
+                    id: 'example-entity-id',
+                    type: 'Link',
+                    linkType: 'Entry',
+                  },
                 },
-              },
-            }),
-            block(BLOCKS.PARAGRAPH, {}, text(''))
-          )
-        );
+              }),
+              block(BLOCKS.PARAGRAPH, {}, text(''))
+            )
+          );
+        });
 
-        richText.editor.clear();
-      });
-    });
+        it('should delete next block if not empty when pressing delete', () => {
+          const value = 'some text';
+          richText.editor.click().type(value);
 
-    it('should delete next block if not empty when pressing delete', () => {
-      headings.forEach(([type]) => {
-        const value = 'some text';
-        richText.editor.click().type(value);
+          clickDropdownItem(type);
 
-        clickDropdownItem(type);
+          cy.findByTestId('toolbar-entity-dropdown-toggle').click();
+          cy.findByTestId('toolbar-toggle-embedded-entry-block').click();
 
-        cy.findByTestId('toolbar-entity-dropdown-toggle').click();
-        cy.findByTestId('toolbar-toggle-embedded-entry-block').click();
+          richText.editor.type('{leftarrow}').type('{del}');
 
-        richText.editor.type('{leftarrow}').type('{del}');
-
-        richText.expectValue(
-          doc(block(type, {}, text(value)), block(BLOCKS.PARAGRAPH, {}, text('')))
-        );
-
-        richText.editor.clear();
+          richText.expectValue(
+            doc(block(type, {}, text(value)), block(BLOCKS.PARAGRAPH, {}, text('')))
+          );
+        });
       });
     });
 
