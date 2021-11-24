@@ -362,11 +362,11 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         }
 
         it('should be deleted if empty when pressing delete', () => {
-          richText.editor.click().type('x');
+          richText.editor.click(); // to set an initial editor.location
 
           clickDropdownItem(type);
 
-          richText.editor.type('{enter}');
+          richText.editor.type('x{enter}');
 
           cy.findByTestId('toolbar-entity-dropdown-toggle').click();
           cy.findByTestId('toolbar-toggle-embedded-entry-block').click();
