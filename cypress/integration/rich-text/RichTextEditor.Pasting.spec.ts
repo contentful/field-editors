@@ -1,5 +1,10 @@
-import { document as doc, block, text } from '../../../packages/rich-text/src/helpers/nodeFactory';
-import { BLOCKS } from '@contentful/rich-text-types';
+import {
+  document as doc,
+  block,
+  inline,
+  text,
+} from '../../../packages/rich-text/src/helpers/nodeFactory';
+import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 
 import { RichTextPage } from './RichTextPage';
 
@@ -54,8 +59,155 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       );
     });
 
-    // Adjust this later when we support pasting other elements
-    it('pastes only the text content of other blocks', () => {
+    it('pastes elements inside links', () => {
+      richText.editor.click();
+      richText.toolbar.ul.click();
+
+      richText.editor.paste({
+        'text/html':
+          '<meta charset=\'utf-8\'><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-string="true">This is a </span></span></span><span class="css-1wt9k1k"><a class="css-1dcu81t" data-test-id="cf-ui-text-link" rel="noopener noreferrer" aria-describedby="tooltip_9004" href="https://example.com"><span><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-string="true">link</span></span></span></span></a></span><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-string="true"> and an inline entry: </span></span></span><span data-slate-node="element" data-slate-inline="true" data-slate-void="true" class="css-1dx5s2y" data-embedded-entity-inline-id="example-entity-id" data-slate-fragment="JTVCJTdCJTIydHlwZSUyMiUzQSUyMnBhcmFncmFwaCUyMiUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydGV4dCUyMiUzQSUyMlRoaXMlMjBpcyUyMGElMjAlMjIlMkMlMjJkYXRhJTIyJTNBJTdCJTdEJTdEJTJDJTdCJTIydHlwZSUyMiUzQSUyMmh5cGVybGluayUyMiUyQyUyMmRhdGElMjIlM0ElN0IlMjJ1cmklMjIlM0ElMjJodHRwcyUzQSUyRiUyRmV4YW1wbGUuY29tJTIyJTdEJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0ZXh0JTIyJTNBJTIybGluayUyMiU3RCU1RCU3RCUyQyU3QiUyMnRleHQlMjIlM0ElMjIlMjBhbmQlMjBhbiUyMGlubGluZSUyMGVudHJ5JTNBJTIwJTIyJTdEJTJDJTdCJTIydHlwZSUyMiUzQSUyMmVtYmVkZGVkLWVudHJ5LWlubGluZSUyMiUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydGV4dCUyMiUzQSUyMiUyMiU3RCU1RCUyQyUyMmRhdGElMjIlM0ElN0IlMjJ0YXJnZXQlMjIlM0ElN0IlMjJzeXMlMjIlM0ElN0IlMjJpZCUyMiUzQSUyMmV4YW1wbGUtZW50aXR5LWlkJTIyJTJDJTIydHlwZSUyMiUzQSUyMkxpbmslMjIlMkMlMjJsaW5rVHlwZSUyMiUzQSUyMkVudHJ5JTIyJTdEJTdEJTdEJTdEJTJDJTdCJTIydGV4dCUyMiUzQSUyMiUyMiU3RCU1RCUyQyUyMmlzVm9pZCUyMiUzQWZhbHNlJTJDJTIyZGF0YSUyMiUzQSU3QiU3RCU3RCU1RA=="><span contenteditable="false" draggable="true"><article class="css-122osjo" data-test-id="embedded-entry-inline"><div class="css-1sz1u6f" data-card-part="wrapper"><button type="button" aria-label="Actions" aria-haspopup="menu" aria-expanded="false" aria-controls="menu_8727" data-test-id="cf-ui-card-actions" class="css-2ulqgl"><span class="css-k008qs"><svg class="css-1jrff5x" data-test-id="cf-ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M0 0h24v24H0z" fill="none"></path><path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg></span></button><div class="css-123a08z" data-card-part="content"><span class="css-1eadhne"><span>Example Content Type The best article ever</span></span></div></div></article></span><span data-slate-spacer="true" style="height: 0px; color: transparent; outline: none; position: absolute;"><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-zero-width="z" data-slate-length="0"></span></span></span></span></span><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-zero-width="z" data-slate-length="0"></span></span></span>',
+      });
+
+      richText.expectValue(
+        doc(
+          block(
+            BLOCKS.UL_LIST,
+            {},
+            block(
+              BLOCKS.LIST_ITEM,
+              {},
+              block(
+                BLOCKS.PARAGRAPH,
+                {},
+                text('This is a '),
+                inline(INLINES.HYPERLINK, { uri: 'https://example.com' }, text('link')),
+                text(' and an inline entry: '),
+                inline(INLINES.EMBEDDED_ENTRY, {
+                  target: {
+                    sys: {
+                      id: 'example-entity-id',
+                      type: 'Link',
+                      linkType: 'Entry',
+                    },
+                  },
+                }),
+                text('')
+              )
+            )
+          ),
+          block(BLOCKS.PARAGRAPH, {}, text(''))
+        )
+      );
+    });
+
+    it('pastes list items as new lists inside lists', () => {
+      richText.editor.click();
+      richText.toolbar.ul.click();
+
+      richText.editor.type('Hello');
+
+      richText.editor.paste({
+        'text/html':
+          '<meta charset=\'utf-8\'><ul data-slate-node="element" class="css-a9oioc" data-slate-fragment="JTVCJTdCJTIydHlwZSUyMiUzQSUyMnVub3JkZXJlZC1saXN0JTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0eXBlJTIyJTNBJTIybGlzdC1pdGVtJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0eXBlJTIyJTNBJTIycGFyYWdyYXBoJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0ZXh0JTIyJTNBJTIyd29ybGQhJTIyJTJDJTIyYm9sZCUyMiUzQXRydWUlN0QlNUQlN0QlNUQlN0QlNUQlN0QlMkMlN0IlMjJ0eXBlJTIyJTNBJTIycGFyYWdyYXBoJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0ZXh0JTIyJTNBJTIyJTIyJTdEJTVEJTdEJTVE"><li data-slate-node="element" class="css-h3rza2"><div data-slate-node="element" class="css-ss00rg"><span data-slate-node="text"><span data-slate-leaf="true"><strong data-slate-leaf="true" class="css-35ezg3"><span data-slate-string="true">world!</span></strong></span></span></div></li></ul>',
+      });
+
+      richText.expectValue(
+        doc(
+          block(
+            BLOCKS.UL_LIST,
+            {},
+            block(
+              BLOCKS.LIST_ITEM,
+              {},
+              block(BLOCKS.PARAGRAPH, {}, text('Hello')),
+              block(
+                BLOCKS.UL_LIST,
+                {},
+                block(
+                  BLOCKS.LIST_ITEM,
+                  {},
+                  block(BLOCKS.PARAGRAPH, {}, text('world!', [{ type: 'bold' }]))
+                )
+              )
+            )
+          ),
+          block(BLOCKS.PARAGRAPH, {}, text(''))
+        )
+      );
+    });
+
+    it('confers the parent list type upon list items pasted within lists', () => {
+      richText.editor.click();
+      richText.toolbar.ol.click();
+
+      richText.editor.type('Hello');
+
+      richText.editor.paste({
+        'text/html':
+          '<meta charset=\'utf-8\'><ul data-slate-node="element" class="css-a9oioc" data-slate-fragment="JTVCJTdCJTIydHlwZSUyMiUzQSUyMnVub3JkZXJlZC1saXN0JTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0eXBlJTIyJTNBJTIybGlzdC1pdGVtJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0eXBlJTIyJTNBJTIycGFyYWdyYXBoJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0ZXh0JTIyJTNBJTIyd29ybGQhJTIyJTJDJTIyYm9sZCUyMiUzQXRydWUlN0QlNUQlN0QlNUQlN0QlNUQlN0QlMkMlN0IlMjJ0eXBlJTIyJTNBJTIycGFyYWdyYXBoJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0ZXh0JTIyJTNBJTIyJTIyJTdEJTVEJTdEJTVE"><li data-slate-node="element" class="css-h3rza2"><div data-slate-node="element" class="css-ss00rg"><span data-slate-node="text"><span data-slate-leaf="true"><strong data-slate-leaf="true" class="css-35ezg3"><span data-slate-string="true">world!</span></strong></span></span></div></li></ul>',
+      });
+
+      richText.expectValue(
+        doc(
+          block(
+            BLOCKS.OL_LIST,
+            {},
+            block(
+              BLOCKS.LIST_ITEM,
+              {},
+              block(BLOCKS.PARAGRAPH, {}, text('Hello')),
+              block(
+                BLOCKS.OL_LIST,
+                {},
+                block(
+                  BLOCKS.LIST_ITEM,
+                  {},
+                  block(BLOCKS.PARAGRAPH, {}, text('world!', [{ type: 'bold' }]))
+                )
+              )
+            )
+          ),
+          block(BLOCKS.PARAGRAPH, {}, text(''))
+        )
+      );
+    });
+
+    it('pastes orphaned list items as unordered lists', () => {
+      richText.editor.click();
+
+      richText.editor.paste({
+        'text/html':
+          '<meta charset=\'utf-8\'><li data-slate-node="element" class="css-h3rza2"><div data-slate-node="element" class="css-ss00rg"><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-string="true">Hello</span></span></span></div><ul data-slate-node="element" class="css-a9oioc"><li data-slate-node="element" class="css-h3rza2"><div data-slate-node="element" class="css-ss00rg"><span data-slate-node="text"><span data-slate-leaf="true"><strong data-slate-leaf="true" class="css-35ezg3"><span data-slate-string="true">world!</span></strong></span></span></div></li></ul></li><div data-slate-node="element" class="css-ss00rg"><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-zero-width="n" data-slate-length="0">\n</span></span></span></div>',
+      });
+
+      richText.expectValue(
+        doc(
+          block(
+            BLOCKS.UL_LIST,
+            {},
+            block(
+              BLOCKS.LIST_ITEM,
+              {},
+              block(BLOCKS.PARAGRAPH, {}, text('Hello')),
+              block(
+                BLOCKS.UL_LIST,
+                {},
+                block(
+                  BLOCKS.LIST_ITEM,
+                  {},
+                  block(BLOCKS.PARAGRAPH, {}, text('world!', [{ type: 'bold' }]))
+                )
+              )
+            )
+          ),
+          block(BLOCKS.PARAGRAPH, {}, text(''))
+        )
+      );
+    });
+
+    // TODO: Update when https://contentful.atlassian.net/browse/SHE-605 is completed
+    // eslint-disable-next-line mocha/no-skipped-tests
+    it.skip('pastes only the text content of other blocks', () => {
       richText.editor.click();
       richText.toolbar.ul.click();
 

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as Slate from 'slate-react';
+import { Element, Node, Transforms, Editor, NodeEntry, Path } from 'slate';
 import { css } from 'emotion';
 import {
   createListPlugin as createPlateListPlugin,
@@ -10,14 +11,16 @@ import {
   toggleList,
   ELEMENT_LIC,
   WithOverride,
+  getParent,
+  getAbove,
 } from '@udecode/plate';
-import { BLOCKS, LIST_ITEM_BLOCKS } from '@contentful/rich-text-types';
+import { BLOCKS, INLINES, LIST_ITEM_BLOCKS, TopLevelBlockEnum } from '@contentful/rich-text-types';
 import { ListBulletedIcon, ListNumberedIcon } from '@contentful/f36-icons';
 
 import { ToolbarButton } from '../shared/ToolbarButton';
 import { isBlockSelected, unwrapFromRoot, shouldUnwrapBlockquote } from '../../helpers/editor';
 import { isNodeTypeEnabled } from '../../helpers/validations';
-import { CustomSlatePluginOptions } from '../../types';
+import { CustomElement, CustomSlatePluginOptions } from '../../types';
 import tokens from '@contentful/f36-tokens';
 import { useSdkContext } from '../../SdkProvider';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
@@ -149,6 +152,60 @@ export const withListOptions: CustomSlatePluginOptions = {
   },
 };
 
+const emptyNodeOfType = (type) => ({ type, children: [], data: {} });
+
+const isList = (node: CustomElement) =>
+  [BLOCKS.OL_LIST, BLOCKS.UL_LIST].includes(node.type as BLOCKS);
+
+const isListItem = (node: CustomElement) => node.type === BLOCKS.LIST_ITEM;
+
+const hasListAsDirectParent = (editor: Editor, path: Path) => {
+  const [parentNode] = (getParent(editor, path) || []) as NodeEntry;
+  return isList(parentNode as CustomElement);
+};
+
+const isValidInsideList = (node: CustomElement) =>
+  (LIST_ITEM_BLOCKS as Array<TopLevelBlockEnum | INLINES>)
+    .concat(Object.values(INLINES))
+    .includes(node.type as TopLevelBlockEnum);
+
+const unwrapInvalidGrandchildren = (editor: Editor, path: Path) => {
+  for (const [grandchild, grandchildPath] of Node.children(editor, path)) {
+    if (!isValidInsideList(grandchild as CustomElement)) {
+      Transforms.unwrapNodes(editor, { at: grandchildPath });
+    }
+  }
+};
+
+/**
+ * Ensures each list item follows the list schema.
+ */
+const normalizeList = (editor: Editor, path: Path) => {
+  for (const [child, childPath] of Node.children(editor, path)) {
+    if (Element.isElement(child)) {
+      unwrapInvalidGrandchildren(editor, childPath);
+      if (!isListItem(child)) {
+        Transforms.wrapNodes(editor, emptyNodeOfType(BLOCKS.LIST_ITEM), { at: childPath });
+      }
+    }
+  }
+};
+
+/**
+ * Places orphaned list items in a list. If there's a list somewhere
+ * in the node's ancestors, defaults to that list type, else places
+ * the list item in an unordered list.
+ */
+const normalizeOrphanedListItem = (editor: Editor, path: Path) => {
+  const [parentList] = getAbove(editor, { at: path, mode: 'lowest', match: isList }) || [];
+  const parentListType = parentList?.type;
+  Transforms.wrapNodes(
+    editor,
+    { type: parentListType || BLOCKS.UL_LIST, children: [], data: {} },
+    { at: path }
+  );
+};
+
 const withCustomList = (options): WithOverride => {
   const withDefaultOverrides = withList(options);
 
@@ -157,11 +214,24 @@ const withCustomList = (options): WithOverride => {
 
     withDefaultOverrides(editor);
 
-    // Reverts any overrides to insertFragment
+    // // Reverts any overrides to insertFragment
     editor.insertFragment = insertFragment;
 
-    // Use our custom getListInsertFragment
+    // // Use our custom getListInsertFragment
     editor.insertFragment = getListInsertFragment(editor);
+
+    const { normalizeNode } = editor;
+    editor.normalizeNode = (entry) => {
+      const [node, path] = entry;
+
+      if (isList(node as CustomElement)) {
+        normalizeList(editor, path);
+      } else if (isListItem(node as CustomElement) && !hasListAsDirectParent(editor, path)) {
+        normalizeOrphanedListItem(editor, path);
+      }
+
+      normalizeNode(entry);
+    };
 
     return editor;
   };
