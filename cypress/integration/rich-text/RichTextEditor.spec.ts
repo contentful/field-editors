@@ -362,21 +362,39 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         }
 
         it('should be deleted if empty when pressing delete', () => {
-          const value = 'some text';
-          richText.editor.click().type(value);
+          richText.editor.click().type('x');
 
           clickDropdownItem(type);
+
+          richText.editor.type('{enter}');
 
           cy.findByTestId('toolbar-entity-dropdown-toggle').click();
           cy.findByTestId('toolbar-toggle-embedded-entry-block').click();
 
-          richText.editor.type('{uparrow}').type(
-            Array(value.length)
-              .fill('')
-              .map(() => '{del}')
-              .concat('{del}')
-              .join('')
+          // To make sure paragraph/heading is present
+          richText.expectValue(
+            doc(
+              block(type, {}, text('x')),
+              block(BLOCKS.EMBEDDED_ENTRY, {
+                target: {
+                  sys: {
+                    id: 'example-entity-id',
+                    type: 'Link',
+                    linkType: 'Entry',
+                  },
+                },
+              }),
+              block(BLOCKS.PARAGRAPH, {}, text(''))
+            )
           );
+
+          richText.editor
+            .click('bottom')
+            .type('{uparrow}')
+            .type('{uparrow}')
+            .type('{uparrow}')
+            .type('{del}')
+            .type('{del}');
 
           richText.expectValue(
             doc(
