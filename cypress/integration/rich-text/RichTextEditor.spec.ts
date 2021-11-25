@@ -28,6 +28,26 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
   const paragraphWithText = (t) => paragraph(text(t, []));
   const emptyParagraph = () => paragraphWithText('');
   const expectDocumentToBeEmpty = () => richText.expectValue(undefined);
+  const entryBlock = () =>
+    block(BLOCKS.EMBEDDED_ENTRY, {
+      target: {
+        sys: {
+          id: 'example-entity-id',
+          type: 'Link',
+          linkType: 'Entry',
+        },
+      },
+    });
+  const assetBlock = () =>
+    block(BLOCKS.EMBEDDED_ASSET, {
+      target: {
+        sys: {
+          id: 'example-entity-id',
+          type: 'Link',
+          linkType: 'Asset',
+        },
+      },
+    });
 
   const keys = {
     enter: { keyCode: 13, which: 13, key: 'Enter' },
@@ -373,43 +393,15 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           // To make sure paragraph/heading is present
           richText.expectValue(
-            doc(
-              block(type, {}, text('x')),
-              block(BLOCKS.EMBEDDED_ENTRY, {
-                target: {
-                  sys: {
-                    id: 'example-entity-id',
-                    type: 'Link',
-                    linkType: 'Entry',
-                  },
-                },
-              }),
-              block(BLOCKS.PARAGRAPH, {}, text(''))
-            )
+            doc(block(type, {}, text('x')), entryBlock(), block(BLOCKS.PARAGRAPH, {}, text('')))
           );
 
           richText.editor
             .click('bottom')
-            .type('{uparrow}')
-            .type('{uparrow}')
-            .type('{uparrow}')
-            .type('{del}')
-            .type('{del}');
+            // Using `delay` to avoid flakiness, cypress triggers a keypress every 10ms and the editor was not responding correcrly
+            .type('{uparrow}{uparrow}{uparrow}{del}{del}', { delay: 100 });
 
-          richText.expectValue(
-            doc(
-              block(BLOCKS.EMBEDDED_ENTRY, {
-                target: {
-                  sys: {
-                    id: 'example-entity-id',
-                    type: 'Link',
-                    linkType: 'Entry',
-                  },
-                },
-              }),
-              block(BLOCKS.PARAGRAPH, {}, text(''))
-            )
-          );
+          richText.expectValue(doc(entryBlock(), block(BLOCKS.PARAGRAPH, {}, text(''))));
         });
 
         it('should delete next block if not empty when pressing delete', () => {
@@ -421,7 +413,8 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           cy.findByTestId('toolbar-entity-dropdown-toggle').click();
           cy.findByTestId('toolbar-toggle-embedded-entry-block').click();
 
-          richText.editor.type('{leftarrow}').type('{del}');
+          // Using `delay` to avoid flakiness, cypress triggers a keypress every 10ms and the editor was not responding correcrly
+          richText.editor.type('{leftarrow}{del}', { delay: 100 });
 
           richText.expectValue(
             doc(block(type, {}, text(value)), block(BLOCKS.PARAGRAPH, {}, text('')))
@@ -1198,15 +1191,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           richText.expectValue(
             doc(
               block(BLOCKS.PARAGRAPH, {}, text('')),
-              block(BLOCKS.EMBEDDED_ENTRY, {
-                target: {
-                  sys: {
-                    id: 'example-entity-id',
-                    type: 'Link',
-                    linkType: 'Entry',
-                  },
-                },
-              }),
+              entryBlock(),
               block(BLOCKS.PARAGRAPH, {}, text(''))
             )
           );
@@ -1231,25 +1216,9 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           richText.expectValue(
             doc(
               block(BLOCKS.PARAGRAPH, {}, text('')),
-              block(BLOCKS.EMBEDDED_ENTRY, {
-                target: {
-                  sys: {
-                    id: 'example-entity-id',
-                    type: 'Link',
-                    linkType: 'Entry',
-                  },
-                },
-              }),
+              entryBlock(),
               block(BLOCKS.PARAGRAPH, {}, text('')),
-              block(BLOCKS.EMBEDDED_ENTRY, {
-                target: {
-                  sys: {
-                    id: 'example-entity-id',
-                    type: 'Link',
-                    linkType: 'Entry',
-                  },
-                },
-              }),
+              entryBlock(),
               block(BLOCKS.PARAGRAPH, {}, text(''))
             )
           );
@@ -1258,20 +1227,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         it('adds and removes embedded entries', () => {
           richText.editor.click().then(triggerEmbeddedEntry);
 
-          richText.expectValue(
-            doc(
-              block(BLOCKS.EMBEDDED_ENTRY, {
-                target: {
-                  sys: {
-                    id: 'example-entity-id',
-                    type: 'Link',
-                    linkType: 'Entry',
-                  },
-                },
-              }),
-              block(BLOCKS.PARAGRAPH, {}, text(''))
-            )
-          );
+          richText.expectValue(doc(entryBlock(), block(BLOCKS.PARAGRAPH, {}, text(''))));
 
           cy.findByTestId('cf-ui-card-actions').click();
           cy.findByTestId('card-action-remove').click();
@@ -1282,20 +1238,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         it('adds and removes embedded entries by selecting and pressing `backspace`', () => {
           richText.editor.click().then(triggerEmbeddedEntry);
 
-          richText.expectValue(
-            doc(
-              block(BLOCKS.EMBEDDED_ENTRY, {
-                target: {
-                  sys: {
-                    id: 'example-entity-id',
-                    type: 'Link',
-                    linkType: 'Entry',
-                  },
-                },
-              }),
-              block(BLOCKS.PARAGRAPH, {}, text(''))
-            )
-          );
+          richText.expectValue(doc(entryBlock(), block(BLOCKS.PARAGRAPH, {}, text(''))));
 
           cy.findByTestId('cf-ui-entry-card').click();
           // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
@@ -1313,15 +1256,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           richText.expectValue(
             doc(
               block(BLOCKS.PARAGRAPH, {}, text('foo')),
-              block(BLOCKS.EMBEDDED_ENTRY, {
-                target: {
-                  sys: {
-                    id: 'example-entity-id',
-                    type: 'Link',
-                    linkType: 'Entry',
-                  },
-                },
-              }),
+              entryBlock(),
               block(BLOCKS.PARAGRAPH, {}, text('bar'))
             )
           );
@@ -1359,15 +1294,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           richText.expectValue(
             doc(
               block(BLOCKS.PARAGRAPH, {}, text('')),
-              block(BLOCKS.EMBEDDED_ASSET, {
-                target: {
-                  sys: {
-                    id: 'example-entity-id',
-                    type: 'Link',
-                    linkType: 'Asset',
-                  },
-                },
-              }),
+              assetBlock(),
               block(BLOCKS.PARAGRAPH, {}, text(''))
             )
           );
@@ -1393,25 +1320,9 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           richText.expectValue(
             doc(
               block(BLOCKS.PARAGRAPH, {}, text('')),
-              block(BLOCKS.EMBEDDED_ASSET, {
-                target: {
-                  sys: {
-                    id: 'example-entity-id',
-                    type: 'Link',
-                    linkType: 'Asset',
-                  },
-                },
-              }),
+              assetBlock(),
               block(BLOCKS.PARAGRAPH, {}, text('')),
-              block(BLOCKS.EMBEDDED_ASSET, {
-                target: {
-                  sys: {
-                    id: 'example-entity-id',
-                    type: 'Link',
-                    linkType: 'Asset',
-                  },
-                },
-              }),
+              assetBlock(),
               block(BLOCKS.PARAGRAPH, {}, text(''))
             )
           );
@@ -1420,20 +1331,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         it('adds and removes embedded assets', () => {
           richText.editor.click().then(triggerEmbeddedAsset);
 
-          richText.expectValue(
-            doc(
-              block(BLOCKS.EMBEDDED_ASSET, {
-                target: {
-                  sys: {
-                    id: 'example-entity-id',
-                    type: 'Link',
-                    linkType: 'Asset',
-                  },
-                },
-              }),
-              block(BLOCKS.PARAGRAPH, {}, text(''))
-            )
-          );
+          richText.expectValue(doc(assetBlock(), block(BLOCKS.PARAGRAPH, {}, text(''))));
 
           cy.findByTestId('cf-ui-card-actions').click();
           cy.findByTestId('card-action-remove').click();
@@ -1444,20 +1342,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         it('adds and removes embedded assets by selecting and pressing `backspace`', () => {
           richText.editor.click().then(triggerEmbeddedAsset);
 
-          richText.expectValue(
-            doc(
-              block(BLOCKS.EMBEDDED_ASSET, {
-                target: {
-                  sys: {
-                    id: 'example-entity-id',
-                    type: 'Link',
-                    linkType: 'Asset',
-                  },
-                },
-              }),
-              block(BLOCKS.PARAGRAPH, {}, text(''))
-            )
-          );
+          richText.expectValue(doc(assetBlock(), block(BLOCKS.PARAGRAPH, {}, text(''))));
 
           cy.findByTestId('cf-ui-asset-card').click();
           // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
@@ -1475,15 +1360,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           richText.expectValue(
             doc(
               block(BLOCKS.PARAGRAPH, {}, text('foo')),
-              block(BLOCKS.EMBEDDED_ASSET, {
-                target: {
-                  sys: {
-                    id: 'example-entity-id',
-                    type: 'Link',
-                    linkType: 'Asset',
-                  },
-                },
-              }),
+              assetBlock(),
               block(BLOCKS.PARAGRAPH, {}, text('bar'))
             )
           );
