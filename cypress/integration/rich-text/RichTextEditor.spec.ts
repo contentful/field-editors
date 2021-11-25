@@ -392,16 +392,14 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           cy.findByTestId('toolbar-toggle-embedded-entry-block').click();
 
           // To make sure paragraph/heading is present
-          richText.expectValue(
-            doc(block(type, {}, text('x')), entryBlock(), block(BLOCKS.PARAGRAPH, {}, text('')))
-          );
+          richText.expectValue(doc(block(type, {}, text('x')), entryBlock(), emptyParagraph()));
 
           richText.editor
             .click('bottom')
             // Using `delay` to avoid flakiness, cypress triggers a keypress every 10ms and the editor was not responding correcrly
             .type('{uparrow}{uparrow}{uparrow}{del}{del}', { delay: 100 });
 
-          richText.expectValue(doc(entryBlock(), block(BLOCKS.PARAGRAPH, {}, text(''))));
+          richText.expectValue(doc(entryBlock(), emptyParagraph()));
         });
 
         it('should delete next block if not empty when pressing delete', () => {
@@ -416,9 +414,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           // Using `delay` to avoid flakiness, cypress triggers a keypress every 10ms and the editor was not responding correcrly
           richText.editor.type('{leftarrow}{del}', { delay: 100 });
 
-          richText.expectValue(
-            doc(block(type, {}, text(value)), block(BLOCKS.PARAGRAPH, {}, text('')))
-          );
+          richText.expectValue(doc(block(type, {}, text(value)), emptyParagraph()));
         });
       });
     });
@@ -1188,13 +1184,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           richText.editor.trigger('keydown', keys.enter);
 
-          richText.expectValue(
-            doc(
-              block(BLOCKS.PARAGRAPH, {}, text('')),
-              entryBlock(),
-              block(BLOCKS.PARAGRAPH, {}, text(''))
-            )
-          );
+          richText.expectValue(doc(emptyParagraph(), entryBlock(), emptyParagraph()));
         });
 
         it('adds paragraph between two blocks when pressing enter', () => {
@@ -1214,20 +1204,14 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           selectAndPressEnter(); // inserts paragraph in-between embeds.
 
           richText.expectValue(
-            doc(
-              block(BLOCKS.PARAGRAPH, {}, text('')),
-              entryBlock(),
-              block(BLOCKS.PARAGRAPH, {}, text('')),
-              entryBlock(),
-              block(BLOCKS.PARAGRAPH, {}, text(''))
-            )
+            doc(emptyParagraph(), entryBlock(), emptyParagraph(), entryBlock(), emptyParagraph())
           );
         });
 
         it('adds and removes embedded entries', () => {
           richText.editor.click().then(triggerEmbeddedEntry);
 
-          richText.expectValue(doc(entryBlock(), block(BLOCKS.PARAGRAPH, {}, text(''))));
+          richText.expectValue(doc(entryBlock(), emptyParagraph()));
 
           cy.findByTestId('cf-ui-card-actions').click();
           cy.findByTestId('card-action-remove').click();
@@ -1238,7 +1222,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         it('adds and removes embedded entries by selecting and pressing `backspace`', () => {
           richText.editor.click().then(triggerEmbeddedEntry);
 
-          richText.expectValue(doc(entryBlock(), block(BLOCKS.PARAGRAPH, {}, text(''))));
+          richText.expectValue(doc(entryBlock(), emptyParagraph()));
 
           cy.findByTestId('cf-ui-entry-card').click();
           // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
@@ -1291,13 +1275,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           richText.editor.trigger('keydown', keys.enter);
 
-          richText.expectValue(
-            doc(
-              block(BLOCKS.PARAGRAPH, {}, text('')),
-              assetBlock(),
-              block(BLOCKS.PARAGRAPH, {}, text(''))
-            )
-          );
+          richText.expectValue(doc(emptyParagraph(), assetBlock(), emptyParagraph()));
         });
 
         it('adds paragraph between two blocks when pressing enter', () => {
@@ -1318,20 +1296,14 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           selectAndPressEnter();
 
           richText.expectValue(
-            doc(
-              block(BLOCKS.PARAGRAPH, {}, text('')),
-              assetBlock(),
-              block(BLOCKS.PARAGRAPH, {}, text('')),
-              assetBlock(),
-              block(BLOCKS.PARAGRAPH, {}, text(''))
-            )
+            doc(emptyParagraph(), assetBlock(), emptyParagraph(), assetBlock(), emptyParagraph())
           );
         });
 
         it('adds and removes embedded assets', () => {
           richText.editor.click().then(triggerEmbeddedAsset);
 
-          richText.expectValue(doc(assetBlock(), block(BLOCKS.PARAGRAPH, {}, text(''))));
+          richText.expectValue(doc(assetBlock(), emptyParagraph()));
 
           cy.findByTestId('cf-ui-card-actions').click();
           cy.findByTestId('card-action-remove').click();
@@ -1342,7 +1314,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         it('adds and removes embedded assets by selecting and pressing `backspace`', () => {
           richText.editor.click().then(triggerEmbeddedAsset);
 
-          richText.expectValue(doc(assetBlock(), block(BLOCKS.PARAGRAPH, {}, text(''))));
+          richText.expectValue(doc(assetBlock(), emptyParagraph()));
 
           cy.findByTestId('cf-ui-asset-card').click();
           // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
