@@ -1,3 +1,5 @@
+/* eslint-disable mocha/no-setup-in-describe */
+
 import { MARKS, BLOCKS } from '@contentful/rich-text-types';
 import { document as doc, block, text } from '../../packages/rich-text/src/helpers/nodeFactory';
 
@@ -19,8 +21,11 @@ describe('Rich Text Editor', () => {
 
   beforeEach(() => {
     cy.visit('/rich-text');
-    const wrapper = cy.findByTestId('rich-text-editor-integration-test').should('be.visible');
-    editor = wrapper.find('[data-slate-editor=true]').should('be.visible');
+    editor = cy
+      .findByTestId('rich-text-editor-integration-test')
+      .should('be.visible')
+      .find('[data-slate-editor=true]')
+      .should('be.visible');
   });
 
   it('is empty by default', () => {
