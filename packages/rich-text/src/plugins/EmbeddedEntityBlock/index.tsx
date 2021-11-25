@@ -8,7 +8,7 @@ import {
   PlateEditor,
 } from '@udecode/plate';
 import { Transforms } from 'slate';
-import { getNodeEntryFromSelection, moveToTheNextLine } from '../../helpers/editor';
+import { getNodeEntryFromSelection } from '../../helpers/editor';
 import { CustomSlatePluginOptions } from 'types';
 import { LinkedEntityBlock } from './LinkedEntityBlock';
 import { selectEntityAndInsert } from './Util';
@@ -108,14 +108,13 @@ export function getWithEmbeddedEntityEvents(
     return function handleEvent(event: KeyboardEvent) {
       if (!editor) return;
 
-      const isEnter = event.keyCode === 13;
       const [, pathToSelectedElement] = getNodeEntryFromSelection(editor, nodeType);
 
       if (pathToSelectedElement) {
-        if (isEnter) {
-          event.preventDefault();
-          moveToTheNextLine(editor);
-        } else if (event.key === 'Backspace') {
+        const isDelete = event.key === 'Delete';
+        const isBackspace = event.key === 'Backspace';
+
+        if (isDelete || isBackspace) {
           event.preventDefault();
           Transforms.removeNodes(editor, { at: pathToSelectedElement });
         }

@@ -53,6 +53,7 @@ import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import { createTrailingParagraphPlugin } from './plugins/TrailingParagraph';
 import { createDragAndDropPlugin } from './plugins/DragAndDrop';
+import { createTextPlugin } from './plugins/Text';
 
 type ConnectedProps = {
   sdk: FieldExtensionSDK;
@@ -101,6 +102,7 @@ const getPlugins = (sdk: FieldExtensionSDK, tracking: TrackingProvider) => {
 
     // Other
     createTrailingParagraphPlugin(),
+    createTextPlugin(),
   ];
 
   return plugins.concat([
