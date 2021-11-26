@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.0.3...@contentful/field-editor-reference@4.0.4) (2021-11-26)
+
+### Bug Fixes
+
+- **references:** sort content types alphabetically ([#942](https://github.com/contentful/field-editors/issues/942)) ([3afb1ee](https://github.com/contentful/field-editors/commit/3afb1ee79e19b30f776d45790c482f60cd532fb3))
+
 ## [4.0.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.0.2...@contentful/field-editor-reference@4.0.3) (2021-11-17)
 
 ### Bug Fixes
