@@ -7790,6 +7790,18 @@ contentful-management@^7.14.0, contentful-management@^7.3.1:
     lodash.isplainobject "^4.0.6"
     type-fest "^0.20.2"
 
+contentful-management@^7.22.0:
+  version "7.45.2"
+  resolved "https://registry.yarnpkg.com/contentful-management/-/contentful-management-7.45.2.tgz#60e6bca8226dcf74090b58c45dc7b2ffb574a3b2"
+  integrity sha512-NFAkV6mxqOW4SIx8pAhraQq234Gl8+Np8cxaw7+bB9DCelpxmWvySyaoDczAaYmXLZcejeOFt/NS+Rhp7hPvJA==
+  dependencies:
+    "@types/json-patch" "0.0.30"
+    axios "^0.21.4"
+    contentful-sdk-core "^6.10.1"
+    fast-copy "^2.1.0"
+    lodash.isplainobject "^4.0.6"
+    type-fest "^2.5.3"
+
 contentful-management@^7.42.1:
   version "7.42.1"
   resolved "https://registry.yarnpkg.com/contentful-management/-/contentful-management-7.42.1.tgz#aedd7f0294cb954dc2d592998f1af8cbc33bdaf1"
@@ -7801,18 +7813,6 @@ contentful-management@^7.42.1:
     fast-copy "^2.1.0"
     lodash.isplainobject "^4.0.6"
     type-fest "^0.21.3"
-
-contentful-management@^7.45.2:
-  version "7.45.2"
-  resolved "https://registry.yarnpkg.com/contentful-management/-/contentful-management-7.45.2.tgz#60e6bca8226dcf74090b58c45dc7b2ffb574a3b2"
-  integrity sha512-NFAkV6mxqOW4SIx8pAhraQq234Gl8+Np8cxaw7+bB9DCelpxmWvySyaoDczAaYmXLZcejeOFt/NS+Rhp7hPvJA==
-  dependencies:
-    "@types/json-patch" "0.0.30"
-    axios "^0.21.4"
-    contentful-sdk-core "^6.10.1"
-    fast-copy "^2.1.0"
-    lodash.isplainobject "^4.0.6"
-    type-fest "^2.5.3"
 
 contentful-migration@^4.1.1:
   version "4.1.5"
