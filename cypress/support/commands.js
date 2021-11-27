@@ -28,8 +28,17 @@ Cypress.Commands.add('setValueExternal', (value) => {
 
 Cypress.Commands.add('setGoogleMapsKey', () => {
   return cy.window().then((win) => {
-    win.localStorage.setItem('googleMapsKey', Cypress.env('googleMapsKey'));
+    win.localStorage.setItem('googleMapsKey', Cypress.env('googleMapsKey') || '');
     return win;
+  });
+});
+
+// https://frontend.irish/how-mock-google-places-cypress
+Cypress.Commands.add('mockGoogleMapsResponse', (mockData) => {
+  cy.intercept('https://maps.googleapis.com/maps/api/js/GeocodeService.Search*', (request) => {
+    const searchParams = new URLSearchParams(request.url);
+    const callbackParam = searchParams.get('callback');
+    request.reply(`${callbackParam} && ${callbackParam}(${JSON.stringify(mockData)})`);
   });
 });
 
