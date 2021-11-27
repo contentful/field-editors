@@ -4,9 +4,7 @@ describe('Markdown Editor / Insert Special Character Dialog', () => {
       return cy.get('[data-test-id="markdown-textarea"] textarea');
     },
     getDialogTitle() {
-      return cy.findByTestId('dialog-title').within(() => {
-        return cy.get('h1');
-      });
+      return cy.findByTestId('dialog-title').find('h1');
     },
     getToggleAdditionalActionsButton: () => {
       return cy.findByTestId('markdown-action-button-toggle-additional');
@@ -25,6 +23,9 @@ describe('Markdown Editor / Insert Special Character Dialog', () => {
     },
     getSpecialCharacterButtons() {
       return cy.findAllByTestId('special-character-button');
+    },
+    getCharButton(char: string) {
+      return cy.findByText(char);
     },
   };
 
@@ -47,7 +48,7 @@ describe('Markdown Editor / Insert Special Character Dialog', () => {
   }
 
   function insertSpecialCharacter(char: string) {
-    selectors.getSpecialCharacterButtons().findByText(char).click();
+    selectors.getCharButton(char).click();
     selectors.getConfirmButton().click();
   }
 

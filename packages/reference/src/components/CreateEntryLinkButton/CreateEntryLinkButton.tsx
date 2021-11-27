@@ -51,7 +51,7 @@ export const CreateEntryLinkButton = ({
   dropdownSettings,
   disabled = false,
 }: CreateEntryLinkButtonProps) => {
-  contentTypes = contentTypes.sort((a,b) => a.name.localeCompare(b.name));
+  contentTypes = contentTypes.sort((a, b) => a.name.localeCompare(b.name));
   const suggestedContentType = contentTypes.find((ct) => ct.sys.id === suggestedContentTypeId);
   const buttonText =
     text ||

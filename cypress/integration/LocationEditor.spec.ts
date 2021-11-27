@@ -1,14 +1,9 @@
-const LOCATION_1 = {
-  address: 'Platz d. Deutschen Einheit 1, 20457 Hamburg, Germany',
-  value: { lon: 9.98413, lat: 53.54132 },
-};
-const LOCATION_2 = {
-  address: 'Max-Urich-Straße 1, 13355 Berlin, Germany',
-  value: { lon: 13.38379, lat: 52.53885 },
-};
+describe('Location Editor', () => {
+  const LOCATION = {
+    address: 'Max-Urich-Straße 1, 13355 Berlin, Germany',
+    value: { lon: 13.38381, lat: 52.53885 },
+  };
 
-// eslint-disable-next-line
-describe.skip('Location Editor', () => {
   const selectors = {
     getAddressRadio: () => {
       return cy.findByTestId('location-editor-address-radio').find('input');
@@ -64,32 +59,31 @@ describe.skip('Location Editor', () => {
     cy.editorEvents().should('deep.equal', []);
   });
 
-  // TODO: Why are we skipping this test?
-  // eslint-disable-next-line mocha/no-skipped-tests
-  it.skip('should set value after latitude and longitude change', () => {
+  it('should set value after latitude and longitude change', () => {
+    cy.mockGoogleMapsResponse(require('../fixtures/maps-by-coordinates.json'));
     cy.editorEvents().should('deep.equal', []);
 
     selectors.getCoordinatesRadio().click();
 
-    selectors.getLatitudeInput().type(LOCATION_1.value.lat.toString(), { delay: 0 });
+    selectors.getLatitudeInput().type(LOCATION.value.lat.toString(), { delay: 0 });
     cy.wait(500);
 
     cy.editorEvents().should('deep.equal', [
-      { id: 2, type: 'onValueChanged', value: { lon: 0, lat: LOCATION_1.value.lat } },
-      { id: 1, type: 'setValue', value: { lon: 0, lat: LOCATION_1.value.lat } },
+      { id: 2, type: 'onValueChanged', value: { lon: 0, lat: LOCATION.value.lat } },
+      { id: 1, type: 'setValue', value: { lon: 0, lat: LOCATION.value.lat } },
     ]);
 
-    selectors.getLongitudeInput().type(LOCATION_1.value.lon.toString(), { delay: 0 });
+    selectors.getLongitudeInput().type(LOCATION.value.lon.toString(), { delay: 0 });
 
     selectors.getAddressRadio().click();
     cy.wait(500);
 
-    selectors.getSearchInput().should('have.value', LOCATION_1.address);
+    selectors.getSearchInput().should('have.value', LOCATION.address);
 
     cy.editorEvents().should('have.length', 4);
     cy.editorEvents(2).should('deep.equal', [
-      { id: 4, type: 'onValueChanged', value: LOCATION_1.value },
-      { id: 3, type: 'setValue', value: LOCATION_1.value },
+      { id: 4, type: 'onValueChanged', value: LOCATION.value },
+      { id: 3, type: 'setValue', value: LOCATION.value },
     ]);
 
     selectors.getSearchInput().clear();
@@ -104,21 +98,22 @@ describe.skip('Location Editor', () => {
   });
 
   it('should set value after using search input', () => {
+    cy.mockGoogleMapsResponse(require('../fixtures/maps-by-address.json'));
     cy.editorEvents().should('deep.equal', []);
 
-    selectors.getSearchInput().type(LOCATION_2.address);
+    selectors.getSearchInput().type(LOCATION.address);
     cy.wait(1000);
     selectors.getLocationSuggestion().click();
     cy.wait(500);
 
     selectors.getCoordinatesRadio().click();
 
-    selectors.getLatitudeInput().should('have.value', LOCATION_2.value.lat.toString());
-    selectors.getLongitudeInput().should('have.value', LOCATION_2.value.lon.toString());
+    selectors.getLatitudeInput().should('have.value', LOCATION.value.lat.toString());
+    selectors.getLongitudeInput().should('have.value', LOCATION.value.lon.toString());
 
     cy.editorEvents().should('deep.equal', [
-      { id: 2, type: 'onValueChanged', value: LOCATION_2.value },
-      { id: 1, type: 'setValue', value: LOCATION_2.value },
+      { id: 2, type: 'onValueChanged', value: LOCATION.value },
+      { id: 1, type: 'setValue', value: LOCATION.value },
     ]);
 
     selectors.getAddressRadio().click();
