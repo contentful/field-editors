@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.8](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.0.7...@contentful/default-field-editors@1.0.8) (2021-11-27)
+
+### Bug Fixes
+
+- correctly determine default widget ([#943](https://github.com/contentful/field-editors/issues/943)) ([4816929](https://github.com/contentful/field-editors/commit/4816929b33348f89a1eb8af9b1a5fe9fc5b98743))
+
 ## [1.0.7](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.0.6...@contentful/default-field-editors@1.0.7) (2021-11-26)
 
 **Note:** Version bump only for package @contentful/default-field-editors
