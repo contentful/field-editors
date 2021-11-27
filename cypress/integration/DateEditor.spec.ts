@@ -7,13 +7,13 @@ describe('Date Editor', () => {
       return cy.findByTestId('date-input');
     },
     getTimeInput: () => {
-      return cy.queryByTestId('time-input');
+      return cy.findByTestId('time-input');
     },
     getTimezoneInput: () => {
-      return cy.queryByTestId('timezone-input');
+      return cy.findByTestId('timezone-input');
     },
     getClearBtn: () => {
-      return cy.queryByTestId('date-clear');
+      return cy.findByTestId('date-clear');
     },
     getCalendar: () => {
       return cy.get('.pika-lendar');
@@ -60,7 +60,7 @@ describe('Date Editor', () => {
       selectors.getDateInput().should('be.disabled');
       selectors.getTimeInput().should('be.disabled');
       selectors.getTimezoneInput().should('be.disabled');
-      selectors.getClearBtn().should('not.be.visible');
+      selectors.getClearBtn().should('not.exist');
     });
   });
 
@@ -97,7 +97,7 @@ describe('Date Editor', () => {
       selectors.getCalendarYear().should('have.value', year.toString());
       selectors.getCalendarMonth().should('have.value', month.toString());
       selectors.getCalendarTodayDate().should('have.text', date.toString());
-      selectors.getCalendarSelectedDate().should('not.be.visible');
+      selectors.getCalendarSelectedDate().should('not.exist');
     });
 
     it('correct actions are called when user interacts with editor', () => {
@@ -118,7 +118,7 @@ describe('Date Editor', () => {
       selectors.getDateInput().should('have.value', '');
       selectors.getTimeInput().should('have.value', '00:00');
       selectors.getTimezoneInput().should('have.value', '+00:00');
-      selectors.getClearBtn().should('not.be.visible');
+      selectors.getClearBtn().should('not.exist');
 
       cy.editorEvents().should('deep.equal', [
         { id: 6, type: 'onValueChanged', value: undefined },
@@ -181,7 +181,7 @@ describe('Date Editor', () => {
 
       selectors.getDateInput().should('have.value', 'Wednesday, January 3rd 1990');
       selectors.getTimeInput().should('have.value', '10:53 PM');
-      selectors.getTimezoneInput().should('not.be.visible');
+      selectors.getTimezoneInput().should('not.exist');
 
       selectors.getDateInput().click();
 
@@ -225,7 +225,7 @@ describe('Date Editor', () => {
 
       selectors.getDateInput().should('have.value', '');
       selectors.getTimeInput().should('have.value', '12:00 AM');
-      selectors.getClearBtn().should('not.be.visible');
+      selectors.getClearBtn().should('not.exist');
 
       cy.editorEvents().should('deep.equal', [
         { id: 6, type: 'onValueChanged', value: undefined },
@@ -266,8 +266,8 @@ describe('Date Editor', () => {
       openPage();
 
       selectors.getDateInput().should('have.value', 'Wednesday, January 3rd 1990');
-      selectors.getTimeInput().should('not.be.visible');
-      selectors.getTimezoneInput().should('not.be.visible');
+      selectors.getTimeInput().should('not.exist');
+      selectors.getTimezoneInput().should('not.exist');
 
       selectors.getDateInput().click();
 
@@ -290,7 +290,7 @@ describe('Date Editor', () => {
       cy.tick(1000);
 
       selectors.getDateInput().should('have.value', '');
-      selectors.getClearBtn().should('not.be.visible');
+      selectors.getClearBtn().should('not.exist');
 
       cy.editorEvents().should('deep.equal', [
         { id: 4, type: 'onValueChanged', value: undefined },
