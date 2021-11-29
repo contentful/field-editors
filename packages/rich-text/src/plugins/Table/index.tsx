@@ -4,30 +4,27 @@ import * as Slate from 'slate-react';
 import tokens from '@contentful/f36-tokens';
 import { TableIcon } from '@contentful/f36-icons';
 import { ToolbarButton } from '../shared/ToolbarButton';
-import { BLOCKS, CONTAINERS, TableCell, TableHeaderCell } from '@contentful/rich-text-types';
+import { BLOCKS, TableCell, TableHeaderCell } from '@contentful/rich-text-types';
 import {
-  PlateEditor,
-  ELEMENT_TD,
-  ELEMENT_TR,
-  ELEMENT_TH,
-  ELEMENT_TABLE,
   createTablePlugin as createTablePluginFromUdecode,
+  ELEMENT_TABLE,
+  ELEMENT_TD,
+  ELEMENT_TH,
+  ELEMENT_TR,
   getTableOnKeyDown,
+  PlateEditor,
 } from '@udecode/plate';
-import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
-import { toContentfulDocument } from '@contentful/contentful-slatejs-adapter';
-
-import schema from '../../constants/Schema';
 import { TableActions } from './TableActions';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { CustomElement, CustomSlatePluginOptions } from '../../types';
-import { isTableActive, insertTableAndFocusFirstCell } from './helpers';
+import { insertTableAndFocusFirstCell, isTableActive } from './helpers';
 import { TrackingProvider, useTrackingContext } from '../../TrackingProvider';
-import { Element, Node, Text, Transforms } from 'slate';
+import { Editor, Transforms } from 'slate';
 import {
   currentSelectionPrecedesTableCell,
   currentSelectionStartsTableCell,
 } from '../../helpers/editor';
+import { createNormalizeNode } from './normalizer';
 
 const styles = {
   [BLOCKS.TABLE]: css`
@@ -42,6 +39,7 @@ const styles = {
   `,
   [BLOCKS.TABLE_ROW]: css`
     border: 1px solid ${tokens.gray400};
+
     &:hover td {
       background-color: transparent !important;
     }
@@ -54,6 +52,7 @@ const styles = {
     text-align: left;
     min-width: 48px;
     position: relative;
+
     div:last-child {
       margin-bottom: 0;
     }
@@ -63,15 +62,11 @@ const styles = {
     padding: 10px 12px;
     min-width: 48px;
     position: relative;
+
     div:last-child {
       margin-bottom: 0;
     }
   `,
-};
-
-const slateNodeToText = (node: CustomElement): string => {
-  const contentfulNode = toContentfulDocument({ document: [node], schema });
-  return documentToPlainTextString(contentfulNode);
 };
 
 export const Table = (props: Slate.RenderElementProps) => (
@@ -158,37 +153,6 @@ function addTableTrackingEvents(editor: PlateEditor, { onViewportAction }: Track
   };
 }
 
-const paragraph = () => ({ type: BLOCKS.PARAGRAPH, data: {}, children: [] });
-
-function addTableNormalization(editor) {
-  const { normalizeNode } = editor;
-
-  editor.normalizeNode = (entry) => {
-    const [node, path] = entry;
-
-    // TODO: This should be enforced by sanitizeSlateDoc() but the internal
-    // editor value can be different.
-    // cf. https://github.com/ianstormtaylor/slate/issues/2206
-    const cellTypes: string[] = [BLOCKS.TABLE_CELL, BLOCKS.TABLE_HEADER_CELL];
-    if (Element.isElement(node) && cellTypes.includes((node as CustomElement).type)) {
-      for (const [child, childPath] of Node.children(editor, path)) {
-        if (Text.isText(child)) {
-          Transforms.wrapNodes(editor, paragraph(), { at: childPath });
-        } else if (!CONTAINERS[node.type].includes(child.type)) {
-          const paragraphWithTextFromNode = {
-            ...paragraph(),
-            children: [{ text: slateNodeToText(child) }],
-          };
-          Transforms.removeNodes(editor, { at: childPath });
-          Transforms.insertNodes(editor, paragraphWithTextFromNode, { at: childPath });
-        }
-      }
-    }
-
-    normalizeNode(entry);
-  };
-}
-
 function hasTables(nodes: CustomElement[]) {
   return nodes.some(({ type }) => {
     return type === BLOCKS.TABLE;
@@ -196,6 +160,7 @@ function hasTables(nodes: CustomElement[]) {
 }
 
 const isTableHeaderCell = ({ type }) => type === BLOCKS.TABLE_HEADER_CELL;
+
 function hasHeadersOutsideFirstRow(nodes: CustomElement[]) {
   return nodes
     .filter(({ type }) => type === BLOCKS.TABLE)
@@ -206,7 +171,7 @@ function hasHeadersOutsideFirstRow(nodes: CustomElement[]) {
 function createWithTableEvents(tracking: TrackingProvider) {
   return function withTableEvents(editor: PlateEditor) {
     addTableTrackingEvents(editor, tracking);
-    addTableNormalization(editor);
+    editor.normalizeNode = createNormalizeNode(editor) as Editor['normalizeNode'];
     const handleKeyDownFromPlateUdecode = getTableOnKeyDown()(editor);
     return function handleKeyDown(event: React.KeyboardEvent) {
       if (
