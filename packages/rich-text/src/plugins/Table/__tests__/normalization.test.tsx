@@ -1,11 +1,9 @@
 /** @jsx jsx */
-import { jsx } from '@udecode/plate-test-utils';
 import { PlateEditor, createEditorPlugins } from '@udecode/plate';
 
+import { jsx } from '../../../test-utils';
 import { createTablePlugin } from '../index';
 import { TrackingProvider } from '../../../TrackingProvider';
-
-jsx;
 
 describe('Table normalizer', () => {
   let tracking: TrackingProvider;
@@ -16,6 +14,12 @@ describe('Table normalizer', () => {
       plugins: [createTablePlugin(tracking)],
     });
 
+  // A hack to invoke normalization because calling
+  // editor.normalizeNode([input, []]) doesn't work
+  const forceNormalize = (editor: PlateEditor) => {
+    editor.insertText(' ');
+  };
+
   beforeEach(() => {
     tracking = {
       onViewportAction: jest.fn(),
@@ -25,36 +29,32 @@ describe('Table normalizer', () => {
   it('removes nodes not wrapped in table-row', () => {
     const input = (
       <editor>
-        <htable>
-          <htr>
-            <htd>Cell 1</htd>
-            <htd>
-              Cell 22
-              <cursor />
-            </htd>
-          </htr>
-          <htd>Invalid Cell</htd>
+        <table>
+          <tr>
+            <td>Cell 1</td>
+            <td>Cell 2</td>
+          </tr>
+          <td>Invalid Cell</td>
           Invalid text
-        </htable>
+          <cursor />
+        </table>
       </editor>
     ) as any as PlateEditor;
 
     const expected = (
       <editor>
-        <htable>
-          <htr>
-            <htd>Cell 1</htd>
-            <htd>Cell 2</htd>
-          </htr>
-        </htable>
+        <table>
+          <tr>
+            <td>Cell 1</td>
+            <td>Cell 2</td>
+          </tr>
+        </table>
       </editor>
     ) as any as PlateEditor;
 
     const editor = createTestEditor(input);
 
-    // Calling normalizeNode directly doesn't work. Instead,
-    // we are implicitly doing so here
-    editor.deleteBackward('character');
+    forceNormalize(editor);
 
     expect(editor.children).toEqual(expected.children);
   });
