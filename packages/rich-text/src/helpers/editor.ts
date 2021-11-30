@@ -1,8 +1,9 @@
-import { Text, Editor, Element, Transforms, Path, Range, Node } from 'slate';
-import { BLOCKS, INLINES, TABLE_BLOCKS } from '@contentful/rich-text-types';
-import { CustomElement } from '../types';
-import { Link } from '@contentful/field-editor-reference/dist/types';
 import { PlateEditor, getText } from '@udecode/plate';
+import { BLOCKS, INLINES, TABLE_BLOCKS } from '@contentful/rich-text-types';
+import { Text, Editor, Element, Transforms, Path, Range, Node, Location } from 'slate';
+import { Link } from '@contentful/field-editor-reference/dist/types';
+
+import { CustomElement } from '../types';
 
 export const LINK_TYPES: INLINES[] = [
   INLINES.HYPERLINK,
@@ -285,3 +286,8 @@ export function currentSelectionPrecedesTableCell(editor: PlateEditor): boolean 
     !!nextNode && TABLE_BLOCKS.includes(nextNode.type as BLOCKS) && isAtEndOfTextSelection(editor)
   );
 }
+
+export const replaceNode = (editor: Editor, path: Location, content: Node) => {
+  Transforms.removeNodes(editor, { at: path });
+  Transforms.insertNodes(editor, content, { at: path });
+};

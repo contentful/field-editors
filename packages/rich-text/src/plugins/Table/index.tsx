@@ -19,12 +19,13 @@ import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { CustomElement, CustomSlatePluginOptions } from '../../types';
 import { insertTableAndFocusFirstCell, isTableActive } from './helpers';
 import { TrackingProvider, useTrackingContext } from '../../TrackingProvider';
-import { Editor, Transforms } from 'slate';
+import { Transforms } from 'slate';
 import {
   currentSelectionPrecedesTableCell,
   currentSelectionStartsTableCell,
 } from '../../helpers/editor';
-import { createNormalizeNode } from './normalizer';
+import { withNormalizer } from '../../helpers/normalizers';
+import { normalizeTable } from './normalizer';
 
 const styles = {
   [BLOCKS.TABLE]: css`
@@ -171,7 +172,9 @@ function hasHeadersOutsideFirstRow(nodes: CustomElement[]) {
 function createWithTableEvents(tracking: TrackingProvider) {
   return function withTableEvents(editor: PlateEditor) {
     addTableTrackingEvents(editor, tracking);
-    editor.normalizeNode = createNormalizeNode(editor) as Editor['normalizeNode'];
+
+    withNormalizer(editor, normalizeTable);
+
     const handleKeyDownFromPlateUdecode = getTableOnKeyDown()(editor);
     return function handleKeyDown(event: React.KeyboardEvent) {
       if (

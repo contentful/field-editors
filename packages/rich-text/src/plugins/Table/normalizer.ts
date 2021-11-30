@@ -1,25 +1,34 @@
+import { Element, Node, Text, Transforms } from 'slate';
 import { BLOCKS, CONTAINERS } from '@contentful/rich-text-types';
-import { Editor, Element, Location, Node, NodeEntry, Text, Transforms } from 'slate';
+import { toContentfulDocument } from '@contentful/contentful-slatejs-adapter';
+import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
+
 import { CustomElement } from '../../types';
 import schema from '../../constants/Schema';
-import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
-import { toContentfulDocument } from '@contentful/contentful-slatejs-adapter';
+import { replaceNode } from '../../helpers/editor';
+import { Normalizer } from '../../helpers/normalizers';
 
-const cellTypes: string[] = [BLOCKS.TABLE_CELL, BLOCKS.TABLE_HEADER_CELL];
-
-const paragraph = (children: any = []) => ({ type: BLOCKS.PARAGRAPH, data: {}, children });
-
-const replaceNode = (editor: Editor, path: Location, content: Node) => {
-  Transforms.removeNodes(editor, { at: path });
-  Transforms.insertNodes(editor, content, { at: path });
+const isTable = (node: CustomElement) => {
+  return node.type === BLOCKS.TABLE;
 };
 
+const isTableCell = (node: CustomElement) => {
+  return node.type === BLOCKS.TABLE_CELL || node.type === BLOCKS.TABLE_HEADER_CELL;
+};
+
+const paragraph = (children: Element['children'] = []) => ({
+  type: BLOCKS.PARAGRAPH,
+  data: {},
+  children,
+});
+
+// FIXME: to be replaced with a custom function later
 const slateNodeToText = (node: CustomElement): string => {
   const contentfulNode = toContentfulDocument({ document: [node], schema });
   return documentToPlainTextString(contentfulNode);
 };
 
-const normalizeTableCell = (editor: Editor, entry: NodeEntry<CustomElement>) => {
+const normalizeTableCell: Normalizer = (editor, entry) => {
   const [node, path] = entry;
 
   for (const [child, childPath] of Node.children(editor, path)) {
@@ -31,23 +40,20 @@ const normalizeTableCell = (editor: Editor, entry: NodeEntry<CustomElement>) => 
   }
 };
 
-export const createNormalizeNode = (editor: Editor) => {
-  const { normalizeNode } = editor;
-  return (entry: NodeEntry<CustomElement>) => {
-    const [node, path] = entry;
+export const normalizeTable: Normalizer = (editor, entry) => {
+  const [node, path] = entry;
 
-    // Wrap table cell children in paragraphs, convert invalid blocks to text
-    if (Element.isElement(node) && cellTypes.includes(node.type)) {
-      normalizeTableCell(editor, entry);
-    } else if (Element.isElement(node) && node.type === BLOCKS.TABLE) {
-      // Drop all invalid (not a Row) children of a Table node
-      for (const [child, childPath] of Node.children(editor, path)) {
-        if (Text.isText(child) || !CONTAINERS[BLOCKS.TABLE].includes(child.type as BLOCKS)) {
-          Transforms.removeNodes(editor, { at: childPath });
-        }
+  if (isTable(node)) {
+    // Drop all invalid (not a Row) children of a Table node
+    for (const [child, childPath] of Node.children(editor, path)) {
+      if (Text.isText(child) || !CONTAINERS[BLOCKS.TABLE].includes(child.type as BLOCKS)) {
+        Transforms.removeNodes(editor, { at: childPath });
       }
     }
+  }
 
-    normalizeNode(entry);
-  };
+  // Wrap table cell children in paragraphs, convert invalid blocks to text
+  if (isTableCell(node)) {
+    normalizeTableCell(editor, entry);
+  }
 };
