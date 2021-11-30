@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Element, Node, Text, Transforms } from 'slate';
 import { BLOCKS, CONTAINERS } from '@contentful/rich-text-types';
 import { toContentfulDocument } from '@contentful/contentful-slatejs-adapter';
@@ -45,15 +46,17 @@ export const normalizeTable: Normalizer = (editor, entry) => {
 
   if (isTable(node)) {
     // Drop all invalid (not a Row) children of a Table node
+
     for (const [child, childPath] of Node.children(editor, path)) {
       if (Text.isText(child) || !CONTAINERS[BLOCKS.TABLE].includes(child.type as BLOCKS)) {
         Transforms.removeNodes(editor, { at: childPath });
+        return true;
       }
     }
   }
 
   // Wrap table cell children in paragraphs, convert invalid blocks to text
-  if (isTableCell(node)) {
-    normalizeTableCell(editor, entry);
-  }
+  // if (isTableCell(node)) {
+  //   normalizeTableCell(editor, entry);
+  // }
 };

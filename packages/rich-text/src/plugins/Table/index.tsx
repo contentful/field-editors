@@ -173,8 +173,6 @@ function createWithTableEvents(tracking: TrackingProvider) {
   return function withTableEvents(editor: PlateEditor) {
     addTableTrackingEvents(editor, tracking);
 
-    withNormalizer(editor, normalizeTable);
-
     const handleKeyDownFromPlateUdecode = getTableOnKeyDown()(editor);
     return function handleKeyDown(event: React.KeyboardEvent) {
       if (
@@ -198,6 +196,8 @@ export const createTablePlugin = (tracking: TrackingProvider) => ({
   onKeyDown: createWithTableEvents(tracking),
   withOverrides: (editor) => {
     const { insertFragment } = editor;
+
+    withNormalizer(editor, normalizeTable);
 
     editor.insertFragment = (fragments) => {
       // We need to make sure we have a new, empty and clean paragraph in order to paste tables as-is due to how Slate behaves

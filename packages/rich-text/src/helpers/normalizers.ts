@@ -2,16 +2,24 @@ import { Editor, NodeEntry, Element } from 'slate';
 
 import { CustomElement } from '../types';
 
-export type Normalizer = (editor: Editor, entry: NodeEntry<CustomElement>) => void;
+export type Normalizer = (editor: Editor, entry: NodeEntry<CustomElement>) => boolean | undefined;
 
 export const withNormalizer = (editor: Editor, handler: Normalizer) => {
   const { normalizeNode } = editor;
 
   editor.normalizeNode = (entry) => {
-    if (Element.isElement(entry)) {
-      handler(editor, entry as NodeEntry<CustomElement>);
+    const [node] = entry;
+
+    // throw new Error(JSON.stringify(entry, null, 2));
+    // console.log(JSON.stringify(entry, null, 2));
+
+    let shouldExitEarly = false;
+    if (Element.isElement(node)) {
+      shouldExitEarly = !!handler(editor, entry as NodeEntry<CustomElement>);
     }
 
-    normalizeNode(entry);
+    if (!shouldExitEarly) {
+      normalizeNode(entry);
+    }
   };
 };
