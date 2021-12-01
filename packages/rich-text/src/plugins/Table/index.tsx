@@ -175,8 +175,10 @@ function addTableNormalization(editor) {
         if (Text.isText(child)) {
           Transforms.wrapNodes(editor, paragraph(), { at: childPath });
         } else if (!CONTAINERS[node.type].includes(child.type)) {
-          const text = slateNodeToText(child);
-          const paragraphWithTextFromNode = { ...paragraph(), children: [{ text }] };
+          const paragraphWithTextFromNode = {
+            ...paragraph(),
+            children: [{ text: slateNodeToText(child) }],
+          };
           Transforms.removeNodes(editor, { at: childPath });
           Transforms.insertNodes(editor, paragraphWithTextFromNode, { at: childPath });
         }
