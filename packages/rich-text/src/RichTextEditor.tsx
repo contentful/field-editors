@@ -9,37 +9,7 @@ import schema from './constants/Schema';
 import deepEquals from 'fast-deep-equal';
 import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/StickyToolbarWrapper';
-import { createPastePlugin } from './plugins/Paste';
-import { createListPlugin, withListOptions } from './plugins/List';
-import {
-  Plate,
-  createHistoryPlugin,
-  createReactPlugin,
-  createDeserializeAstPlugin,
-  createDeserializeHTMLPlugin,
-} from '@udecode/plate';
-import { createHrPlugin, withHrOptions } from './plugins/Hr';
-import { withHeadingOptions, createHeadingPlugin } from './plugins/Heading';
-import { createBoldPlugin, withBoldOptions } from './plugins/Bold';
-import { withCodeOptions, createCodePlugin } from './plugins/Code';
-import { withItalicOptions, createItalicPlugin } from './plugins/Italic';
-import { createUnderlinePlugin, withUnderlineOptions } from './plugins/Underline';
-import { createParagraphPlugin, withParagraphOptions } from './plugins/Paragraph';
-import { createQuotePlugin, withQuoteOptions } from './plugins/Quote';
-import { createNewLinePlugin } from './plugins/NewLine';
-import { createInsertBeforeFirstVoidBlockPlugin } from './plugins/InsertBeforeFirstVoidBlock';
-import { createTablePlugin, withTableOptions } from './plugins/Table';
-import { createHyperlinkPlugin, withHyperlinkOptions } from './plugins/Hyperlink';
-import {
-  createEmbeddedAssetBlockPlugin,
-  createEmbeddedEntryBlockPlugin,
-  withEmbeddedAssetBlockOptions,
-  withEmbeddedEntryBlockOptions,
-} from './plugins/EmbeddedEntityBlock';
-import {
-  createEmbeddedEntityInlinePlugin,
-  withEmbeddedEntityInlineOptions,
-} from './plugins/EmbeddedEntityInline';
+import { Plate } from '@udecode/plate';
 import { SdkProvider } from './SdkProvider';
 import {
   RichTextTrackingActionHandler,
@@ -51,9 +21,7 @@ import { TextOrCustomElement } from './types';
 import { ContentfulEditorProvider, getContentfulEditorId } from './ContentfulEditorProvider';
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { FieldConnector } from '@contentful/field-editor-shared';
-import { createTrailingParagraphPlugin } from './plugins/TrailingParagraph';
-import { createDragAndDropPlugin } from './plugins/DragAndDrop';
-import { createTextPlugin } from './plugins/Text';
+import { getPlugins, pluginOptions } from './plugins';
 
 type ConnectedProps = {
   sdk: FieldExtensionSDK;
@@ -66,72 +34,6 @@ type ConnectedProps = {
   actionsDisabled?: boolean;
 };
 
-const getPlugins = (sdk: FieldExtensionSDK, tracking: TrackingProvider) => {
-  const plugins = [
-    // Core
-    createReactPlugin(),
-    createHistoryPlugin(),
-
-    // Behavior
-    createPastePlugin(),
-
-    // Global shortcuts
-    createNewLinePlugin(),
-    createInsertBeforeFirstVoidBlockPlugin(),
-    createDragAndDropPlugin(),
-
-    // Block Elements
-    createParagraphPlugin(),
-    createListPlugin(),
-    createHrPlugin(),
-    createHeadingPlugin(),
-    createQuotePlugin(),
-    createTablePlugin(tracking),
-    createEmbeddedEntryBlockPlugin(sdk),
-    createEmbeddedAssetBlockPlugin(sdk),
-
-    // Inline elements
-    createHyperlinkPlugin(sdk),
-    createEmbeddedEntityInlinePlugin(sdk),
-
-    // Marks
-    createBoldPlugin(),
-    createCodePlugin(),
-    createItalicPlugin(),
-    createUnderlinePlugin(),
-
-    // Other
-    createTrailingParagraphPlugin(),
-    createTextPlugin(),
-  ];
-
-  return plugins.concat([
-    createDeserializeHTMLPlugin({ plugins }),
-    createDeserializeAstPlugin({ plugins }),
-  ] as any);
-};
-
-const options = {
-  // Block elements
-  ...withParagraphOptions,
-  ...withListOptions,
-  ...withHrOptions,
-  ...withHeadingOptions,
-  ...withQuoteOptions,
-  ...withTableOptions,
-  ...withEmbeddedEntryBlockOptions,
-  ...withEmbeddedAssetBlockOptions,
-
-  // Inline elements
-  ...withHyperlinkOptions,
-  ...withEmbeddedEntityInlineOptions,
-
-  // Marks
-  ...withBoldOptions,
-  ...withCodeOptions,
-  ...withItalicOptions,
-  ...withUnderlineOptions,
-};
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const tracking = useTrackingContext();
 
@@ -170,7 +72,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
           props.onChange?.(contentfulDoc);
         }}
         // @ts-expect-error
-        options={options}>
+        options={pluginOptions}>
         {!props.isToolbarHidden && (
           <StickyToolbarWrapper isDisabled={props.isDisabled}>
             <Toolbar isDisabled={props.isDisabled} />

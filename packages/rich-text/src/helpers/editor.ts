@@ -296,7 +296,7 @@ export const replaceNode = (editor: Editor, path: Location, replacement: Node | 
 /**
  * It filters out all paragraphs and headings from a path and convert them into paragraphs.
  */
-export function slateNodeEntryToText(editor: PlateEditor, path: Path): CustomElement[] {
+export function getTextAt(editor: PlateEditor, path: Path): CustomElement[] {
   const paragraphs: CustomElement[] = Array.from(
     Editor.nodes<CustomElement>(editor, {
       at: path,

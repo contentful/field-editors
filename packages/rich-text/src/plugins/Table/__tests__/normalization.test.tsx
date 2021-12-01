@@ -1,22 +1,13 @@
 /** @jsx jsx */
-import { createEditorPlugins } from '@udecode/plate';
-
-import { jsx } from '../../../test-utils';
-import { createTablePlugin } from '../index';
-import { TrackingProvider } from '../../../TrackingProvider';
 import { Editor } from 'slate';
 
+import { jsx, createTestEditor } from '../../../test-utils';
+
 describe('Table normalizers', () => {
-  let tracking: TrackingProvider;
-
-  const createTestEditor = (input: any) =>
-    createEditorPlugins({
-      editor: input,
-      plugins: [createTablePlugin(tracking)],
-    });
-
   const assertOutput = (input: any, expected: any) => {
-    const editor = createTestEditor(input);
+    const editor = createTestEditor({
+      input,
+    });
 
     // A hack to force normalization since calling
     // editor.normalizeNode([input, []]) doesn't work
@@ -27,12 +18,6 @@ describe('Table normalizers', () => {
 
     expect(editor.children).toEqual(expected.children);
   };
-
-  beforeEach(() => {
-    tracking = {
-      onViewportAction: jest.fn(),
-    };
-  });
 
   it('removes nodes not wrapped in table-row', () => {
     const input = (
@@ -51,6 +36,7 @@ describe('Table normalizers', () => {
           </td>
           invalid text
         </table>
+        <p />
       </editor>
     );
     const expected = (
@@ -65,6 +51,7 @@ describe('Table normalizers', () => {
             </td>
           </tr>
         </table>
+        <p />
       </editor>
     );
 
@@ -88,6 +75,7 @@ describe('Table normalizers', () => {
             </td>
           </tr>
         </table>
+        <p />
       </editor>
     );
 
@@ -104,6 +92,7 @@ describe('Table normalizers', () => {
             </td>
           </tr>
         </table>
+        <p />
       </editor>
     );
 
