@@ -1,5 +1,6 @@
 import get from 'lodash/get';
 import isObject from 'lodash/isObject';
+import { toExternal } from '@contentful/hostname-transformer';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Asset = any;
@@ -56,10 +57,18 @@ function makeAssetLink(
       get(asset, ['fields', 'title', defaultLocaleCode]) ||
       fileNameToTitle(file.fileName);
 
+    const assetDomainMap = {
+      images: 'images.ctfassets.net',
+      assets: 'assets.ctfassets.net',
+      downloads: 'downloads.ctfassets.net',
+      videos: 'videos.ctfassets.net',
+    };
+    const fileUrl = toExternal(file.url, assetDomainMap);
+
     return {
       title,
       asset,
-      url: file.url,
+      url: fileUrl,
       // is normally localized and we should not warn about this file
       isLocalized: Boolean(localizedFile),
       // was fallback value used
@@ -67,7 +76,7 @@ function makeAssetLink(
       // it means we used a default locale - we filter empty values
       isFallback: Boolean(fallbackFile),
       // todo: tranform using fromHostname
-      asMarkdown: `![${title}](${file.url})`,
+      asMarkdown: `![${title}](${fileUrl})`,
     };
   } else {
     return null;

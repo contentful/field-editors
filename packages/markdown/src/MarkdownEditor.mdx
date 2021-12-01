@@ -14,6 +14,8 @@ import { Notification } from '@contentful/f36-components';
 import { MarkdownEditorConnected as MarkdownEditor } from './MarkdownEditor';
 import { openMarkdownDialog } from './dialogs/openMarkdownDialog'
 import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
+import newAsset from '../../reference/src/__fixtures__/new_asset.json';
+import publishedAsset from '../../reference/src/__fixtures__/published_asset.json';
 
 ## In Action
 
@@ -40,7 +42,9 @@ import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-
       dialogs: {
         openCurrent: openMarkdownDialog(sdk),
         selectMultipleAssets: () => {
-          alert('select multiple assets dialog')
+          alert('select multiple assets dialog');
+
+          return [publishedAsset];
         }
       },
       notifier: {
@@ -48,8 +52,12 @@ import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-
         error: (text) => Notification.error(text)
       },
       navigator: {
-        openNewAsset: () => {
+        openNewAsset: async () => {
           alert('open new asset');
+
+          return {
+            entity: newAsset
+          }
         }
       },
       window: {
