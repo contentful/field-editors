@@ -1,4 +1,4 @@
-import { Element, Node, Transforms } from 'slate';
+import { Element, Node, Transforms, Editor } from 'slate';
 import { BLOCKS, CONTAINERS } from '@contentful/rich-text-types';
 import { toContentfulDocument } from '@contentful/contentful-slatejs-adapter';
 import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
@@ -6,7 +6,7 @@ import { documentToPlainTextString } from '@contentful/rich-text-plain-text-rend
 import { CustomElement } from '../../types';
 import schema from '../../constants/Schema';
 import { replaceNode } from '../../helpers/editor';
-import { Normalizer } from '../../helpers/normalizers';
+import { Normalizer, withNormalizer } from '../../helpers/normalizers';
 
 const isTable = (node: CustomElement) => {
   return node.type === BLOCKS.TABLE;
@@ -28,8 +28,15 @@ const slateNodeToText = (node: CustomElement): string => {
   return documentToPlainTextString(contentfulNode);
 };
 
+/**
+ * Normalizes TABLE_CELL & TABLE_HEADER_CELL nodes
+ */
 const normalizeTableCell: Normalizer = (editor, entry) => {
   const [node, path] = entry;
+
+  if (!isTableCell(node)) {
+    return true;
+  }
 
   for (const [child, childPath] of Node.children(editor, path)) {
     if (!Element.isElement(child)) {
@@ -47,30 +54,34 @@ const normalizeTableCell: Normalizer = (editor, entry) => {
   return true;
 };
 
-export const normalizeTable: Normalizer = (editor, entry) => {
+/**
+ * Normalizes TABLE nodes
+ */
+const normalizeTable: Normalizer = (editor, entry) => {
   const [node, path] = entry;
 
-  if (isTable(node)) {
-    // Drop all invalid (not a Row) children of a Table node
-    for (const [child, childPath] of Node.children(editor, path)) {
-      if (!Element.isElement(child)) {
-        continue;
-      }
+  if (!isTable(node)) {
+    return true;
+  }
 
-      const isValidTableChild = CONTAINERS[BLOCKS.TABLE].includes(child.type as BLOCKS);
+  // All direct children must be of type TABLE_ROW
+  for (const [child, childPath] of Node.children(editor, path)) {
+    if (!Element.isElement(child)) {
+      continue;
+    }
 
-      if (!isValidTableChild) {
-        Transforms.removeNodes(editor, { at: childPath });
-        return;
-      }
+    const isValidTableChild = CONTAINERS[BLOCKS.TABLE].includes(child.type as BLOCKS);
+
+    if (!isValidTableChild) {
+      Transforms.removeNodes(editor, { at: childPath });
+      return;
     }
   }
 
-  // Wrap table cell children in paragraphs, convert invalid blocks to text
-  if (isTableCell(node)) {
-    normalizeTableCell(editor, entry);
-    return;
-  }
-
   return true;
+};
+
+export const addTableNormalizers = (editor: Editor) => {
+  withNormalizer(editor, normalizeTable);
+  withNormalizer(editor, normalizeTableCell);
 };

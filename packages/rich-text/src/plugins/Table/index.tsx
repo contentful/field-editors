@@ -24,8 +24,7 @@ import {
   currentSelectionPrecedesTableCell,
   currentSelectionStartsTableCell,
 } from '../../helpers/editor';
-import { withNormalizer } from '../../helpers/normalizers';
-import { normalizeTable } from './normalizer';
+import { addTableNormalizers } from './normalizers';
 
 const styles = {
   [BLOCKS.TABLE]: css`
@@ -197,7 +196,7 @@ export const createTablePlugin = (tracking: TrackingProvider) => ({
   withOverrides: (editor) => {
     const { insertFragment } = editor;
 
-    withNormalizer(editor, normalizeTable);
+    addTableNormalizers(editor);
 
     editor.insertFragment = (fragments) => {
       // We need to make sure we have a new, empty and clean paragraph in order to paste tables as-is due to how Slate behaves

@@ -287,7 +287,7 @@ export function currentSelectionPrecedesTableCell(editor: PlateEditor): boolean 
   );
 }
 
-export const replaceNode = (editor: Editor, path: Location, content: Node) => {
+export const replaceNode = (editor: Editor, path: Location, replacement: Node) => {
   Transforms.removeNodes(editor, { at: path });
-  Transforms.insertNodes(editor, content, { at: path });
+  Transforms.insertNodes(editor, replacement, { at: path });
 };
