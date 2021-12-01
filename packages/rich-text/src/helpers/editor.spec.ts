@@ -1,6 +1,6 @@
 import { createEditor as createSlateEditor } from '@udecode/plate-test-utils';
 import { PlateEditor } from '@udecode/plate';
-import { NodeEntry } from 'slate';
+import { Path } from 'slate';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { slateNodeEntryToText } from './editor';
 import { CustomElement } from '../types';
@@ -29,6 +29,50 @@ const buildParagraph = (children: TextOrInline[] = []) => ({
   children: children.map((child) => ({ data: {}, ...child })),
 });
 const paragraph = (text = '', marks = {}) => buildParagraph([{ text, ...marks }]);
+
+type List = BLOCKS.OL_LIST | BLOCKS.UL_LIST;
+const buildList = (
+  type: List = BLOCKS.UL_LIST,
+  secondType: List = BLOCKS.UL_LIST
+): CustomElement => ({
+  data: {},
+  isVoid: false,
+  type,
+  children: [
+    {
+      data: {},
+      isVoid: false,
+      type: BLOCKS.LIST_ITEM,
+      children: [
+        {
+          type: secondType,
+          isVoid: false,
+          data: {},
+          children: [
+            {
+              data: {},
+              isVoid: false,
+              type: BLOCKS.LIST_ITEM,
+              children: [paragraph('text 1')],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      data: {},
+      isVoid: false,
+      type: BLOCKS.LIST_ITEM,
+      children: [paragraph('text 2')],
+    },
+    {
+      data: {},
+      isVoid: false,
+      type: BLOCKS.LIST_ITEM,
+      children: [paragraph('text 3')],
+    },
+  ],
+});
 
 describe('slateNodeEntryToText', () => {
   it('table', () => {
@@ -78,9 +122,9 @@ describe('slateNodeEntryToText', () => {
       ],
     };
     const editor = createEditor([table]);
-    const entry: NodeEntry = [table, [0]];
+    const path: Path = [0];
 
-    expect(slateNodeEntryToText(editor, entry)).toEqual([
+    expect(slateNodeEntryToText(editor, path)).toEqual([
       paragraph('header 1'),
       paragraph('header 2'),
       paragraph('cell 1'),
@@ -96,55 +140,17 @@ describe('slateNodeEntryToText', () => {
       children: [paragraph('text 1'), paragraph('text 2')],
     };
     const editor = createEditor([blockquote]);
-    const entry: NodeEntry = [blockquote, [0]];
+    const path: Path = [0];
 
-    expect(slateNodeEntryToText(editor, entry)).toEqual([paragraph('text 1'), paragraph('text 2')]);
+    expect(slateNodeEntryToText(editor, path)).toEqual([paragraph('text 1'), paragraph('text 2')]);
   });
 
   it('list - UL', () => {
-    const ul: CustomElement = {
-      data: {},
-      isVoid: false,
-      type: BLOCKS.UL_LIST,
-      children: [
-        {
-          data: {},
-          isVoid: false,
-          type: BLOCKS.LIST_ITEM,
-          children: [
-            {
-              type: BLOCKS.UL_LIST,
-              isVoid: false,
-              data: {},
-              children: [
-                {
-                  data: {},
-                  isVoid: false,
-                  type: BLOCKS.LIST_ITEM,
-                  children: [paragraph('text 1')],
-                },
-              ],
-            },
-          ],
-        },
-        {
-          data: {},
-          isVoid: false,
-          type: BLOCKS.LIST_ITEM,
-          children: [paragraph('text 2')],
-        },
-        {
-          data: {},
-          isVoid: false,
-          type: BLOCKS.LIST_ITEM,
-          children: [paragraph('text 3')],
-        },
-      ],
-    };
+    const ul: CustomElement = buildList(BLOCKS.UL_LIST, BLOCKS.OL_LIST);
     const editor = createEditor([ul]);
-    const entry: NodeEntry = [ul, [0]];
+    const path: Path = [0];
 
-    expect(slateNodeEntryToText(editor, entry)).toEqual([
+    expect(slateNodeEntryToText(editor, path)).toEqual([
       paragraph('text 1'),
       paragraph('text 2'),
       paragraph('text 3'),
@@ -152,49 +158,11 @@ describe('slateNodeEntryToText', () => {
   });
 
   it('list - OL', () => {
-    const ol: CustomElement = {
-      data: {},
-      isVoid: false,
-      type: BLOCKS.OL_LIST,
-      children: [
-        {
-          data: {},
-          isVoid: false,
-          type: BLOCKS.LIST_ITEM,
-          children: [
-            {
-              type: BLOCKS.OL_LIST,
-              isVoid: false,
-              data: {},
-              children: [
-                {
-                  data: {},
-                  isVoid: false,
-                  type: BLOCKS.LIST_ITEM,
-                  children: [paragraph('text 1')],
-                },
-              ],
-            },
-          ],
-        },
-        {
-          data: {},
-          isVoid: false,
-          type: BLOCKS.LIST_ITEM,
-          children: [paragraph('text 2')],
-        },
-        {
-          data: {},
-          isVoid: false,
-          type: BLOCKS.LIST_ITEM,
-          children: [paragraph('text 3')],
-        },
-      ],
-    };
+    const ol: CustomElement = buildList(BLOCKS.OL_LIST, BLOCKS.UL_LIST);
     const editor = createEditor([ol]);
-    const entry: NodeEntry = [ol, [0]];
+    const path: Path = [0];
 
-    expect(slateNodeEntryToText(editor, entry)).toEqual([
+    expect(slateNodeEntryToText(editor, path)).toEqual([
       paragraph('text 1'),
       paragraph('text 2'),
       paragraph('text 3'),
@@ -212,9 +180,9 @@ describe('slateNodeEntryToText', () => {
       ],
     };
     const editor = createEditor([element]);
-    const entry: NodeEntry = [element, [0]];
+    const path: Path = [0];
 
-    expect(slateNodeEntryToText(editor, entry)).toEqual([
+    expect(slateNodeEntryToText(editor, path)).toEqual([
       paragraph('text 1', { bold: true, italic: true }),
       paragraph('text 2', { underline: true, code: true }),
     ]);
@@ -237,9 +205,9 @@ describe('slateNodeEntryToText', () => {
       children: [paragraphWithLink, paragraph('text 2')],
     };
     const editor = createEditor([element]);
-    const entry: NodeEntry = [element, [0]];
+    const path: Path = [0];
 
-    expect(slateNodeEntryToText(editor, entry)).toEqual([paragraphWithLink, paragraph('text 2')]);
+    expect(slateNodeEntryToText(editor, path)).toEqual([paragraphWithLink, paragraph('text 2')]);
   });
 
   it('should preserve embedded inline entries', () => {
@@ -259,9 +227,9 @@ describe('slateNodeEntryToText', () => {
       children: [paragraphWithEmbedded, paragraph('text 2')],
     };
     const editor = createEditor([element]);
-    const entry: NodeEntry = [element, [0]];
+    const path: Path = [0];
 
-    expect(slateNodeEntryToText(editor, entry)).toEqual([
+    expect(slateNodeEntryToText(editor, path)).toEqual([
       paragraphWithEmbedded,
       paragraph('text 2'),
     ]);

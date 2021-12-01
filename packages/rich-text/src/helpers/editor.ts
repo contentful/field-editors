@@ -1,13 +1,4 @@
-import {
-  Text,
-  Editor,
-  Element,
-  Transforms,
-  Path,
-  Range,
-  Node,
-  NodeEntry as SlateNodeEntry,
-} from 'slate';
+import { Text, Editor, Element, Transforms, Path, Range, Node } from 'slate';
 import { BLOCKS, INLINES, TABLE_BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
 import { CustomElement } from '../types';
 import { Link } from '@contentful/field-editor-reference/dist/types';
@@ -296,14 +287,9 @@ export function currentSelectionPrecedesTableCell(editor: PlateEditor): boolean 
 }
 
 /**
- * It filters out all paragraphs and headings from a node entry (node + path) based on its path and convert them into paragraphs.
+ * It filters out all paragraphs and headings from a path and convert them into paragraphs.
  */
-export function slateNodeEntryToText(
-  editor: PlateEditor,
-  nodeEntry: SlateNodeEntry
-): CustomElement[] {
-  const [, path] = nodeEntry;
-
+export function slateNodeEntryToText(editor: PlateEditor, path: Path): CustomElement[] {
   const paragraphs: CustomElement[] = Array.from(
     Editor.nodes<CustomElement>(editor, {
       at: path,
