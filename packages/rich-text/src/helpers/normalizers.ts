@@ -20,13 +20,13 @@ export const withNormalizer = (editor: Editor, handler: Normalizer) => {
   editor.normalizeNode = (entry) => {
     const [node] = entry;
 
-    let shouldExitEarly = false;
+    let passed = false;
 
     if (Element.isElement(node)) {
-      shouldExitEarly = handler(editor, entry as NodeEntry<CustomElement>) !== true;
+      passed = handler(editor, entry as NodeEntry<CustomElement>) === true;
     }
 
-    if (!shouldExitEarly) {
+    if (passed) {
       normalizeNode(entry);
     }
   };
