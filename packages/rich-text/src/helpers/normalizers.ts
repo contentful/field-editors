@@ -1,8 +1,12 @@
-import { Editor, NodeEntry, Element } from 'slate';
+import { NodeEntry, Element } from 'slate';
+import { PlateEditor } from '@udecode/plate-core';
 
 import { CustomElement } from '../types';
 
-export type Normalizer = (editor: Editor, entry: NodeEntry<CustomElement>) => boolean | undefined;
+export type Normalizer = (
+  editor: PlateEditor,
+  entry: NodeEntry<CustomElement>
+) => boolean | undefined;
 
 /**
  * Injects a custom element normalization handler.
@@ -14,7 +18,7 @@ export type Normalizer = (editor: Editor, entry: NodeEntry<CustomElement>) => bo
  * Important read:
  * https://docs.slatejs.org/concepts/11-normalizing#multi-pass-normalizing
  */
-export const withNormalizer = (editor: Editor, handler: Normalizer) => {
+export const withNormalizer = (editor: PlateEditor, handler: Normalizer) => {
   const { normalizeNode } = editor;
 
   editor.normalizeNode = (entry) => {

@@ -82,7 +82,7 @@ describe('Table normalizers', () => {
             <td>
               <p>Cell 2</p>
               <blockquote>
-                quote
+                <p>quote</p>
                 <cursor />
               </blockquote>
             </td>
