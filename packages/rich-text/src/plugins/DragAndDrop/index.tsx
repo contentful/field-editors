@@ -1,13 +1,14 @@
-import { Editor } from 'slate';
-import { getNodes, PlatePlugin } from '@udecode/plate';
-import { BLOCKS, INLINES } from '@contentful/rich-text-types';
+import { Node as SlateNode, Transforms, Editor } from 'slate';
+import { PlatePlugin, getNodes } from '@udecode/plate';
+import { BLOCKS, CONTAINERS, INLINES } from '@contentful/rich-text-types';
+
+import { CustomElement } from '../../types';
 
 export function createDragAndDropPlugin(): PlatePlugin {
   // Elements that don't allow other elements to be dragged into them and which callback should be used
-  // const DND_BLOCKED_ELEMENTS = {
-  //   [BLOCKS.TABLE]: Transforms.removeNodes,
-  //   [BLOCKS.QUOTE]: Transforms.liftNodes
-  // };
+  const DND_BLOCKED_ELEMENTS = {
+    [BLOCKS.QUOTE]: Transforms.liftNodes,
+  };
 
   const DRAGGABLE_TYPES: string[] = [
     BLOCKS.EMBEDDED_ENTRY,
@@ -29,30 +30,30 @@ export function createDragAndDropPlugin(): PlatePlugin {
       const { normalizeNode } = editor;
 
       editor.normalizeNode = (entry) => {
-        // const [node, path] = entry;
-        //
-        // Object.keys(DND_BLOCKED_ELEMENTS).forEach((blockedElementType) => {
-        //   const nodeType = (node as CustomElement).type;
-        //
-        //   if (SlateNode.isNode(node) && nodeType === blockedElementType) {
-        //     for (const [child, childPath] of SlateNode.children(editor, path)) {
-        //       const childType = (child as CustomElement).type;
-        //
-        //       if (!CONTAINERS[blockedElementType]) return;
-        //       if (!CONTAINERS[blockedElementType].includes(childType)) {
-        //         const callback = DND_BLOCKED_ELEMENTS[blockedElementType];
-        //         callback(editor, {
-        //           at: childPath,
-        //           match: (matchNode) =>
-        //             SlateNode.isNode(matchNode) &&
-        //             DRAGGABLE_TYPES.includes((matchNode as CustomElement).type),
-        //         });
-        //
-        //         return;
-        //       }
-        //     }
-        //   }
-        // });
+        const [node, path] = entry;
+
+        Object.keys(DND_BLOCKED_ELEMENTS).forEach((blockedElementType) => {
+          const nodeType = (node as CustomElement).type;
+
+          if (SlateNode.isNode(node) && nodeType === blockedElementType) {
+            for (const [child, childPath] of SlateNode.children(editor, path)) {
+              const childType = (child as CustomElement).type;
+
+              if (!CONTAINERS[blockedElementType]) return;
+              if (!CONTAINERS[blockedElementType].includes(childType)) {
+                const callback = DND_BLOCKED_ELEMENTS[blockedElementType];
+                callback(editor, {
+                  at: childPath,
+                  match: (matchNode) =>
+                    SlateNode.isNode(matchNode) &&
+                    DRAGGABLE_TYPES.includes((matchNode as CustomElement).type),
+                });
+
+                return;
+              }
+            }
+          }
+        });
 
         normalizeNode(entry);
       };
