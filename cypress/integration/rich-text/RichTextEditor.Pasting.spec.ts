@@ -82,5 +82,217 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         )
       );
     });
+
+    // Unskip when we fix the issue with pasting asset & entry hyperlinks
+    // eslint-disable-next-line
+    it.skip('pastes table & its inline elements correctly', () => {
+      richText.editor.click();
+
+      // What can I do with tables
+      // __________________________________________________________________________________
+      // | Property                             | Supported                               |
+      // |--------------------------------------|-----------------------------------------|
+      // | Adding and removing rows and columns | Yes                                     |
+      // | Table header                         | Yes, for rows and columns               |
+      // | Formatting options                   | Bold,italics,underline,code             |
+      // | Hyperlinks                           | URL, asset and entry                    |
+      // | Embed entries                        | Only inline entries [inline entry]      |
+      // | Copy & paste from other documents    | Yes, Eg. Google Docs, Jira, Confluence  |
+      //  --------------------------------------|-----------------------------------------
+      //  <empty paragraph>
+      //
+      richText.editor.paste({
+        'application/x-slate-fragment':
+          'JTVCJTdCJTIydHlwZSUyMiUzQSUyMnBhcmFncmFwaCUyMiUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydGV4dCUyMiUzQSUyMldoYXQlMjBjYW4lMjBJJTIwZG8lMjB3aXRoJTIwdGFibGVzJTIyJTJDJTIyZGF0YSUyMiUzQSU3QiU3RCU3RCU1RCUyQyUyMmlzVm9pZCUyMiUzQWZhbHNlJTJDJTIyZGF0YSUyMiUzQSU3QiU3RCU3RCUyQyU3QiUyMnR5cGUlMjIlM0ElMjJ0YWJsZSUyMiUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydHlwZSUyMiUzQSUyMnRhYmxlLXJvdyUyMiUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydHlwZSUyMiUzQSUyMnRhYmxlLWhlYWRlci1jZWxsJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0eXBlJTIyJTNBJTIycGFyYWdyYXBoJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0ZXh0JTIyJTNBJTIyUHJvcGVydHklMjIlN0QlNUQlN0QlNUQlN0QlMkMlN0IlMjJ0eXBlJTIyJTNBJTIydGFibGUtaGVhZGVyLWNlbGwlMjIlMkMlMjJjaGlsZHJlbiUyMiUzQSU1QiU3QiUyMnR5cGUlMjIlM0ElMjJwYXJhZ3JhcGglMjIlMkMlMjJjaGlsZHJlbiUyMiUzQSU1QiU3QiUyMnRleHQlMjIlM0ElMjJTdXBwb3J0ZWQlMjIlN0QlNUQlN0QlNUQlN0QlNUQlN0QlMkMlN0IlMjJ0eXBlJTIyJTNBJTIydGFibGUtcm93JTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0eXBlJTIyJTNBJTIydGFibGUtY2VsbCUyMiUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydHlwZSUyMiUzQSUyMnBhcmFncmFwaCUyMiUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydGV4dCUyMiUzQSUyMkFkZGluZyUyMGFuZCUyMHJlbW92aW5nJTIwcm93cyUyMGFuZCUyMGNvbHVtbnMlMjIlN0QlNUQlN0QlNUQlN0QlMkMlN0IlMjJ0eXBlJTIyJTNBJTIydGFibGUtY2VsbCUyMiUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydHlwZSUyMiUzQSUyMnBhcmFncmFwaCUyMiUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydGV4dCUyMiUzQSUyMlllcyUyMiU3RCU1RCU3RCU1RCU3RCU1RCU3RCUyQyU3QiUyMnR5cGUlMjIlM0ElMjJ0YWJsZS1yb3clMjIlMkMlMjJjaGlsZHJlbiUyMiUzQSU1QiU3QiUyMnR5cGUlMjIlM0ElMjJ0YWJsZS1jZWxsJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0eXBlJTIyJTNBJTIycGFyYWdyYXBoJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0ZXh0JTIyJTNBJTIyVGFibGUlMjBoZWFkZXIlMjIlN0QlNUQlN0QlNUQlN0QlMkMlN0IlMjJ0eXBlJTIyJTNBJTIydGFibGUtY2VsbCUyMiUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydHlwZSUyMiUzQSUyMnBhcmFncmFwaCUyMiUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydGV4dCUyMiUzQSUyMlllcyUyQyUyMGZvciUyMHJvd3MlMjBhbmQlMjBjb2x1bW5zJTIyJTdEJTVEJTdEJTVEJTdEJTVEJTdEJTJDJTdCJTIydHlwZSUyMiUzQSUyMnRhYmxlLXJvdyUyMiUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydHlwZSUyMiUzQSUyMnRhYmxlLWNlbGwlMjIlMkMlMjJjaGlsZHJlbiUyMiUzQSU1QiU3QiUyMnR5cGUlMjIlM0ElMjJwYXJhZ3JhcGglMjIlMkMlMjJjaGlsZHJlbiUyMiUzQSU1QiU3QiUyMnRleHQlMjIlM0ElMjJGb3JtYXR0aW5nJTIwb3B0aW9ucyUyMiU3RCU1RCU3RCU1RCU3RCUyQyU3QiUyMnR5cGUlMjIlM0ElMjJ0YWJsZS1jZWxsJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0eXBlJTIyJTNBJTIycGFyYWdyYXBoJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0ZXh0JTIyJTNBJTIyQm9sZCUyMiUyQyUyMmJvbGQlMjIlM0F0cnVlJTdEJTJDJTdCJTIydGV4dCUyMiUzQSUyMiUyQyUyMiU3RCUyQyU3QiUyMnRleHQlMjIlM0ElMjJpdGFsaWNzJTIyJTJDJTIyaXRhbGljJTIyJTNBdHJ1ZSU3RCUyQyU3QiUyMnRleHQlMjIlM0ElMjIlMkMlMjIlN0QlMkMlN0IlMjJ0ZXh0JTIyJTNBJTIydW5kZXJsaW5lJTIyJTJDJTIydW5kZXJsaW5lJTIyJTNBdHJ1ZSU3RCUyQyU3QiUyMnRleHQlMjIlM0ElMjIlMkMlMjIlN0QlMkMlN0IlMjJ0ZXh0JTIyJTNBJTIyY29kZSUyMiUyQyUyMmNvZGUlMjIlM0F0cnVlJTdEJTVEJTdEJTVEJTdEJTVEJTdEJTJDJTdCJTIydHlwZSUyMiUzQSUyMnRhYmxlLXJvdyUyMiUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydHlwZSUyMiUzQSUyMnRhYmxlLWNlbGwlMjIlMkMlMjJjaGlsZHJlbiUyMiUzQSU1QiU3QiUyMnR5cGUlMjIlM0ElMjJwYXJhZ3JhcGglMjIlMkMlMjJjaGlsZHJlbiUyMiUzQSU1QiU3QiUyMnRleHQlMjIlM0ElMjJIeXBlcmxpbmtzJTIyJTdEJTVEJTdEJTVEJTdEJTJDJTdCJTIydHlwZSUyMiUzQSUyMnRhYmxlLWNlbGwlMjIlMkMlMjJjaGlsZHJlbiUyMiUzQSU1QiU3QiUyMnR5cGUlMjIlM0ElMjJwYXJhZ3JhcGglMjIlMkMlMjJjaGlsZHJlbiUyMiUzQSU1QiU3QiUyMnRleHQlMjIlM0ElMjIlMjIlN0QlMkMlN0IlMjJ0eXBlJTIyJTNBJTIyaHlwZXJsaW5rJTIyJTJDJTIyZGF0YSUyMiUzQSU3QiUyMnVyaSUyMiUzQSUyMmh0dHBzJTNBJTJGJTJGZ29vZ2xlLmNvbSUyMiU3RCUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydGV4dCUyMiUzQSUyMlVSTCUyMiU3RCU1RCU3RCUyQyU3QiUyMnRleHQlMjIlM0ElMjIlMkMlMjAlMjIlN0QlMkMlN0IlMjJ0eXBlJTIyJTNBJTIyYXNzZXQtaHlwZXJsaW5rJTIyJTJDJTIyZGF0YSUyMiUzQSU3QiUyMnRhcmdldCUyMiUzQSU3QiUyMnN5cyUyMiUzQSU3QiUyMmlkJTIyJTNBJTIyZXhhbXBsZS1lbnRpdHktaWQlMjIlMkMlMjJ0eXBlJTIyJTNBJTIyTGluayUyMiUyQyUyMmxpbmtUeXBlJTIyJTNBJTIyQXNzZXQlMjIlN0QlN0QlN0QlMkMlMjJjaGlsZHJlbiUyMiUzQSU1QiU3QiUyMnRleHQlMjIlM0ElMjJhc3NldCUyMiU3RCU1RCU3RCUyQyU3QiUyMnRleHQlMjIlM0ElMjIlMjBhbmQlMjAlMjIlN0QlMkMlN0IlMjJ0eXBlJTIyJTNBJTIyZW50cnktaHlwZXJsaW5rJTIyJTJDJTIyZGF0YSUyMiUzQSU3QiUyMnRhcmdldCUyMiUzQSU3QiUyMnN5cyUyMiUzQSU3QiUyMmlkJTIyJTNBJTIyZXhhbXBsZS1lbnRpdHktaWQlMjIlMkMlMjJ0eXBlJTIyJTNBJTIyTGluayUyMiUyQyUyMmxpbmtUeXBlJTIyJTNBJTIyRW50cnklMjIlN0QlN0QlN0QlMkMlMjJjaGlsZHJlbiUyMiUzQSU1QiU3QiUyMnRleHQlMjIlM0ElMjJlbnRyeSUyMiU3RCU1RCU3RCUyQyU3QiUyMnRleHQlMjIlM0ElMjIlMjIlN0QlNUQlN0QlNUQlN0QlNUQlN0QlMkMlN0IlMjJ0eXBlJTIyJTNBJTIydGFibGUtcm93JTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0eXBlJTIyJTNBJTIydGFibGUtY2VsbCUyMiUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydHlwZSUyMiUzQSUyMnBhcmFncmFwaCUyMiUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydGV4dCUyMiUzQSUyMkVtYmVkJTIwZW50cmllcyUyMiU3RCU1RCU3RCU1RCU3RCUyQyU3QiUyMnR5cGUlMjIlM0ElMjJ0YWJsZS1jZWxsJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0eXBlJTIyJTNBJTIycGFyYWdyYXBoJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0ZXh0JTIyJTNBJTIyT25seSUyMGlubGluZSUyMGVudHJpZXMlMjAlMjIlN0QlMkMlN0IlMjJ0eXBlJTIyJTNBJTIyZW1iZWRkZWQtZW50cnktaW5saW5lJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0ZXh0JTIyJTNBJTIyJTIyJTdEJTVEJTJDJTIyZGF0YSUyMiUzQSU3QiUyMnRhcmdldCUyMiUzQSU3QiUyMnN5cyUyMiUzQSU3QiUyMmlkJTIyJTNBJTIyZXhhbXBsZS1lbnRpdHktaWQlMjIlMkMlMjJ0eXBlJTIyJTNBJTIyTGluayUyMiUyQyUyMmxpbmtUeXBlJTIyJTNBJTIyRW50cnklMjIlN0QlN0QlN0QlN0QlMkMlN0IlMjJ0ZXh0JTIyJTNBJTIyJTIyJTdEJTVEJTdEJTVEJTdEJTVEJTdEJTJDJTdCJTIydHlwZSUyMiUzQSUyMnRhYmxlLXJvdyUyMiUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydHlwZSUyMiUzQSUyMnRhYmxlLWNlbGwlMjIlMkMlMjJjaGlsZHJlbiUyMiUzQSU1QiU3QiUyMnR5cGUlMjIlM0ElMjJwYXJhZ3JhcGglMjIlMkMlMjJjaGlsZHJlbiUyMiUzQSU1QiU3QiUyMnRleHQlMjIlM0ElMjJDb3B5JTIwJTI2JTIwcGFzdGUlMjBmcm9tJTIwb3RoZXIlMjBkb2N1bWVudHMlMjIlN0QlNUQlN0QlNUQlN0QlMkMlN0IlMjJ0eXBlJTIyJTNBJTIydGFibGUtY2VsbCUyMiUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydHlwZSUyMiUzQSUyMnBhcmFncmFwaCUyMiUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydGV4dCUyMiUzQSUyMlllcy4lMjBFZy4lMjBHb29nbGUlMjBEb2NzJTJDJTIwSmlyYSUyQyUyMENvbmZsdWVuY2UlMjIlN0QlNUQlN0QlNUQlN0QlNUQlN0QlNUQlN0QlMkMlN0IlMjJ0eXBlJTIyJTNBJTIycGFyYWdyYXBoJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0ZXh0JTIyJTNBJTIyJTIyJTdEJTVEJTdEJTVE',
+      });
+
+      richText.expectValue(
+        doc(
+          {
+            type: 'paragraph',
+            children: [{ text: 'What can I do with tables', data: {} }],
+            isVoid: false,
+            data: {},
+          },
+          {
+            type: 'table',
+            children: [
+              {
+                type: 'table-row',
+                children: [
+                  {
+                    type: 'table-header-cell',
+                    children: [{ type: 'paragraph', children: [{ text: 'Property' }] }],
+                  },
+                  {
+                    type: 'table-header-cell',
+                    children: [{ type: 'paragraph', children: [{ text: 'Supported' }] }],
+                  },
+                ],
+              },
+              {
+                type: 'table-row',
+                children: [
+                  {
+                    type: 'table-cell',
+                    children: [
+                      {
+                        type: 'paragraph',
+                        children: [{ text: 'Adding and removing rows and columns' }],
+                      },
+                    ],
+                  },
+                  {
+                    type: 'table-cell',
+                    children: [{ type: 'paragraph', children: [{ text: 'Yes' }] }],
+                  },
+                ],
+              },
+              {
+                type: 'table-row',
+                children: [
+                  {
+                    type: 'table-cell',
+                    children: [{ type: 'paragraph', children: [{ text: 'Table header' }] }],
+                  },
+                  {
+                    type: 'table-cell',
+                    children: [
+                      { type: 'paragraph', children: [{ text: 'Yes, for rows and columns' }] },
+                    ],
+                  },
+                ],
+              },
+              {
+                type: 'table-row',
+                children: [
+                  {
+                    type: 'table-cell',
+                    children: [{ type: 'paragraph', children: [{ text: 'Formatting options' }] }],
+                  },
+                  {
+                    type: 'table-cell',
+                    children: [
+                      {
+                        type: 'paragraph',
+                        children: [
+                          { text: 'Bold', bold: true },
+                          { text: ',' },
+                          { text: 'italics', italic: true },
+                          { text: ',' },
+                          { text: 'underline', underline: true },
+                          { text: ',' },
+                          { text: 'code', code: true },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                type: 'table-row',
+                children: [
+                  {
+                    type: 'table-cell',
+                    children: [{ type: 'paragraph', children: [{ text: 'Hyperlinks' }] }],
+                  },
+                  {
+                    type: 'table-cell',
+                    children: [
+                      {
+                        type: 'paragraph',
+                        children: [
+                          { text: '' },
+                          {
+                            type: 'hyperlink',
+                            data: { uri: 'https://google.com' },
+                            children: [{ text: 'URL' }],
+                          },
+                          { text: ', ' },
+                          {
+                            type: 'asset-hyperlink',
+                            data: {
+                              target: {
+                                sys: { id: 'example-entity-id', type: 'Link', linkType: 'Asset' },
+                              },
+                            },
+                            children: [{ text: 'asset' }],
+                          },
+                          { text: ' and ' },
+                          {
+                            type: 'entry-hyperlink',
+                            data: {
+                              target: {
+                                sys: { id: 'example-entity-id', type: 'Link', linkType: 'Entry' },
+                              },
+                            },
+                            children: [{ text: 'entry' }],
+                          },
+                          { text: '' },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                type: 'table-row',
+                children: [
+                  {
+                    type: 'table-cell',
+                    children: [{ type: 'paragraph', children: [{ text: 'Embed entries' }] }],
+                  },
+                  {
+                    type: 'table-cell',
+                    children: [
+                      {
+                        type: 'paragraph',
+                        children: [
+                          { text: 'Only inline entries ' },
+                          {
+                            type: 'embedded-entry-inline',
+                            children: [{ text: '' }],
+                            data: {
+                              target: {
+                                sys: { id: 'example-entity-id', type: 'Link', linkType: 'Entry' },
+                              },
+                            },
+                          },
+                          { text: '' },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                type: 'table-row',
+                children: [
+                  {
+                    type: 'table-cell',
+                    children: [
+                      {
+                        type: 'paragraph',
+                        children: [{ text: 'Copy & paste from other documents' }],
+                      },
+                    ],
+                  },
+                  {
+                    type: 'table-cell',
+                    children: [
+                      {
+                        type: 'paragraph',
+                        children: [{ text: 'Yes. Eg. Google Docs, Jira, Confluence' }],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+          { type: 'paragraph', children: [{ text: '' }] }
+        )
+      );
+    });
   });
 });
