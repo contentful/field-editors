@@ -73,6 +73,7 @@ describe('Table normalizers', () => {
                   <htext bold italic underline>
                     quote
                   </htext>
+                  <hinlineEntry id="entry-id" />
                 </hp>
                 <cursor />
               </hblockquote>
@@ -96,6 +97,8 @@ describe('Table normalizers', () => {
                 <htext bold italic underline>
                   quote
                 </htext>
+                <hinlineEntry id="entry-id" />
+                <htext />
               </hp>
             </htd>
           </htr>
