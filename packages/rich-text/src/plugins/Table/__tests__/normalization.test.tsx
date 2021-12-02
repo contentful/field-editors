@@ -22,36 +22,36 @@ describe('Table normalizers', () => {
   it('removes nodes not wrapped in table-row', () => {
     const input = (
       <editor>
-        <table>
-          <tr>
-            <td>
-              <p>Cell 1</p>
-            </td>
-            <td>
-              <p>Cell 2</p>
-            </td>
-          </tr>
-          <td>
+        <htable>
+          <htr>
+            <htd>
+              <hp>Cell 1</hp>
+            </htd>
+            <htd>
+              <hp>Cell 2</hp>
+            </htd>
+          </htr>
+          <htd>
             invalid cell <cursor />
-          </td>
+          </htd>
           invalid text
-        </table>
-        <p />
+        </htable>
+        <hp />
       </editor>
     );
     const expected = (
       <editor>
-        <table>
-          <tr>
-            <td>
-              <p>Cell 1</p>
-            </td>
-            <td>
-              <p>Cell 2</p>
-            </td>
-          </tr>
-        </table>
-        <p />
+        <htable>
+          <htr>
+            <htd>
+              <hp>Cell 1</hp>
+            </htd>
+            <htd>
+              <hp>Cell 2</hp>
+            </htd>
+          </htr>
+        </htable>
+        <hp />
       </editor>
     );
 
@@ -61,38 +61,46 @@ describe('Table normalizers', () => {
   it('converts invalid table-cell children to paragraphs', () => {
     const input = (
       <editor>
-        <table>
-          <tr>
-            <td>
-              <p>Cell 1</p>
-            </td>
-            <td>
-              <p>Cell 2</p>
-              <blockquote>
-                <p>quote</p>
+        <htable>
+          <htr>
+            <htd>
+              <hp>Cell 1</hp>
+            </htd>
+            <htd>
+              <hp>Cell 2</hp>
+              <hblockquote>
+                <hp>
+                  <htext bold italic underline>
+                    quote
+                  </htext>
+                </hp>
                 <cursor />
-              </blockquote>
-            </td>
-          </tr>
-        </table>
-        <p />
+              </hblockquote>
+            </htd>
+          </htr>
+        </htable>
+        <hp />
       </editor>
     );
 
     const expected = (
       <editor>
-        <table>
-          <tr>
-            <td>
-              <p>Cell 1</p>
-            </td>
-            <td>
-              <p>Cell 2</p>
-              <p>quote</p>
-            </td>
-          </tr>
-        </table>
-        <p />
+        <htable>
+          <htr>
+            <htd>
+              <hp>Cell 1</hp>
+            </htd>
+            <htd>
+              <hp>Cell 2</hp>
+              <hp>
+                <htext bold italic underline>
+                  quote
+                </htext>
+              </hp>
+            </htd>
+          </htr>
+        </htable>
+        <hp />
       </editor>
     );
 
