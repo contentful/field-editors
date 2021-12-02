@@ -189,14 +189,16 @@ const replaceInvalidListItemWithText = (editor: PlateEditor, path: Path) => {
 
 /**
  * Ensures each list item follows the list schema.
+ * Returns true if the list needed to have been normalized.
  */
-const normalizeList = (editor: PlateEditor, path: Path) => {
+const normalizeList = (editor: PlateEditor, path: Path): boolean => {
   for (const [child, childPath] of Node.children(editor, path)) {
     if (Element.isElement(child) && !isListItem(child)) {
       Transforms.wrapNodes(editor, emptyNodeOfType(BLOCKS.LIST_ITEM), { at: childPath });
-      return;
+      return true;
     }
   }
+  return false;
 };
 
 const getNearestListAncestor = (editor: PlateEditor, path: Path) => {
@@ -241,14 +243,19 @@ const withCustomList = (options): WithOverride => {
       const [node, path] = entry;
 
       if (isList(node as CustomElement)) {
-        normalizeList(editor, path);
-        return;
+        if (normalizeList(editor, path)) {
+          return;
+        }
       } else if (isListItem(node as CustomElement)) {
-        if (!hasListAsDirectParent(editor, path)) normalizeOrphanedListItem(editor, path);
-        return;
-      } else if (hasListAncestor(editor, path) && !isValidInsideList(node as CustomElement)) {
-        replaceInvalidListItemWithText(editor, path);
-        return;
+        if (!hasListAsDirectParent(editor, path)) {
+          normalizeOrphanedListItem(editor, path);
+          return;
+        }
+      } else if (hasListAncestor(editor, path)) {
+        if (!isValidInsideList(node as CustomElement)) {
+          replaceInvalidListItemWithText(editor, path);
+          return;
+        }
       }
 
       normalizeNode(entry);
