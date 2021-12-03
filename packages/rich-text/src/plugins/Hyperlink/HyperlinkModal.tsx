@@ -119,15 +119,17 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
       <React.Fragment>
         <ModalContent>
           <Form>
-            <FormControl id="link-text" isRequired>
-              <FormControl.Label>Link text</FormControl.Label>
-              <TextInput
-                testId="link-text-input"
-                name="link-text"
-                value={linkText}
-                onChange={(event) => setLinkText(event.target.value)}
-              />
-            </FormControl>
+            {!props.linkType && (
+              <FormControl id="link-text" isRequired>
+                <FormControl.Label>Link text</FormControl.Label>
+                <TextInput
+                  testId="link-text-input"
+                  name="link-text"
+                  value={linkText}
+                  onChange={(event) => setLinkText(event.target.value)}
+                />
+              </FormControl>
+            )}
 
             {enabledLinkTypes.length > 1 && (
               <FormControl id="link-type">
