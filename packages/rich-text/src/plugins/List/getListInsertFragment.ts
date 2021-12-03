@@ -13,16 +13,6 @@ import {
   ELEMENT_UL,
 } from '@udecode/plate';
 import { Node, NodeEntry, Path, Transforms } from 'slate';
-import { toContentfulDocument } from '@contentful/contentful-slatejs-adapter';
-import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
-
-import { CustomElement } from '../../types';
-import schema from '../../constants/Schema';
-
-const slateNodesToText = (nodes: CustomElement[]): string => {
-  const contentfulNode = toContentfulDocument({ document: nodes, schema });
-  return documentToPlainTextString(contentfulNode);
-};
 
 export const getListInsertFragment = (editor: PlateEditor) => {
   const { insertFragment } = editor;
@@ -84,9 +74,8 @@ export const getListInsertFragment = (editor: PlateEditor) => {
       // FIXME: this is a temporarily workaround and needs a follow-up to properly
       // non-text elements
       const nodes = fragment.flatMap((node) => trimList(node));
-      const text = slateNodesToText(nodes);
 
-      return Transforms.insertNodes(editor, [{ text }], {
+      return Transforms.insertNodes(editor, nodes, {
         at: editor.selection || Path.next(liPath),
         select: true,
       });
