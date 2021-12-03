@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.0.1...@contentful/field-editor-markdown@1.0.2) (2021-12-03)
+
+### Bug Fixes
+
+- markdown upload asset domain url to ctfasset.net [] ([#946](https://github.com/contentful/field-editors/issues/946)) ([21ef606](https://github.com/contentful/field-editors/commit/21ef606e941feff1e8db1189c9cb48f9a82728a0))
+
 ## [1.0.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.0.0...@contentful/field-editor-markdown@1.0.1) (2021-11-17)
 
 ### Bug Fixes
