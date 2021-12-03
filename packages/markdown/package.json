@@ -25,7 +25,6 @@
     "@contentful/f36-icons": "^4.0.1-beta.2527",
     "@contentful/f36-tokens": "^4.0.1-beta.2527",
     "@contentful/field-editor-shared": "^1.0.1",
-    "@contentful/hostname-transformer": "^1.4.10",
     "@types/codemirror": "0.0.108",
     "@types/markdown-to-jsx": "6.11.3",
     "codemirror": "^5.48.0",
