@@ -3,10 +3,7 @@ import { PlateEditor } from '@udecode/plate-core';
 
 import { CustomElement } from '../types';
 
-export type Normalizer = (
-  editor: PlateEditor,
-  entry: NodeEntry<CustomElement>
-) => boolean | undefined;
+export type Normalizer = (editor: PlateEditor, entry: NodeEntry<CustomElement>) => true | undefined;
 
 /**
  * Injects a custom element normalization handler.

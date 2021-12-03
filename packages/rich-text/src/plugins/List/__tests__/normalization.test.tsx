@@ -44,6 +44,44 @@ describe('List normalizers', () => {
     assertOutput(input, expected);
   });
 
+  it('adds empty paragraph to empty list items', () => {
+    const input = (
+      <editor>
+        <hul>
+          <hli />
+        </hul>
+        <hp />
+      </editor>
+    );
+
+    const expected = (
+      <editor>
+        <hul>
+          <hli>
+            <hp>
+              <text />
+            </hp>
+          </hli>
+        </hul>
+        <hp />
+      </editor>
+    );
+
+    const editor = createTestEditor({
+      input,
+    });
+
+    const entry: any = [
+      editor.children[0].children[0], // node
+      [0, 0], // path
+    ];
+
+    editor.normalizeNode(entry);
+
+    // @ts-expect-error
+    expect(editor.children).toEqual(expected.children);
+  });
+
   it('replaces invalid list items with text', () => {
     const input = (
       <editor>

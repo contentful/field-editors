@@ -248,7 +248,21 @@ const withCustomList = (options): WithOverride => {
           return;
         }
 
-        for (const [child, childPath] of Node.children(editor, path)) {
+        const listItemChildren = Array.from(Node.children(editor, path));
+
+        // Handle list items with no paragraph/text
+        if (listItemChildren.length === 0) {
+          Transforms.insertNodes(
+            editor,
+            [{ type: BLOCKS.PARAGRAPH, data: {}, children: [{ text: '' }] }],
+            {
+              at: path.concat([0]),
+            }
+          );
+          return;
+        }
+
+        for (const [child, childPath] of listItemChildren) {
           if (Element.isElement(child) && !isValidInsideListItem(child)) {
             replaceInvalidListItemWithText(editor, childPath);
             return;
