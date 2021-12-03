@@ -20,9 +20,8 @@ const htmlToDataTransfer = (html: string): DataTransfer => {
   return data;
 };
 
-function withPasteHandling(editor: PlateEditor) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  return (_event: React.KeyboardEvent) => {
+export const createPastePlugin = (): PlatePlugin => ({
+  withOverrides: (editor) => {
     const { insertData } = editor;
     editor.insertData = (data: DataTransfer) => {
       const html = data.getData(MIME_TYPE_HTML);
@@ -34,9 +33,7 @@ function withPasteHandling(editor: PlateEditor) {
         insertData(data);
       }
     };
-  };
-}
 
-export const createPastePlugin = (): PlatePlugin => ({
-  onKeyDown: withPasteHandling,
+    return editor;
+  },
 });
