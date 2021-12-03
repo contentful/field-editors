@@ -2222,6 +2222,14 @@
   resolved "https://registry.yarnpkg.com/@contentful/forma-36-tokens/-/forma-36-tokens-0.11.1.tgz#0baafc1edaa3766fc471bf0073f1bcb9acb64e6b"
   integrity sha512-VETMW/VV6Hzy1Jd3Q0evy3U5qmxDAqm/p0+B9Byo+N+PuNOgIuvB8U3+915TWT4BCJqxig0K/safJCEvwaZvAA==
 
+"@contentful/hostname-transformer@^1.4.10":
+  version "1.4.10"
+  resolved "https://registry.yarnpkg.com/@contentful/hostname-transformer/-/hostname-transformer-1.4.10.tgz#66f2ecd2e69263fda3b41d17474ea4d6db6e2b78"
+  integrity sha512-KDUCqIjtF4+P9c18y0VXFokotn+DmbYfDrtvqqL6jxy7vTlieqDb41cXmDjL9/DSfQ8gdMqz/MYmBrDYZDofTw==
+  dependencies:
+    fast-copy "^2.0.4"
+    lodash "^4.17.15"
+
 "@contentful/mimetype@^1.4.0":
   version "1.4.40"
   resolved "https://registry.yarnpkg.com/@contentful/mimetype/-/mimetype-1.4.40.tgz#9e11a37a9a3b35c8831af4f2b34af82f671fd0f6"
@@ -10709,6 +10717,11 @@ falafel@^2.1.0:
     foreach "^2.0.5"
     isarray "0.0.1"
     object-keys "^1.0.6"
+
+fast-copy@^2.0.4:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/fast-copy/-/fast-copy-2.1.1.tgz#f5cbcf2df64215e59b8e43f0b2caabc19848083a"
+  integrity sha512-Qod3DdRgFZ8GUIM6ygeoZYpQ0QLW9cf/FS9KhhjlYggcSZXWAemAw8BOCO5LuYCrR3Uj3qXDVTUzOUwG8C7beQ==
 
 fast-copy@^2.1.0:
   version "2.1.0"
