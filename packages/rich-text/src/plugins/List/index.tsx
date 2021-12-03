@@ -24,6 +24,7 @@ import {
   unwrapFromRoot,
   shouldUnwrapBlockquote,
   getTextAt,
+  replaceNode,
 } from '../../helpers/editor';
 import { isNodeTypeEnabled } from '../../helpers/validations';
 import {
@@ -183,8 +184,7 @@ const isValidInsideListItem = (node: TextOrCustomElement) =>
 
 const replaceInvalidListItemWithText = (editor: PlateEditor, path: Path) => {
   const textFromEntry = getTextAt(editor, path);
-  Transforms.removeNodes(editor, { at: path });
-  Transforms.insertNodes(editor, textFromEntry, { at: path });
+  replaceNode(editor, path, textFromEntry);
 };
 
 /**
