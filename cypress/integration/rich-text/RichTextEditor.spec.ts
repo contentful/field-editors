@@ -1093,9 +1093,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
             .should('have.text', 'My cool website')
             .click({ force: true });
 
-          getLinkTextInput()
-            .should('have.value', 'My cool website')
-            .type('{selectall}My cool entry');
+          getLinkTextInput().should('not.exist');
           getLinkTypeSelect().should('have.value', 'hyperlink').select('entry-hyperlink');
           getEntityTextLink().should('have.text', 'Select entry').click();
           getSubmitButton().click();
@@ -1105,7 +1103,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
             [
               INLINES.ENTRY_HYPERLINK,
               { target: { sys: { id: 'example-entity-id', type: 'Link', linkType: 'Entry' } } },
-              'My cool entry',
+              'My cool website',
             ],
             ['text', '']
           );
@@ -1115,10 +1113,10 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           richText.editor
             .findByTestId('cf-ui-text-link')
-            .should('have.text', 'My cool entry')
+            .should('have.text', 'My cool website')
             .click({ force: true });
 
-          getLinkTextInput().should('have.value', 'My cool entry').type('{selectall}My cool asset');
+          getLinkTextInput().should('not.exist');
           getLinkTypeSelect().should('have.value', 'entry-hyperlink').select('asset-hyperlink');
           getEntityTextLink().should('have.text', 'Select asset').click();
           getSubmitButton().click();
@@ -1128,7 +1126,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
             [
               INLINES.ASSET_HYPERLINK,
               { target: { sys: { id: 'example-entity-id', type: 'Link', linkType: 'Asset' } } },
-              'My cool asset',
+              'My cool website',
             ],
             ['text', '']
           );
@@ -1138,12 +1136,10 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           richText.editor
             .findByTestId('cf-ui-text-link')
-            .should('have.text', 'My cool asset')
+            .should('have.text', 'My cool website')
             .click({ force: true });
 
-          getLinkTextInput()
-            .should('have.value', 'My cool asset')
-            .type('{selectall}My cool website');
+          getLinkTextInput().should('not.exist');
           getLinkTypeSelect().should('have.value', 'asset-hyperlink').select('hyperlink');
           getLinkTargetInput().type('https://zombo.com');
           getSubmitButton().click();
