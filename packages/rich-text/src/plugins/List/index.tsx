@@ -23,7 +23,7 @@ import {
   isBlockSelected,
   unwrapFromRoot,
   shouldUnwrapBlockquote,
-  slateNodeEntryToText,
+  getTextAt,
 } from '../../helpers/editor';
 import { isNodeTypeEnabled } from '../../helpers/validations';
 import {
@@ -175,14 +175,14 @@ const hasListAsDirectParent = (editor: Editor, path: Path) => {
   return isList(parentNode as CustomElement);
 };
 
-const isValidInsideList = (node: TextOrCustomElement) =>
+const isValidInsideListItem = (node: TextOrCustomElement) =>
   Text.isText(node as TextElement) ||
   (LIST_ITEM_BLOCKS as Array<TopLevelBlockEnum | INLINES>)
     .concat(Object.values(INLINES))
     .includes((node as CustomElement).type as TopLevelBlockEnum);
 
 const replaceInvalidListItemWithText = (editor: PlateEditor, path: Path) => {
-  const textFromEntry = slateNodeEntryToText(editor, path);
+  const textFromEntry = getTextAt(editor, path);
   Transforms.removeNodes(editor, { at: path });
   Transforms.insertNodes(editor, textFromEntry, { at: path });
 };
@@ -203,10 +203,6 @@ const normalizeList = (editor: PlateEditor, path: Path): boolean => {
 
 const getNearestListAncestor = (editor: PlateEditor, path: Path) => {
   return getAbove(editor, { at: path, mode: 'lowest', match: isList }) || [];
-};
-
-const hasListAncestor = (editor: PlateEditor, path: Path) => {
-  return getNearestListAncestor(editor, path).length > 0;
 };
 
 /**
@@ -251,10 +247,12 @@ const withCustomList = (options): WithOverride => {
           normalizeOrphanedListItem(editor, path);
           return;
         }
-      } else if (hasListAncestor(editor, path)) {
-        if (!isValidInsideList(node as CustomElement)) {
-          replaceInvalidListItemWithText(editor, path);
-          return;
+
+        for (const [child, childPath] of Node.children(editor, path)) {
+          if (Element.isElement(child) && !isValidInsideListItem(child)) {
+            replaceInvalidListItemWithText(editor, childPath);
+            return;
+          }
         }
       }
 

@@ -10,7 +10,7 @@ const createCode: Creator = (_, attrs, children) => {
   return createText('text', { code: true, ...attrs }, children);
 };
 
-const createHyperlink = (_, attrs, children) => {
+const createHyperlink: Creator = (_, attrs, children) => {
   const data: any = {};
   let type: string = INLINES.HYPERLINK;
 
@@ -32,6 +32,8 @@ const createHyperlink = (_, attrs, children) => {
       sys: { id: attrs.entry, type: 'Link', linkType: 'Entry' },
     };
   }
+
+  children = children.map((child) => (typeof child === 'string' ? { text: child } : child));
 
   return { type, data, children };
 };
