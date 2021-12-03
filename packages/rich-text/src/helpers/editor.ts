@@ -1,14 +1,16 @@
-import { Text, Editor, Element, Transforms, Path, Range, Node } from 'slate';
-import { BLOCKS, INLINES, TABLE_BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
-import { CustomElement } from '../types';
-import { Link } from '@contentful/field-editor-reference/dist/types';
 import { PlateEditor, getText } from '@udecode/plate';
+import { Link } from '@contentful/field-editor-reference/dist/types';
+import { Text, Editor, Element, Transforms, Path, Range, Node, Location } from 'slate';
+import { BLOCKS, INLINES, TABLE_BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
+
+import { CustomElement } from '../types';
 
 export const LINK_TYPES: INLINES[] = [
   INLINES.HYPERLINK,
   INLINES.ENTRY_HYPERLINK,
   INLINES.ASSET_HYPERLINK,
 ];
+
 const LIST_TYPES: BLOCKS[] = [BLOCKS.OL_LIST, BLOCKS.UL_LIST];
 
 export function isBlockSelected(editor, type: string): boolean {
@@ -286,10 +288,15 @@ export function currentSelectionPrecedesTableCell(editor: PlateEditor): boolean 
   );
 }
 
+export const replaceNode = (editor: Editor, path: Location, replacement: Node | Node[]) => {
+  Transforms.removeNodes(editor, { at: path });
+  Transforms.insertNodes(editor, replacement, { at: path });
+};
+
 /**
  * It filters out all paragraphs and headings from a path and convert them into paragraphs.
  */
-export function slateNodeEntryToText(editor: PlateEditor, path: Path): CustomElement[] {
+export function extractParagraphsAt(editor: PlateEditor, path: Path): CustomElement[] {
   const paragraphs: CustomElement[] = Array.from(
     Editor.nodes<CustomElement>(editor, {
       at: path,
