@@ -23,7 +23,7 @@ import {
   isBlockSelected,
   unwrapFromRoot,
   shouldUnwrapBlockquote,
-  getTextAt,
+  extractParagraphsAt,
   replaceNode,
 } from '../../helpers/editor';
 import { isNodeTypeEnabled } from '../../helpers/validations';
@@ -183,7 +183,7 @@ const isValidInsideListItem = (node: TextOrCustomElement) =>
     .includes((node as CustomElement).type as TopLevelBlockEnum);
 
 const replaceInvalidListItemWithText = (editor: PlateEditor, path: Path) => {
-  const textFromEntry = getTextAt(editor, path);
+  const textFromEntry = extractParagraphsAt(editor, path);
   replaceNode(editor, path, textFromEntry);
 };
 

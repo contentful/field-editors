@@ -3,7 +3,7 @@ import { Element, Node, Transforms } from 'slate';
 import { BLOCKS, CONTAINERS } from '@contentful/rich-text-types';
 
 import { CustomElement } from '../../types';
-import { replaceNode, getTextAt } from '../../helpers/editor';
+import { replaceNode, extractParagraphsAt } from '../../helpers/editor';
 import { Normalizer, withNormalizer } from '../../helpers/normalizers';
 
 const isTable = (node: CustomElement) => {
@@ -32,7 +32,7 @@ const normalizeTableCell: Normalizer = (editor, entry) => {
     const isValidTableCellItem = CONTAINERS[node.type].includes(child.type);
 
     if (!isValidTableCellItem) {
-      const text = getTextAt(editor, childPath);
+      const text = extractParagraphsAt(editor, childPath);
       replaceNode(editor, childPath, text);
       return;
     }
