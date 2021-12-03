@@ -203,10 +203,8 @@ function hasHeadersOutsideFirstRow(nodes: CustomElement[]) {
     .some(({ children }) => (children as CustomElement[]).some(isTableHeaderCell));
 }
 
-function createWithTableEvents(tracking: TrackingProvider) {
+function createTableOnKeyDown() {
   return function withTableEvents(editor: PlateEditor) {
-    addTableTrackingEvents(editor, tracking);
-    addTableNormalization(editor);
     const handleKeyDownFromPlateUdecode = getTableOnKeyDown()(editor);
     return function handleKeyDown(event: React.KeyboardEvent) {
       if (
@@ -227,8 +225,11 @@ function createWithTableEvents(tracking: TrackingProvider) {
 
 export const createTablePlugin = (tracking: TrackingProvider) => ({
   ...createTablePluginFromUdecode(),
-  onKeyDown: createWithTableEvents(tracking),
+  onKeyDown: createTableOnKeyDown(),
   withOverrides: (editor) => {
+    addTableTrackingEvents(editor, tracking);
+    addTableNormalization(editor);
+
     const { insertFragment } = editor;
 
     editor.insertFragment = (fragments) => {
