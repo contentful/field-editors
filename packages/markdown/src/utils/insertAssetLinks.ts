@@ -1,6 +1,5 @@
 import get from 'lodash/get';
 import isObject from 'lodash/isObject';
-import { toExternal } from '@contentful/hostname-transformer';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Asset = any;
@@ -36,6 +35,19 @@ function fileNameToTitle(str: string) {
   return normalizeWhiteSpace(removeExtension(str).replace(/_/g, ' '));
 }
 
+export function replaceAssetDomain(fileUrl: string) {
+  const assetDomainMap: Record<string, string> = {
+    images: 'images.ctfassets.net',
+    assets: 'assets.ctfassets.net',
+    downloads: 'downloads.ctfassets.net',
+    videos: 'videos.ctfassets.net',
+  };
+
+  return fileUrl.replace(/(images|assets|downloads|videos).contentful.com/, (_, p1) => {
+    return assetDomainMap[p1];
+  });
+}
+
 function makeAssetLink(
   asset: Asset,
   { localeCode, fallbackCode, defaultLocaleCode }: Locales
@@ -57,13 +69,7 @@ function makeAssetLink(
       get(asset, ['fields', 'title', defaultLocaleCode]) ||
       fileNameToTitle(file.fileName);
 
-    const assetDomainMap = {
-      images: 'images.ctfassets.net',
-      assets: 'assets.ctfassets.net',
-      downloads: 'downloads.ctfassets.net',
-      videos: 'videos.ctfassets.net',
-    };
-    const fileUrl = toExternal(file.url, assetDomainMap);
+    const fileUrl = replaceAssetDomain(file.url);
 
     return {
       title,
