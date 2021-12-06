@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.0.2...@contentful/field-editor-markdown@1.0.3) (2021-12-06)
+
+### Bug Fixes
+
+- replace @contentful/hostname-transformer ([#950](https://github.com/contentful/field-editors/issues/950)) ([871ca34](https://github.com/contentful/field-editors/commit/871ca345f1c53e4d579f58e5ee32c67830ad1b7f))
+
 ## [1.0.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.0.1...@contentful/field-editor-markdown@1.0.2) (2021-12-03)
 
 ### Bug Fixes
