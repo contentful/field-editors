@@ -103,21 +103,54 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     richText.expectValue(expectedValue);
   });
 
-  it('supports undo and redo', () => {
-    const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text.')));
+  describe('history', () => {
+    it('supports undo and redo', () => {
+      const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text.')));
 
-    // type
-    richText.editor.click().type('some text.').click();
+      // type
+      richText.editor.click().type('some text.').click();
 
-    richText.expectValue(expectedValue, { id: 21, type: 'setValue' });
+      richText.expectValue(expectedValue, { id: 21, type: 'setValue' });
 
-    // undo
-    richText.editor.click().type(`{${mod}}z`).click();
-    richText.expectValue(undefined, { id: 24, type: 'removeValue' });
+      // undo
+      richText.editor.click().type(`{${mod}}z`).click();
+      richText.expectValue(undefined, { id: 24, type: 'removeValue' });
 
-    // redo
-    richText.editor.click().type(`{${mod}}{shift}z`).click();
-    richText.expectValue(expectedValue, { id: 27, type: 'setValue' });
+      // redo
+      richText.editor.click().type(`{${mod}}{shift}z`).click();
+      richText.expectValue(expectedValue, { id: 27, type: 'setValue' });
+    });
+
+    it('correctly undoes after drag&drop', () => {
+      const paragraph = block(BLOCKS.PARAGRAPH, {}, text('some text.'));
+
+      // type text, insert entry block
+      richText.editor.click().type('some text.').click();
+      cy.findByTestId('toolbar-entity-dropdown-toggle').click();
+      cy.findByTestId('toolbar-toggle-embedded-entry-block').click();
+      richText.expectValue(doc(paragraph, entryBlock(), emptyParagraph()));
+
+      // drag & drop
+      cy.findByTestId('cf-ui-entry-card')
+        .parent()
+        .parent()
+        .dragTo(() => richText.editor.findByText('some text.'));
+      richText.expectValue(
+        doc(
+          block(BLOCKS.PARAGRAPH, {}, text('some')),
+          entryBlock(),
+          block(BLOCKS.PARAGRAPH, {}, text(' text.')),
+          emptyParagraph()
+        )
+      );
+
+      // undo
+      // Ensures that drag&drop was recoreded in a separate history batch,
+      // undoing should not delete the entry block.
+      // See the Slate bug report: https://github.com/ianstormtaylor/slate/issues/4694
+      richText.editor.click().type(`{${mod}}z`).click();
+      richText.expectValue(doc(paragraph, entryBlock(), emptyParagraph()));
+    });
   });
 
   describe('Marks', () => {
