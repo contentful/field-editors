@@ -9,5 +9,6 @@
     "json": true
   },
   "retries": 2,
-  "numTestsKeptInMemory": 1
+  "numTestsKeptInMemory": 1,
+  "snapshotFileName": "./cypress/snapshots.js"
 }

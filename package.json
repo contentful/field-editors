@@ -51,6 +51,7 @@
     "@contentful/eslint-config-extension": "0.4.2",
     "@contentful/f36-components": "beta",
     "@contentful/f36-tokens": "beta",
+    "@cypress/snapshot": "^2.1.7",
     "@cypress/webpack-preprocessor": "^5.9.1",
     "@testing-library/cypress": "^8.0.1",
     "@testing-library/jest-dom": "5.12.0",
