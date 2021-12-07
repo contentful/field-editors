@@ -1,12 +1,12 @@
 import { Node as SlateNode, Transforms } from 'slate';
 import { getNodes, PlatePlugin } from '@udecode/plate';
-import { CustomElement } from '../../types';
 import { BLOCKS, CONTAINERS, INLINES } from '@contentful/rich-text-types';
+
+import { CustomElement } from '../../types';
 
 export function createDragAndDropPlugin(): PlatePlugin {
   // Elements that don't allow other elements to be dragged into them and which callback should be used
   const DND_BLOCKED_ELEMENTS = {
-    [BLOCKS.TABLE]: Transforms.removeNodes,
     [BLOCKS.QUOTE]: Transforms.liftNodes,
   };
 
