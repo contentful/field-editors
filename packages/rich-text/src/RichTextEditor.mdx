@@ -18,34 +18,42 @@ import {
   createFakeLocalesAPI,
   createFakeNavigatorAPI,
 } from '@contentful/field-editor-test-utils';
+import { ValidationErrors } from '@contentful/field-editor-validation-errors';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { css } from 'emotion';
 import publishedEntry from '../../reference/src/__fixtures__/published_entry.json';
 import publishedAsset from '../../reference/src/__fixtures__/published_asset.json';
+import { validateRichTextDocument } from './test-utils/validation';
 
 ## In Action
 
 <Playground>
   {() => {
-    window.events = []
+    window.events = [];
+
     const rtPreviewStyle = css({
       backgroundColor: 'whitesmoke',
-      padding: '0 0.5em'
+      padding: '0 0.5em',
     });
+
     const newEntitySelectorDummyDialog = (fnName, type) => async () => {
-      return confirm(`sdk.dialogs.${fnName}()\nSimulate selecting a random entity or cancel?`)
+      return confirm(
+        `sdk.dialogs.${fnName}()\nSimulate selecting a random entity or cancel?`
+      )
         ? {
             sys: {
               id: 'example-entity-id',
-              type
-            }
+              type,
+            },
           }
         : Promise.reject(); // Simulate cancellation.
     };
+
     const [field, mitt] = useMemo(() => createFakeFieldAPI(), []);
     const space = useMemo(() => createFakeSpaceAPI(), []);
     const navigator = useMemo(() => createFakeNavigatorAPI(), []);
     const onAction = (...args) => window.events.push(args);
+
     const sdk = {
       space: {
         ...space,
@@ -64,7 +72,7 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
       },
       entry: {
         ...publishedEntry,
-        getSys: ()=> publishedEntry.sys
+        getSys: () => publishedEntry.sys,
       },
       field,
       locales: createFakeLocalesAPI(),
@@ -72,11 +80,17 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
         ...navigator,
         onSlideInNavigation: () => {
           return () => {};
-        }
+        },
       },
       dialogs: {
-        selectSingleAsset: newEntitySelectorDummyDialog('selectSingleAsset', 'Asset'),
-        selectSingleEntry: newEntitySelectorDummyDialog('selectSingleEntry', 'Entry')
+        selectSingleAsset: newEntitySelectorDummyDialog(
+          'selectSingleAsset',
+          'Asset'
+        ),
+        selectSingleEntry: newEntitySelectorDummyDialog(
+          'selectSingleEntry',
+          'Entry'
+        ),
       },
       access: {
         can: (access, entityType) => {
@@ -89,25 +103,39 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
             }
           }
           return Promise.resolve(false);
-        }
+        },
       },
       parameters: {
         instance: {
-          getEntryUrl: () => '#'
-        }
+          getEntryUrl: () => '#',
+        },
       },
-      events: []
-    };
+      events: [],
+    })
+
+    // Validate on change
+    React.useEffect(() => {
+      field.onValueChanged((value) => {
+        if (!value) {
+          return mitt.emit('onSchemaErrorsChanged', []);
+        }
+
+        mitt.emit('onSchemaErrorsChanged', validateRichTextDocument(value));
+      });
+    }, [field, mitt]);
 
     const renderRT = (value, type) => {
       const logValue = () => {
         console.log(type, value);
       };
+
       const valueString = JSON.stringify(value, null, 2);
-      const valueDom = documentToReactComponents(value);
+
       return (
         <div className={rtPreviewStyle} title={valueString} onClick={logValue}>
-          {valueDom}
+          {type === 'onSchemaErrorsChanged'
+            ? valueString
+            : documentToReactComponents(value)}
         </div>
       );
     };
@@ -121,6 +149,7 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
           onAction={onAction}
           isInitiallyDisabled={false}
         />
+        <ValidationErrors field={field} locales={[]} />
         <ActionsPlayground mitt={mitt} renderValue={renderRT} />
       </div>
     );

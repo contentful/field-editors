@@ -59,6 +59,7 @@
     "@babel/preset-env": "7.12.11",
     "@babel/preset-react": "7.13.13",
     "@contentful/field-editor-test-utils": "^1.0.0",
-    "@contentful/rich-text-react-renderer": "^15.6.2"
+    "@contentful/rich-text-react-renderer": "^15.6.2",
+    "ajv": "^8.8.2"
   }
 }
