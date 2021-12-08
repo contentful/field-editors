@@ -131,19 +131,14 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       richText.expectValue(doc(paragraph, entryBlock(), emptyParagraph()));
 
       // drag & drop
-      cy.findByTestId('cf-ui-entry-card')
-        .parent()
-        .parent()
-        .dragTo(() => richText.editor.findByText('some text.'));
-      // inconsistent result with how CI drag & drops
-      // richText.expectValue(
-      //   doc(
-      //     block(BLOCKS.PARAGRAPH, {}, text('some')),
-      //     entryBlock(),
-      //     block(BLOCKS.PARAGRAPH, {}, text(' text.')),
-      //     emptyParagraph()
-      //   )
-      // );
+      richText.expectValue(
+        doc(
+          block(BLOCKS.PARAGRAPH, {}, text('some')),
+          entryBlock(),
+          block(BLOCKS.PARAGRAPH, {}, text(' text.')),
+          emptyParagraph()
+        )
+      );
       richText.expectValue(
         doc(entryBlock(), block(BLOCKS.PARAGRAPH, {}, text('some text.')), emptyParagraph())
       );
