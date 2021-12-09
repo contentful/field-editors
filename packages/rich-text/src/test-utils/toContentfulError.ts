@@ -49,20 +49,6 @@ const getTypeFromAjvError = (ajvError) => {
 };
 
 const errorMessages = {
-  stringLength(ajvError) {
-    const parentSchema = ajvError.parentSchema;
-    const hasMin = 'minLength' in parentSchema;
-    const hasMax = 'maxLength' in parentSchema;
-    const hasMinMax = hasMin && hasMax;
-
-    if (hasMinMax) {
-      return `Size must be at least ${parentSchema.minLength} and at most ${parentSchema.maxLength}`;
-    } else if (hasMin) {
-      return `Size must be at least ${parentSchema.minLength}`;
-    }
-    return `Size must be at most ${parentSchema.maxLength}`;
-  },
-
   arrayLength(ajvError) {
     const parentSchema = ajvError.parentSchema;
     const hasMin = 'minItems' in parentSchema;
@@ -75,14 +61,6 @@ const errorMessages = {
       return `Size must be at least ${parentSchema.minItems}`;
     }
     return `Size must be at most ${parentSchema.maxItems}`;
-  },
-
-  propertyRequired(ajvError) {
-    return `The property "${ajvError.params.missingProperty}" is required here`;
-  },
-
-  patternMatchFailed(ajvError) {
-    return `Does not match /${ajvError.params.pattern}/`;
   },
 
   typeMismatch(ajvError) {
@@ -111,9 +89,6 @@ const errorMessages = {
     }
     return `The property "${prop1}" or "${prop2}" are required here`;
   },
-  missingDependentProperty(ajvError) {
-    return `The property "${ajvError.params.missingProperty}" is required if "${ajvError.params.property}" is present`;
-  },
 };
 
 const omitUndefinedProps = (data) => {
@@ -124,27 +99,12 @@ const omitUndefinedProps = (data) => {
 };
 
 const errorData = {
-  stringLength(ajvError) {
-    return omitUndefinedProps({
-      value: ajvError.data,
-      min: ajvError.parentSchema.minLength,
-      max: ajvError.parentSchema.maxLength,
-    });
-  },
-
   arrayLength(ajvError) {
     return omitUndefinedProps({
       value: ajvError.data,
       min: ajvError.parentSchema.minItems,
       max: ajvError.parentSchema.maxItems,
     });
-  },
-
-  pattern(ajvError) {
-    return {
-      value: ajvError.data,
-      pattern: ajvError.params.pattern,
-    };
   },
 
   type(ajvError) {
@@ -163,21 +123,6 @@ const errorData = {
 };
 
 const errorDetails = {
-  required: {
-    message: errorMessages.propertyRequired,
-  },
-  pattern: {
-    message: errorMessages.patternMatchFailed,
-    data: errorData.pattern,
-  },
-  maxLength: {
-    message: errorMessages.stringLength,
-    data: errorData.stringLength,
-  },
-  minLength: {
-    message: errorMessages.stringLength,
-    data: errorData.stringLength,
-  },
   maxItems: {
     message: errorMessages.arrayLength,
     data: errorData.arrayLength,
@@ -210,19 +155,11 @@ const errorDetails = {
   oneOf: {
     message: errorMessages.unlessProperty,
   },
-  uniqueItems: {
-    message: () => 'Items of the array must be unique',
-  },
-  dependencies: {
-    message: errorMessages.missingDependentProperty,
-  },
 };
 
 const UNKNOWN_ERROR_NAME = 'unknown';
 
 const keywordNameMapping = {
-  required: 'required',
-  pattern: 'regexp',
   maxLength: 'size',
   minLength: 'size',
   maxItems: 'size',
@@ -234,8 +171,6 @@ const keywordNameMapping = {
   anyOf: 'in',
   additionalProperties: 'unexpected',
   oneOf: 'unless',
-  uniqueItems: 'unique',
-  dependencies: 'dependent_required',
 };
 
 export function toContentfulError(ajvError, rootPath = []) {
