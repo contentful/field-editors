@@ -105,9 +105,7 @@ describe(
         richText.expectSnapshotValue();
       });
 
-      // Unskip when we fix the issue with pasting asset & entry hyperlinks
-      // eslint-disable-next-line
-      it.skip('pastes table & its inline elements correctly', () => {
+      it('pastes table & its inline elements correctly', () => {
         richText.editor.click();
 
         // What can I do with tables
@@ -131,80 +129,69 @@ describe(
         richText.expectValue(
           doc(
             {
-              type: 'paragraph',
-              children: [{ text: 'What can I do with tables', data: {} }],
-              isVoid: false,
+              nodeType: 'paragraph',
               data: {},
+              content: [
+                {
+                  nodeType: 'text',
+                  value: '',
+                  marks: [],
+                  data: {},
+                },
+              ],
             },
             {
-              type: 'table',
-              children: [
+              nodeType: 'paragraph',
+              data: {},
+              content: [
                 {
-                  type: 'table-row',
-                  children: [
-                    {
-                      type: 'table-header-cell',
-                      children: [{ type: 'paragraph', children: [{ text: 'Property' }] }],
-                    },
-                    {
-                      type: 'table-header-cell',
-                      children: [{ type: 'paragraph', children: [{ text: 'Supported' }] }],
-                    },
-                  ],
+                  nodeType: 'text',
+                  value: 'What can I do with tables',
+                  marks: [],
+                  data: {},
                 },
+              ],
+            },
+            {
+              nodeType: 'table',
+              data: {},
+              content: [
                 {
-                  type: 'table-row',
-                  children: [
+                  nodeType: 'table-row',
+                  data: {},
+                  content: [
                     {
-                      type: 'table-cell',
-                      children: [
+                      nodeType: 'table-header-cell',
+                      data: {},
+                      content: [
                         {
-                          type: 'paragraph',
-                          children: [{ text: 'Adding and removing rows and columns' }],
+                          nodeType: 'paragraph',
+                          data: {},
+                          content: [
+                            {
+                              nodeType: 'text',
+                              value: 'Property',
+                              marks: [],
+                              data: {},
+                            },
+                          ],
                         },
                       ],
                     },
                     {
-                      type: 'table-cell',
-                      children: [{ type: 'paragraph', children: [{ text: 'Yes' }] }],
-                    },
-                  ],
-                },
-                {
-                  type: 'table-row',
-                  children: [
-                    {
-                      type: 'table-cell',
-                      children: [{ type: 'paragraph', children: [{ text: 'Table header' }] }],
-                    },
-                    {
-                      type: 'table-cell',
-                      children: [
-                        { type: 'paragraph', children: [{ text: 'Yes, for rows and columns' }] },
-                      ],
-                    },
-                  ],
-                },
-                {
-                  type: 'table-row',
-                  children: [
-                    {
-                      type: 'table-cell',
-                      children: [{ type: 'paragraph', children: [{ text: 'Formatting options' }] }],
-                    },
-                    {
-                      type: 'table-cell',
-                      children: [
+                      nodeType: 'table-header-cell',
+                      data: {},
+                      content: [
                         {
-                          type: 'paragraph',
-                          children: [
-                            { text: 'Bold', bold: true },
-                            { text: ',' },
-                            { text: 'italics', italic: true },
-                            { text: ',' },
-                            { text: 'underline', underline: true },
-                            { text: ',' },
-                            { text: 'code', code: true },
+                          nodeType: 'paragraph',
+                          data: {},
+                          content: [
+                            {
+                              nodeType: 'text',
+                              value: 'Supported',
+                              marks: [],
+                              data: {},
+                            },
                           ],
                         },
                       ],
@@ -212,45 +199,41 @@ describe(
                   ],
                 },
                 {
-                  type: 'table-row',
-                  children: [
+                  nodeType: 'table-row',
+                  data: {},
+                  content: [
                     {
-                      type: 'table-cell',
-                      children: [{ type: 'paragraph', children: [{ text: 'Hyperlinks' }] }],
+                      nodeType: 'table-cell',
+                      data: {},
+                      content: [
+                        {
+                          nodeType: 'paragraph',
+                          data: {},
+                          content: [
+                            {
+                              nodeType: 'text',
+                              value: 'Adding and removing rows and columns',
+                              marks: [],
+                              data: {},
+                            },
+                          ],
+                        },
+                      ],
                     },
                     {
-                      type: 'table-cell',
-                      children: [
+                      nodeType: 'table-cell',
+                      data: {},
+                      content: [
                         {
-                          type: 'paragraph',
-                          children: [
-                            { text: '' },
+                          nodeType: 'paragraph',
+                          data: {},
+                          content: [
                             {
-                              type: 'hyperlink',
-                              data: { uri: 'https://google.com' },
-                              children: [{ text: 'URL' }],
+                              nodeType: 'text',
+                              value: 'Yes',
+                              marks: [],
+                              data: {},
                             },
-                            { text: ', ' },
-                            {
-                              type: 'asset-hyperlink',
-                              data: {
-                                target: {
-                                  sys: { id: 'example-entity-id', type: 'Link', linkType: 'Asset' },
-                                },
-                              },
-                              children: [{ text: 'asset' }],
-                            },
-                            { text: ' and ' },
-                            {
-                              type: 'entry-hyperlink',
-                              data: {
-                                target: {
-                                  sys: { id: 'example-entity-id', type: 'Link', linkType: 'Entry' },
-                                },
-                              },
-                              children: [{ text: 'entry' }],
-                            },
-                            { text: '' },
                           ],
                         },
                       ],
@@ -258,29 +241,41 @@ describe(
                   ],
                 },
                 {
-                  type: 'table-row',
-                  children: [
+                  nodeType: 'table-row',
+                  data: {},
+                  content: [
                     {
-                      type: 'table-cell',
-                      children: [{ type: 'paragraph', children: [{ text: 'Embed entries' }] }],
+                      nodeType: 'table-cell',
+                      data: {},
+                      content: [
+                        {
+                          nodeType: 'paragraph',
+                          data: {},
+                          content: [
+                            {
+                              nodeType: 'text',
+                              value: 'Table header',
+                              marks: [],
+                              data: {},
+                            },
+                          ],
+                        },
+                      ],
                     },
                     {
-                      type: 'table-cell',
-                      children: [
+                      nodeType: 'table-cell',
+                      data: {},
+                      content: [
                         {
-                          type: 'paragraph',
-                          children: [
-                            { text: 'Only inline entries ' },
+                          nodeType: 'paragraph',
+                          data: {},
+                          content: [
                             {
-                              type: 'embedded-entry-inline',
-                              children: [{ text: '' }],
-                              data: {
-                                target: {
-                                  sys: { id: 'example-entity-id', type: 'Link', linkType: 'Entry' },
-                                },
-                              },
+                              nodeType: 'text',
+                              value: 'Yes, for rows and columns',
+                              marks: [],
+                              data: {},
                             },
-                            { text: '' },
                           ],
                         },
                       ],
@@ -288,23 +283,311 @@ describe(
                   ],
                 },
                 {
-                  type: 'table-row',
-                  children: [
+                  nodeType: 'table-row',
+                  data: {},
+                  content: [
                     {
-                      type: 'table-cell',
-                      children: [
+                      nodeType: 'table-cell',
+                      data: {},
+                      content: [
                         {
-                          type: 'paragraph',
-                          children: [{ text: 'Copy & paste from other documents' }],
+                          nodeType: 'paragraph',
+                          data: {},
+                          content: [
+                            {
+                              nodeType: 'text',
+                              value: 'Formatting options',
+                              marks: [],
+                              data: {},
+                            },
+                          ],
                         },
                       ],
                     },
                     {
-                      type: 'table-cell',
-                      children: [
+                      nodeType: 'table-cell',
+                      data: {},
+                      content: [
                         {
-                          type: 'paragraph',
-                          children: [{ text: 'Yes. Eg. Google Docs, Jira, Confluence' }],
+                          nodeType: 'paragraph',
+                          data: {},
+                          content: [
+                            {
+                              nodeType: 'text',
+                              value: 'Bold',
+                              marks: [
+                                {
+                                  type: 'bold',
+                                },
+                              ],
+                              data: {},
+                            },
+                            {
+                              nodeType: 'text',
+                              value: ',',
+                              marks: [],
+                              data: {},
+                            },
+                            {
+                              nodeType: 'text',
+                              value: 'italics',
+                              marks: [
+                                {
+                                  type: 'italic',
+                                },
+                              ],
+                              data: {},
+                            },
+                            {
+                              nodeType: 'text',
+                              value: ',',
+                              marks: [],
+                              data: {},
+                            },
+                            {
+                              nodeType: 'text',
+                              value: 'underline',
+                              marks: [
+                                {
+                                  type: 'underline',
+                                },
+                              ],
+                              data: {},
+                            },
+                            {
+                              nodeType: 'text',
+                              value: ',',
+                              marks: [],
+                              data: {},
+                            },
+                            {
+                              nodeType: 'text',
+                              value: 'code',
+                              marks: [
+                                {
+                                  type: 'code',
+                                },
+                              ],
+                              data: {},
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  nodeType: 'table-row',
+                  data: {},
+                  content: [
+                    {
+                      nodeType: 'table-cell',
+                      data: {},
+                      content: [
+                        {
+                          nodeType: 'paragraph',
+                          data: {},
+                          content: [
+                            {
+                              nodeType: 'text',
+                              value: 'Hyperlinks',
+                              marks: [],
+                              data: {},
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                    {
+                      nodeType: 'table-cell',
+                      data: {},
+                      content: [
+                        {
+                          nodeType: 'paragraph',
+                          data: {},
+                          content: [
+                            {
+                              nodeType: 'text',
+                              value: '',
+                              marks: [],
+                              data: {},
+                            },
+                            {
+                              nodeType: 'hyperlink',
+                              data: {
+                                uri: 'https://google.com',
+                              },
+                              content: [
+                                {
+                                  nodeType: 'text',
+                                  value: 'URL',
+                                  marks: [],
+                                  data: {},
+                                },
+                              ],
+                            },
+                            {
+                              nodeType: 'text',
+                              value: ', ',
+                              marks: [],
+                              data: {},
+                            },
+                            {
+                              nodeType: 'asset-hyperlink',
+                              data: {
+                                target: {
+                                  sys: {
+                                    id: 'example-entity-id',
+                                    type: 'Link',
+                                    linkType: 'Asset',
+                                  },
+                                },
+                              },
+                              content: [
+                                {
+                                  nodeType: 'text',
+                                  value: 'asset',
+                                  marks: [],
+                                  data: {},
+                                },
+                              ],
+                            },
+                            {
+                              nodeType: 'text',
+                              value: ' and ',
+                              marks: [],
+                              data: {},
+                            },
+                            {
+                              nodeType: 'entry-hyperlink',
+                              data: {
+                                target: {
+                                  sys: {
+                                    id: 'example-entity-id',
+                                    type: 'Link',
+                                    linkType: 'Entry',
+                                  },
+                                },
+                              },
+                              content: [
+                                {
+                                  nodeType: 'text',
+                                  value: 'entry',
+                                  marks: [],
+                                  data: {},
+                                },
+                              ],
+                            },
+                            {
+                              nodeType: 'text',
+                              value: '',
+                              marks: [],
+                              data: {},
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  nodeType: 'table-row',
+                  data: {},
+                  content: [
+                    {
+                      nodeType: 'table-cell',
+                      data: {},
+                      content: [
+                        {
+                          nodeType: 'paragraph',
+                          data: {},
+                          content: [
+                            {
+                              nodeType: 'text',
+                              value: 'Embed entries',
+                              marks: [],
+                              data: {},
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                    {
+                      nodeType: 'table-cell',
+                      data: {},
+                      content: [
+                        {
+                          nodeType: 'paragraph',
+                          data: {},
+                          content: [
+                            {
+                              nodeType: 'text',
+                              value: 'Only inline entries ',
+                              marks: [],
+                              data: {},
+                            },
+                            {
+                              nodeType: 'embedded-entry-inline',
+                              data: {
+                                target: {
+                                  sys: {
+                                    id: 'example-entity-id',
+                                    type: 'Link',
+                                    linkType: 'Entry',
+                                  },
+                                },
+                              },
+                              content: [],
+                            },
+                            {
+                              nodeType: 'text',
+                              value: '',
+                              marks: [],
+                              data: {},
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  nodeType: 'table-row',
+                  data: {},
+                  content: [
+                    {
+                      nodeType: 'table-cell',
+                      data: {},
+                      content: [
+                        {
+                          nodeType: 'paragraph',
+                          data: {},
+                          content: [
+                            {
+                              nodeType: 'text',
+                              value: 'Copy & paste from other documents',
+                              marks: [],
+                              data: {},
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                    {
+                      nodeType: 'table-cell',
+                      data: {},
+                      content: [
+                        {
+                          nodeType: 'paragraph',
+                          data: {},
+                          content: [
+                            {
+                              nodeType: 'text',
+                              value: 'Yes. Eg. Google Docs, Jira, Confluence',
+                              marks: [],
+                              data: {},
+                            },
+                          ],
                         },
                       ],
                     },
@@ -312,7 +595,18 @@ describe(
                 },
               ],
             },
-            { type: 'paragraph', children: [{ text: '' }] }
+            {
+              nodeType: 'paragraph',
+              data: {},
+              content: [
+                {
+                  nodeType: 'text',
+                  value: '',
+                  marks: [],
+                  data: {},
+                },
+              ],
+            }
           )
         );
       });
