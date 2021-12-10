@@ -1,5 +1,7 @@
 const webpack = require('@cypress/webpack-preprocessor');
 
+const fs = require('fs');
+
 module.exports = (on) => {
   const options = {
     webpackOptions: {
@@ -32,4 +34,14 @@ module.exports = (on) => {
     },
   };
   on('file:preprocessor', webpack(options));
+
+  on('task', {
+    readFileMaybe(filename) {
+      if (fs.existsSync(filename)) {
+        return fs.readFileSync(filename, 'utf8');
+      }
+
+      return null;
+    },
+  });
 };

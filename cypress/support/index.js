@@ -18,3 +18,6 @@ import './commands';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+Cypress.Commands.overwrite('writeFile', (origFn, ...args) => {
+  return origFn(...args).then(() => args[1]);
+});

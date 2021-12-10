@@ -10,5 +10,5 @@
   },
   "retries": 2,
   "numTestsKeptInMemory": 1,
-  "snapshotFileName": "./cypress/snapshots.js"
+  "useRelativeSnapshots": true
 }
