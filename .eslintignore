@@ -6,5 +6,4 @@ dist/
 build/
 cypress/plugins/
 cypress/support/
-cypress/snapshots.js
-**/snapshots.js
+cypress/**/snapshots.js

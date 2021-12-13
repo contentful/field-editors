@@ -18,4 +18,3 @@ cypress/screenshots
 cypress/reports
 cypress.env.json
 .vscode/
-**/snapshots.js
