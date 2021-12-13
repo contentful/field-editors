@@ -43,6 +43,8 @@ export class RichTextPage {
       expect(field.getValue()).to.deep.equal(expectedValue);
     });
 
+    const isValidationEvent = ({ type }) => type === 'onSchemaErrorsChanged';
+
     if (editorEvents) {
       cy.editorEvents()
         .then((events) => {
