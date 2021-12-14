@@ -1,6 +1,7 @@
 const webpack = require('@cypress/webpack-preprocessor');
+const { initPlugin: initSnapshotPlugin } = require('cypress-plugin-snapshots/plugin');
 
-module.exports = (on) => {
+module.exports = (on, config) => {
   const options = {
     webpackOptions: {
       resolve: {
@@ -32,4 +33,7 @@ module.exports = (on) => {
     },
   };
   on('file:preprocessor', webpack(options));
+
+  initSnapshotPlugin(on, config);
+  return config;
 };

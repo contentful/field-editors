@@ -1,3 +1,5 @@
+const isValidationEvent = ({ type }) => type === 'onSchemaErrorsChanged';
+
 export class RichTextPage {
   visit() {
     cy.visit('/rich-text');
@@ -52,6 +54,20 @@ export class RichTextPage {
     }
 
     // There can't be any validation error
+    this.expectNoValidationErrors();
+  }
+
+  expectSnapshotValue() {
+    cy.getRichTextField().should((field) => {
+      //@ts-expect-error cypress-plugin-snapshots doesn't have type definitions
+      cy.wrap(field.getValue()).toMatchSnapshot();
+    });
+
+    // There can't be any validation error
+    this.expectNoValidationErrors();
+  }
+
+  expectNoValidationErrors() {
     cy.editorEvents()
       .then((events) => {
         return events.filter((ev) => isValidationEvent(ev) && ev.value.length > 0);
