@@ -1,5 +1,6 @@
 import { Node as SlateNode, Transforms, Editor } from 'slate';
-import { PlatePlugin, getNodes } from '@udecode/plate';
+import { PlatePlugin } from '@udecode/plate-core';
+import { getNodes } from '@udecode/plate-common';
 import { BLOCKS, CONTAINERS, INLINES } from '@contentful/rich-text-types';
 
 import { CustomElement } from '../../types';

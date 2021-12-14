@@ -1,5 +1,5 @@
 import constate from 'constate';
-import { usePlateEditorRef } from '@udecode/plate';
+import { usePlateEditorRef } from '@udecode/plate-core';
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 
 export function getContentfulEditorId(sdk: FieldExtensionSDK) {

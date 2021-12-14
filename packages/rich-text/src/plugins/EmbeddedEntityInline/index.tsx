@@ -4,7 +4,7 @@ import {
   getRenderElement,
   getPlatePluginTypes,
   getPlatePluginOptions,
-} from '@udecode/plate';
+} from '@udecode/plate-core';
 import { Transforms } from 'slate';
 import { INLINES } from '@contentful/rich-text-types';
 import { useSelected, ReactEditor, useReadOnly } from 'slate-react';

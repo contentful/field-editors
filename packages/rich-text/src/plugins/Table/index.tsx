@@ -5,6 +5,7 @@ import tokens from '@contentful/f36-tokens';
 import { TableIcon } from '@contentful/f36-icons';
 import { ToolbarButton } from '../shared/ToolbarButton';
 import { BLOCKS, TableCell, TableHeaderCell } from '@contentful/rich-text-types';
+import { PlateEditor } from '@udecode/plate-core';
 import {
   createTablePlugin as createTablePluginFromUdecode,
   ELEMENT_TABLE,
@@ -12,8 +13,7 @@ import {
   ELEMENT_TH,
   ELEMENT_TR,
   getTableOnKeyDown,
-  PlateEditor,
-} from '@udecode/plate';
+} from '@udecode/plate-table';
 import { TableActions } from './TableActions';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { CustomElement, CustomSlatePluginOptions } from '../../types';

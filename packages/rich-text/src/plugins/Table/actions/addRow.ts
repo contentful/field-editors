@@ -1,15 +1,7 @@
 import { Transforms, Path, Editor } from 'slate';
-import {
-  getAbove,
-  insertNodes,
-  someNode,
-  getPlatePluginType,
-  PlateEditor,
-  TElement,
-  ELEMENT_TABLE,
-  ELEMENT_TR,
-  getEmptyRowNode,
-} from '@udecode/plate';
+import { getPlatePluginType, PlateEditor, TElement } from '@udecode/plate-core';
+import { ELEMENT_TABLE, ELEMENT_TR, getEmptyRowNode } from '@udecode/plate-table';
+import { getAbove, insertNodes, someNode } from '@udecode/plate-common';
 
 const addRow = (editor: PlateEditor, getNextRowPath: (currentRowPath: Path) => Path) => {
   if (

@@ -1,4 +1,4 @@
-import { PlatePlugin, PlateEditor } from '@udecode/plate';
+import { PlatePlugin, PlateEditor } from '@udecode/plate-core';
 import * as sanitizers from './sanitizers';
 import flow from 'lodash/flow';
 

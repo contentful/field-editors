@@ -9,7 +9,7 @@ import schema from './constants/Schema';
 import deepEquals from 'fast-deep-equal';
 import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/StickyToolbarWrapper';
-import { Plate } from '@udecode/plate';
+import { Plate } from '@udecode/plate-core';
 import { SdkProvider } from './SdkProvider';
 import {
   RichTextTrackingActionHandler,
