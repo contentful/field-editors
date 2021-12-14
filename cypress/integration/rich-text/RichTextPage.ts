@@ -41,8 +41,22 @@ export class RichTextPage {
       expect(field.getValue()).to.deep.equal(expectedValue);
     });
 
+    const isValidationEvent = ({ type }) => type === 'onSchemaErrorsChanged';
+
     if (editorEvents) {
-      cy.editorEvents().should('deep.include', { ...editorEvents, value: expectedValue });
+      cy.editorEvents()
+        .then((events) => {
+          return events.filter((event) => !isValidationEvent(event));
+        })
+        .should('deep.include', { ...editorEvents, value: expectedValue });
     }
+
+    // There can't be any validation error
+    cy.editorEvents()
+      .then((events) => {
+        return events.filter((ev) => isValidationEvent(ev) && ev.value.length > 0);
+      })
+      .should('be.empty')
+      .as('validationErrors');
   }
 }

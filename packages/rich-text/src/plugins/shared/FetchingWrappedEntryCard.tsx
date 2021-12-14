@@ -31,7 +31,7 @@ function EntryThumbnail({ file }: EntryThumbnailProps) {
 }
 
 export function FetchingWrappedEntryCard(props: FetchingWrappedEntryCardProps) {
-  const { getOrLoadEntry, entries } = useEntities();
+  const { getOrLoadEntry, entries, getOrLoadAsset } = useEntities();
   const [file, setFile] = React.useState<File | null>(null);
   const entry = entries[props.entryId];
   const contentType = React.useMemo(() => {
@@ -55,11 +55,11 @@ export function FetchingWrappedEntryCard(props: FetchingWrappedEntryCardProps) {
           localeCode: props.locale,
           defaultLocaleCode,
         },
-        props.sdk.space.getAsset
+        getOrLoadAsset
       )
       .then(setFile)
       .catch(() => setFile(null));
-  }, [entry, contentType, props.locale, defaultLocaleCode, props.sdk, file]);
+  }, [entry, contentType, props.locale, defaultLocaleCode, props.sdk, file, getOrLoadAsset]);
 
   React.useEffect(() => {
     getOrLoadEntry(props.entryId);
