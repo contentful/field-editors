@@ -123,12 +123,13 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
     it('correctly undoes after drag&drop', () => {
       const paragraph = block(BLOCKS.PARAGRAPH, {}, text('some text.'));
+      const docBeforeDragAndDrop = doc(paragraph, entryBlock(), emptyParagraph());
 
       // type text, insert entry block
       richText.editor.click().type('some text.').click();
       cy.findByTestId('toolbar-entity-dropdown-toggle').click();
       cy.findByTestId('toolbar-toggle-embedded-entry-block').click();
-      richText.expectValue(doc(paragraph, entryBlock(), emptyParagraph()));
+      richText.expectValue(docBeforeDragAndDrop);
 
       // drag & drop
       cy.findByTestId('cf-ui-entry-card')
@@ -143,16 +144,13 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           emptyParagraph()
         )
       );
-      richText.expectValue(
-        doc(entryBlock(), block(BLOCKS.PARAGRAPH, {}, text('some text.')), emptyParagraph())
-      );
 
       // undo
       // Ensures that drag&drop was recoreded in a separate history batch,
       // undoing should not delete the entry block.
       // See the Slate bug report: https://github.com/ianstormtaylor/slate/issues/4694
       richText.editor.click().type(`{${mod}}z`).click();
-      richText.expectValue(doc(paragraph, entryBlock(), emptyParagraph()));
+      richText.expectValue(docBeforeDragAndDrop);
     });
   });
 
