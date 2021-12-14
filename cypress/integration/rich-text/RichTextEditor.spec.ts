@@ -131,6 +131,10 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       richText.expectValue(doc(paragraph, entryBlock(), emptyParagraph()));
 
       // drag & drop
+      cy.findByTestId('cf-ui-entry-card')
+        .parent()
+        .parent()
+        .dragTo(() => richText.editor.findByText('some text.'));
       richText.expectValue(
         doc(
           block(BLOCKS.PARAGRAPH, {}, text('some')),
