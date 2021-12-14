@@ -116,3 +116,16 @@ Cypress.Commands.add('paste', { prevSubject: 'element' }, function (subject, dat
 
   cy.wrap(subject).trigger('beforeinput', event);
 });
+
+/**
+ * Drag & drop a parent element to the targetElement. The parent element's HTML is used for data transfer.
+ * Allows drag & dropping block elements.
+ */
+Cypress.Commands.add('dragTo', { prevSubject: true }, (subject, target) => {
+  const dataTransfer = new DataTransfer();
+  dataTransfer.setData('text/html', subject[0].outerHTML);
+
+  cy.wrap(subject).trigger('dragstart', { dataTransfer });
+
+  target().trigger('drop', { dataTransfer });
+});

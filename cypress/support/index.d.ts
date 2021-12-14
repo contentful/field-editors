@@ -18,5 +18,6 @@ declare namespace Cypress {
       getValue: () => Record<any, any>;
     }>;
     paste(data: { [key: string]: string }): Chainable<void>;
+    dragTo(target: () => Chainable): Chainable<void>;
   }
 }
