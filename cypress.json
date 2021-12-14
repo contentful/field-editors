@@ -10,5 +10,8 @@
   },
   "retries": 2,
   "numTestsKeptInMemory": 1,
-  "useRelativeSnapshots": true
+  "ignoreTestFiles": [
+    "**/__snapshots__/*",
+    "**/__image_snapshots__/*"
+  ]
 }

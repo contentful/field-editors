@@ -1,8 +1,7 @@
 const webpack = require('@cypress/webpack-preprocessor');
+const { initPlugin: initSnapshotPlugin } = require('cypress-plugin-snapshots/plugin');
 
-const fs = require('fs');
-
-module.exports = (on) => {
+module.exports = (on, config) => {
   const options = {
     webpackOptions: {
       resolve: {
@@ -35,13 +34,6 @@ module.exports = (on) => {
   };
   on('file:preprocessor', webpack(options));
 
-  on('task', {
-    readFileMaybe(filename) {
-      if (fs.existsSync(filename)) {
-        return fs.readFileSync(filename, 'utf8');
-      }
-
-      return null;
-    },
-  });
+  initSnapshotPlugin(on, config);
+  return config;
 };

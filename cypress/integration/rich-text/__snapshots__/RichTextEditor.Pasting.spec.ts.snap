@@ -1,0 +1,1011 @@
+exports[`Rich Text Editor > Lists > pastes orphaned list items as unordered lists #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "Hello"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": [
+                        {
+                          "data": {},
+                          "marks": [
+                            {
+                              "type": "bold"
+                            }
+                          ],
+                          "nodeType": "text",
+                          "value": "world!"
+                        }
+                      ],
+                      "data": {},
+                      "nodeType": "paragraph"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "list-item"
+                }
+              ],
+              "data": {},
+              "nodeType": "unordered-list"
+            }
+          ],
+          "data": {},
+          "nodeType": "list-item"
+        }
+      ],
+      "data": {},
+      "nodeType": "unordered-list"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > Lists > supports pasting of a simple list #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "item #1"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            }
+          ],
+          "data": {},
+          "nodeType": "list-item"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "item #2"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            }
+          ],
+          "data": {},
+          "nodeType": "list-item"
+        }
+      ],
+      "data": {},
+      "nodeType": "unordered-list"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > Lists > pastes texts inside lists #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "Hello world!"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            }
+          ],
+          "data": {},
+          "nodeType": "list-item"
+        }
+      ],
+      "data": {},
+      "nodeType": "unordered-list"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > Lists > pastes elements inside links #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "This is a "
+                },
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "link"
+                    }
+                  ],
+                  "data": {
+                    "uri": "https://example.com"
+                  },
+                  "nodeType": "hyperlink"
+                },
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": " and an inline entry: "
+                },
+                {
+                  "content": [],
+                  "data": {
+                    "target": {
+                      "sys": {
+                        "id": "example-entity-id",
+                        "linkType": "Entry",
+                        "type": "Link"
+                      }
+                    }
+                  },
+                  "nodeType": "embedded-entry-inline"
+                },
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": ""
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            }
+          ],
+          "data": {},
+          "nodeType": "list-item"
+        }
+      ],
+      "data": {},
+      "nodeType": "unordered-list"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > Lists > pastes list items as new lists inside lists #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "Hello"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": [
+                        {
+                          "data": {},
+                          "marks": [
+                            {
+                              "type": "bold"
+                            }
+                          ],
+                          "nodeType": "text",
+                          "value": "world!"
+                        }
+                      ],
+                      "data": {},
+                      "nodeType": "paragraph"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "list-item"
+                }
+              ],
+              "data": {},
+              "nodeType": "unordered-list"
+            }
+          ],
+          "data": {},
+          "nodeType": "list-item"
+        }
+      ],
+      "data": {},
+      "nodeType": "unordered-list"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > Lists > confers the parent list type upon list items pasted within lists #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "Hello"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": [
+                        {
+                          "data": {},
+                          "marks": [
+                            {
+                              "type": "bold"
+                            }
+                          ],
+                          "nodeType": "text",
+                          "value": "world!"
+                        }
+                      ],
+                      "data": {},
+                      "nodeType": "paragraph"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "list-item"
+                }
+              ],
+              "data": {},
+              "nodeType": "ordered-list"
+            }
+          ],
+          "data": {},
+          "nodeType": "list-item"
+        }
+      ],
+      "data": {},
+      "nodeType": "ordered-list"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > Lists > pastes only the text content of other blocks #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "Item #1"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            },
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [
+                    {
+                      "type": "bold"
+                    }
+                  ],
+                  "nodeType": "text",
+                  "value": "Header 1"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            },
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "Header 2 ("
+                },
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "with link"
+                    }
+                  ],
+                  "data": {
+                    "uri": "https://example.com"
+                  },
+                  "nodeType": "hyperlink"
+                },
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": ")"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            },
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [
+                    {
+                      "type": "bold"
+                    }
+                  ],
+                  "nodeType": "text",
+                  "value": "Cell 1"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            },
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "Cell 2"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            }
+          ],
+          "data": {},
+          "nodeType": "list-item"
+        }
+      ],
+      "data": {},
+      "nodeType": "unordered-list"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > Lists > pastes table & its inline elements correctly #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": "What can I do with tables"
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    },
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Property"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-header-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Supported"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-header-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Adding and removing rows and columns"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Yes"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Table header"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Yes, for rows and columns"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Formatting options"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [
+                        {
+                          "type": "bold"
+                        }
+                      ],
+                      "nodeType": "text",
+                      "value": "Bold"
+                    },
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": ","
+                    },
+                    {
+                      "data": {},
+                      "marks": [
+                        {
+                          "type": "italic"
+                        }
+                      ],
+                      "nodeType": "text",
+                      "value": "italics"
+                    },
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": ","
+                    },
+                    {
+                      "data": {},
+                      "marks": [
+                        {
+                          "type": "underline"
+                        }
+                      ],
+                      "nodeType": "text",
+                      "value": "underline"
+                    },
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": ","
+                    },
+                    {
+                      "data": {},
+                      "marks": [
+                        {
+                          "type": "code"
+                        }
+                      ],
+                      "nodeType": "text",
+                      "value": "code"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Hyperlinks"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": ""
+                    },
+                    {
+                      "content": [
+                        {
+                          "data": {},
+                          "marks": [],
+                          "nodeType": "text",
+                          "value": "URL"
+                        }
+                      ],
+                      "data": {
+                        "uri": "https://google.com"
+                      },
+                      "nodeType": "hyperlink"
+                    },
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": ", "
+                    },
+                    {
+                      "content": [
+                        {
+                          "data": {},
+                          "marks": [],
+                          "nodeType": "text",
+                          "value": "asset"
+                        }
+                      ],
+                      "data": {
+                        "target": {
+                          "sys": {
+                            "id": "example-entity-id",
+                            "linkType": "Asset",
+                            "type": "Link"
+                          }
+                        }
+                      },
+                      "nodeType": "asset-hyperlink"
+                    },
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": " and "
+                    },
+                    {
+                      "content": [
+                        {
+                          "data": {},
+                          "marks": [],
+                          "nodeType": "text",
+                          "value": "entry"
+                        }
+                      ],
+                      "data": {
+                        "target": {
+                          "sys": {
+                            "id": "example-entity-id",
+                            "linkType": "Entry",
+                            "type": "Link"
+                          }
+                        }
+                      },
+                      "nodeType": "entry-hyperlink"
+                    },
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": ""
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Embed entries"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Only inline entries "
+                    },
+                    {
+                      "content": [],
+                      "data": {
+                        "target": {
+                          "sys": {
+                            "id": "example-entity-id",
+                            "linkType": "Entry",
+                            "type": "Link"
+                          }
+                        }
+                      },
+                      "nodeType": "embedded-entry-inline"
+                    },
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": ""
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Copy & paste from other documents"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Yes. Eg. Google Docs, Jira, Confluence"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        }
+      ],
+      "data": {},
+      "nodeType": "table"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};

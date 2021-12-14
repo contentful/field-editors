@@ -59,8 +59,8 @@ export class RichTextPage {
 
   expectSnapshotValue() {
     cy.getRichTextField().should((field) => {
-      //@ts-expect-error @cypress/snapshot doesn't have type definitions
-      cy.wrap(field.getValue()).snapshot();
+      //@ts-expect-error cypress-plugin-snapshots doesn't have type definitions
+      cy.wrap(field.getValue()).toMatchSnapshot();
     });
 
     // There can't be any validation error

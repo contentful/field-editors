@@ -15,9 +15,7 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands';
+import 'cypress-plugin-snapshots/commands';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
-Cypress.Commands.overwrite('writeFile', (origFn, ...args) => {
-  return origFn(...args).then(() => args[1]);
-});
