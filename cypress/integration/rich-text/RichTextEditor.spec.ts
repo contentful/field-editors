@@ -136,14 +136,18 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         .parent()
         .parent()
         .dragTo(() => richText.editor.findByText('some text.'));
-      richText.expectValue(
-        doc(
-          block(BLOCKS.PARAGRAPH, {}, text('some')),
-          entryBlock(),
-          block(BLOCKS.PARAGRAPH, {}, text(' text.')),
-          emptyParagraph()
-        )
-      );
+      if (Cypress.browser.name === 'firefox') {
+        richText.expectValue(doc(entryBlock(), paragraph, emptyParagraph()));
+      } else {
+        richText.expectValue(
+          doc(
+            block(BLOCKS.PARAGRAPH, {}, text('some')),
+            entryBlock(),
+            block(BLOCKS.PARAGRAPH, {}, text(' text.')),
+            emptyParagraph()
+          )
+        );
+      }
 
       // undo
       // Ensures that drag&drop was recoreded in a separate history batch,
