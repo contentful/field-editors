@@ -128,10 +128,9 @@ export function Hr(props: Slate.RenderLeafProps) {
     <div
       {...props.attributes}
       className={styles.container}
-      contentEditable={false}
       // COMPAT: To make HR copyable in Safari, we verify this attribute below on `deserialize`
       data-void-element={BLOCKS.HR}>
-      <div draggable={true}>
+      <div draggable={true} contentEditable={false}>
         <hr className={cx(styles.hr, isSelected && isFocused ? styles.hrSelected : undefined)} />
       </div>
       {props.children}
