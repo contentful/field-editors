@@ -1,4 +1,4 @@
-import { Node as SlateNode, Transforms, Editor } from 'slate';
+import { Node as SlateNode, Transforms } from 'slate';
 import { PlatePlugin } from '@udecode/plate-core';
 import { getNodes } from '@udecode/plate-common';
 import { BLOCKS, CONTAINERS, INLINES } from '@contentful/rich-text-types';
@@ -66,7 +66,7 @@ export function createDragAndDropPlugin(): PlatePlugin {
     onDrop: (editor) => (event) => {
       const [draggingBlock] = Array.from(
         getNodes(editor, {
-          match: (node) => Editor.isBlock(editor, node) && DRAGGABLE_TYPES.includes(node.type),
+          match: (node) => DRAGGABLE_TYPES.includes(node?.type),
         })
       );
       if (!draggingBlock) return false;
@@ -76,11 +76,19 @@ export function createDragAndDropPlugin(): PlatePlugin {
       if (!event.nativeEvent.target) return false;
 
       // TODO: looking up for html nodes is not the best solution and it won't scale, we need to find a way to know the dropping target slate element
-      return getParents(event.nativeEvent.target as Node).some((node) => {
+      const dropDisallowed = getParents(event.nativeEvent.target as Node).some((node) => {
         return ON_DROP_ALLOWED_TYPES[node.nodeName]
           ? !ON_DROP_ALLOWED_TYPES[node.nodeName]?.includes(draggingNode.type)
           : false;
       });
+
+      if (!dropDisallowed) {
+        // Move the drop event to a new undo batch mitigating the bug where undo not only moves it back,
+        // but also undoes a previous action: https://github.com/ianstormtaylor/slate/issues/4694
+        editor.history.undos.push([]);
+      }
+
+      return dropDisallowed;
     },
   };
 }

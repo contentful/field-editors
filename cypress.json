@@ -9,5 +9,9 @@
     "json": true
   },
   "retries": 2,
-  "numTestsKeptInMemory": 1
+  "numTestsKeptInMemory": 1,
+  "ignoreTestFiles": [
+    "**/__snapshots__/*",
+    "**/__image_snapshots__/*"
+  ]
 }
