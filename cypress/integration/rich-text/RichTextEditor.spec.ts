@@ -345,6 +345,17 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
         richText.expectValue(expectedValue);
       });
+
+      it('should select all and delete if HR is the first void block', () => {
+        richText.editor.click();
+
+        richText.toolbar.hr.click();
+
+        richText.editor.click().type('hey').type('{selectall}{del}');
+
+        // editor is empty
+        richText.expectValue(undefined);
+      });
     });
   });
 
