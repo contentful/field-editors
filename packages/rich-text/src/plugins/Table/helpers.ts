@@ -1,16 +1,13 @@
 import { Transforms, Path, Editor, Ancestor } from 'slate';
+import { PlateEditor } from '@udecode/plate-core';
 import {
-  PlateEditor,
   ELEMENT_TABLE,
   ELEMENT_TH,
   ELEMENT_TD,
   ELEMENT_TR,
   insertTable,
-  getAbove,
-  getChildren,
-  isFirstChild,
-  isAncestorEmpty,
-} from '@udecode/plate';
+} from '@udecode/plate-table';
+import { getAbove, getChildren, isFirstChild, isAncestorEmpty } from '@udecode/plate-common';
 import { BLOCKS } from '@contentful/rich-text-types';
 
 import {

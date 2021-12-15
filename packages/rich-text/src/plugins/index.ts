@@ -2,12 +2,9 @@ import { FieldExtensionSDK } from '@contentful/app-sdk';
 
 import { createPastePlugin } from './Paste';
 import { createListPlugin, withListOptions } from './List';
-import {
-  createHistoryPlugin,
-  createReactPlugin,
-  createDeserializeAstPlugin,
-  createDeserializeHTMLPlugin,
-} from '@udecode/plate';
+import { createHistoryPlugin, createReactPlugin } from '@udecode/plate-core';
+import { createDeserializeHTMLPlugin } from '@udecode/plate-html-serializer';
+import { createDeserializeAstPlugin } from '@udecode/plate-ast-serializer';
 import { createHrPlugin, withHrOptions } from './Hr';
 import { withHeadingOptions, createHeadingPlugin } from './Heading';
 import { createBoldPlugin, withBoldOptions } from './Bold';

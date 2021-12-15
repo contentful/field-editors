@@ -3,15 +3,13 @@
  * to fix pasting text inside lists.
  */
 import {
-  findNode,
   getPlatePluginOptions,
   PlateEditor,
   PlatePluginOptions,
   TDescendant,
-  ELEMENT_LI,
-  ELEMENT_OL,
-  ELEMENT_UL,
-} from '@udecode/plate';
+} from '@udecode/plate-core';
+import { findNode } from '@udecode/plate-common';
+import { ELEMENT_LI, ELEMENT_OL, ELEMENT_UL } from '@udecode/plate-list';
 import { Node, NodeEntry, Path, Transforms } from 'slate';
 
 export const getListInsertFragment = (editor: PlateEditor) => {

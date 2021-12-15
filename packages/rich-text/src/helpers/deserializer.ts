@@ -3,9 +3,8 @@ import {
   PlateEditor,
   Deserialize,
   GetNodeDeserializerRule,
-  getLeafDeserializer,
-  getElementDeserializer,
-} from '@udecode/plate';
+} from '@udecode/plate-core';
+import { getLeafDeserializer, getElementDeserializer } from '@udecode/plate-common';
 
 export function deserializeLeaf(type: string, rules: GetNodeDeserializerRule[]): Deserialize {
   return function (editor: PlateEditor) {

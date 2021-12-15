@@ -2,6 +2,8 @@ import * as React from 'react';
 import * as Slate from 'slate-react';
 import { Element, Text, Node, Transforms, Editor, NodeEntry, Path } from 'slate';
 import { css } from 'emotion';
+import { WithOverride, PlateEditor } from '@udecode/plate-core';
+import { getParent, getAbove } from '@udecode/plate-common';
 import {
   createListPlugin as createPlateListPlugin,
   withList,
@@ -10,11 +12,7 @@ import {
   ELEMENT_OL,
   toggleList,
   ELEMENT_LIC,
-  WithOverride,
-  getParent,
-  getAbove,
-  PlateEditor,
-} from '@udecode/plate';
+} from '@udecode/plate-list';
 import { BLOCKS, INLINES, LIST_ITEM_BLOCKS, TopLevelBlockEnum } from '@contentful/rich-text-types';
 import { ListBulletedIcon, ListNumberedIcon } from '@contentful/f36-icons';
 

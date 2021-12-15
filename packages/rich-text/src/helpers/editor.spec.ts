@@ -1,5 +1,5 @@
 import { createEditor as createSlateEditor } from '@udecode/plate-test-utils';
-import { PlateEditor } from '@udecode/plate';
+import { PlateEditor } from '@udecode/plate-core';
 import { Path } from 'slate';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { extractParagraphsAt } from './editor';

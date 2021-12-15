@@ -1,4 +1,5 @@
-import { PlateEditor, getAbove, setNodes, getChildren } from '@udecode/plate';
+import { PlateEditor } from '@udecode/plate-core';
+import { getAbove, setNodes, getChildren } from '@udecode/plate-common';
 import { BLOCKS } from '@contentful/rich-text-types';
 
 export const setHeader = (editor: PlateEditor, enable?: boolean) => {
