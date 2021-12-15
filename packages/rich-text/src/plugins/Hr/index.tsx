@@ -64,18 +64,15 @@ export function withHrEvents(editor: PlateEditor) {
   return (event: React.KeyboardEvent) => {
     if (!editor) return;
 
-    const isEnter = event.keyCode === 13;
     const [, pathToSelectedHr] = getNodeEntryFromSelection(editor, BLOCKS.HR);
-
     if (pathToSelectedHr) {
       if (shouldUnwrapBlockquote(editor, BLOCKS.HR)) {
         unwrapFromRoot(editor);
       }
 
-      if (isEnter) {
-        event.preventDefault();
-        moveToTheNextLine(editor);
-      } else if (event.key === 'Backspace') {
+      const isBackspace = event.key === 'Backspace';
+      const isDelete = event.key === 'Delete';
+      if (isBackspace || isDelete) {
         event.preventDefault();
         Transforms.removeNodes(editor, { at: pathToSelectedHr });
       }
