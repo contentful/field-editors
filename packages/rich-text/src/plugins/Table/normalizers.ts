@@ -1,4 +1,4 @@
-import { PlateEditor } from '@udecode/plate';
+import { PlateEditor } from '@udecode/plate-core';
 import { Element, Node, Transforms } from 'slate';
 import { BLOCKS, CONTAINERS } from '@contentful/rich-text-types';
 

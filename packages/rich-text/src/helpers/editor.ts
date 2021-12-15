@@ -1,4 +1,5 @@
-import { PlateEditor, getText } from '@udecode/plate';
+import { PlateEditor } from '@udecode/plate-core';
+import { getText } from '@udecode/plate-common';
 import { Link } from '@contentful/field-editor-reference/dist/types';
 import { Text, Editor, Element, Transforms, Path, Range, Node, Location } from 'slate';
 import { BLOCKS, INLINES, TABLE_BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';

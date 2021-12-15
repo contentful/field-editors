@@ -6,7 +6,7 @@ import {
   PlatePlugin,
   getPlatePluginOptions,
   PlateEditor,
-} from '@udecode/plate';
+} from '@udecode/plate-core';
 import { Transforms } from 'slate';
 import { getNodeEntryFromSelection } from '../../helpers/editor';
 import { CustomSlatePluginOptions } from 'types';

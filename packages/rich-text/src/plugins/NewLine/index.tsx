@@ -1,5 +1,5 @@
 import { KeyboardEvent } from 'react';
-import { PlatePlugin, PlateEditor } from '@udecode/plate';
+import { PlatePlugin, PlateEditor } from '@udecode/plate-core';
 
 export function createNewLinePlugin(): PlatePlugin {
   return {

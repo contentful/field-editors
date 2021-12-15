@@ -11,10 +11,8 @@ import {
   getRenderElement,
   PlateEditor,
   getPlatePluginOptions,
-  insertNodes,
-  setNodes,
-  toggleNodeType,
-} from '@udecode/plate';
+} from '@udecode/plate-core';
+import { insertNodes, setNodes, toggleNodeType } from '@udecode/plate-common';
 import { CustomElement, CustomSlatePluginOptions } from '../../types';
 import {
   getElementFromCurrentSelection,

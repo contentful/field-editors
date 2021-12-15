@@ -1,4 +1,5 @@
-import { PlatePlugin, ExitBreakPluginOptions, createExitBreakPlugin } from '@udecode/plate';
+import { PlatePlugin } from '@udecode/plate-core';
+import { ExitBreakPluginOptions, createExitBreakPlugin } from '@udecode/plate-break';
 import { isFirstChild } from '../../helpers/editor';
 
 export function createInsertBeforeFirstVoidBlockPlugin(): PlatePlugin {

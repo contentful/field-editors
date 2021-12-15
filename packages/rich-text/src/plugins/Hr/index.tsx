@@ -11,9 +11,8 @@ import {
   getRenderElement,
   PlatePlugin,
   PlateEditor,
-  getText,
-  setNodes,
-} from '@udecode/plate';
+} from '@udecode/plate-core';
+import { getText, setNodes } from '@udecode/plate-common';
 import {
   getNodeEntryFromSelection,
   isBlockSelected,

@@ -12,7 +12,7 @@ import {
   ModalControls,
 } from '@contentful/f36-components';
 import { ModalDialogLauncher, FieldExtensionSDK } from '@contentful/field-editor-shared';
-import { PlateEditor } from '@udecode/plate';
+import { PlateEditor } from '@udecode/plate-core';
 import { Editor, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { HistoryEditor } from 'slate-history';
