@@ -1009,3 +1009,53 @@ exports[`Rich Text Editor > Lists > pastes table & its inline elements correctly
   "data": {},
   "nodeType": "document"
 };
+
+exports[`Rich Text Editor > HR > should paste from internal copying #0`] =
+{
+  "content": [
+    {
+      "content": [],
+      "data": {},
+      "nodeType": "hr"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > HR > should paste from external resources #0`] =
+{
+  "content": [
+    {
+      "content": [],
+      "data": {},
+      "nodeType": "hr"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
