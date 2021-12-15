@@ -1,4 +1,3 @@
-import { createEditor } from 'slate';
 import { withPlate } from '@udecode/plate-core';
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 
@@ -16,12 +15,9 @@ export const createTestEditor = (options: {
 
   const sdk: FieldExtensionSDK = options.sdk ?? ({} as any);
 
-  const editor = createEditor() as any;
-
   return withPlate({
-    editor: options.input,
     plugins: getPlugins(sdk, tracking),
     // @ts-expect-error
     options: pluginOptions,
-  })(editor);
+  })(options.input);
 };
