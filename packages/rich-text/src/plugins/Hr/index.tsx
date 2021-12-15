@@ -125,8 +125,13 @@ export function Hr(props: Slate.RenderLeafProps) {
   const isFocused = Slate.useFocused();
 
   return (
-    <div {...props.attributes} className={styles.container}>
-      <div contentEditable={false}>
+    <div
+      {...props.attributes}
+      className={styles.container}
+      contentEditable={false}
+      // COMPAT: To make HR copyable in Safari, we verify this attribute below on `deserialize`
+      data-void-element={BLOCKS.HR}>
+      <div draggable={true}>
         <hr className={cx(styles.hr, isSelected && isFocused ? styles.hrSelected : undefined)} />
       </div>
       {props.children}
@@ -143,6 +148,11 @@ export function createHrPlugin(): PlatePlugin {
     deserialize: deserializeElement(BLOCKS.HR, [
       {
         nodeNames: ['HR'],
+      },
+      {
+        attribute: {
+          'data-void-element': BLOCKS.HR,
+        },
       },
     ]),
   };

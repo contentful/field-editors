@@ -14,6 +14,7 @@ export function createDragAndDropPlugin(): PlatePlugin {
   const DRAGGABLE_TYPES: string[] = [
     BLOCKS.EMBEDDED_ENTRY,
     BLOCKS.EMBEDDED_ASSET,
+    BLOCKS.HR,
     INLINES.EMBEDDED_ENTRY,
   ];
 
