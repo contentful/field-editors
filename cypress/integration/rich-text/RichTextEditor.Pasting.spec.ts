@@ -127,5 +127,23 @@ describe(
         richText.expectSnapshotValue();
       });
     });
+
+    describe('HR', () => {
+      it('should paste from internal copying', () => {
+        richText.editor.click().paste({
+          'text/html': `<div data-void-element="hr"></div>`,
+        });
+
+        richText.expectSnapshotValue();
+      });
+
+      it('should paste from external resources', () => {
+        richText.editor.click().paste({
+          'text/html': `<div><hr /></div>`,
+        });
+
+        richText.expectSnapshotValue();
+      });
+    });
   }
 );

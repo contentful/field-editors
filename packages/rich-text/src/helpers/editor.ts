@@ -29,6 +29,10 @@ export function isVoid(editor, element): boolean {
   return element.isVoid || originalIsVoid(element);
 }
 
+export function isRootLevel(path: Path): boolean {
+  return path.length === 1;
+}
+
 export function hasSelectionText(editor) {
   return editor.selection
     ? Editor.node(editor, editor.selection.focus.path).some(

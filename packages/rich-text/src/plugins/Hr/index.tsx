@@ -64,18 +64,15 @@ export function withHrEvents(editor: PlateEditor) {
   return (event: React.KeyboardEvent) => {
     if (!editor) return;
 
-    const isEnter = event.keyCode === 13;
     const [, pathToSelectedHr] = getNodeEntryFromSelection(editor, BLOCKS.HR);
-
     if (pathToSelectedHr) {
       if (shouldUnwrapBlockquote(editor, BLOCKS.HR)) {
         unwrapFromRoot(editor);
       }
 
-      if (isEnter) {
-        event.preventDefault();
-        moveToTheNextLine(editor);
-      } else if (event.key === 'Backspace') {
+      const isBackspace = event.key === 'Backspace';
+      const isDelete = event.key === 'Delete';
+      if (isBackspace || isDelete) {
         event.preventDefault();
         Transforms.removeNodes(editor, { at: pathToSelectedHr });
       }
@@ -128,8 +125,15 @@ export function Hr(props: Slate.RenderLeafProps) {
   const isFocused = Slate.useFocused();
 
   return (
-    <div {...props.attributes} className={styles.container}>
-      <div contentEditable={false}>
+    <div
+      {...props.attributes}
+      className={styles.container}
+      // COMPAT: To make HR copyable in Safari, we verify this attribute below on `deserialize`
+      data-void-element={BLOCKS.HR}>
+      <div
+        draggable={true}
+        // Moving `contentEditable` to this div makes it to be selectable when being the first void element, e.g pressing ctrl + a to select everything
+        contentEditable={false}>
         <hr className={cx(styles.hr, isSelected && isFocused ? styles.hrSelected : undefined)} />
       </div>
       {props.children}
@@ -146,6 +150,11 @@ export function createHrPlugin(): PlatePlugin {
     deserialize: deserializeElement(BLOCKS.HR, [
       {
         nodeNames: ['HR'],
+      },
+      {
+        attribute: {
+          'data-void-element': BLOCKS.HR,
+        },
       },
     ]),
   };
