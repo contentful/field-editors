@@ -54,7 +54,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     backspace: { keyCode: 8, which: 8, key: 'Backspace' },
   };
 
-  function getDropdownToolbarButton() {
+  function getHeadingDropdownToolbarButton() {
     return cy.findByTestId('toolbar-heading-toggle');
   }
 
@@ -67,7 +67,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
   }
 
   function clickDropdownItem(type: string) {
-    getDropdownToolbarButton().click();
+    getHeadingDropdownToolbarButton().click();
     getDropdownItem(type).click({ force: true });
   }
 
@@ -403,7 +403,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           clickDropdownItem(type);
 
-          getDropdownToolbarButton().should('have.text', label);
+          getHeadingDropdownToolbarButton().should('have.text', label);
         });
 
         // TODO: Move this test to either a single test with multiple assertions or for only one heading type due to performance
@@ -470,14 +470,14 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
     describe('Toolbar', () => {
       it('should be visible', () => {
-        getDropdownToolbarButton().should('be.visible');
+        getHeadingDropdownToolbarButton().should('be.visible');
 
-        getDropdownToolbarButton().click();
+        getHeadingDropdownToolbarButton().click();
         getDropdownList().should('be.visible');
       });
 
       it(`should have ${headings.length} items`, () => {
-        getDropdownToolbarButton().click();
+        getHeadingDropdownToolbarButton().click();
         getDropdownList().children().should('have.length', headings.length);
 
         headings.forEach(([, label], index) => {
@@ -736,16 +736,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         richText.toolbar[el].should('be.disabled');
       });
 
-      getDropdownToolbarButton().click();
-      [
-        BLOCKS.PARAGRAPH,
-        BLOCKS.HEADING_1,
-        BLOCKS.HEADING_2,
-        BLOCKS.HEADING_3,
-        BLOCKS.HEADING_4,
-        BLOCKS.HEADING_5,
-        BLOCKS.HEADING_6,
-      ].map((type) => getDropdownItem(type).get('button').should('be.disabled'));
+      getHeadingDropdownToolbarButton().should('be.disabled');
 
       // select outside the table
       richText.editor.click().type('{downarrow}').wait(100);
@@ -754,7 +745,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         cy.findByTestId(`${el}-toolbar-button`).should('not.be.disabled');
       });
 
-      getDropdownToolbarButton().click();
+      getHeadingDropdownToolbarButton().click();
       [
         BLOCKS.PARAGRAPH,
         BLOCKS.HEADING_1,
