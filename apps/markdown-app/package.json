@@ -4,8 +4,8 @@
   "private": true,
   "dependencies": {
     "@contentful/app-sdk": "^4.3.0",
-    "@contentful/f36-components": "^4.0.1-beta.2527",
-    "@contentful/f36-tokens": "^4.0.1-beta.2527",
+    "@contentful/f36-components": "^4.0.1-beta.2696",
+    "@contentful/f36-tokens": "^4.0.1-beta.2696",
     "@contentful/field-editor-markdown": "^0.17.1",
     "@contentful/field-editor-shared": "^0.25.1",
     "@contentful/field-editor-single-line": "^0.15.6",

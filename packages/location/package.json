@@ -19,8 +19,8 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
-    "@contentful/f36-components": "^4.0.1-beta.2527",
-    "@contentful/f36-tokens": "^4.0.1-beta.2527",
+    "@contentful/f36-components": "^4.0.1-beta.2696",
+    "@contentful/f36-tokens": "^4.0.1-beta.2696",
     "@contentful/field-editor-shared": "^1.0.1",
     "@types/google-map-react": "1.1.8",
     "deep-equal": "2.0.5",
