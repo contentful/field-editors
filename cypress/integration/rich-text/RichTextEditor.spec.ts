@@ -95,6 +95,49 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     cy.editorEvents().should('deep.equal', []);
   });
 
+  it('disable all editor actions on readonly mode', () => {
+    cy.setInitialValue(
+      doc(
+        paragraphWithText('text'),
+        block(
+          BLOCKS.TABLE,
+          {},
+          block(
+            BLOCKS.TABLE_ROW,
+            {},
+            block(BLOCKS.TABLE_HEADER_CELL, {}, paragraphWithText('heading 1')),
+            block(BLOCKS.TABLE_HEADER_CELL, {}, paragraphWithText('heading 2'))
+          ),
+          block(
+            BLOCKS.TABLE_ROW,
+            {},
+            block(BLOCKS.TABLE_CELL, {}, paragraphWithText('cell 1')),
+            block(BLOCKS.TABLE_CELL, {}, paragraphWithText('cell 2'))
+          )
+        ),
+        emptyParagraph()
+      )
+    );
+
+    cy.setInitialDisabled(true);
+
+    // Necessary for reading the correct LocalStorage values as we do
+    // the initial page load on the beforeEach hook
+    cy.reload();
+
+    richText.toolbar.bold.should('be.disabled');
+    richText.toolbar.headings.dropdown().should('be.disabled');
+    richText.toolbar.hr.should('be.disabled');
+    richText.toolbar.hyperlink.should('be.disabled');
+    richText.toolbar.italic.should('be.disabled');
+    richText.toolbar.ol.should('be.disabled');
+    richText.toolbar.quote.should('be.disabled');
+    richText.toolbar.table.should('be.disabled');
+    richText.toolbar.ul.should('be.disabled');
+    richText.toolbar.underline.should('be.disabled');
+    cy.findByTestId('toolbar-entity-dropdown-toggle').should('be.disabled');
+  });
+
   it('allows typing', () => {
     richText.editor.click().type('some text').click();
 
