@@ -24,8 +24,8 @@
     "@contentful/app-sdk": "^4.2.0"
   },
   "dependencies": {
-    "@contentful/f36-note": "^4.0.1-beta.2694",
-    "@contentful/f36-tokens": "^4.0.1-beta.2694",
+    "@contentful/f36-note": "^4.0.1-beta.2696",
+    "@contentful/f36-tokens": "^4.0.1-beta.2696",
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15"
