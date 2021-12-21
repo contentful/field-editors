@@ -1,7 +1,7 @@
-import { withPlate } from '@udecode/plate-core';
+import { createPlateEditor } from '@udecode/plate-core';
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 
-import { getPlugins, pluginOptions } from '../plugins';
+import { getPlugins } from '../plugins';
 import { TrackingProvider } from '../TrackingProvider';
 
 export const createTestEditor = (options: {
@@ -15,9 +15,8 @@ export const createTestEditor = (options: {
 
   const sdk: FieldExtensionSDK = options.sdk ?? ({} as any);
 
-  return withPlate({
+  return createPlateEditor({
+    editor: options.input,
     plugins: getPlugins(sdk, tracking),
-    // @ts-expect-error
-    options: pluginOptions,
-  })(options.input);
+  });
 };

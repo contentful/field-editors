@@ -1,4 +1,4 @@
-import { PlatePluginOptions } from '@udecode/plate-core';
+import { PlatePlugin } from '@udecode/plate-core';
 import { RenderElementProps, RenderLeafProps } from 'slate-react';
 
 export type TextElement = { text: string };
@@ -16,7 +16,7 @@ export type CustomRenderElementProps<T = any, O = any> = Omit<RenderElementProps
   element: CustomElement<T>;
 } & O;
 
-export interface CustomPluginOptions extends Omit<PlatePluginOptions, 'component'> {
+export interface CustomPluginOptions extends Omit<PlatePlugin, 'component'> {
   component?:
     | React.FunctionComponent<CustomRenderElementProps>
     | React.FunctionComponent<RenderLeafProps>;
