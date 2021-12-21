@@ -6,6 +6,7 @@ import { CustomElement } from '../../types';
 
 export function createTextPlugin(): PlatePlugin {
   return {
+    key: 'text-plugin',
     withOverrides: (editor) => {
       const { deleteForward } = editor;
 
