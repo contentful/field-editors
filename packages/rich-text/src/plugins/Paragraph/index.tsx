@@ -47,10 +47,7 @@ export const createParagraphPlugin = (): PlatePlugin =>
     deserializeHtml: {
       rules: [
         {
-          validNodeName: 'P',
-        },
-        {
-          validNodeName: 'DIV',
+          validNodeName: ['P', 'DIV'],
         },
       ],
       query: (el) => !isEmpty(el) && !isEmbed(el),

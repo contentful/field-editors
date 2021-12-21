@@ -2,8 +2,8 @@ import * as React from 'react';
 import * as Slate from 'slate-react';
 import { css } from 'emotion';
 import { PlatePlugin } from '@udecode/plate-core';
+import { isMarkActive, toggleMark, someHtmlElement } from '@udecode/plate-core';
 import { createBoldPlugin as createDefaultBoldPlugin } from '@udecode/plate-basic-marks';
-import { isMarkActive, toggleMark } from '@udecode/plate-core';
 import { MARKS } from '@contentful/rich-text-types';
 import { FormatBoldIcon } from '@contentful/f36-icons';
 
@@ -71,6 +71,11 @@ export const createBoldPlugin = (): PlatePlugin =>
           },
         },
       ],
-      query: (el) => !isGoogleBoldWrapper(el),
+      query: (el) => {
+        return (
+          !isGoogleBoldWrapper(el) &&
+          !someHtmlElement(el, (node) => node.style.fontWeight === 'normal')
+        );
+      },
     },
   });

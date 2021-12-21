@@ -1,13 +1,12 @@
 import * as React from 'react';
 import * as Slate from 'slate-react';
 import { css } from 'emotion';
-import { PlatePlugin, getRenderLeaf, GetNodeDeserializerRule } from '@udecode/plate-core';
-import { getToggleMarkOnKeyDown, toggleMark, isMarkActive } from '@udecode/plate-core';
+import { PlatePlugin } from '@udecode/plate-core';
+import { toggleMark, isMarkActive, someHtmlElement } from '@udecode/plate-core';
+import { createItalicPlugin as createDefaultItalicPlugin } from '@udecode/plate-basic-marks';
 import { MARKS } from '@contentful/rich-text-types';
 import { FormatItalicIcon } from '@contentful/f36-icons';
 import { ToolbarButton } from '../shared/ToolbarButton';
-import { CustomSlatePluginOptions } from '../../types';
-import { deserializeLeaf } from '../../helpers/deserializer';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 
 interface ToolbarItalicButtonProps {
@@ -20,7 +19,7 @@ export function ToolbarItalicButton(props: ToolbarItalicButtonProps) {
   function handleClick() {
     if (!editor?.selection) return;
 
-    toggleMark(editor, MARKS.ITALIC);
+    toggleMark(editor, { key: MARKS.ITALIC });
     Slate.ReactEditor.focus(editor);
   }
 
@@ -52,28 +51,24 @@ export function Italic(props: Slate.RenderLeafProps) {
   );
 }
 
-export function createItalicPlugin(): PlatePlugin {
-  const deserializeRules: GetNodeDeserializerRule[] = [
-    { nodeNames: ['I', 'EM'] },
-    {
-      style: {
-        fontStyle: ['italic'],
+export const createItalicPlugin = (): PlatePlugin =>
+  createDefaultItalicPlugin({
+    key: MARKS.ITALIC,
+    component: Italic,
+    options: {
+      hotkey: ['mod+i'],
+    },
+    deserializeHtml: {
+      rules: [
+        { validNodeName: ['I', 'EM'] },
+        {
+          validStyle: {
+            fontStyle: 'italic',
+          },
+        },
+      ],
+      query: (el) => {
+        return !someHtmlElement(el, (node) => node.style.fontStyle === 'normal');
       },
     },
-  ];
-
-  return {
-    pluginKeys: MARKS.ITALIC,
-    renderLeaf: getRenderLeaf(MARKS.ITALIC),
-    onKeyDown: getToggleMarkOnKeyDown(MARKS.ITALIC),
-    deserialize: deserializeLeaf(MARKS.ITALIC, deserializeRules),
-  };
-}
-
-export const withItalicOptions: CustomSlatePluginOptions = {
-  [MARKS.ITALIC]: {
-    type: MARKS.ITALIC,
-    component: Italic,
-    hotkey: ['mod+i'],
-  },
-};
+  });
