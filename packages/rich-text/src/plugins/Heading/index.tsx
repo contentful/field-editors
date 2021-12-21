@@ -6,9 +6,9 @@ import { ChevronDownIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { Editor, Transforms, Node } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { PlatePlugin, getRenderElement, PlateEditor, getPlugin } from '@udecode/plate-core';
+import { PlatePlugin, PlateEditor } from '@udecode/plate-core';
 import { insertNodes, setNodes, toggleNodeType } from '@udecode/plate-core';
-import { CustomElement, CustomSlatePluginOptions } from '../../types';
+import { CustomElement } from '../../types';
 import {
   getElementFromCurrentSelection,
   hasSelectionText,
@@ -73,25 +73,26 @@ const styles = {
   },
 };
 
+const HEADINGS: BLOCKS[] = [
+  BLOCKS.HEADING_1,
+  BLOCKS.HEADING_2,
+  BLOCKS.HEADING_3,
+  BLOCKS.HEADING_4,
+  BLOCKS.HEADING_5,
+  BLOCKS.HEADING_6,
+];
+
 export function withHeadingEvents(editor: PlateEditor) {
   return (event: React.KeyboardEvent) => {
     if (!editor.selection) return;
 
     // Enter a new line on a heading element
-    const headings: string[] = [
-      BLOCKS.HEADING_1,
-      BLOCKS.HEADING_2,
-      BLOCKS.HEADING_3,
-      BLOCKS.HEADING_4,
-      BLOCKS.HEADING_5,
-      BLOCKS.HEADING_6,
-    ];
     const [currentFragment] = Editor.fragment(
       editor,
       editor.selection.focus.path
     ) as CustomElement[];
     const isEnter = event.keyCode === 13;
-    const isCurrentFragmentAHeading = headings.includes(currentFragment.type);
+    const isCurrentFragmentAHeading = HEADINGS.includes(currentFragment.type as BLOCKS);
 
     if (isEnter && isCurrentFragmentAHeading) {
       event.preventDefault();
@@ -254,74 +255,25 @@ export function createHeading(Tag, block: BLOCKS) {
   };
 }
 
-export const H1 = createHeading('h1', BLOCKS.HEADING_1);
-export const H2 = createHeading('h2', BLOCKS.HEADING_2);
-export const H3 = createHeading('h3', BLOCKS.HEADING_3);
-export const H4 = createHeading('h4', BLOCKS.HEADING_4);
-export const H5 = createHeading('h5', BLOCKS.HEADING_5);
-export const H6 = createHeading('h6', BLOCKS.HEADING_6);
+export const createHeadingPlugin = (): PlatePlugin => ({
+  key: 'heading',
+  plugins: HEADINGS.map((nodeType, idx) => {
+    const tagName = `h${idx + 1}`;
 
-export function createHeadingPlugin(): PlatePlugin {
-  const headings: string[] = [
-    BLOCKS.HEADING_1,
-    BLOCKS.HEADING_2,
-    BLOCKS.HEADING_3,
-    BLOCKS.HEADING_4,
-    BLOCKS.HEADING_5,
-    BLOCKS.HEADING_6,
-  ];
-
-  return {
-    renderElement: getRenderElement(headings),
-    pluginKeys: headings,
-    onKeyDown: withHeadingEvents,
-    deserialize: (editor) => {
-      return {
-        element: headings.map((headingType, index) => {
-          const options = getPlugin(editor, headingType);
-
-          return {
-            type: headingType,
-            deserialize: (element) => {
-              const isHeading = element.nodeName === `H${index + 1}`;
-
-              if (!isHeading) return;
-
-              return {
-                type: headingType,
-              };
-            },
-            ...options.deserialize,
-          };
-        }),
-      };
-    },
-  };
-}
-
-export const withHeadingOptions: CustomSlatePluginOptions = {
-  [BLOCKS.HEADING_1]: {
-    type: BLOCKS.HEADING_1,
-    component: H1,
-  },
-  [BLOCKS.HEADING_2]: {
-    type: BLOCKS.HEADING_2,
-    component: H2,
-  },
-  [BLOCKS.HEADING_3]: {
-    type: BLOCKS.HEADING_3,
-    component: H3,
-  },
-  [BLOCKS.HEADING_4]: {
-    type: BLOCKS.HEADING_4,
-    component: H4,
-  },
-  [BLOCKS.HEADING_5]: {
-    type: BLOCKS.HEADING_5,
-    component: H5,
-  },
-  [BLOCKS.HEADING_6]: {
-    type: BLOCKS.HEADING_6,
-    component: H6,
-  },
-};
+    return {
+      key: nodeType,
+      isElement: true,
+      component: createHeading(tagName, nodeType),
+      handlers: {
+        onKeyDown: withHeadingEvents,
+      },
+      deserializeHtml: {
+        rules: [
+          {
+            validNodeName: tagName.toUpperCase(),
+          },
+        ],
+      },
+    };
+  }),
+});

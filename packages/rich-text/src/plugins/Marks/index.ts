@@ -1,4 +1,11 @@
-export * from './Bold';
-export * from './Code';
-export * from './Italic';
-export * from './Underline';
+import { PlatePlugin } from '@udecode/plate-core';
+
+import { createBoldPlugin } from './Bold';
+import { createCodePlugin } from './Code';
+import { createItalicPlugin } from './Italic';
+import { createUnderlinePlugin } from './Underline';
+
+export const createMarksPlugin = (): PlatePlugin => ({
+  key: 'marks',
+  plugins: [createBoldPlugin(), createCodePlugin(), createItalicPlugin(), createUnderlinePlugin()],
+});

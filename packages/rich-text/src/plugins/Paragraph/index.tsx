@@ -80,8 +80,5 @@ export const createParagraphPlugin = (): PlatePlugin =>
         // We convert the default slate plugin `p` to Contentful `BLOCKS.PARAGRAPH`
         type: BLOCKS.PARAGRAPH,
       },
-      [BLOCKS.PARAGRAPH]: {
-        type: BLOCKS.PARAGRAPH,
-      },
     },
   });
