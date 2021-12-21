@@ -1,15 +1,9 @@
 import { KeyboardEvent } from 'react';
 import { BLOCKS } from '@contentful/rich-text-types';
-import {
-  getRenderElement,
-  getPlatePluginTypes,
-  PlatePlugin,
-  getPlugin,
-  PlateEditor,
-} from '@udecode/plate-core';
+import { PlatePlugin, PlateEditor } from '@udecode/plate-core';
 import { Transforms } from 'slate';
 import { getNodeEntryFromSelection } from '../../helpers/editor';
-import { CustomSlatePluginOptions } from 'types';
+import { CustomElement } from '../../types';
 import { LinkedEntityBlock } from './LinkedEntityBlock';
 import { selectEntityAndInsert } from './Util';
 import { FieldExtensionSDK } from '@contentful/app-sdk';
@@ -17,67 +11,48 @@ import noop from 'lodash/noop';
 
 export { EmbeddedEntityBlockToolbarIcon as ToolbarIcon } from './ToolbarIcon';
 
+const entityTypes = {
+  [BLOCKS.EMBEDDED_ENTRY]: 'Entry',
+  [BLOCKS.EMBEDDED_ASSET]: 'Asset',
+};
+
 const createEmbeddedEntityPlugin =
   (nodeType: BLOCKS.EMBEDDED_ENTRY | BLOCKS.EMBEDDED_ASSET) =>
   (sdk: FieldExtensionSDK): PlatePlugin => ({
-    renderElement: getRenderElement(nodeType),
-    pluginKeys: nodeType,
-    onKeyDown: getWithEmbeddedEntityEvents(nodeType, sdk),
-    voidTypes: getPlatePluginTypes(nodeType),
-    deserialize: (editor) => {
-      const options = getPlugin(editor, nodeType);
-      const entityTypes = {
-        [BLOCKS.EMBEDDED_ENTRY]: 'Entry',
-        [BLOCKS.EMBEDDED_ASSET]: 'Asset',
-      };
-
-      return {
-        element: [
-          {
-            type: nodeType,
-            deserialize: (element) => {
-              const entityType = element.getAttribute('data-entity-type');
-              const embeddedEntityId = element.getAttribute('data-entity-id');
-              const isBlock = entityType === entityTypes[nodeType];
-
-              if (!isBlock) return;
-
-              return {
-                type: nodeType,
-                isVoid: true,
-                data: {
-                  target: {
-                    sys: {
-                      id: embeddedEntityId,
-                      linkType: entityType,
-                      type: 'Link',
-                    },
-                  },
-                },
-              };
-            },
-            ...options.deserialize,
+    key: nodeType,
+    isElement: true,
+    isVoid: true,
+    component: LinkedEntityBlock,
+    handlers: {
+      onKeyDown: getWithEmbeddedEntityEvents(nodeType, sdk),
+    },
+    deserializeHtml: {
+      rules: [
+        {
+          validAttribute: {
+            'data-entity-type': entityTypes[nodeType],
           },
-        ],
-      };
+        },
+      ],
+      getNode: (el): CustomElement => ({
+        type: nodeType,
+        children: [],
+        isVoid: true,
+        data: {
+          target: {
+            sys: {
+              id: el.getAttribute('data-entity-id'),
+              linkType: el.getAttribute('data-entity-type'),
+              type: 'Link',
+            },
+          },
+        },
+      }),
     },
   });
 
 export const createEmbeddedEntryBlockPlugin = createEmbeddedEntityPlugin(BLOCKS.EMBEDDED_ENTRY);
 export const createEmbeddedAssetBlockPlugin = createEmbeddedEntityPlugin(BLOCKS.EMBEDDED_ASSET);
-
-export const withEmbeddedEntryBlockOptions: CustomSlatePluginOptions = {
-  [BLOCKS.EMBEDDED_ENTRY]: {
-    type: BLOCKS.EMBEDDED_ENTRY,
-    component: LinkedEntityBlock,
-  },
-};
-export const withEmbeddedAssetBlockOptions: CustomSlatePluginOptions = {
-  [BLOCKS.EMBEDDED_ASSET]: {
-    type: BLOCKS.EMBEDDED_ASSET,
-    component: LinkedEntityBlock,
-  },
-};
 
 type A = 65;
 type E = 69;
