@@ -35,6 +35,7 @@
     "@contentful/field-editor-shared": "^1.0.0",
     "@contentful/rich-text-plain-text-renderer": "^15.9.1",
     "@contentful/rich-text-types": "^15.9.1",
+    "@udecode/plate-basic-marks": "^9.0.0",
     "@udecode/plate-break": "^9.0.0",
     "@udecode/plate-core": "^9.0.0",
     "@udecode/plate-list": "^9.0.0",

@@ -1,12 +1,13 @@
 import * as React from 'react';
 import * as Slate from 'slate-react';
 import { css } from 'emotion';
-import { getRenderLeaf, PlatePlugin } from '@udecode/plate-core';
-import { getToggleMarkOnKeyDown, isMarkActive, toggleMark } from '@udecode/plate-core';
+import { PlatePlugin } from '@udecode/plate-core';
+import { createBoldPlugin as createDefaultBoldPlugin } from '@udecode/plate-basic-marks';
+import { isMarkActive, toggleMark } from '@udecode/plate-core';
 import { MARKS } from '@contentful/rich-text-types';
 import { FormatBoldIcon } from '@contentful/f36-icons';
+
 import { ToolbarButton } from '../shared/ToolbarButton';
-import { CustomSlatePluginOptions } from 'types';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 
 interface ToolbarBoldButtonProps {
@@ -19,7 +20,7 @@ export function ToolbarBoldButton(props: ToolbarBoldButtonProps) {
   function handleClick() {
     if (!editor?.selection) return;
 
-    toggleMark(editor, MARKS.BOLD);
+    toggleMark(editor, { key: MARKS.BOLD });
     Slate.ReactEditor.focus(editor);
   }
 
@@ -51,42 +52,25 @@ export function Bold(props: Slate.RenderLeafProps) {
   );
 }
 
-export function createBoldPlugin(): PlatePlugin {
-  return {
-    pluginKeys: MARKS.BOLD,
-    renderLeaf: getRenderLeaf(MARKS.BOLD),
-    onKeyDown: getToggleMarkOnKeyDown(MARKS.BOLD),
-    deserialize: () => {
-      return {
-        leaf: [
-          {
-            type: MARKS.BOLD,
-            deserialize: (element) => {
-              // We ignore it otherwise everything will be bold
-              const isGoogleBoldWrapper =
-                element.id.startsWith('docs-internal-guid') && element.nodeName === 'B';
+const isGoogleBoldWrapper = (el: HTMLElement) =>
+  el.id.startsWith('docs-internal-guid') && el.nodeName === 'B';
 
-              const isBold =
-                ['600', '700', 'bold'].includes(element.style.fontWeight) ||
-                ['STRONG', 'B'].includes(element.nodeName);
-
-              if (isGoogleBoldWrapper || !isBold) return;
-
-              return {
-                [MARKS.BOLD]: true,
-              };
-            },
-          },
-        ],
-      };
-    },
-  };
-}
-
-export const withBoldOptions: CustomSlatePluginOptions = {
-  [MARKS.BOLD]: {
-    type: MARKS.BOLD,
+export const createBoldPlugin = (): PlatePlugin =>
+  createDefaultBoldPlugin({
+    key: MARKS.BOLD,
     component: Bold,
-    hotkey: ['mod+b'],
-  },
-};
+    options: {
+      hotkey: ['mod+b'],
+    },
+    deserializeHtml: {
+      rules: [
+        { validNodeName: ['STRONG', 'B'] },
+        {
+          validStyle: {
+            fontWeight: ['600', '700', 'bold'],
+          },
+        },
+      ],
+      query: (el) => !isGoogleBoldWrapper(el),
+    },
+  });
