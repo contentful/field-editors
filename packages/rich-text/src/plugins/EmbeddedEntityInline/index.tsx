@@ -1,10 +1,5 @@
 import * as React from 'react';
-import {
-  PlatePlugin,
-  getRenderElement,
-  getPlatePluginTypes,
-  getPlatePluginOptions,
-} from '@udecode/plate-core';
+import { PlatePlugin, getRenderElement, getPlatePluginTypes, getPlugin } from '@udecode/plate-core';
 import { Transforms } from 'slate';
 import { INLINES } from '@contentful/rich-text-types';
 import { useSelected, ReactEditor, useReadOnly } from 'slate-react';
@@ -161,7 +156,7 @@ export function createEmbeddedEntityInlinePlugin(sdk): PlatePlugin {
     voidTypes: getPlatePluginTypes(INLINES.EMBEDDED_ENTRY),
     onKeyDown: getWithEmbeddedEntryInlineEvents(sdk),
     deserialize: (editor) => {
-      const options = getPlatePluginOptions(editor, INLINES.EMBEDDED_ENTRY);
+      const options = getPlugin(editor, INLINES.EMBEDDED_ENTRY);
 
       return {
         element: [

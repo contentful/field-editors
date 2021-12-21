@@ -2,12 +2,7 @@
  * A copy of Plate's list plugin with a few adjustments
  * to fix pasting text inside lists.
  */
-import {
-  getPlatePluginOptions,
-  PlateEditor,
-  PlatePluginOptions,
-  TDescendant,
-} from '@udecode/plate-core';
+import { getPlugin, PlateEditor, PlatePluginOptions, TDescendant } from '@udecode/plate-core';
 import { findNode } from '@udecode/plate-core';
 import { ELEMENT_LI, ELEMENT_OL, ELEMENT_UL } from '@udecode/plate-list';
 import { Node, NodeEntry, Path, Transforms } from 'slate';
@@ -15,9 +10,9 @@ import { Node, NodeEntry, Path, Transforms } from 'slate';
 export const getListInsertFragment = (editor: PlateEditor) => {
   const { insertFragment } = editor;
 
-  const li = getPlatePluginOptions(editor, ELEMENT_LI);
-  const ul = getPlatePluginOptions(editor, ELEMENT_UL);
-  const ol = getPlatePluginOptions(editor, ELEMENT_OL);
+  const li = getPlugin(editor, ELEMENT_LI);
+  const ul = getPlugin(editor, ELEMENT_UL);
+  const ol = getPlugin(editor, ELEMENT_OL);
 
   const isListRoot = (node: TDescendant): boolean => [ul.type, ol.type].includes(node.type);
 

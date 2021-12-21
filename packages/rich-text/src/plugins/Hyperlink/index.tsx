@@ -1,10 +1,5 @@
 import * as React from 'react';
-import {
-  PlatePlugin,
-  getRenderElement,
-  getPlatePluginTypes,
-  getPlatePluginOptions,
-} from '@udecode/plate-core';
+import { PlatePlugin, getRenderElement, getPlatePluginTypes, getPlugin } from '@udecode/plate-core';
 import { useReadOnly } from 'slate-react';
 import { INLINES } from '@contentful/rich-text-types';
 import { Tooltip, TextLink } from '@contentful/f36-components';
@@ -66,9 +61,9 @@ export function createHyperlinkPlugin(sdk: FieldExtensionSDK): PlatePlugin {
     inlineTypes: getPlatePluginTypes(LINK_TYPES),
     onKeyDown: buildHyperlinkEventHandler(sdk),
     deserialize: (editor) => {
-      const hyperlinkOptions = getPlatePluginOptions(editor, INLINES.HYPERLINK);
-      const entryHyperlinkOptions = getPlatePluginOptions(editor, INLINES.ENTRY_HYPERLINK);
-      const assetHyperlinkOptions = getPlatePluginOptions(editor, INLINES.ASSET_HYPERLINK);
+      const hyperlinkOptions = getPlugin(editor, INLINES.HYPERLINK);
+      const entryHyperlinkOptions = getPlugin(editor, INLINES.ENTRY_HYPERLINK);
+      const assetHyperlinkOptions = getPlugin(editor, INLINES.ASSET_HYPERLINK);
 
       const isAnchor = (element) =>
         element.nodeName === 'A' &&

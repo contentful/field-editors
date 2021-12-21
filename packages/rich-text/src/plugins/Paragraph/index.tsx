@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { css } from 'emotion';
-import { PlatePlugin, getRenderElement, PlateEditor } from '@udecode/plate-core';
+import { PlatePlugin, PlateEditor } from '@udecode/plate-core';
 import { ELEMENT_PARAGRAPH } from '@udecode/plate-paragraph';
 import { getToggleElementOnKeyDown } from '@udecode/plate-core';
 import { BLOCKS } from '@contentful/rich-text-types';
@@ -46,7 +46,6 @@ export function createParagraphPlugin(): PlatePlugin {
   ]);
 
   return {
-    renderElement: getRenderElement(elementKeys),
     pluginKeys: elementKeys,
     onKeyDown: getToggleElementOnKeyDown(BLOCKS.PARAGRAPH),
     deserialize: (editor: PlateEditor) => {

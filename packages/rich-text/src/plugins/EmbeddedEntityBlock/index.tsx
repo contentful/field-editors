@@ -4,7 +4,7 @@ import {
   getRenderElement,
   getPlatePluginTypes,
   PlatePlugin,
-  getPlatePluginOptions,
+  getPlugin,
   PlateEditor,
 } from '@udecode/plate-core';
 import { Transforms } from 'slate';
@@ -25,7 +25,7 @@ const createEmbeddedEntityPlugin =
     onKeyDown: getWithEmbeddedEntityEvents(nodeType, sdk),
     voidTypes: getPlatePluginTypes(nodeType),
     deserialize: (editor) => {
-      const options = getPlatePluginOptions(editor, nodeType);
+      const options = getPlugin(editor, nodeType);
       const entityTypes = {
         [BLOCKS.EMBEDDED_ENTRY]: 'Entry',
         [BLOCKS.EMBEDDED_ASSET]: 'Asset',

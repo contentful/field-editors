@@ -6,12 +6,7 @@ import { ChevronDownIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { Editor, Transforms, Node } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
-import {
-  PlatePlugin,
-  getRenderElement,
-  PlateEditor,
-  getPlatePluginOptions,
-} from '@udecode/plate-core';
+import { PlatePlugin, getRenderElement, PlateEditor, getPlugin } from '@udecode/plate-core';
 import { insertNodes, setNodes, toggleNodeType } from '@udecode/plate-core';
 import { CustomElement, CustomSlatePluginOptions } from '../../types';
 import {
@@ -283,7 +278,7 @@ export function createHeadingPlugin(): PlatePlugin {
     deserialize: (editor) => {
       return {
         element: headings.map((headingType, index) => {
-          const options = getPlatePluginOptions(editor, headingType);
+          const options = getPlugin(editor, headingType);
 
           return {
             type: headingType,
