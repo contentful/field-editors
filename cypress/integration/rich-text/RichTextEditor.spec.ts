@@ -1407,7 +1407,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
   });
 
   describe('Embedded Entry Inlines', () => {
-    const methods: [string, () => Cypress.Chainable<any>][] = [
+    const methods: [string, () => void][] = [
       [
         'using the toolbar button',
         () => {
@@ -1417,7 +1417,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       [
         'using the keyboard shortcut',
         () => {
-          return richText.editor.type(`{${mod}+shift+2}`);
+          richText.editor.type(`{${mod}+shift+2}`);
         },
       ],
     ];
