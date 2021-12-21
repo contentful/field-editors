@@ -30,8 +30,24 @@ interface FetchingWrappedAssetCardProps {
   sdk: FieldExtensionSDK;
 }
 
-function downloadAsset(url: string) {
-  window.open(url, '_blank', 'noopener,noreferrer');
+function downloadAsset(url: string, fileName: string) {
+  fetch(url, {
+    method: 'GET',
+    headers: {},
+  })
+    .then((response) => {
+      response.arrayBuffer().then(function (buffer) {
+        const url = window.URL.createObjectURL(new Blob([buffer]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', fileName); //or any other extension
+        document.body.appendChild(link);
+        link.click();
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 export function renderAssetInfo(props: { entityFile: File }) {
@@ -77,7 +93,7 @@ export function renderActions(props: {
         key="download"
         onClick={() => {
           if (typeof entityFile.url === 'string') {
-            downloadAsset(entityFile.url);
+            downloadAsset(entityFile.url, get(entityFile, 'fileName'));
           }
         }}
         testId="card-action-download">
