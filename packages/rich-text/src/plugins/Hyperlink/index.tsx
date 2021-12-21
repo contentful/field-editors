@@ -5,6 +5,7 @@ import {
   getPlatePluginTypes,
   getPlatePluginOptions,
 } from '@udecode/plate-core';
+import { useReadOnly } from 'slate-react';
 import { INLINES } from '@contentful/rich-text-types';
 import { Tooltip, TextLink } from '@contentful/f36-components';
 import { EntryAssetTooltip } from './EntryAssetTooltip';
@@ -172,6 +173,7 @@ type HyperlinkElementProps = CustomRenderElementProps<{
 
 function UrlHyperlink(props: HyperlinkElementProps) {
   const editor = useContentfulEditor();
+  const isReadOnly = useReadOnly();
   const sdk: FieldExtensionSDK = useSdkContext();
   const { uri } = props.element.data;
 
@@ -193,6 +195,7 @@ function UrlHyperlink(props: HyperlinkElementProps) {
         href={uri}
         rel="noopener noreferrer"
         onClick={handleClick}
+        isDisabled={isReadOnly}
         className={styles.hyperlink}>
         {props.children}
       </TextLink>
@@ -202,6 +205,7 @@ function UrlHyperlink(props: HyperlinkElementProps) {
 
 function EntityHyperlink(props: HyperlinkElementProps) {
   const editor = useContentfulEditor();
+  const isReadOnly = useReadOnly();
   const sdk: FieldExtensionSDK = useSdkContext();
   const { target } = props.element.data;
 
@@ -231,6 +235,7 @@ function EntityHyperlink(props: HyperlinkElementProps) {
       <TextLink
         as="button"
         onClick={handleClick}
+        isDisabled={isReadOnly}
         className={styles.hyperlink}
         data-link-type={target.sys.linkType}
         data-link-id={target.sys.id}>

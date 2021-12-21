@@ -220,6 +220,7 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
           testId="toolbar-heading-toggle"
           variant="transparent"
           endIcon={<ChevronDownIcon />}
+          isDisabled={props.isDisabled}
           onClick={() => someHeadingsEnabled && setOpen(!isOpen)}>
           {LABELS[selected]}
         </Button>

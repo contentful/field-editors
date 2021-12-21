@@ -39,7 +39,7 @@ export const EmbedEntityWidget = ({ isDisabled, canInsertBlocks }: EmbedEntityWi
     blockAssetEmbedEnabled,
   ].filter(Boolean).length;
 
-  const shouldDisplayDropdown = numEnabledEmbeds > 1;
+  const shouldDisplayDropdown = numEnabledEmbeds > 1 || isDisabled;
 
   // Avoids UI glitching when switching back and forth between
   // different layouts

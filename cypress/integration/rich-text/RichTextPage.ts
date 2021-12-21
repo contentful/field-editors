@@ -13,6 +13,31 @@ export class RichTextPage {
 
   get toolbar() {
     return {
+      get headingsDropdown() {
+        return cy.findByTestId('toolbar-heading-toggle');
+      },
+
+      toggleHeading(type: string) {
+        this.headingsDropdown.click();
+        cy.findByTestId(`dropdown-option-${type}`).click({ force: true });
+      },
+
+      get bold() {
+        return cy.findByTestId('bold-toolbar-button');
+      },
+
+      get italic() {
+        return cy.findByTestId('italic-toolbar-button');
+      },
+
+      get underline() {
+        return cy.findByTestId('underline-toolbar-button');
+      },
+
+      get code() {
+        return cy.findByTestId('code-toolbar-button');
+      },
+
       get ul() {
         return cy.findByTestId('ul-toolbar-button');
       },
@@ -28,12 +53,22 @@ export class RichTextPage {
       get hr() {
         return cy.findByTestId('hr-toolbar-button');
       },
+
       get hyperlink() {
         return cy.findByTestId('hyperlink-toolbar-button');
       },
 
       get table() {
         return cy.findByTestId('table-toolbar-button');
+      },
+
+      get embedDropdown() {
+        return cy.findByTestId('toolbar-entity-dropdown-toggle');
+      },
+
+      embed(type: 'entry-block' | 'asset-block' | 'entry-inline') {
+        this.embedDropdown.click();
+        cy.findByTestId(`toolbar-toggle-embedded-${type}`).click();
       },
     };
   }

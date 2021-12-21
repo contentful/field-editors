@@ -33,6 +33,7 @@ type TableAction = (editor: PlateEditor, options: TablePluginOptions) => void;
 
 export const TableActions = () => {
   const editor = useContentfulEditor();
+  const isDisabled = Slate.useReadOnly();
   const { onViewportAction } = useTrackingContext();
   const [isOpen, setOpen] = React.useState(false);
   const [isHeaderEnabled, setHeaderEnabled] = React.useState(false);
@@ -93,6 +94,10 @@ export const TableActions = () => {
     },
     [editor, isHeaderEnabled, close, onViewportAction]
   );
+
+  if (isDisabled) {
+    return null;
+  }
 
   return (
     <Menu
