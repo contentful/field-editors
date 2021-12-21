@@ -8,7 +8,7 @@ import {
   PlatePluginOptions,
   TDescendant,
 } from '@udecode/plate-core';
-import { findNode } from '@udecode/plate-common';
+import { findNode } from '@udecode/plate-core';
 import { ELEMENT_LI, ELEMENT_OL, ELEMENT_UL } from '@udecode/plate-list';
 import { Node, NodeEntry, Path, Transforms } from 'slate';
 

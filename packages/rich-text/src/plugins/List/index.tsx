@@ -3,7 +3,7 @@ import * as Slate from 'slate-react';
 import { Element, Text, Node, Transforms, Editor, NodeEntry, Path } from 'slate';
 import { css } from 'emotion';
 import { WithOverride, PlateEditor } from '@udecode/plate-core';
-import { getParent, getAbove } from '@udecode/plate-common';
+import { getParent, getAbove } from '@udecode/plate-core';
 import {
   createListPlugin as createPlateListPlugin,
   withList,

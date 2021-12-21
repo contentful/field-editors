@@ -2,9 +2,12 @@ import { FieldExtensionSDK } from '@contentful/app-sdk';
 
 import { createPastePlugin } from './Paste';
 import { createListPlugin, withListOptions } from './List';
-import { createHistoryPlugin, createReactPlugin } from '@udecode/plate-core';
-import { createDeserializeHTMLPlugin } from '@udecode/plate-html-serializer';
-import { createDeserializeAstPlugin } from '@udecode/plate-ast-serializer';
+import {
+  createHistoryPlugin,
+  createReactPlugin,
+  createDeserializeAstPlugin,
+  createDeserializeHtmlPlugin,
+} from '@udecode/plate-core';
 import { createHrPlugin, withHrOptions } from './Hr';
 import { withHeadingOptions, createHeadingPlugin } from './Heading';
 import { createBoldPlugin, withBoldOptions } from './Bold';
@@ -72,7 +75,7 @@ export const getPlugins = (sdk: FieldExtensionSDK, tracking: TrackingProvider) =
   ];
 
   return plugins.concat([
-    createDeserializeHTMLPlugin({ plugins }),
+    createDeserializeHtmlPlugin({ plugins }),
     createDeserializeAstPlugin({ plugins }),
   ] as any);
 };

@@ -12,7 +12,7 @@ import {
   PlateEditor,
   getPlatePluginOptions,
 } from '@udecode/plate-core';
-import { insertNodes, setNodes, toggleNodeType } from '@udecode/plate-common';
+import { insertNodes, setNodes, toggleNodeType } from '@udecode/plate-core';
 import { CustomElement, CustomSlatePluginOptions } from '../../types';
 import {
   getElementFromCurrentSelection,

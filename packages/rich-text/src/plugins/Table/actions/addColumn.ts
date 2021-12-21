@@ -1,6 +1,6 @@
 import { Path } from 'slate';
 import { getPlatePluginType, PlateEditor, TElement } from '@udecode/plate-core';
-import { getAbove, insertNodes, someNode } from '@udecode/plate-common';
+import { getAbove, insertNodes, someNode } from '@udecode/plate-core';
 import {
   getEmptyCellNode,
   TablePluginOptions,

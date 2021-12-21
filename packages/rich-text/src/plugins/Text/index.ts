@@ -1,6 +1,6 @@
 import { Editor, Ancestor, Transforms } from 'slate';
 import { PlatePlugin } from '@udecode/plate-core';
-import { isAncestorEmpty } from '@udecode/plate-common';
+import { isAncestorEmpty } from '@udecode/plate-core';
 import { TEXT_CONTAINERS, BLOCKS } from '@contentful/rich-text-types';
 import { CustomElement } from '../../types';
 

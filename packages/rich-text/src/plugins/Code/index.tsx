@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as Slate from 'slate-react';
 import { css } from 'emotion';
 import { PlatePlugin, getRenderLeaf, GetNodeDeserializerRule } from '@udecode/plate-core';
-import { getToggleMarkOnKeyDown, isMarkActive, toggleMark } from '@udecode/plate-common';
+import { getToggleMarkOnKeyDown, isMarkActive, toggleMark } from '@udecode/plate-core';
 import { MARKS } from '@contentful/rich-text-types';
 import { CodeIcon } from '@contentful/f36-icons';
 import { ToolbarButton } from '../shared/ToolbarButton';
