@@ -1,29 +1,29 @@
 import { css } from 'emotion';
 import * as React from 'react';
+import { Transforms } from 'slate';
 import * as Slate from 'slate-react';
 import tokens from '@contentful/f36-tokens';
 import { TableIcon } from '@contentful/f36-icons';
 import { ToolbarButton } from '../shared/ToolbarButton';
 import { BLOCKS, TableCell, TableHeaderCell } from '@contentful/rich-text-types';
-import { PlateEditor } from '@udecode/plate-core';
+import { PlateEditor, PlatePlugin, WithPlatePlugin } from '@udecode/plate-core';
 import {
-  createTablePlugin as createTablePluginFromUdecode,
+  createTablePlugin as createDefaultTablePlugin,
   ELEMENT_TABLE,
   ELEMENT_TD,
   ELEMENT_TH,
   ELEMENT_TR,
-  getTableOnKeyDown,
+  onKeyDownTable,
 } from '@udecode/plate-table';
 import { TableActions } from './TableActions';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
-import { CustomElement, CustomSlatePluginOptions } from '../../types';
 import { insertTableAndFocusFirstCell, isTableActive } from './helpers';
 import { TrackingProvider, useTrackingContext } from '../../TrackingProvider';
-import { Transforms } from 'slate';
 import {
   currentSelectionPrecedesTableCell,
   currentSelectionStartsTableCell,
 } from '../../helpers/editor';
+import { CustomElement } from '../../types';
 import { addTableNormalizers } from './normalizers';
 
 const styles = {
@@ -95,6 +95,7 @@ export const TH = (props: Slate.RenderElementProps) => {
     </th>
   );
 };
+
 export const TD = (props: Slate.RenderElementProps) => {
   const isSelected = Slate.useSelected();
 
@@ -108,25 +109,6 @@ export const TD = (props: Slate.RenderElementProps) => {
       {props.children}
     </td>
   );
-};
-
-export const withTableOptions: CustomSlatePluginOptions = {
-  [ELEMENT_TABLE]: {
-    type: BLOCKS.TABLE,
-    component: Table,
-  },
-  [ELEMENT_TR]: {
-    type: BLOCKS.TABLE_ROW,
-    component: TR,
-  },
-  [ELEMENT_TH]: {
-    type: BLOCKS.TABLE_HEADER_CELL,
-    component: TH,
-  },
-  [ELEMENT_TD]: {
-    type: BLOCKS.TABLE_CELL,
-    component: TD,
-  },
 };
 
 function addTableTrackingEvents(editor: PlateEditor, { onViewportAction }: TrackingProvider) {
@@ -168,56 +150,6 @@ function hasHeadersOutsideFirstRow(nodes: CustomElement[]) {
     .some(({ children }) => (children as CustomElement[]).some(isTableHeaderCell));
 }
 
-function createTableOnKeyDown() {
-  return function withTableEvents(editor: PlateEditor) {
-    const handleKeyDownFromPlateUdecode = getTableOnKeyDown()(editor);
-    return function handleKeyDown(event: React.KeyboardEvent) {
-      if (
-        (event.key === 'Backspace' && currentSelectionStartsTableCell(editor)) ||
-        (event.key === 'Delete' && currentSelectionPrecedesTableCell(editor))
-      ) {
-        // The default behavior here would be to delete the preceding or forthcoming
-        // leaf node, in this case a cell or header cell. But we don't want to do that,
-        // because it would leave us with a non-standard number of table cells.
-        event.preventDefault();
-        event.stopPropagation();
-        return;
-      }
-      handleKeyDownFromPlateUdecode(event);
-    };
-  };
-}
-
-export const createTablePlugin = (tracking: TrackingProvider) => ({
-  ...createTablePluginFromUdecode(),
-  onKeyDown: createTableOnKeyDown(),
-  withOverrides: (editor) => {
-    addTableTrackingEvents(editor, tracking);
-    addTableNormalizers(editor);
-
-    const { insertFragment } = editor;
-
-    editor.insertFragment = (fragments) => {
-      // We need to make sure we have a new, empty and clean paragraph in order to paste tables as-is due to how Slate behaves
-      // More info: https://github.com/ianstormtaylor/slate/pull/4489 and https://github.com/ianstormtaylor/slate/issues/4542
-      const fragmentHasTable = fragments.some((fragment) => fragment.type === BLOCKS.TABLE);
-      if (fragmentHasTable) {
-        const emptyParagraph: CustomElement = {
-          type: BLOCKS.PARAGRAPH,
-          children: [{ text: '' }],
-          data: {},
-          isVoid: false,
-        };
-        Transforms.insertNodes(editor, emptyParagraph);
-      }
-
-      insertFragment(fragments);
-    };
-
-    return editor;
-  },
-});
-
 interface ToolbarTableButtonProps {
   isDisabled: boolean | undefined;
 }
@@ -249,3 +181,76 @@ export function ToolbarTableButton(props: ToolbarTableButtonProps) {
     </ToolbarButton>
   );
 }
+
+const createTableOnKeyDown = (editor: PlateEditor, plugin: WithPlatePlugin) => {
+  const defaultHandler = onKeyDownTable(editor, plugin);
+
+  return (e: React.KeyboardEvent) => {
+    if (
+      (e.key === 'Backspace' && currentSelectionStartsTableCell(editor)) ||
+      (e.key === 'Delete' && currentSelectionPrecedesTableCell(editor))
+    ) {
+      // The default behavior here would be to delete the preceding or forthcoming
+      // leaf node, in this case a cell or header cell. But we don't want to do that,
+      // because it would leave us with a non-standard number of table cells.
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
+
+    defaultHandler(e);
+  };
+};
+
+export const createTablePlugin = (tracking: TrackingProvider): PlatePlugin =>
+  createDefaultTablePlugin({
+    key: BLOCKS.TABLE,
+    options: {
+      onkeydown: createTableOnKeyDown,
+    },
+    withOverrides: (editor) => {
+      addTableTrackingEvents(editor, tracking);
+      addTableNormalizers(editor);
+
+      const { insertFragment } = editor;
+
+      editor.insertFragment = (fragments) => {
+        // We need to make sure we have a new, empty and clean paragraph in order to paste tables as-is due to how Slate behaves
+        // More info: https://github.com/ianstormtaylor/slate/pull/4489 and https://github.com/ianstormtaylor/slate/issues/4542
+        const fragmentHasTable = fragments.some(
+          (fragment) => (fragment as CustomElement).type === BLOCKS.TABLE
+        );
+        if (fragmentHasTable) {
+          const emptyParagraph: CustomElement = {
+            type: BLOCKS.PARAGRAPH,
+            children: [{ text: '' }],
+            data: {},
+            isVoid: false,
+          };
+          Transforms.insertNodes(editor, emptyParagraph);
+        }
+
+        insertFragment(fragments);
+      };
+
+      return editor;
+    },
+    overrideByKey: {
+      [ELEMENT_TABLE]: {
+        type: BLOCKS.TABLE,
+        component: Table,
+      },
+      [ELEMENT_TR]: {
+        type: BLOCKS.TABLE_ROW,
+        component: TR,
+      },
+      [ELEMENT_TH]: {
+        type: BLOCKS.TABLE_HEADER_CELL,
+        component: TH,
+      },
+      [ELEMENT_TD]: {
+        type: BLOCKS.TABLE_CELL,
+        component: TD,
+      },
+    },
+  });
