@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as Slate from 'slate-react';
 import { Element, Text, Node, Transforms, Editor, NodeEntry, Path } from 'slate';
 import { css } from 'emotion';
-import { WithOverride, PlateEditor } from '@udecode/plate-core';
+import { WithOverride, PlateEditor, PlatePlugin } from '@udecode/plate-core';
 import { getParent, getAbove } from '@udecode/plate-core';
 import {
   createListPlugin as createPlateListPlugin,
@@ -12,6 +12,7 @@ import {
   ELEMENT_OL,
   toggleList,
   ELEMENT_LIC,
+  ListPlugin,
 } from '@udecode/plate-list';
 import { BLOCKS, INLINES, LIST_ITEM_BLOCKS, TopLevelBlockEnum } from '@contentful/rich-text-types';
 import { ListBulletedIcon, ListNumberedIcon } from '@contentful/f36-icons';
@@ -25,12 +26,7 @@ import {
   replaceNode,
 } from '../../helpers/editor';
 import { isNodeTypeEnabled } from '../../helpers/validations';
-import {
-  CustomElement,
-  CustomSlatePluginOptions,
-  TextElement,
-  TextOrCustomElement,
-} from '../../types';
+import { CustomElement, TextElement, TextOrCustomElement } from '../../types';
 import tokens from '@contentful/f36-tokens';
 import { useSdkContext } from '../../SdkProvider';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
@@ -139,29 +135,6 @@ export function createList(Tag, block: BLOCKS) {
   };
 }
 
-export const UL = createList('ul', BLOCKS.UL_LIST);
-export const OL = createList('ol', BLOCKS.OL_LIST);
-export const LI = createList('li', BLOCKS.LIST_ITEM);
-
-export const withListOptions: CustomSlatePluginOptions = {
-  // ELEMENT_LIC is a child of li, slatejs does ul > li > lic + ul
-  [ELEMENT_LIC]: {
-    type: BLOCKS.PARAGRAPH,
-  },
-  [ELEMENT_LI]: {
-    type: BLOCKS.LIST_ITEM,
-    component: LI,
-  },
-  [ELEMENT_UL]: {
-    type: BLOCKS.UL_LIST,
-    component: UL,
-  },
-  [ELEMENT_OL]: {
-    type: BLOCKS.OL_LIST,
-    component: OL,
-  },
-};
-
 const emptyNodeOfType = (type) => ({ type, children: [], data: {} });
 
 const isList = (node: CustomElement) =>
@@ -218,71 +191,86 @@ const normalizeOrphanedListItem = (editor: PlateEditor, path: Path) => {
   );
 };
 
-const withCustomList = (options): WithOverride => {
-  const withDefaultOverrides = withList(options);
+const withCustomList: WithOverride<{}, ListPlugin> = (editor, plugin) => {
+  const { insertFragment } = editor;
 
-  return (editor) => {
-    const { insertFragment } = editor;
+  withList(editor, plugin);
 
-    withDefaultOverrides(editor);
+  // Reverts any overrides to insertFragment
+  editor.insertFragment = insertFragment;
 
-    // Reverts any overrides to insertFragment
-    editor.insertFragment = insertFragment;
+  // Use our custom getListInsertFragment
+  editor.insertFragment = getListInsertFragment(editor);
 
-    // Use our custom getListInsertFragment
-    editor.insertFragment = getListInsertFragment(editor);
+  const { normalizeNode } = editor;
+  editor.normalizeNode = (entry) => {
+    const [node, path] = entry;
 
-    const { normalizeNode } = editor;
-    editor.normalizeNode = (entry) => {
-      const [node, path] = entry;
-
-      if (isList(node as CustomElement)) {
-        if (normalizeList(editor, path)) {
-          return;
-        }
-      } else if (isListItem(node as CustomElement)) {
-        if (!hasListAsDirectParent(editor, path)) {
-          normalizeOrphanedListItem(editor, path);
-          return;
-        }
-
-        const listItemChildren = Array.from(Node.children(editor, path));
-
-        // Handle list items with no paragraph/text
-        if (listItemChildren.length === 0) {
-          Transforms.insertNodes(
-            editor,
-            [{ type: BLOCKS.PARAGRAPH, data: {}, children: [{ text: '' }] }],
-            {
-              at: path.concat([0]),
-            }
-          );
-          return;
-        }
-
-        for (const [child, childPath] of listItemChildren) {
-          if (Element.isElement(child) && !isValidInsideListItem(child)) {
-            replaceInvalidListItemWithText(editor, childPath);
-            return;
-          }
-        }
+    if (isList(node as CustomElement)) {
+      if (normalizeList(editor, path)) {
+        return;
+      }
+    } else if (isListItem(node as CustomElement)) {
+      if (!hasListAsDirectParent(editor, path)) {
+        normalizeOrphanedListItem(editor, path);
+        return;
       }
 
-      normalizeNode(entry);
-    };
+      const listItemChildren = Array.from(Node.children(editor, path));
 
-    return editor;
+      // Handle list items with no paragraph/text
+      if (listItemChildren.length === 0) {
+        Transforms.insertNodes(
+          editor,
+          [{ type: BLOCKS.PARAGRAPH, data: {}, children: [{ text: '' }] }],
+          {
+            at: path.concat([0]),
+          }
+        );
+        return;
+      }
+
+      for (const [child, childPath] of listItemChildren) {
+        if (Element.isElement(child) && !isValidInsideListItem(child)) {
+          replaceInvalidListItemWithText(editor, childPath);
+          return;
+        }
+      }
+    }
+
+    normalizeNode(entry);
   };
+
+  return editor;
 };
 
-export const createListPlugin = () => {
-  const options = {
-    validLiChildrenTypes: LIST_ITEM_BLOCKS,
-  };
+export const UL = createList('ul', BLOCKS.UL_LIST);
+export const OL = createList('ol', BLOCKS.OL_LIST);
+export const LI = createList('li', BLOCKS.LIST_ITEM);
 
-  const plugin = createPlateListPlugin(options);
-
-  plugin.withOverrides = withCustomList(options);
-
-  return plugin;
-};
+export const createListPlugin = (): PlatePlugin =>
+  createPlateListPlugin({
+    options: {
+      validLiChildrenTypes: LIST_ITEM_BLOCKS,
+    },
+    overrideByKey: {
+      [ELEMENT_UL]: {
+        type: BLOCKS.UL_LIST,
+        component: UL,
+        // The withList is added on ELEMENT_UL plugin in upstream code
+        withOverrides: withCustomList,
+      },
+      // ELEMENT_LIC is a child of li, slatejs does ul > li > lic + ul
+      [ELEMENT_LIC]: {
+        type: BLOCKS.PARAGRAPH,
+      },
+      [ELEMENT_LI]: {
+        type: BLOCKS.LIST_ITEM,
+        component: LI,
+      },
+      [ELEMENT_OL]: {
+        type: BLOCKS.OL_LIST,
+        component: OL,
+      },
+    },
+  });
