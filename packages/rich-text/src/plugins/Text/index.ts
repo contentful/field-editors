@@ -4,6 +4,7 @@ import { isAncestorEmpty } from '@udecode/plate-core';
 import { TEXT_CONTAINERS, BLOCKS } from '@contentful/rich-text-types';
 import { CustomElement } from '../../types';
 
+// TODO: move the logic to the appropriate element plugin(s)
 export function createTextPlugin(): PlatePlugin {
   return {
     key: 'text-plugin',

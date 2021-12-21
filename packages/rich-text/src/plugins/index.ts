@@ -13,8 +13,7 @@ import { createHeadingPlugin } from './Heading';
 import { createMarksPlugin } from './Marks';
 import { createParagraphPlugin } from './Paragraph';
 import { createQuotePlugin } from './Quote';
-import { createNewLinePlugin } from './NewLine';
-import { createInsertBeforeFirstVoidBlockPlugin } from './InsertBeforeFirstVoidBlock';
+import { createBreakPlugin } from './Break';
 import { createTablePlugin } from './Table';
 import { createHyperlinkPlugin } from './Hyperlink';
 import {
@@ -37,8 +36,7 @@ export const getPlugins = (sdk: FieldExtensionSDK, tracking: TrackingProvider) =
     createPastePlugin(),
 
     // Global shortcuts
-    createNewLinePlugin(),
-    createInsertBeforeFirstVoidBlockPlugin(),
+    createBreakPlugin(),
     createDragAndDropPlugin(),
 
     // Block Elements
