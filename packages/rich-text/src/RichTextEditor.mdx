@@ -49,7 +49,11 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
         : Promise.reject(); // Simulate cancellation.
     };
 
-    const [field, mitt] = useMemo(() => createFakeFieldAPI(), []);
+    const initialValue = JSON.parse(window.localStorage.getItem('initialValue')) || undefined
+    const [field, mitt] = useMemo(() => createFakeFieldAPI(mock => mock, initialValue), []);
+
+    const isDisabled = window.localStorage.getItem('initialDisabled') || false
+
     const space = useMemo(() => createFakeSpaceAPI(), []);
     const navigator = useMemo(() => createFakeNavigatorAPI(), []);
     const onAction = (...args) => window.events.push(args);
@@ -147,7 +151,7 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
         <RichTextEditor
           sdk={sdk}
           onAction={onAction}
-          isInitiallyDisabled={false}
+          isInitiallyDisabled={isDisabled}
         />
         <ValidationErrors field={field} locales={[]} />
         <ActionsPlayground mitt={mitt} renderValue={renderRT} />

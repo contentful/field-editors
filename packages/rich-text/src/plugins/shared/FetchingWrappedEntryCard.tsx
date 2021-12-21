@@ -72,6 +72,7 @@ export function FetchingWrappedEntryCard(props: FetchingWrappedEntryCardProps) {
       props.onEdit ? (
         <MenuItem
           key="edit"
+          disabled={props.isDisabled}
           testId="card-action-edit"
           onClick={() => {
             props.onEdit && props.onEdit();
@@ -82,6 +83,7 @@ export function FetchingWrappedEntryCard(props: FetchingWrappedEntryCardProps) {
       props.onRemove ? (
         <MenuItem
           key="delete"
+          disabled={props.isDisabled}
           testId="card-action-remove"
           onClick={() => {
             props.onRemove && props.onRemove();

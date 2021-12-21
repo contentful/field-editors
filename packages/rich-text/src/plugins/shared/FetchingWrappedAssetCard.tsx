@@ -68,7 +68,7 @@ export function renderActions(props: {
   return [
     <Menu.SectionTitle key="section-title">Actions</Menu.SectionTitle>,
     onEdit ? (
-      <Menu.Item key="edit" onClick={onEdit} testId="card-action-edit">
+      <Menu.Item key="edit" disabled={isDisabled} onClick={onEdit} testId="card-action-edit">
         Edit
       </Menu.Item>
     ) : null,
