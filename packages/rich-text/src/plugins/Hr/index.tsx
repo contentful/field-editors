@@ -6,12 +6,7 @@ import { HorizontalRuleIcon } from '@contentful/f36-icons';
 import { ToolbarButton } from '../shared/ToolbarButton';
 import { Transforms } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
-import {
-  getPlatePluginTypes,
-  getRenderElement,
-  PlatePlugin,
-  PlateEditor,
-} from '@udecode/plate-core';
+import { PlatePlugin, PlateEditor } from '@udecode/plate-core';
 import { getText, setNodes } from '@udecode/plate-core';
 import {
   getNodeEntryFromSelection,
@@ -20,8 +15,6 @@ import {
   shouldUnwrapBlockquote,
   unwrapFromRoot,
 } from '../../helpers/editor';
-import { CustomSlatePluginOptions } from '../../types';
-import { deserializeElement } from '../../helpers/deserializer';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 
 const styles = {
@@ -141,28 +134,24 @@ export function Hr(props: Slate.RenderLeafProps) {
   );
 }
 
-export function createHrPlugin(): PlatePlugin {
-  return {
-    renderElement: getRenderElement(BLOCKS.HR),
-    pluginKeys: BLOCKS.HR,
+export const createHrPlugin = (): PlatePlugin => ({
+  key: BLOCKS.HR,
+  isVoid: true,
+  isElement: true,
+  component: Hr,
+  handlers: {
     onKeyDown: withHrEvents,
-    voidTypes: getPlatePluginTypes(BLOCKS.HR),
-    deserialize: deserializeElement(BLOCKS.HR, [
+  },
+  deserializeHtml: {
+    rules: [
       {
-        nodeNames: ['HR'],
+        validNodeName: ['HR'],
       },
       {
-        attribute: {
+        validAttribute: {
           'data-void-element': BLOCKS.HR,
         },
       },
-    ]),
-  };
-}
-
-export const withHrOptions: CustomSlatePluginOptions = {
-  [BLOCKS.HR]: {
-    type: BLOCKS.HR,
-    component: Hr,
+    ],
   },
-};
+});
