@@ -6,9 +6,8 @@ import { QuoteIcon } from '@contentful/f36-icons';
 import { ToolbarButton } from '../shared/ToolbarButton';
 import { Transforms, Editor, Node, Element, Text } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { PlatePlugin, PlateEditor, getRenderElement } from '@udecode/plate-core';
+import { PlatePlugin, PlateEditor } from '@udecode/plate-core';
 import { CustomElement } from '../../types';
-import { CustomSlatePluginOptions } from 'types';
 import {
   isBlockSelected,
   toggleBlock,
@@ -16,7 +15,6 @@ import {
   getElementFromCurrentSelection,
   isNodeTypeSelected,
 } from '../../helpers/editor';
-import { deserializeElement } from '../../helpers/deserializer';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 
 const styles = {
@@ -41,7 +39,7 @@ const createBlockQuote = (editor: PlateEditor) => {
   toggleBlock(editor, BLOCKS.QUOTE);
 };
 
-export function withQuoteEvents(editor: PlateEditor) {
+function withQuoteEvents(editor: PlateEditor) {
   return (event: React.KeyboardEvent) => {
     if (!editor.selection) return;
 
@@ -136,16 +134,18 @@ export function Quote(props: Slate.RenderLeafProps) {
 
 export function createQuotePlugin(): PlatePlugin {
   return {
-    pluginKeys: BLOCKS.QUOTE,
-    renderElement: getRenderElement(BLOCKS.QUOTE),
-    onKeyDown: withQuoteEvents,
-    deserialize: deserializeElement(BLOCKS.QUOTE, [{ nodeNames: 'BLOCKQUOTE' }]),
+    key: BLOCKS.QUOTE,
+    isElement: true,
+    component: Quote,
+    handlers: {
+      onKeyDown: withQuoteEvents,
+    },
+    deserializeHtml: {
+      rules: [
+        {
+          validNodeName: 'BLOCKQUOTE',
+        },
+      ],
+    },
   };
 }
-
-export const withQuoteOptions: CustomSlatePluginOptions = {
-  [BLOCKS.QUOTE]: {
-    type: BLOCKS.QUOTE,
-    component: Quote,
-  },
-};
