@@ -54,21 +54,12 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     backspace: { keyCode: 8, which: 8, key: 'Backspace' },
   };
 
-  function getHeadingDropdownToolbarButton() {
-    return cy.findByTestId('toolbar-heading-toggle');
-  }
-
   function getDropdownList() {
     return cy.findByTestId('dropdown-heading-list');
   }
 
   function getDropdownItem(type: string) {
     return cy.findByTestId(`dropdown-option-${type}`);
-  }
-
-  function clickDropdownItem(type: string) {
-    getHeadingDropdownToolbarButton().click();
-    getDropdownItem(type).click({ force: true });
   }
 
   function addBlockquote(content = '') {
@@ -126,7 +117,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     cy.reload();
 
     richText.toolbar.bold.should('be.disabled');
-    richText.toolbar.headings.dropdown().should('be.disabled');
+    richText.toolbar.headingsDropdown.should('be.disabled');
     richText.toolbar.hr.should('be.disabled');
     richText.toolbar.hyperlink.should('be.disabled');
     richText.toolbar.italic.should('be.disabled');
@@ -135,7 +126,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     richText.toolbar.table.should('be.disabled');
     richText.toolbar.ul.should('be.disabled');
     richText.toolbar.underline.should('be.disabled');
-    cy.findByTestId('toolbar-entity-dropdown-toggle').should('be.disabled');
+    richText.toolbar.embedDropdown.should('be.disabled');
   });
 
   it('allows typing', () => {
@@ -170,8 +161,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
       // type text, insert entry block
       richText.editor.click().type('some text.').click();
-      cy.findByTestId('toolbar-entity-dropdown-toggle').click();
-      cy.findByTestId('toolbar-toggle-embedded-entry-block').click();
+      richText.toolbar.embed('entry-block');
       richText.expectValue(docBeforeDragAndDrop);
 
       // drag & drop
@@ -418,7 +408,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         it(`allows typing ${label} (${type})`, () => {
           richText.editor.click().type('some text');
 
-          clickDropdownItem(type);
+          richText.toolbar.toggleHeading(type);
 
           // TODO: We should somehow assert that the editor is focused after this.
 
@@ -444,9 +434,9 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         it(`should set the dropdown label to ${label}`, () => {
           richText.editor.click().type('some text');
 
-          clickDropdownItem(type);
+          richText.toolbar.toggleHeading(type);
 
-          getHeadingDropdownToolbarButton().should('have.text', label);
+          richText.toolbar.headingsDropdown.should('have.text', label);
         });
 
         // TODO: Move this test to either a single test with multiple assertions or for only one heading type due to performance
@@ -454,7 +444,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           it('should unwrap blockquote', () => {
             addBlockquote('some text');
 
-            clickDropdownItem(type);
+            richText.toolbar.toggleHeading(type);
 
             const expectedHeadingValue = doc(
               block(type, {}, text('some text', [])),
@@ -467,7 +457,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           it('should not unwrap blockquote', () => {
             const expectedQuoteValue = addBlockquote('some text');
 
-            clickDropdownItem(type);
+            richText.toolbar.toggleHeading(type);
 
             richText.expectValue(expectedQuoteValue);
           });
@@ -476,12 +466,11 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         it('should be deleted if empty when pressing delete', () => {
           richText.editor.click(); // to set an initial editor.location
 
-          clickDropdownItem(type);
+          richText.toolbar.toggleHeading(type);
 
           richText.editor.type('x{enter}');
 
-          cy.findByTestId('toolbar-entity-dropdown-toggle').click();
-          cy.findByTestId('toolbar-toggle-embedded-entry-block').click();
+          richText.toolbar.embed('entry-block');
 
           // To make sure paragraph/heading is present
           richText.expectValue(doc(block(type, {}, text('x')), entryBlock(), emptyParagraph()));
@@ -498,10 +487,9 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           const value = 'some text';
           richText.editor.click().type(value);
 
-          clickDropdownItem(type);
+          richText.toolbar.toggleHeading(type);
 
-          cy.findByTestId('toolbar-entity-dropdown-toggle').click();
-          cy.findByTestId('toolbar-toggle-embedded-entry-block').click();
+          richText.toolbar.embed('entry-block');
 
           // Using `delay` to avoid flakiness, cypress triggers a keypress every 10ms and the editor was not responding correcrly
           richText.editor.type('{leftarrow}{del}', { delay: 100 });
@@ -513,14 +501,14 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
     describe('Toolbar', () => {
       it('should be visible', () => {
-        getHeadingDropdownToolbarButton().should('be.visible');
+        richText.toolbar.headingsDropdown.should('be.visible');
 
-        getHeadingDropdownToolbarButton().click();
+        richText.toolbar.headingsDropdown.click();
         getDropdownList().should('be.visible');
       });
 
       it(`should have ${headings.length} items`, () => {
-        getHeadingDropdownToolbarButton().click();
+        richText.toolbar.headingsDropdown.click();
         getDropdownList().children().should('have.length', headings.length);
 
         headings.forEach(([, label], index) => {
@@ -695,7 +683,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     it('should add a new line on a heading', () => {
       richText.editor.click();
 
-      clickDropdownItem(BLOCKS.HEADING_1);
+      richText.toolbar.toggleHeading(BLOCKS.HEADING_1);
 
       richText.editor
         .type('some text 1')
@@ -779,7 +767,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         richText.toolbar[el].should('be.disabled');
       });
 
-      getHeadingDropdownToolbarButton().should('be.disabled');
+      richText.toolbar.headingsDropdown.should('be.disabled');
 
       // select outside the table
       richText.editor.click().type('{downarrow}').wait(100);
@@ -788,7 +776,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         cy.findByTestId(`${el}-toolbar-button`).should('not.be.disabled');
       });
 
-      getHeadingDropdownToolbarButton().click();
+      richText.toolbar.headingsDropdown.click();
       [
         BLOCKS.PARAGRAPH,
         BLOCKS.HEADING_1,
@@ -1242,8 +1230,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       [
         'using the toolbar button',
         () => {
-          cy.findByTestId('toolbar-entity-dropdown-toggle').click();
-          cy.findByTestId('toolbar-toggle-embedded-entry-block').click();
+          richText.toolbar.embed('entry-block');
         },
       ],
       [
@@ -1333,8 +1320,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       [
         'using the toolbar button',
         () => {
-          cy.findByTestId('toolbar-entity-dropdown-toggle').click();
-          cy.findByTestId('toolbar-toggle-embedded-asset-block').click();
+          richText.toolbar.embed('asset-block');
         },
       ],
       [
@@ -1425,8 +1411,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       [
         'using the toolbar button',
         () => {
-          cy.findByTestId('toolbar-entity-dropdown-toggle').click();
-          return cy.findByTestId('toolbar-toggle-embedded-entry-inline').click();
+          richText.toolbar.embed('entry-inline');
         },
       ],
       [

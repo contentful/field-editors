@@ -13,16 +13,13 @@ export class RichTextPage {
 
   get toolbar() {
     return {
-      get headings() {
-        const dropdown = () => cy.findByTestId('toolbar-heading-toggle');
+      get headingsDropdown() {
+        return cy.findByTestId('toolbar-heading-toggle');
+      },
 
-        return {
-          dropdown,
-          set: (type: string) => {
-            dropdown().click();
-            cy.findByTestId(`dropdown-option-${type}`).click({ force: true });
-          },
-        };
+      toggleHeading(type: string) {
+        this.headingsDropdown.click();
+        cy.findByTestId(`dropdown-option-${type}`).click({ force: true });
       },
 
       get bold() {
@@ -63,6 +60,15 @@ export class RichTextPage {
 
       get table() {
         return cy.findByTestId('table-toolbar-button');
+      },
+
+      get embedDropdown() {
+        return cy.findByTestId('toolbar-entity-dropdown-toggle');
+      },
+
+      embed(type: 'entry-block' | 'asset-block' | 'entry-inline') {
+        this.embedDropdown.click();
+        cy.findByTestId(`toolbar-toggle-embedded-${type}`).click();
       },
     };
   }
