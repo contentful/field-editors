@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { PlatePlugin, getRenderElement, getPlatePluginTypes, getPlugin } from '@udecode/plate-core';
+import { PlatePlugin } from '@udecode/plate-core';
 import { useReadOnly } from 'slate-react';
 import { INLINES } from '@contentful/rich-text-types';
 import { Tooltip, TextLink } from '@contentful/f36-components';
@@ -9,10 +9,10 @@ import { ToolbarButton } from '../shared/ToolbarButton';
 import { css } from 'emotion';
 import tokens from '@contentful/f36-tokens';
 import { FieldExtensionSDK, Link, ContentEntityType as EntityType } from '@contentful/app-sdk';
-import { CustomSlatePluginOptions, CustomRenderElementProps } from '../../types';
+import { CustomRenderElementProps, CustomElement } from '../../types';
 import { useSdkContext } from '../../SdkProvider';
 import { addOrEditLink } from './HyperlinkModal';
-import { isLinkActive, LINK_TYPES, unwrapLink } from '../../helpers/editor';
+import { isLinkActive, unwrapLink } from '../../helpers/editor';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 
 const styles = {
@@ -53,88 +53,6 @@ const styles = {
     },
   }),
 };
-
-export function createHyperlinkPlugin(sdk: FieldExtensionSDK): PlatePlugin {
-  return {
-    renderElement: getRenderElement(LINK_TYPES),
-    pluginKeys: LINK_TYPES,
-    inlineTypes: getPlatePluginTypes(LINK_TYPES),
-    onKeyDown: buildHyperlinkEventHandler(sdk),
-    deserialize: (editor) => {
-      const hyperlinkOptions = getPlugin(editor, INLINES.HYPERLINK);
-      const entryHyperlinkOptions = getPlugin(editor, INLINES.ENTRY_HYPERLINK);
-      const assetHyperlinkOptions = getPlugin(editor, INLINES.ASSET_HYPERLINK);
-
-      const isAnchor = (element) =>
-        element.nodeName === 'A' &&
-        !!element.getAttribute('href') &&
-        element.getAttribute('href') !== '#';
-      const isEntryAnchor = (element) =>
-        isAnchor(element) && element.getAttribute('data-link-type') === 'Entry';
-      const isAssetAnchor = (element) =>
-        isAnchor(element) && element.getAttribute('data-link-type') === 'Asset';
-
-      return {
-        element: [
-          {
-            type: INLINES.HYPERLINK,
-            deserialize: (element) => {
-              if (!isAnchor(element) || isEntryAnchor(element) || isAssetAnchor(element)) return;
-
-              return {
-                type: INLINES.HYPERLINK,
-                data: {
-                  uri: element.getAttribute('href'),
-                },
-              };
-            },
-            ...hyperlinkOptions.deserialize,
-          },
-          {
-            type: INLINES.ENTRY_HYPERLINK,
-            deserialize: (element) => {
-              if (!isEntryAnchor(element)) return;
-
-              return {
-                type: INLINES.ENTRY_HYPERLINK,
-                data: {
-                  target: {
-                    sys: {
-                      id: element.getAttribute('data-link-id'),
-                      linkType: element.getAttribute('data-link-type'),
-                      type: 'Link',
-                    },
-                  },
-                },
-              };
-            },
-            ...entryHyperlinkOptions.deserialize,
-          },
-          {
-            type: INLINES.ASSET_HYPERLINK,
-            deserialize: (element) => {
-              if (!isAssetAnchor(element)) return;
-
-              return {
-                type: INLINES.ASSET_HYPERLINK,
-                data: {
-                  target: {
-                    sys: {
-                      id: element.getAttribute('data-link-id'),
-                      linkType: element.getAttribute('data-link-type'),
-                      type: 'Link',
-                    },
-                  },
-                },
-              };
-            },
-            ...assetHyperlinkOptions.deserialize,
-          },
-        ],
-      };
-    },
-  };
-}
 
 type K = 75;
 type KEvent = React.KeyboardEvent & { keyCode: K };
@@ -273,17 +191,95 @@ export function ToolbarHyperlinkButton(props: ToolbarHyperlinkButtonProps) {
   );
 }
 
-export const withHyperlinkOptions: CustomSlatePluginOptions = {
-  [INLINES.HYPERLINK]: {
-    type: INLINES.HYPERLINK,
-    component: UrlHyperlink,
-  },
-  [INLINES.ENTRY_HYPERLINK]: {
-    type: INLINES.ENTRY_HYPERLINK,
-    component: EntityHyperlink,
-  },
-  [INLINES.ASSET_HYPERLINK]: {
-    type: INLINES.ASSET_HYPERLINK,
-    component: EntityHyperlink,
-  },
+const isAnchor = (element: HTMLElement) =>
+  element.nodeName === 'A' &&
+  !!element.getAttribute('href') &&
+  element.getAttribute('href') !== '#';
+
+const isEntryAnchor = (element: HTMLElement) =>
+  isAnchor(element) && element.getAttribute('data-link-type') === 'Entry';
+
+const isAssetAnchor = (element: HTMLElement) =>
+  isAnchor(element) && element.getAttribute('data-link-type') === 'Asset';
+
+export const createHyperlinkPlugin = (sdk: FieldExtensionSDK): PlatePlugin => {
+  const common: Partial<PlatePlugin> = {
+    isElement: true,
+    isInline: true,
+    handlers: {
+      onKeyDown: buildHyperlinkEventHandler(sdk),
+    },
+  };
+
+  const getNodeOfType =
+    (type: INLINES) =>
+    (el: HTMLElement): CustomElement<HyperlinkElementProps> => ({
+      type,
+      children: [],
+      data:
+        type === INLINES.HYPERLINK
+          ? {
+              uri: el.getAttribute('href'),
+            }
+          : {
+              target: {
+                sys: {
+                  id: el.getAttribute('data-link-id'),
+                  linkType: el.getAttribute('data-link-type'),
+                  type: 'Link',
+                },
+              },
+            },
+    });
+
+  return {
+    key: 'hyperlinks',
+    plugins: [
+      // URL Hyperlink
+      {
+        ...common,
+        key: INLINES.HYPERLINK,
+        component: UrlHyperlink,
+        deserializeHtml: {
+          rules: [
+            {
+              validNodeName: ['A'],
+            },
+          ],
+          query: (el) => isAnchor(el) && !(isEntryAnchor(el) || isAssetAnchor(el)),
+          getNode: getNodeOfType(INLINES.HYPERLINK),
+        },
+      },
+      // Entry Hyperlink
+      {
+        ...common,
+        key: INLINES.ENTRY_HYPERLINK,
+        component: EntityHyperlink,
+        deserializeHtml: {
+          rules: [
+            {
+              validNodeName: ['A'],
+            },
+          ],
+          query: (el) => isEntryAnchor(el),
+          getNode: getNodeOfType(INLINES.ENTRY_HYPERLINK),
+        },
+      },
+      // Asset Hyperlink
+      {
+        ...common,
+        key: INLINES.ASSET_HYPERLINK,
+        component: EntityHyperlink,
+        deserializeHtml: {
+          rules: [
+            {
+              validNodeName: ['A'],
+            },
+          ],
+          query: (el) => isAssetAnchor(el),
+          getNode: getNodeOfType(INLINES.ASSET_HYPERLINK),
+        },
+      },
+    ],
+  };
 };
