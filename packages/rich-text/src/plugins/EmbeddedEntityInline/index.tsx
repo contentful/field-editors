@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { PlatePlugin, getRenderElement, getPlatePluginTypes, getPlugin } from '@udecode/plate-core';
+import { PlatePlugin } from '@udecode/plate-core';
 import { Transforms } from 'slate';
 import { INLINES } from '@contentful/rich-text-types';
 import { useSelected, ReactEditor, useReadOnly } from 'slate-react';
@@ -8,7 +8,7 @@ import { EmbeddedEntryInlineIcon } from '@contentful/f36-icons';
 import { css } from 'emotion';
 import { Link, FieldExtensionSDK } from '@contentful/app-sdk';
 import { Entry } from '@contentful/field-editor-shared';
-import { CustomSlatePluginOptions, CustomRenderElementProps } from '../../types';
+import { CustomElement, CustomRenderElementProps } from '../../types';
 import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
 import { useSdkContext } from '../../SdkProvider';
 import { FetchingWrappedInlineEntryCard } from './FetchingWrappedInlineEntryCard';
@@ -149,37 +149,28 @@ export function ToolbarEmbeddedEntityInlineButton(props: ToolbarEmbeddedEntityIn
 }
 
 export function createEmbeddedEntityInlinePlugin(sdk): PlatePlugin {
-  return {
-    renderElement: getRenderElement(INLINES.EMBEDDED_ENTRY),
-    pluginKeys: INLINES.EMBEDDED_ENTRY,
-    inlineTypes: getPlatePluginTypes(INLINES.EMBEDDED_ENTRY),
-    voidTypes: getPlatePluginTypes(INLINES.EMBEDDED_ENTRY),
-    onKeyDown: getWithEmbeddedEntryInlineEvents(sdk),
-    deserialize: (editor) => {
-      const options = getPlugin(editor, INLINES.EMBEDDED_ENTRY);
+  const htmlAttributeName = 'data-embedded-entity-inline-id';
 
-      return {
-        element: [
-          {
-            type: INLINES.EMBEDDED_ENTRY,
-            deserialize: (element) => {
-              const entryId = element.getAttribute('data-embedded-entity-inline-id');
-              return entryId ? createInlineEntryNode(entryId) : undefined;
-            },
-            ...options.deserialize,
-          },
-        ],
-      };
+  return {
+    key: INLINES.EMBEDDED_ENTRY,
+    isElement: true,
+    isInline: true,
+    isVoid: true,
+    component: EmbeddedEntityInline,
+    handlers: {
+      onKeyDown: getWithEmbeddedEntryInlineEvents(sdk),
+    },
+    deserializeHtml: {
+      rules: [
+        {
+          validAttribute: htmlAttributeName,
+        },
+      ],
+      getNode: (el): CustomElement =>
+        createInlineEntryNode(el.getAttribute(htmlAttributeName) as string),
     },
   };
 }
-
-export const withEmbeddedEntityInlineOptions: CustomSlatePluginOptions = {
-  [INLINES.EMBEDDED_ENTRY]: {
-    type: INLINES.EMBEDDED_ENTRY,
-    component: EmbeddedEntityInline,
-  },
-};
 
 // TODO: DRY up types from embedded entry block and elsewhere
 type TWO = 50;
