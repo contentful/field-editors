@@ -8,7 +8,7 @@ async function fetchAllData({ sdk, entityId, entityType, localeCode, defaultLoca
   const entity = await getEntity(entityId);
   if (entity.sys.contentType) {
     const contentTypeId = entity.sys.contentType.sys.id;
-    contentType = await sdk.space.getContentType(contentTypeId);
+    contentType = sdk.space.getCachedContentTypes().find((ct) => ct.sys.id === contentTypeId);
   }
 
   const entityTitle =
