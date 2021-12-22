@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { PlatePlugin } from '@udecode/plate-core';
+import { AnyObject, PlatePlugin } from '@udecode/plate-core';
 import { useReadOnly } from 'slate-react';
 import { INLINES } from '@contentful/rich-text-types';
 import { Tooltip, TextLink } from '@contentful/f36-components';
@@ -213,9 +213,9 @@ export const createHyperlinkPlugin = (sdk: FieldExtensionSDK): PlatePlugin => {
 
   const getNodeOfType =
     (type: INLINES) =>
-    (el: HTMLElement): CustomElement<HyperlinkElementProps> => ({
+    (el: HTMLElement, node: AnyObject): CustomElement<HyperlinkElementProps> => ({
       type,
-      children: [],
+      children: node.children,
       data:
         type === INLINES.HYPERLINK
           ? {
