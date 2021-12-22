@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@1.0.6...@contentful/field-editor-rich-text@1.0.7) (2021-12-22)
+
+### Bug Fixes
+
+- cache content types for Hyperlink ([#967](https://github.com/contentful/field-editors/issues/967)) ([07e376d](https://github.com/contentful/field-editors/commit/07e376de5157fa6477f060550aacf96af3ab5e85))
+
 ## [1.0.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@1.0.5...@contentful/field-editor-rich-text@1.0.6) (2021-12-20)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
