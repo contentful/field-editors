@@ -1,5 +1,5 @@
 import { PlatePlugin } from '@udecode/plate-core';
-import { TEXT_CONTAINERS } from '@contentful/rich-text-types';
+import { BLOCKS } from '@contentful/rich-text-types';
 import { createSoftBreakPlugin as createDefaultSoftBreakPlugin } from '@udecode/plate-break';
 
 export const createSoftBreakPlugin = (): PlatePlugin =>
@@ -10,7 +10,7 @@ export const createSoftBreakPlugin = (): PlatePlugin =>
         {
           hotkey: 'shift+enter',
           query: {
-            allow: TEXT_CONTAINERS,
+            allow: BLOCKS.PARAGRAPH,
           },
         },
       ],
