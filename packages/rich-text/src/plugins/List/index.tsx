@@ -260,7 +260,7 @@ export const createListPlugin = (): PlatePlugin =>
         // The withList is added on ELEMENT_UL plugin in upstream code
         withOverrides: withCustomList,
       },
-      // ELEMENT_LIC is a child of li, slatejs does ul > li > lic + ul
+      // ELEMENT_LIC is a child of li, Slate does ul > li > lic + ul
       [ELEMENT_LIC]: {
         type: BLOCKS.PARAGRAPH,
       },

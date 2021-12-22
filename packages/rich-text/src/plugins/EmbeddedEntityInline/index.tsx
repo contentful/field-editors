@@ -153,6 +153,7 @@ export function createEmbeddedEntityInlinePlugin(sdk): PlatePlugin {
 
   return {
     key: INLINES.EMBEDDED_ENTRY,
+    type: INLINES.EMBEDDED_ENTRY,
     isElement: true,
     isInline: true,
     isVoid: true,

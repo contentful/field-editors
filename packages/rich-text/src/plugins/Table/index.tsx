@@ -204,7 +204,7 @@ const createTableOnKeyDown = (editor: PlateEditor, plugin: WithPlatePlugin) => {
 
 export const createTablePlugin = (tracking: TrackingProvider): PlatePlugin =>
   createDefaultTablePlugin({
-    key: BLOCKS.TABLE,
+    type: BLOCKS.TABLE,
     options: {
       onkeydown: createTableOnKeyDown,
     },

@@ -54,7 +54,7 @@ export function Code(props: Slate.RenderLeafProps) {
 
 export const createCodePlugin = (): PlatePlugin =>
   createDefaultCodePlugin({
-    key: MARKS.CODE,
+    type: MARKS.CODE,
     component: Code,
     options: {
       hotkey: ['mod+/'],

@@ -6,6 +6,6 @@ import { createItalicPlugin } from './Italic';
 import { createUnderlinePlugin } from './Underline';
 
 export const createMarksPlugin = (): PlatePlugin => ({
-  key: 'marks',
+  key: 'Marks',
   plugins: [createBoldPlugin(), createCodePlugin(), createItalicPlugin(), createUnderlinePlugin()],
 });

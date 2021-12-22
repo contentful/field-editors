@@ -57,7 +57,7 @@ const isGoogleBoldWrapper = (el: HTMLElement) =>
 
 export const createBoldPlugin = (): PlatePlugin =>
   createDefaultBoldPlugin({
-    key: MARKS.BOLD,
+    type: MARKS.BOLD,
     component: Bold,
     options: {
       hotkey: ['mod+b'],

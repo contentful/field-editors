@@ -136,6 +136,7 @@ export function Hr(props: Slate.RenderLeafProps) {
 
 export const createHrPlugin = (): PlatePlugin => ({
   key: BLOCKS.HR,
+  type: BLOCKS.HR,
   isVoid: true,
   isElement: true,
   component: Hr,

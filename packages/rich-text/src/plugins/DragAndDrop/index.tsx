@@ -28,7 +28,7 @@ export function createDragAndDropPlugin(): PlatePlugin {
   };
 
   return {
-    key: 'drag-and-drop',
+    key: 'DragAndDropPlugin',
     withOverrides: (editor) => {
       const { normalizeNode } = editor;
 

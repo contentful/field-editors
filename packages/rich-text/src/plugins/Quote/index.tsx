@@ -135,6 +135,7 @@ export function Quote(props: Slate.RenderLeafProps) {
 export function createQuotePlugin(): PlatePlugin {
   return {
     key: BLOCKS.QUOTE,
+    type: BLOCKS.QUOTE,
     isElement: true,
     component: Quote,
     handlers: {

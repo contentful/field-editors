@@ -4,6 +4,6 @@ import { createSoftBreakPlugin } from './soft';
 import { createExitBreakPlugin } from './exit';
 
 export const createBreakPlugin = (): PlatePlugin => ({
-  key: 'soft-and-exit-breaks',
+  key: 'BreakPlugin',
   plugins: [createSoftBreakPlugin(), createExitBreakPlugin()],
 });

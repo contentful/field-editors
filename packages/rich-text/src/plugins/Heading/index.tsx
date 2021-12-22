@@ -256,12 +256,13 @@ export function createHeading(Tag, block: BLOCKS) {
 }
 
 export const createHeadingPlugin = (): PlatePlugin => ({
-  key: 'heading',
+  key: 'HeadingPlugin',
   plugins: HEADINGS.map((nodeType, idx) => {
     const tagName = `h${idx + 1}`;
 
     return {
       key: nodeType,
+      type: nodeType,
       isElement: true,
       component: createHeading(tagName, nodeType),
       handlers: {

@@ -39,7 +39,7 @@ function isEmpty(element: HTMLElement) {
 
 export const createParagraphPlugin = (): PlatePlugin =>
   createDefaultParagraphPlugin({
-    key: BLOCKS.PARAGRAPH,
+    type: BLOCKS.PARAGRAPH,
     component: Paragraph,
     options: {
       hotkey: ['mod+opt+0'],

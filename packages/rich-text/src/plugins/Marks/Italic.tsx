@@ -53,7 +53,7 @@ export function Italic(props: Slate.RenderLeafProps) {
 
 export const createItalicPlugin = (): PlatePlugin =>
   createDefaultItalicPlugin({
-    key: MARKS.ITALIC,
+    type: MARKS.ITALIC,
     component: Italic,
     options: {
       hotkey: ['mod+i'],

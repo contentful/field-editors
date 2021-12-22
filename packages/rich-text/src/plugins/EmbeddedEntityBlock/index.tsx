@@ -20,6 +20,7 @@ const createEmbeddedEntityPlugin =
   (nodeType: BLOCKS.EMBEDDED_ENTRY | BLOCKS.EMBEDDED_ASSET) =>
   (sdk: FieldExtensionSDK): PlatePlugin => ({
     key: nodeType,
+    type: nodeType,
     isElement: true,
     isVoid: true,
     component: LinkedEntityBlock,

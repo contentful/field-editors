@@ -233,12 +233,13 @@ export const createHyperlinkPlugin = (sdk: FieldExtensionSDK): PlatePlugin => {
     });
 
   return {
-    key: 'hyperlinks',
+    key: 'HyperlinkPlugin',
     plugins: [
       // URL Hyperlink
       {
         ...common,
         key: INLINES.HYPERLINK,
+        type: INLINES.HYPERLINK,
         component: UrlHyperlink,
         deserializeHtml: {
           rules: [
@@ -254,6 +255,7 @@ export const createHyperlinkPlugin = (sdk: FieldExtensionSDK): PlatePlugin => {
       {
         ...common,
         key: INLINES.ENTRY_HYPERLINK,
+        type: INLINES.ENTRY_HYPERLINK,
         component: EntityHyperlink,
         deserializeHtml: {
           rules: [
@@ -269,6 +271,7 @@ export const createHyperlinkPlugin = (sdk: FieldExtensionSDK): PlatePlugin => {
       {
         ...common,
         key: INLINES.ASSET_HYPERLINK,
+        type: INLINES.ASSET_HYPERLINK,
         component: EntityHyperlink,
         deserializeHtml: {
           rules: [

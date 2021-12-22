@@ -42,7 +42,7 @@ export function Underline(props: Slate.RenderLeafProps) {
 
 export const createUnderlinePlugin = (): PlatePlugin =>
   createDefaultUnderlinePlugin({
-    key: MARKS.UNDERLINE,
+    type: MARKS.UNDERLINE,
     component: Underline,
     options: {
       hotkey: ['mod+u'],
