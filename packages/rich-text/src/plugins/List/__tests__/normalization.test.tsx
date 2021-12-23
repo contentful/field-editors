@@ -23,8 +23,10 @@ describe('List normalizers', () => {
     const input = (
       <editor>
         <hli>
-          <hp>Item</hp>
-          <cursor />
+          <hp>
+            Item
+            <cursor />
+          </hp>
         </hli>
         <hp />
       </editor>

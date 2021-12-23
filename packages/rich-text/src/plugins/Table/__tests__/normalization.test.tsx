@@ -74,8 +74,8 @@ describe('Table normalizers', () => {
                     quote
                   </htext>
                   <hinlineEntry id="entry-id" />
+                  <cursor />
                 </hp>
-                <cursor />
               </hblockquote>
             </htd>
           </htr>
