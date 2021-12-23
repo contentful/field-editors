@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AssetCard, AssetType, Menu, Text } from '@contentful/f36-components';
+import { AssetCard, AssetType, Menu, Text, Notification } from '@contentful/f36-components';
 import { useEntities, MissingEntityCard } from '@contentful/field-editor-reference';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
@@ -31,6 +31,7 @@ interface FetchingWrappedAssetCardProps {
 }
 
 function downloadAsset(url: string, fileName: string) {
+  // This method won't work if we have CORS disabled(asset not on the contentful server)
   fetch(url, {
     method: 'GET',
     headers: {},
@@ -43,9 +44,11 @@ function downloadAsset(url: string, fileName: string) {
         link.setAttribute('download', fileName); //or any other extension
         document.body.appendChild(link);
         link.click();
+        document.body.removeChild(link);
       });
     })
     .catch((err) => {
+      Notification.error('Failed to dowmload asset');
       console.log(err);
     });
 }

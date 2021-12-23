@@ -1402,6 +1402,16 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
             )
           );
         });
+
+        it('downloads assets', () => {
+          richText.editor.click().then(triggerEmbeddedAsset);
+          cy.findByTestId('cf-ui-card-actions').click();
+          cy.findByTestId('card-action-download').click();
+
+          const path = require('path');
+          const downloadsFolder = Cypress.config('downloadsFolder');
+          cy.readFile(path.join(downloadsFolder, 'Terrier_mixed-breed_dog.jpg')).should('exist');
+        });
       });
     }
   });
