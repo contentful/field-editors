@@ -4,14 +4,11 @@ import { css, cx } from 'emotion';
 import { Menu, Button } from '@contentful/f36-components';
 import { ChevronDownIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
-import { Editor, Transforms, Node } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { PlatePlugin, PlateEditor } from '@udecode/plate-core';
-import { insertNodes, setNodes, toggleNodeType } from '@udecode/plate-core';
+import { PlatePlugin, toggleNodeType, onKeyDownToggleElement } from '@udecode/plate-core';
 import { CustomElement } from '../../types';
 import {
   getElementFromCurrentSelection,
-  hasSelectionText,
   shouldUnwrapBlockquote,
   unwrapFromRoot,
 } from '../../helpers/editor';
@@ -72,80 +69,6 @@ const styles = {
     `,
   },
 };
-
-const HEADINGS: BLOCKS[] = [
-  BLOCKS.HEADING_1,
-  BLOCKS.HEADING_2,
-  BLOCKS.HEADING_3,
-  BLOCKS.HEADING_4,
-  BLOCKS.HEADING_5,
-  BLOCKS.HEADING_6,
-];
-
-export function withHeadingEvents(editor: PlateEditor) {
-  return (event: React.KeyboardEvent) => {
-    if (!editor.selection) return;
-
-    // Enter a new line on a heading element
-    const [currentFragment] = Editor.fragment(
-      editor,
-      editor.selection.focus.path
-    ) as CustomElement[];
-    const isEnter = event.keyCode === 13;
-    const isCurrentFragmentAHeading = HEADINGS.includes(currentFragment.type as BLOCKS);
-
-    if (isEnter && isCurrentFragmentAHeading) {
-      event.preventDefault();
-
-      const text = { text: '' };
-      const paragraph = { type: BLOCKS.PARAGRAPH, data: {}, children: [text] };
-      const heading = { type: currentFragment.type, data: {}, children: [text] };
-
-      if (hasSelectionText(editor)) {
-        const currentOffset = editor.selection.focus.offset;
-        const currentTextLength = Node.string(currentFragment).length;
-        const cursorIsAtTheBeginning = currentOffset === 0;
-        const cursorIsAtTheEnd = currentTextLength === currentOffset;
-
-        if (cursorIsAtTheBeginning) {
-          insertNodes(editor, paragraph, { at: editor.selection });
-        } else if (cursorIsAtTheEnd) {
-          insertNodes(editor, paragraph);
-        } else {
-          // Otherwise the cursor is in the middle
-          Transforms.splitNodes(editor);
-          setNodes(editor, paragraph);
-        }
-      } else {
-        setNodes(editor, paragraph);
-        insertNodes(editor, heading);
-      }
-    }
-
-    // Toggle heading blocks when pressing cmd/ctrl+alt+1|2|3|4|5|6
-    const headingKeyCodes = {
-      49: BLOCKS.HEADING_1,
-      50: BLOCKS.HEADING_2,
-      51: BLOCKS.HEADING_3,
-      52: BLOCKS.HEADING_4,
-      53: BLOCKS.HEADING_5,
-      54: BLOCKS.HEADING_6,
-    };
-    const isMod = event.ctrlKey || event.metaKey;
-    const isAltOrOption = event.altKey;
-    const headingKey = headingKeyCodes[event.keyCode];
-
-    if (isMod && isAltOrOption && headingKey) {
-      event.preventDefault();
-
-      if (shouldUnwrapBlockquote(editor, headingKey)) {
-        unwrapFromRoot(editor);
-      }
-
-      toggleNodeType(editor, { activeType: headingKey, inactiveType: BLOCKS.PARAGRAPH });
-    }
-  };
-}
 
 const LABELS = {
   [BLOCKS.PARAGRAPH]: 'Normal text',
@@ -255,26 +178,41 @@ export function createHeading(Tag, block: BLOCKS) {
   };
 }
 
-export const createHeadingPlugin = (): PlatePlugin => ({
-  key: 'HeadingPlugin',
-  plugins: HEADINGS.map((nodeType, idx) => {
-    const tagName = `h${idx + 1}`;
+export const createHeadingPlugin = (): PlatePlugin => {
+  const headings: BLOCKS[] = [
+    BLOCKS.HEADING_1,
+    BLOCKS.HEADING_2,
+    BLOCKS.HEADING_3,
+    BLOCKS.HEADING_4,
+    BLOCKS.HEADING_5,
+    BLOCKS.HEADING_6,
+  ];
 
-    return {
-      key: nodeType,
-      type: nodeType,
-      isElement: true,
-      component: createHeading(tagName, nodeType),
-      handlers: {
-        onKeyDown: withHeadingEvents,
-      },
-      deserializeHtml: {
-        rules: [
-          {
-            validNodeName: tagName.toUpperCase(),
-          },
-        ],
-      },
-    };
-  }),
-});
+  return {
+    key: 'HeadingPlugin',
+    plugins: headings.map((nodeType, idx) => {
+      const level = idx + 1;
+      const tagName = `h${level}`;
+
+      return {
+        key: nodeType,
+        type: nodeType,
+        isElement: true,
+        component: createHeading(tagName, nodeType),
+        options: {
+          hotkey: [`mod+alt+${level}`],
+        },
+        handlers: {
+          onKeyDown: onKeyDownToggleElement,
+        },
+        deserializeHtml: {
+          rules: [
+            {
+              validNodeName: tagName.toUpperCase(),
+            },
+          ],
+        },
+      };
+    }),
+  };
+};
