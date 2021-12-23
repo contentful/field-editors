@@ -61,6 +61,11 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
         id={getContentfulEditorId(props.sdk)}
         initialValue={value}
         plugins={plugins}
+        disableCorePlugins={{
+          // Note: Enabled by default since v9.0.0 but it causes Cypress's
+          // .click() command to fail
+          eventEditor: true,
+        }}
         editableProps={{
           className: classNames,
           readOnly: props.isDisabled,
