@@ -64,6 +64,7 @@
     "@babel/preset-react": "7.13.13",
     "@contentful/field-editor-test-utils": "^1.0.0",
     "@contentful/rich-text-react-renderer": "^15.6.2",
+    "@types/is-hotkey": "^0.1.6",
     "@udecode/plate-test-utils": "^3.2.0",
     "react": ">=16.14.0"
   }
