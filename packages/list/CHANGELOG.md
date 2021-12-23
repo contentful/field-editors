@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-list@1.0.3...@contentful/field-editor-list@1.0.4) (2021-12-23)
+
+### Bug Fixes
+
+- markdown buttons ([#968](https://github.com/contentful/field-editors/issues/968)) ([9803b98](https://github.com/contentful/field-editors/commit/9803b98c25d92df6148686ffe2749a77f7efdbb9))
+
 ## [1.0.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-list@1.0.2...@contentful/field-editor-list@1.0.3) (2021-12-20)
 
 **Note:** Version bump only for package @contentful/field-editor-list
