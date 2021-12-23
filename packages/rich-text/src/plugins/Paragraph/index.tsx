@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { css } from 'emotion';
 import { PlatePlugin, PlateEditor } from '@udecode/plate-core';
-import {
-  createParagraphPlugin as createDefaultParagraphPlugin,
-  ELEMENT_PARAGRAPH,
-} from '@udecode/plate-paragraph';
+import { createParagraphPlugin as createDefaultParagraphPlugin } from '@udecode/plate-paragraph';
 import { BLOCKS } from '@contentful/rich-text-types';
 import tokens from '@contentful/f36-tokens';
 import { Element, Node, Transforms } from 'slate';
@@ -74,11 +71,5 @@ export const createParagraphPlugin = (): PlatePlugin =>
       };
 
       return editor;
-    },
-    overrideByKey: {
-      [ELEMENT_PARAGRAPH]: {
-        // We convert the default slate plugin `p` to Contentful `BLOCKS.PARAGRAPH`
-        type: BLOCKS.PARAGRAPH,
-      },
     },
   });

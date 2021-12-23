@@ -1,6 +1,6 @@
 /**
  * A copy of Plate's list plugin with a few adjustments
- * to to support pasting any element
+ * to support pasting any element
  */
 import { getPlugin, PlateEditor, PlatePlugin, TDescendant } from '@udecode/plate-core';
 import { findNode } from '@udecode/plate-core';
