@@ -24,9 +24,9 @@
   },
   "dependencies": {
     "@contentful/contentful-slatejs-adapter": "14.1.2",
-    "@contentful/f36-components": "^4.0.1-beta.2696",
-    "@contentful/f36-icons": "^4.0.1-beta.2696",
-    "@contentful/f36-tokens": "^4.0.1-beta.2696",
+    "@contentful/f36-components": "^4.0.1-beta.2705",
+    "@contentful/f36-icons": "^4.0.1-beta.2705",
+    "@contentful/f36-tokens": "^4.0.1-beta.2705",
     "@contentful/field-editor-reference": "^4.0.6",
     "@contentful/field-editor-shared": "^1.0.2",
     "@contentful/rich-text-plain-text-renderer": "^14.0.0",
