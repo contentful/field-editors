@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { css, cx } from 'emotion';
-import { Button, Flex, Tooltip } from '@contentful/f36-components';
+import { IconButton, Flex, Tooltip } from '@contentful/f36-components';
 import type { ButtonProps } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
 import {
@@ -57,8 +57,8 @@ const ToolbarButton = React.forwardRef<
     variant?: 'transparent' | 'secondary';
     onClick?: Function;
     tooltipPlace?: 'top' | 'bottom';
-    tooltip?: string;
-    children: React.ReactNode;
+    tooltip: string;
+    children: React.ReactElement;
   } & Omit<ButtonProps, 'onClick'>
 >((props, ref) => {
   const {
@@ -72,28 +72,21 @@ const ToolbarButton = React.forwardRef<
     ...otherProps
   } = props;
 
-  const button = (
-    <Button
-      {...otherProps}
-      ref={ref}
-      className={cx(styles.button, className)}
-      isDisabled={isDisabled}
-      onClick={onClick as ButtonProps['onClick']}
-      variant={variant}
-      size="small">
-      {children}
-    </Button>
+  return (
+    <Tooltip className={styles.tooltip} placement={tooltipPlace} content={tooltip}>
+      <IconButton
+        {...otherProps}
+        ref={ref}
+        className={cx(styles.button, className)}
+        isDisabled={isDisabled}
+        onClick={onClick as ButtonProps['onClick']}
+        variant={variant}
+        size="small"
+        icon={children}
+        aria-label={tooltip}
+      />
+    </Tooltip>
   );
-
-  if (tooltip) {
-    return (
-      <Tooltip className={styles.tooltip} placement={tooltipPlace} content={tooltip}>
-        {button}
-      </Tooltip>
-    );
-  }
-
-  return button;
 });
 ToolbarButton.displayName = 'ToolbarButton';
 
@@ -301,7 +294,8 @@ export function DefaultMarkdownToolbar(props: MarkdownToolbarProps) {
             testId="markdown-action-button-zen"
             variant="secondary"
             onClick={props.actions.openZenMode}
-            className={styles.zenButton}>
+            className={styles.zenButton}
+            tooltip="Expand">
             <Icons.Zen label="Expand" className={styles.icon} />
           </ToolbarButton>
         </Flex>
@@ -332,16 +326,17 @@ export function ZenMarkdownToolbar(props: MarkdownToolbarProps) {
             onAddNew={props.actions.addNewMedia}
             canAddNew={props.canUploadAssets}
           />
-          <Button
+          <IconButton
             testId="markdown-action-button-zen-close"
             variant="secondary"
             size="small"
             className={cx(styles.zenButton, styles.zenButtonPressed)}
             onClick={() => {
               props.actions.closeZenMode();
-            }}>
-            <Icons.Zen label="Collapse" className={styles.icon} />
-          </Button>
+            }}
+            icon={<Icons.Zen label="Collapse" className={styles.icon} />}
+            aria-label="Collapse"
+          />
         </Flex>
       </Flex>
     </div>
