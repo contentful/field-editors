@@ -8,10 +8,11 @@
     "html": false,
     "json": true
   },
-  "retries": 2,
+  "retries": {
+    "runMode": 2,
+    "openMode": 0
+  },
+  "testFiles": "**/*.spec.*",
   "numTestsKeptInMemory": 1,
-  "ignoreTestFiles": [
-    "**/__snapshots__/*",
-    "**/__image_snapshots__/*"
-  ]
+  "ignoreTestFiles": ["**/__snapshots__/*", "**/__image_snapshots__/*"]
 }
