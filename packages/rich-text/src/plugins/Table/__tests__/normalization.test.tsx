@@ -1,24 +1,7 @@
 /** @jsx jsx */
-import { Editor } from 'slate';
-
-import { jsx, createTestEditor } from '../../../test-utils';
+import { jsx, expectNormalized } from '../../../test-utils';
 
 describe('Table normalizers', () => {
-  const assertOutput = (input: any, expected: any) => {
-    const editor = createTestEditor({
-      input,
-    });
-
-    // A hack to force normalization since calling
-    // editor.normalizeNode([input, []]) doesn't work
-    Editor.withoutNormalizing(editor, () => {
-      editor.insertText('X');
-      editor.deleteBackward('character');
-    });
-
-    expect(editor.children).toEqual(expected.children);
-  };
-
   it('removes nodes not wrapped in table-row', () => {
     const input = (
       <editor>
@@ -31,14 +14,13 @@ describe('Table normalizers', () => {
               <hp>Cell 2</hp>
             </htd>
           </htr>
-          <htd>
-            invalid cell <cursor />
-          </htd>
+          <htd>invalid cell</htd>
           invalid text
         </htable>
         <hp />
       </editor>
     );
+
     const expected = (
       <editor>
         <htable>
@@ -51,11 +33,13 @@ describe('Table normalizers', () => {
             </htd>
           </htr>
         </htable>
-        <hp />
+        <hp>
+          <htext />
+        </hp>
       </editor>
     );
 
-    assertOutput(input, expected);
+    expectNormalized(input, expected);
   });
 
   it('converts invalid table-cell children to paragraphs', () => {
@@ -74,7 +58,6 @@ describe('Table normalizers', () => {
                     quote
                   </htext>
                   <hinlineEntry id="entry-id" />
-                  <cursor />
                 </hp>
               </hblockquote>
             </htd>
@@ -103,10 +86,12 @@ describe('Table normalizers', () => {
             </htd>
           </htr>
         </htable>
-        <hp />
+        <hp>
+          <htext />
+        </hp>
       </editor>
     );
 
-    assertOutput(input, expected);
+    expectNormalized(input, expected);
   });
 });
