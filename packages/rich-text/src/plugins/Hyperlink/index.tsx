@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { AnyObject, PlatePlugin } from '@udecode/plate-core';
+import isHotkey from 'is-hotkey';
+import { AnyObject, PlatePlugin, KeyboardHandler, HotkeyPlugin } from '@udecode/plate-core';
 import { useReadOnly } from 'slate-react';
 import { INLINES } from '@contentful/rich-text-types';
 import { Tooltip, TextLink } from '@contentful/f36-components';
@@ -53,31 +54,6 @@ const styles = {
     },
   }),
 };
-
-type K = 75;
-type KEvent = React.KeyboardEvent & { keyCode: K };
-type CtrlEvent = React.KeyboardEvent & { ctrlKey: true };
-type MetaEvent = React.KeyboardEvent & { metaKey: true };
-type ModEvent = CtrlEvent | MetaEvent;
-type HyperlinkEvent = ModEvent & KEvent;
-
-const isMod = (event: React.KeyboardEvent): event is ModEvent => event.ctrlKey || event.metaKey;
-const isK = (event: React.KeyboardEvent): event is KEvent => event.keyCode === 75;
-const wasHyperlinkEventTriggered = (event: React.KeyboardEvent): event is HyperlinkEvent =>
-  isMod(event) && isK(event);
-
-export function buildHyperlinkEventHandler(sdk) {
-  return function withHyperlinkEvents(editor) {
-    return function handleKeyDown(event: React.KeyboardEvent) {
-      if (!editor.selection || !wasHyperlinkEventTriggered(event)) return;
-      if (isLinkActive(editor)) {
-        unwrapLink(editor);
-      } else {
-        addOrEditLink(editor, sdk);
-      }
-    };
-  };
-}
 
 type HyperlinkElementProps = CustomRenderElementProps<{
   uri?: string;
@@ -202,38 +178,62 @@ const isEntryAnchor = (element: HTMLElement) =>
 const isAssetAnchor = (element: HTMLElement) =>
   isAnchor(element) && element.getAttribute('data-link-type') === 'Asset';
 
+const buildHyperlinkEventHandler =
+  (sdk: FieldExtensionSDK): KeyboardHandler<{}, HotkeyPlugin> =>
+  (editor, { options: { hotkey } }) => {
+    return (event: React.KeyboardEvent) => {
+      if (!editor.selection) {
+        return;
+      }
+
+      // @ts-expect-error Event type mismatch
+      if (hotkey && !isHotkey(hotkey, event)) {
+        return;
+      }
+
+      if (isLinkActive(editor)) {
+        unwrapLink(editor);
+      } else {
+        addOrEditLink(editor, sdk);
+      }
+    };
+  };
+
+const getNodeOfType =
+  (type: INLINES) =>
+  (el: HTMLElement, node: AnyObject): CustomElement<HyperlinkElementProps> => ({
+    type,
+    children: node.children,
+    data:
+      type === INLINES.HYPERLINK
+        ? {
+            uri: el.getAttribute('href'),
+          }
+        : {
+            target: {
+              sys: {
+                id: el.getAttribute('data-link-id'),
+                linkType: el.getAttribute('data-link-type'),
+                type: 'Link',
+              },
+            },
+          },
+  });
+
 export const createHyperlinkPlugin = (sdk: FieldExtensionSDK): PlatePlugin => {
   const common: Partial<PlatePlugin> = {
     isElement: true,
     isInline: true,
-    handlers: {
-      onKeyDown: buildHyperlinkEventHandler(sdk),
-    },
   };
-
-  const getNodeOfType =
-    (type: INLINES) =>
-    (el: HTMLElement, node: AnyObject): CustomElement<HyperlinkElementProps> => ({
-      type,
-      children: node.children,
-      data:
-        type === INLINES.HYPERLINK
-          ? {
-              uri: el.getAttribute('href'),
-            }
-          : {
-              target: {
-                sys: {
-                  id: el.getAttribute('data-link-id'),
-                  linkType: el.getAttribute('data-link-type'),
-                  type: 'Link',
-                },
-              },
-            },
-    });
 
   return {
     key: 'HyperlinkPlugin',
+    options: {
+      hotkey: 'mod+k',
+    },
+    handlers: {
+      onKeyDown: buildHyperlinkEventHandler(sdk),
+    },
     plugins: [
       // URL Hyperlink
       {
