@@ -1,6 +1,7 @@
+import isHotkey from 'is-hotkey';
 import { KeyboardEvent } from 'react';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { PlatePlugin, PlateEditor } from '@udecode/plate-core';
+import { PlatePlugin, KeyboardHandler, HotkeyPlugin } from '@udecode/plate-core';
 import { Transforms } from 'slate';
 import { getNodeEntryFromSelection } from '../../helpers/editor';
 import { CustomElement } from '../../types';
@@ -16,14 +17,42 @@ const entityTypes = {
   [BLOCKS.EMBEDDED_ASSET]: 'Asset',
 };
 
+function getWithEmbeddedEntityEvents(
+  nodeType: BLOCKS.EMBEDDED_ENTRY | BLOCKS.EMBEDDED_ASSET,
+  sdk: FieldExtensionSDK
+): KeyboardHandler<{}, HotkeyPlugin> {
+  return (editor, { options: { hotkey } }) =>
+    (event: KeyboardEvent) => {
+      const [, pathToSelectedElement] = getNodeEntryFromSelection(editor, nodeType);
+
+      if (pathToSelectedElement) {
+        const isDelete = event.key === 'Delete';
+        const isBackspace = event.key === 'Backspace';
+
+        if (isDelete || isBackspace) {
+          event.preventDefault();
+          Transforms.removeNodes(editor, { at: pathToSelectedElement });
+        }
+
+        return;
+      }
+
+      // @ts-expect-error Event type mismatch
+      if (hotkey && isHotkey(hotkey, event)) {
+        selectEntityAndInsert(nodeType, sdk, editor, noop);
+      }
+    };
+}
+
 const createEmbeddedEntityPlugin =
-  (nodeType: BLOCKS.EMBEDDED_ENTRY | BLOCKS.EMBEDDED_ASSET) =>
+  (nodeType: BLOCKS.EMBEDDED_ENTRY | BLOCKS.EMBEDDED_ASSET, hotkey: string) =>
   (sdk: FieldExtensionSDK): PlatePlugin => ({
     key: nodeType,
     type: nodeType,
     isElement: true,
     isVoid: true,
     component: LinkedEntityBlock,
+    options: { hotkey },
     handlers: {
       onKeyDown: getWithEmbeddedEntityEvents(nodeType, sdk),
     },
@@ -52,54 +81,11 @@ const createEmbeddedEntityPlugin =
     },
   });
 
-export const createEmbeddedEntryBlockPlugin = createEmbeddedEntityPlugin(BLOCKS.EMBEDDED_ENTRY);
-export const createEmbeddedAssetBlockPlugin = createEmbeddedEntityPlugin(BLOCKS.EMBEDDED_ASSET);
-
-type A = 65;
-type E = 69;
-type AEvent = KeyboardEvent & { keyCode: A };
-type EEvent = KeyboardEvent & { keyCode: E };
-type ShiftEvent = KeyboardEvent & { shiftKey: true };
-type CtrlEvent = KeyboardEvent & { ctrlKey: true };
-type MetaEvent = KeyboardEvent & { metaKey: true };
-type ModEvent = CtrlEvent | MetaEvent;
-type EmbeddedAssetEvent = ModEvent & ShiftEvent & AEvent;
-type EmbeddedEntryEvent = ModEvent & ShiftEvent & EEvent;
-
-const isA = (event: KeyboardEvent): event is AEvent => event.keyCode === 65;
-const isE = (event: KeyboardEvent): event is EEvent => event.keyCode === 69;
-const isMod = (event: KeyboardEvent): event is ModEvent => event.ctrlKey || event.metaKey;
-const isShift = (event: KeyboardEvent): event is ShiftEvent => event.shiftKey;
-const wasEmbeddedAssetEventTriggered = (event: KeyboardEvent): event is EmbeddedAssetEvent =>
-  isMod(event) && isShift(event) && isA(event);
-const wasEmbeddedEntryEventTriggered = (event: KeyboardEvent): event is EmbeddedEntryEvent =>
-  isMod(event) && isShift(event) && isE(event);
-
-export function getWithEmbeddedEntityEvents(
-  nodeType: BLOCKS.EMBEDDED_ENTRY | BLOCKS.EMBEDDED_ASSET,
-  sdk: FieldExtensionSDK
-) {
-  return function withEmbeddedEntityEvents(editor: PlateEditor) {
-    // TODO: Dry up copied code from HR
-    return function handleEvent(event: KeyboardEvent) {
-      if (!editor) return;
-
-      const [, pathToSelectedElement] = getNodeEntryFromSelection(editor, nodeType);
-
-      if (pathToSelectedElement) {
-        const isDelete = event.key === 'Delete';
-        const isBackspace = event.key === 'Backspace';
-
-        if (isDelete || isBackspace) {
-          event.preventDefault();
-          Transforms.removeNodes(editor, { at: pathToSelectedElement });
-        }
-      } else if (
-        (nodeType === BLOCKS.EMBEDDED_ENTRY && wasEmbeddedEntryEventTriggered(event)) ||
-        (nodeType === BLOCKS.EMBEDDED_ASSET && wasEmbeddedAssetEventTriggered(event))
-      ) {
-        selectEntityAndInsert(nodeType, sdk, editor, noop);
-      }
-    };
-  };
-}
+export const createEmbeddedEntryBlockPlugin = createEmbeddedEntityPlugin(
+  BLOCKS.EMBEDDED_ENTRY,
+  'mod+shift+e'
+);
+export const createEmbeddedAssetBlockPlugin = createEmbeddedEntityPlugin(
+  BLOCKS.EMBEDDED_ASSET,
+  'mod+shift+a'
+);
