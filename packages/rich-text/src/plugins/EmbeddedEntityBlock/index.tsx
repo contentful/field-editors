@@ -37,7 +37,6 @@ function getWithEmbeddedEntityEvents(
         return;
       }
 
-      // @ts-expect-error Event type mismatch
       if (hotkey && isHotkey(hotkey, event)) {
         selectEntityAndInsert(nodeType, sdk, editor, noop);
       }

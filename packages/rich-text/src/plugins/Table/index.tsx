@@ -6,7 +6,7 @@ import tokens from '@contentful/f36-tokens';
 import { TableIcon } from '@contentful/f36-icons';
 import { ToolbarButton } from '../shared/ToolbarButton';
 import { BLOCKS, TableCell, TableHeaderCell } from '@contentful/rich-text-types';
-import { PlateEditor, PlatePlugin, WithPlatePlugin } from '@udecode/plate-core';
+import { HotkeyPlugin, KeyboardHandler, PlateEditor, PlatePlugin } from '@udecode/plate-core';
 import {
   createTablePlugin as createDefaultTablePlugin,
   ELEMENT_TABLE,
@@ -182,31 +182,31 @@ export function ToolbarTableButton(props: ToolbarTableButtonProps) {
   );
 }
 
-const createTableOnKeyDown = (editor: PlateEditor, plugin: WithPlatePlugin) => {
+const createTableOnKeyDown: KeyboardHandler<{}, HotkeyPlugin> = (editor, plugin) => {
   const defaultHandler = onKeyDownTable(editor, plugin);
 
-  return (e: React.KeyboardEvent) => {
+  return (event) => {
     if (
-      (e.key === 'Backspace' && currentSelectionStartsTableCell(editor)) ||
-      (e.key === 'Delete' && currentSelectionPrecedesTableCell(editor))
+      (event.key === 'Backspace' && currentSelectionStartsTableCell(editor)) ||
+      (event.key === 'Delete' && currentSelectionPrecedesTableCell(editor))
     ) {
       // The default behavior here would be to delete the preceding or forthcoming
       // leaf node, in this case a cell or header cell. But we don't want to do that,
       // because it would leave us with a non-standard number of table cells.
-      e.preventDefault();
-      e.stopPropagation();
+      event.preventDefault();
+      event.stopPropagation();
       return;
     }
 
-    defaultHandler(e);
+    defaultHandler(event);
   };
 };
 
 export const createTablePlugin = (tracking: TrackingProvider): PlatePlugin =>
   createDefaultTablePlugin({
     type: BLOCKS.TABLE,
-    options: {
-      onkeydown: createTableOnKeyDown,
+    handlers: {
+      onKeyDown: createTableOnKeyDown,
     },
     withOverrides: (editor) => {
       addTableTrackingEvents(editor, tracking);

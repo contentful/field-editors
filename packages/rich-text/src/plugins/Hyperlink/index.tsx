@@ -186,7 +186,6 @@ const buildHyperlinkEventHandler =
         return;
       }
 
-      // @ts-expect-error Event type mismatch
       if (hotkey && !isHotkey(hotkey, event)) {
         return;
       }
