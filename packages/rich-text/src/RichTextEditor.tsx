@@ -65,6 +65,8 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
           // Note: Enabled by default since v9.0.0 but it causes Cypress's
           // .click() command to fail
           eventEditor: true,
+          // Breaks pasting basic marks from within the editor
+          insertData: true,
         }}
         editableProps={{
           className: classNames,
