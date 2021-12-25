@@ -26,7 +26,7 @@ import {
   replaceNode,
 } from '../../helpers/editor';
 import { isNodeTypeEnabled } from '../../helpers/validations';
-import { CustomElement, TextElement, TextOrCustomElement } from '../../types';
+import { CustomElement, CustomText, TextOrCustomElement } from '../../types';
 import tokens from '@contentful/f36-tokens';
 import { useSdkContext } from '../../SdkProvider';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
@@ -148,7 +148,7 @@ const hasListAsDirectParent = (editor: Editor, path: Path) => {
 };
 
 const isValidInsideListItem = (node: TextOrCustomElement) =>
-  Text.isText(node as TextElement) ||
+  Text.isText(node as CustomText) ||
   (LIST_ITEM_BLOCKS as Array<TopLevelBlockEnum | INLINES>)
     .concat(Object.values(INLINES))
     .includes((node as CustomElement).type as TopLevelBlockEnum);
