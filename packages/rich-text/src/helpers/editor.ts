@@ -1,8 +1,14 @@
 import { PlateEditor } from '@udecode/plate-core';
 import { getText } from '@udecode/plate-core';
 import { Link } from '@contentful/field-editor-reference/dist/types';
-import { Text, Editor, Element, Transforms, Path, Range, Node, Location } from 'slate';
-import { BLOCKS, INLINES, TABLE_BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
+import { Text, Editor, Element, Transforms, Path, Range, Node } from 'slate';
+import {
+  BLOCKS,
+  HEADINGS,
+  INLINES,
+  TABLE_BLOCKS,
+  TEXT_CONTAINERS,
+} from '@contentful/rich-text-types';
 
 import { CustomElement } from '../types';
 
@@ -223,19 +229,7 @@ export function getAncestorPathFromSelection(editor: PlateEditor) {
 // TODO: move to quote plugin
 export function shouldUnwrapBlockquote(editor: PlateEditor, type: BLOCKS) {
   const isQuoteSelected = isBlockSelected(editor, BLOCKS.QUOTE);
-  const isValidType = [
-    BLOCKS.HEADING_1,
-    BLOCKS.HEADING_2,
-    BLOCKS.HEADING_3,
-    BLOCKS.HEADING_4,
-    BLOCKS.HEADING_5,
-    BLOCKS.HEADING_6,
-
-    BLOCKS.OL_LIST,
-    BLOCKS.UL_LIST,
-
-    BLOCKS.HR,
-  ].includes(type);
+  const isValidType = [...HEADINGS, BLOCKS.OL_LIST, BLOCKS.UL_LIST, BLOCKS.HR].includes(type);
 
   return isQuoteSelected && isValidType;
 }
@@ -286,12 +280,6 @@ export function currentSelectionPrecedesTableCell(editor: PlateEditor): boolean 
     !!nextNode && TABLE_BLOCKS.includes(nextNode.type as BLOCKS) && isAtEndOfTextSelection(editor)
   );
 }
-
-// TODO: move to table plugin
-export const replaceNode = (editor: Editor, path: Location, replacement: Node | Node[]) => {
-  Transforms.removeNodes(editor, { at: path });
-  Transforms.insertNodes(editor, replacement, { at: path });
-};
 
 /**
  * It filters out all paragraphs and headings from a path and convert them into paragraphs.

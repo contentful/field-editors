@@ -1,6 +1,6 @@
 import { isFirstChild } from '@udecode/plate-core';
 import { createExitBreakPlugin as createDefaultExitBreakPlugin } from '@udecode/plate-break';
-import { BLOCKS } from '@contentful/rich-text-types';
+import { HEADINGS } from '@contentful/rich-text-types';
 
 import { RichTextPlugin } from '../../types';
 import { isRootLevel } from '../../helpers/editor';
@@ -29,14 +29,7 @@ export const createExitBreakPlugin = (): RichTextPlugin =>
         {
           hotkey: 'enter',
           query: {
-            allow: [
-              BLOCKS.HEADING_1,
-              BLOCKS.HEADING_2,
-              BLOCKS.HEADING_3,
-              BLOCKS.HEADING_4,
-              BLOCKS.HEADING_5,
-              BLOCKS.HEADING_6,
-            ],
+            allow: HEADINGS,
             end: true,
             start: true,
           },
