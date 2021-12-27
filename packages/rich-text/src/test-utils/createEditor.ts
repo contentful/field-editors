@@ -1,7 +1,8 @@
-import { withPlate } from '@udecode/plate-core';
+import { Editor } from 'slate';
+import { createPlateEditor } from '@udecode/plate-core';
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 
-import { getPlugins, pluginOptions } from '../plugins';
+import { getPlugins } from '../plugins';
 import { TrackingProvider } from '../TrackingProvider';
 
 export const createTestEditor = (options: {
@@ -15,9 +16,23 @@ export const createTestEditor = (options: {
 
   const sdk: FieldExtensionSDK = options.sdk ?? ({} as any);
 
-  return withPlate({
+  const editor = createPlateEditor({
+    editor: options.input,
     plugins: getPlugins(sdk, tracking),
-    // @ts-expect-error
-    options: pluginOptions,
-  })(options.input);
+  });
+
+  return {
+    editor,
+    normalize: () => Editor.normalize(editor, { force: true }),
+  };
+};
+
+export const expectNormalized = (input: any, expected: any) => {
+  const { editor, normalize } = createTestEditor({
+    input,
+  });
+
+  normalize();
+
+  expect(editor.children).toEqual(expected.children);
 };

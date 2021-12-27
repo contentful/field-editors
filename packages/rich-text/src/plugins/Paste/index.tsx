@@ -21,6 +21,7 @@ const htmlToDataTransfer = (html: string): DataTransfer => {
 };
 
 export const createPastePlugin = (): PlatePlugin => ({
+  key: 'PastePlugin',
   withOverrides: (editor) => {
     const { insertData } = editor;
     editor.insertData = (data: DataTransfer) => {

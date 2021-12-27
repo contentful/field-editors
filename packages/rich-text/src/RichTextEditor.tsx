@@ -21,7 +21,7 @@ import { TextOrCustomElement } from './types';
 import { ContentfulEditorProvider, getContentfulEditorId } from './ContentfulEditorProvider';
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { FieldConnector } from '@contentful/field-editor-shared';
-import { getPlugins, pluginOptions } from './plugins';
+import { getPlugins } from './plugins';
 
 type ConnectedProps = {
   sdk: FieldExtensionSDK;
@@ -61,6 +61,11 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
         id={getContentfulEditorId(props.sdk)}
         initialValue={value}
         plugins={plugins}
+        disableCorePlugins={{
+          // Note: Enabled by default since v9.0.0 but it causes Cypress's
+          // .click() command to fail
+          eventEditor: true,
+        }}
         editableProps={{
           className: classNames,
           readOnly: props.isDisabled,
@@ -70,9 +75,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
           setValue(slateDoc);
           const contentfulDoc = toContentfulDocument({ document: slateDoc, schema });
           props.onChange?.(contentfulDoc);
-        }}
-        // @ts-expect-error
-        options={pluginOptions}>
+        }}>
         {!props.isToolbarHidden && (
           <StickyToolbarWrapper isDisabled={props.isDisabled}>
             <Toolbar isDisabled={props.isDisabled} />

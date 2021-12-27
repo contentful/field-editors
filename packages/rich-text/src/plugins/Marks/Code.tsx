@@ -1,13 +1,12 @@
 import * as React from 'react';
 import * as Slate from 'slate-react';
 import { css } from 'emotion';
-import { PlatePlugin, getRenderLeaf, GetNodeDeserializerRule } from '@udecode/plate-core';
-import { getToggleMarkOnKeyDown, isMarkActive, toggleMark } from '@udecode/plate-common';
+import { PlatePlugin } from '@udecode/plate-core';
+import { isMarkActive, toggleMark } from '@udecode/plate-core';
+import { createCodePlugin as createDefaultCodePlugin } from '@udecode/plate-basic-marks';
 import { MARKS } from '@contentful/rich-text-types';
 import { CodeIcon } from '@contentful/f36-icons';
 import { ToolbarButton } from '../shared/ToolbarButton';
-import { CustomSlatePluginOptions } from 'types';
-import { deserializeLeaf } from '../../helpers/deserializer';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 
 interface ToolbarCodeButtonProps {
@@ -20,7 +19,7 @@ export function ToolbarCodeButton(props: ToolbarCodeButtonProps) {
   function handleClick() {
     if (!editor?.selection) return;
 
-    toggleMark(editor, MARKS.CODE);
+    toggleMark(editor, { key: MARKS.CODE });
     Slate.ReactEditor.focus(editor);
   }
 
@@ -53,24 +52,23 @@ export function Code(props: Slate.RenderLeafProps) {
   );
 }
 
-export function createCodePlugin(): PlatePlugin {
-  const deserializeRule: GetNodeDeserializerRule[] = [
-    { nodeNames: ['CODE', 'PRE'] },
-    { style: { fontFamily: 'monospace' } },
-  ];
-
-  return {
-    pluginKeys: MARKS.CODE,
-    renderLeaf: getRenderLeaf(MARKS.CODE),
-    onKeyDown: getToggleMarkOnKeyDown(MARKS.CODE),
-    deserialize: deserializeLeaf(MARKS.CODE, deserializeRule),
-  };
-}
-
-export const withCodeOptions: CustomSlatePluginOptions = {
-  [MARKS.CODE]: {
+export const createCodePlugin = (): PlatePlugin =>
+  createDefaultCodePlugin({
     type: MARKS.CODE,
     component: Code,
-    hotkey: ['mod+/'],
-  },
-};
+    options: {
+      hotkey: ['mod+/'],
+    },
+    deserializeHtml: {
+      rules: [
+        {
+          validNodeName: ['CODE', 'PRE'],
+        },
+        {
+          validStyle: {
+            fontFamily: ['Consolas', 'monospace'],
+          },
+        },
+      ],
+    },
+  });

@@ -1,30 +1,12 @@
 /** @jsx jsx */
-import { Editor } from 'slate';
-
-import { jsx, createTestEditor } from '../../../test-utils';
+import { jsx, expectNormalized } from '../../../test-utils';
 
 describe('List normalizers', () => {
-  const assertOutput = (input: any, expected: any) => {
-    const editor = createTestEditor({
-      input,
-    });
-
-    // A hack to force normalization since calling
-    // editor.normalizeNode([input, []]) doesn't work
-    Editor.withoutNormalizing(editor, () => {
-      editor.insertText('X');
-      editor.deleteBackward('character');
-    });
-
-    expect(editor.children).toEqual(expected.children);
-  };
-
   it('wraps orphaned list items in a list', () => {
     const input = (
       <editor>
         <hli>
           <hp>Item</hp>
-          <cursor />
         </hli>
         <hp />
       </editor>
@@ -37,11 +19,13 @@ describe('List normalizers', () => {
             <hp>Item</hp>
           </hli>
         </hul>
-        <hp />
+        <hp>
+          <htext />
+        </hp>
       </editor>
     );
 
-    assertOutput(input, expected);
+    expectNormalized(input, expected);
   });
 
   it('adds empty paragraph to empty list items', () => {
@@ -63,23 +47,13 @@ describe('List normalizers', () => {
             </hp>
           </hli>
         </hul>
-        <hp />
+        <hp>
+          <htext />
+        </hp>
       </editor>
     );
 
-    const editor = createTestEditor({
-      input,
-    });
-
-    const entry: any = [
-      editor.children[0].children[0], // node
-      [0, 0], // path
-    ];
-
-    editor.normalizeNode(entry);
-
-    // @ts-expect-error
-    expect(editor.children).toEqual(expected.children);
+    expectNormalized(input, expected);
   });
 
   it('replaces invalid list items with text', () => {
@@ -98,7 +72,6 @@ describe('List normalizers', () => {
                 <htd>
                   <hp>
                     Take a look at this <hlink uri="https://google.com">link</hlink>
-                    <cursor />
                   </hp>
                 </htd>
               </htr>
@@ -123,10 +96,12 @@ describe('List normalizers', () => {
             </hp>
           </hli>
         </hul>
-        <hp />
+        <hp>
+          <htext />
+        </hp>
       </editor>
     );
 
-    assertOutput(input, expected);
+    expectNormalized(input, expected);
   });
 });
