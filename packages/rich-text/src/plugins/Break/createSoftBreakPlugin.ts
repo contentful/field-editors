@@ -3,7 +3,7 @@ import {
   SoftBreakRule,
 } from '@udecode/plate-break';
 
-import { RichTextPlugin } from '../types';
+import { RichTextPlugin } from '../../types';
 
 export const createSoftBreakPlugin = (): RichTextPlugin =>
   createDefaultSoftBreakPlugin({

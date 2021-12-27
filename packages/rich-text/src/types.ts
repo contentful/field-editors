@@ -1,5 +1,9 @@
 import { RenderElementProps } from 'slate-react';
+import { PlatePlugin } from '@udecode/plate-core';
 import { MARKS } from '@contentful/rich-text-types';
+
+import type { SoftBreakRule } from './plugins/Break';
+import type { NormalizerRule } from './plugins/Normalizer';
 
 export type CustomText = {
   text: string;
@@ -28,4 +32,16 @@ declare module 'slate' {
     Element: CustomElement;
     Text: CustomText;
   }
+}
+
+export interface RichTextPlugin extends PlatePlugin {
+  /**
+   * @see createSoftBreakPlugin
+   */
+  softBreak?: SoftBreakRule[];
+
+  /**
+   * @see createNormalizerPlugin
+   */
+  normalizer?: NormalizerRule[];
 }

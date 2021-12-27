@@ -3,8 +3,7 @@ import { Node as SlateNode, Transforms } from 'slate';
 import { getNodes } from '@udecode/plate-core';
 import { BLOCKS, CONTAINERS, INLINES } from '@contentful/rich-text-types';
 
-import { RichTextPlugin } from '../types';
-import { CustomElement } from '../../types';
+import { RichTextPlugin, CustomElement } from '../../types';
 
 export function createDragAndDropPlugin(): RichTextPlugin {
   // Elements that don't allow other elements to be dragged into them and which callback should be used

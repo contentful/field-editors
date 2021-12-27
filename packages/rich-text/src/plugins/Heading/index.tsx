@@ -6,7 +6,7 @@ import { ChevronDownIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { BLOCKS, HEADINGS } from '@contentful/rich-text-types';
 import { toggleNodeType, onKeyDownToggleElement } from '@udecode/plate-core';
-import { CustomElement } from '../../types';
+import { RichTextPlugin, CustomElement } from '../../types';
 import {
   getElementFromCurrentSelection,
   shouldUnwrapBlockquote,
@@ -15,7 +15,6 @@ import {
 import { isNodeTypeEnabled } from '../../helpers/validations';
 import { useSdkContext } from '../../SdkProvider';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
-import { RichTextPlugin } from '../types';
 
 const styles = {
   dropdown: {

@@ -2,7 +2,7 @@ import { isFirstChild } from '@udecode/plate-core';
 import { createExitBreakPlugin as createDefaultExitBreakPlugin } from '@udecode/plate-break';
 import { BLOCKS } from '@contentful/rich-text-types';
 
-import { RichTextPlugin } from '../types';
+import { RichTextPlugin } from '../../types';
 import { isRootLevel } from '../../helpers/editor';
 
 export const createExitBreakPlugin = (): RichTextPlugin =>

@@ -3,7 +3,7 @@ import { SoftBreakRule } from '@udecode/plate-break';
 import { mockPlugin } from '@udecode/plate-core';
 import { KEY_SOFT_BREAK } from '@udecode/plate-break';
 
-import { RichTextPlugin } from 'plugins/types';
+import { RichTextPlugin } from '../../types';
 import { jsx, createTestEditor } from '../../test-utils';
 import { createSoftBreakPlugin } from './createSoftBreakPlugin';
 

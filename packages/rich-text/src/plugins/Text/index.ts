@@ -2,8 +2,7 @@ import { Editor, Ancestor, Transforms, Text } from 'slate';
 
 import { isAncestorEmpty, getParent } from '@udecode/plate-core';
 import { TEXT_CONTAINERS, INLINES, BLOCKS } from '@contentful/rich-text-types';
-import { CustomElement } from '../../types';
-import { RichTextPlugin } from '../types';
+import { RichTextPlugin, CustomElement } from '../../types';
 
 // TODO: move the logic to the appropriate element plugin(s)
 export function createTextPlugin(): RichTextPlugin {

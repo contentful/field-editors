@@ -7,7 +7,7 @@ import { ToolbarButton } from '../shared/ToolbarButton';
 import { Transforms, Editor, Node, Element, Text } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { PlateEditor } from '@udecode/plate-core';
-import { CustomElement } from '../../types';
+import { RichTextPlugin, CustomElement } from '../../types';
 import {
   isBlockSelected,
   toggleBlock,
@@ -16,7 +16,6 @@ import {
   isNodeTypeSelected,
 } from '../../helpers/editor';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
-import { RichTextPlugin } from '../types';
 
 const styles = {
   blockquote: css({

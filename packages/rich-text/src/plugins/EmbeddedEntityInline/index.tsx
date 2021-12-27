@@ -8,14 +8,13 @@ import { EmbeddedEntryInlineIcon } from '@contentful/f36-icons';
 import { css } from 'emotion';
 import { Link, FieldExtensionSDK } from '@contentful/app-sdk';
 import { Entry } from '@contentful/field-editor-shared';
-import { CustomElement, CustomRenderElementProps } from '../../types';
+import { RichTextPlugin, CustomElement, CustomRenderElementProps } from '../../types';
 import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
 import { useSdkContext } from '../../SdkProvider';
 import { FetchingWrappedInlineEntryCard } from './FetchingWrappedInlineEntryCard';
 import { createInlineEntryNode } from './Util';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { HAS_BEFORE_INPUT_SUPPORT } from '../../helpers/environment';
-import { RichTextPlugin } from '../types';
 
 const styles = {
   icon: css({

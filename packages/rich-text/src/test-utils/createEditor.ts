@@ -4,7 +4,7 @@ import { FieldExtensionSDK } from '@contentful/app-sdk';
 
 import { getPlugins } from '../plugins';
 import { TrackingProvider } from '../TrackingProvider';
-import { RichTextPlugin } from 'plugins/types';
+import { RichTextPlugin } from '../types';
 
 export const createTestEditor = (options: {
   input: any;

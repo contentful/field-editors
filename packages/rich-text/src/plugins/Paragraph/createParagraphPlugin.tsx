@@ -2,9 +2,7 @@ import { PlateEditor } from '@udecode/plate-core';
 import { createParagraphPlugin as createDefaultParagraphPlugin } from '@udecode/plate-paragraph';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { Element, Node, Transforms } from 'slate';
-import { CustomElement } from '../../types';
-import { RichTextPlugin } from '../types';
-
+import { RichTextPlugin, CustomElement } from '../../types';
 import { Paragraph } from './Paragraph';
 
 function isEmbed(element: HTMLElement) {
