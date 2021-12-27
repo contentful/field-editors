@@ -1,7 +1,7 @@
 import isHotkey from 'is-hotkey';
 import { KeyboardEvent } from 'react';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { PlatePlugin, KeyboardHandler, HotkeyPlugin } from '@udecode/plate-core';
+import { KeyboardHandler, HotkeyPlugin } from '@udecode/plate-core';
 import { Transforms } from 'slate';
 import { getNodeEntryFromSelection } from '../../helpers/editor';
 import { CustomElement } from '../../types';
@@ -9,6 +9,7 @@ import { LinkedEntityBlock } from './LinkedEntityBlock';
 import { selectEntityAndInsert } from './Util';
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import noop from 'lodash/noop';
+import { RichTextPlugin } from '../types';
 
 export { EmbeddedEntityBlockToolbarIcon as ToolbarIcon } from './ToolbarIcon';
 
@@ -45,7 +46,7 @@ function getWithEmbeddedEntityEvents(
 
 const createEmbeddedEntityPlugin =
   (nodeType: BLOCKS.EMBEDDED_ENTRY | BLOCKS.EMBEDDED_ASSET, hotkey: string) =>
-  (sdk: FieldExtensionSDK): PlatePlugin => ({
+  (sdk: FieldExtensionSDK): RichTextPlugin => ({
     key: nodeType,
     type: nodeType,
     isElement: true,

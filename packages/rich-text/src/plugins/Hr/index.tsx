@@ -6,7 +6,7 @@ import { HorizontalRuleIcon } from '@contentful/f36-icons';
 import { ToolbarButton } from '../shared/ToolbarButton';
 import { Transforms } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { PlatePlugin, PlateEditor } from '@udecode/plate-core';
+import { PlateEditor } from '@udecode/plate-core';
 import { getText, setNodes } from '@udecode/plate-core';
 import {
   getNodeEntryFromSelection,
@@ -16,6 +16,7 @@ import {
   unwrapFromRoot,
 } from '../../helpers/editor';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
+import { RichTextPlugin } from '../types';
 
 const styles = {
   container: css`
@@ -134,7 +135,7 @@ export function Hr(props: Slate.RenderLeafProps) {
   );
 }
 
-export const createHrPlugin = (): PlatePlugin => ({
+export const createHrPlugin = (): RichTextPlugin => ({
   key: BLOCKS.HR,
   type: BLOCKS.HR,
   isVoid: true,

@@ -4,11 +4,13 @@ import { FieldExtensionSDK } from '@contentful/app-sdk';
 
 import { getPlugins } from '../plugins';
 import { TrackingProvider } from '../TrackingProvider';
+import { RichTextPlugin } from 'plugins/types';
 
 export const createTestEditor = (options: {
   input: any;
   sdk?: FieldExtensionSDK;
   tracking?: TrackingProvider;
+  plugins?: RichTextPlugin[];
 }) => {
   const tracking: TrackingProvider = options.tracking ?? {
     onViewportAction: jest.fn(),
@@ -18,7 +20,7 @@ export const createTestEditor = (options: {
 
   const editor = createPlateEditor({
     editor: options.input,
-    plugins: getPlugins(sdk, tracking),
+    plugins: options.plugins || getPlugins(sdk, tracking),
   });
 
   return {

@@ -1,6 +1,7 @@
-import { PlatePlugin, PlateEditor } from '@udecode/plate-core';
+import { PlateEditor } from '@udecode/plate-core';
 import * as sanitizers from './sanitizers';
 import flow from 'lodash/flow';
+import { RichTextPlugin } from '../types';
 
 const MIME_TYPE_HTML = 'text/html';
 
@@ -20,7 +21,7 @@ const htmlToDataTransfer = (html: string): DataTransfer => {
   return data;
 };
 
-export const createPastePlugin = (): PlatePlugin => ({
+export const createPastePlugin = (): RichTextPlugin => ({
   key: 'PastePlugin',
   withOverrides: (editor) => {
     const { insertData } = editor;

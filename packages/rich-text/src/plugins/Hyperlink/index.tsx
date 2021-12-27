@@ -1,6 +1,6 @@
 import * as React from 'react';
 import isHotkey from 'is-hotkey';
-import { AnyObject, PlatePlugin, KeyboardHandler, HotkeyPlugin } from '@udecode/plate-core';
+import { AnyObject, KeyboardHandler, HotkeyPlugin } from '@udecode/plate-core';
 import { useReadOnly } from 'slate-react';
 import { INLINES } from '@contentful/rich-text-types';
 import { Tooltip, TextLink } from '@contentful/f36-components';
@@ -15,6 +15,7 @@ import { useSdkContext } from '../../SdkProvider';
 import { addOrEditLink } from './HyperlinkModal';
 import { isLinkActive, unwrapLink } from '../../helpers/editor';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
+import { RichTextPlugin } from '../types';
 
 const styles = {
   hyperlinkWrapper: css({
@@ -219,8 +220,8 @@ const getNodeOfType =
           },
   });
 
-export const createHyperlinkPlugin = (sdk: FieldExtensionSDK): PlatePlugin => {
-  const common: Partial<PlatePlugin> = {
+export const createHyperlinkPlugin = (sdk: FieldExtensionSDK): RichTextPlugin => {
+  const common: Partial<RichTextPlugin> = {
     isElement: true,
     isInline: true,
   };

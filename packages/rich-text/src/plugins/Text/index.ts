@@ -1,11 +1,12 @@
 import { Editor, Ancestor, Transforms, Text } from 'slate';
-import { PlatePlugin } from '@udecode/plate-core';
+
 import { isAncestorEmpty, getParent } from '@udecode/plate-core';
 import { TEXT_CONTAINERS, INLINES, BLOCKS } from '@contentful/rich-text-types';
 import { CustomElement } from '../../types';
+import { RichTextPlugin } from '../types';
 
 // TODO: move the logic to the appropriate element plugin(s)
-export function createTextPlugin(): PlatePlugin {
+export function createTextPlugin(): RichTextPlugin {
   return {
     key: 'TextPlugin',
     withOverrides: (editor) => {

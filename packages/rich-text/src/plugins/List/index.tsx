@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as Slate from 'slate-react';
 import { Element, Text, Node, Transforms, Editor, NodeEntry, Path } from 'slate';
 import { css } from 'emotion';
-import { WithOverride, PlateEditor, PlatePlugin } from '@udecode/plate-core';
+import { WithOverride, PlateEditor } from '@udecode/plate-core';
 import { getParent, getAbove } from '@udecode/plate-core';
 import {
   createListPlugin as createPlateListPlugin,
@@ -16,6 +16,7 @@ import {
 } from '@udecode/plate-list';
 import { BLOCKS, INLINES, LIST_ITEM_BLOCKS, TopLevelBlockEnum } from '@contentful/rich-text-types';
 import { ListBulletedIcon, ListNumberedIcon } from '@contentful/f36-icons';
+import { RichTextPlugin } from '../types';
 
 import { ToolbarButton } from '../shared/ToolbarButton';
 import {
@@ -248,7 +249,7 @@ export const UL = createList('ul', BLOCKS.UL_LIST);
 export const OL = createList('ol', BLOCKS.OL_LIST);
 export const LI = createList('li', BLOCKS.LIST_ITEM);
 
-export const createListPlugin = (): PlatePlugin =>
+export const createListPlugin = (): RichTextPlugin =>
   createPlateListPlugin({
     options: {
       validLiChildrenTypes: LIST_ITEM_BLOCKS,

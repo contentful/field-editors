@@ -1,12 +1,13 @@
 import * as React from 'react';
 import * as Slate from 'slate-react';
-import { PlatePlugin } from '@udecode/plate-core';
+
 import { toggleMark, isMarkActive, someHtmlElement } from '@udecode/plate-core';
 import { createUnderlinePlugin as createDefaultUnderlinePlugin } from '@udecode/plate-basic-marks';
 import { MARKS } from '@contentful/rich-text-types';
 import { FormatUnderlinedIcon } from '@contentful/f36-icons';
 import { ToolbarButton } from '../shared/ToolbarButton';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
+import { RichTextPlugin } from '../types';
 
 interface ToolbarUnderlineButtonProps {
   isDisabled?: boolean;
@@ -40,7 +41,7 @@ export function Underline(props: Slate.RenderLeafProps) {
   return <u {...props.attributes}>{props.children}</u>;
 }
 
-export const createUnderlinePlugin = (): PlatePlugin =>
+export const createUnderlinePlugin = (): RichTextPlugin =>
   createDefaultUnderlinePlugin({
     type: MARKS.UNDERLINE,
     component: Underline,
