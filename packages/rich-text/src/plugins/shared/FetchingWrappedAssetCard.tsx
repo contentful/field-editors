@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AssetCard, AssetType, Menu, Text } from '@contentful/f36-components';
+import { AssetCard, AssetType, Menu, Text, Notification } from '@contentful/f36-components';
 import { useEntities, MissingEntityCard } from '@contentful/field-editor-reference';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
@@ -30,8 +30,27 @@ interface FetchingWrappedAssetCardProps {
   sdk: FieldExtensionSDK;
 }
 
-function downloadAsset(url: string) {
-  window.open(url, '_blank', 'noopener,noreferrer');
+function downloadAsset(url: string, fileName: string) {
+  // This method won't work if we have CORS disabled(asset not on the contentful server)
+  fetch(url, {
+    method: 'GET',
+    headers: {},
+  })
+    .then((response) => {
+      response.arrayBuffer().then(function (buffer) {
+        const url = window.URL.createObjectURL(new Blob([buffer]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', fileName); //or any other extension
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+    })
+    .catch((err) => {
+      Notification.error('Failed to download asset');
+      console.log(err);
+    });
 }
 
 export function renderAssetInfo(props: { entityFile: File }) {
@@ -77,7 +96,7 @@ export function renderActions(props: {
         key="download"
         onClick={() => {
           if (typeof entityFile.url === 'string') {
-            downloadAsset(entityFile.url);
+            downloadAsset(entityFile.url, get(entityFile, 'fileName'));
           }
         }}
         testId="card-action-download">
