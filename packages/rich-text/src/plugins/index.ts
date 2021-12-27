@@ -2,13 +2,13 @@ import { FieldExtensionSDK } from '@contentful/app-sdk';
 
 import { createPastePlugin } from './Paste';
 import { createListPlugin } from './List';
-import { PlatePlugin } from '@udecode/plate-core';
+
 import { createHrPlugin } from './Hr';
 import { createHeadingPlugin } from './Heading';
 import { createMarksPlugin } from './Marks';
 import { createParagraphPlugin } from './Paragraph';
 import { createQuotePlugin } from './Quote';
-import { createBreakPlugin } from './Break';
+import { createSoftBreakPlugin, createExitBreakPlugin } from './Break';
 import { createTablePlugin } from './Table';
 import { createHyperlinkPlugin } from './Hyperlink';
 import {
@@ -20,13 +20,16 @@ import { TrackingProvider } from '../TrackingProvider';
 import { createTrailingParagraphPlugin } from './TrailingParagraph';
 import { createDragAndDropPlugin } from './DragAndDrop';
 import { createTextPlugin } from './Text';
+import { RichTextPlugin } from './types';
 
-export const getPlugins = (sdk: FieldExtensionSDK, tracking: TrackingProvider): PlatePlugin[] => [
+export const getPlugins = (
+  sdk: FieldExtensionSDK,
+  tracking: TrackingProvider
+): RichTextPlugin[] => [
   // Behavior
   createPastePlugin(),
 
   // Global shortcuts
-  createBreakPlugin(),
   createDragAndDropPlugin(),
 
   // Block Elements
@@ -49,4 +52,9 @@ export const getPlugins = (sdk: FieldExtensionSDK, tracking: TrackingProvider): 
   // Other
   createTrailingParagraphPlugin(),
   createTextPlugin(),
+
+  // These plugins drive their configurations from the list of plugins
+  // above. They MUST come last.
+  createSoftBreakPlugin(),
+  createExitBreakPlugin(),
 ];

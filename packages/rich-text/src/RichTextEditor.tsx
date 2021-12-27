@@ -4,12 +4,15 @@ import { toContentfulDocument, toSlatejsDocument } from '@contentful/contentful-
 import * as Contentful from '@contentful/rich-text-types';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { css, cx } from 'emotion';
+import deepEquals from 'fast-deep-equal';
+import { Plate } from '@udecode/plate-core';
+import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { FieldConnector } from '@contentful/field-editor-shared';
+
 import { styles } from './RichTextEditor.styles';
 import schema from './constants/Schema';
-import deepEquals from 'fast-deep-equal';
 import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/StickyToolbarWrapper';
-import { Plate } from '@udecode/plate-core';
 import { SdkProvider } from './SdkProvider';
 import {
   RichTextTrackingActionHandler,
@@ -19,8 +22,6 @@ import {
 import { sanitizeIncomingSlateDoc, sanitizeSlateDoc } from './helpers/sanitizeSlateDoc';
 import { TextOrCustomElement } from './types';
 import { ContentfulEditorProvider, getContentfulEditorId } from './ContentfulEditorProvider';
-import { FieldExtensionSDK } from '@contentful/app-sdk';
-import { FieldConnector } from '@contentful/field-editor-shared';
 import { getPlugins } from './plugins';
 
 type ConnectedProps = {

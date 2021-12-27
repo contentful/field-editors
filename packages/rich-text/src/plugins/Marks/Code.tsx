@@ -1,13 +1,14 @@
 import * as React from 'react';
 import * as Slate from 'slate-react';
 import { css } from 'emotion';
-import { PlatePlugin } from '@udecode/plate-core';
+
 import { isMarkActive, toggleMark } from '@udecode/plate-core';
 import { createCodePlugin as createDefaultCodePlugin } from '@udecode/plate-basic-marks';
 import { MARKS } from '@contentful/rich-text-types';
 import { CodeIcon } from '@contentful/f36-icons';
 import { ToolbarButton } from '../shared/ToolbarButton';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
+import { RichTextPlugin } from '../types';
 
 interface ToolbarCodeButtonProps {
   isDisabled?: boolean;
@@ -52,7 +53,7 @@ export function Code(props: Slate.RenderLeafProps) {
   );
 }
 
-export const createCodePlugin = (): PlatePlugin =>
+export const createCodePlugin = (): RichTextPlugin =>
   createDefaultCodePlugin({
     type: MARKS.CODE,
     component: Code,

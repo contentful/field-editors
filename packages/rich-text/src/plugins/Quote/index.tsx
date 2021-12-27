@@ -6,7 +6,7 @@ import { QuoteIcon } from '@contentful/f36-icons';
 import { ToolbarButton } from '../shared/ToolbarButton';
 import { Transforms, Editor, Node, Element, Text } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { PlatePlugin, PlateEditor } from '@udecode/plate-core';
+import { PlateEditor } from '@udecode/plate-core';
 import { CustomElement } from '../../types';
 import {
   isBlockSelected,
@@ -16,6 +16,7 @@ import {
   isNodeTypeSelected,
 } from '../../helpers/editor';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
+import { RichTextPlugin } from '../types';
 
 const styles = {
   blockquote: css({
@@ -132,7 +133,7 @@ export function Quote(props: Slate.RenderLeafProps) {
   );
 }
 
-export function createQuotePlugin(): PlatePlugin {
+export function createQuotePlugin(): RichTextPlugin {
   return {
     key: BLOCKS.QUOTE,
     type: BLOCKS.QUOTE,

@@ -1,13 +1,14 @@
 import * as React from 'react';
 import * as Slate from 'slate-react';
 import { css } from 'emotion';
-import { PlatePlugin } from '@udecode/plate-core';
+
 import { toggleMark, isMarkActive, someHtmlElement } from '@udecode/plate-core';
 import { createItalicPlugin as createDefaultItalicPlugin } from '@udecode/plate-basic-marks';
 import { MARKS } from '@contentful/rich-text-types';
 import { FormatItalicIcon } from '@contentful/f36-icons';
 import { ToolbarButton } from '../shared/ToolbarButton';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
+import { RichTextPlugin } from '../types';
 
 interface ToolbarItalicButtonProps {
   isDisabled?: boolean;
@@ -51,7 +52,7 @@ export function Italic(props: Slate.RenderLeafProps) {
   );
 }
 
-export const createItalicPlugin = (): PlatePlugin =>
+export const createItalicPlugin = (): RichTextPlugin =>
   createDefaultItalicPlugin({
     type: MARKS.ITALIC,
     component: Italic,

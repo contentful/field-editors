@@ -4,8 +4,8 @@ import { css, cx } from 'emotion';
 import { Menu, Button } from '@contentful/f36-components';
 import { ChevronDownIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
-import { BLOCKS } from '@contentful/rich-text-types';
-import { PlatePlugin, toggleNodeType, onKeyDownToggleElement } from '@udecode/plate-core';
+import { BLOCKS, HEADINGS } from '@contentful/rich-text-types';
+import { toggleNodeType, onKeyDownToggleElement } from '@udecode/plate-core';
 import { CustomElement } from '../../types';
 import {
   getElementFromCurrentSelection,
@@ -15,6 +15,7 @@ import {
 import { isNodeTypeEnabled } from '../../helpers/validations';
 import { useSdkContext } from '../../SdkProvider';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
+import { RichTextPlugin } from '../types';
 
 const styles = {
   dropdown: {
@@ -178,41 +179,39 @@ export function createHeading(Tag, block: BLOCKS) {
   };
 }
 
-export const createHeadingPlugin = (): PlatePlugin => {
-  const headings: BLOCKS[] = [
-    BLOCKS.HEADING_1,
-    BLOCKS.HEADING_2,
-    BLOCKS.HEADING_3,
-    BLOCKS.HEADING_4,
-    BLOCKS.HEADING_5,
-    BLOCKS.HEADING_6,
-  ];
+export const createHeadingPlugin = (): RichTextPlugin => ({
+  key: 'HeadingPlugin',
+  softBreak: [
+    // create a new line with SHIFT+Enter inside a heading
+    {
+      hotkey: 'shift+enter',
+      query: {
+        allow: HEADINGS,
+      },
+    },
+  ],
+  plugins: HEADINGS.map((nodeType, idx) => {
+    const level = idx + 1;
+    const tagName = `h${level}`;
 
-  return {
-    key: 'HeadingPlugin',
-    plugins: headings.map((nodeType, idx) => {
-      const level = idx + 1;
-      const tagName = `h${level}`;
-
-      return {
-        key: nodeType,
-        type: nodeType,
-        isElement: true,
-        component: createHeading(tagName, nodeType),
-        options: {
-          hotkey: [`mod+alt+${level}`],
-        },
-        handlers: {
-          onKeyDown: onKeyDownToggleElement,
-        },
-        deserializeHtml: {
-          rules: [
-            {
-              validNodeName: tagName.toUpperCase(),
-            },
-          ],
-        },
-      };
-    }),
-  };
-};
+    return {
+      key: nodeType,
+      type: nodeType,
+      isElement: true,
+      component: createHeading(tagName, nodeType),
+      options: {
+        hotkey: [`mod+alt+${level}`],
+      },
+      handlers: {
+        onKeyDown: onKeyDownToggleElement,
+      },
+      deserializeHtml: {
+        rules: [
+          {
+            validNodeName: tagName.toUpperCase(),
+          },
+        ],
+      },
+    };
+  }),
+});
