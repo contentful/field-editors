@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { PlatePlugin } from '@udecode/plate-core';
+
 import { Transforms } from 'slate';
 import { INLINES } from '@contentful/rich-text-types';
 import { useSelected, ReactEditor, useReadOnly } from 'slate-react';
@@ -15,6 +15,7 @@ import { FetchingWrappedInlineEntryCard } from './FetchingWrappedInlineEntryCard
 import { createInlineEntryNode } from './Util';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { HAS_BEFORE_INPUT_SUPPORT } from '../../helpers/environment';
+import { RichTextPlugin } from '../types';
 
 const styles = {
   icon: css({
@@ -148,7 +149,7 @@ export function ToolbarEmbeddedEntityInlineButton(props: ToolbarEmbeddedEntityIn
   );
 }
 
-export function createEmbeddedEntityInlinePlugin(sdk): PlatePlugin {
+export function createEmbeddedEntityInlinePlugin(sdk): RichTextPlugin {
   const htmlAttributeName = 'data-embedded-entity-inline-id';
 
   return {

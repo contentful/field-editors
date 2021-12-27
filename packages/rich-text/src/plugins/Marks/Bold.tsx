@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as Slate from 'slate-react';
 import { css } from 'emotion';
-import { PlatePlugin } from '@udecode/plate-core';
+
 import { isMarkActive, toggleMark, someHtmlElement } from '@udecode/plate-core';
 import { createBoldPlugin as createDefaultBoldPlugin } from '@udecode/plate-basic-marks';
 import { MARKS } from '@contentful/rich-text-types';
@@ -9,6 +9,7 @@ import { FormatBoldIcon } from '@contentful/f36-icons';
 
 import { ToolbarButton } from '../shared/ToolbarButton';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
+import { RichTextPlugin } from '../types';
 
 interface ToolbarBoldButtonProps {
   isDisabled?: boolean;
@@ -55,7 +56,7 @@ export function Bold(props: Slate.RenderLeafProps) {
 const isGoogleBoldWrapper = (el: HTMLElement) =>
   el.id.startsWith('docs-internal-guid') && el.nodeName === 'B';
 
-export const createBoldPlugin = (): PlatePlugin =>
+export const createBoldPlugin = (): RichTextPlugin =>
   createDefaultBoldPlugin({
     type: MARKS.BOLD,
     component: Bold,

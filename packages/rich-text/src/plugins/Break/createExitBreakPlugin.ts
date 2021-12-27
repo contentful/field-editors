@@ -1,10 +1,11 @@
-import { PlatePlugin, isFirstChild } from '@udecode/plate-core';
+import { isFirstChild } from '@udecode/plate-core';
 import { createExitBreakPlugin as createDefaultExitBreakPlugin } from '@udecode/plate-break';
 import { BLOCKS } from '@contentful/rich-text-types';
 
+import { RichTextPlugin } from '../types';
 import { isRootLevel } from '../../helpers/editor';
 
-export const createExitBreakPlugin = (): PlatePlugin =>
+export const createExitBreakPlugin = (): RichTextPlugin =>
   createDefaultExitBreakPlugin({
     options: {
       rules: [

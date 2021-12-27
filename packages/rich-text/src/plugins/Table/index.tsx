@@ -6,7 +6,7 @@ import tokens from '@contentful/f36-tokens';
 import { TableIcon } from '@contentful/f36-icons';
 import { ToolbarButton } from '../shared/ToolbarButton';
 import { BLOCKS, TableCell, TableHeaderCell } from '@contentful/rich-text-types';
-import { HotkeyPlugin, KeyboardHandler, PlateEditor, PlatePlugin } from '@udecode/plate-core';
+import { HotkeyPlugin, KeyboardHandler, PlateEditor } from '@udecode/plate-core';
 import {
   createTablePlugin as createDefaultTablePlugin,
   ELEMENT_TABLE,
@@ -25,6 +25,7 @@ import {
 } from '../../helpers/editor';
 import { CustomElement } from '../../types';
 import { addTableNormalizers } from './normalizers';
+import { RichTextPlugin } from '../types';
 
 const styles = {
   [BLOCKS.TABLE]: css`
@@ -202,7 +203,7 @@ const createTableOnKeyDown: KeyboardHandler<{}, HotkeyPlugin> = (editor, plugin)
   };
 };
 
-export const createTablePlugin = (tracking: TrackingProvider): PlatePlugin =>
+export const createTablePlugin = (tracking: TrackingProvider): RichTextPlugin =>
   createDefaultTablePlugin({
     type: BLOCKS.TABLE,
     handlers: {

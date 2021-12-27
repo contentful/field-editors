@@ -839,7 +839,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       describe('Backward deletion', () => {
         it('removes the text, not the cell', () => {
           insertTableWithExampleData();
-          cy.get('table > tbody > tr:last-child > td:last-child').click();
+          richText.editor.find('table > tbody > tr:last-child > td:last-child').click();
           richText.editor
             .type('{backspace}{backspace}{backspace}{backspace}{backspace}')
             // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
@@ -851,7 +851,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           );
 
           // make sure it works for table header cells, too
-          cy.get('table > tbody > tr:first-child > th:first-child').click();
+          richText.editor.find('table > tbody > tr:first-child > th:first-child').click();
           richText.editor
             .type('{backspace}{backspace}{backspace}{backspace}{backspace}')
             // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
@@ -867,7 +867,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       describe('Forward deletion', () => {
         it('removes the text, not the cell', () => {
           insertTableWithExampleData();
-          cy.get('table > tbody > tr:first-child > th:first-child').click();
+          richText.editor.find('table > tbody > tr:first-child > th:first-child').click();
           richText.editor
             .type('{leftarrow}{leftarrow}{leftarrow}{del}{del}{del}{del}')
             // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
