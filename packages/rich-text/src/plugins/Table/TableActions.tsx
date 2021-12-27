@@ -2,7 +2,7 @@ import React from 'react';
 import { css } from 'emotion';
 import * as Slate from 'slate-react';
 import { PlateEditor } from '@udecode/plate-core';
-import { getAbove } from '@udecode/plate-common';
+import { getAbove } from '@udecode/plate-core';
 import { TablePluginOptions, deleteColumn, deleteRow, deleteTable } from '@udecode/plate-table';
 import { IconButton, Menu } from '@contentful/f36-components';
 import { ChevronDownIcon } from '@contentful/f36-icons';

@@ -1,14 +1,12 @@
 import * as React from 'react';
 import { css } from 'emotion';
-import { PlatePlugin, getRenderElement, PlateEditor } from '@udecode/plate-core';
-import { ELEMENT_PARAGRAPH } from '@udecode/plate-paragraph';
-import { getToggleElementOnKeyDown } from '@udecode/plate-common';
+import { PlatePlugin, PlateEditor } from '@udecode/plate-core';
+import { createParagraphPlugin as createDefaultParagraphPlugin } from '@udecode/plate-paragraph';
 import { BLOCKS } from '@contentful/rich-text-types';
 import tokens from '@contentful/f36-tokens';
 import { Element, Node, Transforms } from 'slate';
 import { RenderElementProps } from 'slate-react';
-import { CustomSlatePluginOptions, CustomElement } from '../../types';
-import { deserializeElement } from '../../helpers/deserializer';
+import { CustomElement } from '../../types';
 
 const styles = {
   [BLOCKS.PARAGRAPH]: css`
@@ -36,38 +34,27 @@ function isEmpty(element: HTMLElement) {
   return element.textContent === '';
 }
 
-export function createParagraphPlugin(): PlatePlugin {
-  const elementKeys: string[] = [ELEMENT_PARAGRAPH, BLOCKS.PARAGRAPH];
-
-  const deserializer = deserializeElement(BLOCKS.PARAGRAPH, [
-    {
-      nodeNames: ['P', 'DIV'],
+export const createParagraphPlugin = (): PlatePlugin =>
+  createDefaultParagraphPlugin({
+    type: BLOCKS.PARAGRAPH,
+    component: Paragraph,
+    options: {
+      hotkey: ['mod+opt+0'],
     },
-  ]);
-
-  return {
-    renderElement: getRenderElement(elementKeys),
-    pluginKeys: elementKeys,
-    onKeyDown: getToggleElementOnKeyDown(BLOCKS.PARAGRAPH),
-    deserialize: (editor: PlateEditor) => {
-      const { element, ...rest } = deserializer(editor);
-      return {
-        ...rest,
-        element: element?.map((deserializeNode) => ({
-          ...deserializeNode,
-          deserialize: (el: HTMLElement) => {
-            if (isEmpty(el) || isEmbed(el)) {
-              return;
-            }
-            return deserializeNode.deserialize(el);
-          },
-        })),
-      };
+    deserializeHtml: {
+      rules: [
+        {
+          validNodeName: ['P', 'DIV'],
+        },
+      ],
+      query: (el) => !isEmpty(el) && !isEmbed(el),
     },
-    withOverrides: (editor) => {
+    withOverrides: (editor: PlateEditor) => {
       const { normalizeNode } = editor;
+
       editor.normalizeNode = (entry) => {
         const [node, path] = entry;
+
         // If the element is a paragraph, ensure its children are valid.
         if (Element.isElement(node) && (node as CustomElement).type === BLOCKS.PARAGRAPH) {
           for (const [child, childPath] of Node.children(editor, path)) {
@@ -82,20 +69,7 @@ export function createParagraphPlugin(): PlatePlugin {
         // Fall back to the original `normalizeNode` to enforce other constraints.
         normalizeNode(entry);
       };
+
       return editor;
     },
-  };
-}
-
-export const withParagraphOptions: CustomSlatePluginOptions = {
-  [ELEMENT_PARAGRAPH]: {
-    // We convert the default slate plugin `p` to Contentful `BLOCKS.PARAGRAPH`
-    type: BLOCKS.PARAGRAPH,
-    component: Paragraph,
-  },
-  [BLOCKS.PARAGRAPH]: {
-    type: BLOCKS.PARAGRAPH,
-    component: Paragraph,
-    hotkey: ['mod+opt+0'],
-  },
-};
+  });

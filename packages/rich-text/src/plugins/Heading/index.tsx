@@ -4,19 +4,11 @@ import { css, cx } from 'emotion';
 import { Menu, Button } from '@contentful/f36-components';
 import { ChevronDownIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
-import { Editor, Transforms, Node } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
-import {
-  PlatePlugin,
-  getRenderElement,
-  PlateEditor,
-  getPlatePluginOptions,
-} from '@udecode/plate-core';
-import { insertNodes, setNodes, toggleNodeType } from '@udecode/plate-common';
-import { CustomElement, CustomSlatePluginOptions } from '../../types';
+import { PlatePlugin, toggleNodeType, onKeyDownToggleElement } from '@udecode/plate-core';
+import { CustomElement } from '../../types';
 import {
   getElementFromCurrentSelection,
-  hasSelectionText,
   shouldUnwrapBlockquote,
   unwrapFromRoot,
 } from '../../helpers/editor';
@@ -77,79 +69,6 @@ const styles = {
     `,
   },
 };
-
-export function withHeadingEvents(editor: PlateEditor) {
-  return (event: React.KeyboardEvent) => {
-    if (!editor.selection) return;
-
-    // Enter a new line on a heading element
-    const headings: string[] = [
-      BLOCKS.HEADING_1,
-      BLOCKS.HEADING_2,
-      BLOCKS.HEADING_3,
-      BLOCKS.HEADING_4,
-      BLOCKS.HEADING_5,
-      BLOCKS.HEADING_6,
-    ];
-    const [currentFragment] = Editor.fragment(
-      editor,
-      editor.selection.focus.path
-    ) as CustomElement[];
-    const isEnter = event.keyCode === 13;
-    const isCurrentFragmentAHeading = headings.includes(currentFragment.type);
-
-    if (isEnter && isCurrentFragmentAHeading) {
-      event.preventDefault();
-
-      const text = { text: '' };
-      const paragraph = { type: BLOCKS.PARAGRAPH, data: {}, children: [text] };
-      const heading = { type: currentFragment.type, data: {}, children: [text] };
-
-      if (hasSelectionText(editor)) {
-        const currentOffset = editor.selection.focus.offset;
-        const currentTextLength = Node.string(currentFragment).length;
-        const cursorIsAtTheBeginning = currentOffset === 0;
-        const cursorIsAtTheEnd = currentTextLength === currentOffset;
-
-        if (cursorIsAtTheBeginning) {
-          insertNodes(editor, paragraph, { at: editor.selection });
-        } else if (cursorIsAtTheEnd) {
-          insertNodes(editor, paragraph);
-        } else {
-          // Otherwise the cursor is in the middle
-          Transforms.splitNodes(editor);
-          setNodes(editor, paragraph);
-        }
-      } else {
-        setNodes(editor, paragraph);
-        insertNodes(editor, heading);
-      }
-    }
-
-    // Toggle heading blocks when pressing cmd/ctrl+alt+1|2|3|4|5|6
-    const headingKeyCodes = {
-      49: BLOCKS.HEADING_1,
-      50: BLOCKS.HEADING_2,
-      51: BLOCKS.HEADING_3,
-      52: BLOCKS.HEADING_4,
-      53: BLOCKS.HEADING_5,
-      54: BLOCKS.HEADING_6,
-    };
-    const isMod = event.ctrlKey || event.metaKey;
-    const isAltOrOption = event.altKey;
-    const headingKey = headingKeyCodes[event.keyCode];
-
-    if (isMod && isAltOrOption && headingKey) {
-      event.preventDefault();
-
-      if (shouldUnwrapBlockquote(editor, headingKey)) {
-        unwrapFromRoot(editor);
-      }
-
-      toggleNodeType(editor, { activeType: headingKey, inactiveType: BLOCKS.PARAGRAPH });
-    }
-  };
-}
 
 const LABELS = {
   [BLOCKS.PARAGRAPH]: 'Normal text',
@@ -259,15 +178,8 @@ export function createHeading(Tag, block: BLOCKS) {
   };
 }
 
-export const H1 = createHeading('h1', BLOCKS.HEADING_1);
-export const H2 = createHeading('h2', BLOCKS.HEADING_2);
-export const H3 = createHeading('h3', BLOCKS.HEADING_3);
-export const H4 = createHeading('h4', BLOCKS.HEADING_4);
-export const H5 = createHeading('h5', BLOCKS.HEADING_5);
-export const H6 = createHeading('h6', BLOCKS.HEADING_6);
-
-export function createHeadingPlugin(): PlatePlugin {
-  const headings: string[] = [
+export const createHeadingPlugin = (): PlatePlugin => {
+  const headings: BLOCKS[] = [
     BLOCKS.HEADING_1,
     BLOCKS.HEADING_2,
     BLOCKS.HEADING_3,
@@ -277,56 +189,30 @@ export function createHeadingPlugin(): PlatePlugin {
   ];
 
   return {
-    renderElement: getRenderElement(headings),
-    pluginKeys: headings,
-    onKeyDown: withHeadingEvents,
-    deserialize: (editor) => {
+    key: 'HeadingPlugin',
+    plugins: headings.map((nodeType, idx) => {
+      const level = idx + 1;
+      const tagName = `h${level}`;
+
       return {
-        element: headings.map((headingType, index) => {
-          const options = getPlatePluginOptions(editor, headingType);
-
-          return {
-            type: headingType,
-            deserialize: (element) => {
-              const isHeading = element.nodeName === `H${index + 1}`;
-
-              if (!isHeading) return;
-
-              return {
-                type: headingType,
-              };
+        key: nodeType,
+        type: nodeType,
+        isElement: true,
+        component: createHeading(tagName, nodeType),
+        options: {
+          hotkey: [`mod+alt+${level}`],
+        },
+        handlers: {
+          onKeyDown: onKeyDownToggleElement,
+        },
+        deserializeHtml: {
+          rules: [
+            {
+              validNodeName: tagName.toUpperCase(),
             },
-            ...options.deserialize,
-          };
-        }),
+          ],
+        },
       };
-    },
+    }),
   };
-}
-
-export const withHeadingOptions: CustomSlatePluginOptions = {
-  [BLOCKS.HEADING_1]: {
-    type: BLOCKS.HEADING_1,
-    component: H1,
-  },
-  [BLOCKS.HEADING_2]: {
-    type: BLOCKS.HEADING_2,
-    component: H2,
-  },
-  [BLOCKS.HEADING_3]: {
-    type: BLOCKS.HEADING_3,
-    component: H3,
-  },
-  [BLOCKS.HEADING_4]: {
-    type: BLOCKS.HEADING_4,
-    component: H4,
-  },
-  [BLOCKS.HEADING_5]: {
-    type: BLOCKS.HEADING_5,
-    component: H5,
-  },
-  [BLOCKS.HEADING_6]: {
-    type: BLOCKS.HEADING_6,
-    component: H6,
-  },
 };

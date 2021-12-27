@@ -1,12 +1,11 @@
 import * as React from 'react';
 import * as Slate from 'slate-react';
-import { PlatePlugin, getRenderLeaf, GetNodeDeserializerRule } from '@udecode/plate-core';
-import { getToggleMarkOnKeyDown, toggleMark, isMarkActive } from '@udecode/plate-common';
+import { PlatePlugin } from '@udecode/plate-core';
+import { toggleMark, isMarkActive, someHtmlElement } from '@udecode/plate-core';
+import { createUnderlinePlugin as createDefaultUnderlinePlugin } from '@udecode/plate-basic-marks';
 import { MARKS } from '@contentful/rich-text-types';
 import { FormatUnderlinedIcon } from '@contentful/f36-icons';
 import { ToolbarButton } from '../shared/ToolbarButton';
-import { CustomSlatePluginOptions } from 'types';
-import { deserializeLeaf } from '../../helpers/deserializer';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 
 interface ToolbarUnderlineButtonProps {
@@ -19,7 +18,7 @@ export function ToolbarUnderlineButton(props: ToolbarUnderlineButtonProps) {
   function handleClick() {
     if (!editor?.selection) return;
 
-    toggleMark(editor, MARKS.UNDERLINE);
+    toggleMark(editor, { key: MARKS.UNDERLINE });
     Slate.ReactEditor.focus(editor);
   }
 
@@ -41,28 +40,26 @@ export function Underline(props: Slate.RenderLeafProps) {
   return <u {...props.attributes}>{props.children}</u>;
 }
 
-export function createUnderlinePlugin(): PlatePlugin {
-  const deserializeRules: GetNodeDeserializerRule[] = [
-    { nodeNames: ['U'] },
-    {
-      style: {
-        textDecoration: ['underline'],
-      },
-    },
-  ];
-
-  return {
-    pluginKeys: MARKS.UNDERLINE,
-    renderLeaf: getRenderLeaf(MARKS.UNDERLINE),
-    onKeyDown: getToggleMarkOnKeyDown(MARKS.UNDERLINE),
-    deserialize: deserializeLeaf(MARKS.UNDERLINE, deserializeRules),
-  };
-}
-
-export const withUnderlineOptions: CustomSlatePluginOptions = {
-  [MARKS.UNDERLINE]: {
+export const createUnderlinePlugin = (): PlatePlugin =>
+  createDefaultUnderlinePlugin({
     type: MARKS.UNDERLINE,
     component: Underline,
-    hotkey: ['mod+u'],
-  },
-};
+    options: {
+      hotkey: ['mod+u'],
+    },
+    deserializeHtml: {
+      rules: [
+        {
+          validNodeName: ['U'],
+        },
+        {
+          validStyle: {
+            textDecoration: ['underline'],
+          },
+        },
+      ],
+      query: (el) => {
+        return !someHtmlElement(el, (node) => node.style.textDecoration === 'none');
+      },
+    },
+  });

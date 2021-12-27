@@ -54,6 +54,10 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     backspace: { keyCode: 8, which: 8, key: 'Backspace' },
   };
 
+  function pressEnter() {
+    richText.editor.trigger('keydown', keys.enter);
+  }
+
   function getDropdownList() {
     return cy.findByTestId('dropdown-heading-list');
   }
@@ -1259,15 +1263,16 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
             richText.editor.click('bottom');
           }
 
-          function selectAndPressEnter() {
-            richText.editor.get('[data-entity-id="example-entity-id"]').first().click();
-            richText.editor.trigger('keydown', keys.enter);
-          }
+          addEmbeddedEntry();
+          addEmbeddedEntry();
 
-          addEmbeddedEntry();
-          addEmbeddedEntry();
-          selectAndPressEnter(); // Inserts paragraph before embed because it's in the first line.
-          selectAndPressEnter(); // inserts paragraph in-between embeds.
+          // Inserts paragraph before embed because it's in the first line.
+          richText.editor.get('[data-entity-id="example-entity-id"]').first().click();
+          pressEnter();
+
+          // inserts paragraph in-between embeds.
+          richText.editor.get('[data-entity-id="example-entity-id"]').last().click();
+          pressEnter();
 
           richText.expectValue(
             doc(emptyParagraph(), entryBlock(), emptyParagraph(), entryBlock(), emptyParagraph())
@@ -1334,7 +1339,8 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     for (const [triggerMethod, triggerEmbeddedAsset] of methods) {
       describe(triggerMethod, () => {
         it('adds paragraph before the block when pressing enter if the block is first document node', () => {
-          richText.editor.click().then(triggerEmbeddedAsset);
+          richText.editor.click();
+          triggerEmbeddedAsset();
 
           richText.editor.find('[data-entity-id="example-entity-id"]').click();
 
@@ -1344,21 +1350,21 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         });
 
         it('adds paragraph between two blocks when pressing enter', () => {
-          function addEmbeddedEntry() {
+          function addEmbeddedAsset() {
             richText.editor.click('bottom').then(triggerEmbeddedAsset);
             richText.editor.click('bottom');
           }
 
-          function selectAndPressEnter() {
-            richText.editor.click().get('[data-entity-id="example-entity-id"]').first().click();
-            richText.editor.trigger('keydown', keys.enter);
-          }
+          addEmbeddedAsset();
+          addEmbeddedAsset();
 
-          addEmbeddedEntry();
-          addEmbeddedEntry();
+          // Press enter on the first asset block
+          richText.editor.click().get('[data-entity-id="example-entity-id"]').first().click();
+          pressEnter();
 
-          selectAndPressEnter();
-          selectAndPressEnter();
+          // Press enter on the second asset block
+          richText.editor.click().get('[data-entity-id="example-entity-id"]').last().click();
+          pressEnter();
 
           richText.expectValue(
             doc(emptyParagraph(), assetBlock(), emptyParagraph(), assetBlock(), emptyParagraph())

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import tokens from '@contentful/f36-tokens';
 import { css } from 'emotion';
 import { Flex } from '@contentful/f36-components';
@@ -6,10 +6,10 @@ import { ToolbarHrButton } from '../plugins/Hr';
 import { ToolbarHeadingButton } from '../plugins/Heading';
 import { ToolbarQuoteButton } from '../plugins/Quote';
 import { ToolbarListButton } from '../plugins/List';
-import { ToolbarBoldButton } from '../plugins/Bold';
-import { ToolbarCodeButton } from '../plugins/Code';
-import { ToolbarItalicButton } from '../plugins/Italic';
-import { ToolbarUnderlineButton } from '../plugins/Underline';
+import { ToolbarBoldButton } from '../plugins/Marks/Bold';
+import { ToolbarCodeButton } from '../plugins/Marks/Code';
+import { ToolbarItalicButton } from '../plugins/Marks/Italic';
+import { ToolbarUnderlineButton } from '../plugins/Marks/Underline';
 import { ToolbarHyperlinkButton } from '../plugins/Hyperlink';
 import { ToolbarTableButton } from '../plugins/Table';
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types';
@@ -82,10 +82,10 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
         {isMarkEnabled(sdk.field, MARKS.CODE) && <ToolbarCodeButton isDisabled={isDisabled} />}
 
         {validationInfo.isAnyHyperlinkEnabled && (
-          <Fragment>
+          <>
             <span className={styles.divider} />
             <ToolbarHyperlinkButton isDisabled={isDisabled} />
-          </Fragment>
+          </>
         )}
 
         {validationInfo.isAnyBlockFormattingEnabled && <span className={styles.divider} />}

@@ -38,7 +38,7 @@ const createHyperlink: Creator = (_, attrs, children) => {
   return { type, data, children };
 };
 
-const createInlineEntry = (_, attrs) => {
+const createInlineEntry: Creator = (_, attrs) => {
   return {
     type: INLINES.EMBEDDED_ENTRY,
     data: {

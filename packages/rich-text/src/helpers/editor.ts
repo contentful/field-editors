@@ -1,5 +1,5 @@
 import { PlateEditor } from '@udecode/plate-core';
-import { getText } from '@udecode/plate-common';
+import { getText } from '@udecode/plate-core';
 import { Link } from '@contentful/field-editor-reference/dist/types';
 import { Text, Editor, Element, Transforms, Path, Range, Node, Location } from 'slate';
 import { BLOCKS, INLINES, TABLE_BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
@@ -21,12 +21,6 @@ export function isBlockSelected(editor, type: string): boolean {
     })
   );
   return !!match;
-}
-
-export function isVoid(editor, element): boolean {
-  const { isVoid: originalIsVoid } = editor;
-
-  return element.isVoid || originalIsVoid(element);
 }
 
 export function isRootLevel(path: Path): boolean {
@@ -67,10 +61,8 @@ export function moveToTheNextLine(editor) {
   Transforms.move(editor, { distance: 1, unit: 'line' });
 }
 
-export function moveToThePreviousLine(editor) {
-  Transforms.move(editor, { distance: 1, unit: 'line', reverse: true });
-}
-
+// TODO: this is only used in the Quote plugin. Move there and consider
+// replacing it with onKeyDownToggleElement helper from Plate
 export function toggleBlock(editor, type: string): void {
   const isActive = isBlockSelected(editor, type);
   const isList = LIST_TYPES.includes(type as BLOCKS);
@@ -147,10 +139,6 @@ export function getTableSize(
   return { numRows, numColumns };
 }
 
-export function isFirstChild(path: Path) {
-  return path[path.length - 1] === 0;
-}
-
 interface InsertLinkOptions {
   text: string;
   type: INLINES.HYPERLINK | INLINES.ENTRY_HYPERLINK | INLINES.ASSET_HYPERLINK;
@@ -159,12 +147,14 @@ interface InsertLinkOptions {
   path?: Path;
 }
 
+// TODO: move to hyperlink plugin
 export function insertLink(editor, options: InsertLinkOptions) {
   if (editor.selection) {
     wrapLink(editor, options);
   }
 }
 
+// TODO: move to hyperlink plugin
 export function isLinkActive(editor) {
   const [link] = Array.from(
     Editor.nodes(editor, {
@@ -177,6 +167,7 @@ export function isLinkActive(editor) {
   return !!link;
 }
 
+// TODO: move to hyperlink plugin
 export function unwrapLink(editor) {
   Transforms.unwrapNodes(editor, {
     match: (node) =>
@@ -186,6 +177,7 @@ export function unwrapLink(editor) {
   });
 }
 
+// TODO: move to hyperlink plugin
 export function wrapLink(editor, { text, url, target, type, path }: InsertLinkOptions) {
   if (isLinkActive(editor) && !path) {
     unwrapLink(editor);
@@ -228,6 +220,7 @@ export function getAncestorPathFromSelection(editor: PlateEditor) {
   return Path.levels(editor.selection.focus.path).find((level) => level.length === 1);
 }
 
+// TODO: move to quote plugin
 export function shouldUnwrapBlockquote(editor: PlateEditor, type: BLOCKS) {
   const isQuoteSelected = isBlockSelected(editor, BLOCKS.QUOTE);
   const isValidType = [
@@ -286,6 +279,7 @@ export function getNextNode(editor: PlateEditor): CustomElement | null {
   }
 }
 
+// TODO: move to table plugin
 export function currentSelectionPrecedesTableCell(editor: PlateEditor): boolean {
   const nextNode = getNextNode(editor);
   return (
@@ -293,6 +287,7 @@ export function currentSelectionPrecedesTableCell(editor: PlateEditor): boolean 
   );
 }
 
+// TODO: move to table plugin
 export const replaceNode = (editor: Editor, path: Location, replacement: Node | Node[]) => {
   Transforms.removeNodes(editor, { at: path });
   Transforms.insertNodes(editor, replacement, { at: path });

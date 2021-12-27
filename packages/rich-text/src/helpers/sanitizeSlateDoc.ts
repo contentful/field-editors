@@ -1,5 +1,5 @@
 import { BLOCKS, INLINES, VOID_BLOCKS, Text } from '@contentful/rich-text-types';
-import { CustomElement, TextElement, TextOrCustomElement } from 'types';
+import { CustomElement, CustomText, TextOrCustomElement } from 'types';
 import values from 'lodash/values'; // eslint-disable-line you-dont-need-lodash-underscore/values
 
 type NodeType = BLOCKS | INLINES | Text['nodeType'];
@@ -16,7 +16,7 @@ const TEXT_PARENT_NODES: string[] = (VOID_BLOCKS as string[])
     BLOCKS.HEADING_6
   );
 
-const isTextElement = (node: TextOrCustomElement): node is TextElement => 'text' in node;
+const isTextElement = (node: TextOrCustomElement): node is CustomText => 'text' in node;
 
 const wrapNode = (type: BLOCKS, node: TextOrCustomElement): CustomElement => ({
   type,
@@ -24,7 +24,7 @@ const wrapNode = (type: BLOCKS, node: TextOrCustomElement): CustomElement => ({
   children: [node],
 });
 
-function wrapOrphanedTextNode(parentNodeType: NodeType, node: TextElement): CustomElement {
+function wrapOrphanedTextNode(parentNodeType: NodeType, node: CustomText): CustomElement {
   const paragraph = wrapNode(BLOCKS.PARAGRAPH, node);
   switch (parentNodeType) {
     case BLOCKS.OL_LIST:

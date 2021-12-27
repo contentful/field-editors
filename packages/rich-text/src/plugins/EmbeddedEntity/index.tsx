@@ -3,6 +3,7 @@ import { Button, Menu } from '@contentful/f36-components';
 
 import { PlusIcon, ChevronDownIcon } from '@contentful/f36-icons';
 
+// TODO: this isn't a plugin. Move somewhere else
 interface EmbeddedEntityDropdownButtonProps {
   children: React.ReactNode;
   isDisabled: boolean | undefined;

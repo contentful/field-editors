@@ -8,7 +8,7 @@ export class RichTextPage {
   }
 
   get editor() {
-    return cy.findByTestId('rich-text-editor-integration-test').find('[data-slate-editor=true]');
+    return cy.findByTestId('rich-text-editor').find('[data-slate-editor=true]');
   }
 
   get toolbar() {

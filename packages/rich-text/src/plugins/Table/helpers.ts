@@ -7,7 +7,7 @@ import {
   ELEMENT_TR,
   insertTable,
 } from '@udecode/plate-table';
-import { getAbove, getChildren, isFirstChild, isAncestorEmpty } from '@udecode/plate-common';
+import { getAbove, getChildren, isFirstChild, isAncestorEmpty } from '@udecode/plate-core';
 import { BLOCKS } from '@contentful/rich-text-types';
 
 import {
