@@ -48,7 +48,7 @@ function downloadAsset(url: string, fileName: string) {
       });
     })
     .catch((err) => {
-      Notification.error('Failed to dowmload asset');
+      Notification.error('Failed to download asset');
       console.log(err);
     });
 }
