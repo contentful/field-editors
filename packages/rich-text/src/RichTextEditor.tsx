@@ -12,7 +12,7 @@ import { FieldConnector } from '@contentful/field-editor-shared';
 import { styles } from './RichTextEditor.styles';
 import schema from './constants/Schema';
 import Toolbar from './Toolbar';
-import StickyToolbarWrapper from './Toolbar/StickyToolbarWrapper';
+import StickyToolbarWrapper from './Toolbar/components/StickyToolbarWrapper';
 import { SdkProvider } from './SdkProvider';
 import {
   RichTextTrackingActionHandler,
