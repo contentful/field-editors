@@ -8,11 +8,11 @@ import { IconButton, Menu } from '@contentful/f36-components';
 import { ChevronDownIcon } from '@contentful/f36-icons';
 import { BLOCKS } from '@contentful/rich-text-types';
 
-import { isTableHeaderEnabled } from './helpers';
-import { useContentfulEditor } from '../../ContentfulEditorProvider';
-import { getNodeEntryFromSelection, getTableSize } from '../../helpers/editor';
-import { RichTextTrackingActionName, useTrackingContext } from '../../TrackingProvider';
-import { addRowAbove, addColumnLeft, addColumnRight, addRowBelow, setHeader } from './actions';
+import { isTableHeaderEnabled } from '../helpers';
+import { useContentfulEditor } from '../../../ContentfulEditorProvider';
+import { getNodeEntryFromSelection, getTableSize } from '../../../helpers/editor';
+import { RichTextTrackingActionName, useTrackingContext } from '../../../TrackingProvider';
+import { addRowAbove, addColumnLeft, addColumnRight, addRowBelow, setHeader } from '../actions';
 
 export const styles = {
   topRight: css({

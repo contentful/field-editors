@@ -1,13 +1,18 @@
 import { Editor } from 'slate';
-import { createPlateEditor } from '@udecode/plate-core';
+import { createPlateEditor, PlateEditor } from '@udecode/plate-core';
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 
 import { getPlugins } from '../plugins';
 import { TrackingProvider } from '../TrackingProvider';
-import { RichTextPlugin } from 'plugins/types';
+import { RichTextPlugin } from '../types';
+import { randomId } from './randomId';
+
+export const normalize = (editor: PlateEditor) => {
+  Editor.normalize(editor, { force: true });
+};
 
 export const createTestEditor = (options: {
-  input: any;
+  input?: any;
   sdk?: FieldExtensionSDK;
   tracking?: TrackingProvider;
   plugins?: RichTextPlugin[];
@@ -19,22 +24,13 @@ export const createTestEditor = (options: {
   const sdk: FieldExtensionSDK = options.sdk ?? ({} as any);
 
   const editor = createPlateEditor({
+    id: randomId('editor'),
     editor: options.input,
     plugins: options.plugins || getPlugins(sdk, tracking),
   });
 
   return {
     editor,
-    normalize: () => Editor.normalize(editor, { force: true }),
+    normalize: () => normalize(editor),
   };
-};
-
-export const expectNormalized = (input: any, expected: any) => {
-  const { editor, normalize } = createTestEditor({
-    input,
-  });
-
-  normalize();
-
-  expect(editor.children).toEqual(expected.children);
 };

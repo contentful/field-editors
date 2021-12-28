@@ -16,7 +16,7 @@ import {
   unwrapFromRoot,
 } from '../../helpers/editor';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
-import { RichTextPlugin } from '../types';
+import { RichTextPlugin } from '../../types';
 
 const styles = {
   container: css`

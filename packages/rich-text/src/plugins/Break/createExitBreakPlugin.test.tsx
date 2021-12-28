@@ -1,10 +1,9 @@
 /** @jsx jsx */
 import { ExitBreakRule } from '@udecode/plate-break';
-import { isFirstChild, mockPlugin } from '@udecode/plate-core';
+import { isFirstChild } from '@udecode/plate-core';
 import { KEY_EXIT_BREAK } from '@udecode/plate-break';
 
-import { RichTextPlugin } from 'plugins/types';
-import { jsx, createTestEditor } from '../../test-utils';
+import { jsx, createTestEditor, mockPlugin } from '../../test-utils';
 import { createExitBreakPlugin } from './createExitBreakPlugin';
 import { isRootLevel } from '../../helpers/editor';
 
@@ -47,14 +46,11 @@ describe('Exit Break', () => {
     const { editor } = createTestEditor({
       input,
       plugins: [
-        mockPlugin({
-          key: 'mock2',
-        }),
+        mockPlugin({}),
 
         mockPlugin({
-          key: 'mock3',
           exitBreak: [rules[2]],
-        } as RichTextPlugin),
+        }),
         createExitBreakPlugin(),
       ],
     });

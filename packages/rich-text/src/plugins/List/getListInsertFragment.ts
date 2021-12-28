@@ -6,7 +6,7 @@ import { getPlugin, PlateEditor, TDescendant } from '@udecode/plate-core';
 import { findNode } from '@udecode/plate-core';
 import { ELEMENT_LI, ELEMENT_OL, ELEMENT_UL } from '@udecode/plate-list';
 import { Node, NodeEntry, Path, Transforms } from 'slate';
-import { RichTextPlugin } from '../types';
+import { RichTextPlugin } from '../../types';
 
 export const getListInsertFragment = (editor: PlateEditor) => {
   const { insertFragment } = editor;

@@ -8,7 +8,7 @@ import { MARKS } from '@contentful/rich-text-types';
 import { FormatItalicIcon } from '@contentful/f36-icons';
 import { ToolbarButton } from '../shared/ToolbarButton';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
-import { RichTextPlugin } from '../types';
+import { RichTextPlugin } from '../../types';
 
 interface ToolbarItalicButtonProps {
   isDisabled?: boolean;
