@@ -7,7 +7,7 @@ describe('normalization', () => {
       <editor>
         <hp>valid text</hp>
         <hh1>valid text</hh1>
-        <hinlineEntry id="entry-id" />
+        <hinline type="Entry" id="entry-id" />
 
         <htable>
           <htr>
@@ -21,7 +21,7 @@ describe('normalization', () => {
       <editor>
         <hp>valid text</hp>
         <hh1>valid text</hh1>
-        <hinlineEntry id="entry-id" />
+        <hinline type="Entry" id="entry-id" />
 
         <htable>
           <htr>

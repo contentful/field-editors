@@ -7,7 +7,7 @@ describe('normalization', () => {
       <editor>
         <hblockquote>
           <hp>hello</hp>
-          <hassetBlock id="asset-id" />
+          <hembed type="Asset" id="asset-id" />
           <hp>world</hp>
         </hblockquote>
       </editor>
@@ -19,7 +19,7 @@ describe('normalization', () => {
           <hp>hello</hp>
         </hblockquote>
 
-        <hassetBlock id="asset-id" />
+        <hembed type="Asset" id="asset-id" />
 
         <hblockquote>
           <hp>world</hp>
