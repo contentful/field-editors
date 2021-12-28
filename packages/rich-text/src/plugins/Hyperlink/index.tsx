@@ -10,12 +10,11 @@ import { ToolbarButton } from '../shared/ToolbarButton';
 import { css } from 'emotion';
 import tokens from '@contentful/f36-tokens';
 import { FieldExtensionSDK, Link, ContentEntityType as EntityType } from '@contentful/app-sdk';
-import { CustomRenderElementProps, CustomElement } from '../../types';
+import { RichTextPlugin, CustomRenderElementProps, CustomElement } from '../../types';
 import { useSdkContext } from '../../SdkProvider';
 import { addOrEditLink } from './HyperlinkModal';
 import { isLinkActive, unwrapLink } from '../../helpers/editor';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
-import { RichTextPlugin } from '../types';
 
 const styles = {
   hyperlinkWrapper: css({

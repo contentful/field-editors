@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, expectNormalized } from '../../../test-utils';
+import { jsx, assertOutput } from '../../../test-utils';
 
 describe('List normalizers', () => {
   it('wraps orphaned list items in a list', () => {
@@ -25,7 +25,7 @@ describe('List normalizers', () => {
       </editor>
     );
 
-    expectNormalized(input, expected);
+    assertOutput({ input, expected });
   });
 
   it('adds empty paragraph to empty list items', () => {
@@ -53,7 +53,7 @@ describe('List normalizers', () => {
       </editor>
     );
 
-    expectNormalized(input, expected);
+    assertOutput({ input, expected });
   });
 
   it('replaces invalid list items with text', () => {
@@ -102,6 +102,6 @@ describe('List normalizers', () => {
       </editor>
     );
 
-    expectNormalized(input, expected);
+    assertOutput({ input, expected });
   });
 });

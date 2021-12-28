@@ -3,8 +3,8 @@ import { createTrailingBlockPlugin } from '@udecode/plate-trailing-block';
 
 export const createTrailingParagraphPlugin = () => {
   return createTrailingBlockPlugin({
-    type: BLOCKS.PARAGRAPH,
     options: {
+      type: BLOCKS.PARAGRAPH,
       level: 0,
     },
   });

@@ -20,7 +20,8 @@ import { TrackingProvider } from '../TrackingProvider';
 import { createTrailingParagraphPlugin } from './TrailingParagraph';
 import { createDragAndDropPlugin } from './DragAndDrop';
 import { createTextPlugin } from './Text';
-import { RichTextPlugin } from './types';
+import { RichTextPlugin } from '../types';
+import { createNormalizerPlugin } from './Normalizer';
 
 export const getPlugins = (
   sdk: FieldExtensionSDK,
@@ -57,4 +58,5 @@ export const getPlugins = (
   // above. They MUST come last.
   createSoftBreakPlugin(),
   createExitBreakPlugin(),
+  createNormalizerPlugin(),
 ];

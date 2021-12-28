@@ -5,7 +5,7 @@ import {
 import { isFirstChild } from '@udecode/plate-core';
 import { isRootLevel } from '../../helpers/editor';
 
-import { RichTextPlugin } from '../types';
+import { RichTextPlugin } from '../../types';
 
 // The base were added here to avoid duplication of the rules in multiple void elements plugins
 const baseRules: ExitBreakRule[] = [
@@ -25,6 +25,7 @@ const baseRules: ExitBreakRule[] = [
     },
   },
 ];
+
 export const createExitBreakPlugin = (): RichTextPlugin =>
   createDefaultExitBreakPlugin({
     then: (editor) => {

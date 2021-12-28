@@ -1,11 +1,10 @@
-import { PlateEditor } from '@udecode/plate-core';
+import { Text, Element } from 'slate';
 import { createParagraphPlugin as createDefaultParagraphPlugin } from '@udecode/plate-paragraph';
-import { BLOCKS } from '@contentful/rich-text-types';
-import { Element, Node, Transforms } from 'slate';
-import { CustomElement } from '../../types';
-import { RichTextPlugin } from '../types';
-
+import { BLOCKS, INLINES, TEXT_CONTAINERS } from '@contentful/rich-text-types';
+import { RichTextPlugin } from '../../types';
 import { Paragraph } from './Paragraph';
+import { transformUnwrap, transformWrapIn } from '../../helpers/transformers';
+import { getParent } from '@udecode/plate-core';
 
 function isEmbed(element: HTMLElement) {
   return (
@@ -17,6 +16,8 @@ function isEmbed(element: HTMLElement) {
 function isEmpty(element: HTMLElement) {
   return element.textContent === '';
 }
+
+const INLINE_TYPES = Object.values(INLINES);
 
 export const createParagraphPlugin = (): RichTextPlugin => {
   const config: Partial<RichTextPlugin> = {
@@ -42,29 +43,31 @@ export const createParagraphPlugin = (): RichTextPlugin => {
       ],
       query: (el) => !isEmpty(el) && !isEmbed(el),
     },
-    withOverrides: (editor: PlateEditor) => {
-      const { normalizeNode } = editor;
+    normalizer: [
+      {
+        validChildren: (_, [node]) => {
+          // either text or inline elements
+          return (
+            Text.isText(node) ||
+            (Element.isElement(node) && INLINE_TYPES.includes(node.type as INLINES))
+          );
+        },
+        transform: transformUnwrap,
+      },
+      {
+        // Wrap invalid text nodes in a paragraph
+        match: Text.isText,
+        validNode: (editor, [, path]) => {
+          const parent = getParent(editor, path)?.[0];
 
-      editor.normalizeNode = (entry) => {
-        const [node, path] = entry;
-
-        // If the element is a paragraph, ensure its children are valid.
-        if (Element.isElement(node) && (node as CustomElement).type === BLOCKS.PARAGRAPH) {
-          for (const [child, childPath] of Node.children(editor, path)) {
-            if (Element.isElement(child) && !editor.isInline(child)) {
-              Transforms.unwrapNodes(editor, {
-                at: childPath,
-              });
-              return;
-            }
-          }
-        }
-        // Fall back to the original `normalizeNode` to enforce other constraints.
-        normalizeNode(entry);
-      };
-
-      return editor;
-    },
+          return !!(
+            parent &&
+            (TEXT_CONTAINERS.includes(parent.type) || INLINE_TYPES.includes(parent.type))
+          );
+        },
+        transform: transformWrapIn(BLOCKS.PARAGRAPH),
+      },
+    ],
   };
 
   return createDefaultParagraphPlugin(config);
