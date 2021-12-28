@@ -67,9 +67,6 @@ export function moveToTheNextLine(editor) {
   Transforms.move(editor, { distance: 1, unit: 'line' });
 }
 
-// TODO: this is only used in the Quote plugin. Move there and consider
-// replacing it with onKeyDownToggleElement helper from Plate
-
 export function getElementFromCurrentSelection(editor) {
   if (!editor.selection) return [];
 

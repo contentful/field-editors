@@ -39,7 +39,7 @@ describe('Table normalizers', () => {
       </editor>
     );
 
-    expectNormalized(input, expected);
+    expectNormalized({ input, expected });
   });
 
   it('converts invalid table-cell children to paragraphs', () => {
@@ -92,6 +92,6 @@ describe('Table normalizers', () => {
       </editor>
     );
 
-    expectNormalized(input, expected);
+    expectNormalized({ input, expected });
   });
 });

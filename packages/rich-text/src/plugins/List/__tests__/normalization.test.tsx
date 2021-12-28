@@ -25,7 +25,7 @@ describe('List normalizers', () => {
       </editor>
     );
 
-    expectNormalized(input, expected);
+    expectNormalized({ input, expected });
   });
 
   it('adds empty paragraph to empty list items', () => {
@@ -53,7 +53,7 @@ describe('List normalizers', () => {
       </editor>
     );
 
-    expectNormalized(input, expected);
+    expectNormalized({ input, expected });
   });
 
   it('replaces invalid list items with text', () => {
@@ -102,6 +102,6 @@ describe('List normalizers', () => {
       </editor>
     );
 
-    expectNormalized(input, expected);
+    expectNormalized({ input, expected });
   });
 });

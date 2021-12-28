@@ -18,7 +18,10 @@ export const withNormalizer: WithOverride = (editor) => {
       continue;
     }
 
-    for (const rule of rules) {
+    for (const _rule of rules) {
+      // Clone to avoid mutation bugs
+      const rule = { ..._rule };
+
       if (!rule.match && !p.isElement) {
         throw new NormalizerError('rule.match MUST be defined in a non-element plugin');
       }

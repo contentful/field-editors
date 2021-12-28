@@ -7,7 +7,7 @@ describe('normalization', () => {
       <editor>
         <hblockquote>
           <hp>hello</hp>
-          <hassetblock id="asset-id" />
+          <hassetBlock id="asset-id" />
           <hp>world</hp>
         </hblockquote>
         <hp />
@@ -20,7 +20,7 @@ describe('normalization', () => {
           <hp>hello</hp>
         </hblockquote>
 
-        <hassetblock id="asset-id" />
+        <hassetBlock id="asset-id" />
 
         <hblockquote>
           <hp>world</hp>
@@ -32,6 +32,6 @@ describe('normalization', () => {
       </editor>
     );
 
-    expectNormalized(input, expected);
+    expectNormalized({ input, expected });
   });
 });

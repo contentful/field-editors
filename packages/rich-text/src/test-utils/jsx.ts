@@ -89,6 +89,6 @@ export const jsx = createHyperscript({
     htext: createText,
     hcode: createCode,
     hinlineEntry: createInlineEntry,
-    hassetblock: createAssetBlock,
+    hassetBlock: createAssetBlock,
   },
 });

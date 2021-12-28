@@ -1,10 +1,8 @@
 /** @jsx jsx */
 import { SoftBreakRule } from '@udecode/plate-break';
-import { mockPlugin } from '@udecode/plate-core';
 import { KEY_SOFT_BREAK } from '@udecode/plate-break';
 
-import { RichTextPlugin } from '../../types';
-import { jsx, createTestEditor } from '../../test-utils';
+import { jsx, createTestEditor, mockPlugin } from '../../test-utils';
 import { createSoftBreakPlugin } from './createSoftBreakPlugin';
 
 describe('Soft Break', () => {
@@ -36,18 +34,14 @@ describe('Soft Break', () => {
       input,
       plugins: [
         mockPlugin({
-          key: 'mock1',
           softBreak: [rules[0]],
-        } as RichTextPlugin),
-
-        mockPlugin({
-          key: 'mock2',
         }),
 
+        mockPlugin({}),
+
         mockPlugin({
-          key: 'mock3',
           softBreak: [rules[1]],
-        } as RichTextPlugin),
+        }),
         createSoftBreakPlugin(),
       ],
     });
