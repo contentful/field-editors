@@ -14,3 +14,9 @@ export const transformText = (editor: PlateEditor, entry: NodeEntry) => {
   transformRemove(editor, entry);
   Transforms.insertNodes(editor, textNodes, { at: path });
 };
+
+export const transformUnwrap = (editor: PlateEditor, [, path]: NodeEntry) => {
+  Transforms.unwrapNodes(editor, {
+    at: path,
+  });
+};

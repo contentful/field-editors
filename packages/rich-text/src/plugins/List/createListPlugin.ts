@@ -5,7 +5,7 @@ import {
   ELEMENT_OL,
   ELEMENT_LIC,
 } from '@udecode/plate-list';
-import { BLOCKS, CONTAINERS, LIST_ITEM_BLOCKS } from '@contentful/rich-text-types';
+import { BLOCKS, LIST_ITEM_BLOCKS } from '@contentful/rich-text-types';
 import { RichTextPlugin } from '../../types';
 import { transformText } from '../../helpers/transformers';
 import { withList } from './withList';
@@ -62,7 +62,7 @@ export const createListPlugin = (): RichTextPlugin =>
             transform: insertParagraphAsChild,
           },
           {
-            validChildren: CONTAINERS[BLOCKS.LIST_ITEM],
+            validChildren: LIST_ITEM_BLOCKS,
             transform: transformText,
           },
         ],

@@ -25,16 +25,14 @@ export type NormalizationTransformer = (editor: PlateEditor, entry: NodeEntry) =
 
 export type ValidNodeRule = BaseRule & {
   /**
-   * Checks if a given Node is valid. The node in question is the
-   * result of the `queryNode` call.
+   * Checks if matching Node(s) are valid.
    */
   validNode: (editor: PlateEditor, entry: NodeEntry) => boolean;
 };
 
 export type ValidChildrenRule = BaseRule & {
   /**
-   * Checks if a given Node's children are valid. The node in question
-   * is the result of the `queryNode` call.
+   * Checks if matching Node's children are valid.
    *
    * The value can be an array of strings as a shorthand to indicate
    * valid children types.
