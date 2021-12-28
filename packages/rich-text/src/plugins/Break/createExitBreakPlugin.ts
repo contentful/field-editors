@@ -7,6 +7,7 @@ import { isRootLevel } from '../../helpers/editor';
 
 import { RichTextPlugin } from '../types';
 
+// The base were added here to avoid duplication of the rules in multiple void elements plugins
 const baseRules: ExitBreakRule[] = [
   // Can insert before first void block
   {
