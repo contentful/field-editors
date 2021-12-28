@@ -190,6 +190,18 @@ export const createHeadingPlugin = (): RichTextPlugin => ({
       },
     },
   ],
+  exitBreak: [
+    // Pressing ENTER at the start or end of a heading text inserts a
+    // normal paragraph
+    {
+      hotkey: 'enter',
+      query: {
+        allow: HEADINGS,
+        end: true,
+        start: true,
+      },
+    },
+  ],
   plugins: HEADINGS.map((nodeType, idx) => {
     const level = idx + 1;
     const tagName = `h${level}`;
