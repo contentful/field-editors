@@ -27,7 +27,3 @@ export const transformWrapIn =
   (editor: PlateEditor, [, path]: NodeEntry) => {
     Transforms.wrapNodes(editor, { type, data: {}, children: [] }, { at: path });
   };
-
-export const transformLift = (editor: PlateEditor, [, path]: NodeEntry) => {
-  Transforms.liftNodes(editor, { at: path });
-};

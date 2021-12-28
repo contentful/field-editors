@@ -22,7 +22,6 @@ import { Row } from './components/Row';
 import { HeaderCell } from './components/HeaderCell';
 import { Cell } from './components/Cell';
 import { addTableTrackingEvents } from './addTableTrackingEvents';
-import { withOnDrop } from '../../helpers/withOnDrop';
 
 const createTableOnKeyDown: KeyboardHandler<{}, HotkeyPlugin> = (editor, plugin) => {
   const defaultHandler = onKeyDownTable(editor, plugin);
@@ -43,10 +42,6 @@ const createTableOnKeyDown: KeyboardHandler<{}, HotkeyPlugin> = (editor, plugin)
     defaultHandler(event);
   };
 };
-
-const onDrop = withOnDrop({
-  allow: CONTAINERS[BLOCKS.TABLE_CELL],
-});
 
 export const createTablePlugin = (tracking: TrackingProvider): RichTextPlugin =>
   createDefaultTablePlugin({
@@ -97,7 +92,6 @@ export const createTablePlugin = (tracking: TrackingProvider): RichTextPlugin =>
       [ELEMENT_TH]: {
         type: BLOCKS.TABLE_HEADER_CELL,
         component: HeaderCell,
-        handlers: { onDrop },
         normalizer: [
           {
             validChildren: CONTAINERS[BLOCKS.TABLE_HEADER_CELL],
@@ -108,7 +102,6 @@ export const createTablePlugin = (tracking: TrackingProvider): RichTextPlugin =>
       [ELEMENT_TD]: {
         type: BLOCKS.TABLE_CELL,
         component: Cell,
-        handlers: { onDrop },
         normalizer: [
           {
             validChildren: CONTAINERS[BLOCKS.TABLE_CELL],

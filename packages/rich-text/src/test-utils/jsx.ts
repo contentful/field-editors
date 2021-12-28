@@ -10,10 +10,6 @@ const createCode: Creator = (_, attrs, children) => {
   return createText('text', { code: true, ...attrs }, children);
 };
 
-const createSysLink = (linkType: 'Entry' | 'Asset', id: string) => ({
-  sys: { id, type: 'Link', linkType },
-});
-
 const createHyperlink: Creator = (_, attrs, children) => {
   const data: any = {};
   let type: string = INLINES.HYPERLINK;
@@ -25,12 +21,16 @@ const createHyperlink: Creator = (_, attrs, children) => {
 
   if (attrs.asset) {
     type = INLINES.ASSET_HYPERLINK;
-    data.target = createSysLink('Asset', attrs.asset);
+    data.target = {
+      sys: { id: attrs.asset, type: 'Link', linkType: 'Asset' },
+    };
   }
 
   if (attrs.entry) {
     type = INLINES.ENTRY_HYPERLINK;
-    data.target = createSysLink('Entry', attrs.entry);
+    data.target = {
+      sys: { id: attrs.entry, type: 'Link', linkType: 'Entry' },
+    };
   }
 
   children = children.map((child) => (typeof child === 'string' ? { text: child } : child));
@@ -42,20 +42,10 @@ const createInlineEntry: Creator = (_, attrs) => {
   return {
     type: INLINES.EMBEDDED_ENTRY,
     data: {
-      target: createSysLink('Entry', attrs.id),
+      target: {
+        sys: { id: attrs.id, type: 'Link', linkType: 'Entry' },
+      },
     },
-    isVoid: true,
-    children: voidChildren,
-  };
-};
-
-const createAssetBlock: Creator = (_, attrs) => {
-  return {
-    type: BLOCKS.EMBEDDED_ASSET,
-    data: {
-      target: createSysLink('Asset', attrs.id),
-    },
-    isVoid: true,
     children: voidChildren,
   };
 };
@@ -89,6 +79,5 @@ export const jsx = createHyperscript({
     htext: createText,
     hcode: createCode,
     hinlineEntry: createInlineEntry,
-    hassetblock: createAssetBlock,
   },
 });

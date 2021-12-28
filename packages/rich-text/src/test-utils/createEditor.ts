@@ -29,25 +29,12 @@ export const createTestEditor = (options: {
   };
 };
 
-export const expectNormalized = (input: any, expected: any, log?: boolean) => {
+export const expectNormalized = (input: any, expected: any) => {
   const { editor, normalize } = createTestEditor({
     input,
   });
 
   normalize();
-
-  if (log) {
-    console.log(
-      JSON.stringify(
-        {
-          expected,
-          actual: editor.children,
-        },
-        null,
-        2
-      )
-    );
-  }
 
   expect(editor.children).toEqual(expected.children);
 };
