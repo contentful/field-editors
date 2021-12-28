@@ -2,13 +2,7 @@ import { PlateEditor } from '@udecode/plate-core';
 import { getText } from '@udecode/plate-core';
 import { Link } from '@contentful/field-editor-reference/dist/types';
 import { Text, Editor, Element, Transforms, Path, Range, Node } from 'slate';
-import {
-  BLOCKS,
-  HEADINGS,
-  INLINES,
-  TABLE_BLOCKS,
-  TEXT_CONTAINERS,
-} from '@contentful/rich-text-types';
+import { BLOCKS, INLINES, TABLE_BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
 
 import { CustomElement } from '../types';
 
@@ -69,51 +63,6 @@ export function moveToTheNextLine(editor) {
 
 // TODO: this is only used in the Quote plugin. Move there and consider
 // replacing it with onKeyDownToggleElement helper from Plate
-export function toggleBlock(editor, type: string): void {
-  const isActive = isBlockSelected(editor, type);
-  const isList = LIST_TYPES.includes(type as BLOCKS);
-  const isQuote = type === BLOCKS.QUOTE;
-
-  Transforms.unwrapNodes(editor, {
-    match: (node) => {
-      if (Editor.isEditor(node) || !Element.isElement(node)) {
-        return false;
-      }
-
-      // Lists
-      if (isList && LIST_TYPES.includes((node as CustomElement).type as BLOCKS)) {
-        return true;
-      }
-
-      // Quotes
-      if (isQuote && (node as CustomElement).type === BLOCKS.QUOTE) {
-        return true;
-      }
-
-      return false;
-    },
-    split: true,
-  });
-  const newProperties: Partial<CustomElement> = {
-    type: isActive
-      ? BLOCKS.PARAGRAPH
-      : isList
-      ? BLOCKS.LIST_ITEM
-      : isQuote
-      ? BLOCKS.PARAGRAPH
-      : type,
-  };
-  Transforms.setNodes(editor, newProperties);
-
-  if (!isActive && (isList || isQuote)) {
-    const block = {
-      type,
-      data: {},
-      children: [],
-    };
-    Transforms.wrapNodes(editor, block);
-  }
-}
 
 export function getElementFromCurrentSelection(editor) {
   if (!editor.selection) return [];
@@ -224,14 +173,6 @@ export function getAncestorPathFromSelection(editor: PlateEditor) {
   if (!editor.selection) return undefined;
 
   return Path.levels(editor.selection.focus.path).find((level) => level.length === 1);
-}
-
-// TODO: move to quote plugin
-export function shouldUnwrapBlockquote(editor: PlateEditor, type: BLOCKS) {
-  const isQuoteSelected = isBlockSelected(editor, BLOCKS.QUOTE);
-  const isValidType = [...HEADINGS, BLOCKS.OL_LIST, BLOCKS.UL_LIST, BLOCKS.HR].includes(type);
-
-  return isQuoteSelected && isValidType;
 }
 
 export function unwrapFromRoot(editor: PlateEditor) {
