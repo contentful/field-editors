@@ -1,12 +1,13 @@
-import { NodeEntry, Text, Node } from 'slate';
-import { PlateEditor, match } from '@udecode/plate-core';
+import { PlateEditor } from '@udecode/plate-core';
+import { NodeEntry, Text, Node, Element } from 'slate';
 
 export class NormalizerError extends Error {}
 
-export const createValidatorFromArray =
+export const createValidatorFromTypes =
   (types: string[]) =>
-  (_: PlateEditor, [node]: NodeEntry) =>
-    match(node, { type: types });
+  (_: PlateEditor, [node]: NodeEntry) => {
+    return Element.isElement(node) && types.includes(node.type);
+  };
 
 export const getChildren = (editor: PlateEditor, [node, path]: NodeEntry): NodeEntry[] => {
   if (Text.isText(node)) {

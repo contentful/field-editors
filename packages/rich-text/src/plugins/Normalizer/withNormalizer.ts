@@ -3,7 +3,7 @@ import { WithOverride, match, PlateEditor, getPluginType } from '@udecode/plate-
 
 import { RichTextPlugin } from '../../types';
 import { transformRemove } from '../../helpers/transformers';
-import { NormalizerError, createValidatorFromArray, getChildren } from './utils';
+import { NormalizerError, createValidatorFromTypes, getChildren } from './utils';
 import { ValidNodeRule, ValidChildrenRule, NormalizationTransformer } from './types';
 
 export const withNormalizer: WithOverride = (editor) => {
@@ -40,7 +40,7 @@ export const withNormalizer: WithOverride = (editor) => {
 
       if ('validChildren' in rule) {
         if (Array.isArray(rule.validChildren)) {
-          rule.validChildren = createValidatorFromArray(rule.validChildren);
+          rule.validChildren = createValidatorFromTypes(rule.validChildren);
         }
 
         validChildrenRules.push(rule as Required<ValidChildrenRule>);

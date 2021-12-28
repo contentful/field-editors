@@ -1,8 +1,10 @@
+import { Text, Element } from 'slate';
 import { createParagraphPlugin as createDefaultParagraphPlugin } from '@udecode/plate-paragraph';
-import { BLOCKS, INLINES } from '@contentful/rich-text-types';
+import { BLOCKS, INLINES, TEXT_CONTAINERS } from '@contentful/rich-text-types';
 import { RichTextPlugin } from '../../types';
 import { Paragraph } from './Paragraph';
-import { transformUnwrap } from 'helpers/transformers';
+import { transformUnwrap, transformWrapIn } from '../../helpers/transformers';
+import { getParent } from '@udecode/plate-core';
 
 function isEmbed(element: HTMLElement) {
   return (
@@ -14,6 +16,8 @@ function isEmbed(element: HTMLElement) {
 function isEmpty(element: HTMLElement) {
   return element.textContent === '';
 }
+
+const INLINE_TYPES = Object.values(INLINES);
 
 export const createParagraphPlugin = (): RichTextPlugin => {
   const config: Partial<RichTextPlugin> = {
@@ -41,8 +45,27 @@ export const createParagraphPlugin = (): RichTextPlugin => {
     },
     normalizer: [
       {
-        validChildren: Object.values(INLINES),
+        validChildren: (_, [node]) => {
+          // either text or inline elements
+          return (
+            Text.isText(node) ||
+            (Element.isElement(node) && INLINE_TYPES.includes(node.type as INLINES))
+          );
+        },
         transform: transformUnwrap,
+      },
+      {
+        // Wrap invalid text nodes in a paragraph
+        match: Text.isText,
+        validNode: (editor, [, path]) => {
+          const parent = getParent(editor, path)?.[0];
+
+          return !!(
+            parent &&
+            (TEXT_CONTAINERS.includes(parent.type) || INLINE_TYPES.includes(parent.type))
+          );
+        },
+        transform: transformWrapIn(BLOCKS.PARAGRAPH),
       },
     ],
   };

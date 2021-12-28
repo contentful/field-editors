@@ -2,6 +2,7 @@ import { NodeEntry, Transforms } from 'slate';
 import { PlateEditor } from '@udecode/plate-core';
 
 import { extractParagraphsAt } from './editor';
+import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 
 export const transformRemove = (editor: PlateEditor, [, path]: NodeEntry) => {
   Transforms.removeNodes(editor, { at: path });
@@ -20,3 +21,9 @@ export const transformUnwrap = (editor: PlateEditor, [, path]: NodeEntry) => {
     at: path,
   });
 };
+
+export const transformWrapIn =
+  (type: BLOCKS | INLINES) =>
+  (editor: PlateEditor, [, path]: NodeEntry) => {
+    Transforms.wrapNodes(editor, { type, data: {}, children: [] }, { at: path });
+  };
