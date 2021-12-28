@@ -18,7 +18,6 @@ import {
 import { createEmbeddedEntityInlinePlugin } from './EmbeddedEntityInline';
 import { TrackingProvider } from '../TrackingProvider';
 import { createTrailingParagraphPlugin } from './TrailingParagraph';
-import { createDragAndDropPlugin } from './DragAndDrop';
 import { createTextPlugin } from './Text';
 import { RichTextPlugin } from '../types';
 import { createNormalizerPlugin } from './Normalizer';
@@ -29,9 +28,6 @@ export const getPlugins = (
 ): RichTextPlugin[] => [
   // Behavior
   createPastePlugin(),
-
-  // Global shortcuts
-  createDragAndDropPlugin(),
 
   // Block Elements
   createParagraphPlugin(),
