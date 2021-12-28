@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { BLOCKS } from '@contentful/rich-text-types';
 import { createNormalizerPlugin } from './createNormalizerPlugin';
-import { jsx, createTestEditor, mockPlugin, expectNormalized } from '../../test-utils';
+import { jsx, createTestEditor, mockPlugin, assertOutput } from '../../test-utils';
 
 describe('Normalizer', () => {
   const rules = [
@@ -45,7 +45,7 @@ describe('Normalizer', () => {
         ],
       });
 
-      expectNormalized({ editor, expected });
+      assertOutput({ editor, expected });
     });
 
     it('rejects rules without "match" in a non-element plugin', () => {
@@ -78,7 +78,7 @@ describe('Normalizer', () => {
         ],
       });
 
-      expectNormalized({ editor, expected });
+      assertOutput({ editor, expected });
     });
   });
 });

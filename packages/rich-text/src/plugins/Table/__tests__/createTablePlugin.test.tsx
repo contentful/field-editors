@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import { jsx, expectNormalized } from '../../../test-utils';
+import { jsx, assertOutput } from '../../../test-utils';
 
-describe('Table normalizers', () => {
+describe('normalization', () => {
   it('removes nodes not wrapped in table-row', () => {
     const input = (
       <editor>
@@ -39,7 +39,7 @@ describe('Table normalizers', () => {
       </editor>
     );
 
-    expectNormalized({ input, expected });
+    assertOutput({ input, expected });
   });
 
   it('converts invalid table-cell children to paragraphs', () => {
@@ -92,6 +92,6 @@ describe('Table normalizers', () => {
       </editor>
     );
 
-    expectNormalized({ input, expected });
+    assertOutput({ input, expected });
   });
 });

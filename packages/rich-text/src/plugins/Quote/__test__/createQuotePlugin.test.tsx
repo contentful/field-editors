@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, expectNormalized } from '../../../test-utils';
+import { jsx, assertOutput } from '../../../test-utils';
 
 describe('normalization', () => {
   it('lifts invalid children', () => {
@@ -10,7 +10,6 @@ describe('normalization', () => {
           <hassetBlock id="asset-id" />
           <hp>world</hp>
         </hblockquote>
-        <hp />
       </editor>
     );
 
@@ -32,6 +31,6 @@ describe('normalization', () => {
       </editor>
     );
 
-    expectNormalized({ input, expected });
+    assertOutput({ input, expected });
   });
 });

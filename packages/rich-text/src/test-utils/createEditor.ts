@@ -7,7 +7,7 @@ import { TrackingProvider } from '../TrackingProvider';
 import { RichTextPlugin } from '../types';
 import { randomId } from './randomId';
 
-const normalize = (editor: PlateEditor) => {
+export const normalize = (editor: PlateEditor) => {
   Editor.normalize(editor, { force: true });
 };
 
@@ -33,34 +33,4 @@ export const createTestEditor = (options: {
     editor,
     normalize: () => normalize(editor),
   };
-};
-
-export const expectNormalized = (options: {
-  input?: any;
-  expected: any;
-  editor?: PlateEditor;
-  log?: boolean;
-}) => {
-  const editor =
-    options.editor ??
-    createTestEditor({
-      input: options.input,
-    }).editor;
-
-  normalize(editor);
-
-  if (options.log) {
-    console.log(
-      JSON.stringify(
-        {
-          expected: options.expected,
-          actual: editor.children,
-        },
-        null,
-        2
-      )
-    );
-  }
-
-  expect(editor.children).toEqual(options.expected.children);
 };
