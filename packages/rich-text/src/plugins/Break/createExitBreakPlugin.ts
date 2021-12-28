@@ -1,39 +1,40 @@
+import {
+  createExitBreakPlugin as createDefaultExitBreakPlugin,
+  ExitBreakRule,
+} from '@udecode/plate-break';
 import { isFirstChild } from '@udecode/plate-core';
-import { createExitBreakPlugin as createDefaultExitBreakPlugin } from '@udecode/plate-break';
-import { HEADINGS } from '@contentful/rich-text-types';
+import { isRootLevel } from '../../helpers/editor';
 
 import { RichTextPlugin } from '../../types';
-import { isRootLevel } from '../../helpers/editor';
+
+// The base were added here to avoid duplication of the rules in multiple void elements plugins
+const baseRules: ExitBreakRule[] = [
+  // Can insert before first void block
+  {
+    hotkey: 'enter',
+    before: true,
+    query: {
+      filter: ([node, path]) => isRootLevel(path) && isFirstChild(path) && !!node.isVoid,
+    },
+  },
+  // Can insert after a void block
+  {
+    hotkey: 'enter',
+    query: {
+      filter: ([node, path]) => !isFirstChild(path) && !!node.isVoid,
+    },
+  },
+];
 
 export const createExitBreakPlugin = (): RichTextPlugin =>
   createDefaultExitBreakPlugin({
-    options: {
-      rules: [
-        // Can insert before first void block
-        {
-          hotkey: 'enter',
-          before: true,
-          query: {
-            filter: ([node, path]) => isRootLevel(path) && isFirstChild(path) && !!node.isVoid,
-          },
-        },
-        // Can insert after a void block
-        {
-          hotkey: 'enter',
-          query: {
-            filter: ([node, path]) => !isFirstChild(path) && !!node.isVoid,
-          },
-        },
-        // Pressing ENTER at the start or end of a heading text inserts a
-        // normal paragraph
-        {
-          hotkey: 'enter',
-          query: {
-            allow: HEADINGS,
-            end: true,
-            start: true,
-          },
-        },
-      ],
+    then: (editor) => {
+      const rules: ExitBreakRule[] = editor.plugins.flatMap((p) => {
+        return (p as RichTextPlugin).exitBreak || [];
+      });
+
+      return {
+        options: { rules: [...baseRules, ...rules] },
+      };
     },
   });
