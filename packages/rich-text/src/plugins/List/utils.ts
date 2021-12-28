@@ -5,18 +5,12 @@ import { getAbove, getParent } from '@udecode/plate-core';
 
 import { CustomElement } from '../../types';
 
-const emptyNodeOfType = (type) => ({ type, children: [], data: {} });
-
 const isList = (node: CustomElement) =>
   [BLOCKS.OL_LIST, BLOCKS.UL_LIST].includes(node.type as BLOCKS);
 
 export const hasListAsDirectParent = (editor: PlateEditor, [, path]: NodeEntry) => {
   const [parentNode] = (getParent(editor, path) || []) as NodeEntry;
   return isList(parentNode as CustomElement);
-};
-
-export const wrapInAListItem = (editor: PlateEditor, [, path]: NodeEntry) => {
-  Transforms.wrapNodes(editor, emptyNodeOfType(BLOCKS.LIST_ITEM), { at: path });
 };
 
 const getNearestListAncestor = (editor: PlateEditor, path: Path) => {

@@ -7,10 +7,9 @@ import {
 } from '@udecode/plate-list';
 import { BLOCKS, LIST_ITEM_BLOCKS } from '@contentful/rich-text-types';
 import { RichTextPlugin } from '../../types';
-import { transformText } from '../../helpers/transformers';
+import { transformText, transformWrapIn } from '../../helpers/transformers';
 import { withList } from './withList';
 import {
-  wrapInAListItem,
   isEmptyListItem,
   hasListAsDirectParent,
   insertParagraphAsChild,
@@ -30,7 +29,7 @@ export const createListPlugin = (): RichTextPlugin =>
           type: [BLOCKS.UL_LIST, BLOCKS.OL_LIST],
         },
         validChildren: [BLOCKS.LIST_ITEM],
-        transform: wrapInAListItem,
+        transform: transformWrapIn(BLOCKS.LIST_ITEM),
       },
     ],
     overrideByKey: {
