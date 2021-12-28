@@ -2,7 +2,13 @@ import { PlateEditor } from '@udecode/plate-core';
 import { getText } from '@udecode/plate-core';
 import { Link } from '@contentful/field-editor-reference/dist/types';
 import { Text, Editor, Element, Transforms, Path, Range, Node } from 'slate';
-import { BLOCKS, INLINES, TABLE_BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
+import {
+  BLOCKS,
+  HEADINGS,
+  INLINES,
+  TABLE_BLOCKS,
+  TEXT_CONTAINERS,
+} from '@contentful/rich-text-types';
 
 import { CustomElement } from '../types';
 
@@ -173,6 +179,13 @@ export function getAncestorPathFromSelection(editor: PlateEditor) {
   if (!editor.selection) return undefined;
 
   return Path.levels(editor.selection.focus.path).find((level) => level.length === 1);
+}
+
+export function shouldUnwrapBlockquote(editor: PlateEditor, type: BLOCKS) {
+  const isQuoteSelected = isBlockSelected(editor, BLOCKS.QUOTE);
+  const isValidType = [...HEADINGS, BLOCKS.OL_LIST, BLOCKS.UL_LIST, BLOCKS.HR].includes(type);
+
+  return isQuoteSelected && isValidType;
 }
 
 export function unwrapFromRoot(editor: PlateEditor) {

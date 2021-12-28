@@ -1,16 +1,9 @@
-import { Node as SlateNode, Transforms } from 'slate';
-
 import { getNodes } from '@udecode/plate-core';
-import { BLOCKS, CONTAINERS, INLINES } from '@contentful/rich-text-types';
+import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 
-import { RichTextPlugin, CustomElement } from '../../types';
+import { RichTextPlugin } from '../../types';
 
 export function createDragAndDropPlugin(): RichTextPlugin {
-  // Elements that don't allow other elements to be dragged into them and which callback should be used
-  const DND_BLOCKED_ELEMENTS = {
-    [BLOCKS.QUOTE]: Transforms.liftNodes,
-  };
-
   const DRAGGABLE_TYPES: string[] = [
     BLOCKS.EMBEDDED_ENTRY,
     BLOCKS.EMBEDDED_ASSET,
@@ -29,41 +22,6 @@ export function createDragAndDropPlugin(): RichTextPlugin {
 
   return {
     key: 'DragAndDropPlugin',
-    withOverrides: (editor) => {
-      const { normalizeNode } = editor;
-
-      editor.normalizeNode = (entry) => {
-        const [node, path] = entry;
-
-        Object.keys(DND_BLOCKED_ELEMENTS).forEach((blockedElementType) => {
-          const nodeType = (node as CustomElement).type;
-
-          if (SlateNode.isNode(node) && nodeType === blockedElementType) {
-            for (const [child, childPath] of SlateNode.children(editor, path)) {
-              const childType = (child as CustomElement).type;
-
-              if (!CONTAINERS[blockedElementType]) return;
-              if (!CONTAINERS[blockedElementType].includes(childType)) {
-                const callback = DND_BLOCKED_ELEMENTS[blockedElementType];
-                callback(editor, {
-                  at: childPath,
-                  match: (matchNode) =>
-                    SlateNode.isNode(matchNode) &&
-                    DRAGGABLE_TYPES.includes((matchNode as CustomElement).type),
-                });
-
-                return;
-              }
-            }
-          }
-        });
-
-        normalizeNode(entry);
-      };
-
-      return editor;
-    },
-
     handlers: {
       // If true, the next handlers will be skipped.
       onDrop: (editor) => (event) => {

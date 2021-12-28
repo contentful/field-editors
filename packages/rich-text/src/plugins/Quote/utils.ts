@@ -1,15 +1,8 @@
 import { Transforms, Element, Editor } from 'slate';
-import { BLOCKS, HEADINGS } from '@contentful/rich-text-types';
+import { BLOCKS } from '@contentful/rich-text-types';
 import { PlateEditor } from '@udecode/plate-core';
 import { CustomElement } from '../../types';
 import { isBlockSelected } from '../../helpers/editor';
-
-export function shouldUnwrapBlockquote(editor: PlateEditor, type: BLOCKS) {
-  const isQuoteSelected = isBlockSelected(editor, BLOCKS.QUOTE);
-  const isValidType = [...HEADINGS, BLOCKS.OL_LIST, BLOCKS.UL_LIST, BLOCKS.HR].includes(type);
-
-  return isQuoteSelected && isValidType;
-}
 
 const LIST_TYPES: BLOCKS[] = [BLOCKS.OL_LIST, BLOCKS.UL_LIST];
 
@@ -38,6 +31,7 @@ export function toggleBlock(editor, type: string): void {
     },
     split: true,
   });
+
   const newProperties: Partial<CustomElement> = {
     type: isActive
       ? BLOCKS.PARAGRAPH
