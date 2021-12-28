@@ -47,14 +47,12 @@ jobs:
       - checkout
       - yarn_install
       - run: yarn lint
-      - run: yarn build
       - run: yarn tsc
   unit-tests:
     executor: linux-node
     steps:
       - checkout
       - yarn_install
-      - run: yarn build
       - run: yarn test:ci
 
   integration-tests:
