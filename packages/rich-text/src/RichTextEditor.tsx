@@ -12,14 +12,14 @@ import { FieldConnector } from '@contentful/field-editor-shared';
 import { styles } from './RichTextEditor.styles';
 import schema from './constants/Schema';
 import Toolbar from './Toolbar';
-import StickyToolbarWrapper from './Toolbar/StickyToolbarWrapper';
+import StickyToolbarWrapper from './Toolbar/components/StickyToolbarWrapper';
 import { SdkProvider } from './SdkProvider';
 import {
   RichTextTrackingActionHandler,
   TrackingProvider,
   useTrackingContext,
 } from './TrackingProvider';
-import { sanitizeIncomingSlateDoc, sanitizeSlateDoc } from './helpers/sanitizeSlateDoc';
+import { sanitizeIncomingSlateDoc } from './helpers/sanitizeSlateDoc';
 import { TextOrCustomElement } from './types';
 import { ContentfulEditorProvider, getContentfulEditorId } from './ContentfulEditorProvider';
 import { getPlugins } from './plugins';
@@ -71,9 +71,8 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
           className: classNames,
           readOnly: props.isDisabled,
         }}
-        onChange={(newValue) => {
-          const slateDoc = sanitizeSlateDoc(newValue as TextOrCustomElement[]);
-          setValue(slateDoc);
+        onChange={(slateDoc) => {
+          setValue(slateDoc as TextOrCustomElement[]);
           const contentfulDoc = toContentfulDocument({ document: slateDoc, schema });
           props.onChange?.(contentfulDoc);
         }}>

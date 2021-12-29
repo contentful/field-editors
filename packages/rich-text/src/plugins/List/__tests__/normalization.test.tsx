@@ -43,7 +43,7 @@ describe('List normalizers', () => {
         <hul>
           <hli>
             <hp>
-              <text />
+              <htext />
             </hp>
           </hli>
         </hul>

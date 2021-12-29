@@ -38,7 +38,7 @@ const createHyperlink: Creator = (_, attrs, children) => {
   return { type, data, children };
 };
 
-const createInlineEntry: Creator = (_, attrs) => {
+const createInline: Creator = (_, attrs) => {
   return {
     type: INLINES.EMBEDDED_ENTRY,
     data: {
@@ -49,11 +49,11 @@ const createInlineEntry: Creator = (_, attrs) => {
   };
 };
 
-const createAssetBlock: Creator = (_, attrs) => {
+const createEmbeddedBlock: Creator = (_, attrs) => {
   return {
-    type: BLOCKS.EMBEDDED_ASSET,
+    type: attrs.type === 'Entry' ? BLOCKS.EMBEDDED_ENTRY : BLOCKS.EMBEDDED_ASSET,
     data: {
-      target: createSysLink('Asset', attrs.id),
+      target: createSysLink(attrs.type, attrs.id),
     },
     isVoid: true,
     children: voidChildren,
@@ -63,7 +63,7 @@ const createAssetBlock: Creator = (_, attrs) => {
 /**
  * Mapping for JSX => Slate Node types
  *
- * Add items as needed.
+ * Add items as needed. Don't forget to adjust hyperscript.d.ts
  */
 export const jsx = createHyperscript({
   elements: {
@@ -82,13 +82,12 @@ export const jsx = createHyperscript({
     hth: { type: BLOCKS.TABLE_HEADER_CELL, data: {} },
     htr: { type: BLOCKS.TABLE_ROW, data: {} },
     hul: { type: BLOCKS.UL_LIST, data: {} },
-    hdefault: { type: BLOCKS.PARAGRAPH, data: {} },
   },
   creators: {
     hlink: createHyperlink,
     htext: createText,
     hcode: createCode,
-    hinlineEntry: createInlineEntry,
-    hassetBlock: createAssetBlock,
+    hinline: createInline,
+    hembed: createEmbeddedBlock,
   },
 });

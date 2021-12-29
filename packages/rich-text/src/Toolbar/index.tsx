@@ -17,7 +17,7 @@ import { isNodeTypeSelected } from '../helpers/editor';
 import { isNodeTypeEnabled, isMarkEnabled } from '../helpers/validations';
 import { useSdkContext } from '../SdkProvider';
 import { FieldExtensionSDK } from '@contentful/app-sdk';
-import { EmbedEntityWidget } from './EmbedEntityWidget';
+import { EmbedEntityWidget } from './components/EmbedEntityWidget';
 import { useContentfulEditor } from '../ContentfulEditorProvider';
 
 type ToolbarProps = {

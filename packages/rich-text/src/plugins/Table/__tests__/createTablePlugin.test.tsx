@@ -57,7 +57,7 @@ describe('normalization', () => {
                   <htext bold italic underline>
                     quote
                   </htext>
-                  <hinlineEntry id="entry-id" />
+                  <hinline type="Entry" id="entry-id" />
                 </hp>
               </hblockquote>
             </htd>
@@ -80,7 +80,7 @@ describe('normalization', () => {
                 <htext bold italic underline>
                   quote
                 </htext>
-                <hinlineEntry id="entry-id" />
+                <hinline type="Entry" id="entry-id" />
                 <htext />
               </hp>
             </htd>
