@@ -1,15 +1,8 @@
-import { Text, Element, Node } from 'slate';
-import { BLOCKS, INLINES, TEXT_CONTAINERS } from '@contentful/rich-text-types';
-
-const INLINE_TYPES = Object.values(INLINES) as string[];
+import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
+import { INLINE_TYPES } from '../../helpers/editor';
 
 export const isValidTextContainer = (type: string) => {
   return TEXT_CONTAINERS.includes(type as BLOCKS) || INLINE_TYPES.includes(type);
-};
-
-export const isValidParagraphChild = (node: Node) => {
-  // either text or inline elements
-  return Text.isText(node) || (Element.isElement(node) && INLINE_TYPES.includes(node.type));
 };
 
 export function isEmbedElement(element: HTMLElement) {

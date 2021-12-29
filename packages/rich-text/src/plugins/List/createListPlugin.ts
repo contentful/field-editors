@@ -7,10 +7,10 @@ import {
 } from '@udecode/plate-list';
 import { BLOCKS, LIST_ITEM_BLOCKS } from '@contentful/rich-text-types';
 import { RichTextPlugin } from '../../types';
-import { transformText, transformWrapIn } from '../../helpers/transformers';
+import { transformParagraphs, transformWrapIn } from '../../helpers/transformers';
 import { withList } from './withList';
 import {
-  isEmptyListItem,
+  isNonEmptyListItem,
   hasListAsDirectParent,
   insertParagraphAsChild,
   normalizeOrphanedListItem,
@@ -57,12 +57,12 @@ export const createListPlugin = (): RichTextPlugin =>
             transform: normalizeOrphanedListItem,
           },
           {
-            validNode: (editor, entry) => !isEmptyListItem(editor, entry),
+            validNode: isNonEmptyListItem,
             transform: insertParagraphAsChild,
           },
           {
             validChildren: LIST_ITEM_BLOCKS,
-            transform: transformText,
+            transform: transformParagraphs,
           },
         ],
       },

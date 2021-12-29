@@ -16,7 +16,7 @@ import {
   currentSelectionStartsTableCell,
 } from '../../helpers/editor';
 import { RichTextPlugin, CustomElement } from '../../types';
-import { transformText } from '../../helpers/transformers';
+import { transformParagraphs } from '../../helpers/transformers';
 import { Table } from './components/Table';
 import { Row } from './components/Row';
 import { HeaderCell } from './components/HeaderCell';
@@ -95,7 +95,7 @@ export const createTablePlugin = (tracking: TrackingProvider): RichTextPlugin =>
         normalizer: [
           {
             validChildren: CONTAINERS[BLOCKS.TABLE_HEADER_CELL],
-            transform: transformText,
+            transform: transformParagraphs,
           },
         ],
       },
@@ -105,7 +105,7 @@ export const createTablePlugin = (tracking: TrackingProvider): RichTextPlugin =>
         normalizer: [
           {
             validChildren: CONTAINERS[BLOCKS.TABLE_CELL],
-            transform: transformText,
+            transform: transformParagraphs,
           },
         ],
       },

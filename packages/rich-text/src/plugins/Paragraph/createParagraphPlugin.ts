@@ -6,12 +6,8 @@ import { BLOCKS } from '@contentful/rich-text-types';
 import { RichTextPlugin } from '../../types';
 import { Paragraph } from './Paragraph';
 import { transformLift, transformWrapIn } from '../../helpers/transformers';
-import {
-  isValidTextContainer,
-  isValidParagraphChild,
-  isEmbedElement,
-  isEmptyElement,
-} from './utils';
+import { isInlineOrText } from '../../helpers/editor';
+import { isValidTextContainer, isEmbedElement, isEmptyElement } from './utils';
 
 export const createParagraphPlugin = (): RichTextPlugin => {
   const config: Partial<RichTextPlugin> = {
@@ -39,7 +35,7 @@ export const createParagraphPlugin = (): RichTextPlugin => {
     },
     normalizer: [
       {
-        validChildren: (_, [node]) => isValidParagraphChild(node),
+        validChildren: (_, [node]) => isInlineOrText(node),
         transform: transformLift,
       },
       {

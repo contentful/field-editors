@@ -32,10 +32,10 @@ export const normalizeOrphanedListItem = (editor: PlateEditor, [, path]: NodeEnt
   );
 };
 
-export const isEmptyListItem = (editor: PlateEditor, [, path]: NodeEntry) => {
+export const isNonEmptyListItem = (editor: PlateEditor, [, path]: NodeEntry) => {
   const listItemChildren = Array.from(Node.children(editor, path));
 
-  return listItemChildren.length === 0;
+  return listItemChildren.length !== 0;
 };
 
 export const insertParagraphAsChild = (editor: PlateEditor, [, path]: NodeEntry) => {

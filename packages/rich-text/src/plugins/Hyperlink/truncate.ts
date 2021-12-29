@@ -1,4 +1,4 @@
-export function truncate(str, length) {
+export function truncate(str: string, length: number) {
   if (typeof str === 'string' && str.length > length) {
     return (
       str &&
