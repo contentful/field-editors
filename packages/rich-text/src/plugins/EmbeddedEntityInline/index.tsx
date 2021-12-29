@@ -1,5 +1,5 @@
 import * as React from 'react';
-
+import isHotkey from 'is-hotkey';
 import { Transforms } from 'slate';
 import { INLINES } from '@contentful/rich-text-types';
 import { useSelected, ReactEditor, useReadOnly } from 'slate-react';
@@ -15,6 +15,7 @@ import { FetchingWrappedInlineEntryCard } from './FetchingWrappedInlineEntryCard
 import { createInlineEntryNode } from './Util';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { HAS_BEFORE_INPUT_SUPPORT } from '../../helpers/environment';
+import { HotkeyPlugin, KeyboardHandler } from '@udecode/plate-core';
 
 const styles = {
   icon: css({
@@ -158,6 +159,9 @@ export function createEmbeddedEntityInlinePlugin(sdk): RichTextPlugin {
     isInline: true,
     isVoid: true,
     component: EmbeddedEntityInline,
+    options: {
+      hotkey: 'mod+shift+2',
+    },
     handlers: {
       onKeyDown: getWithEmbeddedEntryInlineEvents(sdk),
     },
@@ -173,28 +177,14 @@ export function createEmbeddedEntityInlinePlugin(sdk): RichTextPlugin {
   };
 }
 
-// TODO: DRY up types from embedded entry block and elsewhere
-type TWO = 50;
-type TwoEvent = React.KeyboardEvent & { keyCode: TWO };
-type ShiftEvent = React.KeyboardEvent & { shiftKey: true };
-type CtrlEvent = React.KeyboardEvent & { ctrlKey: true };
-type MetaEvent = React.KeyboardEvent & { metaKey: true };
-type ModEvent = CtrlEvent | MetaEvent;
-type EmbeddedEntryInlineEvent = ModEvent & ShiftEvent & TwoEvent;
-
-const isTwo = (event: React.KeyboardEvent): event is TwoEvent => event.keyCode === 50;
-const isMod = (event: React.KeyboardEvent): event is ModEvent => event.ctrlKey || event.metaKey;
-const isShift = (event: React.KeyboardEvent): event is ShiftEvent => event.shiftKey;
-const wasEmbeddedEntryInlineEventTriggered = (
-  event: React.KeyboardEvent
-): event is EmbeddedEntryInlineEvent => isMod(event) && isShift(event) && isTwo(event);
-
-function getWithEmbeddedEntryInlineEvents(sdk) {
-  return function withEmbeddedEntryInlineEvents(editor) {
+function getWithEmbeddedEntryInlineEvents(
+  sdk: FieldExtensionSDK
+): KeyboardHandler<{}, HotkeyPlugin> {
+  return function withEmbeddedEntryInlineEvents(editor, { options: { hotkey } }) {
     return function handleEvent(event) {
       if (!editor) return;
 
-      if (wasEmbeddedEntryInlineEventTriggered(event)) {
+      if (hotkey && isHotkey(hotkey, event)) {
         selectEntityAndInsert(editor, sdk);
       }
     };

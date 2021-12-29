@@ -1,24 +1,23 @@
 import { Editor, NodeEntry } from 'slate';
-import { WithOverride, match, PlateEditor, getPluginType } from '@udecode/plate-core';
+import { WithOverride, match, getPluginType } from '@udecode/plate-core';
 
 import { RichTextPlugin } from '../../types';
 import { transformRemove } from '../../helpers/transformers';
 import { NormalizerError, createValidatorFromTypes, getChildren } from './utils';
-import { ValidNodeRule, ValidChildrenRule, NormalizationTransformer } from './types';
+import { NormalizerRule, NodeTransformer, NodeValidator } from './types';
 
 export const withNormalizer: WithOverride = (editor) => {
-  const validNodeRules: Required<ValidNodeRule>[] = [];
-  const validChildrenRules: Required<ValidChildrenRule>[] = [];
+  const rules: Required<NormalizerRule>[] = [];
 
   // Drive normalization rules from other plugin's configurations
   for (const p of editor.plugins as RichTextPlugin[]) {
-    const { normalizer: rules } = p;
+    const { normalizer: _rules } = p;
 
-    if (!rules) {
+    if (!_rules) {
       continue;
     }
 
-    for (const _rule of rules) {
+    for (const _rule of _rules) {
       // Clone to avoid mutation bugs
       const rule = { ..._rule };
 
@@ -33,27 +32,23 @@ export const withNormalizer: WithOverride = (editor) => {
         };
       }
 
+      // By default all invalid nodes are removed.
       if (!rule.transform) {
         rule.transform = transformRemove;
       }
 
-      if ('validNode' in rule) {
-        validNodeRules.push(rule as Required<ValidNodeRule>);
+      // Convert Types array syntax to a validator function
+      if ('validChildren' in rule && Array.isArray(rule.validChildren)) {
+        rule.validChildren = createValidatorFromTypes(rule.validChildren);
       }
 
-      if ('validChildren' in rule) {
-        if (Array.isArray(rule.validChildren)) {
-          rule.validChildren = createValidatorFromTypes(rule.validChildren);
-        }
-
-        validChildrenRules.push(rule as Required<ValidChildrenRule>);
-      }
+      rules.push(rule as Required<NormalizerRule>);
     }
   }
 
   // Wrap transformer in a withoutNormalizing() call to avoid unnecessary
   // normalization cycles.
-  const _transform = (tr: NormalizationTransformer, entry: NodeEntry) => {
+  const _transform = (tr: NodeTransformer, entry: NodeEntry) => {
     Editor.withoutNormalizing(editor, () => {
       tr(editor, entry);
     });
@@ -63,37 +58,32 @@ export const withNormalizer: WithOverride = (editor) => {
 
   editor.normalizeNode = (entry) => {
     const [node] = entry;
+    const children = getChildren(editor, entry);
 
-    // 1) Validate Nodes
-    // Normalize nodes before their children to ensure that we have the final
-    // structure before children transformation e.g. turning some into text
-    for (const rule of validNodeRules) {
+    // The order of validNode rules Vs validChildren doesn't matter. Slate
+    // will always perform normalization in a depth-first fashion.
+    for (const rule of rules) {
       if (!match(node, rule.match)) {
         continue;
       }
 
-      if (!rule.validNode(editor, entry)) {
+      // Normalize node
+      if ('validNode' in rule && !rule.validNode(editor, entry)) {
         _transform(rule.transform, entry);
         return;
       }
-    }
 
-    // 2) Validate node's children
-    const children = getChildren(editor, entry);
+      // Normalize node.children
+      if ('validChildren' in rule) {
+        // It can not be an array since we enforced it earlier
+        const isValidChild = rule.validChildren as NodeValidator;
 
-    for (const rule of validChildrenRules) {
-      if (!match(node, rule.match)) {
-        continue;
-      }
+        const invalidChildEntry = children.find((entry) => !isValidChild(editor, entry));
 
-      // It can not be an array since we enforced it earlier
-      const isValidChild = rule.validChildren as (e: PlateEditor, er: NodeEntry) => boolean;
-
-      const invalidChildEntry = children.find((entry) => !isValidChild(editor, entry));
-
-      if (invalidChildEntry) {
-        _transform(rule.transform, invalidChildEntry);
-        return;
+        if (invalidChildEntry) {
+          _transform(rule.transform, invalidChildEntry);
+          return;
+        }
       }
     }
 

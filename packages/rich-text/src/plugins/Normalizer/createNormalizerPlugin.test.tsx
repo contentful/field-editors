@@ -14,7 +14,7 @@ describe('Normalizer', () => {
     <editor>
       <hul>
         <hli>
-          <hassetBlock id="asset-id" />
+          <hembed type="Asset" id="asset-id" />
           <hp>List item</hp>
         </hli>
       </hul>

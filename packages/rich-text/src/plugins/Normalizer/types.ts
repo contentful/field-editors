@@ -1,6 +1,9 @@
 import { NodeEntry } from 'slate';
 import { PlateEditor, NodeMatch } from '@udecode/plate-core';
 
+export type NodeTransformer = (editor: PlateEditor, entry: NodeEntry) => void;
+export type NodeValidator = (editor: PlateEditor, entry: NodeEntry) => boolean;
+
 type BaseRule = {
   /**
    * A helper to return a Node to which valid* rules are applied
@@ -18,16 +21,14 @@ type BaseRule = {
    * `Editor.withoutNormalization()` call to avoid unnecessary
    * normalization cycles.
    */
-  transform?: NormalizationTransformer;
+  transform?: NodeTransformer;
 };
-
-export type NormalizationTransformer = (editor: PlateEditor, entry: NodeEntry) => void;
 
 export type ValidNodeRule = BaseRule & {
   /**
    * Checks if matching Node(s) are valid.
    */
-  validNode: (editor: PlateEditor, entry: NodeEntry) => boolean;
+  validNode: NodeValidator;
 };
 
 export type ValidChildrenRule = BaseRule & {
@@ -37,7 +38,7 @@ export type ValidChildrenRule = BaseRule & {
    * The value can be an array of strings as a shorthand to indicate
    * valid children types.
    */
-  validChildren: ((editor: PlateEditor, entry: NodeEntry) => boolean) | string[];
+  validChildren: NodeValidator | string[];
 };
 
 export type NormalizerRule = ValidNodeRule | ValidChildrenRule;

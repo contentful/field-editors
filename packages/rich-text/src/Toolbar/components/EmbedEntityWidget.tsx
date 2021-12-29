@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 
-import { EmbeddedEntityDropdownButton } from '../plugins/EmbeddedEntity';
-import { ToolbarIcon as EmbeddedEntityBlockToolbarIcon } from '../plugins/EmbeddedEntityBlock';
+import { EmbeddedEntityDropdownButton } from './EmbeddedEntityDropdownButton';
+import { ToolbarIcon as EmbeddedEntityBlockToolbarIcon } from '../../plugins/EmbeddedEntityBlock';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
-import { isNodeTypeEnabled } from '../helpers/validations';
-import { ToolbarEmbeddedEntityInlineButton } from '../plugins/EmbeddedEntityInline';
-import { useSdkContext } from '../SdkProvider';
-import { isLinkActive } from '../helpers/editor';
-import { useContentfulEditor } from '../ContentfulEditorProvider';
+import { isNodeTypeEnabled } from '../../helpers/validations';
+import { ToolbarEmbeddedEntityInlineButton } from '../../plugins/EmbeddedEntityInline';
+import { useSdkContext } from '../../SdkProvider';
+import { isLinkActive } from '../../helpers/editor';
+import { useContentfulEditor } from '../../ContentfulEditorProvider';
 
 export interface EmbedEntityWidgetProps {
   isDisabled?: boolean;
