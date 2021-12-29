@@ -5,7 +5,7 @@ import { BLOCKS } from '@contentful/rich-text-types';
 
 import { RichTextPlugin } from '../../types';
 import { Paragraph } from './Paragraph';
-import { transformUnwrap, transformWrapIn } from '../../helpers/transformers';
+import { transformLift, transformWrapIn } from '../../helpers/transformers';
 import {
   isValidTextContainer,
   isValidParagraphChild,
@@ -40,7 +40,7 @@ export const createParagraphPlugin = (): RichTextPlugin => {
     normalizer: [
       {
         validChildren: (_, [node]) => isValidParagraphChild(node),
-        transform: transformUnwrap,
+        transform: transformLift,
       },
       {
         // Wrap orphaned text nodes in a paragraph

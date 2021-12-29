@@ -52,14 +52,14 @@ describe('normalization', () => {
             </htd>
             <htd>
               <hp>Cell 2</hp>
-              <hblockquote>
+              <hquote>
                 <hp>
                   <htext bold italic underline>
                     quote
                   </htext>
                   <hinline type="Entry" id="entry-id" />
                 </hp>
-              </hblockquote>
+              </hquote>
             </htd>
           </htr>
         </htable>

@@ -16,12 +16,6 @@ export const transformText = (editor: PlateEditor, entry: NodeEntry) => {
   Transforms.insertNodes(editor, textNodes, { at: path });
 };
 
-export const transformUnwrap = (editor: PlateEditor, [, path]: NodeEntry) => {
-  Transforms.unwrapNodes(editor, {
-    at: path,
-  });
-};
-
 export const transformWrapIn =
   (type: BLOCKS | INLINES) =>
   (editor: PlateEditor, [, path]: NodeEntry) => {

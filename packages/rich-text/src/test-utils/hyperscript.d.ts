@@ -16,7 +16,7 @@ declare namespace JSX {
     };
 
     hp: {};
-    hblockquote: {};
+    hquote: {};
     hcode: {};
 
     hh1: {};

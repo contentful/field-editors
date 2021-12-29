@@ -5,25 +5,25 @@ describe('normalization', () => {
   it('lifts invalid children', () => {
     const input = (
       <editor>
-        <hblockquote>
+        <hquote>
           <hp>hello</hp>
           <hembed type="Asset" id="asset-id" />
           <hp>world</hp>
-        </hblockquote>
+        </hquote>
       </editor>
     );
 
     const expected = (
       <editor>
-        <hblockquote>
+        <hquote>
           <hp>hello</hp>
-        </hblockquote>
+        </hquote>
 
         <hembed type="Asset" id="asset-id" />
 
-        <hblockquote>
+        <hquote>
           <hp>world</hp>
-        </hblockquote>
+        </hquote>
 
         <hp>
           <htext />

@@ -60,6 +60,15 @@ const createEmbeddedBlock: Creator = (_, attrs) => {
   };
 };
 
+const createHR: Creator = () => {
+  return {
+    type: BLOCKS.HR,
+    data: {},
+    isVoid: true,
+    children: voidChildren,
+  };
+};
+
 /**
  * Mapping for JSX => Slate Node types
  *
@@ -67,7 +76,7 @@ const createEmbeddedBlock: Creator = (_, attrs) => {
  */
 export const jsx = createHyperscript({
   elements: {
-    hblockquote: { type: BLOCKS.QUOTE, data: {} },
+    hquote: { type: BLOCKS.QUOTE, data: {} },
     hh1: { type: BLOCKS.HEADING_1, data: {} },
     hh2: { type: BLOCKS.HEADING_2, data: {} },
     hh3: { type: BLOCKS.HEADING_3, data: {} },
@@ -85,6 +94,7 @@ export const jsx = createHyperscript({
   },
   creators: {
     hlink: createHyperlink,
+    hhr: createHR,
     htext: createText,
     hcode: createCode,
     hinline: createInline,
