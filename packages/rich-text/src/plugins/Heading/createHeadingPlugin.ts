@@ -1,4 +1,3 @@
-import { Element } from 'slate';
 import { BLOCKS, HEADINGS } from '@contentful/rich-text-types';
 import { onKeyDownToggleElement } from '@udecode/plate-core';
 import { RichTextPlugin } from '../../types';
@@ -35,14 +34,9 @@ export const createHeadingPlugin = (): RichTextPlugin => ({
         type: HEADINGS,
       },
       validChildren: (_, [node]) => isInlineOrText(node),
-      transform: (editor, entry) => {
-        const [node] = entry;
-
-        if (Element.isElement(node) && node.type === BLOCKS.PARAGRAPH) {
-          return transformInlineOrText(editor, entry);
-        }
-
-        return transformLift(editor, entry);
+      transform: {
+        [BLOCKS.PARAGRAPH]: transformInlineOrText,
+        default: transformLift,
       },
     },
   ],

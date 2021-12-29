@@ -1,7 +1,8 @@
 /** @jsx jsx */
-import { BLOCKS } from '@contentful/rich-text-types';
+import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { createNormalizerPlugin } from './createNormalizerPlugin';
 import { jsx, createTestEditor, mockPlugin, assertOutput } from '../../test-utils';
+import { transformWrapIn } from '../../helpers/transformers';
 
 describe('Normalizer', () => {
   const rules = [
@@ -10,16 +11,20 @@ describe('Normalizer', () => {
     },
   ];
 
-  const input = (
-    <editor>
-      <hul>
-        <hli>
-          <hembed type="Asset" id="asset-id" />
-          <hp>List item</hp>
-        </hli>
-      </hul>
-    </editor>
-  );
+  let input: any;
+
+  beforeEach(() => {
+    input = (
+      <editor>
+        <hul>
+          <hli>
+            <hinline type="Entry" id="inline-entry" />
+            <hp>List item</hp>
+          </hli>
+        </hul>
+      </editor>
+    );
+  });
 
   const expected = (
     <editor>
@@ -55,6 +60,91 @@ describe('Normalizer', () => {
           plugins: [mockPlugin({ normalizer: rules }), createNormalizerPlugin()],
         })
       ).toThrow(/rule.match MUST be defined/);
+    });
+  });
+
+  describe('rule.transform', () => {
+    it('can be customized', () => {
+      const { editor } = createTestEditor({
+        input,
+        plugins: [
+          mockPlugin({
+            isElement: true,
+            type: BLOCKS.LIST_ITEM,
+            normalizer: [
+              {
+                validChildren: [BLOCKS.PARAGRAPH],
+                transform: transformWrapIn(BLOCKS.PARAGRAPH),
+              },
+            ],
+          }),
+          createNormalizerPlugin(),
+        ],
+      });
+
+      assertOutput({
+        editor,
+        expected: (
+          <editor>
+            <hul>
+              <hli>
+                <hp>
+                  <hinline type="Entry" id="inline-entry" />
+                </hp>
+                <hp>List item</hp>
+              </hli>
+            </hul>
+          </editor>
+        ),
+      });
+    });
+
+    it('works with conditional transformation', () => {
+      const { editor } = createTestEditor({
+        input: (
+          <editor>
+            <hul>
+              <hli>
+                <hinline type="Entry" id="inline-entry" />
+                <hembed type="Entry" id="embedded-entry" />
+                <hp>List item</hp>
+              </hli>
+            </hul>
+          </editor>
+        ),
+        plugins: [
+          mockPlugin({
+            isElement: true,
+            type: BLOCKS.LIST_ITEM,
+            normalizer: [
+              {
+                validChildren: [BLOCKS.PARAGRAPH],
+                transform: {
+                  [INLINES.EMBEDDED_ENTRY]: transformWrapIn(BLOCKS.PARAGRAPH),
+                  // default: transformRemove
+                },
+              },
+            ],
+          }),
+          createNormalizerPlugin(),
+        ],
+      });
+
+      assertOutput({
+        editor,
+        expected: (
+          <editor>
+            <hul>
+              <hli>
+                <hp>
+                  <hinline type="Entry" id="inline-entry" />
+                </hp>
+                <hp>List item</hp>
+              </hli>
+            </hul>
+          </editor>
+        ),
+      });
     });
   });
 

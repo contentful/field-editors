@@ -1,5 +1,6 @@
 import { PlateEditor } from '@udecode/plate-core';
 import { NodeEntry, Text, Node, Element } from 'slate';
+import { NodeTransformer } from '.';
 
 import { NodeValidator } from './types';
 
@@ -17,4 +18,24 @@ export const getChildren = (editor: PlateEditor, [node, path]: NodeEntry): NodeE
   }
 
   return Array.from(Node.children(editor, path));
+};
+
+export const createTransformerFromObject = (
+  transforms: Record<string, NodeTransformer>
+): NodeTransformer => {
+  // A default transformer must always be provided
+  const fallback = transforms['default'];
+
+  if (!fallback) {
+    throw new NormalizerError('A default transformer MUST be provided');
+  }
+
+  return (editor, entry) => {
+    const [node] = entry;
+    const key = Element.isElement(node) ? node.type : 'default';
+
+    const transformer = transforms[key] || fallback;
+
+    return transformer(editor, entry);
+  };
 };
