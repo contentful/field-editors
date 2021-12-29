@@ -2,18 +2,20 @@ version: 2.1
 
 executors:
   linux-node:
+    resource_class: xlarge
     docker:
       - image: cimg/node:14.17
     environment:
       CYPRESS_INSTALL_BINARY: 0
   linux-cypress:
-    resource_class: large
+    resource_class: xlarge
     docker:
       - image: cypress/browsers:node14.17.0-chrome91-ff89
     environment:
       TZ: UTC
       CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
   linux-cypress-edge:
+    resource_class: xlarge
     docker:
       - image: cypress/browsers:node12.18.4-edge88
 #  macos:
