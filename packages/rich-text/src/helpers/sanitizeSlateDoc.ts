@@ -1,4 +1,4 @@
-import { CustomText, TextOrCustomElement } from 'types';
+import { CustomText, TextOrCustomElement } from '../types';
 
 const isTextElement = (node: TextOrCustomElement): node is CustomText => 'text' in node;
 
