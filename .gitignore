@@ -18,3 +18,4 @@ cypress/screenshots
 cypress/reports
 cypress.env.json
 .vscode/
+.turbo

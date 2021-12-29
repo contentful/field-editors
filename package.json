@@ -12,13 +12,13 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean",
-    "build": "lerna run --concurrency 1 --stream --scope=@contentful/** build",
-    "build:apps": "lerna run --concurrency 1 --stream --scope={'markdown-app,entry-app-collapsible,multiple-references-app,rich-text-app,singleline-app'} build",
+    "build": "turbo run build --scope=@contentful/** --no-deps",
+    "build:apps": "turbo run build --scope=*-app",
     "lint": "eslint ./ --ext .js,.jsx,.ts,.tsx",
     "lint:md": "remark --no-stdout --frail *.md */*.md",
     "watch": "lerna run --stream watch",
-    "tsc": "lerna run --concurrency 1 --stream tsc",
-    "test:ci": "lerna run --concurrency 1 --stream test:ci",
+    "tsc": "turbo run tsc",
+    "test:ci": "turbo run test:ci",
     "test:integration": "start-server-and-test docz:dev http://localhost:9000 cy:run",
     "prettier": "prettier './**/*.{js,jsx,ts,tsx}' --write",
     "cy:open": "TZ=UTC cypress open",
@@ -102,6 +102,7 @@
     "ts-loader": "8.1.0",
     "tsdx": "^0.14.1",
     "tslib": "^2.3.1",
+    "turbo": "^1.0.23",
     "typescript": "^4.4.2",
     "webpack": "4.46.0"
   },
@@ -148,6 +149,24 @@
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-lerna-changelog"
+    }
+  },
+  "turbo": {
+    "pipeline": {
+      "build": {
+        "dependsOn": [
+          "^build"
+        ],
+        "outputs": [
+          "dist/**"
+        ]
+      },
+      "tsc": {
+        "outputs": []
+      },
+      "test:ci": {
+        "outputs": []
+      }
     }
   }
 }
