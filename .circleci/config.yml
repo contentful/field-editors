@@ -25,11 +25,6 @@ executors:
 cache-key: &cache-key
   key: dependency-cache-primary-{{ arch }}-yarn-packages-{{ checksum ".nvmrc" }}-{{ checksum "yarn.lock" }}
 
-# The key for caching Turbo builds. Doesn't guarantee uniqueness as Turbo
-# should take care of invalidating the content by itself.
-turbo-key: &turbo-key
-  key: turbo-cache-{{ arch }}
-
 commands:
   yarn_install:
     steps:
@@ -47,15 +42,6 @@ commands:
           background: true
       - run: yarn wait-on -t 60000 http://localhost:9000
 
-  yarn_build:
-    steps:
-      - restore_cache: *turbo-key
-      - run: yarn build
-      - save_cache:
-          <<: *turbo-key
-          paths:
-            - ./.turbo-cache
-
 jobs:
   lint:
     executor: linux-node
@@ -63,14 +49,14 @@ jobs:
       - checkout
       - yarn_install
       - run: yarn lint
-      - yarn_build
+      - run: yarn build
       - run: yarn tsc
   unit-tests:
     executor: linux-node
     steps:
       - checkout
       - yarn_install
-      - yarn_build
+      - run: yarn build
       - run: yarn test:ci
 
   integration-tests:
@@ -86,7 +72,7 @@ jobs:
     steps:
       - checkout
       - yarn_install
-      - yarn_build
+      - run: yarn build
       - run: yarn docz:build
       - yarn_serve
       - run:
@@ -110,7 +96,7 @@ jobs:
       - run: git config --global user.email "prd-dev-workflows+ecosystem-bot@contentful.com"
       - run: git config --global user.name "contentful-ecosystem-bot"
       - yarn_install
-      - yarn_build
+      - run: yarn build
       - run: yarn lerna version --no-private --conventional-commits --create-release github --yes
       - run: yarn lerna publish from-git --yes
 
