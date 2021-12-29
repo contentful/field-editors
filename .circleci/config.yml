@@ -28,7 +28,7 @@ cache-key: &cache-key
 # The key for caching Turbo builds. Doesn't guarantee uniqueness as Turbo
 # should take care of invalidating the content by itself.
 turbo-key: &turbo-key
-  key: turbo-cache
+  key: turbo
 
 commands:
   yarn_install:
@@ -49,12 +49,12 @@ commands:
 
   yarn_build:
     steps:
-      # - restore_cache: *turbo-key
+      - restore_cache: *turbo-key
       - run: yarn build
-      # - save_cache:
-      #     <<: *turbo-key
-      #     paths:
-      #       - ./node_modules/.cache/turbo
+      - save_cache:
+          <<: *turbo-key
+          paths:
+            - ./.turbo-cache
 
 jobs:
   lint:

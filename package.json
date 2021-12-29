@@ -12,7 +12,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean",
-    "build": "turbo run build --scope=@contentful/** --no-deps",
+    "build": "turbo run build --scope=@contentful/** --no-deps --cache-dir=./.turbo-cache",
     "build:apps": "turbo run build --scope=*-app",
     "lint": "eslint ./ --ext .js,.jsx,.ts,.tsx",
     "lint:md": "remark --no-stdout --frail *.md */*.md",
