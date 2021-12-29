@@ -7,7 +7,7 @@ executors:
     environment:
       CYPRESS_INSTALL_BINARY: 0
   linux-cypress:
-    resource_class: large
+    resource_class: xlarge
     docker:
       - image: cypress/browsers:node14.17.0-chrome91-ff89
     environment:
@@ -24,7 +24,7 @@ cache-key: &cache-key
   key: dependency-cache-primary-{{ arch }}-yarn-packages-{{ checksum ".nvmrc" }}-{{ checksum "yarn.lock" }}
 
 # The key for caching Turbo builds. Doesn't guarantee uniqueness as Turbo
-# should take care of invalidating cache content.
+# should take care of invalidating the content by itself.
 turbo-key: &turbo-key
   key: turbo-cache
 
