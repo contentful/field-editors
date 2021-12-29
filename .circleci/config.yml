@@ -2,12 +2,13 @@ version: 2.1
 
 executors:
   linux-node:
+    resource_class: xlarge
     docker:
       - image: cimg/node:14.17
     environment:
       CYPRESS_INSTALL_BINARY: 0
   linux-cypress:
-    resource_class: xlarge
+    resource_class: large
     docker:
       - image: cypress/browsers:node14.17.0-chrome91-ff89
     environment:
