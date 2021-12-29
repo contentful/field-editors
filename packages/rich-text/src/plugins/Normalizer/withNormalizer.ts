@@ -37,7 +37,7 @@ export const withNormalizer: WithOverride = (editor) => {
         rule.transform = transformRemove;
       }
 
-      // Convert Types array syntax into a validator function
+      // Convert Types array syntax to a validator function
       if ('validChildren' in rule && Array.isArray(rule.validChildren)) {
         rule.validChildren = createValidatorFromTypes(rule.validChildren);
       }
