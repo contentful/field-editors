@@ -1,13 +1,13 @@
 /* eslint-disable mocha/no-setup-in-describe */
 
 import { MARKS, BLOCKS, INLINES } from '@contentful/rich-text-types';
+
 import {
   document as doc,
   block,
   inline,
   text,
 } from '../../../packages/rich-text/src/helpers/nodeFactory';
-
 import { RichTextPage } from './RichTextPage';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
@@ -1271,7 +1271,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           pressEnter();
 
           // inserts paragraph in-between embeds.
-          richText.editor.get('[data-entity-id="example-entity-id"]').last().click();
+          richText.editor.get('[data-entity-id="example-entity-id"]').first().click();
           pressEnter();
 
           richText.expectValue(
@@ -1363,7 +1363,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           pressEnter();
 
           // Press enter on the second asset block
-          richText.editor.click().get('[data-entity-id="example-entity-id"]').last().click();
+          richText.editor.click().get('[data-entity-id="example-entity-id"]').first().click();
           pressEnter();
 
           richText.expectValue(

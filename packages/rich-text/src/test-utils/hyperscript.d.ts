@@ -16,7 +16,7 @@ declare namespace JSX {
     };
 
     hp: {};
-    hblockquote: {};
+    hquote: {};
     hcode: {};
 
     hh1: {};
@@ -29,11 +29,13 @@ declare namespace JSX {
     hinline: {
       type: 'Entry';
       id: string;
+      children?: unknown;
     };
 
     hembed: {
       type: 'Entry' | 'Asset';
       id: string;
+      children?: unknown;
     };
 
     hlink:

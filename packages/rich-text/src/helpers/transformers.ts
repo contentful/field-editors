@@ -2,18 +2,18 @@ import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { PlateEditor } from '@udecode/plate-core';
 import { NodeEntry, Transforms } from 'slate';
 
-import { extractParagraphsAt } from './editor';
+import { extractParagraphs } from './extractNodes';
 
 export const transformRemove = (editor: PlateEditor, [, path]: NodeEntry) => {
   Transforms.removeNodes(editor, { at: path });
 };
 
-export const transformText = (editor: PlateEditor, entry: NodeEntry) => {
+export const transformParagraphs = (editor: PlateEditor, entry: NodeEntry) => {
   const path = entry[1];
-  const textNodes = extractParagraphsAt(editor, path);
+  const nodes = extractParagraphs(editor, path);
 
   transformRemove(editor, entry);
-  Transforms.insertNodes(editor, textNodes, { at: path });
+  Transforms.insertNodes(editor, nodes, { at: path });
 };
 
 export const transformUnwrap = (editor: PlateEditor, [, path]: NodeEntry) => {

@@ -3,8 +3,8 @@ import { PlateEditor } from '@udecode/plate-core';
 import { createEditor as createSlateEditor } from '@udecode/plate-test-utils';
 import { Path } from 'slate';
 
-import { CustomElement } from '../types';
-import { extractParagraphsAt } from './editor';
+import { CustomElement } from '../../types';
+import { extractParagraphs } from '../extractNodes';
 
 const createEditor = (children: CustomElement[]) =>
   createSlateEditor('test-editor', {}, children) as PlateEditor;
@@ -75,7 +75,7 @@ const buildList = (
   ],
 });
 
-describe('slateNodeEntryToText', () => {
+describe('extractParagraphs', () => {
   it('table', () => {
     const table: CustomElement = {
       data: {},
@@ -125,7 +125,7 @@ describe('slateNodeEntryToText', () => {
     const editor = createEditor([table]);
     const path: Path = [0];
 
-    expect(extractParagraphsAt(editor, path)).toEqual([
+    expect(extractParagraphs(editor, path)).toEqual([
       paragraph('header 1'),
       paragraph('header 2'),
       paragraph('cell 1'),
@@ -143,7 +143,7 @@ describe('slateNodeEntryToText', () => {
     const editor = createEditor([blockquote]);
     const path: Path = [0];
 
-    expect(extractParagraphsAt(editor, path)).toEqual([paragraph('text 1'), paragraph('text 2')]);
+    expect(extractParagraphs(editor, path)).toEqual([paragraph('text 1'), paragraph('text 2')]);
   });
 
   it('list - UL', () => {
@@ -151,7 +151,7 @@ describe('slateNodeEntryToText', () => {
     const editor = createEditor([ul]);
     const path: Path = [0];
 
-    expect(extractParagraphsAt(editor, path)).toEqual([
+    expect(extractParagraphs(editor, path)).toEqual([
       paragraph('text 1'),
       paragraph('text 2'),
       paragraph('text 3'),
@@ -163,7 +163,7 @@ describe('slateNodeEntryToText', () => {
     const editor = createEditor([ol]);
     const path: Path = [0];
 
-    expect(extractParagraphsAt(editor, path)).toEqual([
+    expect(extractParagraphs(editor, path)).toEqual([
       paragraph('text 1'),
       paragraph('text 2'),
       paragraph('text 3'),
@@ -183,7 +183,7 @@ describe('slateNodeEntryToText', () => {
     const editor = createEditor([element]);
     const path: Path = [0];
 
-    expect(extractParagraphsAt(editor, path)).toEqual([
+    expect(extractParagraphs(editor, path)).toEqual([
       paragraph('text 1', { bold: true, italic: true }),
       paragraph('text 2', { underline: true, code: true }),
     ]);
@@ -208,7 +208,7 @@ describe('slateNodeEntryToText', () => {
     const editor = createEditor([element]);
     const path: Path = [0];
 
-    expect(extractParagraphsAt(editor, path)).toEqual([paragraphWithLink, paragraph('text 2')]);
+    expect(extractParagraphs(editor, path)).toEqual([paragraphWithLink, paragraph('text 2')]);
   });
 
   it('should preserve embedded inline entries', () => {
@@ -230,6 +230,6 @@ describe('slateNodeEntryToText', () => {
     const editor = createEditor([element]);
     const path: Path = [0];
 
-    expect(extractParagraphsAt(editor, path)).toEqual([paragraphWithEmbedded, paragraph('text 2')]);
+    expect(extractParagraphs(editor, path)).toEqual([paragraphWithEmbedded, paragraph('text 2')]);
   });
 });

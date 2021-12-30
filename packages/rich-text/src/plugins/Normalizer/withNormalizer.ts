@@ -1,13 +1,20 @@
 import { WithOverride, match, getPluginType } from '@udecode/plate-core';
+import isPlainObject from 'is-plain-obj';
 import { Editor, NodeEntry } from 'slate';
 
 import { transformRemove } from '../../helpers/transformers';
 import { RichTextPlugin } from '../../types';
+import { baseRules } from './baseRules';
 import { NormalizerRule, NodeTransformer, NodeValidator } from './types';
-import { NormalizerError, createValidatorFromTypes, getChildren } from './utils';
+import {
+  NormalizerError,
+  createValidatorFromTypes,
+  getChildren,
+  createTransformerFromObject,
+} from './utils';
 
 export const withNormalizer: WithOverride = (editor) => {
-  const rules: Required<NormalizerRule>[] = [];
+  const rules: Required<NormalizerRule>[] = baseRules;
 
   // Drive normalization rules from other plugin's configurations
   for (const p of editor.plugins as RichTextPlugin[]) {
@@ -30,6 +37,26 @@ export const withNormalizer: WithOverride = (editor) => {
         rule.match = {
           type: getPluginType(editor, p.key),
         };
+      }
+
+      // Conditional transformation e.g.
+      // {
+      //   [BLOCKS.EMBEDDED_ASSET]: transformLift,
+      //   default?: transformRemove
+      // }
+      //
+      if (isPlainObject(rule.transform)) {
+        if ('validNode' in rule) {
+          // I can't think of a use case. Disabled to prevent misuse
+          throw new NormalizerError(
+            'conditional transformations are not supported in validNode rules'
+          );
+        }
+
+        rule.transform = createTransformerFromObject({
+          default: transformRemove,
+          ...rule.transform,
+        });
       }
 
       // By default all invalid nodes are removed.
@@ -69,7 +96,7 @@ export const withNormalizer: WithOverride = (editor) => {
 
       // Normalize node
       if ('validNode' in rule && !rule.validNode(editor, entry)) {
-        _transform(rule.transform, entry);
+        _transform(rule.transform as NodeTransformer, entry);
         return;
       }
 
@@ -81,7 +108,7 @@ export const withNormalizer: WithOverride = (editor) => {
         const invalidChildEntry = children.find((entry) => !isValidChild(editor, entry));
 
         if (invalidChildEntry) {
-          _transform(rule.transform, invalidChildEntry);
+          _transform(rule.transform as NodeTransformer, invalidChildEntry);
           return;
         }
       }

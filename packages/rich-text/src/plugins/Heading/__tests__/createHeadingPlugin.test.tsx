@@ -5,13 +5,16 @@ describe('normalization', () => {
   it('can contain inline entries & hyperlinks', () => {
     const input = (
       <editor>
-        <hp>
+        <hh1>
           some text before
           <hinline type="Entry" id="inline-entry" />
           <hlink uri="https://contentful.com" />
           <hlink entry="entry-id" />
           <hlink asset="asset-id" />
           some text after
+        </hh1>
+        <hp>
+          <htext />
         </hp>
       </editor>
     );
@@ -19,65 +22,25 @@ describe('normalization', () => {
     assertOutput({ input, expected: input });
   });
 
-  it('wraps orphaned text nodes in a paragraph', () => {
-    const input = (
-      <editor>
-        <hp>valid text</hp>
-        <hh1>valid text</hh1>
-
-        <htable>
-          <htr>
-            <htd>invalid text</htd>
-          </htr>
-        </htable>
-      </editor>
-    );
-
-    const expected = (
-      <editor>
-        <hp>valid text</hp>
-        <hh1>valid text</hh1>
-
-        <htable>
-          <htr>
-            <htd>
-              <hp>invalid text</hp>
-            </htd>
-          </htr>
-        </htable>
-
-        <hp>
-          <htext />
-        </hp>
-      </editor>
-    );
-
-    assertOutput({ input, expected });
-  });
-
   it('unwraps nested paragraphs', () => {
     const input = (
       <editor>
-        <hp>
-          some
+        <hh1>
+          one{' '}
           <hp>
-            <htext bold italic underline>
-              paragraph
-            </htext>
+            two <hp>three </hp>
           </hp>
-          text
-        </hp>
+          four
+        </hh1>
       </editor>
     );
 
     const expected = (
       <editor>
+        <hh1>one two three four</hh1>
+
         <hp>
-          some
-          <htext bold italic underline>
-            paragraph
-          </htext>
-          text
+          <htext />
         </hp>
       </editor>
     );
@@ -90,43 +53,43 @@ describe('normalization', () => {
       const input = (
         <editor>
           {/* Asset block */}
-          <hp>
+          <hh1>
             <hembed type="Asset" id="1" /> start
-          </hp>
+          </hh1>
 
-          <hp>
+          <hh1>
             end <hembed type="Asset" id="2" />
-          </hp>
+          </hh1>
 
-          <hp>
+          <hh1>
             in <hembed type="Asset" id="3" /> between
-          </hp>
+          </hh1>
 
           {/* Entry block */}
-          <hp>
+          <hh1>
             <hembed type="Entry" id="1" /> start
-          </hp>
+          </hh1>
 
-          <hp>
+          <hh1>
             end <hembed type="Entry" id="2" />
-          </hp>
+          </hh1>
 
-          <hp>
+          <hh1>
             in <hembed type="Entry" id="3" /> between
-          </hp>
+          </hh1>
 
           {/* HR*/}
-          <hp>
+          <hh1>
             <hhr /> start
-          </hp>
+          </hh1>
 
-          <hp>
+          <hh1>
             end <hhr />
-          </hp>
+          </hh1>
 
-          <hp>
+          <hh1>
             in <hhr /> between
-          </hp>
+          </hh1>
         </editor>
       );
 
@@ -134,60 +97,76 @@ describe('normalization', () => {
         <editor>
           {/* Asset block */}
           <hembed type="Asset" id="1" />
-          <hp> start</hp>
+          <hh1> start</hh1>
 
-          <hp>end </hp>
+          <hh1>end </hh1>
           <hembed type="Asset" id="2" />
 
-          <hp>in </hp>
+          <hh1>in </hh1>
           <hembed type="Asset" id="3" />
-          <hp> between</hp>
+          <hh1> between</hh1>
 
           {/* Entry block */}
           <hembed type="Entry" id="1" />
-          <hp> start</hp>
+          <hh1> start</hh1>
 
-          <hp>end </hp>
+          <hh1>end </hh1>
           <hembed type="Entry" id="2" />
 
-          <hp>in </hp>
+          <hh1>in </hh1>
           <hembed type="Entry" id="3" />
-          <hp> between</hp>
+          <hh1> between</hh1>
 
           {/* HR*/}
           <hhr />
-          <hp> start</hp>
+          <hh1> start</hh1>
 
-          <hp>end </hp>
+          <hh1>end </hh1>
           <hhr />
 
-          <hp>in </hp>
+          <hh1>in </hh1>
           <hhr />
-          <hp> between</hp>
+          <hh1> between</hh1>
+
+          <hp>
+            <htext />
+          </hp>
         </editor>
       );
 
       assertOutput({ input, expected });
     });
 
-    it('handles heading', () => {
+    it('nested headings', () => {
       const input = (
         <editor>
-          <hp>
+          <hh1>
             some
-            <hh1>heading</hh1>
+            <hh1>
+              <htext bold italic underline>
+                paragraph
+              </htext>
+            </hh1>
             text
-          </hp>
+          </hh1>
         </editor>
       );
 
       const expected = (
         <editor>
-          <hp>some</hp>
+          <hh1>some</hh1>
 
-          <hh1>heading</hh1>
+          <hh1>
+            <htext bold italic underline>
+              paragraph
+            </htext>
+          </hh1>
 
-          <hp>text</hp>
+          <hh1>text</hh1>
+
+          <hp>
+            <htext />
+          </hp>
         </editor>
       );
 
@@ -197,25 +176,29 @@ describe('normalization', () => {
     it('handles quotes', () => {
       const input = (
         <editor>
-          <hp>
+          <hh1>
             some
             <hquote>
               <hp>quote</hp>
             </hquote>
             text
-          </hp>
+          </hh1>
         </editor>
       );
 
       const expected = (
         <editor>
-          <hp>some</hp>
+          <hh1>some</hh1>
 
           <hquote>
             <hp>quote</hp>
           </hquote>
 
-          <hp>text</hp>
+          <hh1>text</hh1>
+
+          <hp>
+            <htext />
+          </hp>
         </editor>
       );
 
@@ -225,7 +208,7 @@ describe('normalization', () => {
     it('handles lists', () => {
       const input = (
         <editor>
-          <hp>
+          <hh1>
             some
             <hul>
               <hli>
@@ -233,13 +216,13 @@ describe('normalization', () => {
               </hli>
             </hul>
             text
-          </hp>
+          </hh1>
         </editor>
       );
 
       const expected = (
         <editor>
-          <hp>some</hp>
+          <hh1>some</hh1>
 
           <hul>
             <hli>
@@ -247,7 +230,11 @@ describe('normalization', () => {
             </hli>
           </hul>
 
-          <hp>text</hp>
+          <hh1>text</hh1>
+
+          <hp>
+            <htext />
+          </hp>
         </editor>
       );
 
@@ -257,7 +244,7 @@ describe('normalization', () => {
     it('handles tables', () => {
       const input = (
         <editor>
-          <hp>
+          <hh1>
             some
             <htable>
               <htr>
@@ -270,13 +257,13 @@ describe('normalization', () => {
               </htr>
             </htable>
             text
-          </hp>
+          </hh1>
         </editor>
       );
 
       const expected = (
         <editor>
-          <hp>some</hp>
+          <hh1>some</hh1>
 
           <htable>
             <htr>
@@ -289,7 +276,11 @@ describe('normalization', () => {
             </htr>
           </htable>
 
-          <hp>text</hp>
+          <hh1>text</hh1>
+
+          <hp>
+            <htext />
+          </hp>
         </editor>
       );
 

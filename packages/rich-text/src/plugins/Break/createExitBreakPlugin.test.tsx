@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import { ExitBreakRule, KEY_EXIT_BREAK } from '@udecode/plate-break';
-import { isFirstChild } from '@udecode/plate-core';
+import { ExitBreakRule } from '@udecode/plate-break';
+import { KEY_EXIT_BREAK } from '@udecode/plate-break';
 
-import { isRootLevel } from '../../helpers/editor';
 import { jsx, createTestEditor, mockPlugin } from '../../test-utils';
 import { createExitBreakPlugin } from './createExitBreakPlugin';
 
 describe('Exit Break', () => {
+  // https://slate-js.slack.com/archives/C013QHXSCG1/p1640853996467300
   it('drives its config from other plugins', () => {
     const input = (
       <editor>
@@ -17,21 +17,6 @@ describe('Exit Break', () => {
     );
 
     const rules: ExitBreakRule[] = [
-      {
-        hotkey: 'enter',
-        before: true,
-        query: {
-          filter: ([node, path]) => isRootLevel(path) && isFirstChild(path) && !!node.isVoid,
-        },
-      },
-      // Can insert after a void block
-      {
-        hotkey: 'enter',
-        query: {
-          filter: ([node, path]) => !isFirstChild(path) && !!node.isVoid,
-        },
-        before: true,
-      },
       {
         hotkey: 'enter',
         query: {
@@ -48,13 +33,13 @@ describe('Exit Break', () => {
         mockPlugin({}),
 
         mockPlugin({
-          exitBreak: [rules[2]],
+          exitBreak: rules,
         }),
         createExitBreakPlugin(),
       ],
     });
 
     const outPlugin = editor.pluginsByKey[KEY_EXIT_BREAK];
-    expect(JSON.stringify(outPlugin.options)).toEqual(JSON.stringify({ rules }));
+    expect(outPlugin.options).toEqual({ rules: expect.arrayContaining(rules) });
   });
 });

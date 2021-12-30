@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx, assertOutput } from '../../../test-utils';
 
-describe('List normalizers', () => {
+describe('normalization', () => {
   it('wraps orphaned list items in a list', () => {
     const input = (
       <editor>
@@ -62,20 +62,18 @@ describe('List normalizers', () => {
         <hul>
           <hli>
             <hp>Item</hp>
-            <htable>
-              <htr>
-                <htd>
-                  <hp>
-                    <htext bold>bold text</htext>
-                  </hp>
-                </htd>
-                <htd>
-                  <hp>
-                    Take a look at this <hlink uri="https://google.com">link</hlink>
-                  </hp>
-                </htd>
-              </htr>
-            </htable>
+
+            <htd>
+              <hp>
+                <htext bold>bold text</htext>
+              </hp>
+            </htd>
+
+            <htd>
+              <hp>
+                Take a look at this <hlink uri="https://google.com">link</hlink>
+              </hp>
+            </htd>
           </hli>
         </hul>
         <hp />
@@ -87,9 +85,11 @@ describe('List normalizers', () => {
         <hul>
           <hli>
             <hp>Item</hp>
+
             <hp>
               <htext bold>bold text</htext>
             </hp>
+
             <hp>
               Take a look at this <hlink uri="https://google.com">link</hlink>
               <htext />
