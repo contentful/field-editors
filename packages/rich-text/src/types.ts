@@ -1,9 +1,9 @@
-import { RenderElementProps } from 'slate-react';
-import { PlatePlugin } from '@udecode/plate-core';
 import { MARKS } from '@contentful/rich-text-types';
+import { PlatePlugin } from '@udecode/plate-core';
+import { RenderElementProps } from 'slate-react';
 
-import type { NormalizerRule } from './plugins/Normalizer';
 import type { SoftBreakRule, ExitBreakRule } from './plugins/Break';
+import type { NormalizerRule } from './plugins/Normalizer';
 
 export type CustomText = {
   text: string;

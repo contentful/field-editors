@@ -1,9 +1,9 @@
 /* eslint-disable you-dont-need-lodash-underscore/find */
+import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { BLOCKS, INLINES, TOP_LEVEL_BLOCKS } from '@contentful/rich-text-types';
 import find from 'lodash/find';
 import flow from 'lodash/flow';
 import get from 'lodash/get';
-import { BLOCKS, INLINES, TOP_LEVEL_BLOCKS } from '@contentful/rich-text-types';
-import { FieldExtensionSDK } from '@contentful/app-sdk';
 
 // TODO: Move these into separate package (maybe rich-text-types) and share with FE.
 export const VALIDATIONS = {

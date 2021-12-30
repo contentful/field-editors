@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import constate from 'constate';
 
 export type RichTextTrackingActionName =

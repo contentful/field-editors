@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { INLINES } from '@contentful/rich-text-types';
+
 import {
   TextLink,
   Button,
@@ -11,20 +11,22 @@ import {
   ModalContent,
   ModalControls,
 } from '@contentful/f36-components';
-import { ModalDialogLauncher, FieldExtensionSDK } from '@contentful/field-editor-shared';
-import { PlateEditor } from '@udecode/plate-core';
-import { Editor, Transforms } from 'slate';
-import { ReactEditor } from 'slate-react';
-import { HistoryEditor } from 'slate-history';
+import tokens from '@contentful/f36-tokens';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { Link } from '@contentful/field-editor-reference/dist/types';
+import { ModalDialogLauncher, FieldExtensionSDK } from '@contentful/field-editor-shared';
+import { INLINES } from '@contentful/rich-text-types';
+import { PlateEditor } from '@udecode/plate-core';
 import { css } from 'emotion';
-import tokens from '@contentful/f36-tokens';
+import { Editor, Transforms } from 'slate';
+import { HistoryEditor } from 'slate-history';
+import { ReactEditor } from 'slate-react';
+
 import { getNodeEntryFromSelection, insertLink, LINK_TYPES } from '../../helpers/editor';
-import { FetchingWrappedEntryCard } from '../shared/FetchingWrappedEntryCard';
-import { FetchingWrappedAssetCard } from '../shared/FetchingWrappedAssetCard';
 import getLinkedContentTypeIdsForNodeType from '../../helpers/getLinkedContentTypeIdsForNodeType';
 import { isNodeTypeEnabled } from '../../helpers/validations';
+import { FetchingWrappedAssetCard } from '../shared/FetchingWrappedAssetCard';
+import { FetchingWrappedEntryCard } from '../shared/FetchingWrappedEntryCard';
 
 const styles = {
   removeSelectionLabel: css`

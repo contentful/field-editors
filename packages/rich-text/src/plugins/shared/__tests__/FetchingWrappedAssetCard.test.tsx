@@ -1,10 +1,11 @@
 import React from 'react';
-import { render, configure, waitFor, fireEvent } from '@testing-library/react';
+
 import { EntityProvider } from '@contentful/field-editor-reference';
+import { render, configure, waitFor, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 
-import { FetchingWrappedAssetCard } from '../FetchingWrappedAssetCard';
 import publishedAsset from '../__fixtures__/published_asset.json';
+import { FetchingWrappedAssetCard } from '../FetchingWrappedAssetCard';
 
 configure({
   testIdAttribute: 'data-test-id',

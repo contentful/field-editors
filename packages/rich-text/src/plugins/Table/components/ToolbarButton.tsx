@@ -1,11 +1,12 @@
 import * as React from 'react';
-import * as Slate from 'slate-react';
+
 import { TableIcon } from '@contentful/f36-icons';
-import { ToolbarButton } from '../../shared/ToolbarButton';
+import * as Slate from 'slate-react';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
-import { insertTableAndFocusFirstCell, isTableActive } from './../helpers';
 import { useTrackingContext } from '../../../TrackingProvider';
+import { ToolbarButton } from '../../shared/ToolbarButton';
+import { insertTableAndFocusFirstCell, isTableActive } from './../helpers';
 
 export interface ToolbarTableButtonProps {
   isDisabled: boolean | undefined;

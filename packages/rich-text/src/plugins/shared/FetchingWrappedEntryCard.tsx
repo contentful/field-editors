@@ -1,9 +1,11 @@
 import * as React from 'react';
+
+import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { EntryCard, MenuItem } from '@contentful/f36-components';
 import { useEntities, MissingEntityCard, AssetThumbnail } from '@contentful/field-editor-reference';
-import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { entityHelpers, File, isValidImage } from '@contentful/field-editor-shared';
 import { css } from 'emotion';
+
 import { EntityStatusIcon } from './EntityStatusIcon';
 
 const styles = {

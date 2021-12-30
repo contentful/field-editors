@@ -1,28 +1,29 @@
 import React, { useCallback, useState } from 'react';
-import noop from 'lodash/noop';
+
+import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { toContentfulDocument, toSlatejsDocument } from '@contentful/contentful-slatejs-adapter';
-import * as Contentful from '@contentful/rich-text-types';
 import { EntityProvider } from '@contentful/field-editor-reference';
+import { FieldConnector } from '@contentful/field-editor-shared';
+import * as Contentful from '@contentful/rich-text-types';
+import { Plate } from '@udecode/plate-core';
 import { css, cx } from 'emotion';
 import deepEquals from 'fast-deep-equal';
-import { Plate } from '@udecode/plate-core';
-import { FieldExtensionSDK } from '@contentful/app-sdk';
-import { FieldConnector } from '@contentful/field-editor-shared';
+import noop from 'lodash/noop';
 
-import { styles } from './RichTextEditor.styles';
 import schema from './constants/Schema';
+import { ContentfulEditorProvider, getContentfulEditorId } from './ContentfulEditorProvider';
+import { sanitizeIncomingSlateDoc } from './helpers/sanitizeSlateDoc';
+import { getPlugins } from './plugins';
+import { styles } from './RichTextEditor.styles';
+import { SdkProvider } from './SdkProvider';
 import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/components/StickyToolbarWrapper';
-import { SdkProvider } from './SdkProvider';
 import {
   RichTextTrackingActionHandler,
   TrackingProvider,
   useTrackingContext,
 } from './TrackingProvider';
-import { sanitizeIncomingSlateDoc } from './helpers/sanitizeSlateDoc';
 import { TextOrCustomElement } from './types';
-import { ContentfulEditorProvider, getContentfulEditorId } from './ContentfulEditorProvider';
-import { getPlugins } from './plugins';
 
 type ConnectedProps = {
   sdk: FieldExtensionSDK;

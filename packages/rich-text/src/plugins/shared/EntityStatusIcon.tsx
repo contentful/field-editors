@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { Entry, Asset } from '@contentful/field-editor-shared';
-import { useEntities, ScheduledIconWithTooltip } from '@contentful/field-editor-reference';
+
 import { ClockIcon } from '@contentful/f36-icons';
-import { css } from 'emotion';
 import tokens from '@contentful/f36-tokens';
+import { useEntities, ScheduledIconWithTooltip } from '@contentful/field-editor-reference';
+import { Entry, Asset } from '@contentful/field-editor-shared';
+import { css } from 'emotion';
 
 const styles = {
   scheduleIcon: css({

@@ -1,10 +1,10 @@
-import { Editor, NodeEntry } from 'slate';
 import { WithOverride, match, getPluginType } from '@udecode/plate-core';
+import { Editor, NodeEntry } from 'slate';
 
-import { RichTextPlugin } from '../../types';
 import { transformRemove } from '../../helpers/transformers';
-import { NormalizerError, createValidatorFromTypes, getChildren } from './utils';
+import { RichTextPlugin } from '../../types';
 import { NormalizerRule, NodeTransformer, NodeValidator } from './types';
+import { NormalizerError, createValidatorFromTypes, getChildren } from './utils';
 
 export const withNormalizer: WithOverride = (editor) => {
   const rules: Required<NormalizerRule>[] = [];
