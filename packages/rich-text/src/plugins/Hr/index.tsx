@@ -1,13 +1,14 @@
 import * as React from 'react';
-import * as Slate from 'slate-react';
-import { css, cx } from 'emotion';
-import tokens from '@contentful/f36-tokens';
+
 import { HorizontalRuleIcon } from '@contentful/f36-icons';
-import { ToolbarButton } from '../shared/ToolbarButton';
-import { Transforms } from 'slate';
+import tokens from '@contentful/f36-tokens';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { PlateEditor } from '@udecode/plate-core';
-import { getText, setNodes } from '@udecode/plate-core';
+import { PlateEditor, getText, setNodes } from '@udecode/plate-core';
+import { css, cx } from 'emotion';
+import { Transforms } from 'slate';
+import * as Slate from 'slate-react';
+
+import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import {
   getNodeEntryFromSelection,
   isBlockSelected,
@@ -15,8 +16,8 @@ import {
   shouldUnwrapBlockquote,
   unwrapFromRoot,
 } from '../../helpers/editor';
-import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { RichTextPlugin } from '../../types';
+import { ToolbarButton } from '../shared/ToolbarButton';
 
 const styles = {
   container: css`

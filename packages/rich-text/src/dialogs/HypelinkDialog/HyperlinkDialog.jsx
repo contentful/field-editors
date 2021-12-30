@@ -1,10 +1,4 @@
 import React from 'react';
-import { css } from 'emotion';
-import PropTypes from 'prop-types';
-import tokens from '@contentful/f36-tokens';
-import { EntityProvider } from '@contentful/field-editor-reference';
-import { FetchingWrappedEntryCard } from '../../plugins/shared/FetchingWrappedEntryCard';
-import { FetchingWrappedAssetCard } from '../../plugins/shared/FetchingWrappedAssetCard';
 
 import {
   TextLink,
@@ -17,6 +11,13 @@ import {
   ModalContent,
   ModalControls,
 } from '@contentful/f36-components';
+import tokens from '@contentful/f36-tokens';
+import { EntityProvider } from '@contentful/field-editor-reference';
+import { css } from 'emotion';
+import PropTypes from 'prop-types';
+
+import { FetchingWrappedAssetCard } from '../../plugins/shared/FetchingWrappedAssetCard';
+import { FetchingWrappedEntryCard } from '../../plugins/shared/FetchingWrappedEntryCard';
 
 export const LINK_TYPES = {
   URI: 'uri',

@@ -1,11 +1,10 @@
 /** @jsx jsx */
-import { ExitBreakRule } from '@udecode/plate-break';
+import { ExitBreakRule, KEY_EXIT_BREAK } from '@udecode/plate-break';
 import { isFirstChild } from '@udecode/plate-core';
-import { KEY_EXIT_BREAK } from '@udecode/plate-break';
 
+import { isRootLevel } from '../../helpers/editor';
 import { jsx, createTestEditor, mockPlugin } from '../../test-utils';
 import { createExitBreakPlugin } from './createExitBreakPlugin';
-import { isRootLevel } from '../../helpers/editor';
 
 describe('Exit Break', () => {
   it('drives its config from other plugins', () => {

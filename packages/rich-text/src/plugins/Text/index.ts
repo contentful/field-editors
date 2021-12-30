@@ -1,7 +1,7 @@
+import { TEXT_CONTAINERS, BLOCKS } from '@contentful/rich-text-types';
+import { isAncestorEmpty } from '@udecode/plate-core';
 import { Editor, Ancestor, Transforms } from 'slate';
 
-import { isAncestorEmpty } from '@udecode/plate-core';
-import { TEXT_CONTAINERS, BLOCKS } from '@contentful/rich-text-types';
 import { RichTextPlugin, CustomElement } from '../../types';
 
 // TODO: move the logic to the appropriate element plugin(s)

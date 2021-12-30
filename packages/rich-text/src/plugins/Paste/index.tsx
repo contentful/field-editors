@@ -1,7 +1,8 @@
 import { PlateEditor } from '@udecode/plate-core';
-import * as sanitizers from './sanitizers';
 import flow from 'lodash/flow';
+
 import { RichTextPlugin } from '../../types';
+import * as sanitizers from './sanitizers';
 
 const MIME_TYPE_HTML = 'text/html';
 

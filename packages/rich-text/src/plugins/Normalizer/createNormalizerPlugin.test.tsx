@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { BLOCKS } from '@contentful/rich-text-types';
-import { createNormalizerPlugin } from './createNormalizerPlugin';
+
 import { jsx, createTestEditor, mockPlugin, assertOutput } from '../../test-utils';
+import { createNormalizerPlugin } from './createNormalizerPlugin';
 
 describe('Normalizer', () => {
   const rules = [

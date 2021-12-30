@@ -1,10 +1,12 @@
 import * as React from 'react';
+
+import { getScheduleTooltipContent } from '@contentful/field-editor-reference';
 import {
   ContentEntityType as EntityType,
   ScheduledAction,
 } from '@contentful/field-editor-reference/dist/types';
 import { entityHelpers, Entry, Asset, FieldExtensionSDK } from '@contentful/field-editor-shared';
-import { getScheduleTooltipContent } from '@contentful/field-editor-reference';
+
 import { truncate } from '../../helpers/truncate';
 
 function getEntityInfo({

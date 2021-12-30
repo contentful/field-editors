@@ -1,11 +1,11 @@
-import { Text } from 'slate';
+import { BLOCKS } from '@contentful/rich-text-types';
 import { getParent } from '@udecode/plate-core';
 import { createParagraphPlugin as createDefaultParagraphPlugin } from '@udecode/plate-paragraph';
-import { BLOCKS } from '@contentful/rich-text-types';
+import { Text } from 'slate';
 
+import { transformUnwrap, transformWrapIn } from '../../helpers/transformers';
 import { RichTextPlugin } from '../../types';
 import { Paragraph } from './Paragraph';
-import { transformUnwrap, transformWrapIn } from '../../helpers/transformers';
 import {
   isValidTextContainer,
   isValidParagraphChild,

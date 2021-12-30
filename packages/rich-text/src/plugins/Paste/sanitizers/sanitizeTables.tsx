@@ -1,4 +1,5 @@
 import { BLOCKS } from '@contentful/rich-text-types';
+
 import { getNodeEntryFromSelection } from '../../../helpers/editor';
 import { isHTMLElement, removeChildNodesUsingPredicate, SanitizerTuple } from './helpers';
 

@@ -1,5 +1,11 @@
-import { Transforms, Path, Editor, Ancestor } from 'slate';
-import { PlateEditor } from '@udecode/plate-core';
+import { BLOCKS } from '@contentful/rich-text-types';
+import {
+  PlateEditor,
+  getAbove,
+  getChildren,
+  isFirstChild,
+  isAncestorEmpty,
+} from '@udecode/plate-core';
 import {
   ELEMENT_TABLE,
   ELEMENT_TH,
@@ -7,8 +13,7 @@ import {
   ELEMENT_TR,
   insertTable,
 } from '@udecode/plate-table';
-import { getAbove, getChildren, isFirstChild, isAncestorEmpty } from '@udecode/plate-core';
-import { BLOCKS } from '@contentful/rich-text-types';
+import { Transforms, Path, Editor, Ancestor } from 'slate';
 
 import { isBlockSelected, getAncestorPathFromSelection } from '../../helpers/editor';
 import { CustomElement } from '../../types';

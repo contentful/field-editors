@@ -1,20 +1,22 @@
 import * as React from 'react';
-import isHotkey from 'is-hotkey';
-import { AnyObject, KeyboardHandler, HotkeyPlugin } from '@udecode/plate-core';
-import { useReadOnly } from 'slate-react';
-import { INLINES } from '@contentful/rich-text-types';
-import { Tooltip, TextLink } from '@contentful/f36-components';
-import { EntryAssetTooltip } from './EntryAssetTooltip';
-import { LinkIcon } from '@contentful/f36-icons';
-import { ToolbarButton } from '../shared/ToolbarButton';
-import { css } from 'emotion';
-import tokens from '@contentful/f36-tokens';
+
 import { FieldExtensionSDK, Link, ContentEntityType as EntityType } from '@contentful/app-sdk';
-import { RichTextPlugin, CustomRenderElementProps, CustomElement } from '../../types';
-import { useSdkContext } from '../../SdkProvider';
-import { addOrEditLink } from './HyperlinkModal';
-import { isLinkActive, unwrapLink } from '../../helpers/editor';
+import { Tooltip, TextLink } from '@contentful/f36-components';
+import { LinkIcon } from '@contentful/f36-icons';
+import tokens from '@contentful/f36-tokens';
+import { INLINES } from '@contentful/rich-text-types';
+import { AnyObject, KeyboardHandler, HotkeyPlugin } from '@udecode/plate-core';
+import { css } from 'emotion';
+import isHotkey from 'is-hotkey';
+import { useReadOnly } from 'slate-react';
+
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
+import { isLinkActive, unwrapLink } from '../../helpers/editor';
+import { useSdkContext } from '../../SdkProvider';
+import { RichTextPlugin, CustomRenderElementProps, CustomElement } from '../../types';
+import { ToolbarButton } from '../shared/ToolbarButton';
+import { EntryAssetTooltip } from './EntryAssetTooltip';
+import { addOrEditLink } from './HyperlinkModal';
 
 const styles = {
   hyperlinkWrapper: css({

@@ -1,8 +1,9 @@
-import { css } from 'emotion';
 import * as React from 'react';
-import * as Slate from 'slate-react';
+
 import tokens from '@contentful/f36-tokens';
 import { TableCell } from '@contentful/rich-text-types';
+import { css } from 'emotion';
+import * as Slate from 'slate-react';
 
 import { TableActions } from './TableActions';
 

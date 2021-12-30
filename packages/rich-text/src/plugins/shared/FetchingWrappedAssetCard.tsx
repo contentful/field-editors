@@ -1,12 +1,13 @@
 import * as React from 'react';
-import { AssetCard, AssetType, Menu, Text, Notification } from '@contentful/f36-components';
-import { useEntities, MissingEntityCard } from '@contentful/field-editor-reference';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { AssetCard, AssetType, Menu, Text, Notification } from '@contentful/f36-components';
+import { useEntities, MissingEntityCard } from '@contentful/field-editor-reference';
 import { entityHelpers, File, shortenStorageUnit } from '@contentful/field-editor-shared';
 import mimetype from '@contentful/mimetype';
 import { css } from 'emotion';
 import get from 'lodash/get';
+
 import { EntityStatusIcon } from './EntityStatusIcon';
 
 const styles = {

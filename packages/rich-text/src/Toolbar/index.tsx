@@ -1,24 +1,26 @@
 import React from 'react';
-import tokens from '@contentful/f36-tokens';
-import { css } from 'emotion';
+
+import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { Flex } from '@contentful/f36-components';
-import { ToolbarHrButton } from '../plugins/Hr';
+import tokens from '@contentful/f36-tokens';
+import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types';
+import { css } from 'emotion';
+
+import { useContentfulEditor } from '../ContentfulEditorProvider';
+import { isNodeTypeSelected } from '../helpers/editor';
+import { isNodeTypeEnabled, isMarkEnabled } from '../helpers/validations';
 import { ToolbarHeadingButton } from '../plugins/Heading';
-import { ToolbarQuoteButton } from '../plugins/Quote';
+import { ToolbarHrButton } from '../plugins/Hr';
+import { ToolbarHyperlinkButton } from '../plugins/Hyperlink';
 import { ToolbarListButton } from '../plugins/List';
 import { ToolbarBoldButton } from '../plugins/Marks/Bold';
 import { ToolbarCodeButton } from '../plugins/Marks/Code';
 import { ToolbarItalicButton } from '../plugins/Marks/Italic';
 import { ToolbarUnderlineButton } from '../plugins/Marks/Underline';
-import { ToolbarHyperlinkButton } from '../plugins/Hyperlink';
+import { ToolbarQuoteButton } from '../plugins/Quote';
 import { ToolbarTableButton } from '../plugins/Table';
-import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types';
-import { isNodeTypeSelected } from '../helpers/editor';
-import { isNodeTypeEnabled, isMarkEnabled } from '../helpers/validations';
 import { useSdkContext } from '../SdkProvider';
-import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { EmbedEntityWidget } from './components/EmbedEntityWidget';
-import { useContentfulEditor } from '../ContentfulEditorProvider';
 
 type ToolbarProps = {
   isDisabled?: boolean;

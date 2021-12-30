@@ -1,5 +1,6 @@
 import { BLOCKS, CONTAINERS } from '@contentful/rich-text-types';
 import { onKeyDownToggleElement } from '@udecode/plate-core';
+
 import { transformLift } from '../../helpers/transformers';
 import { RichTextPlugin } from '../../types';
 import { Quote } from './components/Quote';

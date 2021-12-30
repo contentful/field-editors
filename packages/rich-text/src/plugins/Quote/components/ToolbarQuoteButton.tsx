@@ -1,11 +1,12 @@
 import * as React from 'react';
-import * as Slate from 'slate-react';
-import { QuoteIcon } from '@contentful/f36-icons';
-import { ToolbarButton } from '../../shared/ToolbarButton';
-import { BLOCKS } from '@contentful/rich-text-types';
-import { isBlockSelected } from '../../../helpers/editor';
-import { useContentfulEditor } from '../../../ContentfulEditorProvider';
 
+import { QuoteIcon } from '@contentful/f36-icons';
+import { BLOCKS } from '@contentful/rich-text-types';
+import * as Slate from 'slate-react';
+
+import { useContentfulEditor } from '../../../ContentfulEditorProvider';
+import { isBlockSelected } from '../../../helpers/editor';
+import { ToolbarButton } from '../../shared/ToolbarButton';
 import { createBlockQuote } from '../utils';
 
 export interface ToolbarQuoteButtonProps {

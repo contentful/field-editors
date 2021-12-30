@@ -1,5 +1,5 @@
-import { Element } from 'slate';
 import { PlateEditor, setNodes } from '@udecode/plate-core';
+import { Element } from 'slate';
 
 /**
  * Sets empty node.data attributes. Helpful when testing against

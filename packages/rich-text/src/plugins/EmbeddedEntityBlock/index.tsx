@@ -1,14 +1,16 @@
-import isHotkey from 'is-hotkey';
 import { KeyboardEvent } from 'react';
+
+import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { KeyboardHandler, HotkeyPlugin } from '@udecode/plate-core';
+import isHotkey from 'is-hotkey';
+import noop from 'lodash/noop';
 import { Transforms } from 'slate';
+
 import { getNodeEntryFromSelection } from '../../helpers/editor';
 import { RichTextPlugin, CustomElement } from '../../types';
 import { LinkedEntityBlock } from './LinkedEntityBlock';
 import { selectEntityAndInsert } from './Util';
-import { FieldExtensionSDK } from '@contentful/app-sdk';
-import noop from 'lodash/noop';
 
 export { EmbeddedEntityBlockToolbarIcon as ToolbarIcon } from './ToolbarIcon';
 

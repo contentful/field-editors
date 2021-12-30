@@ -1,13 +1,15 @@
 import React from 'react';
+
 import { css } from 'emotion';
-import { FetchingWrappedEntryCard } from '../shared/FetchingWrappedEntryCard';
-import { FetchingWrappedAssetCard } from '../shared/FetchingWrappedAssetCard';
-import { useSdkContext } from '../../SdkProvider';
-import { CustomRenderElementProps } from '../../types';
-import { ReactEditor, useSelected, useReadOnly } from 'slate-react';
 import { Transforms } from 'slate';
+import { ReactEditor, useSelected, useReadOnly } from 'slate-react';
+
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { HAS_BEFORE_INPUT_SUPPORT } from '../../helpers/environment';
+import { useSdkContext } from '../../SdkProvider';
+import { CustomRenderElementProps } from '../../types';
+import { FetchingWrappedAssetCard } from '../shared/FetchingWrappedAssetCard';
+import { FetchingWrappedEntryCard } from '../shared/FetchingWrappedEntryCard';
 
 const styles = {
   root: css({

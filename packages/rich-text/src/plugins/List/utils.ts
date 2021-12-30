@@ -1,7 +1,6 @@
-import { NodeEntry, Transforms, Path, Node } from 'slate';
-import { PlateEditor } from '@udecode/plate-core';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { getAbove, getParent } from '@udecode/plate-core';
+import { PlateEditor, getAbove, getParent } from '@udecode/plate-core';
+import { NodeEntry, Transforms, Path, Node } from 'slate';
 
 import { CustomElement } from '../../types';
 
