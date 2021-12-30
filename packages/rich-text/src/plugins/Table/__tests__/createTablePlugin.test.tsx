@@ -93,7 +93,7 @@ describe('normalization', () => {
       assertOutput({ input, expected });
     });
 
-    it('removes nodes not wrapped in table-row', () => {
+    it('removes invalid children', () => {
       const input = (
         <editor>
           <htable>

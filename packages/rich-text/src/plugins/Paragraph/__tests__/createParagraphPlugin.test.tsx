@@ -86,7 +86,7 @@ describe('normalization', () => {
   });
 
   describe('lifts other invalid children', () => {
-    it('void elements', () => {
+    it('block void elements', () => {
       const input = (
         <editor>
           {/* Asset block */}
