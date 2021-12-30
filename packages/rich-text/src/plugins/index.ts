@@ -22,6 +22,7 @@ import { createDragAndDropPlugin } from './DragAndDrop';
 import { createTextPlugin } from './Text';
 import { RichTextPlugin } from '../types';
 import { createNormalizerPlugin } from './Normalizer';
+import { createVoidsPlugin } from './Voids';
 
 export const getPlugins = (
   sdk: FieldExtensionSDK,
@@ -53,6 +54,7 @@ export const getPlugins = (
   // Other
   createTrailingParagraphPlugin(),
   createTextPlugin(),
+  createVoidsPlugin(),
 
   // These plugins drive their configurations from the list of plugins
   // above. They MUST come last.
