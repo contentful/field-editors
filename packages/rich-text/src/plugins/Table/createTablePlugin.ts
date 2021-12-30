@@ -1,6 +1,6 @@
 import { Transforms } from 'slate';
 import { BLOCKS, CONTAINERS } from '@contentful/rich-text-types';
-import { HotkeyPlugin, KeyboardHandler } from '@udecode/plate-core';
+import { getBlockAbove, HotkeyPlugin, KeyboardHandler } from '@udecode/plate-core';
 import {
   createTablePlugin as createDefaultTablePlugin,
   ELEMENT_TABLE,
@@ -14,9 +14,10 @@ import { TrackingProvider } from '../../TrackingProvider';
 import {
   currentSelectionPrecedesTableCell,
   currentSelectionStartsTableCell,
+  isRootLevel,
 } from '../../helpers/editor';
 import { RichTextPlugin, CustomElement } from '../../types';
-import { transformParagraphs } from '../../helpers/transformers';
+import { transformLift, transformParagraphs } from '../../helpers/transformers';
 import { Table } from './components/Table';
 import { Row } from './components/Row';
 import { HeaderCell } from './components/HeaderCell';
@@ -80,6 +81,20 @@ export const createTablePlugin = (tracking: TrackingProvider): RichTextPlugin =>
         type: BLOCKS.TABLE,
         component: Table,
         normalizer: [
+          {
+            // Move to root level unless nested
+            validNode: (editor, [, path]) => {
+              const isNestedTable = !!getBlockAbove(editor, {
+                at: path,
+                match: {
+                  type: [BLOCKS.TABLE_CELL, BLOCKS.TABLE_HEADER_CELL],
+                },
+              });
+
+              return isRootLevel(path) || isNestedTable;
+            },
+            transform: transformLift,
+          },
           {
             validChildren: CONTAINERS[BLOCKS.TABLE],
           },
