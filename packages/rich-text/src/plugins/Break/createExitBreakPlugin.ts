@@ -3,8 +3,8 @@ import {
   ExitBreakRule,
 } from '@udecode/plate-break';
 import { isFirstChild } from '@udecode/plate-core';
-import { isRootLevel } from '../../helpers/editor';
 
+import { isRootLevel } from '../../helpers/editor';
 import { RichTextPlugin } from '../../types';
 
 // The base were added here to avoid duplication of the rules in multiple void elements plugins

@@ -2,10 +2,10 @@
  * A copy of Plate's list plugin with a few adjustments
  * to support pasting any element
  */
-import { getPlugin, PlateEditor, TDescendant } from '@udecode/plate-core';
-import { findNode } from '@udecode/plate-core';
+import { findNode, getPlugin, PlateEditor, TDescendant } from '@udecode/plate-core';
 import { ELEMENT_LI, ELEMENT_OL, ELEMENT_UL } from '@udecode/plate-list';
 import { Node, NodeEntry, Path, Transforms } from 'slate';
+
 import { RichTextPlugin } from '../../types';
 
 export const getListInsertFragment = (editor: PlateEditor) => {

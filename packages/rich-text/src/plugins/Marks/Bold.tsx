@@ -1,15 +1,15 @@
 import * as React from 'react';
-import * as Slate from 'slate-react';
-import { css } from 'emotion';
 
-import { isMarkActive, toggleMark, someHtmlElement } from '@udecode/plate-core';
-import { createBoldPlugin as createDefaultBoldPlugin } from '@udecode/plate-basic-marks';
-import { MARKS } from '@contentful/rich-text-types';
 import { FormatBoldIcon } from '@contentful/f36-icons';
+import { MARKS } from '@contentful/rich-text-types';
+import { createBoldPlugin as createDefaultBoldPlugin } from '@udecode/plate-basic-marks';
+import { isMarkActive, toggleMark, someHtmlElement } from '@udecode/plate-core';
+import { css } from 'emotion';
+import * as Slate from 'slate-react';
 
-import { ToolbarButton } from '../shared/ToolbarButton';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { RichTextPlugin } from '../../types';
+import { ToolbarButton } from '../shared/ToolbarButton';
 
 interface ToolbarBoldButtonProps {
   isDisabled?: boolean;

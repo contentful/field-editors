@@ -1,8 +1,9 @@
-import { Transforms, Element, Editor } from 'slate';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { PlateEditor } from '@udecode/plate-core';
-import { CustomElement } from '../../types';
+import { Transforms, Element, Editor } from 'slate';
+
 import { isBlockSelected } from '../../helpers/editor';
+import { CustomElement } from '../../types';
 
 const LIST_TYPES: BLOCKS[] = [BLOCKS.OL_LIST, BLOCKS.UL_LIST];
 

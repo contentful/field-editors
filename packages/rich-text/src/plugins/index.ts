@@ -1,27 +1,26 @@
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 
-import { createPastePlugin } from './Paste';
-import { createListPlugin } from './List';
-
-import { createHrPlugin } from './Hr';
-import { createHeadingPlugin } from './Heading';
-import { createMarksPlugin } from './Marks';
-import { createParagraphPlugin } from './Paragraph';
-import { createQuotePlugin } from './Quote';
+import { TrackingProvider } from '../TrackingProvider';
+import { RichTextPlugin } from '../types';
 import { createSoftBreakPlugin, createExitBreakPlugin } from './Break';
-import { createTablePlugin } from './Table';
-import { createHyperlinkPlugin } from './Hyperlink';
+import { createDragAndDropPlugin } from './DragAndDrop';
 import {
   createEmbeddedAssetBlockPlugin,
   createEmbeddedEntryBlockPlugin,
 } from './EmbeddedEntityBlock';
 import { createEmbeddedEntityInlinePlugin } from './EmbeddedEntityInline';
-import { TrackingProvider } from '../TrackingProvider';
-import { createTrailingParagraphPlugin } from './TrailingParagraph';
-import { createDragAndDropPlugin } from './DragAndDrop';
-import { createTextPlugin } from './Text';
-import { RichTextPlugin } from '../types';
+import { createHeadingPlugin } from './Heading';
+import { createHrPlugin } from './Hr';
+import { createHyperlinkPlugin } from './Hyperlink';
+import { createListPlugin } from './List';
+import { createMarksPlugin } from './Marks';
 import { createNormalizerPlugin } from './Normalizer';
+import { createParagraphPlugin } from './Paragraph';
+import { createPastePlugin } from './Paste';
+import { createQuotePlugin } from './Quote';
+import { createTablePlugin } from './Table';
+import { createTextPlugin } from './Text';
+import { createTrailingParagraphPlugin } from './TrailingParagraph';
 
 export const getPlugins = (
   sdk: FieldExtensionSDK,

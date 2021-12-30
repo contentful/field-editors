@@ -1,5 +1,5 @@
-import { PlateEditor } from '@udecode/plate-core';
 import { BLOCKS } from '@contentful/rich-text-types';
+import { PlateEditor } from '@udecode/plate-core';
 
 import { TrackingProvider } from '../../TrackingProvider';
 import { CustomElement } from '../../types';

@@ -1,5 +1,5 @@
-import { getNodes } from '@udecode/plate-core';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
+import { getNodes } from '@udecode/plate-core';
 
 import { RichTextPlugin } from '../../types';
 

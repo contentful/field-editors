@@ -1,8 +1,8 @@
-import { NodeEntry, Transforms } from 'slate';
+import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { PlateEditor } from '@udecode/plate-core';
+import { NodeEntry, Transforms } from 'slate';
 
 import { extractParagraphsAt } from './editor';
-import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 
 export const transformRemove = (editor: PlateEditor, [, path]: NodeEntry) => {
   Transforms.removeNodes(editor, { at: path });

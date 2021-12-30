@@ -1,6 +1,11 @@
-import { Path } from 'slate';
-import { getPluginType, PlateEditor, TElement } from '@udecode/plate-core';
-import { getAbove, insertNodes, someNode } from '@udecode/plate-core';
+import {
+  getPluginType,
+  PlateEditor,
+  TElement,
+  getAbove,
+  insertNodes,
+  someNode,
+} from '@udecode/plate-core';
 import {
   getEmptyCellNode,
   TablePluginOptions,
@@ -8,6 +13,7 @@ import {
   ELEMENT_TD,
   ELEMENT_TH,
 } from '@udecode/plate-table';
+import { Path } from 'slate';
 
 const addColumn = (
   editor: PlateEditor,

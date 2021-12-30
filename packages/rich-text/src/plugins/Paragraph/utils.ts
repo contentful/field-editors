@@ -1,5 +1,5 @@
-import { Text, Element, Node } from 'slate';
 import { BLOCKS, INLINES, TEXT_CONTAINERS } from '@contentful/rich-text-types';
+import { Text, Element, Node } from 'slate';
 
 const INLINE_TYPES = Object.values(INLINES) as string[];
 

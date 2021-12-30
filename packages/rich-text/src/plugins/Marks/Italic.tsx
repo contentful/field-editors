@@ -1,14 +1,15 @@
 import * as React from 'react';
-import * as Slate from 'slate-react';
-import { css } from 'emotion';
 
-import { toggleMark, isMarkActive, someHtmlElement } from '@udecode/plate-core';
-import { createItalicPlugin as createDefaultItalicPlugin } from '@udecode/plate-basic-marks';
-import { MARKS } from '@contentful/rich-text-types';
 import { FormatItalicIcon } from '@contentful/f36-icons';
-import { ToolbarButton } from '../shared/ToolbarButton';
+import { MARKS } from '@contentful/rich-text-types';
+import { createItalicPlugin as createDefaultItalicPlugin } from '@udecode/plate-basic-marks';
+import { toggleMark, isMarkActive, someHtmlElement } from '@udecode/plate-core';
+import { css } from 'emotion';
+import * as Slate from 'slate-react';
+
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { RichTextPlugin } from '../../types';
+import { ToolbarButton } from '../shared/ToolbarButton';
 
 interface ToolbarItalicButtonProps {
   isDisabled?: boolean;

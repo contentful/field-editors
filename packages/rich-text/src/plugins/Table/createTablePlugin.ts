@@ -1,4 +1,3 @@
-import { Transforms } from 'slate';
 import { BLOCKS, CONTAINERS } from '@contentful/rich-text-types';
 import { HotkeyPlugin, KeyboardHandler } from '@udecode/plate-core';
 import {
@@ -9,19 +8,20 @@ import {
   ELEMENT_TR,
   onKeyDownTable,
 } from '@udecode/plate-table';
+import { Transforms } from 'slate';
 
-import { TrackingProvider } from '../../TrackingProvider';
 import {
   currentSelectionPrecedesTableCell,
   currentSelectionStartsTableCell,
 } from '../../helpers/editor';
-import { RichTextPlugin, CustomElement } from '../../types';
 import { transformText } from '../../helpers/transformers';
-import { Table } from './components/Table';
-import { Row } from './components/Row';
-import { HeaderCell } from './components/HeaderCell';
-import { Cell } from './components/Cell';
+import { TrackingProvider } from '../../TrackingProvider';
+import { RichTextPlugin, CustomElement } from '../../types';
 import { addTableTrackingEvents } from './addTableTrackingEvents';
+import { Cell } from './components/Cell';
+import { HeaderCell } from './components/HeaderCell';
+import { Row } from './components/Row';
+import { Table } from './components/Table';
 
 const createTableOnKeyDown: KeyboardHandler<{}, HotkeyPlugin> = (editor, plugin) => {
   const defaultHandler = onKeyDownTable(editor, plugin);
