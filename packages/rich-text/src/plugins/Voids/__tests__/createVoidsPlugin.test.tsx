@@ -25,9 +25,11 @@ describe('normalization', () => {
       <editor>
         <hhr>{invalidChildren}</hhr>
 
-        <hinline type="Entry" id="inline">
-          {invalidChildren}
-        </hinline>
+        <hp>
+          <hinline type="Entry" id="inline">
+            {invalidChildren}
+          </hinline>
+        </hp>
 
         <hembed type="Entry" id="entry">
           {invalidChildren}
@@ -43,7 +45,11 @@ describe('normalization', () => {
       <editor>
         <hhr />
 
-        <hinline type="Entry" id="inline" />
+        <hp>
+          <htext />
+          <hinline type="Entry" id="inline" />
+          <htext />
+        </hp>
 
         <hembed type="Entry" id="entry" />
 

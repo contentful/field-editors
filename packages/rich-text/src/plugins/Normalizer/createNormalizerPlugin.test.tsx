@@ -18,7 +18,7 @@ describe('Normalizer', () => {
       <editor>
         <hul>
           <hli>
-            <hinline type="Entry" id="inline-entry" />
+            <hembed type="Entry" id="embedded-entry" />
             <hp>List item</hp>
           </hli>
         </hul>
@@ -64,49 +64,14 @@ describe('Normalizer', () => {
   });
 
   describe('rule.transform', () => {
-    it('can be customized', () => {
-      const { editor } = createTestEditor({
-        input,
-        plugins: [
-          mockPlugin({
-            isElement: true,
-            type: BLOCKS.LIST_ITEM,
-            normalizer: [
-              {
-                validChildren: [BLOCKS.PARAGRAPH],
-                transform: transformWrapIn(BLOCKS.PARAGRAPH),
-              },
-            ],
-          }),
-          createNormalizerPlugin(),
-        ],
-      });
-
-      assertOutput({
-        editor,
-        expected: (
-          <editor>
-            <hul>
-              <hli>
-                <hp>
-                  <hinline type="Entry" id="inline-entry" />
-                </hp>
-                <hp>List item</hp>
-              </hli>
-            </hul>
-          </editor>
-        ),
-      });
-    });
-
     it('works with conditional transformation', () => {
       const { editor } = createTestEditor({
         input: (
           <editor>
             <hul>
               <hli>
-                <hinline type="Entry" id="inline-entry" />
                 <hembed type="Entry" id="embedded-entry" />
+                <hinline type="Entry" id="inline-entry" />
                 <hp>List item</hp>
               </hli>
             </hul>

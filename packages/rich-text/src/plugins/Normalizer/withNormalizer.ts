@@ -11,9 +11,10 @@ import {
   createTransformerFromObject,
 } from './utils';
 import { NormalizerRule, NodeTransformer, NodeValidator } from './types';
+import { baseRules } from './baseRules';
 
 export const withNormalizer: WithOverride = (editor) => {
-  const rules: Required<NormalizerRule>[] = [];
+  const rules: Required<NormalizerRule>[] = baseRules;
 
   // Drive normalization rules from other plugin's configurations
   for (const p of editor.plugins as RichTextPlugin[]) {

@@ -6,10 +6,8 @@ import { jsx, createTestEditor, mockPlugin } from '../../test-utils';
 import { createExitBreakPlugin } from './createExitBreakPlugin';
 
 describe('Exit Break', () => {
-  // Temporarily disabled see:
   // https://slate-js.slack.com/archives/C013QHXSCG1/p1640853996467300
-  // eslint-disable-next-line
-  it.skip('drives its config from other plugins', () => {
+  it('drives its config from other plugins', () => {
     const input = (
       <editor>
         <hp>
@@ -42,6 +40,6 @@ describe('Exit Break', () => {
     });
 
     const outPlugin = editor.pluginsByKey[KEY_EXIT_BREAK];
-    expect(outPlugin.options).toEqual({ rules });
+    expect(outPlugin.options).toEqual({ rules: expect.arrayContaining(rules) });
   });
 });

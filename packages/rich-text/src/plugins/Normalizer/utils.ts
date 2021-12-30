@@ -1,8 +1,7 @@
 import { PlateEditor } from '@udecode/plate-core';
 import { NodeEntry, Text, Node, Element } from 'slate';
-import { NodeTransformer } from '.';
 
-import { NodeValidator } from './types';
+import { NodeValidator, NodeTransformer } from './types';
 
 export class NormalizerError extends Error {}
 
