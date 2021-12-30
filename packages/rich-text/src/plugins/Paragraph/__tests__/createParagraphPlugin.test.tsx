@@ -55,7 +55,37 @@ describe('normalization', () => {
     assertOutput({ input, expected });
   });
 
-  describe('lifts invalid children', () => {
+  it('unwraps nested paragraphs', () => {
+    const input = (
+      <editor>
+        <hp>
+          some
+          <hp>
+            <htext bold italic underline>
+              paragraph
+            </htext>
+          </hp>
+          text
+        </hp>
+      </editor>
+    );
+
+    const expected = (
+      <editor>
+        <hp>
+          some
+          <htext bold italic underline>
+            paragraph
+          </htext>
+          text
+        </hp>
+      </editor>
+    );
+
+    assertOutput({ input, expected });
+  });
+
+  describe('lifts other invalid children', () => {
     it('void elements', () => {
       const input = (
         <editor>
@@ -134,38 +164,6 @@ describe('normalization', () => {
           <hp>in </hp>
           <hhr />
           <hp> between</hp>
-        </editor>
-      );
-
-      assertOutput({ input, expected });
-    });
-
-    it('nested paragraphs', () => {
-      const input = (
-        <editor>
-          <hp>
-            some
-            <hp>
-              <htext bold italic underline>
-                paragraph
-              </htext>
-            </hp>
-            text
-          </hp>
-        </editor>
-      );
-
-      const expected = (
-        <editor>
-          <hp>some</hp>
-
-          <hp>
-            <htext bold italic underline>
-              paragraph
-            </htext>
-          </hp>
-
-          <hp>text</hp>
         </editor>
       );
 

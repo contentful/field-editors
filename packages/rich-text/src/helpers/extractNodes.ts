@@ -3,7 +3,6 @@ import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
 import { NodeMatch, PlateEditor, getNodes } from '@udecode/plate-core';
 
 import { CustomElement } from '../types';
-import { isInlineOrText } from './editor';
 
 function extractNodes(editor: PlateEditor, path: Path, match: NodeMatch) {
   return Array.from(
@@ -25,8 +24,4 @@ export function extractParagraphs(editor: PlateEditor, path: Path): CustomElemen
     ...node,
     type: BLOCKS.PARAGRAPH,
   }));
-}
-
-export function extractInlineOrText(editor: PlateEditor, path: Path): CustomElement[] {
-  return extractNodes(editor, path, isInlineOrText);
 }

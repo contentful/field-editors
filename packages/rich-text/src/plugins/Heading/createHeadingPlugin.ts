@@ -3,7 +3,7 @@ import { onKeyDownToggleElement } from '@udecode/plate-core';
 import { RichTextPlugin } from '../../types';
 import { HeadingComponents } from './components/Heading';
 import { isInlineOrText } from '../../helpers/editor';
-import { transformLift, transformInlineOrText } from '../../helpers/transformers';
+import { transformLift, transformUnwrap } from '../../helpers/transformers';
 
 export const createHeadingPlugin = (): RichTextPlugin => ({
   key: 'HeadingPlugin',
@@ -35,7 +35,7 @@ export const createHeadingPlugin = (): RichTextPlugin => ({
       },
       validChildren: (_, [node]) => isInlineOrText(node),
       transform: {
-        [BLOCKS.PARAGRAPH]: transformInlineOrText,
+        [BLOCKS.PARAGRAPH]: transformUnwrap,
         default: transformLift,
       },
     },

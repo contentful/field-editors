@@ -22,7 +22,7 @@ describe('normalization', () => {
     assertOutput({ input, expected: input });
   });
 
-  it('merges child paragraphs', () => {
+  it('unwraps nested paragraphs', () => {
     const input = (
       <editor>
         <hh1>
@@ -48,7 +48,7 @@ describe('normalization', () => {
     assertOutput({ input, expected });
   });
 
-  describe('lifts invalid children', () => {
+  describe('lifts other invalid children', () => {
     it('void elements', () => {
       const input = (
         <editor>
