@@ -1,4 +1,6 @@
 import * as React from 'react';
+
+import { TextInput } from '@contentful/f36-components';
 import {
   FieldAPI,
   FieldConnector,
@@ -7,9 +9,8 @@ import {
   CharValidation,
   LocalesAPI,
 } from '@contentful/field-editor-shared';
-import * as styles from './styles';
 
-import { TextInput } from '@contentful/f36-components';
+import * as styles from './styles';
 
 export interface SingleLineEditorProps {
   /**

@@ -1,8 +1,10 @@
 import React from 'react';
-import Markdown from 'markdown-to-jsx';
+
 import tokens from '@contentful/f36-tokens';
 import DOMPurify from 'dompurify';
 import { css, cx } from 'emotion';
+import Markdown from 'markdown-to-jsx';
+
 import { EditorDirection, PreviewComponents } from '../types';
 
 const styles = {

@@ -1,4 +1,5 @@
 import type { FieldExtensionSDK } from '@contentful/field-editor-shared';
+
 import type { WidgetType } from './types';
 
 const DROPDOWN_TYPES = ['Text', 'Symbol', 'Integer', 'Number', 'Boolean'];

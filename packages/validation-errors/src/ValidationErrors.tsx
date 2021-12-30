@@ -1,5 +1,8 @@
 import React from 'react';
+
 import { ValidationError, Link } from '@contentful/app-sdk';
+import { TextLink, List, ListItem } from '@contentful/f36-components';
+import { ExternalLinkIcon, InfoCircleIcon } from '@contentful/f36-icons';
 import type {
   SpaceAPI,
   Entry,
@@ -10,10 +13,6 @@ import type {
 import { entityHelpers } from '@contentful/field-editor-shared';
 
 import * as styles from './styles';
-
-import { TextLink, List, ListItem } from '@contentful/f36-components';
-
-import { ExternalLinkIcon, InfoCircleIcon } from '@contentful/f36-icons';
 
 type UniquenessErrorProps = {
   error: ValidationError;

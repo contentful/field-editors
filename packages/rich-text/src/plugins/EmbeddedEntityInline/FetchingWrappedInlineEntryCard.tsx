@@ -1,11 +1,12 @@
 import React from 'react';
-import { css } from 'emotion';
-import tokens from '@contentful/f36-tokens';
+
 import { InlineEntryCard, MenuItem } from '@contentful/f36-components';
 import { ClockIcon } from '@contentful/f36-icons';
-import { entityHelpers, FieldExtensionSDK } from '@contentful/field-editor-shared';
+import tokens from '@contentful/f36-tokens';
 import { useEntities, ScheduledIconWithTooltip } from '@contentful/field-editor-reference';
+import { entityHelpers, FieldExtensionSDK } from '@contentful/field-editor-shared';
 import { INLINES } from '@contentful/rich-text-types';
+import { css } from 'emotion';
 
 const { getEntryTitle, getEntryStatus } = entityHelpers;
 

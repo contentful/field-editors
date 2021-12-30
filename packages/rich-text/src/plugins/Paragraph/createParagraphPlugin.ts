@@ -1,10 +1,10 @@
-import { createParagraphPlugin as createDefaultParagraphPlugin } from '@udecode/plate-paragraph';
 import { BLOCKS } from '@contentful/rich-text-types';
+import { createParagraphPlugin as createDefaultParagraphPlugin } from '@udecode/plate-paragraph';
 
+import { isInlineOrText } from '../../helpers/editor';
+import { transformUnwrap, transformLift } from '../../helpers/transformers';
 import { RichTextPlugin } from '../../types';
 import { Paragraph } from './Paragraph';
-import { transformLift, transformUnwrap } from '../../helpers/transformers';
-import { isInlineOrText } from '../../helpers/editor';
 import { isEmbedElement, isEmptyElement } from './utils';
 
 export const createParagraphPlugin = (): RichTextPlugin => {

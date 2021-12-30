@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-use-before-define, @typescript-eslint/no-explicit-any */
 
-import transform from 'lodash/transform';
-import throttle from 'lodash/throttle';
 import CodeMirror from 'codemirror';
-import * as userAgent from '../../utils/userAgent';
+import throttle from 'lodash/throttle';
+import transform from 'lodash/transform';
+
 import { EditorDirection } from '../../types';
+import * as userAgent from '../../utils/userAgent';
 
 function stripUnit(value: number | string): number {
   if (typeof value !== 'string') return value;

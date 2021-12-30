@@ -1,6 +1,5 @@
 /** @jsx jsx */
-import { SoftBreakRule } from '@udecode/plate-break';
-import { KEY_SOFT_BREAK } from '@udecode/plate-break';
+import { SoftBreakRule, KEY_SOFT_BREAK } from '@udecode/plate-break';
 
 import { jsx, createTestEditor, mockPlugin } from '../../test-utils';
 import { createSoftBreakPlugin } from './createSoftBreakPlugin';

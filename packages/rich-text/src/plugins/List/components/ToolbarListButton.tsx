@@ -1,13 +1,15 @@
 import * as React from 'react';
-import * as Slate from 'slate-react';
-import { toggleList } from '@udecode/plate-list';
-import { BLOCKS } from '@contentful/rich-text-types';
+
 import { ListBulletedIcon, ListNumberedIcon } from '@contentful/f36-icons';
-import { ToolbarButton } from '../../shared/ToolbarButton';
+import { BLOCKS } from '@contentful/rich-text-types';
+import { toggleList } from '@udecode/plate-list';
+import * as Slate from 'slate-react';
+
+import { useContentfulEditor } from '../../../ContentfulEditorProvider';
 import { isBlockSelected, unwrapFromRoot, shouldUnwrapBlockquote } from '../../../helpers/editor';
 import { isNodeTypeEnabled } from '../../../helpers/validations';
 import { useSdkContext } from '../../../SdkProvider';
-import { useContentfulEditor } from '../../../ContentfulEditorProvider';
+import { ToolbarButton } from '../../shared/ToolbarButton';
 
 export interface ToolbarListButtonProps {
   isDisabled?: boolean;

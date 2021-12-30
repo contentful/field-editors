@@ -1,15 +1,16 @@
+import { FieldAPI, Link } from '@contentful/app-sdk';
 import {
   createFakeFieldAPI,
   createFakeLocalesAPI,
   createFakeSpaceAPI,
 } from '@contentful/field-editor-test-utils';
-import { FieldAPI, Link } from '@contentful/app-sdk';
-import emptyEntry from './empty_entry.json';
-import publishedEntry from './published_entry.json';
+
+import changedAsset from './changed_asset.json';
 import changedEntry from './changed_entry.json';
 import emptyAsset from './empty_asset.json';
+import emptyEntry from './empty_entry.json';
 import publishedAsset from './published_asset.json';
-import changedAsset from './changed_asset.json';
+import publishedEntry from './published_entry.json';
 
 const newLink = (linkType: string, id: string): Link => ({
   sys: {

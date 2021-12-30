@@ -1,5 +1,5 @@
-import { NodeEntry } from 'slate';
 import { PlateEditor, NodeMatch } from '@udecode/plate-core';
+import { NodeEntry } from 'slate';
 
 export type NodeTransformer = (editor: PlateEditor, entry: NodeEntry) => void;
 export type NodeValidator = (editor: PlateEditor, entry: NodeEntry) => boolean;

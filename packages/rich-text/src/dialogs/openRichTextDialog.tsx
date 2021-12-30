@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { DialogExtensionSDK } from '@contentful/app-sdk';
 import { ModalDialogLauncher } from '@contentful/field-editor-shared';
+
 import { HyperlinkDialog } from './HypelinkDialog/HyperlinkDialog';
 
 export const openRichTextDialog = (sdk: DialogExtensionSDK) => (options) => {

@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { ContentType, ContentEntityType, ReferenceValue } from '../types';
-import { LinkEntityActions } from '../components';
-import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
-import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions';
 import { useCallback } from 'react';
+
+import { LinkEntityActions } from '../components';
+import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions';
+import { ContentType, ContentEntityType, ReferenceValue } from '../types';
 import { CustomEntityCardProps } from './customCardTypes';
+import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
 import { useEditorPermissions } from './useEditorPermissions';
 
 type ChildProps = {

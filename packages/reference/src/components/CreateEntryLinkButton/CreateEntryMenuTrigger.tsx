@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import React, { useState, useRef, useEffect } from 'react';
-import { css } from 'emotion';
-import get from 'lodash/get';
-import tokens from '@contentful/f36-tokens';
-import { ContentType } from '../../types';
-
-import { SearchIcon } from '@contentful/f36-icons';
 
 import { TextInput, Menu, MenuProps } from '@contentful/f36-components';
+import { SearchIcon } from '@contentful/f36-icons';
+import tokens from '@contentful/f36-tokens';
+import { css } from 'emotion';
+import get from 'lodash/get';
+
+import { ContentType } from '../../types';
 
 const MAX_ITEMS_WITHOUT_SEARCH = 20;
 

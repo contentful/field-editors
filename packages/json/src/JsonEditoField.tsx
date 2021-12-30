@@ -1,7 +1,8 @@
 import React from 'react';
+import { Controlled as CodeMirror } from 'react-codemirror2';
+
 import tokens from '@contentful/f36-tokens';
 import { css } from 'emotion';
-import { Controlled as CodeMirror } from 'react-codemirror2';
 
 const CODE_MIRROR_CONFIG = {
   autoCloseBrackets: true,

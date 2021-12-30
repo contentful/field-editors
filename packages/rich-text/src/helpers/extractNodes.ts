@@ -1,6 +1,6 @@
-import { Path } from 'slate';
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
 import { NodeMatch, PlateEditor, getNodes } from '@udecode/plate-core';
+import { Path } from 'slate';
 
 import { CustomElement } from '../types';
 

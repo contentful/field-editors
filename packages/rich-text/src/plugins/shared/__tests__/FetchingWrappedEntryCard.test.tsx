@@ -1,11 +1,12 @@
 import React from 'react';
-import { render, configure, waitFor, fireEvent } from '@testing-library/react';
+
 import { EntityProvider } from '@contentful/field-editor-reference';
+import { render, configure, waitFor, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 
-import { FetchingWrappedEntryCard } from '../FetchingWrappedEntryCard';
-import publishedEntry from '../__fixtures__/published_entry.json';
 import publishedCT from '../__fixtures__/published_content_type.json';
+import publishedEntry from '../__fixtures__/published_entry.json';
+import { FetchingWrappedEntryCard } from '../FetchingWrappedEntryCard';
 
 configure({
   testIdAttribute: 'data-test-id',

@@ -1,9 +1,12 @@
 import React from 'react';
-import noop from 'lodash/noop';
+
+import { act, render, fireEvent, configure } from '@testing-library/react';
 // eslint-disable-next-line you-dont-need-lodash-underscore/fill
 import fill from 'lodash/fill';
-import { act, render, fireEvent, configure } from '@testing-library/react';
+import noop from 'lodash/noop';
+
 import { ContentType } from '../../types';
+
 import '@testing-library/jest-dom/extend-expect';
 import { Button } from '@contentful/f36-components';
 

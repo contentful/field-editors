@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { css } from 'emotion';
+
 import tokens from '@contentful/f36-tokens';
+import { css } from 'emotion';
 import { RenderElementProps } from 'slate-react';
 
 const style = css({

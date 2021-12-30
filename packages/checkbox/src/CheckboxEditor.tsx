@@ -1,18 +1,19 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { cx } from 'emotion';
-import get from 'lodash/get';
+
+import { Checkbox, Box } from '@contentful/f36-components';
+import { TextLink, Form } from '@contentful/f36-components';
 import {
   FieldAPI,
   FieldConnector,
   LocalesAPI,
   PredefinedValuesError,
 } from '@contentful/field-editor-shared';
-import { Checkbox, Box } from '@contentful/f36-components';
-import * as styles from './styles';
+import { cx } from 'emotion';
+import get from 'lodash/get';
 import { nanoid } from 'nanoid';
 
-import { TextLink, Form } from '@contentful/f36-components';
+import * as styles from './styles';
 
 export interface CheckboxEditorProps {
   /**

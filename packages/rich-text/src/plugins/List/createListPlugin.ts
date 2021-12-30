@@ -1,3 +1,4 @@
+import { BLOCKS, LIST_ITEM_BLOCKS } from '@contentful/rich-text-types';
 import {
   createListPlugin as createPlateListPlugin,
   ELEMENT_LI,
@@ -5,18 +6,18 @@ import {
   ELEMENT_OL,
   ELEMENT_LIC,
 } from '@udecode/plate-list';
-import { BLOCKS, LIST_ITEM_BLOCKS } from '@contentful/rich-text-types';
-import { RichTextPlugin } from '../../types';
+
 import { transformParagraphs, transformWrapIn } from '../../helpers/transformers';
-import { withList } from './withList';
+import { RichTextPlugin } from '../../types';
+import { ListOL, ListUL } from './components/List';
+import { ListItem } from './components/ListItem';
 import {
   isNonEmptyListItem,
   hasListAsDirectParent,
   insertParagraphAsChild,
   normalizeOrphanedListItem,
 } from './utils';
-import { ListOL, ListUL } from './components/List';
-import { ListItem } from './components/ListItem';
+import { withList } from './withList';
 
 export const createListPlugin = (): RichTextPlugin =>
   createPlateListPlugin({

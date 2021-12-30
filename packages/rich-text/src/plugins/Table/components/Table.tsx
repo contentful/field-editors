@@ -1,7 +1,8 @@
-import { css } from 'emotion';
 import * as React from 'react';
-import * as Slate from 'slate-react';
+
 import tokens from '@contentful/f36-tokens';
+import { css } from 'emotion';
+import * as Slate from 'slate-react';
 
 const style = css`
   margin-bottom: 1.5em;

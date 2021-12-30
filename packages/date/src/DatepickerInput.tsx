@@ -1,13 +1,14 @@
 import React, { Component, FocusEventHandler, FocusEvent } from 'react';
+
+import { TextInput } from '@contentful/f36-components';
+import { css, cx } from 'emotion';
 import noop from 'lodash/noop';
 // eslint-disable-next-line no-restricted-imports
 import moment from 'moment';
-import { css, cx } from 'emotion';
-import { formatDateDisplay } from './utils/date';
-import { createPikaday } from './utils/createPikaday';
-import { CalendarIcon } from './icons/CalendarIcon';
 
-import { TextInput } from '@contentful/f36-components';
+import { CalendarIcon } from './icons/CalendarIcon';
+import { createPikaday } from './utils/createPikaday';
+import { formatDateDisplay } from './utils/date';
 
 const styles = {
   datePickerWrapper: css({

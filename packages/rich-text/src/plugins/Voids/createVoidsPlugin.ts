@@ -1,5 +1,6 @@
-import { Node, Text } from 'slate';
 import { isFirstChild } from '@udecode/plate-core';
+import { Node, Text } from 'slate';
+
 import { isRootLevel } from '../../helpers/editor';
 import { RichTextPlugin } from '../../types';
 import { transformVoid } from './transformVoid';

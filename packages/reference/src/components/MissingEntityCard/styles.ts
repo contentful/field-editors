@@ -1,5 +1,5 @@
-import { css } from 'emotion';
 import tokens from '@contentful/f36-tokens';
+import { css } from 'emotion';
 
 export const card = css({
   position: 'relative',

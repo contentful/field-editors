@@ -1,7 +1,8 @@
 import React, { ChangeEvent } from 'react';
-import { zoneOffsets, defaultZoneOffset } from './utils/zoneOffsets';
 
 import { Select } from '@contentful/f36-components';
+
+import { zoneOffsets, defaultZoneOffset } from './utils/zoneOffsets';
 
 export type TimezonepickerProps = {
   disabled: boolean;

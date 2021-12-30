@@ -1,13 +1,15 @@
 import * as React from 'react';
+
 import { EntryCard } from '@contentful/f36-components';
-import { ContentType, FieldExtensionSDK, NavigatorSlideInfo, RenderDragFn } from '../../types';
-import { WrappedEntryCard, WrappedEntryCardProps } from './WrappedEntryCard';
-import { MissingEntityCard } from '../../components';
-import type { LinkActionsProps } from '../../components';
+import get from 'lodash/get';
+
+import { CustomEntityCardProps, RenderCustomMissingEntityCard } from '../../common/customCardTypes';
 import { useEntities } from '../../common/EntityStore';
 import { ReferenceEditorProps } from '../../common/ReferenceEditor';
-import get from 'lodash/get';
-import { CustomEntityCardProps, RenderCustomMissingEntityCard } from '../../common/customCardTypes';
+import { MissingEntityCard } from '../../components';
+import type { LinkActionsProps } from '../../components';
+import { ContentType, FieldExtensionSDK, NavigatorSlideInfo, RenderDragFn } from '../../types';
+import { WrappedEntryCard, WrappedEntryCardProps } from './WrappedEntryCard';
 
 export type EntryCardReferenceEditorProps = ReferenceEditorProps & {
   entryId: string;

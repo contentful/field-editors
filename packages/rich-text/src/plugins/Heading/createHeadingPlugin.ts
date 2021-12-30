@@ -1,9 +1,10 @@
 import { BLOCKS, HEADINGS } from '@contentful/rich-text-types';
 import { onKeyDownToggleElement } from '@udecode/plate-core';
-import { RichTextPlugin } from '../../types';
-import { HeadingComponents } from './components/Heading';
+
 import { isInlineOrText } from '../../helpers/editor';
 import { transformLift, transformUnwrap } from '../../helpers/transformers';
+import { RichTextPlugin } from '../../types';
+import { HeadingComponents } from './components/Heading';
 
 export const createHeadingPlugin = (): RichTextPlugin => ({
   key: 'HeadingPlugin',

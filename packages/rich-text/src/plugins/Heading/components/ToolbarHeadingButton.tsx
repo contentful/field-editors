@@ -1,12 +1,14 @@
 import * as React from 'react';
-import * as Slate from 'slate-react';
-import { css, cx } from 'emotion';
+
 import { Menu, Button } from '@contentful/f36-components';
 import { ChevronDownIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { toggleNodeType } from '@udecode/plate-core';
-import { CustomElement } from '../../../types';
+import { css, cx } from 'emotion';
+import * as Slate from 'slate-react';
+
+import { useContentfulEditor } from '../../../ContentfulEditorProvider';
 import {
   getElementFromCurrentSelection,
   shouldUnwrapBlockquote,
@@ -14,7 +16,7 @@ import {
 } from '../../../helpers/editor';
 import { isNodeTypeEnabled } from '../../../helpers/validations';
 import { useSdkContext } from '../../../SdkProvider';
-import { useContentfulEditor } from '../../../ContentfulEditorProvider';
+import { CustomElement } from '../../../types';
 
 const styles = {
   dropdown: {

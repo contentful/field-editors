@@ -1,6 +1,7 @@
 import get from 'lodash/get';
 import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
+
 import { File, ContentType, Entry, ContentTypeField } from '../typesEntity';
 
 function titleOrDefault(title: string | undefined, defaultTitle: string): string {

@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { ScheduledAction } from '@contentful/app-sdk';
 import { Tooltip } from '@contentful/f36-components';
+
 import { formatDateAndTime } from './formatDateAndTime';
 
 export const getScheduleTooltipContent = ({

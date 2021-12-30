@@ -1,6 +1,6 @@
-import { NodeEntry, Transforms } from 'slate';
-import { PlateEditor } from '@udecode/plate-core';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
+import { PlateEditor } from '@udecode/plate-core';
+import { NodeEntry, Transforms } from 'slate';
 
 import { extractParagraphs } from './extractNodes';
 

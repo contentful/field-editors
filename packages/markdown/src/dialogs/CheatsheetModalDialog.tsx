@@ -1,11 +1,12 @@
 import React from 'react';
-import { css, cx } from 'emotion';
+
 import { DialogsAPI } from '@contentful/app-sdk';
 import { ModalContent } from '@contentful/f36-components';
-import tokens from '@contentful/f36-tokens';
-import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
-
 import { TextLink, Heading } from '@contentful/f36-components';
+import tokens from '@contentful/f36-tokens';
+import { css, cx } from 'emotion';
+
+import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 
 const styles = {
   flexColumnContainer: css({

@@ -1,8 +1,9 @@
 import * as React from 'react';
-import * as Slate from 'slate-react';
-import { css, cx } from 'emotion';
+
 import tokens from '@contentful/f36-tokens';
 import { BLOCKS } from '@contentful/rich-text-types';
+import { css, cx } from 'emotion';
+import * as Slate from 'slate-react';
 
 const styles = {
   dropdown: {

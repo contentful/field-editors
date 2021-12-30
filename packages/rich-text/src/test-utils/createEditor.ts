@@ -1,6 +1,6 @@
-import { Editor } from 'slate';
-import { createPlateEditor, PlateEditor } from '@udecode/plate-core';
 import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { createPlateEditor, PlateEditor } from '@udecode/plate-core';
+import { Editor } from 'slate';
 
 import { getPlugins } from '../plugins';
 import { TrackingProvider } from '../TrackingProvider';

@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { SpaceAPI, ScheduledAction } from '@contentful/app-sdk';
+
 import { ScheduleTooltip } from './ScheduleTooltip';
 
 type ScheduledIconWithTooltipProps = {

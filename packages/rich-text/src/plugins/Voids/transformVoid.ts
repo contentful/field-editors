@@ -1,5 +1,5 @@
-import { NodeEntry, Transforms } from 'slate';
 import { PlateEditor } from '@udecode/plate-core';
+import { NodeEntry, Transforms } from 'slate';
 
 /**
  * Re-creates a void node with valid children.

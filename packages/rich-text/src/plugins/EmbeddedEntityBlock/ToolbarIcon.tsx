@@ -1,13 +1,14 @@
 import React from 'react';
-import { Flex, Icon, Button, Menu } from '@contentful/f36-components';
 
-import { AssetIcon, EmbeddedEntryBlockIcon } from '@contentful/f36-icons';
-import { selectEntityAndInsert } from './Util';
-import noop from 'lodash/noop';
 import { FieldExtensionSDK } from '@contentful/app-sdk';
-import { useSdkContext } from '../../SdkProvider';
+import { Flex, Icon, Button, Menu } from '@contentful/f36-components';
+import { AssetIcon, EmbeddedEntryBlockIcon } from '@contentful/f36-icons';
 import { css } from 'emotion';
+import noop from 'lodash/noop';
+
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
+import { useSdkContext } from '../../SdkProvider';
+import { selectEntityAndInsert } from './Util';
 
 export const styles = {
   icon: css({

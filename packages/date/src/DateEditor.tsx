@@ -1,19 +1,20 @@
 import * as React from 'react';
-import { css } from 'emotion';
+
+import { TextLink } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
 import { FieldAPI, FieldConnector, ParametersAPI } from '@contentful/field-editor-shared';
+import { css } from 'emotion';
+
 import { DatepickerInput } from './DatepickerInput';
 import { TimepickerInput } from './TimepickerInput';
 import { TimezonepickerInput } from './TimezonePickerInput';
+import { TimeFormat, DateTimeFormat, TimeResult } from './types';
 import {
   userInputFromDatetime,
   buildFieldValue,
   getDefaultAMPM,
   getDefaultUtcOffset,
 } from './utils/date';
-import { TimeFormat, DateTimeFormat, TimeResult } from './types';
-
-import { TextLink } from '@contentful/f36-components';
 
 export interface DateEditorProps {
   /**

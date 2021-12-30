@@ -1,6 +1,7 @@
 import { getText } from '@udecode/plate-core';
 import { Transforms } from 'slate';
 import * as Slate from 'slate-react';
+
 import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
 
 export async function selectEntityAndInsert(nodeType, sdk, editor, logAction) {

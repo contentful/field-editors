@@ -1,10 +1,11 @@
-import { InitializedEditorType } from './components/MarkdownTextarea/MarkdownTextarea';
 import { KnownSDK } from '@contentful/app-sdk';
-import { openInsertLinkDialog } from './dialogs/InsertLinkModalDialog';
-import { openInsertSpecialCharacter } from './dialogs/SpecialCharacterModalDialog';
-import { openInsertTableDialog } from './dialogs/InsertTableModalDialog';
-import { openEmbedExternalContentDialog } from './dialogs/EmdebExternalContentDialog';
+
+import { InitializedEditorType } from './components/MarkdownTextarea/MarkdownTextarea';
 import { openConfirmInsertAsset } from './dialogs/ConfirmInsertAssetModalDialog';
+import { openEmbedExternalContentDialog } from './dialogs/EmdebExternalContentDialog';
+import { openInsertLinkDialog } from './dialogs/InsertLinkModalDialog';
+import { openInsertTableDialog } from './dialogs/InsertTableModalDialog';
+import { openInsertSpecialCharacter } from './dialogs/SpecialCharacterModalDialog';
 import { openZenMode } from './dialogs/ZenModeModalDialog';
 import { insertAssetLinks } from './utils/insertAssetLinks';
 import * as LinkOrganizer from './utils/linkOrganizer';

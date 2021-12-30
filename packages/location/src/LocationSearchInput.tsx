@@ -1,10 +1,11 @@
 import React from 'react';
-import { css } from 'emotion';
-import tokens from '@contentful/f36-tokens';
-import { Button, Card } from '@contentful/f36-components';
-import { Coords, GeocodeApiResponse } from './types';
 
+import { Button, Card } from '@contentful/f36-components';
 import { Spinner, ValidationMessage, TextInput } from '@contentful/f36-components';
+import tokens from '@contentful/f36-tokens';
+import { css } from 'emotion';
+
+import { Coords, GeocodeApiResponse } from './types';
 
 const styles = {
   root: css({

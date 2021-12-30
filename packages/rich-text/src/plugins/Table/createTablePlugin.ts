@@ -1,4 +1,3 @@
-import { NodeEntry, Path, Transforms } from 'slate';
 import { BLOCKS, CONTAINERS } from '@contentful/rich-text-types';
 import {
   getBlockAbove,
@@ -15,20 +14,21 @@ import {
   ELEMENT_TR,
   onKeyDownTable,
 } from '@udecode/plate-table';
+import { NodeEntry, Path, Transforms } from 'slate';
 
-import { TrackingProvider } from '../../TrackingProvider';
 import {
   currentSelectionPrecedesTableCell,
   currentSelectionStartsTableCell,
   isRootLevel,
 } from '../../helpers/editor';
-import { RichTextPlugin, CustomElement } from '../../types';
 import { transformLift, transformParagraphs, transformWrapIn } from '../../helpers/transformers';
-import { Table } from './components/Table';
-import { Row } from './components/Row';
-import { HeaderCell } from './components/HeaderCell';
-import { Cell } from './components/Cell';
+import { TrackingProvider } from '../../TrackingProvider';
+import { RichTextPlugin, CustomElement } from '../../types';
 import { addTableTrackingEvents } from './addTableTrackingEvents';
+import { Cell } from './components/Cell';
+import { HeaderCell } from './components/HeaderCell';
+import { Row } from './components/Row';
+import { Table } from './components/Table';
 import { createEmptyTableCells, getNoOfMissingTableCellsInRow, isNotEmpty } from './helpers';
 
 const createTableOnKeyDown: KeyboardHandler<{}, HotkeyPlugin> = (editor, plugin) => {

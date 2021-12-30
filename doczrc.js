@@ -1,8 +1,7 @@
 /* global process */
 
-import fs from 'fs';
-
 import tokens from '@contentful/f36-tokens';
+import fs from 'fs';
 
 const pikadayStyles = fs.readFileSync(process.cwd() + '/packages/date/styles/styles.css');
 

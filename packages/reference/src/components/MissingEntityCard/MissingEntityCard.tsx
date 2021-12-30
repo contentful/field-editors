@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Card, SectionHeading, IconButton } from '@contentful/f36-components';
 import { CloseIcon } from '@contentful/f36-icons';
 

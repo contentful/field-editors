@@ -1,4 +1,5 @@
 import { PlateEditor } from '@udecode/plate-core';
+
 import { createTestEditor, normalize } from './createEditor';
 import { setEmptyDataAttribute } from './setEmptyDataAttribute';
 

@@ -1,6 +1,6 @@
 /* eslint-disable you-dont-need-lodash-underscore/find */
-import flow from 'lodash/flow';
 import find from 'lodash/find';
+import flow from 'lodash/flow';
 import get from 'lodash/get';
 
 /**

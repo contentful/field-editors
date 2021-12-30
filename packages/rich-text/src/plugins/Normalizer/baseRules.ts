@@ -1,11 +1,11 @@
-import { Text } from 'slate';
+import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
 import { getParent } from '@udecode/plate-core';
+import { Text } from 'slate';
+import { CustomElement } from 'types';
 
+import { INLINE_TYPES } from '../../helpers/editor';
 import { transformWrapIn } from '../../helpers/transformers';
 import { NormalizerRule } from './types';
-import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
-import { INLINE_TYPES } from '../../helpers/editor';
-import { CustomElement } from 'types';
 
 const isInline = (node: CustomElement) => INLINE_TYPES.includes(node.type);
 const isTextContainer = (node: CustomElement) => TEXT_CONTAINERS.includes(node.type as BLOCKS);

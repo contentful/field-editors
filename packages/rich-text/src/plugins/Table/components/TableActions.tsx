@@ -1,18 +1,18 @@
 import React from 'react';
-import { css } from 'emotion';
-import * as Slate from 'slate-react';
-import { PlateEditor } from '@udecode/plate-core';
-import { getAbove } from '@udecode/plate-core';
-import { TablePluginOptions, deleteColumn, deleteRow, deleteTable } from '@udecode/plate-table';
+
 import { IconButton, Menu } from '@contentful/f36-components';
 import { ChevronDownIcon } from '@contentful/f36-icons';
 import { BLOCKS } from '@contentful/rich-text-types';
+import { PlateEditor, getAbove } from '@udecode/plate-core';
+import { TablePluginOptions, deleteColumn, deleteRow, deleteTable } from '@udecode/plate-table';
+import { css } from 'emotion';
+import * as Slate from 'slate-react';
 
-import { isTableHeaderEnabled } from '../helpers';
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
 import { getNodeEntryFromSelection, getTableSize } from '../../../helpers/editor';
 import { RichTextTrackingActionName, useTrackingContext } from '../../../TrackingProvider';
 import { addRowAbove, addColumnLeft, addColumnRight, addRowBelow, setHeader } from '../actions';
+import { isTableHeaderEnabled } from '../helpers';
 
 export const styles = {
   topRight: css({
