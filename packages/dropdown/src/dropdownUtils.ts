@@ -1,5 +1,5 @@
-import { FieldAPI } from '@contentful/field-editor-shared';
 import { nanoid } from 'nanoid';
+import { FieldAPI } from '@contentful/field-editor-shared';
 
 type DropdownOption = {
   id: string;

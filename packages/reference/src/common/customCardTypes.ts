@@ -1,6 +1,5 @@
-import * as React from 'react';
-
 import { Asset, ContentType, Entry, RenderDragFn } from '../types';
+import * as React from 'react';
 import { CustomActionProps } from './ReferenceEditor';
 
 export type MissingEntityCardProps = {

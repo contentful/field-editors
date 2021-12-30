@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-use-before-define, @typescript-eslint/no-explicit-any */
 
 import extend from 'lodash/extend';
-import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
+import isObject from 'lodash/isObject';
 import max from 'lodash/max';
 // eslint-disable-next-line
 import isFinite from 'lodash/isFinite';

@@ -1,12 +1,10 @@
 import React from 'react';
-import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
-
-import tokens from '@contentful/f36-tokens';
 import { css } from 'emotion';
-
-import { ReferenceEditorProps } from '../common/ReferenceEditor';
-import { ReferenceValue } from '../types';
+import tokens from '@contentful/f36-tokens';
 import { FetchingWrappedAssetCard } from './WrappedAssetCard/FetchingWrappedAssetCard';
+import { ReferenceValue } from '../types';
+import { ReferenceEditorProps } from '../common/ReferenceEditor';
+import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 
 const styles = {
   gridContainter: css({

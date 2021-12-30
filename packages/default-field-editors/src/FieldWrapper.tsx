@@ -1,10 +1,8 @@
 import * as React from 'react';
-
-import { FormControl } from '@contentful/f36-components';
-import type { FieldExtensionSDK, Entry } from '@contentful/field-editor-shared';
-import { ValidationErrors } from '@contentful/field-editor-validation-errors';
 import { cx } from 'emotion';
-
+import { FormControl } from '@contentful/f36-components';
+import { ValidationErrors } from '@contentful/field-editor-validation-errors';
+import type { FieldExtensionSDK, Entry } from '@contentful/field-editor-shared';
 import { styles } from './FieldWrapper.styles';
 
 type FieldWrapperProps = {

@@ -1,11 +1,8 @@
 import * as React from 'react';
-
-import { render, configure, cleanup, fireEvent } from '@testing-library/react';
 import identity from 'lodash/identity';
-
+import { render, configure, cleanup, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { UrlEditor } from './UrlEditor';
-
 import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 
 configure({

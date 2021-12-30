@@ -1,9 +1,9 @@
 import * as React from 'react';
-
-import { TextLink, Flex, Radio } from '@contentful/f36-components';
-import { FieldAPI, ParametersAPI, FieldConnector } from '@contentful/field-editor-shared';
 import get from 'lodash/get';
 import { nanoid } from 'nanoid';
+import { FieldAPI, ParametersAPI, FieldConnector } from '@contentful/field-editor-shared';
+
+import { TextLink, Flex, Radio } from '@contentful/f36-components';
 
 export interface BooleanEditorProps {
   /**

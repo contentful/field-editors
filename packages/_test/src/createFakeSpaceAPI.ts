@@ -1,6 +1,5 @@
 import { ContentType, SearchQuery, SpaceAPI } from '@contentful/app-sdk';
 import { Entry } from '@contentful/field-editor-shared';
-
 import { createEntry } from './fakesFactory';
 
 function identity<T>(item: T): T {

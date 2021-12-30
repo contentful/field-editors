@@ -1,5 +1,5 @@
-import tokens from '@contentful/f36-tokens';
 import { css } from 'emotion';
+import tokens from '@contentful/f36-tokens';
 
 export const errorList = css({
   padding: 0,

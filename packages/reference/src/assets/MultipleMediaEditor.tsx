@@ -1,7 +1,6 @@
 import * as React from 'react';
-
-import { MultipleReferenceEditor } from '../common/MultipleReferenceEditor';
 import { ReferenceEditorProps } from '../common/ReferenceEditor';
+import { MultipleReferenceEditor } from '../common/MultipleReferenceEditor';
 import { SortableLinkList } from './SortableElements';
 
 type EditorProps = Omit<ReferenceEditorProps, 'hasCardEditActions'>;

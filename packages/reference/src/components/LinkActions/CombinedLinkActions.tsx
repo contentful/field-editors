@@ -1,12 +1,13 @@
 import * as React from 'react';
 
-import { Button, Menu } from '@contentful/f36-components';
-import { LinkIcon, PlusIcon, ChevronDownIcon } from '@contentful/f36-icons';
-
+import * as styles from './redesignStyles';
 import { CreateEntryLinkButton } from '../CreateEntryLinkButton/CreateEntryLinkButton';
 import { testIds as sharedTextIds, LinkActionsProps } from './LinkActions';
 import { NoLinkPermissionsInfo } from './NoLinkPermissionsInfo';
-import * as styles from './redesignStyles';
+
+import { Button, Menu } from '@contentful/f36-components';
+
+import { LinkIcon, PlusIcon, ChevronDownIcon } from '@contentful/f36-icons';
 
 const testIds = {
   ...sharedTextIds,

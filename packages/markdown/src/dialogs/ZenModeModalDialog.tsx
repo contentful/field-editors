@@ -1,18 +1,17 @@
 import React from 'react';
-
-import { DialogsAPI, DialogExtensionSDK } from '@contentful/app-sdk';
-import { ChevronRightIcon, ChevronLeftIcon } from '@contentful/f36-icons';
-import tokens from '@contentful/f36-tokens';
 import { css, cx } from 'emotion';
-
-import { MarkdownBottomBar, MarkdownHelp } from '../components/MarkdownBottomBar';
-import { MarkdownPreview } from '../components/MarkdownPreview';
-import { InitializedEditorType } from '../components/MarkdownTextarea/MarkdownTextarea';
-import { MarkdownTextarea } from '../components/MarkdownTextarea/MarkdownTextarea';
-import { MarkdownToolbar } from '../components/MarkdownToolbar';
-import { openCheatsheetModal } from '../dialogs/CheatsheetModalDialog';
-import { createMarkdownActions } from '../MarkdownActions';
+import { DialogsAPI, DialogExtensionSDK } from '@contentful/app-sdk';
 import { MarkdownDialogType, MarkdownDialogsParams, PreviewComponents } from '../types';
+import { InitializedEditorType } from '../components/MarkdownTextarea/MarkdownTextarea';
+import { MarkdownToolbar } from '../components/MarkdownToolbar';
+import { MarkdownTextarea } from '../components/MarkdownTextarea/MarkdownTextarea';
+import { MarkdownPreview } from '../components/MarkdownPreview';
+import { MarkdownBottomBar, MarkdownHelp } from '../components/MarkdownBottomBar';
+import { createMarkdownActions } from '../MarkdownActions';
+import { openCheatsheetModal } from '../dialogs/CheatsheetModalDialog';
+import tokens from '@contentful/f36-tokens';
+
+import { ChevronRightIcon, ChevronLeftIcon } from '@contentful/f36-icons';
 
 export type ZenModeResult = {
   value: string;

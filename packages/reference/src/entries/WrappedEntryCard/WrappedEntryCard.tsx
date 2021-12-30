@@ -1,14 +1,13 @@
 import * as React from 'react';
-
+import { css } from 'emotion';
+import tokens from '@contentful/f36-tokens';
 import { SpaceAPI } from '@contentful/app-sdk';
 import { EntryCard, MenuItem, MenuDivider } from '@contentful/f36-components';
-import { ClockIcon } from '@contentful/f36-icons';
-import tokens from '@contentful/f36-tokens';
-import { entityHelpers, isValidImage } from '@contentful/field-editor-shared';
-import { css } from 'emotion';
-
-import { AssetThumbnail, MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
 import { ContentType, Entry, File, RenderDragFn } from '../../types';
+import { entityHelpers, isValidImage } from '@contentful/field-editor-shared';
+import { AssetThumbnail, MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
+
+import { ClockIcon } from '@contentful/f36-icons';
 
 const { getEntryTitle, getEntityDescription, getEntryStatus, getEntryImage } = entityHelpers;
 

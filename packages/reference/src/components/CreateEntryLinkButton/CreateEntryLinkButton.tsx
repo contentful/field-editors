@@ -1,13 +1,13 @@
 import React from 'react';
+import get from 'lodash/get';
+import { css } from 'emotion';
+import { ContentType } from '../../types';
+import tokens from '@contentful/f36-tokens';
+import { CreateEntryMenuTrigger } from './CreateEntryMenuTrigger';
 
 import { Button } from '@contentful/f36-components';
-import { ChevronDownIcon, PlusIcon } from '@contentful/f36-icons';
-import tokens from '@contentful/f36-tokens';
-import { css } from 'emotion';
-import get from 'lodash/get';
 
-import { ContentType } from '../../types';
-import { CreateEntryMenuTrigger } from './CreateEntryMenuTrigger';
+import { ChevronDownIcon, PlusIcon } from '@contentful/f36-icons';
 
 const standardStyles = {
   spinnerMargin: css({

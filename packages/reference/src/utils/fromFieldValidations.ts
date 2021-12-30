@@ -1,5 +1,5 @@
-import { FieldAPI } from '@contentful/app-sdk';
 import isNumber from 'lodash/isNumber';
+import { FieldAPI } from '@contentful/app-sdk';
 
 type NumberOfLinksValidation =
   | { type: 'min-max'; min: number; max: number }

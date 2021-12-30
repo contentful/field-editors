@@ -1,12 +1,8 @@
 import * as React from 'react';
-
-import { FieldAPI, FieldConnector, ParametersAPI } from '@contentful/field-editor-shared';
-import deepEqual from 'deep-equal';
 import isNumber from 'lodash/isNumber';
 import throttle from 'lodash/throttle';
-
-import { GoogleMapView } from './GoogleMapView';
-import { LocationSelector } from './LocationSelector';
+import { FieldAPI, FieldConnector, ParametersAPI } from '@contentful/field-editor-shared';
+import deepEqual from 'deep-equal';
 import {
   LocationValue,
   ViewType,
@@ -14,6 +10,8 @@ import {
   Coords,
   GeocodeApiResponse,
 } from './types';
+import { LocationSelector } from './LocationSelector';
+import { GoogleMapView } from './GoogleMapView';
 
 export interface LocationEditorConnectedProps {
   /**

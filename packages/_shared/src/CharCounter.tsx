@@ -1,5 +1,4 @@
 import React from 'react';
-
 import tokens from '@contentful/f36-tokens';
 import { css, cx } from 'emotion';
 

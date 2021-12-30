@@ -1,9 +1,8 @@
 import * as React from 'react';
+import { FieldAPI, LocalesAPI, FieldConnector } from '@contentful/field-editor-shared';
+import * as styles from './styles';
 
 import { TextInput } from '@contentful/f36-components';
-import { FieldAPI, LocalesAPI, FieldConnector } from '@contentful/field-editor-shared';
-
-import * as styles from './styles';
 
 export interface ListEditorProps {
   /**

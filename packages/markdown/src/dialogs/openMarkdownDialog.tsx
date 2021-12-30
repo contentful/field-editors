@@ -1,23 +1,22 @@
 import React from 'react';
-
 import {
   FieldExtensionSDK,
   DialogExtensionSDK,
   OpenCustomWidgetOptions,
 } from '@contentful/app-sdk';
 import { ModalDialogLauncher } from '@contentful/field-editor-shared';
-
 import { MarkdownDialogsParams, PreviewComponents } from '../types';
-import { MarkdownDialogType } from '../types';
+
 import { CheatsheetModalDialog } from './CheatsheetModalDialog';
+import { SpecialCharacterModalDialog } from './SpecialCharacterModalDialog';
+import { MarkdownDialogType } from '../types';
+import { InsertLinkModal, InsertLinkModalResult } from './InsertLinkModalDialog';
+import { InsertTableModal, InsertTableModalResult } from './InsertTableModalDialog';
 import { ConfirmInsertAssetModalDialog } from './ConfirmInsertAssetModalDialog';
 import {
   EmbedExternalContentModal,
   EmbedExternalContentModalResult,
 } from './EmdebExternalContentDialog';
-import { InsertLinkModal, InsertLinkModalResult } from './InsertLinkModalDialog';
-import { InsertTableModal, InsertTableModalResult } from './InsertTableModalDialog';
-import { SpecialCharacterModalDialog } from './SpecialCharacterModalDialog';
 import { ZenModeModalDialog, ZenModeResult } from './ZenModeModalDialog';
 
 export const openMarkdownDialog =

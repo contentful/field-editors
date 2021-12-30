@@ -1,8 +1,7 @@
 import React from 'react';
-
-import { ValidationMessage } from '@contentful/f36-components';
-import tokens from '@contentful/f36-tokens';
 import { css } from 'emotion';
+import tokens from '@contentful/f36-tokens';
+import { ValidationMessage } from '@contentful/f36-components';
 
 export function JsonInvalidStatus() {
   return (

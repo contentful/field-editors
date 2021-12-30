@@ -1,14 +1,13 @@
 import React from 'react';
-
-import { EntryCard } from '@contentful/f36-components';
-import { ClockIcon } from '@contentful/f36-icons';
-import tokens from '@contentful/f36-tokens';
-import { entityHelpers, isValidImage, SpaceAPI } from '@contentful/field-editor-shared';
 import { css } from 'emotion';
-
-import { MissingEntityCard, ScheduledIconWithTooltip, AssetThumbnail } from '../../components';
-import { Asset, RenderDragFn } from '../../types';
+import tokens from '@contentful/f36-tokens';
+import { EntryCard } from '@contentful/f36-components';
 import { renderActions, renderAssetInfo } from './AssetCardActions';
+import { Asset, RenderDragFn } from '../../types';
+import { entityHelpers, isValidImage, SpaceAPI } from '@contentful/field-editor-shared';
+import { MissingEntityCard, ScheduledIconWithTooltip, AssetThumbnail } from '../../components';
+
+import { ClockIcon } from '@contentful/f36-icons';
 
 const styles = {
   scheduleIcon: css({

@@ -1,14 +1,12 @@
 import * as React from 'react';
-import { useCallback } from 'react';
-import { SortEndHandler, SortStartHandler } from 'react-sortable-hoc';
-
 import arrayMove from 'array-move';
-
-import { LinkEntityActions } from '../components';
-import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions';
 import { ReferenceValue, ContentEntityType, ContentType } from '../types';
-import { CustomEntityCardProps } from './customCardTypes';
 import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
+import { LinkEntityActions } from '../components';
+import { SortEndHandler, SortStartHandler } from 'react-sortable-hoc';
+import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions';
+import { useCallback } from 'react';
+import { CustomEntityCardProps } from './customCardTypes';
 import { useEditorPermissions } from './useEditorPermissions';
 
 type ChildProps = {

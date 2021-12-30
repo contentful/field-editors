@@ -1,14 +1,12 @@
 import React from 'react';
-
 import { DialogExtensionSDK } from '@contentful/app-sdk';
-
 import { MarkdownDialogsParams, MarkdownDialogType } from '../types';
+import { SpecialCharacterModalDialog } from './SpecialCharacterModalDialog';
 import { CheatsheetModalDialog } from './CheatsheetModalDialog';
-import { ConfirmInsertAssetModalDialog } from './ConfirmInsertAssetModalDialog';
-import { EmbedExternalContentModal } from './EmdebExternalContentDialog';
 import { InsertLinkModal } from './InsertLinkModalDialog';
 import { InsertTableModal } from './InsertTableModalDialog';
-import { SpecialCharacterModalDialog } from './SpecialCharacterModalDialog';
+import { EmbedExternalContentModal } from './EmdebExternalContentDialog';
+import { ConfirmInsertAssetModalDialog } from './ConfirmInsertAssetModalDialog';
 import { ZenModeModalDialog } from './ZenModeModalDialog';
 
 export const renderMarkdownDialog = (

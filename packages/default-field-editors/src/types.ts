@@ -1,26 +1,26 @@
-import { BooleanEditor } from '@contentful/field-editor-boolean';
-import { CheckboxEditor } from '@contentful/field-editor-checkbox';
-import { DateEditor } from '@contentful/field-editor-date';
-import { DropdownEditor } from '@contentful/field-editor-dropdown';
-import { JsonEditor } from '@contentful/field-editor-json';
-import { ListEditor } from '@contentful/field-editor-list';
-import { LocationEditor } from '@contentful/field-editor-location';
-import { MarkdownEditor } from '@contentful/field-editor-markdown';
 import { MultipleLineEditor } from '@contentful/field-editor-multiple-line';
-import { NumberEditor } from '@contentful/field-editor-number';
-import { RadioEditor } from '@contentful/field-editor-radio';
-import { RatingEditor } from '@contentful/field-editor-rating';
+import { BooleanEditor } from '@contentful/field-editor-boolean';
 import {
   MultipleEntryReferenceEditor,
   MultipleMediaEditor,
   SingleEntryReferenceEditor,
   SingleMediaEditor,
 } from '@contentful/field-editor-reference';
-import { RichTextEditor } from '@contentful/field-editor-rich-text';
-import { SingleLineEditor } from '@contentful/field-editor-single-line';
-import { SlugEditor } from '@contentful/field-editor-slug';
+import { JsonEditor } from '@contentful/field-editor-json';
+import { DateEditor } from '@contentful/field-editor-date';
+import { LocationEditor } from '@contentful/field-editor-location';
+import { CheckboxEditor } from '@contentful/field-editor-checkbox';
+import { ListEditor } from '@contentful/field-editor-list';
+import { RatingEditor } from '@contentful/field-editor-rating';
+import { RadioEditor } from '@contentful/field-editor-radio';
 import { TagsEditor } from '@contentful/field-editor-tags';
+import { NumberEditor } from '@contentful/field-editor-number';
 import { UrlEditor } from '@contentful/field-editor-url';
+import { SlugEditor } from '@contentful/field-editor-slug';
+import { SingleLineEditor } from '@contentful/field-editor-single-line';
+import { DropdownEditor } from '@contentful/field-editor-dropdown';
+import { RichTextEditor } from '@contentful/field-editor-rich-text';
+import { MarkdownEditor } from '@contentful/field-editor-markdown';
 
 export type WidgetType =
   | 'multipleLine'

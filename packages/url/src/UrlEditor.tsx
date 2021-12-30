@@ -1,7 +1,7 @@
 import * as React from 'react';
+import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
 
 import { TextInput } from '@contentful/f36-components';
-import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
 
 export interface UrlEditorProps {
   /**

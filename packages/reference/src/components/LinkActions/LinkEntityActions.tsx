@@ -1,7 +1,5 @@
 import * as React from 'react';
 import { useMemo } from 'react';
-
-import { EditorPermissions } from '../../common/useEditorPermissions';
 import {
   Action,
   ActionLabels,
@@ -11,8 +9,9 @@ import {
   Asset,
   NavigatorSlideInfo,
 } from '../../types';
-import { createEntity, selectMultipleEntities, selectSingleEntity } from './helpers';
 import { LinkActions, LinkActionsProps } from './LinkActions';
+import { createEntity, selectMultipleEntities, selectSingleEntity } from './helpers';
+import { EditorPermissions } from '../../common/useEditorPermissions';
 
 type LinkEntityActionsProps = {
   entityType: ContentEntityType;

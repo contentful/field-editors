@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import React from 'react';
-
 import { css } from 'emotion';
 import GoogleMapReact from 'google-map-react';
-
 import { Coords } from './types';
 
 const styles = {

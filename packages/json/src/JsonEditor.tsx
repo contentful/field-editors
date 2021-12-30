@@ -1,12 +1,11 @@
 import * as React from 'react';
-
-import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
 import deepEqual from 'deep-equal';
 import throttle from 'lodash/throttle';
 
-import { JsonEditorField } from './JsonEditoField';
+import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
 import { JsonEditorToolbar } from './JsonEditorToobar';
 import { JsonInvalidStatus } from './JsonInvalidStatus';
+import { JsonEditorField } from './JsonEditoField';
 import { JSONObject } from './types';
 import { stringifyJSON, parseJSON } from './utils';
 

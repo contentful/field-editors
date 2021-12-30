@@ -1,6 +1,4 @@
 import * as React from 'react';
-
-import { Textarea } from '@contentful/f36-components';
 import {
   FieldAPI,
   LocalesAPI,
@@ -9,8 +7,9 @@ import {
   CharValidation,
   ConstraintsUtils,
 } from '@contentful/field-editor-shared';
-
 import * as styles from './styles';
+
+import { Textarea } from '@contentful/f36-components';
 
 export interface MultipleLineEditorProps {
   /**

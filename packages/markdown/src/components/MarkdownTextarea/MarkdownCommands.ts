@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
-import max from 'lodash/max';
-import min from 'lodash/min';
 import range from 'lodash/range';
+import min from 'lodash/min';
+import max from 'lodash/max';
+import times from 'lodash/times';
 // eslint-disable-next-line you-dont-need-lodash-underscore/repeat
 import repeat from 'lodash/repeat';
-import times from 'lodash/times';
 
 import * as CodeMirrorWrapper from './CodeMirrorWrapper';
 

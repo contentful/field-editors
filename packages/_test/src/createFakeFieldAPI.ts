@@ -1,6 +1,6 @@
-import { FieldAPI } from '@contentful/app-sdk';
 import mitt from 'mitt';
 import type { Emitter, Handler } from 'mitt';
+import { FieldAPI } from '@contentful/app-sdk';
 
 function identity<T>(item: T): T {
   return item;

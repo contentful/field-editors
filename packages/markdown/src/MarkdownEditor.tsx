@@ -1,20 +1,18 @@
 import React from 'react';
-
-import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { css } from 'emotion';
 import tokens from '@contentful/f36-tokens';
 import { FieldConnector } from '@contentful/field-editor-shared';
-import { css } from 'emotion';
-
-import { MarkdownBottomBar, MarkdownHelp } from './components/MarkdownBottomBar';
-import { MarkdownConstraints } from './components/MarkdownConstraints';
-import { MarkdownPreview } from './components/MarkdownPreview';
+import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { MarkdownTabs } from './components/MarkdownTabs';
+import { MarkdownToolbar } from './components/MarkdownToolbar';
 import { MarkdownTextarea } from './components/MarkdownTextarea/MarkdownTextarea';
 import { InitializedEditorType } from './components/MarkdownTextarea/MarkdownTextarea';
-import { MarkdownToolbar } from './components/MarkdownToolbar';
-import { openCheatsheetModal } from './dialogs/CheatsheetModalDialog';
-import { createMarkdownActions } from './MarkdownActions';
+import { MarkdownBottomBar, MarkdownHelp } from './components/MarkdownBottomBar';
 import { MarkdownTab, PreviewComponents } from './types';
+import { openCheatsheetModal } from './dialogs/CheatsheetModalDialog';
+import { MarkdownPreview } from './components/MarkdownPreview';
+import { MarkdownConstraints } from './components/MarkdownConstraints';
+import { createMarkdownActions } from './MarkdownActions';
 
 const styles = {
   container: css({

@@ -1,7 +1,5 @@
 import React from 'react';
-
 import { Menu } from '@contentful/f36-components';
-
 import { HeadingType } from '../types';
 
 export const HeadingSelector = (props: {

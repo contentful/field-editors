@@ -1,17 +1,19 @@
 import * as React from 'react';
-
-import { BooleanEditor } from '@contentful/field-editor-boolean';
-import { CheckboxEditor } from '@contentful/field-editor-checkbox';
-import { DateEditor } from '@contentful/field-editor-date';
-import { DropdownEditor } from '@contentful/field-editor-dropdown';
-import { JsonEditor } from '@contentful/field-editor-json';
-import { ListEditor } from '@contentful/field-editor-list';
-import { LocationEditor } from '@contentful/field-editor-location';
-import { MarkdownEditor } from '@contentful/field-editor-markdown';
-import { MultipleLineEditor } from '@contentful/field-editor-multiple-line';
 import { NumberEditor } from '@contentful/field-editor-number';
+import { SingleLineEditor } from '@contentful/field-editor-single-line';
+import { BooleanEditor } from '@contentful/field-editor-boolean';
+import { DateEditor } from '@contentful/field-editor-date';
+import { LocationEditor } from '@contentful/field-editor-location';
+import { JsonEditor } from '@contentful/field-editor-json';
+import { MultipleLineEditor } from '@contentful/field-editor-multiple-line';
+import { TagsEditor } from '@contentful/field-editor-tags';
+import { SlugEditor } from '@contentful/field-editor-slug';
+import { DropdownEditor } from '@contentful/field-editor-dropdown';
+import { UrlEditor } from '@contentful/field-editor-url';
 import { RadioEditor } from '@contentful/field-editor-radio';
 import { RatingEditor } from '@contentful/field-editor-rating';
+import { CheckboxEditor } from '@contentful/field-editor-checkbox';
+import { ListEditor } from '@contentful/field-editor-list';
 import {
   SingleEntryReferenceEditor,
   MultipleEntryReferenceEditor,
@@ -19,14 +21,10 @@ import {
   MultipleMediaEditor,
 } from '@contentful/field-editor-reference';
 import { RichTextEditor } from '@contentful/field-editor-rich-text';
+import { MarkdownEditor } from '@contentful/field-editor-markdown';
 import type { FieldExtensionSDK } from '@contentful/field-editor-shared';
-import { SingleLineEditor } from '@contentful/field-editor-single-line';
-import { SlugEditor } from '@contentful/field-editor-slug';
-import { TagsEditor } from '@contentful/field-editor-tags';
-import { UrlEditor } from '@contentful/field-editor-url';
-
-import { getDefaultWidgetId } from './getDefaultWidgetId';
 import type { EditorOptions, WidgetType } from './types';
+import { getDefaultWidgetId } from './getDefaultWidgetId';
 
 type FieldProps = {
   sdk: FieldExtensionSDK;

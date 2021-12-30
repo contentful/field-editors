@@ -1,9 +1,8 @@
-import { AccessAPI, ContentType, FieldAPI } from '@contentful/app-sdk';
-import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
-import { renderHook } from '@testing-library/react-hooks';
-
-import { FieldExtensionSDK } from '../types';
 import { EditorPermissionsProps, useEditorPermissions } from './useEditorPermissions';
+import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
+import { FieldExtensionSDK } from '../types';
+import { renderHook } from '@testing-library/react-hooks';
+import { AccessAPI, ContentType, FieldAPI } from '@contentful/app-sdk';
 
 type ExtendedAccessAPI = AccessAPI & {
   canPerformActionOnEntryOfType: (action: string, contentTypeId: string) => Promise<boolean>;

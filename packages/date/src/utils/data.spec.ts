@@ -1,6 +1,5 @@
 // eslint-disable-next-line no-restricted-imports
 import moment from 'moment';
-
 import { buildFieldValue } from './date';
 
 describe('date utils', () => {

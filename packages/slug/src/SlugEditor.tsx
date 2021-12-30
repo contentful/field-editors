@@ -1,10 +1,8 @@
 import * as React from 'react';
-
 import { FieldExtensionSDK, FieldAPI, ValidationError } from '@contentful/app-sdk';
 import { FieldConnector } from '@contentful/field-editor-shared';
-
-import { SlugEditorField, SlugEditorFieldStatic } from './SlugEditorField';
 import { TrackingFieldConnector } from './TrackingFieldConnector';
+import { SlugEditorField, SlugEditorFieldStatic } from './SlugEditorField';
 
 export interface SlugEditorProps {
   /**

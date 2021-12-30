@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { ValidationType } from './types';
 
 interface CharValidationProps {

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-
 import { DialogsAPI } from '@contentful/app-sdk';
+import { css } from 'emotion';
+import tokens from '@contentful/f36-tokens';
 import {
   ModalContent,
   ModalControls,
@@ -9,11 +10,8 @@ import {
   Button,
   Tooltip,
 } from '@contentful/f36-components';
-import tokens from '@contentful/f36-tokens';
-import { css } from 'emotion';
-
-import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 import { specialCharacters } from '../utils/specialCharacters';
+import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 
 const styles = {
   buttonPanel: css({

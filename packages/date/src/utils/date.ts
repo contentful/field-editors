@@ -1,6 +1,5 @@
 // eslint-disable-next-line no-restricted-imports
 import moment from 'moment';
-
 import { TimeResult } from '../types';
 
 const ZONE_RX = /(Z|[+-]\d{2}[:+]?\d{2})$/;

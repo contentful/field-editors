@@ -1,8 +1,8 @@
 import React from 'react';
+import { css } from 'emotion';
+import tokens from '@contentful/f36-tokens';
 
 import { Button } from '@contentful/f36-components';
-import tokens from '@contentful/f36-tokens';
-import { css } from 'emotion';
 
 const styles = {
   toolbar: css({

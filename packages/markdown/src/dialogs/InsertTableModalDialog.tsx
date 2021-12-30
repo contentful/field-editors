@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-
 import { DialogsAPI } from '@contentful/app-sdk';
+import inRange from 'lodash/inRange';
 import {
   ModalContent,
   ModalControls,
@@ -9,8 +9,6 @@ import {
   FormControl,
   TextInput,
 } from '@contentful/f36-components';
-import inRange from 'lodash/inRange';
-
 import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 
 type InsertTableModalPositiveResult = { cols: number; rows: number };
