@@ -3,6 +3,24 @@ import { jsx, assertOutput } from '../../../test-utils';
 
 describe('normalization', () => {
   describe('Table', () => {
+    it('removes empty table nodes', () => {
+      const input = (
+        <editor>
+          <htable />
+        </editor>
+      );
+
+      const expected = (
+        <editor>
+          <hp>
+            <text />
+          </hp>
+        </editor>
+      );
+
+      assertOutput({ input, expected });
+    });
+
     it('moves tables to the root level except nested tables', () => {
       const table = (
         <htable>
@@ -181,6 +199,184 @@ describe('normalization', () => {
           </htable>
           <hp>
             <htext />
+          </hp>
+        </editor>
+      );
+
+      assertOutput({ input, expected });
+    });
+  });
+
+  describe('Table row', () => {
+    it('must be wrapped in a table', () => {
+      const input = (
+        <editor>
+          <htr>
+            <htd>
+              <hp>cell</hp>
+            </htd>
+          </htr>
+        </editor>
+      );
+
+      const expected = (
+        <editor>
+          <htable>
+            <htr>
+              <htd>
+                <hp>cell</hp>
+              </htd>
+            </htr>
+          </htable>
+
+          <hp>
+            <text />
+          </hp>
+        </editor>
+      );
+
+      assertOutput({ input, expected });
+    });
+
+    it('removes empty rows', () => {
+      const input = (
+        <editor>
+          <htr />
+        </editor>
+      );
+
+      const expected = (
+        <editor>
+          <hp>
+            <text />
+          </hp>
+        </editor>
+      );
+
+      assertOutput({ input, expected });
+    });
+
+    it('wraps invalid children in table cells', () => {
+      const input = (
+        <editor>
+          <htable>
+            <htr>
+              <htd>
+                <hp>cell 1</hp>
+              </htd>
+              <hp>cell 2</hp>
+            </htr>
+          </htable>
+        </editor>
+      );
+
+      const expected = (
+        <editor>
+          <htable>
+            <htr>
+              <htd>
+                <hp>cell 1</hp>
+              </htd>
+              <htd>
+                <hp>cell 2</hp>
+              </htd>
+            </htr>
+          </htable>
+
+          <hp>
+            <text />
+          </hp>
+        </editor>
+      );
+
+      assertOutput({ input, expected });
+    });
+
+    it('ensures all table rows have the same width', () => {
+      const input = (
+        <editor>
+          <htable>
+            {/* 1 column */}
+            <htr>
+              <htd>
+                <hp>cell 1</hp>
+              </htd>
+            </htr>
+
+            {/* 3 columns */}
+            <htr>
+              <htd>
+                <hp>cell 2</hp>
+              </htd>
+              <htd>
+                <hp>cell 3</hp>
+              </htd>
+              <htd>
+                <hp>cell 4</hp>
+              </htd>
+            </htr>
+
+            {/* 2 columns */}
+            <htr>
+              <htd>
+                <hp>cell 5</hp>
+              </htd>
+              <htd>
+                <hp>cell 6</hp>
+              </htd>
+            </htr>
+          </htable>
+        </editor>
+      );
+
+      const expected = (
+        <editor>
+          <htable>
+            <htr>
+              <htd>
+                <hp>cell 1</hp>
+              </htd>
+              <htd>
+                <hp>
+                  <text />
+                </hp>
+              </htd>
+              <htd>
+                <hp>
+                  <text />
+                </hp>
+              </htd>
+            </htr>
+
+            <htr>
+              <htd>
+                <hp>cell 2</hp>
+              </htd>
+              <htd>
+                <hp>cell 3</hp>
+              </htd>
+              <htd>
+                <hp>cell 4</hp>
+              </htd>
+            </htr>
+
+            <htr>
+              <htd>
+                <hp>cell 5</hp>
+              </htd>
+              <htd>
+                <hp>cell 6</hp>
+              </htd>
+              <htd>
+                <hp>
+                  <text />
+                </hp>
+              </htd>
+            </htr>
+          </htable>
+
+          <hp>
+            <text />
           </hp>
         </editor>
       );

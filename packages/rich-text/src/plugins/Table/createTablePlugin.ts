@@ -1,6 +1,12 @@
-import { Transforms } from 'slate';
+import { NodeEntry, Path, Transforms } from 'slate';
 import { BLOCKS, CONTAINERS } from '@contentful/rich-text-types';
-import { getBlockAbove, HotkeyPlugin, KeyboardHandler } from '@udecode/plate-core';
+import {
+  getBlockAbove,
+  getParent,
+  HotkeyPlugin,
+  KeyboardHandler,
+  getLastChildPath,
+} from '@udecode/plate-core';
 import {
   createTablePlugin as createDefaultTablePlugin,
   ELEMENT_TABLE,
@@ -17,12 +23,13 @@ import {
   isRootLevel,
 } from '../../helpers/editor';
 import { RichTextPlugin, CustomElement } from '../../types';
-import { transformLift, transformParagraphs } from '../../helpers/transformers';
+import { transformLift, transformParagraphs, transformWrapIn } from '../../helpers/transformers';
 import { Table } from './components/Table';
 import { Row } from './components/Row';
 import { HeaderCell } from './components/HeaderCell';
 import { Cell } from './components/Cell';
 import { addTableTrackingEvents } from './addTableTrackingEvents';
+import { createEmptyTableCells, getNoOfMissingTableCellsInRow, isNotEmpty } from './helpers';
 
 const createTableOnKeyDown: KeyboardHandler<{}, HotkeyPlugin> = (editor, plugin) => {
   const defaultHandler = onKeyDownTable(editor, plugin);
@@ -82,6 +89,9 @@ export const createTablePlugin = (tracking: TrackingProvider): RichTextPlugin =>
         component: Table,
         normalizer: [
           {
+            validNode: isNotEmpty,
+          },
+          {
             // Move to root level unless nested
             validNode: (editor, [, path]) => {
               const isNestedTable = !!getBlockAbove(editor, {
@@ -103,6 +113,38 @@ export const createTablePlugin = (tracking: TrackingProvider): RichTextPlugin =>
       [ELEMENT_TR]: {
         type: BLOCKS.TABLE_ROW,
         component: Row,
+        normalizer: [
+          {
+            validChildren: CONTAINERS[BLOCKS.TABLE_ROW],
+            transform: transformWrapIn(BLOCKS.TABLE_CELL),
+          },
+          {
+            // Remove empty rows
+            validNode: isNotEmpty,
+          },
+          {
+            // Parent must be a table
+            validNode: (editor, [, path]) => {
+              const parent = getParent(editor, path)?.[0];
+              return parent && parent.type === BLOCKS.TABLE;
+            },
+            transform: transformWrapIn(BLOCKS.TABLE),
+          },
+          {
+            // ensure consistent number of cells in each row
+            validNode: (editor, entry) => {
+              return getNoOfMissingTableCellsInRow(editor, entry) === 0;
+            },
+            transform: (editor, entry) => {
+              const howMany = getNoOfMissingTableCellsInRow(editor, entry);
+              const at = Path.next(getLastChildPath(entry as NodeEntry<CustomElement>));
+
+              Transforms.insertNodes(editor, createEmptyTableCells(howMany), {
+                at,
+              });
+            },
+          },
+        ],
       },
       [ELEMENT_TH]: {
         type: BLOCKS.TABLE_HEADER_CELL,
