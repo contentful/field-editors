@@ -1,11 +1,6 @@
 import { BLOCKS } from '@contentful/rich-text-types';
-import {
-  PlateEditor,
-  getAbove,
-  getChildren,
-  isFirstChild,
-  isAncestorEmpty,
-} from '@udecode/plate-core';
+import { getParent, PlateEditor } from '@udecode/plate-core';
+import { getAbove, getChildren, isFirstChild, isAncestorEmpty } from '@udecode/plate-core';
 import {
   ELEMENT_TABLE,
   ELEMENT_TH,
@@ -13,14 +8,13 @@ import {
   ELEMENT_TR,
   insertTable,
 } from '@udecode/plate-table';
+import { Node, NodeEntry } from 'slate';
 import { Transforms, Path, Editor, Ancestor } from 'slate';
 
 import { isBlockSelected, getAncestorPathFromSelection } from '../../helpers/editor';
 import { CustomElement } from '../../types';
 
 export function insertTableAndFocusFirstCell(editor: PlateEditor): void {
-  // FIXME: a table should only be allowed at root level. Currently this
-  // code adds it at any level
   insertTable(editor, { header: true });
   replaceEmptyParagraphWithTable(editor);
 }
@@ -74,3 +68,51 @@ export function replaceEmptyParagraphWithTable(editor: PlateEditor) {
     Transforms.removeNodes(editor, { at: tablePath });
   }
 }
+
+/**
+ * Returns the number of cells in a given row vs the table width
+ *
+ * Note: We should only get different table rows cell counts in between
+ * normalization cycles.
+ */
+export const getNoOfMissingTableCellsInRow = (editor: PlateEditor, [, rowPath]: NodeEntry) => {
+  const parent = getParent(editor, rowPath);
+
+  // This is ensured by normalization. The error is here just in case
+  if (!parent) {
+    throw new Error('table rows must be wrapped in a table node');
+  }
+
+  const [, tablePath] = parent;
+
+  // The longest table row determines its width
+  const tableWidth = Math.max(
+    ...Array.from(Node.children(editor, tablePath)).map(
+      ([, path]) => Array.from(Node.children(editor, path)).length
+    )
+  );
+
+  const rowWidth = Array.from(Node.children(editor, rowPath)).length;
+
+  return tableWidth - rowWidth;
+};
+
+export const createEmptyTableCells = (count: number): Node[] => {
+  const emptyTableCell = {
+    type: BLOCKS.TABLE_CELL,
+    data: {},
+    children: [
+      {
+        type: BLOCKS.PARAGRAPH,
+        data: {},
+        children: [{ text: '' }],
+      },
+    ],
+  };
+
+  return new Array(count).fill(emptyTableCell);
+};
+
+export const isNotEmpty = (editor: PlateEditor, [, path]: NodeEntry) => {
+  return Array.from(Node.children(editor, path)).length !== 0;
+};

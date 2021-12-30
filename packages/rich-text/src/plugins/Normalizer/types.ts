@@ -17,11 +17,11 @@ type BaseRule = {
    * A helper to normalize invalid Node(s). By default it removes
    * invalid nodes.
    *
-   * The call to this function is automatically wrapped in a
+   * Transformations are automatically wrapped in a
    * `Editor.withoutNormalization()` call to avoid unnecessary
    * normalization cycles.
    */
-  transform?: NodeTransformer;
+  transform?: NodeTransformer | Record<string | 'default', NodeTransformer>;
 };
 
 export type ValidNodeRule = BaseRule & {

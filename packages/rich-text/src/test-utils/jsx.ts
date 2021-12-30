@@ -38,26 +38,39 @@ const createHyperlink: Creator = (_, attrs, children) => {
   return { type, data, children };
 };
 
-const createInline: Creator = (_, attrs) => {
+const createInline: Creator = (_, attrs, children) => {
   return {
     type: INLINES.EMBEDDED_ENTRY,
     data: {
       target: createSysLink('Entry', attrs.id),
     },
     isVoid: true,
-    children: voidChildren,
+    children: children.length > 0 ? children : voidChildren,
   };
 };
 
-const createEmbeddedBlock: Creator = (_, attrs) => {
+const createEmbeddedBlock: Creator = (_, attrs, children) => {
   return {
     type: attrs.type === 'Entry' ? BLOCKS.EMBEDDED_ENTRY : BLOCKS.EMBEDDED_ASSET,
     data: {
       target: createSysLink(attrs.type, attrs.id),
     },
     isVoid: true,
-    children: voidChildren,
+    children: children.length > 0 ? children : voidChildren,
   };
+};
+
+const createHR: Creator = (_, __, children) => {
+  return {
+    type: BLOCKS.HR,
+    data: {},
+    isVoid: true,
+    children: children.length > 0 ? children : voidChildren,
+  };
+};
+
+const createFragment: Creator = (_, __, children) => {
+  return children;
 };
 
 /**
@@ -67,7 +80,7 @@ const createEmbeddedBlock: Creator = (_, attrs) => {
  */
 export const jsx = createHyperscript({
   elements: {
-    hblockquote: { type: BLOCKS.QUOTE, data: {} },
+    hquote: { type: BLOCKS.QUOTE, data: {} },
     hh1: { type: BLOCKS.HEADING_1, data: {} },
     hh2: { type: BLOCKS.HEADING_2, data: {} },
     hh3: { type: BLOCKS.HEADING_3, data: {} },
@@ -85,9 +98,11 @@ export const jsx = createHyperscript({
   },
   creators: {
     hlink: createHyperlink,
+    hhr: createHR,
     htext: createText,
     hcode: createCode,
     hinline: createInline,
     hembed: createEmbeddedBlock,
+    hfragment: createFragment,
   },
 });

@@ -1,17 +1,11 @@
 import { BLOCKS } from '@contentful/rich-text-types';
-import { getParent } from '@udecode/plate-core';
 import { createParagraphPlugin as createDefaultParagraphPlugin } from '@udecode/plate-paragraph';
-import { Text } from 'slate';
 
-import { transformUnwrap, transformWrapIn } from '../../helpers/transformers';
+import { isInlineOrText } from '../../helpers/editor';
+import { transformUnwrap, transformLift } from '../../helpers/transformers';
 import { RichTextPlugin } from '../../types';
 import { Paragraph } from './Paragraph';
-import {
-  isValidTextContainer,
-  isValidParagraphChild,
-  isEmbedElement,
-  isEmptyElement,
-} from './utils';
+import { isEmbedElement, isEmptyElement } from './utils';
 
 export const createParagraphPlugin = (): RichTextPlugin => {
   const config: Partial<RichTextPlugin> = {
@@ -39,18 +33,11 @@ export const createParagraphPlugin = (): RichTextPlugin => {
     },
     normalizer: [
       {
-        validChildren: (_, [node]) => isValidParagraphChild(node),
-        transform: transformUnwrap,
-      },
-      {
-        // Wrap orphaned text nodes in a paragraph
-        match: Text.isText,
-        validNode: (editor, [, path]) => {
-          const parent = getParent(editor, path)?.[0];
-
-          return !!(parent && isValidTextContainer(parent.type));
+        validChildren: (_, [node]) => isInlineOrText(node),
+        transform: {
+          [BLOCKS.PARAGRAPH]: transformUnwrap,
+          default: transformLift,
         },
-        transform: transformWrapIn(BLOCKS.PARAGRAPH),
       },
     ],
   };

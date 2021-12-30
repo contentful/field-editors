@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import { GlobalStyles } from '@contentful/f36-components';
 
 export default function Wrapper({ children }) {

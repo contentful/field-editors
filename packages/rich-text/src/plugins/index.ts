@@ -21,6 +21,7 @@ import { createQuotePlugin } from './Quote';
 import { createTablePlugin } from './Table';
 import { createTextPlugin } from './Text';
 import { createTrailingParagraphPlugin } from './TrailingParagraph';
+import { createVoidsPlugin } from './Voids';
 
 export const getPlugins = (
   sdk: FieldExtensionSDK,
@@ -52,6 +53,7 @@ export const getPlugins = (
   // Other
   createTrailingParagraphPlugin(),
   createTextPlugin(),
+  createVoidsPlugin(),
 
   // These plugins drive their configurations from the list of plugins
   // above. They MUST come last.

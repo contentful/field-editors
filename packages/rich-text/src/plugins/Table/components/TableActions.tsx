@@ -6,6 +6,7 @@ import { BLOCKS } from '@contentful/rich-text-types';
 import { PlateEditor, getAbove } from '@udecode/plate-core';
 import { TablePluginOptions, deleteColumn, deleteRow, deleteTable } from '@udecode/plate-table';
 import { css } from 'emotion';
+import { Editor } from 'slate';
 import * as Slate from 'slate-react';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
@@ -86,8 +87,9 @@ export const TableActions = () => {
 
       const tableSize = getCurrentTableSize(editor);
 
-      cb(editor, { header: isHeaderEnabled });
-
+      Editor.withoutNormalizing(editor, () => {
+        cb(editor, { header: isHeaderEnabled });
+      });
       // Tracking
       const actionName = `${type}Table${element === 'Table' ? '' : element}`;
       onViewportAction(actionName as RichTextTrackingActionName, { tableSize });

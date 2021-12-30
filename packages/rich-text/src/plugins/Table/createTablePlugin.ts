@@ -1,5 +1,11 @@
 import { BLOCKS, CONTAINERS } from '@contentful/rich-text-types';
-import { HotkeyPlugin, KeyboardHandler } from '@udecode/plate-core';
+import {
+  getBlockAbove,
+  getParent,
+  HotkeyPlugin,
+  KeyboardHandler,
+  getLastChildPath,
+} from '@udecode/plate-core';
 import {
   createTablePlugin as createDefaultTablePlugin,
   ELEMENT_TABLE,
@@ -8,13 +14,14 @@ import {
   ELEMENT_TR,
   onKeyDownTable,
 } from '@udecode/plate-table';
-import { Transforms } from 'slate';
+import { NodeEntry, Path, Transforms } from 'slate';
 
 import {
   currentSelectionPrecedesTableCell,
   currentSelectionStartsTableCell,
+  isRootLevel,
 } from '../../helpers/editor';
-import { transformText } from '../../helpers/transformers';
+import { transformLift, transformParagraphs, transformWrapIn } from '../../helpers/transformers';
 import { TrackingProvider } from '../../TrackingProvider';
 import { RichTextPlugin, CustomElement } from '../../types';
 import { addTableTrackingEvents } from './addTableTrackingEvents';
@@ -22,6 +29,7 @@ import { Cell } from './components/Cell';
 import { HeaderCell } from './components/HeaderCell';
 import { Row } from './components/Row';
 import { Table } from './components/Table';
+import { createEmptyTableCells, getNoOfMissingTableCellsInRow, isNotEmpty } from './helpers';
 
 const createTableOnKeyDown: KeyboardHandler<{}, HotkeyPlugin> = (editor, plugin) => {
   const defaultHandler = onKeyDownTable(editor, plugin);
@@ -81,6 +89,23 @@ export const createTablePlugin = (tracking: TrackingProvider): RichTextPlugin =>
         component: Table,
         normalizer: [
           {
+            validNode: isNotEmpty,
+          },
+          {
+            // Move to root level unless nested
+            validNode: (editor, [, path]) => {
+              const isNestedTable = !!getBlockAbove(editor, {
+                at: path,
+                match: {
+                  type: [BLOCKS.TABLE_CELL, BLOCKS.TABLE_HEADER_CELL],
+                },
+              });
+
+              return isRootLevel(path) || isNestedTable;
+            },
+            transform: transformLift,
+          },
+          {
             validChildren: CONTAINERS[BLOCKS.TABLE],
           },
         ],
@@ -88,6 +113,38 @@ export const createTablePlugin = (tracking: TrackingProvider): RichTextPlugin =>
       [ELEMENT_TR]: {
         type: BLOCKS.TABLE_ROW,
         component: Row,
+        normalizer: [
+          {
+            validChildren: CONTAINERS[BLOCKS.TABLE_ROW],
+            transform: transformWrapIn(BLOCKS.TABLE_CELL),
+          },
+          {
+            // Remove empty rows
+            validNode: isNotEmpty,
+          },
+          {
+            // Parent must be a table
+            validNode: (editor, [, path]) => {
+              const parent = getParent(editor, path)?.[0];
+              return parent && parent.type === BLOCKS.TABLE;
+            },
+            transform: transformWrapIn(BLOCKS.TABLE),
+          },
+          {
+            // ensure consistent number of cells in each row
+            validNode: (editor, entry) => {
+              return getNoOfMissingTableCellsInRow(editor, entry) === 0;
+            },
+            transform: (editor, entry) => {
+              const howMany = getNoOfMissingTableCellsInRow(editor, entry);
+              const at = Path.next(getLastChildPath(entry as NodeEntry<CustomElement>));
+
+              Transforms.insertNodes(editor, createEmptyTableCells(howMany), {
+                at,
+              });
+            },
+          },
+        ],
       },
       [ELEMENT_TH]: {
         type: BLOCKS.TABLE_HEADER_CELL,
@@ -95,7 +152,7 @@ export const createTablePlugin = (tracking: TrackingProvider): RichTextPlugin =>
         normalizer: [
           {
             validChildren: CONTAINERS[BLOCKS.TABLE_HEADER_CELL],
-            transform: transformText,
+            transform: transformParagraphs,
           },
         ],
       },
@@ -105,7 +162,7 @@ export const createTablePlugin = (tracking: TrackingProvider): RichTextPlugin =>
         normalizer: [
           {
             validChildren: CONTAINERS[BLOCKS.TABLE_CELL],
-            transform: transformText,
+            transform: transformParagraphs,
           },
         ],
       },

@@ -7,7 +7,7 @@ import {
 } from '@contentful/field-editor-reference/dist/types';
 import { entityHelpers, Entry, Asset, FieldExtensionSDK } from '@contentful/field-editor-shared';
 
-import { truncate } from '../../helpers/truncate';
+import { truncate } from './truncate';
 
 function getEntityInfo({
   entityTitle,

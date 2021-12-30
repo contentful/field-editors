@@ -1,12 +1,6 @@
 import { Link } from '@contentful/field-editor-reference/dist/types';
-import {
-  BLOCKS,
-  HEADINGS,
-  INLINES,
-  TABLE_BLOCKS,
-  TEXT_CONTAINERS,
-} from '@contentful/rich-text-types';
-import { PlateEditor, getText } from '@udecode/plate-core';
+import { BLOCKS, HEADINGS, INLINES, TABLE_BLOCKS } from '@contentful/rich-text-types';
+import { getText, PlateEditor } from '@udecode/plate-core';
 import { Text, Editor, Element, Transforms, Path, Range, Node } from 'slate';
 
 import { CustomElement } from '../types';
@@ -231,20 +225,9 @@ export function currentSelectionPrecedesTableCell(editor: PlateEditor): boolean 
   );
 }
 
-/**
- * It filters out all paragraphs and headings from a path and convert them into paragraphs.
- */
-export function extractParagraphsAt(editor: PlateEditor, path: Path): CustomElement[] {
-  const paragraphs: CustomElement[] = Array.from(
-    Editor.nodes<CustomElement>(editor, {
-      at: path,
-      match: (node) => TEXT_CONTAINERS.includes((node as CustomElement).type as BLOCKS),
-      mode: 'all',
-    })
-  ).map(([node]) => ({
-    ...node,
-    type: BLOCKS.PARAGRAPH,
-  }));
+export const INLINE_TYPES = Object.values(INLINES) as string[];
 
-  return paragraphs;
-}
+export const isInlineOrText = (node: Node) => {
+  // either text or inline elements
+  return Text.isText(node) || (Element.isElement(node) && INLINE_TYPES.includes(node.type));
+};
