@@ -16,6 +16,16 @@ describe(
       richText.visit();
     });
 
+    it('removes style tags', () => {
+      richText.editor.click().paste({
+        'text/html': `
+            <style> p {background: white;}</style>
+            <p>paste only this</p>`,
+      });
+
+      richText.expectSnapshotValue();
+    });
+
     describe('Lists', () => {
       it('supports pasting of a simple list', () => {
         richText.editor.click().paste({
@@ -143,6 +153,28 @@ describe(
         });
 
         richText.expectSnapshotValue();
+      });
+    });
+
+    describe('spreadsheets', () => {
+      describe('removes empty columns/rows', () => {
+        it('Google Sheets', () => {
+          richText.editor.click().paste({
+            'text/html':
+              '<google-sheets-html-origin><style type="text/css"><!--td {border: 1px solid #ccc;}br {mso-data-placement:same-cell;}--></style><table xmlns="http://www.w3.org/1999/xhtml" cellspacing="0" cellpadding="0" dir="ltr" border="1" style="table-layout:fixed;font-size:10pt;font-family:Arial;width:0px;border-collapse:collapse;border:none"><colgroup><col width="100"/><col width="100"/><col width="100"/><col width="100"/><col width="100"/><col width="100"/></colgroup><tbody><tr style="height:21px;"><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;Cell 1&quot;}">Cell 1</td><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;"></td><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;Cell 2&quot;}">Cell 2</td><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;"></td><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;"></td><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;"></td></tr><tr style="height:21px;"><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;"></td><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;"></td><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;"></td><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;"></td><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;"></td><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;"></td></tr><tr style="height:21px;"><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;"></td><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;"></td><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;"></td><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;"></td><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;"></td><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;"></td></tr><tr style="height:21px;"><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;"></td><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;"></td><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;"></td><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;"></td><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;"></td><td style="overflow:hidden;padding:2px 3px 2px 3px;vertical-align:bottom;"></td></tr></tbody></table>',
+          });
+
+          richText.expectSnapshotValue();
+        });
+
+        it('MS Excel', () => {
+          richText.editor.click().paste({
+            'text/html':
+              "<div ccp_infra_version='3' ccp_infra_timestamp='1641327998326' ccp_infra_user_hash='4114474985' ccp_infra_copy_id='' data-ccp-timestamp='1641327998326'><html>\r\n\r\n<head>\r\n<meta http-equiv=Content-Type content=\"text/html; charset=utf-8\">\r\n<meta name=ProgId content=Excel.Sheet>\r\n<meta name=Generator content=\"Microsoft Excel 15\">\r\n<style>\r\ntable\r\n\t{mso-displayed-decimal-separator:\"\\,\";\r\n\tmso-displayed-thousand-separator:\"\\.\";}\r\ntr\r\n\t{mso-height-source:auto;}\r\ncol\r\n\t{mso-width-source:auto;}\r\ntd\r\n\t{padding-top:1px;\r\n\tpadding-right:1px;\r\n\tpadding-left:1px;\r\n\tmso-ignore:padding;\r\n\tcolor:black;\r\n\tfont-size:11.0pt;\r\n\tfont-weight:400;\r\n\tfont-style:normal;\r\n\ttext-decoration:none;\r\n\tfont-family:Calibri, sans-serif;\r\n\tmso-font-charset:0;\r\n\ttext-align:general;\r\n\tvertical-align:bottom;\r\n\tborder:none;\r\n\twhite-space:nowrap;\r\n\tmso-rotate:0;}\r\n</style>\r\n</head>\r\n\r\n<body link=\"#0563C1\" vlink=\"#954F72\">\r\n\r\n<table width=384 style='border-collapse:collapse;width:288pt'>\r\n<!--StartFragment-->\r\n <col width=64 style='width:48pt' span=6>\r\n <tr height=20 style='height:15.0pt'>\r\n  <td width=64 height=20 style='width:48pt;height:15.0pt'>Cell 1</td>\r\n  <td width=64 style='width:48pt'></td>\r\n  <td width=64 style='width:48pt'>Cell 2</td>\r\n  <td width=64 style='width:48pt'></td>\r\n  <td width=64 style='width:48pt'></td>\r\n  <td width=64 style='width:48pt'></td>\r\n </tr>\r\n <tr height=20 style='height:15.0pt'>\r\n  <td height=20 style='height:15.0pt'></td>\r\n  <td></td>\r\n  <td></td>\r\n  <td></td>\r\n  <td></td>\r\n  <td></td>\r\n </tr>\r\n <tr height=20 style='height:15.0pt'>\r\n  <td height=20 style='height:15.0pt'></td>\r\n  <td></td>\r\n  <td></td>\r\n  <td></td>\r\n  <td></td>\r\n  <td></td>\r\n </tr>\r\n <tr height=20 style='height:15.0pt'>\r\n  <td height=20 style='height:15.0pt'></td>\r\n  <td></td>\r\n  <td></td>\r\n  <td></td>\r\n  <td></td>\r\n  <td></td>\r\n </tr>\r\n<!--EndFragment-->\r\n</table>\r\n\r\n</body>\r\n\r\n</html>\r\n</div>",
+          });
+
+          richText.expectSnapshotValue();
+        });
       });
     });
   }
