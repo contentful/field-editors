@@ -290,21 +290,7 @@ export const createHyperlinkPlugin = (sdk: FieldExtensionSDK): RichTextPlugin =>
     normalizer: [
       {
         match: {
-          type: INLINES.HYPERLINK,
-        },
-        validNode: hasText,
-        transform: transformRemove,
-      },
-      {
-        match: {
-          type: INLINES.ASSET_HYPERLINK,
-        },
-        validNode: hasText,
-        transform: transformRemove,
-      },
-      {
-        match: {
-          type: INLINES.ENTRY_HYPERLINK,
+          type: [INLINES.HYPERLINK, INLINES.ASSET_HYPERLINK, INLINES.ENTRY_HYPERLINK],
         },
         validNode: hasText,
         transform: transformRemove,
