@@ -16,7 +16,7 @@ import { createListPlugin } from './List';
 import { createMarksPlugin } from './Marks';
 import { createNormalizerPlugin } from './Normalizer';
 import { createParagraphPlugin } from './Paragraph';
-import { createPastePlugin } from './Paste';
+import { createPasteHTMLPlugin } from './PasteHTML';
 import { createQuotePlugin } from './Quote';
 import { createTablePlugin } from './Table';
 import { createTextPlugin } from './Text';
@@ -27,9 +27,6 @@ export const getPlugins = (
   sdk: FieldExtensionSDK,
   tracking: TrackingProvider
 ): RichTextPlugin[] => [
-  // Behavior
-  createPastePlugin(),
-
   // Global shortcuts
   createDragAndDropPlugin(),
 
@@ -54,6 +51,9 @@ export const getPlugins = (
   createTrailingParagraphPlugin(),
   createTextPlugin(),
   createVoidsPlugin(),
+
+  // Pasting content from other sources
+  createPasteHTMLPlugin(),
 
   // These plugins drive their configurations from the list of plugins
   // above. They MUST come last.

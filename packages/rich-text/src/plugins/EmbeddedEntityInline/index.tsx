@@ -173,6 +173,7 @@ export function createEmbeddedEntityInlinePlugin(sdk): RichTextPlugin {
           validAttribute: htmlAttributeName,
         },
       ],
+      withoutChildren: true,
       getNode: (el): CustomElement =>
         createInlineEntryNode(el.getAttribute(htmlAttributeName) as string),
     },

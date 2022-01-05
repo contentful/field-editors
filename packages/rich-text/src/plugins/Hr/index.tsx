@@ -156,5 +156,6 @@ export const createHrPlugin = (): RichTextPlugin => ({
         },
       },
     ],
+    withoutChildren: true,
   },
 });

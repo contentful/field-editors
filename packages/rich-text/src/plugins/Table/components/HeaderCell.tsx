@@ -10,6 +10,7 @@ import { TableActions } from './TableActions';
 const style = css`
   background-color: ${tokens.gray200};
   border: 1px solid ${tokens.gray400};
+  border-collapse: collapse;
   padding: 10px 12px;
   font-weight: ${tokens.fontWeightMedium};
   text-align: left;
