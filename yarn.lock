@@ -2672,12 +2672,12 @@
   dependencies:
     lodash "^4.17.20"
 
-"@contentful/rich-text-plain-text-renderer@^15.11.0":
-  version "15.11.0"
-  resolved "https://registry.yarnpkg.com/@contentful/rich-text-plain-text-renderer/-/rich-text-plain-text-renderer-15.11.0.tgz#a3219267630ace8600527612cad3789d9d425484"
-  integrity sha512-12bSj6lkb1qpnoLbNV9vKRsROz490YrfrRU5saJXRAkd311B/ZdJQxQbx43TTh026C17Ta9nqt7DILo18k3Vkw==
+"@contentful/rich-text-plain-text-renderer@^15.11.1":
+  version "15.11.1"
+  resolved "https://registry.yarnpkg.com/@contentful/rich-text-plain-text-renderer/-/rich-text-plain-text-renderer-15.11.1.tgz#1784eed15209e7ee36e446bd73fa281fdd74fe84"
+  integrity sha512-g1rk4u4MNyp7FypY5BbXM/EzdUDbHm6Ur2CHRGYGLTz0/DPsyiU186tazTvSRYI4mMU3zjj8+5kLgNpCdj3bFQ==
   dependencies:
-    "@contentful/rich-text-types" "^15.11.0"
+    "@contentful/rich-text-types" "^15.11.1"
 
 "@contentful/rich-text-react-renderer@^15.11.0":
   version "15.11.0"
@@ -2692,6 +2692,11 @@
   integrity sha512-1xVu5RCPfayA/QIoluhQfQwViyKVrmFqh/ue2JhMknaA4AD3QAfhuxvf2TKDaLXU1qS72sBPmVRU7po1GSl/6A==
   dependencies:
     ajv "^8.8.2"
+
+"@contentful/rich-text-types@^15.11.1":
+  version "15.11.1"
+  resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-15.11.1.tgz#755e3efd5e0ac277d554e6f731ba9fdc1c45f6fe"
+  integrity sha512-seO8Nl9cp894v7an6R8isX+HqYwVUesviGULTh/rIj2DCv2tXUU1GCqzSkt84XN6c6nbFYow9+Wzezkxx/IdIA==
 
 "@csstools/convert-colors@^1.4.0":
   version "1.4.0"
