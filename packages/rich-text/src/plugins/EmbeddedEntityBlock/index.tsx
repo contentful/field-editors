@@ -65,9 +65,10 @@ const createEmbeddedEntityPlugin =
           },
         },
       ],
+      withoutChildren: true,
       getNode: (el): CustomElement => ({
         type: nodeType,
-        children: [],
+        children: [{ text: '' }],
         isVoid: true,
         data: {
           target: {
