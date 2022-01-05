@@ -12,11 +12,13 @@ import { useReadOnly } from 'slate-react';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { isLinkActive, unwrapLink } from '../../helpers/editor';
+import { transformRemove } from '../../helpers/transformers';
 import { useSdkContext } from '../../SdkProvider';
 import { RichTextPlugin, CustomRenderElementProps, CustomElement } from '../../types';
 import { ToolbarButton } from '../shared/ToolbarButton';
 import { EntryAssetTooltip } from './EntryAssetTooltip';
 import { addOrEditLink } from './HyperlinkModal';
+import { hasText } from './utils';
 
 const styles = {
   hyperlinkWrapper: css({
@@ -283,6 +285,29 @@ export const createHyperlinkPlugin = (sdk: FieldExtensionSDK): RichTextPlugin =>
           query: (el) => isAssetAnchor(el),
           getNode: getNodeOfType(INLINES.ASSET_HYPERLINK),
         },
+      },
+    ],
+    normalizer: [
+      {
+        match: {
+          type: INLINES.HYPERLINK,
+        },
+        validNode: hasText,
+        transform: transformRemove,
+      },
+      {
+        match: {
+          type: INLINES.ASSET_HYPERLINK,
+        },
+        validNode: hasText,
+        transform: transformRemove,
+      },
+      {
+        match: {
+          type: INLINES.ENTRY_HYPERLINK,
+        },
+        validNode: hasText,
+        transform: transformRemove,
       },
     ],
   };
