@@ -7,7 +7,7 @@ import * as Slate from 'slate-react';
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
 import { isBlockSelected } from '../../../helpers/editor';
 import { ToolbarButton } from '../../shared/ToolbarButton';
-import { createBlockQuote } from '../utils';
+import { toggleQuote } from '../toggleQuote';
 
 export interface ToolbarQuoteButtonProps {
   isDisabled?: boolean;
@@ -19,7 +19,7 @@ export function ToolbarQuoteButton(props: ToolbarQuoteButtonProps) {
   function handleOnClick() {
     if (!editor) return;
 
-    createBlockQuote(editor);
+    toggleQuote(editor);
     Slate.ReactEditor.focus(editor);
   }
 
