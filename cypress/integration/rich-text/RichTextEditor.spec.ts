@@ -663,6 +663,86 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           richText.expectValue(expectedValue);
         });
+
+        it('should allow heading as direct child of <li>', () => {
+          richText.editor.click();
+          test.getList().click();
+
+          richText.toolbar.toggleHeading(BLOCKS.HEADING_1);
+          richText.editor.type('heading');
+
+          const expectedValue = doc(
+            block(
+              test.listType,
+              {},
+              block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.HEADING_1, {}, text('heading')))
+            ),
+            emptyParagraph()
+          );
+
+          richText.expectValue(expectedValue);
+        });
+
+        it('should allow HR as direct child of <li>', () => {
+          richText.editor.click();
+          test.getList().click();
+
+          richText.toolbar.hr.click();
+
+          const expectedValue = doc(
+            block(test.listType, {}, block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.HR, {}))),
+            emptyParagraph()
+          );
+
+          richText.expectValue(expectedValue);
+        });
+
+        it('should allow embedded entry as direct child of <li>', () => {
+          richText.editor.click();
+          test.getList().click();
+
+          richText.toolbar.embed('entry-block');
+
+          const expectedValue = doc(
+            block(test.listType, {}, block(BLOCKS.LIST_ITEM, {}, entryBlock())),
+            emptyParagraph()
+          );
+
+          richText.expectValue(expectedValue);
+        });
+
+        it('should allow embedded asset as direct child of <li>', () => {
+          richText.editor.click();
+          test.getList().click();
+
+          richText.toolbar.embed('asset-block');
+
+          const expectedValue = doc(
+            block(test.listType, {}, block(BLOCKS.LIST_ITEM, {}, assetBlock())),
+            emptyParagraph()
+          );
+
+          richText.expectValue(expectedValue);
+        });
+
+        it('should allow block quotes as direct child of <li>', () => {
+          richText.editor.click();
+          test.getList().click();
+
+          richText.toolbar.quote.click();
+          richText.editor.type('quote');
+
+          const expectedValue = doc(
+            block(
+              test.listType,
+              {},
+              block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.QUOTE, {}, paragraphWithText('quote')))
+            ),
+            emptyParagraph()
+          );
+
+          richText.expectValue(expectedValue);
+        });
       });
     });
   });
