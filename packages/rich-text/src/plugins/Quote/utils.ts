@@ -7,51 +7,53 @@ import { CustomElement } from '../../types';
 
 const LIST_TYPES: BLOCKS[] = [BLOCKS.OL_LIST, BLOCKS.UL_LIST];
 
-export function toggleBlock(editor, type: string): void {
+export function toggleBlock(editor: PlateEditor, type: string): void {
   const isActive = isBlockSelected(editor, type);
   const isList = LIST_TYPES.includes(type as BLOCKS);
   const isQuote = type === BLOCKS.QUOTE;
 
-  Transforms.unwrapNodes(editor, {
-    match: (node) => {
-      if (Editor.isEditor(node) || !Element.isElement(node)) {
+  Editor.withoutNormalizing(editor, () => {
+    Transforms.unwrapNodes(editor, {
+      match: (node) => {
+        if (Editor.isEditor(node) || !Element.isElement(node)) {
+          return false;
+        }
+
+        // Lists
+        if (isList && LIST_TYPES.includes((node as CustomElement).type as BLOCKS)) {
+          return true;
+        }
+
+        // Quotes
+        if (isQuote && (node as CustomElement).type === BLOCKS.QUOTE) {
+          return true;
+        }
+
         return false;
-      }
+      },
+      split: true,
+    });
 
-      // Lists
-      if (isList && LIST_TYPES.includes((node as CustomElement).type as BLOCKS)) {
-        return true;
-      }
-
-      // Quotes
-      if (isQuote && (node as CustomElement).type === BLOCKS.QUOTE) {
-        return true;
-      }
-
-      return false;
-    },
-    split: true,
-  });
-
-  const newProperties: Partial<CustomElement> = {
-    type: isActive
-      ? BLOCKS.PARAGRAPH
-      : isList
-      ? BLOCKS.LIST_ITEM
-      : isQuote
-      ? BLOCKS.PARAGRAPH
-      : type,
-  };
-  Transforms.setNodes(editor, newProperties);
-
-  if (!isActive && (isList || isQuote)) {
-    const block = {
-      type,
-      data: {},
-      children: [],
+    const newProperties: Partial<CustomElement> = {
+      type: isActive
+        ? BLOCKS.PARAGRAPH
+        : isList
+        ? BLOCKS.LIST_ITEM
+        : isQuote
+        ? BLOCKS.PARAGRAPH
+        : type,
     };
-    Transforms.wrapNodes(editor, block);
-  }
+    Transforms.setNodes(editor, newProperties);
+
+    if (!isActive && (isList || isQuote)) {
+      const block = {
+        type,
+        data: {},
+        children: [],
+      };
+      Transforms.wrapNodes(editor, block);
+    }
+  });
 }
 
 export const createBlockQuote = (editor: PlateEditor) => {
