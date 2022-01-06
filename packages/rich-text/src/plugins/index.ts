@@ -1,4 +1,9 @@
 import { FieldExtensionSDK } from '@contentful/app-sdk';
+import {
+  createDeserializeAstPlugin,
+  createDeserializeHtmlPlugin,
+  PlateProps,
+} from '@udecode/plate-core';
 
 import { TrackingProvider } from '../TrackingProvider';
 import { RichTextPlugin } from '../types';
@@ -27,6 +32,10 @@ export const getPlugins = (
   sdk: FieldExtensionSDK,
   tracking: TrackingProvider
 ): RichTextPlugin[] => [
+  // AST must come after the HTML deserializer
+  createDeserializeHtmlPlugin(),
+  createDeserializeAstPlugin(),
+
   // Global shortcuts
   createDragAndDropPlugin(),
 
@@ -61,3 +70,14 @@ export const getPlugins = (
   createExitBreakPlugin(),
   createNormalizerPlugin(),
 ];
+
+export const disableCorePlugins: PlateProps['disableCorePlugins'] = {
+  // Temporarily until the upstream issue is fixed.
+  // See: https://github.com/udecode/plate/issues/1329#issuecomment-1005935946
+  deserializeAst: true,
+  deserializeHtml: true,
+
+  // Note: Enabled by default since v9.0.0 but it causes Cypress's
+  // .click() command to fail
+  eventEditor: true,
+};
