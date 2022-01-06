@@ -13,7 +13,7 @@ import noop from 'lodash/noop';
 import schema from './constants/Schema';
 import { ContentfulEditorProvider, getContentfulEditorId } from './ContentfulEditorProvider';
 import { sanitizeIncomingSlateDoc } from './helpers/sanitizeSlateDoc';
-import { getPlugins } from './plugins';
+import { disableCorePlugins, getPlugins } from './plugins';
 import { styles } from './RichTextEditor.styles';
 import { SdkProvider } from './SdkProvider';
 import Toolbar from './Toolbar';
@@ -63,11 +63,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
         id={getContentfulEditorId(props.sdk)}
         initialValue={value}
         plugins={plugins}
-        disableCorePlugins={{
-          // Note: Enabled by default since v9.0.0 but it causes Cypress's
-          // .click() command to fail
-          eventEditor: true,
-        }}
+        disableCorePlugins={disableCorePlugins}
         editableProps={{
           className: classNames,
           readOnly: props.isDisabled,

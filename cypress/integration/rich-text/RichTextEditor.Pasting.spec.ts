@@ -188,5 +188,21 @@ describe(
         });
       });
     });
+
+    describe('Basic marks', () => {
+      it('works when pasting from another RT editor', () => {
+        // A simple "hello world" text with marks: bold, italic, underline
+        // and code. Copied from the RT editor
+        richText.editor.click().paste({
+          'text/html':
+            '<span data-slate-fragment="JTVCJTdCJTIydHlwZSUyMiUzQSUyMnBhcmFncmFwaCUyMiUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydGV4dCUyMiUzQSUyMmhlbGxvJTIwd29ybGQlMjIlMkMlMjJkYXRhJTIyJTNBJTdCJTdEJTJDJTIyYm9sZCUyMiUzQXRydWUlMkMlMjJpdGFsaWMlMjIlM0F0cnVlJTJDJTIydW5kZXJsaW5lJTIyJTNBdHJ1ZSUyQyUyMmNvZGUlMjIlM0F0cnVlJTdEJTVEJTJDJTIyaXNWb2lkJTIyJTNBZmFsc2UlMkMlMjJkYXRhJTIyJTNBJTdCJTdEJTdEJTVE" style="white-space: pre;">hello world</span>',
+          'text/plain': 'hello world',
+          'application/x-slate-fragment':
+            'JTVCJTdCJTIydHlwZSUyMiUzQSUyMnBhcmFncmFwaCUyMiUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydGV4dCUyMiUzQSUyMmhlbGxvJTIwd29ybGQlMjIlMkMlMjJkYXRhJTIyJTNBJTdCJTdEJTJDJTIyYm9sZCUyMiUzQXRydWUlMkMlMjJpdGFsaWMlMjIlM0F0cnVlJTJDJTIydW5kZXJsaW5lJTIyJTNBdHJ1ZSUyQyUyMmNvZGUlMjIlM0F0cnVlJTdEJTVEJTJDJTIyaXNWb2lkJTIyJTNBZmFsc2UlMkMlMjJkYXRhJTIyJTNBJTdCJTdEJTdEJTVE',
+        });
+
+        richText.expectSnapshotValue();
+      });
+    });
   }
 );

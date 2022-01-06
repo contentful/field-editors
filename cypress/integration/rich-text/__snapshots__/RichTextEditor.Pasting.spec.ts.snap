@@ -1080,154 +1080,6 @@ exports[`Rich Text Editor > removes style tags #0`] =
   "nodeType": "document"
 };
 
-exports[`Rich Text Editor > spreadsheets > removes empty rows > Google Sheets #0`] =
-{
-  "content": [
-    {
-      "content": [
-        {
-          "data": {},
-          "marks": [],
-          "nodeType": "text",
-          "value": ""
-        }
-      ],
-      "data": {},
-      "nodeType": "paragraph"
-    },
-    {
-      "content": [
-        {
-          "content": [
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "Cell 1"
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            },
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "Cell 2"
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            }
-          ],
-          "data": {},
-          "nodeType": "table-row"
-        }
-      ],
-      "data": {},
-      "nodeType": "table"
-    },
-    {
-      "content": [
-        {
-          "data": {},
-          "marks": [],
-          "nodeType": "text",
-          "value": ""
-        }
-      ],
-      "data": {},
-      "nodeType": "paragraph"
-    }
-  ],
-  "data": {},
-  "nodeType": "document"
-};
-
-exports[`Rich Text Editor > spreadsheets > removes empty rows > MS Excel #0`] =
-{
-  "content": [
-    {
-      "content": [
-        {
-          "content": [
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "Cell 1"
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            },
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "Cell 2"
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            }
-          ],
-          "data": {},
-          "nodeType": "table-row"
-        }
-      ],
-      "data": {},
-      "nodeType": "table"
-    },
-    {
-      "content": [
-        {
-          "data": {},
-          "marks": [],
-          "nodeType": "text",
-          "value": ""
-        }
-      ],
-      "data": {},
-      "nodeType": "paragraph"
-    }
-  ],
-  "data": {},
-  "nodeType": "document"
-};
-
 exports[`Rich Text Editor > Tables > Google Docs #0`] =
 {
   "content": [
@@ -2014,6 +1866,187 @@ exports[`Rich Text Editor > Tables > Google Docs #0`] =
                       "marks": [],
                       "nodeType": "text",
                       "value": "\n"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        }
+      ],
+      "data": {},
+      "nodeType": "table"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > Basic marks > works when pasting from another RT editor #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [
+            {
+              "type": "bold"
+            },
+            {
+              "type": "italic"
+            },
+            {
+              "type": "underline"
+            },
+            {
+              "type": "code"
+            }
+          ],
+          "nodeType": "text",
+          "value": "hello world"
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > spreadsheets > removes empty columns/rows > Google Sheets #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    },
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Cell 1"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Cell 2"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        }
+      ],
+      "data": {},
+      "nodeType": "table"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > spreadsheets > removes empty columns/rows > MS Excel #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Cell 1"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Cell 2"
                     }
                   ],
                   "data": {},
