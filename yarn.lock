@@ -5684,6 +5684,13 @@
   dependencies:
     "@udecode/plate-core" "9.0.0"
 
+"@udecode/plate-select@^9.0.0":
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-select/-/plate-select-9.0.0.tgz#d59af0d283b263e9d064b9e2b00d93d93e89d0d2"
+  integrity sha512-CYvFV+1cEpeh8LAMSd1jtCOJQul/ZJ+M07THtrUFQhVvnKevH1ESjSIh8g0WXxzBYntnXFvYoYjiuyCJ1q7b1A==
+  dependencies:
+    "@udecode/plate-core" "9.0.0"
+
 "@udecode/plate-table@^9.1.1":
   version "9.1.1"
   resolved "https://registry.yarnpkg.com/@udecode/plate-table/-/plate-table-9.1.1.tgz#1b8d3af7e73e0c1f140c6ec0637a5afffdc94d84"
