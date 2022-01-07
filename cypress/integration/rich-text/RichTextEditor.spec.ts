@@ -1305,6 +1305,28 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
             ['text', '']
           );
         });
+
+        it('is removed from the document structure when empty', () => {
+          richText.editor.click();
+
+          triggerLinkModal();
+
+          getLinkTextInput().type('Link');
+          getLinkTargetInput().type('https://link.com');
+          getSubmitButton().click();
+
+          expectDocumentStructure(
+            ['text', ''],
+            [INLINES.HYPERLINK, { uri: 'https://link.com' }, 'Link'],
+            ['text', '']
+          );
+
+          richText.editor
+            .click()
+            .type('{backspace}{backspace}{backspace}{backspace}', { delay: 100 });
+
+          richText.expectValue(undefined);
+        });
       });
     }
   });
