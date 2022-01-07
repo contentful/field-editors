@@ -13,6 +13,7 @@ const style = css`
   padding: 10px 12px;
   min-width: 48px;
   position: relative;
+  vertical-align: top;
 
   div:last-child {
     margin-bottom: 0;
