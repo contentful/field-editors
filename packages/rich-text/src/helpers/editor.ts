@@ -38,13 +38,15 @@ type NodeEntry = [CustomElement, Path];
 type NodeType = BLOCKS | INLINES;
 export function getNodeEntryFromSelection(
   editor,
-  nodeTypeOrTypes: NodeType | NodeType[]
+  nodeTypeOrTypes: NodeType | NodeType[],
+  { reverse }: { reverse?: boolean } = {}
 ): NodeEntry | [] {
   if (!editor.selection) return [];
   const nodeTypes = Array.isArray(nodeTypeOrTypes) ? nodeTypeOrTypes : [nodeTypeOrTypes];
   const { path } = editor.selection.focus;
   for (let i = 0; i < path.length; i++) {
-    const nodeEntry = Editor.node(editor, path.slice(0, i + 1)) as NodeEntry;
+    const sliceIndex = reverse ? path.length + 1 - i : i + 1;
+    const nodeEntry = Editor.node(editor, path.slice(0, sliceIndex)) as NodeEntry;
     if (nodeTypes.includes(nodeEntry[0].type as NodeType)) return nodeEntry;
   }
   return [];

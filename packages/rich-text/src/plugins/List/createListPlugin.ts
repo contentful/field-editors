@@ -1,4 +1,5 @@
 import { BLOCKS, LIST_ITEM_BLOCKS } from '@contentful/rich-text-types';
+import { HotkeyPlugin, KeyboardHandler } from '@udecode/plate-core';
 import {
   createListPlugin as createPlateListPlugin,
   ELEMENT_LI,
@@ -6,7 +7,9 @@ import {
   ELEMENT_OL,
   ELEMENT_LIC,
 } from '@udecode/plate-list';
+import { Node, Path, Transforms } from 'slate';
 
+import { getNodeEntryFromSelection } from '../../helpers/editor';
 import { transformParagraphs, transformWrapIn } from '../../helpers/transformers';
 import { RichTextPlugin } from '../../types';
 import { ListOL, ListUL } from './components/List';
@@ -19,6 +22,43 @@ import {
 } from './utils';
 import { withList } from './withList';
 
+const onKeyDown: KeyboardHandler<{}, HotkeyPlugin> =
+  (editor) =>
+  (event: React.KeyboardEvent): void => {
+    if (!editor.selection) return;
+    const [, pathToListItem] = getNodeEntryFromSelection(editor, BLOCKS.LIST_ITEM, {
+      reverse: true,
+    });
+
+    if (pathToListItem) {
+      const isEvent = event.key === 'Enter';
+
+      if (isEvent) {
+        const children = Array.from(Node.children(editor, pathToListItem));
+        const pivot = editor.selection.focus.path[pathToListItem.length];
+        const siblingsBelowCurrentListItem = children.slice(pivot + 1);
+        const lastListItemIndex = pathToListItem.length - 1;
+        const nodePathsToRemove: Path[] = [];
+        for (let i = 0; i < siblingsBelowCurrentListItem.length; i++) {
+          const [node, path] = siblingsBelowCurrentListItem[i];
+          nodePathsToRemove.unshift(path);
+          const nextListItemIndex = pathToListItem[lastListItemIndex] + i + 1;
+          const nextListItemPath = pathToListItem
+            .slice(0, lastListItemIndex)
+            .concat(nextListItemIndex);
+          Transforms.insertNodes(
+            editor,
+            { type: BLOCKS.LIST_ITEM, data: {}, children: [node] },
+            { at: nextListItemPath }
+          );
+        }
+        for (const path of nodePathsToRemove) {
+          Transforms.removeNodes(editor, { at: path });
+        }
+      }
+    }
+  };
+
 export const createListPlugin = (): RichTextPlugin =>
   createPlateListPlugin({
     normalizer: [
@@ -30,6 +70,7 @@ export const createListPlugin = (): RichTextPlugin =>
         transform: transformWrapIn(BLOCKS.LIST_ITEM),
       },
     ],
+    handlers: { onKeyDown },
     overrideByKey: {
       [ELEMENT_UL]: {
         type: BLOCKS.UL_LIST,
