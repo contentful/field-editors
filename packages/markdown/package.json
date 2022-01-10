@@ -21,9 +21,9 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
-    "@contentful/f36-components": "^4.0.1-beta.2705",
-    "@contentful/f36-icons": "^4.0.1-beta.2705",
-    "@contentful/f36-tokens": "^4.0.1-beta.2705",
+    "@contentful/f36-components": "^4.0.0",
+    "@contentful/f36-icons": "^4.0.0",
+    "@contentful/f36-tokens": "^4.0.0",
     "@contentful/field-editor-shared": "^1.0.3",
     "@types/codemirror": "0.0.108",
     "@types/markdown-to-jsx": "6.11.3",
