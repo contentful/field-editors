@@ -393,6 +393,23 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         // editor is empty
         richText.expectValue(undefined);
       });
+
+      it('should be selected on backspace', () => {
+        richText.editor.click();
+
+        richText.toolbar.hr.click();
+        richText.editor.type('X');
+
+        richText.expectValue(doc(block(BLOCKS.HR, {}), paragraphWithText('X')));
+
+        richText.editor.type('{backspace}{backspace}');
+
+        richText.expectValue(doc(block(BLOCKS.HR, {}), emptyParagraph()));
+
+        richText.editor.type('{backspace}');
+
+        expectDocumentToBeEmpty();
+      });
     });
   });
 
@@ -1418,6 +1435,23 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
             )
           );
         });
+
+        it('should be selected on backspace', () => {
+          richText.editor.click();
+          triggerEmbeddedEntry();
+
+          richText.editor.type('{downarrow}X');
+
+          richText.expectValue(doc(entryBlock(), paragraphWithText('X')));
+
+          richText.editor.type('{backspace}{backspace}');
+
+          richText.expectValue(doc(entryBlock(), emptyParagraph()));
+
+          richText.editor.type('{backspace}');
+
+          expectDocumentToBeEmpty();
+        });
       });
     }
   });
@@ -1519,6 +1553,23 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           const path = require('path');
           const downloadsFolder = Cypress.config('downloadsFolder');
           cy.readFile(path.join(downloadsFolder, 'Terrier_mixed-breed_dog.jpg')).should('exist');
+        });
+
+        it('should be selected on backspace', () => {
+          richText.editor.click();
+          triggerEmbeddedAsset();
+
+          richText.editor.type('{downarrow}X');
+
+          richText.expectValue(doc(assetBlock(), paragraphWithText('X')));
+
+          richText.editor.type('{backspace}{backspace}');
+
+          richText.expectValue(doc(assetBlock(), emptyParagraph()));
+
+          richText.editor.type('{backspace}');
+
+          expectDocumentToBeEmpty();
         });
       });
     }

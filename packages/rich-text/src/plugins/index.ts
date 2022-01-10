@@ -24,6 +24,7 @@ import { createNormalizerPlugin } from './Normalizer';
 import { createParagraphPlugin } from './Paragraph';
 import { createPasteHTMLPlugin } from './PasteHTML';
 import { createQuotePlugin } from './Quote';
+import { createSelectOnBackspacePlugin } from './SelectOnBackspace';
 import { createTablePlugin } from './Table';
 import { createTextPlugin } from './Text';
 import { createTrailingParagraphPlugin } from './TrailingParagraph';
@@ -62,6 +63,7 @@ export const getPlugins = (
   createTrailingParagraphPlugin(),
   createTextPlugin(),
   createVoidsPlugin(),
+  createSelectOnBackspacePlugin(),
 
   // Pasting content from other sources
   createPasteHTMLPlugin(),

@@ -25,6 +25,7 @@ export const assertOutput = (options: {
         {
           expected: options.expected,
           actual: editor.children,
+          actualSelection: editor.selection,
         },
         null,
         2
