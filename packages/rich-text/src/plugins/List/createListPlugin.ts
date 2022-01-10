@@ -21,9 +21,6 @@ import { withList } from './withList';
 
 export const createListPlugin = (): RichTextPlugin =>
   createPlateListPlugin({
-    options: {
-      validLiChildrenTypes: LIST_ITEM_BLOCKS,
-    },
     normalizer: [
       {
         match: {
@@ -67,5 +64,5 @@ export const createListPlugin = (): RichTextPlugin =>
           },
         ],
       },
-    } as Record<string, Partial<RichTextPlugin>>,
+    },
   } as Partial<RichTextPlugin>);

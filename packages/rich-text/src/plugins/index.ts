@@ -4,6 +4,7 @@ import {
   createDeserializeHtmlPlugin,
   PlateProps,
 } from '@udecode/plate-core';
+import { createDeserializeDocxPlugin } from '@udecode/plate-serializer-docx';
 
 import { TrackingProvider } from '../TrackingProvider';
 import { RichTextPlugin } from '../types';
@@ -36,6 +37,7 @@ export const getPlugins = (
   // AST must come after the HTML deserializer
   createDeserializeHtmlPlugin(),
   createDeserializeAstPlugin(),
+  createDeserializeDocxPlugin(),
 
   // Global shortcuts
   createDragAndDropPlugin(),

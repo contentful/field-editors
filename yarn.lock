@@ -5662,7 +5662,37 @@
     use-deep-compare "1.1.0"
     zustand "3.6.7"
 
-"@udecode/plate-list@^9.0.0":
+"@udecode/plate-heading@9.0.0":
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-heading/-/plate-heading-9.0.0.tgz#855b7b485100cd87069830e9f8822a74f3cdd14a"
+  integrity sha512-lzq9W9hYg1/dD8/+q0LeAEVUNm8e/PAUJBi7B2G7Iv4lvCZAv17309+clVinrZ+PrRw7dqx9GNPdsN/xk8tUCQ==
+  dependencies:
+    "@udecode/plate-core" "9.0.0"
+
+"@udecode/plate-image@9.0.0":
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-image/-/plate-image-9.0.0.tgz#f20b338f4dfeb926a2fb6cfde405926b522fdf44"
+  integrity sha512-fQ4F6LUZA39esWRkMbDuh3o/QLOqZwpraCp2+R04opfso5o44dO5/tAju9Z/wpIw+wjUL5Rr0TZp28zr2ELflg==
+  dependencies:
+    "@udecode/plate-core" "9.0.0"
+
+"@udecode/plate-indent-list@9.0.0":
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-indent-list/-/plate-indent-list-9.0.0.tgz#713fec787033b01072de69d4148877fdd9ce4dd6"
+  integrity sha512-UMh4BvjJjHd+a+SnEHkKCPlqt/ClaMGQ1s8q9bq5Gl0Jb/vx8nUtSva/Uhaif/aWvv/mrcO2vxlQKi+zWwFYrA==
+  dependencies:
+    "@udecode/plate-core" "9.0.0"
+    "@udecode/plate-indent" "9.0.0"
+    "@udecode/plate-list" "9.0.0"
+
+"@udecode/plate-indent@9.0.0":
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-indent/-/plate-indent-9.0.0.tgz#171d6c9f451f8551cda14684173bbeeff88543e6"
+  integrity sha512-Wk+6i9dFu6GCkT/36ENMFrd3/U/wZcAW7+Dsq+jp2j48IfT5QQAcpaU/ymBdAfqhlt+t3/CtGagwAuh3bUIGcw==
+  dependencies:
+    "@udecode/plate-core" "9.0.0"
+
+"@udecode/plate-list@9.0.0", "@udecode/plate-list@^9.0.0":
   version "9.0.0"
   resolved "https://registry.yarnpkg.com/@udecode/plate-list/-/plate-list-9.0.0.tgz#0c087549d146c067ac24da3e1784d468fcf1d68c"
   integrity sha512-zmaYrOdcUtCX/HUNE05f0kyUzU6Zombo+NddlmpAW4C58ujDHq/ZyyWC3x+7Wofscj3T3sJYErW7Jg+PwZk3hw==
@@ -5670,7 +5700,7 @@
     "@udecode/plate-core" "9.0.0"
     "@udecode/plate-reset-node" "9.0.0"
 
-"@udecode/plate-paragraph@^9.0.0":
+"@udecode/plate-paragraph@9.0.0", "@udecode/plate-paragraph@^9.0.0":
   version "9.0.0"
   resolved "https://registry.yarnpkg.com/@udecode/plate-paragraph/-/plate-paragraph-9.0.0.tgz#66f31292158652be42b466ab04a5deea44c01e67"
   integrity sha512-LQs0CQgGoxkGpxXxI/dERRi7P1z7oVh7Mqep4WKIguB86NmdhgZGHw8Jy5MqOH3ihSkw9usqbhmKffPctg3BwA==
@@ -5688,6 +5718,27 @@
   version "9.0.0"
   resolved "https://registry.yarnpkg.com/@udecode/plate-select/-/plate-select-9.0.0.tgz#d59af0d283b263e9d064b9e2b00d93d93e89d0d2"
   integrity sha512-CYvFV+1cEpeh8LAMSd1jtCOJQul/ZJ+M07THtrUFQhVvnKevH1ESjSIh8g0WXxzBYntnXFvYoYjiuyCJ1q7b1A==
+  dependencies:
+    "@udecode/plate-core" "9.0.0"
+
+"@udecode/plate-serializer-docx@^9.1.3":
+  version "9.1.3"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-serializer-docx/-/plate-serializer-docx-9.1.3.tgz#9c812e3e43d3df88d30ee1894bcaa9077850a956"
+  integrity sha512-LeBJsET2Qd/aAnKi8Z1vnFA7wfl/Zstmf08vYMaS5mq/wo4SSmh99+HLSrnPp7Vwxkuewg0Ie8lm7r15DW/1AA==
+  dependencies:
+    "@udecode/plate-core" "9.0.0"
+    "@udecode/plate-heading" "9.0.0"
+    "@udecode/plate-image" "9.0.0"
+    "@udecode/plate-indent" "9.0.0"
+    "@udecode/plate-indent-list" "9.0.0"
+    "@udecode/plate-paragraph" "9.0.0"
+    "@udecode/plate-table" "9.1.3"
+    validator "13.7.0"
+
+"@udecode/plate-table@9.1.3":
+  version "9.1.3"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-table/-/plate-table-9.1.3.tgz#011fd96c32462bf55997dd217a2fd7effdd6fa6a"
+  integrity sha512-rgxJqaa82vZNMsspXK3+YJZDjCAqydl2nL3aHOVv1aaTsEKX8SCWRbvckVgBJ2LFzkLVqfbfZPd0BjnXvWQqGQ==
   dependencies:
     "@udecode/plate-core" "9.0.0"
 
@@ -23679,6 +23730,11 @@ validate-npm-package-name@^3.0.0:
   integrity sha1-X6kS2B630MdK/BQN5zF/DKffQ34=
   dependencies:
     builtins "^1.0.3"
+
+validator@13.7.0:
+  version "13.7.0"
+  resolved "https://registry.yarnpkg.com/validator/-/validator-13.7.0.tgz#4f9658ba13ba8f3d82ee881d3516489ea85c0857"
+  integrity sha512-nYXQLCBkpJ8X6ltALua9dRrZDHVYxjJ1wgskNt1lH9fzGjs3tgojGSCBjmEPwkWS1y29+DrizMTW19Pr9uB2nw==
 
 validator@^10.11.0:
   version "10.11.0"
