@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-url@1.0.3...@contentful/field-editor-url@1.1.0) (2022-01-11)
+
+### Features
+
+- bump f36 packages to stable v4 [BAU-521] ([#988](https://github.com/contentful/field-editors/issues/988)) ([419cf56](https://github.com/contentful/field-editors/commit/419cf56692179b074fcfa2743469d5265ed98429))
+
 ## [1.0.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-url@1.0.2...@contentful/field-editor-url@1.0.3) (2021-12-23)
 
 ### Bug Fixes
