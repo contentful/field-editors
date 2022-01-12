@@ -1,5 +1,6 @@
 import { BLOCKS } from '@contentful/rich-text-types';
-import { PlateEditor } from '@udecode/plate-core';
+import { HotkeyPlugin, KeyboardHandler, PlateEditor } from '@udecode/plate-core';
+import isHotkey from 'is-hotkey';
 import { Transforms, Element, Editor } from 'slate';
 
 import { isBlockSelected } from '../../helpers/editor';
@@ -30,3 +31,14 @@ export function toggleQuote(editor: PlateEditor): void {
     }
   });
 }
+
+export const onKeyDownToggleQuote: KeyboardHandler<{}, HotkeyPlugin> =
+  (editor, plugin) => (event) => {
+    const { hotkey } = plugin.options;
+
+    if (hotkey && isHotkey(hotkey, event)) {
+      event.preventDefault();
+      toggleQuote(editor);
+      return;
+    }
+  };
