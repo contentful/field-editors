@@ -35,6 +35,5 @@ export const onKeyDownToggleQuote: KeyboardHandler<{}, HotkeyPlugin> =
     if (hotkey && isHotkey(hotkey, event)) {
       event.preventDefault();
       toggleQuote(editor);
-      return;
     }
   };
