@@ -16,10 +16,6 @@ export function toggleQuote(editor: PlateEditor): void {
       split: true,
     });
 
-    Transforms.setNodes(editor, {
-      type: isActive ? BLOCKS.PARAGRAPH : BLOCKS.QUOTE,
-    });
-
     if (!isActive) {
       const quote = {
         type: BLOCKS.QUOTE,
