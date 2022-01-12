@@ -2,6 +2,7 @@ import { LIST_ITEM_BLOCKS } from '@contentful/rich-text-types';
 import { WithOverride } from '@udecode/plate-core';
 import { withList as withDefaultList, ListPlugin } from '@udecode/plate-list';
 
+import { getListInsertBreak } from './getListInsertBreak';
 import { getListInsertFragment } from './getListInsertFragment';
 
 const options: ListPlugin = {
@@ -9,7 +10,7 @@ const options: ListPlugin = {
 };
 
 export const withList: WithOverride<{}, ListPlugin> = (editor, plugin) => {
-  const { insertFragment } = editor;
+  const { insertBreak, insertFragment } = editor;
 
   withDefaultList(editor, { ...plugin, options });
 
@@ -18,6 +19,13 @@ export const withList: WithOverride<{}, ListPlugin> = (editor, plugin) => {
 
   // Use our custom getListInsertFragment
   editor.insertFragment = getListInsertFragment(editor);
+
+  editor.insertBreak = insertBreak;
+
+  editor.insertBreak = () => {
+    if (getListInsertBreak(editor)) return;
+    insertBreak();
+  };
 
   return editor;
 };
