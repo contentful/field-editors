@@ -1,9 +1,9 @@
 import { BLOCKS, CONTAINERS } from '@contentful/rich-text-types';
-import { onKeyDownToggleElement } from '@udecode/plate-core';
 
 import { transformLift, transformUnwrap } from '../../helpers/transformers';
 import { RichTextPlugin } from '../../types';
 import { Quote } from './components/Quote';
+import { onKeyDownToggleQuote } from './toggleQuote';
 
 export function createQuotePlugin(): RichTextPlugin {
   return {
@@ -15,7 +15,7 @@ export function createQuotePlugin(): RichTextPlugin {
       hotkey: 'mod+shift+1',
     },
     handlers: {
-      onKeyDown: onKeyDownToggleElement,
+      onKeyDown: onKeyDownToggleQuote,
     },
     deserializeHtml: {
       rules: [

@@ -16,7 +16,8 @@ import {
   Heading,
   CopyButton,
   Subheading,
-  Flex
+  SectionHeading,
+  Flex,
 } from '@contentful/f36-components';
 import { css } from 'emotion';
 import tokens from '@contentful/f36-tokens';
@@ -37,7 +38,15 @@ import tokens from '@contentful/f36-tokens';
           backgroundColor: 'transparent'
         }
       }),
-      dataCell: css({
+      content: css({
+        marginBottom: tokens.spacingL
+      }),
+      contentHeader: css({
+        marginBottom: '1rem'
+      }),
+      rawContent: css({
+        overflowWrap: 'anywhere',
+        fontFamily: 'monospace'
       })
     }
     const [data, setData] = useState([]);
@@ -70,24 +79,16 @@ import tokens from '@contentful/f36-tokens';
           <Subheading>Your pasted data </Subheading>
           <CopyButton className={styles.copyButton} size="small" value={copyButtonValue} isDisabled={data.length === 0} />
         </Flex>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Type</TableCell>
-              <TableCell>Data</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data.map(({ type, data }) => (
-              <TableRow>
-                <TableCell>{type}</TableCell>
-                <TableCell className={styles.dataCell}>{data.substr(0, 100)}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+
+        {data.map(({ type, data }) => (
+          <Flex flexDirection="column" className={styles.content}>
+            <SectionHeading className={styles.contentHeader}>{type}</SectionHeading>
+            <Flex className={styles.rawContent}>{data}</Flex>
+          </Flex>
+        ))}
       </>
     )
-  }}
+
+}}
 
 </Playground>
