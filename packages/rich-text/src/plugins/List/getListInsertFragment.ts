@@ -1,6 +1,6 @@
 /**
- * A copy of Plate's list plugin with a few adjustments
- * to support pasting any element
+ * Credit: Modified version of Plate's list plugin
+ * See: https://github.com/udecode/plate/blob/main/packages/nodes/list
  */
 import { findNode, getPlugin, PlateEditor, TDescendant } from '@udecode/plate-core';
 import { ELEMENT_LI, ELEMENT_OL, ELEMENT_UL } from '@udecode/plate-list';
@@ -65,8 +65,6 @@ export const getListInsertFragment = (editor: PlateEditor) => {
     if (liEntry) {
       const [, liPath] = liEntry;
 
-      // FIXME: this is a temporarily workaround and needs a follow-up to properly
-      // non-text elements
       const nodes = fragment.flatMap((node) => trimList(node));
 
       return Transforms.insertNodes(editor, nodes, {

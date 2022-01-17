@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, assertOutput } from '../../../test-utils';
+import { jsx, assertOutput, createTestEditor } from '../../../test-utils';
 
 describe('normalization', () => {
   it('wraps orphaned list items in a list', () => {
@@ -104,4 +104,229 @@ describe('normalization', () => {
 
     assertOutput({ input, expected });
   });
+});
+
+describe('insertBreak', () => {
+  const tests = [
+    // single p
+    {
+      title: 'at the start of a li',
+      input: (
+        <hul>
+          <hli>
+            <hp>
+              <cursor />
+              p1
+            </hp>
+          </hli>
+        </hul>
+      ),
+      expected: (
+        <hul>
+          <hli>
+            <hp>
+              <cursor />
+            </hp>
+          </hli>
+
+          <hli>
+            <hp>p1</hp>
+          </hli>
+        </hul>
+      ),
+    },
+    {
+      title: 'at the end of a li',
+      input: (
+        <hul>
+          <hli>
+            <hp>
+              p1
+              <cursor />
+            </hp>
+          </hli>
+        </hul>
+      ),
+      expected: (
+        <hul>
+          <hli>
+            <hp>p1</hp>
+          </hli>
+
+          <hli>
+            <hp>
+              <cursor />
+            </hp>
+          </hli>
+        </hul>
+      ),
+    },
+    {
+      title: 'at the middle of a li',
+      input: (
+        <hul>
+          <hli>
+            <hp>
+              split <cursor />
+              me
+            </hp>
+          </hli>
+        </hul>
+      ),
+      expected: (
+        <hul>
+          <hli>
+            <hp>split </hp>
+          </hli>
+
+          <hli>
+            <hp>
+              <cursor />
+              me
+            </hp>
+          </hli>
+        </hul>
+      ),
+    },
+    // multi p
+    {
+      title: 'at the start of a li with multiple p',
+      input: (
+        <hul>
+          <hli>
+            <hp>
+              <cursor />
+              p1
+            </hp>
+            <hp>p2</hp>
+          </hli>
+        </hul>
+      ),
+      expected: (
+        <hul>
+          <hli>
+            <hp>
+              <cursor />
+            </hp>
+          </hli>
+
+          <hli>
+            <hp>p1</hp>
+            <hp>p2</hp>
+          </hli>
+        </hul>
+      ),
+    },
+    {
+      title: 'at the start of the second p of a li',
+      input: (
+        <hul>
+          <hli>
+            <hp>p1</hp>
+            <hp>
+              <cursor />
+              p2
+            </hp>
+          </hli>
+        </hul>
+      ),
+      expected: (
+        <hul>
+          <hli>
+            <hp>p1</hp>
+          </hli>
+
+          <hli>
+            <hp>
+              <cursor />
+              p2
+            </hp>
+          </hli>
+        </hul>
+      ),
+    },
+    {
+      title: 'at the end of a li with multiple p',
+      input: (
+        <hul>
+          <hli>
+            <hp>p1</hp>
+            <hp>
+              p2
+              <cursor />
+            </hp>
+          </hli>
+        </hul>
+      ),
+      expected: (
+        <hul>
+          <hli>
+            <hp>p1</hp>
+            <hp>p2</hp>
+          </hli>
+
+          <hli>
+            <hp>
+              <cursor />
+            </hp>
+          </hli>
+        </hul>
+      ),
+    },
+    {
+      title: 'at the middle of a li with multiple p',
+      input: (
+        <hul>
+          <hli>
+            <hp>
+              split <cursor />
+              me
+            </hp>
+            <hp>move me</hp>
+          </hli>
+        </hul>
+      ),
+      expected: (
+        <hul>
+          <hli>
+            <hp>split </hp>
+          </hli>
+
+          <hli>
+            <hp>
+              <cursor />
+              me
+            </hp>
+            <hp>move me</hp>
+          </hli>
+        </hul>
+      ),
+    },
+  ];
+
+  const render = (children: any) => (
+    <editor>
+      {children}
+      <hp>
+        <htext />
+      </hp>
+    </editor>
+  );
+
+  for (const t of tests) {
+    // eslint-disable-next-line jest/valid-title
+    test(t.title, () => {
+      const { editor } = createTestEditor({
+        input: render(t.input),
+      });
+
+      // Equivalent of pressing ENTER
+      editor.insertBreak();
+
+      assertOutput({
+        editor,
+        expected: render(t.expected),
+      });
+    });
+  }
 });
