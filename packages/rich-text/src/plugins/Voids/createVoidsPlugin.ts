@@ -8,16 +8,17 @@ import { transformVoid } from './transformVoid';
 export const createVoidsPlugin = (): RichTextPlugin => ({
   key: 'VoidsPlugin',
   exitBreak: [
-    // Can insert before first void block
     {
+      // Inserts a new paragraph *before* a void element if it's the very first
+      // node on the editor
       hotkey: 'enter',
       before: true,
       query: {
         filter: ([node, path]) => isRootLevel(path) && isFirstChild(path) && !!node.isVoid,
       },
     },
-    // Can insert after a void block
     {
+      // Inserts a new paragraph on enter when a void element is focused
       hotkey: 'enter',
       query: {
         filter: ([node, path]) => !isFirstChild(path) && !!node.isVoid,
