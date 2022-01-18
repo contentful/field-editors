@@ -1,5 +1,5 @@
 import { BLOCKS } from '@contentful/rich-text-types';
-import { getParent, PlateEditor } from '@udecode/plate-core';
+import { getNode, getParent, PlateEditor } from '@udecode/plate-core';
 import { getAbove, getChildren, isFirstChild, isAncestorEmpty } from '@udecode/plate-core';
 import {
   ELEMENT_TABLE,
@@ -9,7 +9,7 @@ import {
   insertTable,
 } from '@udecode/plate-table';
 import { Node, NodeEntry } from 'slate';
-import { Transforms, Path, Editor, Ancestor } from 'slate';
+import { Transforms, Path, Ancestor } from 'slate';
 
 import { isBlockSelected, getAncestorPathFromSelection } from '../../helpers/editor';
 import { CustomElement } from '../../types';
@@ -53,13 +53,12 @@ export function replaceEmptyParagraphWithTable(editor: PlateEditor) {
   const previousPath = Path.previous(tablePath);
   if (!previousPath) return;
 
-  const [nodes] = Editor.nodes(editor, {
-    at: previousPath,
-    match: (node) => (node as CustomElement).type === BLOCKS.PARAGRAPH,
-  });
-  if (!nodes) return;
+  const previousNode = getNode(editor, previousPath);
 
-  const [previousNode] = nodes;
+  if (!previousNode || (previousNode as CustomElement).type !== BLOCKS.PARAGRAPH) {
+    return;
+  }
+
   const isPreviousNodeTextEmpty = isAncestorEmpty(editor, previousNode as Ancestor);
   if (isPreviousNodeTextEmpty) {
     // Switch table with previous empty paragraph

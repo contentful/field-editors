@@ -1,6 +1,6 @@
 import { Link } from '@contentful/field-editor-reference/dist/types';
 import { BLOCKS, HEADINGS, INLINES, TABLE_BLOCKS } from '@contentful/rich-text-types';
-import { getText, PlateEditor } from '@udecode/plate-core';
+import { getAbove, getBlockAbove, getText, PlateEditor } from '@udecode/plate-core';
 import { Text, Editor, Element, Transforms, Path, Range, Node } from 'slate';
 
 import { CustomElement } from '../types';
@@ -13,12 +13,8 @@ export const LINK_TYPES: INLINES[] = [
 
 const LIST_TYPES: BLOCKS[] = [BLOCKS.OL_LIST, BLOCKS.UL_LIST];
 
-export function isBlockSelected(editor, type: string): boolean {
-  const [match] = Array.from(
-    Editor.nodes(editor, {
-      match: (node) => Element.isElement(node) && (node as CustomElement).type === type,
-    })
-  );
+export function isBlockSelected(editor: PlateEditor, type: string): boolean {
+  const [match] = getBlockAbove(editor, { match: { type } }) ?? [];
   return !!match;
 }
 
@@ -26,7 +22,7 @@ export function isRootLevel(path: Path): boolean {
   return path.length === 1;
 }
 
-export function hasSelectionText(editor) {
+export function hasSelectionText(editor: PlateEditor) {
   return editor.selection
     ? Editor.node(editor, editor.selection.focus.path).some(
         (node) => Text.isText(node) && node.text !== ''
@@ -36,42 +32,38 @@ export function hasSelectionText(editor) {
 
 type NodeEntry = [CustomElement, Path];
 type NodeType = BLOCKS | INLINES;
+
 export function getNodeEntryFromSelection(
-  editor,
+  editor: PlateEditor,
   nodeTypeOrTypes: NodeType | NodeType[]
 ): NodeEntry | [] {
-  if (!editor.selection) return [];
-  const nodeTypes = Array.isArray(nodeTypeOrTypes) ? nodeTypeOrTypes : [nodeTypeOrTypes];
-  const { path } = editor.selection.focus;
-  for (let i = 0; i < path.length; i++) {
-    const nodeEntry = Editor.node(editor, path.slice(0, i + 1)) as NodeEntry;
-    if (nodeTypes.includes(nodeEntry[0].type as NodeType)) return nodeEntry;
+  if (!editor.selection) {
+    return [];
   }
-  return [];
+
+  return (
+    getAbove<CustomElement>(editor, {
+      match: { type: nodeTypeOrTypes },
+    }) || []
+  );
 }
 
-export function isNodeTypeSelected(editor, nodeType: BLOCKS | INLINES): boolean {
+export function isNodeTypeSelected(editor: PlateEditor, nodeType: BLOCKS | INLINES): boolean {
   if (!editor) return false;
   const [node] = getNodeEntryFromSelection(editor, nodeType);
   return !!node;
 }
 
-export function moveToTheNextLine(editor) {
+export function moveToTheNextLine(editor: PlateEditor) {
   Transforms.move(editor, { distance: 1, unit: 'line' });
 }
 
-export function getElementFromCurrentSelection(editor) {
+export function getElementFromCurrentSelection(editor: PlateEditor) {
   if (!editor.selection) return [];
-
-  return Array.from(
-    Editor.nodes(editor, {
-      at: editor.selection.focus,
-      match: (node) => Element.isElement(node),
-    })
-  ).flat();
+  return getAbove(editor) ?? [];
 }
 
-export function isList(editor) {
+export function isList(editor: PlateEditor) {
   const element = getElementFromCurrentSelection(editor);
 
   return element.some(
@@ -99,27 +91,23 @@ interface InsertLinkOptions {
 }
 
 // TODO: move to hyperlink plugin
-export function insertLink(editor, options: InsertLinkOptions) {
+export function insertLink(editor: PlateEditor, options: InsertLinkOptions) {
   if (editor.selection) {
     wrapLink(editor, options);
   }
 }
 
 // TODO: move to hyperlink plugin
-export function isLinkActive(editor) {
-  const [link] = Array.from(
-    Editor.nodes(editor, {
-      match: (node) =>
-        !Editor.isEditor(node) &&
-        Element.isElement(node) &&
-        LINK_TYPES.includes((node as CustomElement).type as INLINES),
-    })
-  );
-  return !!link;
+export function isLinkActive(editor: PlateEditor) {
+  return !!getAbove(editor, {
+    match: {
+      type: LINK_TYPES,
+    },
+  });
 }
 
 // TODO: move to hyperlink plugin
-export function unwrapLink(editor) {
+export function unwrapLink(editor: PlateEditor) {
   Transforms.unwrapNodes(editor, {
     match: (node) =>
       !Editor.isEditor(node) &&
@@ -129,7 +117,10 @@ export function unwrapLink(editor) {
 }
 
 // TODO: move to hyperlink plugin
-export function wrapLink(editor, { text, url, target, type, path }: InsertLinkOptions) {
+export function wrapLink(
+  editor: PlateEditor,
+  { text, url, target, type, path }: InsertLinkOptions
+) {
   if (isLinkActive(editor) && !path) {
     unwrapLink(editor);
   }
