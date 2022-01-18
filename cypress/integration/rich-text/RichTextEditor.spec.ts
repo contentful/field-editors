@@ -8,6 +8,7 @@ import {
   inline,
   text,
 } from '../../../packages/rich-text/src/helpers/nodeFactory';
+import documentWithLinks from './documentWithLinks';
 import { RichTextPage } from './RichTextPage';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
@@ -1663,5 +1664,24 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         });
       });
     }
+  });
+
+  describe('on action callback', () => {
+    it('is invoked callback when rendering links', () => {
+      cy.setInitialValue(documentWithLinks);
+      cy.editorActions().should('be.empty');
+      // Necessary for reading the correct LocalStorage values as we do
+      // the initial page load on the beforeEach hook
+      cy.reload();
+      cy.editorActions().should(
+        'deep.equal',
+        new Array(5).fill([
+          'linkRendered',
+          {
+            origin: 'viewport-interaction',
+          },
+        ])
+      );
+    });
   });
 });

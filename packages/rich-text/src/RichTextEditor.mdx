@@ -29,7 +29,7 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
 
 <Playground>
   {() => {
-    window.events = [];
+    window.actions = [];
 
     const rtPreviewStyle = css({
       backgroundColor: 'whitesmoke',
@@ -57,7 +57,7 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
 
     const space = useMemo(() => createFakeSpaceAPI(), []);
     const navigator = useMemo(() => createFakeNavigatorAPI(), []);
-    const onAction = (...args) => window.events.push(args);
+    const onAction = (...args) => window.actions.push(args);
 
     const sdk = {
       space: {

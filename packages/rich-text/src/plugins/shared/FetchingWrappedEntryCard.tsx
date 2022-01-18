@@ -18,8 +18,9 @@ interface FetchingWrappedEntryCardProps {
   isSelected: boolean;
   locale: string;
   sdk: FieldExtensionSDK;
-  onEdit?: () => void;
-  onRemove?: () => void;
+  onEntityFetchComplete?: VoidFunction;
+  onEdit?: VoidFunction;
+  onRemove?: VoidFunction;
 }
 
 interface EntryThumbnailProps {
@@ -45,6 +46,7 @@ export function FetchingWrappedEntryCard(props: FetchingWrappedEntryCardProps) {
       .find((contentType) => contentType.sys.id === entry.sys.contentType.sys.id);
   }, [props.sdk, entry]);
   const defaultLocaleCode = props.sdk.locales.default;
+  const { onEntityFetchComplete } = props;
 
   React.useEffect(() => {
     if (!entry || entry === 'failed') return;
@@ -66,6 +68,13 @@ export function FetchingWrappedEntryCard(props: FetchingWrappedEntryCardProps) {
   React.useEffect(() => {
     getOrLoadEntry(props.entryId);
   }, [props.entryId]); // eslint-disable-line
+
+  React.useEffect(() => {
+    if (!entry) {
+      return;
+    }
+    onEntityFetchComplete?.();
+  }, [entry, onEntityFetchComplete]);
 
   function renderDropdown() {
     if (!props.onEdit || !props.onRemove) return undefined;

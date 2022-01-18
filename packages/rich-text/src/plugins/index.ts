@@ -49,12 +49,12 @@ export const getPlugins = (
   createHeadingPlugin(),
   createQuotePlugin(),
   createTablePlugin(tracking),
-  createEmbeddedEntryBlockPlugin(sdk),
-  createEmbeddedAssetBlockPlugin(sdk),
+  createEmbeddedEntryBlockPlugin(sdk, tracking),
+  createEmbeddedAssetBlockPlugin(sdk, tracking),
 
   // Inline elements
-  createHyperlinkPlugin(sdk),
-  createEmbeddedEntityInlinePlugin(sdk),
+  createHyperlinkPlugin(sdk, tracking),
+  createEmbeddedEntityInlinePlugin(sdk, tracking),
 
   // Marks
   createMarksPlugin(),

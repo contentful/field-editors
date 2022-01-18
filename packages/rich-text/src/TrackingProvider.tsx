@@ -9,7 +9,8 @@ export type RichTextTrackingActionName =
   | 'removeTable'
   | 'removeTableRow'
   | 'removeTableColumn'
-  | 'paste';
+  | 'paste'
+  | 'linkRendered';
 
 export type RichTextTrackingActionHandler = (
   name: RichTextTrackingActionName,
