@@ -1,5 +1,5 @@
 import { BLOCKS, HEADINGS } from '@contentful/rich-text-types';
-import { onKeyDownToggleElement } from '@udecode/plate-core';
+import { getAbove, onKeyDownToggleElement } from '@udecode/plate-core';
 
 import { isInlineOrText } from '../../helpers/editor';
 import { transformLift, transformUnwrap } from '../../helpers/transformers';
@@ -17,18 +17,6 @@ export const createHeadingPlugin = (): RichTextPlugin => ({
       },
     },
   ],
-  exitBreak: [
-    // Pressing ENTER at the start or end of a heading text inserts a
-    // normal paragraph
-    {
-      hotkey: 'enter',
-      query: {
-        allow: HEADINGS,
-        end: true,
-        start: true,
-      },
-    },
-  ],
   normalizer: [
     {
       match: {
@@ -41,6 +29,30 @@ export const createHeadingPlugin = (): RichTextPlugin => ({
       },
     },
   ],
+  then: (editor) => {
+    return {
+      exitBreak: [
+        // Pressing ENTER at the start or end of a heading text inserts a
+        // normal paragraph.
+        {
+          hotkey: 'enter',
+          query: {
+            allow: HEADINGS,
+            end: true,
+            start: true,
+
+            // Exclude headings inside lists as it interferes with the list's
+            // insertBreak implementation
+            filter: ([, path]) =>
+              !getAbove(editor, {
+                at: path,
+                match: { type: BLOCKS.LIST_ITEM },
+              }),
+          },
+        },
+      ],
+    } as Partial<RichTextPlugin>;
+  },
   plugins: HEADINGS.map((nodeType, idx) => {
     const level = idx + 1;
     const tagName = `h${level}`;
