@@ -1,5 +1,7 @@
 /**
- * Credit: Modified version of Plate's list plugin
+ * Credit: Copied & modified version from Plate's list plugin to support
+ * list items with multiple children.
+ *
  * See: https://github.com/udecode/plate/blob/main/packages/nodes/list
  */
 import {

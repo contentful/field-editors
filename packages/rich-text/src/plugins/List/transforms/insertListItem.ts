@@ -1,8 +1,4 @@
-/**
- * Credit: Modified version of Plate's list plugin
- * See: https://github.com/udecode/plate/blob/main/packages/nodes/list
- */
-import { BLOCKS } from '@contentful/rich-text-types';
+import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
 import {
   getAbove,
   getParent,
@@ -50,7 +46,8 @@ export const insertListItem = (editor: PlateEditor): boolean => {
     return false;
   }
 
-  const paragraph = getAbove(editor, { match: { type: BLOCKS.PARAGRAPH } });
+  // Naming it paragraph for simplicity but can be a heading as well
+  const paragraph = getAbove(editor, { match: { type: TEXT_CONTAINERS } });
   if (!paragraph) {
     return false;
   }
@@ -68,7 +65,7 @@ export const insertListItem = (editor: PlateEditor): boolean => {
     return false;
   }
 
-  // We are in a li>p
+  // We are in a li>p (or heading)
 
   Editor.withoutNormalizing(editor, () => {
     if (!editor.selection) {

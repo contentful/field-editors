@@ -302,6 +302,86 @@ describe('insert line break', () => {
         </hul>
       ),
     },
+    // with headings
+    {
+      title: 'at the start of a li with heading',
+      input: (
+        <hul>
+          <hli>
+            <hh1>
+              <cursor />
+              p1
+            </hh1>
+          </hli>
+        </hul>
+      ),
+      expected: (
+        <hul>
+          <hli>
+            <hp>
+              <cursor />
+            </hp>
+          </hli>
+
+          <hli>
+            <hh1>p1</hh1>
+          </hli>
+        </hul>
+      ),
+    },
+    {
+      title: 'at the end of a li with heading',
+      input: (
+        <hul>
+          <hli>
+            <hh1>
+              p1
+              <cursor />
+            </hh1>
+          </hli>
+        </hul>
+      ),
+      expected: (
+        <hul>
+          <hli>
+            <hh1>p1</hh1>
+          </hli>
+
+          <hli>
+            <hp>
+              <cursor />
+            </hp>
+          </hli>
+        </hul>
+      ),
+    },
+    {
+      title: 'at the middle of a li with heading',
+      input: (
+        <hul>
+          <hli>
+            <hh1>
+              split <cursor />
+              me
+            </hh1>
+          </hli>
+        </hul>
+      ),
+      expected: (
+        <hul>
+          <hli>
+            <hh1>split </hh1>
+          </hli>
+
+          <hli>
+            <hh1>
+              <cursor />
+              me
+            </hh1>
+          </hli>
+        </hul>
+      ),
+    },
   ];
 
   const render = (children: any) => (
