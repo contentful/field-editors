@@ -1,23 +1,49 @@
+/**
+ * Credit: Modified version of Plate's list plugin
+ * See: https://github.com/udecode/plate/blob/main/packages/nodes/list
+ */
 import { LIST_ITEM_BLOCKS } from '@contentful/rich-text-types';
 import { WithOverride } from '@udecode/plate-core';
-import { withList as withDefaultList, ListPlugin } from '@udecode/plate-list';
+import {
+  ListPlugin,
+  normalizeList,
+  deleteFragmentList,
+  deleteForwardList,
+  deleteBackwardList,
+} from '@udecode/plate-list';
 
+import { getListInsertBreak } from './getListInsertBreak';
 import { getListInsertFragment } from './getListInsertFragment';
 
-const options: ListPlugin = {
-  validLiChildrenTypes: LIST_ITEM_BLOCKS,
-};
+const validLiChildrenTypes = LIST_ITEM_BLOCKS;
 
-export const withList: WithOverride<{}, ListPlugin> = (editor, plugin) => {
-  const { insertFragment } = editor;
+export const withList: WithOverride<{}, ListPlugin> = (editor) => {
+  const { deleteBackward, deleteForward, deleteFragment } = editor;
 
-  withDefaultList(editor, { ...plugin, options });
+  editor.deleteBackward = (unit) => {
+    if (deleteBackwardList(editor, unit)) return;
 
-  // Reverts any overrides to insertFragment
-  editor.insertFragment = insertFragment;
+    deleteBackward(unit);
+  };
 
-  // Use our custom getListInsertFragment
+  editor.deleteForward = (unit) => {
+    if (deleteForwardList(editor)) return;
+
+    deleteForward(unit);
+  };
+
+  editor.deleteFragment = () => {
+    if (deleteFragmentList(editor)) return;
+
+    deleteFragment();
+  };
+
+  editor.insertBreak = getListInsertBreak(editor);
+
   editor.insertFragment = getListInsertFragment(editor);
+
+  // TODO: replace with Normalizer rules
+  editor.normalizeNode = normalizeList(editor, { validLiChildrenTypes });
 
   return editor;
 };
