@@ -106,7 +106,7 @@ describe('normalization', () => {
   });
 });
 
-describe('insertBreak', () => {
+describe('insert line break', () => {
   const tests = [
     // single p
     {
