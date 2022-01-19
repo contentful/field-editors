@@ -70,7 +70,7 @@ function UrlHyperlink(props: HyperlinkElementProps) {
   const sdk: FieldExtensionSDK = useSdkContext();
   const { uri } = props.element.data;
 
-  async function handleClick(event: React.MouseEvent<HTMLAnchorElement>) {
+  function handleClick(event: React.MouseEvent<HTMLAnchorElement>) {
     event.preventDefault();
     event.stopPropagation();
     if (!editor) return;
@@ -104,7 +104,7 @@ function EntityHyperlink(props: HyperlinkElementProps) {
 
   if (!target) return null;
 
-  async function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+  function handleClick(event: React.MouseEvent<HTMLAnchorElement>) {
     event.preventDefault();
     event.stopPropagation();
     if (!editor) return;
@@ -126,7 +126,7 @@ function EntityHyperlink(props: HyperlinkElementProps) {
       placement="bottom"
       maxWidth="auto">
       <TextLink
-        as="button"
+        as="a"
         onClick={handleClick}
         isDisabled={isReadOnly}
         className={styles.hyperlink}
