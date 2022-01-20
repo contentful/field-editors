@@ -97,12 +97,20 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
         unwrapFromRoot(editor);
       }
 
-      toggleNodeType(editor, { activeType: type, inactiveType: type });
-
-      // TODO: Figure out why focus only works with timeout here.
-      setTimeout(() => {
+      const prevOnChange = editor.onChange;
+      /*
+       The focus might happen at point in time when
+       `toggleNodeType` changes aren't rendered yet, causing the browser
+       to place the cursor at the start of the text.
+       We wait for the change event before focusing
+       the editor again. This ensures the cursor is back at the previous
+       position.*/
+      editor.onChange = (...args) => {
         Slate.ReactEditor.focus(editor);
-      }, 0);
+        editor.onChange = prevOnChange;
+        prevOnChange(...args);
+      };
+      toggleNodeType(editor, { activeType: type, inactiveType: type });
     };
   }
 
