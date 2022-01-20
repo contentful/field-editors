@@ -47,12 +47,19 @@ export const HyperlinkPlugin = ({ richTextAPI }) => ({
     return next();
   },
   normalizeNode: (node, editor, next) => {
-    if (isHyperlink(node.type) && node.getInlines().size > 0) {
-      return () => {
-        node
-          .getInlines()
-          .forEach((inlineNode) => editor.unwrapInlineByKey(inlineNode.key, node.type));
-      };
+    if (isHyperlink(node.type)) {
+      if (node.text.trim() === '') {
+        return () => {
+          editor.removeNodeByKey(node.key);
+        };
+      }
+      if (node.getInlines().size > 0) {
+        return () => {
+          node
+            .getInlines()
+            .forEach((inlineNode) => editor.unwrapInlineByKey(inlineNode.key, node.type));
+        };
+      }
     }
     next();
   },
