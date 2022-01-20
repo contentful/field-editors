@@ -29,6 +29,7 @@ interface FetchingWrappedAssetCardProps {
   onEdit?: () => void;
   onRemove?: () => unknown;
   sdk: FieldExtensionSDK;
+  onEntityFetchComplete?: VoidFunction;
 }
 
 function downloadAsset(url: string, fileName: string) {
@@ -119,10 +120,17 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
   const entityFile: File | undefined = asset?.fields?.file
     ? asset.fields.file[props.locale] || asset.fields.file[defaultLocaleCode]
     : undefined;
-
+  const { onEntityFetchComplete } = props;
   React.useEffect(() => {
     getOrLoadAsset(props.assetId);
   }, [props.assetId]); // eslint-disable-line
+
+  React.useEffect(() => {
+    if (!asset) {
+      return;
+    }
+    onEntityFetchComplete?.();
+  }, [asset, onEntityFetchComplete]);
 
   function getAssetSrc() {
     if (!entityFile?.url) return '';

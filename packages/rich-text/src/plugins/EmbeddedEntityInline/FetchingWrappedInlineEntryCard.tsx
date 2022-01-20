@@ -24,6 +24,7 @@ interface FetchingWrappedInlineEntryCardProps {
   isDisabled: boolean;
   onEdit: (event: React.MouseEvent<Element, MouseEvent>) => void;
   onRemove: (event: React.MouseEvent<Element, MouseEvent>) => void;
+  onEntityFetchComplete?: VoidFunction;
 }
 
 export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntryCardProps) {
@@ -31,6 +32,7 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
   const entry = React.useMemo(() => entries[props.entryId], [entries, props.entryId]);
 
   const allContentTypes = props.sdk.space.getCachedContentTypes();
+  const { onEntityFetchComplete } = props;
   const contentType = React.useMemo(() => {
     if (!entry || entry === 'failed' || !allContentTypes) return undefined;
 
@@ -38,6 +40,13 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
       (contentType) => contentType.sys.id === entry.sys.contentType.sys.id
     );
   }, [allContentTypes, entry]);
+
+  React.useEffect(() => {
+    if (!entry) {
+      return;
+    }
+    onEntityFetchComplete?.();
+  }, [entry, onEntityFetchComplete]);
 
   const contentTypeName = contentType ? contentType.name : '';
 

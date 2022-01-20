@@ -10,12 +10,14 @@ import { css } from 'emotion';
 import isHotkey from 'is-hotkey';
 import { Transforms } from 'slate';
 import { useSelected, ReactEditor, useReadOnly } from 'slate-react';
+import { TrackingProvider } from 'TrackingProvider';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { HAS_BEFORE_INPUT_SUPPORT } from '../../helpers/environment';
 import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
 import { useSdkContext } from '../../SdkProvider';
 import { RichTextPlugin, CustomElement, CustomRenderElementProps } from '../../types';
+import { withLinkTracking } from '../links-tracking';
 import { FetchingWrappedInlineEntryCard } from './FetchingWrappedInlineEntryCard';
 import { createInlineEntryNode } from './Util';
 
@@ -38,7 +40,9 @@ const styles = {
 
 type EmbeddedEntityInlineProps = CustomRenderElementProps<{
   target: Link;
-}>;
+}> & {
+  onEntityFetchComplete: VoidFunction;
+};
 
 function EmbeddedEntityInline(props: EmbeddedEntityInlineProps) {
   const editor = useContentfulEditor();
@@ -76,6 +80,7 @@ function EmbeddedEntityInline(props: EmbeddedEntityInlineProps) {
           isDisabled={isDisabled}
           onRemove={handleRemoveClick}
           onEdit={handleEditClick}
+          onEntityFetchComplete={props.onEntityFetchComplete}
         />
       </span>
       {props.children}
@@ -151,7 +156,10 @@ export function ToolbarEmbeddedEntityInlineButton(props: ToolbarEmbeddedEntityIn
   );
 }
 
-export function createEmbeddedEntityInlinePlugin(sdk): RichTextPlugin {
+export function createEmbeddedEntityInlinePlugin(
+  sdk: FieldExtensionSDK,
+  tracking: TrackingProvider
+): RichTextPlugin {
   const htmlAttributeName = 'data-embedded-entity-inline-id';
 
   return {
@@ -160,7 +168,7 @@ export function createEmbeddedEntityInlinePlugin(sdk): RichTextPlugin {
     isElement: true,
     isInline: true,
     isVoid: true,
-    component: EmbeddedEntityInline,
+    component: withLinkTracking(tracking, EmbeddedEntityInline),
     options: {
       hotkey: 'mod+shift+2',
     },

@@ -19,6 +19,12 @@ Cypress.Commands.add('editorEvents', (lastN = Infinity) => {
   });
 });
 
+Cypress.Commands.add('editorActions', (lastN = Infinity) => {
+  cy.window().then((win) => {
+    return win.actions.slice(0, lastN);
+  });
+});
+
 Cypress.Commands.add('setValueExternal', (value) => {
   return cy.window().then((win) => {
     win.setValueExternal(value);

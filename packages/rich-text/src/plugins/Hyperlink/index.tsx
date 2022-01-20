@@ -9,12 +9,14 @@ import { AnyObject, KeyboardHandler, HotkeyPlugin } from '@udecode/plate-core';
 import { css } from 'emotion';
 import isHotkey from 'is-hotkey';
 import { useReadOnly } from 'slate-react';
+import { TrackingProvider } from 'TrackingProvider';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { isLinkActive, unwrapLink } from '../../helpers/editor';
 import { transformRemove } from '../../helpers/transformers';
 import { useSdkContext } from '../../SdkProvider';
 import { RichTextPlugin, CustomRenderElementProps, CustomElement } from '../../types';
+import { withLinkTracking } from '../links-tracking';
 import { ToolbarButton } from '../shared/ToolbarButton';
 import { EntryAssetTooltip } from './EntryAssetTooltip';
 import { addOrEditLink } from './HyperlinkModal';
@@ -62,6 +64,7 @@ const styles = {
 type HyperlinkElementProps = CustomRenderElementProps<{
   uri?: string;
   target?: Link;
+  onEntityFetchComplete?: VoidFunction;
 }>;
 
 function UrlHyperlink(props: HyperlinkElementProps) {
@@ -101,7 +104,14 @@ function EntityHyperlink(props: HyperlinkElementProps) {
   const isReadOnly = useReadOnly();
   const sdk: FieldExtensionSDK = useSdkContext();
   const { target } = props.element.data;
+  const { onEntityFetchComplete } = props;
 
+  React.useEffect(() => {
+    // The real entity loading happens in the tooltip
+    // Since that is deferred the link is considered rendered as soon
+    // the component mounts (link text displayed)
+    onEntityFetchComplete?.();
+  }, [onEntityFetchComplete]);
   if (!target) return null;
 
   function handleClick(event: React.MouseEvent<HTMLAnchorElement>) {
@@ -223,7 +233,10 @@ const getNodeOfType =
           },
   });
 
-export const createHyperlinkPlugin = (sdk: FieldExtensionSDK): RichTextPlugin => {
+export const createHyperlinkPlugin = (
+  sdk: FieldExtensionSDK,
+  tracking: TrackingProvider
+): RichTextPlugin => {
   const common: Partial<RichTextPlugin> = {
     isElement: true,
     isInline: true,
@@ -259,7 +272,7 @@ export const createHyperlinkPlugin = (sdk: FieldExtensionSDK): RichTextPlugin =>
         ...common,
         key: INLINES.ENTRY_HYPERLINK,
         type: INLINES.ENTRY_HYPERLINK,
-        component: EntityHyperlink,
+        component: withLinkTracking(tracking, EntityHyperlink),
         deserializeHtml: {
           rules: [
             {
@@ -275,7 +288,7 @@ export const createHyperlinkPlugin = (sdk: FieldExtensionSDK): RichTextPlugin =>
         ...common,
         key: INLINES.ASSET_HYPERLINK,
         type: INLINES.ASSET_HYPERLINK,
-        component: EntityHyperlink,
+        component: withLinkTracking(tracking, EntityHyperlink),
         deserializeHtml: {
           rules: [
             {
