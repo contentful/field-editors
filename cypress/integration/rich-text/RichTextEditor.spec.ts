@@ -82,12 +82,6 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     return expectedValue;
   }
 
-  const getLinkTextInput = () => cy.findByTestId('link-text-input');
-  const getLinkTypeSelect = () => cy.findByTestId('link-type-input');
-  const getLinkTargetInput = () => cy.findByTestId('link-target-input');
-  const getSubmitButton = () => cy.findByTestId('confirm-cta');
-  const getEntityTextLink = () => cy.findByTestId('entity-selection-link');
-
   beforeEach(() => {
     richText = new RichTextPage();
     richText.visit();
@@ -1007,12 +1001,16 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           triggerLinkModal();
 
-          getSubmitButton().should('be.disabled');
-          getLinkTextInput().type('dog');
-          getSubmitButton().should('be.disabled');
-          getLinkTargetInput().type('https://zombo.com');
-          getSubmitButton().should('not.be.disabled');
-          getSubmitButton().click();
+          const form = richText.forms.hyperlink;
+          form.submit.should('be.disabled');
+
+          form.linkText.type('dog');
+          form.submit.should('be.disabled');
+
+          form.linkTarget.type('https://zombo.com');
+          form.submit.should('not.be.disabled');
+
+          form.submit.click();
 
           expectDocumentStructure(
             ['text', 'The quick brown fox jumps over the lazy '],
@@ -1042,13 +1040,16 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           safelyType('My cool website{selectall}');
 
           triggerLinkModal();
+          const form = richText.forms.hyperlink;
 
-          getLinkTextInput().should('have.value', 'My cool website');
-          getLinkTypeSelect().should('have.value', 'hyperlink');
-          getSubmitButton().should('be.disabled');
-          getLinkTargetInput().type('https://zombo.com');
-          getSubmitButton().should('not.be.disabled');
-          getSubmitButton().click();
+          form.linkText.should('have.value', 'My cool website');
+          form.linkType.should('have.value', 'hyperlink');
+          form.submit.should('be.disabled');
+
+          form.linkTarget.type('https://zombo.com');
+          form.submit.should('not.be.disabled');
+
+          form.submit.click();
 
           expectDocumentStructure(
             ['text', ''],
@@ -1060,19 +1061,25 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         it('converts text to entry hyperlink', () => {
           safelyType('My cool entry{selectall}');
           triggerLinkModal();
+          const form = richText.forms.hyperlink;
 
-          getLinkTextInput().should('have.value', 'My cool entry');
-          getSubmitButton().should('be.disabled');
-          getLinkTypeSelect().should('have.value', 'hyperlink').select('entry-hyperlink');
-          getSubmitButton().should('be.disabled');
+          form.linkText.should('have.value', 'My cool entry');
+          form.submit.should('be.disabled');
+
+          form.linkType.should('have.value', 'hyperlink').select('entry-hyperlink');
+          form.submit.should('be.disabled');
+
           cy.findByTestId('cf-ui-entry-card').should('not.exist');
-          getEntityTextLink().should('have.text', 'Select entry').click();
+          form.linkEntityTarget.should('have.text', 'Select entry').click();
           cy.findByTestId('cf-ui-entry-card').should('exist');
-          getEntityTextLink().should('have.text', 'Remove selection').click();
+
+          form.linkEntityTarget.should('have.text', 'Remove selection').click();
           cy.findByTestId('cf-ui-entry-card').should('not.exist');
-          getEntityTextLink().should('have.text', 'Select entry').click();
+
+          form.linkEntityTarget.should('have.text', 'Select entry').click();
           cy.findByTestId('cf-ui-entry-card').should('exist');
-          getSubmitButton().click();
+
+          form.submit.click();
 
           expectDocumentStructure(
             ['text', ''],
@@ -1090,18 +1097,25 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           triggerLinkModal();
 
-          getLinkTextInput().should('have.value', 'My cool asset');
-          getSubmitButton().should('be.disabled');
-          getLinkTypeSelect().should('have.value', 'hyperlink').select('asset-hyperlink');
-          getSubmitButton().should('be.disabled');
+          const form = richText.forms.hyperlink;
+
+          form.linkText.should('have.value', 'My cool asset');
+          form.submit.should('be.disabled');
+
+          form.linkType.should('have.value', 'hyperlink').select('asset-hyperlink');
+          form.submit.should('be.disabled');
+
           cy.findByTestId('cf-ui-asset-card').should('not.exist');
-          getEntityTextLink().should('have.text', 'Select asset').click();
+          form.linkEntityTarget.should('have.text', 'Select asset').click();
           cy.findByTestId('cf-ui-asset-card').should('exist');
-          getEntityTextLink().should('have.text', 'Remove selection').click();
+
+          form.linkEntityTarget.should('have.text', 'Remove selection').click();
           cy.findByTestId('cf-ui-asset-card').should('not.exist');
-          getEntityTextLink().should('have.text', 'Select asset').click();
+
+          form.linkEntityTarget.should('have.text', 'Select asset').click();
           cy.findByTestId('cf-ui-asset-card').should('exist');
-          getSubmitButton().click();
+
+          form.submit.click();
 
           expectDocumentStructure(
             ['text', ''],
@@ -1121,10 +1135,11 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           // Part 1:
           // Create a hyperlink
+          const form = richText.forms.hyperlink;
 
-          getLinkTextInput().should('have.value', 'My cool website');
-          getLinkTargetInput().type('https://zombo.com');
-          getSubmitButton().click();
+          form.linkText.should('have.value', 'My cool website');
+          form.linkTarget.type('https://zombo.com');
+          form.submit.click();
 
           expectDocumentStructure(
             ['text', ''],
@@ -1140,10 +1155,10 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
             .should('have.text', 'My cool website')
             .click({ force: true });
 
-          getLinkTextInput().should('not.exist');
-          getLinkTypeSelect().should('have.value', 'hyperlink').select('entry-hyperlink');
-          getEntityTextLink().should('have.text', 'Select entry').click();
-          getSubmitButton().click();
+          form.linkText.should('not.exist');
+          form.linkType.should('have.value', 'hyperlink').select('entry-hyperlink');
+          form.linkEntityTarget.should('have.text', 'Select entry').click();
+          form.submit.click();
 
           expectDocumentStructure(
             ['text', ''],
@@ -1163,10 +1178,10 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
             .should('have.text', 'My cool website')
             .click({ force: true });
 
-          getLinkTextInput().should('not.exist');
-          getLinkTypeSelect().should('have.value', 'entry-hyperlink').select('asset-hyperlink');
-          getEntityTextLink().should('have.text', 'Select asset').click();
-          getSubmitButton().click();
+          form.linkText.should('not.exist');
+          form.linkType.should('have.value', 'entry-hyperlink').select('asset-hyperlink');
+          form.linkEntityTarget.should('have.text', 'Select asset').click();
+          form.submit.click();
 
           expectDocumentStructure(
             ['text', ''],
@@ -1186,10 +1201,10 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
             .should('have.text', 'My cool website')
             .click({ force: true });
 
-          getLinkTextInput().should('not.exist');
-          getLinkTypeSelect().should('have.value', 'asset-hyperlink').select('hyperlink');
-          getLinkTargetInput().type('https://zombo.com');
-          getSubmitButton().click();
+          form.linkText.should('not.exist');
+          form.linkType.should('have.value', 'asset-hyperlink').select('hyperlink');
+          form.linkTarget.type('https://zombo.com');
+          form.submit.click();
 
           expectDocumentStructure(
             ['text', ''],
@@ -1203,9 +1218,11 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           triggerLinkModal();
 
-          getLinkTextInput().type('Link');
-          getLinkTargetInput().type('https://link.com');
-          getSubmitButton().click();
+          const form = richText.forms.hyperlink;
+
+          form.linkText.type('Link');
+          form.linkTarget.type('https://link.com');
+          form.submit.click();
 
           expectDocumentStructure(
             ['text', ''],

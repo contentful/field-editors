@@ -1,3 +1,5 @@
+import { INLINES } from '@contentful/rich-text-types';
+
 const isValidationEvent = ({ type }) => type === 'onSchemaErrorsChanged';
 
 export class RichTextPage {
@@ -73,6 +75,14 @@ export class RichTextPage {
     };
   }
 
+  get forms() {
+    return {
+      get hyperlink() {
+        return new HyperLinkModal();
+      },
+    };
+  }
+
   expectValue(expectedValue: any, editorEvents?: any) {
     cy.getRichTextField().should((field) => {
       expect(field.getValue()).to.deep.equal(expectedValue);
@@ -109,5 +119,31 @@ export class RichTextPage {
       })
       .should('be.empty')
       .as('validationErrors');
+  }
+}
+
+class HyperLinkModal {
+  get linkText() {
+    return cy.findByTestId('link-text-input');
+  }
+
+  get linkType() {
+    return cy.findByTestId('link-type-input');
+  }
+
+  setLinkType = (type: INLINES.HYPERLINK | INLINES.ENTRY_HYPERLINK | INLINES.ASSET_HYPERLINK) => {
+    this.linkType.select(type);
+  };
+
+  get linkTarget() {
+    return cy.findByTestId('link-target-input');
+  }
+
+  get linkEntityTarget() {
+    return cy.findByTestId('entity-selection-link');
+  }
+
+  get submit() {
+    return cy.findByTestId('confirm-cta');
   }
 }
