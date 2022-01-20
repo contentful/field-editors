@@ -1,6 +1,7 @@
 declare namespace Cypress {
   interface Chainable {
     editorEvents(lastN?: number): Chainable<Array<any>>;
+    editorActions(lastN?: number): Chainable<Array<any>>;
     setValueExternal(value: any): Chainable<void>;
     setGoogleMapsKey(): Chainable<void>;
     mockGoogleMapsResponse(mockData: unknown): void;

@@ -25,10 +25,12 @@ type LinkedEntityBlockProps = CustomRenderElementProps<{
       type: 'Link';
     };
   };
-}>;
+}> & {
+  onEntityFetchComplete: VoidFunction;
+};
 
 export function LinkedEntityBlock(props: LinkedEntityBlockProps) {
-  const { attributes, children, element } = props;
+  const { attributes, children, element, onEntityFetchComplete } = props;
   const isSelected = useSelected();
   const editor = useContentfulEditor();
   const sdk = useSdkContext();
@@ -68,6 +70,7 @@ export function LinkedEntityBlock(props: LinkedEntityBlockProps) {
             isSelected={isSelected}
             onRemove={handleRemoveClick}
             onEdit={handleEditClick}
+            onEntityFetchComplete={onEntityFetchComplete}
           />
         )}
         {entityType === 'Asset' && (
@@ -79,6 +82,7 @@ export function LinkedEntityBlock(props: LinkedEntityBlockProps) {
             isSelected={isSelected}
             onRemove={handleRemoveClick}
             onEdit={handleEditClick}
+            onEntityFetchComplete={onEntityFetchComplete}
           />
         )}
       </div>
