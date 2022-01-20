@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@1.1.0...@contentful/field-editor-rich-text@1.1.1) (2022-01-20)
+
+### Bug Fixes
+
+- remove empty text hyperlinks ([#997](https://github.com/contentful/field-editors/issues/997)) ([d998132](https://github.com/contentful/field-editors/commit/d998132fbe948a98f6e800211a794bdd1e292233))
+
 # [1.1.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@1.0.8...@contentful/field-editor-rich-text@1.1.0) (2022-01-11)
 
 ### Features
