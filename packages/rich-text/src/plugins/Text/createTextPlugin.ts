@@ -39,32 +39,40 @@ export function createTextPlugin(): RichTextPlugin {
       };
 
       // When pressing delete instead of backspace
-      const { deleteForward } = editor;
+      const { deleteForward, deleteBackward } = editor;
+
+      editor.deleteBackward = (unit) => {
+        deleteEmptyParagraph(unit, editor, deleteBackward);
+      };
 
       editor.deleteForward = (unit) => {
-        const entry = getAbove(editor, {
-          match: {
-            type: TEXT_CONTAINERS,
-          },
-        });
-
-        if (entry) {
-          const [paragraphOrHeading, path] = entry;
-          const isTextEmpty = isAncestorEmpty(editor, paragraphOrHeading as Ancestor);
-          // We ignore paragraphs/headings that are children of ul, ol, blockquote, tables, etc
-          const isRootLevel = path.length === 1;
-
-          if (isTextEmpty && isRootLevel) {
-            Transforms.removeNodes(editor, { at: path });
-          } else {
-            deleteForward(unit);
-          }
-        } else {
-          deleteForward(unit);
-        }
+        deleteEmptyParagraph(unit, editor, deleteForward);
       };
 
       return editor;
     },
   };
+}
+
+function deleteEmptyParagraph(unit: String, editor: Editor, deleteFunction: Function) {
+  const entry = getAbove(editor, {
+    match: {
+      type: TEXT_CONTAINERS,
+    },
+  });
+
+  if (entry) {
+    const [paragraphOrHeading, path] = entry;
+    const isTextEmpty = isAncestorEmpty(editor, paragraphOrHeading as Ancestor);
+    // We ignore paragraphs/headings that are children of ul, ol, blockquote, tables, etc
+    const isRootLevel = path.length === 1;
+
+    if (isTextEmpty && isRootLevel) {
+      Transforms.removeNodes(editor, { at: path });
+    } else {
+      deleteFunction(unit);
+    }
+  } else {
+    deleteFunction(unit);
+  }
 }
