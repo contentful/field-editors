@@ -8,7 +8,8 @@ import {
   inline,
   text,
 } from '../../../packages/rich-text/src/helpers/nodeFactory';
-import documentWithLinks from './documentWithLinks';
+import documentWithLinks from './document-mocks/documentWithLinks';
+import invalidDocumentNormalizable from './document-mocks/invalidDocumentNormalizable';
 import { RichTextPage } from './RichTextPage';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
@@ -1542,6 +1543,17 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           },
         ])
       );
+    });
+  });
+
+  describe('invalid document structure', () => {
+    describe('normalizable errors', () => {
+      it('does not throw', () => {
+        cy.setInitialValue(invalidDocumentNormalizable);
+        cy.reload();
+        //check that editors content is what we expect (not a thrown error)
+        richText.expectSnapshotValue();
+      });
     });
   });
 });
