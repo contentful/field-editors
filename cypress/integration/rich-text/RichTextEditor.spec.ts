@@ -1534,10 +1534,8 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       it('does not throw', () => {
         cy.setInitialValue(invalidDocumentNormalizable);
         cy.reload();
-
         //check that editors content is what we expect (not a thrown error)
-        richText.editor.findByText('unordered list first item').should('exist');
-        richText.editor.findByText('unordered list second item').should('exist');
+        richText.expectSnapshotValue();
       });
     });
   });
