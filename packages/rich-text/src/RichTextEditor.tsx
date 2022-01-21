@@ -5,13 +5,18 @@ import { toContentfulDocument, toSlatejsDocument } from '@contentful/contentful-
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import * as Contentful from '@contentful/rich-text-types';
-import { Plate } from '@udecode/plate-core';
+import { Plate, PlateProps } from '@udecode/plate-core';
 import { css, cx } from 'emotion';
 import deepEquals from 'fast-deep-equal';
 import noop from 'lodash/noop';
+import { Editor } from 'slate';
 
 import schema from './constants/Schema';
-import { ContentfulEditorProvider, getContentfulEditorId } from './ContentfulEditorProvider';
+import {
+  ContentfulEditorProvider,
+  getContentfulEditorId,
+  useContentfulEditor,
+} from './ContentfulEditorProvider';
 import { sanitizeIncomingSlateDoc } from './helpers/sanitizeSlateDoc';
 import { disableCorePlugins, getPlugins } from './plugins';
 import { styles } from './RichTextEditor.styles';
@@ -39,14 +44,9 @@ type ConnectedProps = {
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const tracking = useTrackingContext();
 
-  const docFromAdapter = toSlatejsDocument({
-    document: props.value || Contentful.EMPTY_DOCUMENT,
-    schema,
-  });
+  const editor = useContentfulEditor();
 
-  const doc = sanitizeIncomingSlateDoc(docFromAdapter);
-
-  const [value, setValue] = useState(doc);
+  const [value, setValue] = useState<PlateProps['value']>([]);
 
   const classNames = cx(
     styles.editor,
@@ -57,11 +57,32 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
 
   const plugins = React.useMemo(() => getPlugins(props.sdk, tracking), [props.sdk, tracking]);
 
+  React.useEffect(() => {
+    if (!editor) {
+      return;
+    }
+
+    const docFromAdapter = toSlatejsDocument({
+      document: props.value || Contentful.EMPTY_DOCUMENT,
+      schema,
+    });
+    const doc = sanitizeIncomingSlateDoc(docFromAdapter);
+
+    // Slate throws an error if the value on the initial render is invalid
+    // so we directly set the value on the editor in order
+    // to be able to trigger normalization on the initial value before rendering
+    // TODO: use https://plate.udecode.io/docs/Plate#normalizeinitialvalue when working
+    editor.children = doc;
+    Editor.normalize(editor, { force: true });
+    // We set the value so that the rendering can take over from here
+    setValue(editor.children);
+  }, [props.value, editor]);
+
   return (
     <div className={styles.root} data-test-id="rich-text-editor">
       <Plate
         id={getContentfulEditorId(props.sdk)}
-        initialValue={value}
+        value={value}
         plugins={plugins}
         disableCorePlugins={disableCorePlugins}
         editableProps={{
