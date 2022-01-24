@@ -12,8 +12,8 @@ import {
   deleteBackwardList,
 } from '@udecode/plate-list';
 
-import { getListInsertBreak } from './getListInsertBreak';
-import { getListInsertFragment } from './getListInsertFragment';
+import { insertListBreak } from './insertListBreak';
+import { insertListFragment } from './insertListFragment';
 
 const validLiChildrenTypes = LIST_ITEM_BLOCKS;
 
@@ -38,9 +38,9 @@ export const withList: WithOverride<{}, ListPlugin> = (editor) => {
     deleteFragment();
   };
 
-  editor.insertBreak = getListInsertBreak(editor);
+  editor.insertBreak = insertListBreak(editor);
 
-  editor.insertFragment = getListInsertFragment(editor);
+  editor.insertFragment = insertListFragment(editor);
 
   // TODO: replace with Normalizer rules
   editor.normalizeNode = normalizeList(editor, { validLiChildrenTypes });

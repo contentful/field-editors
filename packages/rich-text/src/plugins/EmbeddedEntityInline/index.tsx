@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Link, FieldExtensionSDK } from '@contentful/app-sdk';
 import { Button, Menu, Flex } from '@contentful/f36-components';
 import { EmbeddedEntryInlineIcon } from '@contentful/f36-icons';
+import tokens from '@contentful/f36-tokens';
 import { Entry } from '@contentful/field-editor-shared';
 import { INLINES } from '@contentful/rich-text-types';
 import { HotkeyPlugin, KeyboardHandler } from '@udecode/plate-core';
@@ -27,12 +28,10 @@ const styles = {
   }),
 
   root: css({
-    margin: '0 1px',
+    display: 'inline-block',
+    margin: `0 ${tokens.spacing2Xs}`,
     fontSize: 'inherit',
     span: {
-      webkitUserSelect: 'none',
-      mozUserSelect: 'none',
-      msUserSelect: 'none',
       userSelect: 'none',
     },
   }),

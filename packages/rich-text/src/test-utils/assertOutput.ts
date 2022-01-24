@@ -8,6 +8,7 @@ export const assertOutput = (options: {
   expected: any;
   editor?: PlateEditor;
   log?: boolean;
+  skipCursor?: boolean;
 }) => {
   const editor =
     options.editor ??
@@ -35,6 +36,8 @@ export const assertOutput = (options: {
 
   expect(editor.children).toEqual(options.expected.children);
 
-  // Assert cursor position
-  expect(editor.selection).toEqual(options.expected.selection);
+  if (!options.skipCursor) {
+    // Assert cursor position
+    expect(editor.selection).toEqual(options.expected.selection);
+  }
 };

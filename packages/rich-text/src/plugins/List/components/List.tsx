@@ -8,9 +8,14 @@ import * as Slate from 'slate-react';
 const baseStyle = css`
   padding: 0;
   margin: 0 0 1.25rem 1.25rem;
+
   div:first-child {
     margin: 0;
     line-height: ${tokens.lineHeightDefault};
+  }
+
+  li + li {
+    margin-top: ${tokens.spacingXs};
   }
 `;
 
