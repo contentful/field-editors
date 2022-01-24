@@ -4,7 +4,6 @@ import {
   getParent,
   insertNodes,
   isFirstChild,
-  isLastChild,
   isSelectionAtBlockEnd,
   isSelectionAtBlockStart,
   moveChildren,
@@ -78,10 +77,10 @@ export const insertListItem = (editor: PlateEditor): boolean => {
     const isAtEnd = isSelectionAtBlockEnd(editor);
 
     const isAtStartOfListItem = isAtStart && isFirstChild(paragraphPath);
-    const isAtEndOfListItem = isAtEnd && isLastChild(listItem, paragraphPath);
+    const shouldSplit = !isAtStart && !isAtEnd;
 
     // Split the current paragraph content if necessary
-    if (!isAtStart && !isAtEnd) {
+    if (shouldSplit) {
       Transforms.splitNodes(editor);
     }
 
@@ -92,7 +91,7 @@ export const insertListItem = (editor: PlateEditor): boolean => {
       editor,
       // Add an empty paragraph to the new li if We will not move some
       // paragraphs over there.
-      emptyListItemNode(editor, isAtStartOfListItem || isAtEndOfListItem),
+      emptyListItemNode(editor, !shouldSplit),
       { at: newListItemPath }
     );
 
@@ -100,11 +99,20 @@ export const insertListItem = (editor: PlateEditor): boolean => {
     const fromPath = isAtStart ? paragraphPath : Path.next(paragraphPath);
     const fromStartIndex = fromPath[fromPath.length - 1] || 0;
 
-    moveChildren(editor, {
-      at: listItemPath,
-      to: newListItemPath.concat([0]),
-      fromStartIndex,
-    });
+    // On split we don't add paragraph to the new li so we move
+    // things to the very beginning. Otherwise, account for the empty
+    // paragraph at the beginning by moving things after
+    const toPath = newListItemPath.concat([shouldSplit ? 0 : 1]);
+
+    const shouldMoveChildren = !isAtStartOfListItem;
+
+    if (shouldMoveChildren) {
+      moveChildren(editor, {
+        at: listItemPath,
+        to: toPath,
+        fromStartIndex,
+      });
+    }
 
     // Move cursor to the start of the new li
     Transforms.select(editor, newListItemPath);

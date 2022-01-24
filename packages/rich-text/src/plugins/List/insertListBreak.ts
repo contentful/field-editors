@@ -26,11 +26,8 @@ const listBreak = (editor: PlateEditor): boolean => {
   if (res) {
     const { list, listItem } = res;
 
-    // FIXME: take void children into account
-    // https://slate-js.slack.com/archives/C013QHXSCG1/p1642177267070200
-    //
     // If selected li is empty, move it up.
-    if (isBlockAboveEmpty(editor)) {
+    if (isBlockAboveEmpty(editor) && listItem[0].children.length === 1) {
       moved = moveListItemUp(editor, {
         list,
         listItem,
