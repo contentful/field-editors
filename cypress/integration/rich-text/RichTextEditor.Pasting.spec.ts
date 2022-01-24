@@ -68,7 +68,7 @@ describe(
 
         richText.editor.paste({
           'text/html':
-            '<meta charset=\'utf-8\'><ul data-slate-node="element" class="css-a9oioc" data-slate-fragment="JTVCJTdCJTIydHlwZSUyMiUzQSUyMnVub3JkZXJlZC1saXN0JTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0eXBlJTIyJTNBJTIybGlzdC1pdGVtJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0eXBlJTIyJTNBJTIycGFyYWdyYXBoJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0ZXh0JTIyJTNBJTIyd29ybGQhJTIyJTJDJTIyYm9sZCUyMiUzQXRydWUlN0QlNUQlN0QlNUQlN0QlNUQlN0QlMkMlN0IlMjJ0eXBlJTIyJTNBJTIycGFyYWdyYXBoJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0ZXh0JTIyJTNBJTIyJTIyJTdEJTVEJTdEJTVE"><li data-slate-node="element" class="css-h3rza2"><div data-slate-node="element" class="css-ss00rg"><span data-slate-node="text"><span data-slate-leaf="true"><strong data-slate-leaf="true" class="css-35ezg3"><span data-slate-string="true">world!</span></strong></span></span></div></li></ul>',
+            '<li data-slate-node="element" class="css-1eg5fk0"><div data-slate-node="element" class="css-ss00rg"><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-string="true">sub</span></span></span></div></li><li data-slate-node="element" class="css-1eg5fk0" data-slate-fragment="JTVCJTdCJTIydHlwZSUyMiUzQSUyMnVub3JkZXJlZC1saXN0JTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0eXBlJTIyJTNBJTIybGlzdC1pdGVtJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0eXBlJTIyJTNBJTIycGFyYWdyYXBoJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0ZXh0JTIyJTNBJTIyc3ViJTIyJTdEJTVEJTdEJTVEJTdEJTJDJTdCJTIydHlwZSUyMiUzQSUyMmxpc3QtaXRlbSUyMiUyQyUyMmRhdGElMjIlM0ElN0IlN0QlMkMlMjJjaGlsZHJlbiUyMiUzQSU1QiU3QiUyMnR5cGUlMjIlM0ElMjJwYXJhZ3JhcGglMjIlMkMlMjJkYXRhJTIyJTNBJTdCJTdEJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0ZXh0JTIyJTNBJTIybGlzdCUyMiU3RCU1RCU3RCU1RCU3RCU1RCU3RCU1RA=="><div data-slate-node="element" class="css-ss00rg"><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-string="true">list</span></span></span></div></li>',
         });
 
         richText.expectSnapshotValue();
@@ -77,12 +77,13 @@ describe(
       it('confers the parent list type upon list items pasted within lists', () => {
         richText.editor.click();
         richText.toolbar.ol.click();
+        ``;
 
         richText.editor.type('Hello');
 
         richText.editor.paste({
           'text/html':
-            '<meta charset=\'utf-8\'><ul data-slate-node="element" class="css-a9oioc" data-slate-fragment="JTVCJTdCJTIydHlwZSUyMiUzQSUyMnVub3JkZXJlZC1saXN0JTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0eXBlJTIyJTNBJTIybGlzdC1pdGVtJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0eXBlJTIyJTNBJTIycGFyYWdyYXBoJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0ZXh0JTIyJTNBJTIyd29ybGQhJTIyJTJDJTIyYm9sZCUyMiUzQXRydWUlN0QlNUQlN0QlNUQlN0QlNUQlN0QlMkMlN0IlMjJ0eXBlJTIyJTNBJTIycGFyYWdyYXBoJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0ZXh0JTIyJTNBJTIyJTIyJTdEJTVEJTdEJTVE"><li data-slate-node="element" class="css-h3rza2"><div data-slate-node="element" class="css-ss00rg"><span data-slate-node="text"><span data-slate-leaf="true"><strong data-slate-leaf="true" class="css-35ezg3"><span data-slate-string="true">world!</span></strong></span></span></div></li></ul>',
+            '<li data-slate-node="element" class="css-1eg5fk0"><div data-slate-node="element" class="css-ss00rg"><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-string="true">sub</span></span></span></div></li><li data-slate-node="element" class="css-1eg5fk0" data-slate-fragment="JTVCJTdCJTIydHlwZSUyMiUzQSUyMnVub3JkZXJlZC1saXN0JTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0eXBlJTIyJTNBJTIybGlzdC1pdGVtJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0eXBlJTIyJTNBJTIycGFyYWdyYXBoJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0ZXh0JTIyJTNBJTIyc3ViJTIyJTdEJTVEJTdEJTVEJTdEJTJDJTdCJTIydHlwZSUyMiUzQSUyMmxpc3QtaXRlbSUyMiUyQyUyMmRhdGElMjIlM0ElN0IlN0QlMkMlMjJjaGlsZHJlbiUyMiUzQSU1QiU3QiUyMnR5cGUlMjIlM0ElMjJwYXJhZ3JhcGglMjIlMkMlMjJkYXRhJTIyJTNBJTdCJTdEJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0ZXh0JTIyJTNBJTIybGlzdCUyMiU3RCU1RCU3RCU1RCU3RCU1RCU3RCU1RA=="><div data-slate-node="element" class="css-ss00rg"><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-string="true">list</span></span></span></div></li>',
         });
 
         richText.expectSnapshotValue();
