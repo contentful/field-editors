@@ -13,10 +13,6 @@ const baseStyle = css`
     margin: 0;
     line-height: ${tokens.lineHeightDefault};
   }
-
-  li + li {
-    margin-top: ${tokens.spacingXs};
-  }
 `;
 
 const styles = {
