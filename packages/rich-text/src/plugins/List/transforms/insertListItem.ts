@@ -100,8 +100,8 @@ export const insertListItem = (editor: PlateEditor): boolean => {
     const fromStartIndex = fromPath[fromPath.length - 1] || 0;
 
     // On split we don't add paragraph to the new li so we move
-    // things to the very beginning. Otherwise, account for the empty
-    // paragraph at the beginning by moving things after
+    // content to the very beginning. Otherwise, account for the empty
+    // paragraph at the beginning by moving the content after
     const toPath = newListItemPath.concat([shouldSplit ? 0 : 1]);
 
     const shouldMoveChildren = !isAtStartOfListItem;
