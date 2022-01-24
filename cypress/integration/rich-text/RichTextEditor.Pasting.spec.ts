@@ -77,6 +77,7 @@ describe(
       it('confers the parent list type upon list items pasted within lists', () => {
         richText.editor.click();
         richText.toolbar.ol.click();
+        ``;
 
         richText.editor.type('Hello');
 
