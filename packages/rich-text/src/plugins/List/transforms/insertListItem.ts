@@ -104,9 +104,7 @@ export const insertListItem = (editor: PlateEditor): boolean => {
     // paragraph at the beginning by moving the content after
     const toPath = newListItemPath.concat([shouldSplit ? 0 : 1]);
 
-    const shouldMoveChildren = !isAtStartOfListItem;
-
-    if (shouldMoveChildren) {
+    if (!isAtStartOfListItem) {
       moveChildren(editor, {
         at: listItemPath,
         to: toPath,
