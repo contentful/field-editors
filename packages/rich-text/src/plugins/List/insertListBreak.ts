@@ -4,6 +4,7 @@
  *
  * See: https://github.com/udecode/plate/blob/main/packages/nodes/list
  */
+import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
 import {
   ELEMENT_DEFAULT,
   getPluginType,
@@ -26,8 +27,14 @@ const listBreak = (editor: PlateEditor): boolean => {
   if (res) {
     const { list, listItem } = res;
 
+    const childNode = listItem[0].children[0];
+
     // If selected li is empty, move it up.
-    if (isBlockAboveEmpty(editor) && listItem[0].children.length === 1) {
+    if (
+      isBlockAboveEmpty(editor) &&
+      listItem[0].children.length === 1 &&
+      TEXT_CONTAINERS.includes(childNode.type as BLOCKS)
+    ) {
       moved = moveListItemUp(editor, {
         list,
         listItem,
