@@ -134,8 +134,8 @@ describe('insert line break', () => {
           <hli>
             <hp>
               <cursor />
-              p2
             </hp>
+            <hp>p2</hp>
           </hli>
         </hul>
       ),
@@ -273,6 +273,46 @@ describe('insert line break', () => {
               <cursor />
               me
             </hh1>
+          </hli>
+        </hul>
+      ),
+    },
+    {
+      title: 'at a li with nested list',
+      input: (
+        <hul>
+          <hli>
+            <hp>item 1</hp>
+          </hli>
+          <hli>
+            <hp>
+              item 2<cursor />
+            </hp>
+            <hul>
+              <hli>
+                <hp>sub list</hp>
+              </hli>
+            </hul>
+          </hli>
+        </hul>
+      ),
+      expected: (
+        <hul>
+          <hli>
+            <hp>item 1</hp>
+          </hli>
+          <hli>
+            <hp>item 2</hp>
+          </hli>
+          <hli>
+            <hp>
+              <cursor />
+            </hp>
+            <hul>
+              <hli>
+                <hp>sub list</hp>
+              </hli>
+            </hul>
           </hli>
         </hul>
       ),
