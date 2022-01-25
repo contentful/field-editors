@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 import { TableIcon } from '@contentful/f36-icons';
-import * as Slate from 'slate-react';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
+import { maybeFocus } from '../../../helpers/editor';
 import { useTrackingContext } from '../../../TrackingProvider';
 import { ToolbarButton } from '../../shared/ToolbarButton';
 import { insertTableAndFocusFirstCell, isTableActive } from './../helpers';
@@ -22,7 +22,7 @@ export function ToolbarTableButton(props: ToolbarTableButtonProps) {
 
     onViewportAction('insertTable');
     insertTableAndFocusFirstCell(editor);
-    Slate.ReactEditor.focus(editor);
+    maybeFocus(editor);
   }
 
   if (!editor) return null;

@@ -1,7 +1,7 @@
 import { getText } from '@udecode/plate-core';
 import { Transforms } from 'slate';
-import * as Slate from 'slate-react';
 
+import { maybeFocus } from '../../helpers/editor';
 import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
 
 export async function selectEntityAndInsert(nodeType, sdk, editor, logAction) {
@@ -59,5 +59,5 @@ export function insertBlock(editor, nodeType, entity) {
     Transforms.setNodes(editor, linkedEntityBlock);
   }
 
-  Slate.ReactEditor.focus(editor);
+  maybeFocus(editor);
 }

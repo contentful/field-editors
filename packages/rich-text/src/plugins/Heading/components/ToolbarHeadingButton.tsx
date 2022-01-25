@@ -6,13 +6,13 @@ import tokens from '@contentful/f36-tokens';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { toggleNodeType } from '@udecode/plate-core';
 import { css, cx } from 'emotion';
-import * as Slate from 'slate-react';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
 import {
   getElementFromCurrentSelection,
   shouldUnwrapBlockquote,
   unwrapFromRoot,
+  maybeFocus,
 } from '../../../helpers/editor';
 import { isNodeTypeEnabled } from '../../../helpers/validations';
 import { useSdkContext } from '../../../SdkProvider';
@@ -106,7 +106,7 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
        the editor again. This ensures the cursor is back at the previous
        position.*/
       editor.onChange = (...args) => {
-        Slate.ReactEditor.focus(editor);
+        maybeFocus(editor);
         editor.onChange = prevOnChange;
         prevOnChange(...args);
       };

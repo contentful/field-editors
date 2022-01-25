@@ -21,3 +21,6 @@ export const HAS_BEFORE_INPUT_SUPPORT =
   typeof globalThis !== 'undefined' &&
   globalThis.InputEvent &&
   typeof (globalThis.InputEvent.prototype as CustomInputEvent).getTargetRanges === 'function'; // The `getTargetRanges` property isn't recognized.
+
+export const IS_SAFARI =
+  typeof navigator !== 'undefined' && /Version\/[\d.]+.*Safari/.test(navigator.userAgent);

@@ -8,6 +8,7 @@ import { css } from 'emotion';
 import * as Slate from 'slate-react';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
+import { maybeFocus } from '../../helpers/editor';
 import { RichTextPlugin } from '../../types';
 import { ToolbarButton } from '../shared/ToolbarButton';
 
@@ -22,7 +23,7 @@ export function ToolbarCodeButton(props: ToolbarCodeButtonProps) {
     if (!editor?.selection) return;
 
     toggleMark(editor, { key: MARKS.CODE });
-    Slate.ReactEditor.focus(editor);
+    maybeFocus(editor);
   }
 
   if (!editor) return null;

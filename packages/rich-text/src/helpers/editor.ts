@@ -2,8 +2,10 @@ import { Link } from '@contentful/field-editor-reference/dist/types';
 import { BLOCKS, HEADINGS, INLINES, TABLE_BLOCKS } from '@contentful/rich-text-types';
 import { getText, PlateEditor } from '@udecode/plate-core';
 import { Text, Editor, Element, Transforms, Path, Range, Node } from 'slate';
+import { ReactEditor } from 'slate-react';
 
 import { CustomElement } from '../types';
+import { IS_SAFARI } from './environment';
 
 export const LINK_TYPES: INLINES[] = [
   INLINES.HYPERLINK,
@@ -230,4 +232,11 @@ export const INLINE_TYPES = Object.values(INLINES) as string[];
 export const isInlineOrText = (node: Node) => {
   // either text or inline elements
   return Text.isText(node) || (Element.isElement(node) && INLINE_TYPES.includes(node.type));
+};
+
+export const maybeFocus = (editor: PlateEditor) => {
+  // Safari has issues with `editor.focus({ preventScroll: true })`, it ignores the option `preventScroll`
+  if (IS_SAFARI) return;
+
+  ReactEditor.focus(editor);
 };

@@ -22,7 +22,12 @@ import { Editor, Transforms } from 'slate';
 import { HistoryEditor } from 'slate-history';
 import { ReactEditor } from 'slate-react';
 
-import { getNodeEntryFromSelection, insertLink, LINK_TYPES } from '../../helpers/editor';
+import {
+  getNodeEntryFromSelection,
+  insertLink,
+  LINK_TYPES,
+  maybeFocus,
+} from '../../helpers/editor';
 import getLinkedContentTypeIdsForNodeType from '../../helpers/getLinkedContentTypeIdsForNodeType';
 import { isNodeTypeEnabled } from '../../helpers/validations';
 import { FetchingWrappedAssetCard } from '../shared/FetchingWrappedAssetCard';
@@ -312,5 +317,5 @@ export async function addOrEditLink(
     insertLink(editor, { text, url, type, target, path });
   });
 
-  ReactEditor.focus(editor);
+  maybeFocus(editor);
 }

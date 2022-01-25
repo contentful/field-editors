@@ -3,10 +3,14 @@ import * as React from 'react';
 import { ListBulletedIcon, ListNumberedIcon } from '@contentful/f36-icons';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { toggleList } from '@udecode/plate-list';
-import * as Slate from 'slate-react';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
-import { isBlockSelected, unwrapFromRoot, shouldUnwrapBlockquote } from '../../../helpers/editor';
+import {
+  isBlockSelected,
+  unwrapFromRoot,
+  shouldUnwrapBlockquote,
+  maybeFocus,
+} from '../../../helpers/editor';
 import { isNodeTypeEnabled } from '../../../helpers/validations';
 import { useSdkContext } from '../../../SdkProvider';
 import { ToolbarButton } from '../../shared/ToolbarButton';
@@ -29,7 +33,7 @@ export function ToolbarListButton(props: ToolbarListButtonProps) {
 
       toggleList(editor, { type });
 
-      Slate.ReactEditor.focus(editor);
+      maybeFocus(editor);
     };
   }
 
