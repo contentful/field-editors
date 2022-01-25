@@ -7,6 +7,8 @@ import * as Slate from 'slate-react';
 const style = css`
   margin: 0;
   list-style: inherit;
+  margin-top: ${tokens.spacingXs};
+
   ol,
   ul {
     margin: 0 0 0 ${tokens.spacingL};

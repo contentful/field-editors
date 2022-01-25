@@ -7,9 +7,10 @@ import {
   isLastChild,
   isSelectionAtBlockEnd,
   isSelectionAtBlockStart,
+  moveChildren,
   PlateEditor,
 } from '@udecode/plate-core';
-import { Editor, Node, Path, Transforms } from 'slate';
+import { Editor, Path, Transforms } from 'slate';
 
 import { CustomElement } from '../../../types';
 
@@ -96,24 +97,14 @@ export const insertListItem = (editor: PlateEditor): boolean => {
     );
 
     // Move children *after* selection to the new li
-    const moveFromPath = isAtStart ? paragraphPath : Path.next(paragraphPath);
+    const fromPath = isAtStart ? paragraphPath : Path.next(paragraphPath);
+    const fromStartIndex = fromPath[fromPath.length - 1] || 0;
 
-    // Note: using Node.children() instead of Plate's getChildren() to ensure
-    // We get the latest children (aka. after the split)
-    const reversedChildren = Node.children(editor, listItemPath, {
-      reverse: true,
+    moveChildren(editor, {
+      at: listItemPath,
+      to: newListItemPath.concat([0]),
+      fromStartIndex,
     });
-
-    for (const [, path] of reversedChildren) {
-      if (!Path.isAfter(path, moveFromPath) && !Path.equals(path, moveFromPath)) {
-        continue;
-      }
-
-      Transforms.moveNodes(editor, {
-        at: path,
-        to: newListItemPath.concat([0]),
-      });
-    }
 
     // Move cursor to the start of the new li
     Transforms.select(editor, newListItemPath);
