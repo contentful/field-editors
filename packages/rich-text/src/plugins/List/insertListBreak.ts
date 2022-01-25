@@ -16,7 +16,7 @@ import { onKeyDownResetNode, ResetNodePlugin, SIMULATE_BACKSPACE } from '@udecod
 
 import { insertListItem } from './transforms/insertListItem';
 
-const insertBreakList = (editor: PlateEditor): boolean => {
+const listBreak = (editor: PlateEditor): boolean => {
   if (!editor.selection) return false;
 
   const res = getListItemEntry(editor, {});
@@ -70,11 +70,11 @@ const insertBreakList = (editor: PlateEditor): boolean => {
   return false;
 };
 
-export const getListInsertBreak = (editor: PlateEditor) => {
+export const insertListBreak = (editor: PlateEditor) => {
   const { insertBreak } = editor;
 
   return () => {
-    if (insertBreakList(editor)) return;
+    if (listBreak(editor)) return;
 
     insertBreak();
   };

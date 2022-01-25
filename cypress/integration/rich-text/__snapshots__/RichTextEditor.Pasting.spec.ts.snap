@@ -286,13 +286,27 @@ exports[`Rich Text Editor > Lists > pastes list items as new lists inside lists 
                       "content": [
                         {
                           "data": {},
-                          "marks": [
-                            {
-                              "type": "bold"
-                            }
-                          ],
+                          "marks": [],
                           "nodeType": "text",
-                          "value": "world!"
+                          "value": "sub"
+                        }
+                      ],
+                      "data": {},
+                      "nodeType": "paragraph"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "list-item"
+                },
+                {
+                  "content": [
+                    {
+                      "content": [
+                        {
+                          "data": {},
+                          "marks": [],
+                          "nodeType": "text",
+                          "value": "list"
                         }
                       ],
                       "data": {},
@@ -358,13 +372,27 @@ exports[`Rich Text Editor > Lists > confers the parent list type upon list items
                       "content": [
                         {
                           "data": {},
-                          "marks": [
-                            {
-                              "type": "bold"
-                            }
-                          ],
+                          "marks": [],
                           "nodeType": "text",
-                          "value": "world!"
+                          "value": "sub"
+                        }
+                      ],
+                      "data": {},
+                      "nodeType": "paragraph"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "list-item"
+                },
+                {
+                  "content": [
+                    {
+                      "content": [
+                        {
+                          "data": {},
+                          "marks": [],
+                          "nodeType": "text",
+                          "value": "list"
                         }
                       ],
                       "data": {},
@@ -417,13 +445,7 @@ exports[`Rich Text Editor > Lists > pastes only the text content of other blocks
                   "marks": [],
                   "nodeType": "text",
                   "value": "Item #1"
-                }
-              ],
-              "data": {},
-              "nodeType": "paragraph"
-            },
-            {
-              "content": [
+                },
                 {
                   "data": {},
                   "marks": [
