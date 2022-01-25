@@ -4,7 +4,7 @@ import { QuoteIcon } from '@contentful/f36-icons';
 import { BLOCKS } from '@contentful/rich-text-types';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
-import { isBlockSelected, maybeFocus } from '../../../helpers/editor';
+import { isBlockSelected, focus } from '../../../helpers/editor';
 import { ToolbarButton } from '../../shared/ToolbarButton';
 import { toggleQuote } from '../toggleQuote';
 
@@ -19,7 +19,7 @@ export function ToolbarQuoteButton(props: ToolbarQuoteButtonProps) {
     if (!editor) return;
 
     toggleQuote(editor);
-    maybeFocus(editor);
+    focus(editor);
   }
 
   if (!editor) return null;

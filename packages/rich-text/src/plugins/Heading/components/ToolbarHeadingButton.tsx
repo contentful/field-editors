@@ -12,7 +12,7 @@ import {
   getElementFromCurrentSelection,
   shouldUnwrapBlockquote,
   unwrapFromRoot,
-  maybeFocus,
+  focus,
 } from '../../../helpers/editor';
 import { isNodeTypeEnabled } from '../../../helpers/validations';
 import { useSdkContext } from '../../../SdkProvider';
@@ -106,7 +106,7 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
        the editor again. This ensures the cursor is back at the previous
        position.*/
       editor.onChange = (...args) => {
-        maybeFocus(editor);
+        focus(editor);
         editor.onChange = prevOnChange;
         prevOnChange(...args);
       };

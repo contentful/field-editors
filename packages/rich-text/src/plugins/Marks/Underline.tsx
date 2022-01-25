@@ -7,7 +7,7 @@ import { toggleMark, isMarkActive, someHtmlElement } from '@udecode/plate-core';
 import * as Slate from 'slate-react';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
-import { maybeFocus } from '../../helpers/editor';
+import { focus } from '../../helpers/editor';
 import { RichTextPlugin } from '../../types';
 import { ToolbarButton } from '../shared/ToolbarButton';
 
@@ -22,7 +22,7 @@ export function ToolbarUnderlineButton(props: ToolbarUnderlineButtonProps) {
     if (!editor?.selection) return;
 
     toggleMark(editor, { key: MARKS.UNDERLINE });
-    maybeFocus(editor);
+    focus(editor);
   }
 
   if (!editor) return null;

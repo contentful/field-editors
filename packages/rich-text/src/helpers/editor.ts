@@ -234,9 +234,16 @@ export const isInlineOrText = (node: Node) => {
   return Text.isText(node) || (Element.isElement(node) && INLINE_TYPES.includes(node.type));
 };
 
-export const maybeFocus = (editor: PlateEditor) => {
-  // Safari has issues with `editor.focus({ preventScroll: true })`, it ignores the option `preventScroll`
-  if (IS_SAFARI) return;
+export const focus = (editor: PlateEditor) => {
+  const x = window.scrollX;
+  const y = window.scrollY;
 
   ReactEditor.focus(editor);
+
+  // Safari has issues with `editor.focus({ preventScroll: true })`, it ignores the option `preventScroll`
+  if (IS_SAFARI) {
+    setTimeout(function () {
+      window.scrollTo(x, y); // restore position
+    }, 0);
+  }
 };

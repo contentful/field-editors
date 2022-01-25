@@ -10,7 +10,7 @@ import { Editor } from 'slate';
 import * as Slate from 'slate-react';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
-import { getNodeEntryFromSelection, getTableSize, maybeFocus } from '../../../helpers/editor';
+import { getNodeEntryFromSelection, getTableSize, focus } from '../../../helpers/editor';
 import { RichTextTrackingActionName, useTrackingContext } from '../../../TrackingProvider';
 import { addRowAbove, addColumnLeft, addColumnRight, addRowBelow, setHeader } from '../actions';
 import { isTableHeaderEnabled } from '../helpers';
@@ -46,7 +46,7 @@ export const TableActions = () => {
 
     // Makes sure we keep the editor in focus when clicking on/out
     // the dropdown menu
-    maybeFocus(editor);
+    focus(editor);
   }, [editor]);
 
   React.useEffect(() => {

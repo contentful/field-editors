@@ -9,7 +9,7 @@ import {
   isBlockSelected,
   unwrapFromRoot,
   shouldUnwrapBlockquote,
-  maybeFocus,
+  focus,
 } from '../../../helpers/editor';
 import { isNodeTypeEnabled } from '../../../helpers/validations';
 import { useSdkContext } from '../../../SdkProvider';
@@ -33,7 +33,7 @@ export function ToolbarListButton(props: ToolbarListButtonProps) {
 
       toggleList(editor, { type });
 
-      maybeFocus(editor);
+      focus(editor);
     };
   }
 

@@ -15,7 +15,7 @@ import {
   moveToTheNextLine,
   shouldUnwrapBlockquote,
   unwrapFromRoot,
-  maybeFocus,
+  focus,
 } from '../../helpers/editor';
 import { RichTextPlugin } from '../../types';
 import { ToolbarButton } from '../shared/ToolbarButton';
@@ -99,7 +99,7 @@ export function ToolbarHrButton(props: ToolbarHrButtonProps) {
     // Move focus to the next paragraph (added by TrailingParagraph plugin)
     moveToTheNextLine(editor);
 
-    maybeFocus(editor);
+    focus(editor);
   }
 
   if (!editor) return null;
