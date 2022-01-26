@@ -4,9 +4,9 @@ import constate from 'constate';
 
 export function getContentfulEditorId(sdk: FieldExtensionSDK) {
   const { entry, field } = sdk;
-  const entrySys = entry.getSys();
+  const sys = entry.getSys();
 
-  return `rich-text-editor-${entrySys.id}-${field.id}-${field.locale}-v${entrySys.version}`;
+  return `rich-text-editor-${sys.id}-${field.id}-${field.locale}`;
 }
 
 interface useContentfulEditorHookProps {
