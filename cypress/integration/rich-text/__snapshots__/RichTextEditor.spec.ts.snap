@@ -395,3 +395,103 @@ exports[`Rich Text Editor > invalid document structure > normalizable errors > d
   "data": {},
   "nodeType": "document"
 };
+
+exports[`Rich Text Editor > New Line > in a list > should add a new line after entity block in same list item #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "some text 1"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            }
+          ],
+          "data": {},
+          "nodeType": "list-item"
+        },
+        {
+          "content": [
+            {
+              "content": [],
+              "data": {
+                "target": {
+                  "sys": {
+                    "id": "example-entity-id",
+                    "linkType": "Entry",
+                    "type": "Link"
+                  }
+                }
+              },
+              "nodeType": "embedded-entry-block"
+            },
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "some more text"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            },
+            {
+              "content": [],
+              "data": {
+                "target": {
+                  "sys": {
+                    "id": "example-entity-id",
+                    "linkType": "Entry",
+                    "type": "Link"
+                  }
+                }
+              },
+              "nodeType": "embedded-entry-block"
+            },
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": ""
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            }
+          ],
+          "data": {},
+          "nodeType": "list-item"
+        }
+      ],
+      "data": {},
+      "nodeType": "unordered-list"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};

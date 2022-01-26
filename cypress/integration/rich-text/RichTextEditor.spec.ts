@@ -676,32 +676,51 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       richText.expectValue(expectedValue);
     });
 
-    it('should add a new line on a list', () => {
-      richText.editor.click();
+    describe('in a list', () => {
+      it('should add a new line', () => {
+        richText.editor.click();
 
-      richText.toolbar.ul.click();
+        richText.toolbar.ul.click();
 
-      richText.editor
-        .type('some text 1')
-        .type('{shift+enter}')
-        .type('some text 2')
-        .type('{shift+enter}')
-        .type('some text 3');
+        richText.editor
+          .type('some text 1')
+          .type('{shift+enter}')
+          .type('some text 2')
+          .type('{shift+enter}')
+          .type('some text 3');
 
-      const expectedValue = doc(
-        block(
-          BLOCKS.UL_LIST,
-          {},
+        const expectedValue = doc(
           block(
-            BLOCKS.LIST_ITEM,
+            BLOCKS.UL_LIST,
             {},
-            block(BLOCKS.PARAGRAPH, {}, text('some text 1\nsome text 2\nsome text 3', []))
-          )
-        ),
-        emptyParagraph()
-      );
+            block(
+              BLOCKS.LIST_ITEM,
+              {},
+              block(BLOCKS.PARAGRAPH, {}, text('some text 1\nsome text 2\nsome text 3', []))
+            )
+          ),
+          emptyParagraph()
+        );
 
-      richText.expectValue(expectedValue);
+        richText.expectValue(expectedValue);
+      });
+
+      it('should add a new line after entity block in same list item', () => {
+        richText.editor.click();
+
+        richText.toolbar.ul.click();
+
+        richText.editor
+          .type('some text 1')
+          .type('{enter}')
+          .type(`{${mod}+shift+e}`)
+          .type('{enter}')
+          .type('some more text')
+          .type(`{${mod}+shift+e}`)
+          .type('{enter}');
+
+        richText.expectSnapshotValue();
+      });
     });
   });
 
