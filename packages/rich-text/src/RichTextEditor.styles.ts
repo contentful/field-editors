@@ -31,7 +31,6 @@ export const styles = {
     // We need to reset LIC style due to conflicts between PARAGRAPH styles
     'ul > li > div': {
       margin: 0,
-      marginBottom: '1.25rem !important',
     },
   }),
   hiddenToolbar: css({
