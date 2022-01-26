@@ -4,12 +4,12 @@ import {
   getParent,
   insertNodes,
   isFirstChild,
-  isLastChild,
   isSelectionAtBlockEnd,
   isSelectionAtBlockStart,
+  moveChildren,
   PlateEditor,
 } from '@udecode/plate-core';
-import { Editor, Node, Path, Transforms } from 'slate';
+import { Editor, Path, Transforms } from 'slate';
 
 import { CustomElement } from '../../../types';
 
@@ -77,10 +77,10 @@ export const insertListItem = (editor: PlateEditor): boolean => {
     const isAtEnd = isSelectionAtBlockEnd(editor);
 
     const isAtStartOfListItem = isAtStart && isFirstChild(paragraphPath);
-    const isAtEndOfListItem = isAtEnd && isLastChild(listItem, paragraphPath);
+    const shouldSplit = !isAtStart && !isAtEnd;
 
     // Split the current paragraph content if necessary
-    if (!isAtStart && !isAtEnd) {
+    if (shouldSplit) {
       Transforms.splitNodes(editor);
     }
 
@@ -91,27 +91,24 @@ export const insertListItem = (editor: PlateEditor): boolean => {
       editor,
       // Add an empty paragraph to the new li if We will not move some
       // paragraphs over there.
-      emptyListItemNode(editor, isAtStartOfListItem || isAtEndOfListItem),
+      emptyListItemNode(editor, !shouldSplit),
       { at: newListItemPath }
     );
 
     // Move children *after* selection to the new li
-    const moveFromPath = isAtStart ? paragraphPath : Path.next(paragraphPath);
+    const fromPath = isAtStart ? paragraphPath : Path.next(paragraphPath);
+    const fromStartIndex = fromPath[fromPath.length - 1] || 0;
 
-    // Note: using Node.children() instead of Plate's getChildren() to ensure
-    // We get the latest children (aka. after the split)
-    const reversedChildren = Node.children(editor, listItemPath, {
-      reverse: true,
-    });
+    // On split we don't add paragraph to the new li so we move
+    // content to the very beginning. Otherwise, account for the empty
+    // paragraph at the beginning by moving the content after
+    const toPath = newListItemPath.concat([shouldSplit ? 0 : 1]);
 
-    for (const [, path] of reversedChildren) {
-      if (!Path.isAfter(path, moveFromPath) && !Path.equals(path, moveFromPath)) {
-        continue;
-      }
-
-      Transforms.moveNodes(editor, {
-        at: path,
-        to: newListItemPath.concat([0]),
+    if (!isAtStartOfListItem) {
+      moveChildren(editor, {
+        at: listItemPath,
+        to: toPath,
+        fromStartIndex,
       });
     }
 
