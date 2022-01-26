@@ -13,7 +13,7 @@ import { FetchingWrappedEntryCard } from '../shared/FetchingWrappedEntryCard';
 
 const styles = {
   root: css({
-    marginBottom: '1.25rem',
+    marginBottom: '1.25rem !important',
   }),
 };
 
