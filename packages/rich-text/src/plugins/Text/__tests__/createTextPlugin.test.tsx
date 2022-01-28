@@ -89,35 +89,6 @@ describe('delete backward', () => {
         </hquote>
       ),
     },
-    {
-      title: 'deletes the empty paragraph at the beginning of the RTE followed by a table',
-      input: (
-        <fragment>
-          <hp>
-            <cursor />
-          </hp>
-          <htable>
-            <htr>
-              <htd>
-                <hp>p1</hp>
-              </htd>
-            </htr>
-          </htable>
-        </fragment>
-      ),
-      expected: (
-        <htable>
-          <htr>
-            <htd>
-              <hp>
-                <cursor />
-                p1
-              </hp>
-            </htd>
-          </htr>
-        </htable>
-      ),
-    },
   ];
 
   const render = (children: any) => (
@@ -233,35 +204,6 @@ describe('delete forward', () => {
             p1
           </hp>
         </hquote>
-      ),
-    },
-    {
-      title: 'deletes the empty paragraph at the beginning of the RTE followed by a table',
-      input: (
-        <fragment>
-          <hp>
-            <cursor />
-          </hp>
-          <htable>
-            <htr>
-              <htd>
-                <hp>p1</hp>
-              </htd>
-            </htr>
-          </htable>
-        </fragment>
-      ),
-      expected: (
-        <htable>
-          <htr>
-            <htd>
-              <hp>
-                <cursor />
-                p1
-              </hp>
-            </htd>
-          </htr>
-        </htable>
       ),
     },
   ];
