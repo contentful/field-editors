@@ -41,13 +41,7 @@ export const TableActions = () => {
 
   const close = React.useCallback(() => {
     setOpen(false);
-
-    if (!editor) return;
-
-    // Makes sure we keep the editor in focus when clicking on/out
-    // the dropdown menu
-    Slate.ReactEditor.focus(editor);
-  }, [editor]);
+  }, []);
 
   React.useEffect(() => {
     setHeaderEnabled(Boolean(editor && isTableHeaderEnabled(editor)));

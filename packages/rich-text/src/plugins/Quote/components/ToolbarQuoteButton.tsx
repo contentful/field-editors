@@ -2,10 +2,9 @@ import * as React from 'react';
 
 import { QuoteIcon } from '@contentful/f36-icons';
 import { BLOCKS } from '@contentful/rich-text-types';
-import * as Slate from 'slate-react';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
-import { isBlockSelected } from '../../../helpers/editor';
+import { isBlockSelected, focus } from '../../../helpers/editor';
 import { ToolbarButton } from '../../shared/ToolbarButton';
 import { toggleQuote } from '../toggleQuote';
 
@@ -20,7 +19,7 @@ export function ToolbarQuoteButton(props: ToolbarQuoteButtonProps) {
     if (!editor) return;
 
     toggleQuote(editor);
-    Slate.ReactEditor.focus(editor);
+    focus(editor);
   }
 
   if (!editor) return null;

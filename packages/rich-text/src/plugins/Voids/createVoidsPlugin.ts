@@ -20,8 +20,11 @@ export const createVoidsPlugin = (): RichTextPlugin => ({
     {
       // Inserts a new paragraph on enter when a void element is focused
       hotkey: 'enter',
+      // exploit the internal use of Array.slice(0, level + 1) by the exitBreak plugin
+      // to stay in the parent element
+      level: -2,
       query: {
-        filter: ([node, path]) => !isFirstChild(path) && !!node.isVoid,
+        filter: ([node, path]) => !(isRootLevel(path) && isFirstChild(path)) && !!node.isVoid,
       },
     },
   ],
