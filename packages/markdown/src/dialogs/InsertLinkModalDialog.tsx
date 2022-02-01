@@ -81,7 +81,9 @@ export const InsertLinkModal = ({ selectedText, onClose }: InsertLinkModalProps)
               }}
               testId="link-title-field"
             />
-            <FormControl.HelpText>Recommended for accessibility</FormControl.HelpText>
+            <FormControl.HelpText>
+              Extra link information, usually shown as a tooltip on mouse hover
+            </FormControl.HelpText>
           </FormControl>
         </Form>
       </ModalContent>
