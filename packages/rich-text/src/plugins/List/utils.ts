@@ -1,6 +1,6 @@
 import { BLOCKS } from '@contentful/rich-text-types';
 import { PlateEditor, getAbove, getParent } from '@udecode/plate-core';
-import { NodeEntry, Transforms, Path, Node } from 'slate';
+import { NodeEntry, Transforms, Path, Node, Text } from 'slate';
 
 import { CustomElement } from '../../types';
 
@@ -37,8 +37,21 @@ export const isNonEmptyListItem = (editor: PlateEditor, [, path]: NodeEntry) => 
   return listItemChildren.length !== 0;
 };
 
+export const firstNodeIsNotList = (_editor: PlateEditor, [node]: NodeEntry<CustomElement>) => {
+  const firstNode = node.children?.[0];
+
+  return !!firstNode && !Text.isText(firstNode) && !isList(firstNode);
+};
+
 export const insertParagraphAsChild = (editor: PlateEditor, [, path]: NodeEntry) => {
   Transforms.insertNodes(editor, [{ type: BLOCKS.PARAGRAPH, data: {}, children: [{ text: '' }] }], {
     at: path.concat([0]),
   });
+};
+
+export const replaceNodeWithListItems = (editor, entry) => {
+  const [node, path] = entry;
+
+  Transforms.removeNodes(editor, { at: path });
+  Transforms.insertNodes(editor, node.children[0].children, { at: path });
 };

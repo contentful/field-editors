@@ -104,4 +104,72 @@ describe('normalization', () => {
 
     assertOutput({ input, expected });
   });
+
+  it('replaces list items without paragraphs with nested list items', () => {
+    const input = (
+      <editor>
+        <hul>
+          <hli>
+            <hp>Item 1</hp>
+            <hul>
+              <hli>
+                <hp>Item 1.1</hp>
+              </hli>
+            </hul>
+          </hli>
+
+          <hli>
+            <hul>
+              <hli>
+                <hp>Item 2.1</hp>
+                <hul>
+                  <hli>
+                    <hp>Item 2.1.1</hp>
+                  </hli>
+                </hul>
+              </hli>
+              <hli>
+                <hp>Item 2.2</hp>
+              </hli>
+            </hul>
+          </hli>
+        </hul>
+        <hp>
+          <htext />
+        </hp>
+      </editor>
+    );
+
+    const expected = (
+      <editor>
+        <hul>
+          <hli>
+            <hp>Item 1</hp>
+            <hul>
+              <hli>
+                <hp>Item 1.1</hp>
+              </hli>
+            </hul>
+          </hli>
+          <hli>
+            <hp>Item 2.1</hp>
+            <hul>
+              <hli>
+                <hp>Item 2.1.1</hp>
+              </hli>
+            </hul>
+          </hli>
+          <hli>
+            <hp>Item 2.2</hp>
+          </hli>
+        </hul>
+
+        <hp>
+          <htext />
+        </hp>
+      </editor>
+    );
+
+    assertOutput({ input, expected });
+  });
 });
