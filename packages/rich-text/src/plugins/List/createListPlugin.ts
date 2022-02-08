@@ -16,6 +16,8 @@ import {
   hasListAsDirectParent,
   insertParagraphAsChild,
   normalizeOrphanedListItem,
+  firstNodeIsNotList,
+  replaceNodeWithListItems,
 } from './utils';
 import { withList } from './withList';
 
@@ -61,6 +63,10 @@ export const createListPlugin = (): RichTextPlugin =>
           {
             validChildren: LIST_ITEM_BLOCKS,
             transform: transformParagraphs,
+          },
+          {
+            validNode: firstNodeIsNotList,
+            transform: replaceNodeWithListItems,
           },
         ],
       },
