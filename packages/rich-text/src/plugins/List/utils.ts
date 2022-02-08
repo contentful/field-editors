@@ -38,9 +38,13 @@ export const isNonEmptyListItem = (editor: PlateEditor, [, path]: NodeEntry) => 
 };
 
 export const firstNodeIsNotList = (_editor: PlateEditor, [node]: NodeEntry<CustomElement>) => {
-  const firstNode = node.children?.[0];
+  if (node.children.length === 1) {
+    const firstNode = node.children[0];
 
-  return !!firstNode && !Text.isText(firstNode) && !isList(firstNode);
+    return !Text.isText(firstNode) && !isList(firstNode);
+  }
+
+  return true;
 };
 
 export const insertParagraphAsChild = (editor: PlateEditor, [, path]: NodeEntry) => {
