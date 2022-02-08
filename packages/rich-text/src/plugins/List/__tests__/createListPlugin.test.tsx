@@ -105,7 +105,7 @@ describe('normalization', () => {
     assertOutput({ input, expected });
   });
 
-  it('replaces list items without paragraphs with nested list items', () => {
+  it('replaces list items with nested lists as a first child', () => {
     const input = (
       <editor>
         <hul>
