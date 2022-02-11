@@ -12,7 +12,7 @@ export function parseNumber(
   // us NaN unlike parseFloat
   const floatVal = +value;
   const hasDot = value.includes('.');
-  const hasFractional = /^\d+\.\d+$/.test(value);
+  const hasFractional = /^(?:\+|-)?\d+\.\d+$/.test(value);
 
   if (isEmpty(value)) {
     return {
