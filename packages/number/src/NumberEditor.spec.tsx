@@ -1,6 +1,7 @@
 import React from 'react';
 import identity from 'lodash/identity';
-import { render, configure, cleanup, fireEvent } from '@testing-library/react';
+import { render, configure, cleanup, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom/extend-expect';
 import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 import { NumberEditor } from './NumberEditor';
@@ -17,39 +18,77 @@ jest.mock(
   { virtual: true }
 );
 
+function createField({
+  initialValue,
+  type = 'Integer',
+}: {
+  initialValue?: number;
+  type?: 'Decimal' | 'Integer';
+}) {
+  const [field] = createFakeFieldAPI((field) => {
+    jest.spyOn(field, 'setValue');
+    jest.spyOn(field, 'removeValue');
+    jest.spyOn(field, 'setInvalid');
+    return {
+      ...field,
+      type,
+    };
+  }, initialValue);
+  return field;
+}
+
 describe('NumberEditor', () => {
   afterEach(cleanup);
 
-  it('calls setValue if user select on default option', () => {
-    const initialValue = 42;
-    const [field] = createFakeFieldAPI((field) => {
-      jest.spyOn(field, 'setValue');
-      jest.spyOn(field, 'removeValue');
-      jest.spyOn(field, 'setInvalid');
-      return {
-        ...field,
-        type: 'Integer',
-      };
-    }, initialValue);
+  it('sets initial value', () => {
+    const field = createField({ initialValue: 42 });
+    render(<NumberEditor field={field} isInitiallyDisabled={false} />);
+    const $input = screen.getByTestId('number-editor-input');
 
-    const { getByTestId } = render(<NumberEditor field={field} isInitiallyDisabled={false} />);
+    expect($input).toHaveValue('42');
+  });
 
-    const $input = getByTestId('number-editor-input');
+  it('calls setValue when user inputs valid numbers', () => {
+    const field = createField({});
+    render(<NumberEditor field={field} isInitiallyDisabled={false} />);
+    const $input = screen.getByTestId('number-editor-input');
 
-    expect($input).toHaveValue(42);
-
-    fireEvent.change($input, { target: { value: 'some text' } });
-    expect(field.setValue).toHaveBeenCalledTimes(0);
-    expect(field.removeValue).toHaveBeenCalledTimes(1);
-
-    fireEvent.change($input, { target: { value: '22' } });
+    userEvent.type($input, '22');
     expect(field.setValue).toHaveBeenCalledWith(22);
+  });
 
-    fireEvent.change($input, { target: { value: '44.2' } });
-    expect(field.setValue).toHaveBeenCalledTimes(1);
+  it('when Decimal type it calls setValue for every valid state', () => {
+    const field = createField({ type: 'Decimal' });
+    render(<NumberEditor field={field} isInitiallyDisabled={false} />);
+    const $input = screen.getByTestId('number-editor-input');
 
+    // Testing that `4`, `44`, and `44.2` gets set as valid values while the
+    // invalid state `44.` does not get set.
+    userEvent.type($input, '44.2');
+    expect(field.setValue).toHaveBeenCalledWith(44.2);
+    expect(field.setValue).toHaveBeenCalledTimes(3);
+  });
+
+  it('does not call setValue when inputting invalid numbers', () => {
+    const field = createField({});
+    render(<NumberEditor field={field} isInitiallyDisabled={false} />);
+    const $input = screen.getByTestId('number-editor-input');
+
+    userEvent.type($input, 'invalid');
+    expect(field.setValue).not.toHaveBeenCalled();
+  });
+
+  it('calls removeValue when clearing the input', () => {
+    const field = createField({ initialValue: 42 });
+    render(<NumberEditor field={field} isInitiallyDisabled={false} />);
+    const $input = screen.getByTestId('number-editor-input');
+
+    expect($input).toHaveValue('42');
+
+    userEvent.clear($input);
+    expect($input).toHaveValue('');
+    expect(field.setValue).not.toHaveBeenCalled();
     expect(field.removeValue).toHaveBeenCalledTimes(1);
-    fireEvent.change($input, { target: { value: '' } });
-    expect(field.removeValue).toHaveBeenCalledTimes(2);
+    expect(field.removeValue).toHaveBeenLastCalledWith();
   });
 });
