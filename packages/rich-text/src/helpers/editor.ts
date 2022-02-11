@@ -67,7 +67,7 @@ export function getElementFromCurrentSelection(editor) {
 
   return Array.from(
     Editor.nodes(editor, {
-      at: editor.selection.focus,
+      at: editor.selection,
       match: (node) => Element.isElement(node),
     })
   ).flat();
