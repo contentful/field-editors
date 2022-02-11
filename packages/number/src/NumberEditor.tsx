@@ -57,7 +57,7 @@ function InnerNumberEditor({ disabled, errors, field, setValue, value }: InnerNu
   }, [stringValue, value]);
 
   return (
-    <div data-fifteen data-test-id="number-editor">
+    <div data-test-id="number-editor">
       <TextInput
         testId="number-editor-input"
         min={range.min !== undefined ? String(range.min) : ''}
