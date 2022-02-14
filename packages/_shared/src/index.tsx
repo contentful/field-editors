@@ -19,6 +19,7 @@ export {
   OpenCustomWidgetOptions,
 } from '@contentful/app-sdk';
 export { FieldConnector } from './FieldConnector';
+export type { FieldConnectorChildProps } from './FieldConnector';
 export { PredefinedValuesError } from './PredefinedValuesError';
 export { CharCounter } from './CharCounter';
 export { CharValidation } from './CharValidation';

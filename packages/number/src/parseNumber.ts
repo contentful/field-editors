@@ -8,11 +8,11 @@ export function parseNumber(
   value: number | undefined;
 } {
   // This has saner semantics than parseFloat.
-  // For values with chars in 'em, it gives
+  // For values with chars in them, it gives
   // us NaN unlike parseFloat
   const floatVal = +value;
-  const hasDot = /\./g.test(value);
-  const hasFractional = /\.\d+/g.test(value);
+  const hasDot = value.includes('.');
+  const hasFractional = /^(?:\+|-)?\d+\.\d+$/.test(value);
 
   if (isEmpty(value)) {
     return {

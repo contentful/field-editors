@@ -29,7 +29,10 @@
     "lodash-es": "^4.17.15"
   },
   "devDependencies": {
-    "@contentful/field-editor-test-utils": "^1.1.0"
+    "@contentful/field-editor-test-utils": "^1.1.0",
+    "@testing-library/jest-dom": "^5.12.0",
+    "@testing-library/react": "^11.2.6",
+    "@testing-library/user-event": "^13.1.9"
   },
   "peerDependencies": {
     "react": ">=16.8.0"
