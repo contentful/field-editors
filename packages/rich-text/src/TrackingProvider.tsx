@@ -3,6 +3,7 @@ import * as React from 'react';
 import constate from 'constate';
 
 export type RichTextTrackingActionName =
+  //Viewport action names
   | 'insertTable'
   | 'insertTableRow'
   | 'insertTableColumn'
@@ -10,7 +11,17 @@ export type RichTextTrackingActionName =
   | 'removeTableRow'
   | 'removeTableColumn'
   | 'paste'
-  | 'linkRendered';
+  | 'linkRendered'
+  | 'openEditHyperlinkDialog'
+  | 'cancelEditHyperlinkDialog'
+  | 'edit'
+  //Shortcut action names
+  | 'insert'
+  | 'remove'
+  | 'mark'
+  | 'unmark'
+  | 'openCreateEmbedDialog'
+  | 'cancelCreateEmbedDialog';
 
 export type RichTextTrackingActionHandler = (
   name: RichTextTrackingActionName,
@@ -26,6 +37,18 @@ export interface TrackingProvider {
     actionName: RichTextTrackingActionName,
     data?: Record<string, unknown>
   ) => ReturnType<TrackingProviderProps['onAction']>;
+  onShortcutAction: (
+    actionName: RichTextTrackingActionName,
+    data?: Record<string, unknown>
+  ) => ReturnType<TrackingProviderProps['onAction']>;
+  onToolbarAction: (
+    actionName: RichTextTrackingActionName,
+    data?: Record<string, unknown>
+  ) => ReturnType<TrackingProviderProps['onAction']>;
+  onCommandPaletteAction: (
+    actionName: RichTextTrackingActionName,
+    data?: Record<string, unknown>
+  ) => ReturnType<TrackingProviderProps['onAction']>;
 }
 
 function useTracking({ onAction }: TrackingProviderProps): TrackingProvider {
@@ -33,6 +56,12 @@ function useTracking({ onAction }: TrackingProviderProps): TrackingProvider {
     () => ({
       onViewportAction: (actionName: RichTextTrackingActionName, data = {}) =>
         onAction(actionName, { origin: 'viewport-interaction', ...data }),
+      onShortcutAction: (actionName: RichTextTrackingActionName, data = {}) =>
+        onAction(actionName, { origin: 'shortcut', ...data }),
+      onToolbarAction: (actionName: RichTextTrackingActionName, data = {}) =>
+        onAction(actionName, { origin: 'toolbar-icon', ...data }),
+      onCommandPaletteAction: (actionName: RichTextTrackingActionName, data = {}) =>
+        onAction(actionName, { origin: 'command-palette', ...data }),
     }),
     [] // eslint-disable-line
   );

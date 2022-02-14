@@ -9,7 +9,7 @@ import { AnyObject, KeyboardHandler, HotkeyPlugin } from '@udecode/plate-core';
 import { css } from 'emotion';
 import isHotkey from 'is-hotkey';
 import { useReadOnly } from 'slate-react';
-import { TrackingProvider } from 'TrackingProvider';
+import { TrackingProvider, useTrackingContext } from 'TrackingProvider';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { isLinkActive, unwrapLink } from '../../helpers/editor';
@@ -72,12 +72,13 @@ function UrlHyperlink(props: HyperlinkElementProps) {
   const isReadOnly = useReadOnly();
   const sdk: FieldExtensionSDK = useSdkContext();
   const { uri } = props.element.data;
+  const tracking = useTrackingContext();
 
   function handleClick(event: React.MouseEvent<HTMLAnchorElement>) {
     event.preventDefault();
     event.stopPropagation();
     if (!editor) return;
-    addOrEditLink(editor, sdk);
+    addOrEditLink(editor, sdk, tracking);
   }
 
   return (
@@ -105,6 +106,7 @@ function EntityHyperlink(props: HyperlinkElementProps) {
   const sdk: FieldExtensionSDK = useSdkContext();
   const { target } = props.element.data;
   const { onEntityFetchComplete } = props;
+  const tracking = useTrackingContext();
 
   React.useEffect(() => {
     // The real entity loading happens in the tooltip
@@ -118,7 +120,7 @@ function EntityHyperlink(props: HyperlinkElementProps) {
     event.preventDefault();
     event.stopPropagation();
     if (!editor) return;
-    addOrEditLink(editor, sdk);
+    addOrEditLink(editor, sdk, tracking);
   }
 
   return (
@@ -156,6 +158,7 @@ export function ToolbarHyperlinkButton(props: ToolbarHyperlinkButtonProps) {
   const editor = useContentfulEditor();
   const isActive = !!(editor && isLinkActive(editor));
   const sdk: FieldExtensionSDK = useSdkContext();
+  const tracking = useTrackingContext();
 
   async function handleClick() {
     if (!editor) return;
@@ -163,7 +166,7 @@ export function ToolbarHyperlinkButton(props: ToolbarHyperlinkButtonProps) {
     if (isActive) {
       unwrapLink(editor);
     } else {
-      addOrEditLink(editor, sdk);
+      addOrEditLink(editor, sdk, tracking);
     }
   }
 
@@ -193,7 +196,7 @@ const isAssetAnchor = (element: HTMLElement) =>
   isAnchor(element) && element.getAttribute('data-link-type') === 'Asset';
 
 const buildHyperlinkEventHandler =
-  (sdk: FieldExtensionSDK): KeyboardHandler<{}, HotkeyPlugin> =>
+  (sdk: FieldExtensionSDK, tracking: TrackingProvider): KeyboardHandler<{}, HotkeyPlugin> =>
   (editor, { options: { hotkey } }) => {
     return (event: React.KeyboardEvent) => {
       if (!editor.selection) {
@@ -207,7 +210,7 @@ const buildHyperlinkEventHandler =
       if (isLinkActive(editor)) {
         unwrapLink(editor);
       } else {
-        addOrEditLink(editor, sdk);
+        addOrEditLink(editor, sdk, tracking);
       }
     };
   };
@@ -248,7 +251,7 @@ export const createHyperlinkPlugin = (
       hotkey: 'mod+k',
     },
     handlers: {
-      onKeyDown: buildHyperlinkEventHandler(sdk),
+      onKeyDown: buildHyperlinkEventHandler(sdk, tracking),
     },
     plugins: [
       // URL Hyperlink

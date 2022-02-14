@@ -21,6 +21,7 @@ import { css } from 'emotion';
 import { Editor, Transforms } from 'slate';
 import { HistoryEditor } from 'slate-history';
 import { ReactEditor } from 'slate-react';
+import { TrackingProvider } from 'TrackingProvider';
 
 import { getNodeEntryFromSelection, insertLink, LINK_TYPES, focus } from '../../helpers/editor';
 import getLinkedContentTypeIdsForNodeType from '../../helpers/getLinkedContentTypeIdsForNodeType';
@@ -255,7 +256,8 @@ interface HyperLinkDialogData {
 
 export async function addOrEditLink(
   editor: ReactEditor & HistoryEditor & PlateEditor,
-  sdk: FieldExtensionSDK
+  sdk: FieldExtensionSDK,
+  traking: TrackingProvider
 ) {
   if (!editor.selection) return;
 
@@ -274,6 +276,8 @@ export async function addOrEditLink(
 
   const selectionBeforeBlur = { ...editor.selection };
   const currentLinkText = linkText || Editor.string(editor, editor.selection);
+
+  traking.onViewportAction('openEditHyperlinkDialog');
 
   const data = await ModalDialogLauncher.openDialog(
     {
@@ -297,7 +301,7 @@ export async function addOrEditLink(
     }
   );
 
-  if (!data) return;
+  if (!data) return traking.onViewportAction('cancelEditHyperlinkDialog');
 
   const {
     linkText: text,
@@ -310,6 +314,7 @@ export async function addOrEditLink(
 
   Editor.withoutNormalizing(editor, () => {
     insertLink(editor, { text, url, type, target, path });
+    traking.onViewportAction('edit', { nodeType: node?.type, linkType });
   });
 
   focus(editor);
