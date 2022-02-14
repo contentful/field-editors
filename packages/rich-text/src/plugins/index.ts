@@ -27,6 +27,7 @@ import { createQuotePlugin } from './Quote';
 import { createSelectOnBackspacePlugin } from './SelectOnBackspace';
 import { createTablePlugin } from './Table';
 import { createTextPlugin } from './Text';
+import { createTrackingPlugin } from './Tracking';
 import { createTrailingParagraphPlugin } from './TrailingParagraph';
 import { createVoidsPlugin } from './Voids';
 
@@ -67,6 +68,9 @@ export const getPlugins = (
 
   // Pasting content from other sources
   createPasteHTMLPlugin(),
+
+  // Misc.
+  createTrackingPlugin(tracking),
 
   // These plugins drive their configurations from the list of plugins
   // above. They MUST come last.
