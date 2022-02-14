@@ -9,12 +9,13 @@ import { AnyObject, KeyboardHandler, HotkeyPlugin } from '@udecode/plate-core';
 import { css } from 'emotion';
 import isHotkey from 'is-hotkey';
 import { useReadOnly } from 'slate-react';
-import { TrackingProvider, useTrackingContext } from 'TrackingProvider';
+
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { isLinkActive, unwrapLink } from '../../helpers/editor';
 import { transformRemove } from '../../helpers/transformers';
 import { useSdkContext } from '../../SdkProvider';
+import { TrackingProvider, useTrackingContext } from '../../TrackingProvider';
 import { RichTextPlugin, CustomRenderElementProps, CustomElement } from '../../types';
 import { withLinkTracking } from '../links-tracking';
 import { ToolbarButton } from '../shared/ToolbarButton';

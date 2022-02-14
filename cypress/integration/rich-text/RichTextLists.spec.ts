@@ -37,6 +37,10 @@ describe('Rich Text Lists', () => {
       },
     });
 
+  const keys = {
+    tab: { keyCode: 9, which: 9, key: 'Tab' },
+  };
+
   function addBlockquote(content = '') {
     richText.editor.click().type(content);
 
@@ -225,6 +229,20 @@ describe('Rich Text Lists', () => {
 
         richText.editor.type('{enter}');
         richText.editor.type('more italic text');
+
+        richText.expectSnapshotValue();
+      });
+
+      it('should move nested list items when parent is invalid', () => {
+        richText.editor.click();
+        test.getList().click();
+
+        richText.editor
+          .type('1{enter}2{enter}3{enter}4')
+          .trigger('keydown', keys.tab)
+          .type('{uparrow}{uparrow}')
+          .trigger('keydown', keys.tab)
+          .type('{downarrow}{backspace}{backspace}');
 
         richText.expectSnapshotValue();
       });
