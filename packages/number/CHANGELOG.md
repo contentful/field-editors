@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.1.0...@contentful/field-editor-number@1.1.1) (2022-02-14)
+
+### Bug Fixes
+
+- **number-editor:** use "text" input that syncs numeric value when valid ([#1020](https://github.com/contentful/field-editors/issues/1020)) ([0f38462](https://github.com/contentful/field-editors/commit/0f384623f969284d122255191397402bbb3e7763))
+
 # [1.1.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.0.3...@contentful/field-editor-number@1.1.0) (2022-01-11)
 
 ### Features
