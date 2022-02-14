@@ -41,20 +41,28 @@ type InnerNumberEditorProps = Pick<
   field: NumberEditorProps['field'];
 };
 
-function InnerNumberEditor({ disabled, errors, field, setValue, value }: InnerNumberEditorProps) {
-  const previousValue = React.useRef(valueToString(value));
-  const [stringValue, setStringValue] = React.useState(valueToString(value));
+function InnerNumberEditor({
+  disabled,
+  errors,
+  field,
+  setValue,
+  value: sdkValue,
+}: InnerNumberEditorProps) {
+  const previousValue = React.useRef(valueToString(sdkValue));
+  const [inputValue, setInputValue] = React.useState(valueToString(sdkValue));
   const range = getRangeFromField(field);
 
   React.useEffect(() => {
-    previousValue.current = valueToString(value);
-  }, [value]);
+    previousValue.current = valueToString(sdkValue);
+  }, [sdkValue]);
 
   React.useEffect(() => {
-    if (previousValue.current !== String(value) && String(value) !== stringValue) {
-      setStringValue(valueToString(value));
+    const stringifiedSdkValue = valueToString(sdkValue);
+    // Update the input value (string) if the SDK value (numeric) changes
+    if (stringifiedSdkValue !== previousValue.current && stringifiedSdkValue !== inputValue) {
+      setInputValue(stringifiedSdkValue);
     }
-  }, [stringValue, value]);
+  }, [inputValue, sdkValue]);
 
   return (
     <div data-test-id="number-editor">
@@ -66,7 +74,7 @@ function InnerNumberEditor({ disabled, errors, field, setValue, value }: InnerNu
         isRequired={field.required}
         isInvalid={errors.length > 0}
         isDisabled={disabled}
-        value={stringValue}
+        value={inputValue}
         // React cannot call onChange for certain changes to type="number"
         // so we use "text" instead. See https://github.com/facebook/react/issues/6556
         type="text"
@@ -78,7 +86,7 @@ function InnerNumberEditor({ disabled, errors, field, setValue, value }: InnerNu
             setValue(parseResult.value);
           }
 
-          setStringValue(e.target.value);
+          setInputValue(e.target.value);
         }}
       />
     </div>
