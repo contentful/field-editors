@@ -242,5 +242,27 @@ describe(
         richText.expectSnapshotValue();
       });
     });
+
+    describe('copy from safari (no href in anchors)', () => {
+      it('recognizes entry hyperlink', () => {
+        richText.editor.click().paste({
+          'text/html':
+            '<meta charset="UTF-8"><span data-slate-node="text" style="caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-style: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; text-decoration: none;"><span data-slate-leaf="true"><span data-slate-zero-width="z" data-slate-length="0"></span></span></span><span class="css-1wt9k1k" style="caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-style: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; text-decoration: none;"><a class="css-1dcu81t" data-test-id="cf-ui-text-link" data-link-type="Entry" data-link-id="example-entity-id" aria-describedby="tooltip_5371"><span><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-string="true">a</span></span></span></span></a></span><span data-slate-node="text" data-slate-fragment="JTVCJTdCJTIydHlwZSUyMiUzQSUyMnBhcmFncmFwaCUyMiUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydGV4dCUyMiUzQSUyMiUyMiUyQyUyMmRhdGElMjIlM0ElN0IlN0QlN0QlMkMlN0IlMjJ0eXBlJTIyJTNBJTIyZW50cnktaHlwZXJsaW5rJTIyJTJDJTIyZGF0YSUyMiUzQSU3QiUyMnRhcmdldCUyMiUzQSU3QiUyMnN5cyUyMiUzQSU3QiUyMmlkJTIyJTNBJTIyZXhhbXBsZS1lbnRpdHktaWQlMjIlMkMlMjJ0eXBlJTIyJTNBJTIyTGluayUyMiUyQyUyMmxpbmtUeXBlJTIyJTNBJTIyRW50cnklMjIlN0QlN0QlN0QlMkMlMjJjaGlsZHJlbiUyMiUzQSU1QiU3QiUyMnRleHQlMjIlM0ElMjJhJTIyJTdEJTVEJTdEJTJDJTdCJTIydGV4dCUyMiUzQSUyMiUyMGIlMjIlN0QlNUQlMkMlMjJpc1ZvaWQlMjIlM0FmYWxzZSUyQyUyMmRhdGElMjIlM0ElN0IlN0QlN0QlNUQ=" style="caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-style: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; text-decoration: none;"><span data-slate-leaf="true"><span data-slate-string="true"><span class="Apple-converted-space">&nbsp;</span>b</span></span></span>',
+          'text/plain': 'a b',
+        });
+
+        richText.expectSnapshotValue();
+      });
+
+      it('recognizes asset hyperlink', () => {
+        richText.editor.click().paste({
+          'text/html':
+            '<meta charset="UTF-8"><span data-slate-node="text" style="caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-style: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; text-decoration: none;"><span data-slate-leaf="true"><span data-slate-zero-width="z" data-slate-length="0"></span></span></span><span class="css-1wt9k1k" style="caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-style: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; text-decoration: none;"><a class="css-1dcu81t" data-test-id="cf-ui-text-link" data-link-type="Asset" data-link-id="example-entity-id" aria-describedby="tooltip_4165"><span><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-string="true">a</span></span></span></span></a></span><span data-slate-node="text" data-slate-fragment="JTVCJTdCJTIydHlwZSUyMiUzQSUyMnBhcmFncmFwaCUyMiUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydGV4dCUyMiUzQSUyMiUyMiU3RCUyQyU3QiUyMnR5cGUlMjIlM0ElMjJhc3NldC1oeXBlcmxpbmslMjIlMkMlMjJkYXRhJTIyJTNBJTdCJTIydGFyZ2V0JTIyJTNBJTdCJTIyc3lzJTIyJTNBJTdCJTIyaWQlMjIlM0ElMjJleGFtcGxlLWVudGl0eS1pZCUyMiUyQyUyMnR5cGUlMjIlM0ElMjJMaW5rJTIyJTJDJTIybGlua1R5cGUlMjIlM0ElMjJBc3NldCUyMiU3RCU3RCU3RCUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydGV4dCUyMiUzQSUyMmElMjIlMkMlMjJkYXRhJTIyJTNBJTdCJTdEJTdEJTVEJTdEJTJDJTdCJTIydGV4dCUyMiUzQSUyMiUyMGIlMjIlN0QlNUQlMkMlMjJpc1ZvaWQlMjIlM0FmYWxzZSUyQyUyMmRhdGElMjIlM0ElN0IlN0QlN0QlNUQ=" style="caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-style: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; text-decoration: none;"><span data-slate-leaf="true"><span data-slate-string="true"><span class="Apple-converted-space">&nbsp;</span>b</span></span></span>',
+          'text/plain': 'a b',
+        });
+
+        richText.expectSnapshotValue();
+      });
+    });
   }
 );

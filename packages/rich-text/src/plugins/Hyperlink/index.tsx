@@ -186,9 +186,11 @@ const isAnchor = (element: HTMLElement) =>
   !!element.getAttribute('href') &&
   element.getAttribute('href') !== '#';
 
-const isEntryAnchor = (element: HTMLElement) => element.getAttribute('data-link-type') === 'Entry';
+const isEntryAnchor = (element: HTMLElement) =>
+  element.nodeName === 'A' && element.getAttribute('data-link-type') === 'Entry';
 
-const isAssetAnchor = (element: HTMLElement) => element.getAttribute('data-link-type') === 'Asset';
+const isAssetAnchor = (element: HTMLElement) =>
+  element.nodeName === 'A' && element.getAttribute('data-link-type') === 'Asset';
 
 const buildHyperlinkEventHandler =
   (sdk: FieldExtensionSDK): KeyboardHandler<{}, HotkeyPlugin> =>

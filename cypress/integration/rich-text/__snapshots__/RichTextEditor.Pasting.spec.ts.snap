@@ -2415,3 +2415,95 @@ exports[`Rich Text Editor > Microsoft Word (.docx) deserialization > tables #0`]
   "data": {},
   "nodeType": "document"
 };
+
+exports[`Rich Text Editor > copy from safari (no href in anchors) > recognizes entry hyperlink #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        },
+        {
+          "content": [
+            {
+              "data": {},
+              "marks": [],
+              "nodeType": "text",
+              "value": "a"
+            }
+          ],
+          "data": {
+            "target": {
+              "sys": {
+                "id": "example-entity-id",
+                "linkType": "Entry",
+                "type": "Link"
+              }
+            }
+          },
+          "nodeType": "entry-hyperlink"
+        },
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": " b"
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > copy from safari (no href in anchors) > recognizes asset hyperlink #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        },
+        {
+          "content": [
+            {
+              "data": {},
+              "marks": [],
+              "nodeType": "text",
+              "value": "a"
+            }
+          ],
+          "data": {
+            "target": {
+              "sys": {
+                "id": "example-entity-id",
+                "linkType": "Asset",
+                "type": "Link"
+              }
+            }
+          },
+          "nodeType": "asset-hyperlink"
+        },
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": " b"
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
