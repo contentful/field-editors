@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-reference",
-  "version": "4.1.1",
+  "version": "4.1.2",
   "main": "dist/index.js",
   "module": "dist/field-editor-reference.esm.js",
   "typings": "dist/index.d.ts",
@@ -24,7 +24,7 @@
     "@contentful/f36-components": "^4.0.27",
     "@contentful/f36-icons": "^4.1.0",
     "@contentful/f36-tokens": "^4.0.0",
-    "@contentful/field-editor-shared": "^1.1.1",
+    "@contentful/field-editor-shared": "^1.1.2",
     "@contentful/mimetype": "^1.4.0",
     "@types/deep-equal": "^1.0.1",
     "array-move": "^3.0.0",
@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@contentful/app-sdk": "^4.2.0",
-    "@contentful/field-editor-test-utils": "^1.1.1",
+    "@contentful/field-editor-test-utils": "^1.1.2",
     "@testing-library/react-hooks": "^5.0.3"
   },
   "peerDependencies": {

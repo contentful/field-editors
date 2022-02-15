@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-location",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "main": "dist/index.js",
   "module": "dist/field-editor-location.esm.js",
   "typings": "dist/index.d.ts",
@@ -21,7 +21,7 @@
   "dependencies": {
     "@contentful/f36-components": "^4.0.27",
     "@contentful/f36-tokens": "^4.0.0",
-    "@contentful/field-editor-shared": "^1.1.1",
+    "@contentful/field-editor-shared": "^1.1.2",
     "@types/google-map-react": "1.1.8",
     "deep-equal": "2.0.5",
     "emotion": "^10.0.17",
@@ -30,7 +30,7 @@
     "lodash-es": "^4.17.15"
   },
   "devDependencies": {
-    "@contentful/field-editor-test-utils": "^1.1.1"
+    "@contentful/field-editor-test-utils": "^1.1.2"
   },
   "peerDependencies": {
     "react": ">=16.8.0"

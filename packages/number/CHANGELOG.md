@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.1.1...@contentful/field-editor-number@1.1.2) (2022-02-15)
+
+### Bug Fixes
+
+- bump f36 packages ([#1025](https://github.com/contentful/field-editors/issues/1025)) ([ec37a40](https://github.com/contentful/field-editors/commit/ec37a4000db7cd75c66dd9621136b2272c9feeea))
+
 ## [1.1.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.1.0...@contentful/field-editor-number@1.1.1) (2022-02-14)
 
 ### Bug Fixes
