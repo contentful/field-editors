@@ -3,6 +3,10 @@ import * as React from 'react';
 import constate from 'constate';
 
 export type RichTextTrackingActionName =
+  // General
+  | 'edit'
+  | 'insert'
+  | 'remove'
   // Tables
   | 'insertTable'
   | 'insertTableRow'
@@ -15,8 +19,6 @@ export type RichTextTrackingActionName =
   // Hyperlinks
   | 'cancelCreateHyperlinkDialog'
   | 'cancelEditHyperlinkDialog'
-  | 'edit'
-  | 'insert'
   | 'linkRendered'
   | 'openCreateHyperlinkDialog'
   | 'openEditHyperlinkDialog'

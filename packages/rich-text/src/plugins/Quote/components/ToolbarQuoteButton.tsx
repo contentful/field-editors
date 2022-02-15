@@ -5,6 +5,7 @@ import { BLOCKS } from '@contentful/rich-text-types';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
 import { isBlockSelected, focus } from '../../../helpers/editor';
+import { useTrackingContext } from '../../../TrackingProvider';
 import { ToolbarButton } from '../../shared/ToolbarButton';
 import { toggleQuote } from '../toggleQuote';
 
@@ -14,11 +15,12 @@ export interface ToolbarQuoteButtonProps {
 
 export function ToolbarQuoteButton(props: ToolbarQuoteButtonProps) {
   const editor = useContentfulEditor();
+  const tracking = useTrackingContext();
 
   function handleOnClick() {
     if (!editor) return;
 
-    toggleQuote(editor);
+    toggleQuote(editor, tracking.onToolbarAction);
     focus(editor);
   }
 

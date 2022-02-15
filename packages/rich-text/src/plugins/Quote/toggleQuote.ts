@@ -2,14 +2,20 @@ import { BLOCKS } from '@contentful/rich-text-types';
 import { HotkeyPlugin, KeyboardHandler, PlateEditor } from '@udecode/plate-core';
 import isHotkey from 'is-hotkey';
 import { Transforms, Element, Editor } from 'slate';
+import { TrackingProvider } from 'TrackingProvider';
 
 import { isBlockSelected } from '../../helpers/editor';
 import { CustomElement } from '../../types';
 
-export function toggleQuote(editor: PlateEditor): void {
+export function toggleQuote(
+  editor: PlateEditor,
+  logAction: TrackingProvider['onShortcutAction'] | TrackingProvider['onToolbarAction']
+): void {
   if (!editor.selection) return;
 
   const isActive = isBlockSelected(editor, BLOCKS.QUOTE);
+
+  logAction(isActive ? 'remove' : 'insert', { nodeType: BLOCKS.QUOTE });
 
   Editor.withoutNormalizing(editor, () => {
     if (!editor.selection) return;
@@ -37,12 +43,14 @@ export function toggleQuote(editor: PlateEditor): void {
   });
 }
 
-export const onKeyDownToggleQuote: KeyboardHandler<{}, HotkeyPlugin> =
-  (editor, plugin) => (event) => {
+export const onKeyDownToggleQuote: (
+  tracking: TrackingProvider
+) => KeyboardHandler<{}, HotkeyPlugin> =
+  (tracking: TrackingProvider) => (editor, plugin) => (event) => {
     const { hotkey } = plugin.options;
 
     if (hotkey && isHotkey(hotkey, event)) {
       event.preventDefault();
-      toggleQuote(editor);
+      toggleQuote(editor, tracking.onShortcutAction);
     }
   };

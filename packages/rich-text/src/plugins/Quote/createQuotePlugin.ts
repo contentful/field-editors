@@ -1,11 +1,12 @@
 import { BLOCKS, CONTAINERS } from '@contentful/rich-text-types';
 
 import { transformLift, transformUnwrap } from '../../helpers/transformers';
+import { TrackingProvider } from '../../TrackingProvider';
 import { RichTextPlugin } from '../../types';
 import { Quote } from './components/Quote';
 import { onKeyDownToggleQuote } from './toggleQuote';
 
-export function createQuotePlugin(): RichTextPlugin {
+export function createQuotePlugin(tracking: TrackingProvider): RichTextPlugin {
   return {
     key: BLOCKS.QUOTE,
     type: BLOCKS.QUOTE,
@@ -15,7 +16,7 @@ export function createQuotePlugin(): RichTextPlugin {
       hotkey: 'mod+shift+1',
     },
     handlers: {
-      onKeyDown: onKeyDownToggleQuote,
+      onKeyDown: onKeyDownToggleQuote(tracking),
     },
     deserializeHtml: {
       rules: [

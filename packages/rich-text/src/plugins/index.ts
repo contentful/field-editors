@@ -48,7 +48,7 @@ export const getPlugins = (
   createListPlugin(),
   createHrPlugin(),
   createHeadingPlugin(),
-  createQuotePlugin(),
+  createQuotePlugin(tracking),
   createTablePlugin(tracking),
   createEmbeddedEntryBlockPlugin(sdk, tracking),
   createEmbeddedAssetBlockPlugin(sdk, tracking),
