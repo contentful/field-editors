@@ -182,9 +182,7 @@ export function ToolbarHyperlinkButton(props: ToolbarHyperlinkButtonProps) {
 }
 
 const isAnchor = (element: HTMLElement) =>
-  element.nodeName === 'A' &&
-  !!element.getAttribute('href') &&
-  element.getAttribute('href') !== '#';
+  element.nodeName === 'A' && element.getAttribute('href') !== '#';
 
 const isEntryAnchor = (element: HTMLElement) =>
   isAnchor(element) && element.getAttribute('data-link-type') === 'Entry';
