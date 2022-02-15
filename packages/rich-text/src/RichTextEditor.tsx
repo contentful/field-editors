@@ -28,7 +28,6 @@ import {
   TrackingProvider,
   useTrackingContext,
 } from './TrackingProvider';
-import { TextOrCustomElement } from './types';
 
 type ConnectedProps = {
   sdk: FieldExtensionSDK;
@@ -41,6 +40,7 @@ type ConnectedProps = {
   actionsDisabled?: boolean;
 };
 
+let setValueTimeout;
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const tracking = useTrackingContext();
 
@@ -90,9 +90,14 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
           readOnly: props.isDisabled,
         }}
         onChange={(slateDoc) => {
-          setValue(slateDoc as TextOrCustomElement[]);
-          const contentfulDoc = toContentfulDocument({ document: slateDoc, schema });
-          props.onChange?.(contentfulDoc);
+          if (setValueTimeout) {
+            clearTimeout(setValueTimeout);
+          }
+          setValueTimeout = setTimeout(() => {
+            const contentfulDoc = toContentfulDocument({ document: slateDoc, schema });
+            props.onChange?.(contentfulDoc);
+            clearTimeout(setValueTimeout);
+          }, 1000);
         }}>
         {!props.isToolbarHidden && (
           <StickyToolbarWrapper isDisabled={props.isDisabled}>
