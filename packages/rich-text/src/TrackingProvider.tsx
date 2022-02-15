@@ -3,14 +3,24 @@ import * as React from 'react';
 import constate from 'constate';
 
 export type RichTextTrackingActionName =
+  // Tables
   | 'insertTable'
   | 'insertTableRow'
   | 'insertTableColumn'
   | 'removeTable'
   | 'removeTableRow'
   | 'removeTableColumn'
+  // Copy & Paste
   | 'paste'
-  | 'linkRendered';
+  // Hyperlinks
+  | 'cancelCreateHyperlinkDialog'
+  | 'cancelEditHyperlinkDialog'
+  | 'edit'
+  | 'insert'
+  | 'linkRendered'
+  | 'openCreateHyperlinkDialog'
+  | 'openEditHyperlinkDialog'
+  | 'unlinkHyperlinks';
 
 export type RichTextTrackingActionHandler = (
   name: RichTextTrackingActionName,

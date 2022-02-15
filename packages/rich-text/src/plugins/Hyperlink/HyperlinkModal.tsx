@@ -25,6 +25,7 @@ import { ReactEditor } from 'slate-react';
 import { getNodeEntryFromSelection, insertLink, LINK_TYPES, focus } from '../../helpers/editor';
 import getLinkedContentTypeIdsForNodeType from '../../helpers/getLinkedContentTypeIdsForNodeType';
 import { isNodeTypeEnabled } from '../../helpers/validations';
+import { TrackingProvider } from '../../TrackingProvider';
 import { FetchingWrappedAssetCard } from '../shared/FetchingWrappedAssetCard';
 import { FetchingWrappedEntryCard } from '../shared/FetchingWrappedEntryCard';
 
@@ -255,7 +256,11 @@ interface HyperLinkDialogData {
 
 export async function addOrEditLink(
   editor: ReactEditor & HistoryEditor & PlateEditor,
-  sdk: FieldExtensionSDK
+  sdk: FieldExtensionSDK,
+  logAction:
+    | TrackingProvider['onToolbarAction']
+    | TrackingProvider['onShortcutAction']
+    | TrackingProvider['onViewportAction']
 ) {
   if (!editor.selection) return;
 
@@ -274,10 +279,13 @@ export async function addOrEditLink(
 
   const selectionBeforeBlur = { ...editor.selection };
   const currentLinkText = linkText || Editor.string(editor, editor.selection);
+  const isEditing = Boolean(node && path);
+
+  logAction(isEditing ? 'openEditHyperlinkDialog' : 'openCreateHyperlinkDialog');
 
   const data = await ModalDialogLauncher.openDialog(
     {
-      title: linkType ? 'Edit hyperlink' : 'Insert hyperlink',
+      title: isEditing ? 'Edit hyperlink' : 'Insert hyperlink',
       width: 'large',
       shouldCloseOnEscapePress: true,
       shouldCloseOnOverlayClick: true,
@@ -297,7 +305,10 @@ export async function addOrEditLink(
     }
   );
 
-  if (!data) return;
+  if (!data) {
+    logAction(isEditing ? 'cancelEditHyperlinkDialog' : 'cancelCreateHyperlinkDialog');
+    return;
+  }
 
   const {
     linkText: text,
@@ -310,6 +321,11 @@ export async function addOrEditLink(
 
   Editor.withoutNormalizing(editor, () => {
     insertLink(editor, { text, url, type, target, path });
+  });
+
+  logAction(isEditing ? 'edit' : 'insert', {
+    nodeType: type,
+    linkType: target?.sys.linkType ?? 'uri', // we want to keep the same values we've been using for the old editor, which can be `uri`, `Asset` or `Entry`
   });
 
   focus(editor);
