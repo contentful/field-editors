@@ -187,10 +187,10 @@ const isAnchor = (element: HTMLElement) =>
   element.getAttribute('href') !== '#';
 
 const isEntryAnchor = (element: HTMLElement) =>
-  isAnchor(element) && element.getAttribute('data-link-type') === 'Entry';
+  element.nodeName === 'A' && element.getAttribute('data-link-type') === 'Entry';
 
 const isAssetAnchor = (element: HTMLElement) =>
-  isAnchor(element) && element.getAttribute('data-link-type') === 'Asset';
+  element.nodeName === 'A' && element.getAttribute('data-link-type') === 'Asset';
 
 const buildHyperlinkEventHandler =
   (sdk: FieldExtensionSDK): KeyboardHandler<{}, HotkeyPlugin> =>
