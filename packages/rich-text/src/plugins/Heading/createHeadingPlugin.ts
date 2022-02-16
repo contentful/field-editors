@@ -1,12 +1,26 @@
 import { BLOCKS, HEADINGS } from '@contentful/rich-text-types';
-import { getAbove, onKeyDownToggleElement } from '@udecode/plate-core';
+import { getAbove, toggleNodeType } from '@udecode/plate-core';
+import isHotkey from 'is-hotkey';
 
-import { isInlineOrText } from '../../helpers/editor';
+import { isBlockSelected, isInlineOrText } from '../../helpers/editor';
 import { transformLift, transformUnwrap } from '../../helpers/transformers';
+import { TrackingProvider } from '../../TrackingProvider';
 import { RichTextPlugin } from '../../types';
 import { HeadingComponents } from './components/Heading';
 
-export const createHeadingPlugin = (): RichTextPlugin => ({
+const buildHeadingEventHandler =
+  (tracking: TrackingProvider, type: BLOCKS) => (editor, plugin) => (event) => {
+    if (!editor.selection || !isHotkey(plugin.options.hotkey, event)) {
+      return;
+    }
+
+    const isActive = isBlockSelected(editor, type);
+    tracking.onShortcutAction(isActive ? 'remove' : 'insert', { nodeType: type });
+
+    toggleNodeType(editor, { activeType: type, inactiveType: BLOCKS.PARAGRAPH });
+  };
+
+export const createHeadingPlugin = (tracking: TrackingProvider): RichTextPlugin => ({
   key: 'HeadingPlugin',
   softBreak: [
     // create a new line with SHIFT+Enter inside a heading
@@ -66,7 +80,7 @@ export const createHeadingPlugin = (): RichTextPlugin => ({
         hotkey: [`mod+alt+${level}`],
       },
       handlers: {
-        onKeyDown: onKeyDownToggleElement,
+        onKeyDown: buildHeadingEventHandler(tracking, nodeType),
       },
       deserializeHtml: {
         rules: [
