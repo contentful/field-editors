@@ -4,6 +4,7 @@ import isHotkey from 'is-hotkey';
 import { Transforms, Element, Editor } from 'slate';
 
 import { isBlockSelected } from '../../helpers/editor';
+import { CustomElement } from '../../types';
 
 export function toggleQuote(editor: PlateEditor): void {
   if (!editor.selection) return;
@@ -11,10 +12,16 @@ export function toggleQuote(editor: PlateEditor): void {
   const isActive = isBlockSelected(editor, BLOCKS.QUOTE);
 
   Editor.withoutNormalizing(editor, () => {
+    if (!editor.selection) return;
+
     Transforms.unwrapNodes(editor, {
-      match: (node) => Element.isElement(node) && node.type === BLOCKS.QUOTE,
+      match: (node) => Element.isElement(node) && (node as CustomElement).type === BLOCKS.QUOTE,
       split: true,
     });
+
+    const { anchor, focus } = editor.selection;
+    const isTripleSelection =
+      anchor.path[0] !== focus.path[0] && anchor.offset === 0 && focus.offset === 0;
 
     if (!isActive) {
       const quote = {
@@ -23,7 +30,9 @@ export function toggleQuote(editor: PlateEditor): void {
         children: [],
       };
 
-      Transforms.wrapNodes(editor, quote);
+      Transforms.wrapNodes(editor, quote, {
+        at: isTripleSelection ? editor.selection.anchor : undefined,
+      });
     }
   });
 }
