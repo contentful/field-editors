@@ -11,13 +11,13 @@ import { css } from 'emotion';
 import isHotkey from 'is-hotkey';
 import { Transforms } from 'slate';
 import { useSelected, ReactEditor, useReadOnly } from 'slate-react';
-import { TrackingProvider } from 'TrackingProvider';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { focus } from '../../helpers/editor';
 import { HAS_BEFORE_INPUT_SUPPORT } from '../../helpers/environment';
 import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
 import { useSdkContext } from '../../SdkProvider';
+import { TrackingProvider, useTrackingContext } from '../../TrackingProvider';
 import { RichTextPlugin, CustomElement, CustomRenderElementProps } from '../../types';
 import { withLinkTracking } from '../links-tracking';
 import { FetchingWrappedInlineEntryCard } from './FetchingWrappedInlineEntryCard';
@@ -94,29 +94,46 @@ interface ToolbarEmbeddedEntityInlineButtonProps {
   isButton?: boolean;
 }
 
-async function selectEntityAndInsert(editor, sdk: FieldExtensionSDK) {
+async function selectEntityAndInsert(
+  editor,
+  sdk: FieldExtensionSDK,
+  logAction: TrackingProvider['onShortcutAction'] | TrackingProvider['onToolbarAction']
+) {
+  logAction('openCreateEmbedDialog', { nodeType: INLINES.EMBEDDED_ENTRY });
+
   const config = {
     ...newEntitySelectorConfigFromRichTextField(sdk.field, INLINES.EMBEDDED_ENTRY),
     withCreate: true,
   };
   const selection = editor.selection;
 
-  const entry = await sdk.dialogs.selectSingleEntry<Entry>(config);
-  focus(editor); // Dialog steals focus from editor, return it.
-  if (!entry) return;
+  try {
+    const entry = await sdk.dialogs.selectSingleEntry<Entry>(config);
+    focus(editor); // Dialog steals focus from editor, return it.
+    if (!entry) return;
 
-  const inlineEntryNode = createInlineEntryNode(entry.sys.id);
+    const inlineEntryNode = createInlineEntryNode(entry.sys.id);
 
-  // Got to wait until focus is really back on the editor or setSelection() won't work.
-  setTimeout(() => {
-    Transforms.setSelection(editor, selection);
-    Transforms.insertNodes(editor, inlineEntryNode);
-  }, 0);
+    // Got to wait until focus is really back on the editor or setSelection() won't work.
+    setTimeout(() => {
+      Transforms.setSelection(editor, selection);
+      Transforms.insertNodes(editor, inlineEntryNode);
+    }, 0);
+
+    logAction('insert', { nodeType: INLINES.EMBEDDED_ENTRY });
+  } catch (error) {
+    if (error) {
+      throw error;
+    } else {
+      logAction('cancelCreateEmbedDialog', { nodeType: INLINES.EMBEDDED_ENTRY });
+    }
+  }
 }
 
 export function ToolbarEmbeddedEntityInlineButton(props: ToolbarEmbeddedEntityInlineButtonProps) {
   const editor = useContentfulEditor();
   const sdk: FieldExtensionSDK = useSdkContext();
+  const tracking = useTrackingContext();
 
   async function handleClick(event) {
     event.preventDefault();
@@ -125,7 +142,7 @@ export function ToolbarEmbeddedEntityInlineButton(props: ToolbarEmbeddedEntityIn
 
     props.onClose();
 
-    await selectEntityAndInsert(editor, sdk);
+    await selectEntityAndInsert(editor, sdk, tracking.onToolbarAction);
   }
 
   return props.isButton ? (
@@ -173,7 +190,7 @@ export function createEmbeddedEntityInlinePlugin(
       hotkey: 'mod+shift+2',
     },
     handlers: {
-      onKeyDown: getWithEmbeddedEntryInlineEvents(sdk),
+      onKeyDown: getWithEmbeddedEntryInlineEvents(sdk, tracking),
     },
     deserializeHtml: {
       rules: [
@@ -189,14 +206,15 @@ export function createEmbeddedEntityInlinePlugin(
 }
 
 function getWithEmbeddedEntryInlineEvents(
-  sdk: FieldExtensionSDK
+  sdk: FieldExtensionSDK,
+  tracking: TrackingProvider
 ): KeyboardHandler<{}, HotkeyPlugin> {
   return function withEmbeddedEntryInlineEvents(editor, { options: { hotkey } }) {
     return function handleEvent(event) {
       if (!editor) return;
 
       if (hotkey && isHotkey(hotkey, event)) {
-        selectEntityAndInsert(editor, sdk);
+        selectEntityAndInsert(editor, sdk, tracking.onShortcutAction);
       }
     };
   };

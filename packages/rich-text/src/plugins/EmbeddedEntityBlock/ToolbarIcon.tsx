@@ -4,10 +4,10 @@ import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { Flex, Icon, Button, Menu } from '@contentful/f36-components';
 import { AssetIcon, EmbeddedEntryBlockIcon } from '@contentful/f36-icons';
 import { css } from 'emotion';
-import noop from 'lodash/noop';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { useSdkContext } from '../../SdkProvider';
+import { useTrackingContext } from '../../TrackingProvider';
 import { selectEntityAndInsert } from './Util';
 
 export const styles = {
@@ -19,7 +19,6 @@ export const styles = {
 interface EmbeddedEntityBlockToolbarIconProps {
   isButton?: boolean;
   isDisabled: boolean;
-  logAction?: () => void;
   nodeType: string;
   onClose: () => void;
 }
@@ -27,18 +26,18 @@ interface EmbeddedEntityBlockToolbarIconProps {
 export function EmbeddedEntityBlockToolbarIcon({
   isButton,
   isDisabled,
-  logAction,
   nodeType,
   onClose,
 }: EmbeddedEntityBlockToolbarIconProps) {
   const editor = useContentfulEditor();
   const sdk: FieldExtensionSDK = useSdkContext();
+  const tracking = useTrackingContext();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
     onClose();
-    selectEntityAndInsert(nodeType, sdk, editor, logAction || noop);
+    selectEntityAndInsert(nodeType, sdk, editor, tracking.onToolbarAction);
   };
 
   const type = getEntityTypeFromNodeType(nodeType);

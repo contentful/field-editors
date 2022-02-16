@@ -3,8 +3,14 @@ import { Transforms } from 'slate';
 
 import { focus } from '../../helpers/editor';
 import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
+import { TrackingProvider } from '../../TrackingProvider';
 
-export async function selectEntityAndInsert(nodeType, sdk, editor, logAction) {
+export async function selectEntityAndInsert(
+  nodeType,
+  sdk,
+  editor,
+  logAction: TrackingProvider['onToolbarAction'] | TrackingProvider['onShortcutAction']
+) {
   logAction('openCreateEmbedDialog', { nodeType });
 
   const { field, dialogs } = sdk;

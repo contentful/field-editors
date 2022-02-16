@@ -4,11 +4,10 @@ import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { KeyboardHandler, HotkeyPlugin } from '@udecode/plate-core';
 import isHotkey from 'is-hotkey';
-import noop from 'lodash/noop';
 import { Transforms } from 'slate';
-import { TrackingProvider } from 'TrackingProvider';
 
 import { getNodeEntryFromSelection } from '../../helpers/editor';
+import { TrackingProvider } from '../../TrackingProvider';
 import { RichTextPlugin, CustomElement } from '../../types';
 import { withLinkTracking } from '../links-tracking';
 import { LinkedEntityBlock } from './LinkedEntityBlock';
@@ -23,7 +22,8 @@ const entityTypes = {
 
 function getWithEmbeddedEntityEvents(
   nodeType: BLOCKS.EMBEDDED_ENTRY | BLOCKS.EMBEDDED_ASSET,
-  sdk: FieldExtensionSDK
+  sdk: FieldExtensionSDK,
+  tracking: TrackingProvider
 ): KeyboardHandler<{}, HotkeyPlugin> {
   return (editor, { options: { hotkey } }) =>
     (event: KeyboardEvent) => {
@@ -42,7 +42,7 @@ function getWithEmbeddedEntityEvents(
       }
 
       if (hotkey && isHotkey(hotkey, event)) {
-        selectEntityAndInsert(nodeType, sdk, editor, noop);
+        selectEntityAndInsert(nodeType, sdk, editor, tracking.onShortcutAction);
       }
     };
 }
@@ -57,7 +57,7 @@ const createEmbeddedEntityPlugin =
     component: withLinkTracking(tracking, LinkedEntityBlock),
     options: { hotkey },
     handlers: {
-      onKeyDown: getWithEmbeddedEntityEvents(nodeType, sdk),
+      onKeyDown: getWithEmbeddedEntityEvents(nodeType, sdk, tracking),
     },
     deserializeHtml: {
       rules: [

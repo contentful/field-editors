@@ -22,7 +22,10 @@ export type RichTextTrackingActionName =
   | 'linkRendered'
   | 'openCreateHyperlinkDialog'
   | 'openEditHyperlinkDialog'
-  | 'unlinkHyperlinks';
+  | 'unlinkHyperlinks'
+  // Embeddeds
+  | 'openCreateEmbedDialog'
+  | 'cancelCreateEmbedDialog';
 
 export type RichTextTrackingActionHandler = (
   name: RichTextTrackingActionName,
