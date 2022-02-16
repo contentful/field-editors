@@ -3,10 +3,13 @@ import * as React from 'react';
 import constate from 'constate';
 
 export type RichTextTrackingActionName =
-  // General
+  // Elements
   | 'edit'
   | 'insert'
   | 'remove'
+  // Marks
+  | 'mark'
+  | 'unmark'
   // Tables
   | 'insertTable'
   | 'insertTableRow'

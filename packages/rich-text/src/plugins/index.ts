@@ -58,7 +58,7 @@ export const getPlugins = (
   createEmbeddedEntityInlinePlugin(sdk, tracking),
 
   // Marks
-  createMarksPlugin(),
+  createMarksPlugin(tracking),
 
   // Other
   createTrailingParagraphPlugin(),

@@ -33,12 +33,15 @@ export function Bold(props: Slate.RenderLeafProps) {
 const isGoogleBoldWrapper = (el: HTMLElement) =>
   el.id.startsWith('docs-internal-guid') && el.nodeName === 'B';
 
-export const createBoldPlugin = (): RichTextPlugin =>
+export const createBoldPlugin = (tracking: TrackingProvider): RichTextPlugin =>
   createDefaultBoldPlugin({
     type: MARKS.BOLD,
     component: Bold,
     options: {
       hotkey: ['mod+b'],
+    },
+    handlers: {
+      onKeyDown: buildMarkEventHandler(tracking, MARKS.BOLD),
     },
     deserializeHtml: {
       rules: [
