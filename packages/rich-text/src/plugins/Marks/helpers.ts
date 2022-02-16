@@ -6,9 +6,9 @@ import { TrackingProvider } from '../../TrackingProvider';
 
 export const buildMarkEventHandler =
   (tracking: TrackingProvider, type: MARKS) => (editor, plugin) => (event) => {
-    if (!editor.selection || !isHotkey(plugin.options.hotkey, event)) {
-      return;
-    }
+    if (!editor.selection || !isHotkey(plugin?.options?.hotkey, event)) return;
+
+    event.preventDefault();
 
     const isActive = isMarkActive(editor, type);
     tracking.onShortcutAction(isActive ? 'unmark' : 'mark', { markType: type });
