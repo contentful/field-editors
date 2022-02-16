@@ -19,6 +19,9 @@ export const createTestEditor = (options: {
 }) => {
   const tracking: TrackingProvider = options.tracking ?? {
     onViewportAction: jest.fn(),
+    onToolbarAction: jest.fn(),
+    onCommandPaletteAction: jest.fn(),
+    onShortcutAction: jest.fn(),
   };
 
   const sdk: FieldExtensionSDK = options.sdk ?? ({} as any);
