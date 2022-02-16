@@ -8,6 +8,7 @@ import * as Contentful from '@contentful/rich-text-types';
 import { Plate, PlateProps } from '@udecode/plate-core';
 import { css, cx } from 'emotion';
 import deepEquals from 'fast-deep-equal';
+import debounce from 'lodash/debounce';
 import noop from 'lodash/noop';
 import { Editor } from 'slate';
 
@@ -28,6 +29,7 @@ import {
   TrackingProvider,
   useTrackingContext,
 } from './TrackingProvider';
+import { TextOrCustomElement } from './types';
 
 type ConnectedProps = {
   sdk: FieldExtensionSDK;
@@ -40,7 +42,6 @@ type ConnectedProps = {
   actionsDisabled?: boolean;
 };
 
-let setValueTimeout;
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const tracking = useTrackingContext();
 
@@ -78,6 +79,16 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
     setValue(editor.children);
   }, [props.value, editor]);
 
+  const onChangeHandler = debounce(
+    (slateDoc) => {
+      setValue(slateDoc as TextOrCustomElement[]);
+      const contentfulDoc = toContentfulDocument({ document: slateDoc, schema });
+      props.onChange?.(contentfulDoc);
+    },
+    1000,
+    { trailing: true }
+  );
+
   return (
     <div className={styles.root} data-test-id="rich-text-editor">
       <Plate
@@ -89,15 +100,12 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
           className: classNames,
           readOnly: props.isDisabled,
         }}
-        onChange={(slateDoc) => {
-          if (setValueTimeout) {
-            clearTimeout(setValueTimeout);
+        onChange={(doc) => {
+          if (editor.operations.at(-1)?.type === 'set_selection') {
+            return;
           }
-          setValueTimeout = setTimeout(() => {
-            const contentfulDoc = toContentfulDocument({ document: slateDoc, schema });
-            props.onChange?.(contentfulDoc);
-            clearTimeout(setValueTimeout);
-          }, 1000);
+          console.log('change')
+          onChangeHandler(doc);
         }}>
         {!props.isToolbarHidden && (
           <StickyToolbarWrapper isDisabled={props.isDisabled}>
