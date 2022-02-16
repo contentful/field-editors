@@ -67,7 +67,12 @@ export function getElementFromCurrentSelection(editor) {
 
   return Array.from(
     Editor.nodes(editor, {
-      at: editor.selection.focus,
+      /**
+       * editor.select is a Range, which includes anchor and focus, the beginning and the end of a selection
+       * when using only editor.selection.focus, we might get only the end of the selection, or where the text cursor is
+       * and in some cases getting the next element instead of the one we want
+       **/
+      at: editor.selection,
       match: (node) => Element.isElement(node),
     })
   ).flat();
