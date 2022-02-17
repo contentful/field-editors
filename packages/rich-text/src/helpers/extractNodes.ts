@@ -9,7 +9,7 @@ function extractNodes(editor: PlateEditor, path: Path, match: NodeMatch) {
     getNodes(editor, {
       match,
       at: path,
-      mode: 'all',
+      mode: 'lowest',
     })
   ).map(([node]) => node as CustomElement);
 }
