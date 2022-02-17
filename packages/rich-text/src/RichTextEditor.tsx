@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
-import { toContentfulDocument, toSlatejsDocument } from '@contentful/contentful-slatejs-adapter';
+import { toSlatejsDocument } from '@contentful/contentful-slatejs-adapter';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import * as Contentful from '@contentful/rich-text-types';
@@ -29,6 +29,7 @@ import {
   useTrackingContext,
 } from './TrackingProvider';
 import { TextOrCustomElement } from './types';
+import { useOnValueChanged } from './useOnValueChanged';
 
 type ConnectedProps = {
   sdk: FieldExtensionSDK;
@@ -47,6 +48,8 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const editor = useContentfulEditor();
 
   const [value, setValue] = useState<PlateProps['value']>([]);
+
+  const onValueChanged = useOnValueChanged({ editor, handler: props.onChange });
 
   const classNames = cx(
     styles.editor,
@@ -91,8 +94,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
         }}
         onChange={(slateDoc) => {
           setValue(slateDoc as TextOrCustomElement[]);
-          const contentfulDoc = toContentfulDocument({ document: slateDoc, schema });
-          props.onChange?.(contentfulDoc);
+          onValueChanged(slateDoc);
         }}>
         {!props.isToolbarHidden && (
           <StickyToolbarWrapper isDisabled={props.isDisabled}>
