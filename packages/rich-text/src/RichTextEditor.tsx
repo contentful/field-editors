@@ -50,8 +50,16 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
     <div className={styles.root} data-test-id="rich-text-editor">
       <Plate
         id={id}
-        editor={editor}
-        // Due to a bug, Plate will overwrite the value here unless passed explicity
+        // FIXME: we should pass "editor" directly here instead of plugins but
+        // due to a bug, we have to do it this way for now:
+        // 1) Plate will overwrite the editor value unless we pass initialValue explicitly
+        // 2) Because of (1), re-setting the value will trigger onValueChanged which is not
+        //    desired.
+        //
+        // This is expected to be fixed in the next release. See:
+        // https://slate-js.slack.com/archives/C013QHXSCG1/p1645112799942819
+        // editor={editor}
+        plugins={editor.plugins}
         initialValue={editor.children}
         editableProps={{
           className: classNames,
