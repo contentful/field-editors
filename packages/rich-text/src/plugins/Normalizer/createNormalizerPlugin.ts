@@ -3,5 +3,5 @@ import { withNormalizer } from './withNormalizer';
 
 export const createNormalizerPlugin = (): RichTextPlugin => ({
   key: 'NormalizerPlugin',
-  withOverrides: withNormalizer,
+  withOverrides: (editor) => withNormalizer(editor, editor.plugins),
 });

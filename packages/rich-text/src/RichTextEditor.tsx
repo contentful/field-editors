@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
-import { toContentfulDocument, toSlatejsDocument } from '@contentful/contentful-slatejs-adapter';
+import { toContentfulDocument } from '@contentful/contentful-slatejs-adapter';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import * as Contentful from '@contentful/rich-text-types';
@@ -22,6 +22,7 @@ import {
   TrackingProvider,
   useTrackingContext,
 } from './TrackingProvider';
+import { useNormalizedSlateValue } from './useNormalizedSlateValue';
 
 type ConnectedProps = {
   sdk: FieldExtensionSDK;
@@ -37,10 +38,8 @@ type ConnectedProps = {
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const tracking = useTrackingContext();
 
-  const doc = toSlatejsDocument({
-    document: props.value || Contentful.EMPTY_DOCUMENT,
-    schema,
-  });
+  const plugins = React.useMemo(() => getPlugins(props.sdk, tracking), [props.sdk, tracking]);
+  const value = useNormalizedSlateValue({ contentfulDoc: props.value, plugins });
 
   const classNames = cx(
     styles.editor,
@@ -49,23 +48,19 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
     props.isToolbarHidden && styles.hiddenToolbar
   );
 
-  const plugins = React.useMemo(() => getPlugins(props.sdk, tracking), [props.sdk, tracking]);
-
   return (
     <div className={styles.root} data-test-id="rich-text-editor">
       <Plate
         id={getContentfulEditorId(props.sdk)}
-        initialValue={doc}
-        normalizeInitialValue
+        value={value}
         plugins={plugins}
         disableCorePlugins={disableCorePlugins}
         editableProps={{
           className: classNames,
           readOnly: props.isDisabled,
         }}
-        onChange={(slateDoc) => {
-          const contentfulDoc = toContentfulDocument({ document: slateDoc, schema });
-          props.onChange?.(contentfulDoc);
+        onChange={(document) => {
+          props.onChange?.(toContentfulDocument({ document, schema }));
         }}>
         {!props.isToolbarHidden && (
           <StickyToolbarWrapper isDisabled={props.isDisabled}>

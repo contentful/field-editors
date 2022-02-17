@@ -1566,13 +1566,19 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
   });
 
   describe('invalid document structure', () => {
-    describe('normalizable errors', () => {
-      it('does not throw', () => {
-        cy.setInitialValue(invalidDocumentNormalizable);
-        cy.reload();
-        //check that editors content is what we expect (not a thrown error)
-        richText.expectSnapshotValue();
-      });
+    it('runs initial normalization without triggering a value change', () => {
+      cy.setInitialValue(invalidDocumentNormalizable);
+      cy.reload();
+
+      // Should normalize and render the content
+      // Note: the field value in this case will still be untouched (i.e. invalid)
+      // since we won't trigger onChange.
+      richText.expectSnapshotValue();
+
+      // Initial normalization should not invoke onChange
+      cy.editorEvents()
+        .then((events) => events.filter((e) => e.type === 'onValueChanged'))
+        .should('deep.equal', []);
     });
   });
 });
