@@ -14,10 +14,9 @@ import {
 } from './utils';
 
 export const withNormalizer: WithOverride = (editor) => {
-  const rules: Required<NormalizerRule>[] = baseRules;
-
+  const rules: Required<NormalizerRule>[] = baseRules.map((r) => ({ ...r, pKey: 'base' }));
   // Drive normalization rules from other plugin's configurations
-  for (const p of editor.plugins as RichTextPlugin[]) {
+  for (const p of editor.plugins.slice(0, -1) as RichTextPlugin[]) {
     const { normalizer: _rules } = p;
 
     if (!_rules) {
@@ -26,7 +25,7 @@ export const withNormalizer: WithOverride = (editor) => {
 
     for (const _rule of _rules) {
       // Clone to avoid mutation bugs
-      const rule = { ..._rule };
+      const rule = { ..._rule, pKey: p.key };
 
       if (!rule.match && !p.isElement) {
         throw new NormalizerError('rule.match MUST be defined in a non-element plugin');
@@ -68,7 +67,6 @@ export const withNormalizer: WithOverride = (editor) => {
       if ('validChildren' in rule && Array.isArray(rule.validChildren)) {
         rule.validChildren = createValidatorFromTypes(rule.validChildren);
       }
-
       rules.push(rule as Required<NormalizerRule>);
     }
   }

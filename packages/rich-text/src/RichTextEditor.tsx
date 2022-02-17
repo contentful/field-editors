@@ -104,7 +104,6 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
           if (editor.operations.at(-1)?.type === 'set_selection') {
             return;
           }
-          console.log('change')
           onChangeHandler(doc);
         }}>
         {!props.isToolbarHidden && (

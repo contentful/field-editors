@@ -1,8 +1,6 @@
-import { BLOCKS, INLINES } from '@contentful/rich-text-types';
+import { BLOCKS, INLINES, TEXT_CONTAINERS } from '@contentful/rich-text-types';
 import { PlateEditor } from '@udecode/plate-core';
-import { NodeEntry, Transforms } from 'slate';
-
-import { extractParagraphs } from './extractNodes';
+import { Element, NodeEntry, Transforms } from 'slate';
 
 export const transformRemove = (editor: PlateEditor, [, path]: NodeEntry) => {
   Transforms.removeNodes(editor, { at: path });
@@ -10,10 +8,18 @@ export const transformRemove = (editor: PlateEditor, [, path]: NodeEntry) => {
 
 export const transformParagraphs = (editor: PlateEditor, entry: NodeEntry) => {
   const path = entry[1];
-  const nodes = extractParagraphs(editor, path);
 
-  transformRemove(editor, entry);
-  Transforms.insertNodes(editor, nodes, { at: path });
+  Transforms.setNodes(
+    editor,
+    {
+      type: BLOCKS.PARAGRAPH,
+    },
+    {
+      at: path,
+      mode: 'all',
+      match: (node) => Element.isElement(node) && TEXT_CONTAINERS.includes(node.type as BLOCKS),
+    }
+  );
 };
 
 export const transformUnwrap = (editor: PlateEditor, [, path]: NodeEntry) => {
