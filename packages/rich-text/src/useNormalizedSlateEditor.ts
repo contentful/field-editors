@@ -20,9 +20,11 @@ export const useNormalizedSlateEditor = ({ id, sdk, incomingDoc }: NormalizedSla
   const tracking = useTrackingContext();
 
   return useMemo(() => {
+    const plugins = getPlugins(sdk, tracking);
+
     const editor = createPlateEditor({
       id,
-      plugins: getPlugins(sdk, tracking),
+      plugins,
       disableCorePlugins,
     });
 
@@ -34,6 +36,7 @@ export const useNormalizedSlateEditor = ({ id, sdk, incomingDoc }: NormalizedSla
     // Sets editor value & kicks normalization
     Transforms.insertNodes(editor, doc);
 
-    return editor;
+    // TODO: remove the plugins later when the initialValue bug is fixed upstream
+    return { editor, plugins };
   }, [id, sdk, tracking, incomingDoc]);
 };

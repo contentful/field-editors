@@ -33,7 +33,7 @@ type ConnectedProps = {
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const id = getContentfulEditorId(props.sdk);
 
-  const editor = useNormalizedSlateEditor({
+  const { editor, plugins } = useNormalizedSlateEditor({
     id,
     sdk: props.sdk,
     incomingDoc: props.value,
@@ -59,7 +59,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
         // This is expected to be fixed in the next release. See:
         // https://slate-js.slack.com/archives/C013QHXSCG1/p1645112799942819
         // editor={editor}
-        plugins={editor.plugins}
+        plugins={plugins}
         initialValue={editor.children}
         editableProps={{
           className: classNames,
