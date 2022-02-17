@@ -12,12 +12,17 @@ import noop from 'lodash/noop';
 
 import schema from './constants/Schema';
 import { ContentfulEditorProvider, getContentfulEditorId } from './ContentfulEditorProvider';
+import { getPlugins, disableCorePlugins } from './plugins';
 import { styles } from './RichTextEditor.styles';
 import { SdkProvider } from './SdkProvider';
 import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/components/StickyToolbarWrapper';
-import { RichTextTrackingActionHandler, TrackingProvider } from './TrackingProvider';
-import { useNormalizedSlateEditor } from './useNormalizedSlateEditor';
+import {
+  RichTextTrackingActionHandler,
+  TrackingProvider,
+  useTrackingContext,
+} from './TrackingProvider';
+import { useNormalizedSlateValue } from './useNormalizedSlateValue';
 
 type ConnectedProps = {
   sdk: FieldExtensionSDK;
@@ -33,10 +38,13 @@ type ConnectedProps = {
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const id = getContentfulEditorId(props.sdk);
 
-  const { editor, plugins } = useNormalizedSlateEditor({
+  const tracking = useTrackingContext();
+  const plugins = React.useMemo(() => getPlugins(props.sdk, tracking), [props.sdk, tracking]);
+
+  const initialValue = useNormalizedSlateValue({
     id,
-    sdk: props.sdk,
     incomingDoc: props.value,
+    plugins,
   });
 
   const classNames = cx(
@@ -50,17 +58,9 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
     <div className={styles.root} data-test-id="rich-text-editor">
       <Plate
         id={id}
-        // FIXME: we should pass "editor" directly here instead of plugins but
-        // due to a bug, we have to do it this way for now:
-        // 1) Plate will overwrite the editor value unless we pass initialValue explicitly
-        // 2) Because of (1), re-setting the value will trigger onValueChanged which is not
-        //    desired.
-        //
-        // This is expected to be fixed in the next release. See:
-        // https://slate-js.slack.com/archives/C013QHXSCG1/p1645112799942819
-        // editor={editor}
+        initialValue={initialValue}
         plugins={plugins}
-        initialValue={editor.children}
+        disableCorePlugins={disableCorePlugins}
         editableProps={{
           className: classNames,
           readOnly: props.isDisabled,
