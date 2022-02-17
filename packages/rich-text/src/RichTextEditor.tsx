@@ -12,17 +12,12 @@ import noop from 'lodash/noop';
 
 import schema from './constants/Schema';
 import { ContentfulEditorProvider, getContentfulEditorId } from './ContentfulEditorProvider';
-import { disableCorePlugins, getPlugins } from './plugins';
 import { styles } from './RichTextEditor.styles';
 import { SdkProvider } from './SdkProvider';
 import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/components/StickyToolbarWrapper';
-import {
-  RichTextTrackingActionHandler,
-  TrackingProvider,
-  useTrackingContext,
-} from './TrackingProvider';
-import { useNormalizedSlateValue } from './useNormalizedSlateValue';
+import { RichTextTrackingActionHandler, TrackingProvider } from './TrackingProvider';
+import { useNormalizedSlateEditor } from './useNormalizedSlateEditor';
 
 type ConnectedProps = {
   sdk: FieldExtensionSDK;
@@ -36,10 +31,13 @@ type ConnectedProps = {
 };
 
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
-  const tracking = useTrackingContext();
+  const id = getContentfulEditorId(props.sdk);
 
-  const plugins = React.useMemo(() => getPlugins(props.sdk, tracking), [props.sdk, tracking]);
-  const value = useNormalizedSlateValue({ contentfulDoc: props.value, plugins });
+  const editor = useNormalizedSlateEditor({
+    id,
+    sdk: props.sdk,
+    incomingDoc: props.value,
+  });
 
   const classNames = cx(
     styles.editor,
@@ -51,10 +49,10 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   return (
     <div className={styles.root} data-test-id="rich-text-editor">
       <Plate
-        id={getContentfulEditorId(props.sdk)}
-        value={value}
-        plugins={plugins}
-        disableCorePlugins={disableCorePlugins}
+        id={id}
+        editor={editor}
+        // Due to a bug, Plate will overwrite the value here unless passed explicity
+        initialValue={editor.children}
         editableProps={{
           className: classNames,
           readOnly: props.isDisabled,
