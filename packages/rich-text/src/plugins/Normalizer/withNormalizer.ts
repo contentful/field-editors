@@ -1,4 +1,4 @@
-import { match, PlateEditor } from '@udecode/plate-core';
+import { match, getPluginType, PlateEditor } from '@udecode/plate-core';
 import isPlainObject from 'is-plain-obj';
 import { Editor, NodeEntry } from 'slate';
 
@@ -13,11 +13,11 @@ import {
   createTransformerFromObject,
 } from './utils';
 
-export const withNormalizer = (editor: PlateEditor, plugins: RichTextPlugin[]) => {
+export const withNormalizer = (editor: PlateEditor) => {
   const rules: Required<NormalizerRule>[] = baseRules;
 
   // Drive normalization rules from other plugin's configurations
-  for (const p of plugins as RichTextPlugin[]) {
+  for (const p of editor.plugins as RichTextPlugin[]) {
     const { normalizer: _rules } = p;
 
     if (!_rules) {
@@ -34,14 +34,8 @@ export const withNormalizer = (editor: PlateEditor, plugins: RichTextPlugin[]) =
 
       // By default we filter elements with given plugin type
       if (!rule.match) {
-        if (!p.type) {
-          throw new NormalizerError(
-            `element plugins must define plugin.type (plugin key: '${p.key}')`
-          );
-        }
-
         rule.match = {
-          type: p.type as string,
+          type: getPluginType(editor, p.key),
         };
       }
 
