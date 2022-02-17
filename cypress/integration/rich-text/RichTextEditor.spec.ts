@@ -1570,10 +1570,14 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       cy.setInitialValue(invalidDocumentNormalizable);
       cy.reload();
 
-      // Should normalize and render the content
-      // Note: the field value in this case will still be untouched (i.e. invalid)
+      // Should render normalized content
+      richText.editor.should('contain.text', 'test');
+      richText.editor.should('contain.text', 'unordered list first item');
+      richText.editor.should('contain.text', 'unordered list second item');
+
+      // The field value in this case will still be untouched (i.e. invalid)
       // since we won't trigger onChange.
-      richText.expectSnapshotValue();
+      richText.expectValue(invalidDocumentNormalizable);
 
       // Initial normalization should not invoke onChange
       cy.editorEvents()
