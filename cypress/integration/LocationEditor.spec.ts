@@ -103,6 +103,7 @@ describe('Location Editor', () => {
   });
 
   it('should set value after using search input', () => {
+    cy.mockGoogleMapsResponse(require('../fixtures/map-search-address-reply.json'));
     cy.editorEvents().should('deep.equal', []);
 
     selectors.getSearchInput().type(LOCATION_2.address);
