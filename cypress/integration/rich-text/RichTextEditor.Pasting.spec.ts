@@ -136,6 +136,15 @@ describe(
 
         richText.expectSnapshotValue();
       });
+
+      it('normalizes paragraphs in table cells correctly', () => {
+        richText.editor.click();
+        richText.editor.paste({
+          'text/html':
+            '<meta charset="utf-8"><meta charset="utf-8"><b style="font-weight:normal;" id="docs-internal-guid-7728c6fc-7fff-c78a-cca3-698830ce6bb7"><div dir="ltr" style="margin-left:0pt;" align="left"><table style="border:none;border-collapse:collapse;table-layout:fixed;width:468pt"><colgroup><col><col><col></colgroup><tbody><tr style="height:0pt"><td style="border-left:solid #666666 1pt;border-right:solid #666666 1pt;border-bottom:solid #666666 1pt;border-top:solid #666666 1pt;vertical-align:middle;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><h1 dir="ltr" style="line-height:1.2;margin-top:20pt;margin-bottom:6pt;"><span style="font-size:20pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Field</span></h1></td><td style="border-left:solid #666666 1pt;border-right:solid #666666 1pt;border-bottom:solid #666666 1pt;border-top:solid #666666 1pt;vertical-align:middle;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><h2 dir="ltr" style="line-height:1.2;margin-top:18pt;margin-bottom:6pt;"><span style="font-size:16pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Type</span></h2></td><td style="border-left:solid #666666 1pt;border-right:solid #666666 1pt;border-bottom:solid #666666 1pt;border-top:solid #666666 1pt;vertical-align:middle;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><p dir="ltr" style="line-height:1.2;margin-top:0pt;margin-bottom:3pt;"><span style="font-size:26pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Description</span></p></td></tr></tbody></table></div></b>',
+        });
+        richText.expectSnapshotValue();
+      });
     });
 
     describe('HR', () => {
