@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { toSlatejsDocument } from '@contentful/contentful-slatejs-adapter';
-import { EMPTY_DOCUMENT } from '@contentful/rich-text-types';
+import { EMPTY_DOCUMENT, Document } from '@contentful/rich-text-types';
 import { createPlateEditor } from '@udecode/plate-core';
 import { Transforms } from 'slate';
 
@@ -11,8 +11,24 @@ import { RichTextPlugin } from './types';
 
 export type NormalizedSlateValueProps = {
   id: string;
-  incomingDoc: unknown;
+  incomingDoc: any;
   plugins: RichTextPlugin[];
+};
+
+/**
+ * For legacy reasons, a document may not have any content at all
+ * e.g:
+ *
+ * {nodeType: document, data: {}, content: []}
+ *
+ * Rendering such document will break the Slate editor
+ */
+const isValidDocument = (doc?: Document) => {
+  if (!doc) {
+    return false;
+  }
+
+  return doc.content.length > 0;
 };
 
 export const useNormalizedSlateValue = ({
@@ -28,7 +44,7 @@ export const useNormalizedSlateValue = ({
     });
 
     const doc = toSlatejsDocument({
-      document: incomingDoc || EMPTY_DOCUMENT,
+      document: isValidDocument(incomingDoc) ? incomingDoc : EMPTY_DOCUMENT,
       schema,
     });
 

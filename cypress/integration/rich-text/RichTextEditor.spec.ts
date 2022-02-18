@@ -1566,14 +1566,45 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
   });
 
   describe('invalid document structure', () => {
+    it('accepts document with no content', () => {
+      const emptyDocument = {
+        nodeType: 'document',
+        data: {},
+        content: [],
+      };
+
+      cy.setInitialValue(emptyDocument);
+
+      cy.reload();
+
+      // The field value in this case will still be untouched (i.e. invalid)
+      // since we won't trigger onChange.
+      richText.expectValue(emptyDocument);
+
+      // Initial normalization should not invoke onChange
+      cy.editorEvents()
+        .then((events) => events.filter((e) => e.type === 'onValueChanged'))
+        .should('deep.equal', []);
+
+      // We can adjust the content
+      richText.editor.type('it works');
+      richText.expectValue(doc(paragraphWithText('it works')));
+    });
+
     it('runs initial normalization without triggering a value change', () => {
       cy.setInitialValue(invalidDocumentNormalizable);
       cy.reload();
 
       // Should render normalized content
-      richText.editor.should('contain.text', 'test');
-      richText.editor.should('contain.text', 'unordered list first item');
-      richText.editor.should('contain.text', 'unordered list second item');
+      richText.editor.should('contain.text', 'This is a hyperlink');
+      richText.editor.should('contain.text', 'This is a paragraph');
+      richText.editor.should('contain.text', 'Text with custom marks');
+      richText.editor.should('contain.text', 'cell #1');
+      richText.editor.should('contain.text', 'cell #2');
+      richText.editor.should('contain.text', 'cell #3');
+      richText.editor.should('contain.text', 'cell #4');
+      richText.editor.should('contain.text', 'cell #5');
+      richText.editor.should('contain.text', 'cell #6');
 
       // The field value in this case will still be untouched (i.e. invalid)
       // since we won't trigger onChange.
