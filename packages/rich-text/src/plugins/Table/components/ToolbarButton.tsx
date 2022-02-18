@@ -14,13 +14,13 @@ export interface ToolbarTableButtonProps {
 
 export function ToolbarTableButton(props: ToolbarTableButtonProps) {
   const editor = useContentfulEditor();
-  const { onViewportAction } = useTrackingContext();
+  const { onToolbarAction } = useTrackingContext();
   const isActive = editor && isTableActive(editor);
 
   async function handleClick() {
     if (!editor) return;
 
-    onViewportAction('insertTable');
+    onToolbarAction('insertTable');
     insertTableAndFocusFirstCell(editor);
     focus(editor);
   }

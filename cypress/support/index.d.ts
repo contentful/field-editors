@@ -21,4 +21,21 @@ declare namespace Cypress {
     paste(data: { [key: string]: string }): Chainable<void>;
     dragTo(target: () => Chainable): Chainable<void>;
   }
+
+  type TrackingAction = [
+    string,
+    {
+      origin: string;
+      nodeType?: string;
+      linkType?: string;
+      markType?: string;
+      characterCountAfter?: number;
+      characterCountBefore?: number;
+      characterCountSelection?: number;
+    }
+  ];
+
+  interface ApplicationWindow {
+    actions: TrackingAction[];
+  }
 }

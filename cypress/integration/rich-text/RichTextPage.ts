@@ -124,6 +124,14 @@ export class RichTextPage {
       .should('be.empty')
       .as('validationErrors');
   }
+
+  expectTrackingvalue(expectedValue: any) {
+    cy.window().then((win) => {
+      setTimeout(() => {
+        expect(win.actions).to.deep.equal(expectedValue);
+      });
+    });
+  }
 }
 
 class HyperLinkModal {
