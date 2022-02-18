@@ -192,8 +192,8 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         .type('quux');
     };
 
-    const insertTableAction = (origin) => action('insertTable', origin);
-    const removeTableAction = (origin) => action('removeTable', origin);
+    const insertTableAction = () => action('insertTable', 'toolbar-icon');
+    const removeTableAction = (payload) => action('removeTable', 'viewport-interaction', payload);
     const insertTableRowAction = (payload) =>
       action('insertTableRow', 'viewport-interaction', payload);
     const insertTableColumnAction = (payload) =>
@@ -206,7 +206,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
     it('tracks insert table', () => {
       insertTable();
 
-      richText.expectTrackingvalue([insertTableAction('toolbar-icon')]);
+      richText.expectTrackingvalue([insertTableAction()]);
     });
 
     describe('Table Actions', () => {
@@ -227,7 +227,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         doAction('Add row above');
 
         richText.expectTrackingvalue([
-          insertTableAction('toolbar-icon'),
+          insertTableAction(),
           insertTableRowAction({
             tableSize: {
               numColumns: 2,
@@ -241,7 +241,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         doAction('Add row below');
 
         richText.expectTrackingvalue([
-          insertTableAction('toolbar-icon'),
+          insertTableAction(),
           insertTableRowAction({
             tableSize: {
               numColumns: 2,
@@ -255,7 +255,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         doAction('Add column left');
 
         richText.expectTrackingvalue([
-          insertTableAction('toolbar-icon'),
+          insertTableAction(),
           insertTableColumnAction({
             tableSize: {
               numColumns: 2,
@@ -269,7 +269,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         doAction('Add column right');
 
         richText.expectTrackingvalue([
-          insertTableAction('toolbar-icon'),
+          insertTableAction(),
           insertTableColumnAction({
             tableSize: {
               numColumns: 2,
@@ -283,7 +283,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         doAction('Delete row');
 
         richText.expectTrackingvalue([
-          insertTableAction('toolbar-icon'),
+          insertTableAction(),
           removeTableRowAction({
             tableSize: {
               numColumns: 2,
@@ -297,7 +297,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         doAction('Delete column');
 
         richText.expectTrackingvalue([
-          insertTableAction('toolbar-icon'),
+          insertTableAction(),
           removeTableColumnAction({
             tableSize: {
               numColumns: 2,
@@ -311,8 +311,13 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         doAction('Delete table');
 
         richText.expectTrackingvalue([
-          insertTableAction('toolbar-icon'),
-          removeTableAction('viewport-interaction'),
+          insertTableAction(),
+          removeTableAction({
+            tableSize: {
+              numColumns: 2,
+              numRows: 2,
+            },
+          }),
         ]);
       });
     });
@@ -388,7 +393,11 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
           richText.editor.click().type('{selectall}');
           cy.findByTestId('hyperlink-toolbar-button').click();
 
-          richText.expectTrackingvalue([openCreateModal(origin), unlink(origin)]);
+          richText.expectTrackingvalue([
+            openCreateModal(origin),
+            insertHyperlink(origin),
+            unlink('toolbar-icon'),
+          ]);
         });
 
         it('tracks when converting text to URL hyperlink', () => {
@@ -415,7 +424,11 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
           form.submit.click();
 
-          richText.expectTrackingvalue([openCreateModal(origin), insertEntryHyperlink(origin)]);
+          richText.expectTrackingvalue([
+            openCreateModal(origin),
+            insertEntryHyperlink(origin),
+            linkRendered(),
+          ]);
         });
 
         it('tracks when converting text to asset hyperlink', () => {
@@ -429,7 +442,11 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
           form.linkEntityTarget.click();
           form.submit.click();
 
-          richText.expectTrackingvalue([openCreateModal(origin), insertAssetHyperlink(origin)]);
+          richText.expectTrackingvalue([
+            openCreateModal(origin),
+            insertAssetHyperlink(origin),
+            linkRendered(),
+          ]);
         });
 
         it('tracks when editing hyperlinks', () => {
@@ -449,7 +466,6 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
           // Part 2:
           // Update hyperlink to entry link
 
-          cy.wait(0);
           richText.editor.findByTestId('cf-ui-text-link').click({ force: true });
 
           form.linkType.select('entry-hyperlink');
@@ -467,7 +483,6 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
           // Part 3:
           // Update entry link to asset link
 
-          cy.wait(0);
           richText.editor.findByTestId('cf-ui-text-link').click({ force: true });
 
           form.linkType.select('asset-hyperlink');
@@ -489,7 +504,6 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
           // Part 3:
           // Update asset link to hyperlink
 
-          cy.wait(0);
           richText.editor.findByTestId('cf-ui-text-link').click({ force: true });
 
           form.linkType.select('hyperlink');

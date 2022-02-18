@@ -126,11 +126,7 @@ export class RichTextPage {
   }
 
   expectTrackingvalue(expectedValue: any) {
-    cy.window().then((win) => {
-      setTimeout(() => {
-        expect(win.actions).to.deep.equal(expectedValue);
-      });
-    });
+    cy.window().its('actions', { timeout: 10000 }).should('deep.equal', expectedValue);
   }
 }
 
