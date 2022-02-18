@@ -1594,8 +1594,6 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     it('runs initial normalization without triggering a value change', () => {
       cy.setInitialValue(invalidDocumentNormalizable);
 
-      cy.clock();
-
       cy.reload();
 
       // Should render normalized content
@@ -1614,9 +1612,6 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       richText.editor.should('contain.text', 'cell #5');
       richText.editor.should('contain.text', 'cell #6');
 
-      // Wait for any debounce logic that we may have
-      cy.tick(5000);
-
       // The field value in this case will still be untouched (i.e. un-normalized)
       // since we won't trigger onChange.
       richText.expectValue(invalidDocumentNormalizable);
@@ -1628,9 +1623,6 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
       // Trigger normalization by changing the editor content
       richText.editor.type('end');
-
-      // Wait for any debounce logic that we may have
-      cy.tick(5000);
 
       richText.expectSnapshotValue();
     });

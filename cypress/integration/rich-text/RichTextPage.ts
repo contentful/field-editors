@@ -84,6 +84,13 @@ export class RichTextPage {
   }
 
   expectValue(expectedValue: any, editorEvents?: any) {
+    // we want to make sure any kind of debounced behavior
+    // is already triggered before we go on and assert the
+    // content of the field in any test. Using cy.clock()
+    // doesn't work for some reason
+    // eslint-disable-next-line
+    cy.wait(500);
+
     cy.getRichTextField().should((field) => {
       expect(field.getValue()).to.deep.equal(expectedValue);
     });
@@ -103,6 +110,13 @@ export class RichTextPage {
   }
 
   expectSnapshotValue() {
+    // we want to make sure any kind of debounced behavior
+    // is already triggered before we go on and assert the
+    // content of the field in any test. Using cy.clock()
+    // doesn't work for some reason
+    // eslint-disable-next-line
+    cy.wait(500);
+
     cy.getRichTextField().should((field) => {
       //@ts-expect-error cypress-plugin-snapshots doesn't have type definitions
       cy.wrap(field.getValue()).toMatchSnapshot();
