@@ -30,7 +30,7 @@ export function Code(props: Slate.RenderLeafProps) {
   );
 }
 
-export const createCodePlugin = (tracking: TrackingProvider): RichTextPlugin =>
+export const createCodePlugin = (): RichTextPlugin =>
   createDefaultCodePlugin({
     type: MARKS.CODE,
     component: Code,
@@ -38,7 +38,7 @@ export const createCodePlugin = (tracking: TrackingProvider): RichTextPlugin =>
       hotkey: ['mod+/'],
     },
     handlers: {
-      onKeyDown: buildMarkEventHandler(tracking, MARKS.CODE),
+      onKeyDown: buildMarkEventHandler(MARKS.CODE),
     },
     deserializeHtml: {
       rules: [

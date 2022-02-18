@@ -43,14 +43,12 @@ export function toggleQuote(
   });
 }
 
-export const onKeyDownToggleQuote: (
-  tracking: TrackingProvider
-) => KeyboardHandler<{}, HotkeyPlugin> =
-  (tracking: TrackingProvider) => (editor, plugin) => (event) => {
+export const onKeyDownToggleQuote: KeyboardHandler<{}, HotkeyPlugin> =
+  (editor, plugin) => (event) => {
     const { hotkey } = plugin.options;
 
     if (hotkey && isHotkey(hotkey, event)) {
       event.preventDefault();
-      toggleQuote(editor, tracking.onShortcutAction);
+      toggleQuote(editor, editor.tracking?.onShortcutAction);
     }
   };

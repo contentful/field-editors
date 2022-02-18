@@ -22,7 +22,6 @@ import {
   isRootLevel,
 } from '../../helpers/editor';
 import { transformLift, transformParagraphs, transformWrapIn } from '../../helpers/transformers';
-import { TrackingProvider } from '../../TrackingProvider';
 import { RichTextPlugin, CustomElement } from '../../types';
 import { addTableTrackingEvents } from './addTableTrackingEvents';
 import { Cell } from './components/Cell';
@@ -51,14 +50,14 @@ const createTableOnKeyDown: KeyboardHandler<{}, HotkeyPlugin> = (editor, plugin)
   };
 };
 
-export const createTablePlugin = (tracking: TrackingProvider): RichTextPlugin =>
+export const createTablePlugin = (): RichTextPlugin =>
   createDefaultTablePlugin({
     type: BLOCKS.TABLE,
     handlers: {
       onKeyDown: createTableOnKeyDown,
     },
     withOverrides: (editor) => {
-      addTableTrackingEvents(editor, tracking);
+      addTableTrackingEvents(editor);
 
       const { insertFragment } = editor;
 

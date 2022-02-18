@@ -4,23 +4,21 @@ import isHotkey from 'is-hotkey';
 
 import { isBlockSelected, isInlineOrText } from '../../helpers/editor';
 import { transformLift, transformUnwrap } from '../../helpers/transformers';
-import { TrackingProvider } from '../../TrackingProvider';
 import { RichTextPlugin } from '../../types';
 import { HeadingComponents } from './components/Heading';
 
-const buildHeadingEventHandler =
-  (tracking: TrackingProvider, type: BLOCKS) => (editor, plugin) => (event) => {
-    if (!editor.selection || !isHotkey(plugin.options.hotkey, event)) {
-      return;
-    }
+const buildHeadingEventHandler = (type: BLOCKS) => (editor, plugin) => (event) => {
+  if (!editor.selection || !isHotkey(plugin.options.hotkey, event)) {
+    return;
+  }
 
-    const isActive = isBlockSelected(editor, type);
-    tracking.onShortcutAction(isActive ? 'remove' : 'insert', { nodeType: type });
+  const isActive = isBlockSelected(editor, type);
+  editor.tracking?.onShortcutAction(isActive ? 'remove' : 'insert', { nodeType: type });
 
-    toggleNodeType(editor, { activeType: type, inactiveType: BLOCKS.PARAGRAPH });
-  };
+  toggleNodeType(editor, { activeType: type, inactiveType: BLOCKS.PARAGRAPH });
+};
 
-export const createHeadingPlugin = (tracking: TrackingProvider): RichTextPlugin => ({
+export const createHeadingPlugin = (): RichTextPlugin => ({
   key: 'HeadingPlugin',
   softBreak: [
     // create a new line with SHIFT+Enter inside a heading
@@ -80,7 +78,7 @@ export const createHeadingPlugin = (tracking: TrackingProvider): RichTextPlugin 
         hotkey: [`mod+alt+${level}`],
       },
       handlers: {
-        onKeyDown: buildHeadingEventHandler(tracking, nodeType),
+        onKeyDown: buildHeadingEventHandler(nodeType),
       },
       deserializeHtml: {
         rules: [

@@ -19,7 +19,7 @@ export function Underline(props: Slate.RenderLeafProps) {
   return <u {...props.attributes}>{props.children}</u>;
 }
 
-export const createUnderlinePlugin = (tracking: TrackingProvider): RichTextPlugin =>
+export const createUnderlinePlugin = (): RichTextPlugin =>
   createDefaultUnderlinePlugin({
     type: MARKS.UNDERLINE,
     component: Underline,
@@ -27,7 +27,7 @@ export const createUnderlinePlugin = (tracking: TrackingProvider): RichTextPlugi
       hotkey: ['mod+u'],
     },
     handlers: {
-      onKeyDown: buildMarkEventHandler(tracking, MARKS.UNDERLINE),
+      onKeyDown: buildMarkEventHandler(MARKS.UNDERLINE),
     },
     deserializeHtml: {
       rules: [

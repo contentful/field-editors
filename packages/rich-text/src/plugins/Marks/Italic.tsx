@@ -30,7 +30,7 @@ export function Italic(props: Slate.RenderLeafProps) {
   );
 }
 
-export const createItalicPlugin = (tracking: TrackingProvider): RichTextPlugin =>
+export const createItalicPlugin = (): RichTextPlugin =>
   createDefaultItalicPlugin({
     type: MARKS.ITALIC,
     component: Italic,
@@ -38,7 +38,7 @@ export const createItalicPlugin = (tracking: TrackingProvider): RichTextPlugin =
       hotkey: ['mod+i'],
     },
     handlers: {
-      onKeyDown: buildMarkEventHandler(tracking, MARKS.ITALIC),
+      onKeyDown: buildMarkEventHandler(MARKS.ITALIC),
     },
     deserializeHtml: {
       rules: [

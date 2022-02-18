@@ -7,7 +7,6 @@ import isHotkey from 'is-hotkey';
 import { Transforms } from 'slate';
 
 import { getNodeEntryFromSelection } from '../../helpers/editor';
-import { TrackingProvider } from '../../TrackingProvider';
 import { RichTextPlugin, CustomElement } from '../../types';
 import { withLinkTracking } from '../links-tracking';
 import { LinkedEntityBlock } from './LinkedEntityBlock';
@@ -22,8 +21,7 @@ const entityTypes = {
 
 function getWithEmbeddedEntityEvents(
   nodeType: BLOCKS.EMBEDDED_ENTRY | BLOCKS.EMBEDDED_ASSET,
-  sdk: FieldExtensionSDK,
-  tracking: TrackingProvider
+  sdk: FieldExtensionSDK
 ): KeyboardHandler<{}, HotkeyPlugin> {
   return (editor, { options: { hotkey } }) =>
     (event: KeyboardEvent) => {
@@ -42,22 +40,22 @@ function getWithEmbeddedEntityEvents(
       }
 
       if (hotkey && isHotkey(hotkey, event)) {
-        selectEntityAndInsert(nodeType, sdk, editor, tracking.onShortcutAction);
+        selectEntityAndInsert(nodeType, sdk, editor, editor.tracking?.onShortcutAction);
       }
     };
 }
 
 const createEmbeddedEntityPlugin =
   (nodeType: BLOCKS.EMBEDDED_ENTRY | BLOCKS.EMBEDDED_ASSET, hotkey: string) =>
-  (sdk: FieldExtensionSDK, tracking: TrackingProvider): RichTextPlugin => ({
+  (sdk: FieldExtensionSDK): RichTextPlugin => ({
     key: nodeType,
     type: nodeType,
     isElement: true,
     isVoid: true,
-    component: withLinkTracking(tracking, LinkedEntityBlock),
+    component: withLinkTracking(LinkedEntityBlock),
     options: { hotkey },
     handlers: {
-      onKeyDown: getWithEmbeddedEntityEvents(nodeType, sdk, tracking),
+      onKeyDown: getWithEmbeddedEntityEvents(nodeType, sdk),
     },
     deserializeHtml: {
       rules: [

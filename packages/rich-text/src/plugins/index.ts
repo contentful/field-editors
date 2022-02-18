@@ -40,25 +40,28 @@ export const getPlugins = (
   createDeserializeAstPlugin(),
   createDeserializeDocxPlugin(),
 
-  // Global shortcuts
+  // Tracking - This should come first so all plugins below will have access to `editor.tracking`
+  createTrackingPlugin(tracking),
+
+  // Global / Global shortcuts
   createDragAndDropPlugin(),
 
   // Block Elements
   createParagraphPlugin(),
   createListPlugin(),
   createHrPlugin(),
-  createHeadingPlugin(tracking),
-  createQuotePlugin(tracking),
-  createTablePlugin(tracking),
-  createEmbeddedEntryBlockPlugin(sdk, tracking),
-  createEmbeddedAssetBlockPlugin(sdk, tracking),
+  createHeadingPlugin(),
+  createQuotePlugin(),
+  createTablePlugin(),
+  createEmbeddedEntryBlockPlugin(sdk),
+  createEmbeddedAssetBlockPlugin(sdk),
 
   // Inline elements
-  createHyperlinkPlugin(sdk, tracking),
-  createEmbeddedEntityInlinePlugin(sdk, tracking),
+  createHyperlinkPlugin(sdk),
+  createEmbeddedEntityInlinePlugin(sdk),
 
   // Marks
-  createMarksPlugin(tracking),
+  createMarksPlugin(),
 
   // Other
   createTrailingParagraphPlugin(),
@@ -68,9 +71,6 @@ export const getPlugins = (
 
   // Pasting content from other sources
   createPasteHTMLPlugin(),
-
-  // Misc.
-  createTrackingPlugin(tracking),
 
   // These plugins drive their configurations from the list of plugins
   // above. They MUST come last.

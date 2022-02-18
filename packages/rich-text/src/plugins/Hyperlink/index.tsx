@@ -14,7 +14,7 @@ import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { isLinkActive, unwrapLink } from '../../helpers/editor';
 import { transformRemove } from '../../helpers/transformers';
 import { useSdkContext } from '../../SdkProvider';
-import { TrackingProvider, useTrackingContext } from '../../TrackingProvider';
+import { useTrackingContext } from '../../TrackingProvider';
 import { RichTextPlugin, CustomRenderElementProps, CustomElement } from '../../types';
 import { withLinkTracking } from '../links-tracking';
 import { ToolbarButton } from '../shared/ToolbarButton';
@@ -197,7 +197,7 @@ const isAssetAnchor = (element: HTMLElement) =>
   element.nodeName === 'A' && element.getAttribute('data-link-type') === 'Asset';
 
 const buildHyperlinkEventHandler =
-  (sdk: FieldExtensionSDK, tracking: TrackingProvider): KeyboardHandler<{}, HotkeyPlugin> =>
+  (sdk: FieldExtensionSDK): KeyboardHandler<{}, HotkeyPlugin> =>
   (editor, { options: { hotkey } }) => {
     return (event: React.KeyboardEvent) => {
       if (!editor.selection) {
@@ -210,9 +210,9 @@ const buildHyperlinkEventHandler =
 
       if (isLinkActive(editor)) {
         unwrapLink(editor);
-        tracking.onShortcutAction('unlinkHyperlinks');
+        editor.tracking?.onShortcutAction('unlinkHyperlinks');
       } else {
-        addOrEditLink(editor, sdk, tracking.onShortcutAction);
+        addOrEditLink(editor, sdk, editor.tracking?.onShortcutAction);
       }
     };
   };
@@ -238,10 +238,7 @@ const getNodeOfType =
           },
   });
 
-export const createHyperlinkPlugin = (
-  sdk: FieldExtensionSDK,
-  tracking: TrackingProvider
-): RichTextPlugin => {
+export const createHyperlinkPlugin = (sdk: FieldExtensionSDK): RichTextPlugin => {
   const common: Partial<RichTextPlugin> = {
     isElement: true,
     isInline: true,
@@ -253,7 +250,7 @@ export const createHyperlinkPlugin = (
       hotkey: 'mod+k',
     },
     handlers: {
-      onKeyDown: buildHyperlinkEventHandler(sdk, tracking),
+      onKeyDown: buildHyperlinkEventHandler(sdk),
     },
     plugins: [
       // URL Hyperlink
@@ -277,7 +274,7 @@ export const createHyperlinkPlugin = (
         ...common,
         key: INLINES.ENTRY_HYPERLINK,
         type: INLINES.ENTRY_HYPERLINK,
-        component: withLinkTracking(tracking, EntityHyperlink),
+        component: withLinkTracking(EntityHyperlink),
         deserializeHtml: {
           rules: [
             {
@@ -293,7 +290,7 @@ export const createHyperlinkPlugin = (
         ...common,
         key: INLINES.ASSET_HYPERLINK,
         type: INLINES.ASSET_HYPERLINK,
-        component: withLinkTracking(tracking, EntityHyperlink),
+        component: withLinkTracking(EntityHyperlink),
         deserializeHtml: {
           rules: [
             {

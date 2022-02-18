@@ -173,10 +173,7 @@ export function ToolbarEmbeddedEntityInlineButton(props: ToolbarEmbeddedEntityIn
   );
 }
 
-export function createEmbeddedEntityInlinePlugin(
-  sdk: FieldExtensionSDK,
-  tracking: TrackingProvider
-): RichTextPlugin {
+export function createEmbeddedEntityInlinePlugin(sdk: FieldExtensionSDK): RichTextPlugin {
   const htmlAttributeName = 'data-embedded-entity-inline-id';
 
   return {
@@ -185,12 +182,12 @@ export function createEmbeddedEntityInlinePlugin(
     isElement: true,
     isInline: true,
     isVoid: true,
-    component: withLinkTracking(tracking, EmbeddedEntityInline),
+    component: withLinkTracking(EmbeddedEntityInline),
     options: {
       hotkey: 'mod+shift+2',
     },
     handlers: {
-      onKeyDown: getWithEmbeddedEntryInlineEvents(sdk, tracking),
+      onKeyDown: getWithEmbeddedEntryInlineEvents(sdk),
     },
     deserializeHtml: {
       rules: [
@@ -206,15 +203,14 @@ export function createEmbeddedEntityInlinePlugin(
 }
 
 function getWithEmbeddedEntryInlineEvents(
-  sdk: FieldExtensionSDK,
-  tracking: TrackingProvider
+  sdk: FieldExtensionSDK
 ): KeyboardHandler<{}, HotkeyPlugin> {
   return function withEmbeddedEntryInlineEvents(editor, { options: { hotkey } }) {
     return function handleEvent(event) {
       if (!editor) return;
 
       if (hotkey && isHotkey(hotkey, event)) {
-        selectEntityAndInsert(editor, sdk, tracking.onShortcutAction);
+        selectEntityAndInsert(editor, sdk, editor.tracking?.onShortcutAction);
       }
     };
   };

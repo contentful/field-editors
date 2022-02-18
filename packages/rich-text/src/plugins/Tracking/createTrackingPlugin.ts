@@ -20,6 +20,8 @@ export const createTrackingPlugin = (tracking: TrackingProvider): RichTextPlugin
   withOverrides: (editor) => {
     const { insertData } = editor;
 
+    editor.tracking = tracking;
+
     editor.insertData = (data) => {
       const isCopyAndPaste = data.types.length !== 0;
       if (isCopyAndPaste) {
