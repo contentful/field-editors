@@ -1,7 +1,6 @@
 import { BLOCKS } from '@contentful/rich-text-types';
-import { PlateEditor } from '@udecode/plate-core';
 
-import { CustomElement } from '../../types';
+import { CustomElement, RichTextEditor } from '../../types';
 
 function hasTables(nodes: CustomElement[]) {
   return nodes.some(({ type }) => {
@@ -18,7 +17,7 @@ function hasHeadersOutsideFirstRow(nodes: CustomElement[]) {
     .some(({ children }) => (children as CustomElement[]).some(isTableHeaderCell));
 }
 
-export function addTableTrackingEvents(editor: PlateEditor) {
+export function addTableTrackingEvents(editor: RichTextEditor) {
   const { insertData } = editor;
   editor.insertData = (data: DataTransfer) => {
     const html = data.getData('text/html');

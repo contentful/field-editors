@@ -1,13 +1,13 @@
 import { FieldExtensionSDK } from '@contentful/app-sdk';
-import { createPlateEditor, PlateEditor } from '@udecode/plate-core';
+import { createPlateEditor } from '@udecode/plate-core';
 import { Editor } from 'slate';
 
 import { getPlugins } from '../plugins';
 import { TrackingProvider } from '../TrackingProvider';
-import { RichTextPlugin } from '../types';
+import { RichTextEditor, RichTextPlugin } from '../types';
 import { randomId } from './randomId';
 
-export const normalize = (editor: PlateEditor) => {
+export const normalize = (editor: RichTextEditor) => {
   Editor.normalize(editor, { force: true });
 };
 

@@ -1,12 +1,11 @@
 import * as contentfulSlateJSAdapter from '@contentful/contentful-slatejs-adapter';
 import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
-import { PlateEditor } from '@udecode/plate-core';
 
 import Schema from '../../constants/Schema';
 import { TrackingProvider } from '../../TrackingProvider';
-import { RichTextPlugin } from '../../types';
+import { RichTextEditor, RichTextPlugin } from '../../types';
 
-function getCharacterCount(editor: PlateEditor) {
+function getCharacterCount(editor: RichTextEditor) {
   const document = contentfulSlateJSAdapter.toContentfulDocument({
     document: editor.children,
     schema: Schema,

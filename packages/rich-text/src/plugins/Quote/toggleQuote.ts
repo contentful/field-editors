@@ -1,14 +1,14 @@
 import { BLOCKS } from '@contentful/rich-text-types';
-import { HotkeyPlugin, KeyboardHandler, PlateEditor } from '@udecode/plate-core';
+import { HotkeyPlugin, KeyboardHandler } from '@udecode/plate-core';
 import isHotkey from 'is-hotkey';
 import { Transforms, Element, Editor } from 'slate';
 import { TrackingProvider } from 'TrackingProvider';
 
 import { isBlockSelected } from '../../helpers/editor';
-import { CustomElement } from '../../types';
+import { CustomElement, RichTextEditor } from '../../types';
 
 export function toggleQuote(
-  editor: PlateEditor,
+  editor: RichTextEditor,
   logAction: TrackingProvider['onShortcutAction'] | TrackingProvider['onToolbarAction']
 ): void {
   if (!editor.selection) return;

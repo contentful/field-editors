@@ -3,7 +3,7 @@ import React from 'react';
 import { IconButton, Menu } from '@contentful/f36-components';
 import { ChevronDownIcon } from '@contentful/f36-icons';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { PlateEditor, getAbove } from '@udecode/plate-core';
+import { getAbove } from '@udecode/plate-core';
 import { TablePluginOptions, deleteColumn, deleteRow, deleteTable } from '@udecode/plate-table';
 import { css } from 'emotion';
 import { Editor } from 'slate';
@@ -12,6 +12,7 @@ import * as Slate from 'slate-react';
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
 import { getNodeEntryFromSelection, getTableSize } from '../../../helpers/editor';
 import { RichTextTrackingActionName, useTrackingContext } from '../../../TrackingProvider';
+import { RichTextEditor } from '../../../types';
 import { addRowAbove, addColumnLeft, addColumnRight, addRowBelow, setHeader } from '../actions';
 import { isTableHeaderEnabled } from '../helpers';
 
@@ -24,13 +25,13 @@ export const styles = {
 };
 
 const getCurrentTableSize = (
-  editor: PlateEditor
+  editor: RichTextEditor
 ): Record<'numRows' | 'numColumns', number> | null => {
   const [table] = getNodeEntryFromSelection(editor, BLOCKS.TABLE);
   return table ? getTableSize(table) : null;
 };
 
-type TableAction = (editor: PlateEditor, options: TablePluginOptions) => void;
+type TableAction = (editor: RichTextEditor, options: TablePluginOptions) => void;
 
 export const TableActions = () => {
   const editor = useContentfulEditor();
