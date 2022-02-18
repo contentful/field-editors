@@ -1577,7 +1577,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
       cy.reload();
 
-      // The field value in this case will still be untouched (i.e. invalid)
+      // The field value in this case will still be untouched (i.e. unnormalized)
       // since we won't trigger onChange.
       richText.expectValue(emptyDocument);
 
