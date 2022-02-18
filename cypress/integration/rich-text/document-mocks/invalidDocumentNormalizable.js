@@ -1,7 +1,4 @@
 // This document contains errors that must be solved with normalization:
-// - lists with no items
-// - list items with no paragraph
-
 export default {
   nodeType: 'document',
   data: {},
@@ -12,21 +9,64 @@ export default {
       content: [
         {
           nodeType: 'text',
-          value: 'test',
+          value: '',
           marks: [],
           data: {},
         },
-      ],
-    },
-    {
-      nodeType: 'paragraph',
-      data: {},
-      content: [],
-    },
-    {
-      nodeType: 'paragraph',
-      data: {},
-      content: [
+
+        // hyperlink with an empty text node
+        {
+          nodeType: 'hyperlink',
+          data: {
+            uri: 'https://exmaple.com',
+          },
+          content: [
+            {
+              nodeType: 'text',
+              value: '',
+              marks: [],
+              data: {},
+            },
+          ],
+        },
+
+        // Hyperlink without a text node
+        {
+          nodeType: 'hyperlink',
+          data: {
+            uri: 'https://exmaple.com',
+          },
+          content: [],
+        },
+
+        // Hyperlink with multiple text nodes without marks
+        {
+          nodeType: 'hyperlink',
+          data: {
+            uri: 'https://exmaple.com',
+          },
+          content: [
+            {
+              nodeType: 'text',
+              value: 'This ',
+              marks: [],
+              data: {},
+            },
+            {
+              nodeType: 'text',
+              value: 'is a ',
+              marks: [],
+              data: {},
+            },
+            {
+              nodeType: 'text',
+              value: 'hyperlink',
+              marks: [],
+              data: {},
+            },
+          ],
+        },
+
         {
           nodeType: 'text',
           value: '',
@@ -35,6 +75,105 @@ export default {
         },
       ],
     },
+
+    // paragraphs/headings without text nodes
+    {
+      nodeType: 'paragraph',
+      data: {},
+      content: [],
+    },
+    {
+      nodeType: 'heading-1',
+      data: {},
+      content: [],
+    },
+
+    // Paragraph with multiple text nodes without marks
+    {
+      nodeType: 'paragraph',
+      data: {},
+      content: [
+        {
+          nodeType: 'text',
+          value: 'This is ',
+          marks: [],
+          data: {},
+        },
+        {
+          nodeType: 'text',
+          value: '',
+          marks: [],
+          data: {},
+        },
+        {
+          nodeType: 'text',
+          value: 'a paragraph',
+          marks: [],
+          data: {},
+        },
+      ],
+    },
+
+    // Custom marks
+    {
+      nodeType: 'paragraph',
+      data: {},
+      content: [
+        {
+          nodeType: 'text',
+          value: 'Text with custom marks',
+          marks: [
+            {
+              type: 'bold',
+            },
+            {
+              type: 'superscript',
+            },
+            {
+              type: 'banana',
+            },
+          ],
+          data: {},
+        },
+      ],
+    },
+
+    // blockquote without paragraphs
+    {
+      nodeType: 'blockquote',
+      data: {},
+      content: [],
+    },
+
+    // ol/ul with empty array of list items
+    {
+      nodeType: 'unordered-list',
+      data: {},
+      content: [],
+    },
+    {
+      nodeType: 'ordered-list',
+      data: {},
+      content: [],
+    },
+
+    // list items with empty array of child nodes
+    {
+      nodeType: 'unordered-list',
+      data: {},
+      content: [
+        {
+          nodeType: 'list-item',
+          data: {},
+          content: [],
+        },
+      ],
+    },
+
+    // list > li with the following children:
+    // 1. p
+    // 2. ul
+    // 3. blockquote
     {
       nodeType: 'unordered-list',
       data: {},
@@ -49,65 +188,221 @@ export default {
               content: [
                 {
                   nodeType: 'text',
-                  value: 'unordered list first item',
+                  value: 'paragraph inside list item',
                   marks: [],
                   data: {},
                 },
               ],
             },
-          ],
-        },
-        {
-          nodeType: 'list-item',
-          data: {},
-          content: [
+
             {
-              nodeType: 'paragraph',
+              nodeType: 'unordered-list',
               data: {},
               content: [
                 {
-                  nodeType: 'text',
-                  value: 'unordered list second item',
-                  marks: [],
+                  nodeType: 'list-item',
                   data: {},
+                  content: [
+                    {
+                      nodeType: 'paragraph',
+                      data: {},
+                      content: [
+                        {
+                          nodeType: 'text',
+                          value: 'paragraph inside a nested list',
+                          marks: [],
+                          data: {},
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+
+            {
+              nodeType: 'blockquote',
+              data: {},
+              content: [
+                {
+                  nodeType: 'paragraph',
+                  data: {},
+                  content: [
+                    {
+                      nodeType: 'text',
+                      value: 'blockquote inside list item',
+                      marks: [],
+                      data: {},
+                    },
+                  ],
                 },
               ],
             },
           ],
         },
-        {
-          nodeType: 'list-item',
-          data: {},
-          content: [],
-        },
       ],
     },
+
+    // Table cell with paragraph without text node
     {
-      nodeType: 'paragraph',
+      nodeType: 'table',
       data: {},
       content: [
         {
-          nodeType: 'text',
-          value: '',
-          marks: [],
+          nodeType: 'table-row',
           data: {},
+          content: [
+            {
+              nodeType: 'table-cell',
+              data: {},
+              content: [
+                {
+                  nodeType: 'paragraph',
+                  data: {},
+                  content: [],
+                },
+              ],
+            },
+          ],
         },
       ],
     },
+
+    // Table with variable size rows
     {
-      nodeType: 'ordered-list',
-      data: {},
-      content: [],
-    },
-    {
-      nodeType: 'paragraph',
+      nodeType: 'table',
       data: {},
       content: [
+        // 1 cell in a row
         {
-          nodeType: 'text',
-          value: '',
-          marks: [],
+          nodeType: 'table-row',
           data: {},
+          content: [
+            {
+              nodeType: 'table-cell',
+              data: {},
+              content: [
+                {
+                  nodeType: 'paragraph',
+                  data: {},
+                  content: [
+                    {
+                      nodeType: 'text',
+                      value: 'cell #1',
+                      marks: [],
+                      data: {},
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+
+        // 3 cells in a row
+        {
+          nodeType: 'table-row',
+          data: {},
+          content: [
+            {
+              nodeType: 'table-cell',
+              data: {},
+              content: [
+                {
+                  nodeType: 'paragraph',
+                  data: {},
+                  content: [
+                    {
+                      nodeType: 'text',
+                      value: 'cell #2',
+                      marks: [],
+                      data: {},
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              nodeType: 'table-cell',
+              data: {},
+              content: [
+                {
+                  nodeType: 'paragraph',
+                  data: {},
+                  content: [
+                    {
+                      nodeType: 'text',
+                      value: 'cell #3',
+                      marks: [],
+                      data: {},
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              nodeType: 'table-cell',
+              data: {},
+              content: [
+                {
+                  nodeType: 'paragraph',
+                  data: {},
+                  content: [
+                    {
+                      nodeType: 'text',
+                      value: 'cell #4',
+                      marks: [],
+                      data: {},
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+
+        // 2 cells in a row
+        {
+          nodeType: 'table-row',
+          data: {},
+          content: [
+            {
+              nodeType: 'table-cell',
+              data: {},
+              content: [
+                {
+                  nodeType: 'paragraph',
+                  data: {},
+                  content: [
+                    {
+                      nodeType: 'text',
+                      value: 'cell #5',
+                      marks: [],
+                      data: {},
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              nodeType: 'table-cell',
+              data: {},
+              content: [
+                {
+                  nodeType: 'paragraph',
+                  data: {},
+                  content: [
+                    {
+                      nodeType: 'text',
+                      value: 'cell #6',
+                      marks: [],
+                      data: {},
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
         },
       ],
     },

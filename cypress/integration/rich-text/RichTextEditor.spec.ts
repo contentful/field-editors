@@ -1566,13 +1566,73 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
   });
 
   describe('invalid document structure', () => {
-    describe('normalizable errors', () => {
-      it('does not throw', () => {
-        cy.setInitialValue(invalidDocumentNormalizable);
-        cy.reload();
-        //check that editors content is what we expect (not a thrown error)
-        richText.expectSnapshotValue();
-      });
+    it('accepts document with no content', () => {
+      const docWithoutContent = {
+        nodeType: 'document',
+        data: {},
+        content: [],
+      };
+
+      cy.setInitialValue(docWithoutContent);
+
+      cy.reload();
+
+      // The field value in this case will still be untouched (i.e. un-normalized)
+      // since we won't trigger onChange.
+      richText.expectValue(docWithoutContent);
+
+      // Initial normalization should not invoke onChange
+      cy.editorEvents()
+        .then((events) => events.filter((e) => e.type === 'onValueChanged'))
+        .should('deep.equal', []);
+
+      // We can adjust the content
+      richText.editor.type('it works');
+      richText.expectValue(doc(paragraphWithText('it works')));
+    });
+
+    it('runs initial normalization without triggering a value change', () => {
+      cy.setInitialValue(invalidDocumentNormalizable);
+
+      cy.clock();
+
+      cy.reload();
+
+      // Should render normalized content
+      richText.editor.should('contain.text', 'This is a hyperlink');
+      richText.editor.should('contain.text', 'This is a paragraph');
+      richText.editor.should('contain.text', 'Text with custom marks');
+
+      richText.editor.should('contain.text', 'paragraph inside list item');
+      richText.editor.should('contain.text', 'paragraph inside a nested list');
+      richText.editor.should('contain.text', 'blockquote inside list item');
+
+      richText.editor.should('contain.text', 'cell #1');
+      richText.editor.should('contain.text', 'cell #2');
+      richText.editor.should('contain.text', 'cell #3');
+      richText.editor.should('contain.text', 'cell #4');
+      richText.editor.should('contain.text', 'cell #5');
+      richText.editor.should('contain.text', 'cell #6');
+
+      // Wait for any debounce logic that we may have
+      cy.tick(5000);
+
+      // The field value in this case will still be untouched (i.e. un-normalized)
+      // since we won't trigger onChange.
+      richText.expectValue(invalidDocumentNormalizable);
+
+      // Initial normalization should not invoke onChange
+      cy.editorEvents()
+        .then((events) => events.filter((e) => e.type === 'onValueChanged'))
+        .should('deep.equal', []);
+
+      // Trigger normalization by changing the editor content
+      richText.editor.type('end');
+
+      // Wait for any debounce logic that we may have
+      cy.tick(5000);
+
+      richText.expectSnapshotValue();
     });
   });
 });

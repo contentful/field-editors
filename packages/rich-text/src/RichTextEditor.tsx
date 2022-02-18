@@ -1,24 +1,18 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
-import { toContentfulDocument, toSlatejsDocument } from '@contentful/contentful-slatejs-adapter';
+import { toContentfulDocument } from '@contentful/contentful-slatejs-adapter';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import * as Contentful from '@contentful/rich-text-types';
-import { Plate, PlateProps } from '@udecode/plate-core';
+import { Plate } from '@udecode/plate-core';
 import { css, cx } from 'emotion';
 import deepEquals from 'fast-deep-equal';
 import noop from 'lodash/noop';
-import { Editor } from 'slate';
 
 import schema from './constants/Schema';
-import {
-  ContentfulEditorProvider,
-  getContentfulEditorId,
-  useContentfulEditor,
-} from './ContentfulEditorProvider';
-import { sanitizeIncomingSlateDoc } from './helpers/sanitizeSlateDoc';
-import { disableCorePlugins, getPlugins } from './plugins';
+import { ContentfulEditorProvider, getContentfulEditorId } from './ContentfulEditorProvider';
+import { getPlugins, disableCorePlugins } from './plugins';
 import { styles } from './RichTextEditor.styles';
 import { SdkProvider } from './SdkProvider';
 import Toolbar from './Toolbar';
@@ -28,7 +22,7 @@ import {
   TrackingProvider,
   useTrackingContext,
 } from './TrackingProvider';
-import { TextOrCustomElement } from './types';
+import { useNormalizedSlateValue } from './useNormalizedSlateValue';
 
 type ConnectedProps = {
   sdk: FieldExtensionSDK;
@@ -42,11 +36,16 @@ type ConnectedProps = {
 };
 
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
+  const id = getContentfulEditorId(props.sdk);
+
   const tracking = useTrackingContext();
+  const plugins = React.useMemo(() => getPlugins(props.sdk, tracking), [props.sdk, tracking]);
 
-  const editor = useContentfulEditor();
-
-  const [value, setValue] = useState<PlateProps['value']>([]);
+  const initialValue = useNormalizedSlateValue({
+    id,
+    incomingDoc: props.value,
+    plugins,
+  });
 
   const classNames = cx(
     styles.editor,
@@ -55,44 +54,19 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
     props.isToolbarHidden && styles.hiddenToolbar
   );
 
-  const plugins = React.useMemo(() => getPlugins(props.sdk, tracking), [props.sdk, tracking]);
-
-  React.useEffect(() => {
-    if (!editor) {
-      return;
-    }
-
-    const docFromAdapter = toSlatejsDocument({
-      document: props.value || Contentful.EMPTY_DOCUMENT,
-      schema,
-    });
-    const doc = sanitizeIncomingSlateDoc(docFromAdapter);
-
-    // Slate throws an error if the value on the initial render is invalid
-    // so we directly set the value on the editor in order
-    // to be able to trigger normalization on the initial value before rendering
-    // TODO: use https://plate.udecode.io/docs/Plate#normalizeinitialvalue when working
-    editor.children = doc;
-    Editor.normalize(editor, { force: true });
-    // We set the value so that the rendering can take over from here
-    setValue(editor.children);
-  }, [props.value, editor]);
-
   return (
     <div className={styles.root} data-test-id="rich-text-editor">
       <Plate
-        id={getContentfulEditorId(props.sdk)}
-        value={value}
+        id={id}
+        initialValue={initialValue}
         plugins={plugins}
         disableCorePlugins={disableCorePlugins}
         editableProps={{
           className: classNames,
           readOnly: props.isDisabled,
         }}
-        onChange={(slateDoc) => {
-          setValue(slateDoc as TextOrCustomElement[]);
-          const contentfulDoc = toContentfulDocument({ document: slateDoc, schema });
-          props.onChange?.(contentfulDoc);
+        onChange={(document) => {
+          props.onChange?.(toContentfulDocument({ document, schema }));
         }}>
         {!props.isToolbarHidden && (
           <StickyToolbarWrapper isDisabled={props.isDisabled}>

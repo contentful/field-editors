@@ -1,4 +1,4 @@
-import { WithOverride, match, getPluginType } from '@udecode/plate-core';
+import { match, getPluginType, PlateEditor } from '@udecode/plate-core';
 import isPlainObject from 'is-plain-obj';
 import { Editor, NodeEntry } from 'slate';
 
@@ -13,7 +13,7 @@ import {
   createTransformerFromObject,
 } from './utils';
 
-export const withNormalizer: WithOverride = (editor) => {
+export const withNormalizer = (editor: PlateEditor) => {
   const rules: Required<NormalizerRule>[] = baseRules;
 
   // Drive normalization rules from other plugin's configurations
