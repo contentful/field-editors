@@ -1567,7 +1567,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
   describe('invalid document structure', () => {
     it('accepts document with no content', () => {
-      const emptyDocument = {
+      const docWithoutContent = {
         nodeType: 'document',
         data: {},
         content: [],
