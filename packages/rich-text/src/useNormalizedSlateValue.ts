@@ -23,7 +23,7 @@ export type NormalizedSlateValueProps = {
  *
  * Rendering such document will break the Slate editor
  */
-const isValidDocument = (doc?: Document) => {
+const hasContent = (doc?: Document) => {
   if (!doc) {
     return false;
   }
@@ -44,7 +44,7 @@ export const useNormalizedSlateValue = ({
     });
 
     const doc = toSlatejsDocument({
-      document: isValidDocument(incomingDoc) ? incomingDoc : EMPTY_DOCUMENT,
+      document: hasContent(incomingDoc) ? incomingDoc : EMPTY_DOCUMENT,
       schema,
     });
 

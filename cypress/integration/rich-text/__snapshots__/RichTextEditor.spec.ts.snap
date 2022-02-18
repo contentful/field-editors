@@ -367,3 +367,431 @@ exports[`Rich Text Editor > New Line > in a list > should add a new line after e
   "data": {},
   "nodeType": "document"
 };
+
+exports[`Rich Text Editor > invalid document structure > runs initial normalization without triggering a value change #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        },
+        {
+          "content": [
+            {
+              "data": {},
+              "marks": [],
+              "nodeType": "text",
+              "value": "This is a hyperlink"
+            }
+          ],
+          "data": {
+            "uri": "https://exmaple.com"
+          },
+          "nodeType": "hyperlink"
+        },
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "heading-1"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": "This is a paragraph"
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [
+            {
+              "type": "bold"
+            },
+            {
+              "type": "superscript"
+            },
+            {
+              "type": "banana"
+            }
+          ],
+          "nodeType": "text",
+          "value": "Text with custom marks"
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    },
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "data": {},
+              "marks": [],
+              "nodeType": "text",
+              "value": ""
+            }
+          ],
+          "data": {},
+          "nodeType": "paragraph"
+        }
+      ],
+      "data": {},
+      "nodeType": "blockquote"
+    },
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": ""
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            }
+          ],
+          "data": {},
+          "nodeType": "list-item"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "paragraph inside list item"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": [
+                        {
+                          "data": {},
+                          "marks": [],
+                          "nodeType": "text",
+                          "value": "paragraph inside a nested list"
+                        }
+                      ],
+                      "data": {},
+                      "nodeType": "paragraph"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "list-item"
+                }
+              ],
+              "data": {},
+              "nodeType": "unordered-list"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "blockquote inside list item"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "blockquote"
+            }
+          ],
+          "data": {},
+          "nodeType": "list-item"
+        }
+      ],
+      "data": {},
+      "nodeType": "unordered-list"
+    },
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": ""
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        }
+      ],
+      "data": {},
+      "nodeType": "table"
+    },
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "cell #1"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": ""
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": ""
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "cell #2"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "cell #3"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "cell #4"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "cell #5"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "cell #6"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": ""
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        }
+      ],
+      "data": {},
+      "nodeType": "table"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": "end"
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
