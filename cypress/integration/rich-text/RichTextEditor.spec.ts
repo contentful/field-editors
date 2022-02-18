@@ -1599,6 +1599,11 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       richText.editor.should('contain.text', 'This is a hyperlink');
       richText.editor.should('contain.text', 'This is a paragraph');
       richText.editor.should('contain.text', 'Text with custom marks');
+
+      richText.editor.should('contain.text', 'paragraph inside list item');
+      richText.editor.should('contain.text', 'paragraph inside a nested list');
+      richText.editor.should('contain.text', 'blockquote inside list item');
+
       richText.editor.should('contain.text', 'cell #1');
       richText.editor.should('contain.text', 'cell #2');
       richText.editor.should('contain.text', 'cell #3');

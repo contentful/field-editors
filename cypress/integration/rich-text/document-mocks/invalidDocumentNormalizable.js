@@ -170,6 +170,79 @@ export default {
       ],
     },
 
+    // list > li with the following children:
+    // 1. p
+    // 2. ul
+    // 3. blockquote
+    {
+      nodeType: 'unordered-list',
+      data: {},
+      content: [
+        {
+          nodeType: 'list-item',
+          data: {},
+          content: [
+            {
+              nodeType: 'paragraph',
+              data: {},
+              content: [
+                {
+                  nodeType: 'text',
+                  value: 'paragraph inside list item',
+                  marks: [],
+                  data: {},
+                },
+              ],
+            },
+
+            {
+              nodeType: 'unordered-list',
+              data: {},
+              content: [
+                {
+                  nodeType: 'list-item',
+                  data: {},
+                  content: [
+                    {
+                      nodeType: 'paragraph',
+                      data: {},
+                      content: [
+                        {
+                          nodeType: 'text',
+                          value: 'paragraph inside a nested list',
+                          marks: [],
+                          data: {},
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+
+            {
+              nodeType: 'blockquote',
+              data: {},
+              content: [
+                {
+                  nodeType: 'paragraph',
+                  data: {},
+                  content: [
+                    {
+                      nodeType: 'text',
+                      value: 'blockquote inside list item',
+                      marks: [],
+                      data: {},
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+
     // Table cell with paragraph without text node
     {
       nodeType: 'table',
