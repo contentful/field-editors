@@ -92,10 +92,11 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
 
         {validationInfo.isAnyBlockFormattingEnabled && <span className={styles.divider} />}
 
+        <ToolbarListButton isDisabled={isDisabled || !canInsertBlocks} />
+
         {isNodeTypeEnabled(sdk.field, BLOCKS.QUOTE) && (
           <ToolbarQuoteButton isDisabled={isDisabled || !canInsertBlocks} />
         )}
-        <ToolbarListButton isDisabled={isDisabled || !canInsertBlocks} />
         {isNodeTypeEnabled(sdk.field, BLOCKS.HR) && (
           <ToolbarHrButton isDisabled={isDisabled || !canInsertBlocks} />
         )}
