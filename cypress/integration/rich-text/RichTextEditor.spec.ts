@@ -150,15 +150,15 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       // type
       richText.editor.click().type('some text.').click();
 
-      richText.expectValue(expectedValue, { id: 31, type: 'setValue' });
+      richText.expectValue(expectedValue);
 
       // undo
       richText.editor.click().type(`{${mod}}z`).click();
-      richText.expectValue(undefined, { id: 35, type: 'removeValue' });
+      richText.expectValue(undefined);
 
       // redo
       richText.editor.click().type(`{${mod}}{shift}z`).click();
-      richText.expectValue(expectedValue, { id: 39, type: 'setValue' });
+      richText.expectValue(expectedValue);
     });
 
     it('correctly undoes after drag&drop', () => {
