@@ -1,9 +1,7 @@
 import { isFirstChild } from '@udecode/plate-core';
-import { Node, Text } from 'slate';
 
 import { isRootLevel } from '../../helpers/editor';
 import { RichTextPlugin } from '../../types';
-import { transformVoid } from './transformVoid';
 
 export const createVoidsPlugin = (): RichTextPlugin => ({
   key: 'VoidsPlugin',
@@ -26,25 +24,6 @@ export const createVoidsPlugin = (): RichTextPlugin => ({
       query: {
         filter: ([node, path]) => !(isRootLevel(path) && isFirstChild(path)) && !!node.isVoid,
       },
-    },
-  ],
-  normalizer: [
-    {
-      match: {
-        isVoid: true,
-      },
-      validNode: (editor, [, path]) => {
-        const children = Array.from(Node.children(editor, path));
-
-        if (children.length !== 1) {
-          return false;
-        }
-
-        const [textNode] = children[0];
-
-        return Text.isText(textNode) && textNode.text === '';
-      },
-      transform: transformVoid,
     },
   ],
 });
