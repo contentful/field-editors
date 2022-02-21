@@ -3,42 +3,18 @@ import * as React from 'react';
 import { FormatBoldIcon } from '@contentful/f36-icons';
 import { MARKS } from '@contentful/rich-text-types';
 import { createBoldPlugin as createDefaultBoldPlugin } from '@udecode/plate-basic-marks';
-import { isMarkActive, toggleMark, someHtmlElement } from '@udecode/plate-core';
+import { someHtmlElement } from '@udecode/plate-core';
 import { css } from 'emotion';
 import * as Slate from 'slate-react';
 
-import { useContentfulEditor } from '../../ContentfulEditorProvider';
-import { focus } from '../../helpers/editor';
 import { RichTextPlugin } from '../../types';
-import { ToolbarButton } from '../shared/ToolbarButton';
+import { createMarkToolbarButton } from './components/MarkToolbarButton';
 
-interface ToolbarBoldButtonProps {
-  isDisabled?: boolean;
-}
-
-export function ToolbarBoldButton(props: ToolbarBoldButtonProps) {
-  const editor = useContentfulEditor();
-
-  function handleClick() {
-    if (!editor?.selection) return;
-
-    toggleMark(editor, { key: MARKS.BOLD });
-    focus(editor);
-  }
-
-  if (!editor) return null;
-
-  return (
-    <ToolbarButton
-      title="Bold"
-      testId="bold-toolbar-button"
-      onClick={handleClick}
-      isActive={isMarkActive(editor, MARKS.BOLD)}
-      isDisabled={props.isDisabled}>
-      <FormatBoldIcon />
-    </ToolbarButton>
-  );
-}
+export const ToolbarBoldButton = createMarkToolbarButton({
+  title: 'Bold',
+  mark: MARKS.BOLD,
+  icon: <FormatBoldIcon />,
+});
 
 const styles = {
   bold: css({

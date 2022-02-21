@@ -3,42 +3,17 @@ import * as React from 'react';
 import { CodeIcon } from '@contentful/f36-icons';
 import { MARKS } from '@contentful/rich-text-types';
 import { createCodePlugin as createDefaultCodePlugin } from '@udecode/plate-basic-marks';
-import { isMarkActive, toggleMark } from '@udecode/plate-core';
 import { css } from 'emotion';
 import * as Slate from 'slate-react';
 
-import { useContentfulEditor } from '../../ContentfulEditorProvider';
-import { focus } from '../../helpers/editor';
 import { RichTextPlugin } from '../../types';
-import { ToolbarButton } from '../shared/ToolbarButton';
+import { createMarkToolbarButton } from './components/MarkToolbarButton';
 
-interface ToolbarCodeButtonProps {
-  isDisabled?: boolean;
-}
-
-export function ToolbarCodeButton(props: ToolbarCodeButtonProps) {
-  const editor = useContentfulEditor();
-
-  function handleClick() {
-    if (!editor?.selection) return;
-
-    toggleMark(editor, { key: MARKS.CODE });
-    focus(editor);
-  }
-
-  if (!editor) return null;
-
-  return (
-    <ToolbarButton
-      title="Code"
-      testId="code-toolbar-button"
-      onClick={handleClick}
-      isActive={isMarkActive(editor, MARKS.CODE)}
-      isDisabled={props.isDisabled}>
-      <CodeIcon />
-    </ToolbarButton>
-  );
-}
+export const ToolbarCodeButton = createMarkToolbarButton({
+  title: 'Code',
+  mark: MARKS.CODE,
+  icon: <CodeIcon />,
+});
 
 const styles = {
   code: css({

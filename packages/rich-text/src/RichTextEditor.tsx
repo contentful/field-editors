@@ -10,9 +10,10 @@ import deepEquals from 'fast-deep-equal';
 import noop from 'lodash/noop';
 
 import {
-  ContentfulEditorProvider,
+  ContentfulEditorIdProvider,
   getContentfulEditorId,
   useContentfulEditor,
+  useContentfulEditorId,
 } from './ContentfulEditorProvider';
 import { getPlugins, disableCorePlugins } from './plugins';
 import { styles } from './RichTextEditor.styles';
@@ -39,7 +40,7 @@ type ConnectedProps = {
 };
 
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
-  const id = getContentfulEditorId(props.sdk);
+  const id = useContentfulEditorId();
   const editor = useContentfulEditor();
 
   const tracking = useTrackingContext();
@@ -93,6 +94,9 @@ const RichTextEditor = (props: Props) => {
     (value) => !value || deepEquals(value, Contentful.EMPTY_DOCUMENT),
     []
   );
+
+  const editorId = getContentfulEditorId(sdk);
+
   return (
     <EntityProvider sdk={sdk}>
       <SdkProvider sdk={sdk}>
@@ -104,7 +108,7 @@ const RichTextEditor = (props: Props) => {
             isEmptyValue={isEmptyValue}
             isEqualValues={deepEquals}>
             {({ lastRemoteValue, disabled, setValue, externalReset }) => (
-              <ContentfulEditorProvider sdk={sdk}>
+              <ContentfulEditorIdProvider value={editorId}>
                 <ConnectedRichTextEditor
                   {...otherProps}
                   key={`rich-text-editor-${externalReset}`}
@@ -114,7 +118,7 @@ const RichTextEditor = (props: Props) => {
                   isDisabled={disabled}
                   onChange={setValue}
                 />
-              </ContentfulEditorProvider>
+              </ContentfulEditorIdProvider>
             )}
           </FieldConnector>
         </TrackingProvider>
