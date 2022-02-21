@@ -15,7 +15,7 @@ export const LINK_TYPES: INLINES[] = [
 
 const LIST_TYPES: BLOCKS[] = [BLOCKS.OL_LIST, BLOCKS.UL_LIST];
 
-export function isBlockSelected(editor, type: string): boolean {
+export function isBlockSelected(editor: PlateEditor, type: string): boolean {
   const [match] = Array.from(
     Editor.nodes(editor, {
       match: (node) => Element.isElement(node) && (node as CustomElement).type === type,
@@ -28,18 +28,10 @@ export function isRootLevel(path: Path): boolean {
   return path.length === 1;
 }
 
-export function hasSelectionText(editor) {
-  return editor.selection
-    ? Editor.node(editor, editor.selection.focus.path).some(
-        (node) => Text.isText(node) && node.text !== ''
-      )
-    : false;
-}
-
 type NodeEntry = [CustomElement, Path];
 type NodeType = BLOCKS | INLINES;
 export function getNodeEntryFromSelection(
-  editor,
+  editor: PlateEditor,
   nodeTypeOrTypes: NodeType | NodeType[]
 ): NodeEntry | [] {
   if (!editor.selection) return [];
@@ -52,17 +44,17 @@ export function getNodeEntryFromSelection(
   return [];
 }
 
-export function isNodeTypeSelected(editor, nodeType: BLOCKS | INLINES): boolean {
+export function isNodeTypeSelected(editor: PlateEditor, nodeType: BLOCKS | INLINES): boolean {
   if (!editor) return false;
   const [node] = getNodeEntryFromSelection(editor, nodeType);
   return !!node;
 }
 
-export function moveToTheNextLine(editor) {
+export function moveToTheNextLine(editor: PlateEditor) {
   Transforms.move(editor, { distance: 1, unit: 'line' });
 }
 
-export function getElementFromCurrentSelection(editor) {
+export function getElementFromCurrentSelection(editor: PlateEditor) {
   if (!editor.selection) return [];
 
   return Array.from(
@@ -78,7 +70,11 @@ export function getElementFromCurrentSelection(editor) {
   ).flat();
 }
 
-export function isList(editor) {
+export function isList(editor?: PlateEditor) {
+  if (!editor) {
+    return false;
+  }
+
   const element = getElementFromCurrentSelection(editor);
 
   return element.some(
@@ -113,7 +109,11 @@ export function insertLink(editor, options: InsertLinkOptions) {
 }
 
 // TODO: move to hyperlink plugin
-export function isLinkActive(editor) {
+export function isLinkActive(editor?: PlateEditor) {
+  if (!editor) {
+    return false;
+  }
+
   const [link] = Array.from(
     Editor.nodes(editor, {
       match: (node) =>
