@@ -6,7 +6,6 @@ import { Plate } from '@udecode/plate-core';
 import '@testing-library/jest-dom/extend-expect';
 import { ContentfulEditorIdProvider, getContentfulEditorId } from '../../ContentfulEditorProvider';
 import { SdkProvider } from '../../SdkProvider';
-import { TrackingProvider } from '../../TrackingProvider';
 import Toolbar from '../index';
 
 configure({
@@ -39,11 +38,9 @@ test('everything on the toolbar should be disabled', async () => {
   const { getByTestId } = render(
     <Plate id={id}>
       <SdkProvider sdk={sdk}>
-        <ContentfulEditorIdProvider value={id}>
-          <TrackingProvider onAction={jest.fn()}>
-            <Toolbar isDisabled />
-          </TrackingProvider>
-        </ContentfulEditorIdProvider>
+        <ContentfulEditorProvider sdk={sdk}>
+          <Toolbar isDisabled />
+        </ContentfulEditorProvider>
       </SdkProvider>
     </Plate>
   );

@@ -14,8 +14,12 @@ import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { isLinkActive, unwrapLink } from '../../helpers/editor';
 import { transformRemove } from '../../helpers/transformers';
 import { useSdkContext } from '../../SdkProvider';
-import { useTrackingContext } from '../../TrackingProvider';
-import { RichTextPlugin, CustomRenderElementProps, CustomElement } from '../../types';
+import {
+  RichTextPlugin,
+  CustomRenderElementProps,
+  CustomElement,
+  RichTextEditor,
+} from '../../types';
 import { withLinkTracking } from '../links-tracking';
 import { ToolbarButton } from '../shared/ToolbarButton';
 import { EntryAssetTooltip } from './EntryAssetTooltip';
@@ -72,13 +76,12 @@ function UrlHyperlink(props: HyperlinkElementProps) {
   const isReadOnly = useReadOnly();
   const sdk: FieldExtensionSDK = useSdkContext();
   const { uri } = props.element.data;
-  const tracking = useTrackingContext();
 
   function handleClick(event: React.MouseEvent<HTMLAnchorElement>) {
     event.preventDefault();
     event.stopPropagation();
     if (!editor) return;
-    addOrEditLink(editor, sdk, tracking.onViewportAction);
+    addOrEditLink(editor, sdk, editor.tracking.onViewportAction);
   }
 
   return (
@@ -106,7 +109,6 @@ function EntityHyperlink(props: HyperlinkElementProps) {
   const sdk: FieldExtensionSDK = useSdkContext();
   const { target } = props.element.data;
   const { onEntityFetchComplete } = props;
-  const tracking = useTrackingContext();
 
   React.useEffect(() => {
     // The real entity loading happens in the tooltip
@@ -120,7 +122,7 @@ function EntityHyperlink(props: HyperlinkElementProps) {
     event.preventDefault();
     event.stopPropagation();
     if (!editor) return;
-    addOrEditLink(editor, sdk, tracking.onViewportAction);
+    addOrEditLink(editor, sdk, editor.tracking.onViewportAction);
   }
 
   return (
@@ -158,16 +160,15 @@ export function ToolbarHyperlinkButton(props: ToolbarHyperlinkButtonProps) {
   const editor = useContentfulEditor();
   const isActive = !!(editor && isLinkActive(editor));
   const sdk: FieldExtensionSDK = useSdkContext();
-  const tracking = useTrackingContext();
 
   async function handleClick() {
     if (!editor) return;
 
     if (isActive) {
       unwrapLink(editor);
-      tracking.onToolbarAction('unlinkHyperlinks');
+      editor.tracking.onToolbarAction('unlinkHyperlinks');
     } else {
-      addOrEditLink(editor, sdk, tracking.onToolbarAction);
+      addOrEditLink(editor, sdk, editor.tracking.onToolbarAction);
     }
   }
 
@@ -210,9 +211,9 @@ const buildHyperlinkEventHandler =
 
       if (isLinkActive(editor)) {
         unwrapLink(editor);
-        editor.tracking?.onShortcutAction('unlinkHyperlinks');
+        editor.tracking.onShortcutAction('unlinkHyperlinks');
       } else {
-        addOrEditLink(editor, sdk, editor.tracking?.onShortcutAction);
+        addOrEditLink(editor as RichTextEditor, sdk, editor.tracking.onShortcutAction);
       }
     };
   };

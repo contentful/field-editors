@@ -4,16 +4,16 @@ import isHotkey from 'is-hotkey';
 
 import { isBlockSelected, isInlineOrText } from '../../helpers/editor';
 import { transformLift, transformUnwrap } from '../../helpers/transformers';
-import { RichTextEditor, RichTextPlugin } from '../../types';
+import { RichTextPlugin } from '../../types';
 import { HeadingComponents } from './components/Heading';
 
 const buildHeadingEventHandler =
   (type: BLOCKS): KeyboardHandler<{}, HotkeyPlugin> =>
-  (editor: RichTextEditor, { options: { hotkey } }) =>
+  (editor, { options: { hotkey } }) =>
   (event) => {
     if (editor.selection && hotkey && isHotkey(hotkey, event)) {
       const isActive = isBlockSelected(editor, type);
-      editor.tracking?.onShortcutAction(isActive ? 'remove' : 'insert', { nodeType: type });
+      editor.tracking.onShortcutAction(isActive ? 'remove' : 'insert', { nodeType: type });
 
       toggleNodeType(editor, { activeType: type, inactiveType: BLOCKS.PARAGRAPH });
     }

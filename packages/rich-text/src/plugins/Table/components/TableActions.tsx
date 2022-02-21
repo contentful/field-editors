@@ -11,7 +11,7 @@ import * as Slate from 'slate-react';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
 import { getNodeEntryFromSelection, getTableSize } from '../../../helpers/editor';
-import { RichTextTrackingActionName, useTrackingContext } from '../../../TrackingProvider';
+import { RichTextTrackingActionName } from '../../../plugins/Tracking';
 import { RichTextEditor } from '../../../types';
 import { addRowAbove, addColumnLeft, addColumnRight, addRowBelow, setHeader } from '../actions';
 import { isTableHeaderEnabled } from '../helpers';
@@ -36,7 +36,6 @@ type TableAction = (editor: RichTextEditor, options: TablePluginOptions) => void
 export const TableActions = () => {
   const editor = useContentfulEditor();
   const isDisabled = Slate.useReadOnly();
-  const { onViewportAction } = useTrackingContext();
   const [isOpen, setOpen] = React.useState(false);
   const [isHeaderEnabled, setHeaderEnabled] = React.useState(false);
 
@@ -87,9 +86,9 @@ export const TableActions = () => {
       });
       // Tracking
       const actionName = `${type}Table${element === 'Table' ? '' : element}`;
-      onViewportAction(actionName as RichTextTrackingActionName, { tableSize });
+      editor.tracking.onViewportAction(actionName as RichTextTrackingActionName, { tableSize });
     },
-    [editor, isHeaderEnabled, close, onViewportAction]
+    [editor, isHeaderEnabled, close]
   );
 
   if (isDisabled) {

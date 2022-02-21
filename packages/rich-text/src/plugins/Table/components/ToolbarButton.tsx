@@ -4,7 +4,6 @@ import { TableIcon } from '@contentful/f36-icons';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
 import { focus } from '../../../helpers/editor';
-import { useTrackingContext } from '../../../TrackingProvider';
 import { ToolbarButton } from '../../shared/ToolbarButton';
 import { insertTableAndFocusFirstCell, isTableActive } from './../helpers';
 
@@ -14,13 +13,12 @@ export interface ToolbarTableButtonProps {
 
 export function ToolbarTableButton(props: ToolbarTableButtonProps) {
   const editor = useContentfulEditor();
-  const { onToolbarAction } = useTrackingContext();
   const isActive = editor && isTableActive(editor);
 
   async function handleClick() {
     if (!editor) return;
 
-    onToolbarAction('insertTable');
+    editor.tracking.onToolbarAction('insertTable');
     insertTableAndFocusFirstCell(editor);
     focus(editor);
   }

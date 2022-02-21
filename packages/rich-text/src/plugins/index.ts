@@ -6,7 +6,6 @@ import {
 } from '@udecode/plate-core';
 import { createDeserializeDocxPlugin } from '@udecode/plate-serializer-docx';
 
-import { TrackingProvider } from '../TrackingProvider';
 import { RichTextPlugin } from '../types';
 import { createSoftBreakPlugin, createExitBreakPlugin } from './Break';
 import { createDragAndDropPlugin } from './DragAndDrop';
@@ -27,13 +26,13 @@ import { createQuotePlugin } from './Quote';
 import { createSelectOnBackspacePlugin } from './SelectOnBackspace';
 import { createTablePlugin } from './Table';
 import { createTextPlugin } from './Text';
-import { createTrackingPlugin } from './Tracking';
+import { createTrackingPlugin, RichTextTrackingActionHandler } from './Tracking';
 import { createTrailingParagraphPlugin } from './TrailingParagraph';
 import { createVoidsPlugin } from './Voids';
 
 export const getPlugins = (
   sdk: FieldExtensionSDK,
-  tracking: TrackingProvider
+  onAction: RichTextTrackingActionHandler
 ): RichTextPlugin[] => [
   // AST must come after the HTML deserializer
   createDeserializeHtmlPlugin(),
@@ -41,7 +40,7 @@ export const getPlugins = (
   createDeserializeDocxPlugin(),
 
   // Tracking - This should come first so all plugins below will have access to `editor.tracking`
-  createTrackingPlugin(tracking),
+  createTrackingPlugin(onAction),
 
   // Global / Global shortcuts
   createDragAndDropPlugin(),

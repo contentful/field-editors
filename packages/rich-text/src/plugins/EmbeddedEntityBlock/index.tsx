@@ -1,5 +1,3 @@
-import { KeyboardEvent } from 'react';
-
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { KeyboardHandler, HotkeyPlugin } from '@udecode/plate-core';
@@ -7,7 +5,7 @@ import isHotkey from 'is-hotkey';
 import { Transforms } from 'slate';
 
 import { getNodeEntryFromSelection } from '../../helpers/editor';
-import { RichTextPlugin, CustomElement, RichTextEditor } from '../../types';
+import { RichTextPlugin, CustomElement } from '../../types';
 import { withLinkTracking } from '../links-tracking';
 import { LinkedEntityBlock } from './LinkedEntityBlock';
 import { selectEntityAndInsert } from './Util';
@@ -23,8 +21,8 @@ function getWithEmbeddedEntityEvents(
   nodeType: BLOCKS.EMBEDDED_ENTRY | BLOCKS.EMBEDDED_ASSET,
   sdk: FieldExtensionSDK
 ): KeyboardHandler<{}, HotkeyPlugin> {
-  return (editor: RichTextEditor, { options: { hotkey } }) =>
-    (event: KeyboardEvent) => {
+  return (editor, { options: { hotkey } }) =>
+    (event) => {
       const [, pathToSelectedElement] = getNodeEntryFromSelection(editor, nodeType);
 
       if (pathToSelectedElement) {
@@ -40,7 +38,7 @@ function getWithEmbeddedEntityEvents(
       }
 
       if (hotkey && isHotkey(hotkey, event)) {
-        selectEntityAndInsert(nodeType, sdk, editor, editor.tracking?.onShortcutAction);
+        selectEntityAndInsert(nodeType, sdk, editor, editor.tracking.onShortcutAction);
       }
     };
 }

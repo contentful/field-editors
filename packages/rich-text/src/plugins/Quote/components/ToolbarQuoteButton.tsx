@@ -18,7 +18,7 @@ export function ToolbarQuoteButton(props: ToolbarQuoteButtonProps) {
   function handleOnClick() {
     if (!editor) return;
 
-    toggleQuote(editor, editor.tracking?.onToolbarAction);
+    toggleQuote(editor, editor.tracking.onToolbarAction);
     focus(editor);
   }
 

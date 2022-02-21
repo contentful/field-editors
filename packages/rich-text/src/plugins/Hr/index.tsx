@@ -3,7 +3,7 @@ import * as React from 'react';
 import { HorizontalRuleIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { getText, setNodes } from '@udecode/plate-core';
+import { getText, PlateEditor, setNodes } from '@udecode/plate-core';
 import { css, cx } from 'emotion';
 import { Transforms } from 'slate';
 import * as Slate from 'slate-react';
@@ -56,14 +56,14 @@ interface ToolbarHrButtonProps {
   isDisabled?: boolean;
 }
 
-export function withHrEvents(editor: RichTextEditor) {
+export function withHrEvents(editor: PlateEditor) {
   return (event: React.KeyboardEvent) => {
     if (!editor) return;
 
     const [, pathToSelectedHr] = getNodeEntryFromSelection(editor, BLOCKS.HR);
     if (pathToSelectedHr) {
-      if (shouldUnwrapBlockquote(editor, BLOCKS.HR)) {
-        unwrapFromRoot(editor);
+      if (shouldUnwrapBlockquote(editor as RichTextEditor, BLOCKS.HR)) {
+        unwrapFromRoot(editor as RichTextEditor);
       }
 
       const isBackspace = event.key === 'Backspace';

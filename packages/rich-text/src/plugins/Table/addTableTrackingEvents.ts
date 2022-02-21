@@ -29,7 +29,7 @@ export function addTableTrackingEvents(editor: RichTextEditor) {
       setTimeout(() => {
         if (hasTables(markupBefore)) return;
         if (hasTables(markupAfter)) {
-          editor.tracking?.onViewportAction('paste', {
+          editor.tracking.onViewportAction('paste', {
             tablePasted: true,
             hasHeadersOutsideFirstRow: hasHeadersOutsideFirstRow(markupAfter),
           });

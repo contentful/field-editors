@@ -7,7 +7,6 @@ import { css } from 'emotion';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { useSdkContext } from '../../SdkProvider';
-import { useTrackingContext } from '../../TrackingProvider';
 import { selectEntityAndInsert } from './Util';
 
 export const styles = {
@@ -31,13 +30,12 @@ export function EmbeddedEntityBlockToolbarIcon({
 }: EmbeddedEntityBlockToolbarIconProps) {
   const editor = useContentfulEditor();
   const sdk: FieldExtensionSDK = useSdkContext();
-  const tracking = useTrackingContext();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
     onClose();
-    selectEntityAndInsert(nodeType, sdk, editor, tracking.onToolbarAction);
+    selectEntityAndInsert(nodeType, sdk, editor, editor.tracking.onToolbarAction);
   };
 
   const type = getEntityTypeFromNodeType(nodeType);

@@ -16,15 +16,11 @@ import {
   useContentfulEditorId,
 } from './ContentfulEditorProvider';
 import { getPlugins, disableCorePlugins } from './plugins';
+import { RichTextTrackingActionHandler } from './plugins/Tracking';
 import { styles } from './RichTextEditor.styles';
 import { SdkProvider } from './SdkProvider';
 import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/components/StickyToolbarWrapper';
-import {
-  RichTextTrackingActionHandler,
-  TrackingProvider,
-  useTrackingContext,
-} from './TrackingProvider';
 import { useNormalizedSlateValue } from './useNormalizedSlateValue';
 import { useOnValueChanged } from './useOnValueChanged';
 
@@ -43,8 +39,10 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const id = useContentfulEditorId();
   const editor = useContentfulEditor();
 
-  const tracking = useTrackingContext();
-  const plugins = React.useMemo(() => getPlugins(props.sdk, tracking), [props.sdk, tracking]);
+  const plugins = React.useMemo(
+    () => getPlugins(props.sdk, props.onAction ?? noop),
+    [props.sdk, props.onAction]
+  );
 
   const initialValue = useNormalizedSlateValue({
     id,
@@ -100,28 +98,26 @@ const RichTextEditor = (props: Props) => {
   return (
     <EntityProvider sdk={sdk}>
       <SdkProvider sdk={sdk}>
-        <TrackingProvider onAction={onAction || noop}>
-          <FieldConnector
-            throttle={0}
-            field={sdk.field}
-            isInitiallyDisabled={isInitiallyDisabled}
-            isEmptyValue={isEmptyValue}
-            isEqualValues={deepEquals}>
-            {({ lastRemoteValue, disabled, setValue, externalReset }) => (
-              <ContentfulEditorIdProvider value={editorId}>
-                <ConnectedRichTextEditor
-                  {...otherProps}
-                  key={`rich-text-editor-${externalReset}`}
-                  value={lastRemoteValue}
-                  sdk={sdk}
-                  onAction={onAction || noop}
-                  isDisabled={disabled}
-                  onChange={setValue}
-                />
-              </ContentfulEditorIdProvider>
-            )}
-          </FieldConnector>
-        </TrackingProvider>
+        <FieldConnector
+          throttle={0}
+          field={sdk.field}
+          isInitiallyDisabled={isInitiallyDisabled}
+          isEmptyValue={isEmptyValue}
+          isEqualValues={deepEquals}>
+          {({ lastRemoteValue, disabled, setValue, externalReset }) => (
+            <ContentfulEditorProvider sdk={sdk}>
+              <ConnectedRichTextEditor
+                {...otherProps}
+                key={`rich-text-editor-${externalReset}`}
+                value={lastRemoteValue}
+                sdk={sdk}
+                onAction={onAction}
+                isDisabled={disabled}
+                onChange={setValue}
+              />
+            </ContentfulEditorProvider>
+          )}
+        </FieldConnector>
       </SdkProvider>
     </EntityProvider>
   );

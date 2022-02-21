@@ -15,7 +15,7 @@ export const LINK_TYPES: INLINES[] = [
 
 const LIST_TYPES: BLOCKS[] = [BLOCKS.OL_LIST, BLOCKS.UL_LIST];
 
-export function isBlockSelected(editor: PlateEditor, type: string): boolean {
+export function isBlockSelected(editor: RichTextEditor, type: string): boolean {
   const [match] = Array.from(
     Editor.nodes(editor, {
       match: (node) => Element.isElement(node) && (node as CustomElement).type === type,
@@ -31,7 +31,7 @@ export function isRootLevel(path: Path): boolean {
 type NodeEntry = [CustomElement, Path];
 type NodeType = BLOCKS | INLINES;
 export function getNodeEntryFromSelection(
-  editor: PlateEditor,
+  editor: RichTextEditor,
   nodeTypeOrTypes: NodeType | NodeType[]
 ): NodeEntry | [] {
   if (!editor.selection) return [];
@@ -44,17 +44,17 @@ export function getNodeEntryFromSelection(
   return [];
 }
 
-export function isNodeTypeSelected(editor: PlateEditor, nodeType: BLOCKS | INLINES): boolean {
+export function isNodeTypeSelected(editor: RichTextEditor, nodeType: BLOCKS | INLINES): boolean {
   if (!editor) return false;
   const [node] = getNodeEntryFromSelection(editor, nodeType);
   return !!node;
 }
 
-export function moveToTheNextLine(editor: PlateEditor) {
+export function moveToTheNextLine(editor: RichTextEditor) {
   Transforms.move(editor, { distance: 1, unit: 'line' });
 }
 
-export function getElementFromCurrentSelection(editor: PlateEditor) {
+export function getElementFromCurrentSelection(editor: RichTextEditor) {
   if (!editor.selection) return [];
 
   return Array.from(
@@ -70,7 +70,7 @@ export function getElementFromCurrentSelection(editor: PlateEditor) {
   ).flat();
 }
 
-export function isList(editor?: PlateEditor) {
+export function isList(editor?: RichTextEditor) {
   if (!editor) {
     return false;
   }
@@ -109,7 +109,7 @@ export function insertLink(editor, options: InsertLinkOptions) {
 }
 
 // TODO: move to hyperlink plugin
-export function isLinkActive(editor?: PlateEditor) {
+export function isLinkActive(editor?: RichTextEditor) {
   if (!editor) {
     return false;
   }

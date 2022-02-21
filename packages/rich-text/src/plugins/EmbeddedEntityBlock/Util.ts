@@ -3,15 +3,15 @@ import { Transforms } from 'slate';
 
 import { focus } from '../../helpers/editor';
 import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
-import { TrackingProvider } from '../../TrackingProvider';
+import { TrackingPluginActions } from '../../plugins/Tracking';
 
 export async function selectEntityAndInsert(
   nodeType,
   sdk,
   editor,
-  logAction?: TrackingProvider['onToolbarAction'] | TrackingProvider['onShortcutAction']
+  logAction: TrackingPluginActions['onToolbarAction'] | TrackingPluginActions['onShortcutAction']
 ) {
-  logAction?.('openCreateEmbedDialog', { nodeType });
+  logAction('openCreateEmbedDialog', { nodeType });
 
   const { field, dialogs } = sdk;
   const baseConfig = newEntitySelectorConfigFromRichTextField(field, nodeType);
@@ -31,7 +31,7 @@ export async function selectEntityAndInsert(
     if (error) {
       throw error;
     } else {
-      logAction?.('cancelCreateEmbedDialog', { nodeType });
+      logAction('cancelCreateEmbedDialog', { nodeType });
     }
   }
 }

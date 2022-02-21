@@ -17,7 +17,6 @@ import {
 } from '../../../helpers/editor';
 import { isNodeTypeEnabled } from '../../../helpers/validations';
 import { useSdkContext } from '../../../SdkProvider';
-import { useTrackingContext } from '../../../TrackingProvider';
 import { CustomElement } from '../../../types';
 
 const styles = {
@@ -68,7 +67,6 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
   const editor = useContentfulEditor();
   const [isOpen, setOpen] = React.useState(false);
   const [selected, setSelected] = React.useState<string>(BLOCKS.PARAGRAPH);
-  const tracking = useTrackingContext();
 
   React.useEffect(() => {
     if (!editor?.selection) return;
@@ -115,7 +113,7 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
       };
 
       const isActive = isBlockSelected(editor, type);
-      tracking.onToolbarAction(isActive ? 'remove' : 'insert', { nodeType: type });
+      editor.tracking.onToolbarAction(isActive ? 'remove' : 'insert', { nodeType: type });
 
       toggleNodeType(editor, { activeType: type, inactiveType: type });
     };

@@ -126,7 +126,11 @@ export class RichTextPage {
   }
 
   expectTrackingValue(expectedValue: any) {
-    cy.window().its('actions').should('deep.equal', expectedValue);
+    cy.window()
+      .should((win) => {
+        expect(win.actions).to.deep.equal(expectedValue);
+      })
+      .as('trackingValue');
   }
 }
 

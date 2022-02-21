@@ -4,7 +4,7 @@ import { RenderElementProps } from 'slate-react';
 
 import type { SoftBreakRule, ExitBreakRule } from './plugins/Break';
 import type { NormalizerRule } from './plugins/Normalizer';
-import { TrackingProvider } from './TrackingProvider';
+import { TrackingPluginActions } from './plugins/Tracking';
 
 export type CustomText = {
   text: string;
@@ -53,5 +53,5 @@ export interface RichTextPlugin extends PlatePlugin {
 }
 
 export interface RichTextEditor extends PlateEditor {
-  tracking?: TrackingProvider;
+  tracking: TrackingPluginActions;
 }

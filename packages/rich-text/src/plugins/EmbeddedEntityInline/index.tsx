@@ -16,8 +16,8 @@ import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { focus } from '../../helpers/editor';
 import { HAS_BEFORE_INPUT_SUPPORT } from '../../helpers/environment';
 import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
+import { TrackingPluginActions } from '../../plugins/Tracking';
 import { useSdkContext } from '../../SdkProvider';
-import { TrackingProvider, useTrackingContext } from '../../TrackingProvider';
 import { RichTextPlugin, CustomElement, CustomRenderElementProps } from '../../types';
 import { withLinkTracking } from '../links-tracking';
 import { FetchingWrappedInlineEntryCard } from './FetchingWrappedInlineEntryCard';
@@ -97,7 +97,7 @@ interface ToolbarEmbeddedEntityInlineButtonProps {
 async function selectEntityAndInsert(
   editor,
   sdk: FieldExtensionSDK,
-  logAction: TrackingProvider['onShortcutAction'] | TrackingProvider['onToolbarAction']
+  logAction: TrackingPluginActions['onShortcutAction'] | TrackingPluginActions['onToolbarAction']
 ) {
   logAction('openCreateEmbedDialog', { nodeType: INLINES.EMBEDDED_ENTRY });
 
@@ -133,7 +133,6 @@ async function selectEntityAndInsert(
 export function ToolbarEmbeddedEntityInlineButton(props: ToolbarEmbeddedEntityInlineButtonProps) {
   const editor = useContentfulEditor();
   const sdk: FieldExtensionSDK = useSdkContext();
-  const tracking = useTrackingContext();
 
   async function handleClick(event) {
     event.preventDefault();
@@ -142,7 +141,7 @@ export function ToolbarEmbeddedEntityInlineButton(props: ToolbarEmbeddedEntityIn
 
     props.onClose();
 
-    await selectEntityAndInsert(editor, sdk, tracking.onToolbarAction);
+    await selectEntityAndInsert(editor, sdk, editor.tracking.onToolbarAction);
   }
 
   return props.isButton ? (
@@ -210,7 +209,7 @@ function getWithEmbeddedEntryInlineEvents(
       if (!editor) return;
 
       if (hotkey && isHotkey(hotkey, event)) {
-        selectEntityAndInsert(editor, sdk, editor.tracking?.onShortcutAction);
+        selectEntityAndInsert(editor, sdk, editor.tracking.onShortcutAction);
       }
     };
   };

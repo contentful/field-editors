@@ -2,20 +2,20 @@ import { BLOCKS } from '@contentful/rich-text-types';
 import { HotkeyPlugin, KeyboardHandler } from '@udecode/plate-core';
 import isHotkey from 'is-hotkey';
 import { Transforms, Element, Editor } from 'slate';
-import { TrackingProvider } from 'TrackingProvider';
 
 import { isBlockSelected } from '../../helpers/editor';
+import { TrackingPluginActions } from '../../plugins/Tracking';
 import { CustomElement, RichTextEditor } from '../../types';
 
 export function toggleQuote(
   editor: RichTextEditor,
-  logAction?: TrackingProvider['onShortcutAction'] | TrackingProvider['onToolbarAction']
+  logAction: TrackingPluginActions['onShortcutAction'] | TrackingPluginActions['onToolbarAction']
 ): void {
   if (!editor.selection) return;
 
   const isActive = isBlockSelected(editor, BLOCKS.QUOTE);
 
-  logAction?.(isActive ? 'remove' : 'insert', { nodeType: BLOCKS.QUOTE });
+  logAction(isActive ? 'remove' : 'insert', { nodeType: BLOCKS.QUOTE });
 
   Editor.withoutNormalizing(editor, () => {
     if (!editor.selection) return;
@@ -44,11 +44,11 @@ export function toggleQuote(
 }
 
 export const onKeyDownToggleQuote: KeyboardHandler<{}, HotkeyPlugin> =
-  (editor: RichTextEditor, plugin) => (event) => {
+  (editor, plugin) => (event) => {
     const { hotkey } = plugin.options;
 
     if (hotkey && isHotkey(hotkey, event)) {
       event.preventDefault();
-      toggleQuote(editor, editor.tracking?.onShortcutAction);
+      toggleQuote(editor as RichTextEditor, editor.tracking.onShortcutAction);
     }
   };
