@@ -7,7 +7,7 @@ import isHotkey from 'is-hotkey';
 import { Transforms } from 'slate';
 
 import { getNodeEntryFromSelection } from '../../helpers/editor';
-import { RichTextPlugin, CustomElement } from '../../types';
+import { RichTextPlugin, CustomElement, RichTextEditor } from '../../types';
 import { withLinkTracking } from '../links-tracking';
 import { LinkedEntityBlock } from './LinkedEntityBlock';
 import { selectEntityAndInsert } from './Util';
@@ -23,7 +23,7 @@ function getWithEmbeddedEntityEvents(
   nodeType: BLOCKS.EMBEDDED_ENTRY | BLOCKS.EMBEDDED_ASSET,
   sdk: FieldExtensionSDK
 ): KeyboardHandler<{}, HotkeyPlugin> {
-  return (editor, { options: { hotkey } }) =>
+  return (editor: RichTextEditor, { options: { hotkey } }) =>
     (event: KeyboardEvent) => {
       const [, pathToSelectedElement] = getNodeEntryFromSelection(editor, nodeType);
 

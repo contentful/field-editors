@@ -51,7 +51,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
     it('tracks text pasting', () => {
       richText.editor.click().paste({ 'text/plain': 'Hello World!' });
 
-      richText.expectTrackingvalue([
+      richText.expectTrackingValue([
         action('paste', 'shortcut', {
           characterCountAfter: 12,
           characterCountBefore: 0,
@@ -61,7 +61,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
       richText.editor.click().type('{enter}').paste({ 'text/plain': 'Hello World!' });
 
-      richText.expectTrackingvalue([
+      richText.expectTrackingValue([
         action('paste', 'shortcut', {
           characterCountAfter: 12,
           characterCountBefore: 0,
@@ -91,7 +91,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         toggleMarkViaToolbar();
         toggleMarkViaToolbar();
 
-        richText.expectTrackingvalue([
+        richText.expectTrackingValue([
           action('mark', 'toolbar-icon', { markType: mark }),
           action('unmark', 'toolbar-icon', { markType: mark }),
         ]);
@@ -100,7 +100,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
       it(`tracks ${mark} mark via shortcut`, () => {
         richText.editor.click().type(shortcut).type(shortcut);
 
-        richText.expectTrackingvalue([
+        richText.expectTrackingValue([
           action('mark', 'shortcut', { markType: mark }),
           action('unmark', 'shortcut', { markType: mark }),
         ]);
@@ -125,7 +125,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         richText.toolbar.toggleHeading(type);
         richText.toolbar.toggleHeading(type);
 
-        richText.expectTrackingvalue([
+        richText.expectTrackingValue([
           insert('toolbar-icon', { nodeType: type }),
           remove('toolbar-icon', { nodeType: type }),
         ]);
@@ -134,7 +134,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
       it(`tracks ${label} (${type}) via hotkeys ${shortcut}`, () => {
         richText.editor.click().type(shortcut).type(shortcut);
 
-        richText.expectTrackingvalue([
+        richText.expectTrackingValue([
           insert('shortcut', { nodeType: type }),
           remove('shortcut', { nodeType: type }),
         ]);
@@ -167,7 +167,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         toggleQuote();
         toggleQuote();
 
-        richText.expectTrackingvalue([
+        richText.expectTrackingValue([
           insert(origin, { nodeType: BLOCKS.QUOTE }),
           remove(origin, { nodeType: BLOCKS.QUOTE }),
         ]);
@@ -206,7 +206,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
     it('tracks insert table', () => {
       insertTable();
 
-      richText.expectTrackingvalue([insertTableAction()]);
+      richText.expectTrackingValue([insertTableAction()]);
     });
 
     describe('Table Actions', () => {
@@ -226,7 +226,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
       it('adds row above', () => {
         doAction('Add row above');
 
-        richText.expectTrackingvalue([
+        richText.expectTrackingValue([
           insertTableAction(),
           insertTableRowAction({
             tableSize: {
@@ -240,7 +240,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
       it('adds row below', () => {
         doAction('Add row below');
 
-        richText.expectTrackingvalue([
+        richText.expectTrackingValue([
           insertTableAction(),
           insertTableRowAction({
             tableSize: {
@@ -254,7 +254,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
       it('adds column left', () => {
         doAction('Add column left');
 
-        richText.expectTrackingvalue([
+        richText.expectTrackingValue([
           insertTableAction(),
           insertTableColumnAction({
             tableSize: {
@@ -268,7 +268,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
       it('adds column right', () => {
         doAction('Add column right');
 
-        richText.expectTrackingvalue([
+        richText.expectTrackingValue([
           insertTableAction(),
           insertTableColumnAction({
             tableSize: {
@@ -282,7 +282,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
       it('deletes row', () => {
         doAction('Delete row');
 
-        richText.expectTrackingvalue([
+        richText.expectTrackingValue([
           insertTableAction(),
           removeTableRowAction({
             tableSize: {
@@ -296,7 +296,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
       it('deletes column', () => {
         doAction('Delete column');
 
-        richText.expectTrackingvalue([
+        richText.expectTrackingValue([
           insertTableAction(),
           removeTableColumnAction({
             tableSize: {
@@ -310,7 +310,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
       it('deletes table', () => {
         doAction('Delete table');
 
-        richText.expectTrackingvalue([
+        richText.expectTrackingValue([
           insertTableAction(),
           removeTableAction({
             tableSize: {
@@ -388,12 +388,12 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
           form.linkTarget.type('https://zombo.com');
           form.submit.click();
 
-          richText.expectTrackingvalue([openCreateModal(origin), insertHyperlink(origin)]);
+          richText.expectTrackingValue([openCreateModal(origin), insertHyperlink(origin)]);
 
           richText.editor.click().type('{selectall}');
           cy.findByTestId('hyperlink-toolbar-button').click();
 
-          richText.expectTrackingvalue([
+          richText.expectTrackingValue([
             openCreateModal(origin),
             insertHyperlink(origin),
             unlink('toolbar-icon'),
@@ -410,7 +410,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
           form.submit.click();
 
-          richText.expectTrackingvalue([openCreateModal(origin), insertHyperlink(origin)]);
+          richText.expectTrackingValue([openCreateModal(origin), insertHyperlink(origin)]);
         });
 
         it('tracks when converting text to entry hyperlink', () => {
@@ -424,7 +424,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
           form.submit.click();
 
-          richText.expectTrackingvalue([
+          richText.expectTrackingValue([
             openCreateModal(origin),
             insertEntryHyperlink(origin),
             linkRendered(),
@@ -442,7 +442,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
           form.linkEntityTarget.click();
           form.submit.click();
 
-          richText.expectTrackingvalue([
+          richText.expectTrackingValue([
             openCreateModal(origin),
             insertAssetHyperlink(origin),
             linkRendered(),
@@ -461,7 +461,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
           form.linkTarget.type('https://zombo.com');
           form.submit.click();
 
-          richText.expectTrackingvalue([openCreateModal(origin), insertHyperlink(origin)]);
+          richText.expectTrackingValue([openCreateModal(origin), insertHyperlink(origin)]);
 
           // Part 2:
           // Update hyperlink to entry link
@@ -472,7 +472,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
           form.linkEntityTarget.click();
           form.submit.click();
 
-          richText.expectTrackingvalue([
+          richText.expectTrackingValue([
             openCreateModal(origin),
             insertHyperlink(origin),
             openEditModal(),
@@ -489,7 +489,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
           form.linkEntityTarget.click();
           form.submit.click();
 
-          richText.expectTrackingvalue([
+          richText.expectTrackingValue([
             openCreateModal(origin),
             insertHyperlink(origin),
             openEditModal(),
@@ -510,7 +510,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
           form.linkTarget.type('https://zombo.com');
           form.submit.click();
 
-          richText.expectTrackingvalue([
+          richText.expectTrackingValue([
             openCreateModal(origin),
             insertHyperlink(origin),
             openEditModal(),
@@ -552,7 +552,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         it('tracks when inserting embedded entry block', () => {
           richText.editor.click().then(triggerEmbeddedEntry);
 
-          richText.expectTrackingvalue([
+          richText.expectTrackingValue([
             openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_ENTRY),
             insert(origin, { nodeType: BLOCKS.EMBEDDED_ENTRY }),
             linkRendered(),
@@ -585,7 +585,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         it('tracks when inserting embedded asset block', () => {
           richText.editor.click().then(triggerEmbeddedAsset);
 
-          richText.expectTrackingvalue([
+          richText.expectTrackingValue([
             openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_ASSET),
             insert(origin, { nodeType: BLOCKS.EMBEDDED_ASSET }),
             linkRendered(),
@@ -618,7 +618,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         it('tracks when inserting embedded asset block', () => {
           richText.editor.click().then(triggerEmbeddedInline);
 
-          richText.expectTrackingvalue([
+          richText.expectTrackingValue([
             openCreateEmbedDialog(origin, INLINES.EMBEDDED_ENTRY),
             insert(origin, { nodeType: INLINES.EMBEDDED_ENTRY }),
             linkRendered(),

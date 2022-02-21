@@ -125,8 +125,8 @@ export class RichTextPage {
       .as('validationErrors');
   }
 
-  expectTrackingvalue(expectedValue: any) {
-    cy.window().its('actions', { timeout: 10000 }).should('deep.equal', expectedValue);
+  expectTrackingValue(expectedValue: any) {
+    cy.window().its('actions').should('deep.equal', expectedValue);
   }
 }
 

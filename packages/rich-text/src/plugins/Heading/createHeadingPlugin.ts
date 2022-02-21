@@ -1,22 +1,23 @@
 import { BLOCKS, HEADINGS } from '@contentful/rich-text-types';
-import { getAbove, toggleNodeType } from '@udecode/plate-core';
+import { getAbove, HotkeyPlugin, KeyboardHandler, toggleNodeType } from '@udecode/plate-core';
 import isHotkey from 'is-hotkey';
 
 import { isBlockSelected, isInlineOrText } from '../../helpers/editor';
 import { transformLift, transformUnwrap } from '../../helpers/transformers';
-import { RichTextPlugin } from '../../types';
+import { RichTextEditor, RichTextPlugin } from '../../types';
 import { HeadingComponents } from './components/Heading';
 
-const buildHeadingEventHandler = (type: BLOCKS) => (editor, plugin) => (event) => {
-  if (!editor.selection || !isHotkey(plugin.options.hotkey, event)) {
-    return;
-  }
+const buildHeadingEventHandler =
+  (type: BLOCKS): KeyboardHandler<{}, HotkeyPlugin> =>
+  (editor: RichTextEditor, { options: { hotkey } }) =>
+  (event) => {
+    if (editor.selection && hotkey && isHotkey(hotkey, event)) {
+      const isActive = isBlockSelected(editor, type);
+      editor.tracking?.onShortcutAction(isActive ? 'remove' : 'insert', { nodeType: type });
 
-  const isActive = isBlockSelected(editor, type);
-  editor.tracking?.onShortcutAction(isActive ? 'remove' : 'insert', { nodeType: type });
-
-  toggleNodeType(editor, { activeType: type, inactiveType: BLOCKS.PARAGRAPH });
-};
+      toggleNodeType(editor, { activeType: type, inactiveType: BLOCKS.PARAGRAPH });
+    }
+  };
 
 export const createHeadingPlugin = (): RichTextPlugin => ({
   key: 'HeadingPlugin',

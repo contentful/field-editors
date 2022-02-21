@@ -9,9 +9,9 @@ export async function selectEntityAndInsert(
   nodeType,
   sdk,
   editor,
-  logAction: TrackingProvider['onToolbarAction'] | TrackingProvider['onShortcutAction']
+  logAction?: TrackingProvider['onToolbarAction'] | TrackingProvider['onShortcutAction']
 ) {
-  logAction('openCreateEmbedDialog', { nodeType });
+  logAction?.('openCreateEmbedDialog', { nodeType });
 
   const { field, dialogs } = sdk;
   const baseConfig = newEntitySelectorConfigFromRichTextField(field, nodeType);
@@ -26,12 +26,12 @@ export async function selectEntityAndInsert(
     }
     Transforms.select(editor, selection);
     insertBlock(editor, nodeType, entity);
-    logAction('insert', { nodeType });
+    logAction?.('insert', { nodeType });
   } catch (error) {
     if (error) {
       throw error;
     } else {
-      logAction('cancelCreateEmbedDialog', { nodeType });
+      logAction?.('cancelCreateEmbedDialog', { nodeType });
     }
   }
 }

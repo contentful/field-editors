@@ -3,6 +3,8 @@ import { createContext, useContext } from 'react';
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { usePlateEditorState } from '@udecode/plate-core';
 
+import { RichTextEditor } from './types';
+
 export function getContentfulEditorId(sdk: FieldExtensionSDK) {
   const { entry, field } = sdk;
   const sys = entry.getSys();

@@ -9,13 +9,13 @@ import { CustomElement, RichTextEditor } from '../../types';
 
 export function toggleQuote(
   editor: RichTextEditor,
-  logAction: TrackingProvider['onShortcutAction'] | TrackingProvider['onToolbarAction']
+  logAction?: TrackingProvider['onShortcutAction'] | TrackingProvider['onToolbarAction']
 ): void {
   if (!editor.selection) return;
 
   const isActive = isBlockSelected(editor, BLOCKS.QUOTE);
 
-  logAction(isActive ? 'remove' : 'insert', { nodeType: BLOCKS.QUOTE });
+  logAction?.(isActive ? 'remove' : 'insert', { nodeType: BLOCKS.QUOTE });
 
   Editor.withoutNormalizing(editor, () => {
     if (!editor.selection) return;
@@ -44,7 +44,7 @@ export function toggleQuote(
 }
 
 export const onKeyDownToggleQuote: KeyboardHandler<{}, HotkeyPlugin> =
-  (editor, plugin) => (event) => {
+  (editor: RichTextEditor, plugin) => (event) => {
     const { hotkey } = plugin.options;
 
     if (hotkey && isHotkey(hotkey, event)) {
