@@ -49,13 +49,14 @@ export function createQuotePlugin(): RichTextPlugin {
         const startsWithBlockquote =
           Element.isElement(startingNode) && startingNode.type === BLOCKS.QUOTE;
 
-        let cursorEntry = getAbove(editor);
-        const cursorIsAtParagraph =
-          cursorEntry &&
-          TEXT_CONTAINERS.includes(cursorEntry?.[0]?.type) &&
-          Node.string(cursorEntry[0]) !== '';
+        const containerEntry = getAbove(editor, {
+          match: {
+            type: TEXT_CONTAINERS,
+          },
+        });
+        const containerIsNotEmpty = containerEntry && Node.string(containerEntry[0]) !== '';
 
-        if (startsWithBlockquote && cursorIsAtParagraph) {
+        if (startsWithBlockquote && containerIsNotEmpty) {
           const { selection } = editor;
           const isContentSelected = (selection: BaseSelection): selection is BaseRange =>
             !!selection && Point.compare(selection.anchor, selection.focus) !== 0;
@@ -65,13 +66,15 @@ export function createQuotePlugin(): RichTextPlugin {
           }
 
           // get the cursor entry again, it may be different after deletion
-          cursorEntry = getAbove(editor);
-          const cursorIsAtNonEmptyParagraph =
-            cursorEntry &&
-            TEXT_CONTAINERS.includes(cursorEntry?.[0]?.type) &&
-            Node.string(cursorEntry[0]) !== '';
+          const containerEntry = getAbove(editor, {
+            match: {
+              type: TEXT_CONTAINERS,
+            },
+          });
 
-          if (cursorIsAtNonEmptyParagraph) {
+          const containerIsNotEmpty = containerEntry && Node.string(containerEntry[0]) !== '';
+
+          if (containerIsNotEmpty) {
             Transforms.insertNodes(editor, fragment);
             return;
           }
