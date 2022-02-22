@@ -8,6 +8,7 @@ import * as Slate from 'slate-react';
 
 import { RichTextPlugin } from '../../types';
 import { createMarkToolbarButton } from './components/MarkToolbarButton';
+import { buildMarkEventHandler } from './helpers';
 
 export const ToolbarUnderlineButton = createMarkToolbarButton({
   title: 'Underline',

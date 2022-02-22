@@ -21,11 +21,11 @@ export const createTestEditor = (options: {
 
   const sdk: FieldExtensionSDK = options.sdk ?? ({} as any);
 
-  const editor = createPlateEditor({
+  const editor = createPlateEditor<RichTextEditor>({
     id: randomId('editor'),
     editor: options.input,
     plugins: options.plugins || getPlugins(sdk, trackingHandler),
-  }) as RichTextEditor;
+  });
 
   return {
     editor,

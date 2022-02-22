@@ -105,7 +105,7 @@ const RichTextEditor = (props: Props) => {
           isEmptyValue={isEmptyValue}
           isEqualValues={deepEquals}>
           {({ lastRemoteValue, disabled, setValue, externalReset }) => (
-            <ContentfulEditorProvider sdk={sdk}>
+            <ContentfulEditorIdProvider value={editorId}>
               <ConnectedRichTextEditor
                 {...otherProps}
                 key={`rich-text-editor-${externalReset}`}
@@ -115,7 +115,7 @@ const RichTextEditor = (props: Props) => {
                 isDisabled={disabled}
                 onChange={setValue}
               />
-            </ContentfulEditorProvider>
+            </ContentfulEditorIdProvider>
           )}
         </FieldConnector>
       </SdkProvider>

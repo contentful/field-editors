@@ -20,7 +20,7 @@ export const createMarkToolbarButton = ({ mark, title, icon }: MarkOptions) => {
     const handleClick = React.useCallback(() => {
       if (!editor?.selection) return;
 
-      const isActive = isMarkActive(editor, MARKS.BOLD);
+      const isActive = isMarkActive(editor, mark);
       editor.tracking.onToolbarAction(isActive ? 'unmark' : 'mark', { mark });
 
       toggleMark(editor, { key: mark });

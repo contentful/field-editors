@@ -38,9 +38,9 @@ test('everything on the toolbar should be disabled', async () => {
   const { getByTestId } = render(
     <Plate id={id}>
       <SdkProvider sdk={sdk}>
-        <ContentfulEditorProvider sdk={sdk}>
+        <ContentfulEditorIdProvider value={id}>
           <Toolbar isDisabled />
-        </ContentfulEditorProvider>
+        </ContentfulEditorIdProvider>
       </SdkProvider>
     </Plate>
   );

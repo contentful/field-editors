@@ -48,7 +48,7 @@ const listBreak = (editor: RichTextEditor): boolean => {
             types: [getPluginType(editor, ELEMENT_LI)],
             defaultType: getPluginType(editor, ELEMENT_DEFAULT),
             predicate: () => !moved && isBlockAboveEmpty(editor),
-            onReset: (_editor) => unwrapList(_editor as RichTextEditor),
+            onReset: (_editor) => unwrapList(_editor),
           },
         ],
       },

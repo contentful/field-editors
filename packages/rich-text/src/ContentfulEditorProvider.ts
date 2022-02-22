@@ -29,7 +29,7 @@ export function useContentfulEditorId() {
 
 export function useContentfulEditor() {
   const editorId = useContentfulEditorId();
-  const editor = usePlateEditorState(editorId);
+  const editor = usePlateEditorState<RichTextEditor>(editorId);
 
   return editor;
 }

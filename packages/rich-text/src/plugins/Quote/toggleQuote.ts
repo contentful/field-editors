@@ -49,6 +49,6 @@ export const onKeyDownToggleQuote: KeyboardHandler<RichTextEditor, HotkeyPlugin>
 
     if (hotkey && isHotkey(hotkey, event)) {
       event.preventDefault();
-      toggleQuote(editor as RichTextEditor, editor.tracking.onShortcutAction);
+      toggleQuote(editor, editor.tracking.onShortcutAction);
     }
   };

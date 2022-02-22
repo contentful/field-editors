@@ -60,10 +60,10 @@ export function withHrEvents(editor: RichTextEditor) {
   return (event: React.KeyboardEvent) => {
     if (!editor) return;
 
-    const [, pathToSelectedHr] = getNodeEntryFromSelection(editor as RichTextEditor, BLOCKS.HR);
+    const [, pathToSelectedHr] = getNodeEntryFromSelection(editor, BLOCKS.HR);
     if (pathToSelectedHr) {
-      if (shouldUnwrapBlockquote(editor as RichTextEditor, BLOCKS.HR)) {
-        unwrapFromRoot(editor as RichTextEditor);
+      if (shouldUnwrapBlockquote(editor, BLOCKS.HR)) {
+        unwrapFromRoot(editor);
       }
 
       const isBackspace = event.key === 'Backspace';
