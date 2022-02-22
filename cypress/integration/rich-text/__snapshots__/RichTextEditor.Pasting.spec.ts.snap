@@ -2679,3 +2679,167 @@ exports[`Rich Text Editor > Lists > normalizes paragraphs in table cells correct
   "data": {},
   "nodeType": "document"
 };
+
+exports[`Rich Text Editor > blockquotes > breaks a paragraph when pasting a blockquote in the middle #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": "A paragrap"
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    },
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "data": {},
+              "marks": [],
+              "nodeType": "text",
+              "value": "a quote"
+            }
+          ],
+          "data": {},
+          "nodeType": "paragraph"
+        }
+      ],
+      "data": {},
+      "nodeType": "blockquote"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": "h"
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > blockquotes > remove the paragraph if it's empty #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "data": {},
+              "marks": [],
+              "nodeType": "text",
+              "value": "a quote"
+            }
+          ],
+          "data": {},
+          "nodeType": "paragraph"
+        }
+      ],
+      "data": {},
+      "nodeType": "blockquote"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > blockquotes > removes the paragraph if it's empty #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "data": {},
+              "marks": [],
+              "nodeType": "text",
+              "value": "a quote"
+            }
+          ],
+          "data": {},
+          "nodeType": "paragraph"
+        }
+      ],
+      "data": {},
+      "nodeType": "blockquote"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > blockquotes > removes the paragraph if it's fully selected #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "data": {},
+              "marks": [],
+              "nodeType": "text",
+              "value": "a quote"
+            }
+          ],
+          "data": {},
+          "nodeType": "paragraph"
+        }
+      ],
+      "data": {},
+      "nodeType": "blockquote"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
