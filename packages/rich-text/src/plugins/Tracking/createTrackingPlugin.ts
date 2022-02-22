@@ -1,6 +1,4 @@
-import { PlateEditor } from '@udecode/plate-core';
-
-import { RichTextEditor, RichTextPlugin } from '../../types';
+import { RichTextPlugin } from '../../types';
 import { getCharacterCount } from './utils';
 
 export type RichTextTrackingActionName =
@@ -85,7 +83,7 @@ export const createTrackingPlugin = (onAction: RichTextTrackingActionHandler): R
 
   return {
     key: 'TrackingPlugin',
-    withOverrides: (editor: PlateEditor): RichTextEditor => {
+    withOverrides: (editor) => {
       const { insertData } = editor;
 
       editor.tracking = trackingActions;
@@ -110,7 +108,7 @@ export const createTrackingPlugin = (onAction: RichTextTrackingActionHandler): R
         insertData(data);
       };
 
-      return editor as RichTextEditor;
+      return editor;
     },
   };
 };

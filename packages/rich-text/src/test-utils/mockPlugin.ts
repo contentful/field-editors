@@ -4,7 +4,7 @@ import { RichTextPlugin } from '../types';
 import { randomId } from './randomId';
 
 export const mockPlugin = (p: Partial<RichTextPlugin>) =>
-  mock({
-    ...p,
+  mock<RichTextPlugin>({
+    ...(p as any),
     key: p.key || randomId('plugin'),
-  });
+  }) as any;

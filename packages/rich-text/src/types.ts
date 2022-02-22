@@ -35,7 +35,7 @@ declare module 'slate' {
   }
 }
 
-export interface RichTextPlugin extends PlatePlugin {
+export interface RichTextPlugin extends PlatePlugin<RichTextEditor> {
   /**
    * @see createSoftBreakPlugin
    */

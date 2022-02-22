@@ -5,6 +5,7 @@ import {
   HotkeyPlugin,
   KeyboardHandler,
   getLastChildPath,
+  WithPlatePlugin,
 } from '@udecode/plate-core';
 import {
   createTablePlugin as createDefaultTablePlugin,
@@ -30,13 +31,13 @@ import { Row } from './components/Row';
 import { Table } from './components/Table';
 import { createEmptyTableCells, getNoOfMissingTableCellsInRow, isNotEmpty } from './helpers';
 
-const createTableOnKeyDown: KeyboardHandler<{}, HotkeyPlugin> = (editor, plugin) => {
-  const defaultHandler = onKeyDownTable(editor, plugin);
+const createTableOnKeyDown: KeyboardHandler<RichTextEditor, HotkeyPlugin> = (editor, plugin) => {
+  const defaultHandler = onKeyDownTable(editor, plugin as WithPlatePlugin);
 
   return (event) => {
     if (
-      (event.key === 'Backspace' && currentSelectionStartsTableCell(editor as RichTextEditor)) ||
-      (event.key === 'Delete' && currentSelectionPrecedesTableCell(editor as RichTextEditor))
+      (event.key === 'Backspace' && currentSelectionStartsTableCell(editor)) ||
+      (event.key === 'Delete' && currentSelectionPrecedesTableCell(editor))
     ) {
       // The default behavior here would be to delete the preceding or forthcoming
       // leaf node, in this case a cell or header cell. But we don't want to do that,

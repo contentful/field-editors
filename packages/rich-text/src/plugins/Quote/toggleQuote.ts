@@ -43,7 +43,7 @@ export function toggleQuote(
   });
 }
 
-export const onKeyDownToggleQuote: KeyboardHandler<{}, HotkeyPlugin> =
+export const onKeyDownToggleQuote: KeyboardHandler<RichTextEditor, HotkeyPlugin> =
   (editor, plugin) => (event) => {
     const { hotkey } = plugin.options;
 

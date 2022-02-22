@@ -4,11 +4,11 @@ import isHotkey from 'is-hotkey';
 
 import { isBlockSelected, isInlineOrText } from '../../helpers/editor';
 import { transformLift, transformUnwrap } from '../../helpers/transformers';
-import { RichTextPlugin } from '../../types';
+import { RichTextEditor, RichTextPlugin } from '../../types';
 import { HeadingComponents } from './components/Heading';
 
 const buildHeadingEventHandler =
-  (type: BLOCKS): KeyboardHandler<{}, HotkeyPlugin> =>
+  (type: BLOCKS): KeyboardHandler<RichTextEditor, HotkeyPlugin> =>
   (editor, { options: { hotkey } }) =>
   (event) => {
     if (editor.selection && hotkey && isHotkey(hotkey, event)) {

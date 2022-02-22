@@ -8,7 +8,7 @@ import {
 } from '@udecode/plate-list';
 
 import { transformParagraphs, transformWrapIn } from '../../helpers/transformers';
-import { RichTextPlugin } from '../../types';
+import { RichTextEditor, RichTextPlugin } from '../../types';
 import { ListOL, ListUL } from './components/List';
 import { ListItem } from './components/ListItem';
 import {
@@ -22,7 +22,7 @@ import {
 import { withList } from './withList';
 
 export const createListPlugin = (): RichTextPlugin =>
-  createPlateListPlugin({
+  createPlateListPlugin<RichTextEditor>({
     normalizer: [
       {
         match: {
@@ -51,6 +51,7 @@ export const createListPlugin = (): RichTextPlugin =>
       [ELEMENT_LI]: {
         type: BLOCKS.LIST_ITEM,
         component: ListItem,
+        // @ts-expect-error
         normalizer: [
           {
             validNode: hasListAsDirectParent,
@@ -71,4 +72,4 @@ export const createListPlugin = (): RichTextPlugin =>
         ],
       },
     },
-  } as Partial<RichTextPlugin>);
+  });

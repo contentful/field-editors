@@ -18,7 +18,12 @@ import { HAS_BEFORE_INPUT_SUPPORT } from '../../helpers/environment';
 import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
 import { TrackingPluginActions } from '../../plugins/Tracking';
 import { useSdkContext } from '../../SdkProvider';
-import { RichTextPlugin, CustomElement, CustomRenderElementProps } from '../../types';
+import {
+  RichTextPlugin,
+  CustomElement,
+  CustomRenderElementProps,
+  RichTextEditor,
+} from '../../types';
 import { withLinkTracking } from '../links-tracking';
 import { FetchingWrappedInlineEntryCard } from './FetchingWrappedInlineEntryCard';
 import { createInlineEntryNode } from './Util';
@@ -203,7 +208,7 @@ export function createEmbeddedEntityInlinePlugin(sdk: FieldExtensionSDK): RichTe
 
 function getWithEmbeddedEntryInlineEvents(
   sdk: FieldExtensionSDK
-): KeyboardHandler<{}, HotkeyPlugin> {
+): KeyboardHandler<RichTextEditor, HotkeyPlugin> {
   return function withEmbeddedEntryInlineEvents(editor, { options: { hotkey } }) {
     return function handleEvent(event) {
       if (!editor) return;

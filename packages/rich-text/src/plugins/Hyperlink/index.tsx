@@ -198,7 +198,7 @@ const isAssetAnchor = (element: HTMLElement) =>
   element.nodeName === 'A' && element.getAttribute('data-link-type') === 'Asset';
 
 const buildHyperlinkEventHandler =
-  (sdk: FieldExtensionSDK): KeyboardHandler<{}, HotkeyPlugin> =>
+  (sdk: FieldExtensionSDK): KeyboardHandler<RichTextEditor, HotkeyPlugin> =>
   (editor, { options: { hotkey } }) => {
     return (event: React.KeyboardEvent) => {
       if (!editor.selection) {
@@ -213,7 +213,7 @@ const buildHyperlinkEventHandler =
         unwrapLink(editor);
         editor.tracking.onShortcutAction('unlinkHyperlinks');
       } else {
-        addOrEditLink(editor as RichTextEditor, sdk, editor.tracking.onShortcutAction);
+        addOrEditLink(editor, sdk, editor.tracking.onShortcutAction);
       }
     };
   };
