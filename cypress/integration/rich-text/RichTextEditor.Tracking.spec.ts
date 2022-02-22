@@ -496,7 +496,6 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
             editEntryHyperlink(),
             linkRendered(),
             openEditModal(),
-            linkRendered(),
             editAssetHyperlink(),
             linkRendered(),
           ]);
@@ -517,11 +516,9 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
             editEntryHyperlink(),
             linkRendered(),
             openEditModal(),
-            linkRendered(),
             editAssetHyperlink(),
             linkRendered(),
             openEditModal(),
-            linkRendered(),
             editHyperlink(),
           ]);
         });
