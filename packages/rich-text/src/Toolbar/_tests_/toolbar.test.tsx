@@ -4,7 +4,7 @@ import { render, configure, waitFor } from '@testing-library/react';
 import { Plate } from '@udecode/plate-core';
 
 import '@testing-library/jest-dom/extend-expect';
-import { ContentfulEditorProvider, getContentfulEditorId } from '../../ContentfulEditorProvider';
+import { ContentfulEditorIdProvider, getContentfulEditorId } from '../../ContentfulEditorProvider';
 import { SdkProvider } from '../../SdkProvider';
 import { TrackingProvider } from '../../TrackingProvider';
 import Toolbar from '../index';
@@ -34,14 +34,16 @@ beforeEach(() => {
 });
 
 test('everything on the toolbar should be disabled', async () => {
+  const id = getContentfulEditorId(sdk);
+
   const { getByTestId } = render(
-    <Plate id={getContentfulEditorId(sdk)}>
+    <Plate id={id}>
       <SdkProvider sdk={sdk}>
-        <ContentfulEditorProvider sdk={sdk}>
+        <ContentfulEditorIdProvider value={id}>
           <TrackingProvider onAction={jest.fn()}>
             <Toolbar isDisabled />
           </TrackingProvider>
-        </ContentfulEditorProvider>
+        </ContentfulEditorIdProvider>
       </SdkProvider>
     </Plate>
   );

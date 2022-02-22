@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
-import { toContentfulDocument } from '@contentful/contentful-slatejs-adapter';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import * as Contentful from '@contentful/rich-text-types';
@@ -10,8 +9,12 @@ import { css, cx } from 'emotion';
 import deepEquals from 'fast-deep-equal';
 import noop from 'lodash/noop';
 
-import schema from './constants/Schema';
-import { ContentfulEditorProvider, getContentfulEditorId } from './ContentfulEditorProvider';
+import {
+  ContentfulEditorIdProvider,
+  getContentfulEditorId,
+  useContentfulEditor,
+  useContentfulEditorId,
+} from './ContentfulEditorProvider';
 import { getPlugins, disableCorePlugins } from './plugins';
 import { styles } from './RichTextEditor.styles';
 import { SdkProvider } from './SdkProvider';
@@ -23,6 +26,7 @@ import {
   useTrackingContext,
 } from './TrackingProvider';
 import { useNormalizedSlateValue } from './useNormalizedSlateValue';
+import { useOnValueChanged } from './useOnValueChanged';
 
 type ConnectedProps = {
   sdk: FieldExtensionSDK;
@@ -36,7 +40,8 @@ type ConnectedProps = {
 };
 
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
-  const id = getContentfulEditorId(props.sdk);
+  const id = useContentfulEditorId();
+  const editor = useContentfulEditor();
 
   const tracking = useTrackingContext();
   const plugins = React.useMemo(() => getPlugins(props.sdk, tracking), [props.sdk, tracking]);
@@ -45,6 +50,11 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
     id,
     incomingDoc: props.value,
     plugins,
+  });
+
+  const onValueChanged = useOnValueChanged({
+    editor,
+    handler: props.onChange,
   });
 
   const classNames = cx(
@@ -65,9 +75,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
           className: classNames,
           readOnly: props.isDisabled,
         }}
-        onChange={(document) => {
-          props.onChange?.(toContentfulDocument({ document, schema }));
-        }}>
+        onChange={onValueChanged}>
         {!props.isToolbarHidden && (
           <StickyToolbarWrapper isDisabled={props.isDisabled}>
             <Toolbar isDisabled={props.isDisabled} />
@@ -86,6 +94,9 @@ const RichTextEditor = (props: Props) => {
     (value) => !value || deepEquals(value, Contentful.EMPTY_DOCUMENT),
     []
   );
+
+  const editorId = getContentfulEditorId(sdk);
+
   return (
     <EntityProvider sdk={sdk}>
       <SdkProvider sdk={sdk}>
@@ -97,7 +108,7 @@ const RichTextEditor = (props: Props) => {
             isEmptyValue={isEmptyValue}
             isEqualValues={deepEquals}>
             {({ lastRemoteValue, disabled, setValue, externalReset }) => (
-              <ContentfulEditorProvider sdk={sdk}>
+              <ContentfulEditorIdProvider value={editorId}>
                 <ConnectedRichTextEditor
                   {...otherProps}
                   key={`rich-text-editor-${externalReset}`}
@@ -107,7 +118,7 @@ const RichTextEditor = (props: Props) => {
                   isDisabled={disabled}
                   onChange={setValue}
                 />
-              </ContentfulEditorProvider>
+              </ContentfulEditorIdProvider>
             )}
           </FieldConnector>
         </TrackingProvider>
