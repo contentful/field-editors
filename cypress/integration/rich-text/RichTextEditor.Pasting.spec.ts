@@ -273,5 +273,37 @@ describe(
         richText.expectSnapshotValue();
       });
     });
+
+    describe('blockquotes', () => {
+      it('breaks a paragraph when pasting a blockquote in the middle', () => {
+        richText.editor.type('A paragraph{leftarrow}').paste({
+          'text/html':
+            '<meta charset="utf-8"><blockquote data-slate-node="element" class="css-1p66r2x" data-slate-fragment="JTVCJTdCJTIydHlwZSUyMiUzQSUyMmJsb2NrcXVvdGUlMjIlMkMlMjJkYXRhJTIyJTNBJTdCJTdEJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0eXBlJTIyJTNBJTIycGFyYWdyYXBoJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0ZXh0JTIyJTNBJTIyYSUyMHF1b3RlJTIyJTJDJTIyZGF0YSUyMiUzQSU3QiU3RCU3RCU1RCUyQyUyMmlzVm9pZCUyMiUzQWZhbHNlJTJDJTIyZGF0YSUyMiUzQSU3QiU3RCU3RCU1RCU3RCUyQyU3QiUyMnR5cGUlMjIlM0ElMjJwYXJhZ3JhcGglMjIlMkMlMjJjaGlsZHJlbiUyMiUzQSU1QiU3QiUyMnRleHQlMjIlM0ElMjIlMjIlN0QlNUQlN0QlNUQ="><div data-slate-node="element" class="css-ss00rg"><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-string="true">a quote</span></span></span></div></blockquote><div data-slate-node="element" class="css-ss00rg"><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-zero-width="n" data-slate-length="0"></span></span></span></div>',
+          'text/plain': 'a blockquote',
+        });
+
+        richText.expectSnapshotValue();
+      });
+
+      it("removes the paragraph if it's empty", () => {
+        richText.editor.click().paste({
+          'text/html':
+            '<meta charset="utf-8"><blockquote data-slate-node="element" class="css-1p66r2x" data-slate-fragment="JTVCJTdCJTIydHlwZSUyMiUzQSUyMmJsb2NrcXVvdGUlMjIlMkMlMjJkYXRhJTIyJTNBJTdCJTdEJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0eXBlJTIyJTNBJTIycGFyYWdyYXBoJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0ZXh0JTIyJTNBJTIyYSUyMHF1b3RlJTIyJTJDJTIyZGF0YSUyMiUzQSU3QiU3RCU3RCU1RCUyQyUyMmlzVm9pZCUyMiUzQWZhbHNlJTJDJTIyZGF0YSUyMiUzQSU3QiU3RCU3RCU1RCU3RCUyQyU3QiUyMnR5cGUlMjIlM0ElMjJwYXJhZ3JhcGglMjIlMkMlMjJjaGlsZHJlbiUyMiUzQSU1QiU3QiUyMnRleHQlMjIlM0ElMjIlMjIlN0QlNUQlN0QlNUQ="><div data-slate-node="element" class="css-ss00rg"><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-string="true">a quote</span></span></span></div></blockquote><div data-slate-node="element" class="css-ss00rg"><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-zero-width="n" data-slate-length="0"></span></span></span></div>',
+          'text/plain': 'a blockquote',
+        });
+
+        richText.expectSnapshotValue();
+      });
+
+      it("removes the paragraph if it's fully selected", () => {
+        richText.editor.click().type('abc{selectall}').paste({
+          'text/html':
+            '<meta charset="utf-8"><blockquote data-slate-node="element" class="css-1p66r2x" data-slate-fragment="JTVCJTdCJTIydHlwZSUyMiUzQSUyMmJsb2NrcXVvdGUlMjIlMkMlMjJkYXRhJTIyJTNBJTdCJTdEJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0eXBlJTIyJTNBJTIycGFyYWdyYXBoJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0ZXh0JTIyJTNBJTIyYSUyMHF1b3RlJTIyJTJDJTIyZGF0YSUyMiUzQSU3QiU3RCU3RCU1RCUyQyUyMmlzVm9pZCUyMiUzQWZhbHNlJTJDJTIyZGF0YSUyMiUzQSU3QiU3RCU3RCU1RCU3RCUyQyU3QiUyMnR5cGUlMjIlM0ElMjJwYXJhZ3JhcGglMjIlMkMlMjJjaGlsZHJlbiUyMiUzQSU1QiU3QiUyMnRleHQlMjIlM0ElMjIlMjIlN0QlNUQlN0QlNUQ="><div data-slate-node="element" class="css-ss00rg"><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-string="true">a quote</span></span></span></div></blockquote><div data-slate-node="element" class="css-ss00rg"><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-zero-width="n" data-slate-length="0"></span></span></span></div>',
+          'text/plain': 'a blockquote',
+        });
+
+        richText.expectSnapshotValue();
+      });
+    });
   }
 );
