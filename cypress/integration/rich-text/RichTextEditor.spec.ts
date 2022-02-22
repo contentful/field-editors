@@ -150,15 +150,15 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       // type
       richText.editor.click().type('some text.').click();
 
-      richText.expectValue(expectedValue, { id: 31, type: 'setValue' });
+      richText.expectValue(expectedValue);
 
       // undo
       richText.editor.click().type(`{${mod}}z`).click();
-      richText.expectValue(undefined, { id: 35, type: 'removeValue' });
+      richText.expectValue(undefined);
 
       // redo
       richText.editor.click().type(`{${mod}}{shift}z`).click();
-      richText.expectValue(expectedValue, { id: 39, type: 'setValue' });
+      richText.expectValue(expectedValue);
     });
 
     it('correctly undoes after drag&drop', () => {
@@ -1594,8 +1594,6 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     it('runs initial normalization without triggering a value change', () => {
       cy.setInitialValue(invalidDocumentNormalizable);
 
-      cy.clock();
-
       cy.reload();
 
       // Should render normalized content
@@ -1614,9 +1612,6 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       richText.editor.should('contain.text', 'cell #5');
       richText.editor.should('contain.text', 'cell #6');
 
-      // Wait for any debounce logic that we may have
-      cy.tick(5000);
-
       // The field value in this case will still be untouched (i.e. un-normalized)
       // since we won't trigger onChange.
       richText.expectValue(invalidDocumentNormalizable);
@@ -1628,9 +1623,6 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
       // Trigger normalization by changing the editor content
       richText.editor.type('end');
-
-      // Wait for any debounce logic that we may have
-      cy.tick(5000);
 
       richText.expectSnapshotValue();
     });

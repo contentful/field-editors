@@ -67,7 +67,11 @@ describe('Rich Text Lists', () => {
       listType: BLOCKS.UL_LIST,
       label: 'Unordered List (UL)',
     },
-    { getList: () => richText.toolbar.ol, listType: BLOCKS.OL_LIST, label: 'Ordered List (OL)' },
+    {
+      getList: () => richText.toolbar.ol,
+      listType: BLOCKS.OL_LIST,
+      label: 'Ordered List (OL)',
+    },
   ];
 
   lists.forEach((test) => {

@@ -3,42 +3,18 @@ import * as React from 'react';
 import { FormatItalicIcon } from '@contentful/f36-icons';
 import { MARKS } from '@contentful/rich-text-types';
 import { createItalicPlugin as createDefaultItalicPlugin } from '@udecode/plate-basic-marks';
-import { toggleMark, isMarkActive, someHtmlElement } from '@udecode/plate-core';
+import { someHtmlElement } from '@udecode/plate-core';
 import { css } from 'emotion';
 import * as Slate from 'slate-react';
 
-import { useContentfulEditor } from '../../ContentfulEditorProvider';
-import { focus } from '../../helpers/editor';
 import { RichTextPlugin } from '../../types';
-import { ToolbarButton } from '../shared/ToolbarButton';
+import { createMarkToolbarButton } from './components/MarkToolbarButton';
 
-interface ToolbarItalicButtonProps {
-  isDisabled?: boolean;
-}
-
-export function ToolbarItalicButton(props: ToolbarItalicButtonProps) {
-  const editor = useContentfulEditor();
-
-  function handleClick() {
-    if (!editor?.selection) return;
-
-    toggleMark(editor, { key: MARKS.ITALIC });
-    focus(editor);
-  }
-
-  if (!editor) return null;
-
-  return (
-    <ToolbarButton
-      title="Italic"
-      testId="italic-toolbar-button"
-      onClick={handleClick}
-      isActive={isMarkActive(editor, MARKS.ITALIC)}
-      isDisabled={props.isDisabled}>
-      <FormatItalicIcon />
-    </ToolbarButton>
-  );
-}
+export const ToolbarItalicButton = createMarkToolbarButton({
+  title: 'Italic',
+  mark: MARKS.ITALIC,
+  icon: <FormatItalicIcon />,
+});
 
 const styles = {
   italic: css({
