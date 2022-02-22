@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
-import { usePlateEditorState } from '@udecode/plate-core';
+import { usePlateEditorRef, usePlateEditorState } from '@udecode/plate-core';
 
 import { RichTextEditor } from './types';
 
@@ -27,9 +27,19 @@ export function useContentfulEditorId() {
   return id;
 }
 
+// This hook re-render when value value changes
+// Use case: Toolbar icons, for example
 export function useContentfulEditor() {
   const editorId = useContentfulEditorId();
   const editor = usePlateEditorState<RichTextEditor>(editorId);
+
+  return editor;
+}
+
+// This doesn't re-render when value changes
+export function useContentfulEditorRef() {
+  const editorId = useContentfulEditorId();
+  const editor = usePlateEditorRef<RichTextEditor>(editorId);
 
   return editor;
 }

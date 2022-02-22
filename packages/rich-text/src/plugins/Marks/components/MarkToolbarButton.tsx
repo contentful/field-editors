@@ -21,7 +21,7 @@ export const createMarkToolbarButton = ({ mark, title, icon }: MarkOptions) => {
       if (!editor?.selection) return;
 
       const isActive = isMarkActive(editor, mark);
-      editor.tracking.onToolbarAction(isActive ? 'unmark' : 'mark', { mark });
+      editor.tracking.onToolbarAction(isActive ? 'unmark' : 'mark', { markType: mark });
 
       toggleMark(editor, { key: mark });
       focus(editor);

@@ -1,6 +1,6 @@
 import React, { ComponentProps } from 'react';
 
-import { useContentfulEditor } from '../ContentfulEditorProvider';
+import { useContentfulEditorRef } from '../ContentfulEditorProvider';
 
 type WithEntityFetchProps = {
   onEntityFetchComplete: VoidFunction;
@@ -8,15 +8,12 @@ type WithEntityFetchProps = {
 
 export function withLinkTracking(Component: React.ComponentType<WithEntityFetchProps>) {
   return function ComponentWithTracking(props: ComponentProps<typeof Component>) {
-    const editor = useContentfulEditor();
-
-    return (
-      <Component
-        {...props}
-        onEntityFetchComplete={() => {
-          editor.tracking.onViewportAction('linkRendered');
-        }}
-      />
+    const editor = useContentfulEditorRef();
+    const onEntityFetchComplete = React.useCallback(
+      () => editor.tracking.onViewportAction('linkRendered'),
+      [editor]
     );
+
+    return <Component {...props} onEntityFetchComplete={onEntityFetchComplete} />;
   };
 }
