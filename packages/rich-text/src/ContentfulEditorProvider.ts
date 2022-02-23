@@ -27,7 +27,7 @@ export function useContentfulEditorId() {
   return id;
 }
 
-// This hook re-render when value value changes
+// This hook re-renders when the value changes
 // Use case: Toolbar icons, for example
 export function useContentfulEditor() {
   const editorId = useContentfulEditorId();
@@ -36,7 +36,7 @@ export function useContentfulEditor() {
   return editor;
 }
 
-// This doesn't re-render when value changes
+// This doesn't re-render when the value changes
 export function useContentfulEditorRef() {
   const editorId = useContentfulEditorId();
   const editor = usePlateEditorRef<RichTextEditor>(editorId);

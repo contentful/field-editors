@@ -25,7 +25,7 @@ export type RichTextTrackingActionName =
   | 'openCreateHyperlinkDialog'
   | 'openEditHyperlinkDialog'
   | 'unlinkHyperlinks'
-  // Embeddeds
+  // Embeds
   | 'openCreateEmbedDialog'
   | 'cancelCreateEmbedDialog';
 
