@@ -1,23 +1,19 @@
 import React, { ComponentProps } from 'react';
 
-import { TrackingProvider } from '../TrackingProvider';
+import { useContentfulEditorRef } from '../ContentfulEditorProvider';
 
 type WithEntityFetchProps = {
   onEntityFetchComplete: VoidFunction;
 } & JSX.IntrinsicAttributes;
 
-export function withLinkTracking(
-  tracking: TrackingProvider,
-  Component: React.ComponentType<WithEntityFetchProps>
-) {
+export function withLinkTracking(Component: React.ComponentType<WithEntityFetchProps>) {
   return function ComponentWithTracking(props: ComponentProps<typeof Component>) {
-    return (
-      <Component
-        {...props}
-        onEntityFetchComplete={() => {
-          tracking.onViewportAction('linkRendered');
-        }}
-      />
+    const editor = useContentfulEditorRef();
+    const onEntityFetchComplete = React.useCallback(
+      () => editor.tracking.onViewportAction('linkRendered'),
+      [editor]
     );
+
+    return <Component {...props} onEntityFetchComplete={onEntityFetchComplete} />;
   };
 }

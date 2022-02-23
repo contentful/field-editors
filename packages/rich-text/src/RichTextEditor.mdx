@@ -47,7 +47,7 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
               type,
             },
           }
-        : Promise.reject(); // Simulate cancellation.
+        : null; // Simulate cancellation.
     };
 
     const initialValue = JSON.parse(window.localStorage.getItem('initialValue')) || undefined

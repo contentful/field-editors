@@ -7,16 +7,15 @@ import {
   isSelectionAtBlockEnd,
   isSelectionAtBlockStart,
   moveChildren,
-  PlateEditor,
 } from '@udecode/plate-core';
 import { Editor, Path, Transforms } from 'slate';
 
-import { CustomElement } from '../../../types';
+import { CustomElement, RichTextEditor } from '../../../types';
 
 /**
  * Build a new list item node while preserving marks
  */
-const emptyListItemNode = (editor: PlateEditor, withChildren = false): CustomElement => {
+const emptyListItemNode = (editor: RichTextEditor, withChildren = false): CustomElement => {
   let children: CustomElement[] = [];
 
   if (withChildren) {
@@ -41,7 +40,7 @@ const emptyListItemNode = (editor: PlateEditor, withChildren = false): CustomEle
 /**
  * Insert list item if selection is in li>p.
  */
-export const insertListItem = (editor: PlateEditor): boolean => {
+export const insertListItem = (editor: RichTextEditor): boolean => {
   if (!editor.selection) {
     return false;
   }

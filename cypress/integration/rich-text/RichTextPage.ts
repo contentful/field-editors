@@ -124,6 +124,14 @@ export class RichTextPage {
       .should('be.empty')
       .as('validationErrors');
   }
+
+  expectTrackingValue(expectedValue: any) {
+    cy.window()
+      .should((win) => {
+        expect(win.actions).to.deep.equal(expectedValue);
+      })
+      .as('trackingValue');
+  }
 }
 
 class HyperLinkModal {
@@ -149,5 +157,9 @@ class HyperLinkModal {
 
   get submit() {
     return cy.findByTestId('confirm-cta');
+  }
+
+  get cancel() {
+    return cy.findAllByTestId('cancel-cta');
   }
 }

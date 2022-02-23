@@ -9,6 +9,7 @@ import * as Slate from 'slate-react';
 
 import { RichTextPlugin } from '../../types';
 import { createMarkToolbarButton } from './components/MarkToolbarButton';
+import { buildMarkEventHandler } from './helpers';
 
 export const ToolbarItalicButton = createMarkToolbarButton({
   title: 'Italic',
@@ -36,6 +37,9 @@ export const createItalicPlugin = (): RichTextPlugin =>
     component: Italic,
     options: {
       hotkey: ['mod+i'],
+    },
+    handlers: {
+      onKeyDown: buildMarkEventHandler(MARKS.ITALIC),
     },
     deserializeHtml: {
       rules: [

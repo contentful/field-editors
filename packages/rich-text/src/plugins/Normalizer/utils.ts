@@ -1,5 +1,5 @@
-import { PlateEditor } from '@udecode/plate-core';
 import { NodeEntry, Text, Node, Element } from 'slate';
+import { RichTextEditor } from 'types';
 
 import { NodeValidator, NodeTransformer } from './types';
 
@@ -11,7 +11,7 @@ export const createValidatorFromTypes =
     return Element.isElement(node) && types.includes(node.type);
   };
 
-export const getChildren = (editor: PlateEditor, [node, path]: NodeEntry): NodeEntry[] => {
+export const getChildren = (editor: RichTextEditor, [node, path]: NodeEntry): NodeEntry[] => {
   if (Text.isText(node)) {
     return [];
   }

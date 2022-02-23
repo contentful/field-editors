@@ -1,11 +1,4 @@
-import {
-  getPluginType,
-  PlateEditor,
-  TElement,
-  getAbove,
-  insertNodes,
-  someNode,
-} from '@udecode/plate-core';
+import { getPluginType, TElement, getAbove, insertNodes, someNode } from '@udecode/plate-core';
 import {
   getEmptyCellNode,
   TablePluginOptions,
@@ -15,8 +8,10 @@ import {
 } from '@udecode/plate-table';
 import { Path } from 'slate';
 
+import { RichTextEditor } from '../../../types';
+
 const addColumn = (
-  editor: PlateEditor,
+  editor: RichTextEditor,
   { header }: TablePluginOptions,
   getNextCellPath: (currentCellPath: Path) => Path
 ) => {
@@ -58,10 +53,10 @@ const addColumn = (
   }
 };
 
-export const addColumnRight = (editor: PlateEditor, options: TablePluginOptions) => {
+export const addColumnRight = (editor: RichTextEditor, options: TablePluginOptions) => {
   addColumn(editor, options, (currentCellPath) => Path.next(currentCellPath));
 };
 
-export const addColumnLeft = (editor: PlateEditor, options: TablePluginOptions) => {
+export const addColumnLeft = (editor: RichTextEditor, options: TablePluginOptions) => {
   addColumn(editor, options, (currentCellPath) => currentCellPath);
 };

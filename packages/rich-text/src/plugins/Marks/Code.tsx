@@ -8,6 +8,7 @@ import * as Slate from 'slate-react';
 
 import { RichTextPlugin } from '../../types';
 import { createMarkToolbarButton } from './components/MarkToolbarButton';
+import { buildMarkEventHandler } from './helpers';
 
 export const ToolbarCodeButton = createMarkToolbarButton({
   title: 'Code',
@@ -36,6 +37,9 @@ export const createCodePlugin = (): RichTextPlugin =>
     component: Code,
     options: {
       hotkey: ['mod+/'],
+    },
+    handlers: {
+      onKeyDown: buildMarkEventHandler(MARKS.CODE),
     },
     deserializeHtml: {
       rules: [

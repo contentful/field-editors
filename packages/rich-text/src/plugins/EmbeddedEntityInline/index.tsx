@@ -11,14 +11,19 @@ import { css } from 'emotion';
 import isHotkey from 'is-hotkey';
 import { Transforms } from 'slate';
 import { useSelected, ReactEditor, useReadOnly } from 'slate-react';
-import { TrackingProvider } from 'TrackingProvider';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { focus } from '../../helpers/editor';
 import { HAS_BEFORE_INPUT_SUPPORT } from '../../helpers/environment';
 import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
+import { TrackingPluginActions } from '../../plugins/Tracking';
 import { useSdkContext } from '../../SdkProvider';
-import { RichTextPlugin, CustomElement, CustomRenderElementProps } from '../../types';
+import {
+  RichTextPlugin,
+  CustomElement,
+  CustomRenderElementProps,
+  RichTextEditor,
+} from '../../types';
 import { withLinkTracking } from '../links-tracking';
 import { FetchingWrappedInlineEntryCard } from './FetchingWrappedInlineEntryCard';
 import { createInlineEntryNode } from './Util';
@@ -94,7 +99,13 @@ interface ToolbarEmbeddedEntityInlineButtonProps {
   isButton?: boolean;
 }
 
-async function selectEntityAndInsert(editor, sdk: FieldExtensionSDK) {
+async function selectEntityAndInsert(
+  editor,
+  sdk: FieldExtensionSDK,
+  logAction: TrackingPluginActions['onShortcutAction'] | TrackingPluginActions['onToolbarAction']
+) {
+  logAction('openCreateEmbedDialog', { nodeType: INLINES.EMBEDDED_ENTRY });
+
   const config = {
     ...newEntitySelectorConfigFromRichTextField(sdk.field, INLINES.EMBEDDED_ENTRY),
     withCreate: true,
@@ -103,7 +114,11 @@ async function selectEntityAndInsert(editor, sdk: FieldExtensionSDK) {
 
   const entry = await sdk.dialogs.selectSingleEntry<Entry>(config);
   focus(editor); // Dialog steals focus from editor, return it.
-  if (!entry) return;
+
+  if (!entry) {
+    logAction('cancelCreateEmbedDialog', { nodeType: INLINES.EMBEDDED_ENTRY });
+    return;
+  }
 
   const inlineEntryNode = createInlineEntryNode(entry.sys.id);
 
@@ -112,6 +127,8 @@ async function selectEntityAndInsert(editor, sdk: FieldExtensionSDK) {
     Transforms.setSelection(editor, selection);
     Transforms.insertNodes(editor, inlineEntryNode);
   }, 0);
+
+  logAction('insert', { nodeType: INLINES.EMBEDDED_ENTRY });
 }
 
 export function ToolbarEmbeddedEntityInlineButton(props: ToolbarEmbeddedEntityInlineButtonProps) {
@@ -125,7 +142,7 @@ export function ToolbarEmbeddedEntityInlineButton(props: ToolbarEmbeddedEntityIn
 
     props.onClose();
 
-    await selectEntityAndInsert(editor, sdk);
+    await selectEntityAndInsert(editor, sdk, editor.tracking.onToolbarAction);
   }
 
   return props.isButton ? (
@@ -156,10 +173,7 @@ export function ToolbarEmbeddedEntityInlineButton(props: ToolbarEmbeddedEntityIn
   );
 }
 
-export function createEmbeddedEntityInlinePlugin(
-  sdk: FieldExtensionSDK,
-  tracking: TrackingProvider
-): RichTextPlugin {
+export function createEmbeddedEntityInlinePlugin(sdk: FieldExtensionSDK): RichTextPlugin {
   const htmlAttributeName = 'data-embedded-entity-inline-id';
 
   return {
@@ -168,7 +182,7 @@ export function createEmbeddedEntityInlinePlugin(
     isElement: true,
     isInline: true,
     isVoid: true,
-    component: withLinkTracking(tracking, EmbeddedEntityInline),
+    component: withLinkTracking(EmbeddedEntityInline),
     options: {
       hotkey: 'mod+shift+2',
     },
@@ -190,13 +204,13 @@ export function createEmbeddedEntityInlinePlugin(
 
 function getWithEmbeddedEntryInlineEvents(
   sdk: FieldExtensionSDK
-): KeyboardHandler<{}, HotkeyPlugin> {
+): KeyboardHandler<RichTextEditor, HotkeyPlugin> {
   return function withEmbeddedEntryInlineEvents(editor, { options: { hotkey } }) {
     return function handleEvent(event) {
       if (!editor) return;
 
       if (hotkey && isHotkey(hotkey, event)) {
-        selectEntityAndInsert(editor, sdk);
+        selectEntityAndInsert(editor, sdk, editor.tracking.onShortcutAction);
       }
     };
   };

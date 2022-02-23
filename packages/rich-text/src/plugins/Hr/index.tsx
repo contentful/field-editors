@@ -3,7 +3,7 @@ import * as React from 'react';
 import { HorizontalRuleIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { PlateEditor, getText, setNodes } from '@udecode/plate-core';
+import { getText, setNodes } from '@udecode/plate-core';
 import { css, cx } from 'emotion';
 import { Transforms } from 'slate';
 import * as Slate from 'slate-react';
@@ -17,7 +17,7 @@ import {
   unwrapFromRoot,
   focus,
 } from '../../helpers/editor';
-import { RichTextPlugin } from '../../types';
+import { RichTextEditor, RichTextPlugin } from '../../types';
 import { ToolbarButton } from '../shared/ToolbarButton';
 
 const styles = {
@@ -56,7 +56,7 @@ interface ToolbarHrButtonProps {
   isDisabled?: boolean;
 }
 
-export function withHrEvents(editor: PlateEditor) {
+export function withHrEvents(editor: RichTextEditor) {
   return (event: React.KeyboardEvent) => {
     if (!editor) return;
 
