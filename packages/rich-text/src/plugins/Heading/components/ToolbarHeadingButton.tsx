@@ -13,6 +13,7 @@ import {
   shouldUnwrapBlockquote,
   unwrapFromRoot,
   focus,
+  isBlockSelected,
 } from '../../../helpers/editor';
 import { isNodeTypeEnabled } from '../../../helpers/validations';
 import { useSdkContext } from '../../../SdkProvider';
@@ -110,6 +111,10 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
         editor.onChange = prevOnChange;
         prevOnChange(...args);
       };
+
+      const isActive = isBlockSelected(editor, type);
+      editor.tracking.onToolbarAction(isActive ? 'remove' : 'insert', { nodeType: type });
+
       toggleNodeType(editor, { activeType: type, inactiveType: type });
     };
   }

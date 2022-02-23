@@ -1,12 +1,11 @@
-import { PlateEditor } from '@udecode/plate-core';
-
+import { RichTextEditor } from '../types';
 import { createTestEditor, normalize } from './createEditor';
 import { setEmptyDataAttribute } from './setEmptyDataAttribute';
 
 export const assertOutput = (options: {
   input?: any;
   expected: any;
-  editor?: PlateEditor;
+  editor?: RichTextEditor;
   log?: boolean;
   skipCursor?: boolean;
 }) => {

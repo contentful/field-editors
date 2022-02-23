@@ -5,6 +5,7 @@ import {
   HotkeyPlugin,
   KeyboardHandler,
   getLastChildPath,
+  WithPlatePlugin,
 } from '@udecode/plate-core';
 import {
   createTablePlugin as createDefaultTablePlugin,
@@ -22,8 +23,7 @@ import {
   isRootLevel,
 } from '../../helpers/editor';
 import { transformLift, transformParagraphs, transformWrapIn } from '../../helpers/transformers';
-import { TrackingProvider } from '../../TrackingProvider';
-import { RichTextPlugin, CustomElement } from '../../types';
+import { RichTextPlugin, CustomElement, RichTextEditor } from '../../types';
 import { addTableTrackingEvents } from './addTableTrackingEvents';
 import { Cell } from './components/Cell';
 import { HeaderCell } from './components/HeaderCell';
@@ -31,8 +31,8 @@ import { Row } from './components/Row';
 import { Table } from './components/Table';
 import { createEmptyTableCells, getNoOfMissingTableCellsInRow, isNotEmpty } from './helpers';
 
-const createTableOnKeyDown: KeyboardHandler<{}, HotkeyPlugin> = (editor, plugin) => {
-  const defaultHandler = onKeyDownTable(editor, plugin);
+const createTableOnKeyDown: KeyboardHandler<RichTextEditor, HotkeyPlugin> = (editor, plugin) => {
+  const defaultHandler = onKeyDownTable(editor, plugin as WithPlatePlugin);
 
   return (event) => {
     if (
@@ -51,14 +51,14 @@ const createTableOnKeyDown: KeyboardHandler<{}, HotkeyPlugin> = (editor, plugin)
   };
 };
 
-export const createTablePlugin = (tracking: TrackingProvider): RichTextPlugin =>
+export const createTablePlugin = (): RichTextPlugin =>
   createDefaultTablePlugin({
     type: BLOCKS.TABLE,
     handlers: {
       onKeyDown: createTableOnKeyDown,
     },
     withOverrides: (editor) => {
-      addTableTrackingEvents(editor, tracking);
+      addTableTrackingEvents(editor as RichTextEditor);
 
       const { insertFragment } = editor;
 

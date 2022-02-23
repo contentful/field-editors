@@ -1,13 +1,12 @@
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
-import { PlateEditor } from '@udecode/plate-core';
 import { createEditor as createSlateEditor } from '@udecode/plate-test-utils';
 import { Path } from 'slate';
 
-import { CustomElement } from '../../types';
+import { CustomElement, RichTextEditor } from '../../types';
 import { extractParagraphs } from '../extractNodes';
 
 const createEditor = (children: CustomElement[]) =>
-  createSlateEditor('test-editor', {}, children) as PlateEditor;
+  createSlateEditor('test-editor', {}, children) as RichTextEditor;
 
 type Text = {
   text: string;

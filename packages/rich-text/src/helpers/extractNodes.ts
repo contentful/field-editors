@@ -1,10 +1,10 @@
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
-import { NodeMatch, PlateEditor, getNodes } from '@udecode/plate-core';
+import { NodeMatch, getNodes } from '@udecode/plate-core';
 import { Path } from 'slate';
 
-import { CustomElement } from '../types';
+import { CustomElement, RichTextEditor } from '../types';
 
-function extractNodes(editor: PlateEditor, path: Path, match: NodeMatch) {
+function extractNodes(editor: RichTextEditor, path: Path, match: NodeMatch) {
   return Array.from(
     getNodes(editor, {
       match,
@@ -17,7 +17,7 @@ function extractNodes(editor: PlateEditor, path: Path, match: NodeMatch) {
 /**
  * It filters out all paragraphs and headings from a path and convert them into paragraphs.
  */
-export function extractParagraphs(editor: PlateEditor, path: Path): CustomElement[] {
+export function extractParagraphs(editor: RichTextEditor, path: Path): CustomElement[] {
   return extractNodes(editor, path, {
     type: TEXT_CONTAINERS,
   }).map((node) => ({

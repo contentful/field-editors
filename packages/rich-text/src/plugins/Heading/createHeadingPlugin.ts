@@ -1,10 +1,23 @@
 import { BLOCKS, HEADINGS } from '@contentful/rich-text-types';
-import { getAbove, onKeyDownToggleElement } from '@udecode/plate-core';
+import { getAbove, HotkeyPlugin, KeyboardHandler, toggleNodeType } from '@udecode/plate-core';
+import isHotkey from 'is-hotkey';
 
-import { isInlineOrText } from '../../helpers/editor';
+import { isBlockSelected, isInlineOrText } from '../../helpers/editor';
 import { transformLift, transformUnwrap } from '../../helpers/transformers';
-import { RichTextPlugin } from '../../types';
+import { RichTextEditor, RichTextPlugin } from '../../types';
 import { HeadingComponents } from './components/Heading';
+
+const buildHeadingEventHandler =
+  (type: BLOCKS): KeyboardHandler<RichTextEditor, HotkeyPlugin> =>
+  (editor, { options: { hotkey } }) =>
+  (event) => {
+    if (editor.selection && hotkey && isHotkey(hotkey, event)) {
+      const isActive = isBlockSelected(editor, type);
+      editor.tracking.onShortcutAction(isActive ? 'remove' : 'insert', { nodeType: type });
+
+      toggleNodeType(editor, { activeType: type, inactiveType: BLOCKS.PARAGRAPH });
+    }
+  };
 
 export const createHeadingPlugin = (): RichTextPlugin => ({
   key: 'HeadingPlugin',
@@ -66,7 +79,7 @@ export const createHeadingPlugin = (): RichTextPlugin => ({
         hotkey: [`mod+alt+${level}`],
       },
       handlers: {
-        onKeyDown: onKeyDownToggleElement,
+        onKeyDown: buildHeadingEventHandler(nodeType),
       },
       deserializeHtml: {
         rules: [

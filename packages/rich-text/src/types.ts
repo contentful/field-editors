@@ -1,9 +1,10 @@
 import { MARKS } from '@contentful/rich-text-types';
-import { PlatePlugin } from '@udecode/plate-core';
+import { PlateEditor, PlatePlugin } from '@udecode/plate-core';
 import { RenderElementProps } from 'slate-react';
 
 import type { SoftBreakRule, ExitBreakRule } from './plugins/Break';
 import type { NormalizerRule } from './plugins/Normalizer';
+import { TrackingPluginActions } from './plugins/Tracking';
 
 export type CustomText = {
   text: string;
@@ -34,7 +35,7 @@ declare module 'slate' {
   }
 }
 
-export interface RichTextPlugin extends PlatePlugin {
+export interface RichTextPlugin extends PlatePlugin<RichTextEditor> {
   /**
    * @see createSoftBreakPlugin
    */
@@ -49,4 +50,8 @@ export interface RichTextPlugin extends PlatePlugin {
    * @see createNormalizerPlugin
    */
   normalizer?: NormalizerRule[];
+}
+
+export interface RichTextEditor extends PlateEditor {
+  tracking: TrackingPluginActions;
 }

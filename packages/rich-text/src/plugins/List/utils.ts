@@ -1,18 +1,18 @@
 import { BLOCKS } from '@contentful/rich-text-types';
-import { PlateEditor, getAbove, getParent } from '@udecode/plate-core';
+import { getAbove, getParent } from '@udecode/plate-core';
 import { NodeEntry, Transforms, Path, Node, Text } from 'slate';
 
-import { CustomElement } from '../../types';
+import { CustomElement, RichTextEditor } from '../../types';
 
 const isList = (node: CustomElement) =>
   [BLOCKS.OL_LIST, BLOCKS.UL_LIST].includes(node.type as BLOCKS);
 
-export const hasListAsDirectParent = (editor: PlateEditor, [, path]: NodeEntry) => {
+export const hasListAsDirectParent = (editor: RichTextEditor, [, path]: NodeEntry) => {
   const [parentNode] = (getParent(editor, path) || []) as NodeEntry;
   return isList(parentNode as CustomElement);
 };
 
-const getNearestListAncestor = (editor: PlateEditor, path: Path) => {
+const getNearestListAncestor = (editor: RichTextEditor, path: Path) => {
   return getAbove(editor, { at: path, mode: 'lowest', match: isList }) || [];
 };
 
@@ -21,7 +21,7 @@ const getNearestListAncestor = (editor: PlateEditor, path: Path) => {
  * in the node's ancestors, defaults to that list type, else places
  * the list item in an unordered list.
  */
-export const normalizeOrphanedListItem = (editor: PlateEditor, [, path]: NodeEntry) => {
+export const normalizeOrphanedListItem = (editor: RichTextEditor, [, path]: NodeEntry) => {
   const [parentList] = getNearestListAncestor(editor, path);
   const parentListType = parentList?.type;
   Transforms.wrapNodes(
@@ -31,13 +31,13 @@ export const normalizeOrphanedListItem = (editor: PlateEditor, [, path]: NodeEnt
   );
 };
 
-export const isNonEmptyListItem = (editor: PlateEditor, [, path]: NodeEntry) => {
+export const isNonEmptyListItem = (editor: RichTextEditor, [, path]: NodeEntry) => {
   const listItemChildren = Array.from(Node.children(editor, path));
 
   return listItemChildren.length !== 0;
 };
 
-export const firstNodeIsNotList = (_editor: PlateEditor, [node]: NodeEntry<CustomElement>) => {
+export const firstNodeIsNotList = (_editor: RichTextEditor, [node]: NodeEntry<CustomElement>) => {
   if (node.children.length === 1) {
     const firstNode = node.children[0];
 
@@ -47,7 +47,7 @@ export const firstNodeIsNotList = (_editor: PlateEditor, [node]: NodeEntry<Custo
   return true;
 };
 
-export const insertParagraphAsChild = (editor: PlateEditor, [, path]: NodeEntry) => {
+export const insertParagraphAsChild = (editor: RichTextEditor, [, path]: NodeEntry) => {
   Transforms.insertNodes(editor, [{ type: BLOCKS.PARAGRAPH, data: {}, children: [{ text: '' }] }], {
     at: path.concat([0]),
   });
