@@ -112,27 +112,23 @@ async function selectEntityAndInsert(
   };
   const selection = editor.selection;
 
-  try {
-    const entry = await sdk.dialogs.selectSingleEntry<Entry>(config);
-    focus(editor); // Dialog steals focus from editor, return it.
-    if (!entry) return;
+  const entry = await sdk.dialogs.selectSingleEntry<Entry>(config);
+  focus(editor); // Dialog steals focus from editor, return it.
 
-    const inlineEntryNode = createInlineEntryNode(entry.sys.id);
-
-    // Got to wait until focus is really back on the editor or setSelection() won't work.
-    setTimeout(() => {
-      Transforms.setSelection(editor, selection);
-      Transforms.insertNodes(editor, inlineEntryNode);
-    }, 0);
-
-    logAction('insert', { nodeType: INLINES.EMBEDDED_ENTRY });
-  } catch (error) {
-    if (error) {
-      throw error;
-    } else {
-      logAction('cancelCreateEmbedDialog', { nodeType: INLINES.EMBEDDED_ENTRY });
-    }
+  if (!entry) {
+    logAction('cancelCreateEmbedDialog', { nodeType: INLINES.EMBEDDED_ENTRY });
+    return;
   }
+
+  const inlineEntryNode = createInlineEntryNode(entry.sys.id);
+
+  // Got to wait until focus is really back on the editor or setSelection() won't work.
+  setTimeout(() => {
+    Transforms.setSelection(editor, selection);
+    Transforms.insertNodes(editor, inlineEntryNode);
+  }, 0);
+
+  logAction('insert', { nodeType: INLINES.EMBEDDED_ENTRY });
 }
 
 export function ToolbarEmbeddedEntityInlineButton(props: ToolbarEmbeddedEntityInlineButtonProps) {

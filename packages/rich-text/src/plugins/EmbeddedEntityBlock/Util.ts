@@ -18,22 +18,17 @@ export async function selectEntityAndInsert(
   const selectEntity =
     baseConfig.entityType === 'Asset' ? dialogs.selectSingleAsset : dialogs.selectSingleEntry;
   const config = { ...baseConfig, withCreate: true };
-  try {
-    const { selection } = editor;
-    const entity = await selectEntity(config);
-    if (!entity) {
-      return;
-    }
-    Transforms.select(editor, selection);
-    insertBlock(editor, nodeType, entity);
-    logAction('insert', { nodeType });
-  } catch (error) {
-    if (error) {
-      throw error;
-    } else {
-      logAction('cancelCreateEmbedDialog', { nodeType });
-    }
+
+  const { selection } = editor;
+  const entity = await selectEntity(config);
+  if (!entity) {
+    logAction('cancelCreateEmbedDialog', { nodeType });
+    return;
   }
+
+  Transforms.select(editor, selection);
+  insertBlock(editor, nodeType, entity);
+  logAction('insert', { nodeType });
 }
 
 const createNode = (nodeType, entity) => ({
