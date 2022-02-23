@@ -331,6 +331,13 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
       },
     ];
 
+    const closeModal = (origin) => [
+      'cancelCreateHyperlinkDialog',
+      {
+        origin,
+      },
+    ];
+
     const openEditModal = () => [
       'openEditHyperlinkDialog',
       {
@@ -377,6 +384,18 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
     for (const [triggerMethod, origin, triggerLinkModal] of methods) {
       describe(triggerMethod, () => {
+        it('opens the hyperlink modal but cancels without adding a link', () => {
+          richText.editor.type('The quick brown fox jumps over the lazy ');
+
+          triggerLinkModal();
+
+          const form = richText.forms.hyperlink;
+
+          form.cancel.click();
+
+          richText.expectTrackingValue([openCreateModal(origin), closeModal(origin)]);
+        });
+
         it('tracks adds and removes hyperlinks', () => {
           richText.editor.type('The quick brown fox jumps over the lazy ');
 

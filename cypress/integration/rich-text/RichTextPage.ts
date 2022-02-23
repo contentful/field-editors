@@ -158,4 +158,8 @@ class HyperLinkModal {
   get submit() {
     return cy.findByTestId('confirm-cta');
   }
+
+  get cancel() {
+    return cy.findAllByTestId('cancel-cta');
+  }
 }
