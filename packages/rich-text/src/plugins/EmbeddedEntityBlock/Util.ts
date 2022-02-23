@@ -26,7 +26,7 @@ export async function selectEntityAndInsert(
     }
     Transforms.select(editor, selection);
     insertBlock(editor, nodeType, entity);
-    logAction?.('insert', { nodeType });
+    logAction('insert', { nodeType });
   } catch (error) {
     if (error) {
       throw error;
