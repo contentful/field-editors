@@ -349,16 +349,20 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         richText.expectValue(expectedValue);
       });
 
-      it('should unwrap blockquote', () => {
+      it('should split blockquote', () => {
         addBlockquote('some text');
+
+        richText.editor.type('{enter}some text{uparrow}');
 
         richText.toolbar.hr.click();
 
         const expectedValue = doc(
-          block(BLOCKS.PARAGRAPH, {}, text('some text', [])),
+          block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text('some text', []))),
           block(BLOCKS.HR, {}),
+          block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text('some text', []))),
           block(BLOCKS.PARAGRAPH, {}, text('', []))
         );
+
         richText.expectValue(expectedValue);
       });
 
