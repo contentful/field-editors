@@ -160,6 +160,6 @@ class HyperLinkModal {
   }
 
   get cancel() {
-    return cy.findAllByTestId('cancel-cta');
+    return cy.findByTestId('cancel-cta');
   }
 }

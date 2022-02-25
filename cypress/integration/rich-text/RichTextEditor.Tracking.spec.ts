@@ -15,21 +15,6 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
     typeof window != 'undefined' && /Mac|iPod|iPhone|iPad/.test(window.navigator.platform);
   const mod = IS_MAC ? 'meta' : 'control';
 
-  const linkRendered = () => [
-    'linkRendered',
-    {
-      origin: 'viewport-interaction',
-    },
-  ];
-
-  const openCreateEmbedDialog = (origin, nodeType) => [
-    'openCreateEmbedDialog',
-    {
-      origin,
-      nodeType,
-    },
-  ];
-
   const action = (action, origin, payload = {}) => [
     action,
     {
@@ -38,9 +23,17 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
     },
   ];
 
+  const linkRendered = () => action('linkRendered', 'viewport-interaction');
+
+  const openCreateEmbedDialog = (origin, nodeType) =>
+    action('openCreateEmbedDialog', origin, { nodeType });
+
   const insert = (origin, payload) => action('insert', origin, payload);
   const remove = (origin, payload) => action('remove', origin, payload);
   const edit = (origin, payload) => action('edit', origin, payload);
+
+  const cancelEmbeddedDialog = (origin, nodeType) =>
+    action('cancelCreateEmbedDialog', origin, { nodeType });
 
   beforeEach(() => {
     richText = new RichTextPage();
@@ -574,6 +567,17 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
             linkRendered(),
           ]);
         });
+
+        it('cancels without adding the entry block', () => {
+          cy.on('window:confirm', () => false);
+
+          richText.editor.click().then(triggerEmbeddedEntry);
+
+          richText.expectTrackingValue([
+            openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_ENTRY),
+            cancelEmbeddedDialog(origin, BLOCKS.EMBEDDED_ENTRY),
+          ]);
+        });
       });
     }
   });
@@ -607,6 +611,17 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
             linkRendered(),
           ]);
         });
+
+        it('cancels without adding the entry asset', () => {
+          cy.on('window:confirm', () => false);
+
+          richText.editor.click().then(triggerEmbeddedAsset);
+
+          richText.expectTrackingValue([
+            openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_ASSET),
+            cancelEmbeddedDialog(origin, BLOCKS.EMBEDDED_ASSET),
+          ]);
+        });
       });
     }
   });
@@ -638,6 +653,17 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
             openCreateEmbedDialog(origin, INLINES.EMBEDDED_ENTRY),
             insert(origin, { nodeType: INLINES.EMBEDDED_ENTRY }),
             linkRendered(),
+          ]);
+        });
+
+        it('cancels without adding the entry asset', () => {
+          cy.on('window:confirm', () => false);
+
+          richText.editor.click().then(triggerEmbeddedInline);
+
+          richText.expectTrackingValue([
+            openCreateEmbedDialog(origin, INLINES.EMBEDDED_ENTRY),
+            cancelEmbeddedDialog(origin, INLINES.EMBEDDED_ENTRY),
           ]);
         });
       });
