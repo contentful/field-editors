@@ -13,8 +13,6 @@ import {
   getNodeEntryFromSelection,
   isBlockSelected,
   moveToTheNextLine,
-  shouldUnwrapBlockquote,
-  unwrapFromRoot,
   focus,
 } from '../../helpers/editor';
 import { RichTextEditor, RichTextPlugin } from '../../types';
@@ -62,10 +60,6 @@ export function withHrEvents(editor: RichTextEditor) {
 
     const [, pathToSelectedHr] = getNodeEntryFromSelection(editor, BLOCKS.HR);
     if (pathToSelectedHr) {
-      if (shouldUnwrapBlockquote(editor, BLOCKS.HR)) {
-        unwrapFromRoot(editor);
-      }
-
       const isBackspace = event.key === 'Backspace';
       const isDelete = event.key === 'Delete';
       if (isBackspace || isDelete) {
@@ -81,10 +75,6 @@ export function ToolbarHrButton(props: ToolbarHrButtonProps) {
 
   function handleOnClick() {
     if (!editor?.selection) return;
-
-    if (shouldUnwrapBlockquote(editor, BLOCKS.HR)) {
-      unwrapFromRoot(editor);
-    }
 
     const hr = {
       type: BLOCKS.HR,
