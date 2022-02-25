@@ -2451,7 +2451,7 @@ exports[`Rich Text Editor > copy from safari (no href in anchors) > recognizes e
           "data": {},
           "marks": [],
           "nodeType": "text",
-          "value": " b"
+          "value": " b"
         }
       ],
       "data": {},
@@ -2497,7 +2497,7 @@ exports[`Rich Text Editor > copy from safari (no href in anchors) > recognizes a
           "data": {},
           "marks": [],
           "nodeType": "text",
-          "value": " b"
+          "value": " b"
         }
       ],
       "data": {},
@@ -2818,6 +2818,44 @@ exports[`Rich Text Editor > blockquotes > removes the paragraph if it's fully se
               "marks": [],
               "nodeType": "text",
               "value": "a quote"
+            }
+          ],
+          "data": {},
+          "nodeType": "paragraph"
+        }
+      ],
+      "data": {},
+      "nodeType": "blockquote"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > missing application/x-slate-fragment [safari] > render slate fragment if attribute "data-slate-fragment" exists #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "data": {},
+              "marks": [],
+              "nodeType": "text",
+              "value": "quote"
             }
           ],
           "data": {},
