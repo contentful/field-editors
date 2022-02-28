@@ -1,5 +1,5 @@
 import { BLOCKS } from '@contentful/rich-text-types';
-import { getAbove, getParent } from '@udecode/plate-core';
+import { getAbove, getBlockAbove, getParent } from '@udecode/plate-core';
 import { NodeEntry, Transforms, Path, Node, Text } from 'slate';
 
 import { CustomElement, RichTextEditor } from '../../types';
@@ -58,4 +58,16 @@ export const replaceNodeWithListItems = (editor, entry) => {
 
   Transforms.removeNodes(editor, { at: path });
   Transforms.insertNodes(editor, node.children[0].children, { at: path });
+};
+
+export const isListTypeActive = (editor: RichTextEditor, type: BLOCKS) => {
+  // Lists can be nested. Here, we take the list type at the lowest level
+  const listNode = getBlockAbove(editor, {
+    match: {
+      type: [BLOCKS.OL_LIST, BLOCKS.UL_LIST],
+    },
+    mode: 'lowest',
+  });
+
+  return listNode?.[0].type === type;
 };
