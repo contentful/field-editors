@@ -6,6 +6,7 @@ import tokens from '@contentful/f36-tokens';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { toggleNodeType } from '@udecode/plate-core';
 import { css, cx } from 'emotion';
+import { Transforms } from 'slate';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
 import { getElementFromCurrentSelection, focus, isBlockSelected } from '../../../helpers/editor';
@@ -106,6 +107,7 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
       editor.tracking.onToolbarAction(isActive ? 'remove' : 'insert', { nodeType: type });
 
       toggleNodeType(editor, { activeType: type, inactiveType: type });
+      Transforms.setNodes(editor, { data: {} });
     };
   }
 

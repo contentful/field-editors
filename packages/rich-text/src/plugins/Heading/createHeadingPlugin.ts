@@ -1,6 +1,7 @@
 import { BLOCKS, HEADINGS } from '@contentful/rich-text-types';
 import { getAbove, HotkeyPlugin, KeyboardHandler, toggleNodeType } from '@udecode/plate-core';
 import isHotkey from 'is-hotkey';
+import { Transforms } from 'slate';
 
 import { isBlockSelected, isInlineOrText } from '../../helpers/editor';
 import { transformLift, transformUnwrap } from '../../helpers/transformers';
@@ -16,6 +17,7 @@ const buildHeadingEventHandler =
       editor.tracking.onShortcutAction(isActive ? 'remove' : 'insert', { nodeType: type });
 
       toggleNodeType(editor, { activeType: type, inactiveType: BLOCKS.PARAGRAPH });
+      Transforms.setNodes(editor, { data: {} });
     }
   };
 
