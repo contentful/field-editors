@@ -9,9 +9,6 @@ const style = css({
   borderLeft: `6px solid ${tokens.gray200}`,
   paddingLeft: '0.875rem',
   fontStyle: 'normal',
-  '& a': {
-    color: 'inherit',
-  },
 });
 
 export function Quote(props: RenderElementProps) {
