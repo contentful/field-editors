@@ -1,5 +1,5 @@
 import { Link } from '@contentful/field-editor-reference/dist/types';
-import { BLOCKS, HEADINGS, INLINES, TABLE_BLOCKS } from '@contentful/rich-text-types';
+import { BLOCKS, INLINES, TABLE_BLOCKS } from '@contentful/rich-text-types';
 import { getText } from '@udecode/plate-core';
 import { Text, Editor, Element, Transforms, Path, Range, Node } from 'slate';
 import { ReactEditor } from 'slate-react';
@@ -176,18 +176,6 @@ export function getAncestorPathFromSelection(editor: RichTextEditor) {
   if (!editor.selection) return undefined;
 
   return Path.levels(editor.selection.focus.path).find((level) => level.length === 1);
-}
-
-export function shouldUnwrapBlockquote(editor: RichTextEditor, type: BLOCKS) {
-  const isQuoteSelected = isBlockSelected(editor, BLOCKS.QUOTE);
-  const isValidType = [...HEADINGS, BLOCKS.OL_LIST, BLOCKS.UL_LIST, BLOCKS.HR].includes(type);
-
-  return isQuoteSelected && isValidType;
-}
-
-export function unwrapFromRoot(editor: RichTextEditor) {
-  const ancestorPath = getAncestorPathFromSelection(editor);
-  Transforms.unwrapNodes(editor, { at: ancestorPath });
 }
 
 export const isAtEndOfTextSelection = (editor: RichTextEditor) =>
