@@ -12,12 +12,13 @@ import {
   deleteBackwardList,
 } from '@udecode/plate-list';
 
+import { RichTextEditor } from '../../types';
 import { insertListBreak } from './insertListBreak';
 import { insertListFragment } from './insertListFragment';
 
 const validLiChildrenTypes = LIST_ITEM_BLOCKS;
 
-export const withList: WithOverride<{}, ListPlugin> = (editor) => {
+export const withList: WithOverride<RichTextEditor, ListPlugin> = (editor) => {
   const { deleteBackward, deleteForward, deleteFragment } = editor;
 
   editor.deleteBackward = (unit) => {

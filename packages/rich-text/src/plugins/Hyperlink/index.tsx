@@ -9,13 +9,17 @@ import { AnyObject, KeyboardHandler, HotkeyPlugin } from '@udecode/plate-core';
 import { css } from 'emotion';
 import isHotkey from 'is-hotkey';
 import { useReadOnly } from 'slate-react';
-import { TrackingProvider } from 'TrackingProvider';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { isLinkActive, unwrapLink } from '../../helpers/editor';
 import { transformRemove } from '../../helpers/transformers';
 import { useSdkContext } from '../../SdkProvider';
-import { RichTextPlugin, CustomRenderElementProps, CustomElement } from '../../types';
+import {
+  RichTextPlugin,
+  CustomRenderElementProps,
+  CustomElement,
+  RichTextEditor,
+} from '../../types';
 import { withLinkTracking } from '../links-tracking';
 import { ToolbarButton } from '../shared/ToolbarButton';
 import { EntryAssetTooltip } from './EntryAssetTooltip';
@@ -77,7 +81,7 @@ function UrlHyperlink(props: HyperlinkElementProps) {
     event.preventDefault();
     event.stopPropagation();
     if (!editor) return;
-    addOrEditLink(editor, sdk);
+    addOrEditLink(editor, sdk, editor.tracking.onViewportAction);
   }
 
   return (
@@ -118,7 +122,7 @@ function EntityHyperlink(props: HyperlinkElementProps) {
     event.preventDefault();
     event.stopPropagation();
     if (!editor) return;
-    addOrEditLink(editor, sdk);
+    addOrEditLink(editor, sdk, editor.tracking.onViewportAction);
   }
 
   return (
@@ -162,8 +166,9 @@ export function ToolbarHyperlinkButton(props: ToolbarHyperlinkButtonProps) {
 
     if (isActive) {
       unwrapLink(editor);
+      editor.tracking.onToolbarAction('unlinkHyperlinks');
     } else {
-      addOrEditLink(editor, sdk);
+      addOrEditLink(editor, sdk, editor.tracking.onToolbarAction);
     }
   }
 
@@ -193,7 +198,7 @@ const isAssetAnchor = (element: HTMLElement) =>
   element.nodeName === 'A' && element.getAttribute('data-link-type') === 'Asset';
 
 const buildHyperlinkEventHandler =
-  (sdk: FieldExtensionSDK): KeyboardHandler<{}, HotkeyPlugin> =>
+  (sdk: FieldExtensionSDK): KeyboardHandler<RichTextEditor, HotkeyPlugin> =>
   (editor, { options: { hotkey } }) => {
     return (event: React.KeyboardEvent) => {
       if (!editor.selection) {
@@ -206,8 +211,9 @@ const buildHyperlinkEventHandler =
 
       if (isLinkActive(editor)) {
         unwrapLink(editor);
+        editor.tracking.onShortcutAction('unlinkHyperlinks');
       } else {
-        addOrEditLink(editor, sdk);
+        addOrEditLink(editor, sdk, editor.tracking.onShortcutAction);
       }
     };
   };
@@ -233,10 +239,7 @@ const getNodeOfType =
           },
   });
 
-export const createHyperlinkPlugin = (
-  sdk: FieldExtensionSDK,
-  tracking: TrackingProvider
-): RichTextPlugin => {
+export const createHyperlinkPlugin = (sdk: FieldExtensionSDK): RichTextPlugin => {
   const common: Partial<RichTextPlugin> = {
     isElement: true,
     isInline: true,
@@ -272,7 +275,7 @@ export const createHyperlinkPlugin = (
         ...common,
         key: INLINES.ENTRY_HYPERLINK,
         type: INLINES.ENTRY_HYPERLINK,
-        component: withLinkTracking(tracking, EntityHyperlink),
+        component: withLinkTracking(EntityHyperlink),
         deserializeHtml: {
           rules: [
             {
@@ -288,7 +291,7 @@ export const createHyperlinkPlugin = (
         ...common,
         key: INLINES.ASSET_HYPERLINK,
         type: INLINES.ASSET_HYPERLINK,
-        component: withLinkTracking(tracking, EntityHyperlink),
+        component: withLinkTracking(EntityHyperlink),
         deserializeHtml: {
           rules: [
             {

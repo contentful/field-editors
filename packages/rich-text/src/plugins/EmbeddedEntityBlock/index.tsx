@@ -1,15 +1,11 @@
-import { KeyboardEvent } from 'react';
-
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { KeyboardHandler, HotkeyPlugin } from '@udecode/plate-core';
 import isHotkey from 'is-hotkey';
-import noop from 'lodash/noop';
 import { Transforms } from 'slate';
-import { TrackingProvider } from 'TrackingProvider';
 
 import { getNodeEntryFromSelection } from '../../helpers/editor';
-import { RichTextPlugin, CustomElement } from '../../types';
+import { RichTextPlugin, CustomElement, RichTextEditor } from '../../types';
 import { withLinkTracking } from '../links-tracking';
 import { LinkedEntityBlock } from './LinkedEntityBlock';
 import { selectEntityAndInsert } from './Util';
@@ -24,9 +20,9 @@ const entityTypes = {
 function getWithEmbeddedEntityEvents(
   nodeType: BLOCKS.EMBEDDED_ENTRY | BLOCKS.EMBEDDED_ASSET,
   sdk: FieldExtensionSDK
-): KeyboardHandler<{}, HotkeyPlugin> {
+): KeyboardHandler<RichTextEditor, HotkeyPlugin> {
   return (editor, { options: { hotkey } }) =>
-    (event: KeyboardEvent) => {
+    (event) => {
       const [, pathToSelectedElement] = getNodeEntryFromSelection(editor, nodeType);
 
       if (pathToSelectedElement) {
@@ -42,19 +38,19 @@ function getWithEmbeddedEntityEvents(
       }
 
       if (hotkey && isHotkey(hotkey, event)) {
-        selectEntityAndInsert(nodeType, sdk, editor, noop);
+        selectEntityAndInsert(nodeType, sdk, editor, editor.tracking.onShortcutAction);
       }
     };
 }
 
 const createEmbeddedEntityPlugin =
   (nodeType: BLOCKS.EMBEDDED_ENTRY | BLOCKS.EMBEDDED_ASSET, hotkey: string) =>
-  (sdk: FieldExtensionSDK, tracking: TrackingProvider): RichTextPlugin => ({
+  (sdk: FieldExtensionSDK): RichTextPlugin => ({
     key: nodeType,
     type: nodeType,
     isElement: true,
     isVoid: true,
-    component: withLinkTracking(tracking, LinkedEntityBlock),
+    component: withLinkTracking(LinkedEntityBlock),
     options: { hotkey },
     handlers: {
       onKeyDown: getWithEmbeddedEntityEvents(nodeType, sdk),

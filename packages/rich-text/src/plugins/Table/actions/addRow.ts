@@ -1,15 +1,10 @@
-import {
-  getPluginType,
-  PlateEditor,
-  TElement,
-  getAbove,
-  insertNodes,
-  someNode,
-} from '@udecode/plate-core';
+import { getPluginType, TElement, getAbove, insertNodes, someNode } from '@udecode/plate-core';
 import { ELEMENT_TABLE, ELEMENT_TR, getEmptyRowNode } from '@udecode/plate-table';
 import { Transforms, Path, Editor } from 'slate';
 
-const addRow = (editor: PlateEditor, getNextRowPath: (currentRowPath: Path) => Path) => {
+import { RichTextEditor } from '../../../types';
+
+const addRow = (editor: RichTextEditor, getNextRowPath: (currentRowPath: Path) => Path) => {
   if (
     someNode(editor, {
       match: { type: getPluginType(editor, ELEMENT_TABLE) },
@@ -43,13 +38,13 @@ const addRow = (editor: PlateEditor, getNextRowPath: (currentRowPath: Path) => P
   }
 };
 
-export const addRowBelow = (editor: PlateEditor) => {
+export const addRowBelow = (editor: RichTextEditor) => {
   addRow(editor, (currentRowPath) => {
     return Path.next(currentRowPath);
   });
 };
 
-export const addRowAbove = (editor: PlateEditor) => {
+export const addRowAbove = (editor: RichTextEditor) => {
   addRow(editor, (currentRowPath) => {
     // The new row will be in in-place of the old row
     return currentRowPath;

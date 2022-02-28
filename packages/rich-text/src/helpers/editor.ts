@@ -1,10 +1,10 @@
 import { Link } from '@contentful/field-editor-reference/dist/types';
 import { BLOCKS, HEADINGS, INLINES, TABLE_BLOCKS } from '@contentful/rich-text-types';
-import { getText, PlateEditor } from '@udecode/plate-core';
+import { getText } from '@udecode/plate-core';
 import { Text, Editor, Element, Transforms, Path, Range, Node } from 'slate';
 import { ReactEditor } from 'slate-react';
 
-import { CustomElement } from '../types';
+import { CustomElement, RichTextEditor } from '../types';
 import { IS_SAFARI } from './environment';
 
 export const LINK_TYPES: INLINES[] = [
@@ -15,7 +15,7 @@ export const LINK_TYPES: INLINES[] = [
 
 const LIST_TYPES: BLOCKS[] = [BLOCKS.OL_LIST, BLOCKS.UL_LIST];
 
-export function isBlockSelected(editor: PlateEditor, type: string): boolean {
+export function isBlockSelected(editor: RichTextEditor, type: string): boolean {
   const [match] = Array.from(
     Editor.nodes(editor, {
       match: (node) => Element.isElement(node) && (node as CustomElement).type === type,
@@ -31,7 +31,7 @@ export function isRootLevel(path: Path): boolean {
 type NodeEntry = [CustomElement, Path];
 type NodeType = BLOCKS | INLINES;
 export function getNodeEntryFromSelection(
-  editor: PlateEditor,
+  editor: RichTextEditor,
   nodeTypeOrTypes: NodeType | NodeType[]
 ): NodeEntry | [] {
   if (!editor.selection) return [];
@@ -44,17 +44,17 @@ export function getNodeEntryFromSelection(
   return [];
 }
 
-export function isNodeTypeSelected(editor: PlateEditor, nodeType: BLOCKS | INLINES): boolean {
+export function isNodeTypeSelected(editor: RichTextEditor, nodeType: BLOCKS | INLINES): boolean {
   if (!editor) return false;
   const [node] = getNodeEntryFromSelection(editor, nodeType);
   return !!node;
 }
 
-export function moveToTheNextLine(editor: PlateEditor) {
+export function moveToTheNextLine(editor: RichTextEditor) {
   Transforms.move(editor, { distance: 1, unit: 'line' });
 }
 
-export function getElementFromCurrentSelection(editor: PlateEditor) {
+export function getElementFromCurrentSelection(editor: RichTextEditor) {
   if (!editor.selection) return [];
 
   return Array.from(
@@ -70,7 +70,7 @@ export function getElementFromCurrentSelection(editor: PlateEditor) {
   ).flat();
 }
 
-export function isList(editor?: PlateEditor) {
+export function isList(editor?: RichTextEditor) {
   if (!editor) {
     return false;
   }
@@ -109,7 +109,7 @@ export function insertLink(editor, options: InsertLinkOptions) {
 }
 
 // TODO: move to hyperlink plugin
-export function isLinkActive(editor?: PlateEditor) {
+export function isLinkActive(editor?: RichTextEditor) {
   if (!editor) {
     return false;
   }
@@ -172,28 +172,28 @@ export function wrapLink(editor, { text, url, target, type, path }: InsertLinkOp
   }
 }
 
-export function getAncestorPathFromSelection(editor: PlateEditor) {
+export function getAncestorPathFromSelection(editor: RichTextEditor) {
   if (!editor.selection) return undefined;
 
   return Path.levels(editor.selection.focus.path).find((level) => level.length === 1);
 }
 
-export function shouldUnwrapBlockquote(editor: PlateEditor, type: BLOCKS) {
+export function shouldUnwrapBlockquote(editor: RichTextEditor, type: BLOCKS) {
   const isQuoteSelected = isBlockSelected(editor, BLOCKS.QUOTE);
   const isValidType = [...HEADINGS, BLOCKS.OL_LIST, BLOCKS.UL_LIST, BLOCKS.HR].includes(type);
 
   return isQuoteSelected && isValidType;
 }
 
-export function unwrapFromRoot(editor: PlateEditor) {
+export function unwrapFromRoot(editor: RichTextEditor) {
   const ancestorPath = getAncestorPathFromSelection(editor);
   Transforms.unwrapNodes(editor, { at: ancestorPath });
 }
 
-export const isAtEndOfTextSelection = (editor: PlateEditor) =>
+export const isAtEndOfTextSelection = (editor: RichTextEditor) =>
   editor.selection?.focus.offset === getText(editor, editor.selection?.focus.path).length;
 
-export function currentSelectionStartsTableCell(editor: PlateEditor): boolean {
+export function currentSelectionStartsTableCell(editor: RichTextEditor): boolean {
   const [tableCellNode, path] = getNodeEntryFromSelection(editor, [
     BLOCKS.TABLE_CELL,
     BLOCKS.TABLE_HEADER_CELL,
@@ -205,7 +205,7 @@ export function currentSelectionStartsTableCell(editor: PlateEditor): boolean {
  * This traversal strategy is unfortunately necessary because Slate doesn't
  * expose something like Node.next(editor).
  */
-export function getNextNode(editor: PlateEditor): CustomElement | null {
+export function getNextNode(editor: RichTextEditor): CustomElement | null {
   if (!editor.selection) {
     return null;
   }
@@ -225,7 +225,7 @@ export function getNextNode(editor: PlateEditor): CustomElement | null {
 }
 
 // TODO: move to table plugin
-export function currentSelectionPrecedesTableCell(editor: PlateEditor): boolean {
+export function currentSelectionPrecedesTableCell(editor: RichTextEditor): boolean {
   const nextNode = getNextNode(editor);
   return (
     !!nextNode && TABLE_BLOCKS.includes(nextNode.type as BLOCKS) && isAtEndOfTextSelection(editor)
@@ -239,7 +239,7 @@ export const isInlineOrText = (node: Node) => {
   return Text.isText(node) || (Element.isElement(node) && INLINE_TYPES.includes(node.type));
 };
 
-export const focus = (editor: PlateEditor) => {
+export const focus = (editor: RichTextEditor) => {
   const x = window.scrollX;
   const y = window.scrollY;
 

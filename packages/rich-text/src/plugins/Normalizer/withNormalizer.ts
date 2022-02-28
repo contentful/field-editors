@@ -1,9 +1,9 @@
-import { match, getPluginType, PlateEditor } from '@udecode/plate-core';
+import { match, getPluginType } from '@udecode/plate-core';
 import isPlainObject from 'is-plain-obj';
 import { Editor, NodeEntry } from 'slate';
 
 import { transformRemove } from '../../helpers/transformers';
-import { RichTextPlugin } from '../../types';
+import { RichTextEditor, RichTextPlugin } from '../../types';
 import { baseRules } from './baseRules';
 import { NormalizerRule, NodeTransformer, NodeValidator } from './types';
 import {
@@ -13,7 +13,7 @@ import {
   createTransformerFromObject,
 } from './utils';
 
-export const withNormalizer = (editor: PlateEditor) => {
+export const withNormalizer = (editor: RichTextEditor) => {
   const rules: Required<NormalizerRule>[] = baseRules;
 
   // Drive normalization rules from other plugin's configurations

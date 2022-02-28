@@ -9,6 +9,7 @@ import * as Slate from 'slate-react';
 
 import { RichTextPlugin } from '../../types';
 import { createMarkToolbarButton } from './components/MarkToolbarButton';
+import { buildMarkEventHandler } from './helpers';
 
 export const ToolbarBoldButton = createMarkToolbarButton({
   title: 'Bold',
@@ -39,6 +40,9 @@ export const createBoldPlugin = (): RichTextPlugin =>
     component: Bold,
     options: {
       hotkey: ['mod+b'],
+    },
+    handlers: {
+      onKeyDown: buildMarkEventHandler(MARKS.BOLD),
     },
     deserializeHtml: {
       rules: [

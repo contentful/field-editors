@@ -3,8 +3,10 @@
  * See: https://github.com/udecode/plate/blob/main/packages/nodes/list
  */
 import { TEXT_CONTAINERS, BLOCKS } from '@contentful/rich-text-types';
-import { findNode, PlateEditor, TDescendant } from '@udecode/plate-core';
+import { findNode, TDescendant } from '@udecode/plate-core';
 import { Editor, Node, NodeEntry, Path, Transforms } from 'slate';
+
+import { RichTextEditor } from '../../types';
 
 const getFirstAncestorOfType = (root: TDescendant, entry: NodeEntry): NodeEntry<TDescendant> => {
   let ancestor: Path = Path.parent(entry[1]);
@@ -71,7 +73,7 @@ const unwrapTextContainerAtStart = <T extends TDescendant>(nodes: T[]): T[] => {
   return nodes;
 };
 
-export const insertListFragment = (editor: PlateEditor) => {
+export const insertListFragment = (editor: RichTextEditor) => {
   const { insertFragment } = editor;
 
   return (fragment: TDescendant[]) => {
