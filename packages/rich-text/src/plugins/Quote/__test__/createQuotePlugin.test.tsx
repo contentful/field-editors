@@ -21,43 +21,6 @@ describe('normalization', () => {
     assertOutput({ input, expected: input });
   });
 
-  it('unwraps heading', () => {
-    const input = (
-      <editor>
-        <hquote>
-          <hp>some</hp>
-          <hh1>
-            <htext bold italic underline>
-              heading
-            </htext>
-          </hh1>
-          <hp>text</hp>
-        </hquote>
-      </editor>
-    );
-
-    const expected = (
-      <editor>
-        <hquote>
-          <hp>some</hp>
-
-          <hp>
-            <htext bold italic underline>
-              heading
-            </htext>
-          </hp>
-
-          <hp>text</hp>
-        </hquote>
-        <hp>
-          <htext />
-        </hp>
-      </editor>
-    );
-
-    assertOutput({ input, expected });
-  });
-
   it('unwraps nested quotes', () => {
     const input = (
       <editor>
@@ -110,6 +73,7 @@ describe('normalization', () => {
 
             <hp>a blockquote</hp>
             <hhr />
+            <hh1>Heading 1</hh1>
           </hquote>
         </editor>
       );
@@ -130,6 +94,8 @@ describe('normalization', () => {
             <hp>a blockquote</hp>
           </hquote>
           <hhr />
+
+          <hh1>Heading 1</hh1>
 
           <hp>
             <text />
