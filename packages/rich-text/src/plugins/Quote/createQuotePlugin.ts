@@ -31,12 +31,6 @@ export function createQuotePlugin(): RichTextPlugin {
         validChildren: CONTAINERS[BLOCKS.QUOTE],
         transform: {
           [BLOCKS.QUOTE]: transformUnwrap,
-          [BLOCKS.HEADING_1]: transformUnwrap,
-          [BLOCKS.HEADING_2]: transformUnwrap,
-          [BLOCKS.HEADING_3]: transformUnwrap,
-          [BLOCKS.HEADING_4]: transformUnwrap,
-          [BLOCKS.HEADING_5]: transformUnwrap,
-          [BLOCKS.HEADING_6]: transformUnwrap,
           default: transformLift,
         },
       },
