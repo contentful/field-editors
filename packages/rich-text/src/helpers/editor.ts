@@ -178,18 +178,6 @@ export function getAncestorPathFromSelection(editor: RichTextEditor) {
   return Path.levels(editor.selection.focus.path).find((level) => level.length === 1);
 }
 
-export function shouldUnwrapBlockquote(editor: RichTextEditor, type: BLOCKS) {
-  const isQuoteSelected = isBlockSelected(editor, BLOCKS.QUOTE);
-  const isValidType = [...HEADINGS, BLOCKS.OL_LIST, BLOCKS.UL_LIST, BLOCKS.HR].includes(type);
-
-  return isQuoteSelected && isValidType;
-}
-
-export function unwrapFromRoot(editor: RichTextEditor) {
-  const ancestorPath = getAncestorPathFromSelection(editor);
-  Transforms.unwrapNodes(editor, { at: ancestorPath });
-}
-
 export const isAtEndOfTextSelection = (editor: RichTextEditor) =>
   editor.selection?.focus.offset === getText(editor, editor.selection?.focus.path).length;
 

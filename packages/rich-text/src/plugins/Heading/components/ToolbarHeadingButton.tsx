@@ -8,13 +8,7 @@ import { toggleNodeType } from '@udecode/plate-core';
 import { css, cx } from 'emotion';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
-import {
-  getElementFromCurrentSelection,
-  shouldUnwrapBlockquote,
-  unwrapFromRoot,
-  focus,
-  isBlockSelected,
-} from '../../../helpers/editor';
+import { getElementFromCurrentSelection, focus, isBlockSelected } from '../../../helpers/editor';
 import { isNodeTypeEnabled } from '../../../helpers/validations';
 import { useSdkContext } from '../../../SdkProvider';
 import { CustomElement } from '../../../types';
@@ -93,10 +87,6 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
 
       setSelected(type);
       setOpen(false);
-
-      if (shouldUnwrapBlockquote(editor, type)) {
-        unwrapFromRoot(editor);
-      }
 
       const prevOnChange = editor.onChange;
       /*

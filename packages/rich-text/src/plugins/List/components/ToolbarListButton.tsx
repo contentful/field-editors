@@ -5,12 +5,7 @@ import { BLOCKS } from '@contentful/rich-text-types';
 import { toggleList } from '@udecode/plate-list';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
-import {
-  isBlockSelected,
-  unwrapFromRoot,
-  shouldUnwrapBlockquote,
-  focus,
-} from '../../../helpers/editor';
+import { isBlockSelected, focus } from '../../../helpers/editor';
 import { isNodeTypeEnabled } from '../../../helpers/validations';
 import { useSdkContext } from '../../../SdkProvider';
 import { ToolbarButton } from '../../shared/ToolbarButton';
@@ -26,10 +21,6 @@ export function ToolbarListButton(props: ToolbarListButtonProps) {
   function handleClick(type: BLOCKS): () => void {
     return () => {
       if (!editor?.selection) return;
-
-      if (shouldUnwrapBlockquote(editor, type)) {
-        unwrapFromRoot(editor);
-      }
 
       toggleList(editor, { type });
 
