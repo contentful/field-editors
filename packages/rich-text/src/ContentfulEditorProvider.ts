@@ -9,7 +9,7 @@ export function getContentfulEditorId(sdk: FieldExtensionSDK) {
   const { entry, field } = sdk;
   const sys = entry.getSys();
 
-  return `rich-text-editor-${sys.id}-${field.id}-${field.locale}`;
+  return `rich-text-editor-${sys.id}-${sys.version}-${field.id}-${field.locale}`;
 }
 
 export const editorContext = createContext('');
