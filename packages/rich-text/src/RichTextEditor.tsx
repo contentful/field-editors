@@ -1,10 +1,10 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import * as Contentful from '@contentful/rich-text-types';
-import { Plate } from '@udecode/plate-core';
+import { Plate, getPlateActions } from '@udecode/plate-core';
 import { css, cx } from 'emotion';
 import deepEquals from 'fast-deep-equal';
 import noop from 'lodash/noop';
@@ -61,6 +61,14 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
     props.isDisabled ? styles.disabled : styles.enabled,
     props.isToolbarHidden && styles.hiddenToolbar
   );
+
+  useEffect(() => {
+    // Ensure the plate state is cleared after the component unmounts
+    // This prevent new editors for the same field to display old outdated values
+    // Typical scenario: coming back to the entry editor after restoring a previous entry version
+    getPlateActions(id).enabled(true);
+    return () => getPlateActions(id).enabled(false);
+  }, [id]);
 
   return (
     <div className={styles.root} data-test-id="rich-text-editor">
