@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.2.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.1.2...@contentful/field-editor-reference@4.2.0) (2022-03-02)
+
+### Features
+
+- support onclick on wrappedentrycard components ([#1053](https://github.com/contentful/field-editors/issues/1053)) ([2480c9c](https://github.com/contentful/field-editors/commit/2480c9cbf1609b9ee2da73a951355a6972fdd859))
+
 ## [4.1.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.1.1...@contentful/field-editor-reference@4.1.2) (2022-02-15)
 
 ### Bug Fixes
