@@ -16,29 +16,34 @@ export const editorContext = createContext('');
 
 export const ContentfulEditorIdProvider = editorContext.Provider;
 
-export function useContentfulEditorId() {
-  const id = useContext(editorContext);
-  if (!id) {
+export function useContentfulEditorId(id?: string) {
+  const contextId = useContext(editorContext);
+
+  if (id) {
+    return id;
+  }
+
+  if (!contextId) {
     throw new Error(
       'could not find editor id. Please ensure the component is wrapped in <ContentfulEditorIdProvider> '
     );
   }
 
-  return id;
+  return contextId;
 }
 
 // This hook re-renders when the value changes
 // Use case: Toolbar icons, for example
-export function useContentfulEditor() {
-  const editorId = useContentfulEditorId();
+export function useContentfulEditor(id?: string) {
+  const editorId = useContentfulEditorId(id);
   const editor = usePlateEditorState<RichTextEditor>(editorId);
 
   return editor;
 }
 
 // This doesn't re-render when the value changes
-export function useContentfulEditorRef() {
-  const editorId = useContentfulEditorId();
+export function useContentfulEditorRef(id?: string) {
+  const editorId = useContentfulEditorId(id);
   const editor = usePlateEditorRef<RichTextEditor>(editorId);
 
   return editor;
