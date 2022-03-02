@@ -7,7 +7,6 @@ export const assertOutput = (options: {
   expected: any;
   editor?: RichTextEditor;
   log?: boolean;
-  skipCursor?: boolean;
 }) => {
   const editor =
     options.editor ??
@@ -35,7 +34,7 @@ export const assertOutput = (options: {
 
   expect(editor.children).toEqual(options.expected.children);
 
-  if (!options.skipCursor) {
+  if (options.expected.selection !== null) {
     // Assert cursor position
     expect(editor.selection).toEqual(options.expected.selection);
   }
