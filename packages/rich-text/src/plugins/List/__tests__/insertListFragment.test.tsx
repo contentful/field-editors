@@ -193,7 +193,6 @@ describe('insert fragment', () => {
       assertOutput({
         editor,
         expected: render(t.expected),
-        skipCursor: true,
       });
     });
   }

@@ -329,3 +329,36 @@ exports[`Rich Text Lists > Ordered List (OL) > should move nested list items whe
   "data": {},
   "nodeType": "document"
 };
+
+exports[`Rich Text Lists > does not remove entity cards when toggling off a list #0`] =
+{
+  "content": [
+    {
+      "content": [],
+      "data": {
+        "target": {
+          "sys": {
+            "id": "example-entity-id",
+            "linkType": "Entry",
+            "type": "Link"
+          }
+        }
+      },
+      "nodeType": "embedded-entry-block"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};

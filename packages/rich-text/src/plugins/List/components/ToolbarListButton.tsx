@@ -2,13 +2,13 @@ import * as React from 'react';
 
 import { ListBulletedIcon, ListNumberedIcon } from '@contentful/f36-icons';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { toggleList } from '@udecode/plate-list';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
 import { focus } from '../../../helpers/editor';
 import { isNodeTypeEnabled } from '../../../helpers/validations';
 import { useSdkContext } from '../../../SdkProvider';
 import { ToolbarButton } from '../../shared/ToolbarButton';
+import { toggleList } from '../transforms/toggleList';
 import { isListTypeActive } from '../utils';
 
 export interface ToolbarListButtonProps {

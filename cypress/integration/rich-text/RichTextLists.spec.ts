@@ -74,6 +74,20 @@ describe('Rich Text Lists', () => {
     },
   ];
 
+  it('does not remove entity cards when toggling off a list', () => {
+    const { toolbar, editor } = richText;
+    editor.click();
+    // Toggle on an UL list
+    toolbar.ul.click();
+
+    toolbar.embed('entry-block');
+
+    // toggle off
+    toolbar.ul.click();
+
+    richText.expectSnapshotValue();
+  });
+
   lists.forEach((test) => {
     describe(test.label, () => {
       it('should be visible', () => {
