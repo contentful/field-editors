@@ -20,7 +20,9 @@ describe('toggle on', () => {
       <editor>
         <hul>
           <hli>
-            <hp>1</hp>
+            <hp>
+              1<cursor />
+            </hp>
           </hli>
         </hul>
         <hp>
@@ -92,13 +94,17 @@ describe('toggle on', () => {
       <editor>
         <hul>
           <hli>
-            <hp>1</hp>
+            <hp>
+              <anchor />1
+            </hp>
           </hli>
           <hli>
             <hp>2</hp>
           </hli>
           <hli>
-            <hp>3</hp>
+            <hp>
+              3<focus />
+            </hp>
           </hli>
         </hul>
         <hp>
@@ -145,7 +151,9 @@ describe('toggle off', () => {
             <hp>1</hp>
           </hli>
         </hul>
-        <hp>2</hp>
+        <hp>
+          2<cursor />
+        </hp>
         <hul>
           <hli>
             <hp>3</hp>
@@ -203,7 +211,10 @@ describe('toggle off', () => {
             </hul>
           </hli>
         </hul>
-        <hp>12</hp>
+        <hp>
+          12
+          <cursor />
+        </hp>
         <hul>
           <hli>
             <hp>13</hp>
@@ -247,9 +258,13 @@ describe('toggle off', () => {
 
     const expected = (
       <editor>
-        <hp>1</hp>
+        <hp>
+          <anchor />1
+        </hp>
         <hp>2</hp>
-        <hp>3</hp>
+        <hp>
+          3<focus />
+        </hp>
       </editor>
     ) as any as PlateEditor;
 
@@ -325,7 +340,10 @@ describe('toggle over', () => {
             <hp>1</hp>
             <hol>
               <hli>
-                <hp>11</hp>
+                <hp>
+                  11
+                  <cursor />
+                </hp>
               </hli>
             </hol>
           </hli>
@@ -370,10 +388,15 @@ describe('toggle over', () => {
       <editor>
         <hol>
           <hli>
-            <hp>1</hp>
+            <hp>
+              <anchor />1
+            </hp>
             <hol>
               <hli>
-                <hp>11</hp>
+                <hp>
+                  11
+                  <focus />
+                </hp>
               </hli>
             </hol>
           </hli>
