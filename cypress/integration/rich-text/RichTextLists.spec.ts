@@ -178,7 +178,7 @@ describe('Rich Text Lists', () => {
         richText.toolbar.embed('entry-block');
 
         const expectedValue = doc(
-          block(test.listType, {}, block(BLOCKS.LIST_ITEM, {}, entryBlock())),
+          block(test.listType, {}, block(BLOCKS.LIST_ITEM, {}, entryBlock(), emptyParagraph())),
           emptyParagraph()
         );
 
@@ -192,7 +192,7 @@ describe('Rich Text Lists', () => {
         richText.toolbar.embed('asset-block');
 
         const expectedValue = doc(
-          block(test.listType, {}, block(BLOCKS.LIST_ITEM, {}, assetBlock())),
+          block(test.listType, {}, block(BLOCKS.LIST_ITEM, {}, assetBlock(), emptyParagraph())),
           emptyParagraph()
         );
 
