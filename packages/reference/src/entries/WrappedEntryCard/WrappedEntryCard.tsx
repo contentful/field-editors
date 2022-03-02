@@ -26,6 +26,7 @@ export interface WrappedEntryCardProps {
   isSelected?: boolean;
   onRemove?: () => void;
   onEdit?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLElement>) => void;
   localeCode: string;
   defaultLocaleCode: string;
   contentType?: ContentType;
@@ -166,6 +167,7 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
       onClick={(e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
         if (!props.isClickable) return;
+        if (props.onClick) return props.onClick(e);
         props.onEdit && props.onEdit();
       }}
     />
