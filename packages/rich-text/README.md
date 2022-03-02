@@ -12,3 +12,7 @@ This editor app is built on top of [Slate](https://github.com/ianstormtaylor/sla
 import 'codemirror/lib/codemirror.css';
 import { RichTextEditor } from '@contentful/field-editor-rich-text';
 ```
+
+## Credits
+
+This package is based on [Slate](https://www.slatejs.org/) & [Plate](https://plate.udecode.io/) and also borrows some of their code. Without them this project would not have been possible.
