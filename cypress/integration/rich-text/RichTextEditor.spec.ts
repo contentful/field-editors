@@ -10,7 +10,7 @@ import {
 } from '../../../packages/rich-text/src/helpers/nodeFactory';
 import documentWithLinks from './document-mocks/documentWithLinks';
 import invalidDocumentNormalizable from './document-mocks/invalidDocumentNormalizable';
-import { RichTextPage } from './RichTextPage';
+import { EmbedType, RichTextPage } from './RichTextPage';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
 // we increase the viewport height to fit the whole page on the screen
@@ -55,6 +55,16 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     enter: { keyCode: 13, which: 13, key: 'Enter' },
     backspace: { keyCode: 8, which: 8, key: 'Backspace' },
   };
+
+  const headings = [
+    [BLOCKS.PARAGRAPH, 'Normal text'],
+    [BLOCKS.HEADING_1, 'Heading 1', `{${mod}+alt+1}`],
+    [BLOCKS.HEADING_2, 'Heading 2', `{${mod}+alt+2}`],
+    [BLOCKS.HEADING_3, 'Heading 3', `{${mod}+alt+3}`],
+    [BLOCKS.HEADING_4, 'Heading 4', `{${mod}+alt+4}`],
+    [BLOCKS.HEADING_5, 'Heading 5', `{${mod}+alt+5}`],
+    [BLOCKS.HEADING_6, 'Heading 6', `{${mod}+alt+6}`],
+  ];
 
   function pressEnter() {
     richText.editor.trigger('keydown', keys.enter);
@@ -420,16 +430,6 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
   });
 
   describe('Headings', () => {
-    const headings = [
-      [BLOCKS.PARAGRAPH, 'Normal text'],
-      [BLOCKS.HEADING_1, 'Heading 1', `{${mod}+alt+1}`],
-      [BLOCKS.HEADING_2, 'Heading 2', `{${mod}+alt+2}`],
-      [BLOCKS.HEADING_3, 'Heading 3', `{${mod}+alt+3}`],
-      [BLOCKS.HEADING_4, 'Heading 4', `{${mod}+alt+4}`],
-      [BLOCKS.HEADING_5, 'Heading 5', `{${mod}+alt+5}`],
-      [BLOCKS.HEADING_6, 'Heading 6', `{${mod}+alt+6}`],
-    ];
-
     headings.forEach(([type, label, shortcut]) => {
       describe(label, () => {
         it(`allows typing ${label} (${type})`, () => {
@@ -1629,6 +1629,31 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       richText.editor.type('end');
 
       richText.expectSnapshotValue();
+    });
+  });
+
+  describe('Toggling', () => {
+    const blocks: [string, EmbedType][] = [
+      ['From Entry Block to Headings/Paragraph', 'entry-block'],
+      ['From Asset Block to Headings/Paragraph', 'asset-block'],
+    ];
+
+    blocks.forEach(([title, blockType]) => {
+      describe(title, () => {
+        headings.forEach(([type]) => {
+          it(`should not carry over the "data" property from ${blockType} to ${type}`, () => {
+            richText.editor.click();
+
+            richText.toolbar.embed(blockType);
+
+            richText.editor.find('[data-entity-id="example-entity-id"]').click();
+
+            richText.toolbar.toggleHeading(type);
+
+            richText.expectValue(doc(block(type, {}, text('')), emptyParagraph()));
+          });
+        });
+      });
     });
   });
 });
