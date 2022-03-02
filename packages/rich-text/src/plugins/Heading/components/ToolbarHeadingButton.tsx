@@ -4,12 +4,15 @@ import { Menu, Button } from '@contentful/f36-components';
 import { ChevronDownIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { toggleNodeType } from '@udecode/plate-core';
 import { css, cx } from 'emotion';
-import { Transforms } from 'slate';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
-import { getElementFromCurrentSelection, focus, isBlockSelected } from '../../../helpers/editor';
+import {
+  getElementFromCurrentSelection,
+  focus,
+  isBlockSelected,
+  toggleElement,
+} from '../../../helpers/editor';
 import { isNodeTypeEnabled } from '../../../helpers/validations';
 import { useSdkContext } from '../../../SdkProvider';
 import { CustomElement } from '../../../types';
@@ -92,7 +95,7 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
       const prevOnChange = editor.onChange;
       /*
        The focus might happen at point in time when
-       `toggleNodeType` changes aren't rendered yet, causing the browser
+       `toggleElement` (helper for toggleNodeType) changes aren't rendered yet, causing the browser
        to place the cursor at the start of the text.
        We wait for the change event before focusing
        the editor again. This ensures the cursor is back at the previous
@@ -106,8 +109,7 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
       const isActive = isBlockSelected(editor, type);
       editor.tracking.onToolbarAction(isActive ? 'remove' : 'insert', { nodeType: type });
 
-      toggleNodeType(editor, { activeType: type, inactiveType: type });
-      Transforms.setNodes(editor, { data: {} });
+      toggleElement(editor, { activeType: type, inactiveType: type });
     };
   }
 
