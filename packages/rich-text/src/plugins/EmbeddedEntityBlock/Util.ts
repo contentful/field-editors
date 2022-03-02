@@ -1,7 +1,9 @@
+import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
 import { getText } from '@udecode/plate-core';
-import { Transforms } from 'slate';
+import { Editor, Element, Path, Transforms } from 'slate';
+import { RichTextEditor } from 'types';
 
-import { focus } from '../../helpers/editor';
+import { focus, insertEmptyParagraph, moveToTheNextChar } from '../../helpers/editor';
 import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
 import { TrackingPluginActions } from '../../plugins/Tracking';
 
@@ -28,9 +30,40 @@ export async function selectEntityAndInsert(
 
   Transforms.select(editor, selection);
   insertBlock(editor, nodeType, entity);
+  ensureFollowingParagraph(editor);
   logAction('insert', { nodeType });
 }
 
+function ensureFollowingParagraph(editor: RichTextEditor) {
+  /* 
+     If the new block isn't followed by a sibling paragraph we insert a new empty one
+   */
+  const next = Editor.next(editor);
+  if (!next) {
+    return insertEmptyParagraph(editor);
+  }
+
+  const parent = Editor.above(editor, {
+    voids: false,
+    match: (e) =>
+      !Element.isElement(e) ||
+      ![BLOCKS.EMBEDDED_ASSET, BLOCKS.EMBEDDED_ENTRY].includes(e.type as BLOCKS),
+  });
+
+  const paragraph = Editor.above(editor, {
+    at: next[1],
+    match: (e) => Element.isElement(e) && TEXT_CONTAINERS.includes(e.type as BLOCKS),
+  });
+
+  if (!paragraph || !parent) {
+    return insertEmptyParagraph(editor);
+  }
+  const isParagraphChildOfParent = Path.isChild(paragraph[1], parent[1]);
+  if (!isParagraphChildOfParent) {
+    return insertEmptyParagraph(editor);
+  }
+  moveToTheNextChar(editor);
+}
 const createNode = (nodeType, entity) => ({
   type: nodeType,
   data: {

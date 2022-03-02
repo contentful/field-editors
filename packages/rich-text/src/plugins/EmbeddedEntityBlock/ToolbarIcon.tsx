@@ -6,7 +6,6 @@ import { AssetIcon, EmbeddedEntryBlockIcon } from '@contentful/f36-icons';
 import { css } from 'emotion';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
-import { insertEmptyParagraph } from '../../helpers/editor';
 import { useSdkContext } from '../../SdkProvider';
 import { selectEntityAndInsert } from './Util';
 
@@ -37,7 +36,6 @@ export function EmbeddedEntityBlockToolbarIcon({
 
     onClose();
     await selectEntityAndInsert(nodeType, sdk, editor, editor.tracking.onToolbarAction);
-    insertEmptyParagraph(editor);
   };
 
   const type = getEntityTypeFromNodeType(nodeType);
