@@ -54,6 +54,20 @@ export function moveToTheNextLine(editor: RichTextEditor) {
   Transforms.move(editor, { distance: 1, unit: 'line' });
 }
 
+export function moveToTheNextChar(editor: RichTextEditor) {
+  Transforms.move(editor, { distance: 1, unit: 'character' });
+}
+
+export function insertEmptyParagraph(editor: RichTextEditor) {
+  const emptyParagraph: CustomElement = {
+    type: BLOCKS.PARAGRAPH,
+    children: [{ text: '' }],
+    data: {},
+    isVoid: false,
+  };
+  Transforms.insertNodes(editor, emptyParagraph);
+}
+
 export function getElementFromCurrentSelection(editor: RichTextEditor) {
   if (!editor.selection) return [];
 

@@ -6,6 +6,7 @@ import { AssetIcon, EmbeddedEntryBlockIcon } from '@contentful/f36-icons';
 import { css } from 'emotion';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
+import { insertEmptyParagraph } from '../../helpers/editor';
 import { useSdkContext } from '../../SdkProvider';
 import { selectEntityAndInsert } from './Util';
 
@@ -31,11 +32,12 @@ export function EmbeddedEntityBlockToolbarIcon({
   const editor = useContentfulEditor();
   const sdk: FieldExtensionSDK = useSdkContext();
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
     onClose();
-    selectEntityAndInsert(nodeType, sdk, editor, editor.tracking.onToolbarAction);
+    await selectEntityAndInsert(nodeType, sdk, editor, editor.tracking.onToolbarAction);
+    insertEmptyParagraph(editor);
   };
 
   const type = getEntityTypeFromNodeType(nodeType);
