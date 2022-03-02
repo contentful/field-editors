@@ -13,7 +13,6 @@ import {
   ContentfulEditorIdProvider,
   getContentfulEditorId,
   useContentfulEditor,
-  useContentfulEditorId,
 } from './ContentfulEditorProvider';
 import { getPlugins, disableCorePlugins } from './plugins';
 import { RichTextTrackingActionHandler } from './plugins/Tracking';
@@ -36,8 +35,9 @@ type ConnectedProps = {
 };
 
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
-  const id = useContentfulEditorId();
-  const editor = useContentfulEditor();
+  const id = getContentfulEditorId(props.sdk);
+  // TODO: remove in favor of getting the editor from useNormalizedSlateValue after upgrading to Plate v10
+  const editor = useContentfulEditor(id);
 
   const plugins = React.useMemo(
     () => getPlugins(props.sdk, props.onAction ?? noop),
@@ -63,24 +63,28 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   );
 
   return (
-    <div className={styles.root} data-test-id="rich-text-editor">
-      <Plate
-        id={id}
-        initialValue={initialValue}
-        plugins={plugins}
-        disableCorePlugins={disableCorePlugins}
-        editableProps={{
-          className: classNames,
-          readOnly: props.isDisabled,
-        }}
-        onChange={onValueChanged}>
-        {!props.isToolbarHidden && (
-          <StickyToolbarWrapper isDisabled={props.isDisabled}>
-            <Toolbar isDisabled={props.isDisabled} />
-          </StickyToolbarWrapper>
-        )}
-      </Plate>
-    </div>
+    <SdkProvider sdk={props.sdk}>
+      <ContentfulEditorIdProvider value={id}>
+        <div className={styles.root} data-test-id="rich-text-editor">
+          <Plate
+            id={id}
+            initialValue={initialValue}
+            plugins={plugins}
+            disableCorePlugins={disableCorePlugins}
+            editableProps={{
+              className: classNames,
+              readOnly: props.isDisabled,
+            }}
+            onChange={onValueChanged}>
+            {!props.isToolbarHidden && (
+              <StickyToolbarWrapper isDisabled={props.isDisabled}>
+                <Toolbar isDisabled={props.isDisabled} />
+              </StickyToolbarWrapper>
+            )}
+          </Plate>
+        </div>
+      </ContentfulEditorIdProvider>
+    </SdkProvider>
   );
 };
 
@@ -93,32 +97,26 @@ const RichTextEditor = (props: Props) => {
     []
   );
 
-  const editorId = getContentfulEditorId(sdk);
-
   return (
     <EntityProvider sdk={sdk}>
-      <SdkProvider sdk={sdk}>
-        <FieldConnector
-          throttle={0}
-          field={sdk.field}
-          isInitiallyDisabled={isInitiallyDisabled}
-          isEmptyValue={isEmptyValue}
-          isEqualValues={deepEquals}>
-          {({ lastRemoteValue, disabled, setValue, externalReset }) => (
-            <ContentfulEditorIdProvider value={editorId}>
-              <ConnectedRichTextEditor
-                {...otherProps}
-                key={`rich-text-editor-${externalReset}`}
-                value={lastRemoteValue}
-                sdk={sdk}
-                onAction={onAction}
-                isDisabled={disabled}
-                onChange={setValue}
-              />
-            </ContentfulEditorIdProvider>
-          )}
-        </FieldConnector>
-      </SdkProvider>
+      <FieldConnector
+        throttle={0}
+        field={sdk.field}
+        isInitiallyDisabled={isInitiallyDisabled}
+        isEmptyValue={isEmptyValue}
+        isEqualValues={deepEquals}>
+        {({ lastRemoteValue, disabled, setValue, externalReset }) => (
+          <ConnectedRichTextEditor
+            {...otherProps}
+            key={`rich-text-editor-${externalReset}`}
+            value={lastRemoteValue}
+            sdk={sdk}
+            onAction={onAction}
+            isDisabled={disabled}
+            onChange={setValue}
+          />
+        )}
+      </FieldConnector>
     </EntityProvider>
   );
 };
