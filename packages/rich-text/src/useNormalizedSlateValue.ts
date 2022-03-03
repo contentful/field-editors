@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { toSlatejsDocument } from '@contentful/contentful-slatejs-adapter';
 import { EMPTY_DOCUMENT, Document } from '@contentful/rich-text-types';
 import { createPlateEditor } from '@udecode/plate-core';
-import { Transforms } from 'slate';
+import { Editor } from 'slate';
 
 import schema from './constants/Schema';
 import { disableCorePlugins } from './plugins';
@@ -49,7 +49,8 @@ export const useNormalizedSlateValue = ({
     });
 
     // Sets editor value & kicks normalization
-    Transforms.insertNodes(editor, doc);
+    editor.children = doc;
+    Editor.normalize(editor, { force: true });
 
     // TODO: return the editor itself to avoid recompiling & initializing all
     // of the plugins again. It's currently not possible due to a bug in Plate
