@@ -2,6 +2,8 @@ import { INLINES } from '@contentful/rich-text-types';
 
 const isValidationEvent = ({ type }) => type === 'onSchemaErrorsChanged';
 
+export type EmbedType = 'entry-block' | 'asset-block' | 'entry-inline';
+
 export class RichTextPage {
   visit() {
     cy.visit('/rich-text');
@@ -68,7 +70,7 @@ export class RichTextPage {
         return cy.findByTestId('toolbar-entity-dropdown-toggle');
       },
 
-      embed(type: 'entry-block' | 'asset-block' | 'entry-inline') {
+      embed(type: EmbedType) {
         this.embedDropdown.click();
         cy.findByTestId(`toolbar-toggle-embedded-${type}`).click();
       },

@@ -1,8 +1,8 @@
 import { BLOCKS, HEADINGS } from '@contentful/rich-text-types';
-import { getAbove, HotkeyPlugin, KeyboardHandler, toggleNodeType } from '@udecode/plate-core';
+import { getAbove, HotkeyPlugin, KeyboardHandler } from '@udecode/plate-core';
 import isHotkey from 'is-hotkey';
 
-import { isBlockSelected, isInlineOrText } from '../../helpers/editor';
+import { isBlockSelected, isInlineOrText, toggleElement } from '../../helpers/editor';
 import { transformLift, transformUnwrap } from '../../helpers/transformers';
 import { RichTextEditor, RichTextPlugin } from '../../types';
 import { HeadingComponents } from './components/Heading';
@@ -15,7 +15,7 @@ const buildHeadingEventHandler =
       const isActive = isBlockSelected(editor, type);
       editor.tracking.onShortcutAction(isActive ? 'remove' : 'insert', { nodeType: type });
 
-      toggleNodeType(editor, { activeType: type, inactiveType: BLOCKS.PARAGRAPH });
+      toggleElement(editor, { activeType: type, inactiveType: BLOCKS.PARAGRAPH });
     }
   };
 

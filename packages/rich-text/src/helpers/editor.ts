@@ -1,6 +1,11 @@
 import { Link } from '@contentful/field-editor-reference/dist/types';
 import { BLOCKS, INLINES, TABLE_BLOCKS } from '@contentful/rich-text-types';
-import { getText } from '@udecode/plate-core';
+import {
+  EditorNodesOptions,
+  getText,
+  toggleNodeType,
+  ToggleNodeTypeOptions,
+} from '@udecode/plate-core';
 import { Text, Editor, Element, Transforms, Path, Range, Node } from 'slate';
 import { ReactEditor } from 'slate-react';
 
@@ -240,3 +245,14 @@ export const focus = (editor: RichTextEditor) => {
     }, 0);
   }
 };
+
+export function toggleElement(
+  editor: RichTextEditor,
+  options: ToggleNodeTypeOptions,
+  editorOptions?: Omit<EditorNodesOptions, 'match'>
+) {
+  toggleNodeType(editor, options, editorOptions);
+
+  // We must reset `data` from one element to another
+  Transforms.setNodes(editor, { data: {} });
+}

@@ -1,11 +1,21 @@
 import { BLOCKS } from '@contentful/rich-text-types';
+import { HotkeyPlugin, KeyboardHandler } from '@udecode/plate-core';
 import { createParagraphPlugin as createDefaultParagraphPlugin } from '@udecode/plate-paragraph';
+import isHotkey from 'is-hotkey';
 
-import { isInlineOrText } from '../../helpers/editor';
+import { isInlineOrText, toggleElement } from '../../helpers/editor';
 import { transformUnwrap, transformLift } from '../../helpers/transformers';
-import { RichTextPlugin } from '../../types';
+import { RichTextEditor, RichTextPlugin } from '../../types';
 import { Paragraph } from './Paragraph';
 import { isEmbedElement, isEmptyElement } from './utils';
+
+const buildParagraphKeyDownHandler: KeyboardHandler<RichTextEditor, HotkeyPlugin> =
+  (editor, { options: { hotkey } }) =>
+  (event) => {
+    if (editor.selection && hotkey && isHotkey(hotkey, event)) {
+      toggleElement(editor, { activeType: BLOCKS.PARAGRAPH, inactiveType: BLOCKS.PARAGRAPH });
+    }
+  };
 
 export const createParagraphPlugin = (): RichTextPlugin => {
   const config: Partial<RichTextPlugin> = {
@@ -13,6 +23,9 @@ export const createParagraphPlugin = (): RichTextPlugin => {
     component: Paragraph,
     options: {
       hotkey: ['mod+opt+0'],
+    },
+    handlers: {
+      onKeyDown: buildParagraphKeyDownHandler,
     },
     softBreak: [
       // create a new line with SHIFT+Enter inside a paragraph
