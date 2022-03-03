@@ -3,6 +3,7 @@ import { BLOCKS, INLINES, TABLE_BLOCKS } from '@contentful/rich-text-types';
 import {
   EditorNodesOptions,
   getText,
+  PlateEditor,
   toggleNodeType,
   ToggleNodeTypeOptions,
 } from '@udecode/plate-core';
@@ -20,7 +21,7 @@ export const LINK_TYPES: INLINES[] = [
 
 const LIST_TYPES: BLOCKS[] = [BLOCKS.OL_LIST, BLOCKS.UL_LIST];
 
-export function isBlockSelected(editor: RichTextEditor, type: string): boolean {
+export function isBlockSelected(editor: PlateEditor, type: string): boolean {
   const [match] = Array.from(
     Editor.nodes(editor, {
       match: (node) => Element.isElement(node) && (node as CustomElement).type === type,

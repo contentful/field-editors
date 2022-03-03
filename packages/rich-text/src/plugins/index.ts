@@ -7,7 +7,7 @@ import {
 import { createDeserializeDocxPlugin } from '@udecode/plate-serializer-docx';
 
 import { RichTextPlugin } from '../types';
-import { createSoftBreakPlugin, createExitBreakPlugin } from './Break';
+import { createSoftBreakPlugin, createExitBreakPlugin, createResetNodePlugin } from './Break';
 import { createDragAndDropPlugin } from './DragAndDrop';
 import {
   createEmbeddedAssetBlockPlugin,
@@ -75,6 +75,7 @@ export const getPlugins = (
   // above. They MUST come last.
   createSoftBreakPlugin(),
   createExitBreakPlugin(),
+  createResetNodePlugin(),
   createNormalizerPlugin(),
 ];
 
