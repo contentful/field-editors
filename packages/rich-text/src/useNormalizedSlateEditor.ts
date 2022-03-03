@@ -1,18 +1,21 @@
 import { useMemo } from 'react';
 
+import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { toSlatejsDocument } from '@contentful/contentful-slatejs-adapter';
 import { EMPTY_DOCUMENT, Document } from '@contentful/rich-text-types';
 import { createPlateEditor } from '@udecode/plate-core';
+import noop from 'lodash/noop';
 import { Transforms } from 'slate';
 
 import schema from './constants/Schema';
-import { disableCorePlugins } from './plugins';
-import { RichTextPlugin } from './types';
+import { disableCorePlugins, getPlugins } from './plugins';
+import { RichTextTrackingActionHandler } from './plugins/Tracking';
 
 export type NormalizedSlateValueProps = {
   id: string;
+  sdk: FieldExtensionSDK;
   incomingDoc: any;
-  plugins: RichTextPlugin[];
+  onAction?: RichTextTrackingActionHandler;
 };
 
 /**
@@ -31,11 +34,16 @@ const hasContent = (doc?: Document) => {
   return doc.content.length > 0;
 };
 
-export const useNormalizedSlateValue = ({
+export const useNormalizedSlateEditor = ({
   id,
+  sdk,
   incomingDoc,
-  plugins,
+  onAction,
 }: NormalizedSlateValueProps) => {
+  const plugins = useMemo(() => {
+    return getPlugins(sdk, onAction ?? noop);
+  }, [sdk, onAction]);
+
   return useMemo(() => {
     const editor = createPlateEditor({
       id,
@@ -51,10 +59,6 @@ export const useNormalizedSlateValue = ({
     // Sets editor value & kicks normalization
     Transforms.insertNodes(editor, doc);
 
-    // TODO: return the editor itself to avoid recompiling & initializing all
-    // of the plugins again. It's currently not possible due to a bug in Plate
-    // with initialValues
-    // See: https://slate-js.slack.com/archives/C013QHXSCG1/p1645112799942819
-    return editor.children;
+    return editor;
   }, [id, plugins, incomingDoc]);
 };

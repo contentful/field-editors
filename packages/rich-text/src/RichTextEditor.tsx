@@ -7,20 +7,15 @@ import * as Contentful from '@contentful/rich-text-types';
 import { Plate, getPlateActions } from '@udecode/plate-core';
 import { css, cx } from 'emotion';
 import deepEquals from 'fast-deep-equal';
-import noop from 'lodash/noop';
 
-import {
-  ContentfulEditorIdProvider,
-  getContentfulEditorId,
-  useContentfulEditor,
-} from './ContentfulEditorProvider';
-import { getPlugins, disableCorePlugins } from './plugins';
+import { ContentfulEditorIdProvider, getContentfulEditorId } from './ContentfulEditorProvider';
+import { disableCorePlugins } from './plugins';
 import { RichTextTrackingActionHandler } from './plugins/Tracking';
 import { styles } from './RichTextEditor.styles';
 import { SdkProvider } from './SdkProvider';
 import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/components/StickyToolbarWrapper';
-import { useNormalizedSlateValue } from './useNormalizedSlateValue';
+import { useNormalizedSlateEditor } from './useNormalizedSlateEditor';
 import { useOnValueChanged } from './useOnValueChanged';
 
 type ConnectedProps = {
@@ -36,18 +31,12 @@ type ConnectedProps = {
 
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const id = getContentfulEditorId(props.sdk);
-  // TODO: remove in favor of getting the editor from useNormalizedSlateValue after upgrading to Plate v10
-  const editor = useContentfulEditor(id);
 
-  const plugins = React.useMemo(
-    () => getPlugins(props.sdk, props.onAction ?? noop),
-    [props.sdk, props.onAction]
-  );
-
-  const initialValue = useNormalizedSlateValue({
+  const editor = useNormalizedSlateEditor({
     id,
+    sdk: props.sdk,
     incomingDoc: props.value,
-    plugins,
+    onAction: props.onAction,
   });
 
   const onValueChanged = useOnValueChanged({
@@ -76,8 +65,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
         <div className={styles.root} data-test-id="rich-text-editor">
           <Plate
             id={id}
-            initialValue={initialValue}
-            plugins={plugins}
+            editor={editor}
             disableCorePlugins={disableCorePlugins}
             editableProps={{
               className: classNames,

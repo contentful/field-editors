@@ -16,12 +16,8 @@ export const editorContext = createContext('');
 
 export const ContentfulEditorIdProvider = editorContext.Provider;
 
-export function useContentfulEditorId(id?: string) {
+export function useContentfulEditorId() {
   const contextId = useContext(editorContext);
-
-  if (id) {
-    return id;
-  }
 
   if (!contextId) {
     throw new Error(
@@ -34,16 +30,16 @@ export function useContentfulEditorId(id?: string) {
 
 // This hook re-renders when the value changes
 // Use case: Toolbar icons, for example
-export function useContentfulEditor(id?: string) {
-  const editorId = useContentfulEditorId(id);
+export function useContentfulEditor() {
+  const editorId = useContentfulEditorId();
   const editor = usePlateEditorState<RichTextEditor>(editorId);
 
   return editor;
 }
 
 // This doesn't re-render when the value changes
-export function useContentfulEditorRef(id?: string) {
-  const editorId = useContentfulEditorId(id);
+export function useContentfulEditorRef() {
+  const editorId = useContentfulEditorId();
   const editor = usePlateEditorRef<RichTextEditor>(editorId);
 
   return editor;
