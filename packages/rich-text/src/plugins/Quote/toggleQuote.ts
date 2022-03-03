@@ -25,10 +25,6 @@ export function toggleQuote(
       split: true,
     });
 
-    const { anchor, focus } = editor.selection;
-    const isTripleSelection =
-      anchor.path[0] !== focus.path[0] && anchor.offset === 0 && focus.offset === 0;
-
     if (!isActive) {
       const quote = {
         type: BLOCKS.QUOTE,
@@ -36,9 +32,7 @@ export function toggleQuote(
         children: [],
       };
 
-      Transforms.wrapNodes(editor, quote, {
-        at: isTripleSelection ? editor.selection.anchor : undefined,
-      });
+      Transforms.wrapNodes(editor, quote);
     }
   });
 }
