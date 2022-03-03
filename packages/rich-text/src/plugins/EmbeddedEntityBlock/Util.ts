@@ -50,18 +50,21 @@ function ensureFollowingParagraph(editor: RichTextEditor) {
       ![BLOCKS.EMBEDDED_ASSET, BLOCKS.EMBEDDED_ENTRY].includes(e.type as BLOCKS),
   });
 
+  if (Editor.isEditor(parent)) {
+    // at level 0, a following paragraph is handled by the tralingParagraph plugin
+    moveToTheNextChar(editor);
+    return;
+  }
+
   const paragraph = Editor.above(editor, {
     at: next[1],
     match: (e) => Element.isElement(e) && TEXT_CONTAINERS.includes(e.type as BLOCKS),
   });
 
-  if (!paragraph || !parent) {
+  if (!paragraph || !parent || !Path.isChild(paragraph[1], parent[1])) {
     return insertEmptyParagraph(editor);
   }
-  const isParagraphChildOfParent = Path.isChild(paragraph[1], parent[1]);
-  if (!isParagraphChildOfParent) {
-    return insertEmptyParagraph(editor);
-  }
+
   moveToTheNextChar(editor);
 }
 const createNode = (nodeType, entity) => ({

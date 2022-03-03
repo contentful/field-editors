@@ -8,7 +8,6 @@ export const createTrailingParagraphPlugin = (): RichTextPlugin => {
     options: {
       type: BLOCKS.PARAGRAPH,
       level: 0,
-      exclude: [BLOCKS.EMBEDDED_ENTRY, BLOCKS.EMBEDDED_ASSET],
     },
   });
 };
