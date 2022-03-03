@@ -11,17 +11,12 @@ export function createTextPlugin(): RichTextPlugin {
       // Triple selection in a non-Firefox browser undesirably selects
       // the start of the next block. Editor.unhangRange helps removing
       // the extra block at the end.
-      onMouseUp: (editor) => (event) => {
+      onMouseUp: (editor) => () => {
         if (!editor.selection) {
           return;
         }
 
-        // Triple selection check
-        if (event.detail === 3) {
-          const range = Editor.unhangRange(editor, editor.selection);
-
-          Transforms.setSelection(editor, range);
-        }
+        Transforms.setSelection(editor, Editor.unhangRange(editor, editor.selection));
       },
     },
     withOverrides: (editor) => {
