@@ -118,6 +118,30 @@ describe('Rich Text Lists', () => {
         richText.expectValue(expectedValue);
       });
 
+      it('backspace on empty li at the beginning of doc should work', () => {
+        const { editor } = richText;
+        editor.click();
+
+        test.getList().click();
+
+        editor.click().type('{backspace}');
+
+        richText.expectSnapshotValue();
+      });
+
+      it('backspace at the start of li should reset the item', () => {
+        const { editor } = richText;
+        editor.click();
+
+        test.getList().click();
+        editor.type('abc');
+
+        editor.type('{leftArrow}{leftArrow}{leftArrow}');
+        editor.type('{backspace}');
+
+        richText.expectSnapshotValue();
+      });
+
       it('should untoggle the list', () => {
         richText.editor.click();
 
