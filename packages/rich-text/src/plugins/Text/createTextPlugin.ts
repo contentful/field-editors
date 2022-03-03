@@ -7,6 +7,18 @@ import { RichTextPlugin } from '../../types';
 export function createTextPlugin(): RichTextPlugin {
   return {
     key: 'TextPlugin',
+    handlers: {
+      // Triple selection in a non-Firefox browser undesirably selects
+      // the start of the next block. Editor.unhangRange helps removing
+      // the extra block at the end.
+      onMouseUp: (editor) => () => {
+        if (!editor.selection) {
+          return;
+        }
+
+        Transforms.setSelection(editor, Editor.unhangRange(editor, editor.selection));
+      },
+    },
     withOverrides: (editor) => {
       // Reverts the change made upstream that caused the cursor
       // to be trapped inside inline elements.
