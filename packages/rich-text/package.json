@@ -40,6 +40,7 @@
     "@udecode/plate-core": "^9.2.1",
     "@udecode/plate-list": "^9.2.1",
     "@udecode/plate-paragraph": "^9.2.1",
+    "@udecode/plate-reset-node": "^9.2.1",
     "@udecode/plate-select": "^9.2.1",
     "@udecode/plate-serializer-docx": "^9.2.1",
     "@udecode/plate-table": "^9.2.1",
