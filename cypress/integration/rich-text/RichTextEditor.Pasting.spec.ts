@@ -306,6 +306,10 @@ describe(
         cy.window().then((win) => {
           const selection = win.getSelection();
           cy.wrap(selection).its('focusNode.data').should('equal', 'abc');
+          // slate throttles the handling of selection changes
+          // so the editor might be unaware of the new selection at the time we paste
+          // eslint-disable-next-line cypress/no-unnecessary-waiting
+          cy.wait(200);
         });
         richText.editor.paste({
           'text/html':
