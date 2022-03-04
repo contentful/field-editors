@@ -22,6 +22,7 @@ import {
   currentSelectionStartsTableCell,
   isRootLevel,
 } from '../../helpers/editor';
+import { insertEmptyParagraph } from '../../helpers/editor';
 import { transformLift, transformParagraphs, transformWrapIn } from '../../helpers/transformers';
 import { RichTextPlugin, CustomElement, RichTextEditor } from '../../types';
 import { addTableTrackingEvents } from './addTableTrackingEvents';
@@ -69,13 +70,7 @@ export const createTablePlugin = (): RichTextPlugin =>
           (fragment) => (fragment as CustomElement).type === BLOCKS.TABLE
         );
         if (fragmentHasTable) {
-          const emptyParagraph: CustomElement = {
-            type: BLOCKS.PARAGRAPH,
-            children: [{ text: '' }],
-            data: {},
-            isVoid: false,
-          };
-          Transforms.insertNodes(editor, emptyParagraph);
+          insertEmptyParagraph(editor);
         }
 
         insertFragment(fragments);
