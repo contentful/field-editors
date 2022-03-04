@@ -13,7 +13,7 @@ import { Transforms } from 'slate';
 import { useSelected, ReactEditor, useReadOnly } from 'slate-react';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
-import { focus } from '../../helpers/editor';
+import { focus, moveToTheNextChar } from '../../helpers/editor';
 import { HAS_BEFORE_INPUT_SUPPORT } from '../../helpers/environment';
 import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
 import { TrackingPluginActions } from '../../plugins/Tracking';
@@ -122,13 +122,15 @@ async function selectEntityAndInsert(
 
   const inlineEntryNode = createInlineEntryNode(entry.sys.id);
 
-  // Got to wait until focus is really back on the editor or setSelection() won't work.
-  setTimeout(() => {
-    Transforms.setSelection(editor, selection);
-    Transforms.insertNodes(editor, inlineEntryNode);
-  }, 0);
-
   logAction('insert', { nodeType: INLINES.EMBEDDED_ENTRY });
+  // Got to wait until focus is really back on the editor or setSelection() won't work.
+  return new Promise<void>((resolve) => {
+    setTimeout(() => {
+      Transforms.setSelection(editor, selection);
+      Transforms.insertNodes(editor, inlineEntryNode);
+      resolve();
+    }, 0);
+  });
 }
 
 export function ToolbarEmbeddedEntityInlineButton(props: ToolbarEmbeddedEntityInlineButtonProps) {
@@ -143,6 +145,7 @@ export function ToolbarEmbeddedEntityInlineButton(props: ToolbarEmbeddedEntityIn
     props.onClose();
 
     await selectEntityAndInsert(editor, sdk, editor.tracking.onToolbarAction);
+    moveToTheNextChar(editor);
   }
 
   return props.isButton ? (
