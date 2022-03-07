@@ -1,8 +1,8 @@
 import { TEXT_CONTAINERS } from '@contentful/rich-text-types';
-import { getAbove, isAncestorEmpty } from '@udecode/plate-core';
+import { getAbove, isAncestorEmpty, isFirstChild } from '@udecode/plate-core';
 import { Editor, Ancestor, Transforms, Range } from 'slate';
 
-import { RichTextPlugin } from '../../types';
+import { RichTextEditor, RichTextPlugin } from '../../types';
 
 export function createTextPlugin(): RichTextPlugin {
   return {
@@ -42,11 +42,11 @@ export function createTextPlugin(): RichTextPlugin {
       const { deleteForward, deleteBackward } = editor;
 
       editor.deleteBackward = (unit) => {
-        deleteEmptyParagraph(unit, editor, deleteBackward);
+        deleteFirstEmptyParagraph(unit, editor, deleteBackward);
       };
 
       editor.deleteForward = (unit) => {
-        deleteEmptyParagraph(unit, editor, deleteForward);
+        deleteFirstEmptyParagraph(unit, editor, deleteForward);
       };
 
       return editor;
@@ -54,7 +54,7 @@ export function createTextPlugin(): RichTextPlugin {
   };
 }
 
-function deleteEmptyParagraph(unit: String, editor: Editor, deleteFunction: Function) {
+function deleteFirstEmptyParagraph(unit: String, editor: RichTextEditor, deleteFunction: Function) {
   const entry = getAbove(editor, {
     match: {
       type: TEXT_CONTAINERS,
@@ -66,8 +66,9 @@ function deleteEmptyParagraph(unit: String, editor: Editor, deleteFunction: Func
     const isTextEmpty = isAncestorEmpty(editor, paragraphOrHeading as Ancestor);
     // We ignore paragraphs/headings that are children of ul, ol, blockquote, tables, etc
     const isRootLevel = path.length === 1;
+    const hasSiblings = editor.children.length > 1; // prevent editor from losing focus
 
-    if (isTextEmpty && isRootLevel) {
+    if (isTextEmpty && isRootLevel && isFirstChild(path) && hasSiblings) {
       Transforms.removeNodes(editor, { at: path });
     } else {
       deleteFunction(unit);
