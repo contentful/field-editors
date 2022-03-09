@@ -9,12 +9,12 @@ import {
   normalizeList,
   deleteFragmentList,
   deleteForwardList,
-  deleteBackwardList,
 } from '@udecode/plate-list';
 
 import { RichTextEditor } from '../../types';
 import { insertListBreak } from './insertListBreak';
 import { insertListFragment } from './insertListFragment';
+import { deleteBackwardList } from './transforms/deleteBackwardList';
 
 const validLiChildrenTypes = LIST_ITEM_BLOCKS;
 

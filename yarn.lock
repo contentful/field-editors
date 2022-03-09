@@ -6123,6 +6123,17 @@
     use-deep-compare "1.1.0"
     zustand "3.6.7"
 
+"@udecode/plate-core@9.3.1":
+  version "9.3.1"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-core/-/plate-core-9.3.1.tgz#196e64d0b42534085107fbc7f7499a678268b2f6"
+  integrity sha512-3FPKYY6xZxI43uOugAq2sWeDunr1TFmi9XLGEr58gHDjQNiFUEHFJJ1Ie6QcQEmhH++HZf5H8A5rX/7ogxwmYQ==
+  dependencies:
+    "@udecode/zustood" "0.4.4"
+    clsx "1.1.1"
+    lodash "4.17.21"
+    use-deep-compare "1.1.0"
+    zustand "3.6.7"
+
 "@udecode/plate-heading@9.2.1":
   version "9.2.1"
   resolved "https://registry.yarnpkg.com/@udecode/plate-heading/-/plate-heading-9.2.1.tgz#da9573694fd0a7478cd9ffe5825f33ed23926002"
@@ -6175,6 +6186,13 @@
   dependencies:
     "@udecode/plate-core" "9.2.1"
 
+"@udecode/plate-reset-node@^9.2.1":
+  version "9.3.1"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-reset-node/-/plate-reset-node-9.3.1.tgz#0162f96c862da1ccff19c07ef71dda3f1222b9af"
+  integrity sha512-9Op6DQR6vN0TVz//X6Cu3xmyrzb0ZRkRF16a+fsUg/I4jRXaHJgLuJtF1mo7AKah5BfU3uAxtTphZ/8RuGyp7A==
+  dependencies:
+    "@udecode/plate-core" "9.3.1"
+
 "@udecode/plate-select@^9.2.1":
   version "9.2.1"
   resolved "https://registry.yarnpkg.com/@udecode/plate-select/-/plate-select-9.2.1.tgz#ed63d63c56c336a58a7ee4bbe888b58407055aaf"
@@ -6219,6 +6237,13 @@
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/@udecode/zustood/-/zustood-0.4.1.tgz#ee7a794cd5a6ef2187213021aea62fbb39563fd5"
   integrity sha512-FBMjICzGmnNN4d6ErFmv6XXP6SIjweFsCvEQ2QLYHkUFG1tBjo+cx7nsxYtekOZH+T6u/QXrOHlZJ5P7hMbXeQ==
+  dependencies:
+    immer "9.0.6"
+
+"@udecode/zustood@0.4.4":
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/@udecode/zustood/-/zustood-0.4.4.tgz#0f3467f1ec3656623c16bb803d64e6dc55ea7b42"
+  integrity sha512-OtkRGu8TKBkidOOf28TY4tqYJRhMAiVt+BF6lHbF/FnXRmOa8eLal8Q/k9sqQcGzQAHBaZYcx0pR1+wlQzaurg==
   dependencies:
     immer "9.0.6"
 
