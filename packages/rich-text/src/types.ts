@@ -2,7 +2,7 @@ import { MARKS } from '@contentful/rich-text-types';
 import { PlateEditor, PlatePlugin } from '@udecode/plate-core';
 import { RenderElementProps } from 'slate-react';
 
-import type { SoftBreakRule, ExitBreakRule } from './plugins/Break';
+import type { SoftBreakRule, ExitBreakRule, ResetNodePluginRule } from './plugins/Break';
 import type { NormalizerRule } from './plugins/Normalizer';
 import { TrackingPluginActions } from './plugins/Tracking';
 
@@ -45,6 +45,11 @@ export interface RichTextPlugin extends PlatePlugin<RichTextEditor> {
    * @see createExitBreakPlugin
    */
   exitBreak?: ExitBreakRule[];
+
+  /**
+   * @see createResetNodePlugin
+   */
+  resetNode?: ResetNodePluginRule[];
 
   /**
    * @see createNormalizerPlugin

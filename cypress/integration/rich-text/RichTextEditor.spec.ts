@@ -567,6 +567,16 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           richText.toolbar.quote.should('be.visible');
         });
 
+        it('should toggle off empty quotes on backspace', () => {
+          richText.editor.click();
+
+          toggleQuote();
+
+          richText.editor.type('{backspace}');
+
+          richText.expectSnapshotValue();
+        });
+
         it('should add a block quote when clicking followed by a trailing empty paragraph', () => {
           richText.editor.click();
 
