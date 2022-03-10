@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { InlineEntryCard, MenuItem } from '@contentful/f36-components';
+import { InlineEntryCard, MenuItem, Text } from '@contentful/f36-components';
 import { ClockIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { useEntities, ScheduledIconWithTooltip } from '@contentful/field-editor-reference';
@@ -104,21 +104,7 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
     <InlineEntryCard
       testId={INLINES.EMBEDDED_ENTRY}
       isSelected={props.isSelected}
-      title={
-        (
-          <>
-            <span>
-              {contentTypeName} {title}
-            </span>
-            <ScheduledIconWithTooltip
-              getEntityScheduledActions={loadEntityScheduledActions}
-              entityType="Entry"
-              entityId={entry.sys.id}>
-              <ClockIcon className={styles.scheduledIcon} variant="muted" testId="scheduled-icon" />
-            </ScheduledIconWithTooltip>
-          </>
-        ) as any
-      }
+      title={`${contentTypeName}: ${title}`}
       status={status}
       actions={[
         <MenuItem key="edit" onClick={props.onEdit} disabled={props.isDisabled}>
@@ -131,7 +117,14 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
           testId="card-action-remove">
           Remove
         </MenuItem>,
-      ]}
-    />
+      ]}>
+      <ScheduledIconWithTooltip
+        getEntityScheduledActions={loadEntityScheduledActions}
+        entityType="Entry"
+        entityId={entry.sys.id}>
+        <ClockIcon className={styles.scheduledIcon} variant="muted" testId="scheduled-icon" />
+      </ScheduledIconWithTooltip>
+      <Text>{title}</Text>
+    </InlineEntryCard>
   );
 }
