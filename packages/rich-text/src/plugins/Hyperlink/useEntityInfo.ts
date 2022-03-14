@@ -88,7 +88,6 @@ function useRequestStatus({ sdk, target, onEntityFetchComplete }: EntityInfoProp
 
   useEffect(() => {
     if (target) {
-      console.log('fetching again');
       fetchAllData({
         sdk,
         entityId: target?.sys?.id,
