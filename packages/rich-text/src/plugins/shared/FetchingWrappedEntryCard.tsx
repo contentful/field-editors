@@ -50,7 +50,7 @@ export function FetchingWrappedEntryCard(props: FetchingWrappedEntryCardProps) {
 
   React.useEffect(() => {
     if (!entry || entry === 'failed') return;
-
+    let subscribed = true;
     entityHelpers
       .getEntryImage(
         {
@@ -61,8 +61,16 @@ export function FetchingWrappedEntryCard(props: FetchingWrappedEntryCardProps) {
         },
         getOrLoadAsset
       )
-      .then(setFile)
-      .catch(() => setFile(null));
+      .catch(() => null)
+      .then((file) => {
+        if (subscribed) {
+          setFile(file);
+        }
+      });
+
+    return () => {
+      subscribed = false;
+    };
   }, [entry, contentType, props.locale, defaultLocaleCode, props.sdk, file, getOrLoadAsset]);
 
   React.useEffect(() => {
