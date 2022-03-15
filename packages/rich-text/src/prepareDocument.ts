@@ -28,20 +28,15 @@ export const hasContent = (doc?: Document) => {
 
  This function is inspired to https://github.com/udecode/plate/issues/1269#issuecomment-1057643622
  */
-export const setEditorContent = (
-  editor: Editor,
-  options: {
-    nodes?: Node[];
-  } = {}
-): void => {
+export const setEditorContent = (editor: Editor, nodes?: Node[]): void => {
   // Replaces editor content while keeping change history
   Editor.withoutNormalizing(editor, () => {
     const children = [...editor.children];
     children.forEach((node) => editor.apply({ type: 'remove_node', path: [0], node }));
 
-    if (options.nodes) {
-      const nodes = Node.isNode(options.nodes) ? [options.nodes] : options.nodes;
-      nodes.forEach((node, i) => editor.apply({ type: 'insert_node', path: [i], node: node }));
+    if (nodes) {
+      const nodesArray = Node.isNode(nodes) ? [nodes] : nodes;
+      nodesArray.forEach((node, i) => editor.apply({ type: 'insert_node', path: [i], node: node }));
     }
 
     const point = Editor.end(editor, []);

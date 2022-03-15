@@ -67,9 +67,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
       return;
     }
     setPendingExternalUpdate(true);
-    setEditorContent(editor, {
-      nodes: documentToEditorValue(props.value),
-    });
+    setEditorContent(editor, documentToEditorValue(props.value));
   }, [props.value, id]);
 
   const classNames = cx(
