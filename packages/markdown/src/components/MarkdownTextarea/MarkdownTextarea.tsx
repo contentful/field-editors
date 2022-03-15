@@ -1,8 +1,10 @@
 import React, { useRef, useEffect, useState } from 'react';
+
 import tokens from '@contentful/f36-tokens';
 import { css, cx } from 'emotion';
-import { createMarkdownEditor } from './createMarkdownEditor';
+
 import { EditorDirection } from '../../types';
+import { createMarkdownEditor } from './createMarkdownEditor';
 
 export type InitializedEditorType = ReturnType<typeof createMarkdownEditor>;
 
@@ -102,9 +104,15 @@ const styles = {
   disabled: css`
     .CodeMirror {
       background: ${tokens.gray100};
+      cursor: 'not-allowed';
     }
     .CodeMirror-cursors {
       visibility: hidden !important;
+    }
+    .CodeMirror-scroll,
+    .CodeMirror-sizer,
+    .CodeMirror-lines {
+      cursor: not-allowed;
     }
   `,
 };
