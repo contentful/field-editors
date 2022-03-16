@@ -1671,7 +1671,8 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     it('renders the new value', () => {
       const firstString = 'Hello, World';
       richText.editor.type(firstString);
-      richText.expectValue(doc(block(BLOCKS.PARAGRAPH, {}, text(firstString, []))));
+      const oldDoc = doc(block(BLOCKS.PARAGRAPH, {}, text(firstString, [])));
+      richText.expectValue(oldDoc);
 
       // simulate a remote value change
       const newDoc = doc(
@@ -1688,8 +1689,12 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         block(BLOCKS.PARAGRAPH, {}, text('', []))
       );
       cy.getRichTextField().setValueExternal(newDoc);
-
-      // type something else to trigger a value update
+      // Ensure the value change hasn't triggered  an editor change callback
+      // That scenario would cause a loop of updates
+      // Note: outside of tests, the field value would be already up to date thanks to the field api logic,
+      // not the editor logic that is tested here
+      richText.expectValue(oldDoc);
+      // type something else to trigger the editor change callback
       // the new value must contain the external value plus the typed text
       const secondString = 'Bye, world';
       richText.editor.type('{enter}');
