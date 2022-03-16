@@ -1688,20 +1688,24 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         }),
         block(BLOCKS.PARAGRAPH, {}, text('', []))
       );
-      cy.getRichTextField().setValueExternal(newDoc);
-      // Ensure the value change hasn't triggered  an editor change callback
-      // That scenario would cause a loop of updates
-      // Note: outside of tests, the field value would be already up to date thanks to the field api logic,
-      // not the editor logic that is tested here
-      richText.expectValue(oldDoc);
-      // type something else to trigger the editor change callback
-      // the new value must contain the external value plus the typed text
-      const secondString = 'Bye, world';
-      richText.editor.type('{enter}');
-      richText.editor.type(secondString);
-      richText.expectValue({
-        ...newDoc,
-        content: [...newDoc.content, block(BLOCKS.PARAGRAPH, {}, text(secondString, []))],
+
+      cy.getRichTextField().then((field) => {
+        const setValueSpy = cy.spy(field, 'setValue');
+        cy.getRichTextField().setValueExternal(newDoc);
+        richText.expectValue(newDoc);
+
+        // Ensure the value change hasn't triggered  an editor change callback
+        // That scenario would cause a loop of updates
+        expect(setValueSpy).to.not.be.called;
+        // type something else to trigger the editor change callback
+        // the new value must contain the external value plus the typed text
+        const secondString = 'Bye, world';
+        richText.editor.type('{enter}');
+        richText.editor.type(secondString);
+        richText.expectValue({
+          ...newDoc,
+          content: [...newDoc.content, block(BLOCKS.PARAGRAPH, {}, text(secondString, []))],
+        });
       });
     });
   });
