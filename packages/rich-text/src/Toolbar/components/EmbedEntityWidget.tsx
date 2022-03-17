@@ -25,7 +25,16 @@ export const EmbedEntityWidget = ({ isDisabled, canInsertBlocks }: EmbedEntityWi
 
   const [canAccessAssets, setCanAccessAssets] = useState(false);
   React.useEffect(() => {
-    sdk.access.can('read', 'Asset').then(setCanAccessAssets);
+    let subscribed = true;
+    sdk.access.can('read', 'Asset').then((can) => {
+      if (!subscribed) {
+        return;
+      }
+      setCanAccessAssets(can);
+    });
+    return () => {
+      subscribed = false;
+    };
   }, [sdk]);
 
   const inlineEntryEmbedEnabled = isNodeTypeEnabled(sdk.field, INLINES.EMBEDDED_ENTRY);

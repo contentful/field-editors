@@ -1666,4 +1666,47 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       });
     });
   });
+
+  describe('external updates', () => {
+    it('renders the new value', () => {
+      const firstString = 'Hello, World';
+      richText.editor.type(firstString);
+      const oldDoc = doc(block(BLOCKS.PARAGRAPH, {}, text(firstString, [])));
+      richText.expectValue(oldDoc);
+
+      // simulate a remote value change
+      const newDoc = doc(
+        block(BLOCKS.PARAGRAPH, {}, text(firstString, [])),
+        block(BLOCKS.EMBEDDED_ENTRY, {
+          target: {
+            sys: {
+              id: 'example-entity-id',
+              type: 'Link',
+              linkType: 'Entry',
+            },
+          },
+        }),
+        block(BLOCKS.PARAGRAPH, {}, text('', []))
+      );
+
+      cy.getRichTextField().then((field) => {
+        const setValueSpy = cy.spy(field, 'setValue');
+        cy.getRichTextField().setValueExternal(newDoc);
+        richText.expectValue(newDoc);
+
+        // Ensure the value change hasn't triggered  an editor change callback
+        // That scenario would cause a loop of updates
+        expect(setValueSpy).to.not.be.called;
+        // type something else to trigger the editor change callback
+        // the new value must contain the external value plus the typed text
+        const secondString = 'Bye, world';
+        richText.editor.type('{enter}');
+        richText.editor.type(secondString);
+        richText.expectValue({
+          ...newDoc,
+          content: [...newDoc.content, block(BLOCKS.PARAGRAPH, {}, text(secondString, []))],
+        });
+      });
+    });
+  });
 });
