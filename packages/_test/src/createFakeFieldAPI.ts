@@ -1,6 +1,6 @@
+import { FieldAPI } from '@contentful/app-sdk';
 import mitt from 'mitt';
 import type { Emitter, Handler } from 'mitt';
-import { FieldAPI } from '@contentful/app-sdk';
 
 function identity<T>(item: T): T {
   return item;
@@ -31,9 +31,13 @@ export function createFakeFieldAPI<T>(
         } else {
           fn = args[0];
         }
-        emitter.on('onValueChanged', fn as Handler);
+        const handler: Handler = (value) => {
+          _value = value;
+          fn(value);
+        };
+        emitter.on('onValueChanged', handler);
         return () => {
-          emitter.off('onValueChanged', fn as Handler);
+          emitter.off('onValueChanged', handler);
         };
       },
       onIsDisabledChanged: (fn: Function) => {
