@@ -48,6 +48,8 @@ export class GoogleMapView extends React.Component<GoogleMapViewProps, GoogleMap
       } else {
         this.state.marker.setVisible(false);
       }
+      this.state.marker.setDraggable(!this.props.disabled);
+      this.state.marker.setCursor(this.props.disabled ? 'not-allowed' : 'auto');
     }
   }
 
@@ -56,7 +58,8 @@ export class GoogleMapView extends React.Component<GoogleMapViewProps, GoogleMap
     const marker = new maps.Marker({
       map,
       position: map.getCenter(),
-      draggable: true,
+      cursor: this.props.disabled ? 'not-allowed' : 'auto',
+      draggable: !this.props.disabled,
       visible: Boolean(this.props.location),
     });
 
