@@ -11,6 +11,7 @@ import { transformParagraphs, transformWrapIn } from '../../helpers/transformers
 import { RichTextEditor, RichTextPlugin } from '../../types';
 import { ListOL, ListUL } from './components/List';
 import { ListItem } from './components/ListItem';
+import { onKeyDownList } from './onKeyDownList';
 import {
   isNonEmptyListItem,
   hasListAsDirectParent,
@@ -36,6 +37,9 @@ export const createListPlugin = (): RichTextPlugin =>
       [ELEMENT_UL]: {
         type: BLOCKS.UL_LIST,
         component: ListUL,
+        handlers: {
+          onKeyDown: onKeyDownList,
+        },
         // The withList is added on ELEMENT_UL plugin in upstream code
         // so we need to override it here
         withOverrides: withList,
@@ -43,6 +47,9 @@ export const createListPlugin = (): RichTextPlugin =>
       [ELEMENT_OL]: {
         type: BLOCKS.OL_LIST,
         component: ListOL,
+        handlers: {
+          onKeyDown: onKeyDownList,
+        },
       },
       // ELEMENT_LIC is a child of li, Slate does ul > li > lic + ul
       [ELEMENT_LIC]: {
