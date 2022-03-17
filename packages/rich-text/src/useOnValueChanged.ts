@@ -2,7 +2,7 @@ import { useCallback, useMemo } from 'react';
 
 import { toContentfulDocument } from '@contentful/contentful-slatejs-adapter';
 import { Document } from '@contentful/rich-text-types';
-import { PlateEditor } from '@udecode/plate-core';
+import { getPlateSelectors } from '@udecode/plate-core';
 import debounce from 'lodash/debounce';
 import { Operation } from 'slate';
 
@@ -20,11 +20,13 @@ const isRelevantOperation = (op: Operation) => {
 };
 
 export type OnValueChangedProps = {
-  editor: PlateEditor;
+  editorId: string;
   handler?: (value: Document) => unknown;
+  skip?: boolean;
+  onSkip?: VoidFunction;
 };
 
-export const useOnValueChanged = ({ editor, handler }: OnValueChangedProps) => {
+export const useOnValueChanged = ({ editorId, handler, skip, onSkip }: OnValueChangedProps) => {
   const onChange = useMemo(
     () =>
       debounce((document: unknown) => {
@@ -35,12 +37,22 @@ export const useOnValueChanged = ({ editor, handler }: OnValueChangedProps) => {
 
   return useCallback(
     (value: unknown) => {
-      const operations = editor.operations.filter(isRelevantOperation);
+      const editor = getPlateSelectors(editorId).editor();
+      if (!editor) {
+        throw new Error(
+          'Editor change callback called but editor not defined. Editor id: ' + editorId
+        );
+      }
+      const operations = editor?.operations.filter(isRelevantOperation);
 
       if (operations.length > 0) {
+        if (skip) {
+          onSkip?.();
+          return;
+        }
         onChange(value);
       }
     },
-    [editor, onChange]
+    [editorId, onChange, skip, onSkip]
   );
 };

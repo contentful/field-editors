@@ -1,26 +1,24 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import * as Contentful from '@contentful/rich-text-types';
-import { Plate, getPlateActions } from '@udecode/plate-core';
+import { Plate, getPlateSelectors, getPlateActions } from '@udecode/plate-core';
 import { css, cx } from 'emotion';
 import deepEquals from 'fast-deep-equal';
 import noop from 'lodash/noop';
 
-import {
-  ContentfulEditorIdProvider,
-  getContentfulEditorId,
-  useContentfulEditor,
-} from './ContentfulEditorProvider';
+import { ContentfulEditorIdProvider, getContentfulEditorId } from './ContentfulEditorProvider';
 import { getPlugins, disableCorePlugins } from './plugins';
 import { RichTextTrackingActionHandler } from './plugins/Tracking';
+import { documentToEditorValue, normalizeEditorValue, setEditorContent } from './prepareDocument';
 import { styles } from './RichTextEditor.styles';
 import { SdkProvider } from './SdkProvider';
 import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/components/StickyToolbarWrapper';
-import { useNormalizedSlateValue } from './useNormalizedSlateValue';
 import { useOnValueChanged } from './useOnValueChanged';
 
 type ConnectedProps = {
@@ -36,24 +34,41 @@ type ConnectedProps = {
 
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const id = getContentfulEditorId(props.sdk);
-  // TODO: remove in favor of getting the editor from useNormalizedSlateValue after upgrading to Plate v10
-  const editor = useContentfulEditor(id);
-
   const plugins = React.useMemo(
     () => getPlugins(props.sdk, props.onAction ?? noop),
     [props.sdk, props.onAction]
   );
 
-  const initialValue = useNormalizedSlateValue({
-    id,
-    incomingDoc: props.value,
-    plugins,
-  });
+  const [isFirstRender, setIsFirstRender] = useState(true);
+  const [pendingExternalUpdate, setPendingExternalUpdate] = useState(false);
 
   const onValueChanged = useOnValueChanged({
-    editor,
+    editorId: id,
     handler: props.onChange,
+    skip: pendingExternalUpdate || isFirstRender,
+    onSkip: () => setPendingExternalUpdate(false),
   });
+
+  useEffect(() => {
+    /*
+      This effect is called when the value prop changes. Normally
+      this happens when the value is changed outside of the editor,
+      like in snapshots restoration or remote updates
+      Plate won't update the displayed value on its own, see:
+       - https://github.com/ianstormtaylor/slate/pull/4540
+       - https://github.com/udecode/plate/issues/1169
+
+       The content is forcely set to the new value and it's ensured
+       the change listener isn't invoked
+    */
+    setIsFirstRender(false);
+    const editor = getPlateSelectors(id).editor();
+    if (!editor) {
+      return;
+    }
+    setPendingExternalUpdate(true);
+    setEditorContent(editor, documentToEditorValue(props.value));
+  }, [props.value, id]);
 
   const classNames = cx(
     styles.editor,
@@ -63,12 +78,17 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   );
 
   useEffect(() => {
-    // Ensure the plate state is cleared after the component unmounts
-    // This prevent new editors for the same field to display old outdated values
-    // Typical scenario: coming back to the entry editor after restoring a previous entry version
-    getPlateActions(id).enabled(true);
-    return () => getPlateActions(id).enabled(false);
-  }, [id]);
+    if (!isFirstRender) {
+      return;
+    }
+
+    getPlateActions(id).value(
+      normalizeEditorValue(documentToEditorValue(props.value), {
+        plugins,
+        disableCorePlugins,
+      })
+    );
+  }, [isFirstRender, plugins, id, props.value]);
 
   return (
     <SdkProvider sdk={props.sdk}>
@@ -76,7 +96,6 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
         <div className={styles.root} data-test-id="rich-text-editor">
           <Plate
             id={id}
-            initialValue={initialValue}
             plugins={plugins}
             disableCorePlugins={disableCorePlugins}
             editableProps={{
@@ -105,6 +124,7 @@ const RichTextEditor = (props: Props) => {
     []
   );
 
+  const id = getContentfulEditorId(props.sdk);
   return (
     <EntityProvider sdk={sdk}>
       <FieldConnector
@@ -113,10 +133,10 @@ const RichTextEditor = (props: Props) => {
         isInitiallyDisabled={isInitiallyDisabled}
         isEmptyValue={isEmptyValue}
         isEqualValues={deepEquals}>
-        {({ lastRemoteValue, disabled, setValue, externalReset }) => (
+        {({ lastRemoteValue, disabled, setValue }) => (
           <ConnectedRichTextEditor
             {...otherProps}
-            key={`rich-text-editor-${externalReset}`}
+            key={`rich-text-editor-${id}`}
             value={lastRemoteValue}
             sdk={sdk}
             onAction={onAction}
