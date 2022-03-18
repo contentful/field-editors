@@ -14,6 +14,10 @@ import { FetchingWrappedEntryCard } from '../shared/FetchingWrappedEntryCard';
 const styles = {
   root: css({
     marginBottom: '1.25rem !important',
+    // The next 2 properties ensure Entity card won't be aligned above
+    // a list item marker (i.e. bullet)
+    display: 'inline-block',
+    verticalAlign: 'text-top',
   }),
 };
 
