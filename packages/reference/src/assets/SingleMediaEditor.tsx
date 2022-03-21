@@ -13,7 +13,7 @@ export function SingleMediaEditor(props: EditorProps) {
           {...props}
           viewType="big_card"
           assetId={entityId}
-          isDisabled={isDisabled}
+          isDisabled={!!isDisabled}
           onRemove={() => {
             setValue(null);
           }}

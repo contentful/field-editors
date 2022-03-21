@@ -30,6 +30,7 @@ type FieldProps = {
   sdk: FieldExtensionSDK;
   widgetId?: WidgetType;
   isInitiallyDisabled?: boolean;
+  isDisabled?: boolean;
   renderFieldEditor?: (
     widgetId: WidgetType,
     sdk: FieldExtensionSDK,
@@ -72,6 +73,7 @@ export const Field: React.FC<FieldProps> = (props: FieldProps) => {
     isInitiallyDisabled = false,
     renderFieldEditor,
     getOptions,
+    isDisabled,
   } = props;
   const field = sdk.field;
   const locales = sdk.locales;
@@ -105,6 +107,7 @@ export const Field: React.FC<FieldProps> = (props: FieldProps) => {
     field,
     locales,
     isInitiallyDisabled,
+    isDisabled,
     parameters: referenceEditorParams,
     ...widgetStaticProps,
     // @ts-expect-error

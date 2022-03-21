@@ -22,6 +22,11 @@ export interface DateEditorProps {
   isInitiallyDisabled: boolean;
 
   /**
+   * is the field disabled
+   */
+  isDisabled?: boolean;
+
+  /**
    * sdk.field
    */
   field: FieldAPI;
@@ -162,6 +167,7 @@ export function DateEditor(props: DateEditorProps) {
   return (
     <FieldConnector<string>
       field={field}
+      isDisabled={props.isDisabled}
       isInitiallyDisabled={props.isInitiallyDisabled}
       throttle={0}>
       {({ value, disabled, setValue, externalReset }) => {

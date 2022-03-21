@@ -27,6 +27,12 @@ export interface MarkdownEditorProps {
    * is the field disabled initially
    */
   isInitiallyDisabled: boolean;
+
+  /**
+   * is the field disabled
+   */
+  isDisabled?: boolean;
+
   /**
    * Minimum height to set for the markdown text area and preview
    */
@@ -138,6 +144,7 @@ export function MarkdownEditorConnected(props: MarkdownEditorProps) {
     <FieldConnector<string>
       throttle={300}
       field={props.sdk.field}
+      isDisabled={props.isDisabled}
       isInitiallyDisabled={props.isInitiallyDisabled}>
       {({ value, disabled, setValue, externalReset }) => {
         // on external change reset component completely and init with initial value again

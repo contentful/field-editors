@@ -64,6 +64,7 @@ const styles = {
   }),
   disabled: css({
     background: tokens.gray100,
+    cursor: 'not-allowed',
   }),
 };
 
@@ -255,6 +256,7 @@ export default function RichTextEditor(props) {
       <FieldConnector
         throttle={0}
         field={sdk.field}
+        isDisabled={props.isDisabled}
         isInitiallyDisabled={isInitiallyDisabled}
         isEmptyValue={(value) => {
           return !value || deepEquals(value, EMPTY_DOCUMENT);

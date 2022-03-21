@@ -27,6 +27,7 @@ interface FieldConnectorState<ValueType> {
 interface FieldConnectorProps<ValueType> {
   field: FieldAPI;
   isInitiallyDisabled: boolean;
+  isDisabled?: boolean;
   children: (state: FieldConnectorChildProps<ValueType>) => React.ReactNode;
   isEmptyValue: (value: ValueType | null) => boolean;
   isEqualValues: (value1: ValueType | Nullable, value2: ValueType | Nullable) => boolean;
@@ -49,6 +50,7 @@ export class FieldConnector<ValueType> extends React.Component<
     isEqualValues: (value1: any | Nullable, value2: any | Nullable) => {
       return isEqual(value1, value2);
     },
+    isDisabled: false,
     throttle: 300,
   };
 
@@ -60,7 +62,7 @@ export class FieldConnector<ValueType> extends React.Component<
       externalReset: 0,
       value: initialValue,
       lastRemoteValue: initialValue,
-      disabled: props.isInitiallyDisabled,
+      disabled: props.isDisabled || props.isInitiallyDisabled,
       errors: [],
     };
   }
@@ -94,6 +96,13 @@ export class FieldConnector<ValueType> extends React.Component<
       leading: this.props.throttle === 0,
     }
   );
+
+  componentDidUpdate(prevProps: FieldConnectorProps<ValueType>) {
+    if (prevProps.isDisabled !== this.props.isDisabled) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({ disabled: !!this.props.isDisabled });
+    }
+  }
 
   componentDidMount() {
     const { field } = this.props;

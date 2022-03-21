@@ -18,6 +18,11 @@ export interface MultipleLineEditorProps {
   isInitiallyDisabled: boolean;
 
   /**
+   * is the field disabled
+   */
+  isDisabled?: boolean;
+
+  /**
    * whether char validation should be shown or not
    */
   withCharValidation: boolean;
@@ -44,7 +49,10 @@ export function MultipleLineEditor(props: MultipleLineEditorProps) {
   const direction = locales.direction[field.locale] || 'ltr';
 
   return (
-    <FieldConnector<string> field={field} isInitiallyDisabled={isInitiallyDisabled}>
+    <FieldConnector<string>
+      isDisabled={props.isDisabled}
+      field={field}
+      isInitiallyDisabled={isInitiallyDisabled}>
       {({ errors, disabled, value, setValue }) => {
         return (
           <div data-test-id="multiple-line-editor">

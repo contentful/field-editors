@@ -34,6 +34,14 @@ const styles = {
     marginRight: tokens.spacingS,
     marginBottom: tokens.spacingS,
   }),
+  pillDisabled: css({
+    cursor: 'not-allowed !important',
+    button: {
+      cursor: 'not-allowed !important',
+      // instead of changing the @contentful/f36-components package
+      pointerEvents: 'none',
+    },
+  }),
   handle: css({
     lineHeight: '1.5rem',
     padding: '0.375rem 0.625rem',
@@ -47,8 +55,8 @@ const styles = {
   }),
 };
 
-const SortablePillHandle = SortableHandle(() => (
-  <div className={styles.handle}>
+const SortablePillHandle = SortableHandle((props: { isDisabled: boolean }) => (
+  <div className={`${styles.handle} ${props.isDisabled ? styles.pillDisabled : ''}`}>
     <DragIcon variant="muted" />
   </div>
 ));
@@ -56,22 +64,22 @@ const SortablePillHandle = SortableHandle(() => (
 interface SortablePillProps {
   label: string;
   onRemove: Function;
-  disabled: boolean;
+  isDisabled: boolean;
   index: number;
 }
 
 const SortablePill = SortableElement((props: SortablePillProps) => (
   <Pill
     testId="tag-editor-pill"
-    className={styles.pill}
+    className={`${styles.pill} ${props.isDisabled ? styles.pillDisabled : ''}`}
     label={props.label}
     onClose={() => {
-      if (!props.disabled) {
+      if (!props.isDisabled) {
         props.onRemove(props.index);
       }
     }}
     onDrag={noop}
-    dragHandleComponent={<SortablePillHandle />}
+    dragHandleComponent={<SortablePillHandle isDisabled={props.isDisabled} />}
   />
 ));
 
@@ -137,7 +145,10 @@ export function TagsEditor(props: TagsEditorProps) {
               label={item}
               index={index}
               key={item + index}
+              // disabled goes for SortableElement
               disabled={isDisabled}
+              // isDisabled goes for SortablePill
+              isDisabled={isDisabled}
               onRemove={() => {
                 removeItem(index);
               }}

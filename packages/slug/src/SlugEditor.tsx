@@ -10,6 +10,11 @@ export interface SlugEditorProps {
    */
   isInitiallyDisabled: boolean;
 
+  /**
+   * is the field disabled
+   */
+  isDisabled?: boolean;
+
   baseSdk: FieldExtensionSDK;
 
   /**
@@ -130,6 +135,7 @@ export function SlugEditor(props: SlugEditorProps) {
       {({ titleValue, isPublished, isSame }) => (
         <FieldConnector<string>
           field={field}
+          isDisabled={props.isDisabled}
           isInitiallyDisabled={props.isInitiallyDisabled}
           throttle={0}>
           {({ value, errors, disabled, setValue, externalReset }) => {

@@ -14,6 +14,10 @@ export interface ReferenceEditorProps {
    * Whether or not the field should be disabled initially.
    */
   isInitiallyDisabled: boolean;
+  /**
+   * Whether or not the field should be disabled.
+   */
+  isDisabled?: boolean;
   hasCardEditActions: boolean;
   sdk: FieldExtensionSDK;
   viewType: ViewType;
@@ -45,6 +49,7 @@ export function ReferenceEditor<T>(
         throttle={0}
         field={props.sdk.field}
         isInitiallyDisabled={props.isInitiallyDisabled}
+        isDisabled={props.isDisabled}
         isEqualValues={(value1, value2) => {
           return deepEqual(value1, value2);
         }}>

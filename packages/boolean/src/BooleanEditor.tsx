@@ -12,6 +12,11 @@ export interface BooleanEditorProps {
   isInitiallyDisabled: boolean;
 
   /**
+   * is the field disabled
+   */
+  isDisabled?: boolean;
+
+  /**
    * sdk.field
    */
   field: FieldAPI;
@@ -39,6 +44,7 @@ export function BooleanEditor(props: BooleanEditorProps) {
     <FieldConnector<boolean>
       throttle={0}
       field={field}
+      isDisabled={props.isDisabled}
       isInitiallyDisabled={props.isInitiallyDisabled}>
       {({ disabled, value, setValue }) => {
         const setOption = (value: string) => {

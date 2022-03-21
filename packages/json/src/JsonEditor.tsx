@@ -16,6 +16,11 @@ export interface JsonEditorProps {
   isInitiallyDisabled: boolean;
 
   /**
+   * is the field disabled
+   */
+  isDisabled?: boolean;
+
+  /**
    * sdk.field
    */
   field: FieldAPI;
@@ -160,6 +165,7 @@ export default function JsonEditor(props: JsonEditorProps) {
     <FieldConnector<JSONObject>
       field={props.field}
       isInitiallyDisabled={props.isInitiallyDisabled}
+      isDisabled={props.isDisabled}
       isEqualValues={(value1, value2) => {
         return deepEqual(value1, value2);
       }}>

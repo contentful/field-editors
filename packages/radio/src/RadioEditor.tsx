@@ -18,6 +18,11 @@ export interface RadioEditorProps {
   isInitiallyDisabled: boolean;
 
   /**
+   * is the field disabled
+   */
+  isDisabled?: boolean;
+
+  /**
    * sdk.field
    */
   field: FieldAPI;
@@ -44,6 +49,7 @@ export function RadioEditor(props: RadioEditorProps) {
     <FieldConnector<string | number>
       throttle={0}
       field={field}
+      isDisabled={props.isDisabled}
       isInitiallyDisabled={props.isInitiallyDisabled}>
       {({ disabled, value, setValue }) => {
         const setOption = (value: string) => {
@@ -75,7 +81,11 @@ export function RadioEditor(props: RadioEditorProps) {
                     {item.label}
                   </Radio>
                   {checked && (
-                    <TextLink as="button" className={styles.clearBtn} onClick={clearOption}>
+                    <TextLink
+                      as="button"
+                      onClick={clearOption}
+                      className={styles.clearBtn}
+                      isDisabled={disabled}>
                       Clear
                     </TextLink>
                   )}

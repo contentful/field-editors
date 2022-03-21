@@ -20,6 +20,11 @@ export interface LocationEditorConnectedProps {
   isInitiallyDisabled: boolean;
 
   /**
+   * is the field disabled
+   */
+  isDisabled?: boolean;
+
+  /**
    * sdk.field
    */
   field: FieldAPI;
@@ -160,6 +165,7 @@ export function LocationEditorConnected(props: LocationEditorConnectedProps) {
         return deepEqual(value1, value2);
       }}
       field={field}
+      isDisabled={props.isDisabled}
       isInitiallyDisabled={props.isInitiallyDisabled}>
       {({ value, disabled, setValue, externalReset }) => {
         return (

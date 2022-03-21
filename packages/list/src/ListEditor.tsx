@@ -13,6 +13,11 @@ export interface ListEditorProps {
   isInitiallyDisabled: boolean;
 
   /**
+   * is the field disabled
+   */
+  isDisabled?: boolean;
+
+  /**
    * sdk.field
    */
   field: FieldAPI;
@@ -39,6 +44,7 @@ export function ListEditor(props: ListEditorProps) {
       throttle={0}
       isEmptyValue={isEmptyListValue}
       field={field}
+      isDisabled={props.isDisabled}
       isInitiallyDisabled={props.isInitiallyDisabled}>
       {(childProps) => (
         <ListEditorInternal {...childProps} direction={direction} isRequired={field.required} />

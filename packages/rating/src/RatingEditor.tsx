@@ -12,6 +12,11 @@ export interface RatingEditorProps {
   isInitiallyDisabled: boolean;
 
   /**
+   * is the field disabled
+   */
+  isDisabled?: boolean;
+
+  /**
    * sdk.field
    */
   field: FieldAPI;
@@ -52,6 +57,7 @@ export function RatingEditor(props: RatingEditorProps) {
     <FieldConnector<number>
       throttle={0}
       field={field}
+      isDisabled={props.isDisabled}
       isInitiallyDisabled={props.isInitiallyDisabled}>
       {({ disabled, value, setValue }) => {
         const clearOption = () => {

@@ -18,7 +18,7 @@ const styles = {
 type SortableLinkListProps = ReferenceEditorProps & {
   items: ReferenceValue[];
   setValue: (value: ReferenceValue[]) => void;
-  isDisabled: boolean;
+  isDisabled?: boolean;
   allContentTypes: ContentType[];
   onMove: (oldIndex: number, newIndex: number) => void;
 };

@@ -8,7 +8,7 @@ import * as styles from './styles';
 export function MissingEntityCard(props: {
   entityType: ContentEntityType;
   asSquare?: boolean;
-  isDisabled: boolean;
+  isDisabled?: boolean;
   onRemove?: Function;
 }) {
   return (

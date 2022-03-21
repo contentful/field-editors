@@ -21,7 +21,7 @@ export interface LinkActionsProps {
   canCreateEntity: boolean;
   canLinkEntity: boolean;
   canLinkMultiple: boolean;
-  isDisabled: boolean;
+  isDisabled?: boolean;
   isFull: boolean;
   isEmpty: boolean;
   onCreate: (contentType?: string, index?: number) => Promise<unknown>;

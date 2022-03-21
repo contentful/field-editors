@@ -19,6 +19,12 @@ export interface CheckboxEditorProps {
    * is the field disabled initially
    */
   isInitiallyDisabled: boolean;
+
+  /**
+   * is the field disabled
+   */
+  isDisabled?: boolean;
+
   /**
    * sdk.field
    */
@@ -95,6 +101,7 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
     <FieldConnector<ListValue>
       throttle={0}
       isEmptyValue={isEmptyListValue}
+      isDisabled={props.isDisabled}
       field={field}
       isInitiallyDisabled={props.isInitiallyDisabled}>
       {({ disabled, value, setValue }) => {

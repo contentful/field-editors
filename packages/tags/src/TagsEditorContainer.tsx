@@ -9,6 +9,12 @@ export interface TagsEditorContainerProps {
    * is the field disabled initially
    */
   isInitiallyDisabled: boolean;
+
+  /**
+   * is the field disabled.
+   */
+  isDisabled?: boolean;
+
   /**
    * sdk.field
    */
@@ -52,6 +58,7 @@ export function TagsEditorContainer(props: TagsEditorContainerProps) {
   return (
     <FieldConnector<TagEditorValue>
       field={field}
+      isDisabled={props.isDisabled}
       isInitiallyDisabled={props.isInitiallyDisabled}
       isEmptyValue={isEmptyTagsValue}
       throttle={0}>

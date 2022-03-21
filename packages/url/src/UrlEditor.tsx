@@ -10,6 +10,11 @@ export interface UrlEditorProps {
   isInitiallyDisabled: boolean;
 
   /**
+   * is the field disabled
+   */
+  isDisabled?: boolean;
+
+  /**
    * sdk.field
    */
   field: FieldAPI;
@@ -21,7 +26,10 @@ export function UrlEditor(props: UrlEditorProps) {
   const { field } = props;
 
   return (
-    <FieldConnector<string> field={field} isInitiallyDisabled={props.isInitiallyDisabled}>
+    <FieldConnector<string>
+      isDisabled={props.isDisabled}
+      field={field}
+      isInitiallyDisabled={props.isInitiallyDisabled}>
       {({ value, errors, disabled, setValue }) => {
         return (
           <div data-test-id="url-editor">

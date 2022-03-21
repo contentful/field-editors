@@ -10,7 +10,7 @@ import { LinkIcon } from '@contentful/f36-icons';
 interface SlugEditorFieldProps {
   hasError: boolean;
   isOptionalLocaleWithFallback: boolean;
-  isDisabled: boolean;
+  isDisabled?: boolean;
   value: string | null | undefined;
   locale: string;
   titleValue: string | null | undefined;

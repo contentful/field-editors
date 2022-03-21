@@ -10,7 +10,7 @@ import { useEditorPermissions } from './useEditorPermissions';
 type ChildProps = {
   entityId: string;
   entityType: ContentEntityType;
-  isDisabled: boolean;
+  isDisabled?: boolean;
   setValue: (value: ReferenceValue | null | undefined) => void;
   allContentTypes: ContentType[];
   renderCustomCard?: ReferenceEditorProps['renderCustomCard'];

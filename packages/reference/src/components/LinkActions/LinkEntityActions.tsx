@@ -17,7 +17,7 @@ type LinkEntityActionsProps = {
   entityType: ContentEntityType;
   canLinkMultiple: boolean;
   sdk: FieldExtensionSDK;
-  isDisabled: boolean;
+  isDisabled?: boolean;
   editorPermissions: EditorPermissions;
   onCreate: (id: string, index?: number) => void;
   onLink: (ids: string[], index?: number) => void;

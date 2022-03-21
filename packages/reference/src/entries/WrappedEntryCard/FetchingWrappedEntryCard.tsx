@@ -13,7 +13,7 @@ export type EntryCardReferenceEditorProps = ReferenceEditorProps & {
   entryId: string;
   index?: number;
   allContentTypes: ContentType[];
-  isDisabled: boolean;
+  isDisabled?: boolean;
   onRemove: () => void;
   renderDragHandle?: RenderDragFn;
   hasCardEditActions: boolean;
@@ -130,7 +130,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       contentType: props.allContentTypes.find(
         (contentType) => contentType.sys.id === entry.sys.contentType.sys.id
       ),
-      isDisabled: props.isDisabled,
+      isDisabled: !!props.isDisabled,
       size,
       localeCode: props.sdk.field.locale,
       defaultLocaleCode: props.sdk.locales.default,

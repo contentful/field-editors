@@ -22,7 +22,7 @@ export interface WrappedEntryCardProps {
   getAsset: (assetId: string) => Promise<unknown>;
   entryUrl?: string;
   size: 'small' | 'default' | 'auto';
-  isDisabled: boolean;
+  isDisabled?: boolean;
   isSelected?: boolean;
   onRemove?: () => void;
   onEdit?: () => void;
@@ -140,6 +140,7 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
                 <MenuItem
                   key="delete"
                   testId="delete"
+                  disabled={props.isDisabled}
                   onClick={() => {
                     props.onRemove && props.onRemove();
                   }}>
