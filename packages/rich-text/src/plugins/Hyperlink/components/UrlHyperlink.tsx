@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { FieldExtensionSDK, Link } from '@contentful/app-sdk';
 import { Tooltip, TextLink } from '@contentful/f36-components';
-import { useReadOnly } from 'slate-react';
+import { ReactEditor, useReadOnly } from 'slate-react';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
 import { useSdkContext } from '../../../SdkProvider';
@@ -26,7 +26,11 @@ export function UrlHyperlink(props: HyperlinkElementProps) {
     event.preventDefault();
     event.stopPropagation();
     if (!editor) return;
-    addOrEditLink(editor, sdk, editor.tracking.onViewportAction);
+    const p = ReactEditor.toSlatePoint(editor, [event.target as Node, 0], {
+      exactMatch: false,
+      suppressThrow: false,
+    });
+    addOrEditLink(editor, sdk, editor.tracking.onViewportAction, p.path);
   }
 
   return (
