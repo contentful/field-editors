@@ -17,7 +17,7 @@ import { Link } from '@contentful/field-editor-reference/dist/types';
 import { ModalDialogLauncher, FieldExtensionSDK } from '@contentful/field-editor-shared';
 import { INLINES } from '@contentful/rich-text-types';
 import { css } from 'emotion';
-import { Editor, Transforms } from 'slate';
+import { Editor, Transforms, Path } from 'slate';
 
 import { getNodeEntryFromSelection, insertLink, LINK_TYPES, focus } from '../../helpers/editor';
 import getLinkedContentTypeIdsForNodeType from '../../helpers/getLinkedContentTypeIdsForNodeType';
@@ -258,16 +258,17 @@ export async function addOrEditLink(
   logAction:
     | TrackingPluginActions['onToolbarAction']
     | TrackingPluginActions['onShortcutAction']
-    | TrackingPluginActions['onViewportAction']
+    | TrackingPluginActions['onViewportAction'],
+  targetPath?: Path
 ) {
-  if (!editor.selection) return;
+  const selectionBeforeBlur = editor.selection ? { ...editor.selection } : undefined;
+  if (!targetPath && !selectionBeforeBlur) return;
 
   let linkType;
   let linkText;
   let linkTarget;
   let linkEntity;
-
-  const [node, path] = getNodeEntryFromSelection(editor, LINK_TYPES);
+  const [node, path] = getNodeEntryFromSelection(editor, LINK_TYPES, targetPath);
   if (node && path) {
     linkType = node.type;
     linkText = Editor.string(editor, path);
@@ -275,8 +276,11 @@ export async function addOrEditLink(
     linkEntity = (node.data as { target: Link }).target;
   }
 
-  const selectionBeforeBlur = { ...editor.selection };
-  const currentLinkText = linkText || Editor.string(editor, editor.selection);
+  const selectionAfterFocus =
+    targetPath ?? (selectionBeforeBlur as NonNullable<typeof selectionBeforeBlur>);
+
+  const currentLinkText =
+    linkText || (editor.selection ? Editor.string(editor, editor.selection) : '');
   const isEditing = Boolean(node && path);
 
   logAction(isEditing ? 'openEditHyperlinkDialog' : 'openCreateHyperlinkDialog');
@@ -302,8 +306,10 @@ export async function addOrEditLink(
       );
     }
   );
+  Transforms.select(editor, selectionAfterFocus);
 
   if (!data) {
+    focus(editor);
     logAction(isEditing ? 'cancelEditHyperlinkDialog' : 'cancelCreateHyperlinkDialog');
     return;
   }
@@ -314,8 +320,6 @@ export async function addOrEditLink(
     linkType: type,
     linkEntity: target,
   } = data as HyperLinkDialogData;
-
-  Transforms.select(editor, selectionBeforeBlur);
 
   Editor.withoutNormalizing(editor, () => {
     insertLink(editor, { text, url, type, target, path });

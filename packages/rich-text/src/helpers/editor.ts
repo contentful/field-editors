@@ -38,11 +38,12 @@ type NodeEntry = [CustomElement, Path];
 type NodeType = BLOCKS | INLINES;
 export function getNodeEntryFromSelection(
   editor: RichTextEditor,
-  nodeTypeOrTypes: NodeType | NodeType[]
+  nodeTypeOrTypes: NodeType | NodeType[],
+  path?: Path
 ): NodeEntry | [] {
-  if (!editor.selection) return [];
+  path = path ?? editor.selection?.focus.path;
+  if (!path) return [];
   const nodeTypes = Array.isArray(nodeTypeOrTypes) ? nodeTypeOrTypes : [nodeTypeOrTypes];
-  const { path } = editor.selection.focus;
   for (let i = 0; i < path.length; i++) {
     const nodeEntry = Editor.node(editor, path.slice(0, i + 1)) as NodeEntry;
     if (nodeTypes.includes(nodeEntry[0].type as NodeType)) return nodeEntry;
