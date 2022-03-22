@@ -14,6 +14,9 @@ import { FetchingWrappedEntryCard } from '../shared/FetchingWrappedEntryCard';
 const styles = {
   root: css({
     marginBottom: '1.25rem !important',
+    display: 'block',
+  }),
+  container: css({
     // The next 2 properties ensure Entity card won't be aligned above
     // a list item marker (i.e. bullet)
     display: 'inline-block',
@@ -64,7 +67,8 @@ export function LinkedEntityBlock(props: LinkedEntityBlockProps) {
       <div
         // COMPAT: This makes copy & paste work for Chromium/Blink browsers and Safari
         contentEditable={HAS_BEFORE_INPUT_SUPPORT ? false : undefined}
-        draggable={HAS_BEFORE_INPUT_SUPPORT ? true : undefined}>
+        draggable={HAS_BEFORE_INPUT_SUPPORT ? true : undefined}
+        className={styles.container}>
         {entityType === 'Entry' && (
           <FetchingWrappedEntryCard
             sdk={sdk}
