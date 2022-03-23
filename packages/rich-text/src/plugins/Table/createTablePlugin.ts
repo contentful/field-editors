@@ -69,6 +69,7 @@ export const createTablePlugin = (): RichTextPlugin =>
       const { insertFragment } = editor;
 
       editor.insertFragment = (fragments) => {
+        console.log({ fragments });
         // We need to make sure we have a new, empty and clean paragraph in order to paste tables as-is due to how Slate behaves
         // More info: https://github.com/ianstormtaylor/slate/pull/4489 and https://github.com/ianstormtaylor/slate/issues/4542
         const fragmentHasTable = fragments.some((fragment) => isTable(fragment as CustomElement));
