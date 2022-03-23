@@ -1949,18 +1949,6 @@ exports[`Rich Text Editor > spreadsheets > removes empty columns/rows > Google S
     {
       "content": [
         {
-          "data": {},
-          "marks": [],
-          "nodeType": "text",
-          "value": ""
-        }
-      ],
-      "data": {},
-      "nodeType": "paragraph"
-    },
-    {
-      "content": [
-        {
           "content": [
             {
               "content": [
@@ -2316,18 +2304,6 @@ exports[`Rich Text Editor > Microsoft Word (.docx) deserialization > ordered lis
 exports[`Rich Text Editor > Microsoft Word (.docx) deserialization > tables #0`] =
 {
   "content": [
-    {
-      "content": [
-        {
-          "data": {},
-          "marks": [],
-          "nodeType": "text",
-          "value": ""
-        }
-      ],
-      "data": {},
-      "nodeType": "paragraph"
-    },
     {
       "content": [
         {
