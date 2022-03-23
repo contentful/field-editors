@@ -8,11 +8,11 @@ import {
   ELEMENT_TR,
   insertTable,
 } from '@udecode/plate-table';
-import { Node, NodeEntry } from 'slate';
+import { Element, Node, NodeEntry } from 'slate';
 import { Transforms, Path, Editor, Ancestor } from 'slate';
 
 import { isBlockSelected, getAncestorPathFromSelection } from '../../helpers/editor';
-import { CustomElement, RichTextEditor } from '../../types';
+import { CustomElement, RichTextEditor, TextOrCustomElement } from '../../types';
 
 export function insertTableAndFocusFirstCell(editor: RichTextEditor): void {
   insertTable(editor, { header: true });
@@ -115,4 +115,8 @@ export const createEmptyTableCells = (count: number): Node[] => {
 
 export const isNotEmpty = (editor: RichTextEditor, [, path]: NodeEntry) => {
   return Array.from(Node.children(editor, path)).length !== 0;
+};
+
+export const isTable = (node: TextOrCustomElement) => {
+  return Element.isElement(node) && node.type === BLOCKS.TABLE;
 };

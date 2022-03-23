@@ -20,6 +20,7 @@ export const sanitizeHTML = (html: string): string => {
     new DOMParser().parseFromString(html, 'text/html')
   );
 
-  // Remove whitespace between tags
-  return doc.body.innerHTML.replace(/>\s+</g, '><');
+  return doc.body.innerHTML
+    .replace(/>\s+</g, '><') // Remove whitespace between tags
+    .replace(/(.*)<div.*>(<table.*<\/table>)<\/div>(.*)/g, '$1$2$3'); // remove div containers from tables
 };
