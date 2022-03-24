@@ -554,18 +554,6 @@ exports[`Rich Text Editor > Lists > pastes table & its inline elements correctly
           "data": {},
           "marks": [],
           "nodeType": "text",
-          "value": ""
-        }
-      ],
-      "data": {},
-      "nodeType": "paragraph"
-    },
-    {
-      "content": [
-        {
-          "data": {},
-          "marks": [],
-          "nodeType": "text",
           "value": "What can I do with tables"
         }
       ],
@@ -1961,18 +1949,6 @@ exports[`Rich Text Editor > spreadsheets > removes empty columns/rows > Google S
     {
       "content": [
         {
-          "data": {},
-          "marks": [],
-          "nodeType": "text",
-          "value": ""
-        }
-      ],
-      "data": {},
-      "nodeType": "paragraph"
-    },
-    {
-      "content": [
-        {
           "content": [
             {
               "content": [
@@ -2328,18 +2304,6 @@ exports[`Rich Text Editor > Microsoft Word (.docx) deserialization > ordered lis
 exports[`Rich Text Editor > Microsoft Word (.docx) deserialization > tables #0`] =
 {
   "content": [
-    {
-      "content": [
-        {
-          "data": {},
-          "marks": [],
-          "nodeType": "text",
-          "value": ""
-        }
-      ],
-      "data": {},
-      "nodeType": "paragraph"
-    },
     {
       "content": [
         {
@@ -2864,6 +2828,116 @@ exports[`Rich Text Editor > missing application/x-slate-fragment [safari] > rend
       ],
       "data": {},
       "nodeType": "blockquote"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > Tables > Google Docs - <table> around <div> #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Cell 1"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Cell 2"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Cell 3"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Cell 4"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        }
+      ],
+      "data": {},
+      "nodeType": "table"
     },
     {
       "content": [
