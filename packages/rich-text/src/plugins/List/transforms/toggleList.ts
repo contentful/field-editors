@@ -74,13 +74,21 @@ export const toggleList = (editor: PlateEditor, { type }: { type: string }) =>
       // selection is a range
 
       const [startPoint, endPoint] = Range.edges(editor.selection);
-      const commonEntry = Node.common(editor, startPoint.path, endPoint.path);
+      const commonEntry = Node.common(
+        editor,
+        startPoint.path,
+        endPoint.path
+      ) as NodeEntry<TElement>;
 
       if (
         listTypes.includes((commonEntry[0] as TElement).type) ||
-        (commonEntry[0] as TElement).type === BLOCKS.LIST_ITEM
+        commonEntry[0].type === BLOCKS.LIST_ITEM
       ) {
-        if ((commonEntry[0] as TElement).type !== type) {
+        let listType = commonEntry[0].type;
+        if (commonEntry[0].type === BLOCKS.LIST_ITEM) {
+          listType = (Editor.parent(editor, commonEntry[1])[0] as TElement).type;
+        }
+        if (listType !== type) {
           const startList = findNode(editor, {
             at: Range.start(editor.selection),
             match: { type: listTypes },
