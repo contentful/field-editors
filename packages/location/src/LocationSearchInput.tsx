@@ -99,7 +99,12 @@ export function LocationSearchInput(props: LocationSearchInputProps) {
         />
         {isSearching && <Spinner className={styles.spinner} />}
         {suggestion && (
-          <Card padding="none" className={styles.suggestion}>
+          <Card
+            padding="none"
+            className={styles.suggestion}
+            // specific attribute to mark that this element is absolute positioned
+            // for internal contentful apps usage
+            data-position-absolute>
             <Button
               variant="transparent"
               testId="location-editor-suggestion"
