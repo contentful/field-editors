@@ -288,6 +288,37 @@ describe('Rich Text Lists', () => {
 
         richText.expectSnapshotValue();
       });
+
+      describe('switching off the list', () => {
+        it('it raises the list item entirely', () => {
+          richText.editor.click();
+          test.getList().click();
+          richText.editor.type('A paragraph');
+          richText.toolbar.embed('entry-block');
+          richText.editor.type('{uparrow}');
+
+          // switch the list off
+          test.getList().click();
+
+          richText.expectSnapshotValue();
+        });
+
+        it('it raises the non-first list item entirely', () => {
+          richText.editor.click();
+          test.getList().click();
+          richText.editor.type('A paragraph');
+          richText.toolbar.embed('entry-block');
+          richText.editor.type('{enter}Another paragraph');
+          richText.toolbar.embed('entry-block');
+          richText.editor.type('{enter}Another paragraph again');
+          richText.editor.type('{uparrow}{uparrow}');
+
+          // switch the list off
+          test.getList().click();
+
+          richText.expectSnapshotValue();
+        });
+      });
     });
   });
 });
