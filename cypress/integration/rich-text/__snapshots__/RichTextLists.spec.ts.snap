@@ -490,3 +490,296 @@ exports[`Rich Text Lists > Ordered List (OL) > backspace on empty li at the begi
   "data": {},
   "nodeType": "document"
 };
+
+exports[`Rich Text Lists > Unordered List (UL) > switching off the list > it raises the non-first list item entirely #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "A paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            },
+            {
+              "content": [],
+              "data": {
+                "target": {
+                  "sys": {
+                    "id": "example-entity-id",
+                    "linkType": "Entry",
+                    "type": "Link"
+                  }
+                }
+              },
+              "nodeType": "embedded-entry-block"
+            }
+          ],
+          "data": {},
+          "nodeType": "list-item"
+        }
+      ],
+      "data": {},
+      "nodeType": "unordered-list"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": "Another paragraph"
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    },
+    {
+      "content": [],
+      "data": {
+        "target": {
+          "sys": {
+            "id": "example-entity-id",
+            "linkType": "Entry",
+            "type": "Link"
+          }
+        }
+      },
+      "nodeType": "embedded-entry-block"
+    },
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "Another paragraph again"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            },
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": ""
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            }
+          ],
+          "data": {},
+          "nodeType": "list-item"
+        }
+      ],
+      "data": {},
+      "nodeType": "unordered-list"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Lists > Ordered List (OL) > switching off the list > it raises the list item entirely #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": "A paragraph"
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    },
+    {
+      "content": [],
+      "data": {
+        "target": {
+          "sys": {
+            "id": "example-entity-id",
+            "linkType": "Entry",
+            "type": "Link"
+          }
+        }
+      },
+      "nodeType": "embedded-entry-block"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Lists > Ordered List (OL) > switching off the list > it raises the non-first list item entirely #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "A paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            },
+            {
+              "content": [],
+              "data": {
+                "target": {
+                  "sys": {
+                    "id": "example-entity-id",
+                    "linkType": "Entry",
+                    "type": "Link"
+                  }
+                }
+              },
+              "nodeType": "embedded-entry-block"
+            }
+          ],
+          "data": {},
+          "nodeType": "list-item"
+        }
+      ],
+      "data": {},
+      "nodeType": "ordered-list"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": "Another paragraph"
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    },
+    {
+      "content": [],
+      "data": {
+        "target": {
+          "sys": {
+            "id": "example-entity-id",
+            "linkType": "Entry",
+            "type": "Link"
+          }
+        }
+      },
+      "nodeType": "embedded-entry-block"
+    },
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "Another paragraph again"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            },
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": ""
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            }
+          ],
+          "data": {},
+          "nodeType": "list-item"
+        }
+      ],
+      "data": {},
+      "nodeType": "ordered-list"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
