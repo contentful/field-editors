@@ -48,7 +48,9 @@ export function useEditorPermissions(props: EditorPermissionsProps) {
 
     async function checkLinkAccess() {
       if (entityType === 'Asset') {
-        const canRead = await canPerformAction('read', 'Asset');
+        // Hardcoded `true` value following https://contentful.atlassian.net/browse/DANTE-486
+        // TODO: refine permissions check in order to account for tags in rules
+        const canRead = (await canPerformAction('read', 'Asset')) || true;
         setCanLinkEntity(canRead);
       }
       if (entityType === 'Entry') {
