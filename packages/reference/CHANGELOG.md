@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.2.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.2.0...@contentful/field-editor-reference@4.2.1) (2022-03-29)
+
+### Bug Fixes
+
+- allow linking assets on permission rule with tags ([#1085](https://github.com/contentful/field-editors/issues/1085)) ([d7465d0](https://github.com/contentful/field-editors/commit/d7465d05ecc2674c3e10c927c6f2f414adb5df04))
+
 # [4.2.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.1.2...@contentful/field-editor-reference@4.2.0) (2022-03-02)
 
 ### Features
