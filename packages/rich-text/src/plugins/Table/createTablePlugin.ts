@@ -15,6 +15,7 @@ import {
   ELEMENT_TH,
   ELEMENT_TR,
   onKeyDownTable,
+  withTable,
 } from '@udecode/plate-table';
 import { NodeEntry, Path, Transforms } from 'slate';
 
@@ -64,7 +65,10 @@ export const createTablePlugin = (): RichTextPlugin =>
     handlers: {
       onKeyDown: createTableOnKeyDown,
     },
-    withOverrides: (editor) => {
+    withOverrides: (editor, plugin) => {
+      // injects important fixes from plate's original table plugin
+      withTable(editor, plugin as WithPlatePlugin<{}, {}>);
+
       addTableTrackingEvents(editor as RichTextEditor);
 
       const { insertFragment } = editor;
