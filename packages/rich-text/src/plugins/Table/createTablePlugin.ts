@@ -7,6 +7,7 @@ import {
   getLastChildPath,
   WithPlatePlugin,
   getText,
+  getAbove,
 } from '@udecode/plate-core';
 import {
   createTablePlugin as createDefaultTablePlugin,
@@ -53,6 +54,30 @@ const createTableOnKeyDown: KeyboardHandler<RichTextEditor, HotkeyPlugin> = (edi
       event.preventDefault();
       event.stopPropagation();
       return;
+    }
+
+    if (event.key === 'Enter') {
+      const windowSelection = window.getSelection();
+
+      if (windowSelection) {
+        // @ts-expect-error
+        const blockType = windowSelection.anchorNode.attributes?.['data-block-type']?.value; // this attribute comes from `plugins/Table/components/Table.tsx`
+        const isBeforeTable = blockType === BLOCKS.TABLE;
+
+        if (isBeforeTable) {
+          const above = getAbove(editor, { match: { type: BLOCKS.TABLE } });
+
+          if (!above) return;
+
+          const [, tablePath] = above;
+
+          insertEmptyParagraph(editor, { at: tablePath, select: true });
+
+          event.preventDefault();
+          event.stopPropagation();
+          return;
+        }
+      }
     }
 
     defaultHandler(event);

@@ -65,14 +65,14 @@ export function moveToTheNextChar(editor: RichTextEditor) {
   Transforms.move(editor, { distance: 1, unit: 'character' });
 }
 
-export function insertEmptyParagraph(editor: RichTextEditor) {
+export function insertEmptyParagraph(editor: RichTextEditor, options?) {
   const emptyParagraph: CustomElement = {
     type: BLOCKS.PARAGRAPH,
     children: [{ text: '' }],
     data: {},
     isVoid: false,
   };
-  Transforms.insertNodes(editor, emptyParagraph);
+  Transforms.insertNodes(editor, emptyParagraph, options);
 }
 
 export function getElementFromCurrentSelection(editor: RichTextEditor) {
