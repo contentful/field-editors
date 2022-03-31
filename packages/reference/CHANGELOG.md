@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.2.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.2.1...@contentful/field-editor-reference@4.2.2) (2022-03-31)
+
+### Bug Fixes
+
+- pass already known entry link id to onAction ([#1089](https://github.com/contentful/field-editors/issues/1089)) ([5b30d2f](https://github.com/contentful/field-editors/commit/5b30d2fade2edce5c99956108167aa5732b9bfbb))
+
 ## [4.2.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.2.0...@contentful/field-editor-reference@4.2.1) (2022-03-29)
 
 ### Bug Fixes
