@@ -767,6 +767,35 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     };
     const expectTable = (...tableElements) => expectDocumentStructure(table(...tableElements));
 
+    it('inserts new line before table', () => {
+      // prevent expected error `Cannot resolve a Slate point from DOM point` from failing this test
+      Cypress.on('uncaught:exception', (err) => {
+        if (
+          err.message.includes(
+            'Cannot resolve a Slate point from DOM point: [object HTMLDivElement],0'
+          )
+        ) {
+          return false;
+        }
+
+        // we still want the test to fail in case there's any other error
+        return true;
+      });
+
+      insertTable();
+
+      richText.editor.type('{uparrow}{enter}');
+
+      richText.expectValue(
+        doc(
+          emptyParagraph(),
+
+          table(row(emptyHeader(), emptyHeader()), row(emptyCell(), emptyCell())),
+          emptyParagraph()
+        )
+      );
+    });
+
     it('disables block element toolbar buttons when selected', () => {
       insertTable();
 
