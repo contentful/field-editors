@@ -69,7 +69,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       : `:${entry.sys.id}:${entry.sys.version}`;
 
   const onEdit = async () => {
-    const slide = await openEntry(props.sdk, get(entry, 'sys.id'), {
+    const slide = await openEntry(props.sdk, props.entryId, {
       bulkEditing: props.parameters.instance.bulkEditing,
       index: props.index,
     });
@@ -77,7 +77,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       props.onAction({
         entity: 'Entry',
         type: 'edit',
-        id: get(entry, 'sys.id'),
+        id: props.entryId,
         contentTypeId: get(entry, 'sys.contentType.sys.id'),
         slide,
       });
@@ -89,7 +89,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       props.onAction({
         entity: 'Entry',
         type: 'delete',
-        id: get(entry, 'sys.id'),
+        id: props.entryId,
         contentTypeId: get(entry, 'sys.contentType.sys.id'),
       });
   };
