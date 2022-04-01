@@ -830,6 +830,22 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       );
     });
 
+    it('delete multiple lines inside cells', () => {
+      insertTable();
+
+      richText.editor.type('hey{enter}{backspace}');
+
+      richText.expectValue(
+        doc(
+          table(
+            row(header(paragraphWithText('hey')), emptyHeader()),
+            row(emptyCell(), emptyCell())
+          ),
+          emptyParagraph()
+        )
+      );
+    });
+
     it('disables block element toolbar buttons when selected', () => {
       insertTable();
 
