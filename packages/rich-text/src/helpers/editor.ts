@@ -1,5 +1,5 @@
 import { Link } from '@contentful/field-editor-reference/dist/types';
-import { BLOCKS, INLINES, TABLE_BLOCKS } from '@contentful/rich-text-types';
+import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import {
   EditorNodesOptions,
   getText,
@@ -202,14 +202,6 @@ export function getAncestorPathFromSelection(editor: RichTextEditor) {
 export const isAtEndOfTextSelection = (editor: RichTextEditor) =>
   editor.selection?.focus.offset === getText(editor, editor.selection?.focus.path).length;
 
-export function currentSelectionStartsTableCell(editor: RichTextEditor): boolean {
-  const [tableCellNode, path] = getNodeEntryFromSelection(editor, [
-    BLOCKS.TABLE_CELL,
-    BLOCKS.TABLE_HEADER_CELL,
-  ]);
-  return !!tableCellNode && (!getText(editor, path) || editor.selection?.focus.offset === 0);
-}
-
 /**
  * This traversal strategy is unfortunately necessary because Slate doesn't
  * expose something like Node.next(editor).
@@ -231,14 +223,6 @@ export function getNextNode(editor: RichTextEditor): CustomElement | null {
     }
     return node as CustomElement;
   }
-}
-
-// TODO: move to table plugin
-export function currentSelectionPrecedesTableCell(editor: RichTextEditor): boolean {
-  const nextNode = getNextNode(editor);
-  return (
-    !!nextNode && TABLE_BLOCKS.includes(nextNode.type as BLOCKS) && isAtEndOfTextSelection(editor)
-  );
 }
 
 export const INLINE_TYPES = Object.values(INLINES) as string[];
