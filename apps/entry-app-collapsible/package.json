@@ -8,7 +8,7 @@
     "@contentful/f36-components": "beta",
     "@contentful/f36-icons": "beta",
     "@contentful/f36-tokens": "beta",
-    "@contentful/field-editor-rich-text": "2.0.0-next.27",
+    "@contentful/field-editor-rich-text": "2.0.0-next.28",
     "@contentful/field-editor-shared": "^1.0.0",
     "@contentful/field-editor-single-line": "^1.0.0",
     "emotion": "^10.0.17",
