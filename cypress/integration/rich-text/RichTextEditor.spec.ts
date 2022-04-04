@@ -799,6 +799,53 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       });
     }
 
+    it('can delete embedded inline entries inside table', () => {
+      insertTable();
+
+      richText.editor.type('hey');
+      cy.findByTestId('toolbar-toggle-embedded-entry-inline').click();
+      richText.editor.type('{backspace}{backspace}'); // one selects, the secodnd deletes it
+
+      richText.expectValue(
+        doc(
+          table(
+            row(header(paragraphWithText('hey')), emptyHeader()),
+            row(emptyCell(), emptyCell())
+          ),
+          emptyParagraph()
+        )
+      );
+    });
+
+    it('does not delete table header cells when selecting the whole table', () => {
+      insertTable();
+
+      richText.editor.type(`hey{${mod}}a{backspace}`);
+
+      richText.expectValue(
+        doc(
+          table(row(emptyHeader(), emptyHeader()), row(emptyCell(), emptyCell())),
+          emptyParagraph()
+        )
+      );
+    });
+
+    it('delete multiple lines inside cells', () => {
+      insertTable();
+
+      richText.editor.type('hey{enter}{backspace}');
+
+      richText.expectValue(
+        doc(
+          table(
+            row(header(paragraphWithText('hey')), emptyHeader()),
+            row(emptyCell(), emptyCell())
+          ),
+          emptyParagraph()
+        )
+      );
+    });
+
     it('disables block element toolbar buttons when selected', () => {
       insertTable();
 

@@ -20,11 +20,7 @@ import {
 } from '@udecode/plate-table';
 import { NodeEntry, Path, Transforms } from 'slate';
 
-import {
-  currentSelectionPrecedesTableCell,
-  currentSelectionStartsTableCell,
-  isRootLevel,
-} from '../../helpers/editor';
+import { isRootLevel } from '../../helpers/editor';
 import { insertEmptyParagraph } from '../../helpers/editor';
 import { transformLift, transformParagraphs, transformWrapIn } from '../../helpers/transformers';
 import { RichTextPlugin, CustomElement, RichTextEditor } from '../../types';
@@ -44,18 +40,6 @@ const createTableOnKeyDown: KeyboardHandler<RichTextEditor, HotkeyPlugin> = (edi
   const defaultHandler = onKeyDownTable(editor, plugin as WithPlatePlugin);
 
   return (event) => {
-    if (
-      (event.key === 'Backspace' && currentSelectionStartsTableCell(editor)) ||
-      (event.key === 'Delete' && currentSelectionPrecedesTableCell(editor))
-    ) {
-      // The default behavior here would be to delete the preceding or forthcoming
-      // leaf node, in this case a cell or header cell. But we don't want to do that,
-      // because it would leave us with a non-standard number of table cells.
-      event.preventDefault();
-      event.stopPropagation();
-      return;
-    }
-
     // This fixes `Cannot resolve a Slate point from DOM point: [object HTMLDivElement]` when typing while the cursor is before table
     const windowSelection = window.getSelection();
     if (windowSelection) {
