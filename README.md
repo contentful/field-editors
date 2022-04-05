@@ -61,7 +61,7 @@ function Root() {
 
 ### Requirements
 
-- Node.js: `>=12.13.1`
+- Node.js: `>=14.17.0`
 - Yarn: `>=1.21.1`
 
 To install all dependencies and build all packages run the following commands from the root of the project.
