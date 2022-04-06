@@ -6,7 +6,6 @@ import {
   KeyboardHandler,
   getLastChildPath,
   WithPlatePlugin,
-  getText,
   getAbove,
 } from '@udecode/plate-core';
 import {
@@ -29,12 +28,8 @@ import { Cell } from './components/Cell';
 import { HeaderCell } from './components/HeaderCell';
 import { Row } from './components/Row';
 import { Table } from './components/Table';
-import {
-  createEmptyTableCells,
-  getNoOfMissingTableCellsInRow,
-  isNotEmpty,
-  isTable,
-} from './helpers';
+import { createEmptyTableCells, getNoOfMissingTableCellsInRow, isNotEmpty } from './helpers';
+import { insertTableFragment } from './insertTableFragment';
 
 const createTableOnKeyDown: KeyboardHandler<RichTextEditor, HotkeyPlugin> = (editor, plugin) => {
   const defaultHandler = onKeyDownTable(editor, plugin as WithPlatePlugin);
@@ -80,22 +75,7 @@ export const createTablePlugin = (): RichTextPlugin =>
 
       addTableTrackingEvents(editor as RichTextEditor);
 
-      const { insertFragment } = editor;
-
-      editor.insertFragment = (fragments) => {
-        // We need to make sure we have a new, empty and clean paragraph in order to paste tables as-is due to how Slate behaves
-        // More info: https://github.com/ianstormtaylor/slate/pull/4489 and https://github.com/ianstormtaylor/slate/issues/4542
-        const isInsertingTable = fragments.some((fragment) => isTable(fragment as CustomElement));
-        const isTableFirstFragment =
-          fragments.findIndex((fragment) => isTable(fragment as CustomElement)) === 0;
-        const currentLineHasText = getText(editor, editor.selection?.focus.path) !== '';
-
-        if (isInsertingTable && isTableFirstFragment && currentLineHasText) {
-          insertEmptyParagraph(editor);
-        }
-
-        insertFragment(fragments);
-      };
+      editor.insertFragment = insertTableFragment(editor);
 
       return editor;
     },

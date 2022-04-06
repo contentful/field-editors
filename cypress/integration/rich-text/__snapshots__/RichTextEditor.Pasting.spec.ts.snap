@@ -2955,3 +2955,41 @@ exports[`Rich Text Editor > Tables > Google Docs - <table> around <div> #0`] =
   "data": {},
   "nodeType": "document"
 };
+exports[`Rich Text Editor > Tables > removes table wrappers when pasting a single cell #0`] =
+{
+  "nodeType": "document",
+  "data": {},
+  "content": [
+    {
+      "nodeType": "paragraph",
+      "data": {},
+      "content": [
+          {
+            "nodeType": "text",
+            "value": "cell content with a link and inline entry",
+            "marks": [],
+            "data": {}
+          },
+          {
+            "nodeType": "embedded-entry-inline",
+            "data": {
+              "target": {
+                "sys": {
+                  "id": "example-entity-id",
+                  "type": "Link",
+                  "linkType": "Entry"
+                }
+              }
+            },
+            "content": []
+          },
+          {
+            "nodeType": "text",
+            "value": ".",
+            "marks": [],
+            "data": {}
+          }
+      ]
+    }
+  ]
+};
