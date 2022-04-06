@@ -187,6 +187,15 @@ describe(
 
         richText.expectSnapshotValue();
       });
+
+      it('removes table wrappers when pasting a single cell', () => {
+        richText.editor.click().paste({
+          'application/x-slate-fragment':
+            'JTVCJTdCJTIydHlwZSUyMiUzQSUyMnRhYmxlJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0eXBlJTIyJTNBJTIydGFibGUtcm93JTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0eXBlJTIyJTNBJTIydGFibGUtY2VsbCUyMiUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydHlwZSUyMiUzQSUyMnBhcmFncmFwaCUyMiUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydGV4dCUyMiUzQSUyMmNlbGwlMjBjb250ZW50JTIwd2l0aCUyMGElMjBsaW5rJTIwYW5kJTIwaW5saW5lJTIwZW50cnklMjIlN0QlMkMlN0IlMjJ0eXBlJTIyJTNBJTIyZW1iZWRkZWQtZW50cnktaW5saW5lJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0ZXh0JTIyJTNBJTIyJTIyJTdEJTVEJTJDJTIyZGF0YSUyMiUzQSU3QiUyMnRhcmdldCUyMiUzQSU3QiUyMnN5cyUyMiUzQSU3QiUyMmlkJTIyJTNBJTIyZXhhbXBsZS1lbnRpdHktaWQlMjIlMkMlMjJ0eXBlJTIyJTNBJTIyTGluayUyMiUyQyUyMmxpbmtUeXBlJTIyJTNBJTIyRW50cnklMjIlN0QlN0QlN0QlN0QlMkMlN0IlMjJ0ZXh0JTIyJTNBJTIyLiUyMiU3RCU1RCU3RCU1RCU3RCU1RCU3RCU1RCU3RCU1RA==',
+        });
+
+        richText.expectSnapshotValue();
+      });
     });
 
     describe('spreadsheets', () => {
