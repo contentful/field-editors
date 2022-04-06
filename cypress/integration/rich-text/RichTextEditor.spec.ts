@@ -1004,14 +1004,27 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         });
       });
 
-      it('adds row below', () => {
-        doAction('Add row below');
+      describe('adds row below', () => {
+        it('with dropdown', () => {
+          doAction('Add row below');
 
-        expectTable(
-          row(headerWithText('foo'), headerWithText('bar')),
-          row(cellWithText('baz'), cellWithText('quux')),
-          row(emptyCell(), emptyCell())
-        );
+          expectTable(
+            row(headerWithText('foo'), headerWithText('bar')),
+            row(cellWithText('baz'), cellWithText('quux')),
+            row(emptyCell(), emptyCell())
+          );
+        });
+
+        it('with Tab key at the end', () => {
+          // @ts-expect-error
+          richText.editor.tab();
+
+          expectTable(
+            row(headerWithText('foo'), headerWithText('bar')),
+            row(cellWithText('baz'), cellWithText('quux')),
+            row(emptyCell(), emptyCell())
+          );
+        });
       });
 
       it('adds column left', () => {
