@@ -2,12 +2,9 @@ import { BLOCKS, CONTAINERS } from '@contentful/rich-text-types';
 import {
   getBlockAbove,
   getParent,
-  HotkeyPlugin,
-  KeyboardHandler,
   getLastChildPath,
   WithPlatePlugin,
   getText,
-  getAbove,
 } from '@udecode/plate-core';
 import {
   createTablePlugin as createDefaultTablePlugin,
@@ -15,7 +12,6 @@ import {
   ELEMENT_TD,
   ELEMENT_TH,
   ELEMENT_TR,
-  onKeyDownTable,
   withTable,
 } from '@udecode/plate-table';
 import { NodeEntry, Path, Transforms } from 'slate';
@@ -35,44 +31,13 @@ import {
   isNotEmpty,
   isTable,
 } from './helpers';
-
-const createTableOnKeyDown: KeyboardHandler<RichTextEditor, HotkeyPlugin> = (editor, plugin) => {
-  const defaultHandler = onKeyDownTable(editor, plugin as WithPlatePlugin);
-
-  return (event) => {
-    // This fixes `Cannot resolve a Slate point from DOM point: [object HTMLDivElement]` when typing while the cursor is before table
-    const windowSelection = window.getSelection();
-    if (windowSelection) {
-      // @ts-expect-error
-      const blockType = windowSelection.anchorNode.attributes?.['data-block-type']?.value; // this attribute comes from `plugins/Table/components/Table.tsx`
-      const isBeforeTable = blockType === BLOCKS.TABLE;
-
-      if (isBeforeTable) {
-        if (event.key === 'Enter') {
-          const above = getAbove(editor, { match: { type: BLOCKS.TABLE } });
-
-          if (!above) return;
-
-          const [, tablePath] = above;
-
-          insertEmptyParagraph(editor, { at: tablePath, select: true });
-        }
-
-        event.preventDefault();
-        event.stopPropagation();
-        return;
-      }
-    }
-
-    defaultHandler(event);
-  };
-};
+import { onKeyDownTable } from './onKeyDownTable';
 
 export const createTablePlugin = (): RichTextPlugin =>
   createDefaultTablePlugin({
     type: BLOCKS.TABLE,
     handlers: {
-      onKeyDown: createTableOnKeyDown,
+      onKeyDown: onKeyDownTable,
     },
     withOverrides: (editor, plugin) => {
       // injects important fixes from plate's original table plugin
