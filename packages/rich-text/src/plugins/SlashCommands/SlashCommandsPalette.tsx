@@ -86,7 +86,7 @@ export function SlashCommandsPalette({ editorId }: SlashCommandsPaletteProps) {
   if (!isOpen || !position || currentTries > MAX_TRIES) return null;
 
   return (
-    <div className={style.container(position)}>
+    <div className={style.container(position)} data-test-id="rte-slash-commands">
       <Card>
         <Text>Slash commands are temporarily unavailable.</Text>
       </Card>
