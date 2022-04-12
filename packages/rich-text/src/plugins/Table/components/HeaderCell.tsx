@@ -12,7 +12,7 @@ const style = css`
   border: 1px solid ${tokens.gray400};
   border-collapse: collapse;
   padding: 10px 12px;
-  font-weight: ${tokens.fontWeightMedium};
+  font-weight: ${tokens.fontWeightNormal};
   text-align: left;
   min-width: 48px;
   position: relative;
