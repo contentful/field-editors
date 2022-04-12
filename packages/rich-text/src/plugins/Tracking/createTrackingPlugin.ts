@@ -18,6 +18,7 @@ export type RichTextTrackingActionName =
   | 'removeTableColumn'
   // Copy & Paste
   | 'paste'
+  | 'invalidTablePaste'
   // Hyperlinks
   | 'cancelCreateHyperlinkDialog'
   | 'cancelEditHyperlinkDialog'
