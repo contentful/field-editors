@@ -22,14 +22,14 @@ const trimUnnecessaryTableWrapper = (node: Node): Node[] => {
   }
 
   // must be a table with a single row
-  if (node.type !== BLOCKS.TABLE || node.children.length !== 1) {
+  if (node.type !== BLOCKS.TABLE || node.children?.length !== 1) {
     return [node];
   }
 
   const row = node.children[0] as CustomElement;
 
   // the row must contain a single cell
-  if (row.children.length !== 1) {
+  if (row?.children?.length !== 1) {
     return [node];
   }
 
