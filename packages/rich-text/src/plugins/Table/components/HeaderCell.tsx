@@ -8,6 +8,7 @@ import * as Slate from 'slate-react';
 import { TableActions } from './TableActions';
 
 const style = css`
+  background-clip: padding-box;
   background-color: ${tokens.gray200};
   border: 1px solid ${tokens.gray400};
   border-collapse: collapse;
