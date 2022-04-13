@@ -111,5 +111,43 @@ export const createTrackingPlugin = (onAction: RichTextTrackingActionHandler): R
 
       return editor;
     },
+    then: (editor) => ({
+      editor: {
+        insertData: {
+          format: 'text/html',
+          getFragment: ({ data }) => {
+            let source;
+
+            if (data.includes('docs-internal-guid')) {
+              source = 'Google Docs';
+            }
+
+            if (data.includes('<google-sheets-html-origin>') || data.includes('data-sheets-')) {
+              source = 'Google Spreadsheets';
+            }
+
+            if (data.includes('class="TextRun') || data.includes('class="OutlineElement')) {
+              source = 'Microsoft Word Online';
+            }
+
+            if (data.includes('<meta name="Generator" content="Cocoa HTML Writer">')) {
+              source = 'Apple Notes';
+            }
+
+            if (data.includes('Slack-Lato, Slack-Fractions')) {
+              source = 'Slack';
+            }
+
+            if (source) {
+              editor.tracking.onShortcutAction('paste', {
+                source,
+              });
+            }
+
+            return undefined;
+          },
+        },
+      },
+    }),
   };
 };
