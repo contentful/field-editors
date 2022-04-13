@@ -67,6 +67,74 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         }),
       ]);
     });
+
+    it('tracks google docs source', () => {
+      richText.editor.click().paste({
+        'text/html': `<meta charset='utf-8'><meta charset="utf-8"><b style="font-weight:normal;" id="docs-internal-guid-810b52ca-7fff-d999-cca4-9ef46293ff5f"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Hello</span></b>`,
+      });
+
+      richText.expectTrackingValue([
+        action('paste', 'shortcut', {
+          source: 'Google Docs',
+        }),
+        action('paste', 'shortcut', {
+          characterCountAfter: 5,
+          characterCountBefore: 0,
+          characterCountSelection: 0,
+        }),
+      ]);
+    });
+
+    it('tracks google spreadsheets source', () => {
+      richText.editor.click().paste({
+        'text/html': `<meta charset='utf-8'><style type="text/css"><!--td {border: 1px solid #ccc;}br {mso-data-placement:same-cell;}--></style><span style="font-size:10pt;font-family:Arial;font-weight:bold;font-style:normal;" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;Example response for issues that go into the sprint (we don&#39;t close the Zendesk ticket):&quot;}" data-sheets-userformat="{&quot;2&quot;:16897,&quot;3&quot;:{&quot;1&quot;:0},&quot;12&quot;:0,&quot;17&quot;:1}">Example response for issues that go into the sprint (we don&#39;t close the Zendesk ticket):</span>`,
+      });
+
+      richText.expectTrackingValue([
+        action('paste', 'shortcut', {
+          source: 'Google Spreadsheets',
+        }),
+        action('paste', 'shortcut', {
+          characterCountAfter: 88,
+          characterCountBefore: 0,
+          characterCountSelection: 0,
+        }),
+      ]);
+    });
+
+    it('tracks slack source', () => {
+      richText.editor.click().paste({
+        'text/html': `<meta charset='utf-8'><span style="color: rgb(209, 210, 211); font-family: Slack-Lato, Slack-Fractions, appleLogo, sans-serif; font-size: 15px; font-style: normal; font-variant-ligatures: common-ligatures; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(34, 37, 41); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Hey everyone</span>`,
+      });
+
+      richText.expectTrackingValue([
+        action('paste', 'shortcut', {
+          source: 'Slack',
+        }),
+        action('paste', 'shortcut', {
+          characterCountAfter: 12,
+          characterCountBefore: 0,
+          characterCountSelection: 0,
+        }),
+      ]);
+    });
+
+    it('tracks apple notes source', () => {
+      richText.editor.click().paste({
+        'text/html': `<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> <html> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta http-equiv="Content-Style-Type" content="text/css"> <title></title> <meta name="Generator" content="Cocoa HTML Writer"> <meta name="CocoaVersion" content="2022.6"> <style type="text/css"> p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px 'Helvetica Neue'} </style> </head> <body> <p class="p1">Hello world</p> </body> </html>`,
+      });
+
+      richText.expectTrackingValue([
+        action('paste', 'shortcut', {
+          source: 'Apple Notes',
+        }),
+        action('paste', 'shortcut', {
+          characterCountAfter: 14,
+          characterCountBefore: 0,
+          characterCountSelection: 0,
+        }),
+      ]);
+    });
   });
 
   describe('Marks', () => {
