@@ -135,6 +135,40 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         }),
       ]);
     });
+
+    it('tracks microsoft word source', () => {
+      richText.editor.click().paste({
+        'text/html': `<meta name=Generator content="Microsoft Word 15"><p>Hello</p>`,
+      });
+
+      richText.expectTrackingValue([
+        action('paste', 'shortcut', {
+          source: 'Microsoft Word',
+        }),
+        action('paste', 'shortcut', {
+          characterCountAfter: 5,
+          characterCountBefore: 0,
+          characterCountSelection: 0,
+        }),
+      ]);
+    });
+
+    it('tracks microsoft excel source', () => {
+      richText.editor.click().paste({
+        'text/html': `<meta name=Generator content="Microsoft Excel 15"><p>Hello</p>`,
+      });
+
+      richText.expectTrackingValue([
+        action('paste', 'shortcut', {
+          source: 'Microsoft Excel',
+        }),
+        action('paste', 'shortcut', {
+          characterCountAfter: 5,
+          characterCountBefore: 0,
+          characterCountSelection: 0,
+        }),
+      ]);
+    });
   });
 
   describe('Marks', () => {
