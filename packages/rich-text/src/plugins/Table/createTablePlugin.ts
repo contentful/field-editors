@@ -13,7 +13,6 @@ import { NodeEntry, Path, Transforms } from 'slate';
 import { isRootLevel } from '../../helpers/editor';
 import { transformLift, transformParagraphs, transformWrapIn } from '../../helpers/transformers';
 import { RichTextPlugin, CustomElement, RichTextEditor } from '../../types';
-import { addTableTrackingEvents } from './addTableTrackingEvents';
 import { Cell } from './components/Cell';
 import { HeaderCell } from './components/HeaderCell';
 import { Row } from './components/Row';
@@ -21,6 +20,7 @@ import { Table } from './components/Table';
 import { createEmptyTableCells, getNoOfMissingTableCellsInRow, isNotEmpty } from './helpers';
 import { insertTableFragment } from './insertTableFragment';
 import { onKeyDownTable } from './onKeyDownTable';
+import { addTableTrackingEvents, withInvalidCellChildrenTracking } from './tableTracking';
 
 export const createTablePlugin = (): RichTextPlugin =>
   createDefaultTablePlugin({
@@ -107,7 +107,7 @@ export const createTablePlugin = (): RichTextPlugin =>
         normalizer: [
           {
             validChildren: CONTAINERS[BLOCKS.TABLE_HEADER_CELL],
-            transform: transformParagraphs,
+            transform: withInvalidCellChildrenTracking(transformParagraphs),
           },
         ],
       },
@@ -117,7 +117,7 @@ export const createTablePlugin = (): RichTextPlugin =>
         normalizer: [
           {
             validChildren: CONTAINERS[BLOCKS.TABLE_CELL],
-            transform: transformParagraphs,
+            transform: withInvalidCellChildrenTracking(transformParagraphs),
           },
         ],
       },
