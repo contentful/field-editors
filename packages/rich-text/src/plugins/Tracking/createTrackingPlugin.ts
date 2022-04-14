@@ -126,7 +126,11 @@ export const createTrackingPlugin = (onAction: RichTextTrackingActionHandler): R
               source = 'Google Spreadsheets';
             }
 
-            if (data.includes('class="TextRun') || data.includes('class="OutlineElement')) {
+            // TODO: MS Word Online doesn't give us specific tags, we might need to have a closer look at its tracking result since we are using generic values to identify it
+            if (
+              data.includes('Arial_MSFontService') &&
+              (data.includes('class="TextRun') || data.includes('class="OutlineElement'))
+            ) {
               source = 'Microsoft Word Online';
             }
 
