@@ -54,7 +54,10 @@ export function useEditorPermissions(props: EditorPermissionsProps) {
         setCanLinkEntity(canRead);
       }
       if (entityType === 'Entry') {
-        setCanLinkEntity(readableContentTypes.length > 0);
+        // Hardcoded `true` value following https://contentful.atlassian.net/browse/DANTE-486
+        // TODO: refine permissions check in order to account for tags in rules
+        const canRead = readableContentTypes.length > 0 || true;
+        setCanLinkEntity(canRead);
       }
     }
 
