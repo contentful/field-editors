@@ -130,6 +130,14 @@ export const createTrackingPlugin = (onAction: RichTextTrackingActionHandler): R
               source = 'Microsoft Word Online';
             }
 
+            if (data.includes('<meta name=Generator content="Microsoft Excel')) {
+              source = 'Microsoft Excel';
+            }
+
+            if (data.includes('<meta name=Generator content="Microsoft Word')) {
+              source = 'Microsoft Word';
+            }
+
             if (data.includes('<meta name="Generator" content="Cocoa HTML Writer">')) {
               source = 'Apple Notes';
             }
