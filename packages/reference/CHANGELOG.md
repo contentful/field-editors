@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.2.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.2.2...@contentful/field-editor-reference@4.2.3) (2022-04-19)
+
+### Bug Fixes
+
+- always show link existing button to account for tag based permissions [ZEND-1864] ([#1107](https://github.com/contentful/field-editors/issues/1107)) ([3b4ca1f](https://github.com/contentful/field-editors/commit/3b4ca1f2acca530cceab659346fe7769757d90f4))
+
 ## [4.2.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.2.1...@contentful/field-editor-reference@4.2.2) (2022-03-31)
 
 ### Bug Fixes
