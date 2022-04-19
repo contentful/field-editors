@@ -64,6 +64,45 @@ const actionOrigin = {
   COMMAND_PALETTE: 'command-palette',
 };
 
+function getPastingSource(data: DataTransfer) {
+  const textHtml = data.getData('text/html');
+  const doc = new DOMParser().parseFromString(textHtml, 'text/html');
+
+  if (doc.querySelector('[id*="docs-internal-guid"]')) {
+    return 'Google Docs';
+  }
+
+  if (doc.querySelector('google-sheets-html-origin') || doc.querySelector('[data-sheets-value]')) {
+    return 'Google Spreadsheets';
+  }
+
+  if (doc.querySelector('meta[content*="Microsoft Excel"]')) {
+    return 'Microsoft Excel';
+  }
+
+  if (doc.querySelector('meta[content*="Microsoft Word"]')) {
+    return 'Microsoft Word';
+  }
+
+  // TODO: MS Word Online doesn't give us specific tags, we might need to have a closer look at its tracking result since we are using generic values to identify it
+  if (
+    doc.querySelector('[style*="Arial_MSFontService"]') &&
+    (doc.querySelector('.TextRun') || doc.querySelector('.OutlineElement'))
+  ) {
+    return 'Microsoft Word Online';
+  }
+
+  if (doc.querySelector('meta[content="Cocoa HTML Writer"]')) {
+    return 'Apple Notes';
+  }
+
+  if (doc.querySelector('[style*="Slack-Lato, Slack-Fractions"]')) {
+    return 'Slack';
+  }
+
+  return '';
+}
+
 export const createTrackingPlugin = (onAction: RichTextTrackingActionHandler): RichTextPlugin => {
   const trackingActions: TrackingPluginActions = {
     onViewportAction: (actionName: RichTextTrackingActionName, data = {}) =>
@@ -98,11 +137,23 @@ export const createTrackingPlugin = (onAction: RichTextTrackingActionHandler): R
           setTimeout(() => {
             const characterCountAfter = getCharacterCount(editor);
 
-            trackingActions.onShortcutAction('paste', {
+            const payload: {
+              characterCountAfter?: number;
+              characterCountBefore?: number;
+              characterCountSelection?: number;
+              source?: string;
+            } = {
               characterCountAfter,
               characterCountBefore,
               characterCountSelection,
-            });
+            };
+
+            const source = getPastingSource(data);
+            if (source) {
+              payload.source = source;
+            }
+
+            trackingActions.onShortcutAction('paste', payload);
           });
         }
 
