@@ -75,12 +75,10 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
       richText.expectTrackingValue([
         action('paste', 'shortcut', {
-          source: 'Google Docs',
-        }),
-        action('paste', 'shortcut', {
           characterCountAfter: 5,
           characterCountBefore: 0,
           characterCountSelection: 0,
+          source: 'Google Docs',
         }),
       ]);
     });
@@ -92,12 +90,10 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
       richText.expectTrackingValue([
         action('paste', 'shortcut', {
-          source: 'Google Spreadsheets',
-        }),
-        action('paste', 'shortcut', {
           characterCountAfter: 88,
           characterCountBefore: 0,
           characterCountSelection: 0,
+          source: 'Google Spreadsheets',
         }),
       ]);
     });
@@ -109,12 +105,10 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
       richText.expectTrackingValue([
         action('paste', 'shortcut', {
-          source: 'Slack',
-        }),
-        action('paste', 'shortcut', {
           characterCountAfter: 12,
           characterCountBefore: 0,
           characterCountSelection: 0,
+          source: 'Slack',
         }),
       ]);
     });
@@ -126,12 +120,10 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
       richText.expectTrackingValue([
         action('paste', 'shortcut', {
-          source: 'Apple Notes',
-        }),
-        action('paste', 'shortcut', {
           characterCountAfter: 14,
           characterCountBefore: 0,
           characterCountSelection: 0,
+          source: 'Apple Notes',
         }),
       ]);
     });
@@ -143,12 +135,10 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
       richText.expectTrackingValue([
         action('paste', 'shortcut', {
-          source: 'Microsoft Word',
-        }),
-        action('paste', 'shortcut', {
           characterCountAfter: 5,
           characterCountBefore: 0,
           characterCountSelection: 0,
+          source: 'Microsoft Word',
         }),
       ]);
     });
@@ -160,12 +150,10 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
       richText.expectTrackingValue([
         action('paste', 'shortcut', {
-          source: 'Microsoft Excel',
-        }),
-        action('paste', 'shortcut', {
           characterCountAfter: 5,
           characterCountBefore: 0,
           characterCountSelection: 0,
+          source: 'Microsoft Excel',
         }),
       ]);
     });

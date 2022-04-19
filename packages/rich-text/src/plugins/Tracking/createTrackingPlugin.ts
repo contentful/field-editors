@@ -64,6 +64,45 @@ const actionOrigin = {
   COMMAND_PALETTE: 'command-palette',
 };
 
+function getPastingSource(data: DataTransfer) {
+  const textHtml = data.getData('text/html');
+  const doc = new DOMParser().parseFromString(textHtml, 'text/html');
+
+  if (doc.querySelector('[id*="docs-internal-guid"]')) {
+    return 'Google Docs';
+  }
+
+  if (doc.querySelector('google-sheets-html-origin') || doc.querySelector('[data-sheets-value]')) {
+    return 'Google Spreadsheets';
+  }
+
+  if (doc.querySelector('meta[content*="Microsoft Excel"]')) {
+    return 'Microsoft Excel';
+  }
+
+  if (doc.querySelector('meta[content*="Microsoft Word"]')) {
+    return 'Microsoft Word';
+  }
+
+  // TODO: MS Word Online doesn't give us specific tags, we might need to have a closer look at its tracking result since we are using generic values to identify it
+  if (
+    doc.querySelector('[style*="Arial_MSFontService"]') &&
+    (doc.querySelector('.TextRun') || doc.querySelector('.OutlineElement'))
+  ) {
+    return 'Microsoft Word Online';
+  }
+
+  if (doc.querySelector('meta[content="Cocoa HTML Writer"]')) {
+    return 'Apple Notes';
+  }
+
+  if (doc.querySelector('[style*="Slack-Lato, Slack-Fractions"]')) {
+    return 'Slack';
+  }
+
+  return '';
+}
+
 export const createTrackingPlugin = (onAction: RichTextTrackingActionHandler): RichTextPlugin => {
   const trackingActions: TrackingPluginActions = {
     onViewportAction: (actionName: RichTextTrackingActionName, data = {}) =>
@@ -98,11 +137,23 @@ export const createTrackingPlugin = (onAction: RichTextTrackingActionHandler): R
           setTimeout(() => {
             const characterCountAfter = getCharacterCount(editor);
 
-            trackingActions.onShortcutAction('paste', {
+            const payload: {
+              characterCountAfter?: number;
+              characterCountBefore?: number;
+              characterCountSelection?: number;
+              source?: string;
+            } = {
               characterCountAfter,
               characterCountBefore,
               characterCountSelection,
-            });
+            };
+
+            const source = getPastingSource(data);
+            if (source) {
+              payload.source = source;
+            }
+
+            trackingActions.onShortcutAction('paste', payload);
           });
         }
 
@@ -111,55 +162,5 @@ export const createTrackingPlugin = (onAction: RichTextTrackingActionHandler): R
 
       return editor;
     },
-    then: (editor) => ({
-      editor: {
-        insertData: {
-          format: 'text/html',
-          getFragment: ({ data }) => {
-            let source;
-
-            if (data.includes('docs-internal-guid')) {
-              source = 'Google Docs';
-            }
-
-            if (data.includes('<google-sheets-html-origin>') || data.includes('data-sheets-')) {
-              source = 'Google Spreadsheets';
-            }
-
-            // TODO: MS Word Online doesn't give us specific tags, we might need to have a closer look at its tracking result since we are using generic values to identify it
-            if (
-              data.includes('Arial_MSFontService') &&
-              (data.includes('class="TextRun') || data.includes('class="OutlineElement'))
-            ) {
-              source = 'Microsoft Word Online';
-            }
-
-            if (data.includes('<meta name=Generator content="Microsoft Excel')) {
-              source = 'Microsoft Excel';
-            }
-
-            if (data.includes('<meta name=Generator content="Microsoft Word')) {
-              source = 'Microsoft Word';
-            }
-
-            if (data.includes('<meta name="Generator" content="Cocoa HTML Writer">')) {
-              source = 'Apple Notes';
-            }
-
-            if (data.includes('Slack-Lato, Slack-Fractions')) {
-              source = 'Slack';
-            }
-
-            if (source) {
-              editor.tracking.onShortcutAction('paste', {
-                source,
-              });
-            }
-
-            return undefined;
-          },
-        },
-      },
-    }),
   };
 };
