@@ -64,7 +64,7 @@ const actionOrigin = {
   COMMAND_PALETTE: 'command-palette',
 };
 
-function getPastingSource(data: DataTransfer) {
+export function getPastingSource(data: DataTransfer) {
   const textHtml = data.getData('text/html');
   const doc = new DOMParser().parseFromString(textHtml, 'text/html');
 
@@ -100,7 +100,7 @@ function getPastingSource(data: DataTransfer) {
     return 'Slack';
   }
 
-  return '';
+  return 'Unknown';
 }
 
 export const createTrackingPlugin = (onAction: RichTextTrackingActionHandler): RichTextPlugin => {
@@ -137,23 +137,12 @@ export const createTrackingPlugin = (onAction: RichTextTrackingActionHandler): R
           setTimeout(() => {
             const characterCountAfter = getCharacterCount(editor);
 
-            const payload: {
-              characterCountAfter?: number;
-              characterCountBefore?: number;
-              characterCountSelection?: number;
-              source?: string;
-            } = {
+            trackingActions.onShortcutAction('paste', {
               characterCountAfter,
               characterCountBefore,
               characterCountSelection,
-            };
-
-            const source = getPastingSource(data);
-            if (source) {
-              payload.source = source;
-            }
-
-            trackingActions.onShortcutAction('paste', payload);
+              source: getPastingSource(data),
+            });
           });
         }
 
