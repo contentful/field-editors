@@ -1,6 +1,7 @@
 import { BLOCKS } from '@contentful/rich-text-types';
 import { Element } from 'slate';
 
+import { getPastingSource } from '../../plugins/Tracking';
 import { CustomElement, RichTextEditor } from '../../types';
 import type { NodeTransformer } from '../Normalizer';
 
@@ -33,6 +34,7 @@ export function addTableTrackingEvents(editor: RichTextEditor) {
         if (hasTables(markupAfter)) {
           editor.tracking.onViewportAction('paste', {
             tablePasted: true,
+            source: getPastingSource(data),
             hasHeadersOutsideFirstRow: hasHeadersOutsideFirstRow(markupAfter),
           });
         }

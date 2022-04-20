@@ -49,6 +49,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
           characterCountAfter: 12,
           characterCountBefore: 0,
           characterCountSelection: 0,
+          source: 'Unknown',
         }),
       ]);
 
@@ -59,11 +60,13 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
           characterCountAfter: 12,
           characterCountBefore: 0,
           characterCountSelection: 0,
+          source: 'Unknown',
         }),
         action('paste', 'shortcut', {
           characterCountAfter: 25,
           characterCountBefore: 13,
           characterCountSelection: 0,
+          source: 'Unknown',
         }),
       ]);
     });
