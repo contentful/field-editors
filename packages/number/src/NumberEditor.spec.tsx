@@ -45,7 +45,7 @@ describe('NumberEditor', () => {
     render(<NumberEditor field={field} isInitiallyDisabled={false} />);
     const $input = screen.getByTestId('number-editor-input');
 
-    expect($input).toHaveValue('42');
+    expect($input).toHaveValue(42);
   });
 
   it('calls setValue when user inputs valid numbers', () => {
@@ -83,10 +83,10 @@ describe('NumberEditor', () => {
     render(<NumberEditor field={field} isInitiallyDisabled={false} />);
     const $input = screen.getByTestId('number-editor-input');
 
-    expect($input).toHaveValue('42');
+    expect($input).toHaveValue(42);
 
     userEvent.clear($input);
-    expect($input).toHaveValue('');
+    expect($input).toHaveValue(null);
     expect(field.setValue).not.toHaveBeenCalled();
     expect(field.removeValue).toHaveBeenCalledTimes(1);
     expect(field.removeValue).toHaveBeenLastCalledWith();
