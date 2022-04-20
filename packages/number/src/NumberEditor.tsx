@@ -41,7 +41,7 @@ export function NumberEditor(props: NumberEditorProps) {
               min={range.min !== undefined ? String(range.min) : ''}
               max={range.max !== undefined ? String(range.max) : ''}
               step={field.type === 'Integer' ? '1' : ''}
-              type="number"
+              inputMode="numeric"
               isRequired={field.required}
               isInvalid={errors.length > 0}
               isDisabled={disabled}
