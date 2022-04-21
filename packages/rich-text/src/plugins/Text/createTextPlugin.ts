@@ -1,6 +1,6 @@
-import { TEXT_CONTAINERS } from '@contentful/rich-text-types';
-import { getAbove, isAncestorEmpty, isFirstChild } from '@udecode/plate-core';
-import { Editor, Ancestor, Transforms, Range } from 'slate';
+import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
+import { getAbove, isAncestorEmpty, queryNode, TNode } from '@udecode/plate-core';
+import { Editor, Ancestor, Transforms, Range, Location } from 'slate';
 
 import { RichTextEditor, RichTextPlugin } from '../../types';
 
@@ -54,11 +54,11 @@ export function createTextPlugin(): RichTextPlugin {
       const { deleteForward, deleteBackward } = editor;
 
       editor.deleteBackward = (unit) => {
-        deleteFirstEmptyParagraph(unit, editor, deleteBackward);
+        deleteEmptyParagraph(unit, editor, deleteBackward);
       };
 
       editor.deleteForward = (unit) => {
-        deleteFirstEmptyParagraph(unit, editor, deleteForward);
+        deleteEmptyParagraph(unit, editor, deleteForward);
       };
 
       return editor;
@@ -66,7 +66,11 @@ export function createTextPlugin(): RichTextPlugin {
   };
 }
 
-function deleteFirstEmptyParagraph(unit: String, editor: RichTextEditor, deleteFunction: Function) {
+function deleteEmptyParagraph(
+  unit: 'character' | 'word' | 'line' | 'block',
+  editor: RichTextEditor,
+  deleteFunction: Function
+) {
   const entry = getAbove(editor, {
     match: {
       type: TEXT_CONTAINERS,
@@ -80,8 +84,26 @@ function deleteFirstEmptyParagraph(unit: String, editor: RichTextEditor, deleteF
     const isRootLevel = path.length === 1;
     const hasSiblings = editor.children.length > 1; // prevent editor from losing focus
 
-    if (isTextEmpty && isRootLevel && isFirstChild(path) && hasSiblings) {
+    if (isTextEmpty && isRootLevel && hasSiblings) {
       Transforms.removeNodes(editor, { at: path });
+
+      const prevNode = Editor.before(editor, editor.selection as Location, {
+        unit,
+      });
+
+      if (prevNode) {
+        const [prevCell] = Editor.nodes<TNode>(editor, {
+          match: (node) =>
+            queryNode([node as TNode, prevNode.path], {
+              allow: [BLOCKS.EMBEDDED_ASSET, BLOCKS.EMBEDDED_ENTRY, BLOCKS.HR],
+            }),
+          at: prevNode,
+        });
+
+        if (prevCell) {
+          Transforms.select(editor, prevNode);
+        }
+      }
     } else {
       deleteFunction(unit);
     }
