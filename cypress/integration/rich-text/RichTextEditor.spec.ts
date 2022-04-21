@@ -1801,4 +1801,37 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       });
     });
   });
+
+  describe('deleting paragraph between voids', () => {
+    it('can delete paragraph between entry blocks', () => {
+      richText.editor.click();
+      richText.toolbar.embed('entry-block');
+      richText.editor.type('hey');
+      richText.toolbar.embed('entry-block');
+      richText.editor.type('{leftarrow}{leftarrow}{backspace}{backspace}{backspace}{backspace}');
+
+      richText.expectValue(doc(entryBlock(), entryBlock(), emptyParagraph()));
+    });
+
+    it('can delete paragraph between asset blocks', () => {
+      richText.editor.click();
+      richText.toolbar.embed('asset-block');
+      richText.editor.type('hey');
+      richText.toolbar.embed('asset-block');
+      richText.editor.type('{leftarrow}{leftarrow}{backspace}{backspace}{backspace}{backspace}');
+
+      richText.expectValue(doc(assetBlock(), assetBlock(), emptyParagraph()));
+    });
+
+    it('can delete paragraph between HRs', () => {
+      richText.editor.click();
+      richText.toolbar.hr.click();
+      richText.editor.type('hey');
+      richText.toolbar.hr.click();
+      richText.editor.type('{leftarrow}{leftarrow}{backspace}{backspace}{backspace}{backspace}');
+
+      const hr = block(BLOCKS.HR, {});
+      richText.expectValue(doc(hr, hr, emptyParagraph()));
+    });
+  });
 });
