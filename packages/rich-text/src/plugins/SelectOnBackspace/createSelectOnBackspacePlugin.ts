@@ -1,4 +1,4 @@
-import { BLOCKS, INLINES } from '@contentful/rich-text-types';
+import { INLINES } from '@contentful/rich-text-types';
 import { createSelectOnBackspacePlugin as createDefaultSelectPlugin } from '@udecode/plate-select';
 
 import { RichTextPlugin } from '../../types';
@@ -7,7 +7,8 @@ export const createSelectOnBackspacePlugin = (): RichTextPlugin =>
   createDefaultSelectPlugin({
     options: {
       query: {
-        allow: [BLOCKS.EMBEDDED_ASSET, BLOCKS.EMBEDDED_ENTRY, BLOCKS.HR, INLINES.EMBEDDED_ENTRY],
+        // `createTextPlugin` is taking care of block elements
+        allow: [INLINES.EMBEDDED_ENTRY],
       },
     },
   });
