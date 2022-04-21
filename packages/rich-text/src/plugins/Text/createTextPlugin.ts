@@ -1,4 +1,4 @@
-import { BLOCKS, INLINES, TEXT_CONTAINERS } from '@contentful/rich-text-types';
+import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
 import { getAbove, isAncestorEmpty, queryNode, TNode } from '@udecode/plate-core';
 import { Editor, Ancestor, Transforms, Range, Location } from 'slate';
 
@@ -95,12 +95,7 @@ function deleteEmptyParagraph(
         const [prevCell] = Editor.nodes<TNode>(editor, {
           match: (node) =>
             queryNode([node as TNode, prevNode.path], {
-              allow: [
-                BLOCKS.EMBEDDED_ASSET,
-                BLOCKS.EMBEDDED_ENTRY,
-                BLOCKS.HR,
-                INLINES.EMBEDDED_ENTRY,
-              ],
+              allow: [BLOCKS.EMBEDDED_ASSET, BLOCKS.EMBEDDED_ENTRY, BLOCKS.HR],
             }),
           at: prevNode,
         });
