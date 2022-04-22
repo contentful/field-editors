@@ -61,6 +61,8 @@ export function createTextPlugin(): RichTextPlugin {
         deleteEmptyParagraph(unit, editor, deleteForward);
       };
 
+      fixPasteAsPlainText(editor);
+
       return editor;
     },
   };
@@ -110,4 +112,38 @@ function deleteEmptyParagraph(
   } else {
     deleteFunction(unit);
   }
+}
+
+/**
+ * To be compatible with the old behavior we need to treat each 2 consecutive
+ * line breaks as a new paragraph when pasting as plain text (also known as
+ * paste and match style in macOS)
+ */
+function fixPasteAsPlainText(editor: RichTextEditor) {
+  editor.insertTextData = (data: DataTransfer): boolean => {
+    const text = data.getData('text/plain');
+
+    if (!text) {
+      return false;
+    }
+
+    const lines = text.split(/\n{2}/);
+    let split = false;
+
+    for (const line of lines) {
+      // empty lines
+      if (/^(\r\n?|\n)$/.test(line)) {
+        continue;
+      }
+
+      if (split) {
+        Transforms.splitNodes(editor, { always: true });
+      }
+
+      editor.insertText(line);
+      split = true;
+    }
+
+    return true;
+  };
 }
