@@ -23,19 +23,22 @@ export const EmbedEntityWidget = ({ isDisabled, canInsertBlocks }: EmbedEntityWi
   const onCloseEntityDropdown = () => setEmbedDropdownOpen(false);
   const onToggleEntityDropdown = () => setEmbedDropdownOpen(!isEmbedDropdownOpen);
 
-  const [canAccessAssets, setCanAccessAssets] = useState(false);
-  React.useEffect(() => {
-    let subscribed = true;
-    sdk.access.can('read', 'Asset').then((can) => {
-      if (!subscribed) {
-        return;
-      }
-      setCanAccessAssets(can);
-    });
-    return () => {
-      subscribed = false;
-    };
-  }, [sdk]);
+  // Hardcoded `true` value following https://contentful.atlassian.net/browse/DANTE-486
+  // TODO: refine permissions check in order to account for tags in rules
+  const [canAccessAssets, setCanAccessAssets] = useState(true);
+  // React.useEffect(() => {
+  //   let subscribed = true;
+  //   // TODO: See comment above about hardcoded `true` value
+  //   sdk.access.can('read', 'Asset').then((can) => {
+  //     if (!subscribed) {
+  //       return;
+  //     }
+  //     setCanAccessAssets(can);
+  //   });
+  //   return () => {
+  //     subscribed = false;
+  //   };
+  // }, [sdk]);
 
   const inlineEntryEmbedEnabled = isNodeTypeEnabled(sdk.field, INLINES.EMBEDDED_ENTRY);
   const blockEntryEmbedEnabled =
