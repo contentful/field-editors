@@ -15,6 +15,8 @@ export interface ReferenceEditorProps {
    */
   isInitiallyDisabled: boolean;
   hasCardEditActions: boolean;
+  hasMoveActions?: boolean;
+  hasRemoveActions?: boolean;
   sdk: FieldExtensionSDK;
   viewType: ViewType;
   renderCustomCard?: CustomCardRenderer;
