@@ -62,7 +62,7 @@ export function moveToTheNextLine(editor: RichTextEditor) {
 }
 
 export function moveToTheNextChar(editor: RichTextEditor) {
-  Transforms.move(editor, { distance: 1, unit: 'character' });
+  Transforms.move(editor, { distance: 1, unit: 'offset' });
 }
 
 export function insertEmptyParagraph(editor: RichTextEditor, options?) {
