@@ -23,25 +23,13 @@ export const EmbedEntityWidget = ({ isDisabled, canInsertBlocks }: EmbedEntityWi
   const onCloseEntityDropdown = () => setEmbedDropdownOpen(false);
   const onToggleEntityDropdown = () => setEmbedDropdownOpen(!isEmbedDropdownOpen);
 
-  const [canAccessAssets, setCanAccessAssets] = useState(false);
-  React.useEffect(() => {
-    let subscribed = true;
-    sdk.access.can('read', 'Asset').then((can) => {
-      if (!subscribed) {
-        return;
-      }
-      setCanAccessAssets(can);
-    });
-    return () => {
-      subscribed = false;
-    };
-  }, [sdk]);
-
   const inlineEntryEmbedEnabled = isNodeTypeEnabled(sdk.field, INLINES.EMBEDDED_ENTRY);
   const blockEntryEmbedEnabled =
     isNodeTypeEnabled(sdk.field, BLOCKS.EMBEDDED_ENTRY) && canInsertBlocks;
+  // Removed access check following https://contentful.atlassian.net/browse/DANTE-486
+  // TODO: refine permissions check in order to account for tags in rules and then readd access.can('read', 'Asset')
   const blockAssetEmbedEnabled =
-    canAccessAssets && isNodeTypeEnabled(sdk.field, BLOCKS.EMBEDDED_ASSET) && canInsertBlocks;
+    isNodeTypeEnabled(sdk.field, BLOCKS.EMBEDDED_ASSET) && canInsertBlocks;
 
   const numEnabledEmbeds = [
     inlineEntryEmbedEnabled,
