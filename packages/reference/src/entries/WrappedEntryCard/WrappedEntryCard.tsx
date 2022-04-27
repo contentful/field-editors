@@ -36,15 +36,15 @@ export interface WrappedEntryCardProps {
   onMoveTop?: () => void;
   onMoveBottom?: () => void;
   hasCardEditActions: boolean;
-  hasMoveActions?: boolean;
-  hasRemoveActions?: boolean;
+  hasCardMoveActions?: boolean;
+  hasCardRemoveActions?: boolean;
 }
 
 const defaultProps = {
   isClickable: true,
   hasCardEditActions: true,
-  hasMoveActions: true,
-  hasRemoveActions: true,
+  hasCardMoveActions: true,
+  hasCardRemoveActions: true,
 };
 
 export function WrappedEntryCard(props: WrappedEntryCardProps) {
@@ -138,7 +138,7 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
                   Edit
                 </MenuItem>
               ) : null,
-              props.hasRemoveActions && props.onRemove ? (
+              props.hasCardRemoveActions && props.onRemove ? (
                 <MenuItem
                   key="delete"
                   testId="delete"
@@ -148,15 +148,15 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
                   Remove
                 </MenuItem>
               ) : null,
-              props.hasMoveActions && (props.onMoveTop || props.onMoveBottom) ? (
+              props.hasCardMoveActions && (props.onMoveTop || props.onMoveBottom) ? (
                 <MenuDivider />
               ) : null,
-              props.hasMoveActions && props.onMoveTop ? (
+              props.hasCardMoveActions && props.onMoveTop ? (
                 <MenuItem onClick={() => props.onMoveTop && props.onMoveTop()} testId="move-top">
                   Move to top
                 </MenuItem>
               ) : null,
-              props.hasMoveActions && props.onMoveBottom ? (
+              props.hasCardMoveActions && props.onMoveBottom ? (
                 <MenuItem
                   onClick={() => props.onMoveBottom && props.onMoveBottom()}
                   testId="move-bottom">

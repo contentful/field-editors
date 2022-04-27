@@ -12,7 +12,7 @@ export function SingleEntryReferenceEditor(props: ReferenceEditorProps) {
         entityId,
         setValue,
         renderCustomCard,
-        hasRemoveActions,
+        hasCardRemoveActions,
         hasCardEditActions,
       }) => {
         return (
@@ -23,7 +23,7 @@ export function SingleEntryReferenceEditor(props: ReferenceEditorProps) {
             entryId={entityId}
             renderCustomCard={renderCustomCard}
             hasCardEditActions={hasCardEditActions}
-            hasRemoveActions={hasRemoveActions}
+            hasCardRemoveActions={hasCardRemoveActions}
             onRemove={() => {
               setValue(null);
             }}
