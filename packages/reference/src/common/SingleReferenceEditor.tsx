@@ -15,6 +15,7 @@ type ChildProps = {
   allContentTypes: ContentType[];
   renderCustomCard?: ReferenceEditorProps['renderCustomCard'];
   hasCardEditActions: boolean;
+  hasRemoveActions?: boolean;
 };
 
 type EditorProps = ReferenceEditorProps &
@@ -94,4 +95,6 @@ export function SingleReferenceEditor(
 
 SingleReferenceEditor.defaultProps = {
   hasCardEditActions: true,
+  hasMoveActions: true,
+  hasRemoveActions: true,
 };
