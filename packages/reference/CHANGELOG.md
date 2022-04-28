@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.3.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.3.0...@contentful/field-editor-reference@4.3.1) (2022-04-28)
+
+### Bug Fixes
+
+- always show create asset button to be save in regards of tag-based permissions ([#1124](https://github.com/contentful/field-editors/issues/1124)) ([0aa6db6](https://github.com/contentful/field-editors/commit/0aa6db608201750c03a97c941218ba42a56e9aac))
+
 # [4.3.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.2.3...@contentful/field-editor-reference@4.3.0) (2022-04-28)
 
 ### Features
