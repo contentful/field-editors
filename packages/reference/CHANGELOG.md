@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.2.3...@contentful/field-editor-reference@4.3.0) (2022-04-28)
+
+### Features
+
+- reference hide actions prop [DANTE-488] ([#1120](https://github.com/contentful/field-editors/issues/1120)) ([1f53844](https://github.com/contentful/field-editors/commit/1f538449ad07b36bed908d6e1b0e3744eafa079d))
+
 ## [4.2.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.2.2...@contentful/field-editor-reference@4.2.3) (2022-04-19)
 
 ### Bug Fixes
