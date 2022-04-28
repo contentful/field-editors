@@ -38,12 +38,31 @@ const styles = {
     '.CodeMirror-scroll': {
       minHeight: '6rem',
     },
+    '&.disabled': {
+      cursor: 'auto',
+      '.CodeMirror-scroll ': {
+        minHeight: '6rem',
+        backgroundColor: tokens.gray100,
+        cursor: 'not-allowed',
+      },
+      '.react-codemirror2': {
+        border: `1px solid ${tokens.gray200}`,
+      },
+      '.CodeMirror-line': {
+        cursor: 'not-allowed',
+      },
+      '.CodeMirror-lines': {
+        cursor: 'not-allowed',
+      },
+    },
   }),
 };
 
 export function JsonEditorField(props: JsonEditorFieldProps) {
   return (
-    <div className={styles.root} data-test-id="json-editor-code-mirror">
+    <div
+      className={`${styles.root} ${props.isDisabled ? 'disabled' : ''}`}
+      data-test-id="json-editor-code-mirror">
       <CodeMirror
         value={props.value}
         onBeforeChange={(_editor, _data, value) => {
@@ -51,7 +70,7 @@ export function JsonEditorField(props: JsonEditorFieldProps) {
         }}
         options={{
           ...CODE_MIRROR_CONFIG,
-          readOnly: props.isDisabled,
+          readOnly: props.isDisabled ? 'nocursor' : false,
         }}
       />
     </div>
