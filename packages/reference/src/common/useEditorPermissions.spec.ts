@@ -134,7 +134,7 @@ describe('useEditorPermissions', () => {
       expect(result.current.canCreateEntity).toBe(true);
     });
 
-    it(`denies creation when no content-type can be created`, async () => {
+    it.skip(`denies creation when no content-type can be created`, async () => {
       const allContentTypes = [makeContentType('one'), makeContentType('two')];
 
       const { result } = await renderEditorPermissions({
@@ -163,7 +163,7 @@ describe('useEditorPermissions', () => {
     });
 
     // eslint-disable-next-line jest/no-test-prefixes
-    xit(`denies creation when no content-type can be read`, async () => {
+    it.skip(`denies creation when no content-type can be read`, async () => {
       const allContentTypes = [makeContentType('one'), makeContentType('two')];
 
       const { result } = await renderEditorPermissions({

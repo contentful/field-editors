@@ -29,11 +29,16 @@ export function useEditorPermissions(props: EditorPermissionsProps) {
 
     async function checkCreateAccess() {
       if (entityType === 'Asset') {
-        const canCreate = await canPerformAction('create', 'Asset');
+        // Hardcoded `true` value following https://contentful.atlassian.net/browse/DANTE-486
+        // TODO: refine permissions check in order to account for tags in rules
+        const canCreate = (await canPerformAction('create', 'Asset')) || true;
         setCanCreateEntity(canCreate);
       }
       if (entityType === 'Entry') {
-        setCanCreateEntity(creatableContentTypes.length > 0);
+        // Hardcoded `true` value following https://contentful.atlassian.net/browse/DANTE-486
+        // TODO: refine permissions check in order to account for tags in rules
+        const canCreate = readableContentTypes.length > 0 || true;
+        setCanCreateEntity(canCreate);
       }
     }
 
