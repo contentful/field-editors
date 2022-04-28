@@ -91,7 +91,6 @@ export function FetchingWrappedEntryCard(props: FetchingWrappedEntryCardProps) {
       props.onEdit ? (
         <MenuItem
           key="edit"
-          disabled={props.isDisabled}
           testId="card-action-edit"
           onClick={() => {
             props.onEdit && props.onEdit();
