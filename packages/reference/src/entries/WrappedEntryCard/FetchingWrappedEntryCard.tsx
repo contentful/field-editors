@@ -141,13 +141,15 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       onMoveBottom: props.onMoveBottom,
     };
 
-    const { hasCardEditActions } = props;
+    const { hasCardEditActions, hasCardMoveActions, hasCardRemoveActions } = props;
 
     function renderDefaultCard(props?: CustomEntityCardProps) {
       const builtinCardProps: WrappedEntryCardProps = {
         ...sharedCardProps,
         ...props,
-        hasCardEditActions: hasCardEditActions,
+        hasCardEditActions,
+        hasCardMoveActions,
+        hasCardRemoveActions,
         getAsset: getOrLoadAsset,
         getEntityScheduledActions: loadEntityScheduledActions,
         entry: props?.entity || sharedCardProps.entity,
