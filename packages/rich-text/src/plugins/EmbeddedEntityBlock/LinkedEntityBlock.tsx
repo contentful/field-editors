@@ -21,6 +21,7 @@ const styles = {
     // a list item marker (i.e. bullet)
     display: 'inline-block',
     verticalAlign: 'text-top',
+    width: '100%',
   }),
 };
 
