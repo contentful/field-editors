@@ -18,6 +18,7 @@ import { ModalDialogLauncher, FieldExtensionSDK } from '@contentful/field-editor
 import { INLINES } from '@contentful/rich-text-types';
 import { css } from 'emotion';
 import { Editor, Transforms, Path } from 'slate';
+import { ReactEditor } from 'slate-react';
 
 import { getNodeEntryFromSelection, insertLink, LINK_TYPES, focus } from '../../helpers/editor';
 import getLinkedContentTypeIdsForNodeType from '../../helpers/getLinkedContentTypeIdsForNodeType';
@@ -40,6 +41,7 @@ interface HyperlinkModalProps {
   linkEntity?: Link;
   onClose: (value: unknown) => void;
   sdk: FieldExtensionSDK;
+  readonly: boolean;
 }
 
 const SYS_LINK_TYPES = {
@@ -140,7 +142,8 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
                   onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
                     setLinkType(event.target.value)
                   }
-                  testId="link-type-input">
+                  testId="link-type-input"
+                  isDisabled={props.readonly}>
                   {enabledLinkTypes.map((nodeType) => (
                     <Select.Option key={nodeType} value={nodeType}>
                       {LINK_TYPE_SELECTION_VALUES[nodeType]}
@@ -161,6 +164,7 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
                     setLinkTarget(event.target.value);
                   }}
                   testId="link-target-input"
+                  isDisabled={props.readonly}
                 />
                 <FormControl.HelpText>
                   A protocol may be required, e.g. https://
@@ -176,12 +180,14 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
 
                 {linkEntity && linkEntity.sys.linkType === SYS_LINK_TYPES[linkType] ? (
                   <>
-                    <TextLink
-                      testId="entity-selection-link"
-                      onClick={resetLinkEntity}
-                      className={styles.removeSelectionLabel}>
-                      Remove selection
-                    </TextLink>
+                    {!props.readonly && (
+                      <TextLink
+                        testId="entity-selection-link"
+                        onClick={resetLinkEntity}
+                        className={styles.removeSelectionLabel}>
+                        Remove selection
+                      </TextLink>
+                    )}
                     <div>
                       {linkType === INLINES.ENTRY_HYPERLINK && (
                         <FetchingWrappedEntryCard
@@ -234,7 +240,7 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
             type="submit"
             variant="positive"
             size="small"
-            isDisabled={!isLinkComplete()}
+            isDisabled={props.readonly || !isLinkComplete()}
             onClick={handleOnSubmit}
             testId="confirm-cta">
             {props.linkType ? 'Update' : 'Insert'}
@@ -261,6 +267,7 @@ export async function addOrEditLink(
     | TrackingPluginActions['onViewportAction'],
   targetPath?: Path
 ) {
+  const isReadOnly = ReactEditor.isReadOnly(editor);
   const selectionBeforeBlur = editor.selection ? { ...editor.selection } : undefined;
   if (!targetPath && !selectionBeforeBlur) return;
 
@@ -302,6 +309,7 @@ export async function addOrEditLink(
           linkEntity={linkEntity}
           onClose={onClose}
           sdk={sdk}
+          readonly={isReadOnly}
         />
       );
     }

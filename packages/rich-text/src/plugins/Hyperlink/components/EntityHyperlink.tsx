@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { FieldExtensionSDK, Link } from '@contentful/app-sdk';
 import { Tooltip, TextLink } from '@contentful/f36-components';
-import { ReactEditor, useReadOnly } from 'slate-react';
+import { ReactEditor } from 'slate-react';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
 import { useSdkContext } from '../../../SdkProvider';
@@ -19,7 +19,6 @@ type HyperlinkElementProps = CustomRenderElementProps<{
 
 export function EntityHyperlink(props: HyperlinkElementProps) {
   const editor = useContentfulEditor();
-  const isReadOnly = useReadOnly();
   const sdk: FieldExtensionSDK = useSdkContext();
   const { target } = props.element.data;
   const { onEntityFetchComplete } = props;
@@ -52,7 +51,6 @@ export function EntityHyperlink(props: HyperlinkElementProps) {
       <TextLink
         as="a"
         onClick={handleClick}
-        isDisabled={isReadOnly}
         className={styles.hyperlink}
         data-link-type={target.sys.linkType}
         data-link-id={target.sys.id}>
