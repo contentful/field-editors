@@ -49,5 +49,6 @@ export const styles = {
   }),
   disabled: css({
     background: tokens.gray100,
+    cursor: 'not-allowed',
   }),
 };
