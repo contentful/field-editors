@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { FieldExtensionSDK, Link } from '@contentful/app-sdk';
 import { Tooltip, TextLink } from '@contentful/f36-components';
-import { ReactEditor, useReadOnly } from 'slate-react';
+import { ReactEditor } from 'slate-react';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
 import { useSdkContext } from '../../../SdkProvider';
@@ -18,7 +18,6 @@ type HyperlinkElementProps = CustomRenderElementProps<{
 
 export function UrlHyperlink(props: HyperlinkElementProps) {
   const editor = useContentfulEditor();
-  const isReadOnly = useReadOnly();
   const sdk: FieldExtensionSDK = useSdkContext();
   const { uri } = props.element.data;
 
@@ -44,7 +43,6 @@ export function UrlHyperlink(props: HyperlinkElementProps) {
         href={uri}
         rel="noopener noreferrer"
         onClick={handleClick}
-        isDisabled={isReadOnly}
         className={styles.hyperlink}>
         {props.children}
       </TextLink>
