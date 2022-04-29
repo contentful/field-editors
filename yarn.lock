@@ -1632,12 +1632,12 @@
     typescript "^4.0.5"
     yargs "16.1.0"
 
-"@contentful/contentful-slatejs-adapter@^15.11.0":
-  version "15.11.1"
-  resolved "https://registry.yarnpkg.com/@contentful/contentful-slatejs-adapter/-/contentful-slatejs-adapter-15.11.1.tgz#ddb96b769f0f79ed2a94102b369eb22b3d69336d"
-  integrity sha512-ZiVAF2DBGdh8RLtIeJyAe+y8GmIBA8CG82Cxkq69ReYhT/t2pnZzvXcyXJvjKom7eKDVOUO1cFk045Bhm3OpmQ==
+"@contentful/contentful-slatejs-adapter@^15.12.1":
+  version "15.12.1"
+  resolved "https://registry.yarnpkg.com/@contentful/contentful-slatejs-adapter/-/contentful-slatejs-adapter-15.12.1.tgz#6b208b70960cb0639cf5a63cdedb9d66481da218"
+  integrity sha512-ynuGS/Ts14WUtbos9lUIVLeThiKFi2AQBxju8bir4KM9BIBi6uLsRCr702rozJAHHw/YJYdcp+yAUBq/CQjgoQ==
   dependencies:
-    "@contentful/rich-text-types" "^15.11.1"
+    "@contentful/rich-text-types" "^15.12.1"
     lodash.flatmap "^4.5.0"
     lodash.get "^4.4.2"
     lodash.omit "^4.5.0"
@@ -1675,30 +1675,17 @@
     "@contentful/f36-typography" "4.0.1-beta.2500+37347e82"
     emotion "^10.0.17"
 
-"@contentful/f36-accordion@4.0.1-beta.2705+752a0cc0":
-  version "4.0.1-beta.2705"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-accordion/-/f36-accordion-4.0.1-beta.2705.tgz#39dba990da572f90c3707f0c0f066d421b5bbebb"
-  integrity sha512-eJmtL7SQtvYQU+ibC7YypodS8N01tMejkkG+96+zGIvK24Y4LyynjusoXGMSUGvmfdTWFCVXnr+gIL5Bx4q23w==
+"@contentful/f36-accordion@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-accordion/-/f36-accordion-4.8.0.tgz#e9ecb59fb1454719c02a4906600a720fd69d110c"
+  integrity sha512-QC1ETuNpm60il9mS2gluafJ2LyA5tJPS2L7vSvw/P52K9/v7vPrwJZjUtXDSQ3Hs6PJOuJHh+2UusImhaA3T1A==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-collapse" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-core" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-icons" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-tokens" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-typography" "4.0.1-beta.2705+752a0cc0"
-    emotion "^10.0.17"
-
-"@contentful/f36-accordion@^4.2.1":
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-accordion/-/f36-accordion-4.2.1.tgz#5baf49ad32c8a8d9ca2946b5b19e9c906ede4a01"
-  integrity sha512-kCrGicnlxeFeheUHqpJmpQOIRz8gjnX8Lx/f7XnSV3NmV0ee6BQeK6R8sMkyd06KuCEmyb+fpTcTP+rN93uvpg==
-  dependencies:
-    "@babel/runtime" "^7.6.2"
-    "@contentful/f36-collapse" "^4.2.3"
-    "@contentful/f36-core" "^4.2.0"
-    "@contentful/f36-icons" "^4.1.1"
-    "@contentful/f36-tokens" "^4.0.0"
-    "@contentful/f36-typography" "^4.2.0"
+    "@contentful/f36-collapse" "^4.8.0"
+    "@contentful/f36-core" "^4.8.0"
+    "@contentful/f36-icons" "^4.8.0"
+    "@contentful/f36-tokens" "^4.0.1"
+    "@contentful/f36-typography" "^4.8.0"
     emotion "^10.0.17"
 
 "@contentful/f36-asset@4.0.1-beta.2500+37347e82":
@@ -1714,30 +1701,17 @@
     "@contentful/f36-typography" "4.0.1-beta.2500+37347e82"
     emotion "^10.0.17"
 
-"@contentful/f36-asset@4.0.1-beta.2705+752a0cc0":
-  version "4.0.1-beta.2705"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-asset/-/f36-asset-4.0.1-beta.2705.tgz#41d893ed26804da62059cf5331c47605e0c4f5f1"
-  integrity sha512-8tvShXQS+wim+P7/6P33UeFfr9KrT17zLcrjRMs5Raf5g/Inirm1vtTCIttwCDXlibU3sSQwyBNvAhMUP1QlNw==
+"@contentful/f36-asset@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-asset/-/f36-asset-4.8.0.tgz#3ba322f401e4dd2027971843782559641a99813c"
+  integrity sha512-Rf7VJvhM3cNxZOUuVw9qk1iwOl/FuChcvBPRX9OXjBEniTFYH+KqAU60FMedEJh5EhhJbSYcZb+DS+3dfvXc/A==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-icon" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-icons" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-tokens" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-typography" "4.0.1-beta.2705+752a0cc0"
-    emotion "^10.0.17"
-
-"@contentful/f36-asset@^4.1.5":
-  version "4.1.5"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-asset/-/f36-asset-4.1.5.tgz#46d658740e2d3312369e8feda8b2f61c99b51c46"
-  integrity sha512-i7aW+CIl5EYl+r+8gHVsN/WsOn2Kq4/ynuLG3UKkCV0NDhFPbRZdUcAlKdYiEN4XZtGN4pVm4JTjorBhZCQMFg==
-  dependencies:
-    "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "^4.2.0"
-    "@contentful/f36-icon" "^4.1.2"
-    "@contentful/f36-icons" "^4.1.1"
-    "@contentful/f36-tokens" "^4.0.0"
-    "@contentful/f36-typography" "^4.2.0"
+    "@contentful/f36-core" "^4.8.0"
+    "@contentful/f36-icon" "^4.8.0"
+    "@contentful/f36-icons" "^4.8.0"
+    "@contentful/f36-tokens" "^4.0.1"
+    "@contentful/f36-typography" "^4.8.0"
     emotion "^10.0.17"
 
 "@contentful/f36-autocomplete@4.0.1-beta.2500+37347e82":
@@ -1758,39 +1732,21 @@
     downshift "^6.1.7"
     emotion "^10.0.17"
 
-"@contentful/f36-autocomplete@4.0.1-beta.2705+752a0cc0":
-  version "4.0.1-beta.2705"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-autocomplete/-/f36-autocomplete-4.0.1-beta.2705.tgz#1eb2b14297a1304dacc6b43631f761925b4ff111"
-  integrity sha512-jkFJls9TWGRIJq2dWGop48sjbGfXzzl5j6eIO7jnRCfbogQHhtdTMPkk40wUlZ39nL6kMIqpa4VzMT4G3TiXNA==
+"@contentful/f36-autocomplete@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-autocomplete/-/f36-autocomplete-4.8.0.tgz#252f5c8a5b666f3823a7e44ea5332f4c3dceea16"
+  integrity sha512-5BjNmcWW9rXk2y0l0JEv6S/V+cRrdpI+NSlduA5bOuHaUFuoJq0BG8qpKXj2RWMm2KJeFJZpkbQ4u5hBk8svQA==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-button" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-core" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-forms" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-icons" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-popover" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-skeleton" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-tokens" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-typography" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-utils" "4.0.1-beta.2705+752a0cc0"
-    downshift "^6.1.7"
-    emotion "^10.0.17"
-
-"@contentful/f36-autocomplete@^4.2.4":
-  version "4.2.4"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-autocomplete/-/f36-autocomplete-4.2.4.tgz#b021e32f3ae47c2676df9984d4d67823d9d513bb"
-  integrity sha512-3f1VehY2BRt0s37dE/9oUJfq8uM7Kx+TcBAjJ8MkBZr5FZR0ik4GMjaK5+n6WiDTdNBWwsLST1NdngT9jyejJA==
-  dependencies:
-    "@babel/runtime" "^7.6.2"
-    "@contentful/f36-button" "^4.3.2"
-    "@contentful/f36-core" "^4.2.0"
-    "@contentful/f36-forms" "^4.3.1"
-    "@contentful/f36-icons" "^4.1.1"
-    "@contentful/f36-popover" "^4.2.1"
-    "@contentful/f36-skeleton" "^4.1.2"
-    "@contentful/f36-tokens" "^4.0.0"
-    "@contentful/f36-typography" "^4.2.0"
-    "@contentful/f36-utils" "^4.0.0"
+    "@contentful/f36-button" "^4.8.0"
+    "@contentful/f36-core" "^4.8.0"
+    "@contentful/f36-forms" "^4.8.0"
+    "@contentful/f36-icons" "^4.8.0"
+    "@contentful/f36-popover" "^4.8.0"
+    "@contentful/f36-skeleton" "^4.8.0"
+    "@contentful/f36-tokens" "^4.0.1"
+    "@contentful/f36-typography" "^4.8.0"
+    "@contentful/f36-utils" "^4.8.0"
     downshift "^6.1.7"
     emotion "^10.0.17"
 
@@ -1804,24 +1760,14 @@
     "@contentful/f36-tokens" "4.0.1-beta.2500+37347e82"
     emotion "^10.0.17"
 
-"@contentful/f36-badge@4.0.1-beta.2705+752a0cc0":
-  version "4.0.1-beta.2705"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-badge/-/f36-badge-4.0.1-beta.2705.tgz#fbdd0f0f06b958a4f217ed12923c4bbefa18e7c2"
-  integrity sha512-HwzkMN0kc5HvCFWlIKGUloGvxzl6q6Acv0rpZ/Vq9TeQ7aJH0RTS0sWbSYmFvPqm1GLV7vFqH32nvN11msNm0A==
+"@contentful/f36-badge@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-badge/-/f36-badge-4.8.0.tgz#70b6923eaf0e87defff9fe410c027f6b5acd2675"
+  integrity sha512-zzFe99EWTFapfLV+oiG5WFAvtvKngZR0jN2hm6WcKM4GwuY1yK+GDZSS0zKLkaAumRMPiUvwVS6toTnF719Xzw==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-tokens" "4.0.1-beta.2705+752a0cc0"
-    emotion "^10.0.17"
-
-"@contentful/f36-badge@^4.1.5":
-  version "4.1.5"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-badge/-/f36-badge-4.1.5.tgz#665df3e95b01136cc3b88b8315f8df7f30af20f0"
-  integrity sha512-mwnP9aWHvLsKiek73KhApz7KwCb8RXiJy8tziSRLUy3fglummkuJjzBpHQ/uQkjQyPIPnAHrYTQ4XmBVNZyKbA==
-  dependencies:
-    "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "^4.2.0"
-    "@contentful/f36-tokens" "^4.0.0"
+    "@contentful/f36-core" "^4.8.0"
+    "@contentful/f36-tokens" "^4.0.1"
     emotion "^10.0.17"
 
 "@contentful/f36-button@4.0.1-beta.2500+37347e82":
@@ -1846,15 +1792,15 @@
     "@contentful/f36-tokens" "4.0.1-beta.2705+752a0cc0"
     emotion "^10.0.17"
 
-"@contentful/f36-button@^4.3.2":
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-button/-/f36-button-4.3.2.tgz#0380ee29d9ff9de4c6684159d8e4761ac1cd35da"
-  integrity sha512-slMZjWC3aYGX0z9SeE1STNLzycUHIz9h74a2ECsB6VBC7JFuUuh4I2yIBhaPHu5cFTahmDu5IcvjALqs2N8/IQ==
+"@contentful/f36-button@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-button/-/f36-button-4.8.0.tgz#b691416499e602c50c53ebdac54dfc745eeb342c"
+  integrity sha512-8KurohD6FbLzNCxYFqwNIwhwimXOXTXhnm2nTIazUf1LjMGWLKzwP9pJkNXbshAYgpcKJCFMUIWPvU/UWx6cjQ==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "^4.2.0"
-    "@contentful/f36-spinner" "^4.1.3"
-    "@contentful/f36-tokens" "^4.0.0"
+    "@contentful/f36-core" "^4.8.0"
+    "@contentful/f36-spinner" "^4.8.0"
+    "@contentful/f36-tokens" "^4.0.1"
     emotion "^10.0.17"
 
 "@contentful/f36-card@4.0.1-beta.2500+37347e82":
@@ -1877,144 +1823,75 @@
     emotion "^10.0.17"
     truncate "^2.0.1"
 
-"@contentful/f36-card@4.0.1-beta.2705+752a0cc0":
-  version "4.0.1-beta.2705"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-card/-/f36-card-4.0.1-beta.2705.tgz#a133d65c1bcf987f7922e8ed5a3186b0da59f1bc"
-  integrity sha512-bF4k2KdT8iPH/xUIdzG+uieF/ftL3jFDzmlq9iHfS4VWoksRlc+3fI+Gp3N8bMJEcbboHmIMU6ikG6614isOgA==
+"@contentful/f36-card@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-card/-/f36-card-4.8.0.tgz#dbc1a0beb44b1120780ff1358b9cb5b8362eb914"
+  integrity sha512-/zTOXhyZP1T5BoouBOWBoJls557x7QhfBnPg5H0SxhMEBz+EaPIi3RspNUdmwE+UOqtbvXyBdU45c0EkEgEv4w==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-asset" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-badge" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-button" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-core" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-drag-handle" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-icon" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-icons" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-menu" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-skeleton" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-tokens" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-typography" "4.0.1-beta.2705+752a0cc0"
+    "@contentful/f36-asset" "^4.8.0"
+    "@contentful/f36-badge" "^4.8.0"
+    "@contentful/f36-button" "^4.8.0"
+    "@contentful/f36-core" "^4.8.0"
+    "@contentful/f36-drag-handle" "^4.8.0"
+    "@contentful/f36-icon" "^4.8.0"
+    "@contentful/f36-icons" "^4.8.0"
+    "@contentful/f36-menu" "^4.8.0"
+    "@contentful/f36-skeleton" "^4.8.0"
+    "@contentful/f36-tokens" "^4.0.1"
+    "@contentful/f36-tooltip" "^4.8.0"
+    "@contentful/f36-typography" "^4.8.0"
     emotion "^10.0.17"
-    truncate "^2.0.1"
+    truncate "^3.0.0"
 
-"@contentful/f36-card@^4.3.1":
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-card/-/f36-card-4.3.1.tgz#0f2694fb33bbfbe4ddee6e639361e9fc066f5fb5"
-  integrity sha512-JGBLsIKvupkYSEGFN0IC4euBGTe4DZbk2kXLNrO85mfIv2PUh6ztpTgtA5IyJY2zVhbhSGnR6mmFmjks4JebBA==
+"@contentful/f36-collapse@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-collapse/-/f36-collapse-4.8.0.tgz#c2c4b467d6528b0bcfebe692bd5340e5f01d4c3d"
+  integrity sha512-hPrHlJl31QewgFho7O00J5Hc3qQsES+iCjyrIQF8yzBcT3UlT0NvuPhaScsQO6tKvgFvIrQmWjCumd6Z/gaHEA==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-asset" "^4.1.5"
-    "@contentful/f36-badge" "^4.1.5"
-    "@contentful/f36-button" "^4.3.2"
-    "@contentful/f36-core" "^4.2.0"
-    "@contentful/f36-drag-handle" "^4.1.5"
-    "@contentful/f36-icon" "^4.1.2"
-    "@contentful/f36-icons" "^4.1.1"
-    "@contentful/f36-menu" "^4.2.4"
-    "@contentful/f36-skeleton" "^4.1.2"
-    "@contentful/f36-tokens" "^4.0.0"
-    "@contentful/f36-tooltip" "^4.1.2"
-    "@contentful/f36-typography" "^4.2.0"
-    emotion "^10.0.17"
-    truncate "^2.0.1"
-
-"@contentful/f36-collapse@4.0.1-beta.2705+752a0cc0":
-  version "4.0.1-beta.2705"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-collapse/-/f36-collapse-4.0.1-beta.2705.tgz#53b1169aeb83e715f3fda3e1462420b0ac0c185f"
-  integrity sha512-pdFxTgXBxccbPgege5a0pA9LUKbqsSQTHW8DlfzSCgPvTjihB48fyKskpnOIZWvHneWMBKGjYH/oxQsN1RVFow==
-  dependencies:
-    "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-tokens" "4.0.1-beta.2705+752a0cc0"
+    "@contentful/f36-core" "^4.8.0"
+    "@contentful/f36-tokens" "^4.0.1"
     emotion "^10.0.17"
 
-"@contentful/f36-collapse@^4.2.3":
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-collapse/-/f36-collapse-4.2.3.tgz#57a8a9781435fd86923ff091ae8aacea5d3b4571"
-  integrity sha512-mj+Itb7mDXx+Ji0C1Thrg81f1+/9CEyz1jjHRnsUFuSGGM2unuNqEcTzjKUQu558TzDwLJO6V11jDwVjUl/vgQ==
-  dependencies:
-    "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "^4.2.0"
-    "@contentful/f36-tokens" "^4.0.0"
-    emotion "^10.0.17"
-
-"@contentful/f36-components@^4.0.1-beta.2705":
-  version "4.0.1-beta.2705"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-components/-/f36-components-4.0.1-beta.2705.tgz#895076b0aded21249a6dc003b029fb5a6b86a9db"
-  integrity sha512-49GPTK+sBwNJGmwVemTOOBtTH2/2WtCJmdkMtfVdZakahYXkk+qjA9b2bZ7Bt4eQBF2X6s9Z3wlHqjFAz0owsw==
+"@contentful/f36-components@^4.0.27", "@contentful/f36-components@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-components/-/f36-components-4.8.0.tgz#3bfcbf826a0effba66185d3b3dacc5d1ccd25e88"
+  integrity sha512-DHp0UUp9K8i+z0ScrZs0sDxoNHo3hEhwDyyMKgMX1MSrpA/RR3LpT517+UUdC/0C29cOCRazcaavTj15E/TWuQ==
   dependencies:
     "@babel/runtime" "^7.3.4"
-    "@contentful/f36-accordion" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-asset" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-autocomplete" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-badge" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-button" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-card" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-collapse" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-copybutton" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-core" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-datetime" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-drag-handle" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-entity-list" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-forms" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-icon" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-icons" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-list" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-menu" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-modal" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-note" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-notification" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-pill" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-popover" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-skeleton" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-spinner" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-table" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-tabs" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-text-link" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-tokens" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-tooltip" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-typography" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-utils" "4.0.1-beta.2705+752a0cc0"
-    "@types/react" "16.14.2"
-    "@types/react-dom" "16.9.10"
-
-"@contentful/f36-components@^4.0.33":
-  version "4.0.33"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-components/-/f36-components-4.0.33.tgz#9f7764c3eb86c8338535ba9dc0b720ba44d162cd"
-  integrity sha512-C7XjQ6m0Zo9JAgbfsDx36bqz3NiFjv6ByIK67dCw/1aof36Pxcd1g998Ay/TIUZuxnlHPjY7IjEdt7SNoJa1Cg==
-  dependencies:
-    "@babel/runtime" "^7.3.4"
-    "@contentful/f36-accordion" "^4.2.1"
-    "@contentful/f36-asset" "^4.1.5"
-    "@contentful/f36-autocomplete" "^4.2.4"
-    "@contentful/f36-badge" "^4.1.5"
-    "@contentful/f36-button" "^4.3.2"
-    "@contentful/f36-card" "^4.3.1"
-    "@contentful/f36-collapse" "^4.2.3"
-    "@contentful/f36-copybutton" "^4.2.0"
-    "@contentful/f36-core" "^4.2.0"
-    "@contentful/f36-datetime" "^4.3.0"
-    "@contentful/f36-drag-handle" "^4.1.5"
-    "@contentful/f36-entity-list" "^4.1.18"
-    "@contentful/f36-forms" "^4.3.1"
-    "@contentful/f36-icon" "^4.1.2"
-    "@contentful/f36-icons" "^4.1.1"
-    "@contentful/f36-list" "^4.1.2"
-    "@contentful/f36-menu" "^4.2.4"
-    "@contentful/f36-modal" "^4.2.4"
-    "@contentful/f36-note" "^4.2.12"
-    "@contentful/f36-notification" "^4.0.14"
-    "@contentful/f36-pill" "^4.1.12"
-    "@contentful/f36-popover" "^4.2.1"
-    "@contentful/f36-skeleton" "^4.1.2"
-    "@contentful/f36-spinner" "^4.1.3"
-    "@contentful/f36-table" "^4.1.2"
-    "@contentful/f36-tabs" "^4.1.3"
-    "@contentful/f36-text-link" "^4.2.0"
-    "@contentful/f36-tokens" "^4.0.0"
-    "@contentful/f36-tooltip" "^4.1.2"
-    "@contentful/f36-typography" "^4.2.0"
-    "@contentful/f36-utils" "^4.0.0"
+    "@contentful/f36-accordion" "^4.8.0"
+    "@contentful/f36-asset" "^4.8.0"
+    "@contentful/f36-autocomplete" "^4.8.0"
+    "@contentful/f36-badge" "^4.8.0"
+    "@contentful/f36-button" "^4.8.0"
+    "@contentful/f36-card" "^4.8.0"
+    "@contentful/f36-collapse" "^4.8.0"
+    "@contentful/f36-copybutton" "^4.8.0"
+    "@contentful/f36-core" "^4.8.0"
+    "@contentful/f36-datetime" "^4.8.0"
+    "@contentful/f36-drag-handle" "^4.8.0"
+    "@contentful/f36-entity-list" "^4.8.0"
+    "@contentful/f36-forms" "^4.8.0"
+    "@contentful/f36-icon" "^4.8.0"
+    "@contentful/f36-icons" "^4.8.0"
+    "@contentful/f36-list" "^4.8.0"
+    "@contentful/f36-menu" "^4.8.0"
+    "@contentful/f36-modal" "^4.8.0"
+    "@contentful/f36-note" "^4.8.0"
+    "@contentful/f36-notification" "^4.8.0"
+    "@contentful/f36-pagination" "^4.8.0"
+    "@contentful/f36-pill" "^4.8.0"
+    "@contentful/f36-popover" "^4.8.0"
+    "@contentful/f36-skeleton" "^4.8.0"
+    "@contentful/f36-spinner" "^4.8.0"
+    "@contentful/f36-table" "^4.8.0"
+    "@contentful/f36-tabs" "^4.8.0"
+    "@contentful/f36-text-link" "^4.8.0"
+    "@contentful/f36-tokens" "^4.0.1"
+    "@contentful/f36-tooltip" "^4.8.0"
+    "@contentful/f36-typography" "^4.8.0"
+    "@contentful/f36-utils" "^4.8.0"
     "@types/react" "16.14.22"
     "@types/react-dom" "16.9.14"
 
@@ -2070,29 +1947,16 @@
     emotion "^10.0.17"
     react-copy-to-clipboard "^5.0.3"
 
-"@contentful/f36-copybutton@4.0.1-beta.2705+752a0cc0":
-  version "4.0.1-beta.2705"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-copybutton/-/f36-copybutton-4.0.1-beta.2705.tgz#0deb032e2a0cf55c1d9ec7d03efb4c14e56f49c4"
-  integrity sha512-crFaYBYrjgAKq0n3T0D9O0QDnyvMKbPhUIbjLZKBQxVEMxgWyM9QsCdpRMUKcC3IQrawZ+ecSa+YLe6svj8E6w==
+"@contentful/f36-copybutton@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-copybutton/-/f36-copybutton-4.8.0.tgz#c733933820f352de010ccfd85d4d1f9f5e260ac5"
+  integrity sha512-W6SsnEz6fu4SCw5Wmbkttr56rsM2gnFjJztPSuYqrbDCVkehE44F7DmB5WnAVZNaARutRdvaYyH3xBja4fUk5Q==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-icons" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-tokens" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-tooltip" "4.0.1-beta.2705+752a0cc0"
-    emotion "^10.0.17"
-    react-copy-to-clipboard "^5.0.3"
-
-"@contentful/f36-copybutton@^4.2.0":
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-copybutton/-/f36-copybutton-4.2.0.tgz#9c79de6a1cd10e877feef8ed2c43d1fd76f825d6"
-  integrity sha512-i+1WpHypTJCoSDvFnF3sDYjz0tmwr7aU/ThP0jJ4dioNDAnZGSJXdx9Km6EOftdAHf0pemaMnarOzF8FCA26Eg==
-  dependencies:
-    "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "^4.2.0"
-    "@contentful/f36-icons" "^4.1.1"
-    "@contentful/f36-tokens" "^4.0.0"
-    "@contentful/f36-tooltip" "^4.1.2"
+    "@contentful/f36-core" "^4.8.0"
+    "@contentful/f36-icons" "^4.8.0"
+    "@contentful/f36-tokens" "^4.0.1"
+    "@contentful/f36-tooltip" "^4.8.0"
     emotion "^10.0.17"
     react-copy-to-clipboard "^5.0.3"
 
@@ -2120,13 +1984,13 @@
     emotion "^10.0.17"
     emotion-normalize "^10.1.0"
 
-"@contentful/f36-core@^4.2.0":
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-core/-/f36-core-4.2.0.tgz#204682d3806df68664102ad3d1bb8e3278b93594"
-  integrity sha512-szKh8XehsDmFd5MRL73oqaAfLyorwA9nY5kPVc/kBs9PVmcsjSgFBBUjCjTLZTSqrf/26yakQC0T1XMU4Ht8GA==
+"@contentful/f36-core@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-core/-/f36-core-4.8.0.tgz#b8b4ac50027ec45578db8a25725db540e7a92d05"
+  integrity sha512-0jhyTXYsdEkk7poOTBy48K1JrIsi6g1rRbyd/y0xzkznbjYeKmLnzRTGq76cRkkXAJD4eZRpmz/6hQlu2McMQw==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-tokens" "^4.0.0"
+    "@contentful/f36-tokens" "^4.0.1"
     "@emotion/core" "^10.1.1"
     "@emotion/is-prop-valid" "^1.1.0"
     emotion "^10.0.17"
@@ -2142,25 +2006,14 @@
     dayjs "^1.10.6"
     emotion "^10.0.17"
 
-"@contentful/f36-datetime@4.0.1-beta.2705+752a0cc0":
-  version "4.0.1-beta.2705"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-datetime/-/f36-datetime-4.0.1-beta.2705.tgz#f11169f980a754243516fa744543f542268b2875"
-  integrity sha512-jgYQcjh8w5MzF6Afb/QagL0xuwE40ct4FRcYuMrJrORozad3SSiLvvuj/QhCquBSeDMgp3R8fg0i+R5lxSNQzg==
+"@contentful/f36-datetime@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-datetime/-/f36-datetime-4.8.0.tgz#79d0ac1c12f354ff7b817527475e13bc658f8853"
+  integrity sha512-x7lHSf6vvi96C84c4yryLI/XDGClTu5Lf2kkxLApyWfP3HLqPnNgl5BHJ7uZrlk3AVOIP7B7AiTgYIzmOl6t0A==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-tokens" "4.0.1-beta.2705+752a0cc0"
-    dayjs "^1.10.6"
-    emotion "^10.0.17"
-
-"@contentful/f36-datetime@^4.3.0":
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-datetime/-/f36-datetime-4.3.0.tgz#9290d1c812536bffb654a48917599a47668bfb08"
-  integrity sha512-FULxlSPBC+PYmYe2A+mY7jlOt2MkwOxPZNxK9JaWWh0mSzvelx10f+9rV7UyWH2TtrMlvZECxhRbQ5dbpC441Q==
-  dependencies:
-    "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "^4.2.0"
-    "@contentful/f36-tokens" "^4.0.0"
+    "@contentful/f36-core" "^4.8.0"
+    "@contentful/f36-tokens" "^4.0.1"
     dayjs "^1.10.6"
     emotion "^10.0.17"
 
@@ -2175,26 +2028,15 @@
     "@contentful/f36-tokens" "4.0.1-beta.2500+37347e82"
     emotion "^10.0.17"
 
-"@contentful/f36-drag-handle@4.0.1-beta.2705+752a0cc0":
-  version "4.0.1-beta.2705"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-drag-handle/-/f36-drag-handle-4.0.1-beta.2705.tgz#69628af09e292184ffbb5e04cdc3a1b368647133"
-  integrity sha512-gizUk+NeUC5bTim0Asjd4f829rNc8y5I2bZfnkO0NwgazE9ddBzyjfuch0VzUZ1iB3yjzxBmSbzNmRvYeU8Bsw==
+"@contentful/f36-drag-handle@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-drag-handle/-/f36-drag-handle-4.8.0.tgz#c543a61ce2da79dec7c8ffac816bdfe0e3aa7edd"
+  integrity sha512-+QoYwGnsRiIdkThGFIR0YnqywNxlHp2upd2RvYxzr+KxVxy26yYtMYyzYhYUrhIGNfiJEm4iXWRWKigZAAwVCw==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-icons" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-tokens" "4.0.1-beta.2705+752a0cc0"
-    emotion "^10.0.17"
-
-"@contentful/f36-drag-handle@^4.1.5":
-  version "4.1.5"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-drag-handle/-/f36-drag-handle-4.1.5.tgz#6c3411b6a468092dec1484de34ba1c1baf90f75f"
-  integrity sha512-TQtlOGKNUp64eUY+u/4UmXDOJ9CjyRi/LsEEb5OehlzhmRHut8GX0nCI6x1/lBmATZFqIxk1/c6RikhGiLJCEw==
-  dependencies:
-    "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "^4.2.0"
-    "@contentful/f36-icons" "^4.1.1"
-    "@contentful/f36-tokens" "^4.0.0"
+    "@contentful/f36-core" "^4.8.0"
+    "@contentful/f36-icons" "^4.8.0"
+    "@contentful/f36-tokens" "^4.0.1"
     emotion "^10.0.17"
 
 "@contentful/f36-entity-list@4.0.1-beta.2500+37347e82":
@@ -2215,40 +2057,22 @@
     "@contentful/f36-typography" "4.0.1-beta.2500+37347e82"
     emotion "^10.0.17"
 
-"@contentful/f36-entity-list@4.0.1-beta.2705+752a0cc0":
-  version "4.0.1-beta.2705"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-entity-list/-/f36-entity-list-4.0.1-beta.2705.tgz#a8a494f325e4da1154e48defac1e48360b8759c1"
-  integrity sha512-FeSWBJlgxXPsp9IjD/YpgxYMic0VLVkBNdLLAtW34PP7fizCshCqQUc/vWd30+mFVsqM1nV9DxObkDXTet49SA==
+"@contentful/f36-entity-list@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-entity-list/-/f36-entity-list-4.8.0.tgz#3ead586fabc23e59b68cf1040310fb9b55ac1427"
+  integrity sha512-ucQ/VdOmpnljF2EyKdBo/pNgd6OeCgjGutKvh7HNgZqr0+K5/mmV4FQjScPt6FQSxkhsdnU6jzW1QAIgkGXj9g==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-badge" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-button" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-core" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-drag-handle" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-icon" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-icons" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-menu" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-skeleton" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-tokens" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-typography" "4.0.1-beta.2705+752a0cc0"
-    emotion "^10.0.17"
-
-"@contentful/f36-entity-list@^4.1.18":
-  version "4.1.18"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-entity-list/-/f36-entity-list-4.1.18.tgz#1e8775f3f9508b8cf8e898b62c5db2b94737678c"
-  integrity sha512-buvY/M7ZfzgOKxD8iXTOBf0jLqTv7oh9jKLc36rAqRdIUjF2ip+AjoEepDTeECGrYvhDRTAGg4HLaqxS6ENHOg==
-  dependencies:
-    "@babel/runtime" "^7.6.2"
-    "@contentful/f36-badge" "^4.1.5"
-    "@contentful/f36-button" "^4.3.2"
-    "@contentful/f36-core" "^4.2.0"
-    "@contentful/f36-drag-handle" "^4.1.5"
-    "@contentful/f36-icon" "^4.1.2"
-    "@contentful/f36-icons" "^4.1.1"
-    "@contentful/f36-menu" "^4.2.4"
-    "@contentful/f36-skeleton" "^4.1.2"
-    "@contentful/f36-tokens" "^4.0.0"
-    "@contentful/f36-typography" "^4.2.0"
+    "@contentful/f36-badge" "^4.8.0"
+    "@contentful/f36-button" "^4.8.0"
+    "@contentful/f36-core" "^4.8.0"
+    "@contentful/f36-drag-handle" "^4.8.0"
+    "@contentful/f36-icon" "^4.8.0"
+    "@contentful/f36-icons" "^4.8.0"
+    "@contentful/f36-menu" "^4.8.0"
+    "@contentful/f36-skeleton" "^4.8.0"
+    "@contentful/f36-tokens" "^4.0.1"
+    "@contentful/f36-typography" "^4.8.0"
     emotion "^10.0.17"
 
 "@contentful/f36-forms@4.0.1-beta.2500+37347e82":
@@ -2263,28 +2087,16 @@
     "@contentful/f36-typography" "4.0.1-beta.2500+37347e82"
     emotion "^10.0.17"
 
-"@contentful/f36-forms@4.0.1-beta.2705+752a0cc0":
-  version "4.0.1-beta.2705"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-forms/-/f36-forms-4.0.1-beta.2705.tgz#559da7bc671cbaa9c0558db7078919e44e7666ac"
-  integrity sha512-WozyUIFtj/P0Gkrqa6o0WiAHyLDL1bJLydYiejXXHhhDr8DcHQi1Ev3vcs5LkQRhUIXx6Pnwk0YxdRRjQvrFxQ==
+"@contentful/f36-forms@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-forms/-/f36-forms-4.8.0.tgz#c59c441d9fe8f391e4d77653ade24bf09ae8dacf"
+  integrity sha512-eqVlD3Pns6VJCac1zfEZoKmcZivEtJERk1RjdwE3VPgF1qxtQWJZoCEkTJ1oeWhdt8LD8XPHy3vu2dg8E0RMvQ==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-icons" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-tokens" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-typography" "4.0.1-beta.2705+752a0cc0"
-    emotion "^10.0.17"
-
-"@contentful/f36-forms@^4.3.1":
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-forms/-/f36-forms-4.3.1.tgz#15df5d8451e309fc32beb23aee2d5970ba606b35"
-  integrity sha512-uBo7XAnj283DZG20Ou8fKmbH4oTCulfE+4B2K+obV5jBCB6BtoauvT2WTAZdHt0uJd5Wk/PV5CdWQEMNm4Lv3g==
-  dependencies:
-    "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "^4.2.0"
-    "@contentful/f36-icons" "^4.1.1"
-    "@contentful/f36-tokens" "^4.0.0"
-    "@contentful/f36-typography" "^4.2.0"
+    "@contentful/f36-core" "^4.8.0"
+    "@contentful/f36-icons" "^4.8.0"
+    "@contentful/f36-tokens" "^4.0.1"
+    "@contentful/f36-typography" "^4.8.0"
     emotion "^10.0.17"
 
 "@contentful/f36-icon@4.0.1-beta.2500+37347e82":
@@ -2307,14 +2119,14 @@
     "@contentful/f36-tokens" "4.0.1-beta.2705+752a0cc0"
     emotion "^10.0.17"
 
-"@contentful/f36-icon@^4.1.2":
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-icon/-/f36-icon-4.1.2.tgz#141ae98fa9361611eeef02c3c3dcc97231dfa977"
-  integrity sha512-neAawUOsc+gt2z6FG4cgkQnQT09SX3E+L8tAgLQ+XhRRejecmvfjrO1b1yKqK3ddBYpeD/AVSHXsYyJdWhexOg==
+"@contentful/f36-icon@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-icon/-/f36-icon-4.8.0.tgz#b3e72ec9ad061b6823f34344abfac10aace2e628"
+  integrity sha512-ywvPKV1vJWdYdO2SgidSLZtIlEn1v+QPtI3cL6YqDLfF57u0jgLlqFpq46h/tVQ7C3aKeX4P6JDeNKIeIW7c3A==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "^4.2.0"
-    "@contentful/f36-tokens" "^4.0.0"
+    "@contentful/f36-core" "^4.8.0"
+    "@contentful/f36-tokens" "^4.0.1"
     emotion "^10.0.17"
 
 "@contentful/f36-icons@4.0.1-beta.2500+37347e82", "@contentful/f36-icons@beta":
@@ -2328,7 +2140,7 @@
     "@contentful/f36-tokens" "4.0.1-beta.2500+37347e82"
     emotion "^10.0.17"
 
-"@contentful/f36-icons@4.0.1-beta.2705+752a0cc0", "@contentful/f36-icons@^4.0.1-beta.2705":
+"@contentful/f36-icons@4.0.1-beta.2705+752a0cc0":
   version "4.0.1-beta.2705"
   resolved "https://registry.yarnpkg.com/@contentful/f36-icons/-/f36-icons-4.0.1-beta.2705.tgz#a6bb2c1c14bb8cf4342f10b49520e03f90beda7e"
   integrity sha512-EBYUPa5LtwT8lsBjKOcRsWbcSd0M4w7cM/sK0XbOGn9KBxtpoNmIGTpa3hZL4bDVw4a3DzkAMl5WbywaUdqJwQ==
@@ -2339,15 +2151,15 @@
     "@contentful/f36-tokens" "4.0.1-beta.2705+752a0cc0"
     emotion "^10.0.17"
 
-"@contentful/f36-icons@^4.1.1":
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-icons/-/f36-icons-4.1.1.tgz#e131e6584aa2af5f97dbb8ef5408a0344a69332c"
-  integrity sha512-I4SZ5i/cinsrxVVGESKGAFdii4mWAM/eL3vryFHi4n5AnL+VWsOpzfr86skq/GVY+WyMpTAYsnZfLr0Sz7EwiQ==
+"@contentful/f36-icons@^4.1.0", "@contentful/f36-icons@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-icons/-/f36-icons-4.8.0.tgz#feda0d9818652e755a8b4c193fd1892eae2e56a4"
+  integrity sha512-84MkUrcL4SjFTbfs2oeSK8itxP5rSDbqQ7IcUN70WHIIYyq+zNSbVaVY/aqHAXul7zYZvhvJ0m17rSZvIa6+tg==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "^4.2.0"
-    "@contentful/f36-icon" "^4.1.2"
-    "@contentful/f36-tokens" "^4.0.0"
+    "@contentful/f36-core" "^4.8.0"
+    "@contentful/f36-icon" "^4.8.0"
+    "@contentful/f36-tokens" "^4.0.1"
     emotion "^10.0.17"
 
 "@contentful/f36-list@4.0.1-beta.2500+37347e82":
@@ -2360,24 +2172,14 @@
     "@contentful/f36-tokens" "4.0.1-beta.2500+37347e82"
     emotion "^10.0.17"
 
-"@contentful/f36-list@4.0.1-beta.2705+752a0cc0":
-  version "4.0.1-beta.2705"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-list/-/f36-list-4.0.1-beta.2705.tgz#f423faaa1ee3526351b22945f5436ea4ebe2fb8b"
-  integrity sha512-0wD1S+i6jVvyVgpPG4qYq1dvIUHMOPrmTDh4Lvm1EZzyuWxjBI32W3MEVnPFMYHbq7VBZMhKipCfmh6RBYMIIQ==
+"@contentful/f36-list@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-list/-/f36-list-4.8.0.tgz#ddb468bce141a470964f00560b991f8f1afcae33"
+  integrity sha512-G/tpeDUcuq5cZX3T5vsPF71z42ZYeDOlOCwd2sHuy/6qP6Yjk7MwiL16Mniks/NzFKFJcSKSqcGsK/qWSkunjw==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-tokens" "4.0.1-beta.2705+752a0cc0"
-    emotion "^10.0.17"
-
-"@contentful/f36-list@^4.1.2":
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-list/-/f36-list-4.1.2.tgz#9ec4065de5f663bc254c8b01ded6cbf5d0ef68c3"
-  integrity sha512-4IbTKRDPOvkEU9eNGFJDXe8F9apPPVUO10aqQCmQIPwP8JfdhsAH8/sn87ue/FZWwP0RVB9I5qH2xnPrPjlhmg==
-  dependencies:
-    "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "^4.2.0"
-    "@contentful/f36-tokens" "^4.0.0"
+    "@contentful/f36-core" "^4.8.0"
+    "@contentful/f36-tokens" "^4.0.1"
     emotion "^10.0.17"
 
 "@contentful/f36-menu@4.0.1-beta.2500+37347e82":
@@ -2394,32 +2196,18 @@
     "@contentful/f36-utils" "4.0.1-beta.2500+37347e82"
     emotion "^10.0.17"
 
-"@contentful/f36-menu@4.0.1-beta.2705+752a0cc0":
-  version "4.0.1-beta.2705"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-menu/-/f36-menu-4.0.1-beta.2705.tgz#8aee152e8a03a04db2e9e116fd200b2b312ab0ac"
-  integrity sha512-VHgIl7HxfoC5pdO4SESbmoBF1N32Zv8XgGaHD2j19ygV+ULiaQGdJO00A+DoqMFB6vT4VIfMujKZgA/GH5a/Zg==
+"@contentful/f36-menu@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-menu/-/f36-menu-4.8.0.tgz#6e735a0b423f9d8046c59331e2a4169756159ff2"
+  integrity sha512-/fM3c3RfDXxjZAgzv8x3+Igci3bDgL1vWrB6VgOciQ2ENP0nVEFsXZl9RfGva8UNACXeCOSvBZPISNIs5r2vpw==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-icons" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-popover" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-tokens" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-typography" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-utils" "4.0.1-beta.2705+752a0cc0"
-    emotion "^10.0.17"
-
-"@contentful/f36-menu@^4.2.4":
-  version "4.2.4"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-menu/-/f36-menu-4.2.4.tgz#ae73505a1fd895706aaa9f73ecea5e15c4d346f0"
-  integrity sha512-AbH8HXjdUkCE+DD/HimLuQaTvi0+SdzyvQ1xdv5wGZ4upxxwkbpIhM6ECR+6gqLvChghuvLtKU/THwu7bMaJEg==
-  dependencies:
-    "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "^4.2.0"
-    "@contentful/f36-icons" "^4.1.1"
-    "@contentful/f36-popover" "^4.2.1"
-    "@contentful/f36-tokens" "^4.0.0"
-    "@contentful/f36-typography" "^4.2.0"
-    "@contentful/f36-utils" "^4.0.0"
+    "@contentful/f36-core" "^4.8.0"
+    "@contentful/f36-icons" "^4.8.0"
+    "@contentful/f36-popover" "^4.8.0"
+    "@contentful/f36-tokens" "^4.0.1"
+    "@contentful/f36-typography" "^4.8.0"
+    "@contentful/f36-utils" "^4.8.0"
     emotion "^10.0.17"
 
 "@contentful/f36-modal@4.0.1-beta.2500+37347e82":
@@ -2437,32 +2225,17 @@
     emotion "^10.0.17"
     react-modal "^3.14.3"
 
-"@contentful/f36-modal@4.0.1-beta.2705+752a0cc0":
-  version "4.0.1-beta.2705"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-modal/-/f36-modal-4.0.1-beta.2705.tgz#199982104feb618f66368463280ca763b8b2616d"
-  integrity sha512-Q/ti123YUTy33SggucQi33V4306je/43EwBoe2Zt2Wah643Ms3EpcTzwZJJLLgmGCwnJ1eekDvq1H2tUE99LMA==
+"@contentful/f36-modal@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-modal/-/f36-modal-4.8.0.tgz#13cc41f4dfe9b5e0c4390b795130dec755571b1a"
+  integrity sha512-FosGSj07bHx2i56SVHjQhOPtfI0ggynG2Ux43SGXuqgUtIWE8YFO/JWB3XAE3ao95gTFauLjHdbptszZBtZBng==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-button" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-core" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-icons" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-tokens" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-typography" "4.0.1-beta.2705+752a0cc0"
-    "@types/react-modal" "^3.12.1"
-    emotion "^10.0.17"
-    react-modal "^3.14.3"
-
-"@contentful/f36-modal@^4.2.4":
-  version "4.2.4"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-modal/-/f36-modal-4.2.4.tgz#008af4c32d698867435174128f516cf97316ca1c"
-  integrity sha512-W7JcPiIBx/IX6aIK2Y/a0N3jbDO56eYluUhwxA/utVv8uzgkz9/WMI2mGC6H1SP77RkhCdljyBNn3J0EzK3jvg==
-  dependencies:
-    "@babel/runtime" "^7.6.2"
-    "@contentful/f36-button" "^4.3.2"
-    "@contentful/f36-core" "^4.2.0"
-    "@contentful/f36-icons" "^4.1.1"
-    "@contentful/f36-tokens" "^4.0.0"
-    "@contentful/f36-typography" "^4.2.0"
+    "@contentful/f36-button" "^4.8.0"
+    "@contentful/f36-core" "^4.8.0"
+    "@contentful/f36-icons" "^4.8.0"
+    "@contentful/f36-tokens" "^4.0.1"
+    "@contentful/f36-typography" "^4.8.0"
     "@types/react-modal" "^3.12.1"
     emotion "^10.0.17"
     react-modal "^3.14.3"
@@ -2481,7 +2254,7 @@
     "@contentful/f36-typography" "4.0.1-beta.2500+37347e82"
     emotion "^10.0.17"
 
-"@contentful/f36-note@4.0.1-beta.2705+752a0cc0", "@contentful/f36-note@^4.0.1-beta.2705":
+"@contentful/f36-note@^4.0.1-beta.2705":
   version "4.0.1-beta.2705"
   resolved "https://registry.yarnpkg.com/@contentful/f36-note/-/f36-note-4.0.1-beta.2705.tgz#b3b8eda64e337ffc46e9733df43de041c129f029"
   integrity sha512-jEVly4SRiXDg5sNqrI+zg3r5BH0mqOXhJlDCrn36t2yZ7ptz9SCbgWkWuzpdk2cgRnoRY16/q46xZcFFb1G+SA==
@@ -2495,18 +2268,18 @@
     "@contentful/f36-typography" "4.0.1-beta.2705+752a0cc0"
     emotion "^10.0.17"
 
-"@contentful/f36-note@^4.2.12":
-  version "4.2.12"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-note/-/f36-note-4.2.12.tgz#64596f81e52a0d5767e85f18af040f6df79e8639"
-  integrity sha512-hkM2+Azwkls+JILrqD1CyX++nXi88N36IDA+0l8LP7AjWlwO1bVpjatnUtNM6LNB0fzwmbvOPUZtQ8hFXUDOWg==
+"@contentful/f36-note@^4.2.8", "@contentful/f36-note@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-note/-/f36-note-4.8.0.tgz#e1f55ada35e15e857c3f30f8c9706d7001b0db38"
+  integrity sha512-7atrGA48EHCip291U6+7koEcwGx3ntDv9Y+DtPDZNiV4czuPe0vbecositMHTPR4Mnw44hcJLex5qJ0E1NPBHA==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-button" "^4.3.2"
-    "@contentful/f36-core" "^4.2.0"
-    "@contentful/f36-icon" "^4.1.2"
-    "@contentful/f36-icons" "^4.1.1"
-    "@contentful/f36-tokens" "^4.0.0"
-    "@contentful/f36-typography" "^4.2.0"
+    "@contentful/f36-button" "^4.8.0"
+    "@contentful/f36-core" "^4.8.0"
+    "@contentful/f36-icon" "^4.8.0"
+    "@contentful/f36-icons" "^4.8.0"
+    "@contentful/f36-tokens" "^4.0.1"
+    "@contentful/f36-typography" "^4.8.0"
     emotion "^10.0.17"
 
 "@contentful/f36-notification@4.0.1-beta.2500+37347e82":
@@ -2524,35 +2297,35 @@
     emotion "^10.0.17"
     react-animate-height "^2.0.23"
 
-"@contentful/f36-notification@4.0.1-beta.2705+752a0cc0":
-  version "4.0.1-beta.2705"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-notification/-/f36-notification-4.0.1-beta.2705.tgz#b0cb9d43e70d8e5769dc07a6ddbdb3be56d9af34"
-  integrity sha512-ilvvsmrgjasOUGw43SMSFtQKX3mnH5sfVl7/mSncBUQqpkkFiFGKqZyT0P21HF3eVN9LaGE9CSfNhPo/IRDgdw==
+"@contentful/f36-notification@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-notification/-/f36-notification-4.8.0.tgz#3c56fcf1eff931fd27841535994bbfac136347a2"
+  integrity sha512-tJhpD9H5py7bVCH8+Lyn5+UrV7L5siqywFo0FUSSfvqDyv0mnzMfXcTGFUYZPWUn/5uk9RgQVrdeOn1nEL4l7w==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-button" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-core" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-icons" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-text-link" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-tokens" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-typography" "4.0.1-beta.2705+752a0cc0"
+    "@contentful/f36-button" "^4.8.0"
+    "@contentful/f36-core" "^4.8.0"
+    "@contentful/f36-icons" "^4.8.0"
+    "@contentful/f36-text-link" "^4.8.0"
+    "@contentful/f36-tokens" "^4.0.1"
+    "@contentful/f36-typography" "^4.8.0"
+    "@swc/helpers" "^0.3.8"
     emotion "^10.0.17"
     react-animate-height "^2.0.23"
 
-"@contentful/f36-notification@^4.0.14":
-  version "4.0.14"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-notification/-/f36-notification-4.0.14.tgz#aba83baee06b9879abd69bca10a5c6c290704d3f"
-  integrity sha512-ROJw1zXHby4bCy290L4OwHva46Yfu5KYhTiF/cWAZWAkkCt/8ynKM9+2McxNlD2vTM5TuwABUHVPCbYtQuNZoA==
+"@contentful/f36-pagination@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-pagination/-/f36-pagination-4.8.0.tgz#65d7a7fa45334b4fe35b4497711fbdcbc54c1d7d"
+  integrity sha512-TM2QIT3ez+PKYKdG1cKAAJVCb19dX1PDqZbscCxtZhaDNqmvl7wiDN2hA24WHnlahVGs7cmBe/XVtuJyMtf8CA==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-button" "^4.3.2"
-    "@contentful/f36-core" "^4.2.0"
-    "@contentful/f36-icons" "^4.1.1"
-    "@contentful/f36-text-link" "^4.2.0"
+    "@contentful/f36-button" "^4.8.0"
+    "@contentful/f36-core" "^4.8.0"
+    "@contentful/f36-forms" "^4.8.0"
+    "@contentful/f36-icons" "^4.8.0"
     "@contentful/f36-tokens" "^4.0.0"
-    "@contentful/f36-typography" "^4.2.0"
+    "@contentful/f36-typography" "^4.8.0"
     emotion "^10.0.17"
-    react-animate-height "^2.0.23"
 
 "@contentful/f36-pill@4.0.1-beta.2500+37347e82":
   version "4.0.1-beta.2500"
@@ -2566,28 +2339,16 @@
     "@contentful/f36-tokens" "4.0.1-beta.2500+37347e82"
     emotion "^10.0.17"
 
-"@contentful/f36-pill@4.0.1-beta.2705+752a0cc0":
-  version "4.0.1-beta.2705"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-pill/-/f36-pill-4.0.1-beta.2705.tgz#2e9baf94e50692c972dc231804e3496c8971ef97"
-  integrity sha512-OZNzyqiboDu9XwdbcxOpA5+JCNYBk+/kbcZEPBeANvUrpzVk6QmQV5dSvl8kIDBxITgtuEh49bAsyYbQLrASFQ==
+"@contentful/f36-pill@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-pill/-/f36-pill-4.8.0.tgz#56350ae583393c2d4be783cfb625b734997d56c4"
+  integrity sha512-1nWLwAr3noXV6KgZ60ifmAVYILlQZ7jmKcuIoqDSQSQEnGgA3oW5zJmOcaVIPYdxrLXpinGy6+mVgKTqHB0Xpw==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-button" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-core" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-icons" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-tokens" "4.0.1-beta.2705+752a0cc0"
-    emotion "^10.0.17"
-
-"@contentful/f36-pill@^4.1.12":
-  version "4.1.12"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-pill/-/f36-pill-4.1.12.tgz#5ceb0a29711ee751ff133cf85040eaf67c056090"
-  integrity sha512-I/7/+LJz4XbZMqcWgHysTFbyG/NBTmfQ9ahHIxssZgiJDgGYorN0nY96RRMK94LaSaZNnE/1kRXL1Wbh46DGwg==
-  dependencies:
-    "@babel/runtime" "^7.6.2"
-    "@contentful/f36-button" "^4.3.2"
-    "@contentful/f36-core" "^4.2.0"
-    "@contentful/f36-icons" "^4.1.1"
-    "@contentful/f36-tokens" "^4.0.0"
+    "@contentful/f36-button" "^4.8.0"
+    "@contentful/f36-core" "^4.8.0"
+    "@contentful/f36-icons" "^4.8.0"
+    "@contentful/f36-tokens" "^4.0.1"
     emotion "^10.0.17"
 
 "@contentful/f36-popover@4.0.1-beta.2500+37347e82":
@@ -2603,28 +2364,15 @@
     emotion "^10.0.17"
     react-popper "^2.2.3"
 
-"@contentful/f36-popover@4.0.1-beta.2705+752a0cc0":
-  version "4.0.1-beta.2705"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-popover/-/f36-popover-4.0.1-beta.2705.tgz#1892f72e197d20c40e9a7ff72becfb0240142d06"
-  integrity sha512-kBpl1yPoJlr2NKHbuwOQ5PGRH4Qx7cxAQX+gLhzJusO17HfoncV3/UxP0FYog0iD2ZWW17x+hhwnT0gODINjtw==
+"@contentful/f36-popover@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-popover/-/f36-popover-4.8.0.tgz#40210387faa5b723e9329e1dd6972559589770b6"
+  integrity sha512-zZNyxxbhKmIrUIgRIgz4YiVlsYybsET5TsDbOTYgYfDwJBVyKBgV3nYpzU/Q3B40hLCYKak2chdxy5hu9H1/Cg==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-tokens" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-utils" "4.0.1-beta.2705+752a0cc0"
-    "@popperjs/core" "^2.4.4"
-    emotion "^10.0.17"
-    react-popper "^2.2.3"
-
-"@contentful/f36-popover@^4.2.1":
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-popover/-/f36-popover-4.2.1.tgz#a87df976a26b49ca8aaf49276b55330e00170c57"
-  integrity sha512-kY6MrffjgMPjGOv1nC+xo7lS4FkUhc+Rnft1pxhIl+gd9+MO2eOC6Pgqj8d222gGrJFZKcjuVeQhRGwRC0+0IQ==
-  dependencies:
-    "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "^4.2.0"
-    "@contentful/f36-tokens" "^4.0.0"
-    "@contentful/f36-utils" "^4.0.0"
+    "@contentful/f36-core" "^4.8.0"
+    "@contentful/f36-tokens" "^4.0.1"
+    "@contentful/f36-utils" "^4.8.0"
     "@popperjs/core" "^2.4.4"
     emotion "^10.0.17"
     react-popper "^2.2.3"
@@ -2640,26 +2388,15 @@
     "@contentful/f36-tokens" "4.0.1-beta.2500+37347e82"
     emotion "^10.0.17"
 
-"@contentful/f36-skeleton@4.0.1-beta.2705+752a0cc0":
-  version "4.0.1-beta.2705"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-skeleton/-/f36-skeleton-4.0.1-beta.2705.tgz#15989d2355616a57b78175e8b41ae6c8b3380c0b"
-  integrity sha512-wFPEQoD953+nkC9QfvgHbwJhs96PeEpgsxNH2hhxW0W7epcpo7dfPVQYXcZL4JlJ4am7mpsD+HU+VOLMVtwZnQ==
+"@contentful/f36-skeleton@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-skeleton/-/f36-skeleton-4.8.0.tgz#32e3a6c29f9910a740c5b59c207469befaa0e7ae"
+  integrity sha512-mj0nrSipGBasny8+ZbcHFwRmZ+s31NE1EsUXuWSiaXlzN1bDqDSDfVP0SPAn3Wb5l1evzCInaD3EfpOhyadVkg==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-table" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-tokens" "4.0.1-beta.2705+752a0cc0"
-    emotion "^10.0.17"
-
-"@contentful/f36-skeleton@^4.1.2":
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-skeleton/-/f36-skeleton-4.1.2.tgz#eaf57a6d2ba08266d832c52343355cc2810247e1"
-  integrity sha512-KiOONz9UehNYlxXiWsw4nApA4n79FXT7nSEUmlfvI6FHP5xFLpjVvJNh/ouOkprz7Wg9jP/vGE2KTv+amBGkXg==
-  dependencies:
-    "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "^4.2.0"
-    "@contentful/f36-table" "^4.1.2"
-    "@contentful/f36-tokens" "^4.0.0"
+    "@contentful/f36-core" "^4.8.0"
+    "@contentful/f36-table" "^4.8.0"
+    "@contentful/f36-tokens" "^4.0.1"
     emotion "^10.0.17"
 
 "@contentful/f36-spinner@4.0.1-beta.2500+37347e82":
@@ -2682,14 +2419,14 @@
     "@contentful/f36-tokens" "4.0.1-beta.2705+752a0cc0"
     emotion "^10.0.17"
 
-"@contentful/f36-spinner@^4.1.3":
-  version "4.1.3"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-spinner/-/f36-spinner-4.1.3.tgz#da7f8aebf39ffdee539b36bc9e5d526798039d53"
-  integrity sha512-ESh9wWO1nyyng20KH0qjvJ/rK4GzUL7zZa9fdpNf4bElOx0TQxRNX7zC1pN1y9ts3tgvkxMvCYFwvkasvB8Ueg==
+"@contentful/f36-spinner@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-spinner/-/f36-spinner-4.8.0.tgz#a6cc1ea956335869f4d99f6edd8b0fa429be47cf"
+  integrity sha512-bqAM/6SUpC2+0plK4Dy5OU7L2FsHC8gRhp5dDe3iEAsJww3B8heoEME9L7QTpZ4b4hR2BfvzkzkzWE4axsjUtQ==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "^4.2.0"
-    "@contentful/f36-tokens" "^4.0.0"
+    "@contentful/f36-core" "^4.8.0"
+    "@contentful/f36-tokens" "^4.0.1"
     emotion "^10.0.17"
 
 "@contentful/f36-table@4.0.1-beta.2500+37347e82":
@@ -2702,24 +2439,14 @@
     "@contentful/f36-tokens" "4.0.1-beta.2500+37347e82"
     emotion "^10.0.17"
 
-"@contentful/f36-table@4.0.1-beta.2705+752a0cc0":
-  version "4.0.1-beta.2705"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-table/-/f36-table-4.0.1-beta.2705.tgz#a9e65e5f170847e0d980d3e3be7fef78fed68224"
-  integrity sha512-bscwfBiS2x7XQsRi4UdhifHjNAxbvtRzG54mVOuCQcNPV2TwnKKY6NjgNLHkpYXr+NyxYSVb8NlfUAUoGChYqA==
+"@contentful/f36-table@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-table/-/f36-table-4.8.0.tgz#96015b49bbd168c0abf6d3268c6d3de308af98f3"
+  integrity sha512-Uqbx062ku79llFbzw3tMJ6kYHfktLtSWih7Xx/DL1fVSbNyeLBT/NuPO5rJRBO8MkgvA65T3tK1KnhVQ4KZRMg==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-tokens" "4.0.1-beta.2705+752a0cc0"
-    emotion "^10.0.17"
-
-"@contentful/f36-table@^4.1.2":
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-table/-/f36-table-4.1.2.tgz#f4995f9748e7c1c9d74da7d520e6f32a6359860c"
-  integrity sha512-6bfNBvzCowKoWsWIWLZZ/B4c/zgWS6HvomRXV0la+B2bOUyBMyhzOER3GLEfHYQjEaN/pgzO0F/C7hWMkzoRcQ==
-  dependencies:
-    "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "^4.2.0"
-    "@contentful/f36-tokens" "^4.0.0"
+    "@contentful/f36-core" "^4.8.0"
+    "@contentful/f36-tokens" "^4.0.1"
     emotion "^10.0.17"
 
 "@contentful/f36-tabs@4.0.1-beta.2500+37347e82":
@@ -2733,25 +2460,14 @@
     "@radix-ui/react-tabs" "0.1.1"
     emotion "^10.0.17"
 
-"@contentful/f36-tabs@4.0.1-beta.2705+752a0cc0":
-  version "4.0.1-beta.2705"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-tabs/-/f36-tabs-4.0.1-beta.2705.tgz#432c5f7b9934cab4d36118e5d0e89f24ead1683f"
-  integrity sha512-VJraGSlQaJrOJoxBcGDxctoZWIQvr+GpzmMHlLGn9eAu8lVZP5icONUXf5kDKfyhRBhg/jZQinUE/vkEhr00qw==
+"@contentful/f36-tabs@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-tabs/-/f36-tabs-4.8.0.tgz#877253cc6b3abc30f3f4ec925fa4ca68c2f96fa9"
+  integrity sha512-I29mwBBIDZL/Y31v3lqST6TQ4j707Tk7F0B8MW+YnWcCCEKqbHB1u7AA+vuASGMUEyb0UO/MEScr0uwFOYgXaA==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-tokens" "4.0.1-beta.2705+752a0cc0"
-    "@radix-ui/react-tabs" "0.1.1"
-    emotion "^10.0.17"
-
-"@contentful/f36-tabs@^4.1.3":
-  version "4.1.3"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-tabs/-/f36-tabs-4.1.3.tgz#5762b8e1bc6ed767586c6173a2d0eae751fa1c0b"
-  integrity sha512-aKW0KeCDMsMN7eominpxKcmIwUBtHLDjJHMRdnUj62zdPVHqNkYkP3ik+7FQNK+GRfQzBJvFaT9ho5xntRphpg==
-  dependencies:
-    "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "^4.2.0"
-    "@contentful/f36-tokens" "^4.0.0"
+    "@contentful/f36-core" "^4.8.0"
+    "@contentful/f36-tokens" "^4.0.1"
     "@radix-ui/react-tabs" "0.1.1"
     emotion "^10.0.17"
 
@@ -2765,24 +2481,14 @@
     "@contentful/f36-tokens" "4.0.1-beta.2500+37347e82"
     emotion "^10.0.17"
 
-"@contentful/f36-text-link@4.0.1-beta.2705+752a0cc0":
-  version "4.0.1-beta.2705"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-text-link/-/f36-text-link-4.0.1-beta.2705.tgz#dd9123e7dd70c36d74e685ece1f9adb0785b3706"
-  integrity sha512-S+NY4DYGWCqn0Hmlwe+/7Ny8Gu4o7gZx36UeFQf7H/E1jZCf/zpepIWCMwmGVB/DrJ/4uaNSavFHG775+yFIOg==
+"@contentful/f36-text-link@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-text-link/-/f36-text-link-4.8.0.tgz#c48f3453f9c7de56ccb1dce13a1f11199ed68a4f"
+  integrity sha512-mJEyJqPhXxgVx5Rr/X3+qBPcbCSntuYRBHPxYqHYtLtfJwd9YkD/+eLZzVIg5uPN7DP+EwH3/thVNsILTpUItA==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-tokens" "4.0.1-beta.2705+752a0cc0"
-    emotion "^10.0.17"
-
-"@contentful/f36-text-link@^4.2.0":
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-text-link/-/f36-text-link-4.2.0.tgz#28199dac8f3f60f51486b156a5228900281c569d"
-  integrity sha512-rwIO+3JuTLbWFGTPR3PUFR5kVKR/3rk2I3p/xmBklN8saD1d/SVlnP26ZFyb+NpyfnBRs9SbhmiTq0zuZF1+nw==
-  dependencies:
-    "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "^4.2.0"
-    "@contentful/f36-tokens" "^4.0.0"
+    "@contentful/f36-core" "^4.8.0"
+    "@contentful/f36-tokens" "^4.0.1"
     emotion "^10.0.17"
 
 "@contentful/f36-tokens@4.0.1-beta.2500+37347e82", "@contentful/f36-tokens@beta":
@@ -2800,6 +2506,11 @@
   resolved "https://registry.yarnpkg.com/@contentful/f36-tokens/-/f36-tokens-4.0.0.tgz#f7fd222f820ace9e343c7b9b20591c4e99e5e596"
   integrity sha512-gfHJ34ZxlFwqlyUX7RaaEn5f076+zW9tQOAAmWaxkDTGFtpqAyjZnByCFXz3nrB0VyZtOxhRgttaQo/u7zFt0w==
 
+"@contentful/f36-tokens@^4.0.1":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-tokens/-/f36-tokens-4.0.1.tgz#1b6a2e3fce11a61b84a855dbeed660989259ba54"
+  integrity sha512-NTyMAQcfvhPP8kJgOK5mtjKpErg799iglEb9B45ii4N7aMdph2GNqgv7KBgpogfbTEGBrlKIoH8MUDSV9YNREg==
+
 "@contentful/f36-tooltip@4.0.1-beta.2500+37347e82":
   version "4.0.1-beta.2500"
   resolved "https://registry.yarnpkg.com/@contentful/f36-tooltip/-/f36-tooltip-4.0.1-beta.2500.tgz#f86dd3711982f5b650dd0c43dc85a87846e9f9fa"
@@ -2814,29 +2525,15 @@
     emotion "^10.0.17"
     react-popper "^2.2.3"
 
-"@contentful/f36-tooltip@4.0.1-beta.2705+752a0cc0":
-  version "4.0.1-beta.2705"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-tooltip/-/f36-tooltip-4.0.1-beta.2705.tgz#be87a33d0c28837a560a060aecbf1b6372e1676e"
-  integrity sha512-92HJNHj5XZdQ18WCCwW7jHRZRHJTtOolAbv56fGVcX0UtE6fgYPLnt3kj96p6u3XiOtP+GpltVK/ZqX5DoXq4g==
+"@contentful/f36-tooltip@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-tooltip/-/f36-tooltip-4.8.0.tgz#7eeda0cfcfc17ec176a95fe57039b6f1896f6895"
+  integrity sha512-6TY5tBkaW0HcU2+xWcZ3N925+TvP2k4LPgT8y5jBc4hWyEmVHOqhb/vFVMxrIC23nnuc6fHT8cIy6mDJ37jgwA==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-tokens" "4.0.1-beta.2705+752a0cc0"
-    "@contentful/f36-utils" "4.0.1-beta.2705+752a0cc0"
-    "@popperjs/core" "^2.4.4"
-    csstype "^3.0.5"
-    emotion "^10.0.17"
-    react-popper "^2.2.3"
-
-"@contentful/f36-tooltip@^4.1.2":
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-tooltip/-/f36-tooltip-4.1.2.tgz#a64ff2b819afc475a472f40eaa84b999eeede400"
-  integrity sha512-7FGXq+deotowfpN/JEsPLiuFMKErEGqV8l9anzXUVDSGY3g4QW8TrOAb9aBXE+xI6kl1tRIeHA69Cwz5tmvzHQ==
-  dependencies:
-    "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "^4.2.0"
-    "@contentful/f36-tokens" "^4.0.0"
-    "@contentful/f36-utils" "^4.0.0"
+    "@contentful/f36-core" "^4.8.0"
+    "@contentful/f36-tokens" "^4.0.1"
+    "@contentful/f36-utils" "^4.8.0"
     "@popperjs/core" "^2.4.4"
     csstype "^3.0.5"
     emotion "^10.0.17"
@@ -2862,14 +2559,14 @@
     "@contentful/f36-tokens" "4.0.1-beta.2705+752a0cc0"
     emotion "^10.0.17"
 
-"@contentful/f36-typography@^4.2.0":
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-typography/-/f36-typography-4.2.0.tgz#651d1e0ea6181aec14952320473db0145ad09aab"
-  integrity sha512-kYgXYxwZS1GpWAH2gE4cCOzDOh9Jvo9wDfn6E14kFWWr9Kcd7lyYVWftOFYm+B7ozbsVr9ZYEk3D4ghnsTd3Ng==
+"@contentful/f36-typography@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-typography/-/f36-typography-4.8.0.tgz#4150e781005e71acc933ab45215c90fdfc46edda"
+  integrity sha512-K+Qr9i1vpTKrjuFQHyrJCWWaj48KnyjBs1K1m3QHQmTMlqV1kMu2uq+dvN+imGvLe5Z8K9UlKeK2+VvVJhKEmQ==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    "@contentful/f36-core" "^4.2.0"
-    "@contentful/f36-tokens" "^4.0.0"
+    "@contentful/f36-core" "^4.8.0"
+    "@contentful/f36-tokens" "^4.0.1"
     emotion "^10.0.17"
 
 "@contentful/f36-utils@4.0.1-beta.2500+37347e82":
@@ -2880,31 +2577,23 @@
     "@babel/runtime" "^7.6.2"
     emotion "^10.0.17"
 
-"@contentful/f36-utils@4.0.1-beta.2705+752a0cc0":
-  version "4.0.1-beta.2705"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-utils/-/f36-utils-4.0.1-beta.2705.tgz#bafeccc1ade5b93ac5f6a3a4c9407f318b824727"
-  integrity sha512-pgY9Sqk8KKDF0itkKkTjUSN5fBiu2cEnMsXLM1yEAvofcd7ULHiWOAgtwsY/upombxwWOyeG2kDgyfqVKD05SA==
+"@contentful/f36-utils@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-utils/-/f36-utils-4.8.0.tgz#0593c719064b72366a9caa035d44ca0b6812d27b"
+  integrity sha512-pAmwMjX2e3lXSqaqVZD1SzvE4ZualUZsbPLakqwExdo55zf2uaoDdSYH/KAYGJ+9/eqn5ea9NzwuL9108y66JA==
   dependencies:
     "@babel/runtime" "^7.6.2"
     emotion "^10.0.17"
 
-"@contentful/f36-utils@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-utils/-/f36-utils-4.0.0.tgz#44a5b5ed72626132c9a4f2c83ebe7e9bbe37c7e1"
-  integrity sha512-7+N4LQOwxzu+tF23Arvb9NCYvVVVufvcrh4Iw1fP9Uy5udQGlwplW3PenzFI4dGuuY6f9Tn4I677SSFuZQwPAw==
+"@contentful/field-editor-reference@^4.3.1":
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/@contentful/field-editor-reference/-/field-editor-reference-4.3.1.tgz#1ce8e18d5d5bf6a17d578b525c25129ce1e86d5a"
+  integrity sha512-IeDEfuKfcIR2U1ygnKR5y0Fupr0NVvYGvxH2TrnsPP3hx+kOG6hWFxaWFrtXuMvoJCAgHAfLfgnOT7WiyRoEFw==
   dependencies:
-    "@babel/runtime" "^7.6.2"
-    emotion "^10.0.17"
-
-"@contentful/field-editor-reference@^4.0.7":
-  version "4.0.7"
-  resolved "https://registry.yarnpkg.com/@contentful/field-editor-reference/-/field-editor-reference-4.0.7.tgz#69b41fb6c123ffbbb7402b34cc5581d7b6dd29b7"
-  integrity sha512-Nl2nd6OxBaIY4YeTxhs6DFnRxcpqCm4wLPLe0LCnbJSoUg/hWxgbaKjkLNvODXGflV/FM4eToxWgqC8Xvj3fjA==
-  dependencies:
-    "@contentful/f36-components" "^4.0.1-beta.2705"
-    "@contentful/f36-icons" "^4.0.1-beta.2705"
-    "@contentful/f36-tokens" "^4.0.1-beta.2705"
-    "@contentful/field-editor-shared" "^1.0.3"
+    "@contentful/f36-components" "^4.0.27"
+    "@contentful/f36-icons" "^4.1.0"
+    "@contentful/f36-tokens" "^4.0.0"
+    "@contentful/field-editor-shared" "^1.1.2"
     "@contentful/mimetype" "^1.4.0"
     "@types/deep-equal" "^1.0.1"
     array-move "^3.0.0"
@@ -2927,6 +2616,17 @@
     lodash "^4.17.15"
     lodash-es "^4.17.15"
 
+"@contentful/field-editor-shared@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@contentful/field-editor-shared/-/field-editor-shared-1.1.2.tgz#7fe82082b0fdd8b2b837840edf8f8e2e1b8599c9"
+  integrity sha512-T8tb834Zc8QKZKL371Tl2Kzwv6s1t89U3F6gCr4WJW2y3Bo54DkHex6UzBv941+IOdKs7z8yg9ChD70VIqxkKQ==
+  dependencies:
+    "@contentful/f36-note" "^4.2.8"
+    "@contentful/f36-tokens" "^4.0.0"
+    emotion "^10.0.17"
+    lodash "^4.17.15"
+    lodash-es "^4.17.15"
+
 "@contentful/mimetype@^1.4.0":
   version "1.4.40"
   resolved "https://registry.yarnpkg.com/@contentful/mimetype/-/mimetype-1.4.40.tgz#9e11a37a9a3b35c8831af4f2b34af82f671fd0f6"
@@ -2934,12 +2634,12 @@
   dependencies:
     lodash "^4.17.20"
 
-"@contentful/rich-text-plain-text-renderer@^15.11.1":
-  version "15.11.1"
-  resolved "https://registry.yarnpkg.com/@contentful/rich-text-plain-text-renderer/-/rich-text-plain-text-renderer-15.11.1.tgz#1784eed15209e7ee36e446bd73fa281fdd74fe84"
-  integrity sha512-g1rk4u4MNyp7FypY5BbXM/EzdUDbHm6Ur2CHRGYGLTz0/DPsyiU186tazTvSRYI4mMU3zjj8+5kLgNpCdj3bFQ==
+"@contentful/rich-text-plain-text-renderer@^15.12.1":
+  version "15.12.1"
+  resolved "https://registry.yarnpkg.com/@contentful/rich-text-plain-text-renderer/-/rich-text-plain-text-renderer-15.12.1.tgz#1a83958db2a788e5226d372671d1467112b8e0c8"
+  integrity sha512-0pDLs4V1dhK98yoIFq8e16Ey54uyAPLKeqMtry3db4X0zEuA/+6CEetoyEdJrySAaCkfB7+Y6n4vKMFUSPHs3Q==
   dependencies:
-    "@contentful/rich-text-types" "^15.11.1"
+    "@contentful/rich-text-types" "^15.12.1"
 
 "@contentful/rich-text-react-renderer@^15.11.0":
   version "15.11.0"
@@ -2948,10 +2648,15 @@
   dependencies:
     "@contentful/rich-text-types" "^15.11.0"
 
-"@contentful/rich-text-types@^15.11.0", "@contentful/rich-text-types@^15.11.1":
+"@contentful/rich-text-types@^15.11.0":
   version "15.11.1"
   resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-15.11.1.tgz#755e3efd5e0ac277d554e6f731ba9fdc1c45f6fe"
   integrity sha512-seO8Nl9cp894v7an6R8isX+HqYwVUesviGULTh/rIj2DCv2tXUU1GCqzSkt84XN6c6nbFYow9+Wzezkxx/IdIA==
+
+"@contentful/rich-text-types@^15.12.1":
+  version "15.12.1"
+  resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-15.12.1.tgz#3b131f03fc55b6001f6eb5f5615aefb22678b3d3"
+  integrity sha512-WQJic0fnAbTa8xzO3Z+aVqDmA5+JMNQlATQMVJ40GoOrnM8YoJZsKGf6xX/O6Y6Eq10T1LrpxIOslODFI9qFgg==
 
 "@csstools/convert-colors@^1.4.0":
   version "1.4.0"
@@ -5315,6 +5020,11 @@
     "@svgr/plugin-svgo" "^4.3.1"
     loader-utils "^1.2.3"
 
+"@swc/helpers@^0.3.8":
+  version "0.3.8"
+  resolved "https://registry.yarnpkg.com/@swc/helpers/-/helpers-0.3.8.tgz#5b9ecf4ee480ca00f1ffbc2d1a5d4eed0d1afe81"
+  integrity sha512-aWItSZvJj4+GI6FWkjZR13xPNPctq2RRakzo+O6vN7bC2yjwdg5EFpgaSAUn95b7BGSgcflvzVDPoKmJv24IOg==
+
 "@szmarczak/http-timer@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@szmarczak/http-timer/-/http-timer-1.1.2.tgz#b1665e2c461a2cd92f4c1bbf50d5454de0d4b421"
@@ -6047,24 +5757,24 @@
     "@typescript-eslint/types" "4.27.0"
     eslint-visitor-keys "^2.0.0"
 
-"@udecode/plate-basic-marks@^10.4.0":
-  version "10.4.1"
-  resolved "https://registry.yarnpkg.com/@udecode/plate-basic-marks/-/plate-basic-marks-10.4.1.tgz#24a62fcc0d50e834b18315ec2c1ef4be64b2c597"
-  integrity sha512-HpZ0QSgn+1P9Rh8rf3cur0I61H0C+u2Hra3bIFOk97GG0Rm3lNafINmVExJSvkURWVk0nbywLQ9rbHZ9uLKj0Q==
+"@udecode/plate-basic-marks@^10.5.3":
+  version "10.5.3"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-basic-marks/-/plate-basic-marks-10.5.3.tgz#ff8b7318290c4b237da4d96224c2f19959d544d0"
+  integrity sha512-HQlHt+kdmtR+jz5VEOmj0bwZTY102vA3m4/tAWWlcgAvxiFH1GlN/+z6U8b6cCFK81d/AneklOnL8QRkkhnJDA==
   dependencies:
-    "@udecode/plate-core" "10.4.1"
+    "@udecode/plate-core" "10.5.3"
 
-"@udecode/plate-break@^10.4.0":
-  version "10.4.1"
-  resolved "https://registry.yarnpkg.com/@udecode/plate-break/-/plate-break-10.4.1.tgz#b1e1041dd5d62e5779cfd7cef9a4c0ff0e03d0d5"
-  integrity sha512-Ng8E0H0I2pgeqPlZf4PHhMy2uKxEJNy3Gz+2hw5vzR2Pcy6K/lSUdQfuovXvMcIVCfhU2OCU8Z++82eycSNG8g==
+"@udecode/plate-break@^10.6.1":
+  version "10.6.1"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-break/-/plate-break-10.6.1.tgz#c52469843b2541abfac086e89210f0613b2fec17"
+  integrity sha512-O2FRS3TLegYR+NrJWknjf+0d1iN43WHdfbQwQ0Yngg49/mDD+r1SH5cR1LpsIEd/1fzXEiGt8EF90P+8SjHuEQ==
   dependencies:
-    "@udecode/plate-core" "10.4.1"
+    "@udecode/plate-core" "10.5.3"
 
-"@udecode/plate-core@10.4.1", "@udecode/plate-core@^10.4.0":
-  version "10.4.1"
-  resolved "https://registry.yarnpkg.com/@udecode/plate-core/-/plate-core-10.4.1.tgz#259ade703bea3afa3846917a9ee5ae7fdfe0a16b"
-  integrity sha512-Cv4iVb3nPNU9DQGo6/mDoFy/eAnTBU6OftnY3yBomPSDOmAUgH8eKBucb/y3/4/iqklXB8zFl9ewv4gP9xoksA==
+"@udecode/plate-core@10.5.3", "@udecode/plate-core@^10.5.3":
+  version "10.5.3"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-core/-/plate-core-10.5.3.tgz#7888339b3f7951fed61bf8dd8ae947bc565fcd99"
+  integrity sha512-OBu02wPV80AC55GmFUtB8WAWKDEYLzLiV8M9FODZjQXpp5QkVkE5947nEZR6qwnTwIzYNm41oY8YrJF3PcmjoA==
   dependencies:
     "@udecode/zustood" "0.4.4"
     clsx "1.1.1"
@@ -6073,97 +5783,97 @@
     use-deep-compare "1.1.0"
     zustand "3.7.0"
 
-"@udecode/plate-heading@10.4.1":
-  version "10.4.1"
-  resolved "https://registry.yarnpkg.com/@udecode/plate-heading/-/plate-heading-10.4.1.tgz#079ca7ca3a7986d466b47b8c5fa6977238517d0e"
-  integrity sha512-aZtdmtCADBibEmd9yvTPM6IuokMksbTkb6V3KD3TDXrQgBgbegn7hqaC/g/7cvRuvBvxXfMty87IvjxLrIKZmg==
+"@udecode/plate-heading@10.5.3":
+  version "10.5.3"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-heading/-/plate-heading-10.5.3.tgz#7afd7af8ea00e8f9d1ce2482521008c3a6b808df"
+  integrity sha512-mOPA86HMkwQ1cCxVnKq5BnLhr3rburHc9u/5iIfsc9kDQsCqTw83OBEDncJ1WD1JAqcRSf2kD7gbkOONdwSguw==
   dependencies:
-    "@udecode/plate-core" "10.4.1"
+    "@udecode/plate-core" "10.5.3"
 
-"@udecode/plate-image@10.4.1":
-  version "10.4.1"
-  resolved "https://registry.yarnpkg.com/@udecode/plate-image/-/plate-image-10.4.1.tgz#dd83dbfc99867da3928a824d8f9a20f149e35755"
-  integrity sha512-oBPyo/KPv5XILTNdlN6mX8PXLGc7ZrNBMJ1z2amn/8AwDs8iY8F5TBwoGAVUwiqUW46/Mj1WAs4QTGaSkBdtEg==
+"@udecode/plate-image@10.7.0":
+  version "10.7.0"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-image/-/plate-image-10.7.0.tgz#916e98f071e6581f66e199ca2ec5249f6feaf83d"
+  integrity sha512-ZaAVt7dK4h/gu6Y1yYszxc5dbdVKNmBUugaIkVvEoJPe2UfqaqrDMV+sRHdbPlAO/pwV9TcL424x+gYg/N/DQA==
   dependencies:
-    "@udecode/plate-core" "10.4.1"
+    "@udecode/plate-core" "10.5.3"
 
-"@udecode/plate-indent-list@10.4.1":
-  version "10.4.1"
-  resolved "https://registry.yarnpkg.com/@udecode/plate-indent-list/-/plate-indent-list-10.4.1.tgz#ab551cea265129d07c08a0235d463b133c9e4b27"
-  integrity sha512-6JJyp+jFkPG3K1ElvsP+3d11DDEXF1GrTQPkmqvUugd7uYT91132cC497yFxwLn4FwM3yerCRBi+S+1KyLDkpQ==
+"@udecode/plate-indent-list@10.5.3":
+  version "10.5.3"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-indent-list/-/plate-indent-list-10.5.3.tgz#0f94d003022c48a0c308512b5b1501e6193b8bac"
+  integrity sha512-g3VVeUkaYfMg/TuwC74NPCDVh79kp0GkOp+6c00AH7Y9oL82V0VAlu96J377Z2HrTs/dl8CMIqQQ1ZHe3wM9Wg==
   dependencies:
-    "@udecode/plate-core" "10.4.1"
-    "@udecode/plate-indent" "10.4.1"
-    "@udecode/plate-list" "10.4.1"
+    "@udecode/plate-core" "10.5.3"
+    "@udecode/plate-indent" "10.5.3"
+    "@udecode/plate-list" "10.5.3"
 
-"@udecode/plate-indent@10.4.1":
-  version "10.4.1"
-  resolved "https://registry.yarnpkg.com/@udecode/plate-indent/-/plate-indent-10.4.1.tgz#03199955a9ef54bc1019a319d7bd83c63d539906"
-  integrity sha512-MtZevbX5wjXSQGwWseAVOPn1EWTqYNpe8tuFDXXmKv4g/ClQJ+XBusuUJ5WvHU7s1eOOfdQpGyIWTxSDuMXeKw==
+"@udecode/plate-indent@10.5.3":
+  version "10.5.3"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-indent/-/plate-indent-10.5.3.tgz#46aeda267509dbc700574108749da71c4c7f9caa"
+  integrity sha512-oyFIKIOBl6npBP6B3h1KVyaeKnsgYAmq/9QDScTcQQXEjRssvZGI37wgftkCW15Gr9dgHqL7EGt4u1lqI5xrzA==
   dependencies:
-    "@udecode/plate-core" "10.4.1"
+    "@udecode/plate-core" "10.5.3"
 
-"@udecode/plate-list@10.4.1", "@udecode/plate-list@^10.4.0":
-  version "10.4.1"
-  resolved "https://registry.yarnpkg.com/@udecode/plate-list/-/plate-list-10.4.1.tgz#e5032ebec5911a7d121f16b02cf8f117cf540e45"
-  integrity sha512-f+Ui4RikMZlu0rFTCDUQdp5JUNk2xkbciKIAbBUrfewzWCxUZDo5bjWWdr8SpggHMqGL5wNcvT2o76tqlsCpfg==
+"@udecode/plate-list@10.5.3", "@udecode/plate-list@^10.5.3":
+  version "10.5.3"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-list/-/plate-list-10.5.3.tgz#813ef523c5d28e6fe74a0791ecee0934a257484a"
+  integrity sha512-Qhh8m2PuafA1X6dMuUojtp+yruGMFUJLUtd8tp9xHOzyxurqwR3oFz39f5CQfRfewAlpehZ+Lz/RjW3+zf8H8A==
   dependencies:
-    "@udecode/plate-core" "10.4.1"
-    "@udecode/plate-reset-node" "10.4.1"
+    "@udecode/plate-core" "10.5.3"
+    "@udecode/plate-reset-node" "10.5.3"
 
-"@udecode/plate-paragraph@10.4.1", "@udecode/plate-paragraph@^10.4.0":
-  version "10.4.1"
-  resolved "https://registry.yarnpkg.com/@udecode/plate-paragraph/-/plate-paragraph-10.4.1.tgz#fae55a9d49f52854f5b48c690b10d1f4505e7296"
-  integrity sha512-+g19AwYLiyMj3dGEJ54zrbRa9W3gKtgg0w+jJ01GD5JThsFvotGZI+SViRxx5GIyUT7xGj1nZhappP9XcW1wUQ==
+"@udecode/plate-paragraph@10.5.3", "@udecode/plate-paragraph@^10.5.3":
+  version "10.5.3"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-paragraph/-/plate-paragraph-10.5.3.tgz#979847f0947b642075879a11df229fdae2e9f661"
+  integrity sha512-89VV0tRIQtSh4uYxUsqrqdVQYkOmc0yx8t5BNPRrd/3D9h6IiX4UGpwUlo6AaGH4gyLAXF0AWEai5iccwS90gw==
   dependencies:
-    "@udecode/plate-core" "10.4.1"
+    "@udecode/plate-core" "10.5.3"
 
-"@udecode/plate-reset-node@10.4.1", "@udecode/plate-reset-node@^10.4.0":
-  version "10.4.1"
-  resolved "https://registry.yarnpkg.com/@udecode/plate-reset-node/-/plate-reset-node-10.4.1.tgz#d1ac4de08c73e640f86b61088c2bfeba12c519b1"
-  integrity sha512-DomTgVwEDH8TX01Hewwf0d1gAdsesXkUAR084gQ7IzPKTRqUr7Uak3pn0AVnyjLjWAUoDzcGNk0Zr/xNY4cCqA==
+"@udecode/plate-reset-node@10.5.3", "@udecode/plate-reset-node@^10.5.3":
+  version "10.5.3"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-reset-node/-/plate-reset-node-10.5.3.tgz#d274c32f68b0598f29fe560e49c88c4a8b9728d1"
+  integrity sha512-Jmh0COs2a5NtB4eNU3vbZdB+dcG/jIjsme51eqbaZjiCslCNU95bBP/UCXnu8Wny6Sx11chnpxQxi/RfgTnXPg==
   dependencies:
-    "@udecode/plate-core" "10.4.1"
+    "@udecode/plate-core" "10.5.3"
 
-"@udecode/plate-select@^10.4.0":
-  version "10.4.1"
-  resolved "https://registry.yarnpkg.com/@udecode/plate-select/-/plate-select-10.4.1.tgz#8a2d5022e059659afe41342072f9ebe928b09bc5"
-  integrity sha512-CmtQsNnOXhgZPkhoxIQFYImyBXLvXVztQESn9zM7tkut/MEaX10QnKs1v/2ruY04+/69FCr+pXq6Ap6FIFf7Ew==
+"@udecode/plate-select@^10.5.3":
+  version "10.5.3"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-select/-/plate-select-10.5.3.tgz#64467cbc42f789c569671fb82db57983ed3ff01f"
+  integrity sha512-t/yMkcBA5AghIXv/Mppyu4OmHAQhP7bXrbAthVbS20Gza0qCYA/Zc2mWF9CBHkLNx378KJOXIj0AhcII0J0IxA==
   dependencies:
-    "@udecode/plate-core" "10.4.1"
+    "@udecode/plate-core" "10.5.3"
 
-"@udecode/plate-serializer-docx@^10.4.0":
-  version "10.4.1"
-  resolved "https://registry.yarnpkg.com/@udecode/plate-serializer-docx/-/plate-serializer-docx-10.4.1.tgz#587ecfbaa2e25ebf691ee3edba95b2c633f8def5"
-  integrity sha512-E+eaBiOmaO5ywZCOmEQxPSrlDjI62qTvvxgSzdvyEb7r85pqPoUWSMugYzlVe89j3ACyHZqX78kfPdbGOJrvlA==
+"@udecode/plate-serializer-docx@^10.7.0":
+  version "10.7.0"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-serializer-docx/-/plate-serializer-docx-10.7.0.tgz#f9047519f5f3a9552265d80a6daf75a4acd954ca"
+  integrity sha512-FwegHMt6kVgKInCaplwZdx/W6g32xneQH7Y5RjWXfB73GpjdXqbo86NJb22JrFDh3+AymxcBUcfxARoBDJWH6Q==
   dependencies:
-    "@udecode/plate-core" "10.4.1"
-    "@udecode/plate-heading" "10.4.1"
-    "@udecode/plate-image" "10.4.1"
-    "@udecode/plate-indent" "10.4.1"
-    "@udecode/plate-indent-list" "10.4.1"
-    "@udecode/plate-paragraph" "10.4.1"
-    "@udecode/plate-table" "10.4.1"
+    "@udecode/plate-core" "10.5.3"
+    "@udecode/plate-heading" "10.5.3"
+    "@udecode/plate-image" "10.7.0"
+    "@udecode/plate-indent" "10.5.3"
+    "@udecode/plate-indent-list" "10.5.3"
+    "@udecode/plate-paragraph" "10.5.3"
+    "@udecode/plate-table" "10.6.3"
     validator "13.7.0"
 
-"@udecode/plate-table@10.4.1", "@udecode/plate-table@^10.4.0":
-  version "10.4.1"
-  resolved "https://registry.yarnpkg.com/@udecode/plate-table/-/plate-table-10.4.1.tgz#0c20531a7c2c5924f39f60ca23990d55ebc200ab"
-  integrity sha512-qG0BOMmY8juAUbdCh6cPaamm5MtaxVJVl0RrKleRu4KofsXfxbAIwWf/Ch+UJERA8NARR5oA7v8ZPhS+ljZddw==
+"@udecode/plate-table@10.6.3", "@udecode/plate-table@^10.6.3":
+  version "10.6.3"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-table/-/plate-table-10.6.3.tgz#743ad5a8b35d199c2c47fb33f5e31a62145c24b5"
+  integrity sha512-CMT1O9dgdxWQq5qFH0ioCnRn846bxn8lWuwISju1luePEBlx12Ke38+z069fhuGmjQL4MmIPtilr9fcsbva5JQ==
   dependencies:
-    "@udecode/plate-core" "10.4.1"
+    "@udecode/plate-core" "10.5.3"
 
 "@udecode/plate-test-utils@^3.2.0":
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/@udecode/plate-test-utils/-/plate-test-utils-3.2.0.tgz#889e4ed08b21a85fd20b7c7c084bb4d483da8c78"
   integrity sha512-TvwSLrsDgzlzpcs+DbYHOV5fnUYI2v+dQ2nysc6QmFjS8cIi8ec1JF3GGb7IfLbEiQdMzxfLNmLkQYexN7gE1Q==
 
-"@udecode/plate-trailing-block@^10.4.0":
-  version "10.4.1"
-  resolved "https://registry.yarnpkg.com/@udecode/plate-trailing-block/-/plate-trailing-block-10.4.1.tgz#cd66975b12daabbbe652b1984e05fb822889401e"
-  integrity sha512-0CjjArOcyFgImiue2H/yROZNsPl16f8Ps0rVw/LMQGCiVsOUGe/XWBcycFoFKloQBUQN3VT667HLHevZPYF41w==
+"@udecode/plate-trailing-block@^10.5.3":
+  version "10.5.3"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-trailing-block/-/plate-trailing-block-10.5.3.tgz#3befea7b040eadaf5808074271cd544731428d97"
+  integrity sha512-bwT6GHfw5u0SXfCaPdoTB/xEYVP/5qS83Ucs5STbEN/6nTBas8UJ5+RZutve6uTttWy8sfBZx06goS16RBJ4pw==
   dependencies:
-    "@udecode/plate-core" "10.4.1"
+    "@udecode/plate-core" "10.5.3"
 
 "@udecode/zustood@0.4.4":
   version "0.4.4"
@@ -21660,17 +21370,17 @@ slate-history@^0.66.0:
   dependencies:
     is-plain-object "^5.0.0"
 
-slate-hyperscript@^0.67.0:
-  version "0.67.0"
-  resolved "https://registry.yarnpkg.com/slate-hyperscript/-/slate-hyperscript-0.67.0.tgz#b066febf10a5176106fe1fcdcdc76460f3eb721b"
-  integrity sha512-3c+d2ePTUk5J7wMjs2CZIJPhb1/VnTltel+qnQarOWlXtJng7oRc8BNaYbNfkl2ecT9W5bpxpsy1r6x5ICXucQ==
+slate-hyperscript@^0.77.0:
+  version "0.77.0"
+  resolved "https://registry.yarnpkg.com/slate-hyperscript/-/slate-hyperscript-0.77.0.tgz#72c1c0fbd54dc6b6210ecd81d020c8d3d0ab8eae"
+  integrity sha512-M6uRpttwKnosniQORNPYQABHQ9XWC7qaSr/127LWWPjTOR5MSSwrHGrghN81BhZVqpICHrI7jkPA2813cWdHNA==
   dependencies:
     is-plain-object "^5.0.0"
 
-slate-react@^0.77.3:
-  version "0.77.3"
-  resolved "https://registry.yarnpkg.com/slate-react/-/slate-react-0.77.3.tgz#6882bc22f501d503f90015925bcbdce3f7462a16"
-  integrity sha512-j7DeGHJMwePT6OeCX/nqkTXcrbo0599UyBQsP+knoqlrW/SRLuyCrj4rgOo6hbahOLlTR6wvKshW9p6KAs+uJA==
+slate-react@^0.77.4:
+  version "0.77.4"
+  resolved "https://registry.yarnpkg.com/slate-react/-/slate-react-0.77.4.tgz#b2532b57e47c4e088b1583ed8befc6e238a15ad5"
+  integrity sha512-e3gYuEhjbEX4IhydC4kWZgcvH5fgJkJMuu9paarO6gdW5vRRSWnys/EbOs5ALp4e9NWr5u1XzQkJnbpyW5AqBA==
   dependencies:
     "@types/is-hotkey" "^0.1.1"
     "@types/lodash" "^4.14.149"
@@ -21681,10 +21391,10 @@ slate-react@^0.77.3:
     scroll-into-view-if-needed "^2.2.20"
     tiny-invariant "1.0.6"
 
-slate@^0.77.2:
-  version "0.77.2"
-  resolved "https://registry.yarnpkg.com/slate/-/slate-0.77.2.tgz#ba66ac32d96f5e6f6793a53727930248ec2279fc"
-  integrity sha512-raG/eyYyRDThz+r/opUD+wxWxwXQi4fH0ViZh41x8qBu8uOPMTBYl10RA7KsF8IK48DS207uPrvWGGBsnMCLwg==
+slate@^0.78.0:
+  version "0.78.0"
+  resolved "https://registry.yarnpkg.com/slate/-/slate-0.78.0.tgz#cd0328d22b0a99c543987d2a2dd30903bb950ee9"
+  integrity sha512-VwQ0RafT3JPf9SFrXI02Dh3S4Iz9en7d1nn50C/LJjjqjfgv+a2ORbgWMdYjhycPYldaxJwcI3OpP9D1g4SXEg==
   dependencies:
     immer "^9.0.6"
     is-plain-object "^5.0.0"
@@ -23131,6 +22841,11 @@ truncate@^2.0.1:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/truncate/-/truncate-2.1.0.tgz#391183563a25cffbd4d613a1d00ae5844c9e55d3"
   integrity sha512-em3E3SUDONOjTBcZ36DTm3RvDded3IRU9rX32oHwwXNt3rJD5MVaFlJTQvs8tJoHRoeYP36OuQ1eL/Q7bNEWIQ==
+
+truncate@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/truncate/-/truncate-3.0.0.tgz#7dbe19e2f72c614e36b79bab00fbfbeb1cbaf078"
+  integrity sha512-C+0Xojw7wZPl6MDq5UjMTuxZvBPK04mtdFet7k+GSZPINcvLZFCXg+15kWIL4wAqDB7CksIsKiRLbQ1wa7rKdw==
 
 tryer@^1.0.0, tryer@^1.0.1:
   version "1.0.1"
