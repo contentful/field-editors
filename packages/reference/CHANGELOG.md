@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.3.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.3.1...@contentful/field-editor-reference@4.3.2) (2022-04-29)
+
+### Bug Fixes
+
+- use creatableContentTypes for create access check ([#1131](https://github.com/contentful/field-editors/issues/1131)) ([5fcf527](https://github.com/contentful/field-editors/commit/5fcf527609605140564eb0ba172c8877b882ebdc))
+
 ## [4.3.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.3.0...@contentful/field-editor-reference@4.3.1) (2022-04-28)
 
 ### Bug Fixes
