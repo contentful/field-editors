@@ -82,7 +82,7 @@ export const CreateEntryLinkButton = ({
           endIcon={hasDropdown ? <ChevronDownIcon /> : undefined}
           variant="secondary"
           className={styles.action}
-          isDisabled={disabled || isSelecting || (contentTypes && contentTypes.length === 0)}
+          isDisabled={disabled || isSelecting} // (contentTypes && contentTypes.length === 0)}
           startIcon={isSelecting ? undefined : plusIcon}
           size="small"
           testId="create-entry-link-button"
