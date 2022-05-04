@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Link, FieldExtensionSDK } from '@contentful/app-sdk';
-import { Button, Menu, Flex } from '@contentful/f36-components';
+import { Menu, Flex } from '@contentful/f36-components';
 import { EmbeddedEntryInlineIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { Entry } from '@contentful/field-editor-shared';
@@ -96,7 +96,6 @@ function EmbeddedEntityInline(props: EmbeddedEntityInlineProps) {
 interface ToolbarEmbeddedEntityInlineButtonProps {
   onClose: () => void;
   isDisabled: boolean;
-  isButton?: boolean;
 }
 
 async function selectEntityAndInsert(
@@ -148,18 +147,7 @@ export function ToolbarEmbeddedEntityInlineButton(props: ToolbarEmbeddedEntityIn
     moveToTheNextChar(editor);
   }
 
-  return props.isButton ? (
-    <Button
-      isDisabled={props.isDisabled}
-      className={`${INLINES.EMBEDDED_ENTRY}-button`}
-      size="small"
-      onClick={handleClick}
-      startIcon={<EmbeddedEntryInlineIcon />}
-      variant="secondary"
-      testId={`toolbar-toggle-${INLINES.EMBEDDED_ENTRY}`}>
-      Embed inline entry
-    </Button>
-  ) : (
+  return (
     <Menu.Item
       disabled={props.isDisabled}
       className="rich-text__entry-link-block-button"

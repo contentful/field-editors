@@ -31,22 +31,6 @@ export const EmbedEntityWidget = ({ isDisabled, canInsertBlocks }: EmbedEntityWi
   const blockAssetEmbedEnabled =
     isNodeTypeEnabled(sdk.field, BLOCKS.EMBEDDED_ASSET) && canInsertBlocks;
 
-  const numEnabledEmbeds = [
-    inlineEntryEmbedEnabled,
-    blockEntryEmbedEnabled,
-    blockAssetEmbedEnabled,
-  ].filter(Boolean).length;
-
-  const shouldDisplayDropdown = numEnabledEmbeds > 1 || isDisabled;
-
-  // Avoids UI glitching when switching back and forth between
-  // different layouts
-  React.useEffect(() => {
-    if (!shouldDisplayDropdown) {
-      setEmbedDropdownOpen(false);
-    }
-  }, [shouldDisplayDropdown]);
-
   const actions = (
     <>
       {blockEntryEmbedEnabled && (
@@ -54,14 +38,12 @@ export const EmbedEntityWidget = ({ isDisabled, canInsertBlocks }: EmbedEntityWi
           isDisabled={!!isDisabled}
           nodeType={BLOCKS.EMBEDDED_ENTRY}
           onClose={onCloseEntityDropdown}
-          isButton={!shouldDisplayDropdown}
         />
       )}
       {inlineEntryEmbedEnabled && (
         <ToolbarEmbeddedEntityInlineButton
           isDisabled={!!isDisabled || isLinkActive(editor)}
           onClose={onCloseEntityDropdown}
-          isButton={!shouldDisplayDropdown}
         />
       )}
       {blockAssetEmbedEnabled && (
@@ -69,15 +51,10 @@ export const EmbedEntityWidget = ({ isDisabled, canInsertBlocks }: EmbedEntityWi
           isDisabled={!!isDisabled}
           nodeType={BLOCKS.EMBEDDED_ASSET}
           onClose={onCloseEntityDropdown}
-          isButton={!shouldDisplayDropdown}
         />
       )}
     </>
   );
-
-  if (!shouldDisplayDropdown) {
-    return actions;
-  }
 
   return (
     <EmbeddedEntityDropdownButton
