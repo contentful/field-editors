@@ -1,6 +1,6 @@
 import noop from 'lodash/noop';
 import React, { useState, useCallback } from 'react';
-import { css } from 'emotion';
+import { css, cx } from 'emotion';
 import tokens from '@contentful/f36-tokens';
 import { TagsEditorConstraints } from './TagsEditorConstraints';
 import { ConstraintsType, Constraint } from './types';
@@ -56,7 +56,7 @@ const styles = {
 };
 
 const SortablePillHandle = SortableHandle((props: { isDisabled: boolean }) => (
-  <div className={`${styles.handle} ${props.isDisabled ? styles.pillDisabled : ''}`}>
+  <div className={cx(styles.handle, { [styles.pillDisabled]: props.isDisabled })}>
     <DragIcon variant="muted" />
   </div>
 ));
@@ -71,7 +71,7 @@ interface SortablePillProps {
 const SortablePill = SortableElement((props: SortablePillProps) => (
   <Pill
     testId="tag-editor-pill"
-    className={`${styles.pill} ${props.isSortablePillDisabled ? styles.pillDisabled : ''}`}
+    className={cx(styles.pill, { [styles.pillDisabled]: props.isSortablePillDisabled })}
     label={props.label}
     onClose={() => {
       if (!props.isSortablePillDisabled) {

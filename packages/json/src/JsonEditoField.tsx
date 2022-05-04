@@ -1,6 +1,6 @@
 import React from 'react';
 import tokens from '@contentful/f36-tokens';
-import { css } from 'emotion';
+import { css, cx } from 'emotion';
 import { Controlled as CodeMirror } from 'react-codemirror2';
 
 const CODE_MIRROR_CONFIG = {
@@ -61,7 +61,7 @@ const styles = {
 export function JsonEditorField(props: JsonEditorFieldProps) {
   return (
     <div
-      className={`${styles.root} ${props.isDisabled ? 'disabled' : ''}`}
+      className={cx(styles.root, { disabled: props.isDisabled })}
       data-test-id="json-editor-code-mirror">
       <CodeMirror
         value={props.value}
