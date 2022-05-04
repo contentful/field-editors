@@ -74,7 +74,7 @@ export function RadioEditor(props: RadioEditorProps) {
                     }}>
                     {item.label}
                   </Radio>
-                  {checked && (
+                  {checked && !disabled && (
                     <TextLink as="button" className={styles.clearBtn} onClick={clearOption}>
                       Clear
                     </TextLink>
