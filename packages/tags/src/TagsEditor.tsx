@@ -145,9 +145,12 @@ export function TagsEditor(props: TagsEditorProps) {
               label={item}
               index={index}
               key={item + index}
-              // disabled goes for SortableElement
               disabled={isDisabled}
-              // isDisabled goes for SortablePill
+              /**
+               * `isSortablePillDisabled` is needed as SortableElement
+               * from react-sortable-hoc doesn't pass down the disabled prop.
+               * See: https://github.com/clauderic/react-sortable-hoc/issues/612
+               */
               isSortablePillDisabled={isDisabled}
               onRemove={() => {
                 removeItem(index);
