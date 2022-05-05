@@ -88,37 +88,31 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
     [sdk, entityType, onCreated]
   );
 
-  const onLinkExisting = React.useCallback(
-    async (index?: number) => {
-      const entity = await selectSingleEntity({
-        sdk,
-        entityType,
-        editorPermissions,
-      });
-      if (!entity) {
-        return;
-      }
+  const onLinkExisting = async (index?: number) => {
+    const entity = await selectSingleEntity({
+      sdk,
+      entityType,
+      editorPermissions,
+    });
+    if (!entity) {
+      return;
+    }
 
-      onLinkedExisting([entity], index);
-    },
-    [sdk, entityType, onLinkedExisting]
-  );
+    onLinkedExisting([entity], index);
+  };
 
-  const onLinkSeveralExisting = React.useCallback(
-    async (index?: number) => {
-      const entities = await selectMultipleEntities({
-        sdk,
-        entityType,
-        editorPermissions,
-      });
+  const onLinkSeveralExisting = async (index?: number) => {
+    const entities = await selectMultipleEntities({
+      sdk,
+      entityType,
+      editorPermissions,
+    });
 
-      if (!entities || entities.length === 0) {
-        return;
-      }
-      onLinkedExisting(entities, index);
-    },
-    [sdk, entityType, onLinkedExisting]
-  );
+    if (!entities || entities.length === 0) {
+      return;
+    }
+    onLinkedExisting(entities, index);
+  };
 
   return useMemo(
     () => ({
