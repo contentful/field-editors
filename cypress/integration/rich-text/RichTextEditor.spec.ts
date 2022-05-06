@@ -1531,7 +1531,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           richText.expectValue(doc(assetBlock(), emptyParagraph()));
 
           cy.findByTestId('cf-ui-card-actions').click();
-          cy.findByTestId('delete').click();
+          cy.findByTestId('card-action-remove').click();
 
           richText.expectValue(undefined);
         });
