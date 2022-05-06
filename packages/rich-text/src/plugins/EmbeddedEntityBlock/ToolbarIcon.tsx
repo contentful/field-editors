@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
-import { Flex, Icon, Button, Menu } from '@contentful/f36-components';
+import { Flex, Icon, Menu } from '@contentful/f36-components';
 import { AssetIcon, EmbeddedEntryBlockIcon } from '@contentful/f36-icons';
 import { css } from 'emotion';
 
@@ -16,14 +16,12 @@ export const styles = {
 };
 
 interface EmbeddedEntityBlockToolbarIconProps {
-  isButton?: boolean;
   isDisabled: boolean;
   nodeType: string;
   onClose: () => void;
 }
 
 export function EmbeddedEntityBlockToolbarIcon({
-  isButton,
   isDisabled,
   nodeType,
   onClose,
@@ -40,18 +38,7 @@ export function EmbeddedEntityBlockToolbarIcon({
 
   const type = getEntityTypeFromNodeType(nodeType);
   const baseClass = `rich-text__${nodeType}`;
-  return isButton ? (
-    <Button
-      isDisabled={isDisabled}
-      className={`${baseClass}-button`}
-      size="small"
-      onClick={handleClick}
-      startIcon={type === 'Asset' ? <AssetIcon /> : <EmbeddedEntryBlockIcon />}
-      variant="secondary"
-      testId={`toolbar-toggle-${nodeType}`}>
-      {`Embed ${type.toLowerCase()}`}
-    </Button>
-  ) : (
+  return (
     <Menu.Item
       disabled={isDisabled}
       className={`${baseClass}-list-item`}

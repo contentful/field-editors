@@ -803,7 +803,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       insertTable();
 
       richText.editor.type('hey');
-      cy.findByTestId('toolbar-toggle-embedded-entry-inline').click();
+      richText.toolbar.embed('entry-inline');
       richText.editor.type('{backspace}{backspace}'); // one selects, the secodnd deletes it
 
       richText.expectValue(
