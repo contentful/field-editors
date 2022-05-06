@@ -88,6 +88,7 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
     [sdk, entityType, onCreated]
   );
 
+  // Wrapping these two with useCallback caused a bug [ZEND-2154] where CTs were not propagated to the UI at all
   const onLinkExisting = async (index?: number) => {
     const entity = await selectSingleEntity({
       sdk,
@@ -113,7 +114,8 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
     }
     onLinkedExisting(entities, index);
   };
-
+  
+  // FIXME: The memoization might rerun every time due to the always changing callback identities above 
   return useMemo(
     () => ({
       entityType,
