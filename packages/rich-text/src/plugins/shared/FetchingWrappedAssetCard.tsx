@@ -46,7 +46,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
   }
 
   if (asset === undefined) {
-    return <AssetCard size="default" isLoading title="" src="" href="" />;
+    return <AssetCard size="default" isLoading />;
   }
 
   return (
