@@ -51,10 +51,8 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
 
   return (
     <WrappedAssetCard
-      // @ts-expect-error
-      getAsset={props.sdk.space.getAsset}
       getEntityScheduledActions={loadEntityScheduledActions}
-      size="default"
+      size="small"
       isSelected={props.isSelected}
       isDisabled={props.isDisabled}
       localeCode={props.locale}
