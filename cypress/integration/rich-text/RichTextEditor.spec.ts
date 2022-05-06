@@ -1422,7 +1422,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           richText.expectValue(doc(entryBlock(), emptyParagraph()));
 
           cy.findByTestId('cf-ui-card-actions').click();
-          cy.findByTestId('card-action-remove').click();
+          cy.findByTestId('delete').click();
 
           richText.expectValue(undefined);
         });
@@ -1531,7 +1531,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           richText.expectValue(doc(assetBlock(), emptyParagraph()));
 
           cy.findByTestId('cf-ui-card-actions').click();
-          cy.findByTestId('card-action-remove').click();
+          cy.findByTestId('delete').click();
 
           richText.expectValue(undefined);
         });
@@ -1631,7 +1631,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           );
 
           cy.findByTestId('cf-ui-card-actions').click({ force: true });
-          cy.findByTestId('card-action-remove').click({ force: true });
+          cy.findByTestId('delete').click({ force: true });
 
           richText.expectValue(doc(block(BLOCKS.PARAGRAPH, {}, text('hello'), text('world'))));
 
