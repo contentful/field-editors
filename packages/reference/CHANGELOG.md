@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.3.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.3.3...@contentful/field-editor-reference@4.3.4) (2022-05-06)
+
+### Bug Fixes
+
+- add a explanatory comment why we removed useCallback ([4359666](https://github.com/contentful/field-editors/commit/435966687e8e803f7e4fb20f2f7d89101d2fd20a))
+- do not use callback ([811bcfd](https://github.com/contentful/field-editors/commit/811bcfda4a0fadf0701b2d6e712d1871290ebdcb))
+
 ## [4.3.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.3.2...@contentful/field-editor-reference@4.3.3) (2022-05-03)
 
 ### Bug Fixes

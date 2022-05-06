@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-rich-text",
-  "version": "1.1.12",
+  "version": "1.1.13",
   "source": "./src/index.tsx",
   "main": "./dist/index.js",
   "module": "dist/field-editor-rich-text.esm.js",
@@ -27,7 +27,7 @@
     "@contentful/f36-components": "^4.0.27",
     "@contentful/f36-icons": "^4.1.0",
     "@contentful/f36-tokens": "^4.0.0",
-    "@contentful/field-editor-reference": "^4.3.3",
+    "@contentful/field-editor-reference": "^4.3.4",
     "@contentful/field-editor-shared": "^1.1.2",
     "@contentful/rich-text-plain-text-renderer": "^14.0.0",
     "@contentful/rich-text-types": "^14.0.1",
