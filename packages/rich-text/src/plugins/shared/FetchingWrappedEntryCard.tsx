@@ -65,7 +65,7 @@ export function FetchingWrappedEntryCard(props: FetchingWrappedEntryCardProps) {
       contentType={contentType}
       entry={entry}
       onEdit={props.onEdit}
-      onRemove={props.onRemove}
+      onRemove={props.isDisabled ? undefined : props.onRemove}
       isClickable={false}
     />
   );

@@ -59,7 +59,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       defaultLocaleCode={props.sdk.locales.default}
       asset={asset}
       onEdit={props.onEdit}
-      onRemove={props.onRemove}
+      onRemove={props.isDisabled ? undefined : props.onRemove}
       isClickable={false}
     />
   );
