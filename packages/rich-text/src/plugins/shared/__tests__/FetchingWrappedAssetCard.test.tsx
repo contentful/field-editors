@@ -51,8 +51,8 @@ test('some dropdown actions should be disabled', async () => {
   fireEvent.click(getByTestId('cf-ui-card-actions'));
 
   await waitFor(() => {
-    expect(getByTestId('edit')).not.toBeDisabled();
-    expect(queryByTestId('delete')).toBeNull();
+    expect(getByTestId('card-action-edit')).not.toBeDisabled();
+    expect(queryByTestId('card-action-remove')).toBeNull();
     expect(getByTestId('card-action-download')).not.toBeDisabled();
   });
 });
