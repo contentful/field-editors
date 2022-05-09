@@ -11,7 +11,7 @@ type AssetsMap = {
 };
 
 type ScheduledActionsMap = {
-  [key: string]: ScheduledAction[];
+  [key: string]: ScheduledAction[] | undefined;
 };
 
 type State = {
@@ -65,6 +65,14 @@ function reducer(state: State, action: DispatchAction): State {
           [action.id]: 'failed',
         },
       };
+    case 'set_scheduled_actions':
+      return {
+        ...state,
+        scheduledActions: {
+          ...state.scheduledActions,
+          [action.key]: action.actions,
+        },
+      };
     default:
       return state;
   }
@@ -83,7 +91,7 @@ function useEntitiesStore(props: { sdk: BaseExtensionSDK }) {
     (entityType: string, id: string) => {
       const key = `${entityType}:${id}`;
       if (state.scheduledActions[key]) {
-        return Promise.resolve(state.scheduledActions[key]);
+        return Promise.resolve(state.scheduledActions[key] as ScheduledAction[]);
       }
       return props.sdk.space
         .getEntityScheduledActions(entityType, id)
