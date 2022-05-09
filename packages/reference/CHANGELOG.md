@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.3.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.3.4...@contentful/field-editor-reference@4.3.5) (2022-05-09)
+
+### Bug Fixes
+
+- fix caching in references entity store ([#1137](https://github.com/contentful/field-editors/issues/1137)) ([1cd8c86](https://github.com/contentful/field-editors/commit/1cd8c861d41d32898ab7bf6b02044462c9f2ca91))
+
 ## [4.3.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.3.3...@contentful/field-editor-reference@4.3.4) (2022-05-06)
 
 ### Bug Fixes
