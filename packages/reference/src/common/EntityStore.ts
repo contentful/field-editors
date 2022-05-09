@@ -11,7 +11,7 @@ type AssetsMap = {
 };
 
 type ScheduledActionsMap = {
-  [key: string]: ScheduledAction[];
+  [key: string]: ScheduledAction[] | undefined;
 };
 
 type State = {
@@ -63,6 +63,14 @@ function reducer(state: State, action: DispatchAction): State {
         assets: {
           ...state.assets,
           [action.id]: 'failed',
+        },
+      };
+    case 'set_scheduled_actions':
+      return {
+        ...state,
+        scheduledActions: {
+          ...state.scheduledActions,
+          [action.key]: action.actions,
         },
       };
     default:
