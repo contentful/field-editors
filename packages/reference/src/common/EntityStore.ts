@@ -91,7 +91,7 @@ function useEntitiesStore(props: { sdk: BaseExtensionSDK }) {
     (entityType: string, id: string) => {
       const key = `${entityType}:${id}`;
       if (state.scheduledActions[key]) {
-        return Promise.resolve(state.scheduledActions[key]);
+        return Promise.resolve(state.scheduledActions[key] as ScheduledAction[]);
       }
       return props.sdk.space
         .getEntityScheduledActions(entityType, id)
