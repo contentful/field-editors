@@ -1,7 +1,10 @@
-import React, { ChangeEvent } from 'react';
-import { zoneOffsets, defaultZoneOffset } from './utils/zoneOffsets';
+import React, { useCallback, useState } from 'react';
 
-import { Select } from '@contentful/f36-components';
+import { Autocomplete } from '@contentful/f36-components';
+import moment from 'moment-timezone';
+
+import allTimezones, { Timezone } from './utils/timezones';
+import { defaultZoneOffset } from './utils/zoneOffsets';
 
 export type TimezonepickerProps = {
   disabled: boolean;
@@ -14,20 +17,40 @@ export const TimezonepickerInput = ({
   onChange,
   value = defaultZoneOffset,
 }: TimezonepickerProps) => {
+  const defaultTimezone = allTimezones.find(
+    (timezone) =>
+      moment.tz(timezone.ianaName).format('Z') === value || timezone.ianaName === moment.tz.guess()
+  );
+
+  const [filteredTimezones, setFilteredTimezones] = useState(allTimezones);
+  const [userInput, setUserInput] = useState(defaultTimezone);
+
+  const handleSelect = useCallback(
+    (timezone) => {
+      onChange(moment.tz(timezone.ianaName).format('Z'));
+      setUserInput(timezone);
+    },
+    [onChange]
+  );
+
+  const handleChange = (val: string) => {
+    const newFilteredTimezones = allTimezones.filter((timezones) =>
+      timezones.displayValue.toLowerCase().includes(val.toLowerCase())
+    );
+    setFilteredTimezones(newFilteredTimezones.length > 0 ? newFilteredTimezones : allTimezones);
+  };
+
   return (
-    <Select
-      aria-label="Select timezone"
-      testId="timezone-input"
-      value={value}
+    <Autocomplete
       isDisabled={disabled}
-      onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-        onChange(e.currentTarget.value);
-      }}>
-      {zoneOffsets.map((offset) => (
-        <Select.Option key={offset} value={offset}>
-          UTC{offset}
-        </Select.Option>
-      ))}
-    </Select>
+      listMaxHeight={300}
+      items={filteredTimezones.slice(0, 100)}
+      itemToString={(timezone: Timezone) => timezone.displayValue}
+      renderItem={(timezone: Timezone) => timezone.displayValue}
+      onSelectItem={handleSelect}
+      onInputValueChange={handleChange}
+      placeholder={userInput?.displayValue}
+      noMatchesMessage="No timezones found"
+    />
   );
 };
