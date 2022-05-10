@@ -1687,6 +1687,73 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       richText.expectValue(doc(paragraphWithText('it works')));
     });
 
+    it('does not crash when an empty link is followed by a list', () => {
+      const exampleDoc = {
+        data: {},
+        content: [
+          {
+            data: {},
+            content: [
+              {
+                data: {
+                  uri: 'https://example.com',
+                },
+                content: [],
+                nodeType: 'hyperlink',
+              },
+            ],
+            nodeType: 'paragraph',
+          },
+          {
+            data: {},
+            content: [
+              {
+                data: {},
+                content: [
+                  {
+                    data: {},
+                    content: [
+                      {
+                        data: {},
+                        marks: [],
+                        value: 'some text',
+                        nodeType: 'text',
+                      },
+                      {
+                        data: {},
+                        marks: [],
+                        value: ' more text',
+                        nodeType: 'text',
+                      },
+                    ],
+                    nodeType: 'paragraph',
+                  },
+                ],
+                nodeType: 'list-item',
+              },
+            ],
+            nodeType: 'unordered-list',
+          },
+        ],
+        nodeType: 'document',
+      };
+
+      cy.setInitialValue(exampleDoc);
+
+      cy.reload();
+
+      // The field value in this case will still be untouched (i.e. un-normalized)
+      // since we won't trigger onChange.
+      richText.expectValue(exampleDoc);
+
+      // Initial normalization should not invoke onChange
+      cy.editorEvents()
+        .then((events) => events.filter((e) => e.type === 'onValueChanged'))
+        .should('deep.equal', []);
+
+      cy.findByText('some text more text');
+    });
+
     it('runs initial normalization without triggering a value change', () => {
       cy.setInitialValue(invalidDocumentNormalizable);
 
