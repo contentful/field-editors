@@ -5,6 +5,7 @@ import { Descendant, Editor, Node, Transforms } from 'slate';
 import { RichTextEditor } from 'types';
 
 import schema from './constants/Schema';
+import { sanitizeIncomingSlateDoc } from './helpers/sanitizeIncomingSlateDoc';
 
 /**
  * For legacy reasons, a document may not have any content at all
@@ -47,15 +48,17 @@ export const setEditorContent = (editor: Editor, nodes?: Node[]): void => {
 };
 
 /**
- * Converts a contenful rich text document to the corresponding slate editor
+ * Converts a Contentful rich text document to the corresponding slate editor
  * value
  */
 export const documentToEditorValue = (doc: any) => {
-  return toSlatejsDocument({
+  const slateDoc = toSlatejsDocument({
     document: hasContent(doc) ? doc : EMPTY_DOCUMENT,
     // TODO: get rid of schema, https://github.com/contentful/field-editors/pull/1065#discussion_r826723248
     schema,
   });
+
+  return sanitizeIncomingSlateDoc(slateDoc);
 };
 
 export const normalizeEditorValue = (
