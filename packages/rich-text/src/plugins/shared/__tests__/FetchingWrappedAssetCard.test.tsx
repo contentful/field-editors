@@ -29,7 +29,7 @@ beforeEach(() => {
 });
 
 test('some dropdown actions should be disabled', async () => {
-  const { getByTestId, queryByTestId } = render(
+  const { getByTestId } = render(
     <EntityProvider sdk={sdk}>
       <FetchingWrappedAssetCard
         sdk={sdk}
@@ -52,7 +52,7 @@ test('some dropdown actions should be disabled', async () => {
 
   await waitFor(() => {
     expect(getByTestId('card-action-edit')).not.toBeDisabled();
-    expect(queryByTestId('card-action-remove')).toBeNull();
+    expect(getByTestId('card-action-remove')).toBeDisabled();
     expect(getByTestId('card-action-download')).not.toBeDisabled();
   });
 });
