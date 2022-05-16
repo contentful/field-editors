@@ -16,8 +16,8 @@ export type Timezone = {
 function isSupported(timeZone: string): boolean {
   try {
     const newFormat = new Intl.DateTimeFormat('en', { timeZone });
-    const options = newFormat.resolvedOptions().timeZone;
-    return options === timeZone;
+    const options = newFormat.resolvedOptions();
+    return options.timeZone === timeZone;
   } catch (e) {
     return false;
   }
