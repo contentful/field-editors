@@ -30,6 +30,7 @@
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15",
     "moment": "^2.20.0",
+    "dayjs": "^1.11.2",
     "pikaday": "^1.8.2"
   },
   "devDependencies": {
