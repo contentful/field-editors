@@ -3,7 +3,7 @@
   "include": ["src", "types"],
   "compilerOptions": {
     "module": "esnext",
-    "lib": ["dom", "esnext", "ES2020"],
+    "lib": ["dom", "esnext"],
     "rootDir": "./src",
     "baseUrl": "./",
     "paths": {
