@@ -13,6 +13,7 @@ export type Timezone = {
   ianaName: string;
 };
 
+// Borrowed from https://github.com/tc39/proposal-intl-enumeration/blob/master/polyfill/timeZones.js
 function isSupported(timeZone: string): boolean {
   try {
     const newFormat = new Intl.DateTimeFormat('en', { timeZone });
