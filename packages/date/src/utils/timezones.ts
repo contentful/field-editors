@@ -3,6 +3,8 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 
+import { timeZonesNames } from '@vvo/tzdb';
+
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -11,10 +13,24 @@ export type Timezone = {
   ianaName: string;
 };
 
-//@ts-expect-error
-const timezones = Intl.supportedValuesOf('timeZone').map((timezone: string) => ({
-  displayValue: `(GMT${dayjs.tz(undefined, timezone).format('Z')}) - ${timezone.replace('_', ' ')}`,
-  ianaName: timezone,
-}));
+function isSupported(timeZone: string): boolean {
+  try {
+    const newFormat = new Intl.DateTimeFormat('en', { timeZone });
+    const options = newFormat.resolvedOptions().timeZone;
+    return options === timeZone;
+  } catch (e) {
+    return false;
+  }
+}
+
+const timezones = timeZonesNames
+  .filter((timezone: string) => isSupported(timezone))
+  .map((timezone: string) => ({
+    displayValue: `(GMT${dayjs.tz(undefined, timezone).format('Z')}) - ${timezone.replace(
+      '_',
+      ' '
+    )}`,
+    ianaName: timezone,
+  }));
 
 export default timezones;
