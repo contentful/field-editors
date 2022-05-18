@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { Autocomplete } from '@contentful/f36-components';
 
@@ -24,14 +24,23 @@ export const TimezonepickerInput = ({
   onChange,
   value = defaultZoneOffset,
 }: TimezonepickerProps) => {
-  const defaultTimezone = allTimezones.find(
-    (timezone: Timezone) =>
-      dayjs.tz(undefined, timezone.ianaName).format('Z') === value ||
-      timezone.ianaName === dayjs.tz.guess()
-  );
+  const defaultTimezone =
+    allTimezones.find((timezone: Timezone) => timezone.ianaName === dayjs.tz.guess()) ||
+    allTimezones.find(
+      (timezone: Timezone) => dayjs.tz(undefined, timezone.ianaName).format('Z') === value
+    );
 
   const [filteredTimezones, setFilteredTimezones] = useState(allTimezones);
-  const [userInput, setUserInput] = useState(defaultTimezone);
+  const [userInput, setUserInput] = useState(defaultTimezone as Timezone);
+
+  useEffect(() => {
+    if (!value) {
+      setUserInput({
+        displayValue: '',
+        ianaName: '',
+      } as Timezone);
+    }
+  }, [value]);
 
   const handleSelect = useCallback(
     (timezone) => {
@@ -57,8 +66,10 @@ export const TimezonepickerInput = ({
       renderItem={(timezone: Timezone) => timezone.displayValue}
       onSelectItem={handleSelect}
       onInputValueChange={handleChange}
-      placeholder={userInput?.displayValue}
+      selectedItem={userInput}
+      placeholder="Pick a timezone"
       noMatchesMessage="No timezones found"
+      testId="timezone-input"
     />
   );
 };
