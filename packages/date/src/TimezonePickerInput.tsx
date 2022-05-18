@@ -67,7 +67,7 @@ export const TimezonepickerInput = ({
       onSelectItem={handleSelect}
       onInputValueChange={handleChange}
       selectedItem={userInput}
-      placeholder="Pick a timezone"
+      placeholder="Select a timezone"
       noMatchesMessage="No timezones found"
       testId="timezone-input"
     />

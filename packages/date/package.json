@@ -23,7 +23,7 @@
     "test:ci": "tsdx test --env=jsdom --ci"
   },
   "dependencies": {
-    "@contentful/f36-components": "^4.0.27",
+    "@contentful/f36-components": "^4.9.0",
     "@contentful/f36-tokens": "^4.0.0",
     "@contentful/field-editor-shared": "^1.1.2",
     "emotion": "^10.0.17",
