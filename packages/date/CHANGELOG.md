@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.1.2...@contentful/field-editor-date@1.1.3) (2022-05-20)
+
+### Bug Fixes
+
+- made timezone picker match webapp, added guessing [SHE-831] ([#1146](https://github.com/contentful/field-editors/issues/1146)) ([9d98a31](https://github.com/contentful/field-editors/commit/9d98a3171aa4d2fa9641e6a10a92221686f934c5))
+
 ## [1.1.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.1.1...@contentful/field-editor-date@1.1.2) (2022-02-15)
 
 ### Bug Fixes
