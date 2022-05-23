@@ -13,6 +13,12 @@ export type TimepickerProps = {
   ampm?: string;
 };
 
+const styles = {
+  input: css({
+    minWidth: '64px',
+  }),
+};
+
 const validInputFormats = [
   'hh:mm a',
   'hh:mm A',
@@ -83,9 +89,10 @@ export const TimepickerInput = ({
   };
 
   return (
-    <Flex className={css({ width: '145px' })}>
+    <Flex className={css({ width: '140px' })}>
       <TextInput
         aria-label="Select time"
+        className={styles.input}
         placeholder={uses12hClock ? '12:00 AM' : '00:00'}
         date-time-type={uses12hClock ? '12' : '24'}
         testId="time-input"
