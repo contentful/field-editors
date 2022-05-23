@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.1.3...@contentful/field-editor-date@1.1.4) (2022-05-23)
+
+### Bug Fixes
+
+- increased time input width in date picker to fix visual bug [TOL-122] ([#1150](https://github.com/contentful/field-editors/issues/1150)) ([f992f3b](https://github.com/contentful/field-editors/commit/f992f3b333bfac8469cf84cb0f64120526136448))
+
 ## [1.1.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.1.2...@contentful/field-editor-date@1.1.3) (2022-05-20)
 
 ### Bug Fixes
