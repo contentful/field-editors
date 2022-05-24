@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-tags@1.1.2...@contentful/field-editor-tags@1.1.3) (2022-05-04)
+
+### Bug Fixes
+
+- reflect disabled state on fields ([#1125](https://github.com/contentful/field-editors/issues/1125)) ([01502b9](https://github.com/contentful/field-editors/commit/01502b9d785c5f782b0e5de782d092c439cb690f))
+
 ## [1.1.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-tags@1.1.1...@contentful/field-editor-tags@1.1.2) (2022-02-15)
 
 ### Bug Fixes

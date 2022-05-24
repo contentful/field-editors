@@ -29,7 +29,7 @@ export const ScheduledIconWithTooltip = ({
       .catch((e) => {
         setStatus({ type: 'error', error: e });
       });
-  }, []);
+  }, [getEntityScheduledActions, entityType, entityId]);
 
   if (status.type === 'loading' || status.type === 'error') {
     return null;

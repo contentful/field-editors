@@ -9,8 +9,14 @@ describe('Date Editor', () => {
     getTimeInput: () => {
       return cy.findByTestId('time-input');
     },
-    getTimezoneInput: () => {
+    getTimezoneAutocomplete: () => {
       return cy.findByTestId('timezone-input');
+    },
+    getTimezoneList: () => {
+      return cy.findByTestId('timezone-input').find('ul').first();
+    },
+    getTimezoneInput: () => {
+      return cy.findByTestId('timezone-input').find('input').first();
     },
     getClearBtn: () => {
       return cy.findByTestId('date-clear');
@@ -71,7 +77,7 @@ describe('Date Editor', () => {
 
       selectors.getDateInput().should('have.value', 'Wednesday, January 3rd 2018');
       selectors.getTimeInput().should('have.value', '05:53');
-      selectors.getTimezoneInput().should('have.value', '+03:00');
+      selectors.getTimezoneInput().should('contain.value', '+03:00');
     });
 
     it('should render date, time (24 format) and timezone inputs by default', () => {
@@ -84,7 +90,7 @@ describe('Date Editor', () => {
         .should('have.attr', 'date-time-type', '24')
         .should('have.attr', 'placeholder', '00:00')
         .should('have.value', '00:00');
-      selectors.getTimezoneInput().should('be.visible').should('have.value', '+00:00');
+      selectors.getTimezoneInput().should('be.visible').and('contain.value', '00:00');
     });
 
     it('calendar should show current year, month and date', () => {
@@ -102,7 +108,10 @@ describe('Date Editor', () => {
 
     it('correct actions are called when user interacts with editor', () => {
       openPage();
-      selectors.getTimezoneInput().select('+08:00').blur().should('have.value', '+08:00');
+      selectors.getTimezoneAutocomplete().find('button').first().click();
+      selectors.getTimezoneInput().click().type('+08:00');
+      selectors.getTimezoneList().should('be.visible').contains('li', '+08:00').first().click();
+      selectors.getTimezoneInput().should('contain.value', '+08:00');
 
       selectors.getDateInput().click();
       selectors.getCalendarTodayDate().click();
@@ -117,7 +126,7 @@ describe('Date Editor', () => {
 
       selectors.getDateInput().should('have.value', '');
       selectors.getTimeInput().should('have.value', '00:00');
-      selectors.getTimezoneInput().should('have.value', '+00:00');
+      selectors.getTimezoneInput().should('contain.value', '');
       selectors.getClearBtn().should('not.exist');
 
       cy.editorEvents().should('deep.equal', [
@@ -137,7 +146,7 @@ describe('Date Editor', () => {
 
       selectors.getDateInput().should('have.value', 'Wednesday, January 3rd 1990');
       selectors.getTimeInput().should('have.value', '22:53');
-      selectors.getTimezoneInput().should('have.value', '+03:00');
+      selectors.getTimezoneInput().should('contain.value', '+03:00');
 
       cy.setValueExternal('1992-01-03T21:40+05:00');
 
@@ -145,7 +154,7 @@ describe('Date Editor', () => {
 
       selectors.getDateInput().should('have.value', 'Friday, January 3rd 1992');
       selectors.getTimeInput().should('have.value', '21:40');
-      selectors.getTimezoneInput().should('have.value', '+05:00');
+      selectors.getTimezoneInput().should('contain.value', '+05:00');
     });
 
     it('should parse values in time input', () => {
@@ -181,7 +190,7 @@ describe('Date Editor', () => {
 
       selectors.getDateInput().should('have.value', 'Wednesday, January 3rd 1990');
       selectors.getTimeInput().should('have.value', '10:53 PM');
-      selectors.getTimezoneInput().should('not.exist');
+      selectors.getTimezoneAutocomplete().should('not.exist');
 
       selectors.getDateInput().click();
 
@@ -267,7 +276,7 @@ describe('Date Editor', () => {
 
       selectors.getDateInput().should('have.value', 'Wednesday, January 3rd 1990');
       selectors.getTimeInput().should('not.exist');
-      selectors.getTimezoneInput().should('not.exist');
+      selectors.getTimezoneAutocomplete().should('not.exist');
 
       selectors.getDateInput().click();
 

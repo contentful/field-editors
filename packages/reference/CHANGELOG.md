@@ -3,6 +3,37 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.3.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.3.4...@contentful/field-editor-reference@4.3.5) (2022-05-09)
+
+### Bug Fixes
+
+- fix caching in references entity store ([#1137](https://github.com/contentful/field-editors/issues/1137)) ([1cd8c86](https://github.com/contentful/field-editors/commit/1cd8c861d41d32898ab7bf6b02044462c9f2ca91))
+
+## [4.3.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.3.3...@contentful/field-editor-reference@4.3.4) (2022-05-06)
+
+### Bug Fixes
+
+- add a explanatory comment why we removed useCallback ([4359666](https://github.com/contentful/field-editors/commit/435966687e8e803f7e4fb20f2f7d89101d2fd20a))
+- do not use callback ([811bcfd](https://github.com/contentful/field-editors/commit/811bcfda4a0fadf0701b2d6e712d1871290ebdcb))
+
+## [4.3.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.3.2...@contentful/field-editor-reference@4.3.3) (2022-05-03)
+
+### Bug Fixes
+
+- avoid disabling button if no creatable content type ([#1132](https://github.com/contentful/field-editors/issues/1132)) ([72c7b97](https://github.com/contentful/field-editors/commit/72c7b97019d4a1915fd295592f0724f7be08d424))
+
+## [4.3.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.3.1...@contentful/field-editor-reference@4.3.2) (2022-04-29)
+
+### Bug Fixes
+
+- use creatableContentTypes for create access check ([#1131](https://github.com/contentful/field-editors/issues/1131)) ([5fcf527](https://github.com/contentful/field-editors/commit/5fcf527609605140564eb0ba172c8877b882ebdc))
+
+## [4.3.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.3.0...@contentful/field-editor-reference@4.3.1) (2022-04-28)
+
+### Bug Fixes
+
+- always show create asset button to be save in regards of tag-based permissions ([#1124](https://github.com/contentful/field-editors/issues/1124)) ([0aa6db6](https://github.com/contentful/field-editors/commit/0aa6db608201750c03a97c941218ba42a56e9aac))
+
 # [4.3.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.2.3...@contentful/field-editor-reference@4.3.0) (2022-04-28)
 
 ### Features

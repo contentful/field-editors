@@ -37,7 +37,7 @@ export function useEditorPermissions(props: EditorPermissionsProps) {
       if (entityType === 'Entry') {
         // Hardcoded `true` value following https://contentful.atlassian.net/browse/DANTE-486
         // TODO: refine permissions check in order to account for tags in rules
-        const canCreate = readableContentTypes.length > 0 || true;
+        const canCreate = creatableContentTypes.length > 0 || true;
         setCanCreateEntity(canCreate);
       }
     }

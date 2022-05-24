@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.14](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@1.1.13...@contentful/field-editor-rich-text@1.1.14) (2022-05-09)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [1.1.13](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@1.1.12...@contentful/field-editor-rich-text@1.1.13) (2022-05-06)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [1.1.12](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@1.1.11...@contentful/field-editor-rich-text@1.1.12) (2022-05-04)
+
+### Bug Fixes
+
+- reflect disabled state on fields ([#1125](https://github.com/contentful/field-editors/issues/1125)) ([01502b9](https://github.com/contentful/field-editors/commit/01502b9d785c5f782b0e5de782d092c439cb690f))
+
+## [1.1.11](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@1.1.10...@contentful/field-editor-rich-text@1.1.11) (2022-05-03)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [1.1.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@1.1.9...@contentful/field-editor-rich-text@1.1.10) (2022-04-29)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [1.1.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@1.1.8...@contentful/field-editor-rich-text@1.1.9) (2022-04-28)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
 ## [1.1.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@1.1.7...@contentful/field-editor-rich-text@1.1.8) (2022-04-28)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text

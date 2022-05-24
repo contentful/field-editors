@@ -102,9 +102,15 @@ const styles = {
   disabled: css`
     .CodeMirror {
       background: ${tokens.gray100};
+      cursor: 'not-allowed';
     }
     .CodeMirror-cursors {
       visibility: hidden !important;
+    }
+    .CodeMirror-scroll,
+    .CodeMirror-sizer,
+    .CodeMirror-lines {
+      cursor: not-allowed;
     }
   `,
 };
