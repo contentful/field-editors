@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.3.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.3.5...@contentful/field-editor-reference@4.3.6) (2022-05-24)
+
+### Bug Fixes
+
+- **reference:** show all content types for reference CT filter [HOMER-836] ([#1152](https://github.com/contentful/field-editors/issues/1152)) ([fe1f38d](https://github.com/contentful/field-editors/commit/fe1f38d093649f31701ead308720a64ffaba44b0))
+
 ## [4.3.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.3.4...@contentful/field-editor-reference@4.3.5) (2022-05-09)
 
 ### Bug Fixes
