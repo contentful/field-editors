@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.1.4...@contentful/field-editor-date@1.1.5) (2022-05-24)
+
+### Bug Fixes
+
+- change GMT to UTC in datepicker [TOL-60] ([#1149](https://github.com/contentful/field-editors/issues/1149)) ([a407b1a](https://github.com/contentful/field-editors/commit/a407b1a0b9d4861e3d0cc2f7bed17ac90e7489c0))
+
 ## [1.1.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.1.3...@contentful/field-editor-date@1.1.4) (2022-05-23)
 
 ### Bug Fixes
