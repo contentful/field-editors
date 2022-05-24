@@ -61,7 +61,9 @@ export function useEditorPermissions(props: EditorPermissionsProps) {
       if (entityType === 'Entry') {
         // Hardcoded `true` value following https://contentful.atlassian.net/browse/DANTE-486
         // TODO: refine permissions check in order to account for tags in rules
-        const canRead = readableContentTypes.length > 0 || true;
+        // TODO: always show every content type (it's just a filter) to avoid people not seeing
+        // their (partly limited) content types
+        const canRead = true;
         setCanLinkEntity(canRead);
       }
     }
