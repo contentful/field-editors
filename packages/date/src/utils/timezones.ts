@@ -27,7 +27,7 @@ function isSupported(timeZone: string): boolean {
 const timezones = timeZonesNames
   .filter((timezone: string) => isSupported(timezone))
   .map((timezone: string) => ({
-    displayValue: `(GMT${dayjs.tz(undefined, timezone).format('Z')}) - ${timezone.replace(
+    displayValue: `(UTC${dayjs.tz(undefined, timezone).format('Z')}) - ${timezone.replace(
       '_',
       ' '
     )}`,
