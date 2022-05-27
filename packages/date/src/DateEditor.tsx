@@ -5,7 +5,12 @@ import { FieldAPI, FieldConnector, ParametersAPI } from '@contentful/field-edito
 import { DatepickerInput } from './DatepickerInput';
 import { TimepickerInput } from './TimepickerInput';
 import { TimezonepickerInput } from './TimezonePickerInput';
-import { userInputFromDatetime, buildFieldValue, getDefaultAMPM } from './utils/date';
+import {
+  userInputFromDatetime,
+  buildFieldValue,
+  getDefaultAMPM,
+  getDefaultUtcOffset,
+} from './utils/date';
 import { TimeFormat, DateTimeFormat, TimeResult } from './types';
 
 import { TextLink } from '@contentful/f36-components';
@@ -133,7 +138,7 @@ function DateEditorContainer({
                 date: undefined,
                 time: undefined,
                 ampm: getDefaultAMPM(),
-                utcOffset: '',
+                utcOffset: getDefaultUtcOffset(),
               });
             }}>
             Clear
