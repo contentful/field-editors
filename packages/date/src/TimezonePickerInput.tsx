@@ -24,11 +24,13 @@ export const TimezonepickerInput = ({
   onChange,
   value = defaultZoneOffset,
 }: TimezonepickerProps) => {
+  const localTimezone = dayjs.tz.guess();
   const defaultTimezone =
-    allTimezones.find((timezone: Timezone) => timezone.ianaName === dayjs.tz.guess()) ||
-    allTimezones.find(
-      (timezone: Timezone) => dayjs.tz(undefined, timezone.ianaName).format('Z') === value
-    );
+    value && value !== dayjs.tz(undefined, localTimezone).format('Z')
+      ? allTimezones.find(
+          (timezone: Timezone) => dayjs.tz(undefined, timezone.ianaName).format('Z') === value
+        )
+      : allTimezones.find((timezone: Timezone) => timezone.ianaName === localTimezone);
 
   const [filteredTimezones, setFilteredTimezones] = useState(allTimezones);
   const [userInput, setUserInput] = useState(defaultTimezone as Timezone);
