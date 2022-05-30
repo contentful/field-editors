@@ -83,7 +83,7 @@ export const TimepickerInput = ({
   };
 
   return (
-    <Flex className={css({ width: '140px' })}>
+    <Flex className={css({ width: '145px' })}>
       <TextInput
         aria-label="Select time"
         placeholder={uses12hClock ? '12:00 AM' : '00:00'}

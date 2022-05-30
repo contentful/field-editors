@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-date",
-  "version": "1.2.0",
+  "version": "1.1.6",
   "main": "dist/index.js",
   "module": "dist/field-editor-date.esm.js",
   "typings": "dist/index.d.ts",
@@ -30,8 +30,6 @@
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15",
     "moment": "^2.20.0",
-    "dayjs": "^1.11.2",
-    "@vvo/tzdb": "^6.50.0",
     "pikaday": "^1.8.2"
   },
   "devDependencies": {
