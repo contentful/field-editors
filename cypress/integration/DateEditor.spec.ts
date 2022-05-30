@@ -90,7 +90,7 @@ describe('Date Editor', () => {
         .should('have.attr', 'date-time-type', '24')
         .should('have.attr', 'placeholder', '00:00')
         .should('have.value', '00:00');
-      selectors.getTimezoneInput().should('be.visible').and('contain.value', '00:00');
+      selectors.getTimezoneInput().should('be.visible').and('contain.value', '');
     });
 
     it('calendar should show current year, month and date', () => {
