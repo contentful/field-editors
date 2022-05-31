@@ -14,7 +14,7 @@ import { useSelected, ReactEditor, useReadOnly } from 'slate-react';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { focus, moveToTheNextChar } from '../../helpers/editor';
-import { HAS_BEFORE_INPUT_SUPPORT } from '../../helpers/environment';
+import { IS_CHROME } from '../../helpers/environment';
 import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
 import { TrackingPluginActions } from '../../plugins/Tracking';
 import { useSdkContext } from '../../SdkProvider';
@@ -72,12 +72,12 @@ function EmbeddedEntityInline(props: EmbeddedEntityInlineProps) {
       className={styles.root}
       data-embedded-entity-inline-id={entryId}
       // COMPAT: This makes copy & paste work for Firefox
-      contentEditable={!HAS_BEFORE_INPUT_SUPPORT ? false : undefined}
-      draggable={!HAS_BEFORE_INPUT_SUPPORT ? true : undefined}>
+      contentEditable={IS_CHROME ? undefined : false}
+      draggable={IS_CHROME ? true : undefined}>
       <span
         // COMPAT: This makes copy & paste work for Chromium/Blink browsers and Safari
-        contentEditable={HAS_BEFORE_INPUT_SUPPORT ? false : undefined}
-        draggable={HAS_BEFORE_INPUT_SUPPORT ? true : undefined}>
+        contentEditable={IS_CHROME ? false : undefined}
+        draggable={IS_CHROME ? true : undefined}>
         <FetchingWrappedInlineEntryCard
           sdk={sdk}
           entryId={entryId}
