@@ -29,7 +29,10 @@ export const ScheduledIconWithTooltip = ({
       .catch((e) => {
         setStatus({ type: 'error', error: e });
       });
-  }, [getEntityScheduledActions, entityType, entityId]);
+    // This should only be ever called once. Following the eslint hint to add used
+    // dependencies will cause page freeze (infinite loop)
+    // eslint-disable-next-line
+  }, []);
 
   if (status.type === 'loading' || status.type === 'error') {
     return null;
