@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.3.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.3.6...@contentful/field-editor-reference@4.3.7) (2022-06-07)
+
+### Bug Fixes
+
+- **reference:** avoid infinite getEntityScheduledActions calls ([#1159](https://github.com/contentful/field-editors/issues/1159)) ([620111b](https://github.com/contentful/field-editors/commit/620111bdca45a083369bdb42be8e93a16b670937))
+
 ## [4.3.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.3.5...@contentful/field-editor-reference@4.3.6) (2022-05-24)
 
 ### Bug Fixes

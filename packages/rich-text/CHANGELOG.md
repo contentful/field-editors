@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.16](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@1.1.15...@contentful/field-editor-rich-text@1.1.16) (2022-06-07)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
 ## [1.1.15](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@1.1.14...@contentful/field-editor-rich-text@1.1.15) (2022-05-24)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
