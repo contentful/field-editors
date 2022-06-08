@@ -112,6 +112,7 @@ export class ConnectedRichTextEditor extends React.Component {
     onAction: PropTypes.func,
     isToolbarHidden: PropTypes.bool,
     actionsDisabled: PropTypes.bool,
+    customPlugins: PropTypes.arrayOf(PropTypes.func),
   };
 
   static defaultProps = {
@@ -138,7 +139,7 @@ export class ConnectedRichTextEditor extends React.Component {
     onAction: this.props.onAction,
   });
 
-  slatePlugins = buildPlugins(this.richTextAPI);
+  slatePlugins = buildPlugins(this.richTextAPI, this.props.customPlugins);
 
   onChange = (editor) => {
     const { value, operations } = editor;
