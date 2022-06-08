@@ -1,12 +1,9 @@
 import React from 'react';
-
 import { render, configure, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
 import type { FieldExtensionSDK } from '@contentful/field-editor-shared';
-
 import { Field } from './Field';
-
 import { SingleEntryReferenceEditor } from '@contentful/field-editor-reference';
 
 configure({

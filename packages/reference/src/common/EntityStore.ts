@@ -1,8 +1,6 @@
 import * as React from 'react';
-
-import constate from 'constate';
-
 import { BaseExtensionSDK, Entry, Asset, ScheduledAction } from '../types';
+import constate from 'constate';
 
 type EntriesMap = {
   [key: string]: 'failed' | undefined | Entry;
