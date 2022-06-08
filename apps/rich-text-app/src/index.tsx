@@ -4,7 +4,7 @@ import { init, FieldExtensionSDK, locations } from '@contentful/app-sdk';
 import { RichTextEditor, renderRichTextDialog } from '@contentful/field-editor-rich-text';
 import { GlobalStyles } from '@contentful/f36-components';
 
-init((sdk: FieldExtensionSDK | DialogExtensionSDK) => {
+init((sdk: FieldExtensionSDK) => {
   sdk.window.startAutoResizer();
   if (sdk.location.is(locations.LOCATION_DIALOG)) {
     render(
