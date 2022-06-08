@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { BaseExtensionSDK, Entry, Asset, ScheduledAction } from '../types';
+
 import constate from 'constate';
+
+import { BaseExtensionSDK, Entry, Asset, ScheduledAction } from '../types';
 
 type EntriesMap = {
   [key: string]: 'failed' | undefined | Entry;
@@ -204,7 +206,6 @@ function useEntitiesStore(props: { sdk: BaseExtensionSDK }) {
   return { getOrLoadEntry, getOrLoadAsset, loadEntityScheduledActions, ...state };
 }
 
-// TODO: These properties are not typed when exported elsewhere.
 const [EntityProvider, useEntities] = constate(useEntitiesStore);
 
 export { EntityProvider, useEntities };

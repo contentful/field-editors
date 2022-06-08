@@ -31,13 +31,9 @@ export function createFakeFieldAPI<T>(
         } else {
           fn = args[0];
         }
-        const handler: Handler = (value) => {
-          _value = value;
-          fn(value);
-        };
-        emitter.on('onValueChanged', handler);
+        emitter.on('onValueChanged', fn as Handler);
         return () => {
-          emitter.off('onValueChanged', handler);
+          emitter.off('onValueChanged', fn as Handler);
         };
       },
       onIsDisabledChanged: (fn: Function) => {
