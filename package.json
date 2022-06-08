@@ -114,7 +114,8 @@
     "babel-preset-react-app": "^9.1.2",
     "cypress": "^9.2.0",
     "react": ">=16.14.0",
-    "react-dom": ">=16.14.0"
+    "react-dom": ">=16.14.0",
+    "typescript": "4.4.4"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
