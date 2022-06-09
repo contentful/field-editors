@@ -30,8 +30,8 @@ beforeEach(() => {
   };
 });
 
-test('some dropdown actions should be disabled', async () => {
-  const { getByTestId } = render(
+test('some dropdown actions should be disabled/removed', async () => {
+  const { getByTestId, queryByTestId } = render(
     <EntityProvider sdk={sdk}>
       <FetchingWrappedEntryCard
         sdk={sdk}
@@ -53,7 +53,7 @@ test('some dropdown actions should be disabled', async () => {
   fireEvent.click(getByTestId('cf-ui-card-actions'));
 
   await waitFor(() => {
-    expect(getByTestId('card-action-edit')).not.toBeDisabled();
-    expect(getByTestId('card-action-remove')).toBeDisabled();
+    expect(getByTestId('edit')).not.toBeDisabled();
+    expect(queryByTestId('delete')).toBeNull();
   });
 });

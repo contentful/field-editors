@@ -31,7 +31,7 @@
     "@contentful/f36-components": "^4.0.33",
     "@contentful/f36-icons": "^4.1.1",
     "@contentful/f36-tokens": "^4.0.0",
-    "@contentful/field-editor-reference": "^4.0.7",
+    "@contentful/field-editor-reference": "^4.3.7",
     "@contentful/field-editor-shared": "^1.0.3",
     "@contentful/rich-text-plain-text-renderer": "^15.11.1",
     "@contentful/rich-text-types": "^15.11.1",

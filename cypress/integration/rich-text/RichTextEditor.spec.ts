@@ -1422,7 +1422,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           richText.expectValue(doc(entryBlock(), emptyParagraph()));
 
           cy.findByTestId('cf-ui-card-actions').click();
-          cy.findByTestId('card-action-remove').click();
+          cy.findByTestId('delete').click();
 
           richText.expectValue(undefined);
         });
@@ -1563,16 +1563,6 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           );
         });
 
-        it('downloads assets', () => {
-          richText.editor.click().then(triggerEmbeddedAsset);
-          cy.findByTestId('cf-ui-card-actions').click();
-          cy.findByTestId('card-action-download').click();
-
-          const path = require('path');
-          const downloadsFolder = Cypress.config('downloadsFolder');
-          cy.readFile(path.join(downloadsFolder, 'Terrier_mixed-breed_dog.jpg')).should('exist');
-        });
-
         it('should be selected on backspace', () => {
           richText.editor.click();
           triggerEmbeddedAsset();
@@ -1641,7 +1631,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           );
 
           cy.findByTestId('cf-ui-card-actions').click({ force: true });
-          cy.findByTestId('card-action-remove').click({ force: true });
+          cy.findByTestId('delete').click({ force: true });
 
           richText.expectValue(doc(block(BLOCKS.PARAGRAPH, {}, text('hello'), text('world'))));
 
