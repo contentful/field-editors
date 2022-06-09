@@ -113,13 +113,45 @@ export function renderActions(props: {
   ].filter((item) => item);
 }
 
+function getAssetSrc(entityFile?: File) {
+  if (!entityFile?.url) return '';
+
+  return `${entityFile.url}?h=300`;
+}
+
+function getFileType(entityFile?: File): AssetType {
+  const groupToIconMap = {
+    image: 'image',
+    video: 'video',
+    audio: 'audio',
+    richtext: 'richtext',
+    presentation: 'presentation',
+    spreadsheet: 'spreadsheet',
+    pdfdocument: 'pdf',
+    archive: 'archive',
+    plaintext: 'plaintext',
+    code: 'code',
+    markup: 'markup',
+  };
+  const archive = groupToIconMap['archive'] as AssetType;
+
+  if (!entityFile) {
+    return archive;
+  }
+
+  const groupName: keyof typeof groupToIconMap = mimetype.getGroupLabel({
+    type: entityFile.contentType,
+    fallbackFileName: entityFile.fileName,
+  });
+
+  return (groupToIconMap[groupName] as AssetType) || archive;
+}
+
 export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
   const { getOrLoadAsset, assets } = useEntities();
   const asset = assets[props.assetId];
   const defaultLocaleCode = props.sdk.locales.default;
-  const entityFile: File | undefined = asset?.fields?.file
-    ? asset.fields.file[props.locale] || asset.fields.file[defaultLocaleCode]
-    : undefined;
+
   const { onEntityFetchComplete } = props;
   React.useEffect(() => {
     getOrLoadAsset(props.assetId);
@@ -131,40 +163,6 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
     }
     onEntityFetchComplete?.();
   }, [asset, onEntityFetchComplete]);
-
-  function getAssetSrc() {
-    if (!entityFile?.url) return '';
-
-    return `${entityFile.url}?h=300`;
-  }
-
-  function getFileType(): AssetType {
-    const groupToIconMap = {
-      image: 'image',
-      video: 'video',
-      audio: 'audio',
-      richtext: 'richtext',
-      presentation: 'presentation',
-      spreadsheet: 'spreadsheet',
-      pdfdocument: 'pdf',
-      archive: 'archive',
-      plaintext: 'plaintext',
-      code: 'code',
-      markup: 'markup',
-    };
-    const archive = groupToIconMap['archive'] as AssetType;
-
-    if (!entityFile) {
-      return archive;
-    }
-
-    const groupName: keyof typeof groupToIconMap = mimetype.getGroupLabel({
-      type: entityFile.contentType,
-      fallbackFileName: entityFile.fileName,
-    });
-
-    return (groupToIconMap[groupName] as AssetType) || archive;
-  }
 
   if (asset === undefined) {
     return <AssetCard size="small" isLoading />;
@@ -199,13 +197,17 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
     defaultTitle: 'Untitled',
   });
 
+  const entityFile: File | undefined = asset?.fields?.file
+    ? asset.fields.file[props.locale] || asset.fields.file[defaultLocaleCode]
+    : undefined;
+
   return (
     <AssetCard
       title={entityTitle}
       isSelected={props.isSelected}
       size="small"
-      src={getAssetSrc()}
-      type={getFileType()}
+      src={getAssetSrc(entityFile)}
+      type={getFileType(entityFile)}
       status={status}
       icon={<EntityStatusIcon entityType="Asset" entity={asset} />}
       className={styles.assetCard}

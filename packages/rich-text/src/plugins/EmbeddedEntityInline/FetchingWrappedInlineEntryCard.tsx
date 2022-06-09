@@ -50,17 +50,17 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
 
   const contentTypeName = contentType ? contentType.name : '';
 
-  const title = React.useMemo(
-    () =>
-      getEntryTitle({
-        entry,
-        contentType,
-        localeCode: props.sdk.field.locale,
-        defaultLocaleCode: props.sdk.locales.default,
-        defaultTitle: 'Untitled',
-      }),
-    [entry, contentType, props.sdk.field.locale, props.sdk.locales.default]
-  );
+  const title = React.useMemo(() => {
+    if (!entry || entry === 'failed') return '';
+
+    return getEntryTitle({
+      entry,
+      contentType,
+      localeCode: props.sdk.field.locale,
+      defaultLocaleCode: props.sdk.locales.default,
+      defaultTitle: 'Untitled',
+    });
+  }, [entry, contentType, props.sdk.field.locale, props.sdk.locales.default]);
 
   React.useEffect(() => {
     if (!props.entryId) return;
