@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Entry, Asset } from '@contentful/app-sdk';
 import { useEntities } from '@contentful/field-editor-reference';
@@ -13,15 +13,17 @@ interface FetchedEntityProps {
 export function useFetchedEntity({ type, id, onEntityFetchComplete }: FetchedEntityProps) {
   const { entries, assets, getOrLoadEntry, getOrLoadAsset } = useEntities();
 
-  const entity = type === 'Entry' ? entries[id] : assets[id];
-  const ref = useRef<Entry | Asset | 'failed' | undefined>(entity);
+  const store = type === 'Entry' ? entries : assets;
+  const [entity, setEntity] = useState<Entry | Asset | 'failed' | undefined>(store[id]);
 
   // Deep compare the entity value to keep re-rendering to minimal
   useEffect(() => {
-    if (!areEqual(ref.current, entity)) {
-      ref.current = entity;
+    const newValue = store[id];
+
+    if (!areEqual(entity, newValue)) {
+      setEntity(newValue);
     }
-  }, [entity]);
+  }, [store, entity, id]);
 
   // Fetch the entity if needed
   useEffect(() => {
@@ -35,10 +37,10 @@ export function useFetchedEntity({ type, id, onEntityFetchComplete }: FetchedEnt
   }, [type, id]);
 
   useEffect(() => {
-    if (ref.current) {
+    if (entity) {
       onEntityFetchComplete?.();
     }
-  }, [onEntityFetchComplete, ref]);
+  }, [onEntityFetchComplete, entity]);
 
-  return ref.current;
+  return entity;
 }
