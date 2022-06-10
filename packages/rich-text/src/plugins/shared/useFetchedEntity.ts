@@ -26,7 +26,13 @@ export function useFetchedEntity({ type, id, onEntityFetchComplete }: FetchedEnt
   // Fetch the entity if needed
   useEffect(() => {
     (type === 'Entry' ? getOrLoadEntry : getOrLoadAsset)(id);
-  }, [entity, getOrLoadEntry, getOrLoadAsset, type, id]);
+
+    // "getOrLoadEntry" and "getOrLoadAsset" instances change with every
+    // entity store update causing page lag on initial load
+    // TODO: consider rewriting useEntities() hook to avoid that happening in
+    // first place.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [type, id]);
 
   useEffect(() => {
     if (ref.current) {
