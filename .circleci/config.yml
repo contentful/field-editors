@@ -10,14 +10,14 @@ executors:
   linux-cypress:
     resource_class: xlarge
     docker:
-      - image: cypress/browsers:node14.17.0-chrome91-ff89
+      - image: cypress/browsers:node14.17.6-chrome100-ff98
     environment:
       TZ: UTC
       CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
   linux-cypress-edge:
     resource_class: xlarge
     docker:
-      - image: cypress/browsers:node12.18.4-edge88
+      - image: cypress/browsers:node14.19.0-chrome100-ff99-edge
 #  macos:
 #    macos:
 #      xcode: 11.4
