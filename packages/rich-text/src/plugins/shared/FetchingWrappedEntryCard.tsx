@@ -25,7 +25,6 @@ interface InternalEntryCard {
 
 const InternalEntryCard = React.memo((props: InternalEntryCard) => {
   const { entry, sdk, loadEntityScheduledActions } = props;
-  console.log('re-rendering');
 
   if (entry === undefined) {
     return <EntryCard isLoading />;
