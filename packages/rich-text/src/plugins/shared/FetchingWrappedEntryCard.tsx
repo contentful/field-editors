@@ -1,39 +1,31 @@
 import * as React from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { ScheduledAction, Entry } from '@contentful/app-sdk';
 import { EntryCard } from '@contentful/f36-components';
 import {
   useEntities,
   MissingEntityCard,
   WrappedEntryCard,
 } from '@contentful/field-editor-reference';
+import areEqual from 'fast-deep-equal';
 
-interface FetchingWrappedEntryCardProps {
-  entryId: string;
+import { useFetchedEntity } from './useFetchedEntity';
+
+interface InternalEntryCard {
   isDisabled: boolean;
   isSelected: boolean;
   locale: string;
   sdk: FieldExtensionSDK;
-  onEntityFetchComplete?: VoidFunction;
+  loadEntityScheduledActions: (entityType: string, entityId: string) => Promise<ScheduledAction[]>;
+  entry?: Entry | 'failed';
   onEdit?: VoidFunction;
   onRemove?: VoidFunction;
 }
 
-export function FetchingWrappedEntryCard(props: FetchingWrappedEntryCardProps) {
-  const { entryId, onEntityFetchComplete } = props;
-  const { getOrLoadEntry, loadEntityScheduledActions, entries } = useEntities();
-
-  React.useEffect(() => {
-    getOrLoadEntry(entryId);
-  }, [getOrLoadEntry, entryId]);
-
-  const entry = entries[entryId];
-
-  React.useEffect(() => {
-    if (entry) {
-      onEntityFetchComplete?.();
-    }
-  }, [onEntityFetchComplete, entry]);
+const InternalEntryCard = React.memo((props: InternalEntryCard) => {
+  const { entry, sdk, loadEntityScheduledActions } = props;
+  console.log('re-rendering');
 
   if (entry === undefined) {
     return <EntryCard isLoading />;
@@ -49,7 +41,7 @@ export function FetchingWrappedEntryCard(props: FetchingWrappedEntryCardProps) {
     );
   }
 
-  const contentType = props.sdk.space
+  const contentType = sdk.space
     .getCachedContentTypes()
     .find((contentType) => contentType.sys.id === entry.sys.contentType.sys.id);
 
@@ -69,4 +61,41 @@ export function FetchingWrappedEntryCard(props: FetchingWrappedEntryCardProps) {
       isClickable={false}
     />
   );
+}, areEqual);
+
+InternalEntryCard.displayName = 'ReferenceCard';
+
+interface FetchingWrappedEntryCardProps {
+  entryId: string;
+  isDisabled: boolean;
+  isSelected: boolean;
+  locale: string;
+  sdk: FieldExtensionSDK;
+  onEntityFetchComplete?: VoidFunction;
+  onEdit?: VoidFunction;
+  onRemove?: VoidFunction;
 }
+
+export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) => {
+  const { entryId, onEntityFetchComplete } = props;
+  const { loadEntityScheduledActions } = useEntities();
+
+  const entry = useFetchedEntity({
+    type: 'Entry',
+    id: entryId,
+    onEntityFetchComplete,
+  });
+
+  return (
+    <InternalEntryCard
+      entry={entry}
+      sdk={props.sdk}
+      locale={props.locale}
+      isDisabled={props.isDisabled}
+      isSelected={props.isSelected}
+      onEdit={props.onEdit}
+      onRemove={props.onRemove}
+      loadEntityScheduledActions={loadEntityScheduledActions}
+    />
+  );
+};
