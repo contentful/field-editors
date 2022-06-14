@@ -4,10 +4,6 @@ route: /rich-text
 menu: Editors
 ---
 
-import Readme from '../README.md';
-
-<Readme />
-
 import { Playground } from 'docz';
 import { useMemo } from 'react';
 import { RichTextEditor } from './index';
@@ -24,6 +20,19 @@ import { validateRichTextDocument } from './test-utils/validation';
 import { css } from 'emotion';
 import publishedEntry from '../../reference/src/__fixtures__/published_entry.json';
 import publishedAsset from '../../reference/src/__fixtures__/published_asset.json';
+
+# @contentful/field-editor-rich-text
+
+```bash
+npm install @contentful/field-editor-rich-text
+```
+
+This package contains a React `RichTextEditor` component that is used as default for `RichText` field type in the Contentful web application.
+
+```js
+import 'codemirror/lib/codemirror.css';
+import { RichTextEditor } from '@contentful/field-editor-rich-text';
+```
 
 ## In Action
 
