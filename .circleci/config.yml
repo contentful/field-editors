@@ -10,14 +10,11 @@ executors:
   linux-cypress:
     resource_class: xlarge
     docker:
-      - image: cypress/browsers:node14.17.0-chrome91-ff89
+      - image: cypress/browsers:node14.19.0-chrome100-ff99-edge
     environment:
       TZ: UTC
       CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
-  linux-cypress-edge:
-    resource_class: xlarge
-    docker:
-      - image: cypress/browsers:node14.19.0-chrome100-ff99-edge
+
 #  macos:
 #    macos:
 #      xcode: 11.4
@@ -110,17 +107,10 @@ workflows:
       - integration-tests:
           name: integration-<< matrix.executor >>-<< matrix.browser >>
           matrix:
-            alias: integration-tests-linux-chrome-ff
+            alias: integration-tests-linux
             parameters:
               executor: [linux-cypress]
-              browser: [chrome, firefox]
-      - integration-tests:
-          name: integration-<< matrix.executor >>-<< matrix.browser >>
-          matrix:
-            alias: integration-tests-linux-edge
-            parameters:
-              executor: [linux-cypress-edge]
-              browser: [edge]
+              browser: [chrome, firefox, edge]
       - release:
           filters:
             branches:
@@ -128,4 +118,4 @@ workflows:
           requires:
             - lint
             - unit-tests
-            - integration-tests-linux-chrome-ff
+            - integration-tests-linux

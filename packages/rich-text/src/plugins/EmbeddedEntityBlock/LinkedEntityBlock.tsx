@@ -45,16 +45,16 @@ export function LinkedEntityBlock(props: LinkedEntityBlockProps) {
   const isDisabled = useReadOnly();
   const { id: entityId, linkType: entityType } = element.data.target.sys;
 
-  const handleEditClick = () => {
+  const handleEditClick = React.useCallback(() => {
     const openEntity = entityType === 'Asset' ? sdk.navigator.openAsset : sdk.navigator.openEntry;
     return openEntity(entityId, { slideIn: true });
-  };
+  }, [sdk, entityId, entityType]);
 
-  const handleRemoveClick = () => {
+  const handleRemoveClick = React.useCallback(() => {
     if (!editor) return;
     const pathToElement = ReactEditor.findPath(editor, element);
     Transforms.removeNodes(editor, { at: pathToElement });
-  };
+  }, [editor, element]);
 
   return (
     <div

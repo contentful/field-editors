@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-rich-text",
-  "version": "2.0.0-next.43",
+  "version": "2.0.0-next.44",
   "source": "./src/index.tsx",
   "main": "./dist/index.js",
   "module": "dist/field-editor-rich-text.esm.js",
@@ -24,7 +24,8 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@contentful/contentful-slatejs-adapter": "^15.11.0",
+    "@contentful/app-sdk": "^4.6.0",
+    "@contentful/contentful-slatejs-adapter": "^15.13.1",
     "@contentful/f36-components": "^4.0.33",
     "@contentful/f36-icons": "^4.1.1",
     "@contentful/f36-tokens": "^4.0.0",

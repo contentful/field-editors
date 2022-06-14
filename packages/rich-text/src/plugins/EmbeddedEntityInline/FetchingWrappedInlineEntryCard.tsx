@@ -50,17 +50,17 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
 
   const contentTypeName = contentType ? contentType.name : '';
 
-  const title = React.useMemo(() => {
-    if (!entry || entry === 'failed') return '';
-
-    return getEntryTitle({
-      entry,
-      contentType,
-      localeCode: props.sdk.field.locale,
-      defaultLocaleCode: props.sdk.locales.default,
-      defaultTitle: 'Untitled',
-    });
-  }, [entry, contentType, props.sdk.field.locale, props.sdk.locales.default]);
+  const title = React.useMemo(
+    () =>
+      getEntryTitle({
+        entry,
+        contentType,
+        localeCode: props.sdk.field.locale,
+        defaultLocaleCode: props.sdk.locales.default,
+        defaultTitle: 'Untitled',
+      }),
+    [entry, contentType, props.sdk.field.locale, props.sdk.locales.default]
+  );
 
   React.useEffect(() => {
     if (!props.entryId) return;
@@ -92,7 +92,7 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
         testId={INLINES.EMBEDDED_ENTRY}
         isSelected={props.isSelected}
         actions={[
-          <MenuItem key="remove" onClick={props.onRemove} testId="card-action-remove">
+          <MenuItem key="remove" onClick={props.onRemove} testId="delete">
             Remove
           </MenuItem>,
         ]}
@@ -110,11 +110,7 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
         <MenuItem key="edit" onClick={props.onEdit}>
           Edit
         </MenuItem>,
-        <MenuItem
-          key="remove"
-          onClick={props.onRemove}
-          disabled={props.isDisabled}
-          testId="card-action-remove">
+        <MenuItem key="remove" onClick={props.onRemove} disabled={props.isDisabled} testId="delete">
           Remove
         </MenuItem>,
       ]}>
