@@ -1624,6 +1624,11 @@
   resolved "https://registry.yarnpkg.com/@contentful/app-sdk/-/app-sdk-4.3.0.tgz#50ef57eff486e30f90f0349058de618d723be8bd"
   integrity sha512-/WZJd/LmrJdrNmTadSKy+wanENrRceERi3zx1u5NjyvvHiMuMfigX2wZ+i3H1pQspSSwwdQCv9A0kTpmxuxQtw==
 
+"@contentful/app-sdk@^4.6.0":
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/@contentful/app-sdk/-/app-sdk-4.6.0.tgz#2eff666695fb0ed122222415a106f72aebe1d40f"
+  integrity sha512-6GwyQBhq3iwYJvxx2q+m2JDmDadszzthlIbgX8gO/v8Ode3vRszGY6/aJKgcc8ZtYPzsnvbo9czpUELFnst1DA==
+
 "@contentful/contentful-extension-scripts@^0.20.4":
   version "0.20.4"
   resolved "https://registry.yarnpkg.com/@contentful/contentful-extension-scripts/-/contentful-extension-scripts-0.20.4.tgz#8a85d87a3ebd8fedd6d8667e5de196531808a676"
@@ -1645,7 +1650,7 @@
     typescript "^4.0.5"
     yargs "16.1.0"
 
-"@contentful/contentful-slatejs-adapter@^15.11.0":
+"@contentful/contentful-slatejs-adapter@^15.13.1":
   version "15.13.1"
   resolved "https://registry.yarnpkg.com/@contentful/contentful-slatejs-adapter/-/contentful-slatejs-adapter-15.13.1.tgz#1407b483183b3ac65c64c06c4ed842339b63305c"
   integrity sha512-I02RuQYjrLmnTiy3C1xeOQyeh8yOTFS+5EGsfhATdCf/ipbbFmS5tHwPqwDCXzcK4Xf+73qJISh676mzU3RzYA==
