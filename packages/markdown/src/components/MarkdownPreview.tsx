@@ -1,9 +1,12 @@
 import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import tokens from '@contentful/f36-tokens';
-import DOMPurify from 'dompurify';
 import { css, cx } from 'emotion';
+import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { github } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
+
 import { EditorDirection, PreviewComponents } from '../types';
+import { allowedHtmlTags } from '../utils/allowedHtmlTags';
 
 const styles = {
   root: css`
@@ -188,6 +191,16 @@ function MarkdownLink(props: {
   );
 }
 
+function MarkdownCodeBlock(props: { children: any; className?: string }) {
+  const lang = props.className?.replace('lang-', '');
+
+  return (
+    <SyntaxHighlighter language={lang} style={github}>
+      {props.children}
+    </SyntaxHighlighter>
+  );
+}
+
 export const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
   const className = cx(
     styles.root,
@@ -196,27 +209,40 @@ export const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
     props.direction === 'rtl' ? styles.rtl : undefined
   );
 
-  // See the list of allowed Tags here:
-  // https://github.com/cure53/DOMPurify/blob/main/src/tags.js#L3-L121
-  const cleanHTML = React.useMemo(() => {
-    return DOMPurify.sanitize(props.value);
-  }, [props.value]);
-
   return (
     <div className={className} data-test-id="markdown-preview">
       <Markdown
         options={{
+          createElement(type, props, children) {
+            // check if this tag is allowed
+            if ((type as string) in allowedHtmlTags) {
+              return React.createElement(type, props, children);
+            }
+
+            if (Object.is(type, MarkdownLink)) {
+              return React.createElement(type, props, children);
+            }
+
+            if (Object.is(type, MarkdownCodeBlock)) {
+              return React.createElement(type, props, children);
+            }
+
+            // If we reached here then the user tried to render something like a script or an iframe.
+            return <>{children}</>;
+          },
           overrides: {
             a: {
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              component: MarkdownLink as any,
+              component: MarkdownLink,
               props: {
                 Embedly: props.previewComponents?.embedly,
               },
             },
+            code: {
+              component: MarkdownCodeBlock,
+            },
           },
         }}>
-        {cleanHTML}
+        {props.value}
       </Markdown>
     </div>
   );
