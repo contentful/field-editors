@@ -132,10 +132,9 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
         // features e.g. pressing ENTER on a card to add a new paragraph
         // underneath. It's crucial not to pass a custom handler when
         // isClickable is disabled which in the case of RT it's.
-        props.isClickable
+        isClickable
           ? (e: React.MouseEvent<HTMLElement>) => {
               e.preventDefault();
-              if (!isClickable) return;
               onEdit && onEdit();
             }
           : undefined

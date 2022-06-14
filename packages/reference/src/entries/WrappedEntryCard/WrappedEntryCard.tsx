@@ -174,7 +174,6 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
         props.isClickable
           ? (e: React.MouseEvent<HTMLElement>) => {
               e.preventDefault();
-              if (!props.isClickable) return;
               if (props.onClick) return props.onClick(e);
               props.onEdit && props.onEdit();
             }
