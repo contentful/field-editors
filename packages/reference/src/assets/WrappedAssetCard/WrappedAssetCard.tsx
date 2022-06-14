@@ -127,11 +127,19 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
             : `${entityFile.url}?h=300`
           : ''
       }
-      onClick={(e: React.MouseEvent<HTMLElement>) => {
-        e.preventDefault();
-        if (!isClickable) return;
-        onEdit && onEdit();
-      }}
+      onClick={
+        // Providing an onClick handler messes up with some rich text
+        // features e.g. pressing ENTER on a card to add a new paragraph
+        // underneath. It's crucial not to pass a custom handler when
+        // isClickable is disabled which in the case of RT it's.
+        props.isClickable
+          ? (e: React.MouseEvent<HTMLElement>) => {
+              e.preventDefault();
+              if (!isClickable) return;
+              onEdit && onEdit();
+            }
+          : undefined
+      }
       dragHandleRender={props.renderDragHandle}
       withDragHandle={!!props.renderDragHandle}
       actions={[

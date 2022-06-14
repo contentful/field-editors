@@ -166,12 +166,20 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
             ].filter((item) => item)
           : []
       }
-      onClick={(e: React.MouseEvent<HTMLElement>) => {
-        e.preventDefault();
-        if (!props.isClickable) return;
-        if (props.onClick) return props.onClick(e);
-        props.onEdit && props.onEdit();
-      }}
+      onClick={
+        // Providing an onClick handler messes up with some rich text
+        // features e.g. pressing ENTER on a card to add a new paragraph
+        // underneath. It's crucial not to pass a custom handler when
+        // isClickable is disabled which in the case of RT it's.
+        props.isClickable
+          ? (e: React.MouseEvent<HTMLElement>) => {
+              e.preventDefault();
+              if (!props.isClickable) return;
+              if (props.onClick) return props.onClick(e);
+              props.onEdit && props.onEdit();
+            }
+          : undefined
+      }
     />
   );
 }
