@@ -40,8 +40,17 @@ function validateNode(node, path, errors) {
 
 function getValidator(nodeType) {
   const schema = getSchemaWithNodeType(nodeType);
+  const validate = ajv.compile(schema);
 
-  return ajv.compile(schema);
+  const validator: any = (data) => {
+    validate(data);
+
+    validator.errors = removeGrandChildrenMinItemsErrors(validate.errors ?? []);
+
+    return validator.errors.length === 0;
+  };
+
+  return validator;
 }
 
 function buildSchemaErrors(validateSchema, _, errors) {
@@ -87,4 +96,16 @@ function removeChildNodes(node) {
 
 function isLeafNode(node) {
   return helpers.isText(node) || !Array.isArray(node.content);
+}
+
+/**
+ * Removes minItems errors occurred in grand-children to avoid
+ * false positives caused by the use of `removeGrandChildNodes`
+ */
+function removeGrandChildrenMinItemsErrors(errors) {
+  return errors.filter((error) => {
+    const level = error.instancePath.split('/').length;
+
+    return !(level > 3 && error.keyword === 'minItems');
+  });
 }

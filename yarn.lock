@@ -3078,7 +3078,7 @@
   dependencies:
     lodash "^4.17.20"
 
-"@contentful/rich-text-plain-text-renderer@^15.11.1":
+"@contentful/rich-text-plain-text-renderer@^15.12.1":
   version "15.12.1"
   resolved "https://registry.yarnpkg.com/@contentful/rich-text-plain-text-renderer/-/rich-text-plain-text-renderer-15.12.1.tgz#1a83958db2a788e5226d372671d1467112b8e0c8"
   integrity sha512-0pDLs4V1dhK98yoIFq8e16Ey54uyAPLKeqMtry3db4X0zEuA/+6CEetoyEdJrySAaCkfB7+Y6n4vKMFUSPHs3Q==
@@ -3092,7 +3092,7 @@
   dependencies:
     "@contentful/rich-text-types" "^15.12.1"
 
-"@contentful/rich-text-types@^15.11.1", "@contentful/rich-text-types@^15.12.1":
+"@contentful/rich-text-types@^15.12.1":
   version "15.12.1"
   resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-15.12.1.tgz#3b131f03fc55b6001f6eb5f5615aefb22678b3d3"
   integrity sha512-WQJic0fnAbTa8xzO3Z+aVqDmA5+JMNQlATQMVJ40GoOrnM8YoJZsKGf6xX/O6Y6Eq10T1LrpxIOslODFI9qFgg==
