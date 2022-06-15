@@ -2172,7 +2172,7 @@ exports[`Rich Text Editor > Microsoft Word (.docx) deserialization > unordered l
                   "data": {},
                   "marks": [],
                   "nodeType": "text",
-                  "value": "This"
+                  "value": "This "
                 }
               ],
               "data": {},
@@ -2190,7 +2190,7 @@ exports[`Rich Text Editor > Microsoft Word (.docx) deserialization > unordered l
                   "data": {},
                   "marks": [],
                   "nodeType": "text",
-                  "value": "Is"
+                  "value": "Is "
                 }
               ],
               "data": {},
@@ -2208,7 +2208,7 @@ exports[`Rich Text Editor > Microsoft Word (.docx) deserialization > unordered l
                   "data": {},
                   "marks": [],
                   "nodeType": "text",
-                  "value": "A list"
+                  "value": "A list "
                 }
               ],
               "data": {},
@@ -2252,7 +2252,7 @@ exports[`Rich Text Editor > Microsoft Word (.docx) deserialization > ordered lis
                   "data": {},
                   "marks": [],
                   "nodeType": "text",
-                  "value": "This is"
+                  "value": "This is "
                 }
               ],
               "data": {},
@@ -2270,7 +2270,7 @@ exports[`Rich Text Editor > Microsoft Word (.docx) deserialization > ordered lis
                   "data": {},
                   "marks": [],
                   "nodeType": "text",
-                  "value": "An ordered list"
+                  "value": "An ordered list "
                 }
               ],
               "data": {},
@@ -2321,7 +2321,13 @@ exports[`Rich Text Editor > Microsoft Word (.docx) deserialization > tables #0`]
                       ],
                       "nodeType": "text",
                       "value": "This is some"
-                    }
+                    },
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": " "
+                    },
                   ],
                   "data": {},
                   "nodeType": "paragraph"
@@ -2346,7 +2352,13 @@ exports[`Rich Text Editor > Microsoft Word (.docx) deserialization > tables #0`]
                       ],
                       "nodeType": "text",
                       "value": "Content on tables"
-                    }
+                    },
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": " "
+                    },
                   ],
                   "data": {},
                   "nodeType": "paragraph"
