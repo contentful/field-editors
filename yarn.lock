@@ -2991,6 +2991,26 @@
     moment "^2.20.0"
     react-sortable-hoc "^2.0.0"
 
+"@contentful/field-editor-reference@^4.3.8":
+  version "4.3.8"
+  resolved "https://registry.yarnpkg.com/@contentful/field-editor-reference/-/field-editor-reference-4.3.8.tgz#8d0bd7dd3278b073cfd8b8226d4b56bd9a55585e"
+  integrity sha512-vLO9Uqe307c7ogQfyA9GrGtAFLeGS9hHnu8GW3z9LGXBKSZ6+ozKJt5mP8qqz3x1Q47X33xTQMfPYHz01PxWjQ==
+  dependencies:
+    "@contentful/f36-components" "^4.0.27"
+    "@contentful/f36-icons" "^4.1.0"
+    "@contentful/f36-tokens" "^4.0.0"
+    "@contentful/field-editor-shared" "^1.1.2"
+    "@contentful/mimetype" "^1.4.0"
+    "@types/deep-equal" "^1.0.1"
+    array-move "^3.0.0"
+    constate "3.2.0"
+    deep-equal "2.0.5"
+    emotion "^10.0.17"
+    lodash "^4.17.15"
+    lodash-es "^4.17.15"
+    moment "^2.20.0"
+    react-sortable-hoc "^2.0.0"
+
 "@contentful/field-editor-shared@^0.19.0":
   version "0.19.0"
   resolved "https://registry.yarnpkg.com/@contentful/field-editor-shared/-/field-editor-shared-0.19.0.tgz#200f4714899a3622e5d7d3a912d8f1f8530e2204"

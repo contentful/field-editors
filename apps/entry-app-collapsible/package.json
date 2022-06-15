@@ -8,7 +8,7 @@
     "@contentful/f36-components": "^4.0.27",
     "@contentful/f36-icons": "^4.1.0",
     "@contentful/f36-tokens": "^4.0.0",
-    "@contentful/field-editor-rich-text": "^2.0.0-next.44",
+    "@contentful/field-editor-rich-text": "^2.0.0-next.45",
     "@contentful/field-editor-shared": "^0.25.1",
     "@contentful/field-editor-single-line": "^0.15.6",
     "emotion": "^10.0.17",
