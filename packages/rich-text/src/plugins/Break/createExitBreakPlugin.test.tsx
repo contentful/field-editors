@@ -7,7 +7,7 @@ import { createExitBreakPlugin } from './createExitBreakPlugin';
 
 describe('Exit Break', () => {
   // https://slate-js.slack.com/archives/C013QHXSCG1/p1640853996467300
-  it('drives its config from other plugins', () => {
+  it('derives its config from other plugins', () => {
     const input = (
       <editor>
         <hp>

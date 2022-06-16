@@ -16,7 +16,7 @@ import {
 export const withNormalizer = (editor: RichTextEditor) => {
   const rules: Required<NormalizerRule>[] = baseRules;
 
-  // Drive normalization rules from other plugin's configurations
+  // Derive normalization rules from other plugin's configurations
   for (const p of editor.plugins as RichTextPlugin[]) {
     const { normalizer: _rules } = p;
 

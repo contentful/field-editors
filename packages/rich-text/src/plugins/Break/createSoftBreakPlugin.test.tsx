@@ -5,7 +5,7 @@ import { jsx, createTestEditor, mockPlugin } from '../../test-utils';
 import { createSoftBreakPlugin } from './createSoftBreakPlugin';
 
 describe('Soft Break', () => {
-  it('drives its config from other plugins', () => {
+  it('derives its config from other plugins', () => {
     const input = (
       <editor>
         <hp>
