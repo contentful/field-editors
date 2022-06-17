@@ -5,15 +5,13 @@ import { AssetCard } from '@contentful/f36-components';
 import { ClockIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { entityHelpers } from '@contentful/field-editor-shared';
+// @ts-expect-error
 import mimetype from '@contentful/mimetype';
 import { css } from 'emotion';
 
 import { MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
 import { File, Asset, RenderDragFn } from '../../types';
 import { renderActions, renderAssetInfo } from './AssetCardActions';
-
-
-// @ts-expect-error
 
 const groupToIconMap = {
   image: 'image',
