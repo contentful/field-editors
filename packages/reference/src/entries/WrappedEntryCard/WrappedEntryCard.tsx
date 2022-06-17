@@ -1,13 +1,14 @@
 import * as React from 'react';
-import { css } from 'emotion';
-import tokens from '@contentful/f36-tokens';
+
 import { SpaceAPI } from '@contentful/app-sdk';
 import { EntryCard, MenuItem, MenuDivider } from '@contentful/f36-components';
-import { ContentType, Entry, File, RenderDragFn } from '../../types';
-import { entityHelpers, isValidImage } from '@contentful/field-editor-shared';
-import { AssetThumbnail, MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
-
 import { ClockIcon } from '@contentful/f36-icons';
+import tokens from '@contentful/f36-tokens';
+import { entityHelpers, isValidImage } from '@contentful/field-editor-shared';
+import { css } from 'emotion';
+
+import { AssetThumbnail, MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
+import { ContentType, Entry, File, RenderDragFn } from '../../types';
 
 const { getEntryTitle, getEntityDescription, getEntryStatus, getEntryImage } = entityHelpers;
 
@@ -166,12 +167,19 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
             ].filter((item) => item)
           : []
       }
-      onClick={(e: React.MouseEvent<HTMLElement>) => {
-        e.preventDefault();
-        if (!props.isClickable) return;
-        if (props.onClick) return props.onClick(e);
-        props.onEdit && props.onEdit();
-      }}
+      onClick={
+        // Providing an onClick handler messes up with some rich text
+        // features e.g. pressing ENTER on a card to add a new paragraph
+        // underneath. It's crucial not to pass a custom handler when
+        // isClickable is disabled which in the case of RT it's.
+        props.isClickable
+          ? (e: React.MouseEvent<HTMLElement>) => {
+              e.preventDefault();
+              if (props.onClick) return props.onClick(e);
+              props.onEdit && props.onEdit();
+            }
+          : undefined
+      }
     />
   );
 }

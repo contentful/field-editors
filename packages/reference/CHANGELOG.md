@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.3.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.3.7...@contentful/field-editor-reference@4.3.8) (2022-06-15)
+
+### Bug Fixes
+
+- don't register onClick callbacks when isClickable is false ([#1163](https://github.com/contentful/field-editors/issues/1163)) ([fe6fc6b](https://github.com/contentful/field-editors/commit/fe6fc6b872acfde3b097c626d2eef81a7cc24193))
+
 ## [4.3.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.3.6...@contentful/field-editor-reference@4.3.7) (2022-06-07)
 
 ### Bug Fixes
