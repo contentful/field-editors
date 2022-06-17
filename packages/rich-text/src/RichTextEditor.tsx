@@ -57,7 +57,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
        - https://github.com/ianstormtaylor/slate/pull/4540
        - https://github.com/udecode/plate/issues/1169
 
-       The content is forcely set to the new value and it's ensured
+       The content is forcefully set to the new value and it's ensured
        the change listener isn't invoked
     */
     setIsFirstRender(false);
