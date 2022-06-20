@@ -56,7 +56,10 @@ export const EmbedEntityWidget = ({ isDisabled, canInsertBlocks }: EmbedEntityWi
     </>
   );
 
-  return (
+  const showEmbedButton =
+    blockEntryEmbedEnabled || inlineEntryEmbedEnabled || blockAssetEmbedEnabled;
+
+  return showEmbedButton ? (
     <EmbeddedEntityDropdownButton
       isDisabled={isDisabled}
       onClose={onCloseEntityDropdown}
@@ -64,5 +67,5 @@ export const EmbedEntityWidget = ({ isDisabled, canInsertBlocks }: EmbedEntityWi
       isOpen={isEmbedDropdownOpen}>
       {actions}
     </EmbeddedEntityDropdownButton>
-  );
+  ) : null;
 };
