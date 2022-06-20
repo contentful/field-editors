@@ -7,7 +7,21 @@ module.exports = {
     require.resolve('@contentful/eslint-config-extension/react'),
   ],
   rules: {
-    'react-hooks/exhaustive-deps': 'warn',
+    'react-hooks/exhaustive-deps': 'error',
+    'eslint-comments/require-description': [
+      'error',
+      {
+        ignore: [
+          'eslint',
+          'eslint-disable',
+          'eslint-enable',
+          'eslint-env',
+          'exported',
+          'global',
+          'globals',
+        ],
+      },
+    ],
     'react/default-props-match-prop-types': 'warn',
     'react/no-unused-prop-types': 'off',
     'you-dont-need-lodash-underscore/flatten': 'warn',
