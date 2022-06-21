@@ -55,6 +55,7 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
           index,
         });
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
     [entityType, props.onCreate, props.onAction]
   );
   const onLinkedExisting = React.useCallback(
@@ -73,6 +74,7 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
           });
       });
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
     [entityType, props.onLink, props.onAction]
   );
 
@@ -114,8 +116,8 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
     }
     onLinkedExisting(entities, index);
   };
-  
-  // FIXME: The memoization might rerun every time due to the always changing callback identities above 
+
+  // FIXME: The memoization might rerun every time due to the always changing callback identities above
   return useMemo(
     () => ({
       entityType,
@@ -133,6 +135,7 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
       onLinkedExisting,
       itemsLength,
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
     [
       entityType,
       canLinkMultiple,
@@ -142,6 +145,7 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
       editorPermissions.canCreateEntity,
       editorPermissions.canLinkEntity,
       actionLabels,
+      // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
       editorPermissions.creatableContentTypes.map((ct) => ct.sys.id).join(':'),
       onCreate,
       onLinkExisting,

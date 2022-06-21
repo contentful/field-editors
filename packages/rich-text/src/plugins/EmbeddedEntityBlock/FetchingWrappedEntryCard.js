@@ -12,6 +12,7 @@ export function FetchingWrappedEntryCard(props) {
 
   React.useEffect(() => {
     getOrLoadEntry(props.entryId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, [props.entryId]);
 
   const entry = entries[props.entryId];
@@ -20,6 +21,7 @@ export function FetchingWrappedEntryCard(props) {
     if (entry) {
       props.onEntityFetchComplete && props.onEntityFetchComplete();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, [entry]);
 
   if (entry === 'failed') {

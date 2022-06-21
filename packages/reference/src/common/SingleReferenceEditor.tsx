@@ -52,6 +52,7 @@ function Editor(props: EditorProps) {
       props.renderCustomCard
         ? props.renderCustomCard(cardProps, linkActionsProps, renderDefaultCard)
         : false,
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
     [linkActionsProps]
   );
 

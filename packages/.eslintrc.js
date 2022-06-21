@@ -6,8 +6,10 @@ module.exports = {
     require.resolve('@contentful/eslint-config-extension/jsx-a11y'),
     require.resolve('@contentful/eslint-config-extension/react'),
   ],
+  plugins: ['eslint-comments'],
   rules: {
     'react-hooks/exhaustive-deps': 'error',
+    // Require descriptions only for disable-line and disable-next-line
     'eslint-comments/require-description': [
       'error',
       {
@@ -53,4 +55,5 @@ module.exports = {
       },
     },
   ],
+  ignorePatterns: ['.eslintrc.js'],
 };

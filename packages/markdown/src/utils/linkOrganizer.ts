@@ -4,9 +4,9 @@ import extend from 'lodash/extend';
 import isString from 'lodash/isString';
 import isObject from 'lodash/isObject';
 import max from 'lodash/max';
-// eslint-disable-next-line
+// eslint-disable-next-line -- TODO: describe this disable
 import isFinite from 'lodash/isFinite';
-// eslint-disable-next-line
+// eslint-disable-next-line -- TODO: describe this disable
 import forEach from 'lodash/forEach';
 
 function extractTitle(title: string) {

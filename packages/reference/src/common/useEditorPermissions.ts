@@ -43,6 +43,7 @@ export function useEditorPermissions(props: EditorPermissionsProps) {
     }
 
     void checkCreateAccess();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, [entityType, parameters.instance, creatableContentTypes]);
 
   useEffect(() => {
@@ -69,6 +70,7 @@ export function useEditorPermissions(props: EditorPermissionsProps) {
     }
 
     void checkLinkAccess();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, [entityType, parameters.instance, readableContentTypes]);
 
   return {

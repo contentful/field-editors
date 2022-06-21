@@ -179,7 +179,7 @@ export class ConnectedRichTextEditor extends React.Component {
     }
   }
 
-  // eslint-disable-next-line no-unused-vars
+  // eslint-disable-next-line -- TODO: describe this disable  no-unused-vars
   handleKeyDown = (event, editor, next) => {
     const ESC = 27;
 

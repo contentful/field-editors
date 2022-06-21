@@ -199,6 +199,7 @@ function useEntitiesStore(props: { sdk: BaseExtensionSDK }) {
         });
       }
     }) as { (): void };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, [props.sdk, state.assets, state.entries]);
 
   return { getOrLoadEntry, getOrLoadAsset, loadEntityScheduledActions, ...state };

@@ -141,12 +141,14 @@ export const MarkdownTextarea = React.memo((props: MarkdownTextareaProps) => {
         )
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, []);
 
   useEffect(() => {
     if (editor) {
       props.onReady(editor);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, [editor]);
 
   const className = cx(

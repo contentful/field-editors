@@ -4,7 +4,7 @@ import range from 'lodash/range';
 import min from 'lodash/min';
 import max from 'lodash/max';
 import times from 'lodash/times';
-// eslint-disable-next-line you-dont-need-lodash-underscore/repeat
+// eslint-disable-next-line -- TODO: describe this disable  you-dont-need-lodash-underscore/repeat
 import repeat from 'lodash/repeat';
 
 import * as CodeMirrorWrapper from './CodeMirrorWrapper';

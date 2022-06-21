@@ -14,7 +14,7 @@ function isUrl(string) {
   return /^(?:[a-z]+:)?\/\//i.test(string) || /^mailto:/i.test(string);
 }
 
-// eslint-disable-next-line react/prop-types
+// eslint-disable-next-line -- TODO: describe this disable  react/prop-types
 function getEntityInfo({ entityTitle, entityStatus, contentTypeName }) {
   const title = truncate(entityTitle, 60) || 'Untitled';
 

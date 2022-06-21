@@ -43,7 +43,6 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
     throw new Error(`"${field.type}" field type is not supported by SingleLineEditor`);
   }
 
-  // eslint-disable-next-line
   const constraints = ConstraintsUtils.fromFieldValidations(field.validations, field.type);
   const checkConstraint = ConstraintsUtils.makeChecker(constraints);
   const direction = locales.direction[field.locale] || 'ltr';

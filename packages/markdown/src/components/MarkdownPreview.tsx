@@ -171,7 +171,7 @@ function MarkdownLink(props: {
   href: string;
   title: string;
   className?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
   children: any;
   Embedly?: React.SFC<{ url: string }>;
 }) {
@@ -208,7 +208,7 @@ export const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
         options={{
           overrides: {
             a: {
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              // eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
               component: MarkdownLink as any,
               props: {
                 Embedly: props.previewComponents?.embedly,

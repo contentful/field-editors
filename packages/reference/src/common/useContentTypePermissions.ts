@@ -63,6 +63,7 @@ export function useContentTypePermissions(
     }
 
     void checkContentTypeAccess();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, [availableContentTypes]);
 
   return {

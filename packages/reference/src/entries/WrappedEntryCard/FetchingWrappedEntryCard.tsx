@@ -57,6 +57,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
 
   React.useEffect(() => {
     getOrLoadEntry(props.entryId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, [props.entryId]);
 
   const size = props.viewType === 'link' ? 'small' : 'default';
@@ -98,6 +99,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
     if (entry) {
       props.onAction && props.onAction({ type: 'rendered', entity: 'Entry' });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, [entry]);
 
   return React.useMemo(() => {
@@ -173,5 +175,6 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
     }
 
     return renderDefaultCard();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, [props, entityKey]);
 }

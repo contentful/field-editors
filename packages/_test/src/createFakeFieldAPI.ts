@@ -14,7 +14,7 @@ export function createFakeFieldAPI<T>(
 ): [FieldAPI, Emitter] {
   const emitter: Emitter = mitt();
 
-  // eslint-disable-next-line
+  // eslint-disable-next-line -- TODO: describe this disable
   let _value: any = initialValue;
 
   return [

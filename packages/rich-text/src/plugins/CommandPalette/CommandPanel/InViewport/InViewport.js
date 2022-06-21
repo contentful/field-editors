@@ -10,7 +10,7 @@ const throttle = (delay = 200, fn) => {
       return;
     }
     lastCall = now;
-    return fn(...args); // eslint-disable-line
+    return fn(...args); // eslint-disable-line -- TODO: describe this disable
   };
   return throttleExec;
 };
@@ -97,13 +97,13 @@ export class InViewport extends Component {
       className,
       children,
       testId,
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      // eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/no-unused-vars
       onOverflowBottom,
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      // eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/no-unused-vars
       onOverflowLeft,
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      // eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/no-unused-vars
       onOverflowRight,
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      // eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/no-unused-vars
       onOverflowTop,
       ...otherProps
     } = this.props;

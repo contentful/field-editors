@@ -12,6 +12,7 @@ export function FetchingWrappedAssetCard(props) {
 
   React.useEffect(() => {
     getOrLoadAsset(props.assetId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, [props.assetId]);
 
   const asset = assets[props.assetId];
@@ -20,6 +21,7 @@ export function FetchingWrappedAssetCard(props) {
     if (asset) {
       props.onEntityFetchComplete && props.onEntityFetchComplete();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, [asset]);
 
   if (asset === 'failed') {

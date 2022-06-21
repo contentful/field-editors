@@ -1,7 +1,7 @@
 import get from 'lodash/get';
 import isObject from 'lodash/isObject';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
 type Asset = any;
 
 type LinkWithMedia = {

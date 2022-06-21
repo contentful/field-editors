@@ -41,11 +41,11 @@ export class FieldConnector<ValueType> extends React.Component<
     children: () => {
       return null;
     },
-    // eslint-disable-next-line
+    // eslint-disable-next-line -- TODO: describe this disable
     isEmptyValue: (value: any | Nullable) => {
       return value === null || value === '';
     },
-    // eslint-disable-next-line
+    // eslint-disable-next-line -- TODO: describe this disable
     isEqualValues: (value1: any | Nullable, value2: any | Nullable) => {
       return isEqual(value1, value2);
     },

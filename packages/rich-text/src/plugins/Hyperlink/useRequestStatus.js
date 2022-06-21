@@ -70,7 +70,7 @@ export function useRequestStatus({ richTextAPI, target }) {
           setRequestStatus({ type: 'error', error: e });
         });
     }
-  }, [target]); // eslint-disable-line
+  }, [target]); // eslint-disable-line -- TODO: describe this disable
 
   return requestStatus;
 }

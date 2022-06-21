@@ -30,6 +30,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
 
   React.useEffect(() => {
     getOrLoadAsset(props.assetId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, [props.assetId]);
 
   const asset = assets[props.assetId];
@@ -44,6 +45,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
     if (asset) {
       props.onAction && props.onAction({ type: 'rendered', entity: 'Asset' });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, [asset]);
 
   const onEdit = async () => {
@@ -149,5 +151,6 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
     }
 
     return renderDefaultCard();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, [props, entityKey]);
 }

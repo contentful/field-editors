@@ -16,7 +16,7 @@ export function createMarkdownActions(props: {
 }) {
   const { sdk, editor, locale } = props;
 
-  // eslint-disable-next-line @typescript-eslint/ban-types
+  // eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/ban-types
   const insertAssetsWithConfirmation = async (assets: Array<Object> | null) => {
     if (assets) {
       const { links, fallbacks } = await insertAssetLinks(assets, {
@@ -150,7 +150,7 @@ export function createMarkdownActions(props: {
       try {
         const { entity: asset } = (await sdk.navigator.openNewAsset({
           slideIn: { waitForClose: true },
-        })) as any; // eslint-disable-line @typescript-eslint/no-explicit-any
+        })) as any; // eslint-disable-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
 
         const markdownLinks = await insertAssetsWithConfirmation([asset]);
         editor.insert(markdownLinks);

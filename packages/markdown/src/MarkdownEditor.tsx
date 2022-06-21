@@ -58,12 +58,14 @@ export function MarkdownEditor(
         editor.refresh();
       }, 1);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, [editor]);
 
   React.useEffect(() => {
     props.sdk.access.can('create', 'Asset').then((value) => {
       setCanUploadAssets(value);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, []);
 
   React.useEffect(() => {
@@ -78,10 +80,12 @@ export function MarkdownEditor(
 
   const actions = React.useMemo(() => {
     return createMarkdownActions({ sdk: props.sdk, editor, locale: props.sdk.field.locale });
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, [editor]);
 
   const openMarkdownHelp = React.useCallback(() => {
     openCheatsheetModal(props.sdk.dialogs);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, []);
 
   return (
