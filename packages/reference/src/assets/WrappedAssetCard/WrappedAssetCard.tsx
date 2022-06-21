@@ -1,18 +1,17 @@
 import React from 'react';
-import { css } from 'emotion';
-import tokens from '@contentful/f36-tokens';
-import { SpaceAPI } from '@contentful/app-sdk';
-import { renderActions, renderAssetInfo } from './AssetCardActions';
-import { File, Asset, RenderDragFn } from '../../types';
-import { entityHelpers } from '@contentful/field-editor-shared';
-import { MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
 
+import { SpaceAPI } from '@contentful/app-sdk';
+import { AssetCard } from '@contentful/f36-components';
+import { ClockIcon } from '@contentful/f36-icons';
+import tokens from '@contentful/f36-tokens';
+import { entityHelpers } from '@contentful/field-editor-shared';
 // @ts-expect-error
 import mimetype from '@contentful/mimetype';
+import { css } from 'emotion';
 
-import { ClockIcon } from '@contentful/f36-icons';
-
-import { AssetCard } from '@contentful/f36-components';
+import { MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
+import { File, Asset, RenderDragFn } from '../../types';
+import { renderActions, renderAssetInfo } from './AssetCardActions';
 
 const groupToIconMap = {
   image: 'image',

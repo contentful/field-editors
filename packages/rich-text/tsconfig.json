@@ -11,7 +11,9 @@
     },
     "noImplicitAny": false,
     "allowJs": true,
-    "jsx": "react"
+    "jsx": "react",
+    "downlevelIteration": true,
+    "resolveJsonModule": true
   },
   "linterOptions": {
     "exclude": ["src/**"]

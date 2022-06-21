@@ -1,10 +1,17 @@
 const webpack = require('@cypress/webpack-preprocessor');
+const { initPlugin: initSnapshotPlugin } = require('cypress-plugin-snapshots/plugin');
 
-module.exports = (on) => {
+module.exports = (on, config) => {
   const options = {
     webpackOptions: {
       resolve: {
         extensions: ['.ts', '.js'],
+      },
+      // needed to prevent ReferenceErrors
+      // cf. https://github.com/webpack/webpack/issues/6693#issuecomment-745688108
+      output: {
+        hotUpdateChunkFilename: '[id].[fullhash].hot-update.js',
+        hotUpdateMainFilename: '[runtime].[fullhash].hot-update.json',
       },
       performance: false,
       module: {
@@ -26,4 +33,7 @@ module.exports = (on) => {
     },
   };
   on('file:preprocessor', webpack(options));
+
+  initSnapshotPlugin(on, config);
+  return config;
 };

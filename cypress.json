@@ -6,7 +6,13 @@
     "reportDir": "./cypress/reports/separate-reports",
     "overwrite": false,
     "html": false,
-    "json": true,
-    "numTestsKeptInMemory": 1
-  }
+    "json": true
+  },
+  "retries": {
+    "runMode": 2,
+    "openMode": 0
+  },
+  "testFiles": "**/*.spec.*",
+  "numTestsKeptInMemory": 1,
+  "ignoreTestFiles": ["**/__snapshots__/*", "**/__image_snapshots__/*"]
 }

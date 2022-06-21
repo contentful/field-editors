@@ -12,13 +12,13 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean",
-    "build": "lerna run --concurrency 1 --stream --scope=@contentful/** build",
-    "build:apps": "lerna run --concurrency 1 --stream --scope={'markdown-app,entry-app-collapsible,multiple-references-app,rich-text-app,singleline-app'} build",
+    "build": "turbo run build --scope=@contentful/** --no-deps",
+    "build:apps": "turbo run build --scope=*-app",
     "lint": "eslint ./ --ext .js,.jsx,.ts,.tsx",
     "lint:md": "remark --no-stdout --frail *.md */*.md",
     "watch": "lerna run --stream watch",
-    "tsc": "lerna run --concurrency 1 --stream tsc",
-    "test:ci": "lerna run --concurrency 1 --stream test:ci",
+    "tsc": "turbo run tsc",
+    "test:ci": "turbo run test:ci",
     "test:integration": "start-server-and-test docz:dev http://localhost:9000 cy:run",
     "prettier": "prettier './**/*.{js,jsx,ts,tsx}' --write",
     "cy:open": "TZ=UTC cypress open",
@@ -48,31 +48,35 @@
     "@commitlint/config-conventional": "^12.0.1",
     "@contentful/contentful-extension-scripts": "^0.20.4",
     "@contentful/eslint-config-extension": "0.4.2",
-    "@contentful/f36-components": "^4.0.1",
-    "@contentful/f36-tokens": "^4.0.0",
-    "@cypress/webpack-preprocessor": "4.1.5",
-    "@testing-library/cypress": "5.3.1",
+    "@contentful/f36-components": "^4.10.0",
+    "@contentful/f36-tokens": "^4.0.1",
+    "@cypress/webpack-preprocessor": "^5.11.0",
+    "@testing-library/cypress": "^8.0.2",
     "@testing-library/jest-dom": "5.12.0",
     "@testing-library/react": "11.2.6",
     "@types/jest": "^26.0.19",
     "@types/lodash": "4.14.168",
     "@types/lodash-es": "4.17.4",
-    "@types/react": "16.14.5",
+    "@types/react": "^16.14.5",
     "@types/react-dom": "16.9.12",
-    "@types/testing-library__cypress": "5.0.6",
+    "@types/testing-library__cypress": "^5.0.9",
     "@types/webpack-env": "1.16.0",
     "@typescript-eslint/eslint-plugin": "^4.10.0",
     "@typescript-eslint/parser": "^4.10.0",
+    "ajv": "^8.8.2",
     "contentful-cli": "^1.3.29",
     "cssnano": "4.1.11",
-    "cypress": "^9.1.0",
+    "cypress": "^9.2.0",
+    "cypress-plugin-snapshots": "^1.4.4",
+    "cypress-plugin-tab": "^1.0.5",
     "cz-lerna-changelog": "^2.0.2",
     "docz": "1.3.2",
     "docz-theme-default": "1.2.0",
     "emotion": "10.0.27",
     "eslint": "^7.32.0",
     "eslint-config-react-app": "^6.0.0",
-    "eslint-plugin-cypress": "^2.7.0",
+    "eslint-plugin-cypress": "^2.12.0",
+    "eslint-plugin-import-helpers": "^1.2.0",
     "eslint-plugin-jest": "^24.1.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-mocha": "^9.0.0",
@@ -85,31 +89,35 @@
     "lerna": "^3.20.2",
     "lint-staged": "10.5.4",
     "mocha": "^8.0.1",
+    "mocha-multi-reporters": "^1.5.1",
     "mochawesome": "^6.1.1",
     "mochawesome-merge": "^4.0.3",
     "mochawesome-report-generator": "^5.1.0",
     "prettier": "2.3.0",
-    "react": "16.10.2",
-    "react-dom": "16.10.2",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
     "remark-cli": "^8.0.0",
     "remark-lint-no-dead-urls": "^1.0.2",
     "remark-lint-no-empty-sections": "^4.0.0",
     "remark-preset-lint-recommended": "^5.0.0",
     "remark-validate-links": "^10.0.0",
+    "serve": "^12.0.0",
     "start-server-and-test": "^1.11.0",
     "trim-right": "^1.0.1",
     "ts-loader": "8.1.0",
     "tsdx": "^0.14.1",
     "tslib": "^2.3.1",
+    "turbo": "^1.0.23",
     "typescript": "^4.4.2",
     "webpack": "4.46.0",
     "eslint-plugin-eslint-comments": "^3.2.0"
   },
   "resolutions": {
-    "@types/react": "16.14.5",
-    "babel-preset-react-app": "9.1.2",
-    "react": "16.10.2",
-    "react-dom": "16.10.2"
+    "@types/react": "^16.14.5",
+    "babel-preset-react-app": "^9.1.2",
+    "cypress": "^9.2.0",
+    "react": "16.14.0",
+    "react-dom": "16.14.0"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -152,5 +160,23 @@
   "volta": {
     "node": "14.17.0",
     "yarn": "1.21.1"
+  },
+  "turbo": {
+    "pipeline": {
+      "build": {
+        "dependsOn": [
+          "^build"
+        ],
+        "outputs": [
+          "dist/**"
+        ]
+      },
+      "tsc": {
+        "outputs": []
+      },
+      "test:ci": {
+        "outputs": []
+      }
+    }
   }
 }

@@ -1,0 +1,2995 @@
+exports[`Rich Text Editor > Lists > pastes orphaned list items as unordered lists #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "Hello"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": [
+                        {
+                          "data": {},
+                          "marks": [
+                            {
+                              "type": "bold"
+                            }
+                          ],
+                          "nodeType": "text",
+                          "value": "world!"
+                        }
+                      ],
+                      "data": {},
+                      "nodeType": "paragraph"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "list-item"
+                }
+              ],
+              "data": {},
+              "nodeType": "unordered-list"
+            }
+          ],
+          "data": {},
+          "nodeType": "list-item"
+        }
+      ],
+      "data": {},
+      "nodeType": "unordered-list"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > Lists > supports pasting of a simple list #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "item #1"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            }
+          ],
+          "data": {},
+          "nodeType": "list-item"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "item #2"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            }
+          ],
+          "data": {},
+          "nodeType": "list-item"
+        }
+      ],
+      "data": {},
+      "nodeType": "unordered-list"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > Lists > pastes texts inside lists #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "Hello world!"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            }
+          ],
+          "data": {},
+          "nodeType": "list-item"
+        }
+      ],
+      "data": {},
+      "nodeType": "unordered-list"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > Lists > pastes elements inside links #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "This is a "
+                },
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "link"
+                    }
+                  ],
+                  "data": {
+                    "uri": "https://example.com"
+                  },
+                  "nodeType": "hyperlink"
+                },
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": " and an inline entry: "
+                },
+                {
+                  "content": [],
+                  "data": {
+                    "target": {
+                      "sys": {
+                        "id": "example-entity-id",
+                        "linkType": "Entry",
+                        "type": "Link"
+                      }
+                    }
+                  },
+                  "nodeType": "embedded-entry-inline"
+                },
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": ""
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            }
+          ],
+          "data": {},
+          "nodeType": "list-item"
+        }
+      ],
+      "data": {},
+      "nodeType": "unordered-list"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > Lists > pastes list items as new lists inside lists #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "Hello"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": [
+                        {
+                          "data": {},
+                          "marks": [],
+                          "nodeType": "text",
+                          "value": "sub"
+                        }
+                      ],
+                      "data": {},
+                      "nodeType": "paragraph"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "list-item"
+                },
+                {
+                  "content": [
+                    {
+                      "content": [
+                        {
+                          "data": {},
+                          "marks": [],
+                          "nodeType": "text",
+                          "value": "list"
+                        }
+                      ],
+                      "data": {},
+                      "nodeType": "paragraph"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "list-item"
+                }
+              ],
+              "data": {},
+              "nodeType": "unordered-list"
+            }
+          ],
+          "data": {},
+          "nodeType": "list-item"
+        }
+      ],
+      "data": {},
+      "nodeType": "unordered-list"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > Lists > confers the parent list type upon list items pasted within lists #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "Hello"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": [
+                        {
+                          "data": {},
+                          "marks": [],
+                          "nodeType": "text",
+                          "value": "sub"
+                        }
+                      ],
+                      "data": {},
+                      "nodeType": "paragraph"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "list-item"
+                },
+                {
+                  "content": [
+                    {
+                      "content": [
+                        {
+                          "data": {},
+                          "marks": [],
+                          "nodeType": "text",
+                          "value": "list"
+                        }
+                      ],
+                      "data": {},
+                      "nodeType": "paragraph"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "list-item"
+                }
+              ],
+              "data": {},
+              "nodeType": "ordered-list"
+            }
+          ],
+          "data": {},
+          "nodeType": "list-item"
+        }
+      ],
+      "data": {},
+      "nodeType": "ordered-list"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > Lists > pastes only the text content of other blocks #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "Item #1"
+                },
+                {
+                  "data": {},
+                  "marks": [
+                    {
+                      "type": "bold"
+                    }
+                  ],
+                  "nodeType": "text",
+                  "value": "Header 1"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            },
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "Header 2 ("
+                },
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "with link"
+                    }
+                  ],
+                  "data": {
+                    "uri": "https://example.com"
+                  },
+                  "nodeType": "hyperlink"
+                },
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": ")"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            },
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [
+                    {
+                      "type": "bold"
+                    }
+                  ],
+                  "nodeType": "text",
+                  "value": "Cell 1"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            },
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "Cell 2"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            }
+          ],
+          "data": {},
+          "nodeType": "list-item"
+        }
+      ],
+      "data": {},
+      "nodeType": "unordered-list"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > Lists > pastes table & its inline elements correctly #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": "What can I do with tables"
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    },
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Property"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-header-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Supported"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-header-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Adding and removing rows and columns"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Yes"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Table header"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Yes, for rows and columns"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Formatting options"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [
+                        {
+                          "type": "bold"
+                        }
+                      ],
+                      "nodeType": "text",
+                      "value": "Bold"
+                    },
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": ","
+                    },
+                    {
+                      "data": {},
+                      "marks": [
+                        {
+                          "type": "italic"
+                        }
+                      ],
+                      "nodeType": "text",
+                      "value": "italics"
+                    },
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": ","
+                    },
+                    {
+                      "data": {},
+                      "marks": [
+                        {
+                          "type": "underline"
+                        }
+                      ],
+                      "nodeType": "text",
+                      "value": "underline"
+                    },
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": ","
+                    },
+                    {
+                      "data": {},
+                      "marks": [
+                        {
+                          "type": "code"
+                        }
+                      ],
+                      "nodeType": "text",
+                      "value": "code"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Hyperlinks"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": ""
+                    },
+                    {
+                      "content": [
+                        {
+                          "data": {},
+                          "marks": [],
+                          "nodeType": "text",
+                          "value": "URL"
+                        }
+                      ],
+                      "data": {
+                        "uri": "https://google.com"
+                      },
+                      "nodeType": "hyperlink"
+                    },
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": ", "
+                    },
+                    {
+                      "content": [
+                        {
+                          "data": {},
+                          "marks": [],
+                          "nodeType": "text",
+                          "value": "asset"
+                        }
+                      ],
+                      "data": {
+                        "target": {
+                          "sys": {
+                            "id": "example-entity-id",
+                            "linkType": "Asset",
+                            "type": "Link"
+                          }
+                        }
+                      },
+                      "nodeType": "asset-hyperlink"
+                    },
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": " and "
+                    },
+                    {
+                      "content": [
+                        {
+                          "data": {},
+                          "marks": [],
+                          "nodeType": "text",
+                          "value": "entry"
+                        }
+                      ],
+                      "data": {
+                        "target": {
+                          "sys": {
+                            "id": "example-entity-id",
+                            "linkType": "Entry",
+                            "type": "Link"
+                          }
+                        }
+                      },
+                      "nodeType": "entry-hyperlink"
+                    },
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": ""
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Embed entries"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Only inline entries "
+                    },
+                    {
+                      "content": [],
+                      "data": {
+                        "target": {
+                          "sys": {
+                            "id": "example-entity-id",
+                            "linkType": "Entry",
+                            "type": "Link"
+                          }
+                        }
+                      },
+                      "nodeType": "embedded-entry-inline"
+                    },
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": ""
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Copy & paste from other documents"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Yes. Eg. Google Docs, Jira, Confluence"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        }
+      ],
+      "data": {},
+      "nodeType": "table"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > HR > should paste from internal copying #0`] =
+{
+  "content": [
+    {
+      "content": [],
+      "data": {},
+      "nodeType": "hr"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > HR > should paste from external resources #0`] =
+{
+  "content": [
+    {
+      "content": [],
+      "data": {},
+      "nodeType": "hr"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > removes style tags #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": "paste only this"
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > Tables > Google Docs #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [
+                        {
+                          "type": "bold"
+                        }
+                      ],
+                      "nodeType": "text",
+                      "value": "Field"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [
+                        {
+                          "type": "bold"
+                        }
+                      ],
+                      "nodeType": "text",
+                      "value": "Type"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [
+                        {
+                          "type": "bold"
+                        }
+                      ],
+                      "nodeType": "text",
+                      "value": "Description"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "sys"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Sys"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Common "
+                    },
+                    {
+                      "data": {},
+                      "marks": [
+                        {
+                          "type": "bold"
+                        }
+                      ],
+                      "nodeType": "text",
+                      "value": "system"
+                    },
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": " properties"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                },
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "system common "
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                },
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "properties."
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "fields.title"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Text"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [
+                        {
+                          "type": "bold"
+                        }
+                      ],
+                      "nodeType": "text",
+                      "value": "Title"
+                    },
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": " of the asset."
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                },
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Title "
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                },
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Of the"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                },
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "asset"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "fields.description"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Text"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [
+                        {
+                          "type": "italic"
+                        }
+                      ],
+                      "nodeType": "text",
+                      "value": "Description"
+                    },
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": " of the asset."
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "fields.file"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "File"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [
+                        {
+                          "type": "underline"
+                        }
+                      ],
+                      "nodeType": "text",
+                      "value": "File"
+                    },
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "(s) of the asset."
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "fields.file.fileName"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Symbol"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [
+                        {
+                          "type": "underline"
+                        },
+                        {
+                          "type": "italic"
+                        },
+                        {
+                          "type": "bold"
+                        }
+                      ],
+                      "nodeType": "text",
+                      "value": "Original"
+                    },
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": " filename of the file."
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "fields.file.contentType"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Symbol"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Content type of the file."
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "fields.file.url"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Symbol"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "URL of the file."
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "fields.file.details"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Object"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Details of the file, depending on its MIME type."
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "fields.file.details.size"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Number"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Size (in bytes) of the file."
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "\n"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "\n"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "\n"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        }
+      ],
+      "data": {},
+      "nodeType": "table"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > Basic marks > works when pasting from another RT editor #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [
+            {
+              "type": "bold"
+            },
+            {
+              "type": "italic"
+            },
+            {
+              "type": "underline"
+            },
+            {
+              "type": "code"
+            }
+          ],
+          "nodeType": "text",
+          "value": "hello world"
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > spreadsheets > removes empty columns/rows > Google Sheets #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Cell 1"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Cell 2"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        }
+      ],
+      "data": {},
+      "nodeType": "table"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > spreadsheets > removes empty columns/rows > MS Excel #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Cell 1"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Cell 2"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        }
+      ],
+      "data": {},
+      "nodeType": "table"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > Microsoft Word (.docx) deserialization > paragraphs, marks and links #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": "This is a"
+        },
+        {
+          "data": {},
+          "marks": [
+            {
+              "type": "bold"
+            }
+          ],
+          "nodeType": "text",
+          "value": "paragraph"
+        },
+        {
+          "data": {},
+          "marks": [
+            {
+              "type": "italic"
+            }
+          ],
+          "nodeType": "text",
+          "value": "with"
+        },
+        {
+          "data": {},
+          "marks": [
+            {
+              "type": "underline"
+            }
+          ],
+          "nodeType": "text",
+          "value": "some"
+        },
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": "marks and"
+        },
+        {
+          "content": [
+            {
+              "data": {},
+              "marks": [
+                {
+                  "type": "underline"
+                }
+              ],
+              "nodeType": "text",
+              "value": "links"
+            }
+          ],
+          "data": {
+            "uri": "https://contentful.com/"
+          },
+          "nodeType": "hyperlink"
+        },
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > Microsoft Word (.docx) deserialization > unordered list #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "This"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            }
+          ],
+          "data": {},
+          "nodeType": "list-item"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "Is"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            }
+          ],
+          "data": {},
+          "nodeType": "list-item"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "A list"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            }
+          ],
+          "data": {},
+          "nodeType": "list-item"
+        }
+      ],
+      "data": {},
+      "nodeType": "unordered-list"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > Microsoft Word (.docx) deserialization > ordered list #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "This is"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            }
+          ],
+          "data": {},
+          "nodeType": "list-item"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "An ordered list"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            }
+          ],
+          "data": {},
+          "nodeType": "list-item"
+        }
+      ],
+      "data": {},
+      "nodeType": "ordered-list"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > Microsoft Word (.docx) deserialization > tables #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [
+                        {
+                          "type": "italic"
+                        }
+                      ],
+                      "nodeType": "text",
+                      "value": "This is some"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [
+                        {
+                          "type": "underline"
+                        },
+                        {
+                          "type": "bold"
+                        }
+                      ],
+                      "nodeType": "text",
+                      "value": "Content on tables"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        }
+      ],
+      "data": {},
+      "nodeType": "table"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > copy from safari (no href in anchors) > recognizes entry hyperlink #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        },
+        {
+          "content": [
+            {
+              "data": {},
+              "marks": [],
+              "nodeType": "text",
+              "value": "a"
+            }
+          ],
+          "data": {
+            "target": {
+              "sys": {
+                "id": "example-entity-id",
+                "linkType": "Entry",
+                "type": "Link"
+              }
+            }
+          },
+          "nodeType": "entry-hyperlink"
+        },
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": " b"
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > copy from safari (no href in anchors) > recognizes asset hyperlink #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        },
+        {
+          "content": [
+            {
+              "data": {},
+              "marks": [],
+              "nodeType": "text",
+              "value": "a"
+            }
+          ],
+          "data": {
+            "target": {
+              "sys": {
+                "id": "example-entity-id",
+                "linkType": "Asset",
+                "type": "Link"
+              }
+            }
+          },
+          "nodeType": "asset-hyperlink"
+        },
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": " b"
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > Lists > normalizes table cells correctly #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Field"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Type"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Description"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        }
+      ],
+      "data": {},
+      "nodeType": "table"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > Lists > normalizes paragraphs in table cells correctly #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Field"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Type"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Description"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        }
+      ],
+      "data": {},
+      "nodeType": "table"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > blockquotes > breaks a paragraph when pasting a blockquote in the middle #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": "A paragrap"
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    },
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "data": {},
+              "marks": [],
+              "nodeType": "text",
+              "value": "a quote"
+            }
+          ],
+          "data": {},
+          "nodeType": "paragraph"
+        }
+      ],
+      "data": {},
+      "nodeType": "blockquote"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": "h"
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > blockquotes > remove the paragraph if it's empty #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "data": {},
+              "marks": [],
+              "nodeType": "text",
+              "value": "a quote"
+            }
+          ],
+          "data": {},
+          "nodeType": "paragraph"
+        }
+      ],
+      "data": {},
+      "nodeType": "blockquote"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > blockquotes > removes the paragraph if it's empty #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "data": {},
+              "marks": [],
+              "nodeType": "text",
+              "value": "a quote"
+            }
+          ],
+          "data": {},
+          "nodeType": "paragraph"
+        }
+      ],
+      "data": {},
+      "nodeType": "blockquote"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > blockquotes > removes the paragraph if it's fully selected #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "data": {},
+              "marks": [],
+              "nodeType": "text",
+              "value": "a quote"
+            }
+          ],
+          "data": {},
+          "nodeType": "paragraph"
+        }
+      ],
+      "data": {},
+      "nodeType": "blockquote"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > missing application/x-slate-fragment [safari] > render slate fragment if attribute "data-slate-fragment" exists #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "data": {},
+              "marks": [],
+              "nodeType": "text",
+              "value": "quote"
+            }
+          ],
+          "data": {},
+          "nodeType": "paragraph"
+        }
+      ],
+      "data": {},
+      "nodeType": "blockquote"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > Tables > Google Docs - <table> around <div> #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Cell 1"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Cell 2"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Cell 3"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Cell 4"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        }
+      ],
+      "data": {},
+      "nodeType": "table"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+exports[`Rich Text Editor > Tables > removes table wrappers when pasting a single cell #0`] =
+{
+  "nodeType": "document",
+  "data": {},
+  "content": [
+    {
+      "nodeType": "paragraph",
+      "data": {},
+      "content": [
+          {
+            "nodeType": "text",
+            "value": "cell content with a link and inline entry",
+            "marks": [],
+            "data": {}
+          },
+          {
+            "nodeType": "embedded-entry-inline",
+            "data": {
+              "target": {
+                "sys": {
+                  "id": "example-entity-id",
+                  "type": "Link",
+                  "linkType": "Entry"
+                }
+              }
+            },
+            "content": []
+          },
+          {
+            "nodeType": "text",
+            "value": ".",
+            "marks": [],
+            "data": {}
+          }
+      ]
+    }
+  ]
+};

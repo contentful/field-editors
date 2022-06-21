@@ -1,15 +1,12 @@
 ---
-name: Rich Text
+name: Rich Text (Alpha)
 route: /rich-text
 menu: Editors
 ---
 
-import Readme from '../README.md';
-
-<Readme />
-
 import { Playground } from 'docz';
-import { RichTextEditor, openRichTextDialog } from './index';
+import { useMemo } from 'react';
+import { RichTextEditor } from './index';
 import {
   createFakeFieldAPI,
   ActionsPlayground,
@@ -17,35 +14,61 @@ import {
   createFakeLocalesAPI,
   createFakeNavigatorAPI,
 } from '@contentful/field-editor-test-utils';
+import { ValidationErrors } from '@contentful/field-editor-validation-errors';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import { validateRichTextDocument } from './test-utils/validation';
 import { css } from 'emotion';
 import publishedEntry from '../../reference/src/__fixtures__/published_entry.json';
 import publishedAsset from '../../reference/src/__fixtures__/published_asset.json';
+
+# @contentful/field-editor-rich-text
+
+```bash
+npm install @contentful/field-editor-rich-text
+```
+
+This package contains a React `RichTextEditor` component that is used as default for `RichText` field type in the Contentful web application.
+
+```js
+import 'codemirror/lib/codemirror.css';
+import { RichTextEditor } from '@contentful/field-editor-rich-text';
+```
 
 ## In Action
 
 <Playground>
   {() => {
+    window.actions = [];
+
     const rtPreviewStyle = css({
       backgroundColor: 'whitesmoke',
-      padding: '0 0.5em'
+      padding: '0 0.5em',
+      minHeight: '20px'
     });
+
     const newEntitySelectorDummyDialog = (fnName, type) => async () => {
-      return confirm(`sdk.dialogs.${fnName}()\nSimulate selecting a random entity or cancel?`)
+      return confirm(
+        `sdk.dialogs.${fnName}()\nSimulate selecting a random entity or cancel?`
+      )
         ? {
             sys: {
-              id: Math.random()
-                .toString(36)
-                .substring(7),
-              type
-            }
+              id: 'example-entity-id',
+              type,
+            },
           }
-        : Promise.reject(); // Simulate cancellation.
+        : null; // Simulate cancellation.
     };
-    const [field, mitt] = createFakeFieldAPI();
-    const space = createFakeSpaceAPI();
-    const navigator = createFakeNavigatorAPI();
-    let sdk = {
+
+    const initialValue = JSON.parse(window.localStorage.getItem('initialValue')) || undefined
+    const [field, mitt] = useMemo(() => createFakeFieldAPI(mock => mock, initialValue), []);
+
+    const isDisabled = window.localStorage.getItem('initialDisabled') || false
+
+    const space = useMemo(() => createFakeSpaceAPI(), []);
+    const navigator = useMemo(() => createFakeNavigatorAPI(), []);
+    const onAction = (...args) => window.actions.push(args);
+
+    const sdk = {
       space: {
         ...space,
         getEntry: () => {
@@ -59,7 +82,11 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
         },
         getAssets: () => {
           return Promise.resolve({ items: [publishedAsset] });
-        }
+        },
+      },
+      entry: {
+        ...publishedEntry,
+        getSys: () => publishedEntry.sys,
       },
       field,
       locales: createFakeLocalesAPI(),
@@ -67,11 +94,17 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
         ...navigator,
         onSlideInNavigation: () => {
           return () => {};
-        }
+        },
       },
       dialogs: {
-        selectSingleAsset: newEntitySelectorDummyDialog('selectSingleAsset', 'Asset'),
-        selectSingleEntry: newEntitySelectorDummyDialog('selectSingleEntry', 'Entry')
+        selectSingleAsset: newEntitySelectorDummyDialog(
+          'selectSingleAsset',
+          'Asset'
+        ),
+        selectSingleEntry: newEntitySelectorDummyDialog(
+          'selectSingleEntry',
+          'Entry'
+        ),
       },
       access: {
         can: (access, entityType) => {
@@ -84,34 +117,53 @@ import publishedAsset from '../../reference/src/__fixtures__/published_asset.jso
             }
           }
           return Promise.resolve(false);
-        }
+        },
       },
       parameters: {
         instance: {
-          getEntryUrl: () => '#'
+          getEntryUrl: () => '#',
+        },
+      },
+      events: [],
+    }
+
+    // Validate on change
+    React.useEffect(() => {
+      field.onValueChanged((value) => {
+        if (!value) {
+          return mitt.emit('onSchemaErrorsChanged', []);
         }
-      }
-    };
 
-    sdk.dialogs.openCurrent = openRichTextDialog(sdk);
-
+        mitt.emit('onSchemaErrorsChanged', validateRichTextDocument(value));
+      });
+    }, [field, mitt]);
 
     const renderRT = (value, type) => {
       const logValue = () => {
         console.log(type, value);
       };
+
       const valueString = JSON.stringify(value, null, 2);
-      const valueDom = documentToReactComponents(value);
+
       return (
         <div className={rtPreviewStyle} title={valueString} onClick={logValue}>
-          {valueDom}
+          {type === 'onSchemaErrorsChanged'
+            ? valueString
+            : documentToReactComponents(value)}
         </div>
       );
     };
+
     window.richTextField = field;
+
     return (
       <div data-test-id="rich-text-editor-integration-test">
-        <RichTextEditor sdk={sdk} isInitiallyDisabled={false} />
+        <RichTextEditor
+          sdk={sdk}
+          onAction={onAction}
+          isInitiallyDisabled={isDisabled}
+        />
+        <ValidationErrors field={field} locales={[]} />
         <ActionsPlayground mitt={mitt} renderValue={renderRT} />
       </div>
     );
@@ -130,7 +182,10 @@ init((sdk) => {
   if (sdk.location.is(locations.LOCATION_DIALOG)) {
     render(renderRichTextDialog(sdk), document.getElementById('root'));
   } else if (sdk.location.is(locations.LOCATION_ENTRY_FIELD)) {
-    render(<RichTextEditor sdk={sdk} />, document.getElementById('root'));
+    render(
+      <RichTextEditor sdk={sdk} isInitiallyDisabled={true} />,
+      document.getElementById('root')
+    );
   }
 });
 ```
