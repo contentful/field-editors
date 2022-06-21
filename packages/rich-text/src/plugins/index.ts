@@ -24,7 +24,6 @@ import { createParagraphPlugin } from './Paragraph';
 import { createPasteHTMLPlugin } from './PasteHTML';
 import { createQuotePlugin } from './Quote';
 import { createSelectOnBackspacePlugin } from './SelectOnBackspace';
-import { createSlashCommandsPlugin } from './SlashCommands';
 import { createTablePlugin } from './Table';
 import { createTextPlugin } from './Text';
 import { createTrackingPlugin, RichTextTrackingActionHandler } from './Tracking';
@@ -45,7 +44,6 @@ export const getPlugins = (
 
   // Global / Global shortcuts
   createDragAndDropPlugin(),
-  createSlashCommandsPlugin(),
 
   // Block Elements
   createParagraphPlugin(),
