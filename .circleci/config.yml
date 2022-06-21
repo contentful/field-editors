@@ -1,5 +1,24 @@
 version: 2.1
 
+executors:
+  linux-node:
+    resource_class: xlarge
+    docker:
+      - image: cimg/node:14.17
+    environment:
+      CYPRESS_INSTALL_BINARY: 0
+  linux-cypress:
+    resource_class: xlarge
+    docker:
+      - image: cypress/browsers:node14.19.0-chrome100-ff99-edge
+    environment:
+      TZ: UTC
+      CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
+
+#  macos:
+#    macos:
+#      xcode: 11.4
+
 cache-key: &cache-key
   key: dependency-cache-primary-{{ arch }}-yarn-packages-{{ checksum ".nvmrc" }}-{{ checksum "yarn.lock" }}
 
@@ -13,57 +32,59 @@ commands:
           <<: *cache-key
           paths:
             - ~/.cache/yarn
+  yarn_serve:
+    steps:
+      - run:
+          command: yarn serve .docz/dist -n -s -p 9000
+          background: true
+      - run: yarn wait-on -t 60000 http://localhost:9000
 
 jobs:
   lint:
-    docker:
-      - image: cypress/browsers:node14.17.0-chrome91-ff89
-    environment:
-      CYPRESS_INSTALL_BINARY: 0
+    executor: linux-node
     steps:
       - checkout
       - yarn_install
       - run: yarn lint
       - run: yarn build
-      - run: yarn build:apps
       - run: yarn tsc
   unit-tests:
-    docker:
-      - image: cypress/browsers:node14.17.0-chrome91-ff89
-    environment:
-      CYPRESS_INSTALL_BINARY: 0
+    executor: linux-node
     steps:
       - checkout
       - yarn_install
       - run: yarn build
       - run: yarn test:ci
+
   integration-tests:
-    docker:
-      - image: cypress/browsers:node14.17.0-chrome91-ff89
+    parameters:
+      executor:
+        type: executor
+      browser:
+        type: enum
+        enum: [chrome, firefox, edge]
+
+    parallelism: 3
+    executor: << parameters.executor >>
     steps:
       - checkout
       - yarn_install
       - run: yarn build
+      - run: yarn docz:build
+      - yarn_serve
       - run:
-          name: Run Cypress tests
-          environment:
-            CYPRESS_RETRIES: 3
           command: |
-            set -e
-            npm run test:integration
-      - run: npm run merge-report
-      - run: npm run generate-report
-      - store_artifacts:
-          path: cypress/reports
+            TESTFILES=$(circleci tests glob "cypress/integration/**/*.ts" | circleci tests split --split-by=timings --timings-type=filename | tr '\n' ',')
+            npx cypress run --spec "${TESTFILES}" --browser << parameters.browser >>
+      - store_test_results:
+          path: cypress/results
       - store_artifacts:
           path: cypress/screenshots
       - store_artifacts:
           path: cypress/videos
+
   release:
-    docker:
-      - image: cimg/node:14.17
-    environment:
-      CYPRESS_INSTALL_BINARY: 0
+    executor: linux-node
     steps:
       - checkout
       - add_ssh_keys:
@@ -83,7 +104,13 @@ workflows:
     jobs:
       - lint
       - unit-tests
-      - integration-tests
+      - integration-tests:
+          name: integration-<< matrix.executor >>-<< matrix.browser >>
+          matrix:
+            alias: integration-tests-linux
+            parameters:
+              executor: [linux-cypress]
+              browser: [chrome, firefox, edge]
       - release:
           filters:
             branches:
@@ -91,4 +118,4 @@ workflows:
           requires:
             - lint
             - unit-tests
-            - integration-tests
+            - integration-tests-linux
