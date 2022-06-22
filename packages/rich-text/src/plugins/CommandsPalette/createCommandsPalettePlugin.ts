@@ -25,13 +25,6 @@ const createOnKeyDown = (sdk: FieldExtensionSDK): KeyboardHandler<RichTextEditor
       if (isActive) {
         if (isHotkey('enter', event)) {
           event.preventDefault();
-
-          selectEntityAndInsert(
-            BLOCKS.EMBEDDED_ENTRY,
-            sdk,
-            editor,
-            editor.tracking.onToolbarAction
-          );
         }
 
         // FIXME: worst case, just use the event.keyCode & event.shiftKey
