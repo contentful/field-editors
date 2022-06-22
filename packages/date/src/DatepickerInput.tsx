@@ -1,6 +1,6 @@
 import React, { Component, FocusEventHandler, FocusEvent } from 'react';
 import noop from 'lodash/noop';
-// eslint-disable-next-line no-restricted-imports
+// eslint-disable-next-line -- TODO: describe this disable  no-restricted-imports
 import moment from 'moment';
 import { css, cx } from 'emotion';
 import { formatDateDisplay } from './utils/date';

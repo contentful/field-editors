@@ -23,7 +23,7 @@ export type CustomElement<T = unknown> = {
   isVoid?: boolean;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- TODO: explain this disable
 export type CustomRenderElementProps<T = any, O = any> = Omit<RenderElementProps, 'element'> & {
   element: CustomElement<T>;
 } & O;

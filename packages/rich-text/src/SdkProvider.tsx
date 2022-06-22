@@ -8,7 +8,7 @@ interface SdkProviderProps {
 }
 
 function useSdk({ sdk }: SdkProviderProps) {
-  const sdkMemo = React.useMemo<FieldExtensionSDK>(() => sdk, []); // eslint-disable-line
+  const sdkMemo = React.useMemo<FieldExtensionSDK>(() => sdk, []); // eslint-disable-line -- TODO: explain this disable
 
   return sdkMemo;
 }

@@ -73,7 +73,7 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
     const type = (element as CustomElement).type;
 
     setSelected(LABELS[type] ? type : BLOCKS.PARAGRAPH);
-  }, [editor?.operations, editor?.selection]); // eslint-disable-line
+  }, [editor?.operations, editor?.selection]); // eslint-disable-line -- TODO: explain this disable
 
   const [nodeTypesByEnablement, someHeadingsEnabled] = React.useMemo(() => {
     const nodeTypesByEnablement = Object.fromEntries(

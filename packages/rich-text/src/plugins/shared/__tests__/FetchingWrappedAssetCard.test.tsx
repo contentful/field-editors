@@ -35,9 +35,9 @@ test('some dropdown actions should be disabled', async () => {
         sdk={sdk}
         assetId="asset-id"
         locale="en-US"
-        // eslint-disable-next-line
+        // eslint-disable-next-line -- TODO: explain this disable
         onEdit={() => {}}
-        // eslint-disable-next-line
+        // eslint-disable-next-line -- TODO: explain this disable
         onRemove={() => {}}
         isDisabled
         isSelected

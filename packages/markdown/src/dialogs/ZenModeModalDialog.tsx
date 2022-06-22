@@ -111,8 +111,9 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
   const [editor, setEditor] = React.useState<InitializedEditorType | null>(null);
 
   React.useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
     props.sdk?.window?.updateHeight('100%' as any);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, []);
 
   // refresh editor right after dialog is opened to avoid disappearing effect
@@ -125,6 +126,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
 
   const actions = React.useMemo(() => {
     return createMarkdownActions({ sdk: props.sdk, editor, locale: props.locale });
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, [editor]);
 
   actions.closeZenMode = () => {
@@ -212,7 +214,7 @@ export const openZenMode = (
   options: { initialValue: string; locale: string }
 ): Promise<ZenModeResult> => {
   return dialogs.openCurrent({
-    width: 'zen' as any, // eslint-disable-line @typescript-eslint/no-explicit-any
+    width: 'zen' as any, // eslint-disable-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
     shouldCloseOnEscapePress: false,
     minHeight: '100vh',
     shouldCloseOnOverlayClick: false,

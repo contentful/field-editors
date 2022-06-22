@@ -42,7 +42,7 @@ export function create(
     shift: 50,
   };
 
-  // eslint-disable-next-line
+  // eslint-disable-next-line -- TODO: describe this disable
   // @ts-ignore
   const cm = CodeMirror(host, {
     direction,
@@ -175,7 +175,7 @@ export function create(
       transform(
         map,
         (acc, value, key) => {
-          // eslint-disable-next-line
+          // eslint-disable-next-line -- TODO: describe this disable
           // @ts-ignore
           acc[ctrlKey + '-' + key] = value;
         },

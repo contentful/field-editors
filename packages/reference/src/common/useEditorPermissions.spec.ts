@@ -162,7 +162,7 @@ describe('useEditorPermissions', () => {
       expect(result.current.canLinkEntity).toBe(true);
     });
 
-    // eslint-disable-next-line jest/no-test-prefixes
+    // eslint-disable-next-line -- TODO: describe this disable  jest/no-test-prefixes
     it.skip(`denies creation when no content-type can be read`, async () => {
       const allContentTypes = [makeContentType('one'), makeContentType('two')];
 

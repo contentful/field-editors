@@ -13,7 +13,7 @@ export type ReferenceValidations = {
 };
 
 export function fromFieldValidations(field: FieldAPI): ReferenceValidations {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
   const validations: Record<string, any>[] = [
     ...field.validations,
     ...(field.items?.validations ?? []),

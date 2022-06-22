@@ -31,7 +31,7 @@ export const ScheduledIconWithTooltip = ({
       });
     // This should only be ever called once. Following the eslint hint to add used
     // dependencies will cause page freeze (infinite loop)
-    // eslint-disable-next-line
+    // eslint-disable-next-line -- TODO: describe this disable
   }, []);
 
   if (status.type === 'loading' || status.type === 'error') {

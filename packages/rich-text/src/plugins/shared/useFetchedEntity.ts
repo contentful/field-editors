@@ -33,7 +33,7 @@ export function useFetchedEntity({ type, id, onEntityFetchComplete }: FetchedEnt
     // entity store update causing page lag on initial load
     // TODO: consider rewriting useEntities() hook to avoid that happening in
     // first place.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: explain this disable
   }, [type, id]);
 
   useEffect(() => {

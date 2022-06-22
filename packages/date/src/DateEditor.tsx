@@ -55,6 +55,7 @@ function useEffectWithoutFirstRender(callback: Function, deps: Array<any>) {
       return;
     }
     callback();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, deps);
 }
 

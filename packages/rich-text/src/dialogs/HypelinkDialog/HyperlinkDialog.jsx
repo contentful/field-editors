@@ -184,7 +184,7 @@ export class HyperlinkDialog extends React.Component {
               name="link-text"
               value={text || ''}
               onChange={(e) => this.setState({ text: e.target.value })}
-              // eslint-disable-next-line jsx-a11y/no-autofocus
+              // eslint-disable-next-line -- TODO: describe this disable  jsx-a11y/no-autofocus
               autoFocus={!isUriInputAutoFocused}
             />
           </FormControl>
@@ -218,7 +218,7 @@ export class HyperlinkDialog extends React.Component {
               value={uri || ''}
               placeholder="https://"
               onChange={(e) => this.setState({ uri: e.target.value })}
-              // eslint-disable-next-line jsx-a11y/no-autofocus
+              // eslint-disable-next-line -- TODO: describe this disable  jsx-a11y/no-autofocus
               autoFocus={isUriInputAutoFocused}
             />
             <FormControl.HelpText>A protocol may be required, e.g. https://</FormControl.HelpText>

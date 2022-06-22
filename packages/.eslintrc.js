@@ -6,8 +6,24 @@ module.exports = {
     require.resolve('@contentful/eslint-config-extension/jsx-a11y'),
     require.resolve('@contentful/eslint-config-extension/react'),
   ],
+  plugins: ['eslint-comments'],
   rules: {
-    'react-hooks/exhaustive-deps': 'warn',
+    'react-hooks/exhaustive-deps': 'error',
+    // Require descriptions only for disable-line and disable-next-line
+    'eslint-comments/require-description': [
+      'error',
+      {
+        ignore: [
+          'eslint',
+          'eslint-disable',
+          'eslint-enable',
+          'eslint-env',
+          'exported',
+          'global',
+          'globals',
+        ],
+      },
+    ],
     'react/default-props-match-prop-types': 'warn',
     'react/no-unused-prop-types': 'off',
     'you-dont-need-lodash-underscore/flatten': 'warn',

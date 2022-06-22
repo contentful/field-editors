@@ -53,7 +53,7 @@ const defaultProps = {
   isClickable: true,
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
 function getFileType(file?: File): any {
   if (!file) {
     return 'archive';

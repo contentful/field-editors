@@ -67,7 +67,7 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
     getOrLoadEntry(props.entryId);
     // We don't include getOrLoadEntry below because it's part of the constate-derived
     // useEntities(), not props.
-    // eslint-disable-next-line
+    // eslint-disable-next-line -- TODO: explain this disable
   }, [props.entryId]);
 
   if (entry === 'failed') {

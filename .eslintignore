@@ -6,3 +6,4 @@ dist/
 build/
 cypress/plugins/
 cypress/support/
+.eslintrc.js

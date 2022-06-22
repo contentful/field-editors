@@ -55,7 +55,7 @@ export class LocationEditor extends React.Component<
   LocationEditorProps,
   {
     localValue?: Coords;
-    mapsObject: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+    mapsObject: any; // eslint-disable-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
   }
 > {
   constructor(props: LocationEditorProps) {
