@@ -29,6 +29,7 @@ import { createTextPlugin } from './Text';
 import { createTrackingPlugin, RichTextTrackingActionHandler } from './Tracking';
 import { createTrailingParagraphPlugin } from './TrailingParagraph';
 import { createVoidsPlugin } from './Voids';
+import { createCommandsPalettePlugin } from './CommandsPalette';
 
 export const getPlugins = (
   sdk: FieldExtensionSDK,
@@ -44,6 +45,7 @@ export const getPlugins = (
 
   // Global / Global shortcuts
   createDragAndDropPlugin(),
+  createCommandsPalettePlugin(),
 
   // Block Elements
   createParagraphPlugin(),
