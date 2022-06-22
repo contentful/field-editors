@@ -24,12 +24,12 @@ import { createParagraphPlugin } from './Paragraph';
 import { createPasteHTMLPlugin } from './PasteHTML';
 import { createQuotePlugin } from './Quote';
 import { createSelectOnBackspacePlugin } from './SelectOnBackspace';
-import { createSlashCommandsPlugin } from './SlashCommands';
 import { createTablePlugin } from './Table';
 import { createTextPlugin } from './Text';
 import { createTrackingPlugin, RichTextTrackingActionHandler } from './Tracking';
 import { createTrailingParagraphPlugin } from './TrailingParagraph';
 import { createVoidsPlugin } from './Voids';
+import { createCommandsPalettePlugin } from './CommandsPalette';
 
 export const getPlugins = (
   sdk: FieldExtensionSDK,
@@ -45,7 +45,7 @@ export const getPlugins = (
 
   // Global / Global shortcuts
   createDragAndDropPlugin(),
-  createSlashCommandsPlugin(),
+  createCommandsPalettePlugin(),
 
   // Block Elements
   createParagraphPlugin(),
