@@ -1,12 +1,12 @@
+import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { BLOCKS } from '@contentful/rich-text-types';
 import { KeyboardHandler, setMarks, removeMark, isMarkActive, getAbove } from '@udecode/plate-core';
 import isHotkey from 'is-hotkey';
-import { selectEntityAndInsert } from '../EmbeddedEntityBlock/Util';
 import { Editor, Range } from 'slate';
 
 import { RichTextEditor, RichTextPlugin } from '../../types';
+import { selectEntityAndInsert } from '../EmbeddedEntityBlock/Util';
 import { CommandsPalette } from './CommandsPalette';
-import { BLOCKS } from '@contentful/rich-text-types';
-import { FieldExtensionSDK } from '@contentful/app-sdk';
 
 export const COMMAND_PALETTE_INPUT = 'commands-palette';
 
@@ -51,6 +51,7 @@ const createOnKeyDown = (sdk: FieldExtensionSDK): KeyboardHandler<RichTextEditor
 };
 
 export const createCommandsPalettePlugin = (sdk: FieldExtensionSDK): RichTextPlugin => {
+  console.log('sdk', sdk.space.getCachedContentTypes());
   return {
     key: COMMAND_PALETTE_INPUT,
     type: COMMAND_PALETTE_INPUT,

@@ -8,6 +8,7 @@ import { createDeserializeDocxPlugin } from '@udecode/plate-serializer-docx';
 
 import { RichTextPlugin } from '../types';
 import { createSoftBreakPlugin, createExitBreakPlugin, createResetNodePlugin } from './Break';
+import { createCommandsPalettePlugin } from './CommandsPalette';
 import { createDragAndDropPlugin } from './DragAndDrop';
 import {
   createEmbeddedAssetBlockPlugin,
@@ -29,7 +30,6 @@ import { createTextPlugin } from './Text';
 import { createTrackingPlugin, RichTextTrackingActionHandler } from './Tracking';
 import { createTrailingParagraphPlugin } from './TrailingParagraph';
 import { createVoidsPlugin } from './Voids';
-import { createCommandsPalettePlugin } from './CommandsPalette';
 
 export const getPlugins = (
   sdk: FieldExtensionSDK,
@@ -45,7 +45,7 @@ export const getPlugins = (
 
   // Global / Global shortcuts
   createDragAndDropPlugin(),
-  createCommandsPalettePlugin(),
+  createCommandsPalettePlugin(sdk),
 
   // Block Elements
   createParagraphPlugin(),
