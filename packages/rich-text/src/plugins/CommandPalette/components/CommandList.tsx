@@ -34,13 +34,23 @@ export const CommandList = ({ query }: CommandListProps) => {
   const sdk = useSdkContext();
   const commandItems = useCommands(sdk, query);
 
+  //if commandItems changes (e.g. we open the assets group), then focus on first item
+  const container = React.useRef<HTMLDivElement | null>(null);
+  React.useEffect(() => {
+    if (!container || !container.current) {
+      return;
+    }
+    const firstFocusableEl = container.current.firstChild as HTMLElement | null;
+    firstFocusableEl?.focus();
+  }, [commandItems]);
+
   if (commandItems.length === 0) {
     return null;
   }
 
   return (
     <div className={styles.container}>
-      <Menu defaultIsOpen>
+      <Menu isOpen={true}>
         {/* we need an empty trigger here for the positioning of the menu list */}
         <Menu.Trigger>
           <span />
@@ -50,28 +60,30 @@ export const CommandList = ({ query }: CommandListProps) => {
             <SectionHeading marginBottom="none">Richtext commands</SectionHeading>
           </Menu.ListHeader>
 
-          {commandItems.map((item) => {
-            return 'group' in item ? (
-              <section key={item.group}>
-                <SectionHeading
-                  as="h3"
-                  marginBottom="spacingS"
-                  marginTop="spacingS"
-                  marginLeft="spacingM"
-                  marginRight="spacingM">
-                  {item.group}
-                </SectionHeading>
-                {item.commands.map((command) => (
-                  <Menu.Item onClick={command.callback} key={command.label}>
-                    {command.label}
-                  </Menu.Item>
-                ))}
-                <Menu.Divider role="separator" />
-              </section>
-            ) : (
-              <Menu.Item onClick={item.callback}>{item.label}</Menu.Item>
-            );
-          })}
+          <div ref={container}>
+            {commandItems.map((item) => {
+              return 'group' in item ? (
+                <section key={item.group}>
+                  <SectionHeading
+                    as="h3"
+                    marginBottom="spacingS"
+                    marginTop="spacingS"
+                    marginLeft="spacingM"
+                    marginRight="spacingM">
+                    {item.group}
+                  </SectionHeading>
+                  {item.commands.map((command) => (
+                    <Menu.Item onClick={command.callback} key={command.label}>
+                      {command.label}
+                    </Menu.Item>
+                  ))}
+                  <Menu.Divider role="separator" />
+                </section>
+              ) : (
+                <Menu.Item onClick={item.callback}>{item.label}</Menu.Item>
+              );
+            })}
+          </div>
           <Menu.ListFooter className={styles.menuBar}>
             <Stack
               as="ul"
