@@ -32,6 +32,15 @@ export const createOnKeyDown = (): KeyboardHandler<RichTextEditor> => {
           event.preventDefault();
         }
 
+        if (isHotkey('backspace', event)) {
+          const [, path] = getAbove(editor)!;
+          const range = Editor.range(editor, path);
+          // if it is the last character in the command string
+          if (range.focus.offset - range.anchor.offset === 1) {
+            removeMark(editor, { key: COMMAND_PROMPT, at: range });
+          }
+        }
+
         if (isHotkey('escape', event)) {
           const [, path] = getAbove(editor)!;
           const range = Editor.range(editor, path);
