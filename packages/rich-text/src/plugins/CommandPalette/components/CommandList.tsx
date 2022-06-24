@@ -1,8 +1,9 @@
 import * as React from 'react';
 
-import { Stack, Menu, SectionHeading } from '@contentful/f36-components';
+import { Popover, Stack, SectionHeading, ScreenReaderOnly } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
-import { css } from 'emotion';
+import { css, cx } from 'emotion';
+import isHotkey from 'is-hotkey';
 
 import { useSdkContext } from '../../../SdkProvider';
 import { useCommands } from '../useCommands';
@@ -15,6 +16,45 @@ const styles = {
     width: '400px',
     maxHeight: '300px',
     overflow: 'auto',
+  }),
+  menuItem: css({
+    display: 'block',
+    width: '100%',
+    background: 'none',
+    border: 0,
+    margin: 0,
+    outline: 'none',
+    fontSize: tokens.fontSizeM,
+    lineHeight: tokens.lineHeightM,
+    fontWeight: tokens.fontWeightNormal,
+    position: 'relative',
+    textAlign: 'left',
+    padding: `${tokens.spacingXs} ${tokens.spacingM}`,
+    wordBreak: 'break-word',
+    whiteSpace: 'break-spaces',
+    cursor: 'pointer',
+    hyphens: 'auto',
+    minWidth: '150px',
+    textDecoration: 'none',
+    color: tokens.gray800,
+    '&:hover': {
+      backgroundColor: tokens.gray100,
+    },
+    '&:disabled': {
+      opacity: 0.5,
+      cursor: 'auto',
+    },
+  }),
+  menuItemSelected: css({
+    boxShadow: `inset ${tokens.glowPrimary}`,
+    borderRadius: tokens.borderRadiusMedium,
+  }),
+  menuDivider: css({
+    border: 'none',
+    width: '100%',
+    height: '1px',
+    background: tokens.gray300,
+    margin: `${tokens.spacingXs} 0`,
   }),
   menuBar: css({
     backgroundColor: tokens.gray100,
@@ -34,57 +74,86 @@ export const CommandList = ({ query }: CommandListProps) => {
   const sdk = useSdkContext();
   const commandItems = useCommands(sdk, query);
 
-  //if commandItems changes (e.g. we open the assets group), then focus on first item
-  const container = React.useRef<HTMLDivElement | null>(null);
-  React.useEffect(() => {
-    if (!container || !container.current) {
-      return;
+  const [selectedItem, setSelectedItem] = React.useState(() => {
+    if ('group' in commandItems[0]) {
+      return commandItems[0].commands[0].id;
     }
-    const firstFocusableEl = container.current.firstChild as HTMLElement | null;
-    firstFocusableEl?.focus();
-  }, [commandItems]);
+    return commandItems[0].id;
+  });
+
+  React.useEffect(() => {
+    function handleKeyUp(event) {
+      if (isHotkey('up', event)) {
+        console.log('mouse up');
+      }
+      if (isHotkey('down', event)) {
+        console.log('mouse down');
+      }
+    }
+
+    window.addEventListener('keyup', handleKeyUp);
+    return () => window.removeEventListener('keyup', handleKeyUp);
+  }, []);
 
   if (commandItems.length === 0) {
     return null;
   }
 
-  return (
-    <div className={styles.container}>
-      <Menu isOpen={true}>
-        {/* we need an empty trigger here for the positioning of the menu list */}
-        <Menu.Trigger>
-          <span />
-        </Menu.Trigger>
-        <Menu.List className={styles.menuList}>
-          <Menu.ListHeader className={styles.menuBar}>
-            <SectionHeading marginBottom="none">Richtext commands</SectionHeading>
-          </Menu.ListHeader>
+  console.log(commandItems);
 
-          <div ref={container}>
-            {commandItems.map((item) => {
-              return 'group' in item ? (
-                <section key={item.group}>
-                  <SectionHeading
-                    as="h3"
-                    marginBottom="spacingS"
-                    marginTop="spacingS"
-                    marginLeft="spacingM"
-                    marginRight="spacingM">
-                    {item.group}
-                  </SectionHeading>
-                  {item.commands.map((command) => (
-                    <Menu.Item onClick={command.callback} key={command.label}>
-                      {command.label}
-                    </Menu.Item>
-                  ))}
-                  <Menu.Divider role="separator" />
-                </section>
-              ) : (
-                <Menu.Item onClick={item.callback}>{item.label}</Menu.Item>
-              );
-            })}
-          </div>
-          <Menu.ListFooter className={styles.menuBar}>
+  return (
+    <div className={styles.container} role="alert" tabIndex={-1}>
+      <ScreenReaderOnly>
+        Richtext commands. Currently focused item: Embed Example content type. Press enter to
+        select, ESC to close.
+      </ScreenReaderOnly>
+
+      <Popover isOpen={true} usePortal={false} autoFocus={false} aria-hidden={true}>
+        {/* we need an empty trigger here for the positioning of the menu list */}
+        <Popover.Trigger>
+          <span />
+        </Popover.Trigger>
+        <Popover.Content className={styles.menuList}>
+          <header className={styles.menuBar}>
+            <SectionHeading marginBottom="none">Richtext commands</SectionHeading>
+          </header>
+          {commandItems.map((item) => {
+            return 'group' in item ? (
+              <section key={item.group}>
+                <SectionHeading
+                  as="h3"
+                  marginBottom="spacingS"
+                  marginTop="spacingS"
+                  marginLeft="spacingM"
+                  marginRight="spacingM">
+                  {item.group}
+                </SectionHeading>
+                {item.commands.map((command) => (
+                  <button
+                    key={command.id}
+                    id={command.id}
+                    className={cx(styles.menuItem, {
+                      [styles.menuItemSelected]: command.id === selectedItem,
+                    })}
+                    onClick={command.callback}>
+                    {command.label}
+                  </button>
+                ))}
+                <hr className={styles.menuDivider} aria-orientation="horizontal" role="separator" />
+              </section>
+            ) : (
+              <button
+                key={item.id}
+                id={item.id}
+                className={cx(styles.menuItem, {
+                  [styles.menuItemSelected]: item.id === selectedItem,
+                })}
+                onClick={item.callback}>
+                {item.label}
+              </button>
+            );
+          })}
+          <footer className={styles.menuBar}>
             <Stack
               as="ul"
               margin="none"
@@ -102,9 +171,9 @@ export const CommandList = ({ query }: CommandListProps) => {
                 <kbd>esc</kbd> to close
               </li>
             </Stack>
-          </Menu.ListFooter>
-        </Menu.List>
-      </Menu>
+          </footer>
+        </Popover.Content>
+      </Popover>
     </div>
   );
 };

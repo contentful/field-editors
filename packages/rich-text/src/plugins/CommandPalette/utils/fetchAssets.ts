@@ -1,8 +1,8 @@
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { entityHelpers } from '@contentful/field-editor-shared';
 
-export async function fetchAssets(sdk: FieldExtensionSDK) {
-  const assets = await sdk.space.getAssets();
+export async function fetchAssets(sdk: FieldExtensionSDK, query: string) {
+  const assets = await sdk.space.getAssets({ query });
 
   return assets.items.map((asset) => {
     const displayTitle = entityHelpers.getAssetTitle({

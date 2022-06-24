@@ -1,9 +1,11 @@
 import { useState } from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
-import { entityHelpers } from '@contentful/field-editor-shared';
+import { fetchAssets } from './utils/fetchAssets';
+import { fetchEntries } from './utils/fetchEntries';
 
 interface Command {
+  id: string;
   label: string;
   callback: () => void;
 }
@@ -19,66 +21,20 @@ type CommandList = (Command | CommandGroup)[];
 export const useCommands = (sdk: FieldExtensionSDK, query: string) => {
   const contentTypes = sdk.space.getCachedContentTypes();
 
-  async function fetchEntries(contentType, query = '') {
-    const entries = await sdk.space.getEntries({
-      content_type: contentType.sys.id,
-      query,
-    });
-
-    return entries.items.map((entry) => {
-      const description = entityHelpers.getEntityDescription({
-        contentType,
-        // @ts-expect-error inconsistent in typing between app-sdk & field-editors-shared
-        entity: entry,
-        localeCode: sdk.field.locale,
-        defaultLocaleCode: sdk.locales.default,
-      });
-
-      const displayTitle = entityHelpers.getEntryTitle({
-        // @ts-expect-error inconsistent in typing between app-sdk & field-editors-shared
-        entry,
-        contentType,
-        localeCode: sdk.field.locale,
-        defaultLocaleCode: sdk.locales.default,
-        defaultTitle: 'Untitled',
-      });
-
-      return {
-        contentTypeName: contentType.name,
-        displayTitle: displayTitle,
-        id: entry.sys.contentType.sys.id,
-        description,
-        entry,
-      };
-    });
-  }
-
-  async function fetchAssets(query = '') {
-    const assets = await sdk.space.getAssets({ query });
-    return assets.items.map((asset) => ({
-      contentTypeName: 'Asset',
-      displayTitle: asset.fields.title ? asset.fields.title[sdk.field.locale] : 'Untitled',
-      id: asset.sys.id,
-      entry: asset,
-      thumbnail:
-        asset.fields.file &&
-        asset.fields.file[sdk.field.locale] &&
-        `${asset.fields.file[sdk.field.locale].url}?h=30`,
-    }));
-  }
-
   const [commands, setCommands] = useState((): CommandList => {
     const contentTypeCommands = contentTypes.map((contentType) => {
       return {
         group: contentType.name,
         commands: [
           {
+            id: contentType.sys.id,
             label: `Embed ${contentType.name}`,
             callback: () => {
-              fetchEntries(contentType).then((entries) => {
+              fetchEntries(sdk, contentType, query).then((entries) => {
                 setCommands(
                   entries.map((entry) => {
                     return {
+                      id: entry.id,
                       label: entry.displayTitle,
                       callback: () => console.log(entry.displayTitle),
                     };
@@ -88,12 +44,14 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string) => {
             },
           },
           {
+            id: `${contentType.sys.id}-inline`,
             label: `Embed ${contentType.name} - Inline`,
             callback: () => {
-              fetchEntries(contentType).then((entries) => {
+              fetchEntries(sdk, contentType, query).then((entries) => {
                 setCommands(
                   entries.map((entry) => {
                     return {
+                      id: entry.id,
                       label: entry.displayTitle,
                       callback: () => console.log(entry.displayTitle, 'Inline'),
                     };
@@ -109,12 +67,14 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string) => {
       group: 'Assets',
       commands: [
         {
+          id: 'embed-asset',
           label: 'Embed Asset',
           callback: () => {
-            fetchAssets().then((assets) => {
+            fetchAssets(sdk, query).then((assets) => {
               setCommands(
                 assets.map((asset) => {
                   return {
+                    id: asset.id,
                     label: asset.displayTitle,
                     callback: () => console.log(asset.displayTitle),
                   };

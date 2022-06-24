@@ -1,10 +1,15 @@
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { entityHelpers } from '@contentful/field-editor-shared';
-import { ContentType } from 'contentful-management/types';
+import { ContentTypeProps } from 'contentful-management/types';
 
-export async function fetchEntries(sdk: FieldExtensionSDK, contentType: ContentType) {
+export async function fetchEntries(
+  sdk: FieldExtensionSDK,
+  contentType: ContentTypeProps,
+  query: string
+) {
   const entries = await sdk.space.getEntries({
     content_type: contentType.sys.id,
+    query,
   });
 
   return entries.items.map((entry) => {

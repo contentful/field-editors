@@ -9,7 +9,7 @@ export const CommandPrompt = (props: PlateRenderLeafProps) => {
   const query = trimLeadingSlash(props.text.text);
 
   return (
-    <span {...props.attributes}>
+    <span {...props.attributes} onKeyDown={() => console.log('test')}>
       {props.children}
       <CommandList query={query} />
     </span>
