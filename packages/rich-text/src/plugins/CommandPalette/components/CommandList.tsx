@@ -14,23 +14,33 @@ export interface CommandListProps {
   editor: PlateEditor;
 }
 
-export const CommandList = ({ query, editor }: CommandListProps) => {
-  const sdk = useSdkContext();
-  const container = React.useRef<HTMLDivElement>(null);
-  const commandItems = useCommands(sdk, query, editor);
-
+export const useCommandList = (commandItems, container) => {
+  const firstUpdate = React.useRef(true);
   const [selectedItem, setSelectedItem] = React.useState<string>(() => {
+    // select the first item on initial render
     if ('group' in commandItems[0]) {
       return commandItems[0].commands[0].id;
     }
     return commandItems[0].id;
   });
 
+  // after the command list changes, select the first item
+  React.useEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+      return;
+    }
+    if ('group' in commandItems[0]) {
+      setSelectedItem(commandItems[0].commands[0].id);
+    }
+    setSelectedItem(commandItems[0].id);
+  }, [commandItems]);
+
   React.useEffect(() => {
     if (!container || !container.current) {
       return;
     }
-    const buttons = Array.from(container.current.querySelectorAll('button'));
+    const buttons = Array.from(container.current.querySelectorAll('button')) as HTMLButtonElement[];
     const currBtn = buttons.find((btn) => btn.id === selectedItem);
     const currIndex = currBtn ? buttons.indexOf(currBtn) : 0;
 
@@ -66,7 +76,18 @@ export const CommandList = ({ query, editor }: CommandListProps) => {
       window.addEventListener('keyup', handleKeyDown);
     }
     return () => window.removeEventListener('keyup', handleKeyDown);
-  }, [commandItems, selectedItem]);
+  }, [commandItems, container, selectedItem]);
+
+  return {
+    selectedItem,
+  };
+};
+
+export const CommandList = ({ query, editor }: CommandListProps) => {
+  const sdk = useSdkContext();
+  const container = React.useRef<HTMLDivElement>(null);
+  const commandItems = useCommands(sdk, query, editor);
+  const { selectedItem } = useCommandList(commandItems, container);
 
   if (commandItems.length === 0) {
     return null;
@@ -85,8 +106,9 @@ export const CommandList = ({ query, editor }: CommandListProps) => {
        */}
       <div role="alert">
         <ScreenReaderOnly>
-          Richtext commands. Currently focused item: Embed Example content type. Press{' '}
-          <kbd>enter</kbd> to select, <kbd>arrows</kbd> to navigate, <kbd>escape</kbd> to close.
+          {/* TODO - show the label here and not the id */}
+          Richtext commands. Currently focused item: {selectedItem}. Press <kbd>enter</kbd> to
+          select, <kbd>arrows</kbd> to navigate, <kbd>escape</kbd> to close.
         </ScreenReaderOnly>
       </div>
       <div aria-hidden={true}>
