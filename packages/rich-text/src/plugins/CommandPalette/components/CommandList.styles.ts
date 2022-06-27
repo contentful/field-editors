@@ -69,6 +69,11 @@ const styles = {
     listStyle: 'none',
     color: tokens.gray600,
   }),
+  thumbnail: css({
+    width: '30px',
+    height: '30px',
+    objectFit: 'cover',
+  }),
 };
 
 export default styles;

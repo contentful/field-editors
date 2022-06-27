@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Popover, Stack, SectionHeading, ScreenReaderOnly } from '@contentful/f36-components';
+import { Popover, Stack, SectionHeading, ScreenReaderOnly, Flex } from '@contentful/f36-components';
 import { PlateEditor } from '@udecode/plate-core';
 import { cx } from 'emotion';
 import isHotkey from 'is-hotkey';
@@ -14,25 +14,35 @@ export interface CommandListProps {
   editor: PlateEditor;
 }
 
-export const CommandList = ({ query, editor }: CommandListProps) => {
-  const sdk = useSdkContext();
-  const container = React.useRef<HTMLDivElement>(null);
-  const commandItems = useCommands(sdk, query, editor);
-
+export const useCommandList = (commandItems, container) => {
+  const firstUpdate = React.useRef(true);
   const [selectedItem, setSelectedItem] = React.useState<string>(() => {
+    // select the first item on initial render
     if ('group' in commandItems[0]) {
       return commandItems[0].commands[0].id;
     }
     return commandItems[0].id;
   });
 
+  // after the command list changes, select the first item
+  React.useEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+      return;
+    }
+    if ('group' in commandItems[0]) {
+      setSelectedItem(commandItems[0].commands[0].id);
+    }
+    setSelectedItem(commandItems[0].id);
+  }, [commandItems]);
+
   React.useEffect(() => {
     if (!container || !container.current) {
       return;
     }
-    const buttons = Array.from(container.current.querySelectorAll('button'));
+    const buttons = Array.from(container.current.querySelectorAll('button')) as HTMLButtonElement[];
     const currBtn = buttons.find((btn) => btn.id === selectedItem);
-    const currIndex = buttons.indexOf(currBtn as HTMLButtonElement);
+    const currIndex = currBtn ? buttons.indexOf(currBtn) : 0;
 
     function handleKeyDown(event: KeyboardEvent) {
       if (isHotkey('up', event)) {
@@ -63,10 +73,21 @@ export const CommandList = ({ query, editor }: CommandListProps) => {
     }
 
     if (commandItems.length) {
-      window.addEventListener('keyup', handleKeyDown);
+      window.addEventListener('keydown', handleKeyDown);
     }
-    return () => window.removeEventListener('keyup', handleKeyDown);
-  }, [commandItems, selectedItem]);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [commandItems, container, selectedItem]);
+
+  return {
+    selectedItem,
+  };
+};
+
+export const CommandList = ({ query, editor }: CommandListProps) => {
+  const sdk = useSdkContext();
+  const container = React.useRef<HTMLDivElement>(null);
+  const commandItems = useCommands(sdk, query, editor);
+  const { selectedItem } = useCommandList(commandItems, container);
 
   if (commandItems.length === 0) {
     return null;
@@ -85,8 +106,9 @@ export const CommandList = ({ query, editor }: CommandListProps) => {
        */}
       <div role="alert">
         <ScreenReaderOnly>
-          Richtext commands. Currently focused item: Embed Example content type. Press{' '}
-          <kbd>enter</kbd> to select, <kbd>arrows</kbd> to navigate, <kbd>escape</kbd> to close.
+          {/* TODO - show the label here and not the id */}
+          Richtext commands. Currently focused item: {selectedItem}. Press <kbd>enter</kbd> to
+          select, <kbd>arrows</kbd> to navigate, <kbd>escape</kbd> to close.
         </ScreenReaderOnly>
       </div>
       <div aria-hidden={true}>
@@ -133,7 +155,18 @@ export const CommandList = ({ query, editor }: CommandListProps) => {
                       [styles.menuItemSelected]: item.id === selectedItem,
                     })}
                     onClick={item.callback}>
-                    {item.label}
+                    <Flex alignItems="center" gap="spacingS">
+                      {item.thumbnail && (
+                        <img
+                          width="30"
+                          height="30"
+                          src={item.thumbnail}
+                          alt={item.label}
+                          className={styles.thumbnail}
+                        />
+                      )}
+                      <span>{item.label}</span>
+                    </Flex>
                   </button>
                 );
               })}
