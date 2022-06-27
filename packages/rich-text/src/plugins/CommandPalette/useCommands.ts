@@ -13,6 +13,7 @@ import { fetchEntries } from './utils/fetchEntries';
 
 interface Command {
   id: string;
+  thumbnail?: string;
   label: string;
   callback: () => void;
 }
@@ -97,6 +98,7 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: Plate
                   return {
                     id: `${asset.id}-${asset.displayTitle.replace(/\W+/g, '-').toLowerCase()}`,
                     label: asset.displayTitle,
+                    thumbnail: asset.thumbnail,
                     callback: () => {
                       // insertBlock(editor, BLOCKS.EMBEDDED_ASSET, asset);
                       removeCommand(editor);

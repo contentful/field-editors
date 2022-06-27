@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Popover, Stack, SectionHeading, ScreenReaderOnly } from '@contentful/f36-components';
+import { Popover, Stack, SectionHeading, ScreenReaderOnly, Flex } from '@contentful/f36-components';
 import { PlateEditor } from '@udecode/plate-core';
 import { cx } from 'emotion';
 import isHotkey from 'is-hotkey';
@@ -155,7 +155,18 @@ export const CommandList = ({ query, editor }: CommandListProps) => {
                       [styles.menuItemSelected]: item.id === selectedItem,
                     })}
                     onClick={item.callback}>
-                    {item.label}
+                    <Flex alignItems="center" gap="spacingS">
+                      {item.thumbnail && (
+                        <img
+                          width="30"
+                          height="30"
+                          src={item.thumbnail}
+                          alt={item.label}
+                          className={styles.thumbnail}
+                        />
+                      )}
+                      <span>{item.label}</span>
+                    </Flex>
                   </button>
                 );
               })}
