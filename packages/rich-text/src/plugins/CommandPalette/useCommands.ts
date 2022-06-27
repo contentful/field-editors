@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
+
 import { fetchAssets } from './utils/fetchAssets';
 import { fetchEntries } from './utils/fetchEntries';
 

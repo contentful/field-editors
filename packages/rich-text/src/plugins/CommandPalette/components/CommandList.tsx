@@ -82,8 +82,9 @@ export interface CommandListProps {
 export const CommandList = ({ query }: CommandListProps) => {
   const sdk = useSdkContext();
   const commandItems = useCommands(sdk, query);
+  const container = React.useRef<HTMLDivElement>(null);
 
-  const [selectedItem, setSelectedItem] = React.useState(() => {
+  const [selectedItem, setSelectedItem] = React.useState<string>(() => {
     if ('group' in commandItems[0]) {
       return commandItems[0].commands[0].id;
     }
@@ -91,27 +92,39 @@ export const CommandList = ({ query }: CommandListProps) => {
   });
 
   React.useEffect(() => {
+    if (!container || !container.current) {
+      return;
+    }
+    const buttons = Array.from(container.current.querySelectorAll('button'));
+    const currBtn = buttons.find((btn) => btn.id === selectedItem);
+    const currIndex = buttons.indexOf(currBtn);
+
     function handleKeyUp(event) {
       if (isHotkey('up', event)) {
-        console.log('mouse up');
+        if (currIndex === 0) {
+          return;
+        }
+        setSelectedItem(buttons[currIndex - 1].id);
       }
       if (isHotkey('down', event)) {
-        console.log('mouse down');
+        if (currIndex === buttons.length - 1) {
+          return;
+        }
+        setSelectedItem(buttons[currIndex + 1].id);
+        buttons[currIndex + 1].scroll();
       }
     }
 
     window.addEventListener('keyup', handleKeyUp);
     return () => window.removeEventListener('keyup', handleKeyUp);
-  }, []);
+  }, [commandItems, selectedItem]);
 
   if (commandItems.length === 0) {
     return null;
   }
 
-  console.log(commandItems);
-
   return (
-    <div className={styles.container} tabIndex={-1}>
+    <div className={styles.container} tabIndex={-1} ref={container}>
       {/*
         We have to make it visually appear as if the buttons have focus, because we can not set both the
         focus on the textarea and the focus on the button. In HTML you can only set focus on one element at a time.
