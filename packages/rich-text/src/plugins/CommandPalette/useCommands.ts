@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
-import { BLOCKS } from '@contentful/rich-text-types/dist/types/blocks';
+import { BLOCKS } from '@contentful/rich-text-types';
 import { getAbove, PlateEditor, removeMark } from '@udecode/plate-core';
 import { insertBlock } from 'plugins/EmbeddedEntityBlock/Util';
 import { Editor, Transforms } from 'slate';
@@ -51,7 +51,7 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: Plate
                       id: `${entry.id}-${entry.displayTitle.replace(/\W+/g, '-').toLowerCase()}`,
                       label: entry.displayTitle,
                       callback: () => {
-                        insertBlock(editor, BLOCKS.EMBEDDED_ENTRY, entry);
+                        // insertBlock(editor, BLOCKS.EMBEDDED_ENTRY, entry);
                         removeCommand(editor);
                       },
                     };
@@ -98,7 +98,7 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: Plate
                     id: `${asset.id}-${asset.displayTitle.replace(/\W+/g, '-').toLowerCase()}`,
                     label: asset.displayTitle,
                     callback: () => {
-                      insertBlock(editor, BLOCKS.EMBEDDED_ASSET, asset);
+                      // insertBlock(editor, BLOCKS.EMBEDDED_ASSET, asset);
                       removeCommand(editor);
                     },
                   };

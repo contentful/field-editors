@@ -32,7 +32,7 @@ export const CommandList = ({ query, editor }: CommandListProps) => {
     }
     const buttons = Array.from(container.current.querySelectorAll('button'));
     const currBtn = buttons.find((btn) => btn.id === selectedItem);
-    const currIndex = buttons.indexOf(currBtn as HTMLButtonElement);
+    const currIndex = currBtn ? buttons.indexOf(currBtn) : 0;
 
     function handleKeyDown(event: KeyboardEvent) {
       if (isHotkey('up', event)) {
