@@ -32,7 +32,7 @@ export const CommandList = ({ query }: CommandListProps) => {
     const currBtn = buttons.find((btn) => btn.id === selectedItem);
     const currIndex = buttons.indexOf(currBtn);
 
-    function handleKeyUp(event) {
+    function handleKeyDown(event) {
       if (isHotkey('up', event)) {
         if (currIndex === 0) {
           return;
@@ -53,10 +53,15 @@ export const CommandList = ({ query }: CommandListProps) => {
           inline: 'start',
         });
       }
+      if (isHotkey('enter', event)) {
+        if (currBtn) {
+          currBtn.click();
+        }
+      }
     }
 
-    window.addEventListener('keyup', handleKeyUp);
-    return () => window.removeEventListener('keyup', handleKeyUp);
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [commandItems, selectedItem]);
 
   if (commandItems.length === 0) {
