@@ -73,9 +73,9 @@ export const useCommandList = (commandItems, container) => {
     }
 
     if (commandItems.length) {
-      window.addEventListener('keyup', handleKeyDown);
+      window.addEventListener('keydown', handleKeyDown);
     }
-    return () => window.removeEventListener('keyup', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [commandItems, container, selectedItem]);
 
   return {
