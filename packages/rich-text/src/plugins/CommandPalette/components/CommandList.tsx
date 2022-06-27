@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { Popover, Stack, SectionHeading, ScreenReaderOnly } from '@contentful/f36-components';
+import { PlateEditor } from '@udecode/plate-core';
 import { cx } from 'emotion';
 import isHotkey from 'is-hotkey';
 
@@ -10,12 +11,13 @@ import styles from './CommandList.styles';
 
 export interface CommandListProps {
   query: string;
+  editor: PlateEditor;
 }
 
-export const CommandList = ({ query }: CommandListProps) => {
+export const CommandList = ({ query, editor }: CommandListProps) => {
   const sdk = useSdkContext();
-  const commandItems = useCommands(sdk, query);
   const container = React.useRef<HTMLDivElement>(null);
+  const commandItems = useCommands(sdk, query, editor);
 
   const [selectedItem, setSelectedItem] = React.useState<string>(() => {
     if ('group' in commandItems[0]) {
@@ -30,9 +32,9 @@ export const CommandList = ({ query }: CommandListProps) => {
     }
     const buttons = Array.from(container.current.querySelectorAll('button'));
     const currBtn = buttons.find((btn) => btn.id === selectedItem);
-    const currIndex = buttons.indexOf(currBtn);
+    const currIndex = buttons.indexOf(currBtn as HTMLButtonElement);
 
-    function handleKeyUp(event) {
+    function handleKeyUp(event: KeyboardEvent) {
       if (isHotkey('up', event)) {
         if (currIndex === 0) {
           return;
@@ -55,7 +57,9 @@ export const CommandList = ({ query }: CommandListProps) => {
       }
     }
 
-    window.addEventListener('keyup', handleKeyUp);
+    if (commandItems.length) {
+      window.addEventListener('keyup', handleKeyUp);
+    }
     return () => window.removeEventListener('keyup', handleKeyUp);
   }, [commandItems, selectedItem]);
 
@@ -81,6 +85,7 @@ export const CommandList = ({ query }: CommandListProps) => {
         </ScreenReaderOnly>
       </div>
       <div aria-hidden={true}>
+        {/* eslint-disable-next-line jsx-a11y/no-autofocus -- we want to keep focus on text input*/}
         <Popover isOpen={true} usePortal={false} autoFocus={false}>
           {/* we need an empty trigger here for the positioning of the menu list */}
           <Popover.Trigger>

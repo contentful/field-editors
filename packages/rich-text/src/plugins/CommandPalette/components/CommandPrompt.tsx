@@ -11,7 +11,7 @@ export const CommandPrompt = (props: PlateRenderLeafProps) => {
   return (
     <span {...props.attributes}>
       {props.children}
-      <CommandList query={query} />
+      <CommandList query={query} editor={props.editor} />
     </span>
   );
 };

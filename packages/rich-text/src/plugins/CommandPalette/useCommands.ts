@@ -1,7 +1,13 @@
 import { useState } from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { BLOCKS } from '@contentful/rich-text-types/dist/types/blocks';
+import { getAbove, PlateEditor, removeMark } from '@udecode/plate-core';
+import { insertBlock } from 'plugins/EmbeddedEntityBlock/Util';
+import { Editor, Transforms } from 'slate';
 
+import { createInlineEntryNode } from '../EmbeddedEntityInline/Util';
+import { COMMAND_PROMPT } from './constants';
 import { fetchAssets } from './utils/fetchAssets';
 import { fetchEntries } from './utils/fetchEntries';
 
@@ -18,8 +24,15 @@ interface CommandGroup {
 
 type CommandList = (Command | CommandGroup)[];
 
+const removeCommand = (editor: PlateEditor) => {
+  const [, path] = getAbove(editor)!;
+  const range = Editor.range(editor, path);
+  editor.deleteFragment();
+  removeMark(editor, { key: COMMAND_PROMPT, at: range });
+};
+
 //todo clear text on callback
-export const useCommands = (sdk: FieldExtensionSDK, query: string) => {
+export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: PlateEditor) => {
   const contentTypes = sdk.space.getCachedContentTypes();
 
   const [commands, setCommands] = useState((): CommandList => {
@@ -37,7 +50,10 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string) => {
                     return {
                       id: `${entry.id}-${entry.displayTitle.replace(/\W+/g, '-').toLowerCase()}`,
                       label: entry.displayTitle,
-                      callback: () => console.log(entry.displayTitle),
+                      callback: () => {
+                        insertBlock(editor, BLOCKS.EMBEDDED_ENTRY, entry);
+                        removeCommand(editor);
+                      },
                     };
                   })
                 );
@@ -54,7 +70,11 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string) => {
                     return {
                       id: `${entry.id}-${entry.displayTitle.replace(/\W+/g, '-').toLowerCase()}`,
                       label: entry.displayTitle,
-                      callback: () => console.log(entry.displayTitle, 'Inline'),
+                      callback: () => {
+                        const inlineNode = createInlineEntryNode(entry.id);
+                        Transforms.insertNodes(editor, inlineNode);
+                        removeCommand(editor);
+                      },
                     };
                   })
                 );
@@ -77,7 +97,10 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string) => {
                   return {
                     id: `${asset.id}-${asset.displayTitle.replace(/\W+/g, '-').toLowerCase()}`,
                     label: asset.displayTitle,
-                    callback: () => console.log(asset.displayTitle),
+                    callback: () => {
+                      insertBlock(editor, BLOCKS.EMBEDDED_ASSET, asset);
+                      removeCommand(editor);
+                    },
                   };
                 })
               );
