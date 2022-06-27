@@ -35,7 +35,7 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string) => {
                 setCommands(
                   entries.map((entry) => {
                     return {
-                      id: entry.id,
+                      id: `${entry.id}-${entry.displayTitle.replace(/\W+/g, '-').toLowerCase()}`,
                       label: entry.displayTitle,
                       callback: () => console.log(entry.displayTitle),
                     };
@@ -52,7 +52,7 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string) => {
                 setCommands(
                   entries.map((entry) => {
                     return {
-                      id: entry.id,
+                      id: `${entry.id}-${entry.displayTitle.replace(/\W+/g, '-').toLowerCase()}`,
                       label: entry.displayTitle,
                       callback: () => console.log(entry.displayTitle, 'Inline'),
                     };
@@ -75,7 +75,7 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string) => {
               setCommands(
                 assets.map((asset) => {
                   return {
-                    id: asset.id,
+                    id: `${asset.id}-${asset.displayTitle.replace(/\W+/g, '-').toLowerCase()}`,
                     label: asset.displayTitle,
                     callback: () => console.log(asset.displayTitle),
                   };

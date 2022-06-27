@@ -1,79 +1,12 @@
 import * as React from 'react';
 
 import { Popover, Stack, SectionHeading, ScreenReaderOnly } from '@contentful/f36-components';
-import tokens from '@contentful/f36-tokens';
-import { css, cx } from 'emotion';
+import { cx } from 'emotion';
 import isHotkey from 'is-hotkey';
 
 import { useSdkContext } from '../../../SdkProvider';
 import { useCommands } from '../useCommands';
-
-const styles = {
-  container: css({
-    position: 'absolute',
-  }),
-  menuList: css({
-    width: '400px',
-    maxHeight: '300px',
-    overflow: 'auto',
-  }),
-  menuItem: css({
-    display: 'block',
-    width: '100%',
-    background: 'none',
-    border: 0,
-    margin: 0,
-    outline: 'none',
-    fontSize: tokens.fontSizeM,
-    lineHeight: tokens.lineHeightM,
-    fontWeight: tokens.fontWeightNormal,
-    position: 'relative',
-    textAlign: 'left',
-    padding: `${tokens.spacingXs} ${tokens.spacingM}`,
-    wordBreak: 'break-word',
-    whiteSpace: 'break-spaces',
-    cursor: 'pointer',
-    hyphens: 'auto',
-    minWidth: '150px',
-    textDecoration: 'none',
-    color: tokens.gray800,
-    '&:hover': {
-      backgroundColor: tokens.gray100,
-    },
-    '&:disabled': {
-      opacity: 0.5,
-      cursor: 'auto',
-    },
-  }),
-  menuItemSelected: css({
-    boxShadow: `inset ${tokens.glowPrimary}`,
-    borderRadius: tokens.borderRadiusMedium,
-  }),
-  menuDivider: css({
-    border: 'none',
-    width: '100%',
-    height: '1px',
-    background: tokens.gray300,
-    margin: `${tokens.spacingXs} 0`,
-  }),
-  menuHeader: css({
-    position: 'sticky',
-    zIndex: tokens.zIndexDefault,
-    top: 0,
-    backgroundColor: tokens.gray100,
-    padding: tokens.spacingM,
-  }),
-  menuFooter: css({
-    position: 'sticky',
-    bottom: 0,
-    backgroundColor: tokens.gray100,
-    padding: tokens.spacingM,
-  }),
-  footerList: css({
-    listStyle: 'none',
-    color: tokens.gray600,
-  }),
-};
+import styles from './CommandList.styles';
 
 export interface CommandListProps {
   query: string;
@@ -105,13 +38,20 @@ export const CommandList = ({ query }: CommandListProps) => {
           return;
         }
         setSelectedItem(buttons[currIndex - 1].id);
+        buttons[currIndex - 1].scrollIntoView({
+          block: 'nearest',
+          inline: 'start',
+        });
       }
       if (isHotkey('down', event)) {
         if (currIndex === buttons.length - 1) {
           return;
         }
         setSelectedItem(buttons[currIndex + 1].id);
-        buttons[currIndex + 1].scroll();
+        buttons[currIndex + 1].scrollIntoView({
+          block: 'nearest',
+          inline: 'start',
+        });
       }
     }
 
@@ -146,46 +86,48 @@ export const CommandList = ({ query }: CommandListProps) => {
           <Popover.Trigger>
             <span />
           </Popover.Trigger>
-          <Popover.Content className={styles.menuList}>
+          <Popover.Content className={styles.menuContent}>
             <header className={styles.menuHeader}>
               <SectionHeading marginBottom="none">Richtext commands</SectionHeading>
             </header>
-            {commandItems.map((item) => {
-              return 'group' in item ? (
-                <section key={item.group}>
-                  <SectionHeading
-                    as="h3"
-                    marginBottom="spacingS"
-                    marginTop="spacingS"
-                    marginLeft="spacingM"
-                    marginRight="spacingM">
-                    {item.group}
-                  </SectionHeading>
-                  {item.commands.map((command) => (
-                    <button
-                      key={command.id}
-                      id={command.id}
-                      className={cx(styles.menuItem, {
-                        [styles.menuItemSelected]: command.id === selectedItem,
-                      })}
-                      onClick={command.callback}>
-                      {command.label}
-                    </button>
-                  ))}
-                  <hr className={styles.menuDivider} aria-orientation="horizontal" />
-                </section>
-              ) : (
-                <button
-                  key={item.id}
-                  id={item.id}
-                  className={cx(styles.menuItem, {
-                    [styles.menuItemSelected]: item.id === selectedItem,
-                  })}
-                  onClick={item.callback}>
-                  {item.label}
-                </button>
-              );
-            })}
+            <div className={styles.menuList}>
+              {commandItems.map((item) => {
+                return 'group' in item ? (
+                  <section key={item.group}>
+                    <SectionHeading
+                      as="h3"
+                      marginBottom="spacingS"
+                      marginTop="spacingS"
+                      marginLeft="spacingM"
+                      marginRight="spacingM">
+                      {item.group}
+                    </SectionHeading>
+                    {item.commands.map((command) => (
+                      <button
+                        key={command.id}
+                        id={command.id}
+                        className={cx(styles.menuItem, {
+                          [styles.menuItemSelected]: command.id === selectedItem,
+                        })}
+                        onClick={command.callback}>
+                        {command.label}
+                      </button>
+                    ))}
+                    <hr className={styles.menuDivider} aria-orientation="horizontal" />
+                  </section>
+                ) : (
+                  <button
+                    key={item.id}
+                    id={item.id}
+                    className={cx(styles.menuItem, {
+                      [styles.menuItemSelected]: item.id === selectedItem,
+                    })}
+                    onClick={item.callback}>
+                    {item.label}
+                  </button>
+                );
+              })}
+            </div>
             <footer className={styles.menuFooter}>
               <Stack
                 as="ul"
