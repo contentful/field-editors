@@ -1,15 +1,15 @@
 import { useState } from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
-import { BLOCKS } from '@contentful/rich-text-types/dist/types/blocks';
+import { BLOCKS } from '@contentful/rich-text-types';
 import { getAbove, PlateEditor, removeMark } from '@udecode/plate-core';
-import { insertBlock } from 'plugins/EmbeddedEntityBlock/Util';
 import { Editor, Transforms } from 'slate';
 
-import { createInlineEntryNode } from '../EmbeddedEntityInline/Util';
 import { COMMAND_PROMPT } from './constants';
+import { createInlineEntryNode } from './utils/createInlineEntryNode';
 import { fetchAssets } from './utils/fetchAssets';
 import { fetchEntries } from './utils/fetchEntries';
+import { insertBlock } from './utils/insertBlock';
 
 interface Command {
   id: string;
@@ -27,13 +27,27 @@ type CommandList = (Command | CommandGroup)[];
 const removeCommand = (editor: PlateEditor) => {
   const [, path] = getAbove(editor)!;
   const range = Editor.range(editor, path);
-  editor.deleteFragment();
+
+  Transforms.select(editor, range.focus.path);
+
   removeMark(editor, { key: COMMAND_PROMPT, at: range });
+  Transforms.delete(editor);
+};
+
+const removeQuery = (editor: PlateEditor) => {
+  const [, path] = getAbove(editor)!;
+  const range = Editor.range(editor, path);
+
+  if (range.focus.offset - range.anchor.offset > 1) {
+    Transforms.delete(editor, { at: range.focus, distance: range.focus.offset - 1, reverse: true });
+  }
 };
 
 //todo clear text on callback
 export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: PlateEditor) => {
   const contentTypes = sdk.space.getCachedContentTypes();
+
+  console.log(query);
 
   const [commands, setCommands] = useState((): CommandList => {
     const contentTypeCommands = contentTypes.map((contentType) => {
@@ -45,14 +59,15 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: Plate
             label: `Embed ${contentType.name}`,
             callback: () => {
               fetchEntries(sdk, contentType, query).then((entries) => {
+                removeQuery(editor);
                 setCommands(
                   entries.map((entry) => {
                     return {
                       id: `${entry.id}-${entry.displayTitle.replace(/\W+/g, '-').toLowerCase()}`,
                       label: entry.displayTitle,
                       callback: () => {
-                        insertBlock(editor, BLOCKS.EMBEDDED_ENTRY, entry);
                         removeCommand(editor);
+                        insertBlock(editor, BLOCKS.EMBEDDED_ENTRY, entry.entry);
                       },
                     };
                   })
@@ -65,6 +80,7 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: Plate
             label: `Embed ${contentType.name} - Inline`,
             callback: () => {
               fetchEntries(sdk, contentType, query).then((entries) => {
+                removeQuery(editor);
                 setCommands(
                   entries.map((entry) => {
                     return {
@@ -72,8 +88,8 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: Plate
                       label: entry.displayTitle,
                       callback: () => {
                         const inlineNode = createInlineEntryNode(entry.id);
-                        Transforms.insertNodes(editor, inlineNode);
                         removeCommand(editor);
+                        Transforms.insertNodes(editor, inlineNode);
                       },
                     };
                   })
@@ -92,14 +108,15 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: Plate
           label: 'Embed Asset',
           callback: () => {
             fetchAssets(sdk, query).then((assets) => {
+              removeQuery(editor);
               setCommands(
                 assets.map((asset) => {
                   return {
                     id: `${asset.id}-${asset.displayTitle.replace(/\W+/g, '-').toLowerCase()}`,
                     label: asset.displayTitle,
                     callback: () => {
-                      insertBlock(editor, BLOCKS.EMBEDDED_ASSET, asset);
                       removeCommand(editor);
+                      insertBlock(editor, BLOCKS.EMBEDDED_ASSET, asset.entry);
                     },
                   };
                 })
