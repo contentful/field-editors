@@ -30,6 +30,9 @@ export const useCommandList = (commandItems, container) => {
       firstUpdate.current = false;
       return;
     }
+    if (commandItems.length === 0) {
+      return;
+    }
     if ('group' in commandItems[0]) {
       setSelectedItem(commandItems[0].commands[0].id);
     }
@@ -161,7 +164,7 @@ export const CommandList = ({ query, editor }: CommandListProps) => {
                           width="30"
                           height="30"
                           src={item.thumbnail}
-                          alt={item.label}
+                          alt=""
                           className={styles.thumbnail}
                         />
                       )}

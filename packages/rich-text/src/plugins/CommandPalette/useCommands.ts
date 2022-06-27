@@ -48,8 +48,6 @@ const removeQuery = (editor: PlateEditor) => {
 export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: PlateEditor) => {
   const contentTypes = sdk.space.getCachedContentTypes();
 
-  console.log(query);
-
   const [commands, setCommands] = useState((): CommandList => {
     const contentTypeCommands = contentTypes.map((contentType) => {
       return {

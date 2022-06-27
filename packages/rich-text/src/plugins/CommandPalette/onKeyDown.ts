@@ -24,14 +24,6 @@ export const createOnKeyDown = (): KeyboardHandler<RichTextEditor> => {
           event.preventDefault();
         }
 
-        if (isHotkey('up', event)) {
-          event.preventDefault();
-        }
-
-        if (isHotkey('down', event)) {
-          event.preventDefault();
-        }
-
         if (isHotkey('backspace', event)) {
           const [, path] = getAbove(editor)!;
           const range = Editor.range(editor, path);
