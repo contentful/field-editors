@@ -15,7 +15,7 @@ interface Command {
   id: string;
   thumbnail?: string;
   label: string;
-  callback: () => void;
+  callback?: () => void;
 }
 
 interface CommandGroup {
@@ -59,18 +59,27 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: Plate
             callback: () => {
               fetchEntries(sdk, contentType, query).then((entries) => {
                 removeQuery(editor);
-                setCommands(
-                  entries.map((entry) => {
-                    return {
-                      id: `${entry.id}-${entry.displayTitle.replace(/\W+/g, '-').toLowerCase()}`,
-                      label: entry.displayTitle,
-                      callback: () => {
-                        removeCommand(editor);
-                        insertBlock(editor, BLOCKS.EMBEDDED_ENTRY, entry.entry);
-                      },
-                    };
-                  })
-                );
+                if (!entries.length) {
+                  setCommands([
+                    {
+                      id: 'no-results',
+                      label: 'No results',
+                    },
+                  ]);
+                } else {
+                  setCommands(
+                    entries.map((entry) => {
+                      return {
+                        id: `${entry.id}-${entry.displayTitle.replace(/\W+/g, '-').toLowerCase()}`,
+                        label: entry.displayTitle,
+                        callback: () => {
+                          removeCommand(editor);
+                          insertBlock(editor, BLOCKS.EMBEDDED_ENTRY, entry.entry);
+                        },
+                      };
+                    })
+                  );
+                }
               });
             },
           },
@@ -80,19 +89,28 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: Plate
             callback: () => {
               fetchEntries(sdk, contentType, query).then((entries) => {
                 removeQuery(editor);
-                setCommands(
-                  entries.map((entry) => {
-                    return {
-                      id: `${entry.id}-${entry.displayTitle.replace(/\W+/g, '-').toLowerCase()}`,
-                      label: entry.displayTitle,
-                      callback: () => {
-                        const inlineNode = createInlineEntryNode(entry.id);
-                        removeCommand(editor);
-                        Transforms.insertNodes(editor, inlineNode);
-                      },
-                    };
-                  })
-                );
+                if (!entries.length) {
+                  setCommands([
+                    {
+                      id: 'no-results',
+                      label: 'No results',
+                    },
+                  ]);
+                } else {
+                  setCommands(
+                    entries.map((entry) => {
+                      return {
+                        id: `${entry.id}-${entry.displayTitle.replace(/\W+/g, '-').toLowerCase()}`,
+                        label: entry.displayTitle,
+                        callback: () => {
+                          const inlineNode = createInlineEntryNode(entry.id);
+                          removeCommand(editor);
+                          Transforms.insertNodes(editor, inlineNode);
+                        },
+                      };
+                    })
+                  );
+                }
               });
             },
           },
@@ -108,19 +126,28 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: Plate
           callback: () => {
             fetchAssets(sdk, query).then((assets) => {
               removeQuery(editor);
-              setCommands(
-                assets.map((asset) => {
-                  return {
-                    id: `${asset.id}-${asset.displayTitle.replace(/\W+/g, '-').toLowerCase()}`,
-                    label: asset.displayTitle,
-                    thumbnail: asset.thumbnail,
-                    callback: () => {
-                      removeCommand(editor);
-                      insertBlock(editor, BLOCKS.EMBEDDED_ASSET, asset.entry);
-                    },
-                  };
-                })
-              );
+              if (!assets.length) {
+                setCommands([
+                  {
+                    id: 'no-results',
+                    label: 'No results',
+                  },
+                ]);
+              } else {
+                setCommands(
+                  assets.map((asset) => {
+                    return {
+                      id: `${asset.id}-${asset.displayTitle.replace(/\W+/g, '-').toLowerCase()}`,
+                      label: asset.displayTitle,
+                      thumbnail: asset.thumbnail,
+                      callback: () => {
+                        removeCommand(editor);
+                        insertBlock(editor, BLOCKS.EMBEDDED_ASSET, asset.entry);
+                      },
+                    };
+                  })
+                );
+              }
             });
           },
         },

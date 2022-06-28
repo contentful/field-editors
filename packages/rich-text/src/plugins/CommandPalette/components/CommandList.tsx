@@ -150,7 +150,7 @@ export const CommandList = ({ query, editor }: CommandListProps) => {
                     ))}
                     <hr className={styles.menuDivider} aria-orientation="horizontal" />
                   </section>
-                ) : (
+                ) : item.callback ? (
                   <button
                     key={item.id}
                     id={item.id}
@@ -170,6 +170,10 @@ export const CommandList = ({ query, editor }: CommandListProps) => {
                       )}
                       <span>{item.label}</span>
                     </Flex>
+                  </button>
+                ) : (
+                  <button key={item.id} id={item.id} className={styles.menuItem}>
+                    {item.label}
                   </button>
                 );
               })}
