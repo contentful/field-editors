@@ -97,7 +97,7 @@ export const CommandList = ({ query, editor }: CommandListProps) => {
   }
 
   return (
-    <div className={styles.container} tabIndex={-1} ref={container}>
+    <div className={styles.container} tabIndex={-1} ref={container} contentEditable={false}>
       {/*
         We have to make it visually appear as if the buttons have focus, because we can not set both the
         focus on the textarea and the focus on the button. In HTML you can only set focus on one element at a time.
