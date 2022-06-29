@@ -49,6 +49,7 @@ export const useCommandList = (commandItems, container) => {
 
     function handleKeyDown(event: KeyboardEvent) {
       if (isHotkey('up', event)) {
+        event.preventDefault();
         if (currIndex === 0) {
           return;
         }
@@ -59,6 +60,7 @@ export const useCommandList = (commandItems, container) => {
         });
       }
       if (isHotkey('down', event)) {
+        event.preventDefault();
         if (currIndex === buttons.length - 1) {
           return;
         }
@@ -69,6 +71,7 @@ export const useCommandList = (commandItems, container) => {
         });
       }
       if (isHotkey('enter', event)) {
+        event.preventDefault();
         if (currBtn) {
           currBtn.click();
         }
