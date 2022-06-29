@@ -74,7 +74,12 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: Plate
                         label: entry.displayTitle,
                         callback: () => {
                           removeCommand(editor);
-                          insertBlock(editor, BLOCKS.EMBEDDED_ENTRY, entry.entry);
+                          if (editor.selection) {
+                            const selection = editor.selection;
+                            editor.insertSoftBreak();
+                            insertBlock(editor, BLOCKS.EMBEDDED_ENTRY, entry.entry);
+                            Transforms.select(editor, selection);
+                          }
                         },
                       };
                     })
@@ -106,6 +111,7 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: Plate
                           const inlineNode = createInlineEntryNode(entry.id);
                           removeCommand(editor);
                           Transforms.insertNodes(editor, inlineNode);
+                          Transforms.insertText(editor, '');
                         },
                       };
                     })
@@ -142,7 +148,12 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: Plate
                       thumbnail: asset.thumbnail,
                       callback: () => {
                         removeCommand(editor);
-                        insertBlock(editor, BLOCKS.EMBEDDED_ASSET, asset.entry);
+                        if (editor.selection) {
+                          const selection = editor.selection;
+                          editor.insertSoftBreak();
+                          insertBlock(editor, BLOCKS.EMBEDDED_ASSET, asset.entry);
+                          Transforms.select(editor, selection);
+                        }
                       },
                     };
                   })

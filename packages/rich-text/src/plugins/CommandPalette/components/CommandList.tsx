@@ -35,8 +35,9 @@ export const useCommandList = (commandItems, container) => {
     }
     if ('group' in commandItems[0]) {
       setSelectedItem(commandItems[0].commands[0].id);
+    } else {
+      setSelectedItem(commandItems[0].id);
     }
-    setSelectedItem(commandItems[0].id);
   }, [commandItems]);
 
   React.useEffect(() => {
@@ -58,8 +59,7 @@ export const useCommandList = (commandItems, container) => {
           block: 'nearest',
           inline: 'start',
         });
-      }
-      if (isHotkey('down', event)) {
+      } else if (isHotkey('down', event)) {
         event.preventDefault();
         if (currIndex === buttons.length - 1) {
           return;
@@ -69,13 +69,13 @@ export const useCommandList = (commandItems, container) => {
           block: 'nearest',
           inline: 'start',
         });
-      }
-      if (isHotkey('enter', event)) {
+      } else if (isHotkey('enter', event)) {
         event.preventDefault();
         if (currBtn) {
           currBtn.click();
         }
       }
+      //TODO: handle shift+enter, which must be detected using separate events
     }
 
     if (commandItems.length) {

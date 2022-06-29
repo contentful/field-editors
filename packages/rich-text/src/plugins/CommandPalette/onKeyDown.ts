@@ -17,23 +17,14 @@ export const createOnKeyDown = (): KeyboardHandler<RichTextEditor> => {
       if (isActive) {
         if (isHotkey('enter', event)) {
           event.preventDefault();
-        }
-
-        // FIXME: worst case, just use the event.keyCode & event.shiftKey
-        if (isHotkey('shift+enter', event)) {
-          event.preventDefault();
-        }
-
-        if (isHotkey('backspace', event)) {
+        } else if (isHotkey('backspace', event)) {
           const [, path] = getAbove(editor)!;
           const range = Editor.range(editor, path);
           // if it is the last character in the command string
           if (range.focus.offset - range.anchor.offset === 1) {
             removeMark(editor, { key: COMMAND_PROMPT, at: range });
           }
-        }
-
-        if (isHotkey('escape', event)) {
+        } else if (isHotkey('escape', event)) {
           const [, path] = getAbove(editor)!;
           const range = Editor.range(editor, path);
           removeMark(editor, { key: COMMAND_PROMPT, at: range });
