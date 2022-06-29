@@ -15,7 +15,6 @@ export interface CommandListProps {
 }
 
 export const useCommandList = (commandItems, container) => {
-  const firstUpdate = React.useRef(true);
   const [selectedItem, setSelectedItem] = React.useState<string>(() => {
     // select the first item on initial render
     if ('group' in commandItems[0]) {
@@ -24,22 +23,6 @@ export const useCommandList = (commandItems, container) => {
     return commandItems[0].id;
   });
 
-  // after the command list changes, select the first item
-  React.useEffect(() => {
-    if (firstUpdate.current) {
-      firstUpdate.current = false;
-      return;
-    }
-    if (commandItems.length === 0) {
-      return;
-    }
-    if ('group' in commandItems[0]) {
-      setSelectedItem(commandItems[0].commands[0].id);
-    } else {
-      setSelectedItem(commandItems[0].id);
-    }
-  }, [commandItems]);
-
   React.useEffect(() => {
     if (!container || !container.current) {
       return;
@@ -47,6 +30,14 @@ export const useCommandList = (commandItems, container) => {
     const buttons = Array.from(container.current.querySelectorAll('button')) as HTMLButtonElement[];
     const currBtn = buttons.find((btn) => btn.id === selectedItem);
     const currIndex = currBtn ? buttons.indexOf(currBtn) : 0;
+
+    if (!currBtn && buttons.length) {
+      setSelectedItem(buttons[0].id);
+      buttons[0].scrollIntoView({
+        block: 'nearest',
+        inline: 'start',
+      });
+    }
 
     function handleKeyDown(event: KeyboardEvent) {
       if (isHotkey('up', event)) {
@@ -72,6 +63,7 @@ export const useCommandList = (commandItems, container) => {
       } else if (isHotkey('enter', event)) {
         event.preventDefault();
         if (currBtn) {
+          setSelectedItem('');
           currBtn.click();
         }
       }

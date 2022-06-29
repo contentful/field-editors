@@ -111,7 +111,7 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: Plate
                           const inlineNode = createInlineEntryNode(entry.id);
                           removeCommand(editor);
                           Transforms.insertNodes(editor, inlineNode);
-                          Transforms.insertText(editor, '');
+                          editor.insertText('');
                         },
                       };
                     })
