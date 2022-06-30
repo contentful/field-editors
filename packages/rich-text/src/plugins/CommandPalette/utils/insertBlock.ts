@@ -18,7 +18,6 @@ const createNode = (nodeType, entity) => ({
   isVoid: true,
 });
 
-// TODO: DRY up copied code from HR
 export function insertBlock(editor, nodeType, entity) {
   if (!editor?.selection) return;
 

@@ -13,11 +13,9 @@ export async function fetchAssets(sdk: FieldExtensionSDK, query: string) {
     });
 
     return {
-      // TODO: this is needed?
       contentTypeName: 'Asset',
       displayTitle,
       id: asset.sys.id,
-      // TODO: we should rename this to `entity`
       entry: asset,
       thumbnail:
         asset.fields.file &&

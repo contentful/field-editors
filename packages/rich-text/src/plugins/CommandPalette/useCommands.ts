@@ -44,7 +44,6 @@ const removeQuery = (editor: PlateEditor) => {
   }
 };
 
-//todo clear text on callback
 export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: PlateEditor) => {
   const contentTypes = sdk.space.getCachedContentTypes();
 
