@@ -5,6 +5,13 @@ const styles = {
   container: css({
     position: 'absolute',
     zIndex: tokens.zIndexNotification,
+    fontWeight: tokens.fontWeightNormal,
+    fontStyle: 'normal',
+    fontFamily: tokens.fontStackPrimary,
+    'ul, ol, dl': {
+      listStyle: 'none',
+      marginLeft: 0,
+    },
   }),
   menuContent: css({
     width: '400px',
@@ -69,6 +76,7 @@ const styles = {
   footerList: css({
     listStyle: 'none',
     color: tokens.gray600,
+    fontSize: tokens.fontSizeM,
   }),
   thumbnail: css({
     width: '30px',
