@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.3.11](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.3.10...@contentful/field-editor-reference@4.3.11) (2022-06-30)
+
+### Bug Fixes
+
+- search input styles [HOMER-1048] ([#1170](https://github.com/contentful/field-editors/issues/1170)) ([bc96fb9](https://github.com/contentful/field-editors/commit/bc96fb93bcca5508bdca38eafc8377878e97fb4b))
+
 ## [4.3.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.3.9...@contentful/field-editor-reference@4.3.10) (2022-06-22)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
