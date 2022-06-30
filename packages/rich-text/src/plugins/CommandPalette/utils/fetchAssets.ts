@@ -16,7 +16,7 @@ export async function fetchAssets(sdk: FieldExtensionSDK, query: string) {
       contentTypeName: 'Asset',
       displayTitle,
       id: asset.sys.id,
-      entry: asset,
+      entity: asset,
       thumbnail:
         asset.fields.file &&
         asset.fields.file[sdk.field.locale] &&

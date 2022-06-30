@@ -3,10 +3,10 @@ import * as React from 'react';
 import { Popover, Stack, SectionHeading, ScreenReaderOnly, Flex } from '@contentful/f36-components';
 import { PlateEditor } from '@udecode/plate-core';
 import { cx } from 'emotion';
-import isHotkey from 'is-hotkey';
 
 import { useSdkContext } from '../../../SdkProvider';
-import { useCommands } from '../useCommands';
+import { useCommandList } from '../hooks/useCommandList';
+import { CommandList as CommandItems, useCommands } from '../useCommands';
 import styles from './CommandList.styles';
 
 export interface CommandListProps {
@@ -14,71 +14,84 @@ export interface CommandListProps {
   editor: PlateEditor;
 }
 
-export const useCommandList = (commandItems, container) => {
-  const [selectedItem, setSelectedItem] = React.useState<string>(() => {
-    // select the first item on initial render
-    if ('group' in commandItems[0]) {
-      return commandItems[0].commands[0].id;
-    }
-    return commandItems[0].id;
-  });
-
-  React.useEffect(() => {
-    if (!container || !container.current) {
-      return;
-    }
-    const buttons = Array.from(container.current.querySelectorAll('button')) as HTMLButtonElement[];
-    const currBtn = buttons.find((btn) => btn.id === selectedItem);
-    const currIndex = currBtn ? buttons.indexOf(currBtn) : 0;
-
-    if (!currBtn && buttons.length) {
-      setSelectedItem(buttons[0].id);
-      buttons[0].scrollIntoView({
-        block: 'nearest',
-        inline: 'start',
-      });
-    }
-
-    function handleKeyDown(event: KeyboardEvent) {
-      if (isHotkey('up', event)) {
-        event.preventDefault();
-        if (currIndex === 0) {
-          return;
-        }
-        setSelectedItem(buttons[currIndex - 1].id);
-        buttons[currIndex - 1].scrollIntoView({
-          block: 'nearest',
-          inline: 'start',
-        });
-      } else if (isHotkey('down', event)) {
-        event.preventDefault();
-        if (currIndex === buttons.length - 1) {
-          return;
-        }
-        setSelectedItem(buttons[currIndex + 1].id);
-        buttons[currIndex + 1].scrollIntoView({
-          block: 'nearest',
-          inline: 'start',
-        });
-      } else if (isHotkey('enter', event)) {
-        event.preventDefault();
-        if (currBtn) {
-          setSelectedItem('');
-          currBtn.click();
-        }
-      }
-      //TODO: handle shift+enter, which must be detected using separate events
-    }
-
-    if (commandItems.length) {
-      window.addEventListener('keydown', handleKeyDown);
-    }
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [commandItems, container, selectedItem]);
-
-  return {
-    selectedItem,
+const CommandListItems = ({
+  commandItems,
+  selectedItem,
+}: {
+  commandItems: CommandItems;
+  selectedItem: string;
+}) => {
+  const group = (command) => {
+    return (
+      <section key={command.group}>
+        <SectionHeading
+          as="h3"
+          marginBottom="spacingS"
+          marginTop="spacingS"
+          marginLeft="spacingM"
+          marginRight="spacingM">
+          {command.group}
+        </SectionHeading>
+        {command.commands.map((command) => (
+          <button
+            key={command.id}
+            id={command.id}
+            className={cx(styles.menuItem, {
+              [styles.menuItemSelected]: command.id === selectedItem,
+            })}
+            onClick={command.callback}>
+            {command.label}
+          </button>
+        ))}
+        <hr className={styles.menuDivider} aria-orientation="horizontal" />
+      </section>
+    );
   };
+
+  const asset = (command) => {
+    return (
+      <button
+        key={command.id}
+        id={command.id}
+        className={cx(styles.menuItem, {
+          [styles.menuItemSelected]: command.id === selectedItem,
+        })}
+        onClick={command.callback}>
+        <Flex alignItems="center" gap="spacingS">
+          {command.thumbnail && (
+            <img
+              width="30"
+              height="30"
+              src={command.thumbnail}
+              alt=""
+              className={styles.thumbnail}
+            />
+          )}
+          <span>{command.label}</span>
+        </Flex>
+      </button>
+    );
+  };
+
+  const item = (command) => {
+    return (
+      <button key={command.id} id={command.id} className={styles.menuItem}>
+        {command.label}
+      </button>
+    );
+  };
+
+  return (
+    <>
+      {commandItems.map((command) => {
+        return 'group' in command
+          ? group(command)
+          : command.callback
+          ? asset(command)
+          : item(command);
+      })}
+    </>
+  );
 };
 
 export const CommandList = ({ query, editor }: CommandListProps) => {
@@ -121,57 +134,7 @@ export const CommandList = ({ query, editor }: CommandListProps) => {
               <SectionHeading marginBottom="none">Richtext commands</SectionHeading>
             </header>
             <div className={styles.menuList}>
-              {commandItems.map((item) => {
-                return 'group' in item ? (
-                  <section key={item.group}>
-                    <SectionHeading
-                      as="h3"
-                      marginBottom="spacingS"
-                      marginTop="spacingS"
-                      marginLeft="spacingM"
-                      marginRight="spacingM">
-                      {item.group}
-                    </SectionHeading>
-                    {item.commands.map((command) => (
-                      <button
-                        key={command.id}
-                        id={command.id}
-                        className={cx(styles.menuItem, {
-                          [styles.menuItemSelected]: command.id === selectedItem,
-                        })}
-                        onClick={command.callback}>
-                        {command.label}
-                      </button>
-                    ))}
-                    <hr className={styles.menuDivider} aria-orientation="horizontal" />
-                  </section>
-                ) : item.callback ? (
-                  <button
-                    key={item.id}
-                    id={item.id}
-                    className={cx(styles.menuItem, {
-                      [styles.menuItemSelected]: item.id === selectedItem,
-                    })}
-                    onClick={item.callback}>
-                    <Flex alignItems="center" gap="spacingS">
-                      {item.thumbnail && (
-                        <img
-                          width="30"
-                          height="30"
-                          src={item.thumbnail}
-                          alt=""
-                          className={styles.thumbnail}
-                        />
-                      )}
-                      <span>{item.label}</span>
-                    </Flex>
-                  </button>
-                ) : (
-                  <button key={item.id} id={item.id} className={styles.menuItem}>
-                    {item.label}
-                  </button>
-                );
-              })}
+              <CommandListItems commandItems={commandItems} selectedItem={selectedItem} />
             </div>
             <footer className={styles.menuFooter}>
               <Stack

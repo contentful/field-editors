@@ -23,7 +23,7 @@ interface CommandGroup {
   commands: Command[];
 }
 
-type CommandList = (Command | CommandGroup)[];
+export type CommandList = (Command | CommandGroup)[];
 
 const removeCommand = (editor: PlateEditor) => {
   const [, path] = getAbove(editor)!;
@@ -150,7 +150,7 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: Plate
                         if (editor.selection) {
                           const selection = editor.selection;
                           editor.insertSoftBreak();
-                          insertBlock(editor, BLOCKS.EMBEDDED_ASSET, asset.entry);
+                          insertBlock(editor, BLOCKS.EMBEDDED_ASSET, asset.entity);
                           Transforms.select(editor, selection);
                         }
                       },
@@ -166,6 +166,7 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: Plate
     return [...contentTypeCommands, assetCommand];
   });
 
+  /* filter both commands and groups of commands with the user typed query */
   return query
     ? commands.reduce((list, nextItem) => {
         if ('group' in nextItem) {
