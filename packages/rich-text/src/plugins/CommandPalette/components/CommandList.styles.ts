@@ -4,6 +4,7 @@ import { css } from 'emotion';
 const styles = {
   container: css({
     position: 'absolute',
+    zIndex: tokens.zIndexNotification,
   }),
   menuContent: css({
     width: '400px',

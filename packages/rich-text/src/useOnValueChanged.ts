@@ -19,6 +19,25 @@ const isRelevantOperation = (op: Operation) => {
   return true;
 };
 
+// todo - refactor this, very dirty
+// function cleanData(data, deleteKeys) {
+//   if (typeof data != 'object') return;
+//   if (!data) return; // null object
+
+//   for (const key in data) {
+//     if (deleteKeys.includes(key)) {
+//       delete data[key];
+//     } else {
+//       cleanData(data[key], deleteKeys);
+//     }
+//   }
+// }
+
+// const editor = getPlateSelectors(id).editor();
+// if (editor) {
+//   removeMark(editor, { key: 'command-prompt' });
+// }
+
 export type OnValueChangedProps = {
   editorId: string;
   handler?: (value: Document) => unknown;
