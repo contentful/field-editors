@@ -4,10 +4,10 @@ import { toContentfulDocument } from '@contentful/contentful-slatejs-adapter';
 import { Document } from '@contentful/rich-text-types';
 import { getPlateSelectors } from '@udecode/plate-core';
 import debounce from 'lodash/debounce';
-import { COMMAND_PROMPT } from 'plugins/CommandPalette/constants';
 import { Operation } from 'slate';
 
 import schema from './constants/Schema';
+import { COMMAND_PROMPT } from './plugins/CommandPalette/constants';
 
 /**
  * Returns whether a given operation is relevant enough to trigger a save.
