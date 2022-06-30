@@ -1,14 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import React, { useState, useRef, useEffect } from 'react';
-import { css } from 'emotion';
-import get from 'lodash/get';
-import tokens from '@contentful/f36-tokens';
-import { ContentType } from '../../types';
-
-import { SearchIcon } from '@contentful/f36-icons';
 
 import { TextInput, Menu, MenuProps } from '@contentful/f36-components';
+import { SearchIcon } from '@contentful/f36-icons';
+import tokens from '@contentful/f36-tokens';
+import { css } from 'emotion';
+import get from 'lodash/get';
+
+import { ContentType } from '../../types';
+
 
 const MAX_ITEMS_WITHOUT_SEARCH = 20;
 
@@ -27,19 +28,10 @@ const styles = {
     position: 'relative',
     padding: `0 ${tokens.spacing2Xs}`,
   }),
-  searchInput: (parentHasDropdown: boolean) =>
-    css({
-      '& > input': {
-        borderColor: 'transparent',
-        borderRadius: parentHasDropdown ? 0 : undefined,
-        borderLeft: parentHasDropdown ? 'none' : undefined,
-        borderRight: parentHasDropdown ? 'none' : undefined,
-        paddingRight: tokens.spacing2Xl,
-        '::placeholder': {
-          color: tokens.gray600,
-        },
-      },
-    }),
+  searchInput: css({
+    paddingRight: tokens.spacingXl,
+    textOverflow: 'ellipsis',
+  }),
   searchIcon: css({
     position: 'absolute',
     right: tokens.spacingM,
@@ -202,7 +194,7 @@ export const CreateEntryMenuTrigger = ({
               <>
                 <div ref={textField} className={styles.inputWrapper}>
                   <TextInput
-                    className={styles.searchInput(hasDropdown)}
+                    className={styles.searchInput}
                     placeholder="Search all content types"
                     testId="add-entry-menu-search"
                     value={searchInput}
