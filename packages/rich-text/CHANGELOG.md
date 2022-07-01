@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@2.0.4...@contentful/field-editor-rich-text@2.1.0) (2022-07-01)
+
+### Features
+
+- rich text commands [TOL-109] ([#1169](https://github.com/contentful/field-editors/issues/1169)) ([b533f7f](https://github.com/contentful/field-editors/commit/b533f7f7f55d6a39429c0727577617b62793c0aa))
+
 ## [2.0.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@2.0.3...@contentful/field-editor-rich-text@2.0.4) (2022-06-30)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
