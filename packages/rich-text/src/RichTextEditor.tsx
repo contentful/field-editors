@@ -11,7 +11,6 @@ import noop from 'lodash/noop';
 
 import { ContentfulEditorIdProvider, getContentfulEditorId } from './ContentfulEditorProvider';
 import { getPlugins, disableCorePlugins } from './plugins';
-import { SlashCommandsPalette } from './plugins/SlashCommands';
 import { RichTextTrackingActionHandler } from './plugins/Tracking';
 import { documentToEditorValue, normalizeEditorValue, setEditorContent } from './prepareDocument';
 import { styles } from './RichTextEditor.styles';
@@ -107,9 +106,6 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
                 <Toolbar isDisabled={props.isDisabled} />
               </StickyToolbarWrapper>
             )}
-
-            {/* We put it inside <Plate> so we can use some hooks such as `useContentfulEditor` */}
-            <SlashCommandsPalette editorId={id} />
           </Plate>
         </div>
       </ContentfulEditorIdProvider>
