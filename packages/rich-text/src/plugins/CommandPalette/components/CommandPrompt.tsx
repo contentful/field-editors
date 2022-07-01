@@ -9,7 +9,7 @@ import { trimLeadingSlash } from '../utils/trimLeadingSlash';
 import { CommandList } from './CommandList';
 
 export const CommandPrompt = (props: PlateRenderLeafProps) => {
-  const query = trimLeadingSlash(props.text.text);
+  const query = React.useMemo(() => trimLeadingSlash(props.text.text), [props.text.text]);
   const editor = props.editor as RichTextEditor;
   const canInsertBlocks = !isNodeTypeSelected(editor, BLOCKS.TABLE);
 

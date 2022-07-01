@@ -11,14 +11,14 @@ import { fetchAssets } from './utils/fetchAssets';
 import { fetchEntries } from './utils/fetchEntries';
 import { insertBlock } from './utils/insertBlock';
 
-interface Command {
+export interface Command {
   id: string;
   thumbnail?: string;
   label: string;
   callback?: () => void;
 }
 
-interface CommandGroup {
+export interface CommandGroup {
   group: string;
   commands: Command[];
 }

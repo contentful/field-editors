@@ -6,13 +6,67 @@ import { cx } from 'emotion';
 
 import { useSdkContext } from '../../../SdkProvider';
 import { useCommandList } from '../hooks/useCommandList';
-import { CommandList as CommandItems, useCommands } from '../useCommands';
+import { CommandList as CommandItems, Command, useCommands, CommandGroup } from '../useCommands';
 import styles from './CommandList.styles';
 
 export interface CommandListProps {
   query: string;
   editor: PlateEditor;
 }
+
+const Group = ({
+  commandGroup,
+  selectedItem,
+}: {
+  commandGroup: CommandGroup;
+  selectedItem: string;
+}) => (
+  <section key={commandGroup.group}>
+    <SectionHeading
+      as="h3"
+      marginBottom="spacingS"
+      marginTop="spacingS"
+      marginLeft="spacingM"
+      marginRight="spacingM">
+      {commandGroup.group}
+    </SectionHeading>
+    {commandGroup.commands.map((command: Command) => (
+      <button
+        key={command.id}
+        id={command.id}
+        className={cx(styles.menuItem, {
+          [styles.menuItemSelected]: command.id === selectedItem,
+        })}
+        onClick={command.callback}>
+        {command.label}
+      </button>
+    ))}
+    <hr className={styles.menuDivider} aria-orientation="horizontal" />
+  </section>
+);
+
+const Asset = ({ command, selectedItem }: { command: Command; selectedItem: string }) => (
+  <button
+    key={command.id}
+    id={command.id}
+    className={cx(styles.menuItem, {
+      [styles.menuItemSelected]: command.id === selectedItem,
+    })}
+    onClick={command.callback}>
+    <Flex alignItems="center" gap="spacingS">
+      {command.thumbnail && (
+        <img width="30" height="30" src={command.thumbnail} alt="" className={styles.thumbnail} />
+      )}
+      <span>{command.label}</span>
+    </Flex>
+  </button>
+);
+
+const Item = ({ command }: { command: Command }) => (
+  <button key={command.id} id={command.id} className={styles.menuItem}>
+    {command.label}
+  </button>
+);
 
 const CommandListItems = ({
   commandItems,
@@ -21,74 +75,16 @@ const CommandListItems = ({
   commandItems: CommandItems;
   selectedItem: string;
 }) => {
-  const group = (command) => {
-    return (
-      <section key={command.group}>
-        <SectionHeading
-          as="h3"
-          marginBottom="spacingS"
-          marginTop="spacingS"
-          marginLeft="spacingM"
-          marginRight="spacingM">
-          {command.group}
-        </SectionHeading>
-        {command.commands.map((command) => (
-          <button
-            key={command.id}
-            id={command.id}
-            className={cx(styles.menuItem, {
-              [styles.menuItemSelected]: command.id === selectedItem,
-            })}
-            onClick={command.callback}>
-            {command.label}
-          </button>
-        ))}
-        <hr className={styles.menuDivider} aria-orientation="horizontal" />
-      </section>
-    );
-  };
-
-  const asset = (command) => {
-    return (
-      <button
-        key={command.id}
-        id={command.id}
-        className={cx(styles.menuItem, {
-          [styles.menuItemSelected]: command.id === selectedItem,
-        })}
-        onClick={command.callback}>
-        <Flex alignItems="center" gap="spacingS">
-          {command.thumbnail && (
-            <img
-              width="30"
-              height="30"
-              src={command.thumbnail}
-              alt=""
-              className={styles.thumbnail}
-            />
-          )}
-          <span>{command.label}</span>
-        </Flex>
-      </button>
-    );
-  };
-
-  const item = (command) => {
-    return (
-      <button key={command.id} id={command.id} className={styles.menuItem}>
-        {command.label}
-      </button>
-    );
-  };
-
   return (
     <>
       {commandItems.map((command) => {
-        return 'group' in command
-          ? group(command)
-          : command.callback
-          ? asset(command)
-          : item(command);
+        return 'group' in command ? (
+          <Group commandGroup={command} selectedItem={selectedItem} />
+        ) : command.callback ? (
+          <Asset command={command} selectedItem={selectedItem} />
+        ) : (
+          <Item command={command} />
+        );
       })}
     </>
   );
