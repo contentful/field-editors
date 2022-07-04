@@ -321,6 +321,95 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     });
   });
 
+  describe('Commands', () => {
+    describe('Palette', () => {
+      const getPalette = () => richText.editor.findByTestId('rich-text-commands');
+      const getCommandList = () => richText.editor.findByTestId('rich-text-commands-list');
+
+      it('should be visible', () => {
+        richText.editor.click().type('/');
+        getPalette().should('exist');
+      });
+
+      it('should close on pressing esc', () => {
+        richText.editor.click().type('/');
+        getPalette().should('exist');
+        richText.editor.type('{esc}');
+        getPalette().should('not.exist');
+        richText.expectValue(doc(block(BLOCKS.PARAGRAPH, {}, text('/'))));
+      });
+
+      it('should be searchable', () => {
+        richText.editor.click().type('/asset');
+        getCommandList().children().first().should('include.text', 'asset');
+      });
+
+      it('should delete search text after navigating', () => {
+        richText.editor.click().type('/asset');
+        getCommandList().children().first().click();
+        richText.expectValue(doc(block(BLOCKS.PARAGRAPH, {}, text('/'))));
+      });
+
+      it('should navigate on category enter', () => {
+        richText.editor.click().type('/');
+        const firstChild = getCommandList().children().first();
+        firstChild.click();
+        getCommandList().children().first().should('not.equal', firstChild);
+      });
+
+      it('should embed entry', () => {
+        richText.editor.click().type('/');
+        getCommandList().contains('Embed').click();
+        getCommandList().children().first().click();
+
+        richText.editor.findByTestId('cf-ui-entry-card').should('exist');
+      });
+
+      it('should embed inline', () => {
+        richText.editor.click().type('/');
+        getCommandList().contains('Inline').click();
+        getCommandList().children().first().click();
+
+        richText.editor.findByTestId('embedded-entry-inline').should('exist');
+      });
+
+      it('should embed asset', () => {
+        richText.editor.click().type('/');
+        getCommandList().contains('Embed Asset').click();
+        getCommandList().children().first().click();
+
+        richText.editor.findByTestId('cf-ui-asset-card').should('exist');
+      });
+
+      it('should delete command after embedding', () => {
+        richText.editor.click().type('/');
+        getCommandList().contains('Embed').click();
+        getCommandList().children().first().click();
+
+        richText.editor.children().contains('/').should('not.exist');
+      });
+
+      it('should navigate then embed on pressing enter', () => {
+        richText.editor.click().type('/');
+        const firstChild = getCommandList().children().first();
+        richText.editor.type('{enter}');
+        getCommandList().children().first().should('not.equal', firstChild);
+        richText.editor.type('{enter}');
+        richText.editor.findByTestId('cf-ui-entry-card').should('exist');
+      });
+
+      it('should select next item on down arrow press', () => {
+        richText.editor.click().type('/{downarrow}{enter}{enter}');
+        richText.editor.findByTestId('embedded-entry-inline').should('exist');
+      });
+
+      it('should select previous item on up arrow press', () => {
+        richText.editor.click().type('/{downarrow}{uparrow}{enter}{enter}');
+        richText.editor.findByTestId('cf-ui-entry-card').should('exist');
+      });
+    });
+  });
+
   describe('HR', () => {
     describe('toolbar button', () => {
       it('should be visible', () => {
