@@ -8,6 +8,7 @@ import { entityHelpers, isValidImage } from '@contentful/field-editor-shared';
 import { css } from 'emotion';
 
 import { AssetThumbnail, MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
+import { SpaceName } from '../../components/SpaceName/SpaceName';
 import { ContentType, Entry, File, RenderDragFn } from '../../types';
 
 const { getEntryTitle, getEntityDescription, getEntryStatus, getEntryImage } = entityHelpers;
@@ -31,6 +32,7 @@ export interface WrappedEntryCardProps {
   localeCode: string;
   defaultLocaleCode: string;
   contentType?: ContentType;
+  spaceName?: string;
   entry: Entry;
   renderDragHandle?: RenderDragFn;
   isClickable?: boolean;
@@ -110,18 +112,23 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
       size={props.size}
       isSelected={props.isSelected}
       status={status}
+      style={props.spaceName ? { backgroundColor: tokens.gray100 } : undefined}
       icon={
-        <ScheduledIconWithTooltip
-          getEntityScheduledActions={props.getEntityScheduledActions}
-          entityType="Entry"
-          entityId={props.entry.sys.id}>
-          <ClockIcon
-            className={styles.scheduleIcon}
-            size="small"
-            variant="muted"
-            testId="schedule-icon"
-          />
-        </ScheduledIconWithTooltip>
+        props.spaceName ? (
+          <SpaceName spaceName={props.spaceName} />
+        ) : (
+          <ScheduledIconWithTooltip
+            getEntityScheduledActions={props.getEntityScheduledActions}
+            entityType="Entry"
+            entityId={props.entry.sys.id}>
+            <ClockIcon
+              className={styles.scheduleIcon}
+              size="small"
+              variant="muted"
+              testId="schedule-icon"
+            />
+          </ScheduledIconWithTooltip>
+        )
       }
       thumbnailElement={file && isValidImage(file) ? <AssetThumbnail file={file} /> : undefined}
       dragHandleRender={props.renderDragHandle}
