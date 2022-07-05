@@ -328,84 +328,107 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
       it('should be visible', () => {
         richText.editor.click().type('/');
-        getPalette().should('exist');
+        getPalette().should('be.visible');
       });
 
       it('should close on pressing esc', () => {
         richText.editor.click().type('/');
-        getPalette().should('exist');
+        getPalette().should('be.visible');
         richText.editor.type('{esc}');
-        getPalette().should('not.exist');
+        getPalette().should('not.be.visible');
         richText.expectValue(doc(block(BLOCKS.PARAGRAPH, {}, text('/'))));
       });
 
       it('should be searchable', () => {
         richText.editor.click().type('/asset');
-        getCommandList().children().first().should('include.text', 'asset');
+        getCommandList()
+          .children()
+          .each((child) => {
+            cy.wrap(child).should('include.text', 'Asset');
+          });
       });
 
       it('should delete search text after navigating', () => {
         richText.editor.click().type('/asset');
-        getCommandList().children().first().click();
+        getCommandList().findByText('Embed Asset').click();
         richText.expectValue(doc(block(BLOCKS.PARAGRAPH, {}, text('/'))));
       });
 
       it('should navigate on category enter', () => {
         richText.editor.click().type('/');
-        const firstChild = getCommandList().children().first();
-        firstChild.click();
-        getCommandList().children().first().should('not.equal', firstChild);
+        getCommandList().findByText('Embed Example Content Type').click();
+        getCommandList().should('be.visible');
+        getCommandList().findByText('Embed Example Content Type').should('not.exist');
       });
 
       it('should embed entry', () => {
         richText.editor.click().type('/');
-        getCommandList().contains('Embed').click();
-        getCommandList().children().first().click();
+        getCommandList().findByText('Embed Example Content Type').click();
+        getCommandList().findByText('Hello world').click();
 
-        richText.editor.findByTestId('cf-ui-entry-card').should('exist');
+        //this is used instead of snapshot value because we have randomized entry IDs
+        richText.getValue().should((doc) => {
+          expect(
+            doc.content.filter((node) => node.nodeType === BLOCKS.EMBEDDED_ENTRY)
+          ).to.have.length(1);
+        });
       });
 
       it('should embed inline', () => {
         richText.editor.click().type('/');
-        getCommandList().contains('Inline').click();
-        getCommandList().children().first().click();
+        getCommandList().findByText('Embed Example Content Type - Inline').click();
+        getCommandList().findByText('Hello world').click();
 
-        richText.editor.findByTestId('embedded-entry-inline').should('exist');
+        richText.expectSnapshotValue();
       });
 
       it('should embed asset', () => {
         richText.editor.click().type('/');
-        getCommandList().contains('Embed Asset').click();
-        getCommandList().children().first().click();
+        getCommandList().findByText('Embed Asset').click();
+        getCommandList().findByText('test').click();
 
-        richText.editor.findByTestId('cf-ui-asset-card').should('exist');
+        richText.expectSnapshotValue();
       });
 
       it('should delete command after embedding', () => {
         richText.editor.click().type('/');
-        getCommandList().contains('Embed').click();
-        getCommandList().children().first().click();
+        getCommandList().findByText('Embed Example Content Type').click();
+        getCommandList().findByText('Hello world').click();
 
         richText.editor.children().contains('/').should('not.exist');
       });
 
       it('should navigate then embed on pressing enter', () => {
         richText.editor.click().type('/');
-        const firstChild = getCommandList().children().first();
+        getCommandList().findByText('Embed Example Content Type').should('exist');
         richText.editor.type('{enter}');
-        getCommandList().children().first().should('not.equal', firstChild);
+        getCommandList().findByText('Embed Example Content Type').should('not.exist');
         richText.editor.type('{enter}');
-        richText.editor.findByTestId('cf-ui-entry-card').should('exist');
+
+        //this is used instead of snapshot value because we have randomized entry IDs
+        richText.getValue().should((doc) => {
+          expect(
+            doc.content.filter((node) => node.nodeType === BLOCKS.EMBEDDED_ENTRY)
+          ).to.have.length(1);
+        });
       });
 
       it('should select next item on down arrow press', () => {
         richText.editor.click().type('/{downarrow}{enter}{enter}');
+
         richText.editor.findByTestId('embedded-entry-inline').should('exist');
+        richText.expectSnapshotValue();
       });
 
       it('should select previous item on up arrow press', () => {
         richText.editor.click().type('/{downarrow}{uparrow}{enter}{enter}');
-        richText.editor.findByTestId('cf-ui-entry-card').should('exist');
+
+        //this is used instead of snapshot value because we have randomized entry IDs
+        richText.getValue().should((doc) => {
+          expect(
+            doc.content.filter((node) => node.nodeType === BLOCKS.EMBEDDED_ENTRY)
+          ).to.have.length(1);
+        });
       });
     });
   });

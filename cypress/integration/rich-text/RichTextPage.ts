@@ -85,6 +85,14 @@ export class RichTextPage {
     };
   }
 
+  getValue() {
+    cy.wait(500);
+
+    return cy.getRichTextField().then((field) => {
+      return field.getValue();
+    });
+  }
+
   expectValue(expectedValue: any) {
     // we want to make sure any kind of debounced behavior
     // is already triggered before we go on and assert the
