@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import isHotkey from 'is-hotkey';
 
-export const useCommandList = (commandItems, container, clickOutsideCallback) => {
+export const useCommandList = (commandItems, container) => {
   const [selectedItem, setSelectedItem] = React.useState<string>(() => {
     // select the first item on initial render
     if ('group' in commandItems[0]) {
@@ -10,6 +10,7 @@ export const useCommandList = (commandItems, container, clickOutsideCallback) =>
     }
     return commandItems[0].id;
   });
+  const [isOpen, setIsOpen] = React.useState(commandItems.length > 0);
 
   React.useEffect(() => {
     if (!container?.current) {
@@ -67,7 +68,7 @@ export const useCommandList = (commandItems, container, clickOutsideCallback) =>
 
   const handleClick = (event) => {
     if (container.current && !container.current.contains(event.target)) {
-      clickOutsideCallback();
+      setIsOpen(false);
     }
   };
 
@@ -80,5 +81,6 @@ export const useCommandList = (commandItems, container, clickOutsideCallback) =>
 
   return {
     selectedItem,
+    isOpen,
   };
 };

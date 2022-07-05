@@ -94,10 +94,7 @@ export const CommandList = ({ query, editor }: CommandListProps) => {
   const sdk = useSdkContext();
   const container = React.useRef<HTMLDivElement>(null);
   const commandItems = useCommands(sdk, query, editor);
-  const [isOpen, setIsOpen] = React.useState(commandItems.length > 0);
-
-  const clickOutsideCallback = React.useCallback(() => setIsOpen(false), [setIsOpen]);
-  const { selectedItem } = useCommandList(commandItems, container, clickOutsideCallback);
+  const { selectedItem, isOpen } = useCommandList(commandItems, container);
 
   return (
     <div className={styles.container} tabIndex={-1} ref={container} contentEditable={false}>
