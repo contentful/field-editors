@@ -335,7 +335,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         richText.editor.click().type('/');
         getPalette().should('be.visible');
         richText.editor.type('{esc}');
-        getPalette().should('not.be.visible');
+        getPalette().should('not.exist');
         richText.expectValue(doc(block(BLOCKS.PARAGRAPH, {}, text('/'))));
       });
 
