@@ -31,7 +31,7 @@ export type RichTextTrackingActionName =
   | 'cancelCreateEmbedDialog'
   // CommandPalette
   | 'openRichTextCommandPalette'
-  | 'closeRichTextCommandPalette';
+  | 'cancelRichTextCommandPalette';
 
 export type RichTextTrackingActionHandler = (
   name: RichTextTrackingActionName,

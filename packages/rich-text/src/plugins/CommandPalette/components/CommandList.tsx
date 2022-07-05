@@ -96,15 +96,6 @@ export const CommandList = ({ query, editor }: CommandListProps) => {
   const commandItems = useCommands(sdk, query, editor);
   const { selectedItem } = useCommandList(commandItems, container);
 
-  React.useEffect(() => {
-    editor.tracking.onCommandPaletteAction('openRichTextCommandPalette');
-
-    return () => {
-      editor.tracking.onCommandPaletteAction('closeRichTextCommandPalette');
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- should only run on mount, editor.tracking should not change
-  }, []);
-
   if (commandItems.length === 0) {
     return null;
   }
