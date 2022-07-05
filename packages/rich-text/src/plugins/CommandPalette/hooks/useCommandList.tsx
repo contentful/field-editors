@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import isHotkey from 'is-hotkey';
 
-export const useCommandList = (commandItems, container) => {
+export const useCommandList = (commandItems, container, clickOutsideCallback) => {
   const [selectedItem, setSelectedItem] = React.useState<string>(() => {
     // select the first item on initial render
     if ('group' in commandItems[0]) {
@@ -64,6 +64,19 @@ export const useCommandList = (commandItems, container) => {
     }
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [commandItems, container, selectedItem]);
+
+  const handleClick = (event) => {
+    if (container.current && !container.current.contains(event.target)) {
+      clickOutsideCallback();
+    }
+  };
+
+  React.useEffect(() => {
+    document.addEventListener('click', handleClick);
+    return () => {
+      document.removeEventListener('click', handleClick);
+    };
+  });
 
   return {
     selectedItem,
