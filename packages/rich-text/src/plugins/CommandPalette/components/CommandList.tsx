@@ -128,17 +128,20 @@ export const CommandList = ({ query, editor }: CommandListProps) => {
         </ScreenReaderOnly>
       </div>
       <div aria-hidden={true}>
-        {/* eslint-disable-next-line jsx-a11y/no-autofocus -- we want to keep focus on text input*/}
-        <Popover isOpen={true} usePortal={false} autoFocus={false}>
+        <Popover
+          isOpen={true}
+          usePortal={false}
+          /* eslint-disable-next-line jsx-a11y/no-autofocus -- we want to keep focus on text input*/
+          autoFocus={false}>
           {/* we need an empty trigger here for the positioning of the menu list */}
           <Popover.Trigger>
             <span />
           </Popover.Trigger>
-          <Popover.Content className={styles.menuContent}>
+          <Popover.Content className={styles.menuContent} testId="rich-text-commands">
             <header className={styles.menuHeader}>
               <SectionHeading marginBottom="none">Richtext commands</SectionHeading>
             </header>
-            <div className={styles.menuList}>
+            <div className={styles.menuList} data-test-id="rich-text-commands-list">
               <CommandListItems commandItems={commandItems} selectedItem={selectedItem} />
             </div>
             <footer className={styles.menuFooter}>

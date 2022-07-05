@@ -859,3 +859,126 @@ exports[`Rich Text Editor > Quote > using hotkey (mod+shift+1) > should toggle o
   "data": {},
   "nodeType": "document"
 };
+
+exports[`Rich Text Editor > Commands > Palette > should embed inline #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        },
+        {
+          "content": [],
+          "data": {
+            "target": {
+              "sys": {
+                "id": "exampleCT",
+                "linkType": "Entry",
+                "type": "Link"
+              }
+            }
+          },
+          "nodeType": "embedded-entry-inline"
+        },
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > Commands > Palette > should embed asset #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    },
+    {
+      "content": [],
+      "data": {
+        "target": {
+          "sys": {
+            "id": "published_asset",
+            "linkType": "Asset",
+            "type": "Link"
+          }
+        }
+      },
+      "nodeType": "embedded-asset-block"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > Commands > Palette > should select next item on down arrow press #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        },
+        {
+          "content": [],
+          "data": {
+            "target": {
+              "sys": {
+                "id": "exampleCT",
+                "linkType": "Entry",
+                "type": "Link"
+              }
+            }
+          },
+          "nodeType": "embedded-entry-inline"
+        },
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
