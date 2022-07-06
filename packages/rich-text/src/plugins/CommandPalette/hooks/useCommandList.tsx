@@ -66,18 +66,17 @@ export const useCommandList = (commandItems, container) => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [commandItems, container, selectedItem]);
 
-  const handleClick = (event) => {
-    if (container.current && !container.current.contains(event.target)) {
-      setIsOpen(false);
-    }
-  };
-
   React.useEffect(() => {
+    const handleClick = (event) => {
+      if (container.current && !container.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
     document.addEventListener('click', handleClick);
     return () => {
       document.removeEventListener('click', handleClick);
     };
-  });
+  }, [container]);
 
   return {
     selectedItem,
