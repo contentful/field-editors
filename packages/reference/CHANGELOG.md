@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.4.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.3.11...@contentful/field-editor-reference@4.4.0) (2022-07-06)
+
+### Features
+
+- add optional space name to entry card ([#1176](https://github.com/contentful/field-editors/issues/1176)) ([62fae44](https://github.com/contentful/field-editors/commit/62fae44a63ad29597acf6ae0ba7f15373b1045c0))
+
 ## [4.3.11](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.3.10...@contentful/field-editor-reference@4.3.11) (2022-06-30)
 
 ### Bug Fixes
