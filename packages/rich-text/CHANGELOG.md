@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@2.1.2...@contentful/field-editor-rich-text@2.1.3) (2022-07-06)
+
+### Bug Fixes
+
+- rt-commands palette closes on click outside ([#1175](https://github.com/contentful/field-editors/issues/1175)) ([b9dd434](https://github.com/contentful/field-editors/commit/b9dd43497a874b35318230074d7de411012c7eee))
+
 ## [2.1.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@2.1.1...@contentful/field-editor-rich-text@2.1.2) (2022-07-06)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
