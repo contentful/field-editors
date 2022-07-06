@@ -769,7 +769,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
   describe('Commands', () => {
     const origin = 'command-palette';
-    const getCommandList = () => richText.editor.findByTestId('rich-text-commands-list');
+    const getCommandList = () => cy.findByTestId('rich-text-commands-list');
 
     beforeEach(() => {
       richText.editor.click().type('/');

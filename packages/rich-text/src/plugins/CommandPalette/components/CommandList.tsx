@@ -102,6 +102,10 @@ export const CommandList = ({ query, editor, textContainer }: CommandListProps) 
   const commandItems = useCommands(sdk, query, editor);
   const { selectedItem, isOpen } = useCommandList(commandItems, popoverContainer);
 
+  if (!commandItems.length) {
+    return null;
+  }
+
   return (
     <div className={styles.container} tabIndex={-1} contentEditable={false}>
       {/*
