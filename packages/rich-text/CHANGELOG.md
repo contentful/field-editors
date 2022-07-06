@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@2.2.0...@contentful/field-editor-rich-text@2.2.1) (2022-07-06)
+
+### Bug Fixes
+
+- add validations to rt-command embedding, allow table embedding, improve click handling ([#1178](https://github.com/contentful/field-editors/issues/1178)) ([83704a6](https://github.com/contentful/field-editors/commit/83704a6d234ceba8850ba5be5a085bfeb1b3a293))
+
 # [2.2.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@2.1.3...@contentful/field-editor-rich-text@2.2.0) (2022-07-06)
 
 ### Features
