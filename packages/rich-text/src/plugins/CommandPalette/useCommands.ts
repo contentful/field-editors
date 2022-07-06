@@ -4,7 +4,10 @@ import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { getAbove, PlateEditor, removeMark } from '@udecode/plate-core';
 import { Editor, Transforms } from 'slate';
+import { RichTextEditor } from 'types';
 
+import { isNodeTypeSelected } from '../../helpers/editor';
+import { isNodeTypeEnabled } from '../../helpers/validations';
 import { COMMAND_PROMPT } from './constants';
 import { createInlineEntryNode } from './utils/createInlineEntryNode';
 import { fetchAssets } from './utils/fetchAssets';
@@ -44,21 +47,113 @@ const removeQuery = (editor: PlateEditor) => {
   }
 };
 
-export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: PlateEditor) => {
+export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: RichTextEditor) => {
   const contentTypes = sdk.space.getCachedContentTypes();
 
+  const canInsertBlocks = !isNodeTypeSelected(editor, BLOCKS.TABLE);
+
+  const inlineAllowed = isNodeTypeEnabled(sdk.field, INLINES.EMBEDDED_ENTRY);
+  const entriesAllowed = isNodeTypeEnabled(sdk.field, BLOCKS.EMBEDDED_ENTRY) && canInsertBlocks;
+  const assetsAllowed = isNodeTypeEnabled(sdk.field, BLOCKS.EMBEDDED_ASSET) && canInsertBlocks;
+
   const [commands, setCommands] = useState((): CommandList => {
-    const contentTypeCommands = contentTypes.map((contentType) => {
+    const getEmbedEntry = (contentType) => {
       return {
-        group: contentType.name,
+        id: contentType.sys.id,
+        label: `Embed ${contentType.name}`,
+        callback: () => {
+          fetchEntries(sdk, contentType, query).then((entries) => {
+            removeQuery(editor);
+            if (!entries.length) {
+              setCommands([
+                {
+                  id: 'no-results',
+                  label: 'No results',
+                },
+              ]);
+            } else {
+              setCommands(
+                entries.map((entry) => {
+                  return {
+                    id: `${entry.id}-${entry.displayTitle.replace(/\W+/g, '-').toLowerCase()}`,
+                    label: entry.displayTitle,
+                    callback: () => {
+                      removeCommand(editor);
+                      if (editor.selection) {
+                        const selection = editor.selection;
+                        editor.insertSoftBreak();
+                        insertBlock(editor, BLOCKS.EMBEDDED_ENTRY, entry.entry);
+                        Transforms.select(editor, selection);
+                      }
+                    },
+                  };
+                })
+              );
+            }
+          });
+        },
+      };
+    };
+
+    const getEmbedInline = (contentType) => {
+      return {
+        id: `${contentType.sys.id}-inline`,
+        label: `Embed ${contentType.name} - Inline`,
+        callback: () => {
+          fetchEntries(sdk, contentType, query).then((entries) => {
+            removeQuery(editor);
+            if (!entries.length) {
+              setCommands([
+                {
+                  id: 'no-results',
+                  label: 'No results',
+                },
+              ]);
+            } else {
+              setCommands(
+                entries.map((entry) => {
+                  return {
+                    id: `${entry.id}-${entry.displayTitle.replace(/\W+/g, '-').toLowerCase()}`,
+                    label: entry.displayTitle,
+                    callback: () => {
+                      const inlineNode = createInlineEntryNode(entry.id);
+                      removeCommand(editor);
+                      Transforms.insertNodes(editor, inlineNode);
+                      editor.insertText('');
+                    },
+                  };
+                })
+              );
+            }
+          });
+        },
+      };
+    };
+    const contentTypeCommands =
+      entriesAllowed || inlineAllowed
+        ? contentTypes.map((contentType) => {
+            return {
+              group: contentType.name,
+              commands:
+                entriesAllowed && inlineAllowed
+                  ? [getEmbedEntry(contentType), getEmbedInline(contentType)]
+                  : entriesAllowed
+                  ? [getEmbedEntry(contentType)]
+                  : [getEmbedInline(contentType)],
+            };
+          })
+        : [];
+    if (assetsAllowed) {
+      const assetCommand = {
+        group: 'Assets',
         commands: [
           {
-            id: contentType.sys.id,
-            label: `Embed ${contentType.name}`,
+            id: 'embed-asset',
+            label: 'Embed Asset',
             callback: () => {
-              fetchEntries(sdk, contentType, query).then((entries) => {
+              fetchAssets(sdk, query).then((assets) => {
                 removeQuery(editor);
-                if (!entries.length) {
+                if (!assets.length) {
                   setCommands([
                     {
                       id: 'no-results',
@@ -67,16 +162,17 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: Plate
                   ]);
                 } else {
                   setCommands(
-                    entries.map((entry) => {
+                    assets.map((asset) => {
                       return {
-                        id: `${entry.id}-${entry.displayTitle.replace(/\W+/g, '-').toLowerCase()}`,
-                        label: entry.displayTitle,
+                        id: `${asset.id}-${asset.displayTitle.replace(/\W+/g, '-').toLowerCase()}`,
+                        label: asset.displayTitle,
+                        thumbnail: asset.thumbnail,
                         callback: () => {
                           removeCommand(editor);
                           if (editor.selection) {
                             const selection = editor.selection;
                             editor.insertSoftBreak();
-                            insertBlock(editor, BLOCKS.EMBEDDED_ENTRY, entry.entry);
+                            insertBlock(editor, BLOCKS.EMBEDDED_ASSET, asset.entity);
                             Transforms.select(editor, selection);
                             editor.tracking.onCommandPaletteAction('insert', {
                               nodeType: BLOCKS.EMBEDDED_ENTRY,
@@ -90,89 +186,11 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: Plate
               });
             },
           },
-          {
-            id: `${contentType.sys.id}-inline`,
-            label: `Embed ${contentType.name} - Inline`,
-            callback: () => {
-              fetchEntries(sdk, contentType, query).then((entries) => {
-                removeQuery(editor);
-                if (!entries.length) {
-                  setCommands([
-                    {
-                      id: 'no-results',
-                      label: 'No results',
-                    },
-                  ]);
-                } else {
-                  setCommands(
-                    entries.map((entry) => {
-                      return {
-                        id: `${entry.id}-${entry.displayTitle.replace(/\W+/g, '-').toLowerCase()}`,
-                        label: entry.displayTitle,
-                        callback: () => {
-                          const inlineNode = createInlineEntryNode(entry.id);
-                          removeCommand(editor);
-                          Transforms.insertNodes(editor, inlineNode);
-                          editor.insertText('');
-                          editor.tracking.onCommandPaletteAction('insert', {
-                            nodeType: INLINES.EMBEDDED_ENTRY,
-                          });
-                        },
-                      };
-                    })
-                  );
-                }
-              });
-            },
-          },
         ],
       };
-    });
-    const assetCommand = {
-      group: 'Assets',
-      commands: [
-        {
-          id: 'embed-asset',
-          label: 'Embed Asset',
-          callback: () => {
-            fetchAssets(sdk, query).then((assets) => {
-              removeQuery(editor);
-              if (!assets.length) {
-                setCommands([
-                  {
-                    id: 'no-results',
-                    label: 'No results',
-                  },
-                ]);
-              } else {
-                setCommands(
-                  assets.map((asset) => {
-                    return {
-                      id: `${asset.id}-${asset.displayTitle.replace(/\W+/g, '-').toLowerCase()}`,
-                      label: asset.displayTitle,
-                      thumbnail: asset.thumbnail,
-                      callback: () => {
-                        removeCommand(editor);
-                        if (editor.selection) {
-                          const selection = editor.selection;
-                          editor.insertSoftBreak();
-                          insertBlock(editor, BLOCKS.EMBEDDED_ASSET, asset.entity);
-                          Transforms.select(editor, selection);
-                          editor.tracking.onCommandPaletteAction('insert', {
-                            nodeType: BLOCKS.EMBEDDED_ASSET,
-                          });
-                        }
-                      },
-                    };
-                  })
-                );
-              }
-            });
-          },
-        },
-      ],
-    };
-    return [...contentTypeCommands, assetCommand];
+      return [...contentTypeCommands, assetCommand];
+    }
+    return contentTypeCommands;
   });
 
   /* filter both commands and groups of commands with the user typed query */

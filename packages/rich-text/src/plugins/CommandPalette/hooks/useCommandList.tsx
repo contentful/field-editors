@@ -13,7 +13,7 @@ export const useCommandList = (commandItems, container) => {
   const [isOpen, setIsOpen] = React.useState(commandItems.length > 0);
 
   React.useEffect(() => {
-    if (!container?.current) {
+    if (!container.current) {
       return;
     }
     const buttons = Array.from(container.current.querySelectorAll('button')) as HTMLButtonElement[];
@@ -68,6 +68,8 @@ export const useCommandList = (commandItems, container) => {
 
   React.useEffect(() => {
     const handleClick = (event) => {
+      console.log(container);
+      console.log(event);
       if (container.current && !container.current.contains(event.target)) {
         setIsOpen(false);
       }
