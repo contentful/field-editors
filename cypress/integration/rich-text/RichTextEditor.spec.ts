@@ -323,8 +323,8 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
   describe('Commands', () => {
     describe('Palette', () => {
-      const getPalette = () => richText.editor.findByTestId('rich-text-commands');
-      const getCommandList = () => richText.editor.findByTestId('rich-text-commands-list');
+      const getPalette = () => cy.findByTestId('rich-text-commands');
+      const getCommandList = () => cy.findByTestId('rich-text-commands-list');
 
       it('should be visible', () => {
         richText.editor.click().type('/');

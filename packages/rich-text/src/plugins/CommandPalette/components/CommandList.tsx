@@ -1,17 +1,20 @@
 import * as React from 'react';
+import { usePopper } from 'react-popper';
 
 import { Popover, Stack, SectionHeading, ScreenReaderOnly, Flex } from '@contentful/f36-components';
-import { PlateEditor } from '@udecode/plate-core';
+import { Portal } from '@contentful/f36-utils';
 import { cx } from 'emotion';
 
 import { useSdkContext } from '../../../SdkProvider';
+import { RichTextEditor } from '../../../types';
 import { useCommandList } from '../hooks/useCommandList';
 import { CommandList as CommandItems, Command, useCommands, CommandGroup } from '../useCommands';
 import styles from './CommandList.styles';
 
 export interface CommandListProps {
   query: string;
-  editor: PlateEditor;
+  editor: RichTextEditor;
+  textContainer?: HTMLSpanElement;
 }
 
 const Group = ({
@@ -90,14 +93,21 @@ const CommandListItems = ({
   );
 };
 
-export const CommandList = ({ query, editor }: CommandListProps) => {
+export const CommandList = ({ query, editor, textContainer }: CommandListProps) => {
   const sdk = useSdkContext();
-  const container = React.useRef<HTMLDivElement>(null);
+  const popoverContainer = React.useRef<HTMLDivElement>(null);
+  const popper = usePopper(textContainer, popoverContainer?.current, {
+    placement: 'bottom-start',
+  });
   const commandItems = useCommands(sdk, query, editor);
-  const { selectedItem, isOpen } = useCommandList(commandItems, container);
+  const { selectedItem, isOpen } = useCommandList(commandItems, popoverContainer);
+
+  if (!commandItems.length) {
+    return null;
+  }
 
   return (
-    <div className={styles.container} tabIndex={-1} ref={container} contentEditable={false}>
+    <div className={styles.container} tabIndex={-1} contentEditable={false}>
       {/*
         We have to make it visually appear as if the buttons have focus, because we can not set both the
         focus on the textarea and the focus on the button. In HTML you can only set focus on one element at a time.
@@ -114,45 +124,51 @@ export const CommandList = ({ query, editor }: CommandListProps) => {
           select, <kbd>arrows</kbd> to navigate, <kbd>escape</kbd> to close.
         </ScreenReaderOnly>
       </div>
-      <div aria-hidden={true}>
-        <Popover
-          isOpen={isOpen}
-          usePortal={false}
-          /* eslint-disable-next-line jsx-a11y/no-autofocus -- we want to keep focus on text input*/
-          autoFocus={false}>
-          {/* we need an empty trigger here for the positioning of the menu list */}
-          <Popover.Trigger>
-            <span />
-          </Popover.Trigger>
-          <Popover.Content className={styles.menuContent} testId="rich-text-commands">
-            <header className={styles.menuHeader}>
-              <SectionHeading marginBottom="none">Richtext commands</SectionHeading>
-            </header>
-            <div className={styles.menuList} data-test-id="rich-text-commands-list">
-              <CommandListItems commandItems={commandItems} selectedItem={selectedItem} />
-            </div>
-            <footer className={styles.menuFooter}>
-              <Stack
-                as="ul"
-                margin="none"
-                padding="none"
-                spacing="spacingS"
-                className={styles.footerList}>
-                <li>
-                  <kbd>↑</kbd>
-                  <kbd>↓</kbd> to navigate
-                </li>
-                <li>
-                  <kbd>↵</kbd> to confirm
-                </li>
-                <li>
-                  <kbd>esc</kbd> to close
-                </li>
-              </Stack>
-            </footer>
-          </Popover.Content>
-        </Popover>
-      </div>
+      <Portal>
+        <div
+          aria-hidden={true}
+          ref={popoverContainer}
+          style={popper.styles.popper}
+          {...popper.attributes.popper}>
+          <Popover
+            isOpen={isOpen}
+            usePortal={false}
+            /* eslint-disable-next-line jsx-a11y/no-autofocus -- we want to keep focus on text input*/
+            autoFocus={false}>
+            {/* we need an empty trigger here for the positioning of the menu list */}
+            <Popover.Trigger>
+              <span />
+            </Popover.Trigger>
+            <Popover.Content className={styles.menuContent} testId="rich-text-commands">
+              <header className={styles.menuHeader}>
+                <SectionHeading marginBottom="none">Richtext commands</SectionHeading>
+              </header>
+              <div className={styles.menuList} data-test-id="rich-text-commands-list">
+                <CommandListItems commandItems={commandItems} selectedItem={selectedItem} />
+              </div>
+              <footer className={styles.menuFooter}>
+                <Stack
+                  as="ul"
+                  margin="none"
+                  padding="none"
+                  spacing="spacingS"
+                  className={styles.footerList}>
+                  <li>
+                    <kbd>↑</kbd>
+                    <kbd>↓</kbd> to navigate
+                  </li>
+                  <li>
+                    <kbd>↵</kbd> to confirm
+                  </li>
+                  <li>
+                    <kbd>esc</kbd> to close
+                  </li>
+                </Stack>
+              </footer>
+            </Popover.Content>
+          </Popover>
+        </div>
+      </Portal>
     </div>
   );
 };

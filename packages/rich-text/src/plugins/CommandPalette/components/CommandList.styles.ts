@@ -61,7 +61,6 @@ const styles = {
     margin: `${tokens.spacingXs} 0`,
   }),
   menuHeader: css({
-    position: 'sticky',
     zIndex: tokens.zIndexDefault,
     top: 0,
     backgroundColor: tokens.gray100,

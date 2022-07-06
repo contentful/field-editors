@@ -13,7 +13,7 @@ export const useCommandList = (commandItems, container) => {
   const [isOpen, setIsOpen] = React.useState(commandItems.length > 0);
 
   React.useEffect(() => {
-    if (!container?.current) {
+    if (!container.current) {
       return;
     }
     const buttons = Array.from(container.current.querySelectorAll('button')) as HTMLButtonElement[];
@@ -67,14 +67,14 @@ export const useCommandList = (commandItems, container) => {
   }, [commandItems, container, selectedItem]);
 
   React.useEffect(() => {
-    const handleClick = (event) => {
+    const handleMousedown = (event) => {
       if (container.current && !container.current.contains(event.target)) {
         setIsOpen(false);
       }
     };
-    document.addEventListener('click', handleClick);
+    document.addEventListener('mousedown', handleMousedown);
     return () => {
-      document.removeEventListener('click', handleClick);
+      document.removeEventListener('mousedown', handleMousedown);
     };
   }, [container]);
 
