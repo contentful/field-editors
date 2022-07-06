@@ -28,7 +28,10 @@ export type RichTextTrackingActionName =
   | 'unlinkHyperlinks'
   // Embeds
   | 'openCreateEmbedDialog'
-  | 'cancelCreateEmbedDialog';
+  | 'cancelCreateEmbedDialog'
+  // CommandPalette
+  | 'openRichTextCommandPalette'
+  | 'cancelRichTextCommandPalette';
 
 export type RichTextTrackingActionHandler = (
   name: RichTextTrackingActionName,

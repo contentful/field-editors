@@ -35,6 +35,10 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
   const cancelEmbeddedDialog = (origin, nodeType) =>
     action('cancelCreateEmbedDialog', origin, { nodeType });
 
+  const openCommandPalette = () => action('openRichTextCommandPalette', 'command-palette');
+
+  const cancelCommandPalette = () => action('cancelRichTextCommandPalette', 'command-palette');
+
   beforeEach(() => {
     richText = new RichTextPage();
     richText.visit();
@@ -761,5 +765,54 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         });
       });
     }
+  });
+
+  describe('Commands', () => {
+    const origin = 'command-palette';
+    const getCommandList = () => richText.editor.findByTestId('rich-text-commands-list');
+
+    beforeEach(() => {
+      richText.editor.click().type('/');
+    });
+    it('tracks opening the command palette', () => {
+      richText.expectTrackingValue([openCommandPalette()]);
+    });
+
+    it('tracks cancelling the command palette on pressing esc', () => {
+      richText.editor.type('{esc}');
+      richText.expectTrackingValue([openCommandPalette(), cancelCommandPalette()]);
+    });
+
+    it('tracks embedding an entry block', () => {
+      getCommandList().findByText('Embed Example Content Type').click();
+      getCommandList().findByText('Hello world').click();
+      richText.expectTrackingValue([
+        openCommandPalette(),
+        insert(origin, { nodeType: BLOCKS.EMBEDDED_ENTRY }),
+        linkRendered(),
+      ]);
+    });
+
+    it('tracks embedding an inline entry', () => {
+      getCommandList().findByText('Embed Example Content Type - Inline').click();
+      getCommandList().findByText('Hello world').click();
+
+      richText.expectTrackingValue([
+        openCommandPalette(),
+        insert(origin, { nodeType: INLINES.EMBEDDED_ENTRY }),
+        linkRendered(),
+      ]);
+    });
+
+    it('tracks embedding an asset block', () => {
+      getCommandList().findByText('Embed Asset').click();
+      getCommandList().findByText('test').click();
+
+      richText.expectTrackingValue([
+        openCommandPalette(),
+        insert(origin, { nodeType: BLOCKS.EMBEDDED_ASSET }),
+        linkRendered(),
+      ]);
+    });
   });
 });

@@ -10,6 +10,7 @@ export const createOnKeyDown = (): KeyboardHandler<RichTextEditor> => {
     return (event) => {
       if (isHotkey('/', event)) {
         setMarks(editor, { [COMMAND_PROMPT]: true });
+        editor.tracking.onCommandPaletteAction('openRichTextCommandPalette');
       }
 
       const isActive = isMarkActive(editor, COMMAND_PROMPT);
@@ -28,6 +29,7 @@ export const createOnKeyDown = (): KeyboardHandler<RichTextEditor> => {
           const [, path] = getAbove(editor)!;
           const range = Editor.range(editor, path);
           removeMark(editor, { key: COMMAND_PROMPT, at: range });
+          editor.tracking.onCommandPaletteAction('cancelRichTextCommandPalette');
         }
       }
     };
