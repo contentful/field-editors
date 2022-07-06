@@ -84,6 +84,9 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: RichT
                         editor.insertSoftBreak();
                         insertBlock(editor, BLOCKS.EMBEDDED_ENTRY, entry.entry);
                         Transforms.select(editor, selection);
+                        editor.tracking.onCommandPaletteAction('insert', {
+                          nodeType: BLOCKS.EMBEDDED_ENTRY,
+                        });
                       }
                     },
                   };
@@ -120,6 +123,9 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: RichT
                       removeCommand(editor);
                       Transforms.insertNodes(editor, inlineNode);
                       editor.insertText('');
+                      editor.tracking.onCommandPaletteAction('insert', {
+                        nodeType: INLINES.EMBEDDED_ENTRY,
+                      });
                     },
                   };
                 })
@@ -175,7 +181,7 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: RichT
                             insertBlock(editor, BLOCKS.EMBEDDED_ASSET, asset.entity);
                             Transforms.select(editor, selection);
                             editor.tracking.onCommandPaletteAction('insert', {
-                              nodeType: BLOCKS.EMBEDDED_ENTRY,
+                              nodeType: BLOCKS.EMBEDDED_ASSET,
                             });
                           }
                         },

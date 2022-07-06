@@ -67,16 +67,14 @@ export const useCommandList = (commandItems, container) => {
   }, [commandItems, container, selectedItem]);
 
   React.useEffect(() => {
-    const handleClick = (event) => {
-      console.log(container);
-      console.log(event);
+    const handleMousedown = (event) => {
       if (container.current && !container.current.contains(event.target)) {
         setIsOpen(false);
       }
     };
-    document.addEventListener('click', handleClick);
+    document.addEventListener('mousedown', handleMousedown);
     return () => {
-      document.removeEventListener('click', handleClick);
+      document.removeEventListener('mousedown', handleMousedown);
     };
   }, [container]);
 
