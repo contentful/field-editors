@@ -94,11 +94,7 @@ export const CommandList = ({ query, editor }: CommandListProps) => {
   const sdk = useSdkContext();
   const container = React.useRef<HTMLDivElement>(null);
   const commandItems = useCommands(sdk, query, editor);
-  const { selectedItem } = useCommandList(commandItems, container);
-
-  if (commandItems.length === 0) {
-    return null;
-  }
+  const { selectedItem, isOpen } = useCommandList(commandItems, container);
 
   return (
     <div className={styles.container} tabIndex={-1} ref={container} contentEditable={false}>
@@ -120,7 +116,7 @@ export const CommandList = ({ query, editor }: CommandListProps) => {
       </div>
       <div aria-hidden={true}>
         <Popover
-          isOpen={true}
+          isOpen={isOpen}
           usePortal={false}
           /* eslint-disable-next-line jsx-a11y/no-autofocus -- we want to keep focus on text input*/
           autoFocus={false}>

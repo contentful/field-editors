@@ -10,6 +10,7 @@ export const useCommandList = (commandItems, container) => {
     }
     return commandItems[0].id;
   });
+  const [isOpen, setIsOpen] = React.useState(commandItems.length > 0);
 
   React.useEffect(() => {
     if (!container?.current) {
@@ -65,7 +66,20 @@ export const useCommandList = (commandItems, container) => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [commandItems, container, selectedItem]);
 
+  React.useEffect(() => {
+    const handleClick = (event) => {
+      if (container.current && !container.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('click', handleClick);
+    return () => {
+      document.removeEventListener('click', handleClick);
+    };
+  }, [container]);
+
   return {
     selectedItem,
+    isOpen,
   };
 };
