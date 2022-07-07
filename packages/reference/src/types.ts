@@ -1,9 +1,13 @@
-import { NavigatorSlideInfo, ContentEntityType } from '@contentful/app-sdk';
+import {
+  NavigatorSlideInfo,
+  ContentEntityType,
+  FieldExtensionSDK as FieldExtensionSDK_,
+  DialogsAPI,
+} from '@contentful/app-sdk';
 import { Entry, Asset } from '@contentful/field-editor-shared';
 
 export {
   BaseExtensionSDK,
-  FieldExtensionSDK,
   ContentType,
   ContentTypeField,
   Link,
@@ -73,3 +77,22 @@ export type RenderDragFn = (props: {
   drag: React.ReactElement;
   isDragging?: boolean;
 }) => React.ReactElement;
+
+export type FieldExtensionSDK = FieldExtensionSDK_ & {
+  dialogs: DialogsAPI & {
+    selectSingleResourceEntry: <T = Record<string, unknown>>(options: {
+      allowedResources: ContentTypeAllowedResource[];
+    }) => Promise<T | null>;
+    selectMultipleResourceEntries: <T = Record<string, unknown>>(options: {
+      allowedResources: ContentTypeAllowedResource[];
+      min?: number;
+      max?: number;
+    }) => Promise<T | null>;
+  };
+};
+
+type ContentTypeAllowedResource = {
+  type: 'Contentful:Entry';
+  source: string;
+  contentTypes: string[];
+};

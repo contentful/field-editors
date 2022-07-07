@@ -1,7 +1,7 @@
-import { Asset, ContentType, ContentEntityType, Entry, FieldExtensionSDK } from '../../types';
 import { EditorPermissions } from '../../common/useEditorPermissions';
+import { Asset, ContentEntityType, Entry, FieldExtensionSDK } from '../../types';
 
-const getContentTypeIds = (contentTypes: ContentType[]) => contentTypes.map((ct) => ct.sys.id);
+//const getContentTypeIds = (contentTypes: ContentType[]) => contentTypes.map((ct) => ct.sys.id);
 
 export async function createEntity(props: {
   sdk: FieldExtensionSDK;
@@ -30,9 +30,14 @@ export async function selectSingleEntity(props: {
   editorPermissions: EditorPermissions;
 }) {
   if (props.entityType === 'Entry') {
-    return await props.sdk.dialogs.selectSingleEntry<Entry>({
-      locale: props.sdk.field.locale,
-      contentTypes: getContentTypeIds(props.editorPermissions.readableContentTypes),
+    return await props.sdk.dialogs.selectSingleResourceEntry<Entry>({
+      allowedResources: [
+        {
+          source: 'crn:contentful:::content:spaces/zi1t1h18x6dz',
+          type: 'Contentful:Entry',
+          contentTypes: ['recipe'],
+        },
+      ],
     });
   } else {
     return props.sdk.dialogs.selectSingleAsset<Asset>({
@@ -63,9 +68,14 @@ export async function selectMultipleEntities(props: {
   const max = (props.editorPermissions.validations.numberOfLinks?.max || +Infinity) - linkCount;
 
   if (props.entityType === 'Entry') {
-    return await props.sdk.dialogs.selectMultipleEntries<Entry>({
-      locale: props.sdk.field.locale,
-      contentTypes: getContentTypeIds(props.editorPermissions.readableContentTypes),
+    return await props.sdk.dialogs.selectMultipleResourceEntries<Entry>({
+      allowedResources: [
+        {
+          source: 'crn:contentful:::content:spaces/zi1t1h18x6dz',
+          type: 'Contentful:Entry',
+          contentTypes: ['recipe'],
+        },
+      ],
       min,
       max,
     });
