@@ -1,17 +1,18 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
+
 import { EntryCard } from '@contentful/f36-components';
 import {
   useEntities,
   MissingEntityCard,
   WrappedEntryCard,
 } from '@contentful/field-editor-reference';
+import PropTypes from 'prop-types';
 
 export function FetchingWrappedEntryCard(props) {
-  const { getOrLoadEntry, loadEntityScheduledActions, entries } = useEntities();
+  const { getEntry, loadEntityScheduledActions, entries } = useEntities();
 
   React.useEffect(() => {
-    getOrLoadEntry(props.entryId);
+    getEntry(props.entryId);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, [props.entryId]);
 

@@ -28,7 +28,7 @@ interface FetchingWrappedInlineEntryCardProps {
 }
 
 export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntryCardProps) {
-  const { getOrLoadEntry, loadEntityScheduledActions, entries } = useEntities();
+  const { getEntry, loadEntityScheduledActions, entries } = useEntities();
   const entry = React.useMemo(() => entries[props.entryId], [entries, props.entryId]);
 
   const allContentTypes = props.sdk.space.getCachedContentTypes();
@@ -64,8 +64,8 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
 
   React.useEffect(() => {
     if (!props.entryId) return;
-    getOrLoadEntry(props.entryId);
-    // We don't include getOrLoadEntry below because it's part of the constate-derived
+    getEntry(props.entryId);
+    // We don't include getEntry below because it's part of the constate-derived
     // useEntities(), not props.
     // eslint-disable-next-line -- TODO: explain this disable
   }, [props.entryId]);

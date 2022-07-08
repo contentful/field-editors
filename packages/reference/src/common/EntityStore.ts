@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useMemo } from 'react';
 
 import constate from 'constate';
 import { createClient } from 'contentful-management';
@@ -341,7 +342,36 @@ function useEntitiesStore(props: { sdk: BaseExtensionSDK }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, [props.sdk, state.assets, state.entries]);
 
-  return { getResource, getEntry, getAsset, loadEntityScheduledActions, ...state };
+  return useMemo(
+    () => ({
+      /**
+       * @deprecated use `getEntry` instead
+       */
+      getOrLoadEntry: getEntry,
+      /**
+       * @deprecated use `getAsset` instead
+       */
+      getOrLoadAsset: getAsset,
+      getResource,
+      getEntry,
+      getAsset,
+      loadEntityScheduledActions,
+      entries: state.entries,
+      assets: state.assets,
+      scheduledActions: state.scheduledActions,
+      resources: state.resources,
+    }),
+    [
+      getResource,
+      getEntry,
+      getAsset,
+      loadEntityScheduledActions,
+      state.entries,
+      state.assets,
+      state.scheduledActions,
+      state.resources,
+    ]
+  );
 }
 
 const [EntityProvider, useEntities] = constate(useEntitiesStore);

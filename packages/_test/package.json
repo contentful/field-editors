@@ -21,7 +21,9 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "devDependencies": {
-    "@contentful/app-sdk": "^4.2.0"
+    "@contentful/app-sdk": "^4.2.0",
+    "contentful-management": "^10.8.0",
+    "type-fest": "^2.16.0"
   },
   "dependencies": {
     "@contentful/f36-tokens": "^4.0.0",
