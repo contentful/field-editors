@@ -45,8 +45,8 @@ type Overrides = PartialDeep<
 
 function createFakeAdapter(overrides?: Overrides) {
   const makeRequest: Adapter['makeRequest'] = ({ entityType, action, params }) => {
-    // @ts-expect-error
     return (
+      // @ts-expect-error
       overrides?.[entityType]?.[action]?.(params) ??
       Promise.reject(`Override for ${entityType}.${action} is not defined`)
     );
