@@ -71,7 +71,7 @@ type DispatchAction =
   | SetResourceAction
   | SetResourceFailedAction;
 
-type ResourceInfo<R extends Resource = Resource> = {
+export type ResourceInfo<R extends Resource = Resource> = {
   resource: R;
   defaultLocaleCode: string;
   contentType: ContentType;
@@ -245,7 +245,7 @@ function useEntitiesStore(props: { sdk: BaseExtensionSDK }) {
   const loadContentfulEntry = React.useCallback(
     async (urn: string): Promise<ResourceInfo<Entry>> => {
       const resourceId = urn.split(':', 6)[5];
-      const [, spaceId, entryId] = resourceId.split('/');
+      const [, spaceId, , entryId] = resourceId.split('/');
       const environmentId = 'master';
       const [space, entry] = await Promise.all([
         await cmaClient.space.get({ spaceId }),
