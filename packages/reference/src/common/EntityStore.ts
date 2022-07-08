@@ -163,6 +163,8 @@ const nonNilResources = <E extends Entity>(
 };
 
 function useEntitiesStore(props: { sdk: BaseExtensionSDK }) {
+  const spaceId = props.sdk.ids.space;
+  const environmentId = props.sdk.ids.environment;
   const [cmaClient] = React.useState(() =>
     createClient({ apiAdapter: props.sdk.cmaAdapter }, { type: 'plain' })
   );
@@ -191,7 +193,7 @@ function useEntitiesStore(props: { sdk: BaseExtensionSDK }) {
   const loadEntry = React.useCallback(
     async (entryId: string) => {
       try {
-        const entry = await cmaClient.entry.get({ entryId });
+        const entry = await cmaClient.entry.get({ spaceId, environmentId, entryId });
         dispatch({ type: 'set_entry', id: entryId, entry });
         return entry;
       } catch (error) {
@@ -199,7 +201,7 @@ function useEntitiesStore(props: { sdk: BaseExtensionSDK }) {
         return;
       }
     },
-    [cmaClient]
+    [cmaClient, spaceId, environmentId]
   );
 
   const getEntry = React.useCallback(
@@ -218,7 +220,7 @@ function useEntitiesStore(props: { sdk: BaseExtensionSDK }) {
   const loadAsset = React.useCallback(
     async (assetId: string) => {
       try {
-        const asset = await cmaClient.asset.get({ assetId });
+        const asset = await cmaClient.asset.get({ spaceId, environmentId, assetId });
         dispatch({ type: 'set_asset', id: assetId, asset });
         return asset;
       } catch (error) {
@@ -226,7 +228,7 @@ function useEntitiesStore(props: { sdk: BaseExtensionSDK }) {
         return;
       }
     },
-    [cmaClient]
+    [cmaClient, spaceId, environmentId]
   );
 
   const getAsset = React.useCallback(
