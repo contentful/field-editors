@@ -1,13 +1,16 @@
 import React from 'react';
-import { css } from 'emotion';
-import tokens from '@contentful/f36-tokens';
-import { FetchingWrappedEntryCard } from './WrappedEntryCard/FetchingWrappedEntryCard';
-import { ContentType, ReferenceValue } from '../types';
-import { ReferenceEditorProps } from '../common/ReferenceEditor';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 
+import tokens from '@contentful/f36-tokens';
+import { css } from 'emotion';
+
+import { ReferenceEditorProps } from '../common/ReferenceEditor';
+import { ContentType, ReferenceValue } from '../types';
+import { FetchingWrappedEntryCard } from './WrappedEntryCard/FetchingWrappedEntryCard';
+
+
 const styles = {
-  containter: css({
+  container: css({
     position: 'relative',
   }),
   item: css({
@@ -36,7 +39,7 @@ export const SortableLinkList = SortableContainer((props: SortableLinkListProps)
   const lastIndex = props.items.length - 1;
 
   return (
-    <div className={styles.containter}>
+    <div className={styles.container}>
       {props.items.map((item, index) => (
         <SortableLink disabled={props.isDisabled} key={`${item.sys.id}-${index}`} index={index}>
           <FetchingWrappedEntryCard

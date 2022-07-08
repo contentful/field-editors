@@ -1,7 +1,7 @@
 import { NavigatorSlideInfo, ContentEntityType } from '@contentful/app-sdk';
 import { Entry, Asset } from '@contentful/field-editor-shared';
 
-export {
+export type {
   BaseExtensionSDK,
   FieldExtensionSDK,
   ContentType,
@@ -11,9 +11,25 @@ export {
   NavigatorSlideInfo,
   ScheduledAction,
 } from '@contentful/app-sdk';
+export type { SpaceProps as Space } from 'contentful-management';
 
 export { Entry, File, Asset } from '@contentful/field-editor-shared';
 
+export type Entity = Entry | Asset;
+
+export type EntryLink = { sys: { type: 'Link'; linkType: 'Entry'; id: string } };
+
+export type AssetLink = { sys: { type: 'Link'; linkType: 'Asset'; id: string } };
+
+export type EntityLink = EntryLink | AssetLink;
+
+export type ResourceType = 'Contentful:Entry';
+
+export type Resource = Entry | Asset;
+
+/**
+ * @deprecated use `EntityLink` type
+ */
 export type ReferenceValue = {
   sys: {
     type: 'Link';
@@ -22,6 +38,9 @@ export type ReferenceValue = {
   };
 };
 
+/**
+ * @deprecated use `EntryLink` type
+ */
 export type EntryReferenceValue = {
   sys: {
     type: 'Link';
@@ -30,7 +49,10 @@ export type EntryReferenceValue = {
   };
 };
 
-export declare type AssetReferenceValue = {
+/**
+ * @deprecated use `AssetLink` type
+ */
+export type AssetReferenceValue = {
   sys: {
     type: 'Link';
     id: string;

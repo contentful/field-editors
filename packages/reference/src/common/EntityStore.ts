@@ -1,6 +1,19 @@
 import * as React from 'react';
-import { BaseExtensionSDK, Entry, Asset, ScheduledAction } from '../types';
+
 import constate from 'constate';
+import { createClient } from 'contentful-management';
+
+import {
+  Asset,
+  BaseExtensionSDK,
+  ContentType,
+  Entity,
+  Entry,
+  Resource,
+  ResourceType,
+  ScheduledAction,
+  Space,
+} from '../types';
 
 type EntriesMap = {
   [key: string]: 'failed' | undefined | Entry;
@@ -14,22 +27,60 @@ type ScheduledActionsMap = {
   [key: string]: ScheduledAction[] | undefined;
 };
 
+type ResourcesMap = {
+  [key: string]: 'failed' | undefined | ResourceInfo;
+};
+
 type State = {
   entries: EntriesMap;
   assets: AssetsMap;
   scheduledActions: ScheduledActionsMap;
+  resources: ResourcesMap;
+};
+
+type SetEntryAction = { type: 'set_entry'; id: string; entry: Entry };
+type SetEntryFailedAction = { type: 'set_entry_failed'; id: string };
+
+type SetAssetAction = { type: 'set_asset'; id: string; asset: Asset };
+type SetAssetFailedAction = { type: 'set_asset_failed'; id: string };
+
+type SetScheduledActionsAction = {
+  type: 'set_scheduled_actions';
+  key: string;
+  actions: ScheduledAction[] | undefined;
+};
+
+type SetResourceAction = {
+  type: 'set_resource';
+  resourceType: ResourceType;
+  urn: string;
+  resourceInfo: ResourceInfo;
+};
+type SetResourceFailedAction = {
+  type: 'set_resource_failed';
+  resourceType: ResourceType;
+  urn: string;
 };
 
 type DispatchAction =
-  | { type: 'set_entry'; id: string; entry: Entry }
-  | { type: 'set_entry_failed'; id: string }
-  | { type: 'set_asset'; id: string; asset: Asset }
-  | { type: 'set_asset_failed'; id: string }
-  | {
-      type: 'set_scheduled_actions';
-      key: string;
-      actions: ScheduledAction[] | undefined;
-    };
+  | SetEntryAction
+  | SetEntryFailedAction
+  | SetAssetAction
+  | SetAssetFailedAction
+  | SetScheduledActionsAction
+  | SetResourceAction
+  | SetResourceFailedAction;
+
+type ResourceInfo<R extends Resource = Resource> = {
+  resource: R;
+  defaultLocaleCode: string;
+  contentType: ContentType;
+  space: Space;
+};
+type ResourceResolver = (
+  resourceType: ResourceType,
+  urn: string
+) => Promise<ResourceInfo | undefined>;
 
 function reducer(state: State, action: DispatchAction): State {
   switch (action.type) {
@@ -73,6 +124,22 @@ function reducer(state: State, action: DispatchAction): State {
           [action.key]: action.actions,
         },
       };
+    case 'set_resource':
+      return {
+        ...state,
+        resources: {
+          ...state.resources,
+          [`${action.resourceType}.${action.urn}`]: action.resourceInfo,
+        },
+      };
+    case 'set_resource_failed':
+      return {
+        ...state,
+        resources: {
+          ...state.resources,
+          [`${action.resourceType}.${action.urn}`]: 'failed',
+        },
+      };
     default:
       return state;
   }
@@ -82,9 +149,23 @@ const initialState: State = {
   entries: {},
   assets: {},
   scheduledActions: {},
+  resources: {},
+};
+
+const isNotNil = <E>(entity: 'failed' | undefined | E): entity is E => {
+  return Boolean(entity && entity !== 'failed');
+};
+
+const nonNilResources = <E extends Entity>(
+  map: Record<string, 'failed' | undefined | E>
+): [string, E][] => {
+  return Object.entries(map).filter(([, value]) => isNotNil(value)) as [string, E][];
 };
 
 function useEntitiesStore(props: { sdk: BaseExtensionSDK }) {
+  const [cmaClient] = React.useState(() =>
+    createClient({ apiAdapter: props.sdk.cmaAdapter }, { type: 'plain' })
+  );
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
   const loadEntityScheduledActions = React.useCallback(
@@ -108,54 +189,119 @@ function useEntitiesStore(props: { sdk: BaseExtensionSDK }) {
   );
 
   const loadEntry = React.useCallback(
-    (id: string) => {
-      return props.sdk.space
-        .getEntry<Entry>(id)
-        .then((entry) => {
-          dispatch({ type: 'set_entry', id, entry });
-          return entry;
-        })
-        .catch(() => {
-          dispatch({ type: 'set_entry_failed', id });
-        });
+    async (entryId: string) => {
+      try {
+        const entry = await cmaClient.entry.get({ entryId });
+        dispatch({ type: 'set_entry', id: entryId, entry });
+        return entry;
+      } catch (error) {
+        dispatch({ type: 'set_entry_failed', id: entryId });
+        return;
+      }
     },
-    [props.sdk.space]
+    [cmaClient]
+  );
+
+  const getEntry = React.useCallback(
+    async (entryId: string) => {
+      const cachedEntry = state.entries[entryId];
+
+      if (isNotNil(cachedEntry)) {
+        return cachedEntry;
+      }
+
+      return loadEntry(entryId);
+    },
+    [loadEntry, state.entries]
   );
 
   const loadAsset = React.useCallback(
-    (id: string) => {
-      return props.sdk.space
-        .getAsset(id)
-        .then((asset) => {
-          dispatch({ type: 'set_asset', id, asset });
-          return asset;
-        })
-        .catch(() => {
-          dispatch({ type: 'set_asset_failed', id });
+    async (assetId: string) => {
+      try {
+        const asset = await cmaClient.asset.get({ assetId });
+        dispatch({ type: 'set_asset', id: assetId, asset });
+        return asset;
+      } catch (error) {
+        dispatch({ type: 'set_asset_failed', id: assetId });
+        return;
+      }
+    },
+    [cmaClient]
+  );
+
+  const getAsset = React.useCallback(
+    async (assetId: string) => {
+      const cachedAsset = state.assets[assetId];
+
+      if (isNotNil(cachedAsset)) {
+        return cachedAsset;
+      }
+
+      return loadAsset(assetId);
+    },
+    [loadAsset, state.assets]
+  );
+
+  const loadContentfulEntry = React.useCallback(
+    async (urn: string): Promise<ResourceInfo<Entry>> => {
+      const resourceId = urn.split(':', 6)[5];
+      const [, spaceId, entryId] = resourceId.split('/');
+      const environmentId = 'master';
+      const [space, entry] = await Promise.all([
+        await cmaClient.space.get({ spaceId }),
+        await cmaClient.entry.get({ spaceId, environmentId, entryId }),
+      ]);
+      const contentTypeId = entry.sys.contentType.sys.id;
+      const [contentType, locales] = await Promise.all([
+        await cmaClient.contentType.get({
+          contentTypeId,
+          spaceId,
+          environmentId,
+        }),
+        await cmaClient.locale.getMany({ spaceId, environmentId, query: { limit: 100 } }),
+      ]);
+      const defaultLocaleCode = locales.items.find((locale) => locale.default)?.code as string;
+
+      return {
+        resource: entry,
+        defaultLocaleCode,
+        space,
+        contentType,
+      };
+    },
+    [cmaClient]
+  );
+
+  const getResource = React.useCallback(
+    async (resourceType: ResourceType, urn: string) => {
+      const cachedResource = state.resources[`${resourceType}.${urn}`];
+
+      if (isNotNil(cachedResource)) {
+        return cachedResource;
+      }
+
+      try {
+        let resourceInfo;
+
+        if (resourceType === 'Contentful:Entry') {
+          resourceInfo = await loadContentfulEntry(urn);
+        }
+
+        dispatch({
+          type: 'set_resource',
+          resourceType,
+          urn,
+          resourceInfo: resourceInfo as ResourceInfo,
         });
-    },
-    [props.sdk.space]
-  );
 
-  const getOrLoadAsset = React.useCallback(
-    (id: string) => {
-      if (state.assets[id] && state.assets[id] !== 'failed') {
-        return Promise.resolve(state.assets[id]);
+        return resourceInfo;
+      } catch (error) {
+        dispatch({ type: 'set_resource_failed', resourceType, urn });
+        return;
       }
-      return loadAsset(id);
     },
-    [state.assets, loadAsset]
-  );
-
-  const getOrLoadEntry = React.useCallback(
-    (id: string) => {
-      if (state.entries[id] && state.entries[id] !== 'failed') {
-        return Promise.resolve(state.entries[id]);
-      }
-      return loadEntry(id);
-    },
-    [state.entries, loadEntry]
-  );
+    [loadContentfulEntry, state.resources]
+  ) as ResourceResolver;
 
   React.useEffect(() => {
     // @ts-expect-error
@@ -163,46 +309,37 @@ function useEntitiesStore(props: { sdk: BaseExtensionSDK }) {
       // @ts-expect-error
       const onEntityChanged = props.sdk.space.onEntityChanged;
       const listeners: Function[] = [];
-      Object.keys(state.entries).forEach((id) => {
-        if (state.entries[id] && state.entries['id'] !== 'failed') {
-          listeners.push(
-            onEntityChanged('Entry', id, (entry: Entry) =>
-              dispatch({ type: 'set_entry', id, entry })
-            )
-          );
-        }
-      });
-      Object.keys(state.assets).forEach((id) => {
-        if (state.assets[id] && state.assets['id'] !== 'failed') {
-          listeners.push(
-            onEntityChanged('Asset', id, (asset: Asset) =>
-              dispatch({ type: 'set_asset', id, asset })
-            )
-          );
-        }
-      });
+
+      for (const [id] of nonNilResources(state.entries)) {
+        listeners.push(
+          onEntityChanged('Entry', id, (entry: Entry) => dispatch({ type: 'set_entry', id, entry }))
+        );
+      }
+
+      for (const [id] of nonNilResources(state.assets)) {
+        listeners.push(
+          onEntityChanged('Asset', id, (asset: Asset) => dispatch({ type: 'set_asset', id, asset }))
+        );
+      }
 
       return () => listeners.forEach((off) => off());
     }
 
     return props.sdk.navigator.onSlideInNavigation(({ oldSlideLevel, newSlideLevel }) => {
       if (oldSlideLevel > newSlideLevel) {
-        Object.keys(state.entries).map((id) => {
-          if (state.entries[id] && state.entries[id] !== 'failed') {
-            loadEntry(id);
-          }
-        });
-        Object.keys(state.assets).map((id) => {
-          if (state.assets[id] && state.assets[id] !== 'failed') {
-            loadAsset(id);
-          }
-        });
+        for (const [id] of nonNilResources(state.entries)) {
+          loadEntry(id);
+        }
+
+        for (const [id] of nonNilResources(state.assets)) {
+          loadAsset(id);
+        }
       }
     }) as { (): void };
     // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, [props.sdk, state.assets, state.entries]);
 
-  return { getOrLoadEntry, getOrLoadAsset, loadEntityScheduledActions, ...state };
+  return { getResource, getEntry, getAsset, loadEntityScheduledActions, ...state };
 }
 
 const [EntityProvider, useEntities] = constate(useEntitiesStore);
