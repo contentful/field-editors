@@ -13,7 +13,8 @@ import { ToolbarHeadingButton } from '../plugins/Heading';
 import { ToolbarHrButton } from '../plugins/Hr';
 import { ToolbarHyperlinkButton } from '../plugins/Hyperlink';
 import { ToolbarListButton } from '../plugins/List';
-import { ToolbarTextAlignmentButton } from '../plugins/TextAlignment/components/ToolbarTextAlignmentButton';
+import { ToolbarAlignButton } from '../plugins/Align';
+// import { ToolbarCenterButton } from '../plugins/Align2/Center';
 import { ToolbarBoldButton } from '../plugins/Marks/Bold';
 import { ToolbarCodeButton } from '../plugins/Marks/Code';
 import { ToolbarItalicButton } from '../plugins/Marks/Italic';
@@ -91,11 +92,16 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
           </>
         )}
 
-        {/* TODO: Add check for enabled editors */}
-        <span className={styles.divider} />
-        {true && <ToolbarTextAlignmentButton isDisabled={isDisabled}/> }
-
         {validationInfo.isAnyBlockFormattingEnabled && <span className={styles.divider} />}
+        
+        {/* TODO: Add check for enabled editors */}
+        {/* Plugin implementation that follows LIST PLUGIN configuration */}
+        {true && <ToolbarAlignButton isDisabled={isDisabled}/> }
+        <span className={styles.divider} />
+        
+        {/* Plugin Implementation that follows MARKS PLUGIN configuration  */}
+        {/* {true && <ToolbarCenterButton isDisabled={isDisabled}/> }
+        <span className={styles.divider} /> */}
 
         <ToolbarListButton isDisabled={isDisabled || !canInsertBlocks} />
 

@@ -12,15 +12,15 @@ import { useContentfulEditor } from '../../../ContentfulEditorProvider';
 import { focus } from '../../../helpers/editor';
 import { isNodeTypeEnabled } from '../../../helpers/validations';
 import { Alignment, KEY_ALIGN, setAlign as nativeSetAlign } from '@udecode/plate-alignment';
-import { setAlign } from '../transforms/setAlign';
-import { isTextAlignmentTypeActive } from '../helpers';
+// import { setAlign } from '../transforms/setAlign';
+import { isAlignActive } from '../helpers';
 
 export interface ToolbarTextAlignmentButtonProps {
 
     isDisabled?: boolean;
   }
 
-export function ToolbarTextAlignmentButton(props: ToolbarTextAlignmentButtonProps) {
+export function ToolbarAlignButton(props: ToolbarTextAlignmentButtonProps) {
   const sdk = useSdkContext();
   const editor = useContentfulEditor();
 
@@ -30,8 +30,8 @@ export function ToolbarTextAlignmentButton(props: ToolbarTextAlignmentButtonProp
       console.log({type})
 
       // TODO: following function not working properly
+      // nativeSetAlign(editor, { value: type })
       nativeSetAlign(editor, { value: type })
-      // setAlign(editor, { value: type })
 
       focus(editor);
     }
@@ -43,10 +43,10 @@ export function ToolbarTextAlignmentButton(props: ToolbarTextAlignmentButtonProp
     <React.Fragment>
       {isNodeTypeEnabled(sdk.field, ALIGNMENT.LEFT) && (
         <ToolbarButton
-          title="Text Align Left"
-          testId="tal-toolbar-button"
+          title="Align Left"
+          testId="al-toolbar-button"
           onClick={handleClick(ALIGNMENT.LEFT)}
-          isActive={isTextAlignmentTypeActive(editor, ALIGNMENT.LEFT)}
+          isActive={isAlignActive(editor, ALIGNMENT.LEFT)}
           isDisabled={props.isDisabled}
         >
           <AiOutlineAlignLeft size={17} />
@@ -54,10 +54,10 @@ export function ToolbarTextAlignmentButton(props: ToolbarTextAlignmentButtonProp
       )}
       {isNodeTypeEnabled(sdk.field, ALIGNMENT.CENTER) && (
         <ToolbarButton
-          title="Text Align Center"
-          testId="tac-toolbar-button"
+          title="Align Center"
+          testId="ac-toolbar-button"
           onClick={handleClick(ALIGNMENT.CENTER)}
-          isActive={isTextAlignmentTypeActive(editor, ALIGNMENT.CENTER)}
+          isActive={isAlignActive(editor, ALIGNMENT.CENTER)}
           isDisabled={props.isDisabled}
         >
           <AiOutlineAlignCenter size={17} />
@@ -65,10 +65,10 @@ export function ToolbarTextAlignmentButton(props: ToolbarTextAlignmentButtonProp
       )}
       {isNodeTypeEnabled(sdk.field, ALIGNMENT.RIGHT) && (
         <ToolbarButton
-          title="Text Align Right"
-          testId="tar-toolbar-button"
+          title="Align Right"
+          testId="ar-toolbar-button"
           onClick={handleClick(ALIGNMENT.RIGHT)}
-          isActive={isTextAlignmentTypeActive(editor, ALIGNMENT.RIGHT)}
+          isActive={isAlignActive(editor, ALIGNMENT.RIGHT)}
           isDisabled={props.isDisabled}
         >
           <AiOutlineAlignRight size={17} />

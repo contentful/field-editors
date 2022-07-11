@@ -1,10 +1,10 @@
 // custom types for text alignment
 
 export enum ALIGNMENT {
-  LEFT = "left",
-  CENTER = "center",
-  RIGHT = "right",
-  JUSTIFY = 'justify'
+  LEFT = 'left',
+  CENTER = 'center',
+  RIGHT = 'right',
+  JUSTIFY = 'justify',
 }
 
 export type CustomText = {
@@ -17,10 +17,10 @@ export type CustomText = {
 export type TextOrCustomElement = CustomElement | CustomText;
 
 export type CustomElement<T = unknown> = {
-	type: string;
+  type: string;
   alignmentType?: string;
-	children: TextOrCustomElement[];
-	data: T;
-	isVoid?: boolean;
-	text?: string
+  children: TextOrCustomElement[];
+  data: T;
+  isVoid?: boolean;
+  text?: string;
 };
