@@ -13,6 +13,7 @@ import { ToolbarHeadingButton } from '../plugins/Heading';
 import { ToolbarHrButton } from '../plugins/Hr';
 import { ToolbarHyperlinkButton } from '../plugins/Hyperlink';
 import { ToolbarListButton } from '../plugins/List';
+import { ToolbarTextAlignmentButton } from '../plugins/TextAlignment/components/ToolbarTextAlignmentButton';
 import { ToolbarBoldButton } from '../plugins/Marks/Bold';
 import { ToolbarCodeButton } from '../plugins/Marks/Code';
 import { ToolbarItalicButton } from '../plugins/Marks/Italic';
@@ -89,6 +90,10 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
             <ToolbarHyperlinkButton isDisabled={isDisabled} />
           </>
         )}
+
+        {/* TODO: Add check for enabled editors */}
+        <span className={styles.divider} />
+        {true && <ToolbarTextAlignmentButton isDisabled={isDisabled}/> }
 
         {validationInfo.isAnyBlockFormattingEnabled && <span className={styles.divider} />}
 

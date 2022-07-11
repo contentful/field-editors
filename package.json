@@ -179,5 +179,8 @@
       }
     }
   },
-  "dependencies": {}
+  "dependencies": {
+    "@udecode/plate-alignment": "10.4.0",
+    "react-icons": "^4.4.0"
+  }
 }

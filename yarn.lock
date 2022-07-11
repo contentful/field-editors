@@ -6376,6 +6376,13 @@
     "@typescript-eslint/types" "5.29.0"
     eslint-visitor-keys "^3.3.0"
 
+"@udecode/plate-alignment@10.4.0":
+  version "10.4.0"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-alignment/-/plate-alignment-10.4.0.tgz#b538798c843e1544876af93e478d30aebaa15076"
+  integrity sha512-sAjdjjAMau7NXCUGW4eHTy2AnYMWUN4Fbl32yPYG4S6Bc8bEKnUefkyunv9Q5sQ9HwomN57/4RKaatBjYotEPA==
+  dependencies:
+    "@udecode/plate-core" "10.4.0"
+
 "@udecode/plate-basic-marks@^10.4.0":
   version "10.5.3"
   resolved "https://registry.yarnpkg.com/@udecode/plate-basic-marks/-/plate-basic-marks-10.5.3.tgz#ff8b7318290c4b237da4d96224c2f19959d544d0"
@@ -6389,6 +6396,18 @@
   integrity sha512-O2FRS3TLegYR+NrJWknjf+0d1iN43WHdfbQwQ0Yngg49/mDD+r1SH5cR1LpsIEd/1fzXEiGt8EF90P+8SjHuEQ==
   dependencies:
     "@udecode/plate-core" "10.5.3"
+
+"@udecode/plate-core@10.4.0":
+  version "10.4.0"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-core/-/plate-core-10.4.0.tgz#ea12f1374471a8f3fec7791c6f4b30ae4bc3cff3"
+  integrity sha512-/07k8ibY1Mb+vHRfh9c+yfE8AohYfEYYFP2hnM1eehQQRAOBKuA87xygWCSNw/ONhsnIFvsHAcNP3ccPOxMy1g==
+  dependencies:
+    "@udecode/zustood" "0.4.4"
+    clsx "1.1.1"
+    jotai "1.5.3"
+    lodash "4.17.21"
+    use-deep-compare "1.1.0"
+    zustand "3.7.0"
 
 "@udecode/plate-core@10.5.3", "@udecode/plate-core@^10.4.0":
   version "10.5.3"
@@ -20606,6 +20625,11 @@ react-hot-loader@^4.8.4:
     react-lifecycles-compat "^3.0.4"
     shallowequal "^1.1.0"
     source-map "^0.7.3"
+
+react-icons@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.4.0.tgz#a13a8a20c254854e1ec9aecef28a95cdf24ef703"
+  integrity sha512-fSbvHeVYo/B5/L4VhB7sBA1i2tS8MkT0Hb9t2H1AVPkwGfVHLJCqyr2Py9dKMxsyM63Eng1GkdZfbWj+Fmv8Rg==
 
 react-is@^16.12.0, react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1:
   version "16.13.1"

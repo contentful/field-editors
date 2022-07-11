@@ -25,9 +25,11 @@ const styles = {
 
 export function Bold(props: Slate.RenderLeafProps) {
   return (
-    <strong {...props.attributes} className={styles.bold}>
-      {props.children}
-    </strong>
+    <div style={{display: 'flex', justifyContent: 'center'}}>
+      <strong {...props.attributes} className={styles.bold}>
+        {props.children}
+      </strong>
+    </div>
   );
 }
 
