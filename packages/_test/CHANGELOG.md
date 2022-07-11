@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.1.3...@contentful/field-editor-test-utils@1.2.0) (2022-07-11)
+
+### Features
+
+- add simple fetching for resources ([#1179](https://github.com/contentful/field-editors/issues/1179)) ([b29daac](https://github.com/contentful/field-editors/commit/b29daac6460f93a4350bf45f90ae938f65de96ee))
+
 ## [1.1.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.1.2...@contentful/field-editor-test-utils@1.1.3) (2022-06-22)
 
 **Note:** Version bump only for package @contentful/field-editor-test-utils

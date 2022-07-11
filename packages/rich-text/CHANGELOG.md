@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.3.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@2.2.1...@contentful/field-editor-rich-text@2.3.0) (2022-07-11)
+
+### Features
+
+- add simple fetching for resources ([#1179](https://github.com/contentful/field-editors/issues/1179)) ([b29daac](https://github.com/contentful/field-editors/commit/b29daac6460f93a4350bf45f90ae938f65de96ee))
+
 ## [2.2.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@2.2.0...@contentful/field-editor-rich-text@2.2.1) (2022-07-06)
 
 ### Bug Fixes
