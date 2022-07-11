@@ -13,6 +13,7 @@ import {
   createFakeSpaceAPI,
   createFakeLocalesAPI,
   createFakeNavigatorAPI,
+  createFakeCMAAdapter,
 } from '@contentful/field-editor-test-utils';
 import { ValidationErrors } from '@contentful/field-editor-validation-errors';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
@@ -69,14 +70,20 @@ import { RichTextEditor } from '@contentful/field-editor-rich-text';
     const onAction = (...args) => window.actions.push(args);
 
     const sdk = {
+      ids: {
+        space: 'space-id',
+        environment: 'environment-id'
+      },
+      cmaAdapter: createFakeCMAAdapter({
+        Entry: {
+          get: () => Promise.resolve(publishedEntry),
+        },
+        Asset: {
+          get: () => Promise.resolve(publishedAsset),
+        },
+      }),
       space: {
         ...space,
-        getEntry: () => {
-          return Promise.resolve(publishedEntry);
-        },
-        getAsset: () => {
-          return Promise.resolve(publishedAsset);
-        },
         getEntityScheduledActions: () => {
           return Promise.resolve([]);
         },

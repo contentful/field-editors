@@ -1,15 +1,17 @@
+import { FieldAPI, Link } from '@contentful/app-sdk';
 import {
+  createFakeCMAAdapter,
   createFakeFieldAPI,
   createFakeLocalesAPI,
   createFakeSpaceAPI,
 } from '@contentful/field-editor-test-utils';
-import { FieldAPI, Link } from '@contentful/app-sdk';
-import emptyEntry from './empty_entry.json';
-import publishedEntry from './published_entry.json';
+
+import changedAsset from './changed_asset.json';
 import changedEntry from './changed_entry.json';
 import emptyAsset from './empty_asset.json';
+import emptyEntry from './empty_entry.json';
 import publishedAsset from './published_asset.json';
-import changedAsset from './changed_asset.json';
+import publishedEntry from './published_entry.json';
 
 const newLink = (linkType: string, id: string): Link => ({
   sys: {
@@ -18,6 +20,7 @@ const newLink = (linkType: string, id: string): Link => ({
     type: 'Link',
   },
 });
+
 export function newReferenceEditorFakeSdk() {
   const rawInitialValue = window.localStorage.getItem('initialValue');
   const initialValue = rawInitialValue ? JSON.parse(rawInitialValue) : undefined;
@@ -43,32 +46,38 @@ export function newReferenceEditorFakeSdk() {
   const sdk = {
     field,
     locales,
+    cmaAdapter: createFakeCMAAdapter({
+      Entry: {
+        get: async ({ entryId }) => {
+          if (entryId === emptyEntry.sys.id) {
+            return emptyEntry;
+          }
+          if (entryId === publishedEntry.sys.id) {
+            return publishedEntry;
+          }
+          if (entryId === changedEntry.sys.id) {
+            return changedEntry;
+          }
+          return Promise.reject();
+        },
+      },
+      Asset: {
+        get: async ({ assetId }) => {
+          if (assetId === emptyAsset.sys.id) {
+            return emptyAsset;
+          }
+          if (assetId === publishedAsset.sys.id) {
+            return publishedAsset;
+          }
+          if (assetId === changedAsset.sys.id) {
+            return changedAsset;
+          }
+          return Promise.reject();
+        },
+      },
+    }),
     space: {
       ...space,
-      getAsset: async (id: string) => {
-        if (id === emptyAsset.sys.id) {
-          return emptyAsset;
-        }
-        if (id === publishedAsset.sys.id) {
-          return publishedAsset;
-        }
-        if (id === changedAsset.sys.id) {
-          return changedAsset;
-        }
-        return Promise.reject();
-      },
-      getEntry: async (id: string) => {
-        if (id === emptyEntry.sys.id) {
-          return emptyEntry;
-        }
-        if (id === publishedEntry.sys.id) {
-          return publishedEntry;
-        }
-        if (id === changedEntry.sys.id) {
-          return changedEntry;
-        }
-        return Promise.reject();
-      },
       async getEntityScheduledActions() {
         return [];
       },
@@ -110,6 +119,10 @@ export function newReferenceEditorFakeSdk() {
     },
     access: {
       can: async () => true,
+    },
+    ids: {
+      space: 'space-id',
+      environment: 'environment-id',
     },
   };
   return [sdk, mitt];

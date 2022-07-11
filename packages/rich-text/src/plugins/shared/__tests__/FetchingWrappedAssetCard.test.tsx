@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { EntityProvider } from '@contentful/field-editor-reference';
+import { createFakeCMAAdapter } from '@contentful/field-editor-test-utils';
 import { render, configure, waitFor, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 
@@ -18,12 +19,18 @@ beforeEach(() => {
     locales: {
       default: 'en-US',
     },
+    cmaAdapter: createFakeCMAAdapter({
+      Asset: { get: jest.fn().mockResolvedValue(publishedAsset) },
+    }),
     space: {
-      getAsset: jest.fn().mockResolvedValue(publishedAsset),
       getEntityScheduledActions: jest.fn().mockResolvedValue([]),
     },
     navigator: {
       onSlideInNavigation: jest.fn(),
+    },
+    ids: {
+      space: 'space-id',
+      environment: 'environment-id',
     },
   };
 });

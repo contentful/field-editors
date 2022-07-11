@@ -1,17 +1,18 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
+
 import { AssetCard } from '@contentful/f36-components';
 import {
   useEntities,
   MissingEntityCard,
   WrappedAssetCard,
 } from '@contentful/field-editor-reference';
+import PropTypes from 'prop-types';
 
 export function FetchingWrappedAssetCard(props) {
-  const { getOrLoadAsset, loadEntityScheduledActions, assets } = useEntities();
+  const { getAsset, loadEntityScheduledActions, assets } = useEntities();
 
   React.useEffect(() => {
-    getOrLoadAsset(props.assetId);
+    getAsset(props.assetId);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, [props.assetId]);
 
