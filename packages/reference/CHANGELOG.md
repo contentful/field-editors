@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.5.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.5.0...@contentful/field-editor-reference@4.5.1) (2022-07-12)
+
+### Bug Fixes
+
+- generalise SortableLinkList into one component ([#1183](https://github.com/contentful/field-editors/issues/1183)) ([83117b0](https://github.com/contentful/field-editors/commit/83117b005ec93ef5481eb137a87733ae96c45d54))
+
 # [4.5.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.4.0...@contentful/field-editor-reference@4.5.0) (2022-07-11)
 
 ### Features
