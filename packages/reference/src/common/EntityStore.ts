@@ -300,7 +300,7 @@ function useEntitiesStore(props: { sdk: BaseExtensionSDK }) {
         return resourceInfo;
       } catch (error) {
         dispatch({ type: 'set_resource_failed', resourceType, urn });
-        return;
+        return 'failed';
       }
     },
     [loadContentfulEntry, state.resources]
