@@ -25,20 +25,18 @@ export function MultipleMediaEditor(props: EditorProps) {
         <SortableLinkList<ReferenceValue>
           {...childrenProps}
           className={cx({ [styles.gridContainer]: childrenProps.viewType === 'card' })}
-          axis={childrenProps.viewType === 'card' ? 'xy' : 'y'}>
-          {(props) => (
+          axis={childrenProps.viewType === 'card' ? 'xy' : 'y'}
+          useDragHandle={true}>
+          {({ items, item, index, isDisabled, DragHandle }) => (
             <FetchingWrappedAssetCard
               {...props}
-              key={`${props.item.sys.id}-${props.index}`}
-              assetId={props.item.sys.id}
+              isDisabled={isDisabled}
+              key={`${item.sys.id}-${index}`}
+              assetId={item.sys.id}
               onRemove={() => {
-                childrenProps.setValue(
-                  props.items.filter((_value, i) => {
-                    return i !== props.index;
-                  })
-                );
+                childrenProps.setValue(items.filter((_value, i) => i !== index));
               }}
-              renderDragHandle={props.DragHandle}
+              renderDragHandle={DragHandle}
             />
           )}
         </SortableLinkList>

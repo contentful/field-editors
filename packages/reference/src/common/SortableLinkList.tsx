@@ -17,11 +17,12 @@ const styles = {
   }),
   item: css({
     marginBottom: tokens.spacingM,
-    marginRight: tokens.spacingM,
   }),
 };
-
-type SortableContainerChildProps<IType> = SortableLinkListProps<IType> & {
+type SortableContainerChildProps<IType> = Pick<
+  SortableLinkListProps<IType>,
+  'items' | 'isDisabled'
+> & {
   item: IType;
   index: number;
   DragHandle?: typeof DragHandle;
@@ -50,10 +51,11 @@ const SortableLinkListInternal = SortableContainer((props: SortableLinkListProps
       {props.items.map((item, index) => (
         <SortableLink
           disabled={props.isDisabled}
-          key={`${item.sys.id ?? item.sys.urn}-${index}`}
+          key={`${item.sys.urn ?? item.sys.id}-${index}`}
           index={index}>
           {props.children({
-            ...props,
+            items: props.items,
+            isDisabled: props.isDisabled,
             item,
             index,
             DragHandle: props.isDisabled ? undefined : DragHandle,
@@ -66,5 +68,5 @@ const SortableLinkListInternal = SortableContainer((props: SortableLinkListProps
 
 // HOC does not support generics, so we mimic it via additional component
 export function SortableLinkList<T>(props: SortableLinkListProps<T> & SortableContainerProps) {
-  return <SortableLinkListInternal {...props} children={props.children} />;
+  return <SortableLinkListInternal {...props}>{props.children}</SortableLinkListInternal>;
 }

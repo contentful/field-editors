@@ -10,34 +10,30 @@ export function MultipleEntryReferenceEditor(props: ReferenceEditorProps) {
   return (
     <MultipleReferenceEditor {...props} entityType="Entry">
       {(childrenProps) => (
-        <SortableLinkList<ReferenceValue> {...childrenProps}>
-          {(props) => {
-            const lastIndex = props.items.length - 1;
+        <SortableLinkList<ReferenceValue>
+          {...props}
+          {...childrenProps}
+          axis="y"
+          useDragHandle={true}>
+          {({ items, item, index, isDisabled, DragHandle }) => {
+            const lastIndex = items.length - 1;
 
             return (
               <FetchingWrappedEntryCard
                 {...props}
-                key={`${props.item.sys.id}-${props.index}`}
-                index={props.index}
+                key={`${item.sys.id}-${index}`}
+                index={index}
                 allContentTypes={childrenProps.allContentTypes}
-                isDisabled={props.isDisabled}
-                entryId={props.item.sys.id}
+                isDisabled={isDisabled}
+                entryId={item.sys.id}
                 onRemove={() => {
-                  childrenProps.setValue(
-                    props.items.filter((_value, i) => {
-                      return i !== props.index;
-                    })
-                  );
+                  childrenProps.setValue(items.filter((_value, i) => i !== index));
                 }}
-                onMoveTop={
-                  props.index !== 0 ? () => childrenProps.onMove(props.index, 0) : undefined
-                }
+                onMoveTop={index !== 0 ? () => childrenProps.onMove(index, 0) : undefined}
                 onMoveBottom={
-                  props.index !== lastIndex
-                    ? () => childrenProps.onMove(props.index, lastIndex)
-                    : undefined
+                  index !== lastIndex ? () => childrenProps.onMove(index, lastIndex) : undefined
                 }
-                renderDragHandle={props.DragHandle}
+                renderDragHandle={DragHandle}
               />
             );
           }}
