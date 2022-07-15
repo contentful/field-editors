@@ -430,6 +430,27 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           ).to.have.length(1);
         });
       });
+
+
+      it('should not delete adjacent text', () => {
+        richText.editor.click().type('test/{downarrow}{enter}{enter}');
+        richText.expectSnapshotValue();
+      });
+
+      it('should work inside headings', () => {
+        richText.editor.click().type('Heading 1');
+        richText.toolbar.toggleHeading(BLOCKS.HEADING_1);
+        richText.editor.click().type('/{enter}{enter}');
+
+        //this is used instead of snapshot value because we have randomized entry IDs
+        richText.getValue().should((doc) => {
+          expect(
+            doc.content.filter((node) => {
+              return node.nodeType === BLOCKS.EMBEDDED_ENTRY || node.nodeType === BLOCKS.HEADING_1;
+            })
+          ).to.have.length(2);
+        });
+      });
     });
   });
 

@@ -1,10 +1,11 @@
 import { BLOCKS, HEADINGS } from '@contentful/rich-text-types';
-import { getAbove, HotkeyPlugin, KeyboardHandler } from '@udecode/plate-core';
+import { getAbove, HotkeyPlugin, isMarkActive, KeyboardHandler } from '@udecode/plate-core';
 import isHotkey from 'is-hotkey';
 
 import { isBlockSelected, isInlineOrText, toggleElement } from '../../helpers/editor';
 import { transformLift, transformUnwrap } from '../../helpers/transformers';
 import { RichTextEditor, RichTextPlugin } from '../../types';
+import { COMMAND_PROMPT } from '../CommandPalette/constants';
 import { HeadingComponents } from './components/Heading';
 
 const buildHeadingEventHandler =
@@ -60,7 +61,7 @@ export const createHeadingPlugin = (): RichTextPlugin => ({
               !getAbove(editor, {
                 at: path,
                 match: { type: BLOCKS.LIST_ITEM },
-              }),
+              }) && !isMarkActive(editor, COMMAND_PROMPT),
           },
         },
       ],

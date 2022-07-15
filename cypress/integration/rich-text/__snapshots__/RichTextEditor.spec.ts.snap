@@ -982,3 +982,42 @@ exports[`Rich Text Editor > Commands > Palette > should select next item on down
   "data": {},
   "nodeType": "document"
 };
+
+exports[`Rich Text Editor > Commands > Palette > should not delete adjacent text #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": "test"
+        },
+        {
+          "content": [],
+          "data": {
+            "target": {
+              "sys": {
+                "id": "exampleCT",
+                "linkType": "Entry",
+                "type": "Link"
+              }
+            }
+          },
+          "nodeType": "embedded-entry-inline"
+        },
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
