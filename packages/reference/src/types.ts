@@ -15,6 +15,8 @@ export type { SpaceProps as Space } from 'contentful-management';
 
 export { Entry, File, Asset } from '@contentful/field-editor-shared';
 
+export type { ResourceInfo } from './common/EntityStore';
+
 export type Entity = Entry | Asset;
 
 export type EntryLink = { sys: { type: 'Link'; linkType: 'Entry'; id: string } };
