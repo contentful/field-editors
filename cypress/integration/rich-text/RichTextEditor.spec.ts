@@ -431,7 +431,6 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         });
       });
 
-      //todo test should not delete adjacent non-command text
 
       it('should not delete adjacent text', () => {
         richText.editor.click().type('test/{downarrow}{enter}{enter}');
