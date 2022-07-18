@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.6.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.6.0...@contentful/field-editor-reference@4.6.1) (2022-07-18)
+
+### Bug Fixes
+
+- correctly pass props to children of SortableLinkList ([#1187](https://github.com/contentful/field-editors/issues/1187)) ([5f574b9](https://github.com/contentful/field-editors/commit/5f574b938670290e8e2bb8c0b9bcb67720a83da9))
+
 # [4.6.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.5.1...@contentful/field-editor-reference@4.6.0) (2022-07-15)
 
 ### Features
