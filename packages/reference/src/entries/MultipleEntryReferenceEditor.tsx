@@ -10,17 +10,13 @@ export function MultipleEntryReferenceEditor(props: ReferenceEditorProps) {
   return (
     <MultipleReferenceEditor {...props} entityType="Entry">
       {(childrenProps) => (
-        <SortableLinkList<ReferenceValue>
-          {...props}
-          {...childrenProps}
-          axis="y"
-          useDragHandle={true}>
+        <SortableLinkList<ReferenceValue> {...childrenProps} axis="y" useDragHandle={true}>
           {({ items, item, index, isDisabled, DragHandle }) => {
             const lastIndex = items.length - 1;
 
             return (
               <FetchingWrappedEntryCard
-                {...props}
+                {...childrenProps}
                 key={`${item.sys.id}-${index}`}
                 index={index}
                 allContentTypes={childrenProps.allContentTypes}
