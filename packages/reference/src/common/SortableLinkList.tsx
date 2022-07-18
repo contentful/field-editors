@@ -68,5 +68,11 @@ const SortableLinkListInternal = SortableContainer((props: SortableLinkListProps
 
 // HOC does not support generics, so we mimic it via additional component
 export function SortableLinkList<T>(props: SortableLinkListProps<T> & SortableContainerProps) {
-  return <SortableLinkListInternal {...props}>{props.children}</SortableLinkListInternal>;
+  // with the default distance of 0 the drag start event is "confused" with the click event,
+  // so the latter one isn't fired and click handlers on child elements don't work
+  return (
+    <SortableLinkListInternal distance={1} {...props}>
+      {props.children}
+    </SortableLinkListInternal>
+  );
 }
