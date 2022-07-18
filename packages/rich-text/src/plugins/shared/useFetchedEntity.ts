@@ -11,7 +11,7 @@ interface FetchedEntityProps {
 }
 
 export function useFetchedEntity({ type, id, onEntityFetchComplete }: FetchedEntityProps) {
-  const { entries, assets, getEntry, getAsset } = useEntities();
+  const { entries, assets, getOrLoadEntry, getOrLoadAsset } = useEntities();
 
   const store = type === 'Entry' ? entries : assets;
   const [entity, setEntity] = useState<Entry | Asset | 'failed' | undefined>(store[id]);
@@ -27,7 +27,7 @@ export function useFetchedEntity({ type, id, onEntityFetchComplete }: FetchedEnt
 
   // Fetch the entity if needed
   useEffect(() => {
-    (type === 'Entry' ? getEntry : getAsset)(id);
+    (type === 'Entry' ? getOrLoadEntry : getOrLoadAsset)(id);
 
     // "getEntry" and "getAsset" instances change with every
     // entity store update causing page lag on initial load
