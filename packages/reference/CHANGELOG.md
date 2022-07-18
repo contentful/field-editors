@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.6.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.6.1...@contentful/field-editor-reference@4.6.2) (2022-07-18)
+
+### Bug Fixes
+
+- click handler on children of sortable list ([#1188](https://github.com/contentful/field-editors/issues/1188)) ([7ebab54](https://github.com/contentful/field-editors/commit/7ebab54b2ecd301b3cf066615b124da72b46856a))
+
 ## [4.6.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.6.0...@contentful/field-editor-reference@4.6.1) (2022-07-18)
 
 ### Bug Fixes
