@@ -11,6 +11,7 @@ import {
 import areEqual from 'fast-deep-equal';
 
 import { useFetchedEntity } from './useFetchedEntity';
+import { useStableCallback } from './useStableCallback';
 
 interface InternalEntryCard {
   isDisabled: boolean;
@@ -79,6 +80,10 @@ export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) =
   const { entryId, onEntityFetchComplete } = props;
   const { loadEntityScheduledActions } = useEntities();
 
+  // FIXME: remove when useEntities() has been refactored to avoid
+  // unnecessary re-rendering
+  const stableLoadEntityScheduledActions = useStableCallback(loadEntityScheduledActions);
+
   const entry = useFetchedEntity({
     type: 'Entry',
     id: entryId,
@@ -94,7 +99,7 @@ export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) =
       isSelected={props.isSelected}
       onEdit={props.onEdit}
       onRemove={props.onRemove}
-      loadEntityScheduledActions={loadEntityScheduledActions}
+      loadEntityScheduledActions={stableLoadEntityScheduledActions}
     />
   );
 };

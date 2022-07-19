@@ -10,6 +10,7 @@ import {
 import areEqual from 'fast-deep-equal';
 
 import { useFetchedEntity } from './useFetchedEntity';
+import { useStableCallback } from './useStableCallback';
 
 interface InternalAssetCardProps {
   asset?: Asset | 'failed';
@@ -70,6 +71,10 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
   const { onEntityFetchComplete, assetId } = props;
   const { loadEntityScheduledActions } = useEntities();
 
+  // FIXME: remove when useEntities() has been refactored to avoid
+  // unnecessary re-rendering
+  const stableLoadEntityScheduledActions = useStableCallback(loadEntityScheduledActions);
+
   const asset = useFetchedEntity({
     type: 'Asset',
     id: assetId,
@@ -82,7 +87,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       sdk={props.sdk}
       isDisabled={props.isDisabled}
       isSelected={props.isSelected}
-      loadEntityScheduledActions={loadEntityScheduledActions}
+      loadEntityScheduledActions={stableLoadEntityScheduledActions}
       locale={props.locale}
       onEdit={props.onEdit}
       onRemove={props.onRemove}
