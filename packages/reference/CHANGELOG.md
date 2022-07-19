@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.6.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.6.2...@contentful/field-editor-reference@4.6.3) (2022-07-19)
+
+### Bug Fixes
+
+- drill props correctly ([#1190](https://github.com/contentful/field-editors/issues/1190)) ([f17742a](https://github.com/contentful/field-editors/commit/f17742a80f1d41f15a494fd84436deb745e4431d))
+
 ## [4.6.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.6.1...@contentful/field-editor-reference@4.6.2) (2022-07-18)
 
 ### Bug Fixes
