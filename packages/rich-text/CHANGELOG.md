@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@2.3.6...@contentful/field-editor-rich-text@2.3.7) (2022-07-19)
+
+### Bug Fixes
+
+- **rich-text:** avoid unnecessary render of reference cards ([#1189](https://github.com/contentful/field-editors/issues/1189)) ([b253014](https://github.com/contentful/field-editors/commit/b2530144857ea9b82259c6fbae02875f0692a62a))
+
 ## [2.3.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@2.3.5...@contentful/field-editor-rich-text@2.3.6) (2022-07-19)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
