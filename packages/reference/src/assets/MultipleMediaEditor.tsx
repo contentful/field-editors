@@ -29,7 +29,7 @@ export function MultipleMediaEditor(props: EditorProps) {
           useDragHandle={true}>
           {({ items, item, index, isDisabled, DragHandle }) => (
             <FetchingWrappedAssetCard
-              {...props}
+              {...childrenProps}
               isDisabled={isDisabled}
               key={`${item.sys.id}-${index}`}
               assetId={item.sys.id}
