@@ -5,6 +5,9 @@ import isHotkey from 'is-hotkey';
 export const useCommandList = (commandItems, container) => {
   const [selectedItem, setSelectedItem] = React.useState<string>(() => {
     // select the first item on initial render
+    if (!commandItems.length) {
+      return '';
+    }
     if ('group' in commandItems[0]) {
       return commandItems[0].commands[0].id;
     }
