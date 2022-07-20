@@ -1,19 +1,10 @@
 import React from 'react';
-import tokens from '@contentful/f36-tokens';
-import { css, cx } from 'emotion';
-import { Controlled as CodeMirror } from 'react-codemirror2';
 
-const CODE_MIRROR_CONFIG = {
-  autoCloseBrackets: true,
-  mode: { name: 'javascript', json: true },
-  lineWrapping: true,
-  viewportMargin: Infinity,
-  indentUnit: 4,
-  indentWithTabs: true,
-  height: 'auto',
-  theme: 'none',
-  autoRefresh: true,
-};
+import { json } from '@codemirror/lang-json';
+import tokens from '@contentful/f36-tokens';
+import { createTheme } from '@uiw/codemirror-themes';
+import CodeMirror from '@uiw/react-codemirror';
+import { css, cx } from 'emotion';
 
 type JsonEditorFieldProps = {
   isDisabled: boolean;
@@ -30,33 +21,56 @@ const styles = {
     borderBottomLeftRadius: tokens.borderRadiusSmall,
     borderBottomRightRadius: tokens.borderRadiusSmall,
     fontSize: tokens.fontSizeM,
-    '.CodeMirror': {
-      height: 'auto',
+    '.cm-editor': {
       color: tokens.gray900,
       fontFamily: tokens.fontStackMonospace,
+      '&.cm-focused': {
+        outline: 'none',
+      },
     },
-    '.CodeMirror-scroll': {
+    '.cm-scroller': {
       minHeight: '6rem',
     },
     '&.disabled': {
       cursor: 'auto',
-      '.CodeMirror-scroll ': {
+      '.cm-scroller ': {
         minHeight: '6rem',
         backgroundColor: tokens.gray100,
         cursor: 'not-allowed',
       },
-      '.react-codemirror2': {
+      '.cm-editor': {
         border: `1px solid ${tokens.gray200}`,
       },
-      '.CodeMirror-line': {
+      '.cm-line': {
         cursor: 'not-allowed',
       },
-      '.CodeMirror-lines': {
+      '.cm-lines': {
         cursor: 'not-allowed',
       },
     },
   }),
 };
+
+const theme = createTheme({
+  theme: 'light',
+  settings: {
+    background: '',
+    foreground: '',
+  },
+  styles: [],
+});
+
+// const CODE_MIRROR_CONFIG = {
+//   autoCloseBrackets: true,
+//   mode: { name: 'javascript', json: true },
+//   lineWrapping: true,
+//   viewportMargin: Infinity,
+//   indentUnit: 4,
+//   indentWithTabs: true,
+//   height: 'auto',
+//   theme: 'none',
+//   autoRefresh: true,
+// };
 
 export function JsonEditorField(props: JsonEditorFieldProps) {
   return (
@@ -65,13 +79,20 @@ export function JsonEditorField(props: JsonEditorFieldProps) {
       data-test-id="json-editor-code-mirror">
       <CodeMirror
         value={props.value}
-        onBeforeChange={(_editor, _data, value) => {
-          props.onChange(value);
+        onChange={props.onChange}
+        theme={theme}
+        extensions={[json()]}
+        basicSetup={{
+          closeBrackets: true,
+          lineNumbers: false,
+          highlightActiveLineGutter: false,
+          highlightActiveLine: false,
+          foldGutter: false,
+          bracketMatching: false,
         }}
-        options={{
-          ...CODE_MIRROR_CONFIG,
-          readOnly: props.isDisabled ? 'nocursor' : false,
-        }}
+        width="100%"
+        editable={!props.isDisabled}
+        indentWithTab={true}
       />
     </div>
   );
