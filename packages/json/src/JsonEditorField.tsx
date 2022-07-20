@@ -60,18 +60,6 @@ const theme = createTheme({
   styles: [],
 });
 
-// const CODE_MIRROR_CONFIG = {
-//   autoCloseBrackets: true,
-//   mode: { name: 'javascript', json: true },
-//   lineWrapping: true,
-//   viewportMargin: Infinity,
-//   indentUnit: 4,
-//   indentWithTabs: true,
-//   height: 'auto',
-//   theme: 'none',
-//   autoRefresh: true,
-// };
-
 export function JsonEditorField(props: JsonEditorFieldProps) {
   return (
     <div
