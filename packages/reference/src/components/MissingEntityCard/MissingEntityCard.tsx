@@ -17,7 +17,7 @@ export function MissingEntityCard(props: {
       <Flex alignItems="center" justifyContent="space-between">
         <div className={props.asSquare ? styles.squareCard : ''}>
           <SectionHeading marginBottom="none">
-            {`{props.entityType} is missing or inaccessible`}
+            {props.entityType} is missing or inaccessible
           </SectionHeading>
         </div>
         {!props.isDisabled && props.onRemove && (
