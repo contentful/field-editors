@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.6.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.6.3...@contentful/field-editor-reference@4.6.4) (2022-07-21)
+
+### Bug Fixes
+
+- check the env alias for the field editor reference [ZEND-2488] ([#1194](https://github.com/contentful/field-editors/issues/1194)) ([0b8e1c7](https://github.com/contentful/field-editors/commit/0b8e1c7dc0ecc3644332fd89ef2daaff275655cb))
+
 ## [4.6.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.6.2...@contentful/field-editor-reference@4.6.3) (2022-07-19)
 
 ### Bug Fixes
