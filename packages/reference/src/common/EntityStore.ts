@@ -165,7 +165,7 @@ const nonNilResources = <E extends Entity>(
 
 function useEntitiesStore(props: { sdk: BaseExtensionSDK }) {
   const spaceId = props.sdk.ids.space;
-  const environmentId = props.sdk.ids.environment;
+  const environmentId = props.sdk.ids.environmentAlias || props.sdk.ids.environment;
   const [cmaClient] = React.useState(() =>
     createClient({ apiAdapter: props.sdk.cmaAdapter }, { type: 'plain' })
   );
