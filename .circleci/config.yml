@@ -88,6 +88,7 @@ jobs:
     steps:
       - checkout
       - yarn_install
+      - run: yarn build
       - run:
           name: Run cypress component tests
           command: |
