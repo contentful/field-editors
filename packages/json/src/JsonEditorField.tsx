@@ -71,7 +71,7 @@ export function JsonEditorField(props: JsonEditorFieldProps) {
         theme={theme}
         extensions={[json()]}
         basicSetup={{
-          closeBrackets: true,
+          closeBrackets: false,
           lineNumbers: false,
           highlightActiveLineGutter: false,
           highlightActiveLine: false,

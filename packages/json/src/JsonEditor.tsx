@@ -35,6 +35,7 @@ type ConnectedJsonEditorState = {
   isValidJson: boolean;
   undoStack: string[];
   redoStack: string[];
+  lastUndo: string;
 };
 
 class ConnectedJsonEditor extends React.Component<
@@ -52,6 +53,7 @@ class ConnectedJsonEditor extends React.Component<
       isValidJson: true,
       undoStack: [],
       redoStack: [],
+      lastUndo: '',
     };
   }
 
@@ -70,7 +72,9 @@ class ConnectedJsonEditor extends React.Component<
   onChange = (value: string) => {
     const parsed = parseJSON(value);
 
-    this.pushUndo(this.state.value);
+    if (value !== this.state.lastUndo) {
+      this.pushUndo(this.state.value);
+    }
 
     this.setState({
       value,
@@ -83,7 +87,7 @@ class ConnectedJsonEditor extends React.Component<
   };
 
   onUndo = () => {
-    const undoStack = [...this.state.undoStack];
+    const undoStack = this.state.undoStack;
 
     if (undoStack.length === 0) {
       return;
@@ -100,6 +104,7 @@ class ConnectedJsonEditor extends React.Component<
         isValidJson: parsedValue.valid,
         undoStack,
         redoStack: [...state.redoStack, state.value],
+        lastUndo: value,
       }),
       () => {
         if (parsedValue.valid) {
