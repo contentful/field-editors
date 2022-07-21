@@ -12,6 +12,8 @@ import emptyAsset from './empty_asset.json';
 import emptyEntry from './empty_entry.json';
 import publishedAsset from './published_asset.json';
 import publishedEntry from './published_entry.json';
+import { FieldExtensionSDK } from '../types';
+import { Emitter } from 'mitt';
 
 const newLink = (linkType: string, id: string): Link => ({
   sys: {
@@ -21,11 +23,16 @@ const newLink = (linkType: string, id: string): Link => ({
   },
 });
 
-export function newReferenceEditorFakeSdk() {
+// used for component testing
+type ReferenceEditorSdkProps = {
+  validations?: any
+}
+
+export function newReferenceEditorFakeSdk(props?: ReferenceEditorSdkProps): [FieldExtensionSDK, Emitter] {
   const rawInitialValue = window.localStorage.getItem('initialValue');
   const initialValue = rawInitialValue ? JSON.parse(rawInitialValue) : undefined;
   const rawValidations = window.localStorage.getItem('fieldValidations');
-  const validations = rawValidations ? JSON.parse(rawValidations) : undefined;
+  const validations = rawValidations ? JSON.parse(rawValidations) : props?.validations;
   const customizeMock = (field: FieldAPI): FieldAPI => {
     return validations ? { ...field, validations } : field;
   };
@@ -124,6 +131,6 @@ export function newReferenceEditorFakeSdk() {
       space: 'space-id',
       environment: 'environment-id',
     },
-  };
+  } as unknown as FieldExtensionSDK;
   return [sdk, mitt];
 }
