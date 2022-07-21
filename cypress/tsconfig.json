@@ -9,6 +9,7 @@
   "include": [
     "**/*.ts",
     "../packages",
+    "../cypress",
     "../node_modules/cypress",
     "../node_modules/@types/testing-library__cypress"
   ]

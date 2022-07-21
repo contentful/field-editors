@@ -1,5 +1,9 @@
 module.exports = {
-  extends: [require.resolve('@contentful/eslint-config-extension')],
+  extends: [
+    require.resolve('@contentful/eslint-config-extension'),
+    require.resolve('@contentful/eslint-config-extension/react.js'),
+    require.resolve('@contentful/eslint-config-extension/typescript.js'),
+  ],
   plugins: ['eslint-plugin-import-helpers'],
   rules: {
     'import-helpers/order-imports': [

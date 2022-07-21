@@ -53,7 +53,7 @@ test('some dropdown actions should be disabled', async () => {
   );
 
   // Assert Asset title
-  await waitFor(() => expect(getByTestId('cf-ui-asset').textContent).toEqual('asset title'));
+  await waitFor(() => expect(getByTestId('cf-ui-asset').textContent).toBe('asset title'));
 
   fireEvent.click(getByTestId('cf-ui-card-actions'));
 

@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { MultipleEntryReferenceEditor } from '../../../packages/reference/src';
-import { newReferenceEditorFakeSdk } from '../../../packages/reference/src/__fixtures__/FakeSdk';
-import { mount } from '../context';
-import { ReferenceEditorProps } from '../../../packages/reference/src/common/ReferenceEditor';
 import { Card, Heading, Paragraph, Button } from '@contentful/f36-components';
 import { Entry } from '@contentful/field-editor-shared';
+
+import { MultipleEntryReferenceEditor } from '../../../packages/reference/src';
+import { newReferenceEditorFakeSdk } from '../../../packages/reference/src/__fixtures__/FakeSdk';
+import { ReferenceEditorProps } from '../../../packages/reference/src/common/ReferenceEditor';
+import { mount } from '../mount';
 
 const wrappedTestId = 'multiple-entry-references-editor';
 const commonProps = {
@@ -21,23 +22,22 @@ const commonProps = {
 } as ReferenceEditorProps;
 
 describe('Multiple Reference Editor', () => {
-  const getWrapper = () =>
-    cy.findByTestId(wrappedTestId);
+  const getWrapper = () => cy.findByTestId(wrappedTestId);
   const findLinkExistingBtn = () => getWrapper().findByTestId('linkEditor.linkExisting');
   const findCustomCards = () => getWrapper().findAllByTestId('custom-card');
   const findDefaultCards = () => getWrapper().findAllByTestId('cf-ui-entry-card');
 
   function localMount(node: React.ReactNode) {
-    mount(<div key={wrappedTestId} data-test-id={wrappedTestId}>{node}</div>);
+    mount(
+      <div key={wrappedTestId} data-test-id={wrappedTestId}>
+        {node}
+      </div>
+    );
   }
 
   it('is empty by default', () => {
     const [sdk] = newReferenceEditorFakeSdk();
-    localMount(
-      <MultipleEntryReferenceEditor
-        {...commonProps}
-        sdk={sdk}
-      />);
+    localMount(<MultipleEntryReferenceEditor {...commonProps} sdk={sdk} />);
     findCustomCards().should('not.exist');
     findLinkExistingBtn().should('be.enabled');
   });
@@ -110,8 +110,7 @@ describe('Multiple Reference Editor', () => {
     findCustomCards().should('have.length', 2);
   });
 
-  it.only('hides actions when max number of allowed links is reached', () => {
-
+  it('hides actions when max number of allowed links is reached', () => {
     const [sdk] = newReferenceEditorFakeSdk({ validations: [{ size: { max: 3 } }] });
     localMount(
       <MultipleEntryReferenceEditor
