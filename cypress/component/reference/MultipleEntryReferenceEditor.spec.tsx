@@ -4,8 +4,8 @@ import { Card, Heading, Paragraph, Button } from '@contentful/f36-components';
 import { Entry } from '@contentful/field-editor-shared';
 
 import { MultipleEntryReferenceEditor } from '../../../packages/reference/src';
-import { newReferenceEditorFakeSdk } from '../../../packages/reference/src/__fixtures__/FakeSdk';
 import { mount } from '../mount';
+import { createReferenceEditorTestSdk } from '../test-sdks';
 
 const commonProps = {
   isInitiallyDisabled: false,
@@ -25,7 +25,7 @@ describe('Multiple Reference Editor', () => {
   const findDefaultCards = () => cy.findAllByTestId('cf-ui-entry-card');
 
   it('is empty by default', () => {
-    const [sdk] = newReferenceEditorFakeSdk();
+    const sdk = createReferenceEditorTestSdk();
     mount(<MultipleEntryReferenceEditor {...commonProps} sdk={sdk} />);
 
     findCustomCards().should('not.exist');
@@ -33,7 +33,7 @@ describe('Multiple Reference Editor', () => {
   });
 
   it('renders custom cards', () => {
-    const [sdk] = newReferenceEditorFakeSdk();
+    const sdk = createReferenceEditorTestSdk();
     mount(
       <MultipleEntryReferenceEditor
         {...commonProps}
@@ -65,7 +65,7 @@ describe('Multiple Reference Editor', () => {
   });
 
   it('renders default card instead of custom card', () => {
-    const [sdk] = newReferenceEditorFakeSdk();
+    const sdk = createReferenceEditorTestSdk();
     mount(
       <MultipleEntryReferenceEditor
         {...commonProps}
@@ -99,7 +99,7 @@ describe('Multiple Reference Editor', () => {
   });
 
   it('hides actions when max number of allowed links is reached', () => {
-    const [sdk] = newReferenceEditorFakeSdk({ validations: [{ size: { max: 3 } }] });
+    const sdk = createReferenceEditorTestSdk({ validations: [{ size: { max: 3 } }] });
     mount(
       <MultipleEntryReferenceEditor
         {...commonProps}

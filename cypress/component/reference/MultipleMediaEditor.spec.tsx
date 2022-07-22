@@ -3,8 +3,8 @@ import React from 'react';
 import { Card, Heading, Button, Asset } from '@contentful/f36-components';
 
 import { MultipleMediaEditor, CombinedLinkActions } from '../../../packages/reference/src';
-import { newReferenceEditorFakeSdk } from '../../../packages/reference/src/__fixtures__/FakeSdk';
 import { mount } from '../mount';
+import { createReferenceEditorTestSdk } from '../test-sdks';
 
 const commonProps = {
   isInitiallyDisabled: false,
@@ -26,7 +26,7 @@ describe('Multiple Media Editor', () => {
 
   describe('default editor', () => {
     it('renders default actions', () => {
-      const [sdk] = newReferenceEditorFakeSdk();
+      const sdk = createReferenceEditorTestSdk();
       mount(<MultipleMediaEditor {...commonProps} sdk={sdk} />);
 
       findCreateAndLinkBtn().should('exist');
@@ -34,7 +34,7 @@ describe('Multiple Media Editor', () => {
     });
 
     it('can insert existing links', () => {
-      const [sdk] = newReferenceEditorFakeSdk();
+      const sdk = createReferenceEditorTestSdk();
       mount(<MultipleMediaEditor {...commonProps} sdk={sdk} />);
 
       findLinkExistingBtn().click();
@@ -42,7 +42,7 @@ describe('Multiple Media Editor', () => {
     });
 
     it('can insert new links', () => {
-      const [sdk] = newReferenceEditorFakeSdk();
+      const sdk = createReferenceEditorTestSdk();
       mount(<MultipleMediaEditor {...commonProps} sdk={sdk} />);
 
       findCreateAndLinkBtn().click();
@@ -55,7 +55,7 @@ describe('Multiple Media Editor', () => {
     const renderCustomActions = (props) => <CombinedLinkActions {...props} />;
 
     it('is rendered', () => {
-      const [sdk] = newReferenceEditorFakeSdk({ validations });
+      const sdk = createReferenceEditorTestSdk({ validations });
       mount(
         <MultipleMediaEditor {...commonProps} sdk={sdk} renderCustomActions={renderCustomActions} />
       );
@@ -64,7 +64,7 @@ describe('Multiple Media Editor', () => {
     });
 
     it('is able to interact through props', () => {
-      const [sdk] = newReferenceEditorFakeSdk({ validations });
+      const sdk = createReferenceEditorTestSdk({ validations });
       mount(
         <MultipleMediaEditor {...commonProps} sdk={sdk} renderCustomActions={renderCustomActions} />
       );
@@ -75,7 +75,7 @@ describe('Multiple Media Editor', () => {
     });
 
     it('hides actions when max number of allowed links is reached', () => {
-      const [sdk] = newReferenceEditorFakeSdk({ validations });
+      const sdk = createReferenceEditorTestSdk({ validations });
       mount(
         <MultipleMediaEditor {...commonProps} sdk={sdk} renderCustomActions={renderCustomActions} />
       );
@@ -111,7 +111,7 @@ describe('Multiple Media Editor', () => {
       );
     };
     it('renders custom cards', () => {
-      const [sdk] = newReferenceEditorFakeSdk();
+      const sdk = createReferenceEditorTestSdk();
       mount(<MultipleMediaEditor {...commonProps} sdk={sdk} renderCustomCard={renderCustomCard} />);
 
       findLinkExistingBtn().click();
@@ -119,7 +119,7 @@ describe('Multiple Media Editor', () => {
     });
 
     it('renders default card instead of custom card', () => {
-      const [sdk] = newReferenceEditorFakeSdk();
+      const sdk = createReferenceEditorTestSdk();
       mount(<MultipleMediaEditor {...commonProps} sdk={sdk} renderCustomCard={renderCustomCard} />);
 
       findLinkExistingBtn().click();
