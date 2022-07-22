@@ -5,10 +5,8 @@ import { Entry } from '@contentful/field-editor-shared';
 
 import { MultipleEntryReferenceEditor } from '../../../packages/reference/src';
 import { newReferenceEditorFakeSdk } from '../../../packages/reference/src/__fixtures__/FakeSdk';
-import { ReferenceEditorProps } from '../../../packages/reference/src/common/ReferenceEditor';
 import { mount } from '../mount';
 
-const wrappedTestId = 'multiple-entry-references-editor';
 const commonProps = {
   isInitiallyDisabled: false,
   parameters: {
@@ -19,33 +17,24 @@ const commonProps = {
   },
   hasCardEditActions: true,
   viewType: 'link',
-} as ReferenceEditorProps;
+} as React.ComponentProps<typeof MultipleEntryReferenceEditor>;
 
 describe('Multiple Reference Editor', () => {
-  const getWrapper = () => cy.findByTestId(wrappedTestId);
-  const findLinkExistingBtn = () => getWrapper().findByTestId('linkEditor.linkExisting');
-  const findCustomCards = () => getWrapper().findAllByTestId('custom-card');
-  const findDefaultCards = () => getWrapper().findAllByTestId('cf-ui-entry-card');
-
-  function localMount(node: React.ReactNode) {
-    mount(
-      <div key={wrappedTestId} data-test-id={wrappedTestId}>
-        {node}
-      </div>
-    );
-  }
+  const findLinkExistingBtn = () => cy.findByTestId('linkEditor.linkExisting');
+  const findCustomCards = () => cy.findAllByTestId('custom-card');
+  const findDefaultCards = () => cy.findAllByTestId('cf-ui-entry-card');
 
   it('is empty by default', () => {
     const [sdk] = newReferenceEditorFakeSdk();
-    localMount(<MultipleEntryReferenceEditor {...commonProps} sdk={sdk} />);
+    mount(<MultipleEntryReferenceEditor {...commonProps} sdk={sdk} />);
+
     findCustomCards().should('not.exist');
     findLinkExistingBtn().should('be.enabled');
   });
 
   it('renders custom cards', () => {
     const [sdk] = newReferenceEditorFakeSdk();
-
-    localMount(
+    mount(
       <MultipleEntryReferenceEditor
         {...commonProps}
         renderCustomCard={(props) => {
@@ -77,8 +66,7 @@ describe('Multiple Reference Editor', () => {
 
   it('renders default card instead of custom card', () => {
     const [sdk] = newReferenceEditorFakeSdk();
-
-    localMount(
+    mount(
       <MultipleEntryReferenceEditor
         {...commonProps}
         renderCustomCard={(props) => {
@@ -112,7 +100,7 @@ describe('Multiple Reference Editor', () => {
 
   it('hides actions when max number of allowed links is reached', () => {
     const [sdk] = newReferenceEditorFakeSdk({ validations: [{ size: { max: 3 } }] });
-    localMount(
+    mount(
       <MultipleEntryReferenceEditor
         {...commonProps}
         renderCustomCard={(props) => {
