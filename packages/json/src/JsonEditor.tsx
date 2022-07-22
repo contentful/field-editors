@@ -15,7 +15,6 @@ export interface JsonEditorProps {
    * is the field disabled initially
    */
   isInitiallyDisabled: boolean;
-
   /**
    * sdk.field
    */
