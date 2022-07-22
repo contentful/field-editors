@@ -5,7 +5,9 @@ import {
   createFakeLocalesAPI,
   createFakeSpaceAPI,
 } from '@contentful/field-editor-test-utils';
+import { Emitter } from 'mitt';
 
+import { FieldExtensionSDK } from '../types';
 import changedAsset from './changed_asset.json';
 import changedEntry from './changed_entry.json';
 import emptyAsset from './empty_asset.json';
@@ -21,11 +23,18 @@ const newLink = (linkType: string, id: string): Link => ({
   },
 });
 
-export function newReferenceEditorFakeSdk() {
+// used for component testing
+export type ReferenceEditorSdkProps = {
+  validations?: any;
+};
+
+export function newReferenceEditorFakeSdk(
+  props?: ReferenceEditorSdkProps
+): [FieldExtensionSDK, Emitter] {
   const rawInitialValue = window.localStorage.getItem('initialValue');
   const initialValue = rawInitialValue ? JSON.parse(rawInitialValue) : undefined;
   const rawValidations = window.localStorage.getItem('fieldValidations');
-  const validations = rawValidations ? JSON.parse(rawValidations) : undefined;
+  const validations = rawValidations ? JSON.parse(rawValidations) : props?.validations;
   const customizeMock = (field: FieldAPI): FieldAPI => {
     return validations ? { ...field, validations } : field;
   };
@@ -124,6 +133,6 @@ export function newReferenceEditorFakeSdk() {
       space: 'space-id',
       environment: 'environment-id',
     },
-  };
+  } as unknown as FieldExtensionSDK;
   return [sdk, mitt];
 }

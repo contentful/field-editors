@@ -83,6 +83,19 @@ jobs:
       - store_artifacts:
           path: cypress/videos
 
+  component-tests:
+    executor: linux-cypress
+    steps:
+      - checkout
+      - yarn_install
+      - run: yarn build
+      - run:
+          name: Run cypress component tests
+          command: |
+            yarn cy:run:ct
+      - store_artifacts:
+          path: cypress/videos
+
   release:
     executor: linux-node
     steps:
@@ -104,6 +117,7 @@ workflows:
     jobs:
       - lint
       - unit-tests
+      - component-tests
       - integration-tests:
           name: integration-<< matrix.executor >>-<< matrix.browser >>
           matrix:
