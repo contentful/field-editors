@@ -6,7 +6,6 @@ import { mount as cyMount } from '@cypress/react';
 import { MountOptions } from '@cypress/react/dist/mount';
 import { Global } from '@emotion/core';
 
-
 function TestStyles() {
   return <Global styles={{ body: { padding: tokens.spacingM } }} />;
 }
@@ -17,9 +16,7 @@ export function mount(node: React.ReactNode, options?: MountOptions) {
       <GlobalStyles withNormalize={true} />
       <TestStyles />
       {node}
-    </>, options);
-}
-
-export function createTestSdk() {
-  return {};
+    </>,
+    options
+  );
 }
