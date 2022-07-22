@@ -26,7 +26,7 @@
     "@contentful/field-editor-checkbox": "^1.1.4",
     "@contentful/field-editor-date": "^1.1.8",
     "@contentful/field-editor-dropdown": "^1.1.4",
-    "@contentful/field-editor-json": "^2.0.0",
+    "@contentful/field-editor-json": "^2.1.0",
     "@contentful/field-editor-list": "^1.1.4",
     "@contentful/field-editor-location": "^1.1.5",
     "@contentful/field-editor-markdown": "^1.1.6",
