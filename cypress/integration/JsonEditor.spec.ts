@@ -1,10 +1,10 @@
 describe('JSON Editor', () => {
   const selectors = {
     getInput: () => {
-      return cy.get('[data-test-id="json-editor-code-mirror"] textarea');
+      return cy.get('[data-test-id="json-editor-code-mirror"] .cm-content');
     },
     getCode: () => {
-      return cy.get('[data-test-id="json-editor-code-mirror"] .CodeMirror-code');
+      return cy.get('[data-test-id="json-editor-code-mirror"] .cm-editor');
     },
     getRedoButton: () => {
       return cy.findByTestId('json-editor-redo');
