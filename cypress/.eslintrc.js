@@ -6,6 +6,7 @@ module.exports = {
     'mocha/no-mocha-arrows': 'off',
     'mocha/no-exclusive-tests': 'error',
     'mocha/no-skipped-tests': 'error',
+    '@typescript-eslint/no-var-requires': 'off',
   },
   env: {
     'cypress/globals': true,

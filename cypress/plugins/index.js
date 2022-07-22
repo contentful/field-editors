@@ -1,39 +1,19 @@
 const webpack = require('@cypress/webpack-preprocessor');
 const { initPlugin: initSnapshotPlugin } = require('cypress-plugin-snapshots/plugin');
+const path = require('path');
+
+const webpackFilename = path.join(__dirname, 'webpack.config.js');
 
 module.exports = (on, config) => {
-  const options = {
-    webpackOptions: {
-      resolve: {
-        extensions: ['.ts', '.js'],
-      },
-      // needed to prevent ReferenceErrors
-      // cf. https://github.com/webpack/webpack/issues/6693#issuecomment-745688108
-      output: {
-        hotUpdateChunkFilename: '[id].[fullhash].hot-update.js',
-        hotUpdateMainFilename: '[runtime].[fullhash].hot-update.json',
-      },
-      performance: false,
-      module: {
-        rules: [
-          {
-            test: /\.ts$/,
-            exclude: [/node_modules/],
-            use: [
-              {
-                loader: 'ts-loader',
-                options: {
-                  configFile: 'cypress/tsconfig.json',
-                },
-              },
-            ],
-          },
-        ],
-      },
-    },
-  };
-  on('file:preprocessor', webpack(options));
+  if (config.testingType === 'e2e') {
+    on('file:preprocessor', webpack({ webpackOptions: require(webpackFilename) }));
 
-  initSnapshotPlugin(on, config);
+    initSnapshotPlugin(on, config);
+  }
+
+  if (config.testingType === 'component') {
+    require('@cypress/react/plugins/load-webpack')(on, config, { webpackFilename });
+  }
+
   return config;
 };

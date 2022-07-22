@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@2.3.9...@contentful/field-editor-rich-text@2.3.10) (2022-07-21)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [2.3.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@2.3.8...@contentful/field-editor-rich-text@2.3.9) (2022-07-21)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [2.3.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@2.3.7...@contentful/field-editor-rich-text@2.3.8) (2022-07-21)
+
+### Bug Fixes
+
+- no embedded entries check rich text commands [TOL-273] ([#1192](https://github.com/contentful/field-editors/issues/1192)) ([c9983cf](https://github.com/contentful/field-editors/commit/c9983cf183ce95993b7cb1fb1a23728d373df736))
+
 ## [2.3.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@2.3.6...@contentful/field-editor-rich-text@2.3.7) (2022-07-19)
 
 ### Bug Fixes
