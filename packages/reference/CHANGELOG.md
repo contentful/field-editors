@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.6.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.6.5...@contentful/field-editor-reference@4.6.6) (2022-07-22)
+
+### Bug Fixes
+
+- truncate long space names on entry card [DANTE-634] ([#1198](https://github.com/contentful/field-editors/issues/1198)) ([5f81224](https://github.com/contentful/field-editors/commit/5f81224a29c8eac3638c57f968e79bb747afa028))
+
 ## [4.6.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.6.4...@contentful/field-editor-reference@4.6.5) (2022-07-21)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
