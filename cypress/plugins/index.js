@@ -1,7 +1,8 @@
 const webpack = require('@cypress/webpack-preprocessor');
 const { initPlugin: initSnapshotPlugin } = require('cypress-plugin-snapshots/plugin');
+const path = require('path');
 
-const webpackFilename = __dirname + '/webpack.config.js';
+const webpackFilename = path.join(__dirname, 'webpack.config.js');
 
 module.exports = (on, config) => {
   if (config.testingType === 'e2e') {
