@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@1.1.5...@contentful/field-editor-json@2.1.0) (2022-07-22)
+
+### Features
+
+- replace react-codemirror2 with @uiw/react-codemirror to allow codemirror 6 ([#1193](https://github.com/contentful/field-editors/issues/1193)) ([dbdb0ae](https://github.com/contentful/field-editors/commit/dbdb0ae3eaf2c63b00e87195210986b22c15987f))
+
 ## [1.1.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@1.1.4...@contentful/field-editor-json@1.1.5) (2022-07-11)
 
 **Note:** Version bump only for package @contentful/field-editor-json
