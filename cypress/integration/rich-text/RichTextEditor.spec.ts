@@ -431,7 +431,6 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         });
       });
 
-
       it('should not delete adjacent text', () => {
         richText.editor.click().type('test/{downarrow}{enter}{enter}');
         richText.expectSnapshotValue();
@@ -1149,7 +1148,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         });
 
         it('with Tab key at the end', () => {
-          // @ts-expect-error
+          // @ts-expect-error ...
           richText.editor.tab();
 
           expectTable(

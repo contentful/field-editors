@@ -14,5 +14,9 @@
   },
   "testFiles": "**/*.spec.*",
   "numTestsKeptInMemory": 1,
-  "ignoreTestFiles": ["**/__snapshots__/*", "**/__image_snapshots__/*"]
+  "ignoreTestFiles": ["**/__snapshots__/*", "**/__image_snapshots__/*"],
+  "component": {
+    "testFiles": "**/*.spec.{js,ts,jsx,tsx}",
+    "componentFolder": "cypress/component"
+  }
 }

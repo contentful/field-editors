@@ -13,10 +13,9 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
-// Import commands.js using ES2015 syntax:
 import './commands';
-import 'cypress-plugin-snapshots/commands';
-require('cypress-plugin-tab');
 
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
+if (Cypress.testingType === 'e2e') {
+  require('cypress-plugin-snapshots/commands');
+  require('cypress-plugin-tab');
+}
