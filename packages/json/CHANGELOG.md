@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@2.1.0...@contentful/field-editor-json@2.1.1) (2022-07-25)
+
+### Bug Fixes
+
+- remove old codemirror imports from json editor, cleanup ([#1199](https://github.com/contentful/field-editors/issues/1199)) ([9703eb2](https://github.com/contentful/field-editors/commit/9703eb277ccf76330c85cc21eaa28f55986f296b))
+
 # [2.1.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@1.1.5...@contentful/field-editor-json@2.1.0) (2022-07-22)
 
 ### Features
