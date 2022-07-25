@@ -5,7 +5,7 @@ import deepEqual from 'deep-equal';
 import throttle from 'lodash/throttle';
 
 import { JsonEditorField } from './JsonEditorField';
-import { JsonEditorToolbar } from './JsonEditorToobar';
+import { JsonEditorToolbar } from './JsonEditorToolbar';
 import { JsonInvalidStatus } from './JsonInvalidStatus';
 import { JSONObject } from './types';
 import { stringifyJSON, parseJSON } from './utils';
