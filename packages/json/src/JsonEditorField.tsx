@@ -54,7 +54,7 @@ const styles = {
 const theme = createTheme({
   theme: 'light',
   settings: {
-    background: '',
+    background: tokens.colorWhite,
     foreground: '',
   },
   styles: [],
