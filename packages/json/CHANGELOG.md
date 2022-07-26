@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@2.1.1...@contentful/field-editor-json@2.1.2) (2022-07-26)
+
+### Bug Fixes
+
+- add white background to json editor ([#1200](https://github.com/contentful/field-editors/issues/1200)) ([56437c0](https://github.com/contentful/field-editors/commit/56437c0dd0183bf4219ada812f8045bc15f0028b))
+
 ## [2.1.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@2.1.0...@contentful/field-editor-json@2.1.1) (2022-07-25)
 
 ### Bug Fixes
