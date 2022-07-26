@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { Card, Heading, Paragraph, Button } from '@contentful/f36-components';
+import { Card, Note, Heading, Paragraph, Button } from '@contentful/f36-components';
 import { Entry } from '@contentful/field-editor-shared';
 
 import { MultipleEntryReferenceEditor } from '../../../packages/reference/src';
+import { Entity, Link } from '../../../packages/reference/src/types';
 import { mount } from '../mount';
-import { createReferenceEditorTestSdk } from '../test-sdks';
+import { createReferenceEditorTestSdk, fixtures } from '../test-sdks';
 
 const commonProps = {
   isInitiallyDisabled: false,
@@ -18,6 +19,10 @@ const commonProps = {
   hasCardEditActions: true,
   viewType: 'link',
 } as React.ComponentProps<typeof MultipleEntryReferenceEditor>;
+
+function asLink<E extends Entity>(entity: E): Link {
+  return { sys: { type: 'Link', linkType: entity.sys.type, id: entity.sys.id } };
+}
 
 describe('Multiple Reference Editor', () => {
   const findLinkExistingBtn = () => cy.findByTestId('linkEditor.linkExisting');
@@ -130,4 +135,70 @@ describe('Multiple Reference Editor', () => {
     findLinkExistingBtn().click(); // inserts 1 card
     findLinkExistingBtn().should('not.exist'); // limit reached, button hidden.
   });
+
+  it(`shows status of entries`, () => {
+    const sdk = createReferenceEditorTestSdk({
+      initialValue: [
+        asLink(fixtures.entry.empty),
+        asLink(fixtures.entry.changed),
+        asLink(fixtures.entry.published),
+      ],
+    });
+    mount(<MultipleEntryReferenceEditor {...commonProps} sdk={sdk} />);
+
+    cy.findAllByTestId('cf-ui-entry-card').should('have.length', 3);
+    cy.findAllByTestId('cf-ui-entry-card').eq(0).findByText('draft').should('be.visible');
+    cy.findAllByTestId('cf-ui-entry-card').eq(1).findByText('changed').should('be.visible');
+    cy.findAllByTestId('cf-ui-entry-card').eq(2).findByText('published').should('be.visible');
+  });
+
+  it(`provides the custom card render method with necessary properties`, () => {
+    const sdk = createReferenceEditorTestSdk({
+      initialValue: [asLink(fixtures.entry.published)],
+    });
+    mount(
+      <MultipleEntryReferenceEditor
+        {...commonProps}
+        renderCustomCard={(props) => {
+          cy.wrap(props).as('customCardProps');
+
+          return <Note testId="custom-card" title="Custom card" />;
+        }}
+        sdk={sdk}
+      />
+    );
+
+    cy.findByTestId('custom-card').should('be.visible');
+    cy.get('@customCardProps').should('deep.equal', {
+      index: 0,
+      size: 'small',
+    });
+  });
+
+  // prio 1
+  // ------
+  // shows localized displayField as title using the current locale
+  // shows unlocalized displayField as title using the default locale
+  // shows status of entries
+  // shows missing entry card for failed requests
+  // shows loading state while fetching entry
+  // custom card props reach render method
+  // custom action props reach render method
+  // custom missing entity card props reach render method
+  // opens entry when clicking on it
+  // opens entry via actions menu
+  // changing order via actions menu
+  // removing items via actions menu
+
+  // prio ?
+  // ------
+  // does not show nil values from list of links, e.g. [{ sys: { id: '...'} }, null, undefined]
+  // shows disabled links as non-draggable
+  // shows asset in tile view
+  // changing order by drag&drop
+  // shows predefined labels
+  // shows custom labels
+  // can hide edit/move/remove/actions
+  // can render as list
+  // can render as tiles
 });

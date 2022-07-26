@@ -4,7 +4,8 @@
     "noImplicitAny": false,
     "baseUrl": "../node_modules",
     "lib": ["es5", "dom"],
-    "types": ["cypress", "@types/testing-library__cypress"]
+    "types": ["cypress", "@types/testing-library__cypress"],
+    "resolveJsonModule": true,
   },
   "include": [
     "**/*.ts",

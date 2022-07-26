@@ -25,6 +25,7 @@ const newLink = (linkType: string, id: string): Link => ({
 
 // used for component testing
 export type ReferenceEditorSdkProps = {
+  initialValue?: any;
   validations?: any;
 };
 
@@ -32,7 +33,7 @@ export function newReferenceEditorFakeSdk(
   props?: ReferenceEditorSdkProps
 ): [FieldExtensionSDK, Emitter] {
   const rawInitialValue = window.localStorage.getItem('initialValue');
-  const initialValue = rawInitialValue ? JSON.parse(rawInitialValue) : undefined;
+  const initialValue = rawInitialValue ? JSON.parse(rawInitialValue) : props?.initialValue;
   const rawValidations = window.localStorage.getItem('fieldValidations');
   const validations = rawValidations ? JSON.parse(rawValidations) : props?.validations;
   const customizeMock = (field: FieldAPI): FieldAPI => {
