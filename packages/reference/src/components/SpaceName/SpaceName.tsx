@@ -18,12 +18,16 @@ const styles = {
     color: tokens.gray700,
     fontSize: tokens.fontSizeS,
     fontWeight: tokens.fontWeightDemiBold,
+    maxWidth: '80px',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
   }),
 };
 
 export function SpaceName(props: SpaceNameProps) {
   return (
-    <Tooltip placement="top" as="div" content="Space">
+    <Tooltip placement="top" as="div" content={`Space: ${props.spaceName}`}>
       <Flex alignItems="center" gap="spacingXs" marginRight="spacingS">
         <FolderOpenTrimmedIcon className={styles.spaceIcon} size="tiny" aria-label="Source space" />
         <Text className={styles.spaceName}>{props.spaceName}</Text>
