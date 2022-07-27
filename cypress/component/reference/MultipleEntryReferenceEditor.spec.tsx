@@ -3,7 +3,7 @@ import React from 'react';
 import { Card, Note, Heading, Paragraph, Button } from '@contentful/f36-components';
 import { Entry } from '@contentful/field-editor-shared';
 
-import { MultipleEntryReferenceEditor } from '../../../packages/reference/src';
+import { CombinedLinkActions, MultipleEntryReferenceEditor } from '../../../packages/reference/src';
 import { Entity, Link } from '../../../packages/reference/src/types';
 import { mount } from '../mount';
 import { createReferenceEditorTestSdk, fixtures } from '../test-sdks';
@@ -26,6 +26,7 @@ function asLink<E extends Entity>(entity: E): Link {
 
 describe('Multiple Reference Editor', () => {
   const findLinkExistingBtn = () => cy.findByTestId('linkEditor.linkExisting');
+  // const findCreateLinkBtn = () => cy.findByTestId('create-entry-link-button');
   const findCustomCards = () => cy.findAllByTestId('custom-card');
   const findDefaultCards = () => cy.findAllByTestId('cf-ui-entry-card');
 
@@ -169,31 +170,186 @@ describe('Multiple Reference Editor', () => {
     );
 
     cy.findByTestId('custom-card').should('be.visible');
-    cy.get('@customCardProps').should('deep.equal', {
+    cy.get('@customCardProps').should('deep.include', {
       index: 0,
       size: 'small',
     });
   });
 
-  // prio 1
-  // ------
-  // shows localized displayField as title using the current locale
-  // shows unlocalized displayField as title using the default locale
-  // shows status of entries
-  // shows missing entry card for failed requests
-  // shows loading state while fetching entry
-  // custom card props reach render method
-  // custom action props reach render method
-  // custom missing entity card props reach render method
-  // opens entry when clicking on it
-  // opens entry via actions menu
-  // changing order via actions menu
-  // removing items via actions menu
+  it('shows localized displayField as title using the current locale', () => {
+    const sdk = createReferenceEditorTestSdk({
+      initialValue: [asLink(fixtures.entry.published)],
+    });
+    sdk.field.locale = 'de-DE';
+    mount(<MultipleEntryReferenceEditor {...commonProps} sdk={sdk} />);
+
+    findDefaultCards()
+      .eq(0)
+      .findByTestId('title')
+      .should('have.text', 'Der beste Artikel aller Zeiten');
+  });
+
+  it('shows unlocalized displayField as title using the default locale', () => {
+    const sdk = createReferenceEditorTestSdk({
+      initialValue: [asLink(fixtures.entry.published)],
+    });
+    mount(<MultipleEntryReferenceEditor {...commonProps} sdk={sdk} />);
+
+    findDefaultCards().eq(0).findByTestId('title').should('have.text', 'The best article ever');
+  });
+
+  it('shows status of entries', () => {
+    const sdk = createReferenceEditorTestSdk({
+      initialValue: [
+        asLink(fixtures.entry.empty),
+        asLink(fixtures.entry.changed),
+        asLink(fixtures.entry.published),
+      ],
+    });
+    mount(<MultipleEntryReferenceEditor {...commonProps} sdk={sdk} />);
+
+    cy.findAllByTestId('cf-ui-entry-card').should('have.length', 3);
+    cy.findAllByTestId('cf-ui-entry-card').eq(0).findByText('draft').should('be.visible');
+    cy.findAllByTestId('cf-ui-entry-card').eq(1).findByText('changed').should('be.visible');
+    cy.findAllByTestId('cf-ui-entry-card').eq(2).findByText('published').should('be.visible');
+  });
+
+  it('shows missing entry card for failed requests', () => {
+    const sdk = createReferenceEditorTestSdk({
+      initialValue: [asLink(fixtures.entry.invalid)],
+    });
+    mount(<MultipleEntryReferenceEditor {...commonProps} sdk={sdk} />);
+
+    cy.findByText('Entry is missing or inaccessible').should('be.visible');
+  });
+
+  it('shows loading state while fetching entry', () => {
+    const sdk = createReferenceEditorTestSdk({
+      shouldDelay: true,
+      initialValue: [asLink(fixtures.entry.published)],
+    });
+    mount(<MultipleEntryReferenceEditor {...commonProps} sdk={sdk} />);
+
+    cy.findByTestId('cf-ui-skeleton-form').should('be.visible');
+  });
+
+  it('custom action props reach render method', () => {
+    const sdk = createReferenceEditorTestSdk({
+      initialValue: [asLink(fixtures.entry.published)],
+    });
+    mount(
+      <MultipleEntryReferenceEditor
+        {...commonProps}
+        renderCustomActions={(props) => {
+          return <CombinedLinkActions {...props} />;
+        }}
+        sdk={sdk}
+      />
+    );
+
+    cy.findByTestId('link-actions-menu-trigger').should('be.visible');
+  });
+
+  it('custom missing entity card props reach render method', () => {
+    const sdk = createReferenceEditorTestSdk({
+      initialValue: [asLink(fixtures.entry.invalid)],
+    });
+    mount(
+      <MultipleEntryReferenceEditor
+        {...commonProps}
+        renderCustomMissingEntityCard={() => {
+          return <Note testId="custom-missing-entry-card" title="Custom missing entry card" />;
+        }}
+        sdk={sdk}
+      />
+    );
+
+    cy.findByTestId('custom-missing-entry-card').should('be.visible');
+  });
+
+  it('opens entry when clicking on it', () => {
+    const sdk = createReferenceEditorTestSdk({
+      initialValue: [asLink(fixtures.entry.published)],
+    });
+    mount(<MultipleEntryReferenceEditor {...commonProps} sdk={sdk} />).as('editor');
+
+    cy.spy(sdk.navigator, 'openEntry').as('spy');
+
+    findDefaultCards().eq(0).findByTestId('title').click();
+
+    cy.get('@spy').should('have.been.calledOnce');
+  });
+
+  it('opens entry via actions menu', () => {
+    const sdk = createReferenceEditorTestSdk({
+      initialValue: [asLink(fixtures.entry.published)],
+    });
+    mount(<MultipleEntryReferenceEditor {...commonProps} sdk={sdk} />).as('editor');
+
+    cy.spy(sdk.navigator, 'openEntry').as('spy');
+
+    findDefaultCards().eq(0).findByTestId('cf-ui-card-actions').click();
+    cy.findByTestId('edit').click();
+
+    cy.get('@spy').should('have.been.calledOnce');
+  });
+
+  it('changes order via actions menu', () => {
+    const sdk = createReferenceEditorTestSdk({
+      initialValue: [asLink(fixtures.entry.published), asLink(fixtures.entry.changed)],
+    });
+    mount(<MultipleEntryReferenceEditor {...commonProps} sdk={sdk} />).as('editor');
+
+    findDefaultCards().eq(0).as('firstCard');
+
+    cy.get('@firstCard').findByTestId('title').should('have.text', 'The best article ever');
+
+    cy.get('@firstCard').findByTestId('cf-ui-card-actions').click();
+    cy.findByTestId('move-bottom').click();
+
+    findDefaultCards().eq(1).findByTestId('title').should('have.text', 'The best article ever');
+  });
+
+  it('removes items via actions menu', () => {
+    const sdk = createReferenceEditorTestSdk({
+      initialValue: [asLink(fixtures.entry.published), asLink(fixtures.entry.changed)],
+    });
+    mount(<MultipleEntryReferenceEditor {...commonProps} sdk={sdk} />);
+
+    findDefaultCards().eq(0).as('firstCard');
+
+    cy.get('@firstCard').findByTestId('title').should('have.text', 'The best article ever');
+
+    cy.get('@firstCard').findByTestId('cf-ui-card-actions').click();
+    cy.findByTestId('delete').click();
+
+    findDefaultCards().eq(0).findByTestId('title').should('have.text', `Weather doesn't look good`);
+  });
+
+  //Currently fails
+  // it('shows disabled links as disabled', () => {
+  //   const sdk = createReferenceEditorTestSdk({
+  //     initialValue: [asLink(fixtures.entry.published)],
+  //   });
+  //   mount(<MultipleEntryReferenceEditor {...commonProps} isInitiallyDisabled={true} sdk={sdk} />);
+
+  //   findLinkExistingBtn().should('be.disabled');
+  //   findCreateLinkBtn().should('be.disabled');
+
+  //   findDefaultCards().eq(0).findByTestId('cf-ui-card-actions').should('be.disabled');
+  // });
+
+  it('shows disabled links as non-draggable', () => {
+    const sdk = createReferenceEditorTestSdk({
+      initialValue: [asLink(fixtures.entry.published)],
+    });
+    mount(<MultipleEntryReferenceEditor {...commonProps} isInitiallyDisabled={true} sdk={sdk} />);
+
+    findDefaultCards().eq(0).findByTestId('cf-ui-drag-handle').should('not.exist');
+  });
 
   // prio ?
   // ------
-  // does not show nil values from list of links, e.g. [{ sys: { id: '...'} }, null, undefined]
-  // shows disabled links as non-draggable
   // shows asset in tile view
   // changing order by drag&drop
   // shows predefined labels

@@ -17,7 +17,7 @@
     }
   },
   "fields": {
-    "exField": { "en": "The best article ever" },
-    "exDesc": { "en": "Description of the best article" }
+    "exField": { "en-US": "The best article ever", "de-DE": "Der beste Artikel aller Zeiten" },
+    "exDesc": { "en-US": "Description of the best article", "de-DE": "Beschreibung des besten Artikels" }
   }
 }

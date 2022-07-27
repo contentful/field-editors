@@ -27,6 +27,7 @@ const newLink = (linkType: string, id: string): Link => ({
 export type ReferenceEditorSdkProps = {
   initialValue?: any;
   validations?: any;
+  shouldDelay?: boolean;
 };
 
 export function newReferenceEditorFakeSdk(
@@ -59,6 +60,9 @@ export function newReferenceEditorFakeSdk(
     cmaAdapter: createFakeCMAAdapter({
       Entry: {
         get: async ({ entryId }) => {
+          if (props?.shouldDelay) {
+            await new Promise((resolve) => setTimeout(resolve, 2000));
+          }
           if (entryId === emptyEntry.sys.id) {
             return emptyEntry;
           }
@@ -73,6 +77,9 @@ export function newReferenceEditorFakeSdk(
       },
       Asset: {
         get: async ({ assetId }) => {
+          if (props?.shouldDelay) {
+            await new Promise((resolve) => setTimeout(resolve, 2000));
+          }
           if (assetId === emptyAsset.sys.id) {
             return emptyAsset;
           }

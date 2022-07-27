@@ -1,5 +1,6 @@
 import { ContentType, SearchQuery, SpaceAPI } from '@contentful/app-sdk';
 import { Entry } from '@contentful/field-editor-shared';
+
 import { createEntry } from './fakesFactory';
 
 function identity<T>(item: T): T {
@@ -24,7 +25,7 @@ const testContentTypes: ContentType[] = [
       {
         id: 'exField',
         disabled: false,
-        localized: false,
+        localized: true,
         name: 'Example Field',
         omitted: false,
         required: true,
@@ -34,7 +35,7 @@ const testContentTypes: ContentType[] = [
       {
         id: 'exDesc',
         disabled: false,
-        localized: false,
+        localized: true,
         name: 'Description Field',
         omitted: false,
         required: false,
