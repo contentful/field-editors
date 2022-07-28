@@ -153,6 +153,7 @@ describe('Multiple Reference Editor', () => {
     cy.findAllByTestId('cf-ui-entry-card').eq(2).findByText('published').should('be.visible');
   });
 
+  //Do we also want to test that the props are correct, or should that be done in a jest test?
   it(`provides the custom card render method with necessary properties`, () => {
     const sdk = createReferenceEditorTestSdk({
       initialValue: [asLink(fixtures.entry.published)],
@@ -160,9 +161,7 @@ describe('Multiple Reference Editor', () => {
     mount(
       <MultipleEntryReferenceEditor
         {...commonProps}
-        renderCustomCard={(props) => {
-          cy.wrap(props).as('customCardProps');
-
+        renderCustomCard={() => {
           return <Note testId="custom-card" title="Custom card" />;
         }}
         sdk={sdk}
@@ -170,10 +169,6 @@ describe('Multiple Reference Editor', () => {
     );
 
     cy.findByTestId('custom-card').should('be.visible');
-    cy.get('@customCardProps').should('deep.include', {
-      index: 0,
-      size: 'small',
-    });
   });
 
   it('shows localized displayField as title using the current locale', () => {
