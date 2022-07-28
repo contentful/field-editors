@@ -2,7 +2,6 @@ import React from 'react';
 
 import { json } from '@codemirror/lang-json';
 import tokens from '@contentful/f36-tokens';
-import { createTheme } from '@uiw/codemirror-themes';
 import CodeMirror from '@uiw/react-codemirror';
 import { css, cx } from 'emotion';
 
@@ -51,15 +50,6 @@ const styles = {
   }),
 };
 
-const theme = createTheme({
-  theme: 'light',
-  settings: {
-    background: '',
-    foreground: '',
-  },
-  styles: [],
-});
-
 export function JsonEditorField(props: JsonEditorFieldProps) {
   return (
     <div
@@ -68,7 +58,7 @@ export function JsonEditorField(props: JsonEditorFieldProps) {
       <CodeMirror
         value={props.value}
         onChange={props.onChange}
-        theme={theme}
+        theme="light"
         extensions={[json()]}
         basicSetup={{
           closeBrackets: false,
