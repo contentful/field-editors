@@ -1,51 +1,16 @@
-import isEmpty from 'lodash/isEmpty';
-
-export function parseNumber(
-  value: string,
-  type: string
-): {
-  isValid: boolean;
-  value: number | undefined;
-} {
-  // This has saner semantics than parseFloat.
-  // For values with chars in them, it gives
-  // us NaN unlike parseFloat
-  const floatVal = +value;
-  const hasDot = value.includes('.');
-  const hasFractional = /^(?:\+|-)?\d+\.\d+$/.test(value);
-
-  if (isEmpty(value)) {
-    return {
-      isValid: true,
-      value: undefined,
-    };
+export function parseNumber(value: string, type: string) {
+  if (!value || isNaN(+value)) {
+    return;
   }
 
-  if (isNaN(floatVal)) {
-    return {
-      isValid: false,
-      value: undefined,
-    };
-  }
+  return type === 'Integer' ? parseInt(value, 10) : parseFloat(value);
+}
 
-  if (type === 'Integer' && hasDot) {
-    const intVal = parseInt(value, 10);
+const FLOAT_REGEX = /^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]*)?$/;
+const INT_REGEX = /^[+-]?([0-9]*)$/;
 
-    return {
-      isValid: false,
-      value: intVal,
-    };
-  }
+export function isNumberInputValueValid(value: string, type: string) {
+  const regex = type === 'Integer' ? INT_REGEX : FLOAT_REGEX;
 
-  if (hasDot && !hasFractional) {
-    return {
-      isValid: false,
-      value: floatVal,
-    };
-  }
-
-  return {
-    isValid: true,
-    value: floatVal,
-  };
+  return regex.test(value);
 }

@@ -1,12 +1,13 @@
 import * as React from 'react';
+
+import { TextInput } from '@contentful/f36-components';
 import {
   FieldAPI,
   FieldConnector,
   FieldConnectorChildProps,
 } from '@contentful/field-editor-shared';
-import { parseNumber } from './parseNumber';
 
-import { TextInput } from '@contentful/f36-components';
+import { isNumberInputValueValid, parseNumber } from './parseNumber';
 
 export interface NumberEditorProps {
   /**
@@ -48,43 +49,58 @@ function InnerNumberEditor({
   setValue,
   value: sdkValue,
 }: InnerNumberEditorProps) {
-  const previousValue = React.useRef(valueToString(sdkValue));
   const [inputValue, setInputValue] = React.useState(valueToString(sdkValue));
   const range = getRangeFromField(field);
 
   React.useEffect(() => {
-    previousValue.current = valueToString(sdkValue);
+    const stringSdkValue = valueToString(sdkValue);
+    // Update the input value if the SDK value (numeric) changes
+    if (stringSdkValue !== inputValue) {
+      setInputValue(stringSdkValue);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- we want to trigger it only when sdkValue had been changed
   }, [sdkValue]);
 
-  React.useEffect(() => {
-    const stringifiedSdkValue = valueToString(sdkValue);
-    // Update the input value (string) if the SDK value (numeric) changes
-    if (stringifiedSdkValue !== previousValue.current && stringifiedSdkValue !== inputValue) {
-      setInputValue(stringifiedSdkValue);
+  const updateExternalValue = (value: number | undefined) => {
+    if (sdkValue !== value) {
+      setValue(value);
     }
-  }, [inputValue, sdkValue]);
+  };
 
   return (
     <div data-test-id="number-editor">
       <TextInput
         testId="number-editor-input"
-        min={range.min !== undefined ? String(range.min) : ''}
-        max={range.max !== undefined ? String(range.max) : ''}
-        step={field.type === 'Integer' ? '1' : ''}
+        min={range.min}
+        max={range.max}
+        step={1}
         isRequired={field.required}
         isInvalid={errors.length > 0}
         isDisabled={disabled}
         value={inputValue}
-        type="number"
+        // With type="number" react doesn't call onChange for certain inputs, for example if you type `e`
+        // so we use "text" instead and fully rely on our own validation.
+        // See more details: https://github.com/facebook/react/issues/6556
+        type="text"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          const parseResult = parseNumber(e.target.value, field.type);
-          field.setInvalid(!parseResult.isValid);
-
-          if (parseResult.isValid) {
-            setValue(parseResult.value);
+          const value = e.target.value;
+          if (!value) {
+            setInputValue(value);
+            updateExternalValue(undefined);
+            return;
           }
 
-          setInputValue(e.target.value);
+          if (!isNumberInputValueValid(value, field.type)) {
+            return;
+          }
+
+          setInputValue(value);
+
+          const parsedNumber = parseNumber(value, field.type);
+          field.setInvalid(!parsedNumber);
+          if (parsedNumber) {
+            updateExternalValue(parsedNumber);
+          }
         }}
       />
     </div>
