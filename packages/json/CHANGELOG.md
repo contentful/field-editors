@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@2.1.2...@contentful/field-editor-json@2.1.3) (2022-07-28)
+
+### Bug Fixes
+
+- remove custom theme from jsonEditor ([#1201](https://github.com/contentful/field-editors/issues/1201)) ([6eefb13](https://github.com/contentful/field-editors/commit/6eefb13d58fee12e0bc50e456c06f160f26dfebe))
+
 ## [2.1.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@2.1.1...@contentful/field-editor-json@2.1.2) (2022-07-26)
 
 ### Bug Fixes
