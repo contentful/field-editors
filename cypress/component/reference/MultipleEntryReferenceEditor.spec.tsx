@@ -348,13 +348,85 @@ describe('Multiple Reference Editor', () => {
     findDefaultCards().eq(0).findByTestId('cf-ui-drag-handle').should('not.exist');
   });
 
+  it('can hide edit action', () => {
+    const sdk = createReferenceEditorTestSdk({
+      initialValue: [asLink(fixtures.entry.published), asLink(fixtures.entry.changed)],
+    });
+
+    mount(
+      <MultipleEntryReferenceEditor
+        {...commonProps}
+        hasCardEditActions={false}
+        isInitiallyDisabled={true}
+        sdk={sdk}
+      />
+    );
+
+    findDefaultCards().eq(0).findByTestId('cf-ui-card-actions').click();
+    cy.findByTestId('edit').should('not.exist');
+  });
+
+  it('can hide remove action', () => {
+    const sdk = createReferenceEditorTestSdk({
+      initialValue: [asLink(fixtures.entry.published), asLink(fixtures.entry.changed)],
+    });
+
+    mount(
+      <MultipleEntryReferenceEditor
+        {...commonProps}
+        hasCardRemoveActions={false}
+        isInitiallyDisabled={true}
+        sdk={sdk}
+      />
+    );
+
+    findDefaultCards().eq(0).findByTestId('cf-ui-card-actions').click();
+    cy.findByTestId('delete').should('not.exist');
+  });
+
+  it('can hide move action', () => {
+    const sdk = createReferenceEditorTestSdk({
+      initialValue: [asLink(fixtures.entry.published), asLink(fixtures.entry.changed)],
+    });
+
+    mount(
+      <MultipleEntryReferenceEditor
+        {...commonProps}
+        hasCardMoveActions={false}
+        isInitiallyDisabled={true}
+        sdk={sdk}
+      />
+    );
+
+    findDefaultCards().eq(0).findByTestId('cf-ui-card-actions').click();
+    cy.findByTestId('move-bottom').should('not.exist');
+  });
+
+  it('hides action menu when no actions are available', () => {
+    const sdk = createReferenceEditorTestSdk({
+      initialValue: [asLink(fixtures.entry.published), asLink(fixtures.entry.changed)],
+    });
+
+    mount(
+      <MultipleEntryReferenceEditor
+        {...commonProps}
+        hasCardEditActions={false}
+        hasCardMoveActions={false}
+        hasCardRemoveActions={false}
+        isInitiallyDisabled={true}
+        sdk={sdk}
+      />
+    );
+
+    findDefaultCards().eq(0).findByTestId('cf-ui-card-actions').should('not.exist');
+  });
+
   // prio ?
   // ------
   // shows asset in tile view
   // changing order by drag&drop
   // shows predefined labels
   // shows custom labels
-  // can hide edit/move/remove/actions
   // can render as list
   // can render as tiles
 });
