@@ -153,7 +153,7 @@ describe('Multiple Reference Editor', () => {
     cy.findAllByTestId('cf-ui-entry-card').eq(2).findByText('published').should('be.visible');
   });
 
-  //Do we also want to test that the props are correct, or should that be done in a jest test?
+  //TODO: Do we also want to test that the props are correct, or should that be done in a jest test?
   it(`provides the custom card render method with necessary properties`, () => {
     const sdk = createReferenceEditorTestSdk({
       initialValue: [asLink(fixtures.entry.published)],
@@ -305,7 +305,7 @@ describe('Multiple Reference Editor', () => {
     findDefaultCards().eq(0).findByTestId('title').should('have.text', `Weather doesn't look good`);
   });
 
-  //Currently fails
+  //TODO: Currently fails
   // it('shows disabled links as disabled', () => {
   //   const sdk = createReferenceEditorTestSdk({
   //     initialValue: [asLink(fixtures.entry.published)],
