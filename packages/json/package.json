@@ -26,7 +26,6 @@
     "@types/deep-equal": "1.0.1",
     "@types/react-codemirror": "1.0.3",
     "@uiw/react-codemirror": "^4.11.4",
-    "codemirror": "^6.0.1",
     "deep-equal": "2.0.5",
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",
