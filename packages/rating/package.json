@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-rating",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "main": "dist/index.js",
   "module": "dist/field-editor-rating.esm.js",
   "typings": "dist/index.d.ts",
@@ -29,7 +29,7 @@
     "lodash-es": "^4.17.15"
   },
   "devDependencies": {
-    "@contentful/field-editor-test-utils": "^1.2.1"
+    "@contentful/field-editor-test-utils": "^1.2.2"
   },
   "peerDependencies": {
     "react": ">=16.8.0"
