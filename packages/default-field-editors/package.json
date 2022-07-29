@@ -42,7 +42,7 @@
     "@contentful/field-editor-tags": "^1.1.5",
     "@contentful/field-editor-url": "^1.1.4",
     "@contentful/field-editor-validation-errors": "^1.1.4",
-    "contentful-management": "^7.22.0",
+    "contentful-management": "^10.0.0",
     "emotion": "^10.0.27"
   },
   "devDependencies": {
