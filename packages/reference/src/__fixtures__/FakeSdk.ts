@@ -1,4 +1,4 @@
-import { FieldAPI, Link } from '@contentful/app-sdk';
+import { ContentType, FieldAPI, Link } from '@contentful/app-sdk';
 import {
   createFakeCMAAdapter,
   createFakeFieldAPI,
@@ -25,14 +25,16 @@ const newLink = (linkType: string, id: string): Link => ({
 
 // used for component testing
 export type ReferenceEditorSdkProps = {
+  initialValue?: any;
   validations?: any;
+  fetchDelay?: number;
 };
 
 export function newReferenceEditorFakeSdk(
   props?: ReferenceEditorSdkProps
 ): [FieldExtensionSDK, Emitter] {
   const rawInitialValue = window.localStorage.getItem('initialValue');
-  const initialValue = rawInitialValue ? JSON.parse(rawInitialValue) : undefined;
+  const initialValue = rawInitialValue ? JSON.parse(rawInitialValue) : props?.initialValue;
   const rawValidations = window.localStorage.getItem('fieldValidations');
   const validations = rawValidations ? JSON.parse(rawValidations) : props?.validations;
   const customizeMock = (field: FieldAPI): FieldAPI => {
@@ -52,12 +54,30 @@ export function newReferenceEditorFakeSdk(
     newLink('Asset', emptyAsset.sys.id),
   ];
   let selectorCounter = 0;
+
+  const delay = (ms: number) => {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  };
+
+  const localizeContentTypes = (contentTypes: ContentType[]) => {
+    return contentTypes.map((contentType) => ({
+      ...contentType,
+      fields: contentType.fields.map((field) => ({
+        ...field,
+        localized: true,
+      })),
+    }));
+  };
+
   const sdk = {
     field,
     locales,
     cmaAdapter: createFakeCMAAdapter({
       Entry: {
         get: async ({ entryId }) => {
+          if (props?.fetchDelay) {
+            await delay(props.fetchDelay);
+          }
           if (entryId === emptyEntry.sys.id) {
             return emptyEntry;
           }
@@ -72,6 +92,9 @@ export function newReferenceEditorFakeSdk(
       },
       Asset: {
         get: async ({ assetId }) => {
+          if (props?.fetchDelay) {
+            await delay(props.fetchDelay);
+          }
           if (assetId === emptyAsset.sys.id) {
             return emptyAsset;
           }
@@ -87,6 +110,19 @@ export function newReferenceEditorFakeSdk(
     }),
     space: {
       ...space,
+      getCachedContentTypes() {
+        return localizeContentTypes(space.getCachedContentTypes());
+      },
+      getContentTypes() {
+        return Promise.resolve(
+          space.getContentTypes().then((response) => {
+            return {
+              ...response,
+              items: localizeContentTypes(response.items),
+            };
+          })
+        );
+      },
       async getEntityScheduledActions() {
         return [];
       },
