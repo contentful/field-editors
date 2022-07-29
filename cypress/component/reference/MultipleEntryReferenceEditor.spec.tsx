@@ -193,22 +193,6 @@ describe('Multiple Reference Editor', () => {
     findDefaultCards().eq(0).findByTestId('title').should('have.text', 'The best article ever');
   });
 
-  it('shows status of entries', () => {
-    const sdk = createReferenceEditorTestSdk({
-      initialValue: [
-        asLink(fixtures.entry.empty),
-        asLink(fixtures.entry.changed),
-        asLink(fixtures.entry.published),
-      ],
-    });
-    mount(<MultipleEntryReferenceEditor {...commonProps} sdk={sdk} />);
-
-    cy.findAllByTestId('cf-ui-entry-card').should('have.length', 3);
-    cy.findAllByTestId('cf-ui-entry-card').eq(0).findByText('draft').should('be.visible');
-    cy.findAllByTestId('cf-ui-entry-card').eq(1).findByText('changed').should('be.visible');
-    cy.findAllByTestId('cf-ui-entry-card').eq(2).findByText('published').should('be.visible');
-  });
-
   it('shows missing entry card for failed requests', () => {
     const sdk = createReferenceEditorTestSdk({
       initialValue: [asLink(fixtures.entry.invalid)],
