@@ -10,7 +10,7 @@ import invalidEntry from '../../packages/reference/src/__fixtures__/invalid_entr
 import publishedAsset from '../../packages/reference/src/__fixtures__/published_asset.json';
 import publishedEntry from '../../packages/reference/src/__fixtures__/published_entry.json';
 
-const fixtures = {
+export const fixtures = {
   entry: {
     changed: changedEntry,
     empty: emptyEntry,
@@ -24,7 +24,6 @@ const fixtures = {
     invalid: invalidAsset,
   },
 };
-export { fixtures };
 
 export function createReferenceEditorTestSdk(props?: ReferenceEditorSdkProps): FieldExtensionSDK {
   const [sdk] = newReferenceEditorFakeSdk(props);
