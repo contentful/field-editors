@@ -3052,25 +3052,6 @@
     "@babel/runtime" "^7.6.2"
     emotion "^10.0.17"
 
-"@contentful/field-editor-json@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@contentful/field-editor-json/-/field-editor-json-2.1.0.tgz#a66cbdd0fc8082f1d37e6ac4babf2219a5e5a953"
-  integrity sha512-nxylF2d3hklSjFvt0xR/fO0ORcjmLoWdOR0Ht6duzfgAYWwXE/X+zEpoTxvDvLArnUh27e2fkzyMK1Wn5mx+nw==
-  dependencies:
-    "@codemirror/lang-json" "^6.0.0"
-    "@contentful/f36-components" "^4.0.27"
-    "@contentful/f36-tokens" "^4.0.0"
-    "@contentful/field-editor-shared" "^1.1.3"
-    "@types/deep-equal" "1.0.1"
-    "@types/react-codemirror" "1.0.3"
-    "@uiw/codemirror-themes" "^4.11.4"
-    "@uiw/react-codemirror" "^4.11.4"
-    codemirror "^6.0.1"
-    deep-equal "2.0.5"
-    emotion "^10.0.17"
-    lodash "^4.17.15"
-    lodash-es "^4.17.15"
-
 "@contentful/field-editor-markdown@^0.17.1":
   version "0.17.1"
   resolved "https://registry.yarnpkg.com/@contentful/field-editor-markdown/-/field-editor-markdown-0.17.1.tgz#af983a6e81a9b490208c0bea5f69827f17ab3cc2"
@@ -6720,15 +6701,6 @@
     "@codemirror/state" "^6.0.0"
     "@codemirror/view" "^6.0.0"
 
-"@uiw/codemirror-themes@^4.11.4":
-  version "4.11.4"
-  resolved "https://registry.yarnpkg.com/@uiw/codemirror-themes/-/codemirror-themes-4.11.4.tgz#52a25f04756bfb388a2c1cbdbf980bffc781cc73"
-  integrity sha512-tp4wahAuGRhMoKNMk/6lt8nNr21UZ4zhFqdDTZZ4jLc2w4BKTQ23AkublXAM8vMSuYt/LpE+cajuq4/aSYn01w==
-  dependencies:
-    "@codemirror/language" "^6.0.0"
-    "@codemirror/state" "^6.0.0"
-    "@codemirror/view" "^6.0.0"
-
 "@uiw/react-codemirror@^4.11.4":
   version "4.11.4"
   resolved "https://registry.yarnpkg.com/@uiw/react-codemirror/-/react-codemirror-4.11.4.tgz#76adc757baa0b8b1a9bd30d7081f5622b896d607"
@@ -9634,10 +9606,10 @@ contentful-import@^7.9.23:
     moment "^2.22.2"
     yargs "^16.0.3"
 
-contentful-management@^10.8.0:
-  version "10.8.0"
-  resolved "https://registry.yarnpkg.com/contentful-management/-/contentful-management-10.8.0.tgz#6f60264e180a1e97b1dd9dab849a553d069f731a"
-  integrity sha512-K+q9tbw8SULf5fg+tfLxE4WhHO+1iXyxjdGfy+hv9m1pwJFLhvBmudHOAA1jX1RnqayDUuRqjs/4otVb9cs/KA==
+contentful-management@^10.0.0:
+  version "10.9.1"
+  resolved "https://registry.yarnpkg.com/contentful-management/-/contentful-management-10.9.1.tgz#82588ee7f9c38cfae1bbb5d01e251a68ab8533c4"
+  integrity sha512-IwKwMhxvu3fO9Ei1FtaQtvMqjVZc/xb9gFl6Pi155rUQBGUWNn6HL93b2apKCxmO9q1neQ6qgZccFrMtviKnXA==
   dependencies:
     "@types/json-patch" "0.0.30"
     axios "^0.27.1"
@@ -9645,7 +9617,7 @@ contentful-management@^10.8.0:
     fast-copy "^2.1.1"
     lodash.isplainobject "^4.0.6"
 
-contentful-management@^7.14.0, contentful-management@^7.22.0, contentful-management@^7.3.1, contentful-management@^7.42.1:
+contentful-management@^7.14.0, contentful-management@^7.3.1:
   version "7.45.2"
   resolved "https://registry.yarnpkg.com/contentful-management/-/contentful-management-7.45.2.tgz#60e6bca8226dcf74090b58c45dc7b2ffb574a3b2"
   integrity sha512-NFAkV6mxqOW4SIx8pAhraQq234Gl8+Np8cxaw7+bB9DCelpxmWvySyaoDczAaYmXLZcejeOFt/NS+Rhp7hPvJA==

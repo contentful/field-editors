@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.2.0...@contentful/field-editor-test-utils@1.2.1) (2022-07-29)
+
+**Note:** Version bump only for package @contentful/field-editor-test-utils
+
 # [1.2.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.1.3...@contentful/field-editor-test-utils@1.2.0) (2022-07-11)
 
 ### Features
