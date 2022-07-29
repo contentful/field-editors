@@ -204,7 +204,7 @@ describe('Multiple Reference Editor', () => {
 
   it('shows loading state while fetching entry', () => {
     const sdk = createReferenceEditorTestSdk({
-      shouldDelay: true,
+      fetchDelay: 2000,
       initialValue: [asLink(fixtures.entry.published)],
     });
     mount(<MultipleEntryReferenceEditor {...commonProps} sdk={sdk} />);

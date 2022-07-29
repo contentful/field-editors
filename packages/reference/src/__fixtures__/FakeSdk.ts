@@ -1,4 +1,4 @@
-import { FieldAPI, Link } from '@contentful/app-sdk';
+import { ContentType, FieldAPI, Link } from '@contentful/app-sdk';
 import {
   createFakeCMAAdapter,
   createFakeFieldAPI,
@@ -27,7 +27,7 @@ const newLink = (linkType: string, id: string): Link => ({
 export type ReferenceEditorSdkProps = {
   initialValue?: any;
   validations?: any;
-  shouldDelay?: boolean;
+  fetchDelay?: number;
 };
 
 export function newReferenceEditorFakeSdk(
@@ -54,14 +54,29 @@ export function newReferenceEditorFakeSdk(
     newLink('Asset', emptyAsset.sys.id),
   ];
   let selectorCounter = 0;
+
+  const delay = (ms: number) => {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  };
+
+  const localizeContentTypes = (contentTypes: ContentType[]) => {
+    return contentTypes.map((contentType) => ({
+      ...contentType,
+      fields: contentType.fields.map((field) => ({
+        ...field,
+        localized: true,
+      })),
+    }));
+  };
+
   const sdk = {
     field,
     locales,
     cmaAdapter: createFakeCMAAdapter({
       Entry: {
         get: async ({ entryId }) => {
-          if (props?.shouldDelay) {
-            await new Promise((resolve) => setTimeout(resolve, 2000));
+          if (props?.fetchDelay) {
+            await delay(props.fetchDelay);
           }
           if (entryId === emptyEntry.sys.id) {
             return emptyEntry;
@@ -77,8 +92,8 @@ export function newReferenceEditorFakeSdk(
       },
       Asset: {
         get: async ({ assetId }) => {
-          if (props?.shouldDelay) {
-            await new Promise((resolve) => setTimeout(resolve, 2000));
+          if (props?.fetchDelay) {
+            await delay(props.fetchDelay);
           }
           if (assetId === emptyAsset.sys.id) {
             return emptyAsset;
@@ -95,6 +110,19 @@ export function newReferenceEditorFakeSdk(
     }),
     space: {
       ...space,
+      getCachedContentTypes() {
+        return localizeContentTypes(space.getCachedContentTypes());
+      },
+      getContentTypes() {
+        return Promise.resolve(
+          space.getContentTypes().then((response) => {
+            return {
+              ...response,
+              items: localizeContentTypes(response.items),
+            };
+          })
+        );
+      },
       async getEntityScheduledActions() {
         return [];
       },

@@ -25,7 +25,7 @@ const testContentTypes: ContentType[] = [
       {
         id: 'exField',
         disabled: false,
-        localized: true,
+        localized: false,
         name: 'Example Field',
         omitted: false,
         required: true,
@@ -35,7 +35,7 @@ const testContentTypes: ContentType[] = [
       {
         id: 'exDesc',
         disabled: false,
-        localized: true,
+        localized: false,
         name: 'Description Field',
         omitted: false,
         required: false,
