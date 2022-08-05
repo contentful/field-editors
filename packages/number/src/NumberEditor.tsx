@@ -12,7 +12,6 @@ import { styles } from './NumberEditor.styles';
 import { isNumberInputValueValid, parseNumber } from './parseNumber';
 import { getRangeFromField, valueToString, countDecimals } from './utils';
 
-
 export interface NumberEditorProps {
   /**
    * is the field disabled initially
@@ -31,6 +30,11 @@ type InnerNumberEditorProps = Pick<
 > & {
   field: NumberEditorProps['field'];
 };
+
+enum StepChangeType {
+  Increment = 'increment',
+  Decrement = 'decrement',
+}
 
 const NUMBER_STEP = 1;
 
@@ -51,7 +55,7 @@ function InnerNumberEditor({
     if (stringSdkValue !== inputValue) {
       setInputValue(stringSdkValue);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- we want to trigger it only when sdkValue had been changed
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- we want to trigger it only when sdkValue has changed
   }, [sdkValue]);
 
   const updateExternalValue = (value: number | undefined) => {
@@ -60,9 +64,10 @@ function InnerNumberEditor({
     }
   };
 
-  const changeValueByStep = (type: 'increment' | 'decrement') => {
-    const currentValue = isNaN(+inputValue) ? 0 : +inputValue;
-    let nextValue = type === 'increment' ? currentValue + NUMBER_STEP : currentValue - NUMBER_STEP;
+  const changeValueByStep = (type: StepChangeType) => {
+    const currentValue = Number.isNaN(+inputValue) ? 0 : +inputValue;
+    let nextValue =
+      type === StepChangeType.Increment ? currentValue + NUMBER_STEP : currentValue - NUMBER_STEP;
     // Floating point numbers cannot represent all decimals precisely in binary.
     // This can lead to unexpected results, such as 0.1 + 0.2 = 0.30000000000000004.
     // See more details: https://floating-point-gui.de/
@@ -82,8 +87,8 @@ function InnerNumberEditor({
     const keyToFnMap: {
       [key: string]: () => void;
     } = {
-      ArrowUp: () => changeValueByStep('increment'),
-      ArrowDown: () => changeValueByStep('decrement'),
+      ArrowUp: () => changeValueByStep(StepChangeType.Increment),
+      ArrowDown: () => changeValueByStep(StepChangeType.Decrement),
     };
 
     const fn = keyToFnMap[event.key];
@@ -150,14 +155,14 @@ function InnerNumberEditor({
           <button
             tabIndex={-1}
             className={styles.control}
-            onClick={() => changeValueByStep('increment')}
+            onClick={() => changeValueByStep(StepChangeType.Increment)}
             onPointerDown={handleControlPointerDown}>
             <ArrowUpTrimmedIcon size="medium" />
           </button>
           <button
             tabIndex={-1}
             className={styles.control}
-            onClick={() => changeValueByStep('decrement')}
+            onClick={() => changeValueByStep(StepChangeType.Decrement)}
             onPointerDown={handleControlPointerDown}>
             <ArrowDownTrimmedIcon size="medium" />
           </button>

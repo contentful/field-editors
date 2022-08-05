@@ -18,7 +18,7 @@ describe('parseNumber', () => {
 });
 
 describe('isNumberInputValueValid', () => {
-  it('should correctrly validate input when type is Integer', () => {
+  it('should correctly validate input when type is Integer', () => {
     expect(isNumberInputValueValid('3', 'Integer')).toBe(true);
     expect(isNumberInputValueValid('33', 'Integer')).toBe(true);
     expect(isNumberInputValueValid('+', 'Integer')).toBe(true);
@@ -33,7 +33,7 @@ describe('isNumberInputValueValid', () => {
     expect(isNumberInputValueValid('foo', 'Integer')).toBe(false);
   });
 
-  it('should correctrly validate input when type is Number', () => {
+  it('should correctly validate input when type is Number', () => {
     expect(isNumberInputValueValid('3', 'Decimal')).toBe(true);
     expect(isNumberInputValueValid('33', 'Decimal')).toBe(true);
     expect(isNumberInputValueValid('+', 'Decimal')).toBe(true);
