@@ -3,13 +3,15 @@ import { parseNumber, isNumberInputValueValid } from './parseNumber';
 describe('parseNumber', () => {
   it('should parse values properly when type is Integer', () => {
     expect(parseNumber('1', 'Integer')).toBe(1);
+    expect(parseNumber('0', 'Integer')).toBe(0);
     expect(parseNumber('-99', 'Interger')).toEqual(-99);
     expect(parseNumber('2.89', 'Integer')).toBe(2);
     expect(parseNumber('foo', 'Integer')).toBeUndefined();
   });
 
-  it('should parse values properly when type is Number', () => {
+  it('should parse values properly when type is Decimal', () => {
     expect(parseNumber('1', 'Decimal')).toBe(1);
+    expect(parseNumber('0', 'Integer')).toBe(0);
     expect(parseNumber('-99', 'Decimal')).toEqual(-99);
     expect(parseNumber('2.89', 'Decimal')).toBe(2.89);
     expect(parseNumber('-12.89', 'Decimal')).toEqual(-12.89);
@@ -33,7 +35,7 @@ describe('isNumberInputValueValid', () => {
     expect(isNumberInputValueValid('foo', 'Integer')).toBe(false);
   });
 
-  it('should correctly validate input when type is Number', () => {
+  it('should correctly validate input when type is Decimal', () => {
     expect(isNumberInputValueValid('3', 'Decimal')).toBe(true);
     expect(isNumberInputValueValid('33', 'Decimal')).toBe(true);
     expect(isNumberInputValueValid('+', 'Decimal')).toBe(true);

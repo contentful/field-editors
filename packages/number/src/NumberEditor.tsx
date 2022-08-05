@@ -113,8 +113,8 @@ function InnerNumberEditor({
     setInputValue(value);
 
     const parsedNumber = parseNumber(value, field.type);
-    field.setInvalid(!parsedNumber);
-    if (parsedNumber) {
+    field.setInvalid(parsedNumber === undefined);
+    if (parsedNumber !== undefined) {
       updateExternalValue(parsedNumber);
     }
   };

@@ -52,6 +52,17 @@ describe('NumberEditor', () => {
     });
   });
 
+  it('calls setValue when user inputs "0"', async () => {
+    const field = createField({});
+    render(<NumberEditor field={field} isInitiallyDisabled={false} />);
+    const $input = screen.getByTestId('number-editor-input');
+
+    userEvent.type($input, '0');
+    await waitFor(() => {
+      expect(field.setValue).toHaveBeenCalledWith(0);
+    });
+  });
+
   it('when Decimal type it calls setValue for every valid state', async () => {
     const field = createField({ type: 'Decimal' });
     render(<NumberEditor field={field} isInitiallyDisabled={false} />);

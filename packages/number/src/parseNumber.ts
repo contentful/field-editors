@@ -1,5 +1,5 @@
 export function parseNumber(value: string, type: string) {
-  if (!value || Number.isNaN(+value)) {
+  if (Number.isNaN(+value)) {
     return;
   }
 
