@@ -14,7 +14,7 @@ export function useFetchedEntity({ type, id, onEntityFetchComplete }: FetchedEnt
   const { entries, assets, getEntry, getAsset } = useEntities();
 
   const store = type === 'Entry' ? entries : assets;
-  const [entity, setEntity] = useState<Entry | Asset | 'failed' | undefined>(store[id]);
+  const [entity, setEntity] = useState<Entry | Asset | 'failed' | undefined>(store?.[id]);
 
   // Deep compare the entity value to keep re-rendering to minimal
   useEffect(() => {
