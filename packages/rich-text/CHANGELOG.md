@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.14](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@2.3.13...@contentful/field-editor-rich-text@2.3.14) (2022-08-08)
+
+### Bug Fixes
+
+- **rich-text:** handle accessing undefined store value [TOL-339] ([#1208](https://github.com/contentful/field-editors/issues/1208)) ([c536e72](https://github.com/contentful/field-editors/commit/c536e72a0d997eb83017a23acfecefbeeb090d3e))
+
 ## [2.3.13](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@2.3.12...@contentful/field-editor-rich-text@2.3.13) (2022-07-29)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
