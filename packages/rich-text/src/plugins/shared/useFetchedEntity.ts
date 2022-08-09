@@ -13,11 +13,18 @@ interface FetchedEntityProps {
 export function useFetchedEntity({ type, id, onEntityFetchComplete }: FetchedEntityProps) {
   const { entries, assets, getEntry, getAsset } = useEntities();
 
+  console.log('useFetchedEntity:', { type, id, onEntityFetchComplete });
+  console.log('useEntities:', { entries, assets, getEntry, getAsset });
+
   const store = type === 'Entry' ? entries : assets;
+  console.log('store:', { store });
   const [entity, setEntity] = useState<Entry | Asset | 'failed' | undefined>(store?.[id]);
 
   // Deep compare the entity value to keep re-rendering to minimal
   useEffect(() => {
+    if (!store || !store[id]) {
+      return;
+    }
     const newValue = store[id];
 
     if (!areEqual(entity, newValue)) {
