@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.6.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.6.9...@contentful/field-editor-reference@4.6.10) (2022-08-09)
+
+### Bug Fixes
+
+- introduce callback to properly handle available content types [ZEND-2500] ([#1207](https://github.com/contentful/field-editors/issues/1207)) ([e6bf5e9](https://github.com/contentful/field-editors/commit/e6bf5e92e3c406a8c325d045adf907ea4e95f85f))
+
 ## [4.6.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.6.8...@contentful/field-editor-reference@4.6.9) (2022-08-09)
 
 ### Bug Fixes
