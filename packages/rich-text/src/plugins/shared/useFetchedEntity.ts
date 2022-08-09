@@ -30,6 +30,9 @@ export function useFetchedEntity({ type, id, onEntityFetchComplete }: FetchedEnt
 
   // Fetch the entity if needed
   useEffect(() => {
+    if (!store) {
+      return;
+    }
     (type === 'Entry' ? getEntry : getAsset)(id);
 
     // "getEntry" and "getAsset" instances change with every
