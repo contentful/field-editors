@@ -30,6 +30,9 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
   const { getAsset, loadEntityScheduledActions, assets } = useEntities();
 
   React.useEffect(() => {
+    if (!props.assetId) {
+      return;
+    }
     getAsset(props.assetId);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, [props.assetId]);
