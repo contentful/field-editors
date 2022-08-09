@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { useMemo } from 'react';
+
+import { EditorPermissions } from '../../common/useEditorPermissions';
 import {
   Action,
   ActionLabels,
@@ -9,9 +11,8 @@ import {
   Asset,
   NavigatorSlideInfo,
 } from '../../types';
-import { LinkActions, LinkActionsProps } from './LinkActions';
 import { createEntity, selectMultipleEntities, selectSingleEntity } from './helpers';
-import { EditorPermissions } from '../../common/useEditorPermissions';
+import { LinkActions, LinkActionsProps } from './LinkActions';
 
 type LinkEntityActionsProps = {
   entityType: ContentEntityType;
@@ -90,32 +91,39 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
     [sdk, entityType, onCreated]
   );
 
-  // Wrapping these two with useCallback caused a bug [ZEND-2154] where CTs were not propagated to the UI at all
-  const onLinkExisting = async (index?: number) => {
-    const entity = await selectSingleEntity({
-      sdk,
-      entityType,
-      editorPermissions,
-    });
-    if (!entity) {
-      return;
-    }
+  const onLinkExisting = React.useCallback(
+    async (index?: number) => {
+      const entity = await selectSingleEntity({
+        sdk,
+        entityType,
+        editorPermissions,
+      });
+      if (!entity) {
+        return;
+      }
 
-    onLinkedExisting([entity], index);
-  };
+      onLinkedExisting([entity], index);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
+    [sdk, entityType, onLinkedExisting]
+  );
 
-  const onLinkSeveralExisting = async (index?: number) => {
-    const entities = await selectMultipleEntities({
-      sdk,
-      entityType,
-      editorPermissions,
-    });
+  const onLinkSeveralExisting = React.useCallback(
+    async (index?: number) => {
+      const entities = await selectMultipleEntities({
+        sdk,
+        entityType,
+        editorPermissions,
+      });
 
-    if (!entities || entities.length === 0) {
-      return;
-    }
-    onLinkedExisting(entities, index);
-  };
+      if (!entities || entities.length === 0) {
+        return;
+      }
+      onLinkedExisting(entities, index);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
+    [sdk, entityType, onLinkedExisting]
+  );
 
   // FIXME: The memoization might rerun every time due to the always changing callback identities above
   return useMemo(
