@@ -18,6 +18,9 @@ export function useFetchedEntity({ type, id, onEntityFetchComplete }: FetchedEnt
 
   // Deep compare the entity value to keep re-rendering to minimal
   useEffect(() => {
+    if (!store) {
+      return;
+    }
     const newValue = store[id];
 
     if (!areEqual(entity, newValue)) {
