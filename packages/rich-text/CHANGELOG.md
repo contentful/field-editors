@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.20](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@2.3.19...@contentful/field-editor-rich-text@2.3.20) (2022-08-10)
+
+### Bug Fixes
+
+- rollback change of deps in useFetchedEntity ([#1213](https://github.com/contentful/field-editors/issues/1213)) ([c12e6ea](https://github.com/contentful/field-editors/commit/c12e6eae473e340b1065bb296c093e5aea6e0adc))
+
 ## [2.3.19](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@2.3.18...@contentful/field-editor-rich-text@2.3.19) (2022-08-10)
 
 ### Bug Fixes
