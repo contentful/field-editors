@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.19](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@2.3.18...@contentful/field-editor-rich-text@2.3.19) (2022-08-10)
+
+### Bug Fixes
+
+- update hooks deps in useFetchedEntity [TOL-339] ([#1212](https://github.com/contentful/field-editors/issues/1212)) ([02ae9be](https://github.com/contentful/field-editors/commit/02ae9be167bea5876d52db27a4363a69bdfc6209))
+
 ## [2.3.18](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@2.3.17...@contentful/field-editor-rich-text@2.3.18) (2022-08-10)
 
 ### Bug Fixes
