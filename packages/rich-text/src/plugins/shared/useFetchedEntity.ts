@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { Entry, Asset } from '@contentful/app-sdk';
 import { useEntities } from '@contentful/field-editor-reference';
@@ -13,7 +13,7 @@ interface FetchedEntityProps {
 export function useFetchedEntity({ type, id, onEntityFetchComplete }: FetchedEntityProps) {
   const { entries, assets, getEntry, getAsset } = useEntities();
 
-  const store = type === 'Entry' ? entries : assets;
+  const store = useMemo(() => (type === 'Entry' ? entries : assets), [assets, entries, type]);
   const [entity, setEntity] = useState<Entry | Asset | 'failed' | undefined>(store?.[id]);
 
   // Deep compare the entity value to keep re-rendering to minimal
@@ -40,7 +40,7 @@ export function useFetchedEntity({ type, id, onEntityFetchComplete }: FetchedEnt
     // TODO: consider rewriting useEntities() hook to avoid that happening in
     // first place.
     // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: explain this disable
-  }, [type, id]);
+  }, [type, id, store]);
 
   useEffect(() => {
     if (entity) {
