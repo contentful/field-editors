@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.18](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@2.3.17...@contentful/field-editor-rich-text@2.3.18) (2022-08-10)
+
+### Bug Fixes
+
+- check store in entity fetch ([#1211](https://github.com/contentful/field-editors/issues/1211)) ([3ddc0b2](https://github.com/contentful/field-editors/commit/3ddc0b2d3ffc2e2146cb8f0ee07d540cb875b717))
+
 ## [2.3.17](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@2.3.16...@contentful/field-editor-rich-text@2.3.17) (2022-08-09)
 
 ### Bug Fixes
