@@ -16,8 +16,15 @@ import constate from 'constate';
 import { createClient, PlainClientAPI } from 'contentful-management';
 import PQueue from 'p-queue';
 
-import { Asset, ContentType, Entry, Resource, ResourceType, Space } from '../types';
-
+import {
+  Asset,
+  ContentType,
+  Entry,
+  Resource,
+  ResourceType,
+  Space,
+  ScheduledAction,
+} from '../types';
 
 export type ResourceInfo<R extends Resource = Resource> = {
   resource: R;
@@ -80,6 +87,8 @@ type EntityQueryKey = [
   spaceId: string,
   environmentId: string
 ];
+
+type ScheduledActionsQueryKey = ['scheduled-actions', ...EntityQueryKey];
 
 export class UnsupportedError extends ContentfulError {
   isUnsupportedError: boolean;
@@ -229,6 +238,37 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
       [fetch, currentSpaceId, currentEnvironmentId]
     );
 
+    const getEntityScheduledActions = useCallback(
+      function getEntityScheduledActions(
+        entityType: FetchableEntityType,
+        entityId: string,
+        options?: GetEntityOptions
+      ): QueryEntityResult<Array<ScheduledAction>> {
+        const spaceId = options?.spaceId ?? currentSpaceId;
+        const environmentId = options?.environmentId ?? currentEnvironmentId;
+        const queryKey: ScheduledActionsQueryKey = [
+          'scheduled-actions',
+          entityType,
+          entityId,
+          spaceId,
+          environmentId,
+        ];
+
+        return fetch(
+          queryKey,
+          ({ cmaClient }) => {
+            return cmaClient.scheduledActions.getMany({
+              entryId: entityId,
+              spaceId,
+              environmentId,
+            });
+          },
+          options
+        );
+      },
+      [fetch, currentSpaceId, currentEnvironmentId]
+    );
+
     const getResource = useCallback(
       function getResource<R extends Resource = Resource>(
         resourceType: ResourceType,
@@ -318,10 +358,21 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
       };
     }, [onEntityChanged, queryCache, isSameSpaceEntityQueryKey, queryClient]);
 
-    return { cmaClient, fetch, getResource, getEntity, ids: props.sdk.ids };
+    return {
+      cmaClient,
+      fetch,
+      getResource,
+      getEntity,
+      ids: props.sdk.ids,
+      getEntityScheduledActions,
+    };
   },
   ({ fetch }) => fetch,
-  ({ getResource, getEntity }) => ({ getResource, getEntity }),
+  ({ getResource, getEntity, getEntityScheduledActions }) => ({
+    getResource,
+    getEntity,
+    getEntityScheduledActions,
+  }),
   ({ ids }) => ids
 );
 

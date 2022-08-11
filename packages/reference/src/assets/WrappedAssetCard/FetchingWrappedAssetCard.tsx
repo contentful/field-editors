@@ -8,7 +8,7 @@ import {
   RenderCustomMissingEntityCard,
 } from '../../common/customCardTypes';
 // import { useEntities } from '../../common/EntityStore';
-import { useEntity } from '../../common/EntityStoreTheSecond';
+import { useEntity, useEntityLoader } from '../../common/EntityStoreTheSecond';
 import { LinkActionsProps, MissingEntityCard } from '../../components';
 import { Action, Asset, FieldExtensionSDK, ViewType, RenderDragFn } from '../../types';
 import { WrappedAssetCard, WrappedAssetCardProps } from './WrappedAssetCard';
@@ -28,25 +28,9 @@ type FetchingWrappedAssetCardProps = {
 };
 
 export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
-  // const { getAsset, loadEntityScheduledActions, assets } = useEntities();
   const { data: asset, status } = useEntity<Asset>('Asset', props.assetId);
-  const loadEntityScheduledActions = () => Promise.resolve([]);
-
-  // React.useEffect(() => {
-  //   if (!props.assetId) {
-  //     return;
-  //   }
-  //   getAsset(props.assetId);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
-  // }, [props.assetId]);
-
-  // const asset = assets[props.assetId];
-  // const entityKey =
-  //   asset === 'failed'
-  //     ? 'failed'
-  //     : asset === undefined
-  //     ? 'undefined'
-  //     : `:${asset.sys.id}:${asset.sys.version}`;
+  const { getEntityScheduledActions } = useEntityLoader();
+  const loadEntityScheduledActions = () => getEntityScheduledActions('Asset', props.assetId);
 
   React.useEffect(() => {
     if (asset) {
