@@ -1,5 +1,7 @@
-// @ts-nocheck
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+
+import { BaseExtensionSDK } from '@contentful/app-sdk';
+import { ContentfulError } from '@contentful/errors';
 import {
   FetchQueryOptions,
   Query,
@@ -10,20 +12,12 @@ import {
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query';
-
 import constate from 'constate';
 import { createClient, PlainClientAPI } from 'contentful-management';
 import PQueue from 'p-queue';
-import { BaseExtensionSDK } from '@contentful/app-sdk';
-import {
-  Asset,
-  ContentType,
-  Entry,
-  Resource,
-  ResourceType,
-  Space,
-} from '@contentful/field-editor-reference/dist/types';
-import { ContentfulError } from '@contentful/errors';
+
+import { Asset, ContentType, Entry, Resource, ResourceType, Space } from '../types';
+
 
 export type ResourceInfo<R extends Resource = Resource> = {
   resource: R;
@@ -284,7 +278,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
         entityChangeUnsubscribers.current[queryHash] = onEntityChanged(
           entityType,
           entityId,
-          (data) => {
+          (data: unknown) => {
             queryClient.setQueryData(queryKey, data);
           }
         );
@@ -322,7 +316,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
         Object.values(entityChangeUnsubscribers.current).forEach((off) => off());
         entityChangeUnsubscribers.current = {};
       };
-    }, [onEntityChanged, queryCache, isSameSpaceEntityQueryKey]);
+    }, [onEntityChanged, queryCache, isSameSpaceEntityQueryKey, queryClient]);
 
     return { cmaClient, fetch, getResource, getEntity, ids: props.sdk.ids };
   },

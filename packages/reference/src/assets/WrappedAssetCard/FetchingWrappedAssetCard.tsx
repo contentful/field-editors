@@ -7,7 +7,8 @@ import {
   CustomCardRenderer,
   RenderCustomMissingEntityCard,
 } from '../../common/customCardTypes';
-import { useEntities } from '../../common/EntityStore';
+// import { useEntities } from '../../common/EntityStore';
+import { useEntity } from '../../common/EntityStoreTheSecond';
 import { LinkActionsProps, MissingEntityCard } from '../../components';
 import { Action, Asset, FieldExtensionSDK, ViewType, RenderDragFn } from '../../types';
 import { WrappedAssetCard, WrappedAssetCardProps } from './WrappedAssetCard';
@@ -27,23 +28,25 @@ type FetchingWrappedAssetCardProps = {
 };
 
 export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
-  const { getAsset, loadEntityScheduledActions, assets } = useEntities();
+  // const { getAsset, loadEntityScheduledActions, assets } = useEntities();
+  const { data: asset, status } = useEntity<Asset>('Asset', props.assetId);
+  const loadEntityScheduledActions = () => Promise.resolve([]);
 
-  React.useEffect(() => {
-    if (!props.assetId) {
-      return;
-    }
-    getAsset(props.assetId);
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
-  }, [props.assetId]);
+  // React.useEffect(() => {
+  //   if (!props.assetId) {
+  //     return;
+  //   }
+  //   getAsset(props.assetId);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
+  // }, [props.assetId]);
 
-  const asset = assets[props.assetId];
-  const entityKey =
-    asset === 'failed'
-      ? 'failed'
-      : asset === undefined
-      ? 'undefined'
-      : `:${asset.sys.id}:${asset.sys.version}`;
+  // const asset = assets[props.assetId];
+  // const entityKey =
+  //   asset === 'failed'
+  //     ? 'failed'
+  //     : asset === undefined
+  //     ? 'undefined'
+  //     : `:${asset.sys.id}:${asset.sys.version}`;
 
   React.useEffect(() => {
     if (asset) {
@@ -71,7 +74,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
   };
 
   return React.useMemo(() => {
-    if (asset === 'failed') {
+    if (status === 'error') {
       const card = (
         <MissingEntityCard
           entityType="Asset"
@@ -95,7 +98,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
     const { getEntityUrl, sdk } = props;
     const size = props.viewType === 'big_card' ? 'default' : 'small';
     const commonProps = {
-      asset: asset as Asset,
+      asset,
       entityUrl: getEntityUrl && getEntityUrl(props.assetId),
       size: size as 'default' | 'small',
       isDisabled: props.isDisabled,
@@ -107,7 +110,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
     };
 
     if (props.viewType === 'link') {
-      if (asset === undefined) {
+      if (status === 'loading') {
         return <EntryCard size="small" isLoading />;
       }
       return (
@@ -119,7 +122,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       );
     }
 
-    if (asset === undefined) {
+    if (status === 'loading') {
       return <AssetCard size={size} isLoading />;
     }
 
@@ -156,5 +159,5 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
 
     return renderDefaultCard();
     // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
-  }, [props, entityKey]);
+  }, [props, status, asset]);
 }
