@@ -1758,6 +1758,13 @@
     lodash.get "^4.4.2"
     lodash.omit "^4.5.0"
 
+"@contentful/errors@^4.4.60":
+  version "4.4.68"
+  resolved "https://registry.yarnpkg.com/@contentful/errors/-/errors-4.4.68.tgz#39054aa8b0e64b1e15e562683265db45d8044493"
+  integrity sha512-aLNkk2tTSqLj32CCjRyjc6FCHfbbqXs31FB0FmrmtPUAK7It9jFIY3REtMfTTn/Y2nznFz6iccFtSL/2JNa4Ug==
+  dependencies:
+    "@contentful/mimetype" "^2.2.20"
+
 "@contentful/eslint-config-extension@0.4.2":
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/@contentful/eslint-config-extension/-/eslint-config-extension-0.4.2.tgz#6d05e14474fd5a959a9e3a9d02565cf2bea15388"
@@ -3173,6 +3180,13 @@
   version "1.4.40"
   resolved "https://registry.yarnpkg.com/@contentful/mimetype/-/mimetype-1.4.40.tgz#9e11a37a9a3b35c8831af4f2b34af82f671fd0f6"
   integrity sha512-D7oRJttQc5rmEzELFdZ3gZnhLUbkCj/rb2ILuJSdMJb9X57dWDHyOODAplKEqZr6njRWdRWe8Kb+1j1OI5nVRw==
+  dependencies:
+    lodash "^4.17.20"
+
+"@contentful/mimetype@^2.2.20":
+  version "2.2.20"
+  resolved "https://registry.yarnpkg.com/@contentful/mimetype/-/mimetype-2.2.20.tgz#0588d79645709582726e80a9b2ff46e9426f3175"
+  integrity sha512-MSSSHMiX6O/eXFAlmV1HL27prEBknmzCMcCGTqr8JrrLa/QtOmR2erA1RLa3scf5I5OOzSZZQPg3vRREtWt57Q==
   dependencies:
     lodash "^4.17.20"
 
@@ -5646,6 +5660,20 @@
   dependencies:
     defer-to-connect "^1.0.1"
 
+"@tanstack/query-core@^4.0.0-beta.1":
+  version "4.0.10"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-4.0.10.tgz#cae6f818006616dc72c95c863592f5f68b47548a"
+  integrity sha512-9LsABpZXkWZHi4P1ozRETEDXQocLAxVzQaIhganxbNuz/uA3PsCAJxJTiQrknG5htLMzOF5MqM9G10e6DCxV1A==
+
+"@tanstack/react-query@4.0.10":
+  version "4.0.10"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-4.0.10.tgz#92c71a2632c06450d848d4964959bd216cde03c0"
+  integrity sha512-Wn5QhZUE5wvr6rGClV7KeQIUsdTmYR9mgmMZen7DSRWauHW2UTynFg3Kkf6pw+XlxxOLsyLWwz/Q6q1lSpM3TQ==
+  dependencies:
+    "@tanstack/query-core" "^4.0.0-beta.1"
+    "@types/use-sync-external-store" "^0.0.3"
+    use-sync-external-store "^1.2.0"
+
 "@testing-library/cypress@^8.0.2":
   version "8.0.3"
   resolved "https://registry.yarnpkg.com/@testing-library/cypress/-/cypress-8.0.3.tgz#24ab34df34d7896866603ade705afbdd186e273c"
@@ -6155,6 +6183,11 @@
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@types/unist/-/unist-2.0.3.tgz#9c088679876f374eb5983f150d4787aa6fb32d7e"
   integrity sha512-FvUupuM3rlRsRtCN+fDudtmytGO6iHJuuRKS1Ss0pG5z8oX0diNEw94UEL7hgDbpN94rgaK5R7sWm6RrSkZuAQ==
+
+"@types/use-sync-external-store@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@types/use-sync-external-store/-/use-sync-external-store-0.0.3.tgz#b6725d5f4af24ace33b36fafd295136e75509f43"
+  integrity sha512-EwmlvuaxPNej9+T4v5AuBPJa2x2UOJVdjCtDHgcDqitUeOtjnJKJ+apYjVcAoBEMjKW1VVFGZLUb5+qqa09XFA==
 
 "@types/vfile-message@*":
   version "2.0.0"
@@ -25365,6 +25398,11 @@ use-deep-compare@1.1.0:
   integrity sha512-6yY3zmKNCJ1jjIivfZMZMReZjr8e6iC6Uqtp701jvWJ6ejC/usXD+JjmslZDPJQgX8P4B1Oi5XSLHkOLeYSJsA==
   dependencies:
     dequal "1.0.0"
+
+use-sync-external-store@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/use-sync-external-store/-/use-sync-external-store-1.2.0.tgz#7dbefd6ef3fe4e767a0cf5d7287aacfb5846928a"
+  integrity sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==
 
 use@^3.1.0:
   version "3.1.1"

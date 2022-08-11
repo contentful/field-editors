@@ -22,3 +22,5 @@ export type {
   RenderCustomMissingEntityCard,
 } from './common/customCardTypes';
 export { SortableLinkList } from './common/SortableLinkList';
+
+export { isUnsupportedError } from './common/EntityStoreTheSecond';
