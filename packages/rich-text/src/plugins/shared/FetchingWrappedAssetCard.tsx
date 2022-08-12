@@ -3,13 +3,13 @@ import * as React from 'react';
 import { Asset, FieldExtensionSDK, ScheduledAction } from '@contentful/app-sdk';
 import { AssetCard } from '@contentful/f36-components';
 import {
-  useEntities,
+  useEntity,
+  useEntityLoader,
   MissingEntityCard,
   WrappedAssetCard,
 } from '@contentful/field-editor-reference';
 import areEqual from 'fast-deep-equal';
 
-import { useFetchedEntity } from './useFetchedEntity';
 import { useStableCallback } from './useStableCallback';
 
 interface InternalAssetCardProps {
@@ -68,22 +68,27 @@ interface FetchingWrappedAssetCardProps {
 }
 
 export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
-  const { onEntityFetchComplete, assetId } = props;
-  const { loadEntityScheduledActions } = useEntities();
+  const { onEntityFetchComplete } = props;
+  const { data: asset, status } = useEntity<Asset>('Asset', props.assetId);
+  const { getEntityScheduledActions } = useEntityLoader();
+  const loadEntityScheduledActions = React.useCallback(
+    () => getEntityScheduledActions('Entry', props.assetId),
+    [getEntityScheduledActions, props.assetId]
+  );
 
   // FIXME: remove when useEntities() has been refactored to avoid
   // unnecessary re-rendering
   const stableLoadEntityScheduledActions = useStableCallback(loadEntityScheduledActions);
 
-  const asset = useFetchedEntity({
-    type: 'Asset',
-    id: assetId,
-    onEntityFetchComplete,
-  });
+  React.useEffect(() => {
+    if (status === 'success') {
+      onEntityFetchComplete?.();
+    }
+  }, [onEntityFetchComplete, status]);
 
   return (
     <InternalAssetCard
-      asset={asset as Asset | 'failed' | undefined}
+      asset={asset as Asset | undefined}
       sdk={props.sdk}
       isDisabled={props.isDisabled}
       isSelected={props.isSelected}
