@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { BaseExtensionSDK } from '@contentful/app-sdk';
-import { ContentfulError } from '@contentful/errors';
 import {
   FetchQueryOptions,
   Query,
@@ -90,7 +89,7 @@ type EntityQueryKey = [
 
 type ScheduledActionsQueryKey = ['scheduled-actions', ...EntityQueryKey];
 
-export class UnsupportedError extends ContentfulError {
+export class UnsupportedError extends Error {
   isUnsupportedError: boolean;
   constructor(message: string) {
     super(message);

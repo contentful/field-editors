@@ -1758,13 +1758,6 @@
     lodash.get "^4.4.2"
     lodash.omit "^4.5.0"
 
-"@contentful/errors@^4.4.60":
-  version "4.4.68"
-  resolved "https://registry.yarnpkg.com/@contentful/errors/-/errors-4.4.68.tgz#39054aa8b0e64b1e15e562683265db45d8044493"
-  integrity sha512-aLNkk2tTSqLj32CCjRyjc6FCHfbbqXs31FB0FmrmtPUAK7It9jFIY3REtMfTTn/Y2nznFz6iccFtSL/2JNa4Ug==
-  dependencies:
-    "@contentful/mimetype" "^2.2.20"
-
 "@contentful/eslint-config-extension@0.4.2":
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/@contentful/eslint-config-extension/-/eslint-config-extension-0.4.2.tgz#6d05e14474fd5a959a9e3a9d02565cf2bea15388"
@@ -3180,13 +3173,6 @@
   version "1.4.40"
   resolved "https://registry.yarnpkg.com/@contentful/mimetype/-/mimetype-1.4.40.tgz#9e11a37a9a3b35c8831af4f2b34af82f671fd0f6"
   integrity sha512-D7oRJttQc5rmEzELFdZ3gZnhLUbkCj/rb2ILuJSdMJb9X57dWDHyOODAplKEqZr6njRWdRWe8Kb+1j1OI5nVRw==
-  dependencies:
-    lodash "^4.17.20"
-
-"@contentful/mimetype@^2.2.20":
-  version "2.2.20"
-  resolved "https://registry.yarnpkg.com/@contentful/mimetype/-/mimetype-2.2.20.tgz#0588d79645709582726e80a9b2ff46e9426f3175"
-  integrity sha512-MSSSHMiX6O/eXFAlmV1HL27prEBknmzCMcCGTqr8JrrLa/QtOmR2erA1RLa3scf5I5OOzSZZQPg3vRREtWt57Q==
   dependencies:
     lodash "^4.17.20"
 
