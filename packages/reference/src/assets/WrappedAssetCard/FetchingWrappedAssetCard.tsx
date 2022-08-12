@@ -7,8 +7,7 @@ import {
   CustomCardRenderer,
   RenderCustomMissingEntityCard,
 } from '../../common/customCardTypes';
-// import { useEntities } from '../../common/EntityStore';
-import { useEntity, useEntityLoader } from '../../common/EntityStoreTheSecond';
+import { useEntity, useEntityLoader } from '../../common/EntityStore';
 import { LinkActionsProps, MissingEntityCard } from '../../components';
 import { Action, Asset, FieldExtensionSDK, ViewType, RenderDragFn } from '../../types';
 import { WrappedAssetCard, WrappedAssetCardProps } from './WrappedAssetCard';
@@ -79,7 +78,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       return card;
     }
 
-    const { getEntityUrl, sdk } = props;
+    const { getEntityUrl } = props;
     const size = props.viewType === 'big_card' ? 'default' : 'small';
     const commonProps = {
       asset,
@@ -101,7 +100,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
         <WrappedAssetLink
           {...commonProps}
           href={commonProps.entityUrl}
-          getEntityScheduledActions={sdk.space.getEntityScheduledActions}
+          getEntityScheduledActions={loadEntityScheduledActions}
         />
       );
     }

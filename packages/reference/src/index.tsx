@@ -21,9 +21,4 @@ export type {
   RenderCustomMissingEntityCard,
 } from './common/customCardTypes';
 export { SortableLinkList } from './common/SortableLinkList';
-export {
-  EntityProvider,
-  useEntityLoader,
-  useEntity,
-  useResource,
-} from './common/EntityStoreTheSecond';
+export { EntityProvider, useEntityLoader, useEntity, useResource } from './common/EntityStore';

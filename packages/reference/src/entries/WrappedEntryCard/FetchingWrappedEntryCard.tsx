@@ -4,7 +4,7 @@ import { EntryCard } from '@contentful/f36-components';
 import get from 'lodash/get';
 
 import { CustomEntityCardProps, RenderCustomMissingEntityCard } from '../../common/customCardTypes';
-import { useEntity, useEntityLoader } from '../../common/EntityStoreTheSecond';
+import { useEntity, useEntityLoader } from '../../common/EntityStore';
 import { ReferenceEditorProps } from '../../common/ReferenceEditor';
 import { MissingEntityCard } from '../../components';
 import type { LinkActionsProps } from '../../components';
@@ -61,7 +61,6 @@ async function openEntry(
 }
 
 export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
-  // const { getEntry, getAsset, loadEntityScheduledActions, entries } = useEntities();
   const { data: entry, status } = useEntity<Entry>('Entry', props.entryId);
   const { getEntityScheduledActions } = useEntityLoader();
   const loadEntityScheduledActions = () => getEntityScheduledActions('Entry', props.entryId);

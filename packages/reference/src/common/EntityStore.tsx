@@ -243,7 +243,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
         entityType: FetchableEntityType,
         entityId: string,
         options?: GetEntityOptions
-      ): QueryEntityResult<Array<ScheduledAction>> {
+      ): QueryEntityResult<ScheduledAction[]> {
         const spaceId = options?.spaceId ?? currentSpaceId;
         const environmentId = options?.environmentId ?? currentEnvironmentId;
         const queryKey: ScheduledActionsQueryKey = [
