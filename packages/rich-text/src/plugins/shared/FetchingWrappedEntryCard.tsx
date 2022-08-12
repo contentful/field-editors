@@ -11,8 +11,6 @@ import {
 } from '@contentful/field-editor-reference';
 import areEqual from 'fast-deep-equal';
 
-import { useStableCallback } from './useStableCallback';
-
 interface InternalEntryCard {
   isDisabled: boolean;
   isSelected: boolean;
@@ -85,10 +83,6 @@ export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) =
     [getEntityScheduledActions, entryId]
   );
 
-  // FIXME: remove when useEntities() has been refactored to avoid
-  // unnecessary re-rendering
-  const stableLoadEntityScheduledActions = useStableCallback(loadEntityScheduledActions);
-
   React.useEffect(() => {
     if (status === 'success') {
       onEntityFetchComplete?.();
@@ -104,7 +98,7 @@ export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) =
       isSelected={props.isSelected}
       onEdit={props.onEdit}
       onRemove={props.onRemove}
-      loadEntityScheduledActions={stableLoadEntityScheduledActions}
+      loadEntityScheduledActions={loadEntityScheduledActions}
     />
   );
 };

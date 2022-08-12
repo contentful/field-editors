@@ -10,8 +10,6 @@ import {
 } from '@contentful/field-editor-reference';
 import areEqual from 'fast-deep-equal';
 
-import { useStableCallback } from './useStableCallback';
-
 interface InternalAssetCardProps {
   asset?: Asset | 'failed';
   isDisabled: boolean;
@@ -72,13 +70,9 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
   const { data: asset, status } = useEntity<Asset>('Asset', props.assetId);
   const { getEntityScheduledActions } = useEntityLoader();
   const loadEntityScheduledActions = React.useCallback(
-    () => getEntityScheduledActions('Entry', props.assetId),
+    () => getEntityScheduledActions('Asset', props.assetId),
     [getEntityScheduledActions, props.assetId]
   );
-
-  // FIXME: remove when useEntities() has been refactored to avoid
-  // unnecessary re-rendering
-  const stableLoadEntityScheduledActions = useStableCallback(loadEntityScheduledActions);
 
   React.useEffect(() => {
     if (status === 'success') {
@@ -92,7 +86,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       sdk={props.sdk}
       isDisabled={props.isDisabled}
       isSelected={props.isSelected}
-      loadEntityScheduledActions={stableLoadEntityScheduledActions}
+      loadEntityScheduledActions={loadEntityScheduledActions}
       locale={props.locale}
       onEdit={props.onEdit}
       onRemove={props.onRemove}
