@@ -78,10 +78,10 @@ interface FetchingWrappedEntryCardProps {
 
 export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) => {
   const { entryId, onEntityFetchComplete } = props;
-  const { data: entry, status } = useEntity<Entry>('Asset', entryId);
+  const { data: entry, status } = useEntity<Entry>('Entry', entryId);
   const { getEntityScheduledActions } = useEntityLoader();
   const loadEntityScheduledActions = React.useCallback(
-    () => getEntityScheduledActions('Asset', entryId),
+    () => getEntityScheduledActions('Entry', entryId),
     [getEntityScheduledActions, entryId]
   );
 
