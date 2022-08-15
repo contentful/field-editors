@@ -390,8 +390,8 @@ export function useEntity<E extends FetchableEntity>(
   ];
   const { status, data } = useQuery(queryKey, () => getEntity(entityType, entityId, options), {
     enabled: options?.enabled,
+    useErrorBoundary: false,
   });
-
   return { status, data } as UseEntityResult<E>;
 }
 
