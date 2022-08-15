@@ -80,12 +80,14 @@ type FetchParams = { fetch: FetchService; urn: string; options?: GetOptions };
 type FetchableEntityType = 'Entry' | 'Asset';
 type FetchableEntity = Entry | Asset;
 
-type EntityQueryKey = [
-  entityType: FetchableEntityType,
-  entityId: string,
-  spaceId: string,
-  environmentId: string
-];
+// Use this syntax when we upgrade TS version
+// type EntityQueryKey = [
+//   entityType: FetchableEntityType,
+//   entityId: string,
+//   spaceId: string,
+//   environmentId: string
+// ];
+type EntityQueryKey = [FetchableEntityType, string, string, string];
 
 type ScheduledActionsQueryKey = ['scheduled-actions', ...EntityQueryKey];
 
@@ -111,7 +113,8 @@ const isEntityQueryKey = (queryKey: QueryKey): queryKey is EntityQueryKey => {
   );
 };
 
-type ResourceQueryKey = [ident: 'Resource', resourceType: ResourceType, urn: string];
+// type ResourceQueryKey = [ident: 'Resource', resourceType: ResourceType, urn: string];
+type ResourceQueryKey = ['Resource', ResourceType, string];
 
 async function fetchContentfulEntry(params: FetchParams): Promise<ResourceInfo<Entry>> {
   const { urn, fetch, options } = params;
