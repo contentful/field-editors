@@ -80,16 +80,14 @@ type FetchParams = { fetch: FetchService; urn: string; options?: GetOptions };
 type FetchableEntityType = 'Entry' | 'Asset';
 type FetchableEntity = Entry | Asset;
 
-// TODO: use type when we move away from TSDX
-// type EntityQueryKey = [
-//   entityType: FetchableEntityType,
-//   entityId: string,
-//   spaceId: string,
-//   environmentId: string
-// ];
+type EntityQueryKey = [
+  entityType: FetchableEntityType,
+  entityId: string,
+  spaceId: string,
+  environmentId: string
+];
 
-type EntityQueryKey = [FetchableEntityType, string, string, string];
-type ScheduledActionsQueryKey = ['scheduled-actions', FetchableEntityType, string, string, string];
+type ScheduledActionsQueryKey = ['scheduled-actions', ...EntityQueryKey];
 
 export class UnsupportedError extends Error {
   isUnsupportedError: boolean;
@@ -113,10 +111,7 @@ const isEntityQueryKey = (queryKey: QueryKey): queryKey is EntityQueryKey => {
   );
 };
 
-// TODO: use type when we move away from TSDX
-// type ResourceQueryKey = [ident: 'Resource', resourceType: ResourceType, urn: string];
-
-type ResourceQueryKey = ['Resource', ResourceType, string];
+type ResourceQueryKey = [ident: 'Resource', resourceType: ResourceType, urn: string];
 
 async function fetchContentfulEntry(params: FetchParams): Promise<ResourceInfo<Entry>> {
   const { urn, fetch, options } = params;
@@ -125,10 +120,10 @@ async function fetchContentfulEntry(params: FetchParams): Promise<ResourceInfo<E
   const environmentId = 'master';
 
   const [space, entry] = await Promise.all([
-    fetch(['space', spaceId], ({ cmaClient }: any) => cmaClient.space.get({ spaceId }), options),
+    fetch(['space', spaceId], ({ cmaClient }) => cmaClient.space.get({ spaceId }), options),
     fetch(
       ['entry', spaceId, environmentId, entryId],
-      ({ cmaClient }: any) =>
+      ({ cmaClient }) =>
         cmaClient.entry.get({
           spaceId,
           environmentId,
@@ -141,7 +136,7 @@ async function fetchContentfulEntry(params: FetchParams): Promise<ResourceInfo<E
   const [contentType, defaultLocaleCode] = await Promise.all([
     fetch(
       ['contentType', spaceId, environmentId, contentTypeId],
-      ({ cmaClient }: any) =>
+      ({ cmaClient }) =>
         cmaClient.contentType.get({
           contentTypeId,
           spaceId,
@@ -151,14 +146,13 @@ async function fetchContentfulEntry(params: FetchParams): Promise<ResourceInfo<E
     ),
     fetch(
       ['defaultLocale', spaceId, environmentId],
-      async ({ cmaClient }: any) => {
+      async ({ cmaClient }) => {
         const locales = await cmaClient.locale.getMany({
           spaceId,
           environmentId,
           query: { limit: 100 },
         });
-        const defaultLocaleCode = locales.items.find((locale: any) => locale.default)
-          ?.code as string;
+        const defaultLocaleCode = locales.items.find((locale) => locale.default)?.code as string;
 
         return defaultLocaleCode;
       },
@@ -372,13 +366,13 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
       getEntityScheduledActions,
     };
   },
-  ({ fetch }: any) => fetch,
-  ({ getResource, getEntity, getEntityScheduledActions }: any) => ({
+  ({ fetch }) => fetch,
+  ({ getResource, getEntity, getEntityScheduledActions }) => ({
     getResource,
     getEntity,
     getEntityScheduledActions,
   }),
-  ({ ids }: any) => ids
+  ({ ids }) => ids
 );
 
 export function useEntity<E extends FetchableEntity>(
