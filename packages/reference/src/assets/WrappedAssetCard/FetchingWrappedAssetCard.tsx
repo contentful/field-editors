@@ -7,7 +7,7 @@ import {
   CustomCardRenderer,
   RenderCustomMissingEntityCard,
 } from '../../common/customCardTypes';
-import { useEntity, useEntityLoader } from '../../common/EntityStore';
+import { useEntity } from '../../common/EntityStore';
 import { LinkActionsProps, MissingEntityCard } from '../../components';
 import { Action, Asset, FieldExtensionSDK, ViewType, RenderDragFn } from '../../types';
 import { WrappedAssetCard, WrappedAssetCardProps } from './WrappedAssetCard';
@@ -27,9 +27,8 @@ type FetchingWrappedAssetCardProps = {
 };
 
 export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
+  const { sdk } = props;
   const { data: asset, status } = useEntity<Asset>('Asset', props.assetId);
-  const { getEntityScheduledActions } = useEntityLoader();
-  const loadEntityScheduledActions = () => getEntityScheduledActions('Asset', props.assetId);
 
   React.useEffect(() => {
     if (asset) {
@@ -100,7 +99,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
         <WrappedAssetLink
           {...commonProps}
           href={commonProps.entityUrl}
-          getEntityScheduledActions={loadEntityScheduledActions}
+          getEntityScheduledActions={sdk.space.getEntityScheduledActions}
         />
       );
     }
@@ -114,7 +113,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       const builtinCardProps: Omit<WrappedAssetCardProps, 'isClickable'> = {
         ...commonProps,
         ...props,
-        getEntityScheduledActions: loadEntityScheduledActions,
+        getEntityScheduledActions: sdk.space.getEntityScheduledActions,
         asset: (props?.entity as Asset) || commonProps.asset,
         getAssetUrl: getEntityUrl,
       };
