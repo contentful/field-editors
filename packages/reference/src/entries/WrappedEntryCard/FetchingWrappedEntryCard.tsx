@@ -62,8 +62,6 @@ async function openEntry(
 
 export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
   const { data: entry, status } = useEntity<Entry>('Entry', props.entryId);
-  const { getEntityScheduledActions } = useEntityLoader();
-  const loadEntityScheduledActions = () => getEntityScheduledActions('Entry', props.entryId);
 
   const size = props.viewType === 'link' ? 'small' : 'default';
   const { getEntity } = useEntityLoader();
@@ -143,7 +141,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       onMoveBottom: props.onMoveBottom,
     };
 
-    const { hasCardEditActions, hasCardMoveActions, hasCardRemoveActions } = props;
+    const { hasCardEditActions, hasCardMoveActions, hasCardRemoveActions, sdk } = props;
 
     function renderDefaultCard(props?: CustomEntityCardProps) {
       const builtinCardProps: WrappedEntryCardProps = {
@@ -153,7 +151,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
         hasCardMoveActions,
         hasCardRemoveActions,
         getAsset,
-        getEntityScheduledActions: loadEntityScheduledActions,
+        getEntityScheduledActions: sdk.space.getAllScheduledActions,
         entry: props?.entity || sharedCardProps.entity,
         entryUrl: props?.entityUrl || sharedCardProps.entityUrl,
       };
