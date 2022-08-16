@@ -151,7 +151,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
         hasCardMoveActions,
         hasCardRemoveActions,
         getAsset,
-        getEntityScheduledActions: sdk.space.getAllScheduledActions,
+        getEntityScheduledActions: sdk.space.getEntityScheduledActions,
         entry: props?.entity || sharedCardProps.entity,
         entryUrl: props?.entityUrl || sharedCardProps.entityUrl,
       };
