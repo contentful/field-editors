@@ -29,8 +29,7 @@ type FetchingWrappedAssetCardProps = {
 export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
   const { data: asset, status } = useEntity<Asset>('Asset', props.assetId);
   const { getEntityScheduledActions } = useEntityLoader();
-  const loadEntityScheduledActions = () =>
-    getEntityScheduledActions('Asset', props.assetId, { environmentId: props.sdk.ids.environment });
+  const loadEntityScheduledActions = () => getEntityScheduledActions('Asset', props.assetId);
 
   React.useEffect(() => {
     if (asset) {
