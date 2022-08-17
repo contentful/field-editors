@@ -2,7 +2,7 @@ import { useCallback, useMemo } from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { EntryProps, KeyValueMap } from 'contentful-management';
-import { noop } from 'lodash-es';
+import noop from 'lodash/noop';
 
 import { LinkActionsProps } from '../components';
 

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { fireEvent, render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
 
 import { useResource } from '../common/EntityStore';
 import { SingleResourceReferenceEditor } from './SingleResourceReferenceEditor';
@@ -96,6 +97,8 @@ describe('Single resource editor', () => {
         sdk={sdk}
         hasCardEditActions={true}
         viewType="card"
+        apiUrl="test-contentful"
+        getEntryRouteHref={jest.fn()}
         // @ts-expect-error unused...
         parameters={{}}
       />
