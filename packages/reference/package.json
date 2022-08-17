@@ -36,7 +36,9 @@
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15",
     "moment": "^2.20.0",
-    "react-sortable-hoc": "^2.0.0"
+    "react-intersection-observer": "9.4.0",
+    "react-sortable-hoc": "^2.0.0",
+    "type-fest": "2.17.0"
   },
   "devDependencies": {
     "@contentful/app-sdk": "^4.2.0",
