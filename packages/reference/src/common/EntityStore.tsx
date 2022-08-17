@@ -255,12 +255,17 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
 
         return fetch(
           queryKey,
-          ({ cmaClient }) => {
-            return cmaClient.scheduledActions.getMany({
-              entryId: entityId,
+          async ({ cmaClient }) => {
+            const response = await cmaClient.scheduledActions.getMany({
               spaceId,
-              environmentId,
+              query: {
+                'environment.sys.id': environmentId,
+                'entity.sys.id': entityId,
+                'sys.status[in]': 'scheduled',
+                order: 'scheduledFor.datetime',
+              },
             });
+            return response.items;
           },
           options
         );
