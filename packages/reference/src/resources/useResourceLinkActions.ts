@@ -1,8 +1,9 @@
 import { useCallback, useMemo } from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
-import { noop } from 'lodash-es';
 import { EntryProps, KeyValueMap } from 'contentful-management';
+import { noop } from 'lodash-es';
+
 import { LinkActionsProps } from '../components';
 
 export function useResourceLinkActions({
@@ -57,7 +58,7 @@ export function useResourceLinkActions({
         handleAfterLink([entry]);
       };
     }
-  }, [field, handleAfterLink, multiple]);
+  }, [field, handleAfterLink, multiple, toLinkItem]);
 
   const onLinkExisting = useMemo(() => {
     const promptSelection = multiple

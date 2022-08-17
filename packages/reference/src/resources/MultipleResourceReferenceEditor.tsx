@@ -1,19 +1,19 @@
 import * as React from 'react';
 import { useCallback } from 'react';
-import { FieldConnector } from '@contentful/field-editor-shared';
-import deepEqual from 'deep-equal';
 import { SortEndHandler, SortStartHandler } from 'react-sortable-hoc';
 
-import { SingleEntryReferenceEditor } from '../entries';
-import { SortableLinkList } from '../common/SortableLinkList';
-import { ResourceCard } from './Cards/ResourceCard';
-import { ResourceLink } from '../types';
-import { ReferenceEditorProps } from '../common/ReferenceEditor';
+import { FieldConnector } from '@contentful/field-editor-shared';
 import arrayMove from 'array-move';
-import { useResourceLinkActions } from './useResourceLinkActions';
-import { CombinedLinkActions } from '../components';
+import deepEqual from 'deep-equal';
+
 import { EntityProvider } from '../common/EntityStore';
+import { ReferenceEditorProps } from '../common/ReferenceEditor';
+import { SortableLinkList } from '../common/SortableLinkList';
+import { CombinedLinkActions } from '../components';
+import { ResourceLink } from '../types';
 import { EntryRoute } from './Cards/ContentfulEntryCard';
+import { ResourceCard } from './Cards/ResourceCard';
+import { useResourceLinkActions } from './useResourceLinkActions';
 
 type ChildProps = {
   items: ResourceLink[];
@@ -123,7 +123,7 @@ function WithPerItemCallbacks({
 const EMPTY_ARRAY: ResourceLink[] = [];
 
 export function MultipleResourceReferenceEditor(
-  props: React.ComponentProps<typeof SingleEntryReferenceEditor> & {
+  props: ReferenceEditorProps & {
     apiUrl: string;
     getEntryRouteHref: (entryRoute: EntryRoute) => string;
   }

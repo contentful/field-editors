@@ -1,9 +1,11 @@
 import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
+
 import { FieldExtensionSDK } from '@contentful/app-sdk';
-import { createFakeEntryResource, mockSdkForField } from './testHelpers/resourceEditorHelpers';
-import { MultipleResourceReferenceEditor } from './MultipleResourceReferenceEditor';
+import { fireEvent, render, screen } from '@testing-library/react';
+
 import { useResource } from '../common/EntityStore';
+import { MultipleResourceReferenceEditor } from './MultipleResourceReferenceEditor';
+import { createFakeEntryResource, mockSdkForField } from './testHelpers/resourceEditorHelpers';
 
 let mockedResources: Record<string, unknown> = {};
 
@@ -125,7 +127,7 @@ describe('Multiple resource editor', () => {
 
       expect(useResource).toHaveBeenCalledTimes(Object.values(entryInfos).length);
       // linking more is available
-      const linkExistingBtn = await screen.queryByText('Add existing content');
+      const linkExistingBtn = screen.queryByText('Add existing content');
       expect(linkExistingBtn).toBeInTheDocument();
       // ensure the card is rendered for every value
       const entriesArray = Object.values(entryInfos) as any[];

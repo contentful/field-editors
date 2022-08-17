@@ -1,17 +1,18 @@
 import * as React from 'react';
+
 import { FieldConnector } from '@contentful/field-editor-shared';
 import deepEqual from 'deep-equal';
 
+import { EntityProvider } from '../common/EntityStore';
+import { ReferenceEditorProps } from '../common/ReferenceEditor';
 import { CombinedLinkActions } from '../components';
-import { SingleEntryReferenceEditor } from '../entries';
 import { ResourceLink } from '../types';
+import { EntryRoute } from './Cards/ContentfulEntryCard';
 import { ResourceCard } from './Cards/ResourceCard';
 import { useResourceLinkActions } from './useResourceLinkActions';
-import { EntityProvider } from '../common/EntityStore';
-import { EntryRoute } from './Cards/ContentfulEntryCard';
 
 export function SingleResourceReferenceEditor(
-  props: React.ComponentProps<typeof SingleEntryReferenceEditor> & {
+  props: ReferenceEditorProps & {
     getEntryRouteHref: (entryRoute: EntryRoute) => string;
     apiUrl: string;
   }

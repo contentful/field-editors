@@ -1,9 +1,11 @@
 import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
-import { SingleResourceReferenceEditor } from './SingleResourceReferenceEditor';
+
 import { FieldExtensionSDK } from '@contentful/app-sdk';
-import { createFakeEntryResource, mockSdkForField } from './testHelpers/resourceEditorHelpers';
+import { fireEvent, render, screen } from '@testing-library/react';
+
 import { useResource } from '../common/EntityStore';
+import { SingleResourceReferenceEditor } from './SingleResourceReferenceEditor';
+import { createFakeEntryResource, mockSdkForField } from './testHelpers/resourceEditorHelpers';
 
 const mockedResources: Record<string, unknown> = {};
 
@@ -116,7 +118,7 @@ describe('Single resource editor', () => {
 
     expect(sdk.field.removeValue).toHaveBeenCalledWith();
 
-    const linkExistingBtn = await screen.queryByText('Add existing content');
+    const linkExistingBtn = screen.queryByText('Add existing content');
     expect(linkExistingBtn).not.toBeInTheDocument();
   });
 });

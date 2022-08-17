@@ -1,5 +1,5 @@
 import { FieldExtensionSDK } from '@contentful/app-sdk';
-import { noop } from 'lodash';
+import { noop } from 'lodash-es';
 
 export function mockSdkForField(fieldDefinition: any, fieldValue?: any): FieldExtensionSDK {
   return {
