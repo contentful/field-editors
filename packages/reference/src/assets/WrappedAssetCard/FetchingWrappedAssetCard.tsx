@@ -29,7 +29,10 @@ type FetchingWrappedAssetCardProps = {
 export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
   const { data: asset, status } = useEntity<Asset>('Asset', props.assetId);
   const { getEntityScheduledActions } = useEntityLoader();
-  const loadEntityScheduledActions = () => getEntityScheduledActions('Asset', props.assetId);
+  const loadEntityScheduledActions = React.useCallback(
+    () => getEntityScheduledActions('Asset', props.assetId),
+    [getEntityScheduledActions, props.assetId]
+  );
 
   React.useEffect(() => {
     if (asset) {
