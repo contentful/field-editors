@@ -63,7 +63,10 @@ async function openEntry(
 export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
   const { data: entry, status } = useEntity<Entry>('Entry', props.entryId);
   const { getEntityScheduledActions } = useEntityLoader();
-  const loadEntityScheduledActions = () => getEntityScheduledActions('Entry', props.entryId);
+  const loadEntityScheduledActions = React.useCallback(
+    () => getEntityScheduledActions('Entry', props.entryId),
+    [getEntityScheduledActions, props.entryId]
+  );
 
   const size = props.viewType === 'link' ? 'small' : 'default';
   const { getEntity } = useEntityLoader();
