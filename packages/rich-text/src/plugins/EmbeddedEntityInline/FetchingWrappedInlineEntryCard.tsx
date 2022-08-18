@@ -3,8 +3,12 @@ import React from 'react';
 import { InlineEntryCard, MenuItem, Text } from '@contentful/f36-components';
 import { ClockIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
-import { useEntities, ScheduledIconWithTooltip } from '@contentful/field-editor-reference';
-import { entityHelpers, FieldExtensionSDK } from '@contentful/field-editor-shared';
+import {
+  useEntity,
+  useEntityLoader,
+  ScheduledIconWithTooltip,
+} from '@contentful/field-editor-reference';
+import { Entry, entityHelpers, FieldExtensionSDK } from '@contentful/field-editor-shared';
 import { INLINES } from '@contentful/rich-text-types';
 import { css } from 'emotion';
 
@@ -28,13 +32,14 @@ interface FetchingWrappedInlineEntryCardProps {
 }
 
 export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntryCardProps) {
-  const { getEntry, loadEntityScheduledActions, entries } = useEntities();
-  const entry = React.useMemo(() => entries[props.entryId], [entries, props.entryId]);
+  const { data: entry, status: requestStatus } = useEntity<Entry>('Entry', props.entryId);
+  const { getEntityScheduledActions } = useEntityLoader();
+  const loadEntityScheduledActions = () => getEntityScheduledActions('Entry', props.entryId);
 
   const allContentTypes = props.sdk.space.getCachedContentTypes();
   const { onEntityFetchComplete } = props;
   const contentType = React.useMemo(() => {
-    if (!entry || entry === 'failed' || !allContentTypes) return undefined;
+    if (!entry || !allContentTypes) return undefined;
 
     return allContentTypes.find(
       (contentType) => contentType.sys.id === entry.sys.contentType.sys.id
@@ -42,11 +47,11 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
   }, [allContentTypes, entry]);
 
   React.useEffect(() => {
-    if (!entry) {
+    if (requestStatus !== 'success') {
       return;
     }
     onEntityFetchComplete?.();
-  }, [entry, onEntityFetchComplete]);
+  }, [requestStatus, onEntityFetchComplete]);
 
   const contentTypeName = contentType ? contentType.name : '';
 
@@ -62,15 +67,7 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
     [entry, contentType, props.sdk.field.locale, props.sdk.locales.default]
   );
 
-  React.useEffect(() => {
-    if (!props.entryId) return;
-    getEntry(props.entryId);
-    // We don't include getEntry below because it's part of the constate-derived
-    // useEntities(), not props.
-    // eslint-disable-next-line -- TODO: explain this disable
-  }, [props.entryId]);
-
-  if (entry === 'failed') {
+  if (requestStatus === 'error') {
     return (
       <InlineEntryCard
         title="Entry missing or inaccessible"
@@ -80,12 +77,12 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
     );
   }
 
-  if (entry === undefined) {
+  if (requestStatus === 'loading') {
     return <InlineEntryCard isLoading />;
   }
 
-  const status = getEntryStatus(entry.sys);
-  if (status === 'deleted') {
+  const entryStatus = getEntryStatus(entry.sys);
+  if (entryStatus === 'deleted') {
     return (
       <InlineEntryCard
         title="Entry missing or inaccessible"
@@ -105,7 +102,7 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
       testId={INLINES.EMBEDDED_ENTRY}
       isSelected={props.isSelected}
       title={`${contentTypeName}: ${title}`}
-      status={status}
+      status={entryStatus}
       actions={[
         <MenuItem key="edit" onClick={props.onEdit}>
           Edit

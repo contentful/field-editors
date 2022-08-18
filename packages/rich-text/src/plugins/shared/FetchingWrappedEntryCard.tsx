@@ -4,14 +4,12 @@ import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { ScheduledAction, Entry } from '@contentful/app-sdk';
 import { EntryCard } from '@contentful/f36-components';
 import {
-  useEntities,
+  useEntity,
   MissingEntityCard,
   WrappedEntryCard,
+  useEntityLoader,
 } from '@contentful/field-editor-reference';
 import areEqual from 'fast-deep-equal';
-
-import { useFetchedEntity } from './useFetchedEntity';
-import { useStableCallback } from './useStableCallback';
 
 interface InternalEntryCard {
   isDisabled: boolean;
@@ -78,17 +76,18 @@ interface FetchingWrappedEntryCardProps {
 
 export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) => {
   const { entryId, onEntityFetchComplete } = props;
-  const { loadEntityScheduledActions } = useEntities();
+  const { data: entry, status } = useEntity<Entry>('Entry', entryId);
+  const { getEntityScheduledActions } = useEntityLoader();
+  const loadEntityScheduledActions = React.useCallback(
+    () => getEntityScheduledActions('Entry', entryId),
+    [getEntityScheduledActions, entryId]
+  );
 
-  // FIXME: remove when useEntities() has been refactored to avoid
-  // unnecessary re-rendering
-  const stableLoadEntityScheduledActions = useStableCallback(loadEntityScheduledActions);
-
-  const entry = useFetchedEntity({
-    type: 'Entry',
-    id: entryId,
-    onEntityFetchComplete,
-  });
+  React.useEffect(() => {
+    if (status === 'success') {
+      onEntityFetchComplete?.();
+    }
+  }, [onEntityFetchComplete, status]);
 
   return (
     <InternalEntryCard
@@ -99,7 +98,7 @@ export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) =
       isSelected={props.isSelected}
       onEdit={props.onEdit}
       onRemove={props.onRemove}
-      loadEntityScheduledActions={stableLoadEntityScheduledActions}
+      loadEntityScheduledActions={loadEntityScheduledActions}
     />
   );
 };

@@ -13,7 +13,6 @@ export {
   WrappedEntryCard,
 } from './entries';
 export { SingleMediaEditor, MultipleMediaEditor, WrappedAssetCard } from './assets';
-export { EntityProvider, useEntities } from './common/EntityStore';
 export type { CustomActionProps } from './common/ReferenceEditor';
 export type {
   CustomEntityCardProps,
@@ -22,3 +21,4 @@ export type {
   RenderCustomMissingEntityCard,
 } from './common/customCardTypes';
 export { SortableLinkList } from './common/SortableLinkList';
+export { EntityProvider, useEntityLoader, useEntity, useResource } from './common/EntityStore';

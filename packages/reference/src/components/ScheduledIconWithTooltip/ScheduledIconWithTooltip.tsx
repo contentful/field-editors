@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { SpaceAPI, ScheduledAction } from '@contentful/app-sdk';
+
 import { ScheduleTooltip } from './ScheduleTooltip';
 
 type ScheduledIconWithTooltipProps = {
@@ -38,7 +40,7 @@ export const ScheduledIconWithTooltip = ({
     return null;
   }
 
-  const jobs = status.jobs ? status.jobs : [];
+  const jobs = status.jobs ?? [];
 
   if (jobs.length === 0) {
     return null;

@@ -4,14 +4,18 @@ import { EntryCard } from '@contentful/f36-components';
 import get from 'lodash/get';
 
 import { CustomEntityCardProps, RenderCustomMissingEntityCard } from '../../common/customCardTypes';
-import { useEntities } from '../../common/EntityStore';
+import { useEntity, useEntityLoader } from '../../common/EntityStore';
 import { ReferenceEditorProps } from '../../common/ReferenceEditor';
 import { MissingEntityCard } from '../../components';
 import type { LinkActionsProps } from '../../components';
-import { ContentType, FieldExtensionSDK, NavigatorSlideInfo, RenderDragFn } from '../../types';
+import {
+  ContentType,
+  FieldExtensionSDK,
+  NavigatorSlideInfo,
+  RenderDragFn,
+  Entry,
+} from '../../types';
 import { WrappedEntryCard, WrappedEntryCardProps } from './WrappedEntryCard';
-
-
 
 export type EntryCardReferenceEditorProps = ReferenceEditorProps & {
   entryId: string;
@@ -57,21 +61,16 @@ async function openEntry(
 }
 
 export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
-  const { getEntry, getAsset, loadEntityScheduledActions, entries } = useEntities();
-
-  React.useEffect(() => {
-    getEntry(props.entryId);
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
-  }, [props.entryId]);
+  const { data: entry, status } = useEntity<Entry>('Entry', props.entryId);
+  const { getEntityScheduledActions } = useEntityLoader();
+  const loadEntityScheduledActions = React.useCallback(
+    () => getEntityScheduledActions('Entry', props.entryId),
+    [getEntityScheduledActions, props.entryId]
+  );
 
   const size = props.viewType === 'link' ? 'small' : 'default';
-  const entry = entries[props.entryId];
-  const entityKey =
-    entry === 'failed'
-      ? 'failed'
-      : entry === undefined
-      ? 'undefined'
-      : `:${entry.sys.id}:${entry.sys.version}`;
+  const { getEntity } = useEntityLoader();
+  const getAsset = (assetId: string) => getEntity('Asset', assetId);
 
   const onEdit = async () => {
     const slide = await openEntry(props.sdk, props.entryId, {
@@ -107,7 +106,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
   }, [entry]);
 
   return React.useMemo(() => {
-    if (entry === 'failed') {
+    if (status === 'error') {
       const card = (
         <MissingEntityCard
           entityType="Entry"
@@ -126,7 +125,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       }
       return card;
     }
-    if (entry === undefined) {
+    if (status === 'loading') {
       return <EntryCard size={size} isLoading />;
     }
     const sharedCardProps: CustomEntityCardProps = {
@@ -180,5 +179,5 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
 
     return renderDefaultCard();
     // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
-  }, [props, entityKey]);
+  }, [props, status, entry]);
 }
