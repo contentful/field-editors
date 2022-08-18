@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@2.3.20...@contentful/field-editor-rich-text@3.0.0) (2022-08-18)
+
+### Features
+
+- moving new entity store in [TOL-282] ([#1214](https://github.com/contentful/field-editors/issues/1214)) ([2ad4f64](https://github.com/contentful/field-editors/commit/2ad4f643296dbf48802410382a9a055de18a15de))
+
+### BREAKING CHANGES
+
+- useEntities is no longer export from the reference editor package. Use useEntity or useEntityLoader instead
+
+Co-authored-by: Ahmed T. Ali <ah.tajelsir@gmail.com>
+
 ## [2.3.20](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@2.3.19...@contentful/field-editor-rich-text@2.3.20) (2022-08-10)
 
 ### Bug Fixes
