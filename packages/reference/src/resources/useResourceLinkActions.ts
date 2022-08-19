@@ -2,7 +2,6 @@ import { useCallback, useMemo } from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { EntryProps, KeyValueMap } from 'contentful-management';
-import noop from 'lodash/noop';
 
 import { LinkActionsProps } from '../components';
 
@@ -98,7 +97,9 @@ export function useResourceLinkActions({
     isDisabled: false,
     isEmpty: false,
     isFull: false,
-    onCreate: async () => noop(),
-    onCreated: noop,
+    // eslint-disable-next-line -- hardcoded values to match interface for standard reference field actions
+    onCreate: async () => {},
+    // eslint-disable-next-line -- hardcoded values to match interface for standard reference field actions
+    onCreated: () => {},
   };
 }

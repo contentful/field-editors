@@ -1,5 +1,4 @@
 import { FieldExtensionSDK } from '@contentful/app-sdk';
-import noop from 'lodash/noop';
 
 export function mockSdkForField(fieldDefinition: any, fieldValue?: any): FieldExtensionSDK {
   return {
@@ -7,9 +6,12 @@ export function mockSdkForField(fieldDefinition: any, fieldValue?: any): FieldEx
       getValue: jest.fn(() => fieldValue),
       setValue: jest.fn(() => Promise.resolve(undefined)),
       removeValue: jest.fn(),
-      onSchemaErrorsChanged: () => noop,
-      onIsDisabledChanged: () => noop,
-      onValueChanged: () => noop,
+      // eslint-disable-next-line -- test helper
+      onSchemaErrorsChanged: () => {},
+      // eslint-disable-next-line -- test helper
+      onIsDisabledChanged: () => {},
+      // eslint-disable-next-line -- test helper
+      onValueChanged: () => {},
       ...fieldDefinition,
       locale: 'en',
     },
