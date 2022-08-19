@@ -58,7 +58,8 @@ export function mockSdkForField(fieldDefinition: any, fieldValue?: any): FieldEx
     },
     space: {
       // @ts-expect-error wait app-sdk version update
-      onEntityChanged: noop,
+      // eslint-disable-next-line -- test helper
+      onEntityChanged: () => {},
     },
   };
 }
