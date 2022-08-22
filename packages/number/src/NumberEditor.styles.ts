@@ -40,8 +40,12 @@ export const styles = {
       fill: tokens.gray600,
     },
 
+    '&:hover': {
+      backgroundColor: tokens.gray200,
+    },
+
     '&:active': {
-      background: tokens.gray300,
+      backgroundColor: tokens.gray300,
     },
   }),
   input: css({

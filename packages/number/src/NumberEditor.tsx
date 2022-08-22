@@ -130,7 +130,6 @@ function InnerNumberEditor({
         className={styles.input}
         min={range.min}
         max={range.max}
-        step={NUMBER_STEP}
         isRequired={field.required}
         isInvalid={errors.length > 0}
         isDisabled={disabled}
