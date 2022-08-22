@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.1.7...@contentful/field-editor-number@1.2.0) (2022-08-22)
+
+### Features
+
+- refactoring of Number field-editor [BAU-722] ([#1203](https://github.com/contentful/field-editors/issues/1203)) ([d93698e](https://github.com/contentful/field-editors/commit/d93698e730e0eb7c83378bfaad4566a70aba23f6))
+
 ## [1.1.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.1.6...@contentful/field-editor-number@1.1.7) (2022-07-29)
 
 **Note:** Version bump only for package @contentful/field-editor-number
