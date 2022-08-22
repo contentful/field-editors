@@ -3,6 +3,56 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@2.3.20...@contentful/field-editor-rich-text@3.0.0) (2022-08-18)
+
+### Features
+
+- moving new entity store in [TOL-282] ([#1214](https://github.com/contentful/field-editors/issues/1214)) ([2ad4f64](https://github.com/contentful/field-editors/commit/2ad4f643296dbf48802410382a9a055de18a15de))
+
+### BREAKING CHANGES
+
+- useEntities is no longer export from the reference editor package. Use useEntity or useEntityLoader instead
+
+Co-authored-by: Ahmed T. Ali <ah.tajelsir@gmail.com>
+
+## [2.3.20](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@2.3.19...@contentful/field-editor-rich-text@2.3.20) (2022-08-10)
+
+### Bug Fixes
+
+- rollback change of deps in useFetchedEntity ([#1213](https://github.com/contentful/field-editors/issues/1213)) ([c12e6ea](https://github.com/contentful/field-editors/commit/c12e6eae473e340b1065bb296c093e5aea6e0adc))
+
+## [2.3.19](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@2.3.18...@contentful/field-editor-rich-text@2.3.19) (2022-08-10)
+
+### Bug Fixes
+
+- update hooks deps in useFetchedEntity [TOL-339] ([#1212](https://github.com/contentful/field-editors/issues/1212)) ([02ae9be](https://github.com/contentful/field-editors/commit/02ae9be167bea5876d52db27a4363a69bdfc6209))
+
+## [2.3.18](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@2.3.17...@contentful/field-editor-rich-text@2.3.18) (2022-08-10)
+
+### Bug Fixes
+
+- check store in entity fetch ([#1211](https://github.com/contentful/field-editors/issues/1211)) ([3ddc0b2](https://github.com/contentful/field-editors/commit/3ddc0b2d3ffc2e2146cb8f0ee07d540cb875b717))
+
+## [2.3.17](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@2.3.16...@contentful/field-editor-rich-text@2.3.17) (2022-08-09)
+
+### Bug Fixes
+
+- version compare webapp ([#1210](https://github.com/contentful/field-editors/issues/1210)) ([bbe0882](https://github.com/contentful/field-editors/commit/bbe0882f15d771dc713c688f8ba4df0be8c13102))
+
+## [2.3.16](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@2.3.15...@contentful/field-editor-rich-text@2.3.16) (2022-08-09)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [2.3.15](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@2.3.14...@contentful/field-editor-rich-text@2.3.15) (2022-08-09)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [2.3.14](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@2.3.13...@contentful/field-editor-rich-text@2.3.14) (2022-08-08)
+
+### Bug Fixes
+
+- **rich-text:** handle accessing undefined store value [TOL-339] ([#1208](https://github.com/contentful/field-editors/issues/1208)) ([c536e72](https://github.com/contentful/field-editors/commit/c536e72a0d997eb83017a23acfecefbeeb090d3e))
+
 ## [2.3.13](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@2.3.12...@contentful/field-editor-rich-text@2.3.13) (2022-07-29)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text

@@ -1,10 +1,12 @@
 import * as React from 'react';
-import deepEqual from 'deep-equal';
+
 import { FieldConnector } from '@contentful/field-editor-shared';
-import { EntityProvider } from './EntityStore';
-import { Action, ActionLabels, FieldExtensionSDK, ViewType } from '../types';
+import deepEqual from 'deep-equal';
+
 import type { LinkActionsProps } from '../components';
+import { Action, ActionLabels, FieldExtensionSDK, ViewType } from '../types';
 import { CustomCardRenderer, RenderCustomMissingEntityCard } from './customCardTypes';
+import { EntityProvider } from './EntityStore';
 
 // TODO: Rename common base for reference/media editors to something neutral,
 //  e.g. `LinkEditor<T>`.

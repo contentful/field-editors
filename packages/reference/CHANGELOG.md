@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.6.10...@contentful/field-editor-reference@5.0.0) (2022-08-18)
+
+### Features
+
+- moving new entity store in [TOL-282] ([#1214](https://github.com/contentful/field-editors/issues/1214)) ([2ad4f64](https://github.com/contentful/field-editors/commit/2ad4f643296dbf48802410382a9a055de18a15de))
+
+### BREAKING CHANGES
+
+- useEntities is no longer export from the reference editor package. Use useEntity or useEntityLoader instead
+
+Co-authored-by: Ahmed T. Ali <ah.tajelsir@gmail.com>
+
+## [4.6.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.6.9...@contentful/field-editor-reference@4.6.10) (2022-08-09)
+
+### Bug Fixes
+
+- introduce callback to properly handle available content types [ZEND-2500] ([#1207](https://github.com/contentful/field-editors/issues/1207)) ([e6bf5e9](https://github.com/contentful/field-editors/commit/e6bf5e92e3c406a8c325d045adf907ea4e95f85f))
+
+## [4.6.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.6.8...@contentful/field-editor-reference@4.6.9) (2022-08-09)
+
+### Bug Fixes
+
+- version compare [TOL-339] ([#1209](https://github.com/contentful/field-editors/issues/1209)) ([3723fd6](https://github.com/contentful/field-editors/commit/3723fd6d47c30acc6b3f8c892836d54a1303791c))
+
 ## [4.6.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.6.7...@contentful/field-editor-reference@4.6.8) (2022-07-29)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
