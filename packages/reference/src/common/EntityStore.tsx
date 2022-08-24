@@ -395,7 +395,6 @@ export function useEntity<E extends FetchableEntity>(
   ];
   const { status, data } = useQuery(queryKey, () => getEntity(entityType, entityId, options), {
     enabled: options?.enabled,
-    useErrorBoundary: false,
   });
   return { status, data } as UseEntityResult<E>;
 }
@@ -408,8 +407,6 @@ export function useResource(resourceType: ResourceType, urn: string, options?: U
     () => getResource(resourceType, urn, options),
     {
       enabled: options?.enabled,
-      // TODO: check if this is ok for all errors
-      useErrorBoundary: false,
     }
   );
   return { status, data, error };
@@ -422,7 +419,7 @@ function EntityProvider({ children, ...props }: React.PropsWithChildren<EntitySt
       queryCache,
       defaultOptions: {
         queries: {
-          useErrorBoundary: true,
+          useErrorBoundary: false,
           refetchOnWindowFocus: false,
           refetchOnReconnect: true,
           refetchOnMount: false,

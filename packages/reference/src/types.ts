@@ -29,6 +29,14 @@ export type ResourceType = 'Contentful:Entry';
 
 export type Resource = Entry | Asset;
 
+export type EntityType = 'Entry' | 'Asset' | ResourceType;
+
+export type SysResourceLink<T extends string> = {
+  sys: { type: 'ResourceLink'; linkType: T; urn: string };
+};
+export type ContentfulEntryLink = SysResourceLink<'Contentful:Entry'>;
+export type ResourceLink = ContentfulEntryLink;
+
 /**
  * @deprecated use `EntityLink` type
  */
