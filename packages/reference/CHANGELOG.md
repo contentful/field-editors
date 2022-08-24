@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.1.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.0.0...@contentful/field-editor-reference@5.1.0) (2022-08-24)
+
+### Features
+
+- moving resource editors from web app [TOL-282] ([#1216](https://github.com/contentful/field-editors/issues/1216)) ([8e037d4](https://github.com/contentful/field-editors/commit/8e037d4f938aba8b9177de3e85a4a1d192ad3db5))
+
 # [5.0.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@4.6.10...@contentful/field-editor-reference@5.0.0) (2022-08-18)
 
 ### Features
