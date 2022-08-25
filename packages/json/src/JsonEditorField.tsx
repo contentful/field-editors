@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { json } from '@codemirror/lang-json';
+import { EditorView } from '@codemirror/view';
 import tokens from '@contentful/f36-tokens';
 import CodeMirror from '@uiw/react-codemirror';
 import { css, cx } from 'emotion';
@@ -59,7 +60,7 @@ export function JsonEditorField(props: JsonEditorFieldProps) {
         value={props.value}
         onChange={props.onChange}
         theme="light"
-        extensions={[json()]}
+        extensions={[json(), EditorView.lineWrapping]}
         basicSetup={{
           closeBrackets: false,
           lineNumbers: false,
