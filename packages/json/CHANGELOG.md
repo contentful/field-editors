@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.0.1...@contentful/field-editor-json@3.1.0) (2022-08-25)
+
+### Features
+
+- add line wrapping to the JSON editor ([#1221](https://github.com/contentful/field-editors/issues/1221)) ([9ab1e80](https://github.com/contentful/field-editors/commit/9ab1e802516b44b0e0cba5f3084e5481eb57c024))
+
 ## [3.0.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.0.0...@contentful/field-editor-json@3.0.1) (2022-07-29)
 
 **Note:** Version bump only for package @contentful/field-editor-json

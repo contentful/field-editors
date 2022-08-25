@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.1.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.1.0...@contentful/field-editor-reference@5.1.1) (2022-08-25)
+
+### Bug Fixes
+
+- add p-queue as dependency ([#1220](https://github.com/contentful/field-editors/issues/1220)) ([8576389](https://github.com/contentful/field-editors/commit/85763896092414acce8e3e2f81f375dcf983b49f))
+
 # [5.1.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.0.0...@contentful/field-editor-reference@5.1.0) (2022-08-24)
 
 ### Features
