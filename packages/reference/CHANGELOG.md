@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.1.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.1.1...@contentful/field-editor-reference@5.1.2) (2022-08-26)
+
+### Bug Fixes
+
+- change the props type definitions ([#1222](https://github.com/contentful/field-editors/issues/1222)) ([f71394b](https://github.com/contentful/field-editors/commit/f71394b3653c4e84bb45ed5745ba81eb0522e680))
+
 ## [5.1.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.1.0...@contentful/field-editor-reference@5.1.1) (2022-08-25)
 
 ### Bug Fixes
