@@ -171,7 +171,7 @@ async function fetchContentfulEntry(params: FetchParams): Promise<ResourceInfo<E
 const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = constate(
   function useInitServices(props: EntityStoreProps) {
     const currentSpaceId = props.sdk.ids.space;
-    const currentEnvironmentId = props.sdk.ids.environment;
+    const currentEnvironmentId = props.sdk.ids.environmentAlias ?? props.sdk.ids.environment;
     const queryClient = useQueryClient();
     const queryCache = queryClient.getQueryCache();
     const entityChangeUnsubscribers = useRef<Record<string, Function>>({});
