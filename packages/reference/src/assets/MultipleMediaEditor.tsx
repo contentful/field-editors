@@ -8,7 +8,13 @@ import { SortableLinkList } from '../common/SortableLinkList';
 import { ReferenceValue } from '../types';
 import { FetchingWrappedAssetCard } from './WrappedAssetCard/FetchingWrappedAssetCard';
 
-type EditorProps = Omit<ReferenceEditorProps, 'hasCardEditActions'>;
+// Omit<ReferenceEditorProps, 'hasCardEditActions'>;
+// does not work nice with <Props of={SingleMediaEditor} /> from docz
+// so the docs won't be generated for the props
+type EditorProps = Pick<
+  ReferenceEditorProps,
+  Exclude<keyof ReferenceEditorProps, 'hasCardEditActions'>
+>;
 
 const styles = {
   gridContainer: css({

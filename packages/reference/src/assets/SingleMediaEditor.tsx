@@ -1,9 +1,16 @@
 import * as React from 'react';
-import { FetchingWrappedAssetCard } from './WrappedAssetCard/FetchingWrappedAssetCard';
+
 import { ReferenceEditorProps } from '../common/ReferenceEditor';
 import { SingleReferenceEditor } from '../common/SingleReferenceEditor';
+import { FetchingWrappedAssetCard } from './WrappedAssetCard/FetchingWrappedAssetCard';
 
-type EditorProps = Omit<ReferenceEditorProps, 'hasCardEditActions'>;
+// Omit<ReferenceEditorProps, 'hasCardEditActions'>;
+// does not work nice with <Props of={SingleMediaEditor} /> from docz
+// so the docs won't be generated for the props
+type EditorProps = Pick<
+  ReferenceEditorProps,
+  Exclude<keyof ReferenceEditorProps, 'hasCardEditActions'>
+>;
 
 export function SingleMediaEditor(props: EditorProps) {
   return (
