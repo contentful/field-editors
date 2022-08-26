@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.1.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.1.2...@contentful/field-editor-reference@5.1.3) (2022-08-26)
+
+### Bug Fixes
+
+- **EntityStore:** respect environment alias ([#1223](https://github.com/contentful/field-editors/issues/1223)) ([f66a6b9](https://github.com/contentful/field-editors/commit/f66a6b994f107341251a0ea335457a6b0148439f))
+
 ## [5.1.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.1.1...@contentful/field-editor-reference@5.1.2) (2022-08-26)
 
 ### Bug Fixes
