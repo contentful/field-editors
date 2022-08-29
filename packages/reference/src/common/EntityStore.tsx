@@ -239,12 +239,10 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
 
     /**
      * Fetch all scheduled actions for a given entity.
-     * This function actually fetches records for all entries and then returns
-     * a filtered result with only the entityId that is provided.
-     * The full result is cached with a fixed "ID" to prevent calling this function again.
+     * This function fetches all schedules for all entries and then returns
+     * a filtered result based on the entityID provided.
      *
-     * This is to avoid N+1 queries on entries that have multiple references,
-     * which would trigger 1 request per entity to scheduled actions instead of a single one.
+     * The result is then reused/cached for subsequent calls to this function.
      */
     const getEntityScheduledActions = useCallback(
       function getEntityScheduledActions(
