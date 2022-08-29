@@ -18,13 +18,11 @@ export type DatePickerProps = {
 };
 
 export const DatepickerInput = (props: DatePickerProps) => {
-  console.log('props.value', props.value);
-
   return (
     <Datepicker
       testId="date-input"
       className={styles.root}
-      selected={props.value?.toDate() ?? undefined}
+      selected={props.value?.toDate()}
       onSelect={(day) => {
         props.onChange(moment(day));
       }}
