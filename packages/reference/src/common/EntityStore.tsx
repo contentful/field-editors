@@ -237,22 +237,34 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
       [fetch, currentSpaceId, currentEnvironmentId]
     );
 
+    /**
+     * Fetch all scheduled actions for a given entity.
+     * This function actually fetches records for all entries and then returns
+     * a filtered result with only the entityId that is provided.
+     * The full result is cached with a fixed "ID" to prevent calling this function again.
+     *
+     * This is to avoid N+1 queries on entries that have multiple references,
+     * which would trigger 1 request per entity to scheduled actions instead of a single one.
+     */
     const getEntityScheduledActions = useCallback(
       function getEntityScheduledActions(
         entityType: FetchableEntityType,
         entityId: string,
         options?: GetEntityOptions
       ): QueryEntityResult<ScheduledAction[]> {
+        // This is fixed to force the cache to reuse previous results
+        const fixedEntityCacheId = 'scheduledActionEntity';
         const spaceId = options?.spaceId ?? currentSpaceId;
         const environmentId = options?.environmentId ?? currentEnvironmentId;
         const queryKey: ScheduledActionsQueryKey = [
           'scheduled-actions',
           entityType,
-          entityId,
+          fixedEntityCacheId,
           spaceId,
           environmentId,
         ];
 
+        // Fetch + Filter by entity ID in the end
         return fetch(
           queryKey,
           async ({ cmaClient }) => {
@@ -260,15 +272,16 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
               spaceId,
               query: {
                 'environment.sys.id': environmentId,
-                'entity.sys.id': entityId,
                 'sys.status[in]': 'scheduled',
                 order: 'scheduledFor.datetime',
+                limit: 500,
               },
             });
+
             return response.items;
           },
           options
-        );
+        ).then((items) => items.filter((action) => action.entity.sys.id === entityId));
       },
       [fetch, currentSpaceId, currentEnvironmentId]
     );
