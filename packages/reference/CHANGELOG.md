@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.1.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.1.3...@contentful/field-editor-reference@5.1.4) (2022-08-30)
+
+### Bug Fixes
+
+- **EntityStore:** use fixed cache key for scheduled actions [SPA-871] ([#1224](https://github.com/contentful/field-editors/issues/1224)) ([6b78132](https://github.com/contentful/field-editors/commit/6b78132d0c7643a88c2f15f8d14563355c65f30c))
+
 ## [5.1.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.1.2...@contentful/field-editor-reference@5.1.3) (2022-08-26)
 
 ### Bug Fixes
