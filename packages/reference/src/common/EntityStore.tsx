@@ -251,7 +251,12 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
         options?: GetEntityOptions
       ): QueryEntityResult<ScheduledAction[]> {
         // This is fixed to force the cache to reuse previous results
-        const fixedEntityCacheId = 'scheduledActionEntity';
+        const fixedEntityCacheId = 'scheduledActionEntityId';
+
+        // A space+environment combo can only have up to 500 scheduled actions
+        // With this request we fetch all schedules and can reuse the results.
+        // See https://www.contentful.com/developers/docs/references/content-management-api/#/reference/scheduled-actions/limitations
+        const maxScheduledActions = 500;
         const spaceId = options?.spaceId ?? currentSpaceId;
         const environmentId = options?.environmentId ?? currentEnvironmentId;
         const queryKey: ScheduledActionsQueryKey = [
@@ -272,7 +277,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
                 'environment.sys.id': environmentId,
                 'sys.status[in]': 'scheduled',
                 order: 'scheduledFor.datetime',
-                limit: 500,
+                limit: maxScheduledActions,
               },
             });
 
