@@ -5,7 +5,6 @@ import { css } from 'emotion';
 // eslint-disable-next-line -- TODO: describe this disable  no-restricted-imports
 import moment from 'moment';
 
-const DATE_FORMAT = 'EEE, LLLL do yyyy';
 const YEAR_RANGE = 100;
 
 const styles = {
@@ -38,7 +37,6 @@ export const DatepickerInput = (props: DatePickerProps) => {
         props.onChange(moment(day));
       }}
       inputProps={{ isDisabled: props.disabled, placeholder: '' }}
-      dateFormat={DATE_FORMAT}
       fromDate={fromDate}
       toDate={toDate}
     />

@@ -25,7 +25,7 @@
   "dependencies": {
     "@contentful/f36-components": "^4.9.0",
     "@contentful/f36-tokens": "^4.0.0",
-    "@contentful/f36-datepicker": "^4.1.0-beta.7",
+    "@contentful/f36-datepicker": "^4.1.0-beta.8",
     "@contentful/field-editor-shared": "^1.1.3",
     "emotion": "^10.0.17",
     "moment": "^2.20.0"

@@ -2284,10 +2284,10 @@
     "@emotion/is-prop-valid" "^1.1.0"
     emotion "^10.0.17"
 
-"@contentful/f36-datepicker@^4.1.0-beta.7":
-  version "4.1.0-beta.7"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-datepicker/-/f36-datepicker-4.1.0-beta.7.tgz#1f7ae509c730aed724dc9b338fb456d6645f4631"
-  integrity sha512-SiyyKrZf4vaePpca/tSwUKBO/ZXP3E9gZXno65vst74tX3phB9Tb1Ig1tD+A1y6bQkBj1D/1zWIuLY/QzTBNig==
+"@contentful/f36-datepicker@^4.1.0-beta.8":
+  version "4.1.0-beta.8"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-datepicker/-/f36-datepicker-4.1.0-beta.8.tgz#d06a4e47687143131faa34074630856db44ea6ed"
+  integrity sha512-ITiOlFKINHkmJLzL3TE75H9Oc/P5QkNGOCD9cuhamAlsgMws2dUlAs41GtI0gnq4so0WNG1plBzbZ+t/fx1/rQ==
   dependencies:
     "@babel/runtime" "^7.6.2"
     "@contentful/f36-button" "^4.11.0"
