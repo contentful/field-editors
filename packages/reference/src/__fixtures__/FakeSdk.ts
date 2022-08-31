@@ -5,6 +5,7 @@ import {
   createFakeLocalesAPI,
   createFakeSpaceAPI,
 } from '@contentful/field-editor-test-utils';
+import { GetSpaceParams } from 'contentful-management';
 import { Emitter } from 'mitt';
 
 import { FieldExtensionSDK } from '../types';
@@ -106,6 +107,9 @@ export function newReferenceEditorFakeSdk(
           }
           return Promise.reject();
         },
+      },
+      Space: {
+        get: (params: GetSpaceParams) => Promise.resolve({}),
       },
     }),
     space: {
