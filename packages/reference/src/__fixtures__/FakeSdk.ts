@@ -5,15 +5,18 @@ import {
   createFakeLocalesAPI,
   createFakeSpaceAPI,
 } from '@contentful/field-editor-test-utils';
-import { GetSpaceParams } from 'contentful-management';
+import { CollectionProp, GetSpaceParams, LocaleProps } from 'contentful-management';
 import { Emitter } from 'mitt';
 
 import { FieldExtensionSDK } from '../types';
 import changedAsset from './changed_asset.json';
 import changedEntry from './changed_entry.json';
+import crossSpace from './cross_space.json';
 import emptyAsset from './empty_asset.json';
 import emptyEntry from './empty_entry.json';
+import localesFixture from './locales.json';
 import publishedAsset from './published_asset.json';
+import publishedContentType from './published_content_type.json';
 import publishedEntry from './published_entry.json';
 
 const newLink = (linkType: string, id: string): Link => ({
@@ -88,7 +91,7 @@ export function newReferenceEditorFakeSdk(
           if (entryId === changedEntry.sys.id) {
             return changedEntry;
           }
-          return Promise.reject();
+          return {};
         },
       },
       Asset: {
@@ -105,11 +108,27 @@ export function newReferenceEditorFakeSdk(
           if (assetId === changedAsset.sys.id) {
             return changedAsset;
           }
-          return Promise.reject();
+          return {};
         },
       },
       Space: {
-        get: (params: GetSpaceParams) => Promise.resolve({}),
+        get: async (params: GetSpaceParams) => {
+          if (params.spaceId === crossSpace.sys.id) {
+            return crossSpace;
+          }
+          return {};
+        },
+      },
+      ContentType: {
+        get: async ({ contentTypeId }) => {
+          if (contentTypeId === publishedContentType.sys.id) {
+            return publishedContentType;
+          }
+          return {};
+        },
+      },
+      Locale: {
+        getMany: async () => localesFixture as CollectionProp<LocaleProps>,
       },
     }),
     space: {

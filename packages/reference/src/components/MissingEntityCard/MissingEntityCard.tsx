@@ -13,7 +13,7 @@ export function MissingEntityCard(props: {
   onRemove?: Function;
 }) {
   return (
-    <Card className={styles.card}>
+    <Card className={styles.card} testId="cf-ui-missing-entry-card">
       <Flex alignItems="center" justifyContent="space-between">
         <div className={props.asSquare ? styles.squareCard : ''}>
           <SectionHeading marginBottom="none">

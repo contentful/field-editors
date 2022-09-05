@@ -114,38 +114,24 @@ const isEntityQueryKey = (queryKey: QueryKey): queryKey is EntityQueryKey => {
 type ResourceQueryKey = [ident: 'Resource', resourceType: ResourceType, urn: string];
 
 async function fetchContentfulEntry(params: FetchParams): Promise<ResourceInfo<Entry>> {
-  console.log(params);
   const { urn, fetch, options } = params;
   const resourceId = urn.split(':', 6)[5];
   const [, spaceId, , entryId] = resourceId.split('/');
   const environmentId = 'master';
 
-  console.log(1);
-  try {
-    const [space, entry] = await Promise.all([
-      fetch(
-        ['space', spaceId],
-        ({ cmaClient }) => {
-          console.log(cmaClient.space.get({ spaceId }));
-          return cmaClient.space.get({ spaceId });
-        },
-        options
-      ),
-      fetch(
-        ['entry', spaceId, environmentId, entryId],
-        ({ cmaClient }) =>
-          cmaClient.entry.get({
-            spaceId,
-            environmentId,
-            entryId,
-          }),
-        options
-      ),
-    ]);
-  } catch (e) {
-    console.error(e);
-  }
-  console.log(2);
+  const [space, entry] = await Promise.all([
+    fetch(['space', spaceId], ({ cmaClient }) => cmaClient.space.get({ spaceId }), options),
+    fetch(
+      ['entry', spaceId, environmentId, entryId],
+      ({ cmaClient }) =>
+        cmaClient.entry.get({
+          spaceId,
+          environmentId,
+          entryId,
+        }),
+      options
+    ),
+  ]);
   const contentTypeId = entry.sys.contentType.sys.id;
   const [contentType, defaultLocaleCode] = await Promise.all([
     fetch(
@@ -167,14 +153,11 @@ async function fetchContentfulEntry(params: FetchParams): Promise<ResourceInfo<E
           query: { limit: 100 },
         });
         const defaultLocaleCode = locales.items.find((locale) => locale.default)?.code as string;
-
         return defaultLocaleCode;
       },
       options
     ),
   ]);
-  console.log(3);
-  console.log(defaultLocaleCode, entry, space, contentType);
 
   return {
     defaultLocaleCode,

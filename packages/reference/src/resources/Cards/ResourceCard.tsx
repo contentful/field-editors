@@ -1,13 +1,14 @@
 import * as React from 'react';
+import { useInView } from 'react-intersection-observer';
 
 import { EntryCard } from '@contentful/f36-components';
-import { CardActionsHandlers, ContentfulEntryCard, EntryRoute } from './ContentfulEntryCard';
-import { RenderDragFn, ResourceLink } from '../../types';
-import { UnsupportedEntityCard } from './UnsupportedEntityCard';
-import { useInView } from 'react-intersection-observer';
-import { useResource, isUnsupportedError } from '../../common/EntityStore';
 import { SetRequired } from 'type-fest';
+
+import { useResource, isUnsupportedError } from '../../common/EntityStore';
 import { MissingEntityCard } from '../../components';
+import { RenderDragFn, ResourceLink } from '../../types';
+import { CardActionsHandlers, ContentfulEntryCard, EntryRoute } from './ContentfulEntryCard';
+import { UnsupportedEntityCard } from './UnsupportedEntityCard';
 
 type ResourceCardProps = {
   index?: number;
