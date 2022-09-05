@@ -91,7 +91,7 @@ export function newReferenceEditorFakeSdk(
           if (entryId === changedEntry.sys.id) {
             return changedEntry;
           }
-          return Promise.reject();
+          return Promise.reject({});
         },
       },
       Asset: {
@@ -108,7 +108,7 @@ export function newReferenceEditorFakeSdk(
           if (assetId === changedAsset.sys.id) {
             return changedAsset;
           }
-          return Promise.reject();
+          return Promise.reject({});
         },
       },
       Space: {
@@ -116,7 +116,7 @@ export function newReferenceEditorFakeSdk(
           if (params.spaceId === crossSpace.sys.id) {
             return crossSpace;
           }
-          return Promise.reject();
+          return Promise.reject({});
         },
       },
       ContentType: {
@@ -124,7 +124,7 @@ export function newReferenceEditorFakeSdk(
           if (contentTypeId === publishedContentType.sys.id) {
             return publishedContentType;
           }
-          return Promise.reject();
+          return Promise.reject({});
         },
       },
       Locale: {
