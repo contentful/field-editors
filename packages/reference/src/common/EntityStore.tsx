@@ -153,7 +153,6 @@ async function fetchContentfulEntry(params: FetchParams): Promise<ResourceInfo<E
           query: { limit: 100 },
         });
         const defaultLocaleCode = locales.items.find((locale) => locale.default)?.code as string;
-
         return defaultLocaleCode;
       },
       options

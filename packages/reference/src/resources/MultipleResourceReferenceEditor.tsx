@@ -25,10 +25,7 @@ type ChildProps = {
   onRemoteItemAtIndex: (index: number) => void;
 };
 
-type EditorProps = Omit<
-  ReferenceEditorProps,
-  'renderCustomCard' | 'renderCustomActions' | 'renderCustomMissingEntityCard'
-> &
+type EditorProps = ReferenceEditorProps &
   Omit<ChildProps, 'onSortStart' | 'onSortEnd' | 'onMove' | 'onRemoteItemAtIndex'> & {
     children: (props: ReferenceEditorProps & ChildProps) => React.ReactElement;
     apiUrl: string;

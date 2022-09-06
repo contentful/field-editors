@@ -285,6 +285,7 @@ describe('Multiple Reference Editor', () => {
 
     cy.get('@firstCard').findByTestId('cf-ui-card-actions').click();
     cy.findByTestId('move-bottom').click();
+    cy.wait(500);
 
     findDefaultCards().eq(1).findByTestId('title').should('have.text', 'The best article ever');
   });
@@ -301,6 +302,7 @@ describe('Multiple Reference Editor', () => {
 
     cy.get('@firstCard').findByTestId('cf-ui-card-actions').click();
     cy.findByTestId('delete').click();
+    cy.wait(500);
 
     findDefaultCards().eq(0).findByTestId('title').should('have.text', `Weather doesn't look good`);
   });
