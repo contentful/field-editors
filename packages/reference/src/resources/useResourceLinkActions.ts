@@ -1,12 +1,19 @@
 import { useCallback, useMemo } from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
-import { EntryProps, KeyValueMap } from 'contentful-management';
+import { EntryProps, KeyValueMap, WithResourceName } from 'contentful-management';
 
 import { LinkActionsProps } from '../components';
 
+const toLinkItem = (entry: WithResourceName<EntryProps<KeyValueMap>>) => ({
+  sys: {
+    type: 'ResourceLink',
+    linkType: 'Contentful:Entry',
+    urn: entry.sys.urn,
+  },
+});
+
 export function useResourceLinkActions({
-  apiUrl,
   dialogs,
   field,
   onAfterLink,
@@ -25,39 +32,21 @@ export function useResourceLinkActions({
   );
   const multiple = field.type === 'Array';
 
-  const toLinkItem = useMemo(() => {
-    function toUrn(entry: EntryProps<KeyValueMap>) {
-      return `crn:${apiUrl}:::content:spaces/${entry.sys.space.sys.id}/entries/${entry.sys.id}`;
-    }
-
-    return (entry: EntryProps<KeyValueMap>) => {
-      return {
-        sys: {
-          type: 'ResourceLink',
-          linkType: 'Contentful:Entry',
-          urn: toUrn(entry),
-        },
-      };
-    };
-  }, [apiUrl]);
-
   const onLinkedExisting = useMemo(() => {
-    if (multiple) {
-      return (entries: EntryProps<KeyValueMap>[]) => {
-        const linkItems = entries.map(toLinkItem);
+    return (entries: EntryProps<KeyValueMap>[]) => {
+      const entriesWithResourceName = entries as WithResourceName<EntryProps<KeyValueMap>>[];
+      let updatedValue;
+      if (multiple) {
+        const linkItems = entriesWithResourceName.map(toLinkItem);
         const prevValue = field.getValue() || [];
-        const updatedValue = [...prevValue, ...linkItems];
-        field.setValue(updatedValue);
-        handleAfterLink(entries);
-      };
-    } else {
-      return (entries: EntryProps<KeyValueMap>[]) => {
-        const [entry] = entries;
-        field.setValue(toLinkItem(entry));
-        handleAfterLink([entry]);
-      };
-    }
-  }, [field, handleAfterLink, multiple, toLinkItem]);
+        updatedValue = [...prevValue, ...linkItems];
+      } else {
+        updatedValue = toLinkItem(entriesWithResourceName[0]);
+      }
+      field.setValue(updatedValue);
+      handleAfterLink(entries);
+    };
+  }, [field, handleAfterLink, multiple]);
 
   const onLinkExisting = useMemo(() => {
     const promptSelection = multiple
