@@ -171,6 +171,10 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
   function useInitServices(props: EntityStoreProps) {
     const currentSpaceId = props.sdk.ids.space;
     const currentEnvironmentId = props.sdk.ids.environmentAlias ?? props.sdk.ids.environment;
+    const environmentIds = useMemo(
+      () => [props.sdk.ids.environmentAlias, props.sdk.ids.environment],
+      [props.sdk.ids.environmentAlias, props.sdk.ids.environment]
+    );
     const queryClient = useQueryClient();
     const queryCache = queryClient.getQueryCache();
     const entityChangeUnsubscribers = useRef<Record<string, Function>>({});
@@ -318,11 +322,11 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
       (queryKey: QueryKey) => {
         const isEntityKey = isEntityQueryKey(queryKey);
         const isSameSpaceEntityKey =
-          isEntityKey && queryKey[2] === currentSpaceId && queryKey[3] === currentEnvironmentId;
+          isEntityKey && queryKey[2] === currentSpaceId && environmentIds.includes(queryKey[3]);
 
         return isSameSpaceEntityKey;
       },
-      [currentSpaceId, currentEnvironmentId]
+      [currentSpaceId, environmentIds]
     );
     // @ts-expect-error ...
     const onEntityChanged = props.sdk.space.onEntityChanged;
