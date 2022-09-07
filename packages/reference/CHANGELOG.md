@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.1.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.1.5...@contentful/field-editor-reference@5.1.6) (2022-09-07)
+
+### Bug Fixes
+
+- **reference-editor:** accept pubsub messages from alias and non-alias environments ([#1227](https://github.com/contentful/field-editors/issues/1227)) ([2d7d93a](https://github.com/contentful/field-editors/commit/2d7d93a2d3aa089f7ecdfec48c53c7839856ba0d))
+
 ## [5.1.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.1.4...@contentful/field-editor-reference@5.1.5) (2022-09-06)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
