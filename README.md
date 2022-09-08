@@ -45,7 +45,7 @@ here by filing a [Github issue][github-issues]!
 To achieve the same field editor look as in the Contentful UI, you need to render `GlobalStyled` component.
 
 ```jsx
-import { GlobalStyles } '@contentful/f36-components';
+import { GlobalStyles } from '@contentful/f36-components';
 
 function Root() {
   return (
