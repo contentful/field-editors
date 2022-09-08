@@ -22,11 +22,7 @@
     "extends": "react-app"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": "extends @contentful/browserslist-config",
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
@@ -35,6 +31,7 @@
   },
   "devDependencies": {
     "@contentful/app-scripts": "^0.15.8",
+    "@contentful/browserslist-config": "^3.0.0",
     "@contentful/field-editor-test-utils": "^0.14.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
