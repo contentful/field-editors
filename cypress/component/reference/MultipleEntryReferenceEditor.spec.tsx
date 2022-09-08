@@ -140,9 +140,9 @@ describe('Multiple Reference Editor', () => {
   it(`shows status of entries`, () => {
     const sdk = createReferenceEditorTestSdk({
       initialValue: [
-        asLink(fixtures.entry.empty),
-        asLink(fixtures.entry.changed),
-        asLink(fixtures.entry.published),
+        asLink(fixtures.entries.empty),
+        asLink(fixtures.entries.changed),
+        asLink(fixtures.entries.published),
       ],
     });
     mount(<MultipleEntryReferenceEditor {...commonProps} sdk={sdk} />);
@@ -156,7 +156,7 @@ describe('Multiple Reference Editor', () => {
   //TODO: Do we also want to test that the props are correct, or should that be done in a jest test?
   it(`provides the custom card render method with necessary properties`, () => {
     const sdk = createReferenceEditorTestSdk({
-      initialValue: [asLink(fixtures.entry.published)],
+      initialValue: [asLink(fixtures.entries.published)],
     });
     mount(
       <MultipleEntryReferenceEditor
@@ -173,7 +173,7 @@ describe('Multiple Reference Editor', () => {
 
   it('shows localized displayField as title using the current locale', () => {
     const sdk = createReferenceEditorTestSdk({
-      initialValue: [asLink(fixtures.entry.published)],
+      initialValue: [asLink(fixtures.entries.published)],
     });
     sdk.field.locale = 'de-DE';
     mount(<MultipleEntryReferenceEditor {...commonProps} sdk={sdk} />);
@@ -186,7 +186,7 @@ describe('Multiple Reference Editor', () => {
 
   it('shows unlocalized displayField as title using the default locale', () => {
     const sdk = createReferenceEditorTestSdk({
-      initialValue: [asLink(fixtures.entry.published)],
+      initialValue: [asLink(fixtures.entries.published)],
     });
     mount(<MultipleEntryReferenceEditor {...commonProps} sdk={sdk} />);
 
@@ -195,7 +195,7 @@ describe('Multiple Reference Editor', () => {
 
   it('shows missing entry card for failed requests', () => {
     const sdk = createReferenceEditorTestSdk({
-      initialValue: [asLink(fixtures.entry.invalid)],
+      initialValue: [asLink(fixtures.entries.invalid)],
     });
     mount(<MultipleEntryReferenceEditor {...commonProps} sdk={sdk} />);
 
@@ -205,7 +205,7 @@ describe('Multiple Reference Editor', () => {
   it('shows loading state while fetching entry', () => {
     const sdk = createReferenceEditorTestSdk({
       fetchDelay: 2000,
-      initialValue: [asLink(fixtures.entry.published)],
+      initialValue: [asLink(fixtures.entries.published)],
     });
     mount(<MultipleEntryReferenceEditor {...commonProps} sdk={sdk} />);
 
@@ -214,7 +214,7 @@ describe('Multiple Reference Editor', () => {
 
   it('custom action props reach render method', () => {
     const sdk = createReferenceEditorTestSdk({
-      initialValue: [asLink(fixtures.entry.published)],
+      initialValue: [asLink(fixtures.entries.published)],
     });
     mount(
       <MultipleEntryReferenceEditor
@@ -231,7 +231,7 @@ describe('Multiple Reference Editor', () => {
 
   it('custom missing entity card props reach render method', () => {
     const sdk = createReferenceEditorTestSdk({
-      initialValue: [asLink(fixtures.entry.invalid)],
+      initialValue: [asLink(fixtures.entries.invalid)],
     });
     mount(
       <MultipleEntryReferenceEditor
@@ -248,7 +248,7 @@ describe('Multiple Reference Editor', () => {
 
   it('opens entry when clicking on it', () => {
     const sdk = createReferenceEditorTestSdk({
-      initialValue: [asLink(fixtures.entry.published)],
+      initialValue: [asLink(fixtures.entries.published)],
     });
     mount(<MultipleEntryReferenceEditor {...commonProps} sdk={sdk} />).as('editor');
 
@@ -261,7 +261,7 @@ describe('Multiple Reference Editor', () => {
 
   it('opens entry via actions menu', () => {
     const sdk = createReferenceEditorTestSdk({
-      initialValue: [asLink(fixtures.entry.published)],
+      initialValue: [asLink(fixtures.entries.published)],
     });
     mount(<MultipleEntryReferenceEditor {...commonProps} sdk={sdk} />).as('editor');
 
@@ -275,7 +275,7 @@ describe('Multiple Reference Editor', () => {
 
   it('changes order via actions menu', () => {
     const sdk = createReferenceEditorTestSdk({
-      initialValue: [asLink(fixtures.entry.published), asLink(fixtures.entry.changed)],
+      initialValue: [asLink(fixtures.entries.published), asLink(fixtures.entries.changed)],
     });
     mount(<MultipleEntryReferenceEditor {...commonProps} sdk={sdk} />).as('editor');
 
@@ -292,7 +292,7 @@ describe('Multiple Reference Editor', () => {
 
   it('removes items via actions menu', () => {
     const sdk = createReferenceEditorTestSdk({
-      initialValue: [asLink(fixtures.entry.published), asLink(fixtures.entry.changed)],
+      initialValue: [asLink(fixtures.entries.published), asLink(fixtures.entries.changed)],
     });
     mount(<MultipleEntryReferenceEditor {...commonProps} sdk={sdk} />);
 
@@ -310,7 +310,7 @@ describe('Multiple Reference Editor', () => {
   //TODO: Currently fails
   // it('shows disabled links as disabled', () => {
   //   const sdk = createReferenceEditorTestSdk({
-  //     initialValue: [asLink(fixtures.entry.published)],
+  //     initialValue: [asLink(fixtures.entries.published)],
   //   });
   //   mount(<MultipleEntryReferenceEditor {...commonProps} isInitiallyDisabled={true} sdk={sdk} />);
 
@@ -322,7 +322,7 @@ describe('Multiple Reference Editor', () => {
 
   it('shows disabled links as non-draggable', () => {
     const sdk = createReferenceEditorTestSdk({
-      initialValue: [asLink(fixtures.entry.published)],
+      initialValue: [asLink(fixtures.entries.published)],
     });
     mount(<MultipleEntryReferenceEditor {...commonProps} isInitiallyDisabled={true} sdk={sdk} />);
 
@@ -331,7 +331,7 @@ describe('Multiple Reference Editor', () => {
 
   it('can hide edit action', () => {
     const sdk = createReferenceEditorTestSdk({
-      initialValue: [asLink(fixtures.entry.published), asLink(fixtures.entry.changed)],
+      initialValue: [asLink(fixtures.entries.published), asLink(fixtures.entries.changed)],
     });
 
     mount(
@@ -349,7 +349,7 @@ describe('Multiple Reference Editor', () => {
 
   it('can hide remove action', () => {
     const sdk = createReferenceEditorTestSdk({
-      initialValue: [asLink(fixtures.entry.published), asLink(fixtures.entry.changed)],
+      initialValue: [asLink(fixtures.entries.published), asLink(fixtures.entries.changed)],
     });
 
     mount(
@@ -367,7 +367,7 @@ describe('Multiple Reference Editor', () => {
 
   it('can hide move action', () => {
     const sdk = createReferenceEditorTestSdk({
-      initialValue: [asLink(fixtures.entry.published), asLink(fixtures.entry.changed)],
+      initialValue: [asLink(fixtures.entries.published), asLink(fixtures.entries.changed)],
     });
 
     mount(
@@ -385,7 +385,7 @@ describe('Multiple Reference Editor', () => {
 
   it('hides action menu when no actions are available', () => {
     const sdk = createReferenceEditorTestSdk({
-      initialValue: [asLink(fixtures.entry.published), asLink(fixtures.entry.changed)],
+      initialValue: [asLink(fixtures.entries.published), asLink(fixtures.entries.changed)],
     });
 
     mount(
@@ -401,13 +401,4 @@ describe('Multiple Reference Editor', () => {
 
     findDefaultCards().eq(0).findByTestId('cf-ui-card-actions').should('not.exist');
   });
-
-  // prio ?
-  // ------
-  // shows asset in tile view
-  // changing order by drag&drop
-  // shows predefined labels
-  // shows custom labels
-  // can render as list
-  // can render as tiles
 });

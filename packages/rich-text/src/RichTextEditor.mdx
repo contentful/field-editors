@@ -19,8 +19,8 @@ import { ValidationErrors } from '@contentful/field-editor-validation-errors';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { validateRichTextDocument } from './test-utils/validation';
 import { css } from 'emotion';
-import publishedEntry from '../../reference/src/__fixtures__/published_entry.json';
-import publishedAsset from '../../reference/src/__fixtures__/published_asset.json';
+import { assets, entries } from '../../reference/src/__fixtures__/fixtures';
+
 
 # @contentful/field-editor-rich-text
 
@@ -76,10 +76,10 @@ import { RichTextEditor } from '@contentful/field-editor-rich-text';
       },
       cmaAdapter: createFakeCMAAdapter({
         Entry: {
-          get: () => Promise.resolve(publishedEntry),
+          get: () => Promise.resolve(entries.published),
         },
         Asset: {
-          get: () => Promise.resolve(publishedAsset),
+          get: () => Promise.resolve(assets.published),
         },
       }),
       space: {
@@ -88,12 +88,12 @@ import { RichTextEditor } from '@contentful/field-editor-rich-text';
           return Promise.resolve([]);
         },
         getAssets: () => {
-          return Promise.resolve({ items: [publishedAsset] });
+          return Promise.resolve({ items: [assets.published] });
         },
       },
       entry: {
-        ...publishedEntry,
-        getSys: () => publishedEntry.sys,
+        ...entries.published,
+        getSys: () => entries.published.sys,
       },
       field,
       locales: createFakeLocalesAPI(),

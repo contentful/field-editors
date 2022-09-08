@@ -10,7 +10,7 @@ function asLink<E extends Entity>(entity: E): ResourceLink {
     sys: {
       type: 'ResourceLink',
       linkType: 'Contentful:Entry',
-      urn: `crn:test:::content:spaces/x-space/entries/${entity.sys.id}`,
+      urn: `crn:test:::content:spaces/${fixtures.spaces.indifferent.sys.id}/entries/${entity.sys.id}`,
     },
   };
 }
@@ -51,7 +51,7 @@ describe('Single resource editor', () => {
 
   it('renders default cards', () => {
     const sdk = createReferenceEditorTestSdk({
-      initialValue: asLink(fixtures.entry.changed),
+      initialValue: asLink(fixtures.entries.changed),
     });
     mount(<SingleResourceReferenceEditor {...commonProps} viewType="card" sdk={sdk} />);
     findDefaultCards().should('have.length', 1);
@@ -59,7 +59,7 @@ describe('Single resource editor', () => {
 
   it('removes cards', () => {
     const sdk = createReferenceEditorTestSdk({
-      initialValue: asLink(fixtures.entry.changed),
+      initialValue: asLink(fixtures.entries.changed),
     });
     mount(<SingleResourceReferenceEditor {...commonProps} viewType="card" sdk={sdk} />);
 
@@ -73,7 +73,7 @@ describe('Single resource editor', () => {
 
   it('renders missing cards', () => {
     const sdk = createReferenceEditorTestSdk({
-      initialValue: asLink(fixtures.entry.invalid),
+      initialValue: asLink(fixtures.entries.invalid),
     });
     mount(<SingleResourceReferenceEditor {...commonProps} viewType="card" sdk={sdk} />);
     findMissingCards().should('have.length', 1);
@@ -81,7 +81,7 @@ describe('Single resource editor', () => {
 
   it('removes missing cards', () => {
     const sdk = createReferenceEditorTestSdk({
-      initialValue: asLink(fixtures.entry.invalid),
+      initialValue: asLink(fixtures.entries.invalid),
     });
     mount(<SingleResourceReferenceEditor {...commonProps} viewType="card" sdk={sdk} />);
 
@@ -96,7 +96,7 @@ describe('Single resource editor', () => {
 
   // it.only('opens entry when clicking on it', () => {
   //   const sdk = createReferenceEditorTestSdk({
-  //     initialValue: [asLink(fixtures.entry.published)],
+  //     initialValue: [asLink(fixtures.entries.published)],
   //   });
   //   mount(<SingleResourceReferenceEditor {...commonProps} viewType="card" sdk={sdk} />).as(
   //     'editor'
@@ -112,7 +112,7 @@ describe('Single resource editor', () => {
   it('shows loading state while fetching entry', () => {
     const sdk = createReferenceEditorTestSdk({
       fetchDelay: 2000,
-      initialValue: asLink(fixtures.entry.published),
+      initialValue: asLink(fixtures.entries.published),
     });
     mount(<SingleResourceReferenceEditor {...commonProps} viewType="card" sdk={sdk} />);
 
@@ -121,7 +121,7 @@ describe('Single resource editor', () => {
 
   it('shows empty status', () => {
     const sdk = createReferenceEditorTestSdk({
-      initialValue: asLink(fixtures.entry.empty),
+      initialValue: asLink(fixtures.entries.empty),
     });
     mount(<SingleResourceReferenceEditor {...commonProps} sdk={sdk} viewType="card" />);
 
@@ -130,7 +130,7 @@ describe('Single resource editor', () => {
 
   it('shows changed status', () => {
     const sdk = createReferenceEditorTestSdk({
-      initialValue: asLink(fixtures.entry.changed),
+      initialValue: asLink(fixtures.entries.changed),
     });
     mount(<SingleResourceReferenceEditor {...commonProps} sdk={sdk} viewType="card" />);
 
@@ -139,7 +139,7 @@ describe('Single resource editor', () => {
 
   it('shows published status', () => {
     const sdk = createReferenceEditorTestSdk({
-      initialValue: asLink(fixtures.entry.published),
+      initialValue: asLink(fixtures.entries.published),
     });
     mount(<SingleResourceReferenceEditor {...commonProps} sdk={sdk} viewType="card" />);
 

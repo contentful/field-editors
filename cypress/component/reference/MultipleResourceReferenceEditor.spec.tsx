@@ -10,7 +10,7 @@ function asLink<E extends Entity>(entity: E): ResourceLink {
     sys: {
       type: 'ResourceLink',
       linkType: 'Contentful:Entry',
-      urn: `crn:test:::content:spaces/x-space/entries/${entity.sys.id}`,
+      urn: `crn:test:::content:spaces/${fixtures.spaces.indifferent.sys.id}/entries/${entity.sys.id}`,
     },
   };
 }
@@ -51,7 +51,7 @@ describe('Multiple resource editor', () => {
 
   it('renders default cards', () => {
     const sdk = createReferenceEditorTestSdk({
-      initialValue: [asLink(fixtures.entry.changed)],
+      initialValue: [asLink(fixtures.entries.changed)],
     });
     mount(<MultipleResourceReferenceEditor {...commonProps} viewType="card" sdk={sdk} />);
     findDefaultCards().should('have.length', 1);
@@ -59,7 +59,7 @@ describe('Multiple resource editor', () => {
 
   it('removes cards', () => {
     const sdk = createReferenceEditorTestSdk({
-      initialValue: [asLink(fixtures.entry.changed)],
+      initialValue: [asLink(fixtures.entries.changed)],
     });
     mount(<MultipleResourceReferenceEditor {...commonProps} viewType="card" sdk={sdk} />);
 
@@ -73,7 +73,7 @@ describe('Multiple resource editor', () => {
 
   it('renders missing cards', () => {
     const sdk = createReferenceEditorTestSdk({
-      initialValue: [asLink(fixtures.entry.invalid)],
+      initialValue: [asLink(fixtures.entries.invalid)],
     });
     mount(<MultipleResourceReferenceEditor {...commonProps} viewType="card" sdk={sdk} />);
     findMissingCards().should('have.length', 1);
@@ -81,7 +81,7 @@ describe('Multiple resource editor', () => {
 
   it('removes missing cards', () => {
     const sdk = createReferenceEditorTestSdk({
-      initialValue: [asLink(fixtures.entry.invalid)],
+      initialValue: [asLink(fixtures.entries.invalid)],
     });
     mount(<MultipleResourceReferenceEditor {...commonProps} viewType="card" sdk={sdk} />);
 
@@ -94,7 +94,7 @@ describe('Multiple resource editor', () => {
 
   it('moves cards from actions menu', () => {
     const sdk = createReferenceEditorTestSdk({
-      initialValue: [asLink(fixtures.entry.published), asLink(fixtures.entry.changed)],
+      initialValue: [asLink(fixtures.entries.published), asLink(fixtures.entries.changed)],
     });
     mount(<MultipleResourceReferenceEditor {...commonProps} viewType="card" sdk={sdk} />);
 
@@ -111,7 +111,7 @@ describe('Multiple resource editor', () => {
 
   it('shows disabled links as non-draggable', () => {
     const sdk = createReferenceEditorTestSdk({
-      initialValue: [asLink(fixtures.entry.published)],
+      initialValue: [asLink(fixtures.entries.published)],
     });
     mount(
       <MultipleResourceReferenceEditor
@@ -129,7 +129,7 @@ describe('Multiple resource editor', () => {
 
   // it.only('opens entry when clicking on it', () => {
   //   const sdk = createReferenceEditorTestSdk({
-  //     initialValue: [asLink(fixtures.entry.published)],
+  //     initialValue: [asLink(fixtures.entries.published)],
   //   });
   //   mount(<MultipleResourceReferenceEditor {...commonProps} viewType="card" sdk={sdk} />).as(
   //     'editor'
@@ -145,7 +145,7 @@ describe('Multiple resource editor', () => {
   it('shows loading state while fetching entry', () => {
     const sdk = createReferenceEditorTestSdk({
       fetchDelay: 2000,
-      initialValue: [asLink(fixtures.entry.published)],
+      initialValue: [asLink(fixtures.entries.published)],
     });
     mount(<MultipleResourceReferenceEditor {...commonProps} viewType="card" sdk={sdk} />);
 
@@ -155,9 +155,9 @@ describe('Multiple resource editor', () => {
   it(`shows status of entries`, () => {
     const sdk = createReferenceEditorTestSdk({
       initialValue: [
-        asLink(fixtures.entry.empty),
-        asLink(fixtures.entry.changed),
-        asLink(fixtures.entry.published),
+        asLink(fixtures.entries.empty),
+        asLink(fixtures.entries.changed),
+        asLink(fixtures.entries.published),
       ],
     });
     mount(<MultipleResourceReferenceEditor {...commonProps} sdk={sdk} viewType="card" />);

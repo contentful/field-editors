@@ -5,10 +5,16 @@ import {
   createFakeLocalesAPI,
   createFakeSpaceAPI,
 } from '@contentful/field-editor-test-utils';
-import { CollectionProp, GetSpaceParams, LocaleProps } from 'contentful-management';
+import { GetSpaceParams } from 'contentful-management';
 import { Emitter } from 'mitt';
 
-import { assets, contentTypes, entries, locales as localesFixtures, spaces } from './fixtures';
+import {
+  assets,
+  contentTypes,
+  entries,
+  locales as localesFixtures,
+  spaces,
+} from '../../packages/reference/src/__fixtures__/fixtures';
 
 const newLink = (linkType: string, id: string): Link => ({
   sys: {
@@ -119,7 +125,7 @@ export function newReferenceEditorFakeSdk(
         },
       },
       Locale: {
-        getMany: async () => localesFixtures.list as CollectionProp<LocaleProps>,
+        getMany: async () => localesFixtures.list,
       },
     }),
     space: {
