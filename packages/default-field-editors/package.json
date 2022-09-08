@@ -24,7 +24,7 @@
     "@contentful/f36-components": "^4.0.27",
     "@contentful/field-editor-boolean": "^1.1.6",
     "@contentful/field-editor-checkbox": "^1.1.6",
-    "@contentful/field-editor-date": "^1.1.10",
+    "@contentful/field-editor-date": "^1.1.10-beta.1",
     "@contentful/field-editor-dropdown": "^1.1.6",
     "@contentful/field-editor-json": "^3.1.0",
     "@contentful/field-editor-list": "^1.1.6",
