@@ -1,5 +1,3 @@
-*                      @contentful/team-bauhaus
+*        @contentful/team-tolkien
 
-apps/                  @contentful/team-extensibility
-packages/rich-text/    @contentful/team-tolkien @contentful/team-bauhaus
-packages/reference/    @contentful/team-tolkien @contentful/team-bauhaus
+apps/    @contentful/team-extensibility
