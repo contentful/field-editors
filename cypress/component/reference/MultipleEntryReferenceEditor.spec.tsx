@@ -1,10 +1,14 @@
 import React from 'react';
 
-import { Card, Note, Heading, Paragraph, Button } from '@contentful/f36-components';
+import { Button, Card, Heading, Note, Paragraph } from '@contentful/f36-components';
 import { Entry } from '@contentful/field-editor-shared';
+import { cloneDeep, set } from 'lodash-es';
 
 import { CombinedLinkActions, MultipleEntryReferenceEditor } from '../../../packages/reference/src';
 import { Entity, Link } from '../../../packages/reference/src/types';
+import { ReferenceEditorSdkProps } from '../../fixtures';
+import { PubsubFake } from '../../fixtures/pubsub';
+import { createDefaultFakeStore } from '../../fixtures/store';
 import { mount } from '../mount';
 import { createReferenceEditorTestSdk, fixtures } from '../test-sdks';
 
@@ -22,6 +26,15 @@ const commonProps = {
 
 function asLink<E extends Entity>(entity: E): Link {
   return { sys: { type: 'Link', linkType: entity.sys.type, id: entity.sys.id } };
+}
+
+function modifyEntry(entry: Entry, modifier: Record<string, unknown>): Entry {
+  const modified = Object.entries(modifier).reduce(
+    (entry, [path, value]) => set(entry, path, value),
+    cloneDeep(entry)
+  );
+
+  return modified;
 }
 
 describe('Multiple Reference Editor', () => {
@@ -400,5 +413,66 @@ describe('Multiple Reference Editor', () => {
     );
 
     findDefaultCards().eq(0).findByTestId('cf-ui-card-actions').should('not.exist');
+  });
+
+  describe(`behaviour on external changes`, () => {
+    function updateEntry(entry: Entry, title: string) {
+      cy.get('@fixtures')
+        .its('pubsub')
+        .then((pubsub: PubsubFake) => {
+          const updatedEntry = modifyEntry(entry, {
+            'sys.version': entry.sys.version + 2,
+            'fields.exField.en-US': title,
+          });
+          pubsub.send('Entry', updatedEntry.sys.id, updatedEntry);
+        });
+    }
+
+    function localMount(entry: Entry, props?: ReferenceEditorSdkProps) {
+      const store = createDefaultFakeStore();
+      const sdk = createReferenceEditorTestSdk({
+        store,
+        initialValue: [asLink(entry)],
+        ...props,
+      });
+      mount(
+        <MultipleEntryReferenceEditor
+          {...commonProps}
+          hasCardEditActions={false}
+          hasCardMoveActions={false}
+          hasCardRemoveActions={false}
+          isInitiallyDisabled={false}
+          sdk={sdk}
+        />
+      );
+    }
+
+    it(`updates cards in un-aliased environment`, () => {
+      localMount(fixtures.entries.published);
+
+      const initialTitle = fixtures.entries.published.fields.exField['en-US'];
+      const updatedTitle = initialTitle + ' [updated]';
+
+      cy.findByText(initialTitle);
+      updateEntry(fixtures.entries.published, updatedTitle);
+      cy.findByText(updatedTitle);
+    });
+
+    it(`updates cards in aliased environment`, () => {
+      localMount(fixtures.entries.published, {
+        ids: {
+          environment: 'master-2511',
+          environmentAlias: 'master',
+          space: 'space-id',
+        },
+      });
+
+      const initialTitle = fixtures.entries.published.fields.exField['en-US'];
+      const updatedTitle = initialTitle + ' [updated]';
+
+      cy.findByText(initialTitle);
+      updateEntry(fixtures.entries.published, updatedTitle);
+      cy.findByText(updatedTitle);
+    });
   });
 });
