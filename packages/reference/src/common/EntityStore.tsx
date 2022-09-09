@@ -382,11 +382,11 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
     }, [onEntityChanged, queryCache, isSameSpaceEntityQueryKey, queryClient]);
 
     return {
+      ids: props.sdk.ids,
       cmaClient,
       fetch,
       getResource,
       getEntity,
-      ids: props.sdk.ids,
       getEntityScheduledActions,
     };
   },
@@ -396,7 +396,10 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
     getEntity,
     getEntityScheduledActions,
   }),
-  ({ ids }) => ids
+  ({ ids }) => ({
+    environment: ids.environmentAlias ?? ids.environment,
+    space: ids.space,
+  })
 );
 
 export function useEntity<E extends FetchableEntity>(

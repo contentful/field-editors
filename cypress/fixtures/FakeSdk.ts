@@ -5,10 +5,11 @@ import {
   createFakeLocalesAPI,
   createFakeSpaceAPI,
 } from '@contentful/field-editor-test-utils';
-import { CollectionProp, GetSpaceParams, LocaleProps } from 'contentful-management';
-import { Emitter } from 'mitt';
+import type { Emitter } from 'mitt';
 
-import { assets, contentTypes, entries, locales as localesFixtures, spaces } from './fixtures';
+import { assets, entries } from '../../packages/reference/src/__fixtures__/fixtures';
+import { createFakePubsub } from './pubsub';
+import { createDefaultFakeStore, Store } from './store';
 
 const newLink = (linkType: string, id: string): Link => ({
   sys: {
@@ -20,14 +21,17 @@ const newLink = (linkType: string, id: string): Link => ({
 
 // used for component testing
 export type ReferenceEditorSdkProps = {
-  initialValue?: any;
-  validations?: any;
+  store?: Store;
+  ids?: Partial<FieldExtensionSDK['ids']>;
+  initialValue?: unknown;
+  validations?: unknown;
   fetchDelay?: number;
 };
 
 export function newReferenceEditorFakeSdk(
   props?: ReferenceEditorSdkProps
 ): [FieldExtensionSDK, Emitter] {
+  const store = props?.store ?? createDefaultFakeStore();
   const rawInitialValue = window.localStorage.getItem('initialValue');
   const initialValue = rawInitialValue ? JSON.parse(rawInitialValue) : props?.initialValue;
   const rawValidations = window.localStorage.getItem('fieldValidations');
@@ -36,7 +40,13 @@ export function newReferenceEditorFakeSdk(
     return validations ? { ...field, validations } : field;
   };
   const [field, mitt] = createFakeFieldAPI(customizeMock, initialValue);
-  const space = createFakeSpaceAPI();
+  const [pubsub, onEntityChanged] = createFakePubsub();
+  const space = createFakeSpaceAPI((api) => {
+    return {
+      ...api,
+      onEntityChanged,
+    };
+  });
   const locales = createFakeLocalesAPI();
   const entryLinks = [
     newLink('Entry', entries.published.sys.id),
@@ -73,16 +83,8 @@ export function newReferenceEditorFakeSdk(
           if (props?.fetchDelay) {
             await delay(props.fetchDelay);
           }
-          if (entryId === entries.empty.sys.id) {
-            return entries.empty;
-          }
-          if (entryId === entries.published.sys.id) {
-            return entries.published;
-          }
-          if (entryId === entries.changed.sys.id) {
-            return entries.changed;
-          }
-          return Promise.reject({});
+
+          return store.get('Entry', entryId);
         },
       },
       Asset: {
@@ -90,36 +92,35 @@ export function newReferenceEditorFakeSdk(
           if (props?.fetchDelay) {
             await delay(props.fetchDelay);
           }
-          if (assetId === assets.empty.sys.id) {
-            return assets.empty;
-          }
-          if (assetId === assets.published.sys.id) {
-            return assets.published;
-          }
-          if (assetId === assets.changed.sys.id) {
-            return assets.changed;
-          }
-          return Promise.reject({});
+
+          return store.get('Asset', assetId);
         },
       },
       Space: {
-        get: async (params: GetSpaceParams) => {
-          if (params.spaceId === spaces.indifferent.sys.id) {
-            return spaces.indifferent;
-          }
-          return Promise.reject({});
+        get: async ({ spaceId }) => {
+          return store.get('Space', spaceId);
         },
       },
       ContentType: {
         get: async ({ contentTypeId }) => {
-          if (contentTypeId === contentTypes.published.sys.id) {
-            return contentTypes.published;
-          }
-          return Promise.reject({});
+          return store.get('ContentType', contentTypeId);
         },
       },
       Locale: {
-        getMany: async () => localesFixtures.list as CollectionProp<LocaleProps>,
+        getMany: async () => {
+          const items = store.getAll('Locale');
+          const total = items.length;
+
+          return {
+            sys: {
+              type: 'Array',
+            },
+            total,
+            skip: 0,
+            limit: Math.max(total, 100),
+            items,
+          };
+        },
       },
     }),
     space: {
@@ -179,10 +180,13 @@ export function newReferenceEditorFakeSdk(
     access: {
       can: async () => true,
     },
-    ids: {
+    ids: props?.ids ?? {
       space: 'space-id',
       environment: 'environment-id',
     },
   } as unknown as FieldExtensionSDK;
+
+  cy.wrap({ store, pubsub }).as('fixtures');
+
   return [sdk, mitt];
 }
