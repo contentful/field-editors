@@ -61,6 +61,10 @@ export function mockSdkForField(fieldDefinition: any, fieldValue?: any): FieldEx
       // eslint-disable-next-line -- test helper
       onEntityChanged: () => {},
     },
+    // @ts-expect-error
+    navigator: {
+      onSlideInNavigation: () => () => ({}),
+    },
   };
 }
 

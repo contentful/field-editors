@@ -1,4 +1,6 @@
 declare namespace Cypress {
+  import type { ComponentFixtures } from '../fixtures';
+
   interface Chainable {
     editorEvents(lastN?: number): Chainable<Array<any>>;
     editorActions(lastN?: number): Chainable<Array<any>>;
@@ -21,6 +23,7 @@ declare namespace Cypress {
     }>;
     paste(data: { [key: string]: string }): Chainable<void>;
     dragTo(target: () => Chainable): Chainable<void>;
+    getComponentFixtures(): Chainable<ComponentFixtures>;
   }
 
   type TrackingAction = [

@@ -2,8 +2,8 @@ import React from 'react';
 
 import { SingleResourceReferenceEditor } from '../../../packages/reference/src';
 import { Entity, ResourceLink } from '../../../packages/reference/src/types';
+import { createReferenceEditorTestSdk, fixtures } from '../../fixtures';
 import { mount } from '../mount';
-import { createReferenceEditorTestSdk, fixtures } from '../test-sdks';
 
 function asLink<E extends Entity>(entity: E): ResourceLink {
   return {

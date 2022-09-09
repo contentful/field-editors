@@ -1,16 +1,18 @@
 import React from 'react';
 
+import { NavigatorSlideInfo } from '@contentful/app-sdk';
 import { Button, Card, Heading, Note, Paragraph } from '@contentful/f36-components';
 import { Entry } from '@contentful/field-editor-shared';
 import { cloneDeep, set } from 'lodash-es';
 
 import { CombinedLinkActions, MultipleEntryReferenceEditor } from '../../../packages/reference/src';
 import { Entity, Link } from '../../../packages/reference/src/types';
-import { ReferenceEditorSdkProps } from '../../fixtures';
-import { PubsubFake } from '../../fixtures/pubsub';
-import { createDefaultFakeStore } from '../../fixtures/store';
+import {
+  createReferenceEditorTestSdk,
+  fixtures,
+  ReferenceEditorFakeSdkProps,
+} from '../../fixtures';
 import { mount } from '../mount';
-import { createReferenceEditorTestSdk, fixtures } from '../test-sdks';
 
 const commonProps = {
   isInitiallyDisabled: false,
@@ -417,21 +419,17 @@ describe('Multiple Reference Editor', () => {
 
   describe(`behaviour on external changes`, () => {
     function updateEntry(entry: Entry, title: string) {
-      cy.get('@fixtures')
-        .its('pubsub')
-        .then((pubsub: PubsubFake) => {
-          const updatedEntry = modifyEntry(entry, {
-            'sys.version': entry.sys.version + 2,
-            'fields.exField.en-US': title,
-          });
-          pubsub.send('Entry', updatedEntry.sys.id, updatedEntry);
+      cy.getComponentFixtures().then(({ pubsub }) => {
+        const updatedEntry = modifyEntry(entry, {
+          'sys.version': entry.sys.version + 2,
+          'fields.exField.en-US': title,
         });
+        pubsub.entityChanged('Entry', updatedEntry.sys.id, updatedEntry);
+      });
     }
 
-    function localMount(entry: Entry, props?: ReferenceEditorSdkProps) {
-      const store = createDefaultFakeStore();
+    function localMount(entry: Entry, props?: ReferenceEditorFakeSdkProps) {
       const sdk = createReferenceEditorTestSdk({
-        store,
         initialValue: [asLink(entry)],
         ...props,
       });
@@ -473,6 +471,65 @@ describe('Multiple Reference Editor', () => {
       cy.findByText(initialTitle);
       updateEntry(fixtures.entries.published, updatedTitle);
       cy.findByText(updatedTitle);
+    });
+  });
+
+  describe(`behaviour on slideInNavigation`, () => {
+    function updateAndSlideIn(entry: Entry, title: string, slide: NavigatorSlideInfo) {
+      cy.getComponentFixtures().then(({ store, navigator }) => {
+        const updatedEntry = modifyEntry(entry, {
+          'sys.version': entry.sys.version + 2,
+          'fields.exField.en-US': title,
+        });
+        store.set('Entry', updatedEntry.sys.id, updatedEntry);
+        navigator.slideIn(slide);
+      });
+    }
+
+    function localMount(entry: Entry) {
+      const sdk = createReferenceEditorTestSdk({
+        initialValue: [asLink(entry)],
+        modifier: (sdk) => {
+          // @ts-expect-error ...
+          sdk.space.onEntityChanged = undefined;
+          return sdk;
+        },
+      });
+      mount(
+        <MultipleEntryReferenceEditor
+          {...commonProps}
+          hasCardEditActions={false}
+          hasCardMoveActions={false}
+          hasCardRemoveActions={false}
+          isInitiallyDisabled={false}
+          sdk={sdk}
+        />
+      );
+    }
+
+    it(`updates cards if slide is closed`, () => {
+      const entry = fixtures.entries.published;
+      const initialTitle = entry.fields.exField['en-US'];
+      const updatedTitle = initialTitle + ' [updated]';
+
+      localMount(entry);
+
+      cy.findByText(initialTitle);
+      updateAndSlideIn(entry, updatedTitle, { oldSlideLevel: 2, newSlideLevel: 1 });
+      cy.findByText(updatedTitle);
+    });
+
+    it(`does not update cards if slide is opened`, () => {
+      const entry = fixtures.entries.published;
+      const initialTitle = entry.fields.exField['en-US'];
+      const updatedTitle = initialTitle + ' [updated]';
+
+      localMount(entry);
+
+      cy.findByText(initialTitle);
+      updateAndSlideIn(entry, updatedTitle, { oldSlideLevel: 1, newSlideLevel: 2 });
+      cy.findByText(updatedTitle).should('not.exist');
+      cy.findByText(initialTitle).should('exist');
     });
   });
 });

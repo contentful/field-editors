@@ -330,10 +330,25 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
     );
     // @ts-expect-error ...
     const onEntityChanged = props.sdk.space.onEntityChanged;
+    const onSlideInNavigation = props.sdk.navigator.onSlideInNavigation;
 
     useEffect(() => {
+      function findSameSpaceQueries(): Query[] {
+        return queryCache.findAll({
+          type: 'active',
+          predicate: (query) => isSameSpaceEntityQueryKey(query.queryKey),
+        });
+      }
+
       if (typeof onEntityChanged !== 'function') {
-        return;
+        return onSlideInNavigation(({ oldSlideLevel, newSlideLevel }) => {
+          if (oldSlideLevel > newSlideLevel) {
+            findSameSpaceQueries().forEach((query) => {
+              // automatically refetches the query
+              void queryClient.invalidateQueries(query.queryKey);
+            });
+          }
+        }) as { (): void };
       }
 
       const subscribeQuery = ({ queryKey, queryHash }: Query) => {
@@ -346,11 +361,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
           }
         );
       };
-      const queries: Query[] = queryCache.findAll({
-        type: 'active',
-        predicate: (query) => isSameSpaceEntityQueryKey(query.queryKey),
-      });
-      queries.forEach(subscribeQuery);
+      findSameSpaceQueries().forEach(subscribeQuery);
 
       const unsubscribe = queryCache.subscribe((event) => {
         if (!event) {
@@ -379,7 +390,14 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
         Object.values(entityChangeUnsubscribers.current).forEach((off) => off());
         entityChangeUnsubscribers.current = {};
       };
-    }, [onEntityChanged, queryCache, isSameSpaceEntityQueryKey, queryClient]);
+    }, [
+      onEntityChanged,
+      queryCache,
+      isSameSpaceEntityQueryKey,
+      queryClient,
+      getEntity,
+      onSlideInNavigation,
+    ]);
 
     return {
       ids: props.sdk.ids,
