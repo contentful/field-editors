@@ -28,6 +28,7 @@
     "@contentful/contentful-slatejs-adapter": "^15.13.1",
     "@contentful/f36-components": "^4.0.33",
     "@contentful/f36-icons": "^4.1.1",
+    "@contentful/f36-utils": "^4.19.0",
     "@contentful/f36-tokens": "^4.0.0",
     "@contentful/field-editor-reference": "^5.1.3",
     "@contentful/field-editor-shared": "^1.1.3",
