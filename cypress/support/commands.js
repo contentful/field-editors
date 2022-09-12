@@ -144,3 +144,7 @@ Cypress.Commands.add('mockGoogleMapsResponse', (mockData) => {
     request.reply(`${callbackParam} && ${callbackParam}(${JSON.stringify(mockData)})`);
   });
 });
+
+Cypress.Commands.add('getComponentFixtures', () => {
+  return cy.get('@componentFixtures');
+});

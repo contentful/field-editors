@@ -1,46 +1,40 @@
-import { ContentType, FieldAPI, FieldExtensionSDK, Link } from '@contentful/app-sdk';
+import type { ContentType, FieldAPI, FieldExtensionSDK } from '@contentful/app-sdk';
 import {
   createFakeCMAAdapter,
   createFakeFieldAPI,
   createFakeLocalesAPI,
   createFakeSpaceAPI,
 } from '@contentful/field-editor-test-utils';
-import type { Emitter } from 'mitt';
+import type { LocaleProps } from 'contentful-management';
 
 import { assets, entries } from '../../packages/reference/src/__fixtures__/fixtures';
+import { createFakeNavigatorAPI } from './navigator';
 import { createFakePubsub } from './pubsub';
 import { createDefaultFakeStore, Store } from './store';
+import { newLink } from './utils';
 
-const newLink = (linkType: string, id: string): Link => ({
-  sys: {
-    id,
-    linkType,
-    type: 'Link',
-  },
-});
-
-// used for component testing
-export type ReferenceEditorSdkProps = {
+export type ReferenceEditorFakeSdkProps = {
   store?: Store;
   ids?: Partial<FieldExtensionSDK['ids']>;
   initialValue?: unknown;
-  validations?: unknown;
+  validations?: FieldAPI['validations'];
   fetchDelay?: number;
+  modifier?: (sdk: FieldExtensionSDK) => FieldExtensionSDK;
 };
 
-export function newReferenceEditorFakeSdk(
-  props?: ReferenceEditorSdkProps
-): [FieldExtensionSDK, Emitter] {
+export function createReferenceEditorTestSdk(
+  props?: ReferenceEditorFakeSdkProps
+): FieldExtensionSDK {
   const store = props?.store ?? createDefaultFakeStore();
-  const rawInitialValue = window.localStorage.getItem('initialValue');
-  const initialValue = rawInitialValue ? JSON.parse(rawInitialValue) : props?.initialValue;
-  const rawValidations = window.localStorage.getItem('fieldValidations');
-  const validations = rawValidations ? JSON.parse(rawValidations) : props?.validations;
+  const initialValue = props?.initialValue;
+  const validations = props?.validations;
   const customizeMock = (field: FieldAPI): FieldAPI => {
     return validations ? { ...field, validations } : field;
   };
-  const [field, mitt] = createFakeFieldAPI(customizeMock, initialValue);
+  const [field] = createFakeFieldAPI(customizeMock, initialValue);
   const [pubsub, onEntityChanged] = createFakePubsub();
+  // TODO should go to space API
+  const [navigator, navigatorEmitter] = createFakeNavigatorAPI();
   const space = createFakeSpaceAPI((api) => {
     return {
       ...api,
@@ -74,7 +68,7 @@ export function newReferenceEditorFakeSdk(
     }));
   };
 
-  const sdk = {
+  const localSdk = {
     field,
     locales,
     cmaAdapter: createFakeCMAAdapter({
@@ -108,7 +102,7 @@ export function newReferenceEditorFakeSdk(
       },
       Locale: {
         getMany: async () => {
-          const items = store.getAll('Locale');
+          const items = store.getAll<LocaleProps>('Locale');
           const total = items.length;
 
           return {
@@ -160,23 +154,7 @@ export function newReferenceEditorFakeSdk(
         return selectorCounter % 2 ? entryLinks.slice(0, 2) : [entryLinks[2]];
       },
     },
-    navigator: {
-      openNewAsset: async () => ({
-        entity: newLink('Asset', assets.empty.sys.id),
-      }),
-      openAsset: async () => {
-        alert('open Asset in slide in');
-        return {};
-      },
-      openNewEntry: async () => ({
-        entity: newLink('Entry', entries.empty.sys.id),
-      }),
-      openEntry: async () => {
-        alert('open entry in slide in');
-        return {};
-      },
-      onSlideInNavigation: () => () => ({}),
-    },
+    navigator,
     access: {
       can: async () => true,
     },
@@ -185,8 +163,9 @@ export function newReferenceEditorFakeSdk(
       environment: 'environment-id',
     },
   } as unknown as FieldExtensionSDK;
+  const sdk = props?.modifier?.(localSdk) ?? localSdk;
 
-  cy.wrap({ store, pubsub }).as('fixtures');
+  cy.wrap({ store, pubsub, navigator: navigatorEmitter }).as('componentFixtures');
 
-  return [sdk, mitt];
+  return sdk;
 }

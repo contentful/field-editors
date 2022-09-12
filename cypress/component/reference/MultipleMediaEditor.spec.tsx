@@ -1,10 +1,11 @@
 import React from 'react';
 
-import { Card, Heading, Button, Asset } from '@contentful/f36-components';
+import { Asset, Button, Card, Heading } from '@contentful/f36-components';
+import { AssetProps } from 'contentful-management';
 
-import { MultipleMediaEditor, CombinedLinkActions } from '../../../packages/reference/src';
+import { CombinedLinkActions, MultipleMediaEditor } from '../../../packages/reference/src';
+import { createReferenceEditorTestSdk, fixtures } from '../../fixtures';
 import { mount } from '../mount';
-import { createReferenceEditorTestSdk } from '../test-sdks';
 
 const commonProps = {
   isInitiallyDisabled: false,
@@ -42,7 +43,15 @@ describe('Multiple Media Editor', () => {
     });
 
     it('can insert new links', () => {
-      const sdk = createReferenceEditorTestSdk();
+      const sdk = createReferenceEditorTestSdk({
+        modifier: (sdk) => {
+          sdk.navigator.openNewAsset = async () => ({
+            navigated: true,
+            entity: fixtures.assets.empty as AssetProps,
+          });
+          return sdk;
+        },
+      });
       mount(<MultipleMediaEditor {...commonProps} sdk={sdk} />);
 
       findCreateAndLinkBtn().click();

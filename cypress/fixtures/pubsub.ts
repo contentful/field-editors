@@ -1,7 +1,7 @@
 import mitt from 'mitt';
 
-export type PubsubFake = {
-  send: (entityType: string, entityId: string, data: unknown) => void;
+export type PubsubEmitter = {
+  entityChanged: (entityType: string, entityId: string, data: unknown) => void;
 };
 
 export type OnEntityChanged = (
@@ -10,10 +10,10 @@ export type OnEntityChanged = (
   handler: (data: unknown) => void
 ) => void;
 
-export function createFakePubsub(): [PubsubFake, OnEntityChanged] {
+export function createFakePubsub(): [PubsubEmitter, OnEntityChanged] {
   const emitter = mitt();
-  const pubsub: PubsubFake = {
-    send: (entityType, entityId, data) =>
+  const pubsub: PubsubEmitter = {
+    entityChanged: (entityType, entityId, data) =>
       emitter.emit(`entityChanged.${entityType}.${entityId}`, data),
   };
 
