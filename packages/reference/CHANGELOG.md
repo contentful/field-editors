@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.1.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.1.7...@contentful/field-editor-reference@5.1.8) (2022-09-12)
+
+### Bug Fixes
+
+- **reference-editor:** re-introduce entity refetch when slide-in is closed ([#1233](https://github.com/contentful/field-editors/issues/1233)) ([7026521](https://github.com/contentful/field-editors/commit/7026521d3c1885dbe61acd9dfc7a1e091a036565))
+
 ## [5.1.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.1.6...@contentful/field-editor-reference@5.1.7) (2022-09-09)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
