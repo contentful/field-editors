@@ -99,10 +99,7 @@ describe('Date Editor', () => {
       selectors.getCalendar().should('be.visible');
       selectors.getCalendarYear().should('have.value', year.toString());
       selectors.getCalendarMonth().should('have.value', month.toString());
-      selectors
-        .getCalendarTodayDate()
-        .children('span[aria-hidden="true"]')
-        .should('have.text', date.toString());
+      selectors.getCalendarTodayDate().should('have.text', date.toString());
       selectors.getCalendarSelectedDate().should('not.exist');
     });
 
@@ -194,10 +191,7 @@ describe('Date Editor', () => {
       selectors.getCalendar().should('be.visible');
       selectors.getCalendarYear().should('have.value', '1990');
       selectors.getCalendarMonth().should('have.value', '0');
-      selectors
-        .getCalendarSelectedDate()
-        .children('span[aria-hidden="true"]')
-        .should('have.text', '3');
+      selectors.getCalendarSelectedDate().should('have.text', '3');
     });
 
     it('should parse values in time input', () => {
@@ -283,10 +277,7 @@ describe('Date Editor', () => {
       selectors.getCalendar().should('be.visible');
       selectors.getCalendarYear().should('have.value', '1990');
       selectors.getCalendarMonth().should('have.value', '0');
-      selectors
-        .getCalendarSelectedDate()
-        .children('span[aria-hidden="true"]')
-        .should('have.text', '3');
+      selectors.getCalendarSelectedDate().should('have.text', '3');
     });
 
     it('correct actions are called when user interacts with editor', () => {
