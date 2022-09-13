@@ -4,16 +4,16 @@ import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { EntryProps, KeyValueMap } from 'contentful-management';
 
 import { LinkActionsProps } from '../components';
+import { ResourceEntity } from '../components/LinkActions/LinkActions';
 
 export function useResourceLinkActions({
-  apiUrl,
   dialogs,
   field,
   onAfterLink,
 }: Pick<FieldExtensionSDK, 'field' | 'dialogs'> & {
   apiUrl: string;
   onAfterLink?: (e: EntryProps<KeyValueMap>) => void;
-}): LinkActionsProps {
+}): LinkActionsProps<ResourceEntity> {
   const handleAfterLink = useCallback(
     (entries: EntryProps<KeyValueMap>[]) => {
       if (!onAfterLink) {
@@ -26,24 +26,20 @@ export function useResourceLinkActions({
   const multiple = field.type === 'Array';
 
   const toLinkItem = useMemo(() => {
-    function toUrn(entry: EntryProps<KeyValueMap>) {
-      return `crn:${apiUrl}:::content:spaces/${entry.sys.space.sys.id}/entries/${entry.sys.id}`;
-    }
-
-    return (entry: EntryProps<KeyValueMap>) => {
+    return (entry: ResourceEntity) => {
       return {
         sys: {
           type: 'ResourceLink',
           linkType: 'Contentful:Entry',
-          urn: toUrn(entry),
+          urn: entry.sys.urn,
         },
       };
     };
-  }, [apiUrl]);
+  }, []);
 
   const onLinkedExisting = useMemo(() => {
     if (multiple) {
-      return (entries: EntryProps<KeyValueMap>[]) => {
+      return (entries: ResourceEntity[]) => {
         const linkItems = entries.map(toLinkItem);
         const prevValue = field.getValue() || [];
         const updatedValue = [...prevValue, ...linkItems];
@@ -51,7 +47,7 @@ export function useResourceLinkActions({
         handleAfterLink(entries);
       };
     } else {
-      return (entries: EntryProps<KeyValueMap>[]) => {
+      return (entries: ResourceEntity[]) => {
         const [entry] = entries;
         field.setValue(toLinkItem(entry));
         handleAfterLink([entry]);

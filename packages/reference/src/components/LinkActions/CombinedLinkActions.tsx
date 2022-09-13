@@ -1,13 +1,12 @@
 import * as React from 'react';
 
-import * as styles from './redesignStyles';
-import { CreateEntryLinkButton } from '../CreateEntryLinkButton/CreateEntryLinkButton';
-import { testIds as sharedTextIds, LinkActionsProps } from './LinkActions';
-import { NoLinkPermissionsInfo } from './NoLinkPermissionsInfo';
-
 import { Button, Menu } from '@contentful/f36-components';
-
 import { LinkIcon, PlusIcon, ChevronDownIcon } from '@contentful/f36-icons';
+
+import { CreateEntryLinkButton } from '../CreateEntryLinkButton/CreateEntryLinkButton';
+import { testIds as sharedTextIds, LinkActionsProps, LinkableThing } from './LinkActions';
+import { NoLinkPermissionsInfo } from './NoLinkPermissionsInfo';
+import * as styles from './redesignStyles';
 
 const testIds = {
   ...sharedTextIds,
@@ -21,7 +20,7 @@ const testIds = {
  * Places both actions to create and link new, as well as link existing, behind
  * one action dropdown and introduces new copy for action labels.
  */
-export function CombinedLinkActions(props: LinkActionsProps) {
+export function CombinedLinkActions<T extends LinkableThing>(props: LinkActionsProps<T>) {
   if (props.isFull) {
     return null; // Don't render link actions if we reached max allowed links.
   }
@@ -38,7 +37,7 @@ export function CombinedLinkActions(props: LinkActionsProps) {
   );
 }
 
-function CombinedEntryLinkActions(props: LinkActionsProps) {
+function CombinedEntryLinkActions<T extends LinkableThing>(props: LinkActionsProps<T>) {
   if (props.canCreateEntity) {
     return (
       <CreateEntryLinkButton
@@ -86,7 +85,7 @@ function CombinedEntryLinkActions(props: LinkActionsProps) {
   return null;
 }
 
-function CombinedAssetLinkActions(props: LinkActionsProps) {
+function CombinedAssetLinkActions<T extends LinkableThing>(props: LinkActionsProps<T>) {
   const [isOpen, setOpen] = React.useState(false);
 
   if (!props.canLinkEntity || !props.canCreateEntity) {

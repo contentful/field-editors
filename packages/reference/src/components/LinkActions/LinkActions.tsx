@@ -15,7 +15,10 @@ import { CreateEntryLinkButton } from '../CreateEntryLinkButton/CreateEntryLinkB
 import { NoLinkPermissionsInfo } from './NoLinkPermissionsInfo';
 import * as styles from './styles';
 
-export interface LinkActionsProps {
+export type BaseEntity = Entry | Asset;
+export type ResourceEntity = BaseEntity & { sys: BaseEntity['sys'] & { urn: string } };
+export type LinkableThing = BaseEntity | ResourceEntity;
+export interface LinkActionsProps<T extends LinkableThing = BaseEntity> {
   entityType: ContentEntityType;
   contentTypes: ContentType[];
   canCreateEntity: boolean;
@@ -27,7 +30,7 @@ export interface LinkActionsProps {
   onCreate: (contentType?: string, index?: number) => Promise<unknown>;
   onCreated: (entity: Entry | Asset, index?: number, slide?: NavigatorSlideInfo) => void;
   onLinkExisting: (index?: number) => void;
-  onLinkedExisting: (entities: Array<Entry | Asset>, index?: number) => void;
+  onLinkedExisting: (entities: Array<T>, index?: number) => void;
   actionLabels?: Partial<ActionLabels>;
   combinedActionsLabel?: string | React.ReactElement;
   itemsLength?: number;
