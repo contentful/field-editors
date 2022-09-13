@@ -6,8 +6,7 @@
   "typings": "dist/index.d.ts",
   "style": "styles/styles.css",
   "files": [
-    "dist",
-    "styles"
+    "dist"
   ],
   "author": "Contentful GmbH",
   "license": "MIT",
