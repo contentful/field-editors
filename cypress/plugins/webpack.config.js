@@ -1,6 +1,6 @@
 module.exports = {
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.mjs'],
   },
   // needed to prevent ReferenceErrors
   // cf. https://github.com/webpack/webpack/issues/6693#issuecomment-745688108
@@ -23,6 +23,10 @@ module.exports = {
             },
           },
         ],
+      },
+      {
+        test: /\.mjs$/,
+        type: 'javascript/auto',
       },
     ],
   },

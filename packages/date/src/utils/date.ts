@@ -55,14 +55,6 @@ function datetimeFromUserInput(input: TimeResult): {
   }
 }
 
-export function formatDateDisplay(date?: moment.Moment) {
-  if (date) {
-    return date.format('dddd, MMMM Do YYYY');
-  } else {
-    return '';
-  }
-}
-
 /**
  * Parse user input into a string that is stored in the API.
  *

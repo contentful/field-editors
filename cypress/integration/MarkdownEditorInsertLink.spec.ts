@@ -4,7 +4,7 @@ describe('Markdown Editor / Insert Link Dialog', () => {
       return cy.get('[data-test-id="markdown-textarea"] textarea');
     },
     getDialogTitle() {
-      return cy.findByTestId('dialog-title').find('h1');
+      return cy.findByTestId('dialog-title').find('h2');
     },
     getInsertDialogButton() {
       return cy.findByTestId('markdown-action-button-link');

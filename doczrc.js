@@ -1,9 +1,4 @@
-/* global process */
-
 import tokens from '@contentful/f36-tokens';
-import fs from 'fs';
-
-const pikadayStyles = fs.readFileSync(process.cwd() + '/packages/date/styles/styles.css');
 
 export default {
   title: 'Contentful Field Editors',
@@ -42,11 +37,6 @@ export default {
       },
     },
   },
-  htmlContext: {
-    head: {
-      raw: `<style>${pikadayStyles}</style>`,
-    },
-  },
   menu: ['Introduction', 'Editors', 'Shared'],
   wrapper: 'docz.wrapper.jsx',
   modifyBabelRc: (babelrc) => {
@@ -59,5 +49,21 @@ export default {
       ],
     };
     return newBabelRc;
+  },
+  modifyBundlerConfig: (webpackConfig) => {
+    const config = {
+      ...webpackConfig,
+      module: {
+        ...webpackConfig.module,
+        rules: [
+          ...webpackConfig.module.rules,
+          {
+            test: /\.mjs$/,
+            type: 'javascript/auto',
+          },
+        ],
+      },
+    };
+    return config;
   },
 };

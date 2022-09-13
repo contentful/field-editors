@@ -4,7 +4,7 @@ describe('Markdown Editor / Embed External Dialog', () => {
       return cy.get('[data-test-id="markdown-textarea"] textarea');
     },
     getDialogTitle() {
-      return cy.findByTestId('dialog-title').find('h1');
+      return cy.findByTestId('dialog-title').find('h2');
     },
     getToggleAdditionalActionsButton: () => {
       return cy.findByTestId('markdown-action-button-toggle-additional');
