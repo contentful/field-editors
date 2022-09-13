@@ -29,12 +29,15 @@ export const DatepickerInput = (props: DatePickerProps) => {
     return [fromDate, toDate];
   }, []);
 
+  console.log('rerender', props.value?.toDate());
+
   return (
     <Datepicker
       className={styles.root}
       selected={props.value?.toDate()}
       onSelect={(day) => {
-        props.onChange(moment(day));
+        const momentDay = day ? moment(day) : undefined;
+        props.onChange(momentDay);
       }}
       inputProps={{ isDisabled: props.disabled, placeholder: '' }}
       fromDate={fromDate}
