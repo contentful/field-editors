@@ -33,7 +33,7 @@ export type ResourceInfo<R extends Resource = Resource> = {
 };
 
 // global queue for all requests, the actual number is picked without scientific research
-const globalQueue = new PQueue({ concurrency: 20 });
+const globalQueue = new PQueue({ concurrency: 50 });
 
 type EntityStoreProps = {
   sdk: BaseExtensionSDK;
