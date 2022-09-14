@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.2.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.1.8...@contentful/field-editor-reference@5.2.0) (2022-09-14)
+
+### Features
+
+- date editor with new f36 datepicker, do yarn deduplicate for f36-components [BAU-696] ([#1225](https://github.com/contentful/field-editors/issues/1225)) ([bc142a3](https://github.com/contentful/field-editors/commit/bc142a3522b7e55666eb3796f69f6cfcbab9a574))
+
 ## [5.1.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.1.7...@contentful/field-editor-reference@5.1.8) (2022-09-12)
 
 ### Bug Fixes
