@@ -1,11 +1,11 @@
 import { useCallback, useMemo } from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
-import { EntryProps, KeyValueMap, WithResourceName } from 'contentful-management';
+import { EntryProps, WithResourceName } from 'contentful-management';
 
 import { LinkActionsProps } from '../components';
 
-const toLinkItem = (entry: WithResourceName<EntryProps<KeyValueMap>>) => ({
+const toLinkItem = (entry: WithResourceName<EntryProps>) => ({
   sys: {
     type: 'ResourceLink',
     linkType: 'Contentful:Entry',
@@ -19,10 +19,10 @@ export function useResourceLinkActions({
   onAfterLink,
 }: Pick<FieldExtensionSDK, 'field' | 'dialogs'> & {
   apiUrl: string;
-  onAfterLink?: (e: EntryProps<KeyValueMap>) => void;
+  onAfterLink?: (e: EntryProps) => void;
 }): LinkActionsProps {
   const handleAfterLink = useCallback(
-    (entries: EntryProps<KeyValueMap>[]) => {
+    (entries: EntryProps[]) => {
       if (!onAfterLink) {
         return;
       }
@@ -33,8 +33,8 @@ export function useResourceLinkActions({
   const multiple = field.type === 'Array';
 
   const onLinkedExisting = useMemo(() => {
-    return (entries: EntryProps<KeyValueMap>[]) => {
-      const entriesWithResourceName = entries as WithResourceName<EntryProps<KeyValueMap>>[];
+    return (entries: EntryProps[]) => {
+      const entriesWithResourceName = entries as WithResourceName<EntryProps>[];
       let updatedValue;
       if (multiple) {
         const linkItems = entriesWithResourceName.map(toLinkItem);
