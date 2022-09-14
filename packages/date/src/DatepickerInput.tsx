@@ -29,8 +29,6 @@ export const DatepickerInput = (props: DatePickerProps) => {
     return [fromDate, toDate];
   }, []);
 
-  console.log('rerender', props.value?.toDate());
-
   return (
     <Datepicker
       className={styles.root}
