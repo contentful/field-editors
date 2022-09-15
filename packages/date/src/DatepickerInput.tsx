@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import { Datepicker } from '@contentful/f36-datepicker';
+import { Datepicker } from '@contentful/f36-components';
 import { css } from 'emotion';
 // eslint-disable-next-line -- TODO: describe this disable  no-restricted-imports
 import moment from 'moment';
