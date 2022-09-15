@@ -9680,18 +9680,7 @@ contentful-import@^7.9.23:
     moment "^2.22.2"
     yargs "^16.0.3"
 
-contentful-management@^10.0.0:
-  version "10.9.1"
-  resolved "https://registry.yarnpkg.com/contentful-management/-/contentful-management-10.9.1.tgz#82588ee7f9c38cfae1bbb5d01e251a68ab8533c4"
-  integrity sha512-IwKwMhxvu3fO9Ei1FtaQtvMqjVZc/xb9gFl6Pi155rUQBGUWNn6HL93b2apKCxmO9q1neQ6qgZccFrMtviKnXA==
-  dependencies:
-    "@types/json-patch" "0.0.30"
-    axios "^0.27.1"
-    contentful-sdk-core "^7.0.1"
-    fast-copy "^2.1.1"
-    lodash.isplainobject "^4.0.6"
-
-contentful-management@^10.14.0:
+contentful-management@^10.0.0, contentful-management@^10.14.0:
   version "10.14.0"
   resolved "https://registry.yarnpkg.com/contentful-management/-/contentful-management-10.14.0.tgz#c382121d2ce9d52f0f922738067795eb09ca991c"
   integrity sha512-F4CnduBr4EF/toRpNit0bB/xWcVKlUdnTqXT/DaZYURFIyh6ltGHqzHkskia2grG++/KZVPAcqNEM3Y5GV0pFg==
