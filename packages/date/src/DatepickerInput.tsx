@@ -29,10 +29,17 @@ export const DatepickerInput = (props: DatePickerProps) => {
     return [fromDate, toDate];
   }, []);
 
+  // The DatepickerInput should be time and timezone agnostic,
+  // thats why we use moment().format() instead of moment().toDate().
+  // moment().toDate() takes into account time and timezone and converts it
+  // based on your system timezone which can result in the date change.
+  // e.g. for user who has a timezone +02:00, moment('2022-09-16T00:00+4:00').toDate() will return '2022-09-15'
+  const selectedDate = props.value && new Date(props.value?.format('YYYY-MM-DD'));
+
   return (
     <Datepicker
       className={styles.root}
-      selected={props.value?.toDate()}
+      selected={selectedDate}
       onSelect={(day) => {
         const momentDay = day ? moment(day) : undefined;
         props.onChange(momentDay);
