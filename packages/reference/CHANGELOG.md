@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.2.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.2.0...@contentful/field-editor-reference@5.2.1) (2022-09-15)
+
+### Bug Fixes
+
+- increase pqueue concurrency in entitystore ([#1237](https://github.com/contentful/field-editors/issues/1237)) ([f81da79](https://github.com/contentful/field-editors/commit/f81da798ac61a2b609aefe3bc64450c3e942e6bf))
+
 # [5.2.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.1.8...@contentful/field-editor-reference@5.2.0) (2022-09-14)
 
 ### Features
