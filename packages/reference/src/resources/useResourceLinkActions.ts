@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react';
 
-import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { FieldAPI, FieldExtensionSDK } from '@contentful/app-sdk';
 import { EntryProps, WithResourceName } from 'contentful-management';
 
 import { LinkActionsProps } from '../components';
@@ -12,6 +12,17 @@ const toLinkItem = (entry: WithResourceName<EntryProps>) => ({
     urn: entry.sys.urn,
   },
 });
+
+const getUpdatedValue = (field: FieldAPI, entries: WithResourceName<EntryProps>[]) => {
+  const multiple = field.type === 'Array';
+  if (multiple) {
+    const linkItems = entries.map(toLinkItem);
+    const prevValue = field.getValue() || [];
+    return [...prevValue, ...linkItems];
+  } else {
+    return toLinkItem(entries[0]);
+  }
+};
 
 export function useResourceLinkActions({
   dialogs,
@@ -30,24 +41,16 @@ export function useResourceLinkActions({
     },
     [onAfterLink]
   );
-  const multiple = field.type === 'Array';
 
   const onLinkedExisting = useMemo(() => {
     return (entries: EntryProps[]) => {
-      const entriesWithResourceName = entries as WithResourceName<EntryProps>[];
-      let updatedValue;
-      if (multiple) {
-        const linkItems = entriesWithResourceName.map(toLinkItem);
-        const prevValue = field.getValue() || [];
-        updatedValue = [...prevValue, ...linkItems];
-      } else {
-        updatedValue = toLinkItem(entriesWithResourceName[0]);
-      }
+      const updatedValue = getUpdatedValue(field, entries as WithResourceName<EntryProps>[]);
       field.setValue(updatedValue);
       handleAfterLink(entries);
     };
-  }, [field, handleAfterLink, multiple]);
+  }, [field, handleAfterLink]);
 
+  const multiple = field.type === 'Array';
   const onLinkExisting = useMemo(() => {
     const promptSelection = multiple
       ? async () =>
