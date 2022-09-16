@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.3.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.2.1...@contentful/field-editor-reference@5.3.0) (2022-09-16)
+
+### Features
+
+- use urn from entries that are fetched from api ([#1234](https://github.com/contentful/field-editors/issues/1234)) ([24e4ca2](https://github.com/contentful/field-editors/commit/24e4ca20fc18993f0eee1ee3886ff0b52ab2e8b8))
+
 ## [5.2.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.2.0...@contentful/field-editor-reference@5.2.1) (2022-09-15)
 
 ### Bug Fixes
