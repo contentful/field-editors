@@ -1,21 +1,39 @@
 import { useCallback, useMemo } from 'react';
 
-import { FieldExtensionSDK } from '@contentful/app-sdk';
-import { EntryProps, KeyValueMap } from 'contentful-management';
+import { FieldAPI, FieldExtensionSDK } from '@contentful/app-sdk';
+import { EntryProps, WithResourceName } from 'contentful-management';
 
 import { LinkActionsProps } from '../components';
 
+const toLinkItem = (entry: WithResourceName<EntryProps>) => ({
+  sys: {
+    type: 'ResourceLink',
+    linkType: 'Contentful:Entry',
+    urn: entry.sys.urn,
+  },
+});
+
+const getUpdatedValue = (field: FieldAPI, entries: WithResourceName<EntryProps>[]) => {
+  const multiple = field.type === 'Array';
+  if (multiple) {
+    const linkItems = entries.map(toLinkItem);
+    const prevValue = field.getValue() || [];
+    return [...prevValue, ...linkItems];
+  } else {
+    return toLinkItem(entries[0]);
+  }
+};
+
 export function useResourceLinkActions({
-  apiUrl,
   dialogs,
   field,
   onAfterLink,
 }: Pick<FieldExtensionSDK, 'field' | 'dialogs'> & {
   apiUrl: string;
-  onAfterLink?: (e: EntryProps<KeyValueMap>) => void;
+  onAfterLink?: (e: EntryProps) => void;
 }): LinkActionsProps {
   const handleAfterLink = useCallback(
-    (entries: EntryProps<KeyValueMap>[]) => {
+    (entries: EntryProps[]) => {
       if (!onAfterLink) {
         return;
       }
@@ -23,42 +41,16 @@ export function useResourceLinkActions({
     },
     [onAfterLink]
   );
-  const multiple = field.type === 'Array';
-
-  const toLinkItem = useMemo(() => {
-    function toUrn(entry: EntryProps<KeyValueMap>) {
-      return `crn:${apiUrl}:::content:spaces/${entry.sys.space.sys.id}/entries/${entry.sys.id}`;
-    }
-
-    return (entry: EntryProps<KeyValueMap>) => {
-      return {
-        sys: {
-          type: 'ResourceLink',
-          linkType: 'Contentful:Entry',
-          urn: toUrn(entry),
-        },
-      };
-    };
-  }, [apiUrl]);
 
   const onLinkedExisting = useMemo(() => {
-    if (multiple) {
-      return (entries: EntryProps<KeyValueMap>[]) => {
-        const linkItems = entries.map(toLinkItem);
-        const prevValue = field.getValue() || [];
-        const updatedValue = [...prevValue, ...linkItems];
-        field.setValue(updatedValue);
-        handleAfterLink(entries);
-      };
-    } else {
-      return (entries: EntryProps<KeyValueMap>[]) => {
-        const [entry] = entries;
-        field.setValue(toLinkItem(entry));
-        handleAfterLink([entry]);
-      };
-    }
-  }, [field, handleAfterLink, multiple, toLinkItem]);
+    return (entries: EntryProps[]) => {
+      const updatedValue = getUpdatedValue(field, entries as WithResourceName<EntryProps>[]);
+      field.setValue(updatedValue);
+      handleAfterLink(entries);
+    };
+  }, [field, handleAfterLink]);
 
+  const multiple = field.type === 'Array';
   const onLinkExisting = useMemo(() => {
     const promptSelection = multiple
       ? async () =>
