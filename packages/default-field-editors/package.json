@@ -43,7 +43,7 @@
     "@contentful/field-editor-url": "^1.1.6",
     "@contentful/field-editor-validation-errors": "^1.1.6",
     "contentful-management": "^10.0.0",
-    "emotion": "^10.0.27"
+    "emotion": "^11.0.0"
   },
   "devDependencies": {
     "@contentful/field-editor-test-utils": "^1.2.2"
