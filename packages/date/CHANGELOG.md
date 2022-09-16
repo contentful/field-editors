@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.2.1...@contentful/field-editor-date@1.2.2) (2022-09-16)
+
+### Bug Fixes
+
+- fix the way date is parsed in the DateEditor [BAU-943] ([#1239](https://github.com/contentful/field-editors/issues/1239)) ([97434e7](https://github.com/contentful/field-editors/commit/97434e7cbd223fa9347e513ccb9571f210b88344))
+
 ## [1.2.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.2.0...@contentful/field-editor-date@1.2.1) (2022-09-15)
 
 ### Bug Fixes
