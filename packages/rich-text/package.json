@@ -37,7 +37,7 @@
     "@popperjs/core": "^2.11.5",
     "@udecode/plate-basic-marks": "^10.4.0",
     "@udecode/plate-break": "^10.4.0",
-    "@udecode/plate-core": "^10.4.0",
+    "@udecode/plate-core": "^17.0.3",
     "@udecode/plate-list": "^10.4.0",
     "@udecode/plate-paragraph": "^10.4.0",
     "@udecode/plate-reset-node": "^10.4.0",
