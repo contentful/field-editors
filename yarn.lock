@@ -4976,18 +4976,17 @@
   dependencies:
     defer-to-connect "^1.0.1"
 
-"@tanstack/query-core@4.2.3":
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-4.2.3.tgz#52d75430c9662cc85c160761c1421de483c7791f"
-  integrity sha512-zdt5lYWs1dZaA3IxJbCgtAfHZJScRZONpiLL7YkeOkrme5MfjQqTpjq7LYbzpyuwPOh2Jx68le0PLl57JFv5hQ==
+"@tanstack/query-core@4.3.8":
+  version "4.3.8"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-4.3.8.tgz#d5f07c1d9d4f83f16f0bed7f3b245fa0e557b037"
+  integrity sha512-AEUWtCNBIImFZ9tMt/P8V86kIhMHpfoJqAI1auGOLR8Wzeq7Ymiue789PJG0rKYcyViUicBZeHjggMqyEQVMfQ==
 
-"@tanstack/react-query@^4.2.3":
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-4.2.3.tgz#782fd0f84553ba6219f1137a12ea28ab8cd3a3f3"
-  integrity sha512-JLaMOxoJTkiAu7QpevRCt2uI/0vd3E8K/rSlCuRgWlcW5DeJDFpDS5kfzmLO5MOcD97fgsJRrDbxDORxR1FdJA==
+"@tanstack/react-query@^4.3.9":
+  version "4.3.9"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-4.3.9.tgz#13332a1d4dd404baec24c2853883bcb3cc61ea92"
+  integrity sha512-odfDW6WiSntCsCh+HFeJtUys3UnVOjfJMhykAtGtYvcklMyyDmCv9BVBt5KlSpbk/qW3kURPFCDapO+BFUlCwg==
   dependencies:
-    "@tanstack/query-core" "4.2.3"
-    "@types/use-sync-external-store" "^0.0.3"
+    "@tanstack/query-core" "4.3.8"
     use-sync-external-store "^1.2.0"
 
 "@testing-library/cypress@^8.0.2":
@@ -5492,11 +5491,6 @@
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@types/unist/-/unist-2.0.3.tgz#9c088679876f374eb5983f150d4787aa6fb32d7e"
   integrity sha512-FvUupuM3rlRsRtCN+fDudtmytGO6iHJuuRKS1Ss0pG5z8oX0diNEw94UEL7hgDbpN94rgaK5R7sWm6RrSkZuAQ==
-
-"@types/use-sync-external-store@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@types/use-sync-external-store/-/use-sync-external-store-0.0.3.tgz#b6725d5f4af24ace33b36fafd295136e75509f43"
-  integrity sha512-EwmlvuaxPNej9+T4v5AuBPJa2x2UOJVdjCtDHgcDqitUeOtjnJKJ+apYjVcAoBEMjKW1VVFGZLUb5+qqa09XFA==
 
 "@types/vfile-message@*":
   version "2.0.0"
