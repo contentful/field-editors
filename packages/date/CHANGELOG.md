@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.2.2...@contentful/field-editor-date@1.2.3) (2022-09-21)
+
+### Bug Fixes
+
+- **field-editor-date:** fix date formatting [] ([#1255](https://github.com/contentful/field-editors/issues/1255)) ([bd38088](https://github.com/contentful/field-editors/commit/bd38088fcaa0c4e6916f55a8aec030659b0a88cd))
+
 ## [1.2.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.2.1...@contentful/field-editor-date@1.2.2) (2022-09-16)
 
 ### Bug Fixes
