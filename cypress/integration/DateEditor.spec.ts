@@ -168,6 +168,38 @@ describe('Date Editor', () => {
         selectors.getTimeInput().type(pair[0]).blur().should('have.value', pair[1]);
       });
     });
+
+    it('should show the correct date regardless of the time and timezone #1', () => {
+      cy.setInitialValue('2022-11-01T00:00+02:00');
+      openPage();
+
+      selectors.getDateInput().should('have.value', '01 Nov 2022');
+      selectors.getTimeInput().should('have.value', '00:00');
+      selectors.getTimezoneInput().should('have.value', '+02:00');
+
+      selectors.getCalendarTrigger().click();
+
+      selectors.getCalendar().should('be.visible');
+      selectors.getCalendarYear().should('have.value', '2022');
+      selectors.getCalendarMonth().should('have.value', '10');
+      selectors.getCalendarSelectedDate().should('have.text', '1');
+    });
+
+    it('should show the correct date regardless of the time and timezone #2', () => {
+      cy.setInitialValue('2022-11-01T00:00+12:00');
+      openPage();
+
+      selectors.getDateInput().should('have.value', '01 Nov 2022');
+      selectors.getTimeInput().should('have.value', '00:00');
+      selectors.getTimezoneInput().should('have.value', '+12:00');
+
+      selectors.getCalendarTrigger().click();
+
+      selectors.getCalendar().should('be.visible');
+      selectors.getCalendarYear().should('have.value', '2022');
+      selectors.getCalendarMonth().should('have.value', '10');
+      selectors.getCalendarSelectedDate().should('have.text', '1');
+    });
   });
 
   describe('without timezone and with AM/PM', () => {

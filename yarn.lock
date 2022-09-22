@@ -5480,6 +5480,11 @@
   dependencies:
     "@types/jest" "*"
 
+"@types/timezoned-date@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@types/timezoned-date/-/timezoned-date-3.0.0.tgz#6d21fa5d0a347600d4a985cac0b6a3ddceff4a3f"
+  integrity sha512-aaTzYqAgCGk+20YpnuZHLl6oAV10MuLF2z8K7d1VcmRAY4mJoLA1w2/4Vgx4xtmEhchEPWXEkxANrA5FGAlOPA==
+
 "@types/trusted-types@*":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@types/trusted-types/-/trusted-types-2.0.0.tgz#aee6e868fcef74f2b8c71614b6df81a601a42f17"
@@ -23595,6 +23600,11 @@ timers-browserify@^2.0.4:
   integrity sha512-60aV6sgJ5YEbzUdn9c8kYGIqOubPoUdqQCul3SBAsRCZ40s6Y5cMcrW4dt3/k/EsbLVJNl9n6Vz3fTc+k2GeKQ==
   dependencies:
     setimmediate "^1.0.4"
+
+timezoned-date@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/timezoned-date/-/timezoned-date-3.0.2.tgz#b8455e2e007f771a78dca6b83623159943e2ea07"
+  integrity sha512-Lu/TfuihXQ2sVq/KN/ixiG+a93gipUhOdLbrXauUFvc5fstoBkYQcmuiKwLm3zhYWbSAo4SfaX8P+9iFtgH5fQ==
 
 timm@^1.6.1:
   version "1.7.1"
