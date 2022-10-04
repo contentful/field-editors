@@ -49,7 +49,6 @@ export function mockSdkForField(fieldDefinition: any, fieldValue?: any): FieldEx
     ids: {
       space: 'myTestSpace',
       environment: 'master',
-      // @ts-expect-error wait app-sdk version update
       organization: 'acme',
       user: 'norris_chuck',
       field: fieldDefinition.id,
