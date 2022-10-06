@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.3.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.3.1...@contentful/field-editor-reference@5.3.2) (2022-10-06)
+
+### Bug Fixes
+
+- **deps:** deduplicate dependencies ([#1259](https://github.com/contentful/field-editors/issues/1259)) ([01cf780](https://github.com/contentful/field-editors/commit/01cf780b84943e23a1a1805da62d1319ee0a0424))
+
 ## [5.3.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.3.0...@contentful/field-editor-reference@5.3.1) (2022-09-19)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
