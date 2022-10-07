@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.1.0...@contentful/field-editor-json@3.1.1) (2022-10-07)
+
+**Note:** Version bump only for package @contentful/field-editor-json
+
 # [3.1.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.0.1...@contentful/field-editor-json@3.1.0) (2022-08-25)
 
 ### Features
