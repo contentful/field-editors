@@ -23,12 +23,12 @@ const styles = {
     fontSize: tokens.fontSizeM,
     '.cm-editor': {
       color: tokens.gray900,
-      fontFamily: tokens.fontStackMonospace,
       '&.cm-focused': {
         outline: 'none',
       },
     },
     '.cm-scroller': {
+      fontFamily: tokens.fontStackMonospace,
       minHeight: '6rem',
     },
     '&.disabled': {
@@ -68,6 +68,7 @@ export function JsonEditorField(props: JsonEditorFieldProps) {
           highlightActiveLine: false,
           foldGutter: false,
           bracketMatching: false,
+          syntaxHighlighting: false,
         }}
         width="100%"
         editable={!props.isDisabled}
