@@ -112,7 +112,6 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
       size={props.size}
       isSelected={props.isSelected}
       status={status}
-      style={props.spaceName ? { backgroundColor: tokens.gray100 } : undefined}
       icon={
         props.spaceName ? (
           <SpaceName spaceName={props.spaceName} />
