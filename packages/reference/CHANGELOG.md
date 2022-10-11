@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.3.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.3.2...@contentful/field-editor-reference@5.3.3) (2022-10-11)
+
+### Bug Fixes
+
+- remove background override from xspace refs ([#1261](https://github.com/contentful/field-editors/issues/1261)) ([22004a9](https://github.com/contentful/field-editors/commit/22004a927b51bd7aebfc40449f11d48a3dcf9355))
+
 ## [5.3.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.3.1...@contentful/field-editor-reference@5.3.2) (2022-10-06)
 
 ### Bug Fixes
