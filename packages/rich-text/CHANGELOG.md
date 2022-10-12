@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.1.7...@contentful/field-editor-rich-text@3.1.8) (2022-10-12)
+
+### Bug Fixes
+
+- [] Check content for undefined ([#1215](https://github.com/contentful/field-editors/issues/1215)) ([1ff49f4](https://github.com/contentful/field-editors/commit/1ff49f40cd563e1a78a56e049edbf77d59156a33))
+
 ## [3.1.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.1.6...@contentful/field-editor-rich-text@3.1.7) (2022-10-11)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
