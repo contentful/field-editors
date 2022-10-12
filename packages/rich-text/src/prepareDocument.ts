@@ -16,11 +16,7 @@ import { sanitizeIncomingSlateDoc } from './helpers/sanitizeIncomingSlateDoc';
  * Rendering such document will break the Slate editor
  */
 export const hasContent = (doc?: Document) => {
-  if (!doc) {
-    return false;
-  }
-
-  return doc.content.length > 0;
+  return (doc?.content || []).length > 0;
 };
 
 /*
