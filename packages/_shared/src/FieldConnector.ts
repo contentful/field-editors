@@ -1,7 +1,8 @@
 import React from 'react';
+
+import { FieldAPI, ValidationError } from '@contentful/app-sdk';
 import isEqual from 'lodash/isEqual';
 import throttle from 'lodash/throttle';
-import { FieldAPI, ValidationError } from '@contentful/app-sdk';
 
 type Nullable = null | undefined;
 
@@ -119,6 +120,20 @@ export class FieldConnector<ValueType> extends React.Component<
           externalReset,
         };
       });
+    });
+  }
+
+  componentDidUpdate(): void {
+    const { field } = this.props;
+
+    /**
+     * Only propagate the needed change when the value really changed
+     * so we don't end up in an infinite state loop
+     */
+    this.unsubscribeDisabled = field.onIsDisabledChanged((disabled: boolean) => {
+      if (this.state.disabled !== disabled) {
+        this.setState({ disabled });
+      }
     });
   }
 
