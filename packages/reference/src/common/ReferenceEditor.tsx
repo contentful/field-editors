@@ -34,6 +34,7 @@ export interface ReferenceEditorProps {
       bulkEditing?: boolean;
     };
   };
+  updateBeforeSortStart?: ({ index }: { index: number }) => void;
 }
 
 export type CustomActionProps = LinkActionsProps;
@@ -51,7 +52,8 @@ export function ReferenceEditor<T>(
         isInitiallyDisabled={props.isInitiallyDisabled}
         isEqualValues={(value1, value2) => {
           return deepEqual(value1, value2);
-        }}>
+        }}
+      >
         {props.children}
       </FieldConnector>
     </EntityProvider>

@@ -1,12 +1,14 @@
 import * as React from 'react';
-import arrayMove from 'array-move';
-import { ReferenceValue, ContentEntityType, ContentType } from '../types';
-import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
-import { LinkEntityActions } from '../components';
-import { SortEndHandler, SortStartHandler } from 'react-sortable-hoc';
-import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions';
 import { useCallback } from 'react';
+import { SortEndHandler, SortStartHandler } from 'react-sortable-hoc';
+
+import arrayMove from 'array-move';
+
+import { LinkEntityActions } from '../components';
+import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions';
+import { ReferenceValue, ContentEntityType, ContentType } from '../types';
 import { CustomEntityCardProps } from './customCardTypes';
+import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
 import { useEditorPermissions } from './useEditorPermissions';
 
 type ChildProps = {
@@ -23,6 +25,7 @@ type ChildProps = {
 type EditorProps = ReferenceEditorProps &
   Omit<ChildProps, 'onSortStart' | 'onSortEnd' | 'onMove'> & {
     children: (props: ReferenceEditorProps & ChildProps) => React.ReactElement;
+    setIndexToUpdate?: React.Dispatch<React.SetStateAction<number | undefined>>;
   };
 
 function onLinkOrCreate(
@@ -44,7 +47,7 @@ const emptyArray: ReferenceValue[] = [];
 const nullableValue = { sys: { id: 'null-value' } };
 
 function Editor(props: EditorProps) {
-  const { setValue, entityType } = props;
+  const { setValue, entityType, setIndexToUpdate } = props;
   const editorPermissions = useEditorPermissions(props);
 
   const items = React.useMemo(() => {
@@ -58,13 +61,20 @@ function Editor(props: EditorProps) {
     );
   }, [props.items]);
 
-  const onSortStart: SortStartHandler = useCallback((_, event) => event.preventDefault(), []);
+  const onSortStart: SortStartHandler = useCallback((_, event) => {
+    if (event instanceof MouseEvent) {
+      document.body.classList.add('grabbing');
+    }
+    event.preventDefault();
+  }, []);
   const onSortEnd: SortEndHandler = useCallback(
     ({ oldIndex, newIndex }) => {
       const newItems = arrayMove(items, oldIndex, newIndex);
       setValue(newItems);
+      setIndexToUpdate && setIndexToUpdate(undefined);
+      document.body.classList.remove('grabbing');
     },
-    [items, setValue]
+    [items, setIndexToUpdate, setValue]
   );
   const onMove = useCallback(
     (oldIndex, newIndex) => {
@@ -120,6 +130,7 @@ export function MultipleReferenceEditor(
   props: ReferenceEditorProps & {
     entityType: ContentEntityType;
     children: (props: ReferenceEditorProps & ChildProps) => React.ReactElement;
+    setIndexToUpdate?: React.Dispatch<React.SetStateAction<number | undefined>>;
   }
 ) {
   const allContentTypes = props.sdk.space.getCachedContentTypes();

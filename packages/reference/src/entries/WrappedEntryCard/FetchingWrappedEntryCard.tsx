@@ -28,6 +28,7 @@ export type EntryCardReferenceEditorProps = ReferenceEditorProps & {
   onMoveTop?: () => void;
   onMoveBottom?: () => void;
   renderCustomMissingEntityCard?: RenderCustomMissingEntityCard;
+  isBeingDragged?: boolean;
 };
 
 async function openEntry(
@@ -144,6 +145,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       onRemove: onRemoveEntry,
       onMoveTop: props.onMoveTop,
       onMoveBottom: props.onMoveBottom,
+      isBeingDragged: props.isBeingDragged,
     };
 
     const { hasCardEditActions, hasCardMoveActions, hasCardRemoveActions } = props;
