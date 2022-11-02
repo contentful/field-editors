@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.4.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.3.3...@contentful/field-editor-reference@5.4.0) (2022-11-02)
+
+### Features
+
+- isBeingDragged multiple reference field [TOL-361] ([#1271](https://github.com/contentful/field-editors/issues/1271)) ([0819192](https://github.com/contentful/field-editors/commit/08191922e44283697f6cf04f099e55f7269cfdeb))
+
 ## [5.3.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.3.2...@contentful/field-editor-reference@5.3.3) (2022-10-11)
 
 ### Bug Fixes
