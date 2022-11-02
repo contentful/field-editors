@@ -61,12 +61,18 @@ function Editor(props: EditorProps) {
     );
   }, [props.items]);
 
-  const onSortStart: SortStartHandler = useCallback((_, event) => event.preventDefault(), []);
+  const onSortStart: SortStartHandler = useCallback((_, event) => {
+    if (event instanceof MouseEvent) {
+      document.body.classList.add('grabbing');
+    }
+    event.preventDefault();
+  }, []);
   const onSortEnd: SortEndHandler = useCallback(
     ({ oldIndex, newIndex }) => {
       const newItems = arrayMove(items, oldIndex, newIndex);
       setValue(newItems);
       setIndexToUpdate && setIndexToUpdate(undefined);
+      document.body.classList.remove('grabbing');
     },
     [items, setIndexToUpdate, setValue]
   );
