@@ -21,6 +21,7 @@ export function MultipleEntryReferenceEditor(props: ReferenceEditorProps) {
           axis="y"
           useDragHandle={true}
           updateBeforeSortStart={updateBeforeSortStart}
+          onSortEnd={props.onSortingEnd}
         >
           {({ items, item, index, isDisabled, DragHandle }) => {
             const lastIndex = items.length - 1;
