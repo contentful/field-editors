@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.5.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.4.0...@contentful/field-editor-reference@5.5.0) (2022-11-04)
+
+### Features
+
+- expose sorting end multiple ref field ([#1272](https://github.com/contentful/field-editors/issues/1272)) ([8ad297f](https://github.com/contentful/field-editors/commit/8ad297fc88feebcd07347671bac1497c43c3f3c4))
+
 # [5.4.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.3.3...@contentful/field-editor-reference@5.4.0) (2022-11-02)
 
 ### Features
