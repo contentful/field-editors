@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.1.1...@contentful/field-editor-json@3.1.2) (2022-11-07)
+
+### Bug Fixes
+
+- disable search keymap option to prevent breaking on search [ZEND-2879] ([#1277](https://github.com/contentful/field-editors/issues/1277)) ([0ce1426](https://github.com/contentful/field-editors/commit/0ce14261afd83b013344303254f9e97912911abd))
+
 ## [3.1.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.1.0...@contentful/field-editor-json@3.1.1) (2022-10-07)
 
 **Note:** Version bump only for package @contentful/field-editor-json
