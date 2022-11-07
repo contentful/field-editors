@@ -68,13 +68,14 @@ function Editor(props: EditorProps) {
     event.preventDefault();
   }, []);
   const onSortEnd: SortEndHandler = useCallback(
-    ({ oldIndex, newIndex }) => {
+    ({ oldIndex, newIndex, collection }) => {
       const newItems = arrayMove(items, oldIndex, newIndex);
       setValue(newItems);
       setIndexToUpdate && setIndexToUpdate(undefined);
       document.body.classList.remove('grabbing');
+      props.onSortingEnd && props.onSortingEnd({ oldIndex, newIndex, collection });
     },
-    [items, setIndexToUpdate, setValue]
+    [items, props, setIndexToUpdate, setValue]
   );
   const onMove = useCallback(
     (oldIndex, newIndex) => {
