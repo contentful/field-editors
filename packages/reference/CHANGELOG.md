@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.5.1...@contentful/field-editor-reference@5.5.2) (2022-11-07)
+
+### Bug Fixes
+
+- onSortEnd before array move ([#1276](https://github.com/contentful/field-editors/issues/1276)) ([16f0eb0](https://github.com/contentful/field-editors/commit/16f0eb0db3bdb89820bb969a54833be3d6fd4f16))
+
 ## [5.5.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.5.0...@contentful/field-editor-reference@5.5.1) (2022-11-07)
 
 ### Bug Fixes
