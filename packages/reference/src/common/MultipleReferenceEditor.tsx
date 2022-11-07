@@ -68,12 +68,14 @@ function Editor(props: EditorProps) {
     event.preventDefault();
   }, []);
   const onSortEnd: SortEndHandler = useCallback(
-    ({ oldIndex, newIndex, collection }) => {
+    ({ oldIndex, newIndex }) => {
+      // custom callback that is invoked *before* we sort the array
+      // e.g. in Compose we want to sort the references in the referenceMap before re-rendering drag and drop
+      props.onSortingEnd && props.onSortingEnd({ oldIndex, newIndex });
       const newItems = arrayMove(items, oldIndex, newIndex);
       setValue(newItems);
       setIndexToUpdate && setIndexToUpdate(undefined);
       document.body.classList.remove('grabbing');
-      props.onSortingEnd && props.onSortingEnd({ oldIndex, newIndex, collection });
     },
     [items, props, setIndexToUpdate, setValue]
   );

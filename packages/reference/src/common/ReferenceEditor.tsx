@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Offset, SortEndHandler } from 'react-sortable-hoc';
 
 import { FieldConnector } from '@contentful/field-editor-shared';
 import deepEqual from 'deep-equal';
@@ -36,15 +35,7 @@ export interface ReferenceEditorProps {
     };
   };
   updateBeforeSortStart?: ({ index }: { index: number }) => void;
-  onSortingEnd?: (({
-    oldIndex,
-    newIndex,
-  }: {
-    oldIndex: number;
-    newIndex: number;
-    collection: Offset;
-  }) => void) &
-    SortEndHandler;
+  onSortingEnd?: ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => void;
 }
 
 export type CustomActionProps = LinkActionsProps;
