@@ -55,7 +55,8 @@ export function JsonEditorField(props: JsonEditorFieldProps) {
   return (
     <div
       className={cx(styles.root, { disabled: props.isDisabled })}
-      data-test-id="json-editor-code-mirror">
+      data-test-id="json-editor-code-mirror"
+    >
       <CodeMirror
         value={props.value}
         onChange={props.onChange}
@@ -65,6 +66,7 @@ export function JsonEditorField(props: JsonEditorFieldProps) {
           closeBrackets: false,
           lineNumbers: false,
           highlightActiveLineGutter: false,
+          searchKeymap: false,
           highlightActiveLine: false,
           foldGutter: false,
           bracketMatching: false,
