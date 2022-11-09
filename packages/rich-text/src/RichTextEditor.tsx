@@ -88,6 +88,8 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
     );
   }, [isFirstRender, plugins, id, props.value]);
 
+  console.log(plugins);
+
   return (
     <SdkProvider sdk={props.sdk}>
       <ContentfulEditorIdProvider value={id}>

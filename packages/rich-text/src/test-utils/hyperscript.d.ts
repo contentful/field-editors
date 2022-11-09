@@ -12,6 +12,7 @@ declare namespace JSX {
       bold?: boolean;
       underline?: boolean;
       italic?: boolean;
+      superscript?: boolean;
       children?: string;
     };
 

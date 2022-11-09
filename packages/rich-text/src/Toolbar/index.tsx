@@ -17,6 +17,7 @@ import { ToolbarBoldButton } from '../plugins/Marks/Bold';
 import { ToolbarCodeButton } from '../plugins/Marks/Code';
 import { ToolbarItalicButton } from '../plugins/Marks/Italic';
 import { ToolbarUnderlineButton } from '../plugins/Marks/Underline';
+import { ToolbarSuperscriptButton } from '../plugins/Marks/Superscript';
 import { ToolbarQuoteButton } from '../plugins/Quote';
 import { ToolbarTableButton } from '../plugins/Table';
 import { useSdkContext } from '../SdkProvider';
@@ -78,6 +79,9 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
 
         {isMarkEnabled(sdk.field, MARKS.BOLD) && <ToolbarBoldButton isDisabled={isDisabled} />}
         {isMarkEnabled(sdk.field, MARKS.ITALIC) && <ToolbarItalicButton isDisabled={isDisabled} />}
+        {isMarkEnabled(sdk.field, MARKS.SUPERSCRIPT) && (
+          <ToolbarSuperscriptButton isDisabled={isDisabled} />
+        )}
         {isMarkEnabled(sdk.field, MARKS.UNDERLINE) && (
           <ToolbarUnderlineButton isDisabled={isDisabled} />
         )}
