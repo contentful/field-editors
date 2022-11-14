@@ -1,10 +1,10 @@
 import * as React from 'react';
 
 import { SuperscriptIcon } from '@contentful/f36-icons';
-import { createSuperscriptPlugin as createDefaultSuperscriptPlugin } from '@udecode/plate-basic-marks';
 import { MARKS } from '@contentful/rich-text-types';
-import * as Slate from 'slate-react';
+import { createSuperscriptPlugin as createDefaultSuperscriptPlugin } from '@udecode/plate-basic-marks';
 import { someHtmlElement } from '@udecode/plate-core';
+import * as Slate from 'slate-react';
 
 import { RichTextPlugin } from '../../types';
 import { createMarkToolbarButton } from './components/MarkToolbarButton';
@@ -12,7 +12,7 @@ import { buildMarkEventHandler } from './helpers';
 
 export const ToolbarSuperscriptButton = createMarkToolbarButton({
   title: 'Superscript',
-  mark:  MARKS.SUPERSCRIPT',
+  mark: MARKS.SUPERSCRIPT,
   icon: <SuperscriptIcon />,
 });
 
