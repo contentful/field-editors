@@ -2414,7 +2414,7 @@
   dependencies:
     "@contentful/rich-text-types" "^15.12.1"
 
-"@contentful/rich-text-types@^15.12.1", "@contentful/rich-text-types@^15.12.3":
+"@contentful/rich-text-types@^15.12.1", "@contentful/rich-text-types@^15.13.2":
   version "15.13.2"
   resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-15.13.2.tgz#626956c31b4cc95aa618735d992e851d2ed61346"
   integrity sha512-cnVvJjRQ414rprnoMLR/S+18a7Hjp3dR4WhiQ/A6W/LSS5FDx1AbiDZACjIEaQEk5L6FX0oBHanIIbAUTA5YJw==

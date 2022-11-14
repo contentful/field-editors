@@ -3,7 +3,6 @@ import * as React from 'react';
 import { SuperscriptIcon } from '@contentful/f36-icons';
 import { createSuperscriptPlugin as createDefaultSuperscriptPlugin } from '@udecode/plate-basic-marks';
 import { MARKS } from '@contentful/rich-text-types';
-import { css } from 'emotion';
 import * as Slate from 'slate-react';
 import { someHtmlElement } from '@udecode/plate-core';
 
@@ -13,22 +12,13 @@ import { buildMarkEventHandler } from './helpers';
 
 export const ToolbarSuperscriptButton = createMarkToolbarButton({
   title: 'Superscript',
-  mark: MARKS.SUPERSCRIPT,
+  // TODO: use correct import when it merged
+  mark: 'superscript',
   icon: <SuperscriptIcon />,
 });
 
-const styles = {
-  superscript: css({
-    color: 'red',
-  }),
-};
-
 export function Superscript(props: Slate.RenderLeafProps) {
-  return (
-    <sup {...props.attributes} className={styles.superscript}>
-      {props.children}
-    </sup>
-  );
+  return <sup {...props.attributes}>{props.children}</sup>;
 }
 
 export const createSuperscriptPlugin = (): RichTextPlugin =>
@@ -43,14 +33,9 @@ export const createSuperscriptPlugin = (): RichTextPlugin =>
         {
           validNodeName: ['SUP'],
         },
-        {
-          validStyle: {
-            color: ['red'],
-          },
-        },
       ],
       query: (el) => {
-        return !someHtmlElement(el, (node) => node.style.color !== 'red');
+        return !someHtmlElement(el, (node) => node.style.fontWeight === 'normal');
       },
     },
   });
