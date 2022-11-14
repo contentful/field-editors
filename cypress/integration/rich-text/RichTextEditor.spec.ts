@@ -214,9 +214,8 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       [MARKS.ITALIC, `{${mod}}i`],
       [MARKS.UNDERLINE, `{${mod}}u`],
       [MARKS.CODE, `{${mod}}/`],
-      // TODO replace with actual types when package update becomes available
-      ['superscript'],
-      ['subscript'],
+      [MARKS.SUPERSCRIPT],
+      [MARKS.SUBSCRIPT],
     ].forEach(([mark, shortcut]) => {
       describe(`${mark} mark toggle via toolbar`, () => {
         it('allows writing marked text', () => {
@@ -326,24 +325,28 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
     it('should remove subscript when superscript mark is selected', () => {
       richText.editor.click().type('hello there{selectall}');
-      toggleMarkViaToolbar('subscript');
+      toggleMarkViaToolbar(MARKS.SUBSCRIPT);
       richText.editor.click().type('{selectall}');
-      toggleMarkViaToolbar('superscript');
+      toggleMarkViaToolbar(MARKS.SUPERSCRIPT);
 
       const expectedValue = doc(
-        block(BLOCKS.PARAGRAPH, {}, text('should only be superscript', [{ type: 'superscript' }]))
+        block(
+          BLOCKS.PARAGRAPH,
+          {},
+          text('should only be superscript', [{ type: MARKS.SUPERSCRIPT }])
+        )
       );
       richText.expectValue(expectedValue);
     });
 
     it('should remove superscript when subscript mark is selected', () => {
       richText.editor.click().type('hello there{selectall}');
-      toggleMarkViaToolbar('superscript');
+      toggleMarkViaToolbar(MARKS.SUPERSCRIPT);
       richText.editor.click().type('{selectall}');
-      toggleMarkViaToolbar('subscript');
+      toggleMarkViaToolbar(MARKS.SUBSCRIPT);
 
       const expectedValue = doc(
-        block(BLOCKS.PARAGRAPH, {}, text('should only be subscript', [{ type: 'subscript' }]))
+        block(BLOCKS.PARAGRAPH, {}, text('should only be subscript', [{ type: MARKS.SUBSCRIPT }]))
       );
       richText.expectValue(expectedValue);
     });

@@ -12,8 +12,7 @@ import { buildMarkEventHandler } from './helpers';
 
 export const ToolbarSubscriptButton = createMarkToolbarButton({
   title: 'Subscript',
-  // TODO: use correct import when it merged
-  mark: 'subscript',
+  mark: MARKS.SUBSCRIPT,
   icon: <SubscriptIcon viewBox="0 0 23 18" />,
 });
 

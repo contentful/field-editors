@@ -12,8 +12,7 @@ import { buildMarkEventHandler } from './helpers';
 
 export const ToolbarSuperscriptButton = createMarkToolbarButton({
   title: 'Superscript',
-  // TODO: use correct import when it merged
-  mark: 'superscript',
+  mark:  MARKS.SUPERSCRIPT',
   icon: <SuperscriptIcon />,
 });
 

@@ -10,10 +10,10 @@ export const toggleMarkAndDeactivateConflictingMarks = (
   mark: MARKS
 ) => {
   toggleMark(editor, { key: mark });
-  if (mark === 'subscript' && isMarkActive(editor, 'superscript')) {
-    toggleMark(editor, { key: 'superscript' });
-  } else if (mark === 'superscript' && isMarkActive(editor, 'subscript')) {
-    toggleMark(editor, { key: 'subscript' });
+  if (mark === MARKS.SUBSCRIPT && isMarkActive(editor, MARKS.SUPERSCRIPT)) {
+    toggleMark(editor, { key: MARKS.SUPERSCRIPT });
+  } else if (mark === MARKS.SUPERSCRIPT && isMarkActive(editor, MARKS.SUBSCRIPT)) {
+    toggleMark(editor, { key: MARKS.SUBSCRIPT });
   }
 };
 
