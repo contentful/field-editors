@@ -208,19 +208,21 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
   });
 
   describe('Marks', () => {
+    const toggleMarkViaToolbar = (mark: MARKS) => cy.findByTestId(`${mark}-toolbar-button`).click();
     [
       [MARKS.BOLD, `{${mod}}b`],
       [MARKS.ITALIC, `{${mod}}i`],
       [MARKS.UNDERLINE, `{${mod}}u`],
       [MARKS.CODE, `{${mod}}/`],
+      // TODO replace with actual types when package update becomes available
+      ['superscript'],
+      ['subscript'],
     ].forEach(([mark, shortcut]) => {
-      const toggleMarkViaToolbar = () => cy.findByTestId(`${mark}-toolbar-button`).click();
-
       describe(`${mark} mark toggle via toolbar`, () => {
         it('allows writing marked text', () => {
           richText.editor.click();
 
-          toggleMarkViaToolbar();
+          toggleMarkViaToolbar(mark);
 
           richText.editor.type('some text');
 
@@ -234,7 +236,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         it('allows writing marked text by selecting text', () => {
           richText.editor.click().type('some text{selectall}');
 
-          toggleMarkViaToolbar();
+          toggleMarkViaToolbar(mark);
 
           const expectedValue = doc(
             block(BLOCKS.PARAGRAPH, {}, text('some text', [{ type: mark }]))
@@ -246,8 +248,8 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         it('allows writing unmarked text', () => {
           richText.editor.click();
 
-          toggleMarkViaToolbar();
-          toggleMarkViaToolbar();
+          toggleMarkViaToolbar(mark);
+          toggleMarkViaToolbar(mark);
 
           richText.editor.type('some text');
 
@@ -259,13 +261,13 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         it('allows writing unmarked text by selecting text', () => {
           richText.editor.click().type('some text{selectall}');
 
-          toggleMarkViaToolbar();
+          toggleMarkViaToolbar(mark);
 
           cy.wait(100);
 
           richText.editor.click().type('{selectall}');
 
-          toggleMarkViaToolbar();
+          toggleMarkViaToolbar(mark);
 
           const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text', [])));
 
@@ -273,51 +275,77 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         });
       });
 
-      describe(`${mark} mark toggle via shortcut`, () => {
-        it('allows writing marked text', () => {
-          richText.editor.click().type(shortcut).type('some text');
+      if (shortcut) {
+        describe(`${mark} mark toggle via shortcut`, () => {
+          it('allows writing marked text', () => {
+            richText.editor.click().type(shortcut).type('some text');
 
-          const expectedValue = doc(
-            block(BLOCKS.PARAGRAPH, {}, text('some text', [{ type: mark }]))
-          );
+            const expectedValue = doc(
+              block(BLOCKS.PARAGRAPH, {}, text('some text', [{ type: mark }]))
+            );
 
-          richText.expectValue(expectedValue);
+            richText.expectValue(expectedValue);
+          });
+
+          it('allows writing marked text by selecting text', () => {
+            richText.editor.click().type('some text');
+
+            cy.wait(100);
+
+            richText.editor.type('{selectall}').type(shortcut);
+
+            const expectedValue = doc(
+              block(BLOCKS.PARAGRAPH, {}, text('some text', [{ type: mark }]))
+            );
+
+            richText.expectValue(expectedValue);
+          });
+
+          it('allows writing unmarked text', () => {
+            richText.editor.click().type(shortcut).type(shortcut).type('some text');
+
+            const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text', [])));
+
+            richText.expectValue(expectedValue);
+          });
+
+          it('allows writing unmarked text by selecting text', () => {
+            richText.editor.click().type('some text');
+
+            cy.wait(100);
+
+            richText.editor.type('{selectall}').type(shortcut).type('{selectall}').type(shortcut);
+
+            const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text', [])));
+
+            richText.expectValue(expectedValue);
+          });
         });
+      }
+    });
 
-        it('allows writing marked text by selecting text', () => {
-          richText.editor.click().type('some text');
+    it('should remove subscript when superscript mark is selected', () => {
+      richText.editor.click().type('hello there{selectall}');
+      toggleMarkViaToolbar('subscript');
+      richText.editor.click().type('{selectall}');
+      toggleMarkViaToolbar('superscript');
 
-          cy.wait(100);
+      const expectedValue = doc(
+        block(BLOCKS.PARAGRAPH, {}, text('should only be superscript', [{ type: 'superscript' }]))
+      );
+      richText.expectValue(expectedValue);
+    });
 
-          richText.editor.type('{selectall}').type(shortcut);
+    it('should remove superscript when subscript mark is selected', () => {
+      richText.editor.click().type('hello there{selectall}');
+      toggleMarkViaToolbar('superscript');
+      richText.editor.click().type('{selectall}');
+      toggleMarkViaToolbar('subscript');
 
-          const expectedValue = doc(
-            block(BLOCKS.PARAGRAPH, {}, text('some text', [{ type: mark }]))
-          );
-
-          richText.expectValue(expectedValue);
-        });
-
-        it('allows writing unmarked text', () => {
-          richText.editor.click().type(shortcut).type(shortcut).type('some text');
-
-          const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text', [])));
-
-          richText.expectValue(expectedValue);
-        });
-
-        it('allows writing unmarked text by selecting text', () => {
-          richText.editor.click().type('some text');
-
-          cy.wait(100);
-
-          richText.editor.type('{selectall}').type(shortcut).type('{selectall}').type(shortcut);
-
-          const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text', [])));
-
-          richText.expectValue(expectedValue);
-        });
-      });
+      const expectedValue = doc(
+        block(BLOCKS.PARAGRAPH, {}, text('should only be subscript', [{ type: 'subscript' }]))
+      );
+      richText.expectValue(expectedValue);
     });
   });
 
