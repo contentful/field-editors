@@ -2955,6 +2955,7 @@ exports[`Rich Text Editor > Tables > Google Docs - <table> around <div> #0`] =
   "data": {},
   "nodeType": "document"
 };
+
 exports[`Rich Text Editor > Tables > removes table wrappers when pasting a single cell #0`] =
 {
   "nodeType": "document",
@@ -2964,32 +2965,99 @@ exports[`Rich Text Editor > Tables > removes table wrappers when pasting a singl
       "nodeType": "paragraph",
       "data": {},
       "content": [
-          {
-            "nodeType": "text",
-            "value": "cell content with a link and inline entry",
-            "marks": [],
-            "data": {}
-          },
-          {
-            "nodeType": "embedded-entry-inline",
-            "data": {
-              "target": {
-                "sys": {
-                  "id": "example-entity-id",
-                  "type": "Link",
-                  "linkType": "Entry"
-                }
+        {
+          "nodeType": "text",
+          "value": "cell content with a link and inline entry",
+          "marks": [],
+          "data": {}
+        },
+        {
+          "nodeType": "embedded-entry-inline",
+          "data": {
+            "target": {
+              "sys": {
+                "id": "example-entity-id",
+                "type": "Link",
+                "linkType": "Entry"
               }
-            },
-            "content": []
+            }
           },
-          {
-            "nodeType": "text",
-            "value": ".",
-            "marks": [],
-            "data": {}
-          }
+          "content": []
+        },
+        {
+          "nodeType": "text",
+          "value": ".",
+          "marks": [],
+          "data": {}
+        }
       ]
     }
   ]
+};
+
+exports[`Rich Text Editor > Superscript and subscript marks > works when pasting from another RT editor #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [
+            {
+              "type": "bold"
+            },
+            {
+              "type": "italic"
+            },
+            {
+              "type": "underline"
+            },
+            {
+              "type": "code"
+            }
+          ],
+          "nodeType": "text",
+          "value": "hello world"
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > Superscript and subscript marks > works when pasting subscript and superscript from another RT editor #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [
+            {
+              "type": "superscript"
+            }
+          ],
+          "nodeType": "text",
+          "value": "Hello"
+        },
+        {
+          "data": {},
+          "marks": [
+            {
+              "type": "subscript"
+            }
+          ],
+          "nodeType": "text",
+          "value": "World"
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
 };
