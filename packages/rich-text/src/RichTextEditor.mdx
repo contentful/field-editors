@@ -61,16 +61,16 @@ import { RichTextEditor } from '@contentful/field-editor-rich-text';
     };
 
     const initialValue = JSON.parse(window.localStorage.getItem('initialValue')) || undefined
-    const [fakeField, mitt] = useMemo(() => createFakeFieldAPI(mock => mock, initialValue), []);
-    // Overriding mark validation here to show subscript and superscript marks
-    const field = {
-        ...fakeField,
-        validations: [
+    const fieldValidations = JSON.parse(window.localStorage.getItem('fieldValidations')) || undefined
+    const [field, mitt] = useMemo(() => createFakeFieldAPI(mock => {
+      // Overriding mark validation here to show all marks if no fieldValidations set
+      mock.validations = !!fieldValidations ? fieldValidations : [
           {
             enabledMarks: Object.values(MARKS)
           }
-        ]
-    }
+        ];
+      return mock
+    }, initialValue), []);
 
     const isDisabled = window.localStorage.getItem('initialDisabled') || false
 
