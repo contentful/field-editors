@@ -332,8 +332,8 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       const expectedValue = doc(
         block(
           BLOCKS.PARAGRAPH,
-          {},
-          text('should only be superscript', [{ type: MARKS.SUPERSCRIPT }])
+          text('should only be superscript', [{ type: MARKS.SUPERSCRIPT }]),
+          {}
         )
       );
       richText.expectValue(expectedValue);
@@ -346,7 +346,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       toggleMarkViaToolbar(MARKS.SUBSCRIPT);
 
       const expectedValue = doc(
-        block(BLOCKS.PARAGRAPH, {}, text('should only be subscript', [{ type: MARKS.SUBSCRIPT }]))
+        block(BLOCKS.PARAGRAPH, text('should only be subscript', [{ type: MARKS.SUBSCRIPT }]), {})
       );
       richText.expectValue(expectedValue);
     });
