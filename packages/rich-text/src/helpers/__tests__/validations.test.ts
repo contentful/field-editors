@@ -12,16 +12,23 @@ describe('validations', () => {
         expect(actual).toBe(true);
       });
       it(`returns false for ${mark} mark when validation explicity set without it`, () => {
-        const [field] = createFakeFieldAPI();
-        field.validations = [
-          { enabledMarks: Object.values(MARKS).filter((markDefintion) => markDefintion !== mark) },
-        ];
+        const [field] = createFakeFieldAPI((field) => {
+          field.validations = [
+            {
+              enabledMarks: Object.values(MARKS).filter((markDefintion) => markDefintion !== mark),
+            },
+          ];
+          return field;
+        });
+
         const actual = isMarkEnabled(field, mark);
         expect(actual).toBe(false);
       });
       it(`returns true for ${mark} mark when validation explicity set with it`, () => {
-        const [field] = createFakeFieldAPI();
-        field.validations = [{ enabledMarks: [mark] }];
+        const [field] = createFakeFieldAPI((field) => {
+          field.validations = [{ enabledMarks: [mark] }];
+          return field;
+        });
         const actual = isMarkEnabled(field, mark);
         expect(actual).toBe(true);
       });
@@ -32,8 +39,10 @@ describe('validations', () => {
       expect(actual).toBe(false);
     });
     it('returns true for superscript mark if validation explicitly set', () => {
-      const [field] = createFakeFieldAPI();
-      field.validations = [{ enabledMarks: [MARKS.SUPERSCRIPT] }];
+      const [field] = createFakeFieldAPI((field) => {
+        field.validations = [{ enabledMarks: [MARKS.SUPERSCRIPT] }];
+        return field;
+      });
       const actual = isMarkEnabled(field, MARKS.SUPERSCRIPT);
       expect(actual).toBe(true);
     });
@@ -43,8 +52,10 @@ describe('validations', () => {
       expect(actual).toBe(false);
     });
     it('returns true for subscript mark if validation explicitly set', () => {
-      const [field] = createFakeFieldAPI();
-      field.validations = [{ enabledMarks: [MARKS.SUBSCRIPT] }];
+      const [field] = createFakeFieldAPI((field) => {
+        field.validations = [{ enabledMarks: [MARKS.SUBSCRIPT] }];
+        return field;
+      });
       const actual = isMarkEnabled(field, MARKS.SUBSCRIPT);
       expect(actual).toBe(true);
     });
