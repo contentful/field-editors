@@ -1,7 +1,7 @@
+import { MARKS } from '@contentful/rich-text-types';
 import { HotkeyPlugin, isMarkActive, KeyboardHandler, toggleMark } from '@udecode/plate-core';
-import isHotkey from 'is-hotkey';
 import type { PlateEditor } from '@udecode/plate-core';
-import type { MARKS } from '@contentful/rich-text-types';
+import isHotkey from 'is-hotkey';
 
 import { RichTextEditor } from '../../types';
 
