@@ -20,7 +20,7 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { validateRichTextDocument } from './test-utils/validation';
 import { css } from 'emotion';
 import { assets, entries } from '../../reference/src/__fixtures__/fixtures';
-
+import { MARKS } from '@contentful/rich-text-types';
 
 # @contentful/field-editor-rich-text
 
@@ -61,7 +61,16 @@ import { RichTextEditor } from '@contentful/field-editor-rich-text';
     };
 
     const initialValue = JSON.parse(window.localStorage.getItem('initialValue')) || undefined
-    const [field, mitt] = useMemo(() => createFakeFieldAPI(mock => mock, initialValue), []);
+    const [fakeField, mitt] = useMemo(() => createFakeFieldAPI(mock => mock, initialValue), []);
+    // Overriding mark validation here to show subscript and superscript marks
+    const field = {
+        ...fakeField,
+        validations: [
+          {
+            enabledMarks: Object.values(MARKS)
+          }
+        ]
+    }
 
     const isDisabled = window.localStorage.getItem('initialDisabled') || false
 

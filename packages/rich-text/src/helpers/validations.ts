@@ -1,6 +1,6 @@
 /* eslint-disable you-dont-need-lodash-underscore/find */
 import { FieldExtensionSDK } from '@contentful/app-sdk';
-import { BLOCKS, INLINES, TOP_LEVEL_BLOCKS } from '@contentful/rich-text-types';
+import { BLOCKS, INLINES, MARKS, TOP_LEVEL_BLOCKS } from '@contentful/rich-text-types';
 import find from 'lodash/find';
 import flow from 'lodash/flow';
 import get from 'lodash/get';
@@ -30,6 +30,10 @@ const isFormattingOptionEnabled = (field, validationType, nodeTypeOrMark) => {
   // TODO: In the future, validations will always be opt-in. In that case
   // we don't need this step.
   if (enabledFormattings === undefined) {
+    if ([MARKS.SUBSCRIPT, MARKS.SUPERSCRIPT].includes(nodeTypeOrMark)) {
+      return false;
+    }
+
     return true;
   }
 
