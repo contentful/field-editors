@@ -324,7 +324,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     });
 
     it('should remove subscript when superscript mark is selected', () => {
-      richText.editor.click().type('hello there{selectall}');
+      richText.editor.click().type('should only be superscript{selectall}');
       toggleMarkViaToolbar(MARKS.SUBSCRIPT);
       richText.editor.click().type('{selectall}');
       toggleMarkViaToolbar(MARKS.SUPERSCRIPT);
@@ -332,21 +332,21 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       const expectedValue = doc(
         block(
           BLOCKS.PARAGRAPH,
-          text('should only be superscript', [{ type: MARKS.SUPERSCRIPT }]),
-          {}
+          {},
+          text('should only be superscript', [{ type: MARKS.SUPERSCRIPT }])
         )
       );
       richText.expectValue(expectedValue);
     });
 
     it('should remove superscript when subscript mark is selected', () => {
-      richText.editor.click().type('hello there{selectall}');
+      richText.editor.click().type('should only be subscript{selectall}');
       toggleMarkViaToolbar(MARKS.SUPERSCRIPT);
       richText.editor.click().type('{selectall}');
       toggleMarkViaToolbar(MARKS.SUBSCRIPT);
 
       const expectedValue = doc(
-        block(BLOCKS.PARAGRAPH, text('should only be subscript', [{ type: MARKS.SUBSCRIPT }]), {})
+        block(BLOCKS.PARAGRAPH, {}, text('should only be subscript', [{ type: MARKS.SUBSCRIPT }]))
       );
       richText.expectValue(expectedValue);
     });
