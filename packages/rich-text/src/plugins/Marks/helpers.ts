@@ -9,12 +9,9 @@ export const toggleMarkAndDeactivateConflictingMarks = (
   editor: PlateEditor<RichTextEditor>,
   mark: MARKS
 ) => {
-  toggleMark(editor, { key: mark });
-  if (mark === MARKS.SUBSCRIPT && isMarkActive(editor, MARKS.SUPERSCRIPT)) {
-    toggleMark(editor, { key: MARKS.SUPERSCRIPT });
-  } else if (mark === MARKS.SUPERSCRIPT && isMarkActive(editor, MARKS.SUBSCRIPT)) {
-    toggleMark(editor, { key: MARKS.SUBSCRIPT });
-  }
+  const subs = [MARKS.SUPERSCRIPT, MARKS.SUBSCRIPT];
+  const clear = subs.includes(mark) ? subs : [];
+  toggleMark(editor, { key: mark, clear });
 };
 
 export const buildMarkEventHandler =
