@@ -2995,7 +2995,7 @@ exports[`Rich Text Editor > Tables > removes table wrappers when pasting a singl
   ]
 };
 
-exports[`Rich Text Editor > Superscript and subscript marks > works when pasting from another RT editor #0`] =
+exports[`Rich Text Editor > Superscript and subscript marks > works when pasting subscript and superscript from a google doc #0`] =
 {
   "content": [
     {
