@@ -275,9 +275,9 @@ describe(
     });
 
     describe('Superscript and subscript marks', () => {
-      it('works when pasting subscript and superscript from another RT editor', () => {
+      it('works when pasting subscript and superscript from a google doc', () => {
         // A simple "hello world" text with marks: superscript and subscript.
-        // Copied from the RT editor
+        // Copied from a google doc
         richText.editor.click().paste({
           'text/plain': 'HelloWorld',
           'text/html':
