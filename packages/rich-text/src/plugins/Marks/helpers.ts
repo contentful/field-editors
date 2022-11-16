@@ -1,8 +1,18 @@
 import { MARKS } from '@contentful/rich-text-types';
 import { HotkeyPlugin, isMarkActive, KeyboardHandler, toggleMark } from '@udecode/plate-core';
+import type { PlateEditor } from '@udecode/plate-core';
 import isHotkey from 'is-hotkey';
 
 import { RichTextEditor } from '../../types';
+
+export const toggleMarkAndDeactivateConflictingMarks = (
+  editor: PlateEditor<RichTextEditor>,
+  mark: MARKS
+) => {
+  const subs = [MARKS.SUPERSCRIPT, MARKS.SUBSCRIPT];
+  const clear = subs.includes(mark) ? subs : [];
+  toggleMark(editor, { key: mark, clear });
+};
 
 export const buildMarkEventHandler =
   (type: MARKS): KeyboardHandler<RichTextEditor, HotkeyPlugin> =>
@@ -13,7 +23,6 @@ export const buildMarkEventHandler =
 
       const isActive = isMarkActive(editor, type);
       editor.tracking.onShortcutAction(isActive ? 'unmark' : 'mark', { markType: type });
-
-      toggleMark(editor, { key: type as string });
+      toggleMarkAndDeactivateConflictingMarks(editor, type);
     }
   };

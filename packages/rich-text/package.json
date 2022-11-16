@@ -33,7 +33,7 @@
     "@contentful/field-editor-reference": "^5.5.2",
     "@contentful/field-editor-shared": "^1.1.3",
     "@contentful/rich-text-plain-text-renderer": "^15.12.1",
-    "@contentful/rich-text-types": "^15.12.3",
+    "@contentful/rich-text-types": "15.14.0",
     "@popperjs/core": "^2.11.5",
     "@udecode/plate-basic-marks": "^10.4.0",
     "@udecode/plate-break": "^10.4.0",

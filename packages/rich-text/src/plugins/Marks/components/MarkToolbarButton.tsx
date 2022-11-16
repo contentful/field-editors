@@ -1,11 +1,12 @@
 import * as React from 'react';
 
 import { MARKS } from '@contentful/rich-text-types';
-import { isMarkActive, toggleMark } from '@udecode/plate-core';
+import { isMarkActive } from '@udecode/plate-core';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
 import { focus } from '../../../helpers/editor';
 import { ToolbarButton } from '../../shared/ToolbarButton';
+import { toggleMarkAndDeactivateConflictingMarks } from '../helpers';
 
 export interface MarkOptions {
   mark: MARKS;
@@ -23,7 +24,7 @@ export const createMarkToolbarButton = ({ mark, title, icon }: MarkOptions) => {
       const isActive = isMarkActive(editor, mark);
       editor.tracking.onToolbarAction(isActive ? 'unmark' : 'mark', { markType: mark });
 
-      toggleMark(editor, { key: mark });
+      toggleMarkAndDeactivateConflictingMarks(editor, mark);
       focus(editor);
     }, [editor]);
 
@@ -35,7 +36,8 @@ export const createMarkToolbarButton = ({ mark, title, icon }: MarkOptions) => {
         testId={`${mark}-toolbar-button`}
         onClick={handleClick}
         isActive={isMarkActive(editor, mark)}
-        isDisabled={isDisabled}>
+        isDisabled={isDisabled}
+      >
         {icon}
       </ToolbarButton>
     );

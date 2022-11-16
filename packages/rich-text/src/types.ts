@@ -12,6 +12,8 @@ export type CustomText = {
   [MARKS.CODE]?: boolean;
   [MARKS.ITALIC]?: boolean;
   [MARKS.UNDERLINE]?: boolean;
+  [MARKS.SUPERSCRIPT]?: boolean;
+  [MARKS.SUBSCRIPT]?: boolean;
 };
 
 export type TextOrCustomElement = CustomElement | CustomText;

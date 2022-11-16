@@ -20,7 +20,7 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { validateRichTextDocument } from './test-utils/validation';
 import { css } from 'emotion';
 import { assets, entries } from '../../reference/src/__fixtures__/fixtures';
-
+import { MARKS } from '@contentful/rich-text-types';
 
 # @contentful/field-editor-rich-text
 
@@ -61,7 +61,16 @@ import { RichTextEditor } from '@contentful/field-editor-rich-text';
     };
 
     const initialValue = JSON.parse(window.localStorage.getItem('initialValue')) || undefined
-    const [field, mitt] = useMemo(() => createFakeFieldAPI(mock => mock, initialValue), []);
+    const fieldValidations = JSON.parse(window.localStorage.getItem('fieldValidations')) || undefined
+    const [field, mitt] = useMemo(() => createFakeFieldAPI(mock => {
+      // Overriding mark validation here to show all marks if no fieldValidations set
+      mock.validations = !!fieldValidations ? fieldValidations : [
+          {
+            enabledMarks: Object.values(MARKS)
+          }
+        ];
+      return mock
+    }, initialValue), []);
 
     const isDisabled = window.localStorage.getItem('initialDisabled') || false
 
