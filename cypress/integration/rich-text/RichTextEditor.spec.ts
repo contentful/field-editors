@@ -211,20 +211,6 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     const findMarkViaToolbar = (mark: MARKS) => cy.findByTestId(`${mark}-toolbar-button`);
     const toggleMarkViaToolbar = (mark: MARKS) => cy.findByTestId(`${mark}-toolbar-button`).click();
 
-    it(`hides ${MARKS.SUBSCRIPT} and ${MARKS.SUPERSCRIPT} marks if not explicitly allowed`, () => {
-      cy.setFieldValidations([]);
-      cy.reload();
-      findMarkViaToolbar(MARKS.SUPERSCRIPT).should('not.exist');
-      findMarkViaToolbar(MARKS.SUBSCRIPT).should('not.exist');
-    });
-
-    it(`shows ${MARKS.SUBSCRIPT} and ${MARKS.SUPERSCRIPT} marks if explicitly allowed`, () => {
-      cy.setFieldValidations([{ enabledMarks: [MARKS.SUPERSCRIPT, MARKS.SUBSCRIPT] }]);
-      cy.reload();
-      findMarkViaToolbar(MARKS.SUPERSCRIPT).should('be.visible');
-      findMarkViaToolbar(MARKS.SUBSCRIPT).should('be.visible');
-    });
-
     it(`shows ${MARKS.BOLD}, ${MARKS.ITALIC}, ${MARKS.UNDERLINE}, ${MARKS.CODE} if not explicitly allowed`, () => {
       cy.setFieldValidations([]);
       cy.reload();

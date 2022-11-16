@@ -33,31 +33,5 @@ describe('validations', () => {
         expect(actual).toBe(true);
       });
     });
-    it('returns false for superscript mark if no validation explicitly set', () => {
-      const [field] = createFakeFieldAPI();
-      const actual = isMarkEnabled(field, MARKS.SUPERSCRIPT);
-      expect(actual).toBe(false);
-    });
-    it('returns true for superscript mark if validation explicitly set', () => {
-      const [field] = createFakeFieldAPI((field) => {
-        field.validations = [{ enabledMarks: [MARKS.SUPERSCRIPT] }];
-        return field;
-      });
-      const actual = isMarkEnabled(field, MARKS.SUPERSCRIPT);
-      expect(actual).toBe(true);
-    });
-    it('returns false for subscript mark if no validation explicitly set', () => {
-      const [field] = createFakeFieldAPI();
-      const actual = isMarkEnabled(field, MARKS.SUBSCRIPT);
-      expect(actual).toBe(false);
-    });
-    it('returns true for subscript mark if validation explicitly set', () => {
-      const [field] = createFakeFieldAPI((field) => {
-        field.validations = [{ enabledMarks: [MARKS.SUBSCRIPT] }];
-        return field;
-      });
-      const actual = isMarkEnabled(field, MARKS.SUBSCRIPT);
-      expect(actual).toBe(true);
-    });
   });
 });
