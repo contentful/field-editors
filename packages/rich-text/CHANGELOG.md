@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.1.12...@contentful/field-editor-rich-text@3.2.0) (2022-11-16)
+
+### Features
+
+- superscipt and subscript support to rich text editor [TOL-30] ([#1280](https://github.com/contentful/field-editors/issues/1280)) ([3c50f07](https://github.com/contentful/field-editors/commit/3c50f0770f95e7c11c12411e3c33c9d3593b19a7))
+
 ## [3.1.12](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.1.11...@contentful/field-editor-rich-text@3.1.12) (2022-11-07)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
