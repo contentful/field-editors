@@ -3,7 +3,6 @@ import * as React from 'react';
 import { SuperscriptIcon } from '@contentful/f36-icons';
 import { MARKS } from '@contentful/rich-text-types';
 import { createSuperscriptPlugin as createDefaultSuperscriptPlugin } from '@udecode/plate-basic-marks';
-import { someHtmlElement } from '@udecode/plate-core';
 import * as Slate from 'slate-react';
 
 import { RichTextPlugin } from '../../types';
@@ -33,8 +32,5 @@ export const createSuperscriptPlugin = (): RichTextPlugin =>
           validNodeName: ['SUP'],
         },
       ],
-      query: (el) => {
-        return !someHtmlElement(el, (node) => node.style.fontWeight === 'normal');
-      },
     },
   });

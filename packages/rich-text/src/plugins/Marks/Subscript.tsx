@@ -1,10 +1,9 @@
 import * as React from 'react';
 
 import { SubscriptIcon } from '@contentful/f36-icons';
-import { createSubscriptPlugin as createDefaultSubscriptPlugin } from '@udecode/plate-basic-marks';
 import { MARKS } from '@contentful/rich-text-types';
+import { createSubscriptPlugin as createDefaultSubscriptPlugin } from '@udecode/plate-basic-marks';
 import * as Slate from 'slate-react';
-import { someHtmlElement } from '@udecode/plate-core';
 
 import { RichTextPlugin } from '../../types';
 import { createMarkToolbarButton } from './components/MarkToolbarButton';
@@ -33,8 +32,5 @@ export const createSubscriptPlugin = (): RichTextPlugin =>
           validNodeName: ['SUB'],
         },
       ],
-      query: (el) => {
-        return !someHtmlElement(el, (node) => node.style.fontWeight === 'normal');
-      },
     },
   });

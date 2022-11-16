@@ -208,30 +208,30 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
   });
 
   describe('Marks', () => {
-    const findMarkViaToolvar = (mark: MARKS) => cy.findByTestId(`${mark}-toolbar-button`);
+    const findMarkViaToolbar = (mark: MARKS) => cy.findByTestId(`${mark}-toolbar-button`);
     const toggleMarkViaToolbar = (mark: MARKS) => cy.findByTestId(`${mark}-toolbar-button`).click();
 
     it(`hides ${MARKS.SUBSCRIPT} and ${MARKS.SUPERSCRIPT} marks if not explicitly allowed`, () => {
       cy.setFieldValidations([]);
       cy.reload();
-      findMarkViaToolvar(MARKS.SUPERSCRIPT).should('not.exist');
-      findMarkViaToolvar(MARKS.SUBSCRIPT).should('not.exist');
+      findMarkViaToolbar(MARKS.SUPERSCRIPT).should('not.exist');
+      findMarkViaToolbar(MARKS.SUBSCRIPT).should('not.exist');
     });
 
     it(`shows ${MARKS.SUBSCRIPT} and ${MARKS.SUPERSCRIPT} marks if explicitly allowed`, () => {
       cy.setFieldValidations([{ enabledMarks: [MARKS.SUPERSCRIPT, MARKS.SUBSCRIPT] }]);
       cy.reload();
-      findMarkViaToolvar(MARKS.SUPERSCRIPT).should('be.visible');
-      findMarkViaToolvar(MARKS.SUBSCRIPT).should('be.visible');
+      findMarkViaToolbar(MARKS.SUPERSCRIPT).should('be.visible');
+      findMarkViaToolbar(MARKS.SUBSCRIPT).should('be.visible');
     });
 
     it(`shows ${MARKS.BOLD}, ${MARKS.ITALIC}, ${MARKS.UNDERLINE}, ${MARKS.CODE} if not explicitly allowed`, () => {
       cy.setFieldValidations([]);
       cy.reload();
-      findMarkViaToolvar(MARKS.BOLD).should('be.visible');
-      findMarkViaToolvar(MARKS.ITALIC).should('be.visible');
-      findMarkViaToolvar(MARKS.UNDERLINE).should('be.visible');
-      findMarkViaToolvar(MARKS.CODE).should('be.visible');
+      findMarkViaToolbar(MARKS.BOLD).should('be.visible');
+      findMarkViaToolbar(MARKS.ITALIC).should('be.visible');
+      findMarkViaToolbar(MARKS.UNDERLINE).should('be.visible');
+      findMarkViaToolbar(MARKS.CODE).should('be.visible');
     });
 
     [
