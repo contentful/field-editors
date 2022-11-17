@@ -43,12 +43,6 @@ export const createSuperscriptPlugin = (): RichTextPlugin =>
         {
           validNodeName: ['SUP'],
         },
-        {
-          validStyle: {
-            verticalAlign: 'super',
-            fontSize: 'smaller',
-          },
-        },
       ],
     },
   });

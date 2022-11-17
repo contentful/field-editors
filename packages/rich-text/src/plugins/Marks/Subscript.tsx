@@ -43,12 +43,6 @@ export const createSubscriptPlugin = (): RichTextPlugin =>
         {
           validNodeName: ['SUB'],
         },
-        {
-          validStyle: {
-            verticalAlign: 'sub',
-            fontSize: 'smaller',
-          },
-        },
       ],
     },
   });
