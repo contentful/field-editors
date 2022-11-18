@@ -3,11 +3,19 @@ import * as React from 'react';
 import { SubscriptIcon } from '@contentful/f36-icons';
 import { MARKS } from '@contentful/rich-text-types';
 import { createSubscriptPlugin as createDefaultSubscriptPlugin } from '@udecode/plate-basic-marks';
+import { css } from 'emotion';
 import * as Slate from 'slate-react';
 
 import { RichTextPlugin } from '../../types';
 import { createMarkToolbarButton } from './components/MarkToolbarButton';
 import { buildMarkEventHandler } from './helpers';
+
+const styles = {
+  subscript: css({
+    verticalAlign: 'sub',
+    fontSize: 'smaller',
+  }),
+};
 
 export const ToolbarSubscriptButton = createMarkToolbarButton({
   title: 'Subscript',
@@ -16,7 +24,11 @@ export const ToolbarSubscriptButton = createMarkToolbarButton({
 });
 
 export function Subscript(props: Slate.RenderLeafProps) {
-  return <sub {...props.attributes}>{props.children}</sub>;
+  return (
+    <sub {...props.attributes} className={styles.subscript}>
+      {props.children}
+    </sub>
+  );
 }
 
 export const createSubscriptPlugin = (): RichTextPlugin =>
