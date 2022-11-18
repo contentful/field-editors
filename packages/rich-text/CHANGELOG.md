@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.2.0...@contentful/field-editor-rich-text@3.2.1) (2022-11-18)
+
+### Bug Fixes
+
+- explicitly setting sub super styles [TOL-30] ([#1281](https://github.com/contentful/field-editors/issues/1281)) ([6044115](https://github.com/contentful/field-editors/commit/6044115c89d68ac37d3a36d239bd45e5503cea7b))
+
 # [3.2.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.1.12...@contentful/field-editor-rich-text@3.2.0) (2022-11-16)
 
 ### Features
