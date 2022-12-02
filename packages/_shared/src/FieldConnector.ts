@@ -71,7 +71,6 @@ export class FieldConnector<ValueType> extends React.Component<
   unsubscribeValue: Function | null = null;
 
   setValue = async (value: ValueType | Nullable) => {
-    console.log('setting value');
     if (this.props.isEmptyValue(value ?? null)) {
       this.setState({ value: undefined });
     } else {
