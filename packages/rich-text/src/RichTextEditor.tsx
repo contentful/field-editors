@@ -28,6 +28,7 @@ type ConnectedProps = {
   onChange?: (doc: Contentful.Document) => unknown;
   isToolbarHidden?: boolean;
   actionsDisabled?: boolean;
+  unavailableMarks?: string[];
 };
 
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
@@ -45,6 +46,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
     handler: props.onChange,
     skip: pendingExternalUpdate || isFirstRender,
     onSkip: () => setPendingExternalUpdate(false),
+    unavailableMarks: props.unavailableMarks,
   });
 
   useEffect(() => {
@@ -100,7 +102,8 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
               className: classNames,
               readOnly: props.isDisabled,
             }}
-            onChange={onValueChanged}>
+            onChange={onValueChanged}
+          >
             {!props.isToolbarHidden && (
               <StickyToolbarWrapper isDisabled={props.isDisabled}>
                 <Toolbar isDisabled={props.isDisabled} />
@@ -116,7 +119,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
 type Props = ConnectedProps & { isInitiallyDisabled: boolean };
 
 const RichTextEditor = (props: Props) => {
-  const { sdk, isInitiallyDisabled, onAction, ...otherProps } = props;
+  const { sdk, isInitiallyDisabled, onAction, unavailableMarks, ...otherProps } = props;
   const isEmptyValue = useCallback(
     (value) => !value || deepEquals(value, Contentful.EMPTY_DOCUMENT),
     []
@@ -130,7 +133,8 @@ const RichTextEditor = (props: Props) => {
         field={sdk.field}
         isInitiallyDisabled={isInitiallyDisabled}
         isEmptyValue={isEmptyValue}
-        isEqualValues={deepEquals}>
+        isEqualValues={deepEquals}
+      >
         {({ lastRemoteValue, disabled, setValue }) => (
           <ConnectedRichTextEditor
             {...otherProps}
@@ -140,6 +144,7 @@ const RichTextEditor = (props: Props) => {
             onAction={onAction}
             isDisabled={disabled}
             onChange={setValue}
+            unavailableMarks={unavailableMarks}
           />
         )}
       </FieldConnector>

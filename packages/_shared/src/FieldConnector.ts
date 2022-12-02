@@ -1,7 +1,8 @@
 import React from 'react';
+
+import { FieldAPI, ValidationError } from '@contentful/app-sdk';
 import isEqual from 'lodash/isEqual';
 import throttle from 'lodash/throttle';
-import { FieldAPI, ValidationError } from '@contentful/app-sdk';
 
 type Nullable = null | undefined;
 
@@ -70,6 +71,7 @@ export class FieldConnector<ValueType> extends React.Component<
   unsubscribeValue: Function | null = null;
 
   setValue = async (value: ValueType | Nullable) => {
+    console.log('setting value');
     if (this.props.isEmptyValue(value ?? null)) {
       this.setState({ value: undefined });
     } else {

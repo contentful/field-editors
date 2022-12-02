@@ -25,17 +25,24 @@ export type OnValueChangedProps = {
   handler?: (value: Document) => unknown;
   skip?: boolean;
   onSkip?: VoidFunction;
+  unavailableMarks?: string[];
 };
 
-export const useOnValueChanged = ({ editorId, handler, skip, onSkip }: OnValueChangedProps) => {
+export const useOnValueChanged = ({
+  editorId,
+  handler,
+  skip,
+  onSkip,
+  unavailableMarks,
+}: OnValueChangedProps) => {
   const onChange = useMemo(
     () =>
       debounce((document: unknown) => {
         const contentfulDocument = toContentfulDocument({ document, schema });
-        const cleanedDocument = removeInternalMarks(contentfulDocument);
+        const cleanedDocument = removeInternalMarks(contentfulDocument, unavailableMarks || []);
         handler?.(cleanedDocument);
       }, 500),
-    [handler]
+    [handler, unavailableMarks]
   );
 
   return useCallback(
