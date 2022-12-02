@@ -23,6 +23,11 @@ export const ToolbarSuperscriptButton = createMarkToolbarButton({
   icon: <SuperscriptIcon />,
 });
 
+export const ToolbarDropdownSuperscriptButton = createMarkToolbarButton({
+  title: 'Superscript',
+  mark: MARKS.SUPERSCRIPT,
+});
+
 export function Superscript(props: Slate.RenderLeafProps) {
   return (
     <sup {...props.attributes} className={styles.superscript}>

@@ -1,9 +1,11 @@
 import React from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
-import { Flex } from '@contentful/f36-components';
+import { Flex, IconButton, Menu } from '@contentful/f36-components';
+import { MoreHorizontalIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types';
+import { isMarkActive } from '@udecode/plate-core';
 import { css } from 'emotion';
 
 import { useContentfulEditor } from '../ContentfulEditorProvider';
@@ -14,11 +16,14 @@ import { ToolbarHrButton } from '../plugins/Hr';
 import { ToolbarHyperlinkButton } from '../plugins/Hyperlink';
 import { ToolbarListButton } from '../plugins/List';
 import { ToolbarBoldButton } from '../plugins/Marks/Bold';
-import { ToolbarCodeButton } from '../plugins/Marks/Code';
+import { ToolbarCodeButton, ToolbarDropdownCodeButton } from '../plugins/Marks/Code';
 import { ToolbarItalicButton } from '../plugins/Marks/Italic';
+import { ToolbarDropdownSubscriptButton, ToolbarSubscriptButton } from '../plugins/Marks/Subscript';
+import {
+  ToolbarDropdownSuperscriptButton,
+  ToolbarSuperscriptButton,
+} from '../plugins/Marks/Superscript';
 import { ToolbarUnderlineButton } from '../plugins/Marks/Underline';
-import { ToolbarSuperscriptButton } from '../plugins/Marks/Superscript';
-import { ToolbarSubscriptButton } from '../plugins/Marks/Subscript';
 import { ToolbarQuoteButton } from '../plugins/Quote';
 import { ToolbarTableButton } from '../plugins/Table';
 import { useSdkContext } from '../SdkProvider';
@@ -34,6 +39,12 @@ const styles = {
     backgroundColor: tokens.gray100,
     padding: tokens.spacingXs,
     borderRadius: `${tokens.borderRadiusMedium} ${tokens.borderRadiusMedium} 0 0`,
+  }),
+  toolbarBtn: css({
+    height: '30px',
+    width: '30px',
+    marginLeft: tokens.spacing2Xs,
+    marginRight: tokens.spacing2Xs,
   }),
   divider: css({
     display: 'inline-block',
@@ -60,6 +71,43 @@ const styles = {
   }),
 };
 
+const Dropdown = ({ sdk, isDisabled }: { sdk: FieldExtensionSDK; isDisabled?: boolean }) => {
+  const editor = useContentfulEditor();
+  const isActive =
+    isMarkActive(editor, MARKS.SUPERSCRIPT) ||
+    isMarkActive(editor, MARKS.SUBSCRIPT) ||
+    isMarkActive(editor, MARKS.CODE);
+
+  return (
+    <Menu>
+      <Menu.Trigger>
+        <span>
+          <IconButton
+            size="small"
+            className={styles.toolbarBtn}
+            variant={isActive ? 'secondary' : 'transparent'}
+            icon={<MoreHorizontalIcon />}
+            aria-label="toggle menu"
+            isDisabled={isDisabled}
+            testId="dropdown-toolbar-button"
+          />
+        </span>
+      </Menu.Trigger>
+      <Menu.List>
+        {isMarkEnabled(sdk.field, MARKS.SUPERSCRIPT) && (
+          <ToolbarDropdownSuperscriptButton isDisabled={isDisabled} />
+        )}
+        {isMarkEnabled(sdk.field, MARKS.SUBSCRIPT) && (
+          <ToolbarDropdownSubscriptButton isDisabled={isDisabled} />
+        )}
+        {isMarkEnabled(sdk.field, MARKS.CODE) && (
+          <ToolbarDropdownCodeButton isDisabled={isDisabled} />
+        )}
+      </Menu.List>
+    </Menu>
+  );
+};
+
 const Toolbar = ({ isDisabled }: ToolbarProps) => {
   const sdk = useSdkContext();
   const editor = useContentfulEditor();
@@ -71,6 +119,17 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
   const shouldDisableTables =
     isDisabled || !canInsertBlocks || isListSelected || isBlockquoteSelected;
 
+  // We only show the dropdown when: whenever at least bold , italic and underline are available; If nothing that would go inside the dropdown is available, we hide it
+  const boldItalicUnderlineAvailable =
+    isMarkEnabled(sdk.field, MARKS.BOLD) ||
+    isMarkEnabled(sdk.field, MARKS.ITALIC) ||
+    isMarkEnabled(sdk.field, MARKS.UNDERLINE);
+  const dropdownItemsAvailable =
+    isMarkEnabled(sdk.field, MARKS.SUPERSCRIPT) ||
+    isMarkEnabled(sdk.field, MARKS.SUBSCRIPT) ||
+    isMarkEnabled(sdk.field, MARKS.CODE);
+  const shouldShowDropdown = boldItalicUnderlineAvailable && dropdownItemsAvailable;
+
   return (
     <Flex testId="toolbar" className={styles.toolbar} alignItems="center">
       <div className={styles.formattingOptionsWrapper}>
@@ -80,16 +139,22 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
 
         {isMarkEnabled(sdk.field, MARKS.BOLD) && <ToolbarBoldButton isDisabled={isDisabled} />}
         {isMarkEnabled(sdk.field, MARKS.ITALIC) && <ToolbarItalicButton isDisabled={isDisabled} />}
-        {isMarkEnabled(sdk.field, MARKS.SUPERSCRIPT) && (
-          <ToolbarSuperscriptButton isDisabled={isDisabled} />
-        )}
-        {isMarkEnabled(sdk.field, MARKS.SUBSCRIPT) && (
-          <ToolbarSubscriptButton isDisabled={isDisabled} />
-        )}
+
         {isMarkEnabled(sdk.field, MARKS.UNDERLINE) && (
           <ToolbarUnderlineButton isDisabled={isDisabled} />
         )}
-        {isMarkEnabled(sdk.field, MARKS.CODE) && <ToolbarCodeButton isDisabled={isDisabled} />}
+
+        {!boldItalicUnderlineAvailable && isMarkEnabled(sdk.field, MARKS.SUPERSCRIPT) && (
+          <ToolbarSuperscriptButton isDisabled={isDisabled} />
+        )}
+        {!boldItalicUnderlineAvailable && isMarkEnabled(sdk.field, MARKS.SUBSCRIPT) && (
+          <ToolbarSubscriptButton isDisabled={isDisabled} />
+        )}
+        {!boldItalicUnderlineAvailable && isMarkEnabled(sdk.field, MARKS.CODE) && (
+          <ToolbarCodeButton isDisabled={isDisabled} />
+        )}
+
+        {shouldShowDropdown && <Dropdown sdk={sdk} isDisabled={isDisabled} />}
 
         {validationInfo.isAnyHyperlinkEnabled && (
           <>

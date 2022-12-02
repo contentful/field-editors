@@ -16,6 +16,11 @@ export const ToolbarCodeButton = createMarkToolbarButton({
   icon: <CodeIcon />,
 });
 
+export const ToolbarDropdownCodeButton = createMarkToolbarButton({
+  title: 'Code',
+  mark: MARKS.CODE,
+});
+
 const styles = {
   code: css({
     fontFamily: 'monospace',
