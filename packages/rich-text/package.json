@@ -36,7 +36,7 @@
     "@contentful/rich-text-types": "15.14.1",
     "@popperjs/core": "^2.11.5",
     "@udecode/plate-basic-marks": "^10.4.0",
-    "@udecode/plate-break": "^10.4.0",
+    "@udecode/plate-break": "^18.13.0",
     "@udecode/plate-core": "^10.4.0",
     "@udecode/plate-list": "^10.4.0",
     "@udecode/plate-paragraph": "^10.4.0",
