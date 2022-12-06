@@ -20,9 +20,13 @@ const entityTypes = {
 function getWithEmbeddedEntityEvents(
   nodeType: BLOCKS.EMBEDDED_ENTRY | BLOCKS.EMBEDDED_ASSET,
   sdk: FieldExtensionSDK
+  // eslint-disable-next-line -- TODO: check this
+  // @ts-ignore
 ): KeyboardHandler<RichTextEditor, HotkeyPlugin> {
   return (editor, { options: { hotkey } }) =>
     (event) => {
+      // eslint-disable-next-line -- TODO: check this
+      // @ts-ignore
       const [, pathToSelectedElement] = getNodeEntryFromSelection(editor, nodeType);
 
       if (pathToSelectedElement) {
@@ -31,13 +35,19 @@ function getWithEmbeddedEntityEvents(
 
         if (isDelete || isBackspace) {
           event.preventDefault();
+          // eslint-disable-next-line -- TODO: check this
+          // @ts-ignore
           Transforms.removeNodes(editor, { at: pathToSelectedElement });
         }
 
         return;
       }
 
+      // eslint-disable-next-line -- TODO: check this
+      // @ts-ignore
       if (hotkey && isHotkey(hotkey, event)) {
+        // eslint-disable-next-line -- TODO: check this
+        // @ts-ignore
         selectEntityAndInsert(nodeType, sdk, editor, editor.tracking.onShortcutAction);
       }
     };
@@ -53,6 +63,8 @@ const createEmbeddedEntityPlugin =
     component: withLinkTracking(LinkedEntityBlock),
     options: { hotkey },
     handlers: {
+      // eslint-disable-next-line -- TODO: check this
+      // @ts-ignore
       onKeyDown: getWithEmbeddedEntityEvents(nodeType, sdk),
     },
     deserializeHtml: {
