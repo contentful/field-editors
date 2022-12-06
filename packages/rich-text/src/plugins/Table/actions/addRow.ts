@@ -32,8 +32,7 @@ const addRow = (editor: RichTextEditor, getNextRowPath: (currentRowPath: Path) =
       );
 
       // Select the first cell in the current row
-      // TODO check this
-
+      // eslint-disable-next-line -- TODO: check this
       // @ts-ignore
       Transforms.select(editor, Editor.start(editor, nextRowPath));
     }

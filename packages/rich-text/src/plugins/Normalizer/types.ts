@@ -12,7 +12,7 @@ type BaseRule = {
    *
    * By default it returns only Elements of type `plugin.type`.
    */
-  // TODO check this
+  // eslint-disable-next-line -- TODO: check this
 
   match?: any;
 

@@ -21,8 +21,7 @@ export const baseRules: Required<NormalizerRule>[] = [
       return !!parent && (isTextContainer(parent) || isInline(parent) || editor.isVoid(parent));
     },
     transform: (editor, entry) => {
-      // TODO check this
-
+      // eslint-disable-next-line -- TODO: check this
       // @ts-ignore
       return transformWrapIn(BLOCKS.PARAGRAPH)(editor, entry);
     },
@@ -36,8 +35,7 @@ export const baseRules: Required<NormalizerRule>[] = [
       const parent = getParentNode(editor, path)?.[0] as CustomElement;
       return !!parent && isTextContainer(parent);
     },
-    // TODO check this
-
+    // eslint-disable-next-line -- TODO: check this
     // @ts-ignore
     transform: transformWrapIn(BLOCKS.PARAGRAPH),
   },

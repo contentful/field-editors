@@ -20,8 +20,7 @@ export const createOnKeyDown = () => {
           event.preventDefault();
         } else if (isHotkey('backspace', event)) {
           const [, path] = getAboveNode(editor)!;
-          // TODO check this
-
+          // eslint-disable-next-line -- TODO: check this
           // @ts-ignore
           const range = Editor.range(editor, path);
           // if it is the last character in the command string
@@ -30,8 +29,7 @@ export const createOnKeyDown = () => {
           }
         } else if (isHotkey('escape', event)) {
           const [, path] = getAboveNode(editor)!;
-          // TODO check this
-
+          // eslint-disable-next-line -- TODO: check this
           // @ts-ignore
           const range = Editor.range(editor, path);
           removeMark(editor, { key: COMMAND_PROMPT, at: range });

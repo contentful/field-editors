@@ -24,8 +24,7 @@ export const createParagraphPlugin = (): RichTextPlugin => {
       hotkey: ['mod+opt+0'],
     },
     handlers: {
-      // TODO check this
-
+      // eslint-disable-next-line -- TODO: check this
       // @ts-ignore
       onKeyDown: buildParagraphKeyDownHandler,
     },

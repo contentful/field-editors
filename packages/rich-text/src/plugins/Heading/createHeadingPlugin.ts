@@ -9,29 +9,24 @@ import { COMMAND_PROMPT } from '../CommandPalette/constants';
 import { HeadingComponents } from './components/Heading';
 
 const buildHeadingEventHandler =
-  // TODO check this
-
+  // eslint-disable-next-line -- TODO: check this
   // @ts-ignore
 
 
     (type: BLOCKS): KeyboardHandler<RichTextEditor, HotkeyPlugin> =>
     (editor, { options: { hotkey } }) =>
     (event) => {
-      // TODO check this
-
+      // eslint-disable-next-line -- TODO: check this
       // @ts-ignore
       if (editor.selection && hotkey && isHotkey(hotkey, event)) {
-        // TODO check this
-
+        // eslint-disable-next-line -- TODO: check this
         // @ts-ignore
         const isActive = isBlockSelected(editor, type);
-        // TODO check this
-
+        // eslint-disable-next-line -- TODO: check this
         // @ts-ignore
         editor.tracking.onShortcutAction(isActive ? 'remove' : 'insert', { nodeType: type });
 
-        // TODO check this
-
+        // eslint-disable-next-line -- TODO: check this
         // @ts-ignore
         toggleElement(editor, { activeType: type, inactiveType: BLOCKS.PARAGRAPH });
       }
@@ -84,8 +79,7 @@ export const createHeadingPlugin = (): RichTextPlugin => ({
       ],
     } as Partial<RichTextPlugin>;
   },
-  // TODO check this
-
+  // eslint-disable-next-line -- TODO: check this
   // @ts-ignore
   plugins: HEADINGS.map((nodeType, idx) => {
     const level = idx + 1;

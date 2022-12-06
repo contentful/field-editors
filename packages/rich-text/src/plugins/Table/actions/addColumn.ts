@@ -6,7 +6,7 @@ import { RichTextEditor } from '../../../types';
 
 const addColumn = (
   editor: RichTextEditor,
-  // TODO check this
+  // eslint-disable-next-line -- TODO: check this
 
   { header }: any,
   getNextCellPath: (currentCellPath: Path) => Path
@@ -48,13 +48,13 @@ const addColumn = (
   }
 };
 
-// TODO check this
+// eslint-disable-next-line -- TODO: check this
 
 export const addColumnRight = (editor: RichTextEditor, options: any) => {
   addColumn(editor, options, (currentCellPath) => Path.next(currentCellPath));
 };
 
-// TODO check this
+// eslint-disable-next-line -- TODO: check this
 
 export const addColumnLeft = (editor: RichTextEditor, options: any) => {
   addColumn(editor, options, (currentCellPath) => currentCellPath);

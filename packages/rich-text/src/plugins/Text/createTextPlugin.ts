@@ -15,8 +15,7 @@ export function createTextPlugin(): RichTextPlugin {
         if (!editor.selection) {
           return;
         }
-        // TODO check this
-
+        // eslint-disable-next-line -- TODO: check this
         // @ts-ignore
         Transforms.setSelection(editor, Editor.unhangRange(editor, editor.selection));
       },
@@ -35,26 +34,21 @@ export function createTextPlugin(): RichTextPlugin {
         // If the cursor is at the end of an inline, move it outside
         // before inserting
         if (selection && Range.isCollapsed(selection)) {
-          // TODO check this
-
+          // eslint-disable-next-line -- TODO: check this
           // @ts-ignore
           const inlinePath = Editor.above(editor, {
-            // TODO check this
-
+            // eslint-disable-next-line -- TODO: check this
             // @ts-ignore
             match: (n) => Editor.isInline(editor, n),
             mode: 'highest',
           })?.[1];
-          // TODO check this
-
+          // eslint-disable-next-line -- TODO: check this
           // @ts-ignore
           if (inlinePath && Editor.isEnd(editor, selection.anchor, inlinePath)) {
-            // TODO check this
-
+            // eslint-disable-next-line -- TODO: check this
             // @ts-ignore
             const point = Editor.after(editor, inlinePath);
-            // TODO check this
-
+            // eslint-disable-next-line -- TODO: check this
             // @ts-ignore
             Transforms.setSelection(editor, {
               anchor: point,
@@ -97,8 +91,7 @@ function deleteEmptyParagraph(
 
   if (entry) {
     const [paragraphOrHeading, path] = entry;
-    // TODO check this
-
+    // eslint-disable-next-line -- TODO: check this
     // @ts-ignore
     const isTextEmpty = isAncestorEmpty(editor, paragraphOrHeading as Ancestor);
     // We ignore paragraphs/headings that are children of ul, ol, blockquote, tables, etc
@@ -106,21 +99,18 @@ function deleteEmptyParagraph(
     const hasSiblings = editor.children.length > 1; // prevent editor from losing focus
 
     if (isTextEmpty && isRootLevel && hasSiblings) {
-      // TODO check this
-
+      // eslint-disable-next-line -- TODO: check this
       // @ts-ignore
       Transforms.removeNodes(editor, { at: path });
 
-      // TODO check this
-
+      // eslint-disable-next-line -- TODO: check this
       // @ts-ignore
       const prevNode = Editor.before(editor, editor.selection as Location, {
         unit,
       });
 
       if (prevNode) {
-        // TODO check this
-
+        // eslint-disable-next-line -- TODO: check this
         // @ts-ignore
         const [prevCell] = Editor.nodes<TNode>(editor, {
           match: (node) =>
@@ -131,8 +121,7 @@ function deleteEmptyParagraph(
         });
 
         if (prevCell) {
-          // TODO check this
-
+          // eslint-disable-next-line -- TODO: check this
           // @ts-ignore
           Transforms.select(editor, prevNode);
         }
@@ -168,8 +157,7 @@ function fixPasteAsPlainText(editor: RichTextEditor) {
       }
 
       if (split) {
-        // TODO check this
-
+        // eslint-disable-next-line -- TODO: check this
         // @ts-ignore
         Transforms.splitNodes(editor, { always: true });
       }

@@ -17,14 +17,12 @@ export function toggleQuote(
 
   logAction?.(isActive ? 'remove' : 'insert', { nodeType: BLOCKS.QUOTE });
 
-  // TODO check this
-
+  // eslint-disable-next-line -- TODO: check this
   // @ts-ignore
   Editor.withoutNormalizing(editor, () => {
     if (!editor.selection) return;
 
-    // TODO check this
-
+    // eslint-disable-next-line -- TODO: check this
     // @ts-ignore
     Transforms.unwrapNodes(editor, {
       match: (node) => Element.isElement(node) && (node as CustomElement).type === BLOCKS.QUOTE,
@@ -38,28 +36,24 @@ export function toggleQuote(
         children: [],
       };
 
-      // TODO check this
-
+      // eslint-disable-next-line -- TODO: check this
       // @ts-ignore
       Transforms.wrapNodes(editor, quote);
     }
   });
 }
 
-// TODO check this
-
+// eslint-disable-next-line -- TODO: check this
 // @ts-ignore
 export const onKeyDownToggleQuote = (editor, plugin) => (event) => {
   const { hotkey } = plugin.options;
 
-  // TODO check this
-
+  // eslint-disable-next-line -- TODO: check this
   // @ts-ignore
   if (hotkey && isHotkey(hotkey, event)) {
     event.preventDefault();
 
-    // TODO check this
-
+    // eslint-disable-next-line -- TODO: check this
     // @ts-ignore
     toggleQuote(editor, editor.tracking.onShortcutAction);
   }

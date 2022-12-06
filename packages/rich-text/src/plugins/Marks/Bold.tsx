@@ -35,8 +35,7 @@ const isGoogleBoldWrapper = (el: HTMLElement) =>
   el.id.startsWith('docs-internal-guid') && el.nodeName === 'B';
 
 export const createBoldPlugin = (): RichTextPlugin =>
-  // TODO check this
-
+  // eslint-disable-next-line -- TODO: check this
   // @ts-ignore
   createDefaultBoldPlugin({
     type: MARKS.BOLD,
@@ -45,8 +44,7 @@ export const createBoldPlugin = (): RichTextPlugin =>
       hotkey: ['mod+b'],
     },
     handlers: {
-      // TODO check this
-
+      // eslint-disable-next-line -- TODO: check this
       // @ts-ignore
       onKeyDown: buildMarkEventHandler(MARKS.BOLD),
     },

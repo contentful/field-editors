@@ -27,8 +27,7 @@ export function createDragAndDropPlugin(): RichTextPlugin {
       onDrop: (editor) => (event) => {
         const [draggingBlock] = Array.from(
           getNodeEntries(editor, {
-            // TODO check this
-
+            // eslint-disable-next-line -- TODO: check this
             // @ts-ignore
             match: (node) => DRAGGABLE_TYPES.includes(node?.type),
           })

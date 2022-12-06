@@ -24,8 +24,7 @@ export const createMarkToolbarButton = ({ mark, title, icon }: MarkOptions) => {
       const isActive = isMarkActive(editor, mark);
       editor.tracking.onToolbarAction(isActive ? 'unmark' : 'mark', { markType: mark });
 
-      // TODO check this
-
+      // eslint-disable-next-line -- TODO: check this
       // @ts-ignore
       toggleMarkAndDeactivateConflictingMarks(editor, mark);
       focus(editor);

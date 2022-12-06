@@ -26,7 +26,7 @@ export const hasContent = (doc?: Document) => {
  */
 export const setEditorContent = (editor: TEditor<Value>, nodes?: Node[]): void => {
   // Replaces editor content while keeping change history
-  // TODO check this
+  // eslint-disable-next-line -- TODO: check this
 
   Editor.withoutNormalizing(editor as unknown as BaseEditor, () => {
     const children = [...editor.children];
@@ -34,18 +34,15 @@ export const setEditorContent = (editor: TEditor<Value>, nodes?: Node[]): void =
 
     if (nodes) {
       const nodesArray = Node.isNode(nodes) ? [nodes] : nodes;
-      // TODO check this
-
+      // eslint-disable-next-line -- TODO: check this
       // @ts-ignore
       nodesArray.forEach((node, i) => editor.apply({ type: 'insert_node', path: [i], node: node }));
     }
-    // TODO check this
-
+    // eslint-disable-next-line -- TODO: check this
     // @ts-ignore
     const point = Editor.end(editor, []);
     if (point) {
-      // TODO check this
-
+      // eslint-disable-next-line -- TODO: check this
       // @ts-ignore
       Transforms.select(editor, point);
     }

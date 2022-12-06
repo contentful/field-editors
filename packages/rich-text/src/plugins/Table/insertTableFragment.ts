@@ -59,8 +59,7 @@ export const insertTableFragment = (editor: RichTextEditor) => {
       insertEmptyParagraph(editor);
     }
 
-    // TODO check this
-
+    // eslint-disable-next-line -- TODO: check this
     // @ts-ignore
     return insertFragment(fragments);
   };

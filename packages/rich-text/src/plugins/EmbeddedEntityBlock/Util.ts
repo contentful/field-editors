@@ -38,16 +38,14 @@ function ensureFollowingParagraph(editor: RichTextEditor) {
   /* 
      If the new block isn't followed by a sibling paragraph we insert a new empty one
    */
-  // TODO check this
-
+  // eslint-disable-next-line -- TODO: check this
   // @ts-ignore
   const next = Editor.next(editor);
   if (!next) {
     return insertEmptyParagraph(editor);
   }
 
-  // TODO check this
-
+  // eslint-disable-next-line -- TODO: check this
   // @ts-ignore
   const parent = Editor.above(editor, {
     voids: false,
@@ -62,8 +60,7 @@ function ensureFollowingParagraph(editor: RichTextEditor) {
     return;
   }
 
-  // TODO check this
-
+  // eslint-disable-next-line -- TODO: check this
   // @ts-ignore
   const paragraph = Editor.above(editor, {
     at: next[1],

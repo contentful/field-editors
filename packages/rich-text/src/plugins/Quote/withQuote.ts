@@ -18,8 +18,7 @@ export const withQuote: WithOverride<RichTextEditor> = (editor) => {
         type: TEXT_CONTAINERS,
       },
     });
-    // TODO check this
-
+    // eslint-disable-next-line -- TODO: check this
     // @ts-ignore
     const containerIsNotEmpty = containerEntry && Node.string(containerEntry[0]) !== '';
 
@@ -29,8 +28,7 @@ export const withQuote: WithOverride<RichTextEditor> = (editor) => {
         !!selection && Point.compare(selection.anchor, selection.focus) !== 0;
       // if something is selected (highlighted) we replace the selection
       if (isContentSelected(selection)) {
-        // TODO check this
-
+        // eslint-disable-next-line -- TODO: check this
         // @ts-ignore
         Transforms.delete(editor, { at: selection });
       }
@@ -42,14 +40,12 @@ export const withQuote: WithOverride<RichTextEditor> = (editor) => {
         },
       });
 
-      // TODO check this
-
+      // eslint-disable-next-line -- TODO: check this
       // @ts-ignore
       const containerIsNotEmpty = containerEntry && Node.string(containerEntry[0]) !== '';
 
       if (containerIsNotEmpty) {
-        // TODO check this
-
+        // eslint-disable-next-line -- TODO: check this
         // @ts-ignore
         Transforms.insertNodes(editor, fragment);
         return;

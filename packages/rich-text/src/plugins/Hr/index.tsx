@@ -64,8 +64,7 @@ export function withHrEvents(editor: RichTextEditor) {
       const isDelete = event.key === 'Delete';
       if (isBackspace || isDelete) {
         event.preventDefault();
-        // TODO check this
-
+        // eslint-disable-next-line -- TODO: check this
         // @ts-ignore
         Transforms.removeNodes(editor, { at: pathToSelectedHr });
       }
@@ -87,8 +86,7 @@ export function ToolbarHrButton(props: ToolbarHrButtonProps) {
     };
 
     const hasText = !!getEditorString(editor, editor.selection.focus.path);
-    // TODO check this
-
+    // eslint-disable-next-line -- TODO: check this
     // @ts-ignore
     hasText ? Transforms.insertNodes(editor, hr) : setNodes(editor, hr);
 

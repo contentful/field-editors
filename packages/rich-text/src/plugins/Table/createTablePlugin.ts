@@ -35,15 +35,13 @@ export const createTablePlugin = (): RichTextPlugin =>
     },
     withOverrides: (editor, plugin) => {
       // injects important fixes from plate's original table plugin
-      // TODO check this
-
+      // eslint-disable-next-line -- TODO: check this
       // @ts-ignore
       withTable(editor, plugin as WithPlatePlugin<{}, {}>);
 
       addTableTrackingEvents(editor as RichTextEditor);
 
-      // TODO check this
-
+      // eslint-disable-next-line -- TODO: check this
       // @ts-ignore
       editor.insertFragment = insertTableFragment(editor);
 
@@ -105,8 +103,7 @@ export const createTablePlugin = (): RichTextPlugin =>
               const howMany = getNoOfMissingTableCellsInRow(editor, entry);
               const at = Path.next(getLastChildPath(entry as NodeEntry<CustomElement>));
 
-              // TODO check this
-
+              // eslint-disable-next-line -- TODO: check this
               // @ts-ignore
               Transforms.insertNodes(editor, createEmptyTableCells(howMany), {
                 at,

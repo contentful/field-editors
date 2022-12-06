@@ -17,8 +17,7 @@ test('insertTableAndFocusFirstCell', () => {
     input,
   });
 
-  // TODO check this
-
+  // eslint-disable-next-line -- TODO: check this
   // @ts-ignore
   insertTableAndFocusFirstCell(editor);
 

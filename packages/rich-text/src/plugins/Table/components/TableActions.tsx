@@ -31,8 +31,7 @@ const getCurrentTableSize = (
   return table ? getTableSize(table) : null;
 };
 
-// TODO check this
-
+// eslint-disable-next-line -- TODO: check this
 // @ts-ignore
 type TableAction = (editor: RichTextEditor, options: TablePluginOptions) => void;
 
@@ -84,8 +83,7 @@ export const TableActions = () => {
 
       const tableSize = getCurrentTableSize(editor);
 
-      // TODO check this
-
+      // eslint-disable-next-line -- TODO: check this
       // @ts-ignore
       Editor.withoutNormalizing(editor, () => {
         cb(editor, { header: isHeaderEnabled });

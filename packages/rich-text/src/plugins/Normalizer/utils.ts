@@ -16,8 +16,7 @@ export const getChildren = (editor: RichTextEditor, [node, path]: NodeEntry): No
     return [];
   }
 
-  // TODO check this
-
+  // eslint-disable-next-line -- TODO: check this
   // @ts-ignore
   return Array.from(Node.children(editor, path));
 };

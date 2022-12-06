@@ -21,8 +21,7 @@ export function Underline(props: Slate.RenderLeafProps) {
 }
 
 export const createUnderlinePlugin = (): RichTextPlugin =>
-  // TODO check this
-
+  // eslint-disable-next-line -- TODO: check this
   // @ts-ignore
   createDefaultUnderlinePlugin({
     type: MARKS.UNDERLINE,
@@ -31,8 +30,7 @@ export const createUnderlinePlugin = (): RichTextPlugin =>
       hotkey: ['mod+u'],
     },
     handlers: {
-      // TODO check this
-
+      // eslint-disable-next-line -- TODO: check this
       // @ts-ignore
       onKeyDown: buildMarkEventHandler(MARKS.UNDERLINE),
     },

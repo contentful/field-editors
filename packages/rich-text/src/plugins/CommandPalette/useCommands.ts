@@ -30,33 +30,28 @@ export type CommandList = (Command | CommandGroup)[];
 
 const removeCommand = (editor: PlateEditor) => {
   const [, path] = getAboveNode(editor)!;
-  // TODO check this
-
+  // eslint-disable-next-line -- TODO: check this
   // @ts-ignore
   const range = Editor.range(editor, path);
 
-  // TODO check this
-
+  // eslint-disable-next-line -- TODO: check this
   // @ts-ignore
   Transforms.select(editor, range.focus.path);
 
   removeMark(editor, { key: COMMAND_PROMPT, at: range });
-  // TODO check this
-
+  // eslint-disable-next-line -- TODO: check this
   // @ts-ignore
   Transforms.delete(editor);
 };
 
 const removeQuery = (editor: PlateEditor) => {
   const [, path] = getAboveNode(editor)!;
-  // TODO check this
-
+  // eslint-disable-next-line -- TODO: check this
   // @ts-ignore
   const range = Editor.range(editor, path);
 
   if (range.focus.offset - range.anchor.offset > 1) {
-    // TODO check this
-
+    // eslint-disable-next-line -- TODO: check this
     // @ts-ignore
     Transforms.delete(editor, { at: range.focus, distance: range.focus.offset - 1, reverse: true });
   }
@@ -98,8 +93,7 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: RichT
                         const selection = editor.selection;
                         editor.insertSoftBreak();
                         insertBlock(editor, BLOCKS.EMBEDDED_ENTRY, entry.entry);
-                        // TODO check this
-
+                        // eslint-disable-next-line -- TODO: check this
                         // @ts-ignore
                         Transforms.select(editor, selection);
                         editor.tracking.onCommandPaletteAction('insert', {
@@ -139,8 +133,7 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: RichT
                     callback: () => {
                       const inlineNode = createInlineEntryNode(entry.id);
                       removeCommand(editor);
-                      // TODO check this
-
+                      // eslint-disable-next-line -- TODO: check this
                       // @ts-ignore
                       Transforms.insertNodes(editor, inlineNode);
                       editor.insertText('');
@@ -200,8 +193,7 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: RichT
                             const selection = editor.selection;
                             editor.insertSoftBreak();
                             insertBlock(editor, BLOCKS.EMBEDDED_ASSET, asset.entity);
-                            // TODO check this
-
+                            // eslint-disable-next-line -- TODO: check this
                             // @ts-ignore
                             Transforms.select(editor, selection);
                             editor.tracking.onCommandPaletteAction('insert', {

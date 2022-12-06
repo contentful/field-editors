@@ -24,8 +24,7 @@ const LIST_TYPES: BLOCKS[] = [BLOCKS.OL_LIST, BLOCKS.UL_LIST];
 
 export function isBlockSelected(editor: PlateEditor, type: string): boolean {
   const [match] = Array.from(
-    // TODO check this
-    
+    // eslint-disable-next-line -- TODO: check this
     // @ts-ignore
     Editor.nodes(editor, {
       match: (node) => Element.isElement(node) && (node as CustomElement).type === type,
@@ -143,8 +142,7 @@ export function isLinkActive(editor?: RichTextEditor | null) {
   }
 
   const [link] = Array.from(
-    // TODO check this
-    
+    // eslint-disable-next-line -- TODO: check this
     // @ts-ignore
     Editor.nodes(editor, {
       match: (node) =>
@@ -223,7 +221,9 @@ export function getNextNode(editor: RichTextEditor): CustomElement | null {
   const descendants = Node.descendants(editor as unknown as BaseEditor, {
     from: editor.selection.focus.path,
   });
-   no-constant-condition -- TODO: explain this disable
+
+  // eslint-disable-next-line -- TODO: explain this disable
+  // @ts-ignore
   while (true) {
     const { done, value } = descendants.next();
     if (done) {

@@ -32,8 +32,7 @@ export function Code(props: Slate.RenderLeafProps) {
 }
 
 export const createCodePlugin = (): RichTextPlugin =>
-  // TODO check this
-
+  // eslint-disable-next-line -- TODO: check this
   // @ts-ignore
   createDefaultCodePlugin({
     type: MARKS.CODE,
@@ -42,8 +41,7 @@ export const createCodePlugin = (): RichTextPlugin =>
       hotkey: ['mod+/'],
     },
     handlers: {
-      // TODO check this
-
+      // eslint-disable-next-line -- TODO: check this
       // @ts-ignore
       onKeyDown: buildMarkEventHandler(MARKS.CODE),
     },

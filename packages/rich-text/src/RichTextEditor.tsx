@@ -65,8 +65,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
       return;
     }
     setPendingExternalUpdate(true);
-    // TODO check this
-
+    // eslint-disable-next-line -- TODO: check this
     // @ts-ignore
     setEditorContent(editor, documentToEditorValue(props.value));
   }, [props.value, id]);
@@ -85,8 +84,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
 
     getPlateActions(id).value(
       normalizeEditorValue(documentToEditorValue(props.value), {
-        // TODO check this
-
+        // eslint-disable-next-line -- TODO: check this
         // @ts-ignore
         plugins,
         disableCorePlugins,

@@ -58,8 +58,7 @@ export function replaceEmptyParagraphWithTable(editor: RichTextEditor) {
   const previousPath = Path.previous(tablePath);
   if (!previousPath) return;
 
-  // TODO check this
-
+  // eslint-disable-next-line -- TODO: check this
   // @ts-ignore
   const [nodes] = Editor.nodes(editor, {
     at: previousPath,
@@ -68,19 +67,16 @@ export function replaceEmptyParagraphWithTable(editor: RichTextEditor) {
   if (!nodes) return;
 
   const [previousNode] = nodes;
-  // TODO check this
-
+  // eslint-disable-next-line -- TODO: check this
   // @ts-ignore
   const isPreviousNodeTextEmpty = isAncestorEmpty(editor, previousNode as Ancestor);
   if (isPreviousNodeTextEmpty) {
     // Switch table with previous empty paragraph
-    // TODO check this
-
+    // eslint-disable-next-line -- TODO: check this
     // @ts-ignore
     Transforms.moveNodes(editor, { at: tablePath, to: previousPath });
     // Remove previous paragraph that now is under the table
-    // TODO check this
-
+    // eslint-disable-next-line -- TODO: check this
     // @ts-ignore
     Transforms.removeNodes(editor, { at: tablePath });
   }
@@ -104,19 +100,16 @@ export const getNoOfMissingTableCellsInRow = (editor: RichTextEditor, [, rowPath
 
   // The longest table row determines its width
   const tableWidth = Math.max(
-    // TODO check this
-
+    // eslint-disable-next-line -- TODO: check this
     // @ts-ignore
     ...Array.from(Node.children(editor, tablePath)).map(
-      // TODO check this
-
+      // eslint-disable-next-line -- TODO: check this
       // @ts-ignore
       ([, path]) => Array.from(Node.children(editor, path)).length
     )
   );
 
-  // TODO check this
-
+  // eslint-disable-next-line -- TODO: check this
   // @ts-ignore
   const rowWidth = Array.from(Node.children(editor, rowPath)).length;
 
@@ -140,8 +133,7 @@ export const createEmptyTableCells = (count: number): Node[] => {
 };
 
 export const isNotEmpty = (editor: RichTextEditor, [, path]: NodeEntry) => {
-  // TODO check this
-
+  // eslint-disable-next-line -- TODO: check this
   // @ts-ignore
   return Array.from(Node.children(editor, path)).length !== 0;
 };

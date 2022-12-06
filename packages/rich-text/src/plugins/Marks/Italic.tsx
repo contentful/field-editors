@@ -32,8 +32,7 @@ export function Italic(props: Slate.RenderLeafProps) {
 }
 
 export const createItalicPlugin = (): RichTextPlugin =>
-  // TODO check this
-
+  // eslint-disable-next-line -- TODO: check this
   // @ts-ignore
   createDefaultItalicPlugin({
     type: MARKS.ITALIC,
@@ -42,8 +41,7 @@ export const createItalicPlugin = (): RichTextPlugin =>
       hotkey: ['mod+i'],
     },
     handlers: {
-      // TODO check this
-
+      // eslint-disable-next-line -- TODO: check this
       // @ts-ignore
       onKeyDown: buildMarkEventHandler(MARKS.ITALIC),
     },

@@ -8,8 +8,7 @@ import { RichTextEditor, RichTextPlugin } from '../types';
 import { randomId } from './randomId';
 
 export const normalize = (editor: RichTextEditor) => {
-  // TODO check this
-
+  // eslint-disable-next-line -- TODO: check this
   // @ts-ignore
   Editor.normalize(editor, { force: true });
 };
@@ -24,8 +23,7 @@ export const createTestEditor = (options: {
 
   const sdk: FieldExtensionSDK = options.sdk ?? ({} as any);
 
-  // TODO check this
-
+  // eslint-disable-next-line -- TODO: check this
   // @ts-ignore
   const editor = createPlateEditor<RichTextEditor>({
     id: randomId('editor'),
@@ -35,8 +33,7 @@ export const createTestEditor = (options: {
 
   return {
     editor,
-    // TODO check this
-
+    // eslint-disable-next-line -- TODO: check this
     // @ts-ignore
     normalize: () => normalize(editor),
   };
