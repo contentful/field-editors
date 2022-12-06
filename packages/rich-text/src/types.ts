@@ -25,7 +25,7 @@ export type CustomElement<T = unknown> = {
   isVoid?: boolean;
 };
 
- @typescript-eslint/no-explicit-any -- TODO: explain this disable
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- TODO: explain this disable
 export type CustomRenderElementProps<T = any, O = any> = Omit<RenderElementProps, 'element'> & {
   element: CustomElement<T>;
 } & O;
@@ -59,6 +59,6 @@ export interface RichTextPlugin extends PlatePlugin<AnyObject, Value, RichTextEd
   normalizer?: NormalizerRule[];
 }
 
-export interface RichTextEditor extends PlateEditor<Value> {
+export interface RichTextEditor extends PlateEditor {
   tracking: TrackingPluginActions;
 }

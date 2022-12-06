@@ -151,7 +151,8 @@ export class HyperlinkDialog extends React.Component {
               onClick={() => this.props.onClose(null)}
               variant="secondary"
               testId="cancel-cta"
-              size="small">
+              size="small"
+            >
               Cancel
             </Button>
             <Button
@@ -160,7 +161,8 @@ export class HyperlinkDialog extends React.Component {
               onClick={this.handleSubmit}
               isDisabled={!this.isLinkComplete()}
               testId="confirm-cta"
-              size="small">
+              size="small"
+            >
               {labels.confirm}
             </Button>
           </ModalControls>
@@ -184,7 +186,7 @@ export class HyperlinkDialog extends React.Component {
               name="link-text"
               value={text || ''}
               onChange={(e) => this.setState({ text: e.target.value })}
-               -- TODO: describe this disable  jsx-a11y/no-autofocus
+              // eslint-disable-next-line -- TODO: describe this disable  jsx-a11y/no-autofocus
               autoFocus={!isUriInputAutoFocused}
             />
           </FormControl>
@@ -195,7 +197,8 @@ export class HyperlinkDialog extends React.Component {
             <Select
               value={type}
               onChange={(e) => this.setState({ type: e.target.value })}
-              testId="link-type-select">
+              testId="link-type-select"
+            >
               {/* Show the option if the link type is allowed or the current link is of type that is no longer valid */}
               {allowedHyperlinkTypes.includes(LINK_TYPES.URI) || type === LINK_TYPES.URI ? (
                 <Select.Option value={LINK_TYPES.URI}>URL</Select.Option>
@@ -218,7 +221,7 @@ export class HyperlinkDialog extends React.Component {
               value={uri || ''}
               placeholder="https://"
               onChange={(e) => this.setState({ uri: e.target.value })}
-               -- TODO: describe this disable  jsx-a11y/no-autofocus
+              // eslint-disable-next-line -- TODO: describe this disable  jsx-a11y/no-autofocus
               autoFocus={isUriInputAutoFocused}
             />
             <FormControl.HelpText>A protocol may be required, e.g. https://</FormControl.HelpText>
@@ -244,7 +247,8 @@ export class HyperlinkDialog extends React.Component {
           <TextLink
             as="button"
             className={css({ marginLeft: tokens.spacingS })}
-            onClick={resetEntity}>
+            onClick={resetEntity}
+          >
             Remove selection
           </TextLink>
         )}

@@ -1,6 +1,6 @@
- -- TODO: explain this disable
+// eslint-disable-next-line -- TODO: explain this disable
 declare namespace JSX {
-   -- TODO: explain this disable
+  // eslint-disable-next-line -- TODO: explain this disable
   interface Element {}
   interface IntrinsicElements {
     editor: {};

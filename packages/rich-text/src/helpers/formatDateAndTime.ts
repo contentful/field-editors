@@ -1,4 +1,4 @@
- no-restricted-imports -- TODO: explain this disable
+// eslint-disable-next-line no-restricted-imports -- TODO: explain this disable
 import moment from 'moment';
 
 type DateFormatFn = (date: Date | string, short?: boolean) => string;

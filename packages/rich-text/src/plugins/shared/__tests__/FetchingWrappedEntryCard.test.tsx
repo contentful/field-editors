@@ -44,9 +44,9 @@ test('some dropdown actions should be disabled/removed', async () => {
         sdk={sdk}
         entryId="entry-id"
         locale="en-US"
-         -- TODO: explain this disable
+        // eslint-disable-next-line -- TODO: explain this disable
         onEdit={() => {}}
-         -- TODO: explain this disable
+        // eslint-disable-next-line -- TODO: explain this disable
         onRemove={() => {}}
         isDisabled
         isSelected

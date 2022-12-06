@@ -329,7 +329,7 @@ describe('insert line break', () => {
   );
 
   for (const t of tests) {
-     jest/valid-title -- TODO: explain this disable
+    // eslint-disable-next-line jest/valid-title -- TODO: explain this disable
     test(t.title, () => {
       const { editor } = createTestEditor({
         input: render(t.input),
