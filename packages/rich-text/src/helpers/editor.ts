@@ -222,8 +222,7 @@ export function getNextNode(editor: RichTextEditor): CustomElement | null {
     from: editor.selection.focus.path,
   });
 
-  // eslint-disable-next-line -- TODO: explain this disable
-  // @ts-ignore
+  // eslint-disable-next-line no-constant-condition -- TODO: explain this disable
   while (true) {
     const { done, value } = descendants.next();
     if (done) {
