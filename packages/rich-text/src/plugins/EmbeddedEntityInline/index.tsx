@@ -62,7 +62,11 @@ function EmbeddedEntityInline(props: EmbeddedEntityInlineProps) {
 
   function handleRemoveClick() {
     if (!editor) return;
+    // eslint-disable-next-line -- TODO: check this
+    // @ts-ignore
     const pathToElement = ReactEditor.findPath(editor, props.element);
+    // eslint-disable-next-line -- TODO: check this
+    // @ts-ignore
     Transforms.removeNodes(editor, { at: pathToElement });
   }
 
@@ -73,11 +77,13 @@ function EmbeddedEntityInline(props: EmbeddedEntityInlineProps) {
       data-embedded-entity-inline-id={entryId}
       // COMPAT: This makes copy & paste work for Firefox
       contentEditable={IS_CHROME ? undefined : false}
-      draggable={IS_CHROME ? true : undefined}>
+      draggable={IS_CHROME ? true : undefined}
+    >
       <span
         // COMPAT: This makes copy & paste work for Chromium/Blink browsers and Safari
         contentEditable={IS_CHROME ? false : undefined}
-        draggable={IS_CHROME ? true : undefined}>
+        draggable={IS_CHROME ? true : undefined}
+      >
         <FetchingWrappedInlineEntryCard
           sdk={sdk}
           entryId={entryId}
@@ -152,7 +158,8 @@ export function ToolbarEmbeddedEntityInlineButton(props: ToolbarEmbeddedEntityIn
       disabled={props.isDisabled}
       className="rich-text__entry-link-block-button"
       testId={`toolbar-toggle-${INLINES.EMBEDDED_ENTRY}`}
-      onClick={handleClick}>
+      onClick={handleClick}
+    >
       <Flex alignItems="center" flexDirection="row">
         <EmbeddedEntryInlineIcon
           variant="secondary"
@@ -178,6 +185,8 @@ export function createEmbeddedEntityInlinePlugin(sdk: FieldExtensionSDK): RichTe
       hotkey: 'mod+shift+2',
     },
     handlers: {
+      // eslint-disable-next-line -- TODO: check this
+      // @ts-ignore
       onKeyDown: getWithEmbeddedEntryInlineEvents(sdk),
     },
     deserializeHtml: {
@@ -195,12 +204,18 @@ export function createEmbeddedEntityInlinePlugin(sdk: FieldExtensionSDK): RichTe
 
 function getWithEmbeddedEntryInlineEvents(
   sdk: FieldExtensionSDK
+  // eslint-disable-next-line -- TODO: check this
+  // @ts-ignore
 ): KeyboardHandler<RichTextEditor, HotkeyPlugin> {
   return function withEmbeddedEntryInlineEvents(editor, { options: { hotkey } }) {
     return function handleEvent(event) {
       if (!editor) return;
 
+      // eslint-disable-next-line -- TODO: check this
+      // @ts-ignore
       if (hotkey && isHotkey(hotkey, event)) {
+        // eslint-disable-next-line -- TODO: check this
+        // @ts-ignore
         selectEntityAndInsert(editor, sdk, editor.tracking.onShortcutAction);
       }
     };
