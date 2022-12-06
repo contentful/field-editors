@@ -24,6 +24,9 @@ export const createMarkToolbarButton = ({ mark, title, icon }: MarkOptions) => {
       const isActive = isMarkActive(editor, mark);
       editor.tracking.onToolbarAction(isActive ? 'unmark' : 'mark', { markType: mark });
 
+      // TODO check this
+
+      // @ts-ignore
       toggleMarkAndDeactivateConflictingMarks(editor, mark);
       focus(editor);
     }, [editor]);
@@ -36,8 +39,7 @@ export const createMarkToolbarButton = ({ mark, title, icon }: MarkOptions) => {
         testId={`${mark}-toolbar-button`}
         onClick={handleClick}
         isActive={isMarkActive(editor, mark)}
-        isDisabled={isDisabled}
-      >
+        isDisabled={isDisabled}>
         {icon}
       </ToolbarButton>
     );

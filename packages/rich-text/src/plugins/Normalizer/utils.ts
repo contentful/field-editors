@@ -16,6 +16,9 @@ export const getChildren = (editor: RichTextEditor, [node, path]: NodeEntry): No
     return [];
   }
 
+  // TODO check this
+
+  // @ts-ignore
   return Array.from(Node.children(editor, path));
 };
 

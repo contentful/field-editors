@@ -3,6 +3,5 @@ import { withNormalizer } from './withNormalizer';
 
 export const createNormalizerPlugin = (): RichTextPlugin => ({
   key: 'NormalizerPlugin',
-  // @ts-expect-error
   withOverrides: withNormalizer,
 });

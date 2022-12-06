@@ -2,9 +2,8 @@ import { useCallback, useMemo } from 'react';
 
 import { toContentfulDocument } from '@contentful/contentful-slatejs-adapter';
 import { Document } from '@contentful/rich-text-types';
-import { getPlateSelectors } from '@udecode/plate-core';
+import { getPlateSelectors, TDescendant, TOperation } from '@udecode/plate-core';
 import debounce from 'lodash/debounce';
-import { Operation } from 'slate';
 
 import schema from './constants/Schema';
 import { removeInternalMarks } from './helpers/removeInternalMarks';
@@ -12,7 +11,7 @@ import { removeInternalMarks } from './helpers/removeInternalMarks';
 /**
  * Returns whether a given operation is relevant enough to trigger a save.
  */
-const isRelevantOperation = (op: Operation) => {
+const isRelevantOperation = (op: TOperation<TDescendant>) => {
   if (op.type === 'set_selection') {
     return false;
   }

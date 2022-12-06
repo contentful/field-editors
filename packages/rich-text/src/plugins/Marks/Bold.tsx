@@ -35,6 +35,9 @@ const isGoogleBoldWrapper = (el: HTMLElement) =>
   el.id.startsWith('docs-internal-guid') && el.nodeName === 'B';
 
 export const createBoldPlugin = (): RichTextPlugin =>
+  // TODO check this
+
+  // @ts-ignore
   createDefaultBoldPlugin({
     type: MARKS.BOLD,
     component: Bold,
@@ -42,6 +45,9 @@ export const createBoldPlugin = (): RichTextPlugin =>
       hotkey: ['mod+b'],
     },
     handlers: {
+      // TODO check this
+
+      // @ts-ignore
       onKeyDown: buildMarkEventHandler(MARKS.BOLD),
     },
     deserializeHtml: {

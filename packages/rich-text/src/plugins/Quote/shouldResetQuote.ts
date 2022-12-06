@@ -1,6 +1,6 @@
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
 import {
-  getAbove,
+  getAboveNode,
   getBlockAbove,
   isAncestorEmpty,
   isLastChild,
@@ -15,7 +15,7 @@ import {
  * 3) that child is empty
  */
 export const shouldResetQuoteOnBackspace = (editor: PlateEditor) => {
-  const container = getAbove(editor, {
+  const container = getAboveNode(editor, {
     match: { type: TEXT_CONTAINERS },
     mode: 'lowest',
   });

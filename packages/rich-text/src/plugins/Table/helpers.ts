@@ -1,6 +1,11 @@
 import { BLOCKS } from '@contentful/rich-text-types';
-import { getParent } from '@udecode/plate-core';
-import { getAbove, getChildren, isFirstChild, isAncestorEmpty } from '@udecode/plate-core';
+import {
+  getParentNode,
+  getAboveNode,
+  getChildren,
+  isFirstChild,
+  isAncestorEmpty,
+} from '@udecode/plate-core';
 import {
   ELEMENT_TABLE,
   ELEMENT_TH,
@@ -25,7 +30,7 @@ export function isTableActive(editor: RichTextEditor) {
 }
 
 export function isTableHeaderEnabled(editor: RichTextEditor) {
-  const tableItem = getAbove(editor, {
+  const tableItem = getAboveNode(editor, {
     match: {
       type: BLOCKS.TABLE,
     },
@@ -53,6 +58,9 @@ export function replaceEmptyParagraphWithTable(editor: RichTextEditor) {
   const previousPath = Path.previous(tablePath);
   if (!previousPath) return;
 
+  // TODO check this
+
+  // @ts-ignore
   const [nodes] = Editor.nodes(editor, {
     at: previousPath,
     match: (node) => (node as CustomElement).type === BLOCKS.PARAGRAPH,
@@ -60,11 +68,20 @@ export function replaceEmptyParagraphWithTable(editor: RichTextEditor) {
   if (!nodes) return;
 
   const [previousNode] = nodes;
+  // TODO check this
+
+  // @ts-ignore
   const isPreviousNodeTextEmpty = isAncestorEmpty(editor, previousNode as Ancestor);
   if (isPreviousNodeTextEmpty) {
     // Switch table with previous empty paragraph
+    // TODO check this
+
+    // @ts-ignore
     Transforms.moveNodes(editor, { at: tablePath, to: previousPath });
     // Remove previous paragraph that now is under the table
+    // TODO check this
+
+    // @ts-ignore
     Transforms.removeNodes(editor, { at: tablePath });
   }
 }
@@ -76,7 +93,7 @@ export function replaceEmptyParagraphWithTable(editor: RichTextEditor) {
  * normalization cycles.
  */
 export const getNoOfMissingTableCellsInRow = (editor: RichTextEditor, [, rowPath]: NodeEntry) => {
-  const parent = getParent(editor, rowPath);
+  const parent = getParentNode(editor, rowPath);
 
   // This is ensured by normalization. The error is here just in case
   if (!parent) {
@@ -87,11 +104,20 @@ export const getNoOfMissingTableCellsInRow = (editor: RichTextEditor, [, rowPath
 
   // The longest table row determines its width
   const tableWidth = Math.max(
+    // TODO check this
+
+    // @ts-ignore
     ...Array.from(Node.children(editor, tablePath)).map(
+      // TODO check this
+
+      // @ts-ignore
       ([, path]) => Array.from(Node.children(editor, path)).length
     )
   );
 
+  // TODO check this
+
+  // @ts-ignore
   const rowWidth = Array.from(Node.children(editor, rowPath)).length;
 
   return tableWidth - rowWidth;
@@ -114,6 +140,9 @@ export const createEmptyTableCells = (count: number): Node[] => {
 };
 
 export const isNotEmpty = (editor: RichTextEditor, [, path]: NodeEntry) => {
+  // TODO check this
+
+  // @ts-ignore
   return Array.from(Node.children(editor, path)).length !== 0;
 };
 

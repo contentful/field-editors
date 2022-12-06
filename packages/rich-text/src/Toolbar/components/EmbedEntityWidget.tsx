@@ -9,6 +9,7 @@ import { ToolbarIcon as EmbeddedEntityBlockToolbarIcon } from '../../plugins/Emb
 import { ToolbarEmbeddedEntityInlineButton } from '../../plugins/EmbeddedEntityInline';
 import { useSdkContext } from '../../SdkProvider';
 import { EmbeddedEntityDropdownButton } from './EmbeddedEntityDropdownButton';
+import { RichTextEditor } from 'types';
 
 export interface EmbedEntityWidgetProps {
   isDisabled?: boolean;
@@ -42,7 +43,7 @@ export const EmbedEntityWidget = ({ isDisabled, canInsertBlocks }: EmbedEntityWi
       )}
       {inlineEntryEmbedEnabled && (
         <ToolbarEmbeddedEntityInlineButton
-          isDisabled={!!isDisabled || isLinkActive(editor)}
+          isDisabled={!!isDisabled || isLinkActive(editor as RichTextEditor)}
           onClose={onCloseEntityDropdown}
         />
       )}

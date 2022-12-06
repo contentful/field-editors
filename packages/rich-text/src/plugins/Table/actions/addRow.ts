@@ -1,4 +1,4 @@
-import { getPluginType, TElement, getAbove, insertNodes, someNode } from '@udecode/plate-core';
+import { getPluginType, TElement, getAboveNode, insertNodes, someNode } from '@udecode/plate-core';
 import { ELEMENT_TABLE, ELEMENT_TR, getEmptyRowNode } from '@udecode/plate-table';
 import { Transforms, Path, Editor } from 'slate';
 
@@ -10,7 +10,7 @@ const addRow = (editor: RichTextEditor, getNextRowPath: (currentRowPath: Path) =
       match: { type: getPluginType(editor, ELEMENT_TABLE) },
     })
   ) {
-    const currentRowItem = getAbove(editor, {
+    const currentRowItem = getAboveNode(editor, {
       match: { type: getPluginType(editor, ELEMENT_TR) },
     });
 
@@ -20,7 +20,6 @@ const addRow = (editor: RichTextEditor, getNextRowPath: (currentRowPath: Path) =
 
       insertNodes<TElement>(
         editor,
-        // @ts-expect-error
         getEmptyRowNode(editor, {
           header: false,
           colCount: currentRowElem.children.length,
@@ -33,6 +32,9 @@ const addRow = (editor: RichTextEditor, getNextRowPath: (currentRowPath: Path) =
       );
 
       // Select the first cell in the current row
+      // TODO check this
+
+      // @ts-ignore
       Transforms.select(editor, Editor.start(editor, nextRowPath));
     }
   }

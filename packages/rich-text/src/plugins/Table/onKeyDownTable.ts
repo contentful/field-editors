@@ -1,20 +1,13 @@
 import { KeyboardEvent } from 'react';
 
 import { BLOCKS } from '@contentful/rich-text-types';
-import {
-  HotkeyPlugin,
-  KeyboardHandler,
-  WithPlatePlugin,
-  getAbove,
-  isLastChild,
-} from '@udecode/plate-core';
+import { WithPlatePlugin, getAboveNode, isLastChild } from '@udecode/plate-core';
 import { getTableCellEntry, onKeyDownTable as defaultKeyDownTable } from '@udecode/plate-table';
 
 import { insertEmptyParagraph } from '../../helpers/editor';
-import { RichTextEditor } from '../../types';
 import { addRowBelow } from './actions';
 
-export const onKeyDownTable: KeyboardHandler<RichTextEditor, HotkeyPlugin> = (editor, plugin) => {
+export const onKeyDownTable = (editor, plugin) => {
   const defaultHandler = defaultKeyDownTable(editor, plugin as WithPlatePlugin);
 
   return (event: KeyboardEvent) => {
@@ -27,7 +20,7 @@ export const onKeyDownTable: KeyboardHandler<RichTextEditor, HotkeyPlugin> = (ed
 
       if (isBeforeTable) {
         if (event.key === 'Enter') {
-          const above = getAbove(editor, { match: { type: BLOCKS.TABLE } });
+          const above = getAboveNode(editor, { match: { type: BLOCKS.TABLE } });
 
           if (!above) return;
 

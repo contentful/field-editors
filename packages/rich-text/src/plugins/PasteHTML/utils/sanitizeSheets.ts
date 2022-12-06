@@ -33,7 +33,7 @@ export const sanitizeSheets = (doc: Document): Document => {
     // CSS :nth-of-type index starts from 1
     let colIndex = 1;
 
-    // eslint-disable-next-line -- TODO: explain this disable
+     -- TODO: explain this disable
     while (true) {
       const cells = rows
         .map((row) => row.querySelector(`th:nth-of-type(${colIndex}), td:nth-of-type(${colIndex})`))

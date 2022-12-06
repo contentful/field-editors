@@ -32,10 +32,16 @@ export function Subscript(props: Slate.RenderLeafProps) {
 }
 
 export const createSubscriptPlugin = (): RichTextPlugin =>
+  // TODO check this
+
+  // @ts-ignore
   createDefaultSubscriptPlugin({
     type: MARKS.SUBSCRIPT,
     component: Subscript,
     handlers: {
+      // TODO check this
+
+      // @ts-ignore
       onKeyDown: buildMarkEventHandler(MARKS.SUBSCRIPT),
     },
     deserializeHtml: {

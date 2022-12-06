@@ -6,23 +6,45 @@ import isHotkey from 'is-hotkey';
 import { RichTextEditor } from '../../types';
 
 export const toggleMarkAndDeactivateConflictingMarks = (
+  // TODO check this
+
+  // @ts-ignore
   editor: PlateEditor<RichTextEditor>,
   mark: MARKS
 ) => {
   const subs = [MARKS.SUPERSCRIPT, MARKS.SUBSCRIPT];
   const clear = subs.includes(mark) ? subs : [];
+  // TODO check this
+
+  // @ts-ignore
   toggleMark(editor, { key: mark, clear });
 };
 
 export const buildMarkEventHandler =
-  (type: MARKS): KeyboardHandler<RichTextEditor, HotkeyPlugin> =>
-  (editor, { options: { hotkey } }) =>
-  (event) => {
-    if (editor.selection && hotkey && isHotkey(hotkey, event)) {
-      event.preventDefault();
+  // TODO check this
 
-      const isActive = isMarkActive(editor, type);
-      editor.tracking.onShortcutAction(isActive ? 'unmark' : 'mark', { markType: type });
-      toggleMarkAndDeactivateConflictingMarks(editor, type);
-    }
-  };
+  // @ts-ignore
+
+
+    (type: MARKS): KeyboardHandler<RichTextEditor, HotkeyPlugin> =>
+    (editor, { options: { hotkey } }) =>
+    (event) => {
+      // TODO check this
+
+      // @ts-ignore
+      if (editor.selection && hotkey && isHotkey(hotkey, event)) {
+        event.preventDefault();
+        // TODO check this
+
+        // @ts-ignore
+        const isActive = isMarkActive(editor, type);
+        // TODO check this
+
+        // @ts-ignore
+        editor.tracking.onShortcutAction(isActive ? 'unmark' : 'mark', { markType: type });
+        // TODO check this
+
+        // @ts-ignore
+        toggleMarkAndDeactivateConflictingMarks(editor, type);
+      }
+    };

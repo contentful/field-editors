@@ -76,6 +76,9 @@ export const withNormalizer = (editor: RichTextEditor) => {
   // Wrap transformer in a withoutNormalizing() call to avoid unnecessary
   // normalization cycles.
   const _transform = (tr: NodeTransformer, entry: NodeEntry) => {
+    // TODO check this
+
+    // @ts-ignore
     Editor.withoutNormalizing(editor, () => {
       tr(editor, entry);
     });
@@ -85,6 +88,9 @@ export const withNormalizer = (editor: RichTextEditor) => {
 
   editor.normalizeNode = (entry) => {
     const [node] = entry;
+    // TODO check this
+
+    // @ts-ignore
     const children = getChildren(editor, entry);
 
     // The order of validNode rules Vs validChildren doesn't matter. Slate
@@ -95,7 +101,13 @@ export const withNormalizer = (editor: RichTextEditor) => {
       }
 
       // Normalize node
+      // TODO check this
+
+      // @ts-ignore
       if ('validNode' in rule && !rule.validNode(editor, entry)) {
+        // TODO check this
+
+        // @ts-ignore
         _transform(rule.transform as NodeTransformer, entry);
         return;
       }

@@ -1,13 +1,14 @@
 import { Link } from '@contentful/field-editor-reference/dist/types';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import {
-  EditorNodesOptions,
-  getText,
+  GetNodeEntriesOptions,
+  getSelectionText,
   PlateEditor,
   toggleNodeType,
   ToggleNodeTypeOptions,
+  Value,
 } from '@udecode/plate-core';
-import { Text, Editor, Element, Transforms, Path, Range, Node } from 'slate';
+import { Text, Editor, Element, Transforms, Path, Range, Node, BaseEditor } from 'slate';
 import { ReactEditor } from 'slate-react';
 
 import { CustomElement, RichTextEditor } from '../types';
@@ -23,6 +24,9 @@ const LIST_TYPES: BLOCKS[] = [BLOCKS.OL_LIST, BLOCKS.UL_LIST];
 
 export function isBlockSelected(editor: PlateEditor, type: string): boolean {
   const [match] = Array.from(
+    // TODO check this
+    
+    // @ts-ignore
     Editor.nodes(editor, {
       match: (node) => Element.isElement(node) && (node as CustomElement).type === type,
     })
@@ -45,7 +49,10 @@ export function getNodeEntryFromSelection(
   if (!path) return [];
   const nodeTypes = Array.isArray(nodeTypeOrTypes) ? nodeTypeOrTypes : [nodeTypeOrTypes];
   for (let i = 0; i < path.length; i++) {
-    const nodeEntry = Editor.node(editor, path.slice(0, i + 1)) as NodeEntry;
+    const nodeEntry = Editor.node(
+      editor as unknown as BaseEditor,
+      path.slice(0, i + 1)
+    ) as NodeEntry;
     if (nodeTypes.includes(nodeEntry[0].type as NodeType)) return nodeEntry;
   }
   return [];
@@ -58,11 +65,11 @@ export function isNodeTypeSelected(editor: RichTextEditor, nodeType: BLOCKS | IN
 }
 
 export function moveToTheNextLine(editor: RichTextEditor) {
-  Transforms.move(editor, { distance: 1, unit: 'line' });
+  Transforms.move(editor as unknown as BaseEditor, { distance: 1, unit: 'line' });
 }
 
 export function moveToTheNextChar(editor: RichTextEditor) {
-  Transforms.move(editor, { distance: 1, unit: 'offset' });
+  Transforms.move(editor as unknown as BaseEditor, { distance: 1, unit: 'offset' });
 }
 
 export function insertEmptyParagraph(editor: RichTextEditor, options?) {
@@ -72,14 +79,14 @@ export function insertEmptyParagraph(editor: RichTextEditor, options?) {
     data: {},
     isVoid: false,
   };
-  Transforms.insertNodes(editor, emptyParagraph, options);
+  Transforms.insertNodes(editor as unknown as BaseEditor, emptyParagraph, options);
 }
 
 export function getElementFromCurrentSelection(editor: RichTextEditor) {
   if (!editor.selection) return [];
 
   return Array.from(
-    Editor.nodes(editor, {
+    Editor.nodes(editor as unknown as BaseEditor, {
       /**
        * editor.select is a Range, which includes anchor and focus, the beginning and the end of a selection
        * when using only editor.selection.focus, we might get only the end of the selection, or where the text cursor is
@@ -130,12 +137,15 @@ export function insertLink(editor, options: InsertLinkOptions) {
 }
 
 // TODO: move to hyperlink plugin
-export function isLinkActive(editor?: RichTextEditor) {
+export function isLinkActive(editor?: RichTextEditor | null) {
   if (!editor) {
     return false;
   }
 
   const [link] = Array.from(
+    // TODO check this
+    
+    // @ts-ignore
     Editor.nodes(editor, {
       match: (node) =>
         !Editor.isEditor(node) &&
@@ -200,7 +210,7 @@ export function getAncestorPathFromSelection(editor: RichTextEditor) {
 }
 
 export const isAtEndOfTextSelection = (editor: RichTextEditor) =>
-  editor.selection?.focus.offset === getText(editor, editor.selection?.focus.path).length;
+  editor.selection?.focus.offset === getSelectionText(editor).length;
 
 /**
  * This traversal strategy is unfortunately necessary because Slate doesn't
@@ -210,8 +220,10 @@ export function getNextNode(editor: RichTextEditor): CustomElement | null {
   if (!editor.selection) {
     return null;
   }
-  const descendants = Node.descendants(editor, { from: editor.selection.focus.path });
-  // eslint-disable-next-line no-constant-condition -- TODO: explain this disable
+  const descendants = Node.descendants(editor as unknown as BaseEditor, {
+    from: editor.selection.focus.path,
+  });
+   no-constant-condition -- TODO: explain this disable
   while (true) {
     const { done, value } = descendants.next();
     if (done) {
@@ -236,7 +248,7 @@ export const focus = (editor: RichTextEditor) => {
   const x = window.scrollX;
   const y = window.scrollY;
 
-  ReactEditor.focus(editor);
+  ReactEditor.focus(editor as unknown as ReactEditor);
 
   // Safari has issues with `editor.focus({ preventScroll: true })`, it ignores the option `preventScroll`
   if (IS_SAFARI) {
@@ -249,10 +261,10 @@ export const focus = (editor: RichTextEditor) => {
 export function toggleElement(
   editor: RichTextEditor,
   options: ToggleNodeTypeOptions,
-  editorOptions?: Omit<EditorNodesOptions, 'match'>
+  editorOptions?: Omit<GetNodeEntriesOptions<Value>, 'match'>
 ) {
   toggleNodeType(editor, options, editorOptions);
 
   // We must reset `data` from one element to another
-  Transforms.setNodes(editor, { data: {} });
+  Transforms.setNodes(editor as unknown as ReactEditor, { data: {} });
 }

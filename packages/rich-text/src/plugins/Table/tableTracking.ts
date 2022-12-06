@@ -1,11 +1,12 @@
 import { BLOCKS } from '@contentful/rich-text-types';
+import { Value } from '@udecode/plate-core';
 import { Element } from 'slate';
 
 import { getPastingSource } from '../../plugins/Tracking';
 import { CustomElement, RichTextEditor } from '../../types';
 import type { NodeTransformer } from '../Normalizer';
 
-function hasTables(nodes: CustomElement[]) {
+function hasTables(nodes: Value) {
   return nodes.some(({ type }) => {
     return type === BLOCKS.TABLE;
   });
@@ -13,7 +14,7 @@ function hasTables(nodes: CustomElement[]) {
 
 const isTableHeaderCell = ({ type }) => type === BLOCKS.TABLE_HEADER_CELL;
 
-function hasHeadersOutsideFirstRow(nodes: CustomElement[]) {
+function hasHeadersOutsideFirstRow(nodes: Value) {
   return nodes
     .filter(({ type }) => type === BLOCKS.TABLE)
     .flatMap(({ children }) => children.slice(1) as CustomElement[])

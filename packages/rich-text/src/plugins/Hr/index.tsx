@@ -3,7 +3,7 @@ import * as React from 'react';
 import { HorizontalRuleIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { getText, setNodes } from '@udecode/plate-core';
+import { getEditorString, setNodes } from '@udecode/plate-core';
 import { css, cx } from 'emotion';
 import { Transforms } from 'slate';
 import * as Slate from 'slate-react';
@@ -64,6 +64,9 @@ export function withHrEvents(editor: RichTextEditor) {
       const isDelete = event.key === 'Delete';
       if (isBackspace || isDelete) {
         event.preventDefault();
+        // TODO check this
+
+        // @ts-ignore
         Transforms.removeNodes(editor, { at: pathToSelectedHr });
       }
     }
@@ -83,7 +86,10 @@ export function ToolbarHrButton(props: ToolbarHrButtonProps) {
       isVoid: true,
     };
 
-    const hasText = !!getText(editor, editor.selection.focus.path);
+    const hasText = !!getEditorString(editor, editor.selection.focus.path);
+    // TODO check this
+
+    // @ts-ignore
     hasText ? Transforms.insertNodes(editor, hr) : setNodes(editor, hr);
 
     // Move focus to the next paragraph (added by TrailingParagraph plugin)

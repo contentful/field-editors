@@ -32,6 +32,9 @@ export function Code(props: Slate.RenderLeafProps) {
 }
 
 export const createCodePlugin = (): RichTextPlugin =>
+  // TODO check this
+
+  // @ts-ignore
   createDefaultCodePlugin({
     type: MARKS.CODE,
     component: Code,
@@ -39,6 +42,9 @@ export const createCodePlugin = (): RichTextPlugin =>
       hotkey: ['mod+/'],
     },
     handlers: {
+      // TODO check this
+
+      // @ts-ignore
       onKeyDown: buildMarkEventHandler(MARKS.CODE),
     },
     deserializeHtml: {

@@ -4,7 +4,7 @@ import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import * as Contentful from '@contentful/rich-text-types';
-import { Plate, getPlateSelectors, getPlateActions } from '@udecode/plate-core';
+import { getPlateActions, getPlateSelectors, Plate } from '@udecode/plate-core';
 import { css, cx } from 'emotion';
 import deepEquals from 'fast-deep-equal';
 import noop from 'lodash/noop';
@@ -65,6 +65,9 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
       return;
     }
     setPendingExternalUpdate(true);
+    // TODO check this
+
+    // @ts-ignore
     setEditorContent(editor, documentToEditorValue(props.value));
   }, [props.value, id]);
 
@@ -82,6 +85,9 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
 
     getPlateActions(id).value(
       normalizeEditorValue(documentToEditorValue(props.value), {
+        // TODO check this
+
+        // @ts-ignore
         plugins,
         disableCorePlugins,
       })

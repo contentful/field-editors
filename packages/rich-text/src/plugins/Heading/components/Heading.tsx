@@ -59,7 +59,7 @@ const styles = {
   },
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any -- TODO: explain this disable
+ @typescript-eslint/no-explicit-any -- TODO: explain this disable
 function createHeading(Tag: any, block: BLOCKS) {
   return function Heading(props: Slate.RenderElementProps) {
     return (

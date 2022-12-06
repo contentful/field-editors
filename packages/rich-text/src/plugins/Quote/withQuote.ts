@@ -1,6 +1,6 @@
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
 import { WithOverride } from '@udecode/plate-core';
-import { getAbove } from '@udecode/plate-core';
+import { getAboveNode } from '@udecode/plate-core';
 import { BaseRange, BaseSelection, Element, Node, Point, Transforms } from 'slate';
 
 import { RichTextEditor } from '../../types';
@@ -13,11 +13,14 @@ export const withQuote: WithOverride<RichTextEditor> = (editor) => {
     const startsWithBlockquote =
       Element.isElement(startingNode) && startingNode.type === BLOCKS.QUOTE;
 
-    const containerEntry = getAbove(editor, {
+    const containerEntry = getAboveNode(editor, {
       match: {
         type: TEXT_CONTAINERS,
       },
     });
+    // TODO check this
+
+    // @ts-ignore
     const containerIsNotEmpty = containerEntry && Node.string(containerEntry[0]) !== '';
 
     if (startsWithBlockquote && containerIsNotEmpty) {
@@ -26,19 +29,28 @@ export const withQuote: WithOverride<RichTextEditor> = (editor) => {
         !!selection && Point.compare(selection.anchor, selection.focus) !== 0;
       // if something is selected (highlighted) we replace the selection
       if (isContentSelected(selection)) {
+        // TODO check this
+
+        // @ts-ignore
         Transforms.delete(editor, { at: selection });
       }
 
       // get the cursor entry again, it may be different after deletion
-      const containerEntry = getAbove(editor, {
+      const containerEntry = getAboveNode(editor, {
         match: {
           type: TEXT_CONTAINERS,
         },
       });
 
+      // TODO check this
+
+      // @ts-ignore
       const containerIsNotEmpty = containerEntry && Node.string(containerEntry[0]) !== '';
 
       if (containerIsNotEmpty) {
+        // TODO check this
+
+        // @ts-ignore
         Transforms.insertNodes(editor, fragment);
         return;
       }

@@ -1,5 +1,10 @@
 import { BLOCKS, CONTAINERS } from '@contentful/rich-text-types';
-import { getBlockAbove, getParent, getLastChildPath, WithPlatePlugin } from '@udecode/plate-core';
+import {
+  getBlockAbove,
+  getParentNode,
+  getLastChildPath,
+  WithPlatePlugin,
+} from '@udecode/plate-core';
 import {
   createTablePlugin as createDefaultTablePlugin,
   ELEMENT_TABLE,
@@ -30,10 +35,16 @@ export const createTablePlugin = (): RichTextPlugin =>
     },
     withOverrides: (editor, plugin) => {
       // injects important fixes from plate's original table plugin
+      // TODO check this
+
+      // @ts-ignore
       withTable(editor, plugin as WithPlatePlugin<{}, {}>);
 
       addTableTrackingEvents(editor as RichTextEditor);
 
+      // TODO check this
+
+      // @ts-ignore
       editor.insertFragment = insertTableFragment(editor);
 
       return editor;
@@ -80,7 +91,7 @@ export const createTablePlugin = (): RichTextPlugin =>
           {
             // Parent must be a table
             validNode: (editor, [, path]) => {
-              const parent = getParent(editor, path)?.[0];
+              const parent = getParentNode(editor, path)?.[0];
               return parent && parent.type === BLOCKS.TABLE;
             },
             transform: transformWrapIn(BLOCKS.TABLE),
@@ -94,6 +105,9 @@ export const createTablePlugin = (): RichTextPlugin =>
               const howMany = getNoOfMissingTableCellsInRow(editor, entry);
               const at = Path.next(getLastChildPath(entry as NodeEntry<CustomElement>));
 
+              // TODO check this
+
+              // @ts-ignore
               Transforms.insertNodes(editor, createEmptyTableCells(howMany), {
                 at,
               });

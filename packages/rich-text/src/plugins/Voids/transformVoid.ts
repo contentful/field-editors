@@ -1,4 +1,4 @@
-import { NodeEntry, Transforms } from 'slate';
+import { BaseEditor, NodeEntry, Transforms } from 'slate';
 
 import { RichTextEditor } from '../../types';
 
@@ -12,6 +12,6 @@ export const transformVoid = (editor: RichTextEditor, [node, path]: NodeEntry) =
   };
 
   // A workaround because Slate doesn't allow adjusting void nodes children
-  Transforms.removeNodes(editor, { at: path });
-  Transforms.insertNodes(editor, [validVoid], { at: path });
+  Transforms.removeNodes(editor as unknown as BaseEditor, { at: path });
+  Transforms.insertNodes(editor as unknown as BaseEditor, [validVoid], { at: path });
 };

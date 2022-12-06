@@ -1,10 +1,10 @@
 import { BLOCKS } from '@contentful/rich-text-types';
-import { getAbove, setNodes, getChildren } from '@udecode/plate-core';
+import { getAboveNode, setNodes, getChildren } from '@udecode/plate-core';
 
 import { RichTextEditor } from '../../../types';
 
 export const setHeader = (editor: RichTextEditor, enable?: boolean) => {
-  const tableItem = getAbove(editor, {
+  const tableItem = getAboveNode(editor, {
     match: { type: BLOCKS.TABLE },
   });
 

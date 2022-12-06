@@ -14,9 +14,8 @@ export const assertOutput = (options: {
       input: options.input,
     }).editor;
 
-  normalize(editor);
-
-  setEmptyDataAttribute(editor);
+  normalize(editor as RichTextEditor);
+  setEmptyDataAttribute(editor as RichTextEditor);
 
   if (options.log) {
     console.log(

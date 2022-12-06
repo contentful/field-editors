@@ -17,6 +17,9 @@ test('insertTableAndFocusFirstCell', () => {
     input,
   });
 
+  // TODO check this
+
+  // @ts-ignore
   insertTableAndFocusFirstCell(editor);
 
   const expected = (

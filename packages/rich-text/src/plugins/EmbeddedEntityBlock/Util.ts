@@ -1,5 +1,5 @@
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
-import { getText } from '@udecode/plate-core';
+import { getEditorString } from '@udecode/plate-core';
 import { Editor, Element, Path, Transforms } from 'slate';
 import { RichTextEditor } from 'types';
 
@@ -38,11 +38,17 @@ function ensureFollowingParagraph(editor: RichTextEditor) {
   /* 
      If the new block isn't followed by a sibling paragraph we insert a new empty one
    */
+  // TODO check this
+
+  // @ts-ignore
   const next = Editor.next(editor);
   if (!next) {
     return insertEmptyParagraph(editor);
   }
 
+  // TODO check this
+
+  // @ts-ignore
   const parent = Editor.above(editor, {
     voids: false,
     match: (e) =>
@@ -56,6 +62,9 @@ function ensureFollowingParagraph(editor: RichTextEditor) {
     return;
   }
 
+  // TODO check this
+
+  // @ts-ignore
   const paragraph = Editor.above(editor, {
     at: next[1],
     match: (e) => Element.isElement(e) && TEXT_CONTAINERS.includes(e.type as BLOCKS),
@@ -88,7 +97,7 @@ export function insertBlock(editor, nodeType, entity) {
 
   const linkedEntityBlock = createNode(nodeType, entity);
 
-  const hasText = editor.selection && !!getText(editor, editor.selection.focus.path);
+  const hasText = editor.selection && !!getEditorString(editor, editor.selection.focus.path);
 
   if (hasText) {
     Transforms.insertNodes(editor, linkedEntityBlock);

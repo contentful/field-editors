@@ -1,5 +1,5 @@
 import { MARKS } from '@contentful/rich-text-types';
-import { PlateEditor, PlatePlugin } from '@udecode/plate-core';
+import { AnyObject, PlateEditor, PlatePlugin, Value } from '@udecode/plate-core';
 import { RenderElementProps } from 'slate-react';
 
 import type { SoftBreakRule, ExitBreakRule, ResetNodePluginRule } from './plugins/Break';
@@ -25,7 +25,7 @@ export type CustomElement<T = unknown> = {
   isVoid?: boolean;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any -- TODO: explain this disable
+ @typescript-eslint/no-explicit-any -- TODO: explain this disable
 export type CustomRenderElementProps<T = any, O = any> = Omit<RenderElementProps, 'element'> & {
   element: CustomElement<T>;
 } & O;
@@ -37,7 +37,7 @@ declare module 'slate' {
   }
 }
 
-export interface RichTextPlugin extends PlatePlugin<RichTextEditor> {
+export interface RichTextPlugin extends PlatePlugin<AnyObject, Value, RichTextEditor> {
   /**
    * @see createSoftBreakPlugin
    */
@@ -59,6 +59,6 @@ export interface RichTextPlugin extends PlatePlugin<RichTextEditor> {
   normalizer?: NormalizerRule[];
 }
 
-export interface RichTextEditor extends PlateEditor {
+export interface RichTextEditor extends PlateEditor<Value> {
   tracking: TrackingPluginActions;
 }

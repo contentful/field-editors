@@ -1,12 +1,12 @@
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
-import { NodeMatch, getNodes } from '@udecode/plate-core';
+import { ENodeMatch, ENode, getNodeEntries, TEditor, Value } from '@udecode/plate-core';
 import { Path } from 'slate';
 
 import { CustomElement, RichTextEditor } from '../types';
 
-function extractNodes(editor: RichTextEditor, path: Path, match: NodeMatch) {
+function extractNodes(editor: TEditor<Value>, path: Path, match: ENodeMatch<ENode<Value>>) {
   return Array.from(
-    getNodes(editor, {
+    getNodeEntries(editor, {
       match,
       at: path,
       mode: 'lowest',

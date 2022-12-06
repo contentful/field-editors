@@ -32,10 +32,16 @@ export function Superscript(props: Slate.RenderLeafProps) {
 }
 
 export const createSuperscriptPlugin = (): RichTextPlugin =>
+  // TODO check this
+
+  // @ts-ignore
   createDefaultSuperscriptPlugin({
     type: MARKS.SUPERSCRIPT,
     component: Superscript,
     handlers: {
+      // TODO check this
+
+      // @ts-ignore
       onKeyDown: buildMarkEventHandler(MARKS.SUPERSCRIPT),
     },
     deserializeHtml: {

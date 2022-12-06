@@ -44,6 +44,9 @@ export function createQuotePlugin(): RichTextPlugin {
         },
       },
     ],
+    // TODO check this
+
+    // @ts-ignore
     withOverrides: withQuote,
   };
 }

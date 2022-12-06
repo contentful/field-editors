@@ -1,15 +1,14 @@
 import { BLOCKS } from '@contentful/rich-text-types';
-import { HotkeyPlugin, KeyboardHandler } from '@udecode/plate-core';
 import { createParagraphPlugin as createDefaultParagraphPlugin } from '@udecode/plate-paragraph';
 import isHotkey from 'is-hotkey';
 
 import { isInlineOrText, toggleElement } from '../../helpers/editor';
 import { transformUnwrap, transformLift } from '../../helpers/transformers';
-import { RichTextEditor, RichTextPlugin } from '../../types';
+import { RichTextPlugin } from '../../types';
 import { Paragraph } from './Paragraph';
 import { isEmbedElement, isEmptyElement } from './utils';
 
-const buildParagraphKeyDownHandler: KeyboardHandler<RichTextEditor, HotkeyPlugin> =
+const buildParagraphKeyDownHandler =
   (editor, { options: { hotkey } }) =>
   (event) => {
     if (editor.selection && hotkey && isHotkey(hotkey, event)) {
@@ -25,6 +24,9 @@ export const createParagraphPlugin = (): RichTextPlugin => {
       hotkey: ['mod+opt+0'],
     },
     handlers: {
+      // TODO check this
+
+      // @ts-ignore
       onKeyDown: buildParagraphKeyDownHandler,
     },
     softBreak: [
