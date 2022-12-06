@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-checkbox@1.1.6...@contentful/field-editor-checkbox@1.1.7) (2022-12-06)
+
+### Bug Fixes
+
+- clickable area of checkbox was too big ([#1301](https://github.com/contentful/field-editors/issues/1301)) ([696713b](https://github.com/contentful/field-editors/commit/696713b55670f77ea4afa6f7cfc7cb8217d74552))
+
 ## [1.1.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-checkbox@1.1.5...@contentful/field-editor-checkbox@1.1.6) (2022-07-29)
 
 **Note:** Version bump only for package @contentful/field-editor-checkbox
