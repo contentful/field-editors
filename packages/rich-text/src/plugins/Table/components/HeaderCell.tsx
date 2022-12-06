@@ -1,3 +1,4 @@
+// @ts-nocheck
 import * as React from 'react';
 
 import tokens from '@contentful/f36-tokens';
@@ -31,7 +32,8 @@ export const HeaderCell = (props: Slate.RenderElementProps) => {
       {...props.attributes}
       // may include `colspan` and/or `rowspan`
       {...(props.element.data as TableHeaderCell['data'])}
-      className={style}>
+      className={style}
+    >
       {isSelected && <TableActions />}
       {props.children}
     </th>

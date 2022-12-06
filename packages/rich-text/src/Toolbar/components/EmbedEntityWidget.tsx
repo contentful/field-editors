@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState } from 'react';
 
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
@@ -64,7 +65,8 @@ export const EmbedEntityWidget = ({ isDisabled, canInsertBlocks }: EmbedEntityWi
       isDisabled={isDisabled}
       onClose={onCloseEntityDropdown}
       onToggle={onToggleEntityDropdown}
-      isOpen={isEmbedDropdownOpen}>
+      isOpen={isEmbedDropdownOpen}
+    >
       {actions}
     </EmbeddedEntityDropdownButton>
   ) : null;

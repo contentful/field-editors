@@ -1,3 +1,4 @@
+// @ts-nocheck
 /** @jsx jsx */
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 

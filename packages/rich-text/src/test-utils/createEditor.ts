@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { createPlateEditor } from '@udecode/plate-core';
 import { Editor } from 'slate';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { KeyboardHandler, HotkeyPlugin } from '@udecode/plate-core';

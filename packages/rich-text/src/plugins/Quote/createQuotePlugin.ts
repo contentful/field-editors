@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BLOCKS, CONTAINERS } from '@contentful/rich-text-types';
 
 import { transformLift, transformUnwrap } from '../../helpers/transformers';

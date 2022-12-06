@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
@@ -16,9 +17,9 @@ import { ToolbarListButton } from '../plugins/List';
 import { ToolbarBoldButton } from '../plugins/Marks/Bold';
 import { ToolbarCodeButton } from '../plugins/Marks/Code';
 import { ToolbarItalicButton } from '../plugins/Marks/Italic';
-import { ToolbarUnderlineButton } from '../plugins/Marks/Underline';
-import { ToolbarSuperscriptButton } from '../plugins/Marks/Superscript';
 import { ToolbarSubscriptButton } from '../plugins/Marks/Subscript';
+import { ToolbarSuperscriptButton } from '../plugins/Marks/Superscript';
+import { ToolbarUnderlineButton } from '../plugins/Marks/Underline';
 import { ToolbarQuoteButton } from '../plugins/Quote';
 import { ToolbarTableButton } from '../plugins/Table';
 import { useSdkContext } from '../SdkProvider';

@@ -1,7 +1,8 @@
+// @ts-nocheck
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
 import {
-  getAbove,
-  getParent,
+  getAboveNode,
+  getParentNode,
   insertNodes,
   isFirstChild,
   isSelectionAtBlockEnd,
@@ -46,13 +47,13 @@ export const insertListItem = (editor: RichTextEditor): boolean => {
   }
 
   // Naming it paragraph for simplicity but can be a heading as well
-  const paragraph = getAbove(editor, { match: { type: TEXT_CONTAINERS } });
+  const paragraph = getAboveNode(editor, { match: { type: TEXT_CONTAINERS } });
   if (!paragraph) {
     return false;
   }
 
   const [, paragraphPath] = paragraph;
-  const listItem = getParent(editor, paragraphPath);
+  const listItem = getParentNode(editor, paragraphPath);
 
   if (!listItem) {
     return false;

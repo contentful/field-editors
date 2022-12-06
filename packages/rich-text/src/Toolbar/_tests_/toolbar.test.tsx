@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React from 'react';
 
 import { render, configure, waitFor } from '@testing-library/react';

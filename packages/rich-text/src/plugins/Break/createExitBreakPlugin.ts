@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {
   createExitBreakPlugin as createDefaultExitBreakPlugin,
   ExitBreakRule,

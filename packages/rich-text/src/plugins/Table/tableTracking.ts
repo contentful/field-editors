@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { BLOCKS } from '@contentful/rich-text-types';
 import { Element } from 'slate';
 

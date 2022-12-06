@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { KEY_DESERIALIZE_HTML } from '@udecode/plate-core';
 
 import { RichTextPlugin } from '../../types';

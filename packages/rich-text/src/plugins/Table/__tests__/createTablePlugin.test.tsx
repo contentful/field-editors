@@ -1,4 +1,5 @@
 /** @jsx jsx */
+// @ts-nocheck
 import { jsx, assertOutput } from '../../../test-utils';
 
 describe('normalization', () => {

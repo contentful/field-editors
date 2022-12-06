@@ -2,37 +2,37 @@
  * Credit: Modified version of Plate's list plugin
  * See: https://github.com/udecode/plate/blob/main/packages/nodes/list
  */
+// @ts-nocheck
 import { TEXT_CONTAINERS, BLOCKS } from '@contentful/rich-text-types';
-import { findNode, TDescendant } from '@udecode/plate-core';
+import { findNode } from '@udecode/plate-core';
 import { Editor, Node, NodeEntry, Path, Transforms } from 'slate';
 
 import { RichTextEditor } from '../../types';
 
-const getFirstAncestorOfType = (root: TDescendant, entry: NodeEntry): NodeEntry<TDescendant> => {
+const getFirstAncestorOfType = (root: any, entry: NodeEntry): NodeEntry<any> => {
   let ancestor: Path = Path.parent(entry[1]);
-  while ((Node.get(root, ancestor) as TDescendant).type !== BLOCKS.LIST_ITEM) {
+  while ((Node.get(root, ancestor) as any).type !== BLOCKS.LIST_ITEM) {
     ancestor = Path.parent(ancestor);
   }
 
   return [Node.get(root, ancestor), ancestor];
 };
 
-const isListRoot = (node: TDescendant): boolean =>
-  [BLOCKS.UL_LIST, BLOCKS.OL_LIST].includes(node.type);
+const isListRoot = (node: any): boolean => [BLOCKS.UL_LIST, BLOCKS.OL_LIST].includes(node.type);
 
 /**
  * Removes the "empty" leading lis. Empty in this context means lis only with other lis as children.
  *
  * @returns If argument is not a list root, returns it, otherwise returns ul[] or li[].
  */
-const trimList = <T extends TDescendant>(listRoot: T): T[] => {
+const trimList = <T extends any>(listRoot: T): T[] => {
   if (!isListRoot(listRoot)) {
     return [listRoot];
   }
 
   const textEntries = Array.from(Node.texts(listRoot));
 
-  const commonAncestorEntry = textEntries.reduce<NodeEntry<TDescendant>>(
+  const commonAncestorEntry = textEntries.reduce<NodeEntry<any>>(
     (commonAncestor, textEntry) =>
       Path.isAncestor(commonAncestor[1], textEntry[1])
         ? commonAncestor
@@ -49,7 +49,7 @@ const trimList = <T extends TDescendant>(listRoot: T): T[] => {
 /**
  * Removes leading li when pasting a single li with a single child.
  */
-const trimLiWrapper = <T extends TDescendant>(nodes: T[]): T[] => {
+const trimLiWrapper = <T extends any>(nodes: T[]): T[] => {
   if (nodes.length !== 1) {
     return nodes;
   }
@@ -63,7 +63,7 @@ const trimLiWrapper = <T extends TDescendant>(nodes: T[]): T[] => {
   return node.children;
 };
 
-const unwrapTextContainerAtStart = <T extends TDescendant>(nodes: T[]): T[] => {
+const unwrapTextContainerAtStart = <T extends any>(nodes: T[]): T[] => {
   const node = nodes[0];
 
   if (TEXT_CONTAINERS.includes(node.type)) {
@@ -76,7 +76,7 @@ const unwrapTextContainerAtStart = <T extends TDescendant>(nodes: T[]): T[] => {
 export const insertListFragment = (editor: RichTextEditor) => {
   const { insertFragment } = editor;
 
-  return (fragment: TDescendant[]) => {
+  return (fragment: any[]) => {
     if (!editor.selection) {
       return;
     }
@@ -114,9 +114,7 @@ export const insertListFragment = (editor: RichTextEditor) => {
       });
     }
 
-    const filtered: TDescendant[] = isListRoot(fragment[0])
-      ? [{ text: '' }, ...fragment]
-      : fragment;
+    const filtered: any[] = isListRoot(fragment[0]) ? [{ text: '' }, ...fragment] : fragment;
 
     return insertFragment(filtered);
   };

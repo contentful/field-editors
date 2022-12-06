@@ -35,7 +35,7 @@ module.exports = {
       {
         'ts-expect-error': false,
         'ts-ignore': true,
-        'ts-nocheck': true,
+        'ts-nocheck': false,
         'ts-check': true,
       },
     ],

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BLOCKS } from '@contentful/rich-text-types';
 import { createTrailingBlockPlugin } from '@udecode/plate-trailing-block';
 

@@ -2,6 +2,7 @@
  * Credit: Modified version of Plate's list plugin
  * See: https://github.com/udecode/plate/blob/main/packages/nodes/list
  */
+// @ts-nocheck
 import { EditorNodesOptions, getNodes, getPluginType, PlateEditor } from '@udecode/plate-core';
 import { isListNested, ELEMENT_LIC, getListItemEntry, moveListItemUp } from '@udecode/plate-list';
 import { Editor, Path, PathRef } from 'slate';

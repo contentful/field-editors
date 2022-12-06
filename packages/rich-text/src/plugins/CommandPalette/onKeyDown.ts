@@ -1,4 +1,11 @@
-import { KeyboardHandler, setMarks, removeMark, isMarkActive, getAbove } from '@udecode/plate-core';
+// @ts-nocheck
+import {
+  KeyboardHandler,
+  setMarks,
+  removeMark,
+  isMarkActive,
+  getAboveNode,
+} from '@udecode/plate-core';
 import isHotkey from 'is-hotkey';
 import { Editor } from 'slate';
 
@@ -19,14 +26,14 @@ export const createOnKeyDown = (): KeyboardHandler<RichTextEditor> => {
         if (isHotkey('enter', event)) {
           event.preventDefault();
         } else if (isHotkey('backspace', event)) {
-          const [, path] = getAbove(editor)!;
+          const [, path] = getAboveNode(editor)!;
           const range = Editor.range(editor, path);
           // if it is the last character in the command string
           if (range.focus.offset - range.anchor.offset === 1) {
             removeMark(editor, { key: COMMAND_PROMPT, at: range });
           }
         } else if (isHotkey('escape', event)) {
-          const [, path] = getAbove(editor)!;
+          const [, path] = getAboveNode(editor)!;
           const range = Editor.range(editor, path);
           removeMark(editor, { key: COMMAND_PROMPT, at: range });
           editor.tracking.onCommandPaletteAction('cancelRichTextCommandPalette');

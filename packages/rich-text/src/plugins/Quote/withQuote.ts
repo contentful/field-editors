@@ -1,6 +1,7 @@
+// @ts-nocheck
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
 import { WithOverride } from '@udecode/plate-core';
-import { getAbove } from '@udecode/plate-core';
+import { getAboveNode } from '@udecode/plate-core';
 import { BaseRange, BaseSelection, Element, Node, Point, Transforms } from 'slate';
 
 import { RichTextEditor } from '../../types';
@@ -13,7 +14,7 @@ export const withQuote: WithOverride<RichTextEditor> = (editor) => {
     const startsWithBlockquote =
       Element.isElement(startingNode) && startingNode.type === BLOCKS.QUOTE;
 
-    const containerEntry = getAbove(editor, {
+    const containerEntry = getAboveNode(editor, {
       match: {
         type: TEXT_CONTAINERS,
       },
@@ -30,7 +31,7 @@ export const withQuote: WithOverride<RichTextEditor> = (editor) => {
       }
 
       // get the cursor entry again, it may be different after deletion
-      const containerEntry = getAbove(editor, {
+      const containerEntry = getAboveNode(editor, {
         match: {
           type: TEXT_CONTAINERS,
         },

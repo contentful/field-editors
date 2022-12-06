@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import {
   createDeserializeAstPlugin,

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { RichTextPlugin } from '../../types';
 import { withNormalizer } from './withNormalizer';
 

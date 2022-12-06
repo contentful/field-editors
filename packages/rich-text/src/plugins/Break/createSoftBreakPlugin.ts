@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {
   createSoftBreakPlugin as createDefaultSoftBreakPlugin,
   SoftBreakRule,

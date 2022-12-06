@@ -1,5 +1,6 @@
+// @ts-nocheck
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
-import { getText } from '@udecode/plate-core';
+import { getEditorString } from '@udecode/plate-core';
 import { Editor, Element, Path, Transforms } from 'slate';
 import { RichTextEditor } from 'types';
 
@@ -88,7 +89,7 @@ export function insertBlock(editor, nodeType, entity) {
 
   const linkedEntityBlock = createNode(nodeType, entity);
 
-  const hasText = editor.selection && !!getText(editor, editor.selection.focus.path);
+  const hasText = editor.selection && !!getEditorString(editor, editor.selection.focus.path);
 
   if (hasText) {
     Transforms.insertNodes(editor, linkedEntityBlock);

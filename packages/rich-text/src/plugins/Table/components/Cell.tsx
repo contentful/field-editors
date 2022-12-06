@@ -1,3 +1,4 @@
+// @ts-nocheck
 import * as React from 'react';
 
 import tokens from '@contentful/f36-tokens';
@@ -28,7 +29,8 @@ export const Cell = (props: Slate.RenderElementProps) => {
       {...props.attributes}
       // may include `colspan` and/or `rowspan`
       {...(props.element.data as TableCell['data'])}
-      className={style}>
+      className={style}
+    >
       {isSelected && <TableActions />}
       {props.children}
     </td>

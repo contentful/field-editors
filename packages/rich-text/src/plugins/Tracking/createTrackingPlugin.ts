@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { RichTextPlugin } from '../../types';
 import { getCharacterCount } from './utils';
 

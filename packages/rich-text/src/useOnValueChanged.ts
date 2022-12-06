@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useCallback, useMemo } from 'react';
 
 import { toContentfulDocument } from '@contentful/contentful-slatejs-adapter';

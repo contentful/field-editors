@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { createText } from '@udecode/plate-test-utils';
 import { createHyperscript, HyperscriptCreators } from 'slate-hyperscript';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BLOCKS, LIST_ITEM_BLOCKS } from '@contentful/rich-text-types';
 import {
   createListPlugin as createPlateListPlugin,

@@ -1,6 +1,12 @@
+// @ts-nocheck
 import { BLOCKS } from '@contentful/rich-text-types';
-import { getParent } from '@udecode/plate-core';
-import { getAbove, getChildren, isFirstChild, isAncestorEmpty } from '@udecode/plate-core';
+import {
+  getAboveNode,
+  getParentNode,
+  getChildren,
+  isFirstChild,
+  isAncestorEmpty,
+} from '@udecode/plate-core';
 import {
   ELEMENT_TABLE,
   ELEMENT_TH,
@@ -25,7 +31,7 @@ export function isTableActive(editor: RichTextEditor) {
 }
 
 export function isTableHeaderEnabled(editor: RichTextEditor) {
-  const tableItem = getAbove(editor, {
+  const tableItem = getAboveNode(editor, {
     match: {
       type: BLOCKS.TABLE,
     },
@@ -76,7 +82,7 @@ export function replaceEmptyParagraphWithTable(editor: RichTextEditor) {
  * normalization cycles.
  */
 export const getNoOfMissingTableCellsInRow = (editor: RichTextEditor, [, rowPath]: NodeEntry) => {
-  const parent = getParent(editor, rowPath);
+  const parent = getParentNode(editor, rowPath);
 
   // This is ensured by normalization. The error is here just in case
   if (!parent) {

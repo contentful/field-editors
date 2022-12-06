@@ -1,3 +1,4 @@
+// @ts-nocheck
 import * as React from 'react';
 
 import { Button, Menu } from '@contentful/f36-components';
@@ -27,7 +28,8 @@ export function EmbeddedEntityDropdownButton({
           variant="secondary"
           size="small"
           startIcon={<PlusIcon />}
-          isDisabled={isDisabled}>
+          isDisabled={isDisabled}
+        >
           Embed
         </Button>
       </Menu.Trigger>

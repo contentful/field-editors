@@ -1,5 +1,6 @@
+// @ts-nocheck
 import { BLOCKS } from '@contentful/rich-text-types';
-import { getText } from '@udecode/plate-core';
+import { getEditorString } from '@udecode/plate-core';
 import { Element, Node } from 'slate';
 
 import { insertEmptyParagraph } from '../../helpers/editor';
@@ -53,7 +54,7 @@ export const insertTableFragment = (editor: RichTextEditor) => {
     const isInsertingTable = fragments.some((fragment) => isTable(fragment as CustomElement));
     const isTableFirstFragment =
       fragments.findIndex((fragment) => isTable(fragment as CustomElement)) === 0;
-    const currentLineHasText = getText(editor, editor.selection?.focus.path) !== '';
+    const currentLineHasText = getEditorString(editor, editor.selection?.focus.path) !== '';
 
     if (isInsertingTable && isTableFirstFragment && currentLineHasText) {
       insertEmptyParagraph(editor);

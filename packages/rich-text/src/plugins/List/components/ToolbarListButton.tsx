@@ -1,3 +1,4 @@
+// @ts-nocheck
 import * as React from 'react';
 
 import { ListBulletedIcon, ListNumberedIcon } from '@contentful/f36-icons';
@@ -39,7 +40,8 @@ export function ToolbarListButton(props: ToolbarListButtonProps) {
           testId="ul-toolbar-button"
           onClick={handleClick(BLOCKS.UL_LIST)}
           isActive={isListTypeActive(editor, BLOCKS.UL_LIST)}
-          isDisabled={props.isDisabled}>
+          isDisabled={props.isDisabled}
+        >
           <ListBulletedIcon />
         </ToolbarButton>
       )}
@@ -49,7 +51,8 @@ export function ToolbarListButton(props: ToolbarListButtonProps) {
           testId="ol-toolbar-button"
           onClick={handleClick(BLOCKS.OL_LIST)}
           isActive={isListTypeActive(editor, BLOCKS.OL_LIST)}
-          isDisabled={props.isDisabled}>
+          isDisabled={props.isDisabled}
+        >
           <ListNumberedIcon />
         </ToolbarButton>
       )}

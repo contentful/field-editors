@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { match, getPluginType } from '@udecode/plate-core';
 import isPlainObject from 'is-plain-obj';
 import { Editor, NodeEntry } from 'slate';

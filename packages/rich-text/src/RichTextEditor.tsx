@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useCallback, useState, useEffect } from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
@@ -100,7 +101,12 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
               className: classNames,
               readOnly: props.isDisabled,
             }}
-            onChange={onValueChanged}>
+            onChange={onValueChanged}
+            renderLeaf={(props) => {
+              console.log({ props });
+              return <span {...props} />;
+            }}
+          >
             {!props.isToolbarHidden && (
               <StickyToolbarWrapper isDisabled={props.isDisabled}>
                 <Toolbar isDisabled={props.isDisabled} />
@@ -130,7 +136,8 @@ const RichTextEditor = (props: Props) => {
         field={sdk.field}
         isInitiallyDisabled={isInitiallyDisabled}
         isEmptyValue={isEmptyValue}
-        isEqualValues={deepEquals}>
+        isEqualValues={deepEquals}
+      >
         {({ lastRemoteValue, disabled, setValue }) => (
           <ConnectedRichTextEditor
             {...otherProps}

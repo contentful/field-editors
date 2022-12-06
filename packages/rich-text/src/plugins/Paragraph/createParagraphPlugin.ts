@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BLOCKS } from '@contentful/rich-text-types';
 import { HotkeyPlugin, KeyboardHandler } from '@udecode/plate-core';
 import { createParagraphPlugin as createDefaultParagraphPlugin } from '@udecode/plate-paragraph';

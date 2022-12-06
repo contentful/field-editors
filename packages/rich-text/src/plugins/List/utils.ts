@@ -1,5 +1,6 @@
+// @ts-nocheck
 import { BLOCKS } from '@contentful/rich-text-types';
-import { getAbove, getBlockAbove, getParent } from '@udecode/plate-core';
+import { getAboveNode, getBlockAbove, getParentNode } from '@udecode/plate-core';
 import { NodeEntry, Transforms, Path, Node, Text, Range } from 'slate';
 
 import { CustomElement, RichTextEditor } from '../../types';
@@ -8,12 +9,12 @@ const isList = (node: CustomElement) =>
   [BLOCKS.OL_LIST, BLOCKS.UL_LIST].includes(node.type as BLOCKS);
 
 export const hasListAsDirectParent = (editor: RichTextEditor, [, path]: NodeEntry) => {
-  const [parentNode] = (getParent(editor, path) || []) as NodeEntry;
+  const [parentNode] = (getParentNode(editor, path) || []) as NodeEntry;
   return isList(parentNode as CustomElement);
 };
 
 const getNearestListAncestor = (editor: RichTextEditor, path: Path) => {
-  return getAbove(editor, { at: path, mode: 'lowest', match: isList }) || [];
+  return getAboveNode(editor, { at: path, mode: 'lowest', match: isList }) || [];
 };
 
 /**

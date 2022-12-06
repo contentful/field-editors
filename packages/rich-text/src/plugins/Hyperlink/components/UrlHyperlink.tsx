@@ -1,3 +1,4 @@
+// @ts-nocheck
 import * as React from 'react';
 
 import { FieldExtensionSDK, Link } from '@contentful/app-sdk';
@@ -37,13 +38,15 @@ export function UrlHyperlink(props: HyperlinkElementProps) {
       content={uri}
       targetWrapperClassName={styles.hyperlinkWrapper}
       placement="bottom"
-      maxWidth="auto">
+      maxWidth="auto"
+    >
       <TextLink
         as="a"
         href={uri}
         rel="noopener noreferrer"
         onClick={handleClick}
-        className={styles.hyperlink}>
+        className={styles.hyperlink}
+      >
         {props.children}
       </TextLink>
     </Tooltip>

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { NodeEntry, Transforms } from 'slate';
 

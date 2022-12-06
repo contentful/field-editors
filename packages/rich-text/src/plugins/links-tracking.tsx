@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { ComponentProps } from 'react';
 
 import { useContentfulEditorRef } from '../ContentfulEditorProvider';

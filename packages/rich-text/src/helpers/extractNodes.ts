@@ -1,10 +1,11 @@
+// @ts-nocheck
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
-import { NodeMatch, getNodes } from '@udecode/plate-core';
+import { getNodes } from '@udecode/plate-core';
 import { Path } from 'slate';
 
 import { CustomElement, RichTextEditor } from '../types';
 
-function extractNodes(editor: RichTextEditor, path: Path, match: NodeMatch) {
+function extractNodes(editor: RichTextEditor, path: Path, match: any) {
   return Array.from(
     getNodes(editor, {
       match,

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import * as React from 'react';
 
 import {
@@ -143,7 +144,8 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
                     setLinkType(event.target.value)
                   }
                   testId="link-type-input"
-                  isDisabled={props.readonly}>
+                  isDisabled={props.readonly}
+                >
                   {enabledLinkTypes.map((nodeType) => (
                     <Select.Option key={nodeType} value={nodeType}>
                       {LINK_TYPE_SELECTION_VALUES[nodeType]}
@@ -184,7 +186,8 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
                       <TextLink
                         testId="entity-selection-link"
                         onClick={resetLinkEntity}
-                        className={styles.removeSelectionLabel}>
+                        className={styles.removeSelectionLabel}
+                      >
                         Remove selection
                       </TextLink>
                     )}
@@ -233,7 +236,8 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
             onClick={() => props.onClose(null)}
             variant="secondary"
             testId="cancel-cta"
-            size="small">
+            size="small"
+          >
             Cancel
           </Button>
           <Button
@@ -242,7 +246,8 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
             size="small"
             isDisabled={props.readonly || !isLinkComplete()}
             onClick={handleOnSubmit}
-            testId="confirm-cta">
+            testId="confirm-cta"
+          >
             {props.linkType ? 'Update' : 'Insert'}
           </Button>
         </ModalControls>

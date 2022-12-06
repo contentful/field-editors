@@ -1,3 +1,4 @@
+// @ts-nocheck
 import * as React from 'react';
 
 import { FieldExtensionSDK, Link } from '@contentful/app-sdk';
@@ -47,13 +48,15 @@ export function EntityHyperlink(props: HyperlinkElementProps) {
       content={tooltipContent}
       targetWrapperClassName={styles.hyperlinkWrapper}
       placement="bottom"
-      maxWidth="auto">
+      maxWidth="auto"
+    >
       <TextLink
         as="a"
         onClick={handleClick}
         className={styles.hyperlink}
         data-link-type={target.sys.linkType}
-        data-link-id={target.sys.id}>
+        data-link-id={target.sys.id}
+      >
         {props.children}
       </TextLink>
     </Tooltip>

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { KeyboardEvent } from 'react';
 
 import { BLOCKS } from '@contentful/rich-text-types';
@@ -5,7 +7,7 @@ import {
   HotkeyPlugin,
   KeyboardHandler,
   WithPlatePlugin,
-  getAbove,
+  getAboveNode,
   isLastChild,
 } from '@udecode/plate-core';
 import { getTableCellEntry, onKeyDownTable as defaultKeyDownTable } from '@udecode/plate-table';
@@ -27,7 +29,7 @@ export const onKeyDownTable: KeyboardHandler<RichTextEditor, HotkeyPlugin> = (ed
 
       if (isBeforeTable) {
         if (event.key === 'Enter') {
-          const above = getAbove(editor, { match: { type: BLOCKS.TABLE } });
+          const above = getAboveNode(editor, { match: { type: BLOCKS.TABLE } });
 
           if (!above) return;
 

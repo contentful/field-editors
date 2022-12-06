@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { RichTextEditor } from '../types';
 import { createTestEditor, normalize } from './createEditor';
 import { setEmptyDataAttribute } from './setEmptyDataAttribute';

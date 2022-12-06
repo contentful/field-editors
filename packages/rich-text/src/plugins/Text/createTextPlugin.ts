@@ -1,5 +1,6 @@
+// @ts-nocheck
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
-import { getAbove, isAncestorEmpty, queryNode, TNode } from '@udecode/plate-core';
+import { getAboveNode, isAncestorEmpty, queryNode, TNode } from '@udecode/plate-core';
 import { Editor, Ancestor, Transforms, Range, Location } from 'slate';
 
 import { RichTextEditor, RichTextPlugin } from '../../types';
@@ -73,7 +74,7 @@ function deleteEmptyParagraph(
   editor: RichTextEditor,
   deleteFunction: Function
 ) {
-  const entry = getAbove(editor, {
+  const entry = getAboveNode(editor, {
     match: {
       type: TEXT_CONTAINERS,
     },

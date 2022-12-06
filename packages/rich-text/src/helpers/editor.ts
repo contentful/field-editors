@@ -1,8 +1,9 @@
+// @ts-nocheck
 import { Link } from '@contentful/field-editor-reference/dist/types';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import {
   EditorNodesOptions,
-  getText,
+  getEditorString,
   PlateEditor,
   toggleNodeType,
   ToggleNodeTypeOptions,
@@ -200,7 +201,7 @@ export function getAncestorPathFromSelection(editor: RichTextEditor) {
 }
 
 export const isAtEndOfTextSelection = (editor: RichTextEditor) =>
-  editor.selection?.focus.offset === getText(editor, editor.selection?.focus.path).length;
+  editor.selection?.focus.offset === getEditorString(editor, editor.selection?.focus.path).length;
 
 /**
  * This traversal strategy is unfortunately necessary because Slate doesn't

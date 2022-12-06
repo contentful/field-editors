@@ -1,9 +1,10 @@
+// @ts-nocheck
 import React from 'react';
 
 import { IconButton, Menu } from '@contentful/f36-components';
 import { ChevronDownIcon } from '@contentful/f36-icons';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { getAbove } from '@udecode/plate-core';
+import { getAboveNode } from '@udecode/plate-core';
 import { TablePluginOptions, deleteColumn, deleteRow, deleteTable } from '@udecode/plate-table';
 import { css } from 'emotion';
 import { Editor } from 'slate';
@@ -52,7 +53,7 @@ export const TableActions = () => {
       return false;
     }
 
-    const headerCell = getAbove(editor, {
+    const headerCell = getAboveNode(editor, {
       match: {
         type: BLOCKS.TABLE_HEADER_CELL,
       },
@@ -102,7 +103,8 @@ export const TableActions = () => {
       onOpen={() => {
         setOpen(true);
       }}
-      onClose={close}>
+      onClose={close}
+    >
       <Menu.Trigger>
         <IconButton
           size="small"

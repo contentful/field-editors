@@ -1,5 +1,6 @@
+// @ts-nocheck
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
-import { getParent } from '@udecode/plate-core';
+import { getParentNode } from '@udecode/plate-core';
 import { Text } from 'slate';
 import { CustomElement } from 'types';
 
@@ -17,7 +18,7 @@ export const baseRules: Required<NormalizerRule>[] = [
     // Wrap orphaned text nodes in a paragraph
     match: Text.isText,
     validNode: (editor, [, path]) => {
-      const parent = getParent(editor, path)?.[0] as CustomElement;
+      const parent = getParentNode(editor, path)?.[0] as CustomElement;
       return !!parent && (isTextContainer(parent) || isInline(parent) || editor.isVoid(parent));
     },
     transform: (editor, entry) => {
@@ -30,7 +31,7 @@ export const baseRules: Required<NormalizerRule>[] = [
       type: INLINE_TYPES,
     },
     validNode: (editor, [, path]) => {
-      const parent = getParent(editor, path)?.[0] as CustomElement;
+      const parent = getParentNode(editor, path)?.[0] as CustomElement;
       return !!parent && isTextContainer(parent);
     },
     transform: transformWrapIn(BLOCKS.PARAGRAPH),

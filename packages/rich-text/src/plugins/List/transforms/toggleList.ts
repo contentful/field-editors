@@ -2,11 +2,12 @@
  * Credit: Modified version of Plate's list plugin
  * See: https://github.com/udecode/plate/blob/main/packages/nodes/list
  */
+// @ts-nocheck
 import { BLOCKS } from '@contentful/rich-text-types';
 import {
   ELEMENT_DEFAULT,
   findNode,
-  getNodes,
+  getNodeEntries,
   getPluginType,
   isCollapsed,
   isRangeAcrossBlocks,
@@ -53,7 +54,7 @@ export const toggleList = (editor: PlateEditor, { type }: { type: string }) =>
         wrapNodes(editor, list);
 
         const nodes = [
-          ...getNodes(editor, {
+          ...getNodeEntries(editor, {
             match: { type: getPluginType(editor, ELEMENT_DEFAULT) },
           }),
         ];
@@ -122,7 +123,7 @@ export const toggleList = (editor: PlateEditor, { type }: { type: string }) =>
         const rootPathLength = commonEntry[1].length;
         const nodes = (
           Array.from(
-            getNodes(editor, {
+            getNodeEntries(editor, {
               mode: 'all',
             })
           ) as NodeEntry<TElement>[]

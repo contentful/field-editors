@@ -2,6 +2,7 @@
  * Credit: Modified version of Plate's list plugin
  * See: https://github.com/udecode/plate/blob/main/packages/nodes/list
  */
+// @ts-nocheck
 import { LIST_ITEM_BLOCKS } from '@contentful/rich-text-types';
 import { WithOverride } from '@udecode/plate-core';
 import {

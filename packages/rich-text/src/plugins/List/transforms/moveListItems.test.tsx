@@ -1,4 +1,5 @@
 /** @jsx jsx */
+// @ts-nocheck
 import { jsx, assertOutput, createTestEditor } from '../../../test-utils';
 import { moveListItems } from './moveListItems';
 

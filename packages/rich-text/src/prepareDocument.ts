@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { toSlatejsDocument } from '@contentful/contentful-slatejs-adapter';
 import { EMPTY_DOCUMENT, Document } from '@contentful/rich-text-types';
 import { createPlateEditor, CreatePlateEditorOptions } from '@udecode/plate-core';

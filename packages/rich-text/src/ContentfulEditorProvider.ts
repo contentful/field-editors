@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createContext, useContext } from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import * as React from 'react';
 
 import { Link, FieldExtensionSDK } from '@contentful/app-sdk';
@@ -73,11 +74,13 @@ function EmbeddedEntityInline(props: EmbeddedEntityInlineProps) {
       data-embedded-entity-inline-id={entryId}
       // COMPAT: This makes copy & paste work for Firefox
       contentEditable={IS_CHROME ? undefined : false}
-      draggable={IS_CHROME ? true : undefined}>
+      draggable={IS_CHROME ? true : undefined}
+    >
       <span
         // COMPAT: This makes copy & paste work for Chromium/Blink browsers and Safari
         contentEditable={IS_CHROME ? false : undefined}
-        draggable={IS_CHROME ? true : undefined}>
+        draggable={IS_CHROME ? true : undefined}
+      >
         <FetchingWrappedInlineEntryCard
           sdk={sdk}
           entryId={entryId}
@@ -152,7 +155,8 @@ export function ToolbarEmbeddedEntityInlineButton(props: ToolbarEmbeddedEntityIn
       disabled={props.isDisabled}
       className="rich-text__entry-link-block-button"
       testId={`toolbar-toggle-${INLINES.EMBEDDED_ENTRY}`}
-      onClick={handleClick}>
+      onClick={handleClick}
+    >
       <Flex alignItems="center" flexDirection="row">
         <EmbeddedEntryInlineIcon
           variant="secondary"

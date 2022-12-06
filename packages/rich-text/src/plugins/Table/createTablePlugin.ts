@@ -1,5 +1,11 @@
+// @ts-nocheck
 import { BLOCKS, CONTAINERS } from '@contentful/rich-text-types';
-import { getBlockAbove, getParent, getLastChildPath, WithPlatePlugin } from '@udecode/plate-core';
+import {
+  getBlockAbove,
+  getParentNode,
+  getLastChildPath,
+  WithPlatePlugin,
+} from '@udecode/plate-core';
 import {
   createTablePlugin as createDefaultTablePlugin,
   ELEMENT_TABLE,
@@ -80,7 +86,7 @@ export const createTablePlugin = (): RichTextPlugin =>
           {
             // Parent must be a table
             validNode: (editor, [, path]) => {
-              const parent = getParent(editor, path)?.[0];
+              const parent = getParentNode(editor, path)?.[0];
               return parent && parent.type === BLOCKS.TABLE;
             },
             transform: transformWrapIn(BLOCKS.TABLE),

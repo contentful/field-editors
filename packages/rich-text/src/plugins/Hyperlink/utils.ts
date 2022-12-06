@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { getScheduleTooltipContent } from '@contentful/field-editor-reference';
 import { isAncestorEmpty } from '@udecode/plate-core';
 import { NodeEntry, Ancestor, Node } from 'slate';

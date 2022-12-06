@@ -1,5 +1,6 @@
+// @ts-nocheck
 import { BLOCKS, HEADINGS } from '@contentful/rich-text-types';
-import { getAbove, HotkeyPlugin, isMarkActive, KeyboardHandler } from '@udecode/plate-core';
+import { getAboveNode, HotkeyPlugin, isMarkActive, KeyboardHandler } from '@udecode/plate-core';
 import isHotkey from 'is-hotkey';
 
 import { isBlockSelected, isInlineOrText, toggleElement } from '../../helpers/editor';
@@ -58,7 +59,7 @@ export const createHeadingPlugin = (): RichTextPlugin => ({
             // Exclude headings inside lists as it interferes with the list's
             // insertBreak implementation
             filter: ([, path]) =>
-              !getAbove(editor, {
+              !getAboveNode(editor, {
                 at: path,
                 match: { type: BLOCKS.LIST_ITEM },
               }) && !isMarkActive(editor, COMMAND_PROMPT),

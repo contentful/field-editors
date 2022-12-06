@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { MARKS } from '@contentful/rich-text-types';
 import { HotkeyPlugin, isMarkActive, KeyboardHandler, toggleMark } from '@udecode/plate-core';
 import type { PlateEditor } from '@udecode/plate-core';

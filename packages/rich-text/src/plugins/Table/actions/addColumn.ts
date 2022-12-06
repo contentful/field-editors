@@ -1,4 +1,5 @@
-import { getPluginType, TElement, getAbove, insertNodes, someNode } from '@udecode/plate-core';
+// @ts-nocheck
+import { getPluginType, TElement, getAboveNode, insertNodes, someNode } from '@udecode/plate-core';
 import {
   getEmptyCellNode,
   TablePluginOptions,
@@ -20,13 +21,13 @@ const addColumn = (
       match: { type: getPluginType(editor, ELEMENT_TABLE) },
     })
   ) {
-    const currentCellItem = getAbove(editor, {
+    const currentCellItem = getAboveNode(editor, {
       match: {
         type: [getPluginType(editor, ELEMENT_TD), getPluginType(editor, ELEMENT_TH)],
       },
     });
 
-    const currentTableItem = getAbove(editor, {
+    const currentTableItem = getAboveNode(editor, {
       match: { type: getPluginType(editor, ELEMENT_TABLE) },
     });
 
@@ -40,7 +41,7 @@ const addColumn = (
 
         insertNodes<TElement>(
           editor,
-          // @ts-expect-error
+
           getEmptyCellNode(editor, { header: header && rowIdx === 0 }),
           {
             at: newCellPath,

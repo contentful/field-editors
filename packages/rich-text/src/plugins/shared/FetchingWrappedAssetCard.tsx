@@ -1,3 +1,4 @@
+// @ts-nocheck
 import * as React from 'react';
 
 import { Asset, FieldExtensionSDK, ScheduledAction } from '@contentful/app-sdk';

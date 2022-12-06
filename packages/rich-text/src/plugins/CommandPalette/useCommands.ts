@@ -1,8 +1,9 @@
+// @ts-nocheck
 import { useState } from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
-import { getAbove, PlateEditor, removeMark } from '@udecode/plate-core';
+import { getAboveNode, PlateEditor, removeMark } from '@udecode/plate-core';
 import { Editor, Transforms } from 'slate';
 import { RichTextEditor } from 'types';
 
@@ -29,7 +30,7 @@ export interface CommandGroup {
 export type CommandList = (Command | CommandGroup)[];
 
 const removeCommand = (editor: PlateEditor) => {
-  const [, path] = getAbove(editor)!;
+  const [, path] = getAboveNode(editor)!;
   const range = Editor.range(editor, path);
 
   Transforms.select(editor, range.focus.path);
@@ -39,7 +40,7 @@ const removeCommand = (editor: PlateEditor) => {
 };
 
 const removeQuery = (editor: PlateEditor) => {
-  const [, path] = getAbove(editor)!;
+  const [, path] = getAboveNode(editor)!;
   const range = Editor.range(editor, path);
 
   if (range.focus.offset - range.anchor.offset > 1) {

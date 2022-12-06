@@ -1,4 +1,5 @@
-import { getPluginType, TElement, getAbove, insertNodes, someNode } from '@udecode/plate-core';
+// @ts-nocheck
+import { getPluginType, TElement, getAboveNode, insertNodes, someNode } from '@udecode/plate-core';
 import { ELEMENT_TABLE, ELEMENT_TR, getEmptyRowNode } from '@udecode/plate-table';
 import { Transforms, Path, Editor } from 'slate';
 
@@ -10,7 +11,7 @@ const addRow = (editor: RichTextEditor, getNextRowPath: (currentRowPath: Path) =
       match: { type: getPluginType(editor, ELEMENT_TABLE) },
     })
   ) {
-    const currentRowItem = getAbove(editor, {
+    const currentRowItem = getAboveNode(editor, {
       match: { type: getPluginType(editor, ELEMENT_TR) },
     });
 

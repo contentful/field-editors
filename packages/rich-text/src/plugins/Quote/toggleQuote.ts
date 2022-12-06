@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BLOCKS } from '@contentful/rich-text-types';
 import { HotkeyPlugin, KeyboardHandler, PlateEditor } from '@udecode/plate-core';
 import isHotkey from 'is-hotkey';

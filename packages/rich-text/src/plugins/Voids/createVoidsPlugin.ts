@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { isFirstChild } from '@udecode/plate-core';
 
 import { isRootLevel } from '../../helpers/editor';

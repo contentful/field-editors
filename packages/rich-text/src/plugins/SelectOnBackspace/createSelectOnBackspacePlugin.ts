@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { INLINES } from '@contentful/rich-text-types';
 import { createSelectOnBackspacePlugin as createDefaultSelectPlugin } from '@udecode/plate-select';
 

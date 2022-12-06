@@ -1,3 +1,4 @@
+// @ts-nocheck
 import * as React from 'react';
 
 import { QuoteIcon } from '@contentful/f36-icons';
@@ -30,7 +31,8 @@ export function ToolbarQuoteButton(props: ToolbarQuoteButtonProps) {
       onClick={handleOnClick}
       testId="quote-toolbar-button"
       isDisabled={props.isDisabled}
-      isActive={isBlockSelected(editor, BLOCKS.QUOTE)}>
+      isActive={isBlockSelected(editor, BLOCKS.QUOTE)}
+    >
       <QuoteIcon />
     </ToolbarButton>
   );
