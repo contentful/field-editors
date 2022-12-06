@@ -1,5 +1,5 @@
 import { BLOCKS } from '@contentful/rich-text-types';
-import { getAbove, getBlockAbove, getParent } from '@udecode/plate-core';
+import { getAboveNode, getBlockAbove, getParentNode } from '@udecode/plate-core';
 import { NodeEntry, Transforms, Path, Node, Text, Range } from 'slate';
 
 import { CustomElement, RichTextEditor } from '../../types';
@@ -8,12 +8,12 @@ const isList = (node: CustomElement) =>
   [BLOCKS.OL_LIST, BLOCKS.UL_LIST].includes(node.type as BLOCKS);
 
 export const hasListAsDirectParent = (editor: RichTextEditor, [, path]: NodeEntry) => {
-  const [parentNode] = (getParent(editor, path) || []) as NodeEntry;
+  const [parentNode] = (getParentNode(editor, path) || []) as NodeEntry;
   return isList(parentNode as CustomElement);
 };
 
 const getNearestListAncestor = (editor: RichTextEditor, path: Path) => {
-  return getAbove(editor, { at: path, mode: 'lowest', match: isList }) || [];
+  return getAboveNode(editor, { at: path, mode: 'lowest', match: isList }) || [];
 };
 
 /**
@@ -25,6 +25,8 @@ export const normalizeOrphanedListItem = (editor: RichTextEditor, [, path]: Node
   const [parentList] = getNearestListAncestor(editor, path);
   const parentListType = parentList?.type;
   Transforms.wrapNodes(
+    // eslint-disable-next-line -- TODO: check this
+    // @ts-ignore
     editor,
     { type: parentListType || BLOCKS.UL_LIST, children: [], data: {} },
     { at: path }
@@ -32,6 +34,8 @@ export const normalizeOrphanedListItem = (editor: RichTextEditor, [, path]: Node
 };
 
 export const isNonEmptyListItem = (editor: RichTextEditor, [, path]: NodeEntry) => {
+  // eslint-disable-next-line -- TODO: check this
+  // @ts-ignore
   const listItemChildren = Array.from(Node.children(editor, path));
 
   return listItemChildren.length !== 0;
@@ -48,6 +52,8 @@ export const firstNodeIsNotList = (_editor: RichTextEditor, [node]: NodeEntry<Cu
 };
 
 export const insertParagraphAsChild = (editor: RichTextEditor, [, path]: NodeEntry) => {
+  // eslint-disable-next-line -- TODO: check this
+  // @ts-ignore
   Transforms.insertNodes(editor, [{ type: BLOCKS.PARAGRAPH, data: {}, children: [{ text: '' }] }], {
     at: path.concat([0]),
   });
@@ -69,6 +75,8 @@ export const isListTypeActive = (editor: RichTextEditor, type: BLOCKS): boolean 
 
   if (Range.isExpanded(selection)) {
     const [start, end] = Range.edges(selection);
+    // eslint-disable-next-line -- TODO: check this
+    // @ts-ignore
     const node = Node.common(editor, start.path, end.path);
 
     if ((node[0] as CustomElement).type === type) {

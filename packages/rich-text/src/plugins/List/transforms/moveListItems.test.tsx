@@ -26,9 +26,13 @@ describe('moving list items (up/down)', () => {
       });
 
       // Equivalent of pressing (SHIFT+)TAB
+      // eslint-disable-next-line -- TODO: check this
+      // @ts-ignore
       moveListItems(editor, { increase: !shift });
 
       assertOutput({
+        // eslint-disable-next-line -- TODO: check this
+        // @ts-ignore
         editor,
         expected: renderEditor(t.expected),
       });

@@ -7,6 +7,8 @@ import { FetchedEntityData } from './useEntityInfo';
 
 export const hasText = (editor: RichTextEditor, entry: NodeEntry) => {
   const [node] = entry;
+  // eslint-disable-next-line -- TODO: check this
+  // @ts-ignore
   return !isAncestorEmpty(editor, node as Ancestor) && Node.string(node).trim() !== '';
 };
 

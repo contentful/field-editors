@@ -191,6 +191,8 @@ describe('insert fragment', () => {
       editor.insertFragment(t.fragment as any);
 
       assertOutput({
+        // eslint-disable-next-line -- TODO: check this
+        // @ts-ignore
         editor,
         expected: render(t.expected),
       });

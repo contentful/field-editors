@@ -35,6 +35,8 @@ export function EntityHyperlink(props: HyperlinkElementProps) {
     event.preventDefault();
     event.stopPropagation();
     if (!editor) return;
+    // eslint-disable-next-line -- TODO: check this
+    // @ts-ignore
     const p = ReactEditor.toSlatePoint(editor, [event.target as Node, 0], {
       exactMatch: false,
       suppressThrow: false,
@@ -47,13 +49,15 @@ export function EntityHyperlink(props: HyperlinkElementProps) {
       content={tooltipContent}
       targetWrapperClassName={styles.hyperlinkWrapper}
       placement="bottom"
-      maxWidth="auto">
+      maxWidth="auto"
+    >
       <TextLink
         as="a"
         onClick={handleClick}
         className={styles.hyperlink}
         data-link-type={target.sys.linkType}
-        data-link-id={target.sys.id}>
+        data-link-id={target.sys.id}
+      >
         {props.children}
       </TextLink>
     </Tooltip>

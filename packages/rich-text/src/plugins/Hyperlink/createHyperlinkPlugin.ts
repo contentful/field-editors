@@ -37,25 +37,37 @@ const isAssetAnchor = (element: HTMLElement) =>
   element.nodeName === 'A' && element.getAttribute('data-link-type') === 'Asset';
 
 const buildHyperlinkEventHandler =
-  (sdk: FieldExtensionSDK): KeyboardHandler<RichTextEditor, HotkeyPlugin> =>
-  (editor, { options: { hotkey } }) => {
-    return (event: React.KeyboardEvent) => {
-      if (!editor.selection) {
-        return;
-      }
+  // eslint-disable-next-line -- TODO: check this
+  // @ts-ignore
 
-      if (hotkey && !isHotkey(hotkey, event)) {
-        return;
-      }
 
-      if (isLinkActive(editor)) {
-        unwrapLink(editor);
-        editor.tracking.onShortcutAction('unlinkHyperlinks');
-      } else {
-        addOrEditLink(editor, sdk, editor.tracking.onShortcutAction);
-      }
+    (sdk: FieldExtensionSDK): KeyboardHandler<RichTextEditor, HotkeyPlugin> =>
+    (editor, { options: { hotkey } }) => {
+      return (event: React.KeyboardEvent) => {
+        if (!editor.selection) {
+          return;
+        }
+
+        // eslint-disable-next-line -- TODO: check this
+        // @ts-ignore
+        if (hotkey && !isHotkey(hotkey, event)) {
+          return;
+        }
+
+        // eslint-disable-next-line -- TODO: check this
+        // @ts-ignore
+        if (isLinkActive(editor)) {
+          unwrapLink(editor);
+          // eslint-disable-next-line -- TODO: check this
+          // @ts-ignore
+          editor.tracking.onShortcutAction('unlinkHyperlinks');
+        } else {
+          // eslint-disable-next-line -- TODO: check this
+          // @ts-ignore
+          addOrEditLink(editor, sdk, editor.tracking.onShortcutAction);
+        }
+      };
     };
-  };
 
 const getNodeOfType =
   (type: INLINES) =>
@@ -90,6 +102,8 @@ export const createHyperlinkPlugin = (sdk: FieldExtensionSDK): RichTextPlugin =>
       hotkey: 'mod+k',
     },
     handlers: {
+      // eslint-disable-next-line -- TODO: check this
+      // @ts-ignore
       onKeyDown: buildHyperlinkEventHandler(sdk),
     },
     plugins: [

@@ -7,6 +7,8 @@ import { PlateEditor, unwrapNodes } from '@udecode/plate-core';
 import { Editor, Element, Path, Transforms } from 'slate';
 
 function hasUnliftedListItems(editor: PlateEditor, at?: Path) {
+  // eslint-disable-next-line -- TODO: check this
+  // @ts-ignore
   return Editor.nodes(editor, {
     at,
     match: (node, path) =>
@@ -14,9 +16,13 @@ function hasUnliftedListItems(editor: PlateEditor, at?: Path) {
   }).next().done;
 }
 export const unwrapList = (editor: PlateEditor, { at }: { at?: Path } = {}) => {
+  // eslint-disable-next-line -- TODO: check this
+  // @ts-ignore
   Editor.withoutNormalizing(editor, () => {
     do {
       // lift list items to the root level
+      // eslint-disable-next-line -- TODO: check this
+      // @ts-ignore
       Transforms.liftNodes(editor, {
         at,
         match: (node) => Element.isElement(node) && node.type === BLOCKS.LIST_ITEM,

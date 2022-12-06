@@ -339,6 +339,8 @@ describe('insert line break', () => {
       editor.insertBreak();
 
       assertOutput({
+        // eslint-disable-next-line -- TODO: check this
+        // @ts-ignore
         editor,
         expected: render(t.expected),
       });

@@ -23,6 +23,8 @@ import {
 import { withList } from './withList';
 
 export const createListPlugin = (): RichTextPlugin =>
+  // eslint-disable-next-line -- TODO: check this
+  // @ts-ignore
   createPlateListPlugin<RichTextEditor>({
     normalizer: [
       {
@@ -38,16 +40,22 @@ export const createListPlugin = (): RichTextPlugin =>
         type: BLOCKS.UL_LIST,
         component: ListUL,
         handlers: {
+          // eslint-disable-next-line -- TODO: check this
+          // @ts-ignore
           onKeyDown: onKeyDownList,
         },
         // The withList is added on ELEMENT_UL plugin in upstream code
         // so we need to override it here
+        // eslint-disable-next-line -- TODO: check this
+        // @ts-ignore
         withOverrides: withList,
       },
       [ELEMENT_OL]: {
         type: BLOCKS.OL_LIST,
         component: ListOL,
         handlers: {
+          // eslint-disable-next-line -- TODO: check this
+          // @ts-ignore
           onKeyDown: onKeyDownList,
         },
       },

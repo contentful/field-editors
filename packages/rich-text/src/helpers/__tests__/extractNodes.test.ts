@@ -6,6 +6,8 @@ import { CustomElement, RichTextEditor } from '../../types';
 import { extractParagraphs } from '../extractNodes';
 
 const createEditor = (children: CustomElement[]) =>
+  // eslint-disable-next-line -- TODO: check this
+  // @ts-ignore
   createSlateEditor('test-editor', {}, children) as RichTextEditor;
 
 type Text = {

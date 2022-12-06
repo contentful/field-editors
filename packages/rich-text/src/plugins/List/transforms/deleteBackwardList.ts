@@ -37,6 +37,8 @@ export const deleteBackwardList = (
         match: (node) => node.type === BLOCKS.LIST_ITEM,
       })
     ) {
+      // eslint-disable-next-line -- TODO: check this
+      // @ts-ignore
       Editor.withoutNormalizing(editor, () => {
         moved = removeFirstListItem(editor, { list, listItem });
         if (moved) return;
@@ -66,6 +68,8 @@ export const deleteBackwardList = (
         }
 
         deleteFragment(editor, {
+          // eslint-disable-next-line -- TODO: check this
+          // @ts-ignore
           unit,
           reverse: true,
         });

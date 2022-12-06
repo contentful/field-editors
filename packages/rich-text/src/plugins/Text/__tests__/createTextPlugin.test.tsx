@@ -111,6 +111,8 @@ describe('delete backward', () => {
       editor.deleteBackward('character');
 
       assertOutput({
+        // eslint-disable-next-line -- TODO: check this
+        // @ts-ignore
         editor,
         expected: render(t.expected),
       });
@@ -228,6 +230,8 @@ describe('delete forward', () => {
       editor.deleteForward('character');
 
       assertOutput({
+        // eslint-disable-next-line -- TODO: check this
+        // @ts-ignore
         editor,
         expected: render(t.expected),
       });

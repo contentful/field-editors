@@ -25,6 +25,8 @@ export function UrlHyperlink(props: HyperlinkElementProps) {
     event.preventDefault();
     event.stopPropagation();
     if (!editor) return;
+    // eslint-disable-next-line -- TODO: check this
+    // @ts-ignore
     const p = ReactEditor.toSlatePoint(editor, [event.target as Node, 0], {
       exactMatch: false,
       suppressThrow: false,
@@ -37,13 +39,15 @@ export function UrlHyperlink(props: HyperlinkElementProps) {
       content={uri}
       targetWrapperClassName={styles.hyperlinkWrapper}
       placement="bottom"
-      maxWidth="auto">
+      maxWidth="auto"
+    >
       <TextLink
         as="a"
         href={uri}
         rel="noopener noreferrer"
         onClick={handleClick}
-        className={styles.hyperlink}>
+        className={styles.hyperlink}
+      >
         {props.children}
       </TextLink>
     </Tooltip>

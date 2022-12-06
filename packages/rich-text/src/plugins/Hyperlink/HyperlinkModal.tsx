@@ -143,7 +143,8 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
                     setLinkType(event.target.value)
                   }
                   testId="link-type-input"
-                  isDisabled={props.readonly}>
+                  isDisabled={props.readonly}
+                >
                   {enabledLinkTypes.map((nodeType) => (
                     <Select.Option key={nodeType} value={nodeType}>
                       {LINK_TYPE_SELECTION_VALUES[nodeType]}
@@ -184,7 +185,8 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
                       <TextLink
                         testId="entity-selection-link"
                         onClick={resetLinkEntity}
-                        className={styles.removeSelectionLabel}>
+                        className={styles.removeSelectionLabel}
+                      >
                         Remove selection
                       </TextLink>
                     )}
@@ -233,7 +235,8 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
             onClick={() => props.onClose(null)}
             variant="secondary"
             testId="cancel-cta"
-            size="small">
+            size="small"
+          >
             Cancel
           </Button>
           <Button
@@ -242,7 +245,8 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
             size="small"
             isDisabled={props.readonly || !isLinkComplete()}
             onClick={handleOnSubmit}
-            testId="confirm-cta">
+            testId="confirm-cta"
+          >
             {props.linkType ? 'Update' : 'Insert'}
           </Button>
         </ModalControls>
@@ -267,6 +271,8 @@ export async function addOrEditLink(
     | TrackingPluginActions['onViewportAction'],
   targetPath?: Path
 ) {
+  // eslint-disable-next-line -- TODO: check this
+  // @ts-ignore
   const isReadOnly = ReactEditor.isReadOnly(editor);
   const selectionBeforeBlur = editor.selection ? { ...editor.selection } : undefined;
   if (!targetPath && !selectionBeforeBlur) return;
@@ -278,6 +284,8 @@ export async function addOrEditLink(
   const [node, path] = getNodeEntryFromSelection(editor, LINK_TYPES, targetPath);
   if (node && path) {
     linkType = node.type;
+    // eslint-disable-next-line -- TODO: check this
+    // @ts-ignore
     linkText = Editor.string(editor, path);
     linkTarget = (node.data as { uri: string }).uri || '';
     linkEntity = (node.data as { target: Link }).target;
@@ -287,6 +295,8 @@ export async function addOrEditLink(
     targetPath ?? (selectionBeforeBlur as NonNullable<typeof selectionBeforeBlur>);
 
   const currentLinkText =
+    // eslint-disable-next-line -- TODO: check this
+    // @ts-ignore
     linkText || (editor.selection ? Editor.string(editor, editor.selection) : '');
   const isEditing = Boolean(node && path);
 
@@ -314,6 +324,8 @@ export async function addOrEditLink(
       );
     }
   );
+  // eslint-disable-next-line -- TODO: check this
+  // @ts-ignore
   Transforms.select(editor, selectionAfterFocus);
 
   if (!data) {
@@ -329,6 +341,8 @@ export async function addOrEditLink(
     linkEntity: target,
   } = data as HyperLinkDialogData;
 
+  // eslint-disable-next-line -- TODO: check this
+  // @ts-ignore
   Editor.withoutNormalizing(editor, () => {
     insertLink(editor, { text, url, type, target, path });
   });

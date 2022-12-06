@@ -35,8 +35,12 @@ describe('toggle on', () => {
       input,
     });
 
+    // eslint-disable-next-line -- TODO: check this
+    // @ts-ignore
     toggleList(editor, { type: BLOCKS.UL_LIST });
 
+    // eslint-disable-next-line -- TODO: check this
+    // @ts-ignore
     assertOutput({ editor, expected, log: true });
   });
 
@@ -72,8 +76,12 @@ describe('toggle on', () => {
       input,
     });
 
+    // eslint-disable-next-line -- TODO: check this
+    // @ts-ignore
     toggleList(editor, { type: BLOCKS.UL_LIST });
 
+    // eslint-disable-next-line -- TODO: check this
+    // @ts-ignore
     assertOutput({ editor, expected });
   });
 
@@ -117,8 +125,12 @@ describe('toggle on', () => {
       input,
     });
 
+    // eslint-disable-next-line -- TODO: check this
+    // @ts-ignore
     toggleList(editor, { type: BLOCKS.UL_LIST });
 
+    // eslint-disable-next-line -- TODO: check this
+    // @ts-ignore
     assertOutput({ editor, expected });
   });
 });
@@ -169,8 +181,12 @@ describe('toggle off', () => {
       input,
     });
 
+    // eslint-disable-next-line -- TODO: check this
+    // @ts-ignore
     toggleList(editor, { type: BLOCKS.UL_LIST });
 
+    // eslint-disable-next-line -- TODO: check this
+    // @ts-ignore
     assertOutput({ editor, expected });
   });
 
@@ -230,8 +246,12 @@ describe('toggle off', () => {
       input,
     });
 
+    // eslint-disable-next-line -- TODO: check this
+    // @ts-ignore
     toggleList(editor, { type: BLOCKS.UL_LIST });
 
+    // eslint-disable-next-line -- TODO: check this
+    // @ts-ignore
     assertOutput({ editor, expected });
   });
 
@@ -272,8 +292,12 @@ describe('toggle off', () => {
       input,
     });
 
+    // eslint-disable-next-line -- TODO: check this
+    // @ts-ignore
     toggleList(editor, { type: BLOCKS.UL_LIST });
 
+    // eslint-disable-next-line -- TODO: check this
+    // @ts-ignore
     assertOutput({ editor, expected });
   });
 });
@@ -309,8 +333,12 @@ describe('toggle over', () => {
       input,
     });
 
+    // eslint-disable-next-line -- TODO: check this
+    // @ts-ignore
     toggleList(editor, { type: BLOCKS.OL_LIST });
 
+    // eslint-disable-next-line -- TODO: check this
+    // @ts-ignore
     assertOutput({ editor, expected });
   });
 
@@ -358,8 +386,12 @@ describe('toggle over', () => {
       input,
     });
 
+    // eslint-disable-next-line -- TODO: check this
+    // @ts-ignore
     toggleList(editor, { type: BLOCKS.OL_LIST });
 
+    // eslint-disable-next-line -- TODO: check this
+    // @ts-ignore
     assertOutput({ editor, expected });
   });
 
@@ -411,8 +443,12 @@ describe('toggle over', () => {
       input,
     });
 
+    // eslint-disable-next-line -- TODO: check this
+    // @ts-ignore
     toggleList(editor, { type: BLOCKS.OL_LIST });
 
+    // eslint-disable-next-line -- TODO: check this
+    // @ts-ignore
     assertOutput({ editor, expected });
   });
 });

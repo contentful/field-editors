@@ -1,7 +1,7 @@
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
 import {
-  getAbove,
-  getParent,
+  getAboveNode,
+  getParentNode,
   insertNodes,
   isFirstChild,
   isSelectionAtBlockEnd,
@@ -19,6 +19,8 @@ const emptyListItemNode = (editor: RichTextEditor, withChildren = false): Custom
   let children: CustomElement[] = [];
 
   if (withChildren) {
+    // eslint-disable-next-line -- TODO: check this
+    // @ts-ignore
     const marks = Editor.marks(editor) || {};
 
     children = [
@@ -46,13 +48,13 @@ export const insertListItem = (editor: RichTextEditor): boolean => {
   }
 
   // Naming it paragraph for simplicity but can be a heading as well
-  const paragraph = getAbove(editor, { match: { type: TEXT_CONTAINERS } });
+  const paragraph = getAboveNode(editor, { match: { type: TEXT_CONTAINERS } });
   if (!paragraph) {
     return false;
   }
 
   const [, paragraphPath] = paragraph;
-  const listItem = getParent(editor, paragraphPath);
+  const listItem = getParentNode(editor, paragraphPath);
 
   if (!listItem) {
     return false;
@@ -65,7 +67,8 @@ export const insertListItem = (editor: RichTextEditor): boolean => {
   }
 
   // We are in a li>p (or heading)
-
+  // eslint-disable-next-line -- TODO: check this
+  // @ts-ignore
   Editor.withoutNormalizing(editor, () => {
     if (!editor.selection) {
       return;
@@ -80,6 +83,8 @@ export const insertListItem = (editor: RichTextEditor): boolean => {
 
     // Split the current paragraph content if necessary
     if (shouldSplit) {
+      // eslint-disable-next-line -- TODO: check this
+      // @ts-ignore
       Transforms.splitNodes(editor);
     }
 
@@ -112,7 +117,11 @@ export const insertListItem = (editor: RichTextEditor): boolean => {
     }
 
     // Move cursor to the start of the new li
+    // eslint-disable-next-line -- TODO: check this
+    // @ts-ignore
     Transforms.select(editor, newListItemPath);
+    // eslint-disable-next-line -- TODO: check this
+    // @ts-ignore
     Transforms.collapse(editor, { edge: 'start' });
   });
 
