@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /** @jsx jsx */
 import { jsx, assertOutput } from '../../../test-utils';
 

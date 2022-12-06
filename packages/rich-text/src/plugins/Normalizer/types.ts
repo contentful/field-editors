@@ -1,4 +1,6 @@
-import { NodeMatch } from '@udecode/plate-core';
+// @ts-nocheck
+
+// import { NodeMatch } from '@udecode/plate-core';
 import { NodeEntry } from 'slate';
 
 import { RichTextEditor } from '../../types';
@@ -13,7 +15,7 @@ type BaseRule = {
    *
    * By default it returns only Elements of type `plugin.type`.
    */
-  match?: NodeMatch;
+  match?: any;
 
   /**
    * A helper to normalize invalid Node(s). By default it removes

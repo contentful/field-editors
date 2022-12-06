@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { NodeEntry, Text, Node, Element } from 'slate';
 import { RichTextEditor } from 'types';
 
