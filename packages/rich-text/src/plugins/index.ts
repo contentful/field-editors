@@ -33,7 +33,8 @@ import { createVoidsPlugin } from './Voids';
 
 export const getPlugins = (
   sdk: FieldExtensionSDK,
-  onAction: RichTextTrackingActionHandler
+  onAction: RichTextTrackingActionHandler,
+  unavailableMarks?: string[]
 ): RichTextPlugin[] => [
   // AST must come after the HTML deserializer
   createDeserializeHtmlPlugin(),
@@ -66,7 +67,7 @@ export const getPlugins = (
 
   // Other
   createTrailingParagraphPlugin(),
-  createTextPlugin(),
+  createTextPlugin(unavailableMarks),
   createVoidsPlugin(),
   createSelectOnBackspacePlugin(),
 

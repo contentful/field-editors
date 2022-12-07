@@ -34,8 +34,8 @@ type ConnectedProps = {
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const id = getContentfulEditorId(props.sdk);
   const plugins = React.useMemo(
-    () => getPlugins(props.sdk, props.onAction ?? noop),
-    [props.sdk, props.onAction]
+    () => getPlugins(props.sdk, props.onAction ?? noop, props.unavailableMarks),
+    [props.sdk, props.onAction, props.unavailableMarks]
   );
 
   const [isFirstRender, setIsFirstRender] = useState(true);
