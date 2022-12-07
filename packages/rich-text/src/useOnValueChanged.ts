@@ -25,7 +25,6 @@ export type OnValueChangedProps = {
   handler?: (value: Document) => unknown;
   skip?: boolean;
   onSkip?: VoidFunction;
-  unavailableMarks?: string[];
 };
 
 export const useOnValueChanged = ({ editorId, handler, skip, onSkip }: OnValueChangedProps) => {
