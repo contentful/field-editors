@@ -3062,7 +3062,7 @@ exports[`Rich Text Editor > Superscript and subscript marks > works when pasting
   "nodeType": "document"
 };
 
-exports[`Rich Text Editor > removing unavailable marks > works when pasting subscript and superscript from a google doc #0`] =
+exports[`Rich Text Editor > removing restricted marks > works when pasting subscript and superscript from a google doc #0`] =
 {
   "content": [
     {

@@ -62,9 +62,9 @@ Cypress.Commands.add('setInitialDisabled', (initialDisabled) => {
   });
 });
 
-Cypress.Commands.add('setUnavailableMarks', (unavailableMarks) => {
+Cypress.Commands.add('setRestrictedMarks', (restrictedMarks) => {
   return cy.window().then((win) => {
-    win.localStorage.setItem('unavailableMarks', JSON.stringify(unavailableMarks));
+    win.localStorage.setItem('restrictedMarks', JSON.stringify(restrictedMarks));
     return win;
   });
 });

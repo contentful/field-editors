@@ -4,7 +4,7 @@ import { Editor, Ancestor, Transforms, Range, Location, Text } from 'slate';
 
 import { RichTextEditor, RichTextPlugin } from '../../types';
 
-export function createTextPlugin(unavailableMarks: string[] = []): RichTextPlugin {
+export function createTextPlugin(restrictedMarks: string[] = []): RichTextPlugin {
   return {
     key: 'TextPlugin',
     handlers: {
@@ -69,10 +69,10 @@ export function createTextPlugin(unavailableMarks: string[] = []): RichTextPlugi
       {
         match: Text.isText,
         transform: (editor, [, path]) => {
-          unsetNodes(editor, unavailableMarks, { at: path });
+          unsetNodes(editor, restrictedMarks, { at: path });
         },
         validNode: (_editor, [node]) => {
-          return !unavailableMarks.some((mark) => {
+          return !restrictedMarks.some((mark) => {
             return mark in node;
           });
         },

@@ -28,14 +28,14 @@ type ConnectedProps = {
   onChange?: (doc: Contentful.Document) => unknown;
   isToolbarHidden?: boolean;
   actionsDisabled?: boolean;
-  unavailableMarks?: string[];
+  restrictedMarks?: string[];
 };
 
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const id = getContentfulEditorId(props.sdk);
   const plugins = React.useMemo(
-    () => getPlugins(props.sdk, props.onAction ?? noop, props.unavailableMarks),
-    [props.sdk, props.onAction, props.unavailableMarks]
+    () => getPlugins(props.sdk, props.onAction ?? noop, props.restrictedMarks),
+    [props.sdk, props.onAction, props.restrictedMarks]
   );
 
   const [isFirstRender, setIsFirstRender] = useState(true);
@@ -118,7 +118,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
 type Props = ConnectedProps & { isInitiallyDisabled: boolean };
 
 const RichTextEditor = (props: Props) => {
-  const { sdk, isInitiallyDisabled, onAction, unavailableMarks, ...otherProps } = props;
+  const { sdk, isInitiallyDisabled, onAction, restrictedMarks, ...otherProps } = props;
   const isEmptyValue = useCallback(
     (value) => !value || deepEquals(value, Contentful.EMPTY_DOCUMENT),
     []
@@ -143,7 +143,7 @@ const RichTextEditor = (props: Props) => {
             onAction={onAction}
             isDisabled={disabled}
             onChange={setValue}
-            unavailableMarks={unavailableMarks}
+            restrictedMarks={restrictedMarks}
           />
         )}
       </FieldConnector>

@@ -365,9 +365,9 @@ describe(
       });
     });
 
-    describe('removing unavailable marks', () => {
+    describe('removing restricted marks', () => {
       it('works when pasting subscript and superscript from a google doc', () => {
-        cy.setUnavailableMarks(['superscript', 'subscript']);
+        cy.setRestrictedMarks(['superscript', 'subscript']);
         cy.reload();
         // A simple "hello world" text with marks: superscript and subscript.
         // Copied from a google doc
