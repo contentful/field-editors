@@ -16,7 +16,7 @@ const isTextContainer = (node: CustomElement) => TEXT_CONTAINERS.includes(node.t
 export const baseRules: Required<NormalizerRule>[] = [
   {
     // Wrap orphaned text nodes in a paragraph
-    match: Text.isText,
+    match: (node) => Text.isText(node),
     validNode: (editor, [, path]) => {
       const parent = getParentNode(editor, path)?.[0] as CustomElement;
       return !!parent && (isTextContainer(parent) || isInline(parent) || editor.isVoid(parent));

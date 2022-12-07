@@ -85,13 +85,13 @@ export const withNormalizer = (editor: RichTextEditor) => {
   const { normalizeNode } = editor;
 
   editor.normalizeNode = (entry) => {
-    const [node] = entry;
+    const [node, path] = entry;
     const children = getChildren(editor, entry);
 
     // The order of validNode rules Vs validChildren doesn't matter. Slate
     // will always perform normalization in a depth-first fashion.
     for (const rule of rules) {
-      if (!match(node, rule.match)) {
+      if (!match(node, path, rule.match)) {
         continue;
       }
 

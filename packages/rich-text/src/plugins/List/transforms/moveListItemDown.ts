@@ -33,8 +33,8 @@ export const moveListItemDown = (
   if (previousSiblingItem) {
     const [, previousPath] = previousSiblingItem;
 
-    const subList = Array.from(Node.children(editor, previousPath)).find(([n]) =>
-      match(n, { type: getListTypes(editor) })
+    const subList = Array.from(Node.children(editor, previousPath)).find(([n, path]) =>
+      match(n, path, { type: getListTypes(editor) })
     ) as NodeEntry<Ancestor> | undefined;
 
     const newPath = Path.next(getLastChildPath(subList ?? previousSiblingItem));

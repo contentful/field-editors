@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
-import { getNodes } from '@udecode/plate-core';
+import { getNodeEntries } from '@udecode/plate-core';
 
 import { RichTextPlugin } from '../../types';
 
@@ -27,7 +27,7 @@ export function createDragAndDropPlugin(): RichTextPlugin {
       // If true, the next handlers will be skipped.
       onDrop: (editor) => (event) => {
         const [draggingBlock] = Array.from(
-          getNodes(editor, {
+          getNodeEntries(editor, {
             match: (node) => DRAGGABLE_TYPES.includes(node?.type),
           })
         );

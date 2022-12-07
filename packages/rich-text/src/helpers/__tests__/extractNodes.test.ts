@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { createEditor as createSlateEditor } from '@udecode/plate-test-utils';
 import { Path } from 'slate';
