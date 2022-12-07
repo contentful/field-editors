@@ -46,7 +46,6 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
     handler: props.onChange,
     skip: pendingExternalUpdate || isFirstRender,
     onSkip: () => setPendingExternalUpdate(false),
-    unavailableMarks: props.unavailableMarks,
   });
 
   useEffect(() => {

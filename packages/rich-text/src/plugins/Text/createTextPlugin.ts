@@ -67,7 +67,7 @@ export function createTextPlugin(unavailableMarks: string[] = []): RichTextPlugi
     },
     normalizer: [
       {
-        match: () => Text.isText,
+        match: Text.isText,
         transform: (editor, [, path]) => {
           unsetNodes(editor, unavailableMarks, { at: path });
         },
