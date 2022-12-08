@@ -1,7 +1,7 @@
-import { getEditorString } from '@udecode/plate-core';
 import { Transforms } from 'slate';
 
 import { focus } from '../../../helpers/editor';
+import { getText } from '../../../internal';
 
 const createNode = (nodeType, entity) => ({
   type: nodeType,
@@ -23,7 +23,7 @@ export function insertBlock(editor, nodeType, entity) {
 
   const linkedEntityBlock = createNode(nodeType, entity);
 
-  const hasText = editor.selection && !!getEditorString(editor, editor.selection.focus.path);
+  const hasText = editor.selection && !!getText(editor, editor.selection.focus.path);
 
   if (hasText) {
     Transforms.insertNodes(editor, linkedEntityBlock);

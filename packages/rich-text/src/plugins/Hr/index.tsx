@@ -4,7 +4,7 @@ import * as React from 'react';
 import { HorizontalRuleIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { getEditorString, setNodes } from '@udecode/plate-core';
+import { setNodes } from '@udecode/plate-core';
 import { css, cx } from 'emotion';
 import { Transforms } from 'slate';
 import * as Slate from 'slate-react';
@@ -16,6 +16,7 @@ import {
   moveToTheNextLine,
   focus,
 } from '../../helpers/editor';
+import { getText } from '../../internal';
 import { RichTextEditor, RichTextPlugin } from '../../types';
 import { ToolbarButton } from '../shared/ToolbarButton';
 
@@ -84,7 +85,7 @@ export function ToolbarHrButton(props: ToolbarHrButtonProps) {
       isVoid: true,
     };
 
-    const hasText = !!getEditorString(editor, editor.selection.focus.path);
+    const hasText = !!getText(editor, editor.selection.focus.path);
     hasText ? Transforms.insertNodes(editor, hr) : setNodes(editor, hr);
 
     // Move focus to the next paragraph (added by TrailingParagraph plugin)
