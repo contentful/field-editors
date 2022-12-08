@@ -7,10 +7,10 @@ import {
   toggleNodeType,
   ToggleNodeTypeOptions,
 } from '@udecode/plate-core';
+import { getText } from 'internal';
 import { Text, Editor, Element, Transforms, Path, Range, Node } from 'slate';
 import { ReactEditor } from 'slate-react';
 
-import { getText } from '../internal';
 import { CustomElement, RichTextEditor } from '../types';
 import { IS_SAFARI } from './environment';
 

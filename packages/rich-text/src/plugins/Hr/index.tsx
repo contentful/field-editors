@@ -6,6 +6,7 @@ import tokens from '@contentful/f36-tokens';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { setNodes } from '@udecode/plate-core';
 import { css, cx } from 'emotion';
+import { getText } from 'internal';
 import { Transforms } from 'slate';
 import * as Slate from 'slate-react';
 
@@ -16,7 +17,6 @@ import {
   moveToTheNextLine,
   focus,
 } from '../../helpers/editor';
-import { getText } from '../../internal';
 import { RichTextEditor, RichTextPlugin } from '../../types';
 import { ToolbarButton } from '../shared/ToolbarButton';
 

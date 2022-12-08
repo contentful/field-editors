@@ -1,7 +1,7 @@
+import { getText } from 'internal';
 import { Transforms } from 'slate';
 
 import { focus } from '../../../helpers/editor';
-import { getText } from '../../../internal';
 
 const createNode = (nodeType, entity) => ({
   type: nodeType,
