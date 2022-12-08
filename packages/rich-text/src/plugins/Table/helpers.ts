@@ -2,17 +2,21 @@
 import { BLOCKS } from '@contentful/rich-text-types';
 import {
   getAboveNode,
+  getBlockAbove,
   getParentNode,
   getChildren,
   isFirstChild,
   isAncestorEmpty,
+  insertNodes,
+  selectEditor,
+  getStartPoint,
 } from '@udecode/plate-core';
 import {
   ELEMENT_TABLE,
   ELEMENT_TH,
   ELEMENT_TD,
   ELEMENT_TR,
-  insertTable,
+  getEmptyRowNode,
 } from '@udecode/plate-table';
 import { Element, Node, NodeEntry } from 'slate';
 import { Transforms, Path, Editor, Ancestor } from 'slate';
@@ -21,7 +25,26 @@ import { isBlockSelected, getAncestorPathFromSelection } from '../../helpers/edi
 import { CustomElement, RichTextEditor, TextOrCustomElement } from '../../types';
 
 export function insertTableAndFocusFirstCell(editor: RichTextEditor): void {
-  insertTable(editor, { header: true });
+  const table = {
+    type: BLOCKS.TABLE,
+    data: {},
+    children: [
+      getEmptyRowNode(editor, { colCount: 2, header: true }),
+      getEmptyRowNode(editor, { colCount: 2 }),
+    ],
+  };
+
+  insertNodes(editor, table);
+
+  if (editor.selection) {
+    const tableEntry = getBlockAbove(editor, {
+      match: { type: BLOCKS.TABLE },
+    });
+    if (!tableEntry) return;
+
+    selectEditor(editor, { at: getStartPoint(editor, tableEntry[1]) });
+  }
+
   replaceEmptyParagraphWithTable(editor);
 }
 
