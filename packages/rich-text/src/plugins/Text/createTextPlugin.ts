@@ -1,10 +1,10 @@
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
-import { getAbove, isAncestorEmpty, queryNode, TNode } from '@udecode/plate-core';
-import { Editor, Ancestor, Transforms, Range, Location } from 'slate';
+import { getAbove, isAncestorEmpty, queryNode, TNode, unsetNodes } from '@udecode/plate-core';
+import { Editor, Ancestor, Transforms, Range, Location, Text } from 'slate';
 
 import { RichTextEditor, RichTextPlugin } from '../../types';
 
-export function createTextPlugin(): RichTextPlugin {
+export function createTextPlugin(restrictedMarks: string[] = []): RichTextPlugin {
   return {
     key: 'TextPlugin',
     handlers: {
@@ -65,6 +65,19 @@ export function createTextPlugin(): RichTextPlugin {
 
       return editor;
     },
+    normalizer: [
+      {
+        match: Text.isText,
+        transform: (editor, [, path]) => {
+          unsetNodes(editor, restrictedMarks, { at: path });
+        },
+        validNode: (_editor, [node]) => {
+          return !restrictedMarks.some((mark) => {
+            return mark in node;
+          });
+        },
+      },
+    ],
   };
 }
 
