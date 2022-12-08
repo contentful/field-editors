@@ -173,13 +173,19 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
       [MARKS.UNDERLINE, `{${mod}}u`],
       [MARKS.CODE, `{${mod}}/`],
     ].forEach(([mark, shortcut]) => {
-      const toggleMarkViaToolbar = () => cy.findByTestId(`${mark}-toolbar-button`).click();
-
+      const toggleMarkViaToolbar = (mark: MARKS) => {
+        if (mark === 'code' || mark === 'superscript' || mark === 'subscript') {
+          cy.findByTestId('dropdown-toolbar-button').click();
+          cy.findByTestId(`${mark}-toolbar-button`).click();
+        } else {
+          cy.findByTestId(`${mark}-toolbar-button`).click();
+        }
+      };
       it(`tracks ${mark} mark via toolbar`, () => {
         richText.editor.click();
 
-        toggleMarkViaToolbar();
-        toggleMarkViaToolbar();
+        toggleMarkViaToolbar(mark);
+        toggleMarkViaToolbar(mark);
 
         richText.expectTrackingValue([
           action('mark', 'toolbar-icon', { markType: mark }),

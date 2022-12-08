@@ -208,8 +208,23 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
   });
 
   describe('Marks', () => {
-    const findMarkViaToolbar = (mark: MARKS) => cy.findByTestId(`${mark}-toolbar-button`);
-    const toggleMarkViaToolbar = (mark: MARKS) => cy.findByTestId(`${mark}-toolbar-button`).click();
+    const findMarkViaToolbar = (mark: MARKS) => {
+      if (mark === 'code' || mark === 'superscript' || mark === 'subscript') {
+        cy.findByTestId('dropdown-toolbar-button').click();
+        return cy.findByTestId(`${mark}-toolbar-button`);
+      } else {
+        return cy.findByTestId(`${mark}-toolbar-button`);
+      }
+    };
+
+    const toggleMarkViaToolbar = (mark: MARKS) => {
+      if (mark === 'code' || mark === 'superscript' || mark === 'subscript') {
+        cy.findByTestId('dropdown-toolbar-button').click();
+        cy.findByTestId(`${mark}-toolbar-button`).click();
+      } else {
+        cy.findByTestId(`${mark}-toolbar-button`).click();
+      }
+    };
 
     it(`shows ${MARKS.BOLD}, ${MARKS.ITALIC}, ${MARKS.UNDERLINE}, ${MARKS.CODE} if not explicitly allowed`, () => {
       cy.setFieldValidations([]);
