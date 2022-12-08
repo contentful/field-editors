@@ -1,22 +1,19 @@
 import React from 'react';
 
-import { SpaceAPI, ScheduledAction } from '@contentful/app-sdk';
+import { ScheduledAction } from '@contentful/app-sdk';
 
 import { ScheduleTooltip } from './ScheduleTooltip';
 
 type ScheduledIconWithTooltipProps = {
-  getEntityScheduledActions: SpaceAPI['getEntityScheduledActions'];
-  entityType: 'Entry' | 'Asset';
-  entityId: string;
+	getEntityScheduledActions: () => Promise<ScheduledAction[]>;
   children: React.ReactElement;
 };
 
 export const ScheduledIconWithTooltip = ({
-  entityType,
-  entityId,
-  getEntityScheduledActions,
+	// getEntityScheduledActions,
   children,
 }: ScheduledIconWithTooltipProps) => {
+
   const [status, setStatus] = React.useState<
     | { type: 'loading' }
     | { type: 'error'; error: Error }
@@ -24,13 +21,14 @@ export const ScheduledIconWithTooltip = ({
   >({ type: 'loading' });
 
   React.useEffect(() => {
-    getEntityScheduledActions(entityType, entityId)
-      .then((data) => {
-        setStatus({ type: 'loaded', jobs: data });
-      })
-      .catch((e) => {
-        setStatus({ type: 'error', error: e });
-      });
+    // getEntityScheduledActions()
+    //   .then((data) => {
+    //     setStatus({ type: 'loaded', jobs: data });
+    //   })
+    //   .catch((e) => {
+    //     setStatus({ type: 'error', error: e });
+    //   });
+		setStatus({ type: 'loaded', jobs: [] });
     // This should only be ever called once. Following the eslint hint to add used
     // dependencies will cause page freeze (infinite loop)
     // eslint-disable-next-line -- TODO: describe this disable

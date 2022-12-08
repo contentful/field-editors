@@ -9,11 +9,12 @@ import {
 } from '../../common/customCardTypes';
 import { useEntity, useEntityLoader } from '../../common/EntityStore';
 import { LinkActionsProps, MissingEntityCard } from '../../components';
-import { Action, Asset, FieldExtensionSDK, ViewType, RenderDragFn } from '../../types';
+import { Action, Asset, FieldExtensionSDK, ViewType, RenderDragFn, ScheduledAction } from '../../types';
 import { WrappedAssetCard, WrappedAssetCardProps } from './WrappedAssetCard';
 import { WrappedAssetLink } from './WrappedAssetLink';
 
 type FetchingWrappedAssetCardProps = {
+	scheduledActions?: ScheduledAction[];
   assetId: string;
   isDisabled: boolean;
   sdk: FieldExtensionSDK;
@@ -29,9 +30,9 @@ type FetchingWrappedAssetCardProps = {
 export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
   const { data: asset, status } = useEntity<Asset>('Asset', props.assetId);
   const { getEntityScheduledActions } = useEntityLoader();
-  const loadEntityScheduledActions = React.useCallback(
-    () => getEntityScheduledActions('Asset', props.assetId),
-    [getEntityScheduledActions, props.assetId]
+	const loadEntityScheduledActions = React.useCallback(
+    () => getEntityScheduledActions({ entityType: 'Asset', entityId: props.assetId, scheduledActions: props.scheduledActions }),
+    [getEntityScheduledActions, props.assetId, props.scheduledActions]
   );
 
   React.useEffect(() => {

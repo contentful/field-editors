@@ -14,6 +14,7 @@ import {
   NavigatorSlideInfo,
   RenderDragFn,
   Entry,
+	ScheduledAction,
 } from '../../types';
 import { WrappedEntryCard, WrappedEntryCardProps } from './WrappedEntryCard';
 
@@ -21,6 +22,7 @@ export type EntryCardReferenceEditorProps = ReferenceEditorProps & {
   entryId: string;
   index?: number;
   allContentTypes: ContentType[];
+	scheduledActions?: ScheduledAction[];
   isDisabled: boolean;
   onRemove: () => void;
   renderDragHandle?: RenderDragFn;
@@ -63,14 +65,14 @@ async function openEntry(
 
 export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
   const { data: entry, status } = useEntity<Entry>('Entry', props.entryId);
-  const { getEntityScheduledActions } = useEntityLoader();
-  const loadEntityScheduledActions = React.useCallback(
-    () => getEntityScheduledActions('Entry', props.entryId),
-    [getEntityScheduledActions, props.entryId]
-  );
 
   const size = props.viewType === 'link' ? 'small' : 'default';
-  const { getEntity } = useEntityLoader();
+  const { getEntity, getEntityScheduledActions } = useEntityLoader();
+
+	const loadEntityScheduledActions = React.useCallback(
+    () => getEntityScheduledActions({ entityType: 'Entry', entityId: props.entryId, scheduledActions: props.scheduledActions }),
+    [getEntityScheduledActions, props.entryId, props.scheduledActions]
+  );
   const getAsset = (assetId: string) => getEntity('Asset', assetId);
 
   const onEdit = async () => {
@@ -158,7 +160,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
         hasCardMoveActions,
         hasCardRemoveActions,
         getAsset,
-        getEntityScheduledActions: loadEntityScheduledActions,
+				getEntityScheduledActions: loadEntityScheduledActions,
         entry: props?.entity || sharedCardProps.entity,
         entryUrl: props?.entityUrl || sharedCardProps.entityUrl,
       };

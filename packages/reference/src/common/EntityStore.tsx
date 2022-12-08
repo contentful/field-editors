@@ -248,11 +248,21 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
      * The result is then reused/cached for subsequent calls to this function.
      */
     const getEntityScheduledActions = useCallback(
-      function getEntityScheduledActions(
+      function getEntityScheduledActions({
+				entityType,
+				entityId,
+				options,
+				scheduledActions
+			}: {
         entityType: FetchableEntityType,
         entityId: string,
-        options?: GetEntityOptions
-      ): QueryEntityResult<ScheduledAction[]> {
+        options?: GetEntityOptions,
+				scheduledActions?: ScheduledAction[]
+      }): QueryEntityResult<ScheduledAction[]> {
+				if(scheduledActions) {
+					return Promise.resolve(scheduledActions.filter((action) => action.entity.sys.id === entityId))
+				}
+
         // This is fixed to force the cache to reuse previous results
         const fixedEntityCacheId = 'scheduledActionEntityId';
 

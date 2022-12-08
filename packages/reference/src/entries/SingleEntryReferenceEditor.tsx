@@ -24,6 +24,7 @@ export function SingleEntryReferenceEditor(props: ReferenceEditorProps) {
             renderCustomCard={renderCustomCard}
             hasCardEditActions={hasCardEditActions}
             hasCardRemoveActions={hasCardRemoveActions}
+						scheduledActions={props.scheduledActions}
             onRemove={() => {
               setValue(null);
             }}

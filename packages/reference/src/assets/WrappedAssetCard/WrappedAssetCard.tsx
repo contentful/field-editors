@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { SpaceAPI } from '@contentful/app-sdk';
 import { AssetCard } from '@contentful/f36-components';
 import { ClockIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
@@ -10,7 +9,7 @@ import mimetype from '@contentful/mimetype';
 import { css } from 'emotion';
 
 import { MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
-import { File, Asset, RenderDragFn } from '../../types';
+import { File, Asset, RenderDragFn, ScheduledAction } from '../../types';
 import { renderActions, renderAssetInfo } from './AssetCardActions';
 
 const groupToIconMap = {
@@ -34,7 +33,7 @@ const styles = {
 };
 
 export interface WrappedAssetCardProps {
-  getEntityScheduledActions: SpaceAPI['getEntityScheduledActions'];
+	getEntityScheduledActions: () => Promise<ScheduledAction[]>;
   asset: Asset;
   localeCode: string;
   defaultLocaleCode: string;
@@ -107,10 +106,7 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
       href={href}
       status={status}
       icon={
-        <ScheduledIconWithTooltip
-          getEntityScheduledActions={props.getEntityScheduledActions}
-          entityType="Asset"
-          entityId={props.asset.sys.id}>
+        <ScheduledIconWithTooltip getEntityScheduledActions={props.getEntityScheduledActions}>
           <ClockIcon
             className={styles.scheduleIcon}
             size="small"

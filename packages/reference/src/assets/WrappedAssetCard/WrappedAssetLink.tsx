@@ -3,8 +3,8 @@ import { css } from 'emotion';
 import tokens from '@contentful/f36-tokens';
 import { EntryCard } from '@contentful/f36-components';
 import { renderActions, renderAssetInfo } from './AssetCardActions';
-import { Asset, RenderDragFn } from '../../types';
-import { entityHelpers, isValidImage, SpaceAPI } from '@contentful/field-editor-shared';
+import { Asset, RenderDragFn, ScheduledAction } from '../../types';
+import { entityHelpers, isValidImage } from '@contentful/field-editor-shared';
 import { MissingEntityCard, ScheduledIconWithTooltip, AssetThumbnail } from '../../components';
 
 import { ClockIcon } from '@contentful/f36-icons';
@@ -16,7 +16,7 @@ const styles = {
 };
 
 export interface WrappedAssetLinkProps {
-  getEntityScheduledActions: SpaceAPI['getEntityScheduledActions'];
+	getEntityScheduledActions: () => Promise<ScheduledAction[]>;
   asset: Asset;
   localeCode: string;
   defaultLocaleCode: string;
@@ -67,10 +67,7 @@ export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
         entityFile && isValidImage(entityFile) ? <AssetThumbnail file={entityFile} /> : undefined
       }
       icon={
-        <ScheduledIconWithTooltip
-          getEntityScheduledActions={props.getEntityScheduledActions}
-          entityType="Asset"
-          entityId={props.asset.sys.id}>
+        <ScheduledIconWithTooltip getEntityScheduledActions={props.getEntityScheduledActions}>
           <ClockIcon
             className={styles.scheduleIcon}
             size="small"

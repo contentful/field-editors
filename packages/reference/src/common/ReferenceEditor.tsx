@@ -4,7 +4,7 @@ import { FieldConnector } from '@contentful/field-editor-shared';
 import deepEqual from 'deep-equal';
 
 import type { LinkActionsProps } from '../components';
-import { Action, ActionLabels, FieldExtensionSDK, ViewType } from '../types';
+import { Action, ActionLabels, FieldExtensionSDK, ViewType, ScheduledAction } from '../types';
 import { CustomCardRenderer, RenderCustomMissingEntityCard } from './customCardTypes';
 import { EntityProvider } from './EntityStore';
 
@@ -27,6 +27,7 @@ export interface ReferenceEditorProps {
   getEntityUrl?: (entryId: string) => string;
   onAction?: (action: Action) => void;
   actionLabels?: Partial<ActionLabels>;
+	scheduledActions?: ScheduledAction[];
   parameters: {
     instance: {
       showCreateEntityAction?: boolean;

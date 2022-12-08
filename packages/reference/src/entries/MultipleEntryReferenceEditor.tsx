@@ -41,6 +41,7 @@ export function MultipleEntryReferenceEditor(props: ReferenceEditorProps) {
                 }
                 renderDragHandle={DragHandle}
                 isBeingDragged={index === indexToUpdate}
+								scheduledActions={props.scheduledActions}
               />
             );
           }}
