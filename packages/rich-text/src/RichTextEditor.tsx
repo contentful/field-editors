@@ -102,17 +102,14 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
               readOnly: props.isDisabled,
             }}
             onChange={onValueChanged}
-            renderLeaf={(props) => {
-              console.log({ props });
-              return <span {...props} />;
-            }}
-          >
-            {!props.isToolbarHidden && (
-              <StickyToolbarWrapper isDisabled={props.isDisabled}>
-                <Toolbar isDisabled={props.isDisabled} />
-              </StickyToolbarWrapper>
-            )}
-          </Plate>
+            firstChildren={
+              !props.isToolbarHidden && (
+                <StickyToolbarWrapper isDisabled={props.isDisabled}>
+                  <Toolbar isDisabled={props.isDisabled} />
+                </StickyToolbarWrapper>
+              )
+            }
+          />
         </div>
       </ContentfulEditorIdProvider>
     </SdkProvider>
