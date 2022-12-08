@@ -9,6 +9,7 @@ declare namespace Cypress {
     mockGoogleMapsResponse(mockData: unknown): void;
     setInitialValue(initialValue: any): void;
     setInitialDisabled(value: boolean | undefined): void;
+    setRestrictedMarks(value: string[]): void;
     setFieldValidations(value: Object[]): void;
     setInstanceParams(value: { [key: string]: any }): void;
     getMarkdownInstance(): Chainable<{

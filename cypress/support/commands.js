@@ -62,6 +62,13 @@ Cypress.Commands.add('setInitialDisabled', (initialDisabled) => {
   });
 });
 
+Cypress.Commands.add('setRestrictedMarks', (restrictedMarks) => {
+  return cy.window().then((win) => {
+    win.localStorage.setItem('restrictedMarks', JSON.stringify(restrictedMarks));
+    return win;
+  });
+});
+
 Cypress.Commands.add('setFieldValidations', (validations) => {
   return cy.window().then((win) => {
     win.localStorage.setItem('fieldValidations', JSON.stringify(validations));
