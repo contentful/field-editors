@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.1.3...@contentful/field-editor-shared@1.1.4) (2022-12-08)
+
+### Bug Fixes
+
+- handle unavailable marks ([#1288](https://github.com/contentful/field-editors/issues/1288)) ([c672c51](https://github.com/contentful/field-editors/commit/c672c516332407ec0691bffc764912b5c6b18795))
+
 ## [1.1.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.1.2...@contentful/field-editor-shared@1.1.3) (2022-06-22)
 
 **Note:** Version bump only for package @contentful/field-editor-shared
