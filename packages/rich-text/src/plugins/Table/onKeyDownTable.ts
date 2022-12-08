@@ -10,7 +10,7 @@ import {
   getAboveNode,
   isLastChild,
 } from '@udecode/plate-core';
-import { getTableCellEntry, onKeyDownTable as defaultKeyDownTable } from '@udecode/plate-table';
+import { getTableEntries, onKeyDownTable as defaultKeyDownTable } from '@udecode/plate-table';
 
 import { insertEmptyParagraph } from '../../helpers/editor';
 import { RichTextEditor } from '../../types';
@@ -48,13 +48,13 @@ export const onKeyDownTable: KeyboardHandler<RichTextEditor, HotkeyPlugin> = (ed
     // Otherwise, jumping between cells is handled in the defaultKeyDownTable
     if (event.key === 'Tab' && !event.shiftKey) {
       event.preventDefault();
-      const res = getTableCellEntry(editor, {});
+      const entry = getTableEntries(editor, {});
 
-      if (res) {
-        const { tableElement, tableRow, tableCell } = res;
+      if (entry) {
+        const { table, row, cell } = entry;
 
-        const isLastCell = isLastChild(tableRow, tableCell[1]);
-        const isLastRow = isLastChild(tableElement, tableRow[1]);
+        const isLastCell = isLastChild(row, cell[1]);
+        const isLastRow = isLastChild(table, row[1]);
 
         if (isLastRow && isLastCell) {
           addRowBelow(editor);

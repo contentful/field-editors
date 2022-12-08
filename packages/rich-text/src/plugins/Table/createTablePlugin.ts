@@ -35,8 +35,13 @@ export const createTablePlugin = (): RichTextPlugin =>
       onKeyDown: onKeyDownTable,
     },
     withOverrides: (editor, plugin) => {
+      const { normalizeNode } = editor;
       // injects important fixes from plate's original table plugin
       withTable(editor, plugin as WithPlatePlugin<{}, {}>);
+
+      // Resets all normalization rules added by @udecode/plate-table as
+      // they conflict with our own
+      editor.normalizeNode = normalizeNode;
 
       addTableTrackingEvents(editor as RichTextEditor);
 
@@ -55,6 +60,8 @@ export const createTablePlugin = (): RichTextPlugin =>
           {
             // Move to root level unless nested
             validNode: (editor, [, path]) => {
+              // Nested tables are handled by another normalization
+              // rule in a the table cell level
               const isNestedTable = !!getBlockAbove(editor, {
                 at: path,
                 match: {
