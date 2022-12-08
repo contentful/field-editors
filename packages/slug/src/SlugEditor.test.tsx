@@ -3,6 +3,7 @@ import identity from 'lodash/identity';
 import { render, configure, cleanup, wait, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { SlugEditor } from './SlugEditor';
+import { CF_GENERATED_SLUG_MAX_LENGTH } from './services/slugify';
 import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
 
 configure({
@@ -453,21 +454,34 @@ describe('SlugEditor', () => {
     });
   });
 
-  it('slug suggestion is limited to 75 symbols', async () => {
-    const { field, sdk } = createMocks({
-      field: '',
-      titleField: '',
+  [undefined, 50, 100].forEach((maxSlugLength) => {
+    it(`slug suggestion is limited to ${
+      maxSlugLength || `${CF_GENERATED_SLUG_MAX_LENGTH} (default)`
+    } symbols`, async () => {
+      const { field, sdk } = createMocks({
+        field: '',
+        titleField: '',
+      });
+
+      render(
+        <SlugEditor
+          field={field}
+          baseSdk={sdk as any}
+          isInitiallyDisabled={false}
+          parameters={{ instance: { maxSlugLength } }}
+        />
+      );
+
+      await wait();
+
+      await sdk.entry.fields['title-id'].setValue(
+        'a'.repeat((maxSlugLength ?? CF_GENERATED_SLUG_MAX_LENGTH) + 10)
+      );
+      await wait();
+
+      const expectedSlug = 'a'.repeat(maxSlugLength ?? CF_GENERATED_SLUG_MAX_LENGTH);
+      expect(field.setValue).toHaveBeenLastCalledWith(expectedSlug);
     });
-
-    render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />);
-
-    await wait();
-
-    await sdk.entry.fields['title-id'].setValue('a'.repeat(80));
-    await wait();
-
-    const expectedSlug = 'a'.repeat(75);
-    expect(field.setValue).toHaveBeenLastCalledWith(expectedSlug);
   });
 
   it('slug suggestion does not contain cut-off words', async () => {

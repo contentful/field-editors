@@ -1,6 +1,6 @@
 import getSlug from 'speakingurl';
 
-const CF_GENERATED_SLUG_MAX_LENGTH = 75;
+export const CF_GENERATED_SLUG_MAX_LENGTH = 75;
 
 const languages = [
   'ar',
@@ -51,13 +51,14 @@ function supportedLanguage(locale: string) {
  *
  * @param {string} text To be turned into a slug.
  * @param {string?} locale
+ * @param {number?} maxLength
  * @returns {string} Slug for provided text.
  */
-export function slugify(text: string, locale = 'en') {
+export function slugify(text: string, locale = 'en', maxLength = CF_GENERATED_SLUG_MAX_LENGTH) {
   return getSlug(text, {
     separator: '-',
     lang: supportedLanguage(locale) || 'en',
-    truncate: CF_GENERATED_SLUG_MAX_LENGTH + 1,
+    truncate: maxLength + 1,
     custom: {
       "'": '',
       '`': '',

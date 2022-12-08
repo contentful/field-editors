@@ -4,6 +4,7 @@ type MakeSlugOptions = {
   locale: string;
   isOptionalLocaleWithFallback: boolean;
   createdAt: string;
+  maxSlugLength?: number;
 };
 
 function formatTwoDigit(num: number) {
@@ -32,5 +33,5 @@ function untitledSlug({ isOptionalLocaleWithFallback, createdAt }: MakeSlugOptio
 }
 
 export function makeSlug(title: string | null | undefined, options: MakeSlugOptions) {
-  return title ? slugify(title, options.locale) : untitledSlug(options);
+  return title ? slugify(title, options.locale, options.maxSlugLength) : untitledSlug(options);
 }
