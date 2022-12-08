@@ -26,14 +26,7 @@ const mockSdk = (marks?: MARKS[]): any => {
       locale: 'en-US',
       validations: [
         {
-          enabledMarks: marks || [
-            'bold',
-            'italic',
-            'underline',
-            'code',
-            'superscript',
-            'subscript',
-          ],
+          enabledMarks: marks || Object.values(MARKS),
         },
       ],
     },
@@ -60,9 +53,9 @@ describe('Toolbar', () => {
     await waitFor(() => {
       expect(getByTestId('toolbar-heading-toggle')).toBeDisabled();
       [
-        'bold',
-        'italic',
-        'underline',
+        MARKS.BOLD,
+        MARKS.ITALIC,
+        MARKS.UNDERLINE,
         'dropdown',
         'hyperlink',
         'quote',
