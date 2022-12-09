@@ -1,7 +1,8 @@
 // @ts-nocheck
 import { match, getPluginType } from '@udecode/plate-core';
+import { withoutNormalizing } from 'internal';
 import isPlainObject from 'is-plain-obj';
-import { Editor, NodeEntry } from 'slate';
+import { NodeEntry } from 'slate';
 
 import { transformRemove } from '../../helpers/transformers';
 import { RichTextEditor, RichTextPlugin } from '../../types';
@@ -77,7 +78,7 @@ export const withNormalizer = (editor: RichTextEditor) => {
   // Wrap transformer in a withoutNormalizing() call to avoid unnecessary
   // normalization cycles.
   const _transform = (tr: NodeTransformer, entry: NodeEntry) => {
-    Editor.withoutNormalizing(editor, () => {
+    withoutNormalizing(editor, () => {
       tr(editor, entry);
     });
   };

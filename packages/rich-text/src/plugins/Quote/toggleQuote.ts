@@ -1,8 +1,9 @@
 // @ts-nocheck
 import { BLOCKS } from '@contentful/rich-text-types';
 import { HotkeyPlugin, KeyboardHandler, PlateEditor } from '@udecode/plate-core';
+import { withoutNormalizing } from 'internal';
 import isHotkey from 'is-hotkey';
-import { Transforms, Element, Editor } from 'slate';
+import { Transforms, Element } from 'slate';
 
 import { isBlockSelected } from '../../helpers/editor';
 import { TrackingPluginActions } from '../../plugins/Tracking';
@@ -18,7 +19,7 @@ export function toggleQuote(
 
   logAction?.(isActive ? 'remove' : 'insert', { nodeType: BLOCKS.QUOTE });
 
-  Editor.withoutNormalizing(editor, () => {
+  withoutNormalizing(editor, () => {
     if (!editor.selection) return;
 
     Transforms.unwrapNodes(editor, {

@@ -17,7 +17,7 @@ import {
   isListNested,
 } from '@udecode/plate-list';
 import { onKeyDownResetNode, ResetNodePlugin, SIMULATE_BACKSPACE } from '@udecode/plate-reset-node';
-import { Editor } from 'slate';
+import { withoutNormalizing } from 'internal';
 
 import { RichTextEditor } from '../../../types';
 import { unwrapList } from './unwrapList';
@@ -38,7 +38,7 @@ export const deleteBackwardList = (
         match: (node) => node.type === BLOCKS.LIST_ITEM,
       })
     ) {
-      Editor.withoutNormalizing(editor, () => {
+      withoutNormalizing(editor, () => {
         moved = removeFirstListItem(editor, { list, listItem });
         if (moved) return;
 

@@ -3,6 +3,7 @@
  * the blast radius of version upgrades
  */
 import * as p from '@udecode/plate-core';
+import * as s from 'slate';
 
 import type { Editor, Location, Node } from './types';
 
@@ -19,4 +20,12 @@ export const getEndPoint = (editor: Editor, at: Location) => {
 
 export const isNode = (value: unknown): value is Node => {
   return p.isNode(value);
+};
+
+export const getNodeEntry = (editor: Editor, at: Location, options?: s.EditorNodeOptions) => {
+  return p.getNodeEntry(editor, at, options);
+};
+
+export const getNodeEntries = (editor: Editor, options?: p.GetNodeEntriesOptions) => {
+  return p.getNodeEntries(editor, options);
 };

@@ -18,6 +18,7 @@ import {
 } from '@udecode/plate-core';
 import { ELEMENT_LIC } from '@udecode/plate-list';
 import { getListItemEntry } from '@udecode/plate-list';
+import { withoutNormalizing } from 'internal';
 import { Editor, Node, NodeEntry, Range } from 'slate';
 
 import { unwrapList } from './unwrapList';
@@ -25,7 +26,7 @@ import { unwrapList } from './unwrapList';
 const listTypes = [BLOCKS.UL_LIST, BLOCKS.OL_LIST] as string[];
 
 export const toggleList = (editor: PlateEditor, { type }: { type: string }) =>
-  Editor.withoutNormalizing(editor, () => {
+  withoutNormalizing(editor, () => {
     if (!editor.selection) {
       return;
     }

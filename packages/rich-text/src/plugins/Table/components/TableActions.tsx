@@ -7,7 +7,7 @@ import { BLOCKS } from '@contentful/rich-text-types';
 import { getAboveNode } from '@udecode/plate-core';
 import { TablePluginOptions, deleteColumn, deleteRow, deleteTable } from '@udecode/plate-table';
 import { css } from 'emotion';
-import { Editor } from 'slate';
+import { withoutNormalizing } from 'internal';
 import * as Slate from 'slate-react';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
@@ -82,7 +82,7 @@ export const TableActions = () => {
 
       const tableSize = getCurrentTableSize(editor);
 
-      Editor.withoutNormalizing(editor, () => {
+      withoutNormalizing(editor, () => {
         cb(editor, { header: isHeaderEnabled });
       });
       // Tracking

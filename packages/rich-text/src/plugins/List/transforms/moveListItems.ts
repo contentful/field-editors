@@ -10,6 +10,7 @@ import {
   PlateEditor,
 } from '@udecode/plate-core';
 import { isListNested, ELEMENT_LIC, getListItemEntry, moveListItemUp } from '@udecode/plate-list';
+import { withoutNormalizing } from 'internal';
 import { Editor, Path, PathRef } from 'slate';
 
 import { moveListItemDown } from './moveListItemDown';
@@ -56,7 +57,7 @@ export const moveListItems = (
 
   const licPathRefsToMove = increase ? highestLicPathRefs : highestLicPathRefs.reverse();
 
-  Editor.withoutNormalizing(editor, () => {
+  withoutNormalizing(editor, () => {
     licPathRefsToMove.forEach((licPathRef) => {
       const licPath = licPathRef.unref();
       if (!licPath) return;

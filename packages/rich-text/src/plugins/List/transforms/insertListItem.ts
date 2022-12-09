@@ -9,6 +9,7 @@ import {
   isSelectionAtBlockStart,
   moveChildren,
 } from '@udecode/plate-core';
+import { withoutNormalizing } from 'internal';
 import { setSelection } from 'internal/transforms';
 import { Editor, Path, Transforms } from 'slate';
 
@@ -68,7 +69,7 @@ export const insertListItem = (editor: RichTextEditor): boolean => {
 
   // We are in a li>p (or heading)
 
-  Editor.withoutNormalizing(editor, () => {
+  withoutNormalizing(editor, () => {
     if (!editor.selection) {
       return;
     }

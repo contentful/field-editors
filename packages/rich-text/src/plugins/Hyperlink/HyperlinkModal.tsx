@@ -18,6 +18,7 @@ import { Link } from '@contentful/field-editor-reference/dist/types';
 import { ModalDialogLauncher, FieldExtensionSDK } from '@contentful/field-editor-shared';
 import { INLINES } from '@contentful/rich-text-types';
 import { css } from 'emotion';
+import { withoutNormalizing } from 'internal';
 import { setSelection } from 'internal/transforms';
 import { Editor, Path } from 'slate';
 import { ReactEditor } from 'slate-react';
@@ -335,7 +336,7 @@ export async function addOrEditLink(
     linkEntity: target,
   } = data as HyperLinkDialogData;
 
-  Editor.withoutNormalizing(editor, () => {
+  withoutNormalizing(editor, () => {
     insertLink(editor, { text, url, type, target, path });
   });
 

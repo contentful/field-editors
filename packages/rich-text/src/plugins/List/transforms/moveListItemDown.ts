@@ -5,6 +5,7 @@
 // @ts-nocheck
 import { getLastChildPath, match, PlateEditor, TElement, wrapNodes } from '@udecode/plate-core';
 import { getListTypes } from '@udecode/plate-list';
+import { withoutNormalizing } from 'internal';
 import { Ancestor, Editor, NodeEntry, Path, Transforms, Node } from 'slate';
 
 export interface MoveListItemDownOptions {
@@ -39,7 +40,7 @@ export const moveListItemDown = (
 
     const newPath = Path.next(getLastChildPath(subList ?? previousSiblingItem));
 
-    Editor.withoutNormalizing(editor, () => {
+    withoutNormalizing(editor, () => {
       if (!subList) {
         // Create new sub-list
         wrapNodes(editor, { type: listNode.type, children: [], data: {} }, { at: listItemPath });
