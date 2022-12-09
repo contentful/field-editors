@@ -6,7 +6,8 @@ import tokens from '@contentful/f36-tokens';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { setNodes } from '@udecode/plate-core';
 import { css, cx } from 'emotion';
-import { getText } from 'internal';
+import { getText } from 'internal/queries';
+import { insertNodes } from 'internal/transforms';
 import { Transforms } from 'slate';
 import * as Slate from 'slate-react';
 
@@ -86,7 +87,7 @@ export function ToolbarHrButton(props: ToolbarHrButtonProps) {
     };
 
     const hasText = !!getText(editor, editor.selection.focus.path);
-    hasText ? Transforms.insertNodes(editor, hr) : setNodes(editor, hr);
+    hasText ? insertNodes(editor, hr) : setNodes(editor, hr);
 
     // Move focus to the next paragraph (added by TrailingParagraph plugin)
     moveToTheNextLine(editor);

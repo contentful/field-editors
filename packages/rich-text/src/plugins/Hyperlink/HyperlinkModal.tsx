@@ -18,7 +18,8 @@ import { Link } from '@contentful/field-editor-reference/dist/types';
 import { ModalDialogLauncher, FieldExtensionSDK } from '@contentful/field-editor-shared';
 import { INLINES } from '@contentful/rich-text-types';
 import { css } from 'emotion';
-import { Editor, Transforms, Path } from 'slate';
+import { setSelection } from 'internal/transforms';
+import { Editor, Path } from 'slate';
 import { ReactEditor } from 'slate-react';
 
 import { getNodeEntryFromSelection, insertLink, LINK_TYPES, focus } from '../../helpers/editor';
@@ -319,7 +320,7 @@ export async function addOrEditLink(
       );
     }
   );
-  Transforms.select(editor, selectionAfterFocus);
+  setSelection(editor, selectionAfterFocus);
 
   if (!data) {
     focus(editor);

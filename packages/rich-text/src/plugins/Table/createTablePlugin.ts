@@ -14,7 +14,8 @@ import {
   ELEMENT_TR,
   withTable,
 } from '@udecode/plate-table';
-import { NodeEntry, Path, Transforms } from 'slate';
+import { insertNodes } from 'internal/transforms';
+import { NodeEntry, Path } from 'slate';
 
 import { isRootLevel } from '../../helpers/editor';
 import { transformLift, transformParagraphs, transformWrapIn } from '../../helpers/transformers';
@@ -107,7 +108,7 @@ export const createTablePlugin = (): RichTextPlugin =>
               const howMany = getNoOfMissingTableCellsInRow(editor, entry);
               const at = Path.next(getLastChildPath(entry as NodeEntry<CustomElement>));
 
-              Transforms.insertNodes(editor, createEmptyTableCells(howMany), {
+              insertNodes(editor, createEmptyTableCells(howMany), {
                 at,
               });
             },

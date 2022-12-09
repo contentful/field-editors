@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { BLOCKS } from '@contentful/rich-text-types';
 import { getAboveNode, getBlockAbove, getParentNode } from '@udecode/plate-core';
+import { insertNodes } from 'internal/transforms';
 import { NodeEntry, Transforms, Path, Node, Text, Range } from 'slate';
 
 import { CustomElement, RichTextEditor } from '../../types';
@@ -49,7 +50,7 @@ export const firstNodeIsNotList = (_editor: RichTextEditor, [node]: NodeEntry<Cu
 };
 
 export const insertParagraphAsChild = (editor: RichTextEditor, [, path]: NodeEntry) => {
-  Transforms.insertNodes(editor, [{ type: BLOCKS.PARAGRAPH, data: {}, children: [{ text: '' }] }], {
+  insertNodes(editor, [{ type: BLOCKS.PARAGRAPH, data: {}, children: [{ text: '' }] }], {
     at: path.concat([0]),
   });
 };
@@ -58,7 +59,7 @@ export const replaceNodeWithListItems = (editor, entry) => {
   const [node, path] = entry;
 
   Transforms.removeNodes(editor, { at: path });
-  Transforms.insertNodes(editor, node.children[0].children, { at: path });
+  insertNodes(editor, node.children[0].children, { at: path });
 };
 
 export const isListTypeActive = (editor: RichTextEditor, type: BLOCKS): boolean => {

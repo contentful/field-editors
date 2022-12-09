@@ -1,5 +1,5 @@
 // @ts-nocheck
-
+// FIXME: remove this file in favor of ./internal/types
 import { MARKS } from '@contentful/rich-text-types';
 import { PlateEditor, PlatePlugin } from '@udecode/plate-core';
 import { RenderElementProps } from 'slate-react';

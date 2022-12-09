@@ -7,7 +7,8 @@ import {
   toggleNodeType,
   ToggleNodeTypeOptions,
 } from '@udecode/plate-core';
-import { getText } from 'internal';
+import { getText } from 'internal/queries';
+import { setNodes, setSelection, insertNodes } from 'internal/transforms';
 import { Text, Editor, Element, Transforms, Path, Range, Node } from 'slate';
 import { ReactEditor } from 'slate-react';
 
@@ -73,7 +74,7 @@ export function insertEmptyParagraph(editor: RichTextEditor, options?) {
     data: {},
     isVoid: false,
   };
-  Transforms.insertNodes(editor, emptyParagraph, options);
+  insertNodes(editor, emptyParagraph, options);
 }
 
 export function getElementFromCurrentSelection(editor: RichTextEditor) {
@@ -181,11 +182,11 @@ export function wrapLink(editor, { text, url, target, type, path }: InsertLinkOp
 
   // TODO: always set the selection to the end of the inserted link
   if (path) {
-    Transforms.setNodes(editor, link, { at: path });
+    setNodes(editor, link, { at: path });
     Transforms.insertText(editor, text, { at: path });
-    Transforms.select(editor, path);
+    setSelection(editor, path);
   } else if (isCollapsed) {
-    Transforms.insertNodes(editor, link);
+    insertNodes(editor, link);
   } else {
     Transforms.wrapNodes(editor, link, { split: true });
     Transforms.delete(editor);
@@ -255,5 +256,5 @@ export function toggleElement(
   toggleNodeType(editor, options, editorOptions);
 
   // We must reset `data` from one element to another
-  Transforms.setNodes(editor, { data: {} });
+  setNodes(editor, { data: {} });
 }

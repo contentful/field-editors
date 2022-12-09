@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
-import { getText } from 'internal';
+import { getText } from 'internal/queries';
+import { setSelection, insertNodes } from 'internal/transforms';
 import { Editor, Element, Path, Transforms } from 'slate';
 import { RichTextEditor } from 'types';
 
@@ -29,7 +30,7 @@ export async function selectEntityAndInsert(
     return;
   }
 
-  Transforms.select(editor, selection);
+  setSelection(editor, selection);
   insertBlock(editor, nodeType, entity);
   ensureFollowingParagraph(editor);
   logAction('insert', { nodeType });
@@ -92,7 +93,7 @@ export function insertBlock(editor, nodeType, entity) {
   const hasText = editor.selection && !!getText(editor, editor.selection.focus.path);
 
   if (hasText) {
-    Transforms.insertNodes(editor, linkedEntityBlock);
+    insertNodes(editor, linkedEntityBlock);
   } else {
     Transforms.setNodes(editor, linkedEntityBlock);
   }

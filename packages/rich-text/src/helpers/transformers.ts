@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
+import { insertNodes } from 'internal/transforms';
 import { NodeEntry, Transforms } from 'slate';
 
 import { RichTextEditor } from '../types';
@@ -14,7 +15,7 @@ export const transformParagraphs = (editor: RichTextEditor, entry: NodeEntry) =>
   const nodes = extractParagraphs(editor, path);
 
   transformRemove(editor, entry);
-  Transforms.insertNodes(editor, nodes, { at: path });
+  insertNodes(editor, nodes, { at: path });
 };
 
 export const transformUnwrap = (editor: RichTextEditor, [, path]: NodeEntry) => {

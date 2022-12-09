@@ -1,5 +1,5 @@
-import { getText } from 'internal';
-import { Transforms } from 'slate';
+import { getText } from 'internal/queries';
+import { setNodes, insertNodes } from 'internal/transforms';
 
 import { focus } from '../../../helpers/editor';
 
@@ -26,9 +26,9 @@ export function insertBlock(editor, nodeType, entity) {
   const hasText = editor.selection && !!getText(editor, editor.selection.focus.path);
 
   if (hasText) {
-    Transforms.insertNodes(editor, linkedEntityBlock);
+    insertNodes(editor, linkedEntityBlock);
   } else {
-    Transforms.setNodes(editor, linkedEntityBlock);
+    setNodes(editor, linkedEntityBlock);
   }
 
   focus(editor);

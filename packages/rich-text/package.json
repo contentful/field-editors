@@ -73,10 +73,5 @@
     "@types/is-hotkey": "^0.1.6",
     "@udecode/plate-test-utils": "^3.2.0",
     "react": ">=16.14.0"
-  },
-  "jest": {
-    "moduleNameMapper": {
-      "^internal$": "<rootDir>/src/internal/index.ts"
-    }
   }
 }

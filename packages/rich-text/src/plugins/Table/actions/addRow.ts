@@ -1,7 +1,8 @@
 // @ts-nocheck
 import { getPluginType, TElement, getAboveNode, insertNodes, someNode } from '@udecode/plate-core';
 import { ELEMENT_TABLE, ELEMENT_TR, getEmptyRowNode } from '@udecode/plate-table';
-import { Transforms, Path, Editor } from 'slate';
+import { setSelection } from 'internal/transforms';
+import { Path, Editor } from 'slate';
 
 import { RichTextEditor } from '../../../types';
 
@@ -34,7 +35,7 @@ const addRow = (editor: RichTextEditor, getNextRowPath: (currentRowPath: Path) =
       );
 
       // Select the first cell in the current row
-      Transforms.select(editor, Editor.start(editor, nextRowPath));
+      setSelection(editor, Editor.start(editor, nextRowPath));
     }
   }
 };

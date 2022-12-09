@@ -9,6 +9,7 @@ import {
   isSelectionAtBlockStart,
   moveChildren,
 } from '@udecode/plate-core';
+import { setSelection } from 'internal/transforms';
 import { Editor, Path, Transforms } from 'slate';
 
 import { CustomElement, RichTextEditor } from '../../../types';
@@ -113,7 +114,7 @@ export const insertListItem = (editor: RichTextEditor): boolean => {
     }
 
     // Move cursor to the start of the new li
-    Transforms.select(editor, newListItemPath);
+    setSelection(editor, newListItemPath);
     Transforms.collapse(editor, { edge: 'start' });
   });
 

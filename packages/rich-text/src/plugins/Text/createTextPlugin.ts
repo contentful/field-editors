@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
 import { getAboveNode, isAncestorEmpty, queryNode, TNode } from '@udecode/plate-core';
+import { setSelection } from 'internal/transforms';
 import { Editor, Ancestor, Transforms, Range, Location } from 'slate';
 
 import { RichTextEditor, RichTextPlugin } from '../../types';
@@ -17,7 +18,7 @@ export function createTextPlugin(): RichTextPlugin {
           return;
         }
 
-        Transforms.setSelection(editor, Editor.unhangRange(editor, editor.selection));
+        setSelection(editor, Editor.unhangRange(editor, editor.selection));
       },
     },
     withOverrides: (editor) => {
@@ -41,7 +42,7 @@ export function createTextPlugin(): RichTextPlugin {
 
           if (inlinePath && Editor.isEnd(editor, selection.anchor, inlinePath)) {
             const point = Editor.after(editor, inlinePath);
-            Transforms.setSelection(editor, {
+            setSelection(editor, {
               anchor: point,
               focus: point,
             });
@@ -104,7 +105,7 @@ function deleteEmptyParagraph(
         });
 
         if (prevCell) {
-          Transforms.select(editor, prevNode);
+          setSelection(editor, prevNode);
         }
       }
     } else {

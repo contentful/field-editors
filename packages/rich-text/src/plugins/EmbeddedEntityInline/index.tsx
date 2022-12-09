@@ -9,6 +9,7 @@ import { Entry } from '@contentful/field-editor-shared';
 import { INLINES } from '@contentful/rich-text-types';
 import { HotkeyPlugin, KeyboardHandler } from '@udecode/plate-core';
 import { css } from 'emotion';
+import { setSelection, insertNodes } from 'internal/transforms';
 import isHotkey from 'is-hotkey';
 import { Transforms } from 'slate';
 import { useSelected, ReactEditor, useReadOnly } from 'slate-react';
@@ -128,8 +129,8 @@ async function selectEntityAndInsert(
   // Got to wait until focus is really back on the editor or setSelection() won't work.
   return new Promise<void>((resolve) => {
     setTimeout(() => {
-      Transforms.setSelection(editor, selection);
-      Transforms.insertNodes(editor, inlineEntryNode);
+      setSelection(editor, selection);
+      insertNodes(editor, inlineEntryNode);
       resolve();
     }, 0);
   });

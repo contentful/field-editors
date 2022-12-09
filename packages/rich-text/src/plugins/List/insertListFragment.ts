@@ -5,7 +5,8 @@
 // @ts-nocheck
 import { TEXT_CONTAINERS, BLOCKS } from '@contentful/rich-text-types';
 import { findNode } from '@udecode/plate-core';
-import { Editor, Node, NodeEntry, Path, Transforms } from 'slate';
+import { insertNodes } from 'internal/transforms';
+import { Editor, Node, NodeEntry, Path } from 'slate';
 
 import { RichTextEditor } from '../../types';
 
@@ -103,12 +104,12 @@ export const insertListFragment = (editor: RichTextEditor) => {
       // Two calls to insertNodes are required here. Otherwise, all blocks
       // after a text or inline element occurrence will be unwrapped for
       // some reason.
-      Transforms.insertNodes(editor, inlines, {
+      insertNodes(editor, inlines, {
         at: editor.selection,
         select: true,
       });
 
-      return Transforms.insertNodes(editor, blocks, {
+      return insertNodes(editor, blocks, {
         at: editor.selection,
         select: true,
       });
