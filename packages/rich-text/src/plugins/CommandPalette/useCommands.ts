@@ -3,8 +3,9 @@ import { useState } from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
-import { getAboveNode, PlateEditor, removeMark } from '@udecode/plate-core';
+import { getAboveNode, removeMark } from '@udecode/plate-core';
 import { setSelection, insertNodes } from 'internal/transforms';
+import { Editor as PlateEditor } from 'internal/types';
 import { Editor, Transforms } from 'slate';
 import { RichTextEditor } from 'types';
 

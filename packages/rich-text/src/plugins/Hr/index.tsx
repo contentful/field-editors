@@ -8,8 +8,10 @@ import { setNodes } from '@udecode/plate-core';
 import { css, cx } from 'emotion';
 import { getText } from 'internal/queries';
 import { insertNodes } from 'internal/transforms';
+import { PlatePlugin } from 'internal/types';
 import { Transforms } from 'slate';
 import * as Slate from 'slate-react';
+import { RichTextEditor } from 'types';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import {
@@ -18,7 +20,6 @@ import {
   moveToTheNextLine,
   focus,
 } from '../../helpers/editor';
-import { RichTextEditor, RichTextPlugin } from '../../types';
 import { ToolbarButton } from '../shared/ToolbarButton';
 
 const styles = {
@@ -133,7 +134,7 @@ export function Hr(props: Slate.RenderLeafProps) {
   );
 }
 
-export const createHrPlugin = (): RichTextPlugin => ({
+export const createHrPlugin = (): PlatePlugin => ({
   key: BLOCKS.HR,
   type: BLOCKS.HR,
   isVoid: true,

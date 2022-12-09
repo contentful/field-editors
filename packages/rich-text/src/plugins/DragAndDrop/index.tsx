@@ -1,10 +1,8 @@
-// @ts-nocheck
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
-import { getNodeEntries } from '@udecode/plate-core';
+import { getNodeEntries } from 'internal/queries';
+import { PlatePlugin, Editor } from 'internal/types';
 
-import { RichTextPlugin } from '../../types';
-
-export function createDragAndDropPlugin(): RichTextPlugin {
+export function createDragAndDropPlugin(): PlatePlugin {
   const DRAGGABLE_TYPES: string[] = [
     BLOCKS.EMBEDDED_ENTRY,
     BLOCKS.EMBEDDED_ASSET,
@@ -27,8 +25,8 @@ export function createDragAndDropPlugin(): RichTextPlugin {
       // If true, the next handlers will be skipped.
       onDrop: (editor) => (event) => {
         const [draggingBlock] = Array.from(
-          getNodeEntries(editor, {
-            match: (node) => DRAGGABLE_TYPES.includes(node?.type),
+          getNodeEntries(editor as Editor, {
+            match: (node) => DRAGGABLE_TYPES.includes(node.type as string),
           })
         );
         if (!draggingBlock) return false;
@@ -47,6 +45,7 @@ export function createDragAndDropPlugin(): RichTextPlugin {
         if (!dropDisallowed) {
           // Move the drop event to a new undo batch mitigating the bug where undo not only moves it back,
           // but also undoes a previous action: https://github.com/ianstormtaylor/slate/issues/4694
+          // @ts-expect-error
           editor.history.undos.push([]);
         }
 

@@ -1,16 +1,16 @@
 // @ts-nocheck
 import { BLOCKS, HEADINGS } from '@contentful/rich-text-types';
-import { getAboveNode, HotkeyPlugin, isMarkActive, KeyboardHandler } from '@udecode/plate-core';
+import { getAboveNode, HotkeyPlugin, isMarkActive } from '@udecode/plate-core';
+import { KeyboardHandler, PlatePlugin } from 'internal/types';
 import isHotkey from 'is-hotkey';
 
 import { isBlockSelected, isInlineOrText, toggleElement } from '../../helpers/editor';
 import { transformLift, transformUnwrap } from '../../helpers/transformers';
-import { RichTextEditor, RichTextPlugin } from '../../types';
 import { COMMAND_PROMPT } from '../CommandPalette/constants';
 import { HeadingComponents } from './components/Heading';
 
 const buildHeadingEventHandler =
-  (type: BLOCKS): KeyboardHandler<RichTextEditor, HotkeyPlugin> =>
+  (type: BLOCKS): KeyboardHandler<HotkeyPlugin> =>
   (editor, { options: { hotkey } }) =>
   (event) => {
     if (editor.selection && hotkey && isHotkey(hotkey, event)) {
@@ -21,7 +21,7 @@ const buildHeadingEventHandler =
     }
   };
 
-export const createHeadingPlugin = (): RichTextPlugin => ({
+export const createHeadingPlugin = (): PlatePlugin => ({
   key: 'HeadingPlugin',
   softBreak: [
     // create a new line with SHIFT+Enter inside a heading
@@ -66,7 +66,7 @@ export const createHeadingPlugin = (): RichTextPlugin => ({
           },
         },
       ],
-    } as Partial<RichTextPlugin>;
+    } as Partial<PlatePlugin>;
   },
   plugins: HEADINGS.map((nodeType, idx) => {
     const level = idx + 1;

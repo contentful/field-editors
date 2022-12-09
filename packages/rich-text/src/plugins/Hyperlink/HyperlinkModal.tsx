@@ -19,8 +19,9 @@ import { ModalDialogLauncher, FieldExtensionSDK } from '@contentful/field-editor
 import { INLINES } from '@contentful/rich-text-types';
 import { css } from 'emotion';
 import { withoutNormalizing } from 'internal';
+import { getText } from 'internal/queries';
 import { setSelection } from 'internal/transforms';
-import { Editor, Path } from 'slate';
+import { Path } from 'slate';
 import { ReactEditor } from 'slate-react';
 
 import { getNodeEntryFromSelection, insertLink, LINK_TYPES, focus } from '../../helpers/editor';
@@ -285,7 +286,7 @@ export async function addOrEditLink(
   const [node, path] = getNodeEntryFromSelection(editor, LINK_TYPES, targetPath);
   if (node && path) {
     linkType = node.type;
-    linkText = Editor.string(editor, path);
+    linkText = getText(editor, path);
     linkTarget = (node.data as { uri: string }).uri || '';
     linkEntity = (node.data as { target: Link }).target;
   }
@@ -293,8 +294,7 @@ export async function addOrEditLink(
   const selectionAfterFocus =
     targetPath ?? (selectionBeforeBlur as NonNullable<typeof selectionBeforeBlur>);
 
-  const currentLinkText =
-    linkText || (editor.selection ? Editor.string(editor, editor.selection) : '');
+  const currentLinkText = linkText || (editor.selection ? getText(editor, editor.selection) : '');
   const isEditing = Boolean(node && path);
 
   logAction(isEditing ? 'openEditHyperlinkDialog' : 'openCreateHyperlinkDialog');

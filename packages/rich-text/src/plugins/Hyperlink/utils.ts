@@ -1,14 +1,14 @@
-// @ts-nocheck
 import { getScheduleTooltipContent } from '@contentful/field-editor-reference';
 import { isAncestorEmpty } from '@udecode/plate-core';
-import { NodeEntry, Ancestor, Node } from 'slate';
+import { getText } from 'internal/queries';
+import { NodeEntry } from 'internal/types';
 
 import { RichTextEditor } from '../../types';
 import { FetchedEntityData } from './useEntityInfo';
 
 export const hasText = (editor: RichTextEditor, entry: NodeEntry) => {
-  const [node] = entry;
-  return !isAncestorEmpty(editor, node as Ancestor) && Node.string(node).trim() !== '';
+  const [node, path] = entry;
+  return !isAncestorEmpty(editor, node as any) && getText(editor, path).trim() !== '';
 };
 
 function truncate(str: string, length: number) {

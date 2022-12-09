@@ -1,12 +1,12 @@
 // @ts-nocheck
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { KeyboardHandler, HotkeyPlugin } from '@udecode/plate-core';
+import { HotkeyPlugin } from '@udecode/plate-core';
+import { KeyboardHandler, PlatePlugin } from 'internal/types';
 import isHotkey from 'is-hotkey';
 import { Transforms } from 'slate';
 
 import { getNodeEntryFromSelection } from '../../helpers/editor';
-import { RichTextPlugin, CustomElement, RichTextEditor } from '../../types';
 import { withLinkTracking } from '../links-tracking';
 import { LinkedEntityBlock } from './LinkedEntityBlock';
 import { selectEntityAndInsert } from './Util';
@@ -21,7 +21,7 @@ const entityTypes = {
 function getWithEmbeddedEntityEvents(
   nodeType: BLOCKS.EMBEDDED_ENTRY | BLOCKS.EMBEDDED_ASSET,
   sdk: FieldExtensionSDK
-): KeyboardHandler<RichTextEditor, HotkeyPlugin> {
+): KeyboardHandler<HotkeyPlugin> {
   return (editor, { options: { hotkey } }) =>
     (event) => {
       const [, pathToSelectedElement] = getNodeEntryFromSelection(editor, nodeType);
@@ -46,7 +46,7 @@ function getWithEmbeddedEntityEvents(
 
 const createEmbeddedEntityPlugin =
   (nodeType: BLOCKS.EMBEDDED_ENTRY | BLOCKS.EMBEDDED_ASSET, hotkey: string) =>
-  (sdk: FieldExtensionSDK): RichTextPlugin => ({
+  (sdk: FieldExtensionSDK): PlatePlugin => ({
     key: nodeType,
     type: nodeType,
     isElement: true,
@@ -65,7 +65,7 @@ const createEmbeddedEntityPlugin =
         },
       ],
       withoutChildren: true,
-      getNode: (el): CustomElement => ({
+      getNode: (el) => ({
         type: nodeType,
         children: [{ text: '' }],
         isVoid: true,

@@ -1,18 +1,12 @@
 // @ts-nocheck
-import {
-  KeyboardHandler,
-  setMarks,
-  removeMark,
-  isMarkActive,
-  getAboveNode,
-} from '@udecode/plate-core';
+import { setMarks, removeMark, isMarkActive, getAboveNode } from '@udecode/plate-core';
+import { KeyboardHandler } from 'internal/types';
 import isHotkey from 'is-hotkey';
 import { Editor } from 'slate';
 
-import { RichTextEditor } from '../../types';
 import { COMMAND_PROMPT } from './constants';
 
-export const createOnKeyDown = (): KeyboardHandler<RichTextEditor> => {
+export const createOnKeyDown = (): KeyboardHandler => {
   return (editor) => {
     return (event) => {
       if (isHotkey('/', event)) {
