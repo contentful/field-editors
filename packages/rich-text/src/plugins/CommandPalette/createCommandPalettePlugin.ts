@@ -21,6 +21,7 @@ export const createCommandPalettePlugin = (): RichTextPlugin => {
     isLeaf: true,
     component: CommandPrompt,
     handlers: {
+      // @ts-expect-error
       onKeyDown: createOnKeyDown(),
     },
   };
