@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.3.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.2.2...@contentful/field-editor-rich-text@3.3.0) (2022-12-09)
+
+### Features
+
+- dropdown toolbar rich text [TOL-764] ([#1287](https://github.com/contentful/field-editors/issues/1287)) ([bfcc3d1](https://github.com/contentful/field-editors/commit/bfcc3d1f2a0da46877c0f35f53e13a3c79abca3b))
+
 ## [3.2.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.2.1...@contentful/field-editor-rich-text@3.2.2) (2022-12-08)
 
 ### Bug Fixes
