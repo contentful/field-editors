@@ -1,9 +1,8 @@
-// @ts-nocheck
 import { BLOCKS } from '@contentful/rich-text-types';
-import { Element, Node } from 'slate';
 
 import { insertEmptyParagraph } from '../../helpers/editor';
-import { getText } from '../../internal/queries';
+import { getText, isElement } from '../../internal/queries';
+import { Node } from '../../internal/types';
 import { CustomElement, RichTextEditor } from '../../types';
 import { isTable } from './helpers';
 
@@ -18,7 +17,7 @@ import { isTable } from './helpers';
  * wrappers in that case.
  */
 const trimUnnecessaryTableWrapper = (node: Node): Node[] => {
-  if (!Element.isElement(node)) {
+  if (!isElement(node)) {
     return [node];
   }
 

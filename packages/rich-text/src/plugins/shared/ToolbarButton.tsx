@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { Button, Tooltip } from '@contentful/f36-components';

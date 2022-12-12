@@ -1,10 +1,10 @@
-// @ts-nocheck
 import { BLOCKS } from '@contentful/rich-text-types';
-import { getAboveNode, setNodes, getChildren } from '@udecode/plate-core';
 
-import { RichTextEditor } from '../../../types';
+import { getAboveNode, getEntryChildren } from '../../../internal/queries';
+import { setNodes } from '../../../internal/transforms';
+import { PlateEditor } from '../../../internal/types';
 
-export const setHeader = (editor: RichTextEditor, enable?: boolean) => {
+export const setHeader = (editor: PlateEditor, enable?: boolean) => {
   const tableItem = getAboveNode(editor, {
     match: { type: BLOCKS.TABLE },
   });
@@ -13,13 +13,13 @@ export const setHeader = (editor: RichTextEditor, enable?: boolean) => {
     return;
   }
 
-  const firstRow = getChildren(tableItem)[0];
+  const firstRow = getEntryChildren(tableItem)[0];
 
   if (!firstRow) {
     return;
   }
 
-  getChildren(firstRow).forEach(([, path]) => {
+  getEntryChildren(firstRow).forEach(([, path]) => {
     setNodes(
       editor,
       {
