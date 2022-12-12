@@ -18,9 +18,9 @@ import {
 } from '@udecode/plate-core';
 import { ELEMENT_LIC } from '@udecode/plate-list';
 import { getListItemEntry } from '@udecode/plate-list';
-import { withoutNormalizing } from 'internal';
 import { Editor, Node, NodeEntry, Range } from 'slate';
 
+import { withoutNormalizing } from '../../../internal';
 import { unwrapList } from './unwrapList';
 
 const listTypes = [BLOCKS.UL_LIST, BLOCKS.OL_LIST] as string[];

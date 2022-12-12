@@ -5,8 +5,9 @@
 // @ts-nocheck
 import { getLastChildPath, match, PlateEditor, TElement, wrapNodes } from '@udecode/plate-core';
 import { getListTypes } from '@udecode/plate-list';
-import { withoutNormalizing } from 'internal';
 import { Ancestor, Editor, NodeEntry, Path, Transforms, Node } from 'slate';
+
+import { withoutNormalizing } from '../../../internal';
 
 export interface MoveListItemDownOptions {
   list: NodeEntry<TElement>;

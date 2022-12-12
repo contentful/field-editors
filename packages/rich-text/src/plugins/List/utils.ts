@@ -1,9 +1,9 @@
 // @ts-nocheck
 import { BLOCKS } from '@contentful/rich-text-types';
 import { getAboveNode, getBlockAbove, getParentNode } from '@udecode/plate-core';
-import { insertNodes } from 'internal/transforms';
 import { NodeEntry, Transforms, Path, Node, Text, Range } from 'slate';
 
+import { insertNodes } from '../../internal/transforms';
 import { CustomElement, RichTextEditor } from '../../types';
 
 const isList = (node: CustomElement) =>

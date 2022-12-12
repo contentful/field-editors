@@ -1,12 +1,12 @@
 // @ts-nocheck
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
-import { getText } from 'internal/queries';
-import { setSelection, insertNodes } from 'internal/transforms';
 import { Editor, Element, Path, Transforms } from 'slate';
 import { RichTextEditor } from 'types';
 
 import { focus, insertEmptyParagraph, moveToTheNextChar } from '../../helpers/editor';
 import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
+import { getText } from '../../internal/queries';
+import { setSelection, insertNodes } from '../../internal/transforms';
 import { TrackingPluginActions } from '../../plugins/Tracking';
 
 export async function selectEntityAndInsert(

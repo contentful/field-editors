@@ -1,9 +1,9 @@
 // @ts-nocheck
 import { getPluginType, TElement, getAboveNode, insertNodes, someNode } from '@udecode/plate-core';
 import { ELEMENT_TABLE, ELEMENT_TR, getEmptyRowNode } from '@udecode/plate-table';
-import { setSelection } from 'internal/transforms';
 import { Path, Editor } from 'slate';
 
+import { setSelection } from '../../../internal/transforms';
 import { RichTextEditor } from '../../../types';
 
 const addRow = (editor: RichTextEditor, getNextRowPath: (currentRowPath: Path) => Path) => {

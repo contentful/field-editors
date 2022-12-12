@@ -2,7 +2,8 @@ import {
   createExitBreakPlugin as createDefaultExitBreakPlugin,
   ExitBreakRule,
 } from '@udecode/plate-break';
-import { PlatePlugin } from 'internal/types';
+
+import { PlatePlugin } from '../../internal/types';
 
 export const createExitBreakPlugin = (): PlatePlugin =>
   createDefaultExitBreakPlugin({

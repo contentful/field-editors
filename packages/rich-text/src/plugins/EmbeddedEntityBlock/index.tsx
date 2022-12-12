@@ -2,11 +2,11 @@
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { HotkeyPlugin } from '@udecode/plate-core';
-import { KeyboardHandler, PlatePlugin } from 'internal/types';
 import isHotkey from 'is-hotkey';
 import { Transforms } from 'slate';
 
 import { getNodeEntryFromSelection } from '../../helpers/editor';
+import { KeyboardHandler, PlatePlugin } from '../../internal/types';
 import { withLinkTracking } from '../links-tracking';
 import { LinkedEntityBlock } from './LinkedEntityBlock';
 import { selectEntityAndInsert } from './Util';

@@ -2,9 +2,9 @@
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
 import { WithOverride } from '@udecode/plate-core';
 import { getAboveNode } from '@udecode/plate-core';
-import { insertNodes } from 'internal/transforms';
 import { BaseRange, BaseSelection, Element, Node, Point, Transforms } from 'slate';
 
+import { insertNodes } from '../../internal/transforms';
 import { RichTextEditor } from '../../types';
 
 export const withQuote: WithOverride<RichTextEditor> = (editor) => {

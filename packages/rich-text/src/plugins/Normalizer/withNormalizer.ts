@@ -1,10 +1,10 @@
 // @ts-nocheck
 import { match, getPluginType } from '@udecode/plate-core';
-import { withoutNormalizing } from 'internal';
 import isPlainObject from 'is-plain-obj';
 import { NodeEntry } from 'slate';
 
 import { transformRemove } from '../../helpers/transformers';
+import { withoutNormalizing } from '../../internal';
 import { RichTextEditor, RichTextPlugin } from '../../types';
 import { baseRules } from './baseRules';
 import { NormalizerRule, NodeTransformer, NodeValidator } from './types';

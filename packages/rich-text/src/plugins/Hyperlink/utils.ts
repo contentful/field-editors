@@ -1,8 +1,8 @@
 import { getScheduleTooltipContent } from '@contentful/field-editor-reference';
 import { isAncestorEmpty } from '@udecode/plate-core';
-import { getText } from 'internal/queries';
-import { NodeEntry } from 'internal/types';
 
+import { getText } from '../../internal/queries';
+import { NodeEntry } from '../../internal/types';
 import { RichTextEditor } from '../../types';
 import { FetchedEntityData } from './useEntityInfo';
 

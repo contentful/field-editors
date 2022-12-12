@@ -5,9 +5,10 @@
 // @ts-nocheck
 import { BLOCKS } from '@contentful/rich-text-types';
 import { PlateEditor, unwrapNodes } from '@udecode/plate-core';
-import { withoutNormalizing } from 'internal';
-import { getNodeEntries } from 'internal/queries';
 import { Element, Path, Transforms } from 'slate';
+
+import { withoutNormalizing } from '../../../internal';
+import { getNodeEntries } from '../../../internal/queries';
 
 function hasUnliftedListItems(editor: PlateEditor, at?: Path) {
   return getNodeEntries(editor, {

@@ -1,9 +1,9 @@
 // @ts-nocheck
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
 import { getAboveNode, isAncestorEmpty, queryNode, TNode } from '@udecode/plate-core';
-import { setSelection } from 'internal/transforms';
 import { Editor, Ancestor, Transforms, Range, Location } from 'slate';
 
+import { setSelection } from '../../internal/transforms';
 import { RichTextEditor, RichTextPlugin } from '../../types';
 
 export function createTextPlugin(): RichTextPlugin {

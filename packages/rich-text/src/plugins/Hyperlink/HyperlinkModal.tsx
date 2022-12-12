@@ -18,15 +18,15 @@ import { Link } from '@contentful/field-editor-reference/dist/types';
 import { ModalDialogLauncher, FieldExtensionSDK } from '@contentful/field-editor-shared';
 import { INLINES } from '@contentful/rich-text-types';
 import { css } from 'emotion';
-import { withoutNormalizing } from 'internal';
-import { getText } from 'internal/queries';
-import { setSelection } from 'internal/transforms';
 import { Path } from 'slate';
 import { ReactEditor } from 'slate-react';
 
 import { getNodeEntryFromSelection, insertLink, LINK_TYPES, focus } from '../../helpers/editor';
 import getLinkedContentTypeIdsForNodeType from '../../helpers/getLinkedContentTypeIdsForNodeType';
 import { isNodeTypeEnabled } from '../../helpers/validations';
+import { withoutNormalizing } from '../../internal';
+import { getText } from '../../internal/queries';
+import { setSelection } from '../../internal/transforms';
 import { TrackingPluginActions } from '../../plugins/Tracking';
 import { RichTextEditor } from '../../types';
 import { FetchingWrappedAssetCard } from '../shared/FetchingWrappedAssetCard';

@@ -4,13 +4,13 @@ import { useState } from 'react';
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { getAboveNode, removeMark } from '@udecode/plate-core';
-import { setSelection, insertNodes } from 'internal/transforms';
-import { Editor as PlateEditor } from 'internal/types';
 import { Editor, Transforms } from 'slate';
 import { RichTextEditor } from 'types';
 
 import { isNodeTypeSelected } from '../../helpers/editor';
 import { isNodeTypeEnabled } from '../../helpers/validations';
+import { setSelection, insertNodes } from '../../internal/transforms';
+import { Editor as PlateEditor } from '../../internal/types';
 import { COMMAND_PROMPT } from './constants';
 import { createInlineEntryNode } from './utils/createInlineEntryNode';
 import { fetchAssets } from './utils/fetchAssets';

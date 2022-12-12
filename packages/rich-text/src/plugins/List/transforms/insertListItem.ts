@@ -9,10 +9,10 @@ import {
   isSelectionAtBlockStart,
   moveChildren,
 } from '@udecode/plate-core';
-import { withoutNormalizing } from 'internal';
-import { setSelection } from 'internal/transforms';
 import { Editor, Path, Transforms } from 'slate';
 
+import { withoutNormalizing } from '../../../internal';
+import { setSelection } from '../../../internal/transforms';
 import { CustomElement, RichTextEditor } from '../../../types';
 
 /**

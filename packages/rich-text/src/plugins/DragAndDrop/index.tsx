@@ -1,6 +1,7 @@
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
-import { getNodeEntries } from 'internal/queries';
-import { PlatePlugin, Editor } from 'internal/types';
+
+import { getNodeEntries } from '../../internal/queries';
+import { PlatePlugin, Editor } from '../../internal/types';
 
 export function createDragAndDropPlugin(): PlatePlugin {
   const DRAGGABLE_TYPES: string[] = [

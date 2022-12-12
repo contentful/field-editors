@@ -1,9 +1,9 @@
 // @ts-nocheck
 import { BLOCKS } from '@contentful/rich-text-types';
-import { getText } from 'internal/queries';
 import { Element, Node } from 'slate';
 
 import { insertEmptyParagraph } from '../../helpers/editor';
+import { getText } from '../../internal/queries';
 import { CustomElement, RichTextEditor } from '../../types';
 import { isTable } from './helpers';
 

@@ -10,9 +10,9 @@ import {
   PlateEditor,
 } from '@udecode/plate-core';
 import { isListNested, ELEMENT_LIC, getListItemEntry, moveListItemUp } from '@udecode/plate-list';
-import { withoutNormalizing } from 'internal';
 import { Editor, Path, PathRef } from 'slate';
 
+import { withoutNormalizing } from '../../../internal';
 import { moveListItemDown } from './moveListItemDown';
 
 export type MoveListItemsOptions = {

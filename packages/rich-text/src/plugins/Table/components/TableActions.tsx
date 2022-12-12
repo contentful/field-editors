@@ -7,11 +7,11 @@ import { BLOCKS } from '@contentful/rich-text-types';
 import { getAboveNode } from '@udecode/plate-core';
 import { TablePluginOptions, deleteColumn, deleteRow, deleteTable } from '@udecode/plate-table';
 import { css } from 'emotion';
-import { withoutNormalizing } from 'internal';
 import * as Slate from 'slate-react';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
 import { getNodeEntryFromSelection, getTableSize } from '../../../helpers/editor';
+import { withoutNormalizing } from '../../../internal';
 import { RichTextTrackingActionName } from '../../../plugins/Tracking';
 import { RichTextEditor } from '../../../types';
 import { addRowAbove, addColumnLeft, addColumnRight, addRowBelow, setHeader } from '../actions';

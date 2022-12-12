@@ -14,11 +14,11 @@ import {
   ELEMENT_TR,
   withTable,
 } from '@udecode/plate-table';
-import { insertNodes } from 'internal/transforms';
 import { NodeEntry, Path } from 'slate';
 
 import { isRootLevel } from '../../helpers/editor';
 import { transformLift, transformParagraphs, transformWrapIn } from '../../helpers/transformers';
+import { insertNodes } from '../../internal/transforms';
 import { RichTextPlugin, CustomElement, RichTextEditor } from '../../types';
 import { Cell } from './components/Cell';
 import { HeaderCell } from './components/HeaderCell';

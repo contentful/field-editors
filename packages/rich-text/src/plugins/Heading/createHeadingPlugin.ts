@@ -1,11 +1,11 @@
 // @ts-nocheck
 import { BLOCKS, HEADINGS } from '@contentful/rich-text-types';
 import { getAboveNode, HotkeyPlugin, isMarkActive } from '@udecode/plate-core';
-import { KeyboardHandler, PlatePlugin } from 'internal/types';
 import isHotkey from 'is-hotkey';
 
 import { isBlockSelected, isInlineOrText, toggleElement } from '../../helpers/editor';
 import { transformLift, transformUnwrap } from '../../helpers/transformers';
+import { KeyboardHandler, PlatePlugin } from '../../internal/types';
 import { COMMAND_PROMPT } from '../CommandPalette/constants';
 import { HeadingComponents } from './components/Heading';
 

@@ -1,7 +1,7 @@
 // @ts-nocheck
-import { insertNodes } from 'internal/transforms';
 import { NodeEntry, Transforms } from 'slate';
 
+import { insertNodes } from '../../internal/transforms';
 import { RichTextEditor } from '../../types';
 
 /**

@@ -1,12 +1,12 @@
 import { toSlatejsDocument } from '@contentful/contentful-slatejs-adapter';
 import { EMPTY_DOCUMENT, Document } from '@contentful/rich-text-types';
-import { createPlateEditor, CreatePlateEditorOptions, withoutNormalizing } from 'internal';
-import { getEndPoint, isNode } from 'internal/queries';
-import { normalize, setSelection } from 'internal/transforms';
-import { Value, Editor, Node } from 'internal/types';
 
 import schema from './constants/Schema';
 import { sanitizeIncomingSlateDoc } from './helpers/sanitizeIncomingSlateDoc';
+import { createPlateEditor, CreatePlateEditorOptions, withoutNormalizing } from './internal';
+import { getEndPoint, isNode } from './internal/queries';
+import { normalize, setSelection } from './internal/transforms';
+import { Value, Editor, Node } from './internal/types';
 
 /**
  * For legacy reasons, a document may not have any content at all

@@ -1,7 +1,6 @@
-import { getText } from 'internal/queries';
-import { setNodes, insertNodes } from 'internal/transforms';
-
 import { focus } from '../../../helpers/editor';
+import { getText } from '../../../internal/queries';
+import { setNodes, insertNodes } from '../../../internal/transforms';
 
 const createNode = (nodeType, entity) => ({
   type: nodeType,

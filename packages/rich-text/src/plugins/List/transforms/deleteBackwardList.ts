@@ -17,8 +17,8 @@ import {
   isListNested,
 } from '@udecode/plate-list';
 import { onKeyDownResetNode, ResetNodePlugin, SIMULATE_BACKSPACE } from '@udecode/plate-reset-node';
-import { withoutNormalizing } from 'internal';
 
+import { withoutNormalizing } from '../../../internal';
 import { RichTextEditor } from '../../../types';
 import { unwrapList } from './unwrapList';
 

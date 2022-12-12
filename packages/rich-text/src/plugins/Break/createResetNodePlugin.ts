@@ -3,7 +3,8 @@ import {
   createResetNodePlugin as createDefaultResetNodePlugin,
   ResetNodePluginRule,
 } from '@udecode/plate-reset-node';
-import { PlatePlugin } from 'internal/types';
+
+import { PlatePlugin } from '../../internal/types';
 
 export const createResetNodePlugin = (): PlatePlugin =>
   createDefaultResetNodePlugin({

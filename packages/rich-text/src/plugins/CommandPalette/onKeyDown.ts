@@ -1,9 +1,9 @@
 // @ts-nocheck
 import { setMarks, removeMark, isMarkActive, getAboveNode } from '@udecode/plate-core';
-import { KeyboardHandler } from 'internal/types';
 import isHotkey from 'is-hotkey';
 import { Editor } from 'slate';
 
+import { KeyboardHandler } from '../../internal/types';
 import { COMMAND_PROMPT } from './constants';
 
 export const createOnKeyDown = (): KeyboardHandler => {

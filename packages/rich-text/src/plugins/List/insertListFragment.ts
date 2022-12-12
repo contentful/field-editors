@@ -5,9 +5,9 @@
 // @ts-nocheck
 import { TEXT_CONTAINERS, BLOCKS } from '@contentful/rich-text-types';
 import { findNode } from '@udecode/plate-core';
-import { insertNodes } from 'internal/transforms';
 import { Editor, Node, NodeEntry, Path } from 'slate';
 
+import { insertNodes } from '../../internal/transforms';
 import { RichTextEditor } from '../../types';
 
 const getFirstAncestorOfType = (root: any, entry: NodeEntry): NodeEntry<any> => {

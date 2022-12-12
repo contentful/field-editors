@@ -1,8 +1,8 @@
 // @ts-nocheck
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
-import { insertNodes } from 'internal/transforms';
 import { NodeEntry, Transforms } from 'slate';
 
+import { insertNodes } from '../internal/transforms';
 import { RichTextEditor } from '../types';
 import { extractParagraphs } from './extractNodes';
 

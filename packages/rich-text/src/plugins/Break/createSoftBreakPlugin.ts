@@ -2,7 +2,8 @@ import {
   createSoftBreakPlugin as createDefaultSoftBreakPlugin,
   SoftBreakRule,
 } from '@udecode/plate-break';
-import { PlatePlugin } from 'internal/types';
+
+import { PlatePlugin } from '../../internal/types';
 
 export const createSoftBreakPlugin = (): PlatePlugin =>
   createDefaultSoftBreakPlugin({
