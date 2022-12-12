@@ -1,37 +1,40 @@
-// @ts-nocheck
-import { setMarks, removeMark, isMarkActive, getAboveNode } from '@udecode/plate-core';
 import isHotkey from 'is-hotkey';
-import { Editor } from 'slate';
 
-import { KeyboardHandler } from '../../internal/types';
+import { getRange, getAbove, isMarkActive, addMark, removeMark } from '../../internal';
+import { KeyboardHandler, NodeEntry } from '../../internal/types';
 import { COMMAND_PROMPT } from './constants';
 
 export const createOnKeyDown = (): KeyboardHandler => {
   return (editor) => {
     return (event) => {
       if (isHotkey('/', event)) {
-        setMarks(editor, { [COMMAND_PROMPT]: true });
+        addMark(editor, COMMAND_PROMPT);
         editor.tracking.onCommandPaletteAction('openRichTextCommandPalette');
       }
 
       const isActive = isMarkActive(editor, COMMAND_PROMPT);
 
-      if (isActive) {
-        if (isHotkey('enter', event)) {
-          event.preventDefault();
-        } else if (isHotkey('backspace', event)) {
-          const [, path] = getAboveNode(editor)!;
-          const range = Editor.range(editor, path);
-          // if it is the last character in the command string
-          if (range.focus.offset - range.anchor.offset === 1) {
-            removeMark(editor, { key: COMMAND_PROMPT, at: range });
-          }
-        } else if (isHotkey('escape', event)) {
-          const [, path] = getAboveNode(editor)!;
-          const range = Editor.range(editor, path);
-          removeMark(editor, { key: COMMAND_PROMPT, at: range });
-          editor.tracking.onCommandPaletteAction('cancelRichTextCommandPalette');
+      if (!isActive) {
+        return;
+      }
+
+      if (isHotkey('enter', event)) {
+        return event.preventDefault();
+      }
+
+      const [, path] = getAbove(editor) as NodeEntry;
+      const range = getRange(editor, path);
+
+      if (isHotkey('backspace', event)) {
+        // if it is the last character in the command string
+        if (range.focus.offset - range.anchor.offset === 1) {
+          removeMark(editor, COMMAND_PROMPT, range);
         }
+      }
+
+      if (isHotkey('escape', event)) {
+        removeMark(editor, COMMAND_PROMPT, range);
+        editor.tracking.onCommandPaletteAction('cancelRichTextCommandPalette');
       }
     };
   };

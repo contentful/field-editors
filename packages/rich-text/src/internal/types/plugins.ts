@@ -7,7 +7,7 @@ import { Value, PlateEditor } from './editor';
 
 export type KeyboardHandler<P = p.PluginOptions> = p.KeyboardHandler<P, Value, PlateEditor>;
 
-export interface PlatePlugin extends p.PlatePlugin {
+export interface PlatePlugin extends p.PlatePlugin<p.AnyObject, Value, PlateEditor> {
   softBreak?: SoftBreakRule[];
   exitBreak?: ExitBreakRule[];
   resetNode?: ResetNodePluginRule[];

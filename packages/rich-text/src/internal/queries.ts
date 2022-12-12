@@ -5,7 +5,7 @@
 import * as p from '@udecode/plate-core';
 import * as s from 'slate';
 
-import type { PlateEditor, Location, Node } from './types';
+import type { Value, PlateEditor, Location, Node } from './types';
 
 /**
  * Get text content at location
@@ -28,4 +28,16 @@ export const getNodeEntry = (editor: PlateEditor, at: Location, options?: s.Edit
 
 export const getNodeEntries = (editor: PlateEditor, options?: p.GetNodeEntriesOptions) => {
   return p.getNodeEntries(editor, options);
+};
+
+export const getRange = (editor: PlateEditor, at: Location, to?: Location) => {
+  return p.getRange(editor, at, to);
+};
+
+export const getAbove = (editor: PlateEditor, opts?: p.GetAboveNodeOptions<Value>) => {
+  return p.getAboveNode(editor, opts);
+};
+
+export const isMarkActive = (editor: PlateEditor, type: string) => {
+  return p.isMarkActive(editor, type);
 };
