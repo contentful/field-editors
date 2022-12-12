@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { ComponentProps } from 'react';
 
 import { useContentfulEditorRef } from '../ContentfulEditorProvider';
@@ -10,8 +9,9 @@ type WithEntityFetchProps = {
 export function withLinkTracking(Component: React.ComponentType<WithEntityFetchProps>) {
   return function ComponentWithTracking(props: ComponentProps<typeof Component>) {
     const editor = useContentfulEditorRef();
+
     const onEntityFetchComplete = React.useCallback(
-      () => editor.tracking.onViewportAction('linkRendered'),
+      () => editor?.tracking.onViewportAction('linkRendered'),
       [editor]
     );
 

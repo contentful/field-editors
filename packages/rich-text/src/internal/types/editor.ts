@@ -3,7 +3,6 @@
  */
 import { MARKS } from '@contentful/rich-text-types';
 import * as p from '@udecode/plate-core';
-import * as s from 'slate';
 
 import { TrackingPluginActions } from '../../plugins/Tracking';
 
@@ -24,13 +23,16 @@ export interface Element extends p.TElement {
 }
 
 export type Value = Element[];
+export type ReactEditor = p.TReactEditor<Value>;
 export interface PlateEditor extends p.PlateEditor<Value> {
   tracking: TrackingPluginActions;
 }
 
-export type ReactEditor = p.TReactEditor<Value>;
 export type Node = p.ElementOf<PlateEditor> | p.TextOf<PlateEditor>;
 export type NodeEntry = p.TNodeEntry<Node>;
+export type NodeMatch = p.ENodeMatch<Node>;
 export type Descendant = p.DescendantOf<PlateEditor>;
-export type Location = s.Location;
 export type Operation = p.TOperation<Descendant>;
+export type Location = p.TLocation;
+export type Path = p.TPath;
+export type Range = p.TRange;
