@@ -34,6 +34,10 @@ export const moveSelection = (editor: PlateEditor, options?: SelectionMoveOption
   return p.moveSelection(editor, options);
 };
 
+export const moveChildren = (editor: PlateEditor, options: p.MoveChildrenOptions<Value>) => {
+  return p.moveChildren(editor, options);
+};
+
 export const collapseSelection = (editor: PlateEditor, options?: SelectionCollapseOptions) => {
   return p.collapseSelection(editor, options);
 };
@@ -52,6 +56,10 @@ export const insertNodes = (
   opts?: p.InsertNodesOptions
 ) => {
   return p.insertNodes(editor, nodes, opts);
+};
+
+export const splitNodes = (editor: PlateEditor, options?: p.SplitNodesOptions<Value>) => {
+  return p.splitNodes(editor, options);
 };
 
 export const liftNodes = (editor: PlateEditor, options?: p.LiftNodesOptions<Value> | undefined) => {

@@ -1,18 +1,22 @@
-// @ts-nocheck
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
+
+import { withoutNormalizing } from '../../../internal';
 import {
   getAboveNode,
   getParentNode,
-  insertNodes,
   isFirstChild,
   isSelectionAtBlockEnd,
   isSelectionAtBlockStart,
+  getMarks,
+  getNextPath,
+} from '../../../internal/queries';
+import {
+  setSelection,
+  insertNodes,
   moveChildren,
-} from '@udecode/plate-core';
-import { Editor, Path, Transforms } from 'slate';
-
-import { withoutNormalizing } from '../../../internal';
-import { setSelection } from '../../../internal/transforms';
+  splitNodes,
+  collapseSelection,
+} from '../../../internal/transforms';
 import { CustomElement, RichTextEditor } from '../../../types';
 
 /**
@@ -22,7 +26,7 @@ const emptyListItemNode = (editor: RichTextEditor, withChildren = false): Custom
   let children: CustomElement[] = [];
 
   if (withChildren) {
-    const marks = Editor.marks(editor) || {};
+    const marks = getMarks(editor) || {};
 
     children = [
       {
@@ -83,11 +87,11 @@ export const insertListItem = (editor: RichTextEditor): boolean => {
 
     // Split the current paragraph content if necessary
     if (shouldSplit) {
-      Transforms.splitNodes(editor);
+      splitNodes(editor);
     }
 
     // Insert the new li
-    const newListItemPath = isAtStartOfListItem ? listItemPath : Path.next(listItemPath);
+    const newListItemPath = isAtStartOfListItem ? listItemPath : getNextPath(listItemPath);
 
     insertNodes(
       editor,
@@ -98,7 +102,7 @@ export const insertListItem = (editor: RichTextEditor): boolean => {
     );
 
     // Move children *after* selection to the new li
-    const fromPath = isAtStart ? paragraphPath : Path.next(paragraphPath);
+    const fromPath = isAtStart ? paragraphPath : getNextPath(paragraphPath);
     const fromStartIndex = fromPath[fromPath.length - 1] || 0;
 
     // On split we don't add paragraph to the new li so we move
@@ -116,7 +120,7 @@ export const insertListItem = (editor: RichTextEditor): boolean => {
 
     // Move cursor to the start of the new li
     setSelection(editor, newListItemPath);
-    Transforms.collapse(editor, { edge: 'start' });
+    collapseSelection(editor, { edge: 'start' });
   });
 
   // Returning True skips processing other editor.insertBreak handlers

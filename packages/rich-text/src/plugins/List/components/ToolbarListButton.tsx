@@ -1,4 +1,3 @@
-// @ts-nocheck
 import * as React from 'react';
 
 import { ListBulletedIcon, ListNumberedIcon } from '@contentful/f36-icons';

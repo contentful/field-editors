@@ -1,13 +1,9 @@
 // @ts-nocheck
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
-import {
-  getAboveNode,
-  getBlockAbove,
-  isAncestorEmpty,
-  isLastChild,
-  PlateEditor,
-  hasSingleChild,
-} from '@udecode/plate-core';
+import { isLastChild, hasSingleChild } from '@udecode/plate-core';
+
+import { getAboveNode, getBlockAbove, isAncestorEmpty } from '../../internal/queries';
+import { PlateEditor } from '../../internal/types';
 
 /**
  * Returns true if we are:

@@ -35,6 +35,24 @@ export const isNode = (value: unknown): value is Node => {
   return p.isNode(value);
 };
 
+export const isSelectionAtBlockEnd = (
+  editor: PlateEditor,
+  options?: p.GetAboveNodeOptions<Value>
+) => {
+  return p.isSelectionAtBlockEnd(editor, options);
+};
+
+export const isSelectionAtBlockStart = (
+  editor: PlateEditor,
+  options?: p.GetAboveNodeOptions<Value>
+) => {
+  return p.isSelectionAtBlockStart(editor, options);
+};
+
+export const getBlockAbove = (editor: PlateEditor, options?: p.GetAboveNodeOptions<p.Value>) => {
+  return p.getBlockAbove(editor, options);
+};
+
 export const getNodeEntry = (editor: PlateEditor, at: Location, options?: s.EditorNodeOptions) => {
   return p.getNodeEntry(editor, at, options);
 };
@@ -43,8 +61,25 @@ export const getNodeEntries = (editor: PlateEditor, options?: p.GetNodeEntriesOp
   return p.getNodeEntries(editor, options);
 };
 
+export const getParentNode = (
+  editor: PlateEditor,
+  at: Location,
+  options?: s.EditorParentOptions
+) => {
+  return p.getParentNode(editor, at, options);
+};
+
+export const isFirstChild = (path: s.Path) => {
+  return p.isFirstChild(path);
+};
+
 export const getChildren = (root: PlateEditor | Node, path: s.Path) => {
   return Array.from(s.Node.children(root as any, path)) as NodeEntry[];
+};
+
+export const getEntryChildren = (entry: NodeEntry<Node>) => {
+  const [root, path] = entry;
+  return getChildren(root, path);
 };
 
 export const getDescendantNodeByPath = (root: Node, path: s.Path): Node => {
@@ -107,6 +142,10 @@ export const isMarkActive = (editor: PlateEditor, type: string) => {
   return p.isMarkActive(editor, type);
 };
 
+export const getMarks = (editor: PlateEditor) => {
+  return p.getMarks(editor);
+};
+
 export const isEditor = (value: unknown): value is PlateEditor => {
   return p.isEditor(value);
 };
@@ -131,8 +170,16 @@ export const isAncestorPath = (path: s.Path, another: s.Path) => {
   return s.Path.isAncestor(path, another);
 };
 
+export const isAncestorEmpty = (editor: PlateEditor, node: p.TAncestor) => {
+  return p.isAncestorEmpty(editor, node);
+};
+
 export const getParentPath = (path: s.Path) => {
   return s.Path.parent(path);
+};
+
+export const getNextPath = (path: s.Path) => {
+  return s.Path.next(path);
 };
 
 export const getPathLevels = (path: s.Path, options?: s.PathLevelsOptions) => {
