@@ -24,12 +24,13 @@ export interface Element extends p.TElement {
 }
 
 export type Value = Element[];
-export interface Editor extends p.PlateEditor<Value> {
+export interface PlateEditor extends p.PlateEditor<Value> {
   tracking: TrackingPluginActions;
 }
 
 export type ReactEditor = p.TReactEditor<Value>;
-export type Node = p.ElementOf<Editor> | p.TextOf<Editor>;
+export type Node = p.ElementOf<PlateEditor> | p.TextOf<PlateEditor>;
 export type NodeEntry = p.TNodeEntry<Node>;
-export type Descendant = p.DescendantOf<Editor>;
+export type Descendant = p.DescendantOf<PlateEditor>;
 export type Location = s.Location;
+export type Operation = p.TOperation<Descendant>;

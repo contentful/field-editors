@@ -1,7 +1,7 @@
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 
 import { getNodeEntries } from '../../internal/queries';
-import { PlatePlugin, Editor } from '../../internal/types';
+import { PlatePlugin, PlateEditor } from '../../internal/types';
 
 export function createDragAndDropPlugin(): PlatePlugin {
   const DRAGGABLE_TYPES: string[] = [
@@ -26,7 +26,7 @@ export function createDragAndDropPlugin(): PlatePlugin {
       // If true, the next handlers will be skipped.
       onDrop: (editor) => (event) => {
         const [draggingBlock] = Array.from(
-          getNodeEntries(editor as Editor, {
+          getNodeEntries(editor as PlateEditor, {
             match: (node) => DRAGGABLE_TYPES.includes(node.type as string),
           })
         );

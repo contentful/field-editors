@@ -1,12 +1,12 @@
 import * as p from '@udecode/plate-core';
 
-import type { Value, Editor } from './types';
+import type { Value, PlateEditor } from './types';
 
-export type CreatePlateEditorOptions = p.CreatePlateEditorOptions<Value, Editor>;
+export type CreatePlateEditorOptions = p.CreatePlateEditorOptions<Value, PlateEditor>;
 export const createPlateEditor = (options: CreatePlateEditorOptions = {}) => {
-  return p.createPlateEditor<Value, Editor>(options);
+  return p.createPlateEditor<Value, PlateEditor>(options);
 };
 
-export const withoutNormalizing = (editor: Editor, fn: () => boolean | void) => {
+export const withoutNormalizing = (editor: PlateEditor, fn: () => boolean | void) => {
   return p.withoutNormalizing(editor, fn);
 };

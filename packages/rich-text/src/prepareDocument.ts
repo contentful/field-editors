@@ -6,7 +6,7 @@ import { sanitizeIncomingSlateDoc } from './helpers/sanitizeIncomingSlateDoc';
 import { createPlateEditor, CreatePlateEditorOptions, withoutNormalizing } from './internal';
 import { getEndPoint, isNode } from './internal/queries';
 import { normalize, setSelection } from './internal/transforms';
-import { Value, Editor, Node } from './internal/types';
+import { Value, PlateEditor, Node } from './internal/types';
 
 /**
  * For legacy reasons, a document may not have any content at all
@@ -26,7 +26,7 @@ export const hasContent = (doc?: Document) => {
 
  This function is inspired to https://github.com/udecode/plate/issues/1269#issuecomment-1057643622
  */
-export const setEditorContent = (editor: Editor, nodes?: Node[]): void => {
+export const setEditorContent = (editor: PlateEditor, nodes?: Node[]): void => {
   // Replaces editor content while keeping change history
   withoutNormalizing(editor, () => {
     const children = [...editor.children];

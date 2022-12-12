@@ -1,14 +1,13 @@
-// @ts-nocheck
 import { useCallback, useMemo } from 'react';
 
 import { toContentfulDocument } from '@contentful/contentful-slatejs-adapter';
 import { Document } from '@contentful/rich-text-types';
 import { getPlateSelectors } from '@udecode/plate-core';
 import debounce from 'lodash/debounce';
-import { Operation } from 'slate';
 
 import schema from './constants/Schema';
 import { removeInternalMarks } from './helpers/removeInternalMarks';
+import { Operation } from './internal/types';
 
 /**
  * Returns whether a given operation is relevant enough to trigger a save.

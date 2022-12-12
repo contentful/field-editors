@@ -10,7 +10,7 @@ import { RichTextEditor } from 'types';
 import { isNodeTypeSelected } from '../../helpers/editor';
 import { isNodeTypeEnabled } from '../../helpers/validations';
 import { setSelection, insertNodes } from '../../internal/transforms';
-import { Editor as PlateEditor } from '../../internal/types';
+import { PlateEditor } from '../../internal/types';
 import { COMMAND_PROMPT } from './constants';
 import { createInlineEntryNode } from './utils/createInlineEntryNode';
 import { fetchAssets } from './utils/fetchAssets';
