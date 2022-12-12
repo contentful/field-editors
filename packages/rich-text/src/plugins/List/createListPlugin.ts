@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { BLOCKS, LIST_ITEM_BLOCKS } from '@contentful/rich-text-types';
 import {
   createListPlugin as createPlateListPlugin,
@@ -9,7 +8,7 @@ import {
 } from '@udecode/plate-list';
 
 import { transformParagraphs, transformWrapIn } from '../../helpers/transformers';
-import { RichTextEditor, RichTextPlugin } from '../../types';
+import { PlatePlugin, PlateEditor, Value } from '../../internal/types';
 import { ListOL, ListUL } from './components/List';
 import { ListItem } from './components/ListItem';
 import { onKeyDownList } from './onKeyDownList';
@@ -23,8 +22,8 @@ import {
 } from './utils';
 import { withList } from './withList';
 
-export const createListPlugin = (): RichTextPlugin =>
-  createPlateListPlugin<RichTextEditor>({
+export const createListPlugin = (): PlatePlugin =>
+  createPlateListPlugin<any, Value, PlateEditor>({
     normalizer: [
       {
         match: {

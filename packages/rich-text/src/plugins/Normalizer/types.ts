@@ -1,12 +1,7 @@
-// @ts-nocheck
+import { NodeEntry, NodeMatch, PlateEditor } from '../../internal/types';
 
-// import { NodeMatch } from '@udecode/plate-core';
-import { NodeEntry } from 'slate';
-
-import { RichTextEditor } from '../../types';
-
-export type NodeTransformer = (editor: RichTextEditor, entry: NodeEntry) => void;
-export type NodeValidator = (editor: RichTextEditor, entry: NodeEntry) => boolean;
+export type NodeTransformer = (editor: PlateEditor, entry: NodeEntry) => void;
+export type NodeValidator = (editor: PlateEditor, entry: NodeEntry) => boolean;
 
 type BaseRule = {
   /**
@@ -15,7 +10,7 @@ type BaseRule = {
    *
    * By default it returns only Elements of type `plugin.type`.
    */
-  match?: any;
+  match?: NodeMatch;
 
   /**
    * A helper to normalize invalid Node(s). By default it removes

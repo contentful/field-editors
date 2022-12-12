@@ -1,12 +1,12 @@
-// @ts-nocheck
-import { RichTextEditor } from '../types';
-import { createTestEditor, normalize } from './createEditor';
+import { normalize } from '../internal';
+import { PlateEditor } from '../internal/types';
+import { createTestEditor } from './createEditor';
 import { setEmptyDataAttribute } from './setEmptyDataAttribute';
 
 export const assertOutput = (options: {
   input?: any;
   expected: any;
-  editor?: RichTextEditor;
+  editor?: PlateEditor;
   log?: boolean;
 }) => {
   const editor =

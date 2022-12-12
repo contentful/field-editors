@@ -1,4 +1,3 @@
-// @ts-nocheck
 import * as React from 'react';
 
 import { TableIcon } from '@contentful/f36-icons';
@@ -33,8 +32,7 @@ export function ToolbarTableButton(props: ToolbarTableButtonProps) {
       onClick={handleClick}
       // TODO: active state looks off since the button will be disabled. Do we still need it?
       isActive={isActive}
-      isDisabled={props.isDisabled}
-    >
+      isDisabled={props.isDisabled}>
       <TableIcon />
     </ToolbarButton>
   );

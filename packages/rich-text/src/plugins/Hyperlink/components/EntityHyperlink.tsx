@@ -1,11 +1,10 @@
-// @ts-nocheck
 import * as React from 'react';
 
 import { FieldExtensionSDK, Link } from '@contentful/app-sdk';
 import { Tooltip, TextLink } from '@contentful/f36-components';
-import { ReactEditor } from 'slate-react';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
+import { fromDOMPoint } from '../../../internal';
 import { useSdkContext } from '../../../SdkProvider';
 import { CustomRenderElementProps } from '../../../types';
 import { addOrEditLink } from '../HyperlinkModal';
@@ -36,11 +35,12 @@ export function EntityHyperlink(props: HyperlinkElementProps) {
     event.preventDefault();
     event.stopPropagation();
     if (!editor) return;
-    const p = ReactEditor.toSlatePoint(editor, [event.target as Node, 0], {
-      exactMatch: false,
-      suppressThrow: false,
-    });
-    addOrEditLink(editor, sdk, editor.tracking.onViewportAction, p.path);
+
+    const p = fromDOMPoint(editor, [event.target as Node, 0]);
+
+    if (p) {
+      addOrEditLink(editor, sdk, editor.tracking.onViewportAction, p.path);
+    }
   }
 
   return (
@@ -48,15 +48,13 @@ export function EntityHyperlink(props: HyperlinkElementProps) {
       content={tooltipContent}
       targetWrapperClassName={styles.hyperlinkWrapper}
       placement="bottom"
-      maxWidth="auto"
-    >
+      maxWidth="auto">
       <TextLink
         as="a"
         onClick={handleClick}
         className={styles.hyperlink}
         data-link-type={target.sys.linkType}
-        data-link-id={target.sys.id}
-      >
+        data-link-id={target.sys.id}>
         {props.children}
       </TextLink>
     </Tooltip>

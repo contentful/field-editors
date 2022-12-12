@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import * as React from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
@@ -39,8 +37,7 @@ export function ToolbarHyperlinkButton(props: ToolbarHyperlinkButtonProps) {
       testId="hyperlink-toolbar-button"
       onClick={handleClick}
       isActive={isActive}
-      isDisabled={props.isDisabled}
-    >
+      isDisabled={props.isDisabled}>
       <LinkIcon />
     </ToolbarButton>
   );

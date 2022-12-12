@@ -1,14 +1,10 @@
-// @ts-nocheck
 import * as React from 'react';
 
 import { HorizontalRuleIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { setNodes } from '@udecode/plate-core';
 import { css, cx } from 'emotion';
-import { Transforms } from 'slate';
 import * as Slate from 'slate-react';
-import { RichTextEditor } from 'types';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import {
@@ -18,8 +14,8 @@ import {
   focus,
 } from '../../helpers/editor';
 import { getText } from '../../internal/queries';
-import { insertNodes } from '../../internal/transforms';
-import { PlatePlugin } from '../../internal/types';
+import { insertNodes, setNodes, removeNodes } from '../../internal/transforms';
+import { PlatePlugin, PlateEditor } from '../../internal/types';
 import { ToolbarButton } from '../shared/ToolbarButton';
 
 const styles = {
@@ -58,7 +54,7 @@ interface ToolbarHrButtonProps {
   isDisabled?: boolean;
 }
 
-export function withHrEvents(editor: RichTextEditor) {
+export function withHrEvents(editor: PlateEditor) {
   return (event: React.KeyboardEvent) => {
     if (!editor) return;
 
@@ -68,7 +64,7 @@ export function withHrEvents(editor: RichTextEditor) {
       const isDelete = event.key === 'Delete';
       if (isBackspace || isDelete) {
         event.preventDefault();
-        Transforms.removeNodes(editor, { at: pathToSelectedHr });
+        removeNodes(editor, { at: pathToSelectedHr });
       }
     }
   };
@@ -104,8 +100,7 @@ export function ToolbarHrButton(props: ToolbarHrButtonProps) {
       isDisabled={props.isDisabled}
       onClick={handleOnClick}
       testId="hr-toolbar-button"
-      isActive={isBlockSelected(editor, BLOCKS.HR)}
-    >
+      isActive={isBlockSelected(editor, BLOCKS.HR)}>
       <HorizontalRuleIcon />
     </ToolbarButton>
   );
@@ -120,13 +115,11 @@ export function Hr(props: Slate.RenderLeafProps) {
       {...props.attributes}
       className={styles.container}
       // COMPAT: To make HR copyable in Safari, we verify this attribute below on `deserialize`
-      data-void-element={BLOCKS.HR}
-    >
+      data-void-element={BLOCKS.HR}>
       <div
         draggable={true}
         // Moving `contentEditable` to this div makes it to be selectable when being the first void element, e.g pressing ctrl + a to select everything
-        contentEditable={false}
-      >
+        contentEditable={false}>
         <hr className={cx(styles.hr, isSelected && isFocused ? styles.hrSelected : undefined)} />
       </div>
       {props.children}

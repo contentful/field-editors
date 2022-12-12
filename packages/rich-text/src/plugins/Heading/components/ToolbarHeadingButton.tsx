@@ -1,4 +1,3 @@
-// @ts-nocheck
 import * as React from 'react';
 
 import { Menu, Button } from '@contentful/f36-components';
@@ -125,8 +124,7 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
           variant="transparent"
           endIcon={<ChevronDownIcon />}
           isDisabled={props.isDisabled}
-          onClick={() => someHeadingsEnabled && setOpen(!isOpen)}
-        >
+          onClick={() => someHeadingsEnabled && setOpen(!isOpen)}>
           {LABELS[selected]}
         </Button>
       </Menu.Trigger>
@@ -141,8 +139,7 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
                   isInitiallyFocused={selected === nodeType}
                   onClick={handleOnSelectItem(nodeType as BLOCKS)}
                   testId={`dropdown-option-${nodeType}`}
-                  disabled={props.isDisabled}
-                >
+                  disabled={props.isDisabled}>
                   <span className={cx(styles.dropdown.root, styles.dropdown[nodeType])}>
                     {LABELS[nodeType]}
                   </span>

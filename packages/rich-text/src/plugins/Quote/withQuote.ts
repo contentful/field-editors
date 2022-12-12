@@ -1,13 +1,11 @@
-// @ts-nocheck
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
-import { WithOverride } from '@udecode/plate-core';
-import { getAboveNode } from '@udecode/plate-core';
-import { BaseRange, BaseSelection, Element, Node, Point, Transforms } from 'slate';
+import { BaseRange, BaseSelection, Element, Point } from 'slate';
 
-import { insertNodes } from '../../internal/transforms';
-import { RichTextEditor } from '../../types';
+import { getAboveNode, getText } from '../../internal/queries';
+import { deleteText, insertNodes } from '../../internal/transforms';
+import { WithOverride } from '../../internal/types';
 
-export const withQuote: WithOverride<RichTextEditor> = (editor) => {
+export const withQuote: WithOverride = (editor) => {
   const { insertFragment } = editor;
 
   editor.insertFragment = (fragment) => {
@@ -20,7 +18,8 @@ export const withQuote: WithOverride<RichTextEditor> = (editor) => {
         type: TEXT_CONTAINERS,
       },
     });
-    const containerIsNotEmpty = containerEntry && Node.string(containerEntry[0]) !== '';
+
+    const containerIsNotEmpty = containerEntry && getText(editor, containerEntry[1]) !== '';
 
     if (startsWithBlockquote && containerIsNotEmpty) {
       const { selection } = editor;
@@ -28,7 +27,7 @@ export const withQuote: WithOverride<RichTextEditor> = (editor) => {
         !!selection && Point.compare(selection.anchor, selection.focus) !== 0;
       // if something is selected (highlighted) we replace the selection
       if (isContentSelected(selection)) {
-        Transforms.delete(editor, { at: selection });
+        deleteText(editor, { at: selection });
       }
 
       // get the cursor entry again, it may be different after deletion
@@ -38,7 +37,7 @@ export const withQuote: WithOverride<RichTextEditor> = (editor) => {
         },
       });
 
-      const containerIsNotEmpty = containerEntry && Node.string(containerEntry[0]) !== '';
+      const containerIsNotEmpty = containerEntry && getText(editor, containerEntry[1]) !== '';
 
       if (containerIsNotEmpty) {
         insertNodes(editor, fragment);

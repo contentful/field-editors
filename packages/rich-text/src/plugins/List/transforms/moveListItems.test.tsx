@@ -1,5 +1,4 @@
 /** @jsx jsx */
-// @ts-nocheck
 import { jsx, assertOutput, createTestEditor } from '../../../test-utils';
 import { moveListItems } from './moveListItems';
 
@@ -20,7 +19,6 @@ describe('moving list items (up/down)', () => {
   );
 
   const assertTab = (t: ListTest, shift = false) => {
-    // eslint-disable-next-line jest/valid-title -- TODO: explain this disable
     test(t.title, () => {
       const { editor } = createTestEditor({
         input: renderEditor(t.input),

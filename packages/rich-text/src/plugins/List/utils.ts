@@ -1,20 +1,24 @@
-// @ts-nocheck
 import { BLOCKS } from '@contentful/rich-text-types';
 import { getAboveNode, getBlockAbove, getParentNode } from '@udecode/plate-core';
-import { NodeEntry, Transforms, Path, Node, Text, Range } from 'slate';
 
-import { insertNodes } from '../../internal/transforms';
-import { CustomElement, RichTextEditor } from '../../types';
+import {
+  getChildren,
+  isText,
+  getCommonNode,
+  isRangeExpanded,
+  getRangeEdges,
+} from '../../internal/queries';
+import { insertNodes, removeNodes, wrapNodes } from '../../internal/transforms';
+import { Node, NodeEntry, PlateEditor, Path, Element } from '../../internal/types';
 
-const isList = (node: CustomElement) =>
-  [BLOCKS.OL_LIST, BLOCKS.UL_LIST].includes(node.type as BLOCKS);
+const isList = (node: Node) => [BLOCKS.OL_LIST, BLOCKS.UL_LIST].includes(node.type as BLOCKS);
 
-export const hasListAsDirectParent = (editor: RichTextEditor, [, path]: NodeEntry) => {
+export const hasListAsDirectParent = (editor: PlateEditor, [, path]: NodeEntry) => {
   const [parentNode] = (getParentNode(editor, path) || []) as NodeEntry;
-  return isList(parentNode as CustomElement);
+  return isList(parentNode);
 };
 
-const getNearestListAncestor = (editor: RichTextEditor, path: Path) => {
+const getNearestListAncestor = (editor: PlateEditor, path: Path) => {
   return getAboveNode(editor, { at: path, mode: 'lowest', match: isList }) || [];
 };
 
@@ -23,57 +27,58 @@ const getNearestListAncestor = (editor: RichTextEditor, path: Path) => {
  * in the node's ancestors, defaults to that list type, else places
  * the list item in an unordered list.
  */
-export const normalizeOrphanedListItem = (editor: RichTextEditor, [, path]: NodeEntry) => {
+export const normalizeOrphanedListItem = (editor: PlateEditor, [, path]: NodeEntry) => {
   const [parentList] = getNearestListAncestor(editor, path);
-  const parentListType = parentList?.type;
-  Transforms.wrapNodes(
+  const parentListType = parentList?.type as string;
+
+  wrapNodes(
     editor,
     { type: parentListType || BLOCKS.UL_LIST, children: [], data: {} },
     { at: path }
   );
 };
 
-export const isNonEmptyListItem = (editor: RichTextEditor, [, path]: NodeEntry) => {
-  const listItemChildren = Array.from(Node.children(editor, path));
+export const isNonEmptyListItem = (editor: PlateEditor, [, path]: NodeEntry) => {
+  const listItemChildren = Array.from(getChildren(editor, path));
 
   return listItemChildren.length !== 0;
 };
 
-export const firstNodeIsNotList = (_editor: RichTextEditor, [node]: NodeEntry<CustomElement>) => {
+export const firstNodeIsNotList = (_editor: PlateEditor, [node]: NodeEntry<Element>) => {
   if (node.children.length === 1) {
     const firstNode = node.children[0];
 
-    return !Text.isText(firstNode) && !isList(firstNode);
+    return !isText(firstNode) && !isList(firstNode);
   }
 
   return true;
 };
 
-export const insertParagraphAsChild = (editor: RichTextEditor, [, path]: NodeEntry) => {
+export const insertParagraphAsChild = (editor: PlateEditor, [, path]: NodeEntry) => {
   insertNodes(editor, [{ type: BLOCKS.PARAGRAPH, data: {}, children: [{ text: '' }] }], {
     at: path.concat([0]),
   });
 };
 
-export const replaceNodeWithListItems = (editor, entry) => {
+export const replaceNodeWithListItems = (editor: PlateEditor, entry: NodeEntry<Element>) => {
   const [node, path] = entry;
 
-  Transforms.removeNodes(editor, { at: path });
-  insertNodes(editor, node.children[0].children, { at: path });
+  removeNodes(editor, { at: path });
+  insertNodes(editor, (node.children[0] as Element).children, { at: path });
 };
 
-export const isListTypeActive = (editor: RichTextEditor, type: BLOCKS): boolean => {
+export const isListTypeActive = (editor: PlateEditor, type: BLOCKS): boolean => {
   const { selection } = editor;
 
   if (!selection) {
     return false;
   }
 
-  if (Range.isExpanded(selection)) {
-    const [start, end] = Range.edges(selection);
-    const node = Node.common(editor, start.path, end.path);
+  if (isRangeExpanded(selection)) {
+    const [start, end] = getRangeEdges(selection);
+    const node = getCommonNode(editor, start.path, end.path);
 
-    if ((node[0] as CustomElement).type === type) {
+    if (node[0].type === type) {
       return true;
     }
   }

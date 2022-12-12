@@ -21,6 +21,7 @@ import { getListItemEntry } from '@udecode/plate-list';
 import { Editor, Node, NodeEntry, Range } from 'slate';
 
 import { withoutNormalizing } from '../../../internal';
+import { getRangeEdges } from '../../../internal/queries';
 import { unwrapList } from './unwrapList';
 
 const listTypes = [BLOCKS.UL_LIST, BLOCKS.OL_LIST] as string[];
@@ -75,7 +76,7 @@ export const toggleList = (editor: PlateEditor, { type }: { type: string }) =>
     } else {
       // selection is a range
 
-      const [startPoint, endPoint] = Range.edges(editor.selection);
+      const [startPoint, endPoint] = getRangeEdges(editor.selection);
       const commonEntry = Node.common(
         editor,
         startPoint.path,

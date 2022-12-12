@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
@@ -32,6 +31,9 @@ export function EmbeddedEntityBlockToolbarIcon({
 
   const handleClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+    if (!editor) {
+      return;
+    }
 
     onClose();
     await selectEntityAndInsert(nodeType, sdk, editor, editor.tracking.onToolbarAction);
@@ -44,8 +46,7 @@ export function EmbeddedEntityBlockToolbarIcon({
       disabled={isDisabled}
       className={`${baseClass}-list-item`}
       onClick={handleClick}
-      testId={`toolbar-toggle-${nodeType}`}
-    >
+      testId={`toolbar-toggle-${nodeType}`}>
       <Flex alignItems="center" flexDirection="row">
         <Icon
           as={type === 'Asset' ? AssetIcon : EmbeddedEntryBlockIcon}
