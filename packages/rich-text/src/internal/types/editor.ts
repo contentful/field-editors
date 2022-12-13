@@ -3,6 +3,7 @@
  */
 import { MARKS } from '@contentful/rich-text-types';
 import * as p from '@udecode/plate-core';
+import * as sr from 'slate-react';
 import {
   SelectionMoveOptions as SlateSelectionMoveOptions,
   SelectionCollapseOptions as SlateSelectionCollapseOptions,
@@ -37,6 +38,7 @@ export type Node = p.ElementOf<PlateEditor> | p.TextOf<PlateEditor>;
 export type Path = p.TPath;
 export type NodeEntry<T extends Node = Node> = p.TNodeEntry<T>;
 export type NodeMatch = p.ENodeMatch<Node>;
+export type Ancestor = p.AncestorOf<PlateEditor>;
 export type Descendant = p.DescendantOf<PlateEditor>;
 export type Operation = p.TOperation<Descendant>;
 export type Location = p.TLocation;
@@ -48,3 +50,5 @@ export type SelectionMoveOptions = SlateSelectionMoveOptions;
 export type TextInsertTextOptions = SlateTextInsertTextOptions;
 export type SelectionCollapseOptions = SlateSelectionCollapseOptions;
 export type HotkeyPlugin = p.HotkeyPlugin;
+export type RenderLeafProps = sr.RenderLeafProps;
+export type RenderElementProps = sr.RenderElementProps;

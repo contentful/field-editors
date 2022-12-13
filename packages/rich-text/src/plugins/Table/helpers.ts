@@ -1,16 +1,4 @@
-// @ts-nocheck
 import { BLOCKS } from '@contentful/rich-text-types';
-import {
-  getAboveNode,
-  getBlockAbove,
-  getParentNode,
-  getChildren,
-  isFirstChild,
-  isAncestorEmpty,
-  insertNodes,
-  selectEditor,
-  getStartPoint,
-} from '@udecode/plate-core';
 import {
   ELEMENT_TABLE,
   ELEMENT_TH,
@@ -18,13 +6,25 @@ import {
   ELEMENT_TR,
   getEmptyRowNode,
 } from '@udecode/plate-table';
-import { Element, Node, NodeEntry } from 'slate';
-import { Transforms, Path, Editor, Ancestor } from 'slate';
 
 import { isBlockSelected, getAncestorPathFromSelection } from '../../helpers/editor';
-import { CustomElement, RichTextEditor, TextOrCustomElement } from '../../types';
+import { selectEditor } from '../../internal';
+import {
+  getBlockAbove,
+  getStartPoint,
+  getAboveNode,
+  getChildren,
+  isFirstChildPath,
+  isAncestorEmpty,
+  getParentNode,
+  isElement,
+  getNodeEntries,
+  getPreviousPath,
+} from '../../internal/queries';
+import { insertNodes, removeNodes, moveNodes } from '../../internal/transforms';
+import { PlateEditor, NodeEntry, Ancestor, Node } from '../../internal/types';
 
-export function insertTableAndFocusFirstCell(editor: RichTextEditor): void {
+export function insertTableAndFocusFirstCell(editor: PlateEditor): void {
   const table = {
     type: BLOCKS.TABLE,
     data: {},
@@ -48,12 +48,12 @@ export function insertTableAndFocusFirstCell(editor: RichTextEditor): void {
   replaceEmptyParagraphWithTable(editor);
 }
 
-export function isTableActive(editor: RichTextEditor) {
+export function isTableActive(editor: PlateEditor) {
   const tableElements = [ELEMENT_TABLE, ELEMENT_TH, ELEMENT_TR, ELEMENT_TD];
   return tableElements.some((el) => isBlockSelected(editor, el));
 }
 
-export function isTableHeaderEnabled(editor: RichTextEditor) {
+export function isTableHeaderEnabled(editor: PlateEditor) {
   const tableItem = getAboveNode(editor, {
     match: {
       type: BLOCKS.TABLE,
@@ -64,27 +64,27 @@ export function isTableHeaderEnabled(editor: RichTextEditor) {
     return false;
   }
 
-  const firstRow = getChildren(tableItem)[0];
+  const firstRow = getChildren(...tableItem)[0];
 
   if (!firstRow) {
     return false;
   }
 
-  return getChildren(firstRow).every(([node]) => {
+  return getChildren(...firstRow).every(([node]) => {
     return node.type === BLOCKS.TABLE_HEADER_CELL;
   });
 }
 
-export function replaceEmptyParagraphWithTable(editor: RichTextEditor) {
+export function replaceEmptyParagraphWithTable(editor: PlateEditor) {
   const tablePath = getAncestorPathFromSelection(editor);
-  if (!tablePath || isFirstChild(tablePath)) return;
+  if (!tablePath || isFirstChildPath(tablePath)) return;
 
-  const previousPath = Path.previous(tablePath);
+  const previousPath = getPreviousPath(tablePath);
   if (!previousPath) return;
 
-  const [nodes] = Editor.nodes(editor, {
+  const [nodes] = getNodeEntries(editor, {
     at: previousPath,
-    match: (node) => (node as CustomElement).type === BLOCKS.PARAGRAPH,
+    match: (node) => node.type === BLOCKS.PARAGRAPH,
   });
   if (!nodes) return;
 
@@ -92,9 +92,9 @@ export function replaceEmptyParagraphWithTable(editor: RichTextEditor) {
   const isPreviousNodeTextEmpty = isAncestorEmpty(editor, previousNode as Ancestor);
   if (isPreviousNodeTextEmpty) {
     // Switch table with previous empty paragraph
-    Transforms.moveNodes(editor, { at: tablePath, to: previousPath });
+    moveNodes(editor, { at: tablePath, to: previousPath });
     // Remove previous paragraph that now is under the table
-    Transforms.removeNodes(editor, { at: tablePath });
+    removeNodes(editor, { at: tablePath });
   }
 }
 
@@ -104,7 +104,7 @@ export function replaceEmptyParagraphWithTable(editor: RichTextEditor) {
  * Note: We should only get different table rows cell counts in between
  * normalization cycles.
  */
-export const getNoOfMissingTableCellsInRow = (editor: RichTextEditor, [, rowPath]: NodeEntry) => {
+export const getNoOfMissingTableCellsInRow = (editor: PlateEditor, [, rowPath]: NodeEntry) => {
   const parent = getParentNode(editor, rowPath);
 
   // This is ensured by normalization. The error is here just in case
@@ -116,12 +116,10 @@ export const getNoOfMissingTableCellsInRow = (editor: RichTextEditor, [, rowPath
 
   // The longest table row determines its width
   const tableWidth = Math.max(
-    ...Array.from(Node.children(editor, tablePath)).map(
-      ([, path]) => Array.from(Node.children(editor, path)).length
-    )
+    ...getChildren(editor, tablePath).map(([, path]) => getChildren(editor, path).length)
   );
 
-  const rowWidth = Array.from(Node.children(editor, rowPath)).length;
+  const rowWidth = getChildren(editor, rowPath).length;
 
   return tableWidth - rowWidth;
 };
@@ -142,10 +140,10 @@ export const createEmptyTableCells = (count: number): Node[] => {
   return new Array(count).fill(emptyTableCell);
 };
 
-export const isNotEmpty = (editor: RichTextEditor, [, path]: NodeEntry) => {
-  return Array.from(Node.children(editor, path)).length !== 0;
+export const isNotEmpty = (editor: PlateEditor, [, path]: NodeEntry) => {
+  return getChildren(editor, path).length !== 0;
 };
 
-export const isTable = (node: TextOrCustomElement) => {
-  return Element.isElement(node) && node.type === BLOCKS.TABLE;
+export const isTable = (node: Node) => {
+  return isElement(node) && node.type === BLOCKS.TABLE;
 };

@@ -1,10 +1,9 @@
-// @ts-nocheck
 import { BLOCKS } from '@contentful/rich-text-types';
 import { createTrailingBlockPlugin } from '@udecode/plate-trailing-block';
 
-import { RichTextPlugin } from '../../types';
+import { PlatePlugin } from '../../internal/types';
 
-export const createTrailingParagraphPlugin = (): RichTextPlugin => {
+export const createTrailingParagraphPlugin = (): PlatePlugin => {
   return createTrailingBlockPlugin({
     options: {
       type: BLOCKS.PARAGRAPH,

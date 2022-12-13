@@ -1,13 +1,11 @@
-// @ts-nocheck
 import * as React from 'react';
 
 import { SuperscriptIcon } from '@contentful/f36-icons';
 import { MARKS } from '@contentful/rich-text-types';
 import { createSuperscriptPlugin as createDefaultSuperscriptPlugin } from '@udecode/plate-basic-marks';
 import { css } from 'emotion';
-import * as Slate from 'slate-react';
 
-import { RichTextPlugin } from '../../types';
+import { PlatePlugin, RenderLeafProps } from '../../internal/types';
 import { createMarkToolbarButton } from './components/MarkToolbarButton';
 import { buildMarkEventHandler } from './helpers';
 
@@ -24,7 +22,7 @@ export const ToolbarSuperscriptButton = createMarkToolbarButton({
   icon: <SuperscriptIcon />,
 });
 
-export function Superscript(props: Slate.RenderLeafProps) {
+export function Superscript(props: RenderLeafProps) {
   return (
     <sup {...props.attributes} className={styles.superscript}>
       {props.children}
@@ -32,7 +30,7 @@ export function Superscript(props: Slate.RenderLeafProps) {
   );
 }
 
-export const createSuperscriptPlugin = (): RichTextPlugin =>
+export const createSuperscriptPlugin = (): PlatePlugin =>
   createDefaultSuperscriptPlugin({
     type: MARKS.SUPERSCRIPT,
     component: Superscript,

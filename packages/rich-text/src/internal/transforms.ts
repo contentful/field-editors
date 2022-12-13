@@ -112,3 +112,7 @@ export const deleteText = (editor: PlateEditor, opts?: Parameters<typeof p.delet
 export const removeNodes = (editor: PlateEditor, opts?: p.RemoveNodesOptions<Value>) => {
   p.removeNodes(editor, opts);
 };
+
+export const moveNodes = (editor: PlateEditor, opts?: p.MoveNodesOptions<Value>) => {
+  p.moveNodes(editor, opts);
+};

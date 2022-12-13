@@ -10,6 +10,6 @@ export type KeyboardHandler<P = p.PluginOptions> = p.KeyboardHandler<P, Value, P
 export interface PlatePlugin extends p.PlatePlugin<p.AnyObject, Value, PlateEditor> {
   softBreak?: SoftBreakRule[];
   exitBreak?: ExitBreakRule[];
-  resetNode?: ResetNodePluginRule[];
+  resetNode?: ResetNodePluginRule<Value, PlateEditor>[];
   normalizer?: NormalizerRule[];
 }

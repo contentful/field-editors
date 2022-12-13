@@ -1,30 +1,24 @@
-// @ts-nocheck
-
 import { KeyboardEvent } from 'react';
 
 import { BLOCKS } from '@contentful/rich-text-types';
-import {
-  HotkeyPlugin,
-  KeyboardHandler,
-  WithPlatePlugin,
-  getAboveNode,
-  isLastChild,
-} from '@udecode/plate-core';
 import { getTableEntries, onKeyDownTable as defaultKeyDownTable } from '@udecode/plate-table';
 
 import { insertEmptyParagraph } from '../../helpers/editor';
-import { RichTextEditor } from '../../types';
+import { getAboveNode, isLastChildPath } from '../../internal/queries';
+import { KeyboardHandler, HotkeyPlugin, NodeEntry } from '../../internal/types';
 import { addRowBelow } from './actions';
 
-export const onKeyDownTable: KeyboardHandler<RichTextEditor, HotkeyPlugin> = (editor, plugin) => {
-  const defaultHandler = defaultKeyDownTable(editor, plugin as WithPlatePlugin);
+export const onKeyDownTable: KeyboardHandler<HotkeyPlugin> = (editor, plugin) => {
+  const defaultHandler = defaultKeyDownTable(editor, plugin);
 
   return (event: KeyboardEvent) => {
-    // This fixes `Cannot resolve a Slate point from DOM point: [object HTMLDivElement]` when typing while the cursor is before table
+    // This fixes `Cannot resolve a Slate point from DOM point:
+    // [object HTMLDivElement]` when typing while the cursor is before table
     const windowSelection = window.getSelection();
     if (windowSelection) {
       // @ts-expect-error
-      const blockType = windowSelection.anchorNode.attributes?.['data-block-type']?.value; // this attribute comes from `plugins/Table/components/Table.tsx`
+      // this attribute comes from `plugins/Table/components/Table.tsx`
+      const blockType = windowSelection.anchorNode.attributes?.['data-block-type']?.value;
       const isBeforeTable = blockType === BLOCKS.TABLE;
 
       if (isBeforeTable) {
@@ -53,8 +47,8 @@ export const onKeyDownTable: KeyboardHandler<RichTextEditor, HotkeyPlugin> = (ed
       if (entry) {
         const { table, row, cell } = entry;
 
-        const isLastCell = isLastChild(row, cell[1]);
-        const isLastRow = isLastChild(table, row[1]);
+        const isLastCell = isLastChildPath(row as NodeEntry, cell[1]);
+        const isLastRow = isLastChildPath(table as NodeEntry, row[1]);
 
         if (isLastRow && isLastCell) {
           addRowBelow(editor);

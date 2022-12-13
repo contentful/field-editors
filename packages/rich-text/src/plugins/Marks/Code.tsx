@@ -1,13 +1,11 @@
-// @ts-nocheck
 import * as React from 'react';
 
 import { CodeIcon } from '@contentful/f36-icons';
 import { MARKS } from '@contentful/rich-text-types';
 import { createCodePlugin as createDefaultCodePlugin } from '@udecode/plate-basic-marks';
 import { css } from 'emotion';
-import * as Slate from 'slate-react';
 
-import { RichTextPlugin } from '../../types';
+import { PlatePlugin, RenderLeafProps } from '../../internal/types';
 import { createMarkToolbarButton } from './components/MarkToolbarButton';
 import { buildMarkEventHandler } from './helpers';
 
@@ -24,7 +22,7 @@ const styles = {
   }),
 };
 
-export function Code(props: Slate.RenderLeafProps) {
+export function Code(props: RenderLeafProps) {
   return (
     <code {...props.attributes} className={styles.code}>
       {props.children}
@@ -32,7 +30,7 @@ export function Code(props: Slate.RenderLeafProps) {
   );
 }
 
-export const createCodePlugin = (): RichTextPlugin =>
+export const createCodePlugin = (): PlatePlugin =>
   createDefaultCodePlugin({
     type: MARKS.CODE,
     component: Code,
