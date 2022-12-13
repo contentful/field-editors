@@ -47,3 +47,4 @@ export type WithOverride<P = p.AnyObject> = p.WithOverride<P, Value, PlateEditor
 export type SelectionMoveOptions = SlateSelectionMoveOptions;
 export type TextInsertTextOptions = SlateTextInsertTextOptions;
 export type SelectionCollapseOptions = SlateSelectionCollapseOptions;
+export type HotkeyPlugin = p.HotkeyPlugin;
