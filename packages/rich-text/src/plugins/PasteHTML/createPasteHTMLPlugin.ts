@@ -1,7 +1,6 @@
-// @ts-nocheck
 import { KEY_DESERIALIZE_HTML } from '@udecode/plate-core';
 
-import { RichTextPlugin } from '../../types';
+import { PlatePlugin } from '../../internal/types';
 import { sanitizeHTML } from './utils/sanitizeHTML';
 
 /**
@@ -33,7 +32,7 @@ export const ensureXSlateFragment = (dataTransfer: DataTransfer): DataTransfer =
   return dataTransfer;
 };
 
-export const createPasteHTMLPlugin = (): RichTextPlugin => ({
+export const createPasteHTMLPlugin = (): PlatePlugin => ({
   key: 'PasteHTMLPlugin',
   withOverrides: (editor) => {
     const { insertData } = editor;

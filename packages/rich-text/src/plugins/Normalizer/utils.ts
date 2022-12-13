@@ -1,8 +1,4 @@
-// @ts-nocheck
-
-import { NodeEntry, Text, Node, Element } from 'slate';
-import { RichTextEditor } from 'types';
-
+import { isElement } from '../../internal/queries';
 import { NodeValidator, NodeTransformer } from './types';
 
 export class NormalizerError extends Error {}
@@ -10,16 +6,8 @@ export class NormalizerError extends Error {}
 export const createValidatorFromTypes =
   (types: string[]): NodeValidator =>
   (_, [node]) => {
-    return Element.isElement(node) && types.includes(node.type);
+    return isElement(node) && types.includes(node.type);
   };
-
-export const getChildren = (editor: RichTextEditor, [node, path]: NodeEntry): NodeEntry[] => {
-  if (Text.isText(node)) {
-    return [];
-  }
-
-  return Array.from(Node.children(editor, path));
-};
 
 export const createTransformerFromObject = (
   transforms: Record<string, NodeTransformer>
@@ -33,7 +21,7 @@ export const createTransformerFromObject = (
 
   return (editor, entry) => {
     const [node] = entry;
-    const key = Element.isElement(node) ? node.type : 'default';
+    const key = isElement(node) ? node.type : 'default';
 
     const transformer = transforms[key] || fallback;
 

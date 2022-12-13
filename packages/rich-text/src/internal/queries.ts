@@ -70,6 +70,11 @@ export const getParentNode = (
 };
 
 export const getChildren = (root: PlateEditor | Node, path: s.Path) => {
+  // Node.children crashes when given a text node
+  if (s.Text.isText(root)) {
+    return [];
+  }
+
   return Array.from(s.Node.children(root as any, path)) as NodeEntry[];
 };
 
@@ -187,4 +192,8 @@ export const isFirstChildPath = (path: s.Path) => {
 
 export const isChildPath = (path: s.Path, another: s.Path) => {
   return s.Path.isChild(path, another);
+};
+
+export const matchNode = (node: Node, path: s.Path, fn: p.Predicate<PlateEditor | Node>) => {
+  return p.match(node, path, fn);
 };
