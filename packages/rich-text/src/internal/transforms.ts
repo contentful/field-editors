@@ -90,6 +90,13 @@ export const removeMark = (editor: PlateEditor, type: string, at: BaseRange) => 
   p.removeMark(editor, { key: type, at });
 };
 
+export const toggleMark = (
+  editor: PlateEditor,
+  options: p.ToggleMarkOptions<Value, keyof p.TText>
+) => {
+  return p.toggleMark(editor, options);
+};
+
 export const addMark = (editor: PlateEditor, type: string, value: unknown = true) => {
   p.addMark(editor, type, value);
 };

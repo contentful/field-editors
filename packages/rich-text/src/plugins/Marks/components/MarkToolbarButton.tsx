@@ -1,11 +1,10 @@
-// @ts-nocheck
 import * as React from 'react';
 
 import { MARKS } from '@contentful/rich-text-types';
-import { isMarkActive } from '@udecode/plate-core';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
 import { focus } from '../../../helpers/editor';
+import { isMarkActive } from '../../../internal/queries';
 import { ToolbarButton } from '../../shared/ToolbarButton';
 import { toggleMarkAndDeactivateConflictingMarks } from '../helpers';
 

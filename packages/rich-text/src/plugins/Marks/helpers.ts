@@ -1,22 +1,18 @@
-// @ts-nocheck
 import { MARKS } from '@contentful/rich-text-types';
-import { HotkeyPlugin, isMarkActive, KeyboardHandler, toggleMark } from '@udecode/plate-core';
-import type { PlateEditor } from '@udecode/plate-core';
 import isHotkey from 'is-hotkey';
 
-import { RichTextEditor } from '../../types';
+import { isMarkActive } from '../../internal/queries';
+import { toggleMark } from '../../internal/transforms';
+import { PlateEditor, HotkeyPlugin, KeyboardHandler } from '../../internal/types';
 
-export const toggleMarkAndDeactivateConflictingMarks = (
-  editor: PlateEditor<RichTextEditor>,
-  mark: MARKS
-) => {
+export const toggleMarkAndDeactivateConflictingMarks = (editor: PlateEditor, mark: MARKS) => {
   const subs = [MARKS.SUPERSCRIPT, MARKS.SUBSCRIPT];
   const clear = subs.includes(mark) ? subs : [];
   toggleMark(editor, { key: mark, clear });
 };
 
 export const buildMarkEventHandler =
-  (type: MARKS): KeyboardHandler<RichTextEditor, HotkeyPlugin> =>
+  (type: MARKS): KeyboardHandler<HotkeyPlugin> =>
   (editor, { options: { hotkey } }) =>
   (event) => {
     if (editor.selection && hotkey && isHotkey(hotkey, event)) {
