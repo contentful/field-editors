@@ -4,7 +4,7 @@ import { withoutNormalizing } from '../../../internal';
 import {
   getAboveNode,
   getParentNode,
-  isFirstChild,
+  isFirstChildPath,
   isSelectionAtBlockEnd,
   isSelectionAtBlockStart,
   getMarks,
@@ -82,7 +82,7 @@ export const insertListItem = (editor: RichTextEditor): boolean => {
     const isAtStart = isSelectionAtBlockStart(editor);
     const isAtEnd = isSelectionAtBlockEnd(editor);
 
-    const isAtStartOfListItem = isAtStart && isFirstChild(paragraphPath);
+    const isAtStartOfListItem = isAtStart && isFirstChildPath(paragraphPath);
     const shouldSplit = !isAtStart && !isAtEnd;
 
     // Split the current paragraph content if necessary
