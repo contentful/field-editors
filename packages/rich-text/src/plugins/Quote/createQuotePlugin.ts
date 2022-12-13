@@ -1,14 +1,13 @@
-// @ts-nocheck
 import { BLOCKS, CONTAINERS } from '@contentful/rich-text-types';
 
 import { transformLift, transformUnwrap } from '../../helpers/transformers';
-import { RichTextPlugin } from '../../types';
+import { PlatePlugin } from '../../internal/types';
 import { Quote } from './components/Quote';
 import { shouldResetQuoteOnBackspace } from './shouldResetQuote';
 import { onKeyDownToggleQuote, toggleQuote } from './toggleQuote';
 import { withQuote } from './withQuote';
 
-export function createQuotePlugin(): RichTextPlugin {
+export function createQuotePlugin(): PlatePlugin {
   return {
     key: BLOCKS.QUOTE,
     type: BLOCKS.QUOTE,

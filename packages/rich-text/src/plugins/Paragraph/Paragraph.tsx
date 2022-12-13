@@ -1,10 +1,10 @@
-// @ts-nocheck
 import * as React from 'react';
 
 import tokens from '@contentful/f36-tokens';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { css } from 'emotion';
-import { RenderElementProps } from 'slate-react';
+
+import { RenderElementProps } from '../../internal/types';
 
 const styles = {
   [BLOCKS.PARAGRAPH]: css`

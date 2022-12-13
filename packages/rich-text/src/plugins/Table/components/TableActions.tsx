@@ -103,8 +103,7 @@ export const TableActions = () => {
       onOpen={() => {
         setOpen(true);
       }}
-      onClose={close}
-    >
+      onClose={close}>
       <Menu.Trigger>
         <IconButton
           size="small"

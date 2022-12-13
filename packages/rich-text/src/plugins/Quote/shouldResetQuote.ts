@@ -1,9 +1,8 @@
-// @ts-nocheck
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
 import { isLastChild, hasSingleChild } from '@udecode/plate-core';
 
 import { getAboveNode, getBlockAbove, isAncestorEmpty } from '../../internal/queries';
-import { PlateEditor } from '../../internal/types';
+import { PlateEditor, Ancestor } from '../../internal/types';
 
 /**
  * Returns true if we are:
@@ -21,7 +20,7 @@ export const shouldResetQuoteOnBackspace = (editor: PlateEditor) => {
     return false;
   }
 
-  if (!isAncestorEmpty(editor, container[0])) {
+  if (!isAncestorEmpty(editor, container[0] as Ancestor)) {
     return false;
   }
 

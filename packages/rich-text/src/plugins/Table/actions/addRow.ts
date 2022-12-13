@@ -1,28 +1,26 @@
-// @ts-nocheck
-import { getPluginType, TElement, getAboveNode, insertNodes, someNode } from '@udecode/plate-core';
-import { ELEMENT_TABLE, ELEMENT_TR, getEmptyRowNode } from '@udecode/plate-table';
-import { Path, Editor } from 'slate';
+import { BLOCKS } from '@contentful/rich-text-types';
+import { getEmptyRowNode } from '@udecode/plate-table';
 
-import { setSelection } from '../../../internal/transforms';
-import { RichTextEditor } from '../../../types';
+import { getAboveNode, someNode, getStartPoint, getNextPath } from '../../../internal/queries';
+import { setSelection, insertNodes } from '../../../internal/transforms';
+import { PlateEditor, NodeEntry, Element, Path } from '../../../internal/types';
 
-const addRow = (editor: RichTextEditor, getNextRowPath: (currentRowPath: Path) => Path) => {
+const addRow = (editor: PlateEditor, getNextRowPath: (currentRowPath: Path) => Path) => {
   if (
     someNode(editor, {
-      match: { type: getPluginType(editor, ELEMENT_TABLE) },
+      match: { type: BLOCKS.TABLE },
     })
   ) {
     const currentRowItem = getAboveNode(editor, {
-      match: { type: getPluginType(editor, ELEMENT_TR) },
-    });
+      match: { type: BLOCKS.TABLE_ROW },
+    }) as NodeEntry<Element> | undefined;
 
     if (currentRowItem) {
       const [currentRowElem, currentRowPath] = currentRowItem;
       const nextRowPath = getNextRowPath(currentRowPath);
 
-      insertNodes<TElement>(
+      insertNodes(
         editor,
-        // @ts-expect-error
         getEmptyRowNode(editor, {
           header: false,
           colCount: currentRowElem.children.length,
@@ -35,18 +33,18 @@ const addRow = (editor: RichTextEditor, getNextRowPath: (currentRowPath: Path) =
       );
 
       // Select the first cell in the current row
-      setSelection(editor, Editor.start(editor, nextRowPath));
+      setSelection(editor, getStartPoint(editor, nextRowPath));
     }
   }
 };
 
-export const addRowBelow = (editor: RichTextEditor) => {
+export const addRowBelow = (editor: PlateEditor) => {
   addRow(editor, (currentRowPath) => {
-    return Path.next(currentRowPath);
+    return getNextPath(currentRowPath);
   });
 };
 
-export const addRowAbove = (editor: RichTextEditor) => {
+export const addRowAbove = (editor: PlateEditor) => {
   addRow(editor, (currentRowPath) => {
     // The new row will be in in-place of the old row
     return currentRowPath;

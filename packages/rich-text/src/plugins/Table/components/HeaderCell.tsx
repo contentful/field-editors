@@ -1,11 +1,11 @@
-// @ts-nocheck
 import * as React from 'react';
 
 import tokens from '@contentful/f36-tokens';
 import { TableHeaderCell } from '@contentful/rich-text-types';
 import { css } from 'emotion';
-import * as Slate from 'slate-react';
+import { useSelected } from 'slate-react';
 
+import { RenderElementProps } from '../../../internal/types';
 import { TableActions } from './TableActions';
 
 const style = css`
@@ -24,8 +24,8 @@ const style = css`
   }
 `;
 
-export const HeaderCell = (props: Slate.RenderElementProps) => {
-  const isSelected = Slate.useSelected();
+export const HeaderCell = (props: RenderElementProps) => {
+  const isSelected = useSelected();
 
   return (
     <th

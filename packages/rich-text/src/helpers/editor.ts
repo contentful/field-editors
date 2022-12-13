@@ -60,7 +60,7 @@ export function isRootLevel(path: Path): boolean {
 type NodeEntry = [CustomElement, Path];
 type NodeType = BLOCKS | INLINES;
 export function getNodeEntryFromSelection(
-  editor: RichTextEditor,
+  editor: PlateEditor,
   nodeTypeOrTypes: NodeType | NodeType[],
   path?: Path
 ): NodeEntry | [] {
@@ -74,7 +74,10 @@ export function getNodeEntryFromSelection(
   return [];
 }
 
-export function isNodeTypeSelected(editor: RichTextEditor, nodeType: BLOCKS | INLINES): boolean {
+export function isNodeTypeSelected(
+  editor: PlateEditor | null,
+  nodeType: BLOCKS | INLINES
+): boolean {
   if (!editor) return false;
   const [node] = getNodeEntryFromSelection(editor, nodeType);
   return !!node;

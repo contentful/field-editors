@@ -14,6 +14,7 @@ import type {
   BaseRange,
   Element,
   Text,
+  Ancestor,
 } from './types';
 
 /**
@@ -29,6 +30,10 @@ export const isText = (value: unknown): value is Text => {
 
 export const getEndPoint = (editor: PlateEditor, at: Location) => {
   return p.getEndPoint(editor, at);
+};
+
+export const getStartPoint = (editor: PlateEditor, at: Location) => {
+  return p.getStartPoint(editor, at);
 };
 
 export const isNode = (value: unknown): value is Node => {
@@ -67,6 +72,10 @@ export const getParentNode = (
   options?: s.EditorParentOptions
 ) => {
   return p.getParentNode(editor, at, options);
+};
+
+export const someNode = (editor: PlateEditor, options: p.FindNodeOptions) => {
+  return p.someNode(editor, options);
 };
 
 export const getChildren = (root: PlateEditor | Node, path: s.Path) => {
@@ -166,7 +175,7 @@ export const isAncestorPath = (path: s.Path, another: s.Path) => {
   return s.Path.isAncestor(path, another);
 };
 
-export const isAncestorEmpty = (editor: PlateEditor, node: p.TAncestor) => {
+export const isAncestorEmpty = (editor: PlateEditor, node: Ancestor) => {
   return p.isAncestorEmpty(editor, node);
 };
 
@@ -176,6 +185,14 @@ export const getParentPath = (path: s.Path) => {
 
 export const getNextPath = (path: s.Path) => {
   return s.Path.next(path);
+};
+
+export const getPreviousPath = (path: s.Path) => {
+  return s.Path.previous(path);
+};
+
+export const getLastChildPath = (nodeEntry: NodeEntry) => {
+  return p.getLastChildPath(nodeEntry);
 };
 
 export const getPathLevels = (path: s.Path, options?: s.PathLevelsOptions) => {
@@ -190,10 +207,21 @@ export const isFirstChildPath = (path: s.Path) => {
   return p.isFirstChild(path);
 };
 
+export const isLastChildPath = (entry: NodeEntry, childPath: s.Path) => {
+  return p.isLastChild(entry, childPath);
+};
+
 export const isChildPath = (path: s.Path, another: s.Path) => {
   return s.Path.isChild(path, another);
 };
 
 export const matchNode = (node: Node, path: s.Path, fn: p.Predicate<PlateEditor | Node>) => {
   return p.match(node, path, fn);
+};
+
+export const someHtmlElement = (
+  rootNode: globalThis.Node,
+  predicate: (node: HTMLElement) => boolean
+) => {
+  return p.someHtmlElement(rootNode, predicate);
 };

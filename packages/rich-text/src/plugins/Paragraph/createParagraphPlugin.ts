@@ -1,11 +1,10 @@
 import { BLOCKS } from '@contentful/rich-text-types';
-import { HotkeyPlugin } from '@udecode/plate-core';
 import { createParagraphPlugin as createDefaultParagraphPlugin } from '@udecode/plate-paragraph';
 import isHotkey from 'is-hotkey';
 
 import { isInlineOrText, toggleElement } from '../../helpers/editor';
 import { transformUnwrap, transformLift } from '../../helpers/transformers';
-import { PlatePlugin, KeyboardHandler } from '../../internal/types';
+import { PlatePlugin, KeyboardHandler, HotkeyPlugin } from '../../internal/types';
 import { Paragraph } from './Paragraph';
 import { isEmbedElement, isEmptyElement } from './utils';
 

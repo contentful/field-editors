@@ -1,28 +1,26 @@
-// @ts-nocheck
-
 import { BLOCKS } from '@contentful/rich-text-types';
-import { Element } from 'slate';
 
+import { isElement } from '../../internal/queries';
+import { Node, PlateEditor } from '../../internal/types';
 import { getPastingSource } from '../../plugins/Tracking';
-import { CustomElement, RichTextEditor } from '../../types';
 import type { NodeTransformer } from '../Normalizer';
 
-function hasTables(nodes: CustomElement[]) {
+function hasTables(nodes: Node[]) {
   return nodes.some(({ type }) => {
     return type === BLOCKS.TABLE;
   });
 }
 
-const isTableHeaderCell = ({ type }) => type === BLOCKS.TABLE_HEADER_CELL;
+const isTableHeaderCell = ({ type }: Node) => type === BLOCKS.TABLE_HEADER_CELL;
 
-function hasHeadersOutsideFirstRow(nodes: CustomElement[]) {
+function hasHeadersOutsideFirstRow(nodes: Node[]) {
   return nodes
     .filter(({ type }) => type === BLOCKS.TABLE)
-    .flatMap(({ children }) => children.slice(1) as CustomElement[])
-    .some(({ children }) => (children as CustomElement[]).some(isTableHeaderCell));
+    .flatMap(({ children }) => (children as Node[]).slice(1) as Node[])
+    .some(({ children }) => (children as Node[]).some(isTableHeaderCell));
 }
 
-export function addTableTrackingEvents(editor: RichTextEditor) {
+export function addTableTrackingEvents(editor: PlateEditor) {
   const { insertData } = editor;
   editor.insertData = (data: DataTransfer) => {
     const html = data.getData('text/html');
@@ -51,7 +49,7 @@ export const withInvalidCellChildrenTracking = (transformer: NodeTransformer): N
   return (editor, childEntry) => {
     const [node] = childEntry;
 
-    if (Element.isElement(node)) {
+    if (isElement(node)) {
       editor.tracking?.onViewportAction('invalidTablePaste', {
         nodeType: node.type,
       });

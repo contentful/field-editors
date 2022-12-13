@@ -18,6 +18,10 @@ export const focusEditor = (editor: PlateEditor, target?: Location) => {
   p.focusEditor(editor, target);
 };
 
+export const selectEditor = (editor: PlateEditor, opts: p.SelectEditorOptions) => {
+  p.selectEditor(editor, opts);
+};
+
 export const fromDOMPoint = (
   editor: PlateEditor,
   domPoint: [Node /* DOM Node*/, number],
