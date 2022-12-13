@@ -69,17 +69,8 @@ export const getParentNode = (
   return p.getParentNode(editor, at, options);
 };
 
-export const isFirstChild = (path: s.Path) => {
-  return p.isFirstChild(path);
-};
-
 export const getChildren = (root: PlateEditor | Node, path: s.Path) => {
   return Array.from(s.Node.children(root as any, path)) as NodeEntry[];
-};
-
-export const getEntryChildren = (entry: NodeEntry<Node>) => {
-  const [root, path] = entry;
-  return getChildren(root, path);
 };
 
 export const getDescendantNodeByPath = (root: Node, path: s.Path): Node => {
