@@ -1,9 +1,7 @@
-// @ts-nocheck
-import { RichTextPlugin } from '../../types';
+import { PlatePlugin } from '../../internal/types';
 import { withNormalizer } from './withNormalizer';
 
-export const createNormalizerPlugin = (): RichTextPlugin => ({
+export const createNormalizerPlugin = (): PlatePlugin => ({
   key: 'NormalizerPlugin',
-  // @ts-expect-error
   withOverrides: withNormalizer,
 });
