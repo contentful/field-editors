@@ -14,6 +14,9 @@ import {
   TextInsertTextOptions,
   Element,
   SelectionCollapseOptions,
+  Path,
+  Span,
+  BasePoint,
 } from './types';
 
 /**
@@ -88,6 +91,14 @@ export const toggleNodeType = (
 
 export const removeMark = (editor: PlateEditor, type: string, at: BaseRange) => {
   p.removeMark(editor, { key: type, at });
+};
+
+export const unhangRange = (
+  editor: PlateEditor,
+  range?: Path | BasePoint | BaseRange | Span | null | undefined,
+  options?: p.UnhangRangeOptions | undefined
+) => {
+  return p.unhangRange(editor, range, options);
 };
 
 export const toggleMark = (

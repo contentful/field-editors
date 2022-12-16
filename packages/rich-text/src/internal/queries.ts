@@ -15,6 +15,7 @@ import type {
   Element,
   Text,
   Ancestor,
+  BasePoint,
 } from './types';
 
 /**
@@ -224,4 +225,36 @@ export const someHtmlElement = (
   predicate: (node: HTMLElement) => boolean
 ) => {
   return p.someHtmlElement(rootNode, predicate);
+};
+
+export const getPointBefore = (
+  editor: PlateEditor,
+  at: Location,
+  options?: s.EditorBeforeOptions
+) => {
+  return p.getPointBefore(editor, at, options);
+};
+
+export const getPointAfter = (
+  editor: PlateEditor,
+  at: Location,
+  options?: s.EditorAfterOptions
+) => {
+  return p.getPointAfter(editor, at, options);
+};
+
+export const isEndPoint = (
+  editor: PlateEditor,
+  point: BasePoint | null | undefined,
+  at: Location
+) => {
+  return p.isEndPoint(editor, point, at);
+};
+
+export const isInine = (editor: PlateEditor, value: any) => {
+  return p.isInline(editor, value);
+};
+
+export const queryNode = (entry?: NodeEntry, options?: p.QueryNodeOptions) => {
+  return p.queryNode(entry, options);
 };
