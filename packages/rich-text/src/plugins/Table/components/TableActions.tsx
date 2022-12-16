@@ -1,17 +1,16 @@
-// @ts-nocheck
 import React from 'react';
 
 import { IconButton, Menu } from '@contentful/f36-components';
 import { ChevronDownIcon } from '@contentful/f36-icons';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { getAboveNode } from '@udecode/plate-core';
-import { TablePluginOptions, deleteColumn, deleteRow, deleteTable } from '@udecode/plate-table';
+import { deleteColumn, deleteRow, deleteTable } from '@udecode/plate-table';
 import { css } from 'emotion';
-import * as Slate from 'slate-react';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
 import { getNodeEntryFromSelection, getTableSize } from '../../../helpers/editor';
 import { withoutNormalizing } from '../../../internal';
+import { useReadOnly } from '../../../internal/hooks';
+import { getAboveNode } from '../../../internal/queries';
 import { RichTextTrackingActionName } from '../../../plugins/Tracking';
 import { RichTextEditor } from '../../../types';
 import { addRowAbove, addColumnLeft, addColumnRight, addRowBelow, setHeader } from '../actions';
@@ -32,11 +31,12 @@ const getCurrentTableSize = (
   return table ? getTableSize(table) : null;
 };
 
-type TableAction = (editor: RichTextEditor, options: TablePluginOptions) => void;
+// FIXME: TablePluginOptions no longer exported so using any
+type TableAction = (editor: RichTextEditor, options: any) => void;
 
 export const TableActions = () => {
   const editor = useContentfulEditor();
-  const isDisabled = Slate.useReadOnly();
+  const isDisabled = useReadOnly();
   const [isOpen, setOpen] = React.useState(false);
   const [isHeaderEnabled, setHeaderEnabled] = React.useState(false);
 
@@ -103,7 +103,8 @@ export const TableActions = () => {
       onOpen={() => {
         setOpen(true);
       }}
-      onClose={close}>
+      onClose={close}
+    >
       <Menu.Trigger>
         <IconButton
           size="small"
