@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
 
 import {
@@ -13,7 +12,14 @@ import {
   queryNode,
 } from '../../internal/queries';
 import { setSelection, removeNodes, splitNodes, unhangRange } from '../../internal/transforms';
-import { PlatePlugin, PlateEditor, Ancestor, Node, Location } from '../../internal/types';
+import {
+  PlatePlugin,
+  PlateEditor,
+  Ancestor,
+  Node,
+  Location,
+  BaseRange,
+} from '../../internal/types';
 
 export function createTextPlugin(): PlatePlugin {
   return {
@@ -27,7 +33,7 @@ export function createTextPlugin(): PlatePlugin {
           return;
         }
 
-        setSelection(editor, unhangRange(editor, editor.selection));
+        setSelection(editor, unhangRange(editor, editor.selection) as Partial<BaseRange>);
       },
     },
     withOverrides: (editor) => {
@@ -114,7 +120,7 @@ function deleteEmptyParagraph(
         });
 
         if (prevCell) {
-          setSelection(editor, prevNode);
+          setSelection(editor, prevNode as Partial<BaseRange>);
         }
       }
     } else {

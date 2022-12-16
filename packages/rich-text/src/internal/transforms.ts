@@ -4,7 +4,6 @@ import { Except } from 'type-fest';
 
 import {
   PlateEditor,
-  Location,
   Node,
   ToggleNodeTypeOptions,
   EditorNodesOptions,
@@ -29,8 +28,8 @@ export const normalize = (editor: PlateEditor, options?: s.EditorNormalizeOption
 /**
  * Set the selection to a location
  */
-export const setSelection = (editor: PlateEditor, at: Location) => {
-  return p.select(editor, at);
+export const setSelection = (editor: PlateEditor, props: Partial<s.BaseRange>) => {
+  return p.setSelection(editor, props);
 };
 
 export const moveSelection = (editor: PlateEditor, options?: SelectionMoveOptions) => {
