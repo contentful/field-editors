@@ -104,6 +104,16 @@ export const isRangeCollapsed = (range?: BaseRange) => {
   return p.isCollapsed(range);
 };
 
+// TODO: simplify
+export const isRangeAcrossBlocks = (
+  editor: p.TEditor<p.Value>,
+  options?:
+    | (Omit<p.GetAboveNodeOptions<p.Value>, 'at'> & { at?: s.BaseRange | null | undefined })
+    | undefined
+) => {
+  return p.isRangeAcrossBlocks(editor, options);
+};
+
 export const isRangeExpanded = (range?: BaseRange) => {
   return p.isExpanded(range);
 };
@@ -114,6 +124,14 @@ export const getRange = (editor: PlateEditor, at: Location, to?: Location) => {
 
 export const getRangeEdges = (range: BaseRange) => {
   return s.Range.edges(range);
+};
+
+export const getRangeStart = (range: BaseRange) => {
+  return s.Range.start(range);
+};
+
+export const getRangeEnd = (range: BaseRange) => {
+  return s.Range.end(range);
 };
 
 export const getAboveNode = (editor: PlateEditor, opts?: p.GetAboveNodeOptions<Value>) => {
@@ -142,6 +160,10 @@ export const getNodeTexts = (
   }
 ) => {
   return p.getNodeTexts(root, opts);
+};
+
+export const findNode = (editor: PlateEditor, options?: p.FindNodeOptions<p.Value> | undefined) => {
+  return p.findNode(editor, options);
 };
 
 export const isMarkActive = (editor: PlateEditor, type: string) => {
@@ -257,4 +279,8 @@ export const isInine = (editor: PlateEditor, value: any) => {
 
 export const queryNode = (entry?: NodeEntry, options?: p.QueryNodeOptions) => {
   return p.queryNode(entry, options);
+};
+
+export const getPluginType = (editor: PlateEditor, key: string) => {
+  return p.getPluginType(editor, key);
 };
