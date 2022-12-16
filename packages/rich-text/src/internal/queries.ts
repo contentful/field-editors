@@ -16,6 +16,7 @@ import type {
   Text,
   Ancestor,
   BasePoint,
+  Path,
 } from './types';
 
 /**
@@ -65,6 +66,15 @@ export const getNodeEntry = (editor: PlateEditor, at: Location, options?: s.Edit
 
 export const getNodeEntries = (editor: PlateEditor, options?: p.GetNodeEntriesOptions) => {
   return p.getNodeEntries(editor, options);
+};
+
+// TODO: Ancestor may not be the correct type for root
+export const getNodeChildren = (
+  root: Ancestor,
+  path: Path,
+  options?: s.NodeChildrenOptions | undefined
+) => {
+  return p.getNodeChildren(root, path, options);
 };
 
 export const getParentNode = (
@@ -283,4 +293,12 @@ export const queryNode = (entry?: NodeEntry, options?: p.QueryNodeOptions) => {
 
 export const getPluginType = (editor: PlateEditor, key: string) => {
   return p.getPluginType(editor, key);
+};
+
+export const createPathRef = (editor: PlateEditor, at: Path) => {
+  return p.createPathRef(editor, at);
+};
+
+export const match = (obj: Node, path: Path, predicate?: p.Predicate<Node> | undefined) => {
+  return p.match(obj, path, predicate);
 };

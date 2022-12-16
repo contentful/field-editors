@@ -2,22 +2,22 @@
  * Credit: Modified version of Plate's list plugin
  * See: https://github.com/udecode/plate/blob/main/packages/nodes/list
  */
-// @ts-nocheck
+import { isListNested, ELEMENT_LIC, getListItemEntry, moveListItemUp } from '@udecode/plate-list';
+
+import { withoutNormalizing } from '../../../internal/misc';
 import {
-  EditorNodesOptions,
   getNodeEntries,
   getPluginType,
-  PlateEditor,
-} from '@udecode/plate-core';
-import { isListNested, ELEMENT_LIC, getListItemEntry, moveListItemUp } from '@udecode/plate-list';
-import { Editor, Path, PathRef } from 'slate';
-
-import { withoutNormalizing } from '../../../internal';
+  createPathRef,
+  getParentPath,
+  isAncestorPath,
+} from '../../../internal/queries';
+import { Span, Location, PlateEditor, Path, PathRef } from '../../../internal/types';
 import { moveListItemDown } from './moveListItemDown';
 
 export type MoveListItemsOptions = {
   increase?: boolean;
-  at?: EditorNodesOptions['at'];
+  at?: Location | Span | undefined;
 };
 
 export const moveListItems = (
@@ -42,16 +42,16 @@ export const moveListItems = (
   // Filter out the nested lic, we just need to move the highest ones
   lics.forEach((lic) => {
     const licPath = lic[1];
-    const liPath = Path.parent(licPath);
+    const liPath = getParentPath(licPath);
 
     const isAncestor = highestLicPaths.some((path) => {
-      const highestLiPath = Path.parent(path);
+      const highestLiPath = getParentPath(path);
 
-      return Path.isAncestor(highestLiPath, liPath);
+      return isAncestorPath(highestLiPath, liPath);
     });
     if (!isAncestor) {
       highestLicPaths.push(licPath);
-      highestLicPathRefs.push(Editor.pathRef(editor, licPath));
+      highestLicPathRefs.push(createPathRef(editor, licPath));
     }
   });
 

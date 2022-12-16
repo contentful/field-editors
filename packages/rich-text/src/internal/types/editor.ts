@@ -55,3 +55,5 @@ export type RenderLeafProps = sr.RenderLeafProps;
 export type RenderElementProps = sr.RenderElementProps;
 export type Span = p.TSpan;
 export type BasePoint = s.BasePoint;
+export type BaseSelection = s.BaseSelection;
+export type PathRef = s.PathRef;
