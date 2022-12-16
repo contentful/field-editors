@@ -3,8 +3,6 @@ import * as s from 'slate';
 
 import type { Value, PlateEditor, Location } from './types';
 
-export const Path = s.Path;
-
 export type CreatePlateEditorOptions = p.CreatePlateEditorOptions<Value, PlateEditor>;
 export const createPlateEditor = (options: CreatePlateEditorOptions = {}) => {
   return p.createPlateEditor<Value, PlateEditor>(options);

@@ -29,7 +29,7 @@ export function UrlHyperlink(props: HyperlinkElementProps) {
       exactMatch: false,
       suppressThrow: false,
     });
-    addOrEditLink(editor, sdk, editor.tracking.onViewportAction, p.path);
+    addOrEditLink(editor, sdk, editor.tracking.onViewportAction, p?.path);
   }
 
   return (
@@ -37,13 +37,15 @@ export function UrlHyperlink(props: HyperlinkElementProps) {
       content={uri}
       targetWrapperClassName={styles.hyperlinkWrapper}
       placement="bottom"
-      maxWidth="auto">
+      maxWidth="auto"
+    >
       <TextLink
         as="a"
         href={uri}
         rel="noopener noreferrer"
         onClick={handleClick}
-        className={styles.hyperlink}>
+        className={styles.hyperlink}
+      >
         {props.children}
       </TextLink>
     </Tooltip>

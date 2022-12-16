@@ -6,7 +6,7 @@ import { sanitizeIncomingSlateDoc } from './helpers/sanitizeIncomingSlateDoc';
 import { createPlateEditor, CreatePlateEditorOptions, withoutNormalizing } from './internal';
 import { getEndPoint, isNode } from './internal/queries';
 import { normalize, setSelection } from './internal/transforms';
-import { Value, PlateEditor, Node } from './internal/types';
+import { Value, PlateEditor, Node, BaseRange } from './internal/types';
 
 /**
  * For legacy reasons, a document may not have any content at all
@@ -41,7 +41,7 @@ export const setEditorContent = (editor: PlateEditor, nodes?: Node[]): void => {
 
     const point = getEndPoint(editor, []);
     if (point) {
-      setSelection(editor, point);
+      setSelection(editor, point as Partial<BaseRange>);
     }
   });
 };

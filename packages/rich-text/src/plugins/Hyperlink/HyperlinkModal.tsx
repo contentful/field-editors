@@ -24,7 +24,7 @@ import { isNodeTypeEnabled } from '../../helpers/validations';
 import { withoutNormalizing } from '../../internal';
 import { getText, isEditorReadOnly } from '../../internal/queries';
 import { setSelection } from '../../internal/transforms';
-import { PlateEditor, TPath } from '../../internal/types';
+import { PlateEditor, Path, BaseRange } from '../../internal/types';
 import { TrackingPluginActions } from '../../plugins/Tracking';
 import { FetchingWrappedAssetCard } from '../shared/FetchingWrappedAssetCard';
 import { FetchingWrappedEntryCard } from '../shared/FetchingWrappedEntryCard';
@@ -144,7 +144,8 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
                     setLinkType(event.target.value)
                   }
                   testId="link-type-input"
-                  isDisabled={props.readonly}>
+                  isDisabled={props.readonly}
+                >
                   {enabledLinkTypes.map((nodeType) => (
                     <Select.Option key={nodeType} value={nodeType}>
                       {LINK_TYPE_SELECTION_VALUES[nodeType]}
@@ -185,7 +186,8 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
                       <TextLink
                         testId="entity-selection-link"
                         onClick={resetLinkEntity}
-                        className={styles.removeSelectionLabel}>
+                        className={styles.removeSelectionLabel}
+                      >
                         Remove selection
                       </TextLink>
                     )}
@@ -234,7 +236,8 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
             onClick={() => props.onClose(null)}
             variant="secondary"
             testId="cancel-cta"
-            size="small">
+            size="small"
+          >
             Cancel
           </Button>
           <Button
@@ -243,7 +246,8 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
             size="small"
             isDisabled={props.readonly || !isLinkComplete()}
             onClick={handleOnSubmit}
-            testId="confirm-cta">
+            testId="confirm-cta"
+          >
             {props.linkType ? 'Update' : 'Insert'}
           </Button>
         </ModalControls>
@@ -266,7 +270,7 @@ export async function addOrEditLink(
     | TrackingPluginActions['onToolbarAction']
     | TrackingPluginActions['onShortcutAction']
     | TrackingPluginActions['onViewportAction'],
-  targetPath?: TPath
+  targetPath?: Path
 ) {
   const isReadOnly = isEditorReadOnly(editor);
   const selectionBeforeBlur = editor.selection ? { ...editor.selection } : undefined;
@@ -314,7 +318,7 @@ export async function addOrEditLink(
       );
     }
   );
-  setSelection(editor, selectionAfterFocus);
+  setSelection(editor, selectionAfterFocus as Partial<BaseRange>);
 
   if (!data) {
     focus(editor);

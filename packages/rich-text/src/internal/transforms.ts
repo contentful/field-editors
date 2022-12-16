@@ -28,7 +28,7 @@ export const normalize = (editor: PlateEditor, options?: s.EditorNormalizeOption
 /**
  * Set the selection to a location
  */
-export const setSelection = (editor: PlateEditor, props: Partial<s.BaseRange>) => {
+export const setSelection = (editor: PlateEditor, props: Partial<BaseRange>) => {
   return p.setSelection(editor, props);
 };
 
