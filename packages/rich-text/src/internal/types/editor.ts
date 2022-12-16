@@ -3,6 +3,7 @@
  */
 import { MARKS } from '@contentful/rich-text-types';
 import * as p from '@udecode/plate-core';
+import * as s from 'slate';
 import * as sr from 'slate-react';
 import {
   SelectionMoveOptions as SlateSelectionMoveOptions,
@@ -52,3 +53,5 @@ export type SelectionCollapseOptions = SlateSelectionCollapseOptions;
 export type HotkeyPlugin = p.HotkeyPlugin;
 export type RenderLeafProps = sr.RenderLeafProps;
 export type RenderElementProps = sr.RenderElementProps;
+export type Span = p.TSpan;
+export type BasePoint = s.BasePoint;

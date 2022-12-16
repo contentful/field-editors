@@ -1,12 +1,21 @@
 // @ts-nocheck
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
-import { getAboveNode, isAncestorEmpty, queryNode, TNode } from '@udecode/plate-core';
-import { Editor, Ancestor, Transforms, Range, Location } from 'slate';
 
-import { setSelection } from '../../internal/transforms';
-import { RichTextEditor, RichTextPlugin } from '../../types';
+import {
+  getAboveNode,
+  isAncestorEmpty,
+  getNodeEntries,
+  getPointBefore,
+  isInine,
+  isEndPoint,
+  getPointAfter,
+  isRangeCollapsed,
+  queryNode,
+} from '../../internal/queries';
+import { setSelection, removeNodes, splitNodes, unhangRange } from '../../internal/transforms';
+import { PlatePlugin, PlateEditor, Ancestor, Node, Location } from '../../internal/types';
 
-export function createTextPlugin(): RichTextPlugin {
+export function createTextPlugin(): PlatePlugin {
   return {
     key: 'TextPlugin',
     handlers: {
@@ -18,7 +27,7 @@ export function createTextPlugin(): RichTextPlugin {
           return;
         }
 
-        setSelection(editor, Editor.unhangRange(editor, editor.selection));
+        setSelection(editor, unhangRange(editor, editor.selection));
       },
     },
     withOverrides: (editor) => {
@@ -34,14 +43,14 @@ export function createTextPlugin(): RichTextPlugin {
 
         // If the cursor is at the end of an inline, move it outside
         // before inserting
-        if (selection && Range.isCollapsed(selection)) {
-          const inlinePath = Editor.above(editor, {
-            match: (n) => Editor.isInline(editor, n),
+        if (selection && isRangeCollapsed(selection)) {
+          const inlinePath = getAboveNode(editor, {
+            match: (n) => isInine(editor, n),
             mode: 'highest',
           })?.[1];
 
-          if (inlinePath && Editor.isEnd(editor, selection.anchor, inlinePath)) {
-            const point = Editor.after(editor, inlinePath);
+          if (inlinePath && isEndPoint(editor, selection.anchor, inlinePath)) {
+            const point = getPointAfter(editor, inlinePath);
             setSelection(editor, {
               anchor: point,
               focus: point,
@@ -72,7 +81,7 @@ export function createTextPlugin(): RichTextPlugin {
 
 function deleteEmptyParagraph(
   unit: 'character' | 'word' | 'line' | 'block',
-  editor: RichTextEditor,
+  editor: PlateEditor,
   deleteFunction: Function
 ) {
   const entry = getAboveNode(editor, {
@@ -89,16 +98,16 @@ function deleteEmptyParagraph(
     const hasSiblings = editor.children.length > 1; // prevent editor from losing focus
 
     if (isTextEmpty && isRootLevel && hasSiblings) {
-      Transforms.removeNodes(editor, { at: path });
+      removeNodes(editor, { at: path });
 
-      const prevNode = Editor.before(editor, editor.selection as Location, {
+      const prevNode = getPointBefore(editor, editor.selection as Location, {
         unit,
       });
 
       if (prevNode) {
-        const [prevCell] = Editor.nodes<TNode>(editor, {
-          match: (node) =>
-            queryNode([node as TNode, prevNode.path], {
+        const [prevCell] = getNodeEntries(editor, {
+          match: (node: Node) =>
+            queryNode([node, prevNode.path], {
               allow: [BLOCKS.EMBEDDED_ASSET, BLOCKS.EMBEDDED_ENTRY, BLOCKS.HR],
             }),
           at: prevNode,
@@ -121,7 +130,7 @@ function deleteEmptyParagraph(
  * line breaks as a new paragraph when pasting as plain text (also known as
  * paste and match style in macOS)
  */
-function fixPasteAsPlainText(editor: RichTextEditor) {
+function fixPasteAsPlainText(editor: PlateEditor) {
   editor.insertTextData = (data: DataTransfer): boolean => {
     const text = data.getData('text/plain');
 
@@ -139,7 +148,7 @@ function fixPasteAsPlainText(editor: RichTextEditor) {
       }
 
       if (split) {
-        Transforms.splitNodes(editor, { always: true });
+        splitNodes(editor, { always: true });
       }
 
       editor.insertText(line);
