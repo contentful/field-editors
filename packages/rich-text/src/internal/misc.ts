@@ -1,6 +1,6 @@
 import * as p from '@udecode/plate-core';
 
-import type { Value, PlateEditor, Location } from './types';
+import type { Value, PlateEditor } from './types';
 
 export type CreatePlateEditorOptions = p.CreatePlateEditorOptions<Value, PlateEditor>;
 export const createPlateEditor = (options: CreatePlateEditorOptions = {}) => {
