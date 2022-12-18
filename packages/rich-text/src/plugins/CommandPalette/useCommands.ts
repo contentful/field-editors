@@ -1,15 +1,12 @@
-// @ts-nocheck
 import { useState } from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
-import { getAboveNode, removeMark } from '@udecode/plate-core';
-import { Editor, Transforms } from 'slate';
-import { RichTextEditor } from 'types';
 
 import { isNodeTypeSelected } from '../../helpers/editor';
 import { isNodeTypeEnabled } from '../../helpers/validations';
-import { setSelection, insertNodes } from '../../internal/transforms';
+import { getRange, getAboveNode } from '../../internal/queries';
+import { setSelection, insertNodes, deleteText, removeMark } from '../../internal/transforms';
 import { PlateEditor } from '../../internal/types';
 import { COMMAND_PROMPT } from './constants';
 import { createInlineEntryNode } from './utils/createInlineEntryNode';
@@ -33,24 +30,24 @@ export type CommandList = (Command | CommandGroup)[];
 
 const removeCommand = (editor: PlateEditor) => {
   const [, path] = getAboveNode(editor)!;
-  const range = Editor.range(editor, path);
+  const range = getRange(editor, path);
 
   setSelection(editor, range.focus.path);
 
-  removeMark(editor, { key: COMMAND_PROMPT, at: range });
-  Transforms.delete(editor);
+  removeMark(editor, COMMAND_PROMPT, range);
+  deleteText(editor);
 };
 
 const removeQuery = (editor: PlateEditor) => {
   const [, path] = getAboveNode(editor)!;
-  const range = Editor.range(editor, path);
+  const range = getRange(editor, path);
 
   if (range.focus.offset - range.anchor.offset > 1) {
-    Transforms.delete(editor, { at: range.focus, distance: range.focus.offset - 1, reverse: true });
+    deleteText(editor, { at: range.focus, distance: range.focus.offset - 1, reverse: true });
   }
 };
 
-export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: RichTextEditor) => {
+export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: PlateEditor) => {
   const contentTypes = sdk.space.getCachedContentTypes();
 
   const canInsertBlocks = !isNodeTypeSelected(editor, BLOCKS.TABLE);

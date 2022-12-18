@@ -1,4 +1,3 @@
-// @ts-nocheck
 import * as React from 'react';
 
 import { Link, FieldExtensionSDK } from '@contentful/app-sdk';
@@ -10,18 +9,18 @@ import { INLINES } from '@contentful/rich-text-types';
 import { HotkeyPlugin } from '@udecode/plate-core';
 import { css } from 'emotion';
 import isHotkey from 'is-hotkey';
-import { Transforms } from 'slate';
-import { useSelected, ReactEditor, useReadOnly } from 'slate-react';
+import { useSelected, useReadOnly } from 'slate-react';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { focus, moveToTheNextChar } from '../../helpers/editor';
 import { IS_CHROME } from '../../helpers/environment';
 import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
-import { setSelection, insertNodes } from '../../internal/transforms';
-import { KeyboardHandler } from '../../internal/types';
+import { findNodePath } from '../../internal/queries';
+import { setSelection, insertNodes, removeNodes } from '../../internal/transforms';
+import { KeyboardHandler, PlatePlugin, Node } from '../../internal/types';
 import { TrackingPluginActions } from '../../plugins/Tracking';
 import { useSdkContext } from '../../SdkProvider';
-import { RichTextPlugin, CustomElement, CustomRenderElementProps } from '../../types';
+import { CustomRenderElementProps } from '../../types';
 import { withLinkTracking } from '../links-tracking';
 import { FetchingWrappedInlineEntryCard } from './FetchingWrappedInlineEntryCard';
 import { createInlineEntryNode } from './Util';
@@ -60,8 +59,8 @@ function EmbeddedEntityInline(props: EmbeddedEntityInlineProps) {
 
   function handleRemoveClick() {
     if (!editor) return;
-    const pathToElement = ReactEditor.findPath(editor, props.element);
-    Transforms.removeNodes(editor, { at: pathToElement });
+    const pathToElement = findNodePath(editor, props.element);
+    removeNodes(editor, { at: pathToElement });
   }
 
   return (
@@ -165,7 +164,7 @@ export function ToolbarEmbeddedEntityInlineButton(props: ToolbarEmbeddedEntityIn
   );
 }
 
-export function createEmbeddedEntityInlinePlugin(sdk: FieldExtensionSDK): RichTextPlugin {
+export function createEmbeddedEntityInlinePlugin(sdk: FieldExtensionSDK): PlatePlugin {
   const htmlAttributeName = 'data-embedded-entity-inline-id';
 
   return {
@@ -188,8 +187,7 @@ export function createEmbeddedEntityInlinePlugin(sdk: FieldExtensionSDK): RichTe
         },
       ],
       withoutChildren: true,
-      getNode: (el): CustomElement =>
-        createInlineEntryNode(el.getAttribute(htmlAttributeName) as string),
+      getNode: (el): Node => createInlineEntryNode(el.getAttribute(htmlAttributeName) as string),
     },
   };
 }

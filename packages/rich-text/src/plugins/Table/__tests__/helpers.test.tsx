@@ -1,5 +1,4 @@
 /** @jsx jsx */
-// @ts-nocheck
 import { jsx, assertOutput, createTestEditor } from '../../../test-utils';
 import { insertTableAndFocusFirstCell } from '../helpers';
 

@@ -1,11 +1,10 @@
-// @ts-nocheck
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { HotkeyPlugin } from '@udecode/plate-core';
 import isHotkey from 'is-hotkey';
-import { Transforms } from 'slate';
 
 import { getNodeEntryFromSelection } from '../../helpers/editor';
+import { removeNodes } from '../../internal/transforms';
 import { KeyboardHandler, PlatePlugin } from '../../internal/types';
 import { withLinkTracking } from '../links-tracking';
 import { LinkedEntityBlock } from './LinkedEntityBlock';
@@ -32,7 +31,7 @@ function getWithEmbeddedEntityEvents(
 
         if (isDelete || isBackspace) {
           event.preventDefault();
-          Transforms.removeNodes(editor, { at: pathToSelectedElement });
+          removeNodes(editor, { at: pathToSelectedElement });
         }
 
         return;

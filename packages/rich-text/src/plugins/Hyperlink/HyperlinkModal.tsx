@@ -18,17 +18,15 @@ import { Link } from '@contentful/field-editor-reference/dist/types';
 import { ModalDialogLauncher, FieldExtensionSDK } from '@contentful/field-editor-shared';
 import { INLINES } from '@contentful/rich-text-types';
 import { css } from 'emotion';
-import { Path } from 'slate';
-import { ReactEditor } from 'slate-react';
 
 import { getNodeEntryFromSelection, insertLink, LINK_TYPES, focus } from '../../helpers/editor';
 import getLinkedContentTypeIdsForNodeType from '../../helpers/getLinkedContentTypeIdsForNodeType';
 import { isNodeTypeEnabled } from '../../helpers/validations';
 import { withoutNormalizing } from '../../internal';
-import { getText } from '../../internal/queries';
+import { getText, isEditorReadOnly } from '../../internal/queries';
 import { setSelection } from '../../internal/transforms';
+import { PlateEditor, TPath } from '../../internal/types';
 import { TrackingPluginActions } from '../../plugins/Tracking';
-import { RichTextEditor } from '../../types';
 import { FetchingWrappedAssetCard } from '../shared/FetchingWrappedAssetCard';
 import { FetchingWrappedEntryCard } from '../shared/FetchingWrappedEntryCard';
 
@@ -267,15 +265,15 @@ interface HyperLinkDialogData {
 }
 
 export async function addOrEditLink(
-  editor: RichTextEditor,
+  editor: PlateEditor,
   sdk: FieldExtensionSDK,
   logAction:
     | TrackingPluginActions['onToolbarAction']
     | TrackingPluginActions['onShortcutAction']
     | TrackingPluginActions['onViewportAction'],
-  targetPath?: Path
+  targetPath?: TPath
 ) {
-  const isReadOnly = ReactEditor.isReadOnly(editor);
+  const isReadOnly = isEditorReadOnly(editor);
   const selectionBeforeBlur = editor.selection ? { ...editor.selection } : undefined;
   if (!targetPath && !selectionBeforeBlur) return;
 

@@ -1,5 +1,4 @@
 /** @jsx jsx */
-// @ts-nocheck
 import { BLOCKS } from '@contentful/rich-text-types';
 import { PlateEditor } from '@udecode/plate-core';
 

@@ -1,7 +1,5 @@
-// @ts-nocheck
-import { NodeEntry, Transforms } from 'slate';
-
-import { insertNodes } from '../../internal/transforms';
+import { insertNodes, removeNodes } from '../../internal/transforms';
+import { NodeEntry } from '../../internal/types';
 import { RichTextEditor } from '../../types';
 
 /**
@@ -14,6 +12,6 @@ export const transformVoid = (editor: RichTextEditor, [node, path]: NodeEntry) =
   };
 
   // A workaround because Slate doesn't allow adjusting void nodes children
-  Transforms.removeNodes(editor, { at: path });
+  removeNodes(editor, { at: path });
   insertNodes(editor, [validVoid], { at: path });
 };

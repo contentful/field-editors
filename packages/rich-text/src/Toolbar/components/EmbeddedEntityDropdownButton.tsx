@@ -1,4 +1,3 @@
-// @ts-nocheck
 import * as React from 'react';
 
 import { Button, Menu } from '@contentful/f36-components';

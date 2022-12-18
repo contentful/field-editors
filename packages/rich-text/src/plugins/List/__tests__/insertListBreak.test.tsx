@@ -1,4 +1,3 @@
-// @ts-nocheck
 /** @jsx jsx */
 import { jsx, assertOutput, createTestEditor } from '../../../test-utils';
 
@@ -330,7 +329,6 @@ describe('insert line break', () => {
   );
 
   for (const t of tests) {
-    // eslint-disable-next-line jest/valid-title -- TODO: explain this disable
     test(t.title, () => {
       const { editor } = createTestEditor({
         input: render(t.input),

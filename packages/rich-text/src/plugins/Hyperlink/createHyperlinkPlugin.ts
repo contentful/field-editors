@@ -1,4 +1,3 @@
-// @ts-nocheck
 import * as React from 'react';
 
 import { FieldExtensionSDK, Link } from '@contentful/app-sdk';

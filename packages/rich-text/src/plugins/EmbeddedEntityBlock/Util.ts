@@ -1,12 +1,17 @@
-// @ts-nocheck
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
-import { Editor, Element, Path, Transforms } from 'slate';
-import { RichTextEditor } from 'types';
 
 import { focus, insertEmptyParagraph, moveToTheNextChar } from '../../helpers/editor';
 import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
-import { getText } from '../../internal/queries';
-import { setSelection, insertNodes } from '../../internal/transforms';
+import {
+  getText,
+  getAboveNode,
+  isEditor,
+  getNextNode,
+  isElement,
+  isChildPath,
+} from '../../internal/queries';
+import { setSelection, insertNodes, setNodes } from '../../internal/transforms';
+import { PlateEditor } from '../../internal/types';
 import { TrackingPluginActions } from '../../plugins/Tracking';
 
 export async function selectEntityAndInsert(
@@ -36,34 +41,33 @@ export async function selectEntityAndInsert(
   logAction('insert', { nodeType });
 }
 
-function ensureFollowingParagraph(editor: RichTextEditor) {
+function ensureFollowingParagraph(editor: PlateEditor) {
   /* 
      If the new block isn't followed by a sibling paragraph we insert a new empty one
    */
-  const next = Editor.next(editor);
+  const next = getNextNode(editor);
   if (!next) {
     return insertEmptyParagraph(editor);
   }
 
-  const parent = Editor.above(editor, {
+  const parent = getAboveNode(editor, {
     voids: false,
     match: (e) =>
-      !Element.isElement(e) ||
-      ![BLOCKS.EMBEDDED_ASSET, BLOCKS.EMBEDDED_ENTRY].includes(e.type as BLOCKS),
+      !isElement(e) || ![BLOCKS.EMBEDDED_ASSET, BLOCKS.EMBEDDED_ENTRY].includes(e.type as BLOCKS),
   });
 
-  if (Editor.isEditor(parent)) {
-    // at level 0, a following paragraph is handled by the tralingParagraph plugin
+  if (isEditor(parent)) {
+    // at level 0, a following paragraph is handled by the trailingParagraph plugin
     moveToTheNextChar(editor);
     return;
   }
 
-  const paragraph = Editor.above(editor, {
+  const paragraph = getAboveNode(editor, {
     at: next[1],
-    match: (e) => Element.isElement(e) && TEXT_CONTAINERS.includes(e.type as BLOCKS),
+    match: (e) => isElement(e) && TEXT_CONTAINERS.includes(e.type as BLOCKS),
   });
 
-  if (!paragraph || !parent || !Path.isChild(paragraph[1], parent[1])) {
+  if (!paragraph || !parent || !isChildPath(paragraph[1], parent[1])) {
     return insertEmptyParagraph(editor);
   }
 
@@ -85,7 +89,7 @@ const createNode = (nodeType, entity) => ({
 });
 
 // TODO: DRY up copied code from HR
-export function insertBlock(editor, nodeType, entity) {
+export function insertBlock(editor: PlateEditor, nodeType: string, entity) {
   if (!editor?.selection) return;
 
   const linkedEntityBlock = createNode(nodeType, entity);
@@ -95,7 +99,7 @@ export function insertBlock(editor, nodeType, entity) {
   if (hasText) {
     insertNodes(editor, linkedEntityBlock);
   } else {
-    Transforms.setNodes(editor, linkedEntityBlock);
+    setNodes(editor, linkedEntityBlock);
   }
 
   focus(editor);

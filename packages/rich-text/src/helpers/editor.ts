@@ -1,17 +1,38 @@
-// @ts-nocheck
 import { Link } from '@contentful/field-editor-reference/dist/types';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
-import {
-  EditorNodesOptions,
-  PlateEditor,
-  toggleNodeType,
-  ToggleNodeTypeOptions,
-} from '@udecode/plate-core';
-import { Text, Editor, Element, Transforms, Path, Range, Node } from 'slate';
 import { ReactEditor } from 'slate-react';
 
-import { getText } from '../internal/queries';
-import { setNodes, setSelection, insertNodes } from '../internal/transforms';
+import {
+  getText,
+  getNodeEntries,
+  getNodeEntry,
+  getNodeDescendants,
+  isText,
+  isRangeCollapsed as isSelectionCollapsed,
+  isEditor,
+  isElement,
+  getPathLevels,
+  isCommonPath,
+} from '../internal/queries';
+import {
+  setNodes,
+  setSelection,
+  insertNodes,
+  toggleNodeType,
+  moveSelection,
+  unwrapNodes,
+  insertText,
+  wrapNodes,
+  deleteText,
+  collapseSelection,
+} from '../internal/transforms';
+import {
+  EditorNodesOptions,
+  ToggleNodeTypeOptions,
+  PlateEditor,
+  Node,
+  Path,
+} from '../internal/types';
 import { CustomElement, RichTextEditor } from '../types';
 import { IS_SAFARI } from './environment';
 
@@ -25,8 +46,8 @@ const LIST_TYPES: BLOCKS[] = [BLOCKS.OL_LIST, BLOCKS.UL_LIST];
 
 export function isBlockSelected(editor: PlateEditor, type: string): boolean {
   const [match] = Array.from(
-    Editor.nodes(editor, {
-      match: (node) => Element.isElement(node) && (node as CustomElement).type === type,
+    getNodeEntries(editor, {
+      match: (node) => isElement(node) && (node as CustomElement).type === type,
     })
   );
   return !!match;
@@ -47,7 +68,7 @@ export function getNodeEntryFromSelection(
   if (!path) return [];
   const nodeTypes = Array.isArray(nodeTypeOrTypes) ? nodeTypeOrTypes : [nodeTypeOrTypes];
   for (let i = 0; i < path.length; i++) {
-    const nodeEntry = Editor.node(editor, path.slice(0, i + 1)) as NodeEntry;
+    const nodeEntry = getNodeEntry(editor, path.slice(0, i + 1)) as NodeEntry;
     if (nodeTypes.includes(nodeEntry[0].type as NodeType)) return nodeEntry;
   }
   return [];
@@ -60,11 +81,11 @@ export function isNodeTypeSelected(editor: RichTextEditor, nodeType: BLOCKS | IN
 }
 
 export function moveToTheNextLine(editor: RichTextEditor) {
-  Transforms.move(editor, { distance: 1, unit: 'line' });
+  moveSelection(editor, { distance: 1, unit: 'line' });
 }
 
 export function moveToTheNextChar(editor: RichTextEditor) {
-  Transforms.move(editor, { distance: 1, unit: 'offset' });
+  moveSelection(editor, { distance: 1, unit: 'offset' });
 }
 
 export function insertEmptyParagraph(editor: RichTextEditor, options?) {
@@ -81,14 +102,14 @@ export function getElementFromCurrentSelection(editor: RichTextEditor) {
   if (!editor.selection) return [];
 
   return Array.from(
-    Editor.nodes(editor, {
+    getNodeEntries(editor, {
       /**
        * editor.select is a Range, which includes anchor and focus, the beginning and the end of a selection
        * when using only editor.selection.focus, we might get only the end of the selection, or where the text cursor is
        * and in some cases getting the next element instead of the one we want
        **/
       at: editor.selection,
-      match: (node) => Element.isElement(node),
+      match: (node) => isElement(node),
     })
   ).flat();
 }
@@ -102,7 +123,7 @@ export function isList(editor?: RichTextEditor) {
 
   return element.some(
     (element) =>
-      Element.isElement(element) && LIST_TYPES.includes((element as CustomElement).type as BLOCKS)
+      isElement(element) && LIST_TYPES.includes((element as CustomElement).type as BLOCKS)
   );
 }
 
@@ -138,10 +159,10 @@ export function isLinkActive(editor?: RichTextEditor) {
   }
 
   const [link] = Array.from(
-    Editor.nodes(editor, {
+    getNodeEntries(editor, {
       match: (node) =>
-        !Editor.isEditor(node) &&
-        Element.isElement(node) &&
+        !isEditor(node) &&
+        isElement(node) &&
         LINK_TYPES.includes((node as CustomElement).type as INLINES),
     })
   );
@@ -150,10 +171,10 @@ export function isLinkActive(editor?: RichTextEditor) {
 
 // TODO: move to hyperlink plugin
 export function unwrapLink(editor) {
-  Transforms.unwrapNodes(editor, {
+  unwrapNodes(editor, {
     match: (node) =>
-      !Editor.isEditor(node) &&
-      Element.isElement(node) &&
+      !isEditor(node) &&
+      isElement(node) &&
       LINK_TYPES.includes((node as CustomElement).type as INLINES),
   });
 }
@@ -165,7 +186,7 @@ export function wrapLink(editor, { text, url, target, type, path }: InsertLinkOp
   }
 
   const { selection } = editor;
-  const isCollapsed = selection && Range.isCollapsed(selection);
+  const isCollapsed = selection && isSelectionCollapsed(selection);
   const link = {
     type,
     data: {},
@@ -183,22 +204,22 @@ export function wrapLink(editor, { text, url, target, type, path }: InsertLinkOp
   // TODO: always set the selection to the end of the inserted link
   if (path) {
     setNodes(editor, link, { at: path });
-    Transforms.insertText(editor, text, { at: path });
+    insertText(editor, text, { at: path });
     setSelection(editor, path);
   } else if (isCollapsed) {
     insertNodes(editor, link);
   } else {
-    Transforms.wrapNodes(editor, link, { split: true });
-    Transforms.delete(editor);
-    Transforms.insertText(editor, text);
-    Transforms.collapse(editor, { edge: 'end' });
+    wrapNodes(editor, link, { split: true });
+    deleteText(editor);
+    insertText(editor, text);
+    collapseSelection(editor, { edge: 'end' });
   }
 }
 
 export function getAncestorPathFromSelection(editor: RichTextEditor) {
   if (!editor.selection) return undefined;
 
-  return Path.levels(editor.selection.focus.path).find((level) => level.length === 1);
+  return getPathLevels(editor.selection.focus.path).find((level) => level.length === 1);
 }
 
 export const isAtEndOfTextSelection = (editor: RichTextEditor) =>
@@ -208,11 +229,11 @@ export const isAtEndOfTextSelection = (editor: RichTextEditor) =>
  * This traversal strategy is unfortunately necessary because Slate doesn't
  * expose something like Node.next(editor).
  */
-export function getNextNode(editor: RichTextEditor): CustomElement | null {
+export function getNextNode(editor: PlateEditor): CustomElement | null {
   if (!editor.selection) {
     return null;
   }
-  const descendants = Node.descendants(editor, { from: editor.selection.focus.path });
+  const descendants = getNodeDescendants(editor, { from: editor.selection.focus.path });
   // eslint-disable-next-line no-constant-condition -- TODO: explain this disable
   while (true) {
     const { done, value } = descendants.next();
@@ -220,7 +241,7 @@ export function getNextNode(editor: RichTextEditor): CustomElement | null {
       return null;
     }
     const [node, path] = value as NodeEntry;
-    if (Path.isCommon(path, editor.selection.focus.path)) {
+    if (isCommonPath(path, editor.selection.focus.path)) {
       continue;
     }
     return node as CustomElement;
@@ -231,14 +252,14 @@ export const INLINE_TYPES = Object.values(INLINES) as string[];
 
 export const isInlineOrText = (node: Node) => {
   // either text or inline elements
-  return Text.isText(node) || (Element.isElement(node) && INLINE_TYPES.includes(node.type));
+  return isText(node) || (isElement(node) && INLINE_TYPES.includes(node.type));
 };
 
 export const focus = (editor: RichTextEditor) => {
   const x = window.scrollX;
   const y = window.scrollY;
 
-  ReactEditor.focus(editor);
+  ReactEditor.focus(editor as any);
 
   // Safari has issues with `editor.focus({ preventScroll: true })`, it ignores the option `preventScroll`
   if (IS_SAFARI) {
@@ -251,7 +272,7 @@ export const focus = (editor: RichTextEditor) => {
 export function toggleElement(
   editor: RichTextEditor,
   options: ToggleNodeTypeOptions,
-  editorOptions?: Omit<EditorNodesOptions, 'match'>
+  editorOptions?: EditorNodesOptions
 ) {
   toggleNodeType(editor, options, editorOptions);
 

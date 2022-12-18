@@ -3,6 +3,11 @@
  */
 import { MARKS } from '@contentful/rich-text-types';
 import * as p from '@udecode/plate-core';
+import {
+  SelectionMoveOptions as SlateSelectionMoveOptions,
+  SelectionCollapseOptions as SlateSelectionCollapseOptions,
+} from 'slate/dist/transforms/selection';
+import { TextInsertTextOptions as SlateTextInsertTextOptions } from 'slate/dist/transforms/text';
 
 import { TrackingPluginActions } from '../../plugins/Tracking';
 
@@ -29,10 +34,16 @@ export interface PlateEditor extends p.PlateEditor<Value> {
 }
 
 export type Node = p.ElementOf<PlateEditor> | p.TextOf<PlateEditor>;
-export type NodeEntry = p.TNodeEntry<Node>;
+export type Path = p.TPath;
+export type NodeEntry<T extends Node = Node> = p.TNodeEntry<T>;
 export type NodeMatch = p.ENodeMatch<Node>;
 export type Descendant = p.DescendantOf<PlateEditor>;
 export type Operation = p.TOperation<Descendant>;
 export type Location = p.TLocation;
-export type Path = p.TPath;
-export type Range = p.TRange;
+export type BaseRange = p.TRange;
+export type ToggleNodeTypeOptions = p.ToggleNodeTypeOptions;
+export type EditorNodesOptions = Omit<p.GetNodeEntriesOptions<Value>, 'match'>;
+export type WithOverride<P = p.AnyObject> = p.WithOverride<P, Value, PlateEditor>;
+export type SelectionMoveOptions = SlateSelectionMoveOptions;
+export type TextInsertTextOptions = SlateTextInsertTextOptions;
+export type SelectionCollapseOptions = SlateSelectionCollapseOptions;

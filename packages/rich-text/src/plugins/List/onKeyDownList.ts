@@ -2,16 +2,16 @@
  * Credit: Modified version of Plate's list plugin
  * See: https://github.com/udecode/plate/blob/main/packages/nodes/list
  */
-// @ts-nocheck
-import { getAboveNode, HotkeyPlugin, KeyboardHandler } from '@udecode/plate-core';
+import { HotkeyPlugin } from '@udecode/plate-core';
 import isHotkey from 'is-hotkey';
 import castArray from 'lodash/castArray';
 
-import { RichTextEditor } from '../../types';
+import { getAboveNode } from '../../internal/queries';
+import { KeyboardHandler } from '../../internal/types';
 import { moveListItems } from './transforms/moveListItems';
 import { toggleList } from './transforms/toggleList';
 
-export const onKeyDownList: KeyboardHandler<RichTextEditor, HotkeyPlugin> =
+export const onKeyDownList: KeyboardHandler<HotkeyPlugin> =
   (editor, { type, options: { hotkey } }) =>
   (e) => {
     if (e.key === 'Tab' && editor.selection) {

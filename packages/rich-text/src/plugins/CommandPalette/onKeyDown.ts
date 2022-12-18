@@ -1,6 +1,6 @@
 import isHotkey from 'is-hotkey';
 
-import { getRange, getAbove, isMarkActive, addMark, removeMark } from '../../internal';
+import { getRange, getAboveNode, isMarkActive, addMark, removeMark } from '../../internal';
 import { KeyboardHandler, NodeEntry } from '../../internal/types';
 import { COMMAND_PROMPT } from './constants';
 
@@ -22,7 +22,7 @@ export const createOnKeyDown = (): KeyboardHandler => {
         return event.preventDefault();
       }
 
-      const [, path] = getAbove(editor) as NodeEntry;
+      const [, path] = getAboveNode(editor) as NodeEntry;
       const range = getRange(editor, path);
 
       if (isHotkey('backspace', event)) {

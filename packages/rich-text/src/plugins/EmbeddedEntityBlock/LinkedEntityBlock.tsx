@@ -1,12 +1,12 @@
-// @ts-nocheck
 import React from 'react';
 
 import { css } from 'emotion';
-import { Transforms } from 'slate';
-import { ReactEditor, useSelected, useReadOnly } from 'slate-react';
+import { useSelected, useReadOnly } from 'slate-react';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { IS_CHROME } from '../../helpers/environment';
+import { findNodePath } from '../../internal/queries';
+import { removeNodes } from '../../internal/transforms';
 import { useSdkContext } from '../../SdkProvider';
 import { CustomRenderElementProps } from '../../types';
 import { FetchingWrappedAssetCard } from '../shared/FetchingWrappedAssetCard';
@@ -53,8 +53,8 @@ export function LinkedEntityBlock(props: LinkedEntityBlockProps) {
 
   const handleRemoveClick = React.useCallback(() => {
     if (!editor) return;
-    const pathToElement = ReactEditor.findPath(editor, element);
-    Transforms.removeNodes(editor, { at: pathToElement });
+    const pathToElement = findNodePath(editor, element);
+    removeNodes(editor, { at: pathToElement });
   }, [editor, element]);
 
   return (

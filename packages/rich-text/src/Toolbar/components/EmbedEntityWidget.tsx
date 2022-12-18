@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from 'react';
 
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
@@ -43,7 +42,7 @@ export const EmbedEntityWidget = ({ isDisabled, canInsertBlocks }: EmbedEntityWi
       )}
       {inlineEntryEmbedEnabled && (
         <ToolbarEmbeddedEntityInlineButton
-          isDisabled={!!isDisabled || isLinkActive(editor)}
+          isDisabled={!!isDisabled || Boolean(editor && isLinkActive(editor))}
           onClose={onCloseEntityDropdown}
         />
       )}

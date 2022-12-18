@@ -1,14 +1,10 @@
-// @ts-nocheck
 import * as React from 'react';
 
 import { HorizontalRuleIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { setNodes } from '@udecode/plate-core';
 import { css, cx } from 'emotion';
-import { Transforms } from 'slate';
 import * as Slate from 'slate-react';
-import { RichTextEditor } from 'types';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import {
@@ -18,8 +14,8 @@ import {
   focus,
 } from '../../helpers/editor';
 import { getText } from '../../internal/queries';
-import { insertNodes } from '../../internal/transforms';
-import { PlatePlugin } from '../../internal/types';
+import { insertNodes, setNodes, removeNodes } from '../../internal/transforms';
+import { PlatePlugin, PlateEditor } from '../../internal/types';
 import { ToolbarButton } from '../shared/ToolbarButton';
 
 const styles = {
@@ -58,7 +54,7 @@ interface ToolbarHrButtonProps {
   isDisabled?: boolean;
 }
 
-export function withHrEvents(editor: RichTextEditor) {
+export function withHrEvents(editor: PlateEditor) {
   return (event: React.KeyboardEvent) => {
     if (!editor) return;
 
@@ -68,7 +64,7 @@ export function withHrEvents(editor: RichTextEditor) {
       const isDelete = event.key === 'Delete';
       if (isBackspace || isDelete) {
         event.preventDefault();
-        Transforms.removeNodes(editor, { at: pathToSelectedHr });
+        removeNodes(editor, { at: pathToSelectedHr });
       }
     }
   };
