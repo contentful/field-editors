@@ -302,3 +302,7 @@ export const createPathRef = (editor: PlateEditor, at: Path) => {
 export const match = (obj: Node, path: Path, predicate?: p.Predicate<Node> | undefined) => {
   return p.match(obj, path, predicate);
 };
+
+export const getLastNodeByLevel = (editor: PlateEditor, level: number): NodeEntry | undefined => {
+  return p.getLastNodeByLevel(editor, level);
+};
