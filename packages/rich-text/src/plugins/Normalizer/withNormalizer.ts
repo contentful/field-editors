@@ -82,7 +82,7 @@ export const withNormalizer = (editor: PlateEditor) => {
   // @ts-expect-error
   editor.normalizeNode = (entry: NodeEntry) => {
     const [node, path] = entry;
-    const children = getChildren(editor, path);
+    const children = getChildren(entry);
 
     // The order of validNode rules Vs validChildren doesn't matter. Slate
     // will always perform normalization in a depth-first fashion.

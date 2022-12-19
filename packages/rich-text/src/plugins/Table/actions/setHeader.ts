@@ -13,13 +13,13 @@ export const setHeader = (editor: PlateEditor, enable?: boolean) => {
     return;
   }
 
-  const firstRow = getChildren(...tableItem)[0];
+  const firstRow = getChildren(tableItem)[0];
 
   if (!firstRow) {
     return;
   }
 
-  getChildren(...firstRow).forEach(([, path]) => {
+  getChildren(firstRow).forEach(([, path]) => {
     setNodes(
       editor,
       {

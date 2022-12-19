@@ -2,11 +2,11 @@ import { BLOCKS } from '@contentful/rich-text-types';
 import { getAboveNode, getBlockAbove, getParentNode } from '@udecode/plate-core';
 
 import {
-  getChildren,
   isText,
   getCommonNode,
   isRangeExpanded,
   getRangeEdges,
+  getChildren,
 } from '../../internal/queries';
 import { insertNodes, removeNodes, wrapNodes } from '../../internal/transforms';
 import { Node, NodeEntry, PlateEditor, Path, Element } from '../../internal/types';
@@ -38,8 +38,8 @@ export const normalizeOrphanedListItem = (editor: PlateEditor, [, path]: NodeEnt
   );
 };
 
-export const isNonEmptyListItem = (editor: PlateEditor, [, path]: NodeEntry) => {
-  const listItemChildren = Array.from(getChildren(editor, path));
+export const isNonEmptyListItem = (_: PlateEditor, entry: NodeEntry) => {
+  const listItemChildren = getChildren(entry);
 
   return listItemChildren.length !== 0;
 };

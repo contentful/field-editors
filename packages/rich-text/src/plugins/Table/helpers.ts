@@ -64,13 +64,13 @@ export function isTableHeaderEnabled(editor: PlateEditor) {
     return false;
   }
 
-  const firstRow = getChildren(...tableItem)[0];
+  const firstRow = getChildren(tableItem)[0];
 
   if (!firstRow) {
     return false;
   }
 
-  return getChildren(...firstRow).every(([node]) => {
+  return getChildren(firstRow).every(([node]) => {
     return node.type === BLOCKS.TABLE_HEADER_CELL;
   });
 }
@@ -104,7 +104,8 @@ export function replaceEmptyParagraphWithTable(editor: PlateEditor) {
  * Note: We should only get different table rows cell counts in between
  * normalization cycles.
  */
-export const getNoOfMissingTableCellsInRow = (editor: PlateEditor, [, rowPath]: NodeEntry) => {
+export const getNoOfMissingTableCellsInRow = (editor: PlateEditor, rowEntry: NodeEntry) => {
+  const [, rowPath] = rowEntry;
   const parent = getParentNode(editor, rowPath);
 
   // This is ensured by normalization. The error is here just in case
@@ -112,14 +113,10 @@ export const getNoOfMissingTableCellsInRow = (editor: PlateEditor, [, rowPath]: 
     throw new Error('table rows must be wrapped in a table node');
   }
 
-  const [, tablePath] = parent;
-
   // The longest table row determines its width
-  const tableWidth = Math.max(
-    ...getChildren(editor, tablePath).map(([, path]) => getChildren(editor, path).length)
-  );
+  const tableWidth = Math.max(...getChildren(parent).map((entry) => getChildren(entry).length));
 
-  const rowWidth = getChildren(editor, rowPath).length;
+  const rowWidth = getChildren(rowEntry).length;
 
   return tableWidth - rowWidth;
 };
@@ -140,8 +137,8 @@ export const createEmptyTableCells = (count: number): Node[] => {
   return new Array(count).fill(emptyTableCell);
 };
 
-export const isNotEmpty = (editor: PlateEditor, [, path]: NodeEntry) => {
-  return getChildren(editor, path).length !== 0;
+export const isNotEmpty = (_: PlateEditor, entry: NodeEntry) => {
+  return getChildren(entry).length !== 0;
 };
 
 export const isTable = (node: Node) => {

@@ -82,20 +82,20 @@ export const getParentNode = (
   at: Location,
   options?: s.EditorParentOptions
 ) => {
-  return p.getParentNode(editor, at, options);
+  return p.getParentNode(editor, at, options) as NodeEntry | undefined;
 };
 
 export const someNode = (editor: PlateEditor, options: p.FindNodeOptions) => {
   return p.someNode(editor, options);
 };
 
-export const getChildren = (root: PlateEditor | Node, path: s.Path) => {
+export const getChildren = (entry: NodeEntry) => {
   // Node.children crashes when given a text node
-  if (s.Text.isText(root)) {
+  if (s.Text.isText(entry[0])) {
     return [];
   }
 
-  return Array.from(s.Node.children(root as any, path)) as NodeEntry[];
+  return p.getChildren(entry) as NodeEntry[];
 };
 
 export const getDescendantNodeByPath = (root: Node, path: s.Path): Node => {
