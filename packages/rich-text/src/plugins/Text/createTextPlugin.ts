@@ -5,7 +5,7 @@ import {
   isAncestorEmpty,
   getNodeEntries,
   getPointBefore,
-  isInine,
+  isInline,
   isEndPoint,
   getPointAfter,
   isRangeCollapsed,
@@ -51,7 +51,7 @@ export function createTextPlugin(): PlatePlugin {
         // before inserting
         if (selection && isRangeCollapsed(selection)) {
           const inlinePath = getAboveNode(editor, {
-            match: (n) => isInine(editor, n),
+            match: (n) => isInline(editor, n),
             mode: 'highest',
           })?.[1];
 

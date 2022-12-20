@@ -283,7 +283,7 @@ export const isEndPoint = (
   return p.isEndPoint(editor, point, at);
 };
 
-export const isInine = (editor: PlateEditor, value: any) => {
+export const isInline = (editor: PlateEditor, value: unknown) => {
   return p.isInline(editor, value);
 };
 
