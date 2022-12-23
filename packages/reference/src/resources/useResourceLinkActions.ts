@@ -5,22 +5,28 @@ import { EntryProps, WithResourceName } from 'contentful-management';
 
 import { LinkActionsProps } from '../components';
 
-const toLinkItem = (entry: WithResourceName<EntryProps>) => ({
+const toLinkItem = (entry: WithResourceName<EntryProps>, apiUrl: string) => ({
   sys: {
     type: 'ResourceLink',
     linkType: 'Contentful:Entry',
-    urn: entry.sys.urn,
+    urn:
+      entry.sys.urn ??
+      `crn:${apiUrl}:::content:spaces/${entry.sys.space.sys.id}/entries/${entry.sys.id}`,
   },
 });
 
-const getUpdatedValue = (field: FieldAPI, entries: WithResourceName<EntryProps>[]) => {
+const getUpdatedValue = (
+  field: FieldAPI,
+  entries: WithResourceName<EntryProps>[],
+  apiUrl: string
+) => {
   const multiple = field.type === 'Array';
   if (multiple) {
-    const linkItems = entries.map(toLinkItem);
+    const linkItems = entries.map((entry) => toLinkItem(entry, apiUrl));
     const prevValue = field.getValue() || [];
     return [...prevValue, ...linkItems];
   } else {
-    return toLinkItem(entries[0]);
+    return toLinkItem(entries[0], apiUrl);
   }
 };
 
@@ -28,6 +34,7 @@ export function useResourceLinkActions({
   dialogs,
   field,
   onAfterLink,
+  apiUrl,
 }: Pick<FieldExtensionSDK, 'field' | 'dialogs'> & {
   apiUrl: string;
   onAfterLink?: (e: EntryProps) => void;
@@ -44,11 +51,15 @@ export function useResourceLinkActions({
 
   const onLinkedExisting = useMemo(() => {
     return (entries: EntryProps[]) => {
-      const updatedValue = getUpdatedValue(field, entries as WithResourceName<EntryProps>[]);
+      const updatedValue = getUpdatedValue(
+        field,
+        entries as WithResourceName<EntryProps>[],
+        apiUrl
+      );
       field.setValue(updatedValue);
       handleAfterLink(entries);
     };
-  }, [field, handleAfterLink]);
+  }, [field, handleAfterLink, apiUrl]);
 
   const multiple = field.type === 'Array';
   const onLinkExisting = useMemo(() => {
