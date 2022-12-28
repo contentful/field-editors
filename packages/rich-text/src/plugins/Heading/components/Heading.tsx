@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import tokens from '@contentful/f36-tokens';
 import { BLOCKS } from '@contentful/rich-text-types';
+import { PlateRenderElementProps } from '@udecode/plate-core';
 import { css, cx } from 'emotion';
-import * as Slate from 'slate-react';
 
 const styles = {
   dropdown: {
@@ -61,9 +61,13 @@ const styles = {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- TODO: explain this disable
 function createHeading(Tag: any, block: BLOCKS) {
-  return function Heading(props: Slate.RenderElementProps) {
+  return function Heading(props: PlateRenderElementProps) {
     return (
-      <Tag {...props.attributes} className={cx(styles.headings.root, styles.headings[block])}>
+      <Tag
+        {...props.attributes}
+        style={props.style}
+        className={cx(styles.headings.root, styles.headings[block])}
+      >
         {props.children}
       </Tag>
     );

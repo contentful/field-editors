@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import tokens from '@contentful/f36-tokens';
 import { BLOCKS } from '@contentful/rich-text-types';
+import { PlateRenderElementProps } from '@udecode/plate-core';
 import { css } from 'emotion';
-import { RenderElementProps } from 'slate-react';
 
 const styles = {
   [BLOCKS.PARAGRAPH]: css`
@@ -12,9 +12,9 @@ const styles = {
   `,
 };
 
-export function Paragraph(props: RenderElementProps) {
+export function Paragraph(props: PlateRenderElementProps) {
   return (
-    <div {...props.attributes} className={styles[BLOCKS.PARAGRAPH]}>
+    <div {...props.attributes} style={props.style} className={styles[BLOCKS.PARAGRAPH]}>
       {props.children}
     </div>
   );

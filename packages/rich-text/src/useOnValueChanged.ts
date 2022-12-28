@@ -33,6 +33,14 @@ export const useOnValueChanged = ({ editorId, handler, skip, onSkip }: OnValueCh
       debounce((document: unknown) => {
         const contentfulDocument = toContentfulDocument({ document, schema });
         const cleanedDocument = removeInternalMarks(contentfulDocument);
+        const contentfulDocumentExtendedWithAlign = cleanedDocument.content.map((doc, i) => {
+          const newDoc = JSON.parse(JSON.stringify(doc));
+          if (document[i].align) {
+            Object.assign(newDoc.data, { aling: document[i].align });
+          }
+          return newDoc;
+        });
+        cleanedDocument.content = contentfulDocumentExtendedWithAlign;
         handler?.(cleanedDocument);
       }, 500),
     [handler]

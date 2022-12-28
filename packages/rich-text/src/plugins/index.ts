@@ -1,4 +1,6 @@
 import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { BLOCKS } from '@contentful/rich-text-types';
+import { createAlignPlugin } from '@udecode/plate-alignment';
 import {
   createDeserializeAstPlugin,
   createDeserializeHtmlPlugin,
@@ -20,6 +22,7 @@ import { createHrPlugin } from './Hr';
 import { createHyperlinkPlugin } from './Hyperlink';
 import { createListPlugin } from './List';
 import { createMarksPlugin } from './Marks';
+import { Bold } from './Marks/Bold';
 import { createNormalizerPlugin } from './Normalizer';
 import { createParagraphPlugin } from './Paragraph';
 import { createPasteHTMLPlugin } from './PasteHTML';
@@ -70,6 +73,24 @@ export const getPlugins = (
   createTextPlugin(restrictedMarks),
   createVoidsPlugin(),
   createSelectOnBackspacePlugin(),
+
+  // Align
+  createAlignPlugin({
+    component: Bold,
+    inject: {
+      props: {
+        validTypes: [
+          BLOCKS.PARAGRAPH,
+          BLOCKS.HEADING_1,
+          BLOCKS.HEADING_2,
+          BLOCKS.HEADING_3,
+          BLOCKS.HEADING_4,
+          BLOCKS.HEADING_5,
+          BLOCKS.HEADING_6,
+        ],
+      },
+    },
+  }),
 
   // Pasting content from other sources
   createPasteHTMLPlugin(),

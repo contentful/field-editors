@@ -27,6 +27,7 @@ import { ToolbarUnderlineButton } from '../plugins/Marks/Underline';
 import { ToolbarQuoteButton } from '../plugins/Quote';
 import { ToolbarTableButton } from '../plugins/Table';
 import { useSdkContext } from '../SdkProvider';
+import AlignToolbarButtons from './components/AlignToolbarButtons';
 import { EmbedEntityWidget } from './components/EmbedEntityWidget';
 
 type ToolbarProps = {
@@ -143,7 +144,9 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
         {isMarkEnabled(sdk.field, MARKS.UNDERLINE) && (
           <ToolbarUnderlineButton isDisabled={isDisabled} />
         )}
-
+        {validationInfo.isAnyMarkEnabled && <span className={styles.divider} />}
+        <AlignToolbarButtons />
+        {validationInfo.isAnyMarkEnabled && <span className={styles.divider} />}
         {!boldItalicUnderlineAvailable && isMarkEnabled(sdk.field, MARKS.SUPERSCRIPT) && (
           <ToolbarSuperscriptButton isDisabled={isDisabled} />
         )}
