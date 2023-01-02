@@ -1,13 +1,13 @@
 import React from 'react';
-import get from 'lodash/get';
-import { css } from 'emotion';
-import { ContentType } from '../../types';
-import tokens from '@contentful/f36-tokens';
-import { CreateEntryMenuTrigger } from './CreateEntryMenuTrigger';
 
 import { Button } from '@contentful/f36-components';
-
 import { ChevronDownIcon, PlusIcon } from '@contentful/f36-icons';
+import tokens from '@contentful/f36-tokens';
+import { css } from 'emotion';
+import get from 'lodash/get';
+
+import { ContentType } from '../../types';
+import { CreateEntryMenuTrigger } from './CreateEntryMenuTrigger';
 
 const standardStyles = {
   spinnerMargin: css({
@@ -20,6 +20,7 @@ const redesignStyles = {
   action: css({
     textDecoration: 'none',
     fontWeight: 'bold',
+    maxWidth: '300px',
   }),
 };
 
@@ -76,7 +77,8 @@ export const CreateEntryLinkButton = ({
       onSelect={onSelect}
       testId={testId}
       dropdownSettings={dropdownSettings}
-      customDropdownItems={customDropdownItems}>
+      customDropdownItems={customDropdownItems}
+    >
       {({ isSelecting }) => (
         <Button
           endIcon={hasDropdown ? <ChevronDownIcon /> : undefined}
@@ -86,7 +88,8 @@ export const CreateEntryLinkButton = ({
           startIcon={isSelecting ? undefined : plusIcon}
           size="small"
           testId="create-entry-link-button"
-          isLoading={isSelecting}>
+          isLoading={isSelecting}
+        >
           {buttonText}
         </Button>
       )}
