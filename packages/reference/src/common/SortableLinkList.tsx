@@ -17,6 +17,7 @@ const styles = {
   }),
   item: css({
     marginBottom: tokens.spacingM,
+    zIndex: tokens.zIndexModalContent, // setting this to an index above 99 fixes dragged item disappearing issue
   }),
 };
 type SortableContainerChildProps<IType> = Pick<
@@ -52,7 +53,8 @@ const SortableLinkListInternal = SortableContainer((props: SortableLinkListProps
         <SortableLink
           disabled={props.isDisabled}
           key={`${item.sys.urn ?? item.sys.id}-${index}`}
-          index={index}>
+          index={index}
+        >
           {props.children({
             items: props.items,
             isDisabled: props.isDisabled,
