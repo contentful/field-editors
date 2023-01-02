@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.6.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.5.4...@contentful/field-editor-reference@5.6.0) (2023-01-02)
+
+### Bug Fixes
+
+- solve multi ref drag issue [TOL-823] ([#1314](https://github.com/contentful/field-editors/issues/1314)) ([2d37f1c](https://github.com/contentful/field-editors/commit/2d37f1ca2b9a89710e7999278afcb492a069c8a8))
+
+### Features
+
+- lower search and update width entry ref [TOL-247] ([#1313](https://github.com/contentful/field-editors/issues/1313)) ([ed6edbc](https://github.com/contentful/field-editors/commit/ed6edbc2ddce352d6ac7a7f8aced2129c4c2e5b4))
+
 ## [5.5.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.5.3...@contentful/field-editor-reference@5.5.4) (2022-12-23)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
