@@ -9,6 +9,7 @@ import {
   isLastChild,
 } from '@udecode/plate-core';
 import { getTableCellEntry, onKeyDownTable as defaultKeyDownTable } from '@udecode/plate-table';
+import { ReactEditor } from 'slate-react';
 
 import { insertEmptyParagraph } from '../../helpers/editor';
 import { RichTextEditor } from '../../types';
@@ -45,10 +46,10 @@ export const onKeyDownTable: KeyboardHandler<RichTextEditor, HotkeyPlugin> = (ed
     // Pressing Tab on the last cell creates a new row
     // Otherwise, jumping between cells is handled in the defaultKeyDownTable
     if (event.key === 'Tab' && !event.shiftKey) {
-      event.preventDefault();
       const res = getTableCellEntry(editor, {});
 
       if (res) {
+        event.preventDefault();
         const { tableElement, tableRow, tableCell } = res;
 
         const isLastCell = isLastChild(tableRow, tableCell[1]);
@@ -59,10 +60,14 @@ export const onKeyDownTable: KeyboardHandler<RichTextEditor, HotkeyPlugin> = (ed
 
           // skip default handler
           return;
+        } else {
+          defaultHandler(event);
         }
       }
     }
 
-    defaultHandler(event);
+    if (event.key === 'Escape') {
+      ReactEditor.blur(editor);
+    }
   };
 };
