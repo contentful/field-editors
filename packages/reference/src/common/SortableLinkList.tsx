@@ -17,7 +17,7 @@ const styles = {
   }),
   item: css({
     marginBottom: tokens.spacingM,
-    zIndex: tokens.zIndexModalContent,
+    zIndex: tokens.zIndexModalContent, // setting this to an index above 99 fixes [TOL-823]
   }),
 };
 type SortableContainerChildProps<IType> = Pick<
