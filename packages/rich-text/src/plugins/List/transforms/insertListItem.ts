@@ -11,13 +11,12 @@ import {
   getNextPath,
 } from '../../../internal/queries';
 import {
-  setSelection,
+  select,
   insertNodes,
   moveChildren,
   splitNodes,
   collapseSelection,
 } from '../../../internal/transforms';
-import { BaseRange } from '../../../internal/types';
 import { CustomElement, RichTextEditor } from '../../../types';
 
 /**
@@ -120,7 +119,7 @@ export const insertListItem = (editor: RichTextEditor): boolean => {
     }
 
     // Move cursor to the start of the new li
-    setSelection(editor, newListItemPath as Partial<BaseRange>);
+    select(editor, newListItemPath);
     collapseSelection(editor, { edge: 'start' });
   });
 

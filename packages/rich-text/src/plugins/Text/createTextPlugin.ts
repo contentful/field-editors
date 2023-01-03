@@ -11,7 +11,13 @@ import {
   isRangeCollapsed,
   queryNode,
 } from '../../internal/queries';
-import { setSelection, removeNodes, splitNodes, unhangRange } from '../../internal/transforms';
+import {
+  setSelection,
+  select,
+  removeNodes,
+  splitNodes,
+  unhangRange,
+} from '../../internal/transforms';
 import {
   PlatePlugin,
   PlateEditor,
@@ -120,7 +126,7 @@ function deleteEmptyParagraph(
         });
 
         if (prevCell) {
-          setSelection(editor, prevNode as Partial<BaseRange>);
+          select(editor, prevNode);
         }
       }
     } else {

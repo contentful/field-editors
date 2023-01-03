@@ -2,15 +2,8 @@ import { BLOCKS } from '@contentful/rich-text-types';
 import { getEmptyRowNode } from '@udecode/plate-table';
 
 import { getAboveNode, someNode, getStartPoint, getNextPath } from '../../../internal/queries';
-import { setSelection, insertNodes } from '../../../internal/transforms';
-import {
-  PlateEditor,
-  NodeEntry,
-  Element,
-  Path,
-  Location,
-  BaseRange,
-} from '../../../internal/types';
+import { select, insertNodes } from '../../../internal/transforms';
+import { PlateEditor, NodeEntry, Element, Path, Location } from '../../../internal/types';
 
 const addRow = (editor: PlateEditor, getNextRowPath: (currentRowPath: Path) => Path) => {
   if (
@@ -40,7 +33,7 @@ const addRow = (editor: PlateEditor, getNextRowPath: (currentRowPath: Path) => P
       );
 
       // Select the first cell in the current row
-      setSelection(editor, getStartPoint(editor, nextRowPath as Location) as Partial<BaseRange>);
+      select(editor, getStartPoint(editor, nextRowPath as Location));
     }
   }
 };

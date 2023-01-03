@@ -16,7 +16,7 @@ import {
 } from '../internal/queries';
 import {
   setNodes,
-  setSelection,
+  select,
   insertNodes,
   toggleNodeType,
   moveSelection,
@@ -32,7 +32,6 @@ import {
   PlateEditor,
   Node,
   Path,
-  BaseRange,
 } from '../internal/types';
 import { CustomElement, RichTextEditor } from '../types';
 import { IS_SAFARI } from './environment';
@@ -209,7 +208,7 @@ export function wrapLink(editor, { text, url, target, type, path }: InsertLinkOp
   if (path) {
     setNodes(editor, link, { at: path });
     insertText(editor, text, { at: path });
-    setSelection(editor, path as Partial<BaseRange>);
+    select(editor, path);
   } else if (isCollapsed) {
     insertNodes(editor, link);
   } else {

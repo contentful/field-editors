@@ -46,7 +46,6 @@ export function createDragAndDropPlugin(): PlatePlugin {
         if (!dropDisallowed) {
           // Move the drop event to a new undo batch mitigating the bug where undo not only moves it back,
           // but also undoes a previous action: https://github.com/ianstormtaylor/slate/issues/4694
-          // @ts-expect-error
           editor.history.undos.push([]);
         }
 

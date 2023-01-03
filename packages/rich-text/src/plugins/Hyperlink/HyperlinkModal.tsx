@@ -23,8 +23,8 @@ import getLinkedContentTypeIdsForNodeType from '../../helpers/getLinkedContentTy
 import { isNodeTypeEnabled } from '../../helpers/validations';
 import { withoutNormalizing } from '../../internal';
 import { getText, isEditorReadOnly } from '../../internal/queries';
-import { setSelection } from '../../internal/transforms';
-import { PlateEditor, Path, BaseRange } from '../../internal/types';
+import { select } from '../../internal/transforms';
+import { PlateEditor, Path } from '../../internal/types';
 import { TrackingPluginActions } from '../../plugins/Tracking';
 import { FetchingWrappedAssetCard } from '../shared/FetchingWrappedAssetCard';
 import { FetchingWrappedEntryCard } from '../shared/FetchingWrappedEntryCard';
@@ -318,7 +318,7 @@ export async function addOrEditLink(
       );
     }
   );
-  setSelection(editor, selectionAfterFocus as Partial<BaseRange>);
+  select(editor, selectionAfterFocus);
 
   if (!data) {
     focus(editor);

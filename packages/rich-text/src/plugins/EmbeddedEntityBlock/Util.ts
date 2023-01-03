@@ -3,7 +3,7 @@ import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
 import { focus, insertEmptyParagraph, moveToTheNextChar } from '../../helpers/editor';
 import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
 import { getText, getAboveNode, getLastNodeByLevel } from '../../internal/queries';
-import { setSelection, insertNodes, setNodes } from '../../internal/transforms';
+import { select, insertNodes, setNodes } from '../../internal/transforms';
 import { PlateEditor } from '../../internal/types';
 import { TrackingPluginActions } from '../../plugins/Tracking';
 
@@ -28,7 +28,7 @@ export async function selectEntityAndInsert(
     return;
   }
 
-  setSelection(editor, selection);
+  select(editor, selection);
 
   insertBlock(editor, nodeType, entity);
   ensureFollowingParagraph(editor);

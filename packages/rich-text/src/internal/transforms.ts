@@ -16,6 +16,7 @@ import {
   Path,
   Span,
   BasePoint,
+  Location,
 } from './types';
 
 /**
@@ -30,6 +31,10 @@ export const normalize = (editor: PlateEditor, options?: s.EditorNormalizeOption
  */
 export const setSelection = (editor: PlateEditor, props: Partial<BaseRange>) => {
   return p.setSelection(editor, props);
+};
+
+export const select = (editor: PlateEditor, location: Location) => {
+  return p.select(editor, location);
 };
 
 export const moveSelection = (editor: PlateEditor, options?: SelectionMoveOptions) => {

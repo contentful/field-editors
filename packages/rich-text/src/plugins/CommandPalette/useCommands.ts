@@ -6,8 +6,8 @@ import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { isNodeTypeSelected } from '../../helpers/editor';
 import { isNodeTypeEnabled } from '../../helpers/validations';
 import { getRange, getAboveNode } from '../../internal/queries';
-import { setSelection, insertNodes, deleteText, removeMark } from '../../internal/transforms';
-import { PlateEditor, BaseRange } from '../../internal/types';
+import { select, insertNodes, deleteText, removeMark } from '../../internal/transforms';
+import { PlateEditor } from '../../internal/types';
 import { COMMAND_PROMPT } from './constants';
 import { createInlineEntryNode } from './utils/createInlineEntryNode';
 import { fetchAssets } from './utils/fetchAssets';
@@ -32,7 +32,7 @@ const removeCommand = (editor: PlateEditor) => {
   const [, path] = getAboveNode(editor)!;
   const range = getRange(editor, path);
 
-  setSelection(editor, range.focus.path as Partial<BaseRange>);
+  select(editor, range.focus.path);
 
   removeMark(editor, COMMAND_PROMPT, range);
   deleteText(editor);
@@ -83,7 +83,7 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: Plate
                         const selection = editor.selection;
                         editor.insertSoftBreak();
                         insertBlock(editor, BLOCKS.EMBEDDED_ENTRY, entry.entry);
-                        setSelection(editor, selection);
+                        select(editor, selection);
                         editor.tracking.onCommandPaletteAction('insert', {
                           nodeType: BLOCKS.EMBEDDED_ENTRY,
                         });
@@ -179,7 +179,7 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: Plate
                             const selection = editor.selection;
                             editor.insertSoftBreak();
                             insertBlock(editor, BLOCKS.EMBEDDED_ASSET, asset.entity);
-                            setSelection(editor, selection);
+                            select(editor, selection);
                             editor.tracking.onCommandPaletteAction('insert', {
                               nodeType: BLOCKS.EMBEDDED_ASSET,
                             });
