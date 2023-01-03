@@ -16,6 +16,10 @@ export const focusEditor = (editor: PlateEditor, target?: Location) => {
   p.focusEditor(editor, target);
 };
 
+export const blurEditor = (editor: PlateEditor) => {
+  p.blurEditor(editor);
+};
+
 export const selectEditor = (editor: PlateEditor, opts: p.SelectEditorOptions) => {
   p.selectEditor(editor, opts);
 };

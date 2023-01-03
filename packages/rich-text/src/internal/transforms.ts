@@ -57,6 +57,14 @@ export const setNodes = (
   p.setNodes(editor, attrs, opts);
 };
 
+export const unsetNodes = (
+  editor: PlateEditor,
+  props: string | number | (string | number)[],
+  options?: p.UnsetNodesOptions<Value> | undefined
+) => {
+  p.unsetNodes(editor, props, options);
+};
+
 export const insertNodes = (
   editor: PlateEditor,
   nodes: Node | Node[],
