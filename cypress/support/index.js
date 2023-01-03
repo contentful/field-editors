@@ -12,7 +12,7 @@
 // You can read more here:
 // https://on.cypress.io/configuration
 // ***********************************************************
-
+require('cypress-plugin-tab');
 import './commands';
 
 if (Cypress.testingType === 'e2e') {
