@@ -50,10 +50,10 @@
     "is-hotkey": "^0.2.0",
     "is-plain-obj": "^3.0.0",
     "react-popper": "^2.3.0",
-    "slate": "^0.87.0",
-    "slate-history": "^0.86.0",
-    "slate-hyperscript": "^0.77.0",
-    "slate-react": "^0.87.0"
+    "slate": "0.80.0",
+    "slate-history": "0.66.0",
+    "slate-hyperscript": "0.67.0",
+    "slate-react": "0.80.0"
   },
   "peerDependencies": {
     "react": ">=16.14.0",
