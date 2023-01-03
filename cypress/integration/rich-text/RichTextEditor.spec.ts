@@ -153,6 +153,15 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     richText.expectValue(expectedValue);
   });
 
+  it('has correct keyboard navigation', () => {
+    richText.editor.focus();
+    richText.editor.tab({ shift: true });
+    richText.toolbar.embedDropdown.should('have.focus');
+    richText.editor.tab();
+    richText.editor.tab();
+    richText.editor.should('not.have.focus');
+  });
+
   describe('history', () => {
     it('supports undo and redo', () => {
       const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text.')));
@@ -208,9 +217,23 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
   });
 
   describe('Marks', () => {
-    const findMarkViaToolbar = (mark: string) => cy.findByTestId(`${mark}-toolbar-button`);
-    const toggleMarkViaToolbar = (mark: string) =>
-      cy.findByTestId(`${mark}-toolbar-button`).click();
+    const findMarkViaToolbar = (mark: string) => {
+      if (mark === 'code' || mark === 'superscript' || mark === 'subscript') {
+        cy.findByTestId('dropdown-toolbar-button').click();
+        return cy.findByTestId(`${mark}-toolbar-button`);
+      } else {
+        return cy.findByTestId(`${mark}-toolbar-button`);
+      }
+    };
+
+    const toggleMarkViaToolbar = (mark: string) => {
+      if (mark === 'code' || mark === 'superscript' || mark === 'subscript') {
+        cy.findByTestId('dropdown-toolbar-button').click();
+        cy.findByTestId(`${mark}-toolbar-button`).click();
+      } else {
+        cy.findByTestId(`${mark}-toolbar-button`).click();
+      }
+    };
 
     it(`shows ${MARKS.BOLD}, ${MARKS.ITALIC}, ${MARKS.UNDERLINE}, ${MARKS.CODE} if not explicitly allowed`, () => {
       cy.setFieldValidations([]);
@@ -1194,7 +1217,6 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         });
 
         it('with Tab key at the end', () => {
-          // @ts-expect-error ...
           richText.editor.tab();
 
           expectTable(

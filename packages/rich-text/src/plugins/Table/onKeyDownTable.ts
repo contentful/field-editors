@@ -4,6 +4,7 @@ import { BLOCKS } from '@contentful/rich-text-types';
 import { getTableEntries, onKeyDownTable as defaultKeyDownTable } from '@udecode/plate-table';
 
 import { insertEmptyParagraph } from '../../helpers/editor';
+import { blurEditor } from '../../internal/misc';
 import { getAboveNode, isLastChildPath } from '../../internal/queries';
 import { KeyboardHandler, HotkeyPlugin, NodeEntry } from '../../internal/types';
 import { addRowBelow } from './actions';
@@ -55,10 +56,14 @@ export const onKeyDownTable: KeyboardHandler<HotkeyPlugin> = (editor, plugin) =>
 
           // skip default handler
           return;
+        } else {
+          defaultHandler(event);
         }
       }
     }
 
-    defaultHandler(event);
+    if (event.key === 'Escape') {
+      blurEditor(editor);
+    }
   };
 };

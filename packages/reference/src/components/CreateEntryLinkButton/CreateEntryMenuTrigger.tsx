@@ -10,8 +10,7 @@ import get from 'lodash/get';
 
 import { ContentType } from '../../types';
 
-
-const MAX_ITEMS_WITHOUT_SEARCH = 20;
+const MAX_ITEMS_WITHOUT_SEARCH = 5;
 
 const menuPlacementMap: {
   [key: string]: MenuProps['placement'];
@@ -171,7 +170,8 @@ export const CreateEntryMenuTrigger = ({
         isAutoalignmentEnabled={dropdownSettings.isAutoalignmentEnabled}
         isOpen={isOpen}
         onClose={closeMenu}
-        onOpen={handleMenuOpen}>
+        onOpen={handleMenuOpen}
+      >
         <Menu.Trigger>{children({ isOpen, isSelecting })}</Menu.Trigger>
 
         {isOpen && (
@@ -182,7 +182,8 @@ export const CreateEntryMenuTrigger = ({
               maxHeight: `${maxDropdownHeight}px`,
             }}
             ref={menuListRef}
-            testId="add-entry-menu">
+            testId="add-entry-menu"
+          >
             {Boolean(customDropdownItems) && (
               <>
                 {customDropdownItems}
@@ -222,7 +223,8 @@ export const CreateEntryMenuTrigger = ({
                 <Menu.Item
                   testId="contentType"
                   key={`${get(contentType, 'name')}-${i}`}
-                  onClick={() => handleSelect(contentType)}>
+                  onClick={() => handleSelect(contentType)}
+                >
                   {get(contentType, 'name', 'Untitled')}
                 </Menu.Item>
               ))

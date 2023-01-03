@@ -22,6 +22,11 @@ export const ToolbarSuperscriptButton = createMarkToolbarButton({
   icon: <SuperscriptIcon />,
 });
 
+export const ToolbarDropdownSuperscriptButton = createMarkToolbarButton({
+  title: 'Superscript',
+  mark: MARKS.SUPERSCRIPT,
+});
+
 export function Superscript(props: RenderLeafProps) {
   return (
     <sup {...props.attributes} className={styles.superscript}>

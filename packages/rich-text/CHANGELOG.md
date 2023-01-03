@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.3.1...@contentful/field-editor-rich-text@3.3.2) (2023-01-02)
+
+### Bug Fixes
+
+- a11y issues focus rich text ([#1315](https://github.com/contentful/field-editors/issues/1315)) ([a2064a7](https://github.com/contentful/field-editors/commit/a2064a76942a63fcce4e4ad39cf6e36bfe1f5159))
+
+## [3.3.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.3.0...@contentful/field-editor-rich-text@3.3.1) (2022-12-23)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+# [3.3.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.2.2...@contentful/field-editor-rich-text@3.3.0) (2022-12-09)
+
+### Features
+
+- dropdown toolbar rich text [TOL-764] ([#1287](https://github.com/contentful/field-editors/issues/1287)) ([bfcc3d1](https://github.com/contentful/field-editors/commit/bfcc3d1f2a0da46877c0f35f53e13a3c79abca3b))
+
+## [3.2.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.2.1...@contentful/field-editor-rich-text@3.2.2) (2022-12-08)
+
+### Bug Fixes
+
+- handle unavailable marks ([#1288](https://github.com/contentful/field-editors/issues/1288)) ([c672c51](https://github.com/contentful/field-editors/commit/c672c516332407ec0691bffc764912b5c6b18795))
+
 ## [3.2.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.2.0...@contentful/field-editor-rich-text@3.2.1) (2022-11-18)
 
 ### Bug Fixes

@@ -22,6 +22,11 @@ export const ToolbarSubscriptButton = createMarkToolbarButton({
   icon: <SubscriptIcon viewBox="0 0 23 18" />,
 });
 
+export const ToolbarDropdownSubscriptButton = createMarkToolbarButton({
+  title: 'Subscript',
+  mark: MARKS.SUBSCRIPT,
+});
+
 export function Subscript(props: RenderLeafProps) {
   return (
     <sub {...props.attributes} className={styles.subscript}>

@@ -10,6 +10,7 @@ import {
   getPointAfter,
   isRangeCollapsed,
   queryNode,
+  isText,
 } from '../../internal/queries';
 import {
   setSelection,
@@ -17,6 +18,7 @@ import {
   removeNodes,
   splitNodes,
   unhangRange,
+  unsetNodes,
 } from '../../internal/transforms';
 import {
   PlatePlugin,
@@ -27,7 +29,7 @@ import {
   BaseRange,
 } from '../../internal/types';
 
-export function createTextPlugin(): PlatePlugin {
+export function createTextPlugin(restrictedMarks: string[]): PlatePlugin {
   return {
     key: 'TextPlugin',
     handlers: {
@@ -88,6 +90,19 @@ export function createTextPlugin(): PlatePlugin {
 
       return editor;
     },
+    normalizer: [
+      {
+        match: isText,
+        transform: (editor, [, path]) => {
+          unsetNodes(editor, restrictedMarks, { at: path });
+        },
+        validNode: (_editor, [node]) => {
+          return !restrictedMarks.some((mark) => {
+            return mark in node;
+          });
+        },
+      },
+    ],
   };
 }
 

@@ -178,6 +178,7 @@ import { RichTextEditor } from '@contentful/field-editor-rich-text';
           sdk={sdk}
           onAction={onAction}
           isInitiallyDisabled={isDisabled}
+          restrictedMarks={JSON.parse(window.localStorage.getItem('restrictedMarks')) || []}
         />
         <ValidationErrors field={field} locales={[]} />
         <ActionsPlayground mitt={mitt} renderValue={renderRT} />
