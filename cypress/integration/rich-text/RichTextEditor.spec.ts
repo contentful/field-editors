@@ -153,6 +153,15 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     richText.expectValue(expectedValue);
   });
 
+  it('has correct keyboard navigation', () => {
+    richText.editor.focus();
+    richText.editor.tab({ shift: true });
+    richText.toolbar.embedDropdown.should('have.focus');
+    richText.editor.tab();
+    richText.editor.tab();
+    richText.editor.should('not.have.focus');
+  });
+
   describe('history', () => {
     it('supports undo and redo', () => {
       const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text.')));

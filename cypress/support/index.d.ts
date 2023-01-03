@@ -2,6 +2,7 @@ declare namespace Cypress {
   import type { ComponentFixtures } from '../fixtures';
 
   interface Chainable {
+    tab(arg0?: { shift: boolean }): unknown;
     editorEvents(lastN?: number): Chainable<Array<any>>;
     editorActions(lastN?: number): Chainable<Array<any>>;
     setValueExternal(value: any): Chainable<void>;
