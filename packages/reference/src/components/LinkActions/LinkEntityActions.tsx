@@ -11,6 +11,7 @@ import {
   Asset,
   NavigatorSlideInfo,
 } from '../../types';
+import { CombinedLinkActions } from './CombinedLinkActions';
 import { createEntity, selectMultipleEntities, selectSingleEntity } from './helpers';
 import { LinkActions, LinkActionsProps } from './LinkActions';
 
@@ -174,6 +175,19 @@ export function LinkEntityActions({
   const renderLinkActions = renderCustomActions
     ? renderCustomActions
     : (props: LinkActionsProps) => <LinkActions {...props} />;
+
+  return renderLinkActions(props);
+}
+
+export function CombinedLinkEntityActions({
+  renderCustomActions,
+  ...props
+}: LinkActionsProps & {
+  renderCustomActions?: (props: LinkActionsProps) => React.ReactElement;
+}) {
+  const renderLinkActions = renderCustomActions
+    ? renderCustomActions
+    : (props: LinkActionsProps) => <CombinedLinkActions {...props} />;
 
   return renderLinkActions(props);
 }
