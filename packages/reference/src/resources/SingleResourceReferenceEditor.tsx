@@ -41,7 +41,6 @@ export function SingleResourceReferenceEditor(
               getEntryRouteHref={props.getEntryRouteHref}
             />
           ) : (
-            // TODO: support custom actions once publicly available
             <CombinedLinkEntityActions
               {...linkActionsProps}
               renderCustomActions={props.renderCustomActions}

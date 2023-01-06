@@ -172,11 +172,7 @@ export function LinkEntityActions({
 }: LinkActionsProps & {
   renderCustomActions?: (props: LinkActionsProps) => React.ReactElement;
 }) {
-  const renderLinkActions = renderCustomActions
-    ? renderCustomActions
-    : (props: LinkActionsProps) => <LinkActions {...props} />;
-
-  return renderLinkActions(props);
+  return renderCustomActions ? renderCustomActions(props) : <LinkActions {...props} />;
 }
 
 export function CombinedLinkEntityActions({
@@ -185,9 +181,5 @@ export function CombinedLinkEntityActions({
 }: LinkActionsProps & {
   renderCustomActions?: (props: LinkActionsProps) => React.ReactElement;
 }) {
-  const renderLinkActions = renderCustomActions
-    ? renderCustomActions
-    : (props: LinkActionsProps) => <CombinedLinkActions {...props} />;
-
-  return renderLinkActions(props);
+  return renderCustomActions ? renderCustomActions(props) : <CombinedLinkActions {...props} />;
 }
