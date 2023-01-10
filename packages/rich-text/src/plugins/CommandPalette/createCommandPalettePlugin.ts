@@ -1,4 +1,4 @@
-import { RichTextPlugin } from '../../types';
+import { PlatePlugin } from '../../internal/types';
 import { CommandPrompt } from './components/CommandPrompt';
 import { COMMAND_PROMPT } from './constants';
 import { createOnKeyDown } from './onKeyDown';
@@ -14,14 +14,13 @@ import { createOnKeyDown } from './onKeyDown';
  * * When the user presses a letter, number, or space, the command palette will show the command suggestions
  * * When the user presses backspace, the command palette will remove the last character from the command string
  */
-export const createCommandPalettePlugin = (): RichTextPlugin => {
+export const createCommandPalettePlugin = (): PlatePlugin => {
   return {
     key: COMMAND_PROMPT,
     type: COMMAND_PROMPT,
     isLeaf: true,
     component: CommandPrompt,
     handlers: {
-      // @ts-expect-error
       onKeyDown: createOnKeyDown(),
     },
   };

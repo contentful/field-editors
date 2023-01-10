@@ -1,8 +1,8 @@
 import { isRootLevel } from '../../helpers/editor';
 import { isFirstChildPath } from '../../internal/queries';
-import { RichTextPlugin } from '../../types';
+import { PlatePlugin } from '../../internal/types';
 
-export const createVoidsPlugin = (): RichTextPlugin => ({
+export const createVoidsPlugin = (): PlatePlugin => ({
   key: 'VoidsPlugin',
   exitBreak: [
     {

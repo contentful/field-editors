@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import {
   createDeserializeAstPlugin,
@@ -40,7 +39,6 @@ export const getPlugins = (
   // AST must come after the HTML deserializer
   createDeserializeHtmlPlugin(),
   createDeserializeAstPlugin(),
-  // @ts-expect-error TODO: move this to internal
   createDeserializeDocxPlugin(),
 
   // Tracking - This should come first so all plugins below will have access to `editor.tracking`
