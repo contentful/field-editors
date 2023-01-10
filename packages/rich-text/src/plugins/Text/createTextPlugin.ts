@@ -29,7 +29,7 @@ import {
   BaseRange,
 } from '../../internal/types';
 
-export function createTextPlugin(restrictedMarks: string[]): PlatePlugin {
+export function createTextPlugin(restrictedMarks: string[] = []): PlatePlugin {
   return {
     key: 'TextPlugin',
     handlers: {
