@@ -35,6 +35,25 @@ export interface PlateEditor extends p.PlateEditor<Value> {
   tracking: TrackingPluginActions;
 }
 
+export type CustomText = {
+  text: string;
+  [MARKS.BOLD]?: boolean;
+  [MARKS.CODE]?: boolean;
+  [MARKS.ITALIC]?: boolean;
+  [MARKS.UNDERLINE]?: boolean;
+  [MARKS.SUPERSCRIPT]?: boolean;
+  [MARKS.SUBSCRIPT]?: boolean;
+};
+
+export type TextOrCustomElement = CustomElement | CustomText;
+
+export type CustomElement<T = unknown> = {
+  type: string;
+  children: TextOrCustomElement[];
+  data: T;
+  isVoid?: boolean;
+};
+
 export type Node = p.ElementOf<PlateEditor> | p.TextOf<PlateEditor>;
 export type Path = p.TPath;
 export type NodeEntry<T extends Node = Node> = p.TNodeEntry<T>;

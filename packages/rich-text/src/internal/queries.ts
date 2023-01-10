@@ -98,6 +98,10 @@ export const getChildren = (entry: NodeEntry) => {
   return p.getChildren(entry) as NodeEntry[];
 };
 
+export const isFirstChild = (path: Path) => {
+  return p.isFirstChild(path);
+};
+
 export const getDescendantNodeByPath = (root: Node, path: s.Path): Node => {
   // @ts-expect-error
   return s.Node.get(root, path);

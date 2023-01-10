@@ -142,3 +142,10 @@ export const removeNodes = (editor: PlateEditor, opts?: p.RemoveNodesOptions<Val
 export const moveNodes = (editor: PlateEditor, opts?: p.MoveNodesOptions<Value>) => {
   p.moveNodes(editor, opts);
 };
+
+export const deleteFragment = (
+  editor: PlateEditor,
+  options?: s.EditorFragmentDeletionOptions | undefined
+) => {
+  return p.deleteFragment(editor, options);
+};

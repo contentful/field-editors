@@ -1,7 +1,8 @@
 import * as p from '@udecode/plate-core';
+import { StoreApiGet } from '@udecode/zustood';
 import * as s from 'slate';
 
-import type { Value, PlateEditor, Location } from './types';
+import type { Value, PlateEditor, Location, PlatePlugin } from './types';
 
 export type CreatePlateEditorOptions = p.CreatePlateEditorOptions<Value, PlateEditor>;
 export const createPlateEditor = (options: CreatePlateEditorOptions = {}) => {
@@ -30,4 +31,19 @@ export const fromDOMPoint = (
   opts = { exactMatch: false, suppressThrow: false }
 ): s.BasePoint | null | undefined => {
   return p.toSlatePoint(editor, domPoint, opts);
+};
+
+export const mockPlugin = (plugin?: Partial<PlatePlugin> | undefined) => {
+  return p.mockPlugin(
+    // TODO check if there is a way around this ugly casting
+    plugin as unknown as
+      | Partial<p.PlatePlugin<p.AnyObject, p.Value, p.PlateEditor<p.Value>>>
+      | undefined
+  );
+};
+
+export const getPlateSelectors = (
+  id?: string | undefined
+): StoreApiGet<p.PlateStoreState<Value, PlateEditor>, {}> => {
+  return p.getPlateSelectors(id);
 };
