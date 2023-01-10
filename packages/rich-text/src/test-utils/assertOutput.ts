@@ -15,7 +15,7 @@ export const assertOutput = (options: {
       input: options.input,
     }).editor;
 
-  normalize(editor);
+  normalize(editor, { force: true });
 
   setEmptyDataAttribute(editor);
 
