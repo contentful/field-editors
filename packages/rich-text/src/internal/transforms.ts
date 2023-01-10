@@ -22,7 +22,10 @@ import {
 /**
  * Apply editor normalization rules
  */
-export const normalize = (editor: PlateEditor, options?: s.EditorNormalizeOptions) => {
+export const normalize = (
+  editor: PlateEditor,
+  options: s.EditorNormalizeOptions = { force: true }
+) => {
   return p.normalizeEditor(editor, options);
 };
 
