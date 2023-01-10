@@ -110,7 +110,8 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
         <ScheduledIconWithTooltip
           getEntityScheduledActions={props.getEntityScheduledActions}
           entityType="Asset"
-          entityId={props.asset.sys.id}>
+          entityId={props.asset.sys.id}
+        >
           <ClockIcon
             className={styles.scheduleIcon}
             size="small"
@@ -135,6 +136,18 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
           ? (e: React.MouseEvent<HTMLElement>) => {
               e.preventDefault();
               onEdit && onEdit();
+            }
+          : undefined
+      }
+      /* todo - remove this when onKeyDown is allowed as a prop for BaseCard in forma 36
+      // @ts-expect-error */
+      onKeyDown={
+        isClickable
+          ? (e: React.KeyboardEvent<HTMLElement>) => {
+              if (e.key === 'Enter' && onEdit) {
+                e.preventDefault();
+                onEdit();
+              }
             }
           : undefined
       }
