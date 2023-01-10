@@ -26,6 +26,6 @@ export const createTestEditor = (options: {
 
   return {
     editor,
-    normalize: () => normalize(editor),
+    normalize: () => normalize(editor, { force: true }),
   };
 };
