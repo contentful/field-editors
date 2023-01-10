@@ -13,6 +13,7 @@ describe('normalization', () => {
           <hlink asset="asset-id" />
           some text after
         </hh1>
+
         <hp>
           <htext />
         </hp>
