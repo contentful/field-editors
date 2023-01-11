@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  vault: contentful/vault@1
+
 executors:
   linux-node:
     resource_class: xlarge
@@ -26,6 +29,8 @@ commands:
   yarn_install:
     steps:
       - restore_cache: *cache-key
+      - vault/get-secrets:
+          template-preset: semantic-release-ecosystem
       - run: 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc'
       - run: yarn install --prefer-offline --pure-lockfile
       - save_cache:
@@ -100,12 +105,11 @@ jobs:
     executor: linux-node
     steps:
       - checkout
-      - add_ssh_keys:
-          fingerprints:
-            - '0a:3c:fe:6b:3d:08:6c:0e:d2:8d:ae:d4:5a:82:89:b3'
+      - yarn_install
+      # Lerna only looks for the name GH_TOKEN
+      - run: export GH_TOKEN=${GITHUB_TOKEN}
       - run: git config --global user.email "prd-dev-workflows+ecosystem-bot@contentful.com"
       - run: git config --global user.name "contentful-ecosystem-bot"
-      - yarn_install
       - run: yarn build
       - run: yarn lerna version --no-private --conventional-commits --create-release github --yes
       - run: yarn lerna publish from-git --yes
@@ -115,17 +119,22 @@ workflows:
   # run on every commit
   commit:
     jobs:
-      - lint
-      - unit-tests
-      - component-tests
+      - lint:
+          context: vault
+      - unit-tests:
+          context: vault
+      - component-tests:
+          context: vault
       - integration-tests:
           name: integration-<< matrix.executor >>-<< matrix.browser >>
+          context: vault
           matrix:
             alias: integration-tests-linux
             parameters:
               executor: [linux-cypress]
               browser: [chrome, firefox, edge]
       - release:
+          context: vault
           filters:
             branches:
               only: master
