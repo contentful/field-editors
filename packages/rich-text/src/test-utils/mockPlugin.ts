@@ -1,10 +1,10 @@
 import { mockPlugin as mock } from '@udecode/plate-core';
 
-import { RichTextPlugin } from '../types';
+import { PlatePlugin } from '../internal/types';
 import { randomId } from './randomId';
 
-export const mockPlugin = (p: Partial<RichTextPlugin>) =>
-  mock<RichTextPlugin>({
+export const mockPlugin = (p: Partial<PlatePlugin>) =>
+  mock<PlatePlugin>({
     ...(p as any),
     key: p.key || randomId('plugin'),
   }) as any;

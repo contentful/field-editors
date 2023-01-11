@@ -7,8 +7,8 @@ import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { IS_CHROME } from '../../helpers/environment';
 import { findNodePath } from '../../internal/queries';
 import { removeNodes } from '../../internal/transforms';
+import { CustomRenderElementProps } from '../../internal/types';
 import { useSdkContext } from '../../SdkProvider';
-import { CustomRenderElementProps } from '../../types';
 import { FetchingWrappedAssetCard } from '../shared/FetchingWrappedAssetCard';
 import { FetchingWrappedEntryCard } from '../shared/FetchingWrappedEntryCard';
 
@@ -65,12 +65,14 @@ export function LinkedEntityBlock(props: LinkedEntityBlockProps) {
       data-entity-id={entityId}
       // COMPAT: This makes copy & paste work for Firefox
       contentEditable={IS_CHROME ? undefined : false}
-      draggable={IS_CHROME ? true : undefined}>
+      draggable={IS_CHROME ? true : undefined}
+    >
       <div
         // COMPAT: This makes copy & paste work for Chromium/Blink browsers and Safari
         contentEditable={IS_CHROME ? false : undefined}
         draggable={IS_CHROME ? true : undefined}
-        className={styles.container}>
+        className={styles.container}
+      >
         {entityType === 'Entry' && (
           <FetchingWrappedEntryCard
             sdk={sdk}

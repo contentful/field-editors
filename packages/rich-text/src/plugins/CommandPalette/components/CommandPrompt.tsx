@@ -1,13 +1,12 @@
 import * as React from 'react';
 
-import { RichTextEditor } from 'types';
-
+import { PlateEditor } from '../../../internal/types';
 import { trimLeadingSlash } from '../utils/trimLeadingSlash';
 import { CommandList } from './CommandList';
 
 export const CommandPrompt = (props: any) => {
   const query = React.useMemo(() => trimLeadingSlash(props.text.text), [props.text.text]);
-  const editor = props.editor as RichTextEditor;
+  const editor = props.editor as PlateEditor;
   const [textElement, setTextElement] = React.useState<HTMLSpanElement>();
 
   return (

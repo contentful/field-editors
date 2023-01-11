@@ -17,12 +17,12 @@ import {
   splitNodes,
   collapseSelection,
 } from '../../../internal/transforms';
-import { CustomElement, RichTextEditor } from '../../../types';
+import { CustomElement, PlateEditor } from '../../../internal/types';
 
 /**
  * Build a new list item node while preserving marks
  */
-const emptyListItemNode = (editor: RichTextEditor, withChildren = false): CustomElement => {
+const emptyListItemNode = (editor: PlateEditor, withChildren = false): CustomElement => {
   let children: CustomElement[] = [];
 
   if (withChildren) {
@@ -47,7 +47,7 @@ const emptyListItemNode = (editor: RichTextEditor, withChildren = false): Custom
 /**
  * Insert list item if selection is in li>p.
  */
-export const insertListItem = (editor: RichTextEditor): boolean => {
+export const insertListItem = (editor: PlateEditor): boolean => {
   if (!editor.selection) {
     return false;
   }

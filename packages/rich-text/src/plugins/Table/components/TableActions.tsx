@@ -11,8 +11,8 @@ import { getNodeEntryFromSelection, getTableSize } from '../../../helpers/editor
 import { withoutNormalizing } from '../../../internal';
 import { useReadOnly } from '../../../internal/hooks';
 import { getAboveNode } from '../../../internal/queries';
+import { PlateEditor } from '../../../internal/types';
 import { RichTextTrackingActionName } from '../../../plugins/Tracking';
-import { RichTextEditor } from '../../../types';
 import { addRowAbove, addColumnLeft, addColumnRight, addRowBelow, setHeader } from '../actions';
 import { isTableHeaderEnabled } from '../helpers';
 
@@ -25,14 +25,14 @@ export const styles = {
 };
 
 const getCurrentTableSize = (
-  editor: RichTextEditor
+  editor: PlateEditor
 ): Record<'numRows' | 'numColumns', number> | null => {
   const [table] = getNodeEntryFromSelection(editor, BLOCKS.TABLE);
   return table ? getTableSize(table) : null;
 };
 
 // FIXME: TablePluginOptions no longer exported so using any
-type TableAction = (editor: RichTextEditor, options: any) => void;
+type TableAction = (editor: PlateEditor, options: any) => void;
 
 export const TableActions = () => {
   const editor = useContentfulEditor();

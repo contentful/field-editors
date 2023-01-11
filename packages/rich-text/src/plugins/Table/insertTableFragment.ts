@@ -3,7 +3,7 @@ import { BLOCKS } from '@contentful/rich-text-types';
 import { insertEmptyParagraph } from '../../helpers/editor';
 import { getText, isElement } from '../../internal/queries';
 import { Node } from '../../internal/types';
-import { CustomElement, RichTextEditor } from '../../types';
+import { CustomElement, PlateEditor } from '../../internal/types';
 import { isTable } from './helpers';
 
 /**
@@ -38,7 +38,7 @@ const trimUnnecessaryTableWrapper = (node: Node): Node[] => {
   return cell.children;
 };
 
-export const insertTableFragment = (editor: RichTextEditor) => {
+export const insertTableFragment = (editor: PlateEditor) => {
   const { insertFragment } = editor;
 
   return (fragments: Node[]) => {

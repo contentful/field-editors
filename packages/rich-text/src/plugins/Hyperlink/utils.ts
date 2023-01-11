@@ -3,10 +3,10 @@ import { isAncestorEmpty } from '@udecode/plate-core';
 
 import { getText } from '../../internal/queries';
 import { NodeEntry } from '../../internal/types';
-import { RichTextEditor } from '../../types';
+import { PlateEditor } from '../../internal/types';
 import { FetchedEntityData } from './useEntityInfo';
 
-export const hasText = (editor: RichTextEditor, entry: NodeEntry) => {
+export const hasText = (editor: PlateEditor, entry: NodeEntry) => {
   const [node, path] = entry;
   return !isAncestorEmpty(editor, node as any) && getText(editor, path).trim() !== '';
 };

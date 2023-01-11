@@ -5,8 +5,8 @@ import { Tooltip, TextLink } from '@contentful/f36-components';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
 import { fromDOMPoint } from '../../../internal';
+import { CustomRenderElementProps } from '../../../internal/types';
 import { useSdkContext } from '../../../SdkProvider';
-import { CustomRenderElementProps } from '../../../types';
 import { addOrEditLink } from '../HyperlinkModal';
 import { useEntityInfo } from '../useEntityInfo';
 import { styles } from './styles';
@@ -48,13 +48,15 @@ export function EntityHyperlink(props: HyperlinkElementProps) {
       content={tooltipContent}
       targetWrapperClassName={styles.hyperlinkWrapper}
       placement="bottom"
-      maxWidth="auto">
+      maxWidth="auto"
+    >
       <TextLink
         as="a"
         onClick={handleClick}
         className={styles.hyperlink}
         data-link-type={target.sys.linkType}
-        data-link-id={target.sys.id}>
+        data-link-id={target.sys.id}
+      >
         {props.children}
       </TextLink>
     </Tooltip>

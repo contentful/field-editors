@@ -1,11 +1,10 @@
 import { insertNodes, removeNodes } from '../../internal/transforms';
-import { NodeEntry } from '../../internal/types';
-import { RichTextEditor } from '../../types';
+import { NodeEntry, PlateEditor } from '../../internal/types';
 
 /**
  * Re-creates a void node with valid children.
  */
-export const transformVoid = (editor: RichTextEditor, [node, path]: NodeEntry) => {
+export const transformVoid = (editor: PlateEditor, [node, path]: NodeEntry) => {
   const validVoid = {
     ...node,
     children: [{ text: '' }],

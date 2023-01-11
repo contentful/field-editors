@@ -5,8 +5,8 @@ import { Tooltip, TextLink } from '@contentful/f36-components';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
 import { fromDOMPoint } from '../../../internal';
+import { CustomRenderElementProps } from '../../../internal/types';
 import { useSdkContext } from '../../../SdkProvider';
-import { CustomRenderElementProps } from '../../../types';
 import { addOrEditLink } from '../HyperlinkModal';
 import { styles } from './styles';
 
