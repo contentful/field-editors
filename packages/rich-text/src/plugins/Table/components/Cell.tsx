@@ -28,8 +28,11 @@ export const Cell = (props: RenderElementProps) => {
     <td
       {...props.attributes}
       // may include `colspan` and/or `rowspan`
+      // FIXME: figure out what is going wrong with type here
+      // @ts-expect-error
       {...(props.element.data as TableCell['data'])}
-      className={style}>
+      className={style}
+    >
       {isSelected && <TableActions />}
       {props.children}
     </td>
