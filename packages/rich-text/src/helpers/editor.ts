@@ -26,14 +26,8 @@ import {
   deleteText,
   collapseSelection,
 } from '../internal/transforms';
-import {
-  EditorNodesOptions,
-  ToggleNodeTypeOptions,
-  PlateEditor,
-  Node,
-  Path,
-} from '../internal/types';
-import { CustomElement, RichTextEditor } from '../types';
+import { EditorNodesOptions, ToggleNodeTypeOptions, Node, Path } from '../internal/types';
+import { CustomElement, PlateEditor } from '../internal/types';
 import { IS_SAFARI } from './environment';
 
 export const LINK_TYPES: INLINES[] = [
@@ -83,15 +77,15 @@ export function isNodeTypeSelected(
   return !!node;
 }
 
-export function moveToTheNextLine(editor: RichTextEditor) {
+export function moveToTheNextLine(editor: PlateEditor) {
   moveSelection(editor, { distance: 1, unit: 'line' });
 }
 
-export function moveToTheNextChar(editor: RichTextEditor) {
+export function moveToTheNextChar(editor: PlateEditor) {
   moveSelection(editor, { distance: 1, unit: 'offset' });
 }
 
-export function insertEmptyParagraph(editor: RichTextEditor, options?) {
+export function insertEmptyParagraph(editor: PlateEditor, options?) {
   const emptyParagraph: CustomElement = {
     type: BLOCKS.PARAGRAPH,
     children: [{ text: '' }],
@@ -101,7 +95,7 @@ export function insertEmptyParagraph(editor: RichTextEditor, options?) {
   insertNodes(editor, emptyParagraph, options);
 }
 
-export function getElementFromCurrentSelection(editor: RichTextEditor) {
+export function getElementFromCurrentSelection(editor: PlateEditor) {
   if (!editor.selection) return [];
 
   return Array.from(
@@ -117,7 +111,7 @@ export function getElementFromCurrentSelection(editor: RichTextEditor) {
   ).flat();
 }
 
-export function isList(editor?: RichTextEditor) {
+export function isList(editor?: PlateEditor) {
   if (!editor) {
     return false;
   }
@@ -156,7 +150,7 @@ export function insertLink(editor, options: InsertLinkOptions) {
 }
 
 // TODO: move to hyperlink plugin
-export function isLinkActive(editor?: RichTextEditor) {
+export function isLinkActive(editor?: PlateEditor) {
   if (!editor) {
     return false;
   }
@@ -219,13 +213,13 @@ export function wrapLink(editor, { text, url, target, type, path }: InsertLinkOp
   }
 }
 
-export function getAncestorPathFromSelection(editor: RichTextEditor) {
+export function getAncestorPathFromSelection(editor: PlateEditor) {
   if (!editor.selection) return undefined;
 
   return getPathLevels(editor.selection.focus.path).find((level) => level.length === 1);
 }
 
-export const isAtEndOfTextSelection = (editor: RichTextEditor) =>
+export const isAtEndOfTextSelection = (editor: PlateEditor) =>
   editor.selection?.focus.offset === getText(editor, editor.selection?.focus.path).length;
 
 /**
@@ -258,7 +252,7 @@ export const isInlineOrText = (node: Node) => {
   return isText(node) || (isElement(node) && INLINE_TYPES.includes(node.type));
 };
 
-export const focus = (editor: RichTextEditor) => {
+export const focus = (editor: PlateEditor) => {
   const x = window.scrollX;
   const y = window.scrollY;
 
@@ -273,7 +267,7 @@ export const focus = (editor: RichTextEditor) => {
 };
 
 export function toggleElement(
-  editor: RichTextEditor,
+  editor: PlateEditor,
   options: ToggleNodeTypeOptions,
   editorOptions?: EditorNodesOptions
 ) {
