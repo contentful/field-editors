@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.7.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.6.0...@contentful/field-editor-reference@5.7.0) (2023-01-11)
+
+### Features
+
+- custom actions in resource reference editors [DANTE-793] ([#1317](https://github.com/contentful/field-editors/issues/1317)) ([9702049](https://github.com/contentful/field-editors/commit/97020490219033edce2f71635f098b76f8a1f4b4))
+
 # [5.6.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.5.4...@contentful/field-editor-reference@5.6.0) (2023-01-02)
 
 ### Bug Fixes
