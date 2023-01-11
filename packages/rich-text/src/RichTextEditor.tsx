@@ -84,9 +84,9 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
     }
 
     getPlateActions(id).value(
+      // FIXME: fix types here
+      // @ts-expect-error
       normalizeEditorValue(documentToEditorValue(props.value), {
-        // FIXME: fix types here
-        // @ts-expect-error
         plugins,
         disableCorePlugins,
       })
