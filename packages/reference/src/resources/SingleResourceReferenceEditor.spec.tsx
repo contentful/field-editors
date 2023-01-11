@@ -71,6 +71,24 @@ describe('Single resource editor', () => {
     });
   });
 
+  it('renders custom actions when passed', async () => {
+    const sdk: FieldExtensionSDK = mockSdkForField(fieldDefinition);
+    render(
+      <SingleResourceReferenceEditor
+        isInitiallyDisabled={false}
+        sdk={sdk}
+        hasCardEditActions={true}
+        viewType="card"
+        // @ts-expect-error unused...
+        parameters={{}}
+        renderCustomActions={() => <div data-testid="custom-actions" />}
+      />
+    );
+
+    const customActions = await screen.findByTestId('custom-actions');
+    expect(customActions).toBeDefined();
+  });
+
   it('renders the card button when the value is set', async () => {
     const sdk: FieldExtensionSDK = mockSdkForField(fieldDefinition, {
       sys: {

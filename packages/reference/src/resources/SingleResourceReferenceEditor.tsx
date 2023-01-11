@@ -5,7 +5,7 @@ import deepEqual from 'deep-equal';
 
 import { EntityProvider } from '../common/EntityStore';
 import { ReferenceEditorProps } from '../common/ReferenceEditor';
-import { CombinedLinkActions } from '../components';
+import { CombinedLinkEntityActions } from '../components/LinkActions/LinkEntityActions';
 import { ResourceLink } from '../types';
 import { EntryRoute } from './Cards/ContentfulEntryCard';
 import { ResourceCard } from './Cards/ResourceCard';
@@ -30,7 +30,8 @@ export function SingleResourceReferenceEditor(
         throttle={0}
         field={props.sdk.field}
         isInitiallyDisabled={props.isInitiallyDisabled}
-        isEqualValues={deepEqual}>
+        isEqualValues={deepEqual}
+      >
         {({ value, disabled }) => {
           return value ? (
             <ResourceCard
@@ -40,8 +41,10 @@ export function SingleResourceReferenceEditor(
               getEntryRouteHref={props.getEntryRouteHref}
             />
           ) : (
-            // TODO: support custom actions once publicly available
-            <CombinedLinkActions {...linkActionsProps} />
+            <CombinedLinkEntityActions
+              {...linkActionsProps}
+              renderCustomActions={props.renderCustomActions}
+            />
           );
         }}
       </FieldConnector>

@@ -76,6 +76,24 @@ describe('Multiple resource editor', () => {
     });
   });
 
+  it('renders custom actions when passed', async () => {
+    const sdk: FieldExtensionSDK = mockSdkForField(fieldDefinition);
+    render(
+      <MultipleResourceReferenceEditor
+        isInitiallyDisabled={false}
+        sdk={sdk}
+        hasCardEditActions={true}
+        viewType="card"
+        // @ts-expect-error unused...
+        parameters={{}}
+        renderCustomActions={() => <div data-testid="custom-actions" />}
+      />
+    );
+
+    const customActions = await screen.findByTestId('custom-actions');
+    expect(customActions).toBeDefined();
+  });
+
   describe('with value', () => {
     it('renders the cards', async () => {
       const { entryLinks, entryInfos } = generateMultipleTestResources();
