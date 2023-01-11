@@ -18,9 +18,9 @@ import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySel
 import { findNodePath } from '../../internal/queries';
 import { setSelection, insertNodes, removeNodes } from '../../internal/transforms';
 import { KeyboardHandler, PlatePlugin, Node } from '../../internal/types';
+import { CustomRenderElementProps } from '../../internal/types';
 import { TrackingPluginActions } from '../../plugins/Tracking';
 import { useSdkContext } from '../../SdkProvider';
-import { CustomRenderElementProps } from '../../types';
 import { withLinkTracking } from '../links-tracking';
 import { FetchingWrappedInlineEntryCard } from './FetchingWrappedInlineEntryCard';
 import { createInlineEntryNode } from './Util';
@@ -70,11 +70,13 @@ function EmbeddedEntityInline(props: EmbeddedEntityInlineProps) {
       data-embedded-entity-inline-id={entryId}
       // COMPAT: This makes copy & paste work for Firefox
       contentEditable={IS_CHROME ? undefined : false}
-      draggable={IS_CHROME ? true : undefined}>
+      draggable={IS_CHROME ? true : undefined}
+    >
       <span
         // COMPAT: This makes copy & paste work for Chromium/Blink browsers and Safari
         contentEditable={IS_CHROME ? false : undefined}
-        draggable={IS_CHROME ? true : undefined}>
+        draggable={IS_CHROME ? true : undefined}
+      >
         <FetchingWrappedInlineEntryCard
           sdk={sdk}
           entryId={entryId}
@@ -149,7 +151,8 @@ export function ToolbarEmbeddedEntityInlineButton(props: ToolbarEmbeddedEntityIn
       disabled={props.isDisabled}
       className="rich-text__entry-link-block-button"
       testId={`toolbar-toggle-${INLINES.EMBEDDED_ENTRY}`}
-      onClick={handleClick}>
+      onClick={handleClick}
+    >
       <Flex alignItems="center" flexDirection="row">
         <EmbeddedEntryInlineIcon
           variant="secondary"
