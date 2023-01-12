@@ -23,7 +23,6 @@ const style = css`
 
 export const Cell = (props: RenderElementProps) => {
   const isSelected = useSelected();
-
   return (
     <td
       {...props.attributes}
