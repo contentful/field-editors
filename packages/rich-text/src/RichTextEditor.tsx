@@ -39,7 +39,6 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
     () => getPlugins(props.sdk, props.onAction ?? noop, props.restrictedMarks),
     [props.sdk, props.onAction, props.restrictedMarks]
   );
-
   const [isFirstRender, setIsFirstRender] = useState(true);
   const [pendingExternalUpdate, setPendingExternalUpdate] = useState(false);
 
