@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.8.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.8.0...@contentful/field-editor-reference@5.8.1) (2023-01-13)
+
+### Bug Fixes
+
+- enter key open asset modal [TOL-889] ([#1320](https://github.com/contentful/field-editors/issues/1320)) ([5e142ca](https://github.com/contentful/field-editors/commit/5e142ca14c1eac5816e8c962e4e32be6fe10aad6))
+
 # [5.8.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.6.0...@contentful/field-editor-reference@5.8.0) (2023-01-11)
 
 ### Features
