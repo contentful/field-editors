@@ -25,7 +25,7 @@ type ConnectedProps = {
   sdk: FieldExtensionSDK;
   onAction?: RichTextTrackingActionHandler;
   minHeight?: string | number;
-  value?: Contentful.Document;
+  value?: object;
   isDisabled?: boolean;
   onChange?: (doc: Contentful.Document) => unknown;
   isToolbarHidden?: boolean;
@@ -68,7 +68,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
       return;
     }
     setPendingExternalUpdate(true);
-    setEditorContent(editor, documentToEditorValue(props.value));
+    setEditorContent(editor, documentToEditorValue(props.value as Contentful.Document));
   }, [props.value, id]);
 
   const classNames = cx(
