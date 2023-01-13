@@ -1,6 +1,5 @@
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
 
-
 import { INLINE_TYPES } from '../../helpers/editor';
 import { transformWrapIn } from '../../helpers/transformers';
 import { getParentNode, isText } from '../../internal/queries';
@@ -15,7 +14,7 @@ const isTextContainer = (node: CustomElement) => TEXT_CONTAINERS.includes(node.t
 export const baseRules: Required<NormalizerRule>[] = [
   {
     // Wrap orphaned text nodes in a paragraph
-    match: (node) => isText(node),
+    match: isText,
     validNode: (editor, [, path]) => {
       const parent = getParentNode(editor, path)?.[0] as CustomElement;
       return !!parent && (isTextContainer(parent) || isInline(parent) || editor.isVoid(parent));

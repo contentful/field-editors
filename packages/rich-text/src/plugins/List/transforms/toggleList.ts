@@ -85,7 +85,8 @@ export const toggleList = (editor: PlateEditor, { type }: { type: string }) =>
       ) {
         let listType = commonEntry[0].type;
         if (commonEntry[0].type === BLOCKS.LIST_ITEM) {
-          listType = (getParentNode(editor, commonEntry[1] as Location)?.[0] as Element).type;
+          listType = (getParentNode(editor, commonEntry[1] as Location)?.[0] as Element | undefined)
+            ?.type;
         }
         if (listType !== type) {
           const startList = findNode(editor, {

@@ -29,7 +29,7 @@ const getNearestListAncestor = (editor: PlateEditor, path: Path) => {
  */
 export const normalizeOrphanedListItem = (editor: PlateEditor, [, path]: NodeEntry) => {
   const [parentList] = getNearestListAncestor(editor, path);
-  const parentListType = parentList?.type as string;
+  const parentListType = parentList?.type as string | undefined;
 
   wrapNodes(
     editor,

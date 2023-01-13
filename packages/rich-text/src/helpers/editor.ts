@@ -41,7 +41,7 @@ const LIST_TYPES: BLOCKS[] = [BLOCKS.OL_LIST, BLOCKS.UL_LIST];
 export function isBlockSelected(editor: PlateEditor, type: string): boolean {
   const [match] = Array.from(
     getNodeEntries(editor, {
-      match: (node) => isElement(node) && (node as CustomElement).type === type,
+      match: (node) => isElement(node) && node.type === type,
     })
   );
   return !!match;
@@ -119,8 +119,7 @@ export function isList(editor?: PlateEditor) {
   const element = getElementFromCurrentSelection(editor);
 
   return element.some(
-    (element) =>
-      isElement(element) && LIST_TYPES.includes((element as CustomElement).type as BLOCKS)
+    (element) => isElement(element) && LIST_TYPES.includes(element.type as BLOCKS)
   );
 }
 
@@ -150,7 +149,7 @@ export function insertLink(editor, options: InsertLinkOptions) {
 }
 
 // TODO: move to hyperlink plugin
-export function isLinkActive(editor?: PlateEditor) {
+export function isLinkActive(editor?: PlateEditor | null) {
   if (!editor) {
     return false;
   }
@@ -158,9 +157,7 @@ export function isLinkActive(editor?: PlateEditor) {
   const [link] = Array.from(
     getNodeEntries(editor, {
       match: (node) =>
-        !isEditor(node) &&
-        isElement(node) &&
-        LINK_TYPES.includes((node as CustomElement).type as INLINES),
+        !isEditor(node) && isElement(node) && LINK_TYPES.includes(node.type as INLINES),
     })
   );
   return !!link;
@@ -170,9 +167,7 @@ export function isLinkActive(editor?: PlateEditor) {
 export function unwrapLink(editor) {
   unwrapNodes(editor, {
     match: (node) =>
-      !isEditor(node) &&
-      isElement(node) &&
-      LINK_TYPES.includes((node as CustomElement).type as INLINES),
+      !isEditor(node) && isElement(node) && LINK_TYPES.includes(node.type as INLINES),
   });
 }
 
