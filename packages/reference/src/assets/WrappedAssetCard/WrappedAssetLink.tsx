@@ -1,13 +1,14 @@
 import React from 'react';
-import { css } from 'emotion';
-import tokens from '@contentful/f36-tokens';
-import { EntryCard } from '@contentful/f36-components';
-import { renderActions, renderAssetInfo } from './AssetCardActions';
-import { Asset, RenderDragFn } from '../../types';
-import { entityHelpers, isValidImage, SpaceAPI } from '@contentful/field-editor-shared';
-import { MissingEntityCard, ScheduledIconWithTooltip, AssetThumbnail } from '../../components';
 
+import { EntryCard } from '@contentful/f36-components';
 import { ClockIcon } from '@contentful/f36-icons';
+import tokens from '@contentful/f36-tokens';
+import { entityHelpers, isValidImage, SpaceAPI } from '@contentful/field-editor-shared';
+import { css } from 'emotion';
+
+import { MissingEntityCard, ScheduledIconWithTooltip, AssetThumbnail } from '../../components';
+import { Asset, RenderDragFn } from '../../types';
+import { renderActions, renderAssetInfo } from './AssetCardActions';
 
 const styles = {
   scheduleIcon: css({
@@ -70,7 +71,8 @@ export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
         <ScheduledIconWithTooltip
           getEntityScheduledActions={props.getEntityScheduledActions}
           entityType="Asset"
-          entityId={props.asset.sys.id}>
+          entityId={props.asset.sys.id}
+        >
           <ClockIcon
             className={styles.scheduleIcon}
             size="small"
@@ -82,6 +84,12 @@ export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
       onClick={(e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
         onEdit();
+      }}
+      onKeyDown={(e: React.KeyboardEvent<HTMLElement>) => {
+        if (e.key === 'Enter' && onEdit) {
+          e.preventDefault();
+          onEdit();
+        }
       }}
       dragHandleRender={props.renderDragHandle}
       withDragHandle={!!props.renderDragHandle}
