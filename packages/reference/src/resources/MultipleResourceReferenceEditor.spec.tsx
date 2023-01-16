@@ -140,6 +140,9 @@ describe('Multiple resource editor', () => {
         // ensure the card is rendered for every value
         const entriesArray = Object.values(entryInfos) as any[];
 
+        const firstItem = entriesArray[0];
+        await expectToNotHaveMoveButton(firstItem, 'Move to top');
+
         const allButFirst = entriesArray.slice(1);
         // move actions are available
         for (const info of allButFirst) {
@@ -175,6 +178,9 @@ describe('Multiple resource editor', () => {
         expect(linkExistingBtn).toBeInTheDocument();
         // ensure the card is rendered for every value
         const entriesArray = Object.values(entryInfos) as any[];
+
+        const lastItem = entriesArray[entriesArray.length - 1];
+        await expectToNotHaveMoveButton(lastItem, 'Move to bottom');
 
         const allButLast = entriesArray.slice(0, -1);
         for (const info of allButLast) {
@@ -232,6 +238,15 @@ async function expectToHaveMoveButton(info: any, buttonString: string) {
   await screen.findByText(buttonString, {
     selector: '[role="menuitem"]',
   });
+}
+
+async function expectToNotHaveMoveButton(info: any, buttonString: string) {
+  await clickCardActionsButton(info);
+  expect(
+    screen.queryByText(buttonString, {
+      selector: '[role="menuitem"]',
+    })
+  ).toBeNull();
 }
 
 async function clickCardActionsButton(info: any) {
