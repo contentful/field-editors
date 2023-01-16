@@ -110,57 +110,119 @@ describe('Multiple resource editor', () => {
       }
     });
 
-    it('card actions work', async () => {
-      const { entryLinks, entryInfos } = generateMultipleTestResources();
-      mockedResources = {};
+    describe('card actions', () => {
+      it('should have a move to top button', async () => {
+        const { entryLinks, entryInfos } = generateMultipleTestResources();
+        mockedResources = {};
 
-      for (const [spaceId, link] of Object.entries(entryLinks)) {
-        mockedResources[`${link.sys.linkType}.${link.sys.urn}`] = entryInfos[spaceId];
-      }
+        for (const [spaceId, link] of Object.entries(entryLinks)) {
+          mockedResources[`${link.sys.linkType}.${link.sys.urn}`] = entryInfos[spaceId];
+        }
 
-      const sdk: FieldExtensionSDK = mockSdkForField(fieldDefinition, Object.values(entryLinks));
-      render(
-        <MultipleResourceReferenceEditor
-          isInitiallyDisabled={false}
-          sdk={sdk}
-          hasCardEditActions={true}
-          viewType="card"
-          apiUrl="test-contentful"
-          getEntryRouteHref={() => ''}
-          // @ts-expect-error unused...
-          parameters={{}}
-        />
-      );
+        const sdk: FieldExtensionSDK = mockSdkForField(fieldDefinition, Object.values(entryLinks));
+        render(
+          <MultipleResourceReferenceEditor
+            isInitiallyDisabled={false}
+            sdk={sdk}
+            hasCardEditActions={true}
+            viewType="card"
+            apiUrl="test-contentful"
+            getEntryRouteHref={() => ''}
+            // @ts-expect-error unused...
+            parameters={{}}
+          />
+        );
 
-      // expect(useResource).toHaveBeenCalledTimes(Object.values(entryInfos).length);
-      // linking more is available
-      const linkExistingBtn = screen.queryByText('Add existing content');
-      expect(linkExistingBtn).toBeInTheDocument();
-      // ensure the card is rendered for every value
-      const entriesArray = Object.values(entryInfos) as any[];
+        // expect(useResource).toHaveBeenCalledTimes(Object.values(entryInfos).length);
+        // linking more is available
+        const linkExistingBtn = screen.queryByText('Add existing content');
+        expect(linkExistingBtn).toBeInTheDocument();
+        // ensure the card is rendered for every value
+        const entriesArray = Object.values(entryInfos) as any[];
 
-      const allButFirst = entriesArray.slice(1);
-      // move actions are available
-      for (const info of allButFirst) {
-        await expectToHaveMoveButton(info, 'Move to top');
-      }
+        const allButFirst = entriesArray.slice(1);
+        // move actions are available
+        for (const info of allButFirst) {
+          await expectToHaveMoveButton(info, 'Move to top');
+        }
+      });
 
-      const allButLast = entriesArray.slice(0, -1);
-      for (const info of allButLast) {
-        await expectToHaveMoveButton(info, 'Move to bottom');
-      }
+      it('should have a move to bottom button', async () => {
+        const { entryLinks, entryInfos } = generateMultipleTestResources();
+        mockedResources = {};
 
-      for (const info of entriesArray) {
-        await clickCardActionsButton(info);
-        const removeBtn = await screen.findByText('Remove', {
-          selector: '[role="menuitem"]',
-        });
-        fireEvent.click(removeBtn);
-      }
+        for (const [spaceId, link] of Object.entries(entryLinks)) {
+          mockedResources[`${link.sys.linkType}.${link.sys.urn}`] = entryInfos[spaceId];
+        }
 
-      // all cards were deleted
-      expect(sdk.field.setValue).toHaveBeenCalledTimes(3);
-      expect(sdk.field.setValue).toHaveBeenCalledWith([]);
+        const sdk: FieldExtensionSDK = mockSdkForField(fieldDefinition, Object.values(entryLinks));
+        render(
+          <MultipleResourceReferenceEditor
+            isInitiallyDisabled={false}
+            sdk={sdk}
+            hasCardEditActions={true}
+            viewType="card"
+            apiUrl="test-contentful"
+            getEntryRouteHref={() => ''}
+            // @ts-expect-error unused...
+            parameters={{}}
+          />
+        );
+
+        // expect(useResource).toHaveBeenCalledTimes(Object.values(entryInfos).length);
+        // linking more is available
+        const linkExistingBtn = screen.queryByText('Add existing content');
+        expect(linkExistingBtn).toBeInTheDocument();
+        // ensure the card is rendered for every value
+        const entriesArray = Object.values(entryInfos) as any[];
+
+        const allButLast = entriesArray.slice(0, -1);
+        for (const info of allButLast) {
+          await expectToHaveMoveButton(info, 'Move to bottom');
+        }
+      });
+
+      it('works when using remove action', async () => {
+        const { entryLinks, entryInfos } = generateMultipleTestResources();
+        mockedResources = {};
+
+        for (const [spaceId, link] of Object.entries(entryLinks)) {
+          mockedResources[`${link.sys.linkType}.${link.sys.urn}`] = entryInfos[spaceId];
+        }
+
+        const sdk: FieldExtensionSDK = mockSdkForField(fieldDefinition, Object.values(entryLinks));
+        render(
+          <MultipleResourceReferenceEditor
+            isInitiallyDisabled={false}
+            sdk={sdk}
+            hasCardEditActions={true}
+            viewType="card"
+            apiUrl="test-contentful"
+            getEntryRouteHref={() => ''}
+            // @ts-expect-error unused...
+            parameters={{}}
+          />
+        );
+
+        // expect(useResource).toHaveBeenCalledTimes(Object.values(entryInfos).length);
+        // linking more is available
+        const linkExistingBtn = screen.queryByText('Add existing content');
+        expect(linkExistingBtn).toBeInTheDocument();
+        // ensure the card is rendered for every value
+        const entriesArray = Object.values(entryInfos) as any[];
+
+        for (const info of entriesArray) {
+          await clickCardActionsButton(info);
+          const removeBtn = await screen.findByText('Remove', {
+            selector: '[role="menuitem"]',
+          });
+          fireEvent.click(removeBtn);
+        }
+
+        // all cards were deleted
+        expect(sdk.field.setValue).toHaveBeenCalledTimes(3);
+        expect(sdk.field.setValue).toHaveBeenCalledWith([]);
+      });
     });
   });
 });
