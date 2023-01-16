@@ -113,6 +113,7 @@ describe('Multiple resource editor', () => {
     it('card actions work', async () => {
       const { entryLinks, entryInfos } = generateMultipleTestResources();
       mockedResources = {};
+
       for (const [spaceId, link] of Object.entries(entryLinks)) {
         mockedResources[`${link.sys.linkType}.${link.sys.urn}`] = entryInfos[spaceId];
       }
