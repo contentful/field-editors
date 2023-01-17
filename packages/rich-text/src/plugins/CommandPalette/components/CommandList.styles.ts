@@ -13,6 +13,9 @@ const styles = {
       marginLeft: 0,
     },
   }),
+  menuPoper: css({
+    zIndex: tokens.zIndexModal,
+  }),
   menuContent: css({
     width: '400px',
     maxHeight: '300px',

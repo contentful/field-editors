@@ -131,6 +131,7 @@ export const CommandList = ({ query, editor, textContainer }: CommandListProps) 
         <div
           aria-hidden={true}
           ref={popoverContainer}
+          className={styles.menuPoper}
           style={popper.styles.popper}
           {...popper.attributes.popper}
         >

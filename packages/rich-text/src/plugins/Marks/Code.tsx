@@ -40,7 +40,13 @@ export const createCodePlugin = (): PlatePlugin =>
     type: MARKS.CODE,
     component: Code,
     options: {
-      hotkey: ['mod+/'],
+      // We need to define multiple hotkeys here,
+      // - mod+/ -> QWERTY keyboard layout
+      // - mod+shift+7 -> QWERTZ keyboard layout
+      // The workaround like in packages/rich-text/src/plugins/CommandPalette/onKeyDown.ts is sadly not working here,
+      // as `shift+7` is not interpreted as `/` with the `mod` key by the OS.
+      // TODO: there are a lot more different keyboard layouts out there
+      hotkey: ['mod+/', 'mod+shift+7'],
     },
     handlers: {
       onKeyDown: buildMarkEventHandler(MARKS.CODE),

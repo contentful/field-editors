@@ -7,7 +7,11 @@ import { COMMAND_PROMPT } from './constants';
 export const createOnKeyDown = (): KeyboardHandler => {
   return (editor) => {
     return (event) => {
-      if (isHotkey('/', event)) {
+      // Support for different keyboard layouts:
+      // `isHotKey` uses by default `event.which`, which will never generates a match for all layouts (QWERTY: `/`, QWERTZ: `shift+7`)
+      // with `byKey: true` `isHotKey` uses `event.key` which will return the interpreted key '/'
+      // It would still fail without the the optional `shift?` param, as it first checks the modKeys (`shiftKey` would be true on QWERTZ)
+      if (isHotkey('shift?+/', { byKey: true }, event)) {
         addMark(editor, COMMAND_PROMPT);
         editor.tracking.onCommandPaletteAction('openRichTextCommandPalette');
       }
