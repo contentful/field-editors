@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.4.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.3.5...@contentful/field-editor-rich-text@3.4.0) (2023-01-18)
+
+### Features
+
+- upgrade to plate v16 [TOL-812] ([#1307](https://github.com/contentful/field-editors/issues/1307)) ([7dbb4ec](https://github.com/contentful/field-editors/commit/7dbb4eceff641fa96a1a3114bb86df4871a0c9f9))
+
 ## [3.3.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.3.4...@contentful/field-editor-rich-text@3.3.5) (2023-01-13)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
