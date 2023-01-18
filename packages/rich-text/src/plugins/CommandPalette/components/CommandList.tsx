@@ -5,15 +5,15 @@ import { Popover, Stack, SectionHeading, ScreenReaderOnly, Flex } from '@content
 import { Portal } from '@contentful/f36-utils';
 import { cx } from 'emotion';
 
+import { PlateEditor } from '../../../internal/types';
 import { useSdkContext } from '../../../SdkProvider';
-import { RichTextEditor } from '../../../types';
 import { useCommandList } from '../hooks/useCommandList';
 import { CommandList as CommandItems, Command, useCommands, CommandGroup } from '../useCommands';
 import styles from './CommandList.styles';
 
 export interface CommandListProps {
   query: string;
-  editor: RichTextEditor;
+  editor: PlateEditor;
   textContainer?: HTMLSpanElement;
 }
 
@@ -30,7 +30,8 @@ const Group = ({
       marginBottom="spacingS"
       marginTop="spacingS"
       marginLeft="spacingM"
-      marginRight="spacingM">
+      marginRight="spacingM"
+    >
       {commandGroup.group}
     </SectionHeading>
     {commandGroup.commands.map((command: Command) => (
@@ -40,7 +41,8 @@ const Group = ({
         className={cx(styles.menuItem, {
           [styles.menuItemSelected]: command.id === selectedItem,
         })}
-        onClick={command.callback}>
+        onClick={command.callback}
+      >
         {command.label}
       </button>
     ))}
@@ -55,7 +57,8 @@ const Asset = ({ command, selectedItem }: { command: Command; selectedItem: stri
     className={cx(styles.menuItem, {
       [styles.menuItemSelected]: command.id === selectedItem,
     })}
-    onClick={command.callback}>
+    onClick={command.callback}
+  >
     <Flex alignItems="center" gap="spacingS">
       {command.thumbnail && (
         <img width="30" height="30" src={command.thumbnail} alt="" className={styles.thumbnail} />
@@ -129,12 +132,14 @@ export const CommandList = ({ query, editor, textContainer }: CommandListProps) 
           aria-hidden={true}
           ref={popoverContainer}
           style={popper.styles.popper}
-          {...popper.attributes.popper}>
+          {...popper.attributes.popper}
+        >
           <Popover
             isOpen={isOpen}
             usePortal={false}
             /* eslint-disable-next-line jsx-a11y/no-autofocus -- we want to keep focus on text input*/
-            autoFocus={false}>
+            autoFocus={false}
+          >
             {/* we need an empty trigger here for the positioning of the menu list */}
             <Popover.Trigger>
               <span />
@@ -152,7 +157,8 @@ export const CommandList = ({ query, editor, textContainer }: CommandListProps) 
                   margin="none"
                   padding="none"
                   spacing="spacingS"
-                  className={styles.footerList}>
+                  className={styles.footerList}
+                >
                   <li>
                     <kbd>↑</kbd>
                     <kbd>↓</kbd> to navigate

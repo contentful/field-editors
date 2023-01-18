@@ -1,5 +1,4 @@
 /** @jsx jsx */
-
 import { BLOCKS } from '@contentful/rich-text-types';
 import { PlateEditor } from '@udecode/plate-core';
 
@@ -37,7 +36,7 @@ describe('toggle on', () => {
 
     toggleList(editor, { type: BLOCKS.UL_LIST });
 
-    assertOutput({ editor, expected, log: true });
+    assertOutput({ editor, expected });
   });
 
   it('should turn a p with a selection to list', () => {

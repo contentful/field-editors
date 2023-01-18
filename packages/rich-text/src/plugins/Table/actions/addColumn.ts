@@ -1,34 +1,33 @@
-import { getPluginType, TElement, getAbove, insertNodes, someNode } from '@udecode/plate-core';
-import {
-  getEmptyCellNode,
-  TablePluginOptions,
-  ELEMENT_TABLE,
-  ELEMENT_TD,
-  ELEMENT_TH,
-} from '@udecode/plate-table';
-import { Path } from 'slate';
+import { BLOCKS } from '@contentful/rich-text-types';
+import { getEmptyCellNode } from '@udecode/plate-table';
 
-import { RichTextEditor } from '../../../types';
+import { getAboveNode, getNextPath, someNode } from '../../../internal/queries';
+import { insertNodes } from '../../../internal/transforms';
+import { PlateEditor, Path, Element, NodeEntry } from '../../../internal/types';
+
+interface AddColumnOptions {
+  header?: boolean;
+}
 
 const addColumn = (
-  editor: RichTextEditor,
-  { header }: TablePluginOptions,
+  editor: PlateEditor,
+  { header }: AddColumnOptions,
   getNextCellPath: (currentCellPath: Path) => Path
 ) => {
   if (
     someNode(editor, {
-      match: { type: getPluginType(editor, ELEMENT_TABLE) },
+      match: { type: BLOCKS.TABLE },
     })
   ) {
-    const currentCellItem = getAbove(editor, {
+    const currentCellItem = getAboveNode(editor, {
       match: {
-        type: [getPluginType(editor, ELEMENT_TD), getPluginType(editor, ELEMENT_TH)],
+        type: [BLOCKS.TABLE_HEADER_CELL, BLOCKS.TABLE_CELL],
       },
     });
 
-    const currentTableItem = getAbove(editor, {
-      match: { type: getPluginType(editor, ELEMENT_TABLE) },
-    });
+    const currentTableItem = getAboveNode(editor, {
+      match: { type: BLOCKS.TABLE },
+    }) as NodeEntry<Element> | undefined;
 
     if (currentCellItem && currentTableItem) {
       const nextCellPath = getNextCellPath(currentCellItem[1]);
@@ -38,9 +37,9 @@ const addColumn = (
       currentTableItem[0].children.forEach((_, rowIdx) => {
         newCellPath[replacePathPos] = rowIdx;
 
-        insertNodes<TElement>(
+        insertNodes(
           editor,
-          // @ts-expect-error
+
           getEmptyCellNode(editor, { header: header && rowIdx === 0 }),
           {
             at: newCellPath,
@@ -53,10 +52,10 @@ const addColumn = (
   }
 };
 
-export const addColumnRight = (editor: RichTextEditor, options: TablePluginOptions) => {
-  addColumn(editor, options, (currentCellPath) => Path.next(currentCellPath));
+export const addColumnRight = (editor: PlateEditor, options: AddColumnOptions) => {
+  addColumn(editor, options, (currentCellPath) => getNextPath(currentCellPath));
 };
 
-export const addColumnLeft = (editor: RichTextEditor, options: TablePluginOptions) => {
+export const addColumnLeft = (editor: PlateEditor, options: AddColumnOptions) => {
   addColumn(editor, options, (currentCellPath) => currentCellPath);
 };

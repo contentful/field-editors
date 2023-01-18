@@ -2,11 +2,11 @@ import * as React from 'react';
 
 import { FieldExtensionSDK, Link } from '@contentful/app-sdk';
 import { Tooltip, TextLink } from '@contentful/f36-components';
-import { ReactEditor } from 'slate-react';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
+import { fromDOMPoint } from '../../../internal';
+import { CustomRenderElementProps } from '../../../internal/types';
 import { useSdkContext } from '../../../SdkProvider';
-import { CustomRenderElementProps } from '../../../types';
 import { addOrEditLink } from '../HyperlinkModal';
 import { styles } from './styles';
 
@@ -25,11 +25,11 @@ export function UrlHyperlink(props: HyperlinkElementProps) {
     event.preventDefault();
     event.stopPropagation();
     if (!editor) return;
-    const p = ReactEditor.toSlatePoint(editor, [event.target as Node, 0], {
+    const p = fromDOMPoint(editor, [event.target as Node, 0], {
       exactMatch: false,
       suppressThrow: false,
     });
-    addOrEditLink(editor, sdk, editor.tracking.onViewportAction, p.path);
+    addOrEditLink(editor, sdk, editor.tracking.onViewportAction, p?.path);
   }
 
   return (
@@ -37,13 +37,15 @@ export function UrlHyperlink(props: HyperlinkElementProps) {
       content={uri}
       targetWrapperClassName={styles.hyperlinkWrapper}
       placement="bottom"
-      maxWidth="auto">
+      maxWidth="auto"
+    >
       <TextLink
         as="a"
         href={uri}
         rel="noopener noreferrer"
         onClick={handleClick}
-        className={styles.hyperlink}>
+        className={styles.hyperlink}
+      >
         {props.children}
       </TextLink>
     </Tooltip>

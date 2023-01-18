@@ -1,10 +1,35 @@
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
-import { getAbove, isAncestorEmpty, queryNode, TNode, unsetNodes } from '@udecode/plate-core';
-import { Editor, Ancestor, Transforms, Range, Location, Text } from 'slate';
 
-import { RichTextEditor, RichTextPlugin } from '../../types';
+import {
+  getAboveNode,
+  isAncestorEmpty,
+  getNodeEntries,
+  getPointBefore,
+  isInline,
+  isEndPoint,
+  getPointAfter,
+  isRangeCollapsed,
+  queryNode,
+  isText,
+} from '../../internal/queries';
+import {
+  setSelection,
+  select,
+  removeNodes,
+  splitNodes,
+  unhangRange,
+  unsetNodes,
+} from '../../internal/transforms';
+import {
+  PlatePlugin,
+  PlateEditor,
+  Ancestor,
+  Node,
+  Location,
+  BaseRange,
+} from '../../internal/types';
 
-export function createTextPlugin(restrictedMarks: string[] = []): RichTextPlugin {
+export function createTextPlugin(restrictedMarks: string[] = []): PlatePlugin {
   return {
     key: 'TextPlugin',
     handlers: {
@@ -16,7 +41,7 @@ export function createTextPlugin(restrictedMarks: string[] = []): RichTextPlugin
           return;
         }
 
-        Transforms.setSelection(editor, Editor.unhangRange(editor, editor.selection));
+        setSelection(editor, unhangRange(editor, editor.selection) as Partial<BaseRange>);
       },
     },
     withOverrides: (editor) => {
@@ -32,15 +57,15 @@ export function createTextPlugin(restrictedMarks: string[] = []): RichTextPlugin
 
         // If the cursor is at the end of an inline, move it outside
         // before inserting
-        if (selection && Range.isCollapsed(selection)) {
-          const inlinePath = Editor.above(editor, {
-            match: (n) => Editor.isInline(editor, n),
+        if (selection && isRangeCollapsed(selection)) {
+          const inlinePath = getAboveNode(editor, {
+            match: (n) => isInline(editor, n),
             mode: 'highest',
           })?.[1];
 
-          if (inlinePath && Editor.isEnd(editor, selection.anchor, inlinePath)) {
-            const point = Editor.after(editor, inlinePath);
-            Transforms.setSelection(editor, {
+          if (inlinePath && isEndPoint(editor, selection.anchor, inlinePath)) {
+            const point = getPointAfter(editor, inlinePath);
+            setSelection(editor, {
               anchor: point,
               focus: point,
             });
@@ -67,7 +92,7 @@ export function createTextPlugin(restrictedMarks: string[] = []): RichTextPlugin
     },
     normalizer: [
       {
-        match: Text.isText,
+        match: isText,
         transform: (editor, [, path]) => {
           unsetNodes(editor, restrictedMarks, { at: path });
         },
@@ -83,10 +108,10 @@ export function createTextPlugin(restrictedMarks: string[] = []): RichTextPlugin
 
 function deleteEmptyParagraph(
   unit: 'character' | 'word' | 'line' | 'block',
-  editor: RichTextEditor,
+  editor: PlateEditor,
   deleteFunction: Function
 ) {
-  const entry = getAbove(editor, {
+  const entry = getAboveNode(editor, {
     match: {
       type: TEXT_CONTAINERS,
     },
@@ -100,23 +125,23 @@ function deleteEmptyParagraph(
     const hasSiblings = editor.children.length > 1; // prevent editor from losing focus
 
     if (isTextEmpty && isRootLevel && hasSiblings) {
-      Transforms.removeNodes(editor, { at: path });
+      removeNodes(editor, { at: path });
 
-      const prevNode = Editor.before(editor, editor.selection as Location, {
+      const prevNode = getPointBefore(editor, editor.selection as Location, {
         unit,
       });
 
       if (prevNode) {
-        const [prevCell] = Editor.nodes<TNode>(editor, {
-          match: (node) =>
-            queryNode([node as TNode, prevNode.path], {
+        const [prevCell] = getNodeEntries(editor, {
+          match: (node: Node) =>
+            queryNode([node, prevNode.path], {
               allow: [BLOCKS.EMBEDDED_ASSET, BLOCKS.EMBEDDED_ENTRY, BLOCKS.HR],
             }),
           at: prevNode,
         });
 
         if (prevCell) {
-          Transforms.select(editor, prevNode);
+          select(editor, prevNode);
         }
       }
     } else {
@@ -132,7 +157,7 @@ function deleteEmptyParagraph(
  * line breaks as a new paragraph when pasting as plain text (also known as
  * paste and match style in macOS)
  */
-function fixPasteAsPlainText(editor: RichTextEditor) {
+function fixPasteAsPlainText(editor: PlateEditor) {
   editor.insertTextData = (data: DataTransfer): boolean => {
     const text = data.getData('text/plain');
 
@@ -150,7 +175,7 @@ function fixPasteAsPlainText(editor: RichTextEditor) {
       }
 
       if (split) {
-        Transforms.splitNodes(editor, { always: true });
+        splitNodes(editor, { always: true });
       }
 
       editor.insertText(line);

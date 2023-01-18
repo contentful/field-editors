@@ -1,34 +1,30 @@
 import { KeyboardEvent } from 'react';
 
 import { BLOCKS } from '@contentful/rich-text-types';
-import {
-  HotkeyPlugin,
-  KeyboardHandler,
-  WithPlatePlugin,
-  getAbove,
-  isLastChild,
-} from '@udecode/plate-core';
-import { getTableCellEntry, onKeyDownTable as defaultKeyDownTable } from '@udecode/plate-table';
-import { ReactEditor } from 'slate-react';
+import { getTableEntries, onKeyDownTable as defaultKeyDownTable } from '@udecode/plate-table';
 
 import { insertEmptyParagraph } from '../../helpers/editor';
-import { RichTextEditor } from '../../types';
+import { blurEditor } from '../../internal/misc';
+import { getAboveNode, isLastChildPath } from '../../internal/queries';
+import { KeyboardHandler, HotkeyPlugin, NodeEntry } from '../../internal/types';
 import { addRowBelow } from './actions';
 
-export const onKeyDownTable: KeyboardHandler<RichTextEditor, HotkeyPlugin> = (editor, plugin) => {
-  const defaultHandler = defaultKeyDownTable(editor, plugin as WithPlatePlugin);
+export const onKeyDownTable: KeyboardHandler<HotkeyPlugin> = (editor, plugin) => {
+  const defaultHandler = defaultKeyDownTable(editor, plugin);
 
   return (event: KeyboardEvent) => {
-    // This fixes `Cannot resolve a Slate point from DOM point: [object HTMLDivElement]` when typing while the cursor is before table
+    // This fixes `Cannot resolve a Slate point from DOM point:
+    // [object HTMLDivElement]` when typing while the cursor is before table
     const windowSelection = window.getSelection();
     if (windowSelection) {
       // @ts-expect-error
-      const blockType = windowSelection.anchorNode.attributes?.['data-block-type']?.value; // this attribute comes from `plugins/Table/components/Table.tsx`
+      // this attribute comes from `plugins/Table/components/Table.tsx`
+      const blockType = windowSelection.anchorNode.attributes?.['data-block-type']?.value;
       const isBeforeTable = blockType === BLOCKS.TABLE;
 
       if (isBeforeTable) {
         if (event.key === 'Enter') {
-          const above = getAbove(editor, { match: { type: BLOCKS.TABLE } });
+          const above = getAboveNode(editor, { match: { type: BLOCKS.TABLE } });
 
           if (!above) return;
 
@@ -46,14 +42,14 @@ export const onKeyDownTable: KeyboardHandler<RichTextEditor, HotkeyPlugin> = (ed
     // Pressing Tab on the last cell creates a new row
     // Otherwise, jumping between cells is handled in the defaultKeyDownTable
     if (event.key === 'Tab' && !event.shiftKey) {
-      const res = getTableCellEntry(editor, {});
+      event.preventDefault();
+      const entry = getTableEntries(editor, {});
 
-      if (res) {
-        event.preventDefault();
-        const { tableElement, tableRow, tableCell } = res;
+      if (entry) {
+        const { table, row, cell } = entry;
 
-        const isLastCell = isLastChild(tableRow, tableCell[1]);
-        const isLastRow = isLastChild(tableElement, tableRow[1]);
+        const isLastCell = isLastChildPath(row as NodeEntry, cell[1]);
+        const isLastRow = isLastChildPath(table as NodeEntry, row[1]);
 
         if (isLastRow && isLastCell) {
           addRowBelow(editor);
@@ -67,7 +63,7 @@ export const onKeyDownTable: KeyboardHandler<RichTextEditor, HotkeyPlugin> = (ed
     }
 
     if (event.key === 'Escape') {
-      ReactEditor.blur(editor);
+      blurEditor(editor);
     }
   };
 };

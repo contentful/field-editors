@@ -3,11 +3,10 @@ import * as React from 'react';
 import { FormatBoldIcon } from '@contentful/f36-icons';
 import { MARKS } from '@contentful/rich-text-types';
 import { createBoldPlugin as createDefaultBoldPlugin } from '@udecode/plate-basic-marks';
-import { someHtmlElement } from '@udecode/plate-core';
 import { css } from 'emotion';
-import * as Slate from 'slate-react';
 
-import { RichTextPlugin } from '../../types';
+import { someHtmlElement } from '../../internal/queries';
+import { PlatePlugin, RenderLeafProps } from '../../internal/types';
 import { createMarkToolbarButton } from './components/MarkToolbarButton';
 import { buildMarkEventHandler } from './helpers';
 
@@ -23,7 +22,7 @@ const styles = {
   }),
 };
 
-export function Bold(props: Slate.RenderLeafProps) {
+export function Bold(props: RenderLeafProps) {
   return (
     <strong {...props.attributes} className={styles.bold}>
       {props.children}
@@ -34,7 +33,7 @@ export function Bold(props: Slate.RenderLeafProps) {
 const isGoogleBoldWrapper = (el: HTMLElement) =>
   el.id.startsWith('docs-internal-guid') && el.nodeName === 'B';
 
-export const createBoldPlugin = (): RichTextPlugin =>
+export const createBoldPlugin = (): PlatePlugin =>
   createDefaultBoldPlugin({
     type: MARKS.BOLD,
     component: Bold,

@@ -1,9 +1,8 @@
-import { isFirstChild } from '@udecode/plate-core';
-
 import { isRootLevel } from '../../helpers/editor';
-import { RichTextPlugin } from '../../types';
+import { isFirstChildPath } from '../../internal/queries';
+import { PlatePlugin } from '../../internal/types';
 
-export const createVoidsPlugin = (): RichTextPlugin => ({
+export const createVoidsPlugin = (): PlatePlugin => ({
   key: 'VoidsPlugin',
   exitBreak: [
     {
@@ -12,7 +11,7 @@ export const createVoidsPlugin = (): RichTextPlugin => ({
       hotkey: 'enter',
       before: true,
       query: {
-        filter: ([node, path]) => isRootLevel(path) && isFirstChild(path) && !!node.isVoid,
+        filter: ([node, path]) => isRootLevel(path) && isFirstChildPath(path) && !!node.isVoid,
       },
     },
     {
@@ -22,7 +21,7 @@ export const createVoidsPlugin = (): RichTextPlugin => ({
       // to stay in the parent element
       level: -2,
       query: {
-        filter: ([node, path]) => !(isRootLevel(path) && isFirstChild(path)) && !!node.isVoid,
+        filter: ([node, path]) => !(isRootLevel(path) && isFirstChildPath(path)) && !!node.isVoid,
       },
     },
   ],

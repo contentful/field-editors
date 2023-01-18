@@ -1,19 +1,19 @@
 import { BLOCKS } from '@contentful/rich-text-types';
 import {
   createResetNodePlugin as createDefaultResetNodePlugin,
-  ResetNodePluginRule,
+  ResetNodePlugin,
 } from '@udecode/plate-reset-node';
 
-import { RichTextPlugin } from '../../types';
+import { PlatePlugin, Value, PlateEditor } from '../../internal/types';
 
-export const createResetNodePlugin = (): RichTextPlugin =>
-  createDefaultResetNodePlugin({
+export const createResetNodePlugin = (): PlatePlugin =>
+  createDefaultResetNodePlugin<ResetNodePlugin<Value, PlateEditor>, Value, PlateEditor>({
     options: {
       rules: [],
     },
     then: (editor) => {
-      const rules: ResetNodePluginRule[] = editor.plugins.flatMap((p) => {
-        return (p as RichTextPlugin).resetNode || [];
+      const rules = editor.plugins.flatMap((p) => {
+        return (p as PlatePlugin).resetNode || [];
       });
 
       // set defaultType to Paragraph if not set

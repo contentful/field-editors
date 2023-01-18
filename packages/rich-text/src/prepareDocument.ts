@@ -1,11 +1,12 @@
 import { toSlatejsDocument } from '@contentful/contentful-slatejs-adapter';
 import { EMPTY_DOCUMENT, Document } from '@contentful/rich-text-types';
-import { createPlateEditor, CreatePlateEditorOptions } from '@udecode/plate-core';
-import { Descendant, Editor, Node, Transforms } from 'slate';
-import { RichTextEditor } from 'types';
 
 import schema from './constants/Schema';
 import { sanitizeIncomingSlateDoc } from './helpers/sanitizeIncomingSlateDoc';
+import { createPlateEditor, CreatePlateEditorOptions, withoutNormalizing } from './internal';
+import { getEndPoint, isNode } from './internal/queries';
+import { normalize, select } from './internal/transforms';
+import { Value, PlateEditor, Node } from './internal/types';
 
 /**
  * For legacy reasons, a document may not have any content at all
@@ -25,20 +26,22 @@ export const hasContent = (doc?: Document) => {
 
  This function is inspired to https://github.com/udecode/plate/issues/1269#issuecomment-1057643622
  */
-export const setEditorContent = (editor: Editor, nodes?: Node[]): void => {
+export const setEditorContent = (editor: PlateEditor, nodes?: Node[]): void => {
   // Replaces editor content while keeping change history
-  Editor.withoutNormalizing(editor, () => {
+  withoutNormalizing(editor, () => {
     const children = [...editor.children];
     children.forEach((node) => editor.apply({ type: 'remove_node', path: [0], node }));
 
     if (nodes) {
-      const nodesArray = Node.isNode(nodes) ? [nodes] : nodes;
-      nodesArray.forEach((node, i) => editor.apply({ type: 'insert_node', path: [i], node: node }));
+      const nodesArray = isNode(nodes) ? [nodes] : nodes;
+      nodesArray.forEach((node, i) => {
+        editor.apply({ type: 'insert_node', path: [i], node });
+      });
     }
 
-    const point = Editor.end(editor, []);
+    const point = getEndPoint(editor, []);
     if (point) {
-      Transforms.select(editor, point);
+      select(editor, point);
     }
   });
 };
@@ -47,7 +50,7 @@ export const setEditorContent = (editor: Editor, nodes?: Node[]): void => {
  * Converts a Contentful rich text document to the corresponding slate editor
  * value
  */
-export const documentToEditorValue = (doc: any) => {
+export const documentToEditorValue = (doc?: Document) => {
   const slateDoc = toSlatejsDocument({
     document: hasContent(doc) ? doc : EMPTY_DOCUMENT,
     // TODO: get rid of schema, https://github.com/contentful/field-editors/pull/1065#discussion_r826723248
@@ -58,11 +61,11 @@ export const documentToEditorValue = (doc: any) => {
 };
 
 export const normalizeEditorValue = (
-  value: Descendant[],
-  options?: Omit<CreatePlateEditorOptions<RichTextEditor>, 'id' | 'editor'>
+  value: Value,
+  options?: Omit<CreatePlateEditorOptions, 'id' | 'editor'>
 ) => {
   const editor = createPlateEditor(options);
   editor.children = value;
-  Editor.normalize(editor, { force: true });
+  normalize(editor, { force: true });
   return editor.children;
 };

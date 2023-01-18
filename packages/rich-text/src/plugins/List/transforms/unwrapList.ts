@@ -3,23 +3,25 @@
  * See: https://github.com/udecode/plate/blob/main/packages/nodes/list
  */
 import { BLOCKS } from '@contentful/rich-text-types';
-import { PlateEditor, unwrapNodes } from '@udecode/plate-core';
-import { Editor, Element, Path, Transforms } from 'slate';
+
+import { withoutNormalizing } from '../../../internal';
+import { getNodeEntries, isElement } from '../../../internal/queries';
+import { unwrapNodes, liftNodes } from '../../../internal/transforms';
+import { PlateEditor, Path } from '../../../internal/types';
 
 function hasUnliftedListItems(editor: PlateEditor, at?: Path) {
-  return Editor.nodes(editor, {
+  return getNodeEntries(editor, {
     at,
-    match: (node, path) =>
-      Element.isElement(node) && node.type === BLOCKS.LIST_ITEM && path.length >= 2,
+    match: (node, path) => isElement(node) && node.type === BLOCKS.LIST_ITEM && path.length >= 2,
   }).next().done;
 }
 export const unwrapList = (editor: PlateEditor, { at }: { at?: Path } = {}) => {
-  Editor.withoutNormalizing(editor, () => {
+  withoutNormalizing(editor, () => {
     do {
       // lift list items to the root level
-      Transforms.liftNodes(editor, {
+      liftNodes(editor, {
         at,
-        match: (node) => Element.isElement(node) && node.type === BLOCKS.LIST_ITEM,
+        match: (node) => isElement(node) && node.type === BLOCKS.LIST_ITEM,
         mode: 'lowest',
       });
     } while (!hasUnliftedListItems(editor, at));

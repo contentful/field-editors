@@ -2,7 +2,8 @@ import * as React from 'react';
 
 import tokens from '@contentful/f36-tokens';
 import { css } from 'emotion';
-import { RenderElementProps } from 'slate-react';
+
+import { RenderElementProps } from '../../../internal/types';
 
 const style = css({
   margin: '0 0 1.3125rem',

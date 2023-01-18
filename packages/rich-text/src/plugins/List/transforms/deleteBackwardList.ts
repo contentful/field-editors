@@ -4,25 +4,22 @@
  */
 import { BLOCKS } from '@contentful/rich-text-types';
 import {
-  deleteFragment,
-  isFirstChild,
-  isSelectionAtBlockStart,
-  mockPlugin,
-} from '@udecode/plate-core';
-import {
   getListItemEntry,
   removeFirstListItem,
   removeListItem,
   isListNested,
 } from '@udecode/plate-list';
-import { onKeyDownResetNode, ResetNodePlugin, SIMULATE_BACKSPACE } from '@udecode/plate-reset-node';
-import { Editor } from 'slate';
+import { onKeyDownResetNode, SIMULATE_BACKSPACE } from '@udecode/plate-reset-node';
 
-import { RichTextEditor } from '../../../types';
+import { withoutNormalizing } from '../../../internal';
+import { mockPlugin } from '../../../internal/misc';
+import { isSelectionAtBlockStart, isFirstChild } from '../../../internal/queries';
+import { deleteFragment } from '../../../internal/transforms';
+import { PlateEditor } from '../../../internal/types';
 import { unwrapList } from './unwrapList';
 
 export const deleteBackwardList = (
-  editor: RichTextEditor,
+  editor: PlateEditor,
   unit: 'character' | 'word' | 'line' | 'block'
 ) => {
   const res = getListItemEntry(editor, {});
@@ -37,7 +34,7 @@ export const deleteBackwardList = (
         match: (node) => node.type === BLOCKS.LIST_ITEM,
       })
     ) {
-      Editor.withoutNormalizing(editor, () => {
+      withoutNormalizing(editor, () => {
         moved = removeFirstListItem(editor, { list, listItem });
         if (moved) return;
 
@@ -47,7 +44,9 @@ export const deleteBackwardList = (
         if (isFirstChild(listItem[1]) && !isListNested(editor, list[1])) {
           onKeyDownResetNode(
             editor,
-            mockPlugin<ResetNodePlugin>({
+            // TODO look into this
+            // @ts-expect-error
+            mockPlugin({
               options: {
                 rules: [
                   {
@@ -55,7 +54,7 @@ export const deleteBackwardList = (
                     defaultType: BLOCKS.PARAGRAPH,
                     hotkey: 'backspace',
                     predicate: () => isSelectionAtBlockStart(editor),
-                    onReset: (e) => unwrapList(e),
+                    onReset: (e: PlateEditor) => unwrapList(e),
                   },
                 ],
               },
@@ -66,7 +65,9 @@ export const deleteBackwardList = (
         }
 
         deleteFragment(editor, {
-          unit,
+          // FIXME: see if we can remove unit
+          // @ts-expect-error
+          unit: unit,
           reverse: true,
         });
         moved = true;

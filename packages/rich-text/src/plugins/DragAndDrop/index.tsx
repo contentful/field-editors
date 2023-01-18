@@ -1,9 +1,9 @@
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
-import { getNodes } from '@udecode/plate-core';
 
-import { RichTextPlugin } from '../../types';
+import { getNodeEntries } from '../../internal/queries';
+import { PlatePlugin } from '../../internal/types';
 
-export function createDragAndDropPlugin(): RichTextPlugin {
+export function createDragAndDropPlugin(): PlatePlugin {
   const DRAGGABLE_TYPES: string[] = [
     BLOCKS.EMBEDDED_ENTRY,
     BLOCKS.EMBEDDED_ASSET,
@@ -26,8 +26,8 @@ export function createDragAndDropPlugin(): RichTextPlugin {
       // If true, the next handlers will be skipped.
       onDrop: (editor) => (event) => {
         const [draggingBlock] = Array.from(
-          getNodes(editor, {
-            match: (node) => DRAGGABLE_TYPES.includes(node?.type),
+          getNodeEntries(editor, {
+            match: (node) => DRAGGABLE_TYPES.includes(node.type as string),
           })
         );
         if (!draggingBlock) return false;

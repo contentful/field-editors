@@ -1,5 +1,5 @@
 import { BLOCKS, CONTAINERS } from '@contentful/rich-text-types';
-import { getBlockAbove, getParent, getLastChildPath, WithPlatePlugin } from '@udecode/plate-core';
+import { Value } from '@udecode/plate-core';
 import {
   createTablePlugin as createDefaultTablePlugin,
   ELEMENT_TABLE,
@@ -7,12 +7,19 @@ import {
   ELEMENT_TH,
   ELEMENT_TR,
   withTable,
+  TablePlugin,
 } from '@udecode/plate-table';
-import { NodeEntry, Path, Transforms } from 'slate';
 
 import { isRootLevel } from '../../helpers/editor';
 import { transformLift, transformParagraphs, transformWrapIn } from '../../helpers/transformers';
-import { RichTextPlugin, CustomElement, RichTextEditor } from '../../types';
+import {
+  getParentNode,
+  getBlockAbove,
+  getLastChildPath,
+  getNextPath,
+} from '../../internal/queries';
+import { insertNodes } from '../../internal/transforms';
+import { PlatePlugin, PlateEditor } from '../../internal/types';
 import { Cell } from './components/Cell';
 import { HeaderCell } from './components/HeaderCell';
 import { Row } from './components/Row';
@@ -22,17 +29,23 @@ import { insertTableFragment } from './insertTableFragment';
 import { onKeyDownTable } from './onKeyDownTable';
 import { addTableTrackingEvents, withInvalidCellChildrenTracking } from './tableTracking';
 
-export const createTablePlugin = (): RichTextPlugin =>
-  createDefaultTablePlugin({
+export const createTablePlugin = (): PlatePlugin =>
+  createDefaultTablePlugin<TablePlugin<Value>, Value, PlateEditor>({
     type: BLOCKS.TABLE,
     handlers: {
+      // @ts-expect-error
       onKeyDown: onKeyDownTable,
     },
     withOverrides: (editor, plugin) => {
+      const { normalizeNode } = editor;
       // injects important fixes from plate's original table plugin
-      withTable(editor, plugin as WithPlatePlugin<{}, {}>);
+      withTable(editor, plugin);
 
-      addTableTrackingEvents(editor as RichTextEditor);
+      // Resets all normalization rules added by @udecode/plate-table as
+      // they conflict with our own
+      editor.normalizeNode = normalizeNode;
+
+      addTableTrackingEvents(editor);
 
       editor.insertFragment = insertTableFragment(editor);
 
@@ -49,6 +62,8 @@ export const createTablePlugin = (): RichTextPlugin =>
           {
             // Move to root level unless nested
             validNode: (editor, [, path]) => {
+              // Nested tables are handled by another normalization
+              // rule in a the table cell level
               const isNestedTable = !!getBlockAbove(editor, {
                 at: path,
                 match: {
@@ -80,7 +95,7 @@ export const createTablePlugin = (): RichTextPlugin =>
           {
             // Parent must be a table
             validNode: (editor, [, path]) => {
-              const parent = getParent(editor, path)?.[0];
+              const parent = getParentNode(editor, path)?.[0];
               return parent && parent.type === BLOCKS.TABLE;
             },
             transform: transformWrapIn(BLOCKS.TABLE),
@@ -92,9 +107,9 @@ export const createTablePlugin = (): RichTextPlugin =>
             },
             transform: (editor, entry) => {
               const howMany = getNoOfMissingTableCellsInRow(editor, entry);
-              const at = Path.next(getLastChildPath(entry as NodeEntry<CustomElement>));
+              const at = getNextPath(getLastChildPath(entry));
 
-              Transforms.insertNodes(editor, createEmptyTableCells(howMany), {
+              insertNodes(editor, createEmptyTableCells(howMany), {
                 at,
               });
             },
@@ -121,5 +136,5 @@ export const createTablePlugin = (): RichTextPlugin =>
           },
         ],
       },
-    } as Record<string, Partial<RichTextPlugin>>,
+    } as Record<string, Partial<PlatePlugin>>,
   });

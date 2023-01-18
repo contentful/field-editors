@@ -1,10 +1,7 @@
-import { NodeMatch } from '@udecode/plate-core';
-import { NodeEntry } from 'slate';
+import { NodeEntry, NodeMatch, PlateEditor } from '../../internal/types';
 
-import { RichTextEditor } from '../../types';
-
-export type NodeTransformer = (editor: RichTextEditor, entry: NodeEntry) => void;
-export type NodeValidator = (editor: RichTextEditor, entry: NodeEntry) => boolean;
+export type NodeTransformer = (editor: PlateEditor, entry: NodeEntry) => void;
+export type NodeValidator = (editor: PlateEditor, entry: NodeEntry) => boolean;
 
 type BaseRule = {
   /**

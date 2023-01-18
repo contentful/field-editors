@@ -3,13 +3,13 @@ import {
   SoftBreakRule,
 } from '@udecode/plate-break';
 
-import { RichTextPlugin } from '../../types';
+import { PlatePlugin } from '../../internal/types';
 
-export const createSoftBreakPlugin = (): RichTextPlugin =>
+export const createSoftBreakPlugin = (): PlatePlugin =>
   createDefaultSoftBreakPlugin({
     then: (editor) => {
       const rules: SoftBreakRule[] = editor.plugins.flatMap((p) => {
-        return (p as RichTextPlugin).softBreak || [];
+        return (p as PlatePlugin).softBreak || [];
       });
 
       return {

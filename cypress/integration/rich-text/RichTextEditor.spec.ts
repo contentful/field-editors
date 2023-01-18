@@ -208,7 +208,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       }
 
       // undo
-      // Ensures that drag&drop was recoreded in a separate history batch,
+      // Ensures that drag&drop was recorded in a separate history batch,
       // undoing should not delete the entry block.
       // See the Slate bug report: https://github.com/ianstormtaylor/slate/issues/4694
       richText.editor.click().type(`{${mod}}z`).click();
@@ -217,7 +217,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
   });
 
   describe('Marks', () => {
-    const findMarkViaToolbar = (mark: MARKS) => {
+    const findMarkViaToolbar = (mark: string) => {
       if (mark === 'code' || mark === 'superscript' || mark === 'subscript') {
         cy.findByTestId('dropdown-toolbar-button').click();
         return cy.findByTestId(`${mark}-toolbar-button`);
@@ -226,7 +226,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       }
     };
 
-    const toggleMarkViaToolbar = (mark: MARKS) => {
+    const toggleMarkViaToolbar = (mark: string) => {
       if (mark === 'code' || mark === 'superscript' || mark === 'subscript') {
         cy.findByTestId('dropdown-toolbar-button').click();
         cy.findByTestId(`${mark}-toolbar-button`).click();
@@ -297,7 +297,10 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           toggleMarkViaToolbar(mark);
 
-          cy.wait(100);
+          // Wait until the mark is applied
+          richText.expectValue(
+            doc(block(BLOCKS.PARAGRAPH, {}, text('some text', [{ type: mark }])))
+          );
 
           richText.editor.click().type('{selectall}');
 
@@ -702,7 +705,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           richText.editor
             .click('bottom')
-            // Using `delay` to avoid flakiness, cypress triggers a keypress every 10ms and the editor was not responding correcrly
+            // Using `delay` to avoid flakiness, cypress triggers a keypress every 10ms and the editor was not responding correctly
             .type('{uparrow}{uparrow}{uparrow}{del}{del}', { delay: 100 });
 
           richText.expectValue(doc(entryBlock(), emptyParagraph()));
@@ -1214,7 +1217,6 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         });
 
         it('with Tab key at the end', () => {
-          // @ts-expect-error ...
           richText.editor.tab();
 
           expectTable(

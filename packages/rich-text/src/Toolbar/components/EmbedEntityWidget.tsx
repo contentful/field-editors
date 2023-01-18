@@ -42,7 +42,7 @@ export const EmbedEntityWidget = ({ isDisabled, canInsertBlocks }: EmbedEntityWi
       )}
       {inlineEntryEmbedEnabled && (
         <ToolbarEmbeddedEntityInlineButton
-          isDisabled={!!isDisabled || isLinkActive(editor)}
+          isDisabled={!!isDisabled || Boolean(isLinkActive(editor))}
           onClose={onCloseEntityDropdown}
         />
       )}
@@ -64,7 +64,8 @@ export const EmbedEntityWidget = ({ isDisabled, canInsertBlocks }: EmbedEntityWi
       isDisabled={isDisabled}
       onClose={onCloseEntityDropdown}
       onToggle={onToggleEntityDropdown}
-      isOpen={isEmbedDropdownOpen}>
+      isOpen={isEmbedDropdownOpen}
+    >
       {actions}
     </EmbeddedEntityDropdownButton>
   ) : null;

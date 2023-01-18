@@ -5,12 +5,12 @@ import { Flex, IconButton, Menu } from '@contentful/f36-components';
 import { MoreHorizontalIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types';
-import { isMarkActive } from '@udecode/plate-core';
 import { css } from 'emotion';
 
 import { useContentfulEditor } from '../ContentfulEditorProvider';
 import { isNodeTypeSelected } from '../helpers/editor';
 import { isNodeTypeEnabled, isMarkEnabled } from '../helpers/validations';
+import { isMarkActive } from '../internal/queries';
 import { ToolbarHeadingButton } from '../plugins/Heading';
 import { ToolbarHrButton } from '../plugins/Hr';
 import { ToolbarHyperlinkButton } from '../plugins/Hyperlink';
@@ -74,9 +74,10 @@ const styles = {
 const Dropdown = ({ sdk, isDisabled }: { sdk: FieldExtensionSDK; isDisabled?: boolean }) => {
   const editor = useContentfulEditor();
   const isActive =
-    isMarkActive(editor, MARKS.SUPERSCRIPT) ||
-    isMarkActive(editor, MARKS.SUBSCRIPT) ||
-    isMarkActive(editor, MARKS.CODE);
+    editor &&
+    (isMarkActive(editor, MARKS.SUPERSCRIPT) ||
+      isMarkActive(editor, MARKS.SUBSCRIPT) ||
+      isMarkActive(editor, MARKS.CODE));
 
   return (
     <Menu>

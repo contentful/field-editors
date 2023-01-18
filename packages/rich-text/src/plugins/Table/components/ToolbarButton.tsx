@@ -31,8 +31,9 @@ export function ToolbarTableButton(props: ToolbarTableButtonProps) {
       testId="table-toolbar-button"
       onClick={handleClick}
       // TODO: active state looks off since the button will be disabled. Do we still need it?
-      isActive={isActive}
-      isDisabled={props.isDisabled}>
+      isActive={!!isActive}
+      isDisabled={props.isDisabled}
+    >
       <TableIcon />
     </ToolbarButton>
   );

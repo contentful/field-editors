@@ -1,15 +1,15 @@
 import { BLOCKS, HEADINGS } from '@contentful/rich-text-types';
-import { getAbove, HotkeyPlugin, isMarkActive, KeyboardHandler } from '@udecode/plate-core';
 import isHotkey from 'is-hotkey';
 
 import { isBlockSelected, isInlineOrText, toggleElement } from '../../helpers/editor';
 import { transformLift, transformUnwrap } from '../../helpers/transformers';
-import { RichTextEditor, RichTextPlugin } from '../../types';
+import { isMarkActive, getAboveNode } from '../../internal/queries';
+import { KeyboardHandler, PlatePlugin, HotkeyPlugin } from '../../internal/types';
 import { COMMAND_PROMPT } from '../CommandPalette/constants';
 import { HeadingComponents } from './components/Heading';
 
 const buildHeadingEventHandler =
-  (type: BLOCKS): KeyboardHandler<RichTextEditor, HotkeyPlugin> =>
+  (type: BLOCKS): KeyboardHandler<HotkeyPlugin> =>
   (editor, { options: { hotkey } }) =>
   (event) => {
     if (editor.selection && hotkey && isHotkey(hotkey, event)) {
@@ -20,7 +20,7 @@ const buildHeadingEventHandler =
     }
   };
 
-export const createHeadingPlugin = (): RichTextPlugin => ({
+export const createHeadingPlugin = (): PlatePlugin => ({
   key: 'HeadingPlugin',
   softBreak: [
     // create a new line with SHIFT+Enter inside a heading
@@ -58,14 +58,14 @@ export const createHeadingPlugin = (): RichTextPlugin => ({
             // Exclude headings inside lists as it interferes with the list's
             // insertBreak implementation
             filter: ([, path]) =>
-              !getAbove(editor, {
+              !getAboveNode(editor, {
                 at: path,
                 match: { type: BLOCKS.LIST_ITEM },
               }) && !isMarkActive(editor, COMMAND_PROMPT),
           },
         },
       ],
-    } as Partial<RichTextPlugin>;
+    } as Partial<PlatePlugin>;
   },
   plugins: HEADINGS.map((nodeType, idx) => {
     const level = idx + 1;

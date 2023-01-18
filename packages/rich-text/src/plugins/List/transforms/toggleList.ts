@@ -3,33 +3,36 @@
  * See: https://github.com/udecode/plate/blob/main/packages/nodes/list
  */
 import { BLOCKS } from '@contentful/rich-text-types';
-import {
-  ELEMENT_DEFAULT,
-  findNode,
-  getNodes,
-  getPluginType,
-  isCollapsed,
-  isRangeAcrossBlocks,
-  PlateEditor,
-  setNodes,
-  TElement,
-  wrapNodes,
-} from '@udecode/plate-core';
 import { ELEMENT_LIC } from '@udecode/plate-list';
 import { getListItemEntry } from '@udecode/plate-list';
-import { Editor, Node, NodeEntry, Range } from 'slate';
 
+import { ELEMENT_DEFAULT } from '../../../internal/constants';
+import { withoutNormalizing } from '../../../internal/misc';
+import {
+  findNode,
+  getNodeEntries,
+  isRangeCollapsed,
+  getRangeEdges,
+  isRangeAcrossBlocks,
+  getParentNode,
+  getPluginType,
+  getCommonNode,
+  getRangeStart,
+  getRangeEnd,
+} from '../../../internal/queries';
+import { setNodes, wrapNodes } from '../../../internal/transforms';
+import { PlateEditor, Element, Location, NodeEntry } from '../../../internal/types';
 import { unwrapList } from './unwrapList';
 
 const listTypes = [BLOCKS.UL_LIST, BLOCKS.OL_LIST] as string[];
 
 export const toggleList = (editor: PlateEditor, { type }: { type: string }) =>
-  Editor.withoutNormalizing(editor, () => {
+  withoutNormalizing(editor, () => {
     if (!editor.selection) {
       return;
     }
 
-    if (isCollapsed(editor.selection) || !isRangeAcrossBlocks(editor)) {
+    if (isRangeCollapsed(editor.selection) || !isRangeAcrossBlocks(editor)) {
       // selection is collapsed
       const res = getListItemEntry(editor);
 
@@ -41,7 +44,7 @@ export const toggleList = (editor: PlateEditor, { type }: { type: string }) =>
             { type },
             {
               at: editor.selection,
-              match: (n) => listTypes.includes(n.type),
+              match: (n) => listTypes.includes(n.type as string),
               mode: 'lowest',
             }
           );
@@ -53,7 +56,7 @@ export const toggleList = (editor: PlateEditor, { type }: { type: string }) =>
         wrapNodes(editor, list);
 
         const nodes = [
-          ...getNodes(editor, {
+          ...getNodeEntries(editor, {
             match: { type: getPluginType(editor, ELEMENT_DEFAULT) },
           }),
         ];
@@ -73,30 +76,27 @@ export const toggleList = (editor: PlateEditor, { type }: { type: string }) =>
     } else {
       // selection is a range
 
-      const [startPoint, endPoint] = Range.edges(editor.selection);
-      const commonEntry = Node.common(
-        editor,
-        startPoint.path,
-        endPoint.path
-      ) as NodeEntry<TElement>;
+      const [startPoint, endPoint] = getRangeEdges(editor.selection);
+      const commonEntry = getCommonNode(editor, startPoint.path, endPoint.path) as NodeEntry;
 
       if (
-        listTypes.includes((commonEntry[0] as TElement).type) ||
+        listTypes.includes((commonEntry[0] as Element).type) ||
         commonEntry[0].type === BLOCKS.LIST_ITEM
       ) {
         let listType = commonEntry[0].type;
         if (commonEntry[0].type === BLOCKS.LIST_ITEM) {
-          listType = (Editor.parent(editor, commonEntry[1])[0] as TElement).type;
+          listType = (getParentNode(editor, commonEntry[1] as Location)?.[0] as Element | undefined)
+            ?.type;
         }
         if (listType !== type) {
           const startList = findNode(editor, {
-            at: Range.start(editor.selection),
+            at: getRangeStart(editor.selection),
             match: { type: listTypes },
             mode: 'lowest',
           });
 
           const endList = findNode(editor, {
-            at: Range.end(editor.selection),
+            at: getRangeEnd(editor.selection),
             match: { type: listTypes },
             mode: 'lowest',
           });
@@ -111,7 +111,8 @@ export const toggleList = (editor: PlateEditor, { type }: { type: string }) =>
             { type },
             {
               at: editor.selection,
-              match: (n, path) => listTypes.includes(n.type) && path.length >= rangeLength,
+              match: (n, path) =>
+                listTypes.includes(n.type as string) && path.length >= rangeLength,
               mode: 'all',
             }
           );
@@ -122,16 +123,16 @@ export const toggleList = (editor: PlateEditor, { type }: { type: string }) =>
         const rootPathLength = commonEntry[1].length;
         const nodes = (
           Array.from(
-            getNodes(editor, {
+            getNodeEntries(editor, {
               mode: 'all',
             })
-          ) as NodeEntry<TElement>[]
+          ) as NodeEntry[]
         )
           .filter(([, path]) => path.length === rootPathLength + 1)
           .reverse();
 
         nodes.forEach((n) => {
-          if (listTypes.includes(n[0].type)) {
+          if (listTypes.includes(n[0].type as string)) {
             setNodes(editor, { type }, { at: n[1] });
           } else {
             setNodes(editor, { type: getPluginType(editor, ELEMENT_LIC) }, { at: n[1] });

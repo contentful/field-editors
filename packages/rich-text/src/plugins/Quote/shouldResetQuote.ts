@@ -1,12 +1,8 @@
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
-import {
-  getAbove,
-  getBlockAbove,
-  isAncestorEmpty,
-  isLastChild,
-  PlateEditor,
-  hasSingleChild,
-} from '@udecode/plate-core';
+import { isLastChild, hasSingleChild } from '@udecode/plate-core';
+
+import { getAboveNode, getBlockAbove, isAncestorEmpty } from '../../internal/queries';
+import { PlateEditor, Ancestor } from '../../internal/types';
 
 /**
  * Returns true if we are:
@@ -15,7 +11,7 @@ import {
  * 3) that child is empty
  */
 export const shouldResetQuoteOnBackspace = (editor: PlateEditor) => {
-  const container = getAbove(editor, {
+  const container = getAboveNode(editor, {
     match: { type: TEXT_CONTAINERS },
     mode: 'lowest',
   });
@@ -24,7 +20,7 @@ export const shouldResetQuoteOnBackspace = (editor: PlateEditor) => {
     return false;
   }
 
-  if (!isAncestorEmpty(editor, container[0])) {
+  if (!isAncestorEmpty(editor, container[0] as Ancestor)) {
     return false;
   }
 

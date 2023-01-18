@@ -2,12 +2,12 @@ import { useState } from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
-import { getAbove, PlateEditor, removeMark } from '@udecode/plate-core';
-import { Editor, Transforms } from 'slate';
-import { RichTextEditor } from 'types';
 
 import { isNodeTypeSelected } from '../../helpers/editor';
 import { isNodeTypeEnabled } from '../../helpers/validations';
+import { getRange, getAboveNode } from '../../internal/queries';
+import { select, insertNodes, deleteText, removeMark } from '../../internal/transforms';
+import { PlateEditor } from '../../internal/types';
 import { COMMAND_PROMPT } from './constants';
 import { createInlineEntryNode } from './utils/createInlineEntryNode';
 import { fetchAssets } from './utils/fetchAssets';
@@ -29,25 +29,25 @@ export interface CommandGroup {
 export type CommandList = (Command | CommandGroup)[];
 
 const removeCommand = (editor: PlateEditor) => {
-  const [, path] = getAbove(editor)!;
-  const range = Editor.range(editor, path);
+  const [, path] = getAboveNode(editor)!;
+  const range = getRange(editor, path);
 
-  Transforms.select(editor, range.focus.path);
+  select(editor, range.focus.path);
 
-  removeMark(editor, { key: COMMAND_PROMPT, at: range });
-  Transforms.delete(editor);
+  removeMark(editor, COMMAND_PROMPT, range);
+  deleteText(editor);
 };
 
 const removeQuery = (editor: PlateEditor) => {
-  const [, path] = getAbove(editor)!;
-  const range = Editor.range(editor, path);
+  const [, path] = getAboveNode(editor)!;
+  const range = getRange(editor, path);
 
   if (range.focus.offset - range.anchor.offset > 1) {
-    Transforms.delete(editor, { at: range.focus, distance: range.focus.offset - 1, reverse: true });
+    deleteText(editor, { at: range.focus, distance: range.focus.offset - 1, reverse: true });
   }
 };
 
-export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: RichTextEditor) => {
+export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: PlateEditor) => {
   const contentTypes = sdk.space.getCachedContentTypes();
 
   const canInsertBlocks = !isNodeTypeSelected(editor, BLOCKS.TABLE);
@@ -83,7 +83,7 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: RichT
                         const selection = editor.selection;
                         editor.insertSoftBreak();
                         insertBlock(editor, BLOCKS.EMBEDDED_ENTRY, entry.entry);
-                        Transforms.select(editor, selection);
+                        select(editor, selection);
                         editor.tracking.onCommandPaletteAction('insert', {
                           nodeType: BLOCKS.EMBEDDED_ENTRY,
                         });
@@ -121,7 +121,7 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: RichT
                     callback: () => {
                       const inlineNode = createInlineEntryNode(entry.id);
                       removeCommand(editor);
-                      Transforms.insertNodes(editor, inlineNode);
+                      insertNodes(editor, inlineNode);
                       editor.insertText('');
                       editor.tracking.onCommandPaletteAction('insert', {
                         nodeType: INLINES.EMBEDDED_ENTRY,
@@ -179,7 +179,7 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: RichT
                             const selection = editor.selection;
                             editor.insertSoftBreak();
                             insertBlock(editor, BLOCKS.EMBEDDED_ASSET, asset.entity);
-                            Transforms.select(editor, selection);
+                            select(editor, selection);
                             editor.tracking.onCommandPaletteAction('insert', {
                               nodeType: BLOCKS.EMBEDDED_ASSET,
                             });

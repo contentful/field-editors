@@ -4,10 +4,9 @@
   "compilerOptions": {
     "module": "esnext",
     "lib": ["dom", "esnext"],
-    "rootDir": "./src",
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "paths": {
-      "*": ["src/*", "node_modules/*"]
+      "internal/*": ["internal/*"]
     },
     "noImplicitAny": false,
     "allowJs": true,

@@ -1,25 +1,32 @@
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
+
+import { withoutNormalizing } from '../../../internal';
 import {
-  getAbove,
-  getParent,
-  insertNodes,
-  isFirstChild,
+  getAboveNode,
+  getParentNode,
+  isFirstChildPath,
   isSelectionAtBlockEnd,
   isSelectionAtBlockStart,
+  getMarks,
+  getNextPath,
+} from '../../../internal/queries';
+import {
+  select,
+  insertNodes,
   moveChildren,
-} from '@udecode/plate-core';
-import { Editor, Path, Transforms } from 'slate';
-
-import { CustomElement, RichTextEditor } from '../../../types';
+  splitNodes,
+  collapseSelection,
+} from '../../../internal/transforms';
+import { CustomElement, PlateEditor } from '../../../internal/types';
 
 /**
  * Build a new list item node while preserving marks
  */
-const emptyListItemNode = (editor: RichTextEditor, withChildren = false): CustomElement => {
+const emptyListItemNode = (editor: PlateEditor, withChildren = false): CustomElement => {
   let children: CustomElement[] = [];
 
   if (withChildren) {
-    const marks = Editor.marks(editor) || {};
+    const marks = getMarks(editor) || {};
 
     children = [
       {
@@ -40,19 +47,19 @@ const emptyListItemNode = (editor: RichTextEditor, withChildren = false): Custom
 /**
  * Insert list item if selection is in li>p.
  */
-export const insertListItem = (editor: RichTextEditor): boolean => {
+export const insertListItem = (editor: PlateEditor): boolean => {
   if (!editor.selection) {
     return false;
   }
 
   // Naming it paragraph for simplicity but can be a heading as well
-  const paragraph = getAbove(editor, { match: { type: TEXT_CONTAINERS } });
+  const paragraph = getAboveNode(editor, { match: { type: TEXT_CONTAINERS } });
   if (!paragraph) {
     return false;
   }
 
   const [, paragraphPath] = paragraph;
-  const listItem = getParent(editor, paragraphPath);
+  const listItem = getParentNode(editor, paragraphPath);
 
   if (!listItem) {
     return false;
@@ -66,7 +73,7 @@ export const insertListItem = (editor: RichTextEditor): boolean => {
 
   // We are in a li>p (or heading)
 
-  Editor.withoutNormalizing(editor, () => {
+  withoutNormalizing(editor, () => {
     if (!editor.selection) {
       return;
     }
@@ -75,16 +82,16 @@ export const insertListItem = (editor: RichTextEditor): boolean => {
     const isAtStart = isSelectionAtBlockStart(editor);
     const isAtEnd = isSelectionAtBlockEnd(editor);
 
-    const isAtStartOfListItem = isAtStart && isFirstChild(paragraphPath);
+    const isAtStartOfListItem = isAtStart && isFirstChildPath(paragraphPath);
     const shouldSplit = !isAtStart && !isAtEnd;
 
     // Split the current paragraph content if necessary
     if (shouldSplit) {
-      Transforms.splitNodes(editor);
+      splitNodes(editor);
     }
 
     // Insert the new li
-    const newListItemPath = isAtStartOfListItem ? listItemPath : Path.next(listItemPath);
+    const newListItemPath = isAtStartOfListItem ? listItemPath : getNextPath(listItemPath);
 
     insertNodes(
       editor,
@@ -95,7 +102,7 @@ export const insertListItem = (editor: RichTextEditor): boolean => {
     );
 
     // Move children *after* selection to the new li
-    const fromPath = isAtStart ? paragraphPath : Path.next(paragraphPath);
+    const fromPath = isAtStart ? paragraphPath : getNextPath(paragraphPath);
     const fromStartIndex = fromPath[fromPath.length - 1] || 0;
 
     // On split we don't add paragraph to the new li so we move
@@ -112,8 +119,8 @@ export const insertListItem = (editor: RichTextEditor): boolean => {
     }
 
     // Move cursor to the start of the new li
-    Transforms.select(editor, newListItemPath);
-    Transforms.collapse(editor, { edge: 'start' });
+    select(editor, newListItemPath);
+    collapseSelection(editor, { edge: 'start' });
   });
 
   // Returning True skips processing other editor.insertBreak handlers

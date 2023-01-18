@@ -2,17 +2,13 @@ import * as React from 'react';
 
 import { FieldExtensionSDK, Link } from '@contentful/app-sdk';
 import { INLINES } from '@contentful/rich-text-types';
-import { AnyObject, KeyboardHandler, HotkeyPlugin } from '@udecode/plate-core';
+import { AnyObject, HotkeyPlugin } from '@udecode/plate-core';
 import isHotkey from 'is-hotkey';
 
 import { isLinkActive, unwrapLink } from '../../helpers/editor';
 import { transformRemove } from '../../helpers/transformers';
-import {
-  RichTextPlugin,
-  CustomRenderElementProps,
-  CustomElement,
-  RichTextEditor,
-} from '../../types';
+import { PlatePlugin, KeyboardHandler } from '../../internal/types';
+import { CustomRenderElementProps, CustomElement } from '../../internal/types';
 import { withLinkTracking } from '../links-tracking';
 import { EntityHyperlink } from './components/EntityHyperlink';
 import { UrlHyperlink } from './components/UrlHyperlink';
@@ -37,7 +33,7 @@ const isAssetAnchor = (element: HTMLElement) =>
   element.nodeName === 'A' && element.getAttribute('data-link-type') === 'Asset';
 
 const buildHyperlinkEventHandler =
-  (sdk: FieldExtensionSDK): KeyboardHandler<RichTextEditor, HotkeyPlugin> =>
+  (sdk: FieldExtensionSDK): KeyboardHandler<HotkeyPlugin> =>
   (editor, { options: { hotkey } }) => {
     return (event: React.KeyboardEvent) => {
       if (!editor.selection) {
@@ -78,8 +74,8 @@ const getNodeOfType =
           },
   });
 
-export const createHyperlinkPlugin = (sdk: FieldExtensionSDK): RichTextPlugin => {
-  const common: Partial<RichTextPlugin> = {
+export const createHyperlinkPlugin = (sdk: FieldExtensionSDK): PlatePlugin => {
+  const common: Partial<PlatePlugin> = {
     isElement: true,
     isInline: true,
   };

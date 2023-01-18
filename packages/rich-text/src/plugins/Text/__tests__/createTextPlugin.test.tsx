@@ -1,4 +1,5 @@
 /** @jsx jsx */
+
 import { jsx, assertOutput, createTestEditor } from '../../../test-utils';
 
 describe('delete backward', () => {
@@ -101,7 +102,6 @@ describe('delete backward', () => {
   );
 
   for (const t of tests) {
-    // eslint-disable-next-line jest/valid-title -- TODO: explain this disable
     test(t.title, () => {
       const { editor } = createTestEditor({
         input: render(t.input),
@@ -218,7 +218,6 @@ describe('delete forward', () => {
   );
 
   for (const t of tests) {
-    // eslint-disable-next-line jest/valid-title -- TODO: explain this disable
     test(t.title, () => {
       const { editor } = createTestEditor({
         input: render(t.input),

@@ -1,4 +1,4 @@
-import { RichTextPlugin } from '../../types';
+import { PlatePlugin } from '../../internal/types';
 import { getCharacterCount } from './utils';
 
 export type RichTextTrackingActionName =
@@ -106,7 +106,7 @@ export function getPastingSource(data: DataTransfer) {
   return 'Unknown';
 }
 
-export const createTrackingPlugin = (onAction: RichTextTrackingActionHandler): RichTextPlugin => {
+export const createTrackingPlugin = (onAction: RichTextTrackingActionHandler): PlatePlugin => {
   const trackingActions: TrackingPluginActions = {
     onViewportAction: (actionName: RichTextTrackingActionName, data = {}) =>
       onAction(actionName, { origin: actionOrigin.VIEWPORT, ...data }),

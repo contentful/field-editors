@@ -3,9 +3,7 @@ import * as React from 'react';
 import { HorizontalRuleIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { getText, setNodes } from '@udecode/plate-core';
 import { css, cx } from 'emotion';
-import { Transforms } from 'slate';
 import * as Slate from 'slate-react';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
@@ -15,7 +13,9 @@ import {
   moveToTheNextLine,
   focus,
 } from '../../helpers/editor';
-import { RichTextEditor, RichTextPlugin } from '../../types';
+import { getText } from '../../internal/queries';
+import { insertNodes, setNodes, removeNodes } from '../../internal/transforms';
+import { PlatePlugin, PlateEditor } from '../../internal/types';
 import { ToolbarButton } from '../shared/ToolbarButton';
 
 const styles = {
@@ -54,7 +54,7 @@ interface ToolbarHrButtonProps {
   isDisabled?: boolean;
 }
 
-export function withHrEvents(editor: RichTextEditor) {
+export function withHrEvents(editor: PlateEditor) {
   return (event: React.KeyboardEvent) => {
     if (!editor) return;
 
@@ -64,7 +64,7 @@ export function withHrEvents(editor: RichTextEditor) {
       const isDelete = event.key === 'Delete';
       if (isBackspace || isDelete) {
         event.preventDefault();
-        Transforms.removeNodes(editor, { at: pathToSelectedHr });
+        removeNodes(editor, { at: pathToSelectedHr });
       }
     }
   };
@@ -84,7 +84,7 @@ export function ToolbarHrButton(props: ToolbarHrButtonProps) {
     };
 
     const hasText = !!getText(editor, editor.selection.focus.path);
-    hasText ? Transforms.insertNodes(editor, hr) : setNodes(editor, hr);
+    hasText ? insertNodes(editor, hr) : setNodes(editor, hr);
 
     // Move focus to the next paragraph (added by TrailingParagraph plugin)
     moveToTheNextLine(editor);
@@ -127,7 +127,7 @@ export function Hr(props: Slate.RenderLeafProps) {
   );
 }
 
-export const createHrPlugin = (): RichTextPlugin => ({
+export const createHrPlugin = (): PlatePlugin => ({
   key: BLOCKS.HR,
   type: BLOCKS.HR,
   isVoid: true,

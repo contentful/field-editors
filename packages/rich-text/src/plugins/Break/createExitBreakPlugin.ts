@@ -3,16 +3,16 @@ import {
   ExitBreakRule,
 } from '@udecode/plate-break';
 
-import { RichTextPlugin } from '../../types';
+import { PlatePlugin } from '../../internal/types';
 
-export const createExitBreakPlugin = (): RichTextPlugin =>
+export const createExitBreakPlugin = (): PlatePlugin =>
   createDefaultExitBreakPlugin({
     options: {
       rules: [],
     },
     then: (editor) => {
       const rules: ExitBreakRule[] = editor.plugins.flatMap((p) => {
-        return (p as RichTextPlugin).exitBreak || [];
+        return (p as PlatePlugin).exitBreak || [];
       });
 
       return {

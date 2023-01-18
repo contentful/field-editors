@@ -6,7 +6,7 @@ import {
 } from '@udecode/plate-core';
 import { createDeserializeDocxPlugin } from '@udecode/plate-serializer-docx';
 
-import { RichTextPlugin } from '../types';
+import { PlatePlugin } from '../internal/types';
 import { createSoftBreakPlugin, createExitBreakPlugin, createResetNodePlugin } from './Break';
 import { createCommandPalettePlugin } from './CommandPalette';
 import { createDragAndDropPlugin } from './DragAndDrop';
@@ -35,7 +35,7 @@ export const getPlugins = (
   sdk: FieldExtensionSDK,
   onAction: RichTextTrackingActionHandler,
   restrictedMarks?: string[]
-): RichTextPlugin[] => [
+): PlatePlugin[] => [
   // AST must come after the HTML deserializer
   createDeserializeHtmlPlugin(),
   createDeserializeAstPlugin(),

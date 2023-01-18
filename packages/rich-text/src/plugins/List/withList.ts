@@ -3,22 +3,16 @@
  * See: https://github.com/udecode/plate/blob/main/packages/nodes/list
  */
 import { LIST_ITEM_BLOCKS } from '@contentful/rich-text-types';
-import { WithOverride } from '@udecode/plate-core';
-import {
-  ListPlugin,
-  normalizeList,
-  deleteFragmentList,
-  deleteForwardList,
-} from '@udecode/plate-list';
+import { normalizeList, deleteFragmentList, deleteForwardList } from '@udecode/plate-list';
 
-import { RichTextEditor } from '../../types';
+import { WithOverride } from '../../internal/types';
 import { insertListBreak } from './insertListBreak';
 import { insertListFragment } from './insertListFragment';
 import { deleteBackwardList } from './transforms/deleteBackwardList';
 
 const validLiChildrenTypes = LIST_ITEM_BLOCKS;
 
-export const withList: WithOverride<RichTextEditor, ListPlugin> = (editor) => {
+export const withList: WithOverride = (editor) => {
   const { deleteBackward, deleteForward, deleteFragment } = editor;
 
   editor.deleteBackward = (unit) => {
@@ -43,7 +37,7 @@ export const withList: WithOverride<RichTextEditor, ListPlugin> = (editor) => {
 
   editor.insertFragment = insertListFragment(editor);
 
-  // TODO: replace with Normalizer rules
+  // TODO: replace with our own Normalizer rules
   editor.normalizeNode = normalizeList(editor, { validLiChildrenTypes });
 
   return editor;

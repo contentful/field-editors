@@ -1,17 +1,16 @@
-import { NodeEntry, Transforms } from 'slate';
-
-import { RichTextEditor } from '../../types';
+import { insertNodes, removeNodes } from '../../internal/transforms';
+import { NodeEntry, PlateEditor } from '../../internal/types';
 
 /**
  * Re-creates a void node with valid children.
  */
-export const transformVoid = (editor: RichTextEditor, [node, path]: NodeEntry) => {
+export const transformVoid = (editor: PlateEditor, [node, path]: NodeEntry) => {
   const validVoid = {
     ...node,
     children: [{ text: '' }],
   };
 
   // A workaround because Slate doesn't allow adjusting void nodes children
-  Transforms.removeNodes(editor, { at: path });
-  Transforms.insertNodes(editor, [validVoid], { at: path });
+  removeNodes(editor, { at: path });
+  insertNodes(editor, [validVoid], { at: path });
 };

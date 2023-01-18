@@ -1,23 +1,19 @@
-import { match, getPluginType } from '@udecode/plate-core';
+import { getPluginType } from '@udecode/plate-core';
 import isPlainObject from 'is-plain-obj';
-import { Editor, NodeEntry } from 'slate';
 
 import { transformRemove } from '../../helpers/transformers';
-import { RichTextEditor, RichTextPlugin } from '../../types';
+import { withoutNormalizing } from '../../internal';
+import { getChildren, matchNode } from '../../internal/queries';
+import { PlateEditor, PlatePlugin, NodeEntry } from '../../internal/types';
 import { baseRules } from './baseRules';
 import { NormalizerRule, NodeTransformer, NodeValidator } from './types';
-import {
-  NormalizerError,
-  createValidatorFromTypes,
-  getChildren,
-  createTransformerFromObject,
-} from './utils';
+import { NormalizerError, createValidatorFromTypes, createTransformerFromObject } from './utils';
 
-export const withNormalizer = (editor: RichTextEditor) => {
+export const withNormalizer = (editor: PlateEditor) => {
   const rules: Required<NormalizerRule>[] = baseRules;
 
   // Derive normalization rules from other plugin's configurations
-  for (const p of editor.plugins as RichTextPlugin[]) {
+  for (const p of editor.plugins as PlatePlugin[]) {
     const { normalizer: _rules } = p;
 
     if (!_rules) {
@@ -76,21 +72,22 @@ export const withNormalizer = (editor: RichTextEditor) => {
   // Wrap transformer in a withoutNormalizing() call to avoid unnecessary
   // normalization cycles.
   const _transform = (tr: NodeTransformer, entry: NodeEntry) => {
-    Editor.withoutNormalizing(editor, () => {
+    withoutNormalizing(editor, () => {
       tr(editor, entry);
     });
   };
 
   const { normalizeNode } = editor;
 
-  editor.normalizeNode = (entry) => {
-    const [node] = entry;
-    const children = getChildren(editor, entry);
+  // @ts-expect-error
+  editor.normalizeNode = (entry: NodeEntry) => {
+    const [node, path] = entry;
+    const children = getChildren(entry);
 
     // The order of validNode rules Vs validChildren doesn't matter. Slate
     // will always perform normalization in a depth-first fashion.
     for (const rule of rules) {
-      if (!match(node, rule.match)) {
+      if (!matchNode(node, path, rule.match)) {
         continue;
       }
 

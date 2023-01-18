@@ -1,3 +1,4 @@
+/// <reference types="cypress" />
 declare namespace Cypress {
   import type { ComponentFixtures } from '../fixtures';
 

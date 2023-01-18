@@ -17,14 +17,15 @@ import { Link } from '@contentful/field-editor-reference/dist/types';
 import { ModalDialogLauncher, FieldExtensionSDK } from '@contentful/field-editor-shared';
 import { INLINES } from '@contentful/rich-text-types';
 import { css } from 'emotion';
-import { Editor, Transforms, Path } from 'slate';
-import { ReactEditor } from 'slate-react';
 
 import { getNodeEntryFromSelection, insertLink, LINK_TYPES, focus } from '../../helpers/editor';
 import getLinkedContentTypeIdsForNodeType from '../../helpers/getLinkedContentTypeIdsForNodeType';
 import { isNodeTypeEnabled } from '../../helpers/validations';
+import { withoutNormalizing } from '../../internal';
+import { getText, isEditorReadOnly } from '../../internal/queries';
+import { select } from '../../internal/transforms';
+import { PlateEditor, Path } from '../../internal/types';
 import { TrackingPluginActions } from '../../plugins/Tracking';
-import { RichTextEditor } from '../../types';
 import { FetchingWrappedAssetCard } from '../shared/FetchingWrappedAssetCard';
 import { FetchingWrappedEntryCard } from '../shared/FetchingWrappedEntryCard';
 
@@ -143,7 +144,8 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
                     setLinkType(event.target.value)
                   }
                   testId="link-type-input"
-                  isDisabled={props.readonly}>
+                  isDisabled={props.readonly}
+                >
                   {enabledLinkTypes.map((nodeType) => (
                     <Select.Option key={nodeType} value={nodeType}>
                       {LINK_TYPE_SELECTION_VALUES[nodeType]}
@@ -184,7 +186,8 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
                       <TextLink
                         testId="entity-selection-link"
                         onClick={resetLinkEntity}
-                        className={styles.removeSelectionLabel}>
+                        className={styles.removeSelectionLabel}
+                      >
                         Remove selection
                       </TextLink>
                     )}
@@ -233,7 +236,8 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
             onClick={() => props.onClose(null)}
             variant="secondary"
             testId="cancel-cta"
-            size="small">
+            size="small"
+          >
             Cancel
           </Button>
           <Button
@@ -242,7 +246,8 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
             size="small"
             isDisabled={props.readonly || !isLinkComplete()}
             onClick={handleOnSubmit}
-            testId="confirm-cta">
+            testId="confirm-cta"
+          >
             {props.linkType ? 'Update' : 'Insert'}
           </Button>
         </ModalControls>
@@ -259,7 +264,7 @@ interface HyperLinkDialogData {
 }
 
 export async function addOrEditLink(
-  editor: RichTextEditor,
+  editor: PlateEditor,
   sdk: FieldExtensionSDK,
   logAction:
     | TrackingPluginActions['onToolbarAction']
@@ -267,7 +272,7 @@ export async function addOrEditLink(
     | TrackingPluginActions['onViewportAction'],
   targetPath?: Path
 ) {
-  const isReadOnly = ReactEditor.isReadOnly(editor);
+  const isReadOnly = isEditorReadOnly(editor);
   const selectionBeforeBlur = editor.selection ? { ...editor.selection } : undefined;
   if (!targetPath && !selectionBeforeBlur) return;
 
@@ -278,7 +283,7 @@ export async function addOrEditLink(
   const [node, path] = getNodeEntryFromSelection(editor, LINK_TYPES, targetPath);
   if (node && path) {
     linkType = node.type;
-    linkText = Editor.string(editor, path);
+    linkText = getText(editor, path);
     linkTarget = (node.data as { uri: string }).uri || '';
     linkEntity = (node.data as { target: Link }).target;
   }
@@ -286,8 +291,7 @@ export async function addOrEditLink(
   const selectionAfterFocus =
     targetPath ?? (selectionBeforeBlur as NonNullable<typeof selectionBeforeBlur>);
 
-  const currentLinkText =
-    linkText || (editor.selection ? Editor.string(editor, editor.selection) : '');
+  const currentLinkText = linkText || (editor.selection ? getText(editor, editor.selection) : '');
   const isEditing = Boolean(node && path);
 
   logAction(isEditing ? 'openEditHyperlinkDialog' : 'openCreateHyperlinkDialog');
@@ -314,7 +318,7 @@ export async function addOrEditLink(
       );
     }
   );
-  Transforms.select(editor, selectionAfterFocus);
+  select(editor, selectionAfterFocus);
 
   if (!data) {
     focus(editor);
@@ -329,7 +333,7 @@ export async function addOrEditLink(
     linkEntity: target,
   } = data as HyperLinkDialogData;
 
-  Editor.withoutNormalizing(editor, () => {
+  withoutNormalizing(editor, () => {
     insertLink(editor, { text, url, type, target, path });
   });
 

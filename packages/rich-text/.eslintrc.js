@@ -9,6 +9,7 @@ module.exports = {
     project: path.resolve('tsconfig.json'),
   },
   rules: {
+    'jest/valid-title': 'off',
     '@typescript-eslint/no-use-before-define': ['error', { functions: false, classes: true }],
     'you-dont-need-lodash-underscore/omit': 0, // Can't use destructuring assignment because of unused var rule.
   },

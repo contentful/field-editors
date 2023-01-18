@@ -1,9 +1,9 @@
 import { BLOCKS } from '@contentful/rich-text-types';
-import { getText } from '@udecode/plate-core';
-import { Element, Node } from 'slate';
 
 import { insertEmptyParagraph } from '../../helpers/editor';
-import { CustomElement, RichTextEditor } from '../../types';
+import { getText, isElement } from '../../internal/queries';
+import { Node } from '../../internal/types';
+import { CustomElement, PlateEditor } from '../../internal/types';
 import { isTable } from './helpers';
 
 /**
@@ -17,7 +17,7 @@ import { isTable } from './helpers';
  * wrappers in that case.
  */
 const trimUnnecessaryTableWrapper = (node: Node): Node[] => {
-  if (!Element.isElement(node)) {
+  if (!isElement(node)) {
     return [node];
   }
 
@@ -38,7 +38,7 @@ const trimUnnecessaryTableWrapper = (node: Node): Node[] => {
   return cell.children;
 };
 
-export const insertTableFragment = (editor: RichTextEditor) => {
+export const insertTableFragment = (editor: PlateEditor) => {
   const { insertFragment } = editor;
 
   return (fragments: Node[]) => {

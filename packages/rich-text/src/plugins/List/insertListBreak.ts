@@ -9,10 +9,10 @@ import { ELEMENT_DEFAULT, getPluginType, isBlockAboveEmpty, mockPlugin } from '@
 import { getListItemEntry, moveListItemUp, unwrapList, ELEMENT_LI } from '@udecode/plate-list';
 import { onKeyDownResetNode, ResetNodePlugin, SIMULATE_BACKSPACE } from '@udecode/plate-reset-node';
 
-import { RichTextEditor } from '../../types';
+import { PlateEditor, Value } from '../../internal/types';
 import { insertListItem } from './transforms/insertListItem';
 
-const listBreak = (editor: RichTextEditor): boolean => {
+const listBreak = (editor: PlateEditor): boolean => {
   if (!editor.selection) return false;
 
   const res = getListItemEntry(editor, {});
@@ -41,7 +41,7 @@ const listBreak = (editor: RichTextEditor): boolean => {
 
   const didReset = onKeyDownResetNode(
     editor,
-    mockPlugin<ResetNodePlugin>({
+    mockPlugin<ResetNodePlugin, Value, PlateEditor>({
       options: {
         rules: [
           {
@@ -69,7 +69,7 @@ const listBreak = (editor: RichTextEditor): boolean => {
   return false;
 };
 
-export const insertListBreak = (editor: RichTextEditor) => {
+export const insertListBreak = (editor: PlateEditor) => {
   const { insertBreak } = editor;
 
   return () => {

@@ -1,9 +1,9 @@
 import { INLINES } from '@contentful/rich-text-types';
 import { createSelectOnBackspacePlugin as createDefaultSelectPlugin } from '@udecode/plate-select';
 
-import { RichTextPlugin } from '../../types';
+import { PlatePlugin } from '../../internal/types';
 
-export const createSelectOnBackspacePlugin = (): RichTextPlugin =>
+export const createSelectOnBackspacePlugin = (): PlatePlugin =>
   createDefaultSelectPlugin({
     options: {
       query: {

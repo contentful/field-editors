@@ -1,10 +1,10 @@
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
-import { getText } from '@udecode/plate-core';
-import { Editor, Element, Path, Transforms } from 'slate';
-import { RichTextEditor } from 'types';
 
 import { focus, insertEmptyParagraph, moveToTheNextChar } from '../../helpers/editor';
 import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
+import { getText, getAboveNode, getLastNodeByLevel } from '../../internal/queries';
+import { select, insertNodes, setNodes } from '../../internal/transforms';
+import { PlateEditor } from '../../internal/types';
 import { TrackingPluginActions } from '../../plugins/Tracking';
 
 export async function selectEntityAndInsert(
@@ -28,45 +28,42 @@ export async function selectEntityAndInsert(
     return;
   }
 
-  Transforms.select(editor, selection);
+  select(editor, selection);
+
   insertBlock(editor, nodeType, entity);
   ensureFollowingParagraph(editor);
+
   logAction('insert', { nodeType });
 }
 
-function ensureFollowingParagraph(editor: RichTextEditor) {
-  /* 
-     If the new block isn't followed by a sibling paragraph we insert a new empty one
-   */
-  const next = Editor.next(editor);
-  if (!next) {
-    return insertEmptyParagraph(editor);
-  }
-
-  const parent = Editor.above(editor, {
-    voids: false,
-    match: (e) =>
-      !Element.isElement(e) ||
-      ![BLOCKS.EMBEDDED_ASSET, BLOCKS.EMBEDDED_ENTRY].includes(e.type as BLOCKS),
+// TODO: incorporate this logic inside the trailingParagraph plugin instead
+function ensureFollowingParagraph(editor: PlateEditor) {
+  const entityBlock = getAboveNode(editor, {
+    match: {
+      type: [BLOCKS.EMBEDDED_ASSET, BLOCKS.EMBEDDED_ENTRY],
+    },
   });
 
-  if (Editor.isEditor(parent)) {
-    // at level 0, a following paragraph is handled by the tralingParagraph plugin
-    moveToTheNextChar(editor);
+  if (!entityBlock) {
     return;
   }
 
-  const paragraph = Editor.above(editor, {
-    at: next[1],
-    match: (e) => Element.isElement(e) && TEXT_CONTAINERS.includes(e.type as BLOCKS),
-  });
+  const level = entityBlock[1].length - 1;
+  const lastNode = getLastNodeByLevel(editor, level);
 
-  if (!paragraph || !parent || !Path.isChild(paragraph[1], parent[1])) {
-    return insertEmptyParagraph(editor);
+  const isTextContainer = (TEXT_CONTAINERS as string[]).includes(
+    (lastNode?.[0].type ?? '') as string
+  );
+
+  // If the new block isn't followed by a sibling text container (e.g. paragraph)
+  // we insert a new empty one. Level 0 is handled by the trailingParagraph plugin
+  if (level !== 0 && !isTextContainer) {
+    insertEmptyParagraph(editor);
   }
 
   moveToTheNextChar(editor);
 }
+
 const createNode = (nodeType, entity) => ({
   type: nodeType,
   data: {
@@ -83,7 +80,7 @@ const createNode = (nodeType, entity) => ({
 });
 
 // TODO: DRY up copied code from HR
-export function insertBlock(editor, nodeType, entity) {
+export function insertBlock(editor: PlateEditor, nodeType: string, entity) {
   if (!editor?.selection) return;
 
   const linkedEntityBlock = createNode(nodeType, entity);
@@ -91,9 +88,9 @@ export function insertBlock(editor, nodeType, entity) {
   const hasText = editor.selection && !!getText(editor, editor.selection.focus.path);
 
   if (hasText) {
-    Transforms.insertNodes(editor, linkedEntityBlock);
+    insertNodes(editor, linkedEntityBlock);
   } else {
-    Transforms.setNodes(editor, linkedEntityBlock);
+    setNodes(editor, linkedEntityBlock);
   }
 
   focus(editor);

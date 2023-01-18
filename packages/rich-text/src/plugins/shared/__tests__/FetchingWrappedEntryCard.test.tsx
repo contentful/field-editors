@@ -22,6 +22,9 @@ beforeEach(() => {
     },
     cmaAdapter: createFakeCMAAdapter({
       Entry: { get: jest.fn().mockResolvedValue(publishedEntry) },
+      ScheduledAction: {
+        getMany: jest.fn().mockResolvedValue({ items: [], total: 0 }),
+      },
     }),
     space: {
       getEntityScheduledActions: jest.fn().mockResolvedValue([]),

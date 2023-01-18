@@ -14,8 +14,8 @@ import {
   toggleElement,
 } from '../../../helpers/editor';
 import { isNodeTypeEnabled } from '../../../helpers/validations';
+import { CustomElement } from '../../../internal/types';
 import { useSdkContext } from '../../../SdkProvider';
-import { CustomElement } from '../../../types';
 
 const styles = {
   dropdown: {
@@ -124,7 +124,8 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
           variant="transparent"
           endIcon={<ChevronDownIcon />}
           isDisabled={props.isDisabled}
-          onClick={() => someHeadingsEnabled && setOpen(!isOpen)}>
+          onClick={() => someHeadingsEnabled && setOpen(!isOpen)}
+        >
           {LABELS[selected]}
         </Button>
       </Menu.Trigger>
@@ -139,7 +140,8 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
                   isInitiallyFocused={selected === nodeType}
                   onClick={handleOnSelectItem(nodeType as BLOCKS)}
                   testId={`dropdown-option-${nodeType}`}
-                  disabled={props.isDisabled}>
+                  disabled={props.isDisabled}
+                >
                   <span className={cx(styles.dropdown.root, styles.dropdown[nodeType])}>
                     {LABELS[nodeType]}
                   </span>
