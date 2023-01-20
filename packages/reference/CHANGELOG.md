@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.8.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.8.1...@contentful/field-editor-reference@5.8.2) (2023-01-20)
+
+### Bug Fixes
+
+- images overlay modal in compose [TOL-921] ([#1330](https://github.com/contentful/field-editors/issues/1330)) ([baef30d](https://github.com/contentful/field-editors/commit/baef30d6491f7b56bbcbc8d747542bf4c5d46899))
+
 ## [5.8.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.8.0...@contentful/field-editor-reference@5.8.1) (2023-01-13)
 
 ### Bug Fixes
