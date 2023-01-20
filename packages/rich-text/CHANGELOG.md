@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.0...@contentful/field-editor-rich-text@3.4.1) (2023-01-20)
+
+### Bug Fixes
+
+- **rte:** [TOL-989] command prompt not always visible and working ([#1327](https://github.com/contentful/field-editors/issues/1327)) ([1ded2f0](https://github.com/contentful/field-editors/commit/1ded2f0a6da25470ae639fac51a617f0ab233917))
+
 # [3.4.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.3.5...@contentful/field-editor-rich-text@3.4.0) (2023-01-18)
 
 ### Features
