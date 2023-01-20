@@ -17,7 +17,7 @@ const styles = {
   }),
   item: css({
     marginBottom: tokens.spacingM,
-    zIndex: tokens.zIndexModalContent, // setting this to an index above 99 fixes dragged item disappearing issue
+    zIndex: tokens.zIndexModal, // setting this to an index above 99 fixes dragged item disappearing issue. Should not be higher than 100 so it does not overlap the asset modal.
   }),
 };
 type SortableContainerChildProps<IType> = Pick<
