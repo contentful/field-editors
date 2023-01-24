@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { FieldExtensionSDK, Link } from '@contentful/app-sdk';
+import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { INLINES } from '@contentful/rich-text-types';
 import { AnyObject, HotkeyPlugin } from '@udecode/plate-core';
 import isHotkey from 'is-hotkey';
@@ -8,18 +8,11 @@ import isHotkey from 'is-hotkey';
 import { isLinkActive, unwrapLink } from '../../helpers/editor';
 import { transformRemove } from '../../helpers/transformers';
 import { PlatePlugin, KeyboardHandler } from '../../internal/types';
-import { CustomRenderElementProps, CustomElement } from '../../internal/types';
 import { withLinkTracking } from '../links-tracking';
 import { EntityHyperlink } from './components/EntityHyperlink';
 import { UrlHyperlink } from './components/UrlHyperlink';
 import { addOrEditLink } from './HyperlinkModal';
 import { hasText } from './utils';
-
-type HyperlinkElementProps = CustomRenderElementProps<{
-  uri?: string;
-  target?: Link;
-  onEntityFetchComplete?: VoidFunction;
-}>;
 
 const isAnchor = (element: HTMLElement) =>
   element.nodeName === 'A' &&
@@ -53,26 +46,24 @@ const buildHyperlinkEventHandler =
     };
   };
 
-const getNodeOfType =
-  (type: INLINES) =>
-  (el: HTMLElement, node: AnyObject): CustomElement<HyperlinkElementProps> => ({
-    type,
-    children: node.children,
-    data:
-      type === INLINES.HYPERLINK
-        ? {
-            uri: el.getAttribute('href'),
-          }
-        : {
-            target: {
-              sys: {
-                id: el.getAttribute('data-link-id'),
-                linkType: el.getAttribute('data-link-type'),
-                type: 'Link',
-              },
+const getNodeOfType = (type: INLINES) => (el: HTMLElement, node: AnyObject) => ({
+  type,
+  children: node.children,
+  data:
+    type === INLINES.HYPERLINK
+      ? {
+          uri: el.getAttribute('href'),
+        }
+      : {
+          target: {
+            sys: {
+              id: el.getAttribute('data-link-id'),
+              linkType: el.getAttribute('data-link-type'),
+              type: 'Link',
             },
           },
-  });
+        },
+});
 
 export const createHyperlinkPlugin = (sdk: FieldExtensionSDK): PlatePlugin => {
   const common: Partial<PlatePlugin> = {

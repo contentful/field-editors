@@ -4,9 +4,16 @@ import * as s from 'slate';
 
 import type { Value, PlateEditor, Location, PlatePlugin } from './types';
 
-export type CreatePlateEditorOptions = p.CreatePlateEditorOptions<Value, PlateEditor>;
+export type CreatePlateEditorOptions = Omit<
+  p.CreatePlateEditorOptions<Value, PlateEditor>,
+  'plugins'
+> & {
+  plugins?: PlatePlugin[];
+};
 export const createPlateEditor = (options: CreatePlateEditorOptions = {}) => {
-  return p.createPlateEditor<Value, PlateEditor>(options);
+  return p.createPlateEditor<Value, PlateEditor>(
+    options as p.CreatePlateEditorOptions<Value, PlateEditor>
+  );
 };
 
 export const withoutNormalizing = (editor: PlateEditor, fn: () => boolean | void) => {

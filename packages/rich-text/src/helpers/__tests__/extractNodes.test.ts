@@ -1,10 +1,10 @@
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { createEditor as createSlateEditor } from '@udecode/plate-test-utils';
 
-import { CustomElement, PlateEditor, Path } from '../../internal/types';
+import { Element, PlateEditor, Path } from '../../internal/types';
 import { extractParagraphs } from '../extractNodes';
 
-const createEditor = (children: CustomElement[]) =>
+const createEditor = (children: Element[]) =>
   createSlateEditor('test-editor', {}, children) as PlateEditor;
 
 type Text = {
@@ -30,10 +30,7 @@ const buildParagraph = (children: TextOrInline[] = []) => ({
 const paragraph = (text = '', marks = {}) => buildParagraph([{ text, ...marks }]);
 
 type List = BLOCKS.OL_LIST | BLOCKS.UL_LIST;
-const buildList = (
-  type: List = BLOCKS.UL_LIST,
-  secondType: List = BLOCKS.UL_LIST
-): CustomElement => ({
+const buildList = (type: List = BLOCKS.UL_LIST, secondType: List = BLOCKS.UL_LIST): Element => ({
   data: {},
   isVoid: false,
   type,
@@ -75,7 +72,7 @@ const buildList = (
 
 describe('extractParagraphs', () => {
   it('table', () => {
-    const table: CustomElement = {
+    const table: Element = {
       data: {},
       isVoid: false,
       type: BLOCKS.TABLE,
@@ -132,7 +129,7 @@ describe('extractParagraphs', () => {
   });
 
   it('blockquote', () => {
-    const blockquote: CustomElement = {
+    const blockquote: Element = {
       data: {},
       isVoid: false,
       type: BLOCKS.QUOTE,
@@ -145,7 +142,7 @@ describe('extractParagraphs', () => {
   });
 
   it('list - UL', () => {
-    const ul: CustomElement = buildList(BLOCKS.UL_LIST, BLOCKS.OL_LIST);
+    const ul: Element = buildList(BLOCKS.UL_LIST, BLOCKS.OL_LIST);
     const editor = createEditor([ul]);
     const path: Path = [0];
 
@@ -157,7 +154,7 @@ describe('extractParagraphs', () => {
   });
 
   it('list - OL', () => {
-    const ol: CustomElement = buildList(BLOCKS.OL_LIST, BLOCKS.UL_LIST);
+    const ol: Element = buildList(BLOCKS.OL_LIST, BLOCKS.UL_LIST);
     const editor = createEditor([ol]);
     const path: Path = [0];
 
@@ -169,7 +166,7 @@ describe('extractParagraphs', () => {
   });
 
   it('should preserve marks', () => {
-    const element: CustomElement = {
+    const element: Element = {
       data: {},
       isVoid: false,
       type: BLOCKS.QUOTE,
@@ -197,7 +194,7 @@ describe('extractParagraphs', () => {
       },
     ]);
 
-    const element: CustomElement = {
+    const element: Element = {
       data: {},
       isVoid: false,
       type: BLOCKS.QUOTE,
@@ -219,7 +216,7 @@ describe('extractParagraphs', () => {
       },
     ]);
 
-    const element: CustomElement = {
+    const element: Element = {
       data: {},
       isVoid: false,
       type: BLOCKS.QUOTE,

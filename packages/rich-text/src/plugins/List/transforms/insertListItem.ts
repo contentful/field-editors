@@ -17,13 +17,13 @@ import {
   splitNodes,
   collapseSelection,
 } from '../../../internal/transforms';
-import { CustomElement, PlateEditor } from '../../../internal/types';
+import { Element, PlateEditor } from '../../../internal/types';
 
 /**
  * Build a new list item node while preserving marks
  */
-const emptyListItemNode = (editor: PlateEditor, withChildren = false): CustomElement => {
-  let children: CustomElement[] = [];
+const emptyListItemNode = (editor: PlateEditor, withChildren = false): Element => {
+  let children: Element[] = [];
 
   if (withChildren) {
     const marks = getMarks(editor) || {};

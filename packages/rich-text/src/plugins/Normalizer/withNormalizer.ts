@@ -1,9 +1,8 @@
-import { getPluginType } from '@udecode/plate-core';
 import isPlainObject from 'is-plain-obj';
 
 import { transformRemove } from '../../helpers/transformers';
 import { withoutNormalizing } from '../../internal';
-import { getChildren, matchNode } from '../../internal/queries';
+import { getChildren, matchNode, getPluginType } from '../../internal/queries';
 import { PlateEditor, PlatePlugin, NodeEntry } from '../../internal/types';
 import { baseRules } from './baseRules';
 import { NormalizerRule, NodeTransformer, NodeValidator } from './types';
