@@ -4,7 +4,6 @@ import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import * as Contentful from '@contentful/rich-text-types';
-// FIXME: extract this out to internal folder?
 import { Plate, getPlateActions } from '@udecode/plate-core';
 import { css, cx } from 'emotion';
 import deepEquals from 'fast-deep-equal';
@@ -12,6 +11,7 @@ import noop from 'lodash/noop';
 
 import { ContentfulEditorIdProvider, getContentfulEditorId } from './ContentfulEditorProvider';
 import { getPlateSelectors } from './internal/misc';
+import { Value } from './internal/types';
 import { getPlugins, disableCorePlugins } from './plugins';
 import { RichTextTrackingActionHandler } from './plugins/Tracking';
 import { documentToEditorValue, normalizeEditorValue, setEditorContent } from './prepareDocument';
@@ -83,9 +83,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
     }
 
     getPlateActions(id).value(
-      // FIXME: fix types here
-      // @ts-expect-error
-      normalizeEditorValue(documentToEditorValue(props.value), {
+      normalizeEditorValue(documentToEditorValue(props.value as Contentful.Document) as Value, {
         plugins,
         disableCorePlugins,
       })
