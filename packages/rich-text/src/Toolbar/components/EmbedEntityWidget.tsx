@@ -42,7 +42,7 @@ export const EmbedEntityWidget = ({ isDisabled, canInsertBlocks }: EmbedEntityWi
       )}
       {inlineEntryEmbedEnabled && (
         <ToolbarEmbeddedEntityInlineButton
-          isDisabled={!!isDisabled || Boolean(isLinkActive(editor))}
+          isDisabled={!!isDisabled || isLinkActive(editor)}
           onClose={onCloseEntityDropdown}
         />
       )}

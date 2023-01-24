@@ -18,7 +18,7 @@ import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySel
 import { findNodePath } from '../../internal/queries';
 import { setSelection, insertNodes, removeNodes } from '../../internal/transforms';
 import { KeyboardHandler, PlatePlugin, Node } from '../../internal/types';
-import { CustomRenderElementProps } from '../../internal/types';
+import { Element, RenderElementProps } from '../../internal/types';
 import { TrackingPluginActions } from '../../plugins/Tracking';
 import { useSdkContext } from '../../SdkProvider';
 import { withLinkTracking } from '../links-tracking';
@@ -40,9 +40,21 @@ const styles = {
   }),
 };
 
-type EmbeddedEntityInlineProps = CustomRenderElementProps<{
+type EmbeddedEntityInlineProps = {
   target: Link;
-}> & {
+  element: Element & {
+    data: {
+      target: {
+        sys: {
+          id: string;
+          linkType: 'Entry' | 'Asset';
+          type: 'Link';
+        };
+      };
+    };
+  };
+  attributes: Pick<RenderElementProps, 'attributes'>;
+  children: Pick<RenderElementProps, 'children'>;
   onEntityFetchComplete: VoidFunction;
 };
 

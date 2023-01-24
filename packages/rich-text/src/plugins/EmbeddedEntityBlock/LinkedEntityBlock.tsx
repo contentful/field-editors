@@ -7,7 +7,7 @@ import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { IS_CHROME } from '../../helpers/environment';
 import { findNodePath } from '../../internal/queries';
 import { removeNodes } from '../../internal/transforms';
-import { CustomRenderElementProps } from '../../internal/types';
+import { Element, RenderElementProps } from '../../internal/types';
 import { useSdkContext } from '../../SdkProvider';
 import { FetchingWrappedAssetCard } from '../shared/FetchingWrappedAssetCard';
 import { FetchingWrappedEntryCard } from '../shared/FetchingWrappedEntryCard';
@@ -26,15 +26,20 @@ const styles = {
   }),
 };
 
-type LinkedEntityBlockProps = CustomRenderElementProps<{
-  target: {
-    sys: {
-      id: string;
-      linkType: 'Entry' | 'Asset';
-      type: 'Link';
+type LinkedEntityBlockProps = {
+  element: Element & {
+    data: {
+      target: {
+        sys: {
+          id: string;
+          linkType: 'Entry' | 'Asset';
+          type: 'Link';
+        };
+      };
     };
   };
-}> & {
+  attributes: Pick<RenderElementProps, 'attributes'>;
+  children: Pick<RenderElementProps, 'children'>;
   onEntityFetchComplete: VoidFunction;
 };
 

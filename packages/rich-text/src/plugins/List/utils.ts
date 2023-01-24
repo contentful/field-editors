@@ -1,5 +1,4 @@
 import { BLOCKS } from '@contentful/rich-text-types';
-import { getAboveNode, getBlockAbove, getParentNode } from '@udecode/plate-core';
 
 import {
   isText,
@@ -7,6 +6,9 @@ import {
   isRangeExpanded,
   getRangeEdges,
   getChildren,
+  getAboveNode,
+  getBlockAbove,
+  getParentNode,
 } from '../../internal/queries';
 import { insertNodes, removeNodes, wrapNodes } from '../../internal/transforms';
 import { Node, NodeEntry, PlateEditor, Path, Element } from '../../internal/types';

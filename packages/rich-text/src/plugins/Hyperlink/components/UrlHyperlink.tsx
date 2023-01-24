@@ -5,16 +5,28 @@ import { Tooltip, TextLink } from '@contentful/f36-components';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
 import { fromDOMPoint } from '../../../internal';
-import { CustomRenderElementProps } from '../../../internal/types';
+import { Element, RenderElementProps } from '../../../internal/types';
 import { useSdkContext } from '../../../SdkProvider';
 import { addOrEditLink } from '../HyperlinkModal';
 import { styles } from './styles';
 
-type HyperlinkElementProps = CustomRenderElementProps<{
-  uri?: string;
+type HyperlinkElementProps = {
+  element: Element & {
+    data: {
+      uri?: string;
+      target: {
+        sys: {
+          id: string;
+          linkType: 'Entry' | 'Asset';
+          type: 'Link';
+        };
+      };
+    };
+  };
   target?: Link;
   onEntityFetchComplete?: VoidFunction;
-}>;
+  children: Pick<RenderElementProps, 'children'>;
+};
 
 export function UrlHyperlink(props: HyperlinkElementProps) {
   const editor = useContentfulEditor();

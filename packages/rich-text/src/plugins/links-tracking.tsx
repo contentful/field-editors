@@ -1,12 +1,9 @@
 import React, { ComponentProps } from 'react';
 
 import { useContentfulEditorRef } from '../ContentfulEditorProvider';
+import { HyperlinkElementProps } from './Hyperlink/components/EntityHyperlink';
 
-type WithEntityFetchProps = {
-  onEntityFetchComplete: VoidFunction;
-} & JSX.IntrinsicAttributes;
-
-export function withLinkTracking(Component: React.ComponentType<WithEntityFetchProps>) {
+export function withLinkTracking(Component: React.ComponentType<HyperlinkElementProps>) {
   return function ComponentWithTracking(props: ComponentProps<typeof Component>) {
     const editor = useContentfulEditorRef();
 

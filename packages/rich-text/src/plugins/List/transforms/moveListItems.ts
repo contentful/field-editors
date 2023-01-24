@@ -12,12 +12,12 @@ import {
   getParentPath,
   isAncestorPath,
 } from '../../../internal/queries';
-import { Span, Location, PlateEditor, Path, PathRef } from '../../../internal/types';
+import { EditorNodesOptions, PlateEditor, Path, PathRef } from '../../../internal/types';
 import { moveListItemDown } from './moveListItemDown';
 
 export type MoveListItemsOptions = {
   increase?: boolean;
-  at?: Location | Span | undefined;
+  at?: EditorNodesOptions['at'];
 };
 
 export const moveListItems = (

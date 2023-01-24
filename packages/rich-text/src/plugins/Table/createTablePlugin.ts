@@ -1,5 +1,4 @@
 import { BLOCKS, CONTAINERS } from '@contentful/rich-text-types';
-import { Value } from '@udecode/plate-core';
 import {
   createTablePlugin as createDefaultTablePlugin,
   ELEMENT_TABLE,
@@ -19,7 +18,7 @@ import {
   getNextPath,
 } from '../../internal/queries';
 import { insertNodes } from '../../internal/transforms';
-import { PlatePlugin, PlateEditor } from '../../internal/types';
+import { PlatePlugin, PlateEditor, Value } from '../../internal/types';
 import { Cell } from './components/Cell';
 import { HeaderCell } from './components/HeaderCell';
 import { Row } from './components/Row';

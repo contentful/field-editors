@@ -3,7 +3,7 @@ import { BLOCKS } from '@contentful/rich-text-types';
 import { insertEmptyParagraph } from '../../helpers/editor';
 import { getText, isElement } from '../../internal/queries';
 import { Node } from '../../internal/types';
-import { CustomElement, PlateEditor } from '../../internal/types';
+import { Element, PlateEditor } from '../../internal/types';
 import { isTable } from './helpers';
 
 /**
@@ -26,14 +26,14 @@ const trimUnnecessaryTableWrapper = (node: Node): Node[] => {
     return [node];
   }
 
-  const row = node.children[0] as CustomElement;
+  const row = node.children[0] as Element;
 
   // the row must contain a single cell
   if (row?.children?.length !== 1) {
     return [node];
   }
 
-  const cell = row.children[0] as CustomElement;
+  const cell = row.children[0] as Element;
 
   return cell.children;
 };
@@ -50,9 +50,9 @@ export const insertTableFragment = (editor: PlateEditor) => {
 
     // We need to make sure we have a new, empty and clean paragraph in order to paste tables as-is due to how Slate behaves
     // More info: https://github.com/ianstormtaylor/slate/pull/4489 and https://github.com/ianstormtaylor/slate/issues/4542
-    const isInsertingTable = fragments.some((fragment) => isTable(fragment as CustomElement));
+    const isInsertingTable = fragments.some((fragment) => isTable(fragment as Element));
     const isTableFirstFragment =
-      fragments.findIndex((fragment) => isTable(fragment as CustomElement)) === 0;
+      fragments.findIndex((fragment) => isTable(fragment as Element)) === 0;
     const currentLineHasText = getText(editor, editor.selection?.focus.path) !== '';
 
     if (isInsertingTable && isTableFirstFragment && currentLineHasText) {

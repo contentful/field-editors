@@ -14,7 +14,7 @@ import {
   toggleElement,
 } from '../../../helpers/editor';
 import { isNodeTypeEnabled } from '../../../helpers/validations';
-import { CustomElement } from '../../../internal/types';
+import { Element } from '../../../internal/types';
 import { useSdkContext } from '../../../SdkProvider';
 
 const styles = {
@@ -70,7 +70,7 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
     if (!editor?.selection) return;
 
     const [element] = getElementFromCurrentSelection(editor);
-    const type = (element as CustomElement).type;
+    const type = (element as Element).type;
 
     setSelected(LABELS[type] ? type : BLOCKS.PARAGRAPH);
   }, [editor?.operations, editor?.selection]); // eslint-disable-line -- TODO: explain this disable

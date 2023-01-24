@@ -1,8 +1,8 @@
 import { createContext, useContext } from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
-import { usePlateEditorRef, usePlateEditorState } from '@udecode/plate-core';
 
+import { usePlateEditorRef, usePlateEditorState } from './internal/hooks';
 import { Value, PlateEditor } from './internal/types';
 
 export function getContentfulEditorId(sdk: FieldExtensionSDK) {

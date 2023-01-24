@@ -35,30 +35,6 @@ export interface PlateEditor extends p.PlateEditor<Value> {
   tracking: TrackingPluginActions;
 }
 
-export type CustomText = {
-  text: string;
-  [MARKS.BOLD]?: boolean;
-  [MARKS.CODE]?: boolean;
-  [MARKS.ITALIC]?: boolean;
-  [MARKS.UNDERLINE]?: boolean;
-  [MARKS.SUPERSCRIPT]?: boolean;
-  [MARKS.SUBSCRIPT]?: boolean;
-};
-
-export type TextOrCustomElement = CustomElement | CustomText;
-
-export type CustomElement<T = unknown> = {
-  type: string;
-  children: TextOrCustomElement[];
-  data: T;
-  isVoid?: boolean;
-};
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any -- TODO: explain this disable
-export type CustomRenderElementProps<T = any, O = any> = Omit<RenderElementProps, 'element'> & {
-  element: CustomElement<T>;
-} & O;
-
 export type Node = p.ElementOf<PlateEditor> | p.TextOf<PlateEditor>;
 export type Path = p.TPath;
 export type NodeEntry<T extends Node = Node> = p.TNodeEntry<T>;

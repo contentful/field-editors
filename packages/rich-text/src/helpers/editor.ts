@@ -27,7 +27,7 @@ import {
   collapseSelection,
 } from '../internal/transforms';
 import { EditorNodesOptions, ToggleNodeTypeOptions, Node, Path } from '../internal/types';
-import { CustomElement, PlateEditor } from '../internal/types';
+import { Element, PlateEditor } from '../internal/types';
 import { IS_SAFARI } from './environment';
 
 export const LINK_TYPES: INLINES[] = [
@@ -51,7 +51,7 @@ export function isRootLevel(path: Path): boolean {
   return path.length === 1;
 }
 
-type NodeEntry = [CustomElement, Path];
+type NodeEntry = [Element, Path];
 type NodeType = BLOCKS | INLINES;
 export function getNodeEntryFromSelection(
   editor: PlateEditor,
@@ -86,7 +86,7 @@ export function moveToTheNextChar(editor: PlateEditor) {
 }
 
 export function insertEmptyParagraph(editor: PlateEditor, options?) {
-  const emptyParagraph: CustomElement = {
+  const emptyParagraph: Element = {
     type: BLOCKS.PARAGRAPH,
     children: [{ text: '' }],
     data: {},
@@ -123,13 +123,11 @@ export function isList(editor?: PlateEditor) {
   );
 }
 
-export function getTableSize(
-  table: CustomElement
-): Record<'numRows' | 'numColumns', number> | null {
+export function getTableSize(table: Element): Record<'numRows' | 'numColumns', number> | null {
   const numRows = table.children.length;
   if (!numRows) return null;
   const [firstRow] = table.children;
-  const numColumns = (firstRow as CustomElement).children?.length;
+  const numColumns = (firstRow as Element).children?.length;
   return { numRows, numColumns };
 }
 
@@ -221,7 +219,7 @@ export const isAtEndOfTextSelection = (editor: PlateEditor) =>
  * This traversal strategy is unfortunately necessary because Slate doesn't
  * expose something like Node.next(editor).
  */
-export function getNextNode(editor: PlateEditor): CustomElement | null {
+export function getNextNode(editor: PlateEditor): Element | null {
   if (!editor.selection) {
     return null;
   }
@@ -236,7 +234,7 @@ export function getNextNode(editor: PlateEditor): CustomElement | null {
     if (isCommonPath(path, editor.selection.focus.path)) {
       continue;
     }
-    return node as CustomElement;
+    return node as Element;
   }
 }
 
