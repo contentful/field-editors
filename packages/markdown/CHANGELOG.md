@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.1.9...@contentful/field-editor-markdown@1.1.10) (2023-01-27)
+
+### Bug Fixes
+
+- mail to links replace ampersand [TOL-923] ([#1331](https://github.com/contentful/field-editors/issues/1331)) ([8e3d5df](https://github.com/contentful/field-editors/commit/8e3d5df5105a48126a790b8c341139fe7cf11d72))
+
 ## [1.1.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.1.8...@contentful/field-editor-markdown@1.1.9) (2022-12-08)
 
 **Note:** Version bump only for package @contentful/field-editor-markdown
