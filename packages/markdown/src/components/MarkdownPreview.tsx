@@ -1,9 +1,12 @@
 import React from 'react';
-import Markdown from 'markdown-to-jsx';
+
 import tokens from '@contentful/f36-tokens';
 import DOMPurify from 'dompurify';
 import { css, cx } from 'emotion';
+import Markdown from 'markdown-to-jsx';
+
 import { EditorDirection, PreviewComponents } from '../types';
+import { replaceMailtoAmp } from '../utils/replaceMailtoAmp';
 
 const styles = {
   root: css`
@@ -199,7 +202,7 @@ export const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
   // See the list of allowed Tags here:
   // https://github.com/cure53/DOMPurify/blob/main/src/tags.js#L3-L121
   const cleanHTML = React.useMemo(() => {
-    return DOMPurify.sanitize(props.value);
+    return replaceMailtoAmp(DOMPurify.sanitize(props.value));
   }, [props.value]);
 
   return (
