@@ -36,6 +36,10 @@ export const createOnKeyDown = (): KeyboardHandler => {
         }
       }
 
+      if (isHotkey('space', event)) {
+        removeMark(editor, COMMAND_PROMPT, range);
+      }
+
       if (isHotkey('escape', event)) {
         removeMark(editor, COMMAND_PROMPT, range);
         editor.tracking.onCommandPaletteAction('cancelRichTextCommandPalette');
