@@ -1,6 +1,7 @@
 import isHotkey from 'is-hotkey';
 
 import { getRange, getAboveNode, isMarkActive, addMark, removeMark } from '../../internal';
+import { focusEditor } from '../../internal/misc';
 import { KeyboardHandler, NodeEntry } from '../../internal/types';
 import { COMMAND_PROMPT } from './constants';
 
@@ -37,8 +38,10 @@ export const createOnKeyDown = (): KeyboardHandler => {
       }
 
       if (isHotkey('escape', event)) {
+        event.stopPropagation();
         removeMark(editor, COMMAND_PROMPT, range);
         editor.tracking.onCommandPaletteAction('cancelRichTextCommandPalette');
+        focusEditor(editor);
       }
     };
   };
