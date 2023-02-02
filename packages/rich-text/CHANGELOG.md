@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.3...@contentful/field-editor-rich-text@3.4.4) (2023-02-02)
+
+### Bug Fixes
+
+- remove command mark after space [TOL-945] ([#1335](https://github.com/contentful/field-editors/issues/1335)) ([08efe51](https://github.com/contentful/field-editors/commit/08efe51edf7a2f46fedc4c87a05f17b467d1c91a))
+
 ## [3.4.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.2...@contentful/field-editor-rich-text@3.4.3) (2023-01-24)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
