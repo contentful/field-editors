@@ -1,7 +1,8 @@
 import get from 'lodash/get';
 import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
-import { File, ContentType, Entry, ContentTypeField } from '../typesEntity';
+
+import { Asset, ContentType, ContentTypeField, Entry, File } from '../typesEntity';
 
 function titleOrDefault(title: string | undefined, defaultTitle: string): string {
   if (!isString(title)) {
@@ -49,13 +50,13 @@ export function getAssetTitle({
   defaultLocaleCode,
   defaultTitle,
 }: {
-  asset: Entry;
+  asset: Asset;
   localeCode: string;
   defaultLocaleCode: string;
   defaultTitle: string;
 }) {
   const title = getFieldValue({
-    entity: asset,
+    entity: { fields: { title: asset.fields?.title } },
     fieldId: 'title',
     localeCode,
     defaultLocaleCode,
@@ -71,6 +72,7 @@ export function getAssetTitle({
  */
 export const isAssetField = (field: ContentTypeField): boolean =>
   field.type === 'Link' && field.linkType === 'Asset';
+
 /**
  * Returns true if field is a Title
  */
