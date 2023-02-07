@@ -15,7 +15,7 @@ describe('Markdown Editor / Void elements', () => {
   };
 
   const type = (value) => {
-    return selectors.getInput().click('bottomRight').type(value, { force: true });
+    return selectors.getInput().focus().type(value, { force: true });
   };
 
   beforeEach(() => {

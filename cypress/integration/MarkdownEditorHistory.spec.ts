@@ -15,7 +15,7 @@ describe('Markdown Editor / History', () => {
   };
 
   const type = (value) => {
-    return selectors.getInput().click('bottomRight').type(value, { force: true });
+    return selectors.getInput().focus().type(value, { force: true });
   };
 
   const checkValue = (value) => {

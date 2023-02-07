@@ -50,7 +50,7 @@ describe('Markdown Editor / Simple Actions', () => {
   };
 
   const type = (value) => {
-    return selectors.getInput().click('bottomRight').type(value, { force: true });
+    return selectors.getInput().focus().type(value, { force: true });
   };
 
   const unveilAdditionalButtonsRow = () => {
@@ -426,7 +426,6 @@ describe('Markdown Editor / Simple Actions', () => {
       type('line two{enter}');
       clickDedentButton();
       type('line three{enter}');
-      clickDedentButton();
       clickDedentButton();
       type('final line');
 
