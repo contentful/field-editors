@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-use-before-define, @typescript-eslint/no-explicit-any */
 
-import transform from 'lodash/transform';
-import throttle from 'lodash/throttle';
 import CodeMirror from 'codemirror';
-import * as userAgent from '../../utils/userAgent';
+import 'codemirror/addon/edit/matchbrackets';
+import throttle from 'lodash/throttle';
+import transform from 'lodash/transform';
+
 import { EditorDirection } from '../../types';
+import * as userAgent from '../../utils/userAgent';
 
 function stripUnit(value: number | string): number {
   if (typeof value !== 'string') return value;
@@ -42,8 +44,6 @@ export function create(
     shift: 50,
   };
 
-  // eslint-disable-next-line -- TODO: describe this disable
-  // @ts-ignore
   const cm = CodeMirror(host, {
     direction,
     readOnly,
@@ -61,6 +61,8 @@ export function create(
     indentWithTabs: false,
     indentUnit: 2,
     autoRefresh: true,
+    spellcheck: true,
+    inputStyle: 'contenteditable',
   });
 
   cm.setSize('100%', EDITOR_SIZE.min);
