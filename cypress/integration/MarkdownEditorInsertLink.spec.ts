@@ -35,7 +35,7 @@ describe('Markdown Editor / Insert Link Dialog', () => {
   };
 
   const type = (value) => {
-    return selectors.getInput().type(value, { force: true });
+    return selectors.getInput().click('bottomRight').type(value, { force: true });
   };
 
   const clearAll = () => {

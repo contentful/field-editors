@@ -50,7 +50,7 @@ describe('Markdown Editor / Simple Actions', () => {
   };
 
   const type = (value) => {
-    return selectors.getInput().type(value, { force: true });
+    return selectors.getInput().click('bottomRight').type(value, { force: true });
   };
 
   const unveilAdditionalButtonsRow = () => {

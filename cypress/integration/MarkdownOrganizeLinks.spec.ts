@@ -15,7 +15,7 @@ describe('Markdown Editor / Organize Links', () => {
   };
 
   const type = (value) => {
-    return selectors.getInput().type(value, { force: true });
+    return selectors.getInput().click('bottomRight').type(value, { force: true });
   };
 
   const checkValue = (value) => {
