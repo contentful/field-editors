@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@1.1.8...@contentful/field-editor-slug@1.1.9) (2023-02-07)
+
+**Note:** Version bump only for package @contentful/field-editor-slug
+
 ## [1.1.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@1.1.7...@contentful/field-editor-slug@1.1.8) (2022-12-08)
 
 **Note:** Version bump only for package @contentful/field-editor-slug
