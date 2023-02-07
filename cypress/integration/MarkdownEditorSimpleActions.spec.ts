@@ -1,7 +1,7 @@
 describe('Markdown Editor / Simple Actions', () => {
   const selectors = {
     getInput: () => {
-      return cy.get('[data-test-id="markdown-textarea"] textarea');
+      return cy.get('[data-test-id="markdown-textarea"] [contenteditable]');
     },
     getHeadingsSelectorButton: () => {
       return cy.findByTestId('markdown-action-button-heading');

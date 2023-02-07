@@ -1,7 +1,7 @@
 describe('Markdown Editor / Insert Assets', () => {
   const selectors = {
     getInput: () => {
-      return cy.get('[data-test-id="markdown-textarea"] textarea');
+      return cy.get('[data-test-id="markdown-textarea"] [contenteditable]');
     },
     getInsertMediaDropdown: () => {
       return cy.findByTestId('markdownEditor.insertMediaDropdownTrigger');
