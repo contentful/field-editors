@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.12](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.1.11...@contentful/field-editor-markdown@1.1.12) (2023-02-07)
+
+### Bug Fixes
+
+- enable spellchecking in markdown editor ([#1339](https://github.com/contentful/field-editors/issues/1339)) ([e828c93](https://github.com/contentful/field-editors/commit/e828c938333d498ce182f662e068861f5732ae1f))
+
 ## [1.1.11](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.1.10...@contentful/field-editor-markdown@1.1.11) (2023-02-07)
 
 **Note:** Version bump only for package @contentful/field-editor-markdown
