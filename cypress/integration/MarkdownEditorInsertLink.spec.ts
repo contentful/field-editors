@@ -1,7 +1,7 @@
 describe('Markdown Editor / Insert Link Dialog', () => {
   const selectors = {
     getInput: () => {
-      return cy.get('[data-test-id="markdown-textarea"] textarea');
+      return cy.get('[data-test-id="markdown-textarea"] [contenteditable]');
     },
     getDialogTitle() {
       return cy.findByTestId('dialog-title').find('h2');
@@ -35,7 +35,7 @@ describe('Markdown Editor / Insert Link Dialog', () => {
   };
 
   const type = (value) => {
-    return selectors.getInput().type(value, { force: true });
+    return selectors.getInput().focus().type(value, { force: true });
   };
 
   const clearAll = () => {

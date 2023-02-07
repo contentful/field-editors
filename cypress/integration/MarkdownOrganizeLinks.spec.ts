@@ -1,7 +1,7 @@
 describe('Markdown Editor / Organize Links', () => {
   const selectors = {
     getInput: () => {
-      return cy.get('[data-test-id="markdown-textarea"] textarea');
+      return cy.get('[data-test-id="markdown-textarea"] [contenteditable]');
     },
     getToggleAdditionalActionsButton: () => {
       return cy.findByTestId('markdown-action-button-toggle-additional');
@@ -15,7 +15,7 @@ describe('Markdown Editor / Organize Links', () => {
   };
 
   const type = (value) => {
-    return selectors.getInput().type(value, { force: true });
+    return selectors.getInput().focus().type(value, { force: true });
   };
 
   const checkValue = (value) => {

@@ -1,7 +1,7 @@
 describe('Markdown Editor / Void elements', () => {
   const selectors = {
     getInput() {
-      return cy.get('[data-test-id="markdown-textarea"] textarea');
+      return cy.get('[data-test-id="markdown-textarea"] [contenteditable]');
     },
     getPreviewButton() {
       return cy.findByTestId('markdown-tab-preview');
@@ -15,7 +15,7 @@ describe('Markdown Editor / Void elements', () => {
   };
 
   const type = (value) => {
-    return selectors.getInput().type(value, { force: true });
+    return selectors.getInput().focus().type(value, { force: true });
   };
 
   beforeEach(() => {
