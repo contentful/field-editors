@@ -1,6 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-import { FieldExtensionSDK, Link, Entry, Asset, ScheduledAction } from '@contentful/app-sdk';
+import {
+  Asset,
+  ContentEntityType,
+  Entry,
+  FieldExtensionSDK,
+  Link,
+  ScheduledAction,
+} from '@contentful/app-sdk';
 import { entityHelpers } from '@contentful/field-editor-shared';
 
 import { getEntityInfo } from './utils';
@@ -23,7 +30,7 @@ async function fetchAllData({
 }: {
   sdk: FieldExtensionSDK;
   entityId: string;
-  entityType: string;
+  entityType: ContentEntityType;
   localeCode: string;
   defaultLocaleCode: string;
 }): Promise<FetchedEntityData> {
@@ -74,7 +81,7 @@ async function fetchAllData({
 }
 
 export type EntityInfoProps = {
-  target: Link;
+  target: Link<ContentEntityType>;
   sdk: FieldExtensionSDK;
   onEntityFetchComplete?: VoidFunction;
 };
