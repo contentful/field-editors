@@ -2,12 +2,12 @@ import { useCallback, useMemo } from 'react';
 
 import { toContentfulDocument } from '@contentful/contentful-slatejs-adapter';
 import { Document } from '@contentful/rich-text-types';
-import { getPlateSelectors } from '@udecode/plate-core';
 import debounce from 'lodash/debounce';
 
 import schema from './constants/Schema';
 import { removeInternalMarks } from './helpers/removeInternalMarks';
-import { Operation } from './internal/types';
+import { usePlateSelectors } from './internal/hooks';
+import { Operation, Value } from './internal/types';
 
 /**
  * Returns whether a given operation is relevant enough to trigger a save.
@@ -38,9 +38,10 @@ export const useOnValueChanged = ({ editorId, handler, skip, onSkip }: OnValueCh
     [handler]
   );
 
+  const editor = usePlateSelectors(editorId).editor();
+
   return useCallback(
-    (value: unknown) => {
-      const editor = getPlateSelectors(editorId).editor();
+    (value: Value) => {
       if (!editor) {
         throw new Error(
           'Editor change callback called but editor not defined. Editor id: ' + editorId
@@ -56,6 +57,6 @@ export const useOnValueChanged = ({ editorId, handler, skip, onSkip }: OnValueCh
         onChange(value);
       }
     },
-    [editorId, onChange, skip, onSkip]
+    [editorId, onChange, skip, onSkip, editor]
   );
 };
