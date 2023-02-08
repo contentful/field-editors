@@ -116,10 +116,7 @@ export const unhangRange = (
   return p.unhangRange(editor, range, options);
 };
 
-export const toggleMark = (
-  editor: PlateEditor,
-  options: p.ToggleMarkOptions<Value, keyof p.TText>
-) => {
+export const toggleMark = (editor: PlateEditor, options: p.ToggleMarkOptions<Value>) => {
   return p.toggleMark(editor, options);
 };
 
