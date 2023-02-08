@@ -4,14 +4,14 @@ import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import * as Contentful from '@contentful/rich-text-types';
-import { Plate, getPlateActions } from '@udecode/plate-core';
+import { Plate, PlateProvider } from '@udecode/plate-core';
 import { css, cx } from 'emotion';
 import deepEquals from 'fast-deep-equal';
 import noop from 'lodash/noop';
 
 import { ContentfulEditorIdProvider, getContentfulEditorId } from './ContentfulEditorProvider';
-import { getPlateSelectors } from './internal/misc';
-import { Value } from './internal/types';
+import { usePlateSelectors, usePlateActions } from './internal/hooks';
+import { PlateEditor, Value, PlatePlugin } from './internal/types';
 import { getPlugins, disableCorePlugins } from './plugins';
 import { RichTextTrackingActionHandler } from './plugins/Tracking';
 import { documentToEditorValue, normalizeEditorValue, setEditorContent } from './prepareDocument';
@@ -31,14 +31,12 @@ type ConnectedProps = {
   isToolbarHidden?: boolean;
   actionsDisabled?: boolean;
   restrictedMarks?: string[];
+  plugins?: PlatePlugin[];
 };
 
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const id = getContentfulEditorId(props.sdk);
-  const plugins = React.useMemo(
-    () => getPlugins(props.sdk, props.onAction ?? noop, props.restrictedMarks),
-    [props.sdk, props.onAction, props.restrictedMarks]
-  );
+
   const [isFirstRender, setIsFirstRender] = useState(true);
   const [pendingExternalUpdate, setPendingExternalUpdate] = useState(false);
 
@@ -48,6 +46,23 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
     skip: pendingExternalUpdate || isFirstRender,
     onSkip: () => setPendingExternalUpdate(false),
   });
+
+  const classNames = cx(
+    styles.editor,
+    props.minHeight !== undefined ? css({ minHeight: props.minHeight }) : undefined,
+    props.isDisabled ? styles.disabled : styles.enabled,
+    props.isToolbarHidden && styles.hiddenToolbar
+  );
+
+  const editor = usePlateSelectors(id).editor();
+
+  // TODO: double check this
+  usePlateActions(id).value(
+    normalizeEditorValue(documentToEditorValue(props.value as Contentful.Document) as Value, {
+      plugins: props.plugins,
+      disableCorePlugins,
+    })
+  );
 
   useEffect(() => {
     /*
@@ -62,47 +77,24 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
        the change listener isn't invoked
     */
     setIsFirstRender(false);
-    const editor = getPlateSelectors(id).editor();
     if (!editor) {
       return;
     }
     setPendingExternalUpdate(true);
     setEditorContent(editor, documentToEditorValue(props.value as Contentful.Document));
-  }, [props.value, id]);
-
-  const classNames = cx(
-    styles.editor,
-    props.minHeight !== undefined ? css({ minHeight: props.minHeight }) : undefined,
-    props.isDisabled ? styles.disabled : styles.enabled,
-    props.isToolbarHidden && styles.hiddenToolbar
-  );
-
-  useEffect(() => {
-    if (!isFirstRender) {
-      return;
-    }
-
-    getPlateActions(id).value(
-      normalizeEditorValue(documentToEditorValue(props.value as Contentful.Document) as Value, {
-        plugins,
-        disableCorePlugins,
-      })
-    );
-  }, [isFirstRender, plugins, id, props.value]);
+  }, [props.value, id, editor]);
 
   return (
     <SdkProvider sdk={props.sdk}>
       <ContentfulEditorIdProvider value={id}>
         <div className={styles.root} data-test-id="rich-text-editor">
-          <Plate
+          <Plate<Value, PlateEditor>
             id={id}
-            plugins={plugins}
-            disableCorePlugins={disableCorePlugins}
+            onChange={onValueChanged}
             editableProps={{
               className: classNames,
               readOnly: props.isDisabled,
             }}
-            onChange={onValueChanged}
             firstChildren={
               !props.isToolbarHidden && (
                 <StickyToolbarWrapper isDisabled={props.isDisabled}>
@@ -121,35 +113,46 @@ type Props = ConnectedProps & { isInitiallyDisabled: boolean };
 
 const RichTextEditor = (props: Props) => {
   const { sdk, isInitiallyDisabled, onAction, restrictedMarks, ...otherProps } = props;
+  const id = getContentfulEditorId(props.sdk);
   const isEmptyValue = useCallback(
     (value) => !value || deepEquals(value, Contentful.EMPTY_DOCUMENT),
     []
   );
+  const plugins = React.useMemo(
+    () => getPlugins(props.sdk, props.onAction ?? noop, props.restrictedMarks),
+    [props.sdk, props.onAction, props.restrictedMarks]
+  );
 
-  const id = getContentfulEditorId(props.sdk);
   return (
-    <EntityProvider sdk={sdk}>
-      <FieldConnector
-        throttle={0}
-        field={sdk.field}
-        isInitiallyDisabled={isInitiallyDisabled}
-        isEmptyValue={isEmptyValue}
-        isEqualValues={deepEquals}
-      >
-        {({ lastRemoteValue, disabled, setValue }) => (
-          <ConnectedRichTextEditor
-            {...otherProps}
-            key={`rich-text-editor-${id}`}
-            value={lastRemoteValue}
-            sdk={sdk}
-            onAction={onAction}
-            isDisabled={disabled}
-            onChange={setValue}
-            restrictedMarks={restrictedMarks}
-          />
-        )}
-      </FieldConnector>
-    </EntityProvider>
+    <PlateProvider<Value, PlateEditor>
+      id={id}
+      plugins={plugins}
+      disableCorePlugins={disableCorePlugins}
+    >
+      <EntityProvider sdk={sdk}>
+        <FieldConnector
+          throttle={0}
+          field={sdk.field}
+          isInitiallyDisabled={isInitiallyDisabled}
+          isEmptyValue={isEmptyValue}
+          isEqualValues={deepEquals}
+        >
+          {({ lastRemoteValue, disabled, setValue }) => (
+            <ConnectedRichTextEditor
+              {...otherProps}
+              key={`rich-text-editor-${id}`}
+              value={lastRemoteValue}
+              sdk={sdk}
+              onAction={onAction}
+              isDisabled={disabled}
+              onChange={setValue}
+              restrictedMarks={restrictedMarks}
+              plugins={plugins}
+            />
+          )}
+        </FieldConnector>
+      </EntityProvider>
+    </PlateProvider>
   );
 };
 
