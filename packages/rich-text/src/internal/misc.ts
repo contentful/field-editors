@@ -1,5 +1,4 @@
 import * as p from '@udecode/plate-core';
-// import { StoreApiGet } from '@udecode/zustood';
 import * as s from 'slate';
 
 import type { Value, PlateEditor, Location, PlatePlugin } from './types';
@@ -48,9 +47,3 @@ export const mockPlugin = (plugin?: Partial<PlatePlugin> | undefined) => {
       | undefined
   );
 };
-
-// export const usePlateSelectors = (
-//   id?: string | undefined
-// ): StoreApiGet<p.PlateStoreState<Value, PlateEditor>, {}> => {
-//   return p.usePlateSelectors(id);
-// };
