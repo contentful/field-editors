@@ -519,6 +519,55 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           ).to.have.length(2);
         });
       });
+
+      it('should be disabled without any action item', () => {
+        // disable embedded entries/assets
+        cy.setFieldValidations([
+          {
+            enabledNodeTypes: ['heading-1'],
+          },
+        ]);
+        cy.reload();
+
+        // try to open command prompt
+        richText.editor.click().type('/');
+        getPalette().should('not.exist');
+
+        // try to press enter and type content, which would not work with the open palette
+        richText.editor.click().type('{enter}Hello');
+        richText.expectValue({
+          nodeType: 'document',
+          data: {},
+          content: [
+            {
+              nodeType: 'paragraph',
+              data: {},
+              content: [
+                {
+                  nodeType: 'text',
+                  value: '/',
+                  marks: [],
+                  data: {},
+                },
+              ],
+            },
+            {
+              nodeType: 'paragraph',
+              data: {},
+              content: [
+                {
+                  nodeType: 'text',
+                  value: 'Hello',
+                  marks: [],
+                  data: {},
+                },
+              ],
+            },
+          ],
+        });
+        // Clear validations after the test
+        cy.setFieldValidations([]);
+      });
     });
   });
 

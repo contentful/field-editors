@@ -15,7 +15,7 @@ export const createTestEditor = (options: {
 }) => {
   const trackingHandler: RichTextTrackingActionHandler = options.trackingHandler ?? jest.fn();
 
-  const sdk: FieldExtensionSDK = options.sdk ?? ({} as any);
+  const sdk: FieldExtensionSDK = options.sdk ?? ({ field: { validation: [] } } as any);
 
   const editor = createPlateEditor<Value, PlateEditor>({
     id: randomId('editor'),
