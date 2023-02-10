@@ -9,6 +9,7 @@ import { createDeserializeDocxPlugin } from '@udecode/plate-serializer-docx';
 import { PlatePlugin } from '../internal/types';
 import { createSoftBreakPlugin, createExitBreakPlugin, createResetNodePlugin } from './Break';
 import { createCommandPalettePlugin } from './CommandPalette';
+import { isCommandPromptPluginEnabled } from './CommandPalette/useCommands';
 import { createDragAndDropPlugin } from './DragAndDrop';
 import {
   createEmbeddedAssetBlockPlugin,
@@ -46,7 +47,10 @@ export const getPlugins = (
 
   // Global / Global shortcuts
   createDragAndDropPlugin(),
-  createCommandPalettePlugin(),
+  // Enable command palette plugin only, if at least action type is allowed
+  ...(Object.values(isCommandPromptPluginEnabled(sdk)).some(Boolean)
+    ? [createCommandPalettePlugin()]
+    : []),
 
   // Block Elements
   createParagraphPlugin(),

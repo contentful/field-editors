@@ -47,14 +47,32 @@ const removeQuery = (editor: PlateEditor) => {
   }
 };
 
+export function isCommandPromptPluginEnabled(sdk: FieldExtensionSDK) {
+  const inlineAllowed = isNodeTypeEnabled(sdk.field, INLINES.EMBEDDED_ENTRY);
+  const entriesAllowed = isNodeTypeEnabled(sdk.field, BLOCKS.EMBEDDED_ENTRY);
+  const assetsAllowed = isNodeTypeEnabled(sdk.field, BLOCKS.EMBEDDED_ASSET);
+
+  return {
+    inlineAllowed,
+    entriesAllowed,
+    assetsAllowed,
+  };
+}
+
+function getCommandPermissions(sdk: FieldExtensionSDK, editor: PlateEditor) {
+  const canInsertBlocks = !isNodeTypeSelected(editor, BLOCKS.TABLE);
+  const { inlineAllowed, entriesAllowed, assetsAllowed } = isCommandPromptPluginEnabled(sdk);
+
+  return {
+    inlineAllowed,
+    entriesAllowed: entriesAllowed && canInsertBlocks,
+    assetsAllowed: assetsAllowed && canInsertBlocks,
+  };
+}
+
 export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: PlateEditor) => {
   const contentTypes = sdk.space.getCachedContentTypes();
-
-  const canInsertBlocks = !isNodeTypeSelected(editor, BLOCKS.TABLE);
-
-  const inlineAllowed = isNodeTypeEnabled(sdk.field, INLINES.EMBEDDED_ENTRY);
-  const entriesAllowed = isNodeTypeEnabled(sdk.field, BLOCKS.EMBEDDED_ENTRY) && canInsertBlocks;
-  const assetsAllowed = isNodeTypeEnabled(sdk.field, BLOCKS.EMBEDDED_ASSET) && canInsertBlocks;
+  const { inlineAllowed, entriesAllowed, assetsAllowed } = getCommandPermissions(sdk, editor);
 
   const [commands, setCommands] = useState((): CommandList => {
     const getEmbedEntry = (contentType) => {
