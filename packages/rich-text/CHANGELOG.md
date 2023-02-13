@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.5...@contentful/field-editor-rich-text@3.4.6) (2023-02-13)
+
+### Bug Fixes
+
+- **rte:** [TOL-960] conditional command palette plugin enablement ([#1342](https://github.com/contentful/field-editors/issues/1342)) ([0dfcf99](https://github.com/contentful/field-editors/commit/0dfcf9925af44bd045c3a0eb869ec9db787afa4a))
+
 ## [3.4.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.4...@contentful/field-editor-rich-text@3.4.5) (2023-02-07)
 
 ### Bug Fixes
