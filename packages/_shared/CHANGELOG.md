@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.1.5...@contentful/field-editor-shared@1.1.6) (2023-02-21)
+
+### Bug Fixes
+
+- [] adds configurations to support image/avif mime type with web application previews ([#1347](https://github.com/contentful/field-editors/issues/1347)) ([616e6ad](https://github.com/contentful/field-editors/commit/616e6adc70d6d9ae6ad606c677fa9658d6e78006))
+
 ## [1.1.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.1.4...@contentful/field-editor-shared@1.1.5) (2023-02-07)
 
 ### Bug Fixes

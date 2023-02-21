@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.2.6...@contentful/field-editor-date@1.2.7) (2023-02-21)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
 ## [1.2.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.2.5...@contentful/field-editor-date@1.2.6) (2023-02-07)
 
 **Note:** Version bump only for package @contentful/field-editor-date
