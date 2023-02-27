@@ -2,8 +2,9 @@ import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
 
 import { focus, insertEmptyParagraph, moveToTheNextChar } from '../../helpers/editor';
 import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
+import { watchCurrentSlide } from '../../helpers/sdkNavigatorSlideIn';
 import { getText, getAboveNode, getLastNodeByLevel } from '../../internal/queries';
-import { select, insertNodes, setNodes } from '../../internal/transforms';
+import { insertNodes, setNodes } from '../../internal/transforms';
 import { PlateEditor } from '../../internal/types';
 import { TrackingPluginActions } from '../../plugins/Tracking';
 
@@ -21,19 +22,22 @@ export async function selectEntityAndInsert(
     baseConfig.entityType === 'Asset' ? dialogs.selectSingleAsset : dialogs.selectSingleEntry;
   const config = { ...baseConfig, withCreate: true };
 
-  const { selection } = editor;
+  const rteSlide = watchCurrentSlide(sdk.navigator);
   const entity = await selectEntity(config);
+
   if (!entity) {
     logAction('cancelCreateEmbedDialog', { nodeType });
-    return;
+  } else {
+    insertBlock(editor, nodeType, entity);
+    ensureFollowingParagraph(editor);
+    logAction('insert', { nodeType });
   }
-
-  select(editor, selection);
-
-  insertBlock(editor, nodeType, entity);
-  ensureFollowingParagraph(editor);
-
-  logAction('insert', { nodeType });
+  // If user chose to create a new entity, this might open slide-in to edit the
+  // entity. In this case, no point in focusing RTE which is now in the slide below.
+  rteSlide.onActive(() => {
+    rteSlide.unwatch();
+    focus(editor);
+  });
 }
 
 // TODO: incorporate this logic inside the trailingParagraph plugin instead
@@ -92,6 +96,4 @@ export function insertBlock(editor: PlateEditor, nodeType: string, entity) {
   } else {
     setNodes(editor, linkedEntityBlock);
   }
-
-  focus(editor);
 }
