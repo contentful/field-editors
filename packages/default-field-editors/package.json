@@ -1,6 +1,6 @@
 {
   "name": "@contentful/default-field-editors",
-  "version": "1.2.63",
+  "version": "1.2.64",
   "main": "dist/index.js",
   "module": "dist/default-field-editors.esm.js",
   "typings": "dist/index.d.ts",
@@ -29,7 +29,7 @@
     "@contentful/field-editor-json": "^3.1.5",
     "@contentful/field-editor-list": "^1.1.9",
     "@contentful/field-editor-location": "^1.1.10",
-    "@contentful/field-editor-markdown": "^1.1.13",
+    "@contentful/field-editor-markdown": "^1.1.14",
     "@contentful/field-editor-multiple-line": "^1.1.9",
     "@contentful/field-editor-number": "^1.2.3",
     "@contentful/field-editor-radio": "^1.1.10",

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.14](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.1.13...@contentful/field-editor-markdown@1.1.14) (2023-02-27)
+
+### Bug Fixes
+
+- **markdown-editor:** textlink sometimes not centered in help text ([8611e74](https://github.com/contentful/field-editors/commit/8611e74af2709176c39d9ee2abf8667aed916014))
+
 ## [1.1.13](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.1.12...@contentful/field-editor-markdown@1.1.13) (2023-02-21)
 
 **Note:** Version bump only for package @contentful/field-editor-markdown
