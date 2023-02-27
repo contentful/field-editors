@@ -26,12 +26,18 @@ cache-key: &cache-key
   key: dependency-cache-primary-{{ arch }}-yarn-packages-{{ checksum ".nvmrc" }}-{{ checksum "yarn.lock" }}
 
 commands:
+  with_npm_token:
+    steps:
+      - vault/get-secrets:
+          template-preset: 'npm-read'
+      - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
+
   yarn_install:
     steps:
       - restore_cache: *cache-key
       - vault/get-secrets:
           template-preset: semantic-release-ecosystem
-      - run: 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc'
+      - with_npm_token
       - run: yarn install --prefer-offline --pure-lockfile
       - save_cache:
           <<: *cache-key
