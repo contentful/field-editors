@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.7...@contentful/field-editor-rich-text@3.4.8) (2023-03-01)
+
+### Bug Fixes
+
+- do not focus RTE when another slide is open [TOL-989] ([#1353](https://github.com/contentful/field-editors/issues/1353)) ([db07c18](https://github.com/contentful/field-editors/commit/db07c180ab1e9bbd197f8b4b5eb74c1e0b5e251d))
+
 ## [3.4.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.6...@contentful/field-editor-rich-text@3.4.7) (2023-02-21)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
