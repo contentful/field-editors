@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.8...@contentful/field-editor-rich-text@3.4.9) (2023-03-03)
+
+### Bug Fixes
+
+- 🐛 do not focus RTE on inline embed + create entry ([#1354](https://github.com/contentful/field-editors/issues/1354)) ([3c54787](https://github.com/contentful/field-editors/commit/3c54787d740f7220e55976bac97fb8d542f26d4d))
+
 ## [3.4.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.7...@contentful/field-editor-rich-text@3.4.8) (2023-03-01)
 
 ### Bug Fixes
