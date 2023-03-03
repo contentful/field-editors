@@ -35,8 +35,6 @@ commands:
   yarn_install:
     steps:
       - restore_cache: *cache-key
-      - vault/get-secrets:
-          template-preset: semantic-release-ecosystem
       - with_npm_token
       - run: yarn install --prefer-offline --pure-lockfile
       - save_cache:
@@ -112,6 +110,8 @@ jobs:
     steps:
       - checkout
       - yarn_install
+      - vault/get-secrets:
+          template-preset: semantic-release-ecosystem
       # Lerna only looks for the name GH_TOKEN
       - run: export GH_TOKEN=${GITHUB_TOKEN}
       - run: git config --global user.email "${GIT_AUTHOR_EMAIL}"
