@@ -136,6 +136,18 @@ describe('watchCurrentSlide().onActive()', () => {
     });
     expect(spy).toHaveBeenCalledTimes(2);
   });
+
+  it('does not fire on a slide-in event for the same slide we are already on', () => {
+    const slide = watchCurrentSlide(api);
+    slide.onActive(spy);
+    expect(spy).toHaveBeenCalledTimes(1);
+
+    fake.slideIn({
+      oldSlideLevel: 0,
+      newSlideLevel: 0,
+    });
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
 });
 
 describe('watchCurrentSlide().unwatch()', () => {
