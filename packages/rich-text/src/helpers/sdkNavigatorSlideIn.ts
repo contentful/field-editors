@@ -17,17 +17,17 @@ export function watchCurrentSlide(navigator: NavigatorAPI) {
     wasClosed: wasSlideClosed,
     isActive: !wasSlideClosed && lastSlideLevel === initialSlideLevel,
   });
-  const off = navigator.onSlideInNavigation((info) => {
+  const off = navigator.onSlideInNavigation(({ oldSlideLevel, newSlideLevel }) => {
     if (initialSlideLevel === undefined) {
-      initialSlideLevel = info.oldSlideLevel;
+      initialSlideLevel = oldSlideLevel;
     }
-    lastSlideLevel = info.newSlideLevel;
-    if (info.newSlideLevel < initialSlideLevel) {
+    lastSlideLevel = newSlideLevel;
+    if (newSlideLevel < initialSlideLevel) {
       wasSlideClosed = true;
       off(); // No more point in watching, slide got closed.
       onActiveCallbacks.clear();
     }
-    if (status().isActive) {
+    if (status().isActive && newSlideLevel !== oldSlideLevel) {
       onActiveCallbacks.forEach((cb) => cb());
     }
   });
