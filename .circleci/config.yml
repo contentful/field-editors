@@ -109,8 +109,6 @@ jobs:
       - yarn_install
       - vault/get-secrets:
           template-preset: semantic-release-ecosystem
-      # Lerna only looks for the name GH_TOKEN
-      - run: export GH_TOKEN=${GITHUB_TOKEN}
       - run: git config --global user.email "${GIT_AUTHOR_EMAIL}"
       - run: git config --global user.name "${GIT_AUTHOR_NAME}"
       - with_npm_token
