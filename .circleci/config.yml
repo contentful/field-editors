@@ -28,14 +28,11 @@ cache-key: &cache-key
 commands:
   with_npm_token:
     steps:
-      - vault/get-secrets:
-          template-preset: 'npm-read'
       - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
 
   yarn_install:
     steps:
       - restore_cache: *cache-key
-      - with_npm_token
       - run: yarn install --prefer-offline --pure-lockfile
       - save_cache:
           <<: *cache-key
@@ -116,6 +113,7 @@ jobs:
       - run: export GH_TOKEN=${GITHUB_TOKEN}
       - run: git config --global user.email "${GIT_AUTHOR_EMAIL}"
       - run: git config --global user.name "${GIT_AUTHOR_NAME}"
+      - with_npm_token
       - run: yarn build
       - run: yarn lerna version --no-private --conventional-commits --create-release github --yes
       # If you planning to upgrade lerna, `no-verify-access` is not needed anymore post version 5.2.0
