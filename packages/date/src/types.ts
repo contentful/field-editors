@@ -1,4 +1,4 @@
-// eslint-disable-next-line -- TODO: describe this disable  no-restricted-imports
+// eslint-disable-next-line -- We're moving to native js or dateFns but this module relies on moment
 import moment from 'moment';
 
 export type DateTimeFormat = 'dateonly' | 'time' | 'timeZ';
