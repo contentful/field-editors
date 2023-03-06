@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 
 import { Datepicker } from '@contentful/f36-components';
 import { css } from 'emotion';
-// eslint-disable-next-line -- TODO: describe this disable  no-restricted-imports
+// eslint-disable-next-line -- TODO: move to date-fns
 import moment from 'moment';
 
 const YEAR_RANGE = 100;
