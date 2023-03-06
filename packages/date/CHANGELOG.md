@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.2.7...@contentful/field-editor-date@1.3.0) (2023-03-06)
+
+### Features
+
+- support disabling dateField [] ([#1356](https://github.com/contentful/field-editors/issues/1356)) ([a9032e3](https://github.com/contentful/field-editors/commit/a9032e3c7adf838f6861e7598ed6b433c9c769b9))
+
 ## [1.2.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.2.6...@contentful/field-editor-date@1.2.7) (2023-02-21)
 
 **Note:** Version bump only for package @contentful/field-editor-date
