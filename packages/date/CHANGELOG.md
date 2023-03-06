@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.3.0...@contentful/field-editor-date@1.3.1) (2023-03-06)
+
+### Bug Fixes
+
+- provide description for es-lint errors [] ([#1359](https://github.com/contentful/field-editors/issues/1359)) ([866fadf](https://github.com/contentful/field-editors/commit/866fadf808806a1310ed1df1c47e0b83487bf671))
+
 # [1.3.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.2.7...@contentful/field-editor-date@1.3.0) (2023-03-06)
 
 ### Features
