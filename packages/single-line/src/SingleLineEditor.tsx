@@ -18,6 +18,11 @@ export interface SingleLineEditorProps {
   isInitiallyDisabled: boolean;
 
   /**
+   *  is the field manually disabled
+   */
+  isDisabled: boolean
+
+  /**
    * whether char validation should be shown or not
    */
   withCharValidation: boolean;
@@ -56,7 +61,7 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
               className={direction === 'rtl' ? styles.rightToLeft : ''}
               isRequired={field.required}
               isInvalid={errors.length > 0}
-              isDisabled={disabled}
+              isDisabled={props.isDisabled ?? disabled }
               value={value || ''}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setValue(e.target.value);
