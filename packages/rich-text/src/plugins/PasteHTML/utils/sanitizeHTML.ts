@@ -1,3 +1,4 @@
+import { sanitizeAnchors } from './sanitizeAnchors';
 import { sanitizeSheets } from './sanitizeSheets';
 
 /**
@@ -11,7 +12,7 @@ const stripStyleTags = (doc: Document): Document => {
   return doc;
 };
 
-const transformers = [stripStyleTags, sanitizeSheets];
+const transformers = [stripStyleTags, sanitizeSheets, sanitizeAnchors];
 
 export const sanitizeHTML = (html: string): string => {
   // Parse the HTML string and pipe it through our transformers
