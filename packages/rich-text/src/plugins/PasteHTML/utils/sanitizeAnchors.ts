@@ -51,7 +51,7 @@ const unwrap = (el: Element) => {
  * We take approach (a) in here.
  */
 export const sanitizeAnchors = (doc: Document): Document => {
-  const unsupportedTagSelector = `:not(${[
+  const unsupportedTagSelector = `a :not(${[
     // Bold
     'b',
     'strong',
@@ -72,11 +72,7 @@ export const sanitizeAnchors = (doc: Document): Document => {
     'u',
   ].join(',')})`;
 
-  const anchors = Array.from(doc.querySelectorAll('a'));
-
-  for (const anchor of anchors) {
-    anchor.querySelectorAll(unsupportedTagSelector).forEach(unwrap);
-  }
+  doc.querySelectorAll(unsupportedTagSelector).forEach(unwrap);
 
   return doc;
 };
