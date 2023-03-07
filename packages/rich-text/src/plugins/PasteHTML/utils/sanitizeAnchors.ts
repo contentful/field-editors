@@ -70,6 +70,9 @@ export const sanitizeAnchors = (doc: Document): Document => {
 
     // Underline
     'u',
+
+    // Other
+    'span',
   ].join(',')})`;
 
   doc.querySelectorAll(unsupportedTagSelector).forEach(unwrap);
