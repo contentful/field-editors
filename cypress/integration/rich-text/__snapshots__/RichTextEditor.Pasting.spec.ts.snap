@@ -2088,7 +2088,7 @@ exports[`Rich Text Editor > Microsoft Word (.docx) deserialization > paragraphs,
           "data": {},
           "marks": [],
           "nodeType": "text",
-          "value": "This is a"
+          "value": "This is a "
         },
         {
           "data": {},
@@ -2098,7 +2098,7 @@ exports[`Rich Text Editor > Microsoft Word (.docx) deserialization > paragraphs,
             }
           ],
           "nodeType": "text",
-          "value": "paragraph"
+          "value": "paragraph "
         },
         {
           "data": {},
@@ -2108,7 +2108,7 @@ exports[`Rich Text Editor > Microsoft Word (.docx) deserialization > paragraphs,
             }
           ],
           "nodeType": "text",
-          "value": "with"
+          "value": "with "
         },
         {
           "data": {},
@@ -2124,7 +2124,7 @@ exports[`Rich Text Editor > Microsoft Word (.docx) deserialization > paragraphs,
           "data": {},
           "marks": [],
           "nodeType": "text",
-          "value": "marks and"
+          "value": " marks and "
         },
         {
           "content": [
@@ -2148,7 +2148,7 @@ exports[`Rich Text Editor > Microsoft Word (.docx) deserialization > paragraphs,
           "data": {},
           "marks": [],
           "nodeType": "text",
-          "value": ""
+          "value": " "
         }
       ],
       "data": {},
@@ -3072,6 +3072,80 @@ exports[`Rich Text Editor > removing restricted marks > works when pasting subsc
           "marks": [],
           "nodeType": "text",
           "value": "HelloWorld"
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > text > supports pasting of links within text #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": "Some text "
+        },
+        {
+          "content": [
+            {
+              "data": {},
+              "marks": [
+                {
+                  "type": "underline"
+                }
+              ],
+              "nodeType": "text",
+              "value": "with link"
+            }
+          ],
+          "data": {
+            "uri": "https://be.contentful.com"
+          },
+          "nodeType": "hyperlink"
+        },
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": " and some more text"
+        },
+        {
+          "content": [
+            {
+              "data": {},
+              "marks": [],
+              "nodeType": "text",
+              "value": " "
+            },
+            {
+              "data": {},
+              "marks": [
+                {
+                  "type": "underline"
+                }
+              ],
+              "nodeType": "text",
+              "value": "and another link"
+            }
+          ],
+          "data": {
+            "uri": "https://be.contentful.com"
+          },
+          "nodeType": "hyperlink"
+        },
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": " following."
         }
       ],
       "data": {},
