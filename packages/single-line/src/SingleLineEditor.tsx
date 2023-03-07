@@ -20,7 +20,7 @@ export interface SingleLineEditorProps {
   /**
    *  is the field manually disabled
    */
-  isDisabled: boolean;
+  isDisabled?: boolean;
 
   /**
    * whether char validation should be shown or not
