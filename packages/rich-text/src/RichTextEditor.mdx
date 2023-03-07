@@ -5,7 +5,7 @@ menu: Editors
 ---
 
 import { Playground } from 'docz';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { RichTextEditor } from './index';
 import {
   createFakeFieldAPI,
@@ -18,6 +18,7 @@ import {
 import { ValidationErrors } from '@contentful/field-editor-validation-errors';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { validateRichTextDocument } from './test-utils/validation';
+import { RichTextTestPreview } from './test-utils/RichTextTestPreview';
 import { css } from 'emotion';
 import { assets, entries } from '../../reference/src/__fixtures__/fixtures';
 import { MARKS } from '@contentful/rich-text-types';
@@ -62,6 +63,7 @@ import { RichTextEditor } from '@contentful/field-editor-rich-text';
 
     const initialValue = JSON.parse(window.localStorage.getItem('initialValue')) || undefined
     const fieldValidations = JSON.parse(window.localStorage.getItem('fieldValidations')) || undefined
+    const [currentValue, setCurrentValue] = useState({})
     const [field, mitt] = useMemo(() => createFakeFieldAPI(mock => {
       // Overriding mark validation here to show all marks if no fieldValidations set
       mock.validations = !!fieldValidations ? fieldValidations : [
@@ -146,6 +148,7 @@ import { RichTextEditor } from '@contentful/field-editor-rich-text';
     // Validate on change
     React.useEffect(() => {
       field.onValueChanged((value) => {
+        setCurrentValue(value)
         if (!value) {
           return mitt.emit('onSchemaErrorsChanged', []);
         }
@@ -181,6 +184,7 @@ import { RichTextEditor } from '@contentful/field-editor-rich-text';
           restrictedMarks={JSON.parse(window.localStorage.getItem('restrictedMarks')) || []}
         />
         <ValidationErrors field={field} locales={[]} />
+        <RichTextTestPreview value={JSON.stringify(currentValue, null, 2)} />
         <ActionsPlayground mitt={mitt} renderValue={renderRT} />
       </div>
     );
