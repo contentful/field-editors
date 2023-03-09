@@ -1,11 +1,11 @@
 import React from 'react';
-import { css } from 'emotion';
-import tokens from '@contentful/f36-tokens';
-import { LocationSearchInput } from './LocationSearchInput';
-
-import { Coords, ViewType, GeocodeApiResponse } from './types';
 
 import { TextLink, TextInput, Radio, Flex } from '@contentful/f36-components';
+import tokens from '@contentful/f36-tokens';
+import { css } from 'emotion';
+
+import { LocationSearchInput } from './LocationSearchInput';
+import { Coords, ViewType, GeocodeApiResponse } from './types';
 
 interface LocationSelectorProps {
   disabled: boolean;
@@ -61,7 +61,8 @@ export function LocationSelector(props: LocationSelectorProps) {
             isChecked={props.view === ViewType.Address}
             onChange={() => {
               props.onChangeView(ViewType.Address);
-            }}>
+            }}
+          >
             Address
           </Radio>
           <Radio
@@ -73,7 +74,8 @@ export function LocationSelector(props: LocationSelectorProps) {
             isChecked={props.view === ViewType.Coordinates}
             onChange={() => {
               props.onChangeView(ViewType.Coordinates);
-            }}>
+            }}
+          >
             Coordinates
           </Radio>
         </Flex>
@@ -140,7 +142,8 @@ export function LocationSelector(props: LocationSelectorProps) {
           className={styles.clearBtn}
           onClick={() => {
             props.onChangeLocation(undefined);
-          }}>
+          }}
+        >
           Clear
         </TextLink>
       </div>

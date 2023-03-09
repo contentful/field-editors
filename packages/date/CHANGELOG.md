@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.3.1...@contentful/field-editor-date@1.3.2) (2023-03-07)
+
+### Bug Fixes
+
+- update eslint disable comment ([#1363](https://github.com/contentful/field-editors/issues/1363)) ([952974e](https://github.com/contentful/field-editors/commit/952974ef37b396157e1fd3f7fdee0b4e808871eb))
+
 ## [1.3.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.3.0...@contentful/field-editor-date@1.3.1) (2023-03-06)
 
 ### Bug Fixes
