@@ -6,7 +6,9 @@ const wrapSpaceAround = (el: Element) => {
     return;
   }
 
-  parent.insertBefore(spacer, el);
+  if (el.previousSibling) {
+    parent.insertBefore(spacer, el);
+  }
 
   if (el.nextSibling) {
     parent.insertBefore(spacer, el.nextSibling);
@@ -14,22 +16,8 @@ const wrapSpaceAround = (el: Element) => {
 };
 
 const unwrap = (el: Element) => {
-  const parent = el.parentNode;
-
-  if (!parent) {
-    return;
-  }
-
-  // add a spacer to avoid the content being cramped together after the
-  // element is unwrapped
   wrapSpaceAround(el);
-
-  // move all children out of the element
-  while (el.firstChild) {
-    parent.insertBefore(el.firstChild, el);
-  }
-
-  parent.removeChild(el);
+  el.replaceWith(...Array.from(el.childNodes));
 };
 
 /**
