@@ -1,6 +1,6 @@
 {
   "name": "@contentful/default-field-editors",
-  "version": "1.2.69",
+  "version": "1.2.70",
   "main": "dist/index.js",
   "module": "dist/default-field-editors.esm.js",
   "typings": "dist/index.d.ts",
@@ -28,7 +28,7 @@
     "@contentful/field-editor-dropdown": "^1.1.9",
     "@contentful/field-editor-json": "^3.1.5",
     "@contentful/field-editor-list": "^1.1.9",
-    "@contentful/field-editor-location": "^1.1.10",
+    "@contentful/field-editor-location": "^1.2.0",
     "@contentful/field-editor-markdown": "^1.1.14",
     "@contentful/field-editor-multiple-line": "^1.1.9",
     "@contentful/field-editor-number": "^1.2.3",
