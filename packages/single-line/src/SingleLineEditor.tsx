@@ -18,7 +18,7 @@ export interface SingleLineEditorProps {
   isInitiallyDisabled: boolean;
 
   /**
-   *  is the field manually disabled
+   * is the field manually disabled
    */
   isDisabled?: boolean;
 
@@ -53,7 +53,10 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
   const direction = locales.direction[field.locale] || 'ltr';
 
   return (
-    <FieldConnector<string> field={field} isInitiallyDisabled={props.isInitiallyDisabled}>
+    <FieldConnector<string>
+      field={field}
+      isInitiallyDisabled={props.isInitiallyDisabled}
+      isDisabled={props.isDisabled}>
       {({ value, errors, disabled, setValue }) => {
         return (
           <div data-test-id="single-line-editor">
@@ -61,7 +64,7 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
               className={direction === 'rtl' ? styles.rightToLeft : ''}
               isRequired={field.required}
               isInvalid={errors.length > 0}
-              isDisabled={props.isDisabled ?? disabled}
+              isDisabled={disabled}
               value={value || ''}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setValue(e.target.value);

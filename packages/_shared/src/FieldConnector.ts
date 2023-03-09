@@ -28,6 +28,7 @@ interface FieldConnectorState<ValueType> {
 interface FieldConnectorProps<ValueType> {
   field: FieldAPI;
   isInitiallyDisabled: boolean;
+  isDisabled?: boolean;
   children: (state: FieldConnectorChildProps<ValueType>) => React.ReactNode;
   isEmptyValue: (value: ValueType | null) => boolean;
   isEqualValues: (value1: ValueType | Nullable, value2: ValueType | Nullable) => boolean;
@@ -61,7 +62,7 @@ export class FieldConnector<ValueType> extends React.Component<
       externalReset: 0,
       value: initialValue,
       lastRemoteValue: initialValue,
-      disabled: props.isInitiallyDisabled,
+      disabled: props.isDisabled ?? props.isInitiallyDisabled,
       errors: [],
     };
   }
