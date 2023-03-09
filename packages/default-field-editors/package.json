@@ -1,6 +1,6 @@
 {
   "name": "@contentful/default-field-editors",
-  "version": "1.2.70",
+  "version": "1.2.71",
   "main": "dist/index.js",
   "module": "dist/default-field-editors.esm.js",
   "typings": "dist/index.d.ts",
@@ -35,7 +35,7 @@
     "@contentful/field-editor-radio": "^1.1.10",
     "@contentful/field-editor-rating": "^1.1.9",
     "@contentful/field-editor-reference": "^5.8.4",
-    "@contentful/field-editor-rich-text": "^3.4.9",
+    "@contentful/field-editor-rich-text": "^3.4.10",
     "@contentful/field-editor-shared": "^1.1.6",
     "@contentful/field-editor-single-line": "^1.1.9",
     "@contentful/field-editor-slug": "^1.1.10",

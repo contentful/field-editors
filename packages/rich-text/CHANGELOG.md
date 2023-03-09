@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.9...@contentful/field-editor-rich-text@3.4.10) (2023-03-09)
+
+### Bug Fixes
+
+- **RTE:** remove whitespaces only in tables and lists [TOL-104] ([#1362](https://github.com/contentful/field-editors/issues/1362)) ([8b106c8](https://github.com/contentful/field-editors/commit/8b106c8eb08d79cb6c5ae8353d5a1fcf7afab1cf))
+
 ## [3.4.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.8...@contentful/field-editor-rich-text@3.4.9) (2023-03-03)
 
 ### Bug Fixes
