@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.11](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.10...@contentful/field-editor-rich-text@3.4.11) (2023-03-09)
+
+### Bug Fixes
+
+- **rich-text:** pasting hyperlinks with blocks ([#1364](https://github.com/contentful/field-editors/issues/1364)) ([32bfe1d](https://github.com/contentful/field-editors/commit/32bfe1dfaf6d976c69690a99b69b5beff570eba6))
+
 ## [3.4.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.9...@contentful/field-editor-rich-text@3.4.10) (2023-03-09)
 
 ### Bug Fixes
