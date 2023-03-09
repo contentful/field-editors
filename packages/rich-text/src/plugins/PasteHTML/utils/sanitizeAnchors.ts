@@ -16,7 +16,11 @@ const wrapSpaceAround = (el: Element) => {
 };
 
 const unwrap = (el: Element) => {
+  // add a spacer to avoid the content being cramped together with
+  // the element siblings after it's unwrapped. It may not always
+  // be desired but it should be easy to adjust by the end user.
   wrapSpaceAround(el);
+
   el.replaceWith(...Array.from(el.childNodes));
 };
 
