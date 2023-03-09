@@ -62,7 +62,7 @@ export class FieldConnector<ValueType> extends React.Component<
       externalReset: 0,
       value: initialValue,
       lastRemoteValue: initialValue,
-      disabled: props.isDisabled ?? props.isInitiallyDisabled,
+      disabled: props.isInitiallyDisabled ?? false,
       errors: [],
     };
   }
@@ -140,6 +140,7 @@ export class FieldConnector<ValueType> extends React.Component<
     return this.props.children({
       ...this.state,
       setValue: this.setValue,
+      disabled: this.props.isDisabled || this.state.disabled,
     });
   }
 }
