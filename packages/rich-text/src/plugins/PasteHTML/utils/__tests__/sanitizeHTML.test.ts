@@ -22,11 +22,10 @@ describe('HTML Sanitization', () => {
         output: '<a href="#">p in Link</a>',
       },
 
-      // TODO: uncomment after https://github.com/contentful/field-editors/pull/1362
-      //   {
-      //     input: '<a href="#"><h1>h1 in Link <i>with</i> <b>marks</b></h1></a>',
-      //     output: '<a href="#">h1 in Link <i>with</i> <b>marks</b></a>',
-      //   },
+      {
+        input: '<a href="#"><h1>h1 in Link <i>with</i> <b>marks</b></h1></a>',
+        output: '<a href="#">h1 in Link <i>with</i> <b>marks</b></a>',
+      },
     ];
 
     cases.forEach((case_) => {
