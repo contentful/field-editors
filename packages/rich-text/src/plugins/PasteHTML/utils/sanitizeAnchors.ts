@@ -36,7 +36,7 @@ const unwrap = (el: Element) => {
  *    e.g. <a href="...">My link is fancy</a>
  *
  * b) Break the link into multiple elements with having each block
- *    element as a wrapper for the an anchor with the same URL
+ *    element as a wrapper for an anchor with the same URL
  *    e.g. <h1><a href="...">My link</a></h1>
  *         and <h2><a href="...">is fancy</a></h2>
  *
