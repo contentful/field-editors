@@ -57,6 +57,8 @@ jobs:
       - yarn_install
       - run: yarn build
       - run: yarn test:ci
+      - store_test_results:
+          path: reports
 
   integration-tests:
     parameters:
@@ -79,7 +81,7 @@ jobs:
             TESTFILES=$(circleci tests glob "cypress/integration/**/*.ts" | circleci tests split --split-by=timings --timings-type=filename | tr '\n' ',')
             npx cypress run --spec "${TESTFILES}" --browser << parameters.browser >>
       - store_test_results:
-          path: cypress/results
+          path: cypress/reports
       - store_artifacts:
           path: cypress/screenshots
       - store_artifacts:
@@ -95,6 +97,8 @@ jobs:
           name: Run cypress component tests
           command: |
             yarn cy:run:ct
+      - store_test_results:
+          path: cypress/reports
       - store_artifacts:
           path: cypress/videos
 
