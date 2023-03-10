@@ -16,7 +16,6 @@ import {
   getDefaultUtcOffset,
 } from './utils/date';
 
-
 export interface DateEditorProps {
   /**
    * is the field disabled initially
@@ -148,8 +147,7 @@ function DateEditorContainer({
                 ampm: getDefaultAMPM(),
                 utcOffset: getDefaultUtcOffset(),
               });
-            }}
-          >
+            }}>
             Clear
           </TextLink>
         </>
@@ -172,8 +170,8 @@ export function DateEditor(props: DateEditorProps) {
     <FieldConnector<string>
       field={field}
       isInitiallyDisabled={props.isInitiallyDisabled}
-      throttle={0}
-    >
+      isDisabled={props.isDisabled}
+      throttle={0}>
       {({ value, disabled, setValue, externalReset }) => {
         const datetimeValue = userInputFromDatetime({
           value,
@@ -185,7 +183,7 @@ export function DateEditor(props: DateEditorProps) {
             uses12hClock={uses12hClock}
             usesTimezone={usesTimezone}
             usesTime={usesTime}
-            disabled={props.isDisabled ?? disabled}
+            disabled={disabled}
             hasClear={Boolean(value)}
             onChange={(data) => {
               const fieldValue = buildFieldValue({ data, usesTime, usesTimezone });
