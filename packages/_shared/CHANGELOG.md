@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.1.6...@contentful/field-editor-shared@1.1.7) (2023-03-10)
+
+### Bug Fixes
+
+- support disabling single line editor ([#1367](https://github.com/contentful/field-editors/issues/1367)) ([f8314ff](https://github.com/contentful/field-editors/commit/f8314fff446a3dcb482835424c7fca66c4f87f20))
+
 ## [1.1.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.1.5...@contentful/field-editor-shared@1.1.6) (2023-02-21)
 
 ### Bug Fixes

@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-slug",
-  "version": "1.1.10",
+  "version": "1.1.11",
   "main": "dist/index.js",
   "module": "dist/field-editor-slug.esm.js",
   "typings": "dist/index.d.ts",
@@ -24,7 +24,7 @@
     "@contentful/f36-components": "^4.0.27",
     "@contentful/f36-icons": "^4.1.0",
     "@contentful/f36-tokens": "^4.0.0",
-    "@contentful/field-editor-shared": "^1.1.6",
+    "@contentful/field-editor-shared": "^1.1.7",
     "@types/speakingurl": "^13.0.2",
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",
@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@contentful/app-sdk": "^4.2.0",
-    "@contentful/field-editor-test-utils": "^1.2.5"
+    "@contentful/field-editor-test-utils": "^1.2.6"
   },
   "peerDependencies": {
     "@contentful/app-sdk": "^4.2.0",
