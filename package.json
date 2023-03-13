@@ -23,15 +23,11 @@
     "prettier": "prettier './**/*.{js,jsx,ts,tsx}' --write",
     "cy:open": "TZ=UTC cypress open",
     "cy:open:ct": "TZ=UTC cypress open-ct",
-    "cy:run": "yarn clean-reports && TZ=UTC cypress run --browser chrome && yarn combine-junit-reports",
-    "cy:run:ct": "yarn clean-reports && TZ=UTC cypress run-ct --browser chrome && yarn combine-junit-reports",
+    "cy:run": "TZ=UTC cypress run --browser chrome",
+    "cy:run:ct": "TZ=UTC cypress run-ct --browser chrome",
     "docz:dev": "docz dev",
     "docz:build": "docz build && cp _redirects .docz/dist",
     "cm": "git-cz",
-    "clean-reports": "rm -rf cypress/reports",
-    "combine-junit-reports": "jrm ./cypress/reports/combined-report.xml \"cypress/reports/*.xml\"",
-    "merge-report": "mochawesome-merge ./cypress/reports/separate-reports/*.json > ./cypress/reports/full_report.json",
-    "generate-report": "npx mochawesome-report-generator --reportDir cypress/reports cypress/reports/full_report.json",
     "prepare": "husky install"
   },
   "workspaces": [
@@ -95,10 +91,6 @@
     "lerna": "^3.20.2",
     "lint-staged": "10.5.4",
     "mocha": "^8.0.1",
-    "mocha-multi-reporters": "^1.5.1",
-    "mochawesome": "^6.1.1",
-    "mochawesome-merge": "^4.0.3",
-    "mochawesome-report-generator": "^5.1.0",
     "prettier": "2.7.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
@@ -183,8 +175,5 @@
         "outputs": []
       }
     }
-  },
-  "dependencies": {
-    "junit-report-merger": "^5.0.0"
   }
 }

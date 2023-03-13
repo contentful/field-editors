@@ -1,9 +1,5 @@
 {
   "baseUrl": "http://localhost:9000",
-  "reporter": "junit",
-  "reporterOptions": {
-    "mochaFile": "./cypress/reports/results-[hash].xml"
-  },
   "retries": {
     "runMode": 2,
     "openMode": 0

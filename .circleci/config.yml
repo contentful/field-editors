@@ -79,9 +79,13 @@ jobs:
       - run:
           command: |
             TESTFILES=$(circleci tests glob "cypress/integration/**/*.ts" | circleci tests split --split-by=timings --timings-type=filename | tr '\n' ',')
-            npx cypress run --spec "${TESTFILES}" --browser << parameters.browser >>
+            npx cypress run \
+              --spec "${TESTFILES}" \
+              --browser << parameters.browser >> \
+              --reporter junit
+              --reporter-options mochaFile=./cypress/reports/integration/results-[hash].xml
       - store_test_results:
-          path: cypress/reports/combined-report.xml
+          path: cypress/reports/integration
       - store_artifacts:
           path: cypress/screenshots
       - store_artifacts:
@@ -96,9 +100,14 @@ jobs:
       - run:
           name: Run cypress component tests
           command: |
-            yarn cy:run:ct
+            TESTFILES=$(circleci tests glob cypress/component/**/*.ts) | circleci tests split --split-by=timings --timings-type=filename | tr '\n' ',')
+            npx cypress run \
+              --spec "${TESTFILES}" \
+              --browser << parameters.browser >> \
+              --reporter junit
+              --reporter-options mochaFile=./cypress/reports/component/results-[hash].xml
       - store_test_results:
-          path: cypress/reports/combined-report.xml
+          path: cypress/reports/component
       - store_artifacts:
           path: cypress/videos
 
