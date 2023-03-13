@@ -83,7 +83,7 @@ jobs:
               --spec "${TESTFILES}" \
               --browser << parameters.browser >> \
               --reporter junit
-              --reporter-options mochaFile=./cypress/reports/integration/results-[hash].xml
+              --reporter-options "mochaFile=./cypress/reports/integration/test-results.[hash].xml"
       - store_test_results:
           path: cypress/reports/integration
       - store_artifacts:
@@ -105,7 +105,7 @@ jobs:
               --spec "${TESTFILES}" \
               --browser chrome \
               --reporter junit
-              --reporter-options mochaFile=./cypress/reports/component/results-[hash].xml
+              --reporter-options "mochaFile=./cypress/reports/component/test-results.[hash].xml"
       - store_test_results:
           path: cypress/reports/component
       - store_artifacts:
