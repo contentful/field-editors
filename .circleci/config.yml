@@ -101,7 +101,7 @@ jobs:
           name: Run cypress component tests
           command: |
             TESTFILES=$(circleci tests glob cypress/component/**/*.ts | circleci tests split --split-by=timings --timings-type=filename | tr '\n' ',')
-            npx cypress run \
+            npx cypress run-ct \
               --spec "${TESTFILES}" \
               --browser chrome \
               --reporter junit
