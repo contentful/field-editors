@@ -36,15 +36,5 @@
   },
   "peerDependencies": {
     "react": ">=16.8.0"
-  },
-  "jest": {
-    "testMatch": [
-      "**/?(*.)+(spec|test).[jt]s?(x)"
-    ],
-    "globals": {
-      "ts-jest": {
-        "diagnostics": false
-      }
-    }
   }
 }
