@@ -158,6 +158,21 @@
     "node": "14.17.0",
     "yarn": "1.21.1"
   },
+  "jest": {
+    "globals": {
+      "reporters": [
+        "default",
+        [
+          "jest-junit",
+          {
+            "outputDirectory": "reports",
+            "outputName": "jest-junit-results.xml",
+            "addFileAttribute": true
+          }
+        ]
+      ]
+    }
+  },
   "turbo": {
     "pipeline": {
       "build": {
