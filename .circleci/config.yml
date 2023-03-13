@@ -103,7 +103,7 @@ jobs:
             TESTFILES=$(circleci tests glob cypress/component/**/*.ts) | circleci tests split --split-by=timings --timings-type=filename | tr '\n' ',')
             npx cypress run \
               --spec "${TESTFILES}" \
-              --browser << parameters.browser >> \
+              --browser chrome \
               --reporter junit
               --reporter-options mochaFile=./cypress/reports/component/results-[hash].xml
       - store_test_results:
