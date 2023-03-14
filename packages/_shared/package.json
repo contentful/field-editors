@@ -33,10 +33,5 @@
   "peerDependencies": {
     "@contentful/app-sdk": "^4.2.0",
     "react": ">=16.8.0"
-  },
-  "jest": {
-    "testMatch": [
-      "**/?(*.)+(spec|test).[jt]s?(x)"
-    ]
   }
 }
