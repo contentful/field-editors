@@ -47,9 +47,17 @@ export const sanitizeHTML = (html: string): string => {
       // - table -> empty table cells
       // - list -> leading whitespaces
       .replace(
-        /<(\/)?(table|thead|tbody|tr|td|th|caption|col|colgroup|ol|ul|li)(.*)>\s+</g,
-        '<$1$2$3><'
+        /<(\/)?(table|thead|tbody|tr|td|th|caption|col|colgroup|ol|ul|li)(.*)>\s+<(\/)?(table|thead|tbody|tr|td|th|caption|col|colgroup|ol|ul|li)/g,
+        '<$1$2$3><$4$5'
+      )
+      // Removes empty elements before the closing tag of the capture group
+      // <p><span> </span></p> -> <p></p>
+      .replace(
+        /(?:<[^>^/]*>)?\s*(?:<\/[^>]*>)?<\/(div|p|table|thead|tbody|tr|td|th|caption|col|colgroup|ol|ul|li)/g,
+        '</$1'
       );
+
+    console.log(doc.body.innerHTML);
   } while (doc.body.innerHTML !== previous);
 
   return doc.body.innerHTML;
