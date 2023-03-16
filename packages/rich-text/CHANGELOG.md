@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.14](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.13...@contentful/field-editor-rich-text@3.4.14) (2023-03-16)
+
+### Bug Fixes
+
+- not removing whitespaces around inline elements [TOL-1041] ([#1374](https://github.com/contentful/field-editors/issues/1374)) ([2ebfb43](https://github.com/contentful/field-editors/commit/2ebfb432e9fcb841298b72401089b5248bd84c93))
+
 ## [3.4.13](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.12...@contentful/field-editor-rich-text@3.4.13) (2023-03-14)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
