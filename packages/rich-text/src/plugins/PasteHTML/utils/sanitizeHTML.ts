@@ -56,8 +56,6 @@ export const sanitizeHTML = (html: string): string => {
         /(?:<[^>^/]*>)?\s*(?:<\/[^>]*>)?<\/(div|p|table|thead|tbody|tr|td|th|caption|col|colgroup|ol|ul|li)/g,
         '</$1'
       );
-
-    console.log(doc.body.innerHTML);
   } while (doc.body.innerHTML !== previous);
 
   return doc.body.innerHTML;
