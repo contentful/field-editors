@@ -1090,826 +1090,6 @@ exports[`Rich Text Editor > removes style tags #0`] =
   "nodeType": "document"
 };
 
-exports[`Rich Text Editor > Tables > Google Docs #0`] =
-{
-  "content": [
-    {
-      "content": [
-        {
-          "content": [
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [
-                        {
-                          "type": "bold"
-                        }
-                      ],
-                      "nodeType": "text",
-                      "value": "Field"
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            },
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [
-                        {
-                          "type": "bold"
-                        }
-                      ],
-                      "nodeType": "text",
-                      "value": "Type"
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            },
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [
-                        {
-                          "type": "bold"
-                        }
-                      ],
-                      "nodeType": "text",
-                      "value": "Description"
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            }
-          ],
-          "data": {},
-          "nodeType": "table-row"
-        },
-        {
-          "content": [
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "sys"
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            },
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "Sys"
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            },
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "Common "
-                    },
-                    {
-                      "data": {},
-                      "marks": [
-                        {
-                          "type": "bold"
-                        }
-                      ],
-                      "nodeType": "text",
-                      "value": "system"
-                    },
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": " properties"
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                },
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "system common "
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                },
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "properties."
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            }
-          ],
-          "data": {},
-          "nodeType": "table-row"
-        },
-        {
-          "content": [
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "fields.title"
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            },
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "Text"
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            },
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [
-                        {
-                          "type": "bold"
-                        }
-                      ],
-                      "nodeType": "text",
-                      "value": "Title"
-                    },
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": " of the asset."
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                },
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "Title "
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                },
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "Of the"
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                },
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "asset"
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            }
-          ],
-          "data": {},
-          "nodeType": "table-row"
-        },
-        {
-          "content": [
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "fields.description"
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            },
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "Text"
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            },
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [
-                        {
-                          "type": "italic"
-                        }
-                      ],
-                      "nodeType": "text",
-                      "value": "Description"
-                    },
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": " of the asset."
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            }
-          ],
-          "data": {},
-          "nodeType": "table-row"
-        },
-        {
-          "content": [
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "fields.file"
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            },
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "File"
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            },
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [
-                        {
-                          "type": "underline"
-                        }
-                      ],
-                      "nodeType": "text",
-                      "value": "File"
-                    },
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "(s) of the asset."
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            }
-          ],
-          "data": {},
-          "nodeType": "table-row"
-        },
-        {
-          "content": [
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "fields.file.fileName"
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            },
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "Symbol"
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            },
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [
-                        {
-                          "type": "underline"
-                        },
-                        {
-                          "type": "italic"
-                        },
-                        {
-                          "type": "bold"
-                        }
-                      ],
-                      "nodeType": "text",
-                      "value": "Original"
-                    },
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": " filename of the file."
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            }
-          ],
-          "data": {},
-          "nodeType": "table-row"
-        },
-        {
-          "content": [
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "fields.file.contentType"
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            },
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "Symbol"
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            },
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "Content type of the file."
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            }
-          ],
-          "data": {},
-          "nodeType": "table-row"
-        },
-        {
-          "content": [
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "fields.file.url"
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            },
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "Symbol"
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            },
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "URL of the file."
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            }
-          ],
-          "data": {},
-          "nodeType": "table-row"
-        },
-        {
-          "content": [
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "fields.file.details"
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            },
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "Object"
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            },
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "Details of the file, depending on its MIME type."
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            }
-          ],
-          "data": {},
-          "nodeType": "table-row"
-        },
-        {
-          "content": [
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "fields.file.details.size"
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            },
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "Number"
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            },
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "Size (in bytes) of the file."
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            }
-          ],
-          "data": {},
-          "nodeType": "table-row"
-        },
-        {
-          "content": [
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "\n"
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            },
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "\n"
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            },
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "data": {},
-                      "marks": [],
-                      "nodeType": "text",
-                      "value": "\n"
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "paragraph"
-                }
-              ],
-              "data": {},
-              "nodeType": "table-cell"
-            }
-          ],
-          "data": {},
-          "nodeType": "table-row"
-        }
-      ],
-      "data": {},
-      "nodeType": "table"
-    },
-    {
-      "content": [
-        {
-          "data": {},
-          "marks": [],
-          "nodeType": "text",
-          "value": ""
-        }
-      ],
-      "data": {},
-      "nodeType": "paragraph"
-    }
-  ],
-  "data": {},
-  "nodeType": "document"
-};
-
 exports[`Rich Text Editor > Basic marks > works when pasting from another RT editor #0`] =
 {
   "content": [
@@ -3146,6 +2326,852 @@ exports[`Rich Text Editor > text > supports pasting of links within text #0`] =
           "marks": [],
           "nodeType": "text",
           "value": " following."
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > Lists > MS Word - does not remove space around link in list surrounded by text with background color #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "One list item"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            }
+          ],
+          "data": {},
+          "nodeType": "list-item"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "A list "
+                },
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [
+                        {
+                          "type": "underline"
+                        }
+                      ],
+                      "nodeType": "text",
+                      "value": "item"
+                    }
+                  ],
+                  "data": {
+                    "uri": "https://www.google.com/"
+                  },
+                  "nodeType": "hyperlink"
+                },
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": " with a background colors"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            }
+          ],
+          "data": {},
+          "nodeType": "list-item"
+        }
+      ],
+      "data": {},
+      "nodeType": "unordered-list"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Editor > Tables > Google Docs #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [
+                        {
+                          "type": "bold"
+                        }
+                      ],
+                      "nodeType": "text",
+                      "value": "Field"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [
+                        {
+                          "type": "bold"
+                        }
+                      ],
+                      "nodeType": "text",
+                      "value": "Type"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [
+                        {
+                          "type": "bold"
+                        }
+                      ],
+                      "nodeType": "text",
+                      "value": "Description"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "sys"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Sys"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Common "
+                    },
+                    {
+                      "data": {},
+                      "marks": [
+                        {
+                          "type": "bold"
+                        }
+                      ],
+                      "nodeType": "text",
+                      "value": "system"
+                    },
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": " properties"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                },
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "system common "
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                },
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "properties."
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "fields.title"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Text"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [
+                        {
+                          "type": "bold"
+                        }
+                      ],
+                      "nodeType": "text",
+                      "value": "Title"
+                    },
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": " of the asset."
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                },
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Title "
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                },
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Of the"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                },
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "asset"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "fields.description"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Text"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [
+                        {
+                          "type": "italic"
+                        }
+                      ],
+                      "nodeType": "text",
+                      "value": "Description"
+                    },
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": " of the asset."
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "fields.file"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "File"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [
+                        {
+                          "type": "underline"
+                        }
+                      ],
+                      "nodeType": "text",
+                      "value": "File"
+                    },
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "(s) of the asset."
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "fields.file.fileName"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Symbol"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [
+                        {
+                          "type": "underline"
+                        },
+                        {
+                          "type": "italic"
+                        },
+                        {
+                          "type": "bold"
+                        }
+                      ],
+                      "nodeType": "text",
+                      "value": "Original"
+                    },
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": " filename of the file."
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "fields.file.contentType"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Symbol"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Content type of the file."
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "fields.file.url"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Symbol"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "URL of the file."
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "fields.file.details"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Object"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Details of the file, depending on its MIME type."
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "fields.file.details.size"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Number"
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            },
+            {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "data": {},
+                      "marks": [],
+                      "nodeType": "text",
+                      "value": "Size (in bytes) of the file."
+                    }
+                  ],
+                  "data": {},
+                  "nodeType": "paragraph"
+                }
+              ],
+              "data": {},
+              "nodeType": "table-cell"
+            }
+          ],
+          "data": {},
+          "nodeType": "table-row"
+        }
+      ],
+      "data": {},
+      "nodeType": "table"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
         }
       ],
       "data": {},
