@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.15](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.14...@contentful/field-editor-rich-text@3.4.15) (2023-03-20)
+
+### Bug Fixes
+
+- **RTE:** split up sanitize regex to prevent invalid markup ([#1377](https://github.com/contentful/field-editors/issues/1377)) ([6591252](https://github.com/contentful/field-editors/commit/659125216f52ac249b06168d4a7651a1b2dde0b7))
+
 ## [3.4.14](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.13...@contentful/field-editor-rich-text@3.4.14) (2023-03-16)
 
 ### Bug Fixes
