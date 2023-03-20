@@ -50,12 +50,13 @@ export const sanitizeHTML = (html: string): string => {
         /<(\/)?(table|thead|tbody|tr|td|th|caption|col|colgroup|ol|ul|li)(.*)>\s+<(\/)?(table|thead|tbody|tr|td|th|caption|col|colgroup|ol|ul|li)/g,
         '<$1$2$3><$4$5'
       )
-      // Removes empty elements before the closing tag of the capture group
-      // <p><span> </span></p> -> <p></p>
+      // remove empty elements before the ending block element tag
       .replace(
-        /(?:<[^>^/]*>)?\s*(?:<\/[^>]*>)?<\/(div|p|table|thead|tbody|tr|td|th|caption|col|colgroup|ol|ul|li)/g,
+        /(?:<[^>^/]*>)\s*(?:<\/[^>]*>)<\/(div|p|table|thead|tbody|tr|td|th|caption|col|colgroup|ol|ul|li)/g,
         '</$1'
-      );
+      )
+      // remove whitespaces before the ending block element tag
+      .replace(/\s*<\/(div|p|table|thead|tbody|tr|td|th|caption|col|colgroup|ol|ul|li)/g, '</$1');
   } while (doc.body.innerHTML !== previous);
 
   return doc.body.innerHTML;
