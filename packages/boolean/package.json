@@ -15,7 +15,7 @@
   },
   "scripts": {
     "watch": "tsdx watch",
-    "build": "tsdx build",
+    "build": "vite build",
     "test": "tsdx test --env=jsdom --watch",
     "test:ci": "tsdx test --env=jsdom --ci",
     "tsc": "tsc -p ./ --noEmit"
@@ -27,10 +27,14 @@
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15",
-    "nanoid": "^3.1.3"
+    "nanoid": "^3.1.3",
+    "unified": "^10.1.2"
   },
   "devDependencies": {
-    "@contentful/field-editor-test-utils": "^1.2.7"
+    "@contentful/field-editor-test-utils": "^1.2.7",
+    "@vitejs/plugin-react-swc": "^3.0.0",
+    "vite": "^4.2.1",
+    "vite-plugin-dts": "^2.0.1"
   },
   "peerDependencies": {
     "react": ">=16.8.0"

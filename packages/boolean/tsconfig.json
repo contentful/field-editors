@@ -2,7 +2,7 @@
   "extends": "../../tsconfig.json",
   "include": ["src", "types"],
   "compilerOptions": {
-    "module": "esnext",
+    "module": "Node16",
     "lib": ["dom", "esnext"],
     "rootDir": "./src",
     "baseUrl": "./",

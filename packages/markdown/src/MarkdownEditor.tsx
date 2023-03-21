@@ -1,18 +1,20 @@
 import React from 'react';
-import { css } from 'emotion';
+
+import { FieldExtensionSDK } from '@contentful/app-sdk';
 import tokens from '@contentful/f36-tokens';
 import { FieldConnector } from '@contentful/field-editor-shared';
-import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { css } from 'emotion';
+
+import { MarkdownBottomBar, MarkdownHelp } from './components/MarkdownBottomBar';
+import { MarkdownConstraints } from './components/MarkdownConstraints';
+import { MarkdownPreview } from './components/MarkdownPreview';
 import { MarkdownTabs } from './components/MarkdownTabs';
-import { MarkdownToolbar } from './components/MarkdownToolbar';
 import { MarkdownTextarea } from './components/MarkdownTextarea/MarkdownTextarea';
 import { InitializedEditorType } from './components/MarkdownTextarea/MarkdownTextarea';
-import { MarkdownBottomBar, MarkdownHelp } from './components/MarkdownBottomBar';
-import { MarkdownTab, PreviewComponents } from './types';
+import { MarkdownToolbar } from './components/MarkdownToolbar';
 import { openCheatsheetModal } from './dialogs/CheatsheetModalDialog';
-import { MarkdownPreview } from './components/MarkdownPreview';
-import { MarkdownConstraints } from './components/MarkdownConstraints';
 import { createMarkdownActions } from './MarkdownActions';
+import { MarkdownTab, PreviewComponents } from './types';
 
 const styles = {
   container: css({
@@ -142,7 +144,8 @@ export function MarkdownEditorConnected(props: MarkdownEditorProps) {
     <FieldConnector<string>
       throttle={300}
       field={props.sdk.field}
-      isInitiallyDisabled={props.isInitiallyDisabled}>
+      isInitiallyDisabled={props.isInitiallyDisabled}
+    >
       {({ value, disabled, setValue, externalReset }) => {
         // on external change reset component completely and init with initial value again
         return (
