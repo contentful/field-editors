@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.3.4...@contentful/field-editor-date@1.3.5) (2023-03-21)
+
+### Bug Fixes
+
+- pass isDisabled into FieldConnector ([#1368](https://github.com/contentful/field-editors/issues/1368)) ([e767a91](https://github.com/contentful/field-editors/commit/e767a91758cb473746418c5658319cd67e5bbaf5))
+
 ## [1.3.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.3.3...@contentful/field-editor-date@1.3.4) (2023-03-14)
 
 **Note:** Version bump only for package @contentful/field-editor-date
