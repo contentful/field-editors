@@ -59,13 +59,11 @@ export const sanitizeHTML = (html: string): string => {
   // Call this replacer only if there are tables inside, as it can have a larger performance impact
   if (doc.querySelector('table')) {
     // remove div container from tables
-    // capture groups explained:
-    // 1. and 3. every content/linebreaks before and after the div container
-    // 2. the table inside the container, including content and linebreaks
     // The div container including attributes and possible linebreaks inside wil be removed
-    replacers.unshift((innerHtml) =>
-      innerHtml.replace(/(.*\s)?<div.*>\s*(<table(?:.|\s)*<\/table>)\s*<\/div>(.*\s)?/g, '$1$2$3')
-    );
+    replacers.unshift((innerHtml) => {
+      const result = innerHtml.replace(/<div[^>]*>\s*(<table(?:.|\s)*<\/table>)\s*<\/div>/g, '$1');
+      return result;
+    });
   }
 
   let previous: string;
