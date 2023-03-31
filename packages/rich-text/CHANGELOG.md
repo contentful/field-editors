@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.16](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.15...@contentful/field-editor-rich-text@3.4.16) (2023-03-31)
+
+### Bug Fixes
+
+- **rte:** pasting tables from ms word or google docs freezes the page ([#1384](https://github.com/contentful/field-editors/issues/1384)) ([b89cd18](https://github.com/contentful/field-editors/commit/b89cd181080706a8e93992843fe937bfe63d037f))
+
 ## [3.4.15](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.14...@contentful/field-editor-rich-text@3.4.15) (2023-03-20)
 
 ### Bug Fixes
