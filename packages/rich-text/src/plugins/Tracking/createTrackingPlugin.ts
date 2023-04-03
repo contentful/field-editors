@@ -143,7 +143,6 @@ export const createTrackingPlugin = (onAction: RichTextTrackingActionHandler): P
       editor.insertData = (data) => {
         const isCopyAndPaste = data.types.length !== 0;
         if (isCopyAndPaste) {
-          console.log('LOG: ', data);
           const characterCountSelection = window.getSelection()?.toString().length;
           const characterCountBefore = getCharacterCount(editor);
 
