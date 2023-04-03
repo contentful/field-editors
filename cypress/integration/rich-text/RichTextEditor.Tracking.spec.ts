@@ -66,7 +66,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
           characterCountSelection: 0,
           source: 'Unknown',
         }),
-        action('paste', 'shortcut', {
+        action('paste', 'shortcut-or-viewport', {
           characterCountAfter: 25,
           characterCountBefore: 13,
           characterCountSelection: 0,
