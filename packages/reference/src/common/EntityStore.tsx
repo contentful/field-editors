@@ -50,6 +50,7 @@ type EntityStoreProps = {
   sdk?: BaseExtensionSDK;
   global?: GlobalEntityStoreProps;
   queryConcurrency?: number;
+  withEntityProvider?: boolean;
 };
 
 type FetchService = ReturnType<typeof useFetch>;
@@ -525,4 +526,16 @@ function EntityProvider({ children, ...props }: React.PropsWithChildren<EntitySt
   );
 }
 
-export { EntityProvider, useEntityLoader };
+function MaybeEntityProvider({
+  children,
+  withEntityProvider = false,
+  ...props
+}: React.PropsWithChildren<EntityStoreProps>) {
+  return !withEntityProvider ? (
+    <>{children}</>
+  ) : (
+    <EntityProvider {...props}>{children}</EntityProvider>
+  );
+}
+
+export { MaybeEntityProvider as EntityProvider, useEntityLoader };
