@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
-import { BaseExtensionSDK } from '@contentful/app-sdk';
+import { BaseExtensionSDK, NavigatorSlideInfo } from '@contentful/app-sdk';
 import {
   FetchQueryOptions,
   Query,
@@ -12,7 +12,7 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import constate from 'constate';
-import { createClient, PlainClientAPI } from 'contentful-management';
+import { Adapter, createClient, PlainClientAPI } from 'contentful-management';
 import PQueue from 'p-queue';
 
 import {
@@ -35,8 +35,20 @@ export type ResourceInfo<R extends Resource = Resource> = {
 // global queue for all requests, the actual number is picked without scientific research
 const globalQueue = new PQueue({ concurrency: 50 });
 
+type GlobalEntityStoreProps = {
+  ids: {
+    user: string;
+    organization: string;
+    space: string;
+    environment: string;
+    environmentAlias?: string;
+  };
+  cmaAdapter: Adapter;
+};
+
 type EntityStoreProps = {
-  sdk: BaseExtensionSDK;
+  sdk?: BaseExtensionSDK;
+  global?: GlobalEntityStoreProps;
   queryConcurrency?: number;
 };
 
@@ -169,18 +181,55 @@ async function fetchContentfulEntry(params: FetchParams): Promise<ResourceInfo<E
 
 const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = constate(
   function useInitServices(props: EntityStoreProps) {
-    const currentSpaceId = props.sdk.ids.space;
-    const currentEnvironmentId = props.sdk.ids.environmentAlias ?? props.sdk.ids.environment;
+    let currentSpaceId = '',
+      currentEnvironmentId = '',
+      currentEnvironmentAlias = '';
+    let cmaAdapter: Adapter | undefined = undefined;
+    let onEntityChanged: (arg0: unknown, arg1: unknown, arg2: (data: unknown) => void) => Function;
+    let onSlideInNavigation:
+      | ((fn: (slide: NavigatorSlideInfo) => void) => Function)
+      | ((
+          arg0: ({
+            oldSlideLevel,
+            newSlideLevel,
+          }: {
+            oldSlideLevel: any;
+            newSlideLevel: any;
+          }) => void
+        ) => () => void);
+    let ids;
+
+    if (props.sdk) {
+      currentSpaceId = props.sdk.ids.space;
+      currentEnvironmentId = props.sdk.ids.environmentAlias ?? props.sdk.ids.environment;
+      currentEnvironmentAlias = props.sdk.ids.environmentAlias ?? '';
+      cmaAdapter = props.sdk.cmaAdapter;
+      ids = props.sdk.ids;
+      // @ts-expect-error ...
+      onEntityChanged = props.sdk.space.onEntityChanged;
+      onSlideInNavigation = props.sdk.navigator.onSlideInNavigation;
+    } else if (props.global) {
+      currentSpaceId = props.global.ids.space;
+      currentEnvironmentId = props.global.ids.environmentAlias ?? props.global.ids.environment;
+      currentEnvironmentAlias = props.global.ids.environmentAlias ?? '';
+      cmaAdapter = props.global.cmaAdapter;
+      ids = props.global.ids;
+      onEntityChanged = () => () => undefined;
+      onSlideInNavigation = () => () => undefined;
+    } else {
+      throw new Error('You must provide a field sdk or global settings to the EntityProvider.');
+    }
+
     const environmentIds = useMemo(
-      () => [props.sdk.ids.environmentAlias, props.sdk.ids.environment],
-      [props.sdk.ids.environmentAlias, props.sdk.ids.environment]
+      () => [currentEnvironmentAlias, currentEnvironmentId],
+      [currentEnvironmentAlias, currentEnvironmentId]
     );
     const queryClient = useQueryClient();
     const queryCache = queryClient.getQueryCache();
     const entityChangeUnsubscribers = useRef<Record<string, Function>>({});
     const cmaClient = useMemo(
-      () => createClient({ apiAdapter: props.sdk.cmaAdapter }, { type: 'plain' }),
-      [props.sdk.cmaAdapter]
+      () => createClient({ apiAdapter: cmaAdapter as Adapter }, { type: 'plain' }),
+      [cmaAdapter]
     );
     const queryQueue = useMemo(() => {
       if (props.queryConcurrency) {
@@ -328,9 +377,6 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
       },
       [currentSpaceId, environmentIds]
     );
-    // @ts-expect-error ...
-    const onEntityChanged = props.sdk.space.onEntityChanged;
-    const onSlideInNavigation = props.sdk.navigator.onSlideInNavigation;
 
     useEffect(() => {
       function findSameSpaceQueries(): Query[] {
@@ -400,7 +446,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
     ]);
 
     return {
-      ids: props.sdk.ids,
+      ids,
       cmaClient,
       fetch,
       getResource,
