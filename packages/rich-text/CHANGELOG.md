@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.17](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.16...@contentful/field-editor-rich-text@3.4.17) (2023-04-04)
+
+### Bug Fixes
+
+- correct misleading action origin on paste event - rich text ([#1385](https://github.com/contentful/field-editors/issues/1385)) ([23e313f](https://github.com/contentful/field-editors/commit/23e313f4158de0205dfb5415f4334c5b906dc2c7))
+
 ## [3.4.16](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.15...@contentful/field-editor-rich-text@3.4.16) (2023-03-31)
 
 ### Bug Fixes
