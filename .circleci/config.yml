@@ -78,14 +78,14 @@ jobs:
       - yarn_serve
       - run:
           command: |
-            TESTFILES=$(circleci tests glob "cypress/integration/**/*.ts" | circleci tests split --split-by=timings --timings-type=filename | tr '\n' ',')
+            TESTFILES=$(circleci tests glob "cypress/e2e/**/*.ts" | circleci tests split --split-by=timings --timings-type=filename | tr '\n' ',')
             npx cypress run \
               --spec "${TESTFILES}" \
               --reporter junit \
-              --reporter-options "mochaFile=./cypress/reports/integration/test-results.[hash].xml" \
+              --reporter-options "mochaFile=./cypress/reports/e2e/test-results.[hash].xml" \
               --browser << parameters.browser >>
       - store_test_results:
-          path: cypress/reports/integration
+          path: cypress/reports/e2e
       - store_artifacts:
           path: cypress/screenshots
       - store_artifacts:
