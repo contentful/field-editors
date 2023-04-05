@@ -10,6 +10,7 @@
 
 import '@testing-library/cypress/add-commands';
 import { configure } from '@testing-library/cypress';
+require('@cypress/snapshot').register();
 
 configure({ testIdAttribute: 'data-test-id' });
 
