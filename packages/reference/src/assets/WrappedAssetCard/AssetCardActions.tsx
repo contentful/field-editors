@@ -1,8 +1,10 @@
 import React from 'react';
+
 import { Menu, Text } from '@contentful/f36-components';
 import { shortenStorageUnit } from '@contentful/field-editor-shared';
-import { File } from '../../types';
 import get from 'lodash/get';
+
+import { File } from '../../types';
 
 function downloadAsset(url: string) {
   window.open(url, '_blank', 'noopener,noreferrer');

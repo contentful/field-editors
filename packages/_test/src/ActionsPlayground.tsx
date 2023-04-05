@@ -1,7 +1,8 @@
 import React from 'react';
-import type { Emitter } from 'mitt';
-import { css } from 'emotion';
+
 import tokens from '@contentful/f36-tokens';
+import { css } from 'emotion';
+import type { Emitter } from 'mitt';
 
 type EventDefinition = { type?: string; value: any; id: number };
 

@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { WrappedEntryCard } from '../../entries';
+
 import { Entry } from '@contentful/field-editor-shared';
+
+import { WrappedEntryCard } from '../../entries';
 import { RenderDragFn, ResourceInfo } from '../../types';
 
 export type CardActionsHandlers = {

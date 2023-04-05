@@ -1,7 +1,9 @@
+import * as React from 'react';
+
 import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 import { render } from '@testing-library/react';
 import noop from 'lodash/noop';
-import * as React from 'react';
+
 import { FieldConnector, FieldConnectorChildProps } from './FieldConnector';
 
 it('does not rerender with outdated value after calling setValue', () => {

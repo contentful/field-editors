@@ -1,8 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { css } from 'emotion';
-import tokens from '@contentful/f36-tokens';
+
 import { DialogsAPI } from '@contentful/app-sdk';
-import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 import {
   ModalContent,
   ModalControls,
@@ -15,6 +13,10 @@ import {
   FormControl,
   TextInput,
 } from '@contentful/f36-components';
+import tokens from '@contentful/f36-tokens';
+import { css } from 'emotion';
+
+import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 import { isValidUrl } from '../utils/isValidUrl';
 
 const styles = {
