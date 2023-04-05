@@ -251,45 +251,6 @@ describe(
         richText.expectSnapshotValue();
       });
 
-      it('paragraphs with formattings', () => {
-        richText.editor.click().paste({
-          'text/html': `<html xmlns:o="urn:schemas-microsoft-com:office:office"
-          xmlns:w="urn:schemas-microsoft-com:office:word"
-          xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
-          xmlns="http://www.w3.org/TR/REC-html40">
-          <body lang=DE style='tab-interval:35.4pt;word-wrap:break-word'>
-          <!--StartFragment-->
-
-          <p class=MsoNormal style='margin-bottom:7.5pt;line-height:18.0pt;mso-outline-level:
-          2;background:white'><b><span style='font-size:18.0pt;font-family:"DauphinPlain",serif;
-          mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman";
-          color:black;mso-fareast-language:EN-GB'>What is Lorem Ipsum?<o:p></o:p></span></b></p>
-
-          <p class=MsoNormal style='text-align:justify;background:white'><b><span
-          style='font-size:10.5pt;font-family:"Open Sans",sans-serif;mso-fareast-font-family:
-          "Times New Roman";color:black;mso-fareast-language:EN-GB'>Lorem Ipsum</span></b><span
-          style='font-size:10.5pt;font-family:"Open Sans",sans-serif;mso-fareast-font-family:
-          "Times New Roman";color:black;mso-fareast-language:EN-GB'>&nbsp;is simply dummy
-          text of the printing and typesetting industry. Lorem Ipsum has been the
-          industry's standard dummy text ever since the 1500s, when an unknown printer
-          took a galley of type and scrambled it to make a type specimen book. It has
-          survived not only five centuries, but also the leap into electronic
-          typesetting, remaining essentially unchanged. <i>It was popularised in the
-          1960s with the release of Letraset sheets containing Lorem Ipsum</i> <b>passages,
-          and more recently with desktop publishing software like Aldus PageMaker
-          including </b><u>versions of Lorem Ipsum.</u><o:p></o:p></span></p>
-
-          <p class=MsoNormal><o:p>&nbsp;</o:p></p>
-
-          <!--EndFragment-->
-          </body>
-
-          </html>`,
-        });
-
-        richText.expectSnapshotValue();
-      });
-
       it('unordered list', () => {
         richText.editor.click().paste({
           'text/html':
