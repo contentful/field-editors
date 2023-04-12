@@ -1,25 +1,31 @@
 import * as React from 'react';
-import { css } from 'emotion';
+
+import { TextLink } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
 import { FieldAPI, FieldConnector, ParametersAPI } from '@contentful/field-editor-shared';
+import { css } from 'emotion';
+
 import { DatepickerInput } from './DatepickerInput';
 import { TimepickerInput } from './TimepickerInput';
 import { TimezonepickerInput } from './TimezonePickerInput';
+import { TimeFormat, DateTimeFormat, TimeResult } from './types';
 import {
   userInputFromDatetime,
   buildFieldValue,
   getDefaultAMPM,
   getDefaultUtcOffset,
 } from './utils/date';
-import { TimeFormat, DateTimeFormat, TimeResult } from './types';
-
-import { TextLink } from '@contentful/f36-components';
 
 export interface DateEditorProps {
   /**
    * is the field disabled initially
    */
   isInitiallyDisabled: boolean;
+
+  /*
+   * is the field manually disabled
+   */
+  isDisabled?: boolean;
 
   /**
    * sdk.field
@@ -164,6 +170,7 @@ export function DateEditor(props: DateEditorProps) {
     <FieldConnector<string>
       field={field}
       isInitiallyDisabled={props.isInitiallyDisabled}
+      isDisabled={props.isDisabled}
       throttle={0}>
       {({ value, disabled, setValue, externalReset }) => {
         const datetimeValue = userInputFromDatetime({

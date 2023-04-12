@@ -1,13 +1,5 @@
 {
   "baseUrl": "http://localhost:9000",
-  "reporter": "./node_modules/mochawesome/src/mochawesome.js",
-  "reporterOptions": {
-    "mochaFile": "./cypress/reports/mocha/results.xml",
-    "reportDir": "./cypress/reports/separate-reports",
-    "overwrite": false,
-    "html": false,
-    "json": true
-  },
   "retries": {
     "runMode": 2,
     "openMode": 0

@@ -49,7 +49,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
       richText.editor.click().paste({ 'text/plain': 'Hello World!' });
 
       richText.expectTrackingValue([
-        action('paste', 'shortcut', {
+        action('paste', 'shortcut-or-viewport', {
           characterCountAfter: 12,
           characterCountBefore: 0,
           characterCountSelection: 0,
@@ -60,13 +60,13 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
       richText.editor.click().type('{enter}').paste({ 'text/plain': 'Hello World!' });
 
       richText.expectTrackingValue([
-        action('paste', 'shortcut', {
+        action('paste', 'shortcut-or-viewport', {
           characterCountAfter: 12,
           characterCountBefore: 0,
           characterCountSelection: 0,
           source: 'Unknown',
         }),
-        action('paste', 'shortcut', {
+        action('paste', 'shortcut-or-viewport', {
           characterCountAfter: 25,
           characterCountBefore: 13,
           characterCountSelection: 0,
@@ -81,7 +81,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
       });
 
       richText.expectTrackingValue([
-        action('paste', 'shortcut', {
+        action('paste', 'shortcut-or-viewport', {
           characterCountAfter: 5,
           characterCountBefore: 0,
           characterCountSelection: 0,
@@ -96,7 +96,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
       });
 
       richText.expectTrackingValue([
-        action('paste', 'shortcut', {
+        action('paste', 'shortcut-or-viewport', {
           characterCountAfter: 88,
           characterCountBefore: 0,
           characterCountSelection: 0,
@@ -111,7 +111,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
       });
 
       richText.expectTrackingValue([
-        action('paste', 'shortcut', {
+        action('paste', 'shortcut-or-viewport', {
           characterCountAfter: 12,
           characterCountBefore: 0,
           characterCountSelection: 0,
@@ -126,7 +126,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
       });
 
       richText.expectTrackingValue([
-        action('paste', 'shortcut', {
+        action('paste', 'shortcut-or-viewport', {
           characterCountAfter: 14,
           characterCountBefore: 0,
           characterCountSelection: 0,
@@ -141,7 +141,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
       });
 
       richText.expectTrackingValue([
-        action('paste', 'shortcut', {
+        action('paste', 'shortcut-or-viewport', {
           characterCountAfter: 5,
           characterCountBefore: 0,
           characterCountSelection: 0,
@@ -156,7 +156,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
       });
 
       richText.expectTrackingValue([
-        action('paste', 'shortcut', {
+        action('paste', 'shortcut-or-viewport', {
           characterCountAfter: 5,
           characterCountBefore: 0,
           characterCountSelection: 0,

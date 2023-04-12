@@ -18,6 +18,11 @@ export interface SingleLineEditorProps {
   isInitiallyDisabled: boolean;
 
   /**
+   * is the field manually disabled
+   */
+  isDisabled?: boolean;
+
+  /**
    * whether char validation should be shown or not
    */
   withCharValidation: boolean;
@@ -48,7 +53,10 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
   const direction = locales.direction[field.locale] || 'ltr';
 
   return (
-    <FieldConnector<string> field={field} isInitiallyDisabled={props.isInitiallyDisabled}>
+    <FieldConnector<string>
+      field={field}
+      isInitiallyDisabled={props.isInitiallyDisabled}
+      isDisabled={props.isDisabled}>
       {({ value, errors, disabled, setValue }) => {
         return (
           <div data-test-id="single-line-editor">

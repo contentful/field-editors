@@ -3,6 +3,72 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.17](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.16...@contentful/field-editor-rich-text@3.4.17) (2023-04-04)
+
+### Bug Fixes
+
+- correct misleading action origin on paste event - rich text ([#1385](https://github.com/contentful/field-editors/issues/1385)) ([23e313f](https://github.com/contentful/field-editors/commit/23e313f4158de0205dfb5415f4334c5b906dc2c7))
+
+## [3.4.16](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.15...@contentful/field-editor-rich-text@3.4.16) (2023-03-31)
+
+### Bug Fixes
+
+- **rte:** pasting tables from ms word or google docs freezes the page ([#1384](https://github.com/contentful/field-editors/issues/1384)) ([b89cd18](https://github.com/contentful/field-editors/commit/b89cd181080706a8e93992843fe937bfe63d037f))
+
+## [3.4.15](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.14...@contentful/field-editor-rich-text@3.4.15) (2023-03-20)
+
+### Bug Fixes
+
+- **RTE:** split up sanitize regex to prevent invalid markup ([#1377](https://github.com/contentful/field-editors/issues/1377)) ([6591252](https://github.com/contentful/field-editors/commit/659125216f52ac249b06168d4a7651a1b2dde0b7))
+
+## [3.4.14](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.13...@contentful/field-editor-rich-text@3.4.14) (2023-03-16)
+
+### Bug Fixes
+
+- not removing whitespaces around inline elements [TOL-1041] ([#1374](https://github.com/contentful/field-editors/issues/1374)) ([2ebfb43](https://github.com/contentful/field-editors/commit/2ebfb432e9fcb841298b72401089b5248bd84c93))
+
+## [3.4.13](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.12...@contentful/field-editor-rich-text@3.4.13) (2023-03-14)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [3.4.12](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.11...@contentful/field-editor-rich-text@3.4.12) (2023-03-10)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [3.4.11](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.10...@contentful/field-editor-rich-text@3.4.11) (2023-03-09)
+
+### Bug Fixes
+
+- **rich-text:** pasting hyperlinks with blocks ([#1364](https://github.com/contentful/field-editors/issues/1364)) ([32bfe1d](https://github.com/contentful/field-editors/commit/32bfe1dfaf6d976c69690a99b69b5beff570eba6))
+
+## [3.4.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.9...@contentful/field-editor-rich-text@3.4.10) (2023-03-09)
+
+### Bug Fixes
+
+- **RTE:** remove whitespaces only in tables and lists [TOL-104] ([#1362](https://github.com/contentful/field-editors/issues/1362)) ([8b106c8](https://github.com/contentful/field-editors/commit/8b106c8eb08d79cb6c5ae8353d5a1fcf7afab1cf))
+
+## [3.4.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.8...@contentful/field-editor-rich-text@3.4.9) (2023-03-03)
+
+### Bug Fixes
+
+- 🐛 do not focus RTE on inline embed + create entry ([#1354](https://github.com/contentful/field-editors/issues/1354)) ([3c54787](https://github.com/contentful/field-editors/commit/3c54787d740f7220e55976bac97fb8d542f26d4d))
+
+## [3.4.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.7...@contentful/field-editor-rich-text@3.4.8) (2023-03-01)
+
+### Bug Fixes
+
+- do not focus RTE when another slide is open [TOL-989] ([#1353](https://github.com/contentful/field-editors/issues/1353)) ([db07c18](https://github.com/contentful/field-editors/commit/db07c180ab1e9bbd197f8b4b5eb74c1e0b5e251d))
+
+## [3.4.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.6...@contentful/field-editor-rich-text@3.4.7) (2023-02-21)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [3.4.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.5...@contentful/field-editor-rich-text@3.4.6) (2023-02-13)
+
+### Bug Fixes
+
+- **rte:** [TOL-960] conditional command palette plugin enablement ([#1342](https://github.com/contentful/field-editors/issues/1342)) ([0dfcf99](https://github.com/contentful/field-editors/commit/0dfcf9925af44bd045c3a0eb869ec9db787afa4a))
+
 ## [3.4.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.4...@contentful/field-editor-rich-text@3.4.5) (2023-02-07)
 
 ### Bug Fixes

@@ -1,4 +1,4 @@
-// eslint-disable-next-line -- TODO: describe this disable  no-restricted-imports
+// eslint-disable-next-line -- TODO: move to date-fns
 import moment from 'moment';
 import { TimeResult } from '../types';
 

@@ -1,10 +1,10 @@
 import React from 'react';
-import { css } from 'emotion';
-import tokens from '@contentful/f36-tokens';
-import { Button, Card } from '@contentful/f36-components';
-import { Coords, GeocodeApiResponse } from './types';
 
-import { Spinner, ValidationMessage, TextInput } from '@contentful/f36-components';
+import { Button, Card, Spinner, ValidationMessage, TextInput } from '@contentful/f36-components';
+import tokens from '@contentful/f36-tokens';
+import { css } from 'emotion';
+
+import { Coords, GeocodeApiResponse } from './types';
 
 const styles = {
   root: css({
@@ -44,11 +44,10 @@ export function LocationSearchInput(props: LocationSearchInputProps) {
   const [isSearching, setIsSearching] = React.useState<boolean>(false);
   const [address, setAddress] = React.useState<string>('');
   const [hasError, setHasError] = React.useState<boolean>(false);
-  const [suggestion, setSuggestion] =
-    React.useState<null | {
-      address: string;
-      location: { lat: number; lng: number };
-    }>(null);
+  const [suggestion, setSuggestion] = React.useState<null | {
+    address: string;
+    location: { lat: number; lng: number };
+  }>(null);
 
   React.useEffect(() => {
     setIsSearching(true);
@@ -108,7 +107,8 @@ export function LocationSearchInput(props: LocationSearchInputProps) {
                 setAddress(suggestion.address);
                 props.onChangeLocation(suggestion.location);
                 setSuggestion(null);
-              }}>
+              }}
+            >
               {suggestion.address}
             </Button>
           </Card>
@@ -116,7 +116,8 @@ export function LocationSearchInput(props: LocationSearchInputProps) {
         {hasError && (
           <ValidationMessage
             testId="location-editor-not-found"
-            className={styles.validationMessage}>
+            className={styles.validationMessage}
+          >
             No results found for <strong>{address}</strong>. Please make sure that address is
             spelled correctly.
           </ValidationMessage>

@@ -49,6 +49,11 @@ export interface TrackingPluginActions {
     data?: Record<string, unknown>
   ) => ReturnType<RichTextTrackingActionHandler>;
 
+  onShortcutOrViewportAction: (
+    actionName: RichTextTrackingActionName,
+    data?: Record<string, unknown>
+  ) => ReturnType<RichTextTrackingActionHandler>;
+
   onToolbarAction: (
     actionName: RichTextTrackingActionName,
     data?: Record<string, unknown>
@@ -64,6 +69,7 @@ const actionOrigin = {
   TOOLBAR: 'toolbar-icon',
   SHORTCUT: 'shortcut',
   VIEWPORT: 'viewport-interaction',
+  SHORTCUT_OR_VIEWPORT: 'shortcut-or-viewport',
   COMMAND_PALETTE: 'command-palette',
 };
 
@@ -114,6 +120,9 @@ export const createTrackingPlugin = (onAction: RichTextTrackingActionHandler): P
     onShortcutAction: (actionName: RichTextTrackingActionName, data = {}) =>
       onAction(actionName, { origin: actionOrigin.SHORTCUT, ...data }),
 
+    onShortcutOrViewportAction: (actionName: RichTextTrackingActionName, data = {}) =>
+      onAction(actionName, { origin: actionOrigin.SHORTCUT_OR_VIEWPORT, ...data }),
+
     onToolbarAction: (actionName: RichTextTrackingActionName, data = {}) =>
       onAction(actionName, { origin: actionOrigin.TOOLBAR, ...data }),
 
@@ -140,7 +149,7 @@ export const createTrackingPlugin = (onAction: RichTextTrackingActionHandler): P
           setTimeout(() => {
             const characterCountAfter = getCharacterCount(editor);
 
-            trackingActions.onShortcutAction('paste', {
+            trackingActions.onShortcutOrViewportAction('paste', {
               characterCountAfter,
               characterCountBefore,
               characterCountSelection,

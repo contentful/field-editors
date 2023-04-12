@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-// eslint-disable-next-line -- TODO: describe this disable  no-restricted-imports
+// eslint-disable-next-line -- TODO: move to date-fns
 import moment from 'moment';
 import { css } from 'emotion';
 
@@ -31,7 +31,7 @@ const validInputFormats = [
 function parseRawInput(raw: string): moment.Moment | null {
   let time: moment.Moment | null = null;
 
-  // eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/prefer-for-of
+  // eslint-disable-next-line -- TODO: refactor to use for of loop
   for (let i = 0; i < validInputFormats.length; i++) {
     const date = moment(raw, validInputFormats[i]);
     if (date.isValid()) {

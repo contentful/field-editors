@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.3.4...@contentful/field-editor-date@1.3.5) (2023-03-21)
+
+### Bug Fixes
+
+- pass isDisabled into FieldConnector ([#1368](https://github.com/contentful/field-editors/issues/1368)) ([e767a91](https://github.com/contentful/field-editors/commit/e767a91758cb473746418c5658319cd67e5bbaf5))
+
+## [1.3.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.3.3...@contentful/field-editor-date@1.3.4) (2023-03-14)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.3.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.3.2...@contentful/field-editor-date@1.3.3) (2023-03-10)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.3.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.3.1...@contentful/field-editor-date@1.3.2) (2023-03-07)
+
+### Bug Fixes
+
+- update eslint disable comment ([#1363](https://github.com/contentful/field-editors/issues/1363)) ([952974e](https://github.com/contentful/field-editors/commit/952974ef37b396157e1fd3f7fdee0b4e808871eb))
+
+## [1.3.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.3.0...@contentful/field-editor-date@1.3.1) (2023-03-06)
+
+### Bug Fixes
+
+- provide description for es-lint errors [] ([#1359](https://github.com/contentful/field-editors/issues/1359)) ([866fadf](https://github.com/contentful/field-editors/commit/866fadf808806a1310ed1df1c47e0b83487bf671))
+
+# [1.3.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.2.7...@contentful/field-editor-date@1.3.0) (2023-03-06)
+
+### Features
+
+- support disabling dateField [] ([#1356](https://github.com/contentful/field-editors/issues/1356)) ([a9032e3](https://github.com/contentful/field-editors/commit/a9032e3c7adf838f6861e7598ed6b433c9c769b9))
+
+## [1.2.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.2.6...@contentful/field-editor-date@1.2.7) (2023-02-21)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
 ## [1.2.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.2.5...@contentful/field-editor-date@1.2.6) (2023-02-07)
 
 **Note:** Version bump only for package @contentful/field-editor-date
