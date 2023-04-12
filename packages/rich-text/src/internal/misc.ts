@@ -1,4 +1,4 @@
-import * as p from '@udecode/plate-core';
+import * as p from '@udecode/plate-common';
 import * as s from 'slate';
 
 import type { Value, PlateEditor, Location, PlatePlugin } from './types';

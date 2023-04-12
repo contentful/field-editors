@@ -2,7 +2,8 @@ import React from 'react';
 
 import { MARKS } from '@contentful/rich-text-types';
 import { render, configure, waitFor } from '@testing-library/react';
-import { Plate } from '@udecode/plate-core';
+// TODO move this to internal?
+import { Plate } from '@udecode/plate-common';
 
 import '@testing-library/jest-dom/extend-expect';
 import { ContentfulEditorIdProvider, getContentfulEditorId } from '../../ContentfulEditorProvider';

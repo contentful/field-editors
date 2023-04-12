@@ -2,7 +2,8 @@
  * Credit: Modified version of Plate's list plugin
  * See: https://github.com/udecode/plate/blob/main/packages/nodes/list
  */
-import { HotkeyPlugin } from '@udecode/plate-core';
+// TODO move this to internal
+import { HotkeyPlugin } from '@udecode/plate-common';
 import isHotkey from 'is-hotkey';
 import castArray from 'lodash/castArray';
 

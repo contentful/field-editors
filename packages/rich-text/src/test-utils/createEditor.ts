@@ -1,5 +1,6 @@
 import { FieldExtensionSDK } from '@contentful/app-sdk';
-import { createPlateEditor } from '@udecode/plate-core';
+// TODO move this to internal
+import { createPlateEditor } from '@udecode/plate-common';
 
 import { normalize } from '../internal';
 import { PlateEditor, PlatePlugin, Value } from '../internal/types';
