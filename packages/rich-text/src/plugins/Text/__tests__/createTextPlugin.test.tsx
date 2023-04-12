@@ -28,7 +28,7 @@ describe('delete backward', () => {
     },
     {
       title:
-        'deletes the empty paragraph at the beginning of the RTE followed by another paragraph',
+        'does not delete the empty paragraph at the beginning of the RTE followed by another paragraph',
       input: (
         <fragment>
           <hp>
@@ -38,14 +38,16 @@ describe('delete backward', () => {
         </fragment>
       ),
       expected: (
-        <hp>
-          <cursor />
-          text
-        </hp>
+        <fragment>
+          <hp>
+            <cursor />
+          </hp>
+          <hp>text</hp>
+        </fragment>
       ),
     },
     {
-      title: 'deletes the empty paragraph at the beginning of the RTE followed by li',
+      title: 'does not delete the empty paragraph at the beginning of the RTE followed by li',
       input: (
         <fragment>
           <hp>
@@ -59,18 +61,21 @@ describe('delete backward', () => {
         </fragment>
       ),
       expected: (
-        <hul>
-          <hli>
-            <hp>
-              <cursor />
-              p1
-            </hp>
-          </hli>
-        </hul>
+        <fragment>
+          <hp>
+            <cursor />
+          </hp>
+          <hul>
+            <hli>
+              <hp>p1</hp>
+            </hli>
+          </hul>
+        </fragment>
       ),
     },
     {
-      title: 'deletes the empty paragraph at the beginning of the RTE followed by a blockquote',
+      title:
+        'does not delete the empty paragraph at the beginning of the RTE followed by a blockquote',
       input: (
         <fragment>
           <hp>
@@ -82,12 +87,14 @@ describe('delete backward', () => {
         </fragment>
       ),
       expected: (
-        <hquote>
+        <fragment>
           <hp>
             <cursor />
-            p1
           </hp>
-        </hquote>
+          <hquote>
+            <hp>p1</hp>
+          </hquote>
+        </fragment>
       ),
     },
   ];
