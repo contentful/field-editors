@@ -1,4 +1,4 @@
-import * as p from '@udecode/plate-core';
+import * as p from '@udecode/plate-common';
 import * as sr from 'slate-react';
 
 import { PlateEditor, Value } from './types/editor';

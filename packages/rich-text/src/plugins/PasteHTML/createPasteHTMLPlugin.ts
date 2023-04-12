@@ -1,4 +1,5 @@
-import { KEY_DESERIALIZE_HTML } from '@udecode/plate-core';
+// TODO move this to internal
+import { KEY_DESERIALIZE_HTML } from '@udecode/plate-common';
 
 import { PlatePlugin } from '../../internal/types';
 import { sanitizeHTML } from './utils/sanitizeHTML';

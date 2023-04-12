@@ -1,4 +1,4 @@
-import * as p from '@udecode/plate-core';
+import * as p from '@udecode/plate-common';
 import * as s from 'slate';
 import { Except } from 'type-fest';
 
@@ -116,7 +116,7 @@ export const unhangRange = (
   return p.unhangRange(editor, range, options);
 };
 
-export const toggleMark = (editor: PlateEditor, options: p.ToggleMarkOptions<Value>) => {
+export const toggleMark = (editor: PlateEditor, options: p.ToggleMarkOptions) => {
   return p.toggleMark(editor, options);
 };
 

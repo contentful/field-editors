@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { BLOCKS } from '@contentful/rich-text-types';
-import { PlateEditor } from '@udecode/plate-core';
+// TODO move this to internal
+import { PlateEditor } from '@udecode/plate-common';
 
 import { assertOutput, jsx, createTestEditor } from '../../../test-utils';
 import { toggleList } from './toggleList';

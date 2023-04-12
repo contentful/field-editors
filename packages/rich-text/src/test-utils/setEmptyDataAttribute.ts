@@ -1,4 +1,5 @@
-import { setNodes } from '@udecode/plate-core';
+// TODO move this to internal
+import { setNodes } from '@udecode/plate-common';
 import { Element } from 'slate';
 
 import { PlateEditor } from '../internal/types';

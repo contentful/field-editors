@@ -1,9 +1,10 @@
 import { FieldExtensionSDK } from '@contentful/app-sdk';
+// TODO move this to internal
 import {
   createDeserializeAstPlugin,
   createDeserializeHtmlPlugin,
   PlateProps,
-} from '@udecode/plate-core';
+} from '@udecode/plate-common';
 import { createDeserializeDocxPlugin } from '@udecode/plate-serializer-docx';
 
 import { PlatePlugin } from '../internal/types';

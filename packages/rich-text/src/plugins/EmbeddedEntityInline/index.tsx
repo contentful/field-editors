@@ -6,7 +6,8 @@ import { EmbeddedEntryInlineIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { Entry } from '@contentful/field-editor-shared';
 import { INLINES } from '@contentful/rich-text-types';
-import { HotkeyPlugin } from '@udecode/plate-core';
+// TODO move this to internal?
+import { HotkeyPlugin } from '@udecode/plate-common';
 import { css } from 'emotion';
 import isHotkey from 'is-hotkey';
 import { useSelected, useReadOnly } from 'slate-react';

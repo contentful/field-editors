@@ -2,7 +2,7 @@
  * Re-exporting Plate/Slate queries (aka selectors) to reduce
  * the blast radius of version upgrades
  */
-import * as p from '@udecode/plate-core';
+import * as p from '@udecode/plate-common';
 import * as s from 'slate';
 
 import type {

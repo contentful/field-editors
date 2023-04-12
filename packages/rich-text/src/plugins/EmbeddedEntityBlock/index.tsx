@@ -1,6 +1,7 @@
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { HotkeyPlugin } from '@udecode/plate-core';
+// TODO move this to internal?
+import { HotkeyPlugin } from '@udecode/plate-common';
 import isHotkey from 'is-hotkey';
 
 import { getNodeEntryFromSelection } from '../../helpers/editor';
