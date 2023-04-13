@@ -6,19 +6,7 @@ import debounce from 'lodash/debounce';
 
 import schema from './constants/Schema';
 import { removeInternalMarks } from './helpers/removeInternalMarks';
-import { usePlateSelectors } from './internal/hooks';
-import { Operation, Value } from './internal/types';
-
-/**
- * Returns whether a given operation is relevant enough to trigger a save.
- */
-const isRelevantOperation = (op: Operation) => {
-  if (op.type === 'set_selection') {
-    return false;
-  }
-
-  return true;
-};
+import { Value } from './internal/types';
 
 export type OnValueChangedProps = {
   editorId: string;
@@ -27,7 +15,7 @@ export type OnValueChangedProps = {
   onSkip?: VoidFunction;
 };
 
-export const useOnValueChanged = ({ editorId, handler, skip, onSkip }: OnValueChangedProps) => {
+export const useOnValueChanged = ({ handler, skip, onSkip }: OnValueChangedProps) => {
   const onChange = useMemo(
     () =>
       debounce((document: unknown) => {
@@ -38,25 +26,14 @@ export const useOnValueChanged = ({ editorId, handler, skip, onSkip }: OnValueCh
     [handler]
   );
 
-  const editor = usePlateSelectors(editorId).editor();
-
   return useCallback(
     (value: Value) => {
-      if (!editor) {
-        throw new Error(
-          'Editor change callback called but editor not defined. Editor id: ' + editorId
-        );
+      if (skip) {
+        onSkip?.();
+        return;
       }
-      const operations = editor?.operations.filter(isRelevantOperation);
-
-      if (operations.length > 0) {
-        if (skip) {
-          onSkip?.();
-          return;
-        }
-        onChange(value);
-      }
+      onChange(value);
     },
-    [editorId, onChange, skip, onSkip, editor]
+    [onChange, skip, onSkip]
   );
 };
