@@ -20,6 +20,7 @@ export interface SlugEditorProps {
   parameters?: {
     instance: {
       trackingFieldId?: string;
+      maxSlugLength?: number;
     };
   };
 }
@@ -39,6 +40,7 @@ function FieldConnectorCallback({
   locale,
   createdAt,
   performUniqueCheck,
+  maxSlugLength,
 }: {
   Component: typeof SlugEditorFieldStatic | typeof SlugEditorField;
   value: string | null | undefined;
@@ -50,6 +52,7 @@ function FieldConnectorCallback({
   locale: FieldAPI['locale'];
   createdAt: string;
   performUniqueCheck: (value: string) => Promise<boolean>;
+  maxSlugLength?: number;
 }) {
   // it is needed to silent permission errors
   // this happens when setValue is called on a field which is disabled for permission reasons
@@ -76,6 +79,7 @@ function FieldConnectorCallback({
         isDisabled={disabled}
         titleValue={titleValue}
         setValue={safeSetValue}
+        maxSlugLength={maxSlugLength}
       />
     </div>
   );
@@ -90,6 +94,7 @@ export function SlugEditor(props: SlugEditorProps) {
   }
 
   const trackingFieldId = parameters?.instance?.trackingFieldId ?? undefined;
+  const maxSlugLength = parameters?.instance?.maxSlugLength ?? undefined;
   const entrySys = entry.getSys();
 
   const isLocaleOptional = locales.optional[field.locale];
@@ -149,6 +154,7 @@ export function SlugEditor(props: SlugEditorProps) {
                 createdAt={entrySys.createdAt}
                 locale={field.locale}
                 performUniqueCheck={performUniqueCheck}
+                maxSlugLength={maxSlugLength}
                 key={`slug-editor-${externalReset}`}
               />
             );
