@@ -176,35 +176,47 @@ exports[`Rich Text Lists > Unordered List (UL) > should move nested list items w
               ],
               "data": {},
               "nodeType": "paragraph"
-            },
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "content": [
-                        {
-                          "data": {},
-                          "marks": [],
-                          "nodeType": "text",
-                          "value": "2"
-                        }
-                      ],
-                      "data": {},
-                      "nodeType": "paragraph"
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "list-item"
-                }
-              ],
-              "data": {},
-              "nodeType": "unordered-list"
             }
           ],
           "data": {},
           "nodeType": "list-item"
         },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "2"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            }
+          ],
+          "data": {},
+          "nodeType": "list-item"
+        }
+      ],
+      "data": {},
+      "nodeType": "unordered-list"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    },
+    {
+      "content": [
         {
           "content": [
             {
@@ -262,35 +274,47 @@ exports[`Rich Text Lists > Ordered List (OL) > should move nested list items whe
               ],
               "data": {},
               "nodeType": "paragraph"
-            },
-            {
-              "content": [
-                {
-                  "content": [
-                    {
-                      "content": [
-                        {
-                          "data": {},
-                          "marks": [],
-                          "nodeType": "text",
-                          "value": "2"
-                        }
-                      ],
-                      "data": {},
-                      "nodeType": "paragraph"
-                    }
-                  ],
-                  "data": {},
-                  "nodeType": "list-item"
-                }
-              ],
-              "data": {},
-              "nodeType": "ordered-list"
             }
           ],
           "data": {},
           "nodeType": "list-item"
         },
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "nodeType": "text",
+                  "value": "2"
+                }
+              ],
+              "data": {},
+              "nodeType": "paragraph"
+            }
+          ],
+          "data": {},
+          "nodeType": "list-item"
+        }
+      ],
+      "data": {},
+      "nodeType": "ordered-list"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    },
+    {
+      "content": [
         {
           "content": [
             {
@@ -766,6 +790,63 @@ exports[`Rich Text Lists > Ordered List (OL) > switching off the list > it raise
       ],
       "data": {},
       "nodeType": "ordered-list"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    }
+  ],
+  "data": {},
+  "nodeType": "document"
+};
+
+exports[`Rich Text Lists > Unordered List (UL) > switching off the list > it raises the list item entirely #0`] =
+{
+  "content": [
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": "A paragraph"
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
+    },
+    {
+      "content": [],
+      "data": {
+        "target": {
+          "sys": {
+            "id": "example-entity-id",
+            "linkType": "Entry",
+            "type": "Link"
+          }
+        }
+      },
+      "nodeType": "embedded-entry-block"
+    },
+    {
+      "content": [
+        {
+          "data": {},
+          "marks": [],
+          "nodeType": "text",
+          "value": ""
+        }
+      ],
+      "data": {},
+      "nodeType": "paragraph"
     },
     {
       "content": [
