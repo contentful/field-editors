@@ -61,8 +61,14 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     [BLOCKS.HEADING_6, 'Heading 6', `{${mod}+alt+6}`],
   ];
 
-  function pressEnter() {
-    richText.editor.type('{enter}');
+  function pressKey({ force, keyCode }: { force?: boolean; keyCode: number }) {
+    return richText.editor.trigger('keydown', { keyCode, which: keyCode, force });
+  }
+  function pressEnter({ force }: { force?: boolean } = {}) {
+    return pressKey({ force, keyCode: 13 });
+  }
+  function pressBackspace({ force }: { force?: boolean } = {}) {
+    return pressKey({ force, keyCode: 8 });
   }
 
   function getDropdownList() {
@@ -1643,12 +1649,12 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           // Inserts paragraph before embed because it's in the first line.
           richText.editor.get('[data-entity-id="example-entity-id"]').first().click();
           // TODO add key config object back
-          richText.editor.trigger('keydown', { keyCode: 13, which: 13, force: true });
+          pressEnter({ force: true });
 
           // // inserts paragraph in-between embeds.
           richText.editor.get('[data-entity-id="example-entity-id"]').first().click();
           // TODO add key config object back
-          richText.editor.trigger('keydown', { keyCode: 13, which: 13, force: true });
+          pressEnter({ force: true });
 
           richText.expectValue(
             doc(emptyParagraph(), entryBlock(), emptyParagraph(), entryBlock(), emptyParagraph())
@@ -1673,8 +1679,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           cy.findByTestId('cf-ui-entry-card').click();
           // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
-          // TODO add key config object back
-          richText.editor.trigger('keydown', { keyCode: 8, which: 8 });
+          pressBackspace();
 
           richText.expectValue(undefined);
         });
@@ -1738,7 +1743,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           richText.editor.find('[data-entity-id="example-entity-id"]').click();
 
-          richText.editor.trigger('keydown', { keyCode: 13, which: 13, force: true });
+          pressEnter({ force: true });
 
           richText.expectValue(doc(emptyParagraph(), assetBlock(), emptyParagraph()));
         });
@@ -1754,11 +1759,11 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           // Press enter on the first asset block
           richText.editor.click().get('[data-entity-id="example-entity-id"]').first().click();
-          richText.editor.trigger('keydown', { keyCode: 13, which: 13, force: true });
+          pressEnter({ force: true });
 
           // Press enter on the second asset block
           richText.editor.click().get('[data-entity-id="example-entity-id"]').first().click();
-          richText.editor.trigger('keydown', { keyCode: 13, which: 13, force: true });
+          pressEnter({ force: true });
 
           richText.expectValue(
             doc(emptyParagraph(), assetBlock(), emptyParagraph(), assetBlock(), emptyParagraph())
@@ -1783,7 +1788,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           cy.findByTestId('cf-ui-asset-card').click();
           // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
-          richText.editor.trigger('keydown', { keyCode: 8, which: 8 });
+          pressBackspace();
 
           richText.expectValue(undefined);
         });
