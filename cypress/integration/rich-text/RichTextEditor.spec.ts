@@ -1754,11 +1754,11 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           // Press enter on the first asset block
           richText.editor.click().get('[data-entity-id="example-entity-id"]').first().click();
-          pressEnter();
+          richText.editor.trigger('keydown', { keyCode: 13, which: 13, force: true });
 
           // Press enter on the second asset block
           richText.editor.click().get('[data-entity-id="example-entity-id"]').first().click();
-          pressEnter();
+          richText.editor.trigger('keydown', { keyCode: 13, which: 13, force: true });
 
           richText.expectValue(
             doc(emptyParagraph(), assetBlock(), emptyParagraph(), assetBlock(), emptyParagraph())
