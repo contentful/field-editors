@@ -51,11 +51,6 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       },
     });
 
-  const keys = {
-    enter: { keyCode: 13, which: 13, key: 'Enter' },
-    backspace: { keyCode: 8, which: 8, key: 'Backspace' },
-  };
-
   const headings = [
     [BLOCKS.PARAGRAPH, 'Normal text'],
     [BLOCKS.HEADING_1, 'Heading 1', `{${mod}+alt+1}`],
@@ -67,7 +62,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
   ];
 
   function pressEnter() {
-    richText.editor.trigger('keydown', keys.enter);
+    richText.editor.trigger('enter');
   }
 
   function getDropdownList() {
@@ -1679,7 +1674,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           cy.findByTestId('cf-ui-entry-card').click();
           // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
-          richText.editor.trigger('keydown', keys.backspace);
+          richText.editor.trigger('backspace');
 
           richText.expectValue(undefined);
         });
@@ -1743,7 +1738,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           richText.editor.find('[data-entity-id="example-entity-id"]').click();
 
-          richText.editor.trigger('keydown', keys.enter);
+          richText.editor.trigger('enter');
 
           richText.expectValue(doc(emptyParagraph(), assetBlock(), emptyParagraph()));
         });
@@ -1788,7 +1783,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           cy.findByTestId('cf-ui-asset-card').click();
           // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
-          richText.editor.trigger('keydown', keys.backspace);
+          richText.editor.trigger('backspace');
 
           richText.expectValue(undefined);
         });
