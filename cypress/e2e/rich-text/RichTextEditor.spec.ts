@@ -62,7 +62,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
   ];
 
   function pressEnter() {
-    richText.editor.trigger('enter');
+    richText.editor.type('{enter}');
   }
 
   function getDropdownList() {
@@ -1626,11 +1626,8 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       describe(triggerMethod, () => {
         it('adds paragraph before the block when pressing enter if the block is first document node', () => {
           richText.editor.click().then(triggerEmbeddedEntry);
-
-          richText.editor.find('[data-entity-id="example-entity-id"]').click();
-
-          richText.editor.trigger('Enter');
-
+          richText.editor.type('{uparrow}');
+          pressEnter();
           richText.expectValue(doc(emptyParagraph(), entryBlock(), emptyParagraph()));
         });
 
