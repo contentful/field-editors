@@ -1174,10 +1174,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         it('removes the text, not the cell', () => {
           insertTableWithExampleData();
           richText.editor.find('table > tbody > tr:last-child > td:last-child').click();
-          richText.editor
-            .type('{backspace}{backspace}{backspace}{backspace}{backspace}')
-            // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
-            .trigger('keydown', { keyCode: 8, which: 8, key: 'Backspace' }); // 8 = delete/backspace
+          richText.editor.type('{backspace}{backspace}{backspace}{backspace}{backspace}');
 
           expectTable(
             row(headerWithText('foo'), headerWithText('bar')),
@@ -1188,8 +1185,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           richText.editor.find('table > tbody > tr:first-child > th:first-child').click();
           richText.editor
             .type('{backspace}{backspace}{backspace}{backspace}{backspace}')
-            // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
-            .trigger('keydown', { keyCode: 8, which: 8, key: 'Backspace' }); // 8 = delete/backspace
+            .trigger('backspace'); // 8 = delete/backspace
 
           expectTable(
             row(emptyHeader(), headerWithText('bar')),
