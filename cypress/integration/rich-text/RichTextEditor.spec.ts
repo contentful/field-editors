@@ -1201,10 +1201,10 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           richText.editor
             .type('{leftarrow}{leftarrow}{leftarrow}{del}{del}{del}{del}')
             // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
-            .trigger('keydown', { keyCode: 8, which: 8, key: 'Delete' }) // 8 = delete/backspace
+            .trigger('Delete') // 8 = delete/backspace
             // try forward-deleting from outside the table for good measure
             .type('{leftarrow}{del}')
-            .trigger('keydown', { keyCode: 8, which: 8, key: 'Delete' });
+            .trigger('Delete');
           expectTable(
             row(headerWithText(''), headerWithText('bar')),
             row(cellWithText('baz'), cellWithText('quux'))
