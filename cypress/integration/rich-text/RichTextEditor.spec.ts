@@ -1634,7 +1634,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           richText.editor.find('[data-entity-id="example-entity-id"]').click();
 
-          richText.editor.trigger('keydown', keys.enter);
+          richText.editor.trigger('Enter');
 
           richText.expectValue(doc(emptyParagraph(), entryBlock(), emptyParagraph()));
         });
