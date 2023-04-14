@@ -1642,11 +1642,13 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           // Inserts paragraph before embed because it's in the first line.
           richText.editor.get('[data-entity-id="example-entity-id"]').first().click();
-          pressEnter();
+          // TODO add key config object back
+          richText.editor.trigger('keydown', { keyCode: 13, which: 13, force: true });
 
-          // inserts paragraph in-between embeds.
+          // // inserts paragraph in-between embeds.
           richText.editor.get('[data-entity-id="example-entity-id"]').first().click();
-          pressEnter();
+          // TODO add key config object back
+          richText.editor.trigger('keydown', { keyCode: 13, which: 13, force: true });
 
           richText.expectValue(
             doc(emptyParagraph(), entryBlock(), emptyParagraph(), entryBlock(), emptyParagraph())
@@ -1671,7 +1673,8 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           cy.findByTestId('cf-ui-entry-card').click();
           // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
-          richText.editor.trigger('backspace');
+          // TODO add key config object back
+          richText.editor.trigger('keydown', { keyCode: 8, which: 8 });
 
           richText.expectValue(undefined);
         });
@@ -1735,7 +1738,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           richText.editor.find('[data-entity-id="example-entity-id"]').click();
 
-          richText.editor.trigger('enter');
+          richText.editor.trigger('keydown', { keyCode: 13, which: 13, force: true });
 
           richText.expectValue(doc(emptyParagraph(), assetBlock(), emptyParagraph()));
         });
@@ -1780,7 +1783,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           cy.findByTestId('cf-ui-asset-card').click();
           // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
-          richText.editor.trigger('backspace');
+          richText.editor.trigger('keydown', { keyCode: 8, which: 8 });
 
           richText.expectValue(undefined);
         });
