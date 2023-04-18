@@ -1,5 +1,8 @@
 import { defineConfig } from 'cypress';
 
+// @ts-expect-error -- no types
+import webpackConfig from './webpack.config.js';
+
 const task = {
   log(message: string) {
     //eslint-disable-next-line no-console
@@ -37,8 +40,9 @@ export default defineConfig({
       return config;
     },
     devServer: {
-      framework: 'create-react-app',
+      framework: 'react',
       bundler: 'webpack',
+      webpackConfig,
     },
     specPattern: 'cypress/component/**/*.spec.{js,ts,jsx,tsx}',
     excludeSpecPattern: ['**/__snapshots__/*', '**/__image_snapshots__/*'],

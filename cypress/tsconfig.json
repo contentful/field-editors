@@ -5,14 +5,14 @@
     "baseUrl": "../node_modules",
     "lib": ["es5", "dom"],
     "target": "ES6",
-    "types": ["cypress", "@types/testing-library__cypress"],
-    "resolveJsonModule": true,
+    "types": ["cypress", "@types/testing-library__cypress", "jest"],
+    "resolveJsonModule": true
   },
   "include": [
     "**/*.ts",
-    "../packages",
     "../cypress",
     "../node_modules/cypress",
     "../node_modules/@types/testing-library__cypress"
-  ]
+  ],
+  "exclude": ["**/*.test.tsx"]
 }
