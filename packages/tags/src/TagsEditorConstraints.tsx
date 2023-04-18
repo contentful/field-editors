@@ -1,8 +1,10 @@
 import React from 'react';
-import { css } from 'emotion';
-import { Constraint, ConstraintsType } from './types';
 
 import { Text } from '@contentful/f36-components';
+import { css } from 'emotion';
+
+import { Constraint, ConstraintsType } from './types';
+
 
 interface TagEditorConstraintsProps {
   constraintsType: ConstraintsType;

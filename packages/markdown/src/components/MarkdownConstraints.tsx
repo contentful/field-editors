@@ -1,8 +1,9 @@
 import React from 'react';
-import { css } from 'emotion';
-import tokens from '@contentful/f36-tokens';
+
 import { FieldExtensionSDK } from '@contentful/app-sdk';
+import tokens from '@contentful/f36-tokens';
 import { ConstraintsUtils, CharCounter, CharValidation } from '@contentful/field-editor-shared';
+import { css } from 'emotion';
 
 const styles = {
   root: css({

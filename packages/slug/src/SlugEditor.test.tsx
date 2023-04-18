@@ -1,9 +1,11 @@
 import * as React from 'react';
-import identity from 'lodash/identity';
+
+import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
 import { render, configure, cleanup, wait, fireEvent } from '@testing-library/react';
+import identity from 'lodash/identity';
+
 import '@testing-library/jest-dom/extend-expect';
 import { SlugEditor } from './SlugEditor';
-import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
 
 configure({
   testIdAttribute: 'data-test-id',

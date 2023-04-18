@@ -1,5 +1,5 @@
 import React from 'react';
-import noop from 'lodash/noop';
+
 import {
   render,
   fireEvent,
@@ -8,10 +8,11 @@ import {
   act,
   configure,
 } from '@testing-library/react';
+import noop from 'lodash/noop';
 import '@testing-library/jest-dom';
 
-import { CreateEntryLinkButton } from './CreateEntryLinkButton';
 import { ContentType } from '../../types';
+import { CreateEntryLinkButton } from './CreateEntryLinkButton';
 
 configure({
   testIdAttribute: 'data-test-id',

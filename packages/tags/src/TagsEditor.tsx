@@ -1,15 +1,16 @@
-import noop from 'lodash/noop';
 import React, { useState, useCallback } from 'react';
-import { css, cx } from 'emotion';
-import tokens from '@contentful/f36-tokens';
-import { TagsEditorConstraints } from './TagsEditorConstraints';
-import { ConstraintsType, Constraint } from './types';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
-import arrayMove from 'array-move';
+
 
 import { Pill, TextInput } from '@contentful/f36-components';
-
 import { DragIcon } from '@contentful/f36-icons';
+import tokens from '@contentful/f36-tokens';
+import arrayMove from 'array-move';
+import { css, cx } from 'emotion';
+import noop from 'lodash/noop';
+
+import { TagsEditorConstraints } from './TagsEditorConstraints';
+import { ConstraintsType, Constraint } from './types';
 
 export interface TagsEditorProps {
   items: string[];
