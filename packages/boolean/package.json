@@ -15,8 +15,7 @@
   },
   "scripts": {
     "watch": "tsdx watch",
-    "build": "tsdx build",
-    "build:swc": "npx swc src -d dist/cjs --config-file ../../.swcrc && tsc --outDir dist/types",
+    "build": "npx swc src -d dist --config-file ../../.swcrc && tsc --outDir dist",
     "test": "tsdx test --env=jsdom --watch",
     "test:ci": "tsdx test --env=jsdom --ci",
     "tsc": "tsc -p ./ --noEmit"

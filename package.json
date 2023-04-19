@@ -13,7 +13,6 @@
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean",
     "build": "turbo run build --scope=@contentful/** --no-deps",
-    "build:swc": "turbo run build:swc --scope=@contentful/** --no-deps",
     "build:apps": "turbo run build --scope=*-app",
     "lint": "eslint ./ --ext .js,.jsx,.ts,.tsx",
     "lint:md": "remark --no-stdout --frail *.md */*.md",
@@ -173,9 +172,9 @@
   },
   "turbo": {
     "pipeline": {
-      "build:swc": {
+      "build": {
         "dependsOn": [
-          "^build:swc"
+          "^build"
         ],
         "outputs": [
           "dist/**"
