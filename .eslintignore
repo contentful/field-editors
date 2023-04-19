@@ -8,3 +8,4 @@ cypress/plugins/
 cypress/support/
 .eslintrc.js
 snapshots.js
+**/*.test.tsx
