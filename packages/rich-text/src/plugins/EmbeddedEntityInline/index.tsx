@@ -17,7 +17,7 @@ import { IS_CHROME } from '../../helpers/environment';
 import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
 import { watchCurrentSlide } from '../../helpers/sdkNavigatorSlideIn';
 import { findNodePath } from '../../internal/queries';
-import { insertNodes, removeNodes } from '../../internal/transforms';
+import { insertNodes, removeNodes, select } from '../../internal/transforms';
 import { KeyboardHandler, PlatePlugin, Node } from '../../internal/types';
 import { Element, RenderElementProps } from '../../internal/types';
 import { TrackingPluginActions } from '../../plugins/Tracking';
@@ -123,12 +123,14 @@ async function selectEntityAndInsert(
     ...newEntitySelectorConfigFromRichTextField(sdk.field, INLINES.EMBEDDED_ENTRY),
     withCreate: true,
   };
+  const { selection } = editor;
   const rteSlide = watchCurrentSlide(sdk.navigator);
   const entry = await sdk.dialogs.selectSingleEntry<Entry>(config);
 
   if (!entry) {
     logAction('cancelCreateEmbedDialog', { nodeType: INLINES.EMBEDDED_ENTRY });
   } else {
+    select(editor, selection);
     insertNodes(editor, createInlineEntryNode(entry.sys.id));
     logAction('insert', { nodeType: INLINES.EMBEDDED_ENTRY });
   }

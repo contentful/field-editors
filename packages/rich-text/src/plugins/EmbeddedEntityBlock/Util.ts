@@ -4,7 +4,7 @@ import { focus, insertEmptyParagraph, moveToTheNextChar } from '../../helpers/ed
 import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
 import { watchCurrentSlide } from '../../helpers/sdkNavigatorSlideIn';
 import { getText, getAboveNode, getLastNodeByLevel } from '../../internal/queries';
-import { insertNodes, setNodes } from '../../internal/transforms';
+import { insertNodes, select, setNodes } from '../../internal/transforms';
 import { PlateEditor } from '../../internal/types';
 import { TrackingPluginActions } from '../../plugins/Tracking';
 
@@ -22,12 +22,14 @@ export async function selectEntityAndInsert(
     baseConfig.entityType === 'Asset' ? dialogs.selectSingleAsset : dialogs.selectSingleEntry;
   const config = { ...baseConfig, withCreate: true };
 
+  const { selection } = editor;
   const rteSlide = watchCurrentSlide(sdk.navigator);
   const entity = await selectEntity(config);
 
   if (!entity) {
     logAction('cancelCreateEmbedDialog', { nodeType });
   } else {
+    select(editor, selection);
     insertBlock(editor, nodeType, entity);
     ensureFollowingParagraph(editor);
     logAction('insert', { nodeType });
