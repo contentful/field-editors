@@ -1,6 +1,8 @@
 import * as React from 'react';
-import isNumber from 'lodash/isNumber';
+
 import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
+import isNumber from 'lodash/isNumber';
+
 import { TagsEditor } from './TagsEditor';
 import { ConstraintsType, Constraint } from './types';
 
@@ -54,7 +56,8 @@ export function TagsEditorContainer(props: TagsEditorContainerProps) {
       field={field}
       isInitiallyDisabled={props.isInitiallyDisabled}
       isEmptyValue={isEmptyTagsValue}
-      throttle={0}>
+      throttle={0}
+    >
       {({ disabled, value, errors, setValue }) => {
         const items = value || [];
         return (

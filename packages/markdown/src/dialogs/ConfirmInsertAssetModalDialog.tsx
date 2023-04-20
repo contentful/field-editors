@@ -1,4 +1,6 @@
 import React from 'react';
+
+import { DialogsAPI } from '@contentful/app-sdk';
 import {
   ModalContent,
   ModalControls,
@@ -6,7 +8,7 @@ import {
   Button,
   EntityList,
 } from '@contentful/f36-components';
-import { DialogsAPI } from '@contentful/app-sdk';
+
 import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 
 interface ConfirmInsertAssetModalDialogProps {
@@ -60,7 +62,8 @@ export const ConfirmInsertAssetModalDialog = ({
           testId="confirm-insert-asset"
           onClick={() => onClose(true)}
           variant="positive"
-          size="small">
+          size="small"
+        >
           Confirm
         </Button>
       </ModalControls>

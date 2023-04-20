@@ -1,11 +1,12 @@
 import React from 'react';
-import { css, cx } from 'emotion';
+
 import { DialogsAPI } from '@contentful/app-sdk';
 import { ModalContent } from '@contentful/f36-components';
-import tokens from '@contentful/f36-tokens';
-import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
-
 import { TextLink, Heading } from '@contentful/f36-components';
+import tokens from '@contentful/f36-tokens';
+import { css, cx } from 'emotion';
+
+import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 
 const styles = {
   flexColumnContainer: css({
@@ -143,7 +144,8 @@ export const CheatsheetModalDialog = () => {
           className={styles.helpLink}
           href="https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax"
           target="_blank"
-          rel="noopener noreferrer">
+          rel="noopener noreferrer"
+        >
           View the full GitHub-flavored Markdown syntax help (opens in a new window)
         </TextLink>
       </div>

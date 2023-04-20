@@ -1,8 +1,10 @@
 import * as React from 'react';
-import { cx } from 'emotion';
+
 import { FormControl } from '@contentful/f36-components';
-import { ValidationErrors } from '@contentful/field-editor-validation-errors';
 import type { FieldExtensionSDK, Entry } from '@contentful/field-editor-shared';
+import { ValidationErrors } from '@contentful/field-editor-validation-errors';
+import { cx } from 'emotion';
+
 import { styles } from './FieldWrapper.styles';
 
 type FieldWrapperProps = {
@@ -56,7 +58,8 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = function (props: FieldW
       data-test-id="entity-field-controls"
       className={cx(showFocusBar && styles.withFocusBar, className)}
       aria-invalid={hasErrors}
-      isRequired={field.required}>
+      isRequired={field.required}
+    >
       {renderHeading ? (
         renderHeading(name)
       ) : (

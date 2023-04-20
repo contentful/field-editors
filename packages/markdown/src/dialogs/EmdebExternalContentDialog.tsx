@@ -1,8 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { css } from 'emotion';
-import tokens from '@contentful/f36-tokens';
+
 import { DialogsAPI } from '@contentful/app-sdk';
-import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 import {
   ModalContent,
   ModalControls,
@@ -15,6 +13,10 @@ import {
   FormControl,
   TextInput,
 } from '@contentful/f36-components';
+import tokens from '@contentful/f36-tokens';
+import { css } from 'emotion';
+
+import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 import { isValidUrl } from '../utils/isValidUrl';
 
 const styles = {
@@ -107,7 +109,8 @@ export const EmbedExternalContentModal = ({ onClose }: EmbedExternalContentModal
             <FormControl
               id="embedded-content-width"
               isRequired
-              isInvalid={!isWidthValid(Number(width), selectedUnit)}>
+              isInvalid={!isWidthValid(Number(width), selectedUnit)}
+            >
               <FormControl.Label>Width</FormControl.Label>
               <TextInput
                 value={width}
@@ -130,7 +133,8 @@ export const EmbedExternalContentModal = ({ onClose }: EmbedExternalContentModal
                 value="percent"
                 isChecked={selectedUnit === 'percent'}
                 onChange={() => setUnit('percent')}
-                className={styles.radioButton}>
+                className={styles.radioButton}
+              >
                 percent
               </Radio>
               <Radio
@@ -138,7 +142,8 @@ export const EmbedExternalContentModal = ({ onClose }: EmbedExternalContentModal
                 value="pixels"
                 isChecked={selectedUnit === 'px'}
                 onChange={() => setUnit('px')}
-                className={styles.radioButton}>
+                className={styles.radioButton}
+              >
                 pixels
               </Radio>
             </div>
@@ -149,7 +154,8 @@ export const EmbedExternalContentModal = ({ onClose }: EmbedExternalContentModal
             value="Yes"
             isChecked={attachSocial}
             onChange={() => setAttachSocial(!attachSocial)}
-            testId="attach-social-checkbox">
+            testId="attach-social-checkbox"
+          >
             Attach social sharing links to this element
           </Checkbox>
           <Text as="p" fontColor="gray500" marginTop="spacingXs">
@@ -157,7 +163,8 @@ export const EmbedExternalContentModal = ({ onClose }: EmbedExternalContentModal
             <TextLink
               href="http://embed.ly/docs/products/cards"
               target="_blank"
-              rel="noopener noreferrer">
+              rel="noopener noreferrer"
+            >
               Embedly&apos;s platform.js
             </TextLink>
             &nbsp;on your development environment
@@ -170,7 +177,8 @@ export const EmbedExternalContentModal = ({ onClose }: EmbedExternalContentModal
           testId="emded-external-cancel"
           onClick={() => onClose(false)}
           variant="secondary"
-          size="small">
+          size="small"
+        >
           Cancel
         </Button>
         <Button
@@ -179,7 +187,8 @@ export const EmbedExternalContentModal = ({ onClose }: EmbedExternalContentModal
             onClose(makeEmbedlyLink({ url, width: Number(width), selectedUnit, attachSocial }))
           }
           variant="positive"
-          size="small">
+          size="small"
+        >
           Insert
         </Button>
       </ModalControls>

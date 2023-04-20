@@ -1,8 +1,7 @@
 import React from 'react';
+
 import { Menu } from '@contentful/f36-components';
-
 import { Button } from '@contentful/f36-components';
-
 import { AssetIcon, ChevronDownIcon } from '@contentful/f36-icons';
 
 interface InsertLinkSelectorProps {
@@ -25,7 +24,8 @@ export const InsertLinkSelector = (props: InsertLinkSelectorProps) => {
         variant="secondary"
         onClick={() => {
           props.onSelectExisting();
-        }}>
+        }}
+      >
         Insert media
       </Button>
     );
@@ -42,7 +42,8 @@ const MultipleMediaContextMenu = (props: InsertLinkSelectorProps) => {
           startIcon={<AssetIcon />}
           testId="markdownEditor.insertMediaDropdownTrigger"
           size="small"
-          variant="secondary">
+          variant="secondary"
+        >
           Insert media
         </Button>
       </Menu.Trigger>
@@ -52,7 +53,8 @@ const MultipleMediaContextMenu = (props: InsertLinkSelectorProps) => {
         </Menu.Item>
         <Menu.Item
           testId="markdownEditor.linkExistingAssets"
-          onClick={() => props.onSelectExisting()}>
+          onClick={() => props.onSelectExisting()}
+        >
           Link existing media
         </Menu.Item>
       </Menu.List>

@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.1.11...@contentful/field-editor-validation-errors@1.2.0) (2023-04-19)
+
+### Features
+
+- upgrade cypress [TOL-1036] ([#1391](https://github.com/contentful/field-editors/issues/1391)) ([9c1aec9](https://github.com/contentful/field-editors/commit/9c1aec98aabbe464cdc3f1236c3bb1cc29b8208d))
+
+## [1.1.11](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.1.10...@contentful/field-editor-validation-errors@1.1.11) (2023-03-14)
+
+**Note:** Version bump only for package @contentful/field-editor-validation-errors
+
+## [1.1.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.1.9...@contentful/field-editor-validation-errors@1.1.10) (2023-03-10)
+
+**Note:** Version bump only for package @contentful/field-editor-validation-errors
+
+## [1.1.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.1.8...@contentful/field-editor-validation-errors@1.1.9) (2023-02-21)
+
+**Note:** Version bump only for package @contentful/field-editor-validation-errors
+
 ## [1.1.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.1.7...@contentful/field-editor-validation-errors@1.1.8) (2023-02-07)
 
 **Note:** Version bump only for package @contentful/field-editor-validation-errors

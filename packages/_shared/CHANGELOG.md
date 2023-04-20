@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.1.8...@contentful/field-editor-shared@1.2.0) (2023-04-19)
+
+### Features
+
+- upgrade cypress [TOL-1036] ([#1391](https://github.com/contentful/field-editors/issues/1391)) ([9c1aec9](https://github.com/contentful/field-editors/commit/9c1aec98aabbe464cdc3f1236c3bb1cc29b8208d))
+
+## [1.1.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.1.7...@contentful/field-editor-shared@1.1.8) (2023-03-14)
+
+**Note:** Version bump only for package @contentful/field-editor-shared
+
+## [1.1.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.1.6...@contentful/field-editor-shared@1.1.7) (2023-03-10)
+
+### Bug Fixes
+
+- support disabling single line editor ([#1367](https://github.com/contentful/field-editors/issues/1367)) ([f8314ff](https://github.com/contentful/field-editors/commit/f8314fff446a3dcb482835424c7fca66c4f87f20))
+
+## [1.1.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.1.5...@contentful/field-editor-shared@1.1.6) (2023-02-21)
+
+### Bug Fixes
+
+- [] adds configurations to support image/avif mime type with web application previews ([#1347](https://github.com/contentful/field-editors/issues/1347)) ([616e6ad](https://github.com/contentful/field-editors/commit/616e6adc70d6d9ae6ad606c677fa9658d6e78006))
+
 ## [1.1.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.1.4...@contentful/field-editor-shared@1.1.5) (2023-02-07)
 
 ### Bug Fixes

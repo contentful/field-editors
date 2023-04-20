@@ -1,4 +1,6 @@
 import * as React from 'react';
+
+import { TextInput } from '@contentful/f36-components';
 import {
   FieldAPI,
   FieldConnector,
@@ -7,15 +9,19 @@ import {
   CharValidation,
   LocalesAPI,
 } from '@contentful/field-editor-shared';
-import * as styles from './styles';
 
-import { TextInput } from '@contentful/f36-components';
+import * as styles from './styles';
 
 export interface SingleLineEditorProps {
   /**
    * is the field disabled initially
    */
   isInitiallyDisabled: boolean;
+
+  /**
+   * is the field manually disabled
+   */
+  isDisabled?: boolean;
 
   /**
    * whether char validation should be shown or not
@@ -48,7 +54,11 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
   const direction = locales.direction[field.locale] || 'ltr';
 
   return (
-    <FieldConnector<string> field={field} isInitiallyDisabled={props.isInitiallyDisabled}>
+    <FieldConnector<string>
+      field={field}
+      isInitiallyDisabled={props.isInitiallyDisabled}
+      isDisabled={props.isDisabled}
+    >
       {({ value, errors, disabled, setValue }) => {
         return (
           <div data-test-id="single-line-editor">

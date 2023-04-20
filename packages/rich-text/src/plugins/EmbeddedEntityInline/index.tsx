@@ -15,8 +15,9 @@ import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { focus, moveToTheNextChar } from '../../helpers/editor';
 import { IS_CHROME } from '../../helpers/environment';
 import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
+import { watchCurrentSlide } from '../../helpers/sdkNavigatorSlideIn';
 import { findNodePath } from '../../internal/queries';
-import { setSelection, insertNodes, removeNodes } from '../../internal/transforms';
+import { insertNodes, removeNodes, select } from '../../internal/transforms';
 import { KeyboardHandler, PlatePlugin, Node } from '../../internal/types';
 import { Element, RenderElementProps } from '../../internal/types';
 import { TrackingPluginActions } from '../../plugins/Tracking';
@@ -66,7 +67,9 @@ function EmbeddedEntityInline(props: EmbeddedEntityInlineProps) {
   const isDisabled = useReadOnly();
 
   function handleEditClick() {
-    return sdk.navigator.openEntry(entryId, { slideIn: true });
+    return sdk.navigator.openEntry(entryId, { slideIn: { waitForClose: true } }).then(() => {
+      editor && focus(editor);
+    });
   }
 
   function handleRemoveClick() {
@@ -120,26 +123,20 @@ async function selectEntityAndInsert(
     ...newEntitySelectorConfigFromRichTextField(sdk.field, INLINES.EMBEDDED_ENTRY),
     withCreate: true,
   };
-  const selection = editor.selection;
-
+  const { selection } = editor;
+  const rteSlide = watchCurrentSlide(sdk.navigator);
   const entry = await sdk.dialogs.selectSingleEntry<Entry>(config);
-  focus(editor); // Dialog steals focus from editor, return it.
 
   if (!entry) {
     logAction('cancelCreateEmbedDialog', { nodeType: INLINES.EMBEDDED_ENTRY });
-    return;
+  } else {
+    select(editor, selection);
+    insertNodes(editor, createInlineEntryNode(entry.sys.id));
+    logAction('insert', { nodeType: INLINES.EMBEDDED_ENTRY });
   }
-
-  const inlineEntryNode = createInlineEntryNode(entry.sys.id);
-
-  logAction('insert', { nodeType: INLINES.EMBEDDED_ENTRY });
-  // Got to wait until focus is really back on the editor or setSelection() won't work.
-  return new Promise<void>((resolve) => {
-    setTimeout(() => {
-      setSelection(editor, selection);
-      insertNodes(editor, inlineEntryNode);
-      resolve();
-    }, 0);
+  rteSlide.onActive(() => {
+    rteSlide.unwatch();
+    focus(editor);
   });
 }
 

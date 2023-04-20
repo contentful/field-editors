@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { File } from '../../types';
 
 interface AssetThumbnailProps {

@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.1.7...@contentful/field-editor-json@3.2.0) (2023-04-19)
+
+### Features
+
+- upgrade cypress [TOL-1036] ([#1391](https://github.com/contentful/field-editors/issues/1391)) ([9c1aec9](https://github.com/contentful/field-editors/commit/9c1aec98aabbe464cdc3f1236c3bb1cc29b8208d))
+
+## [3.1.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.1.6...@contentful/field-editor-json@3.1.7) (2023-03-14)
+
+**Note:** Version bump only for package @contentful/field-editor-json
+
+## [3.1.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.1.5...@contentful/field-editor-json@3.1.6) (2023-03-10)
+
+**Note:** Version bump only for package @contentful/field-editor-json
+
+## [3.1.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.1.4...@contentful/field-editor-json@3.1.5) (2023-02-21)
+
+**Note:** Version bump only for package @contentful/field-editor-json
+
 ## [3.1.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.1.3...@contentful/field-editor-json@3.1.4) (2023-02-07)
 
 **Note:** Version bump only for package @contentful/field-editor-json

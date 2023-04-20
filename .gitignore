@@ -10,7 +10,6 @@ node_modules
 .rts2_cache_esm
 .rts2_cache_umd
 package-lock.json
-/mochawesome-report
 build/
 dist/
 cypress/videos
@@ -19,3 +18,5 @@ cypress/reports
 cypress.env.json
 .vscode/
 .turbo
+reports/
+snapshots.js

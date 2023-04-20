@@ -1,15 +1,16 @@
 import * as React from 'react';
-import { cx } from 'emotion';
+
+import { TextLink, Flex, Radio, Form } from '@contentful/f36-components';
+import { getOptions, parseValue } from '@contentful/field-editor-dropdown';
 import {
   FieldAPI,
   FieldConnector,
   PredefinedValuesError,
   LocalesAPI,
 } from '@contentful/field-editor-shared';
-import { getOptions, parseValue } from '@contentful/field-editor-dropdown';
-import * as styles from './styles';
+import { cx } from 'emotion';
 
-import { TextLink, Flex, Radio, Form } from '@contentful/f36-components';
+import * as styles from './styles';
 
 export interface RadioEditorProps {
   /**
@@ -44,7 +45,8 @@ export function RadioEditor(props: RadioEditorProps) {
     <FieldConnector<string | number>
       throttle={0}
       field={field}
-      isInitiallyDisabled={props.isInitiallyDisabled}>
+      isInitiallyDisabled={props.isInitiallyDisabled}
+    >
       {({ disabled, value, setValue }) => {
         const setOption = (value: string) => {
           setValue(parseValue(value, field.type));
@@ -56,7 +58,8 @@ export function RadioEditor(props: RadioEditorProps) {
         return (
           <Form
             testId="radio-editor"
-            className={cx(styles.form, direction === 'rtl' ? styles.rightToLeft : '')}>
+            className={cx(styles.form, direction === 'rtl' ? styles.rightToLeft : '')}
+          >
             {options.map((item, index) => {
               const id = ['entity', field.id, field.locale, index, item.id].join('.');
               const checked = value === item.value;
@@ -71,7 +74,8 @@ export function RadioEditor(props: RadioEditorProps) {
                       if (e.target.checked) {
                         setOption(e.target.value);
                       }
-                    }}>
+                    }}
+                  >
                     {item.label}
                   </Radio>
                   {checked && !disabled && (

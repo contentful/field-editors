@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-use-before-define */
 
 import React from 'react';
-import isNumber from 'lodash/isNumber';
 import ReactDOM from 'react-dom';
-import { Modal, ModalHeader } from '@contentful/f36-components';
+
 import { OpenCustomWidgetOptions } from '@contentful/app-sdk';
+import { Modal, ModalHeader } from '@contentful/f36-components';
+import isNumber from 'lodash/isNumber';
 
 export function open(componentRenderer: (params: { onClose: Function; isShown: boolean }) => any) {
   let rootDom: any = null;
@@ -58,7 +59,8 @@ export function openDialog<T>(
         position={options.position || 'center'}
         isShown={isShown}
         onClose={onCloseHandler}
-        size={size || '700px'}>
+        size={size || '700px'}
+      >
         {() => (
           <>
             {options.title && (

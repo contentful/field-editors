@@ -1,8 +1,8 @@
 import React from 'react';
-import { css } from 'emotion';
-import tokens from '@contentful/f36-tokens';
 
 import { TextLink, Paragraph } from '@contentful/f36-components';
+import tokens from '@contentful/f36-tokens';
+import { css } from 'emotion';
 
 const styles = {
   root: css({
@@ -19,6 +19,7 @@ const styles = {
     fontSize: tokens.fontSizeS,
     button: {
       fontSize: tokens.fontSizeS,
+      lineHeight: 'inherit',
     },
   }),
 };
@@ -41,7 +42,8 @@ export function MarkdownHelp(props: { onClick: () => void }) {
         testId="open-markdown-cheatsheet-button"
         onClick={() => {
           props.onClick();
-        }}>
+        }}
+      >
         markdown cheatsheet
       </TextLink>
       .

@@ -1,7 +1,8 @@
 import React from 'react';
-import type { Emitter } from 'mitt';
-import { css } from 'emotion';
+
 import tokens from '@contentful/f36-tokens';
+import { css } from 'emotion';
+import type { Emitter } from 'mitt';
 
 type EventDefinition = { type?: string; value: any; id: number };
 
@@ -74,13 +75,15 @@ function ActionsPlayground(props: ActionsPlaygroundProps) {
         border: `1px solid ${tokens.gray200}`,
         padding: tokens.spacingS,
         marginTop: tokens.spacingXl,
-      })}>
+      })}
+    >
       <div
         className={css({
           height: 150,
           overflowY: 'scroll',
           fontSize: tokens.fontSizeM,
-        })}>
+        })}
+      >
         {state.events.map((log) => (
           <div key={log.id}>
             <div>
