@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.20](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.19...@contentful/field-editor-rich-text@3.4.20) (2023-04-21)
+
+### Bug Fixes
+
+- [RTE] embed entries in correct place when using hotkeys ([#1400](https://github.com/contentful/field-editors/issues/1400)) ([e9712b5](https://github.com/contentful/field-editors/commit/e9712b5892c6b3cacb50127082df146ed39149e8))
+
 ## [3.4.19](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.18...@contentful/field-editor-rich-text@3.4.19) (2023-04-19)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
