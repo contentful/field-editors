@@ -130,6 +130,8 @@ async function selectEntityAndInsert(
   if (!entry) {
     logAction('cancelCreateEmbedDialog', { nodeType: INLINES.EMBEDDED_ENTRY });
   } else {
+    // Selection prevents incorrect position of inserted ref when RTE doesn't have focus
+    // (i.e. when using hotkeys and slide-in)
     select(editor, selection);
     insertNodes(editor, createInlineEntryNode(entry.sys.id));
     logAction('insert', { nodeType: INLINES.EMBEDDED_ENTRY });
