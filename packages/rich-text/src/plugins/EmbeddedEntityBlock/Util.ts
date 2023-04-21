@@ -29,6 +29,8 @@ export async function selectEntityAndInsert(
   if (!entity) {
     logAction('cancelCreateEmbedDialog', { nodeType });
   } else {
+    // Selection prevents incorrect position of inserted ref when RTE doesn't have focus
+    // (i.e. when using hotkeys and slide-in)
     select(editor, selection);
     insertBlock(editor, nodeType, entity);
     ensureFollowingParagraph(editor);
