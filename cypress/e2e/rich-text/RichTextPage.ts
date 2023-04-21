@@ -117,9 +117,9 @@ export class RichTextPage {
     // eslint-disable-next-line
     cy.wait(500);
 
-    cy.getRichTextField().should((field) => {
+    cy.getRichTextField().then((field) => {
       //@ts-expect-error cypress-plugin-snapshots doesn't have type definitions
-      cy.wrap(field.getValue()).toMatchSnapshot();
+      cy.wrap(field.getValue()).snapshot();
     });
 
     // There can't be any validation error

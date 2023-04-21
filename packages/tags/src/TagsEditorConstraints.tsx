@@ -1,8 +1,9 @@
 import React from 'react';
-import { css } from 'emotion';
-import { Constraint, ConstraintsType } from './types';
 
 import { Text } from '@contentful/f36-components';
+import { css } from 'emotion';
+
+import { Constraint, ConstraintsType } from './types';
 
 interface TagEditorConstraintsProps {
   constraintsType: ConstraintsType;
@@ -20,7 +21,8 @@ export function TagsEditorConstraints(props: TagEditorConstraintsProps) {
       className={css({
         fontStyle: 'italic',
       })}
-      testId="tag-editor-constraints">
+      testId="tag-editor-constraints"
+    >
       {constraintsType === 'min' && (
         <span>
           Requires at least {constraints.min} {constraints.min === 1 ? 'tag' : 'tags'}

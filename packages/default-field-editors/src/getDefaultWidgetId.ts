@@ -1,6 +1,6 @@
+import type { FieldExtensionSDK } from '@contentful/field-editor-shared';
 import { editorInterfaceDefaults } from 'contentful-management';
 
-import type { FieldExtensionSDK } from '@contentful/field-editor-shared';
 import type { WidgetType } from './types';
 
 export function getDefaultWidgetId(

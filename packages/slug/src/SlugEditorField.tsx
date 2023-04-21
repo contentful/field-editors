@@ -1,11 +1,11 @@
 import React from 'react';
-import { useDebounce } from 'use-debounce';
-import { makeSlug } from './services/makeSlug';
-import * as styles from './styles';
 
 import { Spinner, ValidationMessage, TextInput } from '@contentful/f36-components';
-
 import { LinkIcon } from '@contentful/f36-icons';
+import { useDebounce } from 'use-debounce';
+
+import { makeSlug } from './services/makeSlug';
+import * as styles from './styles';
 
 interface SlugEditorFieldProps {
   hasError: boolean;
@@ -102,7 +102,8 @@ export function SlugEditorFieldStatic(
       {status === 'duplicate' && (
         <ValidationMessage
           testId="slug-editor-duplicate-error"
-          className={styles.uniqueValidationError}>
+          className={styles.uniqueValidationError}
+        >
           This slug has already been published in another entry
         </ValidationMessage>
       )}

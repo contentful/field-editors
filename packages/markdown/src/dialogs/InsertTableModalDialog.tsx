@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
+
 import { DialogsAPI } from '@contentful/app-sdk';
-import inRange from 'lodash/inRange';
 import {
   ModalContent,
   ModalControls,
@@ -9,6 +9,8 @@ import {
   FormControl,
   TextInput,
 } from '@contentful/f36-components';
+import inRange from 'lodash/inRange';
+
 import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 
 type InsertTableModalPositiveResult = { cols: number; rows: number };
@@ -86,7 +88,8 @@ export const InsertTableModal = ({ onClose }: InsertTableModalProps) => {
           testId="insert-table-cancel"
           onClick={() => onClose(false)}
           variant="secondary"
-          size="small">
+          size="small"
+        >
           Cancel
         </Button>
         <Button
@@ -94,7 +97,8 @@ export const InsertTableModal = ({ onClose }: InsertTableModalProps) => {
           onClick={() => onClose({ rows, cols })}
           variant="positive"
           size="small"
-          isDisabled={!rowsAreValid || !colsAreValid}>
+          isDisabled={!rowsAreValid || !colsAreValid}
+        >
           Insert
         </Button>
       </ModalControls>

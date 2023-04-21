@@ -1,14 +1,15 @@
 import * as React from 'react';
+
+import { Select } from '@contentful/f36-components';
 import {
   FieldAPI,
   FieldConnector,
   PredefinedValuesError,
   LocalesAPI,
 } from '@contentful/field-editor-shared';
+
 import { getOptions, parseValue } from './dropdownUtils';
 import * as styles from './styles';
-
-import { Select } from '@contentful/f36-components';
 
 export interface DropdownEditorProps {
   /**
@@ -42,7 +43,8 @@ export function DropdownEditor(props: DropdownEditorProps) {
     <FieldConnector<string | number>
       throttle={0}
       field={field}
-      isInitiallyDisabled={props.isInitiallyDisabled}>
+      isInitiallyDisabled={props.isInitiallyDisabled}
+    >
       {({ value, errors, disabled, setValue }) => (
         <Select
           testId="dropdown-editor"
@@ -54,7 +56,8 @@ export function DropdownEditor(props: DropdownEditorProps) {
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
             const value = e.target.value;
             setValue(parseValue(value, field.type));
-          }}>
+          }}
+        >
           <Select.Option value="">Choose a value</Select.Option>
           {options.map((option) => (
             <Select.Option key={option.value} value={String(option.value)}>

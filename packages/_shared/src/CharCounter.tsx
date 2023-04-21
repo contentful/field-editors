@@ -1,4 +1,5 @@
 import React from 'react';
+
 import tokens from '@contentful/f36-tokens';
 import { css, cx } from 'emotion';
 
@@ -24,7 +25,8 @@ export function CharCounter(props: CharCounterProps) {
       data-status-code={valid ? null : 'invalid-size'}
       className={cx({
         [styles.invalid]: !valid,
-      })}>
+      })}
+    >
       {count} characters
     </span>
   );

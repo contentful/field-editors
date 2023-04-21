@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.3.5...@contentful/field-editor-date@1.4.0) (2023-04-19)
+
+### Features
+
+- upgrade cypress [TOL-1036] ([#1391](https://github.com/contentful/field-editors/issues/1391)) ([9c1aec9](https://github.com/contentful/field-editors/commit/9c1aec98aabbe464cdc3f1236c3bb1cc29b8208d))
+
 ## [1.3.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.3.4...@contentful/field-editor-date@1.3.5) (2023-03-21)
 
 ### Bug Fixes

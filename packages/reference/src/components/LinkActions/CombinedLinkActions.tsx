@@ -1,13 +1,12 @@
 import * as React from 'react';
 
-import * as styles from './redesignStyles';
+import { Button, Menu } from '@contentful/f36-components';
+import { LinkIcon, PlusIcon, ChevronDownIcon } from '@contentful/f36-icons';
+
 import { CreateEntryLinkButton } from '../CreateEntryLinkButton/CreateEntryLinkButton';
 import { testIds as sharedTextIds, LinkActionsProps } from './LinkActions';
 import { NoLinkPermissionsInfo } from './NoLinkPermissionsInfo';
-
-import { Button, Menu } from '@contentful/f36-components';
-
-import { LinkIcon, PlusIcon, ChevronDownIcon } from '@contentful/f36-icons';
+import * as styles from './redesignStyles';
 
 const testIds = {
   ...sharedTextIds,
@@ -60,7 +59,8 @@ function CombinedEntryLinkActions(props: LinkActionsProps) {
               testId={testIds.linkExisting}
               onClick={() => {
                 props.onLinkExisting();
-              }}>
+              }}
+            >
               Add existing content
             </Menu.Item>
           ) : undefined
@@ -78,7 +78,8 @@ function CombinedEntryLinkActions(props: LinkActionsProps) {
         }}
         variant="secondary"
         startIcon={<LinkIcon />}
-        size="small">
+        size="small"
+      >
         Add existing content
       </Button>
     );
@@ -101,7 +102,8 @@ function CombinedAssetLinkActions(props: LinkActionsProps) {
           }}
           variant="secondary"
           startIcon={<PlusIcon />}
-          size="small">
+          size="small"
+        >
           Add existing media
         </Button>
       );
@@ -117,7 +119,8 @@ function CombinedAssetLinkActions(props: LinkActionsProps) {
           }}
           variant="secondary"
           startIcon={<PlusIcon />}
-          size="small">
+          size="small"
+        >
           Add media
         </Button>
       );
@@ -135,7 +138,8 @@ function CombinedAssetLinkActions(props: LinkActionsProps) {
       }}
       onOpen={() => {
         setOpen(true);
-      }}>
+      }}
+    >
       <Menu.Trigger>
         <Button
           endIcon={<ChevronDownIcon />}
@@ -144,7 +148,8 @@ function CombinedAssetLinkActions(props: LinkActionsProps) {
           className={styles.action}
           variant="secondary"
           startIcon={<PlusIcon />}
-          size="small">
+          size="small"
+        >
           Add media
         </Button>
       </Menu.Trigger>
@@ -154,14 +159,16 @@ function CombinedAssetLinkActions(props: LinkActionsProps) {
             testId={testIds.linkExisting}
             onClick={() => {
               props.onLinkExisting();
-            }}>
+            }}
+          >
             Add existing media
           </Menu.Item>
           <Menu.Item
             testId={testIds.createAndLink}
             onClick={() => {
               props.onCreate();
-            }}>
+            }}
+          >
             Add new media
           </Menu.Item>
         </Menu.List>

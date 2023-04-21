@@ -1,17 +1,18 @@
 import React from 'react';
-import { css, cx } from 'emotion';
-import { DialogsAPI, DialogExtensionSDK } from '@contentful/app-sdk';
-import { MarkdownDialogType, MarkdownDialogsParams, PreviewComponents } from '../types';
-import { InitializedEditorType } from '../components/MarkdownTextarea/MarkdownTextarea';
-import { MarkdownToolbar } from '../components/MarkdownToolbar';
-import { MarkdownTextarea } from '../components/MarkdownTextarea/MarkdownTextarea';
-import { MarkdownPreview } from '../components/MarkdownPreview';
-import { MarkdownBottomBar, MarkdownHelp } from '../components/MarkdownBottomBar';
-import { createMarkdownActions } from '../MarkdownActions';
-import { openCheatsheetModal } from '../dialogs/CheatsheetModalDialog';
-import tokens from '@contentful/f36-tokens';
 
+import { DialogsAPI, DialogExtensionSDK } from '@contentful/app-sdk';
 import { ChevronRightIcon, ChevronLeftIcon } from '@contentful/f36-icons';
+import tokens from '@contentful/f36-tokens';
+import { css, cx } from 'emotion';
+
+import { MarkdownBottomBar, MarkdownHelp } from '../components/MarkdownBottomBar';
+import { MarkdownPreview } from '../components/MarkdownPreview';
+import { InitializedEditorType } from '../components/MarkdownTextarea/MarkdownTextarea';
+import { MarkdownTextarea } from '../components/MarkdownTextarea/MarkdownTextarea';
+import { MarkdownToolbar } from '../components/MarkdownToolbar';
+import { openCheatsheetModal } from '../dialogs/CheatsheetModalDialog';
+import { createMarkdownActions } from '../MarkdownActions';
+import { MarkdownDialogType, MarkdownDialogsParams, PreviewComponents } from '../types';
 
 export type ZenModeResult = {
   value: string;
@@ -147,7 +148,8 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
       <div
         className={cx(styles.editorSplit, {
           [styles.editorSplitFullscreen]: showPreview === false,
-        })}>
+        })}
+      >
         <MarkdownTextarea
           mode="zen"
           visible
@@ -182,7 +184,8 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
           aria-label="Hide preview"
           onClick={() => {
             setShowPreview(false);
-          }}>
+          }}
+        >
           <ChevronRightIcon variant="muted" size="tiny" className={styles.icon} />
         </button>
       )}
@@ -192,7 +195,8 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
           aria-label="Show preview"
           onClick={() => {
             setShowPreview(true);
-          }}>
+          }}
+        >
           <ChevronLeftIcon variant="muted" size="tiny" className={styles.icon} />
         </button>
       )}

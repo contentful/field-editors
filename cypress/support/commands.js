@@ -10,7 +10,9 @@
 
 import '@testing-library/cypress/add-commands';
 import { configure } from '@testing-library/cypress';
+import { register } from '@cypress/snapshot';
 
+register();
 configure({ testIdAttribute: 'data-test-id' });
 
 Cypress.Commands.add('editorEvents', (lastN = Infinity) => {

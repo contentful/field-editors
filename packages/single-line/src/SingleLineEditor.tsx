@@ -1,4 +1,6 @@
 import * as React from 'react';
+
+import { TextInput } from '@contentful/f36-components';
 import {
   FieldAPI,
   FieldConnector,
@@ -7,9 +9,8 @@ import {
   CharValidation,
   LocalesAPI,
 } from '@contentful/field-editor-shared';
-import * as styles from './styles';
 
-import { TextInput } from '@contentful/f36-components';
+import * as styles from './styles';
 
 export interface SingleLineEditorProps {
   /**
@@ -56,7 +57,8 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
     <FieldConnector<string>
       field={field}
       isInitiallyDisabled={props.isInitiallyDisabled}
-      isDisabled={props.isDisabled}>
+      isDisabled={props.isDisabled}
+    >
       {({ value, errors, disabled, setValue }) => {
         return (
           <div data-test-id="single-line-editor">

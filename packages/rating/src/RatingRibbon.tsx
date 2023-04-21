@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { css } from 'emotion';
 
 import { IconButton } from '@contentful/f36-components';
-
 import { StarIcon } from '@contentful/f36-icons';
+import { css } from 'emotion';
 
 type RatingRibbonProps = {
   disabled: boolean;

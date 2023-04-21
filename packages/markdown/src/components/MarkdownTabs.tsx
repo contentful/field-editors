@@ -1,6 +1,8 @@
 import React from 'react';
-import { css, cx } from 'emotion';
+
 import tokens from '@contentful/f36-tokens';
+import { css, cx } from 'emotion';
+
 import { MarkdownTab } from '../types';
 
 const styles = {
@@ -69,7 +71,8 @@ function MarkdownTabItem(props: {
       role="tab"
       aria-controls={props.name}
       aria-selected={props.isActive === true}
-      data-test-id={props.testId}>
+      data-test-id={props.testId}
+    >
       {props.children}
     </div>
   );
@@ -82,14 +85,16 @@ export function MarkdownTabs(props: MarkdownTabsProps) {
         name="editor"
         onSelect={props.onSelect}
         isActive={props.active === 'editor'}
-        testId="markdown-tab-md">
+        testId="markdown-tab-md"
+      >
         Editor
       </MarkdownTabItem>
       <MarkdownTabItem
         name="preview"
         onSelect={props.onSelect}
         isActive={props.active === 'preview'}
-        testId="markdown-tab-preview">
+        testId="markdown-tab-preview"
+      >
         Preview
       </MarkdownTabItem>
     </div>

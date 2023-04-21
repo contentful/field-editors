@@ -1,18 +1,19 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { cx } from 'emotion';
-import get from 'lodash/get';
+
+import { Checkbox, Box } from '@contentful/f36-components';
+import { TextLink, Form } from '@contentful/f36-components';
 import {
   FieldAPI,
   FieldConnector,
   LocalesAPI,
   PredefinedValuesError,
 } from '@contentful/field-editor-shared';
-import { Checkbox, Box } from '@contentful/f36-components';
-import * as styles from './styles';
+import { cx } from 'emotion';
+import get from 'lodash/get';
 import { nanoid } from 'nanoid';
 
-import { TextLink, Form } from '@contentful/f36-components';
+import * as styles from './styles';
 
 export interface CheckboxEditorProps {
   /**
@@ -96,7 +97,8 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
       throttle={0}
       isEmptyValue={isEmptyListValue}
       field={field}
-      isInitiallyDisabled={props.isInitiallyDisabled}>
+      isInitiallyDisabled={props.isInitiallyDisabled}
+    >
       {({ disabled, value, setValue }) => {
         const values = value || [];
 
@@ -116,7 +118,8 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
         return (
           <Form
             testId="checkbox-editor"
-            className={cx(styles.form, direction === 'rtl' ? styles.rightToLeft : '')}>
+            className={cx(styles.form, direction === 'rtl' ? styles.rightToLeft : '')}
+          >
             {mergedOptions.map((item) => (
               <Box key={item.id} marginBottom="spacingS">
                 <Checkbox
@@ -132,7 +135,8 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
                     } else {
                       removeValue(item.value);
                     }
-                  }}>
+                  }}
+                >
                   {item.label}
                 </Checkbox>
                 {item.invalid && (
@@ -143,7 +147,8 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
                     <TextLink
                       as="button"
                       className={styles.removeBtn}
-                      onClick={() => removeValue(item.value)}>
+                      onClick={() => removeValue(item.value)}
+                    >
                       Remove
                     </TextLink>
                   </>
