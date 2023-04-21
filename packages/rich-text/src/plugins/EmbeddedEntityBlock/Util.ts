@@ -29,6 +29,7 @@ export async function selectEntityAndInsert(
   if (!entity) {
     logAction('cancelCreateEmbedDialog', { nodeType });
   } else {
+    // Selection is necessary when RTE doesn't have focus during insertion, i.e. when using hotkeys and a slide-in editor
     select(editor, selection);
     insertBlock(editor, nodeType, entity);
     ensureFollowingParagraph(editor);

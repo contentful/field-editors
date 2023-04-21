@@ -130,6 +130,7 @@ async function selectEntityAndInsert(
   if (!entry) {
     logAction('cancelCreateEmbedDialog', { nodeType: INLINES.EMBEDDED_ENTRY });
   } else {
+    // Selection is necessary when RTE doesn't have focus during insertion, i.e. when using hotkeys and a slide-in editor
     select(editor, selection);
     insertNodes(editor, createInlineEntryNode(entry.sys.id));
     logAction('insert', { nodeType: INLINES.EMBEDDED_ENTRY });
