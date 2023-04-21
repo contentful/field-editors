@@ -1,13 +1,7 @@
 import { FieldExtensionSDK } from '@contentful/app-sdk';
-// TODO move this to internal
-import {
-  createDeserializeAstPlugin,
-  createDeserializeHtmlPlugin,
-  PlateProps,
-} from '@udecode/plate-common';
 import { createDeserializeDocxPlugin } from '@udecode/plate-serializer-docx';
 
-import { PlatePlugin } from '../internal/types';
+import type { PlatePlugin } from '../internal/types';
 import { createSoftBreakPlugin, createExitBreakPlugin, createResetNodePlugin } from './Break';
 import { createCommandPalettePlugin } from './CommandPalette';
 import { isCommandPromptPluginEnabled } from './CommandPalette/useCommands';
@@ -38,9 +32,6 @@ export const getPlugins = (
   onAction: RichTextTrackingActionHandler,
   restrictedMarks?: string[]
 ): PlatePlugin[] => [
-  // AST must come after the HTML deserializer
-  createDeserializeHtmlPlugin(),
-  createDeserializeAstPlugin(),
   createDeserializeDocxPlugin(),
 
   // Tracking - This should come first so all plugins below will have access to `editor.tracking`
@@ -86,14 +77,3 @@ export const getPlugins = (
   createResetNodePlugin(),
   createNormalizerPlugin(),
 ];
-
-export const disableCorePlugins: PlateProps['disableCorePlugins'] = {
-  // Temporarily until the upstream issue is fixed.
-  // See: https://github.com/udecode/plate/issues/1329#issuecomment-1005935946
-  deserializeAst: true,
-  deserializeHtml: true,
-
-  // Note: Enabled by default since v9.0.0 but it causes Cypress's
-  // .click() command to fail
-  eventEditor: true,
-};

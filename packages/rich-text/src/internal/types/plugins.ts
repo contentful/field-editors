@@ -13,3 +13,6 @@ export interface PlatePlugin extends p.PlatePlugin<p.AnyObject, Value, PlateEdit
   resetNode?: ResetNodePluginRule<Value, PlateEditor>[];
   normalizer?: NormalizerRule[];
 }
+
+export type HotkeyPlugin = p.HotkeyPlugin;
+export type AnyObject = p.AnyObject;

@@ -1,12 +1,10 @@
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { BLOCKS } from '@contentful/rich-text-types';
-// TODO move this to internal?
-import { HotkeyPlugin } from '@udecode/plate-common';
 import isHotkey from 'is-hotkey';
 
 import { getNodeEntryFromSelection } from '../../helpers/editor';
 import { removeNodes } from '../../internal/transforms';
-import { KeyboardHandler, PlatePlugin } from '../../internal/types';
+import type { KeyboardHandler, PlatePlugin, HotkeyPlugin } from '../../internal/types';
 import { withLinkTracking } from '../links-tracking';
 import { LinkedEntityBlock } from './LinkedEntityBlock';
 import { selectEntityAndInsert } from './Util';

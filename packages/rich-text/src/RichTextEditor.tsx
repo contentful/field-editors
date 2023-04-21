@@ -12,7 +12,7 @@ import noop from 'lodash/noop';
 import { ContentfulEditorIdProvider, getContentfulEditorId } from './ContentfulEditorProvider';
 import { usePlateSelectors, usePlateActions } from './internal/hooks';
 import { PlateEditor, Value, PlatePlugin } from './internal/types';
-import { getPlugins, disableCorePlugins } from './plugins';
+import { getPlugins } from './plugins';
 import { RichTextTrackingActionHandler } from './plugins/Tracking';
 import { documentToEditorValue, normalizeEditorValue, setEditorContent } from './prepareDocument';
 import { styles } from './RichTextEditor.styles';
@@ -64,7 +64,6 @@ export const ConnectedRichTextEditor = (
   usePlateActions(id).value(
     normalizeEditorValue(documentToEditorValue(value as Contentful.Document) as Value, {
       plugins: plugins,
-      disableCorePlugins,
     })
   );
 
@@ -136,12 +135,7 @@ export const ConnectedRichTextEditorWithProvider = (
   });
 
   return (
-    <PlateProvider<Value, PlateEditor>
-      id={id}
-      plugins={plugins}
-      disableCorePlugins={disableCorePlugins}
-      onChange={onValueChanged}
-    >
+    <PlateProvider<Value, PlateEditor> id={id} plugins={plugins} onChange={onValueChanged}>
       <ConnectedRichTextEditor
         {...otherProps}
         key={`rich-text-editor-${id}`}

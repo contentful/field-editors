@@ -6,8 +6,6 @@ import { EmbeddedEntryInlineIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { Entry } from '@contentful/field-editor-shared';
 import { INLINES } from '@contentful/rich-text-types';
-// TODO move this to internal?
-import { HotkeyPlugin } from '@udecode/plate-common';
 import { css } from 'emotion';
 import isHotkey from 'is-hotkey';
 import { useSelected, useReadOnly } from 'slate-react';
@@ -20,7 +18,7 @@ import { watchCurrentSlide } from '../../helpers/sdkNavigatorSlideIn';
 import { findNodePath } from '../../internal/queries';
 import { insertNodes, removeNodes, select } from '../../internal/transforms';
 import { KeyboardHandler, PlatePlugin, Node } from '../../internal/types';
-import { Element, RenderElementProps } from '../../internal/types';
+import type { Element, RenderElementProps, HotkeyPlugin } from '../../internal/types';
 import { TrackingPluginActions } from '../../plugins/Tracking';
 import { useSdkContext } from '../../SdkProvider';
 import { withLinkTracking } from '../links-tracking';

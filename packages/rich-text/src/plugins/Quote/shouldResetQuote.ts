@@ -1,9 +1,13 @@
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
-// TODO move this to internal
-import { isLastChild, hasSingleChild } from '@udecode/plate-common';
 
-import { getAboveNode, getBlockAbove, isAncestorEmpty } from '../../internal/queries';
-import { PlateEditor, Ancestor } from '../../internal/types';
+import {
+  getAboveNode,
+  getBlockAbove,
+  hasSingleChild,
+  isAncestorEmpty,
+  isLastChild,
+} from '../../internal/queries';
+import type { PlateEditor, Ancestor } from '../../internal/types';
 
 /**
  * Returns true if we are:

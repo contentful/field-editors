@@ -1,7 +1,6 @@
-// TODO move this to internal?
 import { mockPlugin as mock } from '@udecode/plate-common';
 
-import { PlatePlugin } from '../internal/types';
+import type { PlatePlugin } from '../internal/types';
 import { randomId } from './randomId';
 
 export const mockPlugin = (p: Partial<PlatePlugin>) =>

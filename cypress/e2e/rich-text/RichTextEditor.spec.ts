@@ -230,10 +230,8 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     const toggleMarkViaToolbar = (mark: string) => {
       if (mark === 'code' || mark === 'superscript' || mark === 'subscript') {
         cy.findByTestId('dropdown-toolbar-button').click();
-        cy.findByTestId(`${mark}-toolbar-button`).click();
-      } else {
-        cy.findByTestId(`${mark}-toolbar-button`).click();
       }
+      cy.findByTestId(`${mark}-toolbar-button`).click();
     };
 
     it(`shows ${MARKS.BOLD}, ${MARKS.ITALIC}, ${MARKS.UNDERLINE}, ${MARKS.CODE} if not explicitly allowed`, () => {
@@ -1186,7 +1184,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           richText.editor.find('table > tbody > tr:first-child > th:first-child').click();
           richText.editor
             .type('{backspace}{backspace}{backspace}{backspace}{backspace}')
-            .trigger('backspace'); // 8 = delete/backspace
+            .trigger('backspace');
 
           expectTable(
             row(emptyHeader(), headerWithText('bar')),
@@ -1201,8 +1199,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           richText.editor.find('table > tbody > tr:first-child > th:first-child').click();
           richText.editor
             .type('{leftarrow}{leftarrow}{leftarrow}{del}{del}{del}{del}')
-            // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
-            .trigger('Delete') // 8 = delete/backspace
+            .trigger('Delete')
             // try forward-deleting from outside the table for good measure
             .type('{leftarrow}{del}')
             .trigger('Delete');
@@ -1648,12 +1645,10 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           // Inserts paragraph before embed because it's in the first line.
           richText.editor.get('[data-entity-id="example-entity-id"]').first().click();
-          // TODO add key config object back
           pressEnter({ force: true });
 
-          // // inserts paragraph in-between embeds.
+          // inserts paragraph in-between embeds.
           richText.editor.get('[data-entity-id="example-entity-id"]').first().click();
-          // TODO add key config object back
           pressEnter({ force: true });
 
           richText.expectValue(

@@ -50,10 +50,10 @@ export type WithOverride<P = p.AnyObject> = p.WithOverride<P, Value, PlateEditor
 export type SelectionMoveOptions = SlateSelectionMoveOptions;
 export type TextInsertTextOptions = SlateTextInsertTextOptions;
 export type SelectionCollapseOptions = SlateSelectionCollapseOptions;
-export type HotkeyPlugin = p.HotkeyPlugin;
 export type RenderLeafProps = sr.RenderLeafProps;
 export type RenderElementProps = sr.RenderElementProps;
 export type Span = p.TSpan;
 export type BasePoint = s.BasePoint;
 export type BaseSelection = s.BaseSelection;
 export type PathRef = s.PathRef;
+export type PlateProps = p.PlateProps;

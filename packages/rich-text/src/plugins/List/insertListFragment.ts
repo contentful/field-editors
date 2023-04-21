@@ -3,8 +3,6 @@
  * See: https://github.com/udecode/plate/blob/main/packages/nodes/list
  */
 import { TEXT_CONTAINERS, BLOCKS } from '@contentful/rich-text-types';
-// TODO move this to internal?
-import { findNode } from '@udecode/plate-common';
 
 import {
   isBlockNode,
@@ -13,6 +11,7 @@ import {
   getNodeTexts,
   getParentPath,
   getDescendantNodeByPath,
+  findNode,
 } from '../../internal/queries';
 import { insertNodes } from '../../internal/transforms';
 import { PlateEditor, NodeEntry, Node, Element } from '../../internal/types';

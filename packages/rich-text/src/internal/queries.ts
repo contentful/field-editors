@@ -204,6 +204,10 @@ export const isBlockNode = (editor: PlateEditor, value: unknown): value is Eleme
   return p.isBlock(editor, value);
 };
 
+export const isBlockAboveEmpty = (editor: PlateEditor): boolean => {
+  return p.isBlockAboveEmpty(editor);
+};
+
 export const findNodePath = (editor: PlateEditor, node: Node) => {
   return p.findNodePath(editor, node);
 };
@@ -310,3 +314,8 @@ export const match = (obj: Node, path: Path, predicate?: p.Predicate<Node> | und
 export const getLastNodeByLevel = (editor: PlateEditor, level: number): NodeEntry | undefined => {
   return p.getLastNodeByLevel(editor, level);
 };
+
+export const isLastChild = (parentEntry: p.TNodeEntry<p.TElement | p.TEditor>, childPath: Path) =>
+  p.isLastChild(parentEntry, childPath);
+
+export const hasSingleChild = (obj: p.TElement | p.TEditor) => hasSingleChild(obj);

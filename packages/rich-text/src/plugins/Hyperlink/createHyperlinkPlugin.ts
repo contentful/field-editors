@@ -2,13 +2,11 @@ import * as React from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { INLINES } from '@contentful/rich-text-types';
-// TODO move this to internal?
-import { AnyObject, HotkeyPlugin } from '@udecode/plate-common';
 import isHotkey from 'is-hotkey';
 
 import { isLinkActive, unwrapLink } from '../../helpers/editor';
 import { transformRemove } from '../../helpers/transformers';
-import { PlatePlugin, KeyboardHandler } from '../../internal/types';
+import type { PlatePlugin, KeyboardHandler, HotkeyPlugin, AnyObject } from '../../internal/types';
 import { withLinkTracking } from '../links-tracking';
 import { EntityHyperlink } from './components/EntityHyperlink';
 import { UrlHyperlink } from './components/UrlHyperlink';

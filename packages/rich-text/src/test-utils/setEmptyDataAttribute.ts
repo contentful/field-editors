@@ -1,8 +1,7 @@
-// TODO move this to internal
-import { setNodes } from '@udecode/plate-common';
+import { setNodes } from 'internal';
 import { Element } from 'slate';
 
-import { PlateEditor } from '../internal/types';
+import type { PlateEditor } from '../internal/types';
 
 /**
  * Sets empty node.data attributes. Helpful when testing against

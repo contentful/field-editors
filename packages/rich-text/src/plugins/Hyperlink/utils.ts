@@ -1,8 +1,6 @@
 import { getScheduleTooltipContent } from '@contentful/field-editor-reference';
-// TODO move this to internal
-import { isAncestorEmpty } from '@udecode/plate-common';
 
-import { getText } from '../../internal/queries';
+import { getText, isAncestorEmpty } from '../../internal/queries';
 import { NodeEntry } from '../../internal/types';
 import { PlateEditor } from '../../internal/types';
 import { FetchedEntityData } from './useEntityInfo';

@@ -5,16 +5,12 @@
  * See: https://github.com/udecode/plate/blob/main/packages/nodes/list
  */
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
-// TODO move this to internal
-import {
-  ELEMENT_DEFAULT,
-  getPluginType,
-  isBlockAboveEmpty,
-  mockPlugin,
-} from '@udecode/plate-common';
+import { mockPlugin } from '@udecode/plate-common';
 import { getListItemEntry, moveListItemUp, unwrapList, ELEMENT_LI } from '@udecode/plate-list';
 import { onKeyDownResetNode, ResetNodePlugin, SIMULATE_BACKSPACE } from '@udecode/plate-reset-node';
 
+import { getPluginType, isBlockAboveEmpty } from '../../internal';
+import { ELEMENT_DEFAULT } from '../../internal/constants';
 import { PlateEditor, Value } from '../../internal/types';
 import { insertListItem } from './transforms/insertListItem';
 

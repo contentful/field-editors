@@ -2,13 +2,11 @@
  * Credit: Modified version of Plate's list plugin
  * See: https://github.com/udecode/plate/blob/main/packages/nodes/list
  */
-// TODO move this to internal
-import { HotkeyPlugin } from '@udecode/plate-common';
 import isHotkey from 'is-hotkey';
 import castArray from 'lodash/castArray';
 
 import { getAboveNode } from '../../internal/queries';
-import { KeyboardHandler } from '../../internal/types';
+import type { HotkeyPlugin, KeyboardHandler } from '../../internal/types';
 import { moveListItems } from './transforms/moveListItems';
 import { toggleList } from './transforms/toggleList';
 
