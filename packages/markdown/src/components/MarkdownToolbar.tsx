@@ -1,9 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { css, cx } from 'emotion';
+
 import { IconButton, Flex, Tooltip } from '@contentful/f36-components';
 import type { ButtonProps } from '@contentful/f36-components';
-import tokens from '@contentful/f36-tokens';
 import {
   HeadingIcon,
   FormatBoldIcon,
@@ -16,10 +15,13 @@ import {
   HorizontalRuleIcon,
   MoreHorizontalIcon,
 } from '@contentful/f36-icons';
-import * as Icons from './icons';
-import { HeadingSelector } from './HeadingSelector';
-import { InsertLinkSelector } from './InsertLinkSelector';
+import tokens from '@contentful/f36-tokens';
+import { css, cx } from 'emotion';
+
 import { MarkdownActions } from '../types';
+import { HeadingSelector } from './HeadingSelector';
+import * as Icons from './icons';
+import { InsertLinkSelector } from './InsertLinkSelector';
 
 const styles = {
   root: css({
@@ -29,6 +31,7 @@ const styles = {
     backgroundColor: tokens.gray100,
     padding: tokens.spacingXs,
     borderTopLeftRadius: tokens.borderRadiusSmall,
+    overflow: 'hidden',
   }),
   button: css({
     height: '30px',
@@ -269,8 +272,8 @@ export function DefaultMarkdownToolbar(props: MarkdownToolbarProps) {
 
   return (
     <div className={styles.root}>
-      <Flex justifyContent="space-between">
-        <Flex>
+      <Flex justifyContent="space-between" flexWrap="wrap">
+        <Flex flexWrap="wrap">
           <MainButtons {...props} />
           <ToolbarButton
             isDisabled={props.disabled}

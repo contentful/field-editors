@@ -1,14 +1,14 @@
-const webpack = require('@cypress/webpack-preprocessor');
-const { initPlugin: initSnapshotPlugin } = require('cypress-plugin-snapshots/plugin');
-const path = require('path');
+import webpack from '@cypress/webpack-preprocessor';
+import { register } from '@cypress/snapshot';
+import path from 'path';
 
 const webpackFilename = path.join(__dirname, 'webpack.config.js');
 
-module.exports = (on, config) => {
+export const plugin = (on: Cypress.PluginEvents, config: Cypress.PluginConfigOptions) => {
   if (config.testingType === 'e2e') {
     on('file:preprocessor', webpack({ webpackOptions: require(webpackFilename) }));
 
-    initSnapshotPlugin(on, config);
+    register();
   }
 
   if (config.testingType === 'component') {

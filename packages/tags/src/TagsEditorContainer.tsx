@@ -1,6 +1,8 @@
 import * as React from 'react';
-import isNumber from 'lodash/isNumber';
+
 import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
+import isNumber from 'lodash/isNumber';
+
 import { TagsEditor } from './TagsEditor';
 import { ConstraintsType, Constraint } from './types';
 

@@ -1,10 +1,12 @@
 import * as React from 'react';
-import { FieldAPI, FieldConnector, LocalesAPI } from '@contentful/field-editor-shared';
-import * as styles from './styles';
-import isEqual from 'lodash/isEqual';
 
 import { TextInput } from '@contentful/f36-components';
+import { FieldAPI, FieldConnector, LocalesAPI } from '@contentful/field-editor-shared';
 import { FieldConnectorChildProps } from '@contentful/field-editor-shared/dist/FieldConnector';
+import isEqual from 'lodash/isEqual';
+
+import * as styles from './styles';
+
 
 export interface ListEditorProps {
   /**

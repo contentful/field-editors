@@ -1,9 +1,10 @@
 import React, { useState, useCallback, useEffect } from 'react';
-// eslint-disable-next-line -- TODO: move to date-fns
-import moment from 'moment';
-import { css } from 'emotion';
 
+// eslint-disable-next-line -- TODO: move to date-fns
 import { TextInput, Flex } from '@contentful/f36-components';
+import { css } from 'emotion';
+// eslint-disable-next-line no-restricted-imports -- will change
+import moment from 'moment';
 
 export type TimepickerProps = {
   disabled: boolean;

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.2.0...@contentful/field-editor-markdown@1.2.1) (2023-05-09)
+
+### Bug Fixes
+
+- **markdown:** toolbar overflow ([#1411](https://github.com/contentful/field-editors/issues/1411)) ([e79bc65](https://github.com/contentful/field-editors/commit/e79bc65b9107dee2efbad380e8ceaeaeaa464dc0))
+
+# [1.2.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.1.16...@contentful/field-editor-markdown@1.2.0) (2023-04-19)
+
+### Features
+
+- upgrade cypress [TOL-1036] ([#1391](https://github.com/contentful/field-editors/issues/1391)) ([9c1aec9](https://github.com/contentful/field-editors/commit/9c1aec98aabbe464cdc3f1236c3bb1cc29b8208d))
+
 ## [1.1.16](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.1.15...@contentful/field-editor-markdown@1.1.16) (2023-03-14)
 
 **Note:** Version bump only for package @contentful/field-editor-markdown

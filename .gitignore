@@ -19,3 +19,4 @@ cypress.env.json
 .vscode/
 .turbo
 reports/
+snapshots.js

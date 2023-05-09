@@ -1,9 +1,11 @@
 import * as React from 'react';
-import identity from 'lodash/identity';
+
+import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 import { render, configure, cleanup, fireEvent } from '@testing-library/react';
+import identity from 'lodash/identity';
+
 import '@testing-library/jest-dom/extend-expect';
 import { UrlEditor } from './UrlEditor';
-import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 
 configure({
   testIdAttribute: 'data-test-id',

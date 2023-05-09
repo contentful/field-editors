@@ -1,8 +1,7 @@
 import React from 'react';
+
 import { Menu } from '@contentful/f36-components';
-
 import { Button } from '@contentful/f36-components';
-
 import { AssetIcon, ChevronDownIcon } from '@contentful/f36-icons';
 
 interface InsertLinkSelectorProps {

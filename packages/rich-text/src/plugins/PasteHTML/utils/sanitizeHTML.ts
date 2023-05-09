@@ -26,6 +26,15 @@ type Replacer = (innerHTML: string) => string;
 // Attention: Order is important
 const transformers = [stripStyleTags, sanitizeSheets, stripMetaTags, sanitizeAnchors];
 
+function removeTableWrappers(table: Element): void {
+  const parent = table.parentElement;
+
+  if (parent && parent.tagName === 'DIV' && parent.children.length === 1) {
+    parent.replaceWith(table);
+    removeTableWrappers(table);
+  }
+}
+
 export const sanitizeHTML = (html: string): string => {
   // Parse the HTML string and pipe it through our transformers
   const doc = transformers.reduce(
@@ -56,16 +65,6 @@ export const sanitizeHTML = (html: string): string => {
       ),
   ];
 
-  // Call this replacer only if there are tables inside, as it can have a larger performance impact
-  if (doc.querySelector('table')) {
-    // remove div container from tables
-    // The div container including attributes and possible linebreaks inside wil be removed
-    replacers.unshift((innerHtml) => {
-      const result = innerHtml.replace(/<div[^>]*>\s*(<table(?:.|\s)*<\/table>)\s*<\/div>/g, '$1');
-      return result;
-    });
-  }
-
   let previous: string;
   do {
     // save previous first before doing modifications
@@ -76,6 +75,11 @@ export const sanitizeHTML = (html: string): string => {
       doc.body.innerHTML
     );
   } while (doc.body.innerHTML !== previous);
+
+  // Removing the div container wrappers from tables
+  // The div container including attributes and possible linebreaks inside wil be removed
+  // TODO: can be removed with plate >= 20
+  doc.querySelectorAll('table').forEach(removeTableWrappers);
 
   return doc.body.innerHTML;
 };

@@ -16,6 +16,6 @@ require('cypress-plugin-tab');
 import './commands';
 
 if (Cypress.testingType === 'e2e') {
-  require('cypress-plugin-snapshots/commands');
+  require('@cypress/snapshot');
   require('cypress-plugin-tab');
 }

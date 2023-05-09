@@ -66,7 +66,8 @@ jobs:
         type: executor
       browser:
         type: enum
-        enum: [chrome, firefox, edge]
+        # firefox has been disabled temporarily until further investigation
+        enum: [chrome, edge]
 
     parallelism: 3
     executor: << parameters.executor >>
@@ -78,14 +79,14 @@ jobs:
       - yarn_serve
       - run:
           command: |
-            TESTFILES=$(circleci tests glob "cypress/integration/**/*.ts" | circleci tests split --split-by=timings --timings-type=filename | tr '\n' ',')
+            TESTFILES=$(circleci tests glob "cypress/e2e/**/*.ts" | circleci tests split --split-by=timings --timings-type=filename | tr '\n' ',')
             npx cypress run \
               --spec "${TESTFILES}" \
               --reporter junit \
-              --reporter-options "mochaFile=./cypress/reports/integration/test-results.[hash].xml" \
+              --reporter-options "mochaFile=./cypress/reports/e2e/test-results.[hash].xml" \
               --browser << parameters.browser >>
       - store_test_results:
-          path: cypress/reports/integration
+          path: cypress/reports/e2e
       - store_artifacts:
           path: cypress/screenshots
       - store_artifacts:
@@ -101,7 +102,7 @@ jobs:
           name: Run cypress component tests
           command: |
             TESTFILES=$(circleci tests glob cypress/component/**/*.ts | circleci tests split --split-by=timings --timings-type=filename | tr '\n' ',')
-            npx cypress run-ct \
+            npx cypress run --component \
               --spec "${TESTFILES}" \
               --reporter junit \
               --reporter-options "mochaFile=./cypress/reports/component/test-results.[hash].xml" \
@@ -144,7 +145,7 @@ workflows:
             alias: integration-tests-linux
             parameters:
               executor: [linux-cypress]
-              browser: [chrome, firefox, edge]
+              browser: [chrome, edge]
       - release:
           context: vault
           filters:
