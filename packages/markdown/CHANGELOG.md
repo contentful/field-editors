@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.2.0...@contentful/field-editor-markdown@1.2.1) (2023-05-09)
+
+### Bug Fixes
+
+- **markdown:** toolbar overflow ([#1411](https://github.com/contentful/field-editors/issues/1411)) ([e79bc65](https://github.com/contentful/field-editors/commit/e79bc65b9107dee2efbad380e8ceaeaeaa464dc0))
+
 # [1.2.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.1.16...@contentful/field-editor-markdown@1.2.0) (2023-04-19)
 
 ### Features
