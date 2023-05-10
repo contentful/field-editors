@@ -8,7 +8,6 @@ import isHotkey from 'is-hotkey';
 import { isLinkActive, unwrapLink } from '../../helpers/editor';
 import { transformRemove } from '../../helpers/transformers';
 import { PlatePlugin, KeyboardHandler } from '../../internal/types';
-import { withLinkTracking } from '../links-tracking';
 import { EntityHyperlink } from './components/EntityHyperlink';
 import { UrlHyperlink } from './components/UrlHyperlink';
 import { addOrEditLink } from './HyperlinkModal';
@@ -101,7 +100,7 @@ export const createHyperlinkPlugin = (sdk: FieldExtensionSDK): PlatePlugin => {
         ...common,
         key: INLINES.ENTRY_HYPERLINK,
         type: INLINES.ENTRY_HYPERLINK,
-        component: withLinkTracking(EntityHyperlink),
+        component: EntityHyperlink,
         deserializeHtml: {
           rules: [
             {
@@ -117,7 +116,7 @@ export const createHyperlinkPlugin = (sdk: FieldExtensionSDK): PlatePlugin => {
         ...common,
         key: INLINES.ASSET_HYPERLINK,
         type: INLINES.ASSET_HYPERLINK,
-        component: withLinkTracking(EntityHyperlink),
+        component: EntityHyperlink,
         deserializeHtml: {
           rules: [
             {

@@ -5,13 +5,10 @@ import { useSelected, useReadOnly } from 'slate-react';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { IS_CHROME } from '../../helpers/environment';
-import { findNodePath } from '../../internal/queries';
-import { removeNodes } from '../../internal/transforms';
-import { Element, RenderElementProps } from '../../internal/types';
+import { Element, findNodePath, removeNodes, RenderElementProps } from '../../internal';
 import { useSdkContext } from '../../SdkProvider';
 import { useLinkTracking } from '../links-tracking';
-import { FetchingWrappedAssetCard } from '../shared/FetchingWrappedAssetCard';
-import { FetchingWrappedEntryCard } from '../shared/FetchingWrappedEntryCard';
+import { FetchingWrappedResourceCard } from '../shared/FetchingWrappedResourceCard';
 
 const styles = {
   root: css({
@@ -27,14 +24,14 @@ const styles = {
   }),
 };
 
-type LinkedEntityBlockProps = {
+export type LinkedResourceBlockProps = {
   element: Element & {
     data: {
       target: {
         sys: {
-          id: string;
-          linkType: 'Entry' | 'Asset';
-          type: 'Link';
+          urn: string;
+          linkType: 'Contentful:Entry';
+          type: 'ResourceLink';
         };
       };
     };
@@ -43,19 +40,14 @@ type LinkedEntityBlockProps = {
   children: Pick<RenderElementProps, 'children'>;
 };
 
-export function LinkedEntityBlock(props: LinkedEntityBlockProps) {
+export function LinkedResourceBlock(props: LinkedResourceBlockProps) {
   const { attributes, children, element } = props;
   const { onEntityFetchComplete } = useLinkTracking();
   const isSelected = useSelected();
   const editor = useContentfulEditor();
   const sdk = useSdkContext();
   const isDisabled = useReadOnly();
-  const { id: entityId, linkType: entityType } = element.data.target.sys;
-
-  const handleEditClick = React.useCallback(() => {
-    const openEntity = entityType === 'Asset' ? sdk.navigator.openAsset : sdk.navigator.openEntry;
-    return openEntity(entityId, { slideIn: true });
-  }, [sdk, entityId, entityType]);
+  const link = element.data.target.sys;
 
   const handleRemoveClick = React.useCallback(() => {
     if (!editor) return;
@@ -67,8 +59,8 @@ export function LinkedEntityBlock(props: LinkedEntityBlockProps) {
     <div
       {...attributes}
       className={styles.root}
-      data-entity-type={entityType}
-      data-entity-id={entityId}
+      data-entity-type={link.linkType}
+      data-entity-id={link.urn}
       // COMPAT: This makes copy & paste work for Firefox
       contentEditable={IS_CHROME ? undefined : false}
       draggable={IS_CHROME ? true : undefined}
@@ -79,30 +71,14 @@ export function LinkedEntityBlock(props: LinkedEntityBlockProps) {
         draggable={IS_CHROME ? true : undefined}
         className={styles.container}
       >
-        {entityType === 'Entry' && (
-          <FetchingWrappedEntryCard
-            sdk={sdk}
-            entryId={entityId}
-            locale={sdk.field.locale}
-            isDisabled={isDisabled}
-            isSelected={isSelected}
-            onRemove={handleRemoveClick}
-            onEdit={handleEditClick}
-            onEntityFetchComplete={onEntityFetchComplete}
-          />
-        )}
-        {entityType === 'Asset' && (
-          <FetchingWrappedAssetCard
-            sdk={sdk}
-            assetId={entityId}
-            locale={sdk.field.locale}
-            isDisabled={isDisabled}
-            isSelected={isSelected}
-            onRemove={handleRemoveClick}
-            onEdit={handleEditClick}
-            onEntityFetchComplete={onEntityFetchComplete}
-          />
-        )}
+        <FetchingWrappedResourceCard
+          sdk={sdk}
+          link={link}
+          isDisabled={isDisabled}
+          isSelected={isSelected}
+          onRemove={handleRemoveClick}
+          onEntityFetchComplete={onEntityFetchComplete}
+        />
       </div>
       {children}
     </div>

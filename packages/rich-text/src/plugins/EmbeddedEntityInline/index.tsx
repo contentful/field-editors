@@ -22,7 +22,7 @@ import { KeyboardHandler, PlatePlugin, Node } from '../../internal/types';
 import { Element, RenderElementProps } from '../../internal/types';
 import { TrackingPluginActions } from '../../plugins/Tracking';
 import { useSdkContext } from '../../SdkProvider';
-import { withLinkTracking } from '../links-tracking';
+import { useLinkTracking } from '../links-tracking';
 import { FetchingWrappedInlineEntryCard } from './FetchingWrappedInlineEntryCard';
 import { createInlineEntryNode } from './Util';
 
@@ -56,7 +56,6 @@ type EmbeddedEntityInlineProps = {
   };
   attributes: Pick<RenderElementProps, 'attributes'>;
   children: Pick<RenderElementProps, 'children'>;
-  onEntityFetchComplete: VoidFunction;
 };
 
 function EmbeddedEntityInline(props: EmbeddedEntityInlineProps) {
@@ -65,6 +64,7 @@ function EmbeddedEntityInline(props: EmbeddedEntityInlineProps) {
   const isSelected = useSelected();
   const { id: entryId } = props.element.data.target.sys;
   const isDisabled = useReadOnly();
+  const { onEntityFetchComplete } = useLinkTracking();
 
   function handleEditClick() {
     return sdk.navigator.openEntry(entryId, { slideIn: { waitForClose: true } }).then(() => {
@@ -99,7 +99,7 @@ function EmbeddedEntityInline(props: EmbeddedEntityInlineProps) {
           isDisabled={isDisabled}
           onRemove={handleRemoveClick}
           onEdit={handleEditClick}
-          onEntityFetchComplete={props.onEntityFetchComplete}
+          onEntityFetchComplete={onEntityFetchComplete}
         />
       </span>
       {props.children}
@@ -184,7 +184,7 @@ export function createEmbeddedEntityInlinePlugin(sdk: FieldExtensionSDK): PlateP
     isElement: true,
     isInline: true,
     isVoid: true,
-    component: withLinkTracking(EmbeddedEntityInline),
+    component: EmbeddedEntityInline,
     options: {
       hotkey: 'mod+shift+2',
     },

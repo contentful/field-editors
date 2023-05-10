@@ -6,18 +6,18 @@ import isHotkey from 'is-hotkey';
 import { getNodeEntryFromSelection } from '../../helpers/editor';
 import { removeNodes } from '../../internal/transforms';
 import { KeyboardHandler, PlatePlugin } from '../../internal/types';
-import { LinkedEntityBlock } from './LinkedEntityBlock';
+import { LinkedResourceBlock } from './LinkedResourceBlock';
 import { selectEntityAndInsert } from './Util';
 
-export { EmbeddedEntityBlockToolbarIcon as ToolbarIcon } from './ToolbarIcon';
+export { EmbeddedResourceBlockToolbarIcon as ToolbarIcon } from './ToolbarIcon';
 
 const entityTypes = {
   [BLOCKS.EMBEDDED_ENTRY]: 'Entry',
   [BLOCKS.EMBEDDED_ASSET]: 'Asset',
 };
 
-function getWithEmbeddedEntityEvents(
-  nodeType: BLOCKS.EMBEDDED_ENTRY | BLOCKS.EMBEDDED_ASSET,
+function getWithEmbeddedResourceEvents(
+  nodeType: BLOCKS.EMBEDDED_RESOURCE,
   sdk: FieldExtensionSDK
 ): KeyboardHandler<HotkeyPlugin> {
   return (editor, { options: { hotkey } }) =>
@@ -37,22 +37,22 @@ function getWithEmbeddedEntityEvents(
       }
 
       if (hotkey && isHotkey(hotkey, event)) {
-        selectEntityAndInsert(nodeType, sdk, editor, editor.tracking.onShortcutAction);
+        selectEntityAndInsert(sdk, editor, editor.tracking.onShortcutAction);
       }
     };
 }
 
-const createEmbeddedEntityPlugin =
-  (nodeType: BLOCKS.EMBEDDED_ENTRY | BLOCKS.EMBEDDED_ASSET, hotkey: string) =>
+const createEmbeddedResourcePlugin =
+  (nodeType: BLOCKS.EMBEDDED_RESOURCE, hotkey: string) =>
   (sdk: FieldExtensionSDK): PlatePlugin => ({
     key: nodeType,
     type: nodeType,
     isElement: true,
     isVoid: true,
-    component: LinkedEntityBlock,
+    component: LinkedResourceBlock,
     options: { hotkey },
     handlers: {
-      onKeyDown: getWithEmbeddedEntityEvents(nodeType, sdk),
+      onKeyDown: getWithEmbeddedResourceEvents(nodeType, sdk),
     },
     deserializeHtml: {
       rules: [
@@ -80,11 +80,7 @@ const createEmbeddedEntityPlugin =
     },
   });
 
-export const createEmbeddedEntryBlockPlugin = createEmbeddedEntityPlugin(
-  BLOCKS.EMBEDDED_ENTRY,
-  'mod+shift+e'
-);
-export const createEmbeddedAssetBlockPlugin = createEmbeddedEntityPlugin(
-  BLOCKS.EMBEDDED_ASSET,
-  'mod+shift+a'
+export const createEmbeddedResourceBlockPlugin = createEmbeddedResourcePlugin(
+  BLOCKS.EMBEDDED_RESOURCE,
+  'mod+shift+r'
 );

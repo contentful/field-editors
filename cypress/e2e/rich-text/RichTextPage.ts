@@ -2,7 +2,7 @@ import { INLINES } from '@contentful/rich-text-types';
 
 const isValidationEvent = ({ type }) => type === 'onSchemaErrorsChanged';
 
-export type EmbedType = 'entry-block' | 'asset-block' | 'entry-inline';
+export type EmbedType = 'entry-block' | 'asset-block' | 'resource-block' | 'entry-inline';
 
 export class RichTextPage {
   visit() {

@@ -19,7 +19,7 @@ import { ValidationErrors } from '@contentful/field-editor-validation-errors';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { validateRichTextDocument } from './test-utils/validation';
 import { css } from 'emotion';
-import { assets, entries } from '../../reference/src/__fixtures__/fixtures';
+import { assets, contentTypes, entries, locales, spaces } from "../../reference/src/__fixtures__/fixtures";
 import { MARKS } from '@contentful/rich-text-types';
 
 # @contentful/field-editor-rich-text
@@ -54,6 +54,7 @@ import { RichTextEditor } from '@contentful/field-editor-rich-text';
         ? {
             sys: {
               id: 'example-entity-id',
+              urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
               type,
             },
           }
@@ -84,12 +85,21 @@ import { RichTextEditor } from '@contentful/field-editor-rich-text';
         environment: 'environment-id'
       },
       cmaAdapter: createFakeCMAAdapter({
+        ContentType: {
+          get: () => Promise.resolve(contentTypes.published),
+        },
         Entry: {
           get: () => Promise.resolve(entries.published),
         },
         Asset: {
           get: () => Promise.resolve(assets.published),
         },
+        Locale: {
+          getMany: () => Promise.resolve({ items: [locales.englishDefault]})
+        },
+        Space: {
+          get: () => Promise.resolve(spaces.indifferent)
+        }
       }),
       space: {
         ...space,
@@ -120,6 +130,10 @@ import { RichTextEditor } from '@contentful/field-editor-rich-text';
         selectSingleEntry: newEntitySelectorDummyDialog(
           'selectSingleEntry',
           'Entry'
+        ),
+        selectSingleResourceEntry: newEntitySelectorDummyDialog(
+          'selectSingleResourceEntry',
+          'Contentful:Entry'
         ),
       },
       access: {

@@ -729,6 +729,50 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
     }
   });
 
+  describe('Embedded Resource Blocks', () => {
+    const methods: [string, string, () => void][] = [
+      [
+        'using the toolbar button',
+        'toolbar-icon',
+        () => {
+          richText.toolbar.embed('resource-block');
+        },
+      ],
+      [
+        'using the keyboard shortcut',
+        'shortcut',
+        () => {
+          richText.editor.type(`{${mod}+shift+r}`);
+        },
+      ],
+    ];
+
+    for (const [triggerMethod, origin, triggerEmbeddedResource] of methods) {
+      describe(triggerMethod, () => {
+        it('tracks when inserting embedded resource block', () => {
+          richText.editor.click().then(triggerEmbeddedResource);
+
+          richText.expectTrackingValue([
+            openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_RESOURCE),
+            insert(origin, { nodeType: BLOCKS.EMBEDDED_RESOURCE }),
+            linkRendered(),
+          ]);
+        });
+
+        it('cancels without adding the resource block', () => {
+          cy.on('window:confirm', () => false);
+
+          richText.editor.click().then(triggerEmbeddedResource);
+
+          richText.expectTrackingValue([
+            openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_RESOURCE),
+            cancelEmbeddedDialog(origin, BLOCKS.EMBEDDED_RESOURCE),
+          ]);
+        });
+      });
+    }
+  });
+
   describe('Embedded Entry Inlines', () => {
     const methods: [string, string, () => void][] = [
       [

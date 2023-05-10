@@ -7,6 +7,7 @@ import { isLinkActive } from '../../helpers/editor';
 import { isNodeTypeEnabled } from '../../helpers/validations';
 import { ToolbarIcon as EmbeddedEntityBlockToolbarIcon } from '../../plugins/EmbeddedEntityBlock';
 import { ToolbarEmbeddedEntityInlineButton } from '../../plugins/EmbeddedEntityInline';
+import { ToolbarIcon as EmbeddedResourceBlockToolbarIcon } from '../../plugins/EmbeddedResourceBlock';
 import { useSdkContext } from '../../SdkProvider';
 import { EmbeddedEntityDropdownButton } from './EmbeddedEntityDropdownButton';
 
@@ -26,6 +27,8 @@ export const EmbedEntityWidget = ({ isDisabled, canInsertBlocks }: EmbedEntityWi
   const inlineEntryEmbedEnabled = isNodeTypeEnabled(sdk.field, INLINES.EMBEDDED_ENTRY);
   const blockEntryEmbedEnabled =
     isNodeTypeEnabled(sdk.field, BLOCKS.EMBEDDED_ENTRY) && canInsertBlocks;
+  const blockResourceEmbedEnabled =
+    isNodeTypeEnabled(sdk.field, BLOCKS.EMBEDDED_RESOURCE) && canInsertBlocks;
   // Removed access check following https://contentful.atlassian.net/browse/DANTE-486
   // TODO: refine permissions check in order to account for tags in rules and then readd access.can('read', 'Asset')
   const blockAssetEmbedEnabled =
@@ -37,6 +40,12 @@ export const EmbedEntityWidget = ({ isDisabled, canInsertBlocks }: EmbedEntityWi
         <EmbeddedEntityBlockToolbarIcon
           isDisabled={!!isDisabled}
           nodeType={BLOCKS.EMBEDDED_ENTRY}
+          onClose={onCloseEntityDropdown}
+        />
+      )}
+      {blockResourceEmbedEnabled && (
+        <EmbeddedResourceBlockToolbarIcon
+          isDisabled={!!isDisabled}
           onClose={onCloseEntityDropdown}
         />
       )}

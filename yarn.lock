@@ -1964,6 +1964,13 @@
     lodash.get "^4.4.2"
     lodash.omit "^4.5.0"
 
+"@contentful/contentful-slatejs-adapter@^15.16.5":
+  version "15.16.5"
+  resolved "https://registry.yarnpkg.com/@contentful/contentful-slatejs-adapter/-/contentful-slatejs-adapter-15.16.5.tgz#5003090cb9f1312eec8c686871a5cb9cdbc1b8e2"
+  integrity sha512-ZgI2SyYTZEwhNAcyNYHL2pMqz1yH8BBgzSlGyQuxz42YBB0yWqViG6SckXGd/96tivH1aZDGVQdKWW4ubALbYQ==
+  dependencies:
+    "@contentful/rich-text-types" "^16.1.0"
+
 "@contentful/eslint-config-extension@0.4.2":
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/@contentful/eslint-config-extension/-/eslint-config-extension-0.4.2.tgz#6d05e14474fd5a959a9e3a9d02565cf2bea15388"
@@ -3445,17 +3452,24 @@
   dependencies:
     "@contentful/rich-text-types" "^15.12.1"
 
-"@contentful/rich-text-react-renderer@^15.11.0":
-  version "15.12.1"
-  resolved "https://registry.yarnpkg.com/@contentful/rich-text-react-renderer/-/rich-text-react-renderer-15.12.1.tgz#978c335e7ad5284dc6790a6a8c0ec16878b957b0"
-  integrity sha512-bQ69cN51iGBTF3/nYi5MGUaDJ/lnrEXtCUBCxulIZ0fLS/AAEledZTJcEKs+PKeYYgDqiUVDsmx2xZP2QsJJ+Q==
+"@contentful/rich-text-plain-text-renderer@^16.0.4":
+  version "16.0.4"
+  resolved "https://registry.yarnpkg.com/@contentful/rich-text-plain-text-renderer/-/rich-text-plain-text-renderer-16.0.4.tgz#1601f1b409a4fce110569b0bc25515a7bcc6ab1c"
+  integrity sha512-rlnZ8ps+9htfAG+iNRLZpH7KspqQBf0m6ccO0BFwq5N6AIxZp6O5SsY/b1O0XncVZo5u7lR3tdQ0035ZbJ9/oQ==
   dependencies:
-    "@contentful/rich-text-types" "^15.12.1"
+    "@contentful/rich-text-types" "^16.1.0"
 
-"@contentful/rich-text-types@15.14.1":
-  version "15.14.1"
-  resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-15.14.1.tgz#292f4560d67165af0ced1546a22ae77df96325ff"
-  integrity sha512-1sPVDz7MBuCCMWGvfZXQ06SqBTtlLN5GCP5ddU4c5tfatxVXhv2h80/pDCeTZVV2oCMw02YuNmBgql60+0oL4Q==
+"@contentful/rich-text-react-renderer@^15.16.4":
+  version "15.16.4"
+  resolved "https://registry.yarnpkg.com/@contentful/rich-text-react-renderer/-/rich-text-react-renderer-15.16.4.tgz#30b157b3340cc981f999c74cd1e229a021b268f2"
+  integrity sha512-Z+HlJBuCU61QbWMvmSJ7MoyHI/WS8mEURiliITMVAnW+IDD3he8Qo9yEIrTmFtXiJ5VmdPRbAaKgBF3znZ8a7g==
+  dependencies:
+    "@contentful/rich-text-types" "^16.1.0"
+
+"@contentful/rich-text-types@16.1.0", "@contentful/rich-text-types@^16.1.0":
+  version "16.1.0"
+  resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-16.1.0.tgz#2eea32439790abf857992167df68e82734934a3a"
+  integrity sha512-Pucb68FK0j9cHJ96FAewXv+bvH4XizC4KBbVqyHhPLkDIVfasj0AWU5rI1lnvysdVKu66NQkFe8xZdeFTkaLWQ==
 
 "@contentful/rich-text-types@^15.12.1":
   version "15.14.0"

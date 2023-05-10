@@ -50,6 +50,16 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         },
       },
     });
+  const resourceBlock = () =>
+    block(BLOCKS.EMBEDDED_RESOURCE, {
+      target: {
+        sys: {
+          urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
+          type: 'ResourceLink',
+          linkType: 'Contentful:Entry',
+        },
+      },
+    });
 
   const keys = {
     enter: { keyCode: 13, which: 13, key: 'Enter' },
@@ -1832,6 +1842,134 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     }
   });
 
+  describe('Embedded Resource Blocks', () => {
+    const methods: [string, () => void][] = [
+      [
+        'using the toolbar button',
+        () => {
+          richText.toolbar.embed('resource-block');
+        },
+      ],
+      [
+        'using the keyboard shortcut',
+        () => {
+          richText.editor.type(`{${mod}+shift+r}`);
+        },
+      ],
+    ];
+
+    for (const [triggerMethod, triggerEmbeddedResource] of methods) {
+      describe(triggerMethod, () => {
+        it('adds paragraph before the block when pressing enter if the block is first document node', () => {
+          richText.editor.click().then(triggerEmbeddedResource);
+
+          richText.editor
+            .find(
+              '[data-entity-id="crn:contentful:::content:spaces/space-id/entries/example-entity-urn"]'
+            )
+            .click();
+
+          richText.editor.trigger('keydown', keys.enter);
+
+          richText.expectValue(doc(emptyParagraph(), resourceBlock(), emptyParagraph()));
+        });
+
+        it('adds paragraph between two blocks when pressing enter', () => {
+          function addEmbeddedEntry() {
+            richText.editor.click('bottom').then(triggerEmbeddedResource);
+            richText.editor.click('bottom');
+          }
+
+          addEmbeddedEntry();
+          addEmbeddedEntry();
+
+          // Inserts paragraph before embed because it's in the first line.
+          richText.editor
+            .get(
+              '[data-entity-id="crn:contentful:::content:spaces/space-id/entries/example-entity-urn"]'
+            )
+            .first()
+            .click();
+          pressEnter();
+
+          // inserts paragraph in-between embeds.
+          richText.editor
+            .get(
+              '[data-entity-id="crn:contentful:::content:spaces/space-id/entries/example-entity-urn"]'
+            )
+            .first()
+            .click();
+          pressEnter();
+
+          richText.expectValue(
+            doc(
+              emptyParagraph(),
+              resourceBlock(),
+              emptyParagraph(),
+              resourceBlock(),
+              emptyParagraph()
+            )
+          );
+        });
+
+        it('adds and removes embedded resource', () => {
+          richText.editor.click().then(triggerEmbeddedResource);
+
+          richText.expectValue(doc(resourceBlock(), emptyParagraph()));
+
+          cy.findByTestId('cf-ui-card-actions').click();
+          cy.findByTestId('delete').click();
+
+          richText.expectValue(undefined);
+        });
+
+        it('adds and removes embedded resource by selecting and pressing `backspace`', () => {
+          richText.editor.click().then(triggerEmbeddedResource);
+
+          richText.expectValue(doc(resourceBlock(), emptyParagraph()));
+
+          cy.findByTestId('cf-ui-entry-card').click();
+          // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
+          richText.editor.trigger('keydown', keys.backspace);
+
+          richText.expectValue(undefined);
+        });
+
+        it('adds embedded resource between words', () => {
+          richText.editor
+            .click()
+            .type('foobar{leftarrow}{leftarrow}{leftarrow}')
+            .then(triggerEmbeddedResource);
+
+          richText.expectValue(
+            doc(
+              block(BLOCKS.PARAGRAPH, {}, text('foo')),
+              resourceBlock(),
+              block(BLOCKS.PARAGRAPH, {}, text('bar'))
+            )
+          );
+        });
+
+        it('should be selected on backspace', () => {
+          richText.editor.click();
+          triggerEmbeddedResource();
+
+          richText.editor.type('{downarrow}X');
+
+          richText.expectValue(doc(resourceBlock(), paragraphWithText('X')));
+
+          richText.editor.type('{backspace}{backspace}');
+
+          richText.expectValue(doc(resourceBlock(), emptyParagraph()));
+
+          richText.editor.type('{backspace}');
+
+          expectDocumentToBeEmpty();
+        });
+      });
+    }
+  });
+
   describe('Embedded Entry Inlines', () => {
     const methods: [string, () => void][] = [
       [
@@ -2042,12 +2180,17 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
   });
 
   describe('Toggling', () => {
-    const blocks: [string, EmbedType][] = [
-      ['From Entry Block to Headings/Paragraph', 'entry-block'],
-      ['From Asset Block to Headings/Paragraph', 'asset-block'],
+    const blocks: [string, EmbedType, string][] = [
+      ['From Entry Block to Headings/Paragraph', 'entry-block', 'example-entity-id'],
+      ['From Asset Block to Headings/Paragraph', 'asset-block', 'example-entity-id'],
+      [
+        'From Resource Block to Headings/Paragraph',
+        'resource-block',
+        'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
+      ],
     ];
 
-    blocks.forEach(([title, blockType]) => {
+    blocks.forEach(([title, blockType, id]) => {
       describe(title, () => {
         headings.forEach(([type]) => {
           it(`should not carry over the "data" property from ${blockType} to ${type}`, () => {
@@ -2055,7 +2198,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
             richText.toolbar.embed(blockType);
 
-            richText.editor.find('[data-entity-id="example-entity-id"]').click();
+            richText.editor.find(`[data-entity-id="${id}"]`).click();
 
             richText.toolbar.toggleHeading(type);
 
@@ -2131,6 +2274,17 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       richText.editor.type('{leftarrow}{leftarrow}{backspace}{backspace}{backspace}{backspace}');
 
       richText.expectValue(doc(assetBlock(), assetBlock(), emptyParagraph()));
+    });
+
+    it('can delete paragraph between resource blocks', () => {
+      richText.editor.click();
+      richText.toolbar.embed('resource-block');
+      richText.editor.type('{downarrow}');
+      richText.editor.type('hey');
+      richText.toolbar.embed('resource-block');
+      richText.editor.type('{leftarrow}{backspace}{backspace}{backspace}{backspace}');
+
+      richText.expectValue(doc(resourceBlock(), resourceBlock(), emptyParagraph()));
     });
 
     it('can delete paragraph between HRs', () => {
