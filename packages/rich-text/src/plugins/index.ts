@@ -1,9 +1,5 @@
 import { FieldExtensionSDK } from '@contentful/app-sdk';
-import {
-  createDeserializeAstPlugin,
-  createDeserializeHtmlPlugin,
-  PlateProps,
-} from '@udecode/plate-core';
+import { PlateProps } from '@udecode/plate-core';
 import { createDeserializeDocxPlugin } from '@udecode/plate-serializer-docx';
 
 import { PlatePlugin } from '../internal/types';
@@ -37,9 +33,6 @@ export const getPlugins = (
   onAction: RichTextTrackingActionHandler,
   restrictedMarks?: string[]
 ): PlatePlugin[] => [
-  // AST must come after the HTML deserializer
-  createDeserializeHtmlPlugin(),
-  createDeserializeAstPlugin(),
   createDeserializeDocxPlugin(),
 
   // Tracking - This should come first so all plugins below will have access to `editor.tracking`
@@ -87,11 +80,6 @@ export const getPlugins = (
 ];
 
 export const disableCorePlugins: PlateProps['disableCorePlugins'] = {
-  // Temporarily until the upstream issue is fixed.
-  // See: https://github.com/udecode/plate/issues/1329#issuecomment-1005935946
-  deserializeAst: true,
-  deserializeHtml: true,
-
   // Note: Enabled by default since v9.0.0 but it causes Cypress's
   // .click() command to fail
   eventEditor: true,

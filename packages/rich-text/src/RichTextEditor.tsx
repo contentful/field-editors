@@ -4,17 +4,19 @@ import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import * as Contentful from '@contentful/rich-text-types';
-import { Plate } from '@udecode/plate-core';
+import { Plate, PlateProvider } from '@udecode/plate-core';
 import { css, cx } from 'emotion';
 import deepEquals from 'fast-deep-equal';
 import noop from 'lodash/noop';
 
 import { ContentfulEditorIdProvider, getContentfulEditorId } from './ContentfulEditorProvider';
 import { createOnChangeCallback } from './helpers/callbacks';
+import { toSlateValue } from './helpers/toSlateValue';
 import { getPlugins, disableCorePlugins } from './plugins';
 import { RichTextTrackingActionHandler } from './plugins/Tracking';
 import { styles } from './RichTextEditor.styles';
 import { SdkProvider } from './SdkProvider';
+import { SyncEditorValue } from './SyncEditorValue';
 import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/components/StickyToolbarWrapper';
 
@@ -22,7 +24,7 @@ type ConnectedProps = {
   sdk: FieldExtensionSDK;
   onAction?: RichTextTrackingActionHandler;
   minHeight?: string | number;
-  value?: object;
+  value?: Contentful.Document;
   isDisabled?: boolean;
   onChange?: (doc: Contentful.Document) => unknown;
   isToolbarHidden?: boolean;
@@ -52,23 +54,28 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
     <SdkProvider sdk={props.sdk}>
       <ContentfulEditorIdProvider value={id}>
         <div className={styles.root} data-test-id="rich-text-editor">
-          <Plate
+          <PlateProvider
             id={id}
+            initialValue={toSlateValue(props.value)}
+            normalizeInitialValue={true}
             plugins={plugins}
             disableCorePlugins={disableCorePlugins}
-            editableProps={{
-              className: classNames,
-              readOnly: props.isDisabled,
-            }}
             onChange={onChange}
-            firstChildren={
-              !props.isToolbarHidden && (
-                <StickyToolbarWrapper isDisabled={props.isDisabled}>
-                  <Toolbar isDisabled={props.isDisabled} />
-                </StickyToolbarWrapper>
-              )
-            }
-          />
+          >
+            {!props.isToolbarHidden && (
+              <StickyToolbarWrapper isDisabled={props.isDisabled}>
+                <Toolbar isDisabled={props.isDisabled} />
+              </StickyToolbarWrapper>
+            )}
+            <SyncEditorValue editorId={id} incomingValue={props.value} />
+            <Plate
+              id={id}
+              editableProps={{
+                className: classNames,
+                readOnly: props.isDisabled,
+              }}
+            />
+          </PlateProvider>
         </div>
       </ContentfulEditorIdProvider>
     </SdkProvider>
