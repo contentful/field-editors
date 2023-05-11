@@ -9,8 +9,8 @@ import { removeInternalMarks } from './removeInternalMarks';
 export const createOnChangeCallback = (handler?: (value: Document) => void) => {
   // Cache previous value to avoid firing the handler unnecessarily
   //
-  // Note: We are not using lodash/memoize here due to avoid memory
-  // leaks (aka. infinite cache) since we only care about the last
+  // Note: We are not using lodash/memoize here to avoid memory leaks
+  // due to having an infinite cache while we only care about the last
   // value.
   let cache: unknown = null;
 
