@@ -15,7 +15,9 @@
   },
   "scripts": {
     "watch": "tsdx watch",
-    "build": "tsdx build",
+    "build": "yarn build:cjs && yarn build:types",
+    "build:types": "tsc --outDir dist/types --emitDeclarationOnly",
+    "build:cjs": "yarn swc src -d dist/cjs -C module.type=commonjs",
     "test": "tsdx test --env=jsdom --watch",
     "test:ci": "tsdx test --env=jsdom --ci",
     "tsc": "tsc -p ./ --noEmit"
