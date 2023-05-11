@@ -67,7 +67,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
                 <Toolbar isDisabled={props.isDisabled} />
               </StickyToolbarWrapper>
             )}
-            <SyncEditorValue editorId={id} incomingValue={props.value} />
+            <SyncEditorValue incomingValue={props.value} />
             <Plate
               id={id}
               editableProps={{

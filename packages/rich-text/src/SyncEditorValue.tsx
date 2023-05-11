@@ -38,7 +38,6 @@ const setEditorContent = (editor: PlateEditor, nodes?: Node[]): void => {
 };
 
 export type SyncEditorStateProps = {
-  editorId: string;
   incomingValue?: Document;
 };
 
@@ -50,8 +49,8 @@ export type SyncEditorStateProps = {
  * where we can no longer access the editor instance outside the Plate
  * provider.
  */
-export const SyncEditorValue = ({ editorId, incomingValue }: SyncEditorStateProps) => {
-  const editor = usePlateSelectors(editorId).editor();
+export const SyncEditorValue = ({ incomingValue }: SyncEditorStateProps) => {
+  const editor = usePlateSelectors().editor();
 
   // Cache latest editor value to avoid unnecessary updates
   const lastIncomingValue = React.useRef(incomingValue);
