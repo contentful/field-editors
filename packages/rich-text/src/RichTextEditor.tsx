@@ -39,6 +39,8 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
     [props.sdk, props.onAction, props.restrictedMarks]
   );
 
+  const value = toSlateValue(props.value);
+
   const onChange = React.useMemo(() => {
     return createOnChangeCallback(props.onChange);
   }, [props.onChange]);
@@ -56,7 +58,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
         <div className={styles.root} data-test-id="rich-text-editor">
           <PlateProvider
             id={id}
-            initialValue={toSlateValue(props.value)}
+            initialValue={value}
             normalizeInitialValue={true}
             plugins={plugins}
             disableCorePlugins={disableCorePlugins}
@@ -67,7 +69,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
                 <Toolbar isDisabled={props.isDisabled} />
               </StickyToolbarWrapper>
             )}
-            <SyncEditorValue incomingValue={props.value} />
+            <SyncEditorValue incomingValue={value} />
             <Plate
               id={id}
               editableProps={{

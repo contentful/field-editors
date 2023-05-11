@@ -1,14 +1,12 @@
 import * as React from 'react';
 
-import { Document } from '@contentful/rich-text-types';
 import equal from 'fast-deep-equal';
 
-import { toSlateValue } from './helpers/toSlateValue';
 import { usePlateSelectors } from './internal/hooks';
 import { withoutNormalizing } from './internal/misc';
 import { isNode, getEndPoint } from './internal/queries';
 import { select } from './internal/transforms';
-import { PlateEditor, Node } from './internal/types';
+import { PlateEditor, Node, Value } from './internal/types';
 
 /**
  * Plate api doesn't allow to modify (easily) the editor value
@@ -38,7 +36,7 @@ const setEditorContent = (editor: PlateEditor, nodes?: Node[]): void => {
 };
 
 export type SyncEditorStateProps = {
-  incomingValue?: Document;
+  incomingValue?: Value;
 };
 
 /**
@@ -61,7 +59,7 @@ export const SyncEditorValue = ({ incomingValue }: SyncEditorStateProps) => {
     }
 
     lastIncomingValue.current = incomingValue;
-    setEditorContent(editor, toSlateValue(incomingValue));
+    setEditorContent(editor, incomingValue);
   }, [editor, incomingValue]);
 
   return null;
