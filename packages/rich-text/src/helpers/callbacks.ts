@@ -20,8 +20,12 @@ export const createOnChangeCallback = (handler?: (value: Document) => void) => {
     }
 
     cache = document;
-    const cfDoc = toContentfulDocument({ document, schema });
-    const doc = removeInternalMarks(cfDoc);
+    const doc = removeInternalMarks(
+      toContentfulDocument({
+        document,
+        schema,
+      })
+    );
 
     handler?.(doc);
   }, 500);

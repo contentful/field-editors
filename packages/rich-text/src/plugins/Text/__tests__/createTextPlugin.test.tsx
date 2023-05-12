@@ -27,8 +27,7 @@ describe('delete backward', () => {
       ),
     },
     {
-      title:
-        'deletes the empty paragraph at the beginning of the RTE followed by another paragraph',
+      title: 'does not delete the very first paragraph',
       input: (
         <fragment>
           <hp>
@@ -38,56 +37,12 @@ describe('delete backward', () => {
         </fragment>
       ),
       expected: (
-        <hp>
-          <cursor />
-          text
-        </hp>
-      ),
-    },
-    {
-      title: 'deletes the empty paragraph at the beginning of the RTE followed by li',
-      input: (
         <fragment>
           <hp>
             <cursor />
           </hp>
-          <hul>
-            <hli>
-              <hp>p1</hp>
-            </hli>
-          </hul>
+          <hp>text</hp>
         </fragment>
-      ),
-      expected: (
-        <hul>
-          <hli>
-            <hp>
-              <cursor />
-              p1
-            </hp>
-          </hli>
-        </hul>
-      ),
-    },
-    {
-      title: 'deletes the empty paragraph at the beginning of the RTE followed by a blockquote',
-      input: (
-        <fragment>
-          <hp>
-            <cursor />
-          </hp>
-          <hquote>
-            <hp>p1</hp>
-          </hquote>
-        </fragment>
-      ),
-      expected: (
-        <hquote>
-          <hp>
-            <cursor />
-            p1
-          </hp>
-        </hquote>
       ),
     },
   ];
@@ -143,8 +98,7 @@ describe('delete forward', () => {
       ),
     },
     {
-      title:
-        'deletes the empty paragraph at the beginning of the RTE followed by another paragraph',
+      title: 'deletes the first paragraph when followed by another paragraph',
       input: (
         <fragment>
           <hp>
@@ -161,7 +115,7 @@ describe('delete forward', () => {
       ),
     },
     {
-      title: 'deletes the empty paragraph at the beginning of the RTE followed by li',
+      title: 'deletes the first paragraph when followed by li',
       input: (
         <fragment>
           <hp>
@@ -186,7 +140,7 @@ describe('delete forward', () => {
       ),
     },
     {
-      title: 'deletes the empty paragraph at the beginning of the RTE followed by a blockquote',
+      title: 'deletes the first paragraph when followed by a blockquote',
       input: (
         <fragment>
           <hp>
