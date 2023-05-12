@@ -66,8 +66,7 @@ jobs:
         type: executor
       browser:
         type: enum
-        # firefox has been disabled temporarily until further investigation
-        enum: [chrome, edge]
+        enum: [chrome, firefox, edge]
 
     parallelism: 3
     executor: << parameters.executor >>
@@ -145,7 +144,7 @@ workflows:
             alias: integration-tests-linux
             parameters:
               executor: [linux-cypress]
-              browser: [chrome, edge]
+              browser: [chrome, firefox, edge]
       - release:
           context: vault
           filters:
