@@ -21,8 +21,11 @@
     "url": "https://github.com/contentful/field-editors"
   },
   "scripts": {
-    "watch": "tsdx watch",
-    "build": "yarn build:cjs && yarn build:esm && yarn build:types",
+    "watch": "yarn concurrently \"yarn:watch:*\"",
+    "watch:cjs": "yarn build:cjs -w",
+    "watch:esm": "yarn build:esm -w",
+    "watch:types": "yarn build:types --watch",
+    "build": "yarn concurrently \"yarn:build:*\"",
     "build:types": "tsc --outDir dist/types --emitDeclarationOnly",
     "build:cjs": "yarn swc src -d dist/cjs --config-file ../../.swcrc -C module.type=commonjs",
     "build:esm": "yarn swc src -d dist/esm --config-file ../../.swcrc",
