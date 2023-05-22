@@ -1,9 +1,16 @@
 {
   "name": "@contentful/field-editor-boolean",
   "version": "1.2.0",
-  "main": "dist/index.js",
-  "module": "dist/field-editor-boolean.esm.js",
-  "typings": "dist/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
   "files": [
     "dist"
   ],
@@ -15,11 +22,12 @@
   },
   "scripts": {
     "watch": "tsdx watch",
-    "build": "yarn build:cjs && yarn build:types",
+    "build": "yarn build:cjs && yarn build:esm && yarn build:types",
     "build:types": "tsc --outDir dist/types --emitDeclarationOnly",
-    "build:cjs": "yarn swc src -d dist/cjs -C module.type=commonjs",
-    "test": "tsdx test --env=jsdom --watch",
-    "test:ci": "tsdx test --env=jsdom --ci",
+    "build:cjs": "yarn swc src -d dist/cjs --config-file ../../.swcrc -C module.type=commonjs",
+    "build:esm": "yarn swc src -d dist/esm --config-file ../../.swcrc",
+    "test": "jest --env=jsdom --watch",
+    "test:ci": "jest --env=jsdom --ci",
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {

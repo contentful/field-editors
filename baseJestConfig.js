@@ -2,6 +2,8 @@
 
 function getConfig(packageName) {
   return {
+    preset: 'ts-jest',
+    modulePathIgnorePatterns: ['<rootDir>/dist/'],
     testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
     reporters: [
       'default',
@@ -14,10 +16,13 @@ function getConfig(packageName) {
         },
       ],
     ],
-    globals: {
-      'ts-jest': {
-        diagnostics: false,
-      },
+    transform: {
+      '^.+\\.spec.{ts|tsx}?$': [
+        'ts-jest',
+        {
+          diagnostics: false,
+        },
+      ],
     },
   };
 }
