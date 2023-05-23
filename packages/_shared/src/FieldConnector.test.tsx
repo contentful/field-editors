@@ -12,7 +12,7 @@ it('does not rerender with outdated value after calling setValue', () => {
   }
 
   const onSchemaErrorsChanged = jest.fn();
-  const [field] = createFakeFieldAPI((field) => {
+  const [field] = createFakeFieldAPI((field: any) => {
     return {
       ...field,
       // this promise never resolves
