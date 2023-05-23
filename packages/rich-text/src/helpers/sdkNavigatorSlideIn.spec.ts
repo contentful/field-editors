@@ -1,7 +1,44 @@
+import { NavigatorAPI, NavigatorSlideInfo } from '@contentful/app-sdk';
 import cloneDeep from 'lodash/cloneDeep';
+import mitt from 'mitt';
 
-import { createFakeNavigatorAPI } from '../../../../cypress/fixtures/navigator';
 import { watchCurrentSlide } from './sdkNavigatorSlideIn';
+
+type NavigatorAPIEmitter = {
+  slideIn: (slide: NavigatorSlideInfo) => void;
+};
+
+function createFakeNavigatorAPI(): [NavigatorAPI, NavigatorAPIEmitter] {
+  const localEmitter = mitt();
+  const navigatorEmitter: NavigatorAPIEmitter = {
+    slideIn: (slide) => localEmitter.emit('onSlideInNavigation', slide),
+  };
+
+  const api = {
+    openNewAsset: async () => ({
+      navigated: false,
+    }),
+    openAsset: async () => ({
+      navigated: false,
+    }),
+    openNewEntry: async () => ({
+      navigated: false,
+    }),
+    openEntry: async () => ({
+      navigated: false,
+    }),
+    onSlideInNavigation: (handler) => {
+      const type = `onSlideInNavigation`;
+      localEmitter.on(type, handler);
+
+      return () => {
+        localEmitter.off(type, handler);
+      };
+    },
+  } as unknown as NavigatorAPI;
+
+  return [api, navigatorEmitter];
+}
 
 describe('watchCurrentSlide().info()', () => {
   let fake, slide;
