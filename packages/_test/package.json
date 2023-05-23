@@ -41,7 +41,6 @@
   },
   "dependencies": {
     "@contentful/f36-tokens": "^4.0.0",
-    "@contentful/field-editor-shared": "^1.2.0",
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15",

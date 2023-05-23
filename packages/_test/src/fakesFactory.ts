@@ -1,4 +1,4 @@
-import { Entry } from '@contentful/field-editor-shared';
+import { Entry } from '@contentful/app-sdk';
 
 interface Fields {
   [key: string]: {

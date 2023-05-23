@@ -1,5 +1,4 @@
-import { ContentType, SearchQuery, SpaceAPI } from '@contentful/app-sdk';
-import { Entry } from '@contentful/field-editor-shared';
+import { ContentType, SearchQuery, SpaceAPI, Entry } from '@contentful/app-sdk';
 
 import { createEntry } from './fakesFactory';
 
