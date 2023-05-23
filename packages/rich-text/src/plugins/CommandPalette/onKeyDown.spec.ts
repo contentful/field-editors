@@ -3,6 +3,13 @@ import { createTestEditor } from '../../test-utils';
 import { COMMAND_PROMPT } from './constants';
 import { createOnKeyDown } from './onKeyDown';
 
+jest.mock('../../internal/transforms', () => {
+  return {
+    __esModule: true,
+    ...jest.requireActual('../../internal/transforms'),
+  };
+});
+
 describe('onKeyDown', () => {
   const { editor } = createTestEditor({});
 

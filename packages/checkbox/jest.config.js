@@ -7,4 +7,5 @@ const packageName = package.name.split('@contentful/')[1];
 
 module.exports = {
   ...baseConfig(packageName),
+  transformIgnorePatterns: [`/node_modules/(?!nanoid)`],
 };
