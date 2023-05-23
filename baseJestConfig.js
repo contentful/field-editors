@@ -5,6 +5,9 @@ function getConfig(packageName) {
     preset: 'ts-jest',
     modulePathIgnorePatterns: ['<rootDir>/dist/'],
     testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
+    moduleNameMapper: {
+      '^lodash-es$': 'lodash',
+    },
     reporters: [
       'default',
       [
@@ -23,6 +26,7 @@ function getConfig(packageName) {
           diagnostics: false,
         },
       ],
+      '^.+\\.js$': 'babel-jest',
     },
   };
 }

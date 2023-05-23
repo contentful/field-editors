@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { FieldAPI, ValidationError } from '@contentful/app-sdk';
+import { throttle } from 'lodash-es';
 import isEqual from 'lodash/isEqual';
-import throttle from 'lodash/throttle';
 
 type Nullable = null | undefined;
 

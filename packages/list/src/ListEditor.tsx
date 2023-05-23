@@ -2,11 +2,10 @@ import * as React from 'react';
 
 import { TextInput } from '@contentful/f36-components';
 import { FieldAPI, FieldConnector, LocalesAPI } from '@contentful/field-editor-shared';
-import { FieldConnectorChildProps } from '@contentful/field-editor-shared/dist/FieldConnector';
+import { FieldConnectorChildProps } from '@contentful/field-editor-shared';
 import isEqual from 'lodash/isEqual';
 
 import * as styles from './styles';
-
 
 export interface ListEditorProps {
   /**
@@ -41,7 +40,8 @@ export function ListEditor(props: ListEditorProps) {
       throttle={0}
       isEmptyValue={isEmptyListValue}
       field={field}
-      isInitiallyDisabled={props.isInitiallyDisabled}>
+      isInitiallyDisabled={props.isInitiallyDisabled}
+    >
       {(childProps) => (
         <ListEditorInternal {...childProps} direction={direction} isRequired={field.required} />
       )}

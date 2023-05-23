@@ -2,12 +2,14 @@
   "name": "@contentful/field-editor-boolean",
   "version": "1.2.0",
   "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/esm/index.js",
+      "types": "./dist/types/index.d.ts",
       "require": "./dist/cjs/index.js",
-      "types": "./dist/types/index.d.ts"
+      "import": "./dist/esm/index.js",
+      "default": "./dist/esm/index.js"
     },
     "./package.json": "./package.json"
   },
