@@ -29,8 +29,8 @@
     "watch:types": "yarn build:types --watch",
     "build": "yarn build:types && yarn build:cjs && yarn build:esm",
     "build:types": "tsc --outDir dist/types --emitDeclarationOnly",
-    "build:cjs": "yarn swc src -d dist/cjs -C module.type=commonjs",
-    "build:esm": "yarn swc src -d dist/esm",
+    "build:cjs": "swc src -d dist/cjs -C module.type=commonjs",
+    "build:esm": "swc src -d dist/esm",
     "test": "jest --env=jsdom --watch",
     "test:ci": "jest --env=jsdom --ci",
     "tsc": "tsc -p ./ --noEmit"
