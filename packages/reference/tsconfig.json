@@ -4,7 +4,6 @@
   "compilerOptions": {
     "module": "esnext",
     "lib": ["dom", "esnext"],
-    "rootDir": "./src",
     "baseUrl": "./",
     "paths": {
       "*": ["node_modules/*"]

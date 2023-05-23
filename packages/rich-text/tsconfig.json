@@ -4,14 +4,11 @@
   "compilerOptions": {
     "module": "esnext",
     "lib": ["dom", "esnext"],
-    "baseUrl": "./src",
+    "baseUrl": "./",
     "noImplicitAny": false,
     "allowJs": true,
     "jsx": "react",
     "downlevelIteration": true,
     "resolveJsonModule": true
-  },
-  "linterOptions": {
-    "exclude": ["src/**"]
   }
 }

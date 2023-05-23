@@ -2,7 +2,6 @@
 
 function getConfig(packageName) {
   return {
-    preset: 'ts-jest',
     modulePathIgnorePatterns: ['<rootDir>/dist/'],
     testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
     moduleNameMapper: {
@@ -20,13 +19,7 @@ function getConfig(packageName) {
       ],
     ],
     transform: {
-      '^.+\\.spec.{ts|tsx}?$': [
-        'ts-jest',
-        {
-          diagnostics: false,
-        },
-      ],
-      '^.+\\.js$': 'babel-jest',
+      '^.+\\.(t|j)sx?$': '@swc/jest',
     },
   };
 }

@@ -27,10 +27,10 @@
     "watch:cjs": "yarn build:cjs -w",
     "watch:esm": "yarn build:esm -w",
     "watch:types": "yarn build:types --watch",
-    "build": "yarn concurrently \"yarn:build:*\"",
+    "build": "yarn build:types && yarn build:cjs && yarn build:esm",
     "build:types": "tsc --outDir dist/types --emitDeclarationOnly",
-    "build:cjs": "yarn swc src -d dist/cjs --config-file ../../.swcrc -C module.type=commonjs",
-    "build:esm": "yarn swc src -d dist/esm --config-file ../../.swcrc",
+    "build:cjs": "yarn swc src -d dist/cjs -C module.type=commonjs",
+    "build:esm": "yarn swc src -d dist/esm",
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {

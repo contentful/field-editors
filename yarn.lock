@@ -4137,6 +4137,13 @@
     slash "^3.0.0"
     strip-ansi "^6.0.0"
 
+"@jest/create-cache-key-function@^27.4.2":
+  version "27.5.1"
+  resolved "https://registry.yarnpkg.com/@jest/create-cache-key-function/-/create-cache-key-function-27.5.1.tgz#7448fae15602ea95c828f5eceed35c202a820b31"
+  integrity sha512-dmH1yW+makpTSURTy8VzdUwFnfQh1G8R+DxO2Ho2FFmBbKFEVm+3jWdvFhE2VqB/LATCTokkP0dotjyQyw5/AQ==
+  dependencies:
+    "@jest/types" "^27.5.1"
+
 "@jest/environment@^26.6.0", "@jest/environment@^26.6.2":
   version "26.6.2"
   resolved "https://registry.yarnpkg.com/@jest/environment/-/environment-26.6.2.tgz#ba364cc72e221e79cc8f0a99555bf5d7577cf92c"
@@ -6185,6 +6192,14 @@
   integrity sha512-rEUrBSGIoSFuYxwBYtlUFMlE2CwGhmW+w9355/5oduSw8e5h2+Tj4UrAGNNgP9915++wj5vkQo0UuOBqOAq4nw==
   dependencies:
     tslib "^2.4.0"
+
+"@swc/jest@0.2.26":
+  version "0.2.26"
+  resolved "https://registry.yarnpkg.com/@swc/jest/-/jest-0.2.26.tgz#6ef2d6d31869e3aaddc132603bc21f2e4c57cc5d"
+  integrity sha512-7lAi7q7ShTO3E5Gt1Xqf3pIhRbERxR1DUxvtVa9WKzIB+HGQ7wZP5sYx86zqnaEoKKGhmOoZ7gyW0IRu8Br5+A==
+  dependencies:
+    "@jest/create-cache-key-function" "^27.4.2"
+    jsonc-parser "^3.2.0"
 
 "@szmarczak/http-timer@^1.1.2":
   version "1.1.2"
@@ -18138,7 +18153,7 @@ jest-util@^26.1.0, jest-util@^26.6.0, jest-util@^26.6.2:
     is-ci "^2.0.0"
     micromatch "^4.0.2"
 
-jest-util@^27.0.0, jest-util@^27.5.1:
+jest-util@^27.5.1:
   version "27.5.1"
   resolved "https://registry.yarnpkg.com/jest-util/-/jest-util-27.5.1.tgz#3ba9771e8e31a0b85da48fe0b0891fb86c01c2f9"
   integrity sha512-Kv2o/8jNvX1MQ0KGtw480E/w4fBCDOnH6+6DmeKi6LZUIlKA5kwY0YNdlzaWTiVgxqAqik11QyxDOKk543aKXw==
@@ -18602,6 +18617,11 @@ json5@^2.2.0, json5@^2.2.2:
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.3.tgz#78cd6f1a19bdc12b73db5ad0c61efd66c1e29283"
   integrity sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==
+
+jsonc-parser@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/jsonc-parser/-/jsonc-parser-3.2.0.tgz#31ff3f4c2b9793f89c67212627c51c6394f88e76"
+  integrity sha512-gfFQZrcTc8CnKXp6Y4/CBT3fTc0OVuDofpre4aEeEpSBPV5X5v4+Vmx+8snU7RLPrNHPKSgLxGo9YuQzz20o+w==
 
 jsonfile@^4.0.0:
   version "4.0.0"
@@ -27580,20 +27600,6 @@ ts-jest@^26.4.3:
     lodash.memoize "4.x"
     make-error "1.x"
     mkdirp "1.x"
-    semver "7.x"
-    yargs-parser "20.x"
-
-ts-jest@^27.0.3:
-  version "27.1.5"
-  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-27.1.5.tgz#0ddf1b163fbaae3d5b7504a1e65c914a95cff297"
-  integrity sha512-Xv6jBQPoBEvBq/5i2TeSG9tt/nqkbpcurrEG1b+2yfBrcJelOZF9Ml6dmyMh7bcW9JyFbRYpR5rxROSlBLTZHA==
-  dependencies:
-    bs-logger "0.x"
-    fast-json-stable-stringify "2.x"
-    jest-util "^27.0.0"
-    json5 "2.x"
-    lodash.memoize "4.x"
-    make-error "1.x"
     semver "7.x"
     yargs-parser "20.x"
 

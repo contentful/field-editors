@@ -53,7 +53,7 @@ async function fetchAllData({
           defaultTitle: 'Untitled',
         })
       : entityHelpers.getAssetTitle({
-          asset: entity,
+          asset: entity as Asset,
           localeCode,
           defaultLocaleCode,
           defaultTitle: 'Untitled',
