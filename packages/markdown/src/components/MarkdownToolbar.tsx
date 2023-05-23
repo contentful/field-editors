@@ -31,6 +31,7 @@ const styles = {
     backgroundColor: tokens.gray100,
     padding: tokens.spacingXs,
     borderTopLeftRadius: tokens.borderRadiusSmall,
+    overflow: 'hidden',
   }),
   button: css({
     height: '30px',
@@ -271,8 +272,8 @@ export function DefaultMarkdownToolbar(props: MarkdownToolbarProps) {
 
   return (
     <div className={styles.root}>
-      <Flex justifyContent="space-between">
-        <Flex>
+      <Flex justifyContent="space-between" flexWrap="wrap">
+        <Flex flexWrap="wrap">
           <MainButtons {...props} />
           <ToolbarButton
             isDisabled={props.disabled}
