@@ -139,8 +139,7 @@
     "eslint-plugin-react": "^7.30.1",
     "react": "16.14.0",
     "react-dom": "16.14.0",
-    "@typescript-eslint/eslint-plugin": "^4.10.0",
-    "@storybook/react-docgen-typescript-plugin": "1.0.6--canary.9.cd77847.0"
+    "@typescript-eslint/eslint-plugin": "^4.10.0"
   },
   "browserslist": {
     "production": "extends @contentful/browserslist-config",
@@ -180,7 +179,7 @@
     ]
   },
   "engines": {
-    "node": ">=14.17.0",
+    "node": ">=16.18.1",
     "yarn": ">=1.21.1"
   },
   "config": {
@@ -189,7 +188,7 @@
     }
   },
   "volta": {
-    "node": "14.17.0",
+    "node": "16.18.1",
     "yarn": "1.21.1"
   }
 }
