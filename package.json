@@ -23,7 +23,7 @@
     "test:integration": "start-server-and-test storybook http://localhost:9000 cy:run",
     "prettier": "prettier './**/*.{js,jsx,ts,tsx}' --write",
     "cy:open": "TZ=UTC cypress open",
-    "cy:open:ct": "TZ=UTC cypress open-ct",
+    "cy:open:ct": "TZ=UTC cypress open --component",
     "cy:run": "TZ=UTC cypress run --browser chrome",
     "cy:run:ct": "TZ=UTC cypress run --component --browser chrome",
     "storybook": "storybook dev -p 9000",
@@ -179,7 +179,7 @@
     ]
   },
   "engines": {
-    "node": ">=16.18.0",
+    "node": ">=14.17.0",
     "yarn": ">=1.21.1"
   },
   "config": {
@@ -188,7 +188,7 @@
     }
   },
   "volta": {
-    "node": "16.18.0",
+    "node": "14.17.0",
     "yarn": "1.21.1"
   }
 }

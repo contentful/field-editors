@@ -7,13 +7,13 @@ executors:
   linux-node:
     resource_class: xlarge
     docker:
-      - image: cimg/node:16.19.1
+      - image: cimg/node:14.17
     environment:
       CYPRESS_INSTALL_BINARY: 0
   linux-cypress:
     resource_class: xlarge
     docker:
-      - image: cypress/browsers:node16.18.0-chrome107-ff106-edge
+      - image: cypress/browsers:node14.19.0-chrome100-ff99-edge
     environment:
       TZ: UTC
       CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
