@@ -58,7 +58,7 @@ export default defineConfig({
               exclude: [/node_modules/],
               use: [
                 {
-                  loader: 'ts-loader',
+                  loader: 'swc-loader',
                   options: {
                     configFile: 'cypress/tsconfig.json',
                     transpileOnly: true,
