@@ -8,18 +8,11 @@ import { normalizeList, deleteFragmentList, deleteForwardList } from '@udecode/p
 import { WithOverride } from '../../internal/types';
 import { insertListBreak } from './insertListBreak';
 import { insertListFragment } from './insertListFragment';
-import { deleteBackwardList } from './transforms/deleteBackwardList';
 
 const validLiChildrenTypes = LIST_ITEM_BLOCKS;
 
 export const withList: WithOverride = (editor) => {
-  const { deleteBackward, deleteForward, deleteFragment } = editor;
-
-  editor.deleteBackward = (unit) => {
-    if (deleteBackwardList(editor, unit)) return;
-
-    deleteBackward(unit);
-  };
+  const { deleteForward, deleteFragment } = editor;
 
   editor.deleteForward = (unit) => {
     if (deleteForwardList(editor)) return;
