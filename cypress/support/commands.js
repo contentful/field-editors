@@ -15,47 +15,39 @@ import '@testing-library/cypress/add-commands';
 register();
 configure({ testIdAttribute: 'data-test-id' });
 
-const getIframe = () => {
+const getIframeWindow = () => {
   return cy
     .get('#storybook-preview-iframe')
-    .its('0.contentDocument.body')
+    .its('0.contentWindow')
     .should('not.be.empty')
     .then(cy.wrap);
 };
 
 Cypress.Commands.add('editorEvents', (lastN = Infinity) => {
-  getIframe()
-    .window()
-    .then((win) => {
-      cy.debug();
-      return win.editorEvents.slice(0, lastN);
-    });
+  getIframeWindow().then((win) => {
+    return win.editorEvents.slice(0, lastN);
+  });
 });
 
 Cypress.Commands.add('editorActions', (lastN = Infinity) => {
-  getIframe()
-    .window()
-    .then((win) => {
-      return win.actions.slice(0, lastN);
-    });
+  getIframeWindow().then((win) => {
+    return win.actions.slice(0, lastN);
+  });
 });
 
 Cypress.Commands.add('setValueExternal', (value) => {
-  return getIframe()
-    .window()
-    .then((win) => {
-      win.setValueExternal(value);
-      return win;
-    });
+  return getIframeWindow().then((win) => {
+    console.log('does it have', win);
+    win.setValueExternal(value);
+    return win;
+  });
 });
 
 Cypress.Commands.add('setGoogleMapsKey', () => {
-  return getIframe()
-    .window()
-    .then((win) => {
-      win.localStorage.setItem('googleMapsKey', Cypress.env('googleMapsKey') || '');
-      return win;
-    });
+  return getIframeWindow().then((win) => {
+    win.localStorage.setItem('googleMapsKey', Cypress.env('googleMapsKey') || '');
+    return win;
+  });
 });
 
 // https://frontend.irish/how-mock-google-places-cypress
@@ -68,43 +60,35 @@ Cypress.Commands.add('mockGoogleMapsResponse', (mockData) => {
 });
 
 Cypress.Commands.add('setInitialValue', (initialValue) => {
-  return getIframe()
-    .window()
-    .then((win) => {
-      win.localStorage.setItem('initialValue', JSON.stringify(initialValue));
-      return win;
-    });
+  return getIframeWindow().then((win) => {
+    win.localStorage.setItem('initialValue', JSON.stringify(initialValue));
+    return win;
+  });
 });
 
 Cypress.Commands.add('setInitialDisabled', (initialDisabled) => {
-  return getIframe()
-    .window()
-    .then((win) => {
-      win.localStorage.setItem('initialDisabled', initialDisabled);
-      return win;
-    });
+  return getIframeWindow().then((win) => {
+    win.localStorage.setItem('initialDisabled', initialDisabled);
+    return win;
+  });
 });
 
 Cypress.Commands.add('setRestrictedMarks', (restrictedMarks) => {
-  return getIframe()
-    .window()
-    .then((win) => {
-      win.localStorage.setItem('restrictedMarks', JSON.stringify(restrictedMarks));
-      return win;
-    });
+  return getIframeWindow().then((win) => {
+    win.localStorage.setItem('restrictedMarks', JSON.stringify(restrictedMarks));
+    return win;
+  });
 });
 
 Cypress.Commands.add('setFieldValidations', (validations) => {
-  return getIframe()
-    .window()
-    .then((win) => {
-      win.localStorage.setItem('fieldValidations', JSON.stringify(validations));
-      return win;
-    });
+  return getIframeWindow().then((win) => {
+    win.localStorage.setItem('fieldValidations', JSON.stringify(validations));
+    return win;
+  });
 });
 
 Cypress.Commands.add('setInstanceParams', (instanceParams) => {
-  return getIframe().then((win) => {
+  return getIframeWindow().then((win) => {
     win.localStorage.setItem('instanceParams', JSON.stringify(instanceParams));
     return win;
   });
@@ -112,7 +96,6 @@ Cypress.Commands.add('setInstanceParams', (instanceParams) => {
 
 Cypress.Commands.add('getMarkdownInstance', () => {
   return cy
-    .window()
     .then((win) => {
       return win.markdownEditor;
       // we want to make sure any kind of debounced behaviour
@@ -124,7 +107,6 @@ Cypress.Commands.add('getMarkdownInstance', () => {
 
 Cypress.Commands.add('getRichTextField', () => {
   return cy
-    .window()
     .then((win) => {
       return win.richTextField;
       // we want to make sure any kind of debounced behaviour

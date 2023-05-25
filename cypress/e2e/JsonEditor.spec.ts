@@ -9,10 +9,10 @@ const getIframe = () => {
 describe('JSON Editor', () => {
   const selectors = {
     getInput: () => {
-      return getIframe().get('[data-test-id="json-editor-code-mirror"] .cm-content');
+      return getIframe().findByTestId('json-editor-code-mirror').find('.cm-content');
     },
     getCode: () => {
-      return getIframe().get('[data-test-id="json-editor-code-mirror"] .cm-editor');
+      return getIframe().findByTestId('json-editor-code-mirror').find('.cm-editor');
     },
     getRedoButton: () => {
       return getIframe().findByTestId('json-editor-redo');
@@ -41,7 +41,7 @@ describe('JSON Editor', () => {
     getIframe().findByTestId('json-editor-integration-test').should('be.visible');
   });
 
-  it.only('should set and clear values properly', () => {
+  it('should set and clear values properly', () => {
     cy.debug();
     cy.editorEvents().should('deep.equal', []);
 

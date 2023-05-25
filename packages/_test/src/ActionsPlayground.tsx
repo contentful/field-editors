@@ -51,13 +51,10 @@ function ActionsPlayground(props: ActionsPlaygroundProps) {
 
   React.useEffect(() => {
     props.mitt.on('*', onLog);
-
-    if ((window as any).Cypress) {
-      (window as any).editorEvents = [];
-      (window as any).setValueExternal = (value: any) => {
-        props.mitt.emit('onValueChanged', value);
-      };
-    }
+    (window as any).editorEvents = [];
+    (window as any).setValueExternal = (value: any) => {
+      props.mitt.emit('onValueChanged', value);
+    };
 
     return () => {
       props.mitt.off('*', onLog);
