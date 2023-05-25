@@ -121,7 +121,6 @@ describe('internal mark', () => {
     ];
     for (const { input, expected, title } of data) {
       it(`${title}`, () => {
-        // @ts-expect-error
         expect(removeInternalMarks(input)).toEqual(expected);
       });
     }

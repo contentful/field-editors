@@ -5,6 +5,8 @@ describe('createFakeFieldAPI', () => {
     const [field] = createFakeFieldAPI();
     expect(Object.keys(field).sort()).toMatchInlineSnapshot(`
       [
+        "getIsDisabled",
+        "getSchemaErrors",
         "getValue",
         "id",
         "locale",
