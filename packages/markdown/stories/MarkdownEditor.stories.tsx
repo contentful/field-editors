@@ -8,7 +8,9 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { assets } from '../src/__fixtures__/fixtures';
 import '../src/codemirrorImports';
 import { openMarkdownDialog } from '../src/dialogs/openMarkdownDialog';
-import { MarkdownEditor } from '../src/MarkdownEditor';
+import { MarkdownEditorConnected as MarkdownEditor } from '../src/MarkdownEditor';
+
+import 'codemirror/lib/codemirror.css';
 
 const meta: Meta<typeof MarkdownEditor> = {
   title: 'editors/Markdown',
@@ -46,8 +48,6 @@ export const Default: Story = {
         },
       },
       dialogs: {
-        // @ts-expect-error
-        openCurrent: openMarkdownDialog(sdk),
         selectMultipleAssets: () => {
           alert('select multiple assets dialog');
 
@@ -80,6 +80,8 @@ export const Default: Story = {
         },
       },
     };
+    // @ts-expect-error
+    sdk.dialogs.openCurrent = openMarkdownDialog(sdk);
 
     return (
       <div data-test-id="markdown-editor-integration-test">
