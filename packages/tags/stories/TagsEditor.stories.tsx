@@ -3,7 +3,7 @@ import React from 'react';
 import { ActionsPlayground, createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { TagsEditor } from '../src/TagsEditor';
+import { TagsEditorContainer as TagsEditor } from '../src/TagsEditorContainer';
 
 const meta: Meta<typeof TagsEditor> = {
   title: 'editors/Tags',
@@ -19,7 +19,6 @@ export const EmptyInitialValue: Story = {
     const [field, mitt] = createFakeFieldAPI();
     return (
       <div>
-        {/* @ts-expect-error */}
         <TagsEditor field={field} isInitiallyDisabled={false} />
         <ActionsPlayground mitt={mitt} />
       </div>
@@ -32,7 +31,6 @@ export const NonEmptyInitialValue: Story = {
     const [field] = createFakeFieldAPI((mock) => mock, ['test1', 'test2', 'test3']);
     return (
       <>
-        {/* @ts-expect-error */}
         <TagsEditor field={field} isInitiallyDisabled={false} />
       </>
     );
@@ -52,7 +50,6 @@ export const Constraints: Story = {
     );
     return (
       <>
-        {/* @ts-expect-error */}
         <TagsEditor field={field} isInitiallyDisabled={false} />
       </>
     );

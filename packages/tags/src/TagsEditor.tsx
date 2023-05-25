@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 
-
 import { Pill, TextInput } from '@contentful/f36-components';
 import { DragIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
@@ -93,6 +92,8 @@ const SortableList = SortableContainer((props: SortableListProps) => (
 ));
 
 export function TagsEditor(props: TagsEditorProps) {
+  console.log(props);
+
   const [pendingValue, setPendingValue] = useState('');
 
   const { isDisabled, items, constraints, constraintsType, hasError } = props;
@@ -139,7 +140,8 @@ export function TagsEditor(props: TagsEditorProps) {
         distance={10}
         onSortEnd={({ oldIndex, newIndex }) => {
           swapItems({ oldIndex, newIndex });
-        }}>
+        }}
+      >
         {items.map((item, index) => {
           return (
             <SortablePill
