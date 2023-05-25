@@ -8,7 +8,7 @@ import { CombinedLinkActions, MultipleEntryReferenceEditor } from '../src';
 import { newReferenceEditorFakeSdk } from '../src/__fixtures__/FakeSdk';
 
 const meta: Meta<typeof MultipleEntryReferenceEditor> = {
-  title: '/editors/reference/MultipleEntry',
+  title: 'editors/Multiple Entry',
   component: MultipleEntryReferenceEditor,
 };
 

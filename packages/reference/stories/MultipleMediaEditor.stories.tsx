@@ -8,7 +8,7 @@ import { CombinedLinkActions, MultipleMediaEditor } from '../src';
 import { newReferenceEditorFakeSdk } from '../src/__fixtures__/FakeSdk';
 
 const meta: Meta<typeof MultipleMediaEditor> = {
-  title: '/editors/reference/MultipleMedia',
+  title: 'editors/Multiple Media',
   component: MultipleMediaEditor,
 };
 

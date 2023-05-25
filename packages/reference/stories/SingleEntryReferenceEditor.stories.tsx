@@ -8,7 +8,7 @@ import { SingleEntryReferenceEditor } from '../src';
 import { newReferenceEditorFakeSdk } from '../src/__fixtures__/FakeSdk';
 
 const meta: Meta<typeof SingleEntryReferenceEditor> = {
-  title: '/editors/reference/SingleEntry',
+  title: 'editors/Single Entry',
   component: SingleEntryReferenceEditor,
 };
 

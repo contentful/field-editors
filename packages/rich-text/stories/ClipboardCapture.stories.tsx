@@ -17,7 +17,7 @@ import { css } from 'emotion';
 import ClipboardCapture from '../src/ClipboardCapture.mdx';
 
 const meta: Meta<typeof ClipboardCapture> = {
-  title: 'utilities/ClipboardCapture',
+  title: 'utilities/Clipboard Capture',
   component: ClipboardCapture,
 };
 

@@ -22,7 +22,7 @@ import RichTextEditor from '../src/RichTextEditor';
 import { validateRichTextDocument } from '../src/test-utils/validation';
 
 const meta: Meta<typeof RichTextEditor> = {
-  title: 'editors/RichTextEditor',
+  title: 'editors/Rich Text Editor',
   component: RichTextEditor,
 };
 

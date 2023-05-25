@@ -5,12 +5,11 @@ import { ThumbUpIcon } from '@contentful/f36-icons';
 import { ActionsPlayground } from '@contentful/field-editor-test-utils';
 import type { Meta, StoryObj } from '@storybook/react';
 
-
 import { SingleMediaEditor } from '../src';
 import { newReferenceEditorFakeSdk } from '../src/__fixtures__/FakeSdk';
 
 const meta: Meta<typeof SingleMediaEditor> = {
-  title: '/editors/reference/SingleMedia',
+  title: 'editors/Single Media',
   component: SingleMediaEditor,
 };
 

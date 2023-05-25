@@ -15,7 +15,7 @@ import { Field } from '../src/Field';
 import { FieldWrapper } from '../src/FieldWrapper';
 
 const meta: Meta<typeof Field> = {
-  title: 'shared/default-field-editors',
+  title: 'shared/Default Field Editors',
   component: Field,
 };
 
