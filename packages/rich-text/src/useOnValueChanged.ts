@@ -31,9 +31,7 @@ export const useOnValueChanged = ({ editorId, handler, skip, onSkip }: OnValueCh
   const onChange = useMemo(
     () =>
       debounce((document: unknown) => {
-        // @ts-expect-error
         const contentfulDocument = toContentfulDocument({ document, schema });
-        // @ts-expect-error
         const cleanedDocument = removeInternalMarks(contentfulDocument);
         handler?.(cleanedDocument);
       }, 500),
