@@ -139,7 +139,16 @@ describe('Rich Text Lists', () => {
         editor.type('{enter}').trigger('keydown', keys.tab);
         editor.type('{backspace}');
 
-        richText.expectSnapshotValue();
+        const expectedValue = doc(
+          block(
+            test.listType,
+            {},
+            block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.PARAGRAPH, {}, text('abc', [])))
+          ),
+          emptyParagraph()
+        );
+
+        richText.expectValue(expectedValue);
       });
 
       it('backspace at the start of li should reset the item', () => {
