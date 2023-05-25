@@ -22,6 +22,7 @@ describe('Markdown Editor / Insert Assets', () => {
 
   beforeEach(() => {
     cy.visit('/markdown');
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(500);
     cy.findByTestId('markdown-editor').should('be.visible');
   });

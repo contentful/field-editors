@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { render, configure, cleanup, fireEvent, RenderResult } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
 import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
+import '@testing-library/jest-dom/extend-expect';
+import { RenderResult, cleanup, configure, fireEvent, render } from '@testing-library/react';
 
 import { ListEditor } from './ListEditor';
 

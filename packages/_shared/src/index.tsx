@@ -1,40 +1,35 @@
 export {
-  FieldAPI,
-  SpaceAPI,
-  EntryFieldAPI,
-  EntryAPI,
-  DialogsAPI,
-  IdsAPI,
-  ContentType,
-  ParametersAPI,
-  LocalesAPI,
-  NavigatorAPI,
-  NotifierAPI,
-  WindowAPI,
   AccessAPI,
   AppConfigAPI,
-  LocationAPI,
   BaseExtensionSDK,
+  ContentType,
+  DialogsAPI,
+  EntryAPI,
+  EntryFieldAPI,
+  FieldAPI,
   FieldExtensionSDK,
+  IdsAPI,
+  LocalesAPI,
+  LocationAPI,
+  NavigatorAPI,
+  NotifierAPI,
   OpenCustomWidgetOptions,
+  ParametersAPI,
+  SpaceAPI,
+  WindowAPI,
 } from '@contentful/app-sdk';
+export { CharCounter } from './CharCounter';
+export { CharValidation } from './CharValidation';
 export { FieldConnector } from './FieldConnector';
 export type { FieldConnectorChildProps } from './FieldConnector';
 export { PredefinedValuesError } from './PredefinedValuesError';
-export { CharCounter } from './CharCounter';
-export { CharValidation } from './CharValidation';
-
-import * as ModalDialogLauncher from './ModalDialogLauncher';
+export { Asset, Entry, File } from './typesEntity';
+export { isValidImage } from './utils/isValidImage';
+export { shortenStorageUnit, toLocaleString } from './utils/shortenStorageUnit';
 export { ModalDialogLauncher };
-
-import * as entityHelpers from './utils/entityHelpers';
 export { entityHelpers };
-
-import * as ConstraintsUtils from './utils/constraints';
 export { ConstraintsUtils };
 
-export { isValidImage } from './utils/isValidImage';
-
-export { shortenStorageUnit, toLocaleString } from './utils/shortenStorageUnit';
-
-export { Entry, File, Asset } from './typesEntity';
+import * as ModalDialogLauncher from './ModalDialogLauncher';
+import * as ConstraintsUtils from './utils/constraints';
+import * as entityHelpers from './utils/entityHelpers';

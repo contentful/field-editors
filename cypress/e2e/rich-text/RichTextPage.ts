@@ -1,3 +1,5 @@
+/* eslint-disable cypress/no-unnecessary-waiting */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { INLINES } from '@contentful/rich-text-types';
 
 const isValidationEvent = ({ type }) => type === 'onSchemaErrorsChanged';
@@ -93,6 +95,7 @@ export class RichTextPage {
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   expectValue(expectedValue: any) {
     // we want to make sure any kind of debounced behavior
     // is already triggered before we go on and assert the
@@ -135,6 +138,7 @@ export class RichTextPage {
       .as('validationErrors');
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   expectTrackingValue(expectedValue: any) {
     cy.window()
       .should((win) => {

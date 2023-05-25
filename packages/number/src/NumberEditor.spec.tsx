@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { render, configure, cleanup, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import '@testing-library/jest-dom/extend-expect';
 import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
+import '@testing-library/jest-dom/extend-expect';
+import { cleanup, configure, render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { NumberEditor } from './NumberEditor';
 

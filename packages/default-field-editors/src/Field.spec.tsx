@@ -1,13 +1,12 @@
 import React from 'react';
 
-import { render, configure, cleanup } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
-import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
+import { SingleEntryReferenceEditor } from '@contentful/field-editor-reference';
 import type { FieldExtensionSDK } from '@contentful/field-editor-shared';
+import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
+import '@testing-library/jest-dom/extend-expect';
+import { cleanup, configure, render } from '@testing-library/react';
 
 import { Field } from './Field';
-
-import { SingleEntryReferenceEditor } from '@contentful/field-editor-reference';
 
 configure({
   testIdAttribute: 'data-test-id',
