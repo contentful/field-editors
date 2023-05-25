@@ -28,7 +28,7 @@ export default defineConfig({
     setupNodeEvents(_on, config) {
       return config;
     },
-    baseUrl: 'http://localhost:9000',
+    baseUrl: 'http://localhost:6006',
     specPattern: 'cypress/e2e/**/*.spec.*',
     excludeSpecPattern: ['**/__snapshots__/*', '**/__image_snapshots__/*'],
   },

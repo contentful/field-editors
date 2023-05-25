@@ -37,7 +37,7 @@ commands:
   yarn_serve:
     steps:
       - run:
-          command: yarn serve .docz/dist -n -s -p 9000
+          command: yarn serve dist -n -s -p 9000
           background: true
       - run: yarn wait-on -t 60000 http://localhost:9000
 
@@ -75,7 +75,7 @@ jobs:
       - checkout
       - yarn_install
       - run: yarn build
-      - run: yarn docz:build
+      - run: yarn build-storybook
       - yarn_serve
       - run:
           command: |

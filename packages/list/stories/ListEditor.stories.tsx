@@ -19,6 +19,9 @@ export default meta;
 type Story = StoryObj<typeof ListEditor>;
 
 export const Default: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   render: () => {
     const [field, mitt] = createFakeFieldAPI();
     return (
@@ -31,6 +34,9 @@ export const Default: Story = {
 };
 
 export const List: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   render: () => {
     const [field] = createFakeFieldAPI((mock) => mock, ['test1', 'test2', 'test3']);
     return (

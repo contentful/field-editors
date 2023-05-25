@@ -5,7 +5,6 @@
     "module": "esnext",
     "importHelpers": true,
     "declaration": true,
-    "sourceMap": true,
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,

@@ -1,19 +1,27 @@
+const getIframe = () => {
+  return cy
+    .get('#storybook-preview-iframe')
+    .its('0.contentDocument.body')
+    .should('not.be.empty')
+    .then(cy.wrap);
+};
+
 describe('JSON Editor', () => {
   const selectors = {
     getInput: () => {
-      return cy.get('[data-test-id="json-editor-code-mirror"] .cm-content');
+      return getIframe().get('[data-test-id="json-editor-code-mirror"] .cm-content');
     },
     getCode: () => {
-      return cy.get('[data-test-id="json-editor-code-mirror"] .cm-editor');
+      return getIframe().get('[data-test-id="json-editor-code-mirror"] .cm-editor');
     },
     getRedoButton: () => {
-      return cy.findByTestId('json-editor-redo');
+      return getIframe().findByTestId('json-editor-redo');
     },
     getUndoButton: () => {
-      return cy.findByTestId('json-editor-undo');
+      return getIframe().findByTestId('json-editor-undo');
     },
     getValidationError: () => {
-      return cy.findByTestId('json-editor.invalid-json');
+      return getIframe().findByTestId('json-editor.invalid-json');
     },
   };
 
@@ -29,11 +37,12 @@ describe('JSON Editor', () => {
   };
 
   beforeEach(() => {
-    cy.visit('/json');
-    cy.findByTestId('json-editor-integration-test').should('be.visible');
+    cy.visit('/?path=/docs/editors-json--docs');
+    getIframe().findByTestId('json-editor-integration-test').should('be.visible');
   });
 
-  it('should set and clear values properly', () => {
+  it.only('should set and clear values properly', () => {
+    cy.debug();
     cy.editorEvents().should('deep.equal', []);
 
     selectors.getInput().should('have.value', '');
