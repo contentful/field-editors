@@ -29,7 +29,7 @@
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15",
-    "speakingurl": "^13.0.0",
+    "speakingurl": "^14.0.1",
     "use-debounce": "^7.0.0"
   },
   "devDependencies": {
