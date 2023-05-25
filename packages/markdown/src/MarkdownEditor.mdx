@@ -1,98 +1,19 @@
----
-name: Markdown
-route: /markdown
-menu: Editors
----
+import { Canvas, Meta, Markdown, Story, Controls } from '@storybook/blocks';
+import * as EditorStories from '../stories/MarkdownEditor.stories';
 
-import Readme from '../README.md';
+import Readme from '../README.md?raw';
 
-<Readme />
+<Markdown>{Readme}</Markdown>
 
-import { Playground, Props } from 'docz';
-import './codemirrorImports';
-import { Notification } from '@contentful/f36-components';
-import { MarkdownEditorConnected as MarkdownEditor } from './MarkdownEditor';
-import { openMarkdownDialog } from './dialogs/openMarkdownDialog'
-import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
-import { assets } from '../../reference/src/__fixtures__/fixtures';
+<Meta of={EditorStories} />
 
 ## In Action
 
-<Playground>
-  {() => {
-    const initialValue = window.localStorage.getItem('initialValue');
-    const isInitiallyDisabled = !!window.localStorage.getItem('initialDisabled');
-    const [field, mitt] = createFakeFieldAPI(field => field, initialValue);
-
-    let sdk = {
-      field,
-      locales: {
-        default: 'en-US',
-        fallbacks: {
-          'en-US': undefined
-        },
-        optional: {
-          'en-US': false
-        },
-        direction: {
-          'en-US': 'ltr'
-        }
-      },
-      dialogs: {
-        openCurrent: openMarkdownDialog(sdk),
-        selectMultipleAssets: () => {
-          alert('select multiple assets dialog');
-
-          return [assets.published];
-        }
-      },
-      notifier: {
-        success: (text) => Notification.success(text),
-        error: (text) => Notification.error(text)
-      },
-      navigator: {
-        openNewAsset: async () => {
-          alert('open new asset');
-
-          return {
-            entity: assets.created
-          }
-        }
-      },
-      window: {
-        updateHeight: () => {},
-        startAutoResizer: () => {}
-      },
-      access: {
-        can: (access, entity) => {
-          if (access === 'create' && entity === 'Asset') {
-            return Promise.resolve(true)
-          }
-          return Promise.resolve(false)
-        }
-      }
-    };
-
-    return (
-      <div data-test-id="markdown-editor-integration-test">
-        <MarkdownEditor
-          sdk={sdk}
-          onReady={editor => {
-            window.markdownEditor = editor;
-          }}
-          parameters={sdk.parameters}
-          isInitiallyDisabled={isInitiallyDisabled !== undefined ? isInitiallyDisabled : false}
-        />
-        <ActionsPlayground mitt={mitt} />
-      </div>
-    );
-  }}
-</Playground>
-
+<Story of={EditorStories.Default} />
 
 ## Props
 
-<Props of={MarkdownEditor} />
+<Controls />
 
 ## As field app
 
@@ -101,7 +22,7 @@ import 'codemirror/lib/codemirror.css';
 import { MarkdownEditor, renderMarkdownDialog } from '@contentful/field-editor-markdown';
 
 /// your app code
-init(sdk => {
+init((sdk) => {
   if (sdk.location.is(locations.LOCATION_DIALOG)) {
     render(renderMarkdownDialog(sdk), document.getElementById('root'));
   } else if (sdk.location.is(locations.LOCATION_ENTRY_FIELD)) {

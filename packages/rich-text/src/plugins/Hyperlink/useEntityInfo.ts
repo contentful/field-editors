@@ -46,6 +46,7 @@ async function fetchAllData({
   const entityTitle =
     entityType === 'Entry'
       ? entityHelpers.getEntryTitle({
+          //@ts-expect-error
           entry: entity,
           contentType,
           localeCode,
@@ -60,6 +61,7 @@ async function fetchAllData({
         });
 
   const entityDescription = entityHelpers.getEntityDescription({
+    // @ts-expect-error
     entity,
     contentType,
     localeCode,
@@ -68,6 +70,7 @@ async function fetchAllData({
 
   const jobs = await sdk.space.getEntityScheduledActions(entityType, entityId);
 
+  // @ts-expect-error
   const entityStatus = entityHelpers.getEntryStatus(entity.sys);
 
   return {

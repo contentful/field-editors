@@ -1,124 +1,30 @@
----
-name: Media
-route: /media-single
-menu: Editors
----
+import { Canvas, Meta, Markdown, Story, Controls } from '@storybook/blocks';
+import * as EditorStories from '../../stories/SingleMediaEditor.stories';
 
-import Readme from '../../README.md';
+import Readme from '../../README.md?raw';
 
-<Readme />
+<Markdown>{Readme}</Markdown>
 
 ```jsx
 import { SingleMediaEditor } from '@contentful/field-editor-reference';
 ```
 
-import { Playground, Props } from 'docz';
-import { SingleMediaEditor } from './SingleMediaEditor.tsx';
-import { TextLink, Button, Heading, Card, Asset } from '@contentful/f36-components';
-import { ThumbUpIcon } from '@contentful/f36-icons';
-import { ActionsPlayground } from '@contentful/field-editor-test-utils';
-import { newReferenceEditorFakeSdk } from '../__fixtures__/FakeSdk';
+<Meta of={EditorStories} />
 
 ## In Action
 
-<Playground>
-  {() => {
-    const [sdk, mitt] = newReferenceEditorFakeSdk();
-    return (
-      <div>
-        <SingleMediaEditor
-          viewType="card"
-          sdk={sdk}
-          isInitiallyDisabled={false}
-          parameters={{
-            instance: {
-              showCreateEntityAction: true,
-              showLinkEntityAction: true,
-            }
-          }}
-         />
-        <ActionsPlayground mitt={mitt} />
-      </div>
-    );
-}}
-
-</Playground>
+<Story of={EditorStories.Default} />
 
 ## With custom actions
 
 Note the alternative link actions injected via the `renderCustomActions` prop.
 
-<Playground>
-  {() => {
-    const [sdk, mitt] = newReferenceEditorFakeSdk();
-    return (
-      <div>
-        <SingleMediaEditor
-          viewType="card"
-          sdk={sdk}
-          isInitiallyDisabled={false}
-          renderCustomActions={(props) => <TextLink disabled={props.isDisabled} testId='custom-link'
-              onClick={props.onLinkExisting}
-              variant="primary"
-              icon={<ThumbUpIcon />}
-              alignIcon="end">
-            Re-use something
-            </TextLink>
-          }
-          parameters={{
-            instance: {
-              showCreateEntityAction: true,
-              showLinkEntityAction: true,
-            }
-          }}
-         />
-        <ActionsPlayground mitt={mitt} />
-      </div>
-    );
-}}
-
-</Playground>
+<Story of={EditorStories.CustomActions} />
 
 ## With custom card
 
-<Playground>
-  {() => {
-    const [sdk, mitt] = newReferenceEditorFakeSdk();
-    return (
-      <div>
-        <SingleMediaEditor
-          viewType="card"
-          sdk={sdk}
-          isInitiallyDisabled={false}
-          parameters={{
-            instance: {
-              showCreateEntityAction: true,
-              showLinkEntityAction: true,
-            },
-          }}
-          renderCustomCard={(props) => {
-            const title = props.entity.fields.title;
-            const file = props.entity.fields.file;
-            return (
-              <Card testId="custom-card">
-                  <Heading>{title && title['en-US']}</Heading>
-                  <Asset src={file && file['en-US'].url} title={file && file['en-US'].fileName} style={{ width: 100, height: 100, marginBottom: '10px' }} />
-                <Button onClick={props.onEdit} style={{ marginRight: '10px' }}>
-                  Edit
-                </Button>
-                <Button onClick={props.onRemove}>Remove</Button>
-              </Card>
-            );
-          }}
-        />
-        <ActionsPlayground mitt={mitt} />
-      </div>
-    );
-
-}}
-
-</Playground>
+<Story of={EditorStories.CustomCard} />
 
 ## Props
 
-<Props of={SingleMediaEditor} />
+<Controls />

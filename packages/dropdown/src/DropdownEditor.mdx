@@ -1,46 +1,16 @@
----
-name: Dropdown
-route: /dropdown
-menu: Editors
----
+import { Canvas, Meta, Markdown, Story, Controls } from '@storybook/blocks';
+import * as DropdownEditorStories from '../stories/DropdownEditor.stories';
 
-import Readme from '../README.md';
+import Readme from '../README.md?raw';
 
-<Readme />
+<Markdown>{Readme}</Markdown>
 
-import { Playground, Props } from 'docz';
-import { DropdownEditor } from './DropdownEditor.tsx';
-import {
-  createFakeFieldAPI,
-  createFakeLocalesAPI,
-  ActionsPlayground
-} from '@contentful/field-editor-test-utils';
+<Meta of={DropdownEditorStories} />
 
 ## In Action
 
-### with proper configuration
-
-<Playground>
-  {() => {
-    const [field, mitt] = createFakeFieldAPI(mock => {
-      return {
-        ...mock,
-        validations: [{ in: ['banana', 'orange', 'strawberry'] }]
-      };
-    });
-    return (
-      <div>
-        <DropdownEditor
-          field={field}
-          locales={createFakeLocalesAPI()}
-          isInitiallyDisabled={false}
-        />
-        <ActionsPlayground mitt={mitt} />
-      </div>
-    );
-  }}
-</Playground>
+<Story of={DropdownEditorStories.Default} />
 
 ## Props
 
-<Props of={DropdownEditor} />
+<Controls />

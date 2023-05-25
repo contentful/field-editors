@@ -4,7 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import { EntryCard } from '@contentful/f36-components';
 import { SetRequired } from 'type-fest';
 
-import { useResource, isUnsupportedError } from '../../common/EntityStore';
+import { isUnsupportedError, useResource } from '../../common/EntityStore';
 import { MissingEntityCard } from '../../components';
 import { RenderDragFn, ResourceLink } from '../../types';
 import { CardActionsHandlers, ContentfulEntryCard, EntryRoute } from './ContentfulEntryCard';
@@ -39,6 +39,7 @@ function ExistingResourceCard(
   }
 
   if (data) {
+    // @ts-expect-error
     return <ContentfulEntryCard info={data} {...props} />;
   }
 

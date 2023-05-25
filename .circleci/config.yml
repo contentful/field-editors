@@ -7,13 +7,13 @@ executors:
   linux-node:
     resource_class: xlarge
     docker:
-      - image: cimg/node:14.17
+      - image: cimg/node:16.18
     environment:
       CYPRESS_INSTALL_BINARY: 0
   linux-cypress:
     resource_class: xlarge
     docker:
-      - image: cypress/browsers:node14.19.0-chrome100-ff99-edge
+      - image: cypress/browsers:node16.18.0-chrome107-ff106-edge
     environment:
       TZ: UTC
       CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
@@ -123,9 +123,7 @@ jobs:
       - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
       - run: yarn build
       - run: yarn lerna version --no-private --conventional-commits --create-release github --yes
-      # If you planning to upgrade lerna, `no-verify-access` is not needed anymore post version 5.2.0
-      # See: https://github.com/lerna/lerna/issues/2788#issuecomment-1192788964
-      - run: yarn lerna publish from-git --yes --no-verify-access
+      - run: yarn lerna publish from-git --yes
 
 workflows:
   version: 2

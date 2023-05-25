@@ -6,6 +6,7 @@ import { PlateEditor } from '../../internal/types';
 
 export function getCharacterCount(editor: PlateEditor) {
   const document = contentfulSlateJSAdapter.toContentfulDocument({
+    // @ts-expect-error
     document: editor.children,
     schema: Schema,
   });

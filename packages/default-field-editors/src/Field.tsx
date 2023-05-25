@@ -1,8 +1,6 @@
 import * as React from 'react';
 
 import { BooleanEditor } from '@contentful/field-editor-boolean';
-import { RadioEditor } from '@contentful/field-editor-radio';
-import { RatingEditor } from '@contentful/field-editor-rating';
 import { CheckboxEditor } from '@contentful/field-editor-checkbox';
 import { DateEditor } from '@contentful/field-editor-date';
 import { DropdownEditor } from '@contentful/field-editor-dropdown';
@@ -12,11 +10,13 @@ import { LocationEditor } from '@contentful/field-editor-location';
 import { MarkdownEditor } from '@contentful/field-editor-markdown';
 import { MultipleLineEditor } from '@contentful/field-editor-multiple-line';
 import { NumberEditor } from '@contentful/field-editor-number';
+import { RadioEditor } from '@contentful/field-editor-radio';
+import { RatingEditor } from '@contentful/field-editor-rating';
 import {
-  SingleEntryReferenceEditor,
   MultipleEntryReferenceEditor,
-  SingleMediaEditor,
   MultipleMediaEditor,
+  SingleEntryReferenceEditor,
+  SingleMediaEditor,
 } from '@contentful/field-editor-reference';
 import { RichTextEditor } from '@contentful/field-editor-rich-text';
 import type { FieldExtensionSDK } from '@contentful/field-editor-shared';

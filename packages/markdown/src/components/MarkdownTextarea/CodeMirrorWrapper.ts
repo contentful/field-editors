@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-use-before-define, @typescript-eslint/no-explicit-any */
 
-// @ts-expect-error no types
 import CodeMirror from 'codemirror';
 import 'codemirror/addon/edit/matchbrackets';
 import throttle from 'lodash/throttle';
@@ -141,6 +140,7 @@ export function create(
   };
 
   function destroy() {
+    // @ts-expect-error
     cm.toTextArea();
   }
 

@@ -1,45 +1,18 @@
----
-name: Location
-route: /location
-menu: Editors
----
+import { Canvas, Meta, Markdown, Story, Controls } from '@storybook/blocks';
+import * as EditorStories from '../stories/LocationEditor.stories';
 
-import Readme from '../README.md';
+import Readme from '../README.md?raw';
 
-<Readme />
+<Markdown>{Readme}</Markdown>
 
-import { Playground, Props } from 'docz';
-import { LocationEditorConnected as LocationEditor } from './LocationEditor.tsx';
-import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
+<Meta of={EditorStories} />
 
 ## In Action
 
 > set `googleMapsKey` to localStorage to get properly working editor
 
-<Playground>
-  {() => {
-    const initialValue = window.localStorage.getItem('initialValue');
-    const isInitiallyDisabled = !!window.localStorage.getItem('initialDisabled');
-    const [field, mitt] = createFakeFieldAPI(field => field, initialValue ? JSON.parse(initialValue) : undefined);
-    return (
-      <div data-test-id="location-editor-integration-test">
-        <LocationEditor
-          field={field}
-          isInitiallyDisabled={isInitiallyDisabled !== undefined ? isInitiallyDisabled : false}
-          parameters={{
-            instance: {
-              googleMapsKey: window.localStorage.getItem('googleMapsKey')
-            }
-          }}
-        />
-        <ActionsPlayground mitt={mitt} />
-      </div>
-    );
-
-}}
-
-</Playground>
+<Story of={EditorStories.Default} />
 
 ## Props
 
-<Props of={LocationEditor} />
+<Controls />

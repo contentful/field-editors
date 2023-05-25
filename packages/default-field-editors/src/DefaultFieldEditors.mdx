@@ -1,107 +1,16 @@
----
-name: default-field-editors
-route: /shared/default-field-editors
-menu: Shared
----
+import { Canvas, Meta, Markdown, Story, Controls } from '@storybook/blocks';
+import * as EditorStories from '../stories/DefaultFieldEditors.stories';
 
-import Readme from '../README.md';
-import { Playground, Props } from 'docz';
-import {
-  ActionsPlayground,
-  createFakeFieldAPI,
-  createFakeLocalesAPI,
-  createFakeSpaceAPI,
-} from '@contentful/field-editor-test-utils';
-import { BooleanEditor } from '@contentful/field-editor-boolean';
-import { EditIcon, HelpCircleIcon } from '@contentful/f36-icons';
-import { Text } from '@contentful/f36-components';
-import { Field } from './Field.tsx';
-import { FieldWrapper } from './FieldWrapper.tsx';
+import Readme from '../README.md?raw';
 
-<Readme />
+<Markdown>{Readme}</Markdown>
+
+<Meta of={EditorStories} />
 
 ## In Action
 
-<Playground>
-  {() => {
-    const [field, mitt] = createFakeFieldAPI((mock) => ({
-      ...mock,
-      items: {
-        validations: [{ in: ["test1", "test2"] }],
-      },
-    }), []);
-    const space = createFakeSpaceAPI();
-    const locales = createFakeLocalesAPI();
-    const sdk = {
-      field,
-      space,
-      locales,
-      contentType: { displayField: "name" },
-      parameters: {
-        instance: {
-          helpText: "Field help text",
-        },
-      },
-    };
-
-    return (
-      <div data-test-id="default-field-editors-test">
-        <FieldWrapper sdk={sdk} name="field">
-          <Field sdk={sdk} widgetId="singleLine" />
-        </FieldWrapper>
-
-        <FieldWrapper sdk={sdk} name="anotherField">
-          <Field sdk={sdk} widgetId="rating" />
-        </FieldWrapper>
-
-        <FieldWrapper
-          sdk={sdk}
-          name="customField"
-          renderHeading={(name) => (
-            <div>
-              <EditIcon size="tiny" /> Custom {name} heading
-            </div>
-          )}
-          renderHelpText={(helpText) => (
-            <Text as="p" fontColor="gray500" marginTop="spacingXs">
-              <HelpCircleIcon size="tiny" /> Custom help text:{" "}
-              {helpText}
-            </Text>
-          )}
-        >
-          <Field sdk={sdk} widgetId="datePicker" />
-        </FieldWrapper>
-
-        <FieldWrapper sdk={sdk} name="customEditor">
-          <Field
-            sdk={sdk}
-            renderFieldEditor={(widgetId, sdk, isInitiallyDisabled) => {
-              return (
-                <div>
-                  Custom editor with custom options.
-                  <BooleanEditor
-                    isInitiallyDisabled={isInitiallyDisabled}
-                    field={sdk.field}
-                    parameters={{instance: {trueLabel: 'Yay', falseLabel: 'Nope'}}}
-                  />
-                </div>
-              );
-            }}
-          />
-        </FieldWrapper>
-
-        <ActionsPlayground mitt={mitt} />
-      </div>
-    );
-
-}}
-
-</Playground>
-
-## FieldWrapper props
-
-<Props of={FieldWrapper} />
+<Story of={EditorStories.Default} />
 
 ## Field props
 
-<Props of={Field} />
+<Controls />

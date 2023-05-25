@@ -10,7 +10,7 @@ import mimetype from '@contentful/mimetype';
 import { css } from 'emotion';
 
 import { MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
-import { File, Asset, RenderDragFn } from '../../types';
+import { Asset, File, RenderDragFn } from '../../types';
 import { renderActions, renderAssetInfo } from './AssetCardActions';
 
 const groupToIconMap = {
@@ -71,6 +71,7 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
   const { className, onEdit, getAssetUrl, onRemove, size, isDisabled, isSelected, isClickable } =
     props;
 
+  // @ts-expect-error
   const status = entityHelpers.getEntryStatus(props.asset.sys);
 
   if (status === 'deleted') {

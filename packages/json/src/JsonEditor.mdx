@@ -1,34 +1,16 @@
----
-name: JSON
-route: /json
-menu: Editors
----
+import { Canvas, Meta, Markdown, Story, Controls } from '@storybook/blocks';
+import * as EditorStories from '../stories/JsonEditor.stories';
 
-import Readme from '../README.md';
+import Readme from '../README.md?raw';
 
-<Readme />
+<Markdown>{Readme}</Markdown>
 
-import { Playground, Props } from 'docz';
-import JsonEditor from './JsonEditor.tsx';
-import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
+<Meta of={EditorStories} />
 
 ## In Action
 
-<Playground>
-  {() => {
-    const [field, mitt] = createFakeFieldAPI();
-    return (
-      <div data-test-id="json-editor-integration-test">
-        <JsonEditor field={field} isInitiallyDisabled={false} />
-        <ActionsPlayground mitt={mitt} />
-      </div>
-    );
-
-}}
-
-</Playground>
-
+<Story of={EditorStories.Default} />
 
 ## Props
 
-<Props of={JsonEditor} />
+<Controls />

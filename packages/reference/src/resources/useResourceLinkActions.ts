@@ -90,6 +90,7 @@ export function useResourceLinkActions({
 
   return {
     onLinkExisting,
+    // @ts-expect-error
     onLinkedExisting,
     // hardcoded values to match interface for standard reference field actions
     entityType: 'Entry',

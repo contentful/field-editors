@@ -1,12 +1,12 @@
 import { toSlatejsDocument } from '@contentful/contentful-slatejs-adapter';
-import { EMPTY_DOCUMENT, Document } from '@contentful/rich-text-types';
+import { Document, EMPTY_DOCUMENT } from '@contentful/rich-text-types';
 
 import schema from './constants/Schema';
 import { sanitizeIncomingSlateDoc } from './helpers/sanitizeIncomingSlateDoc';
 import { createPlateEditor, CreatePlateEditorOptions, withoutNormalizing } from './internal';
 import { getEndPoint, isNode } from './internal/queries';
 import { normalize, select } from './internal/transforms';
-import { Value, PlateEditor, Node } from './internal/types';
+import { Node, PlateEditor, Value } from './internal/types';
 
 /**
  * For legacy reasons, a document may not have any content at all
@@ -22,7 +22,7 @@ export const hasContent = (doc?: Document) => {
 
 /*
  Plate api doesn't allow to modify (easily) the editor value programmatically
- after the editor instance is created 
+ after the editor instance is created
 
  This function is inspired to https://github.com/udecode/plate/issues/1269#issuecomment-1057643622
  */
@@ -52,7 +52,7 @@ export const setEditorContent = (editor: PlateEditor, nodes?: Node[]): void => {
  */
 export const documentToEditorValue = (doc?: Document) => {
   const slateDoc = toSlatejsDocument({
-    document: hasContent(doc) ? doc : EMPTY_DOCUMENT,
+    document: hasContent(doc) ? (doc as Document) : EMPTY_DOCUMENT,
     // TODO: get rid of schema, https://github.com/contentful/field-editors/pull/1065#discussion_r826723248
     schema,
   });

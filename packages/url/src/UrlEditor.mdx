@@ -1,51 +1,20 @@
----
-name: Url
-route: /url
-menu: Editors
----
+import { Canvas, Meta, Markdown, Story, Controls } from '@storybook/blocks';
+import * as UrlEditorStories from '../stories/UrlEditor.stories';
 
-import Readme from '../README.md';
+import Readme from '../README.md?raw';
 
-<Readme />
+<Markdown>{Readme}</Markdown>
 
-import { Playground, Props } from 'docz';
-import { UrlEditor } from './UrlEditor.tsx';
-import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
+<Meta of={UrlEditorStories} />
 
 ## In Action
 
-<Playground>
-  {() => {
-    const [field, mitt] = createFakeFieldAPI();
-    return (
-      <div>
-      <UrlEditor field={field} isInitiallyDisabled={false} />
-      <ActionsPlayground mitt={mitt} />
-      </div>
-    )
-  }}
-</Playground>
+<Story of={UrlEditorStories.Default} />
 
 ### with custom preview component
 
-<Playground>
-  {() => {
-    const [field] = createFakeFieldAPI(
-      _ => _,
-      'https://d21buns5ku92am.cloudfront.net/41748/images/347873-Mark_Circular_white_no%20shadow-3d0a86-large-1582585736.png'
-    );
-    return (
-      <UrlEditor field={field} isInitiallyDisabled={false}>
-        {({ value }) => (
-          <div style={{ marginTop: 20 }}>
-            <img src={value} width="50%" />
-          </div>
-        )}
-      </UrlEditor>
-    );
-  }}
-</Playground>
+<Story of={UrlEditorStories.Custom} />
 
 ## Props
 
-<Props of={UrlEditor} />
+<Controls />

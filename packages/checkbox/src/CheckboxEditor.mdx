@@ -1,49 +1,18 @@
----
-name: Checkbox
-route: /checkbox
-menu: Editors
----
+import { Canvas, Meta, Markdown, Story, Controls } from '@storybook/blocks';
+import * as BooleanEditorStories from '../stories/CheckboxEditor.stories';
 
-import Readme from '../README.md';
+import Readme from '../README.md?raw';
 
-<Readme />
+<Markdown>{Readme}</Markdown>
 
-import { Playground, Props } from 'docz';
-import { CheckboxEditor } from './CheckboxEditor.tsx';
-import {
-  createFakeFieldAPI,
-  createFakeLocalesAPI,
-  ActionsPlayground
-} from '@contentful/field-editor-test-utils';
+<Meta of={BooleanEditorStories} />
 
 ## In Action
 
 ### with proper configuration
 
-<Playground>
-  {() => {
-    const [field, mitt] = createFakeFieldAPI(
-      mock => ({
-        ...mock,
-        items: {
-          validations: [{ in: ['test1', 'test2', 'test3', 'test4'] }]
-        }
-      }),
-      ['test1', 'test2', 'test3']
-    );
-    return (
-      <div>
-        <CheckboxEditor
-          field={field}
-          locales={createFakeLocalesAPI()}
-          isInitiallyDisabled={false}
-        />
-        <ActionsPlayground mitt={mitt} />
-      </div>
-    );
-  }}
-</Playground>
+<Story of={BooleanEditorStories.Default} />
 
 ## Props
 
-<Props of={CheckboxEditor} />
+<Controls />

@@ -25,9 +25,11 @@ export function createMarkdownEditor(
     actions: Commands.create(editor),
     history: {
       hasUndo: function () {
+        // @ts-expect-error
         return editor.getHistorySize('undo') > 0;
       },
       hasRedo: function () {
+        // @ts-expect-error
         return editor.getHistorySize('redo') > 0;
       },
     },

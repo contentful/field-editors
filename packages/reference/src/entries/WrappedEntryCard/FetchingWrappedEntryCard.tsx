@@ -1,19 +1,20 @@
 import * as React from 'react';
 
 import { EntryCard } from '@contentful/f36-components';
+import { EntryProps } from 'contentful-management';
 import get from 'lodash/get';
 
 import { CustomEntityCardProps, RenderCustomMissingEntityCard } from '../../common/customCardTypes';
 import { useEntity, useEntityLoader } from '../../common/EntityStore';
 import { ReferenceEditorProps } from '../../common/ReferenceEditor';
-import { MissingEntityCard } from '../../components';
 import type { LinkActionsProps } from '../../components';
+import { MissingEntityCard } from '../../components';
 import {
   ContentType,
+  Entry,
   FieldExtensionSDK,
   NavigatorSlideInfo,
   RenderDragFn,
-  Entry,
 } from '../../types';
 import { WrappedEntryCard, WrappedEntryCardProps } from './WrappedEntryCard';
 
@@ -159,7 +160,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
         hasCardRemoveActions,
         getAsset,
         getEntityScheduledActions: loadEntityScheduledActions,
-        entry: props?.entity || sharedCardProps.entity,
+        entry: (props?.entity as EntryProps) || sharedCardProps.entity,
         entryUrl: props?.entityUrl || sharedCardProps.entityUrl,
       };
 
