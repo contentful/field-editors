@@ -10,7 +10,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { SingleLineEditor } from '../src/SingleLineEditor';
 
 const meta: Meta<typeof SingleLineEditor> = {
-  title: 'editors/SingleLine',
+  title: 'editors/Single Line',
   component: SingleLineEditor,
 };
 
