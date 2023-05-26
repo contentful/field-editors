@@ -47,6 +47,17 @@ const DemoRichTextEditor = () => {
   });
 
   const newEntitySelectorDummyDialog = (fnName: string, type: any) => async () => {
+    // Not showing the confirm dialog when running Cypress tests
+    //@ts-expect-error
+    if (window.parent.Cypress) {
+      return {
+        sys: {
+          id: 'example-entity-id',
+          type,
+        },
+      };
+    }
+
     return confirm(`sdk.dialogs.${fnName}()\nSimulate selecting a random entity or cancel?`)
       ? {
           sys: {
