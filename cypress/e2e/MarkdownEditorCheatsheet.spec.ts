@@ -1,20 +1,22 @@
+import { getIframe } from '../fixtures/utils';
+
 describe('Markdown Editor / Cheatsheet Dialog', () => {
   const selectors = {
     getDialogTitle() {
-      return cy.findByTestId('dialog-title').find('h2');
+      return getIframe().findByTestId('dialog-title').find('h2');
     },
     getOpenCheatsheetButton() {
-      return cy.findByTestId('open-markdown-cheatsheet-button');
+      return getIframe().findByTestId('open-markdown-cheatsheet-button');
     },
     getCheatsheetContent() {
-      return cy.findByTestId('markdown-cheatsheet-dialog-content');
+      return getIframe().findByTestId('markdown-cheatsheet-dialog-content');
     },
   };
 
   beforeEach(() => {
-    cy.visit('/markdown');
+    cy.visit('/?path=/story/editors-markdown--default');
     cy.wait(500);
-    cy.findByTestId('markdown-editor').should('be.visible');
+    getIframe().findByTestId('markdown-editor').should('be.visible');
   });
 
   it('should be visible after user clicks on help button', () => {

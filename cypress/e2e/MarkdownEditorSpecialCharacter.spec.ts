@@ -1,31 +1,33 @@
+import { getIframe } from '../fixtures/utils';
+
 describe('Markdown Editor / Insert Special Character Dialog', () => {
   const selectors = {
     getInput: () => {
-      return cy.get('[data-test-id="markdown-textarea"] [contenteditable]');
+      return getIframe().findByTestId('markdown-textarea').find('[contenteditable]');
     },
     getDialogTitle() {
-      return cy.findByTestId('dialog-title').find('h2');
+      return getIframe().findByTestId('dialog-title').find('h2');
     },
     getToggleAdditionalActionsButton: () => {
-      return cy.findByTestId('markdown-action-button-toggle-additional');
+      return getIframe().findByTestId('markdown-action-button-toggle-additional');
     },
     getModalContent() {
-      return cy.findByTestId('insert-special-character-modal');
+      return getIframe().findByTestId('insert-special-character-modal');
     },
     getInsertCharacterButton() {
-      return cy.findByTestId('markdown-action-button-special');
+      return getIframe().findByTestId('markdown-action-button-special');
     },
     getConfirmButton() {
-      return cy.findByTestId('insert-character-confirm');
+      return getIframe().findByTestId('insert-character-confirm');
     },
     getCancelButton() {
-      return cy.findByTestId('insert-character-cancel');
+      return getIframe().findByTestId('insert-character-cancel');
     },
     getSpecialCharacterButtons() {
-      return cy.findAllByTestId('special-character-button');
+      return getIframe().findAllByTestId('special-character-button');
     },
     getCharButton(char: string) {
-      return cy.findByText(char);
+      return getIframe().findByText(char);
     },
   };
 
@@ -36,9 +38,9 @@ describe('Markdown Editor / Insert Special Character Dialog', () => {
   };
 
   beforeEach(() => {
-    cy.visit('/markdown');
+    cy.visit('/?path=/story/editors-markdown--default');
     cy.wait(500);
-    cy.findByTestId('markdown-editor').should('be.visible');
+    getIframe().findByTestId('markdown-editor').should('be.visible');
     selectors.getToggleAdditionalActionsButton().click();
   });
 

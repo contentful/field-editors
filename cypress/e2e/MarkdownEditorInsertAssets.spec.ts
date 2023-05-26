@@ -1,16 +1,18 @@
+import { getIframe } from '../fixtures/utils';
+
 describe('Markdown Editor / Insert Assets', () => {
   const selectors = {
     getInput: () => {
-      return cy.get('[data-test-id="markdown-textarea"] [contenteditable]');
+      return getIframe().findAllByTestId('markdown-textarea').find('[contenteditable]');
     },
     getInsertMediaDropdown: () => {
-      return cy.findByTestId('markdownEditor.insertMediaDropdownTrigger');
+      return getIframe().findByTestId('markdownEditor.insertMediaDropdownTrigger');
     },
     getInsertNewAssetButton: () => {
-      return cy.findByTestId('markdownEditor.uploadAssetsAndLink');
+      return getIframe().findByTestId('markdownEditor.uploadAssetsAndLink');
     },
     getInsertExistingAssetButton: () => {
-      return cy.findByTestId('markdownEditor.linkExistingAssets');
+      return getIframe().findByTestId('markdownEditor.linkExistingAssets');
     },
   };
 
@@ -21,10 +23,10 @@ describe('Markdown Editor / Insert Assets', () => {
   };
 
   beforeEach(() => {
-    cy.visit('/markdown');
+    cy.visit('/?path=/story/editors-markdown--default');
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(500);
-    cy.findByTestId('markdown-editor').should('be.visible');
+    getIframe().findByTestId('markdown-editor').should('be.visible');
   });
 
   it('should insert a new asset', () => {

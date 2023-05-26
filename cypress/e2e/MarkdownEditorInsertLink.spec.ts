@@ -1,36 +1,38 @@
+import { getIframe } from '../fixtures/utils';
+
 describe('Markdown Editor / Insert Link Dialog', () => {
   const selectors = {
     getInput: () => {
-      return cy.get('[data-test-id="markdown-textarea"] [contenteditable]');
+      return getIframe().findByTestId('markdown-textarea').find('[contenteditable]');
     },
     getDialogTitle() {
-      return cy.findByTestId('dialog-title').find('h2');
+      return getIframe().findByTestId('dialog-title').find('h2');
     },
     getInsertDialogButton() {
-      return cy.findByTestId('markdown-action-button-link');
+      return getIframe().findByTestId('markdown-action-button-link');
     },
     getModalContent() {
-      return cy.findByTestId('insert-link-modal');
+      return getIframe().findByTestId('insert-link-modal');
     },
     inputs: {
       getLinkTextInput() {
-        return cy.findByTestId('link-text-field');
+        return getIframe().findByTestId('link-text-field');
       },
       getTargetUrlInput() {
-        return cy.findByTestId('target-url-field');
+        return getIframe().findByTestId('target-url-field');
       },
       getLinkTitle() {
-        return cy.findByTestId('link-title-field');
+        return getIframe().findByTestId('link-title-field');
       },
     },
     getConfirmButton() {
-      return cy.findByTestId('insert-link-confirm');
+      return getIframe().findByTestId('insert-link-confirm');
     },
     getCancelButton() {
-      return cy.findByTestId('insert-link-cancel');
+      return getIframe().findByTestId('insert-link-cancel');
     },
     getInvalidMessage() {
-      return cy.findByText('Invalid URL');
+      return getIframe().findByText('Invalid URL');
     },
   };
 
@@ -57,10 +59,10 @@ describe('Markdown Editor / Insert Link Dialog', () => {
   };
 
   beforeEach(() => {
-    cy.visit('/markdown');
+    cy.visit('/?path=/story/editors-markdown--default');
     cy.viewport('macbook-16');
     cy.wait(500);
-    cy.findByTestId('markdown-editor').should('be.visible');
+    getIframe().findByTestId('markdown-editor').should('be.visible');
   });
 
   it('should have correct title', () => {

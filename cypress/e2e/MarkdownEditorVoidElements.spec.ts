@@ -1,16 +1,18 @@
+import { getIframe } from '../fixtures/utils';
+
 describe('Markdown Editor / Void elements', () => {
   const selectors = {
     getInput() {
-      return cy.get('[data-test-id="markdown-textarea"] [contenteditable]');
+      return getIframe().findByTestId('markdown-textarea').find('[contenteditable]');
     },
     getPreviewButton() {
-      return cy.findByTestId('markdown-tab-preview');
+      return getIframe().findByTestId('markdown-tab-preview');
     },
     getVoidElementsWarning() {
-      return cy.findByTestId('markdown-void-elements-warning');
+      return getIframe().findByTestId('markdown-void-elements-warning');
     },
     getPreview() {
-      return cy.findByTestId('markdown-preview');
+      return getIframe().findByTestId('markdown-preview');
     },
   };
 
@@ -19,9 +21,9 @@ describe('Markdown Editor / Void elements', () => {
   };
 
   beforeEach(() => {
-    cy.visit('/markdown');
+    cy.visit('/?path=/story/editors-markdown--default');
     cy.wait(500);
-    cy.findByTestId('markdown-editor').should('be.visible');
+    getIframe().findByTestId('markdown-editor').should('be.visible');
   });
 
   it('renders even with invalid use of void elements', () => {
