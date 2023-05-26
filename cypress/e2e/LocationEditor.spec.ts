@@ -34,8 +34,9 @@ describe('Location Editor', () => {
   };
 
   beforeEach(() => {
-    cy.setGoogleMapsKey();
-    cy.visit('/?path=/docs/editors-location--docs');
+    // TODO check if we actually need this, test was breakding with it
+    // cy.setGoogleMapsKey();
+    cy.visit('/?path=/story/editors-location--default');
     getIframe().findByTestId('location-editor-integration-test').should('be.visible');
   });
 
