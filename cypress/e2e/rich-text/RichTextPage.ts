@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { INLINES } from '@contentful/rich-text-types';
 
-import { getIframe } from '../../fixtures/utils';
+import { getIframe, getIframeWindow } from '../../fixtures/utils';
 
 const isValidationEvent = ({ type }) => type === 'onSchemaErrorsChanged';
 
@@ -11,7 +11,7 @@ export type EmbedType = 'entry-block' | 'asset-block' | 'entry-inline';
 export class RichTextPage {
   visit() {
     cy.visit('/?path=/docs/editors-rich-text-editor--docs');
-
+    cy.wait(500);
     this.editor.should('be.visible');
   }
 
@@ -142,8 +142,8 @@ export class RichTextPage {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   expectTrackingValue(expectedValue: any) {
-    cy.window()
-      .should((win) => {
+    getIframeWindow()
+      .should((win: any) => {
         expect(win.actions).to.deep.equal(expectedValue);
       })
       .as('trackingValue');

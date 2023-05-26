@@ -1,7 +1,8 @@
 /* eslint-disable mocha/no-setup-in-describe */
 
-import { MARKS, BLOCKS, INLINES } from '@contentful/rich-text-types';
+import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types';
 
+import { getIframe } from '../../fixtures/utils';
 import { RichTextPage } from './RichTextPage';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
@@ -175,10 +176,10 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
     ].forEach(([mark, shortcut]) => {
       const toggleMarkViaToolbar = (mark: MARKS) => {
         if (mark === 'code' || mark === 'superscript' || mark === 'subscript') {
-          cy.findByTestId('dropdown-toolbar-button').click();
-          cy.findByTestId(`${mark}-toolbar-button`).click();
+          getIframe().findByTestId('dropdown-toolbar-button').click();
+          getIframe().findByTestId(`${mark}-toolbar-button`).click();
         } else {
-          cy.findByTestId(`${mark}-toolbar-button`).click();
+          getIframe().findByTestId(`${mark}-toolbar-button`).click();
         }
       };
       it(`tracks ${mark} mark via toolbar`, () => {
@@ -307,8 +308,8 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
     describe('Table Actions', () => {
       const findAction = (action: string) => {
-        cy.findByTestId('cf-table-actions-button').click();
-        return cy.findByText(action);
+        getIframe().findByTestId('cf-table-actions-button').click();
+        return getIframe().findByText(action);
       };
 
       const doAction = (action: string) => {
