@@ -26,7 +26,7 @@
     "cy:open:ct": "TZ=UTC cypress open --component",
     "cy:run": "TZ=UTC cypress run --browser chrome",
     "cy:run:ct": "TZ=UTC cypress run --component --browser chrome",
-    "storybook": "storybook dev -p 6006",
+    "storybook": "storybook dev -p 9000",
     "build-storybook": "storybook build -o dist",
     "cm": "git-cz",
     "prepare": "husky install"
