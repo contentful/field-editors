@@ -1,10 +1,4 @@
-const getIframe = () => {
-  return cy
-    .get('#storybook-preview-iframe')
-    .its('0.contentDocument.body')
-    .should('not.be.empty')
-    .then(cy.wrap);
-};
+import { getIframe } from '../fixtures/utils';
 
 describe('JSON Editor', () => {
   const selectors = {

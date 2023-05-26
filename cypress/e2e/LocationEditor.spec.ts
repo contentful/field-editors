@@ -1,3 +1,5 @@
+import { getIframe } from '../fixtures/utils';
+
 describe('Location Editor', () => {
   const LOCATION = {
     address: 'Max-Urich-Straße 1, 13355 Berlin, Germany',
@@ -6,35 +8,35 @@ describe('Location Editor', () => {
 
   const selectors = {
     getAddressRadio: () => {
-      return cy.findByTestId('location-editor-address-radio').find('input');
+      return getIframe().findByTestId('location-editor-address-radio').find('input');
     },
     getCoordinatesRadio: () => {
-      return cy.findByTestId('location-editor-coordinates-radio').find('input');
+      return getIframe().findByTestId('location-editor-coordinates-radio').find('input');
     },
     getSearchInput: () => {
-      return cy.findByTestId('location-editor-search');
+      return getIframe().findByTestId('location-editor-search');
     },
     getClearBtn: () => {
-      return cy.findByTestId('location-editor-clear');
+      return getIframe().findByTestId('location-editor-clear');
     },
     getLatitudeInput: () => {
-      return cy.findByTestId('location-editor-latitude');
+      return getIframe().findByTestId('location-editor-latitude');
     },
     getLongitudeInput: () => {
-      return cy.findByTestId('location-editor-longitude');
+      return getIframe().findByTestId('location-editor-longitude');
     },
     getLocationSuggestion: () => {
-      return cy.findByTestId('location-editor-suggestion');
+      return getIframe().findByTestId('location-editor-suggestion');
     },
     getValidationError: () => {
-      return cy.findByTestId('location-editor-not-found');
+      return getIframe().findByTestId('location-editor-not-found');
     },
   };
 
   beforeEach(() => {
     cy.setGoogleMapsKey();
-    cy.visit('/location');
-    cy.findByTestId('location-editor-integration-test').should('be.visible');
+    cy.visit('/?path=/docs/editors-location--docs');
+    getIframe().findByTestId('location-editor-integration-test').should('be.visible');
   });
 
   afterEach(() => {
