@@ -1,16 +1,18 @@
+import { getIframe } from '../fixtures/utils';
+
 describe('Markdown Editor / Organize Links', () => {
   const selectors = {
     getInput: () => {
-      return cy.get('[data-test-id="markdown-textarea"] [contenteditable]');
+      return getIframe().findByTestId('markdown-textarea').find('.CodeMirror-code');
     },
     getToggleAdditionalActionsButton: () => {
-      return cy.findByTestId('markdown-action-button-toggle-additional');
+      return getIframe().findByTestId('markdown-action-button-toggle-additional');
     },
     getOrganizeLinksButton() {
-      return cy.findByTestId('markdown-action-button-organizeLinks');
+      return getIframe().findByTestId('markdown-action-button-organizeLinks');
     },
     getSuccessNotification() {
-      return cy.get('[data-test-id="cf-ui-notification"][data-intent="success"]');
+      return getIframe().findByTestId('cf-ui-notification');
     },
   };
 
@@ -25,9 +27,9 @@ describe('Markdown Editor / Organize Links', () => {
   };
 
   beforeEach(() => {
-    cy.visit('/markdown');
+    cy.visit('/?path=/story/editors-markdown--default');
     cy.wait(500);
-    cy.findByTestId('markdown-editor').should('be.visible');
+    getIframe().findByTestId('markdown-editor').should('be.visible');
     selectors.getToggleAdditionalActionsButton().click();
   });
 
