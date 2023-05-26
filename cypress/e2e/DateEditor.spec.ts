@@ -1,37 +1,39 @@
+import { getIframe } from '../fixtures/utils';
+
 describe('Date Editor', () => {
   // February 15, 2019 timestamp
   const now = new Date(2019, 1, 15);
 
   const selectors = {
     getDateInput: () => {
-      return cy.findByTestId('cf-ui-datepicker-input');
+      return getIframe().findByTestId('cf-ui-datepicker-input');
     },
     getCalendarTrigger: () => {
-      return cy.findByTestId('cf-ui-datepicker-button');
+      return getIframe().findByTestId('cf-ui-datepicker-button');
     },
     getTimeInput: () => {
-      return cy.findByTestId('time-input');
+      return getIframe().findByTestId('time-input');
     },
     getTimezoneInput: () => {
-      return cy.findByTestId('timezone-input');
+      return getIframe().findByTestId('timezone-input');
     },
     getClearBtn: () => {
-      return cy.findByTestId('date-clear');
+      return getIframe().findByTestId('date-clear');
     },
     getCalendar: () => {
-      return cy.get('.rdp');
+      return getIframe().find('.rdp');
     },
     getCalendarMonth: () => {
-      return cy.get('.rdp select[aria-label="Month: "]');
+      return getIframe().find('.rdp select[aria-label="Month: "]');
     },
     getCalendarYear: () => {
-      return cy.get('.rdp select[aria-label="Year: "]');
+      return getIframe().find('.rdp select[aria-label="Year: "]');
     },
     getCalendarTodayDate: () => {
-      return cy.get('.rdp .rdp-day_today');
+      return getIframe().find('.rdp .rdp-day_today');
     },
     getCalendarSelectedDate: () => {
-      return cy.get('.rdp .rdp-day_selected');
+      return getIframe().find('.rdp .rdp-day_selected');
     },
   };
 
@@ -47,11 +49,11 @@ describe('Date Editor', () => {
   };
 
   const openPage = () => {
-    cy.visit('/date');
-    cy.findByTestId('date-editor-integration-test').should('be.visible');
+    cy.visit('/?path=/story/editors-date--default');
   };
 
   beforeEach(() => {
+    cy.visit('/?path=/story/editors-date--default');
     cy.clock(now.getTime());
   });
 
@@ -59,6 +61,7 @@ describe('Date Editor', () => {
     it('all fields should be disabled', () => {
       cy.setInitialDisabled(true);
       openPage();
+      cy.wait(500);
 
       selectors.getDateInput().should('be.disabled');
       selectors.getTimeInput().should('be.disabled');
@@ -69,8 +72,8 @@ describe('Date Editor', () => {
 
   describe('default configuration', () => {
     it('should read initial value', () => {
-      cy.setInitialValue('2018-01-03T05:53+03:00');
       openPage();
+      cy.setInitialValue('2018-01-03T05:53+03:00');
 
       selectors.getDateInput().should('have.value', '03 Jan 2018');
       selectors.getTimeInput().should('have.value', '05:53');
