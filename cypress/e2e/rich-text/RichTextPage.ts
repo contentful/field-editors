@@ -2,79 +2,81 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { INLINES } from '@contentful/rich-text-types';
 
+import { getIframe } from '../../fixtures/utils';
+
 const isValidationEvent = ({ type }) => type === 'onSchemaErrorsChanged';
 
 export type EmbedType = 'entry-block' | 'asset-block' | 'entry-inline';
 
 export class RichTextPage {
   visit() {
-    cy.visit('/rich-text');
+    cy.visit('/?path=/docs/editors-rich-text-editor--docs');
 
     this.editor.should('be.visible');
   }
 
   get editor() {
-    return cy.findByTestId('rich-text-editor').find('[data-slate-editor=true]');
+    return getIframe().findByTestId('rich-text-editor').find('[data-slate-editor=true]');
   }
 
   get toolbar() {
     return {
       get headingsDropdown() {
-        return cy.findByTestId('toolbar-heading-toggle');
+        return getIframe().findByTestId('toolbar-heading-toggle');
       },
 
       toggleHeading(type: string) {
         this.headingsDropdown.click();
-        cy.findByTestId(`dropdown-option-${type}`).click({ force: true });
+        getIframe().findByTestId(`dropdown-option-${type}`).click({ force: true });
       },
 
       get bold() {
-        return cy.findByTestId('bold-toolbar-button');
+        return getIframe().findByTestId('bold-toolbar-button');
       },
 
       get italic() {
-        return cy.findByTestId('italic-toolbar-button');
+        return getIframe().findByTestId('italic-toolbar-button');
       },
 
       get underline() {
-        return cy.findByTestId('underline-toolbar-button');
+        return getIframe().findByTestId('underline-toolbar-button');
       },
 
       get code() {
-        return cy.findByTestId('code-toolbar-button');
+        return getIframe().findByTestId('code-toolbar-button');
       },
 
       get ul() {
-        return cy.findByTestId('ul-toolbar-button');
+        return getIframe().findByTestId('ul-toolbar-button');
       },
 
       get ol() {
-        return cy.findByTestId('ol-toolbar-button');
+        return getIframe().findByTestId('ol-toolbar-button');
       },
 
       get quote() {
-        return cy.findByTestId('quote-toolbar-button');
+        return getIframe().findByTestId('quote-toolbar-button');
       },
 
       get hr() {
-        return cy.findByTestId('hr-toolbar-button');
+        return getIframe().findByTestId('hr-toolbar-button');
       },
 
       get hyperlink() {
-        return cy.findByTestId('hyperlink-toolbar-button');
+        return getIframe().findByTestId('hyperlink-toolbar-button');
       },
 
       get table() {
-        return cy.findByTestId('table-toolbar-button');
+        return getIframe().findByTestId('table-toolbar-button');
       },
 
       get embedDropdown() {
-        return cy.findByTestId('toolbar-entity-dropdown-toggle');
+        return getIframe().findByTestId('toolbar-entity-dropdown-toggle');
       },
 
       embed(type: EmbedType) {
         this.embedDropdown.click();
-        cy.findByTestId(`toolbar-toggle-embedded-${type}`).click();
+        getIframe().findByTestId(`toolbar-toggle-embedded-${type}`).click();
       },
     };
   }
@@ -150,11 +152,11 @@ export class RichTextPage {
 
 class HyperLinkModal {
   get linkText() {
-    return cy.findByTestId('link-text-input');
+    return getIframe().findByTestId('link-text-input');
   }
 
   get linkType() {
-    return cy.findByTestId('link-type-input');
+    return getIframe().findByTestId('link-type-input');
   }
 
   setLinkType = (type: INLINES.HYPERLINK | INLINES.ENTRY_HYPERLINK | INLINES.ASSET_HYPERLINK) => {
@@ -162,18 +164,18 @@ class HyperLinkModal {
   };
 
   get linkTarget() {
-    return cy.findByTestId('link-target-input');
+    return getIframe().findByTestId('link-target-input');
   }
 
   get linkEntityTarget() {
-    return cy.findByTestId('entity-selection-link');
+    return getIframe().findByTestId('entity-selection-link');
   }
 
   get submit() {
-    return cy.findByTestId('confirm-cta');
+    return getIframe().findByTestId('confirm-cta');
   }
 
   get cancel() {
-    return cy.findByTestId('cancel-cta');
+    return getIframe().findByTestId('cancel-cta');
   }
 }

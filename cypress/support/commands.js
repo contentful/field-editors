@@ -37,7 +37,6 @@ Cypress.Commands.add('editorActions', (lastN = Infinity) => {
 
 Cypress.Commands.add('setValueExternal', (value) => {
   return getIframeWindow().then((win) => {
-    console.log('does it have', win);
     win.setValueExternal(value);
     return win;
   });
@@ -95,7 +94,7 @@ Cypress.Commands.add('setInstanceParams', (instanceParams) => {
 });
 
 Cypress.Commands.add('getMarkdownInstance', () => {
-  return cy
+  return getIframeWindow()
     .then((win) => {
       return win.markdownEditor;
       // we want to make sure any kind of debounced behaviour
@@ -106,7 +105,7 @@ Cypress.Commands.add('getMarkdownInstance', () => {
 });
 
 Cypress.Commands.add('getRichTextField', () => {
-  return cy
+  return getIframeWindow()
     .then((win) => {
       return win.richTextField;
       // we want to make sure any kind of debounced behaviour

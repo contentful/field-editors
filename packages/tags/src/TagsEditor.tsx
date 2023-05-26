@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 
 import { Pill, TextInput } from '@contentful/f36-components';
@@ -9,7 +9,7 @@ import { css, cx } from 'emotion';
 import noop from 'lodash/noop';
 
 import { TagsEditorConstraints } from './TagsEditorConstraints';
-import { ConstraintsType, Constraint } from './types';
+import { Constraint, ConstraintsType } from './types';
 
 export interface TagsEditorProps {
   items: string[];
@@ -92,8 +92,6 @@ const SortableList = SortableContainer((props: SortableListProps) => (
 ));
 
 export function TagsEditor(props: TagsEditorProps) {
-  console.log(props);
-
   const [pendingValue, setPendingValue] = useState('');
 
   const { isDisabled, items, constraints, constraintsType, hasError } = props;

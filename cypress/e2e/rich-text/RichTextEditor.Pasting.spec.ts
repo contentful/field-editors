@@ -1,3 +1,4 @@
+import { getIframeWindow } from '../../fixtures/utils';
 import tableAndTextFromMsWord from './fixtures/msWordOnline';
 import { RichTextPage } from './RichTextPage';
 
@@ -404,7 +405,7 @@ describe(
       it("removes the paragraph if it's fully selected", () => {
         richText.editor.click().type('abc').type('{selectall}');
 
-        cy.window().then((win) => {
+        getIframeWindow().then((win: any) => {
           const selection = win.getSelection();
           cy.wrap(selection).its('focusNode.data').should('equal', 'abc');
           // slate throttles the handling of selection changes
