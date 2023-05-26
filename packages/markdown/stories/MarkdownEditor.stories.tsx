@@ -49,7 +49,10 @@ export const Default: Story = {
       },
       dialogs: {
         selectMultipleAssets: () => {
-          alert('select multiple assets dialog');
+          // @ts-expect-error
+          if (!window.parent.Cypress) {
+            alert('select multiple assets dialog');
+          }
 
           return [assets.published];
         },
@@ -60,7 +63,10 @@ export const Default: Story = {
       },
       navigator: {
         openNewAsset: async () => {
-          alert('open new asset');
+          // @ts-expect-error
+          if (!window.parent.Cypress) {
+            alert('open new asset');
+          }
 
           return {
             entity: assets.created,
