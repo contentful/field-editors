@@ -1,8 +1,22 @@
 import { getIframe } from '../fixtures/utils';
 
+const MONTHS = {
+  0: 'Jan',
+  1: 'Feb',
+  2: 'Mar',
+  3: 'Apr',
+  4: 'May',
+  5: 'Jun',
+  6: 'Jul',
+  7: 'Aug',
+  8: 'Sep',
+  9: 'Oct',
+  10: 'Nov',
+  11: 'Dec',
+};
+
 describe('Date Editor', () => {
-  // February 15, 2019 timestamp
-  const now = new Date(2019, 1, 15);
+  const now = new Date();
 
   const selectors = {
     getDateInput: () => {
@@ -48,13 +62,35 @@ describe('Date Editor', () => {
     };
   };
 
+  const getTodayShortString = () => {
+    return `${getToday().date} ${MONTHS[getToday().month]} ${getToday().year}`;
+  };
+
+  const getTodayKebabString = () => {
+    const date = `${getToday().date}`.padStart(2, '0');
+    const month = `${getToday().month + 1}`.padStart(2, '0');
+
+    return `${getToday().year}-${month}-${date}`;
+  };
+
+  const getTimezoneOffsetString = () => {
+    const currentDate = new Date();
+    const offsetInMinutes = currentDate.getTimezoneOffset();
+    const offsetHours = Math.floor(Math.abs(offsetInMinutes) / 60);
+    const offsetMinutes = Math.abs(offsetInMinutes) % 60;
+    const offsetSign = offsetInMinutes < 0 ? '+' : '-';
+
+    return `${offsetSign}${offsetHours.toString().padStart(2, '0')}:${offsetMinutes
+      .toString()
+      .padStart(2, '0')}`;
+  };
+
   const openPage = () => {
     cy.visit('/?path=/story/editors-date--default');
   };
 
   beforeEach(() => {
     cy.visit('/?path=/story/editors-date--default');
-    cy.clock(now.getTime());
   });
 
   describe('disabled state', () => {
@@ -82,7 +118,6 @@ describe('Date Editor', () => {
 
     it('should render date, time (24 format) and timezone inputs by default', () => {
       openPage();
-
       selectors.getDateInput().should('be.visible').should('have.value', '');
       selectors
         .getTimeInput()
@@ -90,7 +125,11 @@ describe('Date Editor', () => {
         .should('have.attr', 'date-time-type', '24')
         .should('have.attr', 'placeholder', '00:00')
         .should('have.value', '00:00');
-      selectors.getTimezoneInput().should('be.visible').should('have.value', '+00:00');
+      // TODO find a better way
+      selectors
+        .getTimezoneInput()
+        .should('be.visible')
+        .should('have.value', getTimezoneOffsetString());
     });
 
     it('calendar should show current year, month and date', () => {
@@ -108,31 +147,28 @@ describe('Date Editor', () => {
 
     it('correct actions are called when user interacts with editor', () => {
       openPage();
-      selectors.getTimezoneInput().select('+08:00').blur().should('have.value', '+08:00');
+      selectors.getTimezoneInput().select('+08:00').should('have.value', '+08:00');
 
       selectors.getCalendarTrigger().click();
       selectors.getCalendarTodayDate().click();
-      selectors.getDateInput().should('have.value', '15 Feb 2019');
+      selectors.getDateInput().should('have.value', getTodayShortString());
 
-      selectors.getTimeInput().focus().type('15:00').blur().should('have.value', '15:00');
+      selectors.getTimeInput().focus().type('15:00').should('have.value', '15:00');
 
       selectors.getClearBtn().click();
 
-      // it is necessary cause we mock cypress.clock
-      cy.tick(1000);
-
       selectors.getDateInput().should('have.value', '');
       selectors.getTimeInput().should('have.value', '00:00');
-      selectors.getTimezoneInput().should('have.value', '+00:00');
+      selectors.getTimezoneInput().should('have.value', getTimezoneOffsetString());
       selectors.getClearBtn().should('not.exist');
 
       cy.editorEvents().should('deep.equal', [
         { id: 6, type: 'onValueChanged', value: undefined },
         { id: 5, type: 'removeValue', value: undefined },
-        { id: 4, type: 'onValueChanged', value: '2019-02-15T15:00+08:00' },
-        { id: 3, type: 'setValue', value: '2019-02-15T15:00+08:00' },
-        { id: 2, type: 'onValueChanged', value: '2019-02-15T00:00+08:00' },
-        { id: 1, type: 'setValue', value: '2019-02-15T00:00+08:00' },
+        { id: 4, type: 'onValueChanged', value: getTodayKebabString() + 'T15:00+08:00' },
+        { id: 3, type: 'setValue', value: getTodayKebabString() + 'T15:00+08:00' },
+        { id: 2, type: 'onValueChanged', value: getTodayKebabString() + 'T00:00+08:00' },
+        { id: 1, type: 'setValue', value: getTodayKebabString() + 'T00:00+08:00' },
       ]);
     });
 
@@ -168,7 +204,10 @@ describe('Date Editor', () => {
       ];
 
       pairs.forEach((pair) => {
-        selectors.getTimeInput().type(pair[0]).blur().should('have.value', pair[1]);
+        selectors.getTimeInput().type(pair[0]);
+        // blur doesn't work inside the iframe so clicking a different element instead
+        selectors.getDateInput().click();
+        selectors.getTimeInput().should('have.value', pair[1]);
       });
     });
 
@@ -243,7 +282,10 @@ describe('Date Editor', () => {
       ];
 
       pairs.forEach((pair) => {
-        selectors.getTimeInput().type(pair[0]).blur().should('have.value', pair[1]);
+        selectors.getTimeInput().type(pair[0]);
+        // blur doesn't work inside the iframe so clicking a different element instead
+        selectors.getDateInput().click();
+        selectors.getTimeInput().should('have.value', pair[1]);
       });
     });
 
@@ -252,14 +294,13 @@ describe('Date Editor', () => {
 
       selectors.getCalendarTrigger().click();
       selectors.getCalendarTodayDate().click();
-      selectors.getDateInput().should('have.value', '15 Feb 2019');
+      selectors.getDateInput().should('have.value', getTodayShortString());
 
-      selectors.getTimeInput().focus().type('3:00 PM').blur().should('have.value', '03:00 PM');
+      selectors.getTimeInput().focus().type('3:00 PM');
+      selectors.getDateInput().click();
+      selectors.getTimeInput().should('have.value', '03:00 PM');
 
       selectors.getClearBtn().click();
-
-      // it is necessary cause we mock cypress.clock
-      cy.tick(1000);
 
       selectors.getDateInput().should('have.value', '');
       selectors.getTimeInput().should('have.value', '12:00 AM');
@@ -268,10 +309,10 @@ describe('Date Editor', () => {
       cy.editorEvents().should('deep.equal', [
         { id: 6, type: 'onValueChanged', value: undefined },
         { id: 5, type: 'removeValue', value: undefined },
-        { id: 4, type: 'onValueChanged', value: '2019-02-15T15:00' },
-        { id: 3, type: 'setValue', value: '2019-02-15T15:00' },
-        { id: 2, type: 'onValueChanged', value: '2019-02-15T00:00' },
-        { id: 1, type: 'setValue', value: '2019-02-15T00:00' },
+        { id: 4, type: 'onValueChanged', value: getTodayKebabString() + 'T15:00' },
+        { id: 3, type: 'setValue', value: getTodayKebabString() + 'T15:00' },
+        { id: 2, type: 'onValueChanged', value: getTodayKebabString() + 'T00:00' },
+        { id: 1, type: 'setValue', value: getTodayKebabString() + 'T00:00' },
       ]);
     });
 
@@ -320,12 +361,11 @@ describe('Date Editor', () => {
 
       selectors.getCalendarTrigger().click();
       selectors.getCalendarTodayDate().click();
-      selectors.getDateInput().should('have.value', '15 Feb 2019');
+      selectors
+        .getDateInput()
+        .should('have.value', `${getToday().date} ${MONTHS[getToday().month]} ${getToday().year}`);
 
       selectors.getClearBtn().click();
-
-      // it is necessary cause we mock cypress.clock
-      cy.tick(1000);
 
       selectors.getDateInput().should('have.value', '');
       selectors.getClearBtn().should('not.exist');
@@ -333,8 +373,16 @@ describe('Date Editor', () => {
       cy.editorEvents().should('deep.equal', [
         { id: 4, type: 'onValueChanged', value: undefined },
         { id: 3, type: 'removeValue', value: undefined },
-        { id: 2, type: 'onValueChanged', value: '2019-02-15' },
-        { id: 1, type: 'setValue', value: '2019-02-15' },
+        {
+          id: 2,
+          type: 'onValueChanged',
+          value: getTodayKebabString(),
+        },
+        {
+          id: 1,
+          type: 'setValue',
+          value: getTodayKebabString(),
+        },
       ]);
     });
 
