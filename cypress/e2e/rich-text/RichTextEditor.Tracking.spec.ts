@@ -481,6 +481,14 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
     for (const [triggerMethod, origin, triggerLinkModal] of methods) {
       describe(triggerMethod, () => {
+        beforeEach(() => {
+          cy.shouldConfirm(true);
+        });
+
+        afterEach(() => {
+          cy.unsetShouldConfirm();
+        });
+
         it('opens the hyperlink modal but cancels without adding a link', () => {
           richText.editor.type('The quick brown fox jumps over the lazy ');
 
@@ -616,7 +624,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
             linkRendered(),
           ]);
 
-          // Part 3:
+          // Part 4:
           // Update asset link to hyperlink
 
           richText.editor.findByTestId('cf-ui-text-link').click({ force: true });
@@ -663,6 +671,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
     for (const [triggerMethod, origin, triggerEmbeddedEntry] of methods) {
       describe(triggerMethod, () => {
         it('tracks when inserting embedded entry block', () => {
+          cy.shouldConfirm(true);
           richText.editor.click().then(triggerEmbeddedEntry);
 
           richText.expectTrackingValue([
@@ -670,6 +679,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
             insert(origin, { nodeType: BLOCKS.EMBEDDED_ENTRY }),
             linkRendered(),
           ]);
+          cy.unsetShouldConfirm();
         });
 
         it('cancels without adding the entry block', () => {
@@ -707,24 +717,27 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
     for (const [triggerMethod, origin, triggerEmbeddedAsset] of methods) {
       describe(triggerMethod, () => {
         it('tracks when inserting embedded asset block', () => {
-          richText.editor.click().then(triggerEmbeddedAsset);
+          cy.shouldConfirm(true);
 
+          richText.editor.click().then(triggerEmbeddedAsset);
           richText.expectTrackingValue([
             openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_ASSET),
             insert(origin, { nodeType: BLOCKS.EMBEDDED_ASSET }),
             linkRendered(),
           ]);
+
+          cy.unsetShouldConfirm();
         });
 
         it('cancels without adding the entry asset', () => {
           cy.shouldConfirm(false);
 
           richText.editor.click().then(triggerEmbeddedAsset);
-
           richText.expectTrackingValue([
             openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_ASSET),
             cancelEmbeddedDialog(origin, BLOCKS.EMBEDDED_ASSET),
           ]);
+
           cy.unsetShouldConfirm();
         });
       });
@@ -752,6 +765,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
     for (const [triggerMethod, origin, triggerEmbeddedInline] of methods) {
       describe(triggerMethod, () => {
         it('tracks when inserting embedded asset block', () => {
+          cy.shouldConfirm(true);
           richText.editor.click().then(triggerEmbeddedInline);
 
           richText.expectTrackingValue([
@@ -759,6 +773,8 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
             insert(origin, { nodeType: INLINES.EMBEDDED_ENTRY }),
             linkRendered(),
           ]);
+
+          cy.unsetShouldConfirm();
         });
 
         it('cancels without adding the entry asset', () => {
