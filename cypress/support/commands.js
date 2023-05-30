@@ -72,6 +72,20 @@ Cypress.Commands.add('setInitialDisabled', (initialDisabled) => {
   });
 });
 
+Cypress.Commands.add('shouldConfirm', (confirm) => {
+  return getIframeWindow().then((win) => {
+    win.localStorage.setItem('shouldConfirm', confirm);
+    return win;
+  });
+});
+
+Cypress.Commands.add('unsetShouldConfirm', () => {
+  return getIframeWindow().then((win) => {
+    win.localStorage.removeItem('shouldConfirm');
+    return win;
+  });
+});
+
 Cypress.Commands.add('setRestrictedMarks', (restrictedMarks) => {
   return getIframeWindow().then((win) => {
     win.localStorage.setItem('restrictedMarks', JSON.stringify(restrictedMarks));

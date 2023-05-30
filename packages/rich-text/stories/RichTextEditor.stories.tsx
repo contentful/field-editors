@@ -50,12 +50,14 @@ const DemoRichTextEditor = () => {
     // Not showing the confirm dialog when running Cypress tests
     //@ts-expect-error
     if (window.parent.Cypress) {
-      return {
-        sys: {
-          id: 'example-entity-id',
-          type,
-        },
-      };
+      return window.localStorage.getItem('shouldConfirm') === 'true'
+        ? {
+            sys: {
+              id: 'example-entity-id',
+              type,
+            },
+          }
+        : null;
     }
 
     return confirm(`sdk.dialogs.${fnName}()\nSimulate selecting a random entity or cancel?`)

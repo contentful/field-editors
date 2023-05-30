@@ -507,7 +507,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
           richText.expectTrackingValue([openCreateModal(origin), insertHyperlink(origin)]);
 
           richText.editor.click().type('{selectall}');
-          cy.findByTestId('hyperlink-toolbar-button').click();
+          getIframe().findByTestId('hyperlink-toolbar-button').click();
 
           richText.expectTrackingValue([
             openCreateModal(origin),
@@ -673,14 +673,14 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         });
 
         it('cancels without adding the entry block', () => {
-          cy.on('window:confirm', () => false);
-
+          cy.shouldConfirm(false);
           richText.editor.click().then(triggerEmbeddedEntry);
 
           richText.expectTrackingValue([
             openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_ENTRY),
             cancelEmbeddedDialog(origin, BLOCKS.EMBEDDED_ENTRY),
           ]);
+          cy.unsetShouldConfirm();
         });
       });
     }
@@ -717,7 +717,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         });
 
         it('cancels without adding the entry asset', () => {
-          cy.on('window:confirm', () => false);
+          cy.shouldConfirm(false);
 
           richText.editor.click().then(triggerEmbeddedAsset);
 
@@ -725,6 +725,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
             openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_ASSET),
             cancelEmbeddedDialog(origin, BLOCKS.EMBEDDED_ASSET),
           ]);
+          cy.unsetShouldConfirm();
         });
       });
     }
@@ -761,7 +762,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         });
 
         it('cancels without adding the entry asset', () => {
-          cy.on('window:confirm', () => false);
+          cy.shouldConfirm(false);
 
           richText.editor.click().then(triggerEmbeddedInline);
 
@@ -769,6 +770,8 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
             openCreateEmbedDialog(origin, INLINES.EMBEDDED_ENTRY),
             cancelEmbeddedDialog(origin, INLINES.EMBEDDED_ENTRY),
           ]);
+
+          cy.unsetShouldConfirm();
         });
       });
     }
@@ -776,7 +779,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
   describe('Commands', () => {
     const origin = 'command-palette';
-    const getCommandList = () => cy.findByTestId('rich-text-commands-list');
+    const getCommandList = () => getIframe().findByTestId('rich-text-commands-list');
 
     beforeEach(() => {
       richText.editor.click().type('/');
