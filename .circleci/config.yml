@@ -81,7 +81,7 @@ jobs:
           command: |
             TESTFILES=$(circleci tests glob "cypress/e2e/**/*.ts" | circleci tests split --split-by=timings --timings-type=filename | awk '{if (NR>1) printf ","; printf "%s", $0} END {if (NR>0) printf " "}')
             npx cypress run \
-              --spec "cypress/e2e/rich-text/RichTextEditor.spec.ts" \
+              --spec "${TESTFILES}" \
               --reporter junit \
               --reporter-options "mochaFile=./cypress/reports/e2e/test-results.[hash].xml" \
               --browser << parameters.browser >>
