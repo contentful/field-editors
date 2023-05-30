@@ -17,6 +17,7 @@ import { ToolbarHyperlinkButton } from '../plugins/Hyperlink';
 import { ToolbarListButton } from '../plugins/List';
 import { ToolbarBoldButton } from '../plugins/Marks/Bold';
 import { ToolbarCodeButton, ToolbarDropdownCodeButton } from '../plugins/Marks/Code';
+import { ToolbarInlineCommentButton } from '../plugins/Marks/InlineComment';
 import { ToolbarItalicButton } from '../plugins/Marks/Italic';
 import { ToolbarDropdownSubscriptButton, ToolbarSubscriptButton } from '../plugins/Marks/Subscript';
 import {
@@ -104,6 +105,7 @@ const Dropdown = ({ sdk, isDisabled }: { sdk: FieldExtensionSDK; isDisabled?: bo
         {isMarkEnabled(sdk.field, MARKS.CODE) && (
           <ToolbarDropdownCodeButton isDisabled={isDisabled} />
         )}
+        <ToolbarInlineCommentButton />
       </Menu.List>
     </Menu>
   );
@@ -119,6 +121,8 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
   const isBlockquoteSelected = isNodeTypeSelected(editor, BLOCKS.QUOTE);
   const shouldDisableTables =
     isDisabled || !canInsertBlocks || isListSelected || isBlockquoteSelected;
+
+  console.log({ sdk });
 
   // We only show the dropdown when: whenever at least bold , italic and underline are available; If nothing that would go inside the dropdown is available, we hide it
   const boldItalicUnderlineAvailable =
@@ -154,6 +158,7 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
         {!boldItalicUnderlineAvailable && isMarkEnabled(sdk.field, MARKS.CODE) && (
           <ToolbarCodeButton isDisabled={isDisabled} />
         )}
+        <ToolbarInlineCommentButton />
 
         {shouldShowDropdown && <Dropdown sdk={sdk} isDisabled={isDisabled} />}
 
