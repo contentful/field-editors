@@ -8,7 +8,7 @@ import { RichTextPage } from './RichTextPage';
 // the sticky toolbar gets in the way of some of the tests, therefore
 // we increase the viewport height to fit the whole page on the screen
 
-describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
+describe('Rich Text Editor - Headings', { viewportHeight: 2000 }, () => {
   let richText: RichTextPage;
 
   // copied from the 'is-hotkey' library we use for RichText shortcuts
@@ -64,168 +64,102 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     richText.visit();
   });
 
-  it('is empty by default', () => {
-    cy.editorEvents().should('deep.equal', []);
-  });
+  headings.forEach(([type, label, shortcut]) => {
+    describe(label, () => {
+      it(`allows typing ${label} (${type})`, () => {
+        richText.editor.click().type('some text');
 
-  it('disable all editor actions on readonly mode', () => {
-    cy.setInitialValue(
-      doc(
-        paragraphWithText('text'),
-        block(
-          BLOCKS.TABLE,
-          {},
-          block(
-            BLOCKS.TABLE_ROW,
-            {},
-            block(BLOCKS.TABLE_HEADER_CELL, {}, paragraphWithText('heading 1')),
-            block(BLOCKS.TABLE_HEADER_CELL, {}, paragraphWithText('heading 2'))
-          ),
-          block(
-            BLOCKS.TABLE_ROW,
-            {},
-            block(BLOCKS.TABLE_CELL, {}, paragraphWithText('cell 1')),
-            block(BLOCKS.TABLE_CELL, {}, paragraphWithText('cell 2'))
-          )
-        ),
-        emptyParagraph()
-      )
-    );
+        richText.toolbar.toggleHeading(type);
 
-    cy.setInitialDisabled(true);
+        // TODO: We should somehow assert that the editor is focused after this.
 
-    // Necessary for reading the correct LocalStorage values as we do
-    // the initial page load on the beforeEach hook
-    cy.reload();
+        // Account for trailing paragraph
+        const expectedValue =
+          type === BLOCKS.PARAGRAPH
+            ? doc(block(type, {}, text('some text', [])))
+            : doc(block(type, {}, text('some text', [])), emptyParagraph());
 
-    richText.toolbar.bold.should('be.disabled');
-    richText.toolbar.headingsDropdown.should('be.disabled');
-    richText.toolbar.hr.should('be.disabled');
-    richText.toolbar.hyperlink.should('be.disabled');
-    richText.toolbar.italic.should('be.disabled');
-    richText.toolbar.ol.should('be.disabled');
-    richText.toolbar.quote.should('be.disabled');
-    richText.toolbar.table.should('be.disabled');
-    richText.toolbar.ul.should('be.disabled');
-    richText.toolbar.underline.should('be.disabled');
-    richText.toolbar.embedDropdown.should('be.disabled');
-  });
+        richText.expectValue(expectedValue);
+      });
 
-  it('allows typing', () => {
-    richText.editor.click().type('some text').click();
+      if (shortcut) {
+        it(`allows writing ${label} (${type}) via hotkeys ${shortcut}`, () => {
+          richText.editor.click().type(shortcut).type('some text');
 
-    const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text')));
-
-    richText.expectValue(expectedValue);
-  });
-
-  it('has correct keyboard navigation', () => {
-    richText.editor.focus();
-    richText.editor.tab({ shift: true });
-    richText.toolbar.embedDropdown.should('have.focus');
-    richText.editor.tab();
-    richText.editor.tab();
-    richText.editor.should('not.have.focus');
-  });
-
-  describe('Headings', () => {
-    headings.forEach(([type, label, shortcut]) => {
-      describe(label, () => {
-        it(`allows typing ${label} (${type})`, () => {
-          richText.editor.click().type('some text');
-
-          richText.toolbar.toggleHeading(type);
-
-          // TODO: We should somehow assert that the editor is focused after this.
-
-          // Account for trailing paragraph
-          const expectedValue =
-            type === BLOCKS.PARAGRAPH
-              ? doc(block(type, {}, text('some text', [])))
-              : doc(block(type, {}, text('some text', [])), emptyParagraph());
+          const expectedValue = doc(block(type, {}, text('some text', [])), emptyParagraph());
 
           richText.expectValue(expectedValue);
         });
+      }
 
-        if (shortcut) {
-          it(`allows writing ${label} (${type}) via hotkeys ${shortcut}`, () => {
-            richText.editor.click().type(shortcut).type('some text');
+      it(`should set the dropdown label to ${label}`, () => {
+        richText.editor.click().type('some text');
 
-            const expectedValue = doc(block(type, {}, text('some text', [])), emptyParagraph());
+        richText.toolbar.toggleHeading(type);
 
-            richText.expectValue(expectedValue);
-          });
-        }
+        richText.toolbar.headingsDropdown.should('have.text', label);
+      });
 
-        it(`should set the dropdown label to ${label}`, () => {
-          richText.editor.click().type('some text');
-
-          richText.toolbar.toggleHeading(type);
-
-          richText.toolbar.headingsDropdown.should('have.text', label);
-        });
-
-        // TODO: Move this test to either a single test with multiple assertions or for only one heading type due to performance
-        if (type !== BLOCKS.PARAGRAPH) {
-          it('should unwrap blockquote', () => {
-            addBlockquote('some text');
-
-            richText.toolbar.toggleHeading(type);
-
-            const expectedHeadingValue = doc(
-              block(type, {}, text('some text', [])),
-              block(BLOCKS.PARAGRAPH, {}, text('', []))
-            );
-
-            richText.expectValue(expectedHeadingValue);
-          });
-        } else {
-          it('should not unwrap blockquote', () => {
-            const expectedQuoteValue = addBlockquote('some text');
-
-            richText.toolbar.toggleHeading(type);
-
-            richText.expectValue(expectedQuoteValue);
-          });
-        }
-
-        it('should be deleted if empty when pressing delete', () => {
-          cy.shouldConfirm(true);
-          richText.editor.click(); // to set an initial editor.location
+      // TODO: Move this test to either a single test with multiple assertions or for only one heading type due to performance
+      if (type !== BLOCKS.PARAGRAPH) {
+        it('should unwrap blockquote', () => {
+          addBlockquote('some text');
 
           richText.toolbar.toggleHeading(type);
 
-          richText.editor.type('x{enter}');
+          const expectedHeadingValue = doc(
+            block(type, {}, text('some text', [])),
+            block(BLOCKS.PARAGRAPH, {}, text('', []))
+          );
 
-          richText.toolbar.embed('entry-block');
-
-          // To make sure paragraph/heading is present
-          richText.expectValue(doc(block(type, {}, text('x')), entryBlock(), emptyParagraph()));
-
-          richText.editor
-            .click('bottom')
-            // Using `delay` to avoid flakiness, cypress triggers a keypress every 10ms and the editor was not responding correctly
-            .type('{uparrow}{uparrow}{uparrow}{del}{del}', { delay: 100 });
-
-          richText.expectValue(doc(entryBlock(), emptyParagraph()));
-          cy.unsetShouldConfirm();
+          richText.expectValue(expectedHeadingValue);
         });
-
-        it('should delete next block if not empty when pressing delete', () => {
-          cy.shouldConfirm(true);
-          const value = 'some text';
-          richText.editor.click().type(value);
+      } else {
+        it('should not unwrap blockquote', () => {
+          const expectedQuoteValue = addBlockquote('some text');
 
           richText.toolbar.toggleHeading(type);
 
-          richText.toolbar.embed('entry-block');
-
-          // Using `delay` to avoid flakiness, cypress triggers a keypress every 10ms and the editor was not responding correcrly
-          richText.editor.type('{leftarrow}{del}', { delay: 100 });
-
-          richText.expectValue(doc(block(type, {}, text(value)), emptyParagraph()));
-          cy.unsetShouldConfirm();
+          richText.expectValue(expectedQuoteValue);
         });
+      }
+
+      it('should be deleted if empty when pressing delete', () => {
+        cy.shouldConfirm(true);
+        richText.editor.click(); // to set an initial editor.location
+
+        richText.toolbar.toggleHeading(type);
+
+        richText.editor.type('x{enter}');
+
+        richText.toolbar.embed('entry-block');
+
+        // To make sure paragraph/heading is present
+        richText.expectValue(doc(block(type, {}, text('x')), entryBlock(), emptyParagraph()));
+
+        richText.editor
+          .click('bottom')
+          // Using `delay` to avoid flakiness, cypress triggers a keypress every 10ms and the editor was not responding correctly
+          .type('{uparrow}{uparrow}{uparrow}{del}{del}', { delay: 100 });
+
+        richText.expectValue(doc(entryBlock(), emptyParagraph()));
+        cy.unsetShouldConfirm();
+      });
+
+      it('should delete next block if not empty when pressing delete', () => {
+        cy.shouldConfirm(true);
+        const value = 'some text';
+        richText.editor.click().type(value);
+
+        richText.toolbar.toggleHeading(type);
+
+        richText.toolbar.embed('entry-block');
+
+        // Using `delay` to avoid flakiness, cypress triggers a keypress every 10ms and the editor was not responding correcrly
+        richText.editor.type('{leftarrow}{del}', { delay: 100 });
+
+        richText.expectValue(doc(block(type, {}, text(value)), emptyParagraph()));
+        cy.unsetShouldConfirm();
       });
     });
   });
