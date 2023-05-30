@@ -8,7 +8,7 @@ import { RichTextPage } from './RichTextPage';
 // the sticky toolbar gets in the way of some of the tests, therefore
 // we increase the viewport height to fit the whole page on the screen
 
-describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
+describe('Rich Text Editor - HR', { viewportHeight: 2000 }, () => {
   let richText: RichTextPage;
 
   // copied from the 'is-hotkey' library we use for RichText shortcuts
@@ -41,175 +41,109 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     richText.visit();
   });
 
-  it('is empty by default', () => {
-    cy.editorEvents().should('deep.equal', []);
-  });
+  describe('toolbar button', () => {
+    it('should be visible', () => {
+      richText.toolbar.hr.should('be.visible');
+    });
 
-  it('disable all editor actions on readonly mode', () => {
-    cy.setInitialValue(
-      doc(
-        paragraphWithText('text'),
-        block(
-          BLOCKS.TABLE,
-          {},
-          block(
-            BLOCKS.TABLE_ROW,
-            {},
-            block(BLOCKS.TABLE_HEADER_CELL, {}, paragraphWithText('heading 1')),
-            block(BLOCKS.TABLE_HEADER_CELL, {}, paragraphWithText('heading 2'))
-          ),
-          block(
-            BLOCKS.TABLE_ROW,
-            {},
-            block(BLOCKS.TABLE_CELL, {}, paragraphWithText('cell 1')),
-            block(BLOCKS.TABLE_CELL, {}, paragraphWithText('cell 2'))
-          )
-        ),
-        emptyParagraph()
-      )
-    );
+    it('should add a new line when clicking', () => {
+      richText.editor.click().type('some text');
 
-    cy.setInitialDisabled(true);
+      richText.toolbar.hr.click();
 
-    // Necessary for reading the correct LocalStorage values as we do
-    // the initial page load on the beforeEach hook
-    cy.reload();
+      const expectedValue = doc(
+        block(BLOCKS.PARAGRAPH, {}, text('some text', [])),
+        block(BLOCKS.HR, {}),
+        block(BLOCKS.PARAGRAPH, {}, text('', []))
+      );
 
-    richText.toolbar.bold.should('be.disabled');
-    richText.toolbar.headingsDropdown.should('be.disabled');
-    richText.toolbar.hr.should('be.disabled');
-    richText.toolbar.hyperlink.should('be.disabled');
-    richText.toolbar.italic.should('be.disabled');
-    richText.toolbar.ol.should('be.disabled');
-    richText.toolbar.quote.should('be.disabled');
-    richText.toolbar.table.should('be.disabled');
-    richText.toolbar.ul.should('be.disabled');
-    richText.toolbar.underline.should('be.disabled');
-    richText.toolbar.embedDropdown.should('be.disabled');
-  });
+      richText.expectValue(expectedValue);
+    });
 
-  it('allows typing', () => {
-    richText.editor.click().type('some text').click();
+    it('should end with an empty paragraph', () => {
+      richText.editor.click().type('some text');
 
-    const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text')));
+      richText.toolbar.hr.click();
+      richText.toolbar.hr.click();
+      richText.toolbar.hr.click();
 
-    richText.expectValue(expectedValue);
-  });
+      const expectedValue = doc(
+        block(BLOCKS.PARAGRAPH, {}, text('some text', [])),
+        block(BLOCKS.HR, {}),
+        block(BLOCKS.HR, {}),
+        block(BLOCKS.HR, {}),
+        block(BLOCKS.PARAGRAPH, {}, text('', []))
+      );
 
-  it('has correct keyboard navigation', () => {
-    richText.editor.focus();
-    richText.editor.tab({ shift: true });
-    richText.toolbar.embedDropdown.should('have.focus');
-    richText.editor.tab();
-    richText.editor.tab();
-    richText.editor.should('not.have.focus');
-  });
+      richText.expectValue(expectedValue);
+    });
 
-  describe('HR', () => {
-    describe('toolbar button', () => {
-      it('should be visible', () => {
-        richText.toolbar.hr.should('be.visible');
-      });
+    it('should split blockquote', () => {
+      addBlockquote('some text');
 
-      it('should add a new line when clicking', () => {
-        richText.editor.click().type('some text');
+      richText.editor.type('{enter}some text{uparrow}');
 
-        richText.toolbar.hr.click();
+      richText.toolbar.hr.click();
 
-        const expectedValue = doc(
-          block(BLOCKS.PARAGRAPH, {}, text('some text', [])),
-          block(BLOCKS.HR, {}),
-          block(BLOCKS.PARAGRAPH, {}, text('', []))
-        );
+      const expectedValue = doc(
+        block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text('some text', []))),
+        block(BLOCKS.HR, {}),
+        block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text('some text', []))),
+        block(BLOCKS.PARAGRAPH, {}, text('', []))
+      );
 
-        richText.expectValue(expectedValue);
-      });
+      richText.expectValue(expectedValue);
+    });
 
-      it('should end with an empty paragraph', () => {
-        richText.editor.click().type('some text');
+    // TODO: Seems to be failing on CI
+    // eslint-disable-next-line mocha/no-skipped-tests
+    it.skip('should add line if HR is the first void block', () => {
+      richText.editor.click();
 
-        richText.toolbar.hr.click();
-        richText.toolbar.hr.click();
-        richText.toolbar.hr.click();
+      richText.toolbar.hr.click();
 
-        const expectedValue = doc(
-          block(BLOCKS.PARAGRAPH, {}, text('some text', [])),
-          block(BLOCKS.HR, {}),
-          block(BLOCKS.HR, {}),
-          block(BLOCKS.HR, {}),
-          block(BLOCKS.PARAGRAPH, {}, text('', []))
-        );
+      // Not necessary for the test but here to "force" waiting until
+      // we have the expected document structure
+      richText.expectValue(doc(block(BLOCKS.HR, {}), block(BLOCKS.PARAGRAPH, {}, text('', []))));
 
-        richText.expectValue(expectedValue);
-      });
+      // Move arrow up to select the HR then press ENTER
+      richText.editor.click().type('{uparrow}{enter}');
 
-      it('should split blockquote', () => {
-        addBlockquote('some text');
+      const expectedValue = doc(
+        block(BLOCKS.PARAGRAPH, {}, text('', [])),
+        block(BLOCKS.HR, {}),
+        block(BLOCKS.PARAGRAPH, {}, text('', []))
+      );
 
-        richText.editor.type('{enter}some text{uparrow}');
+      richText.expectValue(expectedValue);
+    });
 
-        richText.toolbar.hr.click();
+    it('should select all and delete if HR is the first void block', () => {
+      richText.editor.click();
 
-        const expectedValue = doc(
-          block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text('some text', []))),
-          block(BLOCKS.HR, {}),
-          block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text('some text', []))),
-          block(BLOCKS.PARAGRAPH, {}, text('', []))
-        );
+      richText.toolbar.hr.click();
 
-        richText.expectValue(expectedValue);
-      });
+      richText.editor.click().type('hey').type('{selectall}{del}');
 
-      // TODO: Seems to be failing on CI
-      // eslint-disable-next-line mocha/no-skipped-tests
-      it.skip('should add line if HR is the first void block', () => {
-        richText.editor.click();
+      // editor is empty
+      richText.expectValue(undefined);
+    });
 
-        richText.toolbar.hr.click();
+    it('should be selected on backspace', () => {
+      richText.editor.click();
 
-        // Not necessary for the test but here to "force" waiting until
-        // we have the expected document structure
-        richText.expectValue(doc(block(BLOCKS.HR, {}), block(BLOCKS.PARAGRAPH, {}, text('', []))));
+      richText.toolbar.hr.click();
+      richText.editor.type('X');
 
-        // Move arrow up to select the HR then press ENTER
-        richText.editor.click().type('{uparrow}{enter}');
+      richText.expectValue(doc(block(BLOCKS.HR, {}), paragraphWithText('X')));
 
-        const expectedValue = doc(
-          block(BLOCKS.PARAGRAPH, {}, text('', [])),
-          block(BLOCKS.HR, {}),
-          block(BLOCKS.PARAGRAPH, {}, text('', []))
-        );
+      richText.editor.type('{backspace}{backspace}');
 
-        richText.expectValue(expectedValue);
-      });
+      richText.expectValue(doc(block(BLOCKS.HR, {}), emptyParagraph()));
 
-      it('should select all and delete if HR is the first void block', () => {
-        richText.editor.click();
+      richText.editor.type('{backspace}');
 
-        richText.toolbar.hr.click();
-
-        richText.editor.click().type('hey').type('{selectall}{del}');
-
-        // editor is empty
-        richText.expectValue(undefined);
-      });
-
-      it('should be selected on backspace', () => {
-        richText.editor.click();
-
-        richText.toolbar.hr.click();
-        richText.editor.type('X');
-
-        richText.expectValue(doc(block(BLOCKS.HR, {}), paragraphWithText('X')));
-
-        richText.editor.type('{backspace}{backspace}');
-
-        richText.expectValue(doc(block(BLOCKS.HR, {}), emptyParagraph()));
-
-        richText.editor.type('{backspace}');
-
-        expectDocumentToBeEmpty();
-      });
+      expectDocumentToBeEmpty();
     });
   });
 });
