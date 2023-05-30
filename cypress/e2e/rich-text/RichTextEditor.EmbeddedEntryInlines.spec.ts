@@ -45,6 +45,7 @@ describe('Rich Text Editor - Embedded Entry Inlines', { viewportHeight: 2000 }, 
   for (const [triggerMethod, triggerEmbeddedAsset] of methods) {
     describe(triggerMethod, () => {
       it('adds and removes embedded entries', () => {
+        cy.shouldConfirm(true);
         richText.editor
           .click()
           .type('hello')
@@ -78,6 +79,7 @@ describe('Rich Text Editor - Embedded Entry Inlines', { viewportHeight: 2000 }, 
 
         richText.expectValue(doc(block(BLOCKS.PARAGRAPH, {}, text('hello'), text('world'))));
 
+        cy.unsetShouldConfirm();
         // TODO: we should also test deletion via {backspace},
         // but this breaks in cypress even though it works in the editor
       });
