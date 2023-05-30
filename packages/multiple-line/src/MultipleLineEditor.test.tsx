@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
-import { cleanup, configure, fireEvent, render } from '@testing-library/react';
+import { cleanup, configure, fireEvent, render, waitFor } from '@testing-library/react';
 import identity from 'lodash/identity';
 
 import '@testing-library/jest-dom/extend-expect';
@@ -57,7 +57,7 @@ describe('MultipleLineEditor', () => {
     expect(getByTestId('cf-ui-textarea')).toHaveValue(initialValue);
   });
 
-  it('calls field.setValue when user types and calls field.removeValue when user clears the input', () => {
+  it('calls field.setValue when user types and calls field.removeValue when user clears the input', async () => {
     const [field] = createFakeFieldAPI((field) => {
       jest.spyOn(field, 'setValue');
       jest.spyOn(field, 'removeValue');
@@ -84,15 +84,20 @@ describe('MultipleLineEditor', () => {
     });
 
     expect($input).toHaveValue('new-value');
-    expect(field.setValue).toHaveBeenCalledTimes(1);
-    expect(field.setValue).toHaveBeenLastCalledWith('new-value');
+
+    await waitFor(() => {
+      expect(field.setValue).toHaveBeenCalledTimes(1);
+      expect(field.setValue).toHaveBeenLastCalledWith('new-value');
+    });
 
     fireEvent.change($input, {
       target: { value: '' },
     });
 
-    expect($input).toHaveValue('');
-    expect(field.removeValue).toHaveBeenCalledTimes(1);
-    expect(field.removeValue).toHaveBeenLastCalledWith();
+    await waitFor(() => {
+      expect($input).toHaveValue('');
+      expect(field.removeValue).toHaveBeenCalledTimes(1);
+      expect(field.removeValue).toHaveBeenLastCalledWith();
+    });
   });
 });
