@@ -8,6 +8,7 @@ import {
   inline,
   text,
 } from '../../../packages/rich-text/src/helpers/nodeFactory';
+import { getIframe } from '../../fixtures/utils';
 import documentWithLinks from './document-mocks/documentWithLinks';
 import invalidDocumentNormalizable from './document-mocks/invalidDocumentNormalizable';
 import { EmbedType, RichTextPage } from './RichTextPage';
@@ -71,11 +72,11 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
   }
 
   function getDropdownList() {
-    return cy.findByTestId('dropdown-heading-list');
+    return getIframe().findByTestId('dropdown-heading-list');
   }
 
   function getDropdownItem(type: string) {
-    return cy.findByTestId(`dropdown-option-${type}`);
+    return getIframe().findByTestId(`dropdown-option-${type}`);
   }
 
   function addBlockquote(content = '') {
@@ -190,7 +191,8 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       richText.expectValue(docBeforeDragAndDrop);
 
       // drag & drop
-      cy.findByTestId('cf-ui-entry-card')
+      getIframe()
+        .findByTestId('cf-ui-entry-card')
         .parent()
         .parent()
         .dragTo(() => richText.editor.findByText('some text.'));
@@ -219,19 +221,19 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
   describe('Marks', () => {
     const findMarkViaToolbar = (mark: string) => {
       if (mark === 'code' || mark === 'superscript' || mark === 'subscript') {
-        cy.findByTestId('dropdown-toolbar-button').click();
-        return cy.findByTestId(`${mark}-toolbar-button`);
+        getIframe().findByTestId('dropdown-toolbar-button').click();
+        return getIframe().findByTestId(`${mark}-toolbar-button`);
       } else {
-        return cy.findByTestId(`${mark}-toolbar-button`);
+        return getIframe().findByTestId(`${mark}-toolbar-button`);
       }
     };
 
     const toggleMarkViaToolbar = (mark: string) => {
       if (mark === 'code' || mark === 'superscript' || mark === 'subscript') {
-        cy.findByTestId('dropdown-toolbar-button').click();
-        cy.findByTestId(`${mark}-toolbar-button`).click();
+        getIframe().findByTestId('dropdown-toolbar-button').click();
+        getIframe().findByTestId(`${mark}-toolbar-button`).click();
       } else {
-        cy.findByTestId(`${mark}-toolbar-button`).click();
+        getIframe().findByTestId(`${mark}-toolbar-button`).click();
       }
     };
 
@@ -392,8 +394,8 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
   describe('Commands', () => {
     describe('Palette', () => {
-      const getPalette = () => cy.findByTestId('rich-text-commands');
-      const getCommandList = () => cy.findByTestId('rich-text-commands-list');
+      const getPalette = () => getIframe().findByTestId('rich-text-commands');
+      const getCommandList = () => getIframe().findByTestId('rich-text-commands-list');
 
       it('should be visible', () => {
         richText.editor.click().type('/');
@@ -1111,7 +1113,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       richText.editor.click().type('{downarrow}').wait(100);
 
       blockElements.forEach((el) => {
-        cy.findByTestId(`${el}-toolbar-button`).should('not.be.disabled');
+        getIframe().findByTestId(`${el}-toolbar-button`).should('not.be.disabled');
       });
 
       richText.toolbar.headingsDropdown.click();
@@ -1161,7 +1163,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           buttonsToDisableTable.forEach((button) => {
             richText.editor.click();
 
-            cy.findByTestId(`${button}-toolbar-button`).click();
+            getIframe().findByTestId(`${button}-toolbar-button`).click();
 
             richText.toolbar.table.should('be.disabled');
           });
@@ -1219,8 +1221,8 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
     describe('Table Actions', () => {
       const findAction = (action: string) => {
-        cy.findByTestId('cf-table-actions-button').click();
-        return cy.findByText(action);
+        getIframe().findByTestId('cf-table-actions-button').click();
+        return getIframe().findByText(action);
       };
 
       const doAction = (action: string) => {
@@ -1402,7 +1404,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           // haven't been able to replicate in the editor. As it's not
           // replicable in "normal" usage we use the toolbar button both places
           // in this test.
-          cy.findByTestId('hyperlink-toolbar-button').click();
+          getIframe().findByTestId('hyperlink-toolbar-button').click();
 
           expectDocumentStructure(
             // TODO: the editor should normalize this
@@ -1444,15 +1446,15 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           form.linkType.should('have.value', 'hyperlink').select('entry-hyperlink');
           form.submit.should('be.disabled');
 
-          cy.findByTestId('cf-ui-entry-card').should('not.exist');
+          getIframe().findByTestId('cf-ui-entry-card').should('not.exist');
           form.linkEntityTarget.should('have.text', 'Select entry').click();
-          cy.findByTestId('cf-ui-entry-card').should('exist');
+          getIframe().findByTestId('cf-ui-entry-card').should('exist');
 
           form.linkEntityTarget.should('have.text', 'Remove selection').click();
-          cy.findByTestId('cf-ui-entry-card').should('not.exist');
+          getIframe().findByTestId('cf-ui-entry-card').should('not.exist');
 
           form.linkEntityTarget.should('have.text', 'Select entry').click();
-          cy.findByTestId('cf-ui-entry-card').should('exist');
+          getIframe().findByTestId('cf-ui-entry-card').should('exist');
 
           form.submit.click();
 
@@ -1480,15 +1482,15 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           form.linkType.should('have.value', 'hyperlink').select('asset-hyperlink');
           form.submit.should('be.disabled');
 
-          cy.findByTestId('cf-ui-asset-card').should('not.exist');
+          getIframe().findByTestId('cf-ui-asset-card').should('not.exist');
           form.linkEntityTarget.should('have.text', 'Select asset').click();
-          cy.findByTestId('cf-ui-asset-card').should('exist');
+          getIframe().findByTestId('cf-ui-asset-card').should('exist');
 
           form.linkEntityTarget.should('have.text', 'Remove selection').click();
-          cy.findByTestId('cf-ui-asset-card').should('not.exist');
+          getIframe().findByTestId('cf-ui-asset-card').should('not.exist');
 
           form.linkEntityTarget.should('have.text', 'Select asset').click();
-          cy.findByTestId('cf-ui-asset-card').should('exist');
+          getIframe().findByTestId('cf-ui-asset-card').should('exist');
 
           form.submit.click();
 
@@ -1670,8 +1672,8 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           richText.expectValue(doc(entryBlock(), emptyParagraph()));
 
-          cy.findByTestId('cf-ui-card-actions').click();
-          cy.findByTestId('delete').click();
+          getIframe().findByTestId('cf-ui-card-actions').click();
+          getIframe().findByTestId('delete').click();
 
           richText.expectValue(undefined);
         });
@@ -1681,7 +1683,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           richText.expectValue(doc(entryBlock(), emptyParagraph()));
 
-          cy.findByTestId('cf-ui-entry-card').click();
+          getIframe().findByTestId('cf-ui-entry-card').click();
           // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
           richText.editor.trigger('keydown', keys.backspace);
 
@@ -1779,8 +1781,8 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           richText.expectValue(doc(assetBlock(), emptyParagraph()));
 
-          cy.findByTestId('cf-ui-card-actions').click();
-          cy.findByTestId('card-action-remove').click();
+          getIframe().findByTestId('cf-ui-card-actions').click();
+          getIframe().findByTestId('card-action-remove').click();
 
           richText.expectValue(undefined);
         });
@@ -1790,7 +1792,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
           richText.expectValue(doc(assetBlock(), emptyParagraph()));
 
-          cy.findByTestId('cf-ui-asset-card').click();
+          getIframe().findByTestId('cf-ui-asset-card').click();
           // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
           richText.editor.trigger('keydown', keys.backspace);
 
@@ -1879,8 +1881,8 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
             )
           );
 
-          cy.findByTestId('cf-ui-card-actions').click({ force: true });
-          cy.findByTestId('delete').click({ force: true });
+          getIframe().findByTestId('cf-ui-card-actions').click({ force: true });
+          getIframe().findByTestId('delete').click({ force: true });
 
           richText.expectValue(doc(block(BLOCKS.PARAGRAPH, {}, text('hello'), text('world'))));
 
@@ -2001,7 +2003,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         .then((events) => events.filter((e) => e.type === 'onValueChanged'))
         .should('deep.equal', []);
 
-      cy.findByText('some text more text');
+      getIframe().findByText('some text more text');
     });
 
     it('runs initial normalization without triggering a value change', () => {
