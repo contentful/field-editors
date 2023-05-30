@@ -190,6 +190,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         }
 
         it('should be deleted if empty when pressing delete', () => {
+          cy.shouldConfirm(true);
           richText.editor.click(); // to set an initial editor.location
 
           richText.toolbar.toggleHeading(type);
@@ -207,9 +208,11 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
             .type('{uparrow}{uparrow}{uparrow}{del}{del}', { delay: 100 });
 
           richText.expectValue(doc(entryBlock(), emptyParagraph()));
+          cy.unsetShouldConfirm();
         });
 
         it('should delete next block if not empty when pressing delete', () => {
+          cy.shouldConfirm(true);
           const value = 'some text';
           richText.editor.click().type(value);
 
@@ -221,6 +224,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           richText.editor.type('{leftarrow}{del}', { delay: 100 });
 
           richText.expectValue(doc(block(type, {}, text(value)), emptyParagraph()));
+          cy.unsetShouldConfirm();
         });
       });
     });
