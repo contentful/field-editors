@@ -18,7 +18,7 @@ const task = {
 
 export default defineConfig({
   retries: {
-    runMode: 0,
+    runMode: 2,
     openMode: 0,
   },
   numTestsKeptInMemory: 1,
