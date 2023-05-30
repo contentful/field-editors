@@ -78,7 +78,7 @@ describe('Date Editor', () => {
     const offsetInMinutes = currentDate.getTimezoneOffset();
     const offsetHours = Math.floor(Math.abs(offsetInMinutes) / 60);
     const offsetMinutes = Math.abs(offsetInMinutes) % 60;
-    const offsetSign = offsetInMinutes < 0 ? '+' : '-';
+    const offsetSign = offsetInMinutes <= 0 ? '+' : '-';
 
     return `${offsetSign}${offsetHours.toString().padStart(2, '0')}:${offsetMinutes
       .toString()
