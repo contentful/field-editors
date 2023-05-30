@@ -130,6 +130,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000 }, () => {
       });
 
       it('converts text to entry hyperlink', () => {
+        cy.shouldConfirm(true);
         safelyType('My cool entry{selectall}');
         triggerLinkModal();
         const form = richText.forms.hyperlink;
@@ -161,9 +162,11 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000 }, () => {
           ],
           ['text', '']
         );
+        cy.unsetShouldConfirm();
       });
 
       it('converts text to asset hyperlink', () => {
+        cy.shouldConfirm(true);
         safelyType('My cool asset{selectall}');
 
         triggerLinkModal();
@@ -197,9 +200,11 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000 }, () => {
           ],
           ['text', '']
         );
+        cy.unsetShouldConfirm();
       });
 
       it('edits hyperlinks', () => {
+        cy.shouldConfirm(true);
         safelyType('My cool website{selectall}');
 
         triggerLinkModal();
@@ -282,6 +287,8 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000 }, () => {
           [INLINES.HYPERLINK, { uri: 'https://zombo.com' }, 'My cool website'],
           ['text', '']
         );
+
+        cy.unsetShouldConfirm();
       });
 
       it('is removed from the document structure when empty', () => {
