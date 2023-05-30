@@ -273,6 +273,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       });
 
       it('should add a new line after entity block in same list item', () => {
+        cy.shouldConfirm(true);
         richText.editor.click();
 
         richText.toolbar.ul.click();
@@ -287,6 +288,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           .type('{enter}');
 
         richText.expectSnapshotValue();
+        cy.unsetShouldConfirm();
       });
     });
   });
@@ -298,6 +300,8 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       // Necessary for reading the correct LocalStorage values as we do
       // the initial page load on the beforeEach hook
       cy.reload();
+      cy.wait(500);
+
       richText.expectValue(documentWithLinks);
       cy.editorActions().should(
         'deep.equal',
@@ -520,6 +524,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
   describe('deleting paragraph between voids', () => {
     it('can delete paragraph between entry blocks', () => {
+      cy.shouldConfirm(true);
       richText.editor.click();
       richText.toolbar.embed('entry-block');
       richText.editor.type('hey');
@@ -527,9 +532,11 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       richText.editor.type('{leftarrow}{leftarrow}{backspace}{backspace}{backspace}{backspace}');
 
       richText.expectValue(doc(entryBlock(), entryBlock(), emptyParagraph()));
+      cy.unsetShouldConfirm();
     });
 
     it('can delete paragraph between asset blocks', () => {
+      cy.shouldConfirm(true);
       richText.editor.click();
       richText.toolbar.embed('asset-block');
       richText.editor.type('hey');
@@ -537,6 +544,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       richText.editor.type('{leftarrow}{leftarrow}{backspace}{backspace}{backspace}{backspace}');
 
       richText.expectValue(doc(assetBlock(), assetBlock(), emptyParagraph()));
+      cy.unsetShouldConfirm();
     });
 
     it('can delete paragraph between HRs', () => {
