@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
-import { render, configure, cleanup, fireEvent } from '@testing-library/react';
+import { cleanup, configure, fireEvent, render } from '@testing-library/react';
 import identity from 'lodash/identity';
 
 import '@testing-library/jest-dom/extend-expect';
@@ -45,7 +45,7 @@ describe('UrlEditor', () => {
     expect(getByTestId('cf-ui-text-input')).toHaveValue(initialValue);
   });
 
-  it.skip('calls field.setValue when user types and calls field.removeValue when user clears the input', () => {
+  it('calls field.setValue when user types and calls field.removeValue when user clears the input', () => {
     const [field] = createFakeFieldAPI((field) => {
       jest.spyOn(field, 'setValue');
       jest.spyOn(field, 'removeValue');

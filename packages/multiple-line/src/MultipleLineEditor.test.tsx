@@ -57,7 +57,7 @@ describe('MultipleLineEditor', () => {
     expect(getByTestId('cf-ui-textarea')).toHaveValue(initialValue);
   });
 
-  it.skip('calls field.setValue when user types and calls field.removeValue when user clears the input', () => {
+  it('calls field.setValue when user types and calls field.removeValue when user clears the input', () => {
     const [field] = createFakeFieldAPI((field) => {
       jest.spyOn(field, 'setValue');
       jest.spyOn(field, 'removeValue');
