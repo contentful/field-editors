@@ -93,11 +93,11 @@ describe('Rich Text Editor - Embedded Entry Assets', { viewportHeight: 2000 }, (
         addEmbeddedAsset();
 
         // Press enter on the first asset block
-        richText.editor.click().get('[data-entity-id="example-entity-id"]').first().click();
+        richText.editor.click().find('[data-entity-id="example-entity-id"]').first().click();
         pressEnter();
 
         // Press enter on the second asset block
-        richText.editor.click().get('[data-entity-id="example-entity-id"]').first().click();
+        richText.editor.click().find('[data-entity-id="example-entity-id"]').first().click();
         pressEnter();
 
         richText.expectValue(
