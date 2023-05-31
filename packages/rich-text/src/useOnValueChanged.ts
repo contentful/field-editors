@@ -27,12 +27,30 @@ export type OnValueChangedProps = {
   onSkip?: VoidFunction;
 };
 
+// cases
+// 1. The node where the comment was has changed content
+// 2. The node where the comment was has the same content but different marks (is this possible?)
+// 3. The node where the comment was has changed locations
+// 4. The node where the comment was is no longer there (therefore, comment needs to be deleted?)
+
+// possible results
+// 1. update "origial text"
+// 2. no action since the comment does not care
+// 3. update json path
+// 4. delete comment (this is a bit harder)
+
 export const useOnValueChanged = ({ editorId, handler, skip, onSkip }: OnValueChangedProps) => {
   const onChange = useMemo(
     () =>
       debounce((document: unknown) => {
+        // identify if the comment are still valid
+
         const contentfulDocument = toContentfulDocument({ document, schema });
+
+        // to ask: should we actually remove the comments here?
+        // yes, remove comments here
         const cleanedDocument = removeInternalMarks(contentfulDocument);
+
         handler?.(cleanedDocument);
       }, 500),
     [handler]

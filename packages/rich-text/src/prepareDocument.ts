@@ -57,6 +57,8 @@ export const documentToEditorValue = (doc?: Document) => {
     schema,
   });
 
+  // todo: add comments here (i.e enhance slate doc)
+
   return sanitizeIncomingSlateDoc(slateDoc);
 };
 
