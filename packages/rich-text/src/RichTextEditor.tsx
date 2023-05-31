@@ -21,8 +21,19 @@ import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/components/StickyToolbarWrapper';
 import { useOnValueChanged } from './useOnValueChanged';
 
+export type CommentWithParentEntityReference = { sys: any; body: string };
+
 type ConnectedProps = {
-  sdk: FieldExtensionSDK;
+  sdk: FieldExtensionSDK & {
+    field: {
+      comments: {
+        get: () => CommentWithParentEntityReference[];
+        create: () => void;
+        update: (commentId: string, comment: CommentWithParentEntityReference) => void;
+        delete: (commentId: string) => void;
+      };
+    };
+  };
   onAction?: RichTextTrackingActionHandler;
   minHeight?: string | number;
   value?: object;
@@ -35,6 +46,10 @@ type ConnectedProps = {
 
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const id = getContentfulEditorId(props.sdk);
+  console.log('ConnectedRichTextEditor');
+
+  // console.log('fieldComments: ', props.sdk.field.comments.get());
+
   const plugins = React.useMemo(
     () => getPlugins(props.sdk, props.onAction ?? noop, props.restrictedMarks),
     [props.sdk, props.onAction, props.restrictedMarks]
