@@ -44,7 +44,7 @@ export async function selectEntityAndInsert(
 function ensureFollowingParagraph(editor: PlateEditor) {
   const resourceBlock = getAboveNode(editor, {
     match: {
-      type: [BLOCKS.EMBEDDED_ASSET, BLOCKS.EMBEDDED_ENTRY],
+      type: [BLOCKS.EMBEDDED_RESOURCE],
     },
   });
 

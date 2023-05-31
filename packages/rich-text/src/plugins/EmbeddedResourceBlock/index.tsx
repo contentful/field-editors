@@ -11,11 +11,6 @@ import { selectEntityAndInsert } from './Util';
 
 export { EmbeddedResourceBlockToolbarIcon as ToolbarIcon } from './ToolbarIcon';
 
-const entityTypes = {
-  [BLOCKS.EMBEDDED_ENTRY]: 'Entry',
-  [BLOCKS.EMBEDDED_ASSET]: 'Asset',
-};
-
 function getWithEmbeddedResourceEvents(
   nodeType: BLOCKS.EMBEDDED_RESOURCE,
   sdk: FieldExtensionSDK
@@ -58,7 +53,7 @@ const createEmbeddedResourcePlugin =
       rules: [
         {
           validAttribute: {
-            'data-entity-type': entityTypes[nodeType],
+            'data-entity-type': 'Contentful:Entry',
           },
         },
       ],
@@ -70,9 +65,9 @@ const createEmbeddedResourcePlugin =
         data: {
           target: {
             sys: {
-              id: el.getAttribute('data-entity-id'),
+              urn: el.getAttribute('data-entity-id'),
               linkType: el.getAttribute('data-entity-type'),
-              type: 'Link',
+              type: 'ResourceLink',
             },
           },
         },

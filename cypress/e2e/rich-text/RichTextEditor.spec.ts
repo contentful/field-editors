@@ -2279,10 +2279,9 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     it('can delete paragraph between resource blocks', () => {
       richText.editor.click();
       richText.toolbar.embed('resource-block');
-      richText.editor.type('{downarrow}');
       richText.editor.type('hey');
       richText.toolbar.embed('resource-block');
-      richText.editor.type('{leftarrow}{backspace}{backspace}{backspace}{backspace}');
+      richText.editor.type('{leftarrow}{leftarrow}{backspace}{backspace}{backspace}{backspace}');
 
       richText.expectValue(doc(resourceBlock(), resourceBlock(), emptyParagraph()));
     });

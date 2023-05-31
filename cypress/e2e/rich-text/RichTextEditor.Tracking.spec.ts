@@ -167,12 +167,14 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
   });
 
   describe('Marks', () => {
-    [
-      [MARKS.BOLD, `{${mod}}b`],
-      [MARKS.ITALIC, `{${mod}}i`],
-      [MARKS.UNDERLINE, `{${mod}}u`],
-      [MARKS.CODE, `{${mod}}/`],
-    ].forEach(([mark, shortcut]) => {
+    (
+      [
+        [MARKS.BOLD, `{${mod}}b`],
+        [MARKS.ITALIC, `{${mod}}i`],
+        [MARKS.UNDERLINE, `{${mod}}u`],
+        [MARKS.CODE, `{${mod}}/`],
+      ] as const
+    ).forEach(([mark, shortcut]) => {
       const toggleMarkViaToolbar = (mark: MARKS) => {
         if (mark === 'code' || mark === 'superscript' || mark === 'subscript') {
           cy.findByTestId('dropdown-toolbar-button').click();
