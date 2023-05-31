@@ -1,8 +1,0 @@
----
-name: Contributing
-route: /CONTRIBUTING.md
----
-
-import Readme from '../CONTRIBUTING.md';
-
-<Readme />
