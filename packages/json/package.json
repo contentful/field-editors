@@ -2,7 +2,6 @@
   "name": "@contentful/field-editor-json",
   "version": "3.2.0",
   "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
   "exports": {
     ".": {
@@ -33,7 +32,6 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
-    "@codemirror/lang-json": "^6.0.0",
     "@contentful/f36-components": "^4.0.27",
     "@contentful/f36-tokens": "^4.0.0",
     "@contentful/field-editor-shared": "^1.2.0",
