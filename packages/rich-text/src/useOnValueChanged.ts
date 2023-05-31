@@ -4,6 +4,7 @@ import { toContentfulDocument } from '@contentful/contentful-slatejs-adapter';
 import { Document } from '@contentful/rich-text-types';
 import { getPlateSelectors } from '@udecode/plate-core';
 import debounce from 'lodash/debounce';
+import { InlineComment } from 'RichTextEditor';
 
 import schema from './constants/Schema';
 import { removeInternalMarks } from './helpers/removeInternalMarks';
@@ -25,6 +26,7 @@ export type OnValueChangedProps = {
   handler?: (value: Document) => unknown;
   skip?: boolean;
   onSkip?: VoidFunction;
+  comments?: InlineComment[];
 };
 
 // cases

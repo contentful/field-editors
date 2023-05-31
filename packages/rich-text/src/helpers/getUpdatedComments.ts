@@ -1,4 +1,4 @@
-import { InlineComment } from './enhanceContentfulDocWithComments';
+import { InlineComment } from 'RichTextEditor';
 
 export const findCurrentComments = (
   document: any,

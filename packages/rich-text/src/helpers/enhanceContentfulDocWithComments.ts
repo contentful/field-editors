@@ -1,15 +1,6 @@
 import * as Contentful from '@contentful/rich-text-types';
 import get from 'lodash.get';
-
-export interface InlineComment {
-  metadata: {
-    //to ask: should the range just be one path or multiple paths?, insted of a "range"
-    range: string[];
-    originalText: string;
-  };
-  body: string; // here the body would actually also be rich text since comments are now rich text
-  id: string;
-}
+import { InlineComment } from 'RichTextEditor';
 
 export const enhanceContentfulDocWithComments = (
   document: Contentful.Document,

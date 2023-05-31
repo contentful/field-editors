@@ -8,6 +8,7 @@ import { Plate, getPlateActions } from '@udecode/plate-core';
 import { css, cx } from 'emotion';
 import deepEquals from 'fast-deep-equal';
 import noop from 'lodash/noop';
+import { InlineComment } from 'plugins/Marks/InlineComment';
 
 import { ContentfulEditorIdProvider, getContentfulEditorId } from './ContentfulEditorProvider';
 import { getPlateSelectors } from './internal/misc';
@@ -20,6 +21,16 @@ import { SdkProvider } from './SdkProvider';
 import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/components/StickyToolbarWrapper';
 import { useOnValueChanged } from './useOnValueChanged';
+
+export type InlineComment = {
+  metadata: {
+    //to ask: should the range just be one path or multiple paths?, insted of a "range"
+    range: string[];
+    originalText: string;
+  };
+  body: string; // here the body would actually also be rich text since comments are now rich text
+  id: string;
+};
 
 type ConnectedProps = {
   sdk: FieldExtensionSDK;

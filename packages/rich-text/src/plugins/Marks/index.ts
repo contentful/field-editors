@@ -1,7 +1,7 @@
 import { PlatePlugin } from '../../internal/types';
 import { createBoldPlugin } from './Bold';
 import { createCodePlugin } from './Code';
-import { InlineComment } from './InlineComment';
+import { InlineComment as InlineCommentComponent } from './InlineComment';
 import { createItalicPlugin } from './Italic';
 import { createSubscriptPlugin } from './Subscript';
 import { createSuperscriptPlugin } from './Superscript';
@@ -16,7 +16,7 @@ export const INLINE_COMMENT_HIGHLIGHT = 'inline-comment';
 export const createInlineCommentsPlugin = () => ({
   key: INLINE_COMMENT_HIGHLIGHT,
   isLeaf: true,
-  component: InlineComment,
+  component: InlineCommentComponent,
 });
 
 export const createMarksPlugin = (): PlatePlugin => ({

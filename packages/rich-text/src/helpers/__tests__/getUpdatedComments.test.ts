@@ -1,6 +1,6 @@
 import * as Contentful from '@contentful/rich-text-types';
+import { InlineComment } from 'RichTextEditor';
 
-import { InlineComment } from '../enhanceContentfulDocWithComments';
 import { getUpdatedComments } from '../getUpdatedComments';
 
 describe('getUpdatedComments', () => {
@@ -87,6 +87,5 @@ describe('getUpdatedComments', () => {
     const newComments = getUpdatedComments(contentfulDocument, [comment]);
     expect(newComments[0].metadata.range).toContain('content[1].content[1]');
     expect(newComments[0].metadata.range).not.toContain('content[0].content[0]');
-    console.log(newComments);
   });
 });
