@@ -51,13 +51,13 @@ export const setEditorContent = (editor: PlateEditor, nodes?: Node[]): void => {
  * value
  */
 export const documentToEditorValue = (doc?: Document) => {
+  // add comments here
+
   const slateDoc = toSlatejsDocument({
     document: hasContent(doc) ? doc : EMPTY_DOCUMENT,
     // TODO: get rid of schema, https://github.com/contentful/field-editors/pull/1065#discussion_r826723248
     schema,
   });
-
-  // todo: add comments here (i.e enhance slate doc)
 
   return sanitizeIncomingSlateDoc(slateDoc);
 };

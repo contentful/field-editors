@@ -1,8 +1,10 @@
 import { COMMAND_PROMPT } from '../plugins/CommandPalette/constants';
+import { removeCommentDataFromDocument } from './removeCommentDataFromDocument';
 
 const internalMarks = [COMMAND_PROMPT];
 
 export const removeInternalMarks = (document: Record<string, unknown>) => {
+  document = removeCommentDataFromDocument(document);
   return {
     ...document,
     content: (document.content as Record<string, unknown>[]).map((node) => {
