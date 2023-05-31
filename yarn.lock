@@ -2044,6 +2044,14 @@
     "@codemirror/view" "^6.0.0"
     "@lezer/common" "^1.0.0"
 
+"@codemirror/lang-json@^6.0.1":
+  "integrity" "sha512-+T1flHdgpqDDlJZ2Lkil/rLiRy684WMLc74xUnjJH48GQdfJo/pudlTRreZmKwzP8/tGdKf83wlbAdOCzlJOGQ=="
+  "resolved" "https://registry.npmjs.org/@codemirror/lang-json/-/lang-json-6.0.1.tgz"
+  "version" "6.0.1"
+  dependencies:
+    "@codemirror/language" "^6.0.0"
+    "@lezer/json" "^1.0.0"
+
 "@codemirror/language@^6.0.0":
   "integrity" "sha512-4SMwe6Fwn57klCUsVN0y4/h/iWT+XIXFEmop2lIHHuWO0ubjCrF3suqSZLyOQlznxkNnNbOOfKe5HQbQGCAmTg=="
   "resolved" "https://registry.npmjs.org/@codemirror/language/-/language-6.7.0.tgz"
@@ -2094,7 +2102,7 @@
     "@codemirror/view" "^6.0.0"
     "@lezer/highlight" "^1.0.0"
 
-"@codemirror/view@^6.0.0", "@codemirror/view@^6.6.0":
+"@codemirror/view@^6.0.0", "@codemirror/view@^6.6.0", "@codemirror/view@6.12.0":
   "integrity" "sha512-xNHvbJBc2v8JuEcIGOck6EUGShpP+TYGCEMVEVQMYxbFXfMhYnoF3znxB/2GgeKR0nrxBs+nhBupiTYQqCp2kw=="
   "resolved" "https://registry.npmjs.org/@codemirror/view/-/view-6.12.0.tgz"
   "version" "6.12.0"
@@ -2858,12 +2866,14 @@
   "resolved" "file:packages/json"
   "version" "3.2.0"
   dependencies:
+    "@codemirror/lang-json" "^6.0.1"
+    "@codemirror/view" "6.12.0"
     "@contentful/f36-components" "^4.0.27"
     "@contentful/f36-tokens" "^4.0.0"
     "@contentful/field-editor-shared" "^1.2.0"
     "@types/deep-equal" "1.0.1"
-    "@types/react-codemirror" "1.0.3"
-    "@uiw/react-codemirror" "^4.11.4"
+    "@types/react-codemirror" "1.0.8"
+    "@uiw/react-codemirror" "^4.20.2"
     "deep-equal" "2.0.5"
     "emotion" "^10.0.17"
     "lodash" "^4.17.15"
@@ -4549,6 +4559,14 @@
   "version" "1.1.6"
   dependencies:
     "@lezer/common" "^1.0.0"
+
+"@lezer/json@^1.0.0":
+  "integrity" "sha512-zbAuUY09RBzCoCA3lJ1+ypKw5WSNvLqGMtasdW6HvVOqZoCpPr8eWrsGnOVWGKGn8Rh21FnrKRVlJXrGAVUqRw=="
+  "resolved" "https://registry.npmjs.org/@lezer/json/-/json-1.0.0.tgz"
+  "version" "1.0.0"
+  dependencies:
+    "@lezer/highlight" "^1.0.0"
+    "@lezer/lr" "^1.0.0"
 
 "@lezer/lr@^1.0.0":
   "integrity" "sha512-Kye0rxYBi+OdToLUN2tQfeH5VIrpESC6XznuvxmIxbO1lz6M1C90vkjMNYoX1SfbUcuvoPXvLYsBquZ//77zVQ=="
@@ -7247,10 +7265,10 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-codemirror@1.0.3":
-  "integrity" "sha512-EAyys2Wpys7bJatgnfpXXs4Gi1Vktj23mNngG4Ex2Q0W6eVgfkP4GP7qHyDVU2wbW3T0K7Jqatf2dCob25ptMw=="
-  "resolved" "https://registry.npmjs.org/@types/react-codemirror/-/react-codemirror-1.0.3.tgz"
-  "version" "1.0.3"
+"@types/react-codemirror@1.0.8":
+  "integrity" "sha512-E0xBatgv8iWDYcjjubuDM0FZW0PHrzmeU0suCFLCn/S9Pl10KC2qrGGufqS3Zb3x6LICRbexGD/zpXg55nocBg=="
+  "resolved" "https://registry.npmjs.org/@types/react-codemirror/-/react-codemirror-1.0.8.tgz"
+  "version" "1.0.8"
   dependencies:
     "@types/codemirror" "*"
     "@types/react" "*"
@@ -8078,7 +8096,7 @@
     "@codemirror/state" "^6.0.0"
     "@codemirror/view" "^6.0.0"
 
-"@uiw/react-codemirror@^4.11.4":
+"@uiw/react-codemirror@^4.20.2":
   "integrity" "sha512-Rf6i9HgtNnYAVRBb1gfWlhiiOBrEPuIfHLn87cV9XPpjP+YtqZoP6VMMlMq4XFTbZ/E1GIxnSUgJMQToTth0iw=="
   "resolved" "https://registry.npmjs.org/@uiw/react-codemirror/-/react-codemirror-4.20.2.tgz"
   "version" "4.20.2"
