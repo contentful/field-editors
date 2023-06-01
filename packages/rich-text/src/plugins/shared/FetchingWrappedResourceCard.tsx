@@ -22,13 +22,11 @@ interface InternalEntryCard {
 }
 
 const InternalEntryCard = React.memo((props: InternalEntryCard) => {
-  if (!props.data || props.status === 'loading') {
+  if (props.status === 'loading') {
     return <EntryCard isLoading />;
   }
 
-  const { contentType, resource: entry, space } = props.data;
-
-  if (props.status === 'error') {
+  if (!props.data || props.status === 'error') {
     return (
       <MissingEntityCard
         entityType="Entry"
@@ -37,6 +35,8 @@ const InternalEntryCard = React.memo((props: InternalEntryCard) => {
       />
     );
   }
+
+  const { contentType, resource: entry, space } = props.data;
 
   return (
     <WrappedEntryCard
