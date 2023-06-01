@@ -63,7 +63,11 @@ describe('Date Editor', () => {
   };
 
   const getTodayShortString = () => {
-    return `${getToday().date} ${MONTHS[getToday().month]} ${getToday().year}`;
+    const date = `${getToday().date}`.padStart(2, '0');
+    const month = MONTHS[getToday().month];
+    const year = getToday().year;
+
+    return `${date} ${month} ${year}`;
   };
 
   const getTodayKebabString = () => {
@@ -125,6 +129,7 @@ describe('Date Editor', () => {
         .should('have.attr', 'date-time-type', '24')
         .should('have.attr', 'placeholder', '00:00')
         .should('have.value', '00:00');
+
       // TODO find a better way
       selectors
         .getTimezoneInput()
@@ -151,6 +156,7 @@ describe('Date Editor', () => {
 
       selectors.getCalendarTrigger().click();
       selectors.getCalendarTodayDate().click();
+
       selectors.getDateInput().should('have.value', getTodayShortString());
 
       selectors.getTimeInput().focus().type('15:00').should('have.value', '15:00');
@@ -159,6 +165,7 @@ describe('Date Editor', () => {
 
       selectors.getDateInput().should('have.value', '');
       selectors.getTimeInput().should('have.value', '00:00');
+
       selectors.getTimezoneInput().should('have.value', getTimezoneOffsetString());
       selectors.getClearBtn().should('not.exist');
 
@@ -361,9 +368,7 @@ describe('Date Editor', () => {
 
       selectors.getCalendarTrigger().click();
       selectors.getCalendarTodayDate().click();
-      selectors
-        .getDateInput()
-        .should('have.value', `${getToday().date} ${MONTHS[getToday().month]} ${getToday().year}`);
+      selectors.getDateInput().should('have.value', getTodayShortString());
 
       selectors.getClearBtn().click();
 
