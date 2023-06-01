@@ -2,6 +2,7 @@
 
 function getConfig(packageName) {
   return {
+    testEnvironment: 'jsdom',
     modulePathIgnorePatterns: ['<rootDir>/dist/'],
     testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
     moduleNameMapper: {

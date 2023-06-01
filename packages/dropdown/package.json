@@ -30,8 +30,8 @@
     "build:types": "tsc --outDir dist/types --emitDeclarationOnly",
     "build:cjs": "swc src --config-file ../../.swcrc -d dist/cjs -C module.type=commonjs",
     "build:esm": "swc src --config-file ../../.swcrc -d dist/esm",
-    "test": "jest --env=jsdom --watch",
-    "test:ci": "jest --env=jsdom --ci --passWithNoTests",
+    "test": "jest --watch",
+    "test:ci": "jest --ci --passWithNoTests",
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
