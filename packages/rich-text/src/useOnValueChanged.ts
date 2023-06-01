@@ -3,11 +3,11 @@ import { useCallback, useMemo } from 'react';
 import { toContentfulDocument } from '@contentful/contentful-slatejs-adapter';
 import { Document } from '@contentful/rich-text-types';
 import { getPlateSelectors } from '@udecode/plate-core';
-import { getUpdatedComments } from 'helpers/getUpdatedComments';
 import debounce from 'lodash/debounce';
 import { InlineComment } from 'RichTextEditor';
 
 import schema from './constants/Schema';
+import { getUpdatedComments } from './helpers/getUpdatedComments';
 import { removeInternalMarks } from './helpers/removeInternalMarks';
 import { Operation } from './internal/types';
 

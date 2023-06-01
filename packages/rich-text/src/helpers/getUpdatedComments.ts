@@ -11,7 +11,10 @@ export const findCurrentComments = (
     });
 
     if (oldComment) {
-      if ('newRange' in oldComment.metadata) {
+      if (
+        'newRange' in oldComment.metadata &&
+        (oldComment.metadata.newRange as string[]).length > 0
+      ) {
         (oldComment.metadata.newRange as string[]).push(path);
       } else {
         oldComment.newRange = [path];
