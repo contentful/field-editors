@@ -7,7 +7,7 @@ import { css } from 'emotion';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { useSdkContext } from '../../SdkProvider';
-import { selectEntityAndInsert } from './Util';
+import { selectEntityAndInsert } from '../shared/EmbeddedBlockUtil';
 
 export const styles = {
   icon: css({
@@ -46,7 +46,8 @@ export function EmbeddedEntityBlockToolbarIcon({
       disabled={isDisabled}
       className={`${baseClass}-list-item`}
       onClick={handleClick}
-      testId={`toolbar-toggle-${nodeType}`}>
+      testId={`toolbar-toggle-${nodeType}`}
+    >
       <Flex alignItems="center" flexDirection="row">
         <Icon
           as={type === 'Asset' ? AssetIcon : EmbeddedEntryBlockIcon}

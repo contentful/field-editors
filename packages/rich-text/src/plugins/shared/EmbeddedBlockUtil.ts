@@ -2,11 +2,18 @@ import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
 
 import { focus, insertEmptyParagraph, moveToTheNextChar } from '../../helpers/editor';
 import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
+import newResourceEntitySelectorConfigFromRichTextField from '../../helpers/newResourceEntitySelectorConfigFromRichTextField';
 import { watchCurrentSlide } from '../../helpers/sdkNavigatorSlideIn';
-import { getText, getAboveNode, getLastNodeByLevel } from '../../internal/queries';
-import { insertNodes, select, setNodes } from '../../internal/transforms';
-import { PlateEditor } from '../../internal/types';
-import { TrackingPluginActions } from '../../plugins/Tracking';
+import {
+  getText,
+  getAboveNode,
+  getLastNodeByLevel,
+  insertNodes,
+  PlateEditor,
+  setNodes,
+  select,
+} from '../../internal';
+import { TrackingPluginActions } from '../Tracking';
 
 export async function selectEntityAndInsert(
   nodeType,
@@ -33,7 +40,7 @@ export async function selectEntityAndInsert(
     // (i.e. when using hotkeys and slide-in)
     select(editor, selection);
     insertBlock(editor, nodeType, entity);
-    ensureFollowingParagraph(editor);
+    ensureFollowingParagraph(editor, [BLOCKS.EMBEDDED_ASSET, BLOCKS.EMBEDDED_ENTRY]);
     logAction('insert', { nodeType });
   }
   // If user chose to create a new entity, this might open slide-in to edit the
@@ -44,11 +51,36 @@ export async function selectEntityAndInsert(
   });
 }
 
+export async function selectResourceEntityAndInsert(
+  sdk,
+  editor,
+  logAction: TrackingPluginActions['onToolbarAction'] | TrackingPluginActions['onShortcutAction']
+) {
+  logAction('openCreateEmbedDialog', { nodeType: BLOCKS.EMBEDDED_RESOURCE });
+
+  const { field, dialogs } = sdk;
+  const config = newResourceEntitySelectorConfigFromRichTextField(field, BLOCKS.EMBEDDED_RESOURCE);
+
+  const { selection } = editor;
+  const entity = await dialogs.selectSingleResourceEntry(config);
+
+  if (!entity) {
+    logAction('cancelCreateEmbedDialog', { nodeType: BLOCKS.EMBEDDED_RESOURCE });
+  } else {
+    // Selection prevents incorrect position of inserted ref when RTE doesn't have focus
+    // (i.e. when using hotkeys and slide-in)
+    select(editor, selection);
+    insertBlock(editor, BLOCKS.EMBEDDED_RESOURCE, entity);
+    ensureFollowingParagraph(editor, [BLOCKS.EMBEDDED_RESOURCE]);
+    logAction('insert', { nodeType: BLOCKS.EMBEDDED_RESOURCE });
+  }
+}
+
 // TODO: incorporate this logic inside the trailingParagraph plugin instead
-function ensureFollowingParagraph(editor: PlateEditor) {
+function ensureFollowingParagraph(editor: PlateEditor, nodeTypes: BLOCKS[]) {
   const entityBlock = getAboveNode(editor, {
     match: {
-      type: [BLOCKS.EMBEDDED_ASSET, BLOCKS.EMBEDDED_ENTRY],
+      type: nodeTypes,
     },
   });
 
@@ -72,23 +104,36 @@ function ensureFollowingParagraph(editor: PlateEditor) {
   moveToTheNextChar(editor);
 }
 
-const createNode = (nodeType, entity) => ({
-  type: nodeType,
-  data: {
-    target: {
-      sys: {
-        id: entity.sys.id,
-        type: 'Link',
-        linkType: entity.sys.type,
+const getLink = (nodeType: BLOCKS, entity) => {
+  if (nodeType === BLOCKS.EMBEDDED_RESOURCE) {
+    return {
+      urn: entity.sys.urn,
+      type: 'ResourceLink',
+      linkType: 'Contentful:Entry',
+    };
+  }
+  return {
+    id: entity.sys.id,
+    type: 'Link',
+    linkType: entity.sys.type,
+  };
+};
+
+const createNode = (nodeType, entity) => {
+  return {
+    type: nodeType,
+    data: {
+      target: {
+        sys: getLink(nodeType, entity),
       },
     },
-  },
-  children: [{ text: '' }],
-  isVoid: true,
-});
+    children: [{ text: '' }],
+    isVoid: true,
+  };
+};
 
 // TODO: DRY up copied code from HR
-export function insertBlock(editor: PlateEditor, nodeType: string, entity) {
+function insertBlock(editor: PlateEditor, nodeType: string, entity) {
   if (!editor?.selection) return;
 
   const linkedEntityBlock = createNode(nodeType, entity);

@@ -6,8 +6,8 @@ import isHotkey from 'is-hotkey';
 import { getNodeEntryFromSelection } from '../../helpers/editor';
 import { removeNodes } from '../../internal/transforms';
 import { KeyboardHandler, PlatePlugin } from '../../internal/types';
+import { selectResourceEntityAndInsert } from '../shared/EmbeddedBlockUtil';
 import { LinkedResourceBlock } from './LinkedResourceBlock';
-import { selectEntityAndInsert } from './Util';
 
 export { EmbeddedResourceBlockToolbarIcon as ToolbarIcon } from './ToolbarIcon';
 
@@ -32,7 +32,7 @@ function getWithEmbeddedResourceEvents(
       }
 
       if (hotkey && isHotkey(hotkey, event)) {
-        selectEntityAndInsert(sdk, editor, editor.tracking.onShortcutAction);
+        selectResourceEntityAndInsert(sdk, editor, editor.tracking.onShortcutAction);
       }
     };
 }

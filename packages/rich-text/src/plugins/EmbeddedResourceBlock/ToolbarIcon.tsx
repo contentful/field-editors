@@ -8,7 +8,7 @@ import { css } from 'emotion';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { useSdkContext } from '../../SdkProvider';
-import { selectEntityAndInsert } from './Util';
+import { selectResourceEntityAndInsert } from '../shared/EmbeddedBlockUtil';
 
 export const styles = {
   icon: css({
@@ -36,7 +36,7 @@ export function EmbeddedResourceBlockToolbarIcon({
     }
 
     onClose();
-    await selectEntityAndInsert(sdk, editor, editor.tracking.onToolbarAction);
+    await selectResourceEntityAndInsert(sdk, editor, editor.tracking.onToolbarAction);
   };
 
   const baseClass = `rich-text__${nodeType}`;

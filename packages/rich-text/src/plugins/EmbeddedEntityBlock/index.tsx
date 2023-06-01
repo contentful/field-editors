@@ -6,8 +6,8 @@ import isHotkey from 'is-hotkey';
 import { getNodeEntryFromSelection } from '../../helpers/editor';
 import { removeNodes } from '../../internal/transforms';
 import { KeyboardHandler, PlatePlugin } from '../../internal/types';
+import { selectEntityAndInsert } from '../shared/EmbeddedBlockUtil';
 import { LinkedEntityBlock } from './LinkedEntityBlock';
-import { selectEntityAndInsert } from './Util';
 
 export { EmbeddedEntityBlockToolbarIcon as ToolbarIcon } from './ToolbarIcon';
 
