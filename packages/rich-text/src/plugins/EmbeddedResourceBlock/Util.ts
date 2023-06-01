@@ -1,8 +1,7 @@
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
 
-import { focus, insertEmptyParagraph, moveToTheNextChar } from '../../helpers/editor';
+import { insertEmptyParagraph, moveToTheNextChar } from '../../helpers/editor';
 import newResourceEntitySelectorConfigFromRichTextField from '../../helpers/newResourceEntitySelectorConfigFromRichTextField';
-import { watchCurrentSlide } from '../../helpers/sdkNavigatorSlideIn';
 import { getText, getAboveNode, getLastNodeByLevel } from '../../internal/queries';
 import { insertNodes, select, setNodes } from '../../internal/transforms';
 import { PlateEditor } from '../../internal/types';
@@ -19,7 +18,6 @@ export async function selectEntityAndInsert(
   const config = newResourceEntitySelectorConfigFromRichTextField(field, BLOCKS.EMBEDDED_RESOURCE);
 
   const { selection } = editor;
-  const rteSlide = watchCurrentSlide(sdk.navigator);
   const entity = await dialogs.selectSingleResourceEntry(config);
 
   if (!entity) {
@@ -32,12 +30,6 @@ export async function selectEntityAndInsert(
     ensureFollowingParagraph(editor);
     logAction('insert', { nodeType: BLOCKS.EMBEDDED_RESOURCE });
   }
-  // If user chose to create a new entity, this might open slide-in to edit the
-  // entity. In this case, no point in focusing RTE which is now in the slide below.
-  rteSlide.onActive(() => {
-    rteSlide.unwatch();
-    focus(editor);
-  });
 }
 
 // TODO: incorporate this logic inside the trailingParagraph plugin instead
