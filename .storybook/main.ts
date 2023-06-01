@@ -1,5 +1,5 @@
-import remarkGfm from 'remark-gfm';
 import type { StorybookConfig } from '@storybook/react-webpack5';
+import remarkGfm from 'remark-gfm';
 
 const config: StorybookConfig = {
   stories: ['../packages/**/*.stories.tsx', '../packages/**/*.mdx'],
