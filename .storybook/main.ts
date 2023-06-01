@@ -6,7 +6,12 @@ const config: StorybookConfig = {
   addons: [
     'storybook-addon-swc',
     '@storybook/addon-links',
-    '@storybook/addon-essentials',
+    {
+      name: '@storybook/addon-essentials',
+      options: {
+        docs: false,
+      },
+    },
     {
       name: '@storybook/addon-docs',
       options: {

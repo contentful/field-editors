@@ -6,7 +6,7 @@ Please take a moment to review this document in order to make the contribution p
 
 ### Requirements
 
-- Node.js: `>=14.17.0`
+- Node.js: `>=16.18.0`
 - Yarn: `>=1.21.1`
 
 To install all dependencies and build all packages run the following commands from the root of the project.
@@ -35,11 +35,11 @@ This monorepo is maintained using Lerna. Get started with Lerna by following [th
 
 ### Using `docz`
 
-We use [`docz`](https://www.docz.site/) as a components playground.
+We use [`storybook`](https://storybook.js.org//) as a components playground.
 
 ```bash
 # to run playground in a development mode
-yarn docz:dev
+yarn start
 ```
 
 ### Making changes in shared packages
@@ -58,7 +58,7 @@ _Relevant for Contentful employees only_.
 It is convenient to link a local copy of a package to a locally running Contentful web application without publishing a package.
 
 ```bash
-yarn install
+yarn
 yarn build
 cd packages/single-line
 # register a symplink

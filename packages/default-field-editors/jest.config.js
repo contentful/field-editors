@@ -11,5 +11,4 @@ module.exports = {
     '^.+\\.css$': '<rootDir>/src/__mocks__/styles.ts',
     '^lodash-es$': 'lodash',
   },
-  transformIgnorePatterns: [`/node_modules/(?!nanoid)`],
 };

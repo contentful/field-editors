@@ -22,6 +22,7 @@ function getConfig(packageName) {
     transform: {
       '^.+\\.(t|j)sx?$': '@swc/jest',
     },
+    transformIgnorePatterns: [`/node_modules/(?!nanoid)`],
   };
 }
 
