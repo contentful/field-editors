@@ -11,8 +11,11 @@ describe('enhanceContentfulDocWithComments', () => {
       originalText: 'irure dolor',
     },
     body: 'My comment is this',
-    id: 'commentId',
+    sys: {
+      id: 'commentId',
+    },
   };
+
   const contentfulInput = {
     nodeType: 'document',
     data: {},
@@ -65,7 +68,7 @@ describe('enhanceContentfulDocWithComments', () => {
             {
               nodeType: 'text',
               value: 'irure dolor', // here is where the comment would go
-              marks: [],
+              marks: [{ type: 'inline-comment' }],
               data: {
                 comment: {
                   sys: {

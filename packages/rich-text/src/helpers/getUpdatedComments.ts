@@ -4,7 +4,7 @@ export const findCurrentComments = (
   document: any,
   path: string,
   comments: (InlineComment & { newRange?: string[] })[]
-): string | null => {
+): void => {
   if ('data' in document && 'comment' in document.data) {
     const oldComment = comments.find((comment) => {
       return comment.sys.id === document.data.comment.sys.id;
@@ -28,14 +28,9 @@ export const findCurrentComments = (
       if (path.startsWith('.')) {
         path = path.slice(1);
       }
-      const subPath = findCurrentComments(document.content[i], `${path}.content[${i}]`, comments);
-      if (subPath !== null) {
-        return `content[${i}].${path}`;
-      }
+      findCurrentComments(document.content[i], `${path}.content[${i}]`, comments);
     }
   }
-
-  return null;
 };
 export const getUpdatedComments = (
   document: any,
@@ -47,6 +42,8 @@ export const getUpdatedComments = (
   }
 ): InlineComment[] => {
   const currentComments = commentsSdk.get() as (InlineComment & { newRange?: string[] })[];
+
+  // modifies current comments
   findCurrentComments(document, '', currentComments);
 
   return currentComments.map((comment) => {

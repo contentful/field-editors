@@ -19,7 +19,7 @@ describe('removeCommentDataFromDocument', () => {
           {
             nodeType: 'text',
             value: 'irure dolor', // here is where the comment would go
-            marks: [],
+            marks: [{ type: 'inline-comment' }],
             data: {
               comment: {
                 sys: {

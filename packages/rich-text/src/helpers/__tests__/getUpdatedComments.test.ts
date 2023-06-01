@@ -28,7 +28,7 @@ describe('getUpdatedComments', () => {
           {
             nodeType: 'text',
             value: 'secondNode, with ',
-            marks: [],
+            marks: [{ type: 'inline-comment' }],
             data: {
               comment: {
                 sys: {
@@ -44,7 +44,7 @@ describe('getUpdatedComments', () => {
             value: 'bold',
             marks: [
               {
-                type: 'bold',
+                type: 'inline-comment',
               },
             ],
             data: {
@@ -80,11 +80,20 @@ describe('getUpdatedComments', () => {
       originalText: 'irure dolor',
     },
     body: 'My comment is this',
-    id: 'commentId2',
+    sys: {
+      id: 'commentId2',
+    },
+  };
+
+  const mockSdk = {
+    get: () => [comment],
+    update: () => console.log('Updating'),
+    delete: () => console.log('Deleting'),
+    create: () => console.log('Deleting'),
   };
 
   it('finds json path', () => {
-    const newComments = getUpdatedComments(contentfulDocument, [comment]);
+    const newComments = getUpdatedComments(contentfulDocument, mockSdk);
     expect(newComments[0].metadata.range).toContain('content[1].content[1]');
     expect(newComments[0].metadata.range).not.toContain('content[0].content[0]');
   });

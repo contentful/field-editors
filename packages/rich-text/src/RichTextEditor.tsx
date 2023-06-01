@@ -9,7 +9,6 @@ import { css, cx } from 'emotion';
 import deepEquals from 'fast-deep-equal';
 import noop from 'lodash/noop';
 
-
 import { ContentfulEditorIdProvider, getContentfulEditorId } from './ContentfulEditorProvider';
 import { getPlateSelectors } from './internal/misc';
 import { Value } from './internal/types';
@@ -59,9 +58,7 @@ type ConnectedProps = {
 
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   props.sdk.field.comments = {
-    get: () => {
-      return [];
-    },
+    get: () => props.sdk.field?.comments?.get(),
     update: () => console.log('Updating'),
     delete: () => console.log('Deleting'),
     create: () => console.log('Deleting'),
