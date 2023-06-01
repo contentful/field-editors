@@ -8,12 +8,13 @@ import { Plate, getPlateActions } from '@udecode/plate-core';
 import { css, cx } from 'emotion';
 import deepEquals from 'fast-deep-equal';
 import noop from 'lodash/noop';
-import { InlineComment } from 'plugins/Marks/InlineComment';
+
 
 import { ContentfulEditorIdProvider, getContentfulEditorId } from './ContentfulEditorProvider';
 import { getPlateSelectors } from './internal/misc';
 import { Value } from './internal/types';
 import { getPlugins, disableCorePlugins } from './plugins';
+import { InlineComment } from './plugins/Marks/InlineComment';
 import { RichTextTrackingActionHandler } from './plugins/Tracking';
 import { documentToEditorValue, normalizeEditorValue, setEditorContent } from './prepareDocument';
 import { styles } from './RichTextEditor.styles';
@@ -57,6 +58,14 @@ type ConnectedProps = {
 };
 
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
+  props.sdk.field.comments = {
+    get: () => {
+      return [];
+    },
+    update: () => console.log('Updating'),
+    delete: () => console.log('Deleting'),
+    create: () => console.log('Deleting'),
+  };
   const id = getContentfulEditorId(props.sdk);
   console.log('ConnectedRichTextEditor');
 
@@ -98,7 +107,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
       editor,
       documentToEditorValue(props.value as Contentful.Document, props.sdk.field.comments.get())
     );
-  }, [props.value, id, props.sdk.field.comments]);
+  }, [props.value, id, props.sdk.field]);
 
   const classNames = cx(
     styles.editor,
@@ -124,7 +133,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
         }
       )
     );
-  }, [isFirstRender, plugins, id, props.value, props.sdk.field.comments]);
+  }, [isFirstRender, plugins, id, props.value, props.sdk.field]);
 
   return (
     <SdkProvider sdk={props.sdk}>

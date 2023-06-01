@@ -8,7 +8,7 @@ import { RenderLeafProps } from 'slate-react';
 import { createMarkToolbarButton } from './components/MarkToolbarButton';
 
 export const ToolbarInlineCommentButton = createMarkToolbarButton({
-  title: 'InlineComment',
+  title: 'inline-comments',
   mark: 'inline-comments' as unknown as MARKS, // change this once rich text types are updated. Requierement defined
   icon: <ChatBubbleIcon />,
 });

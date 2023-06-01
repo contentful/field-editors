@@ -1,7 +1,7 @@
 import { Document } from '@contentful/rich-text-types';
 import get from 'lodash.get';
 
-// import { INLINE_COMMENT_HIGHLIGHT } from '../plugins/Marks';
+import { INLINE_COMMENT_HIGHLIGHT } from '../plugins/Marks/helpers';
 import { InlineComment } from '../RichTextEditor';
 
 export const enhanceContentfulDocWithComments = (document: Document, comments: InlineComment[]) => {
@@ -20,7 +20,8 @@ export const enhanceContentfulDocWithComments = (document: Document, comments: I
       };
       console.log('Enhancing: ', commentedNode);
 
-      // commentedNode.marks.push({ type: INLINE_COMMENT_HIGHLIGHT });
+      if (!commentedNode.marks.find((mark: any) => mark.type === INLINE_COMMENT_HIGHLIGHT))
+        commentedNode.marks.push({ type: INLINE_COMMENT_HIGHLIGHT });
     }
     console.log('commented node', commentedNode);
   }
