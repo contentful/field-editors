@@ -3,6 +3,7 @@ import { useCallback, useMemo } from 'react';
 import { toContentfulDocument } from '@contentful/contentful-slatejs-adapter';
 import { Document } from '@contentful/rich-text-types';
 import { getPlateSelectors } from '@udecode/plate-core';
+import { getUpdatedComments } from 'helpers/getUpdatedComments';
 import debounce from 'lodash/debounce';
 import { InlineComment } from 'RichTextEditor';
 
@@ -26,7 +27,12 @@ export type OnValueChangedProps = {
   handler?: (value: Document) => unknown;
   skip?: boolean;
   onSkip?: VoidFunction;
-  comments?: InlineComment[];
+  commentsSdk?: {
+    get: () => InlineComment[];
+    create: () => void;
+    update: (commentId: string, comment: InlineComment) => void;
+    delete: (commentId: string) => void;
+  };
 };
 
 // cases
@@ -41,21 +47,28 @@ export type OnValueChangedProps = {
 // 3. update json path
 // 4. delete comment (this is a bit harder)
 
-export const useOnValueChanged = ({ editorId, handler, skip, onSkip }: OnValueChangedProps) => {
+export const useOnValueChanged = ({
+  editorId,
+  handler,
+  skip,
+  onSkip,
+  commentsSdk,
+}: OnValueChangedProps) => {
   const onChange = useMemo(
     () =>
       debounce((document: unknown) => {
         // identify if the comment are still valid
+        if (commentsSdk) {
+          getUpdatedComments(document, commentsSdk);
+        }
 
         const contentfulDocument = toContentfulDocument({ document, schema });
 
-        // to ask: should we actually remove the comments here?
-        // yes, remove comments here
         const cleanedDocument = removeInternalMarks(contentfulDocument);
 
         handler?.(cleanedDocument);
       }, 500),
-    [handler]
+    [commentsSdk, handler]
   );
 
   return useCallback(

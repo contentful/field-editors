@@ -29,17 +29,19 @@ export type InlineComment = {
     originalText: string;
   };
   body: string; // here the body would actually also be rich text since comments are now rich text
-  id: string;
+  sys: {
+    id: string;
+  };
 };
-export type CommentWithParentEntityReference = { sys: any; body: string };
+// export type CommentWithParentEntityReference = { sys: any; body: string };
 
 type ConnectedProps = {
   sdk: FieldExtensionSDK & {
     field: {
       comments: {
-        get: () => CommentWithParentEntityReference[];
+        get: () => InlineComment[];
         create: () => void;
-        update: (commentId: string, comment: CommentWithParentEntityReference) => void;
+        update: (commentId: string, comment: InlineComment) => void;
         delete: (commentId: string) => void;
       };
     };
@@ -92,8 +94,11 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
       return;
     }
     setPendingExternalUpdate(true);
-    setEditorContent(editor, documentToEditorValue(props.value as Contentful.Document));
-  }, [props.value, id]);
+    setEditorContent(
+      editor,
+      documentToEditorValue(props.value as Contentful.Document, props.sdk.field.comments.get())
+    );
+  }, [props.value, id, props.sdk.field.comments]);
 
   const classNames = cx(
     styles.editor,
@@ -108,12 +113,15 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
     }
 
     getPlateActions(id).value(
-      normalizeEditorValue(documentToEditorValue(props.value as Contentful.Document) as Value, {
-        plugins,
-        disableCorePlugins,
-      })
+      normalizeEditorValue(
+        documentToEditorValue(props.value as Contentful.Document, props.sdk.comment.get()) as Value,
+        {
+          plugins,
+          disableCorePlugins,
+        }
+      )
     );
-  }, [isFirstRender, plugins, id, props.value]);
+  }, [isFirstRender, plugins, id, props.value, props.sdk.comment]);
 
   return (
     <SdkProvider sdk={props.sdk}>

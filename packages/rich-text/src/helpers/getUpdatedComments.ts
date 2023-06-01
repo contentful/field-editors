@@ -2,12 +2,12 @@ import { InlineComment } from 'RichTextEditor';
 
 export const findCurrentComments = (
   document: any,
-  comments: (InlineComment & { newRange?: string[] })[],
-  path: string
+  path: string,
+  comments: (InlineComment & { newRange?: string[] })[]
 ): string | null => {
   if ('data' in document && 'comment' in document.data) {
     const oldComment = comments.find((comment) => {
-      return comment.id === document.data.comment.sys.id;
+      return comment.sys.id === document.data.comment.sys.id;
     });
 
     if (oldComment) {
@@ -39,17 +39,31 @@ export const findCurrentComments = (
 };
 export const getUpdatedComments = (
   document: any,
-  comments: (InlineComment & { newRange?: string[] })[]
+  commentsSdk: {
+    get: () => InlineComment[];
+    create: () => void;
+    update: (commentId: string, comment: InlineComment) => void;
+    delete: (commentId: string) => void;
+  }
 ): InlineComment[] => {
-  findCurrentComments(document, comments, '');
+  const currentComments = commentsSdk.get() as (InlineComment & { newRange?: string[] })[];
+  findCurrentComments(document, '', currentComments);
 
-  return comments.map((comment) => {
+  return currentComments.map((comment) => {
     if (comment.newRange && comment.metadata.range.sort() !== comment.newRange?.sort()) {
-      comment.metadata.range = comment.newRange;
-    }
-    delete comment.newRange;
+      if (comment.newRange.length === 0) {
+        // comment no longer exists, delete
+        commentsSdk.delete(comment.sys.id);
+      } else {
+        // update comment
+        comment.metadata.range = comment.newRange;
+        delete comment.newRange;
 
-    // todo: perform database action on comment, remove comments that dont have any ranges
+        // probably won't work?
+        commentsSdk.update(comment.sys.id, comment);
+      }
+    }
+
     return comment;
   });
 };
