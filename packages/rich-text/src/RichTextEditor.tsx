@@ -57,12 +57,6 @@ type ConnectedProps = {
 };
 
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
-  props.sdk.field.comments = {
-    get: () => props.sdk.field?.comments?.get(),
-    update: () => console.log('Updating'),
-    delete: () => console.log('Deleting'),
-    create: () => console.log('Deleting'),
-  };
   const id = getContentfulEditorId(props.sdk);
   console.log('ConnectedRichTextEditor');
 

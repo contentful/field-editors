@@ -106,7 +106,15 @@ import { RichTextEditor } from '@contentful/field-editor-rich-text';
         ...entries.published,
         getSys: () => entries.published.sys,
       },
-      field,
+      field: {
+        ...field,
+        comments: {
+          get: () => { return [] },
+          update: () => console.log('Updating'),
+          delete: () => console.log('Deleting'),
+          create: () => console.log('Deleting')
+        }
+      },
       locales: createFakeLocalesAPI(),
       navigator: {
         ...navigator,
