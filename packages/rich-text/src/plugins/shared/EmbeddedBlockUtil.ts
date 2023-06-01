@@ -1,6 +1,14 @@
+import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
+import { HotkeyPlugin } from '@udecode/plate-core';
+import isHotkey from 'is-hotkey';
 
-import { focus, insertEmptyParagraph, moveToTheNextChar } from '../../helpers/editor';
+import {
+  focus,
+  getNodeEntryFromSelection,
+  insertEmptyParagraph,
+  moveToTheNextChar,
+} from '../../helpers/editor';
 import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
 import newResourceEntitySelectorConfigFromRichTextField from '../../helpers/newResourceEntitySelectorConfigFromRichTextField';
 import { watchCurrentSlide } from '../../helpers/sdkNavigatorSlideIn';
@@ -12,8 +20,40 @@ import {
   PlateEditor,
   setNodes,
   select,
+  KeyboardHandler,
+  removeNodes,
 } from '../../internal';
 import { TrackingPluginActions } from '../Tracking';
+
+export function getWithEmbeddedBlockEvents(
+  nodeType: BLOCKS.EMBEDDED_ENTRY | BLOCKS.EMBEDDED_ASSET | BLOCKS.EMBEDDED_RESOURCE,
+  sdk: FieldExtensionSDK
+): KeyboardHandler<HotkeyPlugin> {
+  return (editor, { options: { hotkey } }) =>
+    (event) => {
+      const [, pathToSelectedElement] = getNodeEntryFromSelection(editor, nodeType);
+
+      if (pathToSelectedElement) {
+        const isDelete = event.key === 'Delete';
+        const isBackspace = event.key === 'Backspace';
+
+        if (isDelete || isBackspace) {
+          event.preventDefault();
+          removeNodes(editor, { at: pathToSelectedElement });
+        }
+
+        return;
+      }
+
+      if (hotkey && isHotkey(hotkey, event)) {
+        if (nodeType === BLOCKS.EMBEDDED_RESOURCE) {
+          selectResourceEntityAndInsert(sdk, editor, editor.tracking.onShortcutAction);
+        } else {
+          selectEntityAndInsert(nodeType, sdk, editor, editor.tracking.onShortcutAction);
+        }
+      }
+    };
+}
 
 export async function selectEntityAndInsert(
   nodeType,

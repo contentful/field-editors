@@ -1,43 +1,14 @@
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { HotkeyPlugin } from '@udecode/plate-core';
-import isHotkey from 'is-hotkey';
 
-import { getNodeEntryFromSelection } from '../../helpers/editor';
-import { KeyboardHandler, PlatePlugin, removeNodes } from '../../internal';
-import { selectEntityAndInsert } from '../shared/EmbeddedBlockUtil';
+import { PlatePlugin } from '../../internal';
+import { getWithEmbeddedBlockEvents } from '../shared/EmbeddedBlockUtil';
 import { LinkedEntityBlock } from './LinkedEntityBlock';
 
 const entityTypes = {
   [BLOCKS.EMBEDDED_ENTRY]: 'Entry',
   [BLOCKS.EMBEDDED_ASSET]: 'Asset',
 };
-
-function getWithEmbeddedEntityEvents(
-  nodeType: BLOCKS.EMBEDDED_ENTRY | BLOCKS.EMBEDDED_ASSET,
-  sdk: FieldExtensionSDK
-): KeyboardHandler<HotkeyPlugin> {
-  return (editor, { options: { hotkey } }) =>
-    (event) => {
-      const [, pathToSelectedElement] = getNodeEntryFromSelection(editor, nodeType);
-
-      if (pathToSelectedElement) {
-        const isDelete = event.key === 'Delete';
-        const isBackspace = event.key === 'Backspace';
-
-        if (isDelete || isBackspace) {
-          event.preventDefault();
-          removeNodes(editor, { at: pathToSelectedElement });
-        }
-
-        return;
-      }
-
-      if (hotkey && isHotkey(hotkey, event)) {
-        selectEntityAndInsert(nodeType, sdk, editor, editor.tracking.onShortcutAction);
-      }
-    };
-}
 
 const createEmbeddedEntityPlugin =
   (nodeType: BLOCKS.EMBEDDED_ENTRY | BLOCKS.EMBEDDED_ASSET, hotkey: string) =>
@@ -49,7 +20,7 @@ const createEmbeddedEntityPlugin =
     component: LinkedEntityBlock,
     options: { hotkey },
     handlers: {
-      onKeyDown: getWithEmbeddedEntityEvents(nodeType, sdk),
+      onKeyDown: getWithEmbeddedBlockEvents(nodeType, sdk),
     },
     deserializeHtml: {
       rules: [

@@ -1,38 +1,9 @@
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { HotkeyPlugin } from '@udecode/plate-core';
-import isHotkey from 'is-hotkey';
 
-import { getNodeEntryFromSelection } from '../../helpers/editor';
-import { KeyboardHandler, PlatePlugin, removeNodes } from '../../internal';
-import { selectResourceEntityAndInsert } from '../shared/EmbeddedBlockUtil';
+import { PlatePlugin } from '../../internal';
+import { getWithEmbeddedBlockEvents } from '../shared/EmbeddedBlockUtil';
 import { LinkedResourceBlock } from './LinkedResourceBlock';
-
-function getWithEmbeddedResourceEvents(
-  nodeType: BLOCKS.EMBEDDED_RESOURCE,
-  sdk: FieldExtensionSDK
-): KeyboardHandler<HotkeyPlugin> {
-  return (editor, { options: { hotkey } }) =>
-    (event) => {
-      const [, pathToSelectedElement] = getNodeEntryFromSelection(editor, nodeType);
-
-      if (pathToSelectedElement) {
-        const isDelete = event.key === 'Delete';
-        const isBackspace = event.key === 'Backspace';
-
-        if (isDelete || isBackspace) {
-          event.preventDefault();
-          removeNodes(editor, { at: pathToSelectedElement });
-        }
-
-        return;
-      }
-
-      if (hotkey && isHotkey(hotkey, event)) {
-        selectResourceEntityAndInsert(sdk, editor, editor.tracking.onShortcutAction);
-      }
-    };
-}
 
 const createEmbeddedResourcePlugin =
   (nodeType: BLOCKS.EMBEDDED_RESOURCE, hotkey: string) =>
@@ -44,7 +15,7 @@ const createEmbeddedResourcePlugin =
     component: LinkedResourceBlock,
     options: { hotkey },
     handlers: {
-      onKeyDown: getWithEmbeddedResourceEvents(nodeType, sdk),
+      onKeyDown: getWithEmbeddedBlockEvents(nodeType, sdk),
     },
     deserializeHtml: {
       rules: [
