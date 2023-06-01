@@ -13,7 +13,7 @@ export const enhanceContentfulDocWithComments = (document: Document, comments: I
           sys: {
             type: 'Link',
             linkType: 'Comment',
-            id: comments[i].id,
+            id: comments[i].sys.id,
           },
         },
       };
