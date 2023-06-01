@@ -4,8 +4,7 @@ import { HotkeyPlugin } from '@udecode/plate-core';
 import isHotkey from 'is-hotkey';
 
 import { getNodeEntryFromSelection } from '../../helpers/editor';
-import { removeNodes } from '../../internal/transforms';
-import { KeyboardHandler, PlatePlugin } from '../../internal/types';
+import { KeyboardHandler, PlatePlugin, removeNodes } from '../../internal';
 import { selectResourceEntityAndInsert } from '../shared/EmbeddedBlockUtil';
 import { LinkedResourceBlock } from './LinkedResourceBlock';
 

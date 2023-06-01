@@ -1,28 +1,13 @@
 import React from 'react';
 
-import { css } from 'emotion';
 import { useSelected, useReadOnly } from 'slate-react';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
-import { IS_CHROME } from '../../helpers/environment';
 import { Element, findNodePath, removeNodes, RenderElementProps } from '../../internal';
 import { useSdkContext } from '../../SdkProvider';
 import { useLinkTracking } from '../links-tracking';
 import { FetchingWrappedResourceCard } from '../shared/FetchingWrappedResourceCard';
-
-const styles = {
-  root: css({
-    marginBottom: '1.25rem !important',
-    display: 'block',
-  }),
-  container: css({
-    // The next 2 properties ensure Entity card won't be aligned above
-    // a list item marker (i.e. bullet)
-    display: 'inline-block',
-    verticalAlign: 'text-top',
-    width: '100%',
-  }),
-};
+import { LinkedBlockWrapper } from '../shared/LinkedBlockWrapper';
 
 export type LinkedResourceBlockProps = {
   element: Element & {
@@ -56,21 +41,10 @@ export function LinkedResourceBlock(props: LinkedResourceBlockProps) {
   }, [editor, element]);
 
   return (
-    <div
-      {...attributes}
-      className={styles.root}
-      data-entity-type={link.linkType}
-      data-entity-id={link.urn}
-      // COMPAT: This makes copy & paste work for Firefox
-      contentEditable={IS_CHROME ? undefined : false}
-      draggable={IS_CHROME ? true : undefined}
-    >
-      <div
-        // COMPAT: This makes copy & paste work for Chromium/Blink browsers and Safari
-        contentEditable={IS_CHROME ? false : undefined}
-        draggable={IS_CHROME ? true : undefined}
-        className={styles.container}
-      >
+    <LinkedBlockWrapper
+      attributes={attributes}
+      element={element}
+      card={
         <FetchingWrappedResourceCard
           sdk={sdk}
           link={link}
@@ -79,8 +53,9 @@ export function LinkedResourceBlock(props: LinkedResourceBlockProps) {
           onRemove={handleRemoveClick}
           onEntityFetchComplete={onEntityFetchComplete}
         />
-      </div>
+      }
+    >
       {children}
-    </div>
+    </LinkedBlockWrapper>
   );
 }
