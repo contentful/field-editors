@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { Text } from '@contentful/f36-components';
 import { EditIcon, HelpCircleIcon } from '@contentful/f36-icons';

@@ -1,8 +1,7 @@
 import { GlobalStyles } from '@contentful/f36-core';
 import tokens from '@contentful/f36-tokens';
 import { styled } from '@storybook/theming';
-import React from 'react';
-
+import * as React from 'react';
 const preview = {
   parameters: {
     docs: {

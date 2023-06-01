@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { Asset, Button, Card, Heading } from '@contentful/f36-components';
 import { ActionsPlayground } from '@contentful/field-editor-test-utils';

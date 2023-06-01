@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { SingleEntryReferenceEditor } from '@contentful/field-editor-reference';
 import type { FieldExtensionSDK } from '@contentful/field-editor-shared';

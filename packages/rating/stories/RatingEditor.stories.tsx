@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { ActionsPlayground, createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 import type { Meta, StoryObj } from '@storybook/react';

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React from 'react';
+import * as React from 'react';
 
 import {
   ActionsPlayground,

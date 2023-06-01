@@ -1,8 +1,8 @@
-import React from 'react';
+import * as React from 'react';
 
 import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
-import { render, configure, cleanup, fireEvent, RenderResult } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
+import { RenderResult, cleanup, configure, fireEvent, render } from '@testing-library/react';
 
 import { TagsEditorContainer } from './TagsEditorContainer';
 

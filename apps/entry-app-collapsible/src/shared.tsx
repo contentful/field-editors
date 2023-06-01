@@ -1,8 +1,7 @@
-import React from 'react';
-import { Entry } from '@contentful/field-editor-shared';
 import { EditorExtensionSDK } from '@contentful/app-sdk';
-import { AppState, FieldType, FieldGroupType, Action } from './types';
-
+import { Entry } from '@contentful/field-editor-shared';
+import * as React from 'react';
+import { Action, AppState, FieldGroupType, FieldType } from './types';
 // UTILS
 export const findUnassignedFields = (appState: AppState): FieldType[] => {
   const assignedFields = appState.fieldGroups

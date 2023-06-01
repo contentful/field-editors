@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { EntryCard } from '@contentful/f36-components';
 import { ClockIcon } from '@contentful/f36-icons';

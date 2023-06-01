@@ -1,6 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 
-import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
+import { ActionsPlayground, createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import * as Editor from '../src/BooleanEditor';

@@ -1,15 +1,15 @@
-import React from 'react';
+import * as React from 'react';
 
+import '@testing-library/jest-dom';
 import {
-  render,
-  fireEvent,
-  waitFor,
-  waitForElementToBeRemoved,
   act,
   configure,
+  fireEvent,
+  render,
+  waitFor,
+  waitForElementToBeRemoved,
 } from '@testing-library/react';
 import noop from 'lodash/noop';
-import '@testing-library/jest-dom';
 
 import { ContentType } from '../../types';
 import { CreateEntryLinkButton } from './CreateEntryLinkButton';

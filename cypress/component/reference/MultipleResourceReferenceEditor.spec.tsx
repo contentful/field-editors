@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { MultipleResourceReferenceEditor } from '../../../packages/reference/src';
 import { Entity, ResourceLink } from '../../../packages/reference/src/types';

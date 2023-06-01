@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { WrappedAssetCard } from '../../../packages/reference/src';
 import { WrappedAssetCardProps } from '../../../packages/reference/src/assets/WrappedAssetCard/WrappedAssetCard';

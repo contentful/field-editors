@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { Button } from '@contentful/f36-components';
 import { ChevronDownIcon, PlusIcon } from '@contentful/f36-icons';

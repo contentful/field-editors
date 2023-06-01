@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { FieldAPI, ValidationError } from '@contentful/app-sdk';
 import { throttle } from 'lodash-es';

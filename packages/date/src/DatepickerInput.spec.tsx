@@ -1,8 +1,8 @@
 /* eslint-disable no-global-assign -- need for test purposes */
-import React from 'react';
+import * as React from 'react';
 
-import { render, configure, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
+import { configure, render, screen } from '@testing-library/react';
 import timezonedDate from 'timezoned-date';
 
 import { DatepickerInput } from './DatepickerInput';

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import type { FieldExtensionSDK } from '@contentful/field-editor-shared';
 import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';

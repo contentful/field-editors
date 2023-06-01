@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { DialogExtensionSDK } from '@contentful/app-sdk';
 import { ModalDialogLauncher } from '@contentful/field-editor-shared';

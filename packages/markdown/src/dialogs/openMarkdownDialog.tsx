@@ -1,14 +1,13 @@
-import React from 'react';
+import * as React from 'react';
 
 import {
-  FieldExtensionSDK,
   DialogExtensionSDK,
+  FieldExtensionSDK,
   OpenCustomWidgetOptions,
 } from '@contentful/app-sdk';
 import { ModalDialogLauncher } from '@contentful/field-editor-shared';
 
-import { MarkdownDialogsParams, PreviewComponents } from '../types';
-import { MarkdownDialogType } from '../types';
+import { MarkdownDialogType, MarkdownDialogsParams, PreviewComponents } from '../types';
 import { CheatsheetModalDialog } from './CheatsheetModalDialog';
 import { ConfirmInsertAssetModalDialog } from './ConfirmInsertAssetModalDialog';
 import {

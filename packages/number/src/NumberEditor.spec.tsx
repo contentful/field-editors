@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 import '@testing-library/jest-dom/extend-expect';

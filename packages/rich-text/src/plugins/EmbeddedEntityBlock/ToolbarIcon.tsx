@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { Flex, Icon, Menu } from '@contentful/f36-components';
@@ -46,7 +46,8 @@ export function EmbeddedEntityBlockToolbarIcon({
       disabled={isDisabled}
       className={`${baseClass}-list-item`}
       onClick={handleClick}
-      testId={`toolbar-toggle-${nodeType}`}>
+      testId={`toolbar-toggle-${nodeType}`}
+    >
       <Flex alignItems="center" flexDirection="row">
         <Icon
           as={type === 'Asset' ? AssetIcon : EmbeddedEntryBlockIcon}

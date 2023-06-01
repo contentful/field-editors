@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { Asset, Button, Card, Heading, TextLink } from '@contentful/f36-components';
 import { ThumbUpIcon } from '@contentful/f36-icons';
