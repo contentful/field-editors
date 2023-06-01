@@ -4,12 +4,9 @@ import { HotkeyPlugin } from '@udecode/plate-core';
 import isHotkey from 'is-hotkey';
 
 import { getNodeEntryFromSelection } from '../../helpers/editor';
-import { removeNodes } from '../../internal/transforms';
-import { KeyboardHandler, PlatePlugin } from '../../internal/types';
+import { KeyboardHandler, PlatePlugin, removeNodes } from '../../internal';
 import { selectEntityAndInsert } from '../shared/EmbeddedBlockUtil';
 import { LinkedEntityBlock } from './LinkedEntityBlock';
-
-export { EmbeddedEntityBlockToolbarIcon as ToolbarIcon } from './ToolbarIcon';
 
 const entityTypes = {
   [BLOCKS.EMBEDDED_ENTRY]: 'Entry',

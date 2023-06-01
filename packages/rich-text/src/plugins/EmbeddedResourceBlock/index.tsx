@@ -9,8 +9,6 @@ import { KeyboardHandler, PlatePlugin } from '../../internal/types';
 import { selectResourceEntityAndInsert } from '../shared/EmbeddedBlockUtil';
 import { LinkedResourceBlock } from './LinkedResourceBlock';
 
-export { EmbeddedResourceBlockToolbarIcon as ToolbarIcon } from './ToolbarIcon';
-
 function getWithEmbeddedResourceEvents(
   nodeType: BLOCKS.EMBEDDED_RESOURCE,
   sdk: FieldExtensionSDK

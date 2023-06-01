@@ -5,9 +5,8 @@ import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { isLinkActive } from '../../helpers/editor';
 import { isNodeTypeEnabled } from '../../helpers/validations';
-import { ToolbarIcon as EmbeddedEntityBlockToolbarIcon } from '../../plugins/EmbeddedEntityBlock';
 import { ToolbarEmbeddedEntityInlineButton } from '../../plugins/EmbeddedEntityInline';
-import { ToolbarIcon as EmbeddedResourceBlockToolbarIcon } from '../../plugins/EmbeddedResourceBlock';
+import { EmbeddedBlockToolbarIcon } from '../../plugins/shared/EmbeddedBlockToolbarIcon';
 import { useSdkContext } from '../../SdkProvider';
 import { EmbeddedEntityDropdownButton } from './EmbeddedEntityDropdownButton';
 
@@ -37,15 +36,16 @@ export const EmbedEntityWidget = ({ isDisabled, canInsertBlocks }: EmbedEntityWi
   const actions = (
     <>
       {blockEntryEmbedEnabled && (
-        <EmbeddedEntityBlockToolbarIcon
+        <EmbeddedBlockToolbarIcon
           isDisabled={!!isDisabled}
           nodeType={BLOCKS.EMBEDDED_ENTRY}
           onClose={onCloseEntityDropdown}
         />
       )}
       {blockResourceEmbedEnabled && (
-        <EmbeddedResourceBlockToolbarIcon
+        <EmbeddedBlockToolbarIcon
           isDisabled={!!isDisabled}
+          nodeType={BLOCKS.EMBEDDED_RESOURCE}
           onClose={onCloseEntityDropdown}
         />
       )}
@@ -56,7 +56,7 @@ export const EmbedEntityWidget = ({ isDisabled, canInsertBlocks }: EmbedEntityWi
         />
       )}
       {blockAssetEmbedEnabled && (
-        <EmbeddedEntityBlockToolbarIcon
+        <EmbeddedBlockToolbarIcon
           isDisabled={!!isDisabled}
           nodeType={BLOCKS.EMBEDDED_ASSET}
           onClose={onCloseEntityDropdown}
