@@ -29,7 +29,7 @@ type AllowedResource = {
  */
 export default function getAllowedResourcesForNodeType(field, nodeType): AllowedResource[] {
   return flow(
-    (v) => find(v, 'nodes'),
-    (v) => get(v, ['nodes', nodeType, 'allowedResources'], [])
+    (validations) => find(validations, 'nodes'),
+    (validations) => get(validations, ['nodes', nodeType, 'allowedResources'], [])
   )(field.validations);
 }
