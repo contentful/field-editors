@@ -60,7 +60,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const id = getContentfulEditorId(props.sdk);
   console.log('ConnectedRichTextEditor');
 
-  // console.log('fieldComments: ', props.sdk.field.comments.get());
+  console.log('fieldComments: ', props.sdk.field.comments.get());
 
   const plugins = React.useMemo(
     () => getPlugins(props.sdk, props.onAction ?? noop, props.restrictedMarks),

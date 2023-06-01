@@ -57,6 +57,8 @@ export const documentToEditorValue = (
   comments: InlineComment[]
 ) => {
   // add comments here
+  console.log('DOC: ', doc);
+
   if (doc) {
     enhanceContentfulDocWithComments(doc, comments);
   }

@@ -1,15 +1,13 @@
-import { INLINE_COMMENT_HIGHLIGHT } from 'plugins/Marks';
+import { INLINE_COMMENT_HIGHLIGHT } from '../plugins/Marks/helpers';
 
 export const removeCommentDataFromDocument = (document: any): any => {
   if (typeof document !== 'object' || document === null) {
     return document;
   }
-  if ('comment' in document.data) {
+  if ('data' in document && 'comment' in document.data) {
     document.data = {};
-    const indexOfMark = document.marks.indexOf({ type: INLINE_COMMENT_HIGHLIGHT });
-    if (indexOfMark > -1) {
-      document.marks.splice(indexOfMark, 1);
-    }
+    document.marks = document.marks.filter((mark) => mark.type === INLINE_COMMENT_HIGHLIGHT);
+
     return document;
   }
 

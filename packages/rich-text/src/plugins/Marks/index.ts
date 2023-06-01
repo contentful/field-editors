@@ -1,13 +1,12 @@
 import { PlatePlugin } from '../../internal/types';
 import { createBoldPlugin } from './Bold';
 import { createCodePlugin } from './Code';
+import { INLINE_COMMENT_HIGHLIGHT } from './helpers';
 import { InlineComment as InlineCommentComponent } from './InlineComment';
 import { createItalicPlugin } from './Italic';
 import { createSubscriptPlugin } from './Subscript';
 import { createSuperscriptPlugin } from './Superscript';
 import { createUnderlinePlugin } from './Underline';
-
-export const INLINE_COMMENT_HIGHLIGHT = 'inline-comment';
 
 /**
  * Enables support for highlights, useful when reviewing

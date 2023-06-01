@@ -122,8 +122,6 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
   const shouldDisableTables =
     isDisabled || !canInsertBlocks || isListSelected || isBlockquoteSelected;
 
-  console.log({ sdk });
-
   // We only show the dropdown when: whenever at least bold , italic and underline are available; If nothing that would go inside the dropdown is available, we hide it
   const boldItalicUnderlineAvailable =
     isMarkEnabled(sdk.field, MARKS.BOLD) ||

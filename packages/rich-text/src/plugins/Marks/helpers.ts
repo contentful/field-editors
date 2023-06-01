@@ -1,6 +1,8 @@
 import { MARKS } from '@contentful/rich-text-types';
 import isHotkey from 'is-hotkey';
 
+export const INLINE_COMMENT_HIGHLIGHT = 'inline-comment';
+
 import { isMarkActive } from '../../internal/queries';
 import { toggleMark } from '../../internal/transforms';
 import { PlateEditor, HotkeyPlugin, KeyboardHandler } from '../../internal/types';

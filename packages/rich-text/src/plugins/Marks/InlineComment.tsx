@@ -5,12 +5,11 @@ import { MARKS } from '@contentful/rich-text-types';
 import { css } from 'emotion';
 import { RenderLeafProps } from 'slate-react';
 
-import { INLINE_COMMENT_HIGHLIGHT } from '.';
 import { createMarkToolbarButton } from './components/MarkToolbarButton';
 
 export const ToolbarInlineCommentButton = createMarkToolbarButton({
   title: 'InlineComment',
-  mark: INLINE_COMMENT_HIGHLIGHT as unknown as MARKS, // change this once rich text types are updated. Requierement defined
+  mark: 'inline-comments' as unknown as MARKS, // change this once rich text types are updated. Requierement defined
   icon: <ChatBubbleIcon />,
 });
 
