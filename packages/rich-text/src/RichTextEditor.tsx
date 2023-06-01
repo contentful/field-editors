@@ -114,14 +114,17 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
 
     getPlateActions(id).value(
       normalizeEditorValue(
-        documentToEditorValue(props.value as Contentful.Document, props.sdk.comment.get()) as Value,
+        documentToEditorValue(
+          props.value as Contentful.Document,
+          props.sdk.field.comments.get()
+        ) as Value,
         {
           plugins,
           disableCorePlugins,
         }
       )
     );
-  }, [isFirstRender, plugins, id, props.value, props.sdk.comment]);
+  }, [isFirstRender, plugins, id, props.value, props.sdk.field.comments]);
 
   return (
     <SdkProvider sdk={props.sdk}>

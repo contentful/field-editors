@@ -1,11 +1,9 @@
-import * as Contentful from '@contentful/rich-text-types';
+import { Document } from '@contentful/rich-text-types';
 import get from 'lodash.get';
-import { InlineComment } from 'RichTextEditor';
 
-export const enhanceContentfulDocWithComments = (
-  document: Contentful.Document,
-  comments: InlineComment[]
-) => {
+import { InlineComment } from '../RichTextEditor';
+
+export const enhanceContentfulDocWithComments = (document: Document, comments: InlineComment[]) => {
   for (let i = 0; i < comments?.length; i++) {
     // this assumes there is only one element in the json path
     const commentedNode = get(document, comments[i].metadata.range[0]);

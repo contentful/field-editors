@@ -1,15 +1,14 @@
 import { toSlatejsDocument } from '@contentful/contentful-slatejs-adapter';
 import { EMPTY_DOCUMENT, Document } from '@contentful/rich-text-types';
-import { enhanceContentfulDocWithComments } from 'helpers/enhanceContentfulDocWithComments';
 import { InlineComment } from 'RichTextEditor';
 
 import schema from './constants/Schema';
+import { enhanceContentfulDocWithComments } from './helpers/enhanceContentfulDocWithComments';
 import { sanitizeIncomingSlateDoc } from './helpers/sanitizeIncomingSlateDoc';
 import { createPlateEditor, CreatePlateEditorOptions, withoutNormalizing } from './internal';
 import { getEndPoint, isNode } from './internal/queries';
 import { normalize, select } from './internal/transforms';
 import { Value, PlateEditor, Node } from './internal/types';
-
 
 /**
  * For legacy reasons, a document may not have any content at all
@@ -53,7 +52,10 @@ export const setEditorContent = (editor: PlateEditor, nodes?: Node[]): void => {
  * Converts a Contentful rich text document to the corresponding slate editor
  * value
  */
-export const documentToEditorValue = (doc?: Document, comments: InlineComment[]) => {
+export const documentToEditorValue = (
+  doc: Document = {} as Document,
+  comments: InlineComment[]
+) => {
   // add comments here
   if (doc) {
     enhanceContentfulDocWithComments(doc, comments);
