@@ -56,10 +56,6 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     [BLOCKS.HEADING_6, 'Heading 6', `{${mod}+alt+6}`],
   ];
 
-  function getDropdownList() {
-    return getIframe().findByTestId('dropdown-heading-list');
-  }
-
   beforeEach(() => {
     richText = new RichTextPage();
     richText.visit();
@@ -185,24 +181,6 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       richText.editor.click().type(`{${mod}}z`).click();
       richText.expectValue(docBeforeDragAndDrop);
       cy.unsetShouldConfirm();
-    });
-  });
-
-  describe('Toolbar', () => {
-    it('should be visible', () => {
-      richText.toolbar.headingsDropdown.should('be.visible');
-
-      richText.toolbar.headingsDropdown.click();
-      getDropdownList().should('be.visible');
-    });
-
-    it(`should have ${headings.length} items`, () => {
-      richText.toolbar.headingsDropdown.click();
-      getDropdownList().children().should('have.length', headings.length);
-
-      headings.forEach(([, label], index) => {
-        getDropdownList().children().eq(index).should('have.text', label);
-      });
     });
   });
 

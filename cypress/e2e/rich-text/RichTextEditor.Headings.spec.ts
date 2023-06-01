@@ -3,6 +3,7 @@
 import { BLOCKS } from '@contentful/rich-text-types';
 
 import { block, document as doc, text } from '../../../packages/rich-text/src/helpers/nodeFactory';
+import { getIframe } from '../../fixtures/utils';
 import { RichTextPage } from './RichTextPage';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
@@ -33,6 +34,9 @@ describe('Rich Text Editor - Headings', { viewportHeight: 2000 }, () => {
         },
       },
     });
+  function getDropdownList() {
+    return getIframe().findByTestId('dropdown-heading-list');
+  }
 
   const headings = [
     [BLOCKS.PARAGRAPH, 'Normal text'],
@@ -160,6 +164,24 @@ describe('Rich Text Editor - Headings', { viewportHeight: 2000 }, () => {
 
         richText.expectValue(doc(block(type, {}, text(value)), emptyParagraph()));
         cy.unsetShouldConfirm();
+      });
+    });
+  });
+
+  describe('Toolbar', () => {
+    it('should be visible', () => {
+      richText.toolbar.headingsDropdown.should('be.visible');
+
+      richText.toolbar.headingsDropdown.click();
+      getDropdownList().should('be.visible');
+    });
+
+    it(`should have ${headings.length} items`, () => {
+      richText.toolbar.headingsDropdown.click();
+      getDropdownList().children().should('have.length', headings.length);
+
+      headings.forEach(([, label], index) => {
+        getDropdownList().children().eq(index).should('have.text', label);
       });
     });
   });

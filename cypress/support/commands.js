@@ -10,18 +10,11 @@
 
 import { register } from '@cypress/snapshot';
 import { configure } from '@testing-library/cypress';
+import { getIframeWindow } from '../fixtures/utils';
 import '@testing-library/cypress/add-commands';
 
 register();
 configure({ testIdAttribute: 'data-test-id' });
-
-const getIframeWindow = () => {
-  return cy
-    .get('#storybook-preview-iframe')
-    .its('0.contentWindow')
-    .should('not.be.empty')
-    .then(cy.wrap);
-};
 
 Cypress.Commands.add('editorEvents', (lastN = Infinity) => {
   getIframeWindow().then((win) => {
