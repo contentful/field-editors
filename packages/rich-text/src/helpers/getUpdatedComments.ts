@@ -11,11 +11,8 @@ export const findCurrentComments = (
     });
 
     if (oldComment) {
-      if (
-        'newRange' in oldComment.metadata &&
-        (oldComment.metadata.newRange as string[]).length > 0
-      ) {
-        (oldComment.metadata.newRange as string[]).push(path);
+      if ('newRange' in oldComment && (oldComment.newRange as string[]).length > 0) {
+        (oldComment.newRange as string[]).push(path);
       } else {
         oldComment.newRange = [path];
       }
