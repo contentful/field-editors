@@ -45,5 +45,5 @@ const createEmbeddedResourcePlugin =
 
 export const createEmbeddedResourceBlockPlugin = createEmbeddedResourcePlugin(
   BLOCKS.EMBEDDED_RESOURCE,
-  'mod+shift+r'
+  'mod+shift+s'
 );

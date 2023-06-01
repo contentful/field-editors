@@ -59,7 +59,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       [
         'using the keyboard shortcut',
         () => {
-          richText.editor.type(`{${mod}+shift+r}`);
+          richText.editor.type(`{${mod}+shift+s}`);
         },
       ],
     ];
