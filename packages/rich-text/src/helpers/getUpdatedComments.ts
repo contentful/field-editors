@@ -28,7 +28,7 @@ export const findCurrentComments = (
       if (path.startsWith('.')) {
         path = path.slice(1);
       }
-      const subPath = findCurrentComments(document.content[i], comments, `${path}.content[${i}]`);
+      const subPath = findCurrentComments(document.content[i], `${path}.content[${i}]`, comments);
       if (subPath !== null) {
         return `content[${i}].${path}`;
       }
