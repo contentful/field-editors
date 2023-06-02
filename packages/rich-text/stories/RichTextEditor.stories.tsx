@@ -4,12 +4,12 @@ import { useMemo } from 'react';
 
 import { FieldAPI, FieldExtensionSDK } from '@contentful/app-sdk';
 import {
-  createFakeFieldAPI,
   ActionsPlayground,
-  createFakeSpaceAPI,
+  createFakeCMAAdapter,
+  createFakeFieldAPI,
   createFakeLocalesAPI,
   createFakeNavigatorAPI,
-  createFakeCMAAdapter,
+  createFakeSpaceAPI,
 } from '@contentful/field-editor-test-utils';
 import { ValidationErrors } from '@contentful/field-editor-validation-errors';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
@@ -199,6 +199,9 @@ const DemoRichTextEditor = () => {
 };
 
 export const Default: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   render: () => {
     return <DemoRichTextEditor />;
   },

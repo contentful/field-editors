@@ -19,6 +19,9 @@ export default meta;
 type Story = StoryObj<typeof DropdownEditor>;
 
 export const Default: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   render: () => {
     const [field, mitt] = createFakeFieldAPI((mock) => {
       return {

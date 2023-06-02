@@ -15,6 +15,9 @@ export default meta;
 type Story = StoryObj<typeof JsonEditor>;
 
 export const Default: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   render: () => {
     const [field, mitt] = createFakeFieldAPI();
     return (

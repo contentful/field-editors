@@ -15,6 +15,9 @@ export default meta;
 type Story = StoryObj<typeof DateEditor>;
 
 export const Default: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   render: () => {
     const rawInitialValue = window.localStorage.getItem('initialValue');
     const initialValue = rawInitialValue ? JSON.parse(rawInitialValue) : undefined;

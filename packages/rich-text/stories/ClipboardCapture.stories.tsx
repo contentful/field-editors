@@ -99,6 +99,9 @@ const Demo = () => {
 };
 
 export const Default: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   render: () => {
     return <Demo />;
   },

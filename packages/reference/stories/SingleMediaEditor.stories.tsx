@@ -18,6 +18,9 @@ export default meta;
 type Story = StoryObj<typeof SingleMediaEditor>;
 
 export const Default: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   render: () => {
     const [sdk, mitt] = newReferenceEditorFakeSdk();
     return (
@@ -40,6 +43,9 @@ export const Default: Story = {
 };
 
 export const CustomActions: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   render: () => {
     const [sdk, mitt] = newReferenceEditorFakeSdk();
     return (
@@ -74,6 +80,9 @@ export const CustomActions: Story = {
 };
 
 export const CustomCard: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   render: () => {
     const [sdk, mitt] = newReferenceEditorFakeSdk();
     return (

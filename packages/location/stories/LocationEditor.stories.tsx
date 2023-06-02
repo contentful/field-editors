@@ -15,6 +15,9 @@ export default meta;
 type Story = StoryObj<typeof LocationEditor>;
 
 export const Default: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   render: () => {
     const initialValue = window.localStorage.getItem('initialValue');
     const isInitiallyDisabled = !!window.localStorage.getItem('initialDisabled');

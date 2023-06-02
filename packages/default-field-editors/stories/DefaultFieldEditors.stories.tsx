@@ -24,6 +24,9 @@ export default meta;
 type Story = StoryObj<typeof Field>;
 
 export const Default: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   render: () => {
     const [field, mitt] = createFakeFieldAPI(
       // @ts-expect-error

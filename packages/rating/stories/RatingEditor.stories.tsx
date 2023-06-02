@@ -15,6 +15,9 @@ export default meta;
 type Story = StoryObj<typeof RatingEditor>;
 
 export const Default: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   render: () => {
     const [field, mitt] = createFakeFieldAPI();
     return (
@@ -27,6 +30,9 @@ export const Default: Story = {
 };
 
 export const Disabled: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   render: () => {
     const [field] = createFakeFieldAPI();
     return <RatingEditor field={field} isInitiallyDisabled />;
@@ -34,6 +40,9 @@ export const Disabled: Story = {
 };
 
 export const MoreStars: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   render: () => {
     const [field] = createFakeFieldAPI();
     return (

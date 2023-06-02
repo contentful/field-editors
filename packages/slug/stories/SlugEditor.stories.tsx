@@ -21,6 +21,9 @@ export default meta;
 type Story = StoryObj<typeof SlugEditor>;
 
 export const DefaultLocale: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   render: () => {
     const [field, mitt] = createFakeFieldAPI((field) => ({
       ...field,
@@ -76,6 +79,9 @@ export const DefaultLocale: Story = {
 };
 
 export const NonDefaultLocale: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   render: () => {
     const [field] = createFakeFieldAPI((field) => ({
       ...field,

@@ -17,6 +17,9 @@ export default meta;
 type Story = StoryObj<typeof MultipleEntryReferenceEditor>;
 
 export const Default: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   render: () => {
     const isInitiallyDisabled = !!window.localStorage.getItem('initialDisabled');
     const instanceParams = JSON.parse(window.localStorage.getItem('instanceParams') as string) as {
@@ -45,6 +48,9 @@ export const Default: Story = {
 };
 
 export const CustomCard: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   render: () => {
     const isInitiallyDisabled = !!window.localStorage.getItem('initialDisabled');
     const instanceParams = JSON.parse(window.localStorage.getItem('instanceParams') as string) as {
@@ -87,6 +93,9 @@ export const CustomCard: Story = {
 };
 
 export const CustomActions: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   render: () => {
     const isInitiallyDisabled = !!window.localStorage.getItem('initialDisabled');
     const instanceParams = JSON.parse(window.localStorage.getItem('instanceParams') as string) as {
@@ -116,6 +125,9 @@ export const CustomActions: Story = {
 };
 
 export const CustomActionsAndCustomLabel: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   render: () => {
     const isInitiallyDisabled = !!window.localStorage.getItem('initialDisabled');
     const instanceParams = JSON.parse(window.localStorage.getItem('instanceParams') as string) as {
@@ -151,6 +163,9 @@ export const CustomActionsAndCustomLabel: Story = {
 };
 
 export const CustomOnCreateOnLinkExistingActions: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   render: () => {
     const instanceParams = JSON.parse(window.localStorage.getItem('instanceParams') as string) as {
       showCreateEntityAction: boolean;
@@ -202,6 +217,9 @@ export const CustomOnCreateOnLinkExistingActions: Story = {
 };
 
 export const CustomCardRelyingOnDefaultCard: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   render: () => {
     const isInitiallyDisabled = !!window.localStorage.getItem('initialDisabled');
     const instanceParams = JSON.parse(window.localStorage.getItem('instanceParams') as string) as {

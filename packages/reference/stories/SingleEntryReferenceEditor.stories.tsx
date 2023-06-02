@@ -17,6 +17,9 @@ export default meta;
 type Story = StoryObj<typeof SingleEntryReferenceEditor>;
 
 export const Default: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   render: () => {
     const isInitiallyDisabled = !!window.localStorage.getItem('initialDisabled');
     const instanceParams = JSON.parse(window.localStorage.getItem('instanceParams') as string) as {
@@ -45,6 +48,9 @@ export const Default: Story = {
 };
 
 export const CustomCard: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   render: () => {
     const instanceParams = JSON.parse(window.localStorage.getItem('instanceParams') as string) as {
       showCreateEntityAction: boolean;
@@ -86,6 +92,9 @@ export const CustomCard: Story = {
 };
 
 export const CustomCardRelyingOnDefaultCard: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   render: () => {
     const instanceParams = JSON.parse(window.localStorage.getItem('instanceParams') as string) as {
       showCreateEntityAction: boolean;

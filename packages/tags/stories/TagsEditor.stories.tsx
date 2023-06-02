@@ -15,6 +15,9 @@ export default meta;
 type Story = StoryObj<typeof TagsEditor>;
 
 export const EmptyInitialValue: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   render: () => {
     const [field, mitt] = createFakeFieldAPI();
     return (
@@ -27,6 +30,9 @@ export const EmptyInitialValue: Story = {
 };
 
 export const NonEmptyInitialValue: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   render: () => {
     const [field] = createFakeFieldAPI((mock) => mock, ['test1', 'test2', 'test3']);
     return (
@@ -38,6 +44,9 @@ export const NonEmptyInitialValue: Story = {
 };
 
 export const Constraints: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   render: () => {
     const [field] = createFakeFieldAPI(
       (mock) => {

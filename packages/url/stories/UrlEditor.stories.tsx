@@ -15,6 +15,9 @@ export default meta;
 type Story = StoryObj<typeof UrlEditor>;
 
 export const Default: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   render: () => {
     const [field, mitt] = createFakeFieldAPI();
     return (
@@ -27,6 +30,9 @@ export const Default: Story = {
 };
 
 export const Custom: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   render: () => {
     const [field] = createFakeFieldAPI(
       (_) => _,
