@@ -11,11 +11,15 @@ export const ToolbarInlineCommentButton = createMarkToolbarButton({
   title: 'inline-comments',
   mark: 'inline-comment' as unknown as MARKS, // change this once rich text types are updated. Requierement defined
   icon: <ChatBubbleIcon />,
+  callback: (sdk) => {
+    sdk.field.comments.create();
+  },
 });
 
 const styles = {
   inlineComment: css({
     background: '#C4E7FF',
+    fontWeight: 'normal',
   }),
 };
 

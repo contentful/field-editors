@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { Menu } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
 import { MARKS } from '@contentful/rich-text-types';
@@ -8,6 +9,7 @@ import { css, cx } from 'emotion';
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
 import { focus } from '../../../helpers/editor';
 import { isMarkActive } from '../../../internal/queries';
+import { useSdkContext } from '../../../SdkProvider';
 import { ToolbarButton } from '../../shared/ToolbarButton';
 import { toggleMarkAndDeactivateConflictingMarks } from '../helpers';
 
@@ -15,6 +17,7 @@ export interface MarkOptions {
   mark: MARKS;
   title: string;
   icon?: React.ReactElement;
+  callback?: (sdk: FieldExtensionSDK & { field: { comments: { create: any } } }) => void;
 }
 
 const styles = {
@@ -24,9 +27,10 @@ const styles = {
   }),
 };
 
-export const createMarkToolbarButton = ({ mark, title, icon }: MarkOptions) => {
+export const createMarkToolbarButton = ({ mark, title, icon, callback }: MarkOptions) => {
   const Mark = ({ isDisabled }: { isDisabled?: boolean }) => {
     const editor = useContentfulEditor();
+    const sdk = useSdkContext();
 
     const handleClick = React.useCallback(() => {
       if (!editor?.selection) return;
@@ -38,7 +42,8 @@ export const createMarkToolbarButton = ({ mark, title, icon }: MarkOptions) => {
 
       toggleMarkAndDeactivateConflictingMarks(editor, mark);
       focus(editor);
-    }, [editor]);
+      if (callback) callback(sdk as any);
+    }, [editor, sdk]);
 
     if (!editor) return null;
 
