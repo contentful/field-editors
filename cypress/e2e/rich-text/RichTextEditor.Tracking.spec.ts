@@ -767,6 +767,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
     for (const [triggerMethod, origin, triggerEmbeddedResource] of methods) {
       describe(triggerMethod, () => {
         it('tracks when inserting embedded resource block', () => {
+          cy.shouldConfirm(true);
           richText.editor.click().then(triggerEmbeddedResource);
 
           richText.expectTrackingValue([
@@ -774,10 +775,11 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
             insert(origin, { nodeType: BLOCKS.EMBEDDED_RESOURCE }),
             linkRendered(),
           ]);
+          cy.unsetShouldConfirm();
         });
 
         it('cancels without adding the resource block', () => {
-          cy.on('window:confirm', () => false);
+          cy.shouldConfirm(false);
 
           richText.editor.click().then(triggerEmbeddedResource);
 
@@ -785,6 +787,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
             openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_RESOURCE),
             cancelEmbeddedDialog(origin, BLOCKS.EMBEDDED_RESOURCE),
           ]);
+          cy.unsetShouldConfirm();
         });
       });
     }
