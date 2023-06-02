@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { json } from '@codemirror/lang-json';
 import { EditorView } from '@codemirror/view';

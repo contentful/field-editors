@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-use-before-define */
 
-import React from 'react';
+import * as React from 'react';
 import ReactDOM from 'react-dom';
 
 import { OpenCustomWidgetOptions } from '@contentful/app-sdk';
@@ -59,7 +59,8 @@ export function openDialog<T>(
         position={options.position || 'center'}
         isShown={isShown}
         onClose={onCloseHandler}
-        size={size || '700px'}>
+        size={size || '700px'}
+      >
         {() => (
           <>
             {options.title && (

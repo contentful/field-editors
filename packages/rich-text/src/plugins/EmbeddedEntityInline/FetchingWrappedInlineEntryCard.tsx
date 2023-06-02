@@ -1,14 +1,14 @@
-import React from 'react';
+import * as React from 'react';
 
 import { InlineEntryCard, MenuItem, Text } from '@contentful/f36-components';
 import { ClockIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import {
+  ScheduledIconWithTooltip,
   useEntity,
   useEntityLoader,
-  ScheduledIconWithTooltip,
 } from '@contentful/field-editor-reference';
-import { Entry, entityHelpers, FieldExtensionSDK } from '@contentful/field-editor-shared';
+import { Entry, FieldExtensionSDK, entityHelpers } from '@contentful/field-editor-shared';
 import { INLINES } from '@contentful/rich-text-types';
 import { css } from 'emotion';
 
@@ -110,11 +110,13 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
         <MenuItem key="remove" onClick={props.onRemove} disabled={props.isDisabled} testId="delete">
           Remove
         </MenuItem>,
-      ]}>
+      ]}
+    >
       <ScheduledIconWithTooltip
         getEntityScheduledActions={loadEntityScheduledActions}
         entityType="Entry"
-        entityId={entry.sys.id}>
+        entityId={entry.sys.id}
+      >
         <ClockIcon className={styles.scheduledIcon} variant="muted" testId="scheduled-icon" />
       </ScheduledIconWithTooltip>
       <Text>{title}</Text>

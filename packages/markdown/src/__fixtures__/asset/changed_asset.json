@@ -1,0 +1,67 @@
+{
+  "sys": {
+    "space": {
+      "sys": {
+        "type": "Link",
+        "linkType": "Space",
+        "id": "my-test-space"
+      }
+    },
+    "id": "changed_asset",
+    "type": "Asset",
+    "createdAt": "2019-12-16T16:22:27.593Z",
+    "updatedAt": "2019-12-16T16:22:30.322Z",
+    "environment": {
+      "sys": {
+        "id": "master",
+        "type": "Link",
+        "linkType": "Environment"
+      }
+    },
+    "publishedVersion": 2,
+    "publishedAt": "2019-12-16T16:22:30.322Z",
+    "firstPublishedAt": "2019-12-16T16:22:30.322Z",
+    "createdBy": {
+      "sys": {
+        "type": "Link",
+        "linkType": "User",
+        "id": "34MOMGPHEnQmheXGJJyghQ"
+      }
+    },
+    "updatedBy": {
+      "sys": {
+        "type": "Link",
+        "linkType": "User",
+        "id": "34MOMGPHEnQmheXGJJyghQ"
+      }
+    },
+    "publishedCounter": 1,
+    "version": 4,
+    "publishedBy": {
+      "sys": {
+        "type": "Link",
+        "linkType": "User",
+        "id": "34MOMGPHEnQmheXGJJyghQ"
+      }
+    }
+  },
+  "fields": {
+    "title": {
+      "en-US": "contentful-image"
+    },
+    "file": {
+      "en-US": {
+        "url": "//images.contentful.com/5uld3crqmsuo/7mHi4mcWq0t3iG3yOxPSLC/16014114c405aec73e556161c91221fc/contentful-image.png",
+        "details": {
+          "size": 3634,
+          "image": {
+            "width": 218,
+            "height": 231
+          }
+        },
+        "fileName": "contentful-image.png",
+        "contentType": "image/png"
+      }
+    }
+  }
+}

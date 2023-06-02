@@ -1,7 +1,7 @@
-import React from 'react';
+import * as React from 'react';
 
 import { MARKS } from '@contentful/rich-text-types';
-import { render, configure, waitFor } from '@testing-library/react';
+import { configure, render, waitFor } from '@testing-library/react';
 import { Plate } from '@udecode/plate-core';
 
 import '@testing-library/jest-dom/extend-expect';

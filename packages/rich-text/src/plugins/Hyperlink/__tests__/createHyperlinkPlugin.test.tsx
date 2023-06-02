@@ -1,5 +1,6 @@
+/* eslint-disable react/no-unknown-property */
 /** @jsx jsx */
-import { jsx, assertOutput } from '../../../test-utils';
+import { assertOutput, jsx } from '../../../test-utils';
 
 describe('normalization', () => {
   it('removes empty links from the document structure', () => {

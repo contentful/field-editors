@@ -12,7 +12,7 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import constate from 'constate';
-import { createClient, PlainClientAPI } from 'contentful-management';
+import { PlainClientAPI, createClient } from 'contentful-management';
 import PQueue from 'p-queue';
 
 import {
@@ -21,8 +21,8 @@ import {
   Entry,
   Resource,
   ResourceType,
-  Space,
   ScheduledAction,
+  Space,
 } from '../types';
 
 export type ResourceInfo<R extends Resource = Resource> = {
@@ -223,6 +223,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
 
         return fetch(
           queryKey,
+          // @ts-expect-error
           ({ cmaClient }) => {
             if (entityType === 'Entry') {
               return cmaClient.entry.get({ entryId: entityId, spaceId, environmentId });

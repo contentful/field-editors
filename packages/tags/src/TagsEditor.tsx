@@ -1,6 +1,5 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
-
 
 import { Pill, TextInput } from '@contentful/f36-components';
 import { DragIcon } from '@contentful/f36-icons';
@@ -10,7 +9,7 @@ import { css, cx } from 'emotion';
 import noop from 'lodash/noop';
 
 import { TagsEditorConstraints } from './TagsEditorConstraints';
-import { ConstraintsType, Constraint } from './types';
+import { Constraint, ConstraintsType } from './types';
 
 export interface TagsEditorProps {
   items: string[];
@@ -139,7 +138,8 @@ export function TagsEditor(props: TagsEditorProps) {
         distance={10}
         onSortEnd={({ oldIndex, newIndex }) => {
           swapItems({ oldIndex, newIndex });
-        }}>
+        }}
+      >
         {items.map((item, index) => {
           return (
             <SortablePill

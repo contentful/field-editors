@@ -1,4 +1,4 @@
-import { Entry } from '@contentful/field-editor-shared';
+import { Entry } from '@contentful/app-sdk';
 
 interface Fields {
   [key: string]: {
@@ -10,6 +10,7 @@ interface Fields {
 export const createEntry = (contentTypeId: string, fields: Fields): Entry => ({
   fields,
   sys: {
+    automationTags: [],
     id: `entry-${Math.round(Math.random() * 1000)}`,
     type: 'Entry',
     space: { sys: { id: 'space', type: 'Link', linkType: 'Space' } },

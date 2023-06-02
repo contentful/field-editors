@@ -1,6 +1,6 @@
 import { FieldAPI } from '@contentful/app-sdk';
-import mitt from 'mitt';
 import type { Emitter, Handler } from 'mitt';
+import mitt from 'mitt';
 
 function identity<T>(item: T): T {
   return item;
@@ -24,6 +24,8 @@ export function createFakeFieldAPI<T>(
       type: 'Symbol',
       validations: [],
       required: false,
+      getIsDisabled: () => false,
+      getSchemaErrors: () => [],
       onValueChanged: (...args: [string, Function] | [Function]) => {
         let fn: Function;
         if (typeof args[0] === 'string') {

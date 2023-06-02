@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import tokens from '@contentful/f36-tokens';
@@ -9,8 +9,10 @@ import { MarkdownBottomBar, MarkdownHelp } from './components/MarkdownBottomBar'
 import { MarkdownConstraints } from './components/MarkdownConstraints';
 import { MarkdownPreview } from './components/MarkdownPreview';
 import { MarkdownTabs } from './components/MarkdownTabs';
-import { MarkdownTextarea } from './components/MarkdownTextarea/MarkdownTextarea';
-import { InitializedEditorType } from './components/MarkdownTextarea/MarkdownTextarea';
+import {
+  InitializedEditorType,
+  MarkdownTextarea,
+} from './components/MarkdownTextarea/MarkdownTextarea';
 import { MarkdownToolbar } from './components/MarkdownToolbar';
 import { openCheatsheetModal } from './dialogs/CheatsheetModalDialog';
 import { createMarkdownActions } from './MarkdownActions';
@@ -144,7 +146,8 @@ export function MarkdownEditorConnected(props: MarkdownEditorProps) {
     <FieldConnector<string>
       throttle={300}
       field={props.sdk.field}
-      isInitiallyDisabled={props.isInitiallyDisabled}>
+      isInitiallyDisabled={props.isInitiallyDisabled}
+    >
       {({ value, disabled, setValue, externalReset }) => {
         // on external change reset component completely and init with initial value again
         return (

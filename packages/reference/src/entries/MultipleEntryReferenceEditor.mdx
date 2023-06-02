@@ -1,156 +1,38 @@
----
-name: Reference - Multiple entries
-route: /reference-multiple
-menu: Editors
----
+import { Canvas, Meta, Markdown, Story, Controls } from '@storybook/blocks';
+import * as EditorStories from '../../stories/MultipleEntryReferenceEditor.stories';
 
-import Readme from '../../README.md';
+import Readme from '../../README.md?raw';
 
-<Readme />
+<Markdown>{Readme}</Markdown>
 
 ```jsx
 import { MultipleEntryReferenceEditor } from '@contentful/field-editor-reference';
 ```
 
-import { Playground, Props } from 'docz';
-import { MultipleEntryReferenceEditor } from './MultipleEntryReferenceEditor.tsx';
-import { CombinedLinkActions } from '../../src';
-import { ActionsPlayground } from '@contentful/field-editor-test-utils';
-import { Button, Paragraph, Heading, Card } from '@contentful/f36-components';
-import { newReferenceEditorFakeSdk } from '../__fixtures__/FakeSdk';
+<Meta of={EditorStories} />
 
 ## In Action
 
-<Playground>
-  {() => {
-    const isInitiallyDisabled = !!window.localStorage.getItem('initialDisabled');
-    const instanceParams = window.localStorage.getItem('instanceParams');
-    const [sdk, mitt] = newReferenceEditorFakeSdk();
-    return (
-      <div>
-        <MultipleEntryReferenceEditor
-          viewType="link"
-          sdk={sdk}
-          isInitiallyDisabled={isInitiallyDisabled}
-          parameters={{
-            instance: instanceParams || {
-              showCreateEntityAction: true,
-              showLinkEntityAction: true,
-            },
-          }}
-        />
-        <ActionsPlayground mitt={mitt} />
-      </div>
-    );
-  }}
-</Playground>
+<Story of={EditorStories.Default} />
 
 ## With custom card
 
 Click _Link existing entries_ to insert some references with custom layout rendered via `renderCustomCard` prop. Click again to showcase inserting
 another reference rendered by the stardard card renderer.
 
-<Playground>
-  {() => {
-    const isInitiallyDisabled = !!window.localStorage.getItem('initialDisabled');
-    const instanceParams = window.localStorage.getItem('instanceParams');
-    const [sdk, mitt] = newReferenceEditorFakeSdk();
-    return (
-      <div data-test-id="multiple-references-editor-custom-cards-integration-test">
-        <MultipleEntryReferenceEditor
-          renderCustomCard={(props) =>
-            props.entity.fields.exField ? (
-              <Card testId="custom-card">
-                <Heading>{props.entity.fields.exField.en}</Heading>
-                <Paragraph>{props.entity.fields.exDesc.en}</Paragraph>
-                <Button onClick={props.onEdit} style={{ marginRight: '10px' }}>
-                  Edit
-                </Button>
-                <Button onClick={props.onRemove}>Remove</Button>
-              </Card>
-            ) : (
-              false
-            )
-          }
-          viewType="link"
-          sdk={sdk}
-          isInitiallyDisabled={isInitiallyDisabled}
-          parameters={{
-            instance: instanceParams || {
-              showCreateEntityAction: true,
-              showLinkEntityAction: true,
-            },
-          }}
-        />
-        <ActionsPlayground mitt={mitt} />
-      </div>
-    );
-  }}
-</Playground>
+<Story of={EditorStories.CustomCard} />
 
 ## With custom actions
 
 Note the alternative link actions injected via the `renderCustomActions` prop.
 
-<Playground>
-  {() => {
-    const isInitiallyDisabled = window.localStorage.getItem('initialDisabled');
-    const instanceParams = window.localStorage.getItem('instanceParams');
-    const [sdk, mitt] = newReferenceEditorFakeSdk();
-    return (
-      <div>
-        <MultipleEntryReferenceEditor
-          renderCustomActions={(props) => <CombinedLinkActions {...props} />}
-          viewType="link"
-          sdk={sdk}
-          isInitiallyDisabled={isInitiallyDisabled}
-          parameters={{
-            instance: instanceParams || {
-              showCreateEntityAction: true,
-              showLinkEntityAction: true,
-            },
-          }}
-        />
-        <ActionsPlayground mitt={mitt} />
-      </div>
-    );
-  }}
-</Playground>
+<Story of={EditorStories.CustomActions} />
 
 ## With custom actions and custom label
 
 Note the alternative link actions injected via the `renderCustomActions` prop.
 
-<Playground>
-  {() => {
-    const isInitiallyDisabled = window.localStorage.getItem('initialDisabled');
-    const instanceParams = window.localStorage.getItem('instanceParams');
-    const [sdk, mitt] = newReferenceEditorFakeSdk();
-    return (
-      <div>
-        <MultipleEntryReferenceEditor
-          renderCustomActions={(props) => (
-            <CombinedLinkActions
-              {...props}
-              combinedActionsLabel="My custom label"
-              onCreate={(ct) => window.alert('clicked' + ct)}
-            />
-          )}
-          viewType="link"
-          sdk={sdk}
-          isInitiallyDisabled={isInitiallyDisabled}
-          parameters={{
-            instance: instanceParams || {
-              showCreateEntityAction: true,
-              showLinkEntityAction: true,
-            },
-          }}
-        />
-        <ActionsPlayground mitt={mitt} />
-      </div>
-    );
-  }}
-</Playground>
+<Story of={EditorStories.CustomActionsAndCustomLabel} />
 
 ## With custom onCreate, onLinkExisting actions
 
@@ -158,86 +40,12 @@ In this case we override standard `onCreate` to create a custom entry, then tell
 
 Same applies to `onLinkExisting` property that can be overriden to customize the linking process, at the end the `onLinkedExisting` callback should be called.
 
-<Playground>
-  {() => {
-    const instanceParams = window.localStorage.getItem('instanceParams');
-    const [sdk, mitt] = newReferenceEditorFakeSdk();
-    return (
-      <div data-test-id="custom-card-using-default">
-        <MultipleEntryReferenceEditor
-          renderCustomActions={(props) => (
-            <CombinedLinkActions
-              {...props}
-              onCreate={(ct) => {
-                sdk.space
-                  .createEntry(ct, {
-                    fields: { exField: { en: 'Custom initial value' } },
-                  })
-                  .then((entry) => {
-                    props.onCreated(entry);
-                    sdk.navigator.openEntry(entry.sys.id);
-                  });
-              }}
-              onLinkExisting={(index) => {
-                sdk.dialogs
-                  .selectMultipleEntries({
-                    locale: sdk.field.locale,
-                    contentTypes: ['exampleCT'],
-                  })
-                  .then((entries) => {
-                    if (entries.length) {
-                      window.alert(`Custom linking of ${entries.length} entries`);
-                      props.onLinkedExisting(entries, index);
-                    }
-                  });
-              }}
-            />
-          )}
-          viewType="card"
-          sdk={sdk}
-          isInitiallyDisabled={false}
-          parameters={{
-            instance: instanceParams || {
-              showCreateEntityAction: true,
-              showLinkEntityAction: true,
-            },
-          }}
-        />
-        <ActionsPlayground mitt={mitt} />
-      </div>
-    );
-  }}
-</Playground>
+<Story of={EditorStories.CustomOnCreateOnLinkExistingActions} />
 
 ## With custom card relying on default card
 
-<Playground>
-  {() => {
-    const isInitiallyDisabled = !!window.localStorage.getItem('initialDisabled');
-    const instanceParams = window.localStorage.getItem('instanceParams');
-    const [sdk, mitt] = newReferenceEditorFakeSdk();
-    return (
-      <div data-test-id="multiple-references-editor-custom-cards-with-default-integration-test">
-        <MultipleEntryReferenceEditor
-          renderCustomCard={(props, _, renderDefaultCard) => {
-            return renderDefaultCard({ size: 'small' });
-          }}
-          viewType="link"
-          sdk={sdk}
-          isInitiallyDisabled={isInitiallyDisabled}
-          parameters={{
-            instance: instanceParams || {
-              showCreateEntityAction: true,
-              showLinkEntityAction: true,
-            },
-          }}
-        />
-        <ActionsPlayground mitt={mitt} />
-      </div>
-    );
-  }}
-</Playground>
+<Story of={EditorStories.CustomCardRelyingOnDefaultCard} />
 
 ## Props
 
-<Props of={MultipleEntryReferenceEditor} />
+<Controls />

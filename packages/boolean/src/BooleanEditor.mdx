@@ -1,31 +1,16 @@
----
-name: Boolean
-route: /boolean
-menu: Editors
----
+import { Canvas, Meta, Markdown, Story, Controls } from '@storybook/blocks';
+import * as BooleanEditorStories from '../stories/BooleanEditor.stories';
 
-import Readme from '../README.md';
+import Readme from '../README.md?raw';
 
-<Readme />
+<Markdown>{Readme}</Markdown>
 
-import { Playground, Props } from 'docz';
-import { BooleanEditor } from './BooleanEditor.tsx';
-import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
+<Meta of={BooleanEditorStories} />
 
 ## In Action
 
-<Playground>
-  {() => {
-    const [field, mitt] = createFakeFieldAPI();
-    return (
-      <div>
-        <BooleanEditor field={field} isInitiallyDisabled={false} />
-        <ActionsPlayground mitt={mitt} />
-      </div>
-    );
-  }}
-</Playground>
+<Story of={BooleanEditorStories.Default} />
 
 ## Props
 
-<Props of={BooleanEditor} />
+<Controls />

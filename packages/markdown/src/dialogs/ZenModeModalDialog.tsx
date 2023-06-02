@@ -1,19 +1,20 @@
-import React from 'react';
+import * as React from 'react';
 
-import { DialogsAPI, DialogExtensionSDK } from '@contentful/app-sdk';
-import { ChevronRightIcon, ChevronLeftIcon } from '@contentful/f36-icons';
+import { DialogExtensionSDK, DialogsAPI } from '@contentful/app-sdk';
+import { ChevronLeftIcon, ChevronRightIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { css, cx } from 'emotion';
 
 import { MarkdownBottomBar, MarkdownHelp } from '../components/MarkdownBottomBar';
 import { MarkdownPreview } from '../components/MarkdownPreview';
-import { InitializedEditorType } from '../components/MarkdownTextarea/MarkdownTextarea';
-import { MarkdownTextarea } from '../components/MarkdownTextarea/MarkdownTextarea';
+import {
+  InitializedEditorType,
+  MarkdownTextarea,
+} from '../components/MarkdownTextarea/MarkdownTextarea';
 import { MarkdownToolbar } from '../components/MarkdownToolbar';
 import { openCheatsheetModal } from '../dialogs/CheatsheetModalDialog';
 import { createMarkdownActions } from '../MarkdownActions';
-import { MarkdownDialogType, MarkdownDialogsParams, PreviewComponents } from '../types';
-
+import { MarkdownDialogsParams, MarkdownDialogType, PreviewComponents } from '../types';
 
 export type ZenModeResult = {
   value: string;
@@ -149,7 +150,8 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
       <div
         className={cx(styles.editorSplit, {
           [styles.editorSplitFullscreen]: showPreview === false,
-        })}>
+        })}
+      >
         <MarkdownTextarea
           mode="zen"
           visible
@@ -184,7 +186,8 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
           aria-label="Hide preview"
           onClick={() => {
             setShowPreview(false);
-          }}>
+          }}
+        >
           <ChevronRightIcon variant="muted" size="tiny" className={styles.icon} />
         </button>
       )}
@@ -194,7 +197,8 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
           aria-label="Show preview"
           onClick={() => {
             setShowPreview(true);
-          }}>
+          }}
+        >
           <ChevronLeftIcon variant="muted" size="tiny" className={styles.icon} />
         </button>
       )}

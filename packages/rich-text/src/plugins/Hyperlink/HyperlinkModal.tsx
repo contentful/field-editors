@@ -13,7 +13,7 @@ import {
 } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
 import { EntityProvider } from '@contentful/field-editor-reference';
-import { Link } from '@contentful/field-editor-reference/dist/types';
+import { Link } from '@contentful/field-editor-reference';
 import { ModalDialogLauncher, FieldExtensionSDK } from '@contentful/field-editor-shared';
 import { INLINES } from '@contentful/rich-text-types';
 import { css } from 'emotion';

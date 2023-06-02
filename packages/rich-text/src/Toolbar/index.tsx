@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { Flex, IconButton, Menu } from '@contentful/f36-components';
@@ -9,7 +9,7 @@ import { css } from 'emotion';
 
 import { useContentfulEditor } from '../ContentfulEditorProvider';
 import { isNodeTypeSelected } from '../helpers/editor';
-import { isNodeTypeEnabled, isMarkEnabled } from '../helpers/validations';
+import { isMarkEnabled, isNodeTypeEnabled } from '../helpers/validations';
 import { isMarkActive } from '../internal/queries';
 import { ToolbarHeadingButton } from '../plugins/Heading';
 import { ToolbarHrButton } from '../plugins/Hr';

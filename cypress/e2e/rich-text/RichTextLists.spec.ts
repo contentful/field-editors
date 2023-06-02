@@ -129,6 +129,28 @@ describe('Rich Text Lists', () => {
         richText.expectSnapshotValue();
       });
 
+      it('backspace on an empty nested list item should remove it', () => {
+        const { editor } = richText;
+        editor.click();
+
+        test.getList().click();
+
+        editor.type('abc');
+        editor.type('{enter}').trigger('keydown', keys.tab);
+        editor.type('{backspace}');
+
+        const expectedValue = doc(
+          block(
+            test.listType,
+            {},
+            block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.PARAGRAPH, {}, text('abc', [])))
+          ),
+          emptyParagraph()
+        );
+
+        richText.expectValue(expectedValue);
+      });
+
       it('backspace at the start of li should reset the item', () => {
         const { editor } = richText;
         editor.click();

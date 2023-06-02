@@ -1,6 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 
-import { Card, SectionHeading, IconButton, Flex } from '@contentful/f36-components';
+import { Card, Flex, IconButton, SectionHeading } from '@contentful/f36-components';
 import { CloseIcon } from '@contentful/f36-icons';
 
 import { ContentEntityType } from '../../types';

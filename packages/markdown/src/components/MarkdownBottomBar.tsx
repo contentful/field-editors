@@ -1,6 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 
-import { TextLink, Paragraph } from '@contentful/f36-components';
+import { Paragraph, TextLink } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
 import { css } from 'emotion';
 
