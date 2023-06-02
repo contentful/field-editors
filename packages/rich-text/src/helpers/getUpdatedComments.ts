@@ -32,6 +32,7 @@ export const findCurrentComments = (
     }
   }
 };
+
 export const getUpdatedComments = (
   document: any,
   commentsSdk: {
@@ -63,4 +64,25 @@ export const getUpdatedComments = (
 
     return comment;
   });
+};
+
+export const findRanges = (document: any, path: string, ranges: string[] = []): any => {
+  if ('data' in document && 'comment' in document.data && document.data.comment.temp) {
+    console.log('PATH FOUND: ', path);
+
+    ranges.push(path);
+  }
+
+  if ('children' in document) {
+    for (let i = 0; i < document.children.length; i++) {
+      if (path.startsWith('.')) {
+        path = path.slice(1);
+      }
+      ranges = ranges.concat(findRanges(document.children[i], `${path}.children[${i}]`, ranges));
+    }
+
+    console.log('Finished! ', ranges);
+
+    return new Set(ranges.filter((range) => range));
+  }
 };

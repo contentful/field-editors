@@ -4,6 +4,7 @@ import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { Menu } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
 import { MARKS } from '@contentful/rich-text-types';
+import { PlateEditor } from '@udecode/plate-core';
 import { css, cx } from 'emotion';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
@@ -17,7 +18,10 @@ export interface MarkOptions {
   mark: MARKS;
   title: string;
   icon?: React.ReactElement;
-  callback?: (sdk: FieldExtensionSDK & { field: { comments: { create: any } } }) => void;
+  callback?: (
+    sdk: FieldExtensionSDK & { field: { comments: { create: any } } },
+    editor: PlateEditor
+  ) => void;
 }
 
 const styles = {
@@ -42,7 +46,7 @@ export const createMarkToolbarButton = ({ mark, title, icon, callback }: MarkOpt
 
       toggleMarkAndDeactivateConflictingMarks(editor, mark);
       focus(editor);
-      if (callback) callback(sdk as any);
+      if (callback) callback(sdk as any, editor);
     }, [editor, sdk]);
 
     if (!editor) return null;

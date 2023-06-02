@@ -7,11 +7,11 @@ export const removeCommentDataFromDocument = (document: any): any => {
   if (
     'data' in document &&
     ('comment' in document.data ||
-      document.marks.find((mark) => mark.type === INLINE_COMMENT_HIGHLIGHT))
+      document.marks?.find((mark) => mark.type === INLINE_COMMENT_HIGHLIGHT))
   ) {
     document.data = {};
 
-    document.marks = document.marks.filter((mark) => mark.type !== INLINE_COMMENT_HIGHLIGHT);
+    document.marks = document.marks?.filter((mark) => mark.type !== INLINE_COMMENT_HIGHLIGHT);
 
     return document;
   }

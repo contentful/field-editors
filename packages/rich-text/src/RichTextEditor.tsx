@@ -58,8 +58,8 @@ type ConnectedProps = {
 
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const id = getContentfulEditorId(props.sdk);
-  console.log('ConnectedRichTextEditor');
-
+  // console.log('ConnectedRichTextEditor');
+  //
   console.log('fieldComments: ', props.sdk.field.comments.get());
 
   const plugins = React.useMemo(
