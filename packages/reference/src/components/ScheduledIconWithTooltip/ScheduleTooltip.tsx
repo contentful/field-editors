@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { ScheduledAction } from '@contentful/app-sdk';
 import { Tooltip } from '@contentful/f36-components';
@@ -32,7 +32,8 @@ export const ScheduleTooltip = ({
       placement="top"
       testId={job.sys.id}
       as="div"
-      content={getScheduleTooltipContent({ job, jobsCount })}>
+      content={getScheduleTooltipContent({ job, jobsCount })}
+    >
       {children}
     </Tooltip>
   );

@@ -23,3 +23,4 @@ export type {
 export { SortableLinkList } from './common/SortableLinkList';
 export { EntityProvider, useEntityLoader, useEntity, useResource } from './common/EntityStore';
 export { SingleResourceReferenceEditor, MultipleResourceReferenceEditor } from './resources';
+export * from './types';

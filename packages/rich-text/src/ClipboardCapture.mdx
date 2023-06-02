@@ -1,94 +1,16 @@
----
-name: Clipboard Capture
-route: /clipboard-capture
-menu: Utilities
----
+import { Canvas, Meta, Markdown, Story, Controls } from '@storybook/blocks';
+import * as EditorStories from '../stories/ClipboardCapture.stories';
 
-import { Playground } from 'docz';
-import { useState, useCallback, useEffect } from 'react';
-import {
-  Table,
-  TableRow,
-  TableCell,
-  TableBody,
-  TableHead,
-  Textarea,
-  Heading,
-  CopyButton,
-  Subheading,
-  SectionHeading,
-  Flex,
-} from '@contentful/f36-components';
-import { css } from 'emotion';
-import tokens from '@contentful/f36-tokens';
+import Readme from '../README.md?raw';
+
+<Markdown>{Readme}</Markdown>
+
+<Meta of={EditorStories} />
 
 ## Capture clipboard data for Rich Text
 
-<Playground>
-  {() => {
-    const styles = {
-      textarea: css({
-        marginBottom: tokens.spacingL,
-        minHeight: '200px',
-      }),
-      copyButton: css({
-        marginBottom: tokens.spacingM,
-        'button, button:hover': {
-          border: 'none',
-          backgroundColor: 'transparent'
-        }
-      }),
-      content: css({
-        marginBottom: tokens.spacingL
-      }),
-      contentHeader: css({
-        marginBottom: '1rem'
-      }),
-      rawContent: css({
-        overflowWrap: 'anywhere',
-        fontFamily: 'monospace'
-      })
-    }
-    const [data, setData] = useState([]);
-    const [copyButtonValue, setCopyButtonValue] = useState('');
-    useEffect(() => {
-      const value = data.reduce(
-        (acc, {type, data}) => ({ ...acc, [type]: data }),
-        {}
-      );
-      setCopyButtonValue(JSON.stringify(value));
-    }, [data]);
-    const handlePaste = useCallback((event) => {
-      if (!event.clipboardData) {
-        return setData([]);
-      }
+<Story of={EditorStories.Default} />
 
-      const data = event.clipboardData.types.reduce(
-        (acc, type) => [...acc, { type, data: event.clipboardData.getData(type) }],
-        []
-      )
-      setData(data);
-    }, []);
+## Props
 
-
-    return (
-      <>
-        <Heading>Paste your data from the clipboard</Heading>
-        <Textarea onPaste={handlePaste} className={styles.textarea} />
-        <Flex alignItems="center">
-          <Subheading>Your pasted data </Subheading>
-          <CopyButton className={styles.copyButton} size="small" value={copyButtonValue} isDisabled={data.length === 0} />
-        </Flex>
-
-        {data.map(({ type, data }) => (
-          <Flex flexDirection="column" className={styles.content}>
-            <SectionHeading className={styles.contentHeader}>{type}</SectionHeading>
-            <Flex className={styles.rawContent}>{data}</Flex>
-          </Flex>
-        ))}
-      </>
-    )
-
-}}
-
-</Playground>
+<Controls />

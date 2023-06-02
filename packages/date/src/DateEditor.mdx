@@ -1,43 +1,16 @@
----
-name: Date
-route: /date
-menu: Editors
----
+import { Canvas, Meta, Markdown, Story, Controls } from '@storybook/blocks';
+import * as DateEditorStories from '../stories/DateEditor.stories';
 
-import Readme from '../README.md';
+import Readme from '../README.md?raw';
 
-<Readme />
+<Markdown>{Readme}</Markdown>
 
-import { Playground, Props } from 'docz';
-import { DateEditor } from './DateEditor.tsx';
-import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
+<Meta of={DateEditorStories} />
 
 ## In Action
 
-<Playground>
-  {() => {
-    const rawInitialValue = window.localStorage.getItem('initialValue');
-    const initialValue = rawInitialValue ? JSON.parse(rawInitialValue) : undefined;
-    const isInitiallyDisabled = !!window.localStorage.getItem('initialDisabled');
-    const instanceParams = window.localStorage.getItem('instanceParams');
-    const [field, mitt] = createFakeFieldAPI(field => field, initialValue);
-    return (
-      <div data-test-id="date-editor-integration-test">
-        <DateEditor
-          field={field}
-          isInitiallyDisabled={isInitiallyDisabled !== undefined ? isInitiallyDisabled : false}
-          parameters={{
-            instance: instanceParams ? JSON.parse(instanceParams) : {}
-          }}
-        />
-        <ActionsPlayground mitt={mitt} />
-      </div>
-    );
-
-}}
-
-</Playground>
+<Story of={DateEditorStories.Default} />
 
 ## Props
 
-<Props of={DateEditor} />
+<Controls />

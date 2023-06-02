@@ -7,6 +7,7 @@ import { ListEditor } from '@contentful/field-editor-list';
 import { LocationEditor } from '@contentful/field-editor-location';
 import { MarkdownEditor } from '@contentful/field-editor-markdown';
 import { MultipleLineEditor } from '@contentful/field-editor-multiple-line';
+import { NumberEditor } from '@contentful/field-editor-number';
 import { RadioEditor } from '@contentful/field-editor-radio';
 import { RatingEditor } from '@contentful/field-editor-rating';
 import {
@@ -19,7 +20,6 @@ import { RichTextEditor } from '@contentful/field-editor-rich-text';
 import { SingleLineEditor } from '@contentful/field-editor-single-line';
 import { SlugEditor } from '@contentful/field-editor-slug';
 import { TagsEditor } from '@contentful/field-editor-tags';
-import { NumberEditor } from '@contentful/field-editor-number';
 import { UrlEditor } from '@contentful/field-editor-url';
 
 export type WidgetType =

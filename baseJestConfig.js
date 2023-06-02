@@ -2,7 +2,12 @@
 
 function getConfig(packageName) {
   return {
+    testEnvironment: 'jsdom',
+    modulePathIgnorePatterns: ['<rootDir>/dist/'],
     testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
+    moduleNameMapper: {
+      '^lodash-es$': 'lodash',
+    },
     reporters: [
       'default',
       [
@@ -14,11 +19,10 @@ function getConfig(packageName) {
         },
       ],
     ],
-    globals: {
-      'ts-jest': {
-        diagnostics: false,
-      },
+    transform: {
+      '^.+\\.(t|j)sx?$': '@swc/jest',
     },
+    transformIgnorePatterns: [`/node_modules/(?!nanoid)`],
   };
 }
 

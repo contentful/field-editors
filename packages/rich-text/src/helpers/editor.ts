@@ -1,4 +1,4 @@
-import { Link } from '@contentful/field-editor-reference/dist/types';
+import { Link } from '@contentful/field-editor-reference';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 
 import { focusEditor } from '../internal/misc';

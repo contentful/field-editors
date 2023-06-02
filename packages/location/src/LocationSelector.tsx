@@ -1,11 +1,11 @@
-import React from 'react';
+import * as React from 'react';
 
-import { TextLink, TextInput, Radio, Flex } from '@contentful/f36-components';
+import { Flex, Radio, TextInput, TextLink } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
 import { css } from 'emotion';
 
 import { LocationSearchInput } from './LocationSearchInput';
-import { Coords, ViewType, GeocodeApiResponse } from './types';
+import { Coords, GeocodeApiResponse, ViewType } from './types';
 
 interface LocationSelectorProps {
   disabled: boolean;

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { SingleResourceReferenceEditor } from '../../../packages/reference/src';
 import { Entity, ResourceLink } from '../../../packages/reference/src/types';

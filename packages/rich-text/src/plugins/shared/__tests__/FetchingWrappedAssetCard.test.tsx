@@ -1,9 +1,9 @@
-import React from 'react';
+import * as React from 'react';
 
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { createFakeCMAAdapter } from '@contentful/field-editor-test-utils';
-import { render, configure, waitFor, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
+import { configure, fireEvent, render, waitFor } from '@testing-library/react';
 
 import publishedAsset from '../__fixtures__/published_asset.json';
 import { FetchingWrappedAssetCard } from '../FetchingWrappedAssetCard';

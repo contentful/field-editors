@@ -1,7 +1,7 @@
-import React from 'react';
+import * as React from 'react';
 
 import { css } from 'emotion';
-import { useSelected, useReadOnly } from 'slate-react';
+import { useReadOnly, useSelected } from 'slate-react';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { IS_CHROME } from '../../helpers/environment';

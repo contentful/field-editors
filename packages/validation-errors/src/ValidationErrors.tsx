@@ -1,14 +1,14 @@
-import React from 'react';
+import * as React from 'react';
 
-import { ValidationError, Link } from '@contentful/app-sdk';
-import { TextLink, List, ListItem } from '@contentful/f36-components';
+import { Link, ValidationError } from '@contentful/app-sdk';
+import { List, ListItem, TextLink } from '@contentful/f36-components';
 import { ExternalLinkIcon, InfoCircleIcon } from '@contentful/f36-icons';
 import type {
-  SpaceAPI,
-  Entry,
   ContentType,
+  Entry,
   FieldAPI,
   LocalesAPI,
+  SpaceAPI,
 } from '@contentful/field-editor-shared';
 import { entityHelpers } from '@contentful/field-editor-shared';
 
@@ -104,7 +104,8 @@ function UniquenessError(props: UniquenessErrorProps) {
               alignIcon="end"
               variant="negative"
               target="_blank"
-              rel="noopener noreferrer">
+              rel="noopener noreferrer"
+            >
               {entry.title}
             </TextLink>
           ))
@@ -145,7 +146,8 @@ export function ValidationErrors(props: ValidationErrorsProps) {
             role="status"
             aria-roledescription="field-locale-schema"
             data-error-code={`entry.schema.${error.name}`}
-            className={styles.errorItem}>
+            className={styles.errorItem}
+          >
             <InfoCircleIcon variant="negative" />
             <div className={styles.errorMessage}>
               {error.message}

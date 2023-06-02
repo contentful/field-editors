@@ -3,8 +3,8 @@
   "include": ["src", "types"],
   "compilerOptions": {
     "module": "esnext",
+    "moduleResolution": "bundler",
     "lib": ["dom", "esnext"],
-    "rootDir": "./src",
     "baseUrl": "./",
     "paths": {
       "*": ["node_modules/*"]

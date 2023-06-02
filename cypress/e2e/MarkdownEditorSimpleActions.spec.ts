@@ -1,46 +1,48 @@
+import { getIframe } from '../fixtures/utils';
+
 describe('Markdown Editor / Simple Actions', () => {
   const selectors = {
     getInput: () => {
-      return cy.get('[data-test-id="markdown-textarea"] [contenteditable]');
+      return getIframe().findByTestId('markdown-textarea').find('[contenteditable]');
     },
     getHeadingsSelectorButton: () => {
-      return cy.findByTestId('markdown-action-button-heading');
+      return getIframe().findByTestId('markdown-action-button-heading');
     },
     getHeadingButton: (type) => {
-      return cy.findByTestId('markdown-action-button-heading-' + type);
+      return getIframe().findByTestId('markdown-action-button-heading-' + type);
     },
     getBoldButton: () => {
-      return cy.findByTestId('markdown-action-button-bold');
+      return getIframe().findByTestId('markdown-action-button-bold');
     },
     getItalicButton: () => {
-      return cy.findByTestId('markdown-action-button-italic');
+      return getIframe().findByTestId('markdown-action-button-italic');
     },
     getQuoteButton: () => {
-      return cy.findByTestId('markdown-action-button-quote');
+      return getIframe().findByTestId('markdown-action-button-quote');
     },
     getUnorderedListButton: () => {
-      return cy.findByTestId('markdown-action-button-ul');
+      return getIframe().findByTestId('markdown-action-button-ul');
     },
     getOrderedListButton: () => {
-      return cy.findByTestId('markdown-action-button-ol');
+      return getIframe().findByTestId('markdown-action-button-ol');
     },
     getToggleAdditionalActionsButton: () => {
-      return cy.findByTestId('markdown-action-button-toggle-additional');
+      return getIframe().findByTestId('markdown-action-button-toggle-additional');
     },
     getStrikeButton: () => {
-      return cy.findByTestId('markdown-action-button-strike');
+      return getIframe().findByTestId('markdown-action-button-strike');
     },
     getCodeButton: () => {
-      return cy.findByTestId('markdown-action-button-code');
+      return getIframe().findByTestId('markdown-action-button-code');
     },
     getHorizontalLineButton: () => {
-      return cy.findByTestId('markdown-action-button-hr');
+      return getIframe().findByTestId('markdown-action-button-hr');
     },
     getIndentButton: () => {
-      return cy.findByTestId('markdown-action-button-indent');
+      return getIframe().findByTestId('markdown-action-button-indent');
     },
     getDedentButton: () => {
-      return cy.findByTestId('markdown-action-button-dedent');
+      return getIframe().findByTestId('markdown-action-button-dedent');
     },
   };
 
@@ -82,9 +84,9 @@ describe('Markdown Editor / Simple Actions', () => {
   };
 
   beforeEach(() => {
-    cy.visit('/markdown');
+    cy.visit('/?path=/story/editors-markdown--default');
     cy.wait(500);
-    cy.findByTestId('markdown-editor').should('be.visible');
+    getIframe().findByTestId('markdown-editor').should('be.visible');
   });
 
   describe('headings', () => {
@@ -98,19 +100,19 @@ describe('Markdown Editor / Simple Actions', () => {
 
       clickHeading('h1');
       checkValue('# ');
-      cy.get('.cm-header-1').should('have.text', '# ');
+      getIframe().find('.cm-header-1').should('have.text', '# ');
 
       clickHeading('h2');
       checkValue('## ');
-      cy.get('.cm-header-2').should('have.text', '## ');
+      getIframe().find('.cm-header-2').should('have.text', '## ');
 
       clickHeading('h3');
       checkValue('### ');
-      cy.get('.cm-header-3').should('have.text', '### ');
+      getIframe().find('.cm-header-3').should('have.text', '### ');
 
       type('Heading 3{enter}');
 
-      cy.get('.cm-header-3').should('have.text', '### Heading 3');
+      getIframe().find('.cm-header-3').should('have.text', '### Heading 3');
 
       type('Future heading 2');
       clickHeading('h2');

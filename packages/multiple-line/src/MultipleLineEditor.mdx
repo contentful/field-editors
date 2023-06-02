@@ -1,41 +1,16 @@
----
-name: Multiple Line
-route: /multiple-line
-menu: Editors
----
+import { Canvas, Meta, Markdown, Story, Controls } from '@storybook/blocks';
+import * as EditorStories from '../stories/MultipleLineEditor.stories';
 
-import Readme from '../README.md';
+import Readme from '../README.md?raw';
 
-<Readme />
+<Markdown>{Readme}</Markdown>
 
-import { Playground, Props } from 'docz';
-import { MultipleLineEditor } from './MultipleLineEditor.tsx';
-import {
-  createFakeFieldAPI,
-  createFakeLocalesAPI,
-  ActionsPlayground
-} from '@contentful/field-editor-test-utils';
+<Meta of={EditorStories} />
 
 ## In Action
 
-<Playground>
-  {() => {
-    const [field, mitt] = createFakeFieldAPI(mock => {
-      return {
-        ...mock,
-        type: 'Text'
-      };
-    });
-    const locales = createFakeLocalesAPI();
-    return (
-      <div>
-        <MultipleLineEditor field={field} locales={locales} isInitiallyDisabled={false} />
-        <ActionsPlayground mitt={mitt} />
-      </div>
-    );
-  }}
-</Playground>
+<Story of={EditorStories.Default} />
 
 ## Props
 
-<Props of={MultipleLineEditor} />
+<Controls />

@@ -1,8 +1,8 @@
-import React from 'react';
+import * as React from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
-import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import { useResource } from '../common/EntityStore';
 import { MultipleResourceReferenceEditor } from './MultipleResourceReferenceEditor';

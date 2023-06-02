@@ -1,12 +1,12 @@
-import React from 'react';
+import * as React from 'react';
 
 import { DialogsAPI } from '@contentful/app-sdk';
 import {
+  Button,
+  EntityList,
   ModalContent,
   ModalControls,
   Paragraph,
-  Button,
-  EntityList,
 } from '@contentful/f36-components';
 
 import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
@@ -62,7 +62,8 @@ export const ConfirmInsertAssetModalDialog = ({
           testId="confirm-insert-asset"
           onClick={() => onClose(true)}
           variant="positive"
-          size="small">
+          size="small"
+        >
           Confirm
         </Button>
       </ModalControls>

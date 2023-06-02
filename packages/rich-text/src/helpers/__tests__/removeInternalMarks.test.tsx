@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 /** @jsx jsx */
 
 import { toContentfulDocument } from '@contentful/contentful-slatejs-adapter';
