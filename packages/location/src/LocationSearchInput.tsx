@@ -1,6 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 
-import { Button, Card, Spinner, ValidationMessage, TextInput } from '@contentful/f36-components';
+import { Button, Card, Spinner, TextInput, ValidationMessage } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
 import { css } from 'emotion';
 

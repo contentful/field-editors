@@ -1,6 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 
-import { FieldExtensionSDK, FieldAPI } from '@contentful/app-sdk';
+import { FieldAPI, FieldExtensionSDK } from '@contentful/app-sdk';
 
 type Nullable = null | undefined;
 

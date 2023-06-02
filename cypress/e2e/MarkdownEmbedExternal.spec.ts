@@ -1,38 +1,40 @@
+import { getIframe } from '../fixtures/utils';
+
 describe('Markdown Editor / Embed External Dialog', () => {
   const selectors = {
     getInput: () => {
-      return cy.get('[data-test-id="markdown-textarea"] [contenteditable]');
+      return getIframe().findByTestId('markdown-textarea').find('[contenteditable]');
     },
     getDialogTitle() {
-      return cy.findByTestId('dialog-title').find('h2');
+      return getIframe().findByTestId('dialog-title').find('h2');
     },
     getToggleAdditionalActionsButton: () => {
-      return cy.findByTestId('markdown-action-button-toggle-additional');
+      return getIframe().findByTestId('markdown-action-button-toggle-additional');
     },
     getModalContent() {
-      return cy.findByTestId('embed-external-dialog');
+      return getIframe().findByTestId('embed-external-dialog');
     },
     getEmbedExternalContentButton() {
-      return cy.findByTestId('markdown-action-button-embed');
+      return getIframe().findByTestId('markdown-action-button-embed');
     },
     getConfirmButton() {
-      return cy.findByTestId('embed-external-confirm');
+      return getIframe().findByTestId('embed-external-confirm');
     },
     getCancelButton() {
-      return cy.findByTestId('embed-external-cancel');
+      return getIframe().findByTestId('embed-external-cancel');
     },
     inputs: {
       getUrlInput() {
-        return cy.findByTestId('external-link-url-field');
+        return getIframe().findByTestId('external-link-url-field');
       },
       getWidthInput() {
-        return cy.findByTestId('embedded-content-width');
+        return getIframe().findByTestId('embedded-content-width');
       },
       getPercentRadio() {
-        return cy.findByLabelText('percent');
+        return getIframe().findByLabelText('percent');
       },
       getPixelRadio() {
-        return cy.findByLabelText('pixels');
+        return getIframe().findByLabelText('pixels');
       },
     },
   };
@@ -50,9 +52,9 @@ describe('Markdown Editor / Embed External Dialog', () => {
   };
 
   beforeEach(() => {
-    cy.visit('/markdown');
+    cy.visit('/?path=/story/editors-markdown--default');
     cy.wait(500);
-    cy.findByTestId('markdown-editor').should('be.visible');
+    getIframe().findByTestId('markdown-editor').should('be.visible');
     selectors.getToggleAdditionalActionsButton().click();
   });
 

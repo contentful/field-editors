@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import tokens from '@contentful/f36-tokens';
 import DOMPurify from 'dompurify';
@@ -218,7 +218,8 @@ export const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
               },
             },
           },
-        }}>
+        }}
+      >
         {cleanHTML}
       </Markdown>
     </div>

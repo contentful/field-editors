@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.5.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.22...@contentful/field-editor-rich-text@3.5.0) (2023-06-02)
+
+### Features
+
+- setup swc compilation [TOL-1070] ([#1413](https://github.com/contentful/field-editors/issues/1413)) ([de9878f](https://github.com/contentful/field-editors/commit/de9878fb77e0f4341b0933925013777e0a5336d3))
+
+## [3.4.22](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.21...@contentful/field-editor-rich-text@3.4.22) (2023-05-25)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [3.4.21](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.20...@contentful/field-editor-rich-text@3.4.21) (2023-05-09)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
 ## [3.4.20](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.4.19...@contentful/field-editor-rich-text@3.4.20) (2023-04-21)
 
 ### Bug Fixes

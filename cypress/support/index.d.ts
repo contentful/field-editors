@@ -11,6 +11,8 @@ declare namespace Cypress {
     mockGoogleMapsResponse(mockData: unknown): void;
     setInitialValue(initialValue: any): void;
     setInitialDisabled(value: boolean | undefined): void;
+    shouldConfirm(confirm: boolean | undefined): void;
+    unsetShouldConfirm(): void;
     setRestrictedMarks(value: string[]): void;
     setFieldValidations(value: Object[]): void;
     setInstanceParams(value: { [key: string]: any }): void;

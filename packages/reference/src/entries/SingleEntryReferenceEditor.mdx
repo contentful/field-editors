@@ -1,122 +1,34 @@
----
-name: Reference - Single
-route: /reference-single
-menu: Editors
----
+import { Canvas, Meta, Markdown, Story, Controls } from '@storybook/blocks';
+import * as EditorStories from '../../stories/SingleEntryReferenceEditor.stories';
 
-import Readme from '../../README.md';
+import Readme from '../../README.md?raw';
 
-<Readme />
+<Markdown>{Readme}</Markdown>
 
 ```jsx
 import { SingleEntryReferenceEditor } from '@contentful/field-editor-reference';
 ```
 
-import { Playground, Props } from 'docz';
-import { SingleEntryReferenceEditor } from './SingleEntryReferenceEditor.tsx';
-import { ActionsPlayground } from '@contentful/field-editor-test-utils';
-import { Button, Paragraph, Heading, Card } from '@contentful/f36-components';
-import { newReferenceEditorFakeSdk } from '../__fixtures__/FakeSdk';
+<Meta of={EditorStories} />
 
 ## In Action
 
-<Playground>
-  {() => {
-    const isInitiallyDisabled = !!window.localStorage.getItem('initialDisabled');
-    const instanceParams = window.localStorage.getItem('instanceParams');
-    const [sdk, mitt] = newReferenceEditorFakeSdk();
-    return (
-      <div>
-        <SingleEntryReferenceEditor
-          viewType="card"
-          sdk={sdk}
-          isInitiallyDisabled={false}
-          parameters={{
-            instance: {
-              showCreateEntityAction: true,
-              showLinkEntityAction: true,
-            },
-          }}
-        />
-        <ActionsPlayground mitt={mitt} />
-      </div>
-    );
-  }}
-</Playground>
+<Story of={EditorStories.Default} />
 
 ## With custom card
 
 Insert a reference via _Link existing entry_. Remove the inserted reference and click
 again to showcase inserting another reference rendered by the stardard card renderer.
 
-<Playground>
-  {() => {
-    const instanceParams = window.localStorage.getItem('instanceParams');
-    const [sdk, mitt] = newReferenceEditorFakeSdk();
-    return (
-      <div>
-        <SingleEntryReferenceEditor
-          renderCustomCard={(props) =>
-            props.entity.fields.exField ? (
-              <Card testId="custom-card">
-                <Heading>{props.entity.fields.exField.en}</Heading>
-                <Paragraph>{props.entity.fields.exDesc.en}</Paragraph>
-                <Button onClick={props.onEdit} style={{ marginRight: '10px' }}>
-                  Edit
-                </Button>
-                <Button onClick={props.onRemove}>Remove</Button>
-              </Card>
-            ) : (
-              false
-            )
-          }
-          viewType="card"
-          sdk={sdk}
-          isInitiallyDisabled={false}
-          parameters={{
-            instance: instanceParams || {
-              showCreateEntityAction: true,
-              showLinkEntityAction: true,
-            },
-          }}
-        />
-        <ActionsPlayground mitt={mitt} />
-      </div>
-    );
-  }}
-</Playground>
+<Story of={EditorStories.CustomCard} />
 
 ## With custom card relying on default card
 
-<Playground>
-  {() => {
-    const instanceParams = window.localStorage.getItem('instanceParams');
-    const [sdk, mitt] = newReferenceEditorFakeSdk();
-    return (
-      <div data-test-id="custom-card-using-default">
-        <SingleEntryReferenceEditor
-          renderCustomCard={(props, _, renderDefaultCard) => {
-            return renderDefaultCard({ size: 'small' });
-          }}
-          viewType="card"
-          sdk={sdk}
-          isInitiallyDisabled={false}
-          parameters={{
-            instance: instanceParams || {
-              showCreateEntityAction: true,
-              showLinkEntityAction: true,
-            },
-          }}
-        />
-        <ActionsPlayground mitt={mitt} />
-      </div>
-    );
-  }}
-</Playground>
+<Story of={EditorStories.CustomCardRelyingOnDefaultCard} />
 
 ## Props
 
-<Props of={SingleEntryReferenceEditor} />
+<Controls />
 
 ## As field app
 

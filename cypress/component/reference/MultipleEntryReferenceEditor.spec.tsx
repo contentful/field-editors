@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { NavigatorSlideInfo } from '@contentful/app-sdk';
 import { Button, Card, Heading, Note, Paragraph } from '@contentful/f36-components';
@@ -8,9 +8,9 @@ import { cloneDeep, set } from 'lodash-es';
 import { CombinedLinkActions, MultipleEntryReferenceEditor } from '../../../packages/reference/src';
 import { Entity, Link } from '../../../packages/reference/src/types';
 import {
+  ReferenceEditorFakeSdkProps,
   createReferenceEditorTestSdk,
   fixtures,
-  ReferenceEditorFakeSdkProps,
 } from '../../fixtures';
 import { mount } from '../mount';
 

@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.3.3...@contentful/default-field-editors@1.4.0) (2023-06-02)
+
+### Features
+
+- setup swc compilation [TOL-1070] ([#1413](https://github.com/contentful/field-editors/issues/1413)) ([de9878f](https://github.com/contentful/field-editors/commit/de9878fb77e0f4341b0933925013777e0a5336d3))
+
+## [1.3.3](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.3.2...@contentful/default-field-editors@1.3.3) (2023-05-25)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [1.3.2](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.3.1...@contentful/default-field-editors@1.3.2) (2023-05-09)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
 ## [1.3.1](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.3.0...@contentful/default-field-editors@1.3.1) (2023-04-21)
 
 **Note:** Version bump only for package @contentful/default-field-editors

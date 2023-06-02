@@ -1,33 +1,35 @@
+import { getIframe } from '../fixtures/utils';
+
 describe('Markdown Editor / Insert Table Dialog', () => {
   const selectors = {
     getInput: () => {
-      return cy.get('[data-test-id="markdown-textarea"] [contenteditable]');
+      return getIframe().get('[data-test-id="markdown-textarea"] [contenteditable]');
     },
     getDialogTitle() {
-      return cy.findByTestId('dialog-title').find('h2');
+      return getIframe().findByTestId('dialog-title').find('h2');
     },
     getToggleAdditionalActionsButton: () => {
-      return cy.findByTestId('markdown-action-button-toggle-additional');
+      return getIframe().findByTestId('markdown-action-button-toggle-additional');
     },
     getInsertTableButton() {
-      return cy.findByTestId('markdown-action-button-table');
+      return getIframe().findByTestId('markdown-action-button-table');
     },
     getModalContent() {
-      return cy.findByTestId('insert-table-modal');
+      return getIframe().findByTestId('insert-table-modal');
     },
     inputs: {
       getRowsInput() {
-        return cy.findByTestId('insert-table-rows-number-field');
+        return getIframe().findByTestId('insert-table-rows-number-field');
       },
       getColsInput() {
-        return cy.findByTestId('insert-table-columns-number-field');
+        return getIframe().findByTestId('insert-table-columns-number-field');
       },
     },
     getConfirmButton() {
-      return cy.findByTestId('insert-table-confirm');
+      return getIframe().findByTestId('insert-table-confirm');
     },
     getCancelButton() {
-      return cy.findByTestId('insert-table-cancel');
+      return getIframe().findByTestId('insert-table-cancel');
     },
   };
 
@@ -44,9 +46,9 @@ describe('Markdown Editor / Insert Table Dialog', () => {
   };
 
   beforeEach(() => {
-    cy.visit('/markdown');
+    cy.visit('/?path=/story/editors-markdown--default');
     cy.wait(500);
-    cy.findByTestId('markdown-editor').should('be.visible');
+    getIframe().findByTestId('markdown-editor').should('be.visible');
   });
 
   it('should have correct title', () => {
@@ -90,11 +92,11 @@ describe('Markdown Editor / Insert Table Dialog', () => {
 
     selectors.inputs.getRowsInput().focus().type('{selectall}').type('1');
 
-    cy.findByText('Should be between 2 and 100').should('be.visible');
+    getIframe().findByText('Should be between 2 and 100').should('be.visible');
 
     selectors.inputs.getColsInput().focus().type('{selectall}').type('100');
 
-    cy.findByText('Should be between 1 and 100').should('be.visible');
+    getIframe().findByText('Should be between 1 and 100').should('be.visible');
 
     selectors.getConfirmButton().should('be.disabled');
   });

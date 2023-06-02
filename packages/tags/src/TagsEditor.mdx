@@ -1,59 +1,26 @@
----
-name: Tags
-route: /tags
-menu: Editors
----
+import { Canvas, Meta, Markdown, Story, Controls } from '@storybook/blocks';
+import * as EditorStories from '../stories/TagsEditor.stories';
 
-import Readme from '../README.md';
+import Readme from '../README.md?raw';
 
-<Readme />
+<Markdown>{Readme}</Markdown>
 
-import { Playground, Props } from 'docz';
-import { TagsEditorContainer as TagsEditor } from './TagsEditorContainer.tsx';
-import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
+<Meta of={EditorStories} />
 
 ## In Action
 
 ### With empty initial value
 
-<Playground>
-  {() => {
-    const [field, mitt] = createFakeFieldAPI();
-    return (
-      <div>
-        <TagsEditor field={field} isInitiallyDisabled={false} />
-        <ActionsPlayground mitt={mitt} />
-      </div>
-    );
-  }}
-</Playground>
+<Story of={EditorStories.EmptyInitialValue} />
 
 ### With non-empty initial value
 
-<Playground>
-  {() => {
-    const [field] = createFakeFieldAPI(mock => mock, ['test1', 'test2', 'test3']);
-    return <TagsEditor field={field} isInitiallyDisabled={false} />;
-  }}
-</Playground>
+<Story of={EditorStories.NonEmptyInitialValue} />
 
 ### With constraints
 
-<Playground>
-  {() => {
-    const [field] = createFakeFieldAPI(
-      mock => {
-        return {
-          ...mock,
-          validations: [{ size: { min: 3, max: 20 } }]
-        };
-      },
-      ['test1', 'test2', 'test3']
-    );
-    return <TagsEditor field={field} isInitiallyDisabled={false} />;
-  }}
-</Playground>
+<Story of={EditorStories.Constraints} />
 
 ## Props
 
-<Props of={TagsEditor} />
+<Controls />

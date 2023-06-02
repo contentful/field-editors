@@ -5,4 +5,7 @@ module.exports = {
   parserOptions: {
     project: path.resolve('tsconfig.json'),
   },
+  rules: {
+    '@typescript-eslint/no-explicit-any': 'off',
+  },
 };

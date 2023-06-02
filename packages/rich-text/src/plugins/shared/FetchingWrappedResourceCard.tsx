@@ -4,10 +4,10 @@ import { Entry, FieldExtensionSDK } from '@contentful/app-sdk';
 import { EntryCard } from '@contentful/f36-components';
 import {
   MissingEntityCard,
+  ResourceInfo,
   WrappedEntryCard,
   useResource,
 } from '@contentful/field-editor-reference';
-import { ResourceInfo } from '@contentful/field-editor-reference/dist/types';
 import { ResourceLink } from '@contentful/rich-text-types';
 import areEqual from 'fast-deep-equal';
 
@@ -81,7 +81,8 @@ export const FetchingWrappedResourceCard = (props: FetchingWrappedResourceCardPr
 
   return (
     <InternalEntryCard
-      data={data}
+      // @TODO: check incompatible type
+      data={data as any}
       status={status}
       sdk={props.sdk}
       isDisabled={props.isDisabled}

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.3.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.2.0...@contentful/field-editor-json@3.3.0) (2023-06-02)
+
+### Features
+
+- setup swc compilation [TOL-1070] ([#1413](https://github.com/contentful/field-editors/issues/1413)) ([de9878f](https://github.com/contentful/field-editors/commit/de9878fb77e0f4341b0933925013777e0a5336d3))
+
 # [3.2.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.1.7...@contentful/field-editor-json@3.2.0) (2023-04-19)
 
 ### Features

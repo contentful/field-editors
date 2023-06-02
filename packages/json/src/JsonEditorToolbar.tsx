@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { Button } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
@@ -47,7 +47,8 @@ export function JsonEditorToolbar(props: JsonEditorToolbarProps) {
           testId="json-editor-undo"
           onClick={() => {
             props.onUndo();
-          }}>
+          }}
+        >
           Undo
         </Button>
         <Button
@@ -57,7 +58,8 @@ export function JsonEditorToolbar(props: JsonEditorToolbarProps) {
           testId="json-editor-redo"
           onClick={() => {
             props.onRedo();
-          }}>
+          }}
+        >
           Redo
         </Button>
       </div>

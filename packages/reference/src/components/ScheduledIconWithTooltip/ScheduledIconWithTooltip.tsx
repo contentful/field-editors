@@ -1,6 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 
-import { SpaceAPI, ScheduledAction } from '@contentful/app-sdk';
+import { ScheduledAction, SpaceAPI } from '@contentful/app-sdk';
 
 import { ScheduleTooltip } from './ScheduleTooltip';
 

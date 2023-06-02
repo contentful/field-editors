@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { Badge, Flex, Icon, Menu } from '@contentful/f36-components';

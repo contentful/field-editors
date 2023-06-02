@@ -1,19 +1,19 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import * as React from 'react';
 
-import { IconButton, Flex, Tooltip } from '@contentful/f36-components';
 import type { ButtonProps } from '@contentful/f36-components';
+import { Flex, IconButton, Tooltip } from '@contentful/f36-components';
 import {
-  HeadingIcon,
+  CodeIcon,
   FormatBoldIcon,
   FormatItalicIcon,
-  QuoteIcon,
+  HeadingIcon,
+  HorizontalRuleIcon,
+  LinkIcon,
   ListBulletedIcon,
   ListNumberedIcon,
-  LinkIcon,
-  CodeIcon,
-  HorizontalRuleIcon,
   MoreHorizontalIcon,
+  QuoteIcon,
 } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { css, cx } from 'emotion';
@@ -31,6 +31,7 @@ const styles = {
     backgroundColor: tokens.gray100,
     padding: tokens.spacingXs,
     borderTopLeftRadius: tokens.borderRadiusSmall,
+    overflow: 'hidden',
   }),
   button: css({
     height: '30px',
@@ -109,12 +110,14 @@ function MainButtons(props: MarkdownToolbarProps) {
           if (heading && props.actions.headings[heading]) {
             props.actions.headings[heading]();
           }
-        }}>
+        }}
+      >
         <ToolbarButton
           isDisabled={props.disabled}
           testId="markdown-action-button-heading"
           tooltip="Headings"
-          tooltipPlace={tooltipPlace}>
+          tooltipPlace={tooltipPlace}
+        >
           <HeadingIcon aria-label="Headings" className={styles.icon} />
         </ToolbarButton>
       </HeadingSelector>
@@ -123,7 +126,8 @@ function MainButtons(props: MarkdownToolbarProps) {
         testId="markdown-action-button-bold"
         tooltip="Bold"
         tooltipPlace={tooltipPlace}
-        onClick={props.actions.simple.bold}>
+        onClick={props.actions.simple.bold}
+      >
         <FormatBoldIcon aria-label="Bold" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
@@ -131,7 +135,8 @@ function MainButtons(props: MarkdownToolbarProps) {
         testId="markdown-action-button-italic"
         tooltip="Italic"
         tooltipPlace={tooltipPlace}
-        onClick={props.actions.simple.italic}>
+        onClick={props.actions.simple.italic}
+      >
         <FormatItalicIcon aria-label="Italic" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
@@ -139,7 +144,8 @@ function MainButtons(props: MarkdownToolbarProps) {
         testId="markdown-action-button-quote"
         tooltip="Quote"
         tooltipPlace={tooltipPlace}
-        onClick={props.actions.simple.quote}>
+        onClick={props.actions.simple.quote}
+      >
         <QuoteIcon aria-label="Quote" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
@@ -147,7 +153,8 @@ function MainButtons(props: MarkdownToolbarProps) {
         testId="markdown-action-button-ul"
         tooltip="Unordered list"
         tooltipPlace={tooltipPlace}
-        onClick={props.actions.simple.ul}>
+        onClick={props.actions.simple.ul}
+      >
         <ListBulletedIcon aria-label="Unordered list" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
@@ -155,7 +162,8 @@ function MainButtons(props: MarkdownToolbarProps) {
         testId="markdown-action-button-ol"
         tooltip="Ordered list"
         tooltipPlace={tooltipPlace}
-        onClick={props.actions.simple.ol}>
+        onClick={props.actions.simple.ol}
+      >
         <ListNumberedIcon aria-label="Ordered list" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
@@ -163,7 +171,8 @@ function MainButtons(props: MarkdownToolbarProps) {
         testId="markdown-action-button-link"
         tooltip="Link"
         tooltipPlace={tooltipPlace}
-        onClick={props.actions.insertLink}>
+        onClick={props.actions.insertLink}
+      >
         <LinkIcon aria-label="Link" className={styles.icon} />
       </ToolbarButton>
     </>
@@ -179,7 +188,8 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         testId="markdown-action-button-strike"
         tooltip="Strike out"
         tooltipPlace={tooltipPlace}
-        onClick={props.actions.simple.strike}>
+        onClick={props.actions.simple.strike}
+      >
         <Icons.Strikethrough label="Strike out" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
@@ -187,7 +197,8 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         testId="markdown-action-button-code"
         tooltip="Code block"
         tooltipPlace={tooltipPlace}
-        onClick={props.actions.simple.code}>
+        onClick={props.actions.simple.code}
+      >
         <CodeIcon aria-label="Code block" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
@@ -195,7 +206,8 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         testId="markdown-action-button-hr"
         tooltip="Horizontal rule"
         tooltipPlace={tooltipPlace}
-        onClick={props.actions.simple.hr}>
+        onClick={props.actions.simple.hr}
+      >
         <HorizontalRuleIcon aria-label="Horizontal rule" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
@@ -203,7 +215,8 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         testId="markdown-action-button-indent"
         tooltip="Increase indentation"
         tooltipPlace={tooltipPlace}
-        onClick={props.actions.simple.indent}>
+        onClick={props.actions.simple.indent}
+      >
         <Icons.Indent label="Increase indentation" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
@@ -211,7 +224,8 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         testId="markdown-action-button-dedent"
         tooltip="Decrease indentation"
         tooltipPlace={tooltipPlace}
-        onClick={props.actions.simple.dedent}>
+        onClick={props.actions.simple.dedent}
+      >
         <Icons.Dedent label="Decrease indentation" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
@@ -219,7 +233,8 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         testId="markdown-action-button-embed"
         tooltip="Embed external content"
         tooltipPlace={tooltipPlace}
-        onClick={props.actions.embedExternalContent}>
+        onClick={props.actions.embedExternalContent}
+      >
         <Icons.Cubes label="Embed external content" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
@@ -227,7 +242,8 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         testId="markdown-action-button-table"
         tooltip="Insert table"
         tooltipPlace={tooltipPlace}
-        onClick={props.actions.insertTable}>
+        onClick={props.actions.insertTable}
+      >
         <Icons.Table label="Insert table" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
@@ -235,7 +251,8 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         testId="markdown-action-button-special"
         tooltip="Insert special character"
         tooltipPlace={tooltipPlace}
-        onClick={props.actions.insertSpecialCharacter}>
+        onClick={props.actions.insertSpecialCharacter}
+      >
         <Icons.SpecialChar label="Insert special character" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
@@ -243,7 +260,8 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         testId="markdown-action-button-organizeLinks"
         tooltip="Organize links"
         tooltipPlace={tooltipPlace}
-        onClick={props.actions.organizeLinks}>
+        onClick={props.actions.organizeLinks}
+      >
         <Icons.OrgLinks label="Organize links" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
@@ -251,7 +269,8 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         testId="markdown-action-button-undo"
         tooltip="Undo"
         tooltipPlace={tooltipPlace}
-        onClick={props.actions.history.undo}>
+        onClick={props.actions.history.undo}
+      >
         <Icons.Undo label="Undo" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
@@ -259,7 +278,8 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         testId="markdown-action-button-redo"
         tooltip="Redo"
         tooltipPlace={tooltipPlace}
-        onClick={props.actions.history.redo}>
+        onClick={props.actions.history.redo}
+      >
         <Icons.Redo label="Redo" className={styles.icon} />
       </ToolbarButton>
     </>
@@ -271,8 +291,8 @@ export function DefaultMarkdownToolbar(props: MarkdownToolbarProps) {
 
   return (
     <div className={styles.root}>
-      <Flex justifyContent="space-between">
-        <Flex>
+      <Flex justifyContent="space-between" flexWrap="wrap">
+        <Flex flexWrap="wrap">
           <MainButtons {...props} />
           <ToolbarButton
             isDisabled={props.disabled}
@@ -280,7 +300,8 @@ export function DefaultMarkdownToolbar(props: MarkdownToolbarProps) {
             tooltip={showAdditional ? 'Hide additional actions' : 'More actions'}
             onClick={() => {
               setShowAdditional(!showAdditional);
-            }}>
+            }}
+          >
             <MoreHorizontalIcon className={styles.icon} />
           </ToolbarButton>
         </Flex>
@@ -297,7 +318,8 @@ export function DefaultMarkdownToolbar(props: MarkdownToolbarProps) {
             variant="secondary"
             onClick={props.actions.openZenMode}
             className={styles.zenButton}
-            tooltip="Expand">
+            tooltip="Expand"
+          >
             <Icons.Zen label="Expand" className={styles.icon} />
           </ToolbarButton>
         </Flex>

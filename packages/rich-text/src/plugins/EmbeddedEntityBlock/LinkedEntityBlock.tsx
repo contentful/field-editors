@@ -1,6 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 
-import { useSelected, useReadOnly } from 'slate-react';
+import { useReadOnly, useSelected } from 'slate-react';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { findNodePath } from '../../internal/queries';

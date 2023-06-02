@@ -1,16 +1,18 @@
+import { getIframe } from '../fixtures/utils';
+
 describe('Markdown Editor / History', () => {
   const selectors = {
     getInput: () => {
-      return cy.get('[data-test-id="markdown-textarea"] [contenteditable]');
+      return getIframe().findByTestId('markdown-textarea').find('[contenteditable]');
     },
     getToggleAdditionalActionsButton: () => {
-      return cy.findByTestId('markdown-action-button-toggle-additional');
+      return getIframe().findByTestId('markdown-action-button-toggle-additional');
     },
     getRedoButton() {
-      return cy.findByTestId('markdown-action-button-redo');
+      return getIframe().findByTestId('markdown-action-button-redo');
     },
     getUndoButton() {
-      return cy.findByTestId('markdown-action-button-undo');
+      return getIframe().findByTestId('markdown-action-button-undo');
     },
   };
 
@@ -25,9 +27,9 @@ describe('Markdown Editor / History', () => {
   };
 
   beforeEach(() => {
-    cy.visit('/markdown');
+    cy.visit('/?path=/story/editors-markdown--default');
     cy.wait(500);
-    cy.findByTestId('markdown-editor').should('be.visible');
+    getIframe().findByTestId('markdown-editor').should('be.visible');
     selectors.getToggleAdditionalActionsButton().click();
   });
 

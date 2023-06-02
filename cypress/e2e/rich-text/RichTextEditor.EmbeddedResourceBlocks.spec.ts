@@ -2,13 +2,14 @@
 
 import { BLOCKS } from '@contentful/rich-text-types';
 
-import { document as doc, block, text } from '../../../packages/rich-text/src/helpers/nodeFactory';
+import { block, document as doc, text } from '../../../packages/rich-text/src/helpers/nodeFactory';
+import { getIframe } from '../../fixtures/utils';
 import { RichTextPage } from './RichTextPage';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
 // we increase the viewport height to fit the whole page on the screen
 
-describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
+describe('Rich Text Editor - Embedded Resource Blocks', { viewportHeight: 2000 }, () => {
   let richText: RichTextPage;
 
   // copied from the 'is-hotkey' library we use for RichText shortcuts
@@ -48,135 +49,142 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     richText.visit();
   });
 
-  describe('Embedded Resource Blocks', () => {
-    const methods: [string, () => void][] = [
-      [
-        'using the toolbar button',
-        () => {
-          richText.toolbar.embed('resource-block');
-        },
-      ],
-      [
-        'using the keyboard shortcut',
-        () => {
-          richText.editor.type(`{${mod}+shift+s}`);
-        },
-      ],
-    ];
+  const methods: [string, () => void][] = [
+    [
+      'using the toolbar button',
+      () => {
+        richText.toolbar.embed('resource-block');
+      },
+    ],
+    [
+      'using the keyboard shortcut',
+      () => {
+        richText.editor.type(`{${mod}+shift+s}`);
+      },
+    ],
+  ];
 
-    for (const [triggerMethod, triggerEmbeddedResource] of methods) {
-      describe(triggerMethod, () => {
-        it('adds paragraph before the block when pressing enter if the block is first document node', () => {
-          richText.editor.click().then(triggerEmbeddedResource);
-
-          richText.editor
-            .find(
-              '[data-entity-id="crn:contentful:::content:spaces/space-id/entries/example-entity-urn"]'
-            )
-            .click();
-
-          richText.editor.trigger('keydown', keys.enter);
-
-          richText.expectValue(doc(emptyParagraph(), resourceBlock(), emptyParagraph()));
-        });
-
-        it('adds paragraph between two blocks when pressing enter', () => {
-          function addEmbeddedEntry() {
-            richText.editor.click('bottom').then(triggerEmbeddedResource);
-            richText.editor.click('bottom');
-          }
-
-          addEmbeddedEntry();
-          addEmbeddedEntry();
-
-          // Inserts paragraph before embed because it's in the first line.
-          richText.editor
-            .get(
-              '[data-entity-id="crn:contentful:::content:spaces/space-id/entries/example-entity-urn"]'
-            )
-            .first()
-            .click();
-          pressEnter();
-
-          // inserts paragraph in-between embeds.
-          richText.editor
-            .get(
-              '[data-entity-id="crn:contentful:::content:spaces/space-id/entries/example-entity-urn"]'
-            )
-            .first()
-            .click();
-          pressEnter();
-
-          richText.expectValue(
-            doc(
-              emptyParagraph(),
-              resourceBlock(),
-              emptyParagraph(),
-              resourceBlock(),
-              emptyParagraph()
-            )
-          );
-        });
-
-        it('adds and removes embedded resource', () => {
-          richText.editor.click().then(triggerEmbeddedResource);
-
-          richText.expectValue(doc(resourceBlock(), emptyParagraph()));
-
-          cy.findByTestId('cf-ui-card-actions').click();
-          cy.findByTestId('delete').click();
-
-          richText.expectValue(undefined);
-        });
-
-        it('adds and removes embedded resource by selecting and pressing `backspace`', () => {
-          richText.editor.click().then(triggerEmbeddedResource);
-
-          richText.expectValue(doc(resourceBlock(), emptyParagraph()));
-
-          cy.findByTestId('cf-ui-entry-card').click();
-          // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
-          richText.editor.trigger('keydown', keys.backspace);
-
-          richText.expectValue(undefined);
-        });
-
-        it('adds embedded resource between words', () => {
-          richText.editor
-            .click()
-            .type('foobar{leftarrow}{leftarrow}{leftarrow}')
-            .then(triggerEmbeddedResource);
-
-          richText.expectValue(
-            doc(
-              block(BLOCKS.PARAGRAPH, {}, text('foo')),
-              resourceBlock(),
-              block(BLOCKS.PARAGRAPH, {}, text('bar'))
-            )
-          );
-        });
-
-        it('should be selected on backspace', () => {
-          richText.editor.click();
-          triggerEmbeddedResource();
-
-          richText.editor.type('{downarrow}X');
-
-          richText.expectValue(doc(resourceBlock(), paragraphWithText('X')));
-
-          richText.editor.type('{backspace}{backspace}');
-
-          richText.expectValue(doc(resourceBlock(), emptyParagraph()));
-
-          richText.editor.type('{backspace}');
-
-          expectDocumentToBeEmpty();
-        });
+  for (const [triggerMethod, triggerEmbeddedResource] of methods) {
+    describe(triggerMethod, () => {
+      beforeEach(() => {
+        cy.shouldConfirm(true);
       });
-    }
-  });
+
+      afterEach(() => {
+        cy.unsetShouldConfirm;
+      });
+
+      it('adds paragraph before the block when pressing enter if the block is first document node', () => {
+        richText.editor.click().then(triggerEmbeddedResource);
+
+        richText.editor
+          .find(
+            '[data-entity-id="crn:contentful:::content:spaces/space-id/entries/example-entity-urn"]'
+          )
+          .click();
+
+        richText.editor.trigger('keydown', keys.enter);
+
+        richText.expectValue(doc(emptyParagraph(), resourceBlock(), emptyParagraph()));
+      });
+
+      it('adds paragraph between two blocks when pressing enter', () => {
+        function addEmbeddedEntry() {
+          richText.editor.click('bottom').then(triggerEmbeddedResource);
+          richText.editor.click('bottom');
+        }
+
+        addEmbeddedEntry();
+        addEmbeddedEntry();
+
+        // Inserts paragraph before embed because it's in the first line.
+        richText.editor
+          .find(
+            '[data-entity-id="crn:contentful:::content:spaces/space-id/entries/example-entity-urn"]'
+          )
+          .first()
+          .click();
+        pressEnter();
+
+        // inserts paragraph in-between embeds.
+        richText.editor
+          .find(
+            '[data-entity-id="crn:contentful:::content:spaces/space-id/entries/example-entity-urn"]'
+          )
+          .first()
+          .click();
+        pressEnter();
+
+        richText.expectValue(
+          doc(
+            emptyParagraph(),
+            resourceBlock(),
+            emptyParagraph(),
+            resourceBlock(),
+            emptyParagraph()
+          )
+        );
+      });
+
+      it('adds and removes embedded resource', () => {
+        richText.editor.click().then(triggerEmbeddedResource);
+
+        richText.expectValue(doc(resourceBlock(), emptyParagraph()));
+
+        getIframe().findByTestId('cf-ui-card-actions').click();
+        getIframe().findByTestId('delete').click();
+
+        richText.expectValue(undefined);
+      });
+
+      it('adds and removes embedded resource by selecting and pressing `backspace`', () => {
+        richText.editor.click().then(triggerEmbeddedResource);
+
+        richText.expectValue(doc(resourceBlock(), emptyParagraph()));
+
+        getIframe().findByTestId('cf-ui-entry-card').click();
+        // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
+        richText.editor.trigger('keydown', keys.backspace);
+
+        richText.expectValue(undefined);
+      });
+
+      it('adds embedded resource between words', () => {
+        richText.editor
+          .click()
+          .type('foobar{leftarrow}{leftarrow}{leftarrow}')
+          .then(triggerEmbeddedResource);
+
+        richText.expectValue(
+          doc(
+            block(BLOCKS.PARAGRAPH, {}, text('foo')),
+            resourceBlock(),
+            block(BLOCKS.PARAGRAPH, {}, text('bar'))
+          )
+        );
+      });
+
+      it('should be selected on backspace', () => {
+        richText.editor.click();
+        triggerEmbeddedResource();
+
+        richText.editor.type('{downarrow}X');
+
+        richText.expectValue(doc(resourceBlock(), paragraphWithText('X')));
+
+        richText.editor.type('{backspace}{backspace}');
+
+        richText.expectValue(doc(resourceBlock(), emptyParagraph()));
+
+        richText.editor.type('{backspace}');
+
+        expectDocumentToBeEmpty();
+      });
+    });
+  }
 
   it('can delete paragraph between resource blocks', () => {
+    cy.shouldConfirm(true);
     richText.editor.click();
     richText.toolbar.embed('resource-block');
     richText.editor.type('hey');
@@ -184,5 +192,6 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     richText.editor.type('{leftarrow}{leftarrow}{backspace}{backspace}{backspace}{backspace}');
 
     richText.expectValue(doc(resourceBlock(), resourceBlock(), emptyParagraph()));
+    cy.unsetShouldConfirm();
   });
 });

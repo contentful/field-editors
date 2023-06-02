@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { IconButton, Menu } from '@contentful/f36-components';
 import { ChevronDownIcon } from '@contentful/f36-icons';
@@ -13,7 +13,7 @@ import { useReadOnly } from '../../../internal/hooks';
 import { getAboveNode } from '../../../internal/queries';
 import { PlateEditor } from '../../../internal/types';
 import { RichTextTrackingActionName } from '../../../plugins/Tracking';
-import { addRowAbove, addColumnLeft, addColumnRight, addRowBelow, setHeader } from '../actions';
+import { addColumnLeft, addColumnRight, addRowAbove, addRowBelow, setHeader } from '../actions';
 import { isTableHeaderEnabled } from '../helpers';
 
 export const styles = {
