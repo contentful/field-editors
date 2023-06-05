@@ -6,7 +6,7 @@ import { getPlateSelectors } from '@udecode/plate-core';
 import debounce from 'lodash/debounce';
 
 import schema from './constants/Schema';
-import { removeInternalMarks } from './helpers/removeInternalMarks';
+import { removeCommentDataFromDocument, removeInternalMarks } from './helpers/removeInternalMarks';
 import { Operation } from './internal/types';
 
 /**
@@ -32,7 +32,9 @@ export const useOnValueChanged = ({ editorId, handler, skip, onSkip }: OnValueCh
     () =>
       debounce((document: unknown) => {
         const contentfulDocument = toContentfulDocument({ document, schema });
-        const cleanedDocument = removeInternalMarks(contentfulDocument);
+        const cleanedDocument = removeInternalMarks(
+          removeCommentDataFromDocument(contentfulDocument)
+        );
         handler?.(cleanedDocument);
       }, 500),
     [handler]
