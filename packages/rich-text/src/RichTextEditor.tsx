@@ -21,15 +21,25 @@ import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/components/StickyToolbarWrapper';
 import { useOnValueChanged } from './useOnValueChanged';
 
-export type CommentWithParentEntityReference = { sys: any; body: string };
+export type InlineComment = {
+  metadata: {
+    //to ask: should the range just be one path or multiple paths?, insted of a "range"
+    range: string[];
+    originalText: string;
+  };
+  body: string; // here the body would actually also be rich text since comments are now rich text
+  sys: {
+    id: string;
+  };
+};
 
 type ConnectedProps = {
   sdk: FieldExtensionSDK & {
     field: {
       comments: {
-        get: () => CommentWithParentEntityReference[];
+        get: () => InlineComment[];
         create: () => void;
-        update: (commentId: string, comment: CommentWithParentEntityReference) => void;
+        update: (commentId: string, comment: InlineComment) => void;
         delete: (commentId: string) => void;
       };
     };

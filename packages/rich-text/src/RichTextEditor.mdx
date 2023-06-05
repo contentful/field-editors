@@ -71,6 +71,12 @@ import { RichTextEditor } from '@contentful/field-editor-rich-text';
             enabledMarks: Object.values(MARKS)
           }
         ];
+         mock.comments = {
+          get: () => { return [] },
+          update: () => console.log('Updating'),
+          delete: () => console.log('Deleting'),
+          create: () => console.log('Deleting')
+        }
       return mock
     }, initialValue), []);
 

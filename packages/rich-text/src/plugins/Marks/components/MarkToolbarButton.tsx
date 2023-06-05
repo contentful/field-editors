@@ -32,6 +32,8 @@ export const createMarkToolbarButton = ({ mark, title, icon }: MarkOptions) => {
       if (!editor?.selection) return;
 
       const isActive = isMarkActive(editor, mark);
+
+      // Q: maybe this would not be the case for comments. We can't unmark comments
       editor.tracking.onToolbarAction(isActive ? 'unmark' : 'mark', { markType: mark });
 
       toggleMarkAndDeactivateConflictingMarks(editor, mark);
