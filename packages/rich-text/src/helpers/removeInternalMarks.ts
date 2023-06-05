@@ -1,11 +1,9 @@
 import { COMMAND_PROMPT } from '../plugins/CommandPalette/constants';
-import { removeCommentDataFromDocument } from './removeCommentDataFromDocument';
 
 const internalMarks = [COMMAND_PROMPT];
 
 export const removeInternalMarks = (document: Record<string, unknown>) => {
-  document = removeCommentDataFromDocument(document);
-  console.log('DOCUMENT BEFORE SAVING ', { document });
+  console.log('After removing comment data ', { document });
 
   return {
     ...document,
@@ -14,6 +12,7 @@ export const removeInternalMarks = (document: Record<string, unknown>) => {
         node.marks = (node.marks as Record<string, unknown>[]).filter(
           (mark) => !internalMarks.includes(mark.type as string)
         );
+        console.log('return node ', node);
         return node;
       }
       return removeInternalMarks(node);

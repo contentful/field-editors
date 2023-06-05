@@ -3,11 +3,13 @@ import { useCallback, useMemo } from 'react';
 import { toContentfulDocument } from '@contentful/contentful-slatejs-adapter';
 import { Document } from '@contentful/rich-text-types';
 import { getPlateSelectors } from '@udecode/plate-core';
+import { cloneDeep } from 'lodash-es';
 import debounce from 'lodash/debounce';
 import { InlineComment } from 'RichTextEditor';
 
 import schema from './constants/Schema';
 import { getUpdatedComments } from './helpers/getUpdatedComments';
+import { removeCommentDataFromDocument } from './helpers/removeCommentDataFromDocument';
 import { removeInternalMarks } from './helpers/removeInternalMarks';
 import { Operation } from './internal/types';
 
@@ -64,7 +66,12 @@ export const useOnValueChanged = ({
 
         const contentfulDocument = toContentfulDocument({ document, schema });
 
-        const cleanedDocument = removeInternalMarks(contentfulDocument);
+        console.log('Before removing comment data ', { contentfulDocument });
+        const removedCommentsDocument = removeCommentDataFromDocument(
+          cloneDeep(contentfulDocument)
+        );
+
+        const cleanedDocument = removeInternalMarks(removedCommentsDocument);
 
         handler?.(cleanedDocument);
       }, 500),
