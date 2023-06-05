@@ -7,6 +7,7 @@ import { useContentfulEditor } from '../../../ContentfulEditorProvider';
 import { fromDOMPoint } from '../../../internal';
 import { Element, RenderElementProps } from '../../../internal/types';
 import { useSdkContext } from '../../../SdkProvider';
+import { useLinkTracking } from '../../links-tracking';
 import { addOrEditLink } from '../HyperlinkModal';
 import { useEntityInfo } from '../useEntityInfo';
 import { styles } from './styles';
@@ -33,7 +34,7 @@ export function EntityHyperlink(props: HyperlinkElementProps) {
   const editor = useContentfulEditor();
   const sdk: FieldExtensionSDK = useSdkContext();
   const { target } = props.element.data;
-  const { onEntityFetchComplete } = props;
+  const { onEntityFetchComplete } = useLinkTracking();
 
   const tooltipContent = useEntityInfo({
     target,

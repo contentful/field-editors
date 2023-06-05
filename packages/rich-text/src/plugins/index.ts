@@ -16,6 +16,7 @@ import {
   createEmbeddedEntryBlockPlugin,
 } from './EmbeddedEntityBlock';
 import { createEmbeddedEntityInlinePlugin } from './EmbeddedEntityInline';
+import { createEmbeddedResourceBlockPlugin } from './EmbeddedResourceBlock';
 import { createHeadingPlugin } from './Heading';
 import { createHrPlugin } from './Hr';
 import { createHyperlinkPlugin } from './Hyperlink';
@@ -61,6 +62,7 @@ export const getPlugins = (
   createTablePlugin(),
   createEmbeddedEntryBlockPlugin(sdk),
   createEmbeddedAssetBlockPlugin(sdk),
+  createEmbeddedResourceBlockPlugin(sdk),
 
   // Inline elements
   createHyperlinkPlugin(sdk),

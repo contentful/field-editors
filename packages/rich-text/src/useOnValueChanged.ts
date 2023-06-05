@@ -31,8 +31,13 @@ export const useOnValueChanged = ({ editorId, handler, skip, onSkip }: OnValueCh
   const onChange = useMemo(
     () =>
       debounce((document: unknown) => {
-        const contentfulDocument = toContentfulDocument({ document, schema });
-        const cleanedDocument = removeInternalMarks(contentfulDocument);
+        const contentfulDocument = toContentfulDocument({
+          // eslint-disable-next-line -- parameter type is not exported @typescript-eslint/no-explicit-any
+          document: document as any,
+          schema,
+        });
+        // eslint-disable-next-line -- correct parameter type is not defined @typescript-eslint/no-explicit-any
+        const cleanedDocument = removeInternalMarks(contentfulDocument as Record<string, any>);
         handler?.(cleanedDocument);
       }, 500),
     [handler]

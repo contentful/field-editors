@@ -1,30 +1,16 @@
 import * as React from 'react';
 
-import { css } from 'emotion';
 import { useReadOnly, useSelected } from 'slate-react';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
-import { IS_CHROME } from '../../helpers/environment';
 import { findNodePath } from '../../internal/queries';
 import { removeNodes } from '../../internal/transforms';
 import { Element, RenderElementProps } from '../../internal/types';
 import { useSdkContext } from '../../SdkProvider';
+import { useLinkTracking } from '../links-tracking';
 import { FetchingWrappedAssetCard } from '../shared/FetchingWrappedAssetCard';
 import { FetchingWrappedEntryCard } from '../shared/FetchingWrappedEntryCard';
-
-const styles = {
-  root: css({
-    marginBottom: '1.25rem !important',
-    display: 'block',
-  }),
-  container: css({
-    // The next 2 properties ensure Entity card won't be aligned above
-    // a list item marker (i.e. bullet)
-    display: 'inline-block',
-    verticalAlign: 'text-top',
-    width: '100%',
-  }),
-};
+import { LinkedBlockWrapper } from '../shared/LinkedBlockWrapper';
 
 type LinkedEntityBlockProps = {
   element: Element & {
@@ -40,11 +26,11 @@ type LinkedEntityBlockProps = {
   };
   attributes: Pick<RenderElementProps, 'attributes'>;
   children: Pick<RenderElementProps, 'children'>;
-  onEntityFetchComplete: VoidFunction;
 };
 
 export function LinkedEntityBlock(props: LinkedEntityBlockProps) {
-  const { attributes, children, element, onEntityFetchComplete } = props;
+  const { attributes, children, element } = props;
+  const { onEntityFetchComplete } = useLinkTracking();
   const isSelected = useSelected();
   const editor = useContentfulEditor();
   const sdk = useSdkContext();
@@ -63,47 +49,39 @@ export function LinkedEntityBlock(props: LinkedEntityBlockProps) {
   }, [editor, element]);
 
   return (
-    <div
-      {...attributes}
-      className={styles.root}
-      data-entity-type={entityType}
-      data-entity-id={entityId}
-      // COMPAT: This makes copy & paste work for Firefox
-      contentEditable={IS_CHROME ? undefined : false}
-      draggable={IS_CHROME ? true : undefined}
+    <LinkedBlockWrapper
+      attributes={attributes}
+      card={
+        <>
+          {entityType === 'Entry' && (
+            <FetchingWrappedEntryCard
+              sdk={sdk}
+              entryId={entityId}
+              locale={sdk.field.locale}
+              isDisabled={isDisabled}
+              isSelected={isSelected}
+              onRemove={handleRemoveClick}
+              onEdit={handleEditClick}
+              onEntityFetchComplete={onEntityFetchComplete}
+            />
+          )}
+          {entityType === 'Asset' && (
+            <FetchingWrappedAssetCard
+              sdk={sdk}
+              assetId={entityId}
+              locale={sdk.field.locale}
+              isDisabled={isDisabled}
+              isSelected={isSelected}
+              onRemove={handleRemoveClick}
+              onEdit={handleEditClick}
+              onEntityFetchComplete={onEntityFetchComplete}
+            />
+          )}
+        </>
+      }
+      element={element}
     >
-      <div
-        // COMPAT: This makes copy & paste work for Chromium/Blink browsers and Safari
-        contentEditable={IS_CHROME ? false : undefined}
-        draggable={IS_CHROME ? true : undefined}
-        className={styles.container}
-      >
-        {entityType === 'Entry' && (
-          <FetchingWrappedEntryCard
-            sdk={sdk}
-            entryId={entityId}
-            locale={sdk.field.locale}
-            isDisabled={isDisabled}
-            isSelected={isSelected}
-            onRemove={handleRemoveClick}
-            onEdit={handleEditClick}
-            onEntityFetchComplete={onEntityFetchComplete}
-          />
-        )}
-        {entityType === 'Asset' && (
-          <FetchingWrappedAssetCard
-            sdk={sdk}
-            assetId={entityId}
-            locale={sdk.field.locale}
-            isDisabled={isDisabled}
-            isSelected={isSelected}
-            onRemove={handleRemoveClick}
-            onEdit={handleEditClick}
-            onEntityFetchComplete={onEntityFetchComplete}
-          />
-        )}
-      </div>
       {children}
-    </div>
+    </LinkedBlockWrapper>
   );
 }

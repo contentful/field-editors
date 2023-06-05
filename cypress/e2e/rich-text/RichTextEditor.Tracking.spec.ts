@@ -168,12 +168,14 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
   });
 
   describe('Marks', () => {
-    [
-      [MARKS.BOLD, `{${mod}}b`],
-      [MARKS.ITALIC, `{${mod}}i`],
-      [MARKS.UNDERLINE, `{${mod}}u`],
-      [MARKS.CODE, `{${mod}}/`],
-    ].forEach(([mark, shortcut]) => {
+    (
+      [
+        [MARKS.BOLD, `{${mod}}b`],
+        [MARKS.ITALIC, `{${mod}}i`],
+        [MARKS.UNDERLINE, `{${mod}}u`],
+        [MARKS.CODE, `{${mod}}/`],
+      ] as const
+    ).forEach(([mark, shortcut]) => {
       const toggleMarkViaToolbar = (mark: MARKS) => {
         if (mark === 'code' || mark === 'superscript' || mark === 'subscript') {
           getIframe().findByTestId('dropdown-toolbar-button').click();
@@ -738,6 +740,53 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
             cancelEmbeddedDialog(origin, BLOCKS.EMBEDDED_ASSET),
           ]);
 
+          cy.unsetShouldConfirm();
+        });
+      });
+    }
+  });
+
+  describe('Embedded Resource Blocks', () => {
+    const methods: [string, string, () => void][] = [
+      [
+        'using the toolbar button',
+        'toolbar-icon',
+        () => {
+          richText.toolbar.embed('resource-block');
+        },
+      ],
+      [
+        'using the keyboard shortcut',
+        'shortcut',
+        () => {
+          richText.editor.type(`{${mod}+shift+s}`);
+        },
+      ],
+    ];
+
+    for (const [triggerMethod, origin, triggerEmbeddedResource] of methods) {
+      describe(triggerMethod, () => {
+        it('tracks when inserting embedded resource block', () => {
+          cy.shouldConfirm(true);
+          richText.editor.click().then(triggerEmbeddedResource);
+
+          richText.expectTrackingValue([
+            openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_RESOURCE),
+            insert(origin, { nodeType: BLOCKS.EMBEDDED_RESOURCE }),
+            linkRendered(),
+          ]);
+          cy.unsetShouldConfirm();
+        });
+
+        it('cancels without adding the resource block', () => {
+          cy.shouldConfirm(false);
+
+          richText.editor.click().then(triggerEmbeddedResource);
+
+          richText.expectTrackingValue([
+            openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_RESOURCE),
+            cancelEmbeddedDialog(origin, BLOCKS.EMBEDDED_RESOURCE),
+          ]);
           cy.unsetShouldConfirm();
         });
       });
