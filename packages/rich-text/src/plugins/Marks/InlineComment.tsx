@@ -10,7 +10,7 @@ import { findRanges } from '../../helpers/getUpdatedComments';
 import { createMarkToolbarButton } from './components/MarkToolbarButton';
 
 export const ToolbarInlineCommentButton = createMarkToolbarButton({
-  title: 'inline-comments',
+  title: 'inline-comment',
   mark: 'inline-comment' as unknown as MARKS, // change this once rich text types are updated. Requierement defined
   icon: <ChatBubbleIcon />,
   callback: (sdk, editor) => {

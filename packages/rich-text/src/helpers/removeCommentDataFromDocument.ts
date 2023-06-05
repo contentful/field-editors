@@ -1,6 +1,9 @@
+import { cloneDeep } from 'lodash-es';
+
 import { INLINE_COMMENT_HIGHLIGHT } from '../plugins/Marks/helpers';
 
-export const removeCommentDataFromDocument = (document: any): any => {
+export const removeCommentDataFromDocument = (document2: any): any => {
+  const document = cloneDeep(document2);
   if (typeof document !== 'object' || document === null) {
     return document;
   }

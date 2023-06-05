@@ -1,3 +1,4 @@
+import { uniqueId } from 'lodash-es';
 import { InlineComment } from 'RichTextEditor';
 
 export const findCurrentComments = (
@@ -83,6 +84,20 @@ export const findRanges = (document: any, path: string, ranges: string[] = []): 
 
     console.log('Finished! ', ranges);
 
-    return new Set(ranges.filter((range) => range));
+    return Array.from(new Set(ranges.filter((range) => range)));
   }
+};
+
+export const addIDS = (document: any): any => {
+  console.log({ node: document });
+
+  if (!document.data?.id) document.data = { ...(document.data ?? {}), id: uniqueId() };
+
+  if ('children' in document) {
+    for (const node of document.children) {
+      addIDS(node);
+    }
+  }
+
+  return document;
 };
