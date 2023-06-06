@@ -47,6 +47,8 @@ export const InlineComment = ({ children, attributes }: RenderLeafProps) => {
 
   const onClick = () => {
     const props = children.props;
+    console.log('Trying to focus comment...', children.props);
+
     if (props.text?.data.comment?.sys?.id) {
       sdk.field.comments.open(props.text?.data?.comment?.sys?.id);
     }

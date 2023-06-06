@@ -34,7 +34,7 @@ export type OnValueChangedProps = {
   sdk: FieldExtensionSDK & {
     field: {
       comments: {
-        get: () => InlineComment[];
+        get: InlineComment[];
         create: () => void;
         update: (commentId: string, comment: InlineComment) => void;
         delete: (commentId: string) => void;
@@ -57,7 +57,7 @@ export const useOnValueChanged = ({
 
         const { toDelete, toUpdate } = calculateMutations(
           contentfulDocument,
-          sdk.field.comments.get()
+          sdk.field.comments.get
         );
 
         toDelete.forEach((commentId) => sdk.field.comments.delete(commentId));

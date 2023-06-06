@@ -38,7 +38,8 @@ type ConnectedProps = {
   sdk: FieldExtensionSDK & {
     field: {
       comments: {
-        get: () => InlineComment[];
+        open: (commentId: string) => void;
+        get: InlineComment[];
         create: () => void;
         update: (commentId: string, comment: InlineComment) => void;
         delete: (commentId: string) => void;
@@ -58,13 +59,20 @@ type ConnectedProps = {
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const id = getContentfulEditorId(props.sdk);
 
+  const ranges = props.sdk.field.comments.get
+    .map((comment) => `${comment.sys.id}${comment.metadata.range.sort()}`)
+    .join(':');
+
   const richTextValueEnrichedWithComments = useMemo(() => {
+    console.log('Recalculating...', props.sdk.field.getValue(), props.sdk.field.comments.get);
+
     return enhanceContentfulDocWithComments(
-      props.value as unknown as Contentful.Document,
-      props.sdk.field.comments.get()
+      props.sdk.field.getValue() as unknown as Contentful.Document,
+      props.sdk.field.comments.get
     );
     /* eslint-disable */
-  }, [props.value, props.sdk.field.comments.get().length]);
+    // }, [props.value, props.sdk.field.comments.get.length]);
+  }, [props.value, props.sdk.field.comments.get.length, ranges]);
   /* eslint-enable */
 
   const plugins = React.useMemo(
@@ -165,6 +173,8 @@ const RichTextEditor = (props: Props) => {
     []
   );
 
+  console.log('re rendering: ', sdk.field.getValue());
+
   const id = getContentfulEditorId(props.sdk);
   return (
     <EntityProvider sdk={sdk}>
@@ -175,18 +185,22 @@ const RichTextEditor = (props: Props) => {
         isEmptyValue={isEmptyValue}
         isEqualValues={deepEquals}
       >
-        {({ lastRemoteValue, disabled, setValue }) => (
-          <ConnectedRichTextEditor
-            {...otherProps}
-            key={`rich-text-editor-${id}`}
-            value={lastRemoteValue}
-            sdk={sdk}
-            onAction={onAction}
-            isDisabled={disabled}
-            onChange={setValue}
-            restrictedMarks={restrictedMarks}
-          />
-        )}
+        {({ lastRemoteValue, disabled, setValue }) => {
+          console.log({ lastRemoteValue, sdk });
+
+          return (
+            <ConnectedRichTextEditor
+              {...otherProps}
+              key={`rich-text-editor-${id}`}
+              value={lastRemoteValue}
+              sdk={sdk}
+              onAction={onAction}
+              isDisabled={disabled}
+              onChange={setValue}
+              restrictedMarks={restrictedMarks}
+            />
+          );
+        }}
       </FieldConnector>
     </EntityProvider>
   );

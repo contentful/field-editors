@@ -8,7 +8,7 @@ interface SdkProviderProps {
     field: {
       comments: {
         open: (commentId: string) => void;
-        get: () => any[];
+        get: any[];
         create: () => void;
         update: (commentId: string, comment: any) => void;
         delete: (commentId: string) => void;
@@ -23,7 +23,7 @@ function useSdk({ sdk }: SdkProviderProps) {
       field: {
         comments: {
           open: (commentId: string) => void;
-          get: () => any[];
+          get: any[];
           create: () => void;
           update: (commentId: string, comment: any) => void;
           delete: (commentId: string) => void;
