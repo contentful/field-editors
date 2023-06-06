@@ -59,6 +59,28 @@ type ConnectedProps = {
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const id = getContentfulEditorId(props.sdk);
 
+  // SHow comments right after they are created
+  // const ranges = props.sdk.field.comments.get
+  //   .map((comment) => `${comment.sys.id}${comment.metadata.range.sort()}`)
+  //   .join(':');
+  //
+  // const richTextValueEnrichedWithComments = useMemo(() => {
+  //   console.log('Recalculating...', props.sdk.field.getValue(), props.sdk.field.comments.get);
+  //
+  //   return enhanceContentfulDocWithComments(
+  //     // props.sdk.field.getValue() as unknown as Contentful.Document,
+  //     // FIXME: How can we grab the latest modified version of the document (In memory or from server?)
+  //     props.sdk.field.getValue() as unknown as Contentful.Document,
+  //     props.sdk.field.comments.get
+  //   );
+  //   /* eslint-disable */
+  //   // }, [props.value, props.sdk.field.comments.get.length]);
+  // }, [props.value, props.sdk.field.comments.get.length, ranges]);
+  // /* eslint-enable */
+
+  // Does not show comments right after they are created but when you create new paragraphs it doesn't crash the content
+  console.log({ localValue: props.value, sdkValue: props.sdk.field.getValue() });
+
   const ranges = props.sdk.field.comments.get
     .map((comment) => `${comment.sys.id}${comment.metadata.range.sort()}`)
     .join(':');
@@ -67,7 +89,9 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
     console.log('Recalculating...', props.sdk.field.getValue(), props.sdk.field.comments.get);
 
     return enhanceContentfulDocWithComments(
-      props.sdk.field.getValue() as unknown as Contentful.Document,
+      // props.sdk.field.getValue() as unknown as Contentful.Document,
+      // FIXME: How can we grab the latest modified version of the document (In memory or from server?)
+      props.value as unknown as Contentful.Document,
       props.sdk.field.comments.get
     );
     /* eslint-disable */
@@ -185,14 +209,15 @@ const RichTextEditor = (props: Props) => {
         isEmptyValue={isEmptyValue}
         isEqualValues={deepEquals}
       >
-        {({ lastRemoteValue, disabled, setValue }) => {
-          console.log({ lastRemoteValue, sdk });
+        {({ lastRemoteValue, disabled, setValue, value }) => {
+          // FIXME: Why do I have to use this value instead of lastRemoteValue?
+          console.log({ lastRemoteValue, sdk, value });
 
           return (
             <ConnectedRichTextEditor
               {...otherProps}
               key={`rich-text-editor-${id}`}
-              value={lastRemoteValue}
+              value={value}
               sdk={sdk}
               onAction={onAction}
               isDisabled={disabled}
