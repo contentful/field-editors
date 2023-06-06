@@ -1,12 +1,18 @@
 import { useCallback, useMemo } from 'react';
 
+import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { toContentfulDocument } from '@contentful/contentful-slatejs-adapter';
 import { Document } from '@contentful/rich-text-types';
 import { getPlateSelectors } from '@udecode/plate-core';
 import debounce from 'lodash/debounce';
+import { InlineComment } from 'RichTextEditor';
 
 import schema from './constants/Schema';
-import { removeCommentDataFromDocument, removeInternalMarks } from './helpers/removeInternalMarks';
+import {
+  calculateMutations,
+  removeCommentDataFromDocument,
+  removeInternalMarks,
+} from './helpers/removeInternalMarks';
 import { Operation } from './internal/types';
 
 /**
@@ -25,19 +31,44 @@ export type OnValueChangedProps = {
   handler?: (value: Document) => unknown;
   skip?: boolean;
   onSkip?: VoidFunction;
+  sdk: FieldExtensionSDK & {
+    field: {
+      comments: {
+        get: () => InlineComment[];
+        create: () => void;
+        update: (commentId: string, comment: InlineComment) => void;
+        delete: (commentId: string) => void;
+      };
+    };
+  };
 };
 
-export const useOnValueChanged = ({ editorId, handler, skip, onSkip }: OnValueChangedProps) => {
+export const useOnValueChanged = ({
+  editorId,
+  handler,
+  skip,
+  onSkip,
+  sdk,
+}: OnValueChangedProps) => {
   const onChange = useMemo(
     () =>
       debounce((document: unknown) => {
         const contentfulDocument = toContentfulDocument({ document, schema });
+
+        const { toDelete, toUpdate } = calculateMutations(
+          contentfulDocument,
+          sdk.field.comments.get()
+        );
+
+        toDelete.forEach((commentId) => sdk.field.comments.delete(commentId));
+        toUpdate.forEach((data) => sdk.field.comments.update(data.id, data.range));
+
         const cleanedDocument = removeInternalMarks(
           removeCommentDataFromDocument(contentfulDocument)
         );
         handler?.(cleanedDocument);
       }, 500),
-    [handler]
+    [handler, sdk]
   );
 
   return useCallback(

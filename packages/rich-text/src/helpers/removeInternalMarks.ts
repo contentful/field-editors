@@ -1,4 +1,4 @@
-import { cloneDeep, get } from 'lodash-es';
+import { cloneDeep, get, difference } from 'lodash-es';
 import { InlineComment } from 'RichTextEditor';
 
 import { COMMAND_PROMPT } from '../plugins/CommandPalette/constants';
@@ -87,6 +87,19 @@ export const enhanceContentfulDocWithComments = (document2: any, comments: Inlin
   return document;
 };
 
+export const navigateTree = (document, path = '', callback) => {
+  callback(document, path);
+
+  if ('content' in document) {
+    for (let i = 0; i < document.content.length; i++) {
+      if (path.startsWith('.')) {
+        path = path.slice(1);
+      }
+      navigateTree(document.content[i], `${path}.content[${i}]`, callback);
+    }
+  }
+};
+
 export const findRanges = (document: any, path: string, ranges: string[] = []): any => {
   if ('data' in document && 'comment' in document.data && document.data.comment.temp) {
     console.log('PATH FOUND: ', path);
@@ -106,4 +119,43 @@ export const findRanges = (document: any, path: string, ranges: string[] = []): 
 
     return Array.from(new Set(ranges.filter((range) => range)));
   }
+};
+
+export const calculateMutations = (document: any, comments: InlineComment[]) => {
+  const commentsInRTE = {};
+  const toUpdate: any = [];
+  navigateTree(document, '', (node, path) => {
+    if (node.data?.comment) {
+      const commentID = node.data?.comment?.sys?.id;
+
+      if (commentID) {
+        commentsInRTE[commentID] = {
+          ...(commentsInRTE[commentID] ?? {}),
+          ranges: (commentsInRTE[commentID]?.ranges ?? []).concat(path),
+        };
+      }
+    }
+  });
+
+  Object.keys(commentsInRTE).forEach((commentKey) => {
+    const comment = commentsInRTE[commentKey];
+    const commentInDB = comments.find((c) => c.sys.id === commentKey);
+    // console.log({
+    //   comment,
+    //   commentInDB,
+    //   difference: difference(comment.ranges, commentInDB!.metadata.range),
+    // });
+
+    if (difference(comment.ranges, commentInDB!.metadata.range).length > 0) {
+      toUpdate.push({ range: comment.ranges, id: commentKey });
+    }
+  });
+
+  const toDelete = comments
+    .filter((comment) => !commentsInRTE[comment.sys.id])
+    .map((c) => c.sys.id);
+
+  console.log({ comments, commentsInRTE, toDelete, toUpdate });
+
+  return { toUpdate, toDelete };
 };

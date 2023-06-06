@@ -79,6 +79,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
     handler: props.onChange,
     skip: pendingExternalUpdate || isFirstRender,
     onSkip: () => setPendingExternalUpdate(false),
+    sdk: props.sdk,
   });
 
   useEffect(() => {
