@@ -27,8 +27,6 @@ const getRichTextValidation = (field, validationType) =>
 const isFormattingOptionEnabled = (field, validationType, nodeTypeOrMark) => {
   const enabledFormattings = getRichTextValidation(field, validationType);
 
-  console.log({ enabledFormattings, field, validationType, nodeTypeOrMark });
-
   // TODO: In the future, validations will always be opt-in. In that case
   // we don't need this step.
   if (enabledFormattings === undefined) {

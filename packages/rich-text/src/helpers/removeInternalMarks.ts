@@ -1,4 +1,5 @@
-import { cloneDeep } from 'lodash-es';
+import { cloneDeep, get } from 'lodash-es';
+import { InlineComment } from 'RichTextEditor';
 
 import { COMMAND_PROMPT } from '../plugins/CommandPalette/constants';
 import { INLINE_COMMENT_HIGHLIGHT } from '../plugins/Marks';
@@ -47,4 +48,39 @@ export const removeCommentDataFromDocument = (document2: any): any => {
     }
     return newNode;
   }
+};
+
+export const enhanceContentfulDocWithComments = (document2: any, comments: InlineComment[]) => {
+  console.log('Document before enhancing with comments, ', document2, comments);
+  const document = cloneDeep(document2);
+
+  for (let i = 0; i < comments?.length; i++) {
+    // this assumes there is only one element in the json path
+    const commentedNode = get(document, comments[i].metadata.range[0]);
+
+    if (commentedNode) {
+      commentedNode.data = {
+        ...(commentedNode.data ?? {}),
+        comment: {
+          sys: {
+            type: 'Link',
+            linkType: 'Comment',
+            id: comments[i].sys.id,
+          },
+        },
+      };
+      if (!commentedNode.marks) commentedNode.marks = [];
+
+      if (
+        !(commentedNode.marks ?? []).find((mark: any) => mark.type === INLINE_COMMENT_HIGHLIGHT)
+      ) {
+        commentedNode.marks.push({ type: INLINE_COMMENT_HIGHLIGHT });
+        // commentedNode[INLINE_COMMENT_HIGHLIGHT] = true;
+      }
+    }
+    // console.log('commented node', commentedNode);
+  }
+
+  console.log('Document after enhancing with comments, ', document);
+  return document;
 };

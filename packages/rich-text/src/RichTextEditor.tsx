@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useState, useEffect, useMemo } from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { EntityProvider } from '@contentful/field-editor-reference';
@@ -10,6 +10,7 @@ import deepEquals from 'fast-deep-equal';
 import noop from 'lodash/noop';
 
 import { ContentfulEditorIdProvider, getContentfulEditorId } from './ContentfulEditorProvider';
+import { enhanceContentfulDocWithComments } from './helpers/removeInternalMarks';
 import { getPlateSelectors } from './internal/misc';
 import { Value } from './internal/types';
 import { getPlugins, disableCorePlugins } from './plugins';
@@ -56,7 +57,16 @@ type ConnectedProps = {
 
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const id = getContentfulEditorId(props.sdk);
-  console.log('ConnectedRichTextEditor');
+  console.log('ConnectedRichTextEditor value: ', props.value, props.sdk.field.comments.get());
+
+  const richTextValueEnrichedWithComments = useMemo(() => {
+    return enhanceContentfulDocWithComments(
+      props.value as unknown as Contentful.Document,
+      props.sdk.field.comments.get()
+    );
+    /* eslint-disable */
+  }, [props.value, props.sdk.field.comments.get().length]);
+  /* eslint-enable */
 
   // console.log('fieldComments: ', props.sdk.field.comments.get());
 
@@ -92,8 +102,11 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
       return;
     }
     setPendingExternalUpdate(true);
-    setEditorContent(editor, documentToEditorValue(props.value as Contentful.Document));
-  }, [props.value, id]);
+    setEditorContent(
+      editor,
+      documentToEditorValue(richTextValueEnrichedWithComments as Contentful.Document)
+    );
+  }, [richTextValueEnrichedWithComments, id]);
 
   const classNames = cx(
     styles.editor,
@@ -108,12 +121,15 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
     }
 
     getPlateActions(id).value(
-      normalizeEditorValue(documentToEditorValue(props.value as Contentful.Document) as Value, {
-        plugins,
-        disableCorePlugins,
-      })
+      normalizeEditorValue(
+        documentToEditorValue(richTextValueEnrichedWithComments as Contentful.Document) as Value,
+        {
+          plugins,
+          disableCorePlugins,
+        }
+      )
     );
-  }, [isFirstRender, plugins, id, props.value]);
+  }, [isFirstRender, plugins, id, richTextValueEnrichedWithComments]);
 
   return (
     <SdkProvider sdk={props.sdk}>
