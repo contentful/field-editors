@@ -8,6 +8,7 @@ import { BaseEditor, Transforms, Node } from 'slate';
 import { RenderLeafProps } from 'slate-react';
 
 import { findRanges } from '../../helpers/removeInternalMarks';
+import { useSdkContext } from '../../SdkProvider';
 import { createMarkToolbarButton } from './components/MarkToolbarButton';
 
 export const ToolbarInlineCommentButton = createMarkToolbarButton({
@@ -37,13 +38,25 @@ const styles = {
   inlineComment: css({
     background: '#C4E7FF',
     fontWeight: 'normal',
+    cursor: 'pointer',
   }),
 };
 
 export const InlineComment = ({ children, attributes }: RenderLeafProps) => {
+  const sdk = useSdkContext();
+
+  const onClick = () => {
+    const props = children.props;
+    if (props.text?.data.comment?.sys?.id) {
+      sdk.field.comments.open(props.text?.data?.comment?.sys?.id);
+    }
+  };
+
+  /* eslint-disable */
   return (
-    <mark {...attributes} className={styles.inlineComment}>
+    <mark {...attributes} className={styles.inlineComment} onClick={onClick}>
       {children}
     </mark>
   );
+  /* eslint-enable */
 };
