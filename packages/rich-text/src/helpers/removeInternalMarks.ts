@@ -84,3 +84,24 @@ export const enhanceContentfulDocWithComments = (document2: any, comments: Inlin
   console.log('Document after enhancing with comments, ', document);
   return document;
 };
+
+export const findRanges = (document: any, path: string, ranges: string[] = []): any => {
+  if ('data' in document && 'comment' in document.data && document.data.comment.temp) {
+    console.log('PATH FOUND: ', path);
+
+    ranges.push(path);
+  }
+
+  if ('content' in document) {
+    for (let i = 0; i < document.content.length; i++) {
+      if (path.startsWith('.')) {
+        path = path.slice(1);
+      }
+      ranges = ranges.concat(findRanges(document.content[i], `${path}.content[${i}]`, ranges));
+    }
+
+    console.log('Finished! ', ranges);
+
+    return Array.from(new Set(ranges.filter((range) => range)));
+  }
+};
