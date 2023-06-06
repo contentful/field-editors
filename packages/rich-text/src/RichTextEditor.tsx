@@ -57,7 +57,6 @@ type ConnectedProps = {
 
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const id = getContentfulEditorId(props.sdk);
-  console.log('ConnectedRichTextEditor value: ', props.value, props.sdk.field.comments.get());
 
   const richTextValueEnrichedWithComments = useMemo(() => {
     return enhanceContentfulDocWithComments(
@@ -67,8 +66,6 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
     /* eslint-disable */
   }, [props.value, props.sdk.field.comments.get().length]);
   /* eslint-enable */
-
-  // console.log('fieldComments: ', props.sdk.field.comments.get());
 
   const plugins = React.useMemo(
     () => getPlugins(props.sdk, props.onAction ?? noop, props.restrictedMarks),

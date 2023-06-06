@@ -56,26 +56,28 @@ export const enhanceContentfulDocWithComments = (document2: any, comments: Inlin
 
   for (let i = 0; i < comments?.length; i++) {
     // this assumes there is only one element in the json path
-    const commentedNode = get(document, comments[i].metadata.range[0]);
+    for (const range of comments[i].metadata.range) {
+      const commentedNode = get(document, range);
 
-    if (commentedNode) {
-      commentedNode.data = {
-        ...(commentedNode.data ?? {}),
-        comment: {
-          sys: {
-            type: 'Link',
-            linkType: 'Comment',
-            id: comments[i].sys.id,
+      if (commentedNode) {
+        commentedNode.data = {
+          ...(commentedNode.data ?? {}),
+          comment: {
+            sys: {
+              type: 'Link',
+              linkType: 'Comment',
+              id: comments[i].sys.id,
+            },
           },
-        },
-      };
-      if (!commentedNode.marks) commentedNode.marks = [];
+        };
+        if (!commentedNode.marks) commentedNode.marks = [];
 
-      if (
-        !(commentedNode.marks ?? []).find((mark: any) => mark.type === INLINE_COMMENT_HIGHLIGHT)
-      ) {
-        commentedNode.marks.push({ type: INLINE_COMMENT_HIGHLIGHT });
-        // commentedNode[INLINE_COMMENT_HIGHLIGHT] = true;
+        if (
+          !(commentedNode.marks ?? []).find((mark: any) => mark.type === INLINE_COMMENT_HIGHLIGHT)
+        ) {
+          commentedNode.marks.push({ type: INLINE_COMMENT_HIGHLIGHT });
+          // commentedNode[INLINE_COMMENT_HIGHLIGHT] = true;
+        }
       }
     }
     // console.log('commented node', commentedNode);

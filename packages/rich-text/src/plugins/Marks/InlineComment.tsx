@@ -16,17 +16,15 @@ export const ToolbarInlineCommentButton = createMarkToolbarButton({
   icon: <ChatBubbleIcon />,
   callback: (sdk, editor) => {
     const data = { comment: { temp: true } };
-    const selection = editor.selection;
-
-    // Apply the mark and data properties to the selected children
 
     // eslint-disable-next-line -- TODO: describe this disabl
     Transforms.setNodes(editor as BaseEditor, { data } as Partial<Node>, {
-      at: selection?.anchor.path,
+      match: (node) => {
+        return typeof (node as any).text !== 'undefined';
+      },
     });
 
     const ranges = findRanges(toContentfulDocument({ document: editor.children }), '', []);
-    console.log({ ranges });
 
     // window.Editor = Editor;
     (window as any).editor = editor;
