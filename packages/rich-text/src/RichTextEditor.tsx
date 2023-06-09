@@ -59,6 +59,31 @@ type ConnectedProps = {
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const id = getContentfulEditorId(props.sdk);
 
+  const [localComments, setLocalComments]: any = useState([]);
+
+  const listener: any = (e: any) => {
+    console.log('listener: ', { e });
+    setLocalComments([
+      ...localComments,
+      {
+        ...e.detail.comment,
+        metadata: {
+          range: e.detail.range,
+          originalText: 'Hello world',
+        },
+      },
+    ]);
+  };
+
+  useEffect(() => {
+    document.addEventListener(`comments:created` as any, listener);
+    return () => {
+      return document.removeEventListener(`comments:created`, listener);
+    };
+    /* eslint-disable */
+  }, []);
+  /* eslint-enable */
+
   // SHow comments right after they are created
   // const ranges = props.sdk.field.comments.get
   //   .map((comment) => `${comment.sys.id}${comment.metadata.range.sort()}`)
@@ -81,22 +106,28 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   // Does not show comments right after they are created but when you create new paragraphs it doesn't crash the content
   console.log({ localValue: props.value, sdkValue: props.sdk.field.getValue() });
 
-  const ranges = props.sdk.field.comments.get
-    .map((comment) => `${comment.sys.id}${comment.metadata.range.sort()}`)
-    .join(':');
+  // const ranges = props.sdk.field.comments.get
+  //   .map((comment) => `${comment.sys.id}${comment.metadata.range.sort()}`)
+  //   .join(':');
 
   const richTextValueEnrichedWithComments = useMemo(() => {
-    console.log('Recalculating...', props.sdk.field.getValue(), props.sdk.field.comments.get);
+    console.log(
+      'Recalculating...',
+      props.sdk.field.getValue(),
+      props.sdk.field.comments.get.concat(localComments)
+    );
 
     return enhanceContentfulDocWithComments(
       // props.sdk.field.getValue() as unknown as Contentful.Document,
       // FIXME: How can we grab the latest modified version of the document (In memory or from server?)
-      props.value as unknown as Contentful.Document,
-      props.sdk.field.comments.get
+      (localComments.length
+        ? props.sdk.field.getValue()
+        : props.value) as unknown as Contentful.Document,
+      props.sdk.field.comments.get.concat(localComments)
     );
     /* eslint-disable */
     // }, [props.value, props.sdk.field.comments.get.length]);
-  }, [props.value, props.sdk.field.comments.get.length, ranges]);
+  }, [props.value, props.sdk.field.comments.get.length, localComments]);
   /* eslint-enable */
 
   const plugins = React.useMemo(
@@ -197,8 +228,6 @@ const RichTextEditor = (props: Props) => {
     []
   );
 
-  console.log('re rendering: ', sdk.field.getValue());
-
   const id = getContentfulEditorId(props.sdk);
   return (
     <EntityProvider sdk={sdk}>
@@ -209,15 +238,15 @@ const RichTextEditor = (props: Props) => {
         isEmptyValue={isEmptyValue}
         isEqualValues={deepEquals}
       >
-        {({ lastRemoteValue, disabled, setValue, value }) => {
+        {({ lastRemoteValue, disabled, setValue }) => {
           // FIXME: Why do I have to use this value instead of lastRemoteValue?
-          console.log({ lastRemoteValue, sdk, value });
+          // console.log({ lastRemoteValue, sdk, value });
 
           return (
             <ConnectedRichTextEditor
               {...otherProps}
               key={`rich-text-editor-${id}`}
-              value={value}
+              value={lastRemoteValue}
               sdk={sdk}
               onAction={onAction}
               isDisabled={disabled}
