@@ -6,7 +6,8 @@ import { PlateEditor } from '../../internal/types';
 
 export function getCharacterCount(editor: PlateEditor) {
   const document = contentfulSlateJSAdapter.toContentfulDocument({
-    document: editor.children,
+    // eslint-disable-next-line -- parameter type is not exported @typescript-eslint/no-explicit-any
+    document: editor.children as any,
     schema: Schema,
   });
 

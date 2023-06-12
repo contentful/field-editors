@@ -428,12 +428,17 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
   });
 
   describe('Toggling', () => {
-    const blocks: [string, EmbedType][] = [
-      ['From Entry Block to Headings/Paragraph', 'entry-block'],
-      ['From Asset Block to Headings/Paragraph', 'asset-block'],
+    const blocks: [string, EmbedType, string][] = [
+      ['From Entry Block to Headings/Paragraph', 'entry-block', 'example-entity-id'],
+      ['From Asset Block to Headings/Paragraph', 'asset-block', 'example-entity-id'],
+      [
+        'From Resource Block to Headings/Paragraph',
+        'resource-block',
+        'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
+      ],
     ];
 
-    blocks.forEach(([title, blockType]) => {
+    blocks.forEach(([title, blockType, id]) => {
       describe(title, () => {
         headings.forEach(([type]) => {
           it(`should not carry over the "data" property from ${blockType} to ${type}`, () => {
@@ -442,7 +447,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
             richText.toolbar.embed(blockType);
 
-            richText.editor.find('[data-entity-id="example-entity-id"]').click();
+            richText.editor.find(`[data-entity-id="${id}"]`).click();
 
             richText.toolbar.toggleHeading(type);
 

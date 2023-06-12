@@ -2049,17 +2049,7 @@
     typescript "^4.0.5"
     yargs "16.1.1"
 
-"@contentful/contentful-slatejs-adapter@15.13.1":
-  version "15.13.1"
-  resolved "https://registry.yarnpkg.com/@contentful/contentful-slatejs-adapter/-/contentful-slatejs-adapter-15.13.1.tgz#1407b483183b3ac65c64c06c4ed842339b63305c"
-  integrity sha512-I02RuQYjrLmnTiy3C1xeOQyeh8yOTFS+5EGsfhATdCf/ipbbFmS5tHwPqwDCXzcK4Xf+73qJISh676mzU3RzYA==
-  dependencies:
-    "@contentful/rich-text-types" "^15.12.1"
-    lodash.flatmap "^4.5.0"
-    lodash.get "^4.4.2"
-    lodash.omit "^4.5.0"
-
-"@contentful/contentful-slatejs-adapter@^15.13.1":
+"@contentful/contentful-slatejs-adapter@^15.13.1", "@contentful/contentful-slatejs-adapter@^15.16.5":
   version "15.16.6"
   resolved "https://registry.yarnpkg.com/@contentful/contentful-slatejs-adapter/-/contentful-slatejs-adapter-15.16.6.tgz#6ea5c87790b12017ad422200eb2fb10a4d698215"
   integrity sha512-7/wFYKjx+QyaeigC4njXY1TnzZSR2s8Z7dZ/hSFxnKj6QhR86RsCkUl/in8M7WAmolSddeNsMhgIeyCRXWwoOQ==
@@ -2708,17 +2698,24 @@
   dependencies:
     "@contentful/rich-text-types" "^15.15.1"
 
-"@contentful/rich-text-react-renderer@^15.11.0":
+"@contentful/rich-text-plain-text-renderer@^16.0.4":
+  version "16.0.5"
+  resolved "https://registry.yarnpkg.com/@contentful/rich-text-plain-text-renderer/-/rich-text-plain-text-renderer-16.0.5.tgz#c834ec290af18ebbf7bee40fb012c9e058649641"
+  integrity sha512-Ab7SCLY5H+HSlAiV5Jf3/0Dn4wEZg/P2R5f8OwKLSTT7hrThORSxOHJxfY6hIBK8J3wzthBbNN2Bbz/eIEBCqw==
+  dependencies:
+    "@contentful/rich-text-types" "^16.2.0"
+
+"@contentful/rich-text-react-renderer@^15.16.4":
   version "15.16.5"
   resolved "https://registry.yarnpkg.com/@contentful/rich-text-react-renderer/-/rich-text-react-renderer-15.16.5.tgz#996d87311ca90ca08191408f8b148cdf5db68017"
   integrity sha512-VYWs0zA0yYf1d7Q+w18xHt5nK6Gme0X8wj9Hi0oSi8ZDtGPaluE77eOOdTtq7keawfts/O3/kyFLV18vnBVbSA==
   dependencies:
     "@contentful/rich-text-types" "^16.2.0"
 
-"@contentful/rich-text-types@15.14.1":
-  version "15.14.1"
-  resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-15.14.1.tgz#292f4560d67165af0ced1546a22ae77df96325ff"
-  integrity sha512-1sPVDz7MBuCCMWGvfZXQ06SqBTtlLN5GCP5ddU4c5tfatxVXhv2h80/pDCeTZVV2oCMw02YuNmBgql60+0oL4Q==
+"@contentful/rich-text-types@16.1.0":
+  version "16.1.0"
+  resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-16.1.0.tgz#2eea32439790abf857992167df68e82734934a3a"
+  integrity sha512-Pucb68FK0j9cHJ96FAewXv+bvH4XizC4KBbVqyHhPLkDIVfasj0AWU5rI1lnvysdVKu66NQkFe8xZdeFTkaLWQ==
 
 "@contentful/rich-text-types@^15.12.1", "@contentful/rich-text-types@^15.15.1":
   version "15.15.1"
@@ -19074,16 +19071,6 @@ lodash.deburr@^4.1.0:
   resolved "https://registry.yarnpkg.com/lodash.deburr/-/lodash.deburr-4.1.0.tgz#ddb1bbb3ef07458c0177ba07de14422cb033ff9b"
   integrity sha512-m/M1U1f3ddMCs6Hq2tAsYThTBDaAKFDX3dwDo97GEYzamXi9SqUpjWi/Rrj/gf3X2n8ktwgZrlP1z6E3v/IExQ==
 
-lodash.flatmap@^4.5.0:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/lodash.flatmap/-/lodash.flatmap-4.5.0.tgz#ef8cbf408f6e48268663345305c6acc0b778702e"
-  integrity sha512-/OcpcAGWlrZyoHGeHh3cAoa6nGdX6QYtmzNP84Jqol6UEQQ2gIaU3H+0eICcjcKGl0/XF8LWOujNn9lffsnaOg==
-
-lodash.get@^4.4.2:
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/lodash.get/-/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
-  integrity sha512-z+Uw/vLuy6gQe8cfaFWD7p0wVv8fJl3mbzXh33RS+0oW2wvUqiRXiQ69gLWSLpgB5/6sU+r6BlQR0MBILadqTQ==
-
 lodash.ismatch@^4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/lodash.ismatch/-/lodash.ismatch-4.4.0.tgz#756cb5150ca3ba6f11085a78849645f188f85f37"
@@ -19108,11 +19095,6 @@ lodash.merge@^4.6.2:
   version "4.6.2"
   resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
   integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
-
-lodash.omit@^4.5.0:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/lodash.omit/-/lodash.omit-4.5.0.tgz#6eb19ae5a1ee1dd9df0b969e66ce0b7fa30b5e60"
-  integrity sha512-XeqSp49hNGmlkj2EJlfrQFIzQ6lXdNro9sddtQzcJY8QaoC2GO0DT7xaIokHeyM+mIT0mPMlPvkYzg2xCuHdZg==
 
 lodash.once@^4.1.1:
   version "4.1.1"

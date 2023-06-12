@@ -135,7 +135,12 @@ function deleteEmptyParagraph(
         const [prevCell] = getNodeEntries(editor, {
           match: (node: Node) =>
             queryNode([node, prevNode.path], {
-              allow: [BLOCKS.EMBEDDED_ASSET, BLOCKS.EMBEDDED_ENTRY, BLOCKS.HR],
+              allow: [
+                BLOCKS.EMBEDDED_ASSET,
+                BLOCKS.EMBEDDED_ENTRY,
+                BLOCKS.EMBEDDED_RESOURCE,
+                BLOCKS.HR,
+              ],
             }),
           at: prevNode,
         });

@@ -17,7 +17,7 @@ import { MARKS } from '@contentful/rich-text-types';
 import type { Meta, StoryObj } from '@storybook/react';
 import { css } from 'emotion';
 
-import { assets, entries } from '../src/__fixtures__/fixtures';
+import { assets, contentTypes, entries, locales, spaces } from '../src/__fixtures__/fixtures';
 import RichTextEditor from '../src/RichTextEditor';
 import { validateRichTextDocument } from '../src/test-utils/validation';
 
@@ -54,6 +54,7 @@ const DemoRichTextEditor = () => {
         ? {
             sys: {
               id: 'example-entity-id',
+              urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
               type,
             },
           }
@@ -64,6 +65,7 @@ const DemoRichTextEditor = () => {
       ? {
           sys: {
             id: 'example-entity-id',
+            urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
             type,
           },
         }
@@ -101,11 +103,20 @@ const DemoRichTextEditor = () => {
       environment: 'environment-id',
     },
     cmaAdapter: createFakeCMAAdapter({
+      ContentType: {
+        get: () => Promise.resolve(contentTypes.published),
+      },
       Entry: {
         get: () => Promise.resolve(entries.published),
       },
       Asset: {
         get: () => Promise.resolve(assets.published),
+      },
+      Locale: {
+        getMany: () => Promise.resolve({ items: [locales.englishDefault] }),
+      },
+      Space: {
+        get: () => Promise.resolve(spaces.indifferent),
       },
     }),
     space: {
@@ -133,6 +144,10 @@ const DemoRichTextEditor = () => {
     dialogs: {
       selectSingleAsset: newEntitySelectorDummyDialog('selectSingleAsset', 'Asset'),
       selectSingleEntry: newEntitySelectorDummyDialog('selectSingleEntry', 'Entry'),
+      selectSingleResourceEntry: newEntitySelectorDummyDialog(
+        'selectSingleResourceEntry',
+        'Contentful:Entry'
+      ),
     },
     access: {
       can: (access: any, entityType: any) => {

@@ -12,8 +12,8 @@ describe('internal mark', () => {
     const data = [
       {
         title: 'Paragraph mark is removed',
-        input: toContentfulDocument(
-          (
+        input: toContentfulDocument({
+          document: (
             (
               <editor>
                 <hp>
@@ -21,10 +21,10 @@ describe('internal mark', () => {
                 </hp>
               </editor>
             ) as any
-          ).children
-        ),
-        expected: toContentfulDocument(
-          (
+          ).children,
+        }),
+        expected: toContentfulDocument({
+          document: (
             (
               <editor>
                 <hp>
@@ -32,13 +32,13 @@ describe('internal mark', () => {
                 </hp>
               </editor>
             ) as any
-          ).children
-        ),
+          ).children,
+        }),
       },
       {
         title: 'Heading mark is removed',
-        input: toContentfulDocument(
-          (
+        input: toContentfulDocument({
+          document: (
             (
               <editor>
                 <hh1>
@@ -46,10 +46,10 @@ describe('internal mark', () => {
                 </hh1>
               </editor>
             ) as any
-          ).children
-        ),
-        expected: toContentfulDocument(
-          (
+          ).children,
+        }),
+        expected: toContentfulDocument({
+          document: (
             (
               <editor>
                 <hh1>
@@ -57,13 +57,13 @@ describe('internal mark', () => {
                 </hh1>
               </editor>
             ) as any
-          ).children
-        ),
+          ).children,
+        }),
       },
       {
         title: 'Block quote mark is removed',
-        input: toContentfulDocument(
-          (
+        input: toContentfulDocument({
+          document: (
             (
               <editor>
                 <hquote>
@@ -73,10 +73,10 @@ describe('internal mark', () => {
                 </hquote>
               </editor>
             ) as any
-          ).children
-        ),
-        expected: toContentfulDocument(
-          (
+          ).children,
+        }),
+        expected: toContentfulDocument({
+          document: (
             (
               <editor>
                 <hquote>
@@ -86,13 +86,13 @@ describe('internal mark', () => {
                 </hquote>
               </editor>
             ) as any
-          ).children
-        ),
+          ).children,
+        }),
       },
       {
         title: 'Other marks are not removed',
-        input: toContentfulDocument(
-          (
+        input: toContentfulDocument({
+          document: (
             (
               <editor>
                 <hquote>
@@ -102,10 +102,10 @@ describe('internal mark', () => {
                 </hquote>
               </editor>
             ) as any
-          ).children
-        ),
-        expected: toContentfulDocument(
-          (
+          ).children,
+        }),
+        expected: toContentfulDocument({
+          document: (
             (
               <editor>
                 <hquote>
@@ -115,13 +115,13 @@ describe('internal mark', () => {
                 </hquote>
               </editor>
             ) as any
-          ).children
-        ),
+          ).children,
+        }),
       },
     ];
     for (const { input, expected, title } of data) {
       it(`${title}`, () => {
-        expect(removeInternalMarks(input)).toEqual(expected);
+        expect(removeInternalMarks(input as Record<string, any>)).toEqual(expected);
       });
     }
   });
