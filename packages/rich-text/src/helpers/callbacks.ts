@@ -23,9 +23,10 @@ export const createOnChangeCallback = (handler?: (value: Document) => void) => {
     const doc = removeInternalMarks(
       toContentfulDocument({
         // eslint-disable-next-line -- parameter type is not exported @typescript-eslint/no-explicit-any
-        document,
-        schema,
-      })
+        document: document as any,
+        schema: schema,
+        // eslint-disable-next-line -- parameter type is not exported @typescript-eslint/no-explicit-any
+      }) as any
     );
     // eslint-disable-next-line -- correct parameter type is not defined @typescript-eslint/no-explicit-any
     const cleanedDocument = removeInternalMarks(doc as Record<string, any>);
