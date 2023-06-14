@@ -4,6 +4,7 @@ import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import * as Contentful from '@contentful/rich-text-types';
+import { Document } from '@contentful/rich-text-types';
 import { Plate, PlateProvider } from '@udecode/plate-core';
 import { css, cx } from 'emotion';
 import deepEquals from 'fast-deep-equal';
@@ -39,11 +40,19 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
     [props.sdk, props.onAction, props.restrictedMarks]
   );
 
+  const handleChange = props.onChange;
+  const isFirstRender = React.useRef(true);
   const value = toSlateValue(props.value);
 
-  const onChange = React.useMemo(() => {
-    return createOnChangeCallback(props.onChange);
-  }, [props.onChange]);
+  const onChange = React.useMemo(
+    () =>
+      createOnChangeCallback((document: Document) => {
+        if (!isFirstRender.current && handleChange) {
+          handleChange(document);
+        }
+      }),
+    [handleChange]
+  );
 
   const classNames = cx(
     styles.editor,
@@ -75,6 +84,15 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
               editableProps={{
                 className: classNames,
                 readOnly: props.isDisabled,
+                onKeyDown: () => {
+                  isFirstRender.current = false;
+                },
+                onChange: () => {
+                  isFirstRender.current = false;
+                },
+                onClick: () => {
+                  isFirstRender.current = false;
+                },
               }}
             />
           </PlateProvider>
