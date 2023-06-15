@@ -53,6 +53,9 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
       }),
     [handleChange]
   );
+  const firstInteractionHandler = React.useCallback(() => {
+    isFirstRender.current = false;
+  }, [isFirstRender]);
 
   const classNames = cx(
     styles.editor,
@@ -84,15 +87,11 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
               editableProps={{
                 className: classNames,
                 readOnly: props.isDisabled,
-                onKeyDown: () => {
-                  isFirstRender.current = false;
-                },
-                onChange: () => {
-                  isFirstRender.current = false;
-                },
-                onClick: () => {
-                  isFirstRender.current = false;
-                },
+                // waits for the customer to interact with the editor before counting this
+                // as the first render. After this the intial normalization is done.
+                onKeyDown: firstInteractionHandler,
+                onChange: firstInteractionHandler,
+                onClick: firstInteractionHandler,
               }}
             />
           </PlateProvider>
