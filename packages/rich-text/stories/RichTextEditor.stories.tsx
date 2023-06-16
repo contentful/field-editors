@@ -46,6 +46,7 @@ const layoutStyle = css({
 
 const structurePreviewContainerStyle = css({
   height: 'calc(100vh - 35px)',
+  maxHeight: 700,
   overflowY: 'scroll',
 });
 
