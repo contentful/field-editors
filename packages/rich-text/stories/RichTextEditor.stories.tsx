@@ -20,6 +20,7 @@ import { css } from 'emotion';
 import { assets, contentTypes, entries, locales, spaces } from '../src/__fixtures__/fixtures';
 import RichTextEditor from '../src/RichTextEditor';
 import { validateRichTextDocument } from '../src/test-utils/validation';
+import { RichTextPreview } from './RichTextPreview';
 
 const meta: Meta<typeof RichTextEditor> = {
   title: 'editors/Rich Text Editor',
@@ -36,6 +37,18 @@ declare global {
     richTextField: FieldAPI;
   }
 }
+
+const layoutStyle = css({
+  display: 'grid',
+  gridTemplateColumns: '70% 1fr',
+  gap: '10px',
+});
+
+const structurePreviewContainerStyle = css({
+  minHeight: 'calc(100vh - 35px)',
+  maxHeight: 'calc(100vh - 35px)',
+  overflowY: 'scroll',
+});
 
 const DemoRichTextEditor = () => {
   window.actions = [];
@@ -73,6 +86,7 @@ const DemoRichTextEditor = () => {
   };
 
   const initialValue = JSON.parse(window.localStorage.getItem('initialValue') as any) || undefined;
+  const [currentValue, setCurrentValue] = React.useState({});
   const fieldValidations =
     JSON.parse(window.localStorage.getItem('fieldValidations') as any) || undefined;
   const [field, mitt] = useMemo(
@@ -173,6 +187,7 @@ const DemoRichTextEditor = () => {
   // Validate on change
   React.useEffect(() => {
     field.onValueChanged((value: any) => {
+      setCurrentValue(value);
       if (!value) {
         return mitt.emit('onSchemaErrorsChanged', []);
       }
@@ -199,16 +214,21 @@ const DemoRichTextEditor = () => {
   window.richTextField = field;
 
   return (
-    <div data-test-id="rich-text-editor-integration-test">
-      <RichTextEditor
-        sdk={sdk as unknown as FieldExtensionSDK}
-        onAction={onAction}
-        isInitiallyDisabled={isDisabled as boolean}
-        restrictedMarks={JSON.parse(window.localStorage.getItem('restrictedMarks') as any) || []}
-      />
+    <div className={layoutStyle}>
+      <div data-test-id="rich-text-editor-integration-test">
+        <RichTextEditor
+          sdk={sdk as unknown as FieldExtensionSDK}
+          onAction={onAction}
+          isInitiallyDisabled={isDisabled as boolean}
+          restrictedMarks={JSON.parse(window.localStorage.getItem('restrictedMarks') as any) || []}
+        />
 
-      <ValidationErrors field={field} locales={[] as any} />
-      <ActionsPlayground mitt={mitt} renderValue={renderRT} />
+        <ValidationErrors field={field} locales={[] as any} />
+        <ActionsPlayground mitt={mitt} renderValue={renderRT} />
+      </div>
+      <div data-test-id="rich-text-structure-preview" className={structurePreviewContainerStyle}>
+        <RichTextPreview value={JSON.stringify(currentValue, null, 2)} />
+      </div>
     </div>
   );
 };
