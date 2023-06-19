@@ -226,7 +226,11 @@ const DemoRichTextEditor = () => {
         <ValidationErrors field={field} locales={[] as any} />
         <ActionsPlayground mitt={mitt} renderValue={renderRT} />
       </div>
-      <div data-test-id="rich-text-structure-preview" className={structurePreviewContainerStyle}>
+      <div
+        data-test-id="rich-text-structure-preview"
+        className={structurePreviewContainerStyle}
+        style={{ display: 'none' }}
+      >
         <RichTextPreview value={JSON.stringify(currentValue, null, 2)} />
       </div>
     </div>
