@@ -3,7 +3,6 @@ import { createContext, useContext } from 'react';
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 
 import { usePlateEditorRef, usePlateEditorState } from './internal/hooks';
-import { Value, PlateEditor } from './internal/types';
 
 export function getContentfulEditorId(sdk: FieldExtensionSDK) {
   const { entry, field } = sdk;
@@ -36,7 +35,7 @@ export function useContentfulEditorId(id?: string) {
 // Use case: Toolbar icons, for example
 export function useContentfulEditor(id?: string) {
   const editorId = useContentfulEditorId(id);
-  const editor = usePlateEditorState<Value, PlateEditor>(editorId);
+  const editor = usePlateEditorState(editorId);
 
   return editor;
 }
@@ -44,7 +43,7 @@ export function useContentfulEditor(id?: string) {
 // This doesn't re-render when the value changes
 export function useContentfulEditorRef(id?: string) {
   const editorId = useContentfulEditorId(id);
-  const editor = usePlateEditorRef<Value, PlateEditor>(editorId);
+  const editor = usePlateEditorRef(editorId);
 
   return editor;
 }
