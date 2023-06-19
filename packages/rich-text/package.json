@@ -52,7 +52,7 @@
     "@udecode/plate-basic-marks": "18.15.0",
     "@udecode/plate-break": "18.15.0",
     "@udecode/plate-core": "18.15.0",
-    "@udecode/plate-list": "18.15.0",
+    "@udecode/plate-list": "21.3.2",
     "@udecode/plate-paragraph": "18.15.0",
     "@udecode/plate-reset-node": "18.15.0",
     "@udecode/plate-select": "18.15.0",
