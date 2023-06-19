@@ -187,7 +187,10 @@ const DemoRichTextEditor = () => {
   // Validate on change
   React.useEffect(() => {
     field.onValueChanged((value: any) => {
-      setCurrentValue(value);
+      // Set timeout cause setting this variable is re rendering the RichTextEditor, this causes some brittle tests
+      setTimeout(() => {
+        setCurrentValue(value);
+      }, 100);
       if (!value) {
         return mitt.emit('onSchemaErrorsChanged', []);
       }
