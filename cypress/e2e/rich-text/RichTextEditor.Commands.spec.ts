@@ -13,6 +13,7 @@ describe('Rich Text Editor - Commands', { viewportHeight: 2000 }, () => {
   let richText: RichTextPage;
 
   beforeEach(() => {
+    cy.viewport(1000, 2000);
     richText = new RichTextPage();
     richText.visit();
   });
