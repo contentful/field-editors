@@ -7,3 +7,4 @@ export { CreateEntryMenuTrigger } from './CreateEntryLinkButton/CreateEntryMenuT
 export { ScheduledIconWithTooltip } from './ScheduledIconWithTooltip/ScheduledIconWithTooltip';
 export { getScheduleTooltipContent } from './ScheduledIconWithTooltip/ScheduleTooltip';
 export { AssetThumbnail } from './AssetThumbnail/AssetThumbnail';
+export { ResourceEntityErrorCard } from './ResourceEntityErrorCard/ResourceEntityErrorCard';

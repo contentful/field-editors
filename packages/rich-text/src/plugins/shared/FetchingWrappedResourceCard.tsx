@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Entry, FieldExtensionSDK } from '@contentful/app-sdk';
 import { EntryCard } from '@contentful/f36-components';
 import {
-  MissingEntityCard,
+  ResourceEntityErrorCard,
   ResourceInfo,
   WrappedEntryCard,
   useResource,
@@ -22,18 +22,8 @@ interface InternalEntryCard {
 }
 
 const InternalEntryCard = React.memo((props: InternalEntryCard) => {
-  if (props.status === 'loading') {
+  if (props.data === undefined || props.status === 'loading') {
     return <EntryCard isLoading />;
-  }
-
-  if (!props.data || props.status === 'error') {
-    return (
-      <MissingEntityCard
-        entityType="Entry"
-        isDisabled={props.isDisabled}
-        onRemove={props.onRemove}
-      />
-    );
   }
 
   const { contentType, resource: entry, space } = props.data;
@@ -71,7 +61,7 @@ interface FetchingWrappedResourceCardProps {
 
 export const FetchingWrappedResourceCard = (props: FetchingWrappedResourceCardProps) => {
   const { link, onEntityFetchComplete } = props;
-  const { data, status } = useResource(link.linkType, link.urn);
+  const { data, status, error } = useResource(link.linkType, link.urn);
 
   React.useEffect(() => {
     if (status === 'success') {
@@ -79,10 +69,22 @@ export const FetchingWrappedResourceCard = (props: FetchingWrappedResourceCardPr
     }
   }, [onEntityFetchComplete, status]);
 
+  if (status === 'error') {
+    return (
+      <ResourceEntityErrorCard
+        error={error}
+        linkType={link.linkType}
+        isSelected={props.isSelected}
+        isDisabled={props.isDisabled}
+        onRemove={props.onRemove}
+      />
+    );
+  }
+
   return (
     <InternalEntryCard
-      // @TODO: check incompatible type
-      data={data as any}
+      // entry is the only currently supported  entity but TypeScript is not aware
+      data={data as ResourceInfo<Entry> | undefined}
       status={status}
       sdk={props.sdk}
       isDisabled={props.isDisabled}

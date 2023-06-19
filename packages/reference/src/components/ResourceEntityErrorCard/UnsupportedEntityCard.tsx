@@ -9,11 +9,11 @@ const styles = {
   }),
 };
 
-export function UnsupportedEntityCard(props: { entityType: string }) {
+export function UnsupportedEntityCard(props: { linkType: string; isSelected?: boolean }) {
   return (
-    <Card className={styles.card}>
+    <Card className={styles.card} isSelected={props.isSelected}>
       <SectionHeading marginBottom="none">
-        Resource type {props.entityType} is currently not supported
+        Resource type {props.linkType} is currently not supported
       </SectionHeading>
     </Card>
   );
