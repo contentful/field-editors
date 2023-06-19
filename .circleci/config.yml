@@ -143,6 +143,7 @@ workflows:
             alias: integration-tests-linux
             parameters:
               executor: [linux-cypress]
+              # firefox has been disabled temporarily until further investigation
               browser: [chrome, edge]
       - release:
           context: vault

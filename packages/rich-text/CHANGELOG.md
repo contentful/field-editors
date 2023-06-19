@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.6.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.6.0...@contentful/field-editor-rich-text@3.6.1) (2023-06-19)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
 # [3.6.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.5.0...@contentful/field-editor-rich-text@3.6.0) (2023-06-05)
 
 ### Features

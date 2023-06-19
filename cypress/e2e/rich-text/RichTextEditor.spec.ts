@@ -386,7 +386,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         .then((events) => events.filter((e) => e.type === 'onValueChanged'))
         .should('deep.equal', []);
 
-      getIframe().findByText('some text more text');
+      getIframe().find('li').contains('some text more text');
     });
 
     it('runs initial normalization without triggering a value change', () => {
@@ -396,20 +396,18 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       cy.wait(500);
 
       // Should render normalized content
-      richText.editor.should('contain.text', 'This is a hyperlink');
-      richText.editor.should('contain.text', 'This is a paragraph');
-      richText.editor.should('contain.text', 'Text with custom marks');
-
-      richText.editor.should('contain.text', 'paragraph inside list item');
-      richText.editor.should('contain.text', 'paragraph inside a nested list');
-      richText.editor.should('contain.text', 'blockquote inside list item');
-
-      richText.editor.should('contain.text', 'cell #1');
-      richText.editor.should('contain.text', 'cell #2');
-      richText.editor.should('contain.text', 'cell #3');
-      richText.editor.should('contain.text', 'cell #4');
-      richText.editor.should('contain.text', 'cell #5');
-      richText.editor.should('contain.text', 'cell #6');
+      richText.editor.contains('This is a hyperlink');
+      richText.editor.contains('This is a paragraph');
+      richText.editor.contains('Text with custom marks');
+      richText.editor.contains('paragraph inside list item');
+      richText.editor.contains('paragraph inside a nested list');
+      richText.editor.contains('blockquote inside list item');
+      richText.editor.contains('cell #1');
+      richText.editor.contains('cell #2');
+      richText.editor.contains('cell #3');
+      richText.editor.contains('cell #4');
+      richText.editor.contains('cell #5');
+      richText.editor.contains('cell #6');
 
       // The field value in this case will still be untouched (i.e. un-normalized)
       // since we won't trigger onChange.
