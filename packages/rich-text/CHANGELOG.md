@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.8.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.7.0...@contentful/field-editor-rich-text@3.8.0) (2023-06-20)
+
+### Features
+
+- **rich-text:** add preview of RTE structure in storybook ([#1431](https://github.com/contentful/field-editors/issues/1431)) ([2748bcc](https://github.com/contentful/field-editors/commit/2748bccae7bf06787ed83ad55ca62ed8f6a7b942))
+
 # [3.7.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.6.1...@contentful/field-editor-rich-text@3.7.0) (2023-06-20)
 
 ### Features
