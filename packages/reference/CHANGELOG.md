@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.12.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.11.0...@contentful/field-editor-reference@5.12.0) (2023-06-20)
+
+### Features
+
+- add more embedded resource block states ([#1433](https://github.com/contentful/field-editors/issues/1433)) ([0c0919a](https://github.com/contentful/field-editors/commit/0c0919acf37df23a1b2b769bb729ee5e66335ced))
+
 # [5.11.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.10.0...@contentful/field-editor-reference@5.11.0) (2023-06-05)
 
 ### Features
