@@ -4,6 +4,7 @@ export {
   getScheduleTooltipContent,
   ScheduledIconWithTooltip,
   AssetThumbnail,
+  ResourceEntityErrorCard,
   MissingEntityCard,
   CombinedLinkActions,
 } from './components';

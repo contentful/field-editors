@@ -9,11 +9,12 @@ import * as styles from './styles';
 export function MissingEntityCard(props: {
   entityType: ContentEntityType;
   asSquare?: boolean;
+  isSelected?: boolean;
   isDisabled: boolean;
   onRemove?: Function;
 }) {
   return (
-    <Card className={styles.card} testId="cf-ui-missing-entry-card">
+    <Card className={styles.card} testId="cf-ui-missing-entry-card" isSelected={props.isSelected}>
       <Flex alignItems="center" justifyContent="space-between">
         <div className={props.asSquare ? styles.squareCard : ''}>
           <SectionHeading marginBottom="none">

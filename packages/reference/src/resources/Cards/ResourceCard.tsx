@@ -4,11 +4,10 @@ import { useInView } from 'react-intersection-observer';
 import { EntryCard } from '@contentful/f36-components';
 import { SetRequired } from 'type-fest';
 
-import { isUnsupportedError, useResource } from '../../common/EntityStore';
-import { MissingEntityCard } from '../../components';
+import { useResource } from '../../common/EntityStore';
+import { ResourceEntityErrorCard } from '../../components';
 import { RenderDragFn, ResourceLink } from '../../types';
 import { CardActionsHandlers, ContentfulEntryCard, EntryRoute } from './ContentfulEntryCard';
-import { UnsupportedEntityCard } from './UnsupportedEntityCard';
 
 type ResourceCardProps = {
   index?: number;
@@ -43,12 +42,13 @@ function ExistingResourceCard(
     return <ContentfulEntryCard info={data} {...props} />;
   }
 
-  if (isUnsupportedError(error)) {
-    return <UnsupportedEntityCard entityType={resourceLink.sys.linkType} />;
-  }
-
   return (
-    <MissingEntityCard entityType="Entry" isDisabled={props.isDisabled} onRemove={props.onRemove} />
+    <ResourceEntityErrorCard
+      linkType={resourceLink.sys.linkType}
+      error={error}
+      isDisabled={props.isDisabled}
+      onRemove={props.onRemove}
+    />
   );
 }
 
