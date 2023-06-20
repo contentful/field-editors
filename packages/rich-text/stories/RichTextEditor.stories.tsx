@@ -3,6 +3,8 @@ import * as React from 'react';
 import { useMemo } from 'react';
 
 import { FieldAPI, FieldExtensionSDK } from '@contentful/app-sdk';
+import { IconButton } from '@contentful/f36-components';
+import { CopyIcon } from '@contentful/f36-icons';
 import {
   ActionsPlayground,
   createFakeCMAAdapter,
@@ -20,6 +22,7 @@ import { css } from 'emotion';
 import { assets, contentTypes, entries, locales, spaces } from '../src/__fixtures__/fixtures';
 import RichTextEditor from '../src/RichTextEditor';
 import { validateRichTextDocument } from '../src/test-utils/validation';
+import { RichTextPreview } from './RichTextPreview';
 
 const meta: Meta<typeof RichTextEditor> = {
   title: 'editors/Rich Text Editor',
@@ -36,6 +39,25 @@ declare global {
     richTextField: FieldAPI;
   }
 }
+
+const layoutStyle = css({
+  display: 'grid',
+  gridTemplateColumns: '70% 1fr',
+  gap: '10px',
+});
+
+const structurePreviewContainerStyle = css({
+  position: 'relative',
+  height: 'calc(100vh - 35px)',
+  maxHeight: 700,
+  overflowY: 'scroll',
+});
+
+const structurePreviewCopyButton = css({
+  position: 'absolute',
+  right: 0,
+  top: 8,
+});
 
 const DemoRichTextEditor = () => {
   window.actions = [];
@@ -73,6 +95,7 @@ const DemoRichTextEditor = () => {
   };
 
   const initialValue = JSON.parse(window.localStorage.getItem('initialValue') as any) || undefined;
+  const [currentValue, setCurrentValue] = React.useState({});
   const fieldValidations =
     JSON.parse(window.localStorage.getItem('fieldValidations') as any) || undefined;
   const [field, mitt] = useMemo(
@@ -173,6 +196,11 @@ const DemoRichTextEditor = () => {
   // Validate on change
   React.useEffect(() => {
     field.onValueChanged((value: any) => {
+      // Don't run the previewer in cypress tests as it causes re rendering of the RichTextEditor and some brittle tests
+      if (!window.location.search.includes('cypress')) {
+        setCurrentValue(value);
+      }
+
       if (!value) {
         return mitt.emit('onSchemaErrorsChanged', []);
       }
@@ -199,16 +227,58 @@ const DemoRichTextEditor = () => {
   window.richTextField = field;
 
   return (
-    <div data-test-id="rich-text-editor-integration-test">
-      <RichTextEditor
-        sdk={sdk as unknown as FieldExtensionSDK}
-        onAction={onAction}
-        isInitiallyDisabled={isDisabled as boolean}
-        restrictedMarks={JSON.parse(window.localStorage.getItem('restrictedMarks') as any) || []}
-      />
+    <div className={layoutStyle}>
+      <div data-test-id="rich-text-editor-integration-test">
+        <RichTextEditor
+          sdk={sdk as unknown as FieldExtensionSDK}
+          onAction={onAction}
+          isInitiallyDisabled={isDisabled as boolean}
+          restrictedMarks={JSON.parse(window.localStorage.getItem('restrictedMarks') as any) || []}
+        />
 
-      <ValidationErrors field={field} locales={[] as any} />
-      <ActionsPlayground mitt={mitt} renderValue={renderRT} />
+        <ValidationErrors field={field} locales={[] as any} />
+        <ActionsPlayground mitt={mitt} renderValue={renderRT} />
+      </div>
+      <div data-test-id="rich-text-structure-preview" className={structurePreviewContainerStyle}>
+        <IconButton
+          variant="transparent"
+          aria-label="Copy"
+          icon={<CopyIcon size="tiny" variant="positive" />}
+          className={structurePreviewCopyButton}
+          onClick={async () => {
+            // https://stackoverflow.com/a/65996386
+            async function copyToClipboard(textToCopy: string | null = '') {
+              // Navigator clipboard api needs a secure context (https)
+              if ((navigator as any).clipboard && window.isSecureContext) {
+                await (navigator as any).clipboard.writeText(textToCopy);
+              } else {
+                // Use the 'out of viewport hidden text area' trick
+                const textArea = document.createElement('textarea');
+                textArea.value = textToCopy ?? '';
+
+                // Move textarea out of the viewport so it's not visible
+                textArea.style.position = 'absolute';
+                textArea.style.left = '-999999px';
+
+                document.body.prepend(textArea);
+                textArea.select();
+
+                try {
+                  document.execCommand('copy');
+                } catch (error) {
+                  console.error(error);
+                } finally {
+                  textArea.remove();
+                }
+              }
+              alert('Copied');
+            }
+
+            await copyToClipboard(JSON.stringify(currentValue, null, 2));
+          }}
+        />
+        <RichTextPreview value={JSON.stringify(currentValue, null, 2)} />
+      </div>
     </div>
   );
 };

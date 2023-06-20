@@ -41,6 +41,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
   const cancelCommandPalette = () => action('cancelRichTextCommandPalette', 'command-palette');
 
   beforeEach(() => {
+    cy.viewport(1000, 2000);
     richText = new RichTextPage();
     richText.visit();
   });

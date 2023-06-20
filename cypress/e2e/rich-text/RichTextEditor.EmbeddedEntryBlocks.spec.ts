@@ -46,6 +46,7 @@ describe('Rich Text Editor - Embedded Entry Blocks', { viewportHeight: 2000 }, (
     });
 
   beforeEach(() => {
+    cy.viewport(1000, 2000);
     richText = new RichTextPage();
     richText.visit();
     cy.shouldConfirm(true);

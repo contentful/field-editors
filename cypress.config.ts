@@ -78,4 +78,5 @@ export default defineConfig({
     specPattern: 'cypress/component/**/*.spec.{js,ts,jsx,tsx}',
     excludeSpecPattern: ['**/__snapshots__/*', '**/__image_snapshots__/*'],
   },
+  video: false,
 });
