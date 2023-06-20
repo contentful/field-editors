@@ -10,7 +10,7 @@ export type EmbedType = 'entry-block' | 'asset-block' | 'resource-block' | 'entr
 
 export class RichTextPage {
   visit() {
-    cy.visit('/?path=/docs/editors-rich-text-editor--docs');
+    cy.visit('/?path=/docs/editors-rich-text-editor--docs&cypress');
     cy.wait(500);
     this.editor.should('be.visible');
   }

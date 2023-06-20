@@ -3,6 +3,8 @@ import * as React from 'react';
 import { useMemo } from 'react';
 
 import { FieldAPI, FieldExtensionSDK } from '@contentful/app-sdk';
+import { IconButton } from '@contentful/f36-components';
+import { CopyIcon } from '@contentful/f36-icons';
 import {
   ActionsPlayground,
   createFakeCMAAdapter,
@@ -45,9 +47,16 @@ const layoutStyle = css({
 });
 
 const structurePreviewContainerStyle = css({
+  position: 'relative',
   height: 'calc(100vh - 35px)',
   maxHeight: 700,
   overflowY: 'scroll',
+});
+
+const structurePreviewCopyButton = css({
+  position: 'absolute',
+  right: 0,
+  top: 8,
 });
 
 const DemoRichTextEditor = () => {
@@ -187,10 +196,11 @@ const DemoRichTextEditor = () => {
   // Validate on change
   React.useEffect(() => {
     field.onValueChanged((value: any) => {
-      // Set timeout cause setting this variable is re rendering the RichTextEditor, this causes some brittle tests
-      setTimeout(() => {
+      // Don't run the previewer in cypress tests as it causes re rendering of the RichTextEditor and some brittle tests
+      if (!window.location.search.includes('cypress')) {
         setCurrentValue(value);
-      }, 100);
+      }
+
       if (!value) {
         return mitt.emit('onSchemaErrorsChanged', []);
       }
@@ -230,6 +240,43 @@ const DemoRichTextEditor = () => {
         <ActionsPlayground mitt={mitt} renderValue={renderRT} />
       </div>
       <div data-test-id="rich-text-structure-preview" className={structurePreviewContainerStyle}>
+        <IconButton
+          variant="transparent"
+          aria-label="Copy"
+          icon={<CopyIcon size="tiny" variant="positive" />}
+          className={structurePreviewCopyButton}
+          onClick={async () => {
+            // https://stackoverflow.com/a/65996386
+            async function copyToClipboard(textToCopy: string | null = '') {
+              // Navigator clipboard api needs a secure context (https)
+              if ((navigator as any).clipboard && window.isSecureContext) {
+                await (navigator as any).clipboard.writeText(textToCopy);
+              } else {
+                // Use the 'out of viewport hidden text area' trick
+                const textArea = document.createElement('textarea');
+                textArea.value = textToCopy ?? '';
+
+                // Move textarea out of the viewport so it's not visible
+                textArea.style.position = 'absolute';
+                textArea.style.left = '-999999px';
+
+                document.body.prepend(textArea);
+                textArea.select();
+
+                try {
+                  document.execCommand('copy');
+                } catch (error) {
+                  console.error(error);
+                } finally {
+                  textArea.remove();
+                }
+              }
+              alert('Copied');
+            }
+
+            await copyToClipboard(JSON.stringify(currentValue, null, 2));
+          }}
+        />
         <RichTextPreview value={JSON.stringify(currentValue, null, 2)} />
       </div>
     </div>
