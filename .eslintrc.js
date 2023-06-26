@@ -4,8 +4,9 @@ module.exports = {
     require.resolve('@contentful/eslint-config-extension/react.js'),
     require.resolve('@contentful/eslint-config-extension/typescript.js'),
   ],
-  plugins: ['eslint-plugin-import-helpers'],
+  plugins: ['eslint-plugin-import-helpers', 'eslint-plugin-import'],
   rules: {
+    'import/extensions': ['error', 'always'],
     'import-helpers/order-imports': [
       'warn',
       {
@@ -14,5 +15,6 @@ module.exports = {
         alphabetize: { order: 'asc', ignoreCase: true },
       },
     ],
+    'import/extensions': ['error', 'ignorePackages'],
   },
 };
