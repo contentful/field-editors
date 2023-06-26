@@ -2023,6 +2023,11 @@
   resolved "https://registry.yarnpkg.com/@contentful/app-sdk/-/app-sdk-4.17.2.tgz#efb63d50905a9923ff21383b6bad388a36c10906"
   integrity sha512-UxbOUIhyJeRtEGb8b9vqbTlzJj3FxPEcb3Mkjn98zijqSD/DabEr9Z9XLnC7cR+mnoOXbPOJwKinTNsmiNjJbA==
 
+"@contentful/app-sdk@^4.21.1":
+  version "4.21.1"
+  resolved "https://registry.yarnpkg.com/@contentful/app-sdk/-/app-sdk-4.21.1.tgz#500ebc69d0a6a6cff5be888aee6cf11e55d602ae"
+  integrity sha512-sRaWKa18x3EWH84qYHT3W/yXsYKqijgPJgQhGZUcdX9Y3d38ZNOikt/FopE399s/MqyyfVJcM+CFHSC0JczAEw==
+
 "@contentful/browserslist-config@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@contentful/browserslist-config/-/browserslist-config-3.0.0.tgz#e1cc8bc1cecaec9406633ffaf600fb489a204273"
