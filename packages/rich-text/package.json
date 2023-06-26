@@ -38,7 +38,7 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@contentful/app-sdk": "^4.6.0",
+    "@contentful/app-sdk": "^4.21.1",
     "@contentful/contentful-slatejs-adapter": "^15.16.5",
     "@contentful/f36-components": "^4.20.6",
     "@contentful/f36-icons": "^4.1.1",
