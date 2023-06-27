@@ -16,15 +16,12 @@ export const createTestEditor = (options: {
 
   const sdk: FieldExtensionSDK = options.sdk ?? ({ field: { validation: [] } } as any);
 
-  const editor = createPlateEditor(
-    {
-      id: randomId('editor'),
-      editor: options.input,
-      plugins: options.plugins || getPlugins(sdk, trackingHandler),
-      normalizeInitialValue: false,
-    },
-    []
-  );
+  const editor = createPlateEditor({
+    id: randomId('editor'),
+    editor: options.input,
+    plugins: options.plugins || getPlugins(sdk, trackingHandler),
+    normalizeInitialValue: false,
+  });
 
   return {
     editor,

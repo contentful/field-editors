@@ -32,21 +32,22 @@ export type CreatePlateEditorOptions = Omit<
  */
 export const createPlateEditor = (
   options: CreatePlateEditorOptions,
-  initialValue: Value
+  initialValue?: Value
 ): PlateEditor => {
   // The base Slate editor that Plate adds the plugins on top.
   // This is needed to set the initial value
-  const editor = {
-    ...p.createTEditor<Value>(),
-    children: initialValue,
-  } as PlateEditor;
+  const editor = p.createTEditor<Value>() as PlateEditor;
+
+  if (initialValue) {
+    editor.children = initialValue;
+  }
 
   const plateEditor = p.createPlateEditor<Value, PlateEditor>({
-    // We intentionally set this before the `...option` to enable
-    // overriding the value in tests.
+    // We intentionally set the values before the `...option` to enable
+    // overriding them in tests.
+    editor,
     normalizeInitialValue: true,
     ...(options as p.CreatePlateEditorOptions<Value, PlateEditor>),
-    editor,
   });
 
   return plateEditor;
