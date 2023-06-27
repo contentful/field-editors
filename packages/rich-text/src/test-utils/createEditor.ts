@@ -1,8 +1,7 @@
 import { FieldExtensionSDK } from '@contentful/app-sdk';
-import { createPlateEditor } from '@udecode/plate-core';
 
-import { normalize } from '../internal';
-import { PlateEditor, PlatePlugin, Value } from '../internal/types';
+import { normalize, createPlateEditor } from '../internal';
+import { PlatePlugin } from '../internal/types';
 import { getPlugins } from '../plugins';
 import { RichTextTrackingActionHandler } from '../plugins/Tracking';
 import { randomId } from './randomId';
@@ -17,12 +16,15 @@ export const createTestEditor = (options: {
 
   const sdk: FieldExtensionSDK = options.sdk ?? ({ field: { validation: [] } } as any);
 
-  const editor = createPlateEditor<Value, PlateEditor>({
-    id: randomId('editor'),
-    editor: options.input,
-    // @ts-expect-error
-    plugins: options.plugins || getPlugins(sdk, trackingHandler),
-  });
+  const editor = createPlateEditor(
+    {
+      id: randomId('editor'),
+      editor: options.input,
+      plugins: options.plugins || getPlugins(sdk, trackingHandler),
+      normalizeInitialValue: false,
+    },
+    []
+  );
 
   return {
     editor,

@@ -9,10 +9,47 @@ export type CreatePlateEditorOptions = Omit<
 > & {
   plugins?: PlatePlugin[];
 };
-export const createPlateEditor = (options: CreatePlateEditorOptions = {}) => {
-  return p.createPlateEditor<Value, PlateEditor>(
-    options as p.CreatePlateEditorOptions<Value, PlateEditor>
-  );
+
+/**
+ * Creates a Plate editor and runs normalization (unless explicitly disabled).
+ *
+ * The only reason for this helper to exist is to run the initial normalization
+ * before mounting the Plate editor component which in turn avoids the false
+ * trigger of `onChange`.
+ *
+ * Background:
+ *
+ * Due to legacy behavior, it's possible to have "valid" RT document (based on
+ * the schema from rich-text-types) that doesn't make sense. For example, links
+ * with no text nodes?[1]. Solving that requires an initial normalization pass
+ * which modifies the slate tree by definition -> triggering onChange.
+ *
+ * The initial onChange trigger is undesirable as the user may not have touched
+ * the RT content yet or the editor is rendered as readonly.
+ *
+ * [1]: See cypress/e2e/rich-text/.../invalidDocumentNormalizable.js for more
+ *      examples.
+ */
+export const createPlateEditor = (
+  options: CreatePlateEditorOptions,
+  initialValue: Value
+): PlateEditor => {
+  // The base Slate editor that Plate adds the plugins on top.
+  // This is needed to set the initial value
+  const editor = {
+    ...p.createTEditor<Value>(),
+    children: initialValue,
+  } as PlateEditor;
+
+  const plateEditor = p.createPlateEditor<Value, PlateEditor>({
+    // We intentionally set this before the `...option` to enable
+    // overriding the value in tests.
+    normalizeInitialValue: true,
+    ...(options as p.CreatePlateEditorOptions<Value, PlateEditor>),
+    editor,
+  });
+
+  return plateEditor;
 };
 
 export const withoutNormalizing = (editor: PlateEditor, fn: () => boolean | void) => {
