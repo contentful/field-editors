@@ -38,17 +38,21 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const { sdk, onAction, restrictedMarks } = props;
 
   const id = getContentfulEditorId(sdk);
+  const plugins = React.useMemo(
+    () => getPlugins(sdk, onAction ?? noop, restrictedMarks),
+    [sdk, onAction, restrictedMarks]
+  );
+
   const handleChange = props.onChange;
 
   const initialValue = React.useMemo(() => {
     return toSlateValue(props.value);
   }, [props.value]);
 
-  const editor = React.useMemo(() => {
-    const plugins = getPlugins(sdk, onAction ?? noop, restrictedMarks);
-
-    return createPlateEditor({ plugins, disableCorePlugins }, initialValue);
-  }, [initialValue, onAction, restrictedMarks, sdk]);
+  const editor = React.useMemo(
+    () => createPlateEditor({ plugins, disableCorePlugins }, initialValue),
+    [initialValue, plugins]
+  );
 
   const onChange = React.useMemo(
     () =>
@@ -69,7 +73,13 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
     <SdkProvider sdk={sdk}>
       <ContentfulEditorIdProvider value={id}>
         <div className={styles.root} data-test-id="rich-text-editor">
-          <PlateProvider id={id} editor={editor} onChange={onChange}>
+          <PlateProvider
+            id={id}
+            editor={editor}
+            plugins={plugins}
+            disableCorePlugins={disableCorePlugins}
+            onChange={onChange}
+          >
             {!props.isToolbarHidden && (
               <StickyToolbarWrapper isDisabled={props.isDisabled}>
                 <Toolbar isDisabled={props.isDisabled} />
