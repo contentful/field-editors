@@ -4,7 +4,6 @@
   "compilerOptions": {
     "module": "esnext",
     "moduleResolution": "bundler",
-    "moduleResolution": "bundler",
     "lib": ["dom", "esnext"],
     "rootDir": "./src",
     "baseUrl": "./",
