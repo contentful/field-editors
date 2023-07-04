@@ -1,6 +1,7 @@
 import * as p from '@udecode/plate-core';
 import * as s from 'slate';
 
+import { normalize } from './transforms';
 import type { Value, PlateEditor, Location, PlatePlugin } from './types';
 
 export type CreatePlateEditorOptions = Omit<
@@ -10,9 +11,13 @@ export type CreatePlateEditorOptions = Omit<
   plugins?: PlatePlugin[];
 };
 
+export const createPlateEditor = (options: CreatePlateEditorOptions = {}) => {
+  return p.createPlateEditor<Value, PlateEditor>(
+    options as p.CreatePlateEditorOptions<Value, PlateEditor>
+  );
+};
+
 /**
- * Creates a Plate editor and runs normalization (unless explicitly disabled).
- *
  * The only reason for this helper to exist is to run the initial normalization
  * before mounting the Plate editor component which in turn avoids the false
  * trigger of `onChange`.
@@ -27,30 +32,25 @@ export type CreatePlateEditorOptions = Omit<
  * The initial onChange trigger is undesirable as the user may not have touched
  * the RT content yet or the editor is rendered as readonly.
  *
+ * Ideally, we should not initialize the editor twice but that's the only
+ * way that I could get this to work. Improvements are welcome.
+ *
  * [1]: See cypress/e2e/rich-text/.../invalidDocumentNormalizable.js for more
  *      examples.
  */
-export const createPlateEditor = (
+export const normalizeInitialValue = (
   options: CreatePlateEditorOptions,
   initialValue?: Value
-): PlateEditor => {
-  // The base Slate editor that Plate adds the plugins on top.
-  // This is needed to set the initial value
-  const editor = p.createTEditor<Value>() as PlateEditor;
+): Value => {
+  const editor = createPlateEditor(options);
 
   if (initialValue) {
     editor.children = initialValue;
   }
 
-  const plateEditor = p.createPlateEditor<Value, PlateEditor>({
-    // We intentionally set the values before the `...option` to enable
-    // overriding them in tests.
-    editor,
-    normalizeInitialValue: true,
-    ...(options as p.CreatePlateEditorOptions<Value, PlateEditor>),
-  });
+  normalize(editor, { force: true });
 
-  return plateEditor;
+  return editor.children;
 };
 
 export const withoutNormalizing = (editor: PlateEditor, fn: () => boolean | void) => {

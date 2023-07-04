@@ -13,7 +13,7 @@ import noop from 'lodash/noop';
 import { ContentfulEditorIdProvider, getContentfulEditorId } from './ContentfulEditorProvider';
 import { createOnChangeCallback } from './helpers/callbacks';
 import { toSlateValue } from './helpers/toSlateValue';
-import { createPlateEditor } from './internal/misc';
+import { normalizeInitialValue } from './internal/misc';
 import { getPlugins, disableCorePlugins } from './plugins';
 import { RichTextTrackingActionHandler } from './plugins/Tracking';
 import { styles } from './RichTextEditor.styles';
@@ -46,13 +46,14 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const handleChange = props.onChange;
 
   const initialValue = React.useMemo(() => {
-    return toSlateValue(props.value);
-  }, [props.value]);
-
-  const editor = React.useMemo(
-    () => createPlateEditor({ plugins, disableCorePlugins }, initialValue),
-    [initialValue, plugins]
-  );
+    return normalizeInitialValue(
+      {
+        plugins,
+        disableCorePlugins,
+      },
+      toSlateValue(props.value)
+    );
+  }, [props.value, plugins]);
 
   const onChange = React.useMemo(
     () =>
@@ -75,11 +76,10 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
         <div className={styles.root} data-test-id="rich-text-editor">
           <PlateProvider
             id={id}
-            editor={editor}
+            initialValue={initialValue}
             plugins={plugins}
             disableCorePlugins={disableCorePlugins}
-            onChange={onChange}
-          >
+            onChange={onChange}>
             {!props.isToolbarHidden && (
               <StickyToolbarWrapper isDisabled={props.isDisabled}>
                 <Toolbar isDisabled={props.isDisabled} />
@@ -117,8 +117,7 @@ const RichTextEditor = (props: Props) => {
         field={sdk.field}
         isInitiallyDisabled={isInitiallyDisabled}
         isEmptyValue={isEmptyValue}
-        isEqualValues={deepEquals}
-      >
+        isEqualValues={deepEquals}>
         {({ lastRemoteValue, disabled, setValue }) => (
           <ConnectedRichTextEditor
             {...otherProps}
