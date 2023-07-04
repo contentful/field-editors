@@ -13,6 +13,7 @@ import noop from 'lodash/noop';
 import { ContentfulEditorIdProvider, getContentfulEditorId } from './ContentfulEditorProvider';
 import { createOnChangeCallback } from './helpers/callbacks';
 import { toSlateValue } from './helpers/toSlateValue';
+import { normalizeInitialValue } from './internal/misc';
 import { getPlugins, disableCorePlugins } from './plugins';
 import { RichTextTrackingActionHandler } from './plugins/Tracking';
 import { styles } from './RichTextEditor.styles';
@@ -34,28 +35,33 @@ type ConnectedProps = {
 };
 
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
-  const id = getContentfulEditorId(props.sdk);
+  const { sdk, onAction, restrictedMarks } = props;
+
+  const id = getContentfulEditorId(sdk);
   const plugins = React.useMemo(
-    () => getPlugins(props.sdk, props.onAction ?? noop, props.restrictedMarks),
-    [props.sdk, props.onAction, props.restrictedMarks]
+    () => getPlugins(sdk, onAction ?? noop, restrictedMarks),
+    [sdk, onAction, restrictedMarks]
   );
 
   const handleChange = props.onChange;
-  const isFirstRender = React.useRef(true);
-  const value = toSlateValue(props.value);
+
+  const initialValue = React.useMemo(() => {
+    return normalizeInitialValue(
+      {
+        plugins,
+        disableCorePlugins,
+      },
+      toSlateValue(props.value)
+    );
+  }, [props.value, plugins]);
 
   const onChange = React.useMemo(
     () =>
       createOnChangeCallback((document: Document) => {
-        if (!isFirstRender.current && handleChange) {
-          handleChange(document);
-        }
+        handleChange?.(document);
       }),
     [handleChange]
   );
-  const firstInteractionHandler = React.useCallback(() => {
-    isFirstRender.current = false;
-  }, [isFirstRender]);
 
   const classNames = cx(
     styles.editor,
@@ -65,33 +71,26 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   );
 
   return (
-    <SdkProvider sdk={props.sdk}>
+    <SdkProvider sdk={sdk}>
       <ContentfulEditorIdProvider value={id}>
         <div className={styles.root} data-test-id="rich-text-editor">
           <PlateProvider
             id={id}
-            initialValue={value}
-            normalizeInitialValue={true}
+            initialValue={initialValue}
             plugins={plugins}
             disableCorePlugins={disableCorePlugins}
-            onChange={onChange}
-          >
+            onChange={onChange}>
             {!props.isToolbarHidden && (
               <StickyToolbarWrapper isDisabled={props.isDisabled}>
                 <Toolbar isDisabled={props.isDisabled} />
               </StickyToolbarWrapper>
             )}
-            <SyncEditorValue incomingValue={value} />
+            <SyncEditorValue incomingValue={initialValue} />
             <Plate
               id={id}
               editableProps={{
                 className: classNames,
                 readOnly: props.isDisabled,
-                // waits for the customer to interact with the editor before counting this
-                // as the first render. After this the intial normalization is done.
-                onKeyDown: firstInteractionHandler,
-                onChange: firstInteractionHandler,
-                onClick: firstInteractionHandler,
               }}
             />
           </PlateProvider>
@@ -118,8 +117,7 @@ const RichTextEditor = (props: Props) => {
         field={sdk.field}
         isInitiallyDisabled={isInitiallyDisabled}
         isEmptyValue={isEmptyValue}
-        isEqualValues={deepEquals}
-      >
+        isEqualValues={deepEquals}>
         {({ lastRemoteValue, disabled, setValue }) => (
           <ConnectedRichTextEditor
             {...otherProps}

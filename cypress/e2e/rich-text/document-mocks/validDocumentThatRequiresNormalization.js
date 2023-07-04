@@ -1,4 +1,9 @@
-// This document contains errors that must be solved with normalization:
+// Due to legacy behavior, it's possible to have a "valid" RT document (based
+// on the schema in rich-text-types) that doesn't necessarily make sense. For
+// example, a link node with no text node?
+//
+// Issues like this are expected to be solved with normalization (removal of
+// empty hyperlinks in the case above)
 export default {
   nodeType: 'document',
   data: {},
