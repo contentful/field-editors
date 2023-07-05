@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.13.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.12.0...@contentful/field-editor-reference@5.13.0) (2023-07-05)
+
+### Features
+
+- allow passing menuProps to the entry creation trigger [SPA-1278] ([#1441](https://github.com/contentful/field-editors/issues/1441)) ([655a6e0](https://github.com/contentful/field-editors/commit/655a6e052563500d8a27e7c1566d9facbcccd1b7))
+
 # [5.12.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.11.0...@contentful/field-editor-reference@5.12.0) (2023-06-20)
 
 ### Features

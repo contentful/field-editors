@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.8.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.8.1...@contentful/field-editor-rich-text@3.8.2) (2023-07-05)
+
+### Bug Fixes
+
+- **rich-text:** onChange callback is not triggered [TOL-1284] ([#1436](https://github.com/contentful/field-editors/issues/1436)) ([4b9d48c](https://github.com/contentful/field-editors/commit/4b9d48cdf12eaea31f4a06b17ff8f475e5c3c2d9))
+
 ## [3.8.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.8.0...@contentful/field-editor-rich-text@3.8.1) (2023-06-26)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
