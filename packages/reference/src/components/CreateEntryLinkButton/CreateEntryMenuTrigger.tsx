@@ -72,6 +72,7 @@ interface CreateEntryMenuTrigger {
   };
   customDropdownItems?: React.ReactNode;
   children: CreateEntryMenuTriggerChild;
+  menuProps?: MenuProps;
 }
 
 export const CreateEntryMenuTrigger = ({
@@ -85,6 +86,7 @@ export const CreateEntryMenuTrigger = ({
   },
   customDropdownItems,
   children,
+  menuProps,
 }: CreateEntryMenuTrigger) => {
   const [isOpen, setOpen] = useState(false);
   const [isSelecting, setSelecting] = useState(false);
@@ -171,6 +173,7 @@ export const CreateEntryMenuTrigger = ({
         isOpen={isOpen}
         onClose={closeMenu}
         onOpen={handleMenuOpen}
+        {...menuProps}
       >
         <Menu.Trigger>{children({ isOpen, isSelecting })}</Menu.Trigger>
 
