@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.13.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.13.0...@contentful/field-editor-reference@5.13.1) (2023-07-07)
+
+### Bug Fixes
+
+- type doesn't enforce children prop [SPA-1278] ([#1442](https://github.com/contentful/field-editors/issues/1442)) ([dc622eb](https://github.com/contentful/field-editors/commit/dc622ebf944f7e42507d4748807d7bab525f67bd))
+
 # [5.13.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.12.0...@contentful/field-editor-reference@5.13.0) (2023-07-05)
 
 ### Features
