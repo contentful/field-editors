@@ -72,7 +72,7 @@ interface CreateEntryMenuTrigger {
   };
   customDropdownItems?: React.ReactNode;
   children: CreateEntryMenuTriggerChild;
-  menuProps?: MenuProps;
+  menuProps?: Omit<MenuProps, 'children'>;
 }
 
 export const CreateEntryMenuTrigger = ({
