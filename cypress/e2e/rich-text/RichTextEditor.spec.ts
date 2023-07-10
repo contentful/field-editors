@@ -145,6 +145,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     });
 
     it('correctly undoes after drag&drop', () => {
+      cy.viewport(1200, 1200);
       cy.shouldConfirm(true);
       const paragraph = block(BLOCKS.PARAGRAPH, {}, text('some text.'));
       const docBeforeDragAndDrop = doc(paragraph, entryBlock(), emptyParagraph());
