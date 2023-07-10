@@ -1,7 +1,10 @@
 import * as React from 'react';
 
+import * as Contentful from '@contentful/rich-text-types';
+import { usePlateActions } from '@udecode/plate-core';
 import equal from 'fast-deep-equal';
 
+import { createOnChangeCallback } from './helpers/callbacks';
 import { usePlateSelectors } from './internal/hooks';
 import { withoutNormalizing } from './internal/misc';
 import { isNode, getEndPoint } from './internal/queries';
@@ -37,6 +40,7 @@ const setEditorContent = (editor: PlateEditor, nodes?: Node[]): void => {
 
 export type SyncEditorStateProps = {
   incomingValue?: Value;
+  onChange?: (doc: Contentful.Document) => unknown;
 };
 
 /**
@@ -47,8 +51,29 @@ export type SyncEditorStateProps = {
  * where we can no longer access the editor instance outside the Plate
  * provider.
  */
-export const SyncEditorValue = ({ incomingValue }: SyncEditorStateProps) => {
+export const SyncEditorValue = ({ incomingValue, onChange }: SyncEditorStateProps) => {
   const editor = usePlateSelectors().editor();
+  const setEditorOnChange = usePlateActions().onChange();
+
+  React.useEffect(() => {
+    const cb = createOnChangeCallback(onChange);
+
+    setEditorOnChange({
+      fn: (document) => {
+        console.log(editor.operations);
+        // Skip irrelevant events e.g. mouse selection
+        const operations = editor?.operations.filter((op) => {
+          return op.type !== 'set_selection';
+        });
+
+        if (operations.length === 0) {
+          return;
+        }
+
+        cb(document);
+      },
+    });
+  }, [editor, onChange, setEditorOnChange]);
 
   // Cache latest editor value to avoid unnecessary updates
   const lastIncomingValue = React.useRef(incomingValue);

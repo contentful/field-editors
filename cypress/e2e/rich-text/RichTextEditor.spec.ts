@@ -57,7 +57,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
   ];
 
   beforeEach(() => {
-    cy.viewport(1000, 2000);
+    cy.viewport(1280, 720);
     richText = new RichTextPage();
     richText.visit();
   });
@@ -392,7 +392,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
     // temporarily skipped. Snapshots don't match. Will be fixed in a follow up PR
     // eslint-disable-next-line
-    it.skip('runs initial normalization without triggering a value change', () => {
+    it('runs initial normalization without triggering a value change', () => {
       cy.setInitialValue(validDocumentThatRequiresNormalization);
 
       cy.reload();

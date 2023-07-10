@@ -4,14 +4,12 @@ import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import * as Contentful from '@contentful/rich-text-types';
-import { Document } from '@contentful/rich-text-types';
 import { Plate, PlateProvider } from '@udecode/plate-core';
 import { css, cx } from 'emotion';
 import deepEquals from 'fast-deep-equal';
 import noop from 'lodash/noop';
 
 import { ContentfulEditorIdProvider, getContentfulEditorId } from './ContentfulEditorProvider';
-import { createOnChangeCallback } from './helpers/callbacks';
 import { toSlateValue } from './helpers/toSlateValue';
 import { normalizeInitialValue } from './internal/misc';
 import { getPlugins, disableCorePlugins } from './plugins';
@@ -43,8 +41,6 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
     [sdk, onAction, restrictedMarks]
   );
 
-  const handleChange = props.onChange;
-
   const initialValue = React.useMemo(() => {
     return normalizeInitialValue(
       {
@@ -54,14 +50,6 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
       toSlateValue(props.value)
     );
   }, [props.value, plugins]);
-
-  const onChange = React.useMemo(
-    () =>
-      createOnChangeCallback((document: Document) => {
-        handleChange?.(document);
-      }),
-    [handleChange]
-  );
 
   const classNames = cx(
     styles.editor,
@@ -79,13 +67,13 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
             initialValue={initialValue}
             plugins={plugins}
             disableCorePlugins={disableCorePlugins}
-            onChange={onChange}>
+          >
             {!props.isToolbarHidden && (
               <StickyToolbarWrapper isDisabled={props.isDisabled}>
                 <Toolbar isDisabled={props.isDisabled} />
               </StickyToolbarWrapper>
             )}
-            <SyncEditorValue incomingValue={initialValue} />
+            <SyncEditorValue incomingValue={initialValue} onChange={props.onChange} />
             <Plate
               id={id}
               editableProps={{
@@ -117,7 +105,8 @@ const RichTextEditor = (props: Props) => {
         field={sdk.field}
         isInitiallyDisabled={isInitiallyDisabled}
         isEmptyValue={isEmptyValue}
-        isEqualValues={deepEquals}>
+        isEqualValues={deepEquals}
+      >
         {({ lastRemoteValue, disabled, setValue }) => (
           <ConnectedRichTextEditor
             {...otherProps}
