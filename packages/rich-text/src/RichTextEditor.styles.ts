@@ -15,6 +15,7 @@ export const styles = {
     fontSize: tokens.spacingM,
     fontFamily: tokens.fontStackPrimary,
     minHeight: '400px',
+    overflow: 'scroll',
     background: tokens.colorWhite,
     outline: 'none',
     whiteSpace: 'pre-wrap',

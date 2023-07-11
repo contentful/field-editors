@@ -26,6 +26,7 @@ type ConnectedProps = {
   sdk: FieldExtensionSDK;
   onAction?: RichTextTrackingActionHandler;
   minHeight?: string | number;
+  maxHeight?: string | number;
   value?: Contentful.Document;
   isDisabled?: boolean;
   onChange?: (doc: Contentful.Document) => unknown;
@@ -66,6 +67,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const classNames = cx(
     styles.editor,
     props.minHeight !== undefined ? css({ minHeight: props.minHeight }) : undefined,
+    props.maxHeight !== undefined ? css({ maxHeight: props.maxHeight }) : undefined,
     props.isDisabled ? styles.disabled : styles.enabled,
     props.isToolbarHidden && styles.hiddenToolbar
   );
@@ -79,7 +81,8 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
             initialValue={initialValue}
             plugins={plugins}
             disableCorePlugins={disableCorePlugins}
-            onChange={onChange}>
+            onChange={onChange}
+          >
             {!props.isToolbarHidden && (
               <StickyToolbarWrapper isDisabled={props.isDisabled}>
                 <Toolbar isDisabled={props.isDisabled} />
@@ -117,7 +120,8 @@ const RichTextEditor = (props: Props) => {
         field={sdk.field}
         isInitiallyDisabled={isInitiallyDisabled}
         isEmptyValue={isEmptyValue}
-        isEqualValues={deepEquals}>
+        isEqualValues={deepEquals}
+      >
         {({ lastRemoteValue, disabled, setValue }) => (
           <ConnectedRichTextEditor
             {...otherProps}
