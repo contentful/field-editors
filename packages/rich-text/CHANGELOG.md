@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.9.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.8.3...@contentful/field-editor-rich-text@3.9.0) (2023-07-11)
+
+### Features
+
+- add max height property to rich text editor [SPA-1200] ([#1447](https://github.com/contentful/field-editors/issues/1447)) ([750638c](https://github.com/contentful/field-editors/commit/750638cddf5f07716ff0d984b363b1e192173799))
+
 ## [3.8.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.8.2...@contentful/field-editor-rich-text@3.8.3) (2023-07-07)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
