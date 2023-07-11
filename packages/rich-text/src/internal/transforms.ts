@@ -2,6 +2,8 @@ import * as p from '@udecode/plate-core';
 import * as s from 'slate';
 import { Except } from 'type-fest';
 
+import { withoutNormalizing } from './misc';
+import { getEndPoint, isNode } from './queries';
 import {
   PlateEditor,
   Node,
@@ -148,4 +150,31 @@ export const deleteFragment = (
   options?: s.EditorFragmentDeletionOptions | undefined
 ) => {
   return p.deleteFragment(editor, options);
+};
+
+/**
+ * Plate api doesn't allow to modify (easily) the editor value
+ * programmatically after the editor instance is created.
+ *
+ * This function is inspired by:
+ * https://github.com/udecode/plate/issues/1269#issuecomment-1057643622
+ */
+export const setEditorValue = (editor: PlateEditor, nodes?: Node[]): void => {
+  // Replaces editor content while keeping change history
+  withoutNormalizing(editor, () => {
+    const children = [...editor.children];
+    children.forEach((node) => editor.apply({ type: 'remove_node', path: [0], node }));
+
+    if (nodes) {
+      const nodesArray = isNode(nodes) ? [nodes] : nodes;
+      nodesArray.forEach((node, i) => {
+        editor.apply({ type: 'insert_node', path: [i], node });
+      });
+    }
+
+    const point = getEndPoint(editor, []);
+    if (point) {
+      select(editor, point);
+    }
+  });
 };

@@ -16,7 +16,7 @@ import { getPlugins, disableCorePlugins } from './plugins';
 import { RichTextTrackingActionHandler } from './plugins/Tracking';
 import { styles } from './RichTextEditor.styles';
 import { SdkProvider } from './SdkProvider';
-import { SyncEditorValue } from './SyncEditorValue';
+import { SyncEditorChanges } from './SyncEditorChanges';
 import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/components/StickyToolbarWrapper';
 
@@ -73,7 +73,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
                 <Toolbar isDisabled={props.isDisabled} />
               </StickyToolbarWrapper>
             )}
-            <SyncEditorValue incomingValue={initialValue} onChange={props.onChange} />
+            <SyncEditorChanges incomingValue={initialValue} onChange={props.onChange} />
             <Plate
               id={id}
               editableProps={{
