@@ -2,7 +2,6 @@ import * as p from '@udecode/plate-core';
 import * as s from 'slate';
 import { Except } from 'type-fest';
 
-import { withoutNormalizing } from './misc';
 import { getEndPoint, isNode } from './queries';
 import {
   PlateEditor,
@@ -29,6 +28,10 @@ export const normalize = (
   options: s.EditorNormalizeOptions = { force: true }
 ) => {
   return p.normalizeEditor(editor, options);
+};
+
+export const withoutNormalizing = (editor: PlateEditor, fn: () => boolean | void) => {
+  return p.withoutNormalizing(editor, fn);
 };
 
 /**

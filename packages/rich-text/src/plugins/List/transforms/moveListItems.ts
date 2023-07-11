@@ -4,7 +4,7 @@
  */
 import { isListNested, ELEMENT_LIC, getListItemEntry, moveListItemUp } from '@udecode/plate-list';
 
-import { withoutNormalizing } from '../../../internal/misc';
+import { withoutNormalizing } from '../../../internal';
 import {
   getNodeEntries,
   getPluginType,

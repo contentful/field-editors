@@ -53,10 +53,6 @@ export const normalizeInitialValue = (
   return editor.children;
 };
 
-export const withoutNormalizing = (editor: PlateEditor, fn: () => boolean | void) => {
-  return p.withoutNormalizing(editor, fn);
-};
-
 export const focusEditor = (editor: PlateEditor, target?: Location) => {
   p.focusEditor(editor, target);
 };
