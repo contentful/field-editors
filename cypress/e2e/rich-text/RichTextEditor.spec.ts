@@ -391,8 +391,6 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       getIframe().find('li').contains('some text more text');
     });
 
-    // temporarily skipped. Snapshots don't match. Will be fixed in a follow up PR
-    // eslint-disable-next-line
     it('runs initial normalization without triggering a value change', () => {
       cy.setInitialValue(validDocumentThatRequiresNormalization);
 
