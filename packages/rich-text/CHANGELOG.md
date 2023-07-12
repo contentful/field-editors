@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.9.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.9.0...@contentful/field-editor-rich-text@3.9.1) (2023-07-12)
+
+### Bug Fixes
+
+- skip set_selection onChange events ([#1443](https://github.com/contentful/field-editors/issues/1443)) ([fb835a2](https://github.com/contentful/field-editors/commit/fb835a2fab7c760064f15cccdbd58aa6317182b1))
+
 # [3.9.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.8.3...@contentful/field-editor-rich-text@3.9.0) (2023-07-11)
 
 ### Features
