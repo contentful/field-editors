@@ -4,7 +4,7 @@
  */
 import { getListTypes } from '@udecode/plate-list';
 
-import { withoutNormalizing } from '../../../internal/misc';
+import { withoutNormalizing } from '../../../internal';
 import {
   getNodeEntry,
   getNodeChildren,

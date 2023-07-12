@@ -57,7 +57,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
   ];
 
   beforeEach(() => {
-    cy.viewport(1000, 2000);
+    cy.viewport(1280, 720);
     richText = new RichTextPage();
     richText.visit();
   });
@@ -145,6 +145,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     });
 
     it('correctly undoes after drag&drop', () => {
+      cy.viewport(1200, 1200);
       cy.shouldConfirm(true);
       const paragraph = block(BLOCKS.PARAGRAPH, {}, text('some text.'));
       const docBeforeDragAndDrop = doc(paragraph, entryBlock(), emptyParagraph());
@@ -390,9 +391,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       getIframe().find('li').contains('some text more text');
     });
 
-    // temporarily skipped. Snapshots don't match. Will be fixed in a follow up PR
-    // eslint-disable-next-line
-    it.skip('runs initial normalization without triggering a value change', () => {
+    it('runs initial normalization without triggering a value change', () => {
       cy.setInitialValue(validDocumentThatRequiresNormalization);
 
       cy.reload();

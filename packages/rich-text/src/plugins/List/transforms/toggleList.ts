@@ -6,8 +6,8 @@ import { BLOCKS } from '@contentful/rich-text-types';
 import { ELEMENT_LIC } from '@udecode/plate-list';
 import { getListItemEntry } from '@udecode/plate-list';
 
+import { withoutNormalizing } from '../../../internal';
 import { ELEMENT_DEFAULT } from '../../../internal/constants';
-import { withoutNormalizing } from '../../../internal/misc';
 import {
   findNode,
   getNodeEntries,
