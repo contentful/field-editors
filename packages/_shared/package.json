@@ -42,8 +42,7 @@
     "@contentful/f36-note": "^4.2.8",
     "@contentful/f36-tokens": "^4.0.0",
     "emotion": "^10.0.17",
-    "lodash": "^4.17.15",
-    "lodash-es": "^4.17.21"
+    "lodash": "^4.17.15"
   },
   "peerDependencies": {
     "@contentful/app-sdk": "^4.2.0",

@@ -3,7 +3,7 @@ import * as React from 'react';
 import { NavigatorSlideInfo } from '@contentful/app-sdk';
 import { Button, Card, Heading, Note, Paragraph } from '@contentful/f36-components';
 import { Entry } from '@contentful/field-editor-shared';
-import { cloneDeep, set } from 'lodash-es';
+import { cloneDeep, set } from 'lodash';
 
 import { CombinedLinkActions, MultipleEntryReferenceEditor } from '../../../packages/reference/src';
 import { Entity, Link } from '../../../packages/reference/src/types';

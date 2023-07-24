@@ -14,5 +14,6 @@ module.exports = {
         alphabetize: { order: 'asc', ignoreCase: true },
       },
     ],
+    'no-restricted-imports': ['warn'],
   },
 };
