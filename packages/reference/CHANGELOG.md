@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.13.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.13.1...@contentful/field-editor-reference@5.13.2) (2023-07-25)
+
+### Bug Fixes
+
+- remove lodash-es to fix cjs issues [TOL-1346] ([#1452](https://github.com/contentful/field-editors/issues/1452)) ([0147baa](https://github.com/contentful/field-editors/commit/0147baaad26e4a9b2ac5653b9c23f1f9ae4a9f33))
+
 ## [5.13.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.13.0...@contentful/field-editor-reference@5.13.1) (2023-07-07)
 
 ### Bug Fixes
