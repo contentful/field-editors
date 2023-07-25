@@ -5,6 +5,8 @@ import { BLOCKS } from '@contentful/rich-text-types';
 import { block, document as doc, text } from '../../../packages/rich-text/src/helpers/nodeFactory';
 import { getIframe } from '../../fixtures/utils';
 import documentWithLinks from './document-mocks/documentWithLinks';
+import newLineEntityBlockListItem from './document-mocks/newLineEntityBlockListItem';
+import normalizationWithoutValueChange from './document-mocks/normalizationWithoutValueChange';
 import validDocumentThatRequiresNormalization from './document-mocks/validDocumentThatRequiresNormalization';
 import { EmbedType, RichTextPage } from './RichTextPage';
 
@@ -267,7 +269,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           .type(`{${mod}+shift+e}`)
           .type('{enter}');
 
-        richText.expectSnapshotValue();
+        richText.expectValue(newLineEntityBlockListItem);
         cy.unsetShouldConfirm();
       });
     });
@@ -423,7 +425,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       // Trigger normalization by changing the editor content
       richText.editor.type('end');
 
-      richText.expectSnapshotValue();
+      richText.expectValue(normalizationWithoutValueChange);
     });
   });
 

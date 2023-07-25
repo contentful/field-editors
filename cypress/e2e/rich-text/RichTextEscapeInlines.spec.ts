@@ -1,4 +1,7 @@
 /* eslint-disable mocha/no-setup-in-describe */
+import { BLOCKS, INLINES } from '@contentful/rich-text-types';
+
+import { block, document as doc, text } from '../../../packages/rich-text/src/helpers/nodeFactory';
 import { RichTextPage } from './RichTextPage';
 
 describe('Rich Text Lists', () => {
@@ -22,6 +25,16 @@ describe('Rich Text Lists', () => {
 
     richText.editor.click().type('outside the link');
 
-    richText.expectSnapshotValue();
+    const expectedValue = doc(
+      block(
+        BLOCKS.PARAGRAPH,
+        {},
+        text(''),
+        block(INLINES.HYPERLINK, { uri: 'https://example.com' }, text('link')),
+        text('outside the link')
+      )
+    );
+
+    richText.expectValue(expectedValue);
   });
 });

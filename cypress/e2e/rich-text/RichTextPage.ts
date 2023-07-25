@@ -114,23 +114,6 @@ export class RichTextPage {
     this.expectNoValidationErrors();
   }
 
-  expectSnapshotValue() {
-    // we want to make sure any kind of debounced behavior
-    // is already triggered before we go on and assert the
-    // content of the field in any test. Using cy.clock()
-    // doesn't work for some reason
-    // eslint-disable-next-line
-    cy.wait(500);
-
-    cy.getRichTextField().then((field) => {
-      //@ts-expect-error cypress-plugin-snapshots doesn't have type definitions
-      cy.wrap(field.getValue()).snapshot();
-    });
-
-    // There can't be any validation error
-    this.expectNoValidationErrors();
-  }
-
   expectNoValidationErrors() {
     cy.editorEvents()
       .then((events) => {

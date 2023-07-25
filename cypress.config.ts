@@ -30,7 +30,6 @@ export default defineConfig({
     },
     baseUrl: 'http://localhost:9000',
     specPattern: 'cypress/e2e/**/*.spec.*',
-    excludeSpecPattern: ['**/__snapshots__/*', '**/__image_snapshots__/*'],
   },
   component: {
     setupNodeEvents(on, config) {
@@ -76,7 +75,6 @@ export default defineConfig({
       },
     },
     specPattern: 'cypress/component/**/*.spec.{js,ts,jsx,tsx}',
-    excludeSpecPattern: ['**/__snapshots__/*', '**/__image_snapshots__/*'],
   },
   video: false,
 });

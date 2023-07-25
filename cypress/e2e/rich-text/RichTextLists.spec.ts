@@ -1,7 +1,12 @@
 /* eslint-disable mocha/no-setup-in-describe */
-import { BLOCKS } from '@contentful/rich-text-types';
+import { BLOCKS, MARKS } from '@contentful/rich-text-types';
 
-import { document as doc, block, text } from '../../../packages/rich-text/src/helpers/nodeFactory';
+import {
+  document as doc,
+  block,
+  text,
+  mark,
+} from '../../../packages/rich-text/src/helpers/nodeFactory';
 import { RichTextPage } from './RichTextPage';
 
 describe('Rich Text Lists', () => {
@@ -85,7 +90,20 @@ describe('Rich Text Lists', () => {
     // toggle off
     toolbar.ul.click();
 
-    richText.expectSnapshotValue();
+    const expectedValue = doc(
+      block(BLOCKS.EMBEDDED_ENTRY, {
+        target: {
+          sys: {
+            id: 'example-entity-id',
+            linkType: 'Entry',
+            type: 'Link',
+          },
+        },
+      }),
+      block(BLOCKS.PARAGRAPH, {}, text(''))
+    );
+
+    richText.expectValue(expectedValue);
   });
 
   lists.forEach((test) => {
@@ -126,7 +144,9 @@ describe('Rich Text Lists', () => {
 
         editor.click().type('{backspace}');
 
-        richText.expectSnapshotValue();
+        const expectedValue = doc(emptyParagraph(), emptyParagraph());
+
+        richText.expectValue(expectedValue);
       });
 
       it('backspace on an empty nested list item should remove it', () => {
@@ -161,7 +181,9 @@ describe('Rich Text Lists', () => {
         editor.type('{leftArrow}{leftArrow}{leftArrow}');
         editor.type('{backspace}');
 
-        richText.expectSnapshotValue();
+        const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('abc')), emptyParagraph());
+
+        richText.expectValue(expectedValue);
       });
 
       it('should untoggle the list', () => {
@@ -294,7 +316,30 @@ describe('Rich Text Lists', () => {
         richText.editor.type('{enter}');
         richText.editor.type('more italic text');
 
-        richText.expectSnapshotValue();
+        const expectedValue = doc(
+          block(
+            test.listType,
+            {},
+            block(
+              BLOCKS.LIST_ITEM,
+              {},
+              block(
+                BLOCKS.PARAGRAPH,
+                {},
+                text('bold ', [mark(MARKS.BOLD)]),
+                text('italic', [mark(MARKS.ITALIC)])
+              )
+            ),
+            block(
+              BLOCKS.LIST_ITEM,
+              {},
+              block(BLOCKS.PARAGRAPH, {}, text('more italic text', [mark(MARKS.ITALIC)]))
+            )
+          ),
+          block(BLOCKS.PARAGRAPH, {}, text(''))
+        );
+
+        richText.expectValue(expectedValue);
       });
 
       it('should move nested list items when parent is invalid', () => {
@@ -308,7 +353,26 @@ describe('Rich Text Lists', () => {
           .trigger('keydown', keys.tab)
           .type('{downarrow}{backspace}{backspace}');
 
-        richText.expectSnapshotValue();
+        const expectedValue = doc(
+          block(
+            test.listType,
+            {},
+            block(
+              BLOCKS.LIST_ITEM,
+              {},
+              block(BLOCKS.PARAGRAPH, {}, text('1')),
+              block(
+                test.listType,
+                {},
+                block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.PARAGRAPH, {}, text('2')))
+              )
+            ),
+            block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.PARAGRAPH, {}, text('4')))
+          ),
+          block(BLOCKS.PARAGRAPH, {}, text(''))
+        );
+
+        richText.expectValue(expectedValue);
       });
 
       describe('switching off the list', () => {
@@ -322,7 +386,22 @@ describe('Rich Text Lists', () => {
           // switch the list off
           test.getList().click();
 
-          richText.expectSnapshotValue();
+          const expectedValue = doc(
+            block(BLOCKS.PARAGRAPH, {}, text('A paragraph')),
+            block(BLOCKS.EMBEDDED_ENTRY, {
+              target: {
+                sys: {
+                  id: 'example-entity-id',
+                  type: 'Link',
+                  linkType: 'Entry',
+                },
+              },
+            }),
+            block(BLOCKS.PARAGRAPH, {}, text('')),
+            block(BLOCKS.PARAGRAPH, {}, text(''))
+          );
+
+          richText.expectValue(expectedValue);
         });
 
         it('it raises the non-first list item entirely', () => {
@@ -338,7 +417,49 @@ describe('Rich Text Lists', () => {
           // switch the list off
           test.getList().click();
 
-          richText.expectSnapshotValue();
+          const expectedValue = doc(
+            block(
+              test.listType,
+              {},
+              block(
+                BLOCKS.LIST_ITEM,
+                {},
+                block(BLOCKS.PARAGRAPH, {}, text('A paragraph')),
+                block(BLOCKS.EMBEDDED_ENTRY, {
+                  target: {
+                    sys: {
+                      id: 'example-entity-id',
+                      type: 'Link',
+                      linkType: 'Entry',
+                    },
+                  },
+                })
+              )
+            ),
+            block(BLOCKS.PARAGRAPH, {}, text('Another paragraph')),
+            block(BLOCKS.EMBEDDED_ENTRY, {
+              target: {
+                sys: {
+                  id: 'example-entity-id',
+                  type: 'Link',
+                  linkType: 'Entry',
+                },
+              },
+            }),
+            block(
+              test.listType,
+              {},
+              block(
+                BLOCKS.LIST_ITEM,
+                {},
+                block(BLOCKS.PARAGRAPH, {}, text('Another paragraph again')),
+                block(BLOCKS.PARAGRAPH, {}, text(''))
+              )
+            ),
+            block(BLOCKS.PARAGRAPH, {}, text(''))
+          );
+
+          richText.expectValue(expectedValue);
         });
       });
     });
