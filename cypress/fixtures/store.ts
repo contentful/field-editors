@@ -1,5 +1,5 @@
 import { MRActions } from 'contentful-management';
-import { get, set, cloneDeep } from 'lodash-es';
+import { cloneDeep, get, set } from 'lodash';
 
 import {
   assets,
