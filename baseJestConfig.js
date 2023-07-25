@@ -5,9 +5,6 @@ function getConfig(packageName) {
     testEnvironment: 'jsdom',
     modulePathIgnorePatterns: ['<rootDir>/dist/'],
     testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
-    moduleNameMapper: {
-      '^lodash-es$': 'lodash',
-    },
     reporters: [
       'default',
       [

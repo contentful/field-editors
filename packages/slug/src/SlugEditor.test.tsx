@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
 import { cleanup, configure, fireEvent, render, waitFor } from '@testing-library/react';
-import identity from 'lodash/identity';
 
 import '@testing-library/jest-dom/extend-expect';
 import { SlugEditor } from './SlugEditor';
@@ -10,14 +9,6 @@ import { SlugEditor } from './SlugEditor';
 configure({
   testIdAttribute: 'data-test-id',
 });
-
-jest.mock(
-  'lodash/throttle',
-  () => ({
-    default: identity,
-  }),
-  { virtual: true }
-);
 
 jest.mock('use-debounce', () => ({
   useDebounce: (text: string) => [text],
