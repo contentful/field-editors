@@ -8,12 +8,10 @@
 // https://on.cypress.io/custom-commands
 // ***********************************************
 
-import { register } from '@cypress/snapshot';
 import { configure } from '@testing-library/cypress';
 import { getIframeWindow } from '../fixtures/utils';
 import '@testing-library/cypress/add-commands';
 
-register();
 configure({ testIdAttribute: 'data-test-id' });
 
 Cypress.Commands.add('editorEvents', (lastN = Infinity) => {

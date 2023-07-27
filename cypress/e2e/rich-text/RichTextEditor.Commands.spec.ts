@@ -1,6 +1,6 @@
 /* eslint-disable mocha/no-setup-in-describe */
 
-import { BLOCKS } from '@contentful/rich-text-types';
+import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 
 import { block, document as doc, text } from '../../../packages/rich-text/src/helpers/nodeFactory';
 import { getIframe } from '../../fixtures/utils';
@@ -75,7 +75,19 @@ describe('Rich Text Editor - Commands', { viewportHeight: 2000 }, () => {
       getCommandList().findByText('Embed Example Content Type - Inline').click();
       getCommandList().findByText('Hello world').click();
 
-      richText.expectSnapshotValue();
+      const expectedValue = doc(
+        block(
+          BLOCKS.PARAGRAPH,
+          {},
+          text(),
+          block(INLINES.EMBEDDED_ENTRY, {
+            target: { sys: { id: 'exampleCT', type: 'Link', linkType: 'Entry' } },
+          }),
+          text()
+        )
+      );
+
+      richText.expectValue(expectedValue);
     });
 
     it('should embed asset', () => {
@@ -83,7 +95,15 @@ describe('Rich Text Editor - Commands', { viewportHeight: 2000 }, () => {
       getCommandList().findByText('Embed Asset').click();
       getCommandList().findByText('test').click();
 
-      richText.expectSnapshotValue();
+      const expectedValue = doc(
+        block(BLOCKS.PARAGRAPH, {}, text()),
+        block(BLOCKS.EMBEDDED_ASSET, {
+          target: { sys: { id: 'published_asset', type: 'Link', linkType: 'Asset' } },
+        }),
+        block(BLOCKS.PARAGRAPH, {}, text())
+      );
+
+      richText.expectValue(expectedValue);
     });
 
     it('should delete command after embedding', () => {
@@ -113,7 +133,20 @@ describe('Rich Text Editor - Commands', { viewportHeight: 2000 }, () => {
       richText.editor.click().type('/{downarrow}{enter}{enter}');
 
       richText.editor.findByTestId('embedded-entry-inline').should('exist');
-      richText.expectSnapshotValue();
+
+      const expectedValue = doc(
+        block(
+          BLOCKS.PARAGRAPH,
+          {},
+          text(),
+          block(INLINES.EMBEDDED_ENTRY, {
+            target: { sys: { id: 'exampleCT', type: 'Link', linkType: 'Entry' } },
+          }),
+          text()
+        )
+      );
+
+      richText.expectValue(expectedValue);
     });
 
     it('should select previous item on up arrow press', () => {
@@ -129,7 +162,20 @@ describe('Rich Text Editor - Commands', { viewportHeight: 2000 }, () => {
 
     it('should not delete adjacent text', () => {
       richText.editor.click().type('test/{downarrow}{enter}{enter}');
-      richText.expectSnapshotValue();
+
+      const expectedValue = doc(
+        block(
+          BLOCKS.PARAGRAPH,
+          {},
+          text('test'),
+          block(INLINES.EMBEDDED_ENTRY, {
+            target: { sys: { id: 'exampleCT', type: 'Link', linkType: 'Entry' } },
+          }),
+          text()
+        )
+      );
+
+      richText.expectValue(expectedValue);
     });
 
     it('should work inside headings', () => {

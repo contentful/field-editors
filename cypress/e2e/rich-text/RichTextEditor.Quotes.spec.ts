@@ -1,8 +1,14 @@
 /* eslint-disable mocha/no-setup-in-describe */
 
-import { BLOCKS } from '@contentful/rich-text-types';
+import { BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types';
 
-import { block, document as doc, text } from '../../../packages/rich-text/src/helpers/nodeFactory';
+import {
+  block,
+  document as doc,
+  text,
+  inline,
+  mark,
+} from '../../../packages/rich-text/src/helpers/nodeFactory';
 import { RichTextPage } from './RichTextPage';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
@@ -50,7 +56,12 @@ describe('Rich Text Editor - Quotes', { viewportHeight: 2000 }, () => {
 
         richText.editor.type('{backspace}');
 
-        richText.expectSnapshotValue();
+        const expectedValue = doc(
+          block(BLOCKS.PARAGRAPH, {}, text('')),
+          block(BLOCKS.PARAGRAPH, {}, text(''))
+        );
+
+        richText.expectValue(expectedValue);
       });
 
       it('should add a block quote when clicking followed by a trailing empty paragraph', () => {
@@ -123,7 +134,39 @@ describe('Rich Text Editor - Quotes', { viewportHeight: 2000 }, () => {
 
         toggleQuote();
 
-        richText.expectSnapshotValue();
+        const expectedValue = doc(
+          block(
+            BLOCKS.QUOTE,
+            {},
+            block(
+              BLOCKS.PARAGRAPH,
+              {},
+              text('bold', [mark(MARKS.BOLD)]),
+              text(' '),
+              text('italic', [mark(MARKS.ITALIC)]),
+              text(' '),
+              text('underline', [mark(MARKS.UNDERLINE)]),
+              text(' '),
+              text('code', [mark(MARKS.CODE)]),
+              text(' '),
+              inline(INLINES.HYPERLINK, { uri: 'https://example.com' }, text('link')),
+              text(' '),
+              inline(INLINES.EMBEDDED_ENTRY, {
+                target: {
+                  sys: {
+                    id: 'example-entity-id',
+                    linkType: 'Entry',
+                    type: 'Link',
+                  },
+                },
+              }),
+              text(' more text')
+            )
+          ),
+          block(BLOCKS.PARAGRAPH, {}, text(''))
+        );
+
+        richText.expectValue(expectedValue);
       });
     });
   }
