@@ -426,6 +426,8 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       richText.editor.type('end');
 
       richText.expectValue(normalizationWithoutValueChange);
+
+      richText.expectNoValidationErrors();
     });
   });
 

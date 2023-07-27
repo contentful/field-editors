@@ -1,354 +1,309 @@
 export default {
   nodeType: 'document',
+  data: {},
   content: [
     {
       nodeType: 'paragraph',
+      data: {},
       content: [
-        {
-          nodeType: 'text',
-          data: {},
-          marks: [],
-          value: '',
-        },
+        { nodeType: 'text', value: '', marks: [], data: {} },
         {
           nodeType: 'hyperlink',
-          data: {
-            uri: 'https://exmaple.com',
-          },
-          content: [
-            {
-              nodeType: 'text',
-              data: {},
-              marks: [],
-              value: 'This is a hyperlink',
-            },
-          ],
+          data: { uri: 'https://exmaple.com' },
+          content: [{ nodeType: 'text', value: 'This is a hyperlink', marks: [], data: {} }],
         },
-        {
-          nodeType: 'text',
-          data: {},
-          marks: [],
-          value: '',
-        },
+        { nodeType: 'text', value: '', marks: [], data: {} },
       ],
-      data: {},
     },
     {
       nodeType: 'paragraph',
-      content: [
-        {
-          nodeType: 'text',
-          data: {},
-          marks: [],
-          value: '',
-        },
-      ],
       data: {},
+      content: [{ nodeType: 'text', value: '', marks: [], data: {} }],
     },
     {
       nodeType: 'heading-1',
-      content: [
-        {
-          nodeType: 'text',
-          data: {},
-          marks: [],
-          value: '',
-        },
-      ],
       data: {},
+      content: [{ nodeType: 'text', value: '', marks: [], data: {} }],
     },
     {
       nodeType: 'paragraph',
-      content: [
-        {
-          nodeType: 'text',
-          data: {},
-          marks: [],
-          value: 'This is a paragraph',
-        },
-      ],
       data: {},
+      content: [{ nodeType: 'text', value: 'This is a paragraph', marks: [], data: {} }],
     },
     {
       nodeType: 'paragraph',
+      data: {},
       content: [
         {
           nodeType: 'text',
-          data: {},
-          marks: [
-            {
-              type: 'bold',
-            },
-            {
-              type: 'superscript',
-            },
-            {
-              type: 'banana',
-            },
-          ],
           value: 'Text with custom marks',
+          marks: [{ type: 'bold' }, { type: 'superscript' }, { type: 'banana' }],
+          data: {},
         },
       ],
-      data: {},
     },
     {
       nodeType: 'blockquote',
+      data: {},
       content: [
         {
           nodeType: 'paragraph',
-          content: [
-            {
-              nodeType: 'text',
-              data: {},
-              marks: [],
-              value: '',
-            },
-          ],
           data: {},
+          content: [{ nodeType: 'text', value: '', marks: [], data: {} }],
         },
       ],
-      data: {},
     },
     {
       nodeType: 'unordered-list',
+      data: {},
       content: [
         {
           nodeType: 'list-item',
+          data: {},
           content: [
             {
               nodeType: 'paragraph',
-              content: [
-                {
-                  nodeType: 'text',
-                  data: {},
-                  marks: [],
-                  value: '',
-                },
-              ],
               data: {},
+              content: [{ nodeType: 'text', value: '', marks: [], data: {} }],
             },
           ],
+        },
+      ],
+    },
+    {
+      nodeType: 'ordered-list',
+      data: {},
+      content: [
+        {
+          nodeType: 'list-item',
           data: {},
+          content: [
+            {
+              nodeType: 'paragraph',
+              data: {},
+              content: [{ nodeType: 'text', value: '', marks: [], data: {} }],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      nodeType: 'unordered-list',
+      data: {},
+      content: [
+        {
+          nodeType: 'list-item',
+          data: {},
+          content: [
+            {
+              nodeType: 'paragraph',
+              data: {},
+              content: [{ nodeType: 'text', value: '', marks: [], data: {} }],
+            },
+          ],
         },
         {
           nodeType: 'list-item',
+          data: {},
           content: [
             {
               nodeType: 'paragraph',
-              content: [
-                {
-                  nodeType: 'text',
-                  data: {},
-                  marks: [],
-                  value: 'paragraph inside list item',
-                },
-              ],
               data: {},
+              content: [
+                { nodeType: 'text', value: 'paragraph inside list item', marks: [], data: {} },
+              ],
             },
             {
               nodeType: 'unordered-list',
+              data: {},
               content: [
                 {
                   nodeType: 'list-item',
+                  data: {},
                   content: [
                     {
                       nodeType: 'paragraph',
+                      data: {},
                       content: [
                         {
                           nodeType: 'text',
-                          data: {},
-                          marks: [],
                           value: 'paragraph inside a nested list',
+                          marks: [],
+                          data: {},
                         },
                       ],
-                      data: {},
                     },
                   ],
-                  data: {},
                 },
               ],
-              data: {},
             },
             {
               nodeType: 'blockquote',
+              data: {},
               content: [
                 {
                   nodeType: 'paragraph',
-                  content: [
-                    {
-                      nodeType: 'text',
-                      data: {},
-                      marks: [],
-                      value: 'blockquote inside list item',
-                    },
-                  ],
                   data: {},
+                  content: [
+                    { nodeType: 'text', value: 'blockquote inside list item', marks: [], data: {} },
+                  ],
                 },
               ],
-              data: {},
             },
           ],
-          data: {},
         },
       ],
-      data: {},
     },
     {
       nodeType: 'table',
+      data: {},
       content: [
         {
           nodeType: 'table-row',
+          data: {},
           content: [
             {
               nodeType: 'table-cell',
+              data: {},
               content: [
                 {
                   nodeType: 'paragraph',
-                  content: [
-                    {
-                      nodeType: 'text',
-                      data: {},
-                      marks: [],
-                      value: '',
-                    },
-                  ],
                   data: {},
+                  content: [{ nodeType: 'text', value: '', marks: [], data: {} }],
                 },
               ],
-              data: {},
             },
           ],
-          data: {},
         },
       ],
-      data: {},
     },
     {
       nodeType: 'table',
+      data: {},
       content: [
         {
           nodeType: 'table-row',
+          data: {},
           content: [
             {
               nodeType: 'table-cell',
+              data: {},
               content: [
                 {
                   nodeType: 'paragraph',
-                  content: [
-                    {
-                      nodeType: 'text',
-                      data: {},
-                      marks: [],
-                      value: 'cell #1',
-                    },
-                  ],
                   data: {},
+                  content: [{ nodeType: 'text', value: 'cell #1', marks: [], data: {} }],
                 },
               ],
-              data: {},
             },
             {
               nodeType: 'table-cell',
+              data: {},
               content: [
                 {
                   nodeType: 'paragraph',
-                  content: [
-                    {
-                      nodeType: 'text',
-                      data: {},
-                      marks: [],
-                      value: '',
-                    },
-                  ],
                   data: {},
+                  content: [{ nodeType: 'text', value: '', marks: [], data: {} }],
                 },
               ],
-              data: {},
             },
             {
               nodeType: 'table-cell',
+              data: {},
               content: [
                 {
                   nodeType: 'paragraph',
-                  content: [
-                    {
-                      nodeType: 'text',
-                      data: {},
-                      marks: [],
-                      value: '',
-                    },
-                  ],
                   data: {},
+                  content: [{ nodeType: 'text', value: '', marks: [], data: {} }],
                 },
               ],
-              data: {},
             },
           ],
-          data: {},
         },
         {
           nodeType: 'table-row',
+          data: {},
           content: [
             {
               nodeType: 'table-cell',
+              data: {},
               content: [
                 {
                   nodeType: 'paragraph',
-                  content: [
-                    {
-                      nodeType: 'text',
-                      data: {},
-                      marks: [],
-                      value: 'cell #2',
-                    },
-                  ],
                   data: {},
+                  content: [{ nodeType: 'text', value: 'cell #2', marks: [], data: {} }],
                 },
               ],
-              data: {},
             },
             {
               nodeType: 'table-cell',
+              data: {},
               content: [
                 {
                   nodeType: 'paragraph',
-                  content: [
-                    {
-                      nodeType: 'text',
-                      data: {},
-                      marks: [],
-                      value: '',
-                    },
-                  ],
                   data: {},
+                  content: [{ nodeType: 'text', value: 'cell #3', marks: [], data: {} }],
                 },
               ],
-              data: {},
             },
             {
               nodeType: 'table-cell',
+              data: {},
               content: [
                 {
                   nodeType: 'paragraph',
-                  content: [
-                    {
-                      nodeType: 'text',
-                      data: {},
-                      marks: [],
-                      value: '',
-                    },
-                  ],
                   data: {},
+                  content: [{ nodeType: 'text', value: 'cell #4', marks: [], data: {} }],
                 },
               ],
-              data: {},
             },
           ],
+        },
+        {
+          nodeType: 'table-row',
           data: {},
+          content: [
+            {
+              nodeType: 'table-cell',
+              data: {},
+              content: [
+                {
+                  nodeType: 'paragraph',
+                  data: {},
+                  content: [{ nodeType: 'text', value: 'cell #5', marks: [], data: {} }],
+                },
+              ],
+            },
+            {
+              nodeType: 'table-cell',
+              data: {},
+              content: [
+                {
+                  nodeType: 'paragraph',
+                  data: {},
+                  content: [{ nodeType: 'text', value: 'cell #6', marks: [], data: {} }],
+                },
+              ],
+            },
+            {
+              nodeType: 'table-cell',
+              data: {},
+              content: [
+                {
+                  nodeType: 'paragraph',
+                  data: {},
+                  content: [{ nodeType: 'text', value: '', marks: [], data: {} }],
+                },
+              ],
+            },
+          ],
         },
       ],
+    },
+    {
+      nodeType: 'paragraph',
       data: {},
+      content: [{ nodeType: 'text', value: 'end', marks: [], data: {} }],
     },
   ],
-  data: {},
 };
