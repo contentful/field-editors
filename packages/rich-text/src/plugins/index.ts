@@ -32,7 +32,8 @@ import { createVoidsPlugin } from './Voids';
 export const getPlugins = (
   sdk: FieldExtensionSDK,
   onAction: RichTextTrackingActionHandler,
-  restrictedMarks?: string[]
+  restrictedMarks?: string[],
+  customPlugins?: PlatePlugin[]
 ): PlatePlugin[] => [
   createDeserializeDocxPlugin(),
 
@@ -79,6 +80,10 @@ export const getPlugins = (
   createExitBreakPlugin(),
   createResetNodePlugin(),
   createNormalizerPlugin(),
+
+  // We need to check if the plugins are defined before use because it is an
+  // optional parameter.
+  ...(Array.isArray(customPlugins) ? customPlugins : []),
 ];
 
 export const disableCorePlugins: PlateProps['disableCorePlugins'] = {

@@ -11,6 +11,7 @@ import noop from 'lodash/noop';
 
 import { ContentfulEditorIdProvider, getContentfulEditorId } from './ContentfulEditorProvider';
 import { toSlateValue } from './helpers/toSlateValue';
+import { PlatePlugin } from './internal';
 import { normalizeInitialValue } from './internal/misc';
 import { getPlugins, disableCorePlugins } from './plugins';
 import { RichTextTrackingActionHandler } from './plugins/Tracking';
@@ -31,6 +32,11 @@ type ConnectedProps = {
   isToolbarHidden?: boolean;
   actionsDisabled?: boolean;
   restrictedMarks?: string[];
+  customPlugins?: PlatePlugin[];
+  customToolbars?: React.JSXElementConstructor<{
+    isDisabled?: boolean;
+    [index: string]: unknown;
+  }>[];
 };
 
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
@@ -38,8 +44,8 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
 
   const id = getContentfulEditorId(sdk);
   const plugins = React.useMemo(
-    () => getPlugins(sdk, onAction ?? noop, restrictedMarks),
-    [sdk, onAction, restrictedMarks]
+    () => getPlugins(sdk, onAction ?? noop, restrictedMarks, props?.customPlugins ?? []),
+    [sdk, onAction, restrictedMarks, props?.customPlugins]
   );
 
   const initialValue = React.useMemo(() => {
@@ -73,6 +79,15 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
             {!props.isToolbarHidden && (
               <StickyToolbarWrapper isDisabled={props.isDisabled}>
                 <Toolbar isDisabled={props.isDisabled} />
+                {/* Custom toolbars are placed underneath Contentful's built-in one */}
+                {props?.customToolbars?.length &&
+                  props.customToolbars.map((ToolbarComponent, index) => {
+                    return (
+                      <React.Fragment key={index}>
+                        <ToolbarComponent isDisabled={props.isDisabled} />
+                      </React.Fragment>
+                    );
+                  })}
               </StickyToolbarWrapper>
             )}
             <SyncEditorChanges incomingValue={initialValue} onChange={props.onChange} />
