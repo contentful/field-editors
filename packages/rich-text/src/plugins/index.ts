@@ -29,11 +29,16 @@ import { createTrackingPlugin, RichTextTrackingActionHandler } from './Tracking'
 import { createTrailingParagraphPlugin } from './TrailingParagraph';
 import { createVoidsPlugin } from './Voids';
 
+export interface CustomPlatePluginCallback {
+  sdk: FieldExtensionSDK;
+  restrictedMarks: Array<string>;
+}
+
 export const getPlugins = (
   sdk: FieldExtensionSDK,
   onAction: RichTextTrackingActionHandler,
   restrictedMarks?: string[],
-  customPlugins?: PlatePlugin[]
+  customPlugins?: Array<(constructionArgs: CustomPlatePluginCallback) => PlatePlugin>
 ): PlatePlugin[] => [
   createDeserializeDocxPlugin(),
 
@@ -83,7 +88,14 @@ export const getPlugins = (
 
   // We need to check if the plugins are defined before use because it is an
   // optional parameter.
-  ...(Array.isArray(customPlugins) ? customPlugins : []),
+  ...(Array.isArray(customPlugins)
+    ? customPlugins.map((customPluginCallback) => {
+        return customPluginCallback.call(this, {
+          sdk,
+          restrictedMarks: restrictedMarks || [],
+        });
+      })
+    : []),
 ];
 
 export const disableCorePlugins: PlateProps['disableCorePlugins'] = {

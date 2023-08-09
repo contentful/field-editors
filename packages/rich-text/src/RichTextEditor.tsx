@@ -13,7 +13,7 @@ import { ContentfulEditorIdProvider, getContentfulEditorId } from './ContentfulE
 import { toSlateValue } from './helpers/toSlateValue';
 import { PlatePlugin } from './internal';
 import { normalizeInitialValue } from './internal/misc';
-import { getPlugins, disableCorePlugins } from './plugins';
+import { getPlugins, disableCorePlugins, CustomPlatePluginCallback } from './plugins';
 import { RichTextTrackingActionHandler } from './plugins/Tracking';
 import { styles } from './RichTextEditor.styles';
 import { SdkProvider } from './SdkProvider';
@@ -32,7 +32,7 @@ type ConnectedProps = {
   isToolbarHidden?: boolean;
   actionsDisabled?: boolean;
   restrictedMarks?: string[];
-  customPlugins?: PlatePlugin[];
+  customPlugins?: Array<(constructionArgs: CustomPlatePluginCallback) => PlatePlugin>;
   customToolbars?: React.JSXElementConstructor<{
     isDisabled?: boolean;
     [index: string]: unknown;
