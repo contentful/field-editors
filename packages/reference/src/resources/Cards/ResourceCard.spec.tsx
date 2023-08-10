@@ -22,7 +22,7 @@ jest.mock('react-intersection-observer', () => ({
 
 // explicit master
 const resolvableEntryUrn = 'crn:contentful:::content:spaces/space-id/entries/linked-entry-urn';
-const resolvableEntryUrnWithImplicitMaster =
+const resolvableEntryUrnWithExplicitMaster =
   'crn:contentful:::content:spaces/space-id/environments/master/entries/linked-entry-urn';
 const resolvableEntryUrnWithAnotherEnvironment =
   'crn:contentful:::content:spaces/space-id/environments/my-test-environment/entries/linked-entry-urn';
@@ -94,7 +94,7 @@ describe('ResourceCard', () => {
 
   it('renders entry card with explicit master crn', async () => {
     const { getByTestId, getByText } = renderResourceCard({
-      entryUrn: resolvableEntryUrnWithImplicitMaster,
+      entryUrn: resolvableEntryUrnWithExplicitMaster,
     });
 
     await waitFor(() => expect(getByTestId('cf-ui-entry-card')).toBeDefined());
