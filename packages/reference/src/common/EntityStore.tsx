@@ -115,9 +115,17 @@ type ResourceQueryKey = [ident: 'Resource', resourceType: ResourceType, urn: str
 
 async function fetchContentfulEntry(params: FetchParams): Promise<ResourceInfo<Entry>> {
   const { urn, fetch, options } = params;
+  // TODO use resource-names package EntryResourceName `fromString` method instead when the package becomes public
   const resourceId = urn.split(':', 6)[5];
-  const [, spaceId, , entryId] = resourceId.split('/');
-  const environmentId = 'master';
+  const ENTITY_RESOURCE_ID_REGEX =
+    /^spaces\/(?<spaceId>[^/]+)(?:\/environments\/(?<environmentId>[^/]+))?\/entries\/(?<entityId>[^/]+)$/;
+  const resourceIdMatch = resourceId.match(ENTITY_RESOURCE_ID_REGEX);
+  if (!resourceIdMatch || !resourceIdMatch?.groups?.spaceId || !resourceIdMatch?.groups?.entityId) {
+    throw new Error('Not a valid crn');
+  }
+  const spaceId = resourceIdMatch.groups.spaceId;
+  const environmentId = resourceIdMatch?.groups?.environmentId || 'master';
+  const entryId = resourceIdMatch.groups.entityId;
 
   const [space, entry] = await Promise.all([
     fetch(['space', spaceId], ({ cmaClient }) => cmaClient.space.get({ spaceId }), options),

@@ -114,12 +114,16 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
       status={status}
       icon={
         props.spaceName ? (
-          <SpaceName spaceName={props.spaceName} />
+          <SpaceName
+            spaceName={props.spaceName}
+            environmentName={props.entry.sys.environment.sys.id}
+          />
         ) : (
           <ScheduledIconWithTooltip
             getEntityScheduledActions={props.getEntityScheduledActions}
             entityType="Entry"
-            entityId={props.entry.sys.id}>
+            entityId={props.entry.sys.id}
+          >
             <ClockIcon
               className={styles.scheduleIcon}
               size="small"
@@ -141,7 +145,8 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
                   testId="edit"
                   onClick={() => {
                     props.onEdit && props.onEdit();
-                  }}>
+                  }}
+                >
                   Edit
                 </MenuItem>
               ) : null,
@@ -151,7 +156,8 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
                   testId="delete"
                   onClick={() => {
                     props.onRemove && props.onRemove();
-                  }}>
+                  }}
+                >
                   Remove
                 </MenuItem>
               ) : null,
@@ -162,7 +168,8 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
                 <MenuItem
                   key="move-top"
                   onClick={() => props.onMoveTop && props.onMoveTop()}
-                  testId="move-top">
+                  testId="move-top"
+                >
                   Move to top
                 </MenuItem>
               ) : null,
@@ -170,7 +177,8 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
                 <MenuItem
                   key="move-bottom"
                   onClick={() => props.onMoveBottom && props.onMoveBottom()}
-                  testId="move-bottom">
+                  testId="move-bottom"
+                >
                   Move to bottom
                 </MenuItem>
               ) : null,
