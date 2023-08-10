@@ -3,7 +3,7 @@ import * as React from 'react';
 import '@testing-library/jest-dom';
 
 import { createFakeCMAAdapter } from '@contentful/field-editor-test-utils';
-import { configure, render, waitFor } from '@testing-library/react';
+import { configure, fireEvent, render, waitFor } from '@testing-library/react';
 
 import publishedCT from '../../__fixtures__/content-type/published_content_type.json';
 import publishedEntryNonMasterEnvironment from '../../__fixtures__/entry/published_entry_non_master.json';
@@ -86,20 +86,26 @@ function renderResourceCard({ linkType = 'Contentful:Entry', entryUrn = resolvab
 describe('ResourceCard', () => {
   it('renders entry card with implicit master crn', async () => {
     const { getByTestId, getByText } = renderResourceCard();
+    const tooltipContent = `Space: ${space.name} (Env.: ${publishedEntry.sys.environment.sys.id})`;
 
     await waitFor(() => expect(getByTestId('cf-ui-entry-card')).toBeDefined());
     expect(getByText(publishedEntry.fields.exField['en-US'])).toBeDefined();
     expect(getByText(space.name)).toBeDefined();
+    fireEvent.mouseEnter(getByText(space.name));
+    await waitFor(() => expect(getByText(tooltipContent)).toBeDefined());
   });
 
   it('renders entry card with explicit master crn', async () => {
     const { getByTestId, getByText } = renderResourceCard({
       entryUrn: resolvableEntryUrnWithExplicitMaster,
     });
+    const tooltipContent = `Space: ${space.name} (Env.: ${publishedEntry.sys.environment.sys.id})`;
 
     await waitFor(() => expect(getByTestId('cf-ui-entry-card')).toBeDefined());
     expect(getByText(publishedEntry.fields.exField['en-US'])).toBeDefined();
     expect(getByText(space.name)).toBeDefined();
+    fireEvent.mouseEnter(getByText(space.name));
+    await waitFor(() => expect(getByText(tooltipContent)).toBeDefined());
   });
 
   it('renders entry card with a non master environment', async () => {
@@ -108,8 +114,12 @@ describe('ResourceCard', () => {
     });
 
     await waitFor(() => expect(getByTestId('cf-ui-entry-card')).toBeDefined());
+    const tooltipContent = `Space: ${space.name} (Env.: ${publishedEntryNonMasterEnvironment.sys.environment.sys.id})`;
+
     expect(getByText(publishedEntryNonMasterEnvironment.fields.exField['en-US'])).toBeDefined();
     expect(getByText(space.name)).toBeDefined();
+    fireEvent.mouseEnter(getByText(space.name));
+    await waitFor(() => expect(getByText(tooltipContent)).toBeDefined());
   });
 
   it('renders skeleton when no data is provided', () => {
