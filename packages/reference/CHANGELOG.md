@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.14.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.13.3...@contentful/field-editor-reference@5.14.0) (2023-08-10)
+
+### Features
+
+- adding environment support in the WrappedEntryCard ([#1463](https://github.com/contentful/field-editors/issues/1463)) ([615c089](https://github.com/contentful/field-editors/commit/615c089e5f150afc399e80302d32f464651fbb4b))
+
 ## [5.13.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.13.2...@contentful/field-editor-reference@5.13.3) (2023-08-04)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
