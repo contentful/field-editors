@@ -2,7 +2,7 @@ import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { PlateProps } from '@udecode/plate-core';
 import { createDeserializeDocxPlugin } from '@udecode/plate-serializer-docx';
 
-import { PlatePlugin } from '../internal/types';
+import { CustomToolbarProps, PlatePlugin } from '../internal/types';
 import { createSoftBreakPlugin, createExitBreakPlugin, createResetNodePlugin } from './Break';
 import { createCommandPalettePlugin } from './CommandPalette';
 import { isCommandPromptPluginEnabled } from './CommandPalette/useCommands';
@@ -28,10 +28,22 @@ import { createTextPlugin } from './Text';
 import { createTrackingPlugin, RichTextTrackingActionHandler } from './Tracking';
 import { createTrailingParagraphPlugin } from './TrailingParagraph';
 import { createVoidsPlugin } from './Voids';
+import * as React from "react";
 
 export interface CustomPlatePluginCallback {
   sdk: FieldExtensionSDK;
   restrictedMarks: Array<string>;
+}
+
+// Used purely for tests
+export interface CustomAddonConfiguration {
+  [index: string]: CustomAddon;
+}
+
+// Used purely for tests
+export interface CustomAddon {
+  plugin?: (constructionArgs: CustomPlatePluginCallback) => PlatePlugin;
+  toolbar?: React.JSXElementConstructor<CustomToolbarProps>;
 }
 
 export const getPlugins = (

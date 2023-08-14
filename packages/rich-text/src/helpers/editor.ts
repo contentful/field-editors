@@ -52,7 +52,10 @@ export function isRootLevel(path: Path): boolean {
 }
 
 type NodeEntry = [Element, Path];
-type NodeType = BLOCKS | INLINES;
+
+// String here is unfortunately required in order for custom plugins that make a new block to be valid
+//   Alternate here is to force custom plugins to opt-into ts-ignore every time they want to use these helpers
+type NodeType = BLOCKS | INLINES | string;
 export function getNodeEntryFromSelection(
   editor: PlateEditor,
   nodeTypeOrTypes: NodeType | NodeType[],

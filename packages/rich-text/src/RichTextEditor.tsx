@@ -11,7 +11,7 @@ import noop from 'lodash/noop';
 
 import { ContentfulEditorIdProvider, getContentfulEditorId } from './ContentfulEditorProvider';
 import { toSlateValue } from './helpers/toSlateValue';
-import { PlatePlugin } from './internal';
+import { CustomToolbarProps, PlatePlugin } from './internal';
 import { normalizeInitialValue } from './internal/misc';
 import { getPlugins, disableCorePlugins, CustomPlatePluginCallback } from './plugins';
 import { RichTextTrackingActionHandler } from './plugins/Tracking';
@@ -33,10 +33,7 @@ type ConnectedProps = {
   actionsDisabled?: boolean;
   restrictedMarks?: string[];
   customPlugins?: Array<(constructionArgs: CustomPlatePluginCallback) => PlatePlugin>;
-  customToolbars?: React.JSXElementConstructor<{
-    isDisabled?: boolean;
-    [index: string]: unknown;
-  }>[];
+  customToolbars?: Array<React.JSXElementConstructor<CustomToolbarProps>>;
 };
 
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
@@ -80,14 +77,11 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
               <StickyToolbarWrapper isDisabled={props.isDisabled}>
                 <Toolbar isDisabled={props.isDisabled} />
                 {/* Custom toolbars are placed underneath Contentful's built-in one */}
-                {props?.customToolbars?.length &&
-                  props.customToolbars.map((ToolbarComponent, index) => {
-                    return (
-                      <React.Fragment key={index}>
-                        <ToolbarComponent isDisabled={props.isDisabled} />
-                      </React.Fragment>
-                    );
-                  })}
+                {props?.customToolbars?.map((ToolbarComponent, index) => {
+                  return (
+                    <ToolbarComponent id={`RTEditor-Custom-Toolbar-${index}`} key={index} isDisabled={props.isDisabled || false} />
+                  );
+                })}
               </StickyToolbarWrapper>
             )}
             <SyncEditorChanges incomingValue={initialValue} onChange={props.onChange} />

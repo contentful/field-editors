@@ -9,8 +9,21 @@ const isValidationEvent = ({ type }) => type === 'onSchemaErrorsChanged';
 export type EmbedType = 'entry-block' | 'asset-block' | 'resource-block' | 'entry-inline';
 
 export class RichTextPage {
-  visit() {
-    cy.visit('/?path=/docs/editors-rich-text-editor--docs&cypress');
+  visit(customAddon:string|null = null) {
+    // Support passing a requested custom addon to the storybook instance
+    const additionalParams:Array<string> = [
+        'cypress',
+    ];
+
+    // Handles both null and empty
+    if (customAddon) {
+      additionalParams.push([
+        'ctflRichTextAddon',
+        encodeURIComponent(customAddon),
+      ].join('='));
+    }
+
+    cy.visit(`/?path=/docs/editors-rich-text-editor--docs&${additionalParams.join('&')}`);
     cy.wait(500);
     this.editor.should('be.visible');
   }
@@ -79,6 +92,18 @@ export class RichTextPage {
         getIframe().findByTestId(`toolbar-toggle-embedded-${type}`).click();
       },
     };
+  }
+
+  get customToolbar() {
+    return {
+      get toolbar() {
+        return getIframe().findByTestId('custom-toolbar');
+      },
+
+      get lipsum() {
+        return getIframe().findByTestId('custom-toolbar-lipsum-button');
+      },
+    }
   }
 
   get forms() {

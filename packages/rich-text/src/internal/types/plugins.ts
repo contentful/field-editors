@@ -7,6 +7,11 @@ import { Value, PlateEditor } from './editor';
 
 export type KeyboardHandler<P = p.PluginOptions> = p.KeyboardHandler<P, Value, PlateEditor>;
 
+export interface CustomToolbarProps {
+  [index:string]: unknown;
+  isDisabled: boolean;
+}
+
 export interface PlatePlugin extends p.PlatePlugin<p.AnyObject, Value, PlateEditor> {
   softBreak?: SoftBreakRule[];
   exitBreak?: ExitBreakRule[];

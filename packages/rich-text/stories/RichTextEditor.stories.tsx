@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useMemo } from 'react';
 
 import { FieldAPI, FieldExtensionSDK } from '@contentful/app-sdk';
-import { IconButton } from '@contentful/f36-components';
+import { IconButton, Paragraph, Text, Note } from '@contentful/f36-components';
 import { CopyIcon } from '@contentful/f36-icons';
 import {
   ActionsPlayground,
@@ -21,8 +21,17 @@ import { css } from 'emotion';
 
 import { assets, contentTypes, entries, locales, spaces } from '../src/__fixtures__/fixtures';
 import RichTextEditor from '../src/RichTextEditor';
+import { CustomAddon, CustomAddonConfiguration } from "../src/plugins";
 import { validateRichTextDocument } from '../src/test-utils/validation';
 import { RichTextPreview } from './RichTextPreview';
+
+// Custom plugins and toolbars
+import { lipsumPlugin } from './editor/customAddons/index';
+import tokens from "@contentful/f36-tokens";
+
+const customAddons:CustomAddonConfiguration = {
+  ...lipsumPlugin,
+}
 
 const meta: Meta<typeof RichTextEditor> = {
   title: 'editors/Rich Text Editor',
@@ -61,6 +70,20 @@ const structurePreviewCopyButton = css({
 
 const DemoRichTextEditor = () => {
   window.actions = [];
+
+  // Check our custom plugin and toolbar config and prepare them
+  let requestedAddon:CustomAddon|null = null;
+  const searchParams:URLSearchParams = new URLSearchParams(window?.location?.search);
+
+  if (searchParams.has('ctflRichTextAddon')) {
+    const addonName:string|null = searchParams.get('ctflRichTextAddon');
+
+    if (addonName !== null) {
+      if (Object.keys(customAddons).indexOf(addonName) !== -1) {
+        requestedAddon = customAddons[addonName];
+      }
+    }
+  }
 
   const rtPreviewStyle = css({
     backgroundColor: 'whitesmoke',
@@ -197,12 +220,19 @@ const DemoRichTextEditor = () => {
   React.useEffect(() => {
     field.onValueChanged((value: any) => {
       // Don't run the previewer in cypress tests as it causes re rendering of the RichTextEditor and some brittle tests
-      if (!window.location.search.includes('cypress')) {
+      if (!searchParams.has('cypress')) {
         setCurrentValue(value);
       }
 
       if (!value) {
         return mitt.emit('onSchemaErrorsChanged', []);
+      }
+
+      // If the test is opting into custom addons, we need to stop the validator, since custom addons likely will break the validation rules
+      //   A note is added below the editor to make this clear.
+      //   Passing ctflRichTextForceValidator will force the validator to run, even if a custom component is requested
+      if (searchParams.has('ctflRichTextAddon') && !searchParams.has('ctflRichTextForceValidator')) {
+        return;
       }
 
       mitt.emit('onSchemaErrorsChanged', validateRichTextDocument(value));
@@ -229,11 +259,31 @@ const DemoRichTextEditor = () => {
   return (
     <div className={layoutStyle}>
       <div data-test-id="rich-text-editor-integration-test">
+        {requestedAddon !== null ?
+            <Note variant={"negative"} style={{marginBottom: tokens.spacingM}}>
+              <Paragraph>
+                <Text>Requesting a custom addon </Text>
+                <Text fontWeight={'fontWeightDemiBold'}>DISABLES</Text>
+                <Text> the validator.  To re-enable the validator, please revert to the standard editor.</Text>
+              </Paragraph>
+            </Note> :
+            null
+        }
         <RichTextEditor
           sdk={sdk as unknown as FieldExtensionSDK}
           onAction={onAction}
           isInitiallyDisabled={isDisabled as boolean}
           restrictedMarks={JSON.parse(window.localStorage.getItem('restrictedMarks') as any) || []}
+          customPlugins={
+            (requestedAddon !== null && requestedAddon?.plugin) ?
+              [requestedAddon.plugin] :
+              []
+          }
+          customToolbars={
+            (requestedAddon !== null && requestedAddon?.toolbar) ?
+              [requestedAddon.toolbar] :
+              []
+          }
         />
 
         <ValidationErrors field={field} locales={[] as any} />
