@@ -170,14 +170,14 @@ type MarkdownPreviewProps = {
   previewComponents?: PreviewComponents;
 };
 
-function MarkdownLink(props: {
-  href: string;
-  title: string;
-  className?: string;
-  // eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
-  children: any;
-  Embedly?: React.SFC<{ url: string }>;
-}) {
+function MarkdownLink(
+  props: React.PropsWithChildren<{
+    href: string;
+    title: string;
+    className?: string;
+    Embedly?: React.ComponentType<{ url: string }>;
+  }>
+) {
   const { Embedly, children, ...rest } = props;
 
   if (props.className === 'embedly-card' && Embedly) {
@@ -211,8 +211,7 @@ export const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
         options={{
           overrides: {
             a: {
-              // eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
-              component: MarkdownLink as any,
+              component: MarkdownLink,
               props: {
                 Embedly: props.previewComponents?.embedly,
               },
