@@ -4,7 +4,6 @@ import { BaseExtensionSDK } from '@contentful/app-sdk';
 import {
   FetchQueryOptions,
   Query,
-  QueryCache,
   QueryClient,
   QueryClientProvider,
   QueryKey,
@@ -461,26 +460,20 @@ export function useResource(resourceType: ResourceType, urn: string, options?: U
   return { status, data, error };
 }
 
+const reactQueryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      useErrorBoundary: false,
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: true,
+      refetchOnMount: false,
+      staleTime: Infinity,
+      retry: false,
+    },
+  },
+});
+
 function EntityProvider({ children, ...props }: React.PropsWithChildren<EntityStoreProps>) {
-  const reactQueryClient = useMemo(() => {
-    const queryCache = new QueryCache();
-    const queryClient = new QueryClient({
-      queryCache,
-      defaultOptions: {
-        queries: {
-          useErrorBoundary: false,
-          refetchOnWindowFocus: false,
-          refetchOnReconnect: true,
-          refetchOnMount: false,
-          staleTime: Infinity,
-          retry: false,
-        },
-      },
-    });
-
-    return queryClient;
-  }, []);
-
   return (
     <QueryClientProvider client={reactQueryClient}>
       <InternalServiceProvider {...props}>{children}</InternalServiceProvider>
