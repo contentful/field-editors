@@ -2,9 +2,9 @@ name: SAST (Static Application Security Testing)
 
 on:
   push:
-    branches: [master, feat/setup-polaris]
+    branches: [master]
   pull_request:
-    branches: [master, feat/setup-polaris]
+    branches: [master]
 
 jobs:
   polaris:
