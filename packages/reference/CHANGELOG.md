@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.15.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.14.0...@contentful/field-editor-reference@5.15.0) (2023-08-24)
+
+### Features
+
+- **reference:** enable sharing query cache between editors ([#1468](https://github.com/contentful/field-editors/issues/1468)) ([60ea9a8](https://github.com/contentful/field-editors/commit/60ea9a8723be01cd2b3f0eda5d5c4c73e339a2c5))
+
 # [5.14.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.13.3...@contentful/field-editor-reference@5.14.0) (2023-08-10)
 
 ### Features
