@@ -1,9 +1,9 @@
 import * as React from 'react';
+import ReactMarkdown from 'react-markdown';
 
 import tokens from '@contentful/f36-tokens';
 import DOMPurify from 'dompurify';
 import { css, cx } from 'emotion';
-import Markdown from 'markdown-to-jsx';
 
 import { EditorDirection, PreviewComponents } from '../types';
 import { replaceMailtoAmp } from '../utils/replaceMailtoAmp';
@@ -170,14 +170,16 @@ type MarkdownPreviewProps = {
   previewComponents?: PreviewComponents;
 };
 
-function MarkdownLink(props: {
+type MarkdownLinkProps = {
   href: string;
   title: string;
   className?: string;
   // eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
   children: any;
   Embedly?: React.SFC<{ url: string }>;
-}) {
+};
+
+function MarkdownLink(props: MarkdownLinkProps) {
   const { Embedly, children, ...rest } = props;
 
   if (props.className === 'embedly-card' && Embedly) {
@@ -207,21 +209,16 @@ export const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
 
   return (
     <div className={className} data-test-id="markdown-preview">
-      <Markdown
-        options={{
-          overrides: {
-            a: {
-              // eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
-              component: MarkdownLink as any,
-              props: {
-                Embedly: props.previewComponents?.embedly,
-              },
-            },
-          },
-        }}
-      >
+      <ReactMarkdown
+        components={{
+          // @ts-expect-error -- .
+          a: (markdownProps: MarkdownLinkProps) => (
+            // @ts-expect-error -- .
+            <MarkdownLink {...markdownProps} Embedly={props.previewComponents?.embedly} />
+          ),
+        }}>
         {cleanHTML}
-      </Markdown>
+      </ReactMarkdown>
     </div>
   );
 });
