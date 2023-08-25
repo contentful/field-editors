@@ -5,6 +5,7 @@ import tokens from '@contentful/f36-tokens';
 import DOMPurify from 'dompurify';
 import { css, cx } from 'emotion';
 import rehypeRaw from 'rehype-raw';
+import remarkGfm from 'remark-gfm';
 
 import { EditorDirection, PreviewComponents } from '../types';
 import { replaceMailtoAmp } from '../utils/replaceMailtoAmp';
@@ -210,6 +211,7 @@ export const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
     <div className={className} data-test-id="markdown-preview">
       <ReactMarkdown
         rehypePlugins={[rehypeRaw]}
+        remarkPlugins={[remarkGfm]}
         remarkRehypeOptions={{
           // The HTML is already sanitized by Dompurify
           allowDangerousHtml: true,
