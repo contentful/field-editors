@@ -193,7 +193,7 @@ function MarkdownLink(props: MarkdownLinkProps) {
   );
 }
 
-export const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
+const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
   const className = cx(
     styles.root,
     props.minHeight !== undefined ? css({ minHeight: props.minHeight }) : undefined,
@@ -229,3 +229,5 @@ export const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
 });
 
 MarkdownPreview.displayName = 'MarkdownPreview';
+
+export default MarkdownPreview;
