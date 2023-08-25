@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import tokens from '@contentful/f36-tokens';
 import DOMPurify from 'dompurify';
 import { css, cx } from 'emotion';
+import rehypeRaw from 'rehype-raw';
 
 import { EditorDirection, PreviewComponents } from '../types';
 import { replaceMailtoAmp } from '../utils/replaceMailtoAmp';
@@ -170,20 +171,18 @@ type MarkdownPreviewProps = {
   previewComponents?: PreviewComponents;
 };
 
-type MarkdownLinkProps = {
-  href: string;
-  title: string;
+type MarkdownLinkProps = React.PropsWithChildren<{
+  href?: string;
+  title?: string;
   className?: string;
-  // eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
-  children: any;
-  Embedly?: React.SFC<{ url: string }>;
-};
+  Embedly?: React.ComponentType<{ url: string }>;
+}>;
 
 function MarkdownLink(props: MarkdownLinkProps) {
   const { Embedly, children, ...rest } = props;
 
   if (props.className === 'embedly-card' && Embedly) {
-    return <Embedly url={props.href} />;
+    return <Embedly url={props.href ?? ''} />;
   }
 
   return (
@@ -210,13 +209,17 @@ export const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
   return (
     <div className={className} data-test-id="markdown-preview">
       <ReactMarkdown
+        rehypePlugins={[rehypeRaw]}
+        remarkRehypeOptions={{
+          // The HTML is already sanitized by Dompurify
+          allowDangerousHtml: true,
+        }}
         components={{
-          // @ts-expect-error -- .
           a: (markdownProps: MarkdownLinkProps) => (
-            // @ts-expect-error -- .
             <MarkdownLink {...markdownProps} Embedly={props.previewComponents?.embedly} />
           ),
-        }}>
+        }}
+      >
         {cleanHTML}
       </ReactMarkdown>
     </div>

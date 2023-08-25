@@ -45,7 +45,8 @@
     "dompurify": "^2.2.9",
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",
-    "react-markdown": "^8.0.7"
+    "react-markdown": "^8.0.7",
+    "rehype-raw": "^6.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
