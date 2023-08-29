@@ -22,7 +22,7 @@ const styles = {
     font-family: ${tokens.fontStackPrimary};
     line-height: ${tokens.lineHeightDefault};
     color: ${tokens.gray700};
-    white-space: pre-line;
+    white-space: normal;
 
     h1,
     h2,
@@ -195,7 +195,6 @@ function MarkdownLink(props: MarkdownLinkProps) {
 
 const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
   const className = cx(
-    styles.root,
     props.minHeight !== undefined ? css({ minHeight: props.minHeight }) : undefined,
     props.mode === 'default' ? styles.framed : styles.zen,
     props.direction === 'rtl' ? styles.rtl : undefined
@@ -210,6 +209,7 @@ const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
   return (
     <div className={className} data-test-id="markdown-preview">
       <ReactMarkdown
+        className={styles.root}
         rehypePlugins={[rehypeRaw]}
         remarkPlugins={[remarkGfm]}
         remarkRehypeOptions={{
