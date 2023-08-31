@@ -1,9 +1,11 @@
 import * as React from 'react';
+import ReactMarkdown from 'react-markdown';
 
 import tokens from '@contentful/f36-tokens';
 import DOMPurify from 'dompurify';
 import { css, cx } from 'emotion';
-import Markdown from 'markdown-to-jsx';
+import rehypeRaw from 'rehype-raw';
+import remarkGfm from 'remark-gfm';
 
 import { EditorDirection, PreviewComponents } from '../types';
 import { replaceMailtoAmp } from '../utils/replaceMailtoAmp';
@@ -20,7 +22,7 @@ const styles = {
     font-family: ${tokens.fontStackPrimary};
     line-height: ${tokens.lineHeightDefault};
     color: ${tokens.gray700};
-    white-space: pre-line;
+    white-space: normal;
 
     h1,
     h2,
@@ -170,18 +172,18 @@ type MarkdownPreviewProps = {
   previewComponents?: PreviewComponents;
 };
 
-function MarkdownLink(props: {
-  href: string;
-  title: string;
+type MarkdownLinkProps = React.PropsWithChildren<{
+  href?: string;
+  title?: string;
   className?: string;
-  // eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
-  children: any;
-  Embedly?: React.SFC<{ url: string }>;
-}) {
+  Embedly?: React.ComponentType<{ url: string }>;
+}>;
+
+function MarkdownLink(props: MarkdownLinkProps) {
   const { Embedly, children, ...rest } = props;
 
   if (props.className === 'embedly-card' && Embedly) {
-    return <Embedly url={props.href} />;
+    return <Embedly url={props.href ?? ''} />;
   }
 
   return (
@@ -191,9 +193,8 @@ function MarkdownLink(props: {
   );
 }
 
-export const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
+const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
   const className = cx(
-    styles.root,
     props.minHeight !== undefined ? css({ minHeight: props.minHeight }) : undefined,
     props.mode === 'default' ? styles.framed : styles.zen,
     props.direction === 'rtl' ? styles.rtl : undefined
@@ -207,23 +208,26 @@ export const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
 
   return (
     <div className={className} data-test-id="markdown-preview">
-      <Markdown
-        options={{
-          overrides: {
-            a: {
-              // eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
-              component: MarkdownLink as any,
-              props: {
-                Embedly: props.previewComponents?.embedly,
-              },
-            },
-          },
+      <ReactMarkdown
+        className={styles.root}
+        rehypePlugins={[rehypeRaw]}
+        remarkPlugins={[remarkGfm]}
+        remarkRehypeOptions={{
+          // The HTML is already sanitized by Dompurify
+          allowDangerousHtml: true,
+        }}
+        components={{
+          a: (markdownProps: MarkdownLinkProps) => (
+            <MarkdownLink {...markdownProps} Embedly={props.previewComponents?.embedly} />
+          ),
         }}
       >
         {cleanHTML}
-      </Markdown>
+      </ReactMarkdown>
     </div>
   );
 });
 
 MarkdownPreview.displayName = 'MarkdownPreview';
+
+export default MarkdownPreview;

@@ -7,7 +7,7 @@ import { css } from 'emotion';
 
 import { MarkdownBottomBar, MarkdownHelp } from './components/MarkdownBottomBar';
 import { MarkdownConstraints } from './components/MarkdownConstraints';
-import { MarkdownPreview } from './components/MarkdownPreview';
+import MarkdownPreviewSkeleton from './components/MarkdownPreviewSkeleton';
 import { MarkdownTabs } from './components/MarkdownTabs';
 import {
   InitializedEditorType,
@@ -17,6 +17,8 @@ import { MarkdownToolbar } from './components/MarkdownToolbar';
 import { openCheatsheetModal } from './dialogs/CheatsheetModalDialog';
 import { createMarkdownActions } from './MarkdownActions';
 import { MarkdownTab, PreviewComponents } from './types';
+
+const MarkdownPreview = React.lazy(() => import('./components/MarkdownPreview'));
 
 const styles = {
   container: css({
@@ -125,13 +127,15 @@ export function MarkdownEditor(
         }}
       />
       {selectedTab === 'preview' && (
-        <MarkdownPreview
-          direction={direction}
-          minHeight={props.minHeight}
-          mode="default"
-          value={currentValue}
-          previewComponents={props.previewComponents}
-        />
+        <React.Suspense fallback={<MarkdownPreviewSkeleton />}>
+          <MarkdownPreview
+            direction={direction}
+            minHeight={props.minHeight}
+            mode="default"
+            value={currentValue}
+            previewComponents={props.previewComponents}
+          />
+        </React.Suspense>
       )}
       <MarkdownBottomBar>
         <MarkdownHelp onClick={openMarkdownHelp} />

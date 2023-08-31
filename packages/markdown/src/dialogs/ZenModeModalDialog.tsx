@@ -6,7 +6,7 @@ import tokens from '@contentful/f36-tokens';
 import { css, cx } from 'emotion';
 
 import { MarkdownBottomBar, MarkdownHelp } from '../components/MarkdownBottomBar';
-import { MarkdownPreview } from '../components/MarkdownPreview';
+import MarkdownPreviewSkeleton from '../components/MarkdownPreviewSkeleton';
 import {
   InitializedEditorType,
   MarkdownTextarea,
@@ -15,6 +15,8 @@ import { MarkdownToolbar } from '../components/MarkdownToolbar';
 import { openCheatsheetModal } from '../dialogs/CheatsheetModalDialog';
 import { createMarkdownActions } from '../MarkdownActions';
 import { MarkdownDialogsParams, MarkdownDialogType, PreviewComponents } from '../types';
+
+const MarkdownPreview = React.lazy(() => import('../components/MarkdownPreview'));
 
 export type ZenModeResult = {
   value: string;
@@ -171,12 +173,14 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
       </div>
       {showPreview && (
         <div className={styles.previewSplit}>
-          <MarkdownPreview
-            direction={direction}
-            mode="zen"
-            value={currentValue}
-            previewComponents={props.previewComponents}
-          />
+          <React.Suspense fallback={<MarkdownPreviewSkeleton />}>
+            <MarkdownPreview
+              direction={direction}
+              mode="zen"
+              value={currentValue}
+              previewComponents={props.previewComponents}
+            />
+          </React.Suspense>
         </div>
       )}
       {showPreview && <div className={styles.separator} />}
