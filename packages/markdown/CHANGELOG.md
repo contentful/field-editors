@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.3.1...@contentful/field-editor-markdown@1.4.0) (2023-08-31)
+
+### Features
+
+- switch to react-markdown, lazy loading [TOL-501] ([#1473](https://github.com/contentful/field-editors/issues/1473)) ([cafd6fb](https://github.com/contentful/field-editors/commit/cafd6fbeb7e6bcb9f7c2205363089fe5b5c832a3))
+
 ## [1.3.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.3.0...@contentful/field-editor-markdown@1.3.1) (2023-07-25)
 
 ### Bug Fixes

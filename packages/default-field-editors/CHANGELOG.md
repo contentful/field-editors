@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.4.13...@contentful/default-field-editors@1.5.0) (2023-08-31)
+
+### Features
+
+- switch to react-markdown, lazy loading [TOL-501] ([#1473](https://github.com/contentful/field-editors/issues/1473)) ([cafd6fb](https://github.com/contentful/field-editors/commit/cafd6fbeb7e6bcb9f7c2205363089fe5b5c832a3))
+
 ## [1.4.13](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.4.12...@contentful/default-field-editors@1.4.13) (2023-08-24)
 
 **Note:** Version bump only for package @contentful/default-field-editors
