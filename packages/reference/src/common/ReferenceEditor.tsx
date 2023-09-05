@@ -43,12 +43,12 @@ export type CustomActionProps = LinkActionsProps;
 export function ReferenceEditor<T>(
   props: ReferenceEditorProps & {
     children: FieldConnector<T>['props']['children'];
-  }
+  },
 ) {
   return (
     <EntityProvider sdk={props.sdk}>
       <FieldConnector<T>
-        throttle={0}
+        debounce={0}
         field={props.sdk.field}
         isInitiallyDisabled={props.isInitiallyDisabled}
         isEqualValues={(value1, value2) => {
