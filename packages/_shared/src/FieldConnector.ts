@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import { FieldAPI, ValidationError } from '@contentful/app-sdk';
+import debounce from 'lodash/debounce';
 import isEqual from 'lodash/isEqual';
-import throttle from 'lodash/throttle';
 
 type Nullable = null | undefined;
 
@@ -32,7 +32,7 @@ interface FieldConnectorProps<ValueType> {
   children: (state: FieldConnectorChildProps<ValueType>) => React.ReactNode;
   isEmptyValue: (value: ValueType | null) => boolean;
   isEqualValues: (value1: ValueType | Nullable, value2: ValueType | Nullable) => boolean;
-  throttle: number;
+  debounce: number;
 }
 
 export class FieldConnector<ValueType> extends React.Component<
@@ -51,7 +51,7 @@ export class FieldConnector<ValueType> extends React.Component<
     isEqualValues: (value1: any | Nullable, value2: any | Nullable) => {
       return isEqual(value1, value2);
     },
-    throttle: 300,
+    debounce: 300,
   };
 
   constructor(props: FieldConnectorProps<ValueType>) {
@@ -81,7 +81,7 @@ export class FieldConnector<ValueType> extends React.Component<
     await this.triggerSetValueCallbacks(value);
   };
 
-  triggerSetValueCallbacks = throttle(
+  triggerSetValueCallbacks = debounce(
     (value: ValueType | Nullable) => {
       return new Promise((resolve, reject) => {
         if (this.props.isEmptyValue(value ?? null)) {
@@ -91,9 +91,9 @@ export class FieldConnector<ValueType> extends React.Component<
         }
       });
     },
-    this.props.throttle,
+    this.props.debounce,
     {
-      leading: this.props.throttle === 0,
+      leading: this.props.debounce === 0,
     }
   );
 
