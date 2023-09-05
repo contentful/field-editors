@@ -12,7 +12,6 @@ import { cx } from 'emotion';
 
 import * as styles from './styles';
 
-
 export interface RadioEditorProps {
   /**
    * is the field disabled initially
@@ -44,9 +43,10 @@ export function RadioEditor(props: RadioEditorProps) {
 
   return (
     <FieldConnector<string | number>
-      throttle={0}
+      debounce={0}
       field={field}
-      isInitiallyDisabled={props.isInitiallyDisabled}>
+      isInitiallyDisabled={props.isInitiallyDisabled}
+    >
       {({ disabled, value, setValue }) => {
         const setOption = (value: string) => {
           setValue(parseValue(value, field.type));
@@ -58,7 +58,8 @@ export function RadioEditor(props: RadioEditorProps) {
         return (
           <Form
             testId="radio-editor"
-            className={cx(styles.form, direction === 'rtl' ? styles.rightToLeft : '')}>
+            className={cx(styles.form, direction === 'rtl' ? styles.rightToLeft : '')}
+          >
             {options.map((item, index) => {
               const id = ['entity', field.id, field.locale, index, item.id].join('.');
               const checked = value === item.value;
@@ -73,7 +74,8 @@ export function RadioEditor(props: RadioEditorProps) {
                       if (e.target.checked) {
                         setOption(e.target.value);
                       }
-                    }}>
+                    }}
+                  >
                     {item.label}
                   </Radio>
                   {checked && !disabled && (

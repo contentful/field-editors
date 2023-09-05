@@ -37,7 +37,7 @@ export function ListEditor(props: ListEditorProps) {
 
   return (
     <FieldConnector<ListValue>
-      throttle={0}
+      debounce={0}
       isEmptyValue={isEmptyListValue}
       field={field}
       isInitiallyDisabled={props.isInitiallyDisabled}

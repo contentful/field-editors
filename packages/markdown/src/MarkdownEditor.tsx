@@ -49,7 +49,7 @@ export function MarkdownEditor(
     disabled: boolean;
     initialValue: string | null | undefined;
     saveValueToSDK: Function;
-  }
+  },
 ) {
   const [currentValue, setCurrentValue] = React.useState<string>(props.initialValue ?? '');
   const [selectedTab, setSelectedTab] = React.useState<MarkdownTab>('editor');
@@ -148,7 +148,7 @@ export function MarkdownEditor(
 export function MarkdownEditorConnected(props: MarkdownEditorProps) {
   return (
     <FieldConnector<string>
-      throttle={300}
+      debounce={300}
       field={props.sdk.field}
       isInitiallyDisabled={props.isInitiallyDisabled}
     >
