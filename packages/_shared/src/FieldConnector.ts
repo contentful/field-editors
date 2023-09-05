@@ -78,24 +78,24 @@ export class FieldConnector<ValueType> extends React.Component<
       this.setState({ value });
     }
 
-    await this.triggerSetValueCallbacks(value);
+    if (this.props.debounce === 0) {
+      await this.triggerSetValueCallbacks(value);
+    } else {
+      await this.debouncedTriggerSetValueCallbacks(value);
+    }
   };
 
-  triggerSetValueCallbacks = debounce(
-    (value: ValueType | Nullable) => {
-      return new Promise((resolve, reject) => {
-        if (this.props.isEmptyValue(value ?? null)) {
-          this.props.field.removeValue().then(resolve).catch(reject);
-        } else {
-          this.props.field.setValue(value).then(resolve).catch(reject);
-        }
-      });
-    },
-    this.props.debounce,
-    {
-      leading: this.props.debounce === 0,
-    }
-  );
+  triggerSetValueCallbacks = (value: ValueType | Nullable) => {
+    return new Promise((resolve, reject) => {
+      if (this.props.isEmptyValue(value ?? null)) {
+        this.props.field.removeValue().then(resolve).catch(reject);
+      } else {
+        this.props.field.setValue(value).then(resolve).catch(reject);
+      }
+    });
+  };
+
+  debouncedTriggerSetValueCallbacks = debounce(this.triggerSetValueCallbacks, this.props.debounce);
 
   componentDidMount() {
     const { field } = this.props;
