@@ -6,7 +6,7 @@ import { EmbeddedEntryInlineIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { Entry } from '@contentful/field-editor-shared';
 import { INLINES } from '@contentful/rich-text-types';
-import { HotkeyPlugin } from '@udecode/plate-core';
+import { HotkeyPlugin } from '@udecode/plate-common';
 import { css } from 'emotion';
 import isHotkey from 'is-hotkey';
 import { useSelected, useReadOnly } from 'slate-react';
@@ -115,7 +115,7 @@ interface ToolbarEmbeddedEntityInlineButtonProps {
 async function selectEntityAndInsert(
   editor,
   sdk: FieldExtensionSDK,
-  logAction: TrackingPluginActions['onShortcutAction'] | TrackingPluginActions['onToolbarAction']
+  logAction: TrackingPluginActions['onShortcutAction'] | TrackingPluginActions['onToolbarAction'],
 ) {
   logAction('openCreateEmbedDialog', { nodeType: INLINES.EMBEDDED_ENTRY });
 

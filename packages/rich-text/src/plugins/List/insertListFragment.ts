@@ -3,7 +3,7 @@
  * See: https://github.com/udecode/plate/blob/main/packages/nodes/list
  */
 import { TEXT_CONTAINERS, BLOCKS } from '@contentful/rich-text-types';
-import { findNode } from '@udecode/plate-core';
+import { findNode } from '@udecode/plate-common';
 
 import {
   isBlockNode,
@@ -46,7 +46,7 @@ const trimList = (listRoot: Node): Node[] => {
         ? commonAncestor
         : getCommonNode(listRoot, textEntry[1], commonAncestor[1]),
     // any list item would do, we grab the first one
-    getFirstAncestorOfType(listRoot, textEntries[0])
+    getFirstAncestorOfType(listRoot, textEntries[0]),
   );
 
   return isListRoot(commonAncestorEntry[0])
@@ -96,7 +96,7 @@ export const insertListFragment = (editor: PlateEditor) => {
 
     if (liEntry) {
       const nodes = unwrapTextContainerAtStart(
-        trimLiWrapper(fragment.flatMap((node) => trimList(node)))
+        trimLiWrapper(fragment.flatMap((node) => trimList(node))),
       );
 
       let firstBlockIndex = nodes.findIndex((node) => isBlockNode(editor, node));

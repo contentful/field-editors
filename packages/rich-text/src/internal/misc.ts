@@ -1,4 +1,4 @@
-import * as p from '@udecode/plate-core';
+import * as p from '@udecode/plate-common';
 import * as s from 'slate';
 
 import { normalize } from './transforms';
@@ -13,7 +13,7 @@ export type CreatePlateEditorOptions = Omit<
 
 export const createPlateEditor = (options: CreatePlateEditorOptions = {}) => {
   return p.createPlateEditor<Value, PlateEditor>(
-    options as p.CreatePlateEditorOptions<Value, PlateEditor>
+    options as p.CreatePlateEditorOptions<Value, PlateEditor>,
   );
 };
 
@@ -40,7 +40,7 @@ export const createPlateEditor = (options: CreatePlateEditorOptions = {}) => {
  */
 export const normalizeInitialValue = (
   options: CreatePlateEditorOptions,
-  initialValue?: Value
+  initialValue?: Value,
 ): Value => {
   const editor = createPlateEditor(options);
 
@@ -68,7 +68,7 @@ export const selectEditor = (editor: PlateEditor, opts: p.SelectEditorOptions) =
 export const fromDOMPoint = (
   editor: PlateEditor,
   domPoint: [Node /* DOM Node*/, number],
-  opts = { exactMatch: false, suppressThrow: false }
+  opts = { exactMatch: false, suppressThrow: false },
 ): s.BasePoint | null | undefined => {
   return p.toSlatePoint(editor, domPoint, opts);
 };
@@ -78,6 +78,6 @@ export const mockPlugin = (plugin?: Partial<PlatePlugin> | undefined) => {
     // TODO check if there is a way around this ugly casting
     plugin as unknown as
       | Partial<p.PlatePlugin<p.AnyObject, p.Value, p.PlateEditor<p.Value>>>
-      | undefined
+      | undefined,
   );
 };

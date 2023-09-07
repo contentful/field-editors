@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { MARKS } from '@contentful/rich-text-types';
 import { configure, render, waitFor } from '@testing-library/react';
-import { Plate } from '@udecode/plate-core';
+import { Plate } from '@udecode/plate-common';
 
 import '@testing-library/jest-dom/extend-expect';
 import { ContentfulEditorIdProvider, getContentfulEditorId } from '../../ContentfulEditorProvider';
@@ -48,7 +48,7 @@ describe('Toolbar', () => {
             <Toolbar isDisabled />
           </ContentfulEditorIdProvider>
         </SdkProvider>
-      </Plate>
+      </Plate>,
     );
     await waitFor(() => {
       expect(getByTestId('toolbar-heading-toggle')).toBeDisabled();
@@ -79,7 +79,7 @@ describe('Toolbar', () => {
               <Toolbar isDisabled />
             </ContentfulEditorIdProvider>
           </SdkProvider>
-        </Plate>
+        </Plate>,
       );
       expect(queryByTestId('dropdown-toolbar-button')).toBeVisible();
     });
@@ -94,7 +94,7 @@ describe('Toolbar', () => {
               <Toolbar isDisabled />
             </ContentfulEditorIdProvider>
           </SdkProvider>
-        </Plate>
+        </Plate>,
       );
       expect(queryByTestId('dropdown-toolbar-button')).not.toBeInTheDocument();
     });

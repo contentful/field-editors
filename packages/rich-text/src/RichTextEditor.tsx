@@ -4,7 +4,7 @@ import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import * as Contentful from '@contentful/rich-text-types';
-import { Plate, PlateProvider } from '@udecode/plate-core';
+import { Plate, PlateProvider } from '@udecode/plate-common';
 import { css, cx } from 'emotion';
 import deepEquals from 'fast-deep-equal';
 import noop from 'lodash/noop';
@@ -39,7 +39,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const id = getContentfulEditorId(sdk);
   const plugins = React.useMemo(
     () => getPlugins(sdk, onAction ?? noop, restrictedMarks),
-    [sdk, onAction, restrictedMarks]
+    [sdk, onAction, restrictedMarks],
   );
 
   const initialValue = React.useMemo(() => {
@@ -48,7 +48,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
         plugins,
         disableCorePlugins,
       },
-      toSlateValue(props.value)
+      toSlateValue(props.value),
     );
   }, [props.value, plugins]);
 
@@ -57,7 +57,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
     props.minHeight !== undefined ? css({ minHeight: props.minHeight }) : undefined,
     props.maxHeight !== undefined ? css({ maxHeight: props.maxHeight }) : undefined,
     props.isDisabled ? styles.disabled : styles.enabled,
-    props.isToolbarHidden && styles.hiddenToolbar
+    props.isToolbarHidden && styles.hiddenToolbar,
   );
 
   return (
@@ -96,7 +96,7 @@ const RichTextEditor = (props: Props) => {
   const { sdk, isInitiallyDisabled, onAction, restrictedMarks, ...otherProps } = props;
   const isEmptyValue = React.useCallback(
     (value) => !value || deepEquals(value, Contentful.EMPTY_DOCUMENT),
-    []
+    [],
   );
 
   const id = getContentfulEditorId(props.sdk);
