@@ -5,7 +5,6 @@ import { FieldAPI, ParametersAPI, FieldConnector } from '@contentful/field-edito
 import get from 'lodash/get';
 import { nanoid } from 'nanoid';
 
-
 export interface BooleanEditorProps {
   /**
    * is the field disabled initially
@@ -38,9 +37,10 @@ export function BooleanEditor(props: BooleanEditorProps) {
 
   return (
     <FieldConnector<boolean>
-      throttle={0}
+      debounce={0}
       field={field}
-      isInitiallyDisabled={props.isInitiallyDisabled}>
+      isInitiallyDisabled={props.isInitiallyDisabled}
+    >
       {({ disabled, value, setValue }) => {
         const setOption = (value: string) => {
           setValue(value === 'true' ? true : false);
@@ -66,7 +66,8 @@ export function BooleanEditor(props: BooleanEditorProps) {
                       if (e.target.checked) {
                         setOption(e.target.value);
                       }
-                    }}>
+                    }}
+                  >
                     {item.label}
                   </Radio>
                 </Flex>
@@ -77,7 +78,8 @@ export function BooleanEditor(props: BooleanEditorProps) {
                 as="button"
                 testId="boolean-editor-clear"
                 isDisabled={disabled}
-                onClick={clearOption}>
+                onClick={clearOption}
+              >
                 Clear
               </TextLink>
             )}

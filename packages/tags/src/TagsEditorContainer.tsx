@@ -56,7 +56,8 @@ export function TagsEditorContainer(props: TagsEditorContainerProps) {
       field={field}
       isInitiallyDisabled={props.isInitiallyDisabled}
       isEmptyValue={isEmptyTagsValue}
-      throttle={0}>
+      debounce={0}
+    >
       {({ disabled, value, errors, setValue }) => {
         const items = value || [];
         return (

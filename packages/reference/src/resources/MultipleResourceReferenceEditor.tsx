@@ -40,21 +40,21 @@ function ResourceEditor(props: EditorProps) {
       const newItems = arrayMove(items, oldIndex, newIndex);
       setValue(newItems);
     },
-    [items, setValue]
+    [items, setValue],
   );
   const onMove = useCallback(
     (oldIndex, newIndex) => {
       const newItems = arrayMove(items, oldIndex, newIndex);
       setValue(newItems);
     },
-    [items, setValue]
+    [items, setValue],
   );
 
   const onRemoteItemAtIndex = useCallback(
     (index) => {
       setValue(items.filter((_v, i) => i !== index));
     },
-    [items, setValue]
+    [items, setValue],
   );
 
   const { dialogs, field } = props.sdk;
@@ -101,11 +101,11 @@ function WithPerItemCallbacks({
 }) {
   const handleMoveTop = React.useMemo(
     () => (index > 0 ? () => onMove(index, 0) : undefined),
-    [index, onMove]
+    [index, onMove],
   );
   const handleMoveBottom = React.useMemo(
     () => (index < listLength - 1 ? () => onMove(index, listLength - 1) : undefined),
-    [index, onMove, listLength]
+    [index, onMove, listLength],
   );
   const handleRemove = useCallback(() => onRemoteItemAtIndex(index), [index, onRemoteItemAtIndex]);
 
@@ -126,12 +126,12 @@ export function MultipleResourceReferenceEditor(
   props: ReferenceEditorProps & {
     apiUrl: string;
     getEntryRouteHref: (entryRoute: EntryRoute) => string;
-  }
+  },
 ) {
   return (
     <EntityProvider sdk={props.sdk}>
       <FieldConnector<ResourceLink[]>
-        throttle={0}
+        debounce={0}
         field={props.sdk.field}
         isInitiallyDisabled={props.isInitiallyDisabled}
         isEqualValues={deepEqual}
