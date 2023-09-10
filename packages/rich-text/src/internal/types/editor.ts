@@ -5,12 +5,11 @@ import { MARKS } from '@contentful/rich-text-types';
 import * as p from '@udecode/plate-common';
 import * as s from 'slate';
 import * as sr from 'slate-react';
-// TODO fix me
-// import {
-//   SelectionMoveOptions as SlateSelectionMoveOptions,
-//   SelectionCollapseOptions as SlateSelectionCollapseOptions,
-// } from 'slate';
-// import { TextInsertTextOptions as SlateTextInsertTextOptions } from 'slate';
+import {
+  SelectionMoveOptions as SlateSelectionMoveOptions,
+  SelectionCollapseOptions as SlateSelectionCollapseOptions,
+} from 'slate/dist/transforms/selection';
+import { TextInsertTextOptions as SlateTextInsertTextOptions } from 'slate/dist/transforms/text';
 
 import { TrackingPluginActions } from '../../plugins/Tracking';
 
@@ -48,9 +47,9 @@ export type BaseRange = p.TRange;
 export type ToggleNodeTypeOptions = p.ToggleNodeTypeOptions;
 export type EditorNodesOptions = Omit<p.GetNodeEntriesOptions<Value>, 'match'>;
 export type WithOverride<P = p.AnyObject> = p.WithOverride<P, Value, PlateEditor>;
-export type SelectionMoveOptions = any;
-export type TextInsertTextOptions = any;
-export type SelectionCollapseOptions = any;
+export type SelectionMoveOptions = SlateSelectionMoveOptions;
+export type TextInsertTextOptions = SlateSelectionCollapseOptions;
+export type SelectionCollapseOptions = SlateTextInsertTextOptions;
 export type HotkeyPlugin = p.HotkeyPlugin;
 export type RenderLeafProps = sr.RenderLeafProps;
 export type RenderElementProps = sr.RenderElementProps;
