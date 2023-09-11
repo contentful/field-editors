@@ -138,7 +138,7 @@ export function MarkdownEditor(
         </React.Suspense>
       )}
       <MarkdownBottomBar>
-        <MarkdownHelp selectedTab={selectedTab} onClick={openMarkdownHelp} />
+        <MarkdownHelp mode={selectedTab} onClick={openMarkdownHelp} />
       </MarkdownBottomBar>
       <MarkdownConstraints sdk={props.sdk} value={currentValue} />
     </div>

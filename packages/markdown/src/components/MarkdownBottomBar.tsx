@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Paragraph, TextLink } from '@contentful/f36-components';
+import { Paragraph, Stack, TextLink } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
 import { css } from 'emotion';
 import { MarkdownTab } from 'types';
@@ -36,29 +36,47 @@ export function MarkdownCounter(props: { words: number; characters: number }) {
   );
 }
 
-export function MarkdownHelp(props: { onClick: () => void; selectedTab?: MarkdownTab }) {
+function SanitizeMessage() {
+  return (
+    <span>
+      The output of this markdown editor is sanitized.{' '}
+      <TextLink as="a" target="_blank" rel="noopener noreferrer" href={SANITIZE_LINK}>
+        Learn more.
+      </TextLink>
+    </span>
+  );
+}
+
+function CheatSheetMessage({ onClick }: { onClick: () => void }) {
+  return (
+    <span>
+      Format your text like a pro with the{' '}
+      <TextLink as="button" testId="open-markdown-cheatsheet-button" onClick={onClick}>
+        markdown cheatsheet
+      </TextLink>
+      .
+    </span>
+  );
+}
+
+type HelpMode = MarkdownTab | 'zen';
+
+export function MarkdownHelp(props: { onClick: () => void; mode: HelpMode }) {
   let content: JSX.Element | null;
 
-  switch (props.selectedTab) {
+  switch (props.mode) {
     case 'preview':
-      content = (
-        <>
-          The output of this markdown editor is sanitized.{' '}
-          <TextLink as="a" target="_blank" rel="noopener noreferrer" href={SANITIZE_LINK}>
-            Learn more.
-          </TextLink>
-        </>
-      );
+      content = <SanitizeMessage />;
       break;
     case 'editor':
+      content = <CheatSheetMessage onClick={props.onClick} />;
+      break;
+    case 'zen':
       content = (
-        <>
-          Format your text like a pro with the{' '}
-          <TextLink as="button" testId="open-markdown-cheatsheet-button" onClick={props.onClick}>
-            markdown cheatsheet
-          </TextLink>
-          .
-        </>
+        <Stack flexDirection="column" spacing="spacing2Xs" alignItems="flex-start">
+          <CheatSheetMessage onClick={props.onClick} />
+          <SanitizeMessage />
+        </Stack>
       );
       break;
     default:

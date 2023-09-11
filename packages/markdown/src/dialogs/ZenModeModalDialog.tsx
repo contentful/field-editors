@@ -209,6 +209,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
       <div className={styles.bottomSplit}>
         <MarkdownBottomBar>
           <MarkdownHelp
+            mode="zen"
             onClick={() => {
               openCheatsheetModal(props.sdk.dialogs);
             }}
@@ -224,7 +225,7 @@ export const openZenMode = (
   options: { initialValue: string; locale: string },
 ): Promise<ZenModeResult> => {
   return dialogs.openCurrent({
-    width: 'zen' as any, // eslint-disable-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
+    width: 'fullWidth',
     shouldCloseOnEscapePress: false,
     minHeight: '100vh',
     shouldCloseOnOverlayClick: false,
