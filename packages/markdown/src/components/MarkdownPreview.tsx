@@ -2,10 +2,13 @@ import * as React from 'react';
 import ReactMarkdown from 'react-markdown';
 
 import tokens from '@contentful/f36-tokens';
-import DOMPurify from 'dompurify';
 import { css, cx } from 'emotion';
+import rehypeParse from 'rehype-parse';
 import rehypeRaw from 'rehype-raw';
+import rehypeSanitize from 'rehype-sanitize';
+import rehypeStringify from 'rehype-stringify';
 import remarkGfm from 'remark-gfm';
+import { unified } from 'unified';
 
 import { EditorDirection, PreviewComponents } from '../types';
 import { replaceMailtoAmp } from '../utils/replaceMailtoAmp';
@@ -197,13 +200,23 @@ const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
   const className = cx(
     props.minHeight !== undefined ? css({ minHeight: props.minHeight }) : undefined,
     props.mode === 'default' ? styles.framed : styles.zen,
-    props.direction === 'rtl' ? styles.rtl : undefined
+    props.direction === 'rtl' ? styles.rtl : undefined,
   );
 
-  // See the list of allowed Tags here:
-  // https://github.com/cure53/DOMPurify/blob/main/src/tags.js#L3-L121
   const cleanHTML = React.useMemo(() => {
-    return replaceMailtoAmp(DOMPurify.sanitize(props.value));
+    try {
+      const processor = unified()
+        .use(rehypeParse, { fragment: true })
+        .use(rehypeSanitize)
+        .use(rehypeStringify);
+
+      const sanitizedHtml = processor.processSync(props.value).toString();
+
+      return replaceMailtoAmp(sanitizedHtml);
+    } catch (error) {
+      console.error('Error sanitizing the HTML:', error);
+      return props.value; // In case of an error, you can decide whether to return the original value or some other fallback.
+    }
   }, [props.value]);
 
   return (
@@ -213,7 +226,7 @@ const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
         rehypePlugins={[rehypeRaw]}
         remarkPlugins={[remarkGfm]}
         remarkRehypeOptions={{
-          // The HTML is already sanitized by Dompurify
+          // The HTML is already sanitized by rehype
           allowDangerousHtml: true,
         }}
         components={{
