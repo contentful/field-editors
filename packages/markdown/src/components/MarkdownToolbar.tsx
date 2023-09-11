@@ -76,7 +76,7 @@ const ToolbarButton = React.forwardRef<
   } = props;
 
   return (
-    <Tooltip className={styles.tooltip} placement={tooltipPlace} content={tooltip}>
+    <Tooltip className={styles.tooltip} usePortal placement={tooltipPlace} content={tooltip}>
       <IconButton
         {...otherProps}
         ref={ref}
