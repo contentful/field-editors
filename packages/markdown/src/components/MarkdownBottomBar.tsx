@@ -3,6 +3,9 @@ import * as React from 'react';
 import { Paragraph, TextLink } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
 import { css } from 'emotion';
+import { MarkdownTab } from 'types';
+
+const SANITIZE_LINK = 'https://en.wikipedia.org/wiki/HTML_sanitization';
 
 const styles = {
   root: css({
@@ -17,7 +20,7 @@ const styles = {
   help: css({
     color: tokens.gray700,
     fontSize: tokens.fontSizeS,
-    button: {
+    '& button, & a': {
       fontSize: tokens.fontSizeS,
       lineHeight: 'inherit',
     },
@@ -33,20 +36,38 @@ export function MarkdownCounter(props: { words: number; characters: number }) {
   );
 }
 
-export function MarkdownHelp(props: { onClick: () => void }) {
+export function MarkdownHelp(props: { onClick: () => void; selectedTab?: MarkdownTab }) {
+  let content: JSX.Element | null;
+
+  switch (props.selectedTab) {
+    case 'preview':
+      content = (
+        <>
+          The output of this markdown editor is sanitized.{' '}
+          <TextLink as="a" target="_blank" rel="noopener noreferrer" href={SANITIZE_LINK}>
+            Learn more.
+          </TextLink>
+        </>
+      );
+      break;
+    case 'editor':
+      content = (
+        <>
+          Format your text like a pro with the{' '}
+          <TextLink as="button" testId="open-markdown-cheatsheet-button" onClick={props.onClick}>
+            markdown cheatsheet
+          </TextLink>
+          .
+        </>
+      );
+      break;
+    default:
+      content = null;
+  }
+
   return (
     <Paragraph marginBottom="none" className={styles.help}>
-      Format your text like a pro with the{' '}
-      <TextLink
-        as="button"
-        testId="open-markdown-cheatsheet-button"
-        onClick={() => {
-          props.onClick();
-        }}
-      >
-        markdown cheatsheet
-      </TextLink>
-      .
+      {content}
     </Paragraph>
   );
 }

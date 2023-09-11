@@ -221,7 +221,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
 
 export const openZenMode = (
   dialogs: DialogsAPI,
-  options: { initialValue: string; locale: string }
+  options: { initialValue: string; locale: string },
 ): Promise<ZenModeResult> => {
   return dialogs.openCurrent({
     width: 'zen' as any, // eslint-disable-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
