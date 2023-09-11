@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { DialogExtensionSDK, DialogsAPI } from '@contentful/app-sdk';
+import { Grid } from '@contentful/f36-components';
 import { ChevronLeftIcon, ChevronRightIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { css, cx } from 'emotion';
@@ -37,73 +38,59 @@ type ZenModeDialogProps = {
 
 const styles = {
   root: css({
-    position: 'fixed',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
+    display: 'grid',
+    gridTemplateRows: 'min-content 1fr min-content',
+    gridTemplateColumns: '1fr 1px 1fr',
+    height: '85vh',
   }),
   topSplit: css({
-    position: 'fixed',
-    top: 0,
-    height: '48px',
-    left: 0,
-    right: 0,
+    gridRow: '1 / 2',
+    gridColumn: '1 / 4',
   }),
   bottomSplit: css({
-    position: 'fixed',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: '36px',
+    gridRow: '3 / 4',
+    gridColumn: '1 / 4',
   }),
   editorSplit: css({
-    width: '50%',
-    position: 'fixed',
-    top: '48px',
-    left: 0,
-    bottom: '36px',
-    overflowX: 'hidden',
+    gridRow: '2 / 3',
+    gridColumn: '1 / 2',
     overflowY: 'scroll',
   }),
   editorSplitFullscreen: css({
-    left: 0,
-    right: 0,
-    width: '100%',
+    gridRow: '2 / 3',
+    gridColumn: '1 / 4',
+    overflowY: 'scroll',
   }),
   previewSplit: css({
-    width: '50%',
-    position: 'fixed',
-    top: '48px',
-    right: 0,
-    bottom: '36px',
-    overflowX: 'hidden',
+    gridRow: '2 / 3',
+    gridColumn: '3 / 4',
     overflowY: 'scroll',
   }),
   separator: css({
-    position: 'fixed',
-    top: '48px',
-    bottom: '36px',
+    gridRow: '2 / 3',
+    gridColumn: '2 / 3',
+    backgroundColor: tokens.gray400,
     width: '1px',
-    background: tokens.gray400,
-    left: '50%',
   }),
   button: css({
-    position: 'fixed',
     cursor: 'pointer',
     zIndex: 105,
-    top: '49%',
     height: '30px',
     backgroundColor: tokens.gray100,
     border: `1px solid ${tokens.gray400}`,
     padding: 0,
   }),
   hideButton: css({
-    left: '50%',
+    gridRow: '2 / 3',
+    gridColumn: '2 / 3',
+    justifySelf: 'end',
+    alignSelf: 'center',
   }),
   showButton: css({
-    right: 0,
-    borderRightWidth: 0,
+    gridRow: '2 / 3',
+    gridColumn: '3 / 4',
+    justifySelf: 'end',
+    alignSelf: 'center',
   }),
   icon: css({
     verticalAlign: 'middle',
@@ -144,12 +131,12 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
   const direction = props.sdk.locales.direction[props.locale] ?? 'ltr';
 
   return (
-    <div className={styles.root} data-test-id="zen-mode-markdown-editor">
-      <div className={styles.topSplit}>
+    <Grid className={styles.root} data-test-id="zen-mode-markdown-editor">
+      <Grid.Item className={styles.topSplit}>
         <MarkdownToolbar mode="zen" disabled={false} canUploadAssets={false} actions={actions} />
-      </div>
+      </Grid.Item>
 
-      <div
+      <Grid.Item
         className={cx(styles.editorSplit, {
           [styles.editorSplitFullscreen]: showPreview === false,
         })}
@@ -170,9 +157,9 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
             });
           }}
         />
-      </div>
+      </Grid.Item>
       {showPreview && (
-        <div className={styles.previewSplit}>
+        <Grid.Item className={styles.previewSplit}>
           <React.Suspense fallback={<MarkdownPreviewSkeleton />}>
             <MarkdownPreview
               direction={direction}
@@ -181,9 +168,9 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
               previewComponents={props.previewComponents}
             />
           </React.Suspense>
-        </div>
+        </Grid.Item>
       )}
-      {showPreview && <div className={styles.separator} />}
+      {showPreview && <Grid.Item className={styles.separator} />}
       {showPreview && (
         <button
           className={cx(styles.button, styles.hideButton)}
@@ -206,7 +193,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
           <ChevronLeftIcon variant="muted" size="tiny" className={styles.icon} />
         </button>
       )}
-      <div className={styles.bottomSplit}>
+      <Grid.Item className={styles.bottomSplit}>
         <MarkdownBottomBar>
           <MarkdownHelp
             mode="zen"
@@ -215,8 +202,8 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
             }}
           />
         </MarkdownBottomBar>
-      </div>
-    </div>
+      </Grid.Item>
+    </Grid>
   );
 };
 
@@ -227,8 +214,7 @@ export const openZenMode = (
   return dialogs.openCurrent({
     width: 'fullWidth',
     shouldCloseOnEscapePress: false,
-    minHeight: '100vh',
-    shouldCloseOnOverlayClick: false,
+    shouldCloseOnOverlayClick: true,
     parameters: {
       type: MarkdownDialogType.zenMode,
       initialValue: options.initialValue,
