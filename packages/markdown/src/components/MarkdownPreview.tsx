@@ -3,12 +3,9 @@ import ReactMarkdown from 'react-markdown';
 
 import tokens from '@contentful/f36-tokens';
 import { css, cx } from 'emotion';
-import rehypeParse from 'rehype-parse';
 import rehypeRaw from 'rehype-raw';
 import rehypeSanitize from 'rehype-sanitize';
-import rehypeStringify from 'rehype-stringify';
 import remarkGfm from 'remark-gfm';
-import { unified } from 'unified';
 
 import { EditorDirection, PreviewComponents } from '../types';
 import { replaceMailtoAmp } from '../utils/replaceMailtoAmp';
@@ -203,27 +200,11 @@ const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
     props.direction === 'rtl' ? styles.rtl : undefined,
   );
 
-  const cleanHTML = React.useMemo(() => {
-    try {
-      const processor = unified()
-        .use(rehypeParse, { fragment: true })
-        .use(rehypeSanitize)
-        .use(rehypeStringify);
-
-      const sanitizedHtml = processor.processSync(props.value).toString();
-
-      return replaceMailtoAmp(sanitizedHtml);
-    } catch (error) {
-      console.error('Error sanitizing the HTML:', error);
-      return props.value; // In case of an error, you can decide whether to return the original value or some other fallback.
-    }
-  }, [props.value]);
-
   return (
     <div className={className} data-test-id="markdown-preview">
       <ReactMarkdown
         className={styles.root}
-        rehypePlugins={[rehypeRaw]}
+        rehypePlugins={[rehypeRaw, rehypeSanitize]}
         remarkPlugins={[remarkGfm]}
         remarkRehypeOptions={{
           // The HTML is already sanitized by rehype
@@ -235,7 +216,7 @@ const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
           ),
         }}
       >
-        {cleanHTML}
+        {replaceMailtoAmp(props.value)}
       </ReactMarkdown>
     </div>
   );
