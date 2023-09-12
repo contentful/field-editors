@@ -2,9 +2,9 @@ import * as React from 'react';
 import ReactMarkdown from 'react-markdown';
 
 import tokens from '@contentful/f36-tokens';
-import DOMPurify from 'dompurify';
 import { css, cx } from 'emotion';
 import rehypeRaw from 'rehype-raw';
+import rehypeSanitize from 'rehype-sanitize';
 import remarkGfm from 'remark-gfm';
 
 import { EditorDirection, PreviewComponents } from '../types';
@@ -197,23 +197,17 @@ const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
   const className = cx(
     props.minHeight !== undefined ? css({ minHeight: props.minHeight }) : undefined,
     props.mode === 'default' ? styles.framed : styles.zen,
-    props.direction === 'rtl' ? styles.rtl : undefined
+    props.direction === 'rtl' ? styles.rtl : undefined,
   );
-
-  // See the list of allowed Tags here:
-  // https://github.com/cure53/DOMPurify/blob/main/src/tags.js#L3-L121
-  const cleanHTML = React.useMemo(() => {
-    return replaceMailtoAmp(DOMPurify.sanitize(props.value));
-  }, [props.value]);
 
   return (
     <div className={className} data-test-id="markdown-preview">
       <ReactMarkdown
         className={styles.root}
-        rehypePlugins={[rehypeRaw]}
+        rehypePlugins={[rehypeRaw, rehypeSanitize]}
         remarkPlugins={[remarkGfm]}
         remarkRehypeOptions={{
-          // The HTML is already sanitized by Dompurify
+          // The HTML is already sanitized by rehype
           allowDangerousHtml: true,
         }}
         components={{
@@ -222,7 +216,7 @@ const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
           ),
         }}
       >
-        {cleanHTML}
+        {replaceMailtoAmp(props.value)}
       </ReactMarkdown>
     </div>
   );

@@ -12,7 +12,7 @@ import { SpecialCharacterModalDialog } from './SpecialCharacterModalDialog';
 import { ZenModeModalDialog } from './ZenModeModalDialog';
 
 export const renderMarkdownDialog = (
-  sdk: DialogExtensionSDK & { parameters: { invocation: MarkdownDialogsParams } }
+  sdk: DialogExtensionSDK & { parameters: { invocation: MarkdownDialogsParams } },
 ) => {
   const parameters = sdk.parameters.invocation;
   if (parameters.type === MarkdownDialogType.cheatsheet) {
