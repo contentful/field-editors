@@ -39,7 +39,7 @@ export function MarkdownCounter(props: { words: number; characters: number }) {
 function SanitizeMessage() {
   return (
     <span>
-      The output of this markdown editor is sanitized.{' '}
+      The preview of the content in this field will be sanitized.{' '}
       <TextLink as="a" target="_blank" rel="noopener noreferrer" href={SANITIZE_LINK}>
         Learn more.
       </TextLink>
