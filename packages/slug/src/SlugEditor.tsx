@@ -63,7 +63,7 @@ function FieldConnectorCallback({
         // do nothing
       }
     },
-    [setValue],
+    [setValue]
   );
 
   return (
@@ -103,7 +103,7 @@ export function SlugEditor(props: SlugEditorProps) {
   // one or the title field is also localized with a custom value.
   const isOptionalFieldLocale = Boolean(!field.required || isLocaleOptional);
   const isOptionalLocaleWithFallback = Boolean(
-    isOptionalFieldLocale && localeFallbackCode && locales.available.includes(localeFallbackCode),
+    isOptionalFieldLocale && localeFallbackCode && locales.available.includes(localeFallbackCode)
   );
 
   const performUniqueCheck = React.useCallback(
@@ -119,7 +119,7 @@ export function SlugEditor(props: SlugEditorProps) {
         return res.total === 0;
       });
     },
-    [entrySys?.contentType?.sys?.id, field.id, field.locale, entrySys.id, space],
+    [entrySys?.contentType?.sys?.id, field.id, field.locale, entrySys.id, space]
   );
 
   return (

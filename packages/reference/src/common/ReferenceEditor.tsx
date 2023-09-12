@@ -43,7 +43,7 @@ export type CustomActionProps = LinkActionsProps;
 export function ReferenceEditor<T>(
   props: ReferenceEditorProps & {
     children: FieldConnector<T>['props']['children'];
-  },
+  }
 ) {
   return (
     <EntityProvider sdk={props.sdk}>

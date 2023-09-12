@@ -64,7 +64,7 @@ function getOptions(field: FieldAPI, id: string): CheckboxOption[] {
 const getInvalidValues = (
   field: FieldAPI,
   values: string[],
-  options: CheckboxOption[],
+  options: CheckboxOption[]
 ): CheckboxOption[] => {
   const getValueFromOptions = (options as CheckboxOption[]).map((item) => item.value);
   const invalidValues = values

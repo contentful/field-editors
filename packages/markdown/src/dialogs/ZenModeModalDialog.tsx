@@ -209,7 +209,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
 
 export const openZenMode = (
   dialogs: DialogsAPI,
-  options: { initialValue: string; locale: string },
+  options: { initialValue: string; locale: string }
 ): Promise<ZenModeResult> => {
   return dialogs.openCurrent({
     width: 'fullWidth',

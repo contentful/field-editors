@@ -49,7 +49,7 @@ export function MarkdownEditor(
     disabled: boolean;
     initialValue: string | null | undefined;
     saveValueToSDK: Function;
-  },
+  }
 ) {
   const [currentValue, setCurrentValue] = React.useState<string>(props.initialValue ?? '');
   const [selectedTab, setSelectedTab] = React.useState<MarkdownTab>('editor');

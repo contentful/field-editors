@@ -197,7 +197,7 @@ const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
   const className = cx(
     props.minHeight !== undefined ? css({ minHeight: props.minHeight }) : undefined,
     props.mode === 'default' ? styles.framed : styles.zen,
-    props.direction === 'rtl' ? styles.rtl : undefined,
+    props.direction === 'rtl' ? styles.rtl : undefined
   );
 
   return (
