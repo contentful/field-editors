@@ -81,6 +81,7 @@ export function MarkdownHelp(props: { onClick: () => void; mode: HelpMode }) {
       break;
     default:
       content = null;
+      throw new Error(`Invalid HelpMode provided in MarkdownHelp: ${props.mode}`);
   }
 
   return (
