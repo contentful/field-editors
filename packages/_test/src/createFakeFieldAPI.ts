@@ -10,7 +10,7 @@ type CustomizeMockFn = (fieldApi: FieldAPI) => FieldAPI;
 
 export function createFakeFieldAPI<T>(
   customizeMock: CustomizeMockFn = identity,
-  initialValue?: T
+  initialValue?: T,
 ): [FieldAPI, Emitter] {
   const emitter: Emitter = mitt();
 
@@ -20,6 +20,7 @@ export function createFakeFieldAPI<T>(
   return [
     customizeMock({
       id: 'fake-id',
+      name: 'my-field',
       locale: 'en-US',
       type: 'Symbol',
       validations: [],
