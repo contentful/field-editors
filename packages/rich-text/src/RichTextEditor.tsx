@@ -103,7 +103,7 @@ const RichTextEditor = (props: Props) => {
   return (
     <EntityProvider sdk={sdk}>
       <FieldConnector
-        throttle={0}
+        debounce={0}
         field={sdk.field}
         isInitiallyDisabled={isInitiallyDisabled}
         isEmptyValue={isEmptyValue}

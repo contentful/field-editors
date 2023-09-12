@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import { FieldAPI, ValidationError } from '@contentful/app-sdk';
+import debounce from 'lodash/debounce';
 import isEqual from 'lodash/isEqual';
-import throttle from 'lodash/throttle';
 
 type Nullable = null | undefined;
 
@@ -32,7 +32,7 @@ interface FieldConnectorProps<ValueType> {
   children: (state: FieldConnectorChildProps<ValueType>) => React.ReactNode;
   isEmptyValue: (value: ValueType | null) => boolean;
   isEqualValues: (value1: ValueType | Nullable, value2: ValueType | Nullable) => boolean;
-  throttle: number;
+  debounce: number;
 }
 
 export class FieldConnector<ValueType> extends React.Component<
@@ -51,7 +51,7 @@ export class FieldConnector<ValueType> extends React.Component<
     isEqualValues: (value1: any | Nullable, value2: any | Nullable) => {
       return isEqual(value1, value2);
     },
-    throttle: 300,
+    debounce: 300,
   };
 
   constructor(props: FieldConnectorProps<ValueType>) {
@@ -78,24 +78,24 @@ export class FieldConnector<ValueType> extends React.Component<
       this.setState({ value });
     }
 
-    await this.triggerSetValueCallbacks(value);
+    if (this.props.debounce === 0) {
+      await this.triggerSetValueCallbacks(value);
+    } else {
+      await this.debouncedTriggerSetValueCallbacks(value);
+    }
   };
 
-  triggerSetValueCallbacks = throttle(
-    (value: ValueType | Nullable) => {
-      return new Promise((resolve, reject) => {
-        if (this.props.isEmptyValue(value ?? null)) {
-          this.props.field.removeValue().then(resolve).catch(reject);
-        } else {
-          this.props.field.setValue(value).then(resolve).catch(reject);
-        }
-      });
-    },
-    this.props.throttle,
-    {
-      leading: this.props.throttle === 0,
-    }
-  );
+  triggerSetValueCallbacks = (value: ValueType | Nullable) => {
+    return new Promise((resolve, reject) => {
+      if (this.props.isEmptyValue(value ?? null)) {
+        this.props.field.removeValue().then(resolve).catch(reject);
+      } else {
+        this.props.field.setValue(value).then(resolve).catch(reject);
+      }
+    });
+  };
+
+  debouncedTriggerSetValueCallbacks = debounce(this.triggerSetValueCallbacks, this.props.debounce);
 
   componentDidMount() {
     const { field } = this.props;

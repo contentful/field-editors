@@ -25,7 +25,7 @@ it('does not rerender with outdated value after calling setValue', () => {
     isInitiallyDisabled: false,
     children: jest.fn().mockImplementation(() => null),
     field,
-    throttle: 0,
+    debounce: 0,
   };
 
   render(<FieldConnector {...props} />);
