@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.4.0...@contentful/field-editor-markdown@1.5.0) (2023-09-12)
+
+### Bug Fixes
+
+- reverting prettier [] ([#1490](https://github.com/contentful/field-editors/issues/1490)) ([adfc425](https://github.com/contentful/field-editors/commit/adfc4258fd62de0bb0fa55cde8c676f46753faa2))
+
+### Features
+
+- [TOL-1405] Replace throttling with debounce in field editors ([#1482](https://github.com/contentful/field-editors/issues/1482)) ([f56126c](https://github.com/contentful/field-editors/commit/f56126c415c6b3718f198ad34afba9a2933df434))
+- markdown sanitize changes [TOL-497] ([#1486](https://github.com/contentful/field-editors/issues/1486)) ([6bbe49a](https://github.com/contentful/field-editors/commit/6bbe49ada07d95811260d75ef11cb4677957be3a))
+
 # [1.4.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.3.1...@contentful/field-editor-markdown@1.4.0) (2023-08-31)
 
 ### Features

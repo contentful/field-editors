@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.5.1...@contentful/field-editor-date@1.6.0) (2023-09-12)
+
+### Features
+
+- [TOL-1405] Replace throttling with debounce in field editors ([#1482](https://github.com/contentful/field-editors/issues/1482)) ([f56126c](https://github.com/contentful/field-editors/commit/f56126c415c6b3718f198ad34afba9a2933df434))
+
 ## [1.5.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.5.0...@contentful/field-editor-date@1.5.1) (2023-07-25)
 
 **Note:** Version bump only for package @contentful/field-editor-date
