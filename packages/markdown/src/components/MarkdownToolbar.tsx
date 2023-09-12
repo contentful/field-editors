@@ -76,7 +76,7 @@ const ToolbarButton = React.forwardRef<
   } = props;
 
   return (
-    <Tooltip className={styles.tooltip} placement={tooltipPlace} content={tooltip}>
+    <Tooltip className={styles.tooltip} usePortal placement={tooltipPlace} content={tooltip}>
       <IconButton
         {...otherProps}
         ref={ref}
@@ -338,8 +338,8 @@ export function DefaultMarkdownToolbar(props: MarkdownToolbarProps) {
 export function ZenMarkdownToolbar(props: MarkdownToolbarProps) {
   return (
     <div className={styles.root}>
-      <Flex justifyContent="space-between">
-        <Flex>
+      <Flex justifyContent="space-between" alignItems="flex-start">
+        <Flex flexWrap="wrap">
           <MainButtons {...props} />
           <AdditionalButtons {...props} />
         </Flex>
