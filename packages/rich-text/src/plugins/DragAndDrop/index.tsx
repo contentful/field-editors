@@ -29,7 +29,7 @@ export function createDragAndDropPlugin(): PlatePlugin {
         const [draggingBlock] = Array.from(
           getNodeEntries(editor, {
             match: (node) => DRAGGABLE_TYPES.includes(node.type as string),
-          })
+          }),
         );
         if (!draggingBlock) return false;
 
@@ -47,6 +47,8 @@ export function createDragAndDropPlugin(): PlatePlugin {
         if (!dropDisallowed) {
           // Move the drop event to a new undo batch mitigating the bug where undo not only moves it back,
           // but also undoes a previous action: https://github.com/ianstormtaylor/slate/issues/4694
+          // TODO fix this type
+          // @ts-expect-error -- ignoring for now
           editor.history.undos.push([]);
         }
 
