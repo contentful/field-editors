@@ -147,7 +147,8 @@ function DateEditorContainer({
                 ampm: getDefaultAMPM(),
                 utcOffset: getDefaultUtcOffset(),
               });
-            }}>
+            }}
+          >
             Clear
           </TextLink>
         </>
@@ -171,7 +172,8 @@ export function DateEditor(props: DateEditorProps) {
       field={field}
       isInitiallyDisabled={props.isInitiallyDisabled}
       isDisabled={props.isDisabled}
-      throttle={0}>
+      debounce={0}
+    >
       {({ value, disabled, setValue, externalReset }) => {
         const datetimeValue = userInputFromDatetime({
           value,

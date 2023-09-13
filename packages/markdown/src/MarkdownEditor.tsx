@@ -138,7 +138,7 @@ export function MarkdownEditor(
         </React.Suspense>
       )}
       <MarkdownBottomBar>
-        <MarkdownHelp onClick={openMarkdownHelp} />
+        <MarkdownHelp mode={selectedTab} onClick={openMarkdownHelp} />
       </MarkdownBottomBar>
       <MarkdownConstraints sdk={props.sdk} value={currentValue} />
     </div>
@@ -148,7 +148,7 @@ export function MarkdownEditor(
 export function MarkdownEditorConnected(props: MarkdownEditorProps) {
   return (
     <FieldConnector<string>
-      throttle={300}
+      debounce={300}
       field={props.sdk.field}
       isInitiallyDisabled={props.isInitiallyDisabled}
     >

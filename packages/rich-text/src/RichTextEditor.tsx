@@ -39,7 +39,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   const id = getContentfulEditorId(sdk);
   const plugins = React.useMemo(
     () => getPlugins(sdk, onAction ?? noop, restrictedMarks),
-    [sdk, onAction, restrictedMarks],
+    [sdk, onAction, restrictedMarks]
   );
 
   const initialValue = React.useMemo(() => {
@@ -48,7 +48,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
         plugins,
         disableCorePlugins,
       },
-      toSlateValue(props.value),
+      toSlateValue(props.value)
     );
   }, [props.value, plugins]);
 
@@ -57,7 +57,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
     props.minHeight !== undefined ? css({ minHeight: props.minHeight }) : undefined,
     props.maxHeight !== undefined ? css({ maxHeight: props.maxHeight }) : undefined,
     props.isDisabled ? styles.disabled : styles.enabled,
-    props.isToolbarHidden && styles.hiddenToolbar,
+    props.isToolbarHidden && styles.hiddenToolbar
   );
 
   return (
@@ -96,14 +96,14 @@ const RichTextEditor = (props: Props) => {
   const { sdk, isInitiallyDisabled, onAction, restrictedMarks, ...otherProps } = props;
   const isEmptyValue = React.useCallback(
     (value) => !value || deepEquals(value, Contentful.EMPTY_DOCUMENT),
-    [],
+    []
   );
 
   const id = getContentfulEditorId(props.sdk);
   return (
     <EntityProvider sdk={sdk}>
       <FieldConnector
-        throttle={0}
+        debounce={0}
         field={sdk.field}
         isInitiallyDisabled={isInitiallyDisabled}
         isEmptyValue={isEmptyValue}

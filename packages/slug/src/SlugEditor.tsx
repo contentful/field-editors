@@ -128,12 +128,14 @@ export function SlugEditor(props: SlugEditorProps) {
       field={field}
       defaultLocale={locales.default}
       isOptionalLocaleWithFallback={isOptionalLocaleWithFallback}
-      trackingFieldId={trackingFieldId}>
+      trackingFieldId={trackingFieldId}
+    >
       {({ titleValue, isPublished, isSame }) => (
         <FieldConnector<string>
           field={field}
           isInitiallyDisabled={props.isInitiallyDisabled}
-          throttle={0}>
+          debounce={0}
+        >
           {({ value, errors, disabled, setValue, externalReset }) => {
             const shouldTrackTitle = isPublished === false && isSame === false;
 

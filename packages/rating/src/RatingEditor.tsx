@@ -6,7 +6,6 @@ import get from 'lodash/get';
 
 import { RatingRibbon } from './RatingRibbon';
 
-
 export interface RatingEditorProps {
   /**
    * is the field disabled initially
@@ -52,9 +51,10 @@ export function RatingEditor(props: RatingEditorProps) {
 
   return (
     <FieldConnector<number>
-      throttle={0}
+      debounce={0}
       field={field}
-      isInitiallyDisabled={props.isInitiallyDisabled}>
+      isInitiallyDisabled={props.isInitiallyDisabled}
+    >
       {({ disabled, value, setValue }) => {
         const clearOption = () => {
           setValue(null);
