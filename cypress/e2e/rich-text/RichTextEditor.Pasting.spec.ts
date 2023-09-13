@@ -83,6 +83,7 @@ describe(
         });
 
         const expectedValue = doc(
+          block('paragraph', {}, text()),
           block(
             'unordered-list',
             {},
@@ -103,6 +104,7 @@ describe(
         });
 
         const expectedValue = doc(
+          block('paragraph', {}, text()),
           block(
             'unordered-list',
             {},
