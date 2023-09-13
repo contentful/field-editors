@@ -35,8 +35,7 @@
     "test:ci": "jest --ci --passWithNoTests",
     "tsc": "tsc -p ./ --noEmit",
     "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
-    "prepublishOnly": "yarn build",
-    "prepare": "relative-deps"
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {
     "@contentful/app-sdk": "^4.21.1",
@@ -65,9 +64,9 @@
     "is-hotkey": "^0.2.0",
     "is-plain-obj": "^3.0.0",
     "react-popper": "^2.3.0",
-    "slate": "0.80.0",
-    "slate-history": "0.66.0",
-    "slate-hyperscript": "0.67.0",
+    "slate": "0.94.1",
+    "slate-history": "0.93.0",
+    "slate-hyperscript": "0.77.0",
     "slate-react": "0.98.3"
   },
   "peerDependencies": {
