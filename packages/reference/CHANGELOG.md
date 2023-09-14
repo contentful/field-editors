@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.16.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.16.0...@contentful/field-editor-reference@5.16.1) (2023-09-14)
+
+### Bug Fixes
+
+- revert [#1468](https://github.com/contentful/field-editors/issues/1468) [ZEND-4108] ([#1491](https://github.com/contentful/field-editors/issues/1491)) ([c09b36f](https://github.com/contentful/field-editors/commit/c09b36fa2326b09a4b653623ede273b40d77c8f2))
+
 # [5.16.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.15.0...@contentful/field-editor-reference@5.16.0) (2023-09-12)
 
 ### Bug Fixes
