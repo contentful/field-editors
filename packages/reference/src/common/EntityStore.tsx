@@ -1,7 +1,16 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { BaseExtensionSDK } from '@contentful/app-sdk';
-import { FetchQueryOptions, Query, QueryKey } from '@tanstack/react-query';
+import {
+  FetchQueryOptions,
+  Query,
+  QueryCache,
+  QueryClient,
+  QueryClientProvider,
+  QueryKey,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 import constate from 'constate';
 import { PlainClientAPI, createClient } from 'contentful-management';
 import PQueue from 'p-queue';
@@ -15,7 +24,6 @@ import {
   ScheduledAction,
   Space,
 } from '../types';
-import { SharedQueryClientProvider, useQuery, useQueryClient } from './queryClient';
 
 export type ResourceInfo<R extends Resource = Resource> = {
   resource: R;
@@ -454,10 +462,29 @@ export function useResource(resourceType: ResourceType, urn: string, options?: U
 }
 
 function EntityProvider({ children, ...props }: React.PropsWithChildren<EntityStoreProps>) {
+  const reactQueryClient = useMemo(() => {
+    const queryCache = new QueryCache();
+    const queryClient = new QueryClient({
+      queryCache,
+      defaultOptions: {
+        queries: {
+          useErrorBoundary: false,
+          refetchOnWindowFocus: false,
+          refetchOnReconnect: true,
+          refetchOnMount: false,
+          staleTime: Infinity,
+          retry: false,
+        },
+      },
+    });
+
+    return queryClient;
+  }, []);
+
   return (
-    <SharedQueryClientProvider>
+    <QueryClientProvider client={reactQueryClient}>
       <InternalServiceProvider {...props}>{children}</InternalServiceProvider>
-    </SharedQueryClientProvider>
+    </QueryClientProvider>
   );
 }
 
