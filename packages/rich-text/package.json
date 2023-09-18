@@ -47,7 +47,7 @@
     "@contentful/field-editor-reference": "^5.16.1",
     "@contentful/field-editor-shared": "^1.4.0",
     "@contentful/rich-text-plain-text-renderer": "^16.0.4",
-    "@contentful/rich-text-types": "16.1.0",
+    "@contentful/rich-text-types": "16.3.0",
     "@popperjs/core": "^2.11.5",
     "@udecode/plate-basic-marks": "18.15.0",
     "@udecode/plate-break": "18.15.0",
