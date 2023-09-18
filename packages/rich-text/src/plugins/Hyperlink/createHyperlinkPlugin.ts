@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { FieldExtensionSDK } from '@contentful/app-sdk';
 import { INLINES } from '@contentful/rich-text-types';
-import { AnyObject, HotkeyPlugin } from '@udecode/plate-core';
+import { AnyObject, HotkeyPlugin } from '@udecode/plate-common';
 import isHotkey from 'is-hotkey';
 
 import { isLinkActive, unwrapLink } from '../../helpers/editor';

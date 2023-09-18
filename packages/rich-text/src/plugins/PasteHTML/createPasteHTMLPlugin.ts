@@ -1,4 +1,4 @@
-import { KEY_DESERIALIZE_HTML } from '@udecode/plate-core';
+import { KEY_DESERIALIZE_HTML } from '@udecode/plate-common';
 
 import { PlatePlugin } from '../../internal/types';
 import { sanitizeHTML } from './utils/sanitizeHTML';

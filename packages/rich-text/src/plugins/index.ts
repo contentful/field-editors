@@ -1,5 +1,5 @@
 import { FieldExtensionSDK } from '@contentful/app-sdk';
-import { PlateProps } from '@udecode/plate-core';
+import { PlateProps } from '@udecode/plate-common';
 import { createDeserializeDocxPlugin } from '@udecode/plate-serializer-docx';
 
 import { PlatePlugin } from '../internal/types';
@@ -32,7 +32,7 @@ import { createVoidsPlugin } from './Voids';
 export const getPlugins = (
   sdk: FieldExtensionSDK,
   onAction: RichTextTrackingActionHandler,
-  restrictedMarks?: string[]
+  restrictedMarks?: string[],
 ): PlatePlugin[] => [
   createDeserializeDocxPlugin(),
 

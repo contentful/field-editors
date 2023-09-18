@@ -2,14 +2,14 @@
  * https://plate.udecode.io/docs/typescript
  */
 import { MARKS } from '@contentful/rich-text-types';
-import * as p from '@udecode/plate-core';
+import * as p from '@udecode/plate-common';
 import * as s from 'slate';
 import * as sr from 'slate-react';
-import {
+import type {
   SelectionMoveOptions as SlateSelectionMoveOptions,
   SelectionCollapseOptions as SlateSelectionCollapseOptions,
-} from 'slate/dist/transforms/selection';
-import { TextInsertTextOptions as SlateTextInsertTextOptions } from 'slate/dist/transforms/text';
+} from 'slate/dist/interfaces/transforms/selection';
+import type { TextInsertTextOptions as SlateTextInsertTextOptions } from 'slate/dist/interfaces/transforms/text';
 
 import { TrackingPluginActions } from '../../plugins/Tracking';
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import * as Contentful from '@contentful/rich-text-types';
-import { usePlateActions } from '@udecode/plate-core';
+import { usePlateActions } from '@udecode/plate-common';
 import equal from 'fast-deep-equal';
 
 import { createOnChangeCallback } from './helpers/callbacks';

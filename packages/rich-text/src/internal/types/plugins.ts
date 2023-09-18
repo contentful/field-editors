@@ -1,5 +1,5 @@
 import { SoftBreakRule, ExitBreakRule } from '@udecode/plate-break';
-import * as p from '@udecode/plate-core';
+import * as p from '@udecode/plate-common';
 import { ResetNodePluginRule } from '@udecode/plate-reset-node';
 
 import type { NormalizerRule } from '../../plugins/Normalizer';
