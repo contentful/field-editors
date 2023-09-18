@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.11.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.10.1...@contentful/field-editor-rich-text@3.11.0) (2023-09-18)
+
+### Features
+
+- updating plate to 23, fixing breaking imports [] ([#1485](https://github.com/contentful/field-editors/issues/1485)) ([8fe9b72](https://github.com/contentful/field-editors/commit/8fe9b7205edb4720907e9804538e991a4af38f26))
+
 ## [3.10.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.10.0...@contentful/field-editor-rich-text@3.10.1) (2023-09-14)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
