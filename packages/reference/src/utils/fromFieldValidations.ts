@@ -16,7 +16,7 @@ export function fromFieldValidations(field: FieldAPI): ReferenceValidations {
   // eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
   const validations: Record<string, any>[] = [
     ...field.validations,
-    ...(field.items?.validations ?? []),
+    ...(field.type === 'Array' ? field.items?.validations ?? [] : []),
   ];
   const linkContentTypeValidations = validations.find((v) => 'linkContentType' in v);
   const linkMimetypeGroupValidations = validations.find((v) => 'linkMimetypeGroup' in v);

@@ -1,10 +1,12 @@
 import React, { useCallback, useState } from 'react';
-import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 
 import { Pill, TextInput } from '@contentful/f36-components';
 import { DragIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
-import arrayMove from 'array-move';
+import { DndContext } from '@dnd-kit/core';
+import { restrictToParentElement } from '@dnd-kit/modifiers';
+import { arrayMove, SortableContext, useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import { css, cx } from 'emotion';
 import noop from 'lodash/noop';
 
@@ -55,61 +57,83 @@ const styles = {
   }),
 };
 
-const SortablePillHandle = SortableHandle((props: { isDisabled: boolean }) => (
-  <div className={cx(styles.handle, { [styles.pillDisabled]: props.isDisabled })}>
+interface SortablePillHandleProps {
+  ref: (element: HTMLElement | null) => void;
+  listeners: any;
+  isDisabled: boolean;
+}
+
+const SortablePillHandle = ({ ref, listeners, isDisabled }: SortablePillHandleProps) => (
+  <div
+    ref={ref}
+    {...listeners}
+    className={cx(styles.handle, { [styles.pillDisabled]: isDisabled })}
+  >
     <DragIcon variant="muted" />
   </div>
-));
+);
 
 interface SortablePillProps {
+  id: string;
   label: string;
   onRemove: Function;
-  isSortablePillDisabled: boolean;
+  disabled: boolean;
   index: number;
 }
 
-const SortablePill = SortableElement((props: SortablePillProps) => (
-  <Pill
-    testId="tag-editor-pill"
-    className={cx(styles.pill, { [styles.pillDisabled]: props.isSortablePillDisabled })}
-    label={props.label}
-    onClose={() => {
-      if (!props.isSortablePillDisabled) {
-        props.onRemove(props.index);
+const SortablePill = ({ id, label, index, disabled, onRemove }: SortablePillProps) => {
+  const { listeners, setNodeRef, setActivatorNodeRef, transform, transition } = useSortable({ id });
+  const style = {
+    transform: transform ? CSS.Transform.toString({ ...transform, scaleX: 1, scaleY: 1 }) : '',
+    transition,
+  };
+  return (
+    <Pill
+      ref={setNodeRef}
+      testId="tag-editor-pill"
+      className={cx(styles.pill, { [styles.pillDisabled]: disabled })}
+      style={style}
+      label={label}
+      onClose={() => {
+        if (!disabled) {
+          onRemove(index);
+        }
+      }}
+      onDrag={noop}
+      dragHandleComponent={
+        <SortablePillHandle ref={setActivatorNodeRef} listeners={listeners} isDisabled={disabled} />
       }
-    }}
-    onDrag={noop}
-    dragHandleComponent={<SortablePillHandle isDisabled={props.isSortablePillDisabled} />}
-  />
-));
-
-interface SortableListProps {
-  children: React.ReactNode;
-}
-
-const SortableList = SortableContainer((props: SortableListProps) => (
-  <div className={styles.dropContainer}>{props.children}</div>
-));
+    />
+  );
+};
 
 export function TagsEditor(props: TagsEditorProps) {
   const [pendingValue, setPendingValue] = useState('');
 
-  const { isDisabled, items, constraints, constraintsType, hasError } = props;
+  const { isDisabled, items, constraints, constraintsType, hasError, onUpdate } = props;
+  const itemsMap = React.useMemo(
+    () => items.map((item, index) => ({ id: item + index, value: item })),
+    [items]
+  );
 
   const removeItem = useCallback(
     (index) => {
-      const newItems = props.items.filter((_, filterIndex) => index !== filterIndex);
-      props.onUpdate(newItems);
+      const newItems = items.filter((_, filterIndex) => index !== filterIndex);
+      onUpdate(newItems);
     },
-    [props]
+    [items, onUpdate]
   );
 
   const swapItems = useCallback(
-    ({ oldIndex, newIndex }) => {
-      const newItems = arrayMove(props.items, oldIndex, newIndex);
-      props.onUpdate(newItems);
+    ({ active, over }) => {
+      if (active.id !== over.id) {
+        const oldIndex = itemsMap.findIndex(({ id }) => id === active.id);
+        const newIndex = itemsMap.findIndex(({ id }) => id === over.id);
+        const newItems = arrayMove(items, oldIndex, newIndex);
+        onUpdate(newItems);
+      }
     },
-    [props]
+    [items, itemsMap, onUpdate]
   );
 
   return (
@@ -124,7 +148,7 @@ export function TagsEditor(props: TagsEditorProps) {
         placeholder="Type the value and hit enter"
         onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
           if (pendingValue && e.keyCode === 13) {
-            props.onUpdate([...props.items, pendingValue]);
+            onUpdate([...items, pendingValue]);
             setPendingValue('');
           }
         }}
@@ -132,34 +156,20 @@ export function TagsEditor(props: TagsEditorProps) {
           setPendingValue(e.target.value);
         }}
       />
-      <SortableList
-        useDragHandle
-        axis="xy"
-        distance={10}
-        onSortEnd={({ oldIndex, newIndex }) => {
-          swapItems({ oldIndex, newIndex });
-        }}
-      >
-        {items.map((item, index) => {
-          return (
+      <DndContext onDragEnd={swapItems} modifiers={[restrictToParentElement]}>
+        <SortableContext items={itemsMap}>
+          {itemsMap.map((item, index) => (
             <SortablePill
-              label={item}
+              key={item.id}
+              id={item.id}
+              label={item.value}
               index={index}
-              key={item + index}
               disabled={isDisabled}
-              /**
-               * `isSortablePillDisabled` is needed as SortableElement
-               * from react-sortable-hoc doesn't pass down the disabled prop.
-               * See: https://github.com/clauderic/react-sortable-hoc/issues/612
-               */
-              isSortablePillDisabled={isDisabled}
-              onRemove={() => {
-                removeItem(index);
-              }}
+              onRemove={() => removeItem(index)}
             />
-          );
-        })}
-      </SortableList>
+          ))}
+        </SortableContext>
+      </DndContext>
       {constraints && constraintsType && (
         <TagsEditorConstraints constraints={constraints} constraintsType={constraintsType} />
       )}

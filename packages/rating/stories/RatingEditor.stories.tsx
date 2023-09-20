@@ -49,7 +49,7 @@ export const MoreStars: Story = {
       <RatingEditor
         field={field}
         isInitiallyDisabled={false}
-        parameters={{ instance: { stars: 20 } }}
+        parameters={{ installation: {}, instance: { stars: 20 }, invocation: {} }}
       />
     );
   },

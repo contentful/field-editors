@@ -135,7 +135,8 @@
     "eslint-plugin-react": "^7.30.1",
     "react": "16.14.0",
     "react-dom": "16.14.0",
-    "@typescript-eslint/eslint-plugin": "^4.10.0"
+    "@typescript-eslint/eslint-plugin": "^4.10.0",
+    "@contentful/app-sdk": "4.21.1"
   },
   "browserslist": {
     "production": "extends @contentful/browserslist-config",

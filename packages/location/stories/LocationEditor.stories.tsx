@@ -31,9 +31,11 @@ export const Default: Story = {
           field={field}
           isInitiallyDisabled={isInitiallyDisabled ?? false}
           parameters={{
+            installation: {},
             instance: {
-              googleMapsKey: window.localStorage.getItem('googleMapsKey'),
+              googleMapsKey: window.localStorage.getItem('googleMapsKey') ?? undefined,
             },
+            invocation: {},
           }}
         />
         <ActionsPlayground mitt={mitt} />
