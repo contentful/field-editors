@@ -8,12 +8,12 @@ export const newLink = (linkType: string, id: string): Link => ({
   },
 });
 
-export const getIframe = () => {
+export const getIframe = (): Cypress.Chainable<JQuery<HTMLBodyElement>> => {
   return cy
     .get('#storybook-preview-iframe')
     .its('0.contentDocument.body')
     .should('not.be.empty')
-    .then(cy.wrap);
+    .then((body) => cy.wrap(body as HTMLBodyElement));
 };
 
 export const getIframeWindow = () => {

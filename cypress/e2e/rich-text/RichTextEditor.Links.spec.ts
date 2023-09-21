@@ -61,6 +61,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000 }, () => {
       'using the link keyboard shortcut',
       () => {
         richText.editor.type(`{${mod}}k`);
+        richText.forms.hyperlink.linkTarget.type('{backspace}'); //weird cypress bug where using CMD+K shortcut types a "k" value in the text field that is focussed. So, we remove it first.
       },
     ],
   ];
@@ -316,4 +317,19 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000 }, () => {
       });
     });
   }
+
+  it('focuses on the "Link target" field if it is present', () => {
+    safelyType('Sample Text{selectall}');
+
+    getIframe().findByTestId('hyperlink-toolbar-button').click();
+
+    const form = richText.forms.hyperlink;
+
+    form.linkType.should('have.value', 'hyperlink');
+
+    getIframe().then((body) => {
+      const focusedEl = body[0].ownerDocument.activeElement;
+      expect(focusedEl?.getAttribute('name')).to.eq('linkTarget');
+    });
+  });
 });
