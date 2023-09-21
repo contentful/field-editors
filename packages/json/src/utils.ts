@@ -1,10 +1,12 @@
 import { JSONObject } from './types';
 
+export const SPACE_INDENT_COUNT = 4;
+
 export function stringifyJSON(obj: JSONObject | null | undefined): string {
   if (obj === null || obj === undefined) {
     return '';
   } else {
-    return JSON.stringify(obj, null, 4);
+    return JSON.stringify(obj, null, SPACE_INDENT_COUNT);
   }
 }
 

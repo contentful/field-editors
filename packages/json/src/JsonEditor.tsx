@@ -8,7 +8,7 @@ import { JsonEditorField } from './JsonEditorField';
 import { JsonEditorToolbar } from './JsonEditorToolbar';
 import { JsonInvalidStatus } from './JsonInvalidStatus';
 import { JSONObject } from './types';
-import { stringifyJSON, parseJSON } from './utils';
+import { stringifyJSON, parseJSON, SPACE_INDENT_COUNT } from './utils';
 
 export interface JsonEditorProps {
   /**
@@ -168,7 +168,8 @@ export default function JsonEditor(props: JsonEditorProps) {
       isInitiallyDisabled={props.isInitiallyDisabled}
       isEqualValues={(value1, value2) => {
         return deepEqual(value1, value2);
-      }}>
+      }}
+    >
       {({ value, disabled, setValue, externalReset }) => {
         return (
           <ConnectedJsonEditor
@@ -183,3 +184,5 @@ export default function JsonEditor(props: JsonEditorProps) {
     </FieldConnector>
   );
 }
+
+JsonEditor.tabWidth = SPACE_INDENT_COUNT;

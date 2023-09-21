@@ -1,10 +1,13 @@
 import * as React from 'react';
 
 import { json } from '@codemirror/lang-json';
+import { indentUnit } from '@codemirror/language';
 import { EditorView } from '@codemirror/view';
 import tokens from '@contentful/f36-tokens';
 import CodeMirror from '@uiw/react-codemirror';
 import { css, cx } from 'emotion';
+
+import { SPACE_INDENT_COUNT } from './utils';
 
 type JsonEditorFieldProps = {
   isDisabled: boolean;
@@ -61,7 +64,11 @@ export function JsonEditorField(props: JsonEditorFieldProps) {
         value={props.value}
         onChange={props.onChange}
         theme="light"
-        extensions={[json(), EditorView.lineWrapping]}
+        extensions={[
+          json(),
+          EditorView.lineWrapping,
+          indentUnit.of(new Array(SPACE_INDENT_COUNT).fill(' ').join('')),
+        ]}
         basicSetup={{
           closeBrackets: false,
           lineNumbers: false,
