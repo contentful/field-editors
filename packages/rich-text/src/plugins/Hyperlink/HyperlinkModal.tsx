@@ -65,6 +65,13 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
   const [linkType, setLinkType] = React.useState(props.linkType ?? defaultLinkType);
   const [linkTarget, setLinkTarget] = React.useState(props.linkTarget ?? '');
   const [linkEntity, setLinkEntity] = React.useState<Link | null>(props.linkEntity ?? null);
+  const linkTargetInputRef = React.useRef<HTMLInputElement>(null);
+
+  React.useEffect(() => {
+    if (linkType === INLINES.HYPERLINK && linkTargetInputRef.current) {
+      linkTargetInputRef.current.focus();
+    }
+  }, [linkType]);
 
   function isLinkComplete() {
     const isRegularLink = linkType === INLINES.HYPERLINK;
@@ -159,6 +166,7 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
               <FormControl id="linkTarget" isRequired>
                 <FormControl.Label>Link target</FormControl.Label>
                 <TextInput
+                  ref={linkTargetInputRef}
                   name="linkTarget"
                   value={linkTarget}
                   onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
