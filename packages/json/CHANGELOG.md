@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.3.3...@contentful/field-editor-json@3.3.4) (2023-09-21)
+
+### Bug Fixes
+
+- **json-editor:** consolidate tab width ([#1496](https://github.com/contentful/field-editors/issues/1496)) ([648deda](https://github.com/contentful/field-editors/commit/648deda56a851a0325480327f5eb24ba83e8bd32))
+
 ## [3.3.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.3.2...@contentful/field-editor-json@3.3.3) (2023-09-12)
 
 **Note:** Version bump only for package @contentful/field-editor-json
