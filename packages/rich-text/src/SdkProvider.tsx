@@ -1,14 +1,14 @@
 import * as React from 'react';
 
-import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { FieldAppSDK } from '@contentful/app-sdk';
 import constate from 'constate';
 
 interface SdkProviderProps {
-  sdk: FieldExtensionSDK;
+  sdk: FieldAppSDK;
 }
 
 function useSdk({ sdk }: SdkProviderProps) {
-  const sdkMemo = React.useMemo<FieldExtensionSDK>(() => sdk, []); // eslint-disable-line -- TODO: explain this disable
+  const sdkMemo = React.useMemo<FieldAppSDK>(() => sdk, []); // eslint-disable-line -- TODO: explain this disable
 
   return sdkMemo;
 }

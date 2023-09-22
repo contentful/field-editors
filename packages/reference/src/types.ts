@@ -3,7 +3,7 @@ import { Entry, Asset } from '@contentful/field-editor-shared';
 
 export type {
   BaseExtensionSDK,
-  FieldExtensionSDK,
+  FieldAppSDK,
   ContentType,
   ContentTypeField,
   Link,

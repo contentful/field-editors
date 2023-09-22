@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import { init, locations } from '@contentful/app-sdk';
-import type { FieldExtensionSDK } from '@contentful/app-sdk';
+import type { FieldAppSDK } from '@contentful/app-sdk';
 import '@contentful/field-editor-markdown/src/codemirrorImports';
 import { MarkdownEditor, renderMarkdownDialog } from '@contentful/field-editor-markdown';
 import { GlobalStyles } from '@contentful/f36-components';
 import 'codemirror/lib/codemirror.css';
 
 interface AppProps {
-  sdk: FieldExtensionSDK;
+  sdk: FieldAppSDK;
 }
 
 export class App extends React.Component<AppProps> {
@@ -22,7 +22,7 @@ export class App extends React.Component<AppProps> {
   };
 }
 
-init((sdk: FieldExtensionSDK) => {
+init((sdk: FieldAppSDK) => {
   sdk.window.startAutoResizer();
   if (sdk.location.is(locations.LOCATION_DIALOG)) {
     render(
@@ -33,7 +33,7 @@ init((sdk: FieldExtensionSDK) => {
       document.getElementById('root')
     );
   } else {
-    render(<App sdk={sdk as FieldExtensionSDK} />, document.getElementById('root'));
+    render(<App sdk={sdk as FieldAppSDK} />, document.getElementById('root'));
   }
 });
 

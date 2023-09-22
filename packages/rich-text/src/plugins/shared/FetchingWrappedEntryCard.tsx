@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { FieldAppSDK } from '@contentful/app-sdk';
 import { ScheduledAction, Entry } from '@contentful/app-sdk';
 import { EntryCard } from '@contentful/f36-components';
 import {
@@ -15,7 +15,7 @@ interface InternalEntryCard {
   isDisabled: boolean;
   isSelected: boolean;
   locale: string;
-  sdk: FieldExtensionSDK;
+  sdk: FieldAppSDK;
   loadEntityScheduledActions: (entityType: string, entityId: string) => Promise<ScheduledAction[]>;
   entry?: Entry | 'failed';
   onEdit?: VoidFunction;
@@ -68,7 +68,7 @@ interface FetchingWrappedEntryCardProps {
   isDisabled: boolean;
   isSelected: boolean;
   locale: string;
-  sdk: FieldExtensionSDK;
+  sdk: FieldAppSDK;
   onEntityFetchComplete?: VoidFunction;
   onEdit?: VoidFunction;
   onRemove?: VoidFunction;

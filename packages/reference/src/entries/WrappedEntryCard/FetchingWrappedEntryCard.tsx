@@ -9,13 +9,7 @@ import { useEntity, useEntityLoader } from '../../common/EntityStore';
 import { ReferenceEditorProps } from '../../common/ReferenceEditor';
 import type { LinkActionsProps } from '../../components';
 import { MissingEntityCard } from '../../components';
-import {
-  ContentType,
-  Entry,
-  FieldExtensionSDK,
-  NavigatorSlideInfo,
-  RenderDragFn,
-} from '../../types';
+import { ContentType, Entry, FieldAppSDK, NavigatorSlideInfo, RenderDragFn } from '../../types';
 import { WrappedEntryCard, WrappedEntryCardProps } from './WrappedEntryCard';
 
 export type EntryCardReferenceEditorProps = ReferenceEditorProps & {
@@ -33,7 +27,7 @@ export type EntryCardReferenceEditorProps = ReferenceEditorProps & {
 };
 
 async function openEntry(
-  sdk: FieldExtensionSDK,
+  sdk: FieldAppSDK,
   entryId: string,
   options: { bulkEditing?: boolean; index?: number }
 ) {

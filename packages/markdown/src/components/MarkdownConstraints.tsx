@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { FieldAppSDK } from '@contentful/app-sdk';
 import tokens from '@contentful/f36-tokens';
 import { CharCounter, CharValidation, ConstraintsUtils } from '@contentful/field-editor-shared';
 import { css } from 'emotion';
@@ -15,7 +15,7 @@ const styles = {
   }),
 };
 
-export function MarkdownConstraints(props: { sdk: FieldExtensionSDK; value: string }) {
+export function MarkdownConstraints(props: { sdk: FieldAppSDK; value: string }) {
   const constraints = ConstraintsUtils.fromFieldValidations(
     props.sdk.field.validations,
     props.sdk.field.type as 'Text'

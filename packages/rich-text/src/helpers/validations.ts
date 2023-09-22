@@ -1,5 +1,5 @@
 /* eslint-disable you-dont-need-lodash-underscore/find */
-import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { FieldAppSDK } from '@contentful/app-sdk';
 import { BLOCKS, INLINES, TOP_LEVEL_BLOCKS } from '@contentful/rich-text-types';
 import find from 'lodash/find';
 import flow from 'lodash/flow';
@@ -36,8 +36,8 @@ const isFormattingOptionEnabled = (field, validationType, nodeTypeOrMark) => {
   return DEFAULT_ENABLED_NODE_TYPES.concat(enabledFormattings).includes(nodeTypeOrMark);
 };
 
-export const isNodeTypeEnabled = (field: FieldExtensionSDK['field'], nodeType): boolean =>
+export const isNodeTypeEnabled = (field: FieldAppSDK['field'], nodeType): boolean =>
   isFormattingOptionEnabled(field, VALIDATIONS.ENABLED_NODE_TYPES, nodeType);
 
-export const isMarkEnabled = (field: FieldExtensionSDK['field'], mark) =>
+export const isMarkEnabled = (field: FieldAppSDK['field'], mark) =>
   isFormattingOptionEnabled(field, VALIDATIONS.ENABLED_MARKS, mark);

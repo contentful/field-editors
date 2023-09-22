@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { FieldAppSDK } from '@contentful/app-sdk';
 import '@testing-library/jest-dom/extend-expect';
 import { fireEvent, render, screen } from '@testing-library/react';
 
@@ -51,7 +51,7 @@ const fieldDefinition = {
 
 describe('Multiple resource editor', () => {
   it('renders the action button when no value is set', async () => {
-    const sdk: FieldExtensionSDK = mockSdkForField(fieldDefinition);
+    const sdk: FieldAppSDK = mockSdkForField(fieldDefinition);
     render(
       <MultipleResourceReferenceEditor
         isInitiallyDisabled={false}
@@ -77,7 +77,7 @@ describe('Multiple resource editor', () => {
   });
 
   it('renders custom actions when passed', async () => {
-    const sdk: FieldExtensionSDK = mockSdkForField(fieldDefinition);
+    const sdk: FieldAppSDK = mockSdkForField(fieldDefinition);
     render(
       <MultipleResourceReferenceEditor
         isInitiallyDisabled={false}
@@ -102,7 +102,7 @@ describe('Multiple resource editor', () => {
         mockedResources[`${link.sys.linkType}.${link.sys.urn}`] = entryInfos[spaceId];
       }
 
-      const sdk: FieldExtensionSDK = mockSdkForField(fieldDefinition, Object.values(entryLinks));
+      const sdk: FieldAppSDK = mockSdkForField(fieldDefinition, Object.values(entryLinks));
       render(
         <MultipleResourceReferenceEditor
           isInitiallyDisabled={false}
@@ -137,7 +137,7 @@ describe('Multiple resource editor', () => {
           mockedResources[`${link.sys.linkType}.${link.sys.urn}`] = entryInfos[spaceId];
         }
 
-        const sdk: FieldExtensionSDK = mockSdkForField(fieldDefinition, Object.values(entryLinks));
+        const sdk: FieldAppSDK = mockSdkForField(fieldDefinition, Object.values(entryLinks));
         render(
           <MultipleResourceReferenceEditor
             isInitiallyDisabled={false}
@@ -176,7 +176,7 @@ describe('Multiple resource editor', () => {
           mockedResources[`${link.sys.linkType}.${link.sys.urn}`] = entryInfos[spaceId];
         }
 
-        const sdk: FieldExtensionSDK = mockSdkForField(fieldDefinition, Object.values(entryLinks));
+        const sdk: FieldAppSDK = mockSdkForField(fieldDefinition, Object.values(entryLinks));
         render(
           <MultipleResourceReferenceEditor
             isInitiallyDisabled={false}
@@ -214,7 +214,7 @@ describe('Multiple resource editor', () => {
           mockedResources[`${link.sys.linkType}.${link.sys.urn}`] = entryInfos[spaceId];
         }
 
-        const sdk: FieldExtensionSDK = mockSdkForField(fieldDefinition, Object.values(entryLinks));
+        const sdk: FieldAppSDK = mockSdkForField(fieldDefinition, Object.values(entryLinks));
         render(
           <MultipleResourceReferenceEditor
             isInitiallyDisabled={false}

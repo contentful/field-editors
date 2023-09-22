@@ -9,14 +9,14 @@ import {
 } from '../../common/customCardTypes';
 import { useEntity, useEntityLoader } from '../../common/EntityStore';
 import { LinkActionsProps, MissingEntityCard } from '../../components';
-import { Action, Asset, FieldExtensionSDK, ViewType, RenderDragFn } from '../../types';
+import { Action, Asset, FieldAppSDK, ViewType, RenderDragFn } from '../../types';
 import { WrappedAssetCard, WrappedAssetCardProps } from './WrappedAssetCard';
 import { WrappedAssetLink } from './WrappedAssetLink';
 
 type FetchingWrappedAssetCardProps = {
   assetId: string;
   isDisabled: boolean;
-  sdk: FieldExtensionSDK;
+  sdk: FieldAppSDK;
   viewType: ViewType | 'big_card';
   onRemove: () => void;
   getEntityUrl?: (id: string) => string;

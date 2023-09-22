@@ -8,7 +8,7 @@ import {
   useEntity,
   useEntityLoader,
 } from '@contentful/field-editor-reference';
-import { Entry, FieldExtensionSDK, entityHelpers } from '@contentful/field-editor-shared';
+import { Entry, FieldAppSDK, entityHelpers } from '@contentful/field-editor-shared';
 import { INLINES } from '@contentful/rich-text-types';
 import { css } from 'emotion';
 
@@ -23,7 +23,7 @@ const styles = {
 
 interface FetchingWrappedInlineEntryCardProps {
   entryId: string;
-  sdk: FieldExtensionSDK;
+  sdk: FieldAppSDK;
   isSelected: boolean;
   isDisabled: boolean;
   onEdit: (event: React.MouseEvent<Element, MouseEvent>) => void;

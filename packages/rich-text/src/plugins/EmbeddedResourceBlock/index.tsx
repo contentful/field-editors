@@ -1,4 +1,4 @@
-import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { FieldAppSDK } from '@contentful/app-sdk';
 import { BLOCKS } from '@contentful/rich-text-types';
 
 import { PlatePlugin } from '../../internal';
@@ -7,7 +7,7 @@ import { LinkedResourceBlock } from './LinkedResourceBlock';
 
 const createEmbeddedResourcePlugin =
   (nodeType: BLOCKS.EMBEDDED_RESOURCE, hotkey: string) =>
-  (sdk: FieldExtensionSDK): PlatePlugin => ({
+  (sdk: FieldAppSDK): PlatePlugin => ({
     key: nodeType,
     type: nodeType,
     isElement: true,

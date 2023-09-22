@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { FieldAppSDK } from '@contentful/app-sdk';
 import tokens from '@contentful/f36-tokens';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import { css } from 'emotion';
@@ -38,7 +38,7 @@ export interface MarkdownEditorProps {
    */
   minHeight?: string | number;
 
-  sdk: FieldExtensionSDK;
+  sdk: FieldAppSDK;
 
   previewComponents?: PreviewComponents;
   onReady?: Function;

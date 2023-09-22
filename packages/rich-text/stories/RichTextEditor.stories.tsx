@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { useMemo } from 'react';
 
-import { FieldAPI, FieldExtensionSDK } from '@contentful/app-sdk';
+import { FieldAPI, FieldAppSDK } from '@contentful/app-sdk';
 import { IconButton } from '@contentful/f36-components';
 import { CopyIcon } from '@contentful/f36-icons';
 import {
@@ -230,7 +230,7 @@ const DemoRichTextEditor = () => {
     <div className={layoutStyle}>
       <div data-test-id="rich-text-editor-integration-test">
         <RichTextEditor
-          sdk={sdk as unknown as FieldExtensionSDK}
+          sdk={sdk as unknown as FieldAppSDK}
           onAction={onAction}
           isInitiallyDisabled={isDisabled as boolean}
           restrictedMarks={JSON.parse(window.localStorage.getItem('restrictedMarks') as any) || []}

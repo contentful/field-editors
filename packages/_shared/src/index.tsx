@@ -7,7 +7,7 @@ export {
   EntryAPI,
   EntryFieldAPI,
   FieldAPI,
-  FieldExtensionSDK,
+  FieldAppSDK,
   IdsAPI,
   LocalesAPI,
   LocationAPI,

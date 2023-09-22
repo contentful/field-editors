@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { FormControl } from '@contentful/f36-components';
-import type { FieldExtensionSDK, Entry } from '@contentful/field-editor-shared';
+import type { FieldAppSDK, Entry } from '@contentful/field-editor-shared';
 import { ValidationErrors } from '@contentful/field-editor-validation-errors';
 import { cx } from 'emotion';
 
@@ -9,7 +9,7 @@ import { styles } from './FieldWrapper.styles';
 
 type FieldWrapperProps = {
   name: string;
-  sdk: FieldExtensionSDK;
+  sdk: FieldAppSDK;
   /**
    * Generates a link to another entry with the same value when a "non unique" validation error occurs
    */
@@ -58,7 +58,8 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = function (props: FieldW
       data-test-id="entity-field-controls"
       className={cx(showFocusBar && styles.withFocusBar, className)}
       aria-invalid={hasErrors}
-      isRequired={field.required}>
+      isRequired={field.required}
+    >
       {renderHeading ? (
         renderHeading(name)
       ) : (

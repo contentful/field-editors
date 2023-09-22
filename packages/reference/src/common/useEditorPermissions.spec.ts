@@ -2,27 +2,26 @@ import { AccessAPI, ContentType, FieldAPI } from '@contentful/app-sdk';
 import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 import { renderHook } from '@testing-library/react-hooks';
 
-import { FieldExtensionSDK } from '../types';
+import { FieldAppSDK } from '../types';
 import { EditorPermissionsProps, useEditorPermissions } from './useEditorPermissions';
-
 
 type ExtendedAccessAPI = AccessAPI & {
   canPerformActionOnEntryOfType: (action: string, contentTypeId: string) => Promise<boolean>;
 };
 
 describe('useEditorPermissions', () => {
-  type MockedFieldExtensionSDK = Omit<FieldExtensionSDK, 'access'> & {
+  type MockedFieldAppSDK = Omit<FieldAppSDK, 'access'> & {
     access: jest.Mocked<ExtendedAccessAPI>;
   };
 
-  const makeFieldExtensionSDK = (customizeMock?: (fieldApi: FieldAPI) => FieldAPI) =>
+  const makeFieldAppSDK = (customizeMock?: (fieldApi: FieldAPI) => FieldAPI) =>
     ({
       field: createFakeFieldAPI(customizeMock)[0],
       access: {
         can: jest.fn().mockResolvedValue(true),
         canPerformActionOnEntryOfType: jest.fn().mockResolvedValue(true),
       },
-    } as unknown as MockedFieldExtensionSDK);
+    } as unknown as MockedFieldAppSDK);
 
   const makeContentType = (id: string) =>
     ({
@@ -40,9 +39,9 @@ describe('useEditorPermissions', () => {
     params?: EditorPermissionsProps['parameters']['instance'];
     allContentTypes?: EditorPermissionsProps['allContentTypes'];
     customizeMock?: (fieldApi: FieldAPI) => FieldAPI;
-    customizeSdk?: (sdk: MockedFieldExtensionSDK) => void;
+    customizeSdk?: (sdk: MockedFieldAppSDK) => void;
   }) => {
-    const sdk = makeFieldExtensionSDK(customizeMock);
+    const sdk = makeFieldAppSDK(customizeMock);
     customizeSdk?.(sdk);
     const renderResult = renderHook(() =>
       useEditorPermissions({
@@ -96,7 +95,7 @@ describe('useEditorPermissions', () => {
 
   describe(`behaviour on Entry`, () => {
     const allowContentTypes = (
-      sdk: MockedFieldExtensionSDK,
+      sdk: MockedFieldAppSDK,
       allowedAction: string,
       ...allowed: string[]
     ) => {

@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react';
 
-import { FieldAPI, FieldExtensionSDK } from '@contentful/app-sdk';
+import { FieldAPI, FieldAppSDK } from '@contentful/app-sdk';
 import { EntryProps, WithResourceName } from 'contentful-management';
 
 import { LinkActionsProps } from '../components';
@@ -35,7 +35,7 @@ export function useResourceLinkActions({
   field,
   onAfterLink,
   apiUrl,
-}: Pick<FieldExtensionSDK, 'field' | 'dialogs'> & {
+}: Pick<FieldAppSDK, 'field' | 'dialogs'> & {
   apiUrl: string;
   onAfterLink?: (e: EntryProps) => void;
 }): LinkActionsProps {

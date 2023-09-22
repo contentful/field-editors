@@ -4,7 +4,7 @@ import {
   Asset,
   ContentEntityType,
   Entry,
-  FieldExtensionSDK,
+  FieldAppSDK,
   Link,
   ScheduledAction,
 } from '@contentful/app-sdk';
@@ -28,7 +28,7 @@ async function fetchAllData({
   localeCode,
   defaultLocaleCode,
 }: {
-  sdk: FieldExtensionSDK;
+  sdk: FieldAppSDK;
   entityId: string;
   entityType: ContentEntityType;
   localeCode: string;
@@ -85,7 +85,7 @@ async function fetchAllData({
 
 export type EntityInfoProps = {
   target: Link<ContentEntityType>;
-  sdk: FieldExtensionSDK;
+  sdk: FieldAppSDK;
   onEntityFetchComplete?: VoidFunction;
 };
 

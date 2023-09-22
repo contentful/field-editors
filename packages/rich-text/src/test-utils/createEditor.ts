@@ -1,4 +1,4 @@
-import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { FieldAppSDK } from '@contentful/app-sdk';
 
 import { normalize, createPlateEditor } from '../internal';
 import { PlatePlugin } from '../internal/types';
@@ -8,13 +8,13 @@ import { randomId } from './randomId';
 
 export const createTestEditor = (options: {
   input?: any;
-  sdk?: FieldExtensionSDK;
+  sdk?: FieldAppSDK;
   trackingHandler?: RichTextTrackingActionHandler;
   plugins?: PlatePlugin[];
 }) => {
   const trackingHandler: RichTextTrackingActionHandler = options.trackingHandler ?? jest.fn();
 
-  const sdk: FieldExtensionSDK = options.sdk ?? ({ field: { validation: [] } } as any);
+  const sdk: FieldAppSDK = options.sdk ?? ({ field: { validation: [] } } as any);
 
   const editor = createPlateEditor({
     id: randomId('editor'),

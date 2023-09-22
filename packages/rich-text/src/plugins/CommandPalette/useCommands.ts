@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { FieldAppSDK } from '@contentful/app-sdk';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 
 import { isNodeTypeSelected } from '../../helpers/editor';
@@ -47,7 +47,7 @@ const removeQuery = (editor: PlateEditor) => {
   }
 };
 
-export function isCommandPromptPluginEnabled(sdk: FieldExtensionSDK) {
+export function isCommandPromptPluginEnabled(sdk: FieldAppSDK) {
   const inlineAllowed = isNodeTypeEnabled(sdk.field, INLINES.EMBEDDED_ENTRY);
   const entriesAllowed = isNodeTypeEnabled(sdk.field, BLOCKS.EMBEDDED_ENTRY);
   const assetsAllowed = isNodeTypeEnabled(sdk.field, BLOCKS.EMBEDDED_ASSET);
@@ -59,7 +59,7 @@ export function isCommandPromptPluginEnabled(sdk: FieldExtensionSDK) {
   };
 }
 
-function getCommandPermissions(sdk: FieldExtensionSDK, editor: PlateEditor) {
+function getCommandPermissions(sdk: FieldAppSDK, editor: PlateEditor) {
   const canInsertBlocks = !isNodeTypeSelected(editor, BLOCKS.TABLE);
   const { inlineAllowed, entriesAllowed, assetsAllowed } = isCommandPromptPluginEnabled(sdk);
 
@@ -70,7 +70,7 @@ function getCommandPermissions(sdk: FieldExtensionSDK, editor: PlateEditor) {
   };
 }
 
-export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: PlateEditor) => {
+export const useCommands = (sdk: FieldAppSDK, query: string, editor: PlateEditor) => {
   const contentTypes = sdk.space.getCachedContentTypes();
   const { inlineAllowed, entriesAllowed, assetsAllowed } = getCommandPermissions(sdk, editor);
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Asset, FieldExtensionSDK, ScheduledAction } from '@contentful/app-sdk';
+import { Asset, FieldAppSDK, ScheduledAction } from '@contentful/app-sdk';
 import { AssetCard } from '@contentful/f36-components';
 import {
   useEntity,
@@ -17,7 +17,7 @@ interface InternalAssetCardProps {
   locale: string;
   onEdit?: () => void;
   onRemove?: () => unknown;
-  sdk: FieldExtensionSDK;
+  sdk: FieldAppSDK;
   loadEntityScheduledActions: (entityType: string, entityId: string) => Promise<ScheduledAction[]>;
 }
 
@@ -61,7 +61,7 @@ interface FetchingWrappedAssetCardProps {
   locale: string;
   onEdit?: () => void;
   onRemove?: () => unknown;
-  sdk: FieldExtensionSDK;
+  sdk: FieldAppSDK;
   onEntityFetchComplete?: VoidFunction;
 }
 

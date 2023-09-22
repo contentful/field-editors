@@ -1,4 +1,4 @@
-import { ContentType, FieldAPI, FieldExtensionSDK, Link } from '@contentful/app-sdk';
+import { ContentType, FieldAPI, FieldAppSDK, Link } from '@contentful/app-sdk';
 import {
   createFakeCMAAdapter,
   createFakeFieldAPI,
@@ -25,9 +25,7 @@ export type ReferenceEditorSdkProps = {
   fetchDelay?: number;
 };
 
-export function newReferenceEditorFakeSdk(
-  props?: ReferenceEditorSdkProps
-): [FieldExtensionSDK, Emitter] {
+export function newReferenceEditorFakeSdk(props?: ReferenceEditorSdkProps): [FieldAppSDK, Emitter] {
   const rawInitialValue = window.localStorage.getItem('initialValue');
   const initialValue = rawInitialValue ? JSON.parse(rawInitialValue) : props?.initialValue;
   const rawValidations = window.localStorage.getItem('fieldValidations');
@@ -183,6 +181,6 @@ export function newReferenceEditorFakeSdk(
       space: 'space-id',
       environment: 'environment-id',
     },
-  } as unknown as FieldExtensionSDK;
+  } as unknown as FieldAppSDK;
   return [sdk, mitt];
 }

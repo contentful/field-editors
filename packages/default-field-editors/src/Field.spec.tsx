@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { SingleEntryReferenceEditor } from '@contentful/field-editor-reference';
-import type { FieldExtensionSDK } from '@contentful/field-editor-shared';
+import type { FieldAppSDK } from '@contentful/field-editor-shared';
 import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
 import '@testing-library/jest-dom/extend-expect';
 import { cleanup, configure, render } from '@testing-library/react';
@@ -18,7 +18,7 @@ jest.mock('@contentful/field-editor-reference', () => ({
 
 const getSdk = (customize?: (field: any) => any, initialValue?: any) => {
   const [field] = createFakeFieldAPI(customize, initialValue);
-  const sdk: FieldExtensionSDK = {
+  const sdk: FieldAppSDK = {
     field,
     locales: createFakeLocalesAPI((locales) => {
       locales.available.push('de');
