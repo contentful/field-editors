@@ -2,7 +2,7 @@ import { NavigatorSlideInfo, ContentEntityType } from '@contentful/app-sdk';
 import { Entry, Asset } from '@contentful/field-editor-shared';
 
 export type {
-  BaseExtensionSDK,
+  BaseAppSDK,
   FieldAppSDK,
   ContentType,
   ContentTypeField,

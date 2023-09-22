@@ -1,7 +1,7 @@
 export {
   AccessAPI,
   AppConfigAPI,
-  BaseExtensionSDK,
+  BaseAppSDK,
   ContentType,
   DialogsAPI,
   EntryAPI,

@@ -1,11 +1,4 @@
-export {
-  BaseExtensionSDK,
-  ContentType,
-  ContentTypeField,
-  Link,
-  Entry,
-  Asset,
-} from '@contentful/app-sdk';
+export { BaseAppSDK, ContentType, ContentTypeField, Link, Entry, Asset } from '@contentful/app-sdk';
 
 export interface File {
   fileName: string;

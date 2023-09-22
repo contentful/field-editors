@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { DialogExtensionSDK, FieldAppSDK, OpenCustomWidgetOptions } from '@contentful/app-sdk';
+import { DialogAppSDK, FieldAppSDK, OpenCustomWidgetOptions } from '@contentful/app-sdk';
 import { ModalDialogLauncher } from '@contentful/field-editor-shared';
 
 import { MarkdownDialogType, MarkdownDialogsParams, PreviewComponents } from '../types';
@@ -67,7 +67,7 @@ export const openMarkdownDialog =
             onClose={onClose}
             initialValue={initialValue}
             locale={locale}
-            sdk={sdk as unknown as DialogExtensionSDK}
+            sdk={sdk as unknown as DialogAppSDK}
             previewComponents={previewComponents}
           />
         );

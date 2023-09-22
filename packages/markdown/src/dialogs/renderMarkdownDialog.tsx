@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { DialogExtensionSDK } from '@contentful/app-sdk';
+import { DialogAppSDK } from '@contentful/app-sdk';
 
 import { MarkdownDialogsParams, MarkdownDialogType } from '../types';
 import { CheatsheetModalDialog } from './CheatsheetModalDialog';
@@ -12,7 +12,7 @@ import { SpecialCharacterModalDialog } from './SpecialCharacterModalDialog';
 import { ZenModeModalDialog } from './ZenModeModalDialog';
 
 export const renderMarkdownDialog = (
-  sdk: DialogExtensionSDK & { parameters: { invocation: MarkdownDialogsParams } }
+  sdk: DialogAppSDK & { parameters: { invocation: MarkdownDialogsParams } }
 ) => {
   const parameters = sdk.parameters.invocation;
   if (parameters.type === MarkdownDialogType.cheatsheet) {
