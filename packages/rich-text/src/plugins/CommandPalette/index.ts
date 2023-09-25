@@ -1,1 +1,0 @@
-export { createCommandPalettePlugin } from './createCommandPalettePlugin';

@@ -67,7 +67,12 @@
     "slate": "0.94.1",
     "slate-history": "0.66.0",
     "slate-hyperscript": "0.77.0",
-    "slate-react": "0.98.3"
+    "slate-react": "0.98.3",
+    "@tiptap/extension-color": "^2.1.11",
+    "@tiptap/extension-text-style": "^2.1.11",
+    "@tiptap/pm": "^2.1.11",
+    "@tiptap/react": "^2.1.11",
+    "@tiptap/starter-kit": "^2.1.11"
   },
   "peerDependencies": {
     "react": ">=16.14.0",
