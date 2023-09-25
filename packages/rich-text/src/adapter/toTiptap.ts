@@ -1,33 +1,20 @@
-import { getDataOrDefault } from './helpers';
-
-import { fromJSON, Schema, SchemaJSON } from './schema';
 import * as Contentful from '@contentful/rich-text-types';
-import {
-  ContentfulNode,
-  ContentfulElementNode,
-  SlateNode,
-  SlateElement,
-  SlateText,
-  SlateMarks,
-} from './types';
+import { JSONContent } from '@tiptap/core';
 
-export interface ToSlatejsDocumentProperties {
+import { getDataOrDefault } from './helpers';
+import { fromJSON, Schema, SchemaJSON } from './schema';
+import { ContentfulNode, ContentfulElementNode } from './types';
+
+export interface ToTiptapDocumentProperties {
   document: Contentful.Document;
   schema?: SchemaJSON;
 }
 
-export default function toSlatejsDocument({
-  document,
-  schema,
-}: ToSlatejsDocumentProperties): SlateNode[] {
-  // TODO:
-  // We allow adding data to the root document node, but Slate >v0.5.0
-  // has no concept of a root document node. We should determine whether
-  // this will be a compatibility problem for existing users.
-  return document.content.flatMap((node) => convertNode(node, fromJSON(schema)));
+export default function toTiptap({ document }: ToTiptapDocumentProperties): JSONContent {
+  return document.content.flatMap((node) => convertNode(node, fromJSON({})));
 }
 
-function convertNode(node: ContentfulNode, schema: Schema): SlateNode {
+function convertNode(node: ContentfulNode, schema: Schema) {
   if (node.nodeType === 'text') {
     return convertTextNode(node as Contentful.Text);
   } else {
@@ -42,33 +29,26 @@ function convertNode(node: ContentfulNode, schema: Schema): SlateNode {
 
 function convertElementNode(
   contentfulBlock: ContentfulElementNode,
-  slateChildren: SlateNode[],
+  childNodes: JSONContent,
   schema: Schema
-): SlateElement {
-  const children =
-    slateChildren.length === 0 && schema.isTextContainer(contentfulBlock.nodeType)
+) {
+  const content =
+    childNodes.length === 0 && schema.isTextContainer(contentfulBlock.nodeType)
       ? [{ text: '', data: {} }]
-      : slateChildren;
+      : childNodes;
   return {
     type: contentfulBlock.nodeType,
-    children,
+    content,
     isVoid: schema.isVoid(contentfulBlock),
     data: getDataOrDefault(contentfulBlock.data),
   };
 }
 
-function convertTextNode(node: Contentful.Text): SlateText {
+function convertTextNode(node: Contentful.Text) {
   return {
+    type: 'text',
     text: node.value,
     data: getDataOrDefault(node.data),
-    ...convertTextMarks(node),
+    marks: node.marks,
   };
-}
-
-function convertTextMarks(node: Contentful.Text): SlateMarks {
-  const marks: SlateMarks = {};
-  for (const mark of node.marks) {
-    marks[mark.type as keyof SlateMarks] = true;
-  }
-  return marks;
 }
