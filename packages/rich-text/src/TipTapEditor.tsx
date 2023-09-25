@@ -14,6 +14,7 @@ import { Paragraph } from '@tiptap/extension-paragraph';
 
 import type { ConnectedProps } from './RichTextEditor';
 import toContentfulDocument from './adapter/toContentful';
+import toTiptap from './adapter/toTiptap';
 
 const MenuBar = () => {
   const { editor } = useCurrentEditor();
@@ -61,6 +62,46 @@ const extensions = [
   CustomListItem.configure({}),
 ];
 
+// const initialValue = {
+//   type: 'doc',
+//   content: toTiptap({
+//     document: {
+//       nodeType: 'document',
+//       data: {},
+//       content: [
+//         {
+//           nodeType: 'paragraph',
+//           data: {},
+//           content: [
+//             {
+//               marks: [],
+//               nodeType: 'text',
+//               value: 'Hello ',
+//               data: {},
+//             },
+//             {
+//               marks: [
+//                 {
+//                   type: 'bold',
+//                 },
+//               ],
+//               nodeType: 'text',
+//               value: 'World',
+//               data: {},
+//             },
+//             {
+//               marks: [],
+//               nodeType: 'text',
+//               value: '!',
+//               data: {},
+//             },
+//           ],
+//         },
+//       ],
+//     },
+//   }),
+// };
+
 export const TipTapEditor = (props: ConnectedProps) => {
   return (
     <EditorProvider
@@ -70,6 +111,7 @@ export const TipTapEditor = (props: ConnectedProps) => {
       extensions={extensions}
       onUpdate={({ editor }) => {
         const content = editor.getJSON();
+        console.log(content);
         const cfDoc = toContentfulDocument({ document: content });
         props?.onChange(cfDoc);
       }}
