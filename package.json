@@ -78,7 +78,7 @@
     "ajv": "^8.8.2",
     "concurrently": "8.0.1",
     "contentful-cli": "^1.3.29",
-    "cypress": "^12.10.0",
+    "cypress": "^13.2.0",
     "cypress-plugin-tab": "^1.0.5",
     "cz-lerna-changelog": "^2.0.2",
     "emotion": "10.0.27",
