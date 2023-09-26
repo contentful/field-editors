@@ -109,7 +109,7 @@
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-markdown": "^8.0.7",
-    "remark-cli": "^8.0.0",
+    "remark-cli": "^12.0.0",
     "remark-gfm": "^3.0.1",
     "remark-lint-no-dead-urls": "^1.0.2",
     "remark-lint-no-empty-sections": "^4.0.0",
