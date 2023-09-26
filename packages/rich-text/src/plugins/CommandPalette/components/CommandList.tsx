@@ -1,7 +1,14 @@
 import * as React from 'react';
 import { usePopper } from 'react-popper';
 
-import { Popover, Stack, SectionHeading, ScreenReaderOnly, Flex } from '@contentful/f36-components';
+import {
+  Popover,
+  Stack,
+  SectionHeading,
+  ScreenReaderOnly,
+  Flex,
+  AssetIcon,
+} from '@contentful/f36-components';
 import { Portal } from '@contentful/f36-utils';
 import { cx } from 'emotion';
 
@@ -60,8 +67,10 @@ const Asset = ({ command, selectedItem }: { command: Command; selectedItem: stri
     onClick={command.callback}
   >
     <Flex alignItems="center" gap="spacingS">
-      {command.thumbnail && (
+      {command.thumbnail ? (
         <img width="30" height="30" src={command.thumbnail} alt="" className={styles.thumbnail} />
+      ) : (
+        <AssetIcon width="30" height="30" className={styles.thumbnail} />
       )}
       <span>{command.label}</span>
     </Flex>
@@ -83,13 +92,13 @@ const CommandListItems = ({
 }) => {
   return (
     <>
-      {commandItems.map((command) => {
+      {commandItems.map((command, i) => {
         return 'group' in command ? (
-          <Group commandGroup={command} selectedItem={selectedItem} />
+          <Group key={i} commandGroup={command} selectedItem={selectedItem} />
         ) : command.callback ? (
-          <Asset command={command} selectedItem={selectedItem} />
+          <Asset key={i} command={command} selectedItem={selectedItem} />
         ) : (
-          <Item command={command} />
+          <Item key={i} command={command} />
         );
       })}
     </>
