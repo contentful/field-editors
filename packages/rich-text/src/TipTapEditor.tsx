@@ -1,4 +1,6 @@
 import React from 'react';
+import deepCopy from 'lodash/cloneDeep';
+import { EMPTY_DOCUMENT } from '@contentful/rich-text-types';
 
 import { styles } from './TipTapEditor.styles';
 
@@ -54,6 +56,7 @@ const extensions = [
   StarterKit.configure({
     listItem: false,
   }),
+
   // Document.configure({}),
   // Text.configure({}),
   // Paragraph.configure({}),
@@ -62,45 +65,105 @@ const extensions = [
   CustomListItem.configure({}),
 ];
 
-// const initialValue = {
-//   type: 'doc',
-//   content: toTiptap({
-//     document: {
-//       nodeType: 'document',
-//       data: {},
-//       content: [
-//         {
-//           nodeType: 'paragraph',
-//           data: {},
-//           content: [
-//             {
-//               marks: [],
-//               nodeType: 'text',
-//               value: 'Hello ',
-//               data: {},
-//             },
-//             {
-//               marks: [
-//                 {
-//                   type: 'bold',
-//                 },
-//               ],
-//               nodeType: 'text',
-//               value: 'World',
-//               data: {},
-//             },
-//             {
-//               marks: [],
-//               nodeType: 'text',
-//               value: '!',
-//               data: {},
-//             },
-//           ],
-//         },
-//       ],
-//     },
-//   }),
-// };
+const initialValue = {
+  type: 'doc',
+  content: toTiptap({
+    document: {
+      nodeType: 'document',
+      data: {},
+      content: [
+        {
+          nodeType: 'paragraph',
+          data: {},
+          content: [
+            {
+              marks: [],
+              nodeType: 'text',
+              value: 'Hello ',
+              data: {},
+            },
+            {
+              marks: [
+                {
+                  type: 'bold',
+                },
+              ],
+              nodeType: 'text',
+              value: 'World',
+              data: {},
+            },
+            {
+              marks: [],
+              nodeType: 'text',
+              value: '!',
+              data: {},
+            },
+          ],
+        },
+        {
+          nodeType: 'unordered-list',
+          data: {},
+          content: [
+            {
+              nodeType: 'list-item',
+              data: {},
+              content: [
+                {
+                  nodeType: 'paragraph',
+                  data: {},
+                  content: [
+                    {
+                      marks: [],
+                      nodeType: 'text',
+                      value: 'item 1',
+                      data: {},
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              nodeType: 'list-item',
+              data: {},
+              content: [
+                {
+                  nodeType: 'paragraph',
+                  data: {},
+                  content: [
+                    {
+                      marks: [],
+                      nodeType: 'text',
+                      value: 'item 2',
+                      data: {},
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              nodeType: 'list-item',
+              data: {},
+              content: [
+                {
+                  nodeType: 'paragraph',
+                  data: {},
+                  content: [
+                    {
+                      marks: [],
+                      nodeType: 'text',
+                      value: 'item 3',
+                      data: {},
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  }),
+};
 
 export const TipTapEditor = (props: ConnectedProps) => {
   return (
@@ -117,17 +180,9 @@ export const TipTapEditor = (props: ConnectedProps) => {
       }}
       content={{
         type: 'doc',
-        content: [
-          {
-            type: 'paragraph',
-            content: [
-              {
-                type: 'text',
-                text: 'Hello World!',
-              },
-            ],
-          },
-        ],
+        content: toTiptap({
+          document: props.value || EMPTY_DOCUMENT,
+        }),
       }}
     />
   );

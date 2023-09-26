@@ -226,6 +226,12 @@ const DemoRichTextEditor = () => {
 
   window.richTextField = field;
 
+  React.useEffect(() => {
+    field.onSchemaErrorsChanged((errors: any) => {
+      console.log(errors);
+    });
+  }, []);
+
   return (
     <div className={layoutStyle}>
       <div data-test-id="rich-text-editor-integration-test">

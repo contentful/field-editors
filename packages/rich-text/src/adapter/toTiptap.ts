@@ -11,7 +11,20 @@ export interface ToTiptapDocumentProperties {
 }
 
 export default function toTiptap({ document }: ToTiptapDocumentProperties): JSONContent {
-  return document.content.flatMap((node) => convertNode(node, fromJSON({})));
+  return document.content.flatMap((node) => convertNode(node, fromJSON({}))).filter(Boolean);
+}
+
+function mapNodeType(cfType: string): string {
+  switch (cfType) {
+    case Contentful.BLOCKS.LIST_ITEM:
+      return 'listItem';
+    case Contentful.BLOCKS.UL_LIST:
+      return 'bulletList';
+    case Contentful.BLOCKS.OL_LIST:
+      return 'orderedList';
+  }
+
+  return cfType;
 }
 
 function convertNode(node: ContentfulNode, schema: Schema) {
@@ -19,9 +32,9 @@ function convertNode(node: ContentfulNode, schema: Schema) {
     return convertTextNode(node as Contentful.Text);
   } else {
     const contentfulNode = node as ContentfulElementNode;
-    const childNodes = contentfulNode.content.flatMap((childNode) =>
-      convertNode(childNode, schema)
-    );
+    const childNodes = contentfulNode.content
+      .flatMap((childNode) => convertNode(childNode, schema))
+      .filter(Boolean);
     const slateNode = convertElementNode(contentfulNode, childNodes, schema);
     return slateNode;
   }
@@ -32,12 +45,9 @@ function convertElementNode(
   childNodes: JSONContent,
   schema: Schema
 ) {
-  const content =
-    childNodes.length === 0 && schema.isTextContainer(contentfulBlock.nodeType)
-      ? [{ text: '', data: {} }]
-      : childNodes;
+  const content = childNodes;
   return {
-    type: contentfulBlock.nodeType,
+    type: mapNodeType(contentfulBlock.nodeType),
     content,
     isVoid: schema.isVoid(contentfulBlock),
     data: getDataOrDefault(contentfulBlock.data),
@@ -45,8 +55,13 @@ function convertElementNode(
 }
 
 function convertTextNode(node: Contentful.Text) {
+  // ProseMirror doesn't allow empty text nodes
+  if (node.value === '') {
+    return undefined;
+  }
+
   return {
-    type: 'text',
+    type: node.value === '\n' ? 'hardBreak' : 'text',
     text: node.value,
     data: getDataOrDefault(node.data),
     marks: node.marks,

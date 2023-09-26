@@ -20,24 +20,37 @@ export default function toContentfulDocument({
   return {
     nodeType: Contentful.BLOCKS.DOCUMENT,
     data: {},
-    content: document.content!.flatMap(
-      (node) => convertNode(node, fromJSON({})) as Contentful.TopLevelBlock[]
-    ),
+    content:
+      document.content?.flatMap(
+        (node) => convertNode(node, fromJSON({})) as Contentful.TopLevelBlock[]
+      ) ?? [],
   };
+}
+
+function mapNodeType(tiptapType: string): string {
+  switch (tiptapType) {
+    case 'listItem':
+      return Contentful.BLOCKS.LIST_ITEM;
+    case 'bulletList':
+      return Contentful.BLOCKS.UL_LIST;
+    case 'orderedList':
+      return Contentful.BLOCKS.OL_LIST;
+  }
+
+  return tiptapType;
 }
 
 function convertNode(node: JSONContent, schema: Schema): ContentfulNode[] {
   const nodes: ContentfulNode[] = [];
   if (!isLeafNode(node)) {
     const contentfulElement: ContentfulElementNode = {
-      nodeType: node.type as Contentful.BLOCKS,
+      nodeType: mapNodeType(node.type as string) as Contentful.BLOCKS,
       data: node.attrs ?? {},
       content: [],
     };
     if (!schema.isVoid(contentfulElement)) {
-      contentfulElement.content = node.content!.flatMap((childNode) =>
-        convertNode(childNode, schema)
-      );
+      contentfulElement.content =
+        node.content?.flatMap((childNode) => convertNode(childNode, schema)) ?? [];
     }
     if (contentfulElement.content.length === 0 && schema.isTextContainer(node.type!)) {
       contentfulElement.content.push(convertText({ text: '', data: {} }));
@@ -51,15 +64,16 @@ function convertNode(node: JSONContent, schema: Schema): ContentfulNode[] {
 }
 
 function convertText(node: JSONContent): Contentful.Text {
-  const { text = '', marks = [] } = node;
+  const { type, text = '', marks = [] } = node;
+
   return {
     marks,
     nodeType: 'text',
-    value: text,
+    value: type === 'hardBreak' ? '\n' : text,
     data: node.attrs ?? {},
   };
 }
 
 function isLeafNode(node: JSONContent): node is SlateElement {
-  return node.type === 'text';
+  return node.type === 'text' || node.type === 'hardBreak';
 }
