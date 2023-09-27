@@ -7433,6 +7433,26 @@
   resolved "https://registry.yarnpkg.com/@tiptap/extension-strike/-/extension-strike-2.1.11.tgz#738df0eebb6ab997783e01434397156601017bcb"
   integrity sha512-UnjeSVgu3bDuyjjUdWsUErRCoQKAHCzH/pAiqTEPEEdFYgZFQPBpcJICRVdlYjRmI2ZKh6d0TMUS55m7ckmwmQ==
 
+"@tiptap/extension-table-cell@^2.1.11":
+  version "2.1.11"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-table-cell/-/extension-table-cell-2.1.11.tgz#433ca7009c25baad03122b0998a291e7f2200f83"
+  integrity sha512-RiQmwW4TftgxjJi9I3KO3GRHYrMfE/KMzhHclTk56/F+P+bbRwbRDaDMj/Zh/eBMrfTxtgRWb+yg3CGvifqifg==
+
+"@tiptap/extension-table-header@^2.1.11":
+  version "2.1.11"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-table-header/-/extension-table-header-2.1.11.tgz#f82b5e547a17564a5d7073c4f2b10e1d563aac41"
+  integrity sha512-e8BsdE5CugtQjv/RSWhjFtUHhUfrltvf/FNwWlzPRaWq25LuECLkYIrosvQ5MTdTSqrXZPxA9tZnFP+8HAa0XQ==
+
+"@tiptap/extension-table-row@^2.1.11":
+  version "2.1.11"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-table-row/-/extension-table-row-2.1.11.tgz#271301636891168534bd8ad9168eaf26518d78af"
+  integrity sha512-sHQiHRfsU4/4i1RDHBwJbjAJaPCXPKF5Wqi8fMSi/XED04BnnM/VyH3demEGrj/OLIgzsJYfeFdNqF1UukKBXA==
+
+"@tiptap/extension-table@^2.1.11":
+  version "2.1.11"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-table/-/extension-table-2.1.11.tgz#d799072da33481e11a906c785f2175ab013e49e5"
+  integrity sha512-NTec4CyjZWKIy8mly8nNLZlf9FSZNL5lGfONQqt0vTrh5mBaQNZKYBgvDKKlrH9jS06hoM3zhDMsh2Cp8+wbtg==
+
 "@tiptap/extension-text-style@^2.1.11":
   version "2.1.11"
   resolved "https://registry.yarnpkg.com/@tiptap/extension-text-style/-/extension-text-style-2.1.11.tgz#b2fbea4f52b68f339b4941103ea2e03d1ac996a3"
@@ -7499,6 +7519,11 @@
     "@tiptap/extension-paragraph" "^2.1.11"
     "@tiptap/extension-strike" "^2.1.11"
     "@tiptap/extension-text" "^2.1.11"
+
+"@tiptap/suggestion@^2.1.11":
+  version "2.1.11"
+  resolved "https://registry.yarnpkg.com/@tiptap/suggestion/-/suggestion-2.1.11.tgz#3b814c317565b6adbc9dffa9312d7fd1e4e0ebed"
+  integrity sha512-AVMB4x1X3eU7QCO1A8URQK0W7ps5dsVzveIP7+c//Z/GYe8lFSGIUnEbLJdr6bwgPkRL56m7c9+oZqVST5wfjQ==
 
 "@tokenizer/token@^0.3.0":
   version "0.3.0"

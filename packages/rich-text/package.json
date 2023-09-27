@@ -72,7 +72,12 @@
     "@tiptap/extension-text-style": "^2.1.11",
     "@tiptap/pm": "^2.1.11",
     "@tiptap/react": "^2.1.11",
-    "@tiptap/starter-kit": "^2.1.11"
+    "@tiptap/starter-kit": "^2.1.11",
+    "@tiptap/extension-table": "^2.1.11",
+    "@tiptap/extension-table-row": "^2.1.11",
+    "@tiptap/extension-table-header": "^2.1.11",
+    "@tiptap/extension-table-cell": "^2.1.11",
+    "@tiptap/suggestion": "^2.1.11"
   },
   "peerDependencies": {
     "react": ">=16.14.0",

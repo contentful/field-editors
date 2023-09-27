@@ -16,7 +16,7 @@ export class RichTextPage {
   }
 
   get editor() {
-    return getIframe().findByTestId('rich-text-editor').find('[data-slate-editor=true]');
+    return getIframe().findByTestId('rich-text-editor').findByTestId('rich-text-editor-tiptap');
   }
 
   get toolbar() {

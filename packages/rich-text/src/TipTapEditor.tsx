@@ -18,6 +18,14 @@ import type { ConnectedProps } from './RichTextEditor';
 import toContentfulDocument from './adapter/toContentful';
 import toTiptap from './adapter/toTiptap';
 
+import Table from '@tiptap/extension-table';
+import TableCell from '@tiptap/extension-table-cell';
+import TableHeader from '@tiptap/extension-table-header';
+import TableRow from '@tiptap/extension-table-row';
+import Commands from './extensions/suggestion/commands';
+import getSuggestionItems from './extensions/suggestion/items';
+import renderItems from './extensions/suggestion/renderItems';
+
 const MenuBar = () => {
   const { editor } = useCurrentEditor();
 
@@ -28,19 +36,28 @@ const MenuBar = () => {
   return (
     <>
       <button
+        data-test-id="quote-toolbar-button"
         onClick={() => editor.chain().focus().toggleBlockquote().run()}
         className={editor.isActive('blockquote') ? 'is-active' : ''}>
         blockquote
       </button>
       <button
+        data-test-id="ul-toolbar-button"
         onClick={() => editor.chain().focus().toggleBulletList().run()}
         className={editor.isActive('bulletList') ? 'is-active' : ''}>
         bullet list
       </button>
       <button
+        data-test-id="ol-toolbar-button"
         onClick={() => editor.chain().focus().toggleOrderedList().run()}
         className={editor.isActive('orderedList') ? 'is-active' : ''}>
         ordered list
+      </button>
+      <button
+        data-test-id="table-toolbar-button"
+        onClick={() => editor.chain().focus().insertTable().run()}
+        className={editor.isActive('table') ? 'is-active' : ''}>
+        table
       </button>
     </>
   );
@@ -55,6 +72,7 @@ const extensions = [
   // TextStyle.configure({ types: [ListItem.name] }),
   StarterKit.configure({
     listItem: false,
+    bold: false,
   }),
 
   // Document.configure({}),
@@ -63,127 +81,63 @@ const extensions = [
   // BulletList.configure({}),
   // OrderedList.configure({}),
   CustomListItem.configure({}),
-];
-
-const initialValue = {
-  type: 'doc',
-  content: toTiptap({
-    document: {
-      nodeType: 'document',
-      data: {},
-      content: [
-        {
-          nodeType: 'paragraph',
-          data: {},
-          content: [
-            {
-              marks: [],
-              nodeType: 'text',
-              value: 'Hello ',
-              data: {},
-            },
-            {
-              marks: [
-                {
-                  type: 'bold',
-                },
-              ],
-              nodeType: 'text',
-              value: 'World',
-              data: {},
-            },
-            {
-              marks: [],
-              nodeType: 'text',
-              value: '!',
-              data: {},
-            },
-          ],
+  Table.configure({
+    resizable: true,
+  }).extend({
+    addCommands() {
+      return {
+        ...this.parent?.(),
+        insertTable: (...args) => {
+          // if already in table return false
+          if (this.editor.isActive('table')) {
+            return false;
+          }
+          return this.parent?.().insertTable?.(...args);
         },
-        {
-          nodeType: 'unordered-list',
-          data: {},
-          content: [
-            {
-              nodeType: 'list-item',
-              data: {},
-              content: [
-                {
-                  nodeType: 'paragraph',
-                  data: {},
-                  content: [
-                    {
-                      marks: [],
-                      nodeType: 'text',
-                      value: 'item 1',
-                      data: {},
-                    },
-                  ],
-                },
-              ],
-            },
-            {
-              nodeType: 'list-item',
-              data: {},
-              content: [
-                {
-                  nodeType: 'paragraph',
-                  data: {},
-                  content: [
-                    {
-                      marks: [],
-                      nodeType: 'text',
-                      value: 'item 2',
-                      data: {},
-                    },
-                  ],
-                },
-              ],
-            },
-            {
-              nodeType: 'list-item',
-              data: {},
-              content: [
-                {
-                  nodeType: 'paragraph',
-                  data: {},
-                  content: [
-                    {
-                      marks: [],
-                      nodeType: 'text',
-                      value: 'item 3',
-                      data: {},
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-      ],
+      };
     },
   }),
-};
+  TableRow,
+  TableHeader.extend({
+    content: 'paragraph+',
+  }),
+  TableCell.extend({
+    content: 'paragraph+',
+  }),
+  Commands.configure({
+    suggestion: {
+      items: getSuggestionItems,
+      render: renderItems,
+    },
+  }),
+];
 
 export const TipTapEditor = (props: ConnectedProps) => {
   return (
-    <EditorProvider
-      enableCoreExtensions
-      className={styles.tiptap}
-      slotBefore={<MenuBar />}
-      extensions={extensions}
-      onUpdate={({ editor }) => {
-        const content = editor.getJSON();
-        console.log(content);
-        const cfDoc = toContentfulDocument({ document: content });
-        props?.onChange(cfDoc);
-      }}
-      content={{
-        type: 'doc',
-        content: toTiptap({
-          document: props.value || EMPTY_DOCUMENT,
-        }),
-      }}
-    />
+    <div data-test-id="rich-text-editor">
+      <EditorProvider
+        enableCoreExtensions
+        slotBefore={<MenuBar />}
+        extensions={extensions}
+        editorProps={{
+          attributes: {
+            'data-test-id': 'rich-text-editor-tiptap',
+            class: styles.tiptap({ minHeight: props.minHeight }),
+          },
+        }}
+        css={styles.tiptap}
+        onUpdate={({ editor }) => {
+          const content = editor.getJSON();
+          const cfDoc = toContentfulDocument({ document: content });
+          props?.onChange(cfDoc);
+        }}
+        content={{
+          type: 'doc',
+          content: toTiptap({
+            document: props.value || EMPTY_DOCUMENT,
+          }),
+        }}
+      />
+    </div>
   );
 };
