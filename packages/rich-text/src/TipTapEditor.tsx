@@ -1,6 +1,6 @@
 import React from 'react';
 import deepCopy from 'lodash/cloneDeep';
-import { EMPTY_DOCUMENT } from '@contentful/rich-text-types';
+import { BLOCKS, EMPTY_DOCUMENT } from '@contentful/rich-text-types';
 
 import { styles } from './TipTapEditor.styles';
 
@@ -13,6 +13,8 @@ import { OrderedList } from '@tiptap/extension-ordered-list';
 import { Document } from '@tiptap/extension-document';
 import { Text } from '@tiptap/extension-text';
 import { Paragraph } from '@tiptap/extension-paragraph';
+import { Image } from '@tiptap/extension-image';
+import { Node, mergeAttributes } from '@tiptap/core';
 
 import type { ConnectedProps } from './RichTextEditor';
 import toContentfulDocument from './adapter/toContentful';
@@ -25,8 +27,16 @@ import TableRow from '@tiptap/extension-table-row';
 import Commands from './extensions/suggestion/commands';
 import getSuggestionItems from './extensions/suggestion/items';
 import renderItems from './extensions/suggestion/renderItems';
+import { Entry, FieldExtensionSDK } from '@contentful/app-sdk';
+import { EntryCard } from '@contentful/f36-components';
+import { ReactNodeViewRenderer, NodeViewWrapper } from '@tiptap/react';
 
-const MenuBar = () => {
+function entityToLink(entity) {
+  const { id, type } = entity.sys;
+  return { sys: { id, type: 'Link', linkType: type } };
+}
+
+const MenuBar = ({ sdk }: { sdk: FieldExtensionSDK }) => {
   const { editor } = useCurrentEditor();
 
   if (!editor) {
@@ -59,12 +69,67 @@ const MenuBar = () => {
         className={editor.isActive('table') ? 'is-active' : ''}>
         table
       </button>
+      <button
+        onClick={async () => {
+          const entry = (await sdk.dialogs.selectSingleEntry()) as Entry;
+          const link = entityToLink(entry);
+          console.log(entry);
+          editor
+            .chain()
+            .focus()
+            .insertContentAt(editor.view.state.selection, {
+              type: BLOCKS.EMBEDDED_ENTRY,
+              attrs: { target: link },
+            })
+            .run();
+        }}
+        className={editor.isActive(BLOCKS.EMBEDDED_ENTRY) ? 'is-active' : ''}>
+        embed entry
+      </button>
     </>
   );
 };
 
 const CustomListItem = ListItem.extend({
   content: 'block*',
+});
+
+// const EmbeddedEntry = Image.extend({
+//   // content: 'block*',
+//   draggable: true,
+
+// })
+
+const EmbeddedEntry = Node.create({
+  name: BLOCKS.EMBEDDED_ENTRY,
+  group: 'block',
+  draggable: true,
+  inline: false,
+
+  addAttributes() {
+    return {
+      target: {},
+    };
+  },
+
+  addNodeView() {
+    console.log('addNodeView');
+    return ReactNodeViewRenderer(({ node }) => (
+      <NodeViewWrapper>
+        <div data-drag-handle>
+          <EntryCard title={node.attrs.target.sys.id} description="Mock description" />
+        </div>
+      </NodeViewWrapper>
+    ));
+  },
+
+  parseHTML() {
+    return [{ tag: BLOCKS.EMBEDDED_ENTRY }];
+  },
+
+  renderHTML({ HTMLAttributes }) {
+    return [BLOCKS.EMBEDDED_ENTRY, mergeAttributes(HTMLAttributes)];
+  },
 });
 
 const extensions = [
@@ -110,6 +175,7 @@ const extensions = [
       render: renderItems,
     },
   }),
+  EmbeddedEntry.configure({}),
 ];
 
 export const TipTapEditor = (props: ConnectedProps) => {
@@ -117,7 +183,7 @@ export const TipTapEditor = (props: ConnectedProps) => {
     <div data-test-id="rich-text-editor">
       <EditorProvider
         enableCoreExtensions
-        slotBefore={<MenuBar />}
+        slotBefore={<MenuBar sdk={props.sdk} />}
         extensions={extensions}
         editorProps={{
           attributes: {
@@ -128,6 +194,7 @@ export const TipTapEditor = (props: ConnectedProps) => {
         css={styles.tiptap}
         onUpdate={({ editor }) => {
           const content = editor.getJSON();
+          console.log(content);
           const cfDoc = toContentfulDocument({ document: content });
           props?.onChange(cfDoc);
         }}
