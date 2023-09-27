@@ -30,6 +30,7 @@ import renderItems from './extensions/suggestion/renderItems';
 import { Entry, FieldExtensionSDK } from '@contentful/app-sdk';
 import { EntryCard } from '@contentful/f36-components';
 import { ReactNodeViewRenderer, NodeViewWrapper } from '@tiptap/react';
+import { Unknown } from './extensions/unknown-mark';
 
 function entityToLink(entity) {
   const { id, type } = entity.sys;
@@ -85,6 +86,11 @@ const MenuBar = ({ sdk }: { sdk: FieldExtensionSDK }) => {
         }}
         className={editor.isActive(BLOCKS.EMBEDDED_ENTRY) ? 'is-active' : ''}>
         embed entry
+      </button>
+      <button
+        data-test-id="clear-marks-toolbar-button"
+        onClick={() => editor.chain().focus().unsetAllMarks().unsetUnknown().run()}>
+        clear formatting
       </button>
     </>
   );
@@ -176,6 +182,7 @@ const extensions = [
     },
   }),
   EmbeddedEntry.configure({}),
+  Unknown,
 ];
 
 export const TipTapEditor = (props: ConnectedProps) => {

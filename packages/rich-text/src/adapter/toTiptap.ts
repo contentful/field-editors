@@ -60,10 +60,21 @@ function convertTextNode(node: Contentful.Text) {
     return undefined;
   }
 
+  const normalizedMarks =
+    node.marks?.map((mark) => {
+      if (mark.type === 'bold') {
+        mark.data = {
+          originalType: mark.type,
+        };
+        mark.type = 'unknown';
+      }
+      return mark;
+    }) ?? [];
+
   return {
     type: node.value === '\n' ? 'hardBreak' : 'text',
     text: node.value,
     data: getDataOrDefault(node.data),
-    marks: node.marks,
+    marks: normalizedMarks,
   };
 }
