@@ -50,8 +50,20 @@ export const styles = {
     }
 
     blockquote {
-      padding-left: 1rem;
-      border-left: 2px solid rgba(#0d0d0d, 0.1);
+      background: #f9f9f9;
+      border-left: 10px solid #ccc;
+      padding: 8px;
+    }
+    blockquote:before {
+      color: #ccc;
+      content: open-quote;
+      font-size: 4em;
+      line-height: 0.1em;
+      margin-right: 0.25em;
+      vertical-align: -0.4em;
+    }
+    blockquote p {
+      display: inline;
     }
 
     hr {

@@ -6,25 +6,25 @@ export interface UnknownMarkOptions {
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
-    unknown: {
+    unknownMark: {
       /**
        * Set a unknown mark
        */
-      setUnknown: () => ReturnType;
+      setUnknownMark: () => ReturnType;
       /**
        * Toggle a unknown mark
        */
-      toggleUnknown: () => ReturnType;
+      toggleUnknownMark: () => ReturnType;
       /**
        * Unset a unknown mark
        */
-      unsetUnknown: () => ReturnType;
+      unsetUnknownMark: () => ReturnType;
     };
   }
 }
 
-export const Unknown = Mark.create<UnknownMarkOptions>({
-  name: 'unknown',
+export const UnknownMark = Mark.create<UnknownMarkOptions>({
+  name: 'unknownMark',
 
   addOptions() {
     return {
@@ -44,17 +44,17 @@ export const Unknown = Mark.create<UnknownMarkOptions>({
 
   addCommands() {
     return {
-      setUnknown:
+      setUnknownMark:
         () =>
         ({ commands }) => {
           return commands.setMark(this.name);
         },
-      toggleUnknown:
+      toggleUnknownMark:
         () =>
         ({ commands }) => {
           return commands.toggleMark(this.name);
         },
-      unsetUnknown:
+      unsetUnknownMark:
         () =>
         ({ commands }) => {
           return commands.unsetMark(this.name);

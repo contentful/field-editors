@@ -1,5 +1,5 @@
 import * as Contentful from '@contentful/rich-text-types';
-import { JSONContent } from '@tiptap/core';
+import { JSONContent, getSchema } from '@tiptap/core';
 
 import { getDataOrDefault } from './helpers';
 import { fromJSON, Schema, SchemaJSON } from './schema';
@@ -8,10 +8,16 @@ import { ContentfulNode, ContentfulElementNode } from './types';
 export interface ToTiptapDocumentProperties {
   document: Contentful.Document;
   schema?: SchemaJSON;
+  tiptapSchema?: ReturnType<typeof getSchema>;
 }
 
-export default function toTiptap({ document }: ToTiptapDocumentProperties): JSONContent {
-  return document.content.flatMap((node) => convertNode(node, fromJSON({}))).filter(Boolean);
+export default function toTiptap({
+  document,
+  tiptapSchema,
+}: ToTiptapDocumentProperties): JSONContent {
+  return document.content
+    .flatMap((node) => convertNode(node, fromJSON({}), tiptapSchema))
+    .filter(Boolean);
 }
 
 function mapNodeType(cfType: string): string {
@@ -27,15 +33,19 @@ function mapNodeType(cfType: string): string {
   return cfType;
 }
 
-function convertNode(node: ContentfulNode, schema: Schema) {
+function convertNode(
+  node: ContentfulNode,
+  schema: Schema,
+  tiptapSchema: ReturnType<typeof getSchema>
+) {
   if (node.nodeType === 'text') {
-    return convertTextNode(node as Contentful.Text);
+    return convertTextNode(node as Contentful.Text, tiptapSchema);
   } else {
     const contentfulNode = node as ContentfulElementNode;
     const childNodes = contentfulNode.content
-      .flatMap((childNode) => convertNode(childNode, schema))
+      .flatMap((childNode) => convertNode(childNode, schema, tiptapSchema))
       .filter(Boolean);
-    const slateNode = convertElementNode(contentfulNode, childNodes, schema);
+    const slateNode = convertElementNode(contentfulNode, childNodes, schema, tiptapSchema);
     return slateNode;
   }
 }
@@ -43,18 +53,30 @@ function convertNode(node: ContentfulNode, schema: Schema) {
 function convertElementNode(
   contentfulBlock: ContentfulElementNode,
   childNodes: JSONContent,
-  schema: Schema
+  schema: Schema,
+  tiptapSchema: ReturnType<typeof getSchema>
 ) {
   const content = childNodes;
+
+  let type = mapNodeType(contentfulBlock.nodeType);
+  const attrs = {};
+
+  // if the node is not in the tiptap schema we use unknownNode as a fallback
+  if (tiptapSchema.nodes[contentfulBlock.nodeType] === undefined) {
+    type = 'unknownNode';
+    attrs.originalType = contentfulBlock.nodeType;
+  }
+
   return {
-    type: mapNodeType(contentfulBlock.nodeType),
+    type,
     content,
     isVoid: schema.isVoid(contentfulBlock),
     data: getDataOrDefault(contentfulBlock.data),
+    attrs,
   };
 }
 
-function convertTextNode(node: Contentful.Text) {
+function convertTextNode(node: Contentful.Text, tiptapSchema: ReturnType<typeof getSchema>) {
   // ProseMirror doesn't allow empty text nodes
   if (node.value === '') {
     return undefined;
@@ -62,11 +84,12 @@ function convertTextNode(node: Contentful.Text) {
 
   const normalizedMarks =
     node.marks?.map((mark) => {
-      if (mark.type === 'bold') {
+      // if the mark is not in the tiptap schema we use unknownMark as a fallback
+      if (tiptapSchema.marks[mark.type] === undefined) {
         mark.data = {
           originalType: mark.type,
         };
-        mark.type = 'unknown';
+        mark.type = 'unknownMark';
       }
       return mark;
     }) ?? [];
