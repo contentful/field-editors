@@ -94,8 +94,6 @@ function convertTextNode(node: Contentful.Text, tiptapSchema: ReturnType<typeof 
       return mark;
     }) ?? [];
 
-  console.log(normalizedMarks);
-
   return {
     type: node.value === '\n' ? 'hardBreak' : 'text',
     text: node.value,
