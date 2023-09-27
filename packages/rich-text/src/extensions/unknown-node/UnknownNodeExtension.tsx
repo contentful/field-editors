@@ -63,7 +63,7 @@ export const UnknownNode = Node.create<UnknownNodeOptions>({
       return (
         <NodeViewWrapper>
           <Note variant="warning">
-            Unknown Node: <strong>{node.attrs.originalType}</strong> is not a known node type
+            <strong>{node.attrs.originalType}</strong> is not a known or allowed node type
           </Note>
         </NodeViewWrapper>
       );
