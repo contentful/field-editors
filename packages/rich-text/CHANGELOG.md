@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.12.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.12.0...@contentful/field-editor-rich-text@3.12.1) (2023-09-27)
+
+### Bug Fixes
+
+- rich text commands listens to validations [TOL-1473] ([#1503](https://github.com/contentful/field-editors/issues/1503)) ([2b610d4](https://github.com/contentful/field-editors/commit/2b610d4a966d400ffd894b4a40b37387492fdb46))
+
 # [3.12.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.11.0...@contentful/field-editor-rich-text@3.12.0) (2023-09-21)
 
 ### Features
