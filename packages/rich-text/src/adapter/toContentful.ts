@@ -43,9 +43,16 @@ function mapNodeType(tiptapType: string): string {
 function convertNode(node: JSONContent, schema: Schema): ContentfulNode[] {
   const nodes: ContentfulNode[] = [];
   if (!isLeafNode(node)) {
+    let nodeType = mapNodeType(node.type as string) as Contentful.BLOCKS;
+    const attrs = { ...node.attrs };
+    if (node.type === 'unknownNode') {
+      nodeType = attrs.originalType;
+      delete attrs.originalType;
+    }
+
     const contentfulElement: ContentfulElementNode = {
-      nodeType: mapNodeType(node.type as string) as Contentful.BLOCKS,
-      data: node.attrs ?? {},
+      nodeType,
+      data: attrs ?? {},
       content: [],
     };
     if (!schema.isVoid(contentfulElement)) {
@@ -64,7 +71,20 @@ function convertNode(node: JSONContent, schema: Schema): ContentfulNode[] {
 }
 
 function convertText(node: JSONContent): Contentful.Text {
-  const { type, text = '', marks = [] } = node;
+  const { type, text = '' } = node;
+  const marks =
+    node.marks?.map((mark) => {
+      let type = mark.type;
+      const attrs = { ...mark.attrs };
+      if (mark.type === 'unknownMark') {
+        type = attrs.originalType;
+        delete attrs.originalType;
+      }
+      return {
+        type,
+        data: attrs,
+      };
+    }) ?? [];
 
   return {
     marks,

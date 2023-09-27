@@ -58,10 +58,6 @@ export const UnknownNode = Node.create<UnknownNodeOptions>({
     };
   },
 
-  // parseHTML() {
-  //   // dunno
-  // },
-
   addNodeView() {
     return ReactNodeViewRenderer(({ node }) => {
       return (

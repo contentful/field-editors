@@ -91,17 +91,11 @@ const CustomListItem = ListItem.extend({
   content: 'block*',
 });
 
-// const EmbeddedEntry = Image.extend({
-//   // content: 'block*',
-//   draggable: true,
-
-// })
-
 const extensions = [
   StarterKit.configure({
     listItem: false,
-    // bold: false,
-    // blockquote: false,
+    bold: false,
+    blockquote: false,
   }),
   CustomListItem.configure({}),
   Table.configure({

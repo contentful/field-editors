@@ -34,6 +34,12 @@ export const UnknownMark = Mark.create<UnknownMarkOptions>({
     };
   },
 
+  addAttributes() {
+    return {
+      originalType: '',
+    };
+  },
+
   // parseHTML() {
   //   // dunno
   // },

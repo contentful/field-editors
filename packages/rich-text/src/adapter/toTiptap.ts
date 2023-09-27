@@ -86,13 +86,15 @@ function convertTextNode(node: Contentful.Text, tiptapSchema: ReturnType<typeof 
     node.marks?.map((mark) => {
       // if the mark is not in the tiptap schema we use unknownMark as a fallback
       if (tiptapSchema.marks[mark.type] === undefined) {
-        mark.data = {
+        mark.attrs = {
           originalType: mark.type,
         };
         mark.type = 'unknownMark';
       }
       return mark;
     }) ?? [];
+
+  console.log(normalizedMarks);
 
   return {
     type: node.value === '\n' ? 'hardBreak' : 'text',
