@@ -75,19 +75,12 @@ describe('Rich Text Editor - Commands', { viewportHeight: 2000 }, () => {
       getCommandList().findByText('Embed Example Content Type - Inline').click();
       getCommandList().findByText('Hello world').click();
 
-      const expectedValue = doc(
-        block(
-          BLOCKS.PARAGRAPH,
-          {},
-          text(),
-          block(INLINES.EMBEDDED_ENTRY, {
-            target: { sys: { id: 'exampleCT', type: 'Link', linkType: 'Entry' } },
-          }),
-          text()
-        )
-      );
-
-      richText.expectValue(expectedValue);
+      //this is used instead of snapshot value because we have randomized entry IDs
+      richText.getValue().should((doc) => {
+        expect(
+          doc.content[0].content.filter((node) => node.nodeType === INLINES.EMBEDDED_ENTRY)
+        ).to.have.length(1);
+      });
     });
 
     it('should embed asset', () => {
@@ -134,19 +127,12 @@ describe('Rich Text Editor - Commands', { viewportHeight: 2000 }, () => {
 
       richText.editor.findByTestId('embedded-entry-inline').should('exist');
 
-      const expectedValue = doc(
-        block(
-          BLOCKS.PARAGRAPH,
-          {},
-          text(),
-          block(INLINES.EMBEDDED_ENTRY, {
-            target: { sys: { id: 'exampleCT', type: 'Link', linkType: 'Entry' } },
-          }),
-          text()
-        )
-      );
-
-      richText.expectValue(expectedValue);
+      //this is used instead of snapshot value because we have randomized entry IDs
+      richText.getValue().should((doc) => {
+        expect(
+          doc.content[0].content.filter((node) => node.nodeType === INLINES.EMBEDDED_ENTRY)
+        ).to.have.length(1);
+      });
     });
 
     it('should select previous item on up arrow press', () => {
@@ -163,19 +149,13 @@ describe('Rich Text Editor - Commands', { viewportHeight: 2000 }, () => {
     it('should not delete adjacent text', () => {
       richText.editor.click().type('test/{downarrow}{enter}{enter}');
 
-      const expectedValue = doc(
-        block(
-          BLOCKS.PARAGRAPH,
-          {},
-          text('test'),
-          block(INLINES.EMBEDDED_ENTRY, {
-            target: { sys: { id: 'exampleCT', type: 'Link', linkType: 'Entry' } },
-          }),
-          text()
-        )
-      );
-
-      richText.expectValue(expectedValue);
+      //this is used instead of snapshot value because we have randomized entry IDs
+      richText.getValue().should((doc) => {
+        expect(doc.content[0].content[0].value).to.equal('test');
+        expect(
+          doc.content[0].content.filter((node) => node.nodeType === INLINES.EMBEDDED_ENTRY)
+        ).to.have.length(1);
+      });
     });
 
     it('should work inside headings', () => {

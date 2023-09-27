@@ -70,9 +70,50 @@ function getCommandPermissions(sdk: FieldExtensionSDK, editor: PlateEditor) {
   };
 }
 
+const getAllowedContentTypesFromValidation = (validations) => {
+  const types = [BLOCKS.EMBEDDED_ENTRY, INLINES.EMBEDDED_ENTRY];
+
+  return validations.reduce((acc, validation) => {
+    types.forEach((type) => {
+      const linkContentTypes = validation.nodes?.[type]?.[0]?.linkContentType;
+      if (linkContentTypes) {
+        if (!acc[type]) {
+          acc[type] = {};
+        }
+
+        linkContentTypes.forEach((contentType) => {
+          acc[type][contentType] = true;
+        });
+      }
+    });
+    return acc;
+  }, {});
+};
+
 export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: PlateEditor) => {
   const contentTypes = sdk.space.getCachedContentTypes();
   const { inlineAllowed, entriesAllowed, assetsAllowed } = getCommandPermissions(sdk, editor);
+  const allowedContentTypesFromValidation = getAllowedContentTypesFromValidation(
+    sdk.field.validations
+  );
+  const filteredBlockContentTypes = contentTypes.filter(
+    (contentType) => allowedContentTypesFromValidation[BLOCKS.EMBEDDED_ENTRY]?.[contentType.sys.id]
+  );
+  const filteredInlineContentTypes = contentTypes.filter(
+    (contentType) => allowedContentTypesFromValidation[INLINES.EMBEDDED_ENTRY]?.[contentType.sys.id]
+  );
+
+  // Determine if any content type filtering has been applied
+  const isBlockContentTypeFiltered = filteredBlockContentTypes.length > 0;
+  const isInlineContentTypeFiltered = filteredInlineContentTypes.length > 0;
+
+  // Use all content types if none were specified
+  const blockContentTypesToUse = isBlockContentTypeFiltered
+    ? filteredBlockContentTypes
+    : contentTypes;
+  const inlineContentTypesToUse = isInlineContentTypeFiltered
+    ? filteredInlineContentTypes
+    : contentTypes;
 
   const [commands, setCommands] = useState((): CommandList => {
     const getEmbedEntry = (contentType) => {
@@ -91,16 +132,16 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: Plate
               ]);
             } else {
               setCommands(
-                entries.map((entry) => {
+                entries.map((ct) => {
                   return {
-                    id: `${entry.id}-${entry.displayTitle.replace(/\W+/g, '-').toLowerCase()}`,
-                    label: entry.displayTitle,
+                    id: ct.entry.sys.id,
+                    label: ct.displayTitle,
                     callback: () => {
                       removeCommand(editor);
                       if (editor.selection) {
                         const selection = editor.selection;
                         editor.insertSoftBreak();
-                        insertBlock(editor, BLOCKS.EMBEDDED_ENTRY, entry.entry);
+                        insertBlock(editor, BLOCKS.EMBEDDED_ENTRY, ct.entry);
                         select(editor, selection);
                         editor.tracking.onCommandPaletteAction('insert', {
                           nodeType: BLOCKS.EMBEDDED_ENTRY,
@@ -132,12 +173,12 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: Plate
               ]);
             } else {
               setCommands(
-                entries.map((entry) => {
+                entries.map((ct) => {
                   return {
-                    id: `${entry.id}-${entry.displayTitle.replace(/\W+/g, '-').toLowerCase()}`,
-                    label: entry.displayTitle,
+                    id: ct.entry.sys.id,
+                    label: ct.displayTitle,
                     callback: () => {
-                      const inlineNode = createInlineEntryNode(entry.id);
+                      const inlineNode = createInlineEntryNode(ct.entry.sys.id);
                       removeCommand(editor);
                       insertNodes(editor, inlineNode);
                       editor.insertText('');
@@ -153,20 +194,32 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: Plate
         },
       };
     };
+
     const contentTypeCommands =
       entriesAllowed || inlineAllowed
         ? contentTypes.map((contentType) => {
+            const blockEmbedAllowed = blockContentTypesToUse.some(
+              (ct) => ct.sys.id === contentType.sys.id
+            );
+            const inlineEmbedAllowed = inlineContentTypesToUse.some(
+              (ct) => ct.sys.id === contentType.sys.id
+            );
+
+            const commands: Command[] = [];
+            if (entriesAllowed && blockEmbedAllowed) {
+              commands.push(getEmbedEntry(contentType));
+            }
+            if (inlineAllowed && inlineEmbedAllowed) {
+              commands.push(getEmbedInline(contentType));
+            }
+
             return {
               group: contentType.name,
-              commands:
-                entriesAllowed && inlineAllowed
-                  ? [getEmbedEntry(contentType), getEmbedInline(contentType)]
-                  : entriesAllowed
-                  ? [getEmbedEntry(contentType)]
-                  : [getEmbedInline(contentType)],
+              commands: commands,
             };
           })
         : [];
+
     if (assetsAllowed) {
       const assetCommand = {
         group: 'Assets',
@@ -188,7 +241,7 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: Plate
                   setCommands(
                     assets.map((asset) => {
                       return {
-                        id: `${asset.id}-${asset.displayTitle.replace(/\W+/g, '-').toLowerCase()}`,
+                        id: asset.entity.sys.id,
                         label: asset.displayTitle,
                         thumbnail: asset.thumbnail,
                         callback: () => {
@@ -214,6 +267,7 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: Plate
       };
       return [...contentTypeCommands, assetCommand];
     }
+
     return contentTypeCommands;
   });
 
