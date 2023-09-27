@@ -1,20 +1,19 @@
 import React from 'react';
 
 import { Entry, FieldExtensionSDK } from '@contentful/app-sdk';
-import { EntryCard } from '@contentful/f36-components';
 import { BLOCKS, EMPTY_DOCUMENT } from '@contentful/rich-text-types';
-import { Node, mergeAttributes, getSchema } from '@tiptap/core';
+import { getSchema } from '@tiptap/core';
 import { ListItem } from '@tiptap/extension-list-item';
 import Table from '@tiptap/extension-table';
 import TableCell from '@tiptap/extension-table-cell';
 import TableHeader from '@tiptap/extension-table-header';
 import TableRow from '@tiptap/extension-table-row';
 import { EditorProvider, useCurrentEditor } from '@tiptap/react';
-import { ReactNodeViewRenderer, NodeViewWrapper } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 
 import toContentfulDocument from './adapter/toContentful';
 import toTiptap from './adapter/toTiptap';
+import { EmbeddedEntry } from './extensions/embedded-entry';
 import Commands from './extensions/suggestion/commands';
 import getSuggestionItems from './extensions/suggestion/items';
 import renderItems from './extensions/suggestion/renderItems';
@@ -97,38 +96,6 @@ const CustomListItem = ListItem.extend({
 //   draggable: true,
 
 // })
-
-const EmbeddedEntry = Node.create({
-  name: BLOCKS.EMBEDDED_ENTRY,
-  group: 'block',
-  draggable: true,
-  inline: false,
-
-  addAttributes() {
-    return {
-      target: {},
-    };
-  },
-
-  addNodeView() {
-    console.log('addNodeView');
-    return ReactNodeViewRenderer(({ node }) => (
-      <NodeViewWrapper>
-        <div data-drag-handle>
-          <EntryCard title={node.attrs.target.sys.id} description="Mock description" />
-        </div>
-      </NodeViewWrapper>
-    ));
-  },
-
-  parseHTML() {
-    return [{ tag: BLOCKS.EMBEDDED_ENTRY }];
-  },
-
-  renderHTML({ HTMLAttributes }) {
-    return [BLOCKS.EMBEDDED_ENTRY, mergeAttributes(HTMLAttributes)];
-  },
-});
 
 const extensions = [
   StarterKit.configure({
