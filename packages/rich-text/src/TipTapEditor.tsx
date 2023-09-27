@@ -99,9 +99,7 @@ const extensions = [
     // bulletList: false,
   }),
   CustomListItem.configure({}),
-  Table.configure({
-    resizable: true,
-  }).extend({
+  Table.extend({
     addCommands() {
       return {
         ...this.parent?.(),
@@ -114,6 +112,8 @@ const extensions = [
         },
       };
     },
+  }).configure({
+    resizable: true,
   }),
   TableRow,
   TableHeader.extend({
