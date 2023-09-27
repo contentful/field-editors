@@ -94,8 +94,9 @@ const CustomListItem = ListItem.extend({
 const extensions = [
   StarterKit.configure({
     listItem: false,
-    bold: false,
-    blockquote: false,
+    // bold: false,
+    // blockquote: false,
+    // bulletList: false,
   }),
   CustomListItem.configure({}),
   Table.configure({

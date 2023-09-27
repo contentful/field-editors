@@ -62,7 +62,7 @@ function convertElementNode(
   const attrs = {};
 
   // if the node is not in the tiptap schema we use unknownNode as a fallback
-  if (tiptapSchema.nodes[contentfulBlock.nodeType] === undefined) {
+  if (tiptapSchema.nodes[type] === undefined) {
     type = 'unknownNode';
     attrs.originalType = contentfulBlock.nodeType;
   }
