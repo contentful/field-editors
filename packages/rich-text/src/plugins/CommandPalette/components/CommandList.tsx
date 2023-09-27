@@ -92,13 +92,13 @@ const CommandListItems = ({
 }) => {
   return (
     <>
-      {commandItems.map((command, i) => {
+      {commandItems.map((command) => {
         return 'group' in command ? (
-          <Group key={i} commandGroup={command} selectedItem={selectedItem} />
+          <Group key={command.group} commandGroup={command} selectedItem={selectedItem} />
         ) : command.callback ? (
-          <Asset key={i} command={command} selectedItem={selectedItem} />
+          <Asset key={command.id} command={command} selectedItem={selectedItem} />
         ) : (
-          <Item key={i} command={command} />
+          <Item key={command.id} command={command} />
         );
       })}
     </>
