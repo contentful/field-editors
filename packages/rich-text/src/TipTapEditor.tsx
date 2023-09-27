@@ -13,6 +13,7 @@ import StarterKit from '@tiptap/starter-kit';
 
 import toContentfulDocument from './adapter/toContentful';
 import toTiptap from './adapter/toTiptap';
+import { createCustomNode, CustomNodeToolbarButtons } from './custom-extension';
 import { EmbeddedEntry } from './extensions/embedded-entry';
 import Commands from './extensions/suggestion/commands';
 import getSuggestionItems from './extensions/suggestion/items';
@@ -26,6 +27,17 @@ function entityToLink(entity) {
   const { id, type } = entity.sys;
   return { sys: { id, type: 'Link', linkType: type } };
 }
+
+const CustomNode1 = createCustomNode({
+  name: 'coolNode',
+  render: () => <div style={{ background: 'green', color: 'red' }}>this is my cool node 😎</div>,
+});
+
+const CustomNode2 = createCustomNode({
+  name: 'amazingNode',
+  render: () => <div style={{ background: 'black', color: 'yellow' }}>amazing node 🕺</div>,
+});
+const customNodes = [CustomNode1, CustomNode2];
 
 const MenuBar = ({ sdk }: { sdk: FieldExtensionSDK }) => {
   const { editor } = useCurrentEditor();
@@ -83,6 +95,7 @@ const MenuBar = ({ sdk }: { sdk: FieldExtensionSDK }) => {
         onClick={() => editor.chain().focus().unsetAllMarks().unsetUnknownMark().run()}>
         clear formatting
       </button>
+      <CustomNodeToolbarButtons editor={editor} customNodes={customNodes} />
     </>
   );
 };
@@ -131,6 +144,7 @@ const extensions = [
   EmbeddedEntry.configure({}),
   UnknownMark,
   UnknownNode,
+  ...customNodes,
 ];
 
 // We can separately get the schema and use this in the adapter to tell if nodes and marks are expected or not
