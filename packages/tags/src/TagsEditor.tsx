@@ -68,12 +68,7 @@ const SortablePill = ({ id, label, index, disabled, onRemove }: SortablePillProp
       }}
       onDrag={noop}
       dragHandleComponent={
-        <DragHandle
-          ref={setActivatorNodeRef}
-          variant="transparent"
-          label="Drag handle"
-          {...listeners}
-        />
+        <DragHandle ref={setActivatorNodeRef} variant="transparent" label={label} {...listeners} />
       }
     />
   );
