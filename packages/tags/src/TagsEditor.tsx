@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { Pill, TextInput } from '@contentful/f36-components';
-import { DragIcon } from '@contentful/f36-icons';
+import { DragHandle, Pill, TextInput } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
 import { DndContext } from '@dnd-kit/core';
 import { restrictToParentElement } from '@dnd-kit/modifiers';
@@ -23,11 +22,6 @@ export interface TagsEditorProps {
 }
 
 const styles = {
-  dropContainer: css({
-    whiteSpace: 'nowrap',
-    display: 'flex',
-    flexWrap: 'wrap',
-  }),
   input: css({
     marginTop: tokens.spacingS,
     marginBottom: tokens.spacingM,
@@ -44,34 +38,7 @@ const styles = {
       pointerEvents: 'none',
     },
   }),
-  handle: css({
-    lineHeight: '1.5rem',
-    padding: '0.375rem 0.625rem',
-    paddingRight: 0,
-    cursor: 'grab',
-    userSelect: 'none',
-    svg: {
-      fill: tokens.gray500,
-      verticalAlign: 'middle',
-    },
-  }),
 };
-
-interface SortablePillHandleProps {
-  ref: (element: HTMLElement | null) => void;
-  listeners: any;
-  isDisabled: boolean;
-}
-
-const SortablePillHandle = ({ ref, listeners, isDisabled }: SortablePillHandleProps) => (
-  <div
-    ref={ref}
-    {...listeners}
-    className={cx(styles.handle, { [styles.pillDisabled]: isDisabled })}
-  >
-    <DragIcon variant="muted" />
-  </div>
-);
 
 interface SortablePillProps {
   id: string;
@@ -101,7 +68,12 @@ const SortablePill = ({ id, label, index, disabled, onRemove }: SortablePillProp
       }}
       onDrag={noop}
       dragHandleComponent={
-        <SortablePillHandle ref={setActivatorNodeRef} listeners={listeners} isDisabled={disabled} />
+        <DragHandle
+          ref={setActivatorNodeRef}
+          variant="transparent"
+          label="Drag handle"
+          {...listeners}
+        />
       }
     />
   );
