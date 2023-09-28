@@ -19,6 +19,7 @@ export interface Command {
   thumbnail?: string;
   label: string;
   callback?: () => void;
+  asset?: boolean;
 }
 
 export interface CommandGroup {
@@ -96,24 +97,32 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: Plate
   const allowedContentTypesFromValidation = getAllowedContentTypesFromValidation(
     sdk.field.validations
   );
-  const filteredBlockContentTypes = contentTypes.filter(
-    (contentType) => allowedContentTypesFromValidation[BLOCKS.EMBEDDED_ENTRY]?.[contentType.sys.id]
+
+  const filterContentTypesByValidation = (type) =>
+    contentTypes.filter(
+      (contentType) => allowedContentTypesFromValidation[type]?.[contentType.sys.id]
+    );
+
+  const filteredBlockContentTypes = filterContentTypesByValidation(BLOCKS.EMBEDDED_ENTRY);
+  const filteredInlineContentTypes = filterContentTypesByValidation(INLINES.EMBEDDED_ENTRY);
+
+  const getContentTypeToUse = (allowed, isFiltered, filteredTypes) =>
+    allowed ? (isFiltered ? filteredTypes : contentTypes) : [];
+
+  const blockContentTypesToUse = getContentTypeToUse(
+    entriesAllowed,
+    filteredBlockContentTypes.length > 0,
+    filteredBlockContentTypes
   );
-  const filteredInlineContentTypes = contentTypes.filter(
-    (contentType) => allowedContentTypesFromValidation[INLINES.EMBEDDED_ENTRY]?.[contentType.sys.id]
+  const inlineContentTypesToUse = getContentTypeToUse(
+    inlineAllowed,
+    filteredInlineContentTypes.length > 0,
+    filteredInlineContentTypes
   );
 
-  // Determine if any content type filtering has been applied
-  const isBlockContentTypeFiltered = filteredBlockContentTypes.length > 0;
-  const isInlineContentTypeFiltered = filteredInlineContentTypes.length > 0;
-
-  // Use all content types if none were specified
-  const blockContentTypesToUse = isBlockContentTypeFiltered
-    ? filteredBlockContentTypes
-    : contentTypes;
-  const inlineContentTypesToUse = isInlineContentTypeFiltered
-    ? filteredInlineContentTypes
-    : contentTypes;
+  const relevantContentTypes = contentTypes.filter(
+    (ct) => blockContentTypesToUse.includes(ct) || inlineContentTypesToUse.includes(ct)
+  );
 
   const [commands, setCommands] = useState((): CommandList => {
     const getEmbedEntry = (contentType) => {
@@ -197,7 +206,7 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: Plate
 
     const contentTypeCommands =
       entriesAllowed || inlineAllowed
-        ? contentTypes.map((contentType) => {
+        ? relevantContentTypes.map((contentType) => {
             const blockEmbedAllowed = blockContentTypesToUse.some(
               (ct) => ct.sys.id === contentType.sys.id
             );
@@ -244,6 +253,7 @@ export const useCommands = (sdk: FieldExtensionSDK, query: string, editor: Plate
                         id: asset.entity.sys.id,
                         label: asset.displayTitle,
                         thumbnail: asset.thumbnail,
+                        asset: true,
                         callback: () => {
                           removeCommand(editor);
                           if (editor.selection) {
