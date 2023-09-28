@@ -20,11 +20,7 @@ export interface RatingEditorProps {
   /**
    * sdk.parameters
    */
-  parameters?: ParametersAPI & {
-    instance: {
-      stars?: number;
-    };
-  };
+  parameters?: ParametersAPI<Record<string, any>, { stars?: number }, Record<string, any>>;
 }
 
 function isValidCount(count?: string | number): count is number {

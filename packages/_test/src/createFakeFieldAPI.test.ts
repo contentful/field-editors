@@ -10,6 +10,7 @@ describe('createFakeFieldAPI', () => {
         "getValue",
         "id",
         "locale",
+        "name",
         "onIsDisabledChanged",
         "onSchemaErrorsChanged",
         "onValueChanged",
