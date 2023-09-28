@@ -77,8 +77,15 @@ const Asset = ({ command, selectedItem }: { command: Command; selectedItem: stri
   </button>
 );
 
-const Item = ({ command }: { command: Command }) => (
-  <button key={command.id} id={command.id} className={styles.menuItem}>
+const Item = ({ command, selectedItem }: { command: Command; selectedItem: string }) => (
+  <button
+    key={command.id}
+    id={command.id}
+    className={cx(styles.menuItem, {
+      [styles.menuItemSelected]: command.id === selectedItem,
+    })}
+    onClick={command.callback}
+  >
     {command.label}
   </button>
 );
@@ -95,10 +102,10 @@ const CommandListItems = ({
       {commandItems.map((command) => {
         return 'group' in command ? (
           <Group key={command.group} commandGroup={command} selectedItem={selectedItem} />
-        ) : command.callback ? (
+        ) : command.asset ? (
           <Asset key={command.id} command={command} selectedItem={selectedItem} />
         ) : (
-          <Item key={command.id} command={command} />
+          <Item key={command.id} command={command} selectedItem={selectedItem} />
         );
       })}
     </>
