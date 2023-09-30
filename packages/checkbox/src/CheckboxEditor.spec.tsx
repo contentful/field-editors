@@ -18,7 +18,8 @@ describe('CheckboxEditor', () => {
       return {
         ...mock,
         items: {
-          type: '',
+          type: 'Link',
+          linkType: 'Entry',
           validations: [],
         },
       };
@@ -38,7 +39,8 @@ describe('CheckboxEditor', () => {
       return {
         ...mock,
         items: {
-          type: '',
+          type: 'Link',
+          linkType: 'Entry',
           validations: [{ in: predefined }],
         },
       };
@@ -63,7 +65,8 @@ describe('CheckboxEditor', () => {
       return {
         ...mock,
         items: {
-          type: '',
+          type: 'Link',
+          linkType: 'Entry',
           validations: [{ in: predefined }],
         },
       };
@@ -105,7 +108,8 @@ describe('CheckboxEditor', () => {
       return {
         ...mock,
         items: {
-          type: '',
+          type: 'Link',
+          linkType: 'Entry',
           validations: [{ in: predefined }],
         },
       };
@@ -131,7 +135,8 @@ describe('CheckboxEditor', () => {
       return {
         ...mock,
         items: {
-          type: '',
+          type: 'Link',
+          linkType: 'Entry',
           validations: [{ in: predefined }],
         },
       };

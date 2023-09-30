@@ -9,13 +9,13 @@ describe('parseNumber', () => {
     expect(parseNumber('foo', 'Integer')).toBeUndefined();
   });
 
-  it('should parse values properly when type is Decimal', () => {
-    expect(parseNumber('1', 'Decimal')).toBe(1);
+  it('should parse values properly when type is Number', () => {
+    expect(parseNumber('1', 'Number')).toBe(1);
     expect(parseNumber('0', 'Integer')).toBe(0);
-    expect(parseNumber('-99', 'Decimal')).toEqual(-99);
-    expect(parseNumber('2.89', 'Decimal')).toBe(2.89);
-    expect(parseNumber('-12.89', 'Decimal')).toEqual(-12.89);
-    expect(parseNumber('foo', 'Decimal')).toBeUndefined();
+    expect(parseNumber('-99', 'Number')).toEqual(-99);
+    expect(parseNumber('2.89', 'Number')).toBe(2.89);
+    expect(parseNumber('-12.89', 'Number')).toEqual(-12.89);
+    expect(parseNumber('foo', 'Number')).toBeUndefined();
   });
 });
 
@@ -35,18 +35,18 @@ describe('isNumberInputValueValid', () => {
     expect(isNumberInputValueValid('foo', 'Integer')).toBe(false);
   });
 
-  it('should correctly validate input when type is Decimal', () => {
-    expect(isNumberInputValueValid('3', 'Decimal')).toBe(true);
-    expect(isNumberInputValueValid('33', 'Decimal')).toBe(true);
-    expect(isNumberInputValueValid('+', 'Decimal')).toBe(true);
-    expect(isNumberInputValueValid('-', 'Decimal')).toBe(true);
-    expect(isNumberInputValueValid('-3', 'Decimal')).toBe(true);
-    expect(isNumberInputValueValid('3.3', 'Decimal')).toBe(true);
-    expect(isNumberInputValueValid('-3.3', 'Decimal')).toBe(true);
-    expect(isNumberInputValueValid('0', 'Decimal')).toBe(true);
-    expect(isNumberInputValueValid('.', 'Decimal')).toBe(true);
-    expect(isNumberInputValueValid('.3', 'Decimal')).toBe(true);
-    expect(isNumberInputValueValid('0.3', 'Decimal')).toBe(true);
+  it('should correctly validate input when type is Number', () => {
+    expect(isNumberInputValueValid('3', 'Number')).toBe(true);
+    expect(isNumberInputValueValid('33', 'Number')).toBe(true);
+    expect(isNumberInputValueValid('+', 'Number')).toBe(true);
+    expect(isNumberInputValueValid('-', 'Number')).toBe(true);
+    expect(isNumberInputValueValid('-3', 'Number')).toBe(true);
+    expect(isNumberInputValueValid('3.3', 'Number')).toBe(true);
+    expect(isNumberInputValueValid('-3.3', 'Number')).toBe(true);
+    expect(isNumberInputValueValid('0', 'Number')).toBe(true);
+    expect(isNumberInputValueValid('.', 'Number')).toBe(true);
+    expect(isNumberInputValueValid('.3', 'Number')).toBe(true);
+    expect(isNumberInputValueValid('0.3', 'Number')).toBe(true);
 
     expect(isNumberInputValueValid('--', 'Integer')).toBe(false);
     expect(isNumberInputValueValid('++', 'Integer')).toBe(false);

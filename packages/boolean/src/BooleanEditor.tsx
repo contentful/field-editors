@@ -19,12 +19,14 @@ export interface BooleanEditorProps {
   /**
    * sdk.parameters
    */
-  parameters?: ParametersAPI & {
-    instance: {
+  parameters?: ParametersAPI<
+    Record<string, any>,
+    {
       trueLabel?: string;
       falseLabel?: string;
-    };
-  };
+    },
+    Record<string, any>
+  >;
 }
 
 export function BooleanEditor(props: BooleanEditorProps) {

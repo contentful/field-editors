@@ -1,7 +1,14 @@
 import * as React from 'react';
 import { usePopper } from 'react-popper';
 
-import { Popover, Stack, SectionHeading, ScreenReaderOnly, Flex } from '@contentful/f36-components';
+import {
+  Popover,
+  Stack,
+  SectionHeading,
+  ScreenReaderOnly,
+  Flex,
+  AssetIcon,
+} from '@contentful/f36-components';
 import { Portal } from '@contentful/f36-utils';
 import { cx } from 'emotion';
 
@@ -60,16 +67,25 @@ const Asset = ({ command, selectedItem }: { command: Command; selectedItem: stri
     onClick={command.callback}
   >
     <Flex alignItems="center" gap="spacingS">
-      {command.thumbnail && (
+      {command.thumbnail ? (
         <img width="30" height="30" src={command.thumbnail} alt="" className={styles.thumbnail} />
+      ) : (
+        <AssetIcon width="30" height="30" className={styles.thumbnail} />
       )}
       <span>{command.label}</span>
     </Flex>
   </button>
 );
 
-const Item = ({ command }: { command: Command }) => (
-  <button key={command.id} id={command.id} className={styles.menuItem}>
+const Item = ({ command, selectedItem }: { command: Command; selectedItem: string }) => (
+  <button
+    key={command.id}
+    id={command.id}
+    className={cx(styles.menuItem, {
+      [styles.menuItemSelected]: command.id === selectedItem,
+    })}
+    onClick={command.callback}
+  >
     {command.label}
   </button>
 );
@@ -85,11 +101,11 @@ const CommandListItems = ({
     <>
       {commandItems.map((command) => {
         return 'group' in command ? (
-          <Group commandGroup={command} selectedItem={selectedItem} />
-        ) : command.callback ? (
-          <Asset command={command} selectedItem={selectedItem} />
+          <Group key={command.group} commandGroup={command} selectedItem={selectedItem} />
+        ) : command.asset ? (
+          <Asset key={command.id} command={command} selectedItem={selectedItem} />
         ) : (
-          <Item command={command} />
+          <Item key={command.id} command={command} selectedItem={selectedItem} />
         );
       })}
     </>

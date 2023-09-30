@@ -16,7 +16,7 @@ function createField({
   type = 'Integer',
 }: {
   initialValue?: number;
-  type?: 'Decimal' | 'Integer';
+  type?: 'Number' | 'Integer';
 }) {
   const [field] = createFakeFieldAPI((field) => {
     jest.spyOn(field, 'setValue');
@@ -63,8 +63,8 @@ describe('NumberEditor', () => {
     });
   });
 
-  it('when Decimal type it calls setValue for every valid state', async () => {
-    const field = createField({ type: 'Decimal' });
+  it('when Number type it calls setValue for every valid state', async () => {
+    const field = createField({ type: 'Number' });
     render(<NumberEditor field={field} isInitiallyDisabled={false} />);
     const $input = screen.getByTestId('number-editor-input');
 
