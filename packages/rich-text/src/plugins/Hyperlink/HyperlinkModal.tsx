@@ -267,6 +267,7 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
 interface HyperLinkDialogData {
   linkTFieldAppSDK;
   linkType: INLINES.HYPERLINK | INLINES.ASSET_HYPERLINK | INLINES.ENTRY_HYPERLINK;
+  linkText: string;
   linkTarget?: string;
   linkEntity?: Link;
 }
