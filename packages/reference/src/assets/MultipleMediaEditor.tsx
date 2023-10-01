@@ -31,8 +31,7 @@ export function MultipleMediaEditor(props: EditorProps) {
         <SortableLinkList<ReferenceValue>
           {...childrenProps}
           className={cx({ [styles.gridContainer]: childrenProps.viewType === 'card' })}
-          axis={childrenProps.viewType === 'card' ? 'xy' : 'y'}
-          useDragHandle={true}>
+        >
           {({ items, item, index, isDisabled, DragHandle }) => (
             <FetchingWrappedAssetCard
               {...childrenProps}

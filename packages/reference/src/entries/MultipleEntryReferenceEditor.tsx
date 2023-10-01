@@ -9,19 +9,10 @@ import { FetchingWrappedEntryCard } from './WrappedEntryCard/FetchingWrappedEntr
 export function MultipleEntryReferenceEditor(props: ReferenceEditorProps) {
   const [indexToUpdate, setIndexToUpdate] = React.useState<number | undefined>(undefined);
 
-  const updateBeforeSortStart = ({ index }: { index: number }) => {
-    setIndexToUpdate(index);
-  };
-
   return (
     <MultipleReferenceEditor {...props} entityType="Entry" setIndexToUpdate={setIndexToUpdate}>
       {(childrenProps) => (
-        <SortableLinkList<ReferenceValue>
-          {...childrenProps}
-          axis="y"
-          useDragHandle={true}
-          updateBeforeSortStart={updateBeforeSortStart}
-        >
+        <SortableLinkList<ReferenceValue> {...childrenProps}>
           {({ items, item, index, isDisabled, DragHandle }) => {
             const lastIndex = items.length - 1;
             return (
