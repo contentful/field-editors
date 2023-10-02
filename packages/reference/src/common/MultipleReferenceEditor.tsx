@@ -44,7 +44,7 @@ const emptyArray: ReferenceValue[] = [];
 const nullableValue = { sys: { id: 'null-value' } };
 
 function Editor(props: EditorProps) {
-  const { setValue, entityType } = props;
+  const { setValue, entityType, onSortingEnd } = props;
   const editorPermissions = useEditorPermissions(props);
 
   const items = React.useMemo(() => {
@@ -58,30 +58,13 @@ function Editor(props: EditorProps) {
     );
   }, [props.items]);
 
-  // const onSortStart: SortStartHandler = useCallback((_, event) => {
-  //   if (event instanceof MouseEvent) {
-  //     document.body.classList.add('grabbing');
-  //   }
-  //   event.preventDefault();
-  // }, []);
-  // const onSortEnd: SortEndHandler = useCallback(
-  //   ({ oldIndex, newIndex }) => {
-  //     // custom callback that is invoked *before* we sort the array
-  //     // e.g. in Compose we want to sort the references in the referenceMap before re-rendering drag and drop
-  //     props.onSortingEnd && props.onSortingEnd({ oldIndex, newIndex });
-  //     const newItems = arrayMove(items, oldIndex, newIndex);
-  //     setValue(newItems);
-  //     setIndexToUpdate && setIndexToUpdate(undefined);
-  //     document.body.classList.remove('grabbing');
-  //   },
-  //   [items, props, setIndexToUpdate, setValue]
-  // );
   const onMove = useCallback(
     (oldIndex: number, newIndex: number) => {
       const newItems = arrayMove(items, oldIndex, newIndex);
       setValue(newItems);
+      onSortingEnd?.({ oldIndex, newIndex });
     },
-    [items, setValue]
+    [items, setValue, onSortingEnd]
   );
 
   const onCreate = useCallback(
