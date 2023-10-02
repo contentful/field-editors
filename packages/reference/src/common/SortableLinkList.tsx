@@ -15,7 +15,9 @@ const styles = {
   item: css({
     position: 'relative',
     marginBottom: tokens.spacingM,
-    zIndex: tokens.zIndexModal, // setting this to an index above 99 fixes dragged item disappearing issue. Should not be higher than 100 so it does not overlap the asset modal.
+  }),
+  isDragging: css({
+    zIndex: tokens.zIndexModal,
   }),
   dragHandle: css({
     display: 'flex',
@@ -60,7 +62,6 @@ const SortableLink = <T extends { sys: any }>({
   const style = {
     transform: transform ? CSS.Transform.toString({ ...transform, scaleX: 1, scaleY: 1 }) : '',
     transition,
-    zIndex: isDragging ? tokens.zIndexModalContent : tokens.zIndexModal,
   };
 
   const DragHandle = (props: { drag: React.ReactElement }) => {
@@ -73,7 +74,11 @@ const SortableLink = <T extends { sys: any }>({
   };
 
   return (
-    <div ref={setNodeRef} style={style} className={styles.item}>
+    <div
+      ref={setNodeRef}
+      style={style}
+      className={cx(styles.item, { [styles.isDragging]: isDragging })}
+    >
       {children({
         items,
         isDisabled,
