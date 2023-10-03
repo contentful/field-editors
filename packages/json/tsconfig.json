@@ -5,6 +5,9 @@
     "module": "node16",
     "lib": ["dom", "esnext"],
     "rootDir": "./src",
-    "baseUrl": "./"
+    "baseUrl": "./",
+    "paths": {
+      "*": ["src/*", "node_modules/*"]
+    }
   }
 }
