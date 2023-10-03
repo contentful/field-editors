@@ -8,6 +8,7 @@
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
+      "require": "./dist/cjs/index.js",
       "import": "./dist/esm/index.js"
     },
     "./package.json": "./package.json"
@@ -25,7 +26,7 @@
     "watch": "yarn concurrently \"yarn:watch:*\"",
     "watch:esm": "yarn build:esm -w",
     "watch:types": "yarn build:types --watch",
-    "build": "yarn build:types && yarn build:esm",
+    "build": "yarn build:types && yarn build:esm && yarn build:cjs",
     "build:types": "tsc --outDir dist/types --emitDeclarationOnly",
     "build:cjs": "swc src --config-file ../../.swcrc -d dist/cjs -C module.type=commonjs",
     "build:esm": "swc src --config-file ../../.swcrc -d dist/esm",
