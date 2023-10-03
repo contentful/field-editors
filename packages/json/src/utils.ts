@@ -1,4 +1,4 @@
-import { JSONObject } from './types';
+import { JSONObject } from './types.js';
 
 export const SPACE_INDENT_COUNT = 4;
 

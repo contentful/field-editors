@@ -5,7 +5,7 @@ import type { FieldExtensionSDK, Entry } from '@contentful/field-editor-shared';
 import { ValidationErrors } from '@contentful/field-editor-validation-errors';
 import { cx } from 'emotion';
 
-import { styles } from './FieldWrapper.styles';
+import { styles } from './FieldWrapper.styles.js';
 
 type FieldWrapperProps = {
   name: string;

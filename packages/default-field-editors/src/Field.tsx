@@ -25,8 +25,8 @@ import { SlugEditor } from '@contentful/field-editor-slug';
 import { TagsEditor } from '@contentful/field-editor-tags';
 import { UrlEditor } from '@contentful/field-editor-url';
 
-import { getDefaultWidgetId } from './getDefaultWidgetId';
-import type { EditorOptions, WidgetType } from './types';
+import { getDefaultWidgetId } from './getDefaultWidgetId.js';
+import type { EditorOptions, WidgetType } from './types.js';
 
 type FieldProps = {
   sdk: FieldExtensionSDK;

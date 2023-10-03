@@ -6,7 +6,7 @@ import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-edit
 import '@testing-library/jest-dom/extend-expect';
 import { cleanup, configure, render } from '@testing-library/react';
 
-import { Field } from './Field';
+import { Field } from './Field.js';
 
 configure({
   testIdAttribute: 'data-test-id',

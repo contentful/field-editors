@@ -7,7 +7,7 @@ import tokens from '@contentful/f36-tokens';
 import CodeMirror from '@uiw/react-codemirror';
 import { css, cx } from 'emotion';
 
-import { SPACE_INDENT_COUNT } from './utils';
+import { SPACE_INDENT_COUNT } from './utils.js';
 
 type JsonEditorFieldProps = {
   isDisabled: boolean;
@@ -58,8 +58,7 @@ export function JsonEditorField(props: JsonEditorFieldProps) {
   return (
     <div
       className={cx(styles.root, { disabled: props.isDisabled })}
-      data-test-id="json-editor-code-mirror"
-    >
+      data-test-id="json-editor-code-mirror">
       <CodeMirror
         value={props.value}
         onChange={props.onChange}

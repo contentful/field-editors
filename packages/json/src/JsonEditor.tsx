@@ -2,13 +2,13 @@ import * as React from 'react';
 
 import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
 import deepEqual from 'deep-equal';
-import throttle from 'lodash/throttle';
+import throttle from 'lodash-es/throttle.js';
 
-import { JsonEditorField } from './JsonEditorField';
-import { JsonEditorToolbar } from './JsonEditorToolbar';
-import { JsonInvalidStatus } from './JsonInvalidStatus';
-import { JSONObject } from './types';
-import { stringifyJSON, parseJSON, SPACE_INDENT_COUNT } from './utils';
+import { JsonEditorField } from './JsonEditorField.js';
+import { JsonEditorToolbar } from './JsonEditorToolbar.js';
+import { JsonInvalidStatus } from './JsonInvalidStatus.js';
+import { JSONObject } from './types.js';
+import { stringifyJSON, parseJSON, SPACE_INDENT_COUNT } from './utils.js';
 
 export interface JsonEditorProps {
   /**
@@ -168,8 +168,7 @@ export default function JsonEditor(props: JsonEditorProps) {
       isInitiallyDisabled={props.isInitiallyDisabled}
       isEqualValues={(value1, value2) => {
         return deepEqual(value1, value2);
-      }}
-    >
+      }}>
       {({ value, disabled, setValue, externalReset }) => {
         return (
           <ConnectedJsonEditor

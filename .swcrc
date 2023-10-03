@@ -12,7 +12,8 @@
     }
   },
   "module": {
-    "type": "es6"
+    "type": "es6",
+    "strict": false
   },
   "minify": false
 }

@@ -1,13 +1,14 @@
 {
   "name": "@contentful/field-editor-json",
   "version": "3.3.4",
-  "main": "dist/cjs/index.js",
+  "type": "module",
+  "main": "dist/esm/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "require": "./dist/cjs/index.js",
+      "import": "./dist/esm/index.js",
       "default": "./dist/esm/index.js"
     },
     "./package.json": "./package.json"
@@ -23,10 +24,9 @@
   },
   "scripts": {
     "watch": "yarn concurrently \"yarn:watch:*\"",
-    "watch:cjs": "yarn build:cjs -w",
     "watch:esm": "yarn build:esm -w",
     "watch:types": "yarn build:types --watch",
-    "build": "yarn build:types && yarn build:cjs && yarn build:esm",
+    "build": "yarn build:types && yarn build:esm",
     "build:types": "tsc --outDir dist/types --emitDeclarationOnly",
     "build:cjs": "swc src --config-file ../../.swcrc -d dist/cjs -C module.type=commonjs",
     "build:esm": "swc src --config-file ../../.swcrc -d dist/esm",
@@ -45,6 +45,7 @@
     "lodash": "^4.17.15"
   },
   "devDependencies": {
+    "@types/lodash-es": "4.17.9",
     "@contentful/field-editor-test-utils": "^1.4.1"
   },
   "peerDependencies": {
