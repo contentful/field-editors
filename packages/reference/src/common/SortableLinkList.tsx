@@ -1,8 +1,8 @@
 import React from 'react';
 
 import tokens from '@contentful/f36-tokens';
-import { DndContext } from '@dnd-kit/core';
-import { SortableContext, useSortable } from '@dnd-kit/sortable';
+import { DndContext, DragEndEvent, DragStartEvent } from '@dnd-kit/core';
+import { SortableContext, SortingStrategy, useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { css, cx } from 'emotion';
 
@@ -36,7 +36,9 @@ type SortableLinkListProps<T> = ReferenceEditorProps & {
   items: T[];
   isDisabled: boolean;
   children: (props: SortableContainerChildProps<T>) => React.ReactElement;
-  onMove?: (oldIndex: number, newIndex: number) => void;
+  sortingStrategy?: SortingStrategy;
+  onSortStart?: (event: DragStartEvent) => void;
+  onSortEnd?: (event: DragEndEvent) => void;
   className?: string;
 };
 
@@ -95,26 +97,25 @@ export const SortableLinkList = <T extends { sys: any }>({
   isDisabled,
   className,
   children,
-  onMove,
+  onSortStart,
+  onSortEnd,
+  updateBeforeSortStart,
+  sortingStrategy,
 }: SortableLinkListProps<T>) => {
   const itemsMap = React.useMemo(
     () => items.map((item, index) => ({ id: `${item.sys.id}-${index}` })),
     [items]
   );
 
-  const onDragEnd = React.useCallback(
-    ({ active, over }) => {
-      if (active && over && active.id !== over.id) {
-        const oldIndex = itemsMap.findIndex((item) => item.id === active.id);
-        const newIndex = itemsMap.findIndex((item) => item.id === over.id);
-        onMove?.(oldIndex, newIndex);
-      }
-    },
-    [itemsMap, onMove]
-  );
+  const onSortStartHandler = (event: DragStartEvent) => {
+    const index = itemsMap.findIndex((item) => item.id === event.active.id);
+    updateBeforeSortStart?.({ index });
+    onSortStart?.(event);
+  };
+
   return (
-    <DndContext onDragEnd={onDragEnd}>
-      <SortableContext items={itemsMap}>
+    <DndContext onDragStart={onSortStartHandler} onDragEnd={onSortEnd}>
+      <SortableContext items={itemsMap} strategy={sortingStrategy}>
         <div className={cx(styles.container, className)}>
           {items.map((item, index) => {
             const id = `${item.sys.urn ?? item.sys.id}-${index}`;

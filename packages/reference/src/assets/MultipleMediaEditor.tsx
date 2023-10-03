@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { rectSortingStrategy, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { css, cx } from 'emotion';
 
 import { MultipleReferenceEditor } from '../common/MultipleReferenceEditor';
@@ -30,6 +31,9 @@ export function MultipleMediaEditor(props: EditorProps) {
       {(childrenProps) => (
         <SortableLinkList<ReferenceValue>
           {...childrenProps}
+          sortingStrategy={
+            childrenProps.viewType === 'card' ? rectSortingStrategy : verticalListSortingStrategy
+          }
           className={cx({ [styles.gridContainer]: childrenProps.viewType === 'card' })}
         >
           {({ items, item, index, isDisabled, DragHandle }) => (
