@@ -25,6 +25,7 @@
   "scripts": {
     "watch": "yarn concurrently \"yarn:watch:*\"",
     "watch:esm": "yarn build:esm -w",
+    "watch:cjs": "yarn build:cjs -w",
     "watch:types": "yarn build:types --watch",
     "build": "yarn build:types && yarn build:esm && yarn build:cjs",
     "build:types": "tsc --outDir dist/types --emitDeclarationOnly",
