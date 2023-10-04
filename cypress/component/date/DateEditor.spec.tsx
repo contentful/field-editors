@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { ParametersAPI } from '@contentful/app-sdk';
 import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 
 import { DateEditor } from '../../../packages/date/src/DateEditor';
@@ -30,8 +31,8 @@ const selectors = {
   getTimezoneInput: () => cy.findByTestId('timezone-input'),
   getClearBtn: () => cy.findByTestId('date-clear'),
   getCalendar: () => cy.get('.rdp'),
-  getCalendarMonth: () => cy.get('.rdp select[aria-label="Month: "]'),
-  getCalendarYear: () => cy.get('.rdp select[aria-label="Year: "]'),
+  getCalendarMonth: () => cy.findByRole('combobox', { name: 'Month:' }),
+  getCalendarYear: () => cy.findByRole('combobox', { name: 'Year:' }),
   getCalendarTodayDate: () => cy.get('.rdp .rdp-day_today'),
   getCalendarSelectedDate: () => cy.get('.rdp .rdp-day_selected'),
 };
@@ -73,11 +74,34 @@ const getTimezoneOffsetString = () => {
     .toString()
     .padStart(2, '0')}`;
 };
+
+type Parameters = ParametersAPI & {
+  instance: {
+    format: DateTimeFormat;
+    ampm?: TimeFormat;
+  };
+};
+
+const setupDateEditor = ({
+  initialValue,
+  initiallyDisabled = false,
+  parameters,
+}: {
+  initialValue?: string;
+  initiallyDisabled?: boolean;
+  parameters?: Parameters;
+}) => {
+  const [fieldSdk] = createFakeFieldAPI(undefined, initialValue);
+  mount(
+    <DateEditor field={fieldSdk} isInitiallyDisabled={initiallyDisabled} parameters={parameters} />
+  );
+  return fieldSdk;
+};
+
 describe('Date Editor', () => {
   describe('disabled state', () => {
     it('all fields should be disabled', () => {
-      const [fieldSdk] = createFakeFieldAPI();
-      mount(<DateEditor field={fieldSdk} isInitiallyDisabled={true} />);
+      setupDateEditor({ initiallyDisabled: true });
 
       selectors.getDateInput().should('be.disabled');
       selectors.getTimeInput().should('be.disabled');
@@ -88,8 +112,7 @@ describe('Date Editor', () => {
 
   describe('default configuration', () => {
     it('should read initial value', () => {
-      const [fieldSdk] = createFakeFieldAPI(undefined, '2018-01-03T05:53+03:00');
-      mount(<DateEditor field={fieldSdk} isInitiallyDisabled={false} />);
+      setupDateEditor({ initialValue: '2018-01-03T05:53+03:00' });
 
       selectors.getDateInput().should('have.value', '03 Jan 2018');
       selectors.getTimeInput().should('have.value', '05:53');
@@ -97,8 +120,7 @@ describe('Date Editor', () => {
     });
 
     it('should render date, time (24 format) and timezone inputs by default', () => {
-      const [fieldSdk] = createFakeFieldAPI();
-      mount(<DateEditor field={fieldSdk} isInitiallyDisabled={false} />);
+      setupDateEditor({});
 
       selectors.getDateInput().should('be.visible').should('have.value', '');
       selectors
@@ -115,8 +137,7 @@ describe('Date Editor', () => {
     });
 
     it('calendar should show current year, month and date', () => {
-      const [fieldSdk] = createFakeFieldAPI();
-      mount(<DateEditor field={fieldSdk} isInitiallyDisabled={false} />);
+      setupDateEditor({});
 
       const { year, month, date } = getToday();
 
@@ -130,8 +151,7 @@ describe('Date Editor', () => {
     });
 
     it('correct actions are called when user interacts with editor', () => {
-      const [fieldSdk] = createFakeFieldAPI();
-      mount(<DateEditor field={fieldSdk} isInitiallyDisabled={false} />);
+      const fieldSdk = setupDateEditor({});
 
       cy.spy(fieldSdk, 'setValue').as('setValue');
       cy.spy(fieldSdk, 'removeValue').as('removeValue');
@@ -158,8 +178,7 @@ describe('Date Editor', () => {
     });
 
     it('should reset field state on external change', () => {
-      const [fieldSdk] = createFakeFieldAPI(undefined, '1990-01-03T22:53+03:00');
-      mount(<DateEditor field={fieldSdk} isInitiallyDisabled={false} />);
+      const fieldSdk = setupDateEditor({ initialValue: '1990-01-03T22:53+03:00' });
 
       selectors.getDateInput().should('have.value', '03 Jan 1990');
       selectors.getTimeInput().should('have.value', '22:53');
@@ -167,7 +186,6 @@ describe('Date Editor', () => {
         .getTimezoneInput()
         .should('have.value', '+03:00')
         .then(() => {
-          //TODO: A bit awkward to have this in a .then(), any other way to make it wait for prev tests?
           fieldSdk.setValue('1992-01-03T21:40+05:00');
         });
 
@@ -177,8 +195,7 @@ describe('Date Editor', () => {
     });
 
     it('should parse values in time input', () => {
-      const [fieldSdk] = createFakeFieldAPI();
-      mount(<DateEditor field={fieldSdk} isInitiallyDisabled={false} />);
+      setupDateEditor({});
 
       selectors.getTimeInput().should('have.value', '00:00');
 
@@ -200,8 +217,7 @@ describe('Date Editor', () => {
     });
 
     it('should show the correct date regardless of the time and timezone #1', () => {
-      const [fieldSdk] = createFakeFieldAPI(undefined, '2022-11-01T00:00+02:00');
-      mount(<DateEditor field={fieldSdk} isInitiallyDisabled={false} />);
+      setupDateEditor({ initialValue: '2022-11-01T00:00+02:00' });
 
       selectors.getDateInput().should('have.value', '01 Nov 2022');
       selectors.getTimeInput().should('have.value', '00:00');
@@ -216,8 +232,7 @@ describe('Date Editor', () => {
     });
 
     it('should show the correct date regardless of the time and timezone #2', () => {
-      const [fieldSdk] = createFakeFieldAPI(undefined, '2022-11-01T00:00+12:00');
-      mount(<DateEditor field={fieldSdk} isInitiallyDisabled={false} />);
+      setupDateEditor({ initialValue: '2022-11-01T00:00+12:00' });
 
       selectors.getDateInput().should('have.value', '01 Nov 2022');
       selectors.getTimeInput().should('have.value', '00:00');
@@ -242,8 +257,7 @@ describe('Date Editor', () => {
     };
 
     it('should read initial value', () => {
-      const [fieldSdk] = createFakeFieldAPI(undefined, '1990-01-03T22:53+03:00');
-      mount(<DateEditor field={fieldSdk} isInitiallyDisabled={false} parameters={parameters} />);
+      setupDateEditor({ initialValue: '1990-01-03T22:53', parameters });
 
       selectors.getDateInput().should('have.value', '03 Jan 1990');
       selectors.getTimeInput().should('have.value', '10:53 PM');
@@ -258,9 +272,7 @@ describe('Date Editor', () => {
     });
 
     it('should parse values in time input', () => {
-      const [fieldSdk] = createFakeFieldAPI();
-      mount(<DateEditor field={fieldSdk} isInitiallyDisabled={false} parameters={parameters} />);
-
+      setupDateEditor({ parameters });
       selectors.getTimeInput().should('have.value', '12:00 AM');
 
       const pairs = [
@@ -281,8 +293,7 @@ describe('Date Editor', () => {
     });
 
     it('correct actions are called when user interacts with editor', () => {
-      const [fieldSdk] = createFakeFieldAPI();
-      mount(<DateEditor field={fieldSdk} isInitiallyDisabled={false} parameters={parameters} />);
+      const fieldSdk = setupDateEditor({ parameters });
 
       cy.spy(fieldSdk, 'setValue').as('setValue');
       cy.spy(fieldSdk, 'removeValue').as('removeValue');
@@ -306,15 +317,13 @@ describe('Date Editor', () => {
     });
 
     it('should reset field state on external change', () => {
-      const [fieldSdk] = createFakeFieldAPI(undefined, '1990-01-03T22:53');
-      mount(<DateEditor field={fieldSdk} isInitiallyDisabled={false} parameters={parameters} />);
+      const fieldSdk = setupDateEditor({ initialValue: '1990-01-03T22:53', parameters });
 
       selectors.getDateInput().should('have.value', '03 Jan 1990');
       selectors
         .getTimeInput()
         .should('have.value', '10:53 PM')
         .then(() => {
-          //TODO: same as before
           fieldSdk.setValue('1992-01-03T21:40');
         });
 
@@ -331,8 +340,7 @@ describe('Date Editor', () => {
       },
     };
     it('should read initial value', () => {
-      const [fieldSdk] = createFakeFieldAPI(undefined, '1990-01-03T22:53');
-      mount(<DateEditor field={fieldSdk} isInitiallyDisabled={false} parameters={parameters} />);
+      setupDateEditor({ initialValue: '1990-01-03', parameters });
 
       selectors.getDateInput().should('have.value', '03 Jan 1990');
       selectors.getTimeInput().should('not.exist');
@@ -347,8 +355,7 @@ describe('Date Editor', () => {
     });
 
     it('correct actions are called when user interacts with editor', () => {
-      const [fieldSdk] = createFakeFieldAPI();
-      mount(<DateEditor field={fieldSdk} isInitiallyDisabled={false} parameters={parameters} />);
+      const fieldSdk = setupDateEditor({ parameters });
 
       cy.spy(fieldSdk, 'setValue').as('setValue');
       cy.spy(fieldSdk, 'removeValue').as('removeValue');
@@ -366,10 +373,8 @@ describe('Date Editor', () => {
     });
 
     it('should reset field state on external change', () => {
-      const [fieldSdk] = createFakeFieldAPI(undefined, '1990-01-03');
-      mount(<DateEditor field={fieldSdk} isInitiallyDisabled={false} parameters={parameters} />);
+      const fieldSdk = setupDateEditor({ initialValue: '1990-01-03', parameters });
 
-      //TODO: same as before
       selectors
         .getDateInput()
         .should('have.value', '03 Jan 1990')

@@ -29,14 +29,12 @@ describe('Date: DatepickerInput', () => {
       global.Date = timezonedDate.makeConstructor(120);
       renderDatepicker('2022-09-22T00:00+04:00');
       cy.findByTestId('cf-ui-datepicker-input').should('have.value', '22 Sep 2022');
-      // expect(screen.getByTestId('cf-ui-datepicker-input')).toHaveValue('22 Sep 2022');
     });
 
     it('+10:00', () => {
       global.Date = timezonedDate.makeConstructor(120);
       renderDatepicker('2022-09-22T00:00+10:00');
       cy.findByTestId('cf-ui-datepicker-input').should('have.value', '22 Sep 2022');
-      // expect(screen.getByTestId('cf-ui-datepicker-input')).toHaveValue('22 Sep 2022');
     });
 
     it('-08:00', () => {
