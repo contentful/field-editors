@@ -18,5 +18,8 @@ export const styles = {
     '&:focus': {
       fill: tokens.gray900,
     },
+    span: {
+      display: 'inline',
+    },
   }),
 };
