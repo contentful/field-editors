@@ -2,10 +2,11 @@ import React from 'react';
 
 import tokens from '@contentful/f36-tokens';
 import { DndContext, DragEndEvent, DragStartEvent } from '@dnd-kit/core';
-import { SortableContext, SortingStrategy, useSortable } from '@dnd-kit/sortable';
+import { SortableContext, SortingStrategy, arrayMove, useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { css, cx } from 'emotion';
 
+import { useSortIDs } from '../utils/useSortIds';
 import { ReferenceEditorProps } from './ReferenceEditor';
 
 const styles = {
@@ -38,11 +39,11 @@ type SortableLinkListProps<T> = ReferenceEditorProps & {
   children: (props: SortableContainerChildProps<T>) => React.ReactElement;
   sortingStrategy?: SortingStrategy;
   onSortStart?: (event: DragStartEvent) => void;
-  onSortEnd?: (event: DragEndEvent) => void;
+  onSortEnd?: ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => void;
   className?: string;
 };
 
-interface SortableLinkProps<T> {
+interface SortableLinkProps<T extends { sys: any }> {
   id: string;
   items: T[];
   item: T;
@@ -102,23 +103,30 @@ export const SortableLinkList = <T extends { sys: any }>({
   updateBeforeSortStart,
   sortingStrategy,
 }: SortableLinkListProps<T>) => {
-  const itemsMap = React.useMemo(
-    () => items.map((item, index) => ({ id: `${item.sys.id}-${index}` })),
-    [items]
-  );
+  const { sortIDs } = useSortIDs(items);
 
   const onSortStartHandler = (event: DragStartEvent) => {
-    const index = itemsMap.findIndex((item) => item.id === event.active.id);
+    const index = sortIDs.current.findIndex((item) => item.id === event.active.id);
     updateBeforeSortStart?.({ index });
     onSortStart?.(event);
   };
 
+  const onSortEndHandler = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (active && over && active.id !== over.id) {
+      const oldIndex = sortIDs.current.findIndex((item) => item.id === active.id);
+      const newIndex = sortIDs.current.findIndex((item) => item.id === over.id);
+      sortIDs.current = arrayMove(sortIDs.current, oldIndex, newIndex);
+      onSortEnd?.({ oldIndex, newIndex });
+    }
+  };
+
   return (
-    <DndContext onDragStart={onSortStartHandler} onDragEnd={onSortEnd}>
-      <SortableContext items={itemsMap} strategy={sortingStrategy}>
+    <DndContext onDragStart={onSortStartHandler} onDragEnd={onSortEndHandler}>
+      <SortableContext items={sortIDs.current} strategy={sortingStrategy}>
         <div className={cx(styles.container, className)}>
           {items.map((item, index) => {
-            const id = `${item.sys.urn ?? item.sys.id}-${index}`;
+            const id = sortIDs.current[index]?.id;
             return (
               <SortableLink<T>
                 key={id}

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useCallback } from 'react';
 
 import { FieldConnector } from '@contentful/field-editor-shared';
-import { DragEndEvent, DragStartEvent } from '@dnd-kit/core';
+import { DragStartEvent } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
 import deepEqual from 'deep-equal';
 
@@ -20,7 +20,7 @@ type ChildProps = {
   isDisabled: boolean;
   setValue: (value: ResourceLink[]) => void;
   onSortStart: (event: DragStartEvent) => void;
-  onSortEnd: (event: DragEndEvent) => void;
+  onSortEnd: ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => void;
   onMove: (oldIndex: number, newIndex: number) => void;
   onRemoteItemAtIndex: (index: number) => void;
 };
@@ -34,22 +34,13 @@ type EditorProps = ReferenceEditorProps &
 function ResourceEditor(props: EditorProps) {
   const { setValue, items, apiUrl } = props;
 
-  const itemsMap = React.useMemo(
-    () => items.map((item, index) => ({ id: `${item.sys.urn}-${index}` })),
-    [items]
-  );
-
   const onSortStart = useCallback((event) => event.preventDefault(), []);
   const onSortEnd = useCallback(
-    ({ active, over }: DragEndEvent) => {
-      if (active && over && active.id !== over.id) {
-        const oldIndex = itemsMap.findIndex((item) => item.id === active.id);
-        const newIndex = itemsMap.findIndex((item) => item.id === over.id);
-        const newItems = arrayMove(items, oldIndex, newIndex);
-        setValue(newItems);
-      }
+    ({ oldIndex, newIndex }) => {
+      const newItems = arrayMove(items, oldIndex, newIndex);
+      setValue(newItems);
     },
-    [items, itemsMap, setValue]
+    [items, setValue]
   );
   const onMove = useCallback(
     (oldIndex, newIndex) => {

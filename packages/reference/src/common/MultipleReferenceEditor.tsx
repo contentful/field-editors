@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { useCallback } from 'react';
 
-import { DragEndEvent, DragStartEvent } from '@dnd-kit/core';
+import { DragStartEvent } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
 
 import { LinkEntityActions } from '../components';
 import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions';
 import { ReferenceValue, ContentEntityType, ContentType } from '../types';
+import { useSortIDs } from '../utils/useSortIds';
 import { CustomEntityCardProps } from './customCardTypes';
 import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
 import { useEditorPermissions } from './useEditorPermissions';
@@ -18,7 +19,7 @@ type ChildProps = {
   setValue: (value: ReferenceValue[]) => void;
   allContentTypes: ContentType[];
   onSortStart: (event: DragStartEvent) => void;
-  onSortEnd: (event: DragEndEvent) => void;
+  onSortEnd: ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => void;
   onMove: (oldIndex: number, newIndex: number) => void;
 };
 
@@ -61,38 +62,32 @@ function Editor(props: EditorProps) {
     );
   }, [props.items]);
 
-  const itemsMap = React.useMemo(
-    () => items.map((item, index) => ({ id: `${item.sys.id}-${index}` })),
-    [items]
-  );
+  const { rearrangeSortIDs } = useSortIDs(items);
 
   const onSortStart = useCallback(() => {
     document.body.classList.add('grabbing');
   }, []);
 
   const onSortEnd = useCallback(
-    ({ active, over }: DragEndEvent) => {
-      if (active && over && active.id !== over.id) {
-        const oldIndex = itemsMap.findIndex((item) => item.id === active.id);
-        const newIndex = itemsMap.findIndex((item) => item.id === over.id);
-        // custom callback that is invoked *before* we sort the array
-        // e.g. in Compose we want to sort the references in the referenceMap before re-rendering drag and drop
-        onSortingEnd && onSortingEnd({ oldIndex, newIndex });
-        const newItems = arrayMove(items, oldIndex, newIndex);
-        setValue(newItems);
-        setIndexToUpdate && setIndexToUpdate(undefined);
-        document.body.classList.remove('grabbing');
-      }
+    ({ oldIndex, newIndex }) => {
+      // custom callback that is invoked *before* we sort the array
+      // e.g. in Compose we want to sort the references in the referenceMap before re-rendering drag and drop
+      onSortingEnd && onSortingEnd({ oldIndex, newIndex });
+      const newItems = arrayMove(items, oldIndex, newIndex);
+      setValue(newItems);
+      setIndexToUpdate && setIndexToUpdate(undefined);
+      document.body.classList.remove('grabbing');
     },
-    [items, itemsMap, onSortingEnd, setIndexToUpdate, setValue]
+    [items, onSortingEnd, setIndexToUpdate, setValue]
   );
 
   const onMove = useCallback(
     (oldIndex: number, newIndex: number) => {
       const newItems = arrayMove(items, oldIndex, newIndex);
+      rearrangeSortIDs(oldIndex, newIndex);
       setValue(newItems);
     },
-    [items, setValue]
+    [items, rearrangeSortIDs, setValue]
   );
 
   const onCreate = useCallback(
