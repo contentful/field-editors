@@ -5,6 +5,7 @@ import { FieldConnector } from '@contentful/field-editor-shared';
 import { DragStartEvent } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
 import deepEqual from 'deep-equal';
+import noop from 'lodash/noop';
 
 import { EntityProvider } from '../common/EntityStore';
 import { ReferenceEditorProps } from '../common/ReferenceEditor';
@@ -34,7 +35,7 @@ type EditorProps = ReferenceEditorProps &
 function ResourceEditor(props: EditorProps) {
   const { setValue, items, apiUrl } = props;
 
-  const onSortStart = useCallback((event) => event.preventDefault(), []);
+  const onSortStart = useCallback(() => noop(), []);
   const onSortEnd = useCallback(
     ({ oldIndex, newIndex }) => {
       const newItems = arrayMove(items, oldIndex, newIndex);
@@ -150,6 +151,7 @@ export function MultipleResourceReferenceEditor(
                 <SortableLinkList<ResourceLink> {...editorProps}>
                   {({ item, isDisabled, DragHandle, index }) => (
                     <WithPerItemCallbacks
+                      key={index}
                       index={index}
                       onMove={editorProps.onMove}
                       onRemoteItemAtIndex={editorProps.onRemoteItemAtIndex}
@@ -157,6 +159,7 @@ export function MultipleResourceReferenceEditor(
                     >
                       {({ onMoveBottom, onMoveTop, onRemove }) => (
                         <ResourceCard
+                          key={index}
                           index={index}
                           resourceLink={item}
                           isDisabled={isDisabled}

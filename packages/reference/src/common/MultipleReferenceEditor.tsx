@@ -7,7 +7,7 @@ import { arrayMove } from '@dnd-kit/sortable';
 import { LinkEntityActions } from '../components';
 import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions';
 import { ReferenceValue, ContentEntityType, ContentType } from '../types';
-import { useSortIDs } from '../utils/useSortIds';
+import { useSortIDs } from '../utils/useSortIDs';
 import { CustomEntityCardProps } from './customCardTypes';
 import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
 import { useEditorPermissions } from './useEditorPermissions';
