@@ -11,10 +11,12 @@ export const useSortIDs = (items: Items) => {
 
   React.useEffect(() => {
     if (items.length !== sortIDs.current.length) {
-      sortIDs.current = items.map((item, index) => ({
-        id:
-          item.sys.type === 'ResourceLink' ? `${item.sys.urn}-${index}` : `${item.sys.id}-${index}`,
-      }));
+      sortIDs.current = items.map((item, index) => {
+        const { type } = item.sys;
+        return {
+          id: type === 'ResourceLink' ? `${item.sys.urn}-${index}` : `${item.sys.id}-${index}`,
+        };
+      });
     }
   }, [items]);
 

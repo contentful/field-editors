@@ -67,14 +67,17 @@ const SortableLink = <T extends { sys: any }>({
     transition,
   };
 
-  const DragHandle = (props: { drag: React.ReactElement }) => {
-    const SortableDragHandle = () => props.drag;
-    return (
-      <div ref={setActivatorNodeRef} className={styles.dragHandle} {...listeners}>
-        <SortableDragHandle />
-      </div>
-    );
-  };
+  const DragHandle = React.useCallback(
+    (props: { drag: React.ReactElement }) => {
+      const SortableDragHandle = () => props.drag;
+      return (
+        <div ref={setActivatorNodeRef} className={styles.dragHandle} {...listeners}>
+          <SortableDragHandle />
+        </div>
+      );
+    },
+    [listeners, setActivatorNodeRef]
+  );
 
   return (
     <div
