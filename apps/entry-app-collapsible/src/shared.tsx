@@ -1,4 +1,4 @@
-import { EditorExtensionSDK } from '@contentful/app-sdk';
+import { EditorAppSDK } from '@contentful/app-sdk';
 import { Entry } from '@contentful/field-editor-shared';
 import * as React from 'react';
 import { Action, AppState, FieldGroupType, FieldType } from './types';
@@ -21,7 +21,7 @@ export const getEntryURL = (entry: Entry) => {
   return `https://app.contentful.com/spaces/${spaceId}/entries/${entryId}`;
 };
 
-export const SDKContext = React.createContext<EditorExtensionSDK>(undefined!);
+export const SDKContext = React.createContext<EditorAppSDK>(undefined!);
 export const AppContext = React.createContext<{
   state: AppState;
   dispatch: React.Dispatch<Action>;
