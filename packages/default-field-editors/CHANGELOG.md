@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.10](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.5.9...@contentful/default-field-editors@1.5.10) (2023-10-06)
+
+### Bug Fixes
+
+- [] Replace deprecated `*ExtensionSDK` types with `*AppSDK` types ([#1499](https://github.com/contentful/field-editors/issues/1499)) ([eb6ede8](https://github.com/contentful/field-editors/commit/eb6ede86b27aab50c04d6cf68bb54e9b3dec7460))
+
 ## [1.5.9](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.5.8...@contentful/default-field-editors@1.5.9) (2023-10-05)
 
 **Note:** Version bump only for package @contentful/default-field-editors
