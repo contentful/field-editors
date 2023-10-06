@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "dependencies": {
-    "@contentful/app-sdk": "^4.2.0",
+    "@contentful/app-sdk": "^4.17.1",
     "@contentful/default-field-editors": "^1.0.0",
     "@contentful/f36-components": "^4.0.27",
     "@contentful/f36-icons": "^4.1.0",

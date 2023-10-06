@@ -46,11 +46,11 @@
     "use-debounce": "^7.0.0"
   },
   "devDependencies": {
-    "@contentful/app-sdk": "^4.2.0",
+    "@contentful/app-sdk": "^4.17.1",
     "@contentful/field-editor-test-utils": "^1.4.2"
   },
   "peerDependencies": {
-    "@contentful/app-sdk": "^4.2.0",
+    "@contentful/app-sdk": "^4.17.1",
     "react": ">=16.8.0"
   }
 }
