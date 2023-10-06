@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { FieldAppSDK } from '@contentful/app-sdk';
 import { Badge, Flex, Icon, Menu } from '@contentful/f36-components';
 import { AssetIcon, EmbeddedEntryBlockIcon } from '@contentful/f36-icons';
 import { BLOCKS } from '@contentful/rich-text-types';
@@ -28,7 +28,7 @@ export function EmbeddedBlockToolbarIcon({
   onClose,
 }: EmbeddedBlockToolbarIconProps) {
   const editor = useContentfulEditor();
-  const sdk: FieldExtensionSDK = useSdkContext();
+  const sdk: FieldAppSDK = useSdkContext();
 
   const handleClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();

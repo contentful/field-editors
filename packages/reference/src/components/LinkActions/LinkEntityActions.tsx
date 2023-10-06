@@ -6,7 +6,7 @@ import {
   Action,
   ActionLabels,
   ContentEntityType,
-  FieldExtensionSDK,
+  FieldAppSDK,
   Entry,
   Asset,
   NavigatorSlideInfo,
@@ -18,7 +18,7 @@ import { LinkActions, LinkActionsProps } from './LinkActions';
 type LinkEntityActionsProps = {
   entityType: ContentEntityType;
   canLinkMultiple: boolean;
-  sdk: FieldExtensionSDK;
+  sdk: FieldAppSDK;
   isDisabled: boolean;
   editorPermissions: EditorPermissions;
   onCreate: (id: string, index?: number) => void;

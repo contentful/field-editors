@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Entry, FieldExtensionSDK } from '@contentful/app-sdk';
+import { Entry, FieldAppSDK } from '@contentful/app-sdk';
 import { EntryCard } from '@contentful/f36-components';
 import {
   ResourceEntityErrorCard,
@@ -14,7 +14,7 @@ import areEqual from 'fast-deep-equal';
 interface InternalEntryCard {
   isDisabled: boolean;
   isSelected: boolean;
-  sdk: FieldExtensionSDK;
+  sdk: FieldAppSDK;
   data?: ResourceInfo<Entry>;
   status: 'loading' | 'error' | 'success';
   onEdit?: VoidFunction;
@@ -53,7 +53,7 @@ interface FetchingWrappedResourceCardProps {
   link: ResourceLink['sys'];
   isDisabled: boolean;
   isSelected: boolean;
-  sdk: FieldExtensionSDK;
+  sdk: FieldAppSDK;
   onEntityFetchComplete?: VoidFunction;
   onEdit?: VoidFunction;
   onRemove?: VoidFunction;

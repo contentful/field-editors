@@ -2648,7 +2648,7 @@
     open "^8.0.5"
     ora "^5.4.0"
 
-"@contentful/app-sdk@4.21.1", "@contentful/app-sdk@^4.2.0", "@contentful/app-sdk@^4.21.1", "@contentful/app-sdk@^4.3.0", "@contentful/app-sdk@^4.6.0":
+"@contentful/app-sdk@4.21.1", "@contentful/app-sdk@^4.17.1", "@contentful/app-sdk@^4.21.1", "@contentful/app-sdk@^4.6.0":
   version "4.21.1"
   resolved "https://registry.yarnpkg.com/@contentful/app-sdk/-/app-sdk-4.21.1.tgz#500ebc69d0a6a6cff5be888aee6cf11e55d602ae"
   integrity sha512-sRaWKa18x3EWH84qYHT3W/yXsYKqijgPJgQhGZUcdX9Y3d38ZNOikt/FopE399s/MqyyfVJcM+CFHSC0JczAEw==

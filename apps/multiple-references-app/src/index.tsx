@@ -2,11 +2,11 @@ import * as React from 'react';
 import { render } from 'react-dom';
 import { MultipleEntryReferenceEditor } from '@contentful/field-editor-reference';
 import { init } from '@contentful/app-sdk';
-import type { FieldExtensionSDK } from '@contentful/app-sdk';
+import type { FieldAppSDK } from '@contentful/app-sdk';
 import { GlobalStyles } from '@contentful/f36-components';
 
-init<FieldExtensionSDK>((sdk) => {
-  const fieldSdk = sdk as FieldExtensionSDK;
+init<FieldAppSDK>((sdk) => {
+  const fieldSdk = sdk as FieldAppSDK;
   fieldSdk.window.startAutoResizer();
 
   render(

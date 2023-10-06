@@ -1,6 +1,6 @@
-import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { FieldAppSDK } from '@contentful/app-sdk';
 
-export function mockSdkForField(fieldDefinition: any, fieldValue?: any): FieldExtensionSDK {
+export function mockSdkForField(fieldDefinition: any, fieldValue?: any): FieldAppSDK {
   return {
     field: {
       getValue: jest.fn(() => fieldValue),

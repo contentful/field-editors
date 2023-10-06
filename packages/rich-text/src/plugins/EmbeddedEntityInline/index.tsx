@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Link, FieldExtensionSDK } from '@contentful/app-sdk';
+import { Link, FieldAppSDK } from '@contentful/app-sdk';
 import { Menu, Flex } from '@contentful/f36-components';
 import { EmbeddedEntryInlineIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
@@ -114,8 +114,8 @@ interface ToolbarEmbeddedEntityInlineButtonProps {
 
 async function selectEntityAndInsert(
   editor,
-  sdk: FieldExtensionSDK,
-  logAction: TrackingPluginActions['onShortcutAction'] | TrackingPluginActions['onToolbarAction'],
+  sdk: FieldAppSDK,
+  logAction: TrackingPluginActions['onShortcutAction'] | TrackingPluginActions['onToolbarAction']
 ) {
   logAction('openCreateEmbedDialog', { nodeType: INLINES.EMBEDDED_ENTRY });
 
@@ -144,7 +144,7 @@ async function selectEntityAndInsert(
 
 export function ToolbarEmbeddedEntityInlineButton(props: ToolbarEmbeddedEntityInlineButtonProps) {
   const editor = useContentfulEditor();
-  const sdk: FieldExtensionSDK = useSdkContext();
+  const sdk: FieldAppSDK = useSdkContext();
 
   async function handleClick(event) {
     event.preventDefault();
@@ -175,7 +175,7 @@ export function ToolbarEmbeddedEntityInlineButton(props: ToolbarEmbeddedEntityIn
   );
 }
 
-export function createEmbeddedEntityInlinePlugin(sdk: FieldExtensionSDK): PlatePlugin {
+export function createEmbeddedEntityInlinePlugin(sdk: FieldAppSDK): PlatePlugin {
   const htmlAttributeName = 'data-embedded-entity-inline-id';
 
   return {
@@ -203,7 +203,7 @@ export function createEmbeddedEntityInlinePlugin(sdk: FieldExtensionSDK): PlateP
   };
 }
 
-function getWithEmbeddedEntryInlineEvents(sdk: FieldExtensionSDK): KeyboardHandler<HotkeyPlugin> {
+function getWithEmbeddedEntryInlineEvents(sdk: FieldAppSDK): KeyboardHandler<HotkeyPlugin> {
   return function withEmbeddedEntryInlineEvents(editor, { options: { hotkey } }) {
     return function handleEvent(event) {
       if (!editor) return;

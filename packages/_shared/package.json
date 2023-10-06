@@ -35,7 +35,7 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "devDependencies": {
-    "@contentful/app-sdk": "^4.2.0",
+    "@contentful/app-sdk": "^4.17.1",
     "@contentful/field-editor-test-utils": "^1.4.2"
   },
   "dependencies": {
@@ -45,7 +45,7 @@
     "lodash": "^4.17.15"
   },
   "peerDependencies": {
-    "@contentful/app-sdk": "^4.2.0",
+    "@contentful/app-sdk": "^4.17.1",
     "react": ">=16.8.0"
   }
 }

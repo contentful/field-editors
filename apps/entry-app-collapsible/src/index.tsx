@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import { Modal, ModalHeader, GlobalStyles } from '@contentful/f36-components';
-import { init, locations, EditorExtensionSDK, DialogExtensionSDK } from '@contentful/app-sdk';
+import { init, locations, EditorAppSDK, DialogAppSDK } from '@contentful/app-sdk';
 import { FieldGroupsEditor } from './FieldGroupsEditor';
 import { CollapsibleFieldGroup } from './CollapsibleFieldGroup';
 import { findUnassignedFields, AppContext, SDKContext } from './shared';
@@ -17,10 +17,10 @@ import { TextLink } from '@contentful/f36-components';
 import { EditIcon } from '@contentful/f36-icons';
 
 interface AppProps {
-  sdk: EditorExtensionSDK;
+  sdk: EditorAppSDK;
 }
 
-const storageId = (sdk: EditorExtensionSDK): string => {
+const storageId = (sdk: EditorAppSDK): string => {
   const contentId = sdk.contentType.sys.id;
   const spaceId = sdk.contentType.sys.space?.sys.id;
   const environmentId = sdk.contentType.sys.environment?.sys.id;
@@ -51,7 +51,8 @@ export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
             as="button"
             icon={<EditIcon />}
             className={styles.editGroupsButton}
-            onClick={openDialog}>
+            onClick={openDialog}
+          >
             Edit field groups
           </TextLink>
         </div>
@@ -103,9 +104,9 @@ function renderAtRoot(element: JSX.Element) {
 
 init((sdk) => {
   if (sdk.location.is(locations.LOCATION_ENTRY_EDITOR)) {
-    renderAtRoot(<App sdk={sdk as EditorExtensionSDK} />);
+    renderAtRoot(<App sdk={sdk as EditorAppSDK} />);
   } else if (sdk.location.is(locations.LOCATION_DIALOG)) {
-    const dialogSdk = sdk as DialogExtensionSDK;
+    const dialogSdk = sdk as DialogAppSDK;
     const invocationParams = sdk.parameters.invocation as { type: string };
     if (invocationParams.type.startsWith('markdown')) {
       renderAtRoot(renderMarkdownDialog(dialogSdk as any));

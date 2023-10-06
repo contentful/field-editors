@@ -1,4 +1,4 @@
-import type { ContentType, FieldAPI, FieldExtensionSDK } from '@contentful/app-sdk';
+import type { ContentType, FieldAPI, FieldAppSDK } from '@contentful/app-sdk';
 import {
   createFakeCMAAdapter,
   createFakeFieldAPI,
@@ -15,16 +15,14 @@ import { newLink } from './utils';
 
 export type ReferenceEditorFakeSdkProps = {
   store?: Store;
-  ids?: Partial<FieldExtensionSDK['ids']>;
+  ids?: Partial<FieldAppSDK['ids']>;
   initialValue?: unknown;
   validations?: FieldAPI['validations'];
   fetchDelay?: number;
-  modifier?: (sdk: FieldExtensionSDK) => FieldExtensionSDK;
+  modifier?: (sdk: FieldAppSDK) => FieldAppSDK;
 };
 
-export function createReferenceEditorTestSdk(
-  props?: ReferenceEditorFakeSdkProps
-): FieldExtensionSDK {
+export function createReferenceEditorTestSdk(props?: ReferenceEditorFakeSdkProps): FieldAppSDK {
   const store = props?.store ?? createDefaultFakeStore();
   const initialValue = props?.initialValue;
   const validations = props?.validations;
@@ -162,7 +160,7 @@ export function createReferenceEditorTestSdk(
       space: 'space-id',
       environment: 'environment-id',
     },
-  } as unknown as FieldExtensionSDK;
+  } as unknown as FieldAppSDK;
   const sdk = props?.modifier?.(localSdk) ?? localSdk;
 
   cy.wrap({ store, pubsub, navigator: navigatorEmitter }).as('componentFixtures');

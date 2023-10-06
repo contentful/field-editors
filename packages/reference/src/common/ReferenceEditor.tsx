@@ -4,7 +4,7 @@ import { FieldConnector } from '@contentful/field-editor-shared';
 import deepEqual from 'deep-equal';
 
 import type { LinkActionsProps } from '../components';
-import { Action, ActionLabels, FieldExtensionSDK, ViewType } from '../types';
+import { Action, ActionLabels, FieldAppSDK, ViewType } from '../types';
 import { CustomCardRenderer, RenderCustomMissingEntityCard } from './customCardTypes';
 import { EntityProvider } from './EntityStore';
 
@@ -19,7 +19,7 @@ export interface ReferenceEditorProps {
   hasCardEditActions: boolean;
   hasCardMoveActions?: boolean;
   hasCardRemoveActions?: boolean;
-  sdk: FieldExtensionSDK;
+  sdk: FieldAppSDK;
   viewType: ViewType;
   renderCustomCard?: CustomCardRenderer;
   renderCustomActions?: (props: CustomActionProps) => React.ReactElement;

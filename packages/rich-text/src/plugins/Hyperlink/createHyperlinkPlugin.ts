@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { FieldAppSDK } from '@contentful/app-sdk';
 import { INLINES } from '@contentful/rich-text-types';
 import { AnyObject, HotkeyPlugin } from '@udecode/plate-common';
 import isHotkey from 'is-hotkey';
@@ -25,7 +25,7 @@ const isAssetAnchor = (element: HTMLElement) =>
   element.nodeName === 'A' && element.getAttribute('data-link-type') === 'Asset';
 
 const buildHyperlinkEventHandler =
-  (sdk: FieldExtensionSDK): KeyboardHandler<HotkeyPlugin> =>
+  (sdk: FieldAppSDK): KeyboardHandler<HotkeyPlugin> =>
   (editor, { options: { hotkey } }) => {
     return (event: React.KeyboardEvent) => {
       if (!editor.selection) {
@@ -64,7 +64,7 @@ const getNodeOfType = (type: INLINES) => (el: HTMLElement, node: AnyObject) => (
         },
 });
 
-export const createHyperlinkPlugin = (sdk: FieldExtensionSDK): PlatePlugin => {
+export const createHyperlinkPlugin = (sdk: FieldAppSDK): PlatePlugin => {
   const common: Partial<PlatePlugin> = {
     isElement: true,
     isInline: true,
