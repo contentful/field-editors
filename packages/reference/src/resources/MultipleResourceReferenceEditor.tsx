@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { useCallback } from 'react';
-import { SortEndHandler, SortStartHandler } from 'react-sortable-hoc';
 
 import { FieldConnector } from '@contentful/field-editor-shared';
-import arrayMove from 'array-move';
+import { DragStartEvent } from '@dnd-kit/core';
+import { arrayMove } from '@dnd-kit/sortable';
 import deepEqual from 'deep-equal';
+import noop from 'lodash/noop';
 
 import { EntityProvider } from '../common/EntityStore';
 import { ReferenceEditorProps } from '../common/ReferenceEditor';
@@ -19,8 +20,8 @@ type ChildProps = {
   items: ResourceLink[];
   isDisabled: boolean;
   setValue: (value: ResourceLink[]) => void;
-  onSortStart: SortStartHandler;
-  onSortEnd: SortEndHandler;
+  onSortStart: (event: DragStartEvent) => void;
+  onSortEnd: ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => void;
   onMove: (oldIndex: number, newIndex: number) => void;
   onRemoteItemAtIndex: (index: number) => void;
 };
@@ -34,8 +35,8 @@ type EditorProps = ReferenceEditorProps &
 function ResourceEditor(props: EditorProps) {
   const { setValue, items, apiUrl } = props;
 
-  const onSortStart: SortStartHandler = useCallback((_, event) => event.preventDefault(), []);
-  const onSortEnd: SortEndHandler = useCallback(
+  const onSortStart = () => noop();
+  const onSortEnd = useCallback(
     ({ oldIndex, newIndex }) => {
       const newItems = arrayMove(items, oldIndex, newIndex);
       setValue(newItems);
@@ -150,6 +151,7 @@ export function MultipleResourceReferenceEditor(
                 <SortableLinkList<ResourceLink> {...editorProps}>
                   {({ item, isDisabled, DragHandle, index }) => (
                     <WithPerItemCallbacks
+                      key={index}
                       index={index}
                       onMove={editorProps.onMove}
                       onRemoteItemAtIndex={editorProps.onRemoteItemAtIndex}
@@ -157,6 +159,7 @@ export function MultipleResourceReferenceEditor(
                     >
                       {({ onMoveBottom, onMoveTop, onRemove }) => (
                         <ResourceCard
+                          key={index}
                           index={index}
                           resourceLink={item}
                           isDisabled={isDisabled}

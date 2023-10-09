@@ -40,9 +40,11 @@
     "@contentful/f36-tokens": "^4.0.0",
     "@contentful/field-editor-shared": "^1.4.2",
     "@contentful/mimetype": "^1.4.0",
+    "@dnd-kit/core": "^6.0.8",
+    "@dnd-kit/modifiers": "^6.0.1",
+    "@dnd-kit/sortable": "^7.0.2",
     "@tanstack/react-query": "^4.3.9",
     "@types/deep-equal": "^1.0.1",
-    "array-move": "^3.0.0",
     "constate": "3.2.0",
     "contentful-management": "^10.14.0",
     "deep-equal": "2.2.2",
@@ -51,7 +53,6 @@
     "moment": "^2.20.0",
     "p-queue": "^4.0.0",
     "react-intersection-observer": "9.4.0",
-    "react-sortable-hoc": "^2.0.0",
     "type-fest": "2.17.0"
   },
   "devDependencies": {

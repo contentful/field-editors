@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { useCallback } from 'react';
-import { SortEndHandler, SortStartHandler } from 'react-sortable-hoc';
 
-import arrayMove from 'array-move';
+import { DragStartEvent } from '@dnd-kit/core';
+import { arrayMove } from '@dnd-kit/sortable';
 
 import { LinkEntityActions } from '../components';
 import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions';
 import { ReferenceValue, ContentEntityType, ContentType } from '../types';
+import { useSortIDs } from '../utils/useSortIDs';
 import { CustomEntityCardProps } from './customCardTypes';
 import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
 import { useEditorPermissions } from './useEditorPermissions';
@@ -17,8 +18,8 @@ type ChildProps = {
   isDisabled: boolean;
   setValue: (value: ReferenceValue[]) => void;
   allContentTypes: ContentType[];
-  onSortStart: SortStartHandler;
-  onSortEnd: SortEndHandler;
+  onSortStart: (event: DragStartEvent) => void;
+  onSortEnd: ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => void;
   onMove: (oldIndex: number, newIndex: number) => void;
 };
 
@@ -47,7 +48,7 @@ const emptyArray: ReferenceValue[] = [];
 const nullableValue = { sys: { id: 'null-value' } };
 
 function Editor(props: EditorProps) {
-  const { setValue, entityType, setIndexToUpdate } = props;
+  const { setValue, entityType, onSortingEnd, setIndexToUpdate } = props;
   const editorPermissions = useEditorPermissions(props);
 
   const items = React.useMemo(() => {
@@ -61,30 +62,32 @@ function Editor(props: EditorProps) {
     );
   }, [props.items]);
 
-  const onSortStart: SortStartHandler = useCallback((_, event) => {
-    if (event instanceof MouseEvent) {
-      document.body.classList.add('grabbing');
-    }
-    event.preventDefault();
+  const { rearrangeSortIDs } = useSortIDs(items);
+
+  const onSortStart = useCallback(() => {
+    document.body.classList.add('grabbing');
   }, []);
-  const onSortEnd: SortEndHandler = useCallback(
+
+  const onSortEnd = useCallback(
     ({ oldIndex, newIndex }) => {
       // custom callback that is invoked *before* we sort the array
       // e.g. in Compose we want to sort the references in the referenceMap before re-rendering drag and drop
-      props.onSortingEnd && props.onSortingEnd({ oldIndex, newIndex });
+      onSortingEnd && onSortingEnd({ oldIndex, newIndex });
       const newItems = arrayMove(items, oldIndex, newIndex);
       setValue(newItems);
       setIndexToUpdate && setIndexToUpdate(undefined);
       document.body.classList.remove('grabbing');
     },
-    [items, props, setIndexToUpdate, setValue]
+    [items, onSortingEnd, setIndexToUpdate, setValue]
   );
+
   const onMove = useCallback(
-    (oldIndex, newIndex) => {
+    (oldIndex: number, newIndex: number) => {
       const newItems = arrayMove(items, oldIndex, newIndex);
+      rearrangeSortIDs(oldIndex, newIndex);
       setValue(newItems);
     },
-    [items, setValue]
+    [items, rearrangeSortIDs, setValue]
   );
 
   const onCreate = useCallback(
@@ -119,8 +122,8 @@ function Editor(props: EditorProps) {
     <>
       {props.children({
         ...props,
-        onSortStart: onSortStart,
-        onSortEnd: onSortEnd,
+        onSortStart,
+        onSortEnd,
         onMove,
         renderCustomCard: props.renderCustomCard && customCardRenderer,
       })}

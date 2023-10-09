@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { verticalListSortingStrategy } from '@dnd-kit/sortable';
+
 import { MultipleReferenceEditor } from '../common/MultipleReferenceEditor';
 import { ReferenceEditorProps } from '../common/ReferenceEditor';
 import { SortableLinkList } from '../common/SortableLinkList';
@@ -18,8 +20,7 @@ export function MultipleEntryReferenceEditor(props: ReferenceEditorProps) {
       {(childrenProps) => (
         <SortableLinkList<ReferenceValue>
           {...childrenProps}
-          axis="y"
-          useDragHandle={true}
+          sortingStrategy={verticalListSortingStrategy}
           updateBeforeSortStart={updateBeforeSortStart}
         >
           {({ items, item, index, isDisabled, DragHandle }) => {
