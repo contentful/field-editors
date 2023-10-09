@@ -35,7 +35,7 @@ type EditorProps = ReferenceEditorProps &
 function ResourceEditor(props: EditorProps) {
   const { setValue, items, apiUrl } = props;
 
-  const onSortStart = useCallback(() => noop(), []);
+  const onSortStart = () => noop();
   const onSortEnd = useCallback(
     ({ oldIndex, newIndex }) => {
       const newItems = arrayMove(items, oldIndex, newIndex);
