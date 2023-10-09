@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.17.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.16.3...@contentful/field-editor-reference@5.17.0) (2023-10-09)
+
+### Features
+
+- [] Migrate reference editor to dnd-kit ([#1508](https://github.com/contentful/field-editors/issues/1508)) ([5061b21](https://github.com/contentful/field-editors/commit/5061b21ffc7b19f1e763ab0d98f1b0b5abf141b9))
+
 ## [5.16.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.16.2...@contentful/field-editor-reference@5.16.3) (2023-10-06)
 
 ### Bug Fixes
