@@ -1,47 +1,50 @@
-import React from 'react';
+import * as React from 'react';
 
-import { EntityLink, ResourceLink } from '@contentful/field-editor-reference';
+import tokens from '@contentful/f36-tokens';
+import { EntryLink, ResourceLink } from '@contentful/field-editor-reference';
 import { css } from 'emotion';
 
 import { IS_CHROME } from '../../helpers/environment';
-import { Element, RenderElementProps } from '../../internal';
+import { Element, RenderElementProps } from '../../internal/types';
 
 const styles = {
-  root: css({
-    marginBottom: '1.25rem !important',
-    display: 'block',
+  icon: css({
+    marginRight: '10px',
   }),
-  container: css({
-    // The next 2 properties ensure Entity card won't be aligned above
-    // a list item marker (i.e. bullet)
+
+  root: css({
     display: 'inline-block',
-    verticalAlign: 'text-top',
-    width: '100%',
+    margin: `0 ${tokens.spacing2Xs}`,
+    fontSize: 'inherit',
+    span: {
+      userSelect: 'none',
+    },
   }),
 };
 
-const isResourceLink = (link: EntityLink | ResourceLink): link is ResourceLink =>
+const isResourceLink = (link: EntryLink | ResourceLink): link is ResourceLink =>
   !!(link as ResourceLink).sys.urn;
 
-type LinkedBlockWrapperProps = React.PropsWithChildren<{
+type LinkedInlineWrapperProps = React.PropsWithChildren<{
   attributes: Pick<RenderElementProps, 'attributes'>;
   card: JSX.Element;
   element: Element & {
     data: {
-      target: ResourceLink | EntityLink;
+      target: ResourceLink | EntryLink;
     };
   };
 }>;
 
-export function LinkedBlockWrapper({
+export function LinkedInlineWrapper({
   attributes,
   card,
   children,
   element,
-}: LinkedBlockWrapperProps) {
+}: LinkedInlineWrapperProps) {
   const link = element.data.target;
+
   return (
-    <div
+    <span
       {...attributes}
       className={styles.root}
       data-entity-type={link.sys.linkType}
@@ -50,15 +53,14 @@ export function LinkedBlockWrapper({
       contentEditable={IS_CHROME ? undefined : false}
       draggable={IS_CHROME ? true : undefined}
     >
-      <div
+      <span
         // COMPAT: This makes copy & paste work for Chromium/Blink browsers and Safari
         contentEditable={IS_CHROME ? false : undefined}
         draggable={IS_CHROME ? true : undefined}
-        className={styles.container}
       >
         {card}
-      </div>
+      </span>
       {children}
-    </div>
+    </span>
   );
 }

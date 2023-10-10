@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Link, FieldAppSDK } from '@contentful/app-sdk';
+import { FieldAppSDK } from '@contentful/app-sdk';
 import { Menu, Flex } from '@contentful/f36-components';
 import { EmbeddedEntryInlineIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
@@ -9,21 +9,16 @@ import { INLINES } from '@contentful/rich-text-types';
 import { HotkeyPlugin } from '@udecode/plate-common';
 import { css } from 'emotion';
 import isHotkey from 'is-hotkey';
-import { useSelected, useReadOnly } from 'slate-react';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { focus, moveToTheNextChar } from '../../helpers/editor';
-import { IS_CHROME } from '../../helpers/environment';
 import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
 import { watchCurrentSlide } from '../../helpers/sdkNavigatorSlideIn';
-import { findNodePath } from '../../internal/queries';
-import { insertNodes, removeNodes, select } from '../../internal/transforms';
+import { insertNodes, select } from '../../internal/transforms';
 import { KeyboardHandler, PlatePlugin, Node } from '../../internal/types';
-import { Element, RenderElementProps } from '../../internal/types';
 import { TrackingPluginActions } from '../../plugins/Tracking';
 import { useSdkContext } from '../../SdkProvider';
-import { useLinkTracking } from '../links-tracking';
-import { FetchingWrappedInlineEntryCard } from './FetchingWrappedInlineEntryCard';
+import { LinkedEntityInline } from './LinkedEntityInline';
 import { createInlineEntryNode } from './Util';
 
 const styles = {
@@ -40,72 +35,6 @@ const styles = {
     },
   }),
 };
-
-type EmbeddedEntityInlineProps = {
-  target: Link;
-  element: Element & {
-    data: {
-      target: {
-        sys: {
-          id: string;
-          linkType: 'Entry' | 'Asset';
-          type: 'Link';
-        };
-      };
-    };
-  };
-  attributes: Pick<RenderElementProps, 'attributes'>;
-  children: Pick<RenderElementProps, 'children'>;
-};
-
-function EmbeddedEntityInline(props: EmbeddedEntityInlineProps) {
-  const editor = useContentfulEditor();
-  const sdk = useSdkContext();
-  const isSelected = useSelected();
-  const { id: entryId } = props.element.data.target.sys;
-  const isDisabled = useReadOnly();
-  const { onEntityFetchComplete } = useLinkTracking();
-
-  function handleEditClick() {
-    return sdk.navigator.openEntry(entryId, { slideIn: { waitForClose: true } }).then(() => {
-      editor && focus(editor);
-    });
-  }
-
-  function handleRemoveClick() {
-    if (!editor) return;
-    const pathToElement = findNodePath(editor, props.element);
-    removeNodes(editor, { at: pathToElement });
-  }
-
-  return (
-    <span
-      {...props.attributes}
-      className={styles.root}
-      data-embedded-entity-inline-id={entryId}
-      // COMPAT: This makes copy & paste work for Firefox
-      contentEditable={IS_CHROME ? undefined : false}
-      draggable={IS_CHROME ? true : undefined}
-    >
-      <span
-        // COMPAT: This makes copy & paste work for Chromium/Blink browsers and Safari
-        contentEditable={IS_CHROME ? false : undefined}
-        draggable={IS_CHROME ? true : undefined}
-      >
-        <FetchingWrappedInlineEntryCard
-          sdk={sdk}
-          entryId={entryId}
-          isSelected={isSelected}
-          isDisabled={isDisabled}
-          onRemove={handleRemoveClick}
-          onEdit={handleEditClick}
-          onEntityFetchComplete={onEntityFetchComplete}
-        />
-      </span>
-      {props.children}
-    </span>
-  );
-}
 
 interface ToolbarEmbeddedEntityInlineButtonProps {
   onClose: () => void;
@@ -184,7 +113,7 @@ export function createEmbeddedEntityInlinePlugin(sdk: FieldAppSDK): PlatePlugin 
     isElement: true,
     isInline: true,
     isVoid: true,
-    component: EmbeddedEntityInline,
+    component: LinkedEntityInline,
     options: {
       hotkey: 'mod+shift+2',
     },
