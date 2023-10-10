@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { EntryLink } from '@contentful/field-editor-reference';
 import { useReadOnly, useSelected } from 'slate-react';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
@@ -15,13 +16,7 @@ import { FetchingWrappedInlineEntryCard } from './FetchingWrappedInlineEntryCard
 type LinkedEntityInlineProps = {
   element: Element & {
     data: {
-      target: {
-        sys: {
-          id: string;
-          linkType: 'Entry';
-          type: 'Link';
-        };
-      };
+      target: EntryLink;
     };
   };
   attributes: Pick<RenderElementProps, 'attributes'>;
