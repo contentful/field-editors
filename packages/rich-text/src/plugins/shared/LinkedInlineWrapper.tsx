@@ -6,6 +6,7 @@ import { css } from 'emotion';
 
 import { IS_CHROME } from '../../helpers/environment';
 import { RenderElementProps } from '../../internal/types';
+import { getLinkEntityId } from './utils';
 
 const styles = {
   icon: css({
@@ -21,9 +22,6 @@ const styles = {
     },
   }),
 };
-
-const isResourceLink = (link: EntryLink | ResourceLink): link is ResourceLink =>
-  !!(link as ResourceLink).sys.urn;
 
 type LinkedInlineWrapperProps = React.PropsWithChildren<{
   attributes: Pick<RenderElementProps, 'attributes'>;
@@ -42,7 +40,7 @@ export function LinkedInlineWrapper({
       {...attributes}
       className={styles.root}
       data-entity-type={link.sys.linkType}
-      data-entity-id={isResourceLink(link) ? link.sys.urn : link.sys.id}
+      data-entity-id={getLinkEntityId(link)}
       // COMPAT: This makes copy & paste work for Firefox
       contentEditable={IS_CHROME ? undefined : false}
       draggable={IS_CHROME ? true : undefined}
