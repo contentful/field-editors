@@ -43,7 +43,7 @@ export function LinkedResourceBlock(props: LinkedResourceBlockProps) {
   return (
     <LinkedBlockWrapper
       attributes={attributes}
-      element={element}
+      link={element.data.target}
       card={
         <FetchingWrappedResourceCard
           sdk={sdk}

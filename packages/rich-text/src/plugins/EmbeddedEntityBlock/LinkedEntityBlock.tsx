@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { EntityLink } from '@contentful/field-editor-reference';
 import { useReadOnly, useSelected } from 'slate-react';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
@@ -15,13 +16,7 @@ import { LinkedBlockWrapper } from '../shared/LinkedBlockWrapper';
 type LinkedEntityBlockProps = {
   element: Element & {
     data: {
-      target: {
-        sys: {
-          id: string;
-          linkType: 'Entry' | 'Asset';
-          type: 'Link';
-        };
-      };
+      target: EntityLink;
     };
   };
   attributes: Pick<RenderElementProps, 'attributes'>;
@@ -79,7 +74,7 @@ export function LinkedEntityBlock(props: LinkedEntityBlockProps) {
           )}
         </>
       }
-      element={element}
+      link={element.data.target}
     >
       {children}
     </LinkedBlockWrapper>
