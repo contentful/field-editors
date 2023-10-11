@@ -4,7 +4,7 @@ import { EntityLink, ResourceLink } from '@contentful/field-editor-reference';
 import { css } from 'emotion';
 
 import { IS_CHROME } from '../../helpers/environment';
-import { Element, RenderElementProps } from '../../internal';
+import { RenderElementProps } from '../../internal';
 
 const styles = {
   root: css({
@@ -26,20 +26,10 @@ const isResourceLink = (link: EntityLink | ResourceLink): link is ResourceLink =
 type LinkedBlockWrapperProps = React.PropsWithChildren<{
   attributes: Pick<RenderElementProps, 'attributes'>;
   card: JSX.Element;
-  element: Element & {
-    data: {
-      target: ResourceLink | EntityLink;
-    };
-  };
+  link: ResourceLink | EntityLink;
 }>;
 
-export function LinkedBlockWrapper({
-  attributes,
-  card,
-  children,
-  element,
-}: LinkedBlockWrapperProps) {
-  const link = element.data.target;
+export function LinkedBlockWrapper({ attributes, card, children, link }: LinkedBlockWrapperProps) {
   return (
     <div
       {...attributes}

@@ -58,7 +58,7 @@ export function LinkedEntityInline(props: LinkedEntityInlineProps) {
           onEntityFetchComplete={onEntityFetchComplete}
         />
       }
-      element={element}
+      link={element.data.target}
     >
       {children}
     </LinkedInlineWrapper>

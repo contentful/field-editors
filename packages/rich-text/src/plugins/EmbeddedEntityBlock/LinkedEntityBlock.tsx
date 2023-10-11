@@ -74,7 +74,7 @@ export function LinkedEntityBlock(props: LinkedEntityBlockProps) {
           )}
         </>
       }
-      element={element}
+      link={element.data.target}
     >
       {children}
     </LinkedBlockWrapper>

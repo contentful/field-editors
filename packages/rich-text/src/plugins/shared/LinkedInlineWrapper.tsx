@@ -5,7 +5,7 @@ import { EntryLink, ResourceLink } from '@contentful/field-editor-reference';
 import { css } from 'emotion';
 
 import { IS_CHROME } from '../../helpers/environment';
-import { Element, RenderElementProps } from '../../internal/types';
+import { RenderElementProps } from '../../internal/types';
 
 const styles = {
   icon: css({
@@ -28,21 +28,15 @@ const isResourceLink = (link: EntryLink | ResourceLink): link is ResourceLink =>
 type LinkedInlineWrapperProps = React.PropsWithChildren<{
   attributes: Pick<RenderElementProps, 'attributes'>;
   card: JSX.Element;
-  element: Element & {
-    data: {
-      target: ResourceLink | EntryLink;
-    };
-  };
+  link: ResourceLink | EntryLink;
 }>;
 
 export function LinkedInlineWrapper({
   attributes,
   card,
   children,
-  element,
+  link,
 }: LinkedInlineWrapperProps) {
-  const link = element.data.target;
-
   return (
     <span
       {...attributes}
