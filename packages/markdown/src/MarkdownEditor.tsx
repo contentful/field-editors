@@ -49,9 +49,10 @@ export function MarkdownEditor(
     disabled: boolean;
     value: string | null | undefined;
     saveValueToSDK: Function;
+    externalReset?: number;
   }
 ) {
-  const initialExternalValue = React.useRef(props.value);
+  const prevExternalReset = React.useRef(props.externalReset);
   const [currentValue, setCurrentValue] = React.useState<string>(props.value ?? '');
   const [selectedTab, setSelectedTab] = React.useState<MarkdownTab>('editor');
   const [editor, setEditor] = React.useState<InitializedEditorType | null>(null);
@@ -82,12 +83,12 @@ export function MarkdownEditor(
   }, [editor, props.disabled]);
 
   React.useEffect(() => {
-    // Received and apply the external update
-    if (props.value !== initialExternalValue.current) {
-      initialExternalValue.current = props.value;
+    // Received new props from external
+    if (props.externalReset !== prevExternalReset.current) {
+      prevExternalReset.current = props.externalReset;
       editor?.setContent(props.value ?? '');
     }
-  }, [props.value, editor]);
+  }, [props.value, props.externalReset, editor]);
 
   const isActionDisabled = editor === null || props.disabled || selectedTab !== 'editor';
 
@@ -161,8 +162,14 @@ export function MarkdownEditorConnected(props: MarkdownEditorProps) {
       field={props.sdk.field}
       isInitiallyDisabled={props.isInitiallyDisabled}
     >
-      {({ value, disabled, setValue }) => (
-        <MarkdownEditor {...props} value={value} disabled={disabled} saveValueToSDK={setValue} />
+      {({ value, disabled, setValue, externalReset }) => (
+        <MarkdownEditor
+          {...props}
+          value={value}
+          disabled={disabled}
+          saveValueToSDK={setValue}
+          externalReset={externalReset}
+        />
       )}
     </FieldConnector>
   );
