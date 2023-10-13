@@ -8,7 +8,7 @@ import { Element, findNodePath, removeNodes, RenderElementProps } from '../../in
 import { useSdkContext } from '../../SdkProvider';
 import { useLinkTracking } from '../links-tracking';
 import { LinkedInlineWrapper } from '../shared/LinkedInlineWrapper';
-import { FetchingWrappedInlineResourceCard } from './FetchingWrappedInlineResourceCard';
+import { FetchingWrappedResourceInlineCard } from './FetchingWrappedResourceInlineCard';
 
 export type LinkedResourceInlineProps = {
   element: Element & {
@@ -40,7 +40,7 @@ export function LinkedResourceInline(props: LinkedResourceInlineProps) {
       attributes={attributes}
       link={element.data.target}
       card={
-        <FetchingWrappedInlineResourceCard
+        <FetchingWrappedResourceInlineCard
           sdk={sdk}
           link={link}
           isDisabled={isDisabled}

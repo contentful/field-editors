@@ -9,7 +9,7 @@ import { INLINES } from '@contentful/rich-text-types';
 
 const { getEntryTitle, getEntryStatus } = entityHelpers;
 
-interface FetchingWrappedInlineResourceCardProps {
+interface FetchingWrappedResourceInlineCardProps {
   link: ResourceLink['sys'];
   sdk: FieldAppSDK;
   isSelected: boolean;
@@ -18,7 +18,7 @@ interface FetchingWrappedInlineResourceCardProps {
   onEntityFetchComplete?: VoidFunction;
 }
 
-export function FetchingWrappedInlineResourceCard(props: FetchingWrappedInlineResourceCardProps) {
+export function FetchingWrappedResourceInlineCard(props: FetchingWrappedResourceInlineCardProps) {
   const { link, onEntityFetchComplete } = props;
   const { data, status: requestStatus } = useResource(link.linkType, link.urn);
 
