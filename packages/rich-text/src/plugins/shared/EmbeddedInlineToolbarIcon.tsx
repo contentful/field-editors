@@ -11,6 +11,7 @@ import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { moveToTheNextChar } from '../../helpers/editor';
 import { useSdkContext } from '../../SdkProvider';
 import { selectEntityAndInsert, selectResourceEntityAndInsert } from '../shared/EmbeddedInlineUtil';
+import { ResourceNewBadge } from './ResourceNewBadge';
 
 const styles = {
   icon: css({
@@ -69,7 +70,10 @@ export function EmbeddedInlineToolbarIcon({
           variant="secondary"
           className={`rich-text__embedded-entry-list-icon ${styles.icon}`}
         />
-        <span>Inline entry</span>
+        <span>
+          Inline entry
+          {nodeType == INLINES.EMBEDDED_RESOURCE && <ResourceNewBadge />}
+        </span>
       </Flex>
     </Menu.Item>
   );

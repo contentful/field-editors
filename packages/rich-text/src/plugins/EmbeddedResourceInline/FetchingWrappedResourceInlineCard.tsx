@@ -42,7 +42,7 @@ export function FetchingWrappedResourceInlineCard(props: FetchingWrappedResource
     return <InlineEntryCard isLoading />;
   }
 
-  const { resource: entry, contentType, defaultLocaleCode } = data as ResourceInfo<Entry>;
+  const { resource: entry, contentType, defaultLocaleCode, space } = data as ResourceInfo<Entry>;
 
   const title = getEntryTitle({
     entry,
@@ -57,7 +57,7 @@ export function FetchingWrappedResourceInlineCard(props: FetchingWrappedResource
     <InlineEntryCard
       testId={INLINES.EMBEDDED_RESOURCE}
       isSelected={props.isSelected}
-      title={`${data?.contentType.name}: ${title}`}
+      title={`${data.contentType.name}: ${title} (Space: ${space.name})`}
       status={status}
       actions={[
         <MenuItem key="remove" onClick={props.onRemove} disabled={props.isDisabled} testId="delete">
