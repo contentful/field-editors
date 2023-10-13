@@ -51,10 +51,16 @@ export const EmbedEntityWidget = ({ isDisabled, canInsertBlocks }: EmbedEntityWi
       )}
       {inlineEntryEmbedEnabled && (
         <EmbeddedInlineToolbarIcon
+          nodeType={INLINES.EMBEDDED_ENTRY}
           isDisabled={!!isDisabled || isLinkActive(editor)}
           onClose={onCloseEntityDropdown}
         />
       )}
+      <EmbeddedInlineToolbarIcon
+        nodeType={INLINES.EMBEDDED_RESOURCE}
+        isDisabled={!!isDisabled || isLinkActive(editor)}
+        onClose={onCloseEntityDropdown}
+      />
       {blockAssetEmbedEnabled && (
         <EmbeddedBlockToolbarIcon
           isDisabled={!!isDisabled}

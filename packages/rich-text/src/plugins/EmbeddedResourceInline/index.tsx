@@ -1,26 +1,25 @@
 import { FieldAppSDK } from '@contentful/app-sdk';
 import { INLINES } from '@contentful/rich-text-types';
 
-import { PlatePlugin, Node } from '../../internal/types';
+import { PlatePlugin } from '../../internal';
 import { getWithEmbeddedEntryInlineEvents } from '../shared/EmbeddedInlineUtil';
-import { LinkedEntityInline } from './LinkedEntityInline';
+import { LinkedResourceInline } from './LinkedResourceInline';
 
-export function createEmbeddedEntityInlinePlugin(sdk: FieldAppSDK): PlatePlugin {
-  const htmlAttributeName = 'data-embedded-entity-inline-id';
-  const nodeType = INLINES.EMBEDDED_ENTRY;
+export function createEmbeddedResourceInlinePlugin(sdk: FieldAppSDK): PlatePlugin {
+  const htmlAttributeName = 'data-embedded-resource-inline-id';
 
   return {
-    key: nodeType,
-    type: nodeType,
+    key: INLINES.EMBEDDED_RESOURCE,
+    type: INLINES.EMBEDDED_RESOURCE,
     isElement: true,
     isInline: true,
     isVoid: true,
-    component: LinkedEntityInline,
+    component: LinkedResourceInline,
     options: {
-      hotkey: 'mod+shift+2',
+      hotkey: 'mod+shift+p',
     },
     handlers: {
-      onKeyDown: getWithEmbeddedEntryInlineEvents(nodeType, sdk),
+      onKeyDown: getWithEmbeddedEntryInlineEvents(INLINES.EMBEDDED_RESOURCE, sdk),
     },
     deserializeHtml: {
       rules: [
@@ -29,15 +28,15 @@ export function createEmbeddedEntityInlinePlugin(sdk: FieldAppSDK): PlatePlugin 
         },
       ],
       withoutChildren: true,
-      getNode: (el): Node => ({
-        type: nodeType,
+      getNode: (el) => ({
+        type: INLINES.EMBEDDED_RESOURCE,
         children: [{ text: '' }],
         data: {
           target: {
             sys: {
-              id: el.getAttribute('data-entity-id'),
-              type: 'Link',
+              urn: el.getAttribute('data-entity-id'),
               linkType: el.getAttribute('data-entity-type'),
+              type: 'ResourceLink',
             },
           },
         },
