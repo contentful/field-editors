@@ -47,11 +47,13 @@ export interface MarkdownEditorProps {
 export function MarkdownEditor(
   props: MarkdownEditorProps & {
     disabled: boolean;
-    initialValue: string | null | undefined;
+    value: string | null | undefined;
     saveValueToSDK: Function;
+    externalReset?: number;
   }
 ) {
-  const [currentValue, setCurrentValue] = React.useState<string>(props.initialValue ?? '');
+  const prevExternalReset = React.useRef(props.externalReset);
+  const [currentValue, setCurrentValue] = React.useState<string>(props.value ?? '');
   const [selectedTab, setSelectedTab] = React.useState<MarkdownTab>('editor');
   const [editor, setEditor] = React.useState<InitializedEditorType | null>(null);
   const [canUploadAssets, setCanUploadAssets] = React.useState<boolean>(false);
@@ -79,6 +81,14 @@ export function MarkdownEditor(
       editor.setReadOnly(props.disabled);
     }
   }, [editor, props.disabled]);
+
+  React.useEffect(() => {
+    // Received new props from external
+    if (props.externalReset !== prevExternalReset.current) {
+      prevExternalReset.current = props.externalReset;
+      editor?.setContent(props.value ?? '');
+    }
+  }, [props.value, props.externalReset, editor]);
 
   const isActionDisabled = editor === null || props.disabled || selectedTab !== 'editor';
 
@@ -115,7 +125,7 @@ export function MarkdownEditor(
         disabled={isActionDisabled}
         direction={direction}
         onReady={(editor) => {
-          editor.setContent(props.initialValue ?? '');
+          editor.setContent(props.value ?? '');
           editor.setReadOnly(props.disabled);
           setEditor(editor);
           editor.events.onChange((value: string) => {
@@ -152,18 +162,15 @@ export function MarkdownEditorConnected(props: MarkdownEditorProps) {
       field={props.sdk.field}
       isInitiallyDisabled={props.isInitiallyDisabled}
     >
-      {({ value, disabled, setValue, externalReset }) => {
-        // on external change reset component completely and init with initial value again
-        return (
-          <MarkdownEditor
-            {...props}
-            key={`markdown-editor-${externalReset}`}
-            initialValue={value}
-            disabled={disabled}
-            saveValueToSDK={setValue}
-          />
-        );
-      }}
+      {({ value, disabled, setValue, externalReset }) => (
+        <MarkdownEditor
+          {...props}
+          value={value}
+          disabled={disabled}
+          saveValueToSDK={setValue}
+          externalReset={externalReset}
+        />
+      )}
     </FieldConnector>
   );
 }
