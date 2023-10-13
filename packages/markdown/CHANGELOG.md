@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.2...@contentful/field-editor-markdown@1.5.3) (2023-10-13)
+
+### Bug Fixes
+
+- **markdown:** improve handling for external updates [] ([#1517](https://github.com/contentful/field-editors/issues/1517)) ([4bf244d](https://github.com/contentful/field-editors/commit/4bf244da35d8967911b3052dad1c5c77a5d1e4ac))
+
 ## [1.5.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.1...@contentful/field-editor-markdown@1.5.2) (2023-10-06)
 
 ### Bug Fixes
