@@ -11,7 +11,7 @@ export const hasText = (editor: PlateEditor, entry: NodeEntry) => {
   return !isAncestorEmpty(editor, node as any) && getText(editor, path).trim() !== '';
 };
 
-function truncate(str: string, length: number) {
+export function truncateTitle(str: string, length: number) {
   if (typeof str === 'string' && str.length > length) {
     return (
       str &&
@@ -32,7 +32,7 @@ export function getEntityInfo(data?: FetchedEntityData) {
   }
   const { entityTitle, contentTypeName, entityStatus, jobs } = data;
 
-  const title = truncate(entityTitle, 60) || 'Untitled';
+  const title = truncateTitle(entityTitle, 60) || 'Untitled';
 
   const scheduledActions =
     jobs.length > 0 ? getScheduleTooltipContent({ job: jobs[0], jobsCount: jobs.length }) : '';
