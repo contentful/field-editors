@@ -49,7 +49,7 @@ export function EmbeddedInlineToolbarIcon({
 
     onClose();
 
-    if (nodeType == INLINES.EMBEDDED_RESOURCE) {
+    if (nodeType === INLINES.EMBEDDED_RESOURCE) {
       await selectResourceEntityAndInsert(editor, sdk, editor.tracking.onToolbarAction);
     } else {
       await selectEntityAndInsert(editor, sdk, editor.tracking.onToolbarAction);
@@ -62,7 +62,7 @@ export function EmbeddedInlineToolbarIcon({
     <Menu.Item
       disabled={isDisabled}
       className="rich-text__entry-link-block-button"
-      testId={`toolbar-toggle-${INLINES.EMBEDDED_ENTRY}`}
+      testId={`toolbar-toggle-${nodeType}`}
       onClick={handleClick}
     >
       <Flex alignItems="center" flexDirection="row">
