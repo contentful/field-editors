@@ -34,6 +34,7 @@ import { FetchingWrappedResourceCard } from '../shared/FetchingWrappedResourceCa
 const styles = {
   removeSelectionLabel: css`
     margin-left: ${tokens.spacingS};
+    margin-bottom: ${tokens.spacingXs}; // to match FormLabel margin
   `,
 };
 
