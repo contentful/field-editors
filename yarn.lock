@@ -3321,20 +3321,10 @@
   dependencies:
     "@contentful/rich-text-types" "^16.2.0"
 
-"@contentful/rich-text-types@16.3.0":
+"@contentful/rich-text-types@16.3.0", "@contentful/rich-text-types@^15.12.1", "@contentful/rich-text-types@^15.15.1", "@contentful/rich-text-types@^16.0.2", "@contentful/rich-text-types@^16.0.3", "@contentful/rich-text-types@^16.2.0", "@contentful/rich-text-types@^16.3.0":
   version "16.3.0"
   resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-16.3.0.tgz#d44145a43b32d61eb4d6a82d3001cdfddbbda42e"
   integrity sha512-OfQmAu5bxE0CgQA3WlUleVej+ifFG/iXmB2DmUl4EyWyFue1aiIvfjxQhcDRSH4n1jUNMJ6L1wInZL8uV5m3TQ==
-
-"@contentful/rich-text-types@^15.12.1", "@contentful/rich-text-types@^15.15.1":
-  version "15.15.1"
-  resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-15.15.1.tgz#96835cf0d0eba9e54f92ee43a4a1ce2a74014b53"
-  integrity sha512-oheW0vkxWDuKBIIXDeJfZaRYo+NzKbC4gETMhH+MGJd4nfL9cqrOvtRxZBgnhICN4vDpH4my/zUIZGKcFqGSjQ==
-
-"@contentful/rich-text-types@^16.0.2", "@contentful/rich-text-types@^16.0.3", "@contentful/rich-text-types@^16.2.0":
-  version "16.2.0"
-  resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-16.2.0.tgz#5a98cb119340f4da46555216913e96d7ce58df70"
-  integrity sha512-4BHC+mfa50JB70epzpnas4EkiuB3mGdBZ5Rp8w7R5wXvswEf8TLg5yGau2FxmZeEjrAkDrt4vzBLVQ8v3Y//Jw==
 
 "@csstools/convert-colors@^1.4.0":
   version "1.4.0"
