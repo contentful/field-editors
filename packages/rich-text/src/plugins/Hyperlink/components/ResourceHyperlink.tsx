@@ -6,6 +6,7 @@ import { Tooltip, TextLink } from '@contentful/f36-components';
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
 import { fromDOMPoint } from '../../../internal';
 import { Element, RenderElementProps } from '../../../internal/types';
+import { useLinkTracking } from '../../../plugins/links-tracking';
 import { useSdkContext } from '../../../SdkProvider';
 import { addOrEditLink } from '../HyperlinkModal';
 import { useResourceEntityInfo } from '../useResourceEntityInfo';
@@ -26,15 +27,15 @@ export type ResourceHyperlinkProps = {
   target: Link;
   attributes: Pick<RenderElementProps, 'attributes'>;
   children: Pick<RenderElementProps, 'children'>;
-  onEntityFetchComplete: VoidFunction;
 };
 
 export function ResourceHyperlink(props: ResourceHyperlinkProps) {
   const editor = useContentfulEditor();
   const sdk: FieldAppSDK = useSdkContext();
   const { target } = props.element.data;
+  const { onEntityFetchComplete } = useLinkTracking();
 
-  const tooltipContent = useResourceEntityInfo(target);
+  const tooltipContent = useResourceEntityInfo({ target, onEntityFetchComplete });
 
   if (!target) return null;
 

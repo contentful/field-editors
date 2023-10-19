@@ -1,16 +1,29 @@
+import * as React from 'react';
+
 import { useResource } from '@contentful/field-editor-reference';
 import { ResourceLink } from '@contentful/rich-text-types';
 
 import { truncateTitle } from './utils';
 
-export function useResourceEntityInfo(target: ResourceLink) {
-  const { data, error } = useResource(target.sys.linkType, target.sys.urn);
+type ResourceEntityInfoProps = {
+  target: ResourceLink;
+  onEntityFetchComplete?: VoidFunction;
+};
 
-  if (!data) {
+export function useResourceEntityInfo({ onEntityFetchComplete, target }: ResourceEntityInfoProps) {
+  const { data, error, status } = useResource(target.sys.linkType, target.sys.urn);
+
+  React.useEffect(() => {
+    if (status === 'success') {
+      onEntityFetchComplete?.();
+    }
+  }, [status, onEntityFetchComplete]);
+
+  if (status === 'loading') {
     return `Loading entry...`;
   }
 
-  if (error) {
+  if (!data || error) {
     return `Entry missing or inaccessible`;
   }
 
