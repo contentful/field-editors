@@ -108,6 +108,13 @@ export default {
         },
       ],
     },
+    [INLINES.RESOURCE_HYPERLINK]: {
+      nodes: [
+        {
+          match: [{ object: 'text' }],
+        },
+      ],
+    },
     [INLINES.ASSET_HYPERLINK]: {
       nodes: [
         {
