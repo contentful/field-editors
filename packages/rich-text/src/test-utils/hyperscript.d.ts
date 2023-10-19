@@ -50,6 +50,10 @@ declare namespace JSX {
       | {
           entry: string;
           children?: string;
+        }
+      | {
+          resource: string;
+          children?: string;
         };
 
     hul: {};

@@ -14,6 +14,10 @@ const createSysLink = (linkType: 'Entry' | 'Asset', id: string) => ({
   sys: { id, type: 'Link', linkType },
 });
 
+const createSysResourceLink = (urn: string) => ({
+  sys: { urn, type: 'ResourceLink', linkType: 'Contentful:Entry' },
+});
+
 const createHyperlink: Creator = (_, attrs, children) => {
   const data: any = {};
   let type: string = INLINES.HYPERLINK;
@@ -31,6 +35,11 @@ const createHyperlink: Creator = (_, attrs, children) => {
   if (attrs.entry) {
     type = INLINES.ENTRY_HYPERLINK;
     data.target = createSysLink('Entry', attrs.entry);
+  }
+
+  if (attrs.resource) {
+    type = INLINES.RESOURCE_HYPERLINK;
+    data.target = createSysResourceLink(attrs.resource);
   }
 
   children = children.map((child) => (typeof child === 'string' ? { text: child } : child));
