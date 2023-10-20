@@ -14,8 +14,19 @@ import { RichTextPage } from './RichTextPage';
 // the sticky toolbar gets in the way of some of the tests, therefore
 // we increase the viewport height to fit the whole page on the screen
 
-describe('Rich Text Editor - Embedded Entry Inlines', { viewportHeight: 2000 }, () => {
+describe('Rich Text Editor - Embedded Resource Inlines', { viewportHeight: 2000 }, () => {
   let richText: RichTextPage;
+
+  const resourceBlock = () =>
+    inline(INLINES.EMBEDDED_RESOURCE, {
+      target: {
+        sys: {
+          urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
+          type: 'ResourceLink',
+          linkType: 'Contentful:Entry',
+        },
+      },
+    });
 
   beforeEach(() => {
     richText = new RichTextPage();
@@ -26,47 +37,31 @@ describe('Rich Text Editor - Embedded Entry Inlines', { viewportHeight: 2000 }, 
     [
       'using the toolbar button',
       () => {
-        richText.toolbar.embed('entry-inline');
+        richText.toolbar.embed('resource-inline');
       },
     ],
     [
       'using the keyboard shortcut',
       () => {
-        richText.editor.type(`{${mod}+shift+2}`);
+        richText.editor.type(`{${mod}+shift+p}`);
       },
     ],
   ];
 
-  for (const [triggerMethod, triggerEmbeddedAsset] of methods) {
+  for (const [triggerMethod, triggerEmbeddedResource] of methods) {
     describe(triggerMethod, () => {
       it('adds and removes embedded entries', () => {
         cy.shouldConfirm(true);
         richText.editor
           .click()
           .type('hello')
-          .then(triggerEmbeddedAsset)
+          .then(triggerEmbeddedResource)
           .then(() => {
             richText.editor.click().type('world');
           });
 
         richText.expectValue(
-          doc(
-            block(
-              BLOCKS.PARAGRAPH,
-              {},
-              text('hello'),
-              inline(INLINES.EMBEDDED_ENTRY, {
-                target: {
-                  sys: {
-                    id: 'example-entity-id',
-                    type: 'Link',
-                    linkType: 'Entry',
-                  },
-                },
-              }),
-              text('world')
-            )
-          )
+          doc(block(BLOCKS.PARAGRAPH, {}, text('hello'), resourceBlock(), text('world')))
         );
 
         getIframe().findByTestId('cf-ui-card-actions').click({ force: true });
@@ -75,6 +70,7 @@ describe('Rich Text Editor - Embedded Entry Inlines', { viewportHeight: 2000 }, 
         richText.expectValue(doc(block(BLOCKS.PARAGRAPH, {}, text('hello'), text('world'))));
 
         cy.unsetShouldConfirm();
+
         // TODO: we should also test deletion via {backspace},
         // but this breaks in cypress even though it works in the editor
       });
