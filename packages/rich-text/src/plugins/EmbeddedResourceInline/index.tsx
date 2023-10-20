@@ -7,10 +7,11 @@ import { LinkedResourceInline } from './LinkedResourceInline';
 
 export function createEmbeddedResourceInlinePlugin(sdk: FieldAppSDK): PlatePlugin {
   const htmlAttributeName = 'data-embedded-resource-inline-id';
+  const nodeType = INLINES.EMBEDDED_RESOURCE;
 
   return {
-    key: INLINES.EMBEDDED_RESOURCE,
-    type: INLINES.EMBEDDED_RESOURCE,
+    key: nodeType,
+    type: nodeType,
     isElement: true,
     isInline: true,
     isVoid: true,
@@ -19,7 +20,7 @@ export function createEmbeddedResourceInlinePlugin(sdk: FieldAppSDK): PlatePlugi
       hotkey: 'mod+shift+p',
     },
     handlers: {
-      onKeyDown: getWithEmbeddedEntryInlineEvents(INLINES.EMBEDDED_RESOURCE, sdk),
+      onKeyDown: getWithEmbeddedEntryInlineEvents(nodeType, sdk),
     },
     deserializeHtml: {
       rules: [
@@ -29,7 +30,7 @@ export function createEmbeddedResourceInlinePlugin(sdk: FieldAppSDK): PlatePlugi
       ],
       withoutChildren: true,
       getNode: (el) => ({
-        type: INLINES.EMBEDDED_RESOURCE,
+        type: nodeType,
         children: [{ text: '' }],
         data: {
           target: {
