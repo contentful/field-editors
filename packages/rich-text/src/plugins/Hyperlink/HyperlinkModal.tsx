@@ -15,10 +15,11 @@ import tokens from '@contentful/f36-tokens';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { Link } from '@contentful/field-editor-reference';
 import { ModalDialogLauncher, FieldAppSDK } from '@contentful/field-editor-shared';
-import { INLINES } from '@contentful/rich-text-types';
+import { INLINES, ResourceLink } from '@contentful/rich-text-types';
 import { css } from 'emotion';
 
 import { getNodeEntryFromSelection, insertLink, LINK_TYPES, focus } from '../../helpers/editor';
+import getAllowedResourcesForNodeType from '../../helpers/getAllowedResourcesForNodeType';
 import getLinkedContentTypeIdsForNodeType from '../../helpers/getLinkedContentTypeIdsForNodeType';
 import { isNodeTypeEnabled } from '../../helpers/validations';
 import { withoutNormalizing } from '../../internal';
@@ -28,10 +29,12 @@ import { PlateEditor, Path } from '../../internal/types';
 import { TrackingPluginActions } from '../../plugins/Tracking';
 import { FetchingWrappedAssetCard } from '../shared/FetchingWrappedAssetCard';
 import { FetchingWrappedEntryCard } from '../shared/FetchingWrappedEntryCard';
+import { FetchingWrappedResourceCard } from '../shared/FetchingWrappedResourceCard';
 
 const styles = {
   removeSelectionLabel: css`
     margin-left: ${tokens.spacingS};
+    margin-bottom: ${tokens.spacingXs}; // to match FormLabel margin
   `,
 };
 
@@ -39,7 +42,7 @@ interface HyperlinkModalProps {
   linkText?: string;
   linkType?: string;
   linkTarget?: string;
-  linkEntity?: Link;
+  linkEntity?: Link | ResourceLink;
   onClose: (value: unknown) => void;
   sdk: FieldAppSDK;
   readonly: boolean;
@@ -48,11 +51,13 @@ interface HyperlinkModalProps {
 const SYS_LINK_TYPES = {
   [INLINES.ENTRY_HYPERLINK]: 'Entry',
   [INLINES.ASSET_HYPERLINK]: 'Asset',
+  [INLINES.RESOURCE_HYPERLINK]: 'Contentful:Entry',
 };
 
 const LINK_TYPE_SELECTION_VALUES = {
   [INLINES.HYPERLINK]: 'URL',
   [INLINES.ENTRY_HYPERLINK]: 'Entry',
+  [INLINES.RESOURCE_HYPERLINK]: 'Entry (different space)',
   [INLINES.ASSET_HYPERLINK]: 'Asset',
 };
 
@@ -64,7 +69,9 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
   const [linkText, setLinkText] = React.useState(props.linkText ?? '');
   const [linkType, setLinkType] = React.useState(props.linkType ?? defaultLinkType);
   const [linkTarget, setLinkTarget] = React.useState(props.linkTarget ?? '');
-  const [linkEntity, setLinkEntity] = React.useState<Link | null>(props.linkEntity ?? null);
+  const [linkEntity, setLinkEntity] = React.useState<Link | ResourceLink | null>(
+    props.linkEntity ?? null
+  );
   const linkTargetInputRef = React.useRef<HTMLInputElement>(null);
 
   React.useEffect(() => {
@@ -82,7 +89,16 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
     const entityLinks: string[] = Object.keys(SYS_LINK_TYPES);
     const isEntityLink = entityLinks.includes(linkType);
     if (isEntityLink) {
-      return !!(linkText && linkEntity);
+      if (linkType === INLINES.ENTRY_HYPERLINK) {
+        return !!(linkText && isEntryLink(linkEntity));
+      }
+      if (linkType === INLINES.ASSET_HYPERLINK) {
+        return !!(linkText && isAssetLink(linkEntity));
+      }
+      if (linkType === INLINES.RESOURCE_HYPERLINK) {
+        return !!(linkText && isResourceLink(linkEntity));
+      }
+      return false;
     }
 
     return false;
@@ -100,14 +116,47 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
     return { sys: { id, type: 'Link', linkType: type } };
   }
 
+  function entityToResourceLink(entity): Link {
+    const { urn } = entity.sys;
+
+    // @ts-expect-error wait for update of app-sdk version
+    return { sys: { urn, type: 'ResourceLink', linkType: 'Contentful:Entry' } };
+  }
+
+  function isResourceLink(link: Link | ResourceLink | null): link is ResourceLink {
+    return !!link && !!(link as ResourceLink).sys.urn;
+  }
+
+  function isEntryLink(link: Link | ResourceLink | null): link is Link {
+    return !!link && link.sys.type === 'Link' && link.sys.linkType === 'Entry';
+  }
+
+  function isAssetLink(link: Link | ResourceLink | null): link is Link {
+    return !!link && link.sys.type === 'Link' && link.sys.linkType === 'Asset';
+  }
+
   async function selectEntry() {
     const options = {
       locale: props.sdk.field.locale,
       contentTypes: getLinkedContentTypeIdsForNodeType(props.sdk.field, INLINES.ENTRY_HYPERLINK),
     };
     const entry = await props.sdk.dialogs.selectSingleEntry(options);
-    setLinkTarget('');
-    setLinkEntity(entityToLink(entry));
+    if (entry) {
+      setLinkTarget('');
+      setLinkEntity(entityToLink(entry));
+    }
+  }
+
+  async function selectResourceEntry() {
+    const options = {
+      allowedResources: getAllowedResourcesForNodeType(props.sdk.field, INLINES.RESOURCE_HYPERLINK),
+    };
+    // @ts-expect-error wait for update of app-sdk version
+    const entry = await props.sdk.dialogs.selectSingleResourceEntry(options);
+    if (entry) {
+      setLinkTarget('');
+      setLinkEntity(entityToResourceLink(entry));
+    }
   }
 
   async function selectAsset() {
@@ -115,8 +164,10 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
       locale: props.sdk.field.locale,
     };
     const asset = await props.sdk.dialogs.selectSingleAsset(options);
-    setLinkTarget('');
-    setLinkEntity(entityToLink(asset));
+    if (asset) {
+      setLinkTarget('');
+      setLinkEntity(entityToLink(asset));
+    }
   }
 
   function resetLinkEntity(event: React.MouseEvent) {
@@ -200,7 +251,7 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
                       </TextLink>
                     )}
                     <div>
-                      {linkType === INLINES.ENTRY_HYPERLINK && (
+                      {linkType === INLINES.ENTRY_HYPERLINK && isEntryLink(linkEntity) && (
                         <FetchingWrappedEntryCard
                           sdk={props.sdk}
                           locale={props.sdk.field.locale}
@@ -209,7 +260,15 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
                           isSelected={false}
                         />
                       )}
-                      {linkType === INLINES.ASSET_HYPERLINK && (
+                      {linkType === INLINES.RESOURCE_HYPERLINK && isResourceLink(linkEntity) && (
+                        <FetchingWrappedResourceCard
+                          sdk={props.sdk}
+                          link={linkEntity.sys}
+                          isDisabled={true}
+                          isSelected={false}
+                        />
+                      )}
+                      {linkType === INLINES.ASSET_HYPERLINK && isAssetLink(linkEntity) && (
                         <FetchingWrappedAssetCard
                           sdk={props.sdk}
                           locale={props.sdk.field.locale}
@@ -224,6 +283,11 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
                   <div>
                     {linkType === INLINES.ENTRY_HYPERLINK && (
                       <TextLink testId="entity-selection-link" onClick={selectEntry}>
+                        Select entry
+                      </TextLink>
+                    )}
+                    {linkType === INLINES.RESOURCE_HYPERLINK && (
+                      <TextLink testId="entity-selection-link" onClick={selectResourceEntry}>
                         Select entry
                       </TextLink>
                     )}

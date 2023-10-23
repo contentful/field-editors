@@ -195,7 +195,12 @@ function getValidationInfo(field: FieldAppSDK['field']): {
   const isAnyMarkEnabled = someWithValidation(Object.values(MARKS), isMarkEnabled);
 
   const isAnyHyperlinkEnabled = someWithValidation(
-    [INLINES.HYPERLINK, INLINES.ASSET_HYPERLINK, INLINES.ENTRY_HYPERLINK],
+    [
+      INLINES.HYPERLINK,
+      INLINES.ASSET_HYPERLINK,
+      INLINES.ENTRY_HYPERLINK,
+      INLINES.RESOURCE_HYPERLINK,
+    ],
     isNodeTypeEnabled
   );
 

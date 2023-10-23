@@ -8,7 +8,7 @@ import { configure, render, waitFor } from '@testing-library/react';
 import publishedCT from '../__fixtures__/published_content_type.json';
 import publishedEntry from '../__fixtures__/published_entry.json';
 import space from '../__fixtures__/space.json';
-import { FetchingWrappedResourceBlockCard } from '../../EmbeddedResourceBlock/FetchingWrappedResourceBlockCard';
+import { FetchingWrappedResourceCard } from '../FetchingWrappedResourceCard';
 
 configure({
   testIdAttribute: 'data-test-id',
@@ -54,7 +54,7 @@ beforeEach(() => {
 function renderResourceCard({ linkType = 'Contentful:Entry', entryUrn = resolvableEntryUrn } = {}) {
   return render(
     <EntityProvider sdk={sdk}>
-      <FetchingWrappedResourceBlockCard
+      <FetchingWrappedResourceCard
         isDisabled={false}
         isSelected={false}
         sdk={sdk}

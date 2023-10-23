@@ -19,6 +19,10 @@ describe('normalization', () => {
           <hlink entry="entry-id" />
         </hp>
         <hp>
+          <htext>resource</htext>
+          <hlink resource="resource-urn" />
+        </hp>
+        <hp>
           <htext>explicit empty link</htext>
           <hlink uri="https://link.com">{''}</hlink>
         </hp>
@@ -39,6 +43,9 @@ describe('normalization', () => {
         </hp>
         <hp>
           <htext>entry</htext>
+        </hp>
+        <hp>
+          <htext>resource</htext>
         </hp>
         <hp>
           <htext>explicit empty link</htext>

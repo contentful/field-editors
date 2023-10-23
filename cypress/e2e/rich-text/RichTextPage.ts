@@ -147,7 +147,13 @@ class HyperLinkModal {
     return getIframe().findByTestId('link-type-input');
   }
 
-  setLinkType = (type: INLINES.HYPERLINK | INLINES.ENTRY_HYPERLINK | INLINES.ASSET_HYPERLINK) => {
+  setLinkType = (
+    type:
+      | INLINES.HYPERLINK
+      | INLINES.ENTRY_HYPERLINK
+      | INLINES.ASSET_HYPERLINK
+      | INLINES.RESOURCE_HYPERLINK
+  ) => {
     this.linkType.select(type);
   };
 

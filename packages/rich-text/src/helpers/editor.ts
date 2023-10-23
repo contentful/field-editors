@@ -33,6 +33,7 @@ import { IS_SAFARI } from './environment';
 export const LINK_TYPES: INLINES[] = [
   INLINES.HYPERLINK,
   INLINES.ENTRY_HYPERLINK,
+  INLINES.RESOURCE_HYPERLINK,
   INLINES.ASSET_HYPERLINK,
 ];
 
@@ -133,7 +134,11 @@ export function getTableSize(table: Element): Record<'numRows' | 'numColumns', n
 
 interface InsertLinkOptions {
   text: string;
-  type: INLINES.HYPERLINK | INLINES.ENTRY_HYPERLINK | INLINES.ASSET_HYPERLINK;
+  type:
+    | INLINES.HYPERLINK
+    | INLINES.ENTRY_HYPERLINK
+    | INLINES.RESOURCE_HYPERLINK
+    | INLINES.ASSET_HYPERLINK;
   url?: string;
   target?: Link;
   path?: Path;

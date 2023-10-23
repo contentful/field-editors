@@ -11,6 +11,7 @@ describe('normalization', () => {
           <hinline type="Entry" id="inline-entry" />
           <hlink uri="https://contentful.com" />
           <hlink entry="entry-id" />
+          <hlink resource="resource-urn" />
           <hlink asset="asset-id" />
           some text after
         </hh1>
