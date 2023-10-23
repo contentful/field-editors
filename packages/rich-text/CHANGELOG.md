@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.14.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.13.0...@contentful/field-editor-rich-text@3.14.0) (2023-10-23)
+
+### Features
+
+- add resource hyperlink node type ([#1519](https://github.com/contentful/field-editors/issues/1519)) ([8c4219a](https://github.com/contentful/field-editors/commit/8c4219af167d07d86b32c9a0ac92c8e9acedd00c))
+
 # [3.13.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.12.7...@contentful/field-editor-rich-text@3.13.0) (2023-10-23)
 
 ### Features
