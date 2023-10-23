@@ -23,3 +23,8 @@ export const getIframeWindow = () => {
     .should('not.be.empty')
     .then(cy.wrap);
 };
+
+// copied from the 'is-hotkey' library we use for RichText shortcuts
+const IS_MAC =
+  typeof window != 'undefined' && /Mac|iPod|iPhone|iPad/.test(window.navigator.platform);
+export const mod = IS_MAC ? 'meta' : 'control';

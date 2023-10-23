@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { FieldAPI, FieldExtensionSDK } from '@contentful/app-sdk';
+import { FieldAPI, FieldAppSDK } from '@contentful/app-sdk';
 
 type Nullable = null | undefined;
 
@@ -11,7 +11,7 @@ interface TrackingFieldConnectorState<ValueType> {
 }
 
 interface TrackingFieldConnectorProps<ValueType> {
-  sdk: FieldExtensionSDK;
+  sdk: FieldAppSDK;
   field: FieldAPI;
   defaultLocale: string;
   trackingFieldId?: string;
@@ -19,7 +19,7 @@ interface TrackingFieldConnectorProps<ValueType> {
   children: (state: TrackingFieldConnectorState<ValueType>) => React.ReactNode;
 }
 
-function getTitleField(sdk: FieldExtensionSDK, trackingFieldId?: string) {
+function getTitleField(sdk: FieldAppSDK, trackingFieldId?: string) {
   const { entry, contentType } = sdk;
   if (trackingFieldId && entry.fields[trackingFieldId]) {
     return entry.fields[trackingFieldId];

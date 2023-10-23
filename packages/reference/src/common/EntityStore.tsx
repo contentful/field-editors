@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
-import { BaseExtensionSDK } from '@contentful/app-sdk';
+import { BaseAppSDK } from '@contentful/app-sdk';
 import {
   FetchQueryOptions,
   Query,
@@ -36,7 +36,7 @@ export type ResourceInfo<R extends Resource = Resource> = {
 const globalQueue = new PQueue({ concurrency: 50 });
 
 type EntityStoreProps = {
-  sdk: BaseExtensionSDK;
+  sdk: BaseAppSDK;
   queryConcurrency?: number;
 };
 

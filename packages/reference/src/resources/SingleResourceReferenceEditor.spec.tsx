@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { FieldAppSDK } from '@contentful/app-sdk';
 import '@testing-library/jest-dom/extend-expect';
 import { fireEvent, render, screen } from '@testing-library/react';
 
@@ -46,7 +46,7 @@ const fieldDefinition = {
 };
 describe('Single resource editor', () => {
   it('renders the action button when no value is set', async () => {
-    const sdk: FieldExtensionSDK = mockSdkForField(fieldDefinition);
+    const sdk: FieldAppSDK = mockSdkForField(fieldDefinition);
     render(
       <SingleResourceReferenceEditor
         isInitiallyDisabled={false}
@@ -72,7 +72,7 @@ describe('Single resource editor', () => {
   });
 
   it('renders custom actions when passed', async () => {
-    const sdk: FieldExtensionSDK = mockSdkForField(fieldDefinition);
+    const sdk: FieldAppSDK = mockSdkForField(fieldDefinition);
     render(
       <SingleResourceReferenceEditor
         isInitiallyDisabled={false}
@@ -90,7 +90,7 @@ describe('Single resource editor', () => {
   });
 
   it('renders the card button when the value is set', async () => {
-    const sdk: FieldExtensionSDK = mockSdkForField(fieldDefinition, {
+    const sdk: FieldAppSDK = mockSdkForField(fieldDefinition, {
       sys: {
         type: 'Link',
         linkType: 'Contentful:Entry',

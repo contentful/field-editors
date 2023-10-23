@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { FieldAppSDK } from '@contentful/app-sdk';
 import { Flex, IconButton, Menu } from '@contentful/f36-components';
 import { MoreHorizontalIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
@@ -71,7 +71,7 @@ const styles = {
   }),
 };
 
-const Dropdown = ({ sdk, isDisabled }: { sdk: FieldExtensionSDK; isDisabled?: boolean }) => {
+const Dropdown = ({ sdk, isDisabled }: { sdk: FieldAppSDK; isDisabled?: boolean }) => {
   const editor = useContentfulEditor();
   const isActive =
     editor &&
@@ -185,7 +185,7 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
   );
 };
 
-function getValidationInfo(field: FieldExtensionSDK['field']): {
+function getValidationInfo(field: FieldAppSDK['field']): {
   isAnyMarkEnabled: boolean;
   isAnyHyperlinkEnabled: boolean;
   isAnyBlockFormattingEnabled: boolean;
@@ -195,7 +195,12 @@ function getValidationInfo(field: FieldExtensionSDK['field']): {
   const isAnyMarkEnabled = someWithValidation(Object.values(MARKS), isMarkEnabled);
 
   const isAnyHyperlinkEnabled = someWithValidation(
-    [INLINES.HYPERLINK, INLINES.ASSET_HYPERLINK, INLINES.ENTRY_HYPERLINK],
+    [
+      INLINES.HYPERLINK,
+      INLINES.ASSET_HYPERLINK,
+      INLINES.ENTRY_HYPERLINK,
+      INLINES.RESOURCE_HYPERLINK,
+    ],
     isNodeTypeEnabled
   );
 

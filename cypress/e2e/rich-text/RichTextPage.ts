@@ -6,7 +6,12 @@ import { getIframe, getIframeWindow } from '../../fixtures/utils';
 
 const isValidationEvent = ({ type }) => type === 'onSchemaErrorsChanged';
 
-export type EmbedType = 'entry-block' | 'asset-block' | 'resource-block' | 'entry-inline';
+export type EmbedType =
+  | 'entry-block'
+  | 'asset-block'
+  | 'resource-block'
+  | 'entry-inline'
+  | 'resource-inline';
 
 export class RichTextPage {
   visit() {
@@ -142,7 +147,13 @@ class HyperLinkModal {
     return getIframe().findByTestId('link-type-input');
   }
 
-  setLinkType = (type: INLINES.HYPERLINK | INLINES.ENTRY_HYPERLINK | INLINES.ASSET_HYPERLINK) => {
+  setLinkType = (
+    type:
+      | INLINES.HYPERLINK
+      | INLINES.ENTRY_HYPERLINK
+      | INLINES.ASSET_HYPERLINK
+      | INLINES.RESOURCE_HYPERLINK
+  ) => {
     this.linkType.select(type);
   };
 

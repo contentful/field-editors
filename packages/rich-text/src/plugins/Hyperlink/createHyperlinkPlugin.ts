@@ -1,14 +1,15 @@
 import * as React from 'react';
 
-import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { FieldAppSDK } from '@contentful/app-sdk';
 import { INLINES } from '@contentful/rich-text-types';
 import { AnyObject, HotkeyPlugin } from '@udecode/plate-common';
 import isHotkey from 'is-hotkey';
 
 import { isLinkActive, unwrapLink } from '../../helpers/editor';
 import { transformRemove } from '../../helpers/transformers';
-import { PlatePlugin, KeyboardHandler } from '../../internal/types';
+import { KeyboardHandler, PlatePlugin } from '../../internal/types';
 import { EntityHyperlink } from './components/EntityHyperlink';
+import { ResourceHyperlink } from './components/ResourceHyperlink';
 import { UrlHyperlink } from './components/UrlHyperlink';
 import { addOrEditLink } from './HyperlinkModal';
 import { hasText } from './utils';
@@ -24,8 +25,12 @@ const isEntryAnchor = (element: HTMLElement) =>
 const isAssetAnchor = (element: HTMLElement) =>
   element.nodeName === 'A' && element.getAttribute('data-link-type') === 'Asset';
 
+const isResourceAnchor = (element: HTMLElement) =>
+  element.nodeName === 'A' &&
+  element.getAttribute('data-resource-link-type') === 'Contentful:Entry';
+
 const buildHyperlinkEventHandler =
-  (sdk: FieldExtensionSDK): KeyboardHandler<HotkeyPlugin> =>
+  (sdk: FieldAppSDK): KeyboardHandler<HotkeyPlugin> =>
   (editor, { options: { hotkey } }) => {
     return (event: React.KeyboardEvent) => {
       if (!editor.selection) {
@@ -53,6 +58,16 @@ const getNodeOfType = (type: INLINES) => (el: HTMLElement, node: AnyObject) => (
       ? {
           uri: el.getAttribute('href'),
         }
+      : type === INLINES.RESOURCE_HYPERLINK
+      ? {
+          target: {
+            sys: {
+              urn: el.getAttribute('data-resource-link-urn'),
+              linkType: el.getAttribute('data-resource-link-type'),
+              type: 'ResourceLink',
+            },
+          },
+        }
       : {
           target: {
             sys: {
@@ -64,7 +79,7 @@ const getNodeOfType = (type: INLINES) => (el: HTMLElement, node: AnyObject) => (
         },
 });
 
-export const createHyperlinkPlugin = (sdk: FieldExtensionSDK): PlatePlugin => {
+export const createHyperlinkPlugin = (sdk: FieldAppSDK): PlatePlugin => {
   const common: Partial<PlatePlugin> = {
     isElement: true,
     isInline: true,
@@ -111,6 +126,22 @@ export const createHyperlinkPlugin = (sdk: FieldExtensionSDK): PlatePlugin => {
           getNode: getNodeOfType(INLINES.ENTRY_HYPERLINK),
         },
       },
+      // Resource Hyperlink
+      {
+        ...common,
+        key: INLINES.RESOURCE_HYPERLINK,
+        type: INLINES.RESOURCE_HYPERLINK,
+        component: ResourceHyperlink,
+        deserializeHtml: {
+          rules: [
+            {
+              validNodeName: ['A'],
+            },
+          ],
+          query: (el) => isResourceAnchor(el),
+          getNode: getNodeOfType(INLINES.RESOURCE_HYPERLINK),
+        },
+      },
       // Asset Hyperlink
       {
         ...common,
@@ -131,7 +162,12 @@ export const createHyperlinkPlugin = (sdk: FieldExtensionSDK): PlatePlugin => {
     normalizer: [
       {
         match: {
-          type: [INLINES.HYPERLINK, INLINES.ASSET_HYPERLINK, INLINES.ENTRY_HYPERLINK],
+          type: [
+            INLINES.HYPERLINK,
+            INLINES.ASSET_HYPERLINK,
+            INLINES.ENTRY_HYPERLINK,
+            INLINES.RESOURCE_HYPERLINK,
+          ],
         },
         validNode: hasText,
         transform: transformRemove,

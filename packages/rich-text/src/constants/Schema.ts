@@ -108,6 +108,13 @@ export default {
         },
       ],
     },
+    [INLINES.RESOURCE_HYPERLINK]: {
+      nodes: [
+        {
+          match: [{ object: 'text' }],
+        },
+      ],
+    },
     [INLINES.ASSET_HYPERLINK]: {
       nodes: [
         {
@@ -116,6 +123,9 @@ export default {
       ],
     },
     [INLINES.EMBEDDED_ENTRY]: {
+      isVoid: true,
+    },
+    [INLINES.EMBEDDED_RESOURCE]: {
       isVoid: true,
     },
   },

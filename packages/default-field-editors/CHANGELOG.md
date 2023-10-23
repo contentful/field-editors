@@ -3,6 +3,44 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.16](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.5.15...@contentful/default-field-editors@1.5.16) (2023-10-23)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [1.5.15](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.5.14...@contentful/default-field-editors@1.5.15) (2023-10-23)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [1.5.14](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.5.13...@contentful/default-field-editors@1.5.14) (2023-10-23)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [1.5.13](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.5.12...@contentful/default-field-editors@1.5.13) (2023-10-13)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [1.5.12](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.5.11...@contentful/default-field-editors@1.5.12) (2023-10-11)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [1.5.11](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.5.10...@contentful/default-field-editors@1.5.11) (2023-10-09)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [1.5.10](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.5.9...@contentful/default-field-editors@1.5.10) (2023-10-06)
+
+### Bug Fixes
+
+- [] Replace deprecated `*ExtensionSDK` types with `*AppSDK` types ([#1499](https://github.com/contentful/field-editors/issues/1499)) ([eb6ede8](https://github.com/contentful/field-editors/commit/eb6ede86b27aab50c04d6cf68bb54e9b3dec7460))
+
+## [1.5.9](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.5.8...@contentful/default-field-editors@1.5.9) (2023-10-05)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [1.5.8](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.5.7...@contentful/default-field-editors@1.5.8) (2023-09-28)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
 ## [1.5.7](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.5.6...@contentful/default-field-editors@1.5.7) (2023-09-28)
 
 **Note:** Version bump only for package @contentful/default-field-editors

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { FieldExtensionSDK } from '@contentful/app-sdk';
-import { Badge, Flex, Icon, Menu } from '@contentful/f36-components';
+import { FieldAppSDK } from '@contentful/app-sdk';
+import { Flex, Icon, Menu } from '@contentful/f36-components';
 import { AssetIcon, EmbeddedEntryBlockIcon } from '@contentful/f36-icons';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { css } from 'emotion';
@@ -9,6 +9,7 @@ import { css } from 'emotion';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { useSdkContext } from '../../SdkProvider';
 import { selectEntityAndInsert, selectResourceEntityAndInsert } from '../shared/EmbeddedBlockUtil';
+import { ResourceNewBadge } from './ResourceNewBadge';
 
 export const styles = {
   icon: css({
@@ -28,7 +29,7 @@ export function EmbeddedBlockToolbarIcon({
   onClose,
 }: EmbeddedBlockToolbarIconProps) {
   const editor = useContentfulEditor();
-  const sdk: FieldExtensionSDK = useSdkContext();
+  const sdk: FieldAppSDK = useSdkContext();
 
   const handleClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -61,15 +62,7 @@ export function EmbeddedBlockToolbarIcon({
         />
         <span>
           {type}
-          {nodeType == BLOCKS.EMBEDDED_RESOURCE && (
-            <>
-              {' '}
-              (different space){' '}
-              <Badge variant="primary-filled" size="small">
-                new
-              </Badge>
-            </>
-          )}
+          {nodeType == BLOCKS.EMBEDDED_RESOURCE && <ResourceNewBadge />}
         </span>
       </Flex>
     </Menu.Item>

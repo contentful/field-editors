@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { FieldAppSDK } from '@contentful/app-sdk';
 import { LinkIcon } from '@contentful/f36-icons';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
@@ -16,7 +16,7 @@ interface ToolbarHyperlinkButtonProps {
 export function ToolbarHyperlinkButton(props: ToolbarHyperlinkButtonProps) {
   const editor = useContentfulEditor();
   const isActive = !!(editor && isLinkActive(editor));
-  const sdk: FieldExtensionSDK = useSdkContext();
+  const sdk: FieldAppSDK = useSdkContext();
 
   async function handleClick() {
     if (!editor) return;
@@ -37,7 +37,8 @@ export function ToolbarHyperlinkButton(props: ToolbarHyperlinkButtonProps) {
       testId="hyperlink-toolbar-button"
       onClick={handleClick}
       isActive={isActive}
-      isDisabled={props.isDisabled}>
+      isDisabled={props.isDisabled}
+    >
       <LinkIcon />
     </ToolbarButton>
   );

@@ -35,12 +35,14 @@ export interface DateEditorProps {
   /**
    * sdk.parameters
    */
-  parameters?: ParametersAPI & {
-    instance?: {
+  parameters?: ParametersAPI<
+    Record<string, any>,
+    {
       format?: DateTimeFormat;
       ampm?: TimeFormat;
-    };
-  };
+    },
+    Record<string, any>
+  >;
 }
 
 const styles = {

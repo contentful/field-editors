@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { FieldAppSDK } from '@contentful/app-sdk';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import * as Contentful from '@contentful/rich-text-types';
@@ -21,7 +21,7 @@ import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/components/StickyToolbarWrapper';
 
 type ConnectedProps = {
-  sdk: FieldExtensionSDK;
+  sdk: FieldAppSDK;
   onAction?: RichTextTrackingActionHandler;
   minHeight?: string | number;
   maxHeight?: string | number;

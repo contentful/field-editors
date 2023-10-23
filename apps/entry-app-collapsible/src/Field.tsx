@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { LocalesAPI } from '@contentful/field-editor-shared';
-import { EntryFieldAPI, FieldExtensionSDK } from '@contentful/app-sdk';
+import { EntryFieldAPI, FieldAppSDK } from '@contentful/app-sdk';
 import { Field as BaseField, FieldWrapper } from '@contentful/default-field-editors';
 import { SDKContext, getEntryURL } from './shared';
 import 'codemirror/lib/codemirror.css';
@@ -24,7 +24,7 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
     return null;
   }
 
-  const fieldSdk: FieldExtensionSDK = {
+  const fieldSdk: FieldAppSDK = {
     ...sdk,
     field: extendedField,
     locales,

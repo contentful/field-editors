@@ -1,10 +1,10 @@
 import { createContext, useContext } from 'react';
 
-import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { FieldAppSDK } from '@contentful/app-sdk';
 
 import { usePlateEditorRef, usePlateEditorState } from './internal/hooks';
 
-export function getContentfulEditorId(sdk: FieldExtensionSDK) {
+export function getContentfulEditorId(sdk: FieldAppSDK) {
   const { entry, field } = sdk;
   const sys = entry.getSys();
 

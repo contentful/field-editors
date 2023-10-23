@@ -20,6 +20,7 @@ export function createFakeFieldAPI<T>(
   return [
     customizeMock({
       id: 'fake-id',
+      name: 'My field',
       locale: 'en-US',
       type: 'Symbol',
       validations: [],

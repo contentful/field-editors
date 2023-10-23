@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { FieldExtensionSDK, Link } from '@contentful/app-sdk';
+import { FieldAppSDK, Link } from '@contentful/app-sdk';
 import { Tooltip, TextLink } from '@contentful/f36-components';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
@@ -32,7 +32,7 @@ export type HyperlinkElementProps = {
 
 export function EntityHyperlink(props: HyperlinkElementProps) {
   const editor = useContentfulEditor();
-  const sdk: FieldExtensionSDK = useSdkContext();
+  const sdk: FieldAppSDK = useSdkContext();
   const { target } = props.element.data;
   const { onEntityFetchComplete } = useLinkTracking();
 

@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.18.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.17.0...@contentful/field-editor-reference@5.18.0) (2023-10-23)
+
+### Features
+
+- file info new UI [] ([#1520](https://github.com/contentful/field-editors/issues/1520)) ([9a47ccc](https://github.com/contentful/field-editors/commit/9a47cccf9fe31a09b72b51673924380d73d206e2))
+
+# [5.17.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.16.3...@contentful/field-editor-reference@5.17.0) (2023-10-09)
+
+### Features
+
+- [] Migrate reference editor to dnd-kit ([#1508](https://github.com/contentful/field-editors/issues/1508)) ([5061b21](https://github.com/contentful/field-editors/commit/5061b21ffc7b19f1e763ab0d98f1b0b5abf141b9))
+
+## [5.16.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.16.2...@contentful/field-editor-reference@5.16.3) (2023-10-06)
+
+### Bug Fixes
+
+- [] Replace deprecated `*ExtensionSDK` types with `*AppSDK` types ([#1499](https://github.com/contentful/field-editors/issues/1499)) ([eb6ede8](https://github.com/contentful/field-editors/commit/eb6ede86b27aab50c04d6cf68bb54e9b3dec7460))
+
+## [5.16.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.16.1...@contentful/field-editor-reference@5.16.2) (2023-09-28)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
 ## [5.16.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.16.0...@contentful/field-editor-reference@5.16.1) (2023-09-14)
 
 ### Bug Fixes

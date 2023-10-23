@@ -29,11 +29,13 @@ export interface LocationEditorConnectedProps {
   /**
    * sdk.parameters
    */
-  parameters?: ParametersAPI & {
-    instance: {
+  parameters?: ParametersAPI<
+    Record<string, any>,
+    {
       googleMapsKey?: string;
-    };
-  };
+    },
+    Record<string, any>
+  >;
 }
 
 type LocationEditorProps = {

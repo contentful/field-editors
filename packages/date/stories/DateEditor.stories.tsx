@@ -30,7 +30,9 @@ export const Default: Story = {
           field={field}
           isInitiallyDisabled={isInitiallyDisabled ?? false}
           parameters={{
+            installation: {},
             instance: instanceParams ? JSON.parse(instanceParams) : {},
+            invocation: {},
           }}
         />
         <ActionsPlayground mitt={mitt} />

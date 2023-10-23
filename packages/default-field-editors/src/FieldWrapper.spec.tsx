@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import type { FieldExtensionSDK } from '@contentful/field-editor-shared';
+import type { FieldAppSDK } from '@contentful/field-editor-shared';
 import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
 import '@testing-library/jest-dom/extend-expect';
 import { act, cleanup, configure, render } from '@testing-library/react';
@@ -12,7 +12,7 @@ configure({
 });
 
 const [field, emitter] = createFakeFieldAPI();
-const sdk: FieldExtensionSDK = {
+const sdk: FieldAppSDK = {
   contentType: {
     sys: {
       id: 'content-type-id',
@@ -52,7 +52,8 @@ describe('Field', () => {
         name="field"
         sdk={sdk}
         getEntryURL={getEntryURL}
-        renderHeading={() => <div data-test-id="custom-label">custom label</div>}>
+        renderHeading={() => <div data-test-id="custom-label">custom label</div>}
+      >
         <div>children</div>
       </FieldWrapper>
     );
@@ -65,7 +66,8 @@ describe('Field', () => {
         name="field"
         sdk={sdk}
         getEntryURL={getEntryURL}
-        renderHelpText={() => <div data-test-id="custom-hint">custom hint</div>}>
+        renderHelpText={() => <div data-test-id="custom-hint">custom hint</div>}
+      >
         <div>children</div>
       </FieldWrapper>
     );

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { DialogExtensionSDK, DialogsAPI } from '@contentful/app-sdk';
+import { DialogAppSDK, DialogsAPI } from '@contentful/app-sdk';
 import { Grid } from '@contentful/f36-components';
 import { ChevronLeftIcon, ChevronRightIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
@@ -32,7 +32,7 @@ type ZenModeDialogProps = {
   onClose: (result: ZenModeResult) => void;
   initialValue: string;
   locale: string;
-  sdk: DialogExtensionSDK;
+  sdk: DialogAppSDK;
   previewComponents?: PreviewComponents;
 };
 

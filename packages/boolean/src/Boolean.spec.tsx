@@ -44,6 +44,7 @@ describe('BooleanEditor', () => {
         field={field}
         isInitiallyDisabled={false}
         parameters={{
+          invocation: {},
           installation: {},
           instance: {
             trueLabel: 'Yeah, obviously',

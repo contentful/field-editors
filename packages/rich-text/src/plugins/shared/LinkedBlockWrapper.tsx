@@ -1,9 +1,11 @@
 import React from 'react';
 
+import { EntityLink, ResourceLink } from '@contentful/field-editor-reference';
 import { css } from 'emotion';
 
 import { IS_CHROME } from '../../helpers/environment';
-import { Element, RenderElementProps } from '../../internal';
+import { RenderElementProps } from '../../internal';
+import { getLinkEntityId } from './utils';
 
 const styles = {
   root: css({
@@ -19,42 +21,19 @@ const styles = {
   }),
 };
 
-type EntityLink = {
-  id: string;
-  linkType: 'Entry' | 'Asset';
-  type: 'Link';
-};
-
-type ResourceLink = { urn: string; linkType: 'Contentful:Entry'; type: 'ResourceLink' };
-
-const isResourceLink = (link: EntityLink | ResourceLink): link is ResourceLink =>
-  !!(link as ResourceLink).urn;
-
 type LinkedBlockWrapperProps = React.PropsWithChildren<{
   attributes: Pick<RenderElementProps, 'attributes'>;
   card: JSX.Element;
-  element: Element & {
-    data: {
-      target: {
-        sys: ResourceLink | EntityLink;
-      };
-    };
-  };
+  link: ResourceLink | EntityLink;
 }>;
 
-export function LinkedBlockWrapper({
-  attributes,
-  card,
-  children,
-  element,
-}: LinkedBlockWrapperProps) {
-  const link = element.data.target.sys;
+export function LinkedBlockWrapper({ attributes, card, children, link }: LinkedBlockWrapperProps) {
   return (
     <div
       {...attributes}
       className={styles.root}
-      data-entity-type={link.linkType}
-      data-entity-id={isResourceLink(link) ? link.urn : link.id}
+      data-entity-type={link.sys.linkType}
+      data-entity-id={getLinkEntityId(link)}
       // COMPAT: This makes copy & paste work for Firefox
       contentEditable={IS_CHROME ? undefined : false}
       draggable={IS_CHROME ? true : undefined}

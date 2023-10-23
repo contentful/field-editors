@@ -19,7 +19,7 @@ import {
   SingleMediaEditor,
 } from '@contentful/field-editor-reference';
 import { RichTextEditor } from '@contentful/field-editor-rich-text';
-import type { FieldExtensionSDK } from '@contentful/field-editor-shared';
+import type { FieldAppSDK } from '@contentful/field-editor-shared';
 import { SingleLineEditor } from '@contentful/field-editor-single-line';
 import { SlugEditor } from '@contentful/field-editor-slug';
 import { TagsEditor } from '@contentful/field-editor-tags';
@@ -29,15 +29,15 @@ import { getDefaultWidgetId } from './getDefaultWidgetId.js';
 import type { EditorOptions, WidgetType } from './types.js';
 
 type FieldProps = {
-  sdk: FieldExtensionSDK;
+  sdk: FieldAppSDK;
   widgetId?: WidgetType;
   isInitiallyDisabled?: boolean;
   renderFieldEditor?: (
     widgetId: WidgetType,
-    sdk: FieldExtensionSDK,
+    sdk: FieldAppSDK,
     isInitiallyDisabled: boolean
   ) => JSX.Element | false;
-  getOptions?: (widgetId: WidgetType, sdk: FieldExtensionSDK) => EditorOptions;
+  getOptions?: (widgetId: WidgetType, sdk: FieldAppSDK) => EditorOptions;
 };
 
 const widgetComponents: Record<string, [React.ComponentType<any>, any?]> = {

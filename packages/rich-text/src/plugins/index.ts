@@ -1,4 +1,4 @@
-import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { FieldAppSDK } from '@contentful/app-sdk';
 import { PlateProps } from '@udecode/plate-common';
 import { createDeserializeDocxPlugin } from '@udecode/plate-serializer-docx';
 
@@ -13,6 +13,7 @@ import {
 } from './EmbeddedEntityBlock';
 import { createEmbeddedEntityInlinePlugin } from './EmbeddedEntityInline';
 import { createEmbeddedResourceBlockPlugin } from './EmbeddedResourceBlock';
+import { createEmbeddedResourceInlinePlugin } from './EmbeddedResourceInline';
 import { createHeadingPlugin } from './Heading';
 import { createHrPlugin } from './Hr';
 import { createHyperlinkPlugin } from './Hyperlink';
@@ -30,9 +31,9 @@ import { createTrailingParagraphPlugin } from './TrailingParagraph';
 import { createVoidsPlugin } from './Voids';
 
 export const getPlugins = (
-  sdk: FieldExtensionSDK,
+  sdk: FieldAppSDK,
   onAction: RichTextTrackingActionHandler,
-  restrictedMarks?: string[],
+  restrictedMarks?: string[]
 ): PlatePlugin[] => [
   createDeserializeDocxPlugin(),
 
@@ -60,6 +61,7 @@ export const getPlugins = (
   // Inline elements
   createHyperlinkPlugin(sdk),
   createEmbeddedEntityInlinePlugin(sdk),
+  createEmbeddedResourceInlinePlugin(sdk),
 
   // Marks
   createMarksPlugin(),

@@ -1,10 +1,6 @@
 import * as React from 'react';
 
-import {
-  DialogExtensionSDK,
-  FieldExtensionSDK,
-  OpenCustomWidgetOptions,
-} from '@contentful/app-sdk';
+import { DialogAppSDK, FieldAppSDK, OpenCustomWidgetOptions } from '@contentful/app-sdk';
 import { ModalDialogLauncher } from '@contentful/field-editor-shared';
 
 import { MarkdownDialogType, MarkdownDialogsParams, PreviewComponents } from '../types';
@@ -20,7 +16,7 @@ import { SpecialCharacterModalDialog } from './SpecialCharacterModalDialog';
 import { ZenModeModalDialog, ZenModeResult } from './ZenModeModalDialog';
 
 export const openMarkdownDialog =
-  (sdk: FieldExtensionSDK, previewComponents?: PreviewComponents) =>
+  (sdk: FieldAppSDK, previewComponents?: PreviewComponents) =>
   (
     options: OpenCustomWidgetOptions & {
       parameters?: MarkdownDialogsParams;
@@ -71,7 +67,7 @@ export const openMarkdownDialog =
             onClose={onClose}
             initialValue={initialValue}
             locale={locale}
-            sdk={sdk as unknown as DialogExtensionSDK}
+            sdk={sdk as unknown as DialogAppSDK}
             previewComponents={previewComponents}
           />
         );

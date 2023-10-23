@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.2...@contentful/field-editor-markdown@1.5.3) (2023-10-13)
+
+### Bug Fixes
+
+- **markdown:** improve handling for external updates [] ([#1517](https://github.com/contentful/field-editors/issues/1517)) ([4bf244d](https://github.com/contentful/field-editors/commit/4bf244da35d8967911b3052dad1c5c77a5d1e4ac))
+
+## [1.5.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.1...@contentful/field-editor-markdown@1.5.2) (2023-10-06)
+
+### Bug Fixes
+
+- [] Replace deprecated `*ExtensionSDK` types with `*AppSDK` types ([#1499](https://github.com/contentful/field-editors/issues/1499)) ([eb6ede8](https://github.com/contentful/field-editors/commit/eb6ede86b27aab50c04d6cf68bb54e9b3dec7460))
+
+## [1.5.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.0...@contentful/field-editor-markdown@1.5.1) (2023-09-28)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
 # [1.5.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.4.0...@contentful/field-editor-markdown@1.5.0) (2023-09-12)
 
 ### Bug Fixes

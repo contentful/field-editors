@@ -1,10 +1,10 @@
 import { EditorPermissions } from '../../common/useEditorPermissions';
-import { Asset, ContentType, ContentEntityType, Entry, FieldExtensionSDK } from '../../types';
+import { Asset, ContentType, ContentEntityType, Entry, FieldAppSDK } from '../../types';
 
 const getContentTypeIds = (contentTypes: ContentType[]) => contentTypes.map((ct) => ct.sys.id);
 
 export async function createEntity(props: {
-  sdk: FieldExtensionSDK;
+  sdk: FieldAppSDK;
   entityType: ContentEntityType;
   contentTypeId?: string;
 }) {
@@ -25,7 +25,7 @@ export async function createEntity(props: {
 }
 
 export async function selectSingleEntity(props: {
-  sdk: FieldExtensionSDK;
+  sdk: FieldAppSDK;
   entityType: ContentEntityType;
   editorPermissions: EditorPermissions;
 }) {
@@ -43,7 +43,7 @@ export async function selectSingleEntity(props: {
 }
 
 export async function selectMultipleEntities(props: {
-  sdk: FieldExtensionSDK;
+  sdk: FieldAppSDK;
   entityType: ContentEntityType;
   editorPermissions: EditorPermissions;
 }) {

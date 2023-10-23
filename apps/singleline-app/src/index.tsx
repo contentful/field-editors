@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { init, FieldExtensionSDK } from '@contentful/app-sdk';
+import { init, FieldAppSDK } from '@contentful/app-sdk';
 import { GlobalStyles } from '@contentful/f36-components';
 import { SingleLineEditor } from '@contentful/field-editor-single-line';
 
 interface AppProps {
-  sdk: FieldExtensionSDK;
+  sdk: FieldAppSDK;
 }
 
 const App: React.FC<AppProps> = (props: AppProps) => {
@@ -17,9 +17,9 @@ const App: React.FC<AppProps> = (props: AppProps) => {
   );
 };
 
-init((sdk: FieldExtensionSDK) => {
+init((sdk: FieldAppSDK) => {
   sdk.window.startAutoResizer();
-  render(<App sdk={sdk as FieldExtensionSDK} />, document.getElementById('root'));
+  render(<App sdk={sdk as FieldAppSDK} />, document.getElementById('root'));
 });
 
 /**

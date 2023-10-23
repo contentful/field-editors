@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { FieldExtensionSDK, DialogExtensionSDK, init, locations } from '@contentful/app-sdk';
+import { FieldAppSDK, DialogAppSDK, init, locations } from '@contentful/app-sdk';
 import { RichTextEditor, renderRichTextDialog } from '@contentful/field-editor-rich-text';
 import { GlobalStyles } from '@contentful/f36-components';
 
-init((sdk: FieldExtensionSDK | DialogExtensionSDK) => {
+init((sdk: FieldAppSDK | DialogAppSDK) => {
   sdk.window.startAutoResizer();
   if (sdk.location.is(locations.LOCATION_DIALOG)) {
     render(
       <>
         <GlobalStyles />
-        {renderRichTextDialog(sdk as DialogExtensionSDK)}
+        {renderRichTextDialog(sdk as DialogAppSDK)}
       </>,
       document.getElementById('root')
     );
@@ -18,7 +18,7 @@ init((sdk: FieldExtensionSDK | DialogExtensionSDK) => {
     render(
       <>
         <GlobalStyles />
-        <RichTextEditor sdk={sdk as FieldExtensionSDK} isInitiallyDisabled />
+        <RichTextEditor sdk={sdk as FieldAppSDK} isInitiallyDisabled />
       </>,
       document.getElementById('root')
     );

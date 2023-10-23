@@ -1,16 +1,18 @@
-import { FieldExtensionSDK } from '@contentful/app-sdk';
+import { FieldAppSDK } from '@contentful/app-sdk';
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
 import { HotkeyPlugin } from '@udecode/plate-common';
 import isHotkey from 'is-hotkey';
 
+import {
+  newEntitySelectorConfigFromRichTextField,
+  newResourceEntitySelectorConfigFromRichTextField,
+} from '../../helpers/config';
 import {
   focus,
   getNodeEntryFromSelection,
   insertEmptyParagraph,
   moveToTheNextChar,
 } from '../../helpers/editor';
-import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
-import newResourceEntitySelectorConfigFromRichTextField from '../../helpers/newResourceEntitySelectorConfigFromRichTextField';
 import { watchCurrentSlide } from '../../helpers/sdkNavigatorSlideIn';
 import {
   getText,
@@ -27,7 +29,7 @@ import { TrackingPluginActions } from '../Tracking';
 
 export function getWithEmbeddedBlockEvents(
   nodeType: BLOCKS.EMBEDDED_ENTRY | BLOCKS.EMBEDDED_ASSET | BLOCKS.EMBEDDED_RESOURCE,
-  sdk: FieldExtensionSDK,
+  sdk: FieldAppSDK
 ): KeyboardHandler<HotkeyPlugin> {
   return (editor, { options: { hotkey } }) =>
     (event) => {
@@ -59,7 +61,7 @@ export async function selectEntityAndInsert(
   nodeType,
   sdk,
   editor,
-  logAction: TrackingPluginActions['onToolbarAction'] | TrackingPluginActions['onShortcutAction'],
+  logAction: TrackingPluginActions['onToolbarAction'] | TrackingPluginActions['onShortcutAction']
 ) {
   logAction('openCreateEmbedDialog', { nodeType });
 
@@ -94,7 +96,7 @@ export async function selectEntityAndInsert(
 export async function selectResourceEntityAndInsert(
   sdk,
   editor,
-  logAction: TrackingPluginActions['onToolbarAction'] | TrackingPluginActions['onShortcutAction'],
+  logAction: TrackingPluginActions['onToolbarAction'] | TrackingPluginActions['onShortcutAction']
 ) {
   logAction('openCreateEmbedDialog', { nodeType: BLOCKS.EMBEDDED_RESOURCE });
 
@@ -132,7 +134,7 @@ function ensureFollowingParagraph(editor: PlateEditor, nodeTypes: BLOCKS[]) {
   const lastNode = getLastNodeByLevel(editor, level);
 
   const isTextContainer = (TEXT_CONTAINERS as string[]).includes(
-    (lastNode?.[0].type ?? '') as string,
+    (lastNode?.[0].type ?? '') as string
   );
 
   // If the new block isn't followed by a sibling text container (e.g. paragraph)

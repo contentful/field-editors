@@ -25,7 +25,7 @@ describe('RatingEditor', () => {
       <RatingEditor
         field={field}
         isInitiallyDisabled={false}
-        parameters={{ installation: {}, instance: { stars: 20 } }}
+        parameters={{ installation: {}, instance: { stars: 20 }, invocation: {} }}
       />
     );
     expect(getAllByTestId('rating-editor-star')).toHaveLength(20);
