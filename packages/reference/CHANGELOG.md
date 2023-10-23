@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.18.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.17.0...@contentful/field-editor-reference@5.18.0) (2023-10-23)
+
+### Features
+
+- file info new UI [] ([#1520](https://github.com/contentful/field-editors/issues/1520)) ([9a47ccc](https://github.com/contentful/field-editors/commit/9a47cccf9fe31a09b72b51673924380d73d206e2))
+
 # [5.17.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.16.3...@contentful/field-editor-reference@5.17.0) (2023-10-09)
 
 ### Features
