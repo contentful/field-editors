@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.13.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.12.7...@contentful/field-editor-rich-text@3.13.0) (2023-10-23)
+
+### Features
+
+- Introduce new node type: embedded inline resource [DANTE-1167] ([#1518](https://github.com/contentful/field-editors/issues/1518)) ([24511d4](https://github.com/contentful/field-editors/commit/24511d41ec7c99df2b1ddb23ecfb9f0692d2ab43))
+
 ## [3.12.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.12.6...@contentful/field-editor-rich-text@3.12.7) (2023-10-11)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
