@@ -13,6 +13,7 @@ import {
 } from './EmbeddedEntityBlock';
 import { createEmbeddedEntityInlinePlugin } from './EmbeddedEntityInline';
 import { createEmbeddedResourceBlockPlugin } from './EmbeddedResourceBlock';
+import { createEmbeddedResourceInlinePlugin } from './EmbeddedResourceInline';
 import { createHeadingPlugin } from './Heading';
 import { createHrPlugin } from './Hr';
 import { createHyperlinkPlugin } from './Hyperlink';
@@ -60,6 +61,7 @@ export const getPlugins = (
   // Inline elements
   createHyperlinkPlugin(sdk),
   createEmbeddedEntityInlinePlugin(sdk),
+  createEmbeddedResourceInlinePlugin(sdk),
 
   // Marks
   createMarksPlugin(),

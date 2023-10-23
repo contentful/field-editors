@@ -4,13 +4,15 @@ import { HotkeyPlugin } from '@udecode/plate-common';
 import isHotkey from 'is-hotkey';
 
 import {
+  newEntitySelectorConfigFromRichTextField,
+  newResourceEntitySelectorConfigFromRichTextField,
+} from '../../helpers/config';
+import {
   focus,
   getNodeEntryFromSelection,
   insertEmptyParagraph,
   moveToTheNextChar,
 } from '../../helpers/editor';
-import newEntitySelectorConfigFromRichTextField from '../../helpers/newEntitySelectorConfigFromRichTextField';
-import newResourceEntitySelectorConfigFromRichTextField from '../../helpers/newResourceEntitySelectorConfigFromRichTextField';
 import { watchCurrentSlide } from '../../helpers/sdkNavigatorSlideIn';
 import {
   getText,

@@ -24,6 +24,7 @@ export const EmbedEntityWidget = ({ isDisabled, canInsertBlocks }: EmbedEntityWi
   const onToggleEntityDropdown = () => setEmbedDropdownOpen(!isEmbedDropdownOpen);
 
   const inlineEntryEmbedEnabled = isNodeTypeEnabled(sdk.field, INLINES.EMBEDDED_ENTRY);
+  const inlineResourceEmbedEnabled = isNodeTypeEnabled(sdk.field, INLINES.EMBEDDED_RESOURCE);
   const blockEntryEmbedEnabled =
     isNodeTypeEnabled(sdk.field, BLOCKS.EMBEDDED_ENTRY) && canInsertBlocks;
   const blockResourceEmbedEnabled =
@@ -51,6 +52,14 @@ export const EmbedEntityWidget = ({ isDisabled, canInsertBlocks }: EmbedEntityWi
       )}
       {inlineEntryEmbedEnabled && (
         <EmbeddedInlineToolbarIcon
+          nodeType={INLINES.EMBEDDED_ENTRY}
+          isDisabled={!!isDisabled || isLinkActive(editor)}
+          onClose={onCloseEntityDropdown}
+        />
+      )}
+      {inlineResourceEmbedEnabled && (
+        <EmbeddedInlineToolbarIcon
+          nodeType={INLINES.EMBEDDED_RESOURCE}
           isDisabled={!!isDisabled || isLinkActive(editor)}
           onClose={onCloseEntityDropdown}
         />

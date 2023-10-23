@@ -10,7 +10,8 @@ import { css } from 'emotion';
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { moveToTheNextChar } from '../../helpers/editor';
 import { useSdkContext } from '../../SdkProvider';
-import { selectEntityAndInsert } from '../shared/EmbeddedInlineUtil';
+import { selectEntityAndInsert, selectResourceEntityAndInsert } from '../shared/EmbeddedInlineUtil';
+import { ResourceNewBadge } from './ResourceNewBadge';
 
 const styles = {
   icon: css({
@@ -29,10 +30,15 @@ const styles = {
 
 interface EmbeddedInlineToolbarIconProps {
   onClose: () => void;
+  nodeType: string;
   isDisabled: boolean;
 }
 
-export function EmbeddedInlineToolbarIcon(props: EmbeddedInlineToolbarIconProps) {
+export function EmbeddedInlineToolbarIcon({
+  onClose,
+  nodeType,
+  isDisabled,
+}: EmbeddedInlineToolbarIconProps) {
   const editor = useContentfulEditor();
   const sdk: FieldAppSDK = useSdkContext();
 
@@ -41,17 +47,22 @@ export function EmbeddedInlineToolbarIcon(props: EmbeddedInlineToolbarIconProps)
 
     if (!editor) return;
 
-    props.onClose();
+    onClose();
 
-    await selectEntityAndInsert(editor, sdk, editor.tracking.onToolbarAction);
+    if (nodeType === INLINES.EMBEDDED_RESOURCE) {
+      await selectResourceEntityAndInsert(editor, sdk, editor.tracking.onToolbarAction);
+    } else {
+      await selectEntityAndInsert(editor, sdk, editor.tracking.onToolbarAction);
+    }
+
     moveToTheNextChar(editor);
   }
 
   return (
     <Menu.Item
-      disabled={props.isDisabled}
+      disabled={isDisabled}
       className="rich-text__entry-link-block-button"
-      testId={`toolbar-toggle-${INLINES.EMBEDDED_ENTRY}`}
+      testId={`toolbar-toggle-${nodeType}`}
       onClick={handleClick}
     >
       <Flex alignItems="center" flexDirection="row">
@@ -59,7 +70,10 @@ export function EmbeddedInlineToolbarIcon(props: EmbeddedInlineToolbarIconProps)
           variant="secondary"
           className={`rich-text__embedded-entry-list-icon ${styles.icon}`}
         />
-        <span>Inline entry</span>
+        <span>
+          Inline entry
+          {nodeType == INLINES.EMBEDDED_RESOURCE && <ResourceNewBadge />}
+        </span>
       </Flex>
     </Menu.Item>
   );
