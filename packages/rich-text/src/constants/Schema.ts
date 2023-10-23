@@ -125,5 +125,8 @@ export default {
     [INLINES.EMBEDDED_ENTRY]: {
       isVoid: true,
     },
+    [INLINES.EMBEDDED_RESOURCE]: {
+      isVoid: true,
+    },
   },
 };

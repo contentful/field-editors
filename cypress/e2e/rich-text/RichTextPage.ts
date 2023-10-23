@@ -6,7 +6,12 @@ import { getIframe, getIframeWindow } from '../../fixtures/utils';
 
 const isValidationEvent = ({ type }) => type === 'onSchemaErrorsChanged';
 
-export type EmbedType = 'entry-block' | 'asset-block' | 'resource-block' | 'entry-inline';
+export type EmbedType =
+  | 'entry-block'
+  | 'asset-block'
+  | 'resource-block'
+  | 'entry-inline'
+  | 'resource-inline';
 
 export class RichTextPage {
   visit() {
