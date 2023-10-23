@@ -2,16 +2,7 @@
   "name": "@contentful/default-field-editors",
   "version": "1.5.16",
   "main": "dist/esm/index.js",
-  "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/types/index.d.ts",
-      "require": "./dist/cjs/index.js",
-      "import": "./dist/esm/index.js"
-    },
-    "./package.json": "./package.json"
-  },
   "files": [
     "dist"
   ],
@@ -24,11 +15,9 @@
   "scripts": {
     "watch": "yarn concurrently \"yarn:watch:*\"",
     "watch:esm": "yarn build:esm -w",
-    "watch:cjs": "yarn build:cjs -w",
     "watch:types": "yarn build:types --watch",
-    "build": "yarn build:types && yarn build:esm && yarn build:cjs",
+    "build": "yarn build:types && yarn build:esm",
     "build:types": "tsc --outDir dist/types --emitDeclarationOnly",
-    "build:cjs": "swc src --config-file ../../.swcrc -d dist/cjs -C module.type=commonjs",
     "build:esm": "swc src --config-file ../../.swcrc -d dist/esm",
     "test": "jest --watch",
     "test:ci": "jest --ci",
