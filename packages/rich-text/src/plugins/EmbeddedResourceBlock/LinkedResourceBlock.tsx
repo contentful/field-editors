@@ -6,8 +6,8 @@ import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { Element, findNodePath, removeNodes, RenderElementProps } from '../../internal';
 import { useSdkContext } from '../../SdkProvider';
 import { useLinkTracking } from '../links-tracking';
+import { FetchingWrappedResourceCard } from '../shared/FetchingWrappedResourceCard';
 import { LinkedBlockWrapper } from '../shared/LinkedBlockWrapper';
-import { FetchingWrappedResourceBlockCard } from './FetchingWrappedResourceBlockCard';
 
 export type LinkedResourceBlockProps = {
   element: Element & {
@@ -45,7 +45,7 @@ export function LinkedResourceBlock(props: LinkedResourceBlockProps) {
       attributes={attributes}
       link={element.data.target}
       card={
-        <FetchingWrappedResourceBlockCard
+        <FetchingWrappedResourceCard
           sdk={sdk}
           link={link}
           isDisabled={isDisabled}

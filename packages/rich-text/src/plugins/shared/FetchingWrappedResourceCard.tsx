@@ -49,7 +49,7 @@ const InternalEntryCard = React.memo((props: InternalEntryCard) => {
 
 InternalEntryCard.displayName = 'ReferenceCard';
 
-interface FetchingWrappedResourceBlockCardProps {
+interface FetchingWrappedResourceCardProps {
   link: ResourceLink['sys'];
   isDisabled: boolean;
   isSelected: boolean;
@@ -59,7 +59,7 @@ interface FetchingWrappedResourceBlockCardProps {
   onRemove?: VoidFunction;
 }
 
-export const FetchingWrappedResourceBlockCard = (props: FetchingWrappedResourceBlockCardProps) => {
+export const FetchingWrappedResourceCard = (props: FetchingWrappedResourceCardProps) => {
   const { link, onEntityFetchComplete } = props;
   const { data, status, error } = useResource(link.linkType, link.urn);
 
