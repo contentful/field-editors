@@ -19,7 +19,7 @@ const styles = {
     color: tokens.gray600,
     fontSize: tokens.fontSizeS,
     fontWeight: tokens.fontWeightMedium,
-    maxWidth: '80px',
+    maxWidth: '160px',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
