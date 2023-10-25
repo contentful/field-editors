@@ -52,8 +52,7 @@ describe('Field', () => {
         name="field"
         sdk={sdk}
         getEntryURL={getEntryURL}
-        renderHeading={() => <div data-test-id="custom-label">custom label</div>}
-      >
+        renderHeading={() => <div data-test-id="custom-label">custom label</div>}>
         <div>children</div>
       </FieldWrapper>
     );
@@ -66,8 +65,7 @@ describe('Field', () => {
         name="field"
         sdk={sdk}
         getEntryURL={getEntryURL}
-        renderHelpText={() => <div data-test-id="custom-hint">custom hint</div>}
-      >
+        renderHelpText={() => <div data-test-id="custom-hint">custom hint</div>}>
         <div>children</div>
       </FieldWrapper>
     );

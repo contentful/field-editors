@@ -11,5 +11,6 @@ module.exports = {
   moduleNameMapper: {
     '^.+\\.css$': '<rootDir>/src/__mocks__/styles.ts',
     'react-markdown': '<rootDir>/../../node_modules/react-markdown/react-markdown.min.js',
+    '^(\\.\\.?\\/.+)\\.js$': '$1',
   },
 };

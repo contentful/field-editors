@@ -58,8 +58,7 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = function (props: FieldW
       data-test-id="entity-field-controls"
       className={cx(showFocusBar && styles.withFocusBar, className)}
       aria-invalid={hasErrors}
-      isRequired={field.required}
-    >
+      isRequired={field.required}>
       {renderHeading ? (
         renderHeading(name)
       ) : (
