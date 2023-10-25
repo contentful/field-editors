@@ -7866,10 +7866,10 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-codemirror@1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@types/react-codemirror/-/react-codemirror-1.0.3.tgz#5b0e4d5529a6bc934e992c49f3d1fa77daacc59b"
-  integrity sha512-EAyys2Wpys7bJatgnfpXXs4Gi1Vktj23mNngG4Ex2Q0W6eVgfkP4GP7qHyDVU2wbW3T0K7Jqatf2dCob25ptMw==
+"@types/react-codemirror@1.0.10":
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/@types/react-codemirror/-/react-codemirror-1.0.10.tgz#980fe0d560a00874edef45e36ab8b1de35ee6df9"
+  integrity sha512-0QfiTtSnGHuiyfd3NBPOqJGaeBIntl975In/Iv5FLwvVpcheEFBb/QZSPvR0MGb2TFJYuHa5tJrRfrBKxk+dGg==
   dependencies:
     "@types/codemirror" "*"
     "@types/react" "*"
