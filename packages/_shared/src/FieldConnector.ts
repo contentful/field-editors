@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import { FieldAPI, ValidationError } from '@contentful/app-sdk';
-import { debounce } from 'lodash-es';
-import { isEqual } from 'lodash-es';
+import debounce from 'lodash/debounce';
+import isEqual from 'lodash/isEqual';
 
 type Nullable = null | undefined;
 

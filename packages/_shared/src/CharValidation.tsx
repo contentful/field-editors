@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { ValidationType } from './types.js';
+import { ValidationType } from './types';
 
 interface CharValidationProps {
   constraints: ValidationType;

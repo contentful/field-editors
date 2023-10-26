@@ -1,4 +1,4 @@
-import { File } from '../typesEntity.js';
+import { File } from '../typesEntity';
 
 /**
  * Checks whether the passed content type matches one of our valid MIME types

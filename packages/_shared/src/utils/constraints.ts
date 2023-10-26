@@ -5,9 +5,9 @@
  * values against that constraint.
  */
 
-import isNumber from 'lodash-es/isNumber.js';
+import isNumber from 'lodash/isNumber';
 
-import { ValidationType } from '../types.js';
+import { ValidationType } from '../types';
 
 export function fromFieldValidations(
   validations: Record<string, any>[] = [],

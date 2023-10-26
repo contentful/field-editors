@@ -1,4 +1,4 @@
-import { createFakeFieldAPI } from './createFakeFieldAPI.js';
+import { createFakeFieldAPI } from './createFakeFieldAPI';
 
 describe('createFakeFieldAPI', () => {
   it('exposes all methods', () => {

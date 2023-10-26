@@ -12,7 +12,6 @@ export function createFakeFieldAPI<T>(
   customizeMock: CustomizeMockFn = identity,
   initialValue?: T
 ): [FieldAPI, Emitter] {
-  // @ts-expect-error -- TODO: describe this error
   const emitter: Emitter = mitt();
 
   // eslint-disable-next-line -- TODO: describe this disable
