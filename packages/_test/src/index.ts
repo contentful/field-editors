@@ -1,6 +1,6 @@
-export { createFakeCMAAdapter } from './createFakeCMAAdapter';
-export { createFakeFieldAPI } from './createFakeFieldAPI';
-export { createFakeLocalesAPI } from './createFakeLocalesAPI';
-export { createFakeSpaceAPI } from './createFakeSpaceAPI';
-export { createFakeNavigatorAPI } from './createFakeNavigatorAPI';
-export { ActionsPlayground } from './ActionsPlayground';
+export { createFakeCMAAdapter } from './createFakeCMAAdapter.js';
+export { createFakeFieldAPI } from './createFakeFieldAPI.js';
+export { createFakeLocalesAPI } from './createFakeLocalesAPI.js';
+export { createFakeSpaceAPI } from './createFakeSpaceAPI.js';
+export { createFakeNavigatorAPI } from './createFakeNavigatorAPI.js';
+export { ActionsPlayground } from './ActionsPlayground.js';

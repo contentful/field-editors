@@ -5,9 +5,12 @@ function getConfig(packageName) {
     testEnvironment: 'jsdom',
     modulePathIgnorePatterns: ['<rootDir>/dist/'],
     testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
-    // for esm imports with .js extensions
+    extensionsToTreatAsEsm: ['.ts', '.tsx'],
     moduleNameMapper: {
       '^(\\.\\.?\\/.+)\\.js$': '$1',
+    },
+    transform: {
+      '^.+\\.tsx?$': ['@swc/jest'],
     },
     reporters: [
       'default',
@@ -20,10 +23,6 @@ function getConfig(packageName) {
         },
       ],
     ],
-    transform: {
-      '^.+\\.(t|j)sx?$': '@swc/jest',
-    },
-    transformIgnorePatterns: [`/node_modules/(?!nanoid)`],
   };
 }
 
