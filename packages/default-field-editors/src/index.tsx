@@ -1,4 +1,4 @@
-export { Field } from './Field';
-export { FieldWrapper } from './FieldWrapper';
-export type { WidgetType, EditorOptions } from './types';
-export { getDefaultWidgetId } from './getDefaultWidgetId';
+export { Field } from './Field.js';
+export { FieldWrapper } from './FieldWrapper.js';
+export type { WidgetType, EditorOptions } from './types.js';
+export { getDefaultWidgetId } from './getDefaultWidgetId.js';

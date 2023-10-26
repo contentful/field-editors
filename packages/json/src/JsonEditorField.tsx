@@ -4,10 +4,10 @@ import { json } from '@codemirror/lang-json';
 import { indentUnit } from '@codemirror/language';
 import { EditorView } from '@codemirror/view';
 import tokens from '@contentful/f36-tokens';
-import CodeMirror from '@uiw/react-codemirror';
+import CodeMirror from '@uiw/react-codemirror/esm/index.js';
 import { css, cx } from 'emotion';
 
-import { SPACE_INDENT_COUNT } from './utils';
+import { SPACE_INDENT_COUNT } from './utils.js';
 
 type JsonEditorFieldProps = {
   isDisabled: boolean;
@@ -58,8 +58,8 @@ export function JsonEditorField(props: JsonEditorFieldProps) {
   return (
     <div
       className={cx(styles.root, { disabled: props.isDisabled })}
-      data-test-id="json-editor-code-mirror"
-    >
+      data-test-id="json-editor-code-mirror">
+      {/* @ts-expect-error */}
       <CodeMirror
         value={props.value}
         onChange={props.onChange}
