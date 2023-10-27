@@ -1,1 +1,1 @@
-export { RatingEditor } from './RatingEditor';
+export { RatingEditor } from './RatingEditor.js';
