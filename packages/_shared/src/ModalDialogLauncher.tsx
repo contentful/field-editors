@@ -3,10 +3,8 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 
-import AppSDK from '@contentful/app-sdk';
-//@ts-expect-error
-const { OpenCustomWidgetOptions } = AppSDK;
-import { Modal, ModalHeader } from '@contentful/f36-components';
+import { OpenCustomWidgetOptions } from '@contentful/app-sdk';
+import { Modal, ModalHeader } from '@contentful/f36-modal';
 import isNumber from 'lodash-es/isNumber.js';
 
 export function open(componentRenderer: (params: { onClose: Function; isShown: boolean }) => any) {
@@ -61,7 +59,8 @@ export function openDialog<T>(
         position={options.position || 'center'}
         isShown={isShown}
         onClose={onCloseHandler}
-        size={size || '700px'}>
+        size={size || '700px'}
+      >
         {() => (
           <>
             {options.title && (

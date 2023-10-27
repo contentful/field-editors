@@ -1,44 +1,4 @@
-import AppSDK from '@contentful/app-sdk';
-const {
-  //@ts-expect-error
-  AccessAPI,
-  //@ts-expect-error
-  AppConfigAPI,
-  //@ts-expect-error
-  BaseAppSDK,
-  //@ts-expect-error
-  ContentType,
-  //@ts-expect-error
-  DialogsAPI,
-  //@ts-expect-error
-  EntryAPI,
-  //@ts-expect-error
-  EntryFieldAPI,
-  //@ts-expect-error
-  FieldAPI,
-  //@ts-expect-error
-  FieldAppSDK,
-  //@ts-expect-error
-  IdsAPI,
-  //@ts-expect-error
-  LocalesAPI,
-  //@ts-expect-error
-  LocationAPI,
-  //@ts-expect-error
-  NavigatorAPI,
-  //@ts-expect-error
-  NotifierAPI,
-  //@ts-expect-error
-  OpenCustomWidgetOptions,
-  //@ts-expect-error
-  ParametersAPI,
-  //@ts-expect-error
-  SpaceAPI,
-  //@ts-expect-error
-  WindowAPI,
-} = AppSDK;
-
-export {
+export type {
   AccessAPI,
   AppConfigAPI,
   BaseAppSDK,
@@ -57,14 +17,14 @@ export {
   ParametersAPI,
   SpaceAPI,
   WindowAPI,
-};
+} from '@contentful/app-sdk';
 
 export { CharCounter } from './CharCounter.js';
 export { CharValidation } from './CharValidation.js';
 export { FieldConnector } from './FieldConnector.js';
 export type { FieldConnectorChildProps } from './FieldConnector.js';
 export { PredefinedValuesError } from './PredefinedValuesError.js';
-export { Asset, Entry, File } from './typesEntity.js';
+export type { Asset, Entry, File } from './typesEntity.js';
 export { isValidImage } from './utils/isValidImage.js';
 export { shortenStorageUnit, toLocaleString } from './utils/shortenStorageUnit.js';
 export { ModalDialogLauncher };
