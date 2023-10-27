@@ -1,6 +1,6 @@
 import { ContentType, SearchQuery, SpaceAPI, Entry } from '@contentful/app-sdk';
 
-import { createEntry } from './fakesFactory';
+import { createEntry } from './fakesFactory.js';
 
 function identity<T>(item: T): T {
   return item;
