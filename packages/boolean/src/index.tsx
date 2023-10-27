@@ -1,1 +1,1 @@
-export { BooleanEditor } from './BooleanEditor';
+export { BooleanEditor } from './BooleanEditor.js';

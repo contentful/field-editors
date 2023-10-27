@@ -4,7 +4,7 @@ import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 import '@testing-library/jest-dom/extend-expect';
 import { cleanup, configure, fireEvent, render } from '@testing-library/react';
 
-import { BooleanEditor } from './BooleanEditor';
+import { BooleanEditor } from './BooleanEditor.js';
 
 configure({
   testIdAttribute: 'data-test-id',
