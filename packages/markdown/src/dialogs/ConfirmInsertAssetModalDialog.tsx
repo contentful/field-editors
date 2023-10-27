@@ -9,7 +9,7 @@ import {
   Paragraph,
 } from '@contentful/f36-components';
 
-import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
+import { MarkdownDialogType, MarkdownDialogsParams } from '../types.js';
 
 interface ConfirmInsertAssetModalDialogProps {
   onClose: (result: boolean) => void;

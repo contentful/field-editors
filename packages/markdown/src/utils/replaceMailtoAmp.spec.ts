@@ -1,4 +1,4 @@
-import { replaceMailtoAmp } from './replaceMailtoAmp';
+import { replaceMailtoAmp } from './replaceMailtoAmp.js';
 
 describe('replace inside mailto', () => {
   let str =

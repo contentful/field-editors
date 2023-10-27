@@ -18,10 +18,10 @@ import {
 import tokens from '@contentful/f36-tokens';
 import { css, cx } from 'emotion';
 
-import { MarkdownActions } from '../types';
-import { HeadingSelector } from './HeadingSelector';
-import * as Icons from './icons';
-import { InsertLinkSelector } from './InsertLinkSelector';
+import { MarkdownActions } from '../types.js';
+import { HeadingSelector } from './HeadingSelector.js';
+import * as Icons from './icons.js';
+import { InsertLinkSelector } from './InsertLinkSelector.js';
 
 const styles = {
   root: css({

@@ -9,9 +9,9 @@ import {
   FormControl,
   TextInput,
 } from '@contentful/f36-components';
-import inRange from 'lodash/inRange';
+import inRange from 'lodash-es/inRange.js';
 
-import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
+import { MarkdownDialogType, MarkdownDialogsParams } from '../types.js';
 
 type InsertTableModalPositiveResult = { cols: number; rows: number };
 export type InsertTableModalResult = InsertTableModalPositiveResult | false | undefined;
@@ -88,7 +88,8 @@ export const InsertTableModal = ({ onClose }: InsertTableModalProps) => {
           testId="insert-table-cancel"
           onClick={() => onClose(false)}
           variant="secondary"
-          size="small">
+          size="small"
+        >
           Cancel
         </Button>
         <Button
@@ -96,7 +97,8 @@ export const InsertTableModal = ({ onClose }: InsertTableModalProps) => {
           onClick={() => onClose({ rows, cols })}
           variant="positive"
           size="small"
-          isDisabled={!rowsAreValid || !colsAreValid}>
+          isDisabled={!rowsAreValid || !colsAreValid}
+        >
           Insert
         </Button>
       </ModalControls>

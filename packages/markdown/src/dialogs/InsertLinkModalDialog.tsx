@@ -10,8 +10,8 @@ import {
   TextInput,
 } from '@contentful/f36-components';
 
-import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
-import { isValidUrl } from '../utils/isValidUrl';
+import { MarkdownDialogType, MarkdownDialogsParams } from '../types.js';
+import { isValidUrl } from '../utils/isValidUrl.js';
 
 type InsertLinkModalPositiveResult = { url: string; text: string; title: string };
 export type InsertLinkModalResult = InsertLinkModalPositiveResult | false | undefined;
@@ -94,7 +94,8 @@ export const InsertLinkModal = ({ selectedText, onClose }: InsertLinkModalProps)
           testId="insert-link-cancel"
           onClick={() => onClose(false)}
           variant="secondary"
-          size="small">
+          size="small"
+        >
           Cancel
         </Button>
         <Button
@@ -104,7 +105,8 @@ export const InsertLinkModal = ({ selectedText, onClose }: InsertLinkModalProps)
           }}
           isDisabled={!urlIsValid}
           variant="positive"
-          size="small">
+          size="small"
+        >
           Insert
         </Button>
       </ModalControls>

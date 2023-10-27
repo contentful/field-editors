@@ -3,17 +3,17 @@ import * as React from 'react';
 import { DialogAppSDK, FieldAppSDK, OpenCustomWidgetOptions } from '@contentful/app-sdk';
 import { ModalDialogLauncher } from '@contentful/field-editor-shared';
 
-import { MarkdownDialogType, MarkdownDialogsParams, PreviewComponents } from '../types';
-import { CheatsheetModalDialog } from './CheatsheetModalDialog';
-import { ConfirmInsertAssetModalDialog } from './ConfirmInsertAssetModalDialog';
+import { MarkdownDialogType, MarkdownDialogsParams, PreviewComponents } from '../types.js';
+import { CheatsheetModalDialog } from './CheatsheetModalDialog.js';
+import { ConfirmInsertAssetModalDialog } from './ConfirmInsertAssetModalDialog.js';
 import {
   EmbedExternalContentModal,
   EmbedExternalContentModalResult,
-} from './EmdebExternalContentDialog';
-import { InsertLinkModal, InsertLinkModalResult } from './InsertLinkModalDialog';
-import { InsertTableModal, InsertTableModalResult } from './InsertTableModalDialog';
-import { SpecialCharacterModalDialog } from './SpecialCharacterModalDialog';
-import { ZenModeModalDialog, ZenModeResult } from './ZenModeModalDialog';
+} from './EmdebExternalContentDialog.js';
+import { InsertLinkModal, InsertLinkModalResult } from './InsertLinkModalDialog.js';
+import { InsertTableModal, InsertTableModalResult } from './InsertTableModalDialog.js';
+import { SpecialCharacterModalDialog } from './SpecialCharacterModalDialog.js';
+import { ZenModeModalDialog, ZenModeResult } from './ZenModeModalDialog.js';
 
 export const openMarkdownDialog =
   (sdk: FieldAppSDK, previewComponents?: PreviewComponents) =>

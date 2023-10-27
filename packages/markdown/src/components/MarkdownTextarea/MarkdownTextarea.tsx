@@ -3,8 +3,8 @@ import React, { useRef, useEffect, useState } from 'react';
 import tokens from '@contentful/f36-tokens';
 import { css, cx } from 'emotion';
 
-import { EditorDirection } from '../../types';
-import { createMarkdownEditor } from './createMarkdownEditor';
+import { EditorDirection } from '../../types.js';
+import { createMarkdownEditor } from './createMarkdownEditor.js';
 
 export type InitializedEditorType = ReturnType<typeof createMarkdownEditor>;
 

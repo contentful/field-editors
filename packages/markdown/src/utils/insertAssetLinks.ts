@@ -1,5 +1,5 @@
-import get from 'lodash/get';
-import isObject from 'lodash/isObject';
+import get from 'lodash-es/get.js';
+import isObject from 'lodash-es/isObject.js';
 
 // eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
 type Asset = any;

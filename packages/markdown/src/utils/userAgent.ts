@@ -1,4 +1,4 @@
-import get from 'lodash/get';
+import get from 'lodash-es/get.js';
 
 const userAgent = get(window, 'navigator.userAgent', '');
 const platform = get(window, 'navigator.platform', '');

@@ -3,7 +3,7 @@ import * as React from 'react';
 import tokens from '@contentful/f36-tokens';
 import { css, cx } from 'emotion';
 
-import { MarkdownTab } from '../types';
+import { MarkdownTab } from '../types.js';
 
 const styles = {
   root: css({

@@ -12,8 +12,8 @@ import {
 import tokens from '@contentful/f36-tokens';
 import { css } from 'emotion';
 
-import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
-import { specialCharacters } from '../utils/specialCharacters';
+import { MarkdownDialogType, MarkdownDialogsParams } from '../types.js';
+import { specialCharacters } from '../utils/specialCharacters.js';
 
 const styles = {
   buttonPanel: css({
@@ -68,7 +68,8 @@ export const SpecialCharacterModalDialog = ({ onClose }: SpecialCharacterModalDi
                   isActive={char.code === selectedCharacter.code}
                   className={styles.charButton}
                   variant="transparent"
-                  onClick={() => setSelectedCharacter(char)}>
+                  onClick={() => setSelectedCharacter(char)}
+                >
                   {String.fromCharCode(char.code)}
                 </Button>
               </Tooltip>
@@ -82,7 +83,8 @@ export const SpecialCharacterModalDialog = ({ onClose }: SpecialCharacterModalDi
           className={styles.button}
           onClick={() => onClose(false)}
           variant="secondary"
-          size="small">
+          size="small"
+        >
           Cancel
         </Button>
         <Button
@@ -90,7 +92,8 @@ export const SpecialCharacterModalDialog = ({ onClose }: SpecialCharacterModalDi
           testId="insert-character-confirm"
           onClick={() => onClose(String.fromCharCode(selectedCharacter.code))}
           variant="positive"
-          size="small">
+          size="small"
+        >
           Insert selected
         </Button>
       </ModalControls>

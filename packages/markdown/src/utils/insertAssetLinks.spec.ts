@@ -1,4 +1,4 @@
-import { replaceAssetDomain } from './insertAssetLinks';
+import { replaceAssetDomain } from './insertAssetLinks.js';
 
 describe('replaceAssetDomain', () => {
   it('should replace contentful.com domains to ctfassets.net', () => {

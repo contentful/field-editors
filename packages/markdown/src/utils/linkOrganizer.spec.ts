@@ -1,4 +1,4 @@
-import * as LinkOrganizer from './linkOrganizer';
+import * as LinkOrganizer from './linkOrganizer.js';
 
 describe('Link organizer', () => {
   describe('Inline link finder', () => {
