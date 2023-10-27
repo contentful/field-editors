@@ -2,8 +2,7 @@ import React, { ChangeEvent } from 'react';
 
 import { Select } from '@contentful/f36-components';
 
-import { zoneOffsets, defaultZoneOffset } from './utils/zoneOffsets';
-
+import { zoneOffsets, defaultZoneOffset } from './utils/zoneOffsets.js';
 
 export type TimezonepickerProps = {
   disabled: boolean;
@@ -23,7 +22,8 @@ export const TimezonepickerInput = ({
       isDisabled={disabled}
       onChange={(e: ChangeEvent<HTMLSelectElement>) => {
         onChange(e.currentTarget.value);
-      }}>
+      }}
+    >
       {zoneOffsets.map((offset) => (
         <Select.Option key={offset} value={offset}>
           UTC{offset}
