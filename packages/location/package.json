@@ -1,17 +1,9 @@
 {
   "name": "@contentful/field-editor-location",
   "version": "1.3.5",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
+  "type": "module",
+  "main": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/types/index.d.ts",
-      "require": "./dist/cjs/index.js",
-      "default": "./dist/cjs/index.js"
-    },
-    "./package.json": "./package.json"
-  },
   "files": [
     "dist"
   ],
@@ -23,12 +15,10 @@
   },
   "scripts": {
     "watch": "yarn concurrently \"yarn:watch:*\"",
-    "watch:cjs": "yarn build:cjs -w",
     "watch:esm": "yarn build:esm -w",
     "watch:types": "yarn build:types --watch",
-    "build": "yarn build:types && yarn build:cjs && yarn build:esm",
+    "build": "yarn build:types && yarn build:esm",
     "build:types": "tsc --outDir dist/types --emitDeclarationOnly",
-    "build:cjs": "swc src --config-file ../../.swcrc -d dist/cjs -C module.type=commonjs",
     "build:esm": "swc src --config-file ../../.swcrc -d dist/esm",
     "tsc": "tsc -p ./ --noEmit"
   },
@@ -43,7 +33,8 @@
     "lodash": "^4.17.15"
   },
   "devDependencies": {
-    "@contentful/field-editor-test-utils": "^1.4.3"
+    "@contentful/field-editor-test-utils": "^1.4.3",
+    "@jest/globals": "29.7.0"
   },
   "peerDependencies": {
     "react": ">=16.8.0"

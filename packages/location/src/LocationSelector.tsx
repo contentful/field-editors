@@ -4,8 +4,8 @@ import { Flex, Radio, TextInput, TextLink } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
 import { css } from 'emotion';
 
-import { LocationSearchInput } from './LocationSearchInput';
-import { Coords, GeocodeApiResponse, ViewType } from './types';
+import { LocationSearchInput } from './LocationSearchInput.js';
+import { Coords, GeocodeApiResponse, ViewType } from './types.js';
 
 interface LocationSelectorProps {
   disabled: boolean;

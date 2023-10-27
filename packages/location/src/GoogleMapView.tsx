@@ -5,7 +5,7 @@ import * as React from 'react';
 import { css } from 'emotion';
 import GoogleMapReact from 'google-map-react';
 
-import { Coords } from './types';
+import { Coords } from './types.js';
 
 const styles = {
   root: css({
