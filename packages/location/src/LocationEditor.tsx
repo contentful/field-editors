@@ -2,18 +2,18 @@ import * as React from 'react';
 
 import { FieldAPI, FieldConnector, ParametersAPI } from '@contentful/field-editor-shared';
 import deepEqual from 'deep-equal';
-import isNumber from 'lodash/isNumber';
-import throttle from 'lodash/throttle';
+import isNumber from 'lodash-es/isNumber.js';
+import throttle from 'lodash-es/throttle.js';
 
-import { GoogleMapView } from './GoogleMapView';
-import { LocationSelector } from './LocationSelector';
+import { GoogleMapView } from './GoogleMapView.js';
+import { LocationSelector } from './LocationSelector.js';
 import {
   LocationValue,
   ViewType,
   NullableLocationValue,
   Coords,
   GeocodeApiResponse,
-} from './types';
+} from './types.js';
 
 export interface LocationEditorConnectedProps {
   /**

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { TextInput } from '@contentful/f36-components';
+import { TextInput } from '@contentful/f36-forms';
 import { ArrowUpTrimmedIcon, ArrowDownTrimmedIcon } from '@contentful/f36-icons';
 import {
   FieldAPI,
@@ -8,9 +8,9 @@ import {
   FieldConnectorChildProps,
 } from '@contentful/field-editor-shared';
 
-import { styles } from './NumberEditor.styles';
-import { isNumberInputValueValid, parseNumber } from './parseNumber';
-import { getRangeFromField, valueToString, countDecimals } from './utils';
+import { styles } from './NumberEditor.styles.js';
+import { isNumberInputValueValid, parseNumber } from './parseNumber.js';
+import { getRangeFromField, valueToString, countDecimals } from './utils.js';
 
 export interface NumberEditorProps {
   /**
@@ -155,14 +155,16 @@ function InnerNumberEditor({
             tabIndex={-1}
             className={styles.control}
             onClick={() => changeValueByStep(StepChangeType.Increment)}
-            onPointerDown={handleControlPointerDown}>
+            onPointerDown={handleControlPointerDown}
+          >
             <ArrowUpTrimmedIcon size="medium" />
           </button>
           <button
             tabIndex={-1}
             className={styles.control}
             onClick={() => changeValueByStep(StepChangeType.Decrement)}
-            onPointerDown={handleControlPointerDown}>
+            onPointerDown={handleControlPointerDown}
+          >
             <ArrowDownTrimmedIcon size="medium" />
           </button>
         </div>

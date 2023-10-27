@@ -5,20 +5,20 @@ import tokens from '@contentful/f36-tokens';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import { css } from 'emotion';
 
-import { MarkdownBottomBar, MarkdownHelp } from './components/MarkdownBottomBar';
-import { MarkdownConstraints } from './components/MarkdownConstraints';
-import MarkdownPreviewSkeleton from './components/MarkdownPreviewSkeleton';
-import { MarkdownTabs } from './components/MarkdownTabs';
+import { MarkdownBottomBar, MarkdownHelp } from './components/MarkdownBottomBar.js';
+import { MarkdownConstraints } from './components/MarkdownConstraints.js';
+import MarkdownPreviewSkeleton from './components/MarkdownPreviewSkeleton.js';
+import { MarkdownTabs } from './components/MarkdownTabs.js';
 import {
   InitializedEditorType,
   MarkdownTextarea,
-} from './components/MarkdownTextarea/MarkdownTextarea';
-import { MarkdownToolbar } from './components/MarkdownToolbar';
-import { openCheatsheetModal } from './dialogs/CheatsheetModalDialog';
-import { createMarkdownActions } from './MarkdownActions';
-import { MarkdownTab, PreviewComponents } from './types';
+} from './components/MarkdownTextarea/MarkdownTextarea.js';
+import { MarkdownToolbar } from './components/MarkdownToolbar.js';
+import { openCheatsheetModal } from './dialogs/CheatsheetModalDialog.js';
+import { createMarkdownActions } from './MarkdownActions.js';
+import { MarkdownTab, PreviewComponents } from './types.js';
 
-const MarkdownPreview = React.lazy(() => import('./components/MarkdownPreview'));
+const MarkdownPreview = React.lazy(() => import('./components/MarkdownPreview.js'));
 
 const styles = {
   container: css({

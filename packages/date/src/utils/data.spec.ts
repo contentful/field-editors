@@ -1,6 +1,6 @@
 // eslint-disable-next-line -- TODO: move to date-fns
 import moment from 'moment';
-import { buildFieldValue } from './date';
+import { buildFieldValue } from './date.js';
 
 describe('date utils', () => {
   describe('buildFieldValue', () => {

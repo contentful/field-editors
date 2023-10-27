@@ -1,14 +1,14 @@
 import { KnownSDK } from '@contentful/app-sdk';
 
-import { InitializedEditorType } from './components/MarkdownTextarea/MarkdownTextarea';
-import { openConfirmInsertAsset } from './dialogs/ConfirmInsertAssetModalDialog';
-import { openEmbedExternalContentDialog } from './dialogs/EmdebExternalContentDialog';
-import { openInsertLinkDialog } from './dialogs/InsertLinkModalDialog';
-import { openInsertTableDialog } from './dialogs/InsertTableModalDialog';
-import { openInsertSpecialCharacter } from './dialogs/SpecialCharacterModalDialog';
-import { openZenMode } from './dialogs/ZenModeModalDialog';
-import { insertAssetLinks } from './utils/insertAssetLinks';
-import * as LinkOrganizer from './utils/linkOrganizer';
+import { InitializedEditorType } from './components/MarkdownTextarea/MarkdownTextarea.js';
+import { openConfirmInsertAsset } from './dialogs/ConfirmInsertAssetModalDialog.js';
+import { openEmbedExternalContentDialog } from './dialogs/EmdebExternalContentDialog.js';
+import { openInsertLinkDialog } from './dialogs/InsertLinkModalDialog.js';
+import { openInsertTableDialog } from './dialogs/InsertTableModalDialog.js';
+import { openInsertSpecialCharacter } from './dialogs/SpecialCharacterModalDialog.js';
+import { openZenMode } from './dialogs/ZenModeModalDialog.js';
+import { insertAssetLinks } from './utils/insertAssetLinks.js';
+import * as LinkOrganizer from './utils/linkOrganizer.js';
 
 export function createMarkdownActions(props: {
   sdk: KnownSDK;

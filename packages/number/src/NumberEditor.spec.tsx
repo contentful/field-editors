@@ -1,11 +1,13 @@
 import * as React from 'react';
 
 import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
+import { jest } from '@jest/globals';
 import '@testing-library/jest-dom/extend-expect';
 import { cleanup, configure, render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { clear as userEventClear } from '@testing-library/user-event/dist/clear.js';
+import { type as userEventType } from '@testing-library/user-event/dist/type/index.js';
 
-import { NumberEditor } from './NumberEditor';
+import { NumberEditor } from './NumberEditor.js';
 
 configure({
   testIdAttribute: 'data-test-id',
@@ -46,7 +48,7 @@ describe('NumberEditor', () => {
     render(<NumberEditor field={field} isInitiallyDisabled={false} />);
     const $input = screen.getByTestId('number-editor-input');
 
-    userEvent.type($input, '22');
+    userEventType($input, '22');
     await waitFor(() => {
       expect(field.setValue).toHaveBeenCalledWith(22);
     });
@@ -57,7 +59,7 @@ describe('NumberEditor', () => {
     render(<NumberEditor field={field} isInitiallyDisabled={false} />);
     const $input = screen.getByTestId('number-editor-input');
 
-    userEvent.type($input, '0');
+    userEventType($input, '0');
     await waitFor(() => {
       expect(field.setValue).toHaveBeenCalledWith(0);
     });
@@ -71,23 +73,23 @@ describe('NumberEditor', () => {
     // Testing that `4`, `44`, and `44.2` gets set as valid values while the
     // invalid state `44.` does not get set.
 
-    userEvent.type($input, '4');
+    userEventType($input, '4');
     await waitFor(() => {
       expect(field.setValue).toHaveBeenCalledWith(4);
     });
 
-    userEvent.type($input, '4');
+    userEventType($input, '4');
     await waitFor(() => {
       expect(field.setValue).toHaveBeenCalledWith(44);
     });
 
-    userEvent.type($input, '.');
+    userEventType($input, '.');
     await waitFor(() => {
       // `44.` does not get set
       expect(field.setValue).toHaveBeenLastCalledWith(44);
     });
 
-    userEvent.type($input, '2');
+    userEventType($input, '2');
     await waitFor(() => {
       expect(field.setValue).toHaveBeenCalledWith(44.2);
     });
@@ -100,7 +102,7 @@ describe('NumberEditor', () => {
     render(<NumberEditor field={field} isInitiallyDisabled={false} />);
     const $input = screen.getByTestId('number-editor-input');
 
-    userEvent.type($input, 'invalid');
+    userEventType($input, 'invalid');
     expect(field.setValue).not.toHaveBeenCalled();
   });
 
@@ -111,7 +113,7 @@ describe('NumberEditor', () => {
 
     expect($input).toHaveValue('42');
 
-    userEvent.clear($input);
+    userEventClear($input);
     await waitFor(() => {
       expect($input).toHaveValue('');
       expect(field.setValue).not.toHaveBeenCalled();

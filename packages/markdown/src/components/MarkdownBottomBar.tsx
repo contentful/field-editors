@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Paragraph, Stack, TextLink } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
 import { css } from 'emotion';
-import { MarkdownTab } from 'types';
+import { MarkdownTab } from 'types.js';
 
 const SANITIZE_LINK = 'https://en.wikipedia.org/wiki/HTML_sanitization';
 

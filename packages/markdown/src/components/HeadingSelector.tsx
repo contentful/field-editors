@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Menu } from '@contentful/f36-components';
 
-import { HeadingType } from '../types';
+import { HeadingType } from '../types.js';
 
 export const HeadingSelector = (props: {
   children: React.ReactElement;

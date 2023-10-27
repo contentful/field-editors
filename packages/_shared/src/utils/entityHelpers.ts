@@ -1,8 +1,8 @@
-import get from 'lodash/get';
-import isObject from 'lodash/isObject';
-import isString from 'lodash/isString';
+import get from 'lodash-es/get.js';
+import isObject from 'lodash-es/isObject.js';
+import isString from 'lodash-es/isString.js';
 
-import { Asset, ContentType, ContentTypeField, Entry, File } from '../typesEntity';
+import { Asset, ContentType, ContentTypeField, Entry, File } from '../typesEntity.js';
 
 function titleOrDefault(title: string | undefined, defaultTitle: string): string {
   if (!isString(title)) {

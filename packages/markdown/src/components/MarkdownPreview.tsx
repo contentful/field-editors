@@ -7,8 +7,8 @@ import rehypeRaw from 'rehype-raw';
 import rehypeSanitize from 'rehype-sanitize';
 import remarkGfm from 'remark-gfm';
 
-import { EditorDirection, PreviewComponents } from '../types';
-import { replaceMailtoAmp } from '../utils/replaceMailtoAmp';
+import { EditorDirection, PreviewComponents } from '../types.js';
+import { replaceMailtoAmp } from '../utils/replaceMailtoAmp.js';
 
 const styles = {
   root: css`

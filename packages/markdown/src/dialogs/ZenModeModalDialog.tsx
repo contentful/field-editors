@@ -6,18 +6,18 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { css, cx } from 'emotion';
 
-import { MarkdownBottomBar, MarkdownHelp } from '../components/MarkdownBottomBar';
-import MarkdownPreviewSkeleton from '../components/MarkdownPreviewSkeleton';
+import { MarkdownBottomBar, MarkdownHelp } from '../components/MarkdownBottomBar.js';
+import MarkdownPreviewSkeleton from '../components/MarkdownPreviewSkeleton.js';
 import {
   InitializedEditorType,
   MarkdownTextarea,
-} from '../components/MarkdownTextarea/MarkdownTextarea';
-import { MarkdownToolbar } from '../components/MarkdownToolbar';
-import { openCheatsheetModal } from '../dialogs/CheatsheetModalDialog';
-import { createMarkdownActions } from '../MarkdownActions';
-import { MarkdownDialogsParams, MarkdownDialogType, PreviewComponents } from '../types';
+} from '../components/MarkdownTextarea/MarkdownTextarea.js';
+import { MarkdownToolbar } from '../components/MarkdownToolbar.js';
+import { openCheatsheetModal } from '../dialogs/CheatsheetModalDialog.js';
+import { createMarkdownActions } from '../MarkdownActions.js';
+import { MarkdownDialogsParams, MarkdownDialogType, PreviewComponents } from '../types.js';
 
-const MarkdownPreview = React.lazy(() => import('../components/MarkdownPreview'));
+const MarkdownPreview = React.lazy(() => import('../components/MarkdownPreview.js'));
 
 export type ZenModeResult = {
   value: string;

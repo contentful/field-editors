@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-use-before-define, @typescript-eslint/no-explicit-any */
 
-import extend from 'lodash/extend';
-import isObject from 'lodash/isObject';
-import isString from 'lodash/isString';
-import max from 'lodash/max';
+import extend from 'lodash-es/extend.js';
+import isObject from 'lodash-es/isObject.js';
+import isString from 'lodash-es/isString.js';
+import max from 'lodash-es/max.js';
 // eslint-disable-next-line -- TODO: describe this disable
-import isFinite from 'lodash/isFinite';
+import isFinite from 'lodash-es/isFinite.js';
 // eslint-disable-next-line -- TODO: describe this disable
-import forEach from 'lodash/forEach';
+import forEach from 'lodash-es/forEach.js';
 
 function extractTitle(title: string) {
   title = title || '';

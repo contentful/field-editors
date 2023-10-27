@@ -8,7 +8,7 @@ import {
 import { CollectionProp, GetSpaceParams, LocaleProps } from 'contentful-management';
 import { Emitter } from 'mitt';
 
-import { assets, contentTypes, entries, locales as localesFixtures, spaces } from './fixtures';
+import { assets, contentTypes, entries, locales as localesFixtures, spaces } from './fixtures.js';
 
 const newLink = (linkType: string, id: string): Link => ({
   sys: {

@@ -1,7 +1,6 @@
 import * as React from 'react';
 
-
-import { IconButton } from '@contentful/f36-components';
+import { IconButton } from '@contentful/f36-button';
 import { StarIcon } from '@contentful/f36-icons';
 import { css } from 'emotion';
 

@@ -4,7 +4,7 @@ import { Button, Card, Spinner, TextInput, ValidationMessage } from '@contentful
 import tokens from '@contentful/f36-tokens';
 import { css } from 'emotion';
 
-import { Coords, GeocodeApiResponse } from './types';
+import { Coords, GeocodeApiResponse } from './types.js';
 
 const styles = {
   root: css({

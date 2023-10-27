@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
-import max from 'lodash/max';
-import min from 'lodash/min';
-import range from 'lodash/range';
-import times from 'lodash/times';
+import max from 'lodash-es/max.js';
+import min from 'lodash-es/min.js';
+import range from 'lodash-es/range.js';
+import times from 'lodash-es/times.js';
 // eslint-disable-next-line -- TODO: describe this disable  you-dont-need-lodash-underscore/repeat
-import repeat from 'lodash/repeat';
+import repeat from 'lodash-es/repeat.js';
 
-import * as CodeMirrorWrapper from './CodeMirrorWrapper';
+import * as CodeMirrorWrapper from './CodeMirrorWrapper.js';
 
 type EditorInstanceType = ReturnType<typeof CodeMirrorWrapper.create>;
 

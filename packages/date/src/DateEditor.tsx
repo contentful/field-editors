@@ -5,16 +5,16 @@ import tokens from '@contentful/f36-tokens';
 import { FieldAPI, FieldConnector, ParametersAPI } from '@contentful/field-editor-shared';
 import { css } from 'emotion';
 
-import { DatepickerInput } from './DatepickerInput';
-import { TimepickerInput } from './TimepickerInput';
-import { TimezonepickerInput } from './TimezonePickerInput';
-import { TimeFormat, DateTimeFormat, TimeResult } from './types';
+import { DatepickerInput } from './DatepickerInput.js';
+import { TimepickerInput } from './TimepickerInput.js';
+import { TimezonepickerInput } from './TimezonePickerInput.js';
+import { TimeFormat, DateTimeFormat, TimeResult } from './types.js';
 import {
   userInputFromDatetime,
   buildFieldValue,
   getDefaultAMPM,
   getDefaultUtcOffset,
-} from './utils/date';
+} from './utils/date.js';
 
 export interface DateEditorProps {
   /**

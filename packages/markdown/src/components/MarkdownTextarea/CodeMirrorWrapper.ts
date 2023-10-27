@@ -2,11 +2,11 @@
 
 import CodeMirror from 'codemirror';
 import 'codemirror/addon/edit/matchbrackets';
-import throttle from 'lodash/throttle';
-import transform from 'lodash/transform';
+import throttle from 'lodash-es/throttle.js';
+import transform from 'lodash-es/transform.js';
 
-import { EditorDirection } from '../../types';
-import * as userAgent from '../../utils/userAgent';
+import { EditorDirection } from '../../types.js';
+import * as userAgent from '../../utils/userAgent.js';
 
 function stripUnit(value: number | string): number {
   if (typeof value !== 'string') return value;
@@ -44,6 +44,7 @@ export function create(
     shift: 50,
   };
 
+  // @ts-expect-error
   const cm = CodeMirror(host, {
     direction,
     readOnly,

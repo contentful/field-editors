@@ -1,7 +1,7 @@
-import * as assets from './asset';
-import * as contentTypes from './content-type';
-import * as entries from './entry';
-import * as locales from './locale';
-import * as spaces from './space';
+import * as assets from './asset/index.js';
+import * as contentTypes from './content-type/index.js';
+import * as entries from './entry/index.js';
+import * as locales from './locale/index.js';
+import * as spaces from './space/index.js';
 
 export { assets, contentTypes, entries, locales, spaces };

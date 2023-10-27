@@ -1,10 +1,11 @@
 import * as React from 'react';
 
 import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
+import { jest } from '@jest/globals';
 import '@testing-library/jest-dom/extend-expect';
 import { cleanup, configure, fireEvent, render } from '@testing-library/react';
 
-import { DropdownEditor } from './DropdownEditor';
+import { DropdownEditor } from './DropdownEditor.js';
 
 configure({
   testIdAttribute: 'data-test-id',

@@ -1,10 +1,8 @@
-/* eslint-disable */
+import baseConfig from '../../baseESMJestConfig.js';
+import packageJSON from './package.json' assert { type: 'json' };
 
-const baseConfig = require('../../baseJestConfig');
+const packageName = packageJSON.name.split('@contentful/')[1];
 
-const package = require('./package.json');
-const packageName = package.name.split('@contentful/')[1];
-
-module.exports = {
+export default {
   ...baseConfig(packageName),
 };

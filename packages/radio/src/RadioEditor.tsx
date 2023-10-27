@@ -1,6 +1,8 @@
 import * as React from 'react';
 
-import { TextLink, Flex, Radio, Form } from '@contentful/f36-components';
+import { Flex } from '@contentful/f36-core';
+import { Radio, Form } from '@contentful/f36-forms';
+import { TextLink } from '@contentful/f36-text-link';
 import { getOptions, parseValue } from '@contentful/field-editor-dropdown';
 import {
   FieldAPI,
@@ -10,7 +12,7 @@ import {
 } from '@contentful/field-editor-shared';
 import { cx } from 'emotion';
 
-import * as styles from './styles';
+import * as styles from './styles.js';
 
 export interface RadioEditorProps {
   /**

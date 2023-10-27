@@ -4,8 +4,8 @@ import * as React from 'react';
 import ReactDOM from 'react-dom';
 
 import { OpenCustomWidgetOptions } from '@contentful/app-sdk';
-import { Modal, ModalHeader } from '@contentful/f36-components';
-import isNumber from 'lodash/isNumber';
+import { Modal, ModalHeader } from '@contentful/f36-modal';
+import isNumber from 'lodash-es/isNumber.js';
 
 export function open(componentRenderer: (params: { onClose: Function; isShown: boolean }) => any) {
   let rootDom: any = null;

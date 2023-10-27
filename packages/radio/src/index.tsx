@@ -1,1 +1,1 @@
-export { RadioEditor } from './RadioEditor';
+export { RadioEditor } from './RadioEditor.js';

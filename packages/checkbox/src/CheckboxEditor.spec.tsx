@@ -1,10 +1,11 @@
 import * as React from 'react';
 
 import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
+import { jest } from '@jest/globals';
 import '@testing-library/jest-dom/extend-expect';
 import { cleanup, configure, fireEvent, render } from '@testing-library/react';
 
-import { CheckboxEditor } from './CheckboxEditor';
+import { CheckboxEditor } from './CheckboxEditor.js';
 
 configure({
   testIdAttribute: 'data-test-id',

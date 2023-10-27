@@ -30,6 +30,18 @@ const config: StorybookConfig = {
   docs: {
     autodocs: false,
   },
+  webpackFinal: async (config) => {
+    const customConfig = { ...config };
+
+    if (!customConfig.resolve) {
+      customConfig.resolve = {};
+    }
+
+    customConfig.resolve.extensionAlias = {
+      '.js': ['.tsx', '.ts', '.js'],
+    };
+    return customConfig;
+  },
 };
 
 export default config;

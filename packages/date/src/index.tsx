@@ -1,2 +1,2 @@
-export { DateEditor } from './DateEditor';
-export { zoneOffsets } from './utils/zoneOffsets';
+export { DateEditor } from './DateEditor.js';
+export { zoneOffsets } from './utils/zoneOffsets.js';

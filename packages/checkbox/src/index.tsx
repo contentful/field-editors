@@ -1,1 +1,1 @@
-export { CheckboxEditor } from './CheckboxEditor';
+export { CheckboxEditor } from './CheckboxEditor.js';

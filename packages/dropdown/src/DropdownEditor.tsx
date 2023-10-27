@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Select } from '@contentful/f36-components';
+import { Select } from '@contentful/f36-forms';
 import {
   FieldAPI,
   FieldConnector,
@@ -8,8 +8,8 @@ import {
   LocalesAPI,
 } from '@contentful/field-editor-shared';
 
-import { getOptions, parseValue } from './dropdownUtils';
-import * as styles from './styles';
+import { getOptions, parseValue } from './dropdownUtils.js';
+import * as styles from './styles.js';
 
 export interface DropdownEditorProps {
   /**
