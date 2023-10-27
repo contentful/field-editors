@@ -1,4 +1,8 @@
-export { BaseAppSDK, ContentType, ContentTypeField, Link, Entry, Asset } from '@contentful/app-sdk';
+import AppSDK from '@contentful/app-sdk';
+//@ts-expect-error
+const { BaseAppSDK, ContentType, ContentTypeField, Link, Entry, Asset } = AppSDK;
+
+export { BaseAppSDK, ContentType, ContentTypeField, Link, Entry, Asset };
 
 export interface File {
   fileName: string;

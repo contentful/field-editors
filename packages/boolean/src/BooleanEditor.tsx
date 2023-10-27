@@ -41,8 +41,7 @@ export function BooleanEditor(props: BooleanEditorProps) {
     <FieldConnector<boolean>
       debounce={0}
       field={field}
-      isInitiallyDisabled={props.isInitiallyDisabled}
-    >
+      isInitiallyDisabled={props.isInitiallyDisabled}>
       {({ disabled, value, setValue }) => {
         const setOption = (value: string) => {
           setValue(value === 'true' ? true : false);
@@ -68,8 +67,7 @@ export function BooleanEditor(props: BooleanEditorProps) {
                       if (e.target.checked) {
                         setOption(e.target.value);
                       }
-                    }}
-                  >
+                    }}>
                     {item.label}
                   </Radio>
                 </Flex>
@@ -80,8 +78,7 @@ export function BooleanEditor(props: BooleanEditorProps) {
                 as="button"
                 testId="boolean-editor-clear"
                 isDisabled={disabled}
-                onClick={clearOption}
-              >
+                onClick={clearOption}>
                 Clear
               </TextLink>
             )}
