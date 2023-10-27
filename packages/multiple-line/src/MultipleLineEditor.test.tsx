@@ -1,10 +1,11 @@
 import * as React from 'react';
 
 import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
+import { jest } from '@jest/globals';
 import { cleanup, configure, fireEvent, render, waitFor } from '@testing-library/react';
 
 import '@testing-library/jest-dom/extend-expect';
-import { MultipleLineEditor } from './MultipleLineEditor';
+import { MultipleLineEditor } from './MultipleLineEditor.js';
 
 configure({
   testIdAttribute: 'data-test-id',

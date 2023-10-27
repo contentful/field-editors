@@ -1,1 +1,1 @@
-export { MultipleLineEditor } from './MultipleLineEditor';
+export { MultipleLineEditor } from './MultipleLineEditor.js';

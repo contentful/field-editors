@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Textarea } from '@contentful/f36-components';
+import { Textarea } from '@contentful/f36-forms';
 import {
   FieldAPI,
   LocalesAPI,
@@ -10,8 +10,7 @@ import {
   ConstraintsUtils,
 } from '@contentful/field-editor-shared';
 
-import * as styles from './styles';
-
+import * as styles from './styles.js';
 
 export interface MultipleLineEditorProps {
   /**
