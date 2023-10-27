@@ -1,1 +1,1 @@
-export { ListEditor } from './ListEditor';
+export { ListEditor } from './ListEditor.js';
