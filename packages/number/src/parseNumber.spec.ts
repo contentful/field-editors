@@ -1,4 +1,4 @@
-import { parseNumber, isNumberInputValueValid } from './parseNumber';
+import { parseNumber, isNumberInputValueValid } from './parseNumber.js';
 
 describe('parseNumber', () => {
   it('should parse values properly when type is Integer', () => {

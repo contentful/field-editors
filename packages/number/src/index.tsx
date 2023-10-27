@@ -1,1 +1,1 @@
-export { NumberEditor } from './NumberEditor';
+export { NumberEditor } from './NumberEditor.js';
