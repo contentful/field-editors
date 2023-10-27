@@ -1,2 +1,2 @@
-export { DropdownEditor } from './DropdownEditor';
-export { getOptions, parseValue } from './dropdownUtils';
+export { DropdownEditor } from './DropdownEditor.js';
+export { getOptions, parseValue } from './dropdownUtils.js';
