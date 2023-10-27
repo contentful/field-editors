@@ -1,15 +1,20 @@
 import * as React from 'react';
 
 import { SpaceAPI } from '@contentful/app-sdk';
-import { EntryCard, MenuItem, MenuDivider } from '@contentful/f36-components';
+import { EntryCard } from '@contentful/f36-card';
 import { ClockIcon } from '@contentful/f36-icons';
+import { MenuItem, MenuDivider } from '@contentful/f36-menu';
 import tokens from '@contentful/f36-tokens';
 import { entityHelpers, isValidImage } from '@contentful/field-editor-shared';
 import { css } from 'emotion';
 
-import { AssetThumbnail, MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
-import { SpaceName } from '../../components/SpaceName/SpaceName';
-import { ContentType, Entry, File, RenderDragFn } from '../../types';
+import {
+  AssetThumbnail,
+  MissingEntityCard,
+  ScheduledIconWithTooltip,
+} from '../../components/index.js';
+import { SpaceName } from '../../components/SpaceName/SpaceName.js';
+import { ContentType, Entry, File, RenderDragFn } from '../../types.js';
 
 const { getEntryTitle, getEntityDescription, getEntryStatus, getEntryImage } = entityHelpers;
 
@@ -122,8 +127,7 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
           <ScheduledIconWithTooltip
             getEntityScheduledActions={props.getEntityScheduledActions}
             entityType="Entry"
-            entityId={props.entry.sys.id}
-          >
+            entityId={props.entry.sys.id}>
             <ClockIcon
               className={styles.scheduleIcon}
               size="small"
@@ -145,8 +149,7 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
                   testId="edit"
                   onClick={() => {
                     props.onEdit && props.onEdit();
-                  }}
-                >
+                  }}>
                   Edit
                 </MenuItem>
               ) : null,
@@ -156,8 +159,7 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
                   testId="delete"
                   onClick={() => {
                     props.onRemove && props.onRemove();
-                  }}
-                >
+                  }}>
                   Remove
                 </MenuItem>
               ) : null,
@@ -168,8 +170,7 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
                 <MenuItem
                   key="move-top"
                   onClick={() => props.onMoveTop && props.onMoveTop()}
-                  testId="move-top"
-                >
+                  testId="move-top">
                   Move to top
                 </MenuItem>
               ) : null,
@@ -177,8 +178,7 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
                 <MenuItem
                   key="move-bottom"
                   onClick={() => props.onMoveBottom && props.onMoveBottom()}
-                  testId="move-bottom"
-                >
+                  testId="move-bottom">
                   Move to bottom
                 </MenuItem>
               ) : null,

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { SpaceAPI } from '@contentful/app-sdk';
-import { AssetCard } from '@contentful/f36-components';
+import { AssetCard } from '@contentful/f36-card';
 import { ClockIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { entityHelpers } from '@contentful/field-editor-shared';
@@ -9,9 +9,9 @@ import { entityHelpers } from '@contentful/field-editor-shared';
 import mimetype from '@contentful/mimetype';
 import { css } from 'emotion';
 
-import { MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
-import { Asset, File, RenderDragFn } from '../../types';
-import { renderActions, renderAssetInfo } from './AssetCardActions';
+import { MissingEntityCard, ScheduledIconWithTooltip } from '../../components/index.js';
+import { Asset, File, RenderDragFn } from '../../types.js';
+import { renderActions, renderAssetInfo } from './AssetCardActions.js';
 
 const groupToIconMap = {
   image: 'image',
@@ -111,8 +111,7 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
         <ScheduledIconWithTooltip
           getEntityScheduledActions={props.getEntityScheduledActions}
           entityType="Asset"
-          entityId={props.asset.sys.id}
-        >
+          entityId={props.asset.sys.id}>
           <ClockIcon
             className={styles.scheduleIcon}
             size="small"

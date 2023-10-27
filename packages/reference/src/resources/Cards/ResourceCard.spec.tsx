@@ -1,16 +1,16 @@
 import * as React from 'react';
 
 import '@testing-library/jest-dom';
-
 import { createFakeCMAAdapter } from '@contentful/field-editor-test-utils';
+import { jest } from '@jest/globals';
 import { configure, fireEvent, render, waitFor } from '@testing-library/react';
 
 import publishedCT from '../../__fixtures__/content-type/published_content_type.json';
 import publishedEntryNonMasterEnvironment from '../../__fixtures__/entry/published_entry_non_master.json';
 import publishedEntry from '../../__fixtures__/entry/published_entry.json';
 import space from '../../__fixtures__/space/indifferent_space.json';
-import { EntityProvider } from '../../common/EntityStore';
-import { ResourceCard } from './ResourceCard';
+import { EntityProvider } from '../../common/EntityStore.js';
+import { ResourceCard } from './ResourceCard.js';
 
 configure({
   testIdAttribute: 'data-test-id',

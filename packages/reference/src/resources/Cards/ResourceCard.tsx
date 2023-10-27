@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { useInView } from 'react-intersection-observer';
 
-import { EntryCard } from '@contentful/f36-components';
+import { EntryCard } from '@contentful/f36-card';
 import { SetRequired } from 'type-fest';
 
-import { useResource } from '../../common/EntityStore';
-import { ResourceEntityErrorCard } from '../../components';
-import { RenderDragFn, ResourceLink } from '../../types';
-import { CardActionsHandlers, ContentfulEntryCard, EntryRoute } from './ContentfulEntryCard';
+import { useResource } from '../../common/EntityStore.js';
+import { ResourceEntityErrorCard } from '../../components/index.js';
+import { RenderDragFn, ResourceLink } from '../../types.js';
+import { CardActionsHandlers, ContentfulEntryCard, EntryRoute } from './ContentfulEntryCard.js';
 
 type ResourceCardProps = {
   index?: number;
@@ -38,7 +38,6 @@ function ExistingResourceCard(
   }
 
   if (data) {
-    // @ts-expect-error
     return <ContentfulEntryCard info={data} {...props} />;
   }
 

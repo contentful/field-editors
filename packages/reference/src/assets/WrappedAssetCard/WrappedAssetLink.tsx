@@ -1,14 +1,18 @@
 import * as React from 'react';
 
-import { EntryCard } from '@contentful/f36-components';
+import { EntryCard } from '@contentful/f36-card';
 import { ClockIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { entityHelpers, isValidImage, SpaceAPI } from '@contentful/field-editor-shared';
 import { css } from 'emotion';
 
-import { AssetThumbnail, MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
-import { Asset, RenderDragFn } from '../../types';
-import { renderActions, renderAssetInfo } from './AssetCardActions';
+import {
+  AssetThumbnail,
+  MissingEntityCard,
+  ScheduledIconWithTooltip,
+} from '../../components/index.js';
+import { Asset, RenderDragFn } from '../../types.js';
+import { renderActions, renderAssetInfo } from './AssetCardActions.js';
 
 const styles = {
   scheduleIcon: css({
@@ -72,8 +76,7 @@ export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
         <ScheduledIconWithTooltip
           getEntityScheduledActions={props.getEntityScheduledActions}
           entityType="Asset"
-          entityId={props.asset.sys.id}
-        >
+          entityId={props.asset.sys.id}>
           <ClockIcon
             className={styles.scheduleIcon}
             size="small"

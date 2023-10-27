@@ -1,15 +1,15 @@
 import * as React from 'react';
 
-import { Button } from '@contentful/f36-components';
+import { Button } from '@contentful/f36-button';
+import { jest } from '@jest/globals';
 import '@testing-library/jest-dom/extend-expect';
 import { act, configure, fireEvent, render } from '@testing-library/react';
-import noop from 'lodash/noop';
-
+import noop from 'lodash-es/noop.js';
 // eslint-disable-next-line -- TODO: describe this disable  you-dont-need-lodash-underscore/fill
-import fill from 'lodash/fill';
+import fill from 'lodash-es/fill.js';
 
-import { ContentType } from '../../types';
-import { CreateEntryMenuTrigger, CreateEntryMenuTriggerChild } from './CreateEntryMenuTrigger';
+import { ContentType } from '../../types.js';
+import { CreateEntryMenuTrigger, CreateEntryMenuTriggerChild } from './CreateEntryMenuTrigger.js';
 
 configure({
   testIdAttribute: 'data-test-id',
@@ -83,8 +83,7 @@ describe('CreateEntryMenuTrigger general', () => {
     const { getByTestId } = render(
       <CreateEntryMenuTrigger
         {...props}
-        contentTypes={fill(Array(21), CONTENT_TYPE_3) as ContentType[]}
-      >
+        contentTypes={fill(Array(21), CONTENT_TYPE_3) as ContentType[]}>
         {stub}
       </CreateEntryMenuTrigger>
     );

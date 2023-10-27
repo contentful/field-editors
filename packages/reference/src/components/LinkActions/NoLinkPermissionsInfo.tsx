@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Paragraph } from '@contentful/f36-components';
+import { Paragraph } from '@contentful/f36-typography';
 
 export function NoLinkPermissionsInfo() {
   return (

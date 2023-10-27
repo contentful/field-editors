@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { isUnsupportedError } from '../../common/EntityStore';
-import { MissingEntityCard } from '../MissingEntityCard/MissingEntityCard';
-import { UnsupportedEntityCard } from './UnsupportedEntityCard';
+import { isUnsupportedError } from '../../common/EntityStore.js';
+import { MissingEntityCard } from '../MissingEntityCard/MissingEntityCard.js';
+import { UnsupportedEntityCard } from './UnsupportedEntityCard.js';
 
 export function ResourceEntityErrorCard(props: {
   linkType: string;

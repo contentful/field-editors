@@ -1,2 +1,2 @@
-export * from './MultipleResourceReferenceEditor';
-export * from './SingleResourceReferenceEditor';
+export * from './MultipleResourceReferenceEditor.js';
+export * from './SingleResourceReferenceEditor.js';

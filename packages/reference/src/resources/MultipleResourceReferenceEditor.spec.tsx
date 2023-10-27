@@ -4,9 +4,9 @@ import { FieldAppSDK } from '@contentful/app-sdk';
 import '@testing-library/jest-dom/extend-expect';
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import { useResource } from '../common/EntityStore';
-import { MultipleResourceReferenceEditor } from './MultipleResourceReferenceEditor';
-import { createFakeEntryResource, mockSdkForField } from './testHelpers/resourceEditorHelpers';
+import { useResource } from '../common/EntityStore.js';
+import { MultipleResourceReferenceEditor } from './MultipleResourceReferenceEditor.js';
+import { createFakeEntryResource, mockSdkForField } from './testHelpers/resourceEditorHelpers.js';
 
 let mockedResources: Record<string, unknown> = {};
 

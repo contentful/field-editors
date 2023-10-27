@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import { Entry } from '@contentful/field-editor-shared';
 
-import { WrappedEntryCard } from '../../entries';
-import { RenderDragFn, ResourceInfo } from '../../types';
+import { WrappedEntryCard } from '../../entries/index.js';
+import { RenderDragFn, ResourceInfo } from '../../types.js';
 
 export type CardActionsHandlers = {
   onRemove?: VoidFunction;

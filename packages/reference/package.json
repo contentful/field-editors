@@ -1,17 +1,9 @@
 {
   "name": "@contentful/field-editor-reference",
   "version": "5.19.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
+  "type": "module",
+  "main": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/types/index.d.ts",
-      "require": "./dist/cjs/index.js",
-      "default": "./dist/cjs/index.js"
-    },
-    "./package.json": "./package.json"
-  },
   "files": [
     "dist"
   ],
@@ -23,12 +15,10 @@
   },
   "scripts": {
     "watch": "yarn concurrently \"yarn:watch:*\"",
-    "watch:cjs": "yarn build:cjs -w",
     "watch:esm": "yarn build:esm -w",
     "watch:types": "yarn build:types --watch",
-    "build": "yarn build:types && yarn build:cjs && yarn build:esm",
+    "build": "yarn build:types && yarn build:esm",
     "build:types": "tsc --outDir dist/types --emitDeclarationOnly",
-    "build:cjs": "swc src --config-file ../../.swcrc -d dist/cjs -C module.type=commonjs",
     "build:esm": "swc src --config-file ../../.swcrc -d dist/esm",
     "test": "jest --watch",
     "test:ci": "jest --ci",
@@ -45,19 +35,20 @@
     "@dnd-kit/sortable": "^7.0.2",
     "@tanstack/react-query": "^4.3.9",
     "@types/deep-equal": "^1.0.1",
-    "constate": "3.2.0",
+    "constate": "3.3.2",
     "contentful-management": "^10.14.0",
     "deep-equal": "2.2.2",
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",
     "moment": "^2.20.0",
-    "p-queue": "^4.0.0",
+    "p-queue": "^7.4.1",
     "react-intersection-observer": "9.4.0",
     "type-fest": "2.17.0"
   },
   "devDependencies": {
     "@contentful/app-sdk": "^4.17.1",
     "@contentful/field-editor-test-utils": "^1.4.3",
+    "@jest/globals": "29.7.0",
     "@testing-library/react-hooks": "^5.0.3"
   },
   "peerDependencies": {

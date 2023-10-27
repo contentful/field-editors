@@ -1,6 +1,9 @@
 import * as React from 'react';
 
-import { Asset, Button, Card, Heading } from '@contentful/f36-components';
+import { Asset } from '@contentful/f36-asset';
+import { Button } from '@contentful/f36-button';
+import { Card } from '@contentful/f36-card';
+import { Heading } from '@contentful/f36-typography';
 import { ActionsPlayground } from '@contentful/field-editor-test-utils';
 import type { Meta, StoryObj } from '@storybook/react';
 

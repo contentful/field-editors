@@ -1,17 +1,18 @@
 import * as React from 'react';
 
 import { FieldAppSDK } from '@contentful/app-sdk';
+import { jest } from '@jest/globals';
 import '@testing-library/jest-dom/extend-expect';
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import { useResource } from '../common/EntityStore';
-import { SingleResourceReferenceEditor } from './SingleResourceReferenceEditor';
-import { createFakeEntryResource, mockSdkForField } from './testHelpers/resourceEditorHelpers';
+import { useResource } from '../common/EntityStore.js';
+import { SingleResourceReferenceEditor } from './SingleResourceReferenceEditor.js';
+import { createFakeEntryResource, mockSdkForField } from './testHelpers/resourceEditorHelpers.js';
 
 const mockedResources: Record<string, unknown> = {};
 
 jest.mock('../common/EntityStore', () => {
-  const module = jest.requireActual('../common/EntityStore');
+  const module = jest.requireActual('../common/EntityStore.js');
 
   return {
     ...module,

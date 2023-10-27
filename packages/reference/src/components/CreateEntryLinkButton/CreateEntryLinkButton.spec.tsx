@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import '@testing-library/jest-dom';
+import { jest } from '@jest/globals';
 import {
   act,
   configure,
@@ -9,10 +10,10 @@ import {
   waitFor,
   waitForElementToBeRemoved,
 } from '@testing-library/react';
-import noop from 'lodash/noop';
+import noop from 'lodash-es/noop.js';
 
-import { ContentType } from '../../types';
-import { CreateEntryLinkButton } from './CreateEntryLinkButton';
+import { ContentType } from '../../types.js';
+import { CreateEntryLinkButton } from './CreateEntryLinkButton.js';
 
 configure({
   testIdAttribute: 'data-test-id',

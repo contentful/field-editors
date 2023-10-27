@@ -1,12 +1,13 @@
 import * as React from 'react';
 
-import { Menu, Text } from '@contentful/f36-components';
+import { Menu } from '@contentful/f36-menu';
 import tokens from '@contentful/f36-tokens';
+import { Text } from '@contentful/f36-typography';
 import { shortenStorageUnit } from '@contentful/field-editor-shared';
 import { css } from 'emotion';
-import get from 'lodash/get';
+import get from 'lodash-es/get.js';
 
-import { File } from '../../types';
+import { File } from '../../types.js';
 
 const styles = {
   dragHandle: css({
@@ -114,8 +115,7 @@ export function renderActions(props: {
             downloadAsset(entityFile.url);
           }
         }}
-        testId="card-action-download"
-      >
+        testId="card-action-download">
         Download
       </Menu.Item>
     ) : null,

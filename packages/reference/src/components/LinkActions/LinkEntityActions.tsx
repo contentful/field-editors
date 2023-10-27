@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useMemo } from 'react';
 
-import { EditorPermissions } from '../../common/useEditorPermissions';
+import { EditorPermissions } from '../../common/useEditorPermissions.js';
 import {
   Action,
   ActionLabels,
@@ -10,10 +10,10 @@ import {
   Entry,
   Asset,
   NavigatorSlideInfo,
-} from '../../types';
-import { CombinedLinkActions } from './CombinedLinkActions';
-import { createEntity, selectMultipleEntities, selectSingleEntity } from './helpers';
-import { LinkActions, LinkActionsProps } from './LinkActions';
+} from '../../types.js';
+import { CombinedLinkActions } from './CombinedLinkActions.js';
+import { createEntity, selectMultipleEntities, selectSingleEntity } from './helpers.js';
+import { LinkActions, LinkActionsProps } from './LinkActions.js';
 
 type LinkEntityActionsProps = {
   entityType: ContentEntityType;

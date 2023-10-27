@@ -1,3 +1,3 @@
-export { SingleEntryReferenceEditor } from './SingleEntryReferenceEditor';
-export { MultipleEntryReferenceEditor } from './MultipleEntryReferenceEditor';
-export { WrappedEntryCard } from './WrappedEntryCard/WrappedEntryCard';
+export { SingleEntryReferenceEditor } from './SingleEntryReferenceEditor.js';
+export { MultipleEntryReferenceEditor } from './MultipleEntryReferenceEditor.js';
+export { WrappedEntryCard } from './WrappedEntryCard/WrappedEntryCard.js';

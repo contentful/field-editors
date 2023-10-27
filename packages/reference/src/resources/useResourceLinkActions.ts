@@ -3,7 +3,7 @@ import { useCallback, useMemo } from 'react';
 import { FieldAPI, FieldAppSDK } from '@contentful/app-sdk';
 import { EntryProps, WithResourceName } from 'contentful-management';
 
-import { LinkActionsProps } from '../components';
+import { LinkActionsProps } from '../components/index.js';
 
 const toLinkItem = (entry: WithResourceName<EntryProps>, apiUrl: string) => ({
   sys: {
@@ -90,7 +90,6 @@ export function useResourceLinkActions({
 
   return {
     onLinkExisting,
-    // @ts-expect-error
     onLinkedExisting,
     // hardcoded values to match interface for standard reference field actions
     entityType: 'Entry',

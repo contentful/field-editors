@@ -2,11 +2,11 @@ import * as React from 'react';
 
 import { verticalListSortingStrategy } from '@dnd-kit/sortable';
 
-import { MultipleReferenceEditor } from '../common/MultipleReferenceEditor';
-import { ReferenceEditorProps } from '../common/ReferenceEditor';
-import { SortableLinkList } from '../common/SortableLinkList';
-import { ReferenceValue } from '../types';
-import { FetchingWrappedEntryCard } from './WrappedEntryCard/FetchingWrappedEntryCard';
+import { MultipleReferenceEditor } from '../common/MultipleReferenceEditor.js';
+import { ReferenceEditorProps } from '../common/ReferenceEditor.js';
+import { SortableLinkList } from '../common/SortableLinkList.js';
+import { ReferenceValue } from '../types.js';
+import { FetchingWrappedEntryCard } from './WrappedEntryCard/FetchingWrappedEntryCard.js';
 
 export function MultipleEntryReferenceEditor(props: ReferenceEditorProps) {
   const [indexToUpdate, setIndexToUpdate] = React.useState<number | undefined>(undefined);
@@ -21,8 +21,7 @@ export function MultipleEntryReferenceEditor(props: ReferenceEditorProps) {
         <SortableLinkList<ReferenceValue>
           {...childrenProps}
           sortingStrategy={verticalListSortingStrategy}
-          updateBeforeSortStart={updateBeforeSortStart}
-        >
+          updateBeforeSortStart={updateBeforeSortStart}>
           {({ items, item, index, isDisabled, DragHandle }) => {
             const lastIndex = items.length - 1;
             return (

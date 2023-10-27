@@ -1,7 +1,10 @@
 import * as React from 'react';
 
-import { Asset, Button, Card, Heading, TextLink } from '@contentful/f36-components';
+import { Asset } from '@contentful/f36-asset';
+import { Button } from '@contentful/f36-button';
 import { ThumbUpIcon } from '@contentful/f36-icons';
+import { TextLink } from '@contentful/f36-text-link';
+import { Heading } from '@contentful/f36-typography';
 import { ActionsPlayground } from '@contentful/field-editor-test-utils';
 import type { Meta, StoryObj } from '@storybook/react';
 
@@ -61,8 +64,7 @@ export const CustomActions: Story = {
               onClick={props.onLinkExisting as any}
               variant="primary"
               icon={<ThumbUpIcon />}
-              alignIcon="end"
-            >
+              alignIcon="end">
               Re-use something
             </TextLink>
           )}

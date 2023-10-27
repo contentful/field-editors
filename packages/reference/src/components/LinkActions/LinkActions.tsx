@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Button } from '@contentful/f36-components';
+import { Button } from '@contentful/f36-button';
 import { PlusIcon, LinkIcon } from '@contentful/f36-icons';
 
 import {
@@ -10,10 +10,10 @@ import {
   Entry,
   Asset,
   NavigatorSlideInfo,
-} from '../../types';
-import { CreateEntryLinkButton } from '../CreateEntryLinkButton/CreateEntryLinkButton';
-import { NoLinkPermissionsInfo } from './NoLinkPermissionsInfo';
-import * as styles from './styles';
+} from '../../types.js';
+import { CreateEntryLinkButton } from '../CreateEntryLinkButton/CreateEntryLinkButton.js';
+import { NoLinkPermissionsInfo } from './NoLinkPermissionsInfo.js';
+import * as styles from './styles.js';
 
 export interface LinkActionsProps {
   entityType: ContentEntityType;

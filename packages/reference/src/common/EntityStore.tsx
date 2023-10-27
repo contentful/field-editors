@@ -12,7 +12,8 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import constate from 'constate';
-import { PlainClientAPI, createClient } from 'contentful-management';
+import { PlainClientAPI } from 'contentful-management';
+import type { createClient } from 'contentful-management';
 import PQueue from 'p-queue';
 
 import {
@@ -23,7 +24,7 @@ import {
   ResourceType,
   ScheduledAction,
   Space,
-} from '../types';
+} from '../types.js';
 
 export type ResourceInfo<R extends Resource = Resource> = {
   resource: R;

@@ -1,8 +1,10 @@
 import * as React from 'react';
 
-import { Flex, Text, Tooltip } from '@contentful/f36-components';
+import { Flex } from '@contentful/f36-core';
 import { FolderOpenTrimmedIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
+import { Tooltip } from '@contentful/f36-tooltip';
+import { Text } from '@contentful/f36-typography';
 import { css } from 'emotion';
 
 interface SourceProps {
