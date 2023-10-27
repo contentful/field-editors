@@ -1,5 +1,5 @@
 /* eslint-disable */
-import baseConfig from '../../baseJestConfig.es.js';
+import baseConfig from '../../baseESMJestConfig.js';
 
 import packageJson from './package.json' assert { type: 'json' };
 const packageName = packageJson.name.split('@contentful/')[1];
