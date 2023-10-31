@@ -13,7 +13,17 @@ export type {
 } from '@contentful/app-sdk';
 export type { SpaceProps as Space } from 'contentful-management';
 
-export { Entry, File, Asset } from '@contentful/field-editor-shared';
+export { Entry, Asset } from '@contentful/field-editor-shared';
+
+// FIXME import this from shared instead
+export interface File {
+  fileName: string;
+  contentType: string;
+  upload?: string;
+  url?: string;
+  details?: Record<string, any>;
+  uploadFrom?: Record<string, any>;
+}
 
 export type { ResourceInfo } from './common/EntityStore.js';
 

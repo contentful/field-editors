@@ -24,7 +24,7 @@ export { CharValidation } from './CharValidation.js';
 export { FieldConnector } from './FieldConnector.js';
 export type { FieldConnectorChildProps } from './FieldConnector.js';
 export { PredefinedValuesError } from './PredefinedValuesError.js';
-export type { Asset, Entry, File } from './typesEntity.js';
+export { Asset, Entry } from './typesEntity.js';
 export { isValidImage } from './utils/isValidImage.js';
 export { shortenStorageUnit, toLocaleString } from './utils/shortenStorageUnit.js';
 export { ModalDialogLauncher };
@@ -34,3 +34,12 @@ export { ConstraintsUtils };
 import * as ModalDialogLauncher from './ModalDialogLauncher.js';
 import * as ConstraintsUtils from './utils/constraints.js';
 import * as entityHelpers from './utils/entityHelpers.js';
+
+export interface File {
+  fileName: string;
+  contentType: string;
+  upload?: string;
+  url?: string;
+  details?: Record<string, any>;
+  uploadFrom?: Record<string, any>;
+}

@@ -22,7 +22,8 @@
     "build:esm": "swc src --config-file ../../.swcrc -d dist/esm",
     "test": "jest --watch",
     "test:ci": "yarn node --experimental-vm-modules $(yarn bin jest --ci)",
-    "tsc": "tsc -p ./ --noEmit"
+    "tsc": "tsc -p ./ --noEmit",
+    "prepare": "relative-deps"
   },
   "dependencies": {
     "@contentful/f36-components": "^4.0.27",
@@ -54,5 +55,8 @@
   "peerDependencies": {
     "@contentful/app-sdk": "^4.17.1",
     "react": ">=16.8.0"
+  },
+  "relativeDependencies": {
+    "@contentful/field-editor-shared": "../_shared"
   }
 }
