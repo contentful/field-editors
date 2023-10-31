@@ -33,6 +33,10 @@ function ExistingResourceCard(
     resourceLink.sys.urn,
     resourceOptions
   );
+  console.log({
+    data,
+    error,
+  });
   if (!data && !error) {
     return <ResourceCardSkeleton />;
   }

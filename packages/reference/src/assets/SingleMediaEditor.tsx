@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { ReferenceEditorProps } from '../common/ReferenceEditor';
-import { SingleReferenceEditor } from '../common/SingleReferenceEditor';
-import { FetchingWrappedAssetCard } from './WrappedAssetCard/FetchingWrappedAssetCard';
+import { ReferenceEditorProps } from '../common/ReferenceEditor.js';
+import { SingleReferenceEditor } from '../common/SingleReferenceEditor.js';
+import { FetchingWrappedAssetCard } from './WrappedAssetCard/FetchingWrappedAssetCard.js';
 
 // Omit<ReferenceEditorProps, 'hasCardEditActions'>;
 // does not work nice with <Props of={SingleMediaEditor} /> from docz

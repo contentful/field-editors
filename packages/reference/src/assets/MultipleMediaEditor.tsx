@@ -3,11 +3,11 @@ import * as React from 'react';
 import { rectSortingStrategy, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { css, cx } from 'emotion';
 
-import { MultipleReferenceEditor } from '../common/MultipleReferenceEditor';
-import { ReferenceEditorProps } from '../common/ReferenceEditor';
-import { SortableLinkList } from '../common/SortableLinkList';
-import { ReferenceValue } from '../types';
-import { FetchingWrappedAssetCard } from './WrappedAssetCard/FetchingWrappedAssetCard';
+import { MultipleReferenceEditor } from '../common/MultipleReferenceEditor.js';
+import { ReferenceEditorProps } from '../common/ReferenceEditor.js';
+import { SortableLinkList } from '../common/SortableLinkList.js';
+import { ReferenceValue } from '../types.js';
+import { FetchingWrappedAssetCard } from './WrappedAssetCard/FetchingWrappedAssetCard.js';
 
 // Omit<ReferenceEditorProps, 'hasCardEditActions'>;
 // does not work nice with <Props of={SingleMediaEditor} /> from docz
@@ -34,8 +34,7 @@ export function MultipleMediaEditor(props: EditorProps) {
           sortingStrategy={
             childrenProps.viewType === 'card' ? rectSortingStrategy : verticalListSortingStrategy
           }
-          className={cx({ [styles.gridContainer]: childrenProps.viewType === 'card' })}
-        >
+          className={cx({ [styles.gridContainer]: childrenProps.viewType === 'card' })}>
           {({ items, item, index, isDisabled, DragHandle }) => (
             <FetchingWrappedAssetCard
               {...childrenProps}

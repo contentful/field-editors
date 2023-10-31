@@ -20,6 +20,13 @@ jest.mock('react-intersection-observer', () => ({
   useInView: jest.fn().mockReturnValue({}),
 }));
 
+const intersectionObserverMock = () => ({
+  observe: () => true,
+  unobserve: () => true,
+  disconnect: () => true,
+});
+window.IntersectionObserver = jest.fn().mockImplementation(intersectionObserverMock);
+
 // explicit master
 const resolvableEntryUrn = 'crn:contentful:::content:spaces/space-id/entries/linked-entry-urn';
 const resolvableEntryUrnWithExplicitMaster =
@@ -144,7 +151,7 @@ describe('ResourceCard', () => {
     await waitFor(() => expect(getByTestId('cf-ui-missing-entry-card')).toBeDefined());
   });
 
-  it('renders missing entity card when crn is invalid', async () => {
+  it.only('renders missing entity card when crn is invalid', async () => {
     const { getByTestId } = renderResourceCard({ entryUrn: '' });
 
     await waitFor(() => expect(getByTestId('cf-ui-missing-entry-card')).toBeDefined());

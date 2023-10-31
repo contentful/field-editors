@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { Asset, ContentType, Entry, RenderDragFn } from '../types';
-import { CustomActionProps } from './ReferenceEditor';
+import { Asset, ContentType, Entry, RenderDragFn } from '../types.js';
+import { CustomActionProps } from './ReferenceEditor.js';
 
 export type MissingEntityCardProps = {
   defaultCard: React.ReactElement;

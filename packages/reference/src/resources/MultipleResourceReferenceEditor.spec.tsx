@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { FieldAppSDK } from '@contentful/app-sdk';
+import { jest } from '@jest/globals';
 import '@testing-library/jest-dom/extend-expect';
 import { fireEvent, render, screen } from '@testing-library/react';
 
@@ -9,6 +10,13 @@ import { MultipleResourceReferenceEditor } from './MultipleResourceReferenceEdit
 import { createFakeEntryResource, mockSdkForField } from './testHelpers/resourceEditorHelpers.js';
 
 let mockedResources: Record<string, unknown> = {};
+
+const intersectionObserverMock = () => ({
+  observe: () => null,
+  unobserve: () => null,
+  disconnect: () => null,
+});
+window.IntersectionObserver = jest.fn().mockImplementation(intersectionObserverMock);
 
 jest.mock('../common/EntityStore', () => {
   const module = jest.requireActual('../common/EntityStore');
