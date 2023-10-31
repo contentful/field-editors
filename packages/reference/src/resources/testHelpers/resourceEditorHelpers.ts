@@ -31,6 +31,7 @@ export function mockSdkForField(fieldDefinition: any, fieldValue?: any): FieldAp
           },
         },
       }),
+      // @ts-expect-error fix this typing after esm migration
       selectMultipleResourceEntries: jest.fn().mockResolvedValue([
         {
           sys: {

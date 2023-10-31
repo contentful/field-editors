@@ -2,9 +2,11 @@ import * as React from 'react';
 import { useInView } from 'react-intersection-observer';
 
 import { EntryCard } from '@contentful/f36-card';
+import type { EntryProps } from 'contentful-management';
 import { SetRequired } from 'type-fest';
 
 import { useResource } from '../../common/EntityStore.js';
+import type { ResourceInfo } from '../../common/EntityStore.js';
 import { ResourceEntityErrorCard } from '../../components/index.js';
 import { RenderDragFn, ResourceLink } from '../../types.js';
 import { CardActionsHandlers, ContentfulEntryCard, EntryRoute } from './ContentfulEntryCard.js';
@@ -42,7 +44,7 @@ function ExistingResourceCard(
   }
 
   if (data) {
-    return <ContentfulEntryCard info={data} {...props} />;
+    return <ContentfulEntryCard info={data as ResourceInfo<EntryProps>} {...props} />;
   }
 
   return (

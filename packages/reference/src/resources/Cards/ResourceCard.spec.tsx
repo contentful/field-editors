@@ -25,6 +25,7 @@ const intersectionObserverMock = () => ({
   unobserve: () => true,
   disconnect: () => true,
 });
+// @ts-expect-error maybe we should just mock the react-intersection-observer package instead
 window.IntersectionObserver = jest.fn().mockImplementation(intersectionObserverMock);
 
 // explicit master
@@ -40,8 +41,9 @@ const sdk: any = {
     default: 'en-US',
   },
   cmaAdapter: createFakeCMAAdapter({
-    ContentType: { get: jest.fn().mockReturnValue(publishedCT) },
+    ContentType: { get: jest.fn().mockReturnValue(publishedCT) as jest.Mock<any> },
     Entry: {
+      // @ts-expect-error fix after esm migration
       get: jest.fn().mockImplementation(({ spaceId, environmentId, entryId }) => {
         if (
           spaceId === 'space-id' &&
@@ -61,11 +63,14 @@ const sdk: any = {
       }),
     },
     Locale: {
+      // @ts-expect-error fix after esm migration
       getMany: jest.fn().mockResolvedValue({ items: [{ default: true, code: 'en' }] }),
     },
     ScheduledAction: {
+      // @ts-expect-error fix after esm migration
       getMany: jest.fn().mockResolvedValue({ items: [], total: 0 }),
     },
+    // @ts-expect-error fix after esm migration
     Space: { get: jest.fn().mockResolvedValue(space) },
   }),
   space: { onEntityChanged: jest.fn() },
@@ -151,7 +156,7 @@ describe('ResourceCard', () => {
     await waitFor(() => expect(getByTestId('cf-ui-missing-entry-card')).toBeDefined());
   });
 
-  it.only('renders missing entity card when crn is invalid', async () => {
+  it('renders missing entity card when crn is invalid', async () => {
     const { getByTestId } = renderResourceCard({ entryUrn: '' });
 
     await waitFor(() => expect(getByTestId('cf-ui-missing-entry-card')).toBeDefined());

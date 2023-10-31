@@ -6,13 +6,14 @@ import '@testing-library/jest-dom/extend-expect';
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import { useResource } from '../common/EntityStore.js';
+import type { EntryRoute } from './Cards/ContentfulEntryCard.js';
 import { SingleResourceReferenceEditor } from './SingleResourceReferenceEditor.js';
 import { createFakeEntryResource, mockSdkForField } from './testHelpers/resourceEditorHelpers.js';
 
 const mockedResources: Record<string, unknown> = {};
 
 jest.mock('../common/EntityStore', () => {
-  const module = jest.requireActual('../common/EntityStore.js');
+  const module: jest.Mock = jest.requireActual('../common/EntityStore.js');
 
   return {
     ...module,
@@ -24,7 +25,7 @@ jest.mock('../common/EntityStore', () => {
 });
 
 jest.mock('react-intersection-observer', () => {
-  const module = jest.requireActual('react-intersection-observer');
+  const module: jest.Mock = jest.requireActual('react-intersection-observer');
 
   return {
     ...module,
@@ -117,7 +118,7 @@ describe('Single resource editor', () => {
         hasCardEditActions={true}
         viewType="card"
         apiUrl="test-contentful"
-        getEntryRouteHref={jest.fn()}
+        getEntryRouteHref={jest.fn() as jest.MockedFunction<(entryRoute: EntryRoute) => string>}
         // @ts-expect-error unused...
         parameters={{}}
       />

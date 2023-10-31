@@ -27,7 +27,8 @@ describe('CreateEntryMenuTrigger general', () => {
     },
   };
 
-  let stub = jest.fn();
+  // FIXME: fix any type here
+  let stub: jest.Mock<any> = jest.fn();
   beforeEach(() => {
     stub = jest.fn().mockImplementation(() => <Button testId="menu-trigger" />);
   });
@@ -61,7 +62,7 @@ describe('CreateEntryMenuTrigger general', () => {
   });
 
   it('should not set isSelecting to true in case onSelect is sync', async () => {
-    const selectStub = jest.fn();
+    const selectStub = jest.fn(() => Promise.resolve());
 
     const { getAllByTestId, getByTestId } = render(
       <CreateEntryMenuTrigger {...props} onSelect={selectStub}>

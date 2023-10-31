@@ -1,3 +1,5 @@
+// source: https://github.com/diegohaz/constate/blob/master/src/index.tsx
+
 import * as React from 'react';
 
 // constate(useCounter, value => value.count)

@@ -11,7 +11,6 @@ import {
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query';
-import constate from 'constate';
 import { PlainClientAPI } from 'contentful-management';
 import contentful from 'contentful-management';
 import PQueue from 'p-queue';
@@ -25,6 +24,7 @@ import {
   ScheduledAction,
   Space,
 } from '../types.js';
+import constate from './constate.js';
 
 const { createClient } = contentful;
 
@@ -215,7 +215,10 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
         const { priority, ...queryOptions } = options;
         return queryClient.fetchQuery(
           queryKey,
-          () => queryQueue.add(() => fn({ cmaClient }), { priority }),
+          () =>
+            queryQueue.add(() => fn({ cmaClient }), { priority }) as
+              | TQueryFnData
+              | Promise<TQueryFnData>,
           queryOptions
         );
       },

@@ -101,7 +101,7 @@ describe('CreateEntryLinkButton with multiple entries', () => {
   });
 
   it('calls onSelect after click on menu item', () => {
-    const selectSpy = jest.fn();
+    const selectSpy: (contentTypeId: string) => Promise<unknown> = jest.fn(undefined);
     const { getByTestId, getAllByTestId } = render(
       <CreateEntryLinkButton {...props} onSelect={selectSpy} />
     );
@@ -120,7 +120,7 @@ describe('CreateEntryLinkButton with a single entry', () => {
   };
 
   it('should fire the onSelect function when clicked', () => {
-    const onSelectStub = jest.fn();
+    const onSelectStub: (contentTypeId: string) => Promise<unknown> = jest.fn(undefined);
     const { getByTestId } = render(<CreateEntryLinkButton {...props} onSelect={onSelectStub} />);
     fireEvent.click(findButton(getByTestId));
     expect(onSelectStub).toHaveBeenCalledWith(props.contentTypes[0].sys.id);

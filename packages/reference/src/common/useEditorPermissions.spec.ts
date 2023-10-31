@@ -19,8 +19,8 @@ describe('useEditorPermissions', () => {
     ({
       field: createFakeFieldAPI(customizeMock)[0],
       access: {
-        can: jest.fn().mockResolvedValue(true),
-        canPerformActionOnEntryOfType: jest.fn().mockResolvedValue(true),
+        can: jest.fn().mockResolvedValue(true as never),
+        canPerformActionOnEntryOfType: jest.fn().mockResolvedValue(true as never),
       },
     } as unknown as MockedFieldAppSDK);
 

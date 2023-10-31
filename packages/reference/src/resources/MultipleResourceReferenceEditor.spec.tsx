@@ -16,10 +16,11 @@ const intersectionObserverMock = () => ({
   unobserve: () => null,
   disconnect: () => null,
 });
+// @ts-expect-error fix this by maybe mocking the react-intersection-observer package instead
 window.IntersectionObserver = jest.fn().mockImplementation(intersectionObserverMock);
 
 jest.mock('../common/EntityStore', () => {
-  const module = jest.requireActual('../common/EntityStore');
+  const module: jest.Mock = jest.requireActual('../common/EntityStore');
 
   return {
     ...module,
@@ -32,7 +33,7 @@ jest.mock('../common/EntityStore', () => {
 });
 
 jest.mock('react-intersection-observer', () => {
-  const module = jest.requireActual('react-intersection-observer');
+  const module: jest.Mock = jest.requireActual('react-intersection-observer');
 
   return {
     ...module,
