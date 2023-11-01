@@ -46,10 +46,11 @@ export function UrlHyperlink(props: HyperlinkElementProps) {
 
   return (
     <Tooltip
+      usePortal
       content={uri}
       targetWrapperClassName={styles.hyperlinkWrapper}
       placement="bottom"
-      maxWidth="auto"
+      maxWidth="min-content"
     >
       <TextLink
         as="a"
