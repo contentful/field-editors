@@ -7,6 +7,8 @@ import { entityHelpers } from '@contentful/field-editor-shared';
 import { FieldAppSDK } from '@contentful/field-editor-shared';
 import { INLINES } from '@contentful/rich-text-types';
 
+import { truncateTitle } from '../../plugins/shared/utils';
+
 const { getEntryTitle, getEntryStatus } = entityHelpers;
 
 interface FetchingWrappedResourceInlineCardProps {
@@ -51,13 +53,14 @@ export function FetchingWrappedResourceInlineCard(props: FetchingWrappedResource
     localeCode: defaultLocaleCode,
     defaultTitle: 'Untitled',
   });
-  const status = getEntryStatus(entry?.sys);
+  const truncatedTitle = truncateTitle(title, 40);
+  const status = getEntryStatus(entry.sys);
 
   return (
     <InlineEntryCard
       testId={INLINES.EMBEDDED_RESOURCE}
       isSelected={props.isSelected}
-      title={`${data.contentType.name}: ${title} (Space: ${space.name})`}
+      title={`${contentType.name}: ${truncatedTitle} (Space: ${space.name} – Env.: ${entry.sys.environment.sys.id})`}
       status={status}
       actions={[
         <MenuItem key="remove" onClick={props.onRemove} disabled={props.isDisabled} testId="delete">
