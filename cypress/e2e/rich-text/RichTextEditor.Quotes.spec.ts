@@ -200,7 +200,7 @@ describe('Rich Text Editor - Quotes', { viewportHeight: 2000 }, () => {
                 },
                 text('resourceHyperlink')
               ),
-              text(' and inline resource:'),
+              text(' and inline resource: '),
               inline(INLINES.EMBEDDED_RESOURCE, {
                 target: {
                   sys: {
@@ -212,7 +212,8 @@ describe('Rich Text Editor - Quotes', { viewportHeight: 2000 }, () => {
               }),
               text('')
             )
-          )
+          ),
+          block(BLOCKS.PARAGRAPH, {}, text(''))
         );
         richText.expectValue(expectedValue);
       });
