@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.15.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.14.3...@contentful/field-editor-rich-text@3.15.0) (2023-11-02)
+
+### Features
+
+- show environment in resource inline block ([#1532](https://github.com/contentful/field-editors/issues/1532)) ([3e897e7](https://github.com/contentful/field-editors/commit/3e897e7a8c6d9b93c9c80d0621c6e3e1628c73e0))
+
 ## [3.14.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.14.2...@contentful/field-editor-rich-text@3.14.3) (2023-11-01)
 
 ### Bug Fixes
