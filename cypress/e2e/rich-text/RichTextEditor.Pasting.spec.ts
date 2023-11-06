@@ -74,6 +74,60 @@ describe(
 
         richText.expectValue(expectedValue);
       });
+      it('supports pasting of cross space links within text', () => {
+        richText.editor.click().paste({
+          'text/html':
+            '<meta charset=\'utf-8\'><div data-slate-node="element" data-slate-void="true" class="css-1mpluvt" data-entity-type="Contentful:Entry" data-entity-id="crn:contentful:::content:spaces/space-id/entries/example-entity-urn" draggable="true"><div data-slate-spacer="true" style="height: 0px; color: transparent; outline: none; position: absolute;" data-slate-fragment="JTVCJTdCJTIydHlwZSUyMiUzQSUyMmVtYmVkZGVkLXJlc291cmNlLWJsb2NrJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0ZXh0JTIyJTNBJTIyJTIyJTJDJTIyZGF0YSUyMiUzQSU3QiU3RCU3RCU1RCUyQyUyMmlzVm9pZCUyMiUzQXRydWUlMkMlMjJkYXRhJTIyJTNBJTdCJTIydGFyZ2V0JTIyJTNBJTdCJTIyc3lzJTIyJTNBJTdCJTIydXJuJTIyJTNBJTIyY3JuJTNBY29udGVudGZ1bCUzQSUzQSUzQWNvbnRlbnQlM0FzcGFjZXMlMkZzcGFjZS1pZCUyRmVudHJpZXMlMkZleGFtcGxlLWVudGl0eS11cm4lMjIlMkMlMjJ0eXBlJTIyJTNBJTIyUmVzb3VyY2VMaW5rJTIyJTJDJTIybGlua1R5cGUlMjIlM0ElMjJDb250ZW50ZnVsJTNBRW50cnklMjIlN0QlN0QlN0QlN0QlMkMlN0IlMjJ0eXBlJTIyJTNBJTIycGFyYWdyYXBoJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0ZXh0JTIyJTNBJTIyJTIyJTdEJTJDJTdCJTIydHlwZSUyMiUzQSUyMmVtYmVkZGVkLXJlc291cmNlLWlubGluZSUyMiUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydGV4dCUyMiUzQSUyMiUyMiU3RCU1RCUyQyUyMmRhdGElMjIlM0ElN0IlMjJ0YXJnZXQlMjIlM0ElN0IlMjJzeXMlMjIlM0ElN0IlMjJ1cm4lMjIlM0ElMjJjcm4lM0Fjb250ZW50ZnVsJTNBJTNBJTNBY29udGVudCUzQXNwYWNlcyUyRnNwYWNlLWlkJTJGZW50cmllcyUyRmV4YW1wbGUtZW50aXR5LXVybiUyMiUyQyUyMnR5cGUlMjIlM0ElMjJSZXNvdXJjZUxpbmslMjIlMkMlMjJsaW5rVHlwZSUyMiUzQSUyMkNvbnRlbnRmdWwlM0FFbnRyeSUyMiU3RCU3RCU3RCU3RCUyQyU3QiUyMnRleHQlMjIlM0ElMjIlMjIlN0QlNUQlN0QlMkMlN0IlMjJ0eXBlJTIyJTNBJTIycGFyYWdyYXBoJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0ZXh0JTIyJTNBJTIyJTIyJTdEJTJDJTdCJTIydHlwZSUyMiUzQSUyMnJlc291cmNlLWh5cGVybGluayUyMiUyQyUyMmRhdGElMjIlM0ElN0IlMjJ0YXJnZXQlMjIlM0ElN0IlMjJzeXMlMjIlM0ElN0IlMjJ1cm4lMjIlM0ElMjJjcm4lM0Fjb250ZW50ZnVsJTNBJTNBJTNBY29udGVudCUzQXNwYWNlcyUyRnNwYWNlLWlkJTJGZW50cmllcyUyRmV4YW1wbGUtZW50aXR5LXVybiUyMiUyQyUyMnR5cGUlMjIlM0ElMjJSZXNvdXJjZUxpbmslMjIlMkMlMjJsaW5rVHlwZSUyMiUzQSUyMkNvbnRlbnRmdWwlM0FFbnRyeSUyMiU3RCU3RCU3RCUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydGV4dCUyMiUzQSUyMnJlc291cmNlSHlwZXJsaW5rJTIyJTdEJTVEJTdEJTJDJTdCJTIydGV4dCUyMiUzQSUyMiUyMiU3RCU1RCU3RCU1RA=="><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-zero-width="z" data-slate-length="0"></span></span></span></div></div><div data-slate-node="element" class="css-ss00rg"><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-zero-width="z" data-slate-length="0"></span></span></span><span data-slate-node="element" data-slate-inline="true" data-slate-void="true" class="css-eodypg" data-entity-type="Contentful:Entry" data-entity-id="crn:contentful:::content:spaces/space-id/entries/example-entity-urn" draggable="true"><span contenteditable="false" draggable="true"><span class="css-1nqn0g6"><article class="css-1wp1jwt" data-test-id="embedded-resource-inline" aria-describedby="tooltip_7246"><div class="css-1cjnmwb" data-card-part="wrapper"><button type="button" aria-label="Actions" aria-haspopup="menu" aria-expanded="false" aria-controls="menu_1179" data-test-id="cf-ui-card-actions" class="css-t7r739"><span class="css-k008qs"><svg class="css-1jrff5x" data-test-id="cf-ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M0 0h24v24H0z" fill="none"></path><path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg></span></button><div class="css-161cbg" data-card-part="content"><span class="css-1eadhne">The best article ever</span></div></div></article></span></span><span data-slate-spacer="true" style="height: 0px; color: transparent; outline: none; position: absolute;"><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-zero-width="z" data-slate-length="0"></span></span></span></span></span><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-zero-width="n" data-slate-length="0"> </span></span></span></div><div data-slate-node="element" class="css-ss00rg"><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-zero-width="z" data-slate-length="0"></span></span></span><span class="css-1wt9k1k"><a class="css-1k4k586" data-test-id="cf-ui-text-link" data-resource-link-type="Contentful:Entry" data-resource-link-urn="crn:contentful:::content:spaces/space-id/entries/example-entity-urn" aria-describedby="tooltip_1186"><span><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-string="true">resourceHyperlink</span></span></span></span></a></span><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-zero-width="z" data-slate-length="0"></span></span></span></div>',
+        });
+
+        const expectedValue = doc(
+          block(BLOCKS.EMBEDDED_RESOURCE, {
+            target: {
+              sys: {
+                urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
+                type: 'ResourceLink',
+                linkType: 'Contentful:Entry',
+              },
+            },
+          }),
+          block(
+            BLOCKS.PARAGRAPH,
+            {},
+            text('', []),
+            inline(INLINES.EMBEDDED_RESOURCE, {
+              target: {
+                sys: {
+                  type: 'ResourceLink',
+                  linkType: 'Contentful:Entry',
+                  urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
+                },
+              },
+            }),
+            text('')
+          ),
+          block(
+            BLOCKS.PARAGRAPH,
+            {},
+            text(''),
+            inline(
+              INLINES.RESOURCE_HYPERLINK,
+              {
+                target: {
+                  sys: {
+                    type: 'ResourceLink',
+                    linkType: 'Contentful:Entry',
+                    urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
+                  },
+                },
+              },
+              text('resourceHyperlink')
+            ),
+            text('')
+          )
+        );
+
+        richText.expectValue(expectedValue);
+      });
     });
 
     describe('Lists', () => {
@@ -181,6 +235,59 @@ describe(
                       id: 'example-entity-id',
                       type: 'Link',
                       linkType: 'Entry',
+                    },
+                  },
+                }),
+                text('')
+              )
+            )
+          ),
+          block(BLOCKS.PARAGRAPH, {}, text(''))
+        );
+
+        richText.expectValue(expectedValue);
+      });
+      it('pastes cross space links inside lists', () => {
+        richText.editor.click();
+        richText.toolbar.ul.click();
+
+        richText.editor.paste({
+          'text/html':
+            '<meta charset=\'utf-8\'><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-string="true">This is a </span></span></span><span class="css-1wt9k1k"><a class="css-1k4k586" data-test-id="cf-ui-text-link" data-resource-link-type="Contentful:Entry" data-resource-link-urn="crn:contentful:::content:spaces/space-id/entries/example-entity-urn" aria-describedby="tooltip_4346"><span><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-string="true">resourceHyperlink</span></span></span></span></a></span><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-string="true"> </span></span></span><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-string="true">and an inline resource link: </span></span></span><span data-slate-node="element" data-slate-inline="true" data-slate-void="true" class="css-eodypg" data-entity-type="Contentful:Entry" data-entity-id="crn:contentful:::content:spaces/space-id/entries/example-entity-urn" draggable="true" data-slate-fragment="JTVCJTdCJTIydHlwZSUyMiUzQSUyMnBhcmFncmFwaCUyMiUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydGV4dCUyMiUzQSUyMlRoaXMlMjBpcyUyMGElMjAlMjIlMkMlMjJkYXRhJTIyJTNBJTdCJTdEJTdEJTJDJTdCJTIydHlwZSUyMiUzQSUyMnJlc291cmNlLWh5cGVybGluayUyMiUyQyUyMmRhdGElMjIlM0ElN0IlMjJ0YXJnZXQlMjIlM0ElN0IlMjJzeXMlMjIlM0ElN0IlMjJ1cm4lMjIlM0ElMjJjcm4lM0Fjb250ZW50ZnVsJTNBJTNBJTNBY29udGVudCUzQXNwYWNlcyUyRnNwYWNlLWlkJTJGZW50cmllcyUyRmV4YW1wbGUtZW50aXR5LXVybiUyMiUyQyUyMnR5cGUlMjIlM0ElMjJSZXNvdXJjZUxpbmslMjIlMkMlMjJsaW5rVHlwZSUyMiUzQSUyMkNvbnRlbnRmdWwlM0FFbnRyeSUyMiU3RCU3RCU3RCUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIyZGF0YSUyMiUzQSU3QiU3RCUyQyUyMnRleHQlMjIlM0ElMjJyZXNvdXJjZUh5cGVybGluayUyMiU3RCU1RCU3RCUyQyU3QiUyMmRhdGElMjIlM0ElN0IlN0QlMkMlMjJ0ZXh0JTIyJTNBJTIyJTIwJTIyJTdEJTJDJTdCJTIydGV4dCUyMiUzQSUyMmFuZCUyMGFuJTIwaW5saW5lJTIwcmVzb3VyY2UlMjBsaW5rJTNBJTIwJTIyJTdEJTJDJTdCJTIydHlwZSUyMiUzQSUyMmVtYmVkZGVkLXJlc291cmNlLWlubGluZSUyMiUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydGV4dCUyMiUzQSUyMiUyMiU3RCU1RCUyQyUyMmRhdGElMjIlM0ElN0IlMjJ0YXJnZXQlMjIlM0ElN0IlMjJzeXMlMjIlM0ElN0IlMjJ1cm4lMjIlM0ElMjJjcm4lM0Fjb250ZW50ZnVsJTNBJTNBJTNBY29udGVudCUzQXNwYWNlcyUyRnNwYWNlLWlkJTJGZW50cmllcyUyRmV4YW1wbGUtZW50aXR5LXVybiUyMiUyQyUyMnR5cGUlMjIlM0ElMjJSZXNvdXJjZUxpbmslMjIlMkMlMjJsaW5rVHlwZSUyMiUzQSUyMkNvbnRlbnRmdWwlM0FFbnRyeSUyMiU3RCU3RCU3RCU3RCUyQyU3QiUyMnRleHQlMjIlM0ElMjIlMjIlN0QlNUQlN0QlNUQ="><span contenteditable="false" draggable="true"><span class="css-1nqn0g6"><article class="css-1wp1jwt" data-test-id="embedded-resource-inline" aria-describedby="tooltip_763"><div class="css-1cjnmwb" data-card-part="wrapper"><button type="button" aria-label="Actions" aria-haspopup="menu" aria-expanded="false" aria-controls="menu_3854" data-test-id="cf-ui-card-actions" class="css-t7r739"><span class="css-k008qs"><svg class="css-1jrff5x" data-test-id="cf-ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M0 0h24v24H0z" fill="none"></path><path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg></span></button><div class="css-161cbg" data-card-part="content"><span class="css-1eadhne">The best article ever</span></div></div></article></span></span><span data-slate-spacer="true" style="height: 0px; color: transparent; outline: none; position: absolute;"><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-zero-width="z" data-slate-length="0"></span></span></span></span></span><span data-slate-node="text"><span data-slate-leaf="true"><span data-slate-zero-width="z" data-slate-length="0"></span></span></span>',
+        });
+
+        const expectedValue = doc(
+          block(
+            BLOCKS.UL_LIST,
+            {},
+            block(
+              BLOCKS.LIST_ITEM,
+              {},
+              block(
+                BLOCKS.PARAGRAPH,
+                {},
+                text('This is a '),
+                inline(
+                  INLINES.RESOURCE_HYPERLINK,
+                  {
+                    target: {
+                      sys: {
+                        urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
+                        type: 'ResourceLink',
+                        linkType: 'Contentful:Entry',
+                      },
+                    },
+                  },
+                  text('resourceHyperlink')
+                ),
+                text(' '),
+                text('and an inline resource link: '),
+                inline(INLINES.EMBEDDED_RESOURCE, {
+                  target: {
+                    sys: {
+                      urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
+                      type: 'ResourceLink',
+                      linkType: 'Contentful:Entry',
                     },
                   },
                 }),
@@ -531,10 +638,51 @@ describe(
             'paragraph',
             {},
             text('cell content with a link and inline entry'),
-            inline('embedded-entry-inline', {
+            inline(INLINES.EMBEDDED_ENTRY, {
               target: { sys: { id: 'example-entity-id', type: 'Link', linkType: 'Entry' } },
             }),
             text('.')
+          )
+        );
+
+        richText.expectValue(expectedValue);
+      });
+      it('removes table wrappers when pasting a single cell for resource links', () => {
+        richText.editor.click().paste({
+          'application/x-slate-fragment':
+            'JTVCJTdCJTIydHlwZSUyMiUzQSUyMnBhcmFncmFwaCUyMiUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydGV4dCUyMiUzQSUyMiUyMiU3RCU1RCU3RCUyQyU3QiUyMnR5cGUlMjIlM0ElMjJwYXJhZ3JhcGglMjIlMkMlMjJjaGlsZHJlbiUyMiUzQSU1QiU3QiUyMnRleHQlMjIlM0ElMjJDZWxsJTIwY29udGVudCUyMHdpdGglMjBhJTIwJTIyJTdEJTJDJTdCJTIydHlwZSUyMiUzQSUyMnJlc291cmNlLWh5cGVybGluayUyMiUyQyUyMmRhdGElMjIlM0ElN0IlMjJ0YXJnZXQlMjIlM0ElN0IlMjJzeXMlMjIlM0ElN0IlMjJ1cm4lMjIlM0ElMjJjcm4lM0Fjb250ZW50ZnVsJTNBJTNBJTNBY29udGVudCUzQXNwYWNlcyUyRnNwYWNlLWlkJTJGZW50cmllcyUyRmV4YW1wbGUtZW50aXR5LXVybiUyMiUyQyUyMnR5cGUlMjIlM0ElMjJSZXNvdXJjZUxpbmslMjIlMkMlMjJsaW5rVHlwZSUyMiUzQSUyMkNvbnRlbnRmdWwlM0FFbnRyeSUyMiU3RCU3RCU3RCUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydGV4dCUyMiUzQSUyMnJlc291cmNlSHlwZXJsaW5rJTIyJTdEJTVEJTdEJTJDJTdCJTIydGV4dCUyMiUzQSUyMiUyMGFuZCUyMGElMjByZXNvdXJjZSUyMGlubGluZSUyMCUzQSUyMiU3RCUyQyU3QiUyMnR5cGUlMjIlM0ElMjJlbWJlZGRlZC1yZXNvdXJjZS1pbmxpbmUlMjIlMkMlMjJjaGlsZHJlbiUyMiUzQSU1QiU3QiUyMnRleHQlMjIlM0ElMjIlMjIlN0QlNUQlMkMlMjJkYXRhJTIyJTNBJTdCJTIydGFyZ2V0JTIyJTNBJTdCJTIyc3lzJTIyJTNBJTdCJTIydXJuJTIyJTNBJTIyY3JuJTNBY29udGVudGZ1bCUzQSUzQSUzQWNvbnRlbnQlM0FzcGFjZXMlMkZzcGFjZS1pZCUyRmVudHJpZXMlMkZleGFtcGxlLWVudGl0eS11cm4lMjIlMkMlMjJ0eXBlJTIyJTNBJTIyUmVzb3VyY2VMaW5rJTIyJTJDJTIybGlua1R5cGUlMjIlM0ElMjJDb250ZW50ZnVsJTNBRW50cnklMjIlN0QlN0QlN0QlN0QlMkMlN0IlMjJ0ZXh0JTIyJTNBJTIyJTIyJTdEJTVEJTdEJTVE',
+        });
+
+        const expectedValue = doc(
+          block(BLOCKS.PARAGRAPH, {}, text('')),
+          block(
+            BLOCKS.PARAGRAPH,
+            {},
+            text('Cell content with a '),
+            inline(
+              INLINES.RESOURCE_HYPERLINK,
+              {
+                target: {
+                  sys: {
+                    urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
+                    type: 'ResourceLink',
+                    linkType: 'Contentful:Entry',
+                  },
+                },
+              },
+              text('resourceHyperlink')
+            ),
+            text(' and a resource inline :'),
+            inline(INLINES.EMBEDDED_RESOURCE, {
+              target: {
+                sys: {
+                  urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
+                  type: 'ResourceLink',
+                  linkType: 'Contentful:Entry',
+                },
+              },
+            }),
+            text('')
           )
         );
 

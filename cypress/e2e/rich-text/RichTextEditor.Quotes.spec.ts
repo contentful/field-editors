@@ -168,6 +168,55 @@ describe('Rich Text Editor - Quotes', { viewportHeight: 2000 }, () => {
 
         richText.expectValue(expectedValue);
       });
+
+      it('should preserve resource links inline elements', () => {
+        richText.editor.click();
+        // bold underline italic code [link] [inline-entry] more text
+        richText.editor.paste({
+          'application/x-slate-fragment':
+            'JTVCJTdCJTIydHlwZSUyMiUzQSUyMnBhcmFncmFwaCUyMiUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydGV4dCUyMiUzQSUyMiUyMiU3RCUyQyU3QiUyMnR5cGUlMjIlM0ElMjJyZXNvdXJjZS1oeXBlcmxpbmslMjIlMkMlMjJkYXRhJTIyJTNBJTdCJTIydGFyZ2V0JTIyJTNBJTdCJTIyc3lzJTIyJTNBJTdCJTIydXJuJTIyJTNBJTIyY3JuJTNBY29udGVudGZ1bCUzQSUzQSUzQWNvbnRlbnQlM0FzcGFjZXMlMkZzcGFjZS1pZCUyRmVudHJpZXMlMkZleGFtcGxlLWVudGl0eS11cm4lMjIlMkMlMjJ0eXBlJTIyJTNBJTIyUmVzb3VyY2VMaW5rJTIyJTJDJTIybGlua1R5cGUlMjIlM0ElMjJDb250ZW50ZnVsJTNBRW50cnklMjIlN0QlN0QlN0QlMkMlMjJjaGlsZHJlbiUyMiUzQSU1QiU3QiUyMnRleHQlMjIlM0ElMjJyZXNvdXJjZUh5cGVybGluayUyMiUyQyUyMmRhdGElMjIlM0ElN0IlN0QlN0QlNUQlN0QlMkMlN0IlMjJkYXRhJTIyJTNBJTdCJTdEJTJDJTIydGV4dCUyMiUzQSUyMiUyMGFuZCUyMGlubGluZSUyMHJlc291cmNlJTNBJTIwJTIyJTdEJTJDJTdCJTIydHlwZSUyMiUzQSUyMmVtYmVkZGVkLXJlc291cmNlLWlubGluZSUyMiUyQyUyMmNoaWxkcmVuJTIyJTNBJTVCJTdCJTIydGV4dCUyMiUzQSUyMiUyMiU3RCU1RCUyQyUyMmRhdGElMjIlM0ElN0IlMjJ0YXJnZXQlMjIlM0ElN0IlMjJzeXMlMjIlM0ElN0IlMjJ1cm4lMjIlM0ElMjJjcm4lM0Fjb250ZW50ZnVsJTNBJTNBJTNBY29udGVudCUzQXNwYWNlcyUyRnNwYWNlLWlkJTJGZW50cmllcyUyRmV4YW1wbGUtZW50aXR5LXVybiUyMiUyQyUyMnR5cGUlMjIlM0ElMjJSZXNvdXJjZUxpbmslMjIlMkMlMjJsaW5rVHlwZSUyMiUzQSUyMkNvbnRlbnRmdWwlM0FFbnRyeSUyMiU3RCU3RCU3RCU3RCUyQyU3QiUyMnRleHQlMjIlM0ElMjIlMjIlN0QlNUQlMkMlMjJpc1ZvaWQlMjIlM0FmYWxzZSUyQyUyMmRhdGElMjIlM0ElN0IlN0QlN0QlNUQ=',
+        });
+
+        toggleQuote();
+
+        const expectedValue = doc(
+          block(
+            BLOCKS.QUOTE,
+            {},
+            block(
+              BLOCKS.PARAGRAPH,
+              {},
+              text(''),
+              inline(
+                INLINES.RESOURCE_HYPERLINK,
+                {
+                  target: {
+                    sys: {
+                      type: 'ResourceLink',
+                      linkType: 'Contentful:Entry',
+                      urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
+                    },
+                  },
+                },
+                text('resourceHyperlink')
+              ),
+              text(' and inline resource: '),
+              inline(INLINES.EMBEDDED_RESOURCE, {
+                target: {
+                  sys: {
+                    type: 'ResourceLink',
+                    linkType: 'Contentful:Entry',
+                    urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
+                  },
+                },
+              }),
+              text('')
+            )
+          ),
+          block(BLOCKS.PARAGRAPH, {}, text(''))
+        );
+        richText.expectValue(expectedValue);
+      });
     });
   }
 });
