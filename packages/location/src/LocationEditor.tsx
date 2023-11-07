@@ -66,12 +66,15 @@ export class LocationEditor extends React.Component<
     super(props);
 
     this.state = {
-      localValue: props.value
-        ? {
-            lng: props.value.lon,
-            lat: props.value.lat,
-          }
-        : undefined,
+      localValue:
+        // if we have only the lon or lat set, we set the other to 0.
+        // if both are not set, we set localValue to undefined.
+        props?.value?.lon || props?.value?.lat
+          ? {
+              lng: props.value.lon ?? 0,
+              lat: props.value.lat ?? 0,
+            }
+          : undefined,
       mapsObject: null,
     };
   }
