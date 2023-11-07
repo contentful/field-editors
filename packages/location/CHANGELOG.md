@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-location@1.3.5...@contentful/field-editor-location@1.3.6) (2023-11-07)
+
+### Bug Fixes
+
+- location null lat/lon issue [] ([#1537](https://github.com/contentful/field-editors/issues/1537)) ([36fcbc4](https://github.com/contentful/field-editors/commit/36fcbc48c7becc8c2f99cafdbd575fdd382c4ff2))
+
 ## [1.3.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-location@1.3.4...@contentful/field-editor-location@1.3.5) (2023-10-06)
 
 **Note:** Version bump only for package @contentful/field-editor-location
