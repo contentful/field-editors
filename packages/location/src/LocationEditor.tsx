@@ -171,18 +171,16 @@ export function LocationEditorConnected(props: LocationEditorConnectedProps) {
     >
       {({ value, disabled, setValue, externalReset }) => {
         return (
-          <>
-            <LocationEditor
-              // on external change reset component completely and init with initial value again
-              key={`location-editor-${externalReset}`}
-              value={value}
-              disabled={disabled}
-              setValue={setValue}
-              googleMapsKey={googleMapsKey}
-              selectedView={selectedView}
-              setSelectedView={setSelectedView}
-            />
-          </>
+          <LocationEditor
+            // on external change reset component completely and init with initial value again
+            key={`location-editor-${externalReset}`}
+            value={value}
+            disabled={disabled}
+            setValue={setValue}
+            googleMapsKey={googleMapsKey}
+            selectedView={selectedView}
+            setSelectedView={setSelectedView}
+          />
         );
       }}
     </FieldConnector>
