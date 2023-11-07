@@ -66,12 +66,13 @@ export class LocationEditor extends React.Component<
     super(props);
 
     this.state = {
-      localValue: props.value
-        ? {
-            lng: props.value.lon,
-            lat: props.value.lat,
-          }
-        : undefined,
+      localValue:
+        props?.value?.lon && props?.value.lat
+          ? {
+              lng: props.value.lon,
+              lat: props.value.lat,
+            }
+          : undefined,
       mapsObject: null,
     };
   }
@@ -168,16 +169,18 @@ export function LocationEditorConnected(props: LocationEditorConnectedProps) {
     >
       {({ value, disabled, setValue, externalReset }) => {
         return (
-          <LocationEditor
-            // on external change reset component completely and init with initial value again
-            key={`location-editor-${externalReset}`}
-            value={value}
-            disabled={disabled}
-            setValue={setValue}
-            googleMapsKey={googleMapsKey}
-            selectedView={selectedView}
-            setSelectedView={setSelectedView}
-          />
+          <>
+            <LocationEditor
+              // on external change reset component completely and init with initial value again
+              key={`location-editor-${externalReset}`}
+              value={value}
+              disabled={disabled}
+              setValue={setValue}
+              googleMapsKey={googleMapsKey}
+              selectedView={selectedView}
+              setSelectedView={setSelectedView}
+            />
+          </>
         );
       }}
     </FieldConnector>
