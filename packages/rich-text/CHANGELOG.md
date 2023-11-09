@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.15.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.15.0...@contentful/field-editor-rich-text@3.15.1) (2023-11-09)
+
+### Bug Fixes
+
+- show RT embed button for only inline resource ([#1539](https://github.com/contentful/field-editors/issues/1539)) ([cb471fc](https://github.com/contentful/field-editors/commit/cb471fce3cbc772c74e32c045fac50673c787614))
+
 # [3.15.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.14.3...@contentful/field-editor-rich-text@3.15.0) (2023-11-02)
 
 ### Features
