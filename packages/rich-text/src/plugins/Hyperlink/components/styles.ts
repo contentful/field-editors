@@ -9,6 +9,21 @@ export const styles = {
       fontSize: 'inherit !important',
     },
   }),
+  iconButton: css({
+    padding: `${tokens.spacing2Xs} ${tokens.spacingXs}`,
+  }),
+  openLink: css({
+    display: 'inline-block',
+    marginLeft: tokens.spacingXs,
+    marginRight: tokens.spacingXs,
+    maxWidth: '22ch',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  }),
+  popover: css({
+    zIndex: tokens.zIndexDefault,
+  }),
   hyperlink: css({
     fontSize: 'inherit !important',
     display: 'inline !important',

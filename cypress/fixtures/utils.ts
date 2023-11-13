@@ -16,6 +16,15 @@ export const getIframe = (): Cypress.Chainable<JQuery<HTMLBodyElement>> => {
     .then((body) => cy.wrap(body as HTMLBodyElement));
 };
 
+export const openEditLink = () => {
+  return getIframe()
+    .findByTestId('cf-ui-popover-content')
+    .should('exist')
+    .findByLabelText('Edit link')
+    .should('exist')
+    .click();
+};
+
 export const getIframeWindow = () => {
   return cy
     .get('#storybook-preview-iframe')

@@ -8,7 +8,7 @@ import {
   inline,
   text,
 } from '../../../packages/rich-text/src/helpers/nodeFactory';
-import { getIframe } from '../../fixtures/utils';
+import { getIframe, openEditLink } from '../../fixtures/utils';
 import { RichTextPage } from './RichTextPage';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
@@ -270,12 +270,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000 }, () => {
 
         // Part 2:
         // Update hyperlink to entry link
-
-        richText.editor
-          .findByTestId('cf-ui-text-link')
-          .should('have.text', 'My cool website')
-          .click({ force: true });
-
+        openEditLink();
         form.linkText.should('not.exist');
         form.linkType.should('have.value', 'hyperlink').select('entry-hyperlink');
         form.linkEntityTarget.should('have.text', 'Select entry').click();
@@ -293,12 +288,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000 }, () => {
 
         // Part 3:
         // Update entry link to asset link
-
-        richText.editor
-          .findByTestId('cf-ui-text-link')
-          .should('have.text', 'My cool website')
-          .click({ force: true });
-
+        openEditLink();
         form.linkText.should('not.exist');
         form.linkType.should('have.value', 'entry-hyperlink').select('asset-hyperlink');
         form.linkEntityTarget.should('have.text', 'Select asset').click();
@@ -316,12 +306,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000 }, () => {
 
         // Part 4:
         // Update asset link to resource link
-
-        richText.editor
-          .findByTestId('cf-ui-text-link')
-          .should('have.text', 'My cool website')
-          .click({ force: true });
-
+        openEditLink();
         form.linkText.should('not.exist');
         form.linkType.should('have.value', 'asset-hyperlink').select('resource-hyperlink');
         form.linkEntityTarget.should('have.text', 'Select entry').click();
@@ -347,12 +332,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000 }, () => {
 
         // Part 5:
         // Update resource link to hyperlink
-
-        richText.editor
-          .findByTestId('cf-ui-text-link')
-          .should('have.text', 'My cool website')
-          .click({ force: true });
-
+        openEditLink();
         form.linkText.should('not.exist');
         form.linkType.should('have.value', 'resource-hyperlink').select('hyperlink');
         form.linkTarget.type('https://zombo.com');

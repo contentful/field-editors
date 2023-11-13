@@ -2,7 +2,7 @@
 
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types';
 
-import { getIframe } from '../../fixtures/utils';
+import { getIframe, openEditLink } from '../../fixtures/utils';
 import { RichTextPage } from './RichTextPage';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
@@ -592,9 +592,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
           // Part 2:
           // Update hyperlink to entry link
-
-          richText.editor.findByTestId('cf-ui-text-link').click({ force: true });
-
+          openEditLink();
           form.linkType.select('entry-hyperlink');
           form.linkEntityTarget.click();
           form.submit.click();
@@ -609,9 +607,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
           // Part 3:
           // Update entry link to asset link
-
-          richText.editor.findByTestId('cf-ui-text-link').click({ force: true });
-
+          openEditLink();
           form.linkType.select('asset-hyperlink');
           form.linkEntityTarget.click();
           form.submit.click();
@@ -629,9 +625,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
           // Part 4:
           // Update asset link to hyperlink
-
-          richText.editor.findByTestId('cf-ui-text-link').click({ force: true });
-
+          openEditLink();
           form.linkType.select('hyperlink');
           form.linkTarget.type('https://zombo.com');
           form.submit.click();
