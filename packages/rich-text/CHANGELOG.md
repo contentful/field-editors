@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.16.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.15.2...@contentful/field-editor-rich-text@3.16.0) (2023-11-15)
+
+### Features
+
+- hyperlink edit popover modal ([#1542](https://github.com/contentful/field-editors/issues/1542)) ([e555443](https://github.com/contentful/field-editors/commit/e555443c9e6f35117d80543493d7f09b9c85c460))
+
 ## [3.15.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.15.1...@contentful/field-editor-rich-text@3.15.2) (2023-11-14)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
