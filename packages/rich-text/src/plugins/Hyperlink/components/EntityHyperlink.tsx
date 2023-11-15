@@ -1,15 +1,16 @@
 import * as React from 'react';
 
 import { FieldAppSDK, Link } from '@contentful/app-sdk';
-import { Tooltip, TextLink } from '@contentful/f36-components';
+import { Text } from '@contentful/f36-components';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
-import { fromDOMPoint } from '../../../internal';
+import { findNodePath, isChildPath } from '../../../internal/queries';
 import { Element, RenderElementProps } from '../../../internal/types';
 import { useSdkContext } from '../../../SdkProvider';
 import { useLinkTracking } from '../../links-tracking';
-import { addOrEditLink } from '../HyperlinkModal';
 import { useEntityInfo } from '../useEntityInfo';
+import { handleEditLink, handleRemoveLink } from './linkHandlers';
+import { LinkPopover } from './LinkPopover';
 import { styles } from './styles';
 
 export type HyperlinkElementProps = {
@@ -33,8 +34,11 @@ export type HyperlinkElementProps = {
 export function EntityHyperlink(props: HyperlinkElementProps) {
   const editor = useContentfulEditor();
   const sdk: FieldAppSDK = useSdkContext();
+  const focus = editor.selection?.focus;
   const { target } = props.element.data;
   const { onEntityFetchComplete } = useLinkTracking();
+  const pathToElement = findNodePath(editor, props.element);
+  const isLinkFocused = pathToElement && focus && isChildPath(focus.path, pathToElement);
 
   const tooltipContent = useEntityInfo({
     target,
@@ -42,36 +46,33 @@ export function EntityHyperlink(props: HyperlinkElementProps) {
     onEntityFetchComplete,
   });
 
-  if (!target) return null;
-
-  function handleClick(event: React.MouseEvent<HTMLAnchorElement>) {
-    event.preventDefault();
-    event.stopPropagation();
-    if (!editor) return;
-
-    const p = fromDOMPoint(editor, [event.target as Node, 0]);
-
-    if (p) {
-      addOrEditLink(editor, sdk, editor.tracking.onViewportAction, p.path);
-    }
+  if (!target) {
+    return null;
   }
 
+  const popoverText = (
+    <Text fontColor="blue600" fontWeight="fontWeightMedium" className={styles.openLink}>
+      {tooltipContent}
+    </Text>
+  );
+
   return (
-    <Tooltip
-      content={tooltipContent}
-      targetWrapperClassName={styles.hyperlinkWrapper}
-      placement="bottom"
-      maxWidth="auto"
+    <LinkPopover
+      isLinkFocused={isLinkFocused}
+      handleEditLink={() => handleEditLink(editor, sdk, pathToElement)}
+      handleRemoveLink={() => handleRemoveLink(editor)}
+      popoverText={popoverText}
     >
-      <TextLink
-        as="a"
-        onClick={handleClick}
+      <Text
+        testId="cf-ui-text-link"
+        fontColor="blue600"
+        fontWeight="fontWeightMedium"
         className={styles.hyperlink}
         data-link-type={target.sys.linkType}
         data-link-id={target.sys.id}
       >
         {props.children}
-      </TextLink>
-    </Tooltip>
+      </Text>
+    </LinkPopover>
   );
 }
