@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { FieldAppSDK, Link } from '@contentful/app-sdk';
-import { TextLink, Text } from '@contentful/f36-components';
+import { TextLink } from '@contentful/f36-components';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
 import { findNodePath, isChildPath } from '../../../internal/queries';
@@ -51,14 +51,14 @@ export function UrlHyperlink(props: HyperlinkElementProps) {
       handleCopyLink={() => handleCopyLink(uri)}
       popoverText={popoverText}
     >
-      <Text
+      <TextLink
         testId="cf-ui-text-link"
-        fontColor="blue600"
-        fontWeight="fontWeightMedium"
+        href={uri}
+        onClick={(e) => e.preventDefault()}
         className={styles.hyperlink}
       >
         {props.children}
-      </Text>
+      </TextLink>
     </LinkPopover>
   );
 }

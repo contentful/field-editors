@@ -22,7 +22,7 @@ export const openEditLink = () => {
     .should('exist')
     .findByLabelText('Edit link')
     .should('exist')
-    .click();
+    .click({ force: true });
 };
 
 export const getIframeWindow = () => {
