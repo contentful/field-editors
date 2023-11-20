@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.16.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.0...@contentful/field-editor-rich-text@3.16.1) (2023-11-20)
+
+### Bug Fixes
+
+- rich text link copy to google docs [TOL-1647] ([#1544](https://github.com/contentful/field-editors/issues/1544)) ([8db95f4](https://github.com/contentful/field-editors/commit/8db95f40ebf4811899085e324d697499244434cf))
+
 # [3.16.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.15.2...@contentful/field-editor-rich-text@3.16.0) (2023-11-15)
 
 ### Features
