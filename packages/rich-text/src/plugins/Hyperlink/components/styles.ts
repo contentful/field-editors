@@ -22,13 +22,14 @@ export const styles = {
     textOverflow: 'ellipsis',
   }),
   popover: css({
-    zIndex: tokens.zIndexDefault,
+    zIndex: tokens.zIndexModal,
   }),
   hyperlink: css({
     fontSize: 'inherit !important',
     display: 'inline !important',
     '&:hover': {
       fill: tokens.gray900,
+      textDecoration: 'none',
     },
     '&:focus': {
       fill: tokens.gray900,
