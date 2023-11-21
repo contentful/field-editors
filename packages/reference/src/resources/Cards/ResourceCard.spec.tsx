@@ -1,16 +1,16 @@
 import * as React from 'react';
 
 import '@testing-library/jest-dom';
-
 import { createFakeCMAAdapter } from '@contentful/field-editor-test-utils';
+import { jest } from '@jest/globals';
 import { configure, fireEvent, render, waitFor } from '@testing-library/react';
 
 import publishedCT from '../../__fixtures__/content-type/published_content_type.json';
 import publishedEntryNonMasterEnvironment from '../../__fixtures__/entry/published_entry_non_master.json';
 import publishedEntry from '../../__fixtures__/entry/published_entry.json';
 import space from '../../__fixtures__/space/indifferent_space.json';
-import { EntityProvider } from '../../common/EntityStore';
-import { ResourceCard } from './ResourceCard';
+import { EntityProvider } from '../../common/EntityStore.js';
+import { ResourceCard } from './ResourceCard.js';
 
 configure({
   testIdAttribute: 'data-test-id',
@@ -19,6 +19,14 @@ configure({
 jest.mock('react-intersection-observer', () => ({
   useInView: jest.fn().mockReturnValue({}),
 }));
+
+const intersectionObserverMock = () => ({
+  observe: () => true,
+  unobserve: () => true,
+  disconnect: () => true,
+});
+// @ts-expect-error maybe we should just mock the react-intersection-observer package instead
+window.IntersectionObserver = jest.fn().mockImplementation(intersectionObserverMock);
 
 // explicit master
 const resolvableEntryUrn = 'crn:contentful:::content:spaces/space-id/entries/linked-entry-urn';
@@ -33,8 +41,9 @@ const sdk: any = {
     default: 'en-US',
   },
   cmaAdapter: createFakeCMAAdapter({
-    ContentType: { get: jest.fn().mockReturnValue(publishedCT) },
+    ContentType: { get: jest.fn().mockReturnValue(publishedCT) as jest.Mock<any> },
     Entry: {
+      // @ts-expect-error fix after esm migration
       get: jest.fn().mockImplementation(({ spaceId, environmentId, entryId }) => {
         if (
           spaceId === 'space-id' &&
@@ -54,11 +63,14 @@ const sdk: any = {
       }),
     },
     Locale: {
+      // @ts-expect-error fix after esm migration
       getMany: jest.fn().mockResolvedValue({ items: [{ default: true, code: 'en' }] }),
     },
     ScheduledAction: {
+      // @ts-expect-error fix after esm migration
       getMany: jest.fn().mockResolvedValue({ items: [], total: 0 }),
     },
+    // @ts-expect-error fix after esm migration
     Space: { get: jest.fn().mockResolvedValue(space) },
   }),
   space: { onEntityChanged: jest.fn() },

@@ -1,5 +1,5 @@
-import { EditorPermissions } from '../../common/useEditorPermissions';
-import { Asset, ContentType, ContentEntityType, Entry, FieldAppSDK } from '../../types';
+import { EditorPermissions } from '../../common/useEditorPermissions.js';
+import { Asset, ContentType, ContentEntityType, Entry, FieldAppSDK } from '../../types.js';
 
 const getContentTypeIds = (contentTypes: ContentType[]) => contentTypes.map((ct) => ct.sys.id);
 

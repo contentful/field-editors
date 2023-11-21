@@ -1,17 +1,17 @@
 import * as React from 'react';
 
-import { AssetCard, EntryCard } from '@contentful/f36-components';
+import { AssetCard, EntryCard } from '@contentful/f36-card';
 
 import {
   CustomEntityCardProps,
   CustomCardRenderer,
   RenderCustomMissingEntityCard,
-} from '../../common/customCardTypes';
-import { useEntity, useEntityLoader } from '../../common/EntityStore';
-import { LinkActionsProps, MissingEntityCard } from '../../components';
-import { Action, Asset, FieldAppSDK, ViewType, RenderDragFn } from '../../types';
-import { WrappedAssetCard, WrappedAssetCardProps } from './WrappedAssetCard';
-import { WrappedAssetLink } from './WrappedAssetLink';
+} from '../../common/customCardTypes.js';
+import { useEntity, useEntityLoader } from '../../common/EntityStore.js';
+import { LinkActionsProps, MissingEntityCard } from '../../components/index.js';
+import { Action, Asset, FieldAppSDK, ViewType, RenderDragFn } from '../../types.js';
+import { WrappedAssetCard, WrappedAssetCardProps } from './WrappedAssetCard.js';
+import { WrappedAssetLink } from './WrappedAssetLink.js';
 
 type FetchingWrappedAssetCardProps = {
   assetId: string;

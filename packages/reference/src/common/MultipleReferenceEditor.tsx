@@ -4,13 +4,13 @@ import { useCallback } from 'react';
 import { DragStartEvent } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
 
-import { LinkEntityActions } from '../components';
-import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions';
-import { ReferenceValue, ContentEntityType, ContentType } from '../types';
-import { useSortIDs } from '../utils/useSortIDs';
-import { CustomEntityCardProps } from './customCardTypes';
-import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
-import { useEditorPermissions } from './useEditorPermissions';
+import { LinkEntityActions } from '../components/index.js';
+import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions.js';
+import { ReferenceValue, ContentEntityType, ContentType } from '../types.js';
+import { useSortIDs } from '../utils/useSortIDs.js';
+import { CustomEntityCardProps } from './customCardTypes.js';
+import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor.js';
+import { useEditorPermissions } from './useEditorPermissions.js';
 
 type ChildProps = {
   entityType: ContentEntityType;

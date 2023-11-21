@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import { Card, SectionHeading } from '@contentful/f36-components';
+import { Card } from '@contentful/f36-card';
+import { SectionHeading } from '@contentful/f36-typography';
 import { css } from 'emotion';
 
 const styles = {

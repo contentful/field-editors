@@ -1,4 +1,5 @@
 import { FieldAppSDK } from '@contentful/app-sdk';
+import { jest } from '@jest/globals';
 
 export function mockSdkForField(fieldDefinition: any, fieldValue?: any): FieldAppSDK {
   return {
@@ -30,6 +31,7 @@ export function mockSdkForField(fieldDefinition: any, fieldValue?: any): FieldAp
           },
         },
       }),
+      // @ts-expect-error fix this typing after esm migration
       selectMultipleResourceEntries: jest.fn().mockResolvedValue([
         {
           sys: {

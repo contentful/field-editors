@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { ScheduledAction, SpaceAPI } from '@contentful/app-sdk';
 
-import { ScheduleTooltip } from './ScheduleTooltip';
+import { ScheduleTooltip } from './ScheduleTooltip.js';
 
 type ScheduledIconWithTooltipProps = {
   getEntityScheduledActions: SpaceAPI['getEntityScheduledActions'];

@@ -5,16 +5,16 @@ import { FieldConnector } from '@contentful/field-editor-shared';
 import { DragStartEvent } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
 import deepEqual from 'deep-equal';
-import noop from 'lodash/noop';
+import noop from 'lodash-es/noop.js';
 
-import { EntityProvider } from '../common/EntityStore';
-import { ReferenceEditorProps } from '../common/ReferenceEditor';
-import { SortableLinkList } from '../common/SortableLinkList';
-import { CombinedLinkEntityActions } from '../components/LinkActions/LinkEntityActions';
-import { ResourceLink } from '../types';
-import { EntryRoute } from './Cards/ContentfulEntryCard';
-import { ResourceCard } from './Cards/ResourceCard';
-import { useResourceLinkActions } from './useResourceLinkActions';
+import { EntityProvider } from '../common/EntityStore.js';
+import { ReferenceEditorProps } from '../common/ReferenceEditor.js';
+import { SortableLinkList } from '../common/SortableLinkList.js';
+import { CombinedLinkEntityActions } from '../components/LinkActions/LinkEntityActions.js';
+import { ResourceLink } from '../types.js';
+import { EntryRoute } from './Cards/ContentfulEntryCard.js';
+import { ResourceCard } from './Cards/ResourceCard.js';
+import { useResourceLinkActions } from './useResourceLinkActions.js';
 
 type ChildProps = {
   items: ResourceLink[];
@@ -135,8 +135,7 @@ export function MultipleResourceReferenceEditor(
         debounce={0}
         field={props.sdk.field}
         isInitiallyDisabled={props.isInitiallyDisabled}
-        isEqualValues={deepEqual}
-      >
+        isEqualValues={deepEqual}>
         {({ value, disabled, setValue, externalReset }) => {
           return (
             <ResourceEditor
@@ -145,8 +144,7 @@ export function MultipleResourceReferenceEditor(
               isDisabled={disabled}
               setValue={setValue}
               renderCustomActions={props.renderCustomActions}
-              key={`${externalReset}-list`}
-            >
+              key={`${externalReset}-list`}>
               {(editorProps) => (
                 <SortableLinkList<ResourceLink> {...editorProps}>
                   {({ item, isDisabled, DragHandle, index }) => (
@@ -155,8 +153,7 @@ export function MultipleResourceReferenceEditor(
                       index={index}
                       onMove={editorProps.onMove}
                       onRemoteItemAtIndex={editorProps.onRemoteItemAtIndex}
-                      listLength={value?.length || 0}
-                    >
+                      listLength={value?.length || 0}>
                       {({ onMoveBottom, onMoveTop, onRemove }) => (
                         <ResourceCard
                           key={index}

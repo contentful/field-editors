@@ -1,16 +1,19 @@
 import * as React from 'react';
 
-import { EntryCard } from '@contentful/f36-components';
+import { EntryCard } from '@contentful/f36-card';
 import { EntryProps } from 'contentful-management';
-import get from 'lodash/get';
+import get from 'lodash-es/get.js';
 
-import { CustomEntityCardProps, RenderCustomMissingEntityCard } from '../../common/customCardTypes';
-import { useEntity, useEntityLoader } from '../../common/EntityStore';
-import { ReferenceEditorProps } from '../../common/ReferenceEditor';
-import type { LinkActionsProps } from '../../components';
-import { MissingEntityCard } from '../../components';
-import { ContentType, Entry, FieldAppSDK, NavigatorSlideInfo, RenderDragFn } from '../../types';
-import { WrappedEntryCard, WrappedEntryCardProps } from './WrappedEntryCard';
+import {
+  CustomEntityCardProps,
+  RenderCustomMissingEntityCard,
+} from '../../common/customCardTypes.js';
+import { useEntity, useEntityLoader } from '../../common/EntityStore.js';
+import { ReferenceEditorProps } from '../../common/ReferenceEditor.js';
+import type { LinkActionsProps } from '../../components/index.js';
+import { MissingEntityCard } from '../../components/index.js';
+import { ContentType, Entry, FieldAppSDK, NavigatorSlideInfo, RenderDragFn } from '../../types.js';
+import { WrappedEntryCard, WrappedEntryCardProps } from './WrappedEntryCard.js';
 
 export type EntryCardReferenceEditorProps = ReferenceEditorProps & {
   entryId: string;

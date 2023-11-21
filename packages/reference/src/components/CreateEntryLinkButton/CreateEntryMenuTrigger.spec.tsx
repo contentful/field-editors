@@ -1,15 +1,15 @@
 import * as React from 'react';
 
-import { Button } from '@contentful/f36-components';
+import { Button } from '@contentful/f36-button';
+import { jest } from '@jest/globals';
 import '@testing-library/jest-dom/extend-expect';
 import { act, configure, fireEvent, render } from '@testing-library/react';
-import noop from 'lodash/noop';
-
+import noop from 'lodash-es/noop.js';
 // eslint-disable-next-line -- TODO: describe this disable  you-dont-need-lodash-underscore/fill
-import fill from 'lodash/fill';
+import fill from 'lodash-es/fill.js';
 
-import { ContentType } from '../../types';
-import { CreateEntryMenuTrigger, CreateEntryMenuTriggerChild } from './CreateEntryMenuTrigger';
+import { ContentType } from '../../types.js';
+import { CreateEntryMenuTrigger, CreateEntryMenuTriggerChild } from './CreateEntryMenuTrigger.js';
 
 configure({
   testIdAttribute: 'data-test-id',
@@ -27,7 +27,8 @@ describe('CreateEntryMenuTrigger general', () => {
     },
   };
 
-  let stub = jest.fn();
+  // FIXME: fix any type here
+  let stub: jest.Mock<any> = jest.fn();
   beforeEach(() => {
     stub = jest.fn().mockImplementation(() => <Button testId="menu-trigger" />);
   });
@@ -61,7 +62,7 @@ describe('CreateEntryMenuTrigger general', () => {
   });
 
   it('should not set isSelecting to true in case onSelect is sync', async () => {
-    const selectStub = jest.fn();
+    const selectStub = jest.fn(() => Promise.resolve());
 
     const { getAllByTestId, getByTestId } = render(
       <CreateEntryMenuTrigger {...props} onSelect={selectStub}>
@@ -83,8 +84,7 @@ describe('CreateEntryMenuTrigger general', () => {
     const { getByTestId } = render(
       <CreateEntryMenuTrigger
         {...props}
-        contentTypes={fill(Array(21), CONTENT_TYPE_3) as ContentType[]}
-      >
+        contentTypes={fill(Array(21), CONTENT_TYPE_3) as ContentType[]}>
         {stub}
       </CreateEntryMenuTrigger>
     );

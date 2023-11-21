@@ -1,3 +1,3 @@
-export { SingleMediaEditor } from './SingleMediaEditor';
-export { MultipleMediaEditor } from './MultipleMediaEditor';
-export { WrappedAssetCard } from './WrappedAssetCard/WrappedAssetCard';
+export { SingleMediaEditor } from './SingleMediaEditor.js';
+export { MultipleMediaEditor } from './MultipleMediaEditor.js';
+export { WrappedAssetCard } from './WrappedAssetCard/WrappedAssetCard.js';

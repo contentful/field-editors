@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 import { ScheduledAction } from '@contentful/app-sdk';
-import { Tooltip } from '@contentful/f36-components';
+import { Tooltip } from '@contentful/f36-tooltip';
 
-import { formatDateAndTime } from './formatDateAndTime';
+import { formatDateAndTime } from './formatDateAndTime.js';
 
 export const getScheduleTooltipContent = ({
   job,
@@ -32,8 +32,7 @@ export const ScheduleTooltip = ({
       placement="top"
       testId={job.sys.id}
       as="div"
-      content={getScheduleTooltipContent({ job, jobsCount })}
-    >
+      content={getScheduleTooltipContent({ job, jobsCount })}>
       {children}
     </Tooltip>
   );

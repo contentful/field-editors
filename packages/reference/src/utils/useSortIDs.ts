@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import { arrayMove } from '@dnd-kit/sortable';
 
-import { ReferenceValue, ResourceLink } from '../types';
+import { ReferenceValue, ResourceLink } from '../types.js';
 
 type Items = (ResourceLink | ReferenceValue)[];
 

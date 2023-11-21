@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { useCallback } from 'react';
 
-import { LinkEntityActions } from '../components';
-import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions';
-import { ContentType, ContentEntityType, ReferenceValue } from '../types';
-import { CustomEntityCardProps } from './customCardTypes';
-import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
-import { useEditorPermissions } from './useEditorPermissions';
+import { LinkEntityActions } from '../components/index.js';
+import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions.js';
+import { ContentType, ContentEntityType, ReferenceValue } from '../types.js';
+import { CustomEntityCardProps } from './customCardTypes.js';
+import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor.js';
+import { useEditorPermissions } from './useEditorPermissions.js';
 
 type ChildProps = {
   entityId: string;

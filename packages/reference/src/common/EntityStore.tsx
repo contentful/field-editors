@@ -11,8 +11,8 @@ import {
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query';
-import constate from 'constate';
-import { PlainClientAPI, createClient } from 'contentful-management';
+import { PlainClientAPI } from 'contentful-management';
+import contentful from 'contentful-management';
 import PQueue from 'p-queue';
 
 import {
@@ -23,7 +23,10 @@ import {
   ResourceType,
   ScheduledAction,
   Space,
-} from '../types';
+} from '../types.js';
+import constate from './constate.js';
+
+const { createClient } = contentful;
 
 export type ResourceInfo<R extends Resource = Resource> = {
   resource: R;
@@ -212,7 +215,10 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
         const { priority, ...queryOptions } = options;
         return queryClient.fetchQuery(
           queryKey,
-          () => queryQueue.add(() => fn({ cmaClient }), { priority }),
+          () =>
+            queryQueue.add(() => fn({ cmaClient }), { priority }) as
+              | TQueryFnData
+              | Promise<TQueryFnData>,
           queryOptions
         );
       },

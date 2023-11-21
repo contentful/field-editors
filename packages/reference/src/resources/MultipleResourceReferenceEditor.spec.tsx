@@ -1,17 +1,26 @@
 import * as React from 'react';
 
 import { FieldAppSDK } from '@contentful/app-sdk';
+import { jest } from '@jest/globals';
 import '@testing-library/jest-dom/extend-expect';
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import { useResource } from '../common/EntityStore';
-import { MultipleResourceReferenceEditor } from './MultipleResourceReferenceEditor';
-import { createFakeEntryResource, mockSdkForField } from './testHelpers/resourceEditorHelpers';
+import { useResource } from '../common/EntityStore.js';
+import { MultipleResourceReferenceEditor } from './MultipleResourceReferenceEditor.js';
+import { createFakeEntryResource, mockSdkForField } from './testHelpers/resourceEditorHelpers.js';
 
 let mockedResources: Record<string, unknown> = {};
 
+const intersectionObserverMock = () => ({
+  observe: () => null,
+  unobserve: () => null,
+  disconnect: () => null,
+});
+// @ts-expect-error fix this by maybe mocking the react-intersection-observer package instead
+window.IntersectionObserver = jest.fn().mockImplementation(intersectionObserverMock);
+
 jest.mock('../common/EntityStore', () => {
-  const module = jest.requireActual('../common/EntityStore');
+  const module: jest.Mock = jest.requireActual('../common/EntityStore');
 
   return {
     ...module,
@@ -24,7 +33,7 @@ jest.mock('../common/EntityStore', () => {
 });
 
 jest.mock('react-intersection-observer', () => {
-  const module = jest.requireActual('react-intersection-observer');
+  const module: jest.Mock = jest.requireActual('react-intersection-observer');
 
   return {
     ...module,

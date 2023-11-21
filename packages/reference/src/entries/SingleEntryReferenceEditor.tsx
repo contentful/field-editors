@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { ReferenceEditorProps } from '../common/ReferenceEditor';
-import { SingleReferenceEditor } from '../common/SingleReferenceEditor';
-import { FetchingWrappedEntryCard } from './WrappedEntryCard/FetchingWrappedEntryCard';
+import { ReferenceEditorProps } from '../common/ReferenceEditor.js';
+import { SingleReferenceEditor } from '../common/SingleReferenceEditor.js';
+import { FetchingWrappedEntryCard } from './WrappedEntryCard/FetchingWrappedEntryCard.js';
 
 export function SingleEntryReferenceEditor(props: ReferenceEditorProps) {
   return (

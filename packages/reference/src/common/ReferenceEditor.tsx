@@ -3,10 +3,10 @@ import * as React from 'react';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import deepEqual from 'deep-equal';
 
-import type { LinkActionsProps } from '../components';
-import { Action, ActionLabels, FieldAppSDK, ViewType } from '../types';
-import { CustomCardRenderer, RenderCustomMissingEntityCard } from './customCardTypes';
-import { EntityProvider } from './EntityStore';
+import type { LinkActionsProps } from '../components/index.js';
+import { Action, ActionLabels, FieldAppSDK, ViewType } from '../types.js';
+import { CustomCardRenderer, RenderCustomMissingEntityCard } from './customCardTypes.js';
+import { EntityProvider } from './EntityStore.js';
 
 // TODO: Rename common base for reference/media editors to something neutral,
 //  e.g. `LinkEditor<T>`.
@@ -53,8 +53,7 @@ export function ReferenceEditor<T>(
         isInitiallyDisabled={props.isInitiallyDisabled}
         isEqualValues={(value1, value2) => {
           return deepEqual(value1, value2);
-        }}
-      >
+        }}>
         {props.children}
       </FieldConnector>
     </EntityProvider>

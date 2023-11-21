@@ -3,13 +3,13 @@ import * as React from 'react';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import deepEqual from 'deep-equal';
 
-import { EntityProvider } from '../common/EntityStore';
-import { ReferenceEditorProps } from '../common/ReferenceEditor';
-import { CombinedLinkEntityActions } from '../components/LinkActions/LinkEntityActions';
-import { ResourceLink } from '../types';
-import { EntryRoute } from './Cards/ContentfulEntryCard';
-import { ResourceCard } from './Cards/ResourceCard';
-import { useResourceLinkActions } from './useResourceLinkActions';
+import { EntityProvider } from '../common/EntityStore.js';
+import { ReferenceEditorProps } from '../common/ReferenceEditor.js';
+import { CombinedLinkEntityActions } from '../components/LinkActions/LinkEntityActions.js';
+import { ResourceLink } from '../types.js';
+import { EntryRoute } from './Cards/ContentfulEntryCard.js';
+import { ResourceCard } from './Cards/ResourceCard.js';
+import { useResourceLinkActions } from './useResourceLinkActions.js';
 
 export function SingleResourceReferenceEditor(
   props: ReferenceEditorProps & {
@@ -30,8 +30,7 @@ export function SingleResourceReferenceEditor(
         debounce={0}
         field={props.sdk.field}
         isInitiallyDisabled={props.isInitiallyDisabled}
-        isEqualValues={deepEqual}
-      >
+        isEqualValues={deepEqual}>
         {({ value, disabled }) => {
           return value ? (
             <ResourceCard

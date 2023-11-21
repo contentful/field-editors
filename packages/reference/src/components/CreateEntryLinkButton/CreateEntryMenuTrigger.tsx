@@ -2,13 +2,14 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 
-import { TextInput, Menu, MenuProps } from '@contentful/f36-components';
+import { TextInput } from '@contentful/f36-forms';
 import { SearchIcon } from '@contentful/f36-icons';
+import { Menu, MenuProps } from '@contentful/f36-menu';
 import tokens from '@contentful/f36-tokens';
 import { css } from 'emotion';
-import get from 'lodash/get';
+import get from 'lodash-es/get.js';
 
-import { ContentType } from '../../types';
+import { ContentType } from '../../types.js';
 
 const MAX_ITEMS_WITHOUT_SEARCH = 5;
 
@@ -173,8 +174,7 @@ export const CreateEntryMenuTrigger = ({
         isOpen={isOpen}
         onClose={closeMenu}
         onOpen={handleMenuOpen}
-        {...menuProps}
-      >
+        {...menuProps}>
         <Menu.Trigger>{children({ isOpen, isSelecting })}</Menu.Trigger>
 
         {isOpen && (
@@ -185,8 +185,7 @@ export const CreateEntryMenuTrigger = ({
               maxHeight: `${maxDropdownHeight}px`,
             }}
             ref={menuListRef}
-            testId="add-entry-menu"
-          >
+            testId="add-entry-menu">
             {Boolean(customDropdownItems) && (
               <>
                 {customDropdownItems}
@@ -226,8 +225,7 @@ export const CreateEntryMenuTrigger = ({
                 <Menu.Item
                   testId="contentType"
                   key={`${get(contentType, 'name')}-${i}`}
-                  onClick={() => handleSelect(contentType)}
-                >
+                  onClick={() => handleSelect(contentType)}>
                   {get(contentType, 'name', 'Untitled')}
                 </Menu.Item>
               ))
