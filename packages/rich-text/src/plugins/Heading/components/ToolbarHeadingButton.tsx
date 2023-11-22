@@ -57,13 +57,13 @@ const styles = {
 };
 
 const LABELS = {
-  [BLOCKS.PARAGRAPH]: 'Body copy',
   [BLOCKS.HEADING_1]: 'Short title',
   [BLOCKS.HEADING_2]: 'Long title',
   [BLOCKS.HEADING_3]: 'Section header',
   [BLOCKS.HEADING_4]: 'Body copy header',
   [BLOCKS.HEADING_5]: 'Serif column header',
   [BLOCKS.HEADING_6]: 'Sans Serif column header',
+  [BLOCKS.PARAGRAPH]: 'Body copy',
 };
 
 export interface ToolbarHeadingButtonProps {
