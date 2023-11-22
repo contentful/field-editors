@@ -47,13 +47,13 @@ const styles = {
 };
 
 const LABELS = {
-  [BLOCKS.PARAGRAPH]: 'Normal text',
-  [BLOCKS.HEADING_1]: 'Heading 1',
-  [BLOCKS.HEADING_2]: 'Heading 2',
-  [BLOCKS.HEADING_3]: 'Heading 3',
-  [BLOCKS.HEADING_4]: 'Heading 4',
-  [BLOCKS.HEADING_5]: 'Heading 5',
-  [BLOCKS.HEADING_6]: 'Heading 6',
+  [BLOCKS.PARAGRAPH]: 'Body copy',
+  [BLOCKS.HEADING_1]: 'Short title',
+  [BLOCKS.HEADING_2]: 'Long title',
+  [BLOCKS.HEADING_3]: 'Section header',
+  [BLOCKS.HEADING_4]: 'Body copy header',
+  [BLOCKS.HEADING_5]: 'Serif column header',
+  [BLOCKS.HEADING_6]: 'San column header',
 };
 
 export interface ToolbarHeadingButtonProps {
