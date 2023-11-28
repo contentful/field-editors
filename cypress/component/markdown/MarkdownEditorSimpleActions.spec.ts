@@ -1,48 +1,45 @@
-import { getIframe } from '../fixtures/utils';
+import { renderMarkdownEditor, type, clearAll, checkValue, selectWordsBackwards } from './utils';
 
 describe('Markdown Editor / Simple Actions', () => {
   const selectors = {
-    getInput: () => {
-      return getIframe().findByTestId('markdown-textarea').find('[contenteditable]');
-    },
     getHeadingsSelectorButton: () => {
-      return getIframe().findByTestId('markdown-action-button-heading');
+      return cy.findByRole('button', { name: 'Headings' });
     },
     getHeadingButton: (type) => {
-      return getIframe().findByTestId('markdown-action-button-heading-' + type);
+      return cy.findByRole('menuitem', { name: `Heading ${type}` });
     },
     getBoldButton: () => {
-      return getIframe().findByTestId('markdown-action-button-bold');
+      return cy.findByRole('button', { name: 'Bold' });
     },
     getItalicButton: () => {
-      return getIframe().findByTestId('markdown-action-button-italic');
+      return cy.findByRole('button', { name: 'Italic' });
     },
     getQuoteButton: () => {
-      return getIframe().findByTestId('markdown-action-button-quote');
+      return cy.findByRole('button', { name: 'Quote' });
     },
     getUnorderedListButton: () => {
-      return getIframe().findByTestId('markdown-action-button-ul');
+      return cy.findByRole('button', { name: 'Unordered list' });
     },
     getOrderedListButton: () => {
-      return getIframe().findByTestId('markdown-action-button-ol');
+      return cy.findByRole('button', { name: 'Ordered list' });
     },
     getToggleAdditionalActionsButton: () => {
-      return getIframe().findByTestId('markdown-action-button-toggle-additional');
+      return cy.findByTestId('markdown-action-button-toggle-additional');
     },
     getStrikeButton: () => {
-      return getIframe().findByTestId('markdown-action-button-strike');
+      return cy.findByRole('button', { name: 'Strike out' });
     },
     getCodeButton: () => {
-      return getIframe().findByTestId('markdown-action-button-code');
+      return cy.findByRole('button', { name: 'Code block' });
     },
     getHorizontalLineButton: () => {
-      return getIframe().findByTestId('markdown-action-button-hr');
+      return cy.findByRole('button', { name: 'Horizontal rule' });
     },
     getIndentButton: () => {
-      return getIframe().findByTestId('markdown-action-button-indent');
+      return cy.findByRole('button', { name: 'Increase indentation' });
     },
     getDedentButton: () => {
-      return getIframe().findByTestId('markdown-action-button-dedent');
+      return cy.findByRole('button', { name: 'Decrease indentation' });
     },
   };
 
@@ -51,43 +48,9 @@ describe('Markdown Editor / Simple Actions', () => {
     code: 'console.log("This is Javascript code!");',
   };
 
-  const type = (value) => {
-    return selectors.getInput().focus().type(value, { force: true });
-  };
-
   const unveilAdditionalButtonsRow = () => {
     selectors.getToggleAdditionalActionsButton().click();
   };
-
-  const clearAll = () => {
-    cy.getMarkdownInstance().then((markdown) => {
-      markdown.clear();
-    });
-  };
-
-  const selectAll = () => {
-    cy.getMarkdownInstance().then((markdown) => {
-      markdown.selectAll();
-    });
-  };
-
-  const checkValue = (value) => {
-    cy.getMarkdownInstance().then((markdown) => {
-      expect(markdown.getContent()).eq(value);
-    });
-  };
-
-  const selectBackwards = (skip, len) => {
-    cy.getMarkdownInstance().then((markdown) => {
-      markdown.selectBackwards(skip, len);
-    });
-  };
-
-  beforeEach(() => {
-    cy.visit('/?path=/story/editors-markdown--default');
-    cy.wait(500);
-    getIframe().findByTestId('markdown-editor').should('be.visible');
-  });
 
   describe('headings', () => {
     const clickHeading = (value) => {
@@ -96,35 +59,36 @@ describe('Markdown Editor / Simple Actions', () => {
     };
 
     it('should work properly', () => {
-      checkValue('');
+      renderMarkdownEditor({ spyOnSetValue: true });
 
-      clickHeading('h1');
+      clickHeading('1');
       checkValue('# ');
-      getIframe().find('.cm-header-1').should('have.text', '# ');
+      cy.get('.cm-header-1').should('have.text', '# ');
 
-      clickHeading('h2');
+      clickHeading('2');
       checkValue('## ');
-      getIframe().find('.cm-header-2').should('have.text', '## ');
+      cy.get('.cm-header-2').should('have.text', '## ');
 
-      clickHeading('h3');
+      clickHeading('3');
       checkValue('### ');
-      getIframe().find('.cm-header-3').should('have.text', '### ');
+      cy.get('.cm-header-3').should('have.text', '### ');
 
       type('Heading 3{enter}');
 
-      getIframe().find('.cm-header-3').should('have.text', '### Heading 3');
+      checkValue('### Heading 3\n');
+      cy.get('.cm-header-3').should('have.text', '### Heading 3');
 
       type('Future heading 2');
-      clickHeading('h2');
+      clickHeading('2');
       checkValue('### Heading 3\n## Future heading 2');
 
-      clickHeading('h2');
+      clickHeading('2');
       checkValue('### Heading 3\nFuture heading 2');
 
       type('{enter}{enter}');
       type(examples.long);
 
-      clickHeading('h3');
+      clickHeading('3');
       checkValue(`### Heading 3\nFuture heading 2\n\n### ${examples.long}`);
     });
   });
@@ -133,9 +97,9 @@ describe('Markdown Editor / Simple Actions', () => {
     const clickBold = () => {
       selectors.getBoldButton().click();
     };
-
     it('should work properly', () => {
-      checkValue('');
+      renderMarkdownEditor({ spyOnSetValue: true });
+
       clickBold();
       checkValue('__text in bold__');
 
@@ -145,20 +109,26 @@ describe('Markdown Editor / Simple Actions', () => {
       type('{rightarrow}{rightarrow}{enter}');
 
       type('Sentence a bold word.');
-      selectBackwards(1, 9); // select 'bold word'
+      selectWordsBackwards(1, 2);
+
       clickBold();
       type(' and not a bold word');
       checkValue('__bold text__\nSentence a __bold word__ and not a bold word.');
     });
 
     it('should remove boldness to already applied', () => {
-      checkValue('');
+      renderMarkdownEditor({ spyOnSetValue: true });
+
       type('text');
-      selectBackwards(0, 4);
+
+      selectWordsBackwards(0, 1);
       clickBold();
+
       checkValue('__text__');
-      selectBackwards(0, 8);
+
+      selectWordsBackwards(0, 1);
       clickBold();
+
       checkValue('text');
     });
   });
@@ -169,7 +139,8 @@ describe('Markdown Editor / Simple Actions', () => {
     };
 
     it('should work properly', () => {
-      checkValue('');
+      renderMarkdownEditor({ spyOnSetValue: true });
+
       clickItalic();
       checkValue('*text in italic*');
 
@@ -179,20 +150,26 @@ describe('Markdown Editor / Simple Actions', () => {
       type('{rightarrow}{rightarrow}{enter}');
 
       type('Sentence an italic word.');
-      selectBackwards(1, 11); // select 'italic word'
+
+      selectWordsBackwards(1, 2);
       clickItalic();
+
       type(' and not an italic word');
       checkValue('*italic text*\nSentence an *italic word* and not an italic word.');
     });
-
     it('should remove italicness to already applied', () => {
-      checkValue('');
+      renderMarkdownEditor({ spyOnSetValue: true });
+
       type('text');
-      selectBackwards(0, 4);
+
+      selectWordsBackwards(0, 1);
       clickItalic();
+
       checkValue('*text*');
-      selectBackwards(0, 6);
+
+      selectWordsBackwards(0, 3);
       clickItalic();
+
       checkValue('text');
     });
   });
@@ -203,20 +180,23 @@ describe('Markdown Editor / Simple Actions', () => {
     };
 
     it('should work properly', () => {
-      checkValue('');
+      renderMarkdownEditor({ spyOnSetValue: true, spyOnRemoveValue: true });
+
       clickQuote();
       checkValue('> ');
+
       type('some really smart wisdom');
       type('{enter}');
       type('by some really smart person');
       checkValue('> some really smart wisdom\n> by some really smart person');
 
       clearAll();
-      checkValue('');
 
       type(examples.long);
+
       clickQuote();
       checkValue(`> ${examples.long}`);
+
       clickQuote();
       checkValue(examples.long);
     });
@@ -228,21 +208,22 @@ describe('Markdown Editor / Simple Actions', () => {
     };
 
     it('should work properly', () => {
-      checkValue('');
+      renderMarkdownEditor({ spyOnSetValue: true, spyOnRemoveValue: true });
+
       unveilAdditionalButtonsRow();
       clickCode();
-      checkValue('    ');
       type('var i = 0;');
       type('{enter}');
       type('i++;');
       checkValue('    var i = 0;\n    i++;');
 
       clearAll();
-      checkValue('');
 
       type(examples.code);
+
       clickCode();
       checkValue(`    ${examples.code}`);
+
       clickCode();
       checkValue(examples.code);
     });
@@ -254,7 +235,8 @@ describe('Markdown Editor / Simple Actions', () => {
     };
 
     it('should work properly', () => {
-      checkValue('');
+      renderMarkdownEditor({ spyOnSetValue: true });
+
       unveilAdditionalButtonsRow();
       clickStrike();
       checkValue('~~striked out~~');
@@ -265,20 +247,23 @@ describe('Markdown Editor / Simple Actions', () => {
       type('{rightarrow}{rightarrow}{enter}');
 
       type('Sentence a striked out word.');
-      selectBackwards(1, 16); // select 'striked word'
+      selectWordsBackwards(1, 3);
       clickStrike();
       type(' and not a striked out word');
       checkValue('~~striked text~~\nSentence a ~~striked out word~~ and not a striked out word.');
     });
 
     it('should remove strike to already applied', () => {
-      checkValue('');
+      renderMarkdownEditor({ spyOnSetValue: true });
+
       unveilAdditionalButtonsRow();
       type('text');
-      selectBackwards(0, 4);
+
+      selectWordsBackwards(0, 1);
       clickStrike();
       checkValue('~~text~~');
-      selectBackwards(0, 8);
+
+      selectWordsBackwards(0, 3);
       clickStrike();
       checkValue('text');
     });
@@ -290,16 +275,16 @@ describe('Markdown Editor / Simple Actions', () => {
     };
 
     it('should work properly', () => {
-      checkValue('');
+      renderMarkdownEditor({ spyOnSetValue: true, spyOnRemoveValue: true });
+
       clickUnorderedList();
       type('first item');
       type('{enter}');
       type('second item');
       type('{enter}{enter}');
-      checkValue('- first item\n- second item\n\n\n');
+      checkValue('- first item\n- second item\n');
 
       clearAll();
-      checkValue('');
 
       type('sentence at the very beginning.');
       clickUnorderedList();
@@ -307,13 +292,12 @@ describe('Markdown Editor / Simple Actions', () => {
       checkValue('sentence at the very beginning.\n\n- first item\n- second item\n');
 
       clearAll();
-      checkValue('');
 
       type('- first item');
       clickUnorderedList();
       checkValue('first item');
 
-      selectBackwards(0, 4);
+      selectWordsBackwards(0, 1);
       clickUnorderedList();
       checkValue('- first item');
       type('{enter}');
@@ -323,14 +307,14 @@ describe('Markdown Editor / Simple Actions', () => {
     });
 
     it('should work properly with selection', () => {
-      checkValue('');
+      renderMarkdownEditor({ spyOnSetValue: true });
+
       type('first item{enter}');
       type('second item{enter}');
       type('third item');
 
-      selectAll();
+      type('{selectall}');
       clickUnorderedList();
-
       checkValue('- first item\n- second item\n- third item');
     });
   });
@@ -341,16 +325,16 @@ describe('Markdown Editor / Simple Actions', () => {
     };
 
     it('should work properly', () => {
-      checkValue('');
+      renderMarkdownEditor({ spyOnSetValue: true, spyOnRemoveValue: true });
+
       clickOrderedList();
       type('first item');
       type('{enter}');
       type('second item');
       type('{enter}{enter}');
-      checkValue('1. first item\n2. second item\n\n\n');
+      checkValue('1. first item\n2. second item\n');
 
       clearAll();
-      checkValue('');
 
       type('sentence at the very beginning.');
       clickOrderedList();
@@ -358,13 +342,12 @@ describe('Markdown Editor / Simple Actions', () => {
       checkValue('sentence at the very beginning.\n\n1. first item\n2. second item\n');
 
       clearAll();
-      checkValue('');
 
       type('1. first item');
       clickOrderedList();
       checkValue('first item');
 
-      selectBackwards(0, 4);
+      selectWordsBackwards(0, 1);
       clickOrderedList();
       checkValue('1. first item');
       type('{enter}');
@@ -374,12 +357,13 @@ describe('Markdown Editor / Simple Actions', () => {
     });
 
     it('should work properly with selection', () => {
-      checkValue('');
+      renderMarkdownEditor({ spyOnSetValue: true });
+
       type('first item{enter}');
       type('second item{enter}');
       type('third item');
 
-      selectAll();
+      type('{selectall}');
       clickOrderedList();
 
       checkValue('1. first item\n2. second item\n3. third item');
@@ -392,18 +376,20 @@ describe('Markdown Editor / Simple Actions', () => {
     };
 
     it('should work properly', () => {
-      checkValue('');
+      renderMarkdownEditor({ spyOnSetValue: true, spyOnRemoveValue: true });
+
       unveilAdditionalButtonsRow();
       clickHorizontalButton();
-      checkValue('\n---\n\n');
+      checkValue('\n---\n');
+
       clickHorizontalButton();
-      checkValue('\n---\n\n\n---\n\n');
+      checkValue('\n---\n\n---\n');
 
       clearAll();
 
       type('something');
       clickHorizontalButton();
-      checkValue('something\n\n---\n\n');
+      checkValue('something\n\n---\n');
     });
   });
 
@@ -417,7 +403,8 @@ describe('Markdown Editor / Simple Actions', () => {
     };
 
     it('should work properly', () => {
-      checkValue('');
+      renderMarkdownEditor({ spyOnSetValue: true });
+
       unveilAdditionalButtonsRow();
       type('something');
       clickIndentButton();

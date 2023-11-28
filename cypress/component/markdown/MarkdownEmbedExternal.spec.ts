@@ -1,73 +1,58 @@
-import { getIframe } from '../fixtures/utils';
+import { checkValue, clearAll, renderMarkdownEditor } from './utils';
 
 describe('Markdown Editor / Embed External Dialog', () => {
   const selectors = {
-    getInput: () => {
-      return getIframe().findByTestId('markdown-textarea').find('[contenteditable]');
-    },
     getDialogTitle() {
-      return getIframe().findByTestId('dialog-title').find('h2');
+      return cy.findByTestId('dialog-title').find('h2');
     },
     getToggleAdditionalActionsButton: () => {
-      return getIframe().findByTestId('markdown-action-button-toggle-additional');
+      return cy.findByTestId('markdown-action-button-toggle-additional');
     },
     getModalContent() {
-      return getIframe().findByTestId('embed-external-dialog');
+      return cy.findByTestId('embed-external-dialog');
     },
     getEmbedExternalContentButton() {
-      return getIframe().findByTestId('markdown-action-button-embed');
+      return cy.findByRole('button', { name: 'Embed external content' });
     },
     getConfirmButton() {
-      return getIframe().findByTestId('embed-external-confirm');
+      return cy.findByRole('button', { name: 'Insert' });
     },
     getCancelButton() {
-      return getIframe().findByTestId('embed-external-cancel');
+      return cy.findByRole('button', { name: 'Cancel' });
     },
     inputs: {
       getUrlInput() {
-        return getIframe().findByTestId('external-link-url-field');
+        return cy.findByRole('textbox', { name: 'Content URL(required)' });
       },
       getWidthInput() {
-        return getIframe().findByTestId('embedded-content-width');
+        return cy.findByRole('spinbutton', { name: 'Width(required)' });
       },
       getPercentRadio() {
-        return getIframe().findByLabelText('percent');
+        return cy.findByRole('radio', { name: 'percent' });
       },
       getPixelRadio() {
-        return getIframe().findByLabelText('pixels');
+        return cy.findByRole('radio', { name: 'pixels' });
       },
     },
   };
-
-  const checkValue = (value) => {
-    cy.getMarkdownInstance().then((markdown) => {
-      expect(markdown.getContent()).eq(value);
-    });
-  };
-
-  const clearAll = () => {
-    cy.getMarkdownInstance().then((markdown) => {
-      markdown.clear();
-    });
-  };
-
-  beforeEach(() => {
-    cy.visit('/?path=/story/editors-markdown--default');
-    cy.wait(500);
-    getIframe().findByTestId('markdown-editor').should('be.visible');
-    selectors.getToggleAdditionalActionsButton().click();
-  });
 
   function openDialog() {
     selectors.getEmbedExternalContentButton().click();
   }
 
   it('should have correct title', () => {
+    renderMarkdownEditor();
+    selectors.getToggleAdditionalActionsButton().click();
+
     openDialog();
     selectors.getDialogTitle().should('have.text', 'Embed external content');
+    selectors.getCancelButton().click();
   });
 
   it('should have correct default state', () => {
+    renderMarkdownEditor();
+    selectors.getToggleAdditionalActionsButton().click();
+
     openDialog();
 
     selectors.inputs.getUrlInput().should('have.value', 'https://');
@@ -75,10 +60,12 @@ describe('Markdown Editor / Embed External Dialog', () => {
     selectors.inputs.getWidthInput().should('have.value', '100');
     selectors.inputs.getPercentRadio().should('be.checked');
     selectors.inputs.getPixelRadio().should('not.be.checked');
+    selectors.getCancelButton().click();
   });
 
   it('should insert a correct embedly script', () => {
-    checkValue('');
+    renderMarkdownEditor({ spyOnSetValue: true, spyOnRemoveValue: true });
+    selectors.getToggleAdditionalActionsButton().click();
 
     openDialog();
     selectors.inputs.getUrlInput().clear().type('https://contentful.com');
