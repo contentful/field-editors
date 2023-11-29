@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.16.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.1...@contentful/field-editor-rich-text@3.16.2) (2023-11-29)
+
+### Bug Fixes
+
+- add plate common dependency to rich-text ([#1555](https://github.com/contentful/field-editors/issues/1555)) ([b76baf2](https://github.com/contentful/field-editors/commit/b76baf20f08ddbf975080f7d76da62123978b182))
+
 ## [3.16.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.0...@contentful/field-editor-rich-text@3.16.1) (2023-11-20)
 
 ### Bug Fixes
