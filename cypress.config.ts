@@ -1,4 +1,5 @@
 import { defineConfig } from 'cypress';
+import fs from 'fs';
 import webpack from 'webpack';
 
 const task = {
@@ -25,7 +26,19 @@ export default defineConfig({
   e2e: {
     // We've imported your old cypress plugins here.
     // You may want to clean this up later by importing these.
-    setupNodeEvents(_on, config) {
+    setupNodeEvents(on, config) {
+      on('after:spec', (_, results: CypressCommandLine.RunResult) => {
+        if (results && results.video) {
+          // Do we have failures for any retry attempts?
+          const failures = results.tests.some((test) =>
+            test.attempts.some((attempt) => attempt.state === 'failed')
+          );
+          if (!failures) {
+            // delete the video if the spec passed and no tests retried
+            fs.unlinkSync(results.video);
+          }
+        }
+      });
       return config;
     },
     baseUrl: 'http://localhost:9000',
@@ -34,6 +47,18 @@ export default defineConfig({
   component: {
     setupNodeEvents(on, config) {
       on('task', task);
+      on('after:spec', (_, results: CypressCommandLine.RunResult) => {
+        if (results && results.video) {
+          // Do we have failures for any retry attempts?
+          const failures = results.tests.some((test) =>
+            test.attempts.some((attempt) => attempt.state === 'failed')
+          );
+          if (!failures) {
+            // delete the video if the spec passed and no tests retried
+            fs.unlinkSync(results.video);
+          }
+        }
+      });
       return config;
     },
     devServer: {
@@ -76,5 +101,5 @@ export default defineConfig({
     },
     specPattern: 'cypress/component/**/*.spec.{js,ts,jsx,tsx}',
   },
-  video: false,
+  video: true,
 });
