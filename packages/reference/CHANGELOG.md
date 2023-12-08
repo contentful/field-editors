@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.21.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.20.0...@contentful/field-editor-reference@5.21.0) (2023-12-08)
+
+### Features
+
+- support CMA.js v11 ([#1559](https://github.com/contentful/field-editors/issues/1559)) ([2bfcf61](https://github.com/contentful/field-editors/commit/2bfcf611f4066848343e29c9aa4acdcc70c85712))
+
 # [5.20.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.19.0...@contentful/field-editor-reference@5.20.0) (2023-11-14)
 
 ### Features
