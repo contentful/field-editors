@@ -7,9 +7,22 @@ import { mount } from '../mount';
 
 const renderLocationEditor = (isInitiallyDisabled = false) => {
   const [fieldSdk] = createFakeFieldAPI();
-  mount(<LocationEditor field={fieldSdk} isInitiallyDisabled={isInitiallyDisabled} />);
+  mount(
+    <LocationEditor
+      field={fieldSdk}
+      isInitiallyDisabled={isInitiallyDisabled}
+      parameters={{
+        instance: {
+          googleMapsKey: Cypress.env('googleMapsKey') ?? undefined,
+        },
+        installation: {},
+        invocation: {},
+      }}
+    />
+  );
   return fieldSdk;
 };
+
 describe('Location Editor', () => {
   const LOCATION = {
     address: 'Max-Urich-Straße 1, 13355 Berlin, Germany',
