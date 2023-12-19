@@ -110,9 +110,10 @@ Cypress.Commands.add('getMarkdownInstance', () => {
 });
 
 Cypress.Commands.add('getRichTextField', () => {
-  return getIframeWindow()
-    .then((win) => {
-      return win.richTextField;
+  return cy
+    .get('@richTextFieldSDK')
+    .then((richTextField) => {
+      return richTextField;
       // we want to make sure any kind of debounced behaviour
       // is already triggered before we go on and assert the
       // content of the field in any test

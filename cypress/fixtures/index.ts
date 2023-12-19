@@ -3,6 +3,7 @@ import { PubsubEmitter } from './pubsub';
 import { Store } from './store';
 
 export * from './FakeSdk';
+export * from './createRichTextFakeSdk';
 export * as fixtures from '../../packages/reference/src/__fixtures__/fixtures';
 export * from './pubsub';
 export * from './store';
