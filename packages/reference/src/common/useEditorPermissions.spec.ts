@@ -89,7 +89,6 @@ describe('useEditorPermissions', () => {
       });
 
       expect(result.current.creatableContentTypes).toEqual([]);
-      expect(result.current.readableContentTypes).toEqual([]);
     });
   });
 
@@ -194,24 +193,6 @@ describe('useEditorPermissions', () => {
       });
 
       expect(result.current.creatableContentTypes).toEqual([allContentTypes[1]]);
-    });
-
-    it(`returns readableContentTypes from validations that can be read`, async () => {
-      const allContentTypes = [makeContentType('one'), makeContentType('two')];
-
-      const { result } = await renderEditorPermissions({
-        entityType: 'Entry',
-        allContentTypes,
-        customizeMock: (field) => {
-          field.validations = [{ linkContentType: ['two'] }];
-          return field;
-        },
-        customizeSdk: (sdk) => {
-          allowContentTypes(sdk, 'read', 'two');
-        },
-      });
-
-      expect(result.current.readableContentTypes).toEqual([allContentTypes[1]]);
     });
   });
 });

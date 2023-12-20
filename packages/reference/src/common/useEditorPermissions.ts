@@ -18,8 +18,10 @@ export function useEditorPermissions(props: EditorPermissionsProps) {
   const validations = useMemo(() => fromFieldValidations(props.sdk.field), [props.sdk.field]);
   const [canCreateEntity, setCanCreateEntity] = useState(true);
   const [canLinkEntity, setCanLinkEntity] = useState(true);
-  const { creatableContentTypes, readableContentTypes, availableContentTypes } =
-    useContentTypePermissions({ ...props, validations });
+  const { creatableContentTypes, availableContentTypes } = useContentTypePermissions({
+    ...props,
+    validations,
+  });
   const { canPerformAction } = useAccessApi(sdk.access);
 
   useEffect(() => {
@@ -72,13 +74,12 @@ export function useEditorPermissions(props: EditorPermissionsProps) {
 
     void checkLinkAccess();
     // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
-  }, [entityType, parameters.instance, readableContentTypes]);
+  }, [entityType, parameters.instance]);
 
   return {
     canCreateEntity,
     canLinkEntity,
     creatableContentTypes,
-    readableContentTypes,
     availableContentTypes,
     validations,
   };
