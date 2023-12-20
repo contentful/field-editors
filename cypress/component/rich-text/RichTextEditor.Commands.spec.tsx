@@ -15,7 +15,7 @@ describe('Rich Text Editor - Commands', () => {
     const sdk = createRichTextFakeSdk();
     richText = new RichTextPage();
 
-    mount(<RichTextEditor sdk={sdk} isInitiallyDisabled={false} actionsDisabled={true} />);
+    mount(<RichTextEditor sdk={sdk} isInitiallyDisabled={false} />);
   });
 
   describe('Palette', () => {

@@ -52,11 +52,6 @@ export function createRichTextFakeSdk(props?: RrichTextFakeSdkProps): FieldAppSD
     newLink('Entry', entries.changed.sys.id),
     newLink('Entry', entries.empty.sys.id),
   ];
-  const assetLinks = [
-    newLink('Asset', assets.published.sys.id),
-    newLink('Asset', assets.changed.sys.id),
-    newLink('Asset', assets.empty.sys.id),
-  ];
   let selectorCounter = 0;
 
   const delay = (ms: number) => {
@@ -165,14 +160,8 @@ export function createRichTextFakeSdk(props?: RrichTextFakeSdkProps): FieldAppSD
       },
     },
     dialogs: {
-      selectSingleAsset: async () => {
-        selectorCounter++;
-        return assetLinks[selectorCounter % assetLinks.length];
-      },
-      selectMultipleAssets: async () => {
-        selectorCounter++;
-        return selectorCounter % 2 ? assetLinks.slice(0, 2) : [assetLinks[2]];
-      },
+      selectSingleAsset: async () => assets.published,
+      selectMultipleAssets: async () => [assets.published, assets.changed],
       selectSingleEntry: async () => {
         selectorCounter++;
         return entryLinks[selectorCounter % entryLinks.length];

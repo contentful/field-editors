@@ -120,7 +120,6 @@ export class RichTextPage {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   expectTrackingValue(expectedValue: any) {
     cy.window()
-      .then(cy.wrap)
       .should((win: any) => {
         expect(win.actions).to.deep.equal(expectedValue);
       })
