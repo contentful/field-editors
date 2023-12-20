@@ -14,12 +14,12 @@ import {
 } from '@contentful/field-editor-test-utils';
 import type { LocaleProps } from 'contentful-management';
 
-import { assets, entries } from '../../packages/rich-text/src/__fixtures__/fixtures';
+import { assets, entries, spaces } from '../../packages/rich-text/src/__fixtures__/fixtures';
 import { createFakeNavigatorAPI } from './navigator';
 import { createFakePubsub } from './pubsub';
 import { createDefaultFakeStore, Store } from './store';
 
-export type RrichTextFakeSdkProps = {
+type RichTextFakeSdkProps = {
   store?: Store;
   ids?: Partial<FieldAppSDK['ids']>;
   initialValue?: unknown;
@@ -28,7 +28,7 @@ export type RrichTextFakeSdkProps = {
   modifier?: (sdk: FieldAppSDK) => FieldAppSDK;
 };
 
-export function createRichTextFakeSdk(props?: RrichTextFakeSdkProps): FieldAppSDK {
+export function createRichTextFakeSdk(props?: RichTextFakeSdkProps): FieldAppSDK {
   const store = props?.store ?? createDefaultFakeStore();
   const initialValue = props?.initialValue;
   const validations = props?.validations;
@@ -157,6 +157,14 @@ export function createRichTextFakeSdk(props?: RrichTextFakeSdkProps): FieldAppSD
       selectMultipleAssets: async () => [assets.published, assets.changed],
       selectSingleEntry: async () => entries.published,
       selectMultipleEntries: async () => [entries.published, entries.changed],
+      selectSingleResourceEntry: async () => ({
+        ...entries.published,
+        sys: {
+          ...entries.published.sys,
+          urn: `crn:contentful:::content:spaces/${spaces.indifferent.sys.id}/entries/${entries.published.sys.id}`,
+          type: 'Contentful:Entry',
+        },
+      }),
     },
     entry: {
       getSys: () => entries.published.sys,
