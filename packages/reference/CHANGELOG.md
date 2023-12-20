@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.21.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.21.0...@contentful/field-editor-reference@5.21.1) (2023-12-20)
+
+### Bug Fixes
+
+- use available CTs instead of only readable ([#1562](https://github.com/contentful/field-editors/issues/1562)) ([fa5ddce](https://github.com/contentful/field-editors/commit/fa5ddce08fa1cc00f0a2232a043e10cb1d70771c))
+
 # [5.21.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.20.0...@contentful/field-editor-reference@5.21.0) (2023-12-08)
 
 ### Features
