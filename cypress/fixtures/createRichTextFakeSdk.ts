@@ -18,7 +18,6 @@ import { assets, entries } from '../../packages/rich-text/src/__fixtures__/fixtu
 import { createFakeNavigatorAPI } from './navigator';
 import { createFakePubsub } from './pubsub';
 import { createDefaultFakeStore, Store } from './store';
-import { newLink } from './utils';
 
 export type RrichTextFakeSdkProps = {
   store?: Store;
@@ -47,12 +46,6 @@ export function createRichTextFakeSdk(props?: RrichTextFakeSdkProps): FieldAppSD
     };
   });
   const locales = createFakeLocalesAPI();
-  const entryLinks = [
-    newLink('Entry', entries.published.sys.id),
-    newLink('Entry', entries.changed.sys.id),
-    newLink('Entry', entries.empty.sys.id),
-  ];
-  let selectorCounter = 0;
 
   const delay = (ms: number) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -162,14 +155,8 @@ export function createRichTextFakeSdk(props?: RrichTextFakeSdkProps): FieldAppSD
     dialogs: {
       selectSingleAsset: async () => assets.published,
       selectMultipleAssets: async () => [assets.published, assets.changed],
-      selectSingleEntry: async () => {
-        selectorCounter++;
-        return entryLinks[selectorCounter % entryLinks.length];
-      },
-      selectMultipleEntries: async () => {
-        selectorCounter++;
-        return selectorCounter % 2 ? entryLinks.slice(0, 2) : [entryLinks[2]];
-      },
+      selectSingleEntry: async () => entries.published,
+      selectMultipleEntries: async () => [entries.published, entries.changed],
     },
     entry: {
       getSys: () => entries.published.sys,

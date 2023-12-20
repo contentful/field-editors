@@ -7,23 +7,23 @@ import { block, document as doc, text } from '../../../packages/rich-text/src/he
 import { createRichTextFakeSdk } from '../../fixtures';
 import { mod } from '../../fixtures/utils';
 import { mount } from '../mount';
-import { KEYS, emptyParagraph, paragraphWithText } from './helpers';
+import { emptyParagraph, KEYS, paragraphWithText } from './helpers';
 import { RichTextPage } from './RichTextPage';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
 // we increase the viewport height to fit the whole page on the screen
 
-describe('Rich Text Editor - Embedded Entry Assets', { viewportHeight: 2000 }, () => {
+describe('Rich Text Editor - Embedded Entry Blocks', { viewportHeight: 2000 }, () => {
   let richText: RichTextPage;
   const expectDocumentToBeEmpty = () => richText.expectValue(undefined);
 
-  const assetBlock = () =>
-    block(BLOCKS.EMBEDDED_ASSET, {
+  const entryBlock = () =>
+    block(BLOCKS.EMBEDDED_ENTRY, {
       target: {
         sys: {
-          id: 'published_asset',
+          id: 'published-entry',
           type: 'Link',
-          linkType: 'Asset',
+          linkType: 'Entry',
         },
       },
     });
@@ -39,84 +39,84 @@ describe('Rich Text Editor - Embedded Entry Assets', { viewportHeight: 2000 }, (
     [
       'using the toolbar button',
       () => {
-        richText.toolbar.embed('asset-block');
+        richText.toolbar.embed('entry-block');
       },
     ],
     [
       'using the keyboard shortcut',
       () => {
-        richText.editor.type(`{${mod}+shift+a}`);
+        richText.editor.type(`{${mod}+shift+e}`);
       },
     ],
   ];
 
-  for (const [triggerMethod, triggerEmbeddedAsset] of methods) {
+  for (const [triggerMethod, triggerEmbeddedEntry] of methods) {
     describe(triggerMethod, () => {
       it('adds paragraph before the block when pressing enter if the block is first document node', () => {
-        richText.editor.click();
-        triggerEmbeddedAsset();
+        richText.editor.click().then(triggerEmbeddedEntry);
 
-        richText.editor.find('[data-entity-id="published_asset"]').click();
+        richText.editor.find('[data-entity-id="published-entry"]').click();
+
         richText.editor.trigger('keydown', KEYS.enter);
 
-        richText.expectValue(doc(emptyParagraph(), assetBlock(), emptyParagraph()));
+        richText.expectValue(doc(emptyParagraph(), entryBlock(), emptyParagraph()));
       });
 
       it('adds paragraph between two blocks when pressing enter', () => {
-        function addEmbeddedAsset() {
-          richText.editor.click('bottom').then(triggerEmbeddedAsset);
+        function addEmbeddedEntry() {
+          richText.editor.click('bottom').then(triggerEmbeddedEntry);
           richText.editor.click('bottom');
         }
 
-        addEmbeddedAsset();
-        addEmbeddedAsset();
+        addEmbeddedEntry();
+        addEmbeddedEntry();
 
-        // Press enter on the first asset block
-        richText.editor.click().find('[data-entity-id="published_asset"]').first().click();
+        // Inserts paragraph before embed because it's in the first line.
+        richText.editor.find('[data-entity-id="published-entry"]').first().click();
         richText.editor.trigger('keydown', KEYS.enter);
 
-        // Press enter on the second asset block
-        richText.editor.click().find('[data-entity-id="published_asset"]').first().click();
+        // inserts paragraph in-between embeds.
+        richText.editor.find('[data-entity-id="published-entry"]').first().click();
         richText.editor.trigger('keydown', KEYS.enter);
 
         richText.expectValue(
-          doc(emptyParagraph(), assetBlock(), emptyParagraph(), assetBlock(), emptyParagraph())
+          doc(emptyParagraph(), entryBlock(), emptyParagraph(), entryBlock(), emptyParagraph())
         );
       });
 
-      it('adds and removes embedded assets', () => {
-        richText.editor.click().then(triggerEmbeddedAsset);
+      it('adds and removes embedded entries', () => {
+        richText.editor.click().then(triggerEmbeddedEntry);
 
-        richText.expectValue(doc(assetBlock(), emptyParagraph()));
+        richText.expectValue(doc(entryBlock(), emptyParagraph()));
 
         cy.findByTestId('cf-ui-card-actions').click();
-        cy.findByTestId('card-action-remove').click();
+        cy.findByTestId('delete').click();
 
         richText.expectValue(undefined);
       });
 
-      it('adds and removes embedded assets by selecting and pressing `backspace`', () => {
-        richText.editor.click().then(triggerEmbeddedAsset);
+      it('adds and removes embedded entries by selecting and pressing `backspace`', () => {
+        richText.editor.click().then(triggerEmbeddedEntry);
 
-        richText.expectValue(doc(assetBlock(), emptyParagraph()));
+        richText.expectValue(doc(entryBlock(), emptyParagraph()));
 
-        cy.findByTestId('cf-ui-asset-card').click();
+        cy.findByTestId('cf-ui-entry-card').click();
         // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
         richText.editor.trigger('keydown', KEYS.backspace);
 
         richText.expectValue(undefined);
       });
 
-      it('adds embedded assets between words', () => {
+      it('adds embedded entries between words', () => {
         richText.editor
           .click()
           .type('foobar{leftarrow}{leftarrow}{leftarrow}')
-          .then(triggerEmbeddedAsset);
+          .then(triggerEmbeddedEntry);
 
         richText.expectValue(
           doc(
             block(BLOCKS.PARAGRAPH, {}, text('foo')),
-            assetBlock(),
+            entryBlock(),
             block(BLOCKS.PARAGRAPH, {}, text('bar'))
           )
         );
@@ -124,15 +124,15 @@ describe('Rich Text Editor - Embedded Entry Assets', { viewportHeight: 2000 }, (
 
       it('should be selected on backspace', () => {
         richText.editor.click();
-        triggerEmbeddedAsset();
+        triggerEmbeddedEntry();
 
         richText.editor.type('{downarrow}X');
 
-        richText.expectValue(doc(assetBlock(), paragraphWithText('X')));
+        richText.expectValue(doc(entryBlock(), paragraphWithText('X')));
 
         richText.editor.type('{backspace}{backspace}');
 
-        richText.expectValue(doc(assetBlock(), emptyParagraph()));
+        richText.expectValue(doc(entryBlock(), emptyParagraph()));
 
         richText.editor.type('{backspace}');
 
