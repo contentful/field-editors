@@ -44,7 +44,7 @@ describe('Rich Text Editor - Marks', { viewportHeight: 2000 }, () => {
 
   it(`shows ${MARKS.BOLD}, ${MARKS.ITALIC}, ${MARKS.UNDERLINE}, ${MARKS.CODE} if not explicitly allowed`, () => {
     const sdk = createRichTextFakeSdk({ validations: [] });
-    mount(<RichTextEditor sdk={sdk} isInitiallyDisabled={false} actionsDisabled={true} />);
+    mount(<RichTextEditor sdk={sdk} isInitiallyDisabled={false} />);
     findMarkViaToolbar(MARKS.BOLD).should('be.visible');
     findMarkViaToolbar(MARKS.ITALIC).should('be.visible');
     findMarkViaToolbar(MARKS.UNDERLINE).should('be.visible');
