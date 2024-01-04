@@ -1,17 +1,15 @@
 import * as React from 'react';
 
-import { FieldAppSDK, Link } from '@contentful/app-sdk';
+import { Link } from '@contentful/app-sdk';
 import { TextLink } from '@contentful/f36-components';
 
-import { useContentfulEditor } from '../../../ContentfulEditorProvider';
-import { findNodePath, isChildPath } from '../../../internal/queries';
 import { Element, RenderElementProps } from '../../../internal/types';
-import { useSdkContext } from '../../../SdkProvider';
 import { handleCopyLink, handleEditLink, handleRemoveLink } from './linkHandlers';
 import { LinkPopover } from './LinkPopover';
 import { styles } from './styles';
+import { useHyperlinkCommon } from './useHyperlinkCommon';
 
-type HyperlinkElementProps = {
+type UrlHyperlinkProps = {
   element: Element & {
     data: {
       uri?: string;
@@ -29,13 +27,9 @@ type HyperlinkElementProps = {
   children: Pick<RenderElementProps, 'children'>;
 };
 
-export function UrlHyperlink(props: HyperlinkElementProps) {
-  const editor = useContentfulEditor();
-  const sdk: FieldAppSDK = useSdkContext();
-  const focus = editor.selection?.focus;
+export function UrlHyperlink(props: UrlHyperlinkProps) {
+  const { editor, sdk, isLinkFocused, pathToElement } = useHyperlinkCommon(props.element);
   const uri = props.element.data?.uri;
-  const pathToElement = findNodePath(editor, props.element);
-  const isLinkFocused = pathToElement && focus && isChildPath(focus.path, pathToElement);
 
   const popoverText = (
     <TextLink className={styles.openLink} href={uri} rel="noopener noreferrer" target="_blank">

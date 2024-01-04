@@ -1,17 +1,15 @@
 import * as React from 'react';
 
-import { FieldAppSDK, Link } from '@contentful/app-sdk';
+import { Link } from '@contentful/app-sdk';
 import { Text } from '@contentful/f36-components';
 
-import { useContentfulEditor } from '../../../ContentfulEditorProvider';
-import { findNodePath, isChildPath } from '../../../internal/queries';
 import { Element, RenderElementProps } from '../../../internal/types';
-import { useSdkContext } from '../../../SdkProvider';
 import { useLinkTracking } from '../../links-tracking';
 import { useResourceEntityInfo } from '../useResourceEntityInfo';
 import { handleEditLink, handleRemoveLink } from './linkHandlers';
 import { LinkPopover } from './LinkPopover';
 import { styles } from './styles';
+import { useHyperlinkCommon } from './useHyperlinkCommon';
 
 export type ResourceHyperlinkProps = {
   element: Element & {
@@ -31,13 +29,9 @@ export type ResourceHyperlinkProps = {
 };
 
 export function ResourceHyperlink(props: ResourceHyperlinkProps) {
-  const editor = useContentfulEditor();
-  const sdk: FieldAppSDK = useSdkContext();
-  const focus = editor.selection?.focus;
-  const { target } = props.element.data;
+  const { editor, sdk, isLinkFocused, pathToElement } = useHyperlinkCommon(props.element);
   const { onEntityFetchComplete } = useLinkTracking();
-  const pathToElement = findNodePath(editor, props.element);
-  const isLinkFocused = pathToElement && focus && isChildPath(focus.path, pathToElement);
+  const { target } = props.element.data;
 
   const tooltipContent = useResourceEntityInfo({ target, onEntityFetchComplete });
 
