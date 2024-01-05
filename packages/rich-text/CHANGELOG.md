@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.16.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.7...@contentful/field-editor-rich-text@3.16.8) (2024-01-05)
+
+### Bug Fixes
+
+- cannot read properties of null (reading 'attributes') [] ([#1569](https://github.com/contentful/field-editors/issues/1569)) ([340a58c](https://github.com/contentful/field-editors/commit/340a58cec2f3f95ce42db78e3d705a91ba1d2f66))
+
 ## [3.16.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.6...@contentful/field-editor-rich-text@3.16.7) (2024-01-04)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
