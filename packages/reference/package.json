@@ -58,7 +58,7 @@
   "devDependencies": {
     "@contentful/app-sdk": "^4.17.1",
     "@contentful/field-editor-test-utils": "^1.4.3",
-    "@testing-library/react-hooks": "^5.0.3"
+    "@testing-library/react-hooks": "^8.0.1"
   },
   "peerDependencies": {
     "@contentful/app-sdk": "^4.17.1",
