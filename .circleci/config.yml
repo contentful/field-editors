@@ -121,8 +121,8 @@ jobs:
           template-preset: semantic-release
       - vault/configure-lerna
       - run: |
-        echo "//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_READ_TOKEN}" > ~/.npmrc
-        echo "@contentful:registry=https://npm.pkg.github.com" >> ~/.npmrc
+          echo "//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_READ_TOKEN}" > ~/.npmrc
+          echo "@contentful:registry=https://npm.pkg.github.com" >> ~/.npmrc
       - run: yarn build
       - run: yarn lerna version --no-private --conventional-commits --create-release github --yes
       - run: yarn lerna publish from-git --yes
