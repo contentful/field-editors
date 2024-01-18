@@ -82,5 +82,8 @@
     "@udecode/plate-test-utils": "^3.2.0",
     "prism-react-renderer": "2.0.5",
     "react": ">=16.14.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   }
 }
