@@ -165,6 +165,13 @@ describe('Rich Text Editor - Headings', { viewportHeight: 2000 }, () => {
         richText.expectValue(doc(block(type, {}, text(value)), emptyParagraph()));
         cy.unsetShouldConfirm();
       });
+
+      it('should show the correct status inside an list', () => {
+        richText.editor.click().type('some text');
+        richText.toolbar.ul.click();
+        richText.toolbar.toggleHeading(type);
+        richText.toolbar.headingsDropdown.should('have.text', label);
+      });
     });
   });
 
