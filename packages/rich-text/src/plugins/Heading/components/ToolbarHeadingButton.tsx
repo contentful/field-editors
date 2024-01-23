@@ -69,10 +69,22 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
   React.useEffect(() => {
     if (!editor?.selection) return;
 
-    const [element] = getElementFromCurrentSelection(editor);
-    const type = (element as Element).type;
+    const elements = getElementFromCurrentSelection(editor);
 
-    setSelected(LABELS[type] ? type : BLOCKS.PARAGRAPH);
+    // Iterate through the elements to identify matches
+    // In lists it would otherwise never show the correct block.
+    for (const element of elements) {
+      if (typeof element === 'object' && 'type' in element) {
+        const el = element as Element;
+        const match = LABELS[el.type];
+        if (match) {
+          setSelected(el.type);
+          return;
+        }
+      }
+    }
+
+    setSelected(BLOCKS.PARAGRAPH);
   }, [editor?.operations, editor?.selection]); // eslint-disable-line -- TODO: explain this disable
 
   const [nodeTypesByEnablement, someHeadingsEnabled] = React.useMemo(() => {
