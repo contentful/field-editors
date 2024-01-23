@@ -2778,6 +2778,13 @@
   dependencies:
     lodash "^4.17.20"
 
+"@contentful/mimetype@^2.2.29":
+  version "2.2.29"
+  resolved "https://registry.yarnpkg.com/@contentful/mimetype/-/mimetype-2.2.29.tgz#717b1d11d3bc94cf4a146cd07f623682f34279b0"
+  integrity sha512-ktfQegKPoBrOTMdnfQPQIGc/CWFnEBdBT0bZJITptGALIh9O2XW/kyvuYgHCyI0kZJFvAmduXnO7Zn2mhA9XyQ==
+  dependencies:
+    lodash "^4.17.20"
+
 "@contentful/rich-text-plain-text-renderer@^15.12.1":
   version "15.15.1"
   resolved "https://registry.yarnpkg.com/@contentful/rich-text-plain-text-renderer/-/rich-text-plain-text-renderer-15.15.1.tgz#3ac956d9a74acb85393a3beafd0ed98e35b9c2a0"
@@ -11558,14 +11565,14 @@ copy-to-clipboard@^3.3.1:
   dependencies:
     toggle-selection "^1.0.6"
 
-core-js-compat@^3.25.1:
+core-js-compat@^3.25.1, core-js-compat@^3.6.2:
   version "3.35.1"
   resolved "https://registry.yarnpkg.com/core-js-compat/-/core-js-compat-3.35.1.tgz#215247d7edb9e830efa4218ff719beb2803555e2"
   integrity sha512-sftHa5qUJY3rs9Zht1WEnmkvXputCyDBczPnr7QDgL8n3qrF3CMXY4VPSYtOLLiOUJcah2WNXREd48iOl6mQIw==
   dependencies:
     browserslist "^4.22.2"
 
-core-js-compat@^3.31.0, core-js-compat@^3.33.1, core-js-compat@^3.6.2, core-js-compat@^3.8.0:
+core-js-compat@^3.31.0, core-js-compat@^3.33.1, core-js-compat@^3.8.0:
   version "3.35.0"
   resolved "https://registry.yarnpkg.com/core-js-compat/-/core-js-compat-3.35.0.tgz#c149a3d1ab51e743bc1da61e39cb51f461a41873"
   integrity sha512-5blwFAddknKeNgsjBzilkdQ0+YK8L1PfqPYq40NOYMYFSS38qj+hpTcLLWwpIwA2A5bje/x5jmVn2tzUMg9IVw==
