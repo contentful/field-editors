@@ -16016,18 +16016,7 @@ html-webpack-plugin@4.5.0:
     tapable "^1.1.3"
     util.promisify "1.0.0"
 
-html-webpack-plugin@5.5.0:
-  version "5.5.0"
-  resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-5.5.0.tgz#c3911936f57681c1f9f4d8b68c158cd9dfe52f50"
-  integrity sha512-sy88PC2cRTVxvETRgUHFrL4No3UxvcH8G1NepGhqaTT+GXN2kTamqasot0inS5hXeg1cMbFDt27zzo9p35lZVw==
-  dependencies:
-    "@types/html-minifier-terser" "^6.0.0"
-    html-minifier-terser "^6.0.2"
-    lodash "^4.17.21"
-    pretty-error "^4.0.0"
-    tapable "^2.0.0"
-
-html-webpack-plugin@^5.5.0:
+html-webpack-plugin@5.6.0, html-webpack-plugin@^5.5.0:
   version "5.6.0"
   resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-5.6.0.tgz#50a8fa6709245608cb00e811eacecb8e0d7b7ea0"
   integrity sha512-iwaY4wzbe48AfKLZ/Cc8k0L+FKG6oSNRaZ8x5A/T/IVDGyXcbHncM9TdDa93wn0FsSm82FhTKW7f3vS61thXAw==
@@ -28756,10 +28745,10 @@ types-ramda@^0.29.4:
   dependencies:
     ts-toolbelt "^9.6.0"
 
-typescript@5.1.3:
-  version "5.1.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.1.3.tgz#8d84219244a6b40b6fb2b33cc1c062f715b9e826"
-  integrity sha512-XH627E9vkeqhlZFQuL+UsyAXEnibT0kWR2FWONlr4sTjvxyJYnyefgrkyECLzM5NenmKzRAy2rR/OlYLA1HkZw==
+typescript@5.3.3:
+  version "5.3.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.3.3.tgz#b3ce6ba258e72e6305ba66f5c9b452aaee3ffe37"
+  integrity sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==
 
 "typescript@^3 || ^4", typescript@^4.3.3, typescript@^4.3.4:
   version "4.9.5"
