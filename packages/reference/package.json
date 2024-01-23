@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-reference",
-  "version": "5.21.3",
+  "version": "5.21.4",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
@@ -38,7 +38,7 @@
     "@contentful/f36-components": "^4.0.27",
     "@contentful/f36-icons": "^4.1.0",
     "@contentful/f36-tokens": "^4.0.0",
-    "@contentful/field-editor-shared": "^1.4.3",
+    "@contentful/field-editor-shared": "^1.4.4",
     "@contentful/mimetype": "^1.4.0",
     "@dnd-kit/core": "^6.0.8",
     "@dnd-kit/modifiers": "^6.0.1",
@@ -57,7 +57,7 @@
   },
   "devDependencies": {
     "@contentful/app-sdk": "^4.17.1",
-    "@contentful/field-editor-test-utils": "^1.4.4",
+    "@contentful/field-editor-test-utils": "^1.4.5",
     "@testing-library/react-hooks": "^5.0.3"
   },
   "peerDependencies": {
