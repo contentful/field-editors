@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.16.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.9...@contentful/field-editor-rich-text@3.16.10) (2024-01-23)
+
+### Bug Fixes
+
+- **rich-text:** prevent layout shift in the toolbar after changing the headline ([#1584](https://github.com/contentful/field-editors/issues/1584)) ([a4d7ce4](https://github.com/contentful/field-editors/commit/a4d7ce497a79fda2bd47f169a13d154d415b66da))
+
 ## [3.16.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.8...@contentful/field-editor-rich-text@3.16.9) (2024-01-23)
 
 ### Bug Fixes
