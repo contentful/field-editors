@@ -124,7 +124,7 @@ jobs:
           echo "//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_WRITE_TOKEN}" > ~/.npmrc
           echo "@contentful:registry=https://npm.pkg.github.com" >> ~/.npmrc
       - run: yarn build
-      - run: yarn lerna version patch --no-private --create-release github --yes
+      - run: yarn lerna version patch --force-publish --no-private --create-release github --yes
       # - run: yarn lerna version --no-private --conventional-commits --create-release github --yes
       - run: yarn lerna publish from-git --yes
 
