@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.16.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.8...@contentful/field-editor-rich-text@3.16.9) (2024-01-23)
+
+### Bug Fixes
+
+- **rich-text:** show the selected headline inside of lists ([#1582](https://github.com/contentful/field-editors/issues/1582)) ([aca1ccf](https://github.com/contentful/field-editors/commit/aca1ccf4e71f5188c2fa40036073c00f55923bc9))
+
 ## [3.16.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.7...@contentful/field-editor-rich-text@3.16.8) (2024-01-05)
 
 ### Bug Fixes
