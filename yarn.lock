@@ -1727,7 +1727,7 @@
   dependencies:
     regenerator-runtime "^0.14.0"
 
-"@babel/standalone@^7.21.3", "@babel/standalone@^7.4.5":
+"@babel/standalone@^7.22.5", "@babel/standalone@^7.4.5":
   version "7.23.8"
   resolved "https://registry.yarnpkg.com/@babel/standalone/-/standalone-7.23.8.tgz#534b991afed6aead40ff925ef465c781bd8f7e77"
   integrity sha512-i0tPn3dyKHbEZPDV66ry/7baC1pznRU02R8sU6eJSBfTOwMkukRdYuT3ks/j/cvTl4YkHMRmhTejET+iyPZVvQ==
@@ -21140,10 +21140,10 @@ moment@^2.20.0, moment@^2.22.2:
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.30.1.tgz#f8c91c07b7a786e30c59926df530b4eac96974ae"
   integrity sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==
 
-monaco-editor@^0.36.1:
-  version "0.36.1"
-  resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.36.1.tgz#aad528c815605307473a1634612946921d8079b5"
-  integrity sha512-/CaclMHKQ3A6rnzBzOADfwdSJ25BFoFT0Emxsc4zYVyav5SkK9iA6lEtIeuN/oRYbwPgviJT+t3l+sjFa28jYg==
+monaco-editor@^0.39.0:
+  version "0.39.0"
+  resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.39.0.tgz#3cf8e3718d6aac347d374516a6837d1c13d967d2"
+  integrity sha512-zhbZ2Nx93tLR8aJmL2zI1mhJpsl87HMebNBM6R8z4pLfs8pj604pIVIVwyF1TivcfNtIPpMXL+nb3DsBmE/x6Q==
 
 move-concurrently@^1.0.1:
   version "1.0.1"
@@ -27316,15 +27316,15 @@ store2@^2.12.0, store2@^2.14.2, store2@^2.7.1:
   resolved "https://registry.yarnpkg.com/store2/-/store2-2.14.2.tgz#56138d200f9fe5f582ad63bc2704dbc0e4a45068"
   integrity sha512-siT1RiqlfQnGqgT/YzXVUNsom9S0H1OX+dpdGN1xkyYATo4I6sep5NmsRD/40s3IIOvlCq6akxkqG82urIZW1w==
 
-storybook-addon-code-editor@2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/storybook-addon-code-editor/-/storybook-addon-code-editor-2.1.0.tgz#5a84d2ea472ff5853a2065a49c1f64866c9be078"
-  integrity sha512-q1heC6lc66MM1ZB6IsdD4mHszrhGjs3WjGMSaFAYeWkj98FPJUNb5NcrBIS5nuO+TXIdC+gDr2Lns+3xVVqp9Q==
+storybook-addon-code-editor@2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/storybook-addon-code-editor/-/storybook-addon-code-editor-2.2.0.tgz#26b125432e3591a3f384b57407440664702c9394"
+  integrity sha512-iFT45dRagOxuuTu3NfGolRN5m7QP63WDcJZXruxVXkIgEANrmmzaRLvj2mvwXSd+zDQoWCYO5Mwk6w+vIo2hgQ==
   dependencies:
-    "@babel/standalone" "^7.21.3"
+    "@babel/standalone" "^7.22.5"
     "@storybook/addons" "^6.5.16"
     "@storybook/components" "^6.5.16"
-    monaco-editor "^0.36.1"
+    monaco-editor "^0.39.0"
     raw-loader "^4.0.2"
 
 storybook-addon-swc@1.2.0:
@@ -28756,10 +28756,10 @@ types-ramda@^0.29.4:
   dependencies:
     ts-toolbelt "^9.6.0"
 
-typescript@5.1.3:
-  version "5.1.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.1.3.tgz#8d84219244a6b40b6fb2b33cc1c062f715b9e826"
-  integrity sha512-XH627E9vkeqhlZFQuL+UsyAXEnibT0kWR2FWONlr4sTjvxyJYnyefgrkyECLzM5NenmKzRAy2rR/OlYLA1HkZw==
+typescript@5.3.3:
+  version "5.3.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.3.3.tgz#b3ce6ba258e72e6305ba66f5c9b452aaee3ffe37"
+  integrity sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==
 
 "typescript@^3 || ^4", typescript@^4.3.3, typescript@^4.3.4:
   version "4.9.5"
