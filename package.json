@@ -185,5 +185,8 @@
   "volta": {
     "node": "18",
     "yarn": "1.21.1"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   }
 }
