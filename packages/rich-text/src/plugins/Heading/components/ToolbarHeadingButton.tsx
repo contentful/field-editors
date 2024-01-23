@@ -18,6 +18,11 @@ import { Element } from '../../../internal/types';
 import { useSdkContext } from '../../../SdkProvider';
 
 const styles = {
+  // prevent the layout to jump due switch from "normal text" to "headline" and vice versa
+  button: css({
+    minWidth: '125px',
+    justifyContent: 'space-between',
+  }),
   dropdown: {
     root: css`
       font-weight: ${tokens.fontWeightDemiBold};
@@ -137,12 +142,12 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
           endIcon={<ChevronDownIcon />}
           isDisabled={props.isDisabled}
           onClick={() => someHeadingsEnabled && setOpen(!isOpen)}
+          className={styles.button}
         >
           {LABELS[selected]}
         </Button>
       </Menu.Trigger>
       <Menu.List testId="dropdown-heading-list">
-        {' '}
         {Object.keys(LABELS)
           .map(
             (nodeType) =>
