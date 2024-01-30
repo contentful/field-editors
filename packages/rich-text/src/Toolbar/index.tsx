@@ -27,6 +27,8 @@ import { ToolbarUnderlineButton } from '../plugins/Marks/Underline';
 import { ToolbarQuoteButton } from '../plugins/Quote';
 import { ToolbarTableButton } from '../plugins/Table';
 import { useSdkContext } from '../SdkProvider';
+import { ButtonRedo } from './components/ButtonRedo';
+import { ButtonUndo } from './components/ButtonUndo';
 import { EmbedEntityWidget } from './components/EmbedEntityWidget';
 
 type ToolbarProps = {
@@ -136,6 +138,9 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
       <div className={styles.formattingOptionsWrapper}>
         <ToolbarHeadingButton isDisabled={isDisabled || !canInsertBlocks} />
 
+        <span className={styles.divider} />
+        <ButtonUndo />
+        <ButtonRedo />
         {validationInfo.isAnyMarkEnabled && <span className={styles.divider} />}
 
         {isMarkEnabled(sdk.field, MARKS.BOLD) && <ToolbarBoldButton isDisabled={isDisabled} />}
