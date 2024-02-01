@@ -45,11 +45,11 @@ export function createDragAndDropPlugin(): PlatePlugin {
             : false;
         });
 
-        if (!dropDisallowed) {
-          // Move the drop event to a new undo batch mitigating the bug where undo not only moves it back,
-          // but also undoes a previous action: https://github.com/ianstormtaylor/slate/issues/4694
-          editor.history.undos.push([]);
-        }
+        // if (!dropDisallowed) {
+        //   // Move the drop event to a new undo batch mitigating the bug where undo not only moves it back,
+        //   // but also undoes a previous action: https://github.com/ianstormtaylor/slate/issues/4694
+        //   editor.history.undos.push([]);
+        // }
 
         return dropDisallowed;
       },
