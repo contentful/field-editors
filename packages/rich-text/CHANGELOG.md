@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.16.13](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.12...@contentful/field-editor-rich-text@3.16.13) (2024-02-02)
+
+### Bug Fixes
+
+- fixing custom app rich text dnd [TOL-1742] ([#1599](https://github.com/contentful/field-editors/issues/1599)) ([43c17ca](https://github.com/contentful/field-editors/commit/43c17ca7f585b12ffe0743544c5f65cb7739c6f3))
+
 ## [3.16.12](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.11...@contentful/field-editor-rich-text@3.16.12) (2024-01-23)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
