@@ -1,4 +1,5 @@
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
+import { HistoryEditor } from 'slate-history';
 
 import { getNodeEntries } from '../../internal/queries';
 import { PlatePlugin } from '../../internal/types';
@@ -48,7 +49,10 @@ export function createDragAndDropPlugin(): PlatePlugin {
         if (!dropDisallowed) {
           // Move the drop event to a new undo batch mitigating the bug where undo not only moves it back,
           // but also undoes a previous action: https://github.com/ianstormtaylor/slate/issues/4694
-          editor.history.undos.push([]);
+          (editor as unknown as HistoryEditor).history.undos.push({
+            operations: [],
+            selectionBefore: null,
+          });
         }
 
         return dropDisallowed;
