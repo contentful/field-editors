@@ -1,9 +1,8 @@
 import * as React from 'react';
 
-import { EntryCard, MenuItem, MenuDivider } from '@contentful/f36-components';
+import { Badge, EntryCard, MenuItem, MenuDivider } from '@contentful/f36-components';
 
 import { RenderDragFn } from '../../types';
-
 type SysExternalResource<T extends string> = {
   sys: { type: 'Link'; linkType: T; id: string };
 };
@@ -51,8 +50,25 @@ const defaultProps = {
   hasCardRemoveActions: true,
 };
 
+type ExternalEntityStatus = 'active' | 'archived' | 'suspended' | 'draft';
+type BadgeVariant = 'negative' | 'positive' | 'warning';
+
+const statusMap: { [key in ExternalEntityStatus]: BadgeVariant } = {
+  active: 'positive',
+  draft: 'warning',
+  archived: 'negative',
+  suspended: 'negative',
+};
+
+function ExternalEntityBadge(entityStatus: ExternalEntityStatus) {
+  const variant = statusMap[entityStatus];
+
+  return <Badge variant={variant}>{entityStatus}</Badge>;
+}
+
 export function ExternalResourceCard(props: ExternalResourceCardProps) {
-  const status = props.entity ? 'published' : 'deleted';
+  const status = props.entity.fields.additionalData.status;
+  const badge = status ? ExternalEntityBadge(status) : null;
   return (
     <EntryCard
       as={props.entity.fields.externalUrl ? 'a' : 'article'}
@@ -62,13 +78,13 @@ export function ExternalResourceCard(props: ExternalResourceCardProps) {
       contentType={props.entity.sys.resourceType.sys.id.split(':').join(' ')}
       size={props.size}
       thumbnailElement={
-        props.entity.fields.image.url ? (
+        props.entity.fields.image && typeof props.entity.fields.image.url === 'string' ? (
           <img alt="random" src={props.entity.fields.image.url} />
         ) : undefined
       }
       dragHandleRender={props.renderDragHandle}
       withDragHandle={!!props.renderDragHandle}
-      status={status}
+      icon={badge}
       actions={
         props.onEdit || props.onRemove
           ? [
