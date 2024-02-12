@@ -69,13 +69,21 @@ function ExternalEntityBadge(entityStatus: ExternalEntityStatus) {
 export function ExternalResourceCard(props: ExternalResourceCardProps) {
   const status = props.entity.fields.additionalData.status;
   const badge = status ? ExternalEntityBadge(status) : null;
+  const [provider, type] = props.entity.sys.resourceType.sys.id.split(':');
+  const humanReadableResourceType =
+    provider +
+    ' ' +
+    type
+      .replace(/([A-Z])/g, ' $1')
+      .trim()
+      .toLowerCase();
   return (
     <EntryCard
       as={props.entity.fields.externalUrl ? 'a' : 'article'}
       href={props.entity.fields.externalUrl}
       title={props.entity.fields.title}
       description={props.entity.fields.description}
-      contentType={props.entity.sys.resourceType.sys.id.split(':').join(' ')}
+      contentType={humanReadableResourceType}
       size={props.size}
       thumbnailElement={
         props.entity.fields.image && typeof props.entity.fields.image.url === 'string' ? (

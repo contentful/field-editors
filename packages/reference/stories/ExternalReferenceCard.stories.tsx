@@ -62,7 +62,7 @@ const draftEntity = {
     },
     resourceType: {
       sys: {
-        id: 'Shopify:Product',
+        id: 'Shopify:ProductVariant',
         type: 'Link',
         linkType: 'ResourceType',
       },
@@ -95,7 +95,7 @@ const archivedEntity = {
     },
     resourceType: {
       sys: {
-        id: 'Shopify:Product',
+        id: 'Shopify:Collection',
         type: 'Link',
         linkType: 'ResourceType',
       },
