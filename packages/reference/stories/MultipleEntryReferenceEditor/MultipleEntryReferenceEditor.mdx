@@ -1,11 +1,10 @@
-import { Canvas, Meta, Markdown, Story, Controls } from '@storybook/blocks';
+import { Canvas, Meta, Markdown, Story, Controls, Source } from '@storybook/blocks';
 import * as EditorStories from './MultipleEntryReferenceEditor.stories';
 
 import Readme from '../../README.md?raw';
-import ImportSnippet from './IMPORT_SNIPPET.md?raw';
 
 <Markdown>{Readme}</Markdown>
-<Markdown>{ImportSnippet}</Markdown>
+<Source code={"import { MultipleEntryReferenceEditor } from '@contentful/field-editor-reference';"} />
 
 <Meta of={EditorStories} />
 
@@ -15,28 +14,28 @@ import ImportSnippet from './IMPORT_SNIPPET.md?raw';
 
 ## With custom card
 
-Click _Link existing entries_ to insert some references with custom layout rendered via `renderCustomCard` prop. Click again to showcase inserting
+Click **Link existing entries** to insert some references with custom layout rendered via **renderCustomCard** prop. Click again to showcase inserting
 another reference rendered by the stardard card renderer.
 
 <Story of={EditorStories.CustomCard} />
 
 ## With custom actions
 
-Note the alternative link actions injected via the `renderCustomActions` prop.
+Note the alternative link actions injected via the **renderCustomActions** prop.
 
 <Story of={EditorStories.CustomActions} />
 
 ## With custom actions and custom label
 
-Note the alternative link actions injected via the `renderCustomActions` prop.
+Note the alternative link actions injected via the **renderCustomActions** prop.
 
 <Story of={EditorStories.CustomActionsAndCustomLabel} />
 
 ## With custom onCreate, onLinkExisting actions
 
-In this case we override standard `onCreate` to create a custom entry, then tell the field editor about it using `onCreated` and then open it.
+In this case we override standard **onCreate** to create a custom entry, then tell the field editor about it using **onCreated** and then open it.
 
-Same applies to `onLinkExisting` property that can be overriden to customize the linking process, at the end the `onLinkedExisting` callback should be called.
+Same applies to **onLinkExisting** property that can be overriden to customize the linking process, at the end the **onLinkedExisting** callback should be called.
 
 <Story of={EditorStories.CustomOnCreateOnLinkExistingActions} />
 

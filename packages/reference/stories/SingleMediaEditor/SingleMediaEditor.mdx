@@ -1,11 +1,10 @@
-import { Canvas, Meta, Markdown, Story, Controls } from '@storybook/blocks';
+import { Canvas, Meta, Markdown, Story, Controls, Source } from '@storybook/blocks';
 import * as EditorStories from './SingleMediaEditor.stories';
 
 import Readme from '../../README.md?raw';
-import ImportSnippet from './IMPORT_SNIPPET.md?raw';
 
 <Markdown>{Readme}</Markdown>
-<Markdown>{ImportSnippet}</Markdown>
+<Source code="import { SingleMediaEditor } from '@contentful/field-editor-reference';" />
 
 <Meta of={EditorStories} />
 
@@ -15,7 +14,7 @@ import ImportSnippet from './IMPORT_SNIPPET.md?raw';
 
 ## With custom actions
 
-Note the alternative link actions injected via the `renderCustomActions` prop.
+Note the alternative link actions injected via the *renderCustomActions* prop.
 
 <Story of={EditorStories.CustomActions} />
 
