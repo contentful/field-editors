@@ -1,13 +1,10 @@
-import { Canvas, Meta, Markdown, Story, Controls } from '@storybook/blocks';
-import * as EditorStories from '../../stories/SingleEntryReferenceEditor.stories';
+import { Canvas, Meta, Markdown, Story, Controls, Source } from '@storybook/blocks';
+import * as EditorStories from './SingleEntryReferenceEditor.stories';
 
 import Readme from '../../README.md?raw';
 
 <Markdown>{Readme}</Markdown>
-
-```jsx
-import { SingleEntryReferenceEditor } from '@contentful/field-editor-reference';
-```
+<Source code={"import { SingleEntryReferenceEditor } from '@contentful/field-editor-reference';"} />
 
 <Meta of={EditorStories} />
 
@@ -17,7 +14,7 @@ import { SingleEntryReferenceEditor } from '@contentful/field-editor-reference';
 
 ## With custom card
 
-Insert a reference via _Link existing entry_. Remove the inserted reference and click
+Insert a reference via *Link existing entry*. Remove the inserted reference and click
 again to showcase inserting another reference rendered by the stardard card renderer.
 
 <Story of={EditorStories.CustomCard} />
@@ -32,10 +29,10 @@ again to showcase inserting another reference rendered by the stardard card rend
 
 ## As field app
 
-```js
+<Source code={`
 import { SingleEntryReferenceEditor } from '@contentful/field-editor-reference';
 
-/// your app code
+// your app code
 init((sdk) => {
   if (sdk.location.is(locations.LOCATION_ENTRY_FIELD)) {
     render(
@@ -44,4 +41,4 @@ init((sdk) => {
     );
   }
 });
-```
+`} />
