@@ -1,13 +1,12 @@
 import { Canvas, Meta, Markdown, Story, Controls } from '@storybook/blocks';
-import * as EditorStories from '../../stories/SingleEntryReferenceEditor.stories';
+import * as EditorStories from './SingleEntryReferenceEditor.stories';
 
 import Readme from '../../README.md?raw';
+import ImportSnippet from './IMPORT_SNIPPET.md?raw';
+import FieldAppSnippet from './FIELD_APP_SNIPPET.md?raw';
 
 <Markdown>{Readme}</Markdown>
-
-```jsx
-import { SingleEntryReferenceEditor } from '@contentful/field-editor-reference';
-```
+<Markdown>{ImportSnippet}</Markdown>
 
 <Meta of={EditorStories} />
 
@@ -32,16 +31,4 @@ again to showcase inserting another reference rendered by the stardard card rend
 
 ## As field app
 
-```js
-import { SingleEntryReferenceEditor } from '@contentful/field-editor-reference';
-
-/// your app code
-init((sdk) => {
-  if (sdk.location.is(locations.LOCATION_ENTRY_FIELD)) {
-    render(
-      <SingleEntryReferenceEditor viewType="card" sdk={sdk} />,
-      document.getElementById('root')
-    );
-  }
-});
-```
+<Markdown>{FieldAppSnippet}</Markdown>

@@ -1,13 +1,11 @@
 import { Canvas, Meta, Markdown, Story, Controls } from '@storybook/blocks';
-import * as EditorStories from '../../stories/MultipleEntryReferenceEditor.stories';
+import * as EditorStories from './MultipleEntryReferenceEditor.stories';
 
 import Readme from '../../README.md?raw';
+import ImportSnippet from './IMPORT_SNIPPET.md?raw';
 
 <Markdown>{Readme}</Markdown>
-
-```jsx
-import { MultipleEntryReferenceEditor } from '@contentful/field-editor-reference';
-```
+<Markdown>{ImportSnippet}</Markdown>
 
 <Meta of={EditorStories} />
 

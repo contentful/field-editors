@@ -1,23 +1,17 @@
 import { Canvas, Meta, Markdown, Story, Controls } from '@storybook/blocks';
-import * as EditorStories from '../../stories/MultipleMediaEditor.stories';
+import * as EditorStories from './SingleMediaEditor.stories';
 
 import Readme from '../../README.md?raw';
+import ImportSnippet from './IMPORT_SNIPPET.md?raw';
 
 <Markdown>{Readme}</Markdown>
-
-```jsx
-import { MultipleMediaEditor } from '@contentful/field-editor-reference';
-```
+<Markdown>{ImportSnippet}</Markdown>
 
 <Meta of={EditorStories} />
 
 ## In Action
 
 <Story of={EditorStories.Default} />
-
----
-
-<Story of={EditorStories.Link} />
 
 ## With custom actions
 

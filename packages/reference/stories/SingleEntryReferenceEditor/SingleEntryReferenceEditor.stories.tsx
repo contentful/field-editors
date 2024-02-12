@@ -4,8 +4,8 @@ import { Button, Card, Heading, Paragraph } from '@contentful/f36-components';
 import { ActionsPlayground } from '@contentful/field-editor-test-utils';
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { SingleEntryReferenceEditor } from '../src';
-import { newReferenceEditorFakeSdk } from '../src/__fixtures__/FakeSdk';
+import { SingleEntryReferenceEditor } from '../../src';
+import { newReferenceEditorFakeSdk } from '../../src/__fixtures__/FakeSdk';
 
 const meta: Meta<typeof SingleEntryReferenceEditor> = {
   title: 'editors/Single Entry',
