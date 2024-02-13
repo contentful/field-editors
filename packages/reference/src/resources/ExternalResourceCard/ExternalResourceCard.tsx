@@ -14,20 +14,18 @@ interface ExternalResource {
     resourceProvider: SysExternalResource<'ResourceProvider'>;
     resourceType: SysExternalResource<'ResourceType'>;
   };
-  // the field values are Record<string, unknown> to apply localization if the provider supports it
   fields: {
-    // maybe we need some mandatory fields that the search backend maps to from the original entity format,
-    // this way we have specific fields that we can render in the search cards regardless of provider/resource type.
     title: string;
     description?: string;
     externalUrl?: string;
-    image?: Record<string, unknown>; // object to handle eg accesibility
-    additionalData: any; // should we keep it or not TBD
+    image?: Record<string, unknown>;
+    additionalData: any;
   };
 }
 
 export interface ExternalResourceCardProps {
   entity: ExternalResource;
+  resourceType: string;
   isDisabled: boolean;
   size: 'small' | 'default' | 'auto';
   isSelected?: boolean;
@@ -69,21 +67,13 @@ function ExternalEntityBadge(entityStatus: ExternalEntityStatus) {
 export function ExternalResourceCard(props: ExternalResourceCardProps) {
   const status = props.entity.fields.additionalData.status;
   const badge = status ? ExternalEntityBadge(status) : null;
-  const [provider, type] = props.entity.sys.resourceType.sys.id.split(':');
-  const humanReadableResourceType =
-    provider +
-    ' ' +
-    type
-      .replace(/([A-Z])/g, ' $1')
-      .trim()
-      .toLowerCase();
   return (
     <EntryCard
       as={props.entity.fields.externalUrl ? 'a' : 'article'}
       href={props.entity.fields.externalUrl}
       title={props.entity.fields.title}
       description={props.entity.fields.description}
-      contentType={humanReadableResourceType}
+      contentType={props.resourceType}
       size={props.size}
       thumbnailElement={
         props.entity.fields.image && typeof props.entity.fields.image.url === 'string' ? (
@@ -143,10 +133,6 @@ export function ExternalResourceCard(props: ExternalResourceCardProps) {
           : []
       }
       onClick={
-        // Providing an onClick handler messes up with some rich text
-        // features e.g. pressing ENTER on a card to add a new paragraph
-        // underneath. It's crucial not to pass a custom handler when
-        // isClickable is disabled which in the case of RT it's.
         props.isClickable
           ? (e: React.MouseEvent<HTMLElement>) => {
               e.preventDefault();

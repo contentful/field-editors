@@ -147,6 +147,7 @@ const suspendedEntity = {
     },
   },
 };
+const resourceType = 'Shopify product';
 
 export const Default: Story = {
   parameters: {
@@ -159,6 +160,7 @@ export const Default: Story = {
       <div>
         <ExternalResourceCard
           entity={activeEntity}
+          resourceType={resourceType}
           isDisabled={isInitiallyDisabled}
           size={'auto'}
         />
@@ -179,6 +181,7 @@ export const WithEditActions: Story = {
       <div>
         <ExternalResourceCard
           entity={activeEntity}
+          resourceType={resourceType}
           isDisabled={isInitiallyDisabled}
           onRemove={() => {
             console.log('Removed');
@@ -207,6 +210,7 @@ export const WithEMultipleCardsHavingMultipleStatuses: Story = {
         <Flex flexDirection="column" gap="spacingS">
           <ExternalResourceCard
             entity={activeEntity}
+            resourceType={resourceType}
             isDisabled={isInitiallyDisabled}
             onRemove={() => {
               console.log('Removed');
@@ -219,6 +223,7 @@ export const WithEMultipleCardsHavingMultipleStatuses: Story = {
           />
           <ExternalResourceCard
             entity={draftEntity}
+            resourceType={'Shopify product variant'}
             isDisabled={isInitiallyDisabled}
             onRemove={() => {
               console.log('Removed');
@@ -231,6 +236,7 @@ export const WithEMultipleCardsHavingMultipleStatuses: Story = {
           />
           <ExternalResourceCard
             entity={archivedEntity}
+            resourceType={'Shopify collection'}
             isDisabled={isInitiallyDisabled}
             onRemove={() => {
               console.log('Removed');
@@ -243,6 +249,7 @@ export const WithEMultipleCardsHavingMultipleStatuses: Story = {
           />
           <ExternalResourceCard
             entity={suspendedEntity}
+            resourceType={resourceType}
             isDisabled={isInitiallyDisabled}
             onRemove={() => {
               console.log('Removed');
