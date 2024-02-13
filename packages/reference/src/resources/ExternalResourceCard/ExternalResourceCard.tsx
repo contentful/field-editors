@@ -18,7 +18,10 @@ interface ExternalResource {
     title: string;
     description?: string;
     externalUrl?: string;
-    image?: Record<string, unknown>;
+    image?: {
+      url?: string;
+      description?: string;
+    };
     additionalData: any;
   };
 }
@@ -64,66 +67,76 @@ function ExternalEntityBadge(entityStatus: ExternalEntityStatus) {
   return <Badge variant={variant}>{entityStatus}</Badge>;
 }
 
-export function ExternalResourceCard(props: ExternalResourceCardProps) {
-  const status = props.entity.fields.additionalData.status;
+export function ExternalResourceCard({
+  entity,
+  resourceType,
+  size,
+  isClickable,
+  onEdit,
+  onRemove,
+  onMoveTop,
+  onMoveBottom,
+  hasCardEditActions,
+  hasCardMoveActions,
+  hasCardRemoveActions,
+  renderDragHandle,
+  onClick,
+}: ExternalResourceCardProps) {
+  const status = entity.fields.additionalData.status;
   const badge = status ? ExternalEntityBadge(status) : null;
   return (
     <EntryCard
-      as={props.entity.fields.externalUrl ? 'a' : 'article'}
-      href={props.entity.fields.externalUrl}
-      title={props.entity.fields.title}
-      description={props.entity.fields.description}
-      contentType={props.resourceType}
-      size={props.size}
+      as={entity.fields.externalUrl ? 'a' : 'article'}
+      href={entity.fields.externalUrl}
+      title={entity.fields.title}
+      description={entity.fields.description}
+      contentType={resourceType}
+      size={size}
       thumbnailElement={
-        props.entity.fields.image && typeof props.entity.fields.image.url === 'string' ? (
-          <img alt="random" src={props.entity.fields.image.url} />
+        entity.fields.image && entity.fields.image.url ? (
+          <img alt={entity.fields.image.description} src={entity.fields.image.url} />
         ) : undefined
       }
-      dragHandleRender={props.renderDragHandle}
-      withDragHandle={!!props.renderDragHandle}
+      dragHandleRender={renderDragHandle}
+      withDragHandle={!!renderDragHandle}
       icon={badge}
       actions={
-        props.onEdit || props.onRemove
+        onEdit || onRemove
           ? [
-              props.hasCardEditActions && props.onEdit ? (
+              hasCardEditActions && onEdit ? (
                 <MenuItem
                   key="edit"
                   testId="edit"
                   onClick={() => {
-                    props.onEdit && props.onEdit();
+                    onEdit && onEdit();
                   }}
                 >
                   Edit
                 </MenuItem>
               ) : null,
-              props.hasCardRemoveActions && props.onRemove ? (
+              hasCardRemoveActions && onRemove ? (
                 <MenuItem
                   key="delete"
                   testId="delete"
                   onClick={() => {
-                    props.onRemove && props.onRemove();
+                    onRemove && onRemove();
                   }}
                 >
                   Remove
                 </MenuItem>
               ) : null,
-              props.hasCardMoveActions && (props.onMoveTop || props.onMoveBottom) ? (
+              hasCardMoveActions && (onMoveTop || onMoveBottom) ? (
                 <MenuDivider key="divider" />
               ) : null,
-              props.hasCardMoveActions && props.onMoveTop ? (
-                <MenuItem
-                  key="move-top"
-                  onClick={() => props.onMoveTop && props.onMoveTop()}
-                  testId="move-top"
-                >
+              hasCardMoveActions && onMoveTop ? (
+                <MenuItem key="move-top" onClick={() => onMoveTop && onMoveTop()} testId="move-top">
                   Move to top
                 </MenuItem>
               ) : null,
-              props.hasCardMoveActions && props.onMoveBottom ? (
+              hasCardMoveActions && onMoveBottom ? (
                 <MenuItem
                   key="move-bottom"
-                  onClick={() => props.onMoveBottom && props.onMoveBottom()}
+                  onClick={() => onMoveBottom && onMoveBottom()}
                   testId="move-bottom"
                 >
                   Move to bottom
@@ -133,11 +146,11 @@ export function ExternalResourceCard(props: ExternalResourceCardProps) {
           : []
       }
       onClick={
-        props.isClickable
+        isClickable
           ? (e: React.MouseEvent<HTMLElement>) => {
               e.preventDefault();
-              if (props.onClick) return props.onClick(e);
-              props.onEdit && props.onEdit();
+              if (onClick) return onClick(e);
+              onEdit && onEdit();
             }
           : undefined
       }
