@@ -51,6 +51,7 @@ jobs:
       - run: yarn build
       - run: yarn tsc
   unit-tests:
+    parallelism: 3
     executor: linux-node
     steps:
       - checkout
