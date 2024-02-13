@@ -1,5 +1,3 @@
-/* eslint-disable mocha/no-setup-in-describe */
-
 import React from 'react';
 
 import { BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types';
