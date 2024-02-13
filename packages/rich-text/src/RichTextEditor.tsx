@@ -5,7 +5,7 @@ import { EntityProvider } from '@contentful/field-editor-reference';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import * as Contentful from '@contentful/rich-text-types';
 import { PlateContent, Plate } from '@udecode/plate-common';
-// import { css, cx } from 'emotion';
+import { css, cx } from 'emotion';
 import deepEquals from 'fast-deep-equal';
 import noop from 'lodash/noop';
 
@@ -52,13 +52,13 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
     );
   }, [props.value, plugins]);
 
-  // const classNames = cx(
-  //   styles.editor,
-  //   props.minHeight !== undefined ? css({ minHeight: props.minHeight }) : undefined,
-  //   props.maxHeight !== undefined ? css({ maxHeight: props.maxHeight }) : undefined,
-  //   props.isDisabled ? styles.disabled : styles.enabled,
-  //   props.isToolbarHidden && styles.hiddenToolbar
-  // );
+  const classNames = cx(
+    styles.editor,
+    props.minHeight !== undefined ? css({ minHeight: props.minHeight }) : undefined,
+    props.maxHeight !== undefined ? css({ maxHeight: props.maxHeight }) : undefined,
+    props.isDisabled ? styles.disabled : styles.enabled,
+    props.isToolbarHidden && styles.hiddenToolbar
+  );
 
   return (
     <SdkProvider sdk={sdk}>
@@ -77,14 +77,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
               </StickyToolbarWrapper>
             )}
             <SyncEditorChanges incomingValue={initialValue} onChange={props.onChange} />
-            <PlateContent
-              id={id}
-              // FIXME editableProps is not working as expected
-              // editableProps={{
-              //   className: classNames,
-              //   readOnly: props.isDisabled,
-              // }}
-            />
+            <PlateContent id={id} className={classNames} readOnly={props.isDisabled} />
           </Plate>
         </div>
       </ContentfulEditorIdProvider>
