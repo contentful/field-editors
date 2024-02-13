@@ -15,7 +15,6 @@ type ContentTypePermissionsProps = {
 
 type ContentTypePermissions = {
   creatableContentTypes: ContentType[];
-  readableContentTypes: ContentType[];
   availableContentTypes: ContentType[];
 };
 
@@ -46,7 +45,6 @@ export function useContentTypePermissions(
     return props.allContentTypes;
   }, [props.allContentTypes, props.validations.contentTypes, props.entityType]);
   const [creatableContentTypes, setCreatableContentTypes] = useState(availableContentTypes);
-  const [readableContentTypes, setReadableContentTypes] = useState(availableContentTypes);
   const { canPerformActionOnEntryOfType } = useAccessApi(props.sdk.access);
 
   useEffect(() => {
@@ -58,9 +56,7 @@ export function useContentTypePermissions(
 
     async function checkContentTypeAccess() {
       const creatable = await getContentTypes('create');
-      const readable = await getContentTypes('read');
       setCreatableContentTypes(creatable);
-      setReadableContentTypes(readable);
     }
 
     void checkContentTypeAccess();
@@ -69,7 +65,6 @@ export function useContentTypePermissions(
 
   return {
     creatableContentTypes,
-    readableContentTypes,
     availableContentTypes,
   };
 }

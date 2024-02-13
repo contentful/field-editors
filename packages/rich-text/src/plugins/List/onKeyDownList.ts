@@ -4,7 +4,6 @@
  */
 import { HotkeyPlugin } from '@udecode/plate-common';
 import isHotkey from 'is-hotkey';
-import castArray from 'lodash/castArray';
 
 import { getAboveNode } from '../../internal/queries';
 import { KeyboardHandler } from '../../internal/types';
@@ -29,7 +28,7 @@ export const onKeyDownList: KeyboardHandler<HotkeyPlugin> =
 
     if (!hotkey) return;
 
-    const hotkeys = castArray(hotkey);
+    const hotkeys = Array.isArray(hotkey) ? hotkey : [hotkey];
 
     for (const _hotkey of hotkeys) {
       if (isHotkey(_hotkey)(e)) {

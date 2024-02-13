@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.21.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.21.5...@contentful/field-editor-reference@5.21.6) (2024-02-05)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [5.21.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.21.4...@contentful/field-editor-reference@5.21.5) (2024-01-23)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [5.21.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.21.3...@contentful/field-editor-reference@5.21.4) (2024-01-23)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [5.21.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.21.2...@contentful/field-editor-reference@5.21.3) (2024-01-23)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [5.21.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.21.1...@contentful/field-editor-reference@5.21.2) (2024-01-04)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [5.21.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.21.0...@contentful/field-editor-reference@5.21.1) (2023-12-20)
+
+### Bug Fixes
+
+- use available CTs instead of only readable ([#1562](https://github.com/contentful/field-editors/issues/1562)) ([fa5ddce](https://github.com/contentful/field-editors/commit/fa5ddce08fa1cc00f0a2232a043e10cb1d70771c))
+
+# [5.21.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.20.0...@contentful/field-editor-reference@5.21.0) (2023-12-08)
+
+### Features
+
+- support CMA.js v11 ([#1559](https://github.com/contentful/field-editors/issues/1559)) ([2bfcf61](https://github.com/contentful/field-editors/commit/2bfcf611f4066848343e29c9aa4acdcc70c85712))
+
 # [5.20.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.19.0...@contentful/field-editor-reference@5.20.0) (2023-11-14)
 
 ### Features

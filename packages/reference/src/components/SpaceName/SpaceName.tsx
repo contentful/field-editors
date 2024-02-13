@@ -32,7 +32,7 @@ export function SpaceName(props: SourceProps) {
 
   return (
     <Tooltip placement="top" as="div" content={content}>
-      <Flex alignItems="center" gap="spacingXs" marginRight="spacingS">
+      <Flex alignItems="center" gap="spacingXs">
         <FolderOpenTrimmedIcon className={styles.spaceIcon} size="tiny" aria-label="Source space" />
         <Text className={styles.spaceName}>{props.spaceName}</Text>
       </Flex>
