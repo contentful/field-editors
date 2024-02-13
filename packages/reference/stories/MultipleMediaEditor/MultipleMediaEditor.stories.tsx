@@ -1,21 +1,20 @@
 import * as React from 'react';
 
-import { Asset, Button, Card, Heading, TextLink } from '@contentful/f36-components';
-import { ThumbUpIcon } from '@contentful/f36-icons';
+import { Asset, Button, Card, Heading } from '@contentful/f36-components';
 import { ActionsPlayground } from '@contentful/field-editor-test-utils';
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { SingleMediaEditor } from '../src';
-import { newReferenceEditorFakeSdk } from '../src/__fixtures__/FakeSdk';
+import { CombinedLinkActions, MultipleMediaEditor } from '../../src';
+import { newReferenceEditorFakeSdk } from '../../src/__fixtures__/FakeSdk';
 
-const meta: Meta<typeof SingleMediaEditor> = {
-  title: 'editors/Single Media',
-  component: SingleMediaEditor,
+const meta: Meta<typeof MultipleMediaEditor> = {
+  title: 'editors/Multiple Media',
+  component: MultipleMediaEditor,
 };
 
 export default meta;
 
-type Story = StoryObj<typeof SingleMediaEditor>;
+type Story = StoryObj<typeof MultipleMediaEditor>;
 
 export const Default: Story = {
   parameters: {
@@ -24,9 +23,34 @@ export const Default: Story = {
   render: () => {
     const [sdk, mitt] = newReferenceEditorFakeSdk();
     return (
-      <div>
-        <SingleMediaEditor
+      <div data-test-id="multiple-media-editor-integration-test">
+        <MultipleMediaEditor
           viewType="card"
+          sdk={sdk}
+          isInitiallyDisabled={false}
+          parameters={{
+            instance: {
+              showCreateEntityAction: true,
+              showLinkEntityAction: true,
+            },
+          }}
+        />
+        <ActionsPlayground mitt={mitt} />
+      </div>
+    );
+  },
+};
+
+export const Link: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
+  render: () => {
+    const [sdk, mitt] = newReferenceEditorFakeSdk();
+    return (
+      <div>
+        <MultipleMediaEditor
+          viewType="link"
           sdk={sdk}
           isInitiallyDisabled={false}
           parameters={{
@@ -49,23 +73,12 @@ export const CustomActions: Story = {
   render: () => {
     const [sdk, mitt] = newReferenceEditorFakeSdk();
     return (
-      <div>
-        <SingleMediaEditor
+      <div data-test-id="multiple-media-editor-custom-actions-integration-test">
+        <MultipleMediaEditor
           viewType="card"
           sdk={sdk}
           isInitiallyDisabled={false}
-          renderCustomActions={(props) => (
-            <TextLink
-              isDisabled={props.isDisabled}
-              testId="custom-link"
-              onClick={props.onLinkExisting as any}
-              variant="primary"
-              icon={<ThumbUpIcon />}
-              alignIcon="end"
-            >
-              Re-use something
-            </TextLink>
-          )}
+          renderCustomActions={(props) => <CombinedLinkActions {...props} />}
           parameters={{
             instance: {
               showCreateEntityAction: true,
@@ -86,8 +99,8 @@ export const CustomCard: Story = {
   render: () => {
     const [sdk, mitt] = newReferenceEditorFakeSdk();
     return (
-      <div>
-        <SingleMediaEditor
+      <div data-test-id="multiple-media-editor-custom-cards-integration-test">
+        <MultipleMediaEditor
           viewType="card"
           sdk={sdk}
           isInitiallyDisabled={false}
@@ -99,6 +112,9 @@ export const CustomCard: Story = {
           }}
           renderCustomCard={(props) => {
             const title = props.entity.fields.title;
+            if (!title) {
+              return false;
+            }
             const file = props.entity.fields.file;
             return (
               <Card testId="custom-card">

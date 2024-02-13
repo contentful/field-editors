@@ -4,8 +4,8 @@ import { Button, Card, Heading, Paragraph } from '@contentful/f36-components';
 import { ActionsPlayground } from '@contentful/field-editor-test-utils';
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { CombinedLinkActions, MultipleEntryReferenceEditor } from '../src';
-import { newReferenceEditorFakeSdk } from '../src/__fixtures__/FakeSdk';
+import { CombinedLinkActions, MultipleEntryReferenceEditor } from '../../src';
+import { newReferenceEditorFakeSdk } from '../../src/__fixtures__/FakeSdk';
 
 const meta: Meta<typeof MultipleEntryReferenceEditor> = {
   title: 'editors/Multiple Entry',
