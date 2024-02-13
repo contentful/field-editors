@@ -4,6 +4,18 @@ export default {
     {
       content: [
         {
+          data: {},
+          marks: [],
+          nodeType: 'text',
+          value: '',
+        },
+      ],
+      data: {},
+      nodeType: 'paragraph',
+    },
+    {
+      content: [
+        {
           content: [
             {
               content: [
