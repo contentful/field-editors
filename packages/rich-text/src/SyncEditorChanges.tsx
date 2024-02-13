@@ -7,7 +7,7 @@ import equal from 'fast-deep-equal';
 import { createOnChangeCallback } from './helpers/callbacks';
 import { usePlateSelectors } from './internal/hooks';
 import { setEditorValue } from './internal/transforms';
-import { Value } from './internal/types';
+import { PlateEditor, Value } from './internal/types';
 
 /**
  * A hook responsible for keeping the editor state in sync with incoming
@@ -25,7 +25,8 @@ const useAcceptIncomingChanges = (incomingValue?: Value) => {
     }
 
     lastIncomingValue.current = incomingValue;
-    setEditorValue(editor, incomingValue);
+    // FIXME see why this casting is needed
+    setEditorValue(editor as PlateEditor, incomingValue);
   }, [editor, incomingValue]);
 };
 
@@ -39,19 +40,18 @@ const useOnValueChanged = (onChange?: (doc: Contentful.Document) => unknown) => 
   React.useEffect(() => {
     const cb = createOnChangeCallback(onChange);
 
-    setEditorOnChange({
-      fn: (document) => {
-        // Skip irrelevant events e.g. mouse selection
-        const operations = editor?.operations.filter((op) => {
-          return op.type !== 'set_selection';
-        });
+    // FIXME double-check this is working
+    setEditorOnChange((document) => {
+      // Skip irrelevant events e.g. mouse selection
+      const operations = editor?.operations.filter((op) => {
+        return op.type !== 'set_selection';
+      });
 
-        if (operations.length === 0) {
-          return;
-        }
+      if (operations.length === 0) {
+        return;
+      }
 
-        cb(document);
-      },
+      cb(document);
     });
   }, [editor, onChange, setEditorOnChange]);
 };
