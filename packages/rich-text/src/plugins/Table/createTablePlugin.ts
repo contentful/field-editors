@@ -5,7 +5,6 @@ import {
   ELEMENT_TD,
   ELEMENT_TH,
   ELEMENT_TR,
-  withTable,
   TablePlugin,
 } from '@udecode/plate-table';
 
@@ -35,10 +34,8 @@ export const createTablePlugin = (): PlatePlugin =>
       // @ts-expect-error
       onKeyDown: onKeyDownTable,
     },
-    withOverrides: (editor, plugin) => {
+    withOverrides: (editor) => {
       const { normalizeNode } = editor;
-      // injects important fixes from plate's original table plugin
-      withTable(editor, plugin);
 
       // Resets all normalization rules added by @udecode/plate-table as
       // they conflict with our own
