@@ -15,8 +15,7 @@ export const withList: WithOverride = (editor) => {
   const { deleteForward, deleteFragment } = editor;
 
   editor.deleteForward = (unit) => {
-    // FIXME figure out how to handle this
-    if (deleteForwardList(editor, () => {}, 'character')) return;
+    if (deleteForwardList(editor, deleteForward, unit)) return;
 
     deleteForward(unit);
   };

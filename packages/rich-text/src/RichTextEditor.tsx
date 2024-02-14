@@ -4,7 +4,7 @@ import { FieldAppSDK } from '@contentful/app-sdk';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import * as Contentful from '@contentful/rich-text-types';
-import { PlateContent, Plate } from '@udecode/plate-common';
+import { PlateContent, Plate, PlatePlugin } from '@udecode/plate-common';
 import { css, cx } from 'emotion';
 import deepEquals from 'fast-deep-equal';
 import noop from 'lodash/noop';
@@ -67,8 +67,7 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
           <Plate
             id={id}
             initialValue={initialValue}
-            // FIXME plugins type is not working as expected
-            plugins={plugins as any}
+            plugins={plugins as PlatePlugin[]}
             disableCorePlugins={disableCorePlugins}
           >
             {!props.isToolbarHidden && (
