@@ -1912,7 +1912,7 @@
 
 "@contentful/f36-badge@^4.60.0":
   version "4.60.0"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-autocomplete/-/f36-autocomplete-4.60.0.tgz#dbfad7478a48ded4db52609818678755ac7e0c07"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-badge/-/f36-badge-4.60.0.tgz#dbfad7478a48ded4db52609818678755ac7e0c07"
   integrity sha512-tUceZPFS8/ynENGUKcw1tVSisIW3xrhH7S9QB5JRSSaL1ccOLT3AVZQjIxm5MmHUw2l1EhSZngpEPFZyHvWEdQ==
   dependencies:
     "@contentful/f36-core" "^4.60.0"
@@ -2188,7 +2188,7 @@
 
 "@contentful/f36-datepicker@^4.60.0":
   version "4.60.0"
-  resolved "hhttps://registry.yarnpkg.com/@contentful/f36-datepicker/-/f36-datepicker-4.60.0.tgz#3e673b96a5b1220c699adc5f950fd6616603f17f"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-datepicker/-/f36-datepicker-4.60.0.tgz#3e673b96a5b1220c699adc5f950fd6616603f17f"
   integrity sha512-mnXYlPRy0nMaS3REoV86nSc/iJ1QuX43gz5msFxqz4ZHazjYYgXa0fk48Qd5WNpUC1jXbW2H0rGX84o2Aa5BFA==
   dependencies:
     "@contentful/f36-button" "^4.60.0"
@@ -2713,7 +2713,7 @@
 
 "@contentful/f36-typography@^4.60.0":
   version "4.60.0"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-typography/-/f36-typography-4.60.0#0f2c507d9341fb6aaf4fa68876f643c5021b589b"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-typography/-/f36-typography-4.60.0.tgz#0f2c507d9341fb6aaf4fa68876f643c5021b589b"
   integrity sha512-iEg1VT0wH3nUKZs8jSCxKnQPWVgrqckRuG3UpLzk4FKfyDHopimFMCLqy+XswWpA+aDRueMC4Il+TVVTO5N7qQ==
   dependencies:
     "@contentful/f36-core" "^4.60.0"
