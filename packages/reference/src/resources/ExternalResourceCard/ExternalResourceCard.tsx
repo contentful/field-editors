@@ -99,7 +99,7 @@ export function ExternalResourceCard({
       }
       dragHandleRender={renderDragHandle}
       withDragHandle={!!renderDragHandle}
-      icon={badge}
+      badge={badge}
       actions={
         onEdit || onRemove
           ? [
