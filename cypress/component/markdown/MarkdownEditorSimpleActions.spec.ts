@@ -1,4 +1,4 @@
-import { renderMarkdownEditor, type, clearAll, checkValue, selectWordsBackwards } from './utils';
+import { renderMarkdownEditor, type, clearAll, checkValue, selectCharsBackwards } from './utils';
 
 describe('Markdown Editor / Simple Actions', () => {
   const selectors = {
@@ -109,7 +109,7 @@ describe('Markdown Editor / Simple Actions', () => {
       type('{rightarrow}{rightarrow}{enter}');
 
       type('Sentence a bold word.');
-      selectWordsBackwards(1, 2);
+      selectCharsBackwards(1, 9);
 
       clickBold();
       type(' and not a bold word');
@@ -121,12 +121,12 @@ describe('Markdown Editor / Simple Actions', () => {
 
       type('text');
 
-      selectWordsBackwards(0, 1);
+      selectCharsBackwards(0, 4);
       clickBold();
 
       checkValue('__text__');
 
-      selectWordsBackwards(0, 1);
+      selectCharsBackwards(0, 4);
       clickBold();
 
       checkValue('text');
@@ -151,7 +151,7 @@ describe('Markdown Editor / Simple Actions', () => {
 
       type('Sentence an italic word.');
 
-      selectWordsBackwards(1, 2);
+      selectCharsBackwards(1, 11);
       clickItalic();
 
       type(' and not an italic word');
@@ -162,12 +162,12 @@ describe('Markdown Editor / Simple Actions', () => {
 
       type('text');
 
-      selectWordsBackwards(0, 1);
+      selectCharsBackwards(0, 4);
       clickItalic();
 
       checkValue('*text*');
 
-      selectWordsBackwards(0, 3);
+      selectCharsBackwards(0, 4);
       clickItalic();
 
       checkValue('text');
@@ -247,7 +247,7 @@ describe('Markdown Editor / Simple Actions', () => {
       type('{rightarrow}{rightarrow}{enter}');
 
       type('Sentence a striked out word.');
-      selectWordsBackwards(1, 3);
+      selectCharsBackwards(1, 16);
       clickStrike();
       type(' and not a striked out word');
       checkValue('~~striked text~~\nSentence a ~~striked out word~~ and not a striked out word.');
@@ -259,11 +259,11 @@ describe('Markdown Editor / Simple Actions', () => {
       unveilAdditionalButtonsRow();
       type('text');
 
-      selectWordsBackwards(0, 1);
+      selectCharsBackwards(0, 4);
       clickStrike();
       checkValue('~~text~~');
 
-      selectWordsBackwards(0, 3);
+      selectCharsBackwards(0, 4);
       clickStrike();
       checkValue('text');
     });
@@ -297,7 +297,7 @@ describe('Markdown Editor / Simple Actions', () => {
       clickUnorderedList();
       checkValue('first item');
 
-      selectWordsBackwards(0, 1);
+      selectCharsBackwards(0, 4);
       clickUnorderedList();
       checkValue('- first item');
       type('{enter}');
@@ -313,7 +313,7 @@ describe('Markdown Editor / Simple Actions', () => {
       type('second item{enter}');
       type('third item');
 
-      type('{selectall}');
+      type('{selectall}{selectall}');
       clickUnorderedList();
       checkValue('- first item\n- second item\n- third item');
     });
@@ -347,7 +347,7 @@ describe('Markdown Editor / Simple Actions', () => {
       clickOrderedList();
       checkValue('first item');
 
-      selectWordsBackwards(0, 1);
+      selectCharsBackwards(0, 4);
       clickOrderedList();
       checkValue('1. first item');
       type('{enter}');
@@ -363,7 +363,7 @@ describe('Markdown Editor / Simple Actions', () => {
       type('second item{enter}');
       type('third item');
 
-      type('{selectall}');
+      type('{selectall}{selectall}');
       clickOrderedList();
 
       checkValue('1. first item\n2. second item\n3. third item');

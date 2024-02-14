@@ -66,22 +66,22 @@ const getInput = () => {
   return cy.findByTestId('markdown-textarea').find('[contenteditable]');
 };
 
-export const type = (value: string): void => {
-  getInput().focus().type(value, { force: true });
+export const type = (value: string): Cypress.Chainable => {
+  return getInput().focus().type(value, { force: true });
 };
 
 export const clearAll = (): void => {
-  //Double clearing because of flakiness with a single clear
-  getInput().clear({ force: true }).clear({ force: true });
+  //Using extra select all because of flakiness with a single clear
+  getInput().type('{selectall}').clear({ force: true });
   checkRemoved();
 };
 
-//util to select words backwards from current cursor position
-export const selectWordsBackwards = (skip: number, len: number): void => {
+//util to select chars backwards from current cursor position
+export const selectCharsBackwards = (skip: number, len: number): void => {
   for (let i = 0; i < skip; i++) {
-    type('{alt}{leftarrow}');
+    type('{leftarrow}');
   }
   for (let i = 0; i < len; i++) {
-    type('{shift}{alt}{leftarrow}');
+    type('{shift}{leftarrow}');
   }
 };

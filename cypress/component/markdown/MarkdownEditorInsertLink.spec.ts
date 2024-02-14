@@ -1,4 +1,4 @@
-import { checkValue, clearAll, renderMarkdownEditor, selectWordsBackwards, type } from './utils';
+import { checkValue, clearAll, renderMarkdownEditor, selectCharsBackwards, type } from './utils';
 
 describe('Markdown Editor / Insert Link Dialog', () => {
   const selectors = {
@@ -143,7 +143,7 @@ describe('Markdown Editor / Insert Link Dialog', () => {
       renderMarkdownEditor();
 
       type('check out Contentful');
-      selectWordsBackwards(0, 1);
+      selectCharsBackwards(0, 10);
       selectors.getInsertDialogButton().click();
 
       selectors.inputs
@@ -166,7 +166,7 @@ describe('Markdown Editor / Insert Link Dialog', () => {
     it('should paste link in a correct format', () => {
       renderMarkdownEditor({ spyOnRemoveValue: true, spyOnSetValue: true });
       type('check out Contentful');
-      selectWordsBackwards(0, 1);
+      selectCharsBackwards(0, 10);
 
       // with all fields provided
 
@@ -182,7 +182,7 @@ describe('Markdown Editor / Insert Link Dialog', () => {
 
       clearAll();
       type('check out Contentful');
-      selectWordsBackwards(0, 1);
+      selectCharsBackwards(0, 10);
       selectors.getInsertDialogButton().click();
       selectors.inputs.getTargetUrlInput().clear().type('https://contentful.com');
       selectors.getConfirmButton().click();
