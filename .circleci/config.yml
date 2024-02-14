@@ -51,6 +51,7 @@ jobs:
       - run: yarn build
       - run: yarn tsc
   unit-tests:
+    parallelism: 3
     executor: linux-node
     steps:
       - checkout
@@ -93,6 +94,7 @@ jobs:
           path: cypress/videos
 
   component-tests:
+    parallelism: 3
     executor: linux-cypress
     steps:
       - checkout

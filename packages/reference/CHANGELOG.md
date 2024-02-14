@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.22.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.21.6...@contentful/field-editor-reference@5.22.0) (2024-02-13)
+
+### Bug Fixes
+
+- fixing coding snippets for reference storybook docs [TOL-1398] ([#1603](https://github.com/contentful/field-editors/issues/1603)) ([e280e1e](https://github.com/contentful/field-editors/commit/e280e1e5294495b0400492b9105a15b0f6778498))
+
+### Features
+
+- create card component for external resources [DANTE-1330] ([#1602](https://github.com/contentful/field-editors/issues/1602)) ([701afa9](https://github.com/contentful/field-editors/commit/701afa970399db0a3c4503d2abb7fb962adee616))
+
 ## [5.21.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.21.5...@contentful/field-editor-reference@5.21.6) (2024-02-05)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
