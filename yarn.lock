@@ -1832,7 +1832,7 @@
 
 "@contentful/f36-accordion@^4.60.0":
   version "4.60.0"
-  resolved "https://npm.pkg.github.com/download/@contentful/f36-accordion/4.60.0/868e0fea89425a99720f56371bf175ac364c28ed#868e0fea89425a99720f56371bf175ac364c28ed"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-accordion/-/f36-accordion-4.60.0.tgz#868e0fea89425a99720f56371bf175ac364c28ed"
   integrity sha512-oAX1LIUwFcmFIJRvgbjYEwiZDT7XwGRZ37bwBMkoTRrMgrXTGSEdNxLnjpSUco6pxAIt393vyycbxcNEBTUKDA==
   dependencies:
     "@contentful/f36-collapse" "^4.60.0"
@@ -1856,7 +1856,7 @@
 
 "@contentful/f36-asset@^4.60.0":
   version "4.60.0"
-  resolved "https://npm.pkg.github.com/download/@contentful/f36-asset/4.60.0/455104d3b885e488ab91bd47c81c967ba7204f4f#455104d3b885e488ab91bd47c81c967ba7204f4f"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-asset/-/f36-asset-4.60.0.tgz#455104d3b885e488ab91bd47c81c967ba7204f4f"
   integrity sha512-93oH0l5whXCIWnK50WBzmnzEFTMzddgVdoLySbZj+fJcfD4dX7GGSNg5JOi9uJwIlZjCLLWlwS4G7QuwFLiX0Q==
   dependencies:
     "@contentful/f36-core" "^4.60.0"
@@ -1885,7 +1885,7 @@
 
 "@contentful/f36-autocomplete@^4.60.0":
   version "4.60.0"
-  resolved "https://npm.pkg.github.com/download/@contentful/f36-autocomplete/4.60.0/ca98fc707b6a2050dbc2bd15ed5d6d2cf716408c#ca98fc707b6a2050dbc2bd15ed5d6d2cf716408c"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-autocomplete/-/f36-autocomplete-4.60.0.tgz#ca98fc707b6a2050dbc2bd15ed5d6d2cf716408c"
   integrity sha512-sFf0mQuss52RcBoHo2NBfceVrMqgvv1TJUPqfImXBIFZiIeI5xRl+R0Rgt6Qc8nH9WG4lg6oYzQgrZOxEnbkzA==
   dependencies:
     "@contentful/f36-button" "^4.60.0"
@@ -1912,7 +1912,7 @@
 
 "@contentful/f36-badge@^4.60.0":
   version "4.60.0"
-  resolved "https://npm.pkg.github.com/download/@contentful/f36-badge/4.60.0/dbfad7478a48ded4db52609818678755ac7e0c07#dbfad7478a48ded4db52609818678755ac7e0c07"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-autocomplete/-/f36-autocomplete-4.60.0.tgz#dbfad7478a48ded4db52609818678755ac7e0c07"
   integrity sha512-tUceZPFS8/ynENGUKcw1tVSisIW3xrhH7S9QB5JRSSaL1ccOLT3AVZQjIxm5MmHUw2l1EhSZngpEPFZyHvWEdQ==
   dependencies:
     "@contentful/f36-core" "^4.60.0"
@@ -1933,7 +1933,7 @@
 
 "@contentful/f36-button@^4.60.0":
   version "4.60.0"
-  resolved "https://npm.pkg.github.com/download/@contentful/f36-button/4.60.0/834e78c44b1c690d716e6b3a42a99e7a7dd20356#834e78c44b1c690d716e6b3a42a99e7a7dd20356"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-button/-/f36-button-4.60.0.tgz#834e78c44b1c690d716e6b3a42a99e7a7dd20356"
   integrity sha512-F4wAzsW8FR1bZBVdj3MI6l9/ugAJfouROaBihaCCLV+ebpqYB9Yg5urv304ZHl3vXA71n3/D39LGTasxBTuIVg==
   dependencies:
     "@contentful/f36-core" "^4.60.0"
@@ -1964,7 +1964,7 @@
 
 "@contentful/f36-card@^4.60.0":
   version "4.60.0"
-  resolved "https://npm.pkg.github.com/download/@contentful/f36-card/4.60.0/32c46e8262b0da6307d912c0751ded32b42520d7#32c46e8262b0da6307d912c0751ded32b42520d7"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-card/-/f36-card-4.60.0.tgz#32c46e8262b0da6307d912c0751ded32b42520d7"
   integrity sha512-bl5BmrYipIZVSQARfKz8e6Ujgkb0pjCMfX2lM/2GslfNre3IlUJhv2/d4Cq7eatfhioMbQpk5lblV/wORvsAkw==
   dependencies:
     "@contentful/f36-asset" "^4.60.0"
@@ -1993,7 +1993,7 @@
 
 "@contentful/f36-collapse@^4.60.0":
   version "4.60.0"
-  resolved "https://npm.pkg.github.com/download/@contentful/f36-collapse/4.60.0/1c43cd75de9af6eef5b2613dee27b7628e4b6733#1c43cd75de9af6eef5b2613dee27b7628e4b6733"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-collapse/-/f36-collapse-4.60.0.tgz#1c43cd75de9af6eef5b2613dee27b7628e4b6733"
   integrity sha512-Q5Jk7irONzrfOpSFw5C+Xdh//dVU4ismnaGEVi1mk+DgMvAR8AkVrcuP5jgeAVX7zk/ZSFzzlNc+1WBWEAIFQQ==
   dependencies:
     "@contentful/f36-core" "^4.60.0"
@@ -2084,7 +2084,7 @@
 
 "@contentful/f36-components@^4.60.0":
   version "4.60.0"
-  resolved "https://npm.pkg.github.com/download/@contentful/f36-components/4.60.0/4bf2ac0f40074b564d6d5ff7a3252e65871dfd17#4bf2ac0f40074b564d6d5ff7a3252e65871dfd17"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-components/-/f36-components-4.60.0.tgz#4bf2ac0f40074b564d6d5ff7a3252e65871dfd17"
   integrity sha512-9vDuLm0hQJPyKG+XpBle41AXRzRDcLqPl10HZ19bA+E/K1Pen9XFfkqH3qZqigF/peEyGJvzYomAmr2PCfJGRA==
   dependencies:
     "@contentful/f36-accordion" "^4.60.0"
@@ -2137,7 +2137,7 @@
 
 "@contentful/f36-copybutton@^4.60.0":
   version "4.60.0"
-  resolved "https://npm.pkg.github.com/download/@contentful/f36-copybutton/4.60.0/5a7e222a6790c5103d95ba60150ec065f9a9331f#5a7e222a6790c5103d95ba60150ec065f9a9331f"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-copybutton/-/f36-copybutton-4.60.0.tgz#5a7e222a6790c5103d95ba60150ec065f9a9331f"
   integrity sha512-fkxC4bk4YDH/GKjC0Djg/wLCgrvvoOVP+Fcx21Vogf1jlSmnJN4Ju3yOzdDKT8vPoKLlDNWRz3CbYHmH2rdqvA==
   dependencies:
     "@contentful/f36-button" "^4.60.0"
@@ -2160,7 +2160,7 @@
 
 "@contentful/f36-core@^4.60.0":
   version "4.60.0"
-  resolved "https://npm.pkg.github.com/download/@contentful/f36-core/4.60.0/fcd13bb7c7882c924ffe1910453bed58fe704b71#fcd13bb7c7882c924ffe1910453bed58fe704b71"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-core/-/f36-core-4.60.0.tgz#fcd13bb7c7882c924ffe1910453bed58fe704b71"
   integrity sha512-gJhZzmgjb+6jljgofnQnuaz5s2dP+tSeHzlpIzppW2KbFNvZfk408jbIZn9Ny2xw9LodXcEiFTuCewyYVQ7Dzw==
   dependencies:
     "@contentful/f36-tokens" "^4.0.4"
@@ -2188,7 +2188,7 @@
 
 "@contentful/f36-datepicker@^4.60.0":
   version "4.60.0"
-  resolved "https://npm.pkg.github.com/download/@contentful/f36-datepicker/4.60.0/3e673b96a5b1220c699adc5f950fd6616603f17f#3e673b96a5b1220c699adc5f950fd6616603f17f"
+  resolved "hhttps://registry.yarnpkg.com/@contentful/f36-datepicker/-/f36-datepicker-4.60.0.tgz#3e673b96a5b1220c699adc5f950fd6616603f17f"
   integrity sha512-mnXYlPRy0nMaS3REoV86nSc/iJ1QuX43gz5msFxqz4ZHazjYYgXa0fk48Qd5WNpUC1jXbW2H0rGX84o2Aa5BFA==
   dependencies:
     "@contentful/f36-button" "^4.60.0"
@@ -2215,7 +2215,7 @@
 
 "@contentful/f36-datetime@^4.60.0":
   version "4.60.0"
-  resolved "https://npm.pkg.github.com/download/@contentful/f36-datetime/4.60.0/78bc62f8e24900af5ccba98384256d3ed84c71d3#78bc62f8e24900af5ccba98384256d3ed84c71d3"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-datetime/-/f36-datetime-4.60.0.tgz#78bc62f8e24900af5ccba98384256d3ed84c71d3"
   integrity sha512-OXyAXS8DS2akxisCOfN5AkG0miPflNbtHWlo+XR2JjuCPBY5YJ0Hm6EzC304g5BnZlOEQ5nf5if87Gfzca4eLw==
   dependencies:
     "@contentful/f36-core" "^4.60.0"
@@ -2236,7 +2236,7 @@
 
 "@contentful/f36-drag-handle@^4.60.0":
   version "4.60.0"
-  resolved "https://npm.pkg.github.com/download/@contentful/f36-drag-handle/4.60.0/d165c331369518c7740027b3c48ec3af4f3d20b1#d165c331369518c7740027b3c48ec3af4f3d20b1"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-drag-handle/-/f36-drag-handle-4.60.0.tgz#d165c331369518c7740027b3c48ec3af4f3d20b1"
   integrity sha512-VZE+iZnGO+ZRdu/KFlKZn9wbMB3LzYWMH+LVSLXZkKDtZm1agWOzovSLHZxsxIFkmZA7s3YphBo7vs5FOxEoQw==
   dependencies:
     "@contentful/f36-core" "^4.60.0"
@@ -2256,7 +2256,7 @@
 
 "@contentful/f36-empty-state@^4.60.0":
   version "4.60.0"
-  resolved "https://npm.pkg.github.com/download/@contentful/f36-empty-state/4.60.0/7fc3bb6fa5933a987721e7868a49f352a334f2c7#7fc3bb6fa5933a987721e7868a49f352a334f2c7"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-empty-state/-/f36-empty-state-4.60.0.tgz#7fc3bb6fa5933a987721e7868a49f352a334f2c7"
   integrity sha512-P6k3l4sSo/VXxsGO19SPsf70eeUoL/cL1VvMmnGpFRbDexcJBs3pfcusArc0OBblYdsAVHOPSRxePiD7x/L4rg==
   dependencies:
     "@contentful/f36-tokens" "^4.0.4"
@@ -2282,7 +2282,7 @@
 
 "@contentful/f36-entity-list@^4.60.0":
   version "4.60.0"
-  resolved "https://npm.pkg.github.com/download/@contentful/f36-entity-list/4.60.0/aec7a824f0d7bda9f2b2183a6b4e9e61a2fa2a4c#aec7a824f0d7bda9f2b2183a6b4e9e61a2fa2a4c"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-entity-list/-/f36-entity-list-4.60.0.tgz#aec7a824f0d7bda9f2b2183a6b4e9e61a2fa2a4c"
   integrity sha512-O5i3MTg1bew3aSP/8mod7rONBcDpdReULcRq554z5WZUrzs4afMy3aP0qU/RBo/4T62sT142jJ09mulLbRYHwg==
   dependencies:
     "@contentful/f36-badge" "^4.60.0"
@@ -2311,7 +2311,7 @@
 
 "@contentful/f36-forms@^4.60.0":
   version "4.60.0"
-  resolved "https://npm.pkg.github.com/download/@contentful/f36-forms/4.60.0/0ee942088770739cfc17b7cc43d3209bca359720#0ee942088770739cfc17b7cc43d3209bca359720"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-forms/-/f36-forms-4.60.0.tgz#0ee942088770739cfc17b7cc43d3209bca359720"
   integrity sha512-m4JoJJEYkP6DwQCwaU8EPnTCAtca1j8aL+QDtEn/Pp92BjPD1hAT7FM7lWKhnAdDXOsK9j+1U6Tp6Oyce157WQ==
   dependencies:
     "@contentful/f36-core" "^4.60.0"
@@ -2332,7 +2332,7 @@
 
 "@contentful/f36-icon@^4.60.0":
   version "4.60.0"
-  resolved "https://npm.pkg.github.com/download/@contentful/f36-icon/4.60.0/00d47db650abc294de8ff22c91366cf85caeeaff#00d47db650abc294de8ff22c91366cf85caeeaff"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-icon/-/f36-icon-4.60.0.tgz#00d47db650abc294de8ff22c91366cf85caeeaff"
   integrity sha512-+zbMsTd0duRhdvTviW49l1xCskgMhlSbE+31xORODqgoeC5bkbLMJNcI5PT4oc/CGGQqbl5NV0fVgBiKOUmSYw==
   dependencies:
     "@contentful/f36-core" "^4.60.0"
@@ -2360,7 +2360,7 @@
 
 "@contentful/f36-list@^4.60.0":
   version "4.60.0"
-  resolved "https://npm.pkg.github.com/download/@contentful/f36-list/4.60.0/d94c1ce4cb4bdcff8246417198d3c1d91a44fb2a#d94c1ce4cb4bdcff8246417198d3c1d91a44fb2a"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-list/-/f36-list-4.60.0.tgz#d94c1ce4cb4bdcff8246417198d3c1d91a44fb2a"
   integrity sha512-KPUqf/Y9GaD3HWMMZmeBVY1aoN3s7cDzY0z080yvaGCaQpbE0tTOkE/ZFRK8pE0eU94iabrcKg92MTreEEwWeA==
   dependencies:
     "@contentful/f36-core" "^4.60.0"
@@ -2382,7 +2382,7 @@
 
 "@contentful/f36-menu@^4.60.0":
   version "4.60.0"
-  resolved "https://npm.pkg.github.com/download/@contentful/f36-menu/4.60.0/1432b225ec0cdc0b552506fa5ec398ab5ebcdcae#1432b225ec0cdc0b552506fa5ec398ab5ebcdcae"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-menu/-/f36-menu-4.60.0.tgz#1432b225ec0cdc0b552506fa5ec398ab5ebcdcae"
   integrity sha512-Rjn6WrGrJIPpkJaNQdj17KSHoYC3xj82W9YObtzl/W/huNhXV2IoH8p7q9kOaEuZjG80ERvuuno84xkLMiAaig==
   dependencies:
     "@contentful/f36-core" "^4.60.0"
@@ -2409,7 +2409,7 @@
 
 "@contentful/f36-modal@^4.60.0":
   version "4.60.0"
-  resolved "https://npm.pkg.github.com/download/@contentful/f36-modal/4.60.0/52a959c31f0ebc711ff6db93362435319e41a5a7#52a959c31f0ebc711ff6db93362435319e41a5a7"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-modal/-/f36-modal-4.60.0.tgz#52a959c31f0ebc711ff6db93362435319e41a5a7"
   integrity sha512-9IixUm5RgOgtOviMhvmQKImjKK24XykoJymromOoQPBgI1rIqUxBhlwGWIPOYYtoA32mJNIL2erJhYM+zrR2+A==
   dependencies:
     "@contentful/f36-button" "^4.60.0"
@@ -2450,7 +2450,7 @@
 
 "@contentful/f36-note@^4.60.0":
   version "4.60.0"
-  resolved "https://npm.pkg.github.com/download/@contentful/f36-note/4.60.0/61d52aaef6bd02df2984be8bed1c80703565ac59#61d52aaef6bd02df2984be8bed1c80703565ac59"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-note/-/f36-note-4.60.0.tgz#61d52aaef6bd02df2984be8bed1c80703565ac59"
   integrity sha512-XnOMEo2U3jbPzy20bZgoyQjR7bwsMWGUQrcrE3H0cXSHYQaKuvWo6uaEMCsqr00LWkP1537tuWfr3Yalp33aiQ==
   dependencies:
     "@contentful/f36-button" "^4.60.0"
@@ -2478,7 +2478,7 @@
 
 "@contentful/f36-notification@^4.60.0":
   version "4.60.0"
-  resolved "https://npm.pkg.github.com/download/@contentful/f36-notification/4.60.0/0e8d0b398d69c6bda13de2bc58442f811549b2a5#0e8d0b398d69c6bda13de2bc58442f811549b2a5"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-notification/-/f36-notification-4.60.0.tgz#0e8d0b398d69c6bda13de2bc58442f811549b2a5"
   integrity sha512-1YZ+eQhBLNEIc1dBcm4Ee0Rq1oXP8VvkYxczRmTaopKLlxUTZpvnjPZEq0wZTZ0Dc/uy8m92yByCCeo0UAVpXw==
   dependencies:
     "@contentful/f36-button" "^4.60.0"
@@ -2506,7 +2506,7 @@
 
 "@contentful/f36-pagination@^4.60.0":
   version "4.60.0"
-  resolved "https://npm.pkg.github.com/download/@contentful/f36-pagination/4.60.0/20063ece05da401deb3cc9fb33392ece6de37334#20063ece05da401deb3cc9fb33392ece6de37334"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-pagination/-/f36-pagination-4.60.0.tgz#20063ece05da401deb3cc9fb33392ece6de37334"
   integrity sha512-m/m+/wZxjO/EDPWGkdMDyGsxEe5iV6RnSMsVABk4QTOe7Zo05rqGUw6IjqzvecDgDwm1jUrYm/lhlNObwpcRlA==
   dependencies:
     "@contentful/f36-button" "^4.60.0"
@@ -2532,7 +2532,7 @@
 
 "@contentful/f36-pill@^4.60.0":
   version "4.60.0"
-  resolved "https://npm.pkg.github.com/download/@contentful/f36-pill/4.60.0/b6707f505141e1718f5e94dce9508f57d5258031#b6707f505141e1718f5e94dce9508f57d5258031"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-pill/-/f36-pill-4.60.0.tgz#b6707f505141e1718f5e94dce9508f57d5258031"
   integrity sha512-1heXDtENtFUnDrgaVYu3GRTtIzP37AydxOw1BlpRUiKGvEzL8K217d7WVhKoMlUFk+uCS50j6t6cJxl/3E3Xtw==
   dependencies:
     "@contentful/f36-button" "^4.60.0"
@@ -2557,7 +2557,7 @@
 
 "@contentful/f36-popover@^4.60.0":
   version "4.60.0"
-  resolved "https://npm.pkg.github.com/download/@contentful/f36-popover/4.60.0/90b6247669ed1ec80000be5d394ffdd4cca7d2cd#90b6247669ed1ec80000be5d394ffdd4cca7d2cd"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-popover/-/f36-popover-4.60.0.tgz#90b6247669ed1ec80000be5d394ffdd4cca7d2cd"
   integrity sha512-D0XNoO6//TLIzc/LLt7UnbdeGpDO3t/Eb3eKwK4Z0n+pI8bCEm6EltfbVO3mWMmPPSDhjLMa33q3hgGXt/BUAg==
   dependencies:
     "@contentful/f36-core" "^4.60.0"
@@ -2579,7 +2579,7 @@
 
 "@contentful/f36-skeleton@^4.60.0":
   version "4.60.0"
-  resolved "https://npm.pkg.github.com/download/@contentful/f36-skeleton/4.60.0/4642350642ff451a7e558299cdb66fa3e9fcefab#4642350642ff451a7e558299cdb66fa3e9fcefab"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-skeleton/-/f36-skeleton-4.60.0.tgz#4642350642ff451a7e558299cdb66fa3e9fcefab"
   integrity sha512-5WsjDlOxofFpGSqkAVCEdOC7TCyrQ7/AYdxjhzFJClKHIZ0xR/ZqcZyE6yy8DV9dj+XMil8ZIAyrOnwDX6fRNQ==
   dependencies:
     "@contentful/f36-core" "^4.60.0"
@@ -2598,7 +2598,7 @@
 
 "@contentful/f36-spinner@^4.60.0":
   version "4.60.0"
-  resolved "https://npm.pkg.github.com/download/@contentful/f36-spinner/4.60.0/97edbb8e11fc4fa6d185a690387ef5d3ee1c1861#97edbb8e11fc4fa6d185a690387ef5d3ee1c1861"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-spinner/-/f36-spinner-4.60.0.tgz#97edbb8e11fc4fa6d185a690387ef5d3ee1c1861"
   integrity sha512-T4Lyjr+sL0VC+2z7UVXAvOYxLZfsNECUpQGScI1iaEc6751Zz8HC+ccCFoKY3MUC/9k/bAE85vHTDoH6nmyutg==
   dependencies:
     "@contentful/f36-core" "^4.60.0"
@@ -2618,7 +2618,7 @@
 
 "@contentful/f36-table@^4.60.0":
   version "4.60.0"
-  resolved "https://npm.pkg.github.com/download/@contentful/f36-table/4.60.0/f2caa104d7d64b5ea97137ecaea97dd284791cd3#f2caa104d7d64b5ea97137ecaea97dd284791cd3"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-table/-/f36-table-4.60.0.tgz#f2caa104d7d64b5ea97137ecaea97dd284791cd3"
   integrity sha512-hOX1x62mWKs1vAC6LOFAxX0+jxwicjIiC693t1oifqaKENwDj+vXZsYZrh+pCAjWILRpFsxjMP79L4pRWrZ0Mw==
   dependencies:
     "@contentful/f36-core" "^4.60.0"
@@ -2639,7 +2639,7 @@
 
 "@contentful/f36-tabs@^4.60.0":
   version "4.60.0"
-  resolved "https://npm.pkg.github.com/download/@contentful/f36-tabs/4.60.0/2605ec4ead8b3c788d8f0a0cb28cf47cbfb3ae68#2605ec4ead8b3c788d8f0a0cb28cf47cbfb3ae68"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-tabs/-/f36-tabs-4.60.0.tgz#2605ec4ead8b3c788d8f0a0cb28cf47cbfb3ae68"
   integrity sha512-4WzMJ847rbZMm+nWFAWhK4V2cYoPMXHkWif9FDuk4v6RPVhpoANUsSpTX9hBo2fyR99Cyj0qeGtqfJ39ifUTvw==
   dependencies:
     "@contentful/f36-core" "^4.60.0"
@@ -2658,7 +2658,7 @@
 
 "@contentful/f36-text-link@^4.60.0":
   version "4.60.0"
-  resolved "https://npm.pkg.github.com/download/@contentful/f36-text-link/4.60.0/7c4d254dedab05d0eef502a9a87513b7555bcd3b#7c4d254dedab05d0eef502a9a87513b7555bcd3b"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-text-link/-/f36-text-link-4.60.0.tgz#7c4d254dedab05d0eef502a9a87513b7555bcd3b"
   integrity sha512-gYP7O8iHQnflVactunb4Ui2Ynu1VD4KnKVDKbXQmk7BxDzMNKy5puvUUIgmI2MqmtA85eMcauWFSC677KJemMw==
   dependencies:
     "@contentful/f36-core" "^4.60.0"
@@ -2690,7 +2690,7 @@
 
 "@contentful/f36-tooltip@^4.60.0":
   version "4.60.0"
-  resolved "https://npm.pkg.github.com/download/@contentful/f36-tooltip/4.60.0/2c04d04c9e5041aa622aeea3f656d73d79a7d213#2c04d04c9e5041aa622aeea3f656d73d79a7d213"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-tooltip/-/f36-tooltip-4.60.0.tgz#2c04d04c9e5041aa622aeea3f656d73d79a7d213"
   integrity sha512-qIdLgj9oOqr69RuRA/9LrV1VlOSHOWuRtSsSZDx87rQwk8OlvdflvCd3Y1TPyrFiAbsRV7QtSmxau+1UKhqQ8A==
   dependencies:
     "@contentful/f36-core" "^4.60.0"
@@ -2713,7 +2713,7 @@
 
 "@contentful/f36-typography@^4.60.0":
   version "4.60.0"
-  resolved "https://npm.pkg.github.com/download/@contentful/f36-typography/4.60.0/0f2c507d9341fb6aaf4fa68876f643c5021b589b#0f2c507d9341fb6aaf4fa68876f643c5021b589b"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-typography/-/f36-typography-4.60.0#0f2c507d9341fb6aaf4fa68876f643c5021b589b"
   integrity sha512-iEg1VT0wH3nUKZs8jSCxKnQPWVgrqckRuG3UpLzk4FKfyDHopimFMCLqy+XswWpA+aDRueMC4Il+TVVTO5N7qQ==
   dependencies:
     "@contentful/f36-core" "^4.60.0"
