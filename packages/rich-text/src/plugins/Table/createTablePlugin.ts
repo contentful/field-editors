@@ -48,6 +48,7 @@ export const createTablePlugin = (): PlatePlugin =>
       editor = withNormalizeTable(editor);
       editor = withDeleteTable(editor);
       editor = withGetFragmentTable(editor);
+      // custom implementation to fix empty paragraph when pasting tables from google docs
       editor = withInsertFragmentTable(editor, plugin as WithPlatePlugin);
       editor = withInsertTextTable(editor, plugin);
       editor = withSelectionTable(editor);
