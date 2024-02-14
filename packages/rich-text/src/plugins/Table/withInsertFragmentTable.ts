@@ -1,21 +1,21 @@
-// Copied from https://github.com/udecode/plate/blob/main/packages/table/src/withInsertFragmentTable.ts
 import {
+  ELEMENT_DEFAULT,
   getEndPoint,
   getPluginType,
   getStartPoint,
   getTEditor,
   hasNode,
-  PlateEditor,
   replaceNodeChildren,
   select,
   TElement,
-  Value,
   withoutNormalizing,
   WithPlatePlugin,
 } from '@udecode/plate-common';
-import { ELEMENT_TABLE, getTableAbove, getTableGridAbove, TablePlugin } from '@udecode/plate-table';
+import { ELEMENT_TABLE, getTableAbove, getTableGridAbove } from '@udecode/plate-table';
 import cloneDeep from 'lodash/cloneDeep.js';
 import { Path } from 'slate';
+
+import { insertNodes, PlateEditor } from '../../internal';
 
 /**
  * If inserting a table,
@@ -23,13 +23,7 @@ import { Path } from 'slate';
  * - Replace each cell above by the inserted table until out of bounds.
  * - Select the inserted cells.
  */
-export const withInsertFragmentTable = <
-  V extends Value = Value,
-  E extends PlateEditor<V> = PlateEditor<V>
->(
-  editor: E,
-  { options }: WithPlatePlugin<TablePlugin<V>, V, E>
-) => {
+export const withInsertFragmentTable = (editor: PlateEditor, { options }: WithPlatePlugin) => {
   const { insertFragment } = editor;
   const { disableExpandOnInsert, insertColumn, insertRow } = options;
 
@@ -153,8 +147,13 @@ export const withInsertFragmentTable = <
           return;
         }
       } else if (fragment.length === 1 && fragment[0].type === ELEMENT_TABLE) {
-        // NOTE adjusting this from insertNode to insertFragment to removing preceding empty paragraph
-        insertFragment(fragment);
+        // needed to insert as node, otherwise it will be inserted as text
+        insertNodes(editor, fragment, {
+          removeEmpty: {
+            // removes empty paragraph before table
+            exclude: [ELEMENT_DEFAULT],
+          },
+        });
         return;
       }
     }

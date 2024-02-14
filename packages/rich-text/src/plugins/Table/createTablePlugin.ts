@@ -1,4 +1,5 @@
 import { BLOCKS, CONTAINERS } from '@contentful/rich-text-types';
+import { WithPlatePlugin } from '@udecode/plate-core';
 import {
   createTablePlugin as createDefaultTablePlugin,
   ELEMENT_TABLE,
@@ -47,7 +48,7 @@ export const createTablePlugin = (): PlatePlugin =>
       editor = withNormalizeTable(editor);
       editor = withDeleteTable(editor);
       editor = withGetFragmentTable(editor);
-      editor = withInsertFragmentTable(editor, plugin);
+      editor = withInsertFragmentTable(editor, plugin as WithPlatePlugin);
       editor = withInsertTextTable(editor, plugin);
       editor = withSelectionTable(editor);
       editor = withSetFragmentDataTable(editor);
