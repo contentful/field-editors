@@ -67,12 +67,12 @@ const getInput = () => {
 };
 
 export const type = (value: string): Cypress.Chainable => {
-  return getInput().focus().type(value, { force: true });
+  return getInput().type(value, { force: true });
 };
 
 export const clearAll = (): void => {
   //Using extra select all because of flakiness with a single clear
-  getInput().type('{selectall}{selectall}').clear({ force: true });
+  getInput().type('{selectall}', { force: true }).clear({ force: true });
   checkRemoved();
 };
 
