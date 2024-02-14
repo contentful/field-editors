@@ -5,8 +5,13 @@ import {
   ELEMENT_TD,
   ELEMENT_TH,
   ELEMENT_TR,
-  withTable,
   TablePlugin,
+  withNormalizeTable,
+  withDeleteTable,
+  withGetFragmentTable,
+  withInsertTextTable,
+  withSelectionTable,
+  withSetFragmentDataTable,
 } from '@udecode/plate-table';
 
 import { isRootLevel } from '../../helpers/editor';
@@ -27,6 +32,7 @@ import { createEmptyTableCells, getNoOfMissingTableCellsInRow, isNotEmpty } from
 import { insertTableFragment } from './insertTableFragment';
 import { onKeyDownTable } from './onKeyDownTable';
 import { addTableTrackingEvents, withInvalidCellChildrenTracking } from './tableTracking';
+import { withInsertFragmentTable } from './withInsertFragmentTable';
 
 export const createTablePlugin = (): PlatePlugin =>
   createDefaultTablePlugin<TablePlugin<Value>, Value, PlateEditor>({
@@ -38,7 +44,13 @@ export const createTablePlugin = (): PlatePlugin =>
     withOverrides: (editor, plugin) => {
       const { normalizeNode } = editor;
       // injects important fixes from plate's original table plugin
-      withTable(editor, plugin);
+      editor = withNormalizeTable(editor);
+      editor = withDeleteTable(editor);
+      editor = withGetFragmentTable(editor);
+      editor = withInsertFragmentTable(editor, plugin);
+      editor = withInsertTextTable(editor, plugin);
+      editor = withSelectionTable(editor);
+      editor = withSetFragmentDataTable(editor);
 
       // Resets all normalization rules added by @udecode/plate-table as
       // they conflict with our own
