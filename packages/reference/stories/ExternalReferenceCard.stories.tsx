@@ -198,7 +198,7 @@ export const WithEditActions: Story = {
   },
 };
 
-export const WithEMultipleCardsHavingMultipleStatuses: Story = {
+export const WithMultipleCardsHavingMultipleStatuses: Story = {
   parameters: {
     controls: { hideNoControlsWarning: true },
   },
