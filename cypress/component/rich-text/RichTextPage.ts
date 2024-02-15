@@ -2,8 +2,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { INLINES } from '@contentful/rich-text-types';
 
-const isValidationEvent = ({ type }) => type === 'onSchemaErrorsChanged';
-
 export type EmbedType =
   | 'entry-block'
   | 'asset-block'
@@ -106,15 +104,6 @@ export class RichTextPage {
     cy.getRichTextField().should((field) => {
       expect(field.getValue()).to.deep.equal(expectedValue);
     });
-  }
-
-  expectNoValidationErrors() {
-    cy.editorEvents()
-      .then((events) => {
-        return events.filter((ev) => isValidationEvent(ev) && ev.value.length > 0);
-      })
-      .should('be.empty')
-      .as('validationErrors');
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
