@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.22.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.22.0...@contentful/field-editor-reference@5.22.1) (2024-02-15)
+
+### Bug Fixes
+
+- use the new badge option on EntryCard for ExternalResourceCard [DANTE-1330] ([#1606](https://github.com/contentful/field-editors/issues/1606)) ([592e81e](https://github.com/contentful/field-editors/commit/592e81e069b7dc350b7fe88de70af3b25500e7d9))
+
 # [5.22.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.21.6...@contentful/field-editor-reference@5.22.0) (2024-02-13)
 
 ### Bug Fixes
