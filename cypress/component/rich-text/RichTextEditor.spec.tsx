@@ -13,7 +13,7 @@ import { mount } from '../mount';
 import newLineEntityBlockListItem from './document-mocks/newLineEntityBlockListItem';
 import normalizationWithoutValueChange from './document-mocks/normalizationWithoutValueChange';
 import validDocumentThatRequiresNormalization from './document-mocks/validDocumentThatRequiresNormalization';
-import { emptyParagraph, paragraphWithText } from './helpers';
+import { assetBlock, emptyParagraph, paragraphWithText } from './helpers';
 import { EmbedType, RichTextPage } from './RichTextPage';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
@@ -40,16 +40,6 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           id: 'published-entry',
           type: 'Link',
           linkType: 'Entry',
-        },
-      },
-    });
-  const assetBlock = () =>
-    block(BLOCKS.EMBEDDED_ASSET, {
-      target: {
-        sys: {
-          id: 'published_asset',
-          type: 'Link',
-          linkType: 'Asset',
         },
       },
     });

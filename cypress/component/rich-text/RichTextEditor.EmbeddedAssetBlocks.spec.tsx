@@ -7,7 +7,7 @@ import { block, document as doc, text } from '../../../packages/rich-text/src/he
 import { createRichTextFakeSdk } from '../../fixtures';
 import { mod } from '../../fixtures/utils';
 import { mount } from '../mount';
-import { KEYS, emptyParagraph, paragraphWithText } from './helpers';
+import { KEYS, assetBlock, emptyParagraph, paragraphWithText } from './helpers';
 import { RichTextPage } from './RichTextPage';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
@@ -16,17 +16,6 @@ import { RichTextPage } from './RichTextPage';
 describe('Rich Text Editor - Embedded Entry Assets', { viewportHeight: 2000 }, () => {
   let richText: RichTextPage;
   const expectDocumentToBeEmpty = () => richText.expectValue(undefined);
-
-  const assetBlock = () =>
-    block(BLOCKS.EMBEDDED_ASSET, {
-      target: {
-        sys: {
-          id: 'published_asset',
-          type: 'Link',
-          linkType: 'Asset',
-        },
-      },
-    });
 
   beforeEach(() => {
     const sdk = createRichTextFakeSdk();
