@@ -116,13 +116,6 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
     return { sys: { id, type: 'Link', linkType: type } };
   }
 
-  function entityToResourceLink(entity): Link {
-    const { urn } = entity.sys;
-
-    // @ts-expect-error wait for update of app-sdk version
-    return { sys: { urn, type: 'ResourceLink', linkType: 'Contentful:Entry' } };
-  }
-
   function isResourceLink(link: Link | ResourceLink | null): link is ResourceLink {
     return !!link && !!(link as ResourceLink).sys.urn;
   }
@@ -152,10 +145,10 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
       allowedResources: getAllowedResourcesForNodeType(props.sdk.field, INLINES.RESOURCE_HYPERLINK),
     };
     // @ts-expect-error wait for update of app-sdk version
-    const entry = await props.sdk.dialogs.selectSingleResourceEntry(options);
-    if (entry) {
+    const entryLink = await props.sdk.dialogs.selectSingleResourceEntity(options);
+    if (entryLink) {
       setLinkTarget('');
-      setLinkEntity(entityToResourceLink(entry));
+      setLinkEntity(entryLink);
     }
   }
 
@@ -202,8 +195,7 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
                     setLinkType(event.target.value)
                   }
                   testId="link-type-input"
-                  isDisabled={props.readonly}
-                >
+                  isDisabled={props.readonly}>
                   {enabledLinkTypes.map((nodeType) => (
                     <Select.Option key={nodeType} value={nodeType}>
                       {LINK_TYPE_SELECTION_VALUES[nodeType]}
@@ -245,8 +237,7 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
                       <TextLink
                         testId="entity-selection-link"
                         onClick={resetLinkEntity}
-                        className={styles.removeSelectionLabel}
-                      >
+                        className={styles.removeSelectionLabel}>
                         Remove selection
                       </TextLink>
                     )}
@@ -308,8 +299,7 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
             onClick={() => props.onClose(null)}
             variant="secondary"
             testId="cancel-cta"
-            size="small"
-          >
+            size="small">
             Cancel
           </Button>
           <Button
@@ -318,8 +308,7 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
             size="small"
             isDisabled={props.readonly || !isLinkComplete()}
             onClick={handleOnSubmit}
-            testId="confirm-cta"
-          >
+            testId="confirm-cta">
             {props.linkType ? 'Update' : 'Insert'}
           </Button>
         </ModalControls>

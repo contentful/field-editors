@@ -31,7 +31,7 @@ const commonProps = {
 };
 
 //TODO: Tests for custom cards after implementation of handling,
-//fix 'dialogs.selectSingleResourceEntry' error in linkExisting click handling
+//fix 'dialogs.selectSingleResourceEntity' error in linkExisting click handling
 
 describe('Single resource editor', () => {
   const findLinkExistingBtn = () => cy.findByTestId('linkEditor.linkExisting');

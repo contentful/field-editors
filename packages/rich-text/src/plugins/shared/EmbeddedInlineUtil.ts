@@ -32,29 +32,28 @@ export function getWithEmbeddedEntryInlineEvents(
   };
 }
 
-const getLink = (nodeType: INLINES, entity) => {
-  if (nodeType === INLINES.EMBEDDED_RESOURCE) {
-    return {
-      urn: entity.sys.urn,
-      type: 'ResourceLink',
-      linkType: 'Contentful:Entry',
-    };
-  }
-  return {
-    id: entity.sys.id,
-    type: 'Link',
-    linkType: entity.sys.type,
-  };
-};
-
 const createInlineEntryNode = (nodeType, entity) => {
   return {
     type: nodeType,
     children: [{ text: '' }],
     data: {
       target: {
-        sys: getLink(nodeType, entity),
+        sys: {
+          id: entity.sys.id,
+          type: 'Link',
+          linkType: entity.sys.type,
+        },
       },
+    },
+  };
+};
+
+const createInlineResourceEntryNode = (nodeType, entityLink) => {
+  return {
+    type: nodeType,
+    children: [{ text: '' }],
+    data: {
+      target: entityLink,
     },
   };
 };
@@ -105,15 +104,15 @@ export async function selectResourceEntityAndInsert(
   };
 
   const { selection } = editor;
-  const entry = await dialogs.selectSingleResourceEntry(config);
+  const entryLink = await dialogs.selectSingleResourceEntity(config);
 
-  if (!entry) {
+  if (!entryLink) {
     logAction('cancelCreateEmbedDialog', { nodeType });
   } else {
     // Selection prevents incorrect position of inserted ref when RTE doesn't have focus
     // (i.e. when using hotkeys and slide-in)
     select(editor, selection);
-    insertNodes(editor, createInlineEntryNode(nodeType, entry));
+    insertNodes(editor, createInlineResourceEntryNode(nodeType, entryLink));
     logAction('insert', { nodeType });
   }
 }

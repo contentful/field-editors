@@ -17,31 +17,19 @@ export function mockSdkForField(fieldDefinition: any, fieldValue?: any): FieldAp
     },
     dialogs: {
       // @ts-expect-error wait app-sdk version update
-      selectSingleResourceEntry: jest.fn().mockResolvedValue({
+      selectSingleResourceEntity: jest.fn().mockResolvedValue({
         sys: {
-          type: 'Entry',
-          id: 'linkedEntryId',
-          space: {
-            sys: {
-              type: 'Link',
-              linkType: 'Space',
-              id: 'x-space',
-            },
-          },
+          type: 'ResourceLink',
+          linkType: 'Contentful:Entry',
+          urn: 'contentful:linkedEntryId',
         },
       }),
-      selectMultipleResourceEntries: jest.fn().mockResolvedValue([
+      selectMultipleResourceEntities: jest.fn().mockResolvedValue([
         {
           sys: {
-            type: 'Entry',
-            id: 'linkedEntryId',
-            space: {
-              sys: {
-                type: 'Link',
-                linkType: 'Space',
-                id: 'x-space',
-              },
-            },
+            type: 'ResourceLink',
+            linkType: 'Contentful:Entry',
+            urn: 'contentful:linkedEntryId',
           },
         },
       ]),
