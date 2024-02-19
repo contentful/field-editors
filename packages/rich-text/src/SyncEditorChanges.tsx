@@ -39,7 +39,6 @@ const useOnValueChanged = (onChange?: (doc: Contentful.Document) => unknown) => 
   React.useEffect(() => {
     const cb = createOnChangeCallback(onChange);
 
-    // FIXME double-check this is working
     setEditorOnChange((document) => {
       // Skip irrelevant events e.g. mouse selection
       const operations = editor?.operations.filter((op) => {
