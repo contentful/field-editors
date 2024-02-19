@@ -1,5 +1,4 @@
 import { BLOCKS, CONTAINERS } from '@contentful/rich-text-types';
-import { WithPlatePlugin } from '@udecode/plate-core';
 import {
   createTablePlugin as createDefaultTablePlugin,
   ELEMENT_TABLE,
@@ -12,6 +11,7 @@ import {
   withInsertTextTable,
   withSelectionTable,
   withSetFragmentDataTable,
+  withInsertFragmentTable,
 } from '@udecode/plate-table';
 
 import { isRootLevel } from '../../helpers/editor';
@@ -32,7 +32,7 @@ import { createEmptyTableCells, getNoOfMissingTableCellsInRow, isNotEmpty } from
 import { insertTableFragment } from './insertTableFragment';
 import { onKeyDownTable } from './onKeyDownTable';
 import { addTableTrackingEvents, withInvalidCellChildrenTracking } from './tableTracking';
-import { withInsertFragmentTable } from './withInsertFragmentTable';
+import { withInsertFragmentTableOverride } from './withInsertFragmentTableOverride';
 
 export const createTablePlugin = (): PlatePlugin =>
   createDefaultTablePlugin<TablePlugin<Value>, Value, PlateEditor>({
@@ -46,8 +46,9 @@ export const createTablePlugin = (): PlatePlugin =>
       // injects important fixes from plate's original table plugin
       editor = withDeleteTable(editor);
       editor = withGetFragmentTable(editor);
-      // custom implementation to fix empty paragraph when pasting tables from google docs
-      editor = withInsertFragmentTable(editor, plugin as WithPlatePlugin);
+      editor = withInsertFragmentTable(editor, plugin);
+      // overrides insertFragment to handle table insertion to not add empty paragraph before table
+      editor = withInsertFragmentTableOverride(editor);
       editor = withInsertTextTable(editor, plugin);
       editor = withSelectionTable(editor);
       editor = withSetFragmentDataTable(editor);
