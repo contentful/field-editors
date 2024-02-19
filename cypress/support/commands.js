@@ -14,18 +14,6 @@ import '@testing-library/cypress/add-commands';
 
 configure({ testIdAttribute: 'data-test-id' });
 
-Cypress.Commands.add('editorEvents', (lastN = Infinity) => {
-  getIframeWindow().then((win) => {
-    return win.editorEvents.slice(0, lastN);
-  });
-});
-
-Cypress.Commands.add('editorActions', (lastN = Infinity) => {
-  getIframeWindow().then((win) => {
-    return win.actions.slice(0, lastN);
-  });
-});
-
 Cypress.Commands.add('setValueExternal', (value) => {
   return getIframeWindow().then((win) => {
     win.setValueExternal(value);
@@ -59,20 +47,6 @@ Cypress.Commands.add('setInitialValue', (initialValue) => {
 Cypress.Commands.add('setInitialDisabled', (initialDisabled) => {
   return getIframeWindow().then((win) => {
     win.localStorage.setItem('initialDisabled', initialDisabled);
-    return win;
-  });
-});
-
-Cypress.Commands.add('shouldConfirm', (confirm) => {
-  return getIframeWindow().then((win) => {
-    win.localStorage.setItem('shouldConfirm', confirm);
-    return win;
-  });
-});
-
-Cypress.Commands.add('unsetShouldConfirm', () => {
-  return getIframeWindow().then((win) => {
-    win.localStorage.removeItem('shouldConfirm');
     return win;
   });
 });

@@ -657,6 +657,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         });
 
         // FIX: Add embed dialog mock to emulate entity selection/cancel embed
+        // Removed here: https://github.com/contentful/field-editors/pull/1565
         // eslint-disable-next-line mocha/no-skipped-tests
         it.skip('cancels without adding the entry block', () => {
           richText.editor.click();
@@ -711,6 +712,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         });
 
         // FIX: Add embed dialog mock to emulate entity selection/cancel embed
+        // Removed here: https://github.com/contentful/field-editors/pull/1565
         // eslint-disable-next-line mocha/no-skipped-tests
         it.skip('cancels without adding the entry asset', () => {
           richText.editor.click();
@@ -765,6 +767,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         });
 
         // FIX: Add embed dialog mock to emulate entity selection/cancel embed
+        // Removed here: https://github.com/contentful/field-editors/pull/1565
         // eslint-disable-next-line mocha/no-skipped-tests
         it.skip('cancels without adding the resource block', () => {
           richText.editor.click();
@@ -819,6 +822,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         });
 
         // FIX: Add embed dialog mock to emulate entity selection/cancel embed
+        // Removed here: https://github.com/contentful/field-editors/pull/1565
         // eslint-disable-next-line mocha/no-skipped-tests
         it.skip('cancels without adding the entry asset', () => {
           richText.editor.click();
@@ -832,8 +836,6 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
             'be.calledWith',
             ...cancelEmbeddedDialog(origin, INLINES.EMBEDDED_ENTRY)
           );
-
-          cy.unsetShouldConfirm();
         });
       });
     }
