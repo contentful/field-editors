@@ -7,7 +7,6 @@ import {
   ELEMENT_TH,
   ELEMENT_TR,
   TablePlugin,
-  withNormalizeTable,
   withDeleteTable,
   withGetFragmentTable,
   withInsertTextTable,
@@ -45,7 +44,6 @@ export const createTablePlugin = (): PlatePlugin =>
     withOverrides: (editor, plugin) => {
       const { normalizeNode } = editor;
       // injects important fixes from plate's original table plugin
-      editor = withNormalizeTable(editor);
       editor = withDeleteTable(editor);
       editor = withGetFragmentTable(editor);
       // custom implementation to fix empty paragraph when pasting tables from google docs
