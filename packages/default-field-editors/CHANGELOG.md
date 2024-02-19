@@ -3,6 +3,68 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.13](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.6.12...@contentful/default-field-editors@1.6.13) (2024-02-15)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [1.6.12](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.6.11...@contentful/default-field-editors@1.6.12) (2024-02-13)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [1.6.11](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.6.10...@contentful/default-field-editors@1.6.11) (2024-02-05)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [1.6.10](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.6.9...@contentful/default-field-editors@1.6.10) (2024-02-02)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [1.6.9](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.6.8...@contentful/default-field-editors@1.6.9) (2024-01-23)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [1.6.8](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.6.7...@contentful/default-field-editors@1.6.8) (2024-01-23)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [1.6.7](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.6.6...@contentful/default-field-editors@1.6.7) (2024-01-23)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [1.6.6](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.6.5...@contentful/default-field-editors@1.6.6) (2024-01-23)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [1.6.5](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.6.4...@contentful/default-field-editors@1.6.5) (2024-01-05)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [1.6.4](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.6.3...@contentful/default-field-editors@1.6.4) (2024-01-04)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [1.6.3](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.6.2...@contentful/default-field-editors@1.6.3) (2024-01-04)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [1.6.2](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.6.1...@contentful/default-field-editors@1.6.2) (2023-12-20)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [1.6.1](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.6.0...@contentful/default-field-editors@1.6.1) (2023-12-18)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+# [1.6.0](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.5.25...@contentful/default-field-editors@1.6.0) (2023-12-08)
+
+### Features
+
+- support CMA.js v11 ([#1559](https://github.com/contentful/field-editors/issues/1559)) ([2bfcf61](https://github.com/contentful/field-editors/commit/2bfcf611f4066848343e29c9aa4acdcc70c85712))
+
+## [1.5.25](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.5.24...@contentful/default-field-editors@1.5.25) (2023-11-29)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
 ## [1.5.24](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.5.23...@contentful/default-field-editors@1.5.24) (2023-11-20)
 
 **Note:** Version bump only for package @contentful/default-field-editors

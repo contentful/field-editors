@@ -1,43 +1,34 @@
-import { getIframe } from '../fixtures/utils';
+import { checkValue, renderMarkdownEditor } from './utils';
 
 describe('Markdown Editor / Insert Assets', () => {
   const selectors = {
     getInput: () => {
-      return getIframe().findAllByTestId('markdown-textarea').find('[contenteditable]');
+      return cy.findAllByTestId('markdown-textarea').find('[contenteditable]');
     },
     getInsertMediaDropdown: () => {
-      return getIframe().findByTestId('markdownEditor.insertMediaDropdownTrigger');
+      return cy.findByRole('button', { name: 'Insert media' });
     },
     getInsertNewAssetButton: () => {
-      return getIframe().findByTestId('markdownEditor.uploadAssetsAndLink');
+      return cy.findByRole('menuitem', { name: 'Add new media and link' });
     },
     getInsertExistingAssetButton: () => {
-      return getIframe().findByTestId('markdownEditor.linkExistingAssets');
+      return cy.findByRole('menuitem', { name: 'Link existing media' });
     },
   };
-
-  const checkValue = (value) => {
-    cy.getMarkdownInstance().then((markdown) => {
-      expect(markdown.getContent()).eq(value);
-    });
-  };
-
-  beforeEach(() => {
-    cy.visit('/?path=/story/editors-markdown--default');
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(500);
-    getIframe().findByTestId('markdown-editor').should('be.visible');
-  });
-
   it('should insert a new asset', () => {
+    renderMarkdownEditor({ spyOnSetValue: true });
+
     selectors.getInsertMediaDropdown().click();
     selectors.getInsertNewAssetButton().click();
+
     checkValue(
       '![dog](//images.ctfassets.net/b04hhmxrptgr/6oYURL50Ddai6jRCboSB7u/b1a3768d6d987f3f6110a41175f4d7d3/dog.jpg)'
     );
   });
 
   it('should insert an existing asset', () => {
+    renderMarkdownEditor({ spyOnSetValue: true });
+
     selectors.getInsertMediaDropdown().click();
     selectors.getInsertExistingAssetButton().click();
     checkValue(

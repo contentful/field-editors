@@ -51,6 +51,7 @@ jobs:
       - run: yarn build
       - run: yarn tsc
   unit-tests:
+    parallelism: 3
     executor: linux-node
     steps:
       - checkout
@@ -93,6 +94,7 @@ jobs:
           path: cypress/videos
 
   component-tests:
+    parallelism: 3
     executor: linux-cypress
     steps:
       - checkout
@@ -118,9 +120,11 @@ jobs:
       - checkout
       - yarn_install
       - vault/get-secrets:
-          template-preset: semantic-release-ecosystem
+          template-preset: semantic-release
       - vault/configure-lerna
-      - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
+      - run: |
+          echo "//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_WRITE_TOKEN}" > ~/.npmrc
+          echo "@contentful:registry=https://npm.pkg.github.com" >> ~/.npmrc
       - run: yarn build
       - run: yarn lerna version --no-private --conventional-commits --create-release github --yes
       - run: yarn lerna publish from-git --yes

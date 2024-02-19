@@ -1,46 +1,38 @@
-import { getIframe } from '../fixtures/utils';
+import { checkValue, renderMarkdownEditor } from './utils';
 
 describe('Markdown Editor / Insert Special Character Dialog', () => {
   const selectors = {
     getInput: () => {
-      return getIframe().findByTestId('markdown-textarea').find('[contenteditable]');
+      return cy.findByTestId('markdown-textarea').find('[contenteditable]');
     },
     getDialogTitle() {
-      return getIframe().findByTestId('dialog-title').find('h2');
+      return cy.findByTestId('dialog-title').find('h2');
     },
     getToggleAdditionalActionsButton: () => {
-      return getIframe().findByTestId('markdown-action-button-toggle-additional');
+      return cy.findByTestId('markdown-action-button-toggle-additional');
     },
     getModalContent() {
-      return getIframe().findByTestId('insert-special-character-modal');
+      return cy.findByTestId('insert-special-character-modal');
     },
     getInsertCharacterButton() {
-      return getIframe().findByTestId('markdown-action-button-special');
+      return cy.findByRole('button', { name: 'Insert special character' });
     },
     getConfirmButton() {
-      return getIframe().findByTestId('insert-character-confirm');
+      return cy.findByRole('button', { name: 'Insert selected' });
     },
     getCancelButton() {
-      return getIframe().findByTestId('insert-character-cancel');
+      return cy.findByRole('button', { name: 'Cancel' });
     },
     getSpecialCharacterButtons() {
-      return getIframe().findAllByTestId('special-character-button');
+      return cy.findAllByTestId('special-character-button');
     },
     getCharButton(char: string) {
-      return getIframe().findByText(char);
+      return cy.findByText(char);
     },
-  };
-
-  const checkValue = (value) => {
-    cy.getMarkdownInstance().then((markdown) => {
-      expect(markdown.getContent()).eq(value);
-    });
   };
 
   beforeEach(() => {
-    cy.visit('/?path=/story/editors-markdown--default');
-    cy.wait(500);
-    getIframe().findByTestId('markdown-editor').should('be.visible');
+    renderMarkdownEditor({ spyOnSetValue: true });
     selectors.getToggleAdditionalActionsButton().click();
   });
 
@@ -57,17 +49,16 @@ describe('Markdown Editor / Insert Special Character Dialog', () => {
   it('should have correct title', () => {
     openDialog();
     selectors.getDialogTitle().should('have.text', 'Insert special character');
+    selectors.getCancelButton().click();
   });
 
   it('should insert first charter by default', () => {
-    checkValue('');
     openDialog();
     selectors.getConfirmButton().click();
     checkValue('´');
   });
 
   it('should include any selected character', () => {
-    checkValue('');
     openDialog();
     selectors.getSpecialCharacterButtons().should('have.length', 54);
     insertSpecialCharacter('¼');
@@ -78,9 +69,8 @@ describe('Markdown Editor / Insert Special Character Dialog', () => {
   });
 
   it('should include nothing if dialog was just closed', () => {
-    checkValue('');
     openDialog();
     selectors.getCancelButton().click();
-    checkValue('');
+    cy.get('@setValue').should('not.be.called');
   });
 });

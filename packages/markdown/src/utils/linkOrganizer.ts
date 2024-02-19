@@ -2,7 +2,6 @@
 
 import extend from 'lodash/extend';
 import isObject from 'lodash/isObject';
-import isString from 'lodash/isString';
 import max from 'lodash/max';
 // eslint-disable-next-line -- TODO: describe this disable
 import isFinite from 'lodash/isFinite';
@@ -153,7 +152,7 @@ function makeFinder(type: 'inline' | 'ref' | 'label'): (text: string) => Array<a
 }
 
 export function findMaxLabelId(textOrLabels: any): number {
-  if (isString(textOrLabels)) {
+  if (textOrLabels != null && typeof textOrLabels.valueOf() === 'string') {
     textOrLabels = findLabels(textOrLabels);
   }
 
@@ -185,7 +184,12 @@ function findAll(text: string, type: 'inline' | 'ref' | 'label') {
  */
 
 function hasTitle(link: { title: string }) {
-  return isObject(link) && isString(link.title) && link.title.length > 0;
+  return (
+    isObject(link) &&
+    link.title !== null &&
+    typeof link.title.valueOf() === 'string' &&
+    link.title.length > 0
+  );
 }
 
 function buildLabel(link: { href: string; title: string }, id: number) {

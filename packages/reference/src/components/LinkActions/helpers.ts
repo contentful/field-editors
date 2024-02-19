@@ -32,7 +32,9 @@ export async function selectSingleEntity(props: {
   if (props.entityType === 'Entry') {
     return await props.sdk.dialogs.selectSingleEntry<Entry>({
       locale: props.sdk.field.locale,
-      contentTypes: getContentTypeIds(props.editorPermissions.readableContentTypes),
+      // readable CTs do not cover cases where user has partial access to a CT entry,
+      // e.g. via tags so we're passing in all available CTs (based on field validations)
+      contentTypes: getContentTypeIds(props.editorPermissions.availableContentTypes),
     });
   } else {
     return props.sdk.dialogs.selectSingleAsset<Asset>({
@@ -65,7 +67,9 @@ export async function selectMultipleEntities(props: {
   if (props.entityType === 'Entry') {
     return await props.sdk.dialogs.selectMultipleEntries<Entry>({
       locale: props.sdk.field.locale,
-      contentTypes: getContentTypeIds(props.editorPermissions.readableContentTypes),
+      // readable CTs do not cover cases where user has partial access to a CT entry,
+      // e.g. via tags so we're passing in all available CTs (based on field validations)
+      contentTypes: getContentTypeIds(props.editorPermissions.availableContentTypes),
       min,
       max,
     });

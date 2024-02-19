@@ -3,6 +3,78 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.16.16](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.15...@contentful/field-editor-rich-text@3.16.16) (2024-02-15)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [3.16.15](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.14...@contentful/field-editor-rich-text@3.16.15) (2024-02-13)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [3.16.14](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.13...@contentful/field-editor-rich-text@3.16.14) (2024-02-05)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [3.16.13](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.12...@contentful/field-editor-rich-text@3.16.13) (2024-02-02)
+
+### Bug Fixes
+
+- fixing custom app rich text dnd [TOL-1742] ([#1599](https://github.com/contentful/field-editors/issues/1599)) ([43c17ca](https://github.com/contentful/field-editors/commit/43c17ca7f585b12ffe0743544c5f65cb7739c6f3))
+
+## [3.16.12](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.11...@contentful/field-editor-rich-text@3.16.12) (2024-01-23)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [3.16.11](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.10...@contentful/field-editor-rich-text@3.16.11) (2024-01-23)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [3.16.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.9...@contentful/field-editor-rich-text@3.16.10) (2024-01-23)
+
+### Bug Fixes
+
+- **rich-text:** prevent layout shift in the toolbar after changing the headline ([#1584](https://github.com/contentful/field-editors/issues/1584)) ([a4d7ce4](https://github.com/contentful/field-editors/commit/a4d7ce497a79fda2bd47f169a13d154d415b66da))
+
+## [3.16.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.8...@contentful/field-editor-rich-text@3.16.9) (2024-01-23)
+
+### Bug Fixes
+
+- **rich-text:** show the selected headline inside of lists ([#1582](https://github.com/contentful/field-editors/issues/1582)) ([aca1ccf](https://github.com/contentful/field-editors/commit/aca1ccf4e71f5188c2fa40036073c00f55923bc9))
+
+## [3.16.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.7...@contentful/field-editor-rich-text@3.16.8) (2024-01-05)
+
+### Bug Fixes
+
+- cannot read properties of null (reading 'attributes') [] ([#1569](https://github.com/contentful/field-editors/issues/1569)) ([340a58c](https://github.com/contentful/field-editors/commit/340a58cec2f3f95ce42db78e3d705a91ba1d2f66))
+
+## [3.16.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.6...@contentful/field-editor-rich-text@3.16.7) (2024-01-04)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [3.16.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.5...@contentful/field-editor-rich-text@3.16.6) (2024-01-04)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [3.16.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.4...@contentful/field-editor-rich-text@3.16.5) (2023-12-20)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [3.16.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.3...@contentful/field-editor-rich-text@3.16.4) (2023-12-18)
+
+### Bug Fixes
+
+- **rich-text:** declare missing dependency [] ([#1563](https://github.com/contentful/field-editors/issues/1563)) ([399459b](https://github.com/contentful/field-editors/commit/399459b292509d71ee55f61b031b4b1a2282cefc))
+
+## [3.16.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.2...@contentful/field-editor-rich-text@3.16.3) (2023-12-08)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [3.16.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.1...@contentful/field-editor-rich-text@3.16.2) (2023-11-29)
+
+### Bug Fixes
+
+- add plate common dependency to rich-text ([#1555](https://github.com/contentful/field-editors/issues/1555)) ([b76baf2](https://github.com/contentful/field-editors/commit/b76baf20f08ddbf975080f7d76da62123978b182))
+
 ## [3.16.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.0...@contentful/field-editor-rich-text@3.16.1) (2023-11-20)
 
 ### Bug Fixes

@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-test-utils",
-  "version": "1.4.3",
+  "version": "1.4.6",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
@@ -48,5 +48,8 @@
   "peerDependencies": {
     "@contentful/app-sdk": "^4.17.1",
     "react": ">=16.8.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   }
 }
