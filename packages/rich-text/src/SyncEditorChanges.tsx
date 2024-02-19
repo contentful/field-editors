@@ -14,7 +14,7 @@ import { PlateEditor, Value } from './internal/types';
  * changes (aka. external updates
  */
 const useAcceptIncomingChanges = (incomingValue?: Value) => {
-  const editor = usePlateSelectors().editor();
+  const editor = usePlateSelectors().editor() as PlateEditor;
 
   // Cache latest editor value to avoid unnecessary updates
   const lastIncomingValue = React.useRef(incomingValue);
@@ -25,8 +25,7 @@ const useAcceptIncomingChanges = (incomingValue?: Value) => {
     }
 
     lastIncomingValue.current = incomingValue;
-    // FIXME see why this casting is needed
-    setEditorValue(editor as PlateEditor, incomingValue);
+    setEditorValue(editor, incomingValue);
   }, [editor, incomingValue]);
 };
 
