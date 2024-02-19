@@ -1,3 +1,5 @@
+// copied from plate's source code as they are including an empty paragraph everytime they insert a table
+// and we don't want that
 import {
   ELEMENT_DEFAULT,
   getEndPoint,
