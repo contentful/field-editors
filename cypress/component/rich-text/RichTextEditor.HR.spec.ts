@@ -1,24 +1,15 @@
-/* eslint-disable mocha/no-setup-in-describe */
-
 import { BLOCKS } from '@contentful/rich-text-types';
 
 import { block, document as doc, text } from '../../../packages/rich-text/src/helpers/nodeFactory';
+import { emptyParagraph, paragraphWithText } from './helpers';
 import { RichTextPage } from './RichTextPage';
+import { mountRichTextEditor } from './utils';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
 // we increase the viewport height to fit the whole page on the screen
 
 describe('Rich Text Editor - HR', { viewportHeight: 2000 }, () => {
   let richText: RichTextPage;
-
-  // copied from the 'is-hotkey' library we use for RichText shortcuts
-  const buildHelper =
-    (type) =>
-    (...children) =>
-      block(type, {}, ...children);
-  const paragraph = buildHelper(BLOCKS.PARAGRAPH);
-  const paragraphWithText = (t) => paragraph(text(t, []));
-  const emptyParagraph = () => paragraphWithText('');
   const expectDocumentToBeEmpty = () => richText.expectValue(undefined);
 
   function addBlockquote(content = '') {
@@ -38,7 +29,8 @@ describe('Rich Text Editor - HR', { viewportHeight: 2000 }, () => {
 
   beforeEach(() => {
     richText = new RichTextPage();
-    richText.visit();
+
+    mountRichTextEditor();
   });
 
   describe('toolbar button', () => {

@@ -1,8 +1,10 @@
 /* eslint-disable mocha/no-setup-in-describe */
+
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 
 import { block, document as doc, text } from '../../../packages/rich-text/src/helpers/nodeFactory';
 import { RichTextPage } from './RichTextPage';
+import { mountRichTextEditor } from './utils';
 
 describe('Rich Text Lists', () => {
   let richText: RichTextPage;
@@ -10,7 +12,7 @@ describe('Rich Text Lists', () => {
   // eslint-disable-next-line mocha/no-hooks-for-single-case
   beforeEach(() => {
     richText = new RichTextPage();
-    richText.visit();
+    mountRichTextEditor();
   });
 
   it('escapes hyperlink when typing at the end', () => {

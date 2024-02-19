@@ -1,20 +1,16 @@
 /* eslint-disable mocha/no-setup-in-describe */
 
-import React from 'react';
-
 import { BLOCKS, MARKS } from '@contentful/rich-text-types';
 
-import { RichTextEditor } from '../../../packages/rich-text/src';
 import {
   document as doc,
   block,
   text,
   mark,
 } from '../../../packages/rich-text/src/helpers/nodeFactory';
-import { createRichTextFakeSdk } from '../../fixtures';
-import { mount } from '../mount';
 import { assetBlock, emptyParagraph, entryBlock, KEYS, paragraphWithText } from './helpers';
 import { RichTextPage } from './RichTextPage';
+import { mountRichTextEditor } from './utils';
 
 describe('Rich Text Lists', () => {
   let richText: RichTextPage;
@@ -35,10 +31,9 @@ describe('Rich Text Lists', () => {
   }
 
   beforeEach(() => {
-    const sdk = createRichTextFakeSdk();
     richText = new RichTextPage();
 
-    mount(<RichTextEditor sdk={sdk} isInitiallyDisabled={false} />);
+    mountRichTextEditor();
   });
 
   const lists = [

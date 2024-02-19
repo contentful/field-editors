@@ -1,44 +1,23 @@
-/* eslint-disable mocha/no-setup-in-describe */
-
 import { BLOCKS } from '@contentful/rich-text-types';
 
 import { block, document as doc, text } from '../../../packages/rich-text/src/helpers/nodeFactory';
-import { getIframe } from '../../fixtures/utils';
+import { mod } from '../../fixtures/utils';
+import { emptyParagraph, KEYS, paragraphWithText } from './helpers';
 import { RichTextPage } from './RichTextPage';
+import { mountRichTextEditor } from './utils';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
 // we increase the viewport height to fit the whole page on the screen
 
 describe('Rich Text Editor - Embedded Entry Blocks', { viewportHeight: 2000 }, () => {
   let richText: RichTextPage;
-
-  // copied from the 'is-hotkey' library we use for RichText shortcuts
-  const IS_MAC =
-    typeof window != 'undefined' && /Mac|iPod|iPhone|iPad/.test(window.navigator.platform);
-  const mod = IS_MAC ? 'meta' : 'control';
-  const buildHelper =
-    (type) =>
-    (...children) =>
-      block(type, {}, ...children);
-  const paragraph = buildHelper(BLOCKS.PARAGRAPH);
-  const paragraphWithText = (t) => paragraph(text(t, []));
-  const emptyParagraph = () => paragraphWithText('');
   const expectDocumentToBeEmpty = () => richText.expectValue(undefined);
-
-  const keys = {
-    enter: { keyCode: 13, which: 13, key: 'Enter' },
-    backspace: { keyCode: 8, which: 8, key: 'Backspace' },
-  };
-
-  function pressEnter() {
-    richText.editor.trigger('keydown', keys.enter);
-  }
 
   const entryBlock = () =>
     block(BLOCKS.EMBEDDED_ENTRY, {
       target: {
         sys: {
-          id: 'example-entity-id',
+          id: 'published-entry',
           type: 'Link',
           linkType: 'Entry',
         },
@@ -46,14 +25,9 @@ describe('Rich Text Editor - Embedded Entry Blocks', { viewportHeight: 2000 }, (
     });
 
   beforeEach(() => {
-    cy.viewport(1000, 2000);
     richText = new RichTextPage();
-    richText.visit();
-    cy.shouldConfirm(true);
-  });
 
-  afterEach(() => {
-    cy.unsetShouldConfirm();
+    mountRichTextEditor();
   });
 
   const methods: [string, () => void][] = [
@@ -76,9 +50,9 @@ describe('Rich Text Editor - Embedded Entry Blocks', { viewportHeight: 2000 }, (
       it('adds paragraph before the block when pressing enter if the block is first document node', () => {
         richText.editor.click().then(triggerEmbeddedEntry);
 
-        richText.editor.find('[data-entity-id="example-entity-id"]').click();
+        richText.editor.find('[data-entity-id="published-entry"]').click();
 
-        richText.editor.trigger('keydown', keys.enter);
+        richText.editor.trigger('keydown', KEYS.enter);
 
         richText.expectValue(doc(emptyParagraph(), entryBlock(), emptyParagraph()));
       });
@@ -93,12 +67,12 @@ describe('Rich Text Editor - Embedded Entry Blocks', { viewportHeight: 2000 }, (
         addEmbeddedEntry();
 
         // Inserts paragraph before embed because it's in the first line.
-        richText.editor.find('[data-entity-id="example-entity-id"]').first().click();
-        pressEnter();
+        richText.editor.find('[data-entity-id="published-entry"]').first().click();
+        richText.editor.trigger('keydown', KEYS.enter);
 
         // inserts paragraph in-between embeds.
-        richText.editor.find('[data-entity-id="example-entity-id"]').first().click();
-        pressEnter();
+        richText.editor.find('[data-entity-id="published-entry"]').first().click();
+        richText.editor.trigger('keydown', KEYS.enter);
 
         richText.expectValue(
           doc(emptyParagraph(), entryBlock(), emptyParagraph(), entryBlock(), emptyParagraph())
@@ -110,8 +84,8 @@ describe('Rich Text Editor - Embedded Entry Blocks', { viewportHeight: 2000 }, (
 
         richText.expectValue(doc(entryBlock(), emptyParagraph()));
 
-        getIframe().findByTestId('cf-ui-card-actions').click();
-        getIframe().findByTestId('delete').click();
+        cy.findByTestId('cf-ui-card-actions').click();
+        cy.findByTestId('delete').click();
 
         richText.expectValue(undefined);
       });
@@ -121,9 +95,9 @@ describe('Rich Text Editor - Embedded Entry Blocks', { viewportHeight: 2000 }, (
 
         richText.expectValue(doc(entryBlock(), emptyParagraph()));
 
-        getIframe().findByTestId('cf-ui-entry-card').click();
+        cy.findByTestId('cf-ui-entry-card').click();
         // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
-        richText.editor.trigger('keydown', keys.backspace);
+        richText.editor.trigger('keydown', KEYS.backspace);
 
         richText.expectValue(undefined);
       });

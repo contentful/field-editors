@@ -1,14 +1,10 @@
-import React from 'react';
-
 import { BLOCKS } from '@contentful/rich-text-types';
 
-import { RichTextEditor } from '../../../packages/rich-text/src';
 import { block, document as doc, text } from '../../../packages/rich-text/src/helpers/nodeFactory';
-import { createRichTextFakeSdk } from '../../fixtures';
 import { mod } from '../../fixtures/utils';
-import { mount } from '../mount';
 import { KEYS, assetBlock, emptyParagraph, paragraphWithText } from './helpers';
 import { RichTextPage } from './RichTextPage';
+import { mountRichTextEditor } from './utils';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
 // we increase the viewport height to fit the whole page on the screen
@@ -18,10 +14,9 @@ describe('Rich Text Editor - Embedded Entry Assets', { viewportHeight: 2000 }, (
   const expectDocumentToBeEmpty = () => richText.expectValue(undefined);
 
   beforeEach(() => {
-    const sdk = createRichTextFakeSdk();
     richText = new RichTextPage();
 
-    mount(<RichTextEditor sdk={sdk} isInitiallyDisabled={false} />);
+    mountRichTextEditor();
   });
 
   const methods: [string, () => void][] = [

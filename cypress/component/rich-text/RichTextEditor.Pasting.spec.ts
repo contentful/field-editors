@@ -1,8 +1,5 @@
-import React from 'react';
-
 import { BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types';
 
-import { RichTextEditor } from '../../../packages/rich-text/src';
 import {
   block,
   document as doc,
@@ -10,8 +7,6 @@ import {
   inline,
   mark,
 } from '../../../packages/rich-text/src/helpers/nodeFactory';
-import { createRichTextFakeSdk } from '../../fixtures';
-import { mount } from '../mount';
 import googleDocs from './document-mocks/googleDocs';
 import msWordOnline from './document-mocks/msWordOnline';
 import paragraphWithoutFormattings from './document-mocks/paragraphWithoutFormattings';
@@ -19,6 +14,7 @@ import pastingListItems from './document-mocks/pastingListItems';
 import pastingListItemsConfersParent from './document-mocks/pastingListItemsConfersParent';
 import tableAndTextFromMsWord from './fixtures/msWordOnline';
 import { RichTextPage } from './RichTextPage';
+import { mountRichTextEditor } from './utils';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
 // we increase the viewport height to fit the whole page on the screen
@@ -32,10 +28,9 @@ describe(
     let richText: RichTextPage;
 
     beforeEach(() => {
-      const sdk = createRichTextFakeSdk();
       richText = new RichTextPage();
 
-      mount(<RichTextEditor sdk={sdk} isInitiallyDisabled={false} />);
+      mountRichTextEditor();
     });
 
     it('removes style tags', () => {
@@ -1093,14 +1088,7 @@ describe(
 
     describe('removing restricted marks', () => {
       it('works when pasting subscript and superscript from a google doc', () => {
-        const sdk = createRichTextFakeSdk();
-        mount(
-          <RichTextEditor
-            sdk={sdk}
-            isInitiallyDisabled={false}
-            restrictedMarks={['superscript', 'subscript']}
-          />
-        );
+        mountRichTextEditor({ restrictedMarks: ['superscript', 'subscript'] });
         // A simple "hello world" text with marks: superscript and subscript.
         // Copied from a google doc
         richText.editor.click().paste({

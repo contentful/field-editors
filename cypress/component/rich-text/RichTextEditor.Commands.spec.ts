@@ -1,21 +1,16 @@
-import React from 'react';
-
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 
-import { RichTextEditor } from '../../../packages/rich-text/src';
 import { block, document as doc, text } from '../../../packages/rich-text/src/helpers/nodeFactory';
 import { createRichTextFakeSdk } from '../../fixtures';
-import { mount } from '../mount';
 import { RichTextPage } from './RichTextPage';
+import { mountRichTextEditor } from './utils';
 
 describe('Rich Text Editor - Commands', () => {
   let richText: RichTextPage;
 
   beforeEach(() => {
-    const sdk = createRichTextFakeSdk();
     richText = new RichTextPage();
-
-    mount(<RichTextEditor sdk={sdk} isInitiallyDisabled={false} />);
+    mountRichTextEditor();
   });
 
   describe('Palette', () => {
@@ -181,7 +176,7 @@ describe('Rich Text Editor - Commands', () => {
           },
         ],
       });
-      mount(<RichTextEditor sdk={sdk} isInitiallyDisabled={false} actionsDisabled={true} />);
+      mountRichTextEditor({ sdk, actionsDisabled: true });
 
       // try to open command prompt
       richText.editor.click().type('/');

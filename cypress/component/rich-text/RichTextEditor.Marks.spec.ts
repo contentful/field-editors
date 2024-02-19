@@ -3,8 +3,10 @@
 import { BLOCKS, MARKS } from '@contentful/rich-text-types';
 
 import { block, document as doc, text } from '../../../packages/rich-text/src/helpers/nodeFactory';
-import { getIframe } from '../../fixtures/utils';
+import { createRichTextFakeSdk } from '../../fixtures';
+import { mod } from '../../fixtures/utils';
 import { RichTextPage } from './RichTextPage';
+import { mountRichTextEditor } from './utils';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
 // we increase the viewport height to fit the whole page on the screen
@@ -12,38 +14,33 @@ import { RichTextPage } from './RichTextPage';
 describe('Rich Text Editor - Marks', { viewportHeight: 2000 }, () => {
   let richText: RichTextPage;
 
-  // copied from the 'is-hotkey' library we use for RichText shortcuts
-  const IS_MAC =
-    typeof window != 'undefined' && /Mac|iPod|iPhone|iPad/.test(window.navigator.platform);
-
-  const mod = IS_MAC ? 'meta' : 'control';
-
   beforeEach(() => {
     richText = new RichTextPage();
-    richText.visit();
+
+    mountRichTextEditor();
   });
 
   const findMarkViaToolbar = (mark: string) => {
     if (mark === 'code' || mark === 'superscript' || mark === 'subscript') {
-      getIframe().findByTestId('dropdown-toolbar-button').click();
-      return getIframe().findByTestId(`${mark}-toolbar-button`);
+      cy.findByTestId('dropdown-toolbar-button').click();
+      return cy.findByTestId(`${mark}-toolbar-button`);
     } else {
-      return getIframe().findByTestId(`${mark}-toolbar-button`);
+      return cy.findByTestId(`${mark}-toolbar-button`);
     }
   };
 
   const toggleMarkViaToolbar = (mark: string) => {
     if (mark === 'code' || mark === 'superscript' || mark === 'subscript') {
-      getIframe().findByTestId('dropdown-toolbar-button').click();
-      getIframe().findByTestId(`${mark}-toolbar-button`).click();
+      cy.findByTestId('dropdown-toolbar-button').click();
+      cy.findByTestId(`${mark}-toolbar-button`).click();
     } else {
-      getIframe().findByTestId(`${mark}-toolbar-button`).click();
+      cy.findByTestId(`${mark}-toolbar-button`).click();
     }
   };
 
   it(`shows ${MARKS.BOLD}, ${MARKS.ITALIC}, ${MARKS.UNDERLINE}, ${MARKS.CODE} if not explicitly allowed`, () => {
-    cy.setFieldValidations([]);
-    cy.reload();
+    const sdk = createRichTextFakeSdk({ validations: [] });
+    mountRichTextEditor({ sdk });
     findMarkViaToolbar(MARKS.BOLD).should('be.visible');
     findMarkViaToolbar(MARKS.ITALIC).should('be.visible');
     findMarkViaToolbar(MARKS.UNDERLINE).should('be.visible');

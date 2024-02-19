@@ -1,20 +1,17 @@
 /* eslint-disable mocha/no-setup-in-describe */
 
-import React from 'react';
-
 import { FieldAppSDK } from '@contentful/app-sdk';
 import { BLOCKS } from '@contentful/rich-text-types';
 
-import { RichTextEditor } from '../../../packages/rich-text/src';
 import { block, document as doc, text } from '../../../packages/rich-text/src/helpers/nodeFactory';
 import { createRichTextFakeSdk } from '../../fixtures';
 import { mod } from '../../fixtures/utils';
-import { mount } from '../mount';
 import newLineEntityBlockListItem from './document-mocks/newLineEntityBlockListItem';
 import normalizationWithoutValueChange from './document-mocks/normalizationWithoutValueChange';
 import validDocumentThatRequiresNormalization from './document-mocks/validDocumentThatRequiresNormalization';
 import { assetBlock, emptyParagraph, paragraphWithText } from './helpers';
 import { EmbedType, RichTextPage } from './RichTextPage';
+import { mountRichTextEditor } from './utils';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
 // we increase the viewport height to fit the whole page on the screen
@@ -45,10 +42,9 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     });
 
   beforeEach(() => {
-    sdk = createRichTextFakeSdk();
     richText = new RichTextPage();
 
-    mount(<RichTextEditor sdk={sdk} isInitiallyDisabled={false} />);
+    mountRichTextEditor();
   });
 
   it('is empty by default', () => {
@@ -78,7 +74,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         emptyParagraph()
       ),
     });
-    mount(<RichTextEditor sdk={sdk} isInitiallyDisabled={true} />);
+    mountRichTextEditor({ sdk, isInitiallyDisabled: true });
 
     richText.toolbar.bold.should('be.disabled');
     richText.toolbar.headingsDropdown.should('be.disabled');
@@ -261,7 +257,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       };
 
       sdk = createRichTextFakeSdk({ initialValue: docWithoutContent });
-      mount(<RichTextEditor sdk={sdk} isInitiallyDisabled={false} />);
+      mountRichTextEditor({ sdk });
 
       // The field value in this case will still be untouched (i.e. un-normalized)
       // since we won't trigger onChange.
@@ -328,7 +324,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       };
 
       sdk = createRichTextFakeSdk({ initialValue: exampleDoc });
-      mount(<RichTextEditor sdk={sdk} isInitiallyDisabled={false} />);
+      mountRichTextEditor({ sdk });
 
       const onValueChangedSpy = cy.spy(sdk.field, 'onValueChanged');
 
@@ -344,7 +340,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
     it('runs initial normalization without triggering a value change', () => {
       sdk = createRichTextFakeSdk({ initialValue: validDocumentThatRequiresNormalization });
-      mount(<RichTextEditor sdk={sdk} isInitiallyDisabled={false} />);
+      mountRichTextEditor({ sdk });
 
       const onValueChangedSpy = cy.spy(sdk.field, 'onValueChanged');
       const onSchemaErrorsChangedSpy = cy.spy(sdk.field, 'onSchemaErrorsChanged');

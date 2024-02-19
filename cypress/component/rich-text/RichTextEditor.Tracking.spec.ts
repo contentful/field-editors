@@ -1,14 +1,10 @@
 /* eslint-disable mocha/no-setup-in-describe */
 
-import React from 'react';
-
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types';
 
-import { RichTextEditor } from '../../../packages/rich-text/src';
-import { createRichTextFakeSdk } from '../../fixtures';
 import { openEditLink, mod } from '../../fixtures/utils';
-import { mount } from '../mount';
 import { RichTextPage } from './RichTextPage';
+import { mountRichTextEditor } from './utils';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
 // we increase the viewport height to fit the whole page on the screen
@@ -42,10 +38,9 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
   beforeEach(() => {
     const onAction = cy.stub().as('onAction');
-    const sdk = createRichTextFakeSdk();
     richText = new RichTextPage();
 
-    mount(<RichTextEditor sdk={sdk} onAction={onAction} isInitiallyDisabled={false} />);
+    mountRichTextEditor({ onAction });
   });
 
   describe('Text Pasting', () => {
