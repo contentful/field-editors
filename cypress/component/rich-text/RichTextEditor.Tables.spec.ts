@@ -3,7 +3,6 @@
 import { BLOCKS } from '@contentful/rich-text-types';
 
 import { document as doc } from '../../../packages/rich-text/src/helpers/nodeFactory';
-import { mod } from '../../fixtures/utils';
 import {
   cellWithText,
   emptyCell,
@@ -107,10 +106,15 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
     // Skipping this test because of weird Plate behavior. Will describe it in a follow up PR.
     // eslint-disable-next-line mocha/no-skipped-tests
-    it.skip('does not delete table header cells when selecting the whole table', () => {
+    it.skip('does not delete table header cells when selecting the whole header row', () => {
       insertTable();
 
-      richText.editor.type(`hey{${mod}}a{backspace}`);
+      richText.editor
+        .type(`hey`)
+        .type('{shift}{downarrow}', {
+          delay: 100,
+        })
+        .type('{backspace}');
 
       richText.expectValue(
         doc(

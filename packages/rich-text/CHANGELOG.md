@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.17.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.16...@contentful/field-editor-rich-text@3.17.0) (2024-02-20)
+
+### Features
+
+- bumping plate to v30 [TOL-1834] ([#1605](https://github.com/contentful/field-editors/issues/1605)) ([db22a21](https://github.com/contentful/field-editors/commit/db22a21c90e618da0120e06a66634bdf2ac7a7ea))
+
 ## [3.16.16](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.15...@contentful/field-editor-rich-text@3.16.16) (2024-02-15)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text

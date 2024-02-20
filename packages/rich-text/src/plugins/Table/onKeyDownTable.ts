@@ -5,7 +5,7 @@ import { getTableEntries, onKeyDownTable as defaultKeyDownTable } from '@udecode
 
 import { insertEmptyParagraph } from '../../helpers/editor';
 import { blurEditor } from '../../internal/misc';
-import { getAboveNode, isLastChildPath, getText, isFirstChild } from '../../internal/queries';
+import { getAboveNode, getText, isFirstChild, isLastChildPath } from '../../internal/queries';
 import { KeyboardHandler, HotkeyPlugin, NodeEntry } from '../../internal/types';
 import { addRowBelow } from './actions';
 
