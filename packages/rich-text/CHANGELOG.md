@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.17.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.17.0...@contentful/field-editor-rich-text@3.17.1) (2024-02-20)
+
+### Bug Fixes
+
+- adjusting rich text plugin comment [] ([#1609](https://github.com/contentful/field-editors/issues/1609)) ([2d9db5d](https://github.com/contentful/field-editors/commit/2d9db5dbd81bf406a100b2eafc85614468920233))
+
 # [3.17.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.16...@contentful/field-editor-rich-text@3.17.0) (2024-02-20)
 
 ### Features
