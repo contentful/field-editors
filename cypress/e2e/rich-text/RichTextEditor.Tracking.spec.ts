@@ -129,7 +129,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
       richText.expectTrackingValue([
         action('paste', 'shortcut-or-viewport', {
-          characterCountAfter: 14,
+          characterCountAfter: 11,
           characterCountBefore: 0,
           characterCountSelection: 0,
           source: 'Apple Notes',

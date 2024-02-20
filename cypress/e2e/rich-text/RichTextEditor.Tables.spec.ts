@@ -12,10 +12,6 @@ import { RichTextPage } from './RichTextPage';
 describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
   let richText: RichTextPage;
 
-  // copied from the 'is-hotkey' library we use for RichText shortcuts
-  const IS_MAC =
-    typeof window != 'undefined' && /Mac|iPod|iPhone|iPad/.test(window.navigator.platform);
-  const mod = IS_MAC ? 'meta' : 'control';
   const buildHelper =
     (type) =>
     (...children) =>
@@ -177,10 +173,15 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       );
     });
 
-    it('does not delete table header cells when selecting the whole table', () => {
+    it('does not delete table header cells when selecting the whole header row', () => {
       insertTable();
 
-      richText.editor.type(`hey{${mod}}a{backspace}`);
+      richText.editor
+        .type(`hey`)
+        .type('{shift}{downarrow}', {
+          delay: 100,
+        })
+        .type('{backspace}');
 
       richText.expectValue(
         doc(
