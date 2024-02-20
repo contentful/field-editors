@@ -85,6 +85,8 @@ export class RichTextPage {
   }
 
   getValue() {
+    cy.wait(500);
+
     return cy.getRichTextField().then((field) => {
       return field.getValue();
     });
