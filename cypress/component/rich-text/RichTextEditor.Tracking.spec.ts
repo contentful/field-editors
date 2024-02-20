@@ -37,6 +37,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
   const cancelCommandPalette = () => action('cancelRichTextCommandPalette', 'command-palette');
 
   beforeEach(() => {
+    cy.viewport(1000, 2000);
     const onAction = cy.stub().as('onAction');
     richText = new RichTextPage();
 
@@ -217,16 +218,14 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
   });
 
   describe('Headings', () => {
-    const headings = [
+    [
       [BLOCKS.HEADING_1, 'Heading 1', `{${mod}+alt+1}`],
       [BLOCKS.HEADING_2, 'Heading 2', `{${mod}+alt+2}`],
       [BLOCKS.HEADING_3, 'Heading 3', `{${mod}+alt+3}`],
       [BLOCKS.HEADING_4, 'Heading 4', `{${mod}+alt+4}`],
       [BLOCKS.HEADING_5, 'Heading 5', `{${mod}+alt+5}`],
       [BLOCKS.HEADING_6, 'Heading 6', `{${mod}+alt+6}`],
-    ];
-
-    headings.forEach(([type, label, shortcut]) => {
+    ].forEach(([type, label, shortcut]) => {
       it(`tracks ${label} (${type}) via toolbar`, () => {
         richText.editor.click();
 

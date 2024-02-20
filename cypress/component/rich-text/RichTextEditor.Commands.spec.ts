@@ -5,10 +5,14 @@ import { createRichTextFakeSdk } from '../../fixtures';
 import { RichTextPage } from './RichTextPage';
 import { mountRichTextEditor } from './utils';
 
-describe('Rich Text Editor - Commands', () => {
+// the sticky toolbar gets in the way of some of the tests, therefore
+// we increase the viewport height to fit the whole page on the screen
+
+describe('Rich Text Editor - Commands', { viewportHeight: 2000 }, () => {
   let richText: RichTextPage;
 
   beforeEach(() => {
+    cy.viewport(1000, 2000);
     richText = new RichTextPage();
     mountRichTextEditor();
   });

@@ -15,17 +15,6 @@ import { mountRichTextEditor } from './utils';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
 // we increase the viewport height to fit the whole page on the screen
-
-const headings = [
-  [BLOCKS.PARAGRAPH, 'Normal text'],
-  [BLOCKS.HEADING_1, 'Heading 1', `{${mod}+alt+1}`],
-  [BLOCKS.HEADING_2, 'Heading 2', `{${mod}+alt+2}`],
-  [BLOCKS.HEADING_3, 'Heading 3', `{${mod}+alt+3}`],
-  [BLOCKS.HEADING_4, 'Heading 4', `{${mod}+alt+4}`],
-  [BLOCKS.HEADING_5, 'Heading 5', `{${mod}+alt+5}`],
-  [BLOCKS.HEADING_6, 'Heading 6', `{${mod}+alt+6}`],
-];
-
 describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
   let richText: RichTextPage;
   let sdk: FieldAppSDK;
@@ -42,8 +31,8 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
     });
 
   beforeEach(() => {
+    cy.viewport(1280, 720);
     richText = new RichTextPage();
-
     mountRichTextEditor();
   });
 
@@ -388,7 +377,15 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
     blocks.forEach(([title, blockType, id]) => {
       describe(title, () => {
-        headings.forEach(([type]) => {
+        [
+          [BLOCKS.PARAGRAPH, 'Normal text'],
+          [BLOCKS.HEADING_1, 'Heading 1', `{${mod}+alt+1}`],
+          [BLOCKS.HEADING_2, 'Heading 2', `{${mod}+alt+2}`],
+          [BLOCKS.HEADING_3, 'Heading 3', `{${mod}+alt+3}`],
+          [BLOCKS.HEADING_4, 'Heading 4', `{${mod}+alt+4}`],
+          [BLOCKS.HEADING_5, 'Heading 5', `{${mod}+alt+5}`],
+          [BLOCKS.HEADING_6, 'Heading 6', `{${mod}+alt+6}`],
+        ].forEach(([type]) => {
           it(`should not carry over the "data" property from ${blockType} to ${type}`, () => {
             richText.editor.click();
 
