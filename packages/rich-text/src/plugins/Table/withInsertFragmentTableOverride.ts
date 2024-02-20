@@ -4,7 +4,7 @@ import { ELEMENT_TABLE } from '@udecode/plate-table';
 import { insertNodes, PlateEditor } from '../../internal';
 
 /**
- * Override insertFragment to remove empty paragraph before table
+ * Override insertFragment to remove empty paragraph before table.
  */
 export const withInsertFragmentTableOverride = (editor: PlateEditor) => {
   const myEditor = getTEditor(editor);
