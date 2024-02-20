@@ -119,6 +119,7 @@ jobs:
     steps:
       - checkout
       - yarn_install
+      - rm -f .npmrc
       - vault/get-secrets:
           template-preset: semantic-release
       - vault/configure-lerna
