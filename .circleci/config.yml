@@ -29,8 +29,8 @@ commands:
   yarn_install:
     steps:
       - run: |
-        echo "//registry.yarnpkg.com/:_authToken=${GITHUB_PACKAGES_WRITE_TOKEN}" > ~/.npmrc
-        echo "@contentful:registry=https://registry.yarnpkg.com" >> ~/.npmrc
+          echo "//registry.yarnpkg.com/:_authToken=${GITHUB_PACKAGES_WRITE_TOKEN}" > ~/.npmrc
+          echo "@contentful:registry=https://registry.yarnpkg.com" >> ~/.npmrc
       - restore_cache: *cache-key
       - run: yarn install --prefer-offline --pure-lockfile
       - save_cache:
