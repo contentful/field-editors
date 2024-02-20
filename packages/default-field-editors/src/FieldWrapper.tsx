@@ -11,7 +11,7 @@ type FieldWrapperProps = {
   name: string;
   sdk: FieldAppSDK;
   /**
-   * Generates a link to another entry with the same value when a "non unique" validation error occurs
+   * Generates a link to another entry with the same value when a "non unique" validation error occurs.
    */
   getEntryURL?: (entry: Entry) => string;
   className?: string;
