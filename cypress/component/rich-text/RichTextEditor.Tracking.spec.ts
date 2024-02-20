@@ -519,7 +519,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         });
 
         it('tracks when converting text to URL hyperlink', () => {
-          richText.editor.type('My cool website{selectall}');
+          richText.editor.type('My cool website').type('{selectall}');
 
           triggerLinkModal();
           cy.get('@onAction').should('be.calledWith', ...openCreateModal(origin));
@@ -534,7 +534,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         });
 
         it('tracks when converting text to entry hyperlink', () => {
-          richText.editor.type('My cool entry{selectall}');
+          richText.editor.type('My cool entry').type('{selectall}');
 
           triggerLinkModal();
           cy.get('@onAction').should('be.calledWith', ...openCreateModal(origin));
@@ -551,7 +551,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         });
 
         it('tracks when converting text to asset hyperlink', () => {
-          richText.editor.type('My cool asset{selectall}');
+          richText.editor.type('My cool asset').type('{selectall}');
 
           triggerLinkModal();
           cy.get('@onAction').should('be.calledWith', ...openCreateModal(origin));
@@ -567,7 +567,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         });
 
         it('tracks when editing hyperlinks', () => {
-          richText.editor.type('My cool website{selectall}');
+          richText.editor.type('My cool website').type('{selectall}');
 
           triggerLinkModal();
           cy.get('@onAction').should('be.calledWith', ...openCreateModal(origin));
