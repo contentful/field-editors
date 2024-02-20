@@ -10,6 +10,7 @@ import {
   emptyParagraph,
   header,
   headerWithText,
+  KEYS,
   paragraphWithText,
   row,
   table,
@@ -221,7 +222,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           richText.editor
             .type('{backspace}{backspace}{backspace}{backspace}{backspace}')
             // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
-            .trigger('keydown', { code: 'Backspace', keyCode: 8, which: 8, key: 'Backspace' }); // 8 = delete/backspace
+            .trigger('keydown', KEYS.backspace); // 8 = delete/backspace
 
           expectTable(
             row(headerWithText('foo'), headerWithText('bar')),
@@ -233,7 +234,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           richText.editor
             .type('{backspace}{backspace}{backspace}{backspace}{backspace}')
             // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
-            .trigger('keydown', { code: 'Backspace', keyCode: 8, which: 8, key: 'Backspace' }); // 8 = delete/backspace
+            .trigger('keydown', KEYS.backspace); // 8 = delete/backspace
 
           expectTable(
             row(emptyHeader(), headerWithText('bar')),
@@ -249,10 +250,10 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           richText.editor
             .type('{leftarrow}{leftarrow}{leftarrow}{del}{del}{del}{del}')
             // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
-            .trigger('keydown', { code: 'Delete', keyCode: 8, which: 8, key: 'Delete' }) // 8 = delete/backspace
+            .trigger('keydown', KEYS.delete) // 8 = delete/backspace
             // try forward-deleting from outside the table for good measure
             .type('{leftarrow}{del}')
-            .trigger('keydown', { code: 'Delete', keyCode: 8, which: 8, key: 'Delete' });
+            .trigger('keydown', KEYS.delete);
           expectTable(
             row(headerWithText(''), headerWithText('bar')),
             row(cellWithText('baz'), cellWithText('quux'))

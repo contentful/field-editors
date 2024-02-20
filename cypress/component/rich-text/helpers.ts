@@ -6,6 +6,7 @@ export const KEYS = {
   enter: { code: 'Enter', keyCode: 13, which: 13, key: 'Enter' },
   backspace: { code: 'Backspace', keyCode: 8, which: 8, key: 'Backspace' },
   tab: { code: 'Tab', keyCode: 9, which: 9, key: 'Tab' },
+  delete: { code: 'Delete', keyCode: 8, which: 8, key: 'Delete' },
 };
 
 const buildHelper =
