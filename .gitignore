@@ -20,4 +20,3 @@ cypress.env.json
 .turbo
 reports/
 snapshots.js
-.npmrc
