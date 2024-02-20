@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.17.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.17.1...@contentful/field-editor-rich-text@3.17.2) (2024-02-20)
+
+### Bug Fixes
+
+- triggering release for reference packages [] ([#1610](https://github.com/contentful/field-editors/issues/1610)) ([869f82f](https://github.com/contentful/field-editors/commit/869f82f37d435ef69e19304e7ff1ce4ca8818050))
+
 ## [3.17.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.17.0...@contentful/field-editor-rich-text@3.17.1) (2024-02-20)
 
 ### Bug Fixes
