@@ -253,7 +253,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       richText.expectValue(docWithoutContent);
 
       // Initial normalization should not invoke onChange
-      // expect(sdk.field.onValueChanged).not.to.be.called;
+      expect(sdk.field.onValueChanged).not.to.be.called;
 
       // We can adjust the content
       richText.editor.type('it works');

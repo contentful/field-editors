@@ -105,15 +105,6 @@ export class RichTextPage {
       expect(field.getValue()).to.deep.equal(expectedValue);
     });
   }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  expectTrackingValue(expectedValue: any) {
-    cy.window()
-      .should((win: any) => {
-        expect(win.actions).to.deep.equal(expectedValue);
-      })
-      .as('trackingValue');
-  }
 }
 
 class HyperLinkModal {
