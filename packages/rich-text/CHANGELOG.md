@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.17.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.17.2...@contentful/field-editor-rich-text@3.17.3) (2024-02-21)
+
+### Bug Fixes
+
+- bumping docx plate deserializer [TOL-1849] ([#1611](https://github.com/contentful/field-editors/issues/1611)) ([41cc603](https://github.com/contentful/field-editors/commit/41cc603ac633cdd262d1a8761823db452c55f472))
+
 ## [3.17.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.17.1...@contentful/field-editor-rich-text@3.17.2) (2024-02-20)
 
 ### Bug Fixes
