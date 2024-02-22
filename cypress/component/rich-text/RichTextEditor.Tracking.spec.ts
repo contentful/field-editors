@@ -49,7 +49,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
       richText.editor.click().paste({ 'text/plain': 'Hello World!' });
 
       cy.get('@onAction').should(
-        'be.calledWith',
+        'be.calledWithExactly',
         ...action('paste', 'shortcut-or-viewport', {
           characterCountAfter: 12,
           characterCountBefore: 0,
@@ -61,7 +61,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
       richText.editor.click().type('{enter}').paste({ 'text/plain': 'Hello World!' });
 
       cy.get('@onAction').should(
-        'be.calledWith',
+        'be.calledWithExactly',
         ...action('paste', 'shortcut-or-viewport', {
           characterCountAfter: 25,
           characterCountBefore: 13,
@@ -69,6 +69,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
           source: 'Unknown',
         })
       );
+      cy.get('@onAction').should('have.callCount', 2);
     });
 
     it('tracks google docs source', () => {
@@ -77,7 +78,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
       });
 
       cy.get('@onAction').should(
-        'be.calledWith',
+        'be.calledOnceWithExactly',
         ...action('paste', 'shortcut-or-viewport', {
           characterCountAfter: 5,
           characterCountBefore: 0,
@@ -93,7 +94,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
       });
 
       cy.get('@onAction').should(
-        'be.calledWith',
+        'be.calledOnceWithExactly',
         ...action('paste', 'shortcut-or-viewport', {
           characterCountAfter: 88,
           characterCountBefore: 0,
@@ -109,7 +110,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
       });
 
       cy.get('@onAction').should(
-        'be.calledWith',
+        'be.calledOnceWithExactly',
         ...action('paste', 'shortcut-or-viewport', {
           characterCountAfter: 12,
           characterCountBefore: 0,
@@ -125,7 +126,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
       });
 
       cy.get('@onAction').should(
-        'be.calledWith',
+        'be.calledOnceWithExactly',
         ...action('paste', 'shortcut-or-viewport', {
           characterCountAfter: 11,
           characterCountBefore: 0,
@@ -141,7 +142,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
       });
 
       cy.get('@onAction').should(
-        'be.calledWith',
+        'be.calledOnceWithExactly',
         ...action('paste', 'shortcut-or-viewport', {
           characterCountAfter: 5,
           characterCountBefore: 0,
@@ -157,7 +158,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
       });
 
       cy.get('@onAction').should(
-        'be.calledWith',
+        'be.calledOnceWithExactly',
         ...action('paste', 'shortcut-or-viewport', {
           characterCountAfter: 5,
           characterCountBefore: 0,
@@ -190,29 +191,33 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
         toggleMarkViaToolbar(mark);
         cy.get('@onAction').should(
-          'be.calledWith',
+          'be.calledWithExactly',
           ...action('mark', 'toolbar-icon', { markType: mark })
         );
 
         toggleMarkViaToolbar(mark);
         cy.get('@onAction').should(
-          'be.calledWith',
+          'be.calledWithExactly',
           ...action('unmark', 'toolbar-icon', { markType: mark })
         );
+
+        cy.get('@onAction').should('have.callCount', 2);
       });
 
       it(`tracks ${mark} mark via shortcut`, () => {
         richText.editor.click().type(shortcut);
         cy.get('@onAction').should(
-          'be.calledWith',
+          'be.calledWithExactly',
           ...action('mark', 'shortcut', { markType: mark })
         );
 
         richText.editor.click().type(shortcut);
         cy.get('@onAction').should(
-          'be.calledWith',
+          'be.calledWithExactly',
           ...action('unmark', 'shortcut', { markType: mark })
         );
+
+        cy.get('@onAction').should('have.callCount', 2);
       });
     });
   });
@@ -230,18 +235,34 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         richText.editor.click();
 
         richText.toolbar.toggleHeading(type);
-        cy.get('@onAction').should('be.calledWith', ...insert('toolbar-icon', { nodeType: type }));
+        cy.get('@onAction').should(
+          'be.calledWithExactly',
+          ...insert('toolbar-icon', { nodeType: type })
+        );
 
         richText.toolbar.toggleHeading(type);
-        cy.get('@onAction').should('be.calledWith', ...remove('toolbar-icon', { nodeType: type }));
+        cy.get('@onAction').should(
+          'be.calledWithExactly',
+          ...remove('toolbar-icon', { nodeType: type })
+        );
+
+        cy.get('@onAction').should('have.callCount', 2);
       });
 
       it(`tracks ${label} (${type}) via hotkeys ${shortcut}`, () => {
         richText.editor.click().type(shortcut);
-        cy.get('@onAction').should('be.calledWith', ...insert('shortcut', { nodeType: type }));
+        cy.get('@onAction').should(
+          'be.calledWithExactly',
+          ...insert('shortcut', { nodeType: type })
+        );
 
         richText.editor.click().type(shortcut);
-        cy.get('@onAction').should('be.calledWith', ...remove('shortcut', { nodeType: type }));
+        cy.get('@onAction').should(
+          'be.calledWithExactly',
+          ...remove('shortcut', { nodeType: type })
+        );
+
+        cy.get('@onAction').should('have.callCount', 2);
       });
     });
   });
@@ -269,10 +290,18 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         richText.editor.click();
 
         toggleQuote();
-        cy.get('@onAction').should('be.calledWith', ...insert(origin, { nodeType: BLOCKS.QUOTE }));
+        cy.get('@onAction').should(
+          'be.calledWithExactly',
+          ...insert(origin, { nodeType: BLOCKS.QUOTE })
+        );
 
         toggleQuote();
-        cy.get('@onAction').should('be.calledWith', ...remove(origin, { nodeType: BLOCKS.QUOTE }));
+        cy.get('@onAction').should(
+          'be.calledWithExactly',
+          ...remove(origin, { nodeType: BLOCKS.QUOTE })
+        );
+
+        cy.get('@onAction').should('have.callCount', 2);
       });
     }
   });
@@ -307,7 +336,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
     it('tracks insert table', () => {
       insertTable();
-      cy.get('@onAction').should('be.calledWith', ...insertTableAction());
+      cy.get('@onAction').should('be.calledOnceWithExactly', ...insertTableAction());
     });
 
     describe('Table Actions', () => {
@@ -328,7 +357,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         doAction('Add row above');
 
         cy.get('@onAction').should(
-          'be.calledWith',
+          'be.calledWithExactly',
           ...insertTableRowAction({
             tableSize: {
               numColumns: 2,
@@ -336,13 +365,14 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
             },
           })
         );
+        cy.get('@onAction').should('have.callCount', 2);
       });
 
       it('adds row below', () => {
         doAction('Add row below');
 
         cy.get('@onAction').should(
-          'be.calledWith',
+          'be.calledWithExactly',
           ...insertTableRowAction({
             tableSize: {
               numColumns: 2,
@@ -350,13 +380,14 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
             },
           })
         );
+        cy.get('@onAction').should('have.callCount', 2);
       });
 
       it('adds column left', () => {
         doAction('Add column left');
 
         cy.get('@onAction').should(
-          'be.calledWith',
+          'be.calledWithExactly',
           ...insertTableColumnAction({
             tableSize: {
               numColumns: 2,
@@ -364,13 +395,14 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
             },
           })
         );
+        cy.get('@onAction').should('have.callCount', 2);
       });
 
       it('adds column right', () => {
         doAction('Add column right');
 
         cy.get('@onAction').should(
-          'be.calledWith',
+          'be.calledWithExactly',
           ...insertTableColumnAction({
             tableSize: {
               numColumns: 2,
@@ -378,13 +410,14 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
             },
           })
         );
+        cy.get('@onAction').should('have.callCount', 2);
       });
 
       it('deletes row', () => {
         doAction('Delete row');
 
         cy.get('@onAction').should(
-          'be.calledWith',
+          'be.calledWithExactly',
           ...removeTableRowAction({
             tableSize: {
               numColumns: 2,
@@ -392,13 +425,14 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
             },
           })
         );
+        cy.get('@onAction').should('have.callCount', 2);
       });
 
       it('deletes column', () => {
         doAction('Delete column');
 
         cy.get('@onAction').should(
-          'be.calledWith',
+          'be.calledWithExactly',
           ...removeTableColumnAction({
             tableSize: {
               numColumns: 2,
@@ -406,13 +440,14 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
             },
           })
         );
+        cy.get('@onAction').should('have.callCount', 2);
       });
 
       it('deletes table', () => {
         doAction('Delete table');
 
         cy.get('@onAction').should(
-          'be.calledWith',
+          'be.calledWithExactly',
           ...removeTableAction({
             tableSize: {
               numColumns: 2,
@@ -420,6 +455,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
             },
           })
         );
+        cy.get('@onAction').should('have.callCount', 2);
       });
     });
   });
@@ -489,20 +525,22 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
           richText.editor.type('The quick brown fox jumps over the lazy ');
 
           triggerLinkModal();
-          cy.get('@onAction').should('be.calledWith', ...openCreateModal(origin));
+          cy.get('@onAction').should('be.calledWithExactly', ...openCreateModal(origin));
 
           const form = richText.forms.hyperlink;
 
           form.cancel.click();
 
-          cy.get('@onAction').should('be.calledWith', ...closeModal(origin));
+          cy.get('@onAction').should('be.calledWithExactly', ...closeModal(origin));
+
+          cy.get('@onAction').should('have.callCount', 2);
         });
 
         it('tracks adds and removes hyperlinks', () => {
           richText.editor.type('The quick brown fox jumps over the lazy ');
 
           triggerLinkModal();
-          cy.get('@onAction').should('be.calledWith', ...openCreateModal(origin));
+          cy.get('@onAction').should('be.calledWithExactly', ...openCreateModal(origin));
 
           const form = richText.forms.hyperlink;
 
@@ -510,19 +548,21 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
           form.linkTarget.type('https://zombo.com');
           form.submit.click();
 
-          cy.get('@onAction').should('be.calledWith', ...insertHyperlink(origin));
+          cy.get('@onAction').should('be.calledWithExactly', ...insertHyperlink(origin));
 
           richText.editor.click().type('{selectall}');
           cy.findByTestId('hyperlink-toolbar-button').click();
 
-          cy.get('@onAction').should('be.calledWith', ...unlink('toolbar-icon'));
+          cy.get('@onAction').should('be.calledWithExactly', ...unlink('toolbar-icon'));
+
+          cy.get('@onAction').should('have.callCount', 3);
         });
 
         it('tracks when converting text to URL hyperlink', () => {
           richText.editor.type('My cool website').type('{selectall}');
 
           triggerLinkModal();
-          cy.get('@onAction').should('be.calledWith', ...openCreateModal(origin));
+          cy.get('@onAction').should('be.calledWithExactly', ...openCreateModal(origin));
 
           const form = richText.forms.hyperlink;
 
@@ -530,14 +570,16 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
           form.submit.click();
 
-          cy.get('@onAction').should('be.calledWith', ...insertHyperlink(origin));
+          cy.get('@onAction').should('be.calledWithExactly', ...insertHyperlink(origin));
+
+          cy.get('@onAction').should('have.callCount', 2);
         });
 
         it('tracks when converting text to entry hyperlink', () => {
           richText.editor.type('My cool entry').type('{selectall}');
 
           triggerLinkModal();
-          cy.get('@onAction').should('be.calledWith', ...openCreateModal(origin));
+          cy.get('@onAction').should('be.calledWithExactly', ...openCreateModal(origin));
 
           const form = richText.forms.hyperlink;
 
@@ -546,15 +588,17 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
           form.linkEntityTarget.click();
 
           form.submit.click();
-          cy.get('@onAction').should('be.calledWith', ...insertEntryHyperlink(origin));
-          cy.get('@onAction').should('be.calledWith', ...linkRendered());
+          cy.get('@onAction').should('be.calledWithExactly', ...insertEntryHyperlink(origin));
+          cy.get('@onAction').should('be.calledWithExactly', ...linkRendered());
+
+          cy.get('@onAction').should('have.callCount', 3);
         });
 
         it('tracks when converting text to asset hyperlink', () => {
           richText.editor.type('My cool asset').type('{selectall}');
 
           triggerLinkModal();
-          cy.get('@onAction').should('be.calledWith', ...openCreateModal(origin));
+          cy.get('@onAction').should('be.calledWithExactly', ...openCreateModal(origin));
 
           const form = richText.forms.hyperlink;
 
@@ -562,15 +606,17 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
           form.linkEntityTarget.click();
 
           form.submit.click();
-          cy.get('@onAction').should('be.calledWith', ...insertAssetHyperlink(origin));
-          cy.get('@onAction').should('be.calledWith', ...linkRendered());
+          cy.get('@onAction').should('be.calledWithExactly', ...insertAssetHyperlink(origin));
+          cy.get('@onAction').should('be.calledWithExactly', ...linkRendered());
+
+          cy.get('@onAction').should('have.callCount', 3);
         });
 
         it('tracks when editing hyperlinks', () => {
           richText.editor.type('My cool website').type('{selectall}');
 
           triggerLinkModal();
-          cy.get('@onAction').should('be.calledWith', ...openCreateModal(origin));
+          cy.get('@onAction').should('be.calledWithExactly', ...openCreateModal(origin));
 
           // Part 1:
           // Create a hyperlink
@@ -579,42 +625,44 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
           form.linkTarget.type('https://zombo.com');
 
           form.submit.click();
-          cy.get('@onAction').should('be.calledWith', ...insertHyperlink(origin));
+          cy.get('@onAction').should('be.calledWithExactly', ...insertHyperlink(origin));
 
           // Part 2:
           // Update hyperlink to entry link
           openEditLink();
-          cy.get('@onAction').should('be.calledWith', ...openEditModal());
+          cy.get('@onAction').should('be.calledWithExactly', ...openEditModal());
 
           form.linkType.select('entry-hyperlink');
           form.linkEntityTarget.click();
 
           form.submit.click();
-          cy.get('@onAction').should('be.calledWith', ...editEntryHyperlink());
-          cy.get('@onAction').should('be.calledWith', ...linkRendered());
+          cy.get('@onAction').should('be.calledWithExactly', ...editEntryHyperlink());
+          cy.get('@onAction').should('be.calledWithExactly', ...linkRendered());
 
           // Part 3:
           // Update entry link to asset link
           openEditLink();
-          cy.get('@onAction').should('be.calledWith', ...openEditModal());
+          cy.get('@onAction').should('be.calledWithExactly', ...openEditModal());
 
           form.linkType.select('asset-hyperlink');
           form.linkEntityTarget.click();
 
           form.submit.click();
-          cy.get('@onAction').should('be.calledWith', ...editAssetHyperlink());
-          cy.get('@onAction').should('be.calledWith', ...linkRendered());
+          cy.get('@onAction').should('be.calledWithExactly', ...editAssetHyperlink());
+          cy.get('@onAction').should('be.calledWithExactly', ...linkRendered());
 
           // Part 4:
           // Update asset link to hyperlink
           openEditLink();
-          cy.get('@onAction').should('be.calledWith', ...openEditModal());
+          cy.get('@onAction').should('be.calledWithExactly', ...openEditModal());
 
           form.linkType.select('hyperlink');
           form.linkTarget.type('https://zombo.com');
 
           form.submit.click();
-          cy.get('@onAction').should('be.calledWith', ...editHyperlink());
+          cy.get('@onAction').should('be.calledWithExactly', ...editHyperlink());
+
+          cy.get('@onAction').should('have.callCount', 10);
         });
       });
     }
@@ -645,14 +693,16 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
           triggerEmbeddedEntry();
           cy.get('@onAction').should(
-            'be.calledWith',
+            'be.calledWithExactly',
             ...openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_ENTRY)
           );
           cy.get('@onAction').should(
-            'be.calledWith',
+            'be.calledWithExactly',
             ...insert(origin, { nodeType: BLOCKS.EMBEDDED_ENTRY })
           );
-          cy.get('@onAction').should('be.calledWith', ...linkRendered());
+          cy.get('@onAction').should('be.calledWithExactly', ...linkRendered());
+
+          cy.get('@onAction').should('have.callCount', 3);
         });
 
         // FIX: Add embed dialog mock to emulate entity selection/cancel embed
@@ -663,13 +713,15 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
           triggerEmbeddedEntry();
           cy.get('@onAction').should(
-            'be.calledWith',
+            'be.calledWithExactly',
             ...openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_ENTRY)
           );
           cy.get('@onAction').should(
-            'be.calledWith',
+            'be.calledWithExactly',
             ...cancelEmbeddedDialog(origin, BLOCKS.EMBEDDED_ENTRY)
           );
+
+          cy.get('@onAction').should('have.callCount', 2);
         });
       });
     }
@@ -700,14 +752,16 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
           triggerEmbeddedAsset();
           cy.get('@onAction').should(
-            'be.calledWith',
+            'be.calledWithExactly',
             ...openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_ASSET)
           );
           cy.get('@onAction').should(
-            'be.calledWith',
+            'be.calledWithExactly',
             ...insert(origin, { nodeType: BLOCKS.EMBEDDED_ASSET })
           );
-          cy.get('@onAction').should('be.calledWith', ...linkRendered());
+          cy.get('@onAction').should('be.calledWithExactly', ...linkRendered());
+
+          cy.get('@onAction').should('have.callCount', 3);
         });
 
         // FIX: Add embed dialog mock to emulate entity selection/cancel embed
@@ -718,13 +772,15 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
           triggerEmbeddedAsset();
           cy.get('@onAction').should(
-            'be.calledWith',
+            'be.calledWithExactly',
             ...openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_ASSET)
           );
           cy.get('@onAction').should(
-            'be.calledWith',
+            'be.calledWithExactly',
             ...cancelEmbeddedDialog(origin, BLOCKS.EMBEDDED_ASSET)
           );
+
+          cy.get('@onAction').should('have.callCount', 2);
         });
       });
     }
@@ -755,14 +811,16 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
           triggerEmbeddedResource();
           cy.get('@onAction').should(
-            'be.calledWith',
+            'be.calledWithExactly',
             ...openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_RESOURCE)
           );
           cy.get('@onAction').should(
-            'be.calledWith',
+            'be.calledWithExactly',
             ...insert(origin, { nodeType: BLOCKS.EMBEDDED_RESOURCE })
           );
-          cy.get('@onAction').should('be.calledWith', ...linkRendered());
+          cy.get('@onAction').should('be.calledWithExactly', ...linkRendered());
+
+          cy.get('@onAction').should('have.callCount', 3);
         });
 
         // FIX: Add embed dialog mock to emulate entity selection/cancel embed
@@ -773,13 +831,15 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
           triggerEmbeddedResource();
           cy.get('@onAction').should(
-            'be.calledWith',
+            'be.calledWithExactly',
             ...openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_RESOURCE)
           );
           cy.get('@onAction').should(
-            'be.calledWith',
+            'be.calledWithExactly',
             ...cancelEmbeddedDialog(origin, BLOCKS.EMBEDDED_RESOURCE)
           );
+
+          cy.get('@onAction').should('have.callCount', 2);
         });
       });
     }
@@ -810,14 +870,16 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
           triggerEmbeddedInline();
           cy.get('@onAction').should(
-            'be.calledWith',
+            'be.calledWithExactly',
             ...openCreateEmbedDialog(origin, INLINES.EMBEDDED_ENTRY)
           );
           cy.get('@onAction').should(
-            'be.calledWith',
+            'be.calledWithExactly',
             ...insert(origin, { nodeType: INLINES.EMBEDDED_ENTRY })
           );
-          cy.get('@onAction').should('be.calledWith', ...linkRendered());
+          cy.get('@onAction').should('be.calledWithExactly', ...linkRendered());
+
+          cy.get('@onAction').should('have.callCount', 3);
         });
 
         // FIX: Add embed dialog mock to emulate entity selection/cancel embed
@@ -828,13 +890,15 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
           triggerEmbeddedInline();
           cy.get('@onAction').should(
-            'be.calledWith',
+            'be.calledWithExactly',
             ...openCreateEmbedDialog(origin, INLINES.EMBEDDED_ENTRY)
           );
           cy.get('@onAction').should(
-            'be.calledWith',
+            'be.calledWithExactly',
             ...cancelEmbeddedDialog(origin, INLINES.EMBEDDED_ENTRY)
           );
+
+          cy.get('@onAction').should('have.callCount', 2);
         });
       });
     }
@@ -848,49 +912,57 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
       richText.editor.click().type('/');
     });
     it('tracks opening the command palette', () => {
-      cy.get('@onAction').should('be.calledWith', ...openCommandPalette());
+      cy.get('@onAction').should('be.calledOnceWithExactly', ...openCommandPalette());
     });
 
     it('tracks cancelling the command palette on pressing esc', () => {
       richText.editor.type('{esc}');
-      cy.get('@onAction').should('be.calledWith', ...openCommandPalette());
-      cy.get('@onAction').should('be.calledWith', ...cancelCommandPalette());
+      cy.get('@onAction').should('be.calledWithExactly', ...openCommandPalette());
+      cy.get('@onAction').should('be.calledWithExactly', ...cancelCommandPalette());
+
+      cy.get('@onAction').should('have.callCount', 2);
     });
 
     it('tracks embedding an entry block', () => {
       getCommandList().findByText('Embed Example Content Type').click();
-      cy.get('@onAction').should('be.calledWith', ...openCommandPalette());
+      cy.get('@onAction').should('be.calledWithExactly', ...openCommandPalette());
 
       getCommandList().findByText('The best article ever').click();
       cy.get('@onAction').should(
-        'be.calledWith',
+        'be.calledWithExactly',
         ...insert(origin, { nodeType: BLOCKS.EMBEDDED_ENTRY })
       );
-      cy.get('@onAction').should('be.calledWith', ...linkRendered());
+      cy.get('@onAction').should('be.calledWithExactly', ...linkRendered());
+
+      cy.get('@onAction').should('have.callCount', 3);
     });
 
     it('tracks embedding an inline entry', () => {
       getCommandList().findByText('Embed Example Content Type - Inline').click();
-      cy.get('@onAction').should('be.calledWith', ...openCommandPalette());
+      cy.get('@onAction').should('be.calledWithExactly', ...openCommandPalette());
 
       getCommandList().findByText('The best article ever').click();
       cy.get('@onAction').should(
-        'be.calledWith',
+        'be.calledWithExactly',
         ...insert(origin, { nodeType: INLINES.EMBEDDED_ENTRY })
       );
-      cy.get('@onAction').should('be.calledWith', ...linkRendered());
+      cy.get('@onAction').should('be.calledWithExactly', ...linkRendered());
+
+      cy.get('@onAction').should('have.callCount', 3);
     });
 
     it('tracks embedding an asset block', () => {
       getCommandList().findByText('Embed Asset').click();
-      cy.get('@onAction').should('be.calledWith', ...openCommandPalette());
+      cy.get('@onAction').should('be.calledWithExactly', ...openCommandPalette());
 
       getCommandList().findByText('test').click();
       cy.get('@onAction').should(
-        'be.calledWith',
+        'be.calledWithExactly',
         ...insert(origin, { nodeType: BLOCKS.EMBEDDED_ASSET })
       );
-      cy.get('@onAction').should('be.calledWith', ...linkRendered());
+      cy.get('@onAction').should('be.calledWithExactly', ...linkRendered());
+
+      cy.get('@onAction').should('have.callCount', 3);
     });
   });
 });

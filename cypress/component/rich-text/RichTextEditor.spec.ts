@@ -248,12 +248,14 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       sdk = createRichTextFakeSdk({ initialValue: docWithoutContent });
       mountRichTextEditor({ sdk });
 
+      const onValueChangedSpy = cy.spy(sdk.field, 'onValueChanged');
+
       // The field value in this case will still be untouched (i.e. un-normalized)
       // since we won't trigger onChange.
       richText.expectValue(docWithoutContent);
 
       // Initial normalization should not invoke onChange
-      expect(sdk.field.onValueChanged).not.to.be.called;
+      expect(onValueChangedSpy).not.to.be.called;
 
       // We can adjust the content
       richText.editor.type('it works');
