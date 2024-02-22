@@ -145,10 +145,10 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
       allowedResources: getAllowedResourcesForNodeType(props.sdk.field, INLINES.RESOURCE_HYPERLINK),
     };
     // @ts-expect-error wait for update of app-sdk version
-    const entryLink = await props.sdk.dialogs.selectSingleResourceEntity(options);
-    if (entryLink) {
+    const entityLink = await props.sdk.dialogs.selectSingleResourceEntity(options);
+    if (entityLink) {
       setLinkTarget('');
-      setLinkEntity(entryLink);
+      setLinkEntity(entityLink);
     }
   }
 
