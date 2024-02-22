@@ -232,7 +232,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
       [BLOCKS.HEADING_6, 'Heading 6', `{${mod}+alt+6}`],
     ].forEach(([type, label, shortcut]) => {
       it(`tracks ${label} (${type}) via toolbar`, () => {
-        richText.editor.click();
+        richText.editor.click().type('Heading').type('{selectall}');
 
         richText.toolbar.toggleHeading(type);
         cy.get('@onAction').should(
