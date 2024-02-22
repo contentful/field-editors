@@ -21,7 +21,7 @@ export function mockSdkForField(fieldDefinition: any, fieldValue?: any): FieldAp
         sys: {
           type: 'ResourceLink',
           linkType: 'Contentful:Entry',
-          urn: 'contentful:linkedEntryId',
+          urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
         },
       }),
       selectMultipleResourceEntities: jest.fn().mockResolvedValue([
@@ -29,7 +29,7 @@ export function mockSdkForField(fieldDefinition: any, fieldValue?: any): FieldAp
           sys: {
             type: 'ResourceLink',
             linkType: 'Contentful:Entry',
-            urn: 'contentful:linkedEntryId',
+            urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
           },
         },
       ]),
