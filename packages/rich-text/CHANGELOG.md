@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.17.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.17.2...@contentful/field-editor-rich-text@3.17.3) (2024-02-21)
+
+### Bug Fixes
+
+- bumping docx plate deserializer [TOL-1849] ([#1611](https://github.com/contentful/field-editors/issues/1611)) ([41cc603](https://github.com/contentful/field-editors/commit/41cc603ac633cdd262d1a8761823db452c55f472))
+
+## [3.17.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.17.1...@contentful/field-editor-rich-text@3.17.2) (2024-02-20)
+
+### Bug Fixes
+
+- triggering release for reference packages [] ([#1610](https://github.com/contentful/field-editors/issues/1610)) ([869f82f](https://github.com/contentful/field-editors/commit/869f82f37d435ef69e19304e7ff1ce4ca8818050))
+
+## [3.17.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.17.0...@contentful/field-editor-rich-text@3.17.1) (2024-02-20)
+
+### Bug Fixes
+
+- adjusting rich text plugin comment [] ([#1609](https://github.com/contentful/field-editors/issues/1609)) ([2d9db5d](https://github.com/contentful/field-editors/commit/2d9db5dbd81bf406a100b2eafc85614468920233))
+
 # [3.17.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.16...@contentful/field-editor-rich-text@3.17.0) (2024-02-20)
 
 ### Features
