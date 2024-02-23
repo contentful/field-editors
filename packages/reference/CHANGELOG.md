@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.22.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.22.4...@contentful/field-editor-reference@5.22.5) (2024-02-23)
+
+### Bug Fixes
+
+- update status badge for scheduled entry [TOL-1801] ([#1615](https://github.com/contentful/field-editors/issues/1615)) ([b15911a](https://github.com/contentful/field-editors/commit/b15911a7e4882d4c6f9765a3022f47b825ab7aab))
+
 ## [5.22.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.22.3...@contentful/field-editor-reference@5.22.4) (2024-02-23)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
