@@ -1,23 +1,14 @@
 import * as React from 'react';
 
 import { SpaceAPI } from '@contentful/app-sdk';
-import { EntryCard, MenuItem, MenuDivider } from '@contentful/f36-components';
-import { ClockIcon } from '@contentful/f36-icons';
-import tokens from '@contentful/f36-tokens';
+import { EntityStatusBadge, EntryCard, MenuDivider, MenuItem } from '@contentful/f36-components';
 import { entityHelpers, isValidImage } from '@contentful/field-editor-shared';
-import { css } from 'emotion';
 
 import { AssetThumbnail, MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
 import { SpaceName } from '../../components/SpaceName/SpaceName';
 import { ContentType, Entry, File, RenderDragFn } from '../../types';
 
 const { getEntryTitle, getEntityDescription, getEntryStatus, getEntryImage } = entityHelpers;
-
-const styles = {
-  scheduleIcon: css({
-    marginRight: tokens.spacing2Xs,
-  }),
-};
 
 export interface WrappedEntryCardProps {
   getEntityScheduledActions: SpaceAPI['getEntityScheduledActions'];
@@ -110,8 +101,8 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
       description={description}
       contentType={contentType?.name}
       size={props.size}
-      isSelected={props.isSelected}
       status={status}
+      isSelected={props.isSelected}
       icon={
         props.spaceName ? (
           <SpaceName
@@ -124,12 +115,7 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
             entityType="Entry"
             entityId={props.entry.sys.id}
           >
-            <ClockIcon
-              className={styles.scheduleIcon}
-              size="small"
-              variant="muted"
-              testId="schedule-icon"
-            />
+            <EntityStatusBadge entityStatus={status} isScheduled />
           </ScheduledIconWithTooltip>
         )
       }
