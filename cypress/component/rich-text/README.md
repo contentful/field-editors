@@ -24,3 +24,4 @@ You are all set now, last things to do:
 4. Cleanup and anonymize the data if necessary
 
 ![Pasting into your test](pasting-into-test.gif)
+![Alt text](pasting-into-test.gif) ![Alt text](getting-clipboard-data.gif)

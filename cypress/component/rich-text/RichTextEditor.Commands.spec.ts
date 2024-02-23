@@ -1,10 +1,9 @@
-/* eslint-disable mocha/no-setup-in-describe */
-
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 
 import { block, document as doc, text } from '../../../packages/rich-text/src/helpers/nodeFactory';
-import { getIframe } from '../../fixtures/utils';
+import { createRichTextFakeSdk } from '../../fixtures';
 import { RichTextPage } from './RichTextPage';
+import { mountRichTextEditor } from './utils';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
 // we increase the viewport height to fit the whole page on the screen
@@ -15,12 +14,12 @@ describe('Rich Text Editor - Commands', { viewportHeight: 2000 }, () => {
   beforeEach(() => {
     cy.viewport(1000, 2000);
     richText = new RichTextPage();
-    richText.visit();
+    mountRichTextEditor();
   });
 
   describe('Palette', () => {
-    const getPalette = () => getIframe().findByTestId('rich-text-commands');
-    const getCommandList = () => getIframe().findByTestId('rich-text-commands-list');
+    const getPalette = () => cy.findByTestId('rich-text-commands');
+    const getCommandList = () => cy.findByTestId('rich-text-commands-list');
 
     it('should be visible', () => {
       richText.editor.click().type('/');
@@ -60,7 +59,7 @@ describe('Rich Text Editor - Commands', { viewportHeight: 2000 }, () => {
     it('should embed entry', () => {
       richText.editor.click().type('/');
       getCommandList().findByText('Embed Example Content Type').click();
-      getCommandList().findByText('Hello world').click();
+      getCommandList().findByText('The best article ever').click();
 
       //this is used instead of snapshot value because we have randomized entry IDs
       richText.getValue().should((doc) => {
@@ -73,7 +72,7 @@ describe('Rich Text Editor - Commands', { viewportHeight: 2000 }, () => {
     it('should embed inline', () => {
       richText.editor.click().type('/');
       getCommandList().findByText('Embed Example Content Type - Inline').click();
-      getCommandList().findByText('Hello world').click();
+      getCommandList().findByText('The best article ever').click();
 
       //this is used instead of snapshot value because we have randomized entry IDs
       richText.getValue().should((doc) => {
@@ -102,7 +101,7 @@ describe('Rich Text Editor - Commands', { viewportHeight: 2000 }, () => {
     it('should delete command after embedding', () => {
       richText.editor.click().type('/');
       getCommandList().findByText('Embed Example Content Type').click();
-      getCommandList().findByText('Hello world').click();
+      getCommandList().findByText('The best article ever').click();
 
       richText.editor.children().contains('/').should('not.exist');
     });
@@ -174,13 +173,14 @@ describe('Rich Text Editor - Commands', { viewportHeight: 2000 }, () => {
     });
 
     it('should be disabled without any action item', () => {
-      // disable embedded entries/assets
-      cy.setFieldValidations([
-        {
-          enabledNodeTypes: ['heading-1'],
-        },
-      ]);
-      cy.reload();
+      const sdk = createRichTextFakeSdk({
+        validations: [
+          {
+            enabledNodeTypes: ['heading-1'],
+          },
+        ],
+      });
+      mountRichTextEditor({ sdk, actionsDisabled: true });
 
       // try to open command prompt
       richText.editor.click().type('/');
@@ -218,8 +218,6 @@ describe('Rich Text Editor - Commands', { viewportHeight: 2000 }, () => {
           },
         ],
       });
-      // Clear validations after the test
-      cy.setFieldValidations([]);
     });
   });
 });

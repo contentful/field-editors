@@ -1,58 +1,22 @@
-/* eslint-disable mocha/no-setup-in-describe */
-
 import { BLOCKS } from '@contentful/rich-text-types';
 
 import { block, document as doc, text } from '../../../packages/rich-text/src/helpers/nodeFactory';
-import { getIframe } from '../../fixtures/utils';
+import { mod } from '../../fixtures/utils';
+import { KEYS, assetBlock, emptyParagraph, paragraphWithText } from './helpers';
 import { RichTextPage } from './RichTextPage';
+import { mountRichTextEditor } from './utils';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
 // we increase the viewport height to fit the whole page on the screen
 
 describe('Rich Text Editor - Embedded Entry Assets', { viewportHeight: 2000 }, () => {
   let richText: RichTextPage;
-
-  // copied from the 'is-hotkey' library we use for RichText shortcuts
-  const IS_MAC =
-    typeof window != 'undefined' && /Mac|iPod|iPhone|iPad/.test(window.navigator.platform);
-  const mod = IS_MAC ? 'meta' : 'control';
-  const buildHelper =
-    (type) =>
-    (...children) =>
-      block(type, {}, ...children);
-  const paragraph = buildHelper(BLOCKS.PARAGRAPH);
-  const paragraphWithText = (t) => paragraph(text(t, []));
-  const emptyParagraph = () => paragraphWithText('');
   const expectDocumentToBeEmpty = () => richText.expectValue(undefined);
-
-  const keys = {
-    enter: { keyCode: 13, which: 13, key: 'Enter' },
-    backspace: { keyCode: 8, which: 8, key: 'Backspace' },
-  };
-
-  function pressEnter() {
-    richText.editor.trigger('keydown', keys.enter);
-  }
-
-  const assetBlock = () =>
-    block(BLOCKS.EMBEDDED_ASSET, {
-      target: {
-        sys: {
-          id: 'example-entity-id',
-          type: 'Link',
-          linkType: 'Asset',
-        },
-      },
-    });
 
   beforeEach(() => {
     richText = new RichTextPage();
-    richText.visit();
-    cy.shouldConfirm(true);
-  });
 
-  afterEach(() => {
-    cy.unsetShouldConfirm();
+    mountRichTextEditor();
   });
 
   const methods: [string, () => void][] = [
@@ -76,9 +40,8 @@ describe('Rich Text Editor - Embedded Entry Assets', { viewportHeight: 2000 }, (
         richText.editor.click();
         triggerEmbeddedAsset();
 
-        richText.editor.find('[data-entity-id="example-entity-id"]').click();
-
-        richText.editor.trigger('keydown', keys.enter);
+        richText.editor.find('[data-entity-id="published_asset"]').click();
+        richText.editor.trigger('keydown', KEYS.enter);
 
         richText.expectValue(doc(emptyParagraph(), assetBlock(), emptyParagraph()));
       });
@@ -93,12 +56,12 @@ describe('Rich Text Editor - Embedded Entry Assets', { viewportHeight: 2000 }, (
         addEmbeddedAsset();
 
         // Press enter on the first asset block
-        richText.editor.click().find('[data-entity-id="example-entity-id"]').first().click();
-        pressEnter();
+        richText.editor.click().find('[data-entity-id="published_asset"]').first().click();
+        richText.editor.trigger('keydown', KEYS.enter);
 
         // Press enter on the second asset block
-        richText.editor.click().find('[data-entity-id="example-entity-id"]').first().click();
-        pressEnter();
+        richText.editor.click().find('[data-entity-id="published_asset"]').first().click();
+        richText.editor.trigger('keydown', KEYS.enter);
 
         richText.expectValue(
           doc(emptyParagraph(), assetBlock(), emptyParagraph(), assetBlock(), emptyParagraph())
@@ -110,8 +73,8 @@ describe('Rich Text Editor - Embedded Entry Assets', { viewportHeight: 2000 }, (
 
         richText.expectValue(doc(assetBlock(), emptyParagraph()));
 
-        getIframe().findByTestId('cf-ui-card-actions').click();
-        getIframe().findByTestId('card-action-remove').click();
+        cy.findByTestId('cf-ui-card-actions').click();
+        cy.findByTestId('card-action-remove').click();
 
         richText.expectValue(undefined);
       });
@@ -121,9 +84,9 @@ describe('Rich Text Editor - Embedded Entry Assets', { viewportHeight: 2000 }, (
 
         richText.expectValue(doc(assetBlock(), emptyParagraph()));
 
-        getIframe().findByTestId('cf-ui-asset-card').click();
+        cy.findByTestId('cf-ui-asset-card').click();
         // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
-        richText.editor.trigger('keydown', keys.backspace);
+        richText.editor.trigger('keydown', KEYS.backspace);
 
         richText.expectValue(undefined);
       });

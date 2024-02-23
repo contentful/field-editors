@@ -24,7 +24,7 @@ export default {
             {
               nodeType: 'embedded-entry-block',
               data: {
-                target: { sys: { id: 'example-entity-id', type: 'Link', linkType: 'Entry' } },
+                target: { sys: { id: 'published-entry', type: 'Link', linkType: 'Entry' } },
               },
               content: [],
             },
@@ -49,7 +49,7 @@ export default {
     },
     {
       nodeType: 'embedded-entry-block',
-      data: { target: { sys: { id: 'example-entity-id', type: 'Link', linkType: 'Entry' } } },
+      data: { target: { sys: { id: 'published-entry', type: 'Link', linkType: 'Entry' } } },
       content: [],
     },
     {

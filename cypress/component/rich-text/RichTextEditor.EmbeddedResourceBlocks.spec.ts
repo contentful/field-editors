@@ -1,52 +1,33 @@
-/* eslint-disable mocha/no-setup-in-describe */
-
 import { BLOCKS } from '@contentful/rich-text-types';
 
 import { block, document as doc, text } from '../../../packages/rich-text/src/helpers/nodeFactory';
-import { getIframe } from '../../fixtures/utils';
+import { mod } from '../../fixtures/utils';
+import { emptyParagraph, KEYS, paragraphWithText } from './helpers';
 import { RichTextPage } from './RichTextPage';
+import { mountRichTextEditor } from './utils';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
 // we increase the viewport height to fit the whole page on the screen
 
 describe('Rich Text Editor - Embedded Resource Blocks', { viewportHeight: 2000 }, () => {
   let richText: RichTextPage;
-
-  // copied from the 'is-hotkey' library we use for RichText shortcuts
-  const IS_MAC =
-    typeof window != 'undefined' && /Mac|iPod|iPhone|iPad/.test(window.navigator.platform);
-  const mod = IS_MAC ? 'meta' : 'control';
-  const buildHelper =
-    (type) =>
-    (...children) =>
-      block(type, {}, ...children);
-  const paragraph = buildHelper(BLOCKS.PARAGRAPH);
-  const paragraphWithText = (t) => paragraph(text(t, []));
-  const emptyParagraph = () => paragraphWithText('');
   const expectDocumentToBeEmpty = () => richText.expectValue(undefined);
+
   const resourceBlock = () =>
     block(BLOCKS.EMBEDDED_RESOURCE, {
       target: {
         sys: {
-          urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
+          urn: 'crn:contentful:::content:spaces/indifferent/entries/published-entry',
           type: 'ResourceLink',
           linkType: 'Contentful:Entry',
         },
       },
     });
 
-  const keys = {
-    enter: { keyCode: 13, which: 13, key: 'Enter' },
-    backspace: { keyCode: 8, which: 8, key: 'Backspace' },
-  };
-
-  function pressEnter() {
-    richText.editor.trigger('keydown', keys.enter);
-  }
-
   beforeEach(() => {
     richText = new RichTextPage();
-    richText.visit();
+
+    mountRichTextEditor();
   });
 
   const methods: [string, () => void][] = [
@@ -66,24 +47,16 @@ describe('Rich Text Editor - Embedded Resource Blocks', { viewportHeight: 2000 }
 
   for (const [triggerMethod, triggerEmbeddedResource] of methods) {
     describe(triggerMethod, () => {
-      beforeEach(() => {
-        cy.shouldConfirm(true);
-      });
-
-      afterEach(() => {
-        cy.unsetShouldConfirm;
-      });
-
       it('adds paragraph before the block when pressing enter if the block is first document node', () => {
         richText.editor.click().then(triggerEmbeddedResource);
 
         richText.editor
           .find(
-            '[data-entity-id="crn:contentful:::content:spaces/space-id/entries/example-entity-urn"]'
+            '[data-entity-id="crn:contentful:::content:spaces/indifferent/entries/published-entry"]'
           )
           .click();
 
-        richText.editor.trigger('keydown', keys.enter);
+        richText.editor.trigger('keydown', KEYS.enter);
 
         richText.expectValue(doc(emptyParagraph(), resourceBlock(), emptyParagraph()));
       });
@@ -100,20 +73,20 @@ describe('Rich Text Editor - Embedded Resource Blocks', { viewportHeight: 2000 }
         // Inserts paragraph before embed because it's in the first line.
         richText.editor
           .find(
-            '[data-entity-id="crn:contentful:::content:spaces/space-id/entries/example-entity-urn"]'
+            '[data-entity-id="crn:contentful:::content:spaces/indifferent/entries/published-entry"]'
           )
           .first()
           .click();
-        pressEnter();
+        richText.editor.trigger('keydown', KEYS.enter);
 
         // inserts paragraph in-between embeds.
         richText.editor
           .find(
-            '[data-entity-id="crn:contentful:::content:spaces/space-id/entries/example-entity-urn"]'
+            '[data-entity-id="crn:contentful:::content:spaces/indifferent/entries/published-entry"]'
           )
           .first()
           .click();
-        pressEnter();
+        richText.editor.trigger('keydown', KEYS.enter);
 
         richText.expectValue(
           doc(
@@ -131,8 +104,8 @@ describe('Rich Text Editor - Embedded Resource Blocks', { viewportHeight: 2000 }
 
         richText.expectValue(doc(resourceBlock(), emptyParagraph()));
 
-        getIframe().findByTestId('cf-ui-card-actions').click();
-        getIframe().findByTestId('delete').click();
+        cy.findByTestId('cf-ui-card-actions').click();
+        cy.findByTestId('delete').click();
 
         richText.expectValue(undefined);
       });
@@ -142,9 +115,9 @@ describe('Rich Text Editor - Embedded Resource Blocks', { viewportHeight: 2000 }
 
         richText.expectValue(doc(resourceBlock(), emptyParagraph()));
 
-        getIframe().findByTestId('cf-ui-entry-card').click();
+        cy.findByTestId('cf-ui-entry-card').click();
         // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
-        richText.editor.trigger('keydown', keys.backspace);
+        richText.editor.trigger('keydown', KEYS.backspace);
 
         richText.expectValue(undefined);
       });
@@ -184,7 +157,6 @@ describe('Rich Text Editor - Embedded Resource Blocks', { viewportHeight: 2000 }
   }
 
   it('can delete paragraph between resource blocks', () => {
-    cy.shouldConfirm(true);
     richText.editor.click();
     richText.toolbar.embed('resource-block');
     richText.editor.type('hey');
@@ -192,6 +164,5 @@ describe('Rich Text Editor - Embedded Resource Blocks', { viewportHeight: 2000 }
     richText.editor.type('{leftarrow}{leftarrow}{backspace}{backspace}{backspace}{backspace}');
 
     richText.expectValue(doc(resourceBlock(), resourceBlock(), emptyParagraph()));
-    cy.unsetShouldConfirm();
   });
 });

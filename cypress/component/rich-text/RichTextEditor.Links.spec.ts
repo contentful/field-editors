@@ -1,15 +1,14 @@
-/* eslint-disable mocha/no-setup-in-describe */
-
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 
 import {
   block,
   document as doc,
-  inline,
   text,
+  inline,
 } from '../../../packages/rich-text/src/helpers/nodeFactory';
-import { getIframe, openEditLink } from '../../fixtures/utils';
+import { mod, openEditLink } from '../../fixtures/utils';
 import { RichTextPage } from './RichTextPage';
+import { mountRichTextEditor } from './utils';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
 // we increase the viewport height to fit the whole page on the screen
@@ -17,14 +16,10 @@ import { RichTextPage } from './RichTextPage';
 describe('Rich Text Editor - Links', { viewportHeight: 2000 }, () => {
   let richText: RichTextPage;
 
-  // copied from the 'is-hotkey' library we use for RichText shortcuts
-  const IS_MAC =
-    typeof window != 'undefined' && /Mac|iPod|iPhone|iPad/.test(window.navigator.platform);
-  const mod = IS_MAC ? 'meta' : 'control';
-
   beforeEach(() => {
     richText = new RichTextPage();
-    richText.visit();
+
+    mountRichTextEditor();
   });
 
   const expectDocumentStructure = (...nodes) => {
@@ -61,7 +56,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000 }, () => {
       'using the link keyboard shortcut',
       () => {
         richText.editor.type(`{${mod}}k`);
-        richText.forms.hyperlink.linkTarget.type('{backspace}'); //weird cypress bug where using CMD+K shortcut types a "k" value in the text field that is focussed. So, we remove it first.
+        richText.forms.hyperlink.linkTarget.type('{backspace}'); // Weird Cypress bug where using CMD+K shortcut types a "k" value in the text field that is focused. So, we remove it first.
       },
     ],
   ];
@@ -99,7 +94,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000 }, () => {
         // haven't been able to replicate in the editor. As it's not
         // replicable in "normal" usage we use the toolbar button both places
         // in this test.
-        getIframe().findByTestId('hyperlink-toolbar-button').click();
+        cy.findByTestId('hyperlink-toolbar-button').click();
 
         expectDocumentStructure(
           // TODO: the editor should normalize this
@@ -131,7 +126,6 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000 }, () => {
       });
 
       it('converts text to entry hyperlink', () => {
-        cy.shouldConfirm(true);
         safelyType('My cool entry{selectall}');
         triggerLinkModal();
         const form = richText.forms.hyperlink;
@@ -142,15 +136,15 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000 }, () => {
         form.linkType.should('have.value', 'hyperlink').select('entry-hyperlink');
         form.submit.should('be.disabled');
 
-        getIframe().findByTestId('cf-ui-entry-card').should('not.exist');
+        cy.findByTestId('cf-ui-entry-card').should('not.exist');
         form.linkEntityTarget.should('have.text', 'Select entry').click();
-        getIframe().findByTestId('cf-ui-entry-card').should('exist');
+        cy.findByTestId('cf-ui-entry-card').should('exist');
 
         form.linkEntityTarget.should('have.text', 'Remove selection').click();
-        getIframe().findByTestId('cf-ui-entry-card').should('not.exist');
+        cy.findByTestId('cf-ui-entry-card').should('not.exist');
 
         form.linkEntityTarget.should('have.text', 'Select entry').click();
-        getIframe().findByTestId('cf-ui-entry-card').should('exist');
+        cy.findByTestId('cf-ui-entry-card').should('exist');
 
         form.submit.click();
 
@@ -158,16 +152,14 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000 }, () => {
           ['text', ''],
           [
             INLINES.ENTRY_HYPERLINK,
-            { target: { sys: { id: 'example-entity-id', type: 'Link', linkType: 'Entry' } } },
+            { target: { sys: { id: 'published-entry', type: 'Link', linkType: 'Entry' } } },
             'My cool entry',
           ],
           ['text', '']
         );
-        cy.unsetShouldConfirm();
       });
 
       it('converts text to resource hyperlink', () => {
-        cy.shouldConfirm(true);
         safelyType('My cool resource{selectall}');
         triggerLinkModal();
         const form = richText.forms.hyperlink;
@@ -178,15 +170,15 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000 }, () => {
         form.linkType.should('have.value', 'hyperlink').select(INLINES.RESOURCE_HYPERLINK);
         form.submit.should('be.disabled');
 
-        getIframe().findByTestId('cf-ui-entry-card').should('not.exist');
+        cy.findByTestId('cf-ui-entry-card').should('not.exist');
         form.linkEntityTarget.should('have.text', 'Select entry').click();
-        getIframe().findByTestId('cf-ui-entry-card').should('exist');
+        cy.findByTestId('cf-ui-entry-card').should('exist');
 
         form.linkEntityTarget.should('have.text', 'Remove selection').click();
-        getIframe().findByTestId('cf-ui-entry-card').should('not.exist');
+        cy.findByTestId('cf-ui-entry-card').should('not.exist');
 
         form.linkEntityTarget.should('have.text', 'Select entry').click();
-        getIframe().findByTestId('cf-ui-entry-card').should('exist');
+        cy.findByTestId('cf-ui-entry-card').should('exist');
 
         form.submit.click();
 
@@ -197,7 +189,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000 }, () => {
             {
               target: {
                 sys: {
-                  urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
+                  urn: 'crn:contentful:::content:spaces/indifferent/entries/published-entry',
                   type: 'ResourceLink',
                   linkType: 'Contentful:Entry',
                 },
@@ -207,11 +199,9 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000 }, () => {
           ],
           ['text', '']
         );
-        cy.unsetShouldConfirm();
       });
 
       it('converts text to asset hyperlink', () => {
-        cy.shouldConfirm(true);
         safelyType('My cool asset{selectall}');
 
         triggerLinkModal();
@@ -224,15 +214,15 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000 }, () => {
         form.linkType.should('have.value', 'hyperlink').select('asset-hyperlink');
         form.submit.should('be.disabled');
 
-        getIframe().findByTestId('cf-ui-asset-card').should('not.exist');
+        cy.findByTestId('cf-ui-asset-card').should('not.exist');
         form.linkEntityTarget.should('have.text', 'Select asset').click();
-        getIframe().findByTestId('cf-ui-asset-card').should('exist');
+        cy.findByTestId('cf-ui-asset-card').should('exist');
 
         form.linkEntityTarget.should('have.text', 'Remove selection').click();
-        getIframe().findByTestId('cf-ui-asset-card').should('not.exist');
+        cy.findByTestId('cf-ui-asset-card').should('not.exist');
 
         form.linkEntityTarget.should('have.text', 'Select asset').click();
-        getIframe().findByTestId('cf-ui-asset-card').should('exist');
+        cy.findByTestId('cf-ui-asset-card').should('exist');
 
         form.submit.click();
 
@@ -240,16 +230,14 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000 }, () => {
           ['text', ''],
           [
             INLINES.ASSET_HYPERLINK,
-            { target: { sys: { id: 'example-entity-id', type: 'Link', linkType: 'Asset' } } },
+            { target: { sys: { id: 'published_asset', type: 'Link', linkType: 'Asset' } } },
             'My cool asset',
           ],
           ['text', '']
         );
-        cy.unsetShouldConfirm();
       });
 
       it('edits hyperlinks', () => {
-        cy.shouldConfirm(true);
         safelyType('My cool website{selectall}');
 
         triggerLinkModal();
@@ -280,7 +268,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000 }, () => {
           ['text', ''],
           [
             INLINES.ENTRY_HYPERLINK,
-            { target: { sys: { id: 'example-entity-id', type: 'Link', linkType: 'Entry' } } },
+            { target: { sys: { id: 'published-entry', type: 'Link', linkType: 'Entry' } } },
             'My cool website',
           ],
           ['text', '']
@@ -298,7 +286,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000 }, () => {
           ['text', ''],
           [
             INLINES.ASSET_HYPERLINK,
-            { target: { sys: { id: 'example-entity-id', type: 'Link', linkType: 'Asset' } } },
+            { target: { sys: { id: 'published_asset', type: 'Link', linkType: 'Asset' } } },
             'My cool website',
           ],
           ['text', '']
@@ -319,7 +307,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000 }, () => {
             {
               target: {
                 sys: {
-                  urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
+                  urn: 'crn:contentful:::content:spaces/indifferent/entries/published-entry',
                   type: 'ResourceLink',
                   linkType: 'Contentful:Entry',
                 },
@@ -343,8 +331,6 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000 }, () => {
           [INLINES.HYPERLINK, { uri: 'https://zombo.com' }, 'My cool website'],
           ['text', '']
         );
-
-        cy.unsetShouldConfirm();
       });
 
       it('is removed from the document structure when empty', () => {
@@ -376,15 +362,17 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000 }, () => {
   it('focuses on the "Link target" field if it is present', () => {
     safelyType('Sample Text{selectall}');
 
-    getIframe().findByTestId('hyperlink-toolbar-button').click();
+    cy.findByTestId('hyperlink-toolbar-button').click();
 
     const form = richText.forms.hyperlink;
 
     form.linkType.should('have.value', 'hyperlink');
 
-    getIframe().then((body) => {
+    cy.get('body').then((body) => {
       const focusedEl = body[0].ownerDocument.activeElement;
       expect(focusedEl?.getAttribute('name')).to.eq('linkTarget');
     });
+
+    form.cancel.click();
   });
 });

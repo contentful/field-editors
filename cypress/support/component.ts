@@ -22,6 +22,7 @@ import './commands';
 import { mount } from 'cypress/react';
 import '@testing-library/cypress';
 import '@testing-library/cypress/add-commands';
+import 'cypress-plugin-tab';
 
 import { configure } from '@testing-library/cypress';
 

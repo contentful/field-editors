@@ -13,7 +13,8 @@
     "version": 10,
     "contentType": {
       "sys": { "type": "Link", "linkType": "ContentType", "id": "exampleCT" }
-    }
+    },
+    "automationTags": []
   },
   "fields": {
     "exField": { "en": "Weather doesn't look good" },

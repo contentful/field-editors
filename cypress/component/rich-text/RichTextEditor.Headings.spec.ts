@@ -3,50 +3,40 @@
 import { BLOCKS } from '@contentful/rich-text-types';
 
 import { block, document as doc, text } from '../../../packages/rich-text/src/helpers/nodeFactory';
-import { getIframe } from '../../fixtures/utils';
+import { mod } from '../../fixtures/utils';
+import { emptyParagraph } from './helpers';
 import { RichTextPage } from './RichTextPage';
+import { mountRichTextEditor } from './utils';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
 // we increase the viewport height to fit the whole page on the screen
 
+const headings = [
+  [BLOCKS.PARAGRAPH, 'Normal text'],
+  [BLOCKS.HEADING_1, 'Heading 1', `{${mod}+alt+1}`],
+  [BLOCKS.HEADING_2, 'Heading 2', `{${mod}+alt+2}`],
+  [BLOCKS.HEADING_3, 'Heading 3', `{${mod}+alt+3}`],
+  [BLOCKS.HEADING_4, 'Heading 4', `{${mod}+alt+4}`],
+  [BLOCKS.HEADING_5, 'Heading 5', `{${mod}+alt+5}`],
+  [BLOCKS.HEADING_6, 'Heading 6', `{${mod}+alt+6}`],
+];
+
 describe('Rich Text Editor - Headings', { viewportHeight: 2000 }, () => {
   let richText: RichTextPage;
-
-  // copied from the 'is-hotkey' library we use for RichText shortcuts
-  const IS_MAC =
-    typeof window != 'undefined' && /Mac|iPod|iPhone|iPad/.test(window.navigator.platform);
-  const mod = IS_MAC ? 'meta' : 'control';
-  const buildHelper =
-    (type) =>
-    (...children) =>
-      block(type, {}, ...children);
-  const paragraph = buildHelper(BLOCKS.PARAGRAPH);
-  const paragraphWithText = (t) => paragraph(text(t, []));
-  const emptyParagraph = () => paragraphWithText('');
 
   const entryBlock = () =>
     block(BLOCKS.EMBEDDED_ENTRY, {
       target: {
         sys: {
-          id: 'example-entity-id',
+          id: 'published-entry',
           type: 'Link',
           linkType: 'Entry',
         },
       },
     });
   function getDropdownList() {
-    return getIframe().findByTestId('dropdown-heading-list');
+    return cy.findByTestId('dropdown-heading-list');
   }
-
-  const headings = [
-    [BLOCKS.PARAGRAPH, 'Normal text'],
-    [BLOCKS.HEADING_1, 'Heading 1', `{${mod}+alt+1}`],
-    [BLOCKS.HEADING_2, 'Heading 2', `{${mod}+alt+2}`],
-    [BLOCKS.HEADING_3, 'Heading 3', `{${mod}+alt+3}`],
-    [BLOCKS.HEADING_4, 'Heading 4', `{${mod}+alt+4}`],
-    [BLOCKS.HEADING_5, 'Heading 5', `{${mod}+alt+5}`],
-    [BLOCKS.HEADING_6, 'Heading 6', `{${mod}+alt+6}`],
-  ];
 
   function addBlockquote(content = '') {
     richText.editor.click().type(content);
@@ -65,7 +55,8 @@ describe('Rich Text Editor - Headings', { viewportHeight: 2000 }, () => {
 
   beforeEach(() => {
     richText = new RichTextPage();
-    richText.visit();
+
+    mountRichTextEditor();
   });
 
   headings.forEach(([type, label, shortcut]) => {
@@ -129,7 +120,6 @@ describe('Rich Text Editor - Headings', { viewportHeight: 2000 }, () => {
       }
 
       it('should be deleted if empty when pressing delete', () => {
-        cy.shouldConfirm(true);
         richText.editor.click(); // to set an initial editor.location
 
         richText.toolbar.toggleHeading(type);
@@ -147,11 +137,9 @@ describe('Rich Text Editor - Headings', { viewportHeight: 2000 }, () => {
           .type('{uparrow}{uparrow}{uparrow}{del}{del}', { delay: 100 });
 
         richText.expectValue(doc(entryBlock(), emptyParagraph()));
-        cy.unsetShouldConfirm();
       });
 
       it('should delete next block if not empty when pressing delete', () => {
-        cy.shouldConfirm(true);
         const value = 'some text';
         richText.editor.click().type(value);
 
@@ -163,7 +151,6 @@ describe('Rich Text Editor - Headings', { viewportHeight: 2000 }, () => {
         richText.editor.type('{leftarrow}{del}', { delay: 100 });
 
         richText.expectValue(doc(block(type, {}, text(value)), emptyParagraph()));
-        cy.unsetShouldConfirm();
       });
 
       it('should show the correct status inside an list', () => {

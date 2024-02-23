@@ -78,7 +78,7 @@ export default defineConfig({
         module: {
           rules: [
             {
-              test: /\.tsx?$/,
+              test: /\.t|jsx?$/,
               exclude: [/node_modules/],
               use: [
                 {

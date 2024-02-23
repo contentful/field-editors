@@ -7,7 +7,7 @@ export default {
       data: {
         target: {
           sys: {
-            id: 'example-entity-id',
+            id: 'published-entry',
             type: 'Link',
             linkType: 'Entry',
           },
@@ -30,7 +30,7 @@ export default {
           data: {
             target: {
               sys: {
-                id: 'example-entity-id',
+                id: 'published-entry',
                 type: 'Link',
                 linkType: 'Entry',
               },
@@ -51,7 +51,7 @@ export default {
       data: {
         target: {
           sys: {
-            id: 'example-entity-id',
+            id: 'published_asset',
             type: 'Link',
             linkType: 'Asset',
           },
@@ -74,7 +74,7 @@ export default {
           data: {
             target: {
               sys: {
-                id: 'example-entity-id',
+                id: 'published_asset',
                 type: 'Link',
                 linkType: 'Asset',
               },
@@ -112,7 +112,7 @@ export default {
           data: {
             target: {
               sys: {
-                id: 'example-entity-id',
+                id: 'published-entry',
                 type: 'Link',
                 linkType: 'Entry',
               },

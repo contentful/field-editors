@@ -1,76 +1,48 @@
 /* eslint-disable mocha/no-setup-in-describe */
 
+import { FieldAppSDK } from '@contentful/app-sdk';
 import { BLOCKS } from '@contentful/rich-text-types';
 
 import { block, document as doc, text } from '../../../packages/rich-text/src/helpers/nodeFactory';
-import { getIframe } from '../../fixtures/utils';
-import documentWithLinks from './document-mocks/documentWithLinks';
+import { createRichTextFakeSdk } from '../../fixtures';
+import { mod } from '../../fixtures/utils';
 import newLineEntityBlockListItem from './document-mocks/newLineEntityBlockListItem';
 import normalizationWithoutValueChange from './document-mocks/normalizationWithoutValueChange';
 import validDocumentThatRequiresNormalization from './document-mocks/validDocumentThatRequiresNormalization';
+import { assetBlock, emptyParagraph, paragraphWithText } from './helpers';
 import { EmbedType, RichTextPage } from './RichTextPage';
+import { mountRichTextEditor } from './utils';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
 // we increase the viewport height to fit the whole page on the screen
-
 describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
   let richText: RichTextPage;
+  let sdk: FieldAppSDK;
 
-  // copied from the 'is-hotkey' library we use for RichText shortcuts
-  const IS_MAC =
-    typeof window != 'undefined' && /Mac|iPod|iPhone|iPad/.test(window.navigator.platform);
-  const mod = IS_MAC ? 'meta' : 'control';
-  const buildHelper =
-    (type) =>
-    (...children) =>
-      block(type, {}, ...children);
-  const paragraph = buildHelper(BLOCKS.PARAGRAPH);
-  const paragraphWithText = (t) => paragraph(text(t, []));
-  const emptyParagraph = () => paragraphWithText('');
   const entryBlock = () =>
     block(BLOCKS.EMBEDDED_ENTRY, {
       target: {
         sys: {
-          id: 'example-entity-id',
+          id: 'published-entry',
           type: 'Link',
           linkType: 'Entry',
         },
       },
     });
-  const assetBlock = () =>
-    block(BLOCKS.EMBEDDED_ASSET, {
-      target: {
-        sys: {
-          id: 'example-entity-id',
-          type: 'Link',
-          linkType: 'Asset',
-        },
-      },
-    });
-
-  const headings = [
-    [BLOCKS.PARAGRAPH, 'Normal text'],
-    [BLOCKS.HEADING_1, 'Heading 1', `{${mod}+alt+1}`],
-    [BLOCKS.HEADING_2, 'Heading 2', `{${mod}+alt+2}`],
-    [BLOCKS.HEADING_3, 'Heading 3', `{${mod}+alt+3}`],
-    [BLOCKS.HEADING_4, 'Heading 4', `{${mod}+alt+4}`],
-    [BLOCKS.HEADING_5, 'Heading 5', `{${mod}+alt+5}`],
-    [BLOCKS.HEADING_6, 'Heading 6', `{${mod}+alt+6}`],
-  ];
 
   beforeEach(() => {
     cy.viewport(1280, 720);
     richText = new RichTextPage();
-    richText.visit();
+    mountRichTextEditor();
   });
 
   it('is empty by default', () => {
-    cy.editorEvents().should('deep.equal', []);
+    richText.expectValue(undefined);
   });
 
   it('disable all editor actions on readonly mode', () => {
-    cy.setInitialValue(
-      doc(
+    sdk = createRichTextFakeSdk({
+      initialValue: doc(
         paragraphWithText('text'),
         block(
           BLOCKS.TABLE,
@@ -89,14 +61,9 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           )
         ),
         emptyParagraph()
-      )
-    );
-
-    cy.setInitialDisabled(true);
-
-    // Necessary for reading the correct LocalStorage values as we do
-    // the initial page load on the beforeEach hook
-    cy.reload();
+      ),
+    });
+    mountRichTextEditor({ sdk, isInitiallyDisabled: true });
 
     richText.toolbar.bold.should('be.disabled');
     richText.toolbar.headingsDropdown.should('be.disabled');
@@ -148,7 +115,6 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
     it('correctly undoes after drag&drop', () => {
       cy.viewport(1200, 1200);
-      cy.shouldConfirm(true);
       const paragraph = block(BLOCKS.PARAGRAPH, {}, text('some text.'));
       const docBeforeDragAndDrop = doc(paragraph, entryBlock(), emptyParagraph());
 
@@ -160,8 +126,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       richText.expectValue(docBeforeDragAndDrop);
 
       // drag & drop
-      getIframe()
-        .findByTestId('cf-ui-entry-card')
+      cy.findByTestId('cf-ui-entry-card')
         .parent()
         .parent()
         .dragTo(() => richText.editor.findByText('some text.'));
@@ -184,7 +149,6 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       // See the Slate bug report: https://github.com/ianstormtaylor/slate/issues/4694
       richText.editor.click().type(`{${mod}}z`).click();
       richText.expectValue(docBeforeDragAndDrop);
-      cy.unsetShouldConfirm();
     });
   });
 
@@ -255,7 +219,6 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       });
 
       it('should add a new line after entity block in same list item', () => {
-        cy.shouldConfirm(true);
         richText.editor.click();
 
         richText.toolbar.ul.click();
@@ -270,30 +233,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
           .type('{enter}');
 
         richText.expectValue(newLineEntityBlockListItem);
-        cy.unsetShouldConfirm();
       });
-    });
-  });
-
-  describe('on action callback', () => {
-    it('is invoked callback when rendering links', () => {
-      cy.setInitialValue(documentWithLinks);
-      cy.editorActions().should('be.empty');
-      // Necessary for reading the correct LocalStorage values as we do
-      // the initial page load on the beforeEach hook
-      cy.reload();
-      cy.wait(500);
-
-      richText.expectValue(documentWithLinks);
-      cy.editorActions().should(
-        'deep.equal',
-        new Array(5).fill([
-          'linkRendered',
-          {
-            origin: 'viewport-interaction',
-          },
-        ])
-      );
     });
   });
 
@@ -305,22 +245,21 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         content: [],
       };
 
-      cy.setInitialValue(docWithoutContent);
+      sdk = createRichTextFakeSdk({ initialValue: docWithoutContent });
+      mountRichTextEditor({ sdk });
 
-      cy.reload();
-      cy.wait(500);
+      const onValueChangedSpy = cy.spy(sdk.field, 'onValueChanged');
 
       // The field value in this case will still be untouched (i.e. un-normalized)
       // since we won't trigger onChange.
       richText.expectValue(docWithoutContent);
 
       // Initial normalization should not invoke onChange
-      cy.editorEvents()
-        .then((events) => events.filter((e) => e.type === 'onValueChanged'))
-        .should('deep.equal', []);
+      expect(onValueChangedSpy).not.to.be.called;
 
       // We can adjust the content
       richText.editor.type('it works');
+
       richText.expectValue(doc(paragraphWithText('it works')));
     });
 
@@ -375,29 +314,27 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         nodeType: 'document',
       };
 
-      cy.setInitialValue(exampleDoc);
+      sdk = createRichTextFakeSdk({ initialValue: exampleDoc });
+      mountRichTextEditor({ sdk });
 
-      cy.reload();
-      // @TODO: find better way to wait until editor is ready before we assert
-      cy.wait(1000);
+      const onValueChangedSpy = cy.spy(sdk.field, 'onValueChanged');
 
       // The field value in this case will still be untouched (i.e. un-normalized)
       // since we won't trigger onChange.
       richText.expectValue(exampleDoc);
 
       // Initial normalization should not invoke onChange
-      cy.editorEvents()
-        .then((events) => events.filter((e) => e.type === 'onValueChanged'))
-        .should('deep.equal', []);
+      expect(onValueChangedSpy).not.to.be.called;
 
-      getIframe().find('li').contains('some text more text');
+      richText.editor.find('li').contains('some text more text');
     });
 
     it('runs initial normalization without triggering a value change', () => {
-      cy.setInitialValue(validDocumentThatRequiresNormalization);
+      sdk = createRichTextFakeSdk({ initialValue: validDocumentThatRequiresNormalization });
+      mountRichTextEditor({ sdk });
 
-      cy.reload();
-      cy.wait(500);
+      const onValueChangedSpy = cy.spy(sdk.field, 'onValueChanged');
+      const onSchemaErrorsChangedSpy = cy.spy(sdk.field, 'onSchemaErrorsChanged');
 
       // Should render normalized content
       richText.editor.contains('This is a hyperlink');
@@ -418,35 +355,40 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       richText.expectValue(validDocumentThatRequiresNormalization);
 
       // Initial normalization should not invoke onChange
-      cy.editorEvents()
-        .then((events) => events.filter((e) => e.type === 'onValueChanged'))
-        .should('deep.equal', []);
+      expect(onValueChangedSpy).not.to.be.called;
 
       // Trigger normalization by changing the editor content
       richText.editor.type('end');
 
       richText.expectValue(normalizationWithoutValueChange);
 
-      richText.expectNoValidationErrors();
+      expect(onSchemaErrorsChangedSpy).not.to.be.called;
     });
   });
 
   describe('Toggling', () => {
     const blocks: [string, EmbedType, string][] = [
-      ['From Entry Block to Headings/Paragraph', 'entry-block', 'example-entity-id'],
-      ['From Asset Block to Headings/Paragraph', 'asset-block', 'example-entity-id'],
+      ['From Entry Block to Headings/Paragraph', 'entry-block', 'published-entry'],
+      ['From Asset Block to Headings/Paragraph', 'asset-block', 'published_asset'],
       [
         'From Resource Block to Headings/Paragraph',
         'resource-block',
-        'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
+        'crn:contentful:::content:spaces/indifferent/entries/published-entry',
       ],
     ];
 
     blocks.forEach(([title, blockType, id]) => {
       describe(title, () => {
-        headings.forEach(([type]) => {
+        [
+          [BLOCKS.PARAGRAPH, 'Normal text'],
+          [BLOCKS.HEADING_1, 'Heading 1', `{${mod}+alt+1}`],
+          [BLOCKS.HEADING_2, 'Heading 2', `{${mod}+alt+2}`],
+          [BLOCKS.HEADING_3, 'Heading 3', `{${mod}+alt+3}`],
+          [BLOCKS.HEADING_4, 'Heading 4', `{${mod}+alt+4}`],
+          [BLOCKS.HEADING_5, 'Heading 5', `{${mod}+alt+5}`],
+          [BLOCKS.HEADING_6, 'Heading 6', `{${mod}+alt+6}`],
+        ].forEach(([type]) => {
           it(`should not carry over the "data" property from ${blockType} to ${type}`, () => {
-            cy.shouldConfirm(true);
             richText.editor.click();
 
             richText.toolbar.embed(blockType);
@@ -456,7 +398,6 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
             richText.toolbar.toggleHeading(type);
 
             richText.expectValue(doc(block(type, {}, text('')), emptyParagraph()));
-            cy.unsetShouldConfirm();
           });
         });
       });
@@ -479,7 +420,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         block(BLOCKS.EMBEDDED_ENTRY, {
           target: {
             sys: {
-              id: 'example-entity-id',
+              id: 'published-entry',
               type: 'Link',
               linkType: 'Entry',
             },
@@ -511,7 +452,6 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
   describe('deleting paragraph between voids', () => {
     it('can delete paragraph between entry blocks', () => {
-      cy.shouldConfirm(true);
       richText.editor.click();
       richText.toolbar.embed('entry-block');
       richText.editor.type('hey');
@@ -519,11 +459,9 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       richText.editor.type('{leftarrow}{leftarrow}{backspace}{backspace}{backspace}{backspace}');
 
       richText.expectValue(doc(entryBlock(), entryBlock(), emptyParagraph()));
-      cy.unsetShouldConfirm();
     });
 
     it('can delete paragraph between asset blocks', () => {
-      cy.shouldConfirm(true);
       richText.editor.click();
       richText.toolbar.embed('asset-block');
       richText.editor.type('hey');
@@ -531,7 +469,6 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
       richText.editor.type('{leftarrow}{leftarrow}{backspace}{backspace}{backspace}{backspace}');
 
       richText.expectValue(doc(assetBlock(), assetBlock(), emptyParagraph()));
-      cy.unsetShouldConfirm();
     });
 
     it('can delete paragraph between HRs', () => {

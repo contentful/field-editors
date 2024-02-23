@@ -2,19 +2,15 @@
 
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types';
 
-import { getIframe, openEditLink } from '../../fixtures/utils';
+import { openEditLink, mod } from '../../fixtures/utils';
 import { RichTextPage } from './RichTextPage';
+import { mountRichTextEditor } from './utils';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
 // we increase the viewport height to fit the whole page on the screen
 
 describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
   let richText: RichTextPage;
-
-  // copied from the 'is-hotkey' library we use for RichText shortcuts
-  const IS_MAC =
-    typeof window != 'undefined' && /Mac|iPod|iPhone|iPad/.test(window.navigator.platform);
-  const mod = IS_MAC ? 'meta' : 'control';
 
   const action = (action, origin, payload = {}) => [
     action,
@@ -42,39 +38,38 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
   beforeEach(() => {
     cy.viewport(1000, 2000);
+    const onAction = cy.stub().as('onAction');
     richText = new RichTextPage();
-    richText.visit();
+
+    mountRichTextEditor({ onAction });
   });
 
   describe('Text Pasting', () => {
     it('tracks text pasting', () => {
       richText.editor.click().paste({ 'text/plain': 'Hello World!' });
 
-      richText.expectTrackingValue([
-        action('paste', 'shortcut-or-viewport', {
+      cy.get('@onAction').should(
+        'be.calledWithExactly',
+        ...action('paste', 'shortcut-or-viewport', {
           characterCountAfter: 12,
           characterCountBefore: 0,
           characterCountSelection: 0,
           source: 'Unknown',
-        }),
-      ]);
+        })
+      );
 
       richText.editor.click().type('{enter}').paste({ 'text/plain': 'Hello World!' });
 
-      richText.expectTrackingValue([
-        action('paste', 'shortcut-or-viewport', {
-          characterCountAfter: 12,
-          characterCountBefore: 0,
-          characterCountSelection: 0,
-          source: 'Unknown',
-        }),
-        action('paste', 'shortcut-or-viewport', {
+      cy.get('@onAction').should(
+        'be.calledWithExactly',
+        ...action('paste', 'shortcut-or-viewport', {
           characterCountAfter: 25,
           characterCountBefore: 13,
           characterCountSelection: 0,
           source: 'Unknown',
-        }),
-      ]);
+        })
+      );
+      cy.get('@onAction').should('have.callCount', 2);
     });
 
     it('tracks google docs source', () => {
@@ -82,14 +77,15 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         'text/html': `<meta charset='utf-8'><meta charset="utf-8"><b style="font-weight:normal;" id="docs-internal-guid-810b52ca-7fff-d999-cca4-9ef46293ff5f"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Hello</span></b>`,
       });
 
-      richText.expectTrackingValue([
-        action('paste', 'shortcut-or-viewport', {
+      cy.get('@onAction').should(
+        'be.calledOnceWithExactly',
+        ...action('paste', 'shortcut-or-viewport', {
           characterCountAfter: 5,
           characterCountBefore: 0,
           characterCountSelection: 0,
           source: 'Google Docs',
-        }),
-      ]);
+        })
+      );
     });
 
     it('tracks google spreadsheets source', () => {
@@ -97,14 +93,15 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         'text/html': `<meta charset='utf-8'><style type="text/css"><!--td {border: 1px solid #ccc;}br {mso-data-placement:same-cell;}--></style><span style="font-size:10pt;font-family:Arial;font-weight:bold;font-style:normal;" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;Example response for issues that go into the sprint (we don&#39;t close the Zendesk ticket):&quot;}" data-sheets-userformat="{&quot;2&quot;:16897,&quot;3&quot;:{&quot;1&quot;:0},&quot;12&quot;:0,&quot;17&quot;:1}">Example response for issues that go into the sprint (we don&#39;t close the Zendesk ticket):</span>`,
       });
 
-      richText.expectTrackingValue([
-        action('paste', 'shortcut-or-viewport', {
+      cy.get('@onAction').should(
+        'be.calledOnceWithExactly',
+        ...action('paste', 'shortcut-or-viewport', {
           characterCountAfter: 88,
           characterCountBefore: 0,
           characterCountSelection: 0,
           source: 'Google Spreadsheets',
-        }),
-      ]);
+        })
+      );
     });
 
     it('tracks slack source', () => {
@@ -112,14 +109,15 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         'text/html': `<meta charset='utf-8'><span style="color: rgb(209, 210, 211); font-family: Slack-Lato, Slack-Fractions, appleLogo, sans-serif; font-size: 15px; font-style: normal; font-variant-ligatures: common-ligatures; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(34, 37, 41); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Hey everyone</span>`,
       });
 
-      richText.expectTrackingValue([
-        action('paste', 'shortcut-or-viewport', {
+      cy.get('@onAction').should(
+        'be.calledOnceWithExactly',
+        ...action('paste', 'shortcut-or-viewport', {
           characterCountAfter: 12,
           characterCountBefore: 0,
           characterCountSelection: 0,
           source: 'Slack',
-        }),
-      ]);
+        })
+      );
     });
 
     it('tracks apple notes source', () => {
@@ -127,14 +125,15 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         'text/html': `<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> <html> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta http-equiv="Content-Style-Type" content="text/css"> <title></title> <meta name="Generator" content="Cocoa HTML Writer"> <meta name="CocoaVersion" content="2022.6"> <style type="text/css"> p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px 'Helvetica Neue'} </style> </head> <body> <p class="p1">Hello world</p> </body> </html>`,
       });
 
-      richText.expectTrackingValue([
-        action('paste', 'shortcut-or-viewport', {
+      cy.get('@onAction').should(
+        'be.calledOnceWithExactly',
+        ...action('paste', 'shortcut-or-viewport', {
           characterCountAfter: 11,
           characterCountBefore: 0,
           characterCountSelection: 0,
           source: 'Apple Notes',
-        }),
-      ]);
+        })
+      );
     });
 
     it('tracks microsoft word source', () => {
@@ -142,14 +141,15 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         'text/html': `<meta name=Generator content="Microsoft Word 15"><p>Hello</p>`,
       });
 
-      richText.expectTrackingValue([
-        action('paste', 'shortcut-or-viewport', {
+      cy.get('@onAction').should(
+        'be.calledOnceWithExactly',
+        ...action('paste', 'shortcut-or-viewport', {
           characterCountAfter: 5,
           characterCountBefore: 0,
           characterCountSelection: 0,
           source: 'Microsoft Word',
-        }),
-      ]);
+        })
+      );
     });
 
     it('tracks microsoft excel source', () => {
@@ -157,14 +157,15 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         'text/html': `<meta name=Generator content="Microsoft Excel 15"><p>Hello</p>`,
       });
 
-      richText.expectTrackingValue([
-        action('paste', 'shortcut-or-viewport', {
+      cy.get('@onAction').should(
+        'be.calledOnceWithExactly',
+        ...action('paste', 'shortcut-or-viewport', {
           characterCountAfter: 5,
           characterCountBefore: 0,
           characterCountSelection: 0,
           source: 'Microsoft Excel',
-        }),
-      ]);
+        })
+      );
     });
   });
 
@@ -179,65 +180,89 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
     ).forEach(([mark, shortcut]) => {
       const toggleMarkViaToolbar = (mark: MARKS) => {
         if (mark === 'code' || mark === 'superscript' || mark === 'subscript') {
-          getIframe().findByTestId('dropdown-toolbar-button').click();
-          getIframe().findByTestId(`${mark}-toolbar-button`).click();
+          cy.findByTestId('dropdown-toolbar-button').click();
+          cy.findByTestId(`${mark}-toolbar-button`).click();
         } else {
-          getIframe().findByTestId(`${mark}-toolbar-button`).click();
+          cy.findByTestId(`${mark}-toolbar-button`).click();
         }
       };
       it(`tracks ${mark} mark via toolbar`, () => {
         richText.editor.click();
 
         toggleMarkViaToolbar(mark);
-        toggleMarkViaToolbar(mark);
+        cy.get('@onAction').should(
+          'be.calledWithExactly',
+          ...action('mark', 'toolbar-icon', { markType: mark })
+        );
 
-        richText.expectTrackingValue([
-          action('mark', 'toolbar-icon', { markType: mark }),
-          action('unmark', 'toolbar-icon', { markType: mark }),
-        ]);
+        toggleMarkViaToolbar(mark);
+        cy.get('@onAction').should(
+          'be.calledWithExactly',
+          ...action('unmark', 'toolbar-icon', { markType: mark })
+        );
+
+        cy.get('@onAction').should('have.callCount', 2);
       });
 
       it(`tracks ${mark} mark via shortcut`, () => {
-        richText.editor.click().type(shortcut).type(shortcut);
+        richText.editor.click().type(shortcut);
+        cy.get('@onAction').should(
+          'be.calledWithExactly',
+          ...action('mark', 'shortcut', { markType: mark })
+        );
 
-        richText.expectTrackingValue([
-          action('mark', 'shortcut', { markType: mark }),
-          action('unmark', 'shortcut', { markType: mark }),
-        ]);
+        richText.editor.click().type(shortcut);
+        cy.get('@onAction').should(
+          'be.calledWithExactly',
+          ...action('unmark', 'shortcut', { markType: mark })
+        );
+
+        cy.get('@onAction').should('have.callCount', 2);
       });
     });
   });
 
   describe('Headings', () => {
-    const headings = [
+    [
       [BLOCKS.HEADING_1, 'Heading 1', `{${mod}+alt+1}`],
       [BLOCKS.HEADING_2, 'Heading 2', `{${mod}+alt+2}`],
       [BLOCKS.HEADING_3, 'Heading 3', `{${mod}+alt+3}`],
       [BLOCKS.HEADING_4, 'Heading 4', `{${mod}+alt+4}`],
       [BLOCKS.HEADING_5, 'Heading 5', `{${mod}+alt+5}`],
       [BLOCKS.HEADING_6, 'Heading 6', `{${mod}+alt+6}`],
-    ];
-
-    headings.forEach(([type, label, shortcut]) => {
+    ].forEach(([type, label, shortcut]) => {
       it(`tracks ${label} (${type}) via toolbar`, () => {
-        richText.editor.click();
+        richText.editor.click().type('Heading').type('{selectall}');
 
         richText.toolbar.toggleHeading(type);
-        richText.toolbar.toggleHeading(type);
+        cy.get('@onAction').should(
+          'be.calledWithExactly',
+          ...insert('toolbar-icon', { nodeType: type })
+        );
 
-        richText.expectTrackingValue([
-          insert('toolbar-icon', { nodeType: type }),
-          remove('toolbar-icon', { nodeType: type }),
-        ]);
+        richText.toolbar.toggleHeading(type);
+        cy.get('@onAction').should(
+          'be.calledWithExactly',
+          ...remove('toolbar-icon', { nodeType: type })
+        );
+
+        cy.get('@onAction').should('have.callCount', 2);
       });
 
       it(`tracks ${label} (${type}) via hotkeys ${shortcut}`, () => {
-        richText.editor.click().type(shortcut).type(shortcut);
+        richText.editor.click().type(shortcut);
+        cy.get('@onAction').should(
+          'be.calledWithExactly',
+          ...insert('shortcut', { nodeType: type })
+        );
 
-        richText.expectTrackingValue([
-          insert('shortcut', { nodeType: type }),
-          remove('shortcut', { nodeType: type }),
-        ]);
+        richText.editor.click().type(shortcut);
+        cy.get('@onAction').should(
+          'be.calledWithExactly',
+          ...remove('shortcut', { nodeType: type })
+        );
+
+        cy.get('@onAction').should('have.callCount', 2);
       });
     });
   });
@@ -265,12 +290,18 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         richText.editor.click();
 
         toggleQuote();
-        toggleQuote();
+        cy.get('@onAction').should(
+          'be.calledWithExactly',
+          ...insert(origin, { nodeType: BLOCKS.QUOTE })
+        );
 
-        richText.expectTrackingValue([
-          insert(origin, { nodeType: BLOCKS.QUOTE }),
-          remove(origin, { nodeType: BLOCKS.QUOTE }),
-        ]);
+        toggleQuote();
+        cy.get('@onAction').should(
+          'be.calledWithExactly',
+          ...remove(origin, { nodeType: BLOCKS.QUOTE })
+        );
+
+        cy.get('@onAction').should('have.callCount', 2);
       });
     }
   });
@@ -305,14 +336,13 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
     it('tracks insert table', () => {
       insertTable();
-
-      richText.expectTrackingValue([insertTableAction()]);
+      cy.get('@onAction').should('be.calledOnceWithExactly', ...insertTableAction());
     });
 
     describe('Table Actions', () => {
       const findAction = (action: string) => {
-        getIframe().findByTestId('cf-table-actions-button').click();
-        return getIframe().findByText(action);
+        cy.findByTestId('cf-table-actions-button').click();
+        return cy.findByText(action);
       };
 
       const doAction = (action: string) => {
@@ -326,99 +356,106 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
       it('adds row above', () => {
         doAction('Add row above');
 
-        richText.expectTrackingValue([
-          insertTableAction(),
-          insertTableRowAction({
+        cy.get('@onAction').should(
+          'be.calledWithExactly',
+          ...insertTableRowAction({
             tableSize: {
               numColumns: 2,
               numRows: 2,
             },
-          }),
-        ]);
+          })
+        );
+        cy.get('@onAction').should('have.callCount', 2);
       });
 
       it('adds row below', () => {
         doAction('Add row below');
 
-        richText.expectTrackingValue([
-          insertTableAction(),
-          insertTableRowAction({
+        cy.get('@onAction').should(
+          'be.calledWithExactly',
+          ...insertTableRowAction({
             tableSize: {
               numColumns: 2,
               numRows: 2,
             },
-          }),
-        ]);
+          })
+        );
+        cy.get('@onAction').should('have.callCount', 2);
       });
 
       it('adds column left', () => {
         doAction('Add column left');
 
-        richText.expectTrackingValue([
-          insertTableAction(),
-          insertTableColumnAction({
+        cy.get('@onAction').should(
+          'be.calledWithExactly',
+          ...insertTableColumnAction({
             tableSize: {
               numColumns: 2,
               numRows: 2,
             },
-          }),
-        ]);
+          })
+        );
+        cy.get('@onAction').should('have.callCount', 2);
       });
 
       it('adds column right', () => {
         doAction('Add column right');
 
-        richText.expectTrackingValue([
-          insertTableAction(),
-          insertTableColumnAction({
+        cy.get('@onAction').should(
+          'be.calledWithExactly',
+          ...insertTableColumnAction({
             tableSize: {
               numColumns: 2,
               numRows: 2,
             },
-          }),
-        ]);
+          })
+        );
+        cy.get('@onAction').should('have.callCount', 2);
       });
 
       it('deletes row', () => {
         doAction('Delete row');
 
-        richText.expectTrackingValue([
-          insertTableAction(),
-          removeTableRowAction({
+        cy.get('@onAction').should(
+          'be.calledWithExactly',
+          ...removeTableRowAction({
             tableSize: {
               numColumns: 2,
               numRows: 2,
             },
-          }),
-        ]);
+          })
+        );
+        cy.get('@onAction').should('have.callCount', 2);
       });
 
       it('deletes column', () => {
         doAction('Delete column');
 
-        richText.expectTrackingValue([
-          insertTableAction(),
-          removeTableColumnAction({
+        cy.get('@onAction').should(
+          'be.calledWithExactly',
+          ...removeTableColumnAction({
             tableSize: {
               numColumns: 2,
               numRows: 2,
             },
-          }),
-        ]);
+          })
+        );
+        cy.get('@onAction').should('have.callCount', 2);
       });
 
       it('deletes table', () => {
         doAction('Delete table');
 
-        richText.expectTrackingValue([
-          insertTableAction(),
-          removeTableAction({
+        cy.get('@onAction').should(
+          'be.calledWithExactly',
+          ...removeTableAction({
             tableSize: {
               numColumns: 2,
               numRows: 2,
             },
-          }),
-        ]);
+          })
+        );
+        cy.get('@onAction').should('have.callCount', 2);
       });
     });
   });
@@ -484,30 +521,26 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
     for (const [triggerMethod, origin, triggerLinkModal] of methods) {
       describe(triggerMethod, () => {
-        beforeEach(() => {
-          cy.shouldConfirm(true);
-        });
-
-        afterEach(() => {
-          cy.unsetShouldConfirm();
-        });
-
         it('opens the hyperlink modal but cancels without adding a link', () => {
           richText.editor.type('The quick brown fox jumps over the lazy ');
 
           triggerLinkModal();
+          cy.get('@onAction').should('be.calledWithExactly', ...openCreateModal(origin));
 
           const form = richText.forms.hyperlink;
 
           form.cancel.click();
 
-          richText.expectTrackingValue([openCreateModal(origin), closeModal(origin)]);
+          cy.get('@onAction').should('be.calledWithExactly', ...closeModal(origin));
+
+          cy.get('@onAction').should('have.callCount', 2);
         });
 
         it('tracks adds and removes hyperlinks', () => {
           richText.editor.type('The quick brown fox jumps over the lazy ');
 
           triggerLinkModal();
+          cy.get('@onAction').should('be.calledWithExactly', ...openCreateModal(origin));
 
           const form = richText.forms.hyperlink;
 
@@ -515,34 +548,39 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
           form.linkTarget.type('https://zombo.com');
           form.submit.click();
 
-          richText.expectTrackingValue([openCreateModal(origin), insertHyperlink(origin)]);
+          cy.get('@onAction').should('be.calledWithExactly', ...insertHyperlink(origin));
 
           richText.editor.click().type('{selectall}');
-          getIframe().findByTestId('hyperlink-toolbar-button').click();
+          cy.findByTestId('hyperlink-toolbar-button').click();
 
-          richText.expectTrackingValue([
-            openCreateModal(origin),
-            insertHyperlink(origin),
-            unlink('toolbar-icon'),
-          ]);
+          cy.get('@onAction').should('be.calledWithExactly', ...unlink('toolbar-icon'));
+
+          cy.get('@onAction').should('have.callCount', 3);
         });
 
         it('tracks when converting text to URL hyperlink', () => {
-          richText.editor.type('My cool website{selectall}');
+          richText.editor.type('My cool website').type('{selectall}');
 
           triggerLinkModal();
+          cy.get('@onAction').should('be.calledWithExactly', ...openCreateModal(origin));
+
           const form = richText.forms.hyperlink;
 
           form.linkTarget.type('https://zombo.com');
 
           form.submit.click();
 
-          richText.expectTrackingValue([openCreateModal(origin), insertHyperlink(origin)]);
+          cy.get('@onAction').should('be.calledWithExactly', ...insertHyperlink(origin));
+
+          cy.get('@onAction').should('have.callCount', 2);
         });
 
         it('tracks when converting text to entry hyperlink', () => {
-          richText.editor.type('My cool entry{selectall}');
+          richText.editor.type('My cool entry').type('{selectall}');
+
           triggerLinkModal();
+          cy.get('@onAction').should('be.calledWithExactly', ...openCreateModal(origin));
+
           const form = richText.forms.hyperlink;
 
           form.linkType.select('entry-hyperlink');
@@ -550,98 +588,81 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
           form.linkEntityTarget.click();
 
           form.submit.click();
+          cy.get('@onAction').should('be.calledWithExactly', ...insertEntryHyperlink(origin));
+          cy.get('@onAction').should('be.calledWithExactly', ...linkRendered());
 
-          richText.expectTrackingValue([
-            openCreateModal(origin),
-            insertEntryHyperlink(origin),
-            linkRendered(),
-          ]);
+          cy.get('@onAction').should('have.callCount', 3);
         });
 
         it('tracks when converting text to asset hyperlink', () => {
-          richText.editor.type('My cool asset{selectall}');
+          richText.editor.type('My cool asset').type('{selectall}');
 
           triggerLinkModal();
+          cy.get('@onAction').should('be.calledWithExactly', ...openCreateModal(origin));
 
           const form = richText.forms.hyperlink;
 
           form.linkType.select('asset-hyperlink');
           form.linkEntityTarget.click();
-          form.submit.click();
 
-          richText.expectTrackingValue([
-            openCreateModal(origin),
-            insertAssetHyperlink(origin),
-            linkRendered(),
-          ]);
+          form.submit.click();
+          cy.get('@onAction').should('be.calledWithExactly', ...insertAssetHyperlink(origin));
+          cy.get('@onAction').should('be.calledWithExactly', ...linkRendered());
+
+          cy.get('@onAction').should('have.callCount', 3);
         });
 
         it('tracks when editing hyperlinks', () => {
-          richText.editor.type('My cool website{selectall}');
+          richText.editor.type('My cool website').type('{selectall}');
 
           triggerLinkModal();
+          cy.get('@onAction').should('be.calledWithExactly', ...openCreateModal(origin));
 
           // Part 1:
           // Create a hyperlink
           const form = richText.forms.hyperlink;
 
           form.linkTarget.type('https://zombo.com');
-          form.submit.click();
 
-          richText.expectTrackingValue([openCreateModal(origin), insertHyperlink(origin)]);
+          form.submit.click();
+          cy.get('@onAction').should('be.calledWithExactly', ...insertHyperlink(origin));
 
           // Part 2:
           // Update hyperlink to entry link
           openEditLink();
+          cy.get('@onAction').should('be.calledWithExactly', ...openEditModal());
+
           form.linkType.select('entry-hyperlink');
           form.linkEntityTarget.click();
-          form.submit.click();
 
-          richText.expectTrackingValue([
-            openCreateModal(origin),
-            insertHyperlink(origin),
-            openEditModal(),
-            editEntryHyperlink(),
-            linkRendered(),
-          ]);
+          form.submit.click();
+          cy.get('@onAction').should('be.calledWithExactly', ...editEntryHyperlink());
+          cy.get('@onAction').should('be.calledWithExactly', ...linkRendered());
 
           // Part 3:
           // Update entry link to asset link
           openEditLink();
+          cy.get('@onAction').should('be.calledWithExactly', ...openEditModal());
+
           form.linkType.select('asset-hyperlink');
           form.linkEntityTarget.click();
-          form.submit.click();
 
-          richText.expectTrackingValue([
-            openCreateModal(origin),
-            insertHyperlink(origin),
-            openEditModal(),
-            editEntryHyperlink(),
-            linkRendered(),
-            openEditModal(),
-            editAssetHyperlink(),
-            linkRendered(),
-          ]);
+          form.submit.click();
+          cy.get('@onAction').should('be.calledWithExactly', ...editAssetHyperlink());
+          cy.get('@onAction').should('be.calledWithExactly', ...linkRendered());
 
           // Part 4:
           // Update asset link to hyperlink
           openEditLink();
+          cy.get('@onAction').should('be.calledWithExactly', ...openEditModal());
+
           form.linkType.select('hyperlink');
           form.linkTarget.type('https://zombo.com');
-          form.submit.click();
 
-          richText.expectTrackingValue([
-            openCreateModal(origin),
-            insertHyperlink(origin),
-            openEditModal(),
-            editEntryHyperlink(),
-            linkRendered(),
-            openEditModal(),
-            editAssetHyperlink(),
-            linkRendered(),
-            openEditModal(),
-            editHyperlink(),
-          ]);
+          form.submit.click();
+          cy.get('@onAction').should('be.calledWithExactly', ...editHyperlink());
+
+          cy.get('@onAction').should('have.callCount', 10);
         });
       });
     }
@@ -668,26 +689,39 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
     for (const [triggerMethod, origin, triggerEmbeddedEntry] of methods) {
       describe(triggerMethod, () => {
         it('tracks when inserting embedded entry block', () => {
-          cy.shouldConfirm(true);
-          richText.editor.click().then(triggerEmbeddedEntry);
+          richText.editor.click();
 
-          richText.expectTrackingValue([
-            openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_ENTRY),
-            insert(origin, { nodeType: BLOCKS.EMBEDDED_ENTRY }),
-            linkRendered(),
-          ]);
-          cy.unsetShouldConfirm();
+          triggerEmbeddedEntry();
+          cy.get('@onAction').should(
+            'be.calledWithExactly',
+            ...openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_ENTRY)
+          );
+          cy.get('@onAction').should(
+            'be.calledWithExactly',
+            ...insert(origin, { nodeType: BLOCKS.EMBEDDED_ENTRY })
+          );
+          cy.get('@onAction').should('be.calledWithExactly', ...linkRendered());
+
+          cy.get('@onAction').should('have.callCount', 3);
         });
 
-        it('cancels without adding the entry block', () => {
-          cy.shouldConfirm(false);
-          richText.editor.click().then(triggerEmbeddedEntry);
+        // FIX: Add embed dialog mock to emulate entity selection/cancel embed
+        // Removed here: https://github.com/contentful/field-editors/pull/1565
+        // eslint-disable-next-line mocha/no-skipped-tests
+        it.skip('cancels without adding the entry block', () => {
+          richText.editor.click();
 
-          richText.expectTrackingValue([
-            openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_ENTRY),
-            cancelEmbeddedDialog(origin, BLOCKS.EMBEDDED_ENTRY),
-          ]);
-          cy.unsetShouldConfirm();
+          triggerEmbeddedEntry();
+          cy.get('@onAction').should(
+            'be.calledWithExactly',
+            ...openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_ENTRY)
+          );
+          cy.get('@onAction').should(
+            'be.calledWithExactly',
+            ...cancelEmbeddedDialog(origin, BLOCKS.EMBEDDED_ENTRY)
+          );
+
+          cy.get('@onAction').should('have.callCount', 2);
         });
       });
     }
@@ -714,28 +748,39 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
     for (const [triggerMethod, origin, triggerEmbeddedAsset] of methods) {
       describe(triggerMethod, () => {
         it('tracks when inserting embedded asset block', () => {
-          cy.shouldConfirm(true);
+          richText.editor.click();
 
-          richText.editor.click().then(triggerEmbeddedAsset);
-          richText.expectTrackingValue([
-            openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_ASSET),
-            insert(origin, { nodeType: BLOCKS.EMBEDDED_ASSET }),
-            linkRendered(),
-          ]);
+          triggerEmbeddedAsset();
+          cy.get('@onAction').should(
+            'be.calledWithExactly',
+            ...openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_ASSET)
+          );
+          cy.get('@onAction').should(
+            'be.calledWithExactly',
+            ...insert(origin, { nodeType: BLOCKS.EMBEDDED_ASSET })
+          );
+          cy.get('@onAction').should('be.calledWithExactly', ...linkRendered());
 
-          cy.unsetShouldConfirm();
+          cy.get('@onAction').should('have.callCount', 3);
         });
 
-        it('cancels without adding the entry asset', () => {
-          cy.shouldConfirm(false);
+        // FIX: Add embed dialog mock to emulate entity selection/cancel embed
+        // Removed here: https://github.com/contentful/field-editors/pull/1565
+        // eslint-disable-next-line mocha/no-skipped-tests
+        it.skip('cancels without adding the entry asset', () => {
+          richText.editor.click();
 
-          richText.editor.click().then(triggerEmbeddedAsset);
-          richText.expectTrackingValue([
-            openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_ASSET),
-            cancelEmbeddedDialog(origin, BLOCKS.EMBEDDED_ASSET),
-          ]);
+          triggerEmbeddedAsset();
+          cy.get('@onAction').should(
+            'be.calledWithExactly',
+            ...openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_ASSET)
+          );
+          cy.get('@onAction').should(
+            'be.calledWithExactly',
+            ...cancelEmbeddedDialog(origin, BLOCKS.EMBEDDED_ASSET)
+          );
 
-          cy.unsetShouldConfirm();
+          cy.get('@onAction').should('have.callCount', 2);
         });
       });
     }
@@ -762,27 +807,39 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
     for (const [triggerMethod, origin, triggerEmbeddedResource] of methods) {
       describe(triggerMethod, () => {
         it('tracks when inserting embedded resource block', () => {
-          cy.shouldConfirm(true);
-          richText.editor.click().then(triggerEmbeddedResource);
+          richText.editor.click();
 
-          richText.expectTrackingValue([
-            openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_RESOURCE),
-            insert(origin, { nodeType: BLOCKS.EMBEDDED_RESOURCE }),
-            linkRendered(),
-          ]);
-          cy.unsetShouldConfirm();
+          triggerEmbeddedResource();
+          cy.get('@onAction').should(
+            'be.calledWithExactly',
+            ...openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_RESOURCE)
+          );
+          cy.get('@onAction').should(
+            'be.calledWithExactly',
+            ...insert(origin, { nodeType: BLOCKS.EMBEDDED_RESOURCE })
+          );
+          cy.get('@onAction').should('be.calledWithExactly', ...linkRendered());
+
+          cy.get('@onAction').should('have.callCount', 3);
         });
 
-        it('cancels without adding the resource block', () => {
-          cy.shouldConfirm(false);
+        // FIX: Add embed dialog mock to emulate entity selection/cancel embed
+        // Removed here: https://github.com/contentful/field-editors/pull/1565
+        // eslint-disable-next-line mocha/no-skipped-tests
+        it.skip('cancels without adding the resource block', () => {
+          richText.editor.click();
 
-          richText.editor.click().then(triggerEmbeddedResource);
+          triggerEmbeddedResource();
+          cy.get('@onAction').should(
+            'be.calledWithExactly',
+            ...openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_RESOURCE)
+          );
+          cy.get('@onAction').should(
+            'be.calledWithExactly',
+            ...cancelEmbeddedDialog(origin, BLOCKS.EMBEDDED_RESOURCE)
+          );
 
-          richText.expectTrackingValue([
-            openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_RESOURCE),
-            cancelEmbeddedDialog(origin, BLOCKS.EMBEDDED_RESOURCE),
-          ]);
-          cy.unsetShouldConfirm();
+          cy.get('@onAction').should('have.callCount', 2);
         });
       });
     }
@@ -809,29 +866,39 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
     for (const [triggerMethod, origin, triggerEmbeddedInline] of methods) {
       describe(triggerMethod, () => {
         it('tracks when inserting embedded asset block', () => {
-          cy.shouldConfirm(true);
-          richText.editor.click().then(triggerEmbeddedInline);
+          richText.editor.click();
 
-          richText.expectTrackingValue([
-            openCreateEmbedDialog(origin, INLINES.EMBEDDED_ENTRY),
-            insert(origin, { nodeType: INLINES.EMBEDDED_ENTRY }),
-            linkRendered(),
-          ]);
+          triggerEmbeddedInline();
+          cy.get('@onAction').should(
+            'be.calledWithExactly',
+            ...openCreateEmbedDialog(origin, INLINES.EMBEDDED_ENTRY)
+          );
+          cy.get('@onAction').should(
+            'be.calledWithExactly',
+            ...insert(origin, { nodeType: INLINES.EMBEDDED_ENTRY })
+          );
+          cy.get('@onAction').should('be.calledWithExactly', ...linkRendered());
 
-          cy.unsetShouldConfirm();
+          cy.get('@onAction').should('have.callCount', 3);
         });
 
-        it('cancels without adding the entry asset', () => {
-          cy.shouldConfirm(false);
+        // FIX: Add embed dialog mock to emulate entity selection/cancel embed
+        // Removed here: https://github.com/contentful/field-editors/pull/1565
+        // eslint-disable-next-line mocha/no-skipped-tests
+        it.skip('cancels without adding the entry asset', () => {
+          richText.editor.click();
 
-          richText.editor.click().then(triggerEmbeddedInline);
+          triggerEmbeddedInline();
+          cy.get('@onAction').should(
+            'be.calledWithExactly',
+            ...openCreateEmbedDialog(origin, INLINES.EMBEDDED_ENTRY)
+          );
+          cy.get('@onAction').should(
+            'be.calledWithExactly',
+            ...cancelEmbeddedDialog(origin, INLINES.EMBEDDED_ENTRY)
+          );
 
-          richText.expectTrackingValue([
-            openCreateEmbedDialog(origin, INLINES.EMBEDDED_ENTRY),
-            cancelEmbeddedDialog(origin, INLINES.EMBEDDED_ENTRY),
-          ]);
-
-          cy.unsetShouldConfirm();
+          cy.get('@onAction').should('have.callCount', 2);
         });
       });
     }
@@ -839,50 +906,63 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
   describe('Commands', () => {
     const origin = 'command-palette';
-    const getCommandList = () => getIframe().findByTestId('rich-text-commands-list');
+    const getCommandList = () => cy.findByTestId('rich-text-commands-list');
 
     beforeEach(() => {
       richText.editor.click().type('/');
     });
     it('tracks opening the command palette', () => {
-      richText.expectTrackingValue([openCommandPalette()]);
+      cy.get('@onAction').should('be.calledOnceWithExactly', ...openCommandPalette());
     });
 
     it('tracks cancelling the command palette on pressing esc', () => {
       richText.editor.type('{esc}');
-      richText.expectTrackingValue([openCommandPalette(), cancelCommandPalette()]);
+      cy.get('@onAction').should('be.calledWithExactly', ...openCommandPalette());
+      cy.get('@onAction').should('be.calledWithExactly', ...cancelCommandPalette());
+
+      cy.get('@onAction').should('have.callCount', 2);
     });
 
     it('tracks embedding an entry block', () => {
       getCommandList().findByText('Embed Example Content Type').click();
-      getCommandList().findByText('Hello world').click();
-      richText.expectTrackingValue([
-        openCommandPalette(),
-        insert(origin, { nodeType: BLOCKS.EMBEDDED_ENTRY }),
-        linkRendered(),
-      ]);
+      cy.get('@onAction').should('be.calledWithExactly', ...openCommandPalette());
+
+      getCommandList().findByText('The best article ever').click();
+      cy.get('@onAction').should(
+        'be.calledWithExactly',
+        ...insert(origin, { nodeType: BLOCKS.EMBEDDED_ENTRY })
+      );
+      cy.get('@onAction').should('be.calledWithExactly', ...linkRendered());
+
+      cy.get('@onAction').should('have.callCount', 3);
     });
 
     it('tracks embedding an inline entry', () => {
       getCommandList().findByText('Embed Example Content Type - Inline').click();
-      getCommandList().findByText('Hello world').click();
+      cy.get('@onAction').should('be.calledWithExactly', ...openCommandPalette());
 
-      richText.expectTrackingValue([
-        openCommandPalette(),
-        insert(origin, { nodeType: INLINES.EMBEDDED_ENTRY }),
-        linkRendered(),
-      ]);
+      getCommandList().findByText('The best article ever').click();
+      cy.get('@onAction').should(
+        'be.calledWithExactly',
+        ...insert(origin, { nodeType: INLINES.EMBEDDED_ENTRY })
+      );
+      cy.get('@onAction').should('be.calledWithExactly', ...linkRendered());
+
+      cy.get('@onAction').should('have.callCount', 3);
     });
 
     it('tracks embedding an asset block', () => {
       getCommandList().findByText('Embed Asset').click();
-      getCommandList().findByText('test').click();
+      cy.get('@onAction').should('be.calledWithExactly', ...openCommandPalette());
 
-      richText.expectTrackingValue([
-        openCommandPalette(),
-        insert(origin, { nodeType: BLOCKS.EMBEDDED_ASSET }),
-        linkRendered(),
-      ]);
+      getCommandList().findByText('test').click();
+      cy.get('@onAction').should(
+        'be.calledWithExactly',
+        ...insert(origin, { nodeType: BLOCKS.EMBEDDED_ASSET })
+      );
+      cy.get('@onAction').should('be.calledWithExactly', ...linkRendered());
+
+      cy.get('@onAction').should('have.callCount', 3);
     });
   });
 });
