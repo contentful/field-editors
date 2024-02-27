@@ -157,12 +157,11 @@ export function createRichTextFakeSdk(props?: RichTextFakeSdkProps): FieldAppSDK
       selectMultipleAssets: async () => [assets.published, assets.changed],
       selectSingleEntry: async () => entries.published,
       selectMultipleEntries: async () => [entries.published, entries.changed],
-      selectSingleResourceEntry: async () => ({
-        ...entries.published,
+      selectSingleResourceEntity: async () => ({
         sys: {
-          ...entries.published.sys,
           urn: `crn:contentful:::content:spaces/${spaces.indifferent.sys.id}/entries/${entries.published.sys.id}`,
-          type: 'Contentful:Entry',
+          type: 'ResourceLink',
+          linkType: 'Contentful:Entry',
         },
       }),
     },
