@@ -60,7 +60,6 @@ const styles = {
     webkitAlignSelf: 'flex-start',
     alignSelf: 'flex-start',
     msFlexItemAlign: 'start',
-    marginLeft: 'auto',
   }),
   formattingOptionsWrapper: css({
     display: ['-webkit-box', '-ms-flexbox', 'flex'],
@@ -134,7 +133,14 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
   const shouldShowDropdown = boldItalicUnderlineAvailable && dropdownItemsAvailable;
 
   return (
-    <Flex testId="toolbar" className={styles.toolbar} alignItems="center">
+    <Flex
+      gap="spacingS"
+      flexWrap="wrap"
+      flexDirection="row"
+      testId="toolbar"
+      className={styles.toolbar}
+      justifyContent="space-between"
+    >
       <div className={styles.formattingOptionsWrapper}>
         <ToolbarHeadingButton isDisabled={isDisabled || !canInsertBlocks} />
 
