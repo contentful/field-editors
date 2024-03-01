@@ -96,7 +96,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
   });
 
   describe('history', () => {
-    it('supports undo and redo', () => {
+    it('supports undo and redo with keyboard shortcuts', () => {
       const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text.')));
 
       // type
@@ -110,6 +110,23 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
       // redo
       richText.editor.click().type(`{${mod}}{shift}z`).click();
+      richText.expectValue(expectedValue);
+    });
+
+    it('supports undo and redo with toolbar buttons', () => {
+      const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text.')));
+
+      // type
+      richText.editor.click().type('some text.').click();
+
+      richText.expectValue(expectedValue);
+
+      // undo
+      richText.toolbar.undo.click();
+      richText.expectValue(undefined);
+
+      // redo
+      richText.toolbar.redo.click();
       richText.expectValue(expectedValue);
     });
 

@@ -25,6 +25,14 @@ export class RichTextPage {
         cy.findByTestId(`dropdown-option-${type}`).click({ force: true });
       },
 
+      get undo() {
+        return cy.findByTestId('undo-toolbar-button');
+      },
+
+      get redo() {
+        return cy.findByTestId('redo-toolbar-button');
+      },
+
       get bold() {
         return cy.findByTestId('bold-toolbar-button');
       },
