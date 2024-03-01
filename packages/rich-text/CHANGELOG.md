@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.18.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.17.7...@contentful/field-editor-rich-text@3.18.0) (2024-03-01)
+
+### Features
+
+- add rich text undo redo btns [TOL-1038] ([#1598](https://github.com/contentful/field-editors/issues/1598)) ([007db0d](https://github.com/contentful/field-editors/commit/007db0d45d07c1f33845c71e4655811b1c3d928a))
+
 ## [3.17.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.17.6...@contentful/field-editor-rich-text@3.17.7) (2024-02-28)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
