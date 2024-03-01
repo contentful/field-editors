@@ -168,7 +168,7 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
         BLOCKS.HEADING_4,
         BLOCKS.HEADING_5,
         BLOCKS.HEADING_6,
-      ].forEach((type) => getDropdownItem(type).get('button').should('not.be.disabled'));
+      ].forEach((type) => getDropdownItem(type).should('not.be.disabled'));
     });
 
     describe('Inserting Tables', () => {
