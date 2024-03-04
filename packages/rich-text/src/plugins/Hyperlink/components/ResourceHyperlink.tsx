@@ -29,7 +29,9 @@ export type ResourceHyperlinkProps = {
 };
 
 export function ResourceHyperlink(props: ResourceHyperlinkProps) {
-  const { editor, sdk, isLinkFocused, pathToElement } = useHyperlinkCommon(props.element);
+  const { editor, sdk, isLinkFocused, pathToElement, isEditorFocused } = useHyperlinkCommon(
+    props.element
+  );
   const { onEntityFetchComplete } = useLinkTracking();
   const { target } = props.element.data;
 
@@ -51,6 +53,7 @@ export function ResourceHyperlink(props: ResourceHyperlinkProps) {
       handleEditLink={() => handleEditLink(editor, sdk, pathToElement)}
       handleRemoveLink={() => handleRemoveLink(editor)}
       popoverText={popoverText}
+      isEditorFocused={isEditorFocused}
     >
       <Text
         testId="cf-ui-text-link"
