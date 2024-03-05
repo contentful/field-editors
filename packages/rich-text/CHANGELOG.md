@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.18.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.18.0...@contentful/field-editor-rich-text@3.18.1) (2024-03-05)
+
+### Bug Fixes
+
+- editor focus [ZEND-4737] ([#1620](https://github.com/contentful/field-editors/issues/1620)) ([2452ef8](https://github.com/contentful/field-editors/commit/2452ef8cef5497181c002c48dbfb97a070037f67))
+
 # [3.18.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.17.7...@contentful/field-editor-rich-text@3.18.0) (2024-03-01)
 
 ### Features
