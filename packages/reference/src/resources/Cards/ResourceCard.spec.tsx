@@ -8,6 +8,8 @@ import { configure, fireEvent, render, waitFor } from '@testing-library/react';
 import publishedCT from '../../__fixtures__/content-type/published_content_type.json';
 import publishedEntryNonMasterEnvironment from '../../__fixtures__/entry/published_entry_non_master.json';
 import publishedEntry from '../../__fixtures__/entry/published_entry.json';
+import resourceType from '../../__fixtures__/resource-type/resource-type.json';
+import resource from '../../__fixtures__/resource/resource.json';
 import space from '../../__fixtures__/space/indifferent_space.json';
 import { EntityProvider } from '../../common/EntityStore';
 import { ResourceCard } from './ResourceCard';
@@ -27,6 +29,9 @@ const resolvableEntryUrnWithExplicitMaster =
 const resolvableEntryUrnWithAnotherEnvironment =
   'crn:contentful:::content:spaces/space-id/environments/my-test-environment/entries/linked-entry-urn';
 const unknownEntryUrn = 'crn:contentful:::content:spaces/space-id/entries/unknown-entry-urn';
+
+const resolvableExternalResourceType = 'External:ResourceType';
+const resolvableExternalEntityUrn = 'external:entity-urn';
 
 const sdk: any = {
   locales: {
@@ -53,6 +58,21 @@ const sdk: any = {
         return Promise.reject(new Error());
       }),
     },
+    Http: {
+      get: jest.fn().mockImplementation(({ url, config }) => {
+        if (url === '/spaces/space-id/environments/environment-id/resource_types') {
+          return Promise.resolve({ items: [resourceType] });
+        }
+        if (
+          url ===
+            `/spaces/space-id/environments/environment-id/resource_types/${resolvableExternalResourceType}/resources` &&
+          config.params['sys.urn[in]'] === resolvableExternalEntityUrn
+        ) {
+          return Promise.resolve({ items: [resource] });
+        }
+        return Promise.resolve({ items: [] });
+      }),
+    },
     Locale: {
       getMany: jest.fn().mockResolvedValue({ items: [{ default: true, code: 'en' }] }),
     },
@@ -69,14 +89,17 @@ const sdk: any = {
   },
 };
 
-function renderResourceCard({ linkType = 'Contentful:Entry', entryUrn = resolvableEntryUrn } = {}) {
+function renderResourceCard({
+  linkType = 'Contentful:Entry',
+  entityUrn = resolvableEntryUrn,
+} = {}) {
   return render(
     <EntityProvider sdk={sdk}>
       <ResourceCard
         isDisabled={false}
         getEntryRouteHref={() => ''}
         resourceLink={{
-          sys: { type: 'ResourceLink', linkType: linkType as 'Contentful:Entry', urn: entryUrn },
+          sys: { type: 'ResourceLink', linkType: linkType as 'Contentful:Entry', urn: entityUrn },
         }}
       />
     </EntityProvider>
@@ -97,7 +120,7 @@ describe('ResourceCard', () => {
 
   it('renders entry card with explicit master crn', async () => {
     const { getByTestId, getByText } = renderResourceCard({
-      entryUrn: resolvableEntryUrnWithExplicitMaster,
+      entityUrn: resolvableEntryUrnWithExplicitMaster,
     });
     const tooltipContent = `Space: ${space.name} (Env.: ${publishedEntry.sys.environment.sys.id})`;
 
@@ -110,7 +133,7 @@ describe('ResourceCard', () => {
 
   it('renders entry card with a non master environment', async () => {
     const { getByTestId, getByText } = renderResourceCard({
-      entryUrn: resolvableEntryUrnWithAnotherEnvironment,
+      entityUrn: resolvableEntryUrnWithAnotherEnvironment,
     });
 
     await waitFor(() => expect(getByTestId('cf-ui-entry-card')).toBeDefined());
@@ -128,7 +151,7 @@ describe('ResourceCard', () => {
     expect(getByTestId('cf-ui-skeleton-form')).toBeDefined();
   });
 
-  it('renders unsupported entity card when unsupported link is passed', async () => {
+  it('renders unsupported entity card when resource type is unknown', async () => {
     const { getByText } = renderResourceCard({ linkType: 'Contentful:UnsupportedLink' });
 
     await waitFor(() =>
@@ -139,14 +162,34 @@ describe('ResourceCard', () => {
   });
 
   it('renders missing entity card when unknown error is returned', async () => {
-    const { getByTestId } = renderResourceCard({ entryUrn: unknownEntryUrn });
+    const { getByTestId } = renderResourceCard({ entityUrn: unknownEntryUrn });
 
     await waitFor(() => expect(getByTestId('cf-ui-missing-entry-card')).toBeDefined());
   });
 
   it('renders missing entity card when crn is invalid', async () => {
-    const { getByTestId } = renderResourceCard({ entryUrn: '' });
+    const { getByTestId } = renderResourceCard({ entityUrn: '' });
 
     await waitFor(() => expect(getByTestId('cf-ui-missing-entry-card')).toBeDefined());
+  });
+
+  it('renders missing entity card when external urn is invalid', async () => {
+    const { getByTestId } = renderResourceCard({
+      linkType: resolvableExternalResourceType,
+      entityUrn: '',
+    });
+
+    await waitFor(() => expect(getByTestId('cf-ui-missing-entry-card')).toBeDefined());
+  });
+
+  it('renders entry card for external resource', async () => {
+    const { getByTestId, getByText } = renderResourceCard({
+      linkType: resolvableExternalResourceType,
+      entityUrn: resolvableExternalEntityUrn,
+    });
+
+    await waitFor(() => expect(getByTestId('cf-ui-entry-card')).toBeDefined());
+    expect(getByText(resource.fields.title)).toBeDefined();
+    expect(getByText(resourceType.name)).toBeDefined();
   });
 });

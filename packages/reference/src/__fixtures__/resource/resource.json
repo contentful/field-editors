@@ -1,0 +1,23 @@
+{
+  "fields": {
+    "title": "External Resource"
+  },
+  "sys": {
+    "type": "Resource",
+    "id": "external:entity-urn",
+    "resourceProvider": {
+      "sys": {
+        "id": "External Provider",
+        "type": "Link",
+        "linkType": "ResourceProvider"
+      }
+    },
+    "resourceType": {
+      "sys": {
+        "id": "External:ResourceType",
+        "type": "Link",
+        "linkType": "ResourceType"
+      }
+    }
+  }
+}
