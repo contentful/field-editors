@@ -4,14 +4,15 @@ import { useInView } from 'react-intersection-observer';
 import { EntryCard } from '@contentful/f36-components';
 import { SetRequired } from 'type-fest';
 
-import { useResource } from '../../common/EntityStore';
+import { isContentfulResourceInfo, useResource } from '../../common/EntityStore';
 import { ResourceEntityErrorCard } from '../../components';
 import { RenderDragFn, ResourceLink } from '../../types';
+import { ExternalResourceCard } from '../ExternalResourceCard/ExternalResourceCard';
 import { CardActionsHandlers, ContentfulEntryCard, EntryRoute } from './ContentfulEntryCard';
 
 type ResourceCardProps = {
   index?: number;
-  resourceLink?: ResourceLink;
+  resourceLink?: ResourceLink<string>;
   isDisabled: boolean;
   renderDragHandle?: RenderDragFn;
   getEntryRouteHref: (entryRoute: EntryRoute) => string;
@@ -27,29 +28,36 @@ function ExistingResourceCard(
   }
 ) {
   const { resourceLink, inView, index = 0 } = props;
-  const resourceOptions = { priority: index * -1, enabled: inView };
-  const { data, error } = useResource(
+  const resourceOptions = {
+    priority: index * -1,
+    enabled: inView,
+    allowExternal: true,
+  };
+  const { data: info, error } = useResource(
     resourceLink.sys.linkType,
     resourceLink.sys.urn,
     resourceOptions
   );
-  if (!data && !error) {
+  if (!info && !error) {
     return <ResourceCardSkeleton />;
   }
 
-  if (data) {
-    // @ts-expect-error
-    return <ContentfulEntryCard info={data} {...props} />;
+  if (!info) {
+    return (
+      <ResourceEntityErrorCard
+        linkType={resourceLink.sys.linkType}
+        error={error}
+        isDisabled={props.isDisabled}
+        onRemove={props.onRemove}
+      />
+    );
   }
 
-  return (
-    <ResourceEntityErrorCard
-      linkType={resourceLink.sys.linkType}
-      error={error}
-      isDisabled={props.isDisabled}
-      onRemove={props.onRemove}
-    />
-  );
+  if (isContentfulResourceInfo(info)) {
+    return <ContentfulEntryCard info={info} {...props} />;
+  }
+
+  return <ExternalResourceCard info={info} {...props} />;
 }
 
 function ResourceCardWrapper(props: ResourceCardProps & { inView: boolean }) {
