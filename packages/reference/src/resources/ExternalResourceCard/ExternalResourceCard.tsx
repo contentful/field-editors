@@ -15,7 +15,6 @@ import truncate from 'truncate';
 import { ExternalResourceInfo } from '../../common/EntityStore';
 import { ExternalResource, RenderDragFn } from '../../types';
 
-
 export interface ExternalResourceCardProps {
   info: ExternalResourceInfo;
   isDisabled: boolean;
@@ -45,7 +44,6 @@ const styles = {
   }),
   description: css({
     color: tokens.gray900,
-    marginBottom: 'none',
     maxWidth: '642px',
   }),
 };
@@ -67,7 +65,7 @@ function ExternalResourceCardDescription({
 
   if (!description) {
     return (
-      <Paragraph className={styles.description} isWordBreak>
+      <Paragraph className={styles.description} marginBottom="none" isWordBreak>
         {subtitle}
       </Paragraph>
     );
@@ -78,7 +76,7 @@ function ExternalResourceCardDescription({
   return (
     <>
       <Caption className={styles.subtitle}>{subtitle}</Caption>
-      <Paragraph className={styles.description} isWordBreak>
+      <Paragraph className={styles.description} marginBottom="none" isWordBreak>
         {truncatedDescription}
       </Paragraph>
     </>
@@ -169,7 +167,7 @@ export function ExternalResourceCard({
       }
     >
       <ExternalResourceCardDescription
-        subtitle={entity.fields.subtitle || `Product ID: ${entity.sys.id}`}
+        subtitle={entity.fields.subtitle}
         description={entity.fields.description}
       />
     </EntryCard>

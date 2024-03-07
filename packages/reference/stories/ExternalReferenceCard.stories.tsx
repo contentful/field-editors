@@ -37,6 +37,7 @@ const resource: ExternalResource = {
   },
   fields: {
     title: 'dress',
+    subtitle: 'Product ID: 123456789',
     description:
       'Associate Editor at Popular Science where she explores intersections of technology and art and their impact on human psychology their impact on human psychology their impact on human p...',
     externalUrl: 'https://shopify.com/dress123',
