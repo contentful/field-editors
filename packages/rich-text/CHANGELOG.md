@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.19.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.18.1...@contentful/field-editor-rich-text@3.19.0) (2024-03-07)
+
+### Features
+
+- support external resources in resource links ([#1621](https://github.com/contentful/field-editors/issues/1621)) ([ce55dd8](https://github.com/contentful/field-editors/commit/ce55dd825d6f3b9e2ad3226b1d46cabb7cc62f32))
+
 ## [3.18.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.18.0...@contentful/field-editor-rich-text@3.18.1) (2024-03-05)
 
 ### Bug Fixes

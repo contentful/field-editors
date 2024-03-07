@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.23.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.22.6...@contentful/field-editor-reference@5.23.0) (2024-03-07)
+
+### Features
+
+- support external resources in resource links ([#1621](https://github.com/contentful/field-editors/issues/1621)) ([ce55dd8](https://github.com/contentful/field-editors/commit/ce55dd825d6f3b9e2ad3226b1d46cabb7cc62f32))
+
 ## [5.22.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.22.5...@contentful/field-editor-reference@5.22.6) (2024-02-28)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
