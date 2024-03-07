@@ -37,7 +37,8 @@ const resource: ExternalResource = {
   },
   fields: {
     title: 'dress',
-    description: 'This is a nice dress',
+    description:
+      'Associate Editor at Popular Science where she explores intersections of technology and art and their impact on human psychology their impact on human psychology their impact on human p...',
     externalUrl: 'https://shopify.com/dress123',
     image: {
       url: 'https://picsum.photos/200/300 ',
@@ -61,7 +62,7 @@ const resourceType: ResourceType = {
       },
     },
   },
-  name: 'Shopify product',
+  name: 'Product',
 };
 
 export const Default: Story = {
