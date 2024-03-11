@@ -215,6 +215,7 @@ export const openZenMode = (
     width: 'fullWidth',
     shouldCloseOnEscapePress: false,
     shouldCloseOnOverlayClick: true,
+    allowHeightOverflow: true,
     parameters: {
       type: MarkdownDialogType.zenMode,
       initialValue: options.initialValue,

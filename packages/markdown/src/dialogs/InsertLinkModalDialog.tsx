@@ -94,7 +94,8 @@ export const InsertLinkModal = ({ selectedText, onClose }: InsertLinkModalProps)
           testId="insert-link-cancel"
           onClick={() => onClose(false)}
           variant="secondary"
-          size="small">
+          size="small"
+        >
           Cancel
         </Button>
         <Button
@@ -104,7 +105,8 @@ export const InsertLinkModal = ({ selectedText, onClose }: InsertLinkModalProps)
           }}
           isDisabled={!urlIsValid}
           variant="positive"
-          size="small">
+          size="small"
+        >
           Insert
         </Button>
       </ModalControls>
@@ -122,6 +124,7 @@ export const openInsertLinkDialog = (
     minHeight: '410px',
     shouldCloseOnEscapePress: true,
     shouldCloseOnOverlayClick: true,
+    allowHeightOverflow: true,
     parameters: {
       type: MarkdownDialogType.insertLink,
       ...params,

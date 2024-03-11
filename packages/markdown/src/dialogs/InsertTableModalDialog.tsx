@@ -88,7 +88,8 @@ export const InsertTableModal = ({ onClose }: InsertTableModalProps) => {
           testId="insert-table-cancel"
           onClick={() => onClose(false)}
           variant="secondary"
-          size="small">
+          size="small"
+        >
           Cancel
         </Button>
         <Button
@@ -96,7 +97,8 @@ export const InsertTableModal = ({ onClose }: InsertTableModalProps) => {
           onClick={() => onClose({ rows, cols })}
           variant="positive"
           size="small"
-          isDisabled={!rowsAreValid || !colsAreValid}>
+          isDisabled={!rowsAreValid || !colsAreValid}
+        >
           Insert
         </Button>
       </ModalControls>
@@ -111,6 +113,7 @@ export const openInsertTableDialog = (dialogs: DialogsAPI): Promise<InsertTableM
     minHeight: '260px',
     shouldCloseOnEscapePress: true,
     shouldCloseOnOverlayClick: true,
+    allowHeightOverflow: true,
     parameters: {
       type: MarkdownDialogType.insertTable,
     } as MarkdownDialogsParams,

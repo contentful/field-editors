@@ -89,6 +89,7 @@ export const openConfirmInsertAsset = (
     minHeight: '270px',
     shouldCloseOnEscapePress: true,
     shouldCloseOnOverlayClick: true,
+    allowHeightOverflow: true,
     parameters: {
       type: MarkdownDialogType.confirmInsertAsset,
       ...options,

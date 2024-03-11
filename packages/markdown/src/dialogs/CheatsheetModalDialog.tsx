@@ -159,6 +159,7 @@ export const openCheatsheetModal = (dialogs: DialogsAPI): Promise<void> => {
     minHeight: '415px',
     shouldCloseOnEscapePress: true,
     shouldCloseOnOverlayClick: true,
+    allowHeightOverflow: true,
     parameters: {
       type: MarkdownDialogType.cheatsheet,
     } as MarkdownDialogsParams,
