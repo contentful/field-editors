@@ -40,7 +40,6 @@ const defaultProps = {
 const styles = {
   subtitle: css({
     color: tokens.gray600,
-    marginBottom: 'none',
   }),
   description: css({
     color: tokens.gray900,
@@ -71,7 +70,7 @@ function ExternalResourceCardDescription({
     );
   }
 
-  const truncatedDescription = truncate(description, 500, {});
+  const truncatedDescription = truncate(description, 180, {});
 
   return (
     <>

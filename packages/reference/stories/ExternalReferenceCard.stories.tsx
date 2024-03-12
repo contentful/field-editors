@@ -117,7 +117,7 @@ export const WithMultipleCardsHavingMultipleStatuses: Story = {
     const mitt = newReferenceEditorFakeSdk()[1];
     return (
       <div>
-        <Flex flexDirection="column" gap="spacingS">
+        <Flex flexDirection="column" gap="spacingS" style={{ width: '752px' }}>
           {(['positive', 'negative', 'primary', 'secondary', 'warning'] as const).map((variant) => (
             <ExternalResourceCard
               key={variant}
