@@ -43,7 +43,6 @@ const styles = {
   }),
   description: css({
     color: tokens.gray900,
-    maxWidth: '642px',
   }),
 };
 
@@ -70,7 +69,7 @@ function ExternalResourceCardDescription({
     );
   }
 
-  const truncatedDescription = truncate(description, 180, {});
+  const truncatedDescription = truncate(description, 95, {});
 
   return (
     <>
