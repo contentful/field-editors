@@ -190,6 +190,8 @@ describe('ResourceCard', () => {
 
     await waitFor(() => expect(getByTestId('cf-ui-entry-card')).toBeDefined());
     expect(getByText(resource.fields.title)).toBeDefined();
-    expect(getByText(resourceType.name)).toBeDefined();
+    expect(
+      getByText(`${resourceType.sys.resourceProvider.sys.id} ${resourceType.name}`)
+    ).toBeDefined();
   });
 });

@@ -1,6 +1,7 @@
 {
   "fields": {
-    "title": "External Resource"
+    "title": "External Resource",
+    "subtitle": "Product ID: 123456789"
   },
   "sys": {
     "type": "Resource",

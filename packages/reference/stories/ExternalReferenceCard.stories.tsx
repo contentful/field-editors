@@ -37,7 +37,9 @@ const resource: ExternalResource = {
   },
   fields: {
     title: 'dress',
-    description: 'This is a nice dress',
+    subtitle: 'Product ID: 123456789',
+    description:
+      'Associate Editor at Popular Science where she explores intersections of technology and art and their impact on human psychology their impact on human psychology their impact on human p...',
     externalUrl: 'https://shopify.com/dress123',
     image: {
       url: 'https://picsum.photos/200/300 ',
@@ -61,7 +63,7 @@ const resourceType: ResourceType = {
       },
     },
   },
-  name: 'Shopify product',
+  name: 'Product',
 };
 
 export const Default: Story = {
@@ -115,7 +117,7 @@ export const WithMultipleCardsHavingMultipleStatuses: Story = {
     const mitt = newReferenceEditorFakeSdk()[1];
     return (
       <div>
-        <Flex flexDirection="column" gap="spacingS">
+        <Flex flexDirection="column" gap="spacingS" style={{ width: '752px' }}>
           {(['positive', 'negative', 'primary', 'secondary', 'warning'] as const).map((variant) => (
             <ExternalResourceCard
               key={variant}
