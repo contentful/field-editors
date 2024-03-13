@@ -140,6 +140,8 @@ workflows:
           context: vault
       - component-tests:
           context: vault
+      - integration-tests:
+          context: vault
       - release:
           context: vault
           filters:
@@ -148,3 +150,4 @@ workflows:
           requires:
             - lint
             - unit-tests
+            - integration-tests
