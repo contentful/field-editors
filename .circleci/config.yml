@@ -141,7 +141,14 @@ workflows:
       - component-tests:
           context: vault
       - integration-tests:
+          name: integration-<< matrix.executor >>-<< matrix.browser >>
           context: vault
+          matrix:
+            alias: integration-tests-linux
+            parameters:
+              executor: [linux-cypress]
+              # firefox has been disabled temporarily until further investigation
+              browser: [chrome, edge]
       - release:
           context: vault
           filters:
@@ -150,3 +157,4 @@ workflows:
           requires:
             - lint
             - unit-tests
+            - integration-tests-linux
