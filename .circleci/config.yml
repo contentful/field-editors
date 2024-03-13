@@ -150,4 +150,3 @@ workflows:
           requires:
             - lint
             - unit-tests
-            - integration-tests
