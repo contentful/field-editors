@@ -61,6 +61,38 @@ jobs:
       - store_test_results:
           path: reports
 
+  integration-tests:
+    parameters:
+      executor:
+        type: executor
+      browser:
+        type: enum
+        # firefox has been disabled temporarily until further investigation
+        enum: [chrome, edge]
+
+    parallelism: 3
+    executor: << parameters.executor >>
+    steps:
+      - checkout
+      - yarn_install
+      - run: yarn build
+      - run: yarn build-storybook
+      - yarn_serve
+      - run:
+          command: |
+            TESTFILES=$(circleci tests glob "cypress/e2e/**/*.ts" | circleci tests split --split-by=timings --timings-type=filename | awk '{if (NR>1) printf ","; printf "%s", $0} END {if (NR>0) printf " "}')
+            npx cypress run \
+              --spec "${TESTFILES}" \
+              --reporter junit \
+              --reporter-options "mochaFile=./cypress/reports/e2e/test-results.[hash].xml" \
+              --browser << parameters.browser >>
+      - store_test_results:
+          path: cypress/reports/e2e
+      - store_artifacts:
+          path: cypress/screenshots
+      - store_artifacts:
+          path: cypress/videos
+
   component-tests:
     parallelism: 3
     executor: linux-cypress
