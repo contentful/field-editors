@@ -52,12 +52,16 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
     );
   }, [props.value, plugins]);
 
+  // Force text direction based on editor locale
+  const direction = sdk.locales.direction[sdk.field.locale] ?? 'ltr';
+
   const classNames = cx(
     styles.editor,
     props.minHeight !== undefined ? css({ minHeight: props.minHeight }) : undefined,
     props.maxHeight !== undefined ? css({ maxHeight: props.maxHeight }) : undefined,
     props.isDisabled ? styles.disabled : styles.enabled,
-    props.isToolbarHidden && styles.hiddenToolbar
+    props.isToolbarHidden && styles.hiddenToolbar,
+    direction === 'rtl' ? styles.rtl : styles.ltr
   );
 
   return (

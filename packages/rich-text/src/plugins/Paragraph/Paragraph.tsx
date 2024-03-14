@@ -10,6 +10,7 @@ const styles = {
   [BLOCKS.PARAGRAPH]: css`
     line-height: ${tokens.lineHeightDefault};
     margin-bottom: 1.5em;
+    direction: inherit;
   `,
 };
 

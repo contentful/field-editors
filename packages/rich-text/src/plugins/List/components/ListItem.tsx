@@ -8,6 +8,7 @@ const style = css`
   margin: 0;
   list-style: inherit;
   margin-top: ${tokens.spacingXs};
+  direction: inherit;
 
   ol,
   ul {
