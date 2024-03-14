@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.19.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.19.1...@contentful/field-editor-rich-text@3.19.2) (2024-03-14)
+
+### Bug Fixes
+
+- **rich-text:** respect sdk.field.locale text direction [ZEND-4773] ([#1624](https://github.com/contentful/field-editors/issues/1624)) ([2b24b18](https://github.com/contentful/field-editors/commit/2b24b1877070e375f7d70c055bcce932dcd7960c))
+
 ## [3.19.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.19.0...@contentful/field-editor-rich-text@3.19.1) (2024-03-12)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
