@@ -200,7 +200,7 @@ async function fetchExternalResource({
         cmaClient.raw
           .get<CollectionResponse<ExternalResource>>(
             `/spaces/${spaceId}/environments/${environmentId}/resource_types/${resourceType}/resources`,
-            { params: { 'sys.urn[in]': urn } }
+            { params: { 'sys.id[in]': urn } }
           )
           .then(({ items }) => items[0] ?? null),
       options
