@@ -108,6 +108,33 @@ export const WithEditActions: Story = {
   },
 };
 
+export const WithSelectedState: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
+  render: () => {
+    const isInitiallyDisabled = !!window.localStorage.getItem('initialDisabled');
+    const mitt = newReferenceEditorFakeSdk()[1];
+    return (
+      <div>
+        <ExternalResourceCard
+          info={{ resource, resourceType }}
+          isDisabled={isInitiallyDisabled}
+          onRemove={() => {
+            console.log('Removed');
+          }}
+          onEdit={() => {
+            console.log('edited');
+          }}
+          hasCardEditActions={true}
+          isSelected={true}
+        />
+        <ActionsPlayground mitt={mitt} />
+      </div>
+    );
+  },
+};
+
 export const WithMultipleCardsHavingMultipleStatuses: Story = {
   parameters: {
     controls: { hideNoControlsWarning: true },

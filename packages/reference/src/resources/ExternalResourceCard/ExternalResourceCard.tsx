@@ -95,6 +95,7 @@ export function ExternalResourceCard({
   hasCardRemoveActions,
   renderDragHandle,
   onClick,
+  isSelected,
 }: ExternalResourceCardProps) {
   const { resource: entity, resourceType } = info;
   const badge = ExternalEntityBadge(entity.fields.badge);
@@ -113,6 +114,7 @@ export function ExternalResourceCard({
       dragHandleRender={renderDragHandle}
       withDragHandle={!!renderDragHandle}
       badge={badge}
+      isSelected={isSelected}
       actions={[
         hasCardEditActions && onEdit ? (
           <MenuItem
