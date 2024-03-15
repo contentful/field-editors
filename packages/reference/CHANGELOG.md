@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.25.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.24.0...@contentful/field-editor-reference@5.25.0) (2024-03-15)
+
+### Features
+
+- enable isSelected option on the external resource cards [DANTE-1329] ([#1625](https://github.com/contentful/field-editors/issues/1625)) ([5edfaad](https://github.com/contentful/field-editors/commit/5edfaade1983a316366acc8bee90b47435bccac5))
+
 # [5.24.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.23.0...@contentful/field-editor-reference@5.24.0) (2024-03-12)
 
 ### Features
