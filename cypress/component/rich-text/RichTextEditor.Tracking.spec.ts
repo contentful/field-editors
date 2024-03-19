@@ -9,10 +9,10 @@ import { mountRichTextEditor } from './utils';
 // the sticky toolbar gets in the way of some of the tests, therefore
 // we increase the viewport height to fit the whole page on the screen
 
-describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
+describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1000 }, () => {
   let richText: RichTextPage;
 
-  const action = (action, origin, payload = {}) => [
+  const action = (action: string, origin: string, payload: Record<string, any> = {}) => [
     action,
     {
       origin,
@@ -250,13 +250,13 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
       });
 
       it(`tracks ${label} (${type}) via hotkeys ${shortcut}`, () => {
-        richText.editor.click().type(shortcut);
+        richText.editor.click().type('Heading').type('{selectall}').type(shortcut);
         cy.get('@onAction').should(
           'be.calledWithExactly',
           ...insert('shortcut', { nodeType: type })
         );
 
-        richText.editor.click().type(shortcut);
+        richText.editor.click().type('{selectall}').type(shortcut);
         cy.get('@onAction').should(
           'be.calledWithExactly',
           ...remove('shortcut', { nodeType: type })
@@ -584,8 +584,8 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
           const form = richText.forms.hyperlink;
 
           form.linkType.select('entry-hyperlink');
-
           form.linkEntityTarget.click();
+          richText.forms.embed.confirm();
 
           form.submit.click();
           cy.get('@onAction').should('be.calledWithExactly', ...insertEntryHyperlink(origin));
@@ -604,6 +604,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
           form.linkType.select('asset-hyperlink');
           form.linkEntityTarget.click();
+          richText.forms.embed.confirm();
 
           form.submit.click();
           cy.get('@onAction').should('be.calledWithExactly', ...insertAssetHyperlink(origin));
@@ -634,6 +635,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
           form.linkType.select('entry-hyperlink');
           form.linkEntityTarget.click();
+          richText.forms.embed.confirm();
 
           form.submit.click();
           cy.get('@onAction').should('be.calledWithExactly', ...editEntryHyperlink());
@@ -646,6 +648,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
 
           form.linkType.select('asset-hyperlink');
           form.linkEntityTarget.click();
+          richText.forms.embed.confirm();
 
           form.submit.click();
           cy.get('@onAction').should('be.calledWithExactly', ...editAssetHyperlink());
@@ -669,19 +672,21 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
   });
 
   describe('Embedded Entry Blocks', () => {
-    const methods: [string, string, () => void][] = [
+    const methods: [string, string, (action: 'cancel' | 'confirm') => void][] = [
       [
         'using the toolbar button',
         'toolbar-icon',
-        () => {
-          richText.toolbar.embed('entry-block');
+        (action) => {
+          richText.toolbar.embed('entry-block', false);
+          richText.forms.embed[action]();
         },
       ],
       [
         'using the keyboard shortcut',
         'shortcut',
-        () => {
+        (action) => {
           richText.editor.type(`{${mod}+shift+e}`);
+          richText.forms.embed[action]();
         },
       ],
     ];
@@ -691,7 +696,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         it('tracks when inserting embedded entry block', () => {
           richText.editor.click();
 
-          triggerEmbeddedEntry();
+          triggerEmbeddedEntry('confirm');
           cy.get('@onAction').should(
             'be.calledWithExactly',
             ...openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_ENTRY)
@@ -705,13 +710,10 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
           cy.get('@onAction').should('have.callCount', 3);
         });
 
-        // FIX: Add embed dialog mock to emulate entity selection/cancel embed
-        // Removed here: https://github.com/contentful/field-editors/pull/1565
-        // eslint-disable-next-line mocha/no-skipped-tests
-        it.skip('cancels without adding the entry block', () => {
+        it('cancels without adding the entry block', () => {
           richText.editor.click();
 
-          triggerEmbeddedEntry();
+          triggerEmbeddedEntry('cancel');
           cy.get('@onAction').should(
             'be.calledWithExactly',
             ...openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_ENTRY)
@@ -728,19 +730,23 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
   });
 
   describe('Embedded Asset Blocks', () => {
-    const methods: [string, string, () => void][] = [
+    const embedType = 'asset-block';
+
+    const methods: [string, string, (action: 'confirm' | 'cancel') => void][] = [
       [
         'using the toolbar button',
         'toolbar-icon',
-        () => {
-          richText.toolbar.embed('asset-block');
+        (action) => {
+          richText.toolbar.embed(embedType, false);
+          richText.forms.embed[action]();
         },
       ],
       [
         'using the keyboard shortcut',
         'shortcut',
-        () => {
+        (action) => {
           richText.editor.type(`{${mod}+shift+a}`);
+          richText.forms.embed[action]();
         },
       ],
     ];
@@ -750,7 +756,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         it('tracks when inserting embedded asset block', () => {
           richText.editor.click();
 
-          triggerEmbeddedAsset();
+          triggerEmbeddedAsset('confirm');
           cy.get('@onAction').should(
             'be.calledWithExactly',
             ...openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_ASSET)
@@ -764,13 +770,10 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
           cy.get('@onAction').should('have.callCount', 3);
         });
 
-        // FIX: Add embed dialog mock to emulate entity selection/cancel embed
-        // Removed here: https://github.com/contentful/field-editors/pull/1565
-        // eslint-disable-next-line mocha/no-skipped-tests
-        it.skip('cancels without adding the entry asset', () => {
+        it('cancels without adding the entry asset', () => {
           richText.editor.click();
 
-          triggerEmbeddedAsset();
+          triggerEmbeddedAsset('cancel');
           cy.get('@onAction').should(
             'be.calledWithExactly',
             ...openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_ASSET)
@@ -787,19 +790,21 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
   });
 
   describe('Embedded Resource Blocks', () => {
-    const methods: [string, string, () => void][] = [
+    const methods: [string, string, (action: 'cancel' | 'confirm') => void][] = [
       [
         'using the toolbar button',
         'toolbar-icon',
-        () => {
-          richText.toolbar.embed('resource-block');
+        (action) => {
+          richText.toolbar.embed('resource-block', false);
+          richText.forms.embed[action]();
         },
       ],
       [
         'using the keyboard shortcut',
         'shortcut',
-        () => {
+        (action) => {
           richText.editor.type(`{${mod}+shift+s}`);
+          richText.forms.embed[action]();
         },
       ],
     ];
@@ -809,7 +814,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         it('tracks when inserting embedded resource block', () => {
           richText.editor.click();
 
-          triggerEmbeddedResource();
+          triggerEmbeddedResource('confirm');
           cy.get('@onAction').should(
             'be.calledWithExactly',
             ...openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_RESOURCE)
@@ -823,13 +828,10 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
           cy.get('@onAction').should('have.callCount', 3);
         });
 
-        // FIX: Add embed dialog mock to emulate entity selection/cancel embed
-        // Removed here: https://github.com/contentful/field-editors/pull/1565
-        // eslint-disable-next-line mocha/no-skipped-tests
-        it.skip('cancels without adding the resource block', () => {
+        it('cancels without adding the resource block', () => {
           richText.editor.click();
 
-          triggerEmbeddedResource();
+          triggerEmbeddedResource('cancel');
           cy.get('@onAction').should(
             'be.calledWithExactly',
             ...openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_RESOURCE)
@@ -846,19 +848,21 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
   });
 
   describe('Embedded Entry Inlines', () => {
-    const methods: [string, string, () => void][] = [
+    const methods: [string, string, (action: 'cancel' | 'confirm') => void][] = [
       [
         'using the toolbar button',
         'toolbar-icon',
-        () => {
-          richText.toolbar.embed('entry-inline');
+        (action) => {
+          richText.toolbar.embed('entry-inline', false);
+          richText.forms.embed[action]();
         },
       ],
       [
         'using the keyboard shortcut',
         'shortcut',
-        () => {
+        (action) => {
           richText.editor.type(`{${mod}+shift+2}`);
+          richText.forms.embed[action]();
         },
       ],
     ];
@@ -868,7 +872,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
         it('tracks when inserting embedded asset block', () => {
           richText.editor.click();
 
-          triggerEmbeddedInline();
+          triggerEmbeddedInline('confirm');
           cy.get('@onAction').should(
             'be.calledWithExactly',
             ...openCreateEmbedDialog(origin, INLINES.EMBEDDED_ENTRY)
@@ -882,13 +886,10 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000 }, () => {
           cy.get('@onAction').should('have.callCount', 3);
         });
 
-        // FIX: Add embed dialog mock to emulate entity selection/cancel embed
-        // Removed here: https://github.com/contentful/field-editors/pull/1565
-        // eslint-disable-next-line mocha/no-skipped-tests
-        it.skip('cancels without adding the entry asset', () => {
+        it('cancels without adding the entry asset', () => {
           richText.editor.click();
 
-          triggerEmbeddedInline();
+          triggerEmbeddedInline('cancel');
           cy.get('@onAction').should(
             'be.calledWithExactly',
             ...openCreateEmbedDialog(origin, INLINES.EMBEDDED_ENTRY)

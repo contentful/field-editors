@@ -2,6 +2,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { INLINES } from '@contentful/rich-text-types';
 
+import { cancelFakeDialog, confirmFakeDialog } from '../../fixtures';
+
 export type EmbedType =
   | 'entry-block'
   | 'asset-block'
@@ -77,9 +79,12 @@ export class RichTextPage {
         return cy.findByTestId('toolbar-entity-dropdown-toggle');
       },
 
-      embed(type: EmbedType) {
+      embed(type: EmbedType, autoConfirm: boolean = true) {
         this.embedDropdown.click();
         cy.findByTestId(`toolbar-toggle-embedded-${type}`).click();
+        if (autoConfirm) {
+          confirmFakeDialog();
+        }
       },
     };
   }
@@ -88,6 +93,12 @@ export class RichTextPage {
     return {
       get hyperlink() {
         return new HyperLinkModal();
+      },
+      get embed() {
+        return {
+          cancel: cancelFakeDialog,
+          confirm: confirmFakeDialog,
+        };
       },
     };
   }

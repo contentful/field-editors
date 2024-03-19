@@ -1,3 +1,6 @@
+import React from 'react';
+import type { ReactElement } from 'react-markdown/lib/react-markdown';
+
 import type {
   ContentType,
   FieldAPI,
@@ -7,6 +10,14 @@ import type {
   Asset,
 } from '@contentful/app-sdk';
 import {
+  AssetCard,
+  Button,
+  EntryCard,
+  ModalContent,
+  ModalControls,
+} from '@contentful/f36-components';
+import { ModalDialogLauncher } from '@contentful/field-editor-shared';
+import {
   createFakeCMAAdapter,
   createFakeFieldAPI,
   createFakeLocalesAPI,
@@ -14,10 +25,51 @@ import {
 } from '@contentful/field-editor-test-utils';
 import type { LocaleProps } from 'contentful-management';
 
-import { assets, entries, spaces } from '../../packages/rich-text/src/__fixtures__/fixtures';
+import { assets, entries, resources } from '../../packages/rich-text/src/__fixtures__/fixtures';
 import { createFakeNavigatorAPI } from './navigator';
 import { createFakePubsub } from './pubsub';
 import { createDefaultFakeStore, Store } from './store';
+
+const ID = 'fake-dialog';
+
+export function cancelFakeDialog() {
+  cy.findByTestId(`${ID}-cancel-cta`).click();
+}
+
+export function confirmFakeDialog() {
+  cy.findByTestId(`${ID}-confirm-cta`).click();
+}
+
+function createOpenDialog(component: ReactElement, value: any) {
+  return () =>
+    ModalDialogLauncher.openDialog({ title: 'Rich Text Embed Dialog Mock' }, ({ onClose }) => {
+      return (
+        <>
+          <ModalContent>{component}</ModalContent>
+          <ModalControls>
+            <Button
+              type="button"
+              onClick={() => onClose(null)}
+              variant="secondary"
+              testId={`${ID}-cancel-cta`}
+              size="small"
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              variant="positive"
+              onClick={() => onClose(value)}
+              testId={`${ID}-confirm-cta`}
+              size="small"
+            >
+              Submit
+            </Button>
+          </ModalControls>
+        </>
+      );
+    }) as Promise<any>;
+}
 
 type RichTextFakeSdkProps = {
   store?: Store;
@@ -153,17 +205,23 @@ export function createRichTextFakeSdk(props?: RichTextFakeSdkProps): FieldAppSDK
       },
     },
     dialogs: {
-      selectSingleAsset: async () => assets.published,
+      selectSingleAsset: createOpenDialog(
+        <AssetCard
+          src={assets.published.fields.file['en-US'].url}
+          title={assets.published.fields.title['en-US']}
+        />,
+        assets.published
+      ),
       selectMultipleAssets: async () => [assets.published, assets.changed],
-      selectSingleEntry: async () => entries.published,
+      selectSingleEntry: createOpenDialog(
+        <EntryCard title={entries.published.fields.exField['en-US']} />,
+        entries.published
+      ),
+      selectSingleResourceEntity: createOpenDialog(
+        <EntryCard title={resources.published.sys.urn} />,
+        resources.published
+      ),
       selectMultipleEntries: async () => [entries.published, entries.changed],
-      selectSingleResourceEntity: async () => ({
-        sys: {
-          urn: `crn:contentful:::content:spaces/${spaces.indifferent.sys.id}/entries/${entries.published.sys.id}`,
-          type: 'ResourceLink',
-          linkType: 'Contentful:Entry',
-        },
-      }),
     },
     entry: {
       getSys: () => entries.published.sys,

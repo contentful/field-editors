@@ -13,7 +13,7 @@ import { mountRichTextEditor } from './utils';
 // the sticky toolbar gets in the way of some of the tests, therefore
 // we increase the viewport height to fit the whole page on the screen
 
-describe('Rich Text Editor - Links', { viewportHeight: 2000 }, () => {
+describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000 }, () => {
   let richText: RichTextPage;
 
   beforeEach(() => {
@@ -138,12 +138,15 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000 }, () => {
 
         cy.findByTestId('cf-ui-entry-card').should('not.exist');
         form.linkEntityTarget.should('have.text', 'Select entry').click();
+        richText.forms.embed.confirm();
+
         cy.findByTestId('cf-ui-entry-card').should('exist');
 
         form.linkEntityTarget.should('have.text', 'Remove selection').click();
         cy.findByTestId('cf-ui-entry-card').should('not.exist');
 
         form.linkEntityTarget.should('have.text', 'Select entry').click();
+        richText.forms.embed.confirm();
         cy.findByTestId('cf-ui-entry-card').should('exist');
 
         form.submit.click();
@@ -172,12 +175,14 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000 }, () => {
 
         cy.findByTestId('cf-ui-entry-card').should('not.exist');
         form.linkEntityTarget.should('have.text', 'Select entry').click();
+        richText.forms.embed.confirm();
         cy.findByTestId('cf-ui-entry-card').should('exist');
 
         form.linkEntityTarget.should('have.text', 'Remove selection').click();
         cy.findByTestId('cf-ui-entry-card').should('not.exist');
 
         form.linkEntityTarget.should('have.text', 'Select entry').click();
+        richText.forms.embed.confirm();
         cy.findByTestId('cf-ui-entry-card').should('exist');
 
         form.submit.click();
@@ -216,12 +221,14 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000 }, () => {
 
         cy.findByTestId('cf-ui-asset-card').should('not.exist');
         form.linkEntityTarget.should('have.text', 'Select asset').click();
+        richText.forms.embed.confirm();
         cy.findByTestId('cf-ui-asset-card').should('exist');
 
         form.linkEntityTarget.should('have.text', 'Remove selection').click();
         cy.findByTestId('cf-ui-asset-card').should('not.exist');
 
         form.linkEntityTarget.should('have.text', 'Select asset').click();
+        richText.forms.embed.confirm();
         cy.findByTestId('cf-ui-asset-card').should('exist');
 
         form.submit.click();
@@ -262,6 +269,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000 }, () => {
         form.linkText.should('not.exist');
         form.linkType.should('have.value', 'hyperlink').select('entry-hyperlink');
         form.linkEntityTarget.should('have.text', 'Select entry').click();
+        richText.forms.embed.confirm();
         form.submit.click();
 
         expectDocumentStructure(
@@ -280,6 +288,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000 }, () => {
         form.linkText.should('not.exist');
         form.linkType.should('have.value', 'entry-hyperlink').select('asset-hyperlink');
         form.linkEntityTarget.should('have.text', 'Select asset').click();
+        richText.forms.embed.confirm();
         form.submit.click();
 
         expectDocumentStructure(
@@ -298,6 +307,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000 }, () => {
         form.linkText.should('not.exist');
         form.linkType.should('have.value', 'asset-hyperlink').select('resource-hyperlink');
         form.linkEntityTarget.should('have.text', 'Select entry').click();
+        richText.forms.embed.confirm();
         form.submit.click();
 
         expectDocumentStructure(
