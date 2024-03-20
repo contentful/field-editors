@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.26.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.25.0...@contentful/field-editor-reference@5.26.0) (2024-03-20)
+
+### Features
+
+- update external resource entity format ([#1628](https://github.com/contentful/field-editors/issues/1628)) ([9221953](https://github.com/contentful/field-editors/commit/9221953eb6760147bae0316687a1200efa82d7de))
+
 # [5.25.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.24.0...@contentful/field-editor-reference@5.25.0) (2024-03-15)
 
 ### Features
