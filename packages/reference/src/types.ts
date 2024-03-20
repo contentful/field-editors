@@ -41,7 +41,7 @@ export type ResourceType = {
 export interface ExternalResource {
   sys: {
     type: 'Resource';
-    id: string;
+    urn: string;
     resourceProvider: SysExternalResource<'ResourceProvider'>;
     resourceType: SysExternalResource<'ResourceType'>;
   };
