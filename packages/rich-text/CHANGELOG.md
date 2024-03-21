@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.19.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.19.4...@contentful/field-editor-rich-text@3.19.5) (2024-03-21)
+
+### Bug Fixes
+
+- remove paragraph tracking [TOL-1865] ([#1629](https://github.com/contentful/field-editors/issues/1629)) ([13612b5](https://github.com/contentful/field-editors/commit/13612b57e6e58aad6444f40a0fda7fe078bfd036))
+
 ## [3.19.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.19.3...@contentful/field-editor-rich-text@3.19.4) (2024-03-20)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
