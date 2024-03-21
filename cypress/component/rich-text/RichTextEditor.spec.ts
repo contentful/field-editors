@@ -15,7 +15,7 @@ import { mountRichTextEditor } from './utils';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
 // we increase the viewport height to fit the whole page on the screen
-describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
+describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () => {
   let richText: RichTextPage;
   let sdk: FieldAppSDK;
 
@@ -237,17 +237,13 @@ describe('Rich Text Editor', { viewportHeight: 2000 }, () => {
 
       it('should add a new line after entity block in same list item', () => {
         richText.editor.click();
-
         richText.toolbar.ul.click();
 
-        richText.editor
-          .type('some text 1')
-          .type('{enter}')
-          .type(`{${mod}+shift+e}`)
-          .type('{enter}')
-          .type('some more text')
-          .type(`{${mod}+shift+e}`)
-          .type('{enter}');
+        richText.editor.type('some text 1').type('{enter}').type(`{${mod}+shift+e}}`);
+        richText.forms.embed.confirm();
+        richText.editor.type('{enter}').type('some more text').type(`{${mod}+shift+e}}`);
+        richText.forms.embed.confirm();
+        richText.editor.type('{enter}');
 
         richText.expectValue(newLineEntityBlockListItem);
       });
