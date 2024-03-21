@@ -12,7 +12,7 @@ import { assetBlock, emptyParagraph, entryBlock, KEYS, paragraphWithText } from 
 import { RichTextPage } from './RichTextPage';
 import { mountRichTextEditor } from './utils';
 
-describe('Rich Text Lists', () => {
+describe('Rich Text Lists', { viewportHeight: 1000, viewportWidth: 2000 }, () => {
   let richText: RichTextPage;
 
   function addBlockquote(content = '') {

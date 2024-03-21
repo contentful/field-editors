@@ -8,7 +8,7 @@ import { mountRichTextEditor } from './utils';
 // the sticky toolbar gets in the way of some of the tests, therefore
 // we increase the viewport height to fit the whole page on the screen
 
-describe('Rich Text Editor - HR', { viewportHeight: 2000 }, () => {
+describe('Rich Text Editor - HR', { viewportHeight: 2000, viewportWidth: 1000 }, () => {
   let richText: RichTextPage;
   const expectDocumentToBeEmpty = () => richText.expectValue(undefined);
 
