@@ -123,8 +123,10 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
         prevOnChange(...args);
       };
 
-      const isActive = isBlockSelected(editor, type);
-      editor.tracking.onToolbarAction(isActive ? 'remove' : 'insert', { nodeType: type });
+      if (type !== BLOCKS.PARAGRAPH) {
+        const isActive = isBlockSelected(editor, type);
+        editor.tracking.onToolbarAction(isActive ? 'remove' : 'insert', { nodeType: type });
+      }
 
       toggleElement(editor, { activeType: type, inactiveType: type });
     };
