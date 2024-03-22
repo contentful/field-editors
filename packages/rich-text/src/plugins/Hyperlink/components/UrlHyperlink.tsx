@@ -28,7 +28,9 @@ type UrlHyperlinkProps = {
 };
 
 export function UrlHyperlink(props: UrlHyperlinkProps) {
-  const { editor, sdk, isLinkFocused, pathToElement } = useHyperlinkCommon(props.element);
+  const { editor, sdk, isLinkFocused, pathToElement, isEditorFocused } = useHyperlinkCommon(
+    props.element
+  );
   const uri = props.element.data?.uri;
 
   const popoverText = (
@@ -44,6 +46,7 @@ export function UrlHyperlink(props: UrlHyperlinkProps) {
       handleRemoveLink={() => handleRemoveLink(editor)}
       handleCopyLink={() => handleCopyLink(uri)}
       popoverText={popoverText}
+      isEditorFocused={isEditorFocused}
     >
       <TextLink
         testId="cf-ui-text-link"

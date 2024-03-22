@@ -8,6 +8,7 @@ import * as Slate from 'slate-react';
 const baseStyle = css`
   padding: 0;
   margin: 0 0 1.25rem 1.25rem;
+  direction: inherit;
 
   div:first-child {
     margin: 0;

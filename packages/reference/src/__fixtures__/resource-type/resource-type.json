@@ -1,0 +1,14 @@
+{
+  "sys": {
+    "type": "ResourceType",
+    "id": "External:ResourceType",
+    "resourceProvider": {
+      "sys": {
+        "type": "Link",
+        "linkType": "ResourceProvider",
+        "id": "Resource Provider"
+      }
+    }
+  },
+  "name": "Resource Type"
+}

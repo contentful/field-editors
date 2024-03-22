@@ -4,7 +4,7 @@ import { arrayMove } from '@dnd-kit/sortable';
 
 import { ReferenceValue, ResourceLink } from '../types';
 
-type Items = (ResourceLink | ReferenceValue)[];
+type Items = (ResourceLink<string> | ReferenceValue)[];
 
 export const useSortIDs = (items: Items) => {
   const ids = (items || []).map((item, index) => {

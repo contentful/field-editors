@@ -1,8 +1,7 @@
 import * as React from 'react';
 
-import { useResource } from '@contentful/field-editor-reference';
+import { Entry, useResource } from '@contentful/field-editor-reference';
 import { ResourceLink } from '@contentful/rich-text-types';
-
 import { truncateTitle } from '../../plugins/shared/utils';
 
 type ResourceEntityInfoProps = {
@@ -11,7 +10,7 @@ type ResourceEntityInfoProps = {
 };
 
 export function useResourceEntityInfo({ onEntityFetchComplete, target }: ResourceEntityInfoProps) {
-  const { data, error, status } = useResource(target.sys.linkType, target.sys.urn);
+  const { data, error, status } = useResource<Entry>(target.sys.linkType, target.sys.urn);
 
   React.useEffect(() => {
     if (status === 'success') {

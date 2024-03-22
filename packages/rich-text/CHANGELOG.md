@@ -3,6 +3,52 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.19.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.19.4...@contentful/field-editor-rich-text@3.19.5) (2024-03-21)
+
+### Bug Fixes
+
+- remove paragraph tracking [TOL-1865] ([#1629](https://github.com/contentful/field-editors/issues/1629)) ([13612b5](https://github.com/contentful/field-editors/commit/13612b57e6e58aad6444f40a0fda7fe078bfd036))
+
+## [3.19.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.19.3...@contentful/field-editor-rich-text@3.19.4) (2024-03-20)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [3.19.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.19.2...@contentful/field-editor-rich-text@3.19.3) (2024-03-15)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [3.19.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.19.1...@contentful/field-editor-rich-text@3.19.2) (2024-03-14)
+
+### Bug Fixes
+
+- **rich-text:** respect sdk.field.locale text direction [ZEND-4773] ([#1624](https://github.com/contentful/field-editors/issues/1624)) ([2b24b18](https://github.com/contentful/field-editors/commit/2b24b1877070e375f7d70c055bcce932dcd7960c))
+
+## [3.19.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.19.0...@contentful/field-editor-rich-text@3.19.1) (2024-03-12)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+# [3.19.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.18.1...@contentful/field-editor-rich-text@3.19.0) (2024-03-07)
+
+### Features
+
+- support external resources in resource links ([#1621](https://github.com/contentful/field-editors/issues/1621)) ([ce55dd8](https://github.com/contentful/field-editors/commit/ce55dd825d6f3b9e2ad3226b1d46cabb7cc62f32))
+
+## [3.18.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.18.0...@contentful/field-editor-rich-text@3.18.1) (2024-03-05)
+
+### Bug Fixes
+
+- editor focus [ZEND-4737] ([#1620](https://github.com/contentful/field-editors/issues/1620)) ([2452ef8](https://github.com/contentful/field-editors/commit/2452ef8cef5497181c002c48dbfb97a070037f67))
+
+# [3.18.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.17.7...@contentful/field-editor-rich-text@3.18.0) (2024-03-01)
+
+### Features
+
+- add rich text undo redo btns [TOL-1038] ([#1598](https://github.com/contentful/field-editors/issues/1598)) ([007db0d](https://github.com/contentful/field-editors/commit/007db0d45d07c1f33845c71e4655811b1c3d928a))
+
+## [3.17.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.17.6...@contentful/field-editor-rich-text@3.17.7) (2024-02-28)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
 ## [3.17.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.17.5...@contentful/field-editor-rich-text@3.17.6) (2024-02-23)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text

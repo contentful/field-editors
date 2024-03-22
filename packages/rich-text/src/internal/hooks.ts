@@ -16,7 +16,3 @@ export const usePlateEditorState = (id?: string) => {
 export const usePlateSelectors = (id?: string) => {
   return p.usePlateSelectors(id);
 };
-
-export const useFocused = () => {
-  return sr.useFocused();
-};

@@ -1,9 +1,10 @@
 import { EntityLink, EntryLink, ResourceLink } from '@contentful/field-editor-reference';
 
-const isResourceLink = (link: EntityLink | EntryLink | ResourceLink): link is ResourceLink =>
-  !!(link as ResourceLink).sys.urn;
+const isResourceLink = (
+  link: EntityLink | EntryLink | ResourceLink<'Contentful:Entry'>
+): link is ResourceLink<'Contentful:Entry'> => !!(link as ResourceLink<'Contentful:Entry'>).sys.urn;
 
-export const getLinkEntityId = (link: EntityLink | ResourceLink): string =>
+export const getLinkEntityId = (link: EntityLink | ResourceLink<'Contentful:Entry'>): string =>
   isResourceLink(link) ? link.sys.urn : link.sys.id;
 
 export function truncateTitle(str: string, length: number) {

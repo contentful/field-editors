@@ -37,6 +37,7 @@ const styles = {
       font-weight: ${tokens.fontWeightMedium};
       line-height: 1.3;
       margin: 0 0 ${tokens.spacingS};
+      direction: inherit;
     `,
     [BLOCKS.HEADING_1]: css`
       font-size: 1.875rem;

@@ -13,7 +13,14 @@ export default {
             {
               nodeType: 'paragraph',
               data: {},
-              content: [{ nodeType: 'text', value: 'some text 1', marks: [], data: {} }],
+              content: [
+                {
+                  nodeType: 'text',
+                  value: 'some text 1',
+                  marks: [],
+                  data: {},
+                },
+              ],
             },
           ],
         },
@@ -24,14 +31,27 @@ export default {
             {
               nodeType: 'embedded-entry-block',
               data: {
-                target: { sys: { id: 'published-entry', type: 'Link', linkType: 'Entry' } },
+                target: {
+                  sys: {
+                    id: 'published-entry',
+                    type: 'Link',
+                    linkType: 'Entry',
+                  },
+                },
               },
               content: [],
             },
             {
               nodeType: 'paragraph',
               data: {},
-              content: [{ nodeType: 'text', value: '', marks: [], data: {} }],
+              content: [
+                {
+                  nodeType: 'text',
+                  value: '',
+                  marks: [],
+                  data: {},
+                },
+              ],
             },
           ],
         },
@@ -40,27 +60,63 @@ export default {
     {
       nodeType: 'paragraph',
       data: {},
-      content: [{ nodeType: 'text', value: '', marks: [], data: {} }],
+      content: [
+        {
+          nodeType: 'text',
+          value: '',
+          marks: [],
+          data: {},
+        },
+      ],
     },
     {
       nodeType: 'paragraph',
       data: {},
-      content: [{ nodeType: 'text', value: 'some more text', marks: [], data: {} }],
+      content: [
+        {
+          nodeType: 'text',
+          value: 'some more text',
+          marks: [],
+          data: {},
+        },
+      ],
     },
     {
       nodeType: 'embedded-entry-block',
-      data: { target: { sys: { id: 'published-entry', type: 'Link', linkType: 'Entry' } } },
+      data: {
+        target: {
+          sys: {
+            id: 'published-entry',
+            type: 'Link',
+            linkType: 'Entry',
+          },
+        },
+      },
       content: [],
     },
     {
       nodeType: 'paragraph',
       data: {},
-      content: [{ nodeType: 'text', value: '', marks: [], data: {} }],
+      content: [
+        {
+          nodeType: 'text',
+          value: '',
+          marks: [],
+          data: {},
+        },
+      ],
     },
     {
       nodeType: 'paragraph',
       data: {},
-      content: [{ nodeType: 'text', value: '', marks: [], data: {} }],
+      content: [
+        {
+          nodeType: 'text',
+          value: '',
+          marks: [],
+          data: {},
+        },
+      ],
     },
   ],
 };

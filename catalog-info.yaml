@@ -1,0 +1,14 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: field-editors
+  description: |
+    A monorepo for all field editors and apps by Contentful.
+  annotations:
+    circleci.com/project-slug: github/contentful/field-editors
+    github.com/project-slug: contentful/field-editors
+    backstage.io/source-location: url:https://github.com/contentful/field-editors/
+spec:
+  type: library
+  lifecycle: production
+  owner: group:team-tolkien

@@ -52,4 +52,10 @@ export const styles = {
     background: tokens.gray100,
     cursor: 'not-allowed',
   }),
+  rtl: css({
+    direction: 'rtl',
+  }),
+  ltr: css({
+    direction: 'ltr',
+  }),
 };
