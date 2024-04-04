@@ -6,7 +6,7 @@ import tokens from '@contentful/f36-tokens';
 import { entityHelpers, isValidImage, SpaceAPI } from '@contentful/field-editor-shared';
 import { css } from 'emotion';
 
-import { AssetThumbnail, MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
+import { AssetThumbnail, MissingAssetCard, ScheduledIconWithTooltip } from '../../components';
 import { Asset, RenderDragFn } from '../../types';
 import { renderActions, renderAssetInfo } from './AssetCardActions';
 
@@ -36,13 +36,7 @@ export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
   const status = entityHelpers.getEntryStatus(props.asset.sys);
 
   if (status === 'deleted') {
-    return (
-      <MissingEntityCard
-        entityType="Asset"
-        isDisabled={props.isDisabled}
-        onRemove={props.onRemove}
-      />
-    );
+    return <MissingAssetCard isDisabled={props.isDisabled} onRemove={props.onRemove} />;
   }
 
   const entityTitle = entityHelpers.getAssetTitle({

@@ -9,7 +9,7 @@ import { entityHelpers } from '@contentful/field-editor-shared';
 import mimetype from '@contentful/mimetype';
 import { css } from 'emotion';
 
-import { MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
+import { MissingAssetCard, ScheduledIconWithTooltip } from '../../components';
 import { Asset, File, RenderDragFn } from '../../types';
 import { renderActions, renderAssetInfo } from './AssetCardActions';
 
@@ -75,14 +75,7 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
   const status = entityHelpers.getEntryStatus(props.asset.sys);
 
   if (status === 'deleted') {
-    return (
-      <MissingEntityCard
-        entityType="Asset"
-        asSquare
-        isDisabled={props.isDisabled}
-        onRemove={props.onRemove}
-      />
-    );
+    return <MissingAssetCard asSquare isDisabled={props.isDisabled} onRemove={props.onRemove} />;
   }
 
   const entityTitle = entityHelpers.getAssetTitle({
