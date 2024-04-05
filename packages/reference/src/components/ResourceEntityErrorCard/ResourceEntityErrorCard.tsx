@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { isUnsupportedError } from '../../common/EntityStore';
+import { getProviderName } from '../../utils/getProviderName';
 import { MissingEntityCard } from '../MissingEntityCard/MissingEntityCard';
 import { UnsupportedEntityCard } from './UnsupportedEntityCard';
 
@@ -15,12 +16,14 @@ export function ResourceEntityErrorCard(props: {
     return <UnsupportedEntityCard linkType={props.linkType} isSelected={props.isSelected} />;
   }
 
+  const providerName = getProviderName(props.linkType);
+
   return (
     <MissingEntityCard
-      entityType="Entry"
       isDisabled={props.isDisabled}
       isSelected={props.isSelected}
       onRemove={props.onRemove}
+      providerName={providerName}
     />
   );
 }

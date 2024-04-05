@@ -78,13 +78,7 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
   const status = getEntryStatus(props.entry?.sys);
 
   if (status === 'deleted') {
-    return (
-      <MissingEntityCard
-        entityType="Entry"
-        isDisabled={props.isDisabled}
-        onRemove={props.onRemove}
-      />
-    );
+    return <MissingEntityCard isDisabled={props.isDisabled} onRemove={props.onRemove} />;
   }
 
   const title = getEntryTitle({

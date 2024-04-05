@@ -27,13 +27,7 @@ const InternalAssetCard = React.memo((props: InternalAssetCardProps) => {
   }
 
   if (props.asset === 'failed') {
-    return (
-      <MissingEntityCard
-        entityType="Asset"
-        isDisabled={props.isDisabled}
-        onRemove={props.onRemove}
-      />
-    );
+    return <MissingEntityCard isDisabled={props.isDisabled} onRemove={props.onRemove} />;
   }
 
   return (

@@ -48,7 +48,7 @@
     "@babel/preset-react": "7.13.13",
     "@commitlint/cli": "18.5.0",
     "@commitlint/config-conventional": "18.4.4",
-    "@contentful/f36-components": "4.57.0",
+    "@contentful/f36-components": "^4.62.0",
     "@contentful/f36-tokens": "4.0.1",
     "@cypress/react": "7.0.3",
     "@storybook/addon-actions": "7.6.14",

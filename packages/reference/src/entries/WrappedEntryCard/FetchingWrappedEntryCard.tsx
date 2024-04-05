@@ -105,9 +105,9 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
     if (status === 'error') {
       const card = (
         <MissingEntityCard
-          entityType="Entry"
           isDisabled={props.isDisabled}
           onRemove={onRemoveEntry}
+          providerName="Contentful"
         />
       );
       if (props.renderCustomMissingEntityCard) {
