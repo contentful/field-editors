@@ -95,5 +95,5 @@ test('renders unsupported entity card when unsupported link is passed', async ()
 test('renders missing entity card when unknown error is returned', async () => {
   const { getByTestId } = renderResourceCard({ entryUrn: unknownEntryUrn });
 
-  await waitFor(() => expect(getByTestId('cf-ui-missing-entry-card')).toBeDefined());
+  await waitFor(() => expect(getByTestId('cf-ui-missing-entity-card')).toBeDefined());
 });
