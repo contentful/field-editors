@@ -164,22 +164,34 @@ describe('ResourceCard', () => {
   it('renders missing entity card when unknown error is returned', async () => {
     const { getByTestId } = renderResourceCard({ entityUrn: unknownEntryUrn });
 
-    await waitFor(() => expect(getByTestId('cf-ui-missing-entry-card')).toBeDefined());
+    await waitFor(() => expect(getByTestId('cf-ui-missing-entity-card')).toBeDefined());
   });
 
   it('renders missing entity card when crn is invalid', async () => {
-    const { getByTestId } = renderResourceCard({ entityUrn: '' });
+    const { getByTestId, getByText } = renderResourceCard({ entityUrn: '' });
 
-    await waitFor(() => expect(getByTestId('cf-ui-missing-entry-card')).toBeDefined());
+    await waitFor(() => expect(getByTestId('cf-ui-missing-entity-card')).toBeDefined());
+    await waitFor(() =>
+      expect(
+        getByText("Content was deleted or archived or you don't have access rights.")
+      ).toBeDefined()
+    );
   });
 
   it('renders missing entity card when external urn is invalid', async () => {
-    const { getByTestId } = renderResourceCard({
+    const { getByTestId, getByText } = renderResourceCard({
       linkType: resolvableExternalResourceType,
       entityUrn: '',
     });
 
-    await waitFor(() => expect(getByTestId('cf-ui-missing-entry-card')).toBeDefined());
+    await waitFor(() => expect(getByTestId('cf-ui-missing-entity-card')).toBeDefined());
+    await waitFor(() =>
+      expect(
+        getByText(
+          "Content was deleted or archived or you don't have access rights from the external provider. Contact your technical team."
+        )
+      ).toBeDefined()
+    );
   });
 
   it('renders entry card for external resource', async () => {

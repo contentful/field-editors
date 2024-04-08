@@ -13,8 +13,7 @@ export function MissingEntityCard(props: {
   const description =
     props.providerName === 'Contentful'
       ? "Content was deleted or archived or you don't have access rights."
-      : `Content was deleted or archived or you don't have access rights from the external provider.
-      Contact your technical team.`;
+      : `Content was deleted or archived or you don't have access rights from the external provider. Contact your technical team.`;
 
   function CustomActionButton() {
     return (
