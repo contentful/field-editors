@@ -30,7 +30,13 @@ const InternalEntryCard = React.memo((props: InternalEntryCard) => {
   }
 
   if (entry === 'failed') {
-    return <MissingEntityCard isDisabled={props.isDisabled} onRemove={props.onRemove} />;
+    return (
+      <MissingEntityCard
+        isDisabled={props.isDisabled}
+        onRemove={props.onRemove}
+        providerName="Contentful"
+      />
+    );
   }
 
   const contentType = sdk.space

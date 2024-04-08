@@ -37,6 +37,7 @@ export function MissingEntityCard(props: {
       description={description}
       isSelected={props.isSelected}
       customActionButton={<CustomActionButton />}
+      testId="cf-ui-missing-entity-card"
     />
   );
 }

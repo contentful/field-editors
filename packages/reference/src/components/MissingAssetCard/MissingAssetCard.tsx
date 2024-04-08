@@ -12,7 +12,7 @@ export function MissingAssetCard(props: {
   onRemove?: Function;
 }) {
   return (
-    <Card className={styles.card} testId="cf-ui-missing-entry-card" isSelected={props.isSelected}>
+    <Card className={styles.card} testId="cf-ui-missing-asset-card" isSelected={props.isSelected}>
       <Flex alignItems="center" justifyContent="space-between">
         <div className={props.asSquare ? styles.squareCard : ''}>
           <SectionHeading marginBottom="none">Asset is missing or inaccessible</SectionHeading>
