@@ -30,7 +30,8 @@ export function SingleResourceReferenceEditor(
         debounce={0}
         field={props.sdk.field}
         isInitiallyDisabled={props.isInitiallyDisabled}
-        isEqualValues={deepEqual}>
+        isEqualValues={deepEqual}
+      >
         {({ value, disabled }) => {
           return value ? (
             <ResourceCard

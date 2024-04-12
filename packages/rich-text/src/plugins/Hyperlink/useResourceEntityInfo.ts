@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { Entry, useResource } from '@contentful/field-editor-reference';
 import { ResourceLink } from '@contentful/rich-text-types';
+
 import { truncateTitle } from '../../plugins/shared/utils';
 
 type ResourceEntityInfoProps = {
