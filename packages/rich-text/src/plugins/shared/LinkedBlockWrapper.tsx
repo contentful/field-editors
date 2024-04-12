@@ -24,7 +24,7 @@ const styles = {
 type LinkedBlockWrapperProps = React.PropsWithChildren<{
   attributes: Pick<RenderElementProps, 'attributes'>;
   card: JSX.Element;
-  link: ResourceLink | EntityLink;
+  link: ResourceLink<'Contentful:Entry'> | EntityLink;
 }>;
 
 export function LinkedBlockWrapper({ attributes, card, children, link }: LinkedBlockWrapperProps) {

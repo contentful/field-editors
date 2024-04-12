@@ -13,7 +13,7 @@ import { FetchingWrappedResourceInlineCard } from './FetchingWrappedResourceInli
 export type LinkedResourceInlineProps = {
   element: Element & {
     data: {
-      target: ResourceLink;
+      target: ResourceLink<'Contentful:Entry'>;
     };
   };
   attributes: Pick<RenderElementProps, 'attributes'>;

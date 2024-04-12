@@ -17,7 +17,7 @@ export const getIframe = (): Cypress.Chainable<JQuery<HTMLBodyElement>> => {
 };
 
 export const openEditLink = () => {
-  return getIframe()
+  return cy
     .findByTestId('cf-ui-popover-content')
     .should('exist')
     .findByLabelText('Edit link')

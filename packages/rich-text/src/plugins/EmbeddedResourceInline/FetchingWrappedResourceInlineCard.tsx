@@ -12,7 +12,7 @@ import { truncateTitle } from '../../plugins/shared/utils';
 const { getEntryTitle, getEntryStatus } = entityHelpers;
 
 interface FetchingWrappedResourceInlineCardProps {
-  link: ResourceLink['sys'];
+  link: ResourceLink<'Contentful:Entry'>['sys'];
   sdk: FieldAppSDK;
   isSelected: boolean;
   isDisabled: boolean;

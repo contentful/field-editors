@@ -104,15 +104,16 @@ export async function selectResourceEntityAndInsert(
   const config = newResourceEntitySelectorConfigFromRichTextField(field, BLOCKS.EMBEDDED_RESOURCE);
 
   const { selection } = editor;
-  const entity = await dialogs.selectSingleResourceEntry(config);
 
-  if (!entity) {
+  const entityLink = await dialogs.selectSingleResourceEntity(config);
+
+  if (!entityLink) {
     logAction('cancelCreateEmbedDialog', { nodeType: BLOCKS.EMBEDDED_RESOURCE });
   } else {
     // Selection prevents incorrect position of inserted ref when RTE doesn't have focus
     // (i.e. when using hotkeys and slide-in)
     select(editor, selection);
-    insertBlock(editor, BLOCKS.EMBEDDED_RESOURCE, entity);
+    insertBlock(editor, BLOCKS.EMBEDDED_RESOURCE, entityLink);
     ensureFollowingParagraph(editor, [BLOCKS.EMBEDDED_RESOURCE]);
     logAction('insert', { nodeType: BLOCKS.EMBEDDED_RESOURCE });
   }
@@ -146,18 +147,13 @@ function ensureFollowingParagraph(editor: PlateEditor, nodeTypes: BLOCKS[]) {
   moveToTheNextChar(editor);
 }
 
-const getLink = (nodeType: BLOCKS, entity) => {
-  if (nodeType === BLOCKS.EMBEDDED_RESOURCE) {
-    return {
-      urn: entity.sys.urn,
-      type: 'ResourceLink',
-      linkType: 'Contentful:Entry',
-    };
-  }
+const getLink = (entity) => {
   return {
-    id: entity.sys.id,
-    type: 'Link',
-    linkType: entity.sys.type,
+    sys: {
+      id: entity.sys.id,
+      type: 'Link',
+      linkType: entity.sys.type,
+    },
   };
 };
 
@@ -165,9 +161,7 @@ const createNode = (nodeType, entity) => {
   return {
     type: nodeType,
     data: {
-      target: {
-        sys: getLink(nodeType, entity),
-      },
+      target: nodeType === BLOCKS.EMBEDDED_RESOURCE ? entity : getLink(entity),
     },
     children: [{ text: '' }],
     isVoid: true,

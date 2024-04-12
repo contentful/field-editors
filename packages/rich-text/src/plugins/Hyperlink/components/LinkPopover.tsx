@@ -3,7 +3,6 @@ import * as React from 'react';
 import { Popover, IconButton, Tooltip, Flex } from '@contentful/f36-components';
 import { EditIcon, CopyIcon } from '@contentful/f36-icons';
 
-import { useFocused } from '../../../internal/hooks';
 import { styles } from './styles';
 
 type LinkPopoverProps = {
@@ -13,6 +12,7 @@ type LinkPopoverProps = {
   handleRemoveLink: () => void;
   children: React.ReactNode;
   handleCopyLink?: () => void;
+  isEditorFocused: boolean;
 };
 
 export const LinkPopover = ({
@@ -22,8 +22,8 @@ export const LinkPopover = ({
   handleRemoveLink,
   children,
   handleCopyLink,
+  isEditorFocused,
 }: LinkPopoverProps) => {
-  const isEditorFocused = useFocused();
   const popoverContent = React.useRef<HTMLDivElement | null>(null);
   const [isPopoverContentClicked, setIsPopoverContentClicked] = React.useState(false);
 

@@ -1,89 +1,59 @@
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 
-import { FieldAPI, FieldAppSDK } from '@contentful/app-sdk';
-import { EntryProps, WithResourceName } from 'contentful-management';
+import type { FieldAPI, FieldAppSDK } from '@contentful/app-sdk';
+import type { ResourceLink } from 'contentful-management';
 
 import { LinkActionsProps } from '../components';
 
-const toLinkItem = (entry: WithResourceName<EntryProps>, apiUrl: string) => ({
-  sys: {
-    type: 'ResourceLink',
-    linkType: 'Contentful:Entry',
-    urn:
-      entry.sys.urn ??
-      `crn:${apiUrl}:::content:spaces/${entry.sys.space.sys.id}/entries/${entry.sys.id}`,
-  },
-});
-
 const getUpdatedValue = (
   field: FieldAPI,
-  entries: WithResourceName<EntryProps>[],
-  apiUrl: string
+  linkItems: ResourceLink<'Contentful:Entry'>[] | [ResourceLink<'Contentful:Entry'> | null]
 ) => {
   const multiple = field.type === 'Array';
   if (multiple) {
-    const linkItems = entries.map((entry) => toLinkItem(entry, apiUrl));
     const prevValue = field.getValue() || [];
     return [...prevValue, ...linkItems];
   } else {
-    return toLinkItem(entries[0], apiUrl);
+    return linkItems[0];
   }
 };
 
 export function useResourceLinkActions({
   dialogs,
   field,
-  onAfterLink,
-  apiUrl,
 }: Pick<FieldAppSDK, 'field' | 'dialogs'> & {
   apiUrl: string;
-  onAfterLink?: (e: EntryProps) => void;
 }): LinkActionsProps {
-  const handleAfterLink = useCallback(
-    (entries: EntryProps[]) => {
-      if (!onAfterLink) {
-        return;
-      }
-      entries.forEach(onAfterLink);
-    },
-    [onAfterLink]
-  );
-
   const onLinkedExisting = useMemo(() => {
-    return (entries: EntryProps[]) => {
-      const updatedValue = getUpdatedValue(
-        field,
-        entries as WithResourceName<EntryProps>[],
-        apiUrl
-      );
-      field.setValue(updatedValue);
-      handleAfterLink(entries);
+    return (
+      links: ResourceLink<'Contentful:Entry'>[] | [ResourceLink<'Contentful:Entry'> | null]
+    ) => {
+      const updatedValue = getUpdatedValue(field, links);
+      if (updatedValue) {
+        field.setValue(updatedValue);
+      }
     };
-  }, [field, handleAfterLink, apiUrl]);
+  }, [field]);
 
   const multiple = field.type === 'Array';
   const onLinkExisting = useMemo(() => {
     const promptSelection = multiple
-      ? async () =>
+      ? async (): Promise<ResourceLink<'Contentful:Entry'>[]> =>
           // @ts-expect-error wait for update of app-sdk version
-          await dialogs.selectMultipleResourceEntries({
+          await dialogs.selectMultipleResourceEntities({
             // @ts-expect-error wait for update of app-sdk version
             allowedResources: field.allowedResources,
           })
-      : async () => [
+      : async (): Promise<[ResourceLink<'Contentful:Entry'> | null]> => [
           // @ts-expect-error wait for update of app-sdk version
-          await dialogs.selectSingleResourceEntry({
+          await dialogs.selectSingleResourceEntity({
             // @ts-expect-error wait for update of app-sdk version
             allowedResources: field.allowedResources,
           }),
         ];
 
     return async () => {
-      const res = await promptSelection();
-      if (!res) {
-        return;
-      }
-      onLinkedExisting(res);
+      onLinkedExisting(await promptSelection());
     };
     // @ts-expect-error wait for update of app-sdk version
   }, [dialogs, field.allowedResources, multiple, onLinkedExisting]);

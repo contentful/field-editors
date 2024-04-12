@@ -11,7 +11,7 @@ export type {
   NavigatorSlideInfo,
   ScheduledAction,
 } from '@contentful/app-sdk';
-export type { SpaceProps as Space } from 'contentful-management';
+export type { SpaceProps as Space, ResourceLink } from 'contentful-management';
 
 export { Entry, File, Asset } from '@contentful/field-editor-shared';
 
@@ -25,17 +25,50 @@ export type AssetLink = { sys: { type: 'Link'; linkType: 'Asset'; id: string } }
 
 export type EntityLink = EntryLink | AssetLink;
 
-export type ResourceType = 'Contentful:Entry';
+type SysExternalResource<T extends string> = {
+  sys: { type: 'Link'; linkType: T; id: string };
+};
 
-export type Resource = Entry | Asset;
+export type ResourceType = {
+  sys: {
+    type: 'ResourceType';
+    id: string;
+    resourceProvider: SysExternalResource<'ResourceProvider'>;
+  };
+  name: string;
+};
 
-export type EntityType = 'Entry' | 'Asset' | ResourceType;
+export interface ExternalResource {
+  sys: {
+    type: 'Resource';
+    urn: string;
+    resourceProvider: SysExternalResource<'ResourceProvider'>;
+    resourceType: SysExternalResource<'ResourceType'>;
+  };
+  fields: {
+    title: string;
+    subtitle?: string;
+    description?: string;
+    externalUrl?: string;
+    badge?: {
+      label: string;
+      variant: 'negative' | 'positive' | 'primary' | 'secondary' | 'warning';
+    };
+    image?: {
+      url: string;
+      altText?: string;
+    };
+  };
+}
+
+export type Resource = Entry | ExternalResource;
+
+export type EntityType = 'Entry' | 'Asset' | string;
 
 export type SysResourceLink<T extends string> = {
   sys: { type: 'ResourceLink'; linkType: T; urn: string };
 };
 export type ContentfulEntryLink = SysResourceLink<'Contentful:Entry'>;
-export type ResourceLink = ContentfulEntryLink;
 
 /**
  * @deprecated use `EntityLink` type

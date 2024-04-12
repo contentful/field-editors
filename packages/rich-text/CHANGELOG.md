@@ -3,6 +3,96 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.19.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.19.5...@contentful/field-editor-rich-text@3.19.6) (2024-04-12)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [3.19.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.19.4...@contentful/field-editor-rich-text@3.19.5) (2024-03-21)
+
+### Bug Fixes
+
+- remove paragraph tracking [TOL-1865] ([#1629](https://github.com/contentful/field-editors/issues/1629)) ([13612b5](https://github.com/contentful/field-editors/commit/13612b57e6e58aad6444f40a0fda7fe078bfd036))
+
+## [3.19.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.19.3...@contentful/field-editor-rich-text@3.19.4) (2024-03-20)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [3.19.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.19.2...@contentful/field-editor-rich-text@3.19.3) (2024-03-15)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [3.19.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.19.1...@contentful/field-editor-rich-text@3.19.2) (2024-03-14)
+
+### Bug Fixes
+
+- **rich-text:** respect sdk.field.locale text direction [ZEND-4773] ([#1624](https://github.com/contentful/field-editors/issues/1624)) ([2b24b18](https://github.com/contentful/field-editors/commit/2b24b1877070e375f7d70c055bcce932dcd7960c))
+
+## [3.19.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.19.0...@contentful/field-editor-rich-text@3.19.1) (2024-03-12)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+# [3.19.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.18.1...@contentful/field-editor-rich-text@3.19.0) (2024-03-07)
+
+### Features
+
+- support external resources in resource links ([#1621](https://github.com/contentful/field-editors/issues/1621)) ([ce55dd8](https://github.com/contentful/field-editors/commit/ce55dd825d6f3b9e2ad3226b1d46cabb7cc62f32))
+
+## [3.18.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.18.0...@contentful/field-editor-rich-text@3.18.1) (2024-03-05)
+
+### Bug Fixes
+
+- editor focus [ZEND-4737] ([#1620](https://github.com/contentful/field-editors/issues/1620)) ([2452ef8](https://github.com/contentful/field-editors/commit/2452ef8cef5497181c002c48dbfb97a070037f67))
+
+# [3.18.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.17.7...@contentful/field-editor-rich-text@3.18.0) (2024-03-01)
+
+### Features
+
+- add rich text undo redo btns [TOL-1038] ([#1598](https://github.com/contentful/field-editors/issues/1598)) ([007db0d](https://github.com/contentful/field-editors/commit/007db0d45d07c1f33845c71e4655811b1c3d928a))
+
+## [3.17.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.17.6...@contentful/field-editor-rich-text@3.17.7) (2024-02-28)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [3.17.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.17.5...@contentful/field-editor-rich-text@3.17.6) (2024-02-23)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [3.17.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.17.4...@contentful/field-editor-rich-text@3.17.5) (2024-02-23)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [3.17.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.17.3...@contentful/field-editor-rich-text@3.17.4) (2024-02-22)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [3.17.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.17.2...@contentful/field-editor-rich-text@3.17.3) (2024-02-21)
+
+### Bug Fixes
+
+- bumping docx plate deserializer [TOL-1849] ([#1611](https://github.com/contentful/field-editors/issues/1611)) ([41cc603](https://github.com/contentful/field-editors/commit/41cc603ac633cdd262d1a8761823db452c55f472))
+
+## [3.17.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.17.1...@contentful/field-editor-rich-text@3.17.2) (2024-02-20)
+
+### Bug Fixes
+
+- triggering release for reference packages [] ([#1610](https://github.com/contentful/field-editors/issues/1610)) ([869f82f](https://github.com/contentful/field-editors/commit/869f82f37d435ef69e19304e7ff1ce4ca8818050))
+
+## [3.17.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.17.0...@contentful/field-editor-rich-text@3.17.1) (2024-02-20)
+
+### Bug Fixes
+
+- adjusting rich text plugin comment [] ([#1609](https://github.com/contentful/field-editors/issues/1609)) ([2d9db5d](https://github.com/contentful/field-editors/commit/2d9db5dbd81bf406a100b2eafc85614468920233))
+
+# [3.17.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.16...@contentful/field-editor-rich-text@3.17.0) (2024-02-20)
+
+### Features
+
+- bumping plate to v30 [TOL-1834] ([#1605](https://github.com/contentful/field-editors/issues/1605)) ([db22a21](https://github.com/contentful/field-editors/commit/db22a21c90e618da0120e06a66634bdf2ac7a7ea))
+
+## [3.16.16](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.15...@contentful/field-editor-rich-text@3.16.16) (2024-02-15)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
 ## [3.16.15](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.16.14...@contentful/field-editor-rich-text@3.16.15) (2024-02-13)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
