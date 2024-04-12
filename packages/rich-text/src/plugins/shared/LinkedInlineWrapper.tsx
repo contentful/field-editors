@@ -26,7 +26,7 @@ const styles = {
 type LinkedInlineWrapperProps = React.PropsWithChildren<{
   attributes: Pick<RenderElementProps, 'attributes'>;
   card: JSX.Element;
-  link: ResourceLink | EntryLink;
+  link: ResourceLink<'Contentful:Entry'> | EntryLink;
 }>;
 
 export function LinkedInlineWrapper({

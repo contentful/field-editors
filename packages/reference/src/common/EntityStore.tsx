@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
-import { BaseAppSDK } from '@contentful/app-sdk';
+import { BaseAppSDK, CollectionResponse } from '@contentful/app-sdk';
 import { FetchQueryOptions, Query, QueryKey } from '@tanstack/react-query';
 import constate from 'constate';
 import { PlainClientAPI, createClient } from 'contentful-management';
@@ -10,6 +10,7 @@ import {
   Asset,
   ContentType,
   Entry,
+  ExternalResource,
   Resource,
   ResourceType,
   ScheduledAction,
@@ -17,12 +18,24 @@ import {
 } from '../types';
 import { SharedQueryClientProvider, useQuery, useQueryClient } from './queryClient';
 
-export type ResourceInfo<R extends Resource = Resource> = {
-  resource: R;
+export type ContentfulResourceInfo = {
+  resource: Entry;
   defaultLocaleCode: string;
   contentType: ContentType;
   space: Space;
 };
+export type ExternalResourceInfo = {
+  resource: ExternalResource;
+  resourceType: ResourceType;
+};
+
+export type ResourceInfo<R extends Resource = Resource> = R extends Entry
+  ? ContentfulResourceInfo
+  : ExternalResourceInfo;
+
+export function isContentfulResourceInfo(info: ResourceInfo): info is ContentfulResourceInfo {
+  return info.resource.sys.type === 'Entry';
+}
 
 // global queue for all requests, the actual number is picked without scientific research
 const globalQueue = new PQueue({ concurrency: 50 });
@@ -47,7 +60,7 @@ type UseEntityOptions = GetEntityOptions & { enabled?: boolean };
 
 type QueryEntityResult<E> = Promise<E>;
 
-type GetResourceOptions = GetOptions;
+type GetResourceOptions = GetOptions & { allowExternal?: boolean };
 
 type QueryResourceResult<R extends Resource = Resource> = QueryEntityResult<ResourceInfo<R>>;
 
@@ -103,10 +116,13 @@ const isEntityQueryKey = (queryKey: QueryKey): queryKey is EntityQueryKey => {
   );
 };
 
-type ResourceQueryKey = [ident: 'Resource', resourceType: ResourceType, urn: string];
+type ResourceQueryKey = [ident: 'Resource', resourceType: string, urn: string];
 
-async function fetchContentfulEntry(params: FetchParams): Promise<ResourceInfo<Entry>> {
-  const { urn, fetch, options } = params;
+async function fetchContentfulEntry({
+  urn,
+  fetch,
+  options,
+}: FetchParams): Promise<ResourceInfo<Entry>> {
   // TODO use resource-names package EntryResourceName `fromString` method instead when the package becomes public
   const resourceId = urn.split(':', 6)[5];
   const ENTITY_RESOURCE_ID_REGEX =
@@ -164,6 +180,53 @@ async function fetchContentfulEntry(params: FetchParams): Promise<ResourceInfo<E
     resource: entry,
     space: space,
     contentType: contentType,
+  };
+}
+
+async function fetchExternalResource({
+  urn,
+  fetch,
+  options,
+  spaceId,
+  environmentId,
+  resourceType,
+}: FetchParams & { spaceId: string; environmentId: string; resourceType: string }): Promise<
+  ResourceInfo<ExternalResource>
+> {
+  const [resource, resourceTypes] = await Promise.all([
+    fetch(
+      ['resource', spaceId, environmentId, resourceType, urn],
+      ({ cmaClient }): Promise<ExternalResource | null> =>
+        cmaClient.raw
+          .get<CollectionResponse<ExternalResource>>(
+            `/spaces/${spaceId}/environments/${environmentId}/resource_types/${resourceType}/resources`,
+            { params: { 'sys.urn[in]': urn } }
+          )
+          .then(({ items }) => items[0] ?? null),
+      options
+    ),
+    fetch(['resource-types', spaceId, environmentId], ({ cmaClient }) =>
+      cmaClient.raw
+        .get<CollectionResponse<ResourceType>>(
+          `/spaces/${spaceId}/environments/${environmentId}/resource_types`
+        )
+        .then(({ items }) => items)
+    ),
+  ]);
+
+  const resourceTypeEntity = resourceTypes.find((rt) => rt.sys.id === resourceType);
+
+  if (!resourceTypeEntity) {
+    throw new UnsupportedError('Unsupported resource type');
+  }
+
+  if (!resource) {
+    throw new Error('Missing resource');
+  }
+
+  return {
+    resource,
+    resourceType: resourceTypeEntity,
   };
 }
 
@@ -295,14 +358,14 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
 
     const getResource = useCallback(
       function getResource<R extends Resource = Resource>(
-        resourceType: ResourceType,
+        resourceType: string,
         urn: string,
         options?: GetResourceOptions
       ): QueryResourceResult<R> {
         const queryKey: ResourceQueryKey = ['Resource', resourceType, urn];
         return fetch(
           queryKey,
-          () => {
+          (): Promise<ResourceInfo> => {
             if (resourceType === 'Contentful:Entry') {
               return fetchContentfulEntry({
                 fetch,
@@ -311,12 +374,23 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
               });
             }
 
-            throw new UnsupportedError('Unsupported resource type');
+            if (!options?.allowExternal) {
+              throw new UnsupportedError('Unsupported resource type');
+            }
+
+            return fetchExternalResource({
+              fetch,
+              urn,
+              options,
+              resourceType,
+              spaceId: currentSpaceId,
+              environmentId: currentEnvironmentId,
+            });
           },
           options
         );
       },
-      [fetch]
+      [currentEnvironmentId, currentSpaceId, fetch]
     );
 
     const isSameSpaceEntityQueryKey = useCallback(
@@ -440,16 +514,21 @@ export function useEntity<E extends FetchableEntity>(
   return { status, data } as UseEntityResult<E>;
 }
 
-export function useResource(resourceType: ResourceType, urn: string, options?: UseResourceOptions) {
+export function useResource<R extends Resource = Resource>(
+  resourceType: string,
+  urn: string,
+  options?: UseResourceOptions
+) {
   const queryKey: ResourceQueryKey = ['Resource', resourceType, urn];
   const { getResource } = useEntityLoader();
   const { status, data, error } = useQuery(
     queryKey,
-    () => getResource(resourceType, urn, options),
+    () => getResource<R>(resourceType, urn, options),
     {
       enabled: options?.enabled,
     }
   );
+
   return { status, data, error };
 }
 

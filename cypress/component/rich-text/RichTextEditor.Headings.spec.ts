@@ -21,7 +21,7 @@ const headings = [
   [BLOCKS.HEADING_6, 'Heading 6', `{${mod}+alt+6}`],
 ];
 
-describe('Rich Text Editor - Headings', { viewportHeight: 2000 }, () => {
+describe('Rich Text Editor - Headings', { viewportHeight: 2000, viewportWidth: 1000 }, () => {
   let richText: RichTextPage;
 
   const entryBlock = () =>

@@ -2,6 +2,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { INLINES } from '@contentful/rich-text-types';
 
+import { cancelFakeDialog, confirmFakeDialog } from '../../fixtures';
+
 export type EmbedType =
   | 'entry-block'
   | 'asset-block'
@@ -23,6 +25,14 @@ export class RichTextPage {
       toggleHeading(type: string) {
         this.headingsDropdown.click();
         cy.findByTestId(`dropdown-option-${type}`).click({ force: true });
+      },
+
+      get undo() {
+        return cy.findByTestId('undo-toolbar-button');
+      },
+
+      get redo() {
+        return cy.findByTestId('redo-toolbar-button');
       },
 
       get bold() {
@@ -69,9 +79,12 @@ export class RichTextPage {
         return cy.findByTestId('toolbar-entity-dropdown-toggle');
       },
 
-      embed(type: EmbedType) {
+      embed(type: EmbedType, autoConfirm: boolean = true) {
         this.embedDropdown.click();
         cy.findByTestId(`toolbar-toggle-embedded-${type}`).click();
+        if (autoConfirm) {
+          confirmFakeDialog();
+        }
       },
     };
   }
@@ -80,6 +93,12 @@ export class RichTextPage {
     return {
       get hyperlink() {
         return new HyperLinkModal();
+      },
+      get embed() {
+        return {
+          cancel: cancelFakeDialog,
+          confirm: confirmFakeDialog,
+        };
       },
     };
   }

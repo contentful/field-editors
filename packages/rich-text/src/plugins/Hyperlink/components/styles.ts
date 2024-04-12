@@ -27,6 +27,7 @@ export const styles = {
   hyperlink: css({
     fontSize: 'inherit !important',
     display: 'inline !important',
+    direction: 'inherit',
     '&:hover': {
       fill: tokens.gray900,
       textDecoration: 'none',

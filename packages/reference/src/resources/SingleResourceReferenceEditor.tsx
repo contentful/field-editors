@@ -26,7 +26,7 @@ export function SingleResourceReferenceEditor(
 
   return (
     <EntityProvider sdk={props.sdk}>
-      <FieldConnector<ResourceLink>
+      <FieldConnector<ResourceLink<string>>
         debounce={0}
         field={props.sdk.field}
         isInitiallyDisabled={props.isInitiallyDisabled}

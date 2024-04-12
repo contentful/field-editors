@@ -13,8 +13,10 @@ const buildHeadingEventHandler =
   (editor, { options: { hotkey } }) =>
   (event) => {
     if (editor.selection && hotkey && isHotkey(hotkey, event)) {
-      const isActive = isBlockSelected(editor, type);
-      editor.tracking.onShortcutAction(isActive ? 'remove' : 'insert', { nodeType: type });
+      if (type !== BLOCKS.PARAGRAPH) {
+        const isActive = isBlockSelected(editor, type);
+        editor.tracking.onShortcutAction(isActive ? 'remove' : 'insert', { nodeType: type });
+      }
 
       toggleElement(editor, { activeType: type, inactiveType: BLOCKS.PARAGRAPH });
     }
