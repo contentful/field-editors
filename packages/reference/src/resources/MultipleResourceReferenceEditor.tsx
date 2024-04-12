@@ -17,9 +17,9 @@ import { ResourceCard } from './Cards/ResourceCard';
 import { useResourceLinkActions } from './useResourceLinkActions';
 
 type ChildProps = {
-  items: ResourceLink[];
+  items: ResourceLink<string>[];
   isDisabled: boolean;
-  setValue: (value: ResourceLink[]) => void;
+  setValue: (value: ResourceLink<string>[]) => void;
   onSortStart: (event: DragStartEvent) => void;
   onSortEnd: ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => void;
   onMove: (oldIndex: number, newIndex: number) => void;
@@ -121,7 +121,7 @@ function WithPerItemCallbacks({
   );
 }
 
-const EMPTY_ARRAY: ResourceLink[] = [];
+const EMPTY_ARRAY: ResourceLink<string>[] = [];
 
 export function MultipleResourceReferenceEditor(
   props: ReferenceEditorProps & {
@@ -131,7 +131,7 @@ export function MultipleResourceReferenceEditor(
 ) {
   return (
     <EntityProvider sdk={props.sdk}>
-      <FieldConnector<ResourceLink[]>
+      <FieldConnector<ResourceLink<string>[]>
         debounce={0}
         field={props.sdk.field}
         isInitiallyDisabled={props.isInitiallyDisabled}
@@ -148,7 +148,7 @@ export function MultipleResourceReferenceEditor(
               key={`${externalReset}-list`}
             >
               {(editorProps) => (
-                <SortableLinkList<ResourceLink> {...editorProps}>
+                <SortableLinkList<ResourceLink<string>> {...editorProps}>
                   {({ item, isDisabled, DragHandle, index }) => (
                     <WithPerItemCallbacks
                       key={index}

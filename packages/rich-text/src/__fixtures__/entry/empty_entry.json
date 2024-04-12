@@ -12,7 +12,8 @@
     "version": 1,
     "contentType": {
       "sys": { "type": "Link", "linkType": "ContentType", "id": "exampleCT" }
-    }
+    },
+    "automationTags": []
   },
   "fields": {}
 }

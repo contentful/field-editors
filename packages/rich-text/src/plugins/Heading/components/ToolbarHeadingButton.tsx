@@ -18,6 +18,11 @@ import { Element } from '../../../internal/types';
 import { useSdkContext } from '../../../SdkProvider';
 
 const styles = {
+  // prevent the layout to jump due switch from "normal text" to "headline" and vice versa
+  button: css({
+    minWidth: '125px',
+    justifyContent: 'space-between',
+  }),
   dropdown: {
     root: css`
       font-weight: ${tokens.fontWeightDemiBold};
@@ -69,10 +74,22 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
   React.useEffect(() => {
     if (!editor?.selection) return;
 
-    const [element] = getElementFromCurrentSelection(editor);
-    const type = (element as Element).type;
+    const elements = getElementFromCurrentSelection(editor);
 
-    setSelected(LABELS[type] ? type : BLOCKS.PARAGRAPH);
+    // Iterate through the elements to identify matches
+    // In lists it would otherwise never show the correct block.
+    for (const element of elements) {
+      if (typeof element === 'object' && 'type' in element) {
+        const el = element as Element;
+        const match = LABELS[el.type];
+        if (match) {
+          setSelected(el.type);
+          return;
+        }
+      }
+    }
+
+    setSelected(BLOCKS.PARAGRAPH);
   }, [editor?.operations, editor?.selection]); // eslint-disable-line -- TODO: explain this disable
 
   const [nodeTypesByEnablement, someHeadingsEnabled] = React.useMemo(() => {
@@ -106,8 +123,10 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
         prevOnChange(...args);
       };
 
-      const isActive = isBlockSelected(editor, type);
-      editor.tracking.onToolbarAction(isActive ? 'remove' : 'insert', { nodeType: type });
+      if (type !== BLOCKS.PARAGRAPH) {
+        const isActive = isBlockSelected(editor, type);
+        editor.tracking.onToolbarAction(isActive ? 'remove' : 'insert', { nodeType: type });
+      }
 
       toggleElement(editor, { activeType: type, inactiveType: type });
     };
@@ -125,12 +144,12 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
           endIcon={<ChevronDownIcon />}
           isDisabled={props.isDisabled}
           onClick={() => someHeadingsEnabled && setOpen(!isOpen)}
+          className={styles.button}
         >
           {LABELS[selected]}
         </Button>
       </Menu.Trigger>
       <Menu.List testId="dropdown-heading-list">
-        {' '}
         {Object.keys(LABELS)
           .map(
             (nodeType) =>

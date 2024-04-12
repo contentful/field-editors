@@ -116,13 +116,6 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
     return { sys: { id, type: 'Link', linkType: type } };
   }
 
-  function entityToResourceLink(entity): Link {
-    const { urn } = entity.sys;
-
-    // @ts-expect-error wait for update of app-sdk version
-    return { sys: { urn, type: 'ResourceLink', linkType: 'Contentful:Entry' } };
-  }
-
   function isResourceLink(link: Link | ResourceLink | null): link is ResourceLink {
     return !!link && !!(link as ResourceLink).sys.urn;
   }
@@ -152,10 +145,10 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
       allowedResources: getAllowedResourcesForNodeType(props.sdk.field, INLINES.RESOURCE_HYPERLINK),
     };
     // @ts-expect-error wait for update of app-sdk version
-    const entry = await props.sdk.dialogs.selectSingleResourceEntry(options);
-    if (entry) {
+    const entityLink = await props.sdk.dialogs.selectSingleResourceEntity(options);
+    if (entityLink) {
       setLinkTarget('');
-      setLinkEntity(entityToResourceLink(entry));
+      setLinkEntity(entityLink);
     }
   }
 

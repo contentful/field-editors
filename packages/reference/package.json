@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-reference",
-  "version": "5.19.0",
+  "version": "5.26.0",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
@@ -35,18 +35,18 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
-    "@contentful/f36-components": "^4.0.27",
-    "@contentful/f36-icons": "^4.1.0",
-    "@contentful/f36-tokens": "^4.0.0",
-    "@contentful/field-editor-shared": "^1.4.2",
-    "@contentful/mimetype": "^1.4.0",
+    "@contentful/f36-components": "^4.60.0",
+    "@contentful/f36-icons": "^4.27.0",
+    "@contentful/f36-tokens": "^4.0.4",
+    "@contentful/field-editor-shared": "^1.4.6",
+    "@contentful/mimetype": "^2.2.29",
     "@dnd-kit/core": "^6.0.8",
     "@dnd-kit/modifiers": "^6.0.1",
     "@dnd-kit/sortable": "^7.0.2",
     "@tanstack/react-query": "^4.3.9",
     "@types/deep-equal": "^1.0.1",
     "constate": "3.2.0",
-    "contentful-management": "^10.14.0",
+    "contentful-management": "^10.14.0 || ^11.0.0",
     "deep-equal": "2.2.2",
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",
@@ -57,11 +57,14 @@
   },
   "devDependencies": {
     "@contentful/app-sdk": "^4.17.1",
-    "@contentful/field-editor-test-utils": "^1.4.3",
+    "@contentful/field-editor-test-utils": "^1.4.7",
     "@testing-library/react-hooks": "^5.0.3"
   },
   "peerDependencies": {
     "@contentful/app-sdk": "^4.17.1",
     "react": ">=16.8.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   }
 }

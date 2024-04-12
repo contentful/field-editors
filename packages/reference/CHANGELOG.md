@@ -3,6 +3,108 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.26.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.25.0...@contentful/field-editor-reference@5.26.0) (2024-03-20)
+
+### Features
+
+- update external resource entity format ([#1628](https://github.com/contentful/field-editors/issues/1628)) ([9221953](https://github.com/contentful/field-editors/commit/9221953eb6760147bae0316687a1200efa82d7de))
+
+# [5.25.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.24.0...@contentful/field-editor-reference@5.25.0) (2024-03-15)
+
+### Features
+
+- enable isSelected option on the external resource cards [DANTE-1329] ([#1625](https://github.com/contentful/field-editors/issues/1625)) ([5edfaad](https://github.com/contentful/field-editors/commit/5edfaade1983a316366acc8bee90b47435bccac5))
+
+# [5.24.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.23.0...@contentful/field-editor-reference@5.24.0) (2024-03-12)
+
+### Features
+
+- add card subtitle and Provider ID to the external card [DANTE-1407] ([#1622](https://github.com/contentful/field-editors/issues/1622)) ([a79aa04](https://github.com/contentful/field-editors/commit/a79aa040c41bda528754ab97f18ef70eb9f84c5d))
+
+# [5.23.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.22.6...@contentful/field-editor-reference@5.23.0) (2024-03-07)
+
+### Features
+
+- support external resources in resource links ([#1621](https://github.com/contentful/field-editors/issues/1621)) ([ce55dd8](https://github.com/contentful/field-editors/commit/ce55dd825d6f3b9e2ad3226b1d46cabb7cc62f32))
+
+## [5.22.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.22.5...@contentful/field-editor-reference@5.22.6) (2024-02-28)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [5.22.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.22.4...@contentful/field-editor-reference@5.22.5) (2024-02-23)
+
+### Bug Fixes
+
+- update status badge for scheduled entry [TOL-1801] ([#1615](https://github.com/contentful/field-editors/issues/1615)) ([b15911a](https://github.com/contentful/field-editors/commit/b15911a7e4882d4c6f9765a3022f47b825ab7aab))
+
+## [5.22.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.22.3...@contentful/field-editor-reference@5.22.4) (2024-02-23)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [5.22.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.22.2...@contentful/field-editor-reference@5.22.3) (2024-02-22)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [5.22.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.22.1...@contentful/field-editor-reference@5.22.2) (2024-02-20)
+
+### Bug Fixes
+
+- triggering release for reference packages [] ([#1610](https://github.com/contentful/field-editors/issues/1610)) ([869f82f](https://github.com/contentful/field-editors/commit/869f82f37d435ef69e19304e7ff1ce4ca8818050))
+
+## [5.22.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.22.0...@contentful/field-editor-reference@5.22.1) (2024-02-15)
+
+### Bug Fixes
+
+- use the new badge option on EntryCard for ExternalResourceCard [DANTE-1330] ([#1606](https://github.com/contentful/field-editors/issues/1606)) ([592e81e](https://github.com/contentful/field-editors/commit/592e81e069b7dc350b7fe88de70af3b25500e7d9))
+
+# [5.22.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.21.6...@contentful/field-editor-reference@5.22.0) (2024-02-13)
+
+### Bug Fixes
+
+- fixing coding snippets for reference storybook docs [TOL-1398] ([#1603](https://github.com/contentful/field-editors/issues/1603)) ([e280e1e](https://github.com/contentful/field-editors/commit/e280e1e5294495b0400492b9105a15b0f6778498))
+
+### Features
+
+- create card component for external resources [DANTE-1330] ([#1602](https://github.com/contentful/field-editors/issues/1602)) ([701afa9](https://github.com/contentful/field-editors/commit/701afa970399db0a3c4503d2abb7fb962adee616))
+
+## [5.21.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.21.5...@contentful/field-editor-reference@5.21.6) (2024-02-05)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [5.21.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.21.4...@contentful/field-editor-reference@5.21.5) (2024-01-23)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [5.21.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.21.3...@contentful/field-editor-reference@5.21.4) (2024-01-23)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [5.21.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.21.2...@contentful/field-editor-reference@5.21.3) (2024-01-23)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [5.21.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.21.1...@contentful/field-editor-reference@5.21.2) (2024-01-04)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [5.21.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.21.0...@contentful/field-editor-reference@5.21.1) (2023-12-20)
+
+### Bug Fixes
+
+- use available CTs instead of only readable ([#1562](https://github.com/contentful/field-editors/issues/1562)) ([fa5ddce](https://github.com/contentful/field-editors/commit/fa5ddce08fa1cc00f0a2232a043e10cb1d70771c))
+
+# [5.21.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.20.0...@contentful/field-editor-reference@5.21.0) (2023-12-08)
+
+### Features
+
+- support CMA.js v11 ([#1559](https://github.com/contentful/field-editors/issues/1559)) ([2bfcf61](https://github.com/contentful/field-editors/commit/2bfcf611f4066848343e29c9aa4acdcc70c85712))
+
+# [5.20.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.19.0...@contentful/field-editor-reference@5.20.0) (2023-11-14)
+
+### Features
+
+- [] Add shared query cache ([#1540](https://github.com/contentful/field-editors/issues/1540)) ([ef33b23](https://github.com/contentful/field-editors/commit/ef33b23f88985022a72b8932c9ea41c579d84509))
+
 # [5.19.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.18.0...@contentful/field-editor-reference@5.19.0) (2023-10-24)
 
 ### Features

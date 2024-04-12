@@ -1,14 +1,7 @@
-const path = require('path');
-
 module.exports = {
-  extends: [
-    require.resolve('@contentful/eslint-config-extension/typescript'),
-    require.resolve('@contentful/eslint-config-extension/jsx-a11y'),
-    require.resolve('@contentful/eslint-config-extension/react'),
-  ],
-  plugins: ['eslint-comments'],
+  extends: ['../.eslintrc.js', 'plugin:you-dont-need-lodash-underscore/compatible'],
+  plugins: ['eslint-comments', 'you-dont-need-lodash-underscore'],
   rules: {
-    'react-hooks/exhaustive-deps': 'error',
     // Require descriptions only for disable-line and disable-next-line
     'eslint-comments/require-description': [
       'error',
@@ -44,10 +37,9 @@ module.exports = {
     {
       files: '**/*.{spec,test}.{ts,tsx,js,jsx}',
       env: {
-        browser: true,
         node: true,
       },
-      extends: [require.resolve('@contentful/eslint-config-extension/jest')],
+      extends: ['plugin:jest/recommended', 'plugin:jsx-a11y/recommended'],
       rules: {
         '@typescript-eslint/no-explicit-any': 'off',
         '@typescript-eslint/no-non-null-assertion': 'off',

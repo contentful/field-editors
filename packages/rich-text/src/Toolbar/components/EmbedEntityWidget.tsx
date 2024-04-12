@@ -78,6 +78,7 @@ export const EmbedEntityWidget = ({ isDisabled, canInsertBlocks }: EmbedEntityWi
     blockEntryEmbedEnabled ||
     blockResourceEmbedEnabled ||
     inlineEntryEmbedEnabled ||
+    inlineResourceEmbedEnabled ||
     blockAssetEmbedEnabled;
 
   return showEmbedButton ? (

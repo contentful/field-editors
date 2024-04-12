@@ -14,7 +14,8 @@
     "publishedVersion": 10,
     "contentType": {
       "sys": { "type": "Link", "linkType": "ContentType", "id": "exampleCT" }
-    }
+    },
+    "automationTags": []
   },
   "fields": {
     "exField": { "en-US": "The best article ever", "de-DE": "Der beste Artikel aller Zeiten" },

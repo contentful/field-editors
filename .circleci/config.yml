@@ -51,6 +51,7 @@ jobs:
       - run: yarn build
       - run: yarn tsc
   unit-tests:
+    parallelism: 3
     executor: linux-node
     steps:
       - checkout
@@ -60,39 +61,8 @@ jobs:
       - store_test_results:
           path: reports
 
-  integration-tests:
-    parameters:
-      executor:
-        type: executor
-      browser:
-        type: enum
-        # firefox has been disabled temporarily until further investigation
-        enum: [chrome, edge]
-
-    parallelism: 3
-    executor: << parameters.executor >>
-    steps:
-      - checkout
-      - yarn_install
-      - run: yarn build
-      - run: yarn build-storybook
-      - yarn_serve
-      - run:
-          command: |
-            TESTFILES=$(circleci tests glob "cypress/e2e/**/*.ts" | circleci tests split --split-by=timings --timings-type=filename | awk '{if (NR>1) printf ","; printf "%s", $0} END {if (NR>0) printf " "}')
-            npx cypress run \
-              --spec "${TESTFILES}" \
-              --reporter junit \
-              --reporter-options "mochaFile=./cypress/reports/e2e/test-results.[hash].xml" \
-              --browser << parameters.browser >>
-      - store_test_results:
-          path: cypress/reports/e2e
-      - store_artifacts:
-          path: cypress/screenshots
-      - store_artifacts:
-          path: cypress/videos
-
   component-tests:
+    parallelism: 3
     executor: linux-cypress
     steps:
       - checkout
@@ -107,6 +77,14 @@ jobs:
               --reporter junit \
               --reporter-options "mochaFile=./cypress/reports/component/test-results.[hash].xml" \
               --browser chrome
+      - vault/get-secrets:
+          template-preset: packages-read
+      - run: |
+          echo "//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_READ_TOKEN}" > ~/.npmrc
+          echo "@contentful:registry=https://npm.pkg.github.com" >> ~/.npmrc
+      - run:
+          name: Format JUnit Reports
+          command: npx @contentful/circleci-orb-tools@2 fix-junit-format --path cypress/reports/component
       - store_test_results:
           path: cypress/reports/component
       - store_artifacts:
@@ -118,9 +96,11 @@ jobs:
       - checkout
       - yarn_install
       - vault/get-secrets:
-          template-preset: semantic-release-ecosystem
+          template-preset: semantic-release
       - vault/configure-lerna
-      - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
+      - run: |
+          echo "//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_WRITE_TOKEN}" > ~/.npmrc
+          echo "@contentful:registry=https://npm.pkg.github.com" >> ~/.npmrc
       - run: yarn build
       - run: yarn lerna version --no-private --conventional-commits --create-release github --yes
       - run: yarn lerna publish from-git --yes
@@ -136,15 +116,6 @@ workflows:
           context: vault
       - component-tests:
           context: vault
-      - integration-tests:
-          name: integration-<< matrix.executor >>-<< matrix.browser >>
-          context: vault
-          matrix:
-            alias: integration-tests-linux
-            parameters:
-              executor: [linux-cypress]
-              # firefox has been disabled temporarily until further investigation
-              browser: [chrome, edge]
       - release:
           context: vault
           filters:
@@ -153,4 +124,3 @@ workflows:
           requires:
             - lint
             - unit-tests
-            - integration-tests-linux

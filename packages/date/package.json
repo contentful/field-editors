@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-date",
-  "version": "1.6.2",
+  "version": "1.6.6",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
@@ -38,17 +38,20 @@
   "dependencies": {
     "@contentful/f36-components": "^4.34.1",
     "@contentful/f36-tokens": "^4.0.1",
-    "@contentful/field-editor-shared": "^1.4.2",
+    "@contentful/field-editor-shared": "^1.4.6",
     "emotion": "^10.0.17",
     "moment": "^2.20.0"
   },
   "devDependencies": {
     "@babel/core": "^7.7.4",
-    "@contentful/field-editor-test-utils": "^1.4.3",
+    "@contentful/field-editor-test-utils": "^1.4.7",
     "@types/timezoned-date": "^3.0.0",
     "timezoned-date": "^3.0.2"
   },
   "peerDependencies": {
     "react": ">=16.8.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   }
 }

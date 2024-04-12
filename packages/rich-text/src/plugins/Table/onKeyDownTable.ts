@@ -5,7 +5,7 @@ import { getTableEntries, onKeyDownTable as defaultKeyDownTable } from '@udecode
 
 import { insertEmptyParagraph } from '../../helpers/editor';
 import { blurEditor } from '../../internal/misc';
-import { getAboveNode, isLastChildPath, getText, isFirstChild } from '../../internal/queries';
+import { getAboveNode, getText, isFirstChild, isLastChildPath } from '../../internal/queries';
 import { KeyboardHandler, HotkeyPlugin, NodeEntry } from '../../internal/types';
 import { addRowBelow } from './actions';
 
@@ -16,9 +16,10 @@ export const onKeyDownTable: KeyboardHandler<HotkeyPlugin> = (editor, plugin) =>
     // This fixes `Cannot resolve a Slate point from DOM point:
     // [object HTMLDivElement]` when typing while the cursor is before table
     const windowSelection = window.getSelection();
-    if (windowSelection) {
+    // @ts-expect-error
+    // this attribute comes from `plugins/Table/components/Table.tsx`
+    if (windowSelection?.anchorNode?.attributes) {
       // @ts-expect-error
-      // this attribute comes from `plugins/Table/components/Table.tsx`
       const blockType = windowSelection.anchorNode.attributes?.['data-block-type']?.value;
       const isBeforeTable = blockType === BLOCKS.TABLE;
 

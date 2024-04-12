@@ -1,16 +1,15 @@
 import * as React from 'react';
 
-import { FieldAppSDK, Link } from '@contentful/app-sdk';
-import { Tooltip, TextLink } from '@contentful/f36-components';
+import { Link } from '@contentful/app-sdk';
+import { TextLink } from '@contentful/f36-components';
 
-import { useContentfulEditor } from '../../../ContentfulEditorProvider';
-import { fromDOMPoint } from '../../../internal';
 import { Element, RenderElementProps } from '../../../internal/types';
-import { useSdkContext } from '../../../SdkProvider';
-import { addOrEditLink } from '../HyperlinkModal';
+import { handleCopyLink, handleEditLink, handleRemoveLink } from './linkHandlers';
+import { LinkPopover } from './LinkPopover';
 import { styles } from './styles';
+import { useHyperlinkCommon } from './useHyperlinkCommon';
 
-type HyperlinkElementProps = {
+type UrlHyperlinkProps = {
   element: Element & {
     data: {
       uri?: string;
@@ -28,39 +27,35 @@ type HyperlinkElementProps = {
   children: Pick<RenderElementProps, 'children'>;
 };
 
-export function UrlHyperlink(props: HyperlinkElementProps) {
-  const editor = useContentfulEditor();
-  const sdk: FieldAppSDK = useSdkContext();
-  const { uri } = props.element.data;
+export function UrlHyperlink(props: UrlHyperlinkProps) {
+  const { editor, sdk, isLinkFocused, pathToElement, isEditorFocused } = useHyperlinkCommon(
+    props.element
+  );
+  const uri = props.element.data?.uri;
 
-  function handleClick(event: React.MouseEvent<HTMLAnchorElement>) {
-    event.preventDefault();
-    event.stopPropagation();
-    if (!editor) return;
-    const p = fromDOMPoint(editor, [event.target as Node, 0], {
-      exactMatch: false,
-      suppressThrow: false,
-    });
-    addOrEditLink(editor, sdk, editor.tracking.onViewportAction, p?.path);
-  }
+  const popoverText = (
+    <TextLink className={styles.openLink} href={uri} rel="noopener noreferrer" target="_blank">
+      {uri}
+    </TextLink>
+  );
 
   return (
-    <Tooltip
-      usePortal
-      content={uri}
-      targetWrapperClassName={styles.hyperlinkWrapper}
-      placement="bottom"
-      maxWidth="min-content"
+    <LinkPopover
+      isLinkFocused={isLinkFocused}
+      handleEditLink={() => handleEditLink(editor, sdk, pathToElement)}
+      handleRemoveLink={() => handleRemoveLink(editor)}
+      handleCopyLink={() => handleCopyLink(uri)}
+      popoverText={popoverText}
+      isEditorFocused={isEditorFocused}
     >
       <TextLink
-        as="a"
+        testId="cf-ui-text-link"
         href={uri}
-        rel="noopener noreferrer"
-        onClick={handleClick}
+        onClick={(e) => e.preventDefault()}
         className={styles.hyperlink}
       >
         {props.children}
       </TextLink>
-    </Tooltip>
+    </LinkPopover>
   );
 }

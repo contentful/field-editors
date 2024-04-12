@@ -73,24 +73,40 @@ const DemoRichTextEditor = () => {
     //@ts-expect-error
     if (window.parent.Cypress) {
       return window.localStorage.getItem('shouldConfirm') === 'true'
+        ? fnName === 'selectSingleResourceEntity'
+          ? {
+              sys: {
+                type: 'ResourceLink',
+                linkType: 'Contentful:Entry',
+                urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
+              },
+            }
+          : {
+              sys: {
+                id: 'example-entity-id',
+                urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
+                type,
+              },
+            }
+        : null;
+    }
+
+    return confirm(`sdk.dialogs.${fnName}()\nSimulate selecting a random entity or cancel?`)
+      ? fnName === 'selectSingleResourceEntity'
         ? {
+            sys: {
+              type: 'ResourceLink',
+              linkType: 'Contentful:Entry',
+              urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
+            },
+          }
+        : {
             sys: {
               id: 'example-entity-id',
               urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
               type,
             },
           }
-        : null;
-    }
-
-    return confirm(`sdk.dialogs.${fnName}()\nSimulate selecting a random entity or cancel?`)
-      ? {
-          sys: {
-            id: 'example-entity-id',
-            urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
-            type,
-          },
-        }
       : null; // Simulate cancellation.
   };
 
@@ -167,8 +183,8 @@ const DemoRichTextEditor = () => {
     dialogs: {
       selectSingleAsset: newEntitySelectorDummyDialog('selectSingleAsset', 'Asset'),
       selectSingleEntry: newEntitySelectorDummyDialog('selectSingleEntry', 'Entry'),
-      selectSingleResourceEntry: newEntitySelectorDummyDialog(
-        'selectSingleResourceEntry',
+      selectSingleResourceEntity: newEntitySelectorDummyDialog(
+        'selectSingleResourceEntity',
         'Contentful:Entry'
       ),
     },

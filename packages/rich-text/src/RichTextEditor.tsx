@@ -4,7 +4,7 @@ import { FieldAppSDK } from '@contentful/app-sdk';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import * as Contentful from '@contentful/rich-text-types';
-import { Plate, PlateProvider } from '@udecode/plate-common';
+import { PlateContent, Plate, PlatePlugin } from '@udecode/plate-common';
 import { css, cx } from 'emotion';
 import deepEquals from 'fast-deep-equal';
 import noop from 'lodash/noop';
@@ -52,22 +52,26 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
     );
   }, [props.value, plugins]);
 
+  // Force text direction based on editor locale
+  const direction = sdk.locales.direction[sdk.field.locale] ?? 'ltr';
+
   const classNames = cx(
     styles.editor,
     props.minHeight !== undefined ? css({ minHeight: props.minHeight }) : undefined,
     props.maxHeight !== undefined ? css({ maxHeight: props.maxHeight }) : undefined,
     props.isDisabled ? styles.disabled : styles.enabled,
-    props.isToolbarHidden && styles.hiddenToolbar
+    props.isToolbarHidden && styles.hiddenToolbar,
+    direction === 'rtl' ? styles.rtl : styles.ltr
   );
 
   return (
     <SdkProvider sdk={sdk}>
       <ContentfulEditorIdProvider value={id}>
         <div className={styles.root} data-test-id="rich-text-editor">
-          <PlateProvider
+          <Plate
             id={id}
             initialValue={initialValue}
-            plugins={plugins}
+            plugins={plugins as PlatePlugin[]}
             disableCorePlugins={disableCorePlugins}
           >
             {!props.isToolbarHidden && (
@@ -76,14 +80,8 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
               </StickyToolbarWrapper>
             )}
             <SyncEditorChanges incomingValue={initialValue} onChange={props.onChange} />
-            <Plate
-              id={id}
-              editableProps={{
-                className: classNames,
-                readOnly: props.isDisabled,
-              }}
-            />
-          </PlateProvider>
+            <PlateContent id={id} className={classNames} readOnly={props.isDisabled} />
+          </Plate>
         </div>
       </ContentfulEditorIdProvider>
     </SdkProvider>

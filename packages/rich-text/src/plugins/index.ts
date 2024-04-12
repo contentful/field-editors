@@ -1,11 +1,11 @@
 import { FieldAppSDK } from '@contentful/app-sdk';
 import { PlateProps } from '@udecode/plate-common';
-import { createDeserializeDocxPlugin } from '@udecode/plate-serializer-docx';
 
 import { PlatePlugin } from '../internal/types';
 import { createSoftBreakPlugin, createExitBreakPlugin, createResetNodePlugin } from './Break';
 import { createCommandPalettePlugin } from './CommandPalette';
 import { isCommandPromptPluginEnabled } from './CommandPalette/useCommands';
+import { createDeserializeDocxPlugin } from './DeserializeDocx';
 import { createDragAndDropPlugin } from './DragAndDrop';
 import {
   createEmbeddedAssetBlockPlugin,
