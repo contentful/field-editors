@@ -1,24 +1,26 @@
 {
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "nx/tasks-runners/default",
-      "options": {
-        "cacheableOperations": ["build", "test:ci", "tsc"]
-      }
-    }
-  },
   "targetDefaults": {
     "build": {
-      "dependsOn": ["^build", "prebuild"]
+      "dependsOn": ["^build", "prebuild"],
+      "cache": true
     },
     "dev": {
       "dependsOn": ["^build"]
     },
     "test:ci": {
-      "dependsOn": ["build"]
+      "dependsOn": ["build"],
+      "cache": true
     },
     "integration": {
       "dependsOn": ["build"]
+    },
+    "tsc": {
+      "cache": true
     }
+  },
+  "namedInputs": {
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "sharedGlobals": [],
+    "production": ["default"]
   }
 }
