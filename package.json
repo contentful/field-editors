@@ -88,7 +88,7 @@
     "eslint-plugin-jest": "27.6.3",
     "eslint-plugin-jsx-a11y": "6.8.0",
     "eslint-plugin-mocha": "10.2.0",
-    "eslint-plugin-react": "7.33.2",
+    "eslint-plugin-react": "7.34.1",
     "eslint-plugin-react-hooks": "4.6.0",
     "eslint-plugin-storybook": "0.6.15",
     "eslint-plugin-you-dont-need-lodash-underscore": "6.13.0",
