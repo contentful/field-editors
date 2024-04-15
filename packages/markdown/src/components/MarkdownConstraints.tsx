@@ -25,7 +25,7 @@ export function MarkdownConstraints(props: { sdk: FieldAppSDK; value: string }) 
 
   return (
     <div className={styles.root}>
-      <CharValidation constraints={constraints} />
+      <CharValidation constraints={constraints} enabled={true} />
       <CharCounter
         value={props.value}
         checkConstraint={checkConstraint}

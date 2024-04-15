@@ -60,25 +60,14 @@ export function MultipleLineEditor(props: MultipleLineEditorProps) {
                 setValue(e.target.value);
               }}
             />
-            {withCharValidation && (
-              <div className={styles.validationRow}>
-                <CharValidation constraints={constraints} />
-                <CharCounter
-                  value={value || ''}
-                  checkConstraint={checkConstraint}
-                  constraints={constraints}
-                />
-              </div>
-            )}
-            {!withCharValidation && (
-              <div className={styles.counterRow}>
-                <CharCounter
-                  value={value || ''}
-                  checkConstraint={checkConstraint}
-                  constraints={constraints}
-                />
-              </div>
-            )}
+            <div className={styles.validationRow(withCharValidation)}>
+              <CharValidation constraints={constraints} enabled={withCharValidation} />
+              <CharCounter
+                value={value || ''}
+                checkConstraint={checkConstraint}
+                constraints={constraints}
+              />
+            </div>
           </div>
         );
       }}

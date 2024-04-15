@@ -30,6 +30,7 @@ describe('MultipleLineEditor', () => {
     const [field] = createFakeFieldAPI((field) => {
       return {
         ...field,
+        type: 'Text',
         id: 'field-id',
         getValue: () => {
           return initialValue;

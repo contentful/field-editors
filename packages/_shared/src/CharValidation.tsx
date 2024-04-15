@@ -4,10 +4,15 @@ import { ValidationType } from './types';
 
 interface CharValidationProps {
   constraints: ValidationType;
+  enabled: boolean;
 }
 
 export function CharValidation(props: CharValidationProps) {
-  const { constraints } = props;
+  const { constraints, enabled } = props;
+
+  if (!enabled) {
+    return null;
+  }
 
   if (constraints.type === 'max') {
     return (
