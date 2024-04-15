@@ -6,7 +6,15 @@ export const validationRow = css({
   justifyContent: 'space-between',
   fontSize: tokens.fontSizeM,
   marginTop: tokens.spacingXs,
-  color: tokens.gray700,
+  color: tokens.gray500,
+});
+
+export const counterRow = css({
+  display: 'flex',
+  justifyContent: 'flex-end',
+  fontSize: tokens.fontSizeM,
+  marginTop: tokens.spacingXs,
+  color: tokens.gray500,
 });
 
 export const rightToLeft = css({

@@ -11,7 +11,7 @@ const styles = {
     justifyContent: 'space-between',
     fontSize: tokens.fontSizeM,
     marginTop: tokens.spacingXs,
-    color: tokens.gray700,
+    color: tokens.gray500,
   }),
 };
 
@@ -25,8 +25,12 @@ export function MarkdownConstraints(props: { sdk: FieldAppSDK; value: string }) 
 
   return (
     <div className={styles.root}>
-      <CharCounter value={props.value} checkConstraint={checkConstraint} />
       <CharValidation constraints={constraints} />
+      <CharCounter
+        value={props.value}
+        checkConstraint={checkConstraint}
+        constraints={constraints}
+      />
     </div>
   );
 }

@@ -12,7 +12,6 @@ import {
 
 import * as styles from './styles';
 
-
 export interface MultipleLineEditorProps {
   /**
    * is the field disabled initially
@@ -63,13 +62,21 @@ export function MultipleLineEditor(props: MultipleLineEditorProps) {
             />
             {withCharValidation && (
               <div className={styles.validationRow}>
-                <CharCounter value={value || ''} checkConstraint={checkConstraint} />
                 <CharValidation constraints={constraints} />
+                <CharCounter
+                  value={value || ''}
+                  checkConstraint={checkConstraint}
+                  constraints={constraints}
+                />
               </div>
             )}
             {!withCharValidation && (
-              <div className={styles.validationRow}>
-                <CharCounter value={value || ''} checkConstraint={() => true} />
+              <div className={styles.counterRow}>
+                <CharCounter
+                  value={value || ''}
+                  checkConstraint={checkConstraint}
+                  constraints={constraints}
+                />
               </div>
             )}
           </div>
