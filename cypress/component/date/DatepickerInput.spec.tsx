@@ -8,9 +8,11 @@ import { mount } from '../mount';
 
 describe('Date: DatepickerInput', () => {
   let originalDate: typeof Date;
+
   beforeEach(() => {
     originalDate = global.Date;
   });
+
   afterEach(() => {
     global.Date = originalDate;
   });

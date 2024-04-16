@@ -912,6 +912,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
     beforeEach(() => {
       richText.editor.click().type('/');
     });
+
     it('tracks opening the command palette', () => {
       cy.get('@onAction').should('be.calledOnceWithExactly', ...openCommandPalette());
     });

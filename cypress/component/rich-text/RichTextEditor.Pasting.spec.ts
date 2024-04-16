@@ -75,6 +75,7 @@ describe(
 
         richText.expectValue(expectedValue);
       });
+
       it('supports pasting of cross space links within text', () => {
         richText.editor.click().paste({
           'text/html':
@@ -248,6 +249,7 @@ describe(
 
         richText.expectValue(expectedValue);
       });
+
       it('pastes cross space links inside lists', () => {
         richText.editor.click();
         richText.toolbar.ul.click();
