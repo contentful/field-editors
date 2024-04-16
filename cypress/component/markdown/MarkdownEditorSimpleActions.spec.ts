@@ -97,6 +97,7 @@ describe('Markdown Editor / Simple Actions', () => {
     const clickBold = () => {
       selectors.getBoldButton().click();
     };
+
     it('should work properly', () => {
       renderMarkdownEditor({ spyOnSetValue: true });
 
@@ -157,6 +158,7 @@ describe('Markdown Editor / Simple Actions', () => {
       type(' and not an italic word');
       checkValue('*italic text*\nSentence an *italic word* and not an italic word.');
     });
+
     it('should remove italicness to already applied', () => {
       renderMarkdownEditor({ spyOnSetValue: true });
 
