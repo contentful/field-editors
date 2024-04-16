@@ -91,7 +91,7 @@ export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) =
 
   return (
     <InternalEntryCard
-      entry={entry}
+      entry={status === 'error' ? 'failed' : entry}
       sdk={props.sdk}
       locale={props.locale}
       isDisabled={props.isDisabled}
