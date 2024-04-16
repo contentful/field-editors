@@ -511,7 +511,7 @@ export function useEntity<E extends FetchableEntity>(
   const { status, data } = useQuery(queryKey, () => getEntity(entityType, entityId, options), {
     enabled: options?.enabled,
   });
-  return { status, data } as UseEntityResult<E>;
+  return { status, data: status === 'error' ? 'failed' : data } as UseEntityResult<E>;
 }
 
 export function useResource<R extends Resource = Resource>(
