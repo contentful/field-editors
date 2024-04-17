@@ -55,6 +55,7 @@ describe('Location Editor', () => {
       return cy.findByTestId('location-editor-not-found');
     },
   };
+
   it('should have a proper default state', () => {
     const fieldSdk = renderLocationEditor();
     cy.spy(fieldSdk, 'setValue').as('setValue');

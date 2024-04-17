@@ -2,6 +2,7 @@ export type ValidationType =
   | {
       type: 'max';
       max: number;
+      isDefaultConstraint?: boolean;
     }
   | {
       type: 'min';
