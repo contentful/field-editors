@@ -3,17 +3,17 @@ import React from 'react';
 import { EntryCard, IconButton } from '@contentful/f36-components';
 import { CloseIcon } from '@contentful/f36-icons';
 
-export function MissingEntityCard(props: {
+type MissingEntityCardProps = {
+  customMessage?: string;
   isDisabled?: boolean;
   isSelected?: boolean;
   onRemove?: Function;
   providerName?: string;
-}) {
+};
+
+export function MissingEntityCard(props: MissingEntityCardProps) {
   const providerName = props.providerName ?? 'Source';
-  const description =
-    props.providerName === 'Contentful'
-      ? "Content was deleted or archived or you don't have access rights."
-      : `Content was deleted or archived or you don't have access rights from the external provider. Contact your technical team.`;
+  const description = props.customMessage ?? 'Content missing or inaccessible.';
 
   function CustomActionButton() {
     return (

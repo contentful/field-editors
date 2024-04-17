@@ -5,15 +5,17 @@ import { getProviderName } from '../../utils/getProviderName';
 import { MissingEntityCard } from '../MissingEntityCard/MissingEntityCard';
 import { UnsupportedEntityCard } from './UnsupportedEntityCard';
 
-export function ResourceEntityErrorCard(props: {
+type ResourceEntityErrorCardProps = {
   linkType: string;
   error: unknown;
   isSelected?: boolean;
   isDisabled: boolean;
   onRemove?: Function;
-}) {
+};
+
+export function ResourceEntityErrorCard(props: ResourceEntityErrorCardProps) {
   if (isUnsupportedError(props.error)) {
-    return <UnsupportedEntityCard linkType={props.linkType} isSelected={props.isSelected} />;
+    return <UnsupportedEntityCard isSelected={props.isSelected} onRemove={props.onRemove} />;
   }
 
   const providerName = getProviderName(props.linkType);

@@ -70,7 +70,7 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
   if (requestStatus === 'error') {
     return (
       <InlineEntryCard
-        title="Entry missing or inaccessible"
+        title="Content missing or inaccessible"
         testId={INLINES.EMBEDDED_ENTRY}
         isSelected={props.isSelected}
       />
@@ -85,7 +85,7 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
   if (entryStatus === 'deleted') {
     return (
       <InlineEntryCard
-        title="Entry missing or inaccessible"
+        title="Content missing or inaccessible"
         testId={INLINES.EMBEDDED_ENTRY}
         isSelected={props.isSelected}
         actions={[

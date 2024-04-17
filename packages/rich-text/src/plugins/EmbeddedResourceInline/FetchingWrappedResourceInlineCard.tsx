@@ -33,7 +33,7 @@ export function FetchingWrappedResourceInlineCard(props: FetchingWrappedResource
   if (requestStatus === 'error') {
     return (
       <InlineEntryCard
-        title="Entry missing or inaccessible"
+        title="Content missing or inaccessible"
         testId={INLINES.EMBEDDED_RESOURCE}
         isSelected={props.isSelected}
       />
