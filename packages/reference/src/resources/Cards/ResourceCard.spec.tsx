@@ -154,11 +154,7 @@ describe('ResourceCard', () => {
   it('renders unsupported entity card when resource type is unknown', async () => {
     const { getByText } = renderResourceCard({ linkType: 'Contentful:UnsupportedLink' });
 
-    await waitFor(() =>
-      expect(
-        getByText('Resource type Contentful:UnsupportedLink is currently not supported')
-      ).toBeDefined()
-    );
+    await waitFor(() => expect(getByText('Unsupported API information')).toBeDefined());
   });
 
   it('renders missing entity card when unknown error is returned', async () => {
@@ -171,27 +167,17 @@ describe('ResourceCard', () => {
     const { getByTestId, getByText } = renderResourceCard({ entityUrn: '' });
 
     await waitFor(() => expect(getByTestId('cf-ui-missing-entity-card')).toBeDefined());
-    await waitFor(() =>
-      expect(
-        getByText("Content was deleted or archived or you don't have access rights.")
-      ).toBeDefined()
-    );
+    await waitFor(() => expect(getByText('Content missing or inaccessible')).toBeDefined());
   });
 
   it('renders missing entity card when external urn is invalid', async () => {
-    const { getByTestId } = renderResourceCard({
+    const { getByTestId, getByText } = renderResourceCard({
       linkType: resolvableExternalResourceType,
       entityUrn: '',
     });
 
     await waitFor(() => expect(getByTestId('cf-ui-missing-entity-card')).toBeDefined());
-    // await waitFor(() =>
-    //   expect(
-    //     getByText(
-    //       "Content was deleted or archived or you don't have access rights from the external provider. Contact your technical team."
-    //     )
-    //   ).toBeDefined()
-    // ); // TODO: Update when we have a better error message that does not truncate
+    await waitFor(() => expect(getByText('Content missing or inaccessible')).toBeDefined());
   });
 
   it('renders entry card for external resource', async () => {

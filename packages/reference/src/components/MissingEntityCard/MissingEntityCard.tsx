@@ -13,7 +13,7 @@ type MissingEntityCardProps = {
 
 export function MissingEntityCard(props: MissingEntityCardProps) {
   const providerName = props.providerName ?? 'Source';
-  const description = props.customMessage ?? 'Content missing or inaccessible.';
+  const description = props.customMessage ?? 'Content missing or inaccessible';
 
   function CustomActionButton() {
     return (
