@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.26.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.26.2...@contentful/field-editor-reference@5.26.3) (2024-04-16)
+
+### Bug Fixes
+
+- passing failed to fetched entry card when inaccessible [] ([#1639](https://github.com/contentful/field-editors/issues/1639)) ([6d152d1](https://github.com/contentful/field-editors/commit/6d152d1bae4e790a5221969b9a0fb8a5883e5720))
+
+## [5.26.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.26.1...@contentful/field-editor-reference@5.26.2) (2024-04-15)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
 ## [5.26.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.26.0...@contentful/field-editor-reference@5.26.1) (2024-04-12)
 
 **Note:** Version bump only for package @contentful/field-editor-reference

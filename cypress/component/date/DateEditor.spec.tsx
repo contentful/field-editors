@@ -339,6 +339,7 @@ describe('Date Editor', () => {
         format: 'dateonly' as DateTimeFormat,
       },
     };
+
     it('should read initial value', () => {
       setupDateEditor({ initialValue: '1990-01-03', parameters });
 

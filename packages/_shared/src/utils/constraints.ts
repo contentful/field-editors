@@ -38,7 +38,6 @@ export function fromFieldValidations(
     return {
       type: 'max',
       max: fieldType === 'Symbol' ? 256 : 50000,
-      isDefaultConstraint: true,
     };
   }
 }

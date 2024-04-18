@@ -157,7 +157,7 @@ describe('SingleLineEditor', () => {
       };
     });
 
-    const { getByText, getByTestId } = render(
+    const { getByTestId } = render(
       <SingleLineEditor
         field={field}
         isInitiallyDisabled={false}
@@ -166,7 +166,6 @@ describe('SingleLineEditor', () => {
     );
 
     expect(getByTestId('cf-ui-char-counter')).toHaveTextContent('0 / 1000');
-    expect(getByText('Requires between 100 and 1000 characters')).toBeInTheDocument();
   });
 
   it('shows proper min validation message', () => {
@@ -185,7 +184,7 @@ describe('SingleLineEditor', () => {
       };
     });
 
-    const { getByText, getByTestId } = render(
+    const { getByTestId } = render(
       <SingleLineEditor
         field={field}
         isInitiallyDisabled={false}
@@ -195,6 +194,5 @@ describe('SingleLineEditor', () => {
 
     expect(getByTestId('cf-ui-char-counter')).toHaveTextContent('0');
     expect(getByTestId('cf-ui-char-counter')).not.toHaveTextContent('0 / 1000');
-    expect(getByText('Requires at least 1000 characters')).toBeInTheDocument();
   });
 });
