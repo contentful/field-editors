@@ -17,12 +17,12 @@ const styles = {
 };
 
 export function CharCounter(props: CharCounterProps) {
-  const { constraints } = props;
+  const { constraints, value, checkConstraint } = props;
   let count = 0;
-  if (props.value) {
-    count = props.value.length;
+  if (value) {
+    count = value.length;
   }
-  const valid = count === 0 || props.checkConstraint(count);
+  const valid = count === 0 || checkConstraint(count);
 
   return (
     <span

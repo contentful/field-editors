@@ -4,7 +4,7 @@ import { css } from 'emotion';
 export const errorList = css({
   padding: 0,
   wordWrap: 'break-word',
-  marginTop: tokens.spacingS,
+  marginTop: tokens.spacingXs,
   color: tokens.red500,
   listStyleType: 'none',
 });
@@ -17,7 +17,6 @@ export const errorMessage = css({
 
 export const errorItem = css({
   display: 'flex',
-  alignItems: 'center',
 });
 
 export const entryLink = css({
