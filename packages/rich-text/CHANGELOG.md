@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.20.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.19.8...@contentful/field-editor-rich-text@3.20.0) (2024-04-19)
+
+### Features
+
+- update design of error cards for resources [DANTE-1340] ([#1633](https://github.com/contentful/field-editors/issues/1633)) ([7bd8433](https://github.com/contentful/field-editors/commit/7bd8433855f7dae63a6f4441ff97e5afc57e75b1))
+
 ## [3.19.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.19.7...@contentful/field-editor-rich-text@3.19.8) (2024-04-16)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text

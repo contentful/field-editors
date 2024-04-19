@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.27.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.26.3...@contentful/field-editor-reference@5.27.0) (2024-04-19)
+
+### Features
+
+- update design of error cards for resources [DANTE-1340] ([#1633](https://github.com/contentful/field-editors/issues/1633)) ([7bd8433](https://github.com/contentful/field-editors/commit/7bd8433855f7dae63a6f4441ff97e5afc57e75b1))
+
 ## [5.26.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.26.2...@contentful/field-editor-reference@5.26.3) (2024-04-16)
 
 ### Bug Fixes
