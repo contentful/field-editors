@@ -1,37 +1,42 @@
-import * as React from 'react';
+import React from 'react';
 
-import { Card, Flex, IconButton, SectionHeading } from '@contentful/f36-components';
+import { EntryCard, IconButton } from '@contentful/f36-components';
 import { CloseIcon } from '@contentful/f36-icons';
 
-import { ContentEntityType } from '../../types';
-import * as styles from './styles';
-
-export function MissingEntityCard(props: {
-  entityType: ContentEntityType;
-  asSquare?: boolean;
+type MissingEntityCardProps = {
+  customMessage?: string;
+  isDisabled?: boolean;
   isSelected?: boolean;
-  isDisabled: boolean;
   onRemove?: Function;
-}) {
+  providerName?: string;
+};
+
+export function MissingEntityCard(props: MissingEntityCardProps) {
+  const providerName = props.providerName ?? 'Source';
+  const description = props.customMessage ?? 'Content missing or inaccessible';
+
+  function CustomActionButton() {
+    return (
+      <IconButton
+        aria-label="Actions"
+        icon={<CloseIcon variant="muted" />}
+        size="small"
+        variant="transparent"
+        onClick={() => {
+          props.onRemove && props.onRemove();
+        }}
+      />
+    );
+  }
+
   return (
-    <Card className={styles.card} testId="cf-ui-missing-entry-card" isSelected={props.isSelected}>
-      <Flex alignItems="center" justifyContent="space-between">
-        <div className={props.asSquare ? styles.squareCard : ''}>
-          <SectionHeading marginBottom="none">
-            {props.entityType} is missing or inaccessible
-          </SectionHeading>
-        </div>
-        {!props.isDisabled && props.onRemove && (
-          <IconButton
-            variant="transparent"
-            icon={<CloseIcon variant="muted" />}
-            aria-label="Delete"
-            onClick={() => {
-              props.onRemove && props.onRemove();
-            }}
-          />
-        )}
-      </Flex>
-    </Card>
+    <EntryCard
+      as="a"
+      contentType={providerName}
+      description={description}
+      isSelected={props.isSelected}
+      customActionButton={<CustomActionButton />}
+      testId="cf-ui-missing-entity-card"
+    />
   );
 }

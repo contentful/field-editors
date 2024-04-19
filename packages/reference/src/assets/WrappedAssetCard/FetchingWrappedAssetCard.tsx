@@ -8,7 +8,7 @@ import {
   RenderCustomMissingEntityCard,
 } from '../../common/customCardTypes';
 import { useEntity, useEntityLoader } from '../../common/EntityStore';
-import { LinkActionsProps, MissingEntityCard } from '../../components';
+import { LinkActionsProps, MissingAssetCard } from '../../components';
 import { Action, Asset, FieldAppSDK, ViewType, RenderDragFn } from '../../types';
 import { WrappedAssetCard, WrappedAssetCardProps } from './WrappedAssetCard';
 import { WrappedAssetLink } from './WrappedAssetLink';
@@ -62,8 +62,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
   return React.useMemo(() => {
     if (status === 'error') {
       const card = (
-        <MissingEntityCard
-          entityType="Asset"
+        <MissingAssetCard
           asSquare={props.viewType !== 'link'}
           isDisabled={props.isDisabled}
           onRemove={onRemove}

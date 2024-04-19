@@ -80,9 +80,9 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
   if (status === 'deleted') {
     return (
       <MissingEntityCard
-        entityType="Entry"
         isDisabled={props.isDisabled}
         onRemove={props.onRemove}
+        providerName="Contentful"
       />
     );
   }

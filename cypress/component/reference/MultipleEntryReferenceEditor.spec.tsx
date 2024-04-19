@@ -214,7 +214,7 @@ describe('Multiple Reference Editor', () => {
     });
     mount(<MultipleEntryReferenceEditor {...commonProps} sdk={sdk} />);
 
-    cy.findByText('Entry is missing or inaccessible').should('be.visible');
+    cy.findByText('Content missing or inaccessible').should('be.visible');
   });
 
   it('shows loading state while fetching entry', () => {

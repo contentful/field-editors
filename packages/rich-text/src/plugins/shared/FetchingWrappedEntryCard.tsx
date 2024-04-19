@@ -32,9 +32,9 @@ const InternalEntryCard = React.memo((props: InternalEntryCard) => {
   if (entry === 'failed') {
     return (
       <MissingEntityCard
-        entityType="Entry"
         isDisabled={props.isDisabled}
         onRemove={props.onRemove}
+        providerName="Contentful"
       />
     );
   }
