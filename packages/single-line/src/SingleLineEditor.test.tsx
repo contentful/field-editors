@@ -157,7 +157,7 @@ describe('SingleLineEditor', () => {
       };
     });
 
-    const { getByText, getByTestId } = render(
+    const { getByTestId } = render(
       <SingleLineEditor
         field={field}
         isInitiallyDisabled={false}
@@ -166,7 +166,6 @@ describe('SingleLineEditor', () => {
     );
 
     expect(getByTestId('cf-ui-char-counter')).toHaveTextContent('0 / 1000');
-    expect(getByText('Requires between 100 and 1000 characters')).toBeInTheDocument();
   });
 
   it('shows proper min validation message', () => {
@@ -185,7 +184,7 @@ describe('SingleLineEditor', () => {
       };
     });
 
-    const { getByText, getByTestId } = render(
+    const { getByTestId } = render(
       <SingleLineEditor
         field={field}
         isInitiallyDisabled={false}
@@ -195,36 +194,5 @@ describe('SingleLineEditor', () => {
 
     expect(getByTestId('cf-ui-char-counter')).toHaveTextContent('0');
     expect(getByTestId('cf-ui-char-counter')).not.toHaveTextContent('0 / 1000');
-    expect(getByText('Requires at least 1000 characters')).toBeInTheDocument();
-  });
-
-  it('renders no validation message if withCharValidation is falsy', () => {
-    const [field] = createFakeFieldAPI((field) => {
-      return {
-        ...field,
-        type: 'Symbol',
-        validations: [
-          {
-            size: {
-              min: 100,
-              max: 1000,
-            },
-          },
-        ],
-        id: 'field-id',
-      };
-    });
-
-    const { queryByText, getByTestId } = render(
-      <SingleLineEditor
-        field={field}
-        withCharValidation={false}
-        isInitiallyDisabled={false}
-        locales={createFakeLocalesAPI()}
-      />
-    );
-
-    expect(getByTestId('cf-ui-char-counter')).toHaveTextContent('0 / 1000');
-    expect(queryByText('Requires between 100 and 1000 characters')).not.toBeInTheDocument();
   });
 });
