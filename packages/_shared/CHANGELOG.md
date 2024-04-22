@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.4.7...@contentful/field-editor-shared@1.4.8) (2024-04-22)
+
+**Note:** Version bump only for package @contentful/field-editor-shared
+
 ## [1.4.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.4.6...@contentful/field-editor-shared@1.4.7) (2024-04-15)
 
 **Note:** Version bump only for package @contentful/field-editor-shared
