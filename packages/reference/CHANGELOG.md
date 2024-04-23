@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.27.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.27.2...@contentful/field-editor-reference@5.27.3) (2024-04-23)
+
+### Bug Fixes
+
+- **rich-text:** better handling for status [] ([#1643](https://github.com/contentful/field-editors/issues/1643)) ([00cd60b](https://github.com/contentful/field-editors/commit/00cd60b24484f70d684b1b126107d81b3f2f2936))
+
 ## [5.27.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.27.1...@contentful/field-editor-reference@5.27.2) (2024-04-23)
 
 ### Bug Fixes
