@@ -7,13 +7,11 @@ import {
   useEntityLoader,
   MissingEntityCard,
   WrappedAssetCard,
-  type UseEntityStatus,
 } from '@contentful/field-editor-reference';
 import areEqual from 'fast-deep-equal';
 
 interface InternalAssetCardProps {
-  status: UseEntityStatus;
-  asset?: Asset;
+  asset: Asset;
   isDisabled: boolean;
   isSelected: boolean;
   locale: string;
@@ -23,22 +21,8 @@ interface InternalAssetCardProps {
   loadEntityScheduledActions: (entityType: string, entityId: string) => Promise<ScheduledAction[]>;
 }
 
-const InternalAssetCard = React.memo((props: InternalAssetCardProps) => {
-  if (props.status === 'error') {
-    return (
-      <MissingEntityCard
-        isDisabled={props.isDisabled}
-        onRemove={props.onRemove}
-        providerName="Contentful"
-      />
-    );
-  }
-
-  if (!props.asset) {
-    return <AssetCard size="default" isLoading />;
-  }
-
-  return (
+const InternalAssetCard = React.memo(
+  (props: InternalAssetCardProps) => (
     <WrappedAssetCard
       getEntityScheduledActions={props.loadEntityScheduledActions}
       size="small"
@@ -51,8 +35,9 @@ const InternalAssetCard = React.memo((props: InternalAssetCardProps) => {
       onRemove={props.isDisabled ? undefined : props.onRemove}
       isClickable={false}
     />
-  );
-}, areEqual);
+  ),
+  areEqual
+);
 
 InternalAssetCard.displayName = 'InternalAssetCard';
 
@@ -82,10 +67,23 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
     }
   }, [onEntityFetchComplete, status]);
 
+  if (status === 'loading' || status === 'idle') {
+    return <AssetCard size="default" isLoading />;
+  }
+
+  if (status === 'error') {
+    return (
+      <MissingEntityCard
+        isDisabled={props.isDisabled}
+        onRemove={props.onRemove}
+        providerName="Contentful"
+      />
+    );
+  }
+
   return (
     <InternalAssetCard
-      asset={asset as Asset | undefined}
-      status={status}
+      asset={asset}
       sdk={props.sdk}
       isDisabled={props.isDisabled}
       isSelected={props.isSelected}

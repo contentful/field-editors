@@ -8,38 +8,22 @@ import {
   MissingEntityCard,
   WrappedEntryCard,
   useEntityLoader,
-  type UseEntityStatus,
 } from '@contentful/field-editor-reference';
 import areEqual from 'fast-deep-equal';
 
 interface InternalEntryCard {
-  status: UseEntityStatus;
   isDisabled: boolean;
   isSelected: boolean;
   locale: string;
   sdk: FieldAppSDK;
   loadEntityScheduledActions: (entityType: string, entityId: string) => Promise<ScheduledAction[]>;
-  entry?: Entry;
+  entry: Entry;
   onEdit?: VoidFunction;
   onRemove?: VoidFunction;
 }
 
 const InternalEntryCard = React.memo((props: InternalEntryCard) => {
-  const { entry, sdk, loadEntityScheduledActions, status } = props;
-
-  if (status === 'error') {
-    return (
-      <MissingEntityCard
-        isDisabled={props.isDisabled}
-        onRemove={props.onRemove}
-        providerName="Contentful"
-      />
-    );
-  }
-
-  if (entry === undefined) {
-    return <EntryCard isLoading />;
-  }
+  const { entry, sdk, loadEntityScheduledActions } = props;
 
   const contentType = sdk.space
     .getCachedContentTypes()
@@ -91,9 +75,22 @@ export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) =
     }
   }, [onEntityFetchComplete, status]);
 
+  if (status === 'loading' || status === 'idle') {
+    return <EntryCard isLoading />;
+  }
+
+  if (status === 'error') {
+    return (
+      <MissingEntityCard
+        isDisabled={props.isDisabled}
+        onRemove={props.onRemove}
+        providerName="Contentful"
+      />
+    );
+  }
+
   return (
     <InternalEntryCard
-      status={status}
       entry={entry}
       sdk={props.sdk}
       locale={props.locale}
