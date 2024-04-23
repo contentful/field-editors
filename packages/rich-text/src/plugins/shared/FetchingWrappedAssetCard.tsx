@@ -7,11 +7,13 @@ import {
   useEntityLoader,
   MissingEntityCard,
   WrappedAssetCard,
+  type UseEntityStatus,
 } from '@contentful/field-editor-reference';
 import areEqual from 'fast-deep-equal';
 
 interface InternalAssetCardProps {
-  asset?: Asset | 'failed';
+  status: UseEntityStatus;
+  asset?: Asset;
   isDisabled: boolean;
   isSelected: boolean;
   locale: string;
@@ -22,11 +24,7 @@ interface InternalAssetCardProps {
 }
 
 const InternalAssetCard = React.memo((props: InternalAssetCardProps) => {
-  if (props.asset === undefined) {
-    return <AssetCard size="default" isLoading />;
-  }
-
-  if (props.asset === 'failed') {
+  if (props.status === 'error') {
     return (
       <MissingEntityCard
         isDisabled={props.isDisabled}
@@ -34,6 +32,10 @@ const InternalAssetCard = React.memo((props: InternalAssetCardProps) => {
         providerName="Contentful"
       />
     );
+  }
+
+  if (!props.asset) {
+    return <AssetCard size="default" isLoading />;
   }
 
   return (
@@ -83,6 +85,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
   return (
     <InternalAssetCard
       asset={asset as Asset | undefined}
+      status={status}
       sdk={props.sdk}
       isDisabled={props.isDisabled}
       isSelected={props.isSelected}

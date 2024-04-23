@@ -8,28 +8,26 @@ import {
   MissingEntityCard,
   WrappedEntryCard,
   useEntityLoader,
+  type UseEntityStatus,
 } from '@contentful/field-editor-reference';
 import areEqual from 'fast-deep-equal';
 
 interface InternalEntryCard {
+  status: UseEntityStatus;
   isDisabled: boolean;
   isSelected: boolean;
   locale: string;
   sdk: FieldAppSDK;
   loadEntityScheduledActions: (entityType: string, entityId: string) => Promise<ScheduledAction[]>;
-  entry?: Entry | 'failed';
+  entry?: Entry;
   onEdit?: VoidFunction;
   onRemove?: VoidFunction;
 }
 
 const InternalEntryCard = React.memo((props: InternalEntryCard) => {
-  const { entry, sdk, loadEntityScheduledActions } = props;
+  const { entry, sdk, loadEntityScheduledActions, status } = props;
 
-  if (entry === undefined) {
-    return <EntryCard isLoading />;
-  }
-
-  if (entry === 'failed') {
+  if (status === 'error') {
     return (
       <MissingEntityCard
         isDisabled={props.isDisabled}
@@ -37,6 +35,10 @@ const InternalEntryCard = React.memo((props: InternalEntryCard) => {
         providerName="Contentful"
       />
     );
+  }
+
+  if (entry === undefined) {
+    return <EntryCard isLoading />;
   }
 
   const contentType = sdk.space
@@ -91,6 +93,7 @@ export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) =
 
   return (
     <InternalEntryCard
+      status={status}
       entry={entry}
       sdk={props.sdk}
       locale={props.locale}
