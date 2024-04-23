@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.20.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.20.1...@contentful/field-editor-rich-text@3.20.2) (2024-04-23)
+
+### Bug Fixes
+
+- **richtext-editor:** handle failed inline entries [ZEND-4919,ZEND-4913] ([#1641](https://github.com/contentful/field-editors/issues/1641)) ([630ce5d](https://github.com/contentful/field-editors/commit/630ce5d804b07b2e35a65199af7a2c4d22c79dbe))
+
 ## [3.20.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.20.0...@contentful/field-editor-rich-text@3.20.1) (2024-04-22)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
