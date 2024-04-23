@@ -24,7 +24,7 @@ export type {
 export { SortableLinkList } from './common/SortableLinkList';
 export { EntityProvider, useEntityLoader, useEntity, useResource } from './common/EntityStore';
 export { SharedQueryClientProvider as EntityCacheProvider } from './common/queryClient';
-export type { ResourceInfo, UseEntityStatus } from './common/EntityStore';
+export type { ResourceInfo } from './common/EntityStore';
 export {
   SingleResourceReferenceEditor,
   MultipleResourceReferenceEditor,
