@@ -21,6 +21,83 @@ const styles = {
   }),
 };
 
+type InternalFetchingWrappedInlineEntryCardProps = Pick<
+  FetchingWrappedInlineEntryCardProps,
+  'onEdit' | 'onRemove' | 'isDisabled' | 'isSelected'
+> & {
+  locale: string;
+  defaultLocale: string;
+  entry: Entry;
+  allContentTypes: ReturnType<FieldAppSDK['space']['getCachedContentTypes']>;
+  getEntityScheduledActions: React.ComponentProps<
+    typeof ScheduledIconWithTooltip
+  >['getEntityScheduledActions'];
+  entryStatus: ReturnType<typeof getEntryStatus>;
+};
+
+function InternalFetchingWrappedInlineEntryCard({
+  entry,
+  allContentTypes,
+  locale,
+  defaultLocale,
+  isSelected,
+  entryStatus,
+  getEntityScheduledActions,
+  onEdit,
+  onRemove,
+  isDisabled,
+}: InternalFetchingWrappedInlineEntryCardProps) {
+  const contentType = React.useMemo(() => {
+    if (!allContentTypes) {
+      return undefined;
+    }
+
+    return allContentTypes.find(
+      (contentType) => contentType.sys.id === entry.sys.contentType.sys.id
+    );
+  }, [allContentTypes, entry]);
+
+  const title = React.useMemo(
+    () =>
+      getEntryTitle({
+        entry,
+        contentType,
+        localeCode: locale,
+        defaultLocaleCode: defaultLocale,
+        defaultTitle: 'Untitled',
+      }),
+    [entry, contentType, locale, defaultLocale]
+  );
+
+  const contentTypeName = contentType ? contentType.name : '';
+
+  return (
+    <InlineEntryCard
+      testId={INLINES.EMBEDDED_ENTRY}
+      isSelected={isSelected}
+      title={`${contentTypeName}: ${title}`}
+      status={entryStatus}
+      actions={[
+        <MenuItem key="edit" onClick={onEdit}>
+          Edit
+        </MenuItem>,
+        <MenuItem key="remove" onClick={onRemove} disabled={isDisabled} testId="delete">
+          Remove
+        </MenuItem>,
+      ]}
+    >
+      <ScheduledIconWithTooltip
+        getEntityScheduledActions={getEntityScheduledActions}
+        entityType="Entry"
+        entityId={entry.sys.id}
+      >
+        <ClockIcon className={styles.scheduledIcon} variant="muted" testId="scheduled-icon" />
+      </ScheduledIconWithTooltip>
+      <Text>{title}</Text>
+    </InlineEntryCard>
+  );
+}
+
 interface FetchingWrappedInlineEntryCardProps {
   entryId: string;
   sdk: FieldAppSDK;
@@ -34,19 +111,8 @@ interface FetchingWrappedInlineEntryCardProps {
 export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntryCardProps) {
   const { data: entry, status: requestStatus } = useEntity<Entry>('Entry', props.entryId);
   const { getEntityScheduledActions } = useEntityLoader();
-  const loadEntityScheduledActions = () => getEntityScheduledActions('Entry', props.entryId);
 
-  const allContentTypes = props.sdk.space.getCachedContentTypes();
   const { onEntityFetchComplete } = props;
-  const contentType = React.useMemo(() => {
-    if (requestStatus !== 'success' || !entry || !allContentTypes) {
-      return undefined;
-    }
-
-    return allContentTypes.find(
-      (contentType) => contentType.sys.id === entry.sys.contentType.sys.id
-    );
-  }, [allContentTypes, entry, requestStatus]);
 
   React.useEffect(() => {
     if (requestStatus !== 'success') {
@@ -55,20 +121,9 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
     onEntityFetchComplete?.();
   }, [requestStatus, onEntityFetchComplete]);
 
-  const contentTypeName = contentType ? contentType.name : '';
-
-  const title = React.useMemo(
-    () =>
-      requestStatus === 'success' &&
-      getEntryTitle({
-        entry,
-        contentType,
-        localeCode: props.sdk.field.locale,
-        defaultLocaleCode: props.sdk.locales.default,
-        defaultTitle: 'Untitled',
-      }),
-    [entry, requestStatus, contentType, props.sdk.field.locale, props.sdk.locales.default]
-  );
+  if (requestStatus === 'loading' || requestStatus === 'idle') {
+    return <InlineEntryCard isLoading />;
+  }
 
   if (requestStatus === 'error') {
     return (
@@ -78,10 +133,6 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
         isSelected={props.isSelected}
       />
     );
-  }
-
-  if (requestStatus === 'loading') {
-    return <InlineEntryCard isLoading />;
   }
 
   const entryStatus = getEntryStatus(entry.sys);
@@ -101,28 +152,17 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
   }
 
   return (
-    <InlineEntryCard
-      testId={INLINES.EMBEDDED_ENTRY}
+    <InternalFetchingWrappedInlineEntryCard
+      allContentTypes={props.sdk.space.getCachedContentTypes()}
+      getEntityScheduledActions={() => getEntityScheduledActions('Entry', props.entryId)}
+      locale={props.sdk.field.locale}
+      defaultLocale={props.sdk.locales.default}
+      entry={entry}
+      entryStatus={entryStatus}
+      isDisabled={props.isDisabled}
       isSelected={props.isSelected}
-      title={`${contentTypeName}: ${title}`}
-      status={entryStatus}
-      actions={[
-        <MenuItem key="edit" onClick={props.onEdit}>
-          Edit
-        </MenuItem>,
-        <MenuItem key="remove" onClick={props.onRemove} disabled={props.isDisabled} testId="delete">
-          Remove
-        </MenuItem>,
-      ]}
-    >
-      <ScheduledIconWithTooltip
-        getEntityScheduledActions={loadEntityScheduledActions}
-        entityType="Entry"
-        entityId={entry.sys.id}
-      >
-        <ClockIcon className={styles.scheduledIcon} variant="muted" testId="scheduled-icon" />
-      </ScheduledIconWithTooltip>
-      <Text>{title}</Text>
-    </InlineEntryCard>
+      onEdit={props.onEdit}
+      onRemove={props.onRemove}
+    />
   );
 }

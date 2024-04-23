@@ -73,8 +73,6 @@ type UseEntityResult<E> =
   | { status: 'error'; data: never }
   | { status: 'success'; data: E };
 
-export type UseEntityStatus = 'idle' | 'loading' | 'error' | 'success';
-
 type FetchFunction<TQueryData> = (context: { cmaClient: PlainClientAPI }) => Promise<TQueryData>;
 type FetchServiceOptions<
   TQueryFnData = unknown,
