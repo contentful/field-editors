@@ -39,12 +39,14 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
   const allContentTypes = props.sdk.space.getCachedContentTypes();
   const { onEntityFetchComplete } = props;
   const contentType = React.useMemo(() => {
-    if (!entry || !allContentTypes) return undefined;
+    if (requestStatus !== 'success' || !entry || !allContentTypes) {
+      return undefined;
+    }
 
     return allContentTypes.find(
       (contentType) => contentType.sys.id === entry.sys.contentType.sys.id
     );
-  }, [allContentTypes, entry]);
+  }, [allContentTypes, entry, requestStatus]);
 
   React.useEffect(() => {
     if (requestStatus !== 'success') {
@@ -57,6 +59,7 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
 
   const title = React.useMemo(
     () =>
+      requestStatus === 'success' &&
       getEntryTitle({
         entry,
         contentType,
@@ -64,7 +67,7 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
         defaultLocaleCode: props.sdk.locales.default,
         defaultTitle: 'Untitled',
       }),
-    [entry, contentType, props.sdk.field.locale, props.sdk.locales.default]
+    [entry, requestStatus, contentType, props.sdk.field.locale, props.sdk.locales.default]
   );
 
   if (requestStatus === 'error') {
