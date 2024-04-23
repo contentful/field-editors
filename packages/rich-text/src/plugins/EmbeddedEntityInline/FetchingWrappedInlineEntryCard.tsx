@@ -69,13 +69,11 @@ function InternalFetchingWrappedInlineEntryCard({
     [entry, contentType, locale, defaultLocale]
   );
 
-  const contentTypeName = contentType ? contentType.name : '';
-
   return (
     <InlineEntryCard
       testId={INLINES.EMBEDDED_ENTRY}
       isSelected={isSelected}
-      title={`${contentTypeName}: ${title}`}
+      title={contentType ? `${contentType.name}: ${title}` : title}
       status={entryStatus}
       actions={[
         <MenuItem key="edit" onClick={onEdit}>
