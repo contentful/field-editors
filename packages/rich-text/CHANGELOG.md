@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.20.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.20.3...@contentful/field-editor-rich-text@3.20.4) (2024-05-02)
+
+### Bug Fixes
+
+- [] Consider text direction when positioning cell actions inside of Rich Text Editor ([#1646](https://github.com/contentful/field-editors/issues/1646)) ([316ca48](https://github.com/contentful/field-editors/commit/316ca487fbdffb74e96b138de25b4268d7969519))
+
 ## [3.20.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.20.2...@contentful/field-editor-rich-text@3.20.3) (2024-04-23)
 
 ### Bug Fixes
