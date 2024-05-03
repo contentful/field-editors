@@ -16,6 +16,8 @@ export function MissingEntityCard(props: MissingEntityCardProps) {
   const description = props.customMessage ?? 'Content missing or inaccessible';
 
   function CustomActionButton() {
+    if (props.isDisabled || !props.onRemove) return null;
+
     return (
       <IconButton
         aria-label="Actions"
