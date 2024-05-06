@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.27.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.27.3...@contentful/field-editor-reference@5.27.4) (2024-05-06)
+
+### Bug Fixes
+
+- add the isDisabled check to MissingEntityCard ([#1647](https://github.com/contentful/field-editors/issues/1647)) ([77af34a](https://github.com/contentful/field-editors/commit/77af34aa404b75c2363c48e0a0545eaaeb0af505))
+
 ## [5.27.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.27.2...@contentful/field-editor-reference@5.27.3) (2024-04-23)
 
 ### Bug Fixes
