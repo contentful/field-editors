@@ -92,6 +92,24 @@ describe('Single resource editor', () => {
     findMissingCards().should('have.length', 0);
   });
 
+  it('cannot remove missing cards when it is disabled', () => {
+    const sdk = createReferenceEditorTestSdk({
+      initialValue: asLink(fixtures.entries.invalid),
+    });
+    mount(
+      <SingleResourceReferenceEditor
+        {...commonProps}
+        isInitiallyDisabled={true}
+        viewType="card"
+        sdk={sdk}
+      />
+    );
+
+    findMissingCards().should('have.length', 1);
+
+    findMissingCards().first().get('#cf-ui-icon-button').should('not.exist');
+  });
+
   // TODO: Enable this test after navigation is moved into sdk.navigator
 
   // it.only('opens entry when clicking on it', () => {
