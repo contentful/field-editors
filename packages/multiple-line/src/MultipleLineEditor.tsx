@@ -6,6 +6,7 @@ import {
   LocalesAPI,
   FieldConnector,
   CharCounter,
+  CharValidation,
   ConstraintsUtils,
 } from '@contentful/field-editor-shared';
 
@@ -16,6 +17,11 @@ export interface MultipleLineEditorProps {
    * is the field disabled initially
    */
   isInitiallyDisabled: boolean;
+
+  /**
+   * whether char validation should be shown or not
+   */
+  withCharValidation: boolean;
 
   /**
    * sdk.field
@@ -29,7 +35,7 @@ export interface MultipleLineEditorProps {
 }
 
 export function MultipleLineEditor(props: MultipleLineEditorProps) {
-  const { field, locales, isInitiallyDisabled } = props;
+  const { field, locales, isInitiallyDisabled, withCharValidation } = props;
 
   const constraints = ConstraintsUtils.fromFieldValidations(
     field.validations,
@@ -54,7 +60,8 @@ export function MultipleLineEditor(props: MultipleLineEditorProps) {
                 setValue(e.target.value);
               }}
             />
-            <div className={styles.counterRow}>
+            <div className={styles.validationRow(withCharValidation)}>
+              <CharValidation constraints={constraints} enabled={withCharValidation} />
               <CharCounter
                 value={value || ''}
                 checkConstraint={checkConstraint}
@@ -70,4 +77,5 @@ export function MultipleLineEditor(props: MultipleLineEditorProps) {
 
 MultipleLineEditor.defaultProps = {
   isInitiallyDisabled: true,
+  withCharValidation: true,
 };
