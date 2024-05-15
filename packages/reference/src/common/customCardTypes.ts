@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Asset, ContentType, Entry, RenderDragFn } from '../types';
+import { Asset, ContentType, Entry, LocaleProps, RenderDragFn } from '../types';
 import { CustomActionProps } from './ReferenceEditor';
 
 export type MissingEntityCardProps = {
@@ -39,4 +39,5 @@ export type CustomEntityCardProps = {
   onMoveTop?: () => void;
   onMoveBottom?: () => void;
   isBeingDragged?: boolean;
+  locales?: LocaleProps[];
 };

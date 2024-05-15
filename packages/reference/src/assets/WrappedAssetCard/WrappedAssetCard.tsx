@@ -10,7 +10,7 @@ import mimetype from '@contentful/mimetype';
 import { css } from 'emotion';
 
 import { MissingAssetCard, ScheduledIconWithTooltip } from '../../components';
-import { Asset, File, RenderDragFn } from '../../types';
+import { Asset, File, LocaleProps, RenderDragFn } from '../../types';
 import { renderActions, renderAssetInfo } from './AssetCardActions';
 
 const groupToIconMap = {
@@ -47,6 +47,7 @@ export interface WrappedAssetCardProps {
   size: 'default' | 'small';
   renderDragHandle?: RenderDragFn;
   isClickable: boolean;
+  locales?: LocaleProps[];
 }
 
 const defaultProps = {
@@ -72,7 +73,7 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
     props;
 
   // @ts-expect-error
-  const status = entityHelpers.getEntryStatus(props.asset.sys);
+  const status = entityHelpers.getEntryStatus(props.asset.sys, props.locales);
 
   if (status === 'deleted') {
     return <MissingAssetCard asSquare isDisabled={props.isDisabled} onRemove={props.onRemove} />;

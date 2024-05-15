@@ -9,7 +9,7 @@ import {
 } from '../../common/customCardTypes';
 import { useEntity, useEntityLoader } from '../../common/EntityStore';
 import { LinkActionsProps, MissingAssetCard } from '../../components';
-import { Action, Asset, FieldAppSDK, ViewType, RenderDragFn } from '../../types';
+import { Action, Asset, FieldAppSDK, ViewType, RenderDragFn, LocaleProps } from '../../types';
 import { WrappedAssetCard, WrappedAssetCardProps } from './WrappedAssetCard';
 import { WrappedAssetLink } from './WrappedAssetLink';
 
@@ -24,6 +24,7 @@ type FetchingWrappedAssetCardProps = {
   renderDragHandle?: RenderDragFn;
   renderCustomCard?: CustomCardRenderer;
   renderCustomMissingEntityCard?: RenderCustomMissingEntityCard;
+  locales?: LocaleProps[];
 };
 
 export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
@@ -92,6 +93,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       renderDragHandle: props.renderDragHandle,
       onEdit,
       onRemove,
+      locales: props.locales,
     };
 
     if (props.viewType === 'link') {

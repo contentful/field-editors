@@ -7,7 +7,7 @@ import { entityHelpers, isValidImage, SpaceAPI } from '@contentful/field-editor-
 import { css } from 'emotion';
 
 import { AssetThumbnail, MissingAssetCard, ScheduledIconWithTooltip } from '../../components';
-import { Asset, RenderDragFn } from '../../types';
+import { Asset, LocaleProps, RenderDragFn } from '../../types';
 import { renderActions, renderAssetInfo } from './AssetCardActions';
 
 const styles = {
@@ -27,13 +27,14 @@ export interface WrappedAssetLinkProps {
   onEdit: () => void;
   onRemove: () => void;
   renderDragHandle?: RenderDragFn;
+  locales?: LocaleProps[];
 }
 
 export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
   const { className, href, onEdit, onRemove, isDisabled } = props;
 
   // @ts-expect-error
-  const status = entityHelpers.getEntryStatus(props.asset.sys);
+  const status = entityHelpers.getEntryStatus(props.asset.sys, props.locales);
 
   if (status === 'deleted') {
     return <MissingAssetCard isDisabled={props.isDisabled} onRemove={props.onRemove} />;

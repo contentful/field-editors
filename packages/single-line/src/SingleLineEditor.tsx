@@ -56,7 +56,7 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
     >
       {({ value, errors, disabled, setValue }) => {
         return (
-          <div data-test-id="single-line-editor">
+          <div data-test-id="single-line-editor" className={styles.wrapper}>
             <TextInput
               className={direction === 'rtl' ? styles.rightToLeft : ''}
               isRequired={field.required}
@@ -67,6 +67,7 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
                 setValue(e.target.value);
               }}
             />
+            {/* <Flex justifyContent="flex-end" className={styles.counterRow}> */}
             <div className={styles.counterRow}>
               <CharCounter
                 value={value || ''}
@@ -74,6 +75,7 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
                 constraints={constraints}
               />
             </div>
+            {/* </Flex> */}
           </div>
         );
       }}

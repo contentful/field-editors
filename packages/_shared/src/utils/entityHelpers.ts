@@ -1,7 +1,7 @@
 import get from 'lodash/get';
 import isObject from 'lodash/isObject';
 
-import { Asset, ContentType, ContentTypeField, Entry, File } from '../typesEntity';
+import { Asset, ContentType, ContentTypeField, Entry, File, LocaleProps } from '../typesEntity';
 
 function titleOrDefault(title: string | undefined, defaultTitle: string): string {
   if (!(title != null && typeof title.valueOf() === 'string')) {
@@ -199,9 +199,52 @@ export function getEntryTitle({
   return titleOrDefault(title, defaultTitle);
 }
 
-export function getEntryStatus(sys: Entry['sys']) {
+type AsyncPublishStatus = 'draft' | 'published' | 'changed';
+
+type FieldStatus = {
+  '*': Record<string, AsyncPublishStatus>;
+};
+
+export function getEntryStatus(
+  //TODO: remove union after fieldStatus is added to App SDK
+  sys: Entry['sys'] & { fieldStatus?: FieldStatus },
+  locales?: LocaleProps[]
+) {
   if (!sys || (sys.type !== 'Entry' && sys.type !== 'Asset')) {
     throw new TypeError('Invalid entity metadata object');
+  }
+
+  if (sys.fieldStatus) {
+    let status: AsyncPublishStatus = 'draft';
+    if (locales) {
+      if (locales.length === 1) {
+        const localeCode = locales[0].code;
+        return sys.fieldStatus['*'][localeCode] || 'draft';
+      }
+      const filteredStatusList = Object.entries(sys.fieldStatus['*']).filter(([localeCode, _]) =>
+        locales.some((locale) => locale.code === localeCode)
+      );
+      filteredStatusList.forEach(([_, fieldStatus]) => {
+        if (fieldStatus === 'changed') {
+          status = fieldStatus;
+          return;
+        }
+        if (fieldStatus === 'published') {
+          status = fieldStatus;
+        }
+      });
+    } else {
+      Object.values(sys.fieldStatus['*']).forEach((fieldStatus) => {
+        if (fieldStatus === 'changed') {
+          status = fieldStatus;
+          return;
+        }
+        if (fieldStatus === 'published') {
+          status = fieldStatus;
+        }
+      });
+    }
+    return status;
   }
   if (sys.deletedVersion) {
     return 'deleted';
