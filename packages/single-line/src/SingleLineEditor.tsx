@@ -6,6 +6,7 @@ import {
   FieldConnector,
   ConstraintsUtils,
   CharCounter,
+  CharValidation,
   LocalesAPI,
 } from '@contentful/field-editor-shared';
 
@@ -23,6 +24,10 @@ export interface SingleLineEditorProps {
   isDisabled?: boolean;
 
   /**
+   * whether char validation should be shown or not
+   */
+  withCharValidation: boolean;
+  /**
    * sdk.field
    */
   field: FieldAPI;
@@ -38,7 +43,7 @@ function isSupportedFieldTypes(val: string): val is 'Symbol' | 'Text' {
 }
 
 export function SingleLineEditor(props: SingleLineEditorProps) {
-  const { field, locales } = props;
+  const { field, locales, withCharValidation } = props;
 
   if (!isSupportedFieldTypes(field.type)) {
     throw new Error(`"${field.type}" field type is not supported by SingleLineEditor`);
@@ -67,7 +72,8 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
                 setValue(e.target.value);
               }}
             />
-            <div className={styles.counterRow}>
+            <div className={styles.validationRow(withCharValidation)}>
+              <CharValidation constraints={constraints} enabled={withCharValidation} />
               <CharCounter
                 value={value || ''}
                 checkConstraint={checkConstraint}
@@ -83,4 +89,5 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
 
 SingleLineEditor.defaultProps = {
   isInitiallyDisabled: true,
+  withCharValidation: true,
 };
