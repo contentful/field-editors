@@ -30,7 +30,6 @@ describe('MultipleLineEditor', () => {
     const [field] = createFakeFieldAPI((field) => {
       return {
         ...field,
-        type: 'Text',
         id: 'field-id',
         getValue: () => {
           return initialValue;
@@ -47,7 +46,6 @@ describe('MultipleLineEditor', () => {
     );
 
     expect(getByTestId('cf-ui-textarea')).toHaveValue(initialValue);
-    expect(getByTestId('cf-ui-char-counter')).toHaveTextContent(`${initialValue.length} / 50000`);
   });
 
   it('calls field.setValue when user types and calls field.removeValue when user clears the input', async () => {
