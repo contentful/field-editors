@@ -2,18 +2,16 @@ import * as React from 'react';
 
 import { FieldAppSDK } from '@contentful/app-sdk';
 import tokens from '@contentful/f36-tokens';
-import { CharCounter, ConstraintsUtils } from '@contentful/field-editor-shared';
+import { CharCounter, CharValidation, ConstraintsUtils } from '@contentful/field-editor-shared';
 import { css } from 'emotion';
 
 const styles = {
   root: css({
     display: 'flex',
-    justifyContent: 'flex-end',
-    float: 'right',
+    justifyContent: 'space-between',
     fontSize: tokens.fontSizeM,
     marginTop: tokens.spacingXs,
-    marginLeft: tokens.spacingS,
-    color: tokens.gray500,
+    color: tokens.gray700,
   }),
 };
 
@@ -27,11 +25,8 @@ export function MarkdownConstraints(props: { sdk: FieldAppSDK; value: string }) 
 
   return (
     <div className={styles.root}>
-      <CharCounter
-        value={props.value}
-        checkConstraint={checkConstraint}
-        constraints={constraints}
-      />
+      <CharCounter value={props.value} checkConstraint={checkConstraint} />
+      <CharValidation constraints={constraints} />
     </div>
   );
 }

@@ -19,6 +19,7 @@ export {
   WindowAPI,
 } from '@contentful/app-sdk';
 export { CharCounter } from './CharCounter';
+export { CharValidation } from './CharValidation';
 export { FieldConnector } from './FieldConnector';
 export type { FieldConnectorChildProps } from './FieldConnector';
 export { PredefinedValuesError } from './PredefinedValuesError';

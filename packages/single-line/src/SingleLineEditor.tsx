@@ -6,6 +6,7 @@ import {
   FieldConnector,
   ConstraintsUtils,
   CharCounter,
+  CharValidation,
   LocalesAPI,
 } from '@contentful/field-editor-shared';
 
@@ -22,6 +23,10 @@ export interface SingleLineEditorProps {
    */
   isDisabled?: boolean;
 
+  /**
+   * whether char validation should be shown or not
+   */
+  withCharValidation: boolean;
   /**
    * sdk.field
    */
@@ -67,13 +72,17 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
                 setValue(e.target.value);
               }}
             />
-            <div className={styles.counterRow}>
-              <CharCounter
-                value={value || ''}
-                checkConstraint={checkConstraint}
-                constraints={constraints}
-              />
-            </div>
+            {props.withCharValidation && (
+              <div className={styles.validationRow}>
+                <CharCounter value={value || ''} checkConstraint={checkConstraint} />
+                <CharValidation constraints={constraints} />
+              </div>
+            )}
+            {props.withCharValidation === false && (
+              <div className={styles.validationRow}>
+                <CharCounter value={value || ''} checkConstraint={() => true} />
+              </div>
+            )}
           </div>
         );
       }}
@@ -83,4 +92,5 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
 
 SingleLineEditor.defaultProps = {
   isInitiallyDisabled: true,
+  withCharValidation: true,
 };

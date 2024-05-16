@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.4.8...@contentful/field-editor-shared@1.4.9) (2024-05-16)
+
+### Bug Fixes
+
+- temporarily revert text editors restyling ([#1652](https://github.com/contentful/field-editors/issues/1652)) ([c11eaf8](https://github.com/contentful/field-editors/commit/c11eaf83b1afa7530ff2cf4b3cb38bbb868f7256))
+
 ## [1.4.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.4.7...@contentful/field-editor-shared@1.4.8) (2024-04-22)
 
 **Note:** Version bump only for package @contentful/field-editor-shared
