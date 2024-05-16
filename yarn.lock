@@ -9607,19 +9607,6 @@ contentful-management@^10.0.0:
     lodash.isplainobject "^4.0.6"
     type-fest "^4.0.0"
 
-contentful-management@^11.25.3:
-  version "11.25.3"
-  resolved "https://registry.yarnpkg.com/contentful-management/-/contentful-management-11.25.3.tgz#eb16e1b7491b5c393c4f1b5be9e6e42e3d9496f0"
-  integrity sha512-rHOZp5s8pGkmPzEF6W7cWUVXYnMAzNblCdz69Yam41CYcJAu3ayW3ATKH1gYc9qz7l4dYX+7brk3G+kpuku7mw==
-  dependencies:
-    "@contentful/rich-text-types" "^16.3.0"
-    "@types/json-patch" "0.0.30"
-    axios "^1.6.2"
-    contentful-sdk-core "^8.1.0"
-    fast-copy "^3.0.0"
-    lodash.isplainobject "^4.0.6"
-    type-fest "^4.0.0"
-
 contentful-management@^5.12.0, contentful-management@^5.18.2:
   version "5.28.0"
   resolved "https://registry.yarnpkg.com/contentful-management/-/contentful-management-5.28.0.tgz#f3b58d60400d66e42439bbd9085cecb0e486f0bb"

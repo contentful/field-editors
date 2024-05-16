@@ -11,7 +11,6 @@ import {
 import { Entry, FieldAppSDK, entityHelpers } from '@contentful/field-editor-shared';
 import { INLINES } from '@contentful/rich-text-types';
 import { css } from 'emotion';
-import { useLocalesContext } from 'LocalesProvider';
 
 const { getEntryTitle, getEntryStatus } = entityHelpers;
 
@@ -110,7 +109,6 @@ interface FetchingWrappedInlineEntryCardProps {
 export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntryCardProps) {
   const { data: entry, status: requestStatus } = useEntity<Entry>('Entry', props.entryId);
   const { getEntityScheduledActions } = useEntityLoader();
-  const locales = useLocalesContext();
 
   const { onEntityFetchComplete } = props;
 
@@ -135,7 +133,7 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
     );
   }
 
-  const entryStatus = getEntryStatus(entry.sys, locales);
+  const entryStatus = getEntryStatus(entry.sys, props.sdk.field.locale);
   if (entryStatus === 'deleted') {
     return (
       <InlineEntryCard

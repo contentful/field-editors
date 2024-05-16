@@ -9,7 +9,7 @@ import { css } from 'emotion';
 
 import { AssetThumbnail, MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
 import { SpaceName } from '../../components/SpaceName/SpaceName';
-import { ContentType, Entry, File, LocaleProps, RenderDragFn } from '../../types';
+import { ContentType, Entry, File, RenderDragFn } from '../../types';
 
 const { getEntryTitle, getEntityDescription, getEntryStatus, getEntryImage } = entityHelpers;
 
@@ -41,7 +41,6 @@ export interface WrappedEntryCardProps {
   hasCardEditActions: boolean;
   hasCardMoveActions?: boolean;
   hasCardRemoveActions?: boolean;
-  locales?: LocaleProps[];
 }
 
 const defaultProps = {
@@ -76,7 +75,7 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
     }
   }, [props.entry, props.getAsset, contentType, props.localeCode, props.defaultLocaleCode]);
 
-  const status = getEntryStatus(props.entry?.sys, props.locales);
+  const status = getEntryStatus(props.entry?.sys, props.localeCode);
 
   if (status === 'deleted') {
     return (

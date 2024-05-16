@@ -4,7 +4,7 @@ import { FieldConnector } from '@contentful/field-editor-shared';
 import deepEqual from 'deep-equal';
 
 import type { LinkActionsProps } from '../components';
-import { Action, ActionLabels, FieldAppSDK, LocaleProps, ViewType } from '../types';
+import { Action, ActionLabels, FieldAppSDK, ViewType } from '../types';
 import { CustomCardRenderer, RenderCustomMissingEntityCard } from './customCardTypes';
 import { EntityProvider } from './EntityStore';
 
@@ -36,7 +36,6 @@ export interface ReferenceEditorProps {
   };
   updateBeforeSortStart?: ({ index }: { index: number }) => void;
   onSortingEnd?: ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => void;
-  locales?: LocaleProps[];
 }
 
 export type CustomActionProps = LinkActionsProps;

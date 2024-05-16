@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Entry } from '@contentful/field-editor-shared';
 
 import { WrappedEntryCard } from '../../entries';
-import { LocaleProps, RenderDragFn, ResourceInfo } from '../../types';
+import { RenderDragFn, ResourceInfo } from '../../types';
 
 export type CardActionsHandlers = {
   onRemove?: VoidFunction;
@@ -18,7 +18,6 @@ type ContentfulEntryCardProps = {
   isDisabled: boolean;
   renderDragHandle?: RenderDragFn;
   getEntryRouteHref: (entryRoute: EntryRoute) => string;
-  locales?: LocaleProps[];
 } & CardActionsHandlers;
 
 // assets are not shown for small cards (which we hardcode currently)
@@ -34,7 +33,6 @@ export function ContentfulEntryCard({
   onMoveTop,
   onMoveBottom,
   getEntryRouteHref,
-  locales,
 }: ContentfulEntryCardProps) {
   const resourceSys = info.resource.sys;
   const spaceId = resourceSys.space.sys.id;
@@ -76,7 +74,6 @@ export function ContentfulEntryCard({
       onMoveBottom={onMoveBottom}
       onMoveTop={onMoveTop}
       entryUrl={resourceHref}
-      locales={locales}
     />
   );
 }

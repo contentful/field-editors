@@ -9,7 +9,6 @@ import {
   ScheduledAction,
 } from '@contentful/app-sdk';
 import { entityHelpers } from '@contentful/field-editor-shared';
-import { LocaleProps } from 'contentful-management';
 
 import { getEntityInfo } from './utils';
 
@@ -28,14 +27,12 @@ async function fetchAllData({
   entityType,
   localeCode,
   defaultLocaleCode,
-  locales,
 }: {
   sdk: FieldAppSDK;
   entityId: string;
   entityType: ContentEntityType;
   localeCode: string;
   defaultLocaleCode: string;
-  locales?: LocaleProps[];
 }): Promise<FetchedEntityData> {
   let contentType;
 
@@ -74,7 +71,7 @@ async function fetchAllData({
   const jobs = await sdk.space.getEntityScheduledActions(entityType, entityId);
 
   // @ts-expect-error
-  const entityStatus = entityHelpers.getEntryStatus(entity.sys, locales);
+  const entityStatus = entityHelpers.getEntryStatus(entity.sys, sdk.field.locale);
 
   return {
     jobs,
@@ -90,10 +87,9 @@ export type EntityInfoProps = {
   target: Link<ContentEntityType>;
   sdk: FieldAppSDK;
   onEntityFetchComplete?: VoidFunction;
-  locales?: LocaleProps[];
 };
 
-function useRequestStatus({ sdk, target, onEntityFetchComplete, locales }: EntityInfoProps) {
+function useRequestStatus({ sdk, target, onEntityFetchComplete }: EntityInfoProps) {
   const [requestStatus, setRequestStatus] = useState<{
     type: 'success' | 'loading' | 'error';
     data?: FetchedEntityData;
@@ -108,7 +104,6 @@ function useRequestStatus({ sdk, target, onEntityFetchComplete, locales }: Entit
         entityType: target?.sys?.linkType,
         localeCode: sdk.field.locale,
         defaultLocaleCode: sdk.locales.default,
-        locales,
       })
         .then((entityInfo) => {
           setRequestStatus({ type: 'success', data: entityInfo });
@@ -121,7 +116,7 @@ function useRequestStatus({ sdk, target, onEntityFetchComplete, locales }: Entit
           onEntityFetchComplete?.();
         });
     }
-  }, [sdk, target, onEntityFetchComplete, locales]);
+  }, [sdk, target, onEntityFetchComplete]);
 
   return requestStatus;
 }

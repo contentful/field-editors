@@ -6,7 +6,6 @@ import { ResourceLink, ResourceInfo, useResource } from '@contentful/field-edito
 import { entityHelpers } from '@contentful/field-editor-shared';
 import { FieldAppSDK } from '@contentful/field-editor-shared';
 import { INLINES } from '@contentful/rich-text-types';
-import { useLocalesContext } from 'LocalesProvider';
 
 import { truncateTitle } from '../../plugins/shared/utils';
 
@@ -24,7 +23,6 @@ interface FetchingWrappedResourceInlineCardProps {
 export function FetchingWrappedResourceInlineCard(props: FetchingWrappedResourceInlineCardProps) {
   const { link, onEntityFetchComplete } = props;
   const { data, status: requestStatus } = useResource(link.linkType, link.urn);
-  const locales = useLocalesContext();
 
   React.useEffect(() => {
     if (requestStatus === 'success') {
@@ -56,7 +54,7 @@ export function FetchingWrappedResourceInlineCard(props: FetchingWrappedResource
     defaultTitle: 'Untitled',
   });
   const truncatedTitle = truncateTitle(title, 40);
-  const status = getEntryStatus(entry.sys, locales);
+  const status = getEntryStatus(entry.sys, props.sdk.field.locale);
 
   return (
     <InlineEntryCard

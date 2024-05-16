@@ -5,10 +5,8 @@ import { EntityProvider } from '@contentful/field-editor-reference';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import * as Contentful from '@contentful/rich-text-types';
 import { PlateContent, Plate, PlatePlugin } from '@udecode/plate-common';
-import { LocaleProps } from 'contentful-management';
 import { css, cx } from 'emotion';
 import deepEquals from 'fast-deep-equal';
-import { LocalesProvider } from 'LocalesProvider';
 import noop from 'lodash/noop';
 
 import { ContentfulEditorIdProvider, getContentfulEditorId } from './ContentfulEditorProvider';
@@ -33,11 +31,10 @@ type ConnectedProps = {
   isToolbarHidden?: boolean;
   actionsDisabled?: boolean;
   restrictedMarks?: string[];
-  locales?: LocaleProps[];
 };
 
 export const ConnectedRichTextEditor = (props: ConnectedProps) => {
-  const { sdk, onAction, restrictedMarks, locales } = props;
+  const { sdk, onAction, restrictedMarks } = props;
 
   const id = getContentfulEditorId(sdk);
   const plugins = React.useMemo(
@@ -70,24 +67,22 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   return (
     <SdkProvider sdk={sdk}>
       <ContentfulEditorIdProvider value={id}>
-        <LocalesProvider locales={locales}>
-          <div className={styles.root} data-test-id="rich-text-editor">
-            <Plate
-              id={id}
-              initialValue={initialValue}
-              plugins={plugins as PlatePlugin[]}
-              disableCorePlugins={disableCorePlugins}
-            >
-              {!props.isToolbarHidden && (
-                <StickyToolbarWrapper isDisabled={props.isDisabled}>
-                  <Toolbar isDisabled={props.isDisabled} />
-                </StickyToolbarWrapper>
-              )}
-              <SyncEditorChanges incomingValue={initialValue} onChange={props.onChange} />
-              <PlateContent id={id} className={classNames} readOnly={props.isDisabled} />
-            </Plate>
-          </div>
-        </LocalesProvider>
+        <div className={styles.root} data-test-id="rich-text-editor">
+          <Plate
+            id={id}
+            initialValue={initialValue}
+            plugins={plugins as PlatePlugin[]}
+            disableCorePlugins={disableCorePlugins}
+          >
+            {!props.isToolbarHidden && (
+              <StickyToolbarWrapper isDisabled={props.isDisabled}>
+                <Toolbar isDisabled={props.isDisabled} />
+              </StickyToolbarWrapper>
+            )}
+            <SyncEditorChanges incomingValue={initialValue} onChange={props.onChange} />
+            <PlateContent id={id} className={classNames} readOnly={props.isDisabled} />
+          </Plate>
+        </div>
       </ContentfulEditorIdProvider>
     </SdkProvider>
   );

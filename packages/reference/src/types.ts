@@ -11,7 +11,7 @@ export type {
   NavigatorSlideInfo,
   ScheduledAction,
 } from '@contentful/app-sdk';
-export type { SpaceProps as Space, ResourceLink, LocaleProps } from 'contentful-management';
+export type { SpaceProps as Space, ResourceLink } from 'contentful-management';
 
 export { Entry, File, Asset } from '@contentful/field-editor-shared';
 

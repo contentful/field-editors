@@ -1,7 +1,7 @@
 import get from 'lodash/get';
 import isObject from 'lodash/isObject';
 
-import { Asset, ContentType, ContentTypeField, Entry, File, LocaleProps } from '../typesEntity';
+import { Asset, ContentType, ContentTypeField, Entry, File } from '../typesEntity';
 
 function titleOrDefault(title: string | undefined, defaultTitle: string): string {
   if (!(title != null && typeof title.valueOf() === 'string')) {
@@ -208,31 +208,45 @@ type FieldStatus = {
 export function getEntryStatus(
   //TODO: remove union after fieldStatus is added to App SDK
   sys: Entry['sys'] & { fieldStatus?: FieldStatus },
-  locales?: LocaleProps[]
+  localeCodes?: string | string[]
 ) {
   if (!sys || (sys.type !== 'Entry' && sys.type !== 'Asset')) {
     throw new TypeError('Invalid entity metadata object');
   }
 
-  if (sys.fieldStatus) {
+  if (sys.deletedVersion) {
+    return 'deleted';
+  } else if (sys.archivedVersion) {
+    return 'archived';
+  } else if (sys.fieldStatus) {
     let status: AsyncPublishStatus = 'draft';
-    if (locales) {
-      if (locales.length === 1) {
-        const localeCode = locales[0].code;
-        return sys.fieldStatus['*'][localeCode] || 'draft';
+
+    if (localeCodes) {
+      if (Array.isArray(localeCodes)) {
+        Object.entries(sys.fieldStatus['*']).forEach(([localeCode, fieldStatus]) => {
+          if (localeCodes.includes(localeCode)) {
+            if (fieldStatus === 'changed') {
+              status = fieldStatus;
+              return;
+            }
+            if (fieldStatus === 'published') {
+              status = fieldStatus;
+            }
+          }
+        });
+      } else {
+        Object.entries(sys.fieldStatus['*']).forEach(([localeCode, fieldStatus]) => {
+          if (localeCodes === localeCode) {
+            if (fieldStatus === 'changed') {
+              status = fieldStatus;
+              return;
+            }
+            if (fieldStatus === 'published') {
+              status = fieldStatus;
+            }
+          }
+        });
       }
-      const filteredStatusList = Object.entries(sys.fieldStatus['*']).filter(([localeCode, _]) =>
-        locales.some((locale) => locale.code === localeCode)
-      );
-      filteredStatusList.forEach(([_, fieldStatus]) => {
-        if (fieldStatus === 'changed') {
-          status = fieldStatus;
-          return;
-        }
-        if (fieldStatus === 'published') {
-          status = fieldStatus;
-        }
-      });
     } else {
       Object.values(sys.fieldStatus['*']).forEach((fieldStatus) => {
         if (fieldStatus === 'changed') {
@@ -245,11 +259,6 @@ export function getEntryStatus(
       });
     }
     return status;
-  }
-  if (sys.deletedVersion) {
-    return 'deleted';
-  } else if (sys.archivedVersion) {
-    return 'archived';
   } else if (sys.publishedVersion) {
     if (sys.version > sys.publishedVersion + 1) {
       return 'changed';
