@@ -1,12 +1,12 @@
 import tokens from '@contentful/f36-tokens';
 import { css } from 'emotion';
 
-export const counterRow = css({
-  float: 'right',
-  marginLeft: tokens.spacingS,
+export const validationRow = css({
+  display: 'flex',
+  justifyContent: 'space-between',
   fontSize: tokens.fontSizeM,
   marginTop: tokens.spacingXs,
-  color: tokens.gray500,
+  color: tokens.gray700,
 });
 
 export const rightToLeft = css({
