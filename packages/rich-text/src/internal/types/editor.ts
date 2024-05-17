@@ -33,6 +33,14 @@ export type Value = Element[];
 export type ReactEditor = p.TReactEditor<Value>;
 export interface PlateEditor extends p.PlateEditor<Value> {
   tracking: TrackingPluginActions;
+  undo: {
+    (): void;
+    (source: 'toolbar' | 'shortcut'): void;
+  };
+  redo: {
+    (): void;
+    (source: 'toolbar' | 'shortcut'): void;
+  };
 }
 
 export type Node = p.ElementOf<PlateEditor> | p.TextOf<PlateEditor>;

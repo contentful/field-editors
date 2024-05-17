@@ -8,11 +8,15 @@ import { ToolbarButton } from '../../plugins/shared/ToolbarButton';
 export const ButtonUndo = () => {
   const editor = useContentfulEditor();
 
+  const onClickHandler = () => {
+    editor.undo('toolbar');
+  };
+
   return (
     <ToolbarButton
       title="Undo"
       testId="undo-toolbar-button"
-      onClick={editor.undo}
+      onClick={onClickHandler}
       isActive={false}
       isDisabled={editor.history.undos.length === 0}
     >
