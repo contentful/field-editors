@@ -8,11 +8,15 @@ import { ToolbarButton } from '../../plugins/shared/ToolbarButton';
 export const ButtonRedo = () => {
   const editor = useContentfulEditor();
 
+  const onClickHandler = () => {
+    editor.redo('toolbar');
+  };
+
   return (
     <ToolbarButton
       title="Redo"
       testId="redo-toolbar-button"
-      onClick={editor.redo}
+      onClick={onClickHandler}
       isActive={false}
       isDisabled={editor.history.redos.length === 0}
     >

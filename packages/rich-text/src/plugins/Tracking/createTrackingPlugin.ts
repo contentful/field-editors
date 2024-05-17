@@ -19,6 +19,9 @@ export type RichTextTrackingActionName =
   // Copy & Paste
   | 'paste'
   | 'invalidTablePaste'
+  // Undo & Redo
+  | 'undo'
+  | 'redo'
   // Hyperlinks
   | 'cancelCreateHyperlinkDialog'
   | 'cancelEditHyperlinkDialog'
@@ -136,7 +139,7 @@ export const createTrackingPlugin = (onAction: RichTextTrackingActionHandler): P
   return {
     key: 'TrackingPlugin',
     withOverrides: (editor) => {
-      const { insertData } = editor;
+      const { insertData, undo, redo } = editor;
 
       editor.tracking = trackingActions;
 
@@ -161,6 +164,23 @@ export const createTrackingPlugin = (onAction: RichTextTrackingActionHandler): P
         insertData(data);
       };
 
+      editor.undo = (source?: 'toolbar' | 'shortcut') => {
+        undo();
+        if (source === 'toolbar') {
+          editor.tracking.onToolbarAction('undo');
+        } else {
+          editor.tracking.onShortcutAction('undo');
+        }
+      };
+
+      editor.redo = (source?: 'toolbar' | 'shortcut') => {
+        redo();
+        if (source === 'toolbar') {
+          editor.tracking.onToolbarAction('redo');
+        } else {
+          editor.tracking.onShortcutAction('redo');
+        }
+      };
       return editor;
     },
   };
