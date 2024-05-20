@@ -51,6 +51,8 @@ export interface SingleLineEditorProps {
    * focus event handler
    */
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
+
+  id?: string;
 }
 
 function isSupportedFieldTypes(val: string): val is 'Symbol' | 'Text' {
@@ -67,6 +69,7 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
     onFocus,
     withCharInformation = true,
     withCharValidation = true,
+    id,
   } = props;
 
   if (!isSupportedFieldTypes(field.type)) {
@@ -88,6 +91,7 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
         return (
           <div data-test-id="single-line-editor">
             <TextInput
+              id={id}
               className={direction === 'rtl' ? styles.rightToLeft : ''}
               isRequired={field.required}
               isInvalid={errors.length > 0}
