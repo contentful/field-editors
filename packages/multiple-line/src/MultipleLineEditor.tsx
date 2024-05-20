@@ -26,10 +26,12 @@ export interface MultipleLineEditorProps {
    * sdk.locales
    */
   locales: LocalesAPI;
+
+  id?: string;
 }
 
 export function MultipleLineEditor(props: MultipleLineEditorProps) {
-  const { field, locales, isInitiallyDisabled } = props;
+  const { field, locales, isInitiallyDisabled, id } = props;
 
   const constraints = ConstraintsUtils.fromFieldValidations(
     field.validations,
@@ -44,6 +46,7 @@ export function MultipleLineEditor(props: MultipleLineEditorProps) {
         return (
           <div data-test-id="multiple-line-editor">
             <Textarea
+              id={id}
               className={direction === 'rtl' ? styles.rightToLeft : ''}
               rows={3}
               isRequired={field.required}

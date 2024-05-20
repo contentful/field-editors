@@ -31,6 +31,8 @@ export interface SingleLineEditorProps {
    * sdk.locales
    */
   locales: LocalesAPI;
+
+  id?: string;
 }
 
 function isSupportedFieldTypes(val: string): val is 'Symbol' | 'Text' {
@@ -38,7 +40,7 @@ function isSupportedFieldTypes(val: string): val is 'Symbol' | 'Text' {
 }
 
 export function SingleLineEditor(props: SingleLineEditorProps) {
-  const { field, locales } = props;
+  const { field, locales, id } = props;
 
   if (!isSupportedFieldTypes(field.type)) {
     throw new Error(`"${field.type}" field type is not supported by SingleLineEditor`);
@@ -58,6 +60,7 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
         return (
           <div data-test-id="single-line-editor">
             <TextInput
+              id={id}
               className={direction === 'rtl' ? styles.rightToLeft : ''}
               isRequired={field.required}
               isInvalid={errors.length > 0}
