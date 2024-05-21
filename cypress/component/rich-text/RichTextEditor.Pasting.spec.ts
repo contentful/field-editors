@@ -892,6 +892,31 @@ describe(
 
         richText.expectValue(msWordOnline);
       });
+
+      it('does not remove spaces between inline elements', () => {
+        // context: MS Word adds span elements around non english text; we test to see if we preserve the spaces between those spans
+        richText.editor.click().paste({
+          'text/html': `<span lang="KO" style="font-size:11.0pt;line-height:107%;
+            font-family:&quot;Dotum&quot;,sans-serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:
+            minor-latin;mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin;
+            mso-bidi-font-family:Calibri;mso-bidi-theme-font:minor-latin;mso-ansi-language:
+            EN-US;mso-fareast-language:KO;mso-bidi-language:AR-SA">당사는</span><span lang="KO" style="font-size:11.0pt;line-height:107%;font-family:&quot;Calibri&quot;,sans-serif;
+            mso-ascii-theme-font:minor-latin;mso-fareast-font-family:Dotum;mso-hansi-theme-font:
+            minor-latin;mso-bidi-theme-font:minor-latin;mso-ansi-language:EN-US;mso-fareast-language:
+            KO;mso-bidi-language:AR-SA"> </span><span lang="KO" style="font-size:11.0pt;
+            line-height:107%;font-family:&quot;Dotum&quot;,sans-serif;mso-ascii-font-family:Calibri;
+            mso-ascii-theme-font:minor-latin;mso-hansi-font-family:Calibri;mso-hansi-theme-font:
+            minor-latin;mso-bidi-font-family:Calibri;mso-bidi-theme-font:minor-latin;
+            mso-ansi-language:EN-US;mso-fareast-language:KO;mso-bidi-language:AR-SA">귀하의</span><span lang="KO" style="font-size:11.0pt;line-height:107%;font-family:&quot;Calibri&quot;,sans-serif;
+            mso-ascii-theme-font:minor-latin;mso-fareast-font-family:Dotum;mso-hansi-theme-font:
+            minor-latin;mso-bidi-theme-font:minor-latin;mso-ansi-language:EN-US;mso-fareast-language:
+            KO;mso-bidi-language:AR-SA"></span>`,
+        });
+
+        const expectedValue = doc(block('paragraph', {}, text('당사는 귀하의')));
+
+        richText.expectValue(expectedValue);
+      });
     });
 
     describe('Basic marks', () => {
