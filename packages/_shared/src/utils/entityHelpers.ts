@@ -221,34 +221,16 @@ export function getEntryStatus(
   } else if (sys.fieldStatus) {
     let status: AsyncPublishStatus = 'draft';
 
-    if (localeCodes) {
+    const condition = (locale: string) => {
       if (Array.isArray(localeCodes)) {
-        Object.entries(sys.fieldStatus['*']).forEach(([localeCode, fieldStatus]) => {
-          if (localeCodes.includes(localeCode)) {
-            if (fieldStatus === 'changed') {
-              status = fieldStatus;
-              return;
-            }
-            if (fieldStatus === 'published') {
-              status = fieldStatus;
-            }
-          }
-        });
-      } else {
-        Object.entries(sys.fieldStatus['*']).forEach(([localeCode, fieldStatus]) => {
-          if (localeCodes === localeCode) {
-            if (fieldStatus === 'changed') {
-              status = fieldStatus;
-              return;
-            }
-            if (fieldStatus === 'published') {
-              status = fieldStatus;
-            }
-          }
-        });
+        return localeCodes.includes(locale);
       }
-    } else {
-      Object.values(sys.fieldStatus['*']).forEach((fieldStatus) => {
+
+      return localeCodes ? localeCodes === locale : true;
+    };
+
+    Object.entries(sys.fieldStatus['*']).forEach(([localeCode, fieldStatus]) => {
+      if (condition(localeCode)) {
         if (fieldStatus === 'changed') {
           status = fieldStatus;
           return;
@@ -256,8 +238,9 @@ export function getEntryStatus(
         if (fieldStatus === 'published') {
           status = fieldStatus;
         }
-      });
-    }
+      }
+    });
+
     return status;
   } else if (sys.publishedVersion) {
     if (sys.version > sys.publishedVersion + 1) {
