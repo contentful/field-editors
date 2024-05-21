@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.22.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.22.0...@contentful/field-editor-rich-text@3.22.1) (2024-05-21)
+
+### Bug Fixes
+
+- spaces removed for non english text [ZEND-5011] ([#1660](https://github.com/contentful/field-editors/issues/1660)) ([a933625](https://github.com/contentful/field-editors/commit/a9336254a32f5c0be92dda55837a5257e95a22ea))
+
 # [3.22.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.21.0...@contentful/field-editor-rich-text@3.22.0) (2024-05-21)
 
 ### Features
