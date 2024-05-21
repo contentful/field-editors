@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.21.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.20.7...@contentful/field-editor-rich-text@3.21.0) (2024-05-17)
+
+### Features
+
+- undo redo rich text tracking [TOL-1987] ([#1657](https://github.com/contentful/field-editors/issues/1657)) ([7f72d28](https://github.com/contentful/field-editors/commit/7f72d2817a3db489a763727eef8c476e00749a04))
+
+## [3.20.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.20.6...@contentful/field-editor-rich-text@3.20.7) (2024-05-17)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
 ## [3.20.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.20.5...@contentful/field-editor-rich-text@3.20.6) (2024-05-16)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text

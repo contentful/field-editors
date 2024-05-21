@@ -14,7 +14,9 @@ const styles = {
   }),
   fileInformation: {
     menuItem: css({
-      opacity: 1,
+      '&:disabled': {
+        opacity: 1,
+      },
     }),
     dl: css({
       backgroundColor: tokens.gray100,
@@ -56,7 +58,12 @@ export function renderAssetInfo(props: { entityFile: File }) {
 
   return [
     <Menu.SectionTitle key="file-section">File info</Menu.SectionTitle>,
-    <Menu.Item key="file-information" className={styles.fileInformation.menuItem} isDisabled>
+    <Menu.Item
+      key="file-information"
+      className={styles.fileInformation.menuItem}
+      isDisabled
+      disabled
+    >
       <dl className={styles.fileInformation.dl}>
         {fileName && (
           <>
