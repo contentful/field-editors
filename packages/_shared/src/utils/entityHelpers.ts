@@ -199,14 +199,49 @@ export function getEntryTitle({
   return titleOrDefault(title, defaultTitle);
 }
 
-export function getEntryStatus(sys: Entry['sys']) {
+type AsyncPublishStatus = 'draft' | 'published' | 'changed';
+
+type FieldStatus = {
+  '*': Record<string, AsyncPublishStatus>;
+};
+
+export function getEntryStatus(
+  //TODO: remove union after fieldStatus is added to App SDK
+  sys: Entry['sys'] & { fieldStatus?: FieldStatus },
+  localeCodes?: string | string[]
+) {
   if (!sys || (sys.type !== 'Entry' && sys.type !== 'Asset')) {
     throw new TypeError('Invalid entity metadata object');
   }
+
   if (sys.deletedVersion) {
     return 'deleted';
   } else if (sys.archivedVersion) {
     return 'archived';
+  } else if (sys.fieldStatus) {
+    let status: AsyncPublishStatus = 'draft';
+
+    const condition = (locale: string) => {
+      if (Array.isArray(localeCodes)) {
+        return localeCodes.includes(locale);
+      }
+
+      return localeCodes ? localeCodes === locale : true;
+    };
+
+    Object.entries(sys.fieldStatus['*']).forEach(([localeCode, fieldStatus]) => {
+      if (condition(localeCode)) {
+        if (fieldStatus === 'changed') {
+          status = fieldStatus;
+          return;
+        }
+        if (fieldStatus === 'published') {
+          status = fieldStatus;
+        }
+      }
+    });
+
+    return status;
   } else if (sys.publishedVersion) {
     if (sys.version > sys.publishedVersion + 1) {
       return 'changed';

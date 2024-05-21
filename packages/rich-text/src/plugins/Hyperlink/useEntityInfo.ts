@@ -71,7 +71,7 @@ async function fetchAllData({
   const jobs = await sdk.space.getEntityScheduledActions(entityType, entityId);
 
   // @ts-expect-error
-  const entityStatus = entityHelpers.getEntryStatus(entity.sys);
+  const entityStatus = entityHelpers.getEntryStatus(entity.sys, sdk.field.locale);
 
   return {
     jobs,

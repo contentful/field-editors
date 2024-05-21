@@ -75,7 +75,7 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
     }
   }, [props.entry, props.getAsset, contentType, props.localeCode, props.defaultLocaleCode]);
 
-  const status = getEntryStatus(props.entry?.sys);
+  const status = getEntryStatus(props.entry?.sys, props.localeCode);
 
   if (status === 'deleted') {
     return (

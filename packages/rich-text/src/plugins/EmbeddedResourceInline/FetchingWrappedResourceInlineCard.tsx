@@ -54,7 +54,7 @@ export function FetchingWrappedResourceInlineCard(props: FetchingWrappedResource
     defaultTitle: 'Untitled',
   });
   const truncatedTitle = truncateTitle(title, 40);
-  const status = getEntryStatus(entry.sys);
+  const status = getEntryStatus(entry.sys, props.sdk.field.locale);
 
   return (
     <InlineEntryCard

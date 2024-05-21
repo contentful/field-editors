@@ -133,7 +133,7 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
     );
   }
 
-  const entryStatus = getEntryStatus(entry.sys);
+  const entryStatus = getEntryStatus(entry.sys, props.sdk.field.locale);
   if (entryStatus === 'deleted') {
     return (
       <InlineEntryCard

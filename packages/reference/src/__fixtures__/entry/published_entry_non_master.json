@@ -14,6 +14,12 @@
     "publishedVersion": 10,
     "contentType": {
       "sys": { "type": "Link", "linkType": "ContentType", "id": "exampleCT" }
+    },
+    "fieldStatus": {
+      "*": {
+        "en-US": "published",
+        "de-DE": "published"
+      }
     }
   },
   "fields": {

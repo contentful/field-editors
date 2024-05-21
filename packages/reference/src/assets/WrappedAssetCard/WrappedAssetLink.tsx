@@ -33,7 +33,7 @@ export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
   const { className, href, onEdit, onRemove, isDisabled } = props;
 
   // @ts-expect-error
-  const status = entityHelpers.getEntryStatus(props.asset.sys);
+  const status = entityHelpers.getEntryStatus(props.asset.sys, props.localeCode);
 
   if (status === 'deleted') {
     return <MissingAssetCard isDisabled={props.isDisabled} onRemove={props.onRemove} />;
