@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.22.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.21.0...@contentful/field-editor-rich-text@3.22.0) (2024-05-21)
+
+### Features
+
+- add locales to entry status calculations ([#1650](https://github.com/contentful/field-editors/issues/1650)) ([472a5b9](https://github.com/contentful/field-editors/commit/472a5b92e3fa73c8da4e9a1875a1e3569cf0a50b))
+
 # [3.21.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.20.7...@contentful/field-editor-rich-text@3.21.0) (2024-05-17)
 
 ### Features

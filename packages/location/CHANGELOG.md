@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.14](https://github.com/contentful/field-editors/compare/@contentful/field-editor-location@1.3.13...@contentful/field-editor-location@1.3.14) (2024-05-21)
+
+**Note:** Version bump only for package @contentful/field-editor-location
+
 ## [1.3.13](https://github.com/contentful/field-editors/compare/@contentful/field-editor-location@1.3.12...@contentful/field-editor-location@1.3.13) (2024-05-16)
 
 **Note:** Version bump only for package @contentful/field-editor-location
