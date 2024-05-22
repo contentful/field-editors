@@ -973,6 +973,24 @@ describe(
       });
     });
 
+    describe('Strikethrough mark', () => {
+      it('works when strikethrough from a google doc', () => {
+        // A simple "hello world" text with marks: strikethrough
+        // Copied from a google doc
+        richText.editor.click().paste({
+          'text/html':
+            '<meta charset="utf-8"><meta charset="utf-8"><b style="font-weight:normal;" id="docs-internal-guid-e64bc434-7fff-411f-3a23-35783241e621"><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:line-through;-webkit-text-decoration-skip:none;text-decoration-skip-ink:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Hello world</span></p></b><br class="Apple-interchange-newline">',
+        });
+
+        const expectedValue = doc(
+          block(BLOCKS.PARAGRAPH, {}, text('Hello world', [mark(MARKS.STRIKETHROUGH)])),
+          block(BLOCKS.PARAGRAPH, {}, text('\n'))
+        );
+
+        richText.expectValue(expectedValue);
+      });
+    });
+
     describe('copy from safari (no href in anchors)', () => {
       it('recognizes entry hyperlink', () => {
         richText.editor.click().paste({
