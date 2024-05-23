@@ -228,12 +228,46 @@ export const CustomCardRelyingOnDefaultCard: Story = {
     };
     const [sdk, mitt] = newReferenceEditorFakeSdk();
     return (
-      <div data-test-id="multiple-references-editor-custom-cards-with-default-integration-test">
+      <div data-test-id="multiple-references-editor-custom-children-test">
         <MultipleEntryReferenceEditor
           hasCardEditActions={false}
           renderCustomCard={(props, _, renderDefaultCard) => {
             // @ts-expect-error
             return renderDefaultCard({ size: 'small' });
+          }}
+          viewType="link"
+          sdk={sdk}
+          isInitiallyDisabled={isInitiallyDisabled}
+          parameters={{
+            instance: instanceParams || {
+              showCreateEntityAction: true,
+              showLinkEntityAction: true,
+            },
+          }}
+        />
+        <ActionsPlayground mitt={mitt} />
+      </div>
+    );
+  },
+};
+
+export const CustomChildren: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
+  render: () => {
+    const isInitiallyDisabled = !!window.localStorage.getItem('initialDisabled');
+    const instanceParams = JSON.parse(window.localStorage.getItem('instanceParams') as string) as {
+      showCreateEntityAction: boolean;
+      showLinkEntityAction: boolean;
+    };
+    const [sdk, mitt] = newReferenceEditorFakeSdk();
+
+    return (
+      <div data-test-id="multiple-references-editor-custom-cards-with-default-integration-test">
+        <MultipleEntryReferenceEditor
+          renderCustomChildren={() => {
+            return <>Some custom children. Anything can be rendered here!</>;
           }}
           viewType="link"
           sdk={sdk}

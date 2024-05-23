@@ -136,6 +136,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       localeCode: props.sdk.field.locale,
       defaultLocaleCode: props.sdk.locales.default,
       renderDragHandle: props.renderDragHandle,
+      renderCustomChildren: props.renderCustomChildren,
       onEdit,
       onRemove: onRemoveEntry,
       onMoveTop: props.onMoveTop,
