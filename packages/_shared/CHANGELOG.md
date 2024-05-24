@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.5.0...@contentful/field-editor-shared@1.5.1) (2024-05-24)
+
+### Bug Fixes
+
+- **FieldConnector:** restore 'throttle' property [] ([#1663](https://github.com/contentful/field-editors/issues/1663)) ([35a40de](https://github.com/contentful/field-editors/commit/35a40dec2d8e5e594f3573d4c9fbd763b31cb206))
+
 # [1.5.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.4.9...@contentful/field-editor-shared@1.5.0) (2024-05-21)
 
 ### Features

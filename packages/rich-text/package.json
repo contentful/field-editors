@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-rich-text",
-  "version": "3.22.1",
+  "version": "3.22.2",
   "source": "./src/index.tsx",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -44,8 +44,8 @@
     "@contentful/f36-icons": "^4.1.1",
     "@contentful/f36-tokens": "^4.0.0",
     "@contentful/f36-utils": "^4.19.0",
-    "@contentful/field-editor-reference": "^5.28.0",
-    "@contentful/field-editor-shared": "^1.5.0",
+    "@contentful/field-editor-reference": "^5.28.1",
+    "@contentful/field-editor-shared": "^1.5.1",
     "@contentful/rich-text-plain-text-renderer": "^16.0.4",
     "@contentful/rich-text-types": "16.3.0",
     "@popperjs/core": "^2.11.5",
