@@ -208,7 +208,8 @@ type FieldStatus = {
 export function getEntryStatus(
   //TODO: remove union after fieldStatus is added to App SDK
   sys: Entry['sys'] & { fieldStatus?: FieldStatus },
-  localeCodes?: string | string[]
+  // @ts-expect-error
+  localeCodes?: string | string[] // eslint-disable-line @typescript-eslint/no-unused-vars -- temporary disabled
 ) {
   if (!sys || (sys.type !== 'Entry' && sys.type !== 'Asset')) {
     throw new TypeError('Invalid entity metadata object');
@@ -216,41 +217,47 @@ export function getEntryStatus(
 
   if (sys.deletedVersion) {
     return 'deleted';
-  } else if (sys.archivedVersion) {
+  }
+
+  if (sys.archivedVersion) {
     return 'archived';
-  } else if (sys.fieldStatus) {
-    let status: AsyncPublishStatus = 'draft';
+  }
 
-    const condition = (locale: string) => {
-      if (Array.isArray(localeCodes)) {
-        return localeCodes.includes(locale);
-      }
+  // if (sys.fieldStatus && localeCodes) {
+  //   let status: AsyncPublishStatus = 'draft';
 
-      return localeCodes ? localeCodes === locale : true;
-    };
+  //   const condition = (locale: string) => {
+  //     if (Array.isArray(localeCodes)) {
+  //       return localeCodes.includes(locale);
+  //     }
 
-    Object.entries(sys.fieldStatus['*']).forEach(([localeCode, fieldStatus]) => {
-      if (condition(localeCode)) {
-        if (fieldStatus === 'changed') {
-          status = fieldStatus;
-          return;
-        }
-        if (fieldStatus === 'published') {
-          status = fieldStatus;
-        }
-      }
-    });
+  //     return localeCodes ? localeCodes === locale : true;
+  //   };
 
-    return status;
-  } else if (sys.publishedVersion) {
+  //   Object.entries(sys.fieldStatus['*']).forEach(([localeCode, fieldStatus]) => {
+  //     if (condition(localeCode)) {
+  //       if (fieldStatus === 'changed') {
+  //         status = fieldStatus;
+  //         return;
+  //       }
+  //       if (fieldStatus === 'published') {
+  //         status = fieldStatus;
+  //       }
+  //     }
+  //   });
+
+  //   return status;
+  // }
+
+  if (sys.publishedVersion) {
     if (sys.version > sys.publishedVersion + 1) {
       return 'changed';
     } else {
       return 'published';
     }
-  } else {
-    return 'draft';
   }
+
+  return 'draft';
 }
 
 /**
