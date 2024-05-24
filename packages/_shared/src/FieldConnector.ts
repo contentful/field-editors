@@ -25,15 +25,20 @@ interface FieldConnectorState<ValueType> {
   errors: ValidationError[];
 }
 
-interface FieldConnectorProps<ValueType> {
+type FieldConnectorProps<ValueType> = {
   field: FieldAPI;
   isInitiallyDisabled: boolean;
   isDisabled?: boolean;
   children: (state: FieldConnectorChildProps<ValueType>) => React.ReactNode;
   isEmptyValue: (value: ValueType | null) => boolean;
   isEqualValues: (value1: ValueType | Nullable, value2: ValueType | Nullable) => boolean;
-  debounce: number;
-}
+} & (
+  | { debounce: number }
+  | {
+      /** @deprecated: Please use `debounce` instead */
+      throttle: number;
+    }
+);
 
 export class FieldConnector<ValueType> extends React.Component<
   FieldConnectorProps<ValueType>,
@@ -71,6 +76,9 @@ export class FieldConnector<ValueType> extends React.Component<
   unsubscribeDisabled: Function | null = null;
   unsubscribeValue: Function | null = null;
 
+  getDebounceDuration = () =>
+    'debounce' in this.props ? this.props.debounce : this.props.throttle;
+
   setValue = async (value: ValueType | Nullable) => {
     if (this.props.isEmptyValue(value ?? null)) {
       this.setState({ value: undefined });
@@ -78,7 +86,7 @@ export class FieldConnector<ValueType> extends React.Component<
       this.setState({ value });
     }
 
-    if (this.props.debounce === 0) {
+    if (this.getDebounceDuration() === 0) {
       await this.triggerSetValueCallbacks(value);
     } else {
       await this.debouncedTriggerSetValueCallbacks(value);
@@ -95,7 +103,10 @@ export class FieldConnector<ValueType> extends React.Component<
     });
   };
 
-  debouncedTriggerSetValueCallbacks = debounce(this.triggerSetValueCallbacks, this.props.debounce);
+  debouncedTriggerSetValueCallbacks = debounce(
+    this.triggerSetValueCallbacks,
+    this.getDebounceDuration()
+  );
 
   componentDidMount() {
     const { field } = this.props;
