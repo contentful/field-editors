@@ -21,7 +21,7 @@ describe('Rich Text Editor - Marks', { viewportHeight: 2000, viewportWidth: 1000
   });
 
   const findMarkViaToolbar = (mark: string) => {
-    if (mark === 'code' || mark === 'superscript' || mark === 'subscript') {
+    if (['code', 'superscript', 'subscript', 'strikethrough'].includes(mark)) {
       cy.findByTestId('dropdown-toolbar-button').click();
       return cy.findByTestId(`${mark}-toolbar-button`);
     } else {
@@ -30,7 +30,7 @@ describe('Rich Text Editor - Marks', { viewportHeight: 2000, viewportWidth: 1000
   };
 
   const toggleMarkViaToolbar = (mark: string) => {
-    if (mark === 'code' || mark === 'superscript' || mark === 'subscript') {
+    if (['code', 'superscript', 'subscript', 'strikethrough'].includes(mark)) {
       cy.findByTestId('dropdown-toolbar-button').click();
       cy.findByTestId(`${mark}-toolbar-button`).click();
     } else {
@@ -54,6 +54,7 @@ describe('Rich Text Editor - Marks', { viewportHeight: 2000, viewportWidth: 1000
     [MARKS.CODE, `{${mod}}/`],
     [MARKS.SUPERSCRIPT],
     [MARKS.SUBSCRIPT],
+    [MARKS.STRIKETHROUGH],
   ].forEach(([mark, shortcut]) => {
     describe(`${mark} mark toggle via toolbar`, () => {
       it('allows writing marked text', () => {

@@ -18,6 +18,10 @@ import { ToolbarListButton } from '../plugins/List';
 import { ToolbarBoldButton } from '../plugins/Marks/Bold';
 import { ToolbarCodeButton, ToolbarDropdownCodeButton } from '../plugins/Marks/Code';
 import { ToolbarItalicButton } from '../plugins/Marks/Italic';
+import {
+  ToolbarDropdownStrikethroughButton,
+  ToolbarStrikethroughButton,
+} from '../plugins/Marks/Strikethrough';
 import { ToolbarDropdownSubscriptButton, ToolbarSubscriptButton } from '../plugins/Marks/Subscript';
 import {
   ToolbarDropdownSuperscriptButton,
@@ -72,13 +76,11 @@ const styles = {
   }),
 };
 
+const dropdownMarks = [MARKS.SUPERSCRIPT, MARKS.SUBSCRIPT, MARKS.CODE, MARKS.STRIKETHROUGH];
+
 const Dropdown = ({ sdk, isDisabled }: { sdk: FieldAppSDK; isDisabled?: boolean }) => {
   const editor = useContentfulEditor();
-  const isActive =
-    editor &&
-    (isMarkActive(editor, MARKS.SUPERSCRIPT) ||
-      isMarkActive(editor, MARKS.SUBSCRIPT) ||
-      isMarkActive(editor, MARKS.CODE));
+  const isActive = editor && dropdownMarks.some((mark) => isMarkActive(editor, mark));
 
   return (
     <Menu>
@@ -101,6 +103,9 @@ const Dropdown = ({ sdk, isDisabled }: { sdk: FieldAppSDK; isDisabled?: boolean 
         )}
         {isMarkEnabled(sdk.field, MARKS.SUBSCRIPT) && (
           <ToolbarDropdownSubscriptButton isDisabled={isDisabled} />
+        )}
+        {isMarkEnabled(sdk.field, MARKS.STRIKETHROUGH) && (
+          <ToolbarDropdownStrikethroughButton isDisabled={isDisabled} />
         )}
         {isMarkEnabled(sdk.field, MARKS.CODE) && (
           <ToolbarDropdownCodeButton isDisabled={isDisabled} />
@@ -126,10 +131,8 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
     isMarkEnabled(sdk.field, MARKS.BOLD) ||
     isMarkEnabled(sdk.field, MARKS.ITALIC) ||
     isMarkEnabled(sdk.field, MARKS.UNDERLINE);
-  const dropdownItemsAvailable =
-    isMarkEnabled(sdk.field, MARKS.SUPERSCRIPT) ||
-    isMarkEnabled(sdk.field, MARKS.SUBSCRIPT) ||
-    isMarkEnabled(sdk.field, MARKS.CODE);
+  const dropdownItemsAvailable = dropdownMarks.some((mark) => isMarkEnabled(sdk.field, mark));
+
   const shouldShowDropdown = boldItalicUnderlineAvailable && dropdownItemsAvailable;
 
   return (
@@ -161,6 +164,9 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
         )}
         {!boldItalicUnderlineAvailable && isMarkEnabled(sdk.field, MARKS.SUBSCRIPT) && (
           <ToolbarSubscriptButton isDisabled={isDisabled} />
+        )}
+        {!boldItalicUnderlineAvailable && isMarkEnabled(sdk.field, MARKS.STRIKETHROUGH) && (
+          <ToolbarStrikethroughButton isDisabled={isDisabled} />
         )}
         {!boldItalicUnderlineAvailable && isMarkEnabled(sdk.field, MARKS.CODE) && (
           <ToolbarCodeButton isDisabled={isDisabled} />
