@@ -12,7 +12,7 @@ import { Entry, FieldAppSDK, entityHelpers } from '@contentful/field-editor-shar
 import { INLINES } from '@contentful/rich-text-types';
 import { css } from 'emotion';
 
-const { getEntryTitle, getEntryStatus } = entityHelpers;
+const { getEntryTitle, getEntityStatus } = entityHelpers;
 
 const styles = {
   scheduledIcon: css({
@@ -32,7 +32,7 @@ type InternalFetchingWrappedInlineEntryCardProps = Pick<
   getEntityScheduledActions: React.ComponentProps<
     typeof ScheduledIconWithTooltip
   >['getEntityScheduledActions'];
-  entryStatus: ReturnType<typeof getEntryStatus>;
+  entryStatus: ReturnType<typeof getEntityStatus>;
 };
 
 function InternalFetchingWrappedInlineEntryCard({
@@ -133,7 +133,11 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
     );
   }
 
-  const entryStatus = getEntryStatus(entry.sys, props.sdk.field.locale);
+  const entryStatus = getEntityStatus(
+    entry.sys,
+    props.sdk.parameters.instance.useLocalizedEntityStatus ? props.sdk.field.locale : undefined
+  );
+
   if (entryStatus === 'deleted') {
     return (
       <InlineEntryCard

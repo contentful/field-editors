@@ -92,6 +92,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       renderDragHandle: props.renderDragHandle,
       onEdit,
       onRemove,
+      useLocalizedEntityStatus: props.sdk.parameters.instance.useLocalizedEntityStatus,
     };
 
     if (props.viewType === 'link') {

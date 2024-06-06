@@ -161,6 +161,11 @@ export function createReferenceEditorTestSdk(props?: ReferenceEditorFakeSdkProps
       space: 'space-id',
       environment: 'environment-id',
     },
+    parameters: {
+      installation: {},
+      instance: {},
+      invocation: {},
+    },
   } as unknown as FieldAppSDK;
   const sdk = props?.modifier?.(localSdk) ?? localSdk;
 

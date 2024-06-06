@@ -34,6 +34,7 @@ const InternalAssetCard = React.memo(
       onEdit={props.onEdit}
       onRemove={props.isDisabled ? undefined : props.onRemove}
       isClickable={false}
+      useLocalizedEntityStatus={props.sdk.parameters.instance.useLocalizedEntityStatus}
     />
   ),
   areEqual

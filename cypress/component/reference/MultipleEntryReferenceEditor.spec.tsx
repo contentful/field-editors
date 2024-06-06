@@ -152,9 +152,7 @@ describe('Multiple Reference Editor', () => {
     findLinkExistingBtn().should('not.exist'); // limit reached, button hidden.
   });
 
-  // FIXME: re-enable
-  // eslint-disable-next-line
-  it.skip(`shows status of entries`, () => {
+  it(`shows status of entries`, () => {
     const sdk = createReferenceEditorTestSdk({
       initialValue: [
         asLink(fixtures.entries.empty),
@@ -163,6 +161,7 @@ describe('Multiple Reference Editor', () => {
         asLink(fixtures.entries.publishedAndChanged),
       ],
     });
+    sdk.parameters.instance.useLocalizedEntityStatus = true;
     mount(<MultipleEntryReferenceEditor {...commonProps} sdk={sdk} />);
 
     cy.findAllByTestId('cf-ui-entry-card').should('have.length', 4);
