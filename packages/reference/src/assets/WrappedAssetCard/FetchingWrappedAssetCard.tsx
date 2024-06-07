@@ -93,6 +93,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       onEdit,
       onRemove,
       useLocalizedEntityStatus: props.sdk.parameters.instance.useLocalizedEntityStatus,
+      isLocalized: !!('localized' in props.sdk.field && props.sdk.field.localized), // missing in types :(
     };
 
     if (props.viewType === 'link') {
