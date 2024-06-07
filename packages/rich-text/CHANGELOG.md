@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.23.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.23.1...@contentful/field-editor-rich-text@3.23.2) (2024-06-07)
+
+### Bug Fixes
+
+- do new status calculation only conditionally [TOL-2143] ([#1670](https://github.com/contentful/field-editors/issues/1670)) ([8f0c75b](https://github.com/contentful/field-editors/commit/8f0c75b2fd3b71c7d0d169aa856a9191b157c1d9))
+
 ## [3.23.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.23.0...@contentful/field-editor-rich-text@3.23.1) (2024-05-28)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
