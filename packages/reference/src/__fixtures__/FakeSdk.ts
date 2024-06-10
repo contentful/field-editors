@@ -181,6 +181,11 @@ export function newReferenceEditorFakeSdk(props?: ReferenceEditorSdkProps): [Fie
       space: 'space-id',
       environment: 'environment-id',
     },
+    parameters: {
+      installation: {},
+      instance: {},
+      invocation: {},
+    },
   } as unknown as FieldAppSDK;
   return [sdk, mitt];
 }

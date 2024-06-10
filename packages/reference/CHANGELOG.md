@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.28.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.28.2...@contentful/field-editor-reference@5.28.3) (2024-06-07)
+
+### Bug Fixes
+
+- do new status calculation only conditionally [TOL-2143] ([#1670](https://github.com/contentful/field-editors/issues/1670)) ([8f0c75b](https://github.com/contentful/field-editors/commit/8f0c75b2fd3b71c7d0d169aa856a9191b157c1d9))
+
+## [5.28.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.28.1...@contentful/field-editor-reference@5.28.2) (2024-05-24)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [5.28.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.28.0...@contentful/field-editor-reference@5.28.1) (2024-05-24)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+# [5.28.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.27.6...@contentful/field-editor-reference@5.28.0) (2024-05-21)
+
+### Features
+
+- add locales to entry status calculations ([#1650](https://github.com/contentful/field-editors/issues/1650)) ([472a5b9](https://github.com/contentful/field-editors/commit/472a5b92e3fa73c8da4e9a1875a1e3569cf0a50b))
+
 ## [5.27.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.27.5...@contentful/field-editor-reference@5.27.6) (2024-05-17)
 
 ### Bug Fixes

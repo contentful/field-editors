@@ -9,7 +9,7 @@ import { INLINES } from '@contentful/rich-text-types';
 
 import { truncateTitle } from '../../plugins/shared/utils';
 
-const { getEntryTitle, getEntryStatus } = entityHelpers;
+const { getEntryTitle, getEntityStatus } = entityHelpers;
 
 interface FetchingWrappedResourceInlineCardProps {
   link: ResourceLink<'Contentful:Entry'>['sys'];
@@ -54,7 +54,10 @@ export function FetchingWrappedResourceInlineCard(props: FetchingWrappedResource
     defaultTitle: 'Untitled',
   });
   const truncatedTitle = truncateTitle(title, 40);
-  const status = getEntryStatus(entry.sys);
+  const status = getEntityStatus(
+    entry.sys,
+    props.sdk.parameters.instance.useLocalizedEntityStatus ? props.sdk.field.locale : undefined
+  );
 
   return (
     <InlineEntryCard

@@ -158,14 +158,17 @@ describe('Multiple Reference Editor', () => {
         asLink(fixtures.entries.empty),
         asLink(fixtures.entries.changed),
         asLink(fixtures.entries.published),
+        asLink(fixtures.entries.publishedAndChanged),
       ],
     });
+    sdk.parameters.instance.useLocalizedEntityStatus = true;
     mount(<MultipleEntryReferenceEditor {...commonProps} sdk={sdk} />);
 
-    cy.findAllByTestId('cf-ui-entry-card').should('have.length', 3);
+    cy.findAllByTestId('cf-ui-entry-card').should('have.length', 4);
     cy.findAllByTestId('cf-ui-entry-card').eq(0).findByText('draft').should('be.visible');
     cy.findAllByTestId('cf-ui-entry-card').eq(1).findByText('changed').should('be.visible');
     cy.findAllByTestId('cf-ui-entry-card').eq(2).findByText('published').should('be.visible');
+    cy.findAllByTestId('cf-ui-entry-card').eq(3).findByText('changed').should('be.visible');
   });
 
   //TODO: Do we also want to test that the props are correct, or should that be done in a jest test?

@@ -3,6 +3,48 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.23.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.23.1...@contentful/field-editor-rich-text@3.23.2) (2024-06-07)
+
+### Bug Fixes
+
+- do new status calculation only conditionally [TOL-2143] ([#1670](https://github.com/contentful/field-editors/issues/1670)) ([8f0c75b](https://github.com/contentful/field-editors/commit/8f0c75b2fd3b71c7d0d169aa856a9191b157c1d9))
+
+## [3.23.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.23.0...@contentful/field-editor-rich-text@3.23.1) (2024-05-28)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+# [3.23.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.22.3...@contentful/field-editor-rich-text@3.23.0) (2024-05-27)
+
+### Features
+
+- support strikethrough ([#1665](https://github.com/contentful/field-editors/issues/1665)) ([911ae28](https://github.com/contentful/field-editors/commit/911ae28fa30e62010d97cae3b9d34c66b1c6d393))
+
+## [3.22.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.22.2...@contentful/field-editor-rich-text@3.22.3) (2024-05-24)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [3.22.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.22.1...@contentful/field-editor-rich-text@3.22.2) (2024-05-24)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [3.22.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.22.0...@contentful/field-editor-rich-text@3.22.1) (2024-05-21)
+
+### Bug Fixes
+
+- spaces removed for non english text [ZEND-5011] ([#1660](https://github.com/contentful/field-editors/issues/1660)) ([a933625](https://github.com/contentful/field-editors/commit/a9336254a32f5c0be92dda55837a5257e95a22ea))
+
+# [3.22.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.21.0...@contentful/field-editor-rich-text@3.22.0) (2024-05-21)
+
+### Features
+
+- add locales to entry status calculations ([#1650](https://github.com/contentful/field-editors/issues/1650)) ([472a5b9](https://github.com/contentful/field-editors/commit/472a5b92e3fa73c8da4e9a1875a1e3569cf0a50b))
+
+# [3.21.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.20.7...@contentful/field-editor-rich-text@3.21.0) (2024-05-17)
+
+### Features
+
+- undo redo rich text tracking [TOL-1987] ([#1657](https://github.com/contentful/field-editors/issues/1657)) ([7f72d28](https://github.com/contentful/field-editors/commit/7f72d2817a3db489a763727eef8c476e00749a04))
+
 ## [3.20.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.20.6...@contentful/field-editor-rich-text@3.20.7) (2024-05-17)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text

@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.50](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.6.49...@contentful/default-field-editors@1.6.50) (2024-06-07)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [1.6.49](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.6.48...@contentful/default-field-editors@1.6.49) (2024-06-06)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [1.6.48](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.6.47...@contentful/default-field-editors@1.6.48) (2024-05-28)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [1.6.47](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.6.46...@contentful/default-field-editors@1.6.47) (2024-05-27)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [1.6.46](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.6.45...@contentful/default-field-editors@1.6.46) (2024-05-24)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [1.6.45](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.6.44...@contentful/default-field-editors@1.6.45) (2024-05-24)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [1.6.44](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.6.43...@contentful/default-field-editors@1.6.44) (2024-05-21)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [1.6.43](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.6.42...@contentful/default-field-editors@1.6.43) (2024-05-21)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [1.6.42](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.6.41...@contentful/default-field-editors@1.6.42) (2024-05-17)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
 ## [1.6.41](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.6.40...@contentful/default-field-editors@1.6.41) (2024-05-17)
 
 **Note:** Version bump only for package @contentful/default-field-editors

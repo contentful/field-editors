@@ -27,13 +27,16 @@ export interface WrappedAssetLinkProps {
   onEdit: () => void;
   onRemove: () => void;
   renderDragHandle?: RenderDragFn;
+  useLocalizedEntityStatus?: boolean;
 }
 
 export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
   const { className, href, onEdit, onRemove, isDisabled } = props;
 
-  // @ts-expect-error
-  const status = entityHelpers.getEntryStatus(props.asset.sys);
+  const status = entityHelpers.getEntityStatus(
+    props.asset.sys,
+    props.useLocalizedEntityStatus ? props.localeCode : undefined
+  );
 
   if (status === 'deleted') {
     return <MissingAssetCard isDisabled={props.isDisabled} onRemove={props.onRemove} />;

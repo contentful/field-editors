@@ -35,6 +35,9 @@ beforeEach(() => {
       space: 'space-id',
       environment: 'environment-id',
     },
+    parameters: {
+      instance: {},
+    },
   };
 });
 

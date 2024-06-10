@@ -11,7 +11,7 @@ import { AssetThumbnail, MissingEntityCard, ScheduledIconWithTooltip } from '../
 import { SpaceName } from '../../components/SpaceName/SpaceName';
 import { ContentType, Entry, File, RenderDragFn } from '../../types';
 
-const { getEntryTitle, getEntityDescription, getEntryStatus, getEntryImage } = entityHelpers;
+const { getEntryTitle, getEntityDescription, getEntityStatus, getEntryImage } = entityHelpers;
 
 const styles = {
   scheduleIcon: css({
@@ -41,6 +41,7 @@ export interface WrappedEntryCardProps {
   hasCardEditActions: boolean;
   hasCardMoveActions?: boolean;
   hasCardRemoveActions?: boolean;
+  useLocalizedEntityStatus?: boolean;
 }
 
 const defaultProps = {
@@ -75,7 +76,10 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
     }
   }, [props.entry, props.getAsset, contentType, props.localeCode, props.defaultLocaleCode]);
 
-  const status = getEntryStatus(props.entry?.sys);
+  const status = getEntityStatus(
+    props.entry?.sys,
+    props.useLocalizedEntityStatus ? props.localeCode : undefined
+  );
 
   if (status === 'deleted') {
     return (

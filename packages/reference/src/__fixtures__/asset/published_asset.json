@@ -43,6 +43,12 @@
         "linkType": "User",
         "id": "34MOMGPHEnQmheXGJJyghQ"
       }
+    },
+    "fieldStatus": {
+      "*": {
+        "en-US": "published",
+        "de-DE": "draft"
+      }
     }
   },
   "fields": {
