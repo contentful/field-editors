@@ -2074,7 +2074,7 @@
     "@contentful/f36-tokens" "^4.0.4"
     emotion "^10.0.17"
 
-"@contentful/f36-components@^4.0.27", "@contentful/f36-components@^4.0.33", "@contentful/f36-components@^4.20.6", "@contentful/f36-components@^4.3.23", "@contentful/f36-components@^4.34.1", "@contentful/f36-components@^4.62.0":
+"@contentful/f36-components@^4.0.27", "@contentful/f36-components@^4.0.33", "@contentful/f36-components@^4.3.23", "@contentful/f36-components@^4.34.1", "@contentful/f36-components@^4.62.0":
   version "4.64.0"
   resolved "https://registry.yarnpkg.com/@contentful/f36-components/-/f36-components-4.64.0.tgz#838272bedd8567a09d1f82320f603ea0be6dc6eb"
   integrity sha512-EjpOmB1Nko5rQxxdcpRynGU4rD+nuS2AOWHLMKB2zyrTAJwN4rsjiQoGU+0LyokWE44b6dyT20+RoLY7EOJeHQ==
@@ -2804,7 +2804,7 @@
     "@contentful/f36-utils" "^4.24.3"
     emotion "^10.0.17"
 
-"@contentful/f36-utils@^4.19.0", "@contentful/f36-utils@^4.23.2", "@contentful/f36-utils@^4.24.3":
+"@contentful/f36-utils@^4.23.2", "@contentful/f36-utils@^4.24.3":
   version "4.24.3"
   resolved "https://registry.yarnpkg.com/@contentful/f36-utils/-/f36-utils-4.24.3.tgz#12868232fe068b7095d2db8ae1cfe296370d124a"
   integrity sha512-9+tyDOCjEhW7m4X7Sam0VYlmcgjhLVMiapCnv1EmRstlMaeI5ti9y0y/2aQ04Na2ScoHwrMTjveoZ6V62J62tA==
