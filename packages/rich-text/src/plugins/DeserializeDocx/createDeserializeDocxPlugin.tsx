@@ -1,7 +1,6 @@
 import {
   KEY_DESERIALIZE_HTML,
   cleanHtmlBrElements,
-  cleanHtmlEmptyElements,
   cleanHtmlFontElements,
   cleanHtmlLinkElements,
   cleanHtmlTextNodes,
@@ -22,6 +21,7 @@ import {
 } from '@udecode/plate-serializer-docx';
 
 import { PlatePlugin } from '../../internal';
+import { cleanHtmlEmptyElements } from './cleanHtmlEmptyElements';
 
 export const createDeserializeDocxPlugin: () => PlatePlugin = () =>
   originalCreateDeserializeDocxPlugin({

@@ -199,23 +199,83 @@ export function getEntryTitle({
   return titleOrDefault(title, defaultTitle);
 }
 
-export function getEntryStatus(sys: Entry['sys']) {
+type AsyncPublishStatus = 'draft' | 'published' | 'changed';
+
+type FieldStatus = {
+  '*': Record<string, AsyncPublishStatus>;
+};
+
+/**
+ * Returns the status of the entry/asset
+ * If a locale code(s) is provided it will pick up the most advanced state for these locale(s)
+ * - deleted
+ * - archived
+ * - changed
+ * - published
+ * - draft
+ */
+export function getEntityStatus(
+  sys: (Entry['sys'] | Asset['sys']) & { fieldStatus?: FieldStatus },
+  localeCodes?: string | string[]
+) {
   if (!sys || (sys.type !== 'Entry' && sys.type !== 'Asset')) {
     throw new TypeError('Invalid entity metadata object');
   }
+
   if (sys.deletedVersion) {
     return 'deleted';
-  } else if (sys.archivedVersion) {
+  }
+
+  if (sys.archivedVersion) {
     return 'archived';
-  } else if (sys.publishedVersion) {
+  }
+
+  // TODO: remove the condition, once locale based publishing is GA
+  // Then we don't need the publishedVersion calculation anymore
+  if (sys.fieldStatus && localeCodes) {
+    let status: AsyncPublishStatus = 'draft';
+
+    const isMatchingLocale = (locale: string) => {
+      if (Array.isArray(localeCodes)) {
+        return localeCodes.includes(locale);
+      }
+
+      return localeCodes ? localeCodes === locale : true;
+    };
+
+    Object.entries(sys.fieldStatus['*']).forEach(([localeCode, fieldStatus]) => {
+      if (isMatchingLocale(localeCode)) {
+        if (fieldStatus === 'changed') {
+          status = fieldStatus;
+          return;
+        }
+        if (fieldStatus === 'published') {
+          status = fieldStatus;
+        }
+      }
+    });
+
+    return status;
+  }
+
+  if (sys.publishedVersion) {
     if (sys.version > sys.publishedVersion + 1) {
       return 'changed';
     } else {
       return 'published';
     }
-  } else {
-    return 'draft';
   }
+
+  return 'draft';
+}
+
+/**@deprecated use `getEntityStatus` */
+export function getEntryStatus(
+  //TODO: remove union after fieldStatus is added to App SDK
+  sys: Entry['sys'] & { fieldStatus?: FieldStatus },
+  localeCodes?: string | string[]
+) {
+  return getEntityStatus(sys, localeCodes);
 }
 
 /**

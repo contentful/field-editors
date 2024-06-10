@@ -58,6 +58,7 @@ export function createDefaultFakeStore(): Store {
       [entries.empty.sys.id]: entries.empty,
       [entries.published.sys.id]: entries.published,
       [entries.changed.sys.id]: entries.changed,
+      [entries.publishedAndChanged.sys.id]: entries.publishedAndChanged,
     },
     Asset: {
       [assets.empty.sys.id]: assets.empty,

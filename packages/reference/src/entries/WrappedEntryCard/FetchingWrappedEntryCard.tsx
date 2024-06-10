@@ -142,6 +142,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       onMoveTop: props.onMoveTop,
       onMoveBottom: props.onMoveBottom,
       isBeingDragged: props.isBeingDragged,
+      useLocalizedEntityStatus: props.sdk.parameters.instance.useLocalizedEntityStatus,
     };
 
     const { hasCardEditActions, hasCardMoveActions, hasCardRemoveActions } = props;

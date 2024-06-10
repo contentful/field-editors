@@ -47,6 +47,7 @@ export interface WrappedAssetCardProps {
   size: 'default' | 'small';
   renderDragHandle?: RenderDragFn;
   isClickable: boolean;
+  useLocalizedEntityStatus: boolean;
 }
 
 const defaultProps = {
@@ -71,8 +72,10 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
   const { className, onEdit, getAssetUrl, onRemove, size, isDisabled, isSelected, isClickable } =
     props;
 
-  // @ts-expect-error
-  const status = entityHelpers.getEntryStatus(props.asset.sys);
+  const status = entityHelpers.getEntityStatus(
+    props.asset.sys,
+    props.useLocalizedEntityStatus ? props.localeCode : undefined
+  );
 
   if (status === 'deleted') {
     return <MissingAssetCard asSquare isDisabled={props.isDisabled} onRemove={props.onRemove} />;

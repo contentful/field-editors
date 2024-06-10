@@ -892,6 +892,31 @@ describe(
 
         richText.expectValue(msWordOnline);
       });
+
+      it('does not remove spaces between inline elements', () => {
+        // context: MS Word adds span elements around non english text; we test to see if we preserve the spaces between those spans
+        richText.editor.click().paste({
+          'text/html': `<span lang="KO" style="font-size:11.0pt;line-height:107%;
+            font-family:&quot;Dotum&quot;,sans-serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:
+            minor-latin;mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin;
+            mso-bidi-font-family:Calibri;mso-bidi-theme-font:minor-latin;mso-ansi-language:
+            EN-US;mso-fareast-language:KO;mso-bidi-language:AR-SA">당사는</span><span lang="KO" style="font-size:11.0pt;line-height:107%;font-family:&quot;Calibri&quot;,sans-serif;
+            mso-ascii-theme-font:minor-latin;mso-fareast-font-family:Dotum;mso-hansi-theme-font:
+            minor-latin;mso-bidi-theme-font:minor-latin;mso-ansi-language:EN-US;mso-fareast-language:
+            KO;mso-bidi-language:AR-SA"> </span><span lang="KO" style="font-size:11.0pt;
+            line-height:107%;font-family:&quot;Dotum&quot;,sans-serif;mso-ascii-font-family:Calibri;
+            mso-ascii-theme-font:minor-latin;mso-hansi-font-family:Calibri;mso-hansi-theme-font:
+            minor-latin;mso-bidi-font-family:Calibri;mso-bidi-theme-font:minor-latin;
+            mso-ansi-language:EN-US;mso-fareast-language:KO;mso-bidi-language:AR-SA">귀하의</span><span lang="KO" style="font-size:11.0pt;line-height:107%;font-family:&quot;Calibri&quot;,sans-serif;
+            mso-ascii-theme-font:minor-latin;mso-fareast-font-family:Dotum;mso-hansi-theme-font:
+            minor-latin;mso-bidi-theme-font:minor-latin;mso-ansi-language:EN-US;mso-fareast-language:
+            KO;mso-bidi-language:AR-SA"></span>`,
+        });
+
+        const expectedValue = doc(block('paragraph', {}, text('당사는 귀하의')));
+
+        richText.expectValue(expectedValue);
+      });
     });
 
     describe('Basic marks', () => {
@@ -942,6 +967,24 @@ describe(
             text('Hello', [mark(MARKS.SUPERSCRIPT)]),
             text('World', [mark(MARKS.SUBSCRIPT)])
           )
+        );
+
+        richText.expectValue(expectedValue);
+      });
+    });
+
+    describe('Strikethrough mark', () => {
+      it('works when strikethrough from a google doc', () => {
+        // A simple "hello world" text with marks: strikethrough
+        // Copied from a google doc
+        richText.editor.click().paste({
+          'text/html':
+            '<meta charset="utf-8"><meta charset="utf-8"><b style="font-weight:normal;" id="docs-internal-guid-e64bc434-7fff-411f-3a23-35783241e621"><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:line-through;-webkit-text-decoration-skip:none;text-decoration-skip-ink:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Hello world</span></p></b><br class="Apple-interchange-newline">',
+        });
+
+        const expectedValue = doc(
+          block(BLOCKS.PARAGRAPH, {}, text('Hello world', [mark(MARKS.STRIKETHROUGH)])),
+          block(BLOCKS.PARAGRAPH, {}, text('\n'))
         );
 
         richText.expectValue(expectedValue);
