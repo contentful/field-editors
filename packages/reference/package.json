@@ -45,7 +45,7 @@
     "@dnd-kit/sortable": "^7.0.2",
     "@tanstack/react-query": "^4.3.9",
     "@types/deep-equal": "^1.0.1",
-    "constate": "3.2.0",
+    "constate": "^3.3.2",
     "contentful-management": "^10.14.0 || ^11.0.0",
     "deep-equal": "2.2.2",
     "emotion": "^10.0.17",
