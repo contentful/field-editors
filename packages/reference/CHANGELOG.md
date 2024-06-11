@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.29.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.28.3...@contentful/field-editor-reference@5.29.0) (2024-06-11)
+
+### Features
+
+- **references:** show badge for non-localized references [TOL-1779] ([#1675](https://github.com/contentful/field-editors/issues/1675)) ([464c6cb](https://github.com/contentful/field-editors/commit/464c6cbde231516851c94e0df106a438053c298b))
+
 ## [5.28.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.28.2...@contentful/field-editor-reference@5.28.3) (2024-06-07)
 
 ### Bug Fixes
