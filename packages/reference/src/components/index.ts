@@ -9,3 +9,4 @@ export { ScheduledIconWithTooltip } from './ScheduledIconWithTooltip/ScheduledIc
 export { getScheduleTooltipContent } from './ScheduledIconWithTooltip/ScheduleTooltip';
 export { AssetThumbnail } from './AssetThumbnail/AssetThumbnail';
 export { ResourceEntityErrorCard } from './ResourceEntityErrorCard/ResourceEntityErrorCard';
+export { EntityStatusBadge } from './EntityStatusBadge';

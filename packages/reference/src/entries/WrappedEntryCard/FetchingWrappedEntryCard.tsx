@@ -124,6 +124,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
     if (status === 'loading') {
       return <EntryCard size={size} isLoading />;
     }
+
     const sharedCardProps: CustomEntityCardProps = {
       index: props.index,
       entity: entry,
@@ -142,6 +143,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       onMoveBottom: props.onMoveBottom,
       isBeingDragged: props.isBeingDragged,
       useLocalizedEntityStatus: props.sdk.parameters.instance.useLocalizedEntityStatus,
+      isLocalized: !!('localized' in props.sdk.field && props.sdk.field.localized), // missing in types :(
     };
 
     const { hasCardEditActions, hasCardMoveActions, hasCardRemoveActions } = props;
