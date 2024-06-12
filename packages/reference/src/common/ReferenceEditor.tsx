@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import { FieldConnector } from '@contentful/field-editor-shared';
-import deepEqual from 'deep-equal';
 
 import type { LinkActionsProps } from '../components';
 import { Action, ActionLabels, FieldAppSDK, ViewType } from '../types';
@@ -51,9 +50,6 @@ export function ReferenceEditor<T>(
         debounce={0}
         field={props.sdk.field}
         isInitiallyDisabled={props.isInitiallyDisabled}
-        isEqualValues={(value1, value2) => {
-          return deepEqual(value1, value2);
-        }}
       >
         {props.children}
       </FieldConnector>
