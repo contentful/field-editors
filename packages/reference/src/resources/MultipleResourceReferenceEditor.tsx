@@ -4,7 +4,6 @@ import { useCallback } from 'react';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import { DragStartEvent } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
-import deepEqual from 'deep-equal';
 import noop from 'lodash/noop';
 
 import { EntityProvider } from '../common/EntityStore';
@@ -135,7 +134,6 @@ export function MultipleResourceReferenceEditor(
         debounce={0}
         field={props.sdk.field}
         isInitiallyDisabled={props.isInitiallyDisabled}
-        isEqualValues={deepEqual}
       >
         {({ value, disabled, setValue, externalReset }) => {
           return (
