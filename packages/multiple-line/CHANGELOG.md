@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.16](https://github.com/contentful/field-editors/compare/@contentful/field-editor-multiple-line@1.3.15...@contentful/field-editor-multiple-line@1.3.16) (2024-06-13)
+
+**Note:** Version bump only for package @contentful/field-editor-multiple-line
+
 ## [1.3.15](https://github.com/contentful/field-editors/compare/@contentful/field-editor-multiple-line@1.3.14...@contentful/field-editor-multiple-line@1.3.15) (2024-06-07)
 
 **Note:** Version bump only for package @contentful/field-editor-multiple-line
