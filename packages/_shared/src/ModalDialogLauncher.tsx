@@ -46,7 +46,7 @@ export function open(componentRenderer: (params: { onClose: Function; isShown: b
 
 export function openDialog<T>(
   options: OpenCustomWidgetOptions,
-  Component: React.SFC<{ onClose: (result: T) => void }>
+  Component: React.FC<{ onClose: (result: T) => void }>
 ) {
   const key = Date.now();
   const size = isNumber(options.width) ? `${options.width}px` : options.width;
