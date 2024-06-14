@@ -43,6 +43,8 @@ const InternalEntryCard = React.memo((props: InternalEntryCard) => {
       onEdit={props.onEdit}
       onRemove={props.isDisabled ? undefined : props.onRemove}
       isClickable={false}
+      useLocalizedEntityStatus={sdk.parameters.instance.useLocalizedEntityStatus}
+      isLocalized={!!('localized' in props.sdk.field && props.sdk.field.localized)}
     />
   );
 }, areEqual);

@@ -38,6 +38,7 @@ beforeEach(() => {
     parameters: {
       instance: {},
     },
+    field: { localized: false },
   };
 });
 
