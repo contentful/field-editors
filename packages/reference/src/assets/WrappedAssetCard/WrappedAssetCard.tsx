@@ -1,15 +1,12 @@
 import * as React from 'react';
 
 import { SpaceAPI } from '@contentful/app-sdk';
-import { AssetCard } from '@contentful/f36-components';
-import { ClockIcon } from '@contentful/f36-icons';
-import tokens from '@contentful/f36-tokens';
+import { AssetCard, Badge } from '@contentful/f36-components';
 import { entityHelpers } from '@contentful/field-editor-shared';
 // @ts-expect-error
 import mimetype from '@contentful/mimetype';
-import { css } from 'emotion';
 
-import { MissingAssetCard, ScheduledIconWithTooltip } from '../../components';
+import { EntityStatusBadge, MissingAssetCard } from '../../components';
 import { Asset, File, RenderDragFn } from '../../types';
 import { renderActions, renderAssetInfo } from './AssetCardActions';
 
@@ -27,12 +24,6 @@ const groupToIconMap = {
   markup: 'markup',
 };
 
-const styles = {
-  scheduleIcon: css({
-    marginRight: tokens.spacing2Xs,
-  }),
-};
-
 export interface WrappedAssetCardProps {
   getEntityScheduledActions: SpaceAPI['getEntityScheduledActions'];
   asset: Asset;
@@ -47,7 +38,8 @@ export interface WrappedAssetCardProps {
   size: 'default' | 'small';
   renderDragHandle?: RenderDragFn;
   isClickable: boolean;
-  useLocalizedEntityStatus: boolean;
+  useLocalizedEntityStatus?: boolean;
+  isLocalized?: boolean;
 }
 
 const defaultProps = {
@@ -102,20 +94,18 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
       className={className}
       isSelected={isSelected}
       href={href}
-      status={status}
-      icon={
-        <ScheduledIconWithTooltip
+      badge={
+        <EntityStatusBadge
           getEntityScheduledActions={props.getEntityScheduledActions}
           entityType="Asset"
           entityId={props.asset.sys.id}
-        >
-          <ClockIcon
-            className={styles.scheduleIcon}
-            size="small"
-            variant="muted"
-            testId="schedule-icon"
-          />
-        </ScheduledIconWithTooltip>
+          status={status}
+        />
+      }
+      icon={
+        !props.isLocalized && props.useLocalizedEntityStatus ? (
+          <Badge variant="secondary">Default</Badge>
+        ) : null
       }
       src={
         entityFile && entityFile.url

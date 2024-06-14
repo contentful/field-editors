@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-single-line@1.4.0...@contentful/field-editor-single-line@1.4.1) (2024-06-13)
+
+**Note:** Version bump only for package @contentful/field-editor-single-line
+
+# [1.4.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-single-line@1.3.15...@contentful/field-editor-single-line@1.4.0) (2024-06-11)
+
+### Features
+
+- allow onBlur and onFocus on SingleLineEditor [] ([#1655](https://github.com/contentful/field-editors/issues/1655)) ([f613883](https://github.com/contentful/field-editors/commit/f61388310fa700ed6202175a17efbf5f46cced7e))
+
 ## [1.3.15](https://github.com/contentful/field-editors/compare/@contentful/field-editor-single-line@1.3.14...@contentful/field-editor-single-line@1.3.15) (2024-06-07)
 
 **Note:** Version bump only for package @contentful/field-editor-single-line

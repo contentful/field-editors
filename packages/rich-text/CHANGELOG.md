@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.24.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.24.2...@contentful/field-editor-rich-text@3.24.3) (2024-06-14)
+
+### Bug Fixes
+
+- **rich-text:** add status differentiation props [] ([#1679](https://github.com/contentful/field-editors/issues/1679)) ([38c29ab](https://github.com/contentful/field-editors/commit/38c29aba40524839e7f9b84850785cd09112a561))
+
+## [3.24.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.24.1...@contentful/field-editor-rich-text@3.24.2) (2024-06-13)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [3.24.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.24.0...@contentful/field-editor-rich-text@3.24.1) (2024-06-12)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+# [3.24.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.23.2...@contentful/field-editor-rich-text@3.24.0) (2024-06-11)
+
+### Features
+
+- **references:** show badge for non-localized references [TOL-1779] ([#1675](https://github.com/contentful/field-editors/issues/1675)) ([464c6cb](https://github.com/contentful/field-editors/commit/464c6cbde231516851c94e0df106a438053c298b))
+
 ## [3.23.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.23.1...@contentful/field-editor-rich-text@3.23.2) (2024-06-07)
 
 ### Bug Fixes
