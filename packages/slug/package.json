@@ -39,10 +39,10 @@
     "@contentful/f36-icons": "^4.1.0",
     "@contentful/f36-tokens": "^4.0.0",
     "@contentful/field-editor-shared": "^1.5.3",
-    "@types/speakingurl": "^13.0.2",
+    "@types/speakingurl": "^13.0.6",
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",
-    "speakingurl": "^13.0.0",
+    "speakingurl": "^14.0.1",
     "use-debounce": "^10.0.0"
   },
   "devDependencies": {

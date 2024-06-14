@@ -2,15 +2,21 @@ import { slugify } from './slugify';
 
 describe('slugify', () => {
   const cases = [
-    ['We ♥ $ & €', 'we-love-usd-and-eur'],
-    ['it`s a Slug', 'its-a-slug'],
-    ['it’S a slug', 'its-a-slug'],
-    ["it's a SLUG", 'its-a-slug'],
+    { input: 'We ♥ $ & €', output: 'we-love-usd-and-eur' },
+    { input: 'it`s a Slug', output: 'its-a-slug' },
+    { input: 'it’S a slug', output: 'its-a-slug' },
+    { input: "it's a SLUG", output: 'its-a-slug' },
+    // Swedish
+    { input: 'mr Åhlin goes to Malmö', output: 'mr-ahlin-goes-to-malmo', locale: 'sv' },
+    // Danish
+    { input: 'Forårsjævndøgn', output: 'foraarsjaevndoegn', locale: 'dk' },
+    // Finnish for ice cream cone
+    { input: 'jäätelötötterö', output: 'jaatelotottero', locale: 'fi' },
   ];
 
-  cases.forEach((input) => {
-    it(`converts "${input[0]}" to "${input[1]}"`, () => {
-      expect(slugify(input[0])).toBe(input[1]);
+  cases.forEach(({ input, output, locale }) => {
+    it(`converts "${input}" to "${output}"`, () => {
+      expect(slugify(input, locale)).toBe(output);
     });
   });
 });
