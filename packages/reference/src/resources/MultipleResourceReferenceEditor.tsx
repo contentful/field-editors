@@ -36,14 +36,14 @@ function ResourceEditor(props: EditorProps) {
 
   const onSortStart = () => noop();
   const onSortEnd = useCallback(
-    ({ oldIndex, newIndex }) => {
+    ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => {
       const newItems = arrayMove(items, oldIndex, newIndex);
       setValue(newItems);
     },
     [items, setValue]
   );
   const onMove = useCallback(
-    (oldIndex, newIndex) => {
+    (oldIndex: number, newIndex: number) => {
       const newItems = arrayMove(items, oldIndex, newIndex);
       setValue(newItems);
     },
@@ -51,7 +51,7 @@ function ResourceEditor(props: EditorProps) {
   );
 
   const onRemoteItemAtIndex = useCallback(
-    (index) => {
+    (index: number) => {
       setValue(items.filter((_v, i) => i !== index));
     },
     [items, setValue]

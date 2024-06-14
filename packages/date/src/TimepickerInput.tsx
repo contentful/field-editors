@@ -1,7 +1,7 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 // eslint-disable-next-line -- TODO: move to date-fns
-import { TextInput, Flex } from '@contentful/f36-components';
+import { Flex, TextInput } from '@contentful/f36-components';
 import { css } from 'emotion';
 // eslint-disable-next-line no-restricted-imports -- will change
 import moment from 'moment';
@@ -71,7 +71,7 @@ export const TimepickerInput = ({
     setSelectedTime(e.currentTarget.value);
   }, []);
 
-  const handleFocus = useCallback((e) => {
+  const handleFocus = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
     e.preventDefault();
     e.target.select();
   }, []);

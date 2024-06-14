@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useSelected, useReadOnly } from 'slate-react';
+import { useReadOnly, useSelected } from 'slate-react';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { Element, findNodePath, removeNodes, RenderElementProps } from '../../internal';
@@ -22,7 +22,7 @@ export type LinkedResourceBlockProps = {
     };
   };
   attributes: Pick<RenderElementProps, 'attributes'>;
-  children: Pick<RenderElementProps, 'children'>;
+  children: React.ReactNode;
 };
 
 export function LinkedResourceBlock(props: LinkedResourceBlockProps) {

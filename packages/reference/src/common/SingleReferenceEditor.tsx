@@ -3,8 +3,8 @@ import { useCallback } from 'react';
 
 import { LinkEntityActions } from '../components';
 import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions';
-import { ContentType, ContentEntityType, ReferenceValue } from '../types';
-import { CustomEntityCardProps } from './customCardTypes';
+import { ContentEntityType, ContentType, ReferenceValue } from '../types';
+import { CustomEntityCardProps, DefaultCardRenderer } from './customCardTypes';
 import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
 import { useEditorPermissions } from './useEditorPermissions';
 
@@ -49,7 +49,7 @@ function Editor(props: EditorProps) {
   });
   // Inject card actions props into the given custom card renderer
   const customCardRenderer = useCallback(
-    (cardProps: CustomEntityCardProps, _, renderDefaultCard) =>
+    (cardProps: CustomEntityCardProps, _: unknown, renderDefaultCard: DefaultCardRenderer) =>
       props.renderCustomCard
         ? props.renderCustomCard(cardProps, linkActionsProps, renderDefaultCard)
         : false,
