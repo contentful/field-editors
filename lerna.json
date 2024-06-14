@@ -1,7 +1,6 @@
 {
   "npmClient": "yarn",
   "version": "independent",
-  "workspaces": ["packages/**", "apps/**"],
   "command": {
     "version": {
       "allowBranch": "master",

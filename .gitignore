@@ -20,4 +20,4 @@ cypress.env.json
 .turbo
 reports/
 snapshots.js
-.nx/cache
+.nx
