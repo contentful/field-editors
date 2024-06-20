@@ -92,8 +92,12 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       renderDragHandle: props.renderDragHandle,
       onEdit,
       onRemove,
-      useLocalizedEntityStatus: props.sdk.parameters.instance.useLocalizedEntityStatus,
-      isLocalized: !!('localized' in props.sdk.field && props.sdk.field.localized), // missing in types :(
+      useLocalizedEntityStatus:
+        props.sdk.parameters.instance.useLocalizedEntityStatus &&
+        props.sdk.parameters.instance.isLocalePublishingEnabled,
+      isLocalized:
+        !!('localized' in props.sdk.field && props.sdk.field.localized) && // missing in types :(
+        props.sdk.parameters.instance.isLocalePublishingEnabled,
     };
 
     if (props.viewType === 'link') {

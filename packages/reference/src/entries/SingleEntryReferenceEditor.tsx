@@ -5,6 +5,9 @@ import { SingleReferenceEditor } from '../common/SingleReferenceEditor';
 import { FetchingWrappedEntryCard } from './WrappedEntryCard/FetchingWrappedEntryCard';
 
 export function SingleEntryReferenceEditor(props: ReferenceEditorProps) {
+  props.sdk.parameters.instance.isLocalePublishingEnabled =
+    !!props.parameters.instance.isLocalePublishingEnabled;
+
   return (
     <SingleReferenceEditor {...props} entityType="Entry">
       {({

@@ -128,6 +128,9 @@ export function MultipleResourceReferenceEditor(
     getEntryRouteHref: (entryRoute: EntryRoute) => string;
   }
 ) {
+  props.sdk.parameters.instance.isLocalePublishingEnabled =
+    !!props.parameters.instance.isLocalePublishingEnabled;
+
   return (
     <EntityProvider sdk={props.sdk}>
       <FieldConnector<ResourceLink<string>[]>

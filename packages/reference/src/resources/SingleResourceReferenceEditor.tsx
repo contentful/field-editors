@@ -22,6 +22,8 @@ export function SingleResourceReferenceEditor(
     field,
     apiUrl: props.apiUrl,
   });
+  props.sdk.parameters.instance.isLocalePublishingEnabled =
+    !!props.parameters.instance.isLocalePublishingEnabled;
 
   return (
     <EntityProvider sdk={props.sdk}>

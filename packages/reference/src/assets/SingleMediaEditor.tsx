@@ -13,6 +13,9 @@ type EditorProps = Pick<
 >;
 
 export function SingleMediaEditor(props: EditorProps) {
+  props.sdk.parameters.instance.isLocalePublishingEnabled =
+    !!props.parameters.instance.isLocalePublishingEnabled;
+
   return (
     <SingleReferenceEditor {...props} entityType="Asset">
       {({ entityId, isDisabled, setValue }) => (
