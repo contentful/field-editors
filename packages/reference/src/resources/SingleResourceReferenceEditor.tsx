@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { FieldConnector } from '@contentful/field-editor-shared';
+import { set } from 'lodash';
 
 import { EntityProvider } from '../common/EntityStore';
 import { ReferenceEditorProps } from '../common/ReferenceEditor';
@@ -22,8 +23,11 @@ export function SingleResourceReferenceEditor(
     field,
     apiUrl: props.apiUrl,
   });
-  props.sdk.parameters.instance.isLocalePublishingEnabled =
-    !!props.parameters?.instance?.isLocalePublishingEnabled;
+  set(
+    props.sdk,
+    'parameters.instance.isLocalePublishingEnabled',
+    !!props.parameters?.instance?.isLocalePublishingEnabled
+  );
 
   return (
     <EntityProvider sdk={props.sdk}>
