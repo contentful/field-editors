@@ -142,17 +142,13 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       onMoveTop: props.onMoveTop,
       onMoveBottom: props.onMoveBottom,
       isBeingDragged: props.isBeingDragged,
-      useLocalizedEntityStatus:
-        props.sdk.parameters.instance.useLocalizedEntityStatus &&
-        props.sdk.parameters.instance.isLocalePublishingEnabled,
+      useLocalizedEntityStatus: props.sdk.parameters.instance.useLocalizedEntityStatus,
       isLocalized:
         !!('localized' in props.sdk.field && props.sdk.field.localized) && // missing in types :(
         props.sdk.parameters.instance.isLocalePublishingEnabled,
     };
 
     const { hasCardEditActions, hasCardMoveActions, hasCardRemoveActions } = props;
-
-    console.log({ sharedCardProps });
 
     function renderDefaultCard(props?: CustomEntityCardProps) {
       const builtinCardProps: WrappedEntryCardProps = {
