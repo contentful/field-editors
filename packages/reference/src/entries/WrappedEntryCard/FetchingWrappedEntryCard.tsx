@@ -152,6 +152,8 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
 
     const { hasCardEditActions, hasCardMoveActions, hasCardRemoveActions } = props;
 
+    console.log({ sharedCardProps });
+
     function renderDefaultCard(props?: CustomEntityCardProps) {
       const builtinCardProps: WrappedEntryCardProps = {
         ...sharedCardProps,

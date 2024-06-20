@@ -27,7 +27,7 @@ const styles = {
 
 export function MultipleMediaEditor(props: EditorProps) {
   props.sdk.parameters.instance.isLocalePublishingEnabled =
-    !!props.parameters.instance.isLocalePublishingEnabled;
+    !!props.parameters?.instance?.isLocalePublishingEnabled;
 
   return (
     <MultipleReferenceEditor {...props} entityType="Asset">

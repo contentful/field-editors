@@ -16,7 +16,7 @@ export function MultipleEntryReferenceEditor(props: ReferenceEditorProps) {
   };
 
   props.sdk.parameters.instance.isLocalePublishingEnabled =
-    !!props.parameters.instance.isLocalePublishingEnabled;
+    !!props.parameters?.instance?.isLocalePublishingEnabled;
 
   return (
     <MultipleReferenceEditor {...props} entityType="Entry" setIndexToUpdate={setIndexToUpdate}>
