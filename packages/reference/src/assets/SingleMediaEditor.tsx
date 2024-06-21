@@ -1,7 +1,5 @@
 import * as React from 'react';
 
-import { set } from 'lodash';
-
 import { ReferenceEditorProps } from '../common/ReferenceEditor';
 import { SingleReferenceEditor } from '../common/SingleReferenceEditor';
 import { FetchingWrappedAssetCard } from './WrappedAssetCard/FetchingWrappedAssetCard';
@@ -15,12 +13,6 @@ type EditorProps = Pick<
 >;
 
 export function SingleMediaEditor(props: EditorProps) {
-  set(
-    props.sdk,
-    'parameters.instance.isLocalePublishingEnabled',
-    !!props.parameters?.instance?.isLocalePublishingEnabled
-  );
-
   return (
     <SingleReferenceEditor {...props} entityType="Asset">
       {({ entityId, isDisabled, setValue }) => (

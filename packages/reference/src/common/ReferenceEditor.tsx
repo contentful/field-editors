@@ -31,7 +31,6 @@ export interface ReferenceEditorProps {
       showCreateEntityAction?: boolean;
       showLinkEntityAction?: boolean;
       bulkEditing?: boolean;
-      isLocalePublishingEnabled?: boolean;
     };
   };
   updateBeforeSortStart?: ({ index }: { index: number }) => void;

@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import { rectSortingStrategy, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { css, cx } from 'emotion';
-import { set } from 'lodash';
 
 import { MultipleReferenceEditor } from '../common/MultipleReferenceEditor';
 import { ReferenceEditorProps } from '../common/ReferenceEditor';
@@ -27,12 +26,6 @@ const styles = {
 };
 
 export function MultipleMediaEditor(props: EditorProps) {
-  set(
-    props.sdk,
-    'parameters.instance.isLocalePublishingEnabled',
-    !!props.parameters?.instance?.isLocalePublishingEnabled
-  );
-
   return (
     <MultipleReferenceEditor {...props} entityType="Asset">
       {(childrenProps) => (

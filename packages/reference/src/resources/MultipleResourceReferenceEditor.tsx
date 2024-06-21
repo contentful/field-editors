@@ -4,7 +4,6 @@ import { useCallback } from 'react';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import { DragStartEvent } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
-import { set } from 'lodash';
 import noop from 'lodash/noop';
 
 import { EntityProvider } from '../common/EntityStore';
@@ -129,12 +128,6 @@ export function MultipleResourceReferenceEditor(
     getEntryRouteHref: (entryRoute: EntryRoute) => string;
   }
 ) {
-  set(
-    props.sdk,
-    'parameters.instance.isLocalePublishingEnabled',
-    !!props.parameters?.instance?.isLocalePublishingEnabled
-  );
-
   return (
     <EntityProvider sdk={props.sdk}>
       <FieldConnector<ResourceLink<string>[]>

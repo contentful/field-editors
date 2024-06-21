@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import { verticalListSortingStrategy } from '@dnd-kit/sortable';
-import { set } from 'lodash';
 
 import { MultipleReferenceEditor } from '../common/MultipleReferenceEditor';
 import { ReferenceEditorProps } from '../common/ReferenceEditor';
@@ -15,12 +14,6 @@ export function MultipleEntryReferenceEditor(props: ReferenceEditorProps) {
   const updateBeforeSortStart = ({ index }: { index: number }) => {
     setIndexToUpdate(index);
   };
-
-  set(
-    props.sdk,
-    'parameters.instance.isLocalePublishingEnabled',
-    !!props.parameters?.instance?.isLocalePublishingEnabled
-  );
 
   return (
     <MultipleReferenceEditor {...props} entityType="Entry" setIndexToUpdate={setIndexToUpdate}>
