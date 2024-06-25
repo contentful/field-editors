@@ -205,19 +205,19 @@ type FieldStatus = {
   '*': Record<string, AsyncPublishStatus>;
 };
 
+export type EntitySys = (Entry['sys'] | Asset['sys']) & { fieldStatus?: FieldStatus };
+
 /**
  * Returns the status of the entry/asset
  * If a locale code(s) is provided it will pick up the most advanced state for these locale(s)
+ * (Not aggregated, this means published + draft is published and not changed)
  * - deleted
  * - archived
  * - changed
  * - published
  * - draft
  */
-export function getEntityStatus(
-  sys: (Entry['sys'] | Asset['sys']) & { fieldStatus?: FieldStatus },
-  localeCodes?: string | string[]
-) {
+export function getEntityStatus(sys: EntitySys, localeCodes?: string | string[]) {
   if (!sys || (sys.type !== 'Entry' && sys.type !== 'Asset')) {
     throw new TypeError('Invalid entity metadata object');
   }
@@ -234,26 +234,19 @@ export function getEntityStatus(
   // Then we don't need the publishedVersion calculation anymore
   if (sys.fieldStatus && localeCodes) {
     let status: AsyncPublishStatus = 'draft';
+    const locales = Array.isArray(localeCodes) ? localeCodes : [localeCodes];
 
-    const isMatchingLocale = (locale: string) => {
-      if (Array.isArray(localeCodes)) {
-        return localeCodes.includes(locale);
-      }
-
-      return localeCodes ? localeCodes === locale : true;
-    };
-
-    Object.entries(sys.fieldStatus['*']).forEach(([localeCode, fieldStatus]) => {
-      if (isMatchingLocale(localeCode)) {
+    for (const [localeCode, fieldStatus] of Object.entries(sys.fieldStatus['*'])) {
+      if (!locales || locales.includes(localeCode)) {
         if (fieldStatus === 'changed') {
           status = fieldStatus;
-          return;
+          break;
         }
         if (fieldStatus === 'published') {
           status = fieldStatus;
         }
       }
-    });
+    }
 
     return status;
   }
