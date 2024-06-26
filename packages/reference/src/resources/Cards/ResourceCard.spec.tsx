@@ -66,7 +66,7 @@ const sdk: any = {
         if (
           url ===
             `/spaces/space-id/environments/environment-id/resource_types/${resolvableExternalResourceType}/resources` &&
-          config.params['sys.urn[in]'] === resolvableExternalEntityUrn
+          config.params['sys.id[in]'] === resolvableExternalEntityUrn
         ) {
           return Promise.resolve({ items: [resource] });
         }
