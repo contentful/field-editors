@@ -7779,6 +7779,19 @@
     "@udecode/slate-utils" "25.0.0"
     "@udecode/utils" "24.3.0"
 
+"@udecode/plate-common@30.4.5":
+  version "30.4.5"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-common/-/plate-common-30.4.5.tgz#2a501af8e611ba8a8d89190747e7ba2869aff370"
+  integrity sha512-p/hF7rvuEqyrxvsfgjaBswv82C/Z1/S5vNj+m33UG91cnPs5sLHbofd5qh7vRgKKfZ/uk028mNpUgemo1bFgbA==
+  dependencies:
+    "@udecode/plate-core" "30.4.5"
+    "@udecode/plate-utils" "30.4.5"
+    "@udecode/react-utils" "29.0.1"
+    "@udecode/slate" "25.0.0"
+    "@udecode/slate-react" "29.0.1"
+    "@udecode/slate-utils" "25.0.0"
+    "@udecode/utils" "24.3.0"
+
 "@udecode/plate-core@10.5.3", "@udecode/plate-core@^10.4.0":
   version "10.5.3"
   resolved "https://registry.yarnpkg.com/@udecode/plate-core/-/plate-core-10.5.3.tgz#7888339b3f7951fed61bf8dd8ae947bc565fcd99"
@@ -7805,6 +7818,28 @@
     jotai "^2.6.0"
     jotai-optics "0.3.1"
     jotai-x "^1.2.1"
+    lodash "^4.17.21"
+    nanoid "^3.3.6"
+    optics-ts "2.4.1"
+    react-hotkeys-hook "^4.4.1"
+    use-deep-compare "^1.1.0"
+    zustand "^4.4.7"
+    zustand-x "^3.0.1"
+
+"@udecode/plate-core@30.4.5":
+  version "30.4.5"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-core/-/plate-core-30.4.5.tgz#d6cf4cf9f94a3d4a02b64595817ccfe57697077b"
+  integrity sha512-x/X0dCLoWFyC7wEI9hTcVMR8C/xiTkF0w9I5fyhCMg1mXz/y4DB0CMute+hYT0Wz7rqgj9DYT4v8ryrB9fEu9A==
+  dependencies:
+    "@udecode/slate" "25.0.0"
+    "@udecode/slate-react" "29.0.1"
+    "@udecode/slate-utils" "25.0.0"
+    "@udecode/utils" "24.3.0"
+    clsx "^1.2.1"
+    is-hotkey "^0.2.0"
+    jotai "^2.6.0"
+    jotai-optics "0.3.1"
+    jotai-x "^1.2.2"
     lodash "^4.17.21"
     nanoid "^3.3.6"
     optics-ts "2.4.1"
@@ -7969,12 +8004,12 @@
     "@udecode/plate-table" "10.6.3"
     validator "13.7.0"
 
-"@udecode/plate-serializer-html@30.1.2":
-  version "30.1.2"
-  resolved "https://registry.yarnpkg.com/@udecode/plate-serializer-html/-/plate-serializer-html-30.1.2.tgz#4c5c9766e0b4de0f49562d8a58e487cdf7923658"
-  integrity sha512-8kEURgvLEYyVh22OFDddUJ783cOKyxy7FMpg9P4GKOpbhKFpOwfMkVi89uOIi2MwV+ERfkjXCPmupfuwxaODmQ==
+"@udecode/plate-serializer-html@30.4.5":
+  version "30.4.5"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-serializer-html/-/plate-serializer-html-30.4.5.tgz#3dac3df8631fc1de16d3b13912c884513b5b34b7"
+  integrity sha512-Q/aEXrovwIbEC2uFysWGYuOyR8uRPqspvIBXu+Lil9Uss/lZ9ASIEwZtg4dX24dizS0PMKBuE5tUg+yqOuNitQ==
   dependencies:
-    "@udecode/plate-common" "30.1.2"
+    "@udecode/plate-common" "30.4.5"
     html-entities "^2.4.0"
 
 "@udecode/plate-table@10.6.3", "@udecode/plate-table@^10.4.0":
@@ -8018,6 +8053,20 @@
   integrity sha512-Zd9PlkkJAM6tDANeoNsCDFFz70RbpMEDNukHSTTkINeZ+cygqxouM6SHh4UiKPqC6/f0IIu63Tj1RlukD8m50w==
   dependencies:
     "@udecode/plate-core" "30.1.2"
+    "@udecode/react-utils" "29.0.1"
+    "@udecode/slate" "25.0.0"
+    "@udecode/slate-react" "29.0.1"
+    "@udecode/slate-utils" "25.0.0"
+    "@udecode/utils" "24.3.0"
+    clsx "^1.2.1"
+    lodash "^4.17.21"
+
+"@udecode/plate-utils@30.4.5":
+  version "30.4.5"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-utils/-/plate-utils-30.4.5.tgz#95bd21540bca4205d82ff1c824505d03724b122a"
+  integrity sha512-cJ0auswNFxhv/qF9yqrIbgPa3mqxWtLtBQ/N+1zqMfEM3vzWE+4WlHpMJb/SdAC/Dvuc5zzfB26/t2IyhrZp5w==
+  dependencies:
+    "@udecode/plate-core" "30.4.5"
     "@udecode/react-utils" "29.0.1"
     "@udecode/slate" "25.0.0"
     "@udecode/slate-react" "29.0.1"
@@ -16407,7 +16456,7 @@ jotai-optics@0.3.1:
   resolved "https://registry.yarnpkg.com/jotai-optics/-/jotai-optics-0.3.1.tgz#7ff38470551429460cc41d9cd1320193665354e0"
   integrity sha512-KibUx9IneM2hGWGIYGs/v0KCxU985lg7W2c6dt5RodJCB2XPbmok8rkkLmdVk9+fKsn2shkPMi+AG8XzHgB3+w==
 
-jotai-x@^1.2.1:
+jotai-x@^1.2.1, jotai-x@^1.2.2:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/jotai-x/-/jotai-x-1.2.3.tgz#d7fdcfcf04f3ae16587b6fa7c53f671fd08d3863"
   integrity sha512-hQSO2oKZAHvH2Ndm8sMQQ+MjQfSZOh33ET6C0S/D10WWOvKTlvAvwvDkt6NNj8psENt+J2rYP8+brmbyimdYDw==
