@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.5.4...@contentful/field-editor-shared@1.5.5) (2024-06-26)
+
+### Bug Fixes
+
+- **entityHelpers:** adjust getEntityStatus and add tests [TOL-2219] ([#1690](https://github.com/contentful/field-editors/issues/1690)) ([1484f9c](https://github.com/contentful/field-editors/commit/1484f9c1d19b0c89fe858f142ce81b01edef3822))
+
 ## [1.5.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.5.3...@contentful/field-editor-shared@1.5.4) (2024-06-13)
 
 **Note:** Version bump only for package @contentful/field-editor-shared
