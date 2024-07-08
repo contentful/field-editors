@@ -4130,7 +4130,7 @@
   resolved "https://registry.yarnpkg.com/@floating-ui/utils/-/utils-0.2.1.tgz#16308cea045f0fc777b6ff20a9f25474dd8293d2"
   integrity sha512-9TANp6GPoMtYzQdt54kfAyMmz1+osLlXdg2ENroU7zzrtflTLrrC/lgrIfaSe+Wu0b89GKccT7vxXA0MoAIO+Q==
 
-"@googlemaps/js-api-loader@^1.7.0":
+"@googlemaps/js-api-loader@^1.13.8":
   version "1.16.6"
   resolved "https://registry.yarnpkg.com/@googlemaps/js-api-loader/-/js-api-loader-1.16.6.tgz#c89970c94b55796d51746c092f0e52953994a171"
   integrity sha512-V8p5W9DbPQx74jWUmyYJOerhiB4C+MHekaO0ZRmc6lrOYrvY7+syLhzOWpp55kqSPeNb+qbC2h8i69aLIX6krQ==
@@ -7321,10 +7321,10 @@
   resolved "https://registry.yarnpkg.com/@types/find-cache-dir/-/find-cache-dir-3.2.1.tgz#7b959a4b9643a1e6a1a5fe49032693cc36773501"
   integrity sha512-frsJrz2t/CeGifcu/6uRo4b+SzAwT4NYCVPu1GN8IB9XTzrpPkGuV0tmh9mN+/L0PklAlsC3u5Fxt0ju00LXIw==
 
-"@types/google-map-react@2.1.7":
-  version "2.1.7"
-  resolved "https://registry.yarnpkg.com/@types/google-map-react/-/google-map-react-2.1.7.tgz#10992ecf0f161b2e8cbe647364decb31707db6af"
-  integrity sha512-7pquMUU20kVwbfEV91iAWXjApSkqoODkfUwTSmJpU9Tgd+ecX+MrQnplCqrSqKrPF1VjfvyWnDEicdoSd0G5qA==
+"@types/google-map-react@2.1.10":
+  version "2.1.10"
+  resolved "https://registry.yarnpkg.com/@types/google-map-react/-/google-map-react-2.1.10.tgz#197a2f520563e0291bc311f151e05ec34b665cf7"
+  integrity sha512-8/0UllZS7tF08WNBRPQlSJCkETvz3e3sZoPxzDaWkj2iV5dmFSnOKXVtoeKo8dLZSe+RkLn479t1wj6nXmLLSA==
   dependencies:
     "@types/react" "*"
 
@@ -10088,9 +10088,9 @@ caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001587, caniuse-lite@^1.0.30001599:
   integrity sha512-QFutAY4NgaelojVMjY63o6XlZyORPaLfyMnsl3HgnWdJUcX6K0oaJymHjH8PT5Gk7sTm8rvC/c5COUQKXqmOMA==
 
 caniuse-lite@^1.0.30001629:
-  version "1.0.30001636"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001636.tgz#b15f52d2bdb95fad32c2f53c0b68032b85188a78"
-  integrity sha512-bMg2vmr8XBsbL6Lr0UHXy/21m84FTxDLWn2FSqMd5PrlbMxwJlQnC2YWYxVgp66PZE+BBNF2jYQUBKCo1FDeZg==
+  version "1.0.30001640"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001640.tgz#32c467d4bf1f1a0faa63fc793c2ba81169e7652f"
+  integrity sha512-lA4VMpW0PSUrFnkmVuEKBUovSWKhj7puyCg8StBChgu298N1AtuF1sKWEvfDuimSEDbhlb/KqPKC3fs1HbuQUA==
 
 cardinal@^2.1.1:
   version "2.1.1"
@@ -12358,9 +12358,9 @@ electron-to-chromium@^1.4.668:
   integrity sha512-lwKft2CLFztD+vEIpesrOtCrko/TFnEJlHFdRhazU7Y/jx5qc4cqsocfVrBg4So4gGe9lvxnbLIoev47WMpg+A==
 
 electron-to-chromium@^1.4.796:
-  version "1.4.803"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.803.tgz#cf55808a5ee12e2a2778bbe8cdc941ef87c2093b"
-  integrity sha512-61H9mLzGOCLLVsnLiRzCbc63uldP0AniRYPV3hbGVtONA1pI7qSGILdbofR7A8TMbOypDocEAjH/e+9k1QIe3g==
+  version "1.4.818"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.818.tgz#7762c8bfd15a07c3833b7f5deed990e9e5a4c24f"
+  integrity sha512-eGvIk2V0dGImV9gWLq8fDfTTsCAeMDwZqEPMr+jMInxZdnp9Us8UpovYpRCf9NQ7VOFgrN2doNSgvISbsbNpxA==
 
 elegant-spinner@^1.0.1:
   version "1.0.1"
@@ -14341,12 +14341,12 @@ globby@11.1.0, globby@^11.0.1, globby@^11.0.2, globby@^11.0.4, globby@^11.1.0:
     merge2 "^1.4.1"
     slash "^3.0.0"
 
-google-map-react@2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/google-map-react/-/google-map-react-2.2.0.tgz#10b23a42526556adaacbaeec114a72bf3b733053"
-  integrity sha512-UPiTwR3qNKJJizURXTuCbnBr8kLtLsiikj/KH1UTLGhadnU6fT+CE3CLw1lzZwk5zZIduQQODyIcEwNInECmUg==
+google-map-react@2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/google-map-react/-/google-map-react-2.2.1.tgz#54c45899966fb0000e04cde2d5ca44ad728bdba6"
+  integrity sha512-Dg8aexf5rNSmywj0XKQ5m4RNzVcWwKEM2BGDj5aPChD0um8ZRjB5Upcb/yg/i0oG1aES29asQ5+6BHVgrK5xGA==
   dependencies:
-    "@googlemaps/js-api-loader" "^1.7.0"
+    "@googlemaps/js-api-loader" "^1.13.8"
     "@mapbox/point-geometry" "^0.1.0"
     eventemitter3 "^4.0.4"
     prop-types "^15.7.2"
@@ -24878,9 +24878,9 @@ update-browserslist-db@^1.0.13:
     picocolors "^1.0.0"
 
 update-browserslist-db@^1.0.16:
-  version "1.0.16"
-  resolved "https://registry.yarnpkg.com/update-browserslist-db/-/update-browserslist-db-1.0.16.tgz#f6d489ed90fb2f07d67784eb3f53d7891f736356"
-  integrity sha512-KVbTxlBYlckhF5wgfyZXTWnMn7MMZjMu9XG8bPlliUOP9ThaF4QnhP8qrjrH7DRzHfSk0oQv1wToW+iA5GajEQ==
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/update-browserslist-db/-/update-browserslist-db-1.1.0.tgz#7ca61c0d8650766090728046e416a8cde682859e"
+  integrity sha512-EdRAaAyk2cUE1wOf2DkEhzxqOQvFOoRJFNS6NeyJ01Gp2beMRpBAINjM2iDXE3KCuKhwnvHIQCJm6ThL2Z+HzQ==
   dependencies:
     escalade "^3.1.2"
     picocolors "^1.0.1"
