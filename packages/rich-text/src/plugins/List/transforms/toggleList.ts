@@ -4,7 +4,7 @@
  */
 import { BLOCKS } from '@contentful/rich-text-types';
 import { ELEMENT_LIC } from '@udecode/plate-list';
-import { getListItemEntry } from '@udecode/plate-list';
+import { getListItemEntry, unwrapList } from '@udecode/plate-list';
 
 import { withoutNormalizing } from '../../../internal';
 import { ELEMENT_DEFAULT } from '../../../internal/constants';
@@ -22,7 +22,6 @@ import {
 } from '../../../internal/queries';
 import { setNodes, wrapNodes } from '../../../internal/transforms';
 import { PlateEditor, Element, Location, NodeEntry } from '../../../internal/types';
-import { unwrapList } from './unwrapList';
 
 const listTypes = [BLOCKS.UL_LIST, BLOCKS.OL_LIST] as string[];
 
