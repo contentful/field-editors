@@ -119,6 +119,7 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
   const sdk = useSdkContext();
   const editor = useContentfulEditor();
   const canInsertBlocks = !isNodeTypeSelected(editor, BLOCKS.TABLE);
+  const canInsertListBlocks = !isNodeTypeSelected(editor, BLOCKS.TABLE_HEADER_CELL);
   const validationInfo = React.useMemo(() => getValidationInfo(sdk.field), [sdk.field]);
   const isListSelected =
     isNodeTypeSelected(editor, BLOCKS.UL_LIST) || isNodeTypeSelected(editor, BLOCKS.OL_LIST);
@@ -183,7 +184,7 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
 
         {validationInfo.isAnyBlockFormattingEnabled && <span className={styles.divider} />}
 
-        <ToolbarListButton isDisabled={isDisabled || !canInsertBlocks} />
+        <ToolbarListButton isDisabled={isDisabled || !canInsertListBlocks} />
 
         {isNodeTypeEnabled(sdk.field, BLOCKS.QUOTE) && (
           <ToolbarQuoteButton isDisabled={isDisabled || !canInsertBlocks} />

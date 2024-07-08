@@ -143,7 +143,12 @@ export const createTablePlugin = (): PlatePlugin =>
         component: Cell,
         normalizer: [
           {
-            validChildren: CONTAINERS[BLOCKS.TABLE_CELL],
+            validChildren: [
+              ...CONTAINERS[BLOCKS.TABLE_CELL],
+              ...CONTAINERS[BLOCKS.UL_LIST],
+              ...CONTAINERS[BLOCKS.OL_LIST],
+              ...CONTAINERS[BLOCKS.LIST_ITEM],
+            ],
             transform: withInvalidCellChildrenTracking(transformParagraphs),
           },
         ],

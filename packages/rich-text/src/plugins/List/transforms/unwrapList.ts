@@ -9,13 +9,28 @@ import { getNodeEntries, isElement } from '../../../internal/queries';
 import { unwrapNodes, liftNodes } from '../../../internal/transforms';
 import { PlateEditor, Path } from '../../../internal/types';
 
-function hasUnliftedListItems(editor: PlateEditor, at?: Path) {
+function hasUnliftedListItems(editor: PlateEditor, stoppingIndex: number, at?: Path) {
   return getNodeEntries(editor, {
     at,
-    match: (node, path) => isElement(node) && node.type === BLOCKS.LIST_ITEM && path.length >= 2,
+    match: (node, path) =>
+      isElement(node) && node.type === BLOCKS.LIST_ITEM && path.length >= stoppingIndex,
   }).next().done;
 }
+
+function getStoppingIndex(editor: PlateEditor, at?: Path) {
+  const tableCell = getNodeEntries(editor, {
+    at,
+    match: (node) => {
+      return isElement(node) && node.type === BLOCKS.TABLE_CELL;
+    },
+  }).next().value;
+  const rootStoppingIndex = 2;
+  return tableCell ? tableCell[1].length + rootStoppingIndex : rootStoppingIndex;
+}
+
 export const unwrapList = (editor: PlateEditor, { at }: { at?: Path } = {}) => {
+  const stoppingIndex = getStoppingIndex(editor, at);
+
   withoutNormalizing(editor, () => {
     do {
       // lift list items to the root level
@@ -24,7 +39,7 @@ export const unwrapList = (editor: PlateEditor, { at }: { at?: Path } = {}) => {
         match: (node) => isElement(node) && node.type === BLOCKS.LIST_ITEM,
         mode: 'lowest',
       });
-    } while (!hasUnliftedListItems(editor, at));
+    } while (!hasUnliftedListItems(editor, stoppingIndex, at));
 
     // finally unwrap all lifted items
     unwrapNodes(editor, {
