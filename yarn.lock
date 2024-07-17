@@ -3545,10 +3545,10 @@
   dependencies:
     "@contentful/rich-text-types" "^16.3.5"
 
-"@contentful/rich-text-types@16.5.1", "@contentful/rich-text-types@^15.12.1", "@contentful/rich-text-types@^15.15.1", "@contentful/rich-text-types@^16.0.2", "@contentful/rich-text-types@^16.3.0", "@contentful/rich-text-types@^16.3.5":
-  version "16.5.1"
-  resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-16.5.1.tgz#d04245f119e8e02fd83edee8d57670da60c7bd07"
-  integrity sha512-NxD01Cuv5It8idQH5jEi0Otqoj651IiUqVTmybX158HebM0uKxYRck8gmoXig1zAKfkUnP0DeqSTGPjQ85lreQ==
+"@contentful/rich-text-types@16.7.0", "@contentful/rich-text-types@^15.12.1", "@contentful/rich-text-types@^15.15.1", "@contentful/rich-text-types@^16.0.2", "@contentful/rich-text-types@^16.3.0", "@contentful/rich-text-types@^16.3.5":
+  version "16.7.0"
+  resolved "https://npm.pkg.github.com/download/@contentful/rich-text-types/16.7.0/e9a5d59a94867536180a4e506b1745dfe04f83f0#e9a5d59a94867536180a4e506b1745dfe04f83f0"
+  integrity sha512-SMW6JjJpp05CU5xBjIJp9azxFJ/bzcRzd2o9sF49C736m3aCxSobfuUIJz0dHw92MGsiFKAfzn5yTL3JMfqBqg==
 
 "@csstools/normalize.css@*":
   version "12.1.1"
