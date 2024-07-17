@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { WrappedEntryCardProps } from '../entries/WrappedEntryCard/WrappedEntryCard';
 import { Asset, ContentType, Entry, RenderDragFn } from '../types';
 import { CustomActionProps } from './ReferenceEditor';
 
@@ -34,6 +35,7 @@ export type CustomEntityCardProps = {
   isDisabled: boolean;
   size: 'default' | 'small';
   renderDragHandle?: RenderDragFn;
+  renderCustomChildren?: (props: WrappedEntryCardProps) => React.ReactNode;
   onEdit?: () => void;
   onRemove?: () => void;
   onMoveTop?: () => void;

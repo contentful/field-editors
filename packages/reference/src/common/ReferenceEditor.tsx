@@ -3,6 +3,7 @@ import * as React from 'react';
 import { FieldConnector } from '@contentful/field-editor-shared';
 
 import type { LinkActionsProps } from '../components';
+import { WrappedEntryCardProps } from '../entries/WrappedEntryCard/WrappedEntryCard';
 import { Action, ActionLabels, FieldAppSDK, ViewType } from '../types';
 import { CustomCardRenderer, RenderCustomMissingEntityCard } from './customCardTypes';
 import { EntityProvider } from './EntityStore';
@@ -23,6 +24,7 @@ export interface ReferenceEditorProps {
   renderCustomCard?: CustomCardRenderer;
   renderCustomActions?: (props: CustomActionProps) => React.ReactElement;
   renderCustomMissingEntityCard?: RenderCustomMissingEntityCard;
+  renderCustomChildren?: (props: WrappedEntryCardProps) => React.ReactNode;
   getEntityUrl?: (entryId: string) => string;
   onAction?: (action: Action) => void;
   actionLabels?: Partial<ActionLabels>;
