@@ -46,7 +46,7 @@
     "@babel/plugin-transform-runtime": "7.9.6",
     "@babel/preset-env": "7.23.9",
     "@babel/preset-react": "7.13.13",
-    "@commitlint/cli": "18.5.0",
+    "@commitlint/cli": "19.3.0",
     "@commitlint/config-conventional": "18.4.4",
     "@contentful/f36-components": "^4.62.0",
     "@contentful/f36-tokens": "4.0.1",
