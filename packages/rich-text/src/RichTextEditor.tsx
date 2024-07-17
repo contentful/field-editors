@@ -105,7 +105,6 @@ const RichTextEditor = (props: Props) => {
         field={sdk.field}
         isInitiallyDisabled={isInitiallyDisabled}
         isEmptyValue={isEmptyValue}
-        isEqualValues={deepEquals}
       >
         {({ lastRemoteValue, disabled, setValue }) => (
           <ConnectedRichTextEditor

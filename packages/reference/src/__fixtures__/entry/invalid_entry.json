@@ -12,6 +12,12 @@
       "version": 1,
       "contentType": {
         "sys": { "type": "Link", "linkType": "ContentType", "id": "exampleCT" }
+      },
+      "fieldStatus": {
+        "*": {
+          "en-US": "draft",
+          "de-DE": "draft"
+        }
       }
     },
     "fields": {}

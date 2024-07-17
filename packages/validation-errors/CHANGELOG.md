@@ -3,6 +3,44 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.17](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.3.16...@contentful/field-editor-validation-errors@1.3.17) (2024-06-26)
+
+**Note:** Version bump only for package @contentful/field-editor-validation-errors
+
+## [1.3.16](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.3.15...@contentful/field-editor-validation-errors@1.3.16) (2024-06-13)
+
+**Note:** Version bump only for package @contentful/field-editor-validation-errors
+
+## [1.3.15](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.3.14...@contentful/field-editor-validation-errors@1.3.15) (2024-06-07)
+
+**Note:** Version bump only for package @contentful/field-editor-validation-errors
+
+## [1.3.14](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.3.13...@contentful/field-editor-validation-errors@1.3.14) (2024-05-24)
+
+**Note:** Version bump only for package @contentful/field-editor-validation-errors
+
+## [1.3.13](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.3.12...@contentful/field-editor-validation-errors@1.3.13) (2024-05-24)
+
+**Note:** Version bump only for package @contentful/field-editor-validation-errors
+
+## [1.3.12](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.3.11...@contentful/field-editor-validation-errors@1.3.12) (2024-05-21)
+
+**Note:** Version bump only for package @contentful/field-editor-validation-errors
+
+## [1.3.11](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.3.10...@contentful/field-editor-validation-errors@1.3.11) (2024-05-16)
+
+### Bug Fixes
+
+- temporarily revert text editors restyling ([#1652](https://github.com/contentful/field-editors/issues/1652)) ([c11eaf8](https://github.com/contentful/field-editors/commit/c11eaf83b1afa7530ff2cf4b3cb38bbb868f7256))
+
+## [1.3.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.3.9...@contentful/field-editor-validation-errors@1.3.10) (2024-04-22)
+
+**Note:** Version bump only for package @contentful/field-editor-validation-errors
+
+## [1.3.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.3.8...@contentful/field-editor-validation-errors@1.3.9) (2024-04-15)
+
+**Note:** Version bump only for package @contentful/field-editor-validation-errors
+
 ## [1.3.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.3.7...@contentful/field-editor-validation-errors@1.3.8) (2024-02-23)
 
 **Note:** Version bump only for package @contentful/field-editor-validation-errors

@@ -3,6 +3,54 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.5.4...@contentful/field-editor-shared@1.5.5) (2024-06-26)
+
+### Bug Fixes
+
+- **entityHelpers:** adjust getEntityStatus and add tests [TOL-2219] ([#1690](https://github.com/contentful/field-editors/issues/1690)) ([1484f9c](https://github.com/contentful/field-editors/commit/1484f9c1d19b0c89fe858f142ce81b01edef3822))
+
+## [1.5.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.5.3...@contentful/field-editor-shared@1.5.4) (2024-06-13)
+
+**Note:** Version bump only for package @contentful/field-editor-shared
+
+## [1.5.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.5.2...@contentful/field-editor-shared@1.5.3) (2024-06-07)
+
+### Bug Fixes
+
+- do new status calculation only conditionally [TOL-2143] ([#1670](https://github.com/contentful/field-editors/issues/1670)) ([8f0c75b](https://github.com/contentful/field-editors/commit/8f0c75b2fd3b71c7d0d169aa856a9191b157c1d9))
+
+## [1.5.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.5.1...@contentful/field-editor-shared@1.5.2) (2024-05-24)
+
+### Bug Fixes
+
+- **shared:** disable fieldStatus handling temporary [TOL-2143] ([#1666](https://github.com/contentful/field-editors/issues/1666)) ([8aa0abf](https://github.com/contentful/field-editors/commit/8aa0abff745e1c48f1a2d61570e0dfcb854d0b5b))
+
+## [1.5.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.5.0...@contentful/field-editor-shared@1.5.1) (2024-05-24)
+
+### Bug Fixes
+
+- **FieldConnector:** restore 'throttle' property [] ([#1663](https://github.com/contentful/field-editors/issues/1663)) ([35a40de](https://github.com/contentful/field-editors/commit/35a40dec2d8e5e594f3573d4c9fbd763b31cb206))
+
+# [1.5.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.4.9...@contentful/field-editor-shared@1.5.0) (2024-05-21)
+
+### Features
+
+- add locales to entry status calculations ([#1650](https://github.com/contentful/field-editors/issues/1650)) ([472a5b9](https://github.com/contentful/field-editors/commit/472a5b92e3fa73c8da4e9a1875a1e3569cf0a50b))
+
+## [1.4.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.4.8...@contentful/field-editor-shared@1.4.9) (2024-05-16)
+
+### Bug Fixes
+
+- temporarily revert text editors restyling ([#1652](https://github.com/contentful/field-editors/issues/1652)) ([c11eaf8](https://github.com/contentful/field-editors/commit/c11eaf83b1afa7530ff2cf4b3cb38bbb868f7256))
+
+## [1.4.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.4.7...@contentful/field-editor-shared@1.4.8) (2024-04-22)
+
+**Note:** Version bump only for package @contentful/field-editor-shared
+
+## [1.4.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.4.6...@contentful/field-editor-shared@1.4.7) (2024-04-15)
+
+**Note:** Version bump only for package @contentful/field-editor-shared
+
 ## [1.4.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.4.5...@contentful/field-editor-shared@1.4.6) (2024-02-23)
 
 **Note:** Version bump only for package @contentful/field-editor-shared

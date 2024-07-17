@@ -11,7 +11,7 @@ import {
 import areEqual from 'fast-deep-equal';
 
 interface InternalAssetCardProps {
-  asset?: Asset | 'failed';
+  asset: Asset;
   isDisabled: boolean;
   isSelected: boolean;
   locale: string;
@@ -21,22 +21,8 @@ interface InternalAssetCardProps {
   loadEntityScheduledActions: (entityType: string, entityId: string) => Promise<ScheduledAction[]>;
 }
 
-const InternalAssetCard = React.memo((props: InternalAssetCardProps) => {
-  if (props.asset === undefined) {
-    return <AssetCard size="default" isLoading />;
-  }
-
-  if (props.asset === 'failed') {
-    return (
-      <MissingEntityCard
-        entityType="Asset"
-        isDisabled={props.isDisabled}
-        onRemove={props.onRemove}
-      />
-    );
-  }
-
-  return (
+const InternalAssetCard = React.memo(
+  (props: InternalAssetCardProps) => (
     <WrappedAssetCard
       getEntityScheduledActions={props.loadEntityScheduledActions}
       size="small"
@@ -48,9 +34,12 @@ const InternalAssetCard = React.memo((props: InternalAssetCardProps) => {
       onEdit={props.onEdit}
       onRemove={props.isDisabled ? undefined : props.onRemove}
       isClickable={false}
+      useLocalizedEntityStatus={props.sdk.parameters.instance.useLocalizedEntityStatus}
+      isLocalized={!!('localized' in props.sdk.field && props.sdk.field.localized)}
     />
-  );
-}, areEqual);
+  ),
+  areEqual
+);
 
 InternalAssetCard.displayName = 'InternalAssetCard';
 
@@ -80,9 +69,23 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
     }
   }, [onEntityFetchComplete, status]);
 
+  if (status === 'loading' || status === 'idle') {
+    return <AssetCard size="default" isLoading />;
+  }
+
+  if (status === 'error') {
+    return (
+      <MissingEntityCard
+        isDisabled={props.isDisabled}
+        onRemove={props.onRemove}
+        providerName="Contentful"
+      />
+    );
+  }
+
   return (
     <InternalAssetCard
-      asset={asset as Asset | undefined}
+      asset={asset}
       sdk={props.sdk}
       isDisabled={props.isDisabled}
       isSelected={props.isSelected}

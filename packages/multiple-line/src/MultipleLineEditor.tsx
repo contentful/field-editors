@@ -12,7 +12,6 @@ import {
 
 import * as styles from './styles';
 
-
 export interface MultipleLineEditorProps {
   /**
    * is the field disabled initially

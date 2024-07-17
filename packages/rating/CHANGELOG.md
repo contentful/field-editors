@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.15](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rating@1.4.14...@contentful/field-editor-rating@1.4.15) (2024-06-26)
+
+**Note:** Version bump only for package @contentful/field-editor-rating
+
+## [1.4.14](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rating@1.4.13...@contentful/field-editor-rating@1.4.14) (2024-06-13)
+
+**Note:** Version bump only for package @contentful/field-editor-rating
+
+## [1.4.13](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rating@1.4.12...@contentful/field-editor-rating@1.4.13) (2024-06-07)
+
+**Note:** Version bump only for package @contentful/field-editor-rating
+
+## [1.4.12](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rating@1.4.11...@contentful/field-editor-rating@1.4.12) (2024-05-24)
+
+**Note:** Version bump only for package @contentful/field-editor-rating
+
+## [1.4.11](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rating@1.4.10...@contentful/field-editor-rating@1.4.11) (2024-05-24)
+
+**Note:** Version bump only for package @contentful/field-editor-rating
+
+## [1.4.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rating@1.4.9...@contentful/field-editor-rating@1.4.10) (2024-05-21)
+
+**Note:** Version bump only for package @contentful/field-editor-rating
+
+## [1.4.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rating@1.4.8...@contentful/field-editor-rating@1.4.9) (2024-05-16)
+
+**Note:** Version bump only for package @contentful/field-editor-rating
+
+## [1.4.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rating@1.4.7...@contentful/field-editor-rating@1.4.8) (2024-04-22)
+
+**Note:** Version bump only for package @contentful/field-editor-rating
+
+## [1.4.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rating@1.4.6...@contentful/field-editor-rating@1.4.7) (2024-04-15)
+
+**Note:** Version bump only for package @contentful/field-editor-rating
+
 ## [1.4.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rating@1.4.5...@contentful/field-editor-rating@1.4.6) (2024-02-23)
 
 **Note:** Version bump only for package @contentful/field-editor-rating

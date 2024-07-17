@@ -24,7 +24,7 @@ export function useResourceEntityInfo({ onEntityFetchComplete, target }: Resourc
   }
 
   if (!data || error) {
-    return `Entry missing or inaccessible`;
+    return `Content missing or inaccessible`;
   }
 
   const title =

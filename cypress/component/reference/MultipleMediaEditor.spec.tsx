@@ -119,6 +119,7 @@ describe('Multiple Media Editor', () => {
         </Card>
       );
     };
+
     it('renders custom cards', () => {
       const sdk = createReferenceEditorTestSdk();
       mount(<MultipleMediaEditor {...commonProps} sdk={sdk} renderCustomCard={renderCustomCard} />);

@@ -3,6 +3,48 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.17](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.16...@contentful/field-editor-markdown@1.5.17) (2024-06-26)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.5.16](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.15...@contentful/field-editor-markdown@1.5.16) (2024-06-13)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.5.15](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.14...@contentful/field-editor-markdown@1.5.15) (2024-06-12)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.5.14](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.13...@contentful/field-editor-markdown@1.5.14) (2024-06-07)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.5.13](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.12...@contentful/field-editor-markdown@1.5.13) (2024-05-24)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.5.12](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.11...@contentful/field-editor-markdown@1.5.12) (2024-05-24)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.5.11](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.10...@contentful/field-editor-markdown@1.5.11) (2024-05-21)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.5.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.9...@contentful/field-editor-markdown@1.5.10) (2024-05-16)
+
+### Bug Fixes
+
+- temporarily revert text editors restyling ([#1652](https://github.com/contentful/field-editors/issues/1652)) ([c11eaf8](https://github.com/contentful/field-editors/commit/c11eaf83b1afa7530ff2cf4b3cb38bbb868f7256))
+
+## [1.5.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.8...@contentful/field-editor-markdown@1.5.9) (2024-04-22)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.5.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.7...@contentful/field-editor-markdown@1.5.8) (2024-04-15)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
 ## [1.5.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.6...@contentful/field-editor-markdown@1.5.7) (2024-02-23)
 
 **Note:** Version bump only for package @contentful/field-editor-markdown

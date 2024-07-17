@@ -2,3 +2,5 @@ node_modules/
 .docz/
 dist/
 build/
+
+/.nx/cache

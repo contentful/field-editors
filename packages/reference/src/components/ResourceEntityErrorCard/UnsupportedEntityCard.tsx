@@ -1,20 +1,18 @@
 import * as React from 'react';
 
-import { Card, SectionHeading } from '@contentful/f36-components';
-import { css } from 'emotion';
+import { MissingEntityCard } from '../MissingEntityCard/MissingEntityCard';
 
-const styles = {
-  card: css({
-    position: 'relative',
-  }),
+type UnsupportedEntityCardProps = {
+  isSelected?: boolean;
+  onRemove?: Function;
 };
 
-export function UnsupportedEntityCard(props: { linkType: string; isSelected?: boolean }) {
+export function UnsupportedEntityCard(props: UnsupportedEntityCardProps) {
   return (
-    <Card className={styles.card} isSelected={props.isSelected}>
-      <SectionHeading marginBottom="none">
-        Resource type {props.linkType} is currently not supported
-      </SectionHeading>
-    </Card>
+    <MissingEntityCard
+      customMessage="Unsupported API information"
+      isSelected={props.isSelected}
+      onRemove={props.onRemove}
+    />
   );
 }

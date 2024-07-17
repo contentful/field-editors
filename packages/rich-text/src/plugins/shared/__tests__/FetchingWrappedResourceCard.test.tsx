@@ -48,6 +48,8 @@ beforeEach(() => {
       space: 'space-id',
       environment: 'environment-id',
     },
+    parameters: { instance: {} },
+    field: { localized: false },
   };
 });
 
@@ -85,15 +87,11 @@ test('renders skeleton when no data is provided', () => {
 test('renders unsupported entity card when unsupported link is passed', async () => {
   const { getByText } = renderResourceCard({ linkType: 'Contentful:UnsupportedLink' });
 
-  await waitFor(() =>
-    expect(
-      getByText('Resource type Contentful:UnsupportedLink is currently not supported')
-    ).toBeDefined()
-  );
+  await waitFor(() => expect(getByText('Unsupported API information')).toBeDefined());
 });
 
 test('renders missing entity card when unknown error is returned', async () => {
   const { getByTestId } = renderResourceCard({ entryUrn: unknownEntryUrn });
 
-  await waitFor(() => expect(getByTestId('cf-ui-missing-entry-card')).toBeDefined());
+  await waitFor(() => expect(getByTestId('cf-ui-missing-entity-card')).toBeDefined());
 });

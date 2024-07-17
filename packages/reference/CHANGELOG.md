@@ -3,6 +3,92 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.29.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.29.2...@contentful/field-editor-reference@5.29.3) (2024-06-26)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [5.29.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.29.1...@contentful/field-editor-reference@5.29.2) (2024-06-13)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [5.29.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.29.0...@contentful/field-editor-reference@5.29.1) (2024-06-12)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+# [5.29.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.28.3...@contentful/field-editor-reference@5.29.0) (2024-06-11)
+
+### Features
+
+- **references:** show badge for non-localized references [TOL-1779] ([#1675](https://github.com/contentful/field-editors/issues/1675)) ([464c6cb](https://github.com/contentful/field-editors/commit/464c6cbde231516851c94e0df106a438053c298b))
+
+## [5.28.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.28.2...@contentful/field-editor-reference@5.28.3) (2024-06-07)
+
+### Bug Fixes
+
+- do new status calculation only conditionally [TOL-2143] ([#1670](https://github.com/contentful/field-editors/issues/1670)) ([8f0c75b](https://github.com/contentful/field-editors/commit/8f0c75b2fd3b71c7d0d169aa856a9191b157c1d9))
+
+## [5.28.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.28.1...@contentful/field-editor-reference@5.28.2) (2024-05-24)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [5.28.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.28.0...@contentful/field-editor-reference@5.28.1) (2024-05-24)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+# [5.28.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.27.6...@contentful/field-editor-reference@5.28.0) (2024-05-21)
+
+### Features
+
+- add locales to entry status calculations ([#1650](https://github.com/contentful/field-editors/issues/1650)) ([472a5b9](https://github.com/contentful/field-editors/commit/472a5b92e3fa73c8da4e9a1875a1e3569cf0a50b))
+
+## [5.27.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.27.5...@contentful/field-editor-reference@5.27.6) (2024-05-17)
+
+### Bug Fixes
+
+- action popup opacity [TOL-2131] ([#1654](https://github.com/contentful/field-editors/issues/1654)) ([17d25b2](https://github.com/contentful/field-editors/commit/17d25b248f959391f2e4b10c8a28db7139277e5b))
+
+## [5.27.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.27.4...@contentful/field-editor-reference@5.27.5) (2024-05-16)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [5.27.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.27.3...@contentful/field-editor-reference@5.27.4) (2024-05-06)
+
+### Bug Fixes
+
+- add the isDisabled check to MissingEntityCard ([#1647](https://github.com/contentful/field-editors/issues/1647)) ([77af34a](https://github.com/contentful/field-editors/commit/77af34aa404b75c2363c48e0a0545eaaeb0af505))
+
+## [5.27.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.27.2...@contentful/field-editor-reference@5.27.3) (2024-04-23)
+
+### Bug Fixes
+
+- **rich-text:** better handling for status [] ([#1643](https://github.com/contentful/field-editors/issues/1643)) ([00cd60b](https://github.com/contentful/field-editors/commit/00cd60b24484f70d684b1b126107d81b3f2f2936))
+
+## [5.27.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.27.1...@contentful/field-editor-reference@5.27.2) (2024-04-23)
+
+### Bug Fixes
+
+- **richtext-editor:** handle failed inline entries [ZEND-4919,ZEND-4913] ([#1641](https://github.com/contentful/field-editors/issues/1641)) ([630ce5d](https://github.com/contentful/field-editors/commit/630ce5d804b07b2e35a65199af7a2c4d22c79dbe))
+
+## [5.27.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.27.0...@contentful/field-editor-reference@5.27.1) (2024-04-22)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+# [5.27.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.26.3...@contentful/field-editor-reference@5.27.0) (2024-04-19)
+
+### Features
+
+- update design of error cards for resources [DANTE-1340] ([#1633](https://github.com/contentful/field-editors/issues/1633)) ([7bd8433](https://github.com/contentful/field-editors/commit/7bd8433855f7dae63a6f4441ff97e5afc57e75b1))
+
+## [5.26.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.26.2...@contentful/field-editor-reference@5.26.3) (2024-04-16)
+
+### Bug Fixes
+
+- passing failed to fetched entry card when inaccessible [] ([#1639](https://github.com/contentful/field-editors/issues/1639)) ([6d152d1](https://github.com/contentful/field-editors/commit/6d152d1bae4e790a5221969b9a0fb8a5883e5720))
+
+## [5.26.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.26.1...@contentful/field-editor-reference@5.26.2) (2024-04-15)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
 ## [5.26.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.26.0...@contentful/field-editor-reference@5.26.1) (2024-04-12)
 
 **Note:** Version bump only for package @contentful/field-editor-reference

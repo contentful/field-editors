@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import { FieldConnector } from '@contentful/field-editor-shared';
-import deepEqual from 'deep-equal';
 
 import { EntityProvider } from '../common/EntityStore';
 import { ReferenceEditorProps } from '../common/ReferenceEditor';
@@ -30,7 +29,6 @@ export function SingleResourceReferenceEditor(
         debounce={0}
         field={props.sdk.field}
         isInitiallyDisabled={props.isInitiallyDisabled}
-        isEqualValues={deepEqual}
       >
         {({ value, disabled }) => {
           return value ? (

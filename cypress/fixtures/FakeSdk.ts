@@ -44,6 +44,7 @@ export function createReferenceEditorTestSdk(props?: ReferenceEditorFakeSdkProps
     newLink('Entry', entries.published.sys.id),
     newLink('Entry', entries.changed.sys.id),
     newLink('Entry', entries.empty.sys.id),
+    newLink('Entry', entries.publishedAndChanged.sys.id),
   ];
   const assetLinks = [
     newLink('Asset', assets.published.sys.id),
@@ -159,6 +160,11 @@ export function createReferenceEditorTestSdk(props?: ReferenceEditorFakeSdkProps
     ids: props?.ids ?? {
       space: 'space-id',
       environment: 'environment-id',
+    },
+    parameters: {
+      installation: {},
+      instance: {},
+      invocation: {},
     },
   } as unknown as FieldAppSDK;
   const sdk = props?.modifier?.(localSdk) ?? localSdk;

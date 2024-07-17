@@ -15,6 +15,7 @@ describe('Markdown Editor / Insert Assets', () => {
       return cy.findByRole('menuitem', { name: 'Link existing media' });
     },
   };
+
   it('should insert a new asset', () => {
     renderMarkdownEditor({ spyOnSetValue: true });
 
