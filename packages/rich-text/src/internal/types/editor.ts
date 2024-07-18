@@ -1,5 +1,5 @@
 /**
- * https://plate.udecode.io/docs/typescript
+ * https://platejs.org/docs/typescript
  */
 import { MARKS } from '@contentful/rich-text-types';
 import * as p from '@udecode/plate-common';
