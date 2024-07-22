@@ -3,8 +3,20 @@ import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { BaseAppSDK, CollectionResponse } from '@contentful/app-sdk';
 import { FetchQueryOptions, Query, QueryKey } from '@tanstack/react-query';
 import constate from 'constate';
-import { PlainClientAPI, createClient } from 'contentful-management';
+import {
+  PlainClientAPI,
+  createClient,
+  CursorPaginatedCollectionProp,
+  // fetchAll,
+} from 'contentful-management';
 import PQueue from 'p-queue';
+
+async function fetchAll<T>(
+  _fn: (params: { query?: unknown }) => unknown,
+  _params: unknown
+): Promise<T[]> {
+  return [];
+}
 
 import {
   Asset,
@@ -206,11 +218,14 @@ async function fetchExternalResource({
       options
     ),
     fetch(['resource-types', spaceId, environmentId], ({ cmaClient }) =>
-      cmaClient.raw
-        .get<CollectionResponse<ResourceType>>(
-          `/spaces/${spaceId}/environments/${environmentId}/resource_types`
-        )
-        .then(({ items }) => items)
+      fetchAll<ResourceType>(
+        ({ query }) =>
+          cmaClient.raw.get<CursorPaginatedCollectionProp<ResourceType>>(
+            `/spaces/${spaceId}/environments/${environmentId}/resource_types`,
+            { params: query }
+          ),
+        {}
+      )
     ),
   ]);
 
