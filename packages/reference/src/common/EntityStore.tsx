@@ -12,10 +12,10 @@ import {
 import PQueue from 'p-queue';
 
 async function fetchAll<T>(
-  _fn: (params: { query?: unknown }) => unknown,
-  _params: unknown
+  fn: (params: { query?: unknown }) => Promise<{ items: T[] }>,
+  params: { query?: unknown }
 ): Promise<T[]> {
-  return [];
+  return fn(params).then(({ items }) => items);
 }
 
 import {
