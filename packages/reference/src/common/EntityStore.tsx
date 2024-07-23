@@ -7,16 +7,9 @@ import {
   PlainClientAPI,
   createClient,
   CursorPaginatedCollectionProp,
-  // fetchAll,
+  fetchAll,
 } from 'contentful-management';
 import PQueue from 'p-queue';
-
-async function fetchAll<T>(
-  fn: (params: { query?: unknown }) => Promise<{ items: T[] }>,
-  params: { query?: unknown }
-): Promise<T[]> {
-  return fn(params).then(({ items }) => items);
-}
 
 import {
   Asset,
@@ -218,7 +211,7 @@ async function fetchExternalResource({
       options
     ),
     fetch(['resource-types', spaceId, environmentId], ({ cmaClient }) =>
-      fetchAll<ResourceType>(
+      fetchAll(
         ({ query }) =>
           cmaClient.raw.get<CursorPaginatedCollectionProp<ResourceType>>(
             `/spaces/${spaceId}/environments/${environmentId}/resource_types`,

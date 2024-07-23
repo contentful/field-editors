@@ -45,7 +45,7 @@
     "@dnd-kit/sortable": "^7.0.2",
     "@tanstack/react-query": "^4.3.9",
     "constate": "^3.3.2",
-    "contentful-management": "^10.14.0 || ^11.0.0",
+    "contentful-management": "^11.30.0",
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",
     "moment": "^2.20.0",
@@ -54,12 +54,12 @@
     "type-fest": "2.17.0"
   },
   "devDependencies": {
-    "@contentful/app-sdk": "^4.17.1",
+    "@contentful/app-sdk": "^4.29.0",
     "@contentful/field-editor-test-utils": "^1.4.7",
     "@testing-library/react-hooks": "^5.0.3"
   },
   "peerDependencies": {
-    "@contentful/app-sdk": "^4.17.1",
+    "@contentful/app-sdk": "^4.29.0",
     "react": ">=16.8.0"
   },
   "publishConfig": {
