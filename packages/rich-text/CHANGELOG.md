@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.25.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.25.0...@contentful/field-editor-rich-text@3.25.1) (2024-07-23)
+
+### Bug Fixes
+
+- adding line breaks to rich text anchor styles [] ([#1707](https://github.com/contentful/field-editors/issues/1707)) ([da7bf39](https://github.com/contentful/field-editors/commit/da7bf39b0930027df9a96a42e0d760474b43832b))
+
 # [3.25.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.24.6...@contentful/field-editor-rich-text@3.25.0) (2024-07-23)
 
 ### Features
