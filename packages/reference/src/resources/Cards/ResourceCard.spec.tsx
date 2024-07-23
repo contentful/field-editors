@@ -61,7 +61,7 @@ const sdk: any = {
     Http: {
       get: jest.fn().mockImplementation(({ url, config }) => {
         if (url === '/spaces/space-id/environments/environment-id/resource_types') {
-          return Promise.resolve({ items: [resourceType] });
+          return Promise.resolve({ items: [resourceType], pages: {} });
         }
         if (
           url ===
