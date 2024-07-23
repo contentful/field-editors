@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-dropdown@1.4.15...@contentful/field-editor-dropdown@1.5.0) (2024-07-23)
+
+### Features
+
+- 🎸 fetch all resource types ([#1704](https://github.com/contentful/field-editors/issues/1704)) ([f6403fa](https://github.com/contentful/field-editors/commit/f6403fadd543f081683fe499a79367f1f4ae737c))
+
 ## [1.4.15](https://github.com/contentful/field-editors/compare/@contentful/field-editor-dropdown@1.4.14...@contentful/field-editor-dropdown@1.4.15) (2024-06-26)
 
 **Note:** Version bump only for package @contentful/field-editor-dropdown

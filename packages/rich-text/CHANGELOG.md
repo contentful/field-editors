@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.25.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.24.6...@contentful/field-editor-rich-text@3.25.0) (2024-07-23)
+
+### Features
+
+- 🎸 fetch all resource types ([#1704](https://github.com/contentful/field-editors/issues/1704)) ([f6403fa](https://github.com/contentful/field-editors/commit/f6403fadd543f081683fe499a79367f1f4ae737c))
+
 ## [3.24.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.24.5...@contentful/field-editor-rich-text@3.24.6) (2024-07-18)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text

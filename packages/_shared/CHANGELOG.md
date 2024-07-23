@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.5.5...@contentful/field-editor-shared@1.6.0) (2024-07-23)
+
+### Features
+
+- 🎸 fetch all resource types ([#1704](https://github.com/contentful/field-editors/issues/1704)) ([f6403fa](https://github.com/contentful/field-editors/commit/f6403fadd543f081683fe499a79367f1f4ae737c))
+
 ## [1.5.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.5.4...@contentful/field-editor-shared@1.5.5) (2024-06-26)
 
 ### Bug Fixes
