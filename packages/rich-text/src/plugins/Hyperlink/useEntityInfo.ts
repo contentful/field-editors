@@ -17,7 +17,7 @@ export type FetchedEntityData = {
   entity: Entry | Asset;
   entityTitle: string;
   entityDescription: string;
-  entityStatus: ReturnType<typeof entityHelpers.getEntryStatus>;
+  entityStatus: ReturnType<typeof entityHelpers.getEntityStatus>;
   contentTypeName: string;
 };
 
@@ -70,8 +70,10 @@ async function fetchAllData({
 
   const jobs = await sdk.space.getEntityScheduledActions(entityType, entityId);
 
-  // @ts-expect-error
-  const entityStatus = entityHelpers.getEntryStatus(entity.sys);
+  const entityStatus = entityHelpers.getEntityStatus(
+    entity.sys,
+    sdk.parameters.instance.useLocalizedEntityStatus ? sdk.field.locale : undefined
+  );
 
   return {
     jobs,

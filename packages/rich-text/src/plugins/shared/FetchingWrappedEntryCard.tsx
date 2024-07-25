@@ -17,27 +17,13 @@ interface InternalEntryCard {
   locale: string;
   sdk: FieldAppSDK;
   loadEntityScheduledActions: (entityType: string, entityId: string) => Promise<ScheduledAction[]>;
-  entry?: Entry | 'failed';
+  entry: Entry;
   onEdit?: VoidFunction;
   onRemove?: VoidFunction;
 }
 
 const InternalEntryCard = React.memo((props: InternalEntryCard) => {
   const { entry, sdk, loadEntityScheduledActions } = props;
-
-  if (entry === undefined) {
-    return <EntryCard isLoading />;
-  }
-
-  if (entry === 'failed') {
-    return (
-      <MissingEntityCard
-        entityType="Entry"
-        isDisabled={props.isDisabled}
-        onRemove={props.onRemove}
-      />
-    );
-  }
 
   const contentType = sdk.space
     .getCachedContentTypes()
@@ -57,6 +43,8 @@ const InternalEntryCard = React.memo((props: InternalEntryCard) => {
       onEdit={props.onEdit}
       onRemove={props.isDisabled ? undefined : props.onRemove}
       isClickable={false}
+      useLocalizedEntityStatus={sdk.parameters.instance.useLocalizedEntityStatus}
+      isLocalized={!!('localized' in props.sdk.field && props.sdk.field.localized)}
     />
   );
 }, areEqual);
@@ -88,6 +76,20 @@ export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) =
       onEntityFetchComplete?.();
     }
   }, [onEntityFetchComplete, status]);
+
+  if (status === 'loading' || status === 'idle') {
+    return <EntryCard isLoading />;
+  }
+
+  if (status === 'error') {
+    return (
+      <MissingEntityCard
+        isDisabled={props.isDisabled}
+        onRemove={props.onRemove}
+        providerName="Contentful"
+      />
+    );
+  }
 
   return (
     <InternalEntryCard

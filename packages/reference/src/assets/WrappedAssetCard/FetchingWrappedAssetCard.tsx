@@ -8,7 +8,7 @@ import {
   RenderCustomMissingEntityCard,
 } from '../../common/customCardTypes';
 import { useEntity, useEntityLoader } from '../../common/EntityStore';
-import { LinkActionsProps, MissingEntityCard } from '../../components';
+import { LinkActionsProps, MissingAssetCard } from '../../components';
 import { Action, Asset, FieldAppSDK, ViewType, RenderDragFn } from '../../types';
 import { WrappedAssetCard, WrappedAssetCardProps } from './WrappedAssetCard';
 import { WrappedAssetLink } from './WrappedAssetLink';
@@ -62,8 +62,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
   return React.useMemo(() => {
     if (status === 'error') {
       const card = (
-        <MissingEntityCard
-          entityType="Asset"
+        <MissingAssetCard
           asSquare={props.viewType !== 'link'}
           isDisabled={props.isDisabled}
           onRemove={onRemove}
@@ -93,6 +92,8 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       renderDragHandle: props.renderDragHandle,
       onEdit,
       onRemove,
+      useLocalizedEntityStatus: props.sdk.parameters.instance.useLocalizedEntityStatus,
+      isLocalized: !!('localized' in props.sdk.field && props.sdk.field.localized), // missing in types :(
     };
 
     if (props.viewType === 'link') {

@@ -61,7 +61,7 @@ const sdk: any = {
     Http: {
       get: jest.fn().mockImplementation(({ url, config }) => {
         if (url === '/spaces/space-id/environments/environment-id/resource_types') {
-          return Promise.resolve({ items: [resourceType] });
+          return Promise.resolve({ items: [resourceType], pages: {} });
         }
         if (
           url ===
@@ -154,32 +154,30 @@ describe('ResourceCard', () => {
   it('renders unsupported entity card when resource type is unknown', async () => {
     const { getByText } = renderResourceCard({ linkType: 'Contentful:UnsupportedLink' });
 
-    await waitFor(() =>
-      expect(
-        getByText('Resource type Contentful:UnsupportedLink is currently not supported')
-      ).toBeDefined()
-    );
+    await waitFor(() => expect(getByText('Unsupported API information')).toBeDefined());
   });
 
   it('renders missing entity card when unknown error is returned', async () => {
     const { getByTestId } = renderResourceCard({ entityUrn: unknownEntryUrn });
 
-    await waitFor(() => expect(getByTestId('cf-ui-missing-entry-card')).toBeDefined());
+    await waitFor(() => expect(getByTestId('cf-ui-missing-entity-card')).toBeDefined());
   });
 
   it('renders missing entity card when crn is invalid', async () => {
-    const { getByTestId } = renderResourceCard({ entityUrn: '' });
+    const { getByTestId, getByText } = renderResourceCard({ entityUrn: '' });
 
-    await waitFor(() => expect(getByTestId('cf-ui-missing-entry-card')).toBeDefined());
+    await waitFor(() => expect(getByTestId('cf-ui-missing-entity-card')).toBeDefined());
+    await waitFor(() => expect(getByText('Content missing or inaccessible')).toBeDefined());
   });
 
   it('renders missing entity card when external urn is invalid', async () => {
-    const { getByTestId } = renderResourceCard({
+    const { getByTestId, getByText } = renderResourceCard({
       linkType: resolvableExternalResourceType,
       entityUrn: '',
     });
 
-    await waitFor(() => expect(getByTestId('cf-ui-missing-entry-card')).toBeDefined());
+    await waitFor(() => expect(getByTestId('cf-ui-missing-entity-card')).toBeDefined());
+    await waitFor(() => expect(getByText('Content missing or inaccessible')).toBeDefined());
   });
 
   it('renders entry card for external resource', async () => {

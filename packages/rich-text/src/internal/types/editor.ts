@@ -1,5 +1,5 @@
 /**
- * https://plate.udecode.io/docs/typescript
+ * https://platejs.org/docs/typescript
  */
 import { MARKS } from '@contentful/rich-text-types';
 import * as p from '@udecode/plate-common';
@@ -20,6 +20,7 @@ export interface Text extends p.TText {
   [MARKS.UNDERLINE]?: boolean;
   [MARKS.SUPERSCRIPT]?: boolean;
   [MARKS.SUBSCRIPT]?: boolean;
+  [MARKS.STRIKETHROUGH]?: boolean;
 }
 
 export interface Element extends p.TElement {
@@ -33,6 +34,14 @@ export type Value = Element[];
 export type ReactEditor = p.TReactEditor<Value>;
 export interface PlateEditor extends p.PlateEditor<Value> {
   tracking: TrackingPluginActions;
+  undo: {
+    (): void;
+    (source: 'toolbar' | 'shortcut'): void;
+  };
+  redo: {
+    (): void;
+    (source: 'toolbar' | 'shortcut'): void;
+  };
 }
 
 export type Node = p.ElementOf<PlateEditor> | p.TextOf<PlateEditor>;

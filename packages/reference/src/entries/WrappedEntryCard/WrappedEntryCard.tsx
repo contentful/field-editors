@@ -1,23 +1,14 @@
 import * as React from 'react';
 
 import { SpaceAPI } from '@contentful/app-sdk';
-import { EntryCard, MenuItem, MenuDivider } from '@contentful/f36-components';
-import { ClockIcon } from '@contentful/f36-icons';
-import tokens from '@contentful/f36-tokens';
+import { EntryCard, MenuItem, MenuDivider, Badge } from '@contentful/f36-components';
 import { entityHelpers, isValidImage } from '@contentful/field-editor-shared';
-import { css } from 'emotion';
 
-import { AssetThumbnail, MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
+import { AssetThumbnail, MissingEntityCard, EntityStatusBadge } from '../../components';
 import { SpaceName } from '../../components/SpaceName/SpaceName';
 import { ContentType, Entry, File, RenderDragFn } from '../../types';
 
-const { getEntryTitle, getEntityDescription, getEntryStatus, getEntryImage } = entityHelpers;
-
-const styles = {
-  scheduleIcon: css({
-    marginRight: tokens.spacing2Xs,
-  }),
-};
+const { getEntryTitle, getEntityDescription, getEntityStatus, getEntryImage } = entityHelpers;
 
 export interface WrappedEntryCardProps {
   getEntityScheduledActions: SpaceAPI['getEntityScheduledActions'];
@@ -41,6 +32,9 @@ export interface WrappedEntryCardProps {
   hasCardEditActions: boolean;
   hasCardMoveActions?: boolean;
   hasCardRemoveActions?: boolean;
+
+  isLocalized?: boolean;
+  useLocalizedEntityStatus?: boolean;
 }
 
 const defaultProps = {
@@ -75,14 +69,17 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
     }
   }, [props.entry, props.getAsset, contentType, props.localeCode, props.defaultLocaleCode]);
 
-  const status = getEntryStatus(props.entry?.sys);
+  const status = getEntityStatus(
+    props.entry?.sys,
+    props.useLocalizedEntityStatus ? props.localeCode : undefined
+  );
 
   if (status === 'deleted') {
     return (
       <MissingEntityCard
-        entityType="Entry"
         isDisabled={props.isDisabled}
         onRemove={props.onRemove}
+        providerName="Contentful"
       />
     );
   }
@@ -111,27 +108,23 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
       contentType={contentType?.name}
       size={props.size}
       isSelected={props.isSelected}
-      status={status}
+      badge={
+        <EntityStatusBadge
+          status={status}
+          entityId={props.entry.sys.id}
+          entityType="Entry"
+          getEntityScheduledActions={props.getEntityScheduledActions}
+        />
+      }
       icon={
         props.spaceName ? (
           <SpaceName
             spaceName={props.spaceName}
             environmentName={props.entry.sys.environment.sys.id}
           />
-        ) : (
-          <ScheduledIconWithTooltip
-            getEntityScheduledActions={props.getEntityScheduledActions}
-            entityType="Entry"
-            entityId={props.entry.sys.id}
-          >
-            <ClockIcon
-              className={styles.scheduleIcon}
-              size="small"
-              variant="muted"
-              testId="schedule-icon"
-            />
-          </ScheduledIconWithTooltip>
-        )
+        ) : !props.isLocalized && props.useLocalizedEntityStatus ? (
+          <Badge variant="secondary">Default</Badge>
+        ) : null
       }
       thumbnailElement={file && isValidImage(file) ? <AssetThumbnail file={file} /> : undefined}
       dragHandleRender={props.renderDragHandle}

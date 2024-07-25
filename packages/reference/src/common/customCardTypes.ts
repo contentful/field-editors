@@ -39,4 +39,7 @@ export type CustomEntityCardProps = {
   onMoveTop?: () => void;
   onMoveBottom?: () => void;
   isBeingDragged?: boolean;
+
+  isLocalized?: boolean;
+  useLocalizedEntityStatus?: boolean;
 };

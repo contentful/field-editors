@@ -38,7 +38,7 @@ describe('Single resource editor', () => {
   // const findCreateLinkBtn = () => cy.findByTestId('create-entry-link-button');
   // const findCustomCards = () => cy.findAllByTestId('custom-card');
   const findDefaultCards = () => cy.findAllByTestId('cf-ui-entry-card');
-  const findMissingCards = () => cy.findAllByTestId('cf-ui-missing-entry-card');
+  const findMissingCards = () => cy.findAllByTestId('cf-ui-missing-entity-card');
 
   it('is empty by default', () => {
     const sdk = createReferenceEditorTestSdk();
@@ -90,6 +90,24 @@ describe('Single resource editor', () => {
     findMissingCards().first().findByTestId('cf-ui-icon-button').click();
 
     findMissingCards().should('have.length', 0);
+  });
+
+  it('cannot remove missing cards when it is disabled', () => {
+    const sdk = createReferenceEditorTestSdk({
+      initialValue: asLink(fixtures.entries.invalid),
+    });
+    mount(
+      <SingleResourceReferenceEditor
+        {...commonProps}
+        isInitiallyDisabled={true}
+        viewType="card"
+        sdk={sdk}
+      />
+    );
+
+    findMissingCards().should('have.length', 1);
+
+    findMissingCards().first().get('#cf-ui-icon-button').should('not.exist');
   });
 
   // TODO: Enable this test after navigation is moved into sdk.navigator

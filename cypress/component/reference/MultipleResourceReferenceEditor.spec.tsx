@@ -38,7 +38,7 @@ describe('Multiple resource editor', () => {
   // const findCreateLinkBtn = () => cy.findByTestId('create-entry-link-button');
   // const findCustomCards = () => cy.findAllByTestId('custom-card');
   const findDefaultCards = () => cy.findAllByTestId('cf-ui-entry-card');
-  const findMissingCards = () => cy.findAllByTestId('cf-ui-missing-entry-card');
+  const findMissingCards = () => cy.findAllByTestId('cf-ui-missing-entity-card');
 
   it('is empty by default', () => {
     const sdk = createReferenceEditorTestSdk();

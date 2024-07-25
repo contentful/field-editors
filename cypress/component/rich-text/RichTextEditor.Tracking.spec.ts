@@ -912,6 +912,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
     beforeEach(() => {
       richText.editor.click().type('/');
     });
+
     it('tracks opening the command palette', () => {
       cy.get('@onAction').should('be.calledOnceWithExactly', ...openCommandPalette());
     });
@@ -964,6 +965,26 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
       cy.get('@onAction').should('be.calledWithExactly', ...linkRendered());
 
       cy.get('@onAction').should('have.callCount', 3);
+    });
+  });
+
+  describe('Undo / redo', () => {
+    it('tracks via toolbar', () => {
+      richText.editor.click().type('some text.').click();
+      richText.toolbar.undo.click();
+      cy.get('@onAction').should('be.calledWithExactly', ...action('undo', 'toolbar-icon'));
+      richText.toolbar.redo.click();
+      cy.get('@onAction').should('be.calledWithExactly', ...action('redo', 'toolbar-icon'));
+      cy.get('@onAction').should('have.callCount', 2);
+    });
+
+    it('tracks via shortcut', () => {
+      richText.editor.click().type('some text.').click();
+      richText.editor.click().type(`{${mod}}z`);
+      cy.get('@onAction').should('be.calledWithExactly', ...action('undo', 'shortcut'));
+      richText.editor.type(`{${mod}}{shift}z`);
+      cy.get('@onAction').should('be.calledWithExactly', ...action('redo', 'shortcut'));
+      cy.get('@onAction').should('have.callCount', 2);
     });
   });
 });

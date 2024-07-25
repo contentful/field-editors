@@ -1,20 +1,11 @@
 import * as React from 'react';
 
 import { EntryCard } from '@contentful/f36-components';
-import { ClockIcon } from '@contentful/f36-icons';
-import tokens from '@contentful/f36-tokens';
 import { entityHelpers, isValidImage, SpaceAPI } from '@contentful/field-editor-shared';
-import { css } from 'emotion';
 
-import { AssetThumbnail, MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
+import { AssetThumbnail, EntityStatusBadge, MissingAssetCard } from '../../components';
 import { Asset, RenderDragFn } from '../../types';
 import { renderActions, renderAssetInfo } from './AssetCardActions';
-
-const styles = {
-  scheduleIcon: css({
-    marginRight: tokens.spacing2Xs,
-  }),
-};
 
 export interface WrappedAssetLinkProps {
   getEntityScheduledActions: SpaceAPI['getEntityScheduledActions'];
@@ -27,22 +18,19 @@ export interface WrappedAssetLinkProps {
   onEdit: () => void;
   onRemove: () => void;
   renderDragHandle?: RenderDragFn;
+  useLocalizedEntityStatus?: boolean;
 }
 
 export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
   const { className, href, onEdit, onRemove, isDisabled } = props;
 
-  // @ts-expect-error
-  const status = entityHelpers.getEntryStatus(props.asset.sys);
+  const status = entityHelpers.getEntityStatus(
+    props.asset.sys,
+    props.useLocalizedEntityStatus ? props.localeCode : undefined
+  );
 
   if (status === 'deleted') {
-    return (
-      <MissingEntityCard
-        entityType="Asset"
-        isDisabled={props.isDisabled}
-        onRemove={props.onRemove}
-      />
-    );
+    return <MissingAssetCard isDisabled={props.isDisabled} onRemove={props.onRemove} />;
   }
 
   const entityTitle = entityHelpers.getAssetTitle({
@@ -64,23 +52,16 @@ export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
       className={className}
       href={href}
       size="small"
-      status={status}
-      thumbnailElement={
-        entityFile && isValidImage(entityFile) ? <AssetThumbnail file={entityFile} /> : undefined
-      }
-      icon={
-        <ScheduledIconWithTooltip
+      badge={
+        <EntityStatusBadge
           getEntityScheduledActions={props.getEntityScheduledActions}
           entityType="Asset"
           entityId={props.asset.sys.id}
-        >
-          <ClockIcon
-            className={styles.scheduleIcon}
-            size="small"
-            variant="muted"
-            testId="schedule-icon"
-          />
-        </ScheduledIconWithTooltip>
+          status={status}
+        />
+      }
+      thumbnailElement={
+        entityFile && isValidImage(entityFile) ? <AssetThumbnail file={entityFile} /> : undefined
       }
       onClick={(e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();

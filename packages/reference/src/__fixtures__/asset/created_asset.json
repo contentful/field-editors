@@ -33,7 +33,13 @@
       }
     },
     "publishedCounter": 0,
-    "version": 3
+    "version": 3,
+    "fieldStatus": {
+      "*": {
+        "en-US": "draft",
+        "de-DE": "draft"
+      }
+    }
   },
   "fields": {
     "title": {

@@ -19,8 +19,8 @@ import { isTableHeaderEnabled } from '../helpers';
 export const styles = {
   topRight: css({
     position: 'absolute',
-    top: '6px',
-    right: '5px',
+    insetBlockStart: '6px',
+    insetInlineEnd: '5px',
   }),
 };
 

@@ -234,6 +234,11 @@ export function createRichTextFakeSdk(props?: RichTextFakeSdkProps): FieldAppSDK
       space: 'space-id',
       environment: 'environment-id',
     },
+    parameters: {
+      installation: {},
+      instance: {},
+      invocation: {},
+    },
   } as unknown as FieldAppSDK;
   const sdk = props?.modifier?.(localSdk) ?? localSdk;
 
