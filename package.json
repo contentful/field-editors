@@ -51,7 +51,7 @@
     "@contentful/f36-components": "^4.62.0",
     "@contentful/f36-tokens": "4.0.1",
     "@cypress/react": "7.0.3",
-    "@storybook/addon-actions": "7.6.14",
+    "@storybook/addon-actions": "8.1.11",
     "@storybook/addon-docs": "7.6.14",
     "@storybook/addon-essentials": "7.6.14",
     "@storybook/addon-links": "7.6.14",
