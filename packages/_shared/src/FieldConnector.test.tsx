@@ -1,12 +1,12 @@
 import * as React from 'react';
 
 import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
-import { render } from '@testing-library/react';
+import { render, act } from '@testing-library/react';
 import noop from 'lodash/noop';
 
 import { FieldConnector, FieldConnectorChildProps } from './FieldConnector';
 
-it('does not rerender with outdated value after calling setValue', () => {
+it('does not rerender with outdated value after calling setValue', async () => {
   function getChild(): FieldConnectorChildProps<any> {
     return props.children.mock.calls[props.children.mock.calls.length - 1][0];
   }
@@ -28,15 +28,18 @@ it('does not rerender with outdated value after calling setValue', () => {
     debounce: 0,
   };
 
-  render(<FieldConnector {...props} />);
+  await act(async () => {
+    render(<FieldConnector {...props} />);
+  });
 
   let child = getChild();
   expect(child.value).toBe('initial value');
   const initialRenderCount = props.children.mock.calls.length;
 
-  child.setValue('new value');
-
-  onSchemaErrorsChanged.mock.calls.forEach(([cb]) => cb([]));
+  await act(async () => {
+    child.setValue('new value');
+    onSchemaErrorsChanged.mock.calls.forEach(([cb]) => cb([]));
+  });
 
   child = getChild();
   expect(child.value).toBe('new value');
