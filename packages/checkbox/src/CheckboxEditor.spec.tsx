@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 import { cleanup, configure, fireEvent, render } from '@testing-library/react';
 
 import { CheckboxEditor } from './CheckboxEditor';

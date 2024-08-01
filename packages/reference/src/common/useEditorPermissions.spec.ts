@@ -11,7 +11,7 @@ type ExtendedAccessAPI = AccessAPI & {
 
 describe('useEditorPermissions', () => {
   type MockedFieldAppSDK = Omit<FieldAppSDK, 'access'> & {
-    access: vi.Mocked<ExtendedAccessAPI>;
+    access: ExtendedAccessAPI;
   };
 
   const makeFieldAppSDK = (customizeMock?: (fieldApi: FieldAPI) => FieldAPI) =>
@@ -98,7 +98,7 @@ describe('useEditorPermissions', () => {
       allowedAction: string,
       ...allowed: string[]
     ) => {
-      sdk.access.canPerformActionOnEntryOfType.mockImplementation(
+      vi.mocked(sdk.access.canPerformActionOnEntryOfType).mockImplementation(
         async (action: string, contentTypeId: any) => {
           if (allowedAction === action && allowed.includes(contentTypeId)) {
             return true;

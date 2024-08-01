@@ -4,7 +4,7 @@ import { MARKS } from '@contentful/rich-text-types';
 import { configure, render, waitFor } from '@testing-library/react';
 import { Plate } from '@udecode/plate-common';
 
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 import { ContentfulEditorIdProvider, getContentfulEditorId } from '../../ContentfulEditorProvider';
 import { SdkProvider } from '../../SdkProvider';
 import Toolbar from '../index';

@@ -1,7 +1,7 @@
 /* eslint-disable jest/expect-expect */
 import * as React from 'react';
 
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 import { ValidationError } from '@contentful/app-sdk';
 import type { ContentType } from '@contentful/field-editor-shared';
 import * as utils from '@contentful/field-editor-test-utils';

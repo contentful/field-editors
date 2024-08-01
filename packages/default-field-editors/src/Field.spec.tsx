@@ -3,7 +3,7 @@ import * as React from 'react';
 import { SingleEntryReferenceEditor } from '@contentful/field-editor-reference';
 import type { FieldAppSDK } from '@contentful/field-editor-shared';
 import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 import { cleanup, configure, render } from '@testing-library/react';
 import { vi } from 'vitest';
 
@@ -72,7 +72,7 @@ describe('Field', () => {
         getOptions={() => options}
       />
     );
-    expect((SingleEntryReferenceEditor as unknown as vi.Mock).mock.calls[0][0]).toMatchObject({
+    expect(vi.mocked(SingleEntryReferenceEditor).mock.calls[0][0]).toMatchObject({
       onAction: options.entryLinkEditor.onAction,
       renderCustomCard: options.entryLinkEditor.renderCustomCard,
     } as Partial<Parameters<typeof SingleEntryReferenceEditor>[0]>);
