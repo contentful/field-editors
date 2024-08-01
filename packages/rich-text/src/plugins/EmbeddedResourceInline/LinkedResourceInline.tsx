@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 import { ResourceLink } from '@contentful/field-editor-reference';
 import { useSelected, useReadOnly } from 'slate-react';
@@ -17,7 +17,7 @@ export type LinkedResourceInlineProps = {
     };
   };
   attributes: Pick<RenderElementProps, 'attributes'>;
-  children: Pick<RenderElementProps, 'children'>;
+  children: ReactNode;
 };
 
 export function LinkedResourceInline(props: LinkedResourceInlineProps) {

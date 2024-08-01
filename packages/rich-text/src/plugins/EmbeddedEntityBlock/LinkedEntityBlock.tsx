@@ -20,7 +20,7 @@ type LinkedEntityBlockProps = {
     };
   };
   attributes: Pick<RenderElementProps, 'attributes'>;
-  children: Pick<RenderElementProps, 'children'>;
+  children: React.ReactNode;
 };
 
 export function LinkedEntityBlock(props: LinkedEntityBlockProps) {
