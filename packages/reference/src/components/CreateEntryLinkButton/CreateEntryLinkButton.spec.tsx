@@ -100,7 +100,7 @@ describe('CreateEntryLinkButton with multiple entries', () => {
   });
 
   it('calls onSelect after click on menu item', () => {
-    const selectSpy = jest.fn();
+    const selectSpy = vi.fn();
     const { getByTestId, getAllByTestId } = render(
       <CreateEntryLinkButton {...props} onSelect={selectSpy} />
     );
@@ -119,7 +119,7 @@ describe('CreateEntryLinkButton with a single entry', () => {
   };
 
   it('should fire the onSelect function when clicked', () => {
-    const onSelectStub = jest.fn();
+    const onSelectStub = vi.fn();
     const { getByTestId } = render(<CreateEntryLinkButton {...props} onSelect={onSelectStub} />);
     fireEvent.click(findButton(getByTestId));
     expect(onSelectStub).toHaveBeenCalledWith(props.contentTypes[0].sys.id);
@@ -131,7 +131,7 @@ describe('CreateEntryLinkButton with a single entry', () => {
 
 describe('CreateEntryLinkButton common', () => {
   it('should render a spinner if onSelect returns a promise', async () => {
-    const onSelect = jest.fn(() => new Promise((resolve) => setTimeout(resolve, 1000)));
+    const onSelect = vi.fn(() => new Promise((resolve) => setTimeout(resolve, 1000)));
     const { getByTestId, container } = render(
       <CreateEntryLinkButton contentTypes={[CONTENT_TYPE_1]} onSelect={onSelect} />
     );
@@ -143,7 +143,7 @@ describe('CreateEntryLinkButton common', () => {
   });
 
   it('should hide a spinner after the promise from onSelect resolves', async () => {
-    const onSelect = jest.fn(() => new Promise((resolve) => setTimeout(resolve, 500)));
+    const onSelect = vi.fn(() => new Promise((resolve) => setTimeout(resolve, 500)));
     const { getByTestId, container } = render(
       <CreateEntryLinkButton contentTypes={[CONTENT_TYPE_1]} onSelect={onSelect} />
     );
@@ -156,7 +156,7 @@ describe('CreateEntryLinkButton common', () => {
   });
 
   it('does not emit onSelect on subsequent click before the promise from onSelect resolves', async () => {
-    const onSelect = jest.fn(
+    const onSelect = vi.fn(
       () => new Promise((resolve) => setTimeout(() => resolve(undefined), 200))
     );
     const { getByTestId } = render(
@@ -170,7 +170,7 @@ describe('CreateEntryLinkButton common', () => {
   });
 
   it('emits onSelect on subsequent click after the promise from onSelect resolves', async () => {
-    const onSelect = jest.fn(() => Promise.resolve());
+    const onSelect = vi.fn(() => Promise.resolve());
     const { getByTestId } = render(
       <CreateEntryLinkButton contentTypes={[CONTENT_TYPE_1]} onSelect={onSelect} />
     );

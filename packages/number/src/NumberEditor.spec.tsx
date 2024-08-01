@@ -19,9 +19,9 @@ function createField({
   type?: 'Number' | 'Integer';
 }) {
   const [field] = createFakeFieldAPI((field) => {
-    jest.spyOn(field, 'setValue');
-    jest.spyOn(field, 'removeValue');
-    jest.spyOn(field, 'setInvalid');
+    vi.spyOn(field, 'setValue');
+    vi.spyOn(field, 'removeValue');
+    vi.spyOn(field, 'setInvalid');
     return {
       ...field,
       type,

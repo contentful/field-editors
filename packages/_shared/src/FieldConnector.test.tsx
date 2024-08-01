@@ -11,7 +11,7 @@ it('does not rerender with outdated value after calling setValue', () => {
     return props.children.mock.calls[props.children.mock.calls.length - 1][0];
   }
 
-  const onSchemaErrorsChanged = jest.fn();
+  const onSchemaErrorsChanged = vi.fn();
   const [field] = createFakeFieldAPI((field: any) => {
     return {
       ...field,
@@ -23,7 +23,7 @@ it('does not rerender with outdated value after calling setValue', () => {
 
   const props = {
     isInitiallyDisabled: false,
-    children: jest.fn().mockImplementation(() => null),
+    children: vi.fn().mockImplementation(() => null),
     field,
     debounce: 0,
   };

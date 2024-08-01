@@ -60,8 +60,8 @@ describe('CheckboxEditor', () => {
   it('calls setValue for every check event and removeValue if all items are unclicked', () => {
     const predefined = ['banana', 'orange', 'strawberry'];
     const [field] = createFakeFieldAPI((mock) => {
-      jest.spyOn(mock, 'setValue');
-      jest.spyOn(mock, 'removeValue');
+      vi.spyOn(mock, 'setValue');
+      vi.spyOn(mock, 'removeValue');
       return {
         ...mock,
         items: {
@@ -103,8 +103,8 @@ describe('CheckboxEditor', () => {
   it('renders invalid text and remove link when value set is not in predefined values', () => {
     const predefined = ['banana', 'orange', 'strawberry'];
     const [field] = createFakeFieldAPI((mock) => {
-      jest.spyOn(mock, 'setValue');
-      jest.spyOn(mock, 'removeValue');
+      vi.spyOn(mock, 'setValue');
+      vi.spyOn(mock, 'removeValue');
       return {
         ...mock,
         items: {

@@ -1,4 +1,4 @@
-import { sanitizeHTML } from '../sanitizeHTML';
+import { sanitizeHTML } from '../sanitizeHTML.js';
 
 describe('HTML Sanitization', () => {
   it('removes unsupported elements from <a>', () => {

@@ -10,20 +10,20 @@ import { createFakeEntryResource, mockSdkForField } from './testHelpers/resource
 
 const mockedResources: Record<string, unknown> = {};
 
-jest.mock('../common/EntityStore', () => {
-  const module = jest.requireActual('../common/EntityStore');
+vi.mock('../common/EntityStore', async (importOriginal) => {
+  const module = (await importOriginal()) as any;
 
   return {
     ...module,
-    useResource: jest.fn((linkType: string, urn: string) => ({
+    useResource: vi.fn((linkType: string, urn: string) => ({
       data: mockedResources[`${linkType}.${urn}`],
       status: 'success',
     })),
   };
 });
 
-jest.mock('react-intersection-observer', () => {
-  const module = jest.requireActual('react-intersection-observer');
+vi.mock('react-intersection-observer', async (importOriginal) => {
+  const module = (await importOriginal()) as any;
 
   return {
     ...module,
@@ -116,7 +116,7 @@ describe('Single resource editor', () => {
         hasCardEditActions={true}
         viewType="card"
         apiUrl="test-contentful"
-        getEntryRouteHref={jest.fn()}
+        getEntryRouteHref={vi.fn()}
         // @ts-expect-error unused...
         parameters={{}}
       />

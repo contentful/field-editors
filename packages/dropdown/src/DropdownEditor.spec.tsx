@@ -50,8 +50,8 @@ describe('DropdownEditor', () => {
 
   it('calls setValue if user select on default option', () => {
     const [field] = createFakeFieldAPI((field) => {
-      jest.spyOn(field, 'setValue');
-      jest.spyOn(field, 'removeValue');
+      vi.spyOn(field, 'setValue');
+      vi.spyOn(field, 'removeValue');
       return {
         ...field,
         validations: [{ in: ['initial'] }],
@@ -71,7 +71,7 @@ describe('DropdownEditor', () => {
 
   it('calls removeValue if user selects default option', () => {
     const [field] = createFakeFieldAPI((field) => {
-      jest.spyOn(field, 'removeValue');
+      vi.spyOn(field, 'removeValue');
       return {
         ...field,
         getValue: () => 'initial',
@@ -91,8 +91,8 @@ describe('DropdownEditor', () => {
   it('calls #setValue with number for Number fields', function () {
     const predefined = [1, '2.71', 3];
     const [field] = createFakeFieldAPI((field) => {
-      jest.spyOn(field, 'setValue');
-      jest.spyOn(field, 'removeValue');
+      vi.spyOn(field, 'setValue');
+      vi.spyOn(field, 'removeValue');
       return {
         ...field,
         type: 'Number',
@@ -119,8 +119,8 @@ describe('DropdownEditor', () => {
   it('calls #setValue with number for Integer fields', function () {
     const predefined = [0, 1, '2', 3];
     const [field] = createFakeFieldAPI((field) => {
-      jest.spyOn(field, 'setValue');
-      jest.spyOn(field, 'removeValue');
+      vi.spyOn(field, 'setValue');
+      vi.spyOn(field, 'removeValue');
       return {
         ...field,
         type: 'Number',

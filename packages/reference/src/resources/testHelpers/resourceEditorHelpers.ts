@@ -3,9 +3,9 @@ import { FieldAppSDK } from '@contentful/app-sdk';
 export function mockSdkForField(fieldDefinition: any, fieldValue?: any): FieldAppSDK {
   return {
     field: {
-      getValue: jest.fn(() => fieldValue),
-      setValue: jest.fn(() => Promise.resolve(undefined)),
-      removeValue: jest.fn(),
+      getValue: vi.fn(() => fieldValue),
+      setValue: vi.fn(() => Promise.resolve(undefined)),
+      removeValue: vi.fn(),
       // eslint-disable-next-line -- test helper
       onSchemaErrorsChanged: () => {},
       // eslint-disable-next-line -- test helper
@@ -17,14 +17,14 @@ export function mockSdkForField(fieldDefinition: any, fieldValue?: any): FieldAp
     },
     dialogs: {
       // @ts-expect-error wait app-sdk version update
-      selectSingleResourceEntity: jest.fn().mockResolvedValue({
+      selectSingleResourceEntity: vi.fn().mockResolvedValue({
         sys: {
           type: 'ResourceLink',
           linkType: 'Contentful:Entry',
           urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
         },
       }),
-      selectMultipleResourceEntities: jest.fn().mockResolvedValue([
+      selectMultipleResourceEntities: vi.fn().mockResolvedValue([
         {
           sys: {
             type: 'ResourceLink',

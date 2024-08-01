@@ -38,8 +38,8 @@ describe('UrlEditor', () => {
 
   it('calls field.setValue when user types and calls field.removeValue when user clears the input', async () => {
     const [field] = createFakeFieldAPI((field) => {
-      jest.spyOn(field, 'setValue');
-      jest.spyOn(field, 'removeValue');
+      vi.spyOn(field, 'setValue');
+      vi.spyOn(field, 'removeValue');
       return {
         ...field,
         id: 'field-id',

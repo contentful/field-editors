@@ -51,8 +51,8 @@ describe('RadioEditor', () => {
 
   it('calls setValue and removeValue properly', () => {
     const [field] = createFakeFieldAPI((field) => {
-      jest.spyOn(field, 'setValue');
-      jest.spyOn(field, 'removeValue');
+      vi.spyOn(field, 'setValue');
+      vi.spyOn(field, 'removeValue');
       return {
         ...field,
         validations: [{ in: ['banana', 'orange', 'strawberry'] }],
@@ -83,8 +83,8 @@ describe('RadioEditor', () => {
     it('calls setValue and removeValue properly', function () {
       const predefined = [1, '2.71', '0'];
       const [field] = createFakeFieldAPI((field) => {
-        jest.spyOn(field, 'setValue');
-        jest.spyOn(field, 'removeValue');
+        vi.spyOn(field, 'setValue');
+        vi.spyOn(field, 'removeValue');
         return {
           ...field,
           type: 'Number',
@@ -123,8 +123,8 @@ describe('RadioEditor', () => {
     it('calls setValue and removeValue properly', function () {
       const predefined = [0, '65', '99', 100];
       const [field] = createFakeFieldAPI((field) => {
-        jest.spyOn(field, 'setValue');
-        jest.spyOn(field, 'removeValue');
+        vi.spyOn(field, 'setValue');
+        vi.spyOn(field, 'removeValue');
         return {
           ...field,
           type: 'Number',

@@ -5,6 +5,7 @@ import type { FieldAppSDK } from '@contentful/field-editor-shared';
 import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
 import '@testing-library/jest-dom/extend-expect';
 import { cleanup, configure, render } from '@testing-library/react';
+import { vi } from 'vitest';
 
 import { Field } from './Field';
 
@@ -12,9 +13,14 @@ configure({
   testIdAttribute: 'data-test-id',
 });
 
-jest.mock('@contentful/field-editor-reference', () => ({
-  SingleEntryReferenceEditor: jest.fn(() => <div>mock</div>),
-}));
+vi.mock('@contentful/field-editor-reference', async (importOriginal) => {
+  const mod = (await importOriginal()) as any;
+  return {
+    ...mod,
+    // replace some exports
+    SingleEntryReferenceEditor: vi.fn(() => <div>mock</div>),
+  };
+});
 
 const getSdk = (customize?: (field: any) => any, initialValue?: any) => {
   const [field] = createFakeFieldAPI(customize, initialValue);
@@ -54,8 +60,8 @@ describe('Field', () => {
 
     const options = {
       entryLinkEditor: {
-        onAction: jest.fn(),
-        renderCustomCard: jest.fn(),
+        onAction: vi.fn(),
+        renderCustomCard: vi.fn(),
       },
     };
     render(
@@ -66,7 +72,7 @@ describe('Field', () => {
         getOptions={() => options}
       />
     );
-    expect((SingleEntryReferenceEditor as unknown as jest.Mock).mock.calls[0][0]).toMatchObject({
+    expect((SingleEntryReferenceEditor as unknown as vi.Mock).mock.calls[0][0]).toMatchObject({
       onAction: options.entryLinkEditor.onAction,
       renderCustomCard: options.entryLinkEditor.renderCustomCard,
     } as Partial<Parameters<typeof SingleEntryReferenceEditor>[0]>);

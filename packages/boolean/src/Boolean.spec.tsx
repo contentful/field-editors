@@ -33,8 +33,8 @@ describe('BooleanEditor', () => {
 
   it('calls setValue and removeValue properly', () => {
     const [field] = createFakeFieldAPI((field) => {
-      jest.spyOn(field, 'setValue');
-      jest.spyOn(field, 'removeValue');
+      vi.spyOn(field, 'setValue');
+      vi.spyOn(field, 'removeValue');
       return {
         ...field,
       };

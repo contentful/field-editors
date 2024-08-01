@@ -21,17 +21,17 @@ beforeEach(() => {
       default: 'en-US',
     },
     cmaAdapter: createFakeCMAAdapter({
-      Entry: { get: jest.fn().mockResolvedValue(publishedEntry) },
+      Entry: { get: vi.fn().mockResolvedValue(publishedEntry) },
       ScheduledAction: {
-        getMany: jest.fn().mockResolvedValue({ items: [], total: 0 }),
+        getMany: vi.fn().mockResolvedValue({ items: [], total: 0 }),
       },
     }),
     space: {
-      getEntityScheduledActions: jest.fn().mockResolvedValue([]),
-      getCachedContentTypes: jest.fn().mockReturnValue([publishedCT]),
+      getEntityScheduledActions: vi.fn().mockResolvedValue([]),
+      getCachedContentTypes: vi.fn().mockReturnValue([publishedCT]),
     },
     navigator: {
-      onSlideInNavigation: jest.fn(),
+      onSlideInNavigation: vi.fn(),
     },
     ids: {
       space: 'space-id',

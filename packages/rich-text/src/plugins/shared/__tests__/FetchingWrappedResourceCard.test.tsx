@@ -25,9 +25,9 @@ beforeEach(() => {
       default: 'en-US',
     },
     cmaAdapter: createFakeCMAAdapter({
-      ContentType: { get: jest.fn().mockReturnValue(publishedCT) },
+      ContentType: { get: vi.fn().mockReturnValue(publishedCT) },
       Entry: {
-        get: jest.fn().mockImplementation(({ entryId }) => {
+        get: vi.fn().mockImplementation(({ entryId }) => {
           if (entryId === 'linked-entry-urn') {
             return Promise.resolve(publishedEntry);
           }
@@ -35,14 +35,14 @@ beforeEach(() => {
         }),
       },
       Locale: {
-        getMany: jest.fn().mockResolvedValue({ items: [{ default: true, code: 'en' }] }),
+        getMany: vi.fn().mockResolvedValue({ items: [{ default: true, code: 'en' }] }),
       },
       ScheduledAction: {
-        getMany: jest.fn().mockResolvedValue({ items: [], total: 0 }),
+        getMany: vi.fn().mockResolvedValue({ items: [], total: 0 }),
       },
-      Space: { get: jest.fn().mockResolvedValue(space) },
+      Space: { get: vi.fn().mockResolvedValue(space) },
     }),
-    space: { onEntityChanged: jest.fn() },
+    space: { onEntityChanged: vi.fn() },
     navigator: {},
     ids: {
       space: 'space-id',

@@ -1,5 +1,5 @@
-import 'codemirror/mode/markdown/markdown';
-import 'codemirror/mode/xml/xml';
-import 'codemirror/addon/edit/continuelist';
-import 'codemirror/addon/mode/overlay';
-import 'codemirror/addon/display/autorefresh';
+import 'codemirror/mode/markdown/markdown.js';
+import 'codemirror/mode/xml/xml.js';
+import 'codemirror/addon/edit/continuelist.js';
+import 'codemirror/addon/mode/overlay.js';
+import 'codemirror/addon/display/autorefresh.js';

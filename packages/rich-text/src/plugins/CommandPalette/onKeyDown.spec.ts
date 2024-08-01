@@ -3,21 +3,23 @@ import { createTestEditor } from '../../test-utils';
 import { COMMAND_PROMPT } from './constants';
 import { createOnKeyDown } from './onKeyDown';
 
-jest.mock('../../internal/transforms', () => {
+vi.mock('../../internal/transforms', async (importOriginal) => {
+  const module = (await importOriginal()) as any;
+
   return {
     __esModule: true,
-    ...jest.requireActual('../../internal/transforms'),
+    ...module,
   };
 });
 
 describe('onKeyDown', () => {
   const { editor } = createTestEditor({});
 
-  const addMark = jest.spyOn(internal, 'addMark');
-  const onCommandPaletteAction = jest.spyOn(editor.tracking, 'onCommandPaletteAction');
+  const addMark = vi.spyOn(internal, 'addMark');
+  const onCommandPaletteAction = vi.spyOn(editor.tracking, 'onCommandPaletteAction');
 
   afterEach(() => {
-    jest.resetAllMocks();
+    vi.resetAllMocks();
   });
 
   test.each`

@@ -10,7 +10,7 @@ configure({
   testIdAttribute: 'data-test-id',
 });
 
-jest.mock('use-debounce', () => ({
+vi.mock('use-debounce', () => ({
   useDebounce: (text: string) => [text],
 }));
 
@@ -21,8 +21,8 @@ function createMocks(
     (field) => ({
       ...field,
       id: 'slug-id',
-      onValueChanged: jest.fn().mockImplementation(field.onValueChanged),
-      setValue: jest.fn().mockImplementation(field.setValue),
+      onValueChanged: vi.fn().mockImplementation(field.onValueChanged),
+      setValue: vi.fn().mockImplementation(field.setValue),
     }),
     initialValues.field || ''
   );
@@ -31,9 +31,9 @@ function createMocks(
     (field) => ({
       ...field,
       id: 'title-id',
-      setValue: jest.fn().mockImplementation(field.setValue),
-      getValue: jest.fn().mockImplementation(field.getValue),
-      onValueChanged: jest.fn().mockImplementation(field.onValueChanged),
+      setValue: vi.fn().mockImplementation(field.setValue),
+      getValue: vi.fn().mockImplementation(field.getValue),
+      onValueChanged: vi.fn().mockImplementation(field.onValueChanged),
     }),
     initialValues.titleField || ''
   );
@@ -42,9 +42,9 @@ function createMocks(
     (field) => ({
       ...field,
       id: 'description-id',
-      setValue: jest.fn().mockImplementation(field.setValue),
-      getValue: jest.fn().mockImplementation(field.getValue),
-      onValueChanged: jest.fn().mockImplementation(field.onValueChanged),
+      setValue: vi.fn().mockImplementation(field.setValue),
+      getValue: vi.fn().mockImplementation(field.getValue),
+      onValueChanged: vi.fn().mockImplementation(field.onValueChanged),
     }),
     initialValues.descriptionField || ''
   );
@@ -52,10 +52,10 @@ function createMocks(
   const sdk = {
     locales: createFakeLocalesAPI(),
     space: {
-      getEntries: jest.fn().mockResolvedValue({ total: 0 }),
+      getEntries: vi.fn().mockResolvedValue({ total: 0 }),
     },
     entry: {
-      getSys: jest.fn().mockReturnValue({
+      getSys: vi.fn().mockReturnValue({
         id: 'entry-id',
         publishedVersion: undefined,
         createdAt: '2020-01-24T15:33:47.906Z',
@@ -65,7 +65,7 @@ function createMocks(
           },
         },
       }),
-      onSysChanged: jest.fn(),
+      onSysChanged: vi.fn(),
       fields: {
         'title-id': titleField,
         'entry-id': field,

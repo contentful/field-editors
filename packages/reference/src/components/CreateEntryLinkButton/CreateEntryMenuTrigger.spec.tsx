@@ -27,9 +27,9 @@ describe('CreateEntryMenuTrigger general', () => {
     },
   };
 
-  let stub = jest.fn();
+  let stub = vi.fn();
   beforeEach(() => {
-    stub = jest.fn().mockImplementation(() => <Button testId="menu-trigger" />);
+    stub = vi.fn().mockImplementation(() => <Button testId="menu-trigger" />);
   });
 
   it('shares the state and functions for the menu', () => {
@@ -43,7 +43,7 @@ describe('CreateEntryMenuTrigger general', () => {
   });
 
   it('should set isSelecting to true in case onSelect returns a promise', async () => {
-    const selectStub = jest.fn(() => new Promise((resolve) => setTimeout(resolve, 1000)));
+    const selectStub = vi.fn(() => new Promise((resolve) => setTimeout(resolve, 1000)));
 
     const { getAllByTestId, getByTestId } = render(
       <CreateEntryMenuTrigger {...props} onSelect={selectStub}>
@@ -61,7 +61,7 @@ describe('CreateEntryMenuTrigger general', () => {
   });
 
   it('should not set isSelecting to true in case onSelect is sync', async () => {
-    const selectStub = jest.fn();
+    const selectStub = vi.fn();
 
     const { getAllByTestId, getByTestId } = render(
       <CreateEntryMenuTrigger {...props} onSelect={selectStub}>

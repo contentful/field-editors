@@ -7,7 +7,6 @@ import type { ContentType } from '@contentful/field-editor-shared';
 import * as utils from '@contentful/field-editor-test-utils';
 import { render, configure, cleanup, act } from '@testing-library/react';
 
-
 import { ValidationErrors } from './ValidationErrors';
 
 configure({
@@ -117,7 +116,7 @@ describe('ValidationErrors', () => {
     const space = utils.createFakeSpaceAPI((api) => ({
       ...api,
       getCachedContentTypes,
-      getEntries: jest.fn().mockResolvedValue({
+      getEntries: vi.fn().mockResolvedValue({
         items: ids.map(createEntry),
       }),
     }));

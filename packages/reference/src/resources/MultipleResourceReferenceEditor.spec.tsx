@@ -10,12 +10,12 @@ import { createFakeEntryResource, mockSdkForField } from './testHelpers/resource
 
 let mockedResources: Record<string, unknown> = {};
 
-jest.mock('../common/EntityStore', () => {
-  const module = jest.requireActual('../common/EntityStore');
+vi.mock('../common/EntityStore.js', async (importOriginal) => {
+  const module = (await importOriginal()) as any;
 
   return {
     ...module,
-    useResource: jest.fn((linkType: string, urn: string, apiUrl: string) => ({
+    useResource: vi.fn((linkType: string, urn: string, apiUrl: string) => ({
       data: mockedResources[`${linkType}.${urn}`],
       status: 'success',
       apiUrl,
@@ -23,8 +23,8 @@ jest.mock('../common/EntityStore', () => {
   };
 });
 
-jest.mock('react-intersection-observer', () => {
-  const module = jest.requireActual('react-intersection-observer');
+vi.mock('react-intersection-observer', async (importOriginal) => {
+  const module = (await importOriginal()) as any;
 
   return {
     ...module,

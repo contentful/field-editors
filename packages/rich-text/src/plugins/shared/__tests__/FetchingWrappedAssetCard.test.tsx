@@ -20,16 +20,16 @@ beforeEach(() => {
       default: 'en-US',
     },
     cmaAdapter: createFakeCMAAdapter({
-      Asset: { get: jest.fn().mockResolvedValue(publishedAsset) },
+      Asset: { get: vi.fn().mockResolvedValue(publishedAsset) },
       ScheduledAction: {
-        getMany: jest.fn().mockResolvedValue({ items: [], total: 0 }),
+        getMany: vi.fn().mockResolvedValue({ items: [], total: 0 }),
       },
     }),
     space: {
-      getEntityScheduledActions: jest.fn().mockResolvedValue([]),
+      getEntityScheduledActions: vi.fn().mockResolvedValue([]),
     },
     navigator: {
-      onSlideInNavigation: jest.fn(),
+      onSlideInNavigation: vi.fn(),
     },
     ids: {
       space: 'space-id',

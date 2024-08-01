@@ -56,8 +56,8 @@ describe('ListEditor', () => {
 
   it('calls setValue and removeValue when user inputs data', () => {
     const [field] = createFakeFieldAPI((field) => {
-      jest.spyOn(field, 'setValue');
-      jest.spyOn(field, 'removeValue');
+      vi.spyOn(field, 'setValue');
+      vi.spyOn(field, 'removeValue');
       return {
         ...field,
         validations: [],
@@ -85,7 +85,7 @@ describe('ListEditor', () => {
   it('keeps trailing commas', () => {
     const [field] = createFakeFieldAPI(
       (field) => {
-        jest.spyOn(field, 'setValue');
+        vi.spyOn(field, 'setValue');
         return {
           ...field,
           validations: [],

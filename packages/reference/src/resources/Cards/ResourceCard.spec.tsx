@@ -18,8 +18,8 @@ configure({
   testIdAttribute: 'data-test-id',
 });
 
-jest.mock('react-intersection-observer', () => ({
-  useInView: jest.fn().mockReturnValue({}),
+vi.mock('react-intersection-observer', () => ({
+  useInView: vi.fn().mockReturnValue({}),
 }));
 
 // explicit master
@@ -38,9 +38,9 @@ const sdk: any = {
     default: 'en-US',
   },
   cmaAdapter: createFakeCMAAdapter({
-    ContentType: { get: jest.fn().mockReturnValue(publishedCT) },
+    ContentType: { get: vi.fn().mockReturnValue(publishedCT) },
     Entry: {
-      get: jest.fn().mockImplementation(({ spaceId, environmentId, entryId }) => {
+      get: vi.fn().mockImplementation(({ spaceId, environmentId, entryId }) => {
         if (
           spaceId === 'space-id' &&
           environmentId === 'master' &&
@@ -59,7 +59,7 @@ const sdk: any = {
       }),
     },
     Http: {
-      get: jest.fn().mockImplementation(({ url, config }) => {
+      get: vi.fn().mockImplementation(({ url, config }) => {
         if (url === '/spaces/space-id/environments/environment-id/resource_types') {
           return Promise.resolve({ items: [resourceType], pages: {} });
         }
@@ -74,14 +74,14 @@ const sdk: any = {
       }),
     },
     Locale: {
-      getMany: jest.fn().mockResolvedValue({ items: [{ default: true, code: 'en' }] }),
+      getMany: vi.fn().mockResolvedValue({ items: [{ default: true, code: 'en' }] }),
     },
     ScheduledAction: {
-      getMany: jest.fn().mockResolvedValue({ items: [], total: 0 }),
+      getMany: vi.fn().mockResolvedValue({ items: [], total: 0 }),
     },
-    Space: { get: jest.fn().mockResolvedValue(space) },
+    Space: { get: vi.fn().mockResolvedValue(space) },
   }),
-  space: { onEntityChanged: jest.fn() },
+  space: { onEntityChanged: vi.fn() },
   navigator: {},
   ids: {
     space: 'space-id',

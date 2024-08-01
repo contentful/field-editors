@@ -11,15 +11,15 @@ type ExtendedAccessAPI = AccessAPI & {
 
 describe('useEditorPermissions', () => {
   type MockedFieldAppSDK = Omit<FieldAppSDK, 'access'> & {
-    access: jest.Mocked<ExtendedAccessAPI>;
+    access: vi.Mocked<ExtendedAccessAPI>;
   };
 
   const makeFieldAppSDK = (customizeMock?: (fieldApi: FieldAPI) => FieldAPI) =>
     ({
       field: createFakeFieldAPI(customizeMock)[0],
       access: {
-        can: jest.fn().mockResolvedValue(true),
-        canPerformActionOnEntryOfType: jest.fn().mockResolvedValue(true),
+        can: vi.fn().mockResolvedValue(true),
+        canPerformActionOnEntryOfType: vi.fn().mockResolvedValue(true),
       },
     } as unknown as MockedFieldAppSDK);
 
