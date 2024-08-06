@@ -20,7 +20,6 @@ export interface ExternalResourceCardProps {
   isDisabled: boolean;
   isSelected?: boolean;
   onRemove?: () => void;
-  onEdit?: () => void;
   onClick?: (e: React.MouseEvent<HTMLElement>) => void;
   renderDragHandle?: RenderDragFn;
   isClickable?: boolean;
