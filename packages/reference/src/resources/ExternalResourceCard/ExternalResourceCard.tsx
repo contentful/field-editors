@@ -20,7 +20,6 @@ export interface ExternalResourceCardProps {
   isDisabled: boolean;
   isSelected?: boolean;
   onRemove?: () => void;
-  onEdit?: () => void;
   onClick?: (e: React.MouseEvent<HTMLElement>) => void;
   renderDragHandle?: RenderDragFn;
   isClickable?: boolean;
@@ -86,7 +85,6 @@ ExternalResourceCardDescription.displayName = 'ExternalResourceCardDescription';
 export function ExternalResourceCard({
   info,
   isClickable,
-  onEdit,
   onRemove,
   onMoveTop,
   onMoveBottom,
@@ -99,6 +97,13 @@ export function ExternalResourceCard({
 }: ExternalResourceCardProps) {
   const { resource: entity, resourceType } = info;
   const badge = ExternalEntityBadge(entity.fields.badge);
+
+  const onEdit = () => {
+    if (entity.fields.externalUrl) {
+      window.open(entity.fields.externalUrl, '_blank', 'noopener,noreferrer');
+    }
+  };
+
   return (
     <EntryCard
       as={entity.fields.externalUrl ? 'a' : 'article'}
@@ -161,7 +166,7 @@ export function ExternalResourceCard({
           ? (e: React.MouseEvent<HTMLElement>) => {
               e.preventDefault();
               if (onClick) return onClick(e);
-              onEdit && onEdit();
+              onEdit();
             }
           : undefined
       }
