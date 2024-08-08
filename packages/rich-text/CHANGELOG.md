@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.26.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.25.3...@contentful/field-editor-rich-text@3.26.0) (2024-08-08)
+
+### Features
+
+- wrapping connected rte instead of root one with entity provider [] ([#1718](https://github.com/contentful/field-editors/issues/1718)) ([8172ebc](https://github.com/contentful/field-editors/commit/8172ebcfe30a491f32ffc47bb8e500496f90f485))
+
 ## [3.25.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.25.2...@contentful/field-editor-rich-text@3.25.3) (2024-08-06)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
