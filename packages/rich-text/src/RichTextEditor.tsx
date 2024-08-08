@@ -65,26 +65,28 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   );
 
   return (
-    <SdkProvider sdk={sdk}>
-      <ContentfulEditorIdProvider value={id}>
-        <div className={styles.root} data-test-id="rich-text-editor">
-          <Plate
-            id={id}
-            initialValue={initialValue}
-            plugins={plugins as PlatePlugin[]}
-            disableCorePlugins={disableCorePlugins}
-          >
-            {!props.isToolbarHidden && (
-              <StickyToolbarWrapper isDisabled={props.isDisabled}>
-                <Toolbar isDisabled={props.isDisabled} />
-              </StickyToolbarWrapper>
-            )}
-            <SyncEditorChanges incomingValue={initialValue} onChange={props.onChange} />
-            <PlateContent id={id} className={classNames} readOnly={props.isDisabled} />
-          </Plate>
-        </div>
-      </ContentfulEditorIdProvider>
-    </SdkProvider>
+    <EntityProvider sdk={sdk}>
+      <SdkProvider sdk={sdk}>
+        <ContentfulEditorIdProvider value={id}>
+          <div className={styles.root} data-test-id="rich-text-editor">
+            <Plate
+              id={id}
+              initialValue={initialValue}
+              plugins={plugins as PlatePlugin[]}
+              disableCorePlugins={disableCorePlugins}
+            >
+              {!props.isToolbarHidden && (
+                <StickyToolbarWrapper isDisabled={props.isDisabled}>
+                  <Toolbar isDisabled={props.isDisabled} />
+                </StickyToolbarWrapper>
+              )}
+              <SyncEditorChanges incomingValue={initialValue} onChange={props.onChange} />
+              <PlateContent id={id} className={classNames} readOnly={props.isDisabled} />
+            </Plate>
+          </div>
+        </ContentfulEditorIdProvider>
+      </SdkProvider>
+    </EntityProvider>
   );
 };
 
@@ -99,27 +101,25 @@ const RichTextEditor = (props: Props) => {
 
   const id = getContentfulEditorId(props.sdk);
   return (
-    <EntityProvider sdk={sdk}>
-      <FieldConnector
-        debounce={0}
-        field={sdk.field}
-        isInitiallyDisabled={isInitiallyDisabled}
-        isEmptyValue={isEmptyValue}
-      >
-        {({ lastRemoteValue, disabled, setValue }) => (
-          <ConnectedRichTextEditor
-            {...otherProps}
-            key={`rich-text-editor-${id}`}
-            value={lastRemoteValue}
-            sdk={sdk}
-            onAction={onAction}
-            isDisabled={disabled}
-            onChange={setValue}
-            restrictedMarks={restrictedMarks}
-          />
-        )}
-      </FieldConnector>
-    </EntityProvider>
+    <FieldConnector
+      debounce={0}
+      field={sdk.field}
+      isInitiallyDisabled={isInitiallyDisabled}
+      isEmptyValue={isEmptyValue}
+    >
+      {({ lastRemoteValue, disabled, setValue }) => (
+        <ConnectedRichTextEditor
+          {...otherProps}
+          key={`rich-text-editor-${id}`}
+          value={lastRemoteValue}
+          sdk={sdk}
+          onAction={onAction}
+          isDisabled={disabled}
+          onChange={setValue}
+          restrictedMarks={restrictedMarks}
+        />
+      )}
+    </FieldConnector>
   );
 };
 
