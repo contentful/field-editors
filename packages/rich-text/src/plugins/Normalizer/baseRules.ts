@@ -3,6 +3,7 @@ import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
 import { INLINE_TYPES } from '../../helpers/editor';
 import { transformWrapIn } from '../../helpers/transformers';
 import { getParentNode, isText } from '../../internal/queries';
+import { insertText } from '../../internal/transforms';
 import { Element } from '../../internal/types';
 import { NormalizerRule } from './types';
 
@@ -33,5 +34,15 @@ export const baseRules: Required<NormalizerRule>[] = [
       return !!parent && isTextContainer(parent);
     },
     transform: transformWrapIn(BLOCKS.PARAGRAPH),
+  },
+  {
+    // Replaces `\r` as it causes issues with scroll position and focus
+    match: isText,
+    validNode: (_editor, [node]) => typeof node.text === 'string' && !node.text.includes('\r'),
+    transform: (editor, [node, path]) => {
+      if (typeof node.text === 'string') {
+        return insertText(editor, node.text.replace(/\r/g, ''), { at: path });
+      }
+    },
   },
 ];
