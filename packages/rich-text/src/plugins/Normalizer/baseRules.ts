@@ -40,9 +40,7 @@ export const baseRules: Required<NormalizerRule>[] = [
     match: isText,
     validNode: (_editor, [node]) => typeof node.text === 'string' && !node.text.includes('\r'),
     transform: (editor, [node, path]) => {
-      if (typeof node.text === 'string') {
-        return insertText(editor, node.text.replace(/\r/g, ''), { at: path });
-      }
+      return insertText(editor, (node.text as string).replace(/\r/g, ''), { at: path });
     },
   },
 ];
