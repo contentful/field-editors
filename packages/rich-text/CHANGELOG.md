@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.26.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.26.0...@contentful/field-editor-rich-text@3.26.1) (2024-08-12)
+
+### Bug Fixes
+
+- **rich-text:** changing scroll position with \r [TOL-2365] ([#1719](https://github.com/contentful/field-editors/issues/1719)) ([4dc22e4](https://github.com/contentful/field-editors/commit/4dc22e4423f908fcc3242eed13fac59ba1f47fc9))
+
 # [3.26.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.25.3...@contentful/field-editor-rich-text@3.26.0) (2024-08-08)
 
 ### Features
