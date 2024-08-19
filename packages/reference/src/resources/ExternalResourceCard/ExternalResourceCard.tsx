@@ -99,6 +99,7 @@ export function ExternalResourceCard({
 }: ExternalResourceCardProps) {
   const { resource: entity, resourceType } = info;
   const badge = ExternalEntityBadge(entity.fields.badge);
+
   return (
     <EntryCard
       as={entity.fields.externalUrl ? 'a' : 'article'}

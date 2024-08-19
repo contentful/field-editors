@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.26.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.26.2...@contentful/field-editor-rich-text@3.26.3) (2024-08-19)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [3.26.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.26.1...@contentful/field-editor-rich-text@3.26.2) (2024-08-13)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [3.26.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.26.0...@contentful/field-editor-rich-text@3.26.1) (2024-08-12)
+
+### Bug Fixes
+
+- **rich-text:** changing scroll position with \r [TOL-2365] ([#1719](https://github.com/contentful/field-editors/issues/1719)) ([4dc22e4](https://github.com/contentful/field-editors/commit/4dc22e4423f908fcc3242eed13fac59ba1f47fc9))
+
+# [3.26.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.25.3...@contentful/field-editor-rich-text@3.26.0) (2024-08-08)
+
+### Features
+
+- wrapping connected rte instead of root one with entity provider [] ([#1718](https://github.com/contentful/field-editors/issues/1718)) ([8172ebc](https://github.com/contentful/field-editors/commit/8172ebcfe30a491f32ffc47bb8e500496f90f485))
+
+## [3.25.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.25.2...@contentful/field-editor-rich-text@3.25.3) (2024-08-06)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
 ## [3.25.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.25.1...@contentful/field-editor-rich-text@3.25.2) (2024-07-25)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
