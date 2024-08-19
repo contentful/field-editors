@@ -3,6 +3,13 @@ import mitt from 'mitt';
 
 import { watchCurrentSlide } from './sdkNavigatorSlideIn';
 
+// Polyfill for structuredClone
+if (typeof globalThis.structuredClone !== 'function') {
+  globalThis.structuredClone = (obj: any) => {
+    return JSON.parse(JSON.stringify(obj));
+  };
+}
+
 type NavigatorAPIEmitter = {
   slideIn: (slide: NavigatorSlideInfo) => void;
 };
