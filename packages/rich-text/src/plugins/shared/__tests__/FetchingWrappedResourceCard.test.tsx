@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { createFakeCMAAdapter } from '@contentful/field-editor-test-utils';
 import { configure, render, waitFor } from '@testing-library/react';
