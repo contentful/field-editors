@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.30.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.30.4...@contentful/field-editor-reference@5.30.5) (2024-08-19)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [5.30.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.30.3...@contentful/field-editor-reference@5.30.4) (2024-08-19)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [5.30.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.30.2...@contentful/field-editor-reference@5.30.3) (2024-08-13)
+
+### Bug Fixes
+
+- add an ERL component to handle URLs in the editor [DANTE-1757] ([#1721](https://github.com/contentful/field-editors/issues/1721)) ([59156d8](https://github.com/contentful/field-editors/commit/59156d8a5e26d1bdc4d1240e8bfe5373a8d2d7de))
+
+## [5.30.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.30.1...@contentful/field-editor-reference@5.30.2) (2024-08-06)
+
+### Bug Fixes
+
+- add a missing handler for ERL click [DANTE-1735] ([#1717](https://github.com/contentful/field-editors/issues/1717)) ([5da146c](https://github.com/contentful/field-editors/commit/5da146c3035bc2212eafed167b75e94281623a7f))
+
 ## [5.30.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.30.0...@contentful/field-editor-reference@5.30.1) (2024-07-25)
 
 **Note:** Version bump only for package @contentful/field-editor-reference

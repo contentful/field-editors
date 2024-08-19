@@ -1,8 +1,14 @@
 import { NavigatorAPI, NavigatorSlideInfo } from '@contentful/app-sdk';
-import cloneDeep from 'lodash/cloneDeep';
 import mitt from 'mitt';
 
 import { watchCurrentSlide } from './sdkNavigatorSlideIn';
+
+// Polyfill for structuredClone
+if (typeof globalThis.structuredClone !== 'function') {
+  globalThis.structuredClone = (obj: any) => {
+    return JSON.parse(JSON.stringify(obj));
+  };
+}
 
 type NavigatorAPIEmitter = {
   slideIn: (slide: NavigatorSlideInfo) => void;
@@ -198,7 +204,7 @@ describe('watchCurrentSlide().unwatch()', () => {
 
   it('does not update .info() after .unwatch()', () => {
     const slide = watchCurrentSlide(api);
-    const lastStatus = cloneDeep(slide.status());
+    const lastStatus = structuredClone(slide.status());
 
     slide.unwatch();
 
