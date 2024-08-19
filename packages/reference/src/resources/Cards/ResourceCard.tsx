@@ -7,8 +7,8 @@ import { SetRequired } from 'type-fest';
 import { isContentfulResourceInfo, useResource } from '../../common/EntityStore';
 import { ResourceEntityErrorCard } from '../../components';
 import { RenderDragFn, ResourceLink } from '../../types';
-import { ExternalResourceCard } from '../ExternalResourceCard/ExternalResourceCard';
 import { CardActionsHandlers, ContentfulEntryCard, EntryRoute } from './ContentfulEntryCard';
+import { ExternalEntryCard } from './ExternalEntryCard';
 
 type ResourceCardProps = {
   index?: number;
@@ -57,7 +57,7 @@ function ExistingResourceCard(
     return <ContentfulEntryCard info={info} {...props} />;
   }
 
-  return <ExternalResourceCard info={info} {...props} />;
+  return <ExternalEntryCard info={info} {...props} />;
 }
 
 function ResourceCardWrapper(props: ResourceCardProps & { inView: boolean }) {
