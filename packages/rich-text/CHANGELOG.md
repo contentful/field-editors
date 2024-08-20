@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.27.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.26.4...@contentful/field-editor-rich-text@3.27.0) (2024-08-20)
+
+### Features
+
+- upgrade slate [TOL-2368][tol-2389] ([#1724](https://github.com/contentful/field-editors/issues/1724)) ([ade0f20](https://github.com/contentful/field-editors/commit/ade0f208f0c4c2ebfd6f03e31e35725cfea98390))
+
 ## [3.26.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.26.3...@contentful/field-editor-rich-text@3.26.4) (2024-08-19)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
