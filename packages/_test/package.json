@@ -36,8 +36,7 @@
   },
   "devDependencies": {
     "@contentful/app-sdk": "^4.29.0",
-    "contentful-management": "^11.0.0",
-    "type-fest": "4.25.0"
+    "contentful-management": "^11.0.0"
   },
   "dependencies": {
     "@contentful/f36-tokens": "^4.0.0",
