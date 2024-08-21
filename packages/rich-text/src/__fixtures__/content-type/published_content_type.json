@@ -17,11 +17,17 @@
   "fields": [
     {
       "id": "exField",
-      "type": "Symbol"
+      "type": "Symbol",
+      "name": "Example Field",
+      "required": false,
+      "localized": false
     },
     {
       "id": "exDesc",
-      "type": "Symbol"
+      "type": "Symbol",
+      "name": "Example Field",
+      "required": false,
+      "localized": false
     }
   ],
   "name": "Example Content Type"
