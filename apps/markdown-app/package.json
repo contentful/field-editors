@@ -25,7 +25,7 @@
   "devDependencies": {
     "@contentful/browserslist-config": "^3.0.0",
     "@contentful/field-editor-test-utils": "^0.14.0",
-    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/jest-dom": "^6.4.8",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^13.1.9",
     "@types/jest": "^26.0.23",

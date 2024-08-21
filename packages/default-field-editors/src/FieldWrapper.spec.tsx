@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import type { FieldAppSDK } from '@contentful/field-editor-shared';
 import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 import { act, cleanup, configure, render } from '@testing-library/react';
 
 import { FieldWrapper } from './FieldWrapper';

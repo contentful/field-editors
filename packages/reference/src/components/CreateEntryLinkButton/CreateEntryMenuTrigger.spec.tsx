@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Button } from '@contentful/f36-components';
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 import { act, configure, fireEvent, render } from '@testing-library/react';
 import noop from 'lodash/noop';
 
