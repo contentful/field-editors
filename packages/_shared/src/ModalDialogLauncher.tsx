@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-use-before-define */
 
 import * as React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import { OpenCustomWidgetOptions } from '@contentful/app-sdk';
 import { Modal, ModalHeader } from '@contentful/f36-components';
@@ -23,7 +23,8 @@ export function open(componentRenderer: (params: { onClose: Function; isShown: b
     let currentConfig = { onClose, isShown: true };
 
     function render({ onClose, isShown }: { onClose: Function; isShown: boolean }) {
-      ReactDOM.render(componentRenderer({ onClose, isShown }), getRoot());
+      const root = createRoot(getRoot());
+      root.render(componentRenderer({ onClose, isShown }));
     }
 
     function onClose(...args: any[]) {
@@ -44,7 +45,7 @@ export function open(componentRenderer: (params: { onClose: Function; isShown: b
 
 export function openDialog<T>(
   options: OpenCustomWidgetOptions,
-  Component: React.SFC<{ onClose: (result: T) => void }>
+  Component: React.FC<{ onClose: (result: T) => void }>
 ) {
   const key = Date.now();
   const size = isNumber(options.width) ? `${options.width}px` : options.width;
