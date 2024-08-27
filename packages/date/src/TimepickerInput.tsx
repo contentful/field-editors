@@ -71,7 +71,7 @@ export const TimepickerInput = ({
     setSelectedTime(e.currentTarget.value);
   }, []);
 
-  const handleFocus = useCallback((e) => {
+  const handleFocus = useCallback((e: any) => {
     e.preventDefault();
     e.target.select();
   }, []);

@@ -25,7 +25,7 @@ export type HyperlinkElementProps = {
   };
   target: Link;
   attributes: Pick<RenderElementProps, 'attributes'>;
-  children: Pick<RenderElementProps, 'children'>;
+  children: React.ReactNode;
   onEntityFetchComplete: VoidFunction;
 };
 

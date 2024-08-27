@@ -25,7 +25,7 @@ export type ResourceHyperlinkProps = {
   };
   target: Link;
   attributes: Pick<RenderElementProps, 'attributes'>;
-  children: Pick<RenderElementProps, 'children'>;
+  children: React.ReactNode;
 };
 
 export function ResourceHyperlink(props: ResourceHyperlinkProps) {

@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import { DragHandle, Pill, TextInput } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
-import { DndContext } from '@dnd-kit/core';
+import { DndContext, DragEndEvent } from '@dnd-kit/core';
 import { restrictToParentElement } from '@dnd-kit/modifiers';
 import { arrayMove, SortableContext, useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
@@ -84,7 +84,7 @@ export function TagsEditor(props: TagsEditorProps) {
   );
 
   const removeItem = useCallback(
-    (index) => {
+    (index: number) => {
       const newItems = items.filter((_, filterIndex) => index !== filterIndex);
       onUpdate(newItems);
     },
@@ -92,10 +92,10 @@ export function TagsEditor(props: TagsEditorProps) {
   );
 
   const swapItems = useCallback(
-    ({ active, over }) => {
-      if (active.id !== over.id) {
-        const oldIndex = itemsMap.findIndex(({ id }) => id === active.id);
-        const newIndex = itemsMap.findIndex(({ id }) => id === over.id);
+    ({ active, over }: DragEndEvent) => {
+      if (active.id !== over?.id) {
+        const oldIndex = itemsMap.findIndex(({ id }) => id === active?.id);
+        const newIndex = itemsMap.findIndex(({ id }) => id === over?.id);
         const newItems = arrayMove(items, oldIndex, newIndex);
         onUpdate(newItems);
       }

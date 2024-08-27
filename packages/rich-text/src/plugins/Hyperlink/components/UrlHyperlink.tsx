@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Link } from '@contentful/app-sdk';
 import { TextLink } from '@contentful/f36-components';
 
-import { Element, RenderElementProps } from '../../../internal/types';
+import { Element } from '../../../internal/types';
 import { handleCopyLink, handleEditLink, handleRemoveLink } from './linkHandlers';
 import { LinkPopover } from './LinkPopover';
 import { styles } from './styles';
@@ -24,7 +24,7 @@ type UrlHyperlinkProps = {
   };
   target?: Link;
   onEntityFetchComplete?: VoidFunction;
-  children: Pick<RenderElementProps, 'children'>;
+  children: React.ReactNode;
 };
 
 export function UrlHyperlink(props: UrlHyperlinkProps) {

@@ -17,7 +17,7 @@ export type LinkedResourceInlineProps = {
     };
   };
   attributes: Pick<RenderElementProps, 'attributes'>;
-  children: Pick<RenderElementProps, 'children'>;
+  children: React.ReactNode;
 };
 
 export function LinkedResourceInline(props: LinkedResourceInlineProps) {
