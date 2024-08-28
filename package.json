@@ -122,7 +122,7 @@
     "tslib": "2.6.3",
     "type-fest": "4.25.0",
     "typescript": "5.3.3",
-    "webpack": "5.79.0"
+    "webpack": "5.94.0"
   },
   "resolutions": {
     "@types/react": "16.14.5",
