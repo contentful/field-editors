@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.27.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.27.2...@contentful/field-editor-rich-text@3.27.3) (2024-09-03)
+
+### Bug Fixes
+
+- broken rich text onChange prop ([#1740](https://github.com/contentful/field-editors/issues/1740)) ([d62535c](https://github.com/contentful/field-editors/commit/d62535c854e18e4baf76570de52744296187bd2d))
+
 ## [3.27.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.27.1...@contentful/field-editor-rich-text@3.27.2) (2024-09-02)
 
 ### Bug Fixes
