@@ -20,20 +20,36 @@ import { SyncEditorChanges } from './SyncEditorChanges';
 import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/components/StickyToolbarWrapper';
 
-type ConnectedProps = {
+type RichTextProps = {
   sdk: FieldAppSDK;
+  isInitiallyDisabled: boolean;
   onAction?: RichTextTrackingActionHandler;
+  restrictedMarks?: string[];
+  // For passing down to connected editor, some refactoring needed
   minHeight?: string | number;
   maxHeight?: string | number;
   value?: Contentful.Document;
   isDisabled?: boolean;
-  onChange?: (doc: Contentful.Document) => unknown;
   isToolbarHidden?: boolean;
   actionsDisabled?: boolean;
-  restrictedMarks?: string[];
+  // TODO: Deprecated - to be removed in next major release
+  onChange?: (doc: Contentful.Document) => unknown;
 };
 
-export const ConnectedRichTextEditor = (props: ConnectedProps) => {
+type ConnectedRichTextProps = {
+  sdk: FieldAppSDK;
+  onAction?: RichTextTrackingActionHandler;
+  onChange?: (doc: Contentful.Document) => unknown;
+  restrictedMarks?: string[];
+  minHeight?: string | number;
+  maxHeight?: string | number;
+  value?: Contentful.Document;
+  isDisabled?: boolean;
+  isToolbarHidden?: boolean;
+  actionsDisabled?: boolean;
+};
+
+export const ConnectedRichTextEditor = (props: ConnectedRichTextProps) => {
   const { sdk, onAction, restrictedMarks } = props;
 
   const id = getContentfulEditorId(sdk);
@@ -88,14 +104,19 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   );
 };
 
-type Props = ConnectedProps & { isInitiallyDisabled: boolean };
-
-const RichTextEditor = (props: Props) => {
-  const { sdk, isInitiallyDisabled, onAction, restrictedMarks, ...otherProps } = props;
+const RichTextEditor = (props: RichTextProps) => {
+  const { sdk, isInitiallyDisabled, onAction, restrictedMarks, onChange, ...otherProps } = props;
   const isEmptyValue = React.useCallback(
     (value) => !value || deepEquals(value, Contentful.EMPTY_DOCUMENT),
     []
   );
+  // TODO: Deprecated use of onChange, should be removed in next major version
+  // To prevent breaking change, assigning onChange to SDK handler
+  React.useEffect(() => {
+    if (onChange) {
+      sdk.field.onValueChanged(onChange);
+    }
+  }, [onChange, sdk.field]);
 
   const id = getContentfulEditorId(props.sdk);
   return (
