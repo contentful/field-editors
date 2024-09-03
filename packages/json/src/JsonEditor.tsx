@@ -71,8 +71,6 @@ class ConnectedJsonEditor extends React.Component<
   onChange = (value: string) => {
     const parsed = parseJSON(value);
 
-    console.log('hey', { value, parsed });
-
     if (value !== this.state.lastUndo) {
       this.pushUndo(this.state.value);
     }
