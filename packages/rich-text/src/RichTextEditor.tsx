@@ -113,10 +113,10 @@ const RichTextEditor = (props: RichTextProps) => {
     []
   );
   React.useEffect(() => {
-    if (onChange) {
-      return sdk.field.onValueChanged(onChange);
+    if (!onChange) {
+      return;
     }
-    return;
+    return sdk.field.onValueChanged(onChange);
   }, [onChange, sdk.field]);
 
   const id = getContentfulEditorId(props.sdk);
