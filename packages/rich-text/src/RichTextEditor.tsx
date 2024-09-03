@@ -32,7 +32,9 @@ type RichTextProps = {
   isDisabled?: boolean;
   isToolbarHidden?: boolean;
   actionsDisabled?: boolean;
-  // TODO: Deprecated - to be removed in next major release
+  /**
+   * @deprecated Use `sdk.field.onValueChanged` instead
+   */
   onChange?: (doc: Contentful.Document) => unknown;
 };
 
@@ -110,12 +112,11 @@ const RichTextEditor = (props: RichTextProps) => {
     (value) => !value || deepEquals(value, Contentful.EMPTY_DOCUMENT),
     []
   );
-  // TODO: Deprecated use of onChange, should be removed in next major version
-  // To prevent breaking change, assigning onChange to SDK handler
   React.useEffect(() => {
     if (onChange) {
-      sdk.field.onValueChanged(onChange);
+      return sdk.field.onValueChanged(onChange);
     }
+    return;
   }, [onChange, sdk.field]);
 
   const id = getContentfulEditorId(props.sdk);
