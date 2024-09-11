@@ -99,7 +99,7 @@
     "jest-cli": "29.7.0",
     "jest-environment-jsdom": "29.5.0",
     "jest-junit": "16.0.0",
-    "lerna": "8.1.3",
+    "lerna": "8.1.8",
     "lint-staged": "15.2.9",
     "mocha": "10.6.0",
     "prettier": "2.7.1",
@@ -126,6 +126,7 @@
   },
   "resolutions": {
     "@types/react": "16.14.5",
+    "nx": "19.7.2",
     "babel-preset-react-app": "9.1.2",
     "react": "16.14.0",
     "react-dom": "16.14.0",
