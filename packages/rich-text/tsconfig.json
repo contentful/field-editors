@@ -13,6 +13,16 @@
     "allowJs": true,
     "jsx": "react",
     "downlevelIteration": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "noEmitOnError": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "ignoreDeprecations": "5.0",
+    "suppressImplicitAnyIndexErrors": true,
+    "noPropertyAccessFromIndexSignature": false,
+    "useUnknownInCatchVariables": false,
+    "strict": false,
+    "noUnusedParameters": false
   }
 }

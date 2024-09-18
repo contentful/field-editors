@@ -184,5 +184,10 @@
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
+  },
+  "dependencies": {
+    "@contentful/rich-text-links": "^16.7.10",
+    "@types/dottie": "^2.0.7",
+    "dottie": "^2.0.6"
   }
 }
