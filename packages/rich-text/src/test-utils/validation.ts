@@ -1,21 +1,26 @@
-import { helpers, BLOCKS } from '@contentful/rich-text-types';
+import { helpers } from '@contentful/rich-text-types';
 import { getSchemaWithNodeType } from '@contentful/rich-text-types/dist/schemas';
 import Ajv, { ErrorObject } from 'ajv';
+import { validateRichText } from './validate';
 
 const ajv = new Ajv({ allErrors: true, verbose: true });
 
 export function validateRichTextDocument(document) {
-  const validateRootNode = getValidator(BLOCKS.DOCUMENT);
-  const rootNodeIsValid = validateRootNode(removeGrandChildNodes(document));
+  // const validateRootNode = getValidator(BLOCKS.DOCUMENT);
+  // const rootNodeIsValid = validateRootNode(removeGrandChildNodes(document));
 
-  const errors = [];
+  // const errors = [];
+  const errors = validateRichText(document);
 
-  if (rootNodeIsValid) {
-    validateChildNodes(document, ['content'], errors);
-  } else {
-    buildSchemaErrors(validateRootNode, [], errors);
+  // if (rootNodeIsValid) {
+  //   validateChildNodes(document, ['content'], errors);
+  // } else {
+  //   buildSchemaErrors(validateRootNode, [], errors);
+  // }
+
+  if (errors.length === 0) {
+    return errors;
   }
-
   return errors;
 }
 
