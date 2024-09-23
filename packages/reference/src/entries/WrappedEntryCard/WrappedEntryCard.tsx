@@ -50,6 +50,8 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
   const { contentType } = props;
 
   React.useEffect(() => {
+    let mounted = true;
+
     if (props.entry) {
       getEntryImage(
         {
@@ -61,12 +63,20 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
         props.getAsset
       )
         .then((file) => {
-          setFile(file);
+          if (mounted) {
+            setFile(file);
+          }
         })
         .catch(() => {
-          setFile(null);
+          if (mounted) {
+            setFile(null);
+          }
         });
     }
+
+    return () => {
+      mounted = false;
+    };
   }, [props.entry, props.getAsset, contentType, props.localeCode, props.defaultLocaleCode]);
 
   const status = getEntityStatus(

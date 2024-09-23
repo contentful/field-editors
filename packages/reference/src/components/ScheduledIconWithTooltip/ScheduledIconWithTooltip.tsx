@@ -21,13 +21,22 @@ export function useScheduledActions({
   >({ type: 'loading' });
 
   React.useEffect(() => {
+    let mounted = true;
     getEntityScheduledActions(entityType, entityId)
       .then((data) => {
-        setStatus({ type: 'loaded', jobs: data });
+        if (mounted) {
+          setStatus({ type: 'loaded', jobs: data });
+        }
       })
       .catch((e) => {
-        setStatus({ type: 'error', error: e });
+        if (mounted) {
+          setStatus({ type: 'error', error: e });
+        }
       });
+
+    return () => {
+      mounted = false;
+    };
     // This should only be ever called once. Following the eslint hint to add used
     // dependencies will cause page freeze (infinite loop)
     // eslint-disable-next-line -- TODO: describe this disable
