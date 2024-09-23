@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.30.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.30.7...@contentful/field-editor-reference@5.30.8) (2024-09-23)
+
+### Bug Fixes
+
+- Be able to use SingleMediaEditor with JSON object field ([#931](https://github.com/contentful/field-editors/issues/931)) ([a2d810d](https://github.com/contentful/field-editors/commit/a2d810df28c5fafa851157b7d07d6d98ae0ffa41))
+
 ## [5.30.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.30.6...@contentful/field-editor-reference@5.30.7) (2024-09-23)
 
 ### Bug Fixes
