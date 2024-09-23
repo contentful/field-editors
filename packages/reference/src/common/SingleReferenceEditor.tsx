@@ -84,7 +84,7 @@ export function SingleReferenceEditor(
           <Editor
             {...props}
             key={`${externalReset}-reference`}
-            entityId={value ? value.sys.id : ''}
+            entityId={value ? value?.sys?.id : ''}
             isDisabled={disabled}
             setValue={setValue}
             allContentTypes={allContentTypes}
