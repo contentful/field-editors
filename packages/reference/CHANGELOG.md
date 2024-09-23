@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.30.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.30.6...@contentful/field-editor-reference@5.30.7) (2024-09-23)
+
+### Bug Fixes
+
+- **reference:** set state after unmount [] ([#1754](https://github.com/contentful/field-editors/issues/1754)) ([08a45da](https://github.com/contentful/field-editors/commit/08a45da5dfbc723d5fe6d0292c53914e1dcdec9b))
+
 ## [5.30.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.30.5...@contentful/field-editor-reference@5.30.6) (2024-08-21)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
