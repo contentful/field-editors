@@ -120,7 +120,7 @@
     "swc-loader": "0.2.3",
     "ts-loader": "8.1.0",
     "tslib": "2.6.3",
-    "type-fest": "4.25.0",
+    "type-fest": "4.26.1",
     "typescript": "5.3.3",
     "webpack": "5.94.0"
   },
