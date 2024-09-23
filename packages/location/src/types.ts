@@ -1,4 +1,7 @@
-export { Coords } from 'google-map-react';
+export interface Coords {
+  lat: number;
+  lng: number;
+}
 
 export type LocationValue = { lat: number; lon: number };
 export type NullableLocationValue = LocationValue | null | undefined;

@@ -1,10 +1,11 @@
-import { InitializedEditorType } from './components/MarkdownTextarea/MarkdownTextarea';
 import { KnownSDK } from '@contentful/app-sdk';
-import { openInsertLinkDialog } from './dialogs/InsertLinkModalDialog';
-import { openInsertSpecialCharacter } from './dialogs/SpecialCharacterModalDialog';
-import { openInsertTableDialog } from './dialogs/InsertTableModalDialog';
-import { openEmbedExternalContentDialog } from './dialogs/EmdebExternalContentDialog';
+
+import { InitializedEditorType } from './components/MarkdownTextarea/MarkdownTextarea';
 import { openConfirmInsertAsset } from './dialogs/ConfirmInsertAssetModalDialog';
+import { openEmbedExternalContentDialog } from './dialogs/EmdebExternalContentDialog';
+import { openInsertLinkDialog } from './dialogs/InsertLinkModalDialog';
+import { openInsertTableDialog } from './dialogs/InsertTableModalDialog';
+import { openInsertSpecialCharacter } from './dialogs/SpecialCharacterModalDialog';
 import { openZenMode } from './dialogs/ZenModeModalDialog';
 import { insertAssetLinks } from './utils/insertAssetLinks';
 import * as LinkOrganizer from './utils/linkOrganizer';
@@ -16,7 +17,7 @@ export function createMarkdownActions(props: {
 }) {
   const { sdk, editor, locale } = props;
 
-  // eslint-disable-next-line @typescript-eslint/ban-types
+  // eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/ban-types
   const insertAssetsWithConfirmation = async (assets: Array<Object> | null) => {
     if (assets) {
       const { links, fallbacks } = await insertAssetLinks(assets, {
@@ -150,7 +151,7 @@ export function createMarkdownActions(props: {
       try {
         const { entity: asset } = (await sdk.navigator.openNewAsset({
           slideIn: { waitForClose: true },
-        })) as any; // eslint-disable-line @typescript-eslint/no-explicit-any
+        })) as any; // eslint-disable-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
 
         const markdownLinks = await insertAssetsWithConfirmation([asset]);
         editor.insert(markdownLinks);

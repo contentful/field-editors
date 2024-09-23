@@ -1,7 +1,9 @@
-import React from 'react';
-import { render, configure, cleanup, fireEvent, RenderResult } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
+import * as React from 'react';
+
 import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
+import '@testing-library/jest-dom/extend-expect';
+import { RenderResult, cleanup, configure, fireEvent, render } from '@testing-library/react';
+
 import { TagsEditorContainer } from './TagsEditorContainer';
 
 configure({
@@ -112,7 +114,7 @@ describe('TagsEditor', () => {
     ];
 
     conditions.forEach((condition) => {
-      // eslint-disable-next-line jest/valid-title
+      // eslint-disable-next-line -- TODO: describe this disable  jest/valid-title
       it(condition.testType, () => {
         const [field] = createFakeFieldAPI((mock) => {
           return {

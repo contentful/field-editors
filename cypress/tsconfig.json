@@ -1,15 +1,18 @@
 {
+  "extends": "../tsconfig.json",
   "compilerOptions": {
-    "strict": true,
     "noImplicitAny": false,
     "baseUrl": "../node_modules",
-    "target": "es5",
     "lib": ["es5", "dom"],
-    "types": ["cypress", "@types/testing-library__cypress"]
+    "target": "ES6",
+    "types": ["cypress", "@types/testing-library__cypress"],
+    "resolveJsonModule": true
   },
   "include": [
-    "*/*.ts",
+    "**/*.ts",
+    "../cypress",
     "../node_modules/cypress",
     "../node_modules/@types/testing-library__cypress"
-  ]
+  ],
+  "exclude": ["**/*.test.tsx"]
 }

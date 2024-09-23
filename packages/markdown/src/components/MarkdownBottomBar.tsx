@@ -1,8 +1,11 @@
-import React from 'react';
-import { css } from 'emotion';
-import tokens from '@contentful/f36-tokens';
+import * as React from 'react';
 
-import { TextLink, Paragraph } from '@contentful/f36-components';
+import { Paragraph, Stack, TextLink } from '@contentful/f36-components';
+import tokens from '@contentful/f36-tokens';
+import { css } from 'emotion';
+import { MarkdownTab } from 'types';
+
+const SANITIZE_LINK = 'https://en.wikipedia.org/wiki/HTML_sanitization';
 
 const styles = {
   root: css({
@@ -17,8 +20,9 @@ const styles = {
   help: css({
     color: tokens.gray700,
     fontSize: tokens.fontSizeS,
-    button: {
+    '& button, & a': {
       fontSize: tokens.fontSizeS,
+      lineHeight: 'inherit',
     },
   }),
 };
@@ -32,19 +36,57 @@ export function MarkdownCounter(props: { words: number; characters: number }) {
   );
 }
 
-export function MarkdownHelp(props: { onClick: () => void }) {
+function SanitizeMessage() {
   return (
-    <Paragraph marginBottom="none" className={styles.help}>
+    <span>
+      The preview of the content in this field will be sanitized.{' '}
+      <TextLink as="a" target="_blank" rel="noopener noreferrer" href={SANITIZE_LINK}>
+        Learn more.
+      </TextLink>
+    </span>
+  );
+}
+
+function CheatSheetMessage({ onClick }: { onClick: () => void }) {
+  return (
+    <span>
       Format your text like a pro with the{' '}
-      <TextLink
-        as="button"
-        testId="open-markdown-cheatsheet-button"
-        onClick={() => {
-          props.onClick();
-        }}>
+      <TextLink as="button" testId="open-markdown-cheatsheet-button" onClick={onClick}>
         markdown cheatsheet
       </TextLink>
       .
+    </span>
+  );
+}
+
+type HelpMode = MarkdownTab | 'zen';
+
+export function MarkdownHelp(props: { onClick: () => void; mode: HelpMode }) {
+  let content: JSX.Element | null;
+
+  switch (props.mode) {
+    case 'preview':
+      content = <SanitizeMessage />;
+      break;
+    case 'editor':
+      content = <CheatSheetMessage onClick={props.onClick} />;
+      break;
+    case 'zen':
+      content = (
+        <Stack flexDirection="column" spacing="spacing2Xs" alignItems="flex-start">
+          <CheatSheetMessage onClick={props.onClick} />
+          <SanitizeMessage />
+        </Stack>
+      );
+      break;
+    default:
+      content = null;
+      throw new Error(`Invalid HelpMode provided in MarkdownHelp: ${props.mode}`);
+  }
+
+  return (
+    <Paragraph marginBottom="none" className={styles.help}>
+      {content}
     </Paragraph>
   );
 }

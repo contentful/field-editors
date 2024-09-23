@@ -14,8 +14,8 @@ import '@contentful/field-editor-date/styles/styles.css';
 import { Field, FieldWrapper } from 'packages/default-field-editors';
 
 const fieldEditor = (
-  <FieldWrapper sdk={fieldExtensionSdk} name={fieldName}>
-    <Field sdk={fieldExtensionSdk} widgetId="singleLine" />
+  <FieldWrapper sdk={FieldAppSDK} name={fieldName}>
+    <Field sdk={FieldAppSDK} widgetId="singleLine" />
   </FieldWrapper>
 );
 ```

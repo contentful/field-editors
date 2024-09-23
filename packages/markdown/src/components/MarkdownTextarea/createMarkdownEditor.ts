@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { EditorDirection } from '../../types';
 import * as CodeMirrorWrapper from './CodeMirrorWrapper';
 import * as Commands from './MarkdownCommands';
-import { EditorDirection } from '../../types';
 
 export function createMarkdownEditor(
   host: HTMLElement,
@@ -25,9 +25,11 @@ export function createMarkdownEditor(
     actions: Commands.create(editor),
     history: {
       hasUndo: function () {
+        // @ts-expect-error
         return editor.getHistorySize('undo') > 0;
       },
       hasRedo: function () {
+        // @ts-expect-error
         return editor.getHistorySize('redo') > 0;
       },
     },

@@ -1,55 +1,24 @@
----
-name: Rating
-route: /rating
-menu: Editors
----
+import { Canvas, Meta, Markdown, Story, Controls } from '@storybook/blocks';
+import * as EditorStories from '../stories/RatingEditor.stories';
 
-import Readme from '../README.md';
+import Readme from '../README.md?raw';
 
-<Readme />
+<Markdown>{Readme}</Markdown>
 
-import { Playground, Props } from 'docz';
-import { RatingEditor } from './RatingEditor.tsx';
-import { createFakeFieldAPI, ActionsPlayground } from '@contentful/field-editor-test-utils';
+<Meta of={EditorStories} />
 
 ## In Action
 
-<Playground>
-  {() => {
-    const [field, mitt] = createFakeFieldAPI();
-    return (
-      <div>
-        <RatingEditor field={field} isInitiallyDisabled={false} />
-        <ActionsPlayground mitt={mitt} />
-      </div>
-    );
-  }}
-</Playground>
+<Story of={EditorStories.Default} />
 
 ## Disabled
 
-<Playground>
-  {() => {
-    const [field] = createFakeFieldAPI();
-    return <RatingEditor field={field} isInitiallyDisabled />;
-  }}
-</Playground>
+<Story of={EditorStories.Disabled} />
 
 ## More stars
 
-<Playground>
-  {() => {
-    const [field] = createFakeFieldAPI();
-    return (
-      <RatingEditor
-        field={field}
-        isInitiallyDisabled={false}
-        parameters={{ instance: { stars: 20 } }}
-      />
-    );
-  }}
-</Playground>
+<Story of={EditorStories.MoreStars} />
 
 ## Props
 
-<Props of={RatingEditor} />
+<Controls />

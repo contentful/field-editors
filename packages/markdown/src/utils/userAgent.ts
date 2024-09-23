@@ -6,7 +6,7 @@ const platform = get(window, 'navigator.platform', '');
 let ctrlKey = 'Ctrl';
 
 const tests = {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/ban-ts-comment
   // @ts-ignore ignore missing MSStream
   ios: /(iphone os|ipad|iphone|ipod)/i.test(userAgent) && !window.MSStream,
 };

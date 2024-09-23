@@ -1,10 +1,12 @@
-import React from 'react';
-import { render, configure, cleanup } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
-import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
-import type { FieldExtensionSDK } from '@contentful/field-editor-shared';
-import { Field } from './Field';
+import * as React from 'react';
+
 import { SingleEntryReferenceEditor } from '@contentful/field-editor-reference';
+import type { FieldAppSDK } from '@contentful/field-editor-shared';
+import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
+import '@testing-library/jest-dom/extend-expect';
+import { cleanup, configure, render } from '@testing-library/react';
+
+import { Field } from './Field';
 
 configure({
   testIdAttribute: 'data-test-id',
@@ -16,7 +18,7 @@ jest.mock('@contentful/field-editor-reference', () => ({
 
 const getSdk = (customize?: (field: any) => any, initialValue?: any) => {
   const [field] = createFakeFieldAPI(customize, initialValue);
-  const sdk: FieldExtensionSDK = {
+  const sdk: FieldAppSDK = {
     field,
     locales: createFakeLocalesAPI((locales) => {
       locales.available.push('de');
@@ -83,7 +85,7 @@ describe('Field', () => {
       />
     );
 
-    expect(container.querySelector('input')?.value).toEqual('english value');
+    expect(container.querySelector('input')?.value).toBe('english value');
 
     rerender(
       <Field
@@ -95,6 +97,6 @@ describe('Field', () => {
       />
     );
 
-    expect(container.querySelector('input')?.value).toEqual('german value');
+    expect(container.querySelector('input')?.value).toBe('german value');
   });
 });

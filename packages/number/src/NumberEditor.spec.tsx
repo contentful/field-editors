@@ -1,55 +1,122 @@
-import React from 'react';
-import identity from 'lodash/identity';
-import { render, configure, cleanup, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
+import * as React from 'react';
+
 import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
+import '@testing-library/jest-dom/extend-expect';
+import { cleanup, configure, render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import { NumberEditor } from './NumberEditor';
 
 configure({
   testIdAttribute: 'data-test-id',
 });
 
-jest.mock(
-  'lodash/throttle',
-  () => ({
-    default: identity,
-  }),
-  { virtual: true }
-);
+function createField({
+  initialValue,
+  type = 'Integer',
+}: {
+  initialValue?: number;
+  type?: 'Number' | 'Integer';
+}) {
+  const [field] = createFakeFieldAPI((field) => {
+    jest.spyOn(field, 'setValue');
+    jest.spyOn(field, 'removeValue');
+    jest.spyOn(field, 'setInvalid');
+    return {
+      ...field,
+      type,
+    };
+  }, initialValue);
+  return field;
+}
 
 describe('NumberEditor', () => {
   afterEach(cleanup);
 
-  it('calls setValue if user select on default option', () => {
-    const initialValue = 42;
-    const [field] = createFakeFieldAPI((field) => {
-      jest.spyOn(field, 'setValue');
-      jest.spyOn(field, 'removeValue');
-      jest.spyOn(field, 'setInvalid');
-      return {
-        ...field,
-        type: 'Integer',
-      };
-    }, initialValue);
+  it('sets initial value', () => {
+    const field = createField({ initialValue: 42 });
+    render(<NumberEditor field={field} isInitiallyDisabled={false} />);
+    const $input = screen.getByTestId('number-editor-input');
 
-    const { getByTestId } = render(<NumberEditor field={field} isInitiallyDisabled={false} />);
+    expect($input).toHaveValue('42');
+  });
 
-    const $input = getByTestId('number-editor-input');
+  it('calls setValue when user inputs valid numbers', async () => {
+    const field = createField({});
+    render(<NumberEditor field={field} isInitiallyDisabled={false} />);
+    const $input = screen.getByTestId('number-editor-input');
 
-    expect($input).toHaveValue(42);
+    userEvent.type($input, '22');
+    await waitFor(() => {
+      expect(field.setValue).toHaveBeenCalledWith(22);
+    });
+  });
 
-    fireEvent.change($input, { target: { value: 'some text' } });
-    expect(field.setValue).toHaveBeenCalledTimes(0);
-    expect(field.removeValue).toHaveBeenCalledTimes(1);
+  it('calls setValue when user inputs "0"', async () => {
+    const field = createField({});
+    render(<NumberEditor field={field} isInitiallyDisabled={false} />);
+    const $input = screen.getByTestId('number-editor-input');
 
-    fireEvent.change($input, { target: { value: '22' } });
-    expect(field.setValue).toHaveBeenCalledWith(22);
+    userEvent.type($input, '0');
+    await waitFor(() => {
+      expect(field.setValue).toHaveBeenCalledWith(0);
+    });
+  });
 
-    fireEvent.change($input, { target: { value: '44.2' } });
-    expect(field.setValue).toHaveBeenCalledTimes(1);
+  it('when Number type it calls setValue for every valid state', async () => {
+    const field = createField({ type: 'Number' });
+    render(<NumberEditor field={field} isInitiallyDisabled={false} />);
+    const $input = screen.getByTestId('number-editor-input');
 
-    expect(field.removeValue).toHaveBeenCalledTimes(1);
-    fireEvent.change($input, { target: { value: '' } });
-    expect(field.removeValue).toHaveBeenCalledTimes(2);
+    // Testing that `4`, `44`, and `44.2` gets set as valid values while the
+    // invalid state `44.` does not get set.
+
+    userEvent.type($input, '4');
+    await waitFor(() => {
+      expect(field.setValue).toHaveBeenCalledWith(4);
+    });
+
+    userEvent.type($input, '4');
+    await waitFor(() => {
+      expect(field.setValue).toHaveBeenCalledWith(44);
+    });
+
+    userEvent.type($input, '.');
+    await waitFor(() => {
+      // `44.` does not get set
+      expect(field.setValue).toHaveBeenLastCalledWith(44);
+    });
+
+    userEvent.type($input, '2');
+    await waitFor(() => {
+      expect(field.setValue).toHaveBeenCalledWith(44.2);
+    });
+
+    expect(field.setValue).toHaveBeenCalledTimes(3);
+  });
+
+  it('does not call setValue when inputting invalid numbers', () => {
+    const field = createField({});
+    render(<NumberEditor field={field} isInitiallyDisabled={false} />);
+    const $input = screen.getByTestId('number-editor-input');
+
+    userEvent.type($input, 'invalid');
+    expect(field.setValue).not.toHaveBeenCalled();
+  });
+
+  it('calls removeValue when clearing the input', async () => {
+    const field = createField({ initialValue: 42 });
+    render(<NumberEditor field={field} isInitiallyDisabled={false} />);
+    const $input = screen.getByTestId('number-editor-input');
+
+    expect($input).toHaveValue('42');
+
+    userEvent.clear($input);
+    await waitFor(() => {
+      expect($input).toHaveValue('');
+      expect(field.setValue).not.toHaveBeenCalled();
+      expect(field.removeValue).toHaveBeenCalledTimes(1);
+      expect(field.removeValue).toHaveBeenLastCalledWith();
+    });
   });
 });

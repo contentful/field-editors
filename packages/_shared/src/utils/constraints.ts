@@ -6,6 +6,7 @@
  */
 
 import isNumber from 'lodash/isNumber';
+
 import { ValidationType } from '../types';
 
 export function fromFieldValidations(

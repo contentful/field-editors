@@ -1,21 +1,14 @@
 import * as React from 'react';
-import identity from 'lodash/identity';
-import { render, configure, cleanup, wait, fireEvent } from '@testing-library/react';
+
+import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
+import { cleanup, configure, fireEvent, render, waitFor } from '@testing-library/react';
+
 import '@testing-library/jest-dom/extend-expect';
 import { SlugEditor } from './SlugEditor';
-import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
 
 configure({
   testIdAttribute: 'data-test-id',
 });
-
-jest.mock(
-  'lodash/throttle',
-  () => ({
-    default: identity,
-  }),
-  { virtual: true }
-);
 
 jest.mock('use-debounce', () => ({
   useDebounce: (text: string) => [text],
@@ -105,13 +98,13 @@ describe('SlugEditor', () => {
 
       render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />);
 
-      await wait();
-
-      expect(field.setValue).not.toHaveBeenCalled();
-      expect(titleField.onValueChanged).toHaveBeenCalledWith('en-US', expect.any(Function));
-      expect(sdk.space.getEntries).not.toHaveBeenCalled();
-      expect(sdk.entry.fields['title-id'].getValue).toHaveBeenCalledTimes(1);
-      expect(sdk.entry.getSys).toHaveBeenCalledTimes(2);
+      await waitFor(() => {
+        expect(field.setValue).not.toHaveBeenCalled();
+        expect(titleField.onValueChanged).toHaveBeenCalledWith('en-US', expect.any(Function));
+        expect(sdk.space.getEntries).not.toHaveBeenCalled();
+        expect(sdk.entry.fields['title-id'].getValue).toHaveBeenCalledTimes(1);
+        expect(sdk.entry.getSys).toHaveBeenCalledTimes(2);
+      });
     });
 
     it('when title and slug are the same field', async () => {
@@ -121,10 +114,10 @@ describe('SlugEditor', () => {
 
       render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />);
 
-      await wait();
-
-      expect(titleField.onValueChanged).not.toHaveBeenCalled();
-      expect(field.setValue).not.toHaveBeenCalled();
+      await waitFor(() => {
+        expect(titleField.onValueChanged).not.toHaveBeenCalled();
+        expect(field.setValue).not.toHaveBeenCalled();
+      });
     });
 
     it('when a saved slug is different from a title at the render', async () => {
@@ -135,10 +128,10 @@ describe('SlugEditor', () => {
 
       render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />);
 
-      await wait();
-
-      expect(titleField.onValueChanged).toHaveBeenCalledWith('en-US', expect.any(Function));
-      expect(field.setValue).not.toHaveBeenCalled();
+      await waitFor(() => {
+        expect(titleField.onValueChanged).toHaveBeenCalledWith('en-US', expect.any(Function));
+        expect(field.setValue).not.toHaveBeenCalled();
+      });
     });
   });
 
@@ -165,21 +158,21 @@ describe('SlugEditor', () => {
         <SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />
       );
 
-      await wait();
-
-      expect(titleField.onValueChanged).toHaveBeenCalledWith('en-US', expect.any(Function));
-      expect(sdk.space.getEntries).toHaveBeenLastCalledWith({
-        content_type: 'content-type-id',
-        'fields.slug-id.en-US': 'slug-value',
-        limit: 0,
-        'sys.id[ne]': 'entry-id',
-        'sys.publishedAt[exists]': true,
+      await waitFor(() => {
+        expect(titleField.onValueChanged).toHaveBeenCalledWith('en-US', expect.any(Function));
+        expect(sdk.space.getEntries).toHaveBeenLastCalledWith({
+          content_type: 'content-type-id',
+          'fields.slug-id.en-US': 'slug-value',
+          limit: 0,
+          'sys.id[ne]': 'entry-id',
+          'sys.publishedAt[exists]': true,
+        });
+        expect(sdk.space.getEntries).toHaveBeenCalledTimes(1);
+        expect(queryByTestId('slug-editor-spinner')).not.toBeInTheDocument();
+        expect(
+          queryByText('This slug has already been published in another entry')
+        ).not.toBeInTheDocument();
       });
-      expect(sdk.space.getEntries).toHaveBeenCalledTimes(1);
-      expect(queryByTestId('slug-editor-spinner')).not.toBeInTheDocument();
-      expect(
-        queryByText('This slug has already been published in another entry')
-      ).not.toBeInTheDocument();
     });
 
     it('if it is not published', async () => {
@@ -204,45 +197,45 @@ describe('SlugEditor', () => {
         <SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />
       );
 
-      await wait();
+      await waitFor(() => {
+        expect(titleField.onValueChanged).toHaveBeenCalledWith('en-US', expect.any(Function));
+        expect(sdk.space.getEntries).toHaveBeenLastCalledWith({
+          content_type: 'content-type-id',
+          'fields.slug-id.en-US': 'slug-value',
+          limit: 0,
+          'sys.id[ne]': 'entry-id',
+          'sys.publishedAt[exists]': true,
+        });
+        expect(sdk.space.getEntries).toHaveBeenCalledTimes(1);
 
-      expect(titleField.onValueChanged).toHaveBeenCalledWith('en-US', expect.any(Function));
-      expect(sdk.space.getEntries).toHaveBeenLastCalledWith({
-        content_type: 'content-type-id',
-        'fields.slug-id.en-US': 'slug-value',
-        limit: 0,
-        'sys.id[ne]': 'entry-id',
-        'sys.publishedAt[exists]': true,
+        expect(queryByTestId('slug-editor-spinner')).not.toBeInTheDocument();
+        expect(
+          queryByText('This slug has already been published in another entry')
+        ).toBeInTheDocument();
+
+        expect(getByTestId('cf-ui-text-input')).toHaveValue('slug-value');
       });
-      expect(sdk.space.getEntries).toHaveBeenCalledTimes(1);
-
-      expect(queryByTestId('slug-editor-spinner')).not.toBeInTheDocument();
-      expect(
-        queryByText('This slug has already been published in another entry')
-      ).toBeInTheDocument();
-
-      expect(getByTestId('cf-ui-text-input')).toHaveValue('slug-value');
 
       sdk.space.getEntries.mockResolvedValue({ total: 0 });
 
       fireEvent.change(getByTestId('cf-ui-text-input'), { target: { value: '123' } });
 
-      await wait();
+      await waitFor(() => {
+        expect(field.setValue).toHaveBeenCalledTimes(1);
+        expect(field.setValue).toHaveBeenCalledWith('123');
+        expect(sdk.space.getEntries).toHaveBeenCalledTimes(2);
+        expect(sdk.space.getEntries).toHaveBeenLastCalledWith({
+          content_type: 'content-type-id',
+          'fields.slug-id.en-US': '123',
+          limit: 0,
+          'sys.id[ne]': 'entry-id',
+          'sys.publishedAt[exists]': true,
+        });
 
-      expect(field.setValue).toHaveBeenCalledTimes(1);
-      expect(field.setValue).toHaveBeenCalledWith('123');
-      expect(sdk.space.getEntries).toHaveBeenCalledTimes(2);
-      expect(sdk.space.getEntries).toHaveBeenLastCalledWith({
-        content_type: 'content-type-id',
-        'fields.slug-id.en-US': '123',
-        limit: 0,
-        'sys.id[ne]': 'entry-id',
-        'sys.publishedAt[exists]': true,
+        expect(
+          queryByText('This slug has already been published in another entry')
+        ).not.toBeInTheDocument();
       });
-
-      expect(
-        queryByText('This slug has already been published in another entry')
-      ).not.toBeInTheDocument();
     });
   });
 
@@ -255,13 +248,13 @@ describe('SlugEditor', () => {
 
       render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={true} />);
 
-      await wait();
-
-      expect(field.setValue).toHaveBeenCalled();
-      expect(titleField.onValueChanged).toHaveBeenCalledWith('en-US', expect.any(Function));
-      expect(sdk.space.getEntries).toHaveBeenCalled();
-      expect(sdk.entry.fields['title-id'].getValue).toHaveBeenCalledTimes(1);
-      expect(sdk.entry.getSys).toHaveBeenCalledTimes(2);
+      await waitFor(() => {
+        expect(field.setValue).toHaveBeenCalled();
+        expect(titleField.onValueChanged).toHaveBeenCalledWith('en-US', expect.any(Function));
+        expect(sdk.space.getEntries).toHaveBeenCalled();
+        expect(sdk.entry.fields['title-id'].getValue).toHaveBeenCalledTimes(1);
+        expect(sdk.entry.getSys).toHaveBeenCalledTimes(2);
+      });
     });
 
     it('should generate unique value with date if title is empty', async () => {
@@ -272,25 +265,25 @@ describe('SlugEditor', () => {
 
       render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />);
 
-      await wait();
-
-      expect(titleField.onValueChanged).toHaveBeenCalledWith('en-US', expect.any(Function));
-      expect(field.setValue).toHaveBeenCalledTimes(1);
-      expect(field.setValue).toHaveBeenLastCalledWith('untitled-entry-2020-01-24-at-15-33-47');
+      await waitFor(() => {
+        expect(titleField.onValueChanged).toHaveBeenCalledWith('en-US', expect.any(Function));
+        expect(field.setValue).toHaveBeenCalledTimes(1);
+        expect(field.setValue).toHaveBeenLastCalledWith('untitled-entry-2020-01-24-at-15-33-47');
+      });
 
       await sdk.entry.fields['title-id'].setValue('Hello world!');
-      await wait();
-
-      expect(field.setValue).toHaveBeenCalledTimes(2);
-      expect(field.setValue).toHaveBeenLastCalledWith('hello-world');
-      expect(sdk.space.getEntries).toHaveBeenCalledTimes(2);
+      await waitFor(() => {
+        expect(field.setValue).toHaveBeenCalledTimes(2);
+        expect(field.setValue).toHaveBeenLastCalledWith('hello-world');
+        expect(sdk.space.getEntries).toHaveBeenCalledTimes(2);
+      });
 
       await sdk.entry.fields['title-id'].setValue('фраза написанная по русски');
-      await wait();
-
-      expect(field.setValue).toHaveBeenCalledTimes(3);
-      expect(field.setValue).toHaveBeenLastCalledWith('fraza-napisannaya-po-russki');
-      expect(sdk.space.getEntries).toHaveBeenCalledTimes(3);
+      await waitFor(() => {
+        expect(field.setValue).toHaveBeenCalledTimes(3);
+        expect(field.setValue).toHaveBeenLastCalledWith('fraza-napisannaya-po-russki');
+        expect(sdk.space.getEntries).toHaveBeenCalledTimes(3);
+      });
     });
 
     it('should generate value from title if it is not empty', async () => {
@@ -301,18 +294,18 @@ describe('SlugEditor', () => {
 
       render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />);
 
-      await wait();
-
-      expect(titleField.onValueChanged).toHaveBeenCalledWith('en-US', expect.any(Function));
-      expect(field.setValue).toHaveBeenCalledTimes(1);
-      expect(field.setValue).toHaveBeenLastCalledWith('this-is-initial-title-value');
+      await waitFor(() => {
+        expect(titleField.onValueChanged).toHaveBeenCalledWith('en-US', expect.any(Function));
+        expect(field.setValue).toHaveBeenCalledTimes(1);
+        expect(field.setValue).toHaveBeenLastCalledWith('this-is-initial-title-value');
+      });
 
       await sdk.entry.fields['title-id'].setValue('Hello world!');
-      await wait();
-
-      expect(field.setValue).toHaveBeenCalledTimes(2);
-      expect(field.setValue).toHaveBeenLastCalledWith('hello-world');
-      expect(sdk.space.getEntries).toHaveBeenCalledTimes(2);
+      await waitFor(() => {
+        expect(field.setValue).toHaveBeenCalledTimes(2);
+        expect(field.setValue).toHaveBeenLastCalledWith('hello-world');
+        expect(sdk.space.getEntries).toHaveBeenCalledTimes(2);
+      });
     });
 
     it('should stop tracking value after user intentionally changes slug value', async () => {
@@ -325,31 +318,34 @@ describe('SlugEditor', () => {
         <SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />
       );
 
-      await wait();
+      await waitFor(async () => {
+        await sdk.entry.fields['title-id'].setValue('Hello world!');
+      });
 
-      await sdk.entry.fields['title-id'].setValue('Hello world!');
-      await wait();
-
-      expect(titleField.onValueChanged).toHaveBeenCalledWith('en-US', expect.any(Function));
-      expect(field.setValue).toHaveBeenCalledTimes(2);
-      expect(field.setValue).toHaveBeenCalledWith('untitled-entry-2020-01-24-at-15-33-47');
-      expect(field.setValue).toHaveBeenLastCalledWith('hello-world');
-      expect(sdk.space.getEntries).toHaveBeenCalledTimes(2);
+      await waitFor(() => {
+        expect(titleField.onValueChanged).toHaveBeenCalledWith('en-US', expect.any(Function));
+        expect(field.setValue).toHaveBeenCalledTimes(2);
+        expect(field.setValue).toHaveBeenCalledWith('untitled-entry-2020-01-24-at-15-33-47');
+        expect(field.setValue).toHaveBeenLastCalledWith('hello-world');
+        expect(sdk.space.getEntries).toHaveBeenCalledTimes(2);
+      });
 
       fireEvent.change(getByTestId('cf-ui-text-input'), { target: { value: 'new-custom-slug' } });
 
-      await wait();
-
-      expect(field.setValue).toHaveBeenCalledTimes(3);
-      expect(field.setValue).toHaveBeenLastCalledWith('new-custom-slug');
+      await waitFor(() => {
+        expect(field.setValue).toHaveBeenCalledTimes(3);
+        expect(field.setValue).toHaveBeenLastCalledWith('new-custom-slug');
+      });
 
       await sdk.entry.fields['title-id'].setValue('I decided to update my title');
-      await wait();
-      expect(field.setValue).toHaveBeenCalledTimes(3);
+      await waitFor(() => {
+        expect(field.setValue).toHaveBeenCalledTimes(3);
+      });
 
       await sdk.entry.fields['title-id'].setValue('I decided to update my title again');
-      await wait();
-      expect(field.setValue).toHaveBeenCalledTimes(3);
+      await waitFor(() => {
+        expect(field.setValue).toHaveBeenCalledTimes(3);
+      });
     });
 
     it('should start tracking again after potential slug equals real one', async () => {
@@ -362,16 +358,19 @@ describe('SlugEditor', () => {
         <SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />
       );
 
-      await wait();
+      await waitFor(async () => {
+        await sdk.entry.fields['title-id'].setValue('ABC DEF');
+      });
 
       /*
         Type title "ABC DEF"
           -> Slug changes to "abc-def"
       */
-      await sdk.entry.fields['title-id'].setValue('ABC DEF');
-      await wait();
-      expect(field.setValue).toHaveBeenLastCalledWith('abc-def');
-      expect(field.setValue).toHaveBeenCalledTimes(2);
+
+      await waitFor(() => {
+        expect(field.setValue).toHaveBeenLastCalledWith('abc-def');
+        expect(field.setValue).toHaveBeenCalledTimes(2);
+      });
 
       /*
         Change slug to custom one "abc"
@@ -383,21 +382,24 @@ describe('SlugEditor', () => {
         -> Slug does not change
       */
       await sdk.entry.fields['title-id'].setValue('ABC D');
-      await wait();
-      expect(field.setValue).toHaveBeenLastCalledWith('abc');
-      expect(field.setValue).toHaveBeenCalledTimes(3);
+      await waitFor(() => {
+        expect(field.setValue).toHaveBeenLastCalledWith('abc');
+        expect(field.setValue).toHaveBeenCalledTimes(3);
+      });
 
       /*
       Change title to "ABC" first and change title to "ABC ABC"
         -> Slug should change to "abc-abc" as it should have started tracking again
       */
-      await sdk.entry.fields['title-id'].setValue('ABC');
-      await sdk.entry.fields['title-id'].setValue('ABC ABC');
-      await wait();
-      expect(field.setValue).toHaveBeenLastCalledWith('abc-abc');
-      expect(field.setValue).toHaveBeenCalledTimes(4);
+      await waitFor(async () => {
+        await sdk.entry.fields['title-id'].setValue('ABC');
+        await sdk.entry.fields['title-id'].setValue('ABC ABC');
+      });
 
-      await wait();
+      await waitFor(() => {
+        expect(field.setValue).toHaveBeenLastCalledWith('abc-abc');
+        expect(field.setValue).toHaveBeenCalledTimes(4);
+      });
     });
   });
 
@@ -420,11 +422,11 @@ describe('SlugEditor', () => {
 
       render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />);
 
-      await wait();
-
-      expect(field.setValue).toHaveBeenCalledWith('untitled-entry-2020-01-24-at-15-33-47');
-      expect(titleField.onValueChanged).toHaveBeenCalledWith('ru-RU', expect.any(Function));
-      expect(titleField.onValueChanged).toHaveBeenCalledWith('de-DE', expect.any(Function));
+      await waitFor(() => {
+        expect(field.setValue).toHaveBeenCalledWith('untitled-entry-2020-01-24-at-15-33-47');
+        expect(titleField.onValueChanged).toHaveBeenCalledWith('ru-RU', expect.any(Function));
+        expect(titleField.onValueChanged).toHaveBeenCalledWith('de-DE', expect.any(Function));
+      });
     });
 
     it('locale is optional and has a fallback then it should track only current locale changes', async () => {
@@ -445,11 +447,11 @@ describe('SlugEditor', () => {
 
       render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />);
 
-      await wait();
-
-      expect(field.setValue).not.toHaveBeenCalled();
-      expect(titleField.onValueChanged).toHaveBeenCalledWith('ru-RU', expect.any(Function));
-      expect(titleField.onValueChanged).not.toHaveBeenCalledWith('de-DE', expect.any(Function));
+      await waitFor(() => {
+        expect(field.setValue).not.toHaveBeenCalled();
+        expect(titleField.onValueChanged).toHaveBeenCalledWith('ru-RU', expect.any(Function));
+        expect(titleField.onValueChanged).not.toHaveBeenCalledWith('de-DE', expect.any(Function));
+      });
     });
   });
 
@@ -461,13 +463,14 @@ describe('SlugEditor', () => {
 
     render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />);
 
-    await wait();
+    await waitFor(async () => {
+      await sdk.entry.fields['title-id'].setValue('a'.repeat(80));
+    });
 
-    await sdk.entry.fields['title-id'].setValue('a'.repeat(80));
-    await wait();
-
-    const expectedSlug = 'a'.repeat(75);
-    expect(field.setValue).toHaveBeenLastCalledWith(expectedSlug);
+    await waitFor(() => {
+      const expectedSlug = 'a'.repeat(75);
+      expect(field.setValue).toHaveBeenLastCalledWith(expectedSlug);
+    });
   });
 
   it('slug suggestion does not contain cut-off words', async () => {
@@ -478,13 +481,14 @@ describe('SlugEditor', () => {
 
     render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />);
 
-    await wait();
+    await waitFor(async () => {
+      await sdk.entry.fields['title-id'].setValue(`one two three ${'a'.repeat(80)}`);
+    });
 
-    await sdk.entry.fields['title-id'].setValue(`one two three ${'a'.repeat(80)}`);
-    await wait();
-
-    const expectedSlug = 'one-two-three';
-    expect(field.setValue).toHaveBeenLastCalledWith(expectedSlug);
+    await waitFor(() => {
+      const expectedSlug = 'one-two-three';
+      expect(field.setValue).toHaveBeenLastCalledWith(expectedSlug);
+    });
   });
 
   it('should subscribe for changes in custom field id', async () => {
@@ -503,18 +507,18 @@ describe('SlugEditor', () => {
       />
     );
 
-    await wait();
-
-    expect(titleField.onValueChanged).not.toHaveBeenCalled();
-    expect(descriptionField.onValueChanged).toHaveBeenCalledWith('en-US', expect.any(Function));
-    expect(field.setValue).toHaveBeenCalledTimes(1);
-    expect(field.setValue).toHaveBeenLastCalledWith('this-is-initial-description-value');
+    await waitFor(() => {
+      expect(titleField.onValueChanged).not.toHaveBeenCalled();
+      expect(descriptionField.onValueChanged).toHaveBeenCalledWith('en-US', expect.any(Function));
+      expect(field.setValue).toHaveBeenCalledTimes(1);
+      expect(field.setValue).toHaveBeenLastCalledWith('this-is-initial-description-value');
+    });
 
     await sdk.entry.fields['description-id'].setValue('Hello world!');
-    await wait();
-
-    expect(field.setValue).toHaveBeenCalledTimes(2);
-    expect(field.setValue).toHaveBeenLastCalledWith('hello-world');
-    expect(sdk.space.getEntries).toHaveBeenCalledTimes(2);
+    await waitFor(() => {
+      expect(field.setValue).toHaveBeenCalledTimes(2);
+      expect(field.setValue).toHaveBeenLastCalledWith('hello-world');
+      expect(sdk.space.getEntries).toHaveBeenCalledTimes(2);
+    });
   });
 });

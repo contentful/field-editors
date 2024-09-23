@@ -1,17 +1,23 @@
-import React from 'react';
-import { css, cx } from 'emotion';
-import { DialogsAPI, DialogExtensionSDK } from '@contentful/app-sdk';
-import { MarkdownDialogType, MarkdownDialogsParams, PreviewComponents } from '../types';
-import { InitializedEditorType } from '../components/MarkdownTextarea/MarkdownTextarea';
-import { MarkdownToolbar } from '../components/MarkdownToolbar';
-import { MarkdownTextarea } from '../components/MarkdownTextarea/MarkdownTextarea';
-import { MarkdownPreview } from '../components/MarkdownPreview';
-import { MarkdownBottomBar, MarkdownHelp } from '../components/MarkdownBottomBar';
-import { createMarkdownActions } from '../MarkdownActions';
-import { openCheatsheetModal } from '../dialogs/CheatsheetModalDialog';
-import tokens from '@contentful/f36-tokens';
+import * as React from 'react';
 
-import { ChevronRightIcon, ChevronLeftIcon } from '@contentful/f36-icons';
+import { DialogAppSDK, DialogsAPI } from '@contentful/app-sdk';
+import { Grid } from '@contentful/f36-components';
+import { ChevronLeftIcon, ChevronRightIcon } from '@contentful/f36-icons';
+import tokens from '@contentful/f36-tokens';
+import { css, cx } from 'emotion';
+
+import { MarkdownBottomBar, MarkdownHelp } from '../components/MarkdownBottomBar';
+import MarkdownPreviewSkeleton from '../components/MarkdownPreviewSkeleton';
+import {
+  InitializedEditorType,
+  MarkdownTextarea,
+} from '../components/MarkdownTextarea/MarkdownTextarea';
+import { MarkdownToolbar } from '../components/MarkdownToolbar';
+import { openCheatsheetModal } from '../dialogs/CheatsheetModalDialog';
+import { createMarkdownActions } from '../MarkdownActions';
+import { MarkdownDialogsParams, MarkdownDialogType, PreviewComponents } from '../types';
+
+const MarkdownPreview = React.lazy(() => import('../components/MarkdownPreview'));
 
 export type ZenModeResult = {
   value: string;
@@ -26,79 +32,65 @@ type ZenModeDialogProps = {
   onClose: (result: ZenModeResult) => void;
   initialValue: string;
   locale: string;
-  sdk: DialogExtensionSDK;
+  sdk: DialogAppSDK;
   previewComponents?: PreviewComponents;
 };
 
 const styles = {
   root: css({
-    position: 'fixed',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
+    display: 'grid',
+    gridTemplateRows: 'min-content 1fr min-content',
+    gridTemplateColumns: '1fr 1px 1fr',
+    height: '85vh',
   }),
   topSplit: css({
-    position: 'fixed',
-    top: 0,
-    height: '48px',
-    left: 0,
-    right: 0,
+    gridRow: '1 / 2',
+    gridColumn: '1 / 4',
   }),
   bottomSplit: css({
-    position: 'fixed',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: '36px',
+    gridRow: '3 / 4',
+    gridColumn: '1 / 4',
   }),
   editorSplit: css({
-    width: '50%',
-    position: 'fixed',
-    top: '48px',
-    left: 0,
-    bottom: '36px',
-    overflowX: 'hidden',
+    gridRow: '2 / 3',
+    gridColumn: '1 / 2',
     overflowY: 'scroll',
   }),
   editorSplitFullscreen: css({
-    left: 0,
-    right: 0,
-    width: '100%',
+    gridRow: '2 / 3',
+    gridColumn: '1 / 4',
+    overflowY: 'scroll',
   }),
   previewSplit: css({
-    width: '50%',
-    position: 'fixed',
-    top: '48px',
-    right: 0,
-    bottom: '36px',
-    overflowX: 'hidden',
+    gridRow: '2 / 3',
+    gridColumn: '3 / 4',
     overflowY: 'scroll',
   }),
   separator: css({
-    position: 'fixed',
-    top: '48px',
-    bottom: '36px',
+    gridRow: '2 / 3',
+    gridColumn: '2 / 3',
+    backgroundColor: tokens.gray400,
     width: '1px',
-    background: tokens.gray400,
-    left: '50%',
   }),
   button: css({
-    position: 'fixed',
     cursor: 'pointer',
     zIndex: 105,
-    top: '49%',
     height: '30px',
     backgroundColor: tokens.gray100,
     border: `1px solid ${tokens.gray400}`,
     padding: 0,
   }),
   hideButton: css({
-    left: '50%',
+    gridRow: '2 / 3',
+    gridColumn: '2 / 3',
+    justifySelf: 'end',
+    alignSelf: 'center',
   }),
   showButton: css({
-    right: 0,
-    borderRightWidth: 0,
+    gridRow: '2 / 3',
+    gridColumn: '3 / 4',
+    justifySelf: 'end',
+    alignSelf: 'center',
   }),
   icon: css({
     verticalAlign: 'middle',
@@ -111,8 +103,9 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
   const [editor, setEditor] = React.useState<InitializedEditorType | null>(null);
 
   React.useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
     props.sdk?.window?.updateHeight('100%' as any);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, []);
 
   // refresh editor right after dialog is opened to avoid disappearing effect
@@ -125,6 +118,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
 
   const actions = React.useMemo(() => {
     return createMarkdownActions({ sdk: props.sdk, editor, locale: props.locale });
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, [editor]);
 
   actions.closeZenMode = () => {
@@ -137,15 +131,16 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
   const direction = props.sdk.locales.direction[props.locale] ?? 'ltr';
 
   return (
-    <div className={styles.root} data-test-id="zen-mode-markdown-editor">
-      <div className={styles.topSplit}>
+    <Grid className={styles.root} data-test-id="zen-mode-markdown-editor">
+      <Grid.Item className={styles.topSplit}>
         <MarkdownToolbar mode="zen" disabled={false} canUploadAssets={false} actions={actions} />
-      </div>
+      </Grid.Item>
 
-      <div
+      <Grid.Item
         className={cx(styles.editorSplit, {
           [styles.editorSplitFullscreen]: showPreview === false,
-        })}>
+        })}
+      >
         <MarkdownTextarea
           mode="zen"
           visible
@@ -162,25 +157,28 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
             });
           }}
         />
-      </div>
+      </Grid.Item>
       {showPreview && (
-        <div className={styles.previewSplit}>
-          <MarkdownPreview
-            direction={direction}
-            mode="zen"
-            value={currentValue}
-            previewComponents={props.previewComponents}
-          />
-        </div>
+        <Grid.Item className={styles.previewSplit}>
+          <React.Suspense fallback={<MarkdownPreviewSkeleton />}>
+            <MarkdownPreview
+              direction={direction}
+              mode="zen"
+              value={currentValue}
+              previewComponents={props.previewComponents}
+            />
+          </React.Suspense>
+        </Grid.Item>
       )}
-      {showPreview && <div className={styles.separator} />}
+      {showPreview && <Grid.Item className={styles.separator} />}
       {showPreview && (
         <button
           className={cx(styles.button, styles.hideButton)}
           aria-label="Hide preview"
           onClick={() => {
             setShowPreview(false);
-          }}>
+          }}
+        >
           <ChevronRightIcon variant="muted" size="tiny" className={styles.icon} />
         </button>
       )}
@@ -190,20 +188,22 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
           aria-label="Show preview"
           onClick={() => {
             setShowPreview(true);
-          }}>
+          }}
+        >
           <ChevronLeftIcon variant="muted" size="tiny" className={styles.icon} />
         </button>
       )}
-      <div className={styles.bottomSplit}>
+      <Grid.Item className={styles.bottomSplit}>
         <MarkdownBottomBar>
           <MarkdownHelp
+            mode="zen"
             onClick={() => {
               openCheatsheetModal(props.sdk.dialogs);
             }}
           />
         </MarkdownBottomBar>
-      </div>
-    </div>
+      </Grid.Item>
+    </Grid>
   );
 };
 
@@ -212,10 +212,9 @@ export const openZenMode = (
   options: { initialValue: string; locale: string }
 ): Promise<ZenModeResult> => {
   return dialogs.openCurrent({
-    width: 'zen' as any, // eslint-disable-line @typescript-eslint/no-explicit-any
+    width: 'fullWidth',
     shouldCloseOnEscapePress: false,
-    minHeight: '100vh',
-    shouldCloseOnOverlayClick: false,
+    shouldCloseOnOverlayClick: true,
     parameters: {
       type: MarkdownDialogType.zenMode,
       initialValue: options.initialValue,

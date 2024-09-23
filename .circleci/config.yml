@@ -1,5 +1,27 @@
 version: 2.1
 
+orbs:
+  vault: contentful/vault@1
+
+executors:
+  linux-node:
+    resource_class: xlarge
+    docker:
+      - image: cimg/node:18.18
+    environment:
+      CYPRESS_INSTALL_BINARY: 0
+  linux-cypress:
+    resource_class: xlarge
+    docker:
+      - image: cypress/browsers:node-18.16.1-chrome-114.0.5735.133-1-ff-114.0.2-edge-114.0.1823.51-1
+    environment:
+      TZ: UTC
+      CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
+
+#  macos:
+#    macos:
+#      xcode: 11.4
+
 cache-key: &cache-key
   key: dependency-cache-primary-{{ arch }}-yarn-packages-{{ checksum ".nvmrc" }}-{{ checksum "yarn.lock" }}
 
@@ -7,71 +29,78 @@ commands:
   yarn_install:
     steps:
       - restore_cache: *cache-key
-      - run: 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc'
       - run: yarn install --prefer-offline --pure-lockfile
       - save_cache:
           <<: *cache-key
           paths:
             - ~/.cache/yarn
+  yarn_serve:
+    steps:
+      - run:
+          command: npx http-server dist -p 9000
+          background: true
+      - run: yarn wait-on -t 60000 http://localhost:9000
 
 jobs:
   lint:
-    docker:
-      - image: cypress/browsers:node12.14.0-chrome79-ff71
-    environment:
-      CYPRESS_INSTALL_BINARY: 0
+    executor: linux-node
     steps:
       - checkout
       - yarn_install
       - run: yarn lint
       - run: yarn build
-      - run: yarn build:apps
       - run: yarn tsc
   unit-tests:
-    docker:
-      - image: cypress/browsers:node12.14.0-chrome79-ff71
-    environment:
-      CYPRESS_INSTALL_BINARY: 0
+    parallelism: 3
+    executor: linux-node
     steps:
       - checkout
       - yarn_install
       - run: yarn build
       - run: yarn test:ci
-  integration-tests:
-    docker:
-      - image: cypress/browsers:node12.14.0-chrome79-ff71
+      - store_test_results:
+          path: reports
+
+  component-tests:
+    parallelism: 3
+    executor: linux-cypress
     steps:
       - checkout
       - yarn_install
       - run: yarn build
       - run:
-          name: Run Cypress tests
-          environment:
-            CYPRESS_RETRIES: 3
+          name: Run cypress component tests
           command: |
-            set -e
-            npm run test:integration
-      - run: npm run merge-report
-      - run: npm run generate-report
-      - store_artifacts:
-          path: cypress/reports
-      - store_artifacts:
-          path: cypress/screenshots
+            TESTFILES=$(circleci tests glob cypress/component/**/*.ts | circleci tests split --split-by=timings --timings-type=filename | tr '\n' ',')
+            npx cypress run --component \
+              --spec "${TESTFILES}" \
+              --reporter junit \
+              --reporter-options "mochaFile=./cypress/reports/component/test-results.[hash].xml" \
+              --browser chrome
+      - vault/get-secrets:
+          template-preset: packages-read
+      - run: |
+          echo "//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_READ_TOKEN}" > ~/.npmrc
+          echo "@contentful:registry=https://npm.pkg.github.com" >> ~/.npmrc
+      - run:
+          name: Format JUnit Reports
+          command: npx @contentful/circleci-orb-tools@2 fix-junit-format --path cypress/reports/component
+      - store_test_results:
+          path: cypress/reports/component
       - store_artifacts:
           path: cypress/videos
+
   release:
-    docker:
-      - image: circleci/node:12
-    environment:
-      CYPRESS_INSTALL_BINARY: 0
+    executor: linux-node
     steps:
       - checkout
-      - add_ssh_keys:
-          fingerprints:
-            - '0a:3c:fe:6b:3d:08:6c:0e:d2:8d:ae:d4:5a:82:89:b3'
-      - run: git config --global user.email "prd-dev-workflows+ecosystem-bot@contentful.com"
-      - run: git config --global user.name "contentful-ecosystem-bot"
       - yarn_install
+      - vault/get-secrets:
+          template-preset: semantic-release
+      - vault/configure-lerna
+      - run: |
+          echo "//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_WRITE_TOKEN}" > ~/.npmrc
+          echo "@contentful:registry=https://npm.pkg.github.com" >> ~/.npmrc
       - run: yarn build
       - run: yarn lerna version --no-private --conventional-commits --create-release github --yes
       - run: yarn lerna publish from-git --yes
@@ -81,14 +110,17 @@ workflows:
   # run on every commit
   commit:
     jobs:
-      - lint
-      - unit-tests
-      - integration-tests
+      - lint:
+          context: vault
+      - unit-tests:
+          context: vault
+      - component-tests:
+          context: vault
       - release:
+          context: vault
           filters:
             branches:
               only: master
           requires:
             - lint
             - unit-tests
-            - integration-tests

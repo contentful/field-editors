@@ -1,9 +1,10 @@
 import React, { useState, useCallback, useEffect } from 'react';
-// eslint-disable-next-line no-restricted-imports
-import moment from 'moment';
-import { css } from 'emotion';
 
+// eslint-disable-next-line -- TODO: move to date-fns
 import { TextInput, Flex } from '@contentful/f36-components';
+import { css } from 'emotion';
+// eslint-disable-next-line no-restricted-imports -- will change
+import moment from 'moment';
 
 export type TimepickerProps = {
   disabled: boolean;
@@ -31,7 +32,7 @@ const validInputFormats = [
 function parseRawInput(raw: string): moment.Moment | null {
   let time: moment.Moment | null = null;
 
-  // eslint-disable-next-line @typescript-eslint/prefer-for-of
+  // eslint-disable-next-line -- TODO: refactor to use for of loop
   for (let i = 0; i < validInputFormats.length; i++) {
     const date = moment(raw, validInputFormats[i]);
     if (date.isValid()) {
@@ -83,7 +84,7 @@ export const TimepickerInput = ({
   };
 
   return (
-    <Flex className={css({ width: '140px' })}>
+    <Flex className={css({ width: '145px' })}>
       <TextInput
         aria-label="Select time"
         placeholder={uses12hClock ? '12:00 AM' : '00:00'}

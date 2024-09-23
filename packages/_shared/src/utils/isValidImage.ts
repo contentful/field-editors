@@ -5,6 +5,7 @@ import { File } from '../typesEntity';
  */
 export function isValidImage(file: File) {
   const validMimeTypes = [
+    'image/avif',
     'image/bmp',
     'image/x-windows-bmp',
     'image/gif',

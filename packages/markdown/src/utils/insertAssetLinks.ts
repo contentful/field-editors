@@ -1,7 +1,7 @@
 import get from 'lodash/get';
 import isObject from 'lodash/isObject';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
 type Asset = any;
 
 type LinkWithMedia = {
@@ -35,6 +35,19 @@ function fileNameToTitle(str: string) {
   return normalizeWhiteSpace(removeExtension(str).replace(/_/g, ' '));
 }
 
+export function replaceAssetDomain(fileUrl: string) {
+  const assetDomainMap: Record<string, string> = {
+    images: 'images.ctfassets.net',
+    assets: 'assets.ctfassets.net',
+    downloads: 'downloads.ctfassets.net',
+    videos: 'videos.ctfassets.net',
+  };
+
+  return fileUrl.replace(/(images|assets|downloads|videos).contentful.com/, (_, p1) => {
+    return assetDomainMap[p1];
+  });
+}
+
 function makeAssetLink(
   asset: Asset,
   { localeCode, fallbackCode, defaultLocaleCode }: Locales
@@ -56,10 +69,12 @@ function makeAssetLink(
       get(asset, ['fields', 'title', defaultLocaleCode]) ||
       fileNameToTitle(file.fileName);
 
+    const fileUrl = replaceAssetDomain(file.url);
+
     return {
       title,
       asset,
-      url: file.url,
+      url: fileUrl,
       // is normally localized and we should not warn about this file
       isLocalized: Boolean(localizedFile),
       // was fallback value used
@@ -67,7 +82,7 @@ function makeAssetLink(
       // it means we used a default locale - we filter empty values
       isFallback: Boolean(fallbackFile),
       // todo: tranform using fromHostname
-      asMarkdown: `![${title}](${file.url})`,
+      asMarkdown: `![${title}](${fileUrl})`,
     };
   } else {
     return null;

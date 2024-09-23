@@ -1,12 +1,15 @@
 import * as React from 'react';
-import arrayMove from 'array-move';
-import { ReferenceValue, ContentEntityType, ContentType } from '../types';
-import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
-import { LinkEntityActions } from '../components';
-import { SortEndHandler, SortStartHandler } from 'react-sortable-hoc';
-import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions';
 import { useCallback } from 'react';
+
+import { DragStartEvent } from '@dnd-kit/core';
+import { arrayMove } from '@dnd-kit/sortable';
+
+import { LinkEntityActions } from '../components';
+import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions';
+import { ReferenceValue, ContentEntityType, ContentType } from '../types';
+import { useSortIDs } from '../utils/useSortIDs';
 import { CustomEntityCardProps } from './customCardTypes';
+import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
 import { useEditorPermissions } from './useEditorPermissions';
 
 type ChildProps = {
@@ -15,14 +18,15 @@ type ChildProps = {
   isDisabled: boolean;
   setValue: (value: ReferenceValue[]) => void;
   allContentTypes: ContentType[];
-  onSortStart: SortStartHandler;
-  onSortEnd: SortEndHandler;
+  onSortStart: (event: DragStartEvent) => void;
+  onSortEnd: ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => void;
   onMove: (oldIndex: number, newIndex: number) => void;
 };
 
 type EditorProps = ReferenceEditorProps &
   Omit<ChildProps, 'onSortStart' | 'onSortEnd' | 'onMove'> & {
     children: (props: ReferenceEditorProps & ChildProps) => React.ReactElement;
+    setIndexToUpdate?: React.Dispatch<React.SetStateAction<number | undefined>>;
   };
 
 function onLinkOrCreate(
@@ -44,7 +48,7 @@ const emptyArray: ReferenceValue[] = [];
 const nullableValue = { sys: { id: 'null-value' } };
 
 function Editor(props: EditorProps) {
-  const { setValue, entityType } = props;
+  const { setValue, entityType, onSortingEnd, setIndexToUpdate } = props;
   const editorPermissions = useEditorPermissions(props);
 
   const items = React.useMemo(() => {
@@ -58,20 +62,32 @@ function Editor(props: EditorProps) {
     );
   }, [props.items]);
 
-  const onSortStart: SortStartHandler = useCallback((_, event) => event.preventDefault(), []);
-  const onSortEnd: SortEndHandler = useCallback(
+  const { rearrangeSortIDs } = useSortIDs(items);
+
+  const onSortStart = useCallback(() => {
+    document.body.classList.add('grabbing');
+  }, []);
+
+  const onSortEnd = useCallback(
     ({ oldIndex, newIndex }) => {
+      // custom callback that is invoked *before* we sort the array
+      // e.g. in Compose we want to sort the references in the referenceMap before re-rendering drag and drop
+      onSortingEnd && onSortingEnd({ oldIndex, newIndex });
       const newItems = arrayMove(items, oldIndex, newIndex);
       setValue(newItems);
+      setIndexToUpdate && setIndexToUpdate(undefined);
+      document.body.classList.remove('grabbing');
     },
-    [items, setValue]
+    [items, onSortingEnd, setIndexToUpdate, setValue]
   );
+
   const onMove = useCallback(
-    (oldIndex, newIndex) => {
+    (oldIndex: number, newIndex: number) => {
       const newItems = arrayMove(items, oldIndex, newIndex);
+      rearrangeSortIDs(oldIndex, newIndex);
       setValue(newItems);
     },
-    [items, setValue]
+    [items, rearrangeSortIDs, setValue]
   );
 
   const onCreate = useCallback(
@@ -98,6 +114,7 @@ function Editor(props: EditorProps) {
       props.renderCustomCard
         ? props.renderCustomCard(cardProps, linkActionsProps, renderDefaultCard)
         : false,
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
     [linkActionsProps]
   );
 
@@ -105,8 +122,8 @@ function Editor(props: EditorProps) {
     <>
       {props.children({
         ...props,
-        onSortStart: onSortStart,
-        onSortEnd: onSortEnd,
+        onSortStart,
+        onSortEnd,
         onMove,
         renderCustomCard: props.renderCustomCard && customCardRenderer,
       })}
@@ -119,6 +136,7 @@ export function MultipleReferenceEditor(
   props: ReferenceEditorProps & {
     entityType: ContentEntityType;
     children: (props: ReferenceEditorProps & ChildProps) => React.ReactElement;
+    setIndexToUpdate?: React.Dispatch<React.SetStateAction<number | undefined>>;
   }
 ) {
   const allContentTypes = props.sdk.space.getCachedContentTypes();

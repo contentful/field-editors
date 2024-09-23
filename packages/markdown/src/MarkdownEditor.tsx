@@ -1,18 +1,24 @@
-import React from 'react';
-import { css } from 'emotion';
+import * as React from 'react';
+
+import { FieldAppSDK } from '@contentful/app-sdk';
 import tokens from '@contentful/f36-tokens';
 import { FieldConnector } from '@contentful/field-editor-shared';
-import { FieldExtensionSDK } from '@contentful/app-sdk';
-import { MarkdownTabs } from './components/MarkdownTabs';
-import { MarkdownToolbar } from './components/MarkdownToolbar';
-import { MarkdownTextarea } from './components/MarkdownTextarea/MarkdownTextarea';
-import { InitializedEditorType } from './components/MarkdownTextarea/MarkdownTextarea';
+import { css } from 'emotion';
+
 import { MarkdownBottomBar, MarkdownHelp } from './components/MarkdownBottomBar';
-import { MarkdownTab, PreviewComponents } from './types';
-import { openCheatsheetModal } from './dialogs/CheatsheetModalDialog';
-import { MarkdownPreview } from './components/MarkdownPreview';
 import { MarkdownConstraints } from './components/MarkdownConstraints';
+import MarkdownPreviewSkeleton from './components/MarkdownPreviewSkeleton';
+import { MarkdownTabs } from './components/MarkdownTabs';
+import {
+  InitializedEditorType,
+  MarkdownTextarea,
+} from './components/MarkdownTextarea/MarkdownTextarea';
+import { MarkdownToolbar } from './components/MarkdownToolbar';
+import { openCheatsheetModal } from './dialogs/CheatsheetModalDialog';
 import { createMarkdownActions } from './MarkdownActions';
+import { MarkdownTab, PreviewComponents } from './types';
+
+const MarkdownPreview = React.lazy(() => import('./components/MarkdownPreview'));
 
 const styles = {
   container: css({
@@ -32,7 +38,7 @@ export interface MarkdownEditorProps {
    */
   minHeight?: string | number;
 
-  sdk: FieldExtensionSDK;
+  sdk: FieldAppSDK;
 
   previewComponents?: PreviewComponents;
   onReady?: Function;
@@ -41,11 +47,13 @@ export interface MarkdownEditorProps {
 export function MarkdownEditor(
   props: MarkdownEditorProps & {
     disabled: boolean;
-    initialValue: string | null | undefined;
+    value: string | null | undefined;
     saveValueToSDK: Function;
+    externalReset?: number;
   }
 ) {
-  const [currentValue, setCurrentValue] = React.useState<string>(props.initialValue ?? '');
+  const prevExternalReset = React.useRef(props.externalReset);
+  const [currentValue, setCurrentValue] = React.useState<string>(props.value ?? '');
   const [selectedTab, setSelectedTab] = React.useState<MarkdownTab>('editor');
   const [editor, setEditor] = React.useState<InitializedEditorType | null>(null);
   const [canUploadAssets, setCanUploadAssets] = React.useState<boolean>(false);
@@ -58,12 +66,14 @@ export function MarkdownEditor(
         editor.refresh();
       }, 1);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, [editor]);
 
   React.useEffect(() => {
     props.sdk.access.can('create', 'Asset').then((value) => {
       setCanUploadAssets(value);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, []);
 
   React.useEffect(() => {
@@ -72,16 +82,26 @@ export function MarkdownEditor(
     }
   }, [editor, props.disabled]);
 
+  React.useEffect(() => {
+    // Received new props from external
+    if (props.externalReset !== prevExternalReset.current) {
+      prevExternalReset.current = props.externalReset;
+      editor?.setContent(props.value ?? '');
+    }
+  }, [props.value, props.externalReset, editor]);
+
   const isActionDisabled = editor === null || props.disabled || selectedTab !== 'editor';
 
   const direction = props.sdk.locales.direction[props.sdk.field.locale] ?? 'ltr';
 
   const actions = React.useMemo(() => {
     return createMarkdownActions({ sdk: props.sdk, editor, locale: props.sdk.field.locale });
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, [editor]);
 
   const openMarkdownHelp = React.useCallback(() => {
     openCheatsheetModal(props.sdk.dialogs);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, []);
 
   return (
@@ -105,7 +125,7 @@ export function MarkdownEditor(
         disabled={isActionDisabled}
         direction={direction}
         onReady={(editor) => {
-          editor.setContent(props.initialValue ?? '');
+          editor.setContent(props.value ?? '');
           editor.setReadOnly(props.disabled);
           setEditor(editor);
           editor.events.onChange((value: string) => {
@@ -117,16 +137,18 @@ export function MarkdownEditor(
         }}
       />
       {selectedTab === 'preview' && (
-        <MarkdownPreview
-          direction={direction}
-          minHeight={props.minHeight}
-          mode="default"
-          value={currentValue}
-          previewComponents={props.previewComponents}
-        />
+        <React.Suspense fallback={<MarkdownPreviewSkeleton />}>
+          <MarkdownPreview
+            direction={direction}
+            minHeight={props.minHeight}
+            mode="default"
+            value={currentValue}
+            previewComponents={props.previewComponents}
+          />
+        </React.Suspense>
       )}
       <MarkdownBottomBar>
-        <MarkdownHelp onClick={openMarkdownHelp} />
+        <MarkdownHelp mode={selectedTab} onClick={openMarkdownHelp} />
       </MarkdownBottomBar>
       <MarkdownConstraints sdk={props.sdk} value={currentValue} />
     </div>
@@ -136,21 +158,19 @@ export function MarkdownEditor(
 export function MarkdownEditorConnected(props: MarkdownEditorProps) {
   return (
     <FieldConnector<string>
-      throttle={300}
+      debounce={300}
       field={props.sdk.field}
-      isInitiallyDisabled={props.isInitiallyDisabled}>
-      {({ value, disabled, setValue, externalReset }) => {
-        // on external change reset component completely and init with initial value again
-        return (
-          <MarkdownEditor
-            {...props}
-            key={`markdown-editor-${externalReset}`}
-            initialValue={value}
-            disabled={disabled}
-            saveValueToSDK={setValue}
-          />
-        );
-      }}
+      isInitiallyDisabled={props.isInitiallyDisabled}
+    >
+      {({ value, disabled, setValue, externalReset }) => (
+        <MarkdownEditor
+          {...props}
+          value={value}
+          disabled={disabled}
+          saveValueToSDK={setValue}
+          externalReset={externalReset}
+        />
+      )}
     </FieldConnector>
   );
 }

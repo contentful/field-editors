@@ -1,7 +1,9 @@
+import * as React from 'react';
+
 import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 import { render } from '@testing-library/react';
 import noop from 'lodash/noop';
-import * as React from 'react';
+
 import { FieldConnector, FieldConnectorChildProps } from './FieldConnector';
 
 it('does not rerender with outdated value after calling setValue', () => {
@@ -10,7 +12,7 @@ it('does not rerender with outdated value after calling setValue', () => {
   }
 
   const onSchemaErrorsChanged = jest.fn();
-  const [field] = createFakeFieldAPI((field) => {
+  const [field] = createFakeFieldAPI((field: any) => {
     return {
       ...field,
       // this promise never resolves
@@ -23,7 +25,7 @@ it('does not rerender with outdated value after calling setValue', () => {
     isInitiallyDisabled: false,
     children: jest.fn().mockImplementation(() => null),
     field,
-    throttle: 0,
+    debounce: 0,
   };
 
   render(<FieldConnector {...props} />);

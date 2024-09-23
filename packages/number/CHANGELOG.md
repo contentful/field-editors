@@ -3,6 +3,172 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.20](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.3.19...@contentful/field-editor-number@1.3.20) (2024-08-21)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+## [1.3.19](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.3.18...@contentful/field-editor-number@1.3.19) (2024-07-23)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+## [1.3.18](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.3.17...@contentful/field-editor-number@1.3.18) (2024-06-26)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+## [1.3.17](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.3.16...@contentful/field-editor-number@1.3.17) (2024-06-13)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+## [1.3.16](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.3.15...@contentful/field-editor-number@1.3.16) (2024-06-07)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+## [1.3.15](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.3.14...@contentful/field-editor-number@1.3.15) (2024-06-06)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+## [1.3.14](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.3.13...@contentful/field-editor-number@1.3.14) (2024-05-24)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+## [1.3.13](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.3.12...@contentful/field-editor-number@1.3.13) (2024-05-24)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+## [1.3.12](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.3.11...@contentful/field-editor-number@1.3.12) (2024-05-21)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+## [1.3.11](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.3.10...@contentful/field-editor-number@1.3.11) (2024-05-16)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+## [1.3.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.3.9...@contentful/field-editor-number@1.3.10) (2024-04-22)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+## [1.3.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.3.8...@contentful/field-editor-number@1.3.9) (2024-04-15)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+## [1.3.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.3.7...@contentful/field-editor-number@1.3.8) (2024-02-23)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+## [1.3.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.3.6...@contentful/field-editor-number@1.3.7) (2024-02-05)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+## [1.3.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.3.5...@contentful/field-editor-number@1.3.6) (2024-01-23)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+## [1.3.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.3.4...@contentful/field-editor-number@1.3.5) (2024-01-23)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+## [1.3.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.3.3...@contentful/field-editor-number@1.3.4) (2023-10-06)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+## [1.3.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.3.2...@contentful/field-editor-number@1.3.3) (2023-09-28)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+## [1.3.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.3.1...@contentful/field-editor-number@1.3.2) (2023-09-12)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+## [1.3.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.3.0...@contentful/field-editor-number@1.3.1) (2023-07-25)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+# [1.3.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.2.6...@contentful/field-editor-number@1.3.0) (2023-06-02)
+
+### Features
+
+- setup swc compilation [TOL-1070] ([#1413](https://github.com/contentful/field-editors/issues/1413)) ([de9878f](https://github.com/contentful/field-editors/commit/de9878fb77e0f4341b0933925013777e0a5336d3))
+
+## [1.2.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.2.5...@contentful/field-editor-number@1.2.6) (2023-04-19)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+## [1.2.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.2.4...@contentful/field-editor-number@1.2.5) (2023-03-14)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+## [1.2.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.2.3...@contentful/field-editor-number@1.2.4) (2023-03-10)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+## [1.2.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.2.2...@contentful/field-editor-number@1.2.3) (2023-02-21)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+## [1.2.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.2.1...@contentful/field-editor-number@1.2.2) (2023-02-07)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+## [1.2.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.2.0...@contentful/field-editor-number@1.2.1) (2022-12-08)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+# [1.2.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.1.7...@contentful/field-editor-number@1.2.0) (2022-08-22)
+
+### Features
+
+- refactoring of Number field-editor [BAU-722] ([#1203](https://github.com/contentful/field-editors/issues/1203)) ([d93698e](https://github.com/contentful/field-editors/commit/d93698e730e0eb7c83378bfaad4566a70aba23f6))
+
+## [1.1.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.1.6...@contentful/field-editor-number@1.1.7) (2022-07-29)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+## [1.1.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.1.5...@contentful/field-editor-number@1.1.6) (2022-07-29)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+## [1.1.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.1.4...@contentful/field-editor-number@1.1.5) (2022-07-11)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+## [1.1.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.1.3...@contentful/field-editor-number@1.1.4) (2022-06-22)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
+## [1.1.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.1.2...@contentful/field-editor-number@1.1.3) (2022-04-20)
+
+### Bug Fixes
+
+- change input type to number ([#1112](https://github.com/contentful/field-editors/issues/1112)) ([e759e6d](https://github.com/contentful/field-editors/commit/e759e6d939a22cdabbd21e283e364c490a87d94f))
+
+## [1.1.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.1.1...@contentful/field-editor-number@1.1.2) (2022-02-15)
+
+### Bug Fixes
+
+- bump f36 packages ([#1025](https://github.com/contentful/field-editors/issues/1025)) ([ec37a40](https://github.com/contentful/field-editors/commit/ec37a4000db7cd75c66dd9621136b2272c9feeea))
+
+## [1.1.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.1.0...@contentful/field-editor-number@1.1.1) (2022-02-14)
+
+### Bug Fixes
+
+- **number-editor:** use "text" input that syncs numeric value when valid ([#1020](https://github.com/contentful/field-editors/issues/1020)) ([0f38462](https://github.com/contentful/field-editors/commit/0f384623f969284d122255191397402bbb3e7763))
+
+# [1.1.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.0.3...@contentful/field-editor-number@1.1.0) (2022-01-11)
+
+### Features
+
+- bump f36 packages to stable v4 [BAU-521] ([#988](https://github.com/contentful/field-editors/issues/988)) ([419cf56](https://github.com/contentful/field-editors/commit/419cf56692179b074fcfa2743469d5265ed98429))
+
+## [1.0.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.0.2...@contentful/field-editor-number@1.0.3) (2021-12-23)
+
+### Bug Fixes
+
+- markdown buttons ([#968](https://github.com/contentful/field-editors/issues/968)) ([9803b98](https://github.com/contentful/field-editors/commit/9803b98c25d92df6148686ffe2749a77f7efdbb9))
+
+## [1.0.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.0.1...@contentful/field-editor-number@1.0.2) (2021-12-20)
+
+**Note:** Version bump only for package @contentful/field-editor-number
+
 ## [1.0.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.0.0...@contentful/field-editor-number@1.0.1) (2021-11-17)
 
 ### Bug Fixes

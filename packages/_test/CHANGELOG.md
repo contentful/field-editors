@@ -3,6 +3,122 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.5.0...@contentful/field-editor-test-utils@1.5.1) (2024-08-21)
+
+**Note:** Version bump only for package @contentful/field-editor-test-utils
+
+# [1.5.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.4.7...@contentful/field-editor-test-utils@1.5.0) (2024-07-23)
+
+### Features
+
+- 🎸 fetch all resource types ([#1704](https://github.com/contentful/field-editors/issues/1704)) ([f6403fa](https://github.com/contentful/field-editors/commit/f6403fadd543f081683fe499a79367f1f4ae737c))
+
+## [1.4.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.4.6...@contentful/field-editor-test-utils@1.4.7) (2024-02-23)
+
+**Note:** Version bump only for package @contentful/field-editor-test-utils
+
+## [1.4.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.4.5...@contentful/field-editor-test-utils@1.4.6) (2024-02-05)
+
+**Note:** Version bump only for package @contentful/field-editor-test-utils
+
+## [1.4.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.4.4...@contentful/field-editor-test-utils@1.4.5) (2024-01-23)
+
+**Note:** Version bump only for package @contentful/field-editor-test-utils
+
+## [1.4.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.4.3...@contentful/field-editor-test-utils@1.4.4) (2024-01-23)
+
+**Note:** Version bump only for package @contentful/field-editor-test-utils
+
+## [1.4.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.4.2...@contentful/field-editor-test-utils@1.4.3) (2023-10-06)
+
+### Bug Fixes
+
+- [] Replace deprecated `*ExtensionSDK` types with `*AppSDK` types ([#1499](https://github.com/contentful/field-editors/issues/1499)) ([eb6ede8](https://github.com/contentful/field-editors/commit/eb6ede86b27aab50c04d6cf68bb54e9b3dec7460))
+
+## [1.4.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.4.1...@contentful/field-editor-test-utils@1.4.2) (2023-09-28)
+
+**Note:** Version bump only for package @contentful/field-editor-test-utils
+
+## [1.4.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.4.0...@contentful/field-editor-test-utils@1.4.1) (2023-07-25)
+
+### Bug Fixes
+
+- remove lodash-es to fix cjs issues [TOL-1346] ([#1452](https://github.com/contentful/field-editors/issues/1452)) ([0147baa](https://github.com/contentful/field-editors/commit/0147baaad26e4a9b2ac5653b9c23f1f9ae4a9f33))
+
+# [1.4.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.3.0...@contentful/field-editor-test-utils@1.4.0) (2023-06-02)
+
+### Features
+
+- setup swc compilation [TOL-1070] ([#1413](https://github.com/contentful/field-editors/issues/1413)) ([de9878f](https://github.com/contentful/field-editors/commit/de9878fb77e0f4341b0933925013777e0a5336d3))
+
+# [1.3.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.2.7...@contentful/field-editor-test-utils@1.3.0) (2023-04-19)
+
+### Features
+
+- upgrade cypress [TOL-1036] ([#1391](https://github.com/contentful/field-editors/issues/1391)) ([9c1aec9](https://github.com/contentful/field-editors/commit/9c1aec98aabbe464cdc3f1236c3bb1cc29b8208d))
+
+## [1.2.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.2.6...@contentful/field-editor-test-utils@1.2.7) (2023-03-14)
+
+**Note:** Version bump only for package @contentful/field-editor-test-utils
+
+## [1.2.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.2.5...@contentful/field-editor-test-utils@1.2.6) (2023-03-10)
+
+**Note:** Version bump only for package @contentful/field-editor-test-utils
+
+## [1.2.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.2.4...@contentful/field-editor-test-utils@1.2.5) (2023-02-21)
+
+**Note:** Version bump only for package @contentful/field-editor-test-utils
+
+## [1.2.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.2.3...@contentful/field-editor-test-utils@1.2.4) (2023-02-07)
+
+**Note:** Version bump only for package @contentful/field-editor-test-utils
+
+## [1.2.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.2.2...@contentful/field-editor-test-utils@1.2.3) (2022-12-08)
+
+**Note:** Version bump only for package @contentful/field-editor-test-utils
+
+## [1.2.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.2.1...@contentful/field-editor-test-utils@1.2.2) (2022-07-29)
+
+**Note:** Version bump only for package @contentful/field-editor-test-utils
+
+## [1.2.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.2.0...@contentful/field-editor-test-utils@1.2.1) (2022-07-29)
+
+**Note:** Version bump only for package @contentful/field-editor-test-utils
+
+# [1.2.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.1.3...@contentful/field-editor-test-utils@1.2.0) (2022-07-11)
+
+### Features
+
+- add simple fetching for resources ([#1179](https://github.com/contentful/field-editors/issues/1179)) ([b29daac](https://github.com/contentful/field-editors/commit/b29daac6460f93a4350bf45f90ae938f65de96ee))
+
+## [1.1.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.1.2...@contentful/field-editor-test-utils@1.1.3) (2022-06-22)
+
+**Note:** Version bump only for package @contentful/field-editor-test-utils
+
+## [1.1.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.1.1...@contentful/field-editor-test-utils@1.1.2) (2022-02-15)
+
+**Note:** Version bump only for package @contentful/field-editor-test-utils
+
+## [1.1.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.1.0...@contentful/field-editor-test-utils@1.1.1) (2022-02-14)
+
+**Note:** Version bump only for package @contentful/field-editor-test-utils
+
+# [1.1.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.0.3...@contentful/field-editor-test-utils@1.1.0) (2022-01-11)
+
+### Features
+
+- bump f36 packages to stable v4 [BAU-521] ([#988](https://github.com/contentful/field-editors/issues/988)) ([419cf56](https://github.com/contentful/field-editors/commit/419cf56692179b074fcfa2743469d5265ed98429))
+
+## [1.0.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.0.2...@contentful/field-editor-test-utils@1.0.3) (2021-12-23)
+
+### Bug Fixes
+
+- markdown buttons ([#968](https://github.com/contentful/field-editors/issues/968)) ([9803b98](https://github.com/contentful/field-editors/commit/9803b98c25d92df6148686ffe2749a77f7efdbb9))
+
+## [1.0.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.0.1...@contentful/field-editor-test-utils@1.0.2) (2021-12-20)
+
+**Note:** Version bump only for package @contentful/field-editor-test-utils
+
 ## [1.0.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.0.0...@contentful/field-editor-test-utils@1.0.1) (2021-11-17)
 
 ### Bug Fixes

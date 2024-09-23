@@ -1,7 +1,8 @@
-import React from 'react';
-import isEqual from 'lodash/isEqual';
-import throttle from 'lodash/throttle';
+import * as React from 'react';
+
 import { FieldAPI, ValidationError } from '@contentful/app-sdk';
+import deepEqual from 'fast-deep-equal';
+import debounce from 'lodash/debounce';
 
 type Nullable = null | undefined;
 
@@ -24,14 +25,20 @@ interface FieldConnectorState<ValueType> {
   errors: ValidationError[];
 }
 
-interface FieldConnectorProps<ValueType> {
+type FieldConnectorProps<ValueType> = {
   field: FieldAPI;
   isInitiallyDisabled: boolean;
+  isDisabled?: boolean;
   children: (state: FieldConnectorChildProps<ValueType>) => React.ReactNode;
   isEmptyValue: (value: ValueType | null) => boolean;
-  isEqualValues: (value1: ValueType | Nullable, value2: ValueType | Nullable) => boolean;
-  throttle: number;
-}
+  isEqualValues?: (value1: ValueType | Nullable, value2: ValueType | Nullable) => boolean;
+} & (
+  | { debounce: number }
+  | {
+      /** @deprecated: Please use `debounce` instead */
+      throttle: number;
+    }
+);
 
 export class FieldConnector<ValueType> extends React.Component<
   FieldConnectorProps<ValueType>,
@@ -41,15 +48,15 @@ export class FieldConnector<ValueType> extends React.Component<
     children: () => {
       return null;
     },
-    // eslint-disable-next-line
+    // eslint-disable-next-line -- TODO: describe this disable
     isEmptyValue: (value: any | Nullable) => {
       return value === null || value === '';
     },
-    // eslint-disable-next-line
+    // eslint-disable-next-line -- TODO: describe this disable
     isEqualValues: (value1: any | Nullable, value2: any | Nullable) => {
-      return isEqual(value1, value2);
+      return deepEqual(value1, value2);
     },
-    throttle: 300,
+    debounce: 300,
   };
 
   constructor(props: FieldConnectorProps<ValueType>) {
@@ -60,7 +67,7 @@ export class FieldConnector<ValueType> extends React.Component<
       externalReset: 0,
       value: initialValue,
       lastRemoteValue: initialValue,
-      disabled: props.isInitiallyDisabled,
+      disabled: props.isInitiallyDisabled ?? false,
       errors: [],
     };
   }
@@ -69,6 +76,9 @@ export class FieldConnector<ValueType> extends React.Component<
   unsubscribeDisabled: Function | null = null;
   unsubscribeValue: Function | null = null;
 
+  getDebounceDuration = () =>
+    'debounce' in this.props ? this.props.debounce : this.props.throttle;
+
   setValue = async (value: ValueType | Nullable) => {
     if (this.props.isEmptyValue(value ?? null)) {
       this.setState({ value: undefined });
@@ -76,23 +86,26 @@ export class FieldConnector<ValueType> extends React.Component<
       this.setState({ value });
     }
 
-    await this.triggerSetValueCallbacks(value);
+    if (this.getDebounceDuration() === 0) {
+      await this.triggerSetValueCallbacks(value);
+    } else {
+      await this.debouncedTriggerSetValueCallbacks(value);
+    }
   };
 
-  triggerSetValueCallbacks = throttle(
-    (value: ValueType | Nullable) => {
-      return new Promise((resolve, reject) => {
-        if (this.props.isEmptyValue(value ?? null)) {
-          this.props.field.removeValue().then(resolve).catch(reject);
-        } else {
-          this.props.field.setValue(value).then(resolve).catch(reject);
-        }
-      });
-    },
-    this.props.throttle,
-    {
-      leading: this.props.throttle === 0,
-    }
+  triggerSetValueCallbacks = (value: ValueType | Nullable) => {
+    return new Promise((resolve, reject) => {
+      if (this.props.isEmptyValue(value ?? null)) {
+        this.props.field.removeValue().then(resolve).catch(reject);
+      } else {
+        this.props.field.setValue(value).then(resolve).catch(reject);
+      }
+    });
+  };
+
+  debouncedTriggerSetValueCallbacks = debounce(
+    this.triggerSetValueCallbacks,
+    this.getDebounceDuration()
   );
 
   componentDidMount() {
@@ -109,7 +122,7 @@ export class FieldConnector<ValueType> extends React.Component<
     });
     this.unsubscribeValue = field.onValueChanged((value: ValueType | Nullable) => {
       this.setState((currentState) => {
-        const isLocalValueChange = this.props.isEqualValues(value, currentState.value);
+        const isLocalValueChange = this.props.isEqualValues!(value, currentState.value);
         const lastRemoteValue = isLocalValueChange ? currentState.lastRemoteValue : value;
         const externalReset = currentState.externalReset + (isLocalValueChange ? 0 : 1);
         return {
@@ -138,6 +151,7 @@ export class FieldConnector<ValueType> extends React.Component<
     return this.props.children({
       ...this.state,
       setValue: this.setValue,
+      disabled: this.props.isDisabled || this.state.disabled,
     });
   }
 }

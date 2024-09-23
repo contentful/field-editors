@@ -1,8 +1,11 @@
 import * as React from 'react';
+
+import { FieldAPI, FieldConnector, ParametersAPI } from '@contentful/field-editor-shared';
 import isNumber from 'lodash/isNumber';
 import throttle from 'lodash/throttle';
-import { FieldAPI, FieldConnector, ParametersAPI } from '@contentful/field-editor-shared';
-import deepEqual from 'deep-equal';
+
+import { GoogleMapView } from './GoogleMapView';
+import { LocationSelector } from './LocationSelector';
 import {
   LocationValue,
   ViewType,
@@ -10,8 +13,6 @@ import {
   Coords,
   GeocodeApiResponse,
 } from './types';
-import { LocationSelector } from './LocationSelector';
-import { GoogleMapView } from './GoogleMapView';
 
 export interface LocationEditorConnectedProps {
   /**
@@ -27,11 +28,13 @@ export interface LocationEditorConnectedProps {
   /**
    * sdk.parameters
    */
-  parameters?: ParametersAPI & {
-    instance: {
+  parameters?: ParametersAPI<
+    Record<string, any>,
+    {
       googleMapsKey?: string;
-    };
-  };
+    },
+    Record<string, any>
+  >;
 }
 
 type LocationEditorProps = {
@@ -55,19 +58,22 @@ export class LocationEditor extends React.Component<
   LocationEditorProps,
   {
     localValue?: Coords;
-    mapsObject: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+    mapsObject: any; // eslint-disable-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
   }
 > {
   constructor(props: LocationEditorProps) {
     super(props);
 
     this.state = {
-      localValue: props.value
-        ? {
-            lng: props.value.lon,
-            lat: props.value.lat,
-          }
-        : undefined,
+      localValue:
+        // if we have only the lon or lat set, we set the other to 0.
+        // if both are not set, we set localValue to undefined.
+        props?.value?.lon || props?.value?.lat
+          ? {
+              lng: props.value.lon ?? 0,
+              lat: props.value.lat ?? 0,
+            }
+          : undefined,
       mapsObject: null,
     };
   }
@@ -155,12 +161,7 @@ export function LocationEditorConnected(props: LocationEditorConnectedProps) {
   const [selectedView, setSelectedView] = React.useState<ViewType>(ViewType.Address);
 
   return (
-    <FieldConnector<LocationValue>
-      isEqualValues={(value1, value2) => {
-        return deepEqual(value1, value2);
-      }}
-      field={field}
-      isInitiallyDisabled={props.isInitiallyDisabled}>
+    <FieldConnector<LocationValue> field={field} isInitiallyDisabled={props.isInitiallyDisabled}>
       {({ value, disabled, setValue, externalReset }) => {
         return (
           <LocationEditor

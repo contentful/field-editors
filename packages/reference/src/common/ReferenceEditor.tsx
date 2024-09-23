@@ -1,10 +1,11 @@
 import * as React from 'react';
-import deepEqual from 'deep-equal';
+
 import { FieldConnector } from '@contentful/field-editor-shared';
-import { EntityProvider } from './EntityStore';
-import { Action, ActionLabels, FieldExtensionSDK, ViewType } from '../types';
+
 import type { LinkActionsProps } from '../components';
+import { Action, ActionLabels, FieldAppSDK, ViewType } from '../types';
 import { CustomCardRenderer, RenderCustomMissingEntityCard } from './customCardTypes';
+import { EntityProvider } from './EntityStore';
 
 // TODO: Rename common base for reference/media editors to something neutral,
 //  e.g. `LinkEditor<T>`.
@@ -15,7 +16,9 @@ export interface ReferenceEditorProps {
    */
   isInitiallyDisabled: boolean;
   hasCardEditActions: boolean;
-  sdk: FieldExtensionSDK;
+  hasCardMoveActions?: boolean;
+  hasCardRemoveActions?: boolean;
+  sdk: FieldAppSDK;
   viewType: ViewType;
   renderCustomCard?: CustomCardRenderer;
   renderCustomActions?: (props: CustomActionProps) => React.ReactElement;
@@ -30,6 +33,8 @@ export interface ReferenceEditorProps {
       bulkEditing?: boolean;
     };
   };
+  updateBeforeSortStart?: ({ index }: { index: number }) => void;
+  onSortingEnd?: ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => void;
 }
 
 export type CustomActionProps = LinkActionsProps;
@@ -42,12 +47,10 @@ export function ReferenceEditor<T>(
   return (
     <EntityProvider sdk={props.sdk}>
       <FieldConnector<T>
-        throttle={0}
+        debounce={0}
         field={props.sdk.field}
         isInitiallyDisabled={props.isInitiallyDisabled}
-        isEqualValues={(value1, value2) => {
-          return deepEqual(value1, value2);
-        }}>
+      >
         {props.children}
       </FieldConnector>
     </EntityProvider>

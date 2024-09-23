@@ -1,11 +1,12 @@
-import { ContentType, ContentEntityType, FieldExtensionSDK } from '../types';
-import { ReferenceEditorProps } from './ReferenceEditor';
 import { useEffect, useMemo, useState } from 'react';
-import { useAccessApi } from './useAccessApi';
+
+import { ContentType, ContentEntityType, FieldAppSDK } from '../types';
 import { ReferenceValidations } from '../utils/fromFieldValidations';
+import { ReferenceEditorProps } from './ReferenceEditor';
+import { useAccessApi } from './useAccessApi';
 
 type ContentTypePermissionsProps = {
-  sdk: FieldExtensionSDK;
+  sdk: FieldAppSDK;
   entityType: ContentEntityType;
   parameters: ReferenceEditorProps['parameters'];
   allContentTypes: ContentType[];
@@ -14,7 +15,6 @@ type ContentTypePermissionsProps = {
 
 type ContentTypePermissions = {
   creatableContentTypes: ContentType[];
-  readableContentTypes: ContentType[];
   availableContentTypes: ContentType[];
 };
 
@@ -45,7 +45,6 @@ export function useContentTypePermissions(
     return props.allContentTypes;
   }, [props.allContentTypes, props.validations.contentTypes, props.entityType]);
   const [creatableContentTypes, setCreatableContentTypes] = useState(availableContentTypes);
-  const [readableContentTypes, setReadableContentTypes] = useState(availableContentTypes);
   const { canPerformActionOnEntryOfType } = useAccessApi(props.sdk.access);
 
   useEffect(() => {
@@ -57,17 +56,15 @@ export function useContentTypePermissions(
 
     async function checkContentTypeAccess() {
       const creatable = await getContentTypes('create');
-      const readable = await getContentTypes('read');
       setCreatableContentTypes(creatable);
-      setReadableContentTypes(readable);
     }
 
     void checkContentTypeAccess();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, [availableContentTypes]);
 
   return {
     creatableContentTypes,
-    readableContentTypes,
     availableContentTypes,
   };
 }

@@ -1,10 +1,10 @@
 import get from 'lodash/get';
 import isObject from 'lodash/isObject';
-import isString from 'lodash/isString';
-import { File, ContentType, Entry, ContentTypeField } from '../typesEntity';
+
+import { Asset, ContentType, ContentTypeField, Entry, File } from '../typesEntity';
 
 function titleOrDefault(title: string | undefined, defaultTitle: string): string {
-  if (!isString(title)) {
+  if (!(title != null && typeof title.valueOf() === 'string')) {
     return defaultTitle;
   }
   if (title) {
@@ -49,13 +49,13 @@ export function getAssetTitle({
   defaultLocaleCode,
   defaultTitle,
 }: {
-  asset: Entry;
+  asset: Asset;
   localeCode: string;
   defaultLocaleCode: string;
   defaultTitle: string;
 }) {
   const title = getFieldValue({
-    entity: asset,
+    entity: { fields: { title: asset.fields?.title } },
     fieldId: 'title',
     localeCode,
     defaultLocaleCode,
@@ -71,6 +71,7 @@ export function getAssetTitle({
  */
 export const isAssetField = (field: ContentTypeField): boolean =>
   field.type === 'Link' && field.linkType === 'Asset';
+
 /**
  * Returns true if field is a Title
  */
@@ -198,23 +199,76 @@ export function getEntryTitle({
   return titleOrDefault(title, defaultTitle);
 }
 
-export function getEntryStatus(sys: Entry['sys']) {
+type AsyncPublishStatus = 'draft' | 'published' | 'changed';
+
+type FieldStatus = {
+  '*': Record<string, AsyncPublishStatus>;
+};
+
+export type EntitySys = (Entry['sys'] | Asset['sys']) & { fieldStatus?: FieldStatus };
+
+/**
+ * Returns the status of the entry/asset
+ * If a locale code(s) is provided it will pick up the most advanced state for these locale(s)
+ * (Not aggregated, this means published + draft is published and not changed)
+ * - deleted
+ * - archived
+ * - changed
+ * - published
+ * - draft
+ */
+export function getEntityStatus(sys: EntitySys, localeCodes?: string | string[]) {
   if (!sys || (sys.type !== 'Entry' && sys.type !== 'Asset')) {
     throw new TypeError('Invalid entity metadata object');
   }
+
   if (sys.deletedVersion) {
     return 'deleted';
-  } else if (sys.archivedVersion) {
+  }
+
+  if (sys.archivedVersion) {
     return 'archived';
-  } else if (sys.publishedVersion) {
+  }
+
+  // TODO: remove the condition, once locale based publishing is GA
+  // Then we don't need the publishedVersion calculation anymore
+  if (sys.fieldStatus && localeCodes) {
+    let status: AsyncPublishStatus = 'draft';
+    const locales = Array.isArray(localeCodes) ? localeCodes : [localeCodes];
+
+    for (const [localeCode, fieldStatus] of Object.entries(sys.fieldStatus['*'])) {
+      if (!locales || locales.includes(localeCode)) {
+        if (fieldStatus === 'changed') {
+          status = fieldStatus;
+          break;
+        }
+        if (fieldStatus === 'published') {
+          status = fieldStatus;
+        }
+      }
+    }
+
+    return status;
+  }
+
+  if (sys.publishedVersion) {
     if (sys.version > sys.publishedVersion + 1) {
       return 'changed';
     } else {
       return 'published';
     }
-  } else {
-    return 'draft';
   }
+
+  return 'draft';
+}
+
+/**@deprecated use `getEntityStatus` */
+export function getEntryStatus(
+  //TODO: remove union after fieldStatus is added to App SDK
+  sys: Entry['sys'] & { fieldStatus?: FieldStatus },
+  localeCodes?: string | string[]
+) {
+  return getEntityStatus(sys, localeCodes);
 }
 
 /**

@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { ContentType, ContentEntityType, ReferenceValue } from '../types';
-import { LinkEntityActions } from '../components';
-import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
-import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions';
 import { useCallback } from 'react';
+
+import { LinkEntityActions } from '../components';
+import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions';
+import { ContentType, ContentEntityType, ReferenceValue } from '../types';
 import { CustomEntityCardProps } from './customCardTypes';
+import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
 import { useEditorPermissions } from './useEditorPermissions';
 
 type ChildProps = {
@@ -15,6 +16,7 @@ type ChildProps = {
   allContentTypes: ContentType[];
   renderCustomCard?: ReferenceEditorProps['renderCustomCard'];
   hasCardEditActions: boolean;
+  hasCardRemoveActions?: boolean;
 };
 
 type EditorProps = ReferenceEditorProps &
@@ -51,6 +53,7 @@ function Editor(props: EditorProps) {
       props.renderCustomCard
         ? props.renderCustomCard(cardProps, linkActionsProps, renderDefaultCard)
         : false,
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
     [linkActionsProps]
   );
 
@@ -94,4 +97,5 @@ export function SingleReferenceEditor(
 
 SingleReferenceEditor.defaultProps = {
   hasCardEditActions: true,
+  hasCardRemoveActions: true,
 };

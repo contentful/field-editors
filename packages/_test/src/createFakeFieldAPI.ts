@@ -1,6 +1,6 @@
-import mitt from 'mitt';
-import type { Emitter, Handler } from 'mitt';
 import { FieldAPI } from '@contentful/app-sdk';
+import type { Emitter, Handler } from 'mitt';
+import mitt from 'mitt';
 
 function identity<T>(item: T): T {
   return item;
@@ -14,16 +14,19 @@ export function createFakeFieldAPI<T>(
 ): [FieldAPI, Emitter] {
   const emitter: Emitter = mitt();
 
-  // eslint-disable-next-line
+  // eslint-disable-next-line -- TODO: describe this disable
   let _value: any = initialValue;
 
   return [
     customizeMock({
       id: 'fake-id',
+      name: 'My field',
       locale: 'en-US',
       type: 'Symbol',
       validations: [],
       required: false,
+      getIsDisabled: () => false,
+      getSchemaErrors: () => [],
       onValueChanged: (...args: [string, Function] | [Function]) => {
         let fn: Function;
         if (typeof args[0] === 'string') {

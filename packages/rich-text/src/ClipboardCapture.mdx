@@ -1,0 +1,16 @@
+import { Canvas, Meta, Markdown, Story, Controls } from '@storybook/blocks';
+import * as EditorStories from '../stories/ClipboardCapture.stories';
+
+import Readme from '../README.md?raw';
+
+<Markdown>{Readme}</Markdown>
+
+<Meta of={EditorStories} />
+
+## Capture clipboard data for Rich Text
+
+<Story of={EditorStories.Default} />
+
+## Props
+
+<Controls />

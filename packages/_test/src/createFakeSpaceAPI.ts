@@ -1,6 +1,6 @@
-import { ContentType, SearchQuery, SpaceAPI } from '@contentful/app-sdk';
-import { Entry } from '@contentful/field-editor-shared';
-import { createEntry } from './fakesFactory';
+import { ContentType, SearchQuery, SpaceAPI, Entry } from '@contentful/app-sdk';
+
+import { createEntry, createAsset } from './fakesFactory';
 
 function identity<T>(item: T): T {
   return item;
@@ -75,6 +75,12 @@ export function createFakeSpaceAPI(customizeMock: CustomizeMockFn = identity): S
         limit: 100,
         sys: { type: 'Array' },
       });
+    },
+    getEntry() {
+      return Promise.resolve(createEntry('exampleCT', { exField: { 'en-US': 'Hello world' } }));
+    },
+    getAsset() {
+      return Promise.resolve(createAsset({ title: { 'en-US': 'Cat' }, file: {} }));
     },
     getEntries(query?: SearchQuery) {
       const items: Entry[] = [

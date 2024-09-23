@@ -1,7 +1,9 @@
-import React from 'react';
-import { render, configure, cleanup, fireEvent, RenderResult } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
+import * as React from 'react';
+
 import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
+import '@testing-library/jest-dom/extend-expect';
+import { RenderResult, cleanup, configure, fireEvent, render } from '@testing-library/react';
+
 import { ListEditor } from './ListEditor';
 
 configure({
@@ -73,10 +75,32 @@ describe('ListEditor', () => {
     changeInputValue(renderResult, 'test1, test2 ,     test3');
 
     expectInputValue(renderResult, 'test1, test2, test3');
-    expect(field.setValue).toHaveBeenCalledWith(['test1', 'test2', 'test3']);
+    expect(field.setValue).toHaveBeenLastCalledWith(['test1', 'test2', 'test3']);
 
     changeInputValue(renderResult, '');
     expect(field.removeValue).toHaveBeenCalledTimes(1);
     expect(field.setValue).toHaveBeenCalledTimes(2);
+  });
+
+  it('keeps trailing commas', () => {
+    const [field] = createFakeFieldAPI(
+      (field) => {
+        jest.spyOn(field, 'setValue');
+        return {
+          ...field,
+          validations: [],
+        };
+      },
+      ['test1']
+    );
+
+    const renderResult = render(
+      <ListEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+    );
+
+    changeInputValue(renderResult, 'test1,');
+
+    expect(field.setValue).toHaveBeenLastCalledWith(['test1']);
+    expectInputValue(renderResult, 'test1,');
   });
 });

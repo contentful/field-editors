@@ -45,7 +45,7 @@ here by filing a [Github issue][github-issues]!
 To achieve the same field editor look as in the Contentful UI, you need to render `GlobalStyled` component.
 
 ```jsx
-import { GlobalStyles } '@contentful/f36-components';
+import { GlobalStyles } from '@contentful/f36-components';
 
 function Root() {
   return (
@@ -61,7 +61,7 @@ function Root() {
 
 ### Requirements
 
-- Node.js: `>=12.13.1`
+- Node.js: `>=18`
 - Yarn: `>=1.21.1`
 
 To install all dependencies and build all packages run the following commands from the root of the project.

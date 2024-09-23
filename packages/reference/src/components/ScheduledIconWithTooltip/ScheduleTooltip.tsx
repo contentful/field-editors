@@ -1,6 +1,8 @@
-import React from 'react';
+import * as React from 'react';
+
 import { ScheduledAction } from '@contentful/app-sdk';
 import { Tooltip } from '@contentful/f36-components';
+
 import { formatDateAndTime } from './formatDateAndTime';
 
 export const getScheduleTooltipContent = ({
@@ -13,7 +15,7 @@ export const getScheduleTooltipContent = ({
   return `Will ${job.action.toLowerCase()} ${formatDateAndTime(
     job.scheduledFor.datetime
   ).toLowerCase()}
-  ${jobsCount > 1 && `+ ${jobsCount - 1} more`}`;
+  ${jobsCount > 1 ? `+ ${jobsCount - 1} more` : ''}`;
 };
 
 export const ScheduleTooltip = ({
@@ -30,7 +32,8 @@ export const ScheduleTooltip = ({
       placement="top"
       testId={job.sys.id}
       as="div"
-      content={getScheduleTooltipContent({ job, jobsCount })}>
+      content={getScheduleTooltipContent({ job, jobsCount })}
+    >
       {children}
     </Tooltip>
   );

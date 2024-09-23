@@ -1,18 +1,14 @@
-import React from 'react';
-import { css } from 'emotion';
-import tokens from '@contentful/f36-tokens';
-import { SpaceAPI } from '@contentful/app-sdk';
-import { renderActions, renderAssetInfo } from './AssetCardActions';
-import { File, Asset, RenderDragFn } from '../../types';
-import { entityHelpers } from '@contentful/field-editor-shared';
-import { MissingEntityCard, ScheduledIconWithTooltip } from '../../components';
+import * as React from 'react';
 
+import { SpaceAPI } from '@contentful/app-sdk';
+import { AssetCard, Badge } from '@contentful/f36-components';
+import { entityHelpers } from '@contentful/field-editor-shared';
 // @ts-expect-error
 import mimetype from '@contentful/mimetype';
 
-import { ClockIcon } from '@contentful/f36-icons';
-
-import { AssetCard } from '@contentful/f36-components';
+import { EntityStatusBadge, MissingAssetCard } from '../../components';
+import { Asset, File, RenderDragFn } from '../../types';
+import { renderActions, renderAssetInfo } from './AssetCardActions';
 
 const groupToIconMap = {
   image: 'image',
@@ -26,12 +22,6 @@ const groupToIconMap = {
   plaintext: 'plaintext',
   code: 'code',
   markup: 'markup',
-};
-
-const styles = {
-  scheduleIcon: css({
-    marginRight: tokens.spacing2Xs,
-  }),
 };
 
 export interface WrappedAssetCardProps {
@@ -48,13 +38,15 @@ export interface WrappedAssetCardProps {
   size: 'default' | 'small';
   renderDragHandle?: RenderDragFn;
   isClickable: boolean;
+  useLocalizedEntityStatus?: boolean;
+  isLocalized?: boolean;
 }
 
 const defaultProps = {
   isClickable: true,
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
 function getFileType(file?: File): any {
   if (!file) {
     return 'archive';
@@ -72,17 +64,13 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
   const { className, onEdit, getAssetUrl, onRemove, size, isDisabled, isSelected, isClickable } =
     props;
 
-  const status = entityHelpers.getEntryStatus(props.asset.sys);
+  const status = entityHelpers.getEntityStatus(
+    props.asset.sys,
+    props.useLocalizedEntityStatus ? props.localeCode : undefined
+  );
 
   if (status === 'deleted') {
-    return (
-      <MissingEntityCard
-        entityType="Asset"
-        asSquare
-        isDisabled={props.isDisabled}
-        onRemove={props.onRemove}
-      />
-    );
+    return <MissingAssetCard asSquare isDisabled={props.isDisabled} onRemove={props.onRemove} />;
   }
 
   const entityTitle = entityHelpers.getAssetTitle({
@@ -106,19 +94,18 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
       className={className}
       isSelected={isSelected}
       href={href}
-      status={status}
-      icon={
-        <ScheduledIconWithTooltip
+      badge={
+        <EntityStatusBadge
           getEntityScheduledActions={props.getEntityScheduledActions}
           entityType="Asset"
-          entityId={props.asset.sys.id}>
-          <ClockIcon
-            className={styles.scheduleIcon}
-            size="small"
-            variant="muted"
-            testId="schedule-icon"
-          />
-        </ScheduledIconWithTooltip>
+          entityId={props.asset.sys.id}
+          status={status}
+        />
+      }
+      icon={
+        !props.isLocalized && props.useLocalizedEntityStatus ? (
+          <Badge variant="secondary">Default</Badge>
+        ) : null
       }
       src={
         entityFile && entityFile.url
@@ -127,11 +114,30 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
             : `${entityFile.url}?h=300`
           : ''
       }
-      onClick={(e: React.MouseEvent<HTMLElement>) => {
-        e.preventDefault();
-        if (!isClickable) return;
-        onEdit && onEdit();
-      }}
+      onClick={
+        // Providing an onClick handler messes up with some rich text
+        // features e.g. pressing ENTER on a card to add a new paragraph
+        // underneath. It's crucial not to pass a custom handler when
+        // isClickable is disabled which in the case of RT it's.
+        isClickable
+          ? (e: React.MouseEvent<HTMLElement>) => {
+              e.preventDefault();
+              onEdit && onEdit();
+            }
+          : undefined
+      }
+      /* todo - remove this when onKeyDown is allowed as a prop for BaseCard in forma 36
+      // @ts-expect-error */
+      onKeyDown={
+        isClickable
+          ? (e: React.KeyboardEvent<HTMLElement>) => {
+              if (e.key === 'Enter' && onEdit) {
+                e.preventDefault();
+                onEdit();
+              }
+            }
+          : undefined
+      }
       dragHandleRender={props.renderDragHandle}
       withDragHandle={!!props.renderDragHandle}
       actions={[

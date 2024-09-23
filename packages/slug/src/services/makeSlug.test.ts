@@ -8,6 +8,6 @@ describe('makeSlug', () => {
         isOptionalLocaleWithFallback: false,
         createdAt: '2020-01-14T14:45:39.709Z',
       })
-    ).toEqual('untitled-entry-2020-01-14-at-14-45-39');
+    ).toBe('untitled-entry-2020-01-14-at-14-45-39');
   });
 });

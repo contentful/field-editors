@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
+
 import { DialogsAPI } from '@contentful/app-sdk';
-import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 import {
   ModalContent,
   ModalControls,
@@ -9,6 +9,8 @@ import {
   FormControl,
   TextInput,
 } from '@contentful/f36-components';
+
+import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 import { isValidUrl } from '../utils/isValidUrl';
 
 type InsertLinkModalPositiveResult = { url: string; text: string; title: string };
@@ -81,7 +83,9 @@ export const InsertLinkModal = ({ selectedText, onClose }: InsertLinkModalProps)
               }}
               testId="link-title-field"
             />
-            <FormControl.HelpText>Recommended for accessibility</FormControl.HelpText>
+            <FormControl.HelpText>
+              Extra link information, usually shown as a tooltip on mouse hover
+            </FormControl.HelpText>
           </FormControl>
         </Form>
       </ModalContent>

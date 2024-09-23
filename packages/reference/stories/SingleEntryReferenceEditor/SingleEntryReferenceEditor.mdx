@@ -1,0 +1,44 @@
+import { Canvas, Meta, Markdown, Story, Controls, Source } from '@storybook/blocks';
+import * as EditorStories from './SingleEntryReferenceEditor.stories';
+
+import Readme from '../../README.md?raw';
+
+<Markdown>{Readme}</Markdown>
+<Source code={"import { SingleEntryReferenceEditor } from '@contentful/field-editor-reference';"} />
+
+<Meta of={EditorStories} />
+
+## In Action
+
+<Story of={EditorStories.Default} />
+
+## With custom card
+
+Insert a reference via *Link existing entry*. Remove the inserted reference and click
+again to showcase inserting another reference rendered by the stardard card renderer.
+
+<Story of={EditorStories.CustomCard} />
+
+## With custom card relying on default card
+
+<Story of={EditorStories.CustomCardRelyingOnDefaultCard} />
+
+## Props
+
+<Controls />
+
+## As field app
+
+<Source code={`
+import { SingleEntryReferenceEditor } from '@contentful/field-editor-reference';
+
+// your app code
+init((sdk) => {
+  if (sdk.location.is(locations.LOCATION_ENTRY_FIELD)) {
+    render(
+      <SingleEntryReferenceEditor viewType="card" sdk={sdk} />,
+      document.getElementById('root')
+    );
+  }
+});
+`} />

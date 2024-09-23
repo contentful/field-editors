@@ -1,44 +1,16 @@
----
-name: Radio
-route: /radio
-menu: Editors
----
+import { Canvas, Meta, Markdown, Story, Controls } from '@storybook/blocks';
+import * as EditorStories from '../stories/RadioEditor.stories';
 
-import Readme from '../README.md';
+import Readme from '../README.md?raw';
 
-<Readme />
+<Markdown>{Readme}</Markdown>
 
-import { Playground, Props } from 'docz';
-import { RadioEditor } from './RadioEditor.tsx';
-import {
-  createFakeFieldAPI,
-  createFakeLocalesAPI,
-  ActionsPlayground
-} from '@contentful/field-editor-test-utils';
+<Meta of={EditorStories} />
 
 ## In Action
 
-### with proper configuration
-
-<Playground>
-  {() => {
-    const [field, mitt] = createFakeFieldAPI(
-      mock => ({
-        ...mock,
-        type: 'Symbol',
-        validations: [{ in: ['test1', 'test2', 'test3', 'test4'] }]
-      }),
-      ['test1', 'test2', 'test3']
-    );
-    return (
-      <div>
-        <RadioEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
-        <ActionsPlayground mitt={mitt} />
-      </div>
-    );
-  }}
-</Playground>
+<Story of={EditorStories.Default} />
 
 ## Props
 
-<Props of={RadioEditor} />
+<Controls />

@@ -1,0 +1,15 @@
+{
+  "sys": {
+    "type": "Space",
+    "id": "indifferent",
+    "version": 1,
+    "createdAt": "2020-02-05T16:16:37.052Z",
+    "updatedAt": "2020-03-25T15:00:06.808Z",
+    "organization": {
+      "sys": {
+        "id": "indifferent-org"
+      }
+    }
+  },
+  "name": "indifferent"
+}

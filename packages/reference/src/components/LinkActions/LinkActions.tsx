@@ -1,5 +1,8 @@
 import * as React from 'react';
-import * as styles from './styles';
+
+import { Button } from '@contentful/f36-components';
+import { PlusIcon, LinkIcon } from '@contentful/f36-icons';
+
 import {
   ContentEntityType,
   ContentType,
@@ -10,10 +13,7 @@ import {
 } from '../../types';
 import { CreateEntryLinkButton } from '../CreateEntryLinkButton/CreateEntryLinkButton';
 import { NoLinkPermissionsInfo } from './NoLinkPermissionsInfo';
-
-import { Button } from '@contentful/f36-components';
-
-import { PlusIcon, LinkIcon } from '@contentful/f36-icons';
+import * as styles from './styles';
 
 export interface LinkActionsProps {
   entityType: ContentEntityType;

@@ -1,0 +1,31 @@
+{
+  "name": "Example Space",
+  "sys": {
+    "type": "Space",
+    "id": "exampleSpace",
+    "version": 8,
+    "createdBy": {
+      "sys": {
+        "type": "Link",
+        "linkType": "User",
+        "id": "34MOMGPHEnQmheXGJJyghQ"
+      }
+    },
+    "createdAt": "2023-06-18T12:00:35Z",
+    "updatedBy": {
+      "sys": {
+        "type": "Link",
+        "linkType": "User",
+        "id": "34MOMGPHEnQmheXGJJyghQ"
+      }
+    },
+    "updatedAt": "2023-06-19T08:11:21Z",
+    "organization": {
+      "sys": {
+        "type": "Link",
+        "linkType": "Organization",
+        "id": "exampleOrg"
+      }
+    }
+  }
+}

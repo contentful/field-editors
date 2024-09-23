@@ -1,9 +1,17 @@
 {
   "name": "@contentful/field-editor-json",
-  "version": "1.0.1",
-  "main": "dist/index.js",
-  "module": "dist/field-editor-json.esm.js",
-  "typings": "dist/index.d.ts",
+  "version": "3.3.22",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/esm/index.js"
+    },
+    "./package.json": "./package.json"
+  },
   "files": [
     "dist"
   ],
@@ -14,37 +22,33 @@
     "url": "https://github.com/contentful/field-editors"
   },
   "scripts": {
-    "watch": "tsdx watch",
-    "build": "tsdx build",
+    "watch": "yarn concurrently \"yarn:watch:*\"",
+    "watch:cjs": "yarn build:cjs -w",
+    "watch:esm": "yarn build:esm -w",
+    "watch:types": "yarn build:types --watch",
+    "build": "yarn build:types && yarn build:cjs && yarn build:esm",
+    "build:types": "tsc --outDir dist/types --emitDeclarationOnly",
+    "build:cjs": "swc src --config-file ../../.swcrc -d dist/cjs -C module.type=commonjs",
+    "build:esm": "swc src --config-file ../../.swcrc -d dist/esm",
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
-    "@contentful/f36-components": "^4.0.1-beta.2527",
-    "@contentful/f36-tokens": "^4.0.1-beta.2527",
-    "@contentful/field-editor-shared": "^1.0.1",
-    "@types/deep-equal": "1.0.1",
-    "@types/react-codemirror": "1.0.3",
-    "codemirror": "^5.48.0",
-    "deep-equal": "2.0.5",
+    "@codemirror/lang-json": "^6.0.0",
+    "@contentful/f36-components": "^4.0.27",
+    "@contentful/f36-tokens": "^4.0.0",
+    "@contentful/field-editor-shared": "^1.6.1",
+    "@types/react-codemirror": "1.0.11",
+    "@uiw/react-codemirror": "^4.11.4",
     "emotion": "^10.0.17",
-    "lodash": "^4.17.15",
-    "lodash-es": "^4.17.15",
-    "react-codemirror2": "6.0.1"
+    "lodash": "^4.17.15"
   },
   "devDependencies": {
-    "@contentful/field-editor-test-utils": "^1.0.1"
+    "@contentful/field-editor-test-utils": "^1.5.1"
   },
   "peerDependencies": {
     "react": ">=16.8.0"
   },
-  "jest": {
-    "testMatch": [
-      "**/?(*.)+(spec|test).[jt]s?(x)"
-    ],
-    "globals": {
-      "ts-jest": {
-        "diagnostics": false
-      }
-    }
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   }
 }

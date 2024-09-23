@@ -1,4 +1,4 @@
-// eslint-disable-next-line no-restricted-imports
+// eslint-disable-next-line -- TODO: move to date-fns
 import moment from 'moment';
 import { TimeResult } from '../types';
 
@@ -52,14 +52,6 @@ function datetimeFromUserInput(input: TimeResult): {
     return { valid: date };
   } else {
     return { invalid: true, valid: null };
-  }
-}
-
-export function formatDateDisplay(date?: moment.Moment) {
-  if (date) {
-    return date.format('dddd, MMMM Do YYYY');
-  } else {
-    return '';
   }
 }
 

@@ -1,16 +1,18 @@
-import React from 'react';
-import { DialogExtensionSDK } from '@contentful/app-sdk';
+import * as React from 'react';
+
+import { DialogAppSDK } from '@contentful/app-sdk';
+
 import { MarkdownDialogsParams, MarkdownDialogType } from '../types';
-import { SpecialCharacterModalDialog } from './SpecialCharacterModalDialog';
 import { CheatsheetModalDialog } from './CheatsheetModalDialog';
+import { ConfirmInsertAssetModalDialog } from './ConfirmInsertAssetModalDialog';
+import { EmbedExternalContentModal } from './EmdebExternalContentDialog';
 import { InsertLinkModal } from './InsertLinkModalDialog';
 import { InsertTableModal } from './InsertTableModalDialog';
-import { EmbedExternalContentModal } from './EmdebExternalContentDialog';
-import { ConfirmInsertAssetModalDialog } from './ConfirmInsertAssetModalDialog';
+import { SpecialCharacterModalDialog } from './SpecialCharacterModalDialog';
 import { ZenModeModalDialog } from './ZenModeModalDialog';
 
 export const renderMarkdownDialog = (
-  sdk: DialogExtensionSDK & { parameters: { invocation: MarkdownDialogsParams } }
+  sdk: DialogAppSDK & { parameters: { invocation: MarkdownDialogsParams } }
 ) => {
   const parameters = sdk.parameters.invocation;
   if (parameters.type === MarkdownDialogType.cheatsheet) {
@@ -37,7 +39,7 @@ export const renderMarkdownDialog = (
   } else if (parameters.type === MarkdownDialogType.zenMode) {
     const locale = parameters.locale;
     const initialValue = parameters.initialValue;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
     sdk.window.updateHeight('100%' as any);
     return (
       <ZenModeModalDialog

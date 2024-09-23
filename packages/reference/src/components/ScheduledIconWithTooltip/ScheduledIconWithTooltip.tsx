@@ -1,20 +1,19 @@
-import React from 'react';
-import { SpaceAPI, ScheduledAction } from '@contentful/app-sdk';
+import * as React from 'react';
+
+import { ScheduledAction, SpaceAPI } from '@contentful/app-sdk';
+
 import { ScheduleTooltip } from './ScheduleTooltip';
 
-type ScheduledIconWithTooltipProps = {
-  getEntityScheduledActions: SpaceAPI['getEntityScheduledActions'];
-  entityType: 'Entry' | 'Asset';
-  entityId: string;
-  children: React.ReactElement;
-};
+export type UseScheduledActionsProps = Pick<
+  ScheduledIconWithTooltipProps,
+  'entityId' | 'entityType' | 'getEntityScheduledActions'
+>;
 
-export const ScheduledIconWithTooltip = ({
-  entityType,
-  entityId,
+export function useScheduledActions({
   getEntityScheduledActions,
-  children,
-}: ScheduledIconWithTooltipProps) => {
+  entityId,
+  entityType,
+}: UseScheduledActionsProps) {
   const [status, setStatus] = React.useState<
     | { type: 'loading' }
     | { type: 'error'; error: Error }
@@ -29,22 +28,55 @@ export const ScheduledIconWithTooltip = ({
       .catch((e) => {
         setStatus({ type: 'error', error: e });
       });
+    // This should only be ever called once. Following the eslint hint to add used
+    // dependencies will cause page freeze (infinite loop)
+    // eslint-disable-next-line -- TODO: describe this disable
   }, []);
 
-  if (status.type === 'loading' || status.type === 'error') {
-    return null;
+  if (status.type === 'loading') {
+    return { isLoading: true, isError: false, jobs: [] };
   }
 
-  const jobs = status.jobs ? status.jobs : [];
+  if (status.type === 'error') {
+    return { isLoading: false, isError: true, jobs: [] };
+  }
+
+  return {
+    isLoading: false,
+    isError: false,
+    jobs: status.jobs || [],
+  };
+}
+
+type ScheduledIconWithTooltipProps = {
+  getEntityScheduledActions: SpaceAPI['getEntityScheduledActions'];
+  entityType: 'Entry' | 'Asset';
+  entityId: string;
+  children: React.ReactElement;
+};
+
+export const ScheduledIconWithTooltip = ({
+  entityType,
+  entityId,
+  getEntityScheduledActions,
+  children,
+}: ScheduledIconWithTooltipProps) => {
+  const { isError, isLoading, jobs } = useScheduledActions({
+    entityType,
+    entityId,
+    getEntityScheduledActions,
+  });
+
+  if (isLoading || isError) {
+    return children;
+  }
 
   if (jobs.length === 0) {
     return null;
   }
 
-  const mostRelevantJob = jobs[0];
-
   return (
-    <ScheduleTooltip job={mostRelevantJob} jobsCount={jobs.length}>
+    <ScheduleTooltip job={jobs[0]} jobsCount={jobs.length}>
       {children}
     </ScheduleTooltip>
   );

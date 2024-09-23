@@ -1,13 +1,13 @@
-import React from 'react';
-import get from 'lodash/get';
-import { css } from 'emotion';
-import { ContentType } from '../../types';
-import tokens from '@contentful/f36-tokens';
-import { CreateEntryMenuTrigger } from './CreateEntryMenuTrigger';
+import * as React from 'react';
 
 import { Button } from '@contentful/f36-components';
-
 import { ChevronDownIcon, PlusIcon } from '@contentful/f36-icons';
+import tokens from '@contentful/f36-tokens';
+import { css } from 'emotion';
+import get from 'lodash/get';
+
+import { ContentType } from '../../types';
+import { CreateEntryMenuTrigger } from './CreateEntryMenuTrigger';
 
 const standardStyles = {
   spinnerMargin: css({
@@ -20,6 +20,7 @@ const redesignStyles = {
   action: css({
     textDecoration: 'none',
     fontWeight: 'bold',
+    maxWidth: '300px',
   }),
 };
 
@@ -51,6 +52,7 @@ export const CreateEntryLinkButton = ({
   dropdownSettings,
   disabled = false,
 }: CreateEntryLinkButtonProps) => {
+  contentTypes = contentTypes.sort((a, b) => a.name.localeCompare(b.name));
   const suggestedContentType = contentTypes.find((ct) => ct.sys.id === suggestedContentTypeId);
   const buttonText =
     text ||
@@ -75,17 +77,19 @@ export const CreateEntryLinkButton = ({
       onSelect={onSelect}
       testId={testId}
       dropdownSettings={dropdownSettings}
-      customDropdownItems={customDropdownItems}>
+      customDropdownItems={customDropdownItems}
+    >
       {({ isSelecting }) => (
         <Button
           endIcon={hasDropdown ? <ChevronDownIcon /> : undefined}
           variant="secondary"
           className={styles.action}
-          isDisabled={disabled || isSelecting || (contentTypes && contentTypes.length === 0)}
+          isDisabled={disabled || isSelecting} // (contentTypes && contentTypes.length === 0)}
           startIcon={isSelecting ? undefined : plusIcon}
           size="small"
           testId="create-entry-link-button"
-          isLoading={isSelecting}>
+          isLoading={isSelecting}
+        >
           {buttonText}
         </Button>
       )}

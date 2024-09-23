@@ -1,0 +1,26 @@
+{
+  "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build", "prebuild"],
+      "cache": true
+    },
+    "dev": {
+      "dependsOn": ["^build"]
+    },
+    "test:ci": {
+      "dependsOn": ["build"],
+      "cache": true
+    },
+    "integration": {
+      "dependsOn": ["build"]
+    },
+    "tsc": {
+      "cache": true
+    }
+  },
+  "namedInputs": {
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "sharedGlobals": [],
+    "production": ["default"]
+  }
+}

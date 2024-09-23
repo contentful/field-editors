@@ -1,5 +1,7 @@
-*                      @contentful/team-bauhaus
+# Disabling this rule as it shadows Dependabot "reviewers" config
+# *        @contentful/team-tolkien
 
-apps/                  @contentful/team-extensibility
-packages/rich-text/    @contentful/team-shelley @contentful/team-bauhaus
-packages/reference/    @contentful/team-shelley @contentful/team-bauhaus
+cypress/        @contentful/team-tolkien
+packages/        @contentful/team-tolkien
+
+apps/    @contentful/team-tundra

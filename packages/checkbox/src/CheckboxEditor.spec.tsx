@@ -1,7 +1,9 @@
-import React from 'react';
-import { render, configure, cleanup, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
+import * as React from 'react';
+
 import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
+import '@testing-library/jest-dom/extend-expect';
+import { cleanup, configure, fireEvent, render } from '@testing-library/react';
+
 import { CheckboxEditor } from './CheckboxEditor';
 
 configure({
@@ -16,7 +18,8 @@ describe('CheckboxEditor', () => {
       return {
         ...mock,
         items: {
-          type: '',
+          type: 'Link',
+          linkType: 'Entry',
           validations: [],
         },
       };
@@ -36,7 +39,8 @@ describe('CheckboxEditor', () => {
       return {
         ...mock,
         items: {
-          type: '',
+          type: 'Link',
+          linkType: 'Entry',
           validations: [{ in: predefined }],
         },
       };
@@ -61,7 +65,8 @@ describe('CheckboxEditor', () => {
       return {
         ...mock,
         items: {
-          type: '',
+          type: 'Link',
+          linkType: 'Entry',
           validations: [{ in: predefined }],
         },
       };
@@ -103,7 +108,8 @@ describe('CheckboxEditor', () => {
       return {
         ...mock,
         items: {
-          type: '',
+          type: 'Link',
+          linkType: 'Entry',
           validations: [{ in: predefined }],
         },
       };
@@ -129,7 +135,8 @@ describe('CheckboxEditor', () => {
       return {
         ...mock,
         items: {
-          type: '',
+          type: 'Link',
+          linkType: 'Entry',
           validations: [{ in: predefined }],
         },
       };

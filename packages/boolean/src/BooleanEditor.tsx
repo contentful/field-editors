@@ -1,9 +1,9 @@
 import * as React from 'react';
-import get from 'lodash/get';
-import { nanoid } from 'nanoid';
-import { FieldAPI, ParametersAPI, FieldConnector } from '@contentful/field-editor-shared';
 
 import { TextLink, Flex, Radio } from '@contentful/f36-components';
+import { FieldAPI, ParametersAPI, FieldConnector } from '@contentful/field-editor-shared';
+import get from 'lodash/get';
+import { nanoid } from 'nanoid';
 
 export interface BooleanEditorProps {
   /**
@@ -19,12 +19,14 @@ export interface BooleanEditorProps {
   /**
    * sdk.parameters
    */
-  parameters?: ParametersAPI & {
-    instance: {
+  parameters?: ParametersAPI<
+    Record<string, any>,
+    {
       trueLabel?: string;
       falseLabel?: string;
-    };
-  };
+    },
+    Record<string, any>
+  >;
 }
 
 export function BooleanEditor(props: BooleanEditorProps) {
@@ -37,9 +39,10 @@ export function BooleanEditor(props: BooleanEditorProps) {
 
   return (
     <FieldConnector<boolean>
-      throttle={0}
+      debounce={0}
       field={field}
-      isInitiallyDisabled={props.isInitiallyDisabled}>
+      isInitiallyDisabled={props.isInitiallyDisabled}
+    >
       {({ disabled, value, setValue }) => {
         const setOption = (value: string) => {
           setValue(value === 'true' ? true : false);
@@ -65,7 +68,8 @@ export function BooleanEditor(props: BooleanEditorProps) {
                       if (e.target.checked) {
                         setOption(e.target.value);
                       }
-                    }}>
+                    }}
+                  >
                     {item.label}
                   </Radio>
                 </Flex>
@@ -76,7 +80,8 @@ export function BooleanEditor(props: BooleanEditorProps) {
                 as="button"
                 testId="boolean-editor-clear"
                 isDisabled={disabled}
-                onClick={clearOption}>
+                onClick={clearOption}
+              >
                 Clear
               </TextLink>
             )}

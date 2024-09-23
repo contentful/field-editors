@@ -1,9 +1,10 @@
 import * as React from 'react';
-import get from 'lodash/get';
-import { FieldAPI, ParametersAPI, FieldConnector } from '@contentful/field-editor-shared';
-import { RatingRibbon } from './RatingRibbon';
 
 import { TextLink, Flex } from '@contentful/f36-components';
+import { FieldAPI, ParametersAPI, FieldConnector } from '@contentful/field-editor-shared';
+import get from 'lodash/get';
+
+import { RatingRibbon } from './RatingRibbon';
 
 export interface RatingEditorProps {
   /**
@@ -19,11 +20,7 @@ export interface RatingEditorProps {
   /**
    * sdk.parameters
    */
-  parameters?: ParametersAPI & {
-    instance: {
-      stars?: number;
-    };
-  };
+  parameters?: ParametersAPI<Record<string, any>, { stars?: number }, Record<string, any>>;
 }
 
 function isValidCount(count?: string | number): count is number {
@@ -50,9 +47,10 @@ export function RatingEditor(props: RatingEditorProps) {
 
   return (
     <FieldConnector<number>
-      throttle={0}
+      debounce={0}
       field={field}
-      isInitiallyDisabled={props.isInitiallyDisabled}>
+      isInitiallyDisabled={props.isInitiallyDisabled}
+    >
       {({ disabled, value, setValue }) => {
         const clearOption = () => {
           setValue(null);

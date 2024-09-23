@@ -1,8 +1,7 @@
-import React from 'react';
+import { EditorAppSDK } from '@contentful/app-sdk';
 import { Entry } from '@contentful/field-editor-shared';
-import { EditorExtensionSDK } from '@contentful/app-sdk';
-import { AppState, FieldType, FieldGroupType, Action } from './types';
-
+import * as React from 'react';
+import { Action, AppState, FieldGroupType, FieldType } from './types';
 // UTILS
 export const findUnassignedFields = (appState: AppState): FieldType[] => {
   const assignedFields = appState.fieldGroups
@@ -22,7 +21,7 @@ export const getEntryURL = (entry: Entry) => {
   return `https://app.contentful.com/spaces/${spaceId}/entries/${entryId}`;
 };
 
-export const SDKContext = React.createContext<EditorExtensionSDK>(undefined!);
+export const SDKContext = React.createContext<EditorAppSDK>(undefined!);
 export const AppContext = React.createContext<{
   state: AppState;
   dispatch: React.Dispatch<Action>;

@@ -1,22 +1,24 @@
 import * as React from 'react';
 import { useMemo } from 'react';
+
+import { EditorPermissions } from '../../common/useEditorPermissions';
 import {
   Action,
   ActionLabels,
   ContentEntityType,
-  FieldExtensionSDK,
+  FieldAppSDK,
   Entry,
   Asset,
   NavigatorSlideInfo,
 } from '../../types';
-import { LinkActions, LinkActionsProps } from './LinkActions';
+import { CombinedLinkActions } from './CombinedLinkActions';
 import { createEntity, selectMultipleEntities, selectSingleEntity } from './helpers';
-import { EditorPermissions } from '../../common/useEditorPermissions';
+import { LinkActions, LinkActionsProps } from './LinkActions';
 
 type LinkEntityActionsProps = {
   entityType: ContentEntityType;
   canLinkMultiple: boolean;
-  sdk: FieldExtensionSDK;
+  sdk: FieldAppSDK;
   isDisabled: boolean;
   editorPermissions: EditorPermissions;
   onCreate: (id: string, index?: number) => void;
@@ -55,6 +57,7 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
           index,
         });
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
     [entityType, props.onCreate, props.onAction]
   );
   const onLinkedExisting = React.useCallback(
@@ -73,6 +76,7 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
           });
       });
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
     [entityType, props.onLink, props.onAction]
   );
 
@@ -101,6 +105,7 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
 
       onLinkedExisting([entity], index);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
     [sdk, entityType, onLinkedExisting]
   );
 
@@ -117,9 +122,11 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
       }
       onLinkedExisting(entities, index);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
     [sdk, entityType, onLinkedExisting]
   );
 
+  // FIXME: The memoization might rerun every time due to the always changing callback identities above
   return useMemo(
     () => ({
       entityType,
@@ -137,6 +144,7 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
       onLinkedExisting,
       itemsLength,
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
     [
       entityType,
       canLinkMultiple,
@@ -146,6 +154,7 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
       editorPermissions.canCreateEntity,
       editorPermissions.canLinkEntity,
       actionLabels,
+      // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
       editorPermissions.creatableContentTypes.map((ct) => ct.sys.id).join(':'),
       onCreate,
       onLinkExisting,
@@ -163,9 +172,14 @@ export function LinkEntityActions({
 }: LinkActionsProps & {
   renderCustomActions?: (props: LinkActionsProps) => React.ReactElement;
 }) {
-  const renderLinkActions = renderCustomActions
-    ? renderCustomActions
-    : (props: LinkActionsProps) => <LinkActions {...props} />;
+  return renderCustomActions ? renderCustomActions(props) : <LinkActions {...props} />;
+}
 
-  return renderLinkActions(props);
+export function CombinedLinkEntityActions({
+  renderCustomActions,
+  ...props
+}: LinkActionsProps & {
+  renderCustomActions?: (props: LinkActionsProps) => React.ReactElement;
+}) {
+  return renderCustomActions ? renderCustomActions(props) : <CombinedLinkActions {...props} />;
 }

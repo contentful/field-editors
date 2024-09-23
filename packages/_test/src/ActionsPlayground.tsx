@@ -1,7 +1,9 @@
-import React from 'react';
-import type { Emitter } from 'mitt';
-import { css } from 'emotion';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import * as React from 'react';
+
 import tokens from '@contentful/f36-tokens';
+import { css } from 'emotion';
+import type { Emitter } from 'mitt';
 
 type EventDefinition = { type?: string; value: any; id: number };
 
@@ -49,13 +51,10 @@ function ActionsPlayground(props: ActionsPlaygroundProps) {
 
   React.useEffect(() => {
     props.mitt.on('*', onLog);
-
-    if ((window as any).Cypress) {
-      (window as any).editorEvents = [];
-      (window as any).setValueExternal = (value: any) => {
-        props.mitt.emit('onValueChanged', value);
-      };
-    }
+    (window as any).editorEvents = [];
+    (window as any).setValueExternal = (value: any) => {
+      props.mitt.emit('onValueChanged', value);
+    };
 
     return () => {
       props.mitt.off('*', onLog);
@@ -74,13 +73,15 @@ function ActionsPlayground(props: ActionsPlaygroundProps) {
         border: `1px solid ${tokens.gray200}`,
         padding: tokens.spacingS,
         marginTop: tokens.spacingXl,
-      })}>
+      })}
+    >
       <div
         className={css({
           height: 150,
           overflowY: 'scroll',
           fontSize: tokens.fontSizeM,
-        })}>
+        })}
+      >
         {state.events.map((log) => (
           <div key={log.id}>
             <div>

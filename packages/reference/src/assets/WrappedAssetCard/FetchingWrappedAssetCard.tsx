@@ -1,21 +1,22 @@
 import * as React from 'react';
-import { Action, Asset, FieldExtensionSDK, ViewType, RenderDragFn } from '../../types';
-import { LinkActionsProps, MissingEntityCard } from '../../components';
-import { WrappedAssetCard, WrappedAssetCardProps } from './WrappedAssetCard';
-import { WrappedAssetLink } from './WrappedAssetLink';
-import { useEntities } from '../../common/EntityStore';
+
+import { AssetCard, EntryCard } from '@contentful/f36-components';
+
 import {
   CustomEntityCardProps,
   CustomCardRenderer,
   RenderCustomMissingEntityCard,
 } from '../../common/customCardTypes';
-
-import { AssetCard, EntryCard } from '@contentful/f36-components';
+import { useEntity, useEntityLoader } from '../../common/EntityStore';
+import { LinkActionsProps, MissingAssetCard } from '../../components';
+import { Action, Asset, FieldAppSDK, ViewType, RenderDragFn } from '../../types';
+import { WrappedAssetCard, WrappedAssetCardProps } from './WrappedAssetCard';
+import { WrappedAssetLink } from './WrappedAssetLink';
 
 type FetchingWrappedAssetCardProps = {
   assetId: string;
   isDisabled: boolean;
-  sdk: FieldExtensionSDK;
+  sdk: FieldAppSDK;
   viewType: ViewType | 'big_card';
   onRemove: () => void;
   getEntityUrl?: (id: string) => string;
@@ -26,24 +27,18 @@ type FetchingWrappedAssetCardProps = {
 };
 
 export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
-  const { getOrLoadAsset, loadEntityScheduledActions, assets } = useEntities();
-
-  React.useEffect(() => {
-    getOrLoadAsset(props.assetId);
-  }, [props.assetId]);
-
-  const asset = assets[props.assetId];
-  const entityKey =
-    asset === 'failed'
-      ? 'failed'
-      : asset === undefined
-      ? 'undefined'
-      : `:${asset.sys.id}:${asset.sys.version}`;
+  const { data: asset, status } = useEntity<Asset>('Asset', props.assetId);
+  const { getEntityScheduledActions } = useEntityLoader();
+  const loadEntityScheduledActions = React.useCallback(
+    () => getEntityScheduledActions('Asset', props.assetId),
+    [getEntityScheduledActions, props.assetId]
+  );
 
   React.useEffect(() => {
     if (asset) {
       props.onAction && props.onAction({ type: 'rendered', entity: 'Asset' });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, [asset]);
 
   const onEdit = async () => {
@@ -65,10 +60,9 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
   };
 
   return React.useMemo(() => {
-    if (asset === 'failed') {
+    if (status === 'error') {
       const card = (
-        <MissingEntityCard
-          entityType="Asset"
+        <MissingAssetCard
           asSquare={props.viewType !== 'link'}
           isDisabled={props.isDisabled}
           onRemove={onRemove}
@@ -86,10 +80,10 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       return card;
     }
 
-    const { getEntityUrl, sdk } = props;
+    const { getEntityUrl } = props;
     const size = props.viewType === 'big_card' ? 'default' : 'small';
     const commonProps = {
-      asset: asset as Asset,
+      asset,
       entityUrl: getEntityUrl && getEntityUrl(props.assetId),
       size: size as 'default' | 'small',
       isDisabled: props.isDisabled,
@@ -98,22 +92,24 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       renderDragHandle: props.renderDragHandle,
       onEdit,
       onRemove,
+      useLocalizedEntityStatus: props.sdk.parameters.instance.useLocalizedEntityStatus,
+      isLocalized: !!('localized' in props.sdk.field && props.sdk.field.localized), // missing in types :(
     };
 
     if (props.viewType === 'link') {
-      if (asset === undefined) {
+      if (status === 'loading') {
         return <EntryCard size="small" isLoading />;
       }
       return (
         <WrappedAssetLink
           {...commonProps}
           href={commonProps.entityUrl}
-          getEntityScheduledActions={sdk.space.getEntityScheduledActions}
+          getEntityScheduledActions={loadEntityScheduledActions}
         />
       );
     }
 
-    if (asset === undefined) {
+    if (status === 'loading') {
       return <AssetCard size={size} isLoading />;
     }
 
@@ -149,5 +145,6 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
     }
 
     return renderDefaultCard();
-  }, [props, entityKey]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
+  }, [props, status, asset]);
 }

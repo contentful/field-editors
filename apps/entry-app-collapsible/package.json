@@ -3,12 +3,12 @@
   "version": "2.0.0",
   "private": true,
   "dependencies": {
-    "@contentful/app-sdk": "^4.2.0",
+    "@contentful/app-sdk": "^4.17.1",
     "@contentful/default-field-editors": "^1.0.0",
-    "@contentful/f36-components": "^4.0.1-beta.2527",
-    "@contentful/f36-icons": "^4.0.1-beta.2527",
-    "@contentful/f36-tokens": "^4.0.1-beta.2527",
-    "@contentful/field-editor-rich-text": "^0.19.19",
+    "@contentful/f36-components": "^4.0.27",
+    "@contentful/f36-icons": "^4.1.0",
+    "@contentful/f36-tokens": "^4.0.0",
+    "@contentful/field-editor-rich-text": "^2.0.0-next.45",
     "@contentful/field-editor-shared": "^0.25.1",
     "@contentful/field-editor-single-line": "^0.15.6",
     "emotion": "^10.0.17",
@@ -29,24 +29,24 @@
   },
   "devDependencies": {
     "@contentful/app-scripts": "^0.9.17-alpha.16",
+    "@contentful/browserslist-config": "^3.0.0",
     "@contentful/field-editor-test-utils": "^0.14.0",
     "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^11.2.7",
+    "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^13.1.9",
     "@types/jest": "^26.0.23",
-    "@types/node": "^14.17.3",
+    "@types/node": "^20.6.5",
     "@types/react": "^17.0.11",
     "@types/react-dom": "^17.0.7",
     "cross-env": "^7.0.3",
-    "react-scripts": "4.0.3",
-    "typescript": "^4.3.3"
+    "react-scripts": "5.0.1",
+    "typescript": "^5.3.3",
+    "babel-eslint": "^10.1.0",
+    "@typescript-eslint/parser": "^5.29.0",
+    "@typescript-eslint/eslint-plugin": "^5.29.0"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": "extends @contentful/browserslist-config",
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",

@@ -3,6 +3,233 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.6.0...@contentful/field-editor-markdown@1.6.1) (2024-08-21)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+# [1.6.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.17...@contentful/field-editor-markdown@1.6.0) (2024-07-23)
+
+### Features
+
+- 🎸 fetch all resource types ([#1704](https://github.com/contentful/field-editors/issues/1704)) ([f6403fa](https://github.com/contentful/field-editors/commit/f6403fadd543f081683fe499a79367f1f4ae737c))
+
+## [1.5.17](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.16...@contentful/field-editor-markdown@1.5.17) (2024-06-26)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.5.16](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.15...@contentful/field-editor-markdown@1.5.16) (2024-06-13)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.5.15](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.14...@contentful/field-editor-markdown@1.5.15) (2024-06-12)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.5.14](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.13...@contentful/field-editor-markdown@1.5.14) (2024-06-07)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.5.13](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.12...@contentful/field-editor-markdown@1.5.13) (2024-05-24)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.5.12](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.11...@contentful/field-editor-markdown@1.5.12) (2024-05-24)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.5.11](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.10...@contentful/field-editor-markdown@1.5.11) (2024-05-21)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.5.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.9...@contentful/field-editor-markdown@1.5.10) (2024-05-16)
+
+### Bug Fixes
+
+- temporarily revert text editors restyling ([#1652](https://github.com/contentful/field-editors/issues/1652)) ([c11eaf8](https://github.com/contentful/field-editors/commit/c11eaf83b1afa7530ff2cf4b3cb38bbb868f7256))
+
+## [1.5.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.8...@contentful/field-editor-markdown@1.5.9) (2024-04-22)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.5.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.7...@contentful/field-editor-markdown@1.5.8) (2024-04-15)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.5.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.6...@contentful/field-editor-markdown@1.5.7) (2024-02-23)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.5.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.5...@contentful/field-editor-markdown@1.5.6) (2024-02-05)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.5.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.4...@contentful/field-editor-markdown@1.5.5) (2024-01-23)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.5.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.3...@contentful/field-editor-markdown@1.5.4) (2024-01-23)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.5.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.2...@contentful/field-editor-markdown@1.5.3) (2023-10-13)
+
+### Bug Fixes
+
+- **markdown:** improve handling for external updates [] ([#1517](https://github.com/contentful/field-editors/issues/1517)) ([4bf244d](https://github.com/contentful/field-editors/commit/4bf244da35d8967911b3052dad1c5c77a5d1e4ac))
+
+## [1.5.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.1...@contentful/field-editor-markdown@1.5.2) (2023-10-06)
+
+### Bug Fixes
+
+- [] Replace deprecated `*ExtensionSDK` types with `*AppSDK` types ([#1499](https://github.com/contentful/field-editors/issues/1499)) ([eb6ede8](https://github.com/contentful/field-editors/commit/eb6ede86b27aab50c04d6cf68bb54e9b3dec7460))
+
+## [1.5.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.0...@contentful/field-editor-markdown@1.5.1) (2023-09-28)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+# [1.5.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.4.0...@contentful/field-editor-markdown@1.5.0) (2023-09-12)
+
+### Bug Fixes
+
+- reverting prettier [] ([#1490](https://github.com/contentful/field-editors/issues/1490)) ([adfc425](https://github.com/contentful/field-editors/commit/adfc4258fd62de0bb0fa55cde8c676f46753faa2))
+
+### Features
+
+- [TOL-1405] Replace throttling with debounce in field editors ([#1482](https://github.com/contentful/field-editors/issues/1482)) ([f56126c](https://github.com/contentful/field-editors/commit/f56126c415c6b3718f198ad34afba9a2933df434))
+- markdown sanitize changes [TOL-497] ([#1486](https://github.com/contentful/field-editors/issues/1486)) ([6bbe49a](https://github.com/contentful/field-editors/commit/6bbe49ada07d95811260d75ef11cb4677957be3a))
+
+# [1.4.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.3.1...@contentful/field-editor-markdown@1.4.0) (2023-08-31)
+
+### Features
+
+- switch to react-markdown, lazy loading [TOL-501] ([#1473](https://github.com/contentful/field-editors/issues/1473)) ([cafd6fb](https://github.com/contentful/field-editors/commit/cafd6fbeb7e6bcb9f7c2205363089fe5b5c832a3))
+
+## [1.3.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.3.0...@contentful/field-editor-markdown@1.3.1) (2023-07-25)
+
+### Bug Fixes
+
+- remove lodash-es to fix cjs issues [TOL-1346] ([#1452](https://github.com/contentful/field-editors/issues/1452)) ([0147baa](https://github.com/contentful/field-editors/commit/0147baaad26e4a9b2ac5653b9c23f1f9ae4a9f33))
+
+# [1.3.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.2.1...@contentful/field-editor-markdown@1.3.0) (2023-06-02)
+
+### Features
+
+- setup swc compilation [TOL-1070] ([#1413](https://github.com/contentful/field-editors/issues/1413)) ([de9878f](https://github.com/contentful/field-editors/commit/de9878fb77e0f4341b0933925013777e0a5336d3))
+
+## [1.2.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.2.0...@contentful/field-editor-markdown@1.2.1) (2023-05-09)
+
+### Bug Fixes
+
+- **markdown:** toolbar overflow ([#1411](https://github.com/contentful/field-editors/issues/1411)) ([e79bc65](https://github.com/contentful/field-editors/commit/e79bc65b9107dee2efbad380e8ceaeaeaa464dc0))
+
+# [1.2.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.1.16...@contentful/field-editor-markdown@1.2.0) (2023-04-19)
+
+### Features
+
+- upgrade cypress [TOL-1036] ([#1391](https://github.com/contentful/field-editors/issues/1391)) ([9c1aec9](https://github.com/contentful/field-editors/commit/9c1aec98aabbe464cdc3f1236c3bb1cc29b8208d))
+
+## [1.1.16](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.1.15...@contentful/field-editor-markdown@1.1.16) (2023-03-14)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.1.15](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.1.14...@contentful/field-editor-markdown@1.1.15) (2023-03-10)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.1.14](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.1.13...@contentful/field-editor-markdown@1.1.14) (2023-02-27)
+
+### Bug Fixes
+
+- **markdown-editor:** textlink sometimes not centered in help text ([8611e74](https://github.com/contentful/field-editors/commit/8611e74af2709176c39d9ee2abf8667aed916014))
+
+## [1.1.13](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.1.12...@contentful/field-editor-markdown@1.1.13) (2023-02-21)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.1.12](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.1.11...@contentful/field-editor-markdown@1.1.12) (2023-02-07)
+
+### Bug Fixes
+
+- enable spellchecking in markdown editor ([#1339](https://github.com/contentful/field-editors/issues/1339)) ([e828c93](https://github.com/contentful/field-editors/commit/e828c938333d498ce182f662e068861f5732ae1f))
+
+## [1.1.11](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.1.10...@contentful/field-editor-markdown@1.1.11) (2023-02-07)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.1.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.1.9...@contentful/field-editor-markdown@1.1.10) (2023-01-27)
+
+### Bug Fixes
+
+- mail to links replace ampersand [TOL-923] ([#1331](https://github.com/contentful/field-editors/issues/1331)) ([8e3d5df](https://github.com/contentful/field-editors/commit/8e3d5df5105a48126a790b8c341139fe7cf11d72))
+
+## [1.1.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.1.8...@contentful/field-editor-markdown@1.1.9) (2022-12-08)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.1.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.1.7...@contentful/field-editor-markdown@1.1.8) (2022-07-29)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.1.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.1.6...@contentful/field-editor-markdown@1.1.7) (2022-07-29)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.1.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.1.5...@contentful/field-editor-markdown@1.1.6) (2022-07-11)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.1.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.1.4...@contentful/field-editor-markdown@1.1.5) (2022-06-22)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.1.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.1.3...@contentful/field-editor-markdown@1.1.4) (2022-05-04)
+
+### Bug Fixes
+
+- reflect disabled state on fields ([#1125](https://github.com/contentful/field-editors/issues/1125)) ([01502b9](https://github.com/contentful/field-editors/commit/01502b9d785c5f782b0e5de782d092c439cb690f))
+
+## [1.1.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.1.2...@contentful/field-editor-markdown@1.1.3) (2022-02-15)
+
+### Bug Fixes
+
+- bump f36 packages ([#1025](https://github.com/contentful/field-editors/issues/1025)) ([ec37a40](https://github.com/contentful/field-editors/commit/ec37a4000db7cd75c66dd9621136b2272c9feeea))
+
+## [1.1.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.1.1...@contentful/field-editor-markdown@1.1.2) (2022-02-14)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.1.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.1.0...@contentful/field-editor-markdown@1.1.1) (2022-02-01)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+# [1.1.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.0.5...@contentful/field-editor-markdown@1.1.0) (2022-01-11)
+
+### Features
+
+- bump f36 packages to stable v4 [BAU-521] ([#988](https://github.com/contentful/field-editors/issues/988)) ([419cf56](https://github.com/contentful/field-editors/commit/419cf56692179b074fcfa2743469d5265ed98429))
+
+## [1.0.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.0.4...@contentful/field-editor-markdown@1.0.5) (2021-12-23)
+
+### Bug Fixes
+
+- markdown buttons ([#968](https://github.com/contentful/field-editors/issues/968)) ([9803b98](https://github.com/contentful/field-editors/commit/9803b98c25d92df6148686ffe2749a77f7efdbb9))
+
+## [1.0.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.0.3...@contentful/field-editor-markdown@1.0.4) (2021-12-20)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.0.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.0.2...@contentful/field-editor-markdown@1.0.3) (2021-12-06)
+
+### Bug Fixes
+
+- replace @contentful/hostname-transformer ([#950](https://github.com/contentful/field-editors/issues/950)) ([871ca34](https://github.com/contentful/field-editors/commit/871ca345f1c53e4d579f58e5ee32c67830ad1b7f))
+
+## [1.0.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.0.1...@contentful/field-editor-markdown@1.0.2) (2021-12-03)
+
+### Bug Fixes
+
+- markdown upload asset domain url to ctfasset.net [] ([#946](https://github.com/contentful/field-editors/issues/946)) ([21ef606](https://github.com/contentful/field-editors/commit/21ef606e941feff1e8db1189c9cb48f9a82728a0))
+
 ## [1.0.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.0.0...@contentful/field-editor-markdown@1.0.1) (2021-11-17)
 
 ### Bug Fixes

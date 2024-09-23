@@ -1,5 +1,5 @@
-import isNumber from 'lodash/isNumber';
 import { FieldAPI } from '@contentful/app-sdk';
+import isNumber from 'lodash/isNumber';
 
 type NumberOfLinksValidation =
   | { type: 'min-max'; min: number; max: number }
@@ -13,10 +13,10 @@ export type ReferenceValidations = {
 };
 
 export function fromFieldValidations(field: FieldAPI): ReferenceValidations {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line -- TODO: describe this eslint disable  @typescript-eslint/no-explicit-any
   const validations: Record<string, any>[] = [
     ...field.validations,
-    ...(field.items?.validations ?? []),
+    ...(field.type === 'Array' ? field.items?.validations ?? [] : []),
   ];
   const linkContentTypeValidations = validations.find((v) => 'linkContentType' in v);
   const linkMimetypeGroupValidations = validations.find((v) => 'linkMimetypeGroup' in v);

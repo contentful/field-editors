@@ -1,25 +1,31 @@
 import * as React from 'react';
-import { css } from 'emotion';
+
+import { TextLink } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
 import { FieldAPI, FieldConnector, ParametersAPI } from '@contentful/field-editor-shared';
+import { css } from 'emotion';
+
 import { DatepickerInput } from './DatepickerInput';
 import { TimepickerInput } from './TimepickerInput';
 import { TimezonepickerInput } from './TimezonePickerInput';
+import { TimeFormat, DateTimeFormat, TimeResult } from './types';
 import {
   userInputFromDatetime,
   buildFieldValue,
   getDefaultAMPM,
   getDefaultUtcOffset,
 } from './utils/date';
-import { TimeFormat, DateTimeFormat, TimeResult } from './types';
-
-import { TextLink } from '@contentful/f36-components';
 
 export interface DateEditorProps {
   /**
    * is the field disabled initially
    */
   isInitiallyDisabled: boolean;
+
+  /*
+   * is the field manually disabled
+   */
+  isDisabled?: boolean;
 
   /**
    * sdk.field
@@ -29,12 +35,14 @@ export interface DateEditorProps {
   /**
    * sdk.parameters
    */
-  parameters?: ParametersAPI & {
-    instance?: {
+  parameters?: ParametersAPI<
+    Record<string, any>,
+    {
       format?: DateTimeFormat;
       ampm?: TimeFormat;
-    };
-  };
+    },
+    Record<string, any>
+  >;
 }
 
 const styles = {
@@ -55,6 +63,7 @@ function useEffectWithoutFirstRender(callback: Function, deps: Array<any>) {
       return;
     }
     callback();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, deps);
 }
 
@@ -140,7 +149,8 @@ function DateEditorContainer({
                 ampm: getDefaultAMPM(),
                 utcOffset: getDefaultUtcOffset(),
               });
-            }}>
+            }}
+          >
             Clear
           </TextLink>
         </>
@@ -163,7 +173,9 @@ export function DateEditor(props: DateEditorProps) {
     <FieldConnector<string>
       field={field}
       isInitiallyDisabled={props.isInitiallyDisabled}
-      throttle={0}>
+      isDisabled={props.isDisabled}
+      debounce={0}
+    >
       {({ value, disabled, setValue, externalReset }) => {
         const datetimeValue = userInputFromDatetime({
           value,

@@ -1,13 +1,13 @@
 import * as React from 'react';
-import deepEqual from 'deep-equal';
-import throttle from 'lodash/throttle';
 
 import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
-import { JsonEditorToolbar } from './JsonEditorToobar';
+import throttle from 'lodash/throttle';
+
+import { JsonEditorField } from './JsonEditorField';
+import { JsonEditorToolbar } from './JsonEditorToolbar';
 import { JsonInvalidStatus } from './JsonInvalidStatus';
-import { JsonEditorField } from './JsonEditoField';
 import { JSONObject } from './types';
-import { stringifyJSON, parseJSON } from './utils';
+import { stringifyJSON, parseJSON, SPACE_INDENT_COUNT } from './utils';
 
 export interface JsonEditorProps {
   /**
@@ -34,6 +34,7 @@ type ConnectedJsonEditorState = {
   isValidJson: boolean;
   undoStack: string[];
   redoStack: string[];
+  lastUndo: string;
 };
 
 class ConnectedJsonEditor extends React.Component<
@@ -51,6 +52,7 @@ class ConnectedJsonEditor extends React.Component<
       isValidJson: true,
       undoStack: [],
       redoStack: [],
+      lastUndo: '',
     };
   }
 
@@ -69,7 +71,9 @@ class ConnectedJsonEditor extends React.Component<
   onChange = (value: string) => {
     const parsed = parseJSON(value);
 
-    this.pushUndo(this.state.value);
+    if (value !== this.state.lastUndo) {
+      this.pushUndo(this.state.value);
+    }
 
     this.setState({
       value,
@@ -82,7 +86,7 @@ class ConnectedJsonEditor extends React.Component<
   };
 
   onUndo = () => {
-    const undoStack = [...this.state.undoStack];
+    const undoStack = this.state.undoStack;
 
     if (undoStack.length === 0) {
       return;
@@ -99,6 +103,7 @@ class ConnectedJsonEditor extends React.Component<
         isValidJson: parsedValue.valid,
         undoStack,
         redoStack: [...state.redoStack, state.value],
+        lastUndo: value,
       }),
       () => {
         if (parsedValue.valid) {
@@ -157,23 +162,18 @@ class ConnectedJsonEditor extends React.Component<
 
 export default function JsonEditor(props: JsonEditorProps) {
   return (
-    <FieldConnector<JSONObject>
-      field={props.field}
-      isInitiallyDisabled={props.isInitiallyDisabled}
-      isEqualValues={(value1, value2) => {
-        return deepEqual(value1, value2);
-      }}>
-      {({ value, disabled, setValue, externalReset }) => {
-        return (
-          <ConnectedJsonEditor
-            // on external change reset component completely and init with initial value again
-            key={`json-editor-${externalReset}`}
-            initialValue={value}
-            disabled={disabled}
-            setValue={setValue}
-          />
-        );
-      }}
+    <FieldConnector<JSONObject> field={props.field} isInitiallyDisabled={props.isInitiallyDisabled}>
+      {({ value, disabled, setValue, externalReset }) => (
+        <ConnectedJsonEditor
+          // on external change reset component completely and init with initial value again
+          key={`json-editor-${externalReset}`}
+          initialValue={value}
+          disabled={disabled}
+          setValue={setValue}
+        />
+      )}
     </FieldConnector>
   );
 }
+
+JsonEditor.tabWidth = SPACE_INDENT_COUNT;

@@ -1,26 +1,22 @@
-import React from 'react';
-import {
-  FieldExtensionSDK,
-  DialogExtensionSDK,
-  OpenCustomWidgetOptions,
-} from '@contentful/app-sdk';
-import { ModalDialogLauncher } from '@contentful/field-editor-shared';
-import { MarkdownDialogsParams, PreviewComponents } from '../types';
+import * as React from 'react';
 
+import { DialogAppSDK, FieldAppSDK, OpenCustomWidgetOptions } from '@contentful/app-sdk';
+import { ModalDialogLauncher } from '@contentful/field-editor-shared';
+
+import { MarkdownDialogType, MarkdownDialogsParams, PreviewComponents } from '../types';
 import { CheatsheetModalDialog } from './CheatsheetModalDialog';
-import { SpecialCharacterModalDialog } from './SpecialCharacterModalDialog';
-import { MarkdownDialogType } from '../types';
-import { InsertLinkModal, InsertLinkModalResult } from './InsertLinkModalDialog';
-import { InsertTableModal, InsertTableModalResult } from './InsertTableModalDialog';
 import { ConfirmInsertAssetModalDialog } from './ConfirmInsertAssetModalDialog';
 import {
   EmbedExternalContentModal,
   EmbedExternalContentModalResult,
 } from './EmdebExternalContentDialog';
+import { InsertLinkModal, InsertLinkModalResult } from './InsertLinkModalDialog';
+import { InsertTableModal, InsertTableModalResult } from './InsertTableModalDialog';
+import { SpecialCharacterModalDialog } from './SpecialCharacterModalDialog';
 import { ZenModeModalDialog, ZenModeResult } from './ZenModeModalDialog';
 
 export const openMarkdownDialog =
-  (sdk: FieldExtensionSDK, previewComponents?: PreviewComponents) =>
+  (sdk: FieldAppSDK, previewComponents?: PreviewComponents) =>
   (
     options: OpenCustomWidgetOptions & {
       parameters?: MarkdownDialogsParams;
@@ -71,7 +67,7 @@ export const openMarkdownDialog =
             onClose={onClose}
             initialValue={initialValue}
             locale={locale}
-            sdk={sdk as unknown as DialogExtensionSDK}
+            sdk={sdk as unknown as DialogAppSDK}
             previewComponents={previewComponents}
           />
         );

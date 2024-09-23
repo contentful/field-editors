@@ -1,10 +1,10 @@
-import { Asset, ContentType, ContentEntityType, Entry, FieldExtensionSDK } from '../../types';
 import { EditorPermissions } from '../../common/useEditorPermissions';
+import { Asset, ContentType, ContentEntityType, Entry, FieldAppSDK } from '../../types';
 
 const getContentTypeIds = (contentTypes: ContentType[]) => contentTypes.map((ct) => ct.sys.id);
 
 export async function createEntity(props: {
-  sdk: FieldExtensionSDK;
+  sdk: FieldAppSDK;
   entityType: ContentEntityType;
   contentTypeId?: string;
 }) {
@@ -25,14 +25,16 @@ export async function createEntity(props: {
 }
 
 export async function selectSingleEntity(props: {
-  sdk: FieldExtensionSDK;
+  sdk: FieldAppSDK;
   entityType: ContentEntityType;
   editorPermissions: EditorPermissions;
 }) {
   if (props.entityType === 'Entry') {
     return await props.sdk.dialogs.selectSingleEntry<Entry>({
       locale: props.sdk.field.locale,
-      contentTypes: getContentTypeIds(props.editorPermissions.readableContentTypes),
+      // readable CTs do not cover cases where user has partial access to a CT entry,
+      // e.g. via tags so we're passing in all available CTs (based on field validations)
+      contentTypes: getContentTypeIds(props.editorPermissions.availableContentTypes),
     });
   } else {
     return props.sdk.dialogs.selectSingleAsset<Asset>({
@@ -43,7 +45,7 @@ export async function selectSingleEntity(props: {
 }
 
 export async function selectMultipleEntities(props: {
-  sdk: FieldExtensionSDK;
+  sdk: FieldAppSDK;
   entityType: ContentEntityType;
   editorPermissions: EditorPermissions;
 }) {
@@ -65,7 +67,9 @@ export async function selectMultipleEntities(props: {
   if (props.entityType === 'Entry') {
     return await props.sdk.dialogs.selectMultipleEntries<Entry>({
       locale: props.sdk.field.locale,
-      contentTypes: getContentTypeIds(props.editorPermissions.readableContentTypes),
+      // readable CTs do not cover cases where user has partial access to a CT entry,
+      // e.g. via tags so we're passing in all available CTs (based on field validations)
+      contentTypes: getContentTypeIds(props.editorPermissions.availableContentTypes),
       min,
       max,
     });
