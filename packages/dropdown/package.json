@@ -47,7 +47,7 @@
     "contentful-management": "^11.0.0"
   },
   "peerDependencies": {
-    "react": ">=17.0.2"
+    "react": ">=18.3.1"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
