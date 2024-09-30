@@ -71,13 +71,10 @@ export const TimepickerInput = ({
     setSelectedTime(e.currentTarget.value);
   }, []);
 
-  const handleFocus = useCallback(
-    (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) => {
-      e.preventDefault();
-      e.target.select();
-    },
-    []
-  );
+  const handleFocus = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    e.target.select();
+  }, []);
 
   const handleBlur = () => {
     const parsedTime = parseRawInput(selectedTime);
