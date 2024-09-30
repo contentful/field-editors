@@ -109,7 +109,7 @@ export function getElementFromCurrentSelection(editor: PlateEditor) {
       at: editor.selection,
       match: (node) => isElement(node),
     })
-  ).flat();
+  ).flat() as (Path | Node)[];
 }
 
 export function isList(editor?: PlateEditor) {
