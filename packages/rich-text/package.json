@@ -59,7 +59,7 @@
     "@udecode/plate-select": "36.0.0",
     "@udecode/plate-serializer-docx": "36.0.10",
     "@udecode/plate-serializer-html": "36.0.0",
-    "@udecode/plate-table": "36.0.0",
+    "@udecode/plate-table": "36.5.9",
     "@udecode/plate-trailing-block": "36.0.0",
     "constate": "^3.3.2",
     "fast-deep-equal": "^3.1.3",

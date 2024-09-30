@@ -8044,6 +8044,14 @@
     "@udecode/plate-resizable" "36.0.0"
     lodash "^4.17.21"
 
+"@udecode/plate-table@36.5.9":
+  version "36.5.9"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-table/-/plate-table-36.5.9.tgz#0c317f15c8c06cadc17ecc75ee53440603916ed5"
+  integrity sha512-PaqveLFKvo0t3I99JVe0fZFn6gGVEtLFj06pikbnTzLZ/RHpz89YjE0F3zDEeNCMoH4lOmgBqsKt3S4ho9HkGQ==
+  dependencies:
+    "@udecode/plate-resizable" "36.0.0"
+    lodash "^4.17.21"
+
 "@udecode/plate-test-utils@^3.2.0":
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/@udecode/plate-test-utils/-/plate-test-utils-3.2.0.tgz#889e4ed08b21a85fd20b7c7c084bb4d483da8c78"
