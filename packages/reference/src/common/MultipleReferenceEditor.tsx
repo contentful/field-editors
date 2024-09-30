@@ -4,11 +4,11 @@ import { useCallback } from 'react';
 import { DragStartEvent } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
 
-import { LinkEntityActions } from '../components';
+import { LinkActionsProps, LinkEntityActions } from '../components';
 import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions';
 import { ReferenceValue, ContentEntityType, ContentType } from '../types';
 import { useSortIDs } from '../utils/useSortIDs';
-import { CustomEntityCardProps } from './customCardTypes';
+import { CustomEntityCardProps, DefaultCardRenderer } from './customCardTypes';
 import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
 import { useEditorPermissions } from './useEditorPermissions';
 
@@ -69,7 +69,7 @@ function Editor(props: EditorProps) {
   }, []);
 
   const onSortEnd = useCallback(
-    ({ oldIndex, newIndex }) => {
+    ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => {
       // custom callback that is invoked *before* we sort the array
       // e.g. in Compose we want to sort the references in the referenceMap before re-rendering drag and drop
       onSortingEnd && onSortingEnd({ oldIndex, newIndex });
@@ -110,7 +110,11 @@ function Editor(props: EditorProps) {
   });
 
   const customCardRenderer = useCallback(
-    (cardProps: CustomEntityCardProps, _, renderDefaultCard) =>
+    (
+      cardProps: CustomEntityCardProps,
+      _: LinkActionsProps,
+      renderDefaultCard: DefaultCardRenderer
+    ) =>
       props.renderCustomCard
         ? props.renderCustomCard(cardProps, linkActionsProps, renderDefaultCard)
         : false,

@@ -55,7 +55,7 @@ export function LinkedResourceBlock(props: LinkedResourceBlockProps) {
         />
       }
     >
-      {children}
+      {children as React.ReactNode}
     </LinkedBlockWrapper>
   );
 }

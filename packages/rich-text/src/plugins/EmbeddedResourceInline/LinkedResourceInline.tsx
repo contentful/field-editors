@@ -50,7 +50,7 @@ export function LinkedResourceInline(props: LinkedResourceInlineProps) {
         />
       }
     >
-      {children}
+      {children as React.ReactNode}
     </LinkedInlineWrapper>
   );
 }

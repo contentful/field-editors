@@ -60,7 +60,7 @@ export function LinkedEntityInline(props: LinkedEntityInlineProps) {
       }
       link={element.data.target}
     >
-      {children}
+      {children as React.ReactNode}
     </LinkedInlineWrapper>
   );
 }
