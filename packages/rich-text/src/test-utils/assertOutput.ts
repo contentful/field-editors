@@ -1,6 +1,6 @@
 import { normalize } from '../internal';
 import { PlateEditor } from '../internal/types';
-import { createTestEditor } from './createEditor';
+import { createTestEditor } from './createTestEditor';
 import { setEmptyDataAttribute } from './setEmptyDataAttribute';
 
 export const assertOutput = (options: {

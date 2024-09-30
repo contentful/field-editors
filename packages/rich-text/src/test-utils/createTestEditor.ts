@@ -1,6 +1,6 @@
 import { FieldAppSDK } from '@contentful/app-sdk';
 
-import { normalize, createPlateEditor } from '../internal';
+import { normalize, createPlateEditor, PlateEditor } from '../internal';
 import { PlatePlugin } from '../internal/types';
 import { getPlugins } from '../plugins';
 import { RichTextTrackingActionHandler } from '../plugins/Tracking';
@@ -24,7 +24,7 @@ export const createTestEditor = (options: {
   });
 
   return {
-    editor,
+    editor: editor as PlateEditor,
     normalize: () => normalize(editor),
   };
 };

@@ -45,6 +45,7 @@ export const createTablePlugin = (): PlatePlugin =>
       const { normalizeNode } = editor;
       // injects important fixes from plate's original table plugin
       editor = withDeleteTable(editor);
+      // @ts-expect-error -- .
       editor = withGetFragmentTable(editor);
       editor = withInsertFragmentTable(editor, plugin);
       // overrides insertFragment to handle table insertion to not add empty paragraph before table
