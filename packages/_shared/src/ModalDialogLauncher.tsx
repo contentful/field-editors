@@ -23,6 +23,7 @@ export function open(componentRenderer: (params: { onClose: Function; isShown: b
     let currentConfig = { onClose, isShown: true };
 
     function render({ onClose, isShown }: { onClose: Function; isShown: boolean }) {
+      // eslint-disable-next-line -- TODO: use createRoot instead here
       ReactDOM.render(componentRenderer({ onClose, isShown }), getRoot());
     }
 
@@ -44,7 +45,7 @@ export function open(componentRenderer: (params: { onClose: Function; isShown: b
 
 export function openDialog<T>(
   options: OpenCustomWidgetOptions,
-  Component: React.SFC<{ onClose: (result: T) => void }>
+  Component: React.FC<{ onClose: (result: T) => void }>
 ) {
   const key = Date.now();
   const size = isNumber(options.width) ? `${options.width}px` : options.width;

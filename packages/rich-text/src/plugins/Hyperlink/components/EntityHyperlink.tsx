@@ -68,7 +68,7 @@ export function EntityHyperlink(props: HyperlinkElementProps) {
         data-link-type={target.sys.linkType}
         data-link-id={target.sys.id}
       >
-        {props.children}
+        {props.children as React.ReactNode}
       </Text>
     </LinkPopover>
   );
