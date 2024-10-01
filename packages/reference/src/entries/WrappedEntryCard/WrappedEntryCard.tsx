@@ -26,6 +26,7 @@ export interface WrappedEntryCardProps {
   spaceName?: string;
   entry: Entry;
   renderDragHandle?: RenderDragFn;
+  renderCustomChildren?: (props: WrappedEntryCardProps) => React.ReactNode;
   isClickable?: boolean;
   onMoveTop?: () => void;
   onMoveBottom?: () => void;
@@ -108,6 +109,8 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
     localeCode: props.localeCode,
     defaultLocaleCode: props.defaultLocaleCode,
   });
+
+  const customChildren = !!props.renderCustomChildren && props.renderCustomChildren(props);
 
   return (
     <EntryCard
@@ -201,7 +204,9 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
             }
           : undefined
       }
-    />
+    >
+      {customChildren}
+    </EntryCard>
   );
 }
 
