@@ -47,7 +47,7 @@
   },
   "peerDependencies": {
     "@contentful/app-sdk": "^4.29.0",
-    "react": ">=17.0.2"
+    "react": "16 | 17 | 18"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
