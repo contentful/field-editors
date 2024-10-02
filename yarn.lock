@@ -2674,7 +2674,7 @@
     "@contentful/f36-typography" "^4.67.0"
     "@contentful/f36-utils" "^4.24.3"
 
-"@contentful/f36-components@^4.71.1":
+"@contentful/f36-components@^4.71.0":
   version "4.71.1"
   resolved "https://npm.pkg.github.com/download/@contentful/f36-components/4.71.1/b7052e4a5359a0035c87c3a4c03eb278520fe575#b7052e4a5359a0035c87c3a4c03eb278520fe575"
   integrity sha512-uNzR8d75rrHIu8qvh4vBj7jX/CexLPn2w11FRixpQ4Ack8EnlNGazrAybwC1sN8T8t+h9Evb6rtsiABB+HXrwQ==
