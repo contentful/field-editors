@@ -2,6 +2,7 @@ import { Canvas, Meta, Markdown, Story, Controls } from '@storybook/blocks';
 import * as EditorStories from '../stories/LocationEditor.stories';
 
 import Readme from '../README.md?raw';
+import GoogleMapKey from '../md/GOOGLEMAPKEY.md?raw';
 
 <Markdown>{Readme}</Markdown>
 
@@ -9,7 +10,7 @@ import Readme from '../README.md?raw';
 
 ## In Action
 
-> set `googleMapsKey` to localStorage to get properly working editor
+<Markdown>{GoogleMapKey}</Markdown>
 
 <Story of={EditorStories.Default} />
 
