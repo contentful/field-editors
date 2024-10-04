@@ -1,7 +1,8 @@
+import type { StorybookConfig } from '@storybook/react-webpack5';
 import { dirname, join } from 'path';
 import remarkGfm from 'remark-gfm';
 
-const config = {
+const config: StorybookConfig = {
   stories: ['../packages/**/*.stories.tsx', '../packages/**/*.mdx'],
   addons: [
     getAbsolutePath('storybook-addon-swc'),
