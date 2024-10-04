@@ -2395,7 +2395,7 @@
     "@contentful/f36-tokens" "^4.0.4"
     emotion "^10.0.17"
 
-"@contentful/f36-components@^4.70.0":
+"@contentful/f36-components@4.70.0", "@contentful/f36-components@^4.70.0":
   version "4.70.0"
   resolved "https://registry.yarnpkg.com/@contentful/f36-components/-/f36-components-4.70.0.tgz#9b23b1d7552e6ec4152fd3aef077a833911c50bc"
   integrity sha512-2vQnW0YiXDAWHYMOnXvOv+JdB2R/8xZGGhyFWB6wCzwGhtbJgg8Kc9LcS7eejzTF7yXD9Od3/bdzpaLfb2i7aQ==
