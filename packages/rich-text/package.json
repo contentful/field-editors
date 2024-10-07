@@ -49,7 +49,7 @@
     "@contentful/rich-text-plain-text-renderer": "^16.0.4",
     "@contentful/rich-text-types": "16.7.0",
     "@popperjs/core": "^2.11.5",
-    "@udecode/plate-basic-marks": "36.0.0",
+    "@udecode/plate-basic-marks": "39.0.0",
     "@udecode/plate-break": "36.0.0",
     "@udecode/plate-common": "36.5.9",
     "@udecode/plate-core": "36.5.9",
