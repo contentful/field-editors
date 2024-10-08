@@ -31,12 +31,6 @@ export interface ExternalResourceCardProps {
   hasCardRemoveActions?: boolean;
 }
 
-const defaultProps = {
-  isClickable: true,
-  hasCardMoveActions: true,
-  hasCardRemoveActions: true,
-};
-
 const styles = {
   subtitle: css({
     color: tokens.gray600,
@@ -85,14 +79,14 @@ ExternalResourceCardDescription.displayName = 'ExternalResourceCardDescription';
 
 export function ExternalResourceCard({
   info,
-  isClickable,
+  isClickable = true,
   onEdit,
   onRemove,
   onMoveTop,
   onMoveBottom,
   hasCardEditActions,
-  hasCardMoveActions,
-  hasCardRemoveActions,
+  hasCardMoveActions = true,
+  hasCardRemoveActions = true,
   renderDragHandle,
   onClick,
   isSelected,
@@ -123,8 +117,7 @@ export function ExternalResourceCard({
             testId="edit"
             onClick={() => {
               onEdit && onEdit();
-            }}
-          >
+            }}>
             Edit
           </MenuItem>
         ) : null,
@@ -134,8 +127,7 @@ export function ExternalResourceCard({
             testId="delete"
             onClick={() => {
               onRemove && onRemove();
-            }}
-          >
+            }}>
             Remove
           </MenuItem>
         ) : null,
@@ -151,8 +143,7 @@ export function ExternalResourceCard({
           <MenuItem
             key="move-bottom"
             onClick={() => onMoveBottom && onMoveBottom()}
-            testId="move-bottom"
-          >
+            testId="move-bottom">
             Move to bottom
           </MenuItem>
         ) : null,
@@ -165,8 +156,7 @@ export function ExternalResourceCard({
               onEdit && onEdit();
             }
           : undefined
-      }
-    >
+      }>
       <ExternalResourceCardDescription
         subtitle={entity.fields.subtitle}
         description={entity.fields.description}
@@ -174,5 +164,3 @@ export function ExternalResourceCard({
     </EntryCard>
   );
 }
-
-ExternalResourceCard.defaultProps = defaultProps;
