@@ -9395,7 +9395,7 @@ contentful-import@^9.0.0:
     p-queue "^6.6.2"
     yargs "^17.7.2"
 
-contentful-management@>=7.30.0, contentful-management@^11.0.0, contentful-management@^11.0.1, contentful-management@^11.15.0, contentful-management@^11.30.0:
+contentful-management@>=7.30.0, contentful-management@^11.0.0, contentful-management@^11.0.1, contentful-management@^11.15.0:
   version "11.33.0"
   resolved "https://registry.yarnpkg.com/contentful-management/-/contentful-management-11.33.0.tgz#3bed7a5154790690218a77d393f55a1616b7523a"
   integrity sha512-QIpKV9BWGQ4M9TTTeyJiIyCElMnQvzMijMpQA31uFAdFxfokRcyA6zyYoVA7tIsyOmpWIAcFbGcDiGROAMR+zA==

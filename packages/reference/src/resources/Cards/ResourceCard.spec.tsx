@@ -58,23 +58,29 @@ const sdk: any = {
         return Promise.reject(new Error());
       }),
     },
-    Http: {
-      get: jest.fn().mockImplementation(({ url, config }) => {
-        if (url === '/spaces/space-id/environments/environment-id/resource_types') {
-          return Promise.resolve({ items: [resourceType], pages: {} });
-        }
+    Locale: {
+      getMany: jest.fn().mockResolvedValue({ items: [{ default: true, code: 'en' }] }),
+    },
+    Resource: {
+      getMany: jest.fn().mockImplementation(({ spaceId, environmentId, resourceTypeId, query }) => {
         if (
-          url ===
-            `/spaces/space-id/environments/environment-id/resource_types/${resolvableExternalResourceType}/resources` &&
-          config.params['sys.urn[in]'] === resolvableExternalEntityUrn
+          spaceId === 'space-id' &&
+          environmentId === 'environment-id' &&
+          resourceTypeId === resolvableExternalResourceType &&
+          query['sys.urn[in]'] === resolvableExternalEntityUrn
         ) {
           return Promise.resolve({ items: [resource] });
         }
         return Promise.resolve({ items: [] });
       }),
     },
-    Locale: {
-      getMany: jest.fn().mockResolvedValue({ items: [{ default: true, code: 'en' }] }),
+    ResourceType: {
+      getForEnvironment: jest.fn().mockImplementation(({ spaceId, environmentId }) => {
+        if (spaceId === 'space-id' && environmentId === 'environment-id') {
+          return Promise.resolve({ items: [resourceType], pages: {} });
+        }
+        return Promise.resolve({ items: [] });
+      }),
     },
     ScheduledAction: {
       getMany: jest.fn().mockResolvedValue({ items: [], total: 0 }),
