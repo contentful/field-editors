@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.30.11](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.30.10...@contentful/field-editor-reference@5.30.11) (2024-10-08)
+
+### Bug Fixes
+
+- use proper methods to fetch NER entities ([#1769](https://github.com/contentful/field-editors/issues/1769)) ([8075e65](https://github.com/contentful/field-editors/commit/8075e65e15c6bb349c0e75d8c4241fa388a3cfd5))
+
 ## [5.30.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.30.9...@contentful/field-editor-reference@5.30.10) (2024-10-04)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
