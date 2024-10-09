@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.6.3...@contentful/field-editor-shared@1.7.0) (2024-10-09)
+
+### Features
+
+- locale publishing status component [TOL-2454] ([#1770](https://github.com/contentful/field-editors/issues/1770)) ([c5fd4fa](https://github.com/contentful/field-editors/commit/c5fd4fa9fddca1d2255ce264edf9cc030ae4f323))
+
 ## [1.6.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.6.2...@contentful/field-editor-shared@1.6.3) (2024-10-04)
 
 **Note:** Version bump only for package @contentful/field-editor-shared

@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-checkbox",
-  "version": "1.4.19",
+  "version": "1.4.20",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
@@ -37,7 +37,7 @@
   "dependencies": {
     "@contentful/f36-components": "^4.70.0",
     "@contentful/f36-tokens": "^4.0.5",
-    "@contentful/field-editor-shared": "^1.6.3",
+    "@contentful/field-editor-shared": "^1.7.0",
     "emotion": "^10.0.17",
     "lodash": "^4.17.15"
   },
