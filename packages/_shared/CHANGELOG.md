@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.7.0...@contentful/field-editor-shared@1.7.1) (2024-10-09)
+
+### Bug Fixes
+
+- reference-error by defining enum without declare [TOL-2454] ([#1771](https://github.com/contentful/field-editors/issues/1771)) ([52ce090](https://github.com/contentful/field-editors/commit/52ce09074f5d3674f8294b0a4f0895a6d5ad0f2f))
+
 # [1.7.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.6.3...@contentful/field-editor-shared@1.7.0) (2024-10-09)
 
 ### Features
