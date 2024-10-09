@@ -72,8 +72,8 @@
     "slate-react": "0.102.0"
   },
   "peerDependencies": {
-    "react": ">=16.14.0",
-    "react-dom": ">=16.14.0"
+    "react": ">=18.3.0",
+    "react-dom": ">=18.3.0"
   },
   "devDependencies": {
     "@contentful/field-editor-test-utils": "^1.5.2",
