@@ -11,7 +11,7 @@ type ScheduledBannerProps = {
   jobs: ScheduledActionProps[];
 };
 
-declare enum ScheduledActionTypes {
+enum ScheduledActionTypes {
   publish = 'publish',
   unpublish = 'unpublish',
   'patch+publish' = 'patch+publish',
