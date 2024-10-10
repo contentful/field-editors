@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.31.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.30.14...@contentful/field-editor-reference@5.31.0) (2024-10-10)
+
+### Features
+
+- implement localized entity status badge in references [TOL-2454] ([#1773](https://github.com/contentful/field-editors/issues/1773)) ([e933eae](https://github.com/contentful/field-editors/commit/e933eaeeb56bd377027a4f65fc342bce3283bf34))
+
 ## [5.30.14](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.30.13...@contentful/field-editor-reference@5.30.14) (2024-10-10)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
