@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.8.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.7.1...@contentful/field-editor-shared@1.8.0) (2024-10-10)
+
+### Features
+
+- bring useAsyncLocalePublishStatus function [TOL-2454] ([#1774](https://github.com/contentful/field-editors/issues/1774)) ([5a5ad7e](https://github.com/contentful/field-editors/commit/5a5ad7e22d6f5a16ab176d1630ae41b6bae2bd49))
+
 ## [1.7.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.7.0...@contentful/field-editor-shared@1.7.1) (2024-10-09)
 
 ### Bug Fixes
