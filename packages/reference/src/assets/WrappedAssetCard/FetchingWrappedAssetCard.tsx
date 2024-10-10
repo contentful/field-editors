@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { AssetCard, EntryCard } from '@contentful/f36-components';
+import { useAsyncLocalePublishStatus } from '@contentful/field-editor-shared';
 
 import {
   CustomEntityCardProps,
@@ -32,6 +33,10 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
   const loadEntityScheduledActions = React.useCallback(
     () => getEntityScheduledActions('Asset', props.assetId),
     [getEntityScheduledActions, props.assetId]
+  );
+  const localesStatusMap = useAsyncLocalePublishStatus(
+    asset,
+    props.sdk.parameters.instance.privateLocales
   );
 
   React.useEffect(() => {
@@ -93,6 +98,8 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       onEdit,
       onRemove,
       useLocalizedEntityStatus: props.sdk.parameters.instance.useLocalizedEntityStatus,
+      localesStatusMap,
+      activeLocales: props.sdk.parameters.instance.activeLocales,
       isLocalized: !!('localized' in props.sdk.field && props.sdk.field.localized), // missing in types :(
     };
 

@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { EntryCard } from '@contentful/f36-components';
+import { useAsyncLocalePublishStatus } from '@contentful/field-editor-shared';
 import { EntryProps } from 'contentful-management';
 import get from 'lodash/get';
 
@@ -62,6 +63,10 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
   const loadEntityScheduledActions = React.useCallback(
     () => getEntityScheduledActions('Entry', props.entryId),
     [getEntityScheduledActions, props.entryId]
+  );
+  const localesStatusMap = useAsyncLocalePublishStatus(
+    entry,
+    props.sdk.parameters.instance.privateLocales
   );
 
   const size = props.viewType === 'link' ? 'small' : 'default';
@@ -143,6 +148,8 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       onMoveBottom: props.onMoveBottom,
       isBeingDragged: props.isBeingDragged,
       useLocalizedEntityStatus: props.sdk.parameters.instance.useLocalizedEntityStatus,
+      localesStatusMap,
+      activeLocales: props.sdk.parameters.instance.activeLocales,
       isLocalized: !!('localized' in props.sdk.field && props.sdk.field.localized), // missing in types :(
     };
 

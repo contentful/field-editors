@@ -1,10 +1,11 @@
 import * as React from 'react';
 
 import { SpaceAPI } from '@contentful/app-sdk';
-import { AssetCard, Badge } from '@contentful/f36-components';
-import { entityHelpers } from '@contentful/field-editor-shared';
+import { AssetCard } from '@contentful/f36-components';
+import { entityHelpers, LocalePublishStatusMap } from '@contentful/field-editor-shared';
 // @ts-expect-error
 import mimetype from '@contentful/mimetype';
+import { LocaleProps } from 'contentful-management';
 
 import { EntityStatusBadge, MissingAssetCard } from '../../components';
 import { Asset, File, RenderDragFn } from '../../types';
@@ -40,6 +41,8 @@ export interface WrappedAssetCardProps {
   isClickable: boolean;
   useLocalizedEntityStatus?: boolean;
   isLocalized?: boolean;
+  localesStatusMap?: LocalePublishStatusMap;
+  activeLocales?: LocaleProps[];
 }
 
 const defaultProps = {
@@ -98,14 +101,12 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
         <EntityStatusBadge
           getEntityScheduledActions={props.getEntityScheduledActions}
           entityType="Asset"
-          entityId={props.asset.sys.id}
           status={status}
+          useLocalizedEntityStatus={props.useLocalizedEntityStatus}
+          entity={props.asset}
+          localesStatusMap={props.localesStatusMap}
+          activeLocales={props.activeLocales}
         />
-      }
-      icon={
-        !props.isLocalized && props.useLocalizedEntityStatus ? (
-          <Badge variant="secondary">Default</Badge>
-        ) : null
       }
       src={
         entityFile && entityFile.url

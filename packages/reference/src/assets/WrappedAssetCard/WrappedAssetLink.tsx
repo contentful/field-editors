@@ -1,7 +1,13 @@
 import * as React from 'react';
 
 import { EntryCard } from '@contentful/f36-components';
-import { entityHelpers, isValidImage, SpaceAPI } from '@contentful/field-editor-shared';
+import {
+  entityHelpers,
+  isValidImage,
+  LocalePublishStatusMap,
+  SpaceAPI,
+} from '@contentful/field-editor-shared';
+import { LocaleProps } from 'contentful-management';
 
 import { AssetThumbnail, EntityStatusBadge, MissingAssetCard } from '../../components';
 import { Asset, RenderDragFn } from '../../types';
@@ -19,6 +25,8 @@ export interface WrappedAssetLinkProps {
   onRemove: () => void;
   renderDragHandle?: RenderDragFn;
   useLocalizedEntityStatus?: boolean;
+  localesStatusMap?: LocalePublishStatusMap;
+  activeLocales?: LocaleProps[];
 }
 
 export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
@@ -56,8 +64,11 @@ export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
         <EntityStatusBadge
           getEntityScheduledActions={props.getEntityScheduledActions}
           entityType="Asset"
-          entityId={props.asset.sys.id}
           status={status}
+          useLocalizedEntityStatus={props.useLocalizedEntityStatus}
+          entity={props.asset}
+          localesStatusMap={props.localesStatusMap}
+          activeLocales={props.activeLocales}
         />
       }
       thumbnailElement={
