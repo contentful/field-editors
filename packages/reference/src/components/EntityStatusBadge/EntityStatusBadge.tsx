@@ -10,7 +10,7 @@ import {
 } from '../ScheduledIconWithTooltip/ScheduledIconWithTooltip';
 import { ScheduleTooltip } from '../ScheduledIconWithTooltip/ScheduleTooltip';
 
-type EntityStatusBadgeProps = UseScheduledActionsProps & {
+type EntityStatusBadgeProps = Omit<UseScheduledActionsProps, 'entityId'> & {
   status: EntityStatus;
   entity: EntryProps | AssetProps;
   useLocalizedEntityStatus?: boolean;
@@ -19,7 +19,6 @@ type EntityStatusBadgeProps = UseScheduledActionsProps & {
 };
 
 export function EntityStatusBadge({
-  entityId,
   entityType,
   getEntityScheduledActions,
   status,
@@ -30,7 +29,7 @@ export function EntityStatusBadge({
   ...props
 }: EntityStatusBadgeProps) {
   const { isError, isLoading, jobs } = useScheduledActions({
-    entityId,
+    entityId: entity.sys.id,
     entityType,
     getEntityScheduledActions,
   });

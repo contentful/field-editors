@@ -128,7 +128,6 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
       badge={
         <EntityStatusBadge
           status={status}
-          entityId={props.entry.sys.id}
           entityType="Entry"
           getEntityScheduledActions={props.getEntityScheduledActions}
           useLocalizedEntityStatus={props.useLocalizedEntityStatus}

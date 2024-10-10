@@ -64,7 +64,6 @@ export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
         <EntityStatusBadge
           getEntityScheduledActions={props.getEntityScheduledActions}
           entityType="Asset"
-          entityId={props.asset.sys.id}
           status={status}
           useLocalizedEntityStatus={props.useLocalizedEntityStatus}
           entity={props.asset}

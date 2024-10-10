@@ -101,7 +101,6 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
         <EntityStatusBadge
           getEntityScheduledActions={props.getEntityScheduledActions}
           entityType="Asset"
-          entityId={props.asset.sys.id}
           status={status}
           useLocalizedEntityStatus={props.useLocalizedEntityStatus}
           entity={props.asset}
