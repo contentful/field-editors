@@ -4,13 +4,12 @@ import { MenuSectionTitle } from '@contentful/f36-components';
 import type { LocaleProps } from 'contentful-management';
 import { sortBy } from 'lodash';
 
-import { Banner } from './Banner';
 import type {
   LocalePublishStatusMap,
   LocalePublishStatus as LocalePublishStatusType,
-} from './LocalePublishingPopover';
+} from '../hooks/useAsyncLocalePublishStatus';
+import { Banner } from './Banner';
 import { LocalePublishingStatus } from './LocalePublishingStatus';
-
 
 function groupAndSortLocales(
   entries: [string, LocalePublishStatusType][],

@@ -16,6 +16,7 @@ import type {
 } from 'contentful-management';
 import { cx, css } from 'emotion';
 
+import { LocalePublishStatusMap } from '../hooks/useAsyncLocalePublishStatus';
 import * as entityHelpers from '../utils/entityHelpers';
 import { LocalePublishingStatusList } from './LocalePublishingStatusList';
 import { ScheduledBanner } from './ScheduledBanner';
@@ -159,12 +160,6 @@ const determineBadgeStatus = (
       return { primary: 'draft', secondary: 'draft' };
   }
 };
-
-export type LocalePublishStatus = {
-  status: 'draft' | 'published' | 'changed';
-  locale: LocaleProps;
-};
-export type LocalePublishStatusMap = Map<string, LocalePublishStatus>;
 
 type LocalePublishingPopoverProps = {
   entity: EntryProps | AssetProps;
