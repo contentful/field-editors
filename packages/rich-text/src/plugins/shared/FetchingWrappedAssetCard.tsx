@@ -8,6 +8,10 @@ import {
   MissingEntityCard,
   WrappedAssetCard,
 } from '@contentful/field-editor-reference';
+import {
+  LocalePublishStatusMap,
+  useAsyncLocalePublishStatus,
+} from '@contentful/field-editor-shared';
 import areEqual from 'fast-deep-equal';
 
 interface InternalAssetCardProps {
@@ -19,6 +23,7 @@ interface InternalAssetCardProps {
   onRemove?: () => unknown;
   sdk: FieldAppSDK;
   loadEntityScheduledActions: (entityType: string, entityId: string) => Promise<ScheduledAction[]>;
+  localesStatusMap?: LocalePublishStatusMap;
 }
 
 const InternalAssetCard = React.memo(
@@ -36,6 +41,8 @@ const InternalAssetCard = React.memo(
       isClickable={false}
       useLocalizedEntityStatus={props.sdk.parameters.instance.useLocalizedEntityStatus}
       isLocalized={!!('localized' in props.sdk.field && props.sdk.field.localized)}
+      localesStatusMap={props.localesStatusMap}
+      activeLocales={props.sdk.parameters.instance.activeLocales}
     />
   ),
   areEqual
@@ -61,6 +68,10 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
   const loadEntityScheduledActions = React.useCallback(
     () => getEntityScheduledActions('Asset', props.assetId),
     [getEntityScheduledActions, props.assetId]
+  );
+  const localesStatusMap = useAsyncLocalePublishStatus(
+    asset,
+    props.sdk.parameters.instance.privateLocales
   );
 
   React.useEffect(() => {
@@ -93,6 +104,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       locale={props.locale}
       onEdit={props.onEdit}
       onRemove={props.onRemove}
+      localesStatusMap={localesStatusMap}
     />
   );
 }
