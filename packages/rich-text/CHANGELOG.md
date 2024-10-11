@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.28.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.27.13...@contentful/field-editor-rich-text@3.28.0) (2024-10-11)
+
+### Features
+
+- localized entity status in rich text [TOL-2454] ([#1775](https://github.com/contentful/field-editors/issues/1775)) ([1df6c4b](https://github.com/contentful/field-editors/commit/1df6c4bdd8cfc5a0e7e28276d99d99470532aa79))
+
 ## [3.27.13](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.27.12...@contentful/field-editor-rich-text@3.27.13) (2024-10-10)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
