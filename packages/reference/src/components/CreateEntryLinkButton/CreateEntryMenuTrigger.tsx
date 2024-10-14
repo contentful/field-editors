@@ -73,6 +73,7 @@ interface CreateEntryMenuTrigger {
   customDropdownItems?: React.ReactNode;
   children: CreateEntryMenuTriggerChild;
   menuProps?: Omit<MenuProps, 'children'>;
+  filterExperienceTypes?: boolean;
 }
 
 export const CreateEntryMenuTrigger = ({
@@ -87,6 +88,7 @@ export const CreateEntryMenuTrigger = ({
   customDropdownItems,
   children,
   menuProps,
+  filterExperienceTypes = true,
 }: CreateEntryMenuTrigger) => {
   const [isOpen, setOpen] = useState(false);
   const [isSelecting, setSelecting] = useState(false);
@@ -107,13 +109,15 @@ export const CreateEntryMenuTrigger = ({
   // Filter out content types with the Contentful:ExperienceType annotation
   const filteredContentTypes = useMemo(
     () =>
-      contentTypes.filter((contentType) => {
-        const annotations = get(contentType, 'metadata.annotations.ContentType', []);
-        return !annotations.some(
-          (annotation) => get(annotation, 'sys.id') === 'Contentful:ExperienceType'
-        );
-      }),
-    [contentTypes]
+      filterExperienceTypes
+        ? contentTypes.filter((contentType) => {
+            const annotations = get(contentType, 'metadata.annotations.ContentType', []);
+            return !annotations.some(
+              (annotation) => get(annotation, 'sys.id') === 'Contentful:ExperienceType'
+            );
+          })
+        : contentTypes,
+    [contentTypes, filterExperienceTypes]
   );
 
   const hasDropdown = contentTypes.length > 1 || !!customDropdownItems;
@@ -258,4 +262,5 @@ export const CreateEntryMenuTrigger = ({
 CreateEntryMenuTrigger.defaultProps = {
   testId: 'create-entry-button-menu-trigger',
   contentTypesLabel: 'All Content Types',
+  filterExperienceTypes: true,
 };
