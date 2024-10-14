@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.31.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.31.1...@contentful/field-editor-reference@5.31.2) (2024-10-14)
+
+### Bug Fixes
+
+- prop control to filter out experience content types [TOL-2503] ([#1780](https://github.com/contentful/field-editors/issues/1780)) ([f01e931](https://github.com/contentful/field-editors/commit/f01e931a7ba9f4496cb10e05cff5062d5c5ee597))
+
 ## [5.31.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.31.0...@contentful/field-editor-reference@5.31.1) (2024-10-14)
 
 ### Bug Fixes
