@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.31.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.31.0...@contentful/field-editor-reference@5.31.1) (2024-10-14)
+
+### Bug Fixes
+
+- filter out experience entries [TOL-2503] ([#1777](https://github.com/contentful/field-editors/issues/1777)) ([f34bee6](https://github.com/contentful/field-editors/commit/f34bee612b33a32df03fb5f8f1081064e27392ec))
+
 # [5.31.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.30.14...@contentful/field-editor-reference@5.31.0) (2024-10-10)
 
 ### Features
