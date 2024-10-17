@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.29.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.28.2...@contentful/field-editor-rich-text@3.29.0) (2024-10-17)
+
+### Features
+
+- **Rich Text Editor:** add sticky offset property ([#1782](https://github.com/contentful/field-editors/issues/1782)) ([0a395e2](https://github.com/contentful/field-editors/commit/0a395e2fe73a4878e5228b21af211faff17014fb))
+
 ## [3.28.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.28.1...@contentful/field-editor-rich-text@3.28.2) (2024-10-14)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
