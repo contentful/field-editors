@@ -6995,10 +6995,10 @@
   resolved "https://registry.yarnpkg.com/@udecode/plate-resizable/-/plate-resizable-36.0.0.tgz#e98921dc40a6c399dc156f1d571daf623596ddbd"
   integrity sha512-q8LDQONh46IAsFaMTiUxOcMNKz4qhKtABwbfi4TvPgTj9r5fDL2UGitvpwxHxMoXPYGfe4l/xvve4ShtutPoyA==
 
-"@udecode/plate-select@36.0.0":
-  version "36.0.0"
-  resolved "https://registry.yarnpkg.com/@udecode/plate-select/-/plate-select-36.0.0.tgz#30e9b7fca3d450caecb1f06f08e66e79fbe92770"
-  integrity sha512-cMP+UXYftb/cTJKbrShltk5K1y9z94J7sCUQCqJllOu+VvLKUVkLOokqQC42Vp2zUhGgvIzjCGcL2pPec9Iexg==
+"@udecode/plate-select@39.0.0":
+  version "39.0.0"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-select/-/plate-select-39.0.0.tgz#8698c3c2954d08aaf46ffdb2ccb2b1e7e4910499"
+  integrity sha512-CXuL4zPC0upczWEhMZNpR+huiatltRkPG2YxdJHnerlhB7GLAaVeZB08GAyhOlM6wsLsTiqyjDVQyJQqmmaEOg==
 
 "@udecode/plate-serializer-docx@36.0.10":
   version "36.0.10"
