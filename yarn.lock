@@ -6973,6 +6973,14 @@
     "@udecode/plate-reset-node" "36.0.0"
     lodash "^4.17.21"
 
+"@udecode/plate-list@39.0.0":
+  version "39.0.0"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-list/-/plate-list-39.0.0.tgz#63691f42b8df8378bdd042f1e8062cee340a04a3"
+  integrity sha512-dwtW9r6vZOF0hvGaCsj5haNSB9GX4/RhpBI8gyFlGbOpUPqHdD38VWnFaOjrTQISt3X5CrLSmQJFI9Z7QLyawQ==
+  dependencies:
+    "@udecode/plate-reset-node" "39.0.0"
+    lodash "^4.17.21"
+
 "@udecode/plate-media@36.0.10":
   version "36.0.10"
   resolved "https://registry.yarnpkg.com/@udecode/plate-media/-/plate-media-36.0.10.tgz#eefe247ea7ce509652510c346bb82505c08c202e"
@@ -6989,6 +6997,11 @@
   version "36.0.0"
   resolved "https://registry.yarnpkg.com/@udecode/plate-reset-node/-/plate-reset-node-36.0.0.tgz#062385a1f0754fb549fa0cdc817e025be8ccb1c0"
   integrity sha512-gDDc4ak8Gk47TQl6bGoxqy82nzmY94GPtaE9aSVJ5zjNcSTfvqWzPjAU7s2zaNPUJERI7Q01rVMzBJAckbC6Hg==
+
+"@udecode/plate-reset-node@39.0.0":
+  version "39.0.0"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-reset-node/-/plate-reset-node-39.0.0.tgz#fadc1b8c6f745e8b58e56cd7918a620e88068ba9"
+  integrity sha512-x1utEQIzDaQRkAAuG4GJvm7pUpiPqS70K6no/2dCV3iXCQDi2eeeZsIB6fBk30yymFEXx9POPYNYRoujtH+Cbw==
 
 "@udecode/plate-resizable@36.0.0":
   version "36.0.0"
