@@ -49,6 +49,7 @@ type ConnectedRichTextProps = {
   isDisabled?: boolean;
   isToolbarHidden?: boolean;
   actionsDisabled?: boolean;
+  stickyToolbarOffset?: number;
 };
 
 export const ConnectedRichTextEditor = (props: ConnectedRichTextProps) => {
@@ -94,7 +95,10 @@ export const ConnectedRichTextEditor = (props: ConnectedRichTextProps) => {
               disableCorePlugins={disableCorePlugins}
             >
               {!props.isToolbarHidden && (
-                <StickyToolbarWrapper isDisabled={props.isDisabled}>
+                <StickyToolbarWrapper
+                  isDisabled={props.isDisabled}
+                  offset={props.stickyToolbarOffset}
+                >
                   <Toolbar isDisabled={props.isDisabled} />
                 </StickyToolbarWrapper>
               )}
