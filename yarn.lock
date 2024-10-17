@@ -58,15 +58,20 @@
     "@babel/highlight" "^7.25.7"
     picocolors "^1.0.0"
 
-"@babel/compat-data@^7.20.5", "@babel/compat-data@^7.25.7", "@babel/compat-data@^7.9.0":
-  version "7.25.7"
-  resolved "https://registry.yarnpkg.com/@babel/compat-data/-/compat-data-7.25.7.tgz#b8479fe0018ef0ac87b6b7a5c6916fcd67ae2c9c"
-  integrity sha512-9ickoLz+hcXCeh7jrcin+/SLWm+GkxE2kTvoYyp38p4WkdFXfQJxDFGWp/YHjiKLPx06z2A7W8XKuqbReXDzsw==
+"@babel/compat-data@^7.20.5", "@babel/compat-data@^7.9.0":
+  version "7.25.8"
+  resolved "https://registry.yarnpkg.com/@babel/compat-data/-/compat-data-7.25.8.tgz#0376e83df5ab0eb0da18885c0140041f0747a402"
+  integrity sha512-ZsysZyXY4Tlx+Q53XdnOFmqwfB9QDTHYxaZYajWRoBLuLEAwI2UIbtxOjWh/cFaa9IKUlcB+DDuoskLuKu56JA==
 
 "@babel/compat-data@^7.22.6", "@babel/compat-data@^7.24.8", "@babel/compat-data@^7.25.0":
   version "7.25.0"
   resolved "https://registry.yarnpkg.com/@babel/compat-data/-/compat-data-7.25.0.tgz#6b226a5da3a686db3c30519750e071dce292ad95"
   integrity sha512-P4fwKI2mjEb3ZU5cnMJzvRsRKGBUcs8jvxIoRmr6ufAY9Xk2Bz7JubRTTivkw55c7WQJfTECeqYVa+HZ0FzREg==
+
+"@babel/compat-data@^7.25.7":
+  version "7.25.7"
+  resolved "https://registry.yarnpkg.com/@babel/compat-data/-/compat-data-7.25.7.tgz#b8479fe0018ef0ac87b6b7a5c6916fcd67ae2c9c"
+  integrity sha512-9ickoLz+hcXCeh7jrcin+/SLWm+GkxE2kTvoYyp38p4WkdFXfQJxDFGWp/YHjiKLPx06z2A7W8XKuqbReXDzsw==
 
 "@babel/core@7.9.0":
   version "7.9.0"
@@ -774,12 +779,19 @@
   resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.25.0.tgz#9fdc9237504d797b6e7b8f66e78ea7f570d256ad"
   integrity sha512-CzdIU9jdP0dg7HdyB+bHvDJGagUv+qtzZt5rYCWwW6tITNqV9odjp6Qu41gkG0ca5UfdDUWrKkiAnHHdGRnOrA==
 
-"@babel/parser@^7.25.7", "@babel/parser@^7.9.0":
+"@babel/parser@^7.25.7":
   version "7.25.7"
   resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.25.7.tgz#99b927720f4ddbfeb8cd195a363ed4532f87c590"
   integrity sha512-aZn7ETtQsjjGG5HruveUK06cU3Hljuhd9Iojm4M8WWv3wLE6OkE5PWbDUkItmMgegmccaITudyuW5RPYrYlgWw==
   dependencies:
     "@babel/types" "^7.25.7"
+
+"@babel/parser@^7.9.0":
+  version "7.25.8"
+  resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.25.8.tgz#f6aaf38e80c36129460c1657c0762db584c9d5e2"
+  integrity sha512-HcttkxzdPucv3nNFmfOOMfFf64KgdJVqm1KaCm25dPGMLElo9nsLvXeJECQg8UzPuBGLyTSA0ZzqCtDSzKTEoQ==
+  dependencies:
+    "@babel/types" "^7.25.8"
 
 "@babel/plugin-bugfix-firefox-class-in-computed-class-key@^7.25.0":
   version "7.25.0"
@@ -2252,10 +2264,19 @@
     "@babel/helper-validator-identifier" "^7.24.7"
     to-fast-properties "^2.0.0"
 
-"@babel/types@^7.25.7", "@babel/types@^7.9.0":
+"@babel/types@^7.25.7":
   version "7.25.7"
   resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.25.7.tgz#1b7725c1d3a59f328cb700ce704c46371e6eef9b"
   integrity sha512-vwIVdXG+j+FOpkwqHRcBgHLYNL7XMkufrlaFvL9o6Ai9sJn9+PdyIL5qa0XzTZw084c+u9LOls53eoZWP/W5WQ==
+  dependencies:
+    "@babel/helper-string-parser" "^7.25.7"
+    "@babel/helper-validator-identifier" "^7.25.7"
+    to-fast-properties "^2.0.0"
+
+"@babel/types@^7.25.8", "@babel/types@^7.9.0":
+  version "7.25.8"
+  resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.25.8.tgz#5cf6037258e8a9bcad533f4979025140cb9993e1"
+  integrity sha512-JWtuCu8VQsMladxVz/P4HzHUGCAwpuqacmowgXFs5XjxIgKuNjnLokQzuVjlTvIzODaDmpjT3oxcC48vyk9EWg==
   dependencies:
     "@babel/helper-string-parser" "^7.25.7"
     "@babel/helper-validator-identifier" "^7.25.7"
@@ -4928,7 +4949,7 @@
     "@babel/runtime" "^7.13.10"
     "@radix-ui/react-compose-refs" "1.0.1"
 
-"@radix-ui/react-slot@^1.0.2":
+"@radix-ui/react-slot@^1.0.2", "@radix-ui/react-slot@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@radix-ui/react-slot/-/react-slot-1.1.0.tgz#7c5e48c36ef5496d97b08f1357bb26ed7c714b84"
   integrity sha512-FUCf5XMfmW4dtYl69pdS4DbxKy8nj4M7SafBgPllysxmdachynNflAdp/gCsnYWNDnge6tI9onzMp5ARYc1KNw==
@@ -6946,6 +6967,29 @@
     zustand "^4.5.2"
     zustand-x "^3.0.2"
 
+"@udecode/plate-core@39.1.4":
+  version "39.1.4"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-core/-/plate-core-39.1.4.tgz#a4e2d87aef8741c2d93a3852004737cda0a3ac9e"
+  integrity sha512-Q19mm4ilQjvGXo7Xb8K7JUo3GOvYcFyO+QiMtgLnrL32yjiqywNA17a80eKPa3HBNfjXZfSrUyDQ03WIoPa7iQ==
+  dependencies:
+    "@udecode/react-hotkeys" "37.0.0"
+    "@udecode/react-utils" "39.0.0"
+    "@udecode/slate" "38.0.4"
+    "@udecode/slate-react" "39.1.4"
+    "@udecode/slate-utils" "39.1.4"
+    "@udecode/utils" "37.0.0"
+    clsx "^2.1.1"
+    is-hotkey "^0.2.0"
+    jotai "~2.8.4"
+    jotai-optics "0.4.0"
+    jotai-x "1.2.4"
+    lodash "^4.17.21"
+    nanoid "^3.3.7"
+    optics-ts "2.4.1"
+    use-deep-compare "^1.3.0"
+    zustand "^4.5.5"
+    zustand-x "^3.0.4"
+
 "@udecode/plate-heading@36.0.9":
   version "36.0.9"
   resolved "https://registry.yarnpkg.com/@udecode/plate-heading/-/plate-heading-36.0.9.tgz#32f5c3b00ba8f1a23a0bdbb11212781a50854a50"
@@ -7060,6 +7104,11 @@
     clsx "^1.2.1"
     lodash "^4.17.21"
 
+"@udecode/react-hotkeys@37.0.0":
+  version "37.0.0"
+  resolved "https://registry.yarnpkg.com/@udecode/react-hotkeys/-/react-hotkeys-37.0.0.tgz#1a4ab395ff7f23263ccbc5dc1feae3167583776d"
+  integrity sha512-3ZV5LiaTnKyhXwN6U0NE2cofNsNN2IPMkNCDntbSIIRLYmI+o6LRkDwAucSNh/BIdNXfvxscsR04RYyIwjGbJw==
+
 "@udecode/react-utils@33.0.0":
   version "33.0.0"
   resolved "https://registry.yarnpkg.com/@udecode/react-utils/-/react-utils-33.0.0.tgz#cf7867a8607ff56236ce985e3d7706f6f268f5df"
@@ -7068,6 +7117,15 @@
     "@radix-ui/react-slot" "^1.0.2"
     "@udecode/utils" "31.0.0"
     clsx "^1.2.1"
+
+"@udecode/react-utils@39.0.0":
+  version "39.0.0"
+  resolved "https://registry.yarnpkg.com/@udecode/react-utils/-/react-utils-39.0.0.tgz#d88215a94371ffa0f1dea63754668448706e5b22"
+  integrity sha512-EoX6T7VmQe9bcR2bIqoobcsX66vo45XKt26rY4eJPWjaTys3yGdyD2iMDy/mEYFFh8ZOUC1V+sNw+XBwQOgyCw==
+  dependencies:
+    "@radix-ui/react-slot" "^1.1.0"
+    "@udecode/utils" "37.0.0"
+    clsx "^2.1.1"
 
 "@udecode/slate-react@36.0.6":
   version "36.0.6"
@@ -7078,6 +7136,15 @@
     "@udecode/slate" "36.0.6"
     "@udecode/utils" "31.0.0"
 
+"@udecode/slate-react@39.1.4":
+  version "39.1.4"
+  resolved "https://registry.yarnpkg.com/@udecode/slate-react/-/slate-react-39.1.4.tgz#8d4c314dfc16e9bb9354efe36574b63b4436b664"
+  integrity sha512-jM8hbaYonRJpXJmdmrMkzKuClkJ5f5lHf4tDnkmgqi2THXZ9eM4D7SD7MSxQeKt20klQA+CeNKfavaSobXQlJg==
+  dependencies:
+    "@udecode/react-utils" "39.0.0"
+    "@udecode/slate" "38.0.4"
+    "@udecode/utils" "37.0.0"
+
 "@udecode/slate-utils@36.3.9":
   version "36.3.9"
   resolved "https://registry.yarnpkg.com/@udecode/slate-utils/-/slate-utils-36.3.9.tgz#7569cdb055c39207368ece3102a2296e2c8f064c"
@@ -7087,6 +7154,15 @@
     "@udecode/utils" "31.0.0"
     lodash "^4.17.21"
 
+"@udecode/slate-utils@39.1.4":
+  version "39.1.4"
+  resolved "https://registry.yarnpkg.com/@udecode/slate-utils/-/slate-utils-39.1.4.tgz#5ab40197f97b514b67a2ea6c847fa7fabb6eac00"
+  integrity sha512-OehFzAcT1FLPI2ZleUK9Y8Tv/LL1b5B3MIDppNqXlzzJp9F5dFzPEx9/1Ye7MSZfBusBZeqYUNtRMjcKFlExUQ==
+  dependencies:
+    "@udecode/slate" "38.0.4"
+    "@udecode/utils" "37.0.0"
+    lodash "^4.17.21"
+
 "@udecode/slate@36.0.6":
   version "36.0.6"
   resolved "https://registry.yarnpkg.com/@udecode/slate/-/slate-36.0.6.tgz#7286f1e7c296febece974f47f6410b28ca00dcea"
@@ -7094,10 +7170,22 @@
   dependencies:
     "@udecode/utils" "31.0.0"
 
+"@udecode/slate@38.0.4":
+  version "38.0.4"
+  resolved "https://registry.yarnpkg.com/@udecode/slate/-/slate-38.0.4.tgz#7d764ded6b4f8a31dfbe9fd16c802c014315e145"
+  integrity sha512-PlnavxtTd4xIqC/HdNl/nebMUogBjXgq1WyiH1mCXBNzMRuTpss7ByhXOr/SO67h6CKpaeGc1kf3dqZsHQWHZw==
+  dependencies:
+    "@udecode/utils" "37.0.0"
+
 "@udecode/utils@31.0.0":
   version "31.0.0"
   resolved "https://registry.yarnpkg.com/@udecode/utils/-/utils-31.0.0.tgz#d530297ee1e87804da9c6d1fd4658005d997f06d"
   integrity sha512-06JTl1UAm3mzLLAx8hdMUFw4XRQG727z9JoJ9PeBnmFb9q4Cg3DdmbFnhVJMrBPWlyOwoHtPrBjnanTFeiP36Q==
+
+"@udecode/utils@37.0.0":
+  version "37.0.0"
+  resolved "https://registry.yarnpkg.com/@udecode/utils/-/utils-37.0.0.tgz#5558b2894755ad68a3dbe29719220cf78b78cffa"
+  integrity sha512-30ixi2pznIXyIqpFocX+X5Sj38js+wZ0RLY14eZv1C1zwWo5BxSuJfzpGQTvGcLPJnij019tEpmGH61QdDxtrQ==
 
 "@uiw/codemirror-extensions-basic-setup@4.21.25":
   version "4.21.25"
@@ -8992,7 +9080,7 @@ clsx@^1.2.1:
   resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.2.1.tgz#0ddc4a20a549b59c93a4116bb26f5294ca17dc12"
   integrity sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==
 
-clsx@^2.0.0:
+clsx@^2.0.0, clsx@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/clsx/-/clsx-2.1.1.tgz#eed397c9fd8bd882bfb18deab7102049a2f32999"
   integrity sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==
@@ -15103,7 +15191,12 @@ jotai-optics@0.3.2:
   resolved "https://registry.yarnpkg.com/jotai-optics/-/jotai-optics-0.3.2.tgz#5d2f14be4742dbd905028ed6bfc765796f8d1de6"
   integrity sha512-RH6SvqU5hmkVqnHmaqf9zBXvIAs4jLxkDHS4fr5ljuBKHs8+HQ02v+9hX7ahTppxx6dUb0GGUE80jQKJ0kFTLw==
 
-jotai-x@^1.2.3:
+jotai-optics@0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/jotai-optics/-/jotai-optics-0.4.0.tgz#aad207090a06390e61cc85324b623b2692e2e272"
+  integrity sha512-osbEt9AgS55hC4YTZDew2urXKZkaiLmLqkTS/wfW5/l0ib8bmmQ7kBXSFaosV6jDDWSp00IipITcJARFHdp42g==
+
+jotai-x@1.2.4, jotai-x@^1.2.3:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/jotai-x/-/jotai-x-1.2.4.tgz#8dfc8fc40c9a026eca7b532d8fd0ef4f497ae74e"
   integrity sha512-FyLrAR/ZDtmaWgif4cNRuJvMam/RSFv+B11/p4T427ws/T+8WhZzwmULwNogG6ZbZq+v1XpH6f9aN1lYqY5dLg==
@@ -15112,6 +15205,11 @@ jotai@^2.7.1:
   version "2.10.0"
   resolved "https://registry.yarnpkg.com/jotai/-/jotai-2.10.0.tgz#7483b81ab21ba28778f04b29368728f25efe4e89"
   integrity sha512-8W4u0aRlOIwGlLQ0sqfl/c6+eExl5D8lZgAUolirZLktyaj4WnxO/8a0HEPmtriQAB6X5LMhXzZVmw02X0P0qQ==
+
+jotai@~2.8.4:
+  version "2.8.4"
+  resolved "https://registry.yarnpkg.com/jotai/-/jotai-2.8.4.tgz#ea82b013d640016100e360d19d565862816c96d0"
+  integrity sha512-f6jwjhBJcDtpeauT2xH01gnqadKEySwwt1qNBLvAXcnojkmb76EdqRt05Ym8IamfHGAQz2qMKAwftnyjeSoHAA==
 
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
@@ -22999,7 +23097,7 @@ use-debounce@^10.0.0:
   resolved "https://registry.yarnpkg.com/use-debounce/-/use-debounce-10.0.0.tgz#5091b18d6c16292605f588bae3c0d2cfae756ff2"
   integrity sha512-XRjvlvCB46bah9IBXVnq/ACP2lxqXyZj0D9hj4K5OzNroMDpTEBg8Anuh1/UfRTRs7pLhQ+RiNxxwZu9+MVl1A==
 
-use-deep-compare@^1.2.1:
+use-deep-compare@^1.2.1, use-deep-compare@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/use-deep-compare/-/use-deep-compare-1.3.0.tgz#b36d304072d306e6bf27ca5653f3277dd66d2c0d"
   integrity sha512-94iG+dEdEP/Sl3WWde+w9StIunlV8Dgj+vkt5wTwMoFQLaijiEZSXXy8KtcStpmEDtIptRJiNeD4ACTtVvnIKA==
@@ -24195,7 +24293,7 @@ yocto-queue@^1.0.0:
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-1.0.0.tgz#7f816433fb2cbc511ec8bf7d263c3b58a1a3c251"
   integrity sha512-9bnSc/HEW2uRy67wc+T8UwauLuPJVn28jb+GtJY16iiKWyvmYJRXVT4UamsAEGQfPohgr2q4Tq0sQbQlxTfi1g==
 
-zustand-x@^3.0.2:
+zustand-x@^3.0.2, zustand-x@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/zustand-x/-/zustand-x-3.0.4.tgz#9d4aa43c44d92681bda169f58f5e098a05283aac"
   integrity sha512-dVD8WUEpR/0mMdLah9j8i+r6PMAq9Ii2u+BX/9Bn4MHRt8sSnRQ90YMUlTVonZYAHGb2UHZwPpE2gMb8GtYDDw==
@@ -24204,7 +24302,7 @@ zustand-x@^3.0.2:
     lodash.mapvalues "^4.6.0"
     react-tracked "^1.7.11"
 
-zustand@^4.5.2:
+zustand@^4.5.2, zustand@^4.5.5:
   version "4.5.5"
   resolved "https://registry.yarnpkg.com/zustand/-/zustand-4.5.5.tgz#f8c713041543715ec81a2adda0610e1dc82d4ad1"
   integrity sha512-+0PALYNJNgK6hldkgDq2vLrw5f6g/jCInz52n9RTpropGgeAf/ioFUCdtsjCqu4gNhW9D01rUQBROoRjdzyn2Q==
