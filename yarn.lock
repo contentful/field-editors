@@ -6901,10 +6901,10 @@
     "@typescript-eslint/types" "6.19.0"
     eslint-visitor-keys "^3.4.1"
 
-"@udecode/plate-basic-marks@36.0.0":
-  version "36.0.0"
-  resolved "https://registry.yarnpkg.com/@udecode/plate-basic-marks/-/plate-basic-marks-36.0.0.tgz#2f17559a842cae6515d18fd7d4cd7bbaba1a102f"
-  integrity sha512-fbeD8t5Gkwz/ZKMg9yv75K3e6i5G5N9IIW3pkwmWya3RJ1darvpxDaEREXC19fRcHeF+eav8W0ZYU5ExHkYxtg==
+"@udecode/plate-basic-marks@39.0.0":
+  version "39.0.0"
+  resolved "https://registry.yarnpkg.com/@udecode/plate-basic-marks/-/plate-basic-marks-39.0.0.tgz#9a29c1ce9d60135a8da9d55dc1424571b1dac5e0"
+  integrity sha512-GtHFK1gwmhfnwl0Lf3xiRuNS832bNaelx5Sr/uzSVpH7Xo4p7Ssdxp+vc9LsiUrQcBQyuybvyYGbiY7i2o5DCA==
 
 "@udecode/plate-break@36.0.0":
   version "36.0.0"
