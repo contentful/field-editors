@@ -118,7 +118,7 @@
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "@contentful/app-sdk": "4.29.0",
-    "@contentful/rich-text-types": "16.8.5"
+    "@contentful/rich-text-types": "16.7.0"
   },
   "browserslist": {
     "production": "extends @contentful/browserslist-config",
