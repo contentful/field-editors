@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "@contentful/field-editor-test-utils": "^1.5.2",
-    "contentful-management": "^11.0.0"
+    "contentful-management": "^11.35.1"
   },
   "peerDependencies": {
     "react": ">=16.8.0"
