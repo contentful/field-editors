@@ -50,7 +50,6 @@
     "remark-gfm": "^3.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.5",
     "@contentful/app-sdk": "^4.29.0",
     "@contentful/field-editor-test-utils": "^1.5.2"
   },
