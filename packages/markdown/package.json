@@ -45,9 +45,9 @@
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",
     "react-markdown": "^9.0.1",
-    "rehype-raw": "^6.1.1",
+    "rehype-raw": "^7.0.0",
     "rehype-sanitize": "^6.0.0",
-    "remark-gfm": "^3.0.1"
+    "remark-gfm": "^4.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
