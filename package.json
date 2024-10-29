@@ -128,8 +128,7 @@
     "babel-preset-react-app": "9.1.2",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "@contentful/app-sdk": "4.29.0",
-    "@contentful/rich-text-types": "16.7.0"
+    "@contentful/app-sdk": "4.29.0"
   },
   "browserslist": {
     "production": "extends @contentful/browserslist-config",
