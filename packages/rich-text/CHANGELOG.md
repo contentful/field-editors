@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.30.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.29.0...@contentful/field-editor-rich-text@3.30.0) (2024-10-29)
+
+### Features
+
+- **rich-text:** bump validation and renderer to latest version [] ([#1791](https://github.com/contentful/field-editors/issues/1791)) ([fc32513](https://github.com/contentful/field-editors/commit/fc32513ed37a4c5bebe58ef8f6247334f3abbe15))
+
 # [3.29.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.28.2...@contentful/field-editor-rich-text@3.29.0) (2024-10-17)
 
 ### Features
