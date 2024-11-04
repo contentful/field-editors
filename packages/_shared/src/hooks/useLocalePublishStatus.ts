@@ -11,7 +11,10 @@ export type LocalePublishStatus = {
 };
 export type LocalePublishStatusMap = Map<string, LocalePublishStatus>;
 
-function getLocalePublishStatusMap(entity: AssetProps | EntryProps, localesApi: LocalesAPI) {
+function getLocalePublishStatusMap(
+  entity: AssetProps | EntryProps,
+  localesApi: Pick<LocalesAPI, 'available' | 'default' | 'names'>
+) {
   const entityStatus = entityHelpers.getEntityStatus(entity.sys);
 
   if (['archived', 'deleted'].includes(entityStatus)) {
@@ -44,13 +47,32 @@ function getLocalePublishStatusMap(entity: AssetProps | EntryProps, localesApi: 
  */
 export function useLocalePublishStatus(
   entity?: AssetProps | EntryProps,
-  localesApi?: LocalesAPI | null
+  locales?: Pick<LocalesAPI, 'available' | 'default' | 'names'> | LocaleProps[] | null
 ): LocalePublishStatusMap | undefined {
   return useMemo(() => {
-    if (entity && localesApi) {
+    if (entity && locales) {
+      const localesApi = Array.isArray(locales)
+        ? locales.reduce(
+            (api, locale) => {
+              api.available.push(locale.code);
+              api.names[locale.code] = locale.name;
+              if (locale.default) {
+                api.default = locale.code;
+              }
+
+              return api;
+            },
+            {
+              available: [],
+              names: {},
+              default: '',
+            } as Pick<LocalesAPI, 'available' | 'default' | 'names'>
+          )
+        : locales;
+
       return getLocalePublishStatusMap(entity, localesApi);
     }
 
     return undefined;
-  }, [entity, localesApi]);
+  }, [entity, locales]);
 }
