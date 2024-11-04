@@ -16,7 +16,7 @@ import type {
 } from 'contentful-management';
 import { cx, css } from 'emotion';
 
-import { LocalePublishStatusMap } from '../hooks/useAsyncLocalePublishStatus';
+import { LocalePublishStatusMap } from '../hooks/useLocalePublishStatus';
 import * as entityHelpers from '../utils/entityHelpers';
 import { LocalePublishingStatusList } from './LocalePublishingStatusList';
 import { ScheduledBanner } from './ScheduledBanner';

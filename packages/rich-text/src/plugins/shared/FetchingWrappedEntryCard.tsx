@@ -9,10 +9,7 @@ import {
   WrappedEntryCard,
   useEntityLoader,
 } from '@contentful/field-editor-reference';
-import {
-  LocalePublishStatusMap,
-  useAsyncLocalePublishStatus,
-} from '@contentful/field-editor-shared';
+import { LocalePublishStatusMap, useLocalePublishStatus } from '@contentful/field-editor-shared';
 import areEqual from 'fast-deep-equal';
 
 interface InternalEntryCard {
@@ -77,10 +74,7 @@ export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) =
     () => getEntityScheduledActions('Entry', entryId),
     [getEntityScheduledActions, entryId]
   );
-  const localesStatusMap = useAsyncLocalePublishStatus(
-    entry,
-    props.sdk.parameters.instance.privateLocales
-  );
+  const localesStatusMap = useLocalePublishStatus(entry, props.sdk.locales);
 
   React.useEffect(() => {
     if (status === 'success') {

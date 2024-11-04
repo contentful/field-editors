@@ -1,16 +1,17 @@
 import { useMemo } from 'react';
 
+import type { LocalesAPI } from '@contentful/app-sdk';
 import type { AssetProps, EntryProps, LocaleProps } from 'contentful-management/types';
 
 import * as entityHelpers from '../utils/entityHelpers';
 
 export type LocalePublishStatus = {
   status: 'draft' | 'published' | 'changed';
-  locale: LocaleProps;
+  locale: Pick<LocaleProps, 'code' | 'default' | 'name'>;
 };
 export type LocalePublishStatusMap = Map<string, LocalePublishStatus>;
 
-function getLocalePublishStatusMap(entity: AssetProps | EntryProps, locales: LocaleProps[]) {
+function getLocalePublishStatusMap(entity: AssetProps | EntryProps, localesApi: LocalesAPI) {
   const entityStatus = entityHelpers.getEntityStatus(entity.sys);
 
   if (['archived', 'deleted'].includes(entityStatus)) {
@@ -18,15 +19,19 @@ function getLocalePublishStatusMap(entity: AssetProps | EntryProps, locales: Loc
   }
 
   const statusMap: LocalePublishStatusMap = new Map(
-    locales.map((locale) => [
-      locale.code,
+    localesApi.available.map((localeCode) => [
+      localeCode,
       {
         // save to cast as archived and deleted are already handled before
-        status: entityHelpers.getEntityStatus(entity.sys, locale.code) as
+        status: entityHelpers.getEntityStatus(entity.sys, localeCode) as
           | 'draft'
           | 'published'
           | 'changed',
-        locale,
+        locale: {
+          code: localeCode,
+          default: localeCode === localesApi.default,
+          name: localesApi.names[localeCode],
+        },
       },
     ])
   );
@@ -37,15 +42,15 @@ function getLocalePublishStatusMap(entity: AssetProps | EntryProps, locales: Loc
 /**
  * Get the publish status for each locale
  */
-export function useAsyncLocalePublishStatus(
+export function useLocalePublishStatus(
   entity?: AssetProps | EntryProps,
-  privateLocales?: LocaleProps[] | null
+  localesApi?: LocalesAPI | null
 ): LocalePublishStatusMap | undefined {
   return useMemo(() => {
-    if (entity && privateLocales) {
-      return getLocalePublishStatusMap(entity, privateLocales);
+    if (entity && localesApi) {
+      return getLocalePublishStatusMap(entity, localesApi);
     }
 
     return undefined;
-  }, [entity, privateLocales]);
+  }, [entity, localesApi]);
 }

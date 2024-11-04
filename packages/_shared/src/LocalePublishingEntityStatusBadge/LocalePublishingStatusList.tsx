@@ -7,13 +7,13 @@ import { sortBy } from 'lodash';
 import type {
   LocalePublishStatusMap,
   LocalePublishStatus as LocalePublishStatusType,
-} from '../hooks/useAsyncLocalePublishStatus';
+} from '../hooks/useLocalePublishStatus';
 import { Banner } from './Banner';
 import { LocalePublishingStatus } from './LocalePublishingStatus';
 
 function groupAndSortLocales(
   entries: [string, LocalePublishStatusType][],
-  activeLocales?: LocaleProps[] | null
+  activeLocales?: Pick<LocaleProps, 'code'>[] | null
 ) {
   // Group into selected locales (for editing) and non selected
   const { selected, nonSelected } = entries.reduce(
