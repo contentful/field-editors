@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.31.2...@contentful/field-editor-reference@6.0.0) (2024-11-04)
+
+### Features
+
+- **shared:** remove the "async" useAsyncLocalePublishStatus ([#1792](https://github.com/contentful/field-editors/issues/1792)) ([181bc7f](https://github.com/contentful/field-editors/commit/181bc7f4a9f6d69b521f133b4d193736e846d280))
+
+### BREAKING CHANGES
+
+- **shared:** useAsyncLocalePublishStatus has been removed. Use useLocalePublishStatus instead
+
 ## [5.31.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.31.1...@contentful/field-editor-reference@5.31.2) (2024-10-14)
 
 ### Bug Fixes

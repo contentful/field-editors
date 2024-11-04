@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.30.0...@contentful/field-editor-rich-text@4.0.0) (2024-11-04)
+
+### Features
+
+- **shared:** remove the "async" useAsyncLocalePublishStatus ([#1792](https://github.com/contentful/field-editors/issues/1792)) ([181bc7f](https://github.com/contentful/field-editors/commit/181bc7f4a9f6d69b521f133b4d193736e846d280))
+
+### BREAKING CHANGES
+
+- **shared:** useAsyncLocalePublishStatus has been removed. Use useLocalePublishStatus instead
+
 # [3.30.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.29.0...@contentful/field-editor-rich-text@3.30.0) (2024-10-29)
 
 ### Features
