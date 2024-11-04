@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.1.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.0.0...@contentful/field-editor-reference@6.1.0) (2024-11-04)
+
+### Features
+
+- declare explicit locale attrs dependency ([#1794](https://github.com/contentful/field-editors/issues/1794)) ([2ac6711](https://github.com/contentful/field-editors/commit/2ac6711223492aa43ebbb42e0f1fafc93821ff9d))
+
 # [6.0.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.31.2...@contentful/field-editor-reference@6.0.0) (2024-11-04)
 
 ### Features

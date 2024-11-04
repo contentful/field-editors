@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.24](https://github.com/contentful/field-editors/compare/@contentful/field-editor-list@1.4.23...@contentful/field-editor-list@1.4.24) (2024-11-04)
+
+**Note:** Version bump only for package @contentful/field-editor-list
+
 ## [1.4.23](https://github.com/contentful/field-editors/compare/@contentful/field-editor-list@1.4.22...@contentful/field-editor-list@1.4.23) (2024-11-04)
 
 **Note:** Version bump only for package @contentful/field-editor-list
