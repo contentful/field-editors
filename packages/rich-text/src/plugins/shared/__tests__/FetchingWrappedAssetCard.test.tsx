@@ -18,6 +18,10 @@ beforeEach(() => {
   sdk = {
     locales: {
       default: 'en-US',
+      available: ['en-US'],
+      names: {
+        'en-US': 'English (United States)',
+      },
     },
     cmaAdapter: createFakeCMAAdapter({
       Asset: { get: jest.fn().mockResolvedValue(publishedAsset) },
