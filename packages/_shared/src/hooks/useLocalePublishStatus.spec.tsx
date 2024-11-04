@@ -1,69 +1,31 @@
+import type { LocalesAPI } from '@contentful/app-sdk';
 import { renderHook } from '@testing-library/react-hooks';
 
-import { useAsyncLocalePublishStatus } from './useAsyncLocalePublishStatus';
+import { useLocalePublishStatus } from './useLocalePublishStatus';
 
-describe('useAsyncLocalePublishStatus', () => {
-  const enUS = {
-    code: 'en-US',
-    name: 'en-US',
-    internal_code: 'en-US',
-    fallbackCode: null,
-    default: false,
-    contentManagementApi: true,
-    contentDeliveryApi: true,
-    optional: false,
-    sys: {
-      type: 'Locale',
-      id: 'en-US',
-      version: 1,
-      space: { sys: { type: 'Link', linkType: 'Space', id: 'test-xokbvvklfw' } },
-      environment: { sys: { type: 'Link', linkType: 'Environment', id: 'test-ak19mszr76' } },
-      createdBy: { sys: { type: 'Link', linkType: 'User', id: 'test-0olok52c12' } },
-      createdAt: '2017-01-23T10:17:55Z',
-      updatedBy: { sys: { type: 'Link', linkType: 'User', id: 'test-0olok52c12' } },
-      updatedAt: '2017-01-23T10:17:55Z',
+describe('useLocalePublishStatus', () => {
+  const enUS = { code: 'en-US', default: true, name: 'English (US)' };
+  const deDE = { code: 'de-DE', default: false, name: 'German (Germany)' };
+  const esES = { code: 'es-ES', default: false, name: 'Spanish (Spain)' };
+
+  const localesAPI: LocalesAPI = {
+    available: [enUS.code, deDE.code, esES.code],
+    default: enUS.code,
+    names: {
+      [enUS.code]: enUS.name,
+      [deDE.code]: deDE.name,
+      [esES.code]: esES.name,
     },
-  };
-  const deDE = {
-    code: 'de-DE',
-    name: 'de-DE',
-    internal_code: 'de-DE',
-    fallbackCode: null,
-    default: false,
-    contentManagementApi: true,
-    contentDeliveryApi: true,
-    optional: false,
-    sys: {
-      type: 'Locale',
-      id: 'de-DE',
-      version: 1,
-      space: { sys: { type: 'Link', linkType: 'Space', id: 'test-tnw0g6rujf' } },
-      environment: { sys: { type: 'Link', linkType: 'Environment', id: 'test-wisyjo6pk4' } },
-      createdBy: { sys: { type: 'Link', linkType: 'User', id: 'test-j63uqcmqlx' } },
-      createdAt: '2017-01-23T10:17:55Z',
-      updatedBy: { sys: { type: 'Link', linkType: 'User', id: 'test-j63uqcmqlx' } },
-      updatedAt: '2017-01-23T10:17:55Z',
+    fallbacks: {},
+    optional: {
+      [enUS.code]: false,
+      [deDE.code]: true,
+      [esES.code]: true,
     },
-  };
-  const esES = {
-    code: 'es-ES',
-    name: 'es-ES',
-    internal_code: 'es-ES',
-    fallbackCode: null,
-    default: false,
-    contentManagementApi: true,
-    contentDeliveryApi: true,
-    optional: false,
-    sys: {
-      type: 'Locale',
-      id: 'es-ES',
-      version: 1,
-      space: { sys: { type: 'Link', linkType: 'Space', id: 'test-h0e5p83kvo' } },
-      environment: { sys: { type: 'Link', linkType: 'Environment', id: 'test-extqkvjiub' } },
-      createdBy: { sys: { type: 'Link', linkType: 'User', id: 'test-1xpsnz99fa' } },
-      createdAt: '2017-01-23T10:17:55Z',
-      updatedBy: { sys: { type: 'Link', linkType: 'User', id: 'test-1xpsnz99fa' } },
-      updatedAt: '2017-01-23T10:17:55Z',
+    direction: {
+      [enUS.code]: 'ltr',
+      [deDE.code]: 'ltr',
+      [esES.code]: 'ltr',
     },
   };
 
@@ -89,7 +51,7 @@ describe('useAsyncLocalePublishStatus', () => {
         fields: {},
       };
 
-      const { result } = renderHook(() => useAsyncLocalePublishStatus(entity, [enUS, deDE, esES]));
+      const { result } = renderHook(() => useLocalePublishStatus(entity, localesAPI));
 
       expect(result.current).toEqual(
         new Map([
@@ -128,7 +90,7 @@ describe('useAsyncLocalePublishStatus', () => {
         },
       };
 
-      const { result } = renderHook(() => useAsyncLocalePublishStatus(entity, [enUS, deDE, esES]));
+      const { result } = renderHook(() => useLocalePublishStatus(entity, localesAPI));
 
       expect(result.current).toEqual(
         new Map([
@@ -160,7 +122,7 @@ describe('useAsyncLocalePublishStatus', () => {
         fields: {},
       };
 
-      const { result } = renderHook(() => useAsyncLocalePublishStatus(entity, [enUS, deDE, esES]));
+      const { result } = renderHook(() => useLocalePublishStatus(entity, localesAPI));
 
       expect(result.current).toEqual(
         new Map([
@@ -172,9 +134,7 @@ describe('useAsyncLocalePublishStatus', () => {
     });
 
     it('returns undefined as publishStatus if there is no entity provided', () => {
-      const { result } = renderHook(() =>
-        useAsyncLocalePublishStatus(undefined, [enUS, deDE, esES])
-      );
+      const { result } = renderHook(() => useLocalePublishStatus(undefined, localesAPI));
 
       expect(result.current).toBeUndefined();
     });

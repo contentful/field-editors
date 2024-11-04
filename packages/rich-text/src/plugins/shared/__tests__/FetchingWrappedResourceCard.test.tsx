@@ -23,6 +23,10 @@ beforeEach(() => {
   sdk = {
     locales: {
       default: 'en-US',
+      available: ['en-US'],
+      names: {
+        'en-US': 'English (United States)',
+      },
     },
     cmaAdapter: createFakeCMAAdapter({
       ContentType: { get: jest.fn().mockReturnValue(publishedCT) },

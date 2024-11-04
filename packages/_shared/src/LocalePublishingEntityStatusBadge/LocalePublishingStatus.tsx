@@ -23,7 +23,7 @@ const styles = {
 };
 
 type LocalePublishingStatusProps = {
-  locale: LocaleProps;
+  locale: Pick<LocaleProps, 'code' | 'default' | 'name'>;
   status: 'draft' | 'published' | 'changed';
   isScheduled: boolean;
 };

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { AssetCard, EntryCard } from '@contentful/f36-components';
-import { useAsyncLocalePublishStatus } from '@contentful/field-editor-shared';
+import { useLocalePublishStatus } from '@contentful/field-editor-shared';
 
 import {
   CustomEntityCardProps,
@@ -34,10 +34,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
     () => getEntityScheduledActions('Asset', props.assetId),
     [getEntityScheduledActions, props.assetId]
   );
-  const localesStatusMap = useAsyncLocalePublishStatus(
-    asset,
-    props.sdk.parameters.instance.privateLocales
-  );
+  const localesStatusMap = useLocalePublishStatus(asset, props.sdk.locales);
 
   React.useEffect(() => {
     if (asset) {
