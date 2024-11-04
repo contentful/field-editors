@@ -41,7 +41,7 @@ export interface WrappedEntryCardProps {
   isLocalized?: boolean;
   useLocalizedEntityStatus?: boolean;
   localesStatusMap?: LocalePublishStatusMap;
-  activeLocales?: LocaleProps[];
+  activeLocales?: Pick<LocaleProps, 'code'>[];
 }
 
 const defaultProps = {

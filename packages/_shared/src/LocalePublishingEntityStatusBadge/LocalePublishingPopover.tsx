@@ -108,7 +108,7 @@ type Status = { primary: EntityStatus; secondary?: EntityStatus; tertiary?: Enti
 
 const determineBadgeStatus = (
   localesStatusMap?: LocalePublishStatusMap,
-  activeLocales?: LocaleProps[] | null
+  activeLocales?: Pick<LocaleProps, 'code'>[]
 ): Status | undefined => {
   // Early return for null or undefined locales
   if (!localesStatusMap) return;
@@ -165,7 +165,7 @@ type LocalePublishingPopoverProps = {
   entity: EntryProps | AssetProps;
   jobs: ScheduledActionProps[];
   isScheduled: boolean;
-  activeLocales: LocaleProps[] | null;
+  activeLocales?: Pick<LocaleProps, 'code'>[];
   localesStatusMap?: LocalePublishStatusMap;
 };
 
@@ -195,7 +195,7 @@ export function LocalePublishingPopover({
 
   const entityStatus = entityHelpers.getEntityStatus(
     entity.sys,
-    activeLocales?.map((locale: LocaleProps) => locale.code)
+    activeLocales?.map((locale) => locale.code)
   );
 
   if (['archived', 'deleted'].includes(entityStatus)) {

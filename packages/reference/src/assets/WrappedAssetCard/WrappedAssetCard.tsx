@@ -42,7 +42,7 @@ export interface WrappedAssetCardProps {
   useLocalizedEntityStatus?: boolean;
   isLocalized?: boolean;
   localesStatusMap?: LocalePublishStatusMap;
-  activeLocales?: LocaleProps[];
+  activeLocales?: Pick<LocaleProps, 'code'>[];
 }
 
 const defaultProps = {

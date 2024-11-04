@@ -46,5 +46,5 @@ export type CustomEntityCardProps = {
   isLocalized?: boolean;
   useLocalizedEntityStatus?: boolean;
   localesStatusMap?: LocalePublishStatusMap;
-  activeLocales?: LocaleProps[];
+  activeLocales?: Pick<LocaleProps, 'code'>[];
 };

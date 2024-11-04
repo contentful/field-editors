@@ -13,7 +13,7 @@ import { LocalePublishingStatus } from './LocalePublishingStatus';
 
 function groupAndSortLocales(
   entries: [string, LocalePublishStatusType][],
-  activeLocales?: Pick<LocaleProps, 'code'>[] | null
+  activeLocales?: Pick<LocaleProps, 'code'>[]
 ) {
   // Group into selected locales (for editing) and non selected
   const { selected, nonSelected } = entries.reduce(
@@ -52,7 +52,7 @@ function groupAndSortLocales(
 type LocalePublishingStatusListProps = {
   isScheduled: boolean;
   statusMap: LocalePublishStatusMap;
-  activeLocales: LocaleProps[] | null;
+  activeLocales?: Pick<LocaleProps, 'code'>[];
 };
 
 export function LocalePublishingStatusList({

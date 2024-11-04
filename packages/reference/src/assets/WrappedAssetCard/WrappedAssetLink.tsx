@@ -26,7 +26,7 @@ export interface WrappedAssetLinkProps {
   renderDragHandle?: RenderDragFn;
   useLocalizedEntityStatus?: boolean;
   localesStatusMap?: LocalePublishStatusMap;
-  activeLocales?: LocaleProps[];
+  activeLocales?: Pick<LocaleProps, 'code'>[];
 }
 
 export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {

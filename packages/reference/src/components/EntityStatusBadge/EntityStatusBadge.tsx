@@ -15,7 +15,7 @@ type EntityStatusBadgeProps = Omit<UseScheduledActionsProps, 'entityId'> & {
   entity: EntryProps | AssetProps;
   useLocalizedEntityStatus?: boolean;
   localesStatusMap?: LocalePublishStatusMap;
-  activeLocales?: LocaleProps[];
+  activeLocales?: Pick<LocaleProps, 'code'>[];
 };
 
 export function EntityStatusBadge({
