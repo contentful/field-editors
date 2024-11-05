@@ -3,6 +3,76 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.1.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.0.1...@contentful/field-editor-rich-text@4.1.0) (2024-11-05)
+
+### Features
+
+- **shared:** show stacked badge when status diff [TOL-2502] ([#1796](https://github.com/contentful/field-editors/issues/1796)) ([b182516](https://github.com/contentful/field-editors/commit/b182516bfaabbdee12434465ced8067e5244522f))
+
+## [4.0.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.0.0...@contentful/field-editor-rich-text@4.0.1) (2024-11-04)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+# [4.0.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.30.0...@contentful/field-editor-rich-text@4.0.0) (2024-11-04)
+
+### Features
+
+- **shared:** remove the "async" useAsyncLocalePublishStatus ([#1792](https://github.com/contentful/field-editors/issues/1792)) ([181bc7f](https://github.com/contentful/field-editors/commit/181bc7f4a9f6d69b521f133b4d193736e846d280))
+
+### BREAKING CHANGES
+
+- **shared:** useAsyncLocalePublishStatus has been removed. Use useLocalePublishStatus instead
+
+# [3.30.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.29.0...@contentful/field-editor-rich-text@3.30.0) (2024-10-29)
+
+### Features
+
+- **rich-text:** bump validation and renderer to latest version [] ([#1791](https://github.com/contentful/field-editors/issues/1791)) ([fc32513](https://github.com/contentful/field-editors/commit/fc32513ed37a4c5bebe58ef8f6247334f3abbe15))
+
+# [3.29.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.28.2...@contentful/field-editor-rich-text@3.29.0) (2024-10-17)
+
+### Features
+
+- **Rich Text Editor:** add sticky offset property ([#1782](https://github.com/contentful/field-editors/issues/1782)) ([0a395e2](https://github.com/contentful/field-editors/commit/0a395e2fe73a4878e5228b21af211faff17014fb))
+
+## [3.28.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.28.1...@contentful/field-editor-rich-text@3.28.2) (2024-10-14)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [3.28.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.28.0...@contentful/field-editor-rich-text@3.28.1) (2024-10-14)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+# [3.28.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.27.13...@contentful/field-editor-rich-text@3.28.0) (2024-10-11)
+
+### Features
+
+- localized entity status in rich text [TOL-2454] ([#1775](https://github.com/contentful/field-editors/issues/1775)) ([1df6c4b](https://github.com/contentful/field-editors/commit/1df6c4bdd8cfc5a0e7e28276d99d99470532aa79))
+
+## [3.27.13](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.27.12...@contentful/field-editor-rich-text@3.27.13) (2024-10-10)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [3.27.12](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.27.11...@contentful/field-editor-rich-text@3.27.12) (2024-10-10)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [3.27.11](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.27.10...@contentful/field-editor-rich-text@3.27.11) (2024-10-09)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [3.27.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.27.9...@contentful/field-editor-rich-text@3.27.10) (2024-10-09)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [3.27.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.27.8...@contentful/field-editor-rich-text@3.27.9) (2024-10-08)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [3.27.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.27.7...@contentful/field-editor-rich-text@3.27.8) (2024-10-04)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
 ## [3.27.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@3.27.6...@contentful/field-editor-rich-text@3.27.7) (2024-10-01)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text

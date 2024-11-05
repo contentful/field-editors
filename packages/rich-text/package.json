@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-rich-text",
-  "version": "3.27.7",
+  "version": "4.1.0",
   "source": "./src/index.tsx",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -44,10 +44,10 @@
     "@contentful/f36-icons": "^4.29.0",
     "@contentful/f36-tokens": "^4.0.5",
     "@contentful/f36-utils": "^4.24.3",
-    "@contentful/field-editor-reference": "^5.30.9",
-    "@contentful/field-editor-shared": "^1.6.2",
-    "@contentful/rich-text-plain-text-renderer": "^16.0.4",
-    "@contentful/rich-text-types": "16.7.0",
+    "@contentful/field-editor-reference": "^6.2.0",
+    "@contentful/field-editor-shared": "^2.2.0",
+    "@contentful/rich-text-plain-text-renderer": "^17.0.0",
+    "@contentful/rich-text-types": "^17.0.0",
     "@popperjs/core": "^2.11.5",
     "@udecode/plate-basic-marks": "36.0.0",
     "@udecode/plate-break": "36.0.0",
@@ -76,8 +76,8 @@
     "react-dom": ">=16.14.0"
   },
   "devDependencies": {
-    "@contentful/field-editor-test-utils": "^1.5.1",
-    "@contentful/rich-text-react-renderer": "^15.16.4",
+    "@contentful/field-editor-test-utils": "^1.5.2",
+    "@contentful/rich-text-react-renderer": "^16.0.0",
     "@types/is-hotkey": "^0.1.6",
     "@udecode/plate-test-utils": "^3.2.0",
     "prism-react-renderer": "2.4.0",

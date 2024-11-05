@@ -25,6 +25,7 @@ export const Default: Story = {
       (field) => field,
       initialValue ? JSON.parse(initialValue) : undefined
     );
+
     return (
       <div data-test-id="location-editor-integration-test">
         <LocationEditor

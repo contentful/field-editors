@@ -1,5 +1,8 @@
 import * as React from 'react';
 
+import { LocalePublishStatusMap } from '@contentful/field-editor-shared';
+import { LocaleProps } from 'contentful-management';
+
 import { Asset, ContentType, Entry, RenderDragFn } from '../types';
 import { CustomActionProps } from './ReferenceEditor';
 
@@ -42,4 +45,7 @@ export type CustomEntityCardProps = {
 
   isLocalized?: boolean;
   useLocalizedEntityStatus?: boolean;
+  localesStatusMap?: LocalePublishStatusMap;
+  activeLocales?: Pick<LocaleProps, 'code'>[];
+  shouldRetainLocaleHistory?: boolean;
 };

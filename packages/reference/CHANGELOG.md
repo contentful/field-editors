@@ -3,6 +3,68 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.2.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.1.0...@contentful/field-editor-reference@6.2.0) (2024-11-05)
+
+### Features
+
+- **shared:** show stacked badge when status diff [TOL-2502] ([#1796](https://github.com/contentful/field-editors/issues/1796)) ([b182516](https://github.com/contentful/field-editors/commit/b182516bfaabbdee12434465ced8067e5244522f))
+
+# [6.1.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.0.0...@contentful/field-editor-reference@6.1.0) (2024-11-04)
+
+### Features
+
+- declare explicit locale attrs dependency ([#1794](https://github.com/contentful/field-editors/issues/1794)) ([2ac6711](https://github.com/contentful/field-editors/commit/2ac6711223492aa43ebbb42e0f1fafc93821ff9d))
+
+# [6.0.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.31.2...@contentful/field-editor-reference@6.0.0) (2024-11-04)
+
+### Features
+
+- **shared:** remove the "async" useAsyncLocalePublishStatus ([#1792](https://github.com/contentful/field-editors/issues/1792)) ([181bc7f](https://github.com/contentful/field-editors/commit/181bc7f4a9f6d69b521f133b4d193736e846d280))
+
+### BREAKING CHANGES
+
+- **shared:** useAsyncLocalePublishStatus has been removed. Use useLocalePublishStatus instead
+
+## [5.31.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.31.1...@contentful/field-editor-reference@5.31.2) (2024-10-14)
+
+### Bug Fixes
+
+- prop control to filter out experience content types [TOL-2503] ([#1780](https://github.com/contentful/field-editors/issues/1780)) ([f01e931](https://github.com/contentful/field-editors/commit/f01e931a7ba9f4496cb10e05cff5062d5c5ee597))
+
+## [5.31.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.31.0...@contentful/field-editor-reference@5.31.1) (2024-10-14)
+
+### Bug Fixes
+
+- filter out experience entries [TOL-2503] ([#1777](https://github.com/contentful/field-editors/issues/1777)) ([f34bee6](https://github.com/contentful/field-editors/commit/f34bee612b33a32df03fb5f8f1081064e27392ec))
+
+# [5.31.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.30.14...@contentful/field-editor-reference@5.31.0) (2024-10-10)
+
+### Features
+
+- implement localized entity status badge in references [TOL-2454] ([#1773](https://github.com/contentful/field-editors/issues/1773)) ([e933eae](https://github.com/contentful/field-editors/commit/e933eaeeb56bd377027a4f65fc342bce3283bf34))
+
+## [5.30.14](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.30.13...@contentful/field-editor-reference@5.30.14) (2024-10-10)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [5.30.13](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.30.12...@contentful/field-editor-reference@5.30.13) (2024-10-09)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [5.30.12](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.30.11...@contentful/field-editor-reference@5.30.12) (2024-10-09)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [5.30.11](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.30.10...@contentful/field-editor-reference@5.30.11) (2024-10-08)
+
+### Bug Fixes
+
+- use proper methods to fetch NER entities ([#1769](https://github.com/contentful/field-editors/issues/1769)) ([8075e65](https://github.com/contentful/field-editors/commit/8075e65e15c6bb349c0e75d8c4241fa388a3cfd5))
+
+## [5.30.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.30.9...@contentful/field-editor-reference@5.30.10) (2024-10-04)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
 ## [5.30.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@5.30.8...@contentful/field-editor-reference@5.30.9) (2024-10-01)
 
 **Note:** Version bump only for package @contentful/field-editor-reference

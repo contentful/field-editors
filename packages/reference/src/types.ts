@@ -1,5 +1,6 @@
 import { NavigatorSlideInfo, ContentEntityType } from '@contentful/app-sdk';
 import { Entry, Asset } from '@contentful/field-editor-shared';
+import { ResourceProps } from 'contentful-management';
 
 export type {
   BaseAppSDK,
@@ -11,7 +12,12 @@ export type {
   NavigatorSlideInfo,
   ScheduledAction,
 } from '@contentful/app-sdk';
-export type { SpaceProps as Space, ResourceLink } from 'contentful-management';
+export type {
+  SpaceProps as Space,
+  ResourceLink,
+  ResourceProps as ExternalResource,
+  SpaceEnvResourceTypeProps as ResourceType,
+} from 'contentful-management';
 
 export { Entry, File, Asset } from '@contentful/field-editor-shared';
 
@@ -25,43 +31,7 @@ export type AssetLink = { sys: { type: 'Link'; linkType: 'Asset'; id: string } }
 
 export type EntityLink = EntryLink | AssetLink;
 
-type SysExternalResource<T extends string> = {
-  sys: { type: 'Link'; linkType: T; id: string };
-};
-
-export type ResourceType = {
-  sys: {
-    type: 'ResourceType';
-    id: string;
-    resourceProvider: SysExternalResource<'ResourceProvider'>;
-  };
-  name: string;
-};
-
-export interface ExternalResource {
-  sys: {
-    type: 'Resource';
-    urn: string;
-    resourceProvider: SysExternalResource<'ResourceProvider'>;
-    resourceType: SysExternalResource<'ResourceType'>;
-  };
-  fields: {
-    title: string;
-    subtitle?: string;
-    description?: string;
-    externalUrl?: string;
-    badge?: {
-      label: string;
-      variant: 'negative' | 'positive' | 'primary' | 'secondary' | 'warning';
-    };
-    image?: {
-      url: string;
-      altText?: string;
-    };
-  };
-}
-
-export type Resource = Entry | ExternalResource;
+export type Resource = Entry | ResourceProps;
 
 export type EntityType = 'Entry' | 'Asset' | string;
 

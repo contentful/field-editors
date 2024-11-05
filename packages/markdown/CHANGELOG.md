@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.6.9...@contentful/field-editor-markdown@1.6.10) (2024-11-05)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.6.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.6.8...@contentful/field-editor-markdown@1.6.9) (2024-11-04)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.6.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.6.7...@contentful/field-editor-markdown@1.6.8) (2024-11-04)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.6.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.6.6...@contentful/field-editor-markdown@1.6.7) (2024-10-25)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.6.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.6.5...@contentful/field-editor-markdown@1.6.6) (2024-10-10)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.6.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.6.4...@contentful/field-editor-markdown@1.6.5) (2024-10-09)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.6.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.6.3...@contentful/field-editor-markdown@1.6.4) (2024-10-09)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.6.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.6.2...@contentful/field-editor-markdown@1.6.3) (2024-10-04)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
 ## [1.6.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.6.1...@contentful/field-editor-markdown@1.6.2) (2024-10-01)
 
 **Note:** Version bump only for package @contentful/field-editor-markdown

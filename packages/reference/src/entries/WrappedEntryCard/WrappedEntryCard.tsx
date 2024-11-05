@@ -1,8 +1,13 @@
 import * as React from 'react';
 
 import { SpaceAPI } from '@contentful/app-sdk';
-import { EntryCard, MenuItem, MenuDivider, Badge } from '@contentful/f36-components';
-import { entityHelpers, isValidImage } from '@contentful/field-editor-shared';
+import { EntryCard, MenuItem, MenuDivider } from '@contentful/f36-components';
+import {
+  entityHelpers,
+  isValidImage,
+  LocalePublishStatusMap,
+} from '@contentful/field-editor-shared';
+import { LocaleProps } from 'contentful-management';
 
 import { AssetThumbnail, MissingEntityCard, EntityStatusBadge } from '../../components';
 import { SpaceName } from '../../components/SpaceName/SpaceName';
@@ -35,6 +40,9 @@ export interface WrappedEntryCardProps {
 
   isLocalized?: boolean;
   useLocalizedEntityStatus?: boolean;
+  localesStatusMap?: LocalePublishStatusMap;
+  activeLocales?: Pick<LocaleProps, 'code'>[];
+  shouldRetainLocaleHistory?: boolean;
 }
 
 const defaultProps = {
@@ -121,9 +129,13 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
       badge={
         <EntityStatusBadge
           status={status}
-          entityId={props.entry.sys.id}
           entityType="Entry"
           getEntityScheduledActions={props.getEntityScheduledActions}
+          useLocalizedEntityStatus={props.useLocalizedEntityStatus}
+          entity={props.entry}
+          localesStatusMap={props.localesStatusMap}
+          activeLocales={props.activeLocales}
+          shouldRetainLocaleHistory={props.shouldRetainLocaleHistory}
         />
       }
       icon={
@@ -132,8 +144,6 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
             spaceName={props.spaceName}
             environmentName={props.entry.sys.environment.sys.id}
           />
-        ) : !props.isLocalized && props.useLocalizedEntityStatus ? (
-          <Badge variant="secondary">Default</Badge>
         ) : null
       }
       thumbnailElement={file && isValidImage(file) ? <AssetThumbnail file={file} /> : undefined}

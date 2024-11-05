@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.27](https://github.com/contentful/field-editors/compare/@contentful/field-editor-url@1.3.26...@contentful/field-editor-url@1.3.27) (2024-11-05)
+
+**Note:** Version bump only for package @contentful/field-editor-url
+
+## [1.3.26](https://github.com/contentful/field-editors/compare/@contentful/field-editor-url@1.3.25...@contentful/field-editor-url@1.3.26) (2024-11-04)
+
+**Note:** Version bump only for package @contentful/field-editor-url
+
+## [1.3.25](https://github.com/contentful/field-editors/compare/@contentful/field-editor-url@1.3.24...@contentful/field-editor-url@1.3.25) (2024-11-04)
+
+**Note:** Version bump only for package @contentful/field-editor-url
+
+## [1.3.24](https://github.com/contentful/field-editors/compare/@contentful/field-editor-url@1.3.23...@contentful/field-editor-url@1.3.24) (2024-10-10)
+
+**Note:** Version bump only for package @contentful/field-editor-url
+
+## [1.3.23](https://github.com/contentful/field-editors/compare/@contentful/field-editor-url@1.3.22...@contentful/field-editor-url@1.3.23) (2024-10-09)
+
+**Note:** Version bump only for package @contentful/field-editor-url
+
+## [1.3.22](https://github.com/contentful/field-editors/compare/@contentful/field-editor-url@1.3.21...@contentful/field-editor-url@1.3.22) (2024-10-09)
+
+**Note:** Version bump only for package @contentful/field-editor-url
+
+## [1.3.21](https://github.com/contentful/field-editors/compare/@contentful/field-editor-url@1.3.20...@contentful/field-editor-url@1.3.21) (2024-10-04)
+
+**Note:** Version bump only for package @contentful/field-editor-url
+
 ## [1.3.20](https://github.com/contentful/field-editors/compare/@contentful/field-editor-url@1.3.19...@contentful/field-editor-url@1.3.20) (2024-10-01)
 
 **Note:** Version bump only for package @contentful/field-editor-url

@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-radio@1.5.8...@contentful/field-editor-radio@1.5.9) (2024-11-05)
+
+**Note:** Version bump only for package @contentful/field-editor-radio
+
+## [1.5.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-radio@1.5.7...@contentful/field-editor-radio@1.5.8) (2024-11-04)
+
+**Note:** Version bump only for package @contentful/field-editor-radio
+
+## [1.5.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-radio@1.5.6...@contentful/field-editor-radio@1.5.7) (2024-11-04)
+
+**Note:** Version bump only for package @contentful/field-editor-radio
+
+## [1.5.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-radio@1.5.5...@contentful/field-editor-radio@1.5.6) (2024-10-10)
+
+**Note:** Version bump only for package @contentful/field-editor-radio
+
+## [1.5.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-radio@1.5.4...@contentful/field-editor-radio@1.5.5) (2024-10-09)
+
+**Note:** Version bump only for package @contentful/field-editor-radio
+
+## [1.5.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-radio@1.5.3...@contentful/field-editor-radio@1.5.4) (2024-10-09)
+
+**Note:** Version bump only for package @contentful/field-editor-radio
+
+## [1.5.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-radio@1.5.2...@contentful/field-editor-radio@1.5.3) (2024-10-04)
+
+**Note:** Version bump only for package @contentful/field-editor-radio
+
 ## [1.5.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-radio@1.5.1...@contentful/field-editor-radio@1.5.2) (2024-10-01)
 
 **Note:** Version bump only for package @contentful/field-editor-radio

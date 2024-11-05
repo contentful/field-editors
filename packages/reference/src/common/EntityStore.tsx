@@ -1,14 +1,9 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
-import { BaseAppSDK, CollectionResponse } from '@contentful/app-sdk';
+import { BaseAppSDK } from '@contentful/app-sdk';
 import { FetchQueryOptions, Query, QueryKey } from '@tanstack/react-query';
 import constate from 'constate';
-import {
-  PlainClientAPI,
-  createClient,
-  CursorPaginatedCollectionProp,
-  fetchAll,
-} from 'contentful-management';
+import { PlainClientAPI, createClient, fetchAll } from 'contentful-management';
 import PQueue from 'p-queue';
 
 import {
@@ -132,7 +127,7 @@ async function fetchContentfulEntry({
   const resourceId = urn.split(':', 6)[5];
   const ENTITY_RESOURCE_ID_REGEX =
     /^spaces\/(?<spaceId>[^/]+)(?:\/environments\/(?<environmentId>[^/]+))?\/entries\/(?<entityId>[^/]+)$/;
-  const resourceIdMatch = resourceId.match(ENTITY_RESOURCE_ID_REGEX);
+  const resourceIdMatch = resourceId?.match(ENTITY_RESOURCE_ID_REGEX);
   if (!resourceIdMatch || !resourceIdMatch?.groups?.spaceId || !resourceIdMatch?.groups?.entityId) {
     throw new Error('Not a valid crn');
   }
@@ -202,21 +197,19 @@ async function fetchExternalResource({
     fetch(
       ['resource', spaceId, environmentId, resourceType, urn],
       ({ cmaClient }): Promise<ExternalResource | null> =>
-        cmaClient.raw
-          .get<CollectionResponse<ExternalResource>>(
-            `/spaces/${spaceId}/environments/${environmentId}/resource_types/${resourceType}/resources`,
-            { params: { 'sys.urn[in]': urn } }
-          )
+        cmaClient.resource
+          .getMany({
+            spaceId,
+            environmentId,
+            resourceTypeId: resourceType,
+            query: { 'sys.urn[in]': urn },
+          })
           .then(({ items }) => items[0] ?? null),
       options
     ),
     fetch(['resource-types', spaceId, environmentId], ({ cmaClient }) =>
       fetchAll(
-        ({ query }) =>
-          cmaClient.raw.get<CursorPaginatedCollectionProp<ResourceType>>(
-            `/spaces/${spaceId}/environments/${environmentId}/resource_types`,
-            { params: query }
-          ),
+        ({ query }) => cmaClient.resourceType.getForEnvironment({ spaceId, environmentId, query }),
         {}
       )
     ),

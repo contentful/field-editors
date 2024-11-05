@@ -1,4 +1,6 @@
-import { getEntityStatus, type EntitySys } from './entityHelpers';
+import { LocalePublishStatus } from 'hooks/useLocalePublishStatus';
+
+import { getEntityStatus, hasDifferentLocaleStatuses, type EntitySys } from './entityHelpers';
 
 describe('getEntityStatus', () => {
   function createEntity(
@@ -173,6 +175,28 @@ describe('getEntityStatus', () => {
           expect(result).toEqual('draft');
         });
       });
+    });
+  });
+
+  describe('hasDifferentLocaleStatuses', () => {
+    test('returns false if all locales have the same status', () => {
+      const statusMap = new Map<string, LocalePublishStatus>([
+        ['en-US', { status: 'published', locale: { code: 'en-US' } as any }],
+        ['fr-FR', { status: 'published', locale: { code: 'fr-FR' } as any }],
+        ['de-DE', { status: 'published', locale: { code: 'de-DE' } as any }],
+      ]);
+
+      expect(hasDifferentLocaleStatuses(statusMap)).toBeFalsy();
+    });
+
+    test('returns true if locales have different statuses', () => {
+      const statusMap = new Map<string, LocalePublishStatus>([
+        ['en-US', { status: 'published', locale: { code: 'en-US' } as any }],
+        ['fr-FR', { status: 'draft', locale: { code: 'fr-FR' } as any }],
+        ['de-DE', { status: 'published', locale: { code: 'de-DE' } as any }],
+      ]);
+
+      expect(hasDifferentLocaleStatuses(statusMap)).toBeTruthy();
     });
   });
 });
