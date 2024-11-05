@@ -27,6 +27,7 @@ export interface WrappedAssetLinkProps {
   useLocalizedEntityStatus?: boolean;
   localesStatusMap?: LocalePublishStatusMap;
   activeLocales?: Pick<LocaleProps, 'code'>[];
+  shouldRetainLocaleHistory?: boolean;
 }
 
 export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
@@ -69,6 +70,7 @@ export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
           entity={props.asset}
           localesStatusMap={props.localesStatusMap}
           activeLocales={props.activeLocales}
+          shouldRetainLocaleHistory={props.shouldRetainLocaleHistory}
         />
       }
       thumbnailElement={
