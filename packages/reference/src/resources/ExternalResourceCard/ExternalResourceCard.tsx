@@ -117,7 +117,8 @@ export function ExternalResourceCard({
             testId="edit"
             onClick={() => {
               onEdit && onEdit();
-            }}>
+            }}
+          >
             Edit
           </MenuItem>
         ) : null,
@@ -127,7 +128,8 @@ export function ExternalResourceCard({
             testId="delete"
             onClick={() => {
               onRemove && onRemove();
-            }}>
+            }}
+          >
             Remove
           </MenuItem>
         ) : null,
@@ -143,7 +145,8 @@ export function ExternalResourceCard({
           <MenuItem
             key="move-bottom"
             onClick={() => onMoveBottom && onMoveBottom()}
-            testId="move-bottom">
+            testId="move-bottom"
+          >
             Move to bottom
           </MenuItem>
         ) : null,
@@ -156,7 +159,8 @@ export function ExternalResourceCard({
               onEdit && onEdit();
             }
           : undefined
-      }>
+      }
+    >
       <ExternalResourceCardDescription
         subtitle={entity.fields.subtitle}
         description={entity.fields.description}
