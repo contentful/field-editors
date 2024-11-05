@@ -43,6 +43,7 @@ export interface WrappedAssetCardProps {
   isLocalized?: boolean;
   localesStatusMap?: LocalePublishStatusMap;
   activeLocales?: Pick<LocaleProps, 'code'>[];
+  shouldRetainLocaleHistory?: boolean;
 }
 
 const defaultProps = {
@@ -106,6 +107,7 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
           entity={props.asset}
           localesStatusMap={props.localesStatusMap}
           activeLocales={props.activeLocales}
+          shouldRetainLocaleHistory={props.shouldRetainLocaleHistory}
         />
       }
       src={

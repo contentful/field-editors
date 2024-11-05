@@ -1,3 +1,4 @@
+import { LocalePublishStatusMap } from 'hooks/useLocalePublishStatus';
 import get from 'lodash/get';
 import isObject from 'lodash/isObject';
 
@@ -313,3 +314,32 @@ export const getEntryImage = async (
     return null;
   }
 };
+
+/**
+ * Checks if a locale status map contains different statuses across its locales
+ * Returns true if there are at least two different statuses (e.g. published and draft)
+ * @param localesStatusMap
+ * @returns boolean indicating if there are different statuses
+ */
+export function hasDifferentLocaleStatuses(
+  localesStatusMap: LocalePublishStatusMap | null
+): boolean {
+  if (!localesStatusMap) return false;
+
+  let firstStatus: string | undefined;
+
+  for (const localeStatus of localesStatusMap.values()) {
+    if (!localeStatus) continue;
+
+    if (firstStatus === undefined) {
+      firstStatus = localeStatus.status;
+      continue;
+    }
+
+    if (localeStatus.status !== firstStatus) {
+      return true;
+    }
+  }
+
+  return false;
+}

@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { EntityStatusBadge as StatusBadge, type EntityStatus } from '@contentful/f36-components';
-import { LocalePublishingPopover, LocalePublishStatusMap } from '@contentful/field-editor-shared';
+import {
+  LocalePublishingPopover,
+  LocalePublishStatusMap,
+  entityHelpers,
+} from '@contentful/field-editor-shared';
 import { EntryProps, LocaleProps, AssetProps } from 'contentful-management';
 
 import {
@@ -16,6 +20,7 @@ type EntityStatusBadgeProps = Omit<UseScheduledActionsProps, 'entityId'> & {
   useLocalizedEntityStatus?: boolean;
   localesStatusMap?: LocalePublishStatusMap;
   activeLocales?: Pick<LocaleProps, 'code'>[];
+  shouldRetainLocaleHistory?: boolean;
 };
 
 export function EntityStatusBadge({
@@ -26,6 +31,7 @@ export function EntityStatusBadge({
   localesStatusMap,
   activeLocales,
   entity,
+  shouldRetainLocaleHistory,
   ...props
 }: EntityStatusBadgeProps) {
   const { isError, isLoading, jobs } = useScheduledActions({
@@ -34,7 +40,12 @@ export function EntityStatusBadge({
     getEntityScheduledActions,
   });
 
-  if (useLocalizedEntityStatus && activeLocales && localesStatusMap) {
+  const hasMultipleStatuses = useMemo(
+    () => shouldRetainLocaleHistory && entityHelpers.hasDifferentLocaleStatuses(localesStatusMap),
+    [localesStatusMap, shouldRetainLocaleHistory]
+  );
+
+  if (useLocalizedEntityStatus || hasMultipleStatuses) {
     return (
       <LocalePublishingPopover
         entity={entity}
