@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.1.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.0.1...@contentful/field-editor-rich-text@4.1.0) (2024-11-05)
+
+### Features
+
+- **shared:** show stacked badge when status diff [TOL-2502] ([#1796](https://github.com/contentful/field-editors/issues/1796)) ([b182516](https://github.com/contentful/field-editors/commit/b182516bfaabbdee12434465ced8067e5244522f))
+
 ## [4.0.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.0.0...@contentful/field-editor-rich-text@4.0.1) (2024-11-04)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text

@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.12](https://github.com/contentful/field-editors/compare/@contentful/field-editor-single-line@1.4.11...@contentful/field-editor-single-line@1.4.12) (2024-11-05)
+
+**Note:** Version bump only for package @contentful/field-editor-single-line
+
 ## [1.4.11](https://github.com/contentful/field-editors/compare/@contentful/field-editor-single-line@1.4.10...@contentful/field-editor-single-line@1.4.11) (2024-11-04)
 
 **Note:** Version bump only for package @contentful/field-editor-single-line
