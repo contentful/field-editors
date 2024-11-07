@@ -98,7 +98,6 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       localesStatusMap,
       activeLocales: props.sdk.parameters.instance.activeLocales,
       isLocalized: !!('localized' in props.sdk.field && props.sdk.field.localized), // missing in types :(
-      shouldRetainLocaleHistory: props.sdk.parameters.instance.shouldRetainLocaleHistory,
     };
 
     if (props.viewType === 'link') {

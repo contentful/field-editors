@@ -40,7 +40,6 @@ const InternalAssetCard = React.memo(
       isLocalized={!!('localized' in props.sdk.field && props.sdk.field.localized)}
       localesStatusMap={props.localesStatusMap}
       activeLocales={props.sdk.parameters.instance.activeLocales}
-      shouldRetainLocaleHistory={props.sdk.parameters.instance.shouldRetainLocaleHistory}
     />
   ),
   areEqual
