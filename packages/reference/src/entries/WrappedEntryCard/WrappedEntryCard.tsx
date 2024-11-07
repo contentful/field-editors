@@ -42,7 +42,6 @@ export interface WrappedEntryCardProps {
   useLocalizedEntityStatus?: boolean;
   localesStatusMap?: LocalePublishStatusMap;
   activeLocales?: Pick<LocaleProps, 'code'>[];
-  shouldRetainLocaleHistory?: boolean;
 }
 
 const defaultProps = {
@@ -135,7 +134,6 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
           entity={props.entry}
           localesStatusMap={props.localesStatusMap}
           activeLocales={props.activeLocales}
-          shouldRetainLocaleHistory={props.shouldRetainLocaleHistory}
         />
       }
       icon={
