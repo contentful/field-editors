@@ -74,7 +74,7 @@ export function LocalePublishingStatusList({
   return (
     <>
       <Banner
-        content="The entry has locales with the following statuses:"
+        content="The statuses of the locales for this content:"
         highlight={`${counters.changed} changed, ${counters.published} published, ${counters.draft} draft`}
       />
 
