@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.2.2...@contentful/field-editor-shared@2.2.3) (2024-11-20)
+
+### Bug Fixes
+
+- default rename copy [TOL-2555] ([#1802](https://github.com/contentful/field-editors/issues/1802)) ([fcabf93](https://github.com/contentful/field-editors/commit/fcabf93b611615deb8fe7dd20dfcc31d949cf404))
+
 ## [2.2.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.2.1...@contentful/field-editor-shared@2.2.2) (2024-11-20)
 
 ### Bug Fixes
