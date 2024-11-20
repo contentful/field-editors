@@ -38,7 +38,7 @@ export function LocalePublishingStatus({
       <Text className={styles.locale} fontColor="gray700">
         {locale.name}{' '}
         <Text fontColor="gray500">
-          ({locale.code}){locale.default && ' | default'}
+          ({locale.code}){locale.default && ', Default'}
         </Text>
       </Text>
       <EntityStatusBadge
