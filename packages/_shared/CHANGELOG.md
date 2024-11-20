@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.2.1...@contentful/field-editor-shared@2.2.2) (2024-11-20)
+
+### Bug Fixes
+
+- copy of status popover [TOL-2555] ([#1801](https://github.com/contentful/field-editors/issues/1801)) ([0d4958f](https://github.com/contentful/field-editors/commit/0d4958f3cded70acfe1c5cca2841c2df30ef0872))
+
 ## [2.2.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.2.0...@contentful/field-editor-shared@2.2.1) (2024-11-07)
 
 **Note:** Version bump only for package @contentful/field-editor-shared

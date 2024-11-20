@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.29](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.3.28...@contentful/field-editor-validation-errors@1.3.29) (2024-11-20)
+
+**Note:** Version bump only for package @contentful/field-editor-validation-errors
+
 ## [1.3.28](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.3.27...@contentful/field-editor-validation-errors@1.3.28) (2024-11-07)
 
 **Note:** Version bump only for package @contentful/field-editor-validation-errors
