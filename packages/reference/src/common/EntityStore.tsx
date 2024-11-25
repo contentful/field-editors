@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { BaseAppSDK } from '@contentful/app-sdk';
 import { FetchQueryOptions, Query, QueryKey } from '@tanstack/react-query';
 import constate from 'constate';
-import { PlainClientAPI, createClient, fetchAll } from 'contentful-management';
+import { PlainClientAPI, ResourceProvider, createClient, fetchAll } from 'contentful-management';
 import PQueue from 'p-queue';
 
 import {
@@ -92,7 +92,42 @@ type EntityQueryKey = [
   environmentId: string
 ];
 
+type ResourceProviderQueryKey = [
+  ident: 'ResourceProvider',
+  organizationId: string,
+  appDefinitionId: string
+];
+
 type ScheduledActionsQueryKey = ['scheduled-actions', ...EntityQueryKey];
+
+type FunctionInvocationErrorResponse = {
+  status: number;
+  statusText:
+    | 'Response payload of the Contentful Function is invalid'
+    | 'An error occurred while executing the Contentful Function code';
+  message: string;
+  request: {
+    url: string;
+    headers: Record<string, string>;
+    method: string;
+  };
+};
+
+function isFunctionInvocationErrorResponse(
+  response: unknown
+): response is FunctionInvocationErrorResponse {
+  const functionInvocationErrorMessages = [
+    'An error occurred while executing the Contentful Function code',
+    'Response payload of the Contentful Function is invalid',
+  ];
+  return (
+    response !== null &&
+    typeof response === 'object' &&
+    'message' in response &&
+    typeof response.message === 'string' &&
+    functionInvocationErrorMessages.includes(response.message)
+  );
+}
 
 export class UnsupportedError extends Error {
   isUnsupportedError: boolean;
@@ -105,6 +140,25 @@ export class UnsupportedError extends Error {
 export function isUnsupportedError(value: unknown): value is UnsupportedError {
   return (
     typeof value === 'object' && (value as UnsupportedError | null)?.isUnsupportedError === true
+  );
+}
+
+export class FunctionInvocationError extends Error {
+  isFunctionInvocationError: boolean;
+  organizationId: string;
+  appDefinitionId: string;
+  constructor(message: string, organizationId: string, appDefinitionId: string) {
+    super(message);
+    this.isFunctionInvocationError = true;
+    this.organizationId = organizationId;
+    this.appDefinitionId = appDefinitionId;
+  }
+}
+
+export function isFunctionInvocationError(value: unknown): value is FunctionInvocationError {
+  return (
+    typeof value === 'object' &&
+    (value as FunctionInvocationError | null)?.isFunctionInvocationError === true
   );
 }
 
@@ -193,6 +247,7 @@ async function fetchExternalResource({
 }: FetchParams & { spaceId: string; environmentId: string; resourceType: string }): Promise<
   ResourceInfo<ExternalResource>
 > {
+  let resourceFetchError: FunctionInvocationErrorResponse | undefined;
   const [resource, resourceTypes] = await Promise.all([
     fetch(
       ['resource', spaceId, environmentId, resourceType, urn],
@@ -204,7 +259,17 @@ async function fetchExternalResource({
             resourceTypeId: resourceType,
             query: { 'sys.urn[in]': urn },
           })
-          .then(({ items }) => items[0] ?? null),
+          .then(({ items }) => {
+            return items[0] ?? null;
+          })
+          .catch((e) => {
+            const parsedError = JSON.parse(e.message);
+            if (isFunctionInvocationErrorResponse(parsedError)) {
+              resourceFetchError = parsedError;
+            }
+
+            return null;
+          }),
       options
     ),
     fetch(['resource-types', spaceId, environmentId], ({ cmaClient }) =>
@@ -219,6 +284,15 @@ async function fetchExternalResource({
 
   if (!resourceTypeEntity) {
     throw new UnsupportedError('Unsupported resource type');
+  }
+
+  if (resourceFetchError) {
+    const organizationId = resourceTypeEntity.sys.organization?.sys.id;
+    const appDefinitionId = resourceTypeEntity.sys.appDefinition?.sys.id;
+
+    if (!organizationId || !appDefinitionId) throw new Error('Missing resource');
+
+    throw new FunctionInvocationError(resourceFetchError.message, organizationId, appDefinitionId);
   }
 
   if (!resource) {
@@ -475,6 +549,28 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
       onSlideInNavigation,
     ]);
 
+    const getResourceProvider = useCallback(
+      function getResourceProvider(
+        organizationId: string,
+        appDefinitionId: string
+      ): QueryEntityResult<ResourceProvider> {
+        const queryKey: ResourceProviderQueryKey = [
+          'ResourceProvider',
+          organizationId,
+          appDefinitionId,
+        ];
+        return fetch(queryKey, async ({ cmaClient }) => {
+          const response = await cmaClient.resourceProvider.get({
+            organizationId,
+            appDefinitionId,
+          });
+
+          return response;
+        });
+      },
+      [fetch]
+    );
+
     return {
       ids: props.sdk.ids,
       cmaClient,
@@ -482,13 +578,15 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
       getResource,
       getEntity,
       getEntityScheduledActions,
+      getResourceProvider,
     };
   },
   ({ fetch }) => fetch,
-  ({ getResource, getEntity, getEntityScheduledActions }) => ({
+  ({ getResource, getEntity, getEntityScheduledActions, getResourceProvider }) => ({
     getResource,
     getEntity,
     getEntityScheduledActions,
+    getResourceProvider,
   }),
   ({ ids }) => ({
     environment: ids.environmentAlias ?? ids.environment,
@@ -528,6 +626,18 @@ export function useResource<R extends Resource = Resource>(
     {
       enabled: options?.enabled,
     }
+  );
+
+  return { status, data, error };
+}
+
+export function useResourceProvider(organizationId: string, appDefinitionId: string) {
+  const queryKey = ['Resource', organizationId, appDefinitionId];
+  const { getResourceProvider } = useEntityLoader();
+  const { status, data, error } = useQuery(
+    queryKey,
+    () => getResourceProvider(organizationId, appDefinitionId),
+    {}
   );
 
   return { status, data, error };
