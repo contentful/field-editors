@@ -16,7 +16,7 @@ export interface SingleLineEditorProps {
   /**
    * is the field disabled initially
    */
-  isInitiallyDisabled: boolean;
+  isInitiallyDisabled?: boolean;
 
   /**
    * is the field manually disabled
@@ -24,9 +24,14 @@ export interface SingleLineEditorProps {
   isDisabled?: boolean;
 
   /**
+   * whether validations should be rendered or not.
+   */
+  withCharInformation?: boolean;
+
+  /**
    * whether char validation should be shown or not
    */
-  withCharValidation: boolean;
+  withCharValidation?: boolean;
   /**
    * sdk.field
    */
@@ -53,7 +58,18 @@ function isSupportedFieldTypes(val: string): val is 'Symbol' | 'Text' {
 }
 
 export function SingleLineEditor(props: SingleLineEditorProps) {
-  const { field, locales } = props;
+  const {
+    field,
+    isDisabled,
+    isInitiallyDisabled = true,
+    locales,
+    onBlur,
+    onFocus,
+    withCharInformation = true,
+    withCharValidation = true,
+  } = props;
+
+  console.log(`isDisabled => `, isDisabled);
 
   if (!isSupportedFieldTypes(field.type)) {
     throw new Error(`"${field.type}" field type is not supported by SingleLineEditor`);
@@ -62,12 +78,13 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
   const constraints = ConstraintsUtils.fromFieldValidations(field.validations, field.type);
   const checkConstraint = ConstraintsUtils.makeChecker(constraints);
   const direction = locales.direction[field.locale] || 'ltr';
+  const handleCheckConstraint = withCharValidation ? checkConstraint : () => true;
 
   return (
     <FieldConnector<string>
       field={field}
-      isInitiallyDisabled={props.isInitiallyDisabled}
-      isDisabled={props.isDisabled}
+      isInitiallyDisabled={isInitiallyDisabled}
+      isDisabled={isDisabled}
     >
       {({ value, errors, disabled, setValue }) => {
         return (
@@ -78,21 +95,16 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
               isInvalid={errors.length > 0}
               isDisabled={disabled}
               value={value || ''}
-              onFocus={props.onFocus}
-              onBlur={props.onBlur}
+              onFocus={onFocus}
+              onBlur={onBlur}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setValue(e.target.value);
               }}
             />
-            {props.withCharValidation && (
+            {withCharInformation && (
               <div className={styles.validationRow}>
-                <CharCounter value={value || ''} checkConstraint={checkConstraint} />
-                <CharValidation constraints={constraints} />
-              </div>
-            )}
-            {props.withCharValidation === false && (
-              <div className={styles.validationRow}>
-                <CharCounter value={value || ''} checkConstraint={() => true} />
+                <CharCounter value={value || ''} checkConstraint={handleCheckConstraint} />
+                {withCharValidation && <CharValidation constraints={constraints} />}
               </div>
             )}
           </div>
@@ -101,8 +113,3 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
     </FieldConnector>
   );
 }
-
-SingleLineEditor.defaultProps = {
-  isInitiallyDisabled: true,
-  withCharValidation: true,
-};
