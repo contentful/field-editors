@@ -16,7 +16,7 @@ type MissingEntityCardProps = {
 export function MissingEntityCard(props: MissingEntityCardProps) {
   const as = props.as || 'a';
   const providerName = props.providerName ?? 'Source';
-  const description = props.customMessage ?? undefined;
+  const description = props.customMessage ?? 'Content missing or inaccessible';
 
   function CustomActionButton() {
     if (props.isDisabled || !props.onRemove) return null;
