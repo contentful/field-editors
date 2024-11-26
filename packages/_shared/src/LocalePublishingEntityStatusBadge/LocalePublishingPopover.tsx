@@ -113,8 +113,9 @@ const determineBadgeStatus = (
   // Early return for null or undefined locales
   if (!localesStatusMap) return;
 
-  // If there is only one locale, we would not show the stacking
-  if (localesStatusMap.size === 1) return { primary: [...localesStatusMap.values()][0].status };
+  // If there is only one locale, or only active locale, we would not show the stacking
+  if (localesStatusMap.size === 1 || (activeLocales && activeLocales.length === 1))
+    return { primary: [...localesStatusMap.values()][0].status };
 
   let draftCount = 0,
     publishedCount = 0,
