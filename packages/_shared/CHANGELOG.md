@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.3.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.2.3...@contentful/field-editor-shared@2.3.0) (2024-11-26)
+
+### Features
+
+- locale status badge updates [TOL-2529] ([#1804](https://github.com/contentful/field-editors/issues/1804)) ([fc847af](https://github.com/contentful/field-editors/commit/fc847afad799616e270961efe50ee303f360166b))
+
 ## [2.2.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.2.2...@contentful/field-editor-shared@2.2.3) (2024-11-20)
 
 ### Bug Fixes
