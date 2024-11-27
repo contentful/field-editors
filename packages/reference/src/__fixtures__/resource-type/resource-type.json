@@ -8,6 +8,20 @@
         "linkType": "ResourceProvider",
         "id": "Resource Provider"
       }
+    },
+    "organization": {
+      "sys": {
+        "type": "Link",
+        "linkType": "Organization",
+        "id": "organization-id"
+      }
+    },
+    "appDefinition": {
+      "sys": {
+        "type": "Link",
+        "linkType": "AppDefinition",
+        "id": "app-definition-id"
+      }
     }
   },
   "name": "Resource Type"

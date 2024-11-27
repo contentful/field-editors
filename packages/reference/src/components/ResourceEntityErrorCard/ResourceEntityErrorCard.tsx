@@ -15,11 +15,11 @@ type ResourceEntityErrorCardProps = {
 };
 
 export function ResourceEntityErrorCard(props: ResourceEntityErrorCardProps) {
-  const providerName = getProviderName(props.linkType);
-
   if (isUnsupportedError(props.error)) {
     return <UnsupportedEntityCard isSelected={props.isSelected} onRemove={props.onRemove} />;
   }
+
+  const providerName = getProviderName(props.linkType);
 
   if (isFunctionInvocationError(props.error)) {
     return (

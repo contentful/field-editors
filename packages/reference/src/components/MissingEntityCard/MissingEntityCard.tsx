@@ -10,16 +10,24 @@ type MissingEntityCardProps = {
   onRemove?: Function;
   providerName?: string;
   as?: 'a' | 'article' | 'button' | 'div' | 'fieldset';
+  testId?: string;
   children?: ReactNode;
 };
 
-export function MissingEntityCard(props: MissingEntityCardProps) {
-  const as = props.as || 'a';
-  const providerName = props.providerName ?? 'Source';
-  const description = props.customMessage ?? 'Content missing or inaccessible';
+export function MissingEntityCard({
+  as = 'a',
+  providerName = 'Source',
+  customMessage,
+  isDisabled,
+  isSelected,
+  onRemove,
+  testId = 'cf-ui-missing-entity-card',
+  children,
+}: MissingEntityCardProps) {
+  const description = customMessage ?? 'Content missing or inaccessible';
 
   function CustomActionButton() {
-    if (props.isDisabled || !props.onRemove) return null;
+    if (isDisabled || !onRemove) return null;
 
     return (
       <IconButton
@@ -28,7 +36,7 @@ export function MissingEntityCard(props: MissingEntityCardProps) {
         size="small"
         variant="transparent"
         onClick={() => {
-          props.onRemove && props.onRemove();
+          onRemove && onRemove();
         }}
       />
     );
@@ -39,11 +47,11 @@ export function MissingEntityCard(props: MissingEntityCardProps) {
       as={as}
       contentType={providerName}
       description={description}
-      isSelected={props.isSelected}
+      isSelected={isSelected}
       customActionButton={<CustomActionButton />}
-      testId="cf-ui-missing-entity-card"
+      testId={testId}
     >
-      {props.children}
+      {children}
     </EntryCard>
   );
 }

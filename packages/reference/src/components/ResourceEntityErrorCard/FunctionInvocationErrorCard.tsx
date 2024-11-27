@@ -8,34 +8,6 @@ import { ErrorCircleOutlineIcon, ExternalLinkIcon } from '@contentful/f36-icons'
 
 import { useResourceProvider } from '../../common/EntityStore';
 
-type FunctionInvocationErrorLogLinkProps = {
-  organizationId: string;
-  appDefinitionId: string;
-  functionId?: string;
-  status: 'error' | 'success' | 'loading';
-};
-
-function FunctionInvocationErrorLogLink(props: FunctionInvocationErrorLogLinkProps) {
-  const functionLink = `/account/organizations/${props.organizationId}/apps/definitions/${props.appDefinitionId}/functions/${props.functionId}/logs`;
-
-  const children = (
-    <Text fontColor="colorNegative">
-      &nbsp;For more information, go to&nbsp;
-      <TextLink icon={<ExternalLinkIcon />} alignIcon="end" href={functionLink}>
-        function logs
-      </TextLink>
-    </Text>
-  );
-
-  return (
-    <Flex justifyContent="left" alignItems="center">
-      <ErrorCircleOutlineIcon variant="negative" />
-      <Text fontColor="colorNegative">&nbsp;Function invocation error.</Text>
-      {props.status === 'success' && props.functionId && children}
-    </Flex>
-  );
-}
-
 type FunctionInvocationErrorCardProps = {
   isSelected?: boolean;
   isDisabled?: boolean;
@@ -45,26 +17,48 @@ type FunctionInvocationErrorCardProps = {
   providerName?: string;
 };
 
-export function FunctionInvocationErrorCard(props: FunctionInvocationErrorCardProps) {
-  const providerName = props.providerName ?? 'Source';
+export function FunctionInvocationErrorCard({
+  providerName = 'Source',
+  organizationId,
+  appDefinitionId,
+  isDisabled,
+  isSelected,
+  onRemove,
+}: FunctionInvocationErrorCardProps) {
+  const { status, data } = useResourceProvider(organizationId, appDefinitionId);
 
-  const { status, data } = useResourceProvider(props.organizationId, props.appDefinitionId);
+  const functionId = data?.function.sys.id;
+  const functionLink = `/account/organizations/${organizationId}/apps/definitions/${appDefinitionId}/functions/${functionId}/logs`;
+
+  const children = (
+    <Text fontColor="colorNegative">
+      &nbsp;For more information, go to&nbsp;
+      <TextLink
+        testId="cf-ui-function-invocation-log-link"
+        icon={<ExternalLinkIcon />}
+        alignIcon="end"
+        href={functionLink}
+      >
+        function logs
+      </TextLink>
+    </Text>
+  );
 
   return (
     <MissingEntityCard
       as="div"
       providerName={providerName}
-      isDisabled={props.isDisabled}
-      isSelected={props.isSelected}
-      onRemove={props.onRemove}
+      isDisabled={isDisabled}
+      isSelected={isSelected}
+      onRemove={onRemove}
       customMessage={''}
+      testId="cf-ui-function-invocation-error-card"
     >
-      <FunctionInvocationErrorLogLink
-        organizationId={props.organizationId}
-        appDefinitionId={props.appDefinitionId}
-        functionId={data?.function.sys.id}
-        status={status}
-      />
+      <Flex justifyContent="left" alignItems="center">
+        <ErrorCircleOutlineIcon variant="negative" />
+        <Text fontColor="colorNegative">&nbsp;Function invocation error.</Text>
+        {status === 'success' && functionId && children}
+      </Flex>
     </MissingEntityCard>
   );
 }

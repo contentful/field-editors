@@ -100,12 +100,12 @@ type ResourceProviderQueryKey = [
 
 type ScheduledActionsQueryKey = ['scheduled-actions', ...EntityQueryKey];
 
-type FunctionInvocationErrorResponse = {
+export type FunctionInvocationErrorResponse = {
   status: number;
-  statusText:
+  statusText: string;
+  message:
     | 'Response payload of the Contentful Function is invalid'
     | 'An error occurred while executing the Contentful Function code';
-  message: string;
   request: {
     url: string;
     headers: Record<string, string>;
@@ -160,6 +160,24 @@ export function isFunctionInvocationError(value: unknown): value is FunctionInvo
     typeof value === 'object' &&
     (value as FunctionInvocationError | null)?.isFunctionInvocationError === true
   );
+}
+
+function handleResourceFetchError(
+  resourceFetchError: Error,
+  resourceTypeEntity: ResourceType
+): void {
+  const parsedError = JSON.parse(resourceFetchError.message);
+  if (isFunctionInvocationErrorResponse(parsedError)) {
+    const organizationId = resourceTypeEntity.sys.organization?.sys.id;
+    const appDefinitionId = resourceTypeEntity.sys.appDefinition?.sys.id;
+
+    if (!organizationId || !appDefinitionId) throw new Error('Missing resource');
+
+    throw new FunctionInvocationError(resourceFetchError.message, organizationId, appDefinitionId);
+  }
+
+  // Rethrow original error if it's not a function invocation error
+  throw resourceFetchError;
 }
 
 const isEntityQueryKey = (queryKey: QueryKey): queryKey is EntityQueryKey => {
@@ -247,7 +265,7 @@ async function fetchExternalResource({
 }: FetchParams & { spaceId: string; environmentId: string; resourceType: string }): Promise<
   ResourceInfo<ExternalResource>
 > {
-  let resourceFetchError: FunctionInvocationErrorResponse | undefined;
+  let resourceFetchError: unknown;
   const [resource, resourceTypes] = await Promise.all([
     fetch(
       ['resource', spaceId, environmentId, resourceType, urn],
@@ -263,11 +281,13 @@ async function fetchExternalResource({
             return items[0] ?? null;
           })
           .catch((e) => {
-            const parsedError = JSON.parse(e.message);
-            if (isFunctionInvocationErrorResponse(parsedError)) {
-              resourceFetchError = parsedError;
-            }
-
+            /*
+            We're storing the error in this variable
+            so we can use the data returned by the
+            resourceType CMA client call in our
+            error handling logic later. 
+            */
+            resourceFetchError = e;
             return null;
           }),
       options
@@ -286,13 +306,8 @@ async function fetchExternalResource({
     throw new UnsupportedError('Unsupported resource type');
   }
 
-  if (resourceFetchError) {
-    const organizationId = resourceTypeEntity.sys.organization?.sys.id;
-    const appDefinitionId = resourceTypeEntity.sys.appDefinition?.sys.id;
-
-    if (!organizationId || !appDefinitionId) throw new Error('Missing resource');
-
-    throw new FunctionInvocationError(resourceFetchError.message, organizationId, appDefinitionId);
+  if (resourceFetchError instanceof Error) {
+    handleResourceFetchError(resourceFetchError, resourceTypeEntity);
   }
 
   if (!resource) {
@@ -560,12 +575,10 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
           appDefinitionId,
         ];
         return fetch(queryKey, async ({ cmaClient }) => {
-          const response = await cmaClient.resourceProvider.get({
+          return cmaClient.resourceProvider.get({
             organizationId,
             appDefinitionId,
           });
-
-          return response;
         });
       },
       [fetch]
