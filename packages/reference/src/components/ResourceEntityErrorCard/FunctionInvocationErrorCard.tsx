@@ -30,20 +30,6 @@ export function FunctionInvocationErrorCard({
   const functionId = data?.function.sys.id;
   const functionLink = `/account/organizations/${organizationId}/apps/definitions/${appDefinitionId}/functions/${functionId}/logs`;
 
-  const children = (
-    <Text fontColor="colorNegative">
-      &nbsp;For more information, go to&nbsp;
-      <TextLink
-        testId="cf-ui-function-invocation-log-link"
-        icon={<ExternalLinkIcon />}
-        alignIcon="end"
-        href={functionLink}
-      >
-        function logs
-      </TextLink>
-    </Text>
-  );
-
   return (
     <MissingEntityCard
       as="div"
@@ -57,7 +43,19 @@ export function FunctionInvocationErrorCard({
       <Flex justifyContent="left" alignItems="center">
         <ErrorCircleOutlineIcon variant="negative" />
         <Text fontColor="colorNegative">&nbsp;Function invocation error.</Text>
-        {status === 'success' && functionId && children}
+        {status === 'success' && functionId && (
+          <Text fontColor="colorNegative">
+            &nbsp;For more information, go to&nbsp;
+            <TextLink
+              testId="cf-ui-function-invocation-log-link"
+              icon={<ExternalLinkIcon />}
+              alignIcon="end"
+              href={functionLink}
+            >
+              function logs
+            </TextLink>
+          </Text>
+        )}
       </Flex>
     </MissingEntityCard>
   );
