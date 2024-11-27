@@ -19,7 +19,7 @@ type Story = StoryObj<typeof ExternalResourceCard>;
 const resource: ExternalResource = {
   sys: {
     type: 'Resource',
-    id: 'RandomId',
+    urn: 'RandomId',
     resourceProvider: {
       sys: {
         id: 'Shopify',
@@ -33,6 +33,9 @@ const resource: ExternalResource = {
         type: 'Link',
         linkType: 'ResourceType',
       },
+    },
+    appDefinition: {
+      sys: { id: 'RandomAppDefId', type: 'Link', linkType: 'AppDefinition' },
     },
   },
   fields: {

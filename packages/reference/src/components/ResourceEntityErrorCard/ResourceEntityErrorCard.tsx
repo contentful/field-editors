@@ -1,8 +1,9 @@
 import * as React from 'react';
 
-import { isUnsupportedError } from '../../common/EntityStore';
+import { isFunctionInvocationError, isUnsupportedError } from '../../common/EntityStore';
 import { getProviderName } from '../../utils/getProviderName';
 import { MissingEntityCard } from '../MissingEntityCard/MissingEntityCard';
+import { FunctionInvocationErrorCard } from './FunctionInvocationErrorCard';
 import { UnsupportedEntityCard } from './UnsupportedEntityCard';
 
 type ResourceEntityErrorCardProps = {
@@ -19,6 +20,19 @@ export function ResourceEntityErrorCard(props: ResourceEntityErrorCardProps) {
   }
 
   const providerName = getProviderName(props.linkType);
+
+  if (isFunctionInvocationError(props.error)) {
+    return (
+      <FunctionInvocationErrorCard
+        isSelected={props.isSelected}
+        isDisabled={props.isDisabled}
+        organizationId={props.error.organizationId}
+        appDefinitionId={props.error.appDefinitionId}
+        onRemove={props.onRemove}
+        providerName={providerName}
+      />
+    );
+  }
 
   return (
     <MissingEntityCard
