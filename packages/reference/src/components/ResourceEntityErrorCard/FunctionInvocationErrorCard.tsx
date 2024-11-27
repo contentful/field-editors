@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import { Note, TextLink } from '@contentful/f36-components';
+import { Flex, Text, TextLink } from '@contentful/f36-components';
 
 import { MissingEntityCard } from '..';
 
-import { ExternalLinkIcon } from '@contentful/f36-icons';
+import { ErrorCircleOutlineIcon, ExternalLinkIcon } from '@contentful/f36-icons';
 
 import { useResourceProvider } from '../../common/EntityStore';
 
@@ -19,19 +19,20 @@ function FunctionInvocationErrorLogLink(props: FunctionInvocationErrorLogLinkPro
   const functionLink = `/account/organizations/${props.organizationId}/apps/definitions/${props.appDefinitionId}/functions/${props.functionId}/logs`;
 
   const children = (
-    <>
-      {'See '}
+    <Text fontColor="colorNegative">
+      &nbsp;For more information, go to&nbsp;
       <TextLink icon={<ExternalLinkIcon />} alignIcon="end" href={functionLink}>
         function logs
       </TextLink>
-      {' for more info'}
-    </>
+    </Text>
   );
 
   return (
-    <Note title="Function Invocation Error" variant="negative">
+    <Flex justifyContent="left" alignItems="center">
+      <ErrorCircleOutlineIcon variant="negative" />
+      <Text fontColor="colorNegative">&nbsp;Function invocation error.</Text>
       {props.status === 'success' && props.functionId && children}
-    </Note>
+    </Flex>
   );
 }
 
@@ -56,6 +57,7 @@ export function FunctionInvocationErrorCard(props: FunctionInvocationErrorCardPr
       isDisabled={props.isDisabled}
       isSelected={props.isSelected}
       onRemove={props.onRemove}
+      customMessage={''}
     >
       <FunctionInvocationErrorLogLink
         organizationId={props.organizationId}
