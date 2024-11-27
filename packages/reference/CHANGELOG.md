@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.3.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.2.5...@contentful/field-editor-reference@6.3.0) (2024-11-27)
+
+### Features
+
+- show the error and function tab link in the entity card [FUS-97] ([#1803](https://github.com/contentful/field-editors/issues/1803)) ([2b52dfd](https://github.com/contentful/field-editors/commit/2b52dfd92a7d3141c8642f241a3f99054c31b488))
+
 ## [6.2.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.2.4...@contentful/field-editor-reference@6.2.5) (2024-11-26)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
