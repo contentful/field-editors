@@ -1,11 +1,9 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import { Datepicker } from '@contentful/f36-components';
 import { css } from 'emotion';
 // eslint-disable-next-line -- TODO: move to date-fns
 import moment from 'moment';
-
-const YEAR_RANGE = 100;
 
 const styles = {
   root: css({
@@ -20,15 +18,6 @@ export type DatePickerProps = {
 };
 
 export const DatepickerInput = (props: DatePickerProps) => {
-  const [fromDate, toDate] = useMemo(() => {
-    const fromDate = new Date();
-    fromDate.setFullYear(fromDate.getFullYear() - YEAR_RANGE);
-    const toDate = new Date();
-    toDate.setFullYear(toDate.getFullYear() + YEAR_RANGE);
-
-    return [fromDate, toDate];
-  }, []);
-
   // The DatepickerInput should be time and timezone agnostic,
   // thats why we don't use moment().toDate() to get Date object.
   // moment().toDate() takes into account time and timezone and converts it
@@ -47,8 +36,6 @@ export const DatepickerInput = (props: DatePickerProps) => {
         props.onChange(momentDay);
       }}
       inputProps={{ isDisabled: props.disabled, placeholder: '' }}
-      fromDate={fromDate}
-      toDate={toDate}
     />
   );
 };
