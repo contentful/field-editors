@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import type { FieldAPI, FieldAppSDK } from '@contentful/app-sdk';
 import type { ResourceLink } from 'contentful-management';
 
+import { EditorPermissions } from '../common/useEditorPermissions';
 import { LinkActionsProps } from '../components';
 
 const getUpdatedValue = (
@@ -20,9 +21,11 @@ const getUpdatedValue = (
 
 export function useResourceLinkActions({
   dialogs,
+  editorPermissions,
   field,
 }: Pick<FieldAppSDK, 'field' | 'dialogs'> & {
   apiUrl: string;
+  editorPermissions: EditorPermissions;
 }): LinkActionsProps {
   const onLinkedExisting = useMemo(() => {
     return (
@@ -65,9 +68,9 @@ export function useResourceLinkActions({
     // hardcoded values to match interface for standard reference field actions
     entityType: 'Entry',
     contentTypes: [],
-    canCreateEntity: false,
+    canCreateEntity: editorPermissions.canCreateEntity,
     canLinkMultiple: multiple,
-    canLinkEntity: true,
+    canLinkEntity: editorPermissions.canLinkEntity,
     isDisabled: false,
     isEmpty: false,
     isFull: false,
