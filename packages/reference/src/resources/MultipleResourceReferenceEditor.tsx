@@ -9,8 +9,9 @@ import noop from 'lodash/noop';
 import { EntityProvider } from '../common/EntityStore';
 import { ReferenceEditorProps } from '../common/ReferenceEditor';
 import { SortableLinkList } from '../common/SortableLinkList';
+import { useEditorPermissions } from '../common/useEditorPermissions';
 import { CombinedLinkEntityActions } from '../components/LinkActions/LinkEntityActions';
-import { ResourceLink } from '../types';
+import { ContentType, ResourceLink } from '../types';
 import { EntryRoute } from './Cards/ContentfulEntryCard';
 import { ResourceCard } from './Cards/ResourceCard';
 import { useResourceLinkActions } from './useResourceLinkActions';
@@ -29,10 +30,11 @@ type EditorProps = ReferenceEditorProps &
   Omit<ChildProps, 'onSortStart' | 'onSortEnd' | 'onMove' | 'onRemoteItemAtIndex'> & {
     children: (props: ReferenceEditorProps & ChildProps) => React.ReactElement;
     apiUrl: string;
+    allContentTypes: ContentType[];
   };
 
 function ResourceEditor(props: EditorProps) {
-  const { setValue, items, apiUrl } = props;
+  const { setValue, items, apiUrl, allContentTypes } = props;
 
   const onSortStart = () => noop();
   const onSortEnd = useCallback(
@@ -57,9 +59,16 @@ function ResourceEditor(props: EditorProps) {
     [items, setValue]
   );
 
+  const editorPermissions = useEditorPermissions({
+    ...props,
+    allContentTypes,
+    entityType: 'Entry',
+  });
+
   const { dialogs, field } = props.sdk;
   const linkActionsProps = useResourceLinkActions({
     dialogs,
+    editorPermissions,
     field,
     apiUrl,
   });
@@ -128,6 +137,8 @@ export function MultipleResourceReferenceEditor(
     getEntryRouteHref: (entryRoute: EntryRoute) => string;
   }
 ) {
+  const allContentTypes = props.sdk.space.getCachedContentTypes();
+
   return (
     <EntityProvider sdk={props.sdk}>
       <FieldConnector<ResourceLink<string>[]>
@@ -144,6 +155,7 @@ export function MultipleResourceReferenceEditor(
               setValue={setValue}
               renderCustomActions={props.renderCustomActions}
               key={`${externalReset}-list`}
+              allContentTypes={allContentTypes}
             >
               {(editorProps) => (
                 <SortableLinkList<ResourceLink<string>> {...editorProps}>

@@ -4,6 +4,7 @@ import { FieldConnector } from '@contentful/field-editor-shared';
 
 import { EntityProvider } from '../common/EntityStore';
 import { ReferenceEditorProps } from '../common/ReferenceEditor';
+import { useEditorPermissions } from '../common/useEditorPermissions';
 import { CombinedLinkEntityActions } from '../components/LinkActions/LinkEntityActions';
 import { ResourceLink } from '../types';
 import { EntryRoute } from './Cards/ContentfulEntryCard';
@@ -17,8 +18,17 @@ export function SingleResourceReferenceEditor(
   }
 ) {
   const { dialogs, field } = props.sdk;
+  const allContentTypes = props.sdk.space.getCachedContentTypes();
+
+  const editorPermissions = useEditorPermissions({
+    ...props,
+    allContentTypes,
+    entityType: 'Entry',
+  });
+
   const linkActionsProps = useResourceLinkActions({
     dialogs,
+    editorPermissions,
     field,
     apiUrl: props.apiUrl,
   });
