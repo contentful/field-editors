@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.3.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.3.0...@contentful/field-editor-reference@6.3.1) (2024-12-03)
+
+### Bug Fixes
+
+- **reference:** open function invocation error log in new window ([#1810](https://github.com/contentful/field-editors/issues/1810)) ([aecfced](https://github.com/contentful/field-editors/commit/aecfced485843dea4d23b67d2fd78b7d4a666765))
+
 # [6.3.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.2.5...@contentful/field-editor-reference@6.3.0) (2024-11-27)
 
 ### Features
