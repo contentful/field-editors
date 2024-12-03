@@ -33,3 +33,47 @@ export const Default: Story = {
     );
   },
 };
+
+export const CharValidationDisabled: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
+  render: () => {
+    const [field, mitt] = createFakeFieldAPI();
+    const locales = createFakeLocalesAPI();
+
+    return (
+      <div>
+        <SingleLineEditor
+          field={field}
+          locales={locales}
+          isInitiallyDisabled={false}
+          withCharValidation={false}
+        />
+        <ActionsPlayground mitt={mitt} />
+      </div>
+    );
+  },
+};
+
+export const WithCharInformationDisabled: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
+  render: () => {
+    const [field, mitt] = createFakeFieldAPI();
+    const locales = createFakeLocalesAPI();
+
+    return (
+      <div>
+        <SingleLineEditor
+          isInitiallyDisabled={false}
+          withCharInformation={false}
+          field={field}
+          locales={locales}
+        />
+        <ActionsPlayground mitt={mitt} />
+      </div>
+    );
+  },
+};
