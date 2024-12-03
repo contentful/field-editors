@@ -49,6 +49,7 @@ export function FunctionInvocationErrorCard({
             <TextLink
               testId="cf-ui-function-invocation-log-link"
               icon={<ExternalLinkIcon />}
+              target="_blank"
               alignIcon="end"
               href={functionLink}
             >
