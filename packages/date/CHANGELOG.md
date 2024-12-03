@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.7.0...@contentful/field-editor-date@1.7.1) (2024-12-03)
+
+### Bug Fixes
+
+- show dropdown datepicker [ZEND-5711, ZEND-5710] ([#1811](https://github.com/contentful/field-editors/issues/1811)) ([9bf6c98](https://github.com/contentful/field-editors/commit/9bf6c986730a5ea7adf428046c15a0fa0a5aa0d0))
+
+# [1.7.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.6.29...@contentful/field-editor-date@1.7.0) (2024-11-28)
+
+### Features
+
+- **date:** allow arbitrary date range [ZEND-5700] ([#1806](https://github.com/contentful/field-editors/issues/1806)) ([9bbb2a1](https://github.com/contentful/field-editors/commit/9bbb2a15c398bc6c38a832ea867af031f36ef4b3))
+
+## [1.6.29](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.6.28...@contentful/field-editor-date@1.6.29) (2024-11-26)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
 ## [1.6.28](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.6.27...@contentful/field-editor-date@1.6.28) (2024-11-20)
 
 **Note:** Version bump only for package @contentful/field-editor-date
