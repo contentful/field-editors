@@ -62,31 +62,45 @@ function getFileType(file?: File): any {
   return groupToIconMap[groupName] || 'archive';
 }
 
-export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
-  const { className, onEdit, getAssetUrl, onRemove, size, isDisabled, isSelected, isClickable } =
-    props;
-
+export const WrappedAssetCard = ({
+  asset,
+  className,
+  size,
+  localeCode,
+  defaultLocaleCode,
+  activeLocales,
+  localesStatusMap,
+  isDisabled,
+  isSelected,
+  isClickable,
+  useLocalizedEntityStatus,
+  renderDragHandle,
+  getEntityScheduledActions,
+  onEdit,
+  getAssetUrl,
+  onRemove,
+}: WrappedAssetCardProps) => {
   const status = entityHelpers.getEntityStatus(
-    props.asset.sys,
-    props.useLocalizedEntityStatus ? props.localeCode : undefined
+    asset.sys,
+    useLocalizedEntityStatus ? localeCode : undefined
   );
 
   if (status === 'deleted') {
-    return <MissingAssetCard asSquare isDisabled={props.isDisabled} onRemove={props.onRemove} />;
+    return <MissingAssetCard asSquare isDisabled={isDisabled} onRemove={onRemove} />;
   }
 
   const entityTitle = entityHelpers.getAssetTitle({
-    asset: props.asset,
-    localeCode: props.localeCode,
-    defaultLocaleCode: props.defaultLocaleCode,
+    asset: asset,
+    localeCode: localeCode,
+    defaultLocaleCode: defaultLocaleCode,
     defaultTitle: 'Untitled',
   });
 
-  const entityFile = props.asset.fields.file
-    ? props.asset.fields.file[props.localeCode] || props.asset.fields.file[props.defaultLocaleCode]
+  const entityFile = asset.fields.file
+    ? asset.fields.file[localeCode] || asset.fields.file[defaultLocaleCode]
     : undefined;
 
-  const href = getAssetUrl ? getAssetUrl(props.asset.sys.id) : undefined;
+  const href = getAssetUrl ? getAssetUrl(asset.sys.id) : undefined;
 
   return (
     <AssetCard
@@ -98,13 +112,13 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
       href={href}
       badge={
         <EntityStatusBadge
-          getEntityScheduledActions={props.getEntityScheduledActions}
+          getEntityScheduledActions={getEntityScheduledActions}
           entityType="Asset"
           status={status}
-          useLocalizedEntityStatus={props.useLocalizedEntityStatus}
-          entity={props.asset}
-          localesStatusMap={props.localesStatusMap}
-          activeLocales={props.activeLocales}
+          useLocalizedEntityStatus={useLocalizedEntityStatus}
+          entity={asset}
+          localesStatusMap={localesStatusMap}
+          activeLocales={activeLocales}
         />
       }
       src={
@@ -138,8 +152,8 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
             }
           : undefined
       }
-      dragHandleRender={props.renderDragHandle}
-      withDragHandle={!!props.renderDragHandle}
+      dragHandleRender={renderDragHandle}
+      withDragHandle={!!renderDragHandle}
       actions={[
         ...renderActions({ entityFile, isDisabled: isDisabled, onEdit, onRemove }),
         ...(entityFile ? renderAssetInfo({ entityFile }) : []),
