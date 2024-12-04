@@ -38,7 +38,6 @@ export interface WrappedEntryCardProps {
   hasCardMoveActions?: boolean;
   hasCardRemoveActions?: boolean;
 
-  isLocalized?: boolean;
   useLocalizedEntityStatus?: boolean;
   localesStatusMap?: LocalePublishStatusMap;
   activeLocales?: Pick<LocaleProps, 'code'>[];
