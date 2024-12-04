@@ -40,7 +40,6 @@ export interface WrappedAssetCardProps {
   renderDragHandle?: RenderDragFn;
   isClickable: boolean;
   useLocalizedEntityStatus?: boolean;
-  isLocalized?: boolean;
   localesStatusMap?: LocalePublishStatusMap;
   activeLocales?: Pick<LocaleProps, 'code'>[];
 }
