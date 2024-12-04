@@ -43,7 +43,6 @@ export type CustomEntityCardProps = {
   onMoveBottom?: () => void;
   isBeingDragged?: boolean;
 
-  isLocalized?: boolean;
   useLocalizedEntityStatus?: boolean;
   localesStatusMap?: LocalePublishStatusMap;
   activeLocales?: Pick<LocaleProps, 'code'>[];
