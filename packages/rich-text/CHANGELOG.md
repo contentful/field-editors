@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.1.8...@contentful/field-editor-rich-text@4.1.9) (2024-12-04)
+
+### Bug Fixes
+
+- rerender rich text when active locales change [TOL-2606] ([#1814](https://github.com/contentful/field-editors/issues/1814)) ([aec317c](https://github.com/contentful/field-editors/commit/aec317c07fcf15aeec450216621905aea6aab08f))
+
 ## [4.1.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.1.7...@contentful/field-editor-rich-text@4.1.8) (2024-12-04)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
