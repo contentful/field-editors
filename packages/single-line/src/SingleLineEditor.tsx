@@ -69,8 +69,6 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
     withCharValidation = true,
   } = props;
 
-  console.log(`isDisabled => `, isDisabled);
-
   if (!isSupportedFieldTypes(field.type)) {
     throw new Error(`"${field.type}" field type is not supported by SingleLineEditor`);
   }
