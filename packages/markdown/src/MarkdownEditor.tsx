@@ -42,11 +42,11 @@ export interface MarkdownEditorProps {
 
   previewComponents?: PreviewComponents;
   onReady?: Function;
+  isDisabled?: boolean;
 }
 
 export function MarkdownEditor(
   props: MarkdownEditorProps & {
-    disabled: boolean;
     value: string | null | undefined;
     saveValueToSDK: Function;
     externalReset?: number;
@@ -78,9 +78,9 @@ export function MarkdownEditor(
 
   React.useEffect(() => {
     if (editor) {
-      editor.setReadOnly(props.disabled);
+      editor.setReadOnly(!!props.isDisabled);
     }
-  }, [editor, props.disabled]);
+  }, [editor, props.isDisabled]);
 
   React.useEffect(() => {
     // Received new props from external
@@ -90,7 +90,7 @@ export function MarkdownEditor(
     }
   }, [props.value, props.externalReset, editor]);
 
-  const isActionDisabled = editor === null || props.disabled || selectedTab !== 'editor';
+  const isActionDisabled = editor === null || props.isDisabled || selectedTab !== 'editor';
 
   const direction = props.sdk.locales.direction[props.sdk.field.locale] ?? 'ltr';
 
@@ -126,7 +126,7 @@ export function MarkdownEditor(
         direction={direction}
         onReady={(editor) => {
           editor.setContent(props.value ?? '');
-          editor.setReadOnly(props.disabled);
+          editor.setReadOnly(!!props.isDisabled);
           setEditor(editor);
           editor.events.onChange((value: string) => {
             // Trim empty lines
@@ -161,12 +161,13 @@ export function MarkdownEditorConnected(props: MarkdownEditorProps) {
       debounce={300}
       field={props.sdk.field}
       isInitiallyDisabled={props.isInitiallyDisabled}
+      isDisabled={props.isDisabled}
     >
       {({ value, disabled, setValue, externalReset }) => (
         <MarkdownEditor
           {...props}
           value={value}
-          disabled={disabled}
+          isDisabled={disabled}
           saveValueToSDK={setValue}
           externalReset={externalReset}
         />
