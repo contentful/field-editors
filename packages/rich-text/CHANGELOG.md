@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.2.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.1.10...@contentful/field-editor-rich-text@4.2.0) (2024-12-09)
+
+### Features
+
+- properly handle isDisabled prop [BBEE-797] ([#1816](https://github.com/contentful/field-editors/issues/1816)) ([b1531d2](https://github.com/contentful/field-editors/commit/b1531d25c9dc73818c82fe56ca9884372b5a1603))
+
 ## [4.1.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.1.9...@contentful/field-editor-rich-text@4.1.10) (2024-12-04)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
