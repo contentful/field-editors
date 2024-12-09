@@ -113,7 +113,15 @@ export const ConnectedRichTextEditor = (props: ConnectedRichTextProps) => {
 };
 
 const RichTextEditor = (props: RichTextProps) => {
-  const { sdk, isInitiallyDisabled, onAction, restrictedMarks, onChange, ...otherProps } = props;
+  const {
+    sdk,
+    isInitiallyDisabled,
+    onAction,
+    restrictedMarks,
+    onChange,
+    isDisabled,
+    ...otherProps
+  } = props;
   const isEmptyValue = React.useCallback(
     (value) => !value || deepEquals(value, Contentful.EMPTY_DOCUMENT),
     []
@@ -132,6 +140,7 @@ const RichTextEditor = (props: RichTextProps) => {
       field={sdk.field}
       isInitiallyDisabled={isInitiallyDisabled}
       isEmptyValue={isEmptyValue}
+      isDisabled={isDisabled}
     >
       {({ lastRemoteValue, disabled, setValue }) => (
         <ConnectedRichTextEditor

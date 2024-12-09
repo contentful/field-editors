@@ -32,10 +32,12 @@ export interface MultipleLineEditorProps {
    * sdk.locales
    */
   locales: LocalesAPI;
+
+  isDisabled?: boolean;
 }
 
 export function MultipleLineEditor(props: MultipleLineEditorProps) {
-  const { field, locales, isInitiallyDisabled, withCharValidation } = props;
+  const { field, locales, isInitiallyDisabled, withCharValidation, isDisabled } = props;
 
   const constraints = ConstraintsUtils.fromFieldValidations(
     field.validations,
@@ -45,7 +47,11 @@ export function MultipleLineEditor(props: MultipleLineEditorProps) {
   const direction = locales.direction[field.locale] || 'ltr';
 
   return (
-    <FieldConnector<string> field={field} isInitiallyDisabled={isInitiallyDisabled}>
+    <FieldConnector<string>
+      field={field}
+      isInitiallyDisabled={isInitiallyDisabled}
+      isDisabled={isDisabled}
+    >
       {({ errors, disabled, value, setValue }) => {
         return (
           <div data-test-id="multiple-line-editor">
