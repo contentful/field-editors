@@ -9,6 +9,7 @@ import noop from 'lodash/noop';
 import { EntityProvider } from '../common/EntityStore';
 import { ReferenceEditorProps } from '../common/ReferenceEditor';
 import { SortableLinkList } from '../common/SortableLinkList';
+import { useEditorPermissions } from '../common/useEditorPermissions';
 import { CombinedLinkEntityActions } from '../components/LinkActions/LinkEntityActions';
 import { ResourceLink } from '../types';
 import { EntryRoute } from './Cards/ContentfulEntryCard';
@@ -57,11 +58,18 @@ function ResourceEditor(props: EditorProps) {
     [items, setValue]
   );
 
+  const editorPermissions = useEditorPermissions({
+    ...props,
+    entityType: 'Entry',
+    allContentTypes: [],
+  });
+
   const { dialogs, field } = props.sdk;
   const linkActionsProps = useResourceLinkActions({
     dialogs,
     field,
     apiUrl,
+    editorPermissions,
   });
 
   return (
