@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.4.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.3.3...@contentful/field-editor-reference@6.4.0) (2025-01-09)
+
+### Features
+
+- permissions check for cross space reference editor [FUS-115] ([#1818](https://github.com/contentful/field-editors/issues/1818)) ([c6783b9](https://github.com/contentful/field-editors/commit/c6783b9decb1959f060974df44d74d8c95e74c61))
+
 ## [6.3.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.3.2...@contentful/field-editor-reference@6.3.3) (2024-12-04)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
