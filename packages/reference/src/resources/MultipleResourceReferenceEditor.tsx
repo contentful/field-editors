@@ -9,7 +9,6 @@ import noop from 'lodash/noop';
 import { EntityProvider } from '../common/EntityStore';
 import { ReferenceEditorProps } from '../common/ReferenceEditor';
 import { SortableLinkList } from '../common/SortableLinkList';
-import { useEditorPermissions } from '../common/useEditorPermissions';
 import { CombinedLinkEntityActions } from '../components/LinkActions/LinkEntityActions';
 import { ResourceLink } from '../types';
 import { EntryRoute } from './Cards/ContentfulEntryCard';
@@ -29,11 +28,10 @@ type ChildProps = {
 type EditorProps = ReferenceEditorProps &
   Omit<ChildProps, 'onSortStart' | 'onSortEnd' | 'onMove' | 'onRemoteItemAtIndex'> & {
     children: (props: ReferenceEditorProps & ChildProps) => React.ReactElement;
-    apiUrl: string;
   };
 
 function ResourceEditor(props: EditorProps) {
-  const { setValue, items, apiUrl } = props;
+  const { setValue, items } = props;
 
   const onSortStart = () => noop();
   const onSortEnd = useCallback(
@@ -58,18 +56,9 @@ function ResourceEditor(props: EditorProps) {
     [items, setValue]
   );
 
-  const editorPermissions = useEditorPermissions({
-    ...props,
-    entityType: 'Entry',
-    allContentTypes: [],
-  });
-
-  const { dialogs, field } = props.sdk;
   const linkActionsProps = useResourceLinkActions({
-    dialogs,
-    field,
-    apiUrl,
-    editorPermissions,
+    sdk: props.sdk,
+    parameters: props.parameters,
   });
 
   return (

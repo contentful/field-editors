@@ -95,7 +95,6 @@ describe('Multiple resource editor', () => {
     const sdk: FieldAppSDK = mockSdkForField(fieldDefinition);
     render(
       <MultipleResourceReferenceEditor
-        apiUrl={'test-contentful'}
         getEntryRouteHref={() => ''}
         isInitiallyDisabled={false}
         sdk={sdk}
