@@ -1,10 +1,11 @@
-import * as React from 'react';
-
 import { FieldAppSDK } from '@contentful/app-sdk';
 import '@testing-library/jest-dom/extend-expect';
 import { fireEvent, render, screen } from '@testing-library/react';
 
+import * as React from 'react';
+
 import { useResource } from '../common/EntityStore';
+import { useEditorPermissions } from '../common/useEditorPermissions';
 import { MultipleResourceReferenceEditor } from './MultipleResourceReferenceEditor';
 import { createFakeEntryResource, mockSdkForField } from './testHelpers/resourceEditorHelpers';
 
@@ -20,6 +21,12 @@ jest.mock('../common/EntityStore', () => {
       status: 'success',
       apiUrl,
     })),
+  };
+});
+
+jest.mock('../common/useEditorPermissions', () => {
+  return {
+    useEditorPermissions: jest.fn(),
   };
 });
 
@@ -49,6 +56,12 @@ const fieldDefinition = {
   validations: [],
 };
 
+const mockedUseEditorPermissions = useEditorPermissions as jest.Mock;
+
+beforeEach(() => {
+  mockedUseEditorPermissions.mockImplementation(() => ({ canLinkEntity: true }));
+});
+
 describe('Multiple resource editor', () => {
   it('renders the action button when no value is set', async () => {
     const sdk: FieldAppSDK = mockSdkForField(fieldDefinition);
@@ -74,6 +87,26 @@ describe('Multiple resource editor', () => {
     expect(options).toEqual({
       allowedResources: fieldDefinition.allowedResources,
     });
+  });
+
+  it('hides the action button when insufficient permissions', async () => {
+    mockedUseEditorPermissions.mockImplementation(() => ({ canLinkEntity: false }));
+
+    const sdk: FieldAppSDK = mockSdkForField(fieldDefinition);
+    render(
+      <MultipleResourceReferenceEditor
+        getEntryRouteHref={() => ''}
+        isInitiallyDisabled={false}
+        sdk={sdk}
+        hasCardEditActions={true}
+        viewType="card"
+        // @ts-expect-error unused...
+        parameters={{}}
+      />
+    );
+
+    const noPermission = await screen.findByText(/You don't have permission to view this content/);
+    expect(noPermission).toBeDefined();
   });
 
   it('renders custom actions when passed', async () => {
