@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.4.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.4.0...@contentful/field-editor-reference@6.4.1) (2025-01-13)
+
+### Bug Fixes
+
+- re-introduce apiUrl prop [FUS-115] ([#1819](https://github.com/contentful/field-editors/issues/1819)) ([15e0f74](https://github.com/contentful/field-editors/commit/15e0f749fbb67f604e3a1295884731df1a2dc8b9))
+
 # [6.4.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.3.3...@contentful/field-editor-reference@6.4.0) (2025-01-09)
 
 ### Features
