@@ -13,6 +13,7 @@ import { useResourceLinkActions } from './useResourceLinkActions';
 export function SingleResourceReferenceEditor(
   props: ReferenceEditorProps & {
     getEntryRouteHref: (entryRoute: EntryRoute) => string;
+    apiUrl: string;
   }
 ) {
   const linkActionsProps = useResourceLinkActions({
