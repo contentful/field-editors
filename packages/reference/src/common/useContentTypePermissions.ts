@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 
+import { isEqual } from 'lodash';
+
 import { ContentType, ContentEntityType, FieldAppSDK } from '../types';
 import { ReferenceValidations } from '../utils/fromFieldValidations';
 import { ReferenceEditorProps } from './ReferenceEditor';
@@ -28,24 +30,26 @@ async function filter<T, S extends T>(arr: T[], predicate: (value: T) => Promise
   return results.filter((x) => x !== fail) as S[];
 }
 
-export function useContentTypePermissions(
-  props: ContentTypePermissionsProps
-): ContentTypePermissions {
+export function useContentTypePermissions({
+  entityType,
+  validations,
+  sdk,
+  allContentTypes,
+}: ContentTypePermissionsProps): ContentTypePermissions {
   const availableContentTypes = useMemo(() => {
-    if (props.entityType === 'Asset') {
+    if (entityType === 'Asset') {
       return [];
     }
 
-    if (props.validations.contentTypes) {
-      return props.allContentTypes.filter((ct) =>
-        props.validations.contentTypes?.includes(ct.sys.id)
-      );
+    if (validations.contentTypes) {
+      return allContentTypes.filter((ct) => validations.contentTypes?.includes(ct.sys.id));
     }
 
-    return props.allContentTypes;
-  }, [props.allContentTypes, props.validations.contentTypes, props.entityType]);
+    return allContentTypes;
+  }, [allContentTypes, validations.contentTypes, entityType]);
+
   const [creatableContentTypes, setCreatableContentTypes] = useState(availableContentTypes);
-  const { canPerformActionOnEntryOfType } = useAccessApi(props.sdk.access);
+  const { canPerformActionOnEntryOfType } = useAccessApi(sdk.access);
 
   useEffect(() => {
     function getContentTypes(action: 'create' | 'read') {
@@ -56,12 +60,17 @@ export function useContentTypePermissions(
 
     async function checkContentTypeAccess() {
       const creatable = await getContentTypes('create');
-      setCreatableContentTypes(creatable);
+      // Important as `filter` creates a new array and otherwise always a "new value" would be written to the state
+      if (!isEqual(creatable, creatableContentTypes)) {
+        setCreatableContentTypes(creatable);
+      }
     }
 
-    void checkContentTypeAccess();
+    if (availableContentTypes.length > 0) {
+      void checkContentTypeAccess();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
-  }, [availableContentTypes]);
+  }, [availableContentTypes, creatableContentTypes]);
 
   return {
     creatableContentTypes,
