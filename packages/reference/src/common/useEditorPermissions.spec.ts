@@ -34,12 +34,14 @@ describe('useEditorPermissions', () => {
     allContentTypes = [],
     customizeMock,
     customizeSdk,
+    waitForUpdate = false,
   }: {
     entityType: EditorPermissionsProps['entityType'];
     params?: EditorPermissionsProps['parameters']['instance'];
     allContentTypes?: EditorPermissionsProps['allContentTypes'];
     customizeMock?: (fieldApi: FieldAPI) => FieldAPI;
     customizeSdk?: (sdk: MockedFieldAppSDK) => void;
+    waitForUpdate?: boolean;
   }) => {
     const sdk = makeFieldAppSDK(customizeMock);
     customizeSdk?.(sdk);
@@ -52,7 +54,9 @@ describe('useEditorPermissions', () => {
       })
     );
 
-    await renderResult.waitForNextUpdate();
+    if (waitForUpdate) {
+      await renderResult.waitForNextUpdate();
+    }
 
     return { ...renderResult, sdk };
   };
@@ -129,6 +133,7 @@ describe('useEditorPermissions', () => {
         customizeSdk: (sdk) => {
           allowContentTypes(sdk, 'create', 'one');
         },
+        waitForUpdate: true,
       });
 
       expect(result.current.canCreateEntity).toBe(true);
@@ -157,6 +162,7 @@ describe('useEditorPermissions', () => {
         customizeSdk: (sdk) => {
           allowContentTypes(sdk, 'read', 'one');
         },
+        waitForUpdate: true,
       });
 
       expect(result.current.canLinkEntity).toBe(true);
