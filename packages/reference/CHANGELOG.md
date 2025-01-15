@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.4.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.4.1...@contentful/field-editor-reference@6.4.2) (2025-01-15)
+
+### Bug Fixes
+
+- **reference:** infinite loop on permisson check for cross space references [] ([#1821](https://github.com/contentful/field-editors/issues/1821)) ([d954bfa](https://github.com/contentful/field-editors/commit/d954bfa84d185620b5fa2d0aae10a3894bdb22bf))
+
 ## [6.4.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.4.0...@contentful/field-editor-reference@6.4.1) (2025-01-13)
 
 ### Bug Fixes
