@@ -21,8 +21,10 @@ interface FetchingWrappedResourceInlineCardProps {
 }
 
 export function FetchingWrappedResourceInlineCard(props: FetchingWrappedResourceInlineCardProps) {
-  const { link, onEntityFetchComplete } = props;
-  const { data, status: requestStatus } = useResource(link.linkType, link.urn);
+  const { link, onEntityFetchComplete, sdk } = props;
+  const { data, status: requestStatus } = useResource(link.linkType, link.urn, {
+    locale: sdk.field.locale,
+  });
 
   React.useEffect(() => {
     if (requestStatus === 'success') {
