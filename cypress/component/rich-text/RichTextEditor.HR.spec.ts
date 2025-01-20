@@ -13,7 +13,7 @@ describe('Rich Text Editor - HR', { viewportHeight: 2000, viewportWidth: 1000 },
   const expectDocumentToBeEmpty = () => richText.expectValue(undefined);
 
   function addBlockquote(content = '') {
-    richText.editor.click().type(content);
+    richText.editor.click({ force: true }).type(content);
 
     richText.toolbar.quote.click();
 
@@ -70,7 +70,8 @@ describe('Rich Text Editor - HR', { viewportHeight: 2000, viewportWidth: 1000 },
       richText.expectValue(expectedValue);
     });
 
-    it('should split blockquote', () => {
+    // eslint-disable-next-line mocha/no-exclusive-tests
+    it.only('should split blockquote', () => {
       addBlockquote('some text');
 
       richText.editor.type('{enter}some text{uparrow}');

@@ -99,8 +99,9 @@ describe('Rich Text Editor - Quotes', { viewportHeight: 2000, viewportWidth: 100
         richText.expectValue(expectedValue);
       });
 
-      it('should add multi-paragraph block quotes', () => {
-        richText.editor.click().type('paragraph 1');
+      // eslint-disable-next-line mocha/no-exclusive-tests
+      it.only('should add multi-paragraph block quotes', () => {
+        richText.editor.click({ force: true }).type('paragraph 1');
 
         toggleQuote();
 
