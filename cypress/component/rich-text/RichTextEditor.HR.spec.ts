@@ -14,6 +14,7 @@ describe('Rich Text Editor - HR', { viewportHeight: 2000, viewportWidth: 1000 },
 
   function addBlockquote(content = '') {
     richText.editor.click();
+    richText.editor.should('be.focused');
     richText.editor.type(content);
 
     richText.toolbar.quote.click();
@@ -59,8 +60,15 @@ describe('Rich Text Editor - HR', { viewportHeight: 2000, viewportWidth: 1000 },
       richText.editor.type('some text');
 
       richText.toolbar.hr.click();
+      richText.editor.find('[data-void-element="hr"]').should('have.lengthOf', 1);
+
+      richText.editor.should('be.focused');
       richText.toolbar.hr.click();
+      richText.editor.find('[data-void-element="hr"]').should('have.lengthOf', 2);
+
+      richText.editor.should('be.focused');
       richText.toolbar.hr.click();
+      richText.editor.find('[data-void-element="hr"]').should('have.lengthOf', 3);
 
       const expectedValue = doc(
         block(BLOCKS.PARAGRAPH, {}, text('some text', [])),
@@ -79,6 +87,7 @@ describe('Rich Text Editor - HR', { viewportHeight: 2000, viewportWidth: 1000 },
       richText.editor.type('{enter}some text{uparrow}');
 
       richText.toolbar.hr.click();
+      richText.editor.find('[data-void-element="hr"]').should('have.lengthOf', 1);
 
       const expectedValue = doc(
         block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text('some text', []))),
@@ -120,8 +129,7 @@ describe('Rich Text Editor - HR', { viewportHeight: 2000, viewportWidth: 1000 },
       richText.toolbar.hr.click();
 
       richText.editor.click();
-      richText.editor.type('hey');
-      richText.editor.type('{selectall}{del}');
+      richText.editor.type('hey').type('{selectall}{del}');
 
       // editor is empty
       richText.expectValue(undefined);
