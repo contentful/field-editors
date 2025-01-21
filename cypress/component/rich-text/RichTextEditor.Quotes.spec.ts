@@ -28,6 +28,7 @@ describe('Rich Text Editor - Quotes', { viewportHeight: 2000, viewportWidth: 100
       'using the toolbar',
       () => {
         richText.toolbar.quote.click();
+        richText.editor.should('be.focused');
       },
     ],
     [
