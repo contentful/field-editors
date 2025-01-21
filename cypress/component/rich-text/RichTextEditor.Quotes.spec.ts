@@ -73,7 +73,8 @@ describe('Rich Text Editor - Quotes', { viewportHeight: 2000, viewportWidth: 100
       });
 
       it('should convert existing paragraph into a block quote', () => {
-        richText.editor.click().type('some text');
+        richText.editor.click();
+        richText.editor.type('some text');
 
         toggleQuote();
 
@@ -86,7 +87,8 @@ describe('Rich Text Editor - Quotes', { viewportHeight: 2000, viewportWidth: 100
       });
 
       it('should convert block quote back to paragraph', () => {
-        richText.editor.click().type('some text');
+        richText.editor.click();
+        richText.editor.type('some text');
 
         toggleQuote();
         toggleQuote();
@@ -99,13 +101,14 @@ describe('Rich Text Editor - Quotes', { viewportHeight: 2000, viewportWidth: 100
         richText.expectValue(expectedValue);
       });
 
-      // eslint-disable-next-line mocha/no-exclusive-tests
-      it.only('should add multi-paragraph block quotes', () => {
-        richText.editor.click({ force: true }).type('paragraph 1');
+      it('should add multi-paragraph block quotes', () => {
+        richText.editor.click();
+        richText.editor.type('paragraph 1');
 
         toggleQuote();
 
-        richText.editor.type('{enter}').type('paragraph 2');
+        richText.editor.type('{enter}');
+        richText.editor.type('paragraph 2');
 
         const expectedValue = doc(
           block(

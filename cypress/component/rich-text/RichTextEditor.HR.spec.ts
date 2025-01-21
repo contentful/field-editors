@@ -13,7 +13,8 @@ describe('Rich Text Editor - HR', { viewportHeight: 2000, viewportWidth: 1000 },
   const expectDocumentToBeEmpty = () => richText.expectValue(undefined);
 
   function addBlockquote(content = '') {
-    richText.editor.click({ force: true }).type(content);
+    richText.editor.click();
+    richText.editor.type(content);
 
     richText.toolbar.quote.click();
 
@@ -39,7 +40,8 @@ describe('Rich Text Editor - HR', { viewportHeight: 2000, viewportWidth: 1000 },
     });
 
     it('should add a new line when clicking', () => {
-      richText.editor.click().type('some text');
+      richText.editor.click();
+      richText.editor.type('some text');
 
       richText.toolbar.hr.click();
 
@@ -53,7 +55,8 @@ describe('Rich Text Editor - HR', { viewportHeight: 2000, viewportWidth: 1000 },
     });
 
     it('should end with an empty paragraph', () => {
-      richText.editor.click().type('some text');
+      richText.editor.click();
+      richText.editor.type('some text');
 
       richText.toolbar.hr.click();
       richText.toolbar.hr.click();
@@ -70,8 +73,7 @@ describe('Rich Text Editor - HR', { viewportHeight: 2000, viewportWidth: 1000 },
       richText.expectValue(expectedValue);
     });
 
-    // eslint-disable-next-line mocha/no-exclusive-tests
-    it.only('should split blockquote', () => {
+    it('should split blockquote', () => {
       addBlockquote('some text');
 
       richText.editor.type('{enter}some text{uparrow}');
@@ -100,7 +102,8 @@ describe('Rich Text Editor - HR', { viewportHeight: 2000, viewportWidth: 1000 },
       richText.expectValue(doc(block(BLOCKS.HR, {}), block(BLOCKS.PARAGRAPH, {}, text('', []))));
 
       // Move arrow up to select the HR then press ENTER
-      richText.editor.click().type('{uparrow}{enter}');
+      richText.editor.click();
+      richText.editor.type('{uparrow}{enter}');
 
       const expectedValue = doc(
         block(BLOCKS.PARAGRAPH, {}, text('', [])),
@@ -116,7 +119,9 @@ describe('Rich Text Editor - HR', { viewportHeight: 2000, viewportWidth: 1000 },
 
       richText.toolbar.hr.click();
 
-      richText.editor.click().type('hey').type('{selectall}{del}');
+      richText.editor.click();
+      richText.editor.type('hey');
+      richText.editor.type('{selectall}{del}');
 
       // editor is empty
       richText.expectValue(undefined);
