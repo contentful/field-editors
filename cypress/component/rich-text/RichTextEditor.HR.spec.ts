@@ -3,7 +3,7 @@ import { BLOCKS } from '@contentful/rich-text-types';
 import { block, document as doc, text } from '../../../packages/rich-text/src/helpers/nodeFactory';
 import { emptyParagraph, paragraphWithText } from './helpers';
 import { RichTextPage } from './RichTextPage';
-import { mountRichTextEditor } from './utils';
+import { focusEditorAndType, mountRichTextEditor } from './utils';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
 // we increase the viewport height to fit the whole page on the screen
@@ -13,12 +13,10 @@ describe('Rich Text Editor - HR', { viewportHeight: 2000, viewportWidth: 1000 },
   const expectDocumentToBeEmpty = () => richText.expectValue(undefined);
 
   function addBlockquote(content = '') {
-    richText.editor.click();
-    richText.editor.should('be.focused');
-    richText.editor.type(content);
+    focusEditorAndType(richText, content);
 
-    richText.toolbar.quote.click();
     richText.editor.should('be.focused');
+    richText.toolbar.quote.click();
 
     const expectedValue = doc(
       block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text(content, []))),
@@ -42,9 +40,9 @@ describe('Rich Text Editor - HR', { viewportHeight: 2000, viewportWidth: 1000 },
     });
 
     it('should add a new line when clicking', () => {
-      richText.editor.click();
-      richText.editor.type('some text');
+      focusEditorAndType(richText, 'some text');
 
+      richText.editor.should('be.focused');
       richText.toolbar.hr.click();
 
       const expectedValue = doc(
@@ -57,9 +55,9 @@ describe('Rich Text Editor - HR', { viewportHeight: 2000, viewportWidth: 1000 },
     });
 
     it('should end with an empty paragraph', () => {
-      richText.editor.click();
-      richText.editor.type('some text');
+      focusEditorAndType(richText, 'some text');
 
+      richText.editor.should('be.focused');
       richText.toolbar.hr.click();
       richText.editor.find('[data-void-element="hr"]').should('have.lengthOf', 1);
 
@@ -87,6 +85,7 @@ describe('Rich Text Editor - HR', { viewportHeight: 2000, viewportWidth: 1000 },
 
       richText.editor.type('{enter}some text{uparrow}');
 
+      richText.editor.should('be.focused');
       richText.toolbar.hr.click();
       richText.editor.find('[data-void-element="hr"]').should('have.lengthOf', 1);
 
@@ -112,8 +111,7 @@ describe('Rich Text Editor - HR', { viewportHeight: 2000, viewportWidth: 1000 },
       richText.expectValue(doc(block(BLOCKS.HR, {}), block(BLOCKS.PARAGRAPH, {}, text('', []))));
 
       // Move arrow up to select the HR then press ENTER
-      richText.editor.click();
-      richText.editor.type('{uparrow}{enter}');
+      focusEditorAndType(richText, '{uparrow}{enter}');
 
       const expectedValue = doc(
         block(BLOCKS.PARAGRAPH, {}, text('', [])),
@@ -129,8 +127,7 @@ describe('Rich Text Editor - HR', { viewportHeight: 2000, viewportWidth: 1000 },
 
       richText.toolbar.hr.click();
 
-      richText.editor.click();
-      richText.editor.type('hey').type('{selectall}{del}');
+      focusEditorAndType(richText, 'hey{selectall}{del}');
 
       // editor is empty
       richText.expectValue(undefined);
@@ -139,6 +136,7 @@ describe('Rich Text Editor - HR', { viewportHeight: 2000, viewportWidth: 1000 },
     it('should be selected on backspace', () => {
       richText.editor.click();
 
+      richText.editor.should('be.focused');
       richText.toolbar.hr.click();
       richText.editor.type('X');
 
