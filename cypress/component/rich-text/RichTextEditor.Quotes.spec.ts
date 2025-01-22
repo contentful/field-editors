@@ -28,7 +28,6 @@ describe('Rich Text Editor - Quotes', { viewportHeight: 2000, viewportWidth: 100
       'using the toolbar',
       () => {
         richText.toolbar.quote.click();
-        richText.editor.should('be.focused');
       },
     ],
     [
@@ -104,10 +103,12 @@ describe('Rich Text Editor - Quotes', { viewportHeight: 2000, viewportWidth: 100
 
       it('should add multi-paragraph block quotes', () => {
         richText.editor.click();
+        richText.editor.should('be.focused');
         richText.editor.type('paragraph 1');
 
         toggleQuote();
 
+        richText.editor.should('be.focused');
         richText.editor.type('{enter}');
         richText.editor.type('paragraph 2');
 

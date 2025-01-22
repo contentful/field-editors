@@ -18,6 +18,7 @@ describe('Rich Text Editor - HR', { viewportHeight: 2000, viewportWidth: 1000 },
     richText.editor.type(content);
 
     richText.toolbar.quote.click();
+    richText.editor.should('be.focused');
 
     const expectedValue = doc(
       block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text(content, []))),
