@@ -109,8 +109,7 @@ describe('Rich Text Editor - Quotes', { viewportHeight: 2000, viewportWidth: 100
         toggleQuote();
 
         richText.editor.should('be.focused');
-        richText.editor.type('{enter}');
-        richText.editor.type('paragraph 2');
+        richText.editor.type('{enter}').type('paragraph 2');
 
         const expectedValue = doc(
           block(
