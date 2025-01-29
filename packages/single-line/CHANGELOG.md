@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-single-line@1.5.1...@contentful/field-editor-single-line@1.5.2) (2025-01-17)
+
+**Note:** Version bump only for package @contentful/field-editor-single-line
+
+## [1.5.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-single-line@1.5.0...@contentful/field-editor-single-line@1.5.1) (2024-12-06)
+
+**Note:** Version bump only for package @contentful/field-editor-single-line
+
+# [1.5.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-single-line@1.4.16...@contentful/field-editor-single-line@1.5.0) (2024-12-03)
+
+### Features
+
+- single-line-editor add an optional prop to hide all validation messages [LUMOS-312] ([#1805](https://github.com/contentful/field-editors/issues/1805)) ([4590482](https://github.com/contentful/field-editors/commit/4590482e06e80f34c78ca844be78211a526b7bba))
+
 ## [1.4.16](https://github.com/contentful/field-editors/compare/@contentful/field-editor-single-line@1.4.15...@contentful/field-editor-single-line@1.4.16) (2024-11-26)
 
 **Note:** Version bump only for package @contentful/field-editor-single-line

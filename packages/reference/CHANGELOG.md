@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.4.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.4.2...@contentful/field-editor-reference@6.4.3) (2025-01-17)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [6.4.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.4.1...@contentful/field-editor-reference@6.4.2) (2025-01-15)
+
+### Bug Fixes
+
+- **reference:** infinite loop on permisson check for cross space references [] ([#1821](https://github.com/contentful/field-editors/issues/1821)) ([d954bfa](https://github.com/contentful/field-editors/commit/d954bfa84d185620b5fa2d0aae10a3894bdb22bf))
+
+## [6.4.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.4.0...@contentful/field-editor-reference@6.4.1) (2025-01-13)
+
+### Bug Fixes
+
+- re-introduce apiUrl prop [FUS-115] ([#1819](https://github.com/contentful/field-editors/issues/1819)) ([15e0f74](https://github.com/contentful/field-editors/commit/15e0f749fbb67f604e3a1295884731df1a2dc8b9))
+
+# [6.4.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.3.3...@contentful/field-editor-reference@6.4.0) (2025-01-09)
+
+### Features
+
+- permissions check for cross space reference editor [FUS-115] ([#1818](https://github.com/contentful/field-editors/issues/1818)) ([c6783b9](https://github.com/contentful/field-editors/commit/c6783b9decb1959f060974df44d74d8c95e74c61))
+
+## [6.3.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.3.2...@contentful/field-editor-reference@6.3.3) (2024-12-04)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [6.3.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.3.1...@contentful/field-editor-reference@6.3.2) (2024-12-04)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [6.3.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.3.0...@contentful/field-editor-reference@6.3.1) (2024-12-03)
+
+### Bug Fixes
+
+- **reference:** open function invocation error log in new window ([#1810](https://github.com/contentful/field-editors/issues/1810)) ([aecfced](https://github.com/contentful/field-editors/commit/aecfced485843dea4d23b67d2fd78b7d4a666765))
+
 # [6.3.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.2.5...@contentful/field-editor-reference@6.3.0) (2024-11-27)
 
 ### Features

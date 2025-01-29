@@ -147,7 +147,6 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       useLocalizedEntityStatus: props.sdk.parameters.instance.useLocalizedEntityStatus,
       localesStatusMap,
       activeLocales: props.sdk.parameters.instance.activeLocales,
-      isLocalized: !!('localized' in props.sdk.field && props.sdk.field.localized), // missing in types :(
     };
 
     const { hasCardEditActions, hasCardMoveActions, hasCardRemoveActions } = props;

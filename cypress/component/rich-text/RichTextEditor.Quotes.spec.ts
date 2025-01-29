@@ -9,7 +9,7 @@ import {
 } from '../../../packages/rich-text/src/helpers/nodeFactory';
 import { mod } from '../../fixtures/utils';
 import { RichTextPage } from './RichTextPage';
-import { mountRichTextEditor } from './utils';
+import { focusEditorAndType, mountRichTextEditor } from './utils';
 
 // the sticky toolbar gets in the way of some of the tests, therefore
 // we increase the viewport height to fit the whole page on the screen
@@ -73,7 +73,7 @@ describe('Rich Text Editor - Quotes', { viewportHeight: 2000, viewportWidth: 100
       });
 
       it('should convert existing paragraph into a block quote', () => {
-        richText.editor.click().type('some text');
+        focusEditorAndType(richText, 'some text');
 
         toggleQuote();
 
@@ -86,7 +86,7 @@ describe('Rich Text Editor - Quotes', { viewportHeight: 2000, viewportWidth: 100
       });
 
       it('should convert block quote back to paragraph', () => {
-        richText.editor.click().type('some text');
+        focusEditorAndType(richText, 'some text');
 
         toggleQuote();
         toggleQuote();
@@ -100,10 +100,13 @@ describe('Rich Text Editor - Quotes', { viewportHeight: 2000, viewportWidth: 100
       });
 
       it('should add multi-paragraph block quotes', () => {
-        richText.editor.click().type('paragraph 1');
+        richText.editor.click();
+        richText.editor.should('be.focused');
+        richText.editor.type('paragraph 1');
 
         toggleQuote();
 
+        richText.editor.should('be.focused');
         richText.editor.type('{enter}').type('paragraph 2');
 
         const expectedValue = doc(

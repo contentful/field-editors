@@ -46,7 +46,6 @@ const InternalEntryCard = React.memo((props: InternalEntryCard) => {
       onRemove={props.isDisabled ? undefined : props.onRemove}
       isClickable={false}
       useLocalizedEntityStatus={sdk.parameters.instance.useLocalizedEntityStatus}
-      isLocalized={!!('localized' in props.sdk.field && props.sdk.field.localized)}
       localesStatusMap={props.localesStatusMap}
       activeLocales={props.sdk.parameters.instance.activeLocales}
     />

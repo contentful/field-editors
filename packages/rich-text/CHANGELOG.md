@@ -3,6 +3,46 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.2.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.2.3...@contentful/field-editor-rich-text@4.2.4) (2025-01-17)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [4.2.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.2.2...@contentful/field-editor-rich-text@4.2.3) (2025-01-15)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [4.2.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.2.1...@contentful/field-editor-rich-text@4.2.2) (2025-01-13)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [4.2.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.2.0...@contentful/field-editor-rich-text@4.2.1) (2025-01-09)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+# [4.2.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.1.10...@contentful/field-editor-rich-text@4.2.0) (2024-12-09)
+
+### Features
+
+- properly handle isDisabled prop [BBEE-797] ([#1816](https://github.com/contentful/field-editors/issues/1816)) ([b1531d2](https://github.com/contentful/field-editors/commit/b1531d25c9dc73818c82fe56ca9884372b5a1603))
+
+## [4.1.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.1.9...@contentful/field-editor-rich-text@4.1.10) (2024-12-04)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [4.1.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.1.8...@contentful/field-editor-rich-text@4.1.9) (2024-12-04)
+
+### Bug Fixes
+
+- rerender rich text when active locales change [TOL-2606] ([#1814](https://github.com/contentful/field-editors/issues/1814)) ([aec317c](https://github.com/contentful/field-editors/commit/aec317c07fcf15aeec450216621905aea6aab08f))
+
+## [4.1.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.1.7...@contentful/field-editor-rich-text@4.1.8) (2024-12-04)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [4.1.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.1.6...@contentful/field-editor-rich-text@4.1.7) (2024-12-03)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
 ## [4.1.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.1.5...@contentful/field-editor-rich-text@4.1.6) (2024-11-27)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text

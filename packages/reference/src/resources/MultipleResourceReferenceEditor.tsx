@@ -28,11 +28,10 @@ type ChildProps = {
 type EditorProps = ReferenceEditorProps &
   Omit<ChildProps, 'onSortStart' | 'onSortEnd' | 'onMove' | 'onRemoteItemAtIndex'> & {
     children: (props: ReferenceEditorProps & ChildProps) => React.ReactElement;
-    apiUrl: string;
   };
 
 function ResourceEditor(props: EditorProps) {
-  const { setValue, items, apiUrl } = props;
+  const { setValue, items } = props;
 
   const onSortStart = () => noop();
   const onSortEnd = useCallback(
@@ -57,11 +56,9 @@ function ResourceEditor(props: EditorProps) {
     [items, setValue]
   );
 
-  const { dialogs, field } = props.sdk;
   const linkActionsProps = useResourceLinkActions({
-    dialogs,
-    field,
-    apiUrl,
+    sdk: props.sdk,
+    parameters: props.parameters,
   });
 
   return (

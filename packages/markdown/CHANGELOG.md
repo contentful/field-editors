@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.7.0...@contentful/field-editor-markdown@1.7.1) (2025-01-17)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+# [1.7.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.6.14...@contentful/field-editor-markdown@1.7.0) (2024-12-09)
+
+### Features
+
+- properly handle isDisabled prop [BBEE-797] ([#1816](https://github.com/contentful/field-editors/issues/1816)) ([b1531d2](https://github.com/contentful/field-editors/commit/b1531d25c9dc73818c82fe56ca9884372b5a1603))
+
 ## [1.6.14](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.6.13...@contentful/field-editor-markdown@1.6.14) (2024-11-26)
 
 **Note:** Version bump only for package @contentful/field-editor-markdown

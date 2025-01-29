@@ -37,8 +37,6 @@ export interface WrappedEntryCardProps {
   hasCardEditActions: boolean;
   hasCardMoveActions?: boolean;
   hasCardRemoveActions?: boolean;
-
-  isLocalized?: boolean;
   useLocalizedEntityStatus?: boolean;
   localesStatusMap?: LocalePublishStatusMap;
   activeLocales?: Pick<LocaleProps, 'code'>[];
@@ -51,23 +49,46 @@ const defaultProps = {
   hasCardRemoveActions: true,
 };
 
-export function WrappedEntryCard(props: WrappedEntryCardProps) {
+export function WrappedEntryCard({
+  entry,
+  entryUrl,
+  contentType,
+  activeLocales,
+  localeCode,
+  defaultLocaleCode,
+  localesStatusMap,
+  useLocalizedEntityStatus,
+  size,
+  spaceName,
+  isClickable,
+  isDisabled,
+  isSelected,
+  hasCardMoveActions,
+  hasCardEditActions,
+  hasCardRemoveActions,
+  renderDragHandle,
+  getAsset,
+  getEntityScheduledActions,
+  onClick,
+  onEdit,
+  onRemove,
+  onMoveTop,
+  onMoveBottom,
+}: WrappedEntryCardProps) {
   const [file, setFile] = React.useState<null | File>(null);
-
-  const { contentType } = props;
 
   React.useEffect(() => {
     let mounted = true;
 
-    if (props.entry) {
+    if (entry) {
       getEntryImage(
         {
-          entry: props.entry,
+          entry,
           contentType,
-          localeCode: props.localeCode,
-          defaultLocaleCode: props.defaultLocaleCode,
+          localeCode,
+          defaultLocaleCode,
         },
-        props.getAsset
+        getAsset
       )
         .then((file) => {
           if (mounted) {
@@ -84,110 +105,96 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
     return () => {
       mounted = false;
     };
-  }, [props.entry, props.getAsset, contentType, props.localeCode, props.defaultLocaleCode]);
+  }, [entry, getAsset, contentType, localeCode, defaultLocaleCode]);
 
-  const status = getEntityStatus(
-    props.entry?.sys,
-    props.useLocalizedEntityStatus ? props.localeCode : undefined
-  );
+  const status = getEntityStatus(entry?.sys, useLocalizedEntityStatus ? localeCode : undefined);
 
   if (status === 'deleted') {
     return (
-      <MissingEntityCard
-        isDisabled={props.isDisabled}
-        onRemove={props.onRemove}
-        providerName="Contentful"
-      />
+      <MissingEntityCard isDisabled={isDisabled} onRemove={onRemove} providerName="Contentful" />
     );
   }
 
   const title = getEntryTitle({
-    entry: props.entry,
+    entry,
     contentType,
-    localeCode: props.localeCode,
-    defaultLocaleCode: props.defaultLocaleCode,
+    localeCode,
+    defaultLocaleCode,
     defaultTitle: 'Untitled',
   });
 
   const description = getEntityDescription({
-    entity: props.entry,
+    entity: entry,
     contentType,
-    localeCode: props.localeCode,
-    defaultLocaleCode: props.defaultLocaleCode,
+    localeCode,
+    defaultLocaleCode,
   });
 
   return (
     <EntryCard
-      as={props.entryUrl ? 'a' : 'article'}
-      href={props.entryUrl}
+      as={entryUrl ? 'a' : 'article'}
+      href={entryUrl}
       title={title}
       description={description}
       contentType={contentType?.name}
-      size={props.size}
-      isSelected={props.isSelected}
+      size={size}
+      isSelected={isSelected}
       badge={
         <EntityStatusBadge
           status={status}
           entityType="Entry"
-          getEntityScheduledActions={props.getEntityScheduledActions}
-          useLocalizedEntityStatus={props.useLocalizedEntityStatus}
-          entity={props.entry}
-          localesStatusMap={props.localesStatusMap}
-          activeLocales={props.activeLocales}
+          getEntityScheduledActions={getEntityScheduledActions}
+          useLocalizedEntityStatus={useLocalizedEntityStatus}
+          entity={entry}
+          localesStatusMap={localesStatusMap}
+          activeLocales={activeLocales}
         />
       }
       icon={
-        props.spaceName ? (
-          <SpaceName
-            spaceName={props.spaceName}
-            environmentName={props.entry.sys.environment.sys.id}
-          />
+        spaceName ? (
+          <SpaceName spaceName={spaceName} environmentName={entry.sys.environment.sys.id} />
         ) : null
       }
       thumbnailElement={file && isValidImage(file) ? <AssetThumbnail file={file} /> : undefined}
-      dragHandleRender={props.renderDragHandle}
-      withDragHandle={!!props.renderDragHandle}
+      dragHandleRender={renderDragHandle}
+      withDragHandle={!!renderDragHandle}
       actions={
-        props.onEdit || props.onRemove
+        onEdit || onRemove
           ? [
-              props.hasCardEditActions && props.onEdit ? (
+              hasCardEditActions && onEdit ? (
                 <MenuItem
                   key="edit"
                   testId="edit"
                   onClick={() => {
-                    props.onEdit && props.onEdit();
+                    onEdit && onEdit();
                   }}
                 >
                   Edit
                 </MenuItem>
               ) : null,
-              props.hasCardRemoveActions && props.onRemove ? (
+              hasCardRemoveActions && onRemove ? (
                 <MenuItem
                   key="delete"
                   testId="delete"
                   onClick={() => {
-                    props.onRemove && props.onRemove();
+                    onRemove && onRemove();
                   }}
                 >
                   Remove
                 </MenuItem>
               ) : null,
-              props.hasCardMoveActions && (props.onMoveTop || props.onMoveBottom) ? (
+              hasCardMoveActions && (onMoveTop || onMoveBottom) ? (
                 <MenuDivider key="divider" />
               ) : null,
-              props.hasCardMoveActions && props.onMoveTop ? (
-                <MenuItem
-                  key="move-top"
-                  onClick={() => props.onMoveTop && props.onMoveTop()}
-                  testId="move-top"
-                >
+              hasCardMoveActions && onMoveTop ? (
+                <MenuItem key="move-top" onClick={() => onMoveTop && onMoveTop()} testId="move-top">
                   Move to top
                 </MenuItem>
               ) : null,
-              props.hasCardMoveActions && props.onMoveBottom ? (
+              hasCardMoveActions && onMoveBottom ? (
                 <MenuItem
                   key="move-bottom"
-                  onClick={() => props.onMoveBottom && props.onMoveBottom()}
+                  onClick={() => onMoveBottom && onMoveBottom()}
                   testId="move-bottom"
                 >
                   Move to bottom
@@ -201,11 +208,11 @@ export function WrappedEntryCard(props: WrappedEntryCardProps) {
         // features e.g. pressing ENTER on a card to add a new paragraph
         // underneath. It's crucial not to pass a custom handler when
         // isClickable is disabled which in the case of RT it's.
-        props.isClickable
+        isClickable
           ? (e: React.MouseEvent<HTMLElement>) => {
               e.preventDefault();
-              if (props.onClick) return props.onClick(e);
-              props.onEdit && props.onEdit();
+              if (onClick) return onClick(e);
+              onEdit && onEdit();
             }
           : undefined
       }

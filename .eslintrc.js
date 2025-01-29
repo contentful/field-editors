@@ -32,6 +32,7 @@ module.exports = {
     ],
     'no-restricted-imports': ['warn'],
     'react/react-in-jsx-scope': 'off',
+    'no-console': 'warn',
   },
   settings: {
     react: { version: 'detect' },
