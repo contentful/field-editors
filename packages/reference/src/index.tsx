@@ -23,7 +23,10 @@ export type {
 } from './common/customCardTypes';
 export { SortableLinkList } from './common/SortableLinkList';
 export { EntityProvider, useEntityLoader, useEntity, useResource } from './common/EntityStore';
-export { SharedQueryClientProvider as EntityCacheProvider } from './common/queryClient';
+export {
+  SharedQueryClientProvider as EntityCacheProvider,
+  useQueryClient as useEntityQueryClient,
+} from './common/queryClient';
 export type { ResourceInfo } from './common/EntityStore';
 export {
   SingleResourceReferenceEditor,
