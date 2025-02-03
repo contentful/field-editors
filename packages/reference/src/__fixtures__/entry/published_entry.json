@@ -20,10 +20,14 @@
         "en-US": "published",
         "de-DE": "published"
       }
-    }
+    },
+    "automationTags": []
   },
   "fields": {
     "exField": { "en-US": "The best article ever", "de-DE": "Der beste Artikel aller Zeiten" },
-    "exDesc": { "en-US": "Description of the best article", "de-DE": "Beschreibung des besten Artikels" }
+    "exDesc": {
+      "en-US": "Description of the best article",
+      "de-DE": "Beschreibung des besten Artikels"
+    }
   }
 }
