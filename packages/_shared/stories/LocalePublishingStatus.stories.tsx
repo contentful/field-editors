@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import type { Meta, StoryObj } from '@storybook/react';
-import { Entry } from 'contentful-management';
+import { EntryProps } from 'contentful-management';
 
 import { LocalePublishStatus } from '../src/hooks/useLocalePublishStatus';
 import * as LocalePublishingEntityStatusBadge from '../src/LocalePublishingEntityStatusBadge';
@@ -32,7 +32,7 @@ const meta: Meta<typeof LocalePublishingEntityStatusBadge.LocalePublishingPopove
 
 export default meta;
 
-const defaultEntity: Entry = {
+const defaultEntity: EntryProps = {
   sys: {
     space: {
       sys: { type: 'Link', linkType: 'Space', id: 'space-id' },
@@ -53,7 +53,6 @@ const defaultEntity: Entry = {
     },
     publishedCounter: 4,
     version: 10,
-    // @ts-expect-error -- fieldStatus is not part of the Entry type yet
     fieldStatus: {
       '*': {
         af: 'draft',
