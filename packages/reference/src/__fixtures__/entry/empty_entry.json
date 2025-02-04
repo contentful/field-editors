@@ -18,7 +18,8 @@
         "en-US": "draft",
         "de-DE": "draft"
       }
-    }
+    },
+    "automationTags": []
   },
   "fields": {}
 }

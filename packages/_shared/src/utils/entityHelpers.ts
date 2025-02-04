@@ -199,13 +199,9 @@ export function getEntryTitle({
   return titleOrDefault(title, defaultTitle);
 }
 
-type AsyncPublishStatus = 'draft' | 'published' | 'changed';
+type FieldStatus = 'draft' | 'published' | 'changed';
 
-type FieldStatus = {
-  '*': Record<string, AsyncPublishStatus>;
-};
-
-export type EntitySys = (Entry['sys'] | Asset['sys']) & { fieldStatus?: FieldStatus };
+export type EntitySys = Entry['sys'] | Asset['sys'];
 
 /**
  * Returns the status of the entry/asset
@@ -233,7 +229,7 @@ export function getEntityStatus(sys: EntitySys, localeCodes?: string | string[])
   // TODO: remove the condition, once locale based publishing is GA
   // Then we don't need the publishedVersion calculation anymore
   if (sys.fieldStatus && localeCodes) {
-    let status: AsyncPublishStatus = 'draft';
+    let status: FieldStatus = 'draft';
     const locales = Array.isArray(localeCodes) ? localeCodes : [localeCodes];
 
     for (const [localeCode, fieldStatus] of Object.entries(sys.fieldStatus['*'])) {
@@ -263,11 +259,7 @@ export function getEntityStatus(sys: EntitySys, localeCodes?: string | string[])
 }
 
 /**@deprecated use `getEntityStatus` */
-export function getEntryStatus(
-  //TODO: remove union after fieldStatus is added to App SDK
-  sys: Entry['sys'] & { fieldStatus?: FieldStatus },
-  localeCodes?: string | string[]
-) {
+export function getEntryStatus(sys: Entry['sys'], localeCodes?: string | string[]) {
   return getEntityStatus(sys, localeCodes);
 }
 

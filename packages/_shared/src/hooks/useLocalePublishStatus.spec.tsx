@@ -1,5 +1,6 @@
 import type { LocalesAPI } from '@contentful/app-sdk';
 import { renderHook } from '@testing-library/react-hooks';
+import { AssetProps } from 'contentful-management/types';
 
 import { useLocalePublishStatus } from './useLocalePublishStatus';
 
@@ -31,7 +32,7 @@ describe('useLocalePublishStatus', () => {
 
   describe('status from entity', () => {
     it('returns the status from an entry', () => {
-      const entity = {
+      const entity: AssetProps = {
         metadata: { tags: [] },
         sys: {
           id: '1',
@@ -46,9 +47,11 @@ describe('useLocalePublishStatus', () => {
           version: 1,
           fieldStatus: { '*': { 'en-US': 'published', 'de-DE': 'changed', 'es-ES': 'draft' } },
           contentType: { sys: { type: 'Link', linkType: 'ContentType', id: 'content-type' } },
-          automationTags: [],
         },
-        fields: {},
+        fields: {
+          title: {},
+          file: {},
+        },
       };
 
       const { result } = renderHook(() => useLocalePublishStatus(entity, localesAPI));
@@ -63,7 +66,7 @@ describe('useLocalePublishStatus', () => {
     });
 
     it('returns the status from an asset', () => {
-      const entity = {
+      const entity: AssetProps = {
         sys: {
           id: '2',
           type: 'Asset',
