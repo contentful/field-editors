@@ -82,6 +82,7 @@ describe('Single resource editor', () => {
     const options = dialogFn.mock.calls[0][0];
     expect(options).toEqual({
       allowedResources: fieldDefinition.allowedResources,
+      locale: 'en',
     });
   });
 

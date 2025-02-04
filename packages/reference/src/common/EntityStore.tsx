@@ -461,7 +461,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
         urn: string,
         options?: GetResourceOptions
       ): QueryResourceResult<R> {
-        const queryKey: ResourceQueryKey = ['Resource', resourceType, urn, locale];
+        const queryKey: ResourceQueryKey = ['Resource', resourceType, urn, options?.locale];
         return fetch(
           queryKey,
           (): Promise<ResourceInfo> => {
