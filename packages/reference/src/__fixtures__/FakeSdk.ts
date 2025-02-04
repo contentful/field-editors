@@ -5,13 +5,7 @@ import {
   createFakeLocalesAPI,
   createFakeSpaceAPI,
 } from '@contentful/field-editor-test-utils';
-import {
-  AssetProps,
-  CollectionProp,
-  EntryProps,
-  GetSpaceParams,
-  LocaleProps,
-} from 'contentful-management';
+import { CollectionProp, GetSpaceParams, LocaleProps } from 'contentful-management';
 import { Emitter } from 'mitt';
 
 import { assets, contentTypes, entries, locales as localesFixtures, spaces } from './fixtures';
@@ -78,13 +72,13 @@ export function newReferenceEditorFakeSdk(props?: ReferenceEditorSdkProps): [Fie
             await delay(props.fetchDelay);
           }
           if (entryId === entries.empty.sys.id) {
-            return entries.empty as EntryProps;
+            return entries.empty;
           }
           if (entryId === entries.published.sys.id) {
-            return entries.published as EntryProps;
+            return entries.published;
           }
           if (entryId === entries.changed.sys.id) {
-            return entries.changed as EntryProps;
+            return entries.changed;
           }
           return Promise.reject({});
         },
@@ -95,13 +89,13 @@ export function newReferenceEditorFakeSdk(props?: ReferenceEditorSdkProps): [Fie
             await delay(props.fetchDelay);
           }
           if (assetId === assets.empty.sys.id) {
-            return assets.empty as unknown as AssetProps;
+            return assets.empty;
           }
           if (assetId === assets.published.sys.id) {
-            return assets.published as unknown as AssetProps;
+            return assets.published;
           }
           if (assetId === assets.changed.sys.id) {
-            return assets.changed as unknown as AssetProps;
+            return assets.changed;
           }
           return Promise.reject({});
         },
