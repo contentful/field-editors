@@ -46,12 +46,14 @@ export function useResourceLinkActions({
           await dialogs.selectMultipleResourceEntities({
             // @ts-expect-error wait for update of app-sdk version
             allowedResources: field.allowedResources,
+            locale: field.locale,
           })
       : async (): Promise<[ResourceLink<'Contentful:Entry'> | null]> => [
           // @ts-expect-error wait for update of app-sdk version
           await dialogs.selectSingleResourceEntity({
             // @ts-expect-error wait for update of app-sdk version
             allowedResources: field.allowedResources,
+            locale: field.locale,
           }),
         ];
 
@@ -59,7 +61,7 @@ export function useResourceLinkActions({
       onLinkedExisting(await promptSelection());
     };
     // @ts-expect-error wait for update of app-sdk version
-  }, [dialogs, field.allowedResources, multiple, onLinkedExisting]);
+  }, [dialogs, field.allowedResources, field.locale, multiple, onLinkedExisting]);
 
   const { canLinkEntity } = useEditorPermissions({
     entityType: 'Entry',

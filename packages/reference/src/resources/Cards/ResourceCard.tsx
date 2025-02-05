@@ -13,6 +13,7 @@ import { ExternalEntryCard } from './ExternalEntryCard';
 type ResourceCardProps = {
   index?: number;
   resourceLink?: ResourceLink<string>;
+  locale?: string;
   isDisabled: boolean;
   renderDragHandle?: RenderDragFn;
   getEntryRouteHref: (entryRoute: EntryRoute) => string;
@@ -27,8 +28,9 @@ function ExistingResourceCard(
     inView: boolean;
   }
 ) {
-  const { resourceLink, inView, index = 0 } = props;
+  const { resourceLink, inView, index = 0, locale } = props;
   const resourceOptions = {
+    locale,
     priority: index * -1,
     enabled: inView,
     allowExternal: true,

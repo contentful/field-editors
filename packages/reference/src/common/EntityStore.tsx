@@ -60,11 +60,11 @@ type UseEntityOptions = GetEntityOptions & { enabled?: boolean };
 
 type QueryEntityResult<E> = Promise<E>;
 
-type GetResourceOptions = GetOptions & { allowExternal?: boolean };
+type GetResourceOptions = GetOptions & { allowExternal?: boolean; locale?: string };
 
 type QueryResourceResult<R extends Resource = Resource> = QueryEntityResult<ResourceInfo<R>>;
 
-type UseResourceOptions = GetResourceOptions & { enabled?: boolean };
+type UseResourceOptions = GetResourceOptions & { enabled?: boolean; locale?: string };
 
 // all types of the union share the data property to ease destructuring downstream
 type UseEntityResult<E> =
@@ -188,7 +188,12 @@ const isEntityQueryKey = (queryKey: QueryKey): queryKey is EntityQueryKey => {
   );
 };
 
-type ResourceQueryKey = [ident: 'Resource', resourceType: string, urn: string];
+type ResourceQueryKey = [
+  ident: 'Resource',
+  resourceType: string,
+  urn: string,
+  locale: string | undefined
+];
 
 async function fetchContentfulEntry({
   urn,
@@ -262,9 +267,13 @@ async function fetchExternalResource({
   spaceId,
   environmentId,
   resourceType,
-}: FetchParams & { spaceId: string; environmentId: string; resourceType: string }): Promise<
-  ResourceInfo<ExternalResource>
-> {
+  locale,
+}: FetchParams & {
+  spaceId: string;
+  environmentId: string;
+  resourceType: string;
+  locale?: string;
+}): Promise<ResourceInfo<ExternalResource>> {
   let resourceFetchError: unknown;
   const [resource, resourceTypes] = await Promise.all([
     fetch(
@@ -275,7 +284,7 @@ async function fetchExternalResource({
             spaceId,
             environmentId,
             resourceTypeId: resourceType,
-            query: { 'sys.urn[in]': urn },
+            query: { 'sys.urn[in]': urn, locale },
           })
           .then(({ items }) => {
             return items[0] ?? null;
@@ -452,7 +461,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
         urn: string,
         options?: GetResourceOptions
       ): QueryResourceResult<R> {
-        const queryKey: ResourceQueryKey = ['Resource', resourceType, urn];
+        const queryKey: ResourceQueryKey = ['Resource', resourceType, urn, options?.locale];
         return fetch(
           queryKey,
           (): Promise<ResourceInfo> => {
@@ -471,6 +480,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
             return fetchExternalResource({
               fetch,
               urn,
+              locale: options?.locale,
               options,
               resourceType,
               spaceId: currentSpaceId,
@@ -629,13 +639,16 @@ export function useEntity<E extends FetchableEntity>(
 export function useResource<R extends Resource = Resource>(
   resourceType: string,
   urn: string,
-  options?: UseResourceOptions
+  { locale, ...options }: UseResourceOptions = {}
 ) {
-  const queryKey: ResourceQueryKey = ['Resource', resourceType, urn];
+  if (resourceType.startsWith('Contentful:')) {
+    locale = undefined;
+  }
+  const queryKey: ResourceQueryKey = ['Resource', resourceType, urn, locale];
   const { getResource } = useEntityLoader();
   const { status, data, error } = useQuery(
     queryKey,
-    () => getResource<R>(resourceType, urn, options),
+    () => getResource<R>(resourceType, urn, { ...options, locale }),
     {
       enabled: options?.enabled,
     }

@@ -33,6 +33,7 @@ export function SingleResourceReferenceEditor(
             <ResourceCard
               onRemove={() => props.sdk.field.removeValue()}
               resourceLink={value}
+              locale={props.sdk.field.locale}
               isDisabled={disabled}
               getEntryRouteHref={props.getEntryRouteHref}
             />
