@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.2.6...@contentful/field-editor-rich-text@4.3.0) (2025-02-05)
+
+### Features
+
+- **field-dialog:** filter by locale [FUS-199] ([#1822](https://github.com/contentful/field-editors/issues/1822)) ([ff9b505](https://github.com/contentful/field-editors/commit/ff9b5053e338b0e0b4b597afa5e0a47f01e88bf2))
+
 ## [4.2.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.2.5...@contentful/field-editor-rich-text@4.2.6) (2025-02-04)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
