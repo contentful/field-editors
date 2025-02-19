@@ -119,6 +119,7 @@ export interface ValidationErrorsProps {
   field: FieldAPI;
   space: SpaceAPI;
   locales: LocalesAPI;
+  errorMessageOverride?: (message: string | undefined) => React.ReactNode;
   getEntryURL: (entry: Entry) => string;
 }
 
@@ -150,7 +151,7 @@ export function ValidationErrors(props: ValidationErrorsProps) {
           >
             <InfoCircleIcon variant="negative" />
             <div className={styles.errorMessage}>
-              {error.message}
+              {props.errorMessageOverride?.(error.message) ?? error.message}
               {error.name === 'unique' && (
                 <UniquenessError
                   error={error}
