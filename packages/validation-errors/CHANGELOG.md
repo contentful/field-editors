@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.3.33...@contentful/field-editor-validation-errors@1.4.0) (2025-02-19)
+
+### Features
+
+- [TOL-2595] Allow overriding error messages ([#1832](https://github.com/contentful/field-editors/issues/1832)) ([73b43dc](https://github.com/contentful/field-editors/commit/73b43dcd4ac1372fc4f96d0db5821d6071a6d879))
+
 ## [1.3.33](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.3.32...@contentful/field-editor-validation-errors@1.3.33) (2025-02-04)
 
 **Note:** Version bump only for package @contentful/field-editor-validation-errors
