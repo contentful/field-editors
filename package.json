@@ -111,7 +111,7 @@
     "remark-lint-no-dead-urls": "2.0.1",
     "remark-lint-no-empty-sections": "4.0.0",
     "remark-preset-lint-recommended": "7.0.1",
-    "remark-validate-links": "13.0.2",
+    "remark-validate-links": "13.1.0",
     "serve": "14.2.3",
     "start-server-and-test": "2.0.3",
     "storybook": "^8.3.5",
