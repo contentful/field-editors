@@ -8,7 +8,11 @@ import {
   MissingEntityCard,
   WrappedAssetCard,
 } from '@contentful/field-editor-reference';
-import { LocalePublishStatusMap, useLocalePublishStatus } from '@contentful/field-editor-shared';
+import {
+  LocalePublishStatusMap,
+  useLocalePublishStatus,
+  useActiveLocales,
+} from '@contentful/field-editor-shared';
 import areEqual from 'fast-deep-equal';
 
 interface InternalAssetCardProps {
@@ -23,8 +27,10 @@ interface InternalAssetCardProps {
   localesStatusMap?: LocalePublishStatusMap;
 }
 
-const InternalAssetCard = React.memo(
-  (props: InternalAssetCardProps) => (
+const InternalAssetCard = React.memo((props: InternalAssetCardProps) => {
+  const activeLocales = useActiveLocales(props.sdk);
+
+  return (
     <WrappedAssetCard
       getEntityScheduledActions={props.loadEntityScheduledActions}
       size="small"
@@ -38,11 +44,10 @@ const InternalAssetCard = React.memo(
       isClickable={false}
       useLocalizedEntityStatus={props.sdk.parameters.instance.useLocalizedEntityStatus}
       localesStatusMap={props.localesStatusMap}
-      activeLocales={props.sdk.parameters.instance.activeLocales}
+      activeLocales={activeLocales}
     />
-  ),
-  areEqual
-);
+  );
+}, areEqual);
 
 InternalAssetCard.displayName = 'InternalAssetCard';
 
