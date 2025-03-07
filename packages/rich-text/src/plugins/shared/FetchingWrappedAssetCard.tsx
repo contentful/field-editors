@@ -23,8 +23,12 @@ interface InternalAssetCardProps {
   localesStatusMap?: LocalePublishStatusMap;
 }
 
-const InternalAssetCard = React.memo(
-  (props: InternalAssetCardProps) => (
+const InternalAssetCard = React.memo((props: InternalAssetCardProps) => {
+  const activeLocalesValue = props.sdk.parameters.instance.activeLocales || '[]';
+  const activeLocales =
+    typeof activeLocalesValue === 'string' ? JSON.parse(activeLocalesValue) : activeLocalesValue;
+
+  return (
     <WrappedAssetCard
       getEntityScheduledActions={props.loadEntityScheduledActions}
       size="small"
@@ -38,11 +42,10 @@ const InternalAssetCard = React.memo(
       isClickable={false}
       useLocalizedEntityStatus={props.sdk.parameters.instance.useLocalizedEntityStatus}
       localesStatusMap={props.localesStatusMap}
-      activeLocales={props.sdk.parameters.instance.activeLocales}
+      activeLocales={activeLocales}
     />
-  ),
-  areEqual
-);
+  );
+}, areEqual);
 
 InternalAssetCard.displayName = 'InternalAssetCard';
 

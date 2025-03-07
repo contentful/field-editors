@@ -127,6 +127,10 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       return <EntryCard size={size} isLoading />;
     }
 
+    const activeLocalesValue = props.sdk.parameters.instance.activeLocales || '[]';
+    const activeLocales =
+      typeof activeLocalesValue === 'string' ? JSON.parse(activeLocalesValue) : activeLocalesValue;
+
     const sharedCardProps: CustomEntityCardProps = {
       index: props.index,
       entity: entry,
@@ -146,7 +150,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       isBeingDragged: props.isBeingDragged,
       useLocalizedEntityStatus: props.sdk.parameters.instance.useLocalizedEntityStatus,
       localesStatusMap,
-      activeLocales: props.sdk.parameters.instance.activeLocales,
+      activeLocales,
     };
 
     const { hasCardEditActions, hasCardMoveActions, hasCardRemoveActions } = props;

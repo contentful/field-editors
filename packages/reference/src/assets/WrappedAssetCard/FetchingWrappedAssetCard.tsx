@@ -84,6 +84,10 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
 
     const { getEntityUrl } = props;
     const size = props.viewType === 'big_card' ? 'default' : 'small';
+    const activeLocalesValue = props.sdk.parameters.instance.activeLocales || '[]';
+    const activeLocales =
+      typeof activeLocalesValue === 'string' ? JSON.parse(activeLocalesValue) : activeLocalesValue;
+
     const commonProps = {
       asset,
       entityUrl: getEntityUrl && getEntityUrl(props.assetId),
@@ -96,7 +100,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       onRemove,
       useLocalizedEntityStatus: props.sdk.parameters.instance.useLocalizedEntityStatus,
       localesStatusMap,
-      activeLocales: props.sdk.parameters.instance.activeLocales,
+      activeLocales,
     };
 
     if (props.viewType === 'link') {

@@ -26,6 +26,9 @@ interface InternalEntryCard {
 
 const InternalEntryCard = React.memo((props: InternalEntryCard) => {
   const { entry, sdk, loadEntityScheduledActions } = props;
+  const activeLocalesValue = props.sdk.parameters.instance.activeLocales || '[]';
+  const activeLocales =
+    typeof activeLocalesValue === 'string' ? JSON.parse(activeLocalesValue) : activeLocalesValue;
 
   const contentType = sdk.space
     .getCachedContentTypes()
@@ -47,7 +50,7 @@ const InternalEntryCard = React.memo((props: InternalEntryCard) => {
       isClickable={false}
       useLocalizedEntityStatus={sdk.parameters.instance.useLocalizedEntityStatus}
       localesStatusMap={props.localesStatusMap}
-      activeLocales={props.sdk.parameters.instance.activeLocales}
+      activeLocales={activeLocales}
     />
   );
 }, areEqual);
