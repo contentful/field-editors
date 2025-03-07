@@ -38,7 +38,7 @@ const InternalAssetCard = React.memo(
       isClickable={false}
       useLocalizedEntityStatus={props.sdk.parameters.instance.useLocalizedEntityStatus}
       localesStatusMap={props.localesStatusMap}
-      activeLocales={props.sdk.parameters.instance.activeLocales}
+      activeLocales={JSON.parse(props.sdk.parameters.instance.activeLocales)}
     />
   ),
   areEqual
