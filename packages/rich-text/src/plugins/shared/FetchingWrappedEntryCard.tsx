@@ -47,7 +47,7 @@ const InternalEntryCard = React.memo((props: InternalEntryCard) => {
       isClickable={false}
       useLocalizedEntityStatus={sdk.parameters.instance.useLocalizedEntityStatus}
       localesStatusMap={props.localesStatusMap}
-      activeLocales={JSON.parse(props.sdk.parameters.instance.activeLocales)}
+      activeLocales={props.sdk.parameters.instance.activeLocales}
     />
   );
 }, areEqual);

@@ -96,7 +96,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       onRemove,
       useLocalizedEntityStatus: props.sdk.parameters.instance.useLocalizedEntityStatus,
       localesStatusMap,
-      activeLocales: JSON.parse(props.sdk.parameters.instance.activeLocales),
+      activeLocales: props.sdk.parameters.instance.activeLocales,
     };
 
     if (props.viewType === 'link') {
