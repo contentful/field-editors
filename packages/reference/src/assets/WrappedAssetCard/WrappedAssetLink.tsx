@@ -1,20 +1,17 @@
 import * as React from 'react';
 
 import { EntryCard } from '@contentful/f36-components';
-import { ClockIcon } from '@contentful/f36-icons';
-import tokens from '@contentful/f36-tokens';
-import { entityHelpers, isValidImage, SpaceAPI } from '@contentful/field-editor-shared';
-import { css } from 'emotion';
+import {
+  entityHelpers,
+  isValidImage,
+  LocalePublishStatusMap,
+  SpaceAPI,
+} from '@contentful/field-editor-shared';
+import { LocaleProps } from 'contentful-management';
 
-import { AssetThumbnail, MissingAssetCard, ScheduledIconWithTooltip } from '../../components';
+import { AssetThumbnail, EntityStatusBadge, MissingAssetCard } from '../../components';
 import { Asset, RenderDragFn } from '../../types';
 import { renderActions, renderAssetInfo } from './AssetCardActions';
-
-const styles = {
-  scheduleIcon: css({
-    marginRight: tokens.spacing2Xs,
-  }),
-};
 
 export interface WrappedAssetLinkProps {
   getEntityScheduledActions: SpaceAPI['getEntityScheduledActions'];
@@ -28,6 +25,8 @@ export interface WrappedAssetLinkProps {
   onRemove: () => void;
   renderDragHandle?: RenderDragFn;
   useLocalizedEntityStatus?: boolean;
+  localesStatusMap?: LocalePublishStatusMap;
+  activeLocales?: Pick<LocaleProps, 'code'>[];
 }
 
 export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
@@ -61,23 +60,19 @@ export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
       className={className}
       href={href}
       size="small"
-      status={status}
-      thumbnailElement={
-        entityFile && isValidImage(entityFile) ? <AssetThumbnail file={entityFile} /> : undefined
-      }
-      icon={
-        <ScheduledIconWithTooltip
+      badge={
+        <EntityStatusBadge
           getEntityScheduledActions={props.getEntityScheduledActions}
           entityType="Asset"
-          entityId={props.asset.sys.id}
-        >
-          <ClockIcon
-            className={styles.scheduleIcon}
-            size="small"
-            variant="muted"
-            testId="schedule-icon"
-          />
-        </ScheduledIconWithTooltip>
+          status={status}
+          useLocalizedEntityStatus={props.useLocalizedEntityStatus}
+          entity={props.asset}
+          localesStatusMap={props.localesStatusMap}
+          activeLocales={props.activeLocales}
+        />
+      }
+      thumbnailElement={
+        entityFile && isValidImage(entityFile) ? <AssetThumbnail file={entityFile} /> : undefined
       }
       onClick={(e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();

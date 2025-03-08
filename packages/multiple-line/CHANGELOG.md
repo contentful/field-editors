@@ -3,6 +3,84 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-multiple-line@1.4.1...@contentful/field-editor-multiple-line@1.4.2) (2025-02-04)
+
+**Note:** Version bump only for package @contentful/field-editor-multiple-line
+
+## [1.4.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-multiple-line@1.4.0...@contentful/field-editor-multiple-line@1.4.1) (2025-01-17)
+
+**Note:** Version bump only for package @contentful/field-editor-multiple-line
+
+# [1.4.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-multiple-line@1.3.31...@contentful/field-editor-multiple-line@1.4.0) (2024-12-09)
+
+### Features
+
+- properly handle isDisabled prop [BBEE-797] ([#1816](https://github.com/contentful/field-editors/issues/1816)) ([b1531d2](https://github.com/contentful/field-editors/commit/b1531d25c9dc73818c82fe56ca9884372b5a1603))
+
+## [1.3.31](https://github.com/contentful/field-editors/compare/@contentful/field-editor-multiple-line@1.3.30...@contentful/field-editor-multiple-line@1.3.31) (2024-11-26)
+
+**Note:** Version bump only for package @contentful/field-editor-multiple-line
+
+## [1.3.30](https://github.com/contentful/field-editors/compare/@contentful/field-editor-multiple-line@1.3.29...@contentful/field-editor-multiple-line@1.3.30) (2024-11-20)
+
+**Note:** Version bump only for package @contentful/field-editor-multiple-line
+
+## [1.3.29](https://github.com/contentful/field-editors/compare/@contentful/field-editor-multiple-line@1.3.28...@contentful/field-editor-multiple-line@1.3.29) (2024-11-20)
+
+**Note:** Version bump only for package @contentful/field-editor-multiple-line
+
+## [1.3.28](https://github.com/contentful/field-editors/compare/@contentful/field-editor-multiple-line@1.3.27...@contentful/field-editor-multiple-line@1.3.28) (2024-11-07)
+
+**Note:** Version bump only for package @contentful/field-editor-multiple-line
+
+## [1.3.27](https://github.com/contentful/field-editors/compare/@contentful/field-editor-multiple-line@1.3.26...@contentful/field-editor-multiple-line@1.3.27) (2024-11-05)
+
+**Note:** Version bump only for package @contentful/field-editor-multiple-line
+
+## [1.3.26](https://github.com/contentful/field-editors/compare/@contentful/field-editor-multiple-line@1.3.25...@contentful/field-editor-multiple-line@1.3.26) (2024-11-04)
+
+**Note:** Version bump only for package @contentful/field-editor-multiple-line
+
+## [1.3.25](https://github.com/contentful/field-editors/compare/@contentful/field-editor-multiple-line@1.3.24...@contentful/field-editor-multiple-line@1.3.25) (2024-11-04)
+
+**Note:** Version bump only for package @contentful/field-editor-multiple-line
+
+## [1.3.24](https://github.com/contentful/field-editors/compare/@contentful/field-editor-multiple-line@1.3.23...@contentful/field-editor-multiple-line@1.3.24) (2024-10-10)
+
+**Note:** Version bump only for package @contentful/field-editor-multiple-line
+
+## [1.3.23](https://github.com/contentful/field-editors/compare/@contentful/field-editor-multiple-line@1.3.22...@contentful/field-editor-multiple-line@1.3.23) (2024-10-09)
+
+**Note:** Version bump only for package @contentful/field-editor-multiple-line
+
+## [1.3.22](https://github.com/contentful/field-editors/compare/@contentful/field-editor-multiple-line@1.3.21...@contentful/field-editor-multiple-line@1.3.22) (2024-10-09)
+
+**Note:** Version bump only for package @contentful/field-editor-multiple-line
+
+## [1.3.21](https://github.com/contentful/field-editors/compare/@contentful/field-editor-multiple-line@1.3.20...@contentful/field-editor-multiple-line@1.3.21) (2024-10-04)
+
+**Note:** Version bump only for package @contentful/field-editor-multiple-line
+
+## [1.3.20](https://github.com/contentful/field-editors/compare/@contentful/field-editor-multiple-line@1.3.19...@contentful/field-editor-multiple-line@1.3.20) (2024-10-01)
+
+**Note:** Version bump only for package @contentful/field-editor-multiple-line
+
+## [1.3.19](https://github.com/contentful/field-editors/compare/@contentful/field-editor-multiple-line@1.3.18...@contentful/field-editor-multiple-line@1.3.19) (2024-08-21)
+
+**Note:** Version bump only for package @contentful/field-editor-multiple-line
+
+## [1.3.18](https://github.com/contentful/field-editors/compare/@contentful/field-editor-multiple-line@1.3.17...@contentful/field-editor-multiple-line@1.3.18) (2024-07-23)
+
+**Note:** Version bump only for package @contentful/field-editor-multiple-line
+
+## [1.3.17](https://github.com/contentful/field-editors/compare/@contentful/field-editor-multiple-line@1.3.16...@contentful/field-editor-multiple-line@1.3.17) (2024-06-26)
+
+**Note:** Version bump only for package @contentful/field-editor-multiple-line
+
+## [1.3.16](https://github.com/contentful/field-editors/compare/@contentful/field-editor-multiple-line@1.3.15...@contentful/field-editor-multiple-line@1.3.16) (2024-06-13)
+
+**Note:** Version bump only for package @contentful/field-editor-multiple-line
+
 ## [1.3.15](https://github.com/contentful/field-editors/compare/@contentful/field-editor-multiple-line@1.3.14...@contentful/field-editor-multiple-line@1.3.15) (2024-06-07)
 
 **Note:** Version bump only for package @contentful/field-editor-multiple-line

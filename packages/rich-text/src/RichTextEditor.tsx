@@ -20,20 +20,39 @@ import { SyncEditorChanges } from './SyncEditorChanges';
 import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/components/StickyToolbarWrapper';
 
-type ConnectedProps = {
+type RichTextProps = {
   sdk: FieldAppSDK;
+  isInitiallyDisabled: boolean;
   onAction?: RichTextTrackingActionHandler;
+  restrictedMarks?: string[];
+  // For passing down to connected editor, some refactoring needed
   minHeight?: string | number;
   maxHeight?: string | number;
   value?: Contentful.Document;
   isDisabled?: boolean;
-  onChange?: (doc: Contentful.Document) => unknown;
   isToolbarHidden?: boolean;
   actionsDisabled?: boolean;
-  restrictedMarks?: string[];
+  /**
+   * @deprecated Use `sdk.field.onValueChanged` instead
+   */
+  onChange?: (doc: Contentful.Document) => unknown;
 };
 
-export const ConnectedRichTextEditor = (props: ConnectedProps) => {
+type ConnectedRichTextProps = {
+  sdk: FieldAppSDK;
+  onAction?: RichTextTrackingActionHandler;
+  onChange?: (doc: Contentful.Document) => unknown;
+  restrictedMarks?: string[];
+  minHeight?: string | number;
+  maxHeight?: string | number;
+  value?: Contentful.Document;
+  isDisabled?: boolean;
+  isToolbarHidden?: boolean;
+  actionsDisabled?: boolean;
+  stickyToolbarOffset?: number;
+};
+
+export const ConnectedRichTextEditor = (props: ConnectedRichTextProps) => {
   const { sdk, onAction, restrictedMarks } = props;
 
   const id = getContentfulEditorId(sdk);
@@ -65,62 +84,77 @@ export const ConnectedRichTextEditor = (props: ConnectedProps) => {
   );
 
   return (
-    <SdkProvider sdk={sdk}>
-      <ContentfulEditorIdProvider value={id}>
-        <div className={styles.root} data-test-id="rich-text-editor">
-          <Plate
-            id={id}
-            initialValue={initialValue}
-            plugins={plugins as PlatePlugin[]}
-            disableCorePlugins={disableCorePlugins}
-          >
-            {!props.isToolbarHidden && (
-              <StickyToolbarWrapper isDisabled={props.isDisabled}>
-                <Toolbar isDisabled={props.isDisabled} />
-              </StickyToolbarWrapper>
-            )}
-            <SyncEditorChanges incomingValue={initialValue} onChange={props.onChange} />
-            <PlateContent id={id} className={classNames} readOnly={props.isDisabled} />
-          </Plate>
-        </div>
-      </ContentfulEditorIdProvider>
-    </SdkProvider>
+    <EntityProvider sdk={sdk}>
+      <SdkProvider sdk={sdk}>
+        <ContentfulEditorIdProvider value={id}>
+          <div className={styles.root} data-test-id="rich-text-editor">
+            <Plate
+              id={id}
+              initialValue={initialValue}
+              plugins={plugins as PlatePlugin[]}
+              disableCorePlugins={disableCorePlugins}
+            >
+              {!props.isToolbarHidden && (
+                <StickyToolbarWrapper
+                  isDisabled={props.isDisabled}
+                  offset={props.stickyToolbarOffset}
+                >
+                  <Toolbar isDisabled={props.isDisabled} />
+                </StickyToolbarWrapper>
+              )}
+              <SyncEditorChanges incomingValue={initialValue} onChange={props.onChange} />
+              <PlateContent id={id} className={classNames} readOnly={props.isDisabled} />
+            </Plate>
+          </div>
+        </ContentfulEditorIdProvider>
+      </SdkProvider>
+    </EntityProvider>
   );
 };
 
-type Props = ConnectedProps & { isInitiallyDisabled: boolean };
-
-const RichTextEditor = (props: Props) => {
-  const { sdk, isInitiallyDisabled, onAction, restrictedMarks, ...otherProps } = props;
+const RichTextEditor = (props: RichTextProps) => {
+  const {
+    sdk,
+    isInitiallyDisabled,
+    onAction,
+    restrictedMarks,
+    onChange,
+    isDisabled,
+    ...otherProps
+  } = props;
   const isEmptyValue = React.useCallback(
     (value) => !value || deepEquals(value, Contentful.EMPTY_DOCUMENT),
     []
   );
+  React.useEffect(() => {
+    if (!onChange) {
+      return;
+    }
+    return sdk.field.onValueChanged(onChange);
+  }, [onChange, sdk.field]);
 
   const id = getContentfulEditorId(props.sdk);
   return (
-    <EntityProvider sdk={sdk}>
-      <FieldConnector
-        debounce={0}
-        field={sdk.field}
-        isInitiallyDisabled={isInitiallyDisabled}
-        isEmptyValue={isEmptyValue}
-        isEqualValues={deepEquals}
-      >
-        {({ lastRemoteValue, disabled, setValue }) => (
-          <ConnectedRichTextEditor
-            {...otherProps}
-            key={`rich-text-editor-${id}`}
-            value={lastRemoteValue}
-            sdk={sdk}
-            onAction={onAction}
-            isDisabled={disabled}
-            onChange={setValue}
-            restrictedMarks={restrictedMarks}
-          />
-        )}
-      </FieldConnector>
-    </EntityProvider>
+    <FieldConnector
+      debounce={0}
+      field={sdk.field}
+      isInitiallyDisabled={isInitiallyDisabled}
+      isEmptyValue={isEmptyValue}
+      isDisabled={isDisabled}
+    >
+      {({ lastRemoteValue, disabled, setValue }) => (
+        <ConnectedRichTextEditor
+          {...otherProps}
+          key={`rich-text-editor-${id}`}
+          value={lastRemoteValue}
+          sdk={sdk}
+          onAction={onAction}
+          isDisabled={disabled}
+          onChange={setValue}
+          restrictedMarks={restrictedMarks}
+        />
+      )}
+    </FieldConnector>
   );
 };
 

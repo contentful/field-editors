@@ -8,6 +8,7 @@ import {
   MissingEntityCard,
   WrappedAssetCard,
 } from '@contentful/field-editor-reference';
+import { LocalePublishStatusMap, useLocalePublishStatus } from '@contentful/field-editor-shared';
 import areEqual from 'fast-deep-equal';
 
 interface InternalAssetCardProps {
@@ -19,6 +20,7 @@ interface InternalAssetCardProps {
   onRemove?: () => unknown;
   sdk: FieldAppSDK;
   loadEntityScheduledActions: (entityType: string, entityId: string) => Promise<ScheduledAction[]>;
+  localesStatusMap?: LocalePublishStatusMap;
 }
 
 const InternalAssetCard = React.memo(
@@ -35,6 +37,8 @@ const InternalAssetCard = React.memo(
       onRemove={props.isDisabled ? undefined : props.onRemove}
       isClickable={false}
       useLocalizedEntityStatus={props.sdk.parameters.instance.useLocalizedEntityStatus}
+      localesStatusMap={props.localesStatusMap}
+      activeLocales={props.sdk.parameters.instance.activeLocales}
     />
   ),
   areEqual
@@ -61,6 +65,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
     () => getEntityScheduledActions('Asset', props.assetId),
     [getEntityScheduledActions, props.assetId]
   );
+  const localesStatusMap = useLocalePublishStatus(asset, props.sdk.locales);
 
   React.useEffect(() => {
     if (status === 'success') {
@@ -92,6 +97,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       locale={props.locale}
       onEdit={props.onEdit}
       onRemove={props.onRemove}
+      localesStatusMap={localesStatusMap}
     />
   );
 }

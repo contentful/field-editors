@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 
 import { TextInput, Menu, MenuProps } from '@contentful/f36-components';
 import { SearchIcon } from '@contentful/f36-icons';
@@ -73,6 +73,7 @@ interface CreateEntryMenuTrigger {
   customDropdownItems?: React.ReactNode;
   children: CreateEntryMenuTriggerChild;
   menuProps?: Omit<MenuProps, 'children'>;
+  filterExperienceTypes?: boolean;
 }
 
 export const CreateEntryMenuTrigger = ({
@@ -87,6 +88,7 @@ export const CreateEntryMenuTrigger = ({
   customDropdownItems,
   children,
   menuProps,
+  filterExperienceTypes = true,
 }: CreateEntryMenuTrigger) => {
   const [isOpen, setOpen] = useState(false);
   const [isSelecting, setSelecting] = useState(false);
@@ -103,6 +105,20 @@ export const CreateEntryMenuTrigger = ({
     That it had on initial mount and that fits any menu item in has
   */
   const [dropdownWidth, setDropdownWidth] = useState();
+
+  // Filter out content types with the Contentful:ExperienceType annotation
+  const filteredContentTypes = useMemo(
+    () =>
+      filterExperienceTypes
+        ? contentTypes.filter((contentType) => {
+            const annotations = get(contentType, 'metadata.annotations.ContentType', []);
+            return !annotations.some(
+              (annotation) => get(annotation, 'sys.id') === 'Contentful:ExperienceType'
+            );
+          })
+        : contentTypes,
+    [contentTypes, filterExperienceTypes]
+  );
 
   const hasDropdown = contentTypes.length > 1 || !!customDropdownItems;
 
@@ -157,10 +173,12 @@ export const CreateEntryMenuTrigger = ({
       </Menu.SectionTitle>
     ) : null;
 
-  const isSearchable = contentTypes.length > MAX_ITEMS_WITHOUT_SEARCH;
+  const isSearchable = filteredContentTypes.length > MAX_ITEMS_WITHOUT_SEARCH;
   const maxDropdownHeight = suggestedContentTypeId ? 300 : 250;
-  const suggestedContentType = contentTypes.find((ct) => ct.sys.id === suggestedContentTypeId);
-  const filteredContentTypes = contentTypes.filter(
+  const suggestedContentType = filteredContentTypes.find(
+    (ct) => ct.sys.id === suggestedContentTypeId
+  );
+  const searchFilteredContentTypes = filteredContentTypes.filter(
     (ct) =>
       !searchInput || get(ct, 'name', 'Untitled').toLowerCase().includes(searchInput.toLowerCase())
   );
@@ -210,7 +228,7 @@ export const CreateEntryMenuTrigger = ({
               </>
             )}
 
-            {searchInput && renderSearchResultsCount(filteredContentTypes.length)}
+            {searchInput && renderSearchResultsCount(searchFilteredContentTypes.length)}
             {suggestedContentType && !searchInput && (
               <>
                 <Menu.SectionTitle>Suggested Content Type</Menu.SectionTitle>
@@ -221,8 +239,8 @@ export const CreateEntryMenuTrigger = ({
               </>
             )}
             {!searchInput && <Menu.SectionTitle>{contentTypesLabel}</Menu.SectionTitle>}
-            {filteredContentTypes.length ? (
-              filteredContentTypes.map((contentType, i) => (
+            {searchFilteredContentTypes.length ? (
+              searchFilteredContentTypes.map((contentType, i) => (
                 <Menu.Item
                   testId="contentType"
                   key={`${get(contentType, 'name')}-${i}`}
@@ -244,4 +262,5 @@ export const CreateEntryMenuTrigger = ({
 CreateEntryMenuTrigger.defaultProps = {
   testId: 'create-entry-button-menu-trigger',
   contentTypesLabel: 'All Content Types',
+  filterExperienceTypes: true,
 };

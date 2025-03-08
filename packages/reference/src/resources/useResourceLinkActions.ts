@@ -1,8 +1,9 @@
 import { useMemo } from 'react';
 
-import type { FieldAPI, FieldAppSDK } from '@contentful/app-sdk';
+import type { FieldAPI } from '@contentful/app-sdk';
 import type { ResourceLink } from 'contentful-management';
 
+import { EditorPermissionsProps, useEditorPermissions } from '../common/useEditorPermissions';
 import { LinkActionsProps } from '../components';
 
 const getUpdatedValue = (
@@ -18,12 +19,14 @@ const getUpdatedValue = (
   }
 };
 
+type ResourceLinkActionProps = Pick<EditorPermissionsProps, 'parameters' | 'sdk'>;
+
 export function useResourceLinkActions({
-  dialogs,
-  field,
-}: Pick<FieldAppSDK, 'field' | 'dialogs'> & {
-  apiUrl: string;
-}): LinkActionsProps {
+  parameters,
+  sdk,
+}: ResourceLinkActionProps): LinkActionsProps {
+  const { field, dialogs } = sdk;
+
   const onLinkedExisting = useMemo(() => {
     return (
       links: ResourceLink<'Contentful:Entry'>[] | [ResourceLink<'Contentful:Entry'> | null]
@@ -43,12 +46,14 @@ export function useResourceLinkActions({
           await dialogs.selectMultipleResourceEntities({
             // @ts-expect-error wait for update of app-sdk version
             allowedResources: field.allowedResources,
+            locale: field.locale,
           })
       : async (): Promise<[ResourceLink<'Contentful:Entry'> | null]> => [
           // @ts-expect-error wait for update of app-sdk version
           await dialogs.selectSingleResourceEntity({
             // @ts-expect-error wait for update of app-sdk version
             allowedResources: field.allowedResources,
+            locale: field.locale,
           }),
         ];
 
@@ -56,7 +61,14 @@ export function useResourceLinkActions({
       onLinkedExisting(await promptSelection());
     };
     // @ts-expect-error wait for update of app-sdk version
-  }, [dialogs, field.allowedResources, multiple, onLinkedExisting]);
+  }, [dialogs, field.allowedResources, field.locale, multiple, onLinkedExisting]);
+
+  const { canLinkEntity } = useEditorPermissions({
+    entityType: 'Entry',
+    allContentTypes: [],
+    sdk,
+    parameters,
+  });
 
   return {
     onLinkExisting,
@@ -67,7 +79,7 @@ export function useResourceLinkActions({
     contentTypes: [],
     canCreateEntity: false,
     canLinkMultiple: multiple,
-    canLinkEntity: true,
+    canLinkEntity,
     isDisabled: false,
     isEmpty: false,
     isFull: false,

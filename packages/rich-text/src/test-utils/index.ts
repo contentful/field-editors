@@ -1,4 +1,4 @@
 export * from './jsx';
-export * from './createEditor';
+export * from './createTestEditor';
 export * from './mockPlugin';
 export * from './assertOutput';

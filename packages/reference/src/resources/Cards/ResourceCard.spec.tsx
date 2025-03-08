@@ -11,7 +11,7 @@ import publishedEntry from '../../__fixtures__/entry/published_entry.json';
 import resourceType from '../../__fixtures__/resource-type/resource-type.json';
 import resource from '../../__fixtures__/resource/resource.json';
 import space from '../../__fixtures__/space/indifferent_space.json';
-import { EntityProvider } from '../../common/EntityStore';
+import { EntityProvider, FunctionInvocationErrorResponse } from '../../common/EntityStore';
 import { ResourceCard } from './ResourceCard';
 
 configure({
@@ -32,6 +32,7 @@ const unknownEntryUrn = 'crn:contentful:::content:spaces/space-id/entries/unknow
 
 const resolvableExternalResourceType = 'External:ResourceType';
 const resolvableExternalEntityUrn = 'external:entity-urn';
+const unresolvableExternalEntityUrn = 'external:unresolvable-entity-urn';
 
 const sdk: any = {
   locales: {
@@ -58,28 +59,48 @@ const sdk: any = {
         return Promise.reject(new Error());
       }),
     },
-    Http: {
-      get: jest.fn().mockImplementation(({ url, config }) => {
-        if (url === '/spaces/space-id/environments/environment-id/resource_types') {
-          return Promise.resolve({ items: [resourceType] });
-        }
+    Locale: {
+      getMany: jest.fn().mockResolvedValue({ items: [{ default: true, code: 'en' }] }),
+    },
+    Resource: {
+      getMany: jest.fn().mockImplementation(({ spaceId, environmentId, resourceTypeId, query }) => {
         if (
-          url ===
-            `/spaces/space-id/environments/environment-id/resource_types/${resolvableExternalResourceType}/resources` &&
-          config.params['sys.urn[in]'] === resolvableExternalEntityUrn
+          spaceId === 'space-id' &&
+          environmentId === 'environment-id' &&
+          resourceTypeId === resolvableExternalResourceType &&
+          query['sys.urn[in]'] === resolvableExternalEntityUrn
         ) {
           return Promise.resolve({ items: [resource] });
         }
+
+        if (query['sys.urn[in]'] === unresolvableExternalEntityUrn) {
+          const badRequestErrorBody: { message: FunctionInvocationErrorResponse['message'] } = {
+            message: 'An error occurred while executing the Contentful Function code',
+          };
+
+          return Promise.reject(new Error(JSON.stringify(badRequestErrorBody)));
+        }
+
         return Promise.resolve({ items: [] });
       }),
     },
-    Locale: {
-      getMany: jest.fn().mockResolvedValue({ items: [{ default: true, code: 'en' }] }),
+    ResourceType: {
+      getForEnvironment: jest.fn().mockImplementation(({ spaceId, environmentId }) => {
+        if (spaceId === 'space-id' && environmentId === 'environment-id') {
+          return Promise.resolve({ items: [resourceType], pages: {} });
+        }
+        return Promise.resolve({ items: [] });
+      }),
     },
     ScheduledAction: {
       getMany: jest.fn().mockResolvedValue({ items: [], total: 0 }),
     },
     Space: { get: jest.fn().mockResolvedValue(space) },
+    ResourceProvider: {
+      get: jest.fn().mockImplementation(() => {
+        return Promise.resolve({ function: { sys: { id: 'function-id' } } });
+      }),
+    },
   }),
   space: { onEntityChanged: jest.fn() },
   navigator: {},
@@ -191,5 +212,15 @@ describe('ResourceCard', () => {
     expect(
       getByText(`${resourceType.sys.resourceProvider.sys.id} ${resourceType.name}`)
     ).toBeDefined();
+  });
+
+  it('renders function invocation error card when an external resource request fails', async () => {
+    const { getByTestId } = renderResourceCard({
+      linkType: resolvableExternalResourceType,
+      entityUrn: unresolvableExternalEntityUrn,
+    });
+
+    await waitFor(() => expect(getByTestId('cf-ui-function-invocation-error-card')).toBeDefined());
+    await waitFor(() => expect(getByTestId('cf-ui-function-invocation-log-link')).toBeDefined());
   });
 });

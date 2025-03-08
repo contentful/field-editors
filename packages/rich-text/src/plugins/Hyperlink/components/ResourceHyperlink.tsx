@@ -63,7 +63,7 @@ export function ResourceHyperlink(props: ResourceHyperlinkProps) {
         data-resource-link-type={target.sys.linkType}
         data-resource-link-urn={target.sys.urn}
       >
-        {props.children}
+        {props.children as React.ReactNode}
       </Text>
     </LinkPopover>
   );

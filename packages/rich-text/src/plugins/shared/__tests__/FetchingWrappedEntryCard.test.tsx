@@ -19,6 +19,10 @@ beforeEach(() => {
   sdk = {
     locales: {
       default: 'en-US',
+      available: ['en-US'],
+      names: {
+        'en-US': 'English (United States)',
+      },
     },
     cmaAdapter: createFakeCMAAdapter({
       Entry: { get: jest.fn().mockResolvedValue(publishedEntry) },
@@ -37,6 +41,8 @@ beforeEach(() => {
       space: 'space-id',
       environment: 'environment-id',
     },
+    parameters: { instance: {} },
+    field: { localized: false },
   };
 });
 

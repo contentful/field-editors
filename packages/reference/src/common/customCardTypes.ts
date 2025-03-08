@@ -1,5 +1,8 @@
 import * as React from 'react';
 
+import { LocalePublishStatusMap } from '@contentful/field-editor-shared';
+import { LocaleProps } from 'contentful-management';
+
 import { WrappedEntryCardProps } from '../entries/WrappedEntryCard/WrappedEntryCard';
 import { Asset, ContentType, Entry, RenderDragFn } from '../types';
 import { CustomActionProps } from './ReferenceEditor';
@@ -43,4 +46,6 @@ export type CustomEntityCardProps = {
   isBeingDragged?: boolean;
 
   useLocalizedEntityStatus?: boolean;
+  localesStatusMap?: LocalePublishStatusMap;
+  activeLocales?: Pick<LocaleProps, 'code'>[];
 };

@@ -2,14 +2,12 @@ import * as React from 'react';
 
 import { SpaceAPI } from '@contentful/app-sdk';
 import { AssetCard } from '@contentful/f36-components';
-import { ClockIcon } from '@contentful/f36-icons';
-import tokens from '@contentful/f36-tokens';
-import { entityHelpers } from '@contentful/field-editor-shared';
+import { entityHelpers, LocalePublishStatusMap } from '@contentful/field-editor-shared';
 // @ts-expect-error
 import mimetype from '@contentful/mimetype';
-import { css } from 'emotion';
+import { LocaleProps } from 'contentful-management';
 
-import { MissingAssetCard, ScheduledIconWithTooltip } from '../../components';
+import { EntityStatusBadge, MissingAssetCard } from '../../components';
 import { Asset, File, RenderDragFn } from '../../types';
 import { renderActions, renderAssetInfo } from './AssetCardActions';
 
@@ -27,12 +25,6 @@ const groupToIconMap = {
   markup: 'markup',
 };
 
-const styles = {
-  scheduleIcon: css({
-    marginRight: tokens.spacing2Xs,
-  }),
-};
-
 export interface WrappedAssetCardProps {
   getEntityScheduledActions: SpaceAPI['getEntityScheduledActions'];
   asset: Asset;
@@ -47,7 +39,9 @@ export interface WrappedAssetCardProps {
   size: 'default' | 'small';
   renderDragHandle?: RenderDragFn;
   isClickable: boolean;
-  useLocalizedEntityStatus: boolean;
+  useLocalizedEntityStatus?: boolean;
+  localesStatusMap?: LocalePublishStatusMap;
+  activeLocales?: Pick<LocaleProps, 'code'>[];
 }
 
 const defaultProps = {
@@ -68,31 +62,45 @@ function getFileType(file?: File): any {
   return groupToIconMap[groupName] || 'archive';
 }
 
-export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
-  const { className, onEdit, getAssetUrl, onRemove, size, isDisabled, isSelected, isClickable } =
-    props;
-
+export const WrappedAssetCard = ({
+  asset,
+  className,
+  size,
+  localeCode,
+  defaultLocaleCode,
+  activeLocales,
+  localesStatusMap,
+  isDisabled,
+  isSelected,
+  isClickable,
+  useLocalizedEntityStatus,
+  renderDragHandle,
+  getEntityScheduledActions,
+  onEdit,
+  getAssetUrl,
+  onRemove,
+}: WrappedAssetCardProps) => {
   const status = entityHelpers.getEntityStatus(
-    props.asset.sys,
-    props.useLocalizedEntityStatus ? props.localeCode : undefined
+    asset.sys,
+    useLocalizedEntityStatus ? localeCode : undefined
   );
 
   if (status === 'deleted') {
-    return <MissingAssetCard asSquare isDisabled={props.isDisabled} onRemove={props.onRemove} />;
+    return <MissingAssetCard asSquare isDisabled={isDisabled} onRemove={onRemove} />;
   }
 
   const entityTitle = entityHelpers.getAssetTitle({
-    asset: props.asset,
-    localeCode: props.localeCode,
-    defaultLocaleCode: props.defaultLocaleCode,
+    asset: asset,
+    localeCode: localeCode,
+    defaultLocaleCode: defaultLocaleCode,
     defaultTitle: 'Untitled',
   });
 
-  const entityFile = props.asset.fields.file
-    ? props.asset.fields.file[props.localeCode] || props.asset.fields.file[props.defaultLocaleCode]
+  const entityFile = asset.fields.file
+    ? asset.fields.file[localeCode] || asset.fields.file[defaultLocaleCode]
     : undefined;
 
-  const href = getAssetUrl ? getAssetUrl(props.asset.sys.id) : undefined;
+  const href = getAssetUrl ? getAssetUrl(asset.sys.id) : undefined;
 
   return (
     <AssetCard
@@ -102,20 +110,16 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
       className={className}
       isSelected={isSelected}
       href={href}
-      status={status}
-      icon={
-        <ScheduledIconWithTooltip
-          getEntityScheduledActions={props.getEntityScheduledActions}
+      badge={
+        <EntityStatusBadge
+          getEntityScheduledActions={getEntityScheduledActions}
           entityType="Asset"
-          entityId={props.asset.sys.id}
-        >
-          <ClockIcon
-            className={styles.scheduleIcon}
-            size="small"
-            variant="muted"
-            testId="schedule-icon"
-          />
-        </ScheduledIconWithTooltip>
+          status={status}
+          useLocalizedEntityStatus={useLocalizedEntityStatus}
+          entity={asset}
+          localesStatusMap={localesStatusMap}
+          activeLocales={activeLocales}
+        />
       }
       src={
         entityFile && entityFile.url
@@ -148,8 +152,8 @@ export const WrappedAssetCard = (props: WrappedAssetCardProps) => {
             }
           : undefined
       }
-      dragHandleRender={props.renderDragHandle}
-      withDragHandle={!!props.renderDragHandle}
+      dragHandleRender={renderDragHandle}
+      withDragHandle={!!renderDragHandle}
       actions={[
         ...renderActions({ entityFile, isDisabled: isDisabled, onEdit, onRemove }),
         ...(entityFile ? renderAssetInfo({ entityFile }) : []),

@@ -31,12 +31,6 @@ export interface ExternalResourceCardProps {
   hasCardRemoveActions?: boolean;
 }
 
-const defaultProps = {
-  isClickable: true,
-  hasCardMoveActions: true,
-  hasCardRemoveActions: true,
-};
-
 const styles = {
   subtitle: css({
     color: tokens.gray600,
@@ -85,20 +79,21 @@ ExternalResourceCardDescription.displayName = 'ExternalResourceCardDescription';
 
 export function ExternalResourceCard({
   info,
-  isClickable,
+  isClickable = true,
   onEdit,
   onRemove,
   onMoveTop,
   onMoveBottom,
   hasCardEditActions,
-  hasCardMoveActions,
-  hasCardRemoveActions,
+  hasCardMoveActions = true,
+  hasCardRemoveActions = true,
   renderDragHandle,
   onClick,
   isSelected,
 }: ExternalResourceCardProps) {
   const { resource: entity, resourceType } = info;
   const badge = ExternalEntityBadge(entity.fields.badge);
+
   return (
     <EntryCard
       as={entity.fields.externalUrl ? 'a' : 'article'}
@@ -173,5 +168,3 @@ export function ExternalResourceCard({
     </EntryCard>
   );
 }
-
-ExternalResourceCard.defaultProps = defaultProps;

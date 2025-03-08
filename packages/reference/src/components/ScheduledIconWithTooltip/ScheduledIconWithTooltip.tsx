@@ -4,6 +4,59 @@ import { ScheduledAction, SpaceAPI } from '@contentful/app-sdk';
 
 import { ScheduleTooltip } from './ScheduleTooltip';
 
+export type UseScheduledActionsProps = Pick<
+  ScheduledIconWithTooltipProps,
+  'entityId' | 'entityType' | 'getEntityScheduledActions'
+>;
+
+export function useScheduledActions({
+  getEntityScheduledActions,
+  entityId,
+  entityType,
+}: UseScheduledActionsProps) {
+  const [status, setStatus] = React.useState<
+    | { type: 'loading' }
+    | { type: 'error'; error: Error }
+    | { type: 'loaded'; jobs: ScheduledAction[] }
+  >({ type: 'loading' });
+
+  React.useEffect(() => {
+    let mounted = true;
+    getEntityScheduledActions(entityType, entityId)
+      .then((data) => {
+        if (mounted) {
+          setStatus({ type: 'loaded', jobs: data });
+        }
+      })
+      .catch((e) => {
+        if (mounted) {
+          setStatus({ type: 'error', error: e });
+        }
+      });
+
+    return () => {
+      mounted = false;
+    };
+    // This should only be ever called once. Following the eslint hint to add used
+    // dependencies will cause page freeze (infinite loop)
+    // eslint-disable-next-line -- TODO: describe this disable
+  }, []);
+
+  if (status.type === 'loading') {
+    return { isLoading: true, isError: false, jobs: [] };
+  }
+
+  if (status.type === 'error') {
+    return { isLoading: false, isError: true, jobs: [] };
+  }
+
+  return {
+    isLoading: false,
+    isError: false,
+    jobs: status.jobs || [],
+  };
+}
+
 type ScheduledIconWithTooltipProps = {
   getEntityScheduledActions: SpaceAPI['getEntityScheduledActions'];
   entityType: 'Entry' | 'Asset';
@@ -17,39 +70,22 @@ export const ScheduledIconWithTooltip = ({
   getEntityScheduledActions,
   children,
 }: ScheduledIconWithTooltipProps) => {
-  const [status, setStatus] = React.useState<
-    | { type: 'loading' }
-    | { type: 'error'; error: Error }
-    | { type: 'loaded'; jobs: ScheduledAction[] }
-  >({ type: 'loading' });
+  const { isError, isLoading, jobs } = useScheduledActions({
+    entityType,
+    entityId,
+    getEntityScheduledActions,
+  });
 
-  React.useEffect(() => {
-    getEntityScheduledActions(entityType, entityId)
-      .then((data) => {
-        setStatus({ type: 'loaded', jobs: data });
-      })
-      .catch((e) => {
-        setStatus({ type: 'error', error: e });
-      });
-    // This should only be ever called once. Following the eslint hint to add used
-    // dependencies will cause page freeze (infinite loop)
-    // eslint-disable-next-line -- TODO: describe this disable
-  }, []);
-
-  if (status.type === 'loading' || status.type === 'error') {
-    return null;
+  if (isLoading || isError) {
+    return children;
   }
-
-  const jobs = status.jobs ?? [];
 
   if (jobs.length === 0) {
     return null;
   }
 
-  const mostRelevantJob = jobs[0];
-
   return (
-    <ScheduleTooltip job={mostRelevantJob} jobsCount={jobs.length}>
+    <ScheduleTooltip job={jobs[0]} jobsCount={jobs.length}>
       {children}
     </ScheduleTooltip>
   );

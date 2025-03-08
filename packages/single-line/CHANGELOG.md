@@ -3,6 +3,94 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-single-line@1.5.2...@contentful/field-editor-single-line@1.5.3) (2025-02-04)
+
+**Note:** Version bump only for package @contentful/field-editor-single-line
+
+## [1.5.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-single-line@1.5.1...@contentful/field-editor-single-line@1.5.2) (2025-01-17)
+
+**Note:** Version bump only for package @contentful/field-editor-single-line
+
+## [1.5.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-single-line@1.5.0...@contentful/field-editor-single-line@1.5.1) (2024-12-06)
+
+**Note:** Version bump only for package @contentful/field-editor-single-line
+
+# [1.5.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-single-line@1.4.16...@contentful/field-editor-single-line@1.5.0) (2024-12-03)
+
+### Features
+
+- single-line-editor add an optional prop to hide all validation messages [LUMOS-312] ([#1805](https://github.com/contentful/field-editors/issues/1805)) ([4590482](https://github.com/contentful/field-editors/commit/4590482e06e80f34c78ca844be78211a526b7bba))
+
+## [1.4.16](https://github.com/contentful/field-editors/compare/@contentful/field-editor-single-line@1.4.15...@contentful/field-editor-single-line@1.4.16) (2024-11-26)
+
+**Note:** Version bump only for package @contentful/field-editor-single-line
+
+## [1.4.15](https://github.com/contentful/field-editors/compare/@contentful/field-editor-single-line@1.4.14...@contentful/field-editor-single-line@1.4.15) (2024-11-20)
+
+**Note:** Version bump only for package @contentful/field-editor-single-line
+
+## [1.4.14](https://github.com/contentful/field-editors/compare/@contentful/field-editor-single-line@1.4.13...@contentful/field-editor-single-line@1.4.14) (2024-11-20)
+
+**Note:** Version bump only for package @contentful/field-editor-single-line
+
+## [1.4.13](https://github.com/contentful/field-editors/compare/@contentful/field-editor-single-line@1.4.12...@contentful/field-editor-single-line@1.4.13) (2024-11-07)
+
+**Note:** Version bump only for package @contentful/field-editor-single-line
+
+## [1.4.12](https://github.com/contentful/field-editors/compare/@contentful/field-editor-single-line@1.4.11...@contentful/field-editor-single-line@1.4.12) (2024-11-05)
+
+**Note:** Version bump only for package @contentful/field-editor-single-line
+
+## [1.4.11](https://github.com/contentful/field-editors/compare/@contentful/field-editor-single-line@1.4.10...@contentful/field-editor-single-line@1.4.11) (2024-11-04)
+
+**Note:** Version bump only for package @contentful/field-editor-single-line
+
+## [1.4.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-single-line@1.4.9...@contentful/field-editor-single-line@1.4.10) (2024-11-04)
+
+**Note:** Version bump only for package @contentful/field-editor-single-line
+
+## [1.4.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-single-line@1.4.8...@contentful/field-editor-single-line@1.4.9) (2024-10-10)
+
+**Note:** Version bump only for package @contentful/field-editor-single-line
+
+## [1.4.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-single-line@1.4.7...@contentful/field-editor-single-line@1.4.8) (2024-10-09)
+
+**Note:** Version bump only for package @contentful/field-editor-single-line
+
+## [1.4.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-single-line@1.4.6...@contentful/field-editor-single-line@1.4.7) (2024-10-09)
+
+**Note:** Version bump only for package @contentful/field-editor-single-line
+
+## [1.4.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-single-line@1.4.5...@contentful/field-editor-single-line@1.4.6) (2024-10-04)
+
+**Note:** Version bump only for package @contentful/field-editor-single-line
+
+## [1.4.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-single-line@1.4.4...@contentful/field-editor-single-line@1.4.5) (2024-10-01)
+
+**Note:** Version bump only for package @contentful/field-editor-single-line
+
+## [1.4.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-single-line@1.4.3...@contentful/field-editor-single-line@1.4.4) (2024-08-21)
+
+**Note:** Version bump only for package @contentful/field-editor-single-line
+
+## [1.4.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-single-line@1.4.2...@contentful/field-editor-single-line@1.4.3) (2024-07-23)
+
+**Note:** Version bump only for package @contentful/field-editor-single-line
+
+## [1.4.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-single-line@1.4.1...@contentful/field-editor-single-line@1.4.2) (2024-06-26)
+
+**Note:** Version bump only for package @contentful/field-editor-single-line
+
+## [1.4.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-single-line@1.4.0...@contentful/field-editor-single-line@1.4.1) (2024-06-13)
+
+**Note:** Version bump only for package @contentful/field-editor-single-line
+
+# [1.4.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-single-line@1.3.15...@contentful/field-editor-single-line@1.4.0) (2024-06-11)
+
+### Features
+
+- allow onBlur and onFocus on SingleLineEditor [] ([#1655](https://github.com/contentful/field-editors/issues/1655)) ([f613883](https://github.com/contentful/field-editors/commit/f61388310fa700ed6202175a17efbf5f46cced7e))
+
 ## [1.3.15](https://github.com/contentful/field-editors/compare/@contentful/field-editor-single-line@1.3.14...@contentful/field-editor-single-line@1.3.15) (2024-06-07)
 
 **Note:** Version bump only for package @contentful/field-editor-single-line

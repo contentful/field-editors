@@ -4,7 +4,6 @@ import { useCallback } from 'react';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import { DragStartEvent } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
-import deepEqual from 'deep-equal';
 import noop from 'lodash/noop';
 
 import { EntityProvider } from '../common/EntityStore';
@@ -29,22 +28,21 @@ type ChildProps = {
 type EditorProps = ReferenceEditorProps &
   Omit<ChildProps, 'onSortStart' | 'onSortEnd' | 'onMove' | 'onRemoteItemAtIndex'> & {
     children: (props: ReferenceEditorProps & ChildProps) => React.ReactElement;
-    apiUrl: string;
   };
 
 function ResourceEditor(props: EditorProps) {
-  const { setValue, items, apiUrl } = props;
+  const { setValue, items } = props;
 
   const onSortStart = () => noop();
   const onSortEnd = useCallback(
-    ({ oldIndex, newIndex }) => {
+    ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => {
       const newItems = arrayMove(items, oldIndex, newIndex);
       setValue(newItems);
     },
     [items, setValue]
   );
   const onMove = useCallback(
-    (oldIndex, newIndex) => {
+    (oldIndex: number, newIndex: number) => {
       const newItems = arrayMove(items, oldIndex, newIndex);
       setValue(newItems);
     },
@@ -52,17 +50,15 @@ function ResourceEditor(props: EditorProps) {
   );
 
   const onRemoteItemAtIndex = useCallback(
-    (index) => {
+    (index: number) => {
       setValue(items.filter((_v, i) => i !== index));
     },
     [items, setValue]
   );
 
-  const { dialogs, field } = props.sdk;
   const linkActionsProps = useResourceLinkActions({
-    dialogs,
-    field,
-    apiUrl,
+    sdk: props.sdk,
+    parameters: props.parameters,
   });
 
   return (
@@ -135,7 +131,6 @@ export function MultipleResourceReferenceEditor(
         debounce={0}
         field={props.sdk.field}
         isInitiallyDisabled={props.isInitiallyDisabled}
-        isEqualValues={deepEqual}
       >
         {({ value, disabled, setValue, externalReset }) => {
           return (

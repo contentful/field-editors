@@ -54,7 +54,7 @@ export function UrlHyperlink(props: UrlHyperlinkProps) {
         onClick={(e) => e.preventDefault()}
         className={styles.hyperlink}
       >
-        {props.children}
+        {props.children as React.ReactNode}
       </TextLink>
     </LinkPopover>
   );

@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
-import { BaseAppSDK, CollectionResponse } from '@contentful/app-sdk';
+import { BaseAppSDK } from '@contentful/app-sdk';
 import { FetchQueryOptions, Query, QueryKey } from '@tanstack/react-query';
 import constate from 'constate';
-import { PlainClientAPI, createClient } from 'contentful-management';
+import { PlainClientAPI, ResourceProvider, createClient, fetchAll } from 'contentful-management';
 import PQueue from 'p-queue';
 
 import {
@@ -60,11 +60,11 @@ type UseEntityOptions = GetEntityOptions & { enabled?: boolean };
 
 type QueryEntityResult<E> = Promise<E>;
 
-type GetResourceOptions = GetOptions & { allowExternal?: boolean };
+type GetResourceOptions = GetOptions & { allowExternal?: boolean; locale?: string };
 
 type QueryResourceResult<R extends Resource = Resource> = QueryEntityResult<ResourceInfo<R>>;
 
-type UseResourceOptions = GetResourceOptions & { enabled?: boolean };
+type UseResourceOptions = GetResourceOptions & { enabled?: boolean; locale?: string };
 
 // all types of the union share the data property to ease destructuring downstream
 type UseEntityResult<E> =
@@ -92,7 +92,42 @@ type EntityQueryKey = [
   environmentId: string
 ];
 
+type ResourceProviderQueryKey = [
+  ident: 'ResourceProvider',
+  organizationId: string,
+  appDefinitionId: string
+];
+
 type ScheduledActionsQueryKey = ['scheduled-actions', ...EntityQueryKey];
+
+export type FunctionInvocationErrorResponse = {
+  status: number;
+  statusText: string;
+  message:
+    | 'Response payload of the Contentful Function is invalid'
+    | 'An error occurred while executing the Contentful Function code';
+  request: {
+    url: string;
+    headers: Record<string, string>;
+    method: string;
+  };
+};
+
+function isFunctionInvocationErrorResponse(
+  response: unknown
+): response is FunctionInvocationErrorResponse {
+  const functionInvocationErrorMessages = [
+    'An error occurred while executing the Contentful Function code',
+    'Response payload of the Contentful Function is invalid',
+  ];
+  return (
+    response !== null &&
+    typeof response === 'object' &&
+    'message' in response &&
+    typeof response.message === 'string' &&
+    functionInvocationErrorMessages.includes(response.message)
+  );
+}
 
 export class UnsupportedError extends Error {
   isUnsupportedError: boolean;
@@ -108,6 +143,43 @@ export function isUnsupportedError(value: unknown): value is UnsupportedError {
   );
 }
 
+export class FunctionInvocationError extends Error {
+  isFunctionInvocationError: boolean;
+  organizationId: string;
+  appDefinitionId: string;
+  constructor(message: string, organizationId: string, appDefinitionId: string) {
+    super(message);
+    this.isFunctionInvocationError = true;
+    this.organizationId = organizationId;
+    this.appDefinitionId = appDefinitionId;
+  }
+}
+
+export function isFunctionInvocationError(value: unknown): value is FunctionInvocationError {
+  return (
+    typeof value === 'object' &&
+    (value as FunctionInvocationError | null)?.isFunctionInvocationError === true
+  );
+}
+
+function handleResourceFetchError(
+  resourceFetchError: Error,
+  resourceTypeEntity: ResourceType
+): void {
+  const parsedError = JSON.parse(resourceFetchError.message);
+  if (isFunctionInvocationErrorResponse(parsedError)) {
+    const organizationId = resourceTypeEntity.sys.organization?.sys.id;
+    const appDefinitionId = resourceTypeEntity.sys.appDefinition?.sys.id;
+
+    if (!organizationId || !appDefinitionId) throw new Error('Missing resource');
+
+    throw new FunctionInvocationError(resourceFetchError.message, organizationId, appDefinitionId);
+  }
+
+  // Rethrow original error if it's not a function invocation error
+  throw resourceFetchError;
+}
+
 const isEntityQueryKey = (queryKey: QueryKey): queryKey is EntityQueryKey => {
   return (
     Array.isArray(queryKey) &&
@@ -116,7 +188,12 @@ const isEntityQueryKey = (queryKey: QueryKey): queryKey is EntityQueryKey => {
   );
 };
 
-type ResourceQueryKey = [ident: 'Resource', resourceType: string, urn: string];
+type ResourceQueryKey = [
+  ident: 'Resource',
+  resourceType: string,
+  urn: string,
+  locale: string | undefined
+];
 
 async function fetchContentfulEntry({
   urn,
@@ -127,7 +204,7 @@ async function fetchContentfulEntry({
   const resourceId = urn.split(':', 6)[5];
   const ENTITY_RESOURCE_ID_REGEX =
     /^spaces\/(?<spaceId>[^/]+)(?:\/environments\/(?<environmentId>[^/]+))?\/entries\/(?<entityId>[^/]+)$/;
-  const resourceIdMatch = resourceId.match(ENTITY_RESOURCE_ID_REGEX);
+  const resourceIdMatch = resourceId?.match(ENTITY_RESOURCE_ID_REGEX);
   if (!resourceIdMatch || !resourceIdMatch?.groups?.spaceId || !resourceIdMatch?.groups?.entityId) {
     throw new Error('Not a valid crn');
   }
@@ -190,27 +267,45 @@ async function fetchExternalResource({
   spaceId,
   environmentId,
   resourceType,
-}: FetchParams & { spaceId: string; environmentId: string; resourceType: string }): Promise<
-  ResourceInfo<ExternalResource>
-> {
+  locale,
+}: FetchParams & {
+  spaceId: string;
+  environmentId: string;
+  resourceType: string;
+  locale?: string;
+}): Promise<ResourceInfo<ExternalResource>> {
+  let resourceFetchError: unknown;
   const [resource, resourceTypes] = await Promise.all([
     fetch(
       ['resource', spaceId, environmentId, resourceType, urn],
       ({ cmaClient }): Promise<ExternalResource | null> =>
-        cmaClient.raw
-          .get<CollectionResponse<ExternalResource>>(
-            `/spaces/${spaceId}/environments/${environmentId}/resource_types/${resourceType}/resources`,
-            { params: { 'sys.urn[in]': urn } }
-          )
-          .then(({ items }) => items[0] ?? null),
+        cmaClient.resource
+          .getMany({
+            spaceId,
+            environmentId,
+            resourceTypeId: resourceType,
+            query: { 'sys.urn[in]': urn, locale },
+          })
+          .then(({ items }) => {
+            return items[0] ?? null;
+          })
+          .catch((e) => {
+            /*
+            We're storing the error in this variable
+            so we can use the data returned by the
+            resourceType CMA client call in our
+            error handling logic later. 
+            */
+            resourceFetchError = e;
+            return null;
+          }),
       options
     ),
     fetch(['resource-types', spaceId, environmentId], ({ cmaClient }) =>
-      cmaClient.raw
-        .get<CollectionResponse<ResourceType>>(
-          `/spaces/${spaceId}/environments/${environmentId}/resource_types`
-        )
-        .then(({ items }) => items)
+      fetchAll(
+        ({ query }) => cmaClient.resourceType.getForEnvironment({ spaceId, environmentId, query }),
+        {}
+      )
     ),
   ]);
 
@@ -218,6 +313,10 @@ async function fetchExternalResource({
 
   if (!resourceTypeEntity) {
     throw new UnsupportedError('Unsupported resource type');
+  }
+
+  if (resourceFetchError instanceof Error) {
+    handleResourceFetchError(resourceFetchError, resourceTypeEntity);
   }
 
   if (!resource) {
@@ -362,7 +461,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
         urn: string,
         options?: GetResourceOptions
       ): QueryResourceResult<R> {
-        const queryKey: ResourceQueryKey = ['Resource', resourceType, urn];
+        const queryKey: ResourceQueryKey = ['Resource', resourceType, urn, options?.locale];
         return fetch(
           queryKey,
           (): Promise<ResourceInfo> => {
@@ -381,6 +480,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
             return fetchExternalResource({
               fetch,
               urn,
+              locale: options?.locale,
               options,
               resourceType,
               spaceId: currentSpaceId,
@@ -474,6 +574,26 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
       onSlideInNavigation,
     ]);
 
+    const getResourceProvider = useCallback(
+      function getResourceProvider(
+        organizationId: string,
+        appDefinitionId: string
+      ): QueryEntityResult<ResourceProvider> {
+        const queryKey: ResourceProviderQueryKey = [
+          'ResourceProvider',
+          organizationId,
+          appDefinitionId,
+        ];
+        return fetch(queryKey, async ({ cmaClient }) => {
+          return cmaClient.resourceProvider.get({
+            organizationId,
+            appDefinitionId,
+          });
+        });
+      },
+      [fetch]
+    );
+
     return {
       ids: props.sdk.ids,
       cmaClient,
@@ -481,13 +601,15 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
       getResource,
       getEntity,
       getEntityScheduledActions,
+      getResourceProvider,
     };
   },
   ({ fetch }) => fetch,
-  ({ getResource, getEntity, getEntityScheduledActions }) => ({
+  ({ getResource, getEntity, getEntityScheduledActions, getResourceProvider }) => ({
     getResource,
     getEntity,
     getEntityScheduledActions,
+    getResourceProvider,
   }),
   ({ ids }) => ({
     environment: ids.environmentAlias ?? ids.environment,
@@ -517,16 +639,31 @@ export function useEntity<E extends FetchableEntity>(
 export function useResource<R extends Resource = Resource>(
   resourceType: string,
   urn: string,
-  options?: UseResourceOptions
+  { locale, ...options }: UseResourceOptions = {}
 ) {
-  const queryKey: ResourceQueryKey = ['Resource', resourceType, urn];
+  if (resourceType.startsWith('Contentful:')) {
+    locale = undefined;
+  }
+  const queryKey: ResourceQueryKey = ['Resource', resourceType, urn, locale];
   const { getResource } = useEntityLoader();
   const { status, data, error } = useQuery(
     queryKey,
-    () => getResource<R>(resourceType, urn, options),
+    () => getResource<R>(resourceType, urn, { ...options, locale }),
     {
       enabled: options?.enabled,
     }
+  );
+
+  return { status, data, error };
+}
+
+export function useResourceProvider(organizationId: string, appDefinitionId: string) {
+  const queryKey = ['Resource', organizationId, appDefinitionId];
+  const { getResourceProvider } = useEntityLoader();
+  const { status, data, error } = useQuery(
+    queryKey,
+    () => getResourceProvider(organizationId, appDefinitionId),
+    {}
   );
 
   return { status, data, error };

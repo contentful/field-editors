@@ -3,6 +3,82 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.36](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.3.35...@contentful/field-editor-json@3.3.36) (2025-02-04)
+
+**Note:** Version bump only for package @contentful/field-editor-json
+
+## [3.3.35](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.3.34...@contentful/field-editor-json@3.3.35) (2025-01-17)
+
+**Note:** Version bump only for package @contentful/field-editor-json
+
+## [3.3.34](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.3.33...@contentful/field-editor-json@3.3.34) (2024-11-26)
+
+**Note:** Version bump only for package @contentful/field-editor-json
+
+## [3.3.33](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.3.32...@contentful/field-editor-json@3.3.33) (2024-11-20)
+
+**Note:** Version bump only for package @contentful/field-editor-json
+
+## [3.3.32](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.3.31...@contentful/field-editor-json@3.3.32) (2024-11-20)
+
+**Note:** Version bump only for package @contentful/field-editor-json
+
+## [3.3.31](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.3.30...@contentful/field-editor-json@3.3.31) (2024-11-07)
+
+**Note:** Version bump only for package @contentful/field-editor-json
+
+## [3.3.30](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.3.29...@contentful/field-editor-json@3.3.30) (2024-11-05)
+
+**Note:** Version bump only for package @contentful/field-editor-json
+
+## [3.3.29](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.3.28...@contentful/field-editor-json@3.3.29) (2024-11-04)
+
+**Note:** Version bump only for package @contentful/field-editor-json
+
+## [3.3.28](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.3.27...@contentful/field-editor-json@3.3.28) (2024-11-04)
+
+**Note:** Version bump only for package @contentful/field-editor-json
+
+## [3.3.27](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.3.26...@contentful/field-editor-json@3.3.27) (2024-10-10)
+
+**Note:** Version bump only for package @contentful/field-editor-json
+
+## [3.3.26](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.3.25...@contentful/field-editor-json@3.3.26) (2024-10-09)
+
+**Note:** Version bump only for package @contentful/field-editor-json
+
+## [3.3.25](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.3.24...@contentful/field-editor-json@3.3.25) (2024-10-09)
+
+**Note:** Version bump only for package @contentful/field-editor-json
+
+## [3.3.24](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.3.23...@contentful/field-editor-json@3.3.24) (2024-10-04)
+
+**Note:** Version bump only for package @contentful/field-editor-json
+
+## [3.3.23](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.3.22...@contentful/field-editor-json@3.3.23) (2024-10-01)
+
+**Note:** Version bump only for package @contentful/field-editor-json
+
+## [3.3.22](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.3.21...@contentful/field-editor-json@3.3.22) (2024-08-21)
+
+**Note:** Version bump only for package @contentful/field-editor-json
+
+## [3.3.21](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.3.20...@contentful/field-editor-json@3.3.21) (2024-07-23)
+
+**Note:** Version bump only for package @contentful/field-editor-json
+
+## [3.3.20](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.3.19...@contentful/field-editor-json@3.3.20) (2024-07-22)
+
+**Note:** Version bump only for package @contentful/field-editor-json
+
+## [3.3.19](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.3.18...@contentful/field-editor-json@3.3.19) (2024-06-26)
+
+**Note:** Version bump only for package @contentful/field-editor-json
+
+## [3.3.18](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.3.17...@contentful/field-editor-json@3.3.18) (2024-06-13)
+
+**Note:** Version bump only for package @contentful/field-editor-json
+
 ## [3.3.17](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@3.3.16...@contentful/field-editor-json@3.3.17) (2024-06-07)
 
 **Note:** Version bump only for package @contentful/field-editor-json

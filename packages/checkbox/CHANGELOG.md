@@ -3,6 +3,78 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.31](https://github.com/contentful/field-editors/compare/@contentful/field-editor-checkbox@1.4.30...@contentful/field-editor-checkbox@1.4.31) (2025-02-04)
+
+**Note:** Version bump only for package @contentful/field-editor-checkbox
+
+## [1.4.30](https://github.com/contentful/field-editors/compare/@contentful/field-editor-checkbox@1.4.29...@contentful/field-editor-checkbox@1.4.30) (2025-01-17)
+
+**Note:** Version bump only for package @contentful/field-editor-checkbox
+
+## [1.4.29](https://github.com/contentful/field-editors/compare/@contentful/field-editor-checkbox@1.4.28...@contentful/field-editor-checkbox@1.4.29) (2024-11-26)
+
+**Note:** Version bump only for package @contentful/field-editor-checkbox
+
+## [1.4.28](https://github.com/contentful/field-editors/compare/@contentful/field-editor-checkbox@1.4.27...@contentful/field-editor-checkbox@1.4.28) (2024-11-20)
+
+**Note:** Version bump only for package @contentful/field-editor-checkbox
+
+## [1.4.27](https://github.com/contentful/field-editors/compare/@contentful/field-editor-checkbox@1.4.26...@contentful/field-editor-checkbox@1.4.27) (2024-11-20)
+
+**Note:** Version bump only for package @contentful/field-editor-checkbox
+
+## [1.4.26](https://github.com/contentful/field-editors/compare/@contentful/field-editor-checkbox@1.4.25...@contentful/field-editor-checkbox@1.4.26) (2024-11-07)
+
+**Note:** Version bump only for package @contentful/field-editor-checkbox
+
+## [1.4.25](https://github.com/contentful/field-editors/compare/@contentful/field-editor-checkbox@1.4.24...@contentful/field-editor-checkbox@1.4.25) (2024-11-05)
+
+**Note:** Version bump only for package @contentful/field-editor-checkbox
+
+## [1.4.24](https://github.com/contentful/field-editors/compare/@contentful/field-editor-checkbox@1.4.23...@contentful/field-editor-checkbox@1.4.24) (2024-11-04)
+
+**Note:** Version bump only for package @contentful/field-editor-checkbox
+
+## [1.4.23](https://github.com/contentful/field-editors/compare/@contentful/field-editor-checkbox@1.4.22...@contentful/field-editor-checkbox@1.4.23) (2024-11-04)
+
+**Note:** Version bump only for package @contentful/field-editor-checkbox
+
+## [1.4.22](https://github.com/contentful/field-editors/compare/@contentful/field-editor-checkbox@1.4.21...@contentful/field-editor-checkbox@1.4.22) (2024-10-10)
+
+**Note:** Version bump only for package @contentful/field-editor-checkbox
+
+## [1.4.21](https://github.com/contentful/field-editors/compare/@contentful/field-editor-checkbox@1.4.20...@contentful/field-editor-checkbox@1.4.21) (2024-10-09)
+
+**Note:** Version bump only for package @contentful/field-editor-checkbox
+
+## [1.4.20](https://github.com/contentful/field-editors/compare/@contentful/field-editor-checkbox@1.4.19...@contentful/field-editor-checkbox@1.4.20) (2024-10-09)
+
+**Note:** Version bump only for package @contentful/field-editor-checkbox
+
+## [1.4.19](https://github.com/contentful/field-editors/compare/@contentful/field-editor-checkbox@1.4.18...@contentful/field-editor-checkbox@1.4.19) (2024-10-04)
+
+**Note:** Version bump only for package @contentful/field-editor-checkbox
+
+## [1.4.18](https://github.com/contentful/field-editors/compare/@contentful/field-editor-checkbox@1.4.17...@contentful/field-editor-checkbox@1.4.18) (2024-10-01)
+
+**Note:** Version bump only for package @contentful/field-editor-checkbox
+
+## [1.4.17](https://github.com/contentful/field-editors/compare/@contentful/field-editor-checkbox@1.4.16...@contentful/field-editor-checkbox@1.4.17) (2024-08-21)
+
+**Note:** Version bump only for package @contentful/field-editor-checkbox
+
+## [1.4.16](https://github.com/contentful/field-editors/compare/@contentful/field-editor-checkbox@1.4.15...@contentful/field-editor-checkbox@1.4.16) (2024-07-23)
+
+**Note:** Version bump only for package @contentful/field-editor-checkbox
+
+## [1.4.15](https://github.com/contentful/field-editors/compare/@contentful/field-editor-checkbox@1.4.14...@contentful/field-editor-checkbox@1.4.15) (2024-06-26)
+
+**Note:** Version bump only for package @contentful/field-editor-checkbox
+
+## [1.4.14](https://github.com/contentful/field-editors/compare/@contentful/field-editor-checkbox@1.4.13...@contentful/field-editor-checkbox@1.4.14) (2024-06-13)
+
+**Note:** Version bump only for package @contentful/field-editor-checkbox
+
 ## [1.4.13](https://github.com/contentful/field-editors/compare/@contentful/field-editor-checkbox@1.4.12...@contentful/field-editor-checkbox@1.4.13) (2024-06-07)
 
 **Note:** Version bump only for package @contentful/field-editor-checkbox

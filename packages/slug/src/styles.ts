@@ -21,7 +21,6 @@ export const icon = css({
   position: 'absolute',
   left: '10px',
   top: '8px',
-  zIndex: 2,
   width: '25px',
   height: '25px',
   fill: tokens.gray500,
@@ -29,7 +28,6 @@ export const icon = css({
 
 export const spinnerContainer = css({
   position: 'absolute',
-  zIndex: 2,
   right: '8px',
   top: '8px',
 });

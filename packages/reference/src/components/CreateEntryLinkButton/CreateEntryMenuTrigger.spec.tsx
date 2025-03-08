@@ -18,6 +18,23 @@ configure({
 const CONTENT_TYPE_1 = { name: 'name-1', sys: { id: 'ID_1' } };
 const CONTENT_TYPE_2 = { name: 'name-2', sys: { id: 'ID_2' } };
 const CONTENT_TYPE_3 = { name: 'name-3', sys: { id: 'ID_3' } };
+const EXPERIENCE_TYPE = {
+  name: 'experience-type',
+  sys: { id: 'ID_4' },
+  metadata: {
+    annotations: {
+      ContentType: [
+        {
+          sys: {
+            id: 'Contentful:ExperienceType',
+            type: 'Link',
+            linkType: 'Annotation',
+          },
+        },
+      ],
+    },
+  },
+};
 
 describe('CreateEntryMenuTrigger general', () => {
   const props = {
@@ -139,5 +156,36 @@ describe('CreateEntryMenuTrigger general', () => {
     const suggestedContentType = getByTestId('suggested');
     expect(suggestedContentType).toBeDefined();
     expect(suggestedContentType.textContent).toBe(props.contentTypes[0].name);
+  });
+
+  it('filters out content types with Contentful:ExperienceType annotation', () => {
+    const contentTypesWithExperience = [
+      CONTENT_TYPE_1,
+      CONTENT_TYPE_2,
+      CONTENT_TYPE_3,
+      EXPERIENCE_TYPE,
+    ] as ContentType[];
+
+    const { getByTestId, getAllByTestId } = render(
+      <CreateEntryMenuTrigger {...props} contentTypes={contentTypesWithExperience}>
+        {stub}
+      </CreateEntryMenuTrigger>
+    );
+
+    act(() => {
+      fireEvent.click(getByTestId('menu-trigger'));
+    });
+
+    const contentTypeItems = getAllByTestId('contentType');
+    expect(contentTypeItems).toHaveLength(3); // Only 3 content types should be rendered
+    expect(contentTypeItems[0].textContent).toBe('name-1');
+    expect(contentTypeItems[1].textContent).toBe('name-2');
+    expect(contentTypeItems[2].textContent).toBe('name-3');
+
+    // Ensure the experience type is not rendered
+    const experienceTypeItem = contentTypeItems.find(
+      (item) => item.textContent === 'experience-type'
+    );
+    expect(experienceTypeItem).toBeUndefined();
   });
 });

@@ -43,6 +43,7 @@ const InternalEntryCard = React.memo((props: InternalEntryCard) => {
       onRemove={props.isDisabled ? undefined : props.onRemove}
       isClickable={false}
       getEntityScheduledActions={() => Promise.resolve([])}
+      useLocalizedEntityStatus={props.sdk.parameters.instance.useLocalizedEntityStatus}
     />
   );
 }, areEqual);
@@ -60,8 +61,10 @@ interface FetchingWrappedResourceCardProps {
 }
 
 export const FetchingWrappedResourceCard = (props: FetchingWrappedResourceCardProps) => {
-  const { link, onEntityFetchComplete } = props;
-  const { data, status, error } = useResource(link.linkType, link.urn);
+  const { link, onEntityFetchComplete, sdk } = props;
+  const { data, status, error } = useResource(link.linkType, link.urn, {
+    locale: sdk.field.locale,
+  });
 
   React.useEffect(() => {
     if (status === 'success') {

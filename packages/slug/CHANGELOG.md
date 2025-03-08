@@ -3,6 +3,88 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.17](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@1.5.16...@contentful/field-editor-slug@1.5.17) (2025-02-04)
+
+**Note:** Version bump only for package @contentful/field-editor-slug
+
+## [1.5.16](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@1.5.15...@contentful/field-editor-slug@1.5.16) (2025-01-17)
+
+**Note:** Version bump only for package @contentful/field-editor-slug
+
+## [1.5.15](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@1.5.14...@contentful/field-editor-slug@1.5.15) (2024-11-26)
+
+**Note:** Version bump only for package @contentful/field-editor-slug
+
+## [1.5.14](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@1.5.13...@contentful/field-editor-slug@1.5.14) (2024-11-20)
+
+**Note:** Version bump only for package @contentful/field-editor-slug
+
+## [1.5.13](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@1.5.12...@contentful/field-editor-slug@1.5.13) (2024-11-20)
+
+**Note:** Version bump only for package @contentful/field-editor-slug
+
+## [1.5.12](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@1.5.11...@contentful/field-editor-slug@1.5.12) (2024-11-07)
+
+**Note:** Version bump only for package @contentful/field-editor-slug
+
+## [1.5.11](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@1.5.10...@contentful/field-editor-slug@1.5.11) (2024-11-05)
+
+**Note:** Version bump only for package @contentful/field-editor-slug
+
+## [1.5.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@1.5.9...@contentful/field-editor-slug@1.5.10) (2024-11-04)
+
+**Note:** Version bump only for package @contentful/field-editor-slug
+
+## [1.5.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@1.5.8...@contentful/field-editor-slug@1.5.9) (2024-11-04)
+
+**Note:** Version bump only for package @contentful/field-editor-slug
+
+## [1.5.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@1.5.7...@contentful/field-editor-slug@1.5.8) (2024-10-11)
+
+**Note:** Version bump only for package @contentful/field-editor-slug
+
+## [1.5.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@1.5.6...@contentful/field-editor-slug@1.5.7) (2024-10-10)
+
+**Note:** Version bump only for package @contentful/field-editor-slug
+
+## [1.5.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@1.5.5...@contentful/field-editor-slug@1.5.6) (2024-10-09)
+
+**Note:** Version bump only for package @contentful/field-editor-slug
+
+## [1.5.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@1.5.4...@contentful/field-editor-slug@1.5.5) (2024-10-09)
+
+**Note:** Version bump only for package @contentful/field-editor-slug
+
+## [1.5.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@1.5.3...@contentful/field-editor-slug@1.5.4) (2024-10-04)
+
+**Note:** Version bump only for package @contentful/field-editor-slug
+
+## [1.5.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@1.5.2...@contentful/field-editor-slug@1.5.3) (2024-10-01)
+
+**Note:** Version bump only for package @contentful/field-editor-slug
+
+## [1.5.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@1.5.1...@contentful/field-editor-slug@1.5.2) (2024-09-23)
+
+**Note:** Version bump only for package @contentful/field-editor-slug
+
+## [1.5.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@1.5.0...@contentful/field-editor-slug@1.5.1) (2024-08-21)
+
+**Note:** Version bump only for package @contentful/field-editor-slug
+
+# [1.5.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@1.4.16...@contentful/field-editor-slug@1.5.0) (2024-07-23)
+
+### Features
+
+- 🎸 fetch all resource types ([#1704](https://github.com/contentful/field-editors/issues/1704)) ([f6403fa](https://github.com/contentful/field-editors/commit/f6403fadd543f081683fe499a79367f1f4ae737c))
+
+## [1.4.16](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@1.4.15...@contentful/field-editor-slug@1.4.16) (2024-06-26)
+
+**Note:** Version bump only for package @contentful/field-editor-slug
+
+## [1.4.15](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@1.4.14...@contentful/field-editor-slug@1.4.15) (2024-06-13)
+
+**Note:** Version bump only for package @contentful/field-editor-slug
+
 ## [1.4.14](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@1.4.13...@contentful/field-editor-slug@1.4.14) (2024-06-07)
 
 **Note:** Version bump only for package @contentful/field-editor-slug

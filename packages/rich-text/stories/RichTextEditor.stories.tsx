@@ -15,13 +15,12 @@ import {
 } from '@contentful/field-editor-test-utils';
 import { ValidationErrors } from '@contentful/field-editor-validation-errors';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-import { MARKS } from '@contentful/rich-text-types';
+import { MARKS, validateRichTextDocument } from '@contentful/rich-text-types';
 import type { Meta, StoryObj } from '@storybook/react';
 import { css } from 'emotion';
 
 import { assets, contentTypes, entries, locales, spaces } from '../src/__fixtures__/fixtures';
 import RichTextEditor from '../src/RichTextEditor';
-import { validateRichTextDocument } from '../src/test-utils/validation';
 import { RichTextPreview } from './RichTextPreview';
 
 const meta: Meta<typeof RichTextEditor> = {

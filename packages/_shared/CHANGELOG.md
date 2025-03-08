@@ -3,6 +3,104 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.3.1...@contentful/field-editor-shared@2.3.2) (2025-02-04)
+
+**Note:** Version bump only for package @contentful/field-editor-shared
+
+## [2.3.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.3.0...@contentful/field-editor-shared@2.3.1) (2025-01-17)
+
+**Note:** Version bump only for package @contentful/field-editor-shared
+
+# [2.3.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.2.3...@contentful/field-editor-shared@2.3.0) (2024-11-26)
+
+### Features
+
+- locale status badge updates [TOL-2529] ([#1804](https://github.com/contentful/field-editors/issues/1804)) ([fc847af](https://github.com/contentful/field-editors/commit/fc847afad799616e270961efe50ee303f360166b))
+
+## [2.2.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.2.2...@contentful/field-editor-shared@2.2.3) (2024-11-20)
+
+### Bug Fixes
+
+- default rename copy [TOL-2555] ([#1802](https://github.com/contentful/field-editors/issues/1802)) ([fcabf93](https://github.com/contentful/field-editors/commit/fcabf93b611615deb8fe7dd20dfcc31d949cf404))
+
+## [2.2.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.2.1...@contentful/field-editor-shared@2.2.2) (2024-11-20)
+
+### Bug Fixes
+
+- copy of status popover [TOL-2555] ([#1801](https://github.com/contentful/field-editors/issues/1801)) ([0d4958f](https://github.com/contentful/field-editors/commit/0d4958f3cded70acfe1c5cca2841c2df30ef0872))
+
+## [2.2.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.2.0...@contentful/field-editor-shared@2.2.1) (2024-11-07)
+
+**Note:** Version bump only for package @contentful/field-editor-shared
+
+# [2.2.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.1.0...@contentful/field-editor-shared@2.2.0) (2024-11-05)
+
+### Features
+
+- **shared:** show stacked badge when status diff [TOL-2502] ([#1796](https://github.com/contentful/field-editors/issues/1796)) ([b182516](https://github.com/contentful/field-editors/commit/b182516bfaabbdee12434465ced8067e5244522f))
+
+# [2.1.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.0.0...@contentful/field-editor-shared@2.1.0) (2024-11-04)
+
+### Features
+
+- declare explicit locale attrs dependency ([#1794](https://github.com/contentful/field-editors/issues/1794)) ([2ac6711](https://github.com/contentful/field-editors/commit/2ac6711223492aa43ebbb42e0f1fafc93821ff9d))
+
+# [2.0.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.8.0...@contentful/field-editor-shared@2.0.0) (2024-11-04)
+
+### Features
+
+- **shared:** remove the "async" useAsyncLocalePublishStatus ([#1792](https://github.com/contentful/field-editors/issues/1792)) ([181bc7f](https://github.com/contentful/field-editors/commit/181bc7f4a9f6d69b521f133b4d193736e846d280))
+
+### BREAKING CHANGES
+
+- **shared:** useAsyncLocalePublishStatus has been removed. Use useLocalePublishStatus instead
+
+# [1.8.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.7.1...@contentful/field-editor-shared@1.8.0) (2024-10-10)
+
+### Features
+
+- bring useAsyncLocalePublishStatus function [TOL-2454] ([#1774](https://github.com/contentful/field-editors/issues/1774)) ([5a5ad7e](https://github.com/contentful/field-editors/commit/5a5ad7e22d6f5a16ab176d1630ae41b6bae2bd49))
+
+## [1.7.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.7.0...@contentful/field-editor-shared@1.7.1) (2024-10-09)
+
+### Bug Fixes
+
+- reference-error by defining enum without declare [TOL-2454] ([#1771](https://github.com/contentful/field-editors/issues/1771)) ([52ce090](https://github.com/contentful/field-editors/commit/52ce09074f5d3674f8294b0a4f0895a6d5ad0f2f))
+
+# [1.7.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.6.3...@contentful/field-editor-shared@1.7.0) (2024-10-09)
+
+### Features
+
+- locale publishing status component [TOL-2454] ([#1770](https://github.com/contentful/field-editors/issues/1770)) ([c5fd4fa](https://github.com/contentful/field-editors/commit/c5fd4fa9fddca1d2255ce264edf9cc030ae4f323))
+
+## [1.6.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.6.2...@contentful/field-editor-shared@1.6.3) (2024-10-04)
+
+**Note:** Version bump only for package @contentful/field-editor-shared
+
+## [1.6.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.6.1...@contentful/field-editor-shared@1.6.2) (2024-10-01)
+
+**Note:** Version bump only for package @contentful/field-editor-shared
+
+## [1.6.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.6.0...@contentful/field-editor-shared@1.6.1) (2024-08-21)
+
+**Note:** Version bump only for package @contentful/field-editor-shared
+
+# [1.6.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.5.5...@contentful/field-editor-shared@1.6.0) (2024-07-23)
+
+### Features
+
+- 🎸 fetch all resource types ([#1704](https://github.com/contentful/field-editors/issues/1704)) ([f6403fa](https://github.com/contentful/field-editors/commit/f6403fadd543f081683fe499a79367f1f4ae737c))
+
+## [1.5.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.5.4...@contentful/field-editor-shared@1.5.5) (2024-06-26)
+
+### Bug Fixes
+
+- **entityHelpers:** adjust getEntityStatus and add tests [TOL-2219] ([#1690](https://github.com/contentful/field-editors/issues/1690)) ([1484f9c](https://github.com/contentful/field-editors/commit/1484f9c1d19b0c89fe858f142ce81b01edef3822))
+
+## [1.5.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.5.3...@contentful/field-editor-shared@1.5.4) (2024-06-13)
+
+**Note:** Version bump only for package @contentful/field-editor-shared
+
 ## [1.5.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@1.5.2...@contentful/field-editor-shared@1.5.3) (2024-06-07)
 
 ### Bug Fixes

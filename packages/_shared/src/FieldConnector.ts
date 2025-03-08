@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import { FieldAPI, ValidationError } from '@contentful/app-sdk';
+import deepEqual from 'fast-deep-equal';
 import debounce from 'lodash/debounce';
-import isEqual from 'lodash/isEqual';
 
 type Nullable = null | undefined;
 
@@ -31,7 +31,7 @@ type FieldConnectorProps<ValueType> = {
   isDisabled?: boolean;
   children: (state: FieldConnectorChildProps<ValueType>) => React.ReactNode;
   isEmptyValue: (value: ValueType | null) => boolean;
-  isEqualValues: (value1: ValueType | Nullable, value2: ValueType | Nullable) => boolean;
+  isEqualValues?: (value1: ValueType | Nullable, value2: ValueType | Nullable) => boolean;
 } & (
   | { debounce: number }
   | {
@@ -54,7 +54,7 @@ export class FieldConnector<ValueType> extends React.Component<
     },
     // eslint-disable-next-line -- TODO: describe this disable
     isEqualValues: (value1: any | Nullable, value2: any | Nullable) => {
-      return isEqual(value1, value2);
+      return deepEqual(value1, value2);
     },
     debounce: 300,
   };
@@ -122,7 +122,7 @@ export class FieldConnector<ValueType> extends React.Component<
     });
     this.unsubscribeValue = field.onValueChanged((value: ValueType | Nullable) => {
       this.setState((currentState) => {
-        const isLocalValueChange = this.props.isEqualValues(value, currentState.value);
+        const isLocalValueChange = this.props.isEqualValues!(value, currentState.value);
         const lastRemoteValue = isLocalValueChange ? currentState.lastRemoteValue : value;
         const externalReset = currentState.externalReset + (isLocalValueChange ? 0 : 1);
         return {

@@ -19,7 +19,8 @@
         "en-US": "changed",
         "de-DE": "draft"
       }
-    }
+    },
+    "automationTags": []
   },
   "fields": {
     "exField": { "en-US": "Weather doesn't look good" },

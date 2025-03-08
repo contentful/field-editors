@@ -3,6 +3,90 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.7.2...@contentful/field-editor-date@1.7.3) (2025-02-04)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.7.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.7.1...@contentful/field-editor-date@1.7.2) (2025-01-17)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.7.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.7.0...@contentful/field-editor-date@1.7.1) (2024-12-03)
+
+### Bug Fixes
+
+- show dropdown datepicker [ZEND-5711, ZEND-5710] ([#1811](https://github.com/contentful/field-editors/issues/1811)) ([9bf6c98](https://github.com/contentful/field-editors/commit/9bf6c986730a5ea7adf428046c15a0fa0a5aa0d0))
+
+# [1.7.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.6.29...@contentful/field-editor-date@1.7.0) (2024-11-28)
+
+### Features
+
+- **date:** allow arbitrary date range [ZEND-5700] ([#1806](https://github.com/contentful/field-editors/issues/1806)) ([9bbb2a1](https://github.com/contentful/field-editors/commit/9bbb2a15c398bc6c38a832ea867af031f36ef4b3))
+
+## [1.6.29](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.6.28...@contentful/field-editor-date@1.6.29) (2024-11-26)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.6.28](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.6.27...@contentful/field-editor-date@1.6.28) (2024-11-20)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.6.27](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.6.26...@contentful/field-editor-date@1.6.27) (2024-11-20)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.6.26](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.6.25...@contentful/field-editor-date@1.6.26) (2024-11-07)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.6.25](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.6.24...@contentful/field-editor-date@1.6.25) (2024-11-05)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.6.24](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.6.23...@contentful/field-editor-date@1.6.24) (2024-11-04)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.6.23](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.6.22...@contentful/field-editor-date@1.6.23) (2024-11-04)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.6.22](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.6.21...@contentful/field-editor-date@1.6.22) (2024-10-10)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.6.21](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.6.20...@contentful/field-editor-date@1.6.21) (2024-10-09)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.6.20](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.6.19...@contentful/field-editor-date@1.6.20) (2024-10-09)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.6.19](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.6.18...@contentful/field-editor-date@1.6.19) (2024-10-04)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.6.18](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.6.17...@contentful/field-editor-date@1.6.18) (2024-10-01)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.6.17](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.6.16...@contentful/field-editor-date@1.6.17) (2024-08-21)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.6.16](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.6.15...@contentful/field-editor-date@1.6.16) (2024-07-23)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.6.15](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.6.14...@contentful/field-editor-date@1.6.15) (2024-06-26)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.6.14](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.6.13...@contentful/field-editor-date@1.6.14) (2024-06-13)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
 ## [1.6.13](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.6.12...@contentful/field-editor-date@1.6.13) (2024-06-07)
 
 **Note:** Version bump only for package @contentful/field-editor-date

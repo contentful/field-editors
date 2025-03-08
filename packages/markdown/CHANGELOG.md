@@ -3,6 +3,94 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.7.1...@contentful/field-editor-markdown@1.7.2) (2025-02-04)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.7.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.7.0...@contentful/field-editor-markdown@1.7.1) (2025-01-17)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+# [1.7.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.6.14...@contentful/field-editor-markdown@1.7.0) (2024-12-09)
+
+### Features
+
+- properly handle isDisabled prop [BBEE-797] ([#1816](https://github.com/contentful/field-editors/issues/1816)) ([b1531d2](https://github.com/contentful/field-editors/commit/b1531d25c9dc73818c82fe56ca9884372b5a1603))
+
+## [1.6.14](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.6.13...@contentful/field-editor-markdown@1.6.14) (2024-11-26)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.6.13](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.6.12...@contentful/field-editor-markdown@1.6.13) (2024-11-20)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.6.12](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.6.11...@contentful/field-editor-markdown@1.6.12) (2024-11-20)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.6.11](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.6.10...@contentful/field-editor-markdown@1.6.11) (2024-11-07)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.6.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.6.9...@contentful/field-editor-markdown@1.6.10) (2024-11-05)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.6.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.6.8...@contentful/field-editor-markdown@1.6.9) (2024-11-04)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.6.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.6.7...@contentful/field-editor-markdown@1.6.8) (2024-11-04)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.6.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.6.6...@contentful/field-editor-markdown@1.6.7) (2024-10-25)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.6.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.6.5...@contentful/field-editor-markdown@1.6.6) (2024-10-10)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.6.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.6.4...@contentful/field-editor-markdown@1.6.5) (2024-10-09)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.6.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.6.3...@contentful/field-editor-markdown@1.6.4) (2024-10-09)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.6.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.6.2...@contentful/field-editor-markdown@1.6.3) (2024-10-04)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.6.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.6.1...@contentful/field-editor-markdown@1.6.2) (2024-10-01)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.6.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.6.0...@contentful/field-editor-markdown@1.6.1) (2024-08-21)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+# [1.6.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.17...@contentful/field-editor-markdown@1.6.0) (2024-07-23)
+
+### Features
+
+- 🎸 fetch all resource types ([#1704](https://github.com/contentful/field-editors/issues/1704)) ([f6403fa](https://github.com/contentful/field-editors/commit/f6403fadd543f081683fe499a79367f1f4ae737c))
+
+## [1.5.17](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.16...@contentful/field-editor-markdown@1.5.17) (2024-06-26)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.5.16](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.15...@contentful/field-editor-markdown@1.5.16) (2024-06-13)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+## [1.5.15](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.14...@contentful/field-editor-markdown@1.5.15) (2024-06-12)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
 ## [1.5.14](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.5.13...@contentful/field-editor-markdown@1.5.14) (2024-06-07)
 
 **Note:** Version bump only for package @contentful/field-editor-markdown

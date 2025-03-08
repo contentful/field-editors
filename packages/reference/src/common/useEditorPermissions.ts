@@ -13,14 +13,21 @@ export type EditorPermissionsProps = {
   allContentTypes: ContentType[];
 };
 
-export function useEditorPermissions(props: EditorPermissionsProps) {
-  const { sdk, entityType, parameters } = props;
-  const validations = useMemo(() => fromFieldValidations(props.sdk.field), [props.sdk.field]);
+export function useEditorPermissions({
+  sdk,
+  entityType,
+  parameters,
+  allContentTypes,
+}: EditorPermissionsProps) {
+  const validations = useMemo(() => fromFieldValidations(sdk.field), [sdk.field]);
   const [canCreateEntity, setCanCreateEntity] = useState(true);
   const [canLinkEntity, setCanLinkEntity] = useState(true);
   const { creatableContentTypes, availableContentTypes } = useContentTypePermissions({
-    ...props,
+    entityType,
     validations,
+    sdk,
+    allContentTypes,
+    parameters,
   });
   const { canPerformAction } = useAccessApi(sdk.access);
 

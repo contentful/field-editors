@@ -33,4 +33,4 @@ You will need to adapt your fork to work with v2. Here is a highlight of the maj
 This package is based on [Slate][slate] & [Plate][plate] and also borrows some of their code. Without them, this project would not have been possible.
 
 [slate]: https://www.slatejs.org/
-[plate]: https://plate.udecode.io/
+[plate]: https://platejs.org/

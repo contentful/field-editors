@@ -25,6 +25,9 @@ export const styles = {
     zIndex: tokens.zIndexModal,
   }),
   hyperlink: css({
+    position: 'relative',
+    whiteSpace: 'pre-wrap',
+    overflowWrap: 'break-word',
     fontSize: 'inherit !important',
     display: 'inline !important',
     direction: 'inherit',

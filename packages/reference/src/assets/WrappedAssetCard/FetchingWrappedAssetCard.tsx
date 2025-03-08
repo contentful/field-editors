@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { AssetCard, EntryCard } from '@contentful/f36-components';
+import { useLocalePublishStatus } from '@contentful/field-editor-shared';
 
 import {
   CustomEntityCardProps,
@@ -33,6 +34,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
     () => getEntityScheduledActions('Asset', props.assetId),
     [getEntityScheduledActions, props.assetId]
   );
+  const localesStatusMap = useLocalePublishStatus(asset, props.sdk.locales);
 
   React.useEffect(() => {
     if (asset) {
@@ -93,6 +95,8 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       onEdit,
       onRemove,
       useLocalizedEntityStatus: props.sdk.parameters.instance.useLocalizedEntityStatus,
+      localesStatusMap,
+      activeLocales: props.sdk.parameters.instance.activeLocales,
     };
 
     if (props.viewType === 'link') {

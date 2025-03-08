@@ -33,6 +33,11 @@ const mockSdk = (marks?: MARKS[]): any => {
     access: {
       can: jest.fn().mockResolvedValue(true),
     },
+    parameters: {
+      instance: {
+        activeLocales: [],
+      },
+    },
   };
 };
 
@@ -48,7 +53,7 @@ describe('Toolbar', () => {
             <Toolbar isDisabled />
           </ContentfulEditorIdProvider>
         </SdkProvider>
-      </Plate>,
+      </Plate>
     );
     await waitFor(() => {
       expect(getByTestId('toolbar-heading-toggle')).toBeDisabled();
@@ -79,7 +84,7 @@ describe('Toolbar', () => {
               <Toolbar isDisabled />
             </ContentfulEditorIdProvider>
           </SdkProvider>
-        </Plate>,
+        </Plate>
       );
       expect(queryByTestId('dropdown-toolbar-button')).toBeVisible();
     });
@@ -94,7 +99,7 @@ describe('Toolbar', () => {
               <Toolbar isDisabled />
             </ContentfulEditorIdProvider>
           </SdkProvider>
-        </Plate>,
+        </Plate>
       );
       expect(queryByTestId('dropdown-toolbar-button')).not.toBeInTheDocument();
     });

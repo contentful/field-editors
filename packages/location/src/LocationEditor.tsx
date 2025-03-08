@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import { FieldAPI, FieldConnector, ParametersAPI } from '@contentful/field-editor-shared';
-import deepEqual from 'deep-equal';
 import isNumber from 'lodash/isNumber';
 import throttle from 'lodash/throttle';
 
@@ -162,13 +161,7 @@ export function LocationEditorConnected(props: LocationEditorConnectedProps) {
   const [selectedView, setSelectedView] = React.useState<ViewType>(ViewType.Address);
 
   return (
-    <FieldConnector<LocationValue>
-      isEqualValues={(value1, value2) => {
-        return deepEqual(value1, value2);
-      }}
-      field={field}
-      isInitiallyDisabled={props.isInitiallyDisabled}
-    >
+    <FieldConnector<LocationValue> field={field} isInitiallyDisabled={props.isInitiallyDisabled}>
       {({ value, disabled, setValue, externalReset }) => {
         return (
           <LocationEditor

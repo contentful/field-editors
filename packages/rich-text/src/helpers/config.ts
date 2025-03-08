@@ -53,5 +53,6 @@ function getEntityTypeFromRichTextNode(nodeType): 'Entry' | 'Asset' | never {
 export const newResourceEntitySelectorConfigFromRichTextField = (field, nodeType) => {
   return {
     allowedResources: getAllowedResourcesForNodeType(field, nodeType),
+    locale: field.locale,
   };
 };

@@ -9,6 +9,7 @@ import {
   WrappedEntryCard,
   useEntityLoader,
 } from '@contentful/field-editor-reference';
+import { LocalePublishStatusMap, useLocalePublishStatus } from '@contentful/field-editor-shared';
 import areEqual from 'fast-deep-equal';
 
 interface InternalEntryCard {
@@ -20,6 +21,7 @@ interface InternalEntryCard {
   entry: Entry;
   onEdit?: VoidFunction;
   onRemove?: VoidFunction;
+  localesStatusMap?: LocalePublishStatusMap;
 }
 
 const InternalEntryCard = React.memo((props: InternalEntryCard) => {
@@ -43,6 +45,9 @@ const InternalEntryCard = React.memo((props: InternalEntryCard) => {
       onEdit={props.onEdit}
       onRemove={props.isDisabled ? undefined : props.onRemove}
       isClickable={false}
+      useLocalizedEntityStatus={sdk.parameters.instance.useLocalizedEntityStatus}
+      localesStatusMap={props.localesStatusMap}
+      activeLocales={props.sdk.parameters.instance.activeLocales}
     />
   );
 }, areEqual);
@@ -68,6 +73,7 @@ export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) =
     () => getEntityScheduledActions('Entry', entryId),
     [getEntityScheduledActions, entryId]
   );
+  const localesStatusMap = useLocalePublishStatus(entry, props.sdk.locales);
 
   React.useEffect(() => {
     if (status === 'success') {
@@ -99,6 +105,7 @@ export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) =
       onEdit={props.onEdit}
       onRemove={props.onRemove}
       loadEntityScheduledActions={loadEntityScheduledActions}
+      localesStatusMap={localesStatusMap}
     />
   );
 };

@@ -26,10 +26,12 @@ export { PredefinedValuesError } from './PredefinedValuesError';
 export { Asset, Entry, File } from './typesEntity';
 export { isValidImage } from './utils/isValidImage';
 export { shortenStorageUnit, toLocaleString } from './utils/shortenStorageUnit';
+export * from './hooks/useLocalePublishStatus';
 export { ModalDialogLauncher };
 export { entityHelpers };
 export { ConstraintsUtils };
 
+export * from './LocalePublishingEntityStatusBadge';
 import * as ModalDialogLauncher from './ModalDialogLauncher';
 import * as ConstraintsUtils from './utils/constraints';
 import * as entityHelpers from './utils/entityHelpers';
