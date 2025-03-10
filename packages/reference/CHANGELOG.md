@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.6.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.5.0...@contentful/field-editor-reference@6.6.0) (2025-03-10)
+
+### Bug Fixes
+
+- parse activeLocales passed as string ([6931290](https://github.com/contentful/field-editors/commit/69312900f57e85746c949eb8fe0ca90e5ca1a0d8))
+- revert commit 6931290 ([5c307c3](https://github.com/contentful/field-editors/commit/5c307c3e3f30a9cf2ea19ac69e5a36875e65d85a))
+
+### Features
+
+- use useActiveLocales hook instead of instance params [TOL-2887] ([#1838](https://github.com/contentful/field-editors/issues/1838)) ([27369c1](https://github.com/contentful/field-editors/commit/27369c15692acced39275e41b9789066b405e30a))
+
 # [6.5.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.4.5...@contentful/field-editor-reference@6.5.0) (2025-02-05)
 
 ### Features
