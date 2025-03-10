@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { FieldAppSDK } from '@contentful/app-sdk';
 import { ScheduledAction, Entry } from '@contentful/app-sdk';
-import { EntryCard } from '@contentful/f36-components';
+import { DragHandle, EntryCard } from '@contentful/f36-components';
 import {
   useEntity,
   MissingEntityCard,
@@ -53,6 +53,11 @@ const InternalEntryCard = React.memo((props: InternalEntryCard) => {
       useLocalizedEntityStatus={sdk.parameters.instance.useLocalizedEntityStatus}
       localesStatusMap={props.localesStatusMap}
       activeLocales={activeLocales}
+      renderDragHandle={
+        !props.isDisabled
+          ? (dragHandleProps) => <DragHandle label="drag embedded entry" {...dragHandleProps} />
+          : undefined
+      }
     />
   );
 }, areEqual);

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Entry, FieldAppSDK } from '@contentful/app-sdk';
-import { EntryCard } from '@contentful/f36-components';
+import { DragHandle, EntryCard } from '@contentful/f36-components';
 import {
   ResourceEntityErrorCard,
   ResourceInfo,
@@ -44,6 +44,11 @@ const InternalEntryCard = React.memo((props: InternalEntryCard) => {
       isClickable={false}
       getEntityScheduledActions={() => Promise.resolve([])}
       useLocalizedEntityStatus={props.sdk.parameters.instance.useLocalizedEntityStatus}
+      renderDragHandle={
+        !props.isDisabled
+          ? (dragHandleProps) => <DragHandle label="drag resource entry" {...dragHandleProps} />
+          : undefined
+      }
     />
   );
 }, areEqual);
