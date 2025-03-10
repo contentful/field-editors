@@ -9,7 +9,11 @@ import {
   WrappedEntryCard,
   useEntityLoader,
 } from '@contentful/field-editor-reference';
-import { LocalePublishStatusMap, useLocalePublishStatus } from '@contentful/field-editor-shared';
+import {
+  LocalePublishStatusMap,
+  useLocalePublishStatus,
+  useActiveLocales,
+} from '@contentful/field-editor-shared';
 import areEqual from 'fast-deep-equal';
 
 interface InternalEntryCard {
@@ -30,6 +34,7 @@ const InternalEntryCard = React.memo((props: InternalEntryCard) => {
   const contentType = sdk.space
     .getCachedContentTypes()
     .find((contentType) => contentType.sys.id === entry.sys.contentType.sys.id);
+  const activeLocales = useActiveLocales(props.sdk);
 
   return (
     <WrappedEntryCard
@@ -47,7 +52,7 @@ const InternalEntryCard = React.memo((props: InternalEntryCard) => {
       isClickable={false}
       useLocalizedEntityStatus={sdk.parameters.instance.useLocalizedEntityStatus}
       localesStatusMap={props.localesStatusMap}
-      activeLocales={props.sdk.parameters.instance.activeLocales}
+      activeLocales={activeLocales}
     />
   );
 }, areEqual);
