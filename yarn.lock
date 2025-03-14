@@ -20643,10 +20643,10 @@ remark-stringify@^11.0.0:
     mdast-util-to-markdown "^2.0.0"
     unified "^11.0.0"
 
-remark-validate-links@13.0.2:
-  version "13.0.2"
-  resolved "https://registry.yarnpkg.com/remark-validate-links/-/remark-validate-links-13.0.2.tgz#78d49610093c4abaf21d73166836e27cd50d73a5"
-  integrity sha512-YZPiB6eWT6sjVYD+TXisCGzNZwbWmtnqeA6rr7zlYz7LrtKENaT+fPIRjG16tW4dv85su2VsWdw7e3cqS+2Tog==
+remark-validate-links@13.1.0:
+  version "13.1.0"
+  resolved "https://registry.yarnpkg.com/remark-validate-links/-/remark-validate-links-13.1.0.tgz#855eefe553d6d38ac0ae1028522fd8c6585c5ba5"
+  integrity sha512-z+glZ4zoRyrWimQHtoqJEFJdPoIR1R1SDr/JoWjmS6EsYlyhxNuCHtIt165gmV7ltOSFJ+rGsipqRGfBPInd7A==
   dependencies:
     "@types/hosted-git-info" "^3.0.0"
     "@types/mdast" "^4.0.0"
