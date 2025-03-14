@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.6.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.6.0...@contentful/field-editor-reference@6.6.1) (2025-03-10)
+
+### Bug Fixes
+
+- dnd embedded entities in firefox [TOL-2460] ([#1840](https://github.com/contentful/field-editors/issues/1840)) ([b5419f7](https://github.com/contentful/field-editors/commit/b5419f75b914d80308b105226b1e6ba697d48682))
+
 # [6.6.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.5.0...@contentful/field-editor-reference@6.6.0) (2025-03-10)
 
 ### Bug Fixes

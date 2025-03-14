@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Asset, FieldAppSDK, ScheduledAction } from '@contentful/app-sdk';
-import { AssetCard } from '@contentful/f36-components';
+import { AssetCard, DragHandle } from '@contentful/f36-components';
 import {
   useEntity,
   useEntityLoader,
@@ -45,6 +45,11 @@ const InternalAssetCard = React.memo((props: InternalAssetCardProps) => {
       useLocalizedEntityStatus={props.sdk.parameters.instance.useLocalizedEntityStatus}
       localesStatusMap={props.localesStatusMap}
       activeLocales={activeLocales}
+      renderDragHandle={
+        !props.isDisabled
+          ? (dragHandleProps) => <DragHandle label="drag embedded asset" {...dragHandleProps} />
+          : undefined
+      }
     />
   );
 }, areEqual);
