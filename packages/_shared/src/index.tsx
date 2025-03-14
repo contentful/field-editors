@@ -27,6 +27,7 @@ export { Asset, Entry, File } from './typesEntity';
 export { isValidImage } from './utils/isValidImage';
 export { shortenStorageUnit, toLocaleString } from './utils/shortenStorageUnit';
 export * from './hooks/useLocalePublishStatus';
+export * from './hooks/useActiveLocales';
 export { ModalDialogLauncher };
 export { entityHelpers };
 export { ConstraintsUtils };

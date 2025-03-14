@@ -28,3 +28,4 @@ jobs:
         stale-pr-message: 'Marking pull request as stale since there was no activity for 30 days'
         stale-issue-label: 'stale'
         stale-pr-label: 'stale'
+        exempt-issue-labels: 'bug'
