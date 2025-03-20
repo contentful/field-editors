@@ -31,6 +31,7 @@ export interface WrappedEntryCardProps {
   spaceName?: string;
   entry: Entry;
   renderDragHandle?: RenderDragFn;
+  renderCustomChildren?: (props: WrappedEntryCardProps) => React.ReactNode;
   isClickable?: boolean;
   onMoveTop?: () => void;
   onMoveBottom?: () => void;
@@ -66,6 +67,7 @@ export function WrappedEntryCard({
   hasCardMoveActions,
   hasCardEditActions,
   hasCardRemoveActions,
+  renderCustomChildren,
   renderDragHandle,
   getAsset,
   getEntityScheduledActions,
@@ -129,6 +131,36 @@ export function WrappedEntryCard({
     localeCode,
     defaultLocaleCode,
   });
+
+  const customChildren =
+    !!renderCustomChildren &&
+    renderCustomChildren({
+      entry,
+      entryUrl,
+      contentType,
+      activeLocales,
+      localeCode,
+      defaultLocaleCode,
+      localesStatusMap,
+      useLocalizedEntityStatus,
+      size,
+      spaceName,
+      isClickable,
+      isDisabled,
+      isSelected,
+      hasCardMoveActions,
+      hasCardEditActions,
+      hasCardRemoveActions,
+      renderCustomChildren,
+      renderDragHandle,
+      getAsset,
+      getEntityScheduledActions,
+      onClick,
+      onEdit,
+      onRemove,
+      onMoveTop,
+      onMoveBottom,
+    });
 
   return (
     <EntryCard
@@ -217,7 +249,9 @@ export function WrappedEntryCard({
             }
           : undefined
       }
-    />
+    >
+      {customChildren}
+    </EntryCard>
   );
 }
 
