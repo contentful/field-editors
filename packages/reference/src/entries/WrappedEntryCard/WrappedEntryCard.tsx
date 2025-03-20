@@ -67,6 +67,7 @@ export function WrappedEntryCard({
   hasCardMoveActions,
   hasCardEditActions,
   hasCardRemoveActions,
+  renderCustomChildren,
   renderDragHandle,
   getAsset,
   getEntityScheduledActions,
@@ -131,7 +132,35 @@ export function WrappedEntryCard({
     defaultLocaleCode,
   });
 
-  const customChildren = !!props.renderCustomChildren && props.renderCustomChildren(props);
+  const customChildren =
+    !!renderCustomChildren &&
+    renderCustomChildren({
+      entry,
+      entryUrl,
+      contentType,
+      activeLocales,
+      localeCode,
+      defaultLocaleCode,
+      localesStatusMap,
+      useLocalizedEntityStatus,
+      size,
+      spaceName,
+      isClickable,
+      isDisabled,
+      isSelected,
+      hasCardMoveActions,
+      hasCardEditActions,
+      hasCardRemoveActions,
+      renderCustomChildren,
+      renderDragHandle,
+      getAsset,
+      getEntityScheduledActions,
+      onClick,
+      onEdit,
+      onRemove,
+      onMoveTop,
+      onMoveBottom,
+    });
 
   return (
     <EntryCard
