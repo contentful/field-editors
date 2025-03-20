@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.4.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.3.2...@contentful/field-editor-shared@2.4.0) (2025-03-10)
+
+### Features
+
+- use useActiveLocales hook instead of instance params [TOL-2887] ([#1838](https://github.com/contentful/field-editors/issues/1838)) ([27369c1](https://github.com/contentful/field-editors/commit/27369c15692acced39275e41b9789066b405e30a))
+
 ## [2.3.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.3.1...@contentful/field-editor-shared@2.3.2) (2025-02-04)
 
 **Note:** Version bump only for package @contentful/field-editor-shared

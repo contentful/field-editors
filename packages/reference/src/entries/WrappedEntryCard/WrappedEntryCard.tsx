@@ -161,6 +161,7 @@ export function WrappedEntryCard({
       thumbnailElement={file && isValidImage(file) ? <AssetThumbnail file={file} /> : undefined}
       dragHandleRender={renderDragHandle}
       withDragHandle={!!renderDragHandle}
+      draggable={!!renderDragHandle}
       actions={
         onEdit || onRemove
           ? [
