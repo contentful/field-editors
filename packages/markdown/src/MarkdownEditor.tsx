@@ -114,7 +114,7 @@ export function MarkdownEditor(
           if (props.enableTab) return;
           setSelectedTab(tab);
         }}
-        forceTab={props.enableTab}
+        enableTab={props.enableTab}
       />
       <MarkdownToolbar
         mode="default"
