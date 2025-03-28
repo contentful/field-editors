@@ -53,7 +53,7 @@ const styles = {
 type MarkdownTabsProps = {
   active: MarkdownTab;
   onSelect: (selected: MarkdownTab) => void;
-} & Pick<MarkdownEditorProps, 'forceTab'>;
+} & Pick<MarkdownEditorProps, 'enableTab'>;
 
 function MarkdownTabItem(props: {
   isActive: boolean;
@@ -96,7 +96,7 @@ export function MarkdownTabs(props: MarkdownTabsProps) {
         onSelect={props.onSelect}
         isActive={props.active === 'editor'}
         testId="markdown-tab-md"
-        isDisabled={props.forceTab && props.forceTab !== 'editor'}
+        isDisabled={props.enableTab && props.enableTab !== 'editor'}
       >
         Editor
       </MarkdownTabItem>
@@ -105,7 +105,7 @@ export function MarkdownTabs(props: MarkdownTabsProps) {
         onSelect={props.onSelect}
         isActive={props.active === 'preview'}
         testId="markdown-tab-preview"
-        isDisabled={props.forceTab && props.forceTab !== 'preview'}
+        isDisabled={props.enableTab && props.enableTab !== 'preview'}
       >
         Preview
       </MarkdownTabItem>
