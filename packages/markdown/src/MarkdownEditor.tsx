@@ -61,6 +61,12 @@ export function MarkdownEditor(
   const [canUploadAssets, setCanUploadAssets] = React.useState<boolean>(false);
 
   React.useEffect(() => {
+    if (props.enableTab) {
+      setSelectedTab(props.enableTab);
+    }
+  }, [props.enableTab]);
+
+  React.useEffect(() => {
     if (editor && props.onReady) {
       props.onReady(editor);
       // fix: http://codemirror.977696.n3.nabble.com/codemirror-content-not-visible-in-bootstrap-modal-td4026988.html
@@ -109,7 +115,7 @@ export function MarkdownEditor(
   return (
     <div className={styles.container} data-test-id="markdown-editor">
       <MarkdownTabs
-        active={props.enableTab || selectedTab}
+        active={selectedTab}
         onSelect={(tab) => {
           if (props.enableTab) return;
           setSelectedTab(tab);
