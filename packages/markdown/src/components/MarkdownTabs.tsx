@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import tokens from '@contentful/f36-tokens';
 import { css, cx } from 'emotion';
+import { MarkdownEditorProps } from 'MarkdownEditor';
 
 import { MarkdownTab } from '../types';
 
@@ -40,12 +41,19 @@ const styles = {
       background: tokens.gray300,
     },
   }),
+  disabledTab: css({
+    cursor: 'not-allowed',
+    '&:hover': {
+      background: tokens.gray200,
+      boxShadow: 'none',
+    },
+  }),
 };
 
-interface MarkdownTabsProps {
+type MarkdownTabsProps = {
   active: MarkdownTab;
   onSelect: (selected: MarkdownTab) => void;
-}
+} & Pick<MarkdownEditorProps, 'enableTab'>;
 
 function MarkdownTabItem(props: {
   isActive: boolean;
@@ -53,11 +61,13 @@ function MarkdownTabItem(props: {
   testId: string;
   onSelect: (name: MarkdownTab) => void;
   children: React.ReactNode;
+  isDisabled?: boolean;
 }) {
   return (
     <div
       className={cx(styles.tab, {
         [styles.inactiveTab]: props.isActive === false,
+        [styles.disabledTab]: props.isDisabled === true,
       })}
       onClick={() => {
         props.onSelect(props.name);
@@ -86,6 +96,7 @@ export function MarkdownTabs(props: MarkdownTabsProps) {
         onSelect={props.onSelect}
         isActive={props.active === 'editor'}
         testId="markdown-tab-md"
+        isDisabled={props.enableTab && props.enableTab !== 'editor'}
       >
         Editor
       </MarkdownTabItem>
@@ -94,6 +105,7 @@ export function MarkdownTabs(props: MarkdownTabsProps) {
         onSelect={props.onSelect}
         isActive={props.active === 'preview'}
         testId="markdown-tab-preview"
+        isDisabled={props.enableTab && props.enableTab !== 'preview'}
       >
         Preview
       </MarkdownTabItem>

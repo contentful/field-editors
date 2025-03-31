@@ -43,6 +43,8 @@ export interface MarkdownEditorProps {
   previewComponents?: PreviewComponents;
   onReady?: Function;
   isDisabled?: boolean;
+  /** Enables a specific tab to be active, and disables the other */
+  enableTab?: MarkdownTab;
 }
 
 export function MarkdownEditor(
@@ -107,10 +109,12 @@ export function MarkdownEditor(
   return (
     <div className={styles.container} data-test-id="markdown-editor">
       <MarkdownTabs
-        active={selectedTab}
+        active={props.enableTab || selectedTab}
         onSelect={(tab) => {
+          if (props.enableTab) return;
           setSelectedTab(tab);
         }}
+        enableTab={props.enableTab}
       />
       <MarkdownToolbar
         mode="default"
