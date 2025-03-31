@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.8.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.7.3...@contentful/field-editor-markdown@1.8.0) (2025-03-31)
+
+### Features
+
+- update markdown editor force tab to open [BBEE-1138] ([#1849](https://github.com/contentful/field-editors/issues/1849)) ([d399a8f](https://github.com/contentful/field-editors/commit/d399a8f0dcebe880b977d4b4a9059c8cb8fa75ab))
+
 ## [1.7.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.7.2...@contentful/field-editor-markdown@1.7.3) (2025-03-10)
 
 **Note:** Version bump only for package @contentful/field-editor-markdown
