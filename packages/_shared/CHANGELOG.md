@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.4.0...@contentful/field-editor-shared@2.4.1) (2025-04-03)
+
+### Bug Fixes
+
+- **shared:** base initial disabled state on `sdk.field.getIsDisabled()` [TOL-2914] ([#1852](https://github.com/contentful/field-editors/issues/1852)) ([70a2f5f](https://github.com/contentful/field-editors/commit/70a2f5f29689311b79d265366a1955ebd5cb8cda))
+
 # [2.4.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.3.2...@contentful/field-editor-shared@2.4.0) (2025-03-10)
 
 ### Features
