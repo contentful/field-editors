@@ -10,6 +10,7 @@ export function mockSdkForField(fieldDefinition: any, fieldValue?: any): FieldAp
       onSchemaErrorsChanged: () => {},
       // eslint-disable-next-line -- test helper
       onIsDisabledChanged: () => {},
+      getIsDisabled: () => false,
       // eslint-disable-next-line -- test helper
       onValueChanged: () => {},
       ...fieldDefinition,
