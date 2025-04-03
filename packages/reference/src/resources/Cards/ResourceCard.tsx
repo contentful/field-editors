@@ -35,6 +35,7 @@ function ExistingResourceCard(
     enabled: inView,
     allowExternal: true,
   };
+  console.log('ResourceCard', resourceLink, resourceOptions);
   const { data: info, error } = useResource(
     resourceLink.sys.linkType,
     resourceLink.sys.urn,

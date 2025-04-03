@@ -85,7 +85,7 @@ export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
         }
       }}
       dragHandleRender={props.renderDragHandle}
-      withDragHandle={!!props.renderDragHandle}
+      withDragHandle={!!props.renderDragHandle && !isDisabled}
       actions={[
         renderActions({ entityFile, isDisabled: isDisabled, onEdit, onRemove }),
         entityFile ? renderAssetInfo({ entityFile }) : null,

@@ -5,7 +5,7 @@ import { Entity, ResourceLink } from '../../../packages/reference/src/types';
 import { createReferenceEditorTestSdk, fixtures } from '../../fixtures';
 import { mount } from '../mount';
 
-function asLink<E extends Entity>(entity: E): ResourceLink {
+function asLink<E extends Entity>(entity: E): ResourceLink<'Contentful:Entry'> {
   return {
     sys: {
       type: 'ResourceLink',
@@ -108,6 +108,25 @@ describe('Single resource editor', () => {
     findMissingCards().should('have.length', 1);
 
     findMissingCards().first().get('#cf-ui-icon-button').should('not.exist');
+  });
+
+  it('hides card actions when field is disabled', () => {
+    const sdk = createReferenceEditorTestSdk({
+      modifier: (sdk) => {
+        sdk.field.getIsDisabled = () => true;
+        return sdk;
+      },
+      initialValue: asLink(fixtures.entries.changed),
+    });
+    mount(
+      <SingleResourceReferenceEditor
+        {...commonProps}
+        viewType="card"
+        hasCardEditActions={false}
+        sdk={sdk}
+      />
+    );
+    findDefaultCards().eq(0).findByTestId('cf-ui-card-actions').should('not.exist');
   });
 
   // TODO: Enable this test after navigation is moved into sdk.navigator

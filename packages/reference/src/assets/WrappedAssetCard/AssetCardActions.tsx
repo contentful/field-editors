@@ -126,8 +126,8 @@ export function renderActions(props: {
         Download
       </Menu.Item>
     ) : null,
-    onRemove ? (
-      <Menu.Item key="remove" disabled={isDisabled} onClick={onRemove} testId="card-action-remove">
+    onRemove && !isDisabled ? (
+      <Menu.Item key="remove" onClick={onRemove} testId="card-action-remove">
         Remove
       </Menu.Item>
     ) : null,

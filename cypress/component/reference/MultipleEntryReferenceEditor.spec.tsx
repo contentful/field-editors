@@ -41,7 +41,7 @@ function modifyEntry(entry: Entry, modifier: Record<string, unknown>): Entry {
 
 describe('Multiple Reference Editor', () => {
   const findLinkExistingBtn = () => cy.findByTestId('linkEditor.linkExisting');
-  // const findCreateLinkBtn = () => cy.findByTestId('create-entry-link-button');
+  const findCreateLinkBtn = () => cy.findByTestId('create-entry-link-button');
   const findCustomCards = () => cy.findAllByTestId('custom-card');
   const findDefaultCards = () => cy.findAllByTestId('cf-ui-entry-card');
 
@@ -150,6 +150,21 @@ describe('Multiple Reference Editor', () => {
     findLinkExistingBtn().click(); // inserts 2 cards
     findLinkExistingBtn().click(); // inserts 1 card
     findLinkExistingBtn().should('not.exist'); // limit reached, button hidden.
+  });
+
+  it('hides card actions and drag handles when field is disabled', () => {
+    const sdk = createReferenceEditorTestSdk({
+      modifier: (sdk) => {
+        sdk.field.getIsDisabled = () => true;
+        return sdk;
+      },
+      initialValue: [asLink(fixtures.entries.published)],
+    });
+    mount(<MultipleEntryReferenceEditor {...commonProps} sdk={sdk} hasCardEditActions={false} />);
+    findLinkExistingBtn().should('be.disabled');
+    findCreateLinkBtn().should('be.disabled');
+    findDefaultCards().eq(0).findByTestId('cf-ui-card-actions').should('not.exist');
+    findDefaultCards().eq(0).findByTestId('cf-ui-drag-handle').should('not.exist');
   });
 
   it(`shows status of entries`, () => {
@@ -325,41 +340,12 @@ describe('Multiple Reference Editor', () => {
     findDefaultCards().eq(0).findByTestId('title').should('have.text', `Weather doesn't look good`);
   });
 
-  //TODO: Currently fails
-  // it('shows disabled links as disabled', () => {
-  //   const sdk = createReferenceEditorTestSdk({
-  //     initialValue: [asLink(fixtures.entries.published)],
-  //   });
-  //   mount(<MultipleEntryReferenceEditor {...commonProps} isInitiallyDisabled={true} sdk={sdk} />);
-
-  //   findLinkExistingBtn().should('be.disabled');
-  //   findCreateLinkBtn().should('be.disabled');
-
-  //   findDefaultCards().eq(0).findByTestId('cf-ui-card-actions').should('be.disabled');
-  // });
-
-  it('shows disabled links as non-draggable', () => {
-    const sdk = createReferenceEditorTestSdk({
-      initialValue: [asLink(fixtures.entries.published)],
-    });
-    mount(<MultipleEntryReferenceEditor {...commonProps} isInitiallyDisabled={true} sdk={sdk} />);
-
-    findDefaultCards().eq(0).findByTestId('cf-ui-drag-handle').should('not.exist');
-  });
-
   it('can hide edit action', () => {
     const sdk = createReferenceEditorTestSdk({
       initialValue: [asLink(fixtures.entries.published), asLink(fixtures.entries.changed)],
     });
 
-    mount(
-      <MultipleEntryReferenceEditor
-        {...commonProps}
-        hasCardEditActions={false}
-        isInitiallyDisabled={true}
-        sdk={sdk}
-      />
-    );
+    mount(<MultipleEntryReferenceEditor {...commonProps} hasCardEditActions={false} sdk={sdk} />);
 
     findDefaultCards().eq(0).findByTestId('cf-ui-card-actions').click();
     cy.findByTestId('edit').should('not.exist');
