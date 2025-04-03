@@ -41,6 +41,7 @@ export function SingleResourceReferenceEditor(
             <CombinedLinkEntityActions
               {...linkActionsProps}
               renderCustomActions={props.renderCustomActions}
+              isDisabled={disabled}
             />
           );
         }}
