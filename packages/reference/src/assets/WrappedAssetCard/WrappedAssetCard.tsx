@@ -153,8 +153,8 @@ export const WrappedAssetCard = ({
           : undefined
       }
       dragHandleRender={renderDragHandle}
-      withDragHandle={!!renderDragHandle}
-      draggable={!!renderDragHandle}
+      withDragHandle={!!renderDragHandle && !isDisabled}
+      draggable={!!renderDragHandle && !isDisabled}
       actions={[
         ...renderActions({ entityFile, isDisabled: isDisabled, onEdit, onRemove }),
         ...(entityFile ? renderAssetInfo({ entityFile }) : []),

@@ -5,7 +5,7 @@ import { Entity, ResourceLink } from '../../../packages/reference/src/types';
 import { createReferenceEditorTestSdk, fixtures } from '../../fixtures';
 import { mount } from '../mount';
 
-function asLink<E extends Entity>(entity: E): ResourceLink {
+function asLink<E extends Entity>(entity: E): ResourceLink<'Contentful:Entry'> {
   return {
     sys: {
       type: 'ResourceLink',
@@ -109,19 +109,24 @@ describe('Multiple resource editor', () => {
     findDefaultCards().eq(1).findByTestId('title').should('have.text', 'The best article ever');
   });
 
-  it('shows disabled links as non-draggable', () => {
+  it('hides card actions and drag handles when field is disabled', () => {
     const sdk = createReferenceEditorTestSdk({
+      modifier: (sdk) => {
+        sdk.field.getIsDisabled = () => true;
+        return sdk;
+      },
       initialValue: [asLink(fixtures.entries.published)],
     });
     mount(
       <MultipleResourceReferenceEditor
         {...commonProps}
         viewType="card"
-        isInitiallyDisabled={true}
+        hasCardEditActions={false}
         sdk={sdk}
       />
     );
-
+    findLinkExistingBtn().should('be.disabled');
+    findDefaultCards().eq(0).findByTestId('cf-ui-card-actions').should('not.exist');
     findDefaultCards().eq(0).findByTestId('cf-ui-drag-handle').should('not.exist');
   });
 

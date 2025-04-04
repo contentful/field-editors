@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Asset, Button, Card, Heading } from '@contentful/f36-components';
-import { AssetProps } from 'contentful-management';
+import { AssetProps, Link } from 'contentful-management';
 
 import { CombinedLinkActions, MultipleMediaEditor } from '../../../packages/reference/src';
 import { createReferenceEditorTestSdk, fixtures } from '../../fixtures';
@@ -17,6 +17,10 @@ const commonProps = {
   },
   viewType: 'card',
 } as React.ComponentProps<typeof MultipleMediaEditor>;
+
+function asLink(asset: AssetProps): Link<'Asset'> {
+  return { sys: { type: 'Link', linkType: 'Asset', id: asset.sys.id } };
+}
 
 describe('Multiple Media Editor', () => {
   const findCreateAndLinkBtn = () => cy.findByTestId('linkEditor.createAndLink');
@@ -56,6 +60,21 @@ describe('Multiple Media Editor', () => {
 
       findCreateAndLinkBtn().click();
       findCards().should('have.length', 1);
+    });
+
+    it('should disable actions when field is disabled', () => {
+      const sdk = createReferenceEditorTestSdk({
+        modifier: (sdk) => {
+          sdk.field.getIsDisabled = () => true;
+          return sdk;
+        },
+        initialValue: [asLink(fixtures.assets.published)],
+      });
+      mount(<MultipleMediaEditor {...commonProps} sdk={sdk} />);
+      findLinkExistingBtn().should('be.disabled');
+      findCreateAndLinkBtn().should('be.disabled');
+      cy.findByTestId('cf-ui-card-actions').click();
+      cy.findByText('Remove').should('not.exist');
     });
   });
 

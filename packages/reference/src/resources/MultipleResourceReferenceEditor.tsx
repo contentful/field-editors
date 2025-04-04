@@ -73,6 +73,7 @@ function ResourceEditor(props: EditorProps) {
       <CombinedLinkEntityActions
         {...linkActionsProps}
         renderCustomActions={props.renderCustomActions}
+        isDisabled={props.isDisabled}
       />
     </>
   );

@@ -157,8 +157,8 @@ export function WrappedEntryCard({
       }
       thumbnailElement={file && isValidImage(file) ? <AssetThumbnail file={file} /> : undefined}
       dragHandleRender={renderDragHandle}
-      withDragHandle={!!renderDragHandle}
-      draggable={!!renderDragHandle}
+      withDragHandle={!!renderDragHandle && !isDisabled}
+      draggable={!!renderDragHandle && !isDisabled}
       actions={
         onEdit || onRemove
           ? [
@@ -173,7 +173,7 @@ export function WrappedEntryCard({
                   Edit
                 </MenuItem>
               ) : null,
-              hasCardRemoveActions && onRemove ? (
+              hasCardRemoveActions && onRemove && !isDisabled ? (
                 <MenuItem
                   key="delete"
                   testId="delete"
@@ -184,15 +184,15 @@ export function WrappedEntryCard({
                   Remove
                 </MenuItem>
               ) : null,
-              hasCardMoveActions && (onMoveTop || onMoveBottom) ? (
+              hasCardMoveActions && (onMoveTop || onMoveBottom) && !isDisabled ? (
                 <MenuDivider key="divider" />
               ) : null,
-              hasCardMoveActions && onMoveTop ? (
+              hasCardMoveActions && onMoveTop && !isDisabled ? (
                 <MenuItem key="move-top" onClick={() => onMoveTop && onMoveTop()} testId="move-top">
                   Move to top
                 </MenuItem>
               ) : null,
-              hasCardMoveActions && onMoveBottom ? (
+              hasCardMoveActions && onMoveBottom && !isDisabled ? (
                 <MenuItem
                   key="move-bottom"
                   onClick={() => onMoveBottom && onMoveBottom()}
