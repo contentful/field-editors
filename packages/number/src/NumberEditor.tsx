@@ -23,6 +23,9 @@ export interface NumberEditorProps {
    */
   field: FieldAPI;
 
+  /**
+   * id used for associating the input field with its label
+   */
   id?: string;
 }
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { TextInput } from '@contentful/f36-components';
-import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
+import { type FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
 
 export interface UrlEditorProps {
   /**
@@ -14,6 +14,9 @@ export interface UrlEditorProps {
    */
   field: FieldAPI;
 
+  /**
+   * id used for associating the input field with its label
+   */
   id?: string;
 
   children?: (props: { value: string | null | undefined }) => React.ReactNode;

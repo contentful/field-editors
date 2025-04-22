@@ -35,6 +35,9 @@ export interface MultipleLineEditorProps {
 
   isDisabled?: boolean;
 
+  /**
+   * id used for associating the input field with its label
+   */
   id?: string;
 }
 

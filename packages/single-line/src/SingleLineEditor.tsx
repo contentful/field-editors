@@ -52,6 +52,9 @@ export interface SingleLineEditorProps {
    */
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
 
+  /**
+   * id used for associating the input field with its label
+   */
   id?: string;
 }
 
