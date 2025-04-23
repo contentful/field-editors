@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import { Textarea } from '@contentful/f36-components';
 import {
-  FieldAPI,
-  LocalesAPI,
+  type FieldAPI,
+  type LocalesAPI,
   FieldConnector,
   CharCounter,
   CharValidation,
@@ -33,6 +33,9 @@ export interface MultipleLineEditorProps {
    */
   locales: LocalesAPI;
 
+  /**
+   * alias for disabled native property
+   */
   isDisabled?: boolean;
 
   /**

@@ -3,9 +3,9 @@ import * as React from 'react';
 import { TextInput } from '@contentful/f36-components';
 import { ArrowUpTrimmedIcon, ArrowDownTrimmedIcon } from '@contentful/f36-icons';
 import {
-  FieldAPI,
+  type FieldAPI,
   FieldConnector,
-  FieldConnectorChildProps,
+  type FieldConnectorChildProps,
 } from '@contentful/field-editor-shared';
 
 import { styles } from './NumberEditor.styles';

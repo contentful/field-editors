@@ -2,12 +2,12 @@ import * as React from 'react';
 
 import { TextInput } from '@contentful/f36-components';
 import {
-  FieldAPI,
+  type FieldAPI,
   FieldConnector,
   ConstraintsUtils,
   CharCounter,
   CharValidation,
-  LocalesAPI,
+  type LocalesAPI,
 } from '@contentful/field-editor-shared';
 
 import * as styles from './styles';
