@@ -35,6 +35,7 @@ export const Default: Story = {
           field={field}
           locales={createFakeLocalesAPI()}
           isInitiallyDisabled={false}
+          id="dropdown-field-editor-default"
         />
         <ActionsPlayground mitt={mitt} />
       </div>

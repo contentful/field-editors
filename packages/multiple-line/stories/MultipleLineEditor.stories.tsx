@@ -32,7 +32,12 @@ export const Default: Story = {
     const locales = createFakeLocalesAPI();
     return (
       <div>
-        <MultipleLineEditor field={field} locales={locales} isInitiallyDisabled={false} />
+        <MultipleLineEditor
+          id="multi-line-editor-default"
+          field={field}
+          locales={locales}
+          isInitiallyDisabled={false}
+        />
         <ActionsPlayground mitt={mitt} />
       </div>
     );
