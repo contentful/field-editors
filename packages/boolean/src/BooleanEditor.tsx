@@ -54,15 +54,15 @@ export function BooleanEditor(props: BooleanEditorProps) {
 
         return (
           <Flex testId="boolean-editor" alignItems="center" marginTop="spacingS">
-            {options.map((item) => {
-              const id = ['entity', field.id, field.locale, item.value, item.id].join('.');
-              const checked = value === item.value;
+            {options.map((option) => {
+              const id = ['entity', field.id, field.locale, option.value, option.id].join('.');
+              const checked = value === option.value;
               return (
                 <Flex marginRight="spacingM" key={id}>
                   <Radio
                     id={id}
                     isDisabled={disabled}
-                    value={item.value === undefined ? '' : String(item.value)}
+                    value={option.value === undefined ? '' : String(option.value)}
                     isChecked={checked}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                       if (e.target.checked) {
@@ -70,7 +70,7 @@ export function BooleanEditor(props: BooleanEditorProps) {
                       }
                     }}
                   >
-                    {item.label}
+                    {option.label}
                   </Radio>
                 </Flex>
               );

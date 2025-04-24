@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { FieldAppSDK, FieldAPI, ValidationError } from '@contentful/app-sdk';
+import type { FieldAppSDK, FieldAPI, ValidationError } from '@contentful/app-sdk';
 import { FieldConnector } from '@contentful/field-editor-shared';
 
 import { SlugEditorField, SlugEditorFieldStatic } from './SlugEditorField';
@@ -18,6 +18,11 @@ export interface SlugEditorProps {
    * sdk.field
    */
   field: FieldAPI;
+
+  /**
+   * id used for associating the input field with its label
+   */
+  id?: string;
 
   parameters?: {
     instance: {
@@ -41,6 +46,7 @@ function FieldConnectorCallback({
   locale,
   createdAt,
   performUniqueCheck,
+  id,
 }: {
   Component: typeof SlugEditorFieldStatic | typeof SlugEditorField;
   value: string | null | undefined;
@@ -52,6 +58,7 @@ function FieldConnectorCallback({
   locale: FieldAPI['locale'];
   createdAt: string;
   performUniqueCheck: (value: string) => Promise<boolean>;
+  id?: string;
 }) {
   // it is needed to silent permission errors
   // this happens when setValue is called on a field which is disabled for permission reasons
@@ -78,13 +85,14 @@ function FieldConnectorCallback({
         isDisabled={disabled}
         titleValue={titleValue}
         setValue={safeSetValue}
+        id={id}
       />
     </div>
   );
 }
 
 export function SlugEditor(props: SlugEditorProps) {
-  const { field, parameters } = props;
+  const { field, parameters, id } = props;
   const { locales, entry, space } = props.baseSdk;
 
   if (!isSupportedFieldTypes(field.type)) {
@@ -154,6 +162,7 @@ export function SlugEditor(props: SlugEditorProps) {
                 locale={field.locale}
                 performUniqueCheck={performUniqueCheck}
                 key={`slug-editor-${externalReset}`}
+                id={id}
               />
             );
           }}

@@ -22,7 +22,7 @@ export const EmptyInitialValue: Story = {
     const [field, mitt] = createFakeFieldAPI();
     return (
       <div>
-        <TagsEditor field={field} isInitiallyDisabled={false} />
+        <TagsEditor field={field} isInitiallyDisabled={false} id="initial-empty-tags-editor" />
         <ActionsPlayground mitt={mitt} />
       </div>
     );

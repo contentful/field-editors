@@ -26,7 +26,12 @@ export const Default: Story = {
     const [field, mitt] = createFakeFieldAPI();
     return (
       <div>
-        <ListEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+        <ListEditor
+          id="field-editor-list"
+          field={field}
+          locales={createFakeLocalesAPI()}
+          isInitiallyDisabled={false}
+        />
         <ActionsPlayground mitt={mitt} />
       </div>
     );
