@@ -1,20 +1,26 @@
 import * as React from 'react';
 
-import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
+import { type FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
 import isNumber from 'lodash/isNumber';
 
 import { TagsEditor } from './TagsEditor';
-import { ConstraintsType, Constraint } from './types';
+import type { ConstraintsType, Constraint } from './types';
 
 export interface TagsEditorContainerProps {
   /**
    * is the field disabled initially
    */
   isInitiallyDisabled: boolean;
+
   /**
    * sdk.field
    */
   field: FieldAPI;
+
+  /**
+   * id used for associating the input field with its label
+   */
+  id?: string;
 }
 
 type TagEditorValue = string[];
@@ -24,23 +30,25 @@ function isEmptyTagsValue(value: TagEditorValue | null) {
 }
 
 function getConstraintsType(sizeConstraints?: Constraint): ConstraintsType | undefined {
-  if (!sizeConstraints) {
+  if (!sizeConstraints || (!isNumber(sizeConstraints.min) && !isNumber(sizeConstraints.max))) {
     return undefined;
   }
   if (isNumber(sizeConstraints.min) && isNumber(sizeConstraints.max)) {
     return 'min-max';
-  } else if (isNumber(sizeConstraints.min)) {
-    return 'min';
-  } else if (isNumber(sizeConstraints.max)) {
-    return 'max';
-  } else {
-    return undefined;
   }
+
+  if (isNumber(sizeConstraints.min)) {
+    return 'min';
+  }
+
+  if (isNumber(sizeConstraints.max)) {
+    return 'max';
+  }
+
+  return undefined;
 }
 
-export function TagsEditorContainer(props: TagsEditorContainerProps) {
-  const field = props.field;
-
+export function TagsEditorContainer({ isInitiallyDisabled, field, id }: TagsEditorContainerProps) {
   const validations = field.validations || [];
 
   const sizeValidations = (validations as { size?: Constraint }[])
@@ -54,7 +62,7 @@ export function TagsEditorContainer(props: TagsEditorContainerProps) {
   return (
     <FieldConnector<TagEditorValue>
       field={field}
-      isInitiallyDisabled={props.isInitiallyDisabled}
+      isInitiallyDisabled={isInitiallyDisabled}
       isEmptyValue={isEmptyTagsValue}
       debounce={0}
     >
@@ -62,6 +70,7 @@ export function TagsEditorContainer(props: TagsEditorContainerProps) {
         const items = value || [];
         return (
           <TagsEditor
+            id={id}
             constraints={constraints}
             constraintsType={constraintsType}
             isDisabled={disabled}

@@ -71,7 +71,7 @@ export const DefaultLocale: Story = {
         />
         <div style={{ marginTop: 20 }} />
         {/* @ts-expect-error */}
-        <SlugEditor baseSdk={sdk} field={field} isInitiallyDisabled={false} />
+        <SlugEditor baseSdk={sdk} field={field} isInitiallyDisabled={false} id="slug-field" />
         <ActionsPlayground mitt={mitt} />
       </React.Fragment>
     );

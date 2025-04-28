@@ -22,7 +22,7 @@ export const Default: Story = {
     const [field, mitt] = createFakeFieldAPI();
     return (
       <div>
-        <UrlEditor field={field} isInitiallyDisabled={false} />
+        <UrlEditor field={field} isInitiallyDisabled={false} id="url-editor-default" />
         <ActionsPlayground mitt={mitt} />
       </div>
     );

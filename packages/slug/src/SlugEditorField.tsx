@@ -17,6 +17,7 @@ interface SlugEditorFieldProps {
   createdAt: string;
   setValue: (value: string | null | undefined) => void;
   performUniqueCheck: (value: string) => Promise<boolean>;
+  id?: string;
 }
 
 type CheckerState = 'checking' | 'unique' | 'duplicate';
@@ -70,7 +71,7 @@ function useUniqueChecker(props: SlugEditorFieldProps) {
 export function SlugEditorFieldStatic(
   props: SlugEditorFieldProps & { onChange?: Function; onBlur?: Function }
 ) {
-  const { hasError, isDisabled, value, setValue, onChange, onBlur } = props;
+  const { hasError, isDisabled, value, setValue, onChange, onBlur, id } = props;
 
   const status = useUniqueChecker(props);
 
@@ -82,6 +83,7 @@ export function SlugEditorFieldStatic(
         isInvalid={hasError || status === 'duplicate'}
         isDisabled={isDisabled}
         value={value || ''}
+        id={id}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           setValue(e.target.value);
           if (onChange) {
