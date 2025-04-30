@@ -2,7 +2,7 @@ import React from 'react';
 
 import { formatDateAndTime } from '@contentful/f36-components';
 import type { ScheduledActionProps } from 'contentful-management';
-import { orderBy } from 'lodash';
+import orderBy from 'lodash/orderBy';
 
 import { Banner } from './Banner';
 

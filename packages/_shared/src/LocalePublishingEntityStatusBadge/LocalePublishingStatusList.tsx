@@ -2,7 +2,7 @@ import React from 'react';
 
 import { MenuSectionTitle } from '@contentful/f36-components';
 import type { LocaleProps } from 'contentful-management';
-import { sortBy } from 'lodash';
+import sortBy from 'lodash/sortBy';
 
 import type {
   LocalePublishStatusMap,
