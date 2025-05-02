@@ -1,10 +1,14 @@
 import * as React from 'react';
 
+import { useActiveLocales } from '@contentful/field-editor-shared';
+
 import { ReferenceEditorProps } from '../common/ReferenceEditor';
 import { SingleReferenceEditor } from '../common/SingleReferenceEditor';
 import { FetchingWrappedEntryCard } from './WrappedEntryCard/FetchingWrappedEntryCard';
 
 export function SingleEntryReferenceEditor(props: ReferenceEditorProps) {
+  const activeLocales = useActiveLocales(props.sdk);
+
   return (
     <SingleReferenceEditor {...props} entityType="Entry">
       {({
@@ -25,6 +29,7 @@ export function SingleEntryReferenceEditor(props: ReferenceEditorProps) {
             renderCustomCard={renderCustomCard}
             hasCardEditActions={hasCardEditActions}
             hasCardRemoveActions={hasCardRemoveActions}
+            activeLocales={activeLocales}
             onRemove={() => {
               setValue(null);
             }}
