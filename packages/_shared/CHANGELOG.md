@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.4.1...@contentful/field-editor-shared@2.4.2) (2025-04-30)
+
+### Bug Fixes
+
+- only import the used functions from lodash ([#1859](https://github.com/contentful/field-editors/issues/1859)) ([5f77cfc](https://github.com/contentful/field-editors/commit/5f77cfc6351c5cd90d7d7d8702931ac8839bbcc5))
+
 ## [2.4.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.4.0...@contentful/field-editor-shared@2.4.1) (2025-04-03)
 
 ### Bug Fixes
