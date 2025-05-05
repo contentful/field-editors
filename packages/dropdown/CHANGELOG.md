@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-dropdown@1.6.0...@contentful/field-editor-dropdown@1.6.1) (2025-04-30)
+
+**Note:** Version bump only for package @contentful/field-editor-dropdown
+
 # [1.6.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-dropdown@1.5.17...@contentful/field-editor-dropdown@1.6.0) (2025-04-24)
 
 ### Features

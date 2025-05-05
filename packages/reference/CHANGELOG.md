@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.6.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.6.4...@contentful/field-editor-reference@6.6.5) (2025-05-02)
+
+### Bug Fixes
+
+- lifting up getactivelocales hook to avoid stale data when dnd [] ([#1861](https://github.com/contentful/field-editors/issues/1861)) ([87bfb29](https://github.com/contentful/field-editors/commit/87bfb2904acd13dcd60537b4f93f7b205fdf1f2f))
+
+## [6.6.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.6.3...@contentful/field-editor-reference@6.6.4) (2025-04-30)
+
+### Bug Fixes
+
+- only import the used functions from lodash ([#1859](https://github.com/contentful/field-editors/issues/1859)) ([5f77cfc](https://github.com/contentful/field-editors/commit/5f77cfc6351c5cd90d7d7d8702931ac8839bbcc5))
+
 ## [6.6.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.6.2...@contentful/field-editor-reference@6.6.3) (2025-04-04)
 
 ### Bug Fixes
