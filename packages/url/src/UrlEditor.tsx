@@ -1,8 +1,7 @@
 import * as React from 'react';
 
 import { TextInput } from '@contentful/f36-components';
-import { FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
-
+import { type FieldAPI, FieldConnector } from '@contentful/field-editor-shared';
 
 export interface UrlEditorProps {
   /**
@@ -15,11 +14,16 @@ export interface UrlEditorProps {
    */
   field: FieldAPI;
 
+  /**
+   * id used for associating the input field with its label
+   */
+  id?: string;
+
   children?: (props: { value: string | null | undefined }) => React.ReactNode;
 }
 
 export function UrlEditor(props: UrlEditorProps) {
-  const { field } = props;
+  const { field, id } = props;
 
   return (
     <FieldConnector<string> field={field} isInitiallyDisabled={props.isInitiallyDisabled}>
@@ -27,6 +31,7 @@ export function UrlEditor(props: UrlEditorProps) {
         return (
           <div data-test-id="url-editor">
             <TextInput
+              id={id}
               isRequired={field.required}
               isInvalid={errors.length > 0}
               isDisabled={disabled}

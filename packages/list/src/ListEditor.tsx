@@ -22,6 +22,11 @@ export interface ListEditorProps {
    * sdk.locales
    */
   locales: LocalesAPI;
+
+  /**
+   * id used for associating the input field with its label
+   */
+  id?: string;
 }
 
 type ListValue = string[];
@@ -31,7 +36,7 @@ function isEmptyListValue(value: ListValue | null) {
 }
 
 export function ListEditor(props: ListEditorProps) {
-  const { field, locales } = props;
+  const { field, locales, id } = props;
 
   const direction = locales.direction[field.locale] || 'ltr';
 
@@ -43,7 +48,12 @@ export function ListEditor(props: ListEditorProps) {
       isInitiallyDisabled={props.isInitiallyDisabled}
     >
       {(childProps) => (
-        <ListEditorInternal {...childProps} direction={direction} isRequired={field.required} />
+        <ListEditorInternal
+          {...childProps}
+          direction={direction}
+          isRequired={field.required}
+          id={id}
+        />
       )}
     </FieldConnector>
   );
@@ -56,7 +66,12 @@ function ListEditorInternal({
   disabled,
   direction,
   isRequired,
-}: FieldConnectorChildProps<ListValue> & { direction: 'rtl' | 'ltr'; isRequired: boolean }) {
+  id,
+}: FieldConnectorChildProps<ListValue> & {
+  direction: 'rtl' | 'ltr';
+  isRequired: boolean;
+  id?: string;
+}) {
   const [valueState, setValueState] = React.useState(() => (value || []).join(', '));
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,6 +88,7 @@ function ListEditorInternal({
 
   return (
     <TextInput
+      id={id}
       testId="list-editor-input"
       className={direction === 'rtl' ? styles.rightToLeft : ''}
       isRequired={isRequired}

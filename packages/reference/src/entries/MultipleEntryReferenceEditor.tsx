@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { useActiveLocales } from '@contentful/field-editor-shared';
 import { verticalListSortingStrategy } from '@dnd-kit/sortable';
 
 import { MultipleReferenceEditor } from '../common/MultipleReferenceEditor';
@@ -10,6 +11,7 @@ import { FetchingWrappedEntryCard } from './WrappedEntryCard/FetchingWrappedEntr
 
 export function MultipleEntryReferenceEditor(props: ReferenceEditorProps) {
   const [indexToUpdate, setIndexToUpdate] = React.useState<number | undefined>(undefined);
+  const activeLocales = useActiveLocales(props.sdk);
 
   const updateBeforeSortStart = ({ index }: { index: number }) => {
     setIndexToUpdate(index);
@@ -33,6 +35,7 @@ export function MultipleEntryReferenceEditor(props: ReferenceEditorProps) {
                 allContentTypes={childrenProps.allContentTypes}
                 isDisabled={isDisabled}
                 entryId={item.sys.id}
+                activeLocales={activeLocales}
                 onRemove={() => {
                   childrenProps.setValue(items.filter((_value, i) => i !== index));
                 }}

@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-boolean",
-  "version": "1.4.33",
+  "version": "1.5.1",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
@@ -37,7 +37,7 @@
   "dependencies": {
     "@contentful/f36-components": "^4.70.0",
     "@contentful/f36-tokens": "^4.0.5",
-    "@contentful/field-editor-shared": "^2.4.1",
+    "@contentful/field-editor-shared": "^2.4.2",
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",
     "nanoid": "^3.1.3"

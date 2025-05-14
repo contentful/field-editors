@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-list@1.5.0...@contentful/field-editor-list@1.5.1) (2025-04-30)
+
+**Note:** Version bump only for package @contentful/field-editor-list
+
+# [1.5.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-list@1.4.33...@contentful/field-editor-list@1.5.0) (2025-04-24)
+
+### Features
+
+- Improve Accessibility of field editors by enabling associating them with labels [UFO-1737] ([#1856](https://github.com/contentful/field-editors/issues/1856)) ([914f643](https://github.com/contentful/field-editors/commit/914f643bb93cbe523a641ad5430e7399fe71987b))
+
 ## [1.4.33](https://github.com/contentful/field-editors/compare/@contentful/field-editor-list@1.4.32...@contentful/field-editor-list@1.4.33) (2025-04-03)
 
 **Note:** Version bump only for package @contentful/field-editor-list

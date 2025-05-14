@@ -22,7 +22,7 @@ export const Default: Story = {
     const [field, mitt] = createFakeFieldAPI();
     return (
       <div>
-        <NumberEditor field={field} isInitiallyDisabled={false} />
+        <NumberEditor field={field} isInitiallyDisabled={false} id="number-field-edtior-default" />
         <ActionsPlayground mitt={mitt} />
       </div>
     );

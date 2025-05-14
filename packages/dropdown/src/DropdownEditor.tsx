@@ -25,10 +25,15 @@ export interface DropdownEditorProps {
    * sdk.locales
    */
   locales: LocalesAPI;
+
+  /**
+   * id used for associating the input field with its label
+   */
+  id?: string;
 }
 
 export function DropdownEditor(props: DropdownEditorProps) {
-  const { field, locales } = props;
+  const { field, locales, id } = props;
 
   const options = getOptions(field);
   const misconfigured = options.length === 0;
@@ -48,6 +53,7 @@ export function DropdownEditor(props: DropdownEditorProps) {
       {({ value, errors, disabled, setValue }) => (
         <Select
           testId="dropdown-editor"
+          id={id}
           isInvalid={errors.length > 0}
           isDisabled={disabled}
           className={direction === 'rtl' ? styles.rightToLeft : ''}

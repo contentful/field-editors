@@ -2,12 +2,12 @@ import * as React from 'react';
 
 import { TextInput } from '@contentful/f36-components';
 import {
-  FieldAPI,
+  type FieldAPI,
   FieldConnector,
   ConstraintsUtils,
   CharCounter,
   CharValidation,
-  LocalesAPI,
+  type LocalesAPI,
 } from '@contentful/field-editor-shared';
 
 import * as styles from './styles';
@@ -51,6 +51,11 @@ export interface SingleLineEditorProps {
    * focus event handler
    */
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
+
+  /**
+   * id used for associating the input field with its label
+   */
+  id?: string;
 }
 
 function isSupportedFieldTypes(val: string): val is 'Symbol' | 'Text' {
@@ -67,6 +72,7 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
     onFocus,
     withCharInformation = true,
     withCharValidation = true,
+    id,
   } = props;
 
   if (!isSupportedFieldTypes(field.type)) {
@@ -88,6 +94,7 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
         return (
           <div data-test-id="single-line-editor">
             <TextInput
+              id={id}
               className={direction === 'rtl' ? styles.rightToLeft : ''}
               isRequired={field.required}
               isInvalid={errors.length > 0}

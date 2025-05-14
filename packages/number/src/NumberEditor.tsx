@@ -3,9 +3,9 @@ import * as React from 'react';
 import { TextInput } from '@contentful/f36-components';
 import { ArrowUpTrimmedIcon, ArrowDownTrimmedIcon } from '@contentful/f36-icons';
 import {
-  FieldAPI,
+  type FieldAPI,
   FieldConnector,
-  FieldConnectorChildProps,
+  type FieldConnectorChildProps,
 } from '@contentful/field-editor-shared';
 
 import { styles } from './NumberEditor.styles';
@@ -22,6 +22,11 @@ export interface NumberEditorProps {
    * sdk.field
    */
   field: FieldAPI;
+
+  /**
+   * id used for associating the input field with its label
+   */
+  id?: string;
 }
 
 type InnerNumberEditorProps = Pick<
@@ -29,6 +34,7 @@ type InnerNumberEditorProps = Pick<
   'disabled' | 'errors' | 'setValue' | 'value'
 > & {
   field: NumberEditorProps['field'];
+  id: NumberEditorProps['id'];
 };
 
 enum StepChangeType {
@@ -44,6 +50,7 @@ function InnerNumberEditor({
   field,
   setValue,
   value: sdkValue,
+  id,
 }: InnerNumberEditorProps) {
   const [inputValue, setInputValue] = React.useState(valueToString(sdkValue));
   const range = getRangeFromField(field);
@@ -126,6 +133,7 @@ function InnerNumberEditor({
         // so we use "text" instead and fully rely on our own validation.
         // See more details: https://github.com/facebook/react/issues/6556
         type="text"
+        id={id}
         testId="number-editor-input"
         className={styles.input}
         min={range.min}
@@ -155,14 +163,16 @@ function InnerNumberEditor({
             tabIndex={-1}
             className={styles.control}
             onClick={() => changeValueByStep(StepChangeType.Increment)}
-            onPointerDown={handleControlPointerDown}>
+            onPointerDown={handleControlPointerDown}
+          >
             <ArrowUpTrimmedIcon size="medium" />
           </button>
           <button
             tabIndex={-1}
             className={styles.control}
             onClick={() => changeValueByStep(StepChangeType.Decrement)}
-            onPointerDown={handleControlPointerDown}>
+            onPointerDown={handleControlPointerDown}
+          >
             <ArrowDownTrimmedIcon size="medium" />
           </button>
         </div>
@@ -172,7 +182,7 @@ function InnerNumberEditor({
 }
 
 export function NumberEditor(props: NumberEditorProps) {
-  const { field } = props;
+  const { field, id } = props;
 
   return (
     <FieldConnector<number> field={field} isInitiallyDisabled={props.isInitiallyDisabled}>
@@ -183,6 +193,7 @@ export function NumberEditor(props: NumberEditorProps) {
         setValue,
       }: Pick<FieldConnectorChildProps<number>, 'disabled' | 'errors' | 'setValue' | 'value'>) => (
         <InnerNumberEditor
+          id={id}
           disabled={disabled}
           errors={errors}
           field={field}

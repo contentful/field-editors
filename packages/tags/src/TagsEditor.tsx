@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import { DragHandle, Pill, TextInput } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
-import { DndContext, DragEndEvent } from '@dnd-kit/core';
+import { DndContext, type DragEndEvent } from '@dnd-kit/core';
 import { restrictToParentElement } from '@dnd-kit/modifiers';
 import { arrayMove, SortableContext, useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
@@ -10,7 +10,7 @@ import { css, cx } from 'emotion';
 import noop from 'lodash/noop';
 
 import { TagsEditorConstraints } from './TagsEditorConstraints';
-import { Constraint, ConstraintsType } from './types';
+import type { Constraint, ConstraintsType } from './types';
 
 export interface TagsEditorProps {
   items: string[];
@@ -19,6 +19,7 @@ export interface TagsEditorProps {
   constraintsType?: ConstraintsType;
   constraints?: Constraint;
   onUpdate: (items: string[]) => void;
+  id?: string;
 }
 
 const styles = {
@@ -77,7 +78,7 @@ const SortablePill = ({ id, label, index, disabled, onRemove }: SortablePillProp
 export function TagsEditor(props: TagsEditorProps) {
   const [pendingValue, setPendingValue] = useState('');
 
-  const { isDisabled, items, constraints, constraintsType, hasError, onUpdate } = props;
+  const { isDisabled, items, constraints, constraintsType, hasError, onUpdate, id } = props;
   const itemsMap = React.useMemo(
     () => items.map((item, index) => ({ id: item + index, value: item })),
     [items]
@@ -107,6 +108,7 @@ export function TagsEditor(props: TagsEditorProps) {
     <div data-test-id="tag-editor-container">
       <TextInput
         testId="tag-editor-input"
+        id={id}
         className={styles.input}
         isDisabled={isDisabled}
         isInvalid={hasError}

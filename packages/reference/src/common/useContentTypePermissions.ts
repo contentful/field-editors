@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 
 import { ContentType, ContentEntityType, FieldAppSDK } from '../types';
 import { ReferenceValidations } from '../utils/fromFieldValidations';

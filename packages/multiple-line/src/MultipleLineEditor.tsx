@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import { Textarea } from '@contentful/f36-components';
 import {
-  FieldAPI,
-  LocalesAPI,
+  type FieldAPI,
+  type LocalesAPI,
   FieldConnector,
   CharCounter,
   CharValidation,
@@ -33,11 +33,19 @@ export interface MultipleLineEditorProps {
    */
   locales: LocalesAPI;
 
+  /**
+   * alias for disabled native property
+   */
   isDisabled?: boolean;
+
+  /**
+   * id used for associating the input field with its label
+   */
+  id?: string;
 }
 
 export function MultipleLineEditor(props: MultipleLineEditorProps) {
-  const { field, locales, isInitiallyDisabled, withCharValidation, isDisabled } = props;
+  const { field, locales, isInitiallyDisabled, withCharValidation, isDisabled, id } = props;
 
   const constraints = ConstraintsUtils.fromFieldValidations(
     field.validations,
@@ -56,6 +64,7 @@ export function MultipleLineEditor(props: MultipleLineEditorProps) {
         return (
           <div data-test-id="multiple-line-editor">
             <Textarea
+              id={id}
               className={direction === 'rtl' ? styles.rightToLeft : ''}
               rows={3}
               isRequired={field.required}
